@@ -1,15 +1,5 @@
-<form action="/index.html#/login" id="form" method="post">
-<p>
-  <label>Url:</label>
-  <input type="text" name="url" />
-</p>
-<p>
-  <label>Login:</label>
-  <input type="text" name="user" />
-</p>
-<p>
-  <label>Password:</label>
-  <input type="password" name="password" />
-</p>
-<input id="submit" type="submit" value="Gogogo" />
+<form action="#/login" id="form" method="post">
+  <input type="text" name="url" placeholder="YunoHost API URL" /><br />
+  <input type="password" name="password" placeholder="Password" /><br />
+  <input id="submit" type="submit" value="Login" class="btn btn-primary"/>
 </form>
