@@ -79,10 +79,12 @@ app = Sammy('#main', function (sam) {
                 });
             }
 
+            blockSize = $('#slider').width();
+
             if (store.get('slide') == 'back') {
-                $('#slideBack').show().css('display', 'inline-block').css('margin-left', '-247px');
+                $('#slideBack').show().css('display', 'inline-block').css('margin-left', '-'+ blockSize +'px');
                 rendered.appendTo($('#slideBack'));
-                $('#main').animate({marginLeft: '247px'}, 500);
+                $('#main').animate({marginLeft: blockSize +'px'}, 500);
                 $('#slideBack').animate({marginLeft: '0'}, 500, function() {
                     $('#main').html($('#slideBack').html());
                     $('#main').css('margin-left', '0');
@@ -91,7 +93,7 @@ app = Sammy('#main', function (sam) {
             } else if (store.get('slide') == 'to') {
                 $('#slideTo').show().css('display', 'inline-block');
                 rendered.appendTo($('#slideTo'));
-				$('#main').animate({marginLeft: '-247px'}, 500, function() {
+				$('#main').animate({marginLeft: '-'+ blockSize +'px'}, 500, function() {
                     $('#main').html($('#slideTo').html());
                     $('#main').css('margin-left', '0');
                     leSwap();
