@@ -78,7 +78,7 @@ app = Sammy('#main', function (sam) {
         // Store path for further redirections
         store.set('path', req.path);
 
-        // Redirect to login page if no credentials are stored
+        // Redirect to login page if no credentials stored
         if (!store.get('password')) {
             req.redirect('#/login');
             return false;
