@@ -1,0 +1,30 @@
+#slider {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2%;
+    background: #e8e8e8;
+    width: 247px;
+    height: 370px;
+    position: relative;
+    overflow: hidden;
+    text-align: left;
+}
+
+#slider-container {
+    width: 494px;
+    height: 370px;
+}
+
+#main {
+    background: #e8e8e8;
+    float: left;
+    width: 247px;
+    height: 370px;
+    position: relative;
+    overflow: hidden;
+}
+
+.block {
+    display: inline-block;
+    height: 370px;
+}

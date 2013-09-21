@@ -10,7 +10,6 @@ app = Sammy('#main', function (sam) {
     // Initialize storage
     var store = new Sammy.Store({name: 'storage', type: 'session'});
 
-
     /**
      * Helpers
      *
@@ -64,7 +63,44 @@ app = Sammy('#main', function (sam) {
 
         // Render view (cross-browser)
         view: function (view, data) {
-            this.render('views/'+ view +'.ms', data).swap();
+            rendered = this.render('views/'+ view +'.ms', data);
+
+            function leSwap() {
+                $('#slideBack').hide().html('');
+                $('#slideTo').hide().html('');
+                rendered.swap(function() {
+                    $('.slide').on('click', function() {
+                        if ($(this).hasClass('back')) {
+                            store.set('slide', 'back');
+                        } else {
+                            store.set('slide', 'to');
+                        }
+                    });
+                });
+            }
+
+            if (store.get('slide') == 'back') {
+                $('#slideBack').show().css('display', 'inline-block').css('margin-left', '-247px');
+                rendered.appendTo($('#slideBack'));
+                $('#main').animate({marginLeft: '247px'}, 500);
+                $('#slideBack').animate({marginLeft: '0'}, 500, function() {
+                    $('#main').html($('#slideBack').html());
+                    $('#main').css('margin-left', '0');
+                    leSwap();
+                });
+            } else if (store.get('slide') == 'to') {
+                $('#slideTo').show().css('display', 'inline-block');
+                rendered.appendTo($('#slideTo'));
+				$('#main').animate({marginLeft: '-247px'}, 500, function() {
+                    $('#main').html($('#slideTo').html());
+                    $('#main').css('margin-left', '0');
+                    leSwap();
+                });
+            } else {
+                leSwap();
+            }
+
+            //this.render('views/'+ view +'.ms', data).swap();
         }
     });
 
@@ -94,6 +130,8 @@ app = Sammy('#main', function (sam) {
 
         // Clear flash notifications
         store.clear('flash');
+        // Clear sliding preference
+        store.clear('slide');
     });
 
 
