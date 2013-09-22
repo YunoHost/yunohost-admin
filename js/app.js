@@ -87,17 +87,16 @@ app = Sammy('#main', function (sam) {
             blockSize = $('#slider').width();
 
             if (store.get('slide') == 'back') {
-                $('#slideBack').show().css('display', 'inline-block').css('margin-left', '-'+ blockSize +'px');
+                $('#slideBack').css('display', 'inline-block').css('margin-left', '-'+ 2*blockSize +'px');
                 rendered.appendTo($('#slideBack'));
-                $('#main').animate({marginLeft: blockSize +'px'}, 500);
-                $('#slideBack').animate({marginLeft: '0'}, 500, function() {
+                $('#main').animate({marginLeft: blockSize +'px'}, 500, function() {
                     $('#main').html($('#slideBack').html());
                     $('#main').css('margin-left', '0');
                     leSwap();
                 });
                 store.clear('slide');
             } else if (store.get('slide') == 'to') {
-                $('#slideTo').show().css('display', 'inline-block');
+                $('#slideTo').css('display', 'inline-block');
                 rendered.appendTo($('#slideTo'));
 				$('#main').animate({marginLeft: '-'+ blockSize +'px'}, 500, function() {
                     $('#main').html($('#slideTo').html());
@@ -185,6 +184,12 @@ app = Sammy('#main', function (sam) {
     sam.get('#/users/:user', function (c) {
         c.api('/users/'+ c.params['user'], function(data) {
             c.view('user_info', data);
+        });
+    });
+
+    sam.get('#/users/:user/edit', function (c) {
+        c.api('/users/'+ c.params['user'], function(data) {
+            c.view('user_edit', data);
         });
     });
 });
