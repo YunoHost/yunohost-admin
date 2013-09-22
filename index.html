@@ -9,15 +9,19 @@
 </head>
 <body>
     <div id="slider">
-        <h1><a class="logo" href="#/">YunoHost</a></h1>
+        <div class="page-header">
+            <h1 class="pull-left">YunoHost <small>Administration</small></h1>
+            <a id="disconnect-button" href="#/disconnect" class="pull-right" style="padding-top: 29px; padding-right: 5px; font-size: 24px;"><span class="glyphicon glyphicon-log-out"></span></a>
+            <div class="clearfix"></div>
+        </div>
         <br />
-        <div id="flash">
+        <div id="flash" class="alert" style="display: none">
         </div>
         <br />
         <div id="slider-container">
             <div id="slideBack" class="block"></div>
             <div id="main" class="block">
-                <a class="slide" href="#/login">Meh</a>
+                <a class="slide" href="#/login">Login</a>
             </div>
             <div id="slideTo" class="block"></div>
         </div>

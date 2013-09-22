@@ -6,8 +6,8 @@ html, body {
     margin-left: auto;
     margin-right: auto;
     /*margin-top: 2%;*/
-    padding: 15px;
-    background: #e8e8e8;
+    padding: 5px;
+    /*background: #e8e8e8;*/
     width: 500px;
     height: 100%;
     position: relative;
@@ -21,10 +21,8 @@ html, body {
 }
 
 #main {
-    background: #e8e8e8;
+    /*background: #e8e8e8;*/
     float: left;
-    width: 500px;
-    height: 100%;
     position: relative;
     overflow: hidden;
 }
@@ -32,4 +30,13 @@ html, body {
 .block {
     display: inline-block;
     height: 100%;
+    width: 470px;
+    height: 100%;
+    padding: 5px;
+}
+
+.panel-title {
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 25px;
 }

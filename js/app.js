@@ -29,7 +29,11 @@ app = Sammy('#main', function (sam) {
                     html += '<div class="'+ lvl +'">'+ msg +'</div>';
                 });
             }
-            $('#flash').html(html);
+            if      (level == 'fail')    { alertClass = 'alert-danger'; }
+            else if (level == 'success') { alertClass = 'alert-success'; }
+            else                         { alertClass = 'alert-info'; }
+
+            $('#flash').removeClass().addClass('alert '+ alertClass).html(html).fadeIn();
         },
 
         // API connection helper
@@ -37,7 +41,7 @@ app = Sammy('#main', function (sam) {
             method = typeof method !== 'undefined' ? method : 'GET';
             data   = typeof data   !== 'undefined' ? data   : {};
             auth   = "Basic "+ btoa(store.get('user') +':'+ atob(store.get('password')));
-            this.swap('<img src="img/ajax-loader.gif" />');
+            //this.swap('<img src="img/ajax-loader.gif" />');
             jQuery.ajax({
                 url: store.get('url') + uri,
                 type: method,
@@ -53,7 +57,7 @@ app = Sammy('#main', function (sam) {
                 result = data;
             })
             .fail(function() {
-                alert('fail');
+                req.redirect('#/login');
                 result = false;
             })
             .always(function() {
@@ -70,6 +74,7 @@ app = Sammy('#main', function (sam) {
                 $('#slideTo').hide().html('');
                 rendered.swap(function() {
                     $('.slide').on('click', function() {
+                        $(this).addClass('active');
                         if ($(this).hasClass('back')) {
                             store.set('slide', 'back');
                         } else {
@@ -90,6 +95,7 @@ app = Sammy('#main', function (sam) {
                     $('#main').css('margin-left', '0');
                     leSwap();
                 });
+                store.clear('slide');
             } else if (store.get('slide') == 'to') {
                 $('#slideTo').show().css('display', 'inline-block');
                 rendered.appendTo($('#slideTo'));
@@ -98,11 +104,10 @@ app = Sammy('#main', function (sam) {
                     $('#main').css('margin-left', '0');
                     leSwap();
                 });
+                store.clear('slide');
             } else {
                 leSwap();
             }
-
-            //this.render('views/'+ view +'.ms', data).swap();
         }
     });
 
@@ -124,7 +129,7 @@ app = Sammy('#main', function (sam) {
 
         // Clear flash display
         if (!store.get('flash')) {
-            $('#flash').html('');
+            $('#flash').fadeOut(function() { $('#flash').html(''); });
         }
     });
 
@@ -132,8 +137,6 @@ app = Sammy('#main', function (sam) {
 
         // Clear flash notifications
         store.clear('flash');
-        // Clear sliding preference
-        store.clear('slide');
     });
 
 
@@ -149,17 +152,19 @@ app = Sammy('#main', function (sam) {
     });
 
     sam.get('#/login', function (c) {
+        $('#disconnect-button').hide();
         c.view('login');
     });
 
     sam.post('#/login', function (c) {
-        store.set('url', c.params['url']);
+        store.set('url', 'http://'+ c.params['url']);
         store.set('user', 'admin');
         store.set('password', btoa(c.params['password']));
         c.api('/users', function(data) {
             if (data.error) {
                 c.flash('fail', 'Error: '+ data.error);
             } else {
+                $('#disconnect-button').fadeIn();
                 c.flash('success', 'Connected :)');
             }
             if (store.get('path')) {
@@ -170,8 +175,14 @@ app = Sammy('#main', function (sam) {
         });
     });
 
+    sam.get('#/users', function (c) {
+        c.api('/users', function(data) {
+            console.log(data);
+            c.view('user_list', data);
+        });
+    });
+
     sam.get('#/users/:user', function (c) {
-        c.swap('');
         c.api('/users/'+ c.params['user'], function(data) {
             c.view('user_info', data);
         });
