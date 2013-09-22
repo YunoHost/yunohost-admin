@@ -5,7 +5,7 @@
     </div>
     <br />
     <div class="input-group">
-        <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+        <span class="input-group-addon">&nbsp;&nbsp;<span class="glyphicon glyphicon-lock">&nbsp;</span></span>
         <input type="password" name="password" class="form-control" placeholder="Password">
     </div>
     <br />
