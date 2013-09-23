@@ -38,6 +38,7 @@ app = Sammy('#main', function (sam) {
 
         // API connection helper
         api: function (uri, callback, method, data) {
+            c = this;
             method = typeof method !== 'undefined' ? method : 'GET';
             data   = typeof data   !== 'undefined' ? data   : {};
             auth   = "Basic "+ btoa(store.get('user') +':'+ atob(store.get('password')));
@@ -52,16 +53,22 @@ app = Sammy('#main', function (sam) {
                     req.setRequestHeader('Authorization', auth);
                 }
             })
+            .success(function(data) {
+                data = typeof data !== 'undefined' ? data : {};
+                if (typeof data.win !== 'undefined') {
+                    $.each(data.win, function(k, v) {
+                        c.flash('success', v);
+                    });
+                }
+                callback(data);
+            })
+            .fail(function(xhr) {
+                c.flash('fail', xhr.responseJSON.error);
+                c.redirect(store.get('path-1'));
+                store.clear('slide');
+            })
             .done(function(data) {
                 console.log(data);
-                result = data;
-            })
-            .fail(function() {
-                req.redirect('#/login');
-                result = false;
-            })
-            .always(function() {
-                callback(result);
             });
         },
 
@@ -118,6 +125,7 @@ app = Sammy('#main', function (sam) {
     sam.before({except: {path: '#/login'}}, function (req) {
 
         // Store path for further redirections
+        store.set('path-1', store.get('path'));
         store.set('path', req.path);
 
         // Redirect to login page if no credentials stored
@@ -160,12 +168,7 @@ app = Sammy('#main', function (sam) {
         store.set('user', 'admin');
         store.set('password', btoa(c.params['password']));
         c.api('/users', function(data) {
-            if (data.error) {
-                c.flash('fail', 'Error: '+ data.error);
-            } else {
-                $('#disconnect-button').fadeIn();
-                c.flash('success', 'Connected :)');
-            }
+            $('#disconnect-button').fadeIn();
             if (store.get('path')) {
                 c.redirect(store.get('path'));
             } else {
@@ -190,7 +193,6 @@ app = Sammy('#main', function (sam) {
         if (c.params['password'] == c.params['confirmation']) {
             c.params['mail'] = c.params['email'] + '@' + c.params['domain'];
             c.api('/users', function(data) {
-                c.flash('success', 'User successfully created');
                 c.redirect('#/users');
             }, 'POST', c.params.toHash());
         } else {
@@ -223,7 +225,6 @@ app = Sammy('#main', function (sam) {
             c.redirect('#/users/'+ c.params['user'] + '/edit');
         } else {
             c.api('/users/'+ c.params['user'], function(data) {
-                c.flash('success', 'User successfully updated');
                 c.redirect('#/users/'+ c.params['user']);
             }, 'PUT', params);
         }
@@ -232,7 +233,6 @@ app = Sammy('#main', function (sam) {
     sam.get('#/users/:user/delete', function (c) {
         if (confirm('Are you sure you want to delete '+ c.params['user'] +' ?')) {
             c.api('/users/'+ c.params['user'], function(data) {
-                c.flash('success', 'User successfully deleted');
                 c.redirect('#/users');
             }, 'DELETE');
         } else {
