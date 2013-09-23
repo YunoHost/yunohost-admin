@@ -1,4 +1,4 @@
-<form action="#/users/{{Username}}/edit" id="form" method="put" class="form-horizontal">
+<form action="#/users/{{Username}}" method="PUT" class="form-horizontal">
 
 <div class="panel panel-default">
     <div class="panel-heading">
@@ -12,15 +12,18 @@
             </div>
         </div>
         <div class="form-group">
-            <label for="username" class="col-sm-4 control-label">Fullname</label>
-            <div class="col-sm-8">
-                <input type="text" name="username" class="form-control" placeholder="{{Fullname}}">
+            <label for="firstname" class="col-sm-4 control-label">Fullname</label>
+            <div class="col-sm-4">
+                <input type="text" name="firstname" class="form-control" placeholder="{{Firstname}}">
+            </div>
+            <div class="col-sm-4">
+                <input type="text" name="lastname" class="form-control" placeholder="{{Lastname}}">
             </div>
         </div>
         <div class="form-group">
-            <label for="username" class="col-sm-4 control-label">Mail</label>
+            <label for="mail" class="col-sm-4 control-label">Mail</label>
             <div class="col-sm-8">
-                <input type="email" name="username" class="form-control" placeholder="{{Mail}}">
+                <input type="email" name="mail" class="form-control" placeholder="{{Mail}}">
             </div>
         </div>
     </div>

@@ -41,12 +41,12 @@ app = Sammy('#main', function (sam) {
             method = typeof method !== 'undefined' ? method : 'GET';
             data   = typeof data   !== 'undefined' ? data   : {};
             auth   = "Basic "+ btoa(store.get('user') +':'+ atob(store.get('password')));
-            //this.swap('<img src="img/ajax-loader.gif" />');
             jQuery.ajax({
                 url: store.get('url') + uri,
                 type: method,
                 crossdomain: true,
                 data: data,
+                traditional: true,
                 dataType: 'json',
                 beforeSend: function(req) {
                     req.setRequestHeader('Authorization', auth);
@@ -84,7 +84,7 @@ app = Sammy('#main', function (sam) {
                 });
             }
 
-            blockSize = $('#slider').width();
+            blockSize = $('#slider').innerWidth();
 
             if (store.get('slide') == 'back') {
                 $('#slideBack').css('display', 'inline-block').css('margin-left', '-'+ 2*blockSize +'px');
@@ -176,7 +176,6 @@ app = Sammy('#main', function (sam) {
 
     sam.get('#/users', function (c) {
         c.api('/users', function(data) {
-            console.log(data);
             c.view('user_list', data);
         });
     });
@@ -191,6 +190,23 @@ app = Sammy('#main', function (sam) {
         c.api('/users/'+ c.params['user'], function(data) {
             c.view('user_edit', data);
         });
+    });
+
+    sam.put('#/users/:user', function (c) {
+        params = {}
+        $.each(c.params.toHash(), function(key, value) {
+            if (value !== '') { params[key] = value; }
+        });
+        if ($.isEmptyObject(params)) {
+            c.flash('fail', 'You should modify something');
+            store.clear('slide');
+            c.redirect('#/users/'+ c.params['user'] + '/edit');
+        } else {
+            c.api('/users/'+ c.params['user'], function(data) {
+                c.flash('success', 'User successfully updated');
+                c.redirect('#/users/'+ c.params['user']);
+            }, 'PUT', params);
+        }
     });
 });
 
