@@ -13,3 +13,7 @@
     {{/Users}}
     </div>
 </div>
+
+<div class="text-center">
+    <a href="#/users/create" class="btn btn-lg btn-success slide"><span class="glyphicon glyphicon-plus"></span> New user</a>
+</div>

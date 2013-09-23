@@ -180,6 +180,26 @@ app = Sammy('#main', function (sam) {
         });
     });
 
+    sam.get('#/users/create', function (c) {
+        c.api('/domains', function(data) {
+            c.view('user_create', data);
+        });
+    });
+
+    sam.post('#/users', function (c) {
+        if (c.params['password'] == c.params['confirmation']) {
+            c.params['mail'] = c.params['email'] + '@' + c.params['domain'];
+            c.api('/users', function(data) {
+                c.flash('success', 'User successfully created');
+                c.redirect('#/users');
+            }, 'POST', c.params.toHash());
+        } else {
+            c.flash('fail', "Passwords don't match");
+            store.clear('slide');
+            //c.redirect('#/users/create');
+        }
+    });
+
     sam.get('#/users/:user', function (c) {
         c.api('/users/'+ c.params['user'], function(data) {
             c.view('user_info', data);
@@ -208,6 +228,7 @@ app = Sammy('#main', function (sam) {
             }, 'PUT', params);
         }
     });
+
     sam.get('#/users/:user/delete', function (c) {
         if (confirm('Are you sure you want to delete '+ c.params['user'] +' ?')) {
             c.api('/users/'+ c.params['user'], function(data) {
