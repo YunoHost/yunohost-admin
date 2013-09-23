@@ -27,5 +27,5 @@
 
 <div class="row text-center">
     <div class="col-sm-6"><a href="#/users/{{Username}}/edit" class="btn btn-lg btn-info slide"><span class="glyphicon glyphicon-edit"></span> Edit</a></div>
-    <div class="col-sm-6"><a href="#/users" class="btn btn-lg btn-danger slide back"><span class="glyphicon glyphicon-trash"></span> Delete</a></div>
+    <div class="col-sm-6"><a href="#/users/{{Username}}/delete" class="btn btn-lg btn-danger slide back"><span class="glyphicon glyphicon-trash"></span> Delete</a></div>
 </div>

@@ -195,7 +195,7 @@ app = Sammy('#main', function (sam) {
     sam.put('#/users/:user', function (c) {
         params = {}
         $.each(c.params.toHash(), function(key, value) {
-            if (value !== '') { params[key] = value; }
+            if (value !== '' && value !== 'user') { params[key] = value; }
         });
         if ($.isEmptyObject(params)) {
             c.flash('fail', 'You should modify something');
@@ -206,6 +206,17 @@ app = Sammy('#main', function (sam) {
                 c.flash('success', 'User successfully updated');
                 c.redirect('#/users/'+ c.params['user']);
             }, 'PUT', params);
+        }
+    });
+    sam.get('#/users/:user/delete', function (c) {
+        if (confirm('Are you sure you want to delete '+ c.params['user'] +' ?')) {
+            c.api('/users/'+ c.params['user'], function(data) {
+                c.flash('success', 'User successfully deleted');
+                c.redirect('#/users');
+            }, 'DELETE');
+        } else {
+            store.clear('slide');
+            c.redirect('#/users/'+ c.params['user']);
         }
     });
 });
