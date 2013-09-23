@@ -1,9 +1,14 @@
+<div class="pull-left">
+    <a class="btn btn-lg btn-default slide back" href="#/users/{{Username}}"><span class="glyphicon glyphicon-chevron-left"></span> {{Username}} info</a>
+</div>
+<div class="clearfix"></div>
+<div class="view-title">Edit {{Username}}</div>
+
+<div class="br"></div>
+
 <form action="#/users/{{Username}}" method="PUT" class="form-horizontal">
 
 <div class="panel panel-default">
-    <div class="panel-heading">
-        <h3 class="panel-title">{{Username}}</h3>
-    </div>
     <div class="panel-body">
         <div class="form-group">
             <label for="username" class="col-sm-4 control-label">Username</label>

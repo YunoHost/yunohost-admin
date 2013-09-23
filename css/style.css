@@ -44,3 +44,19 @@ html, body {
 body .form-control {
     padding: 6px;
 }
+
+.view-title {
+    text-align: center;
+    max-width: 240px;
+    font-size: 25px;
+    /*font-weight: bold;*/
+    margin: -41px auto 0 auto;
+}
+
+body .page-header {
+    margin-top: 5px;
+}
+
+div.br {
+    height: 30px;
+}
