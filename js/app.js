@@ -103,7 +103,7 @@ app = Sammy('#main', function (sam) {
             if (store.get('slide') == 'back') {
                 $('#slideBack').css('display', 'inline-block').css('margin-left', '-'+ 2*blockSize +'px');
                 rendered.appendTo($('#slideBack'));
-                $('#main').animate({marginLeft: blockSize +'px'}, 500, function() {
+                $('#main').animate({marginLeft: blockSize +'px'}, 300, function() {
                     $('#main').html($('#slideBack').html());
                     $('#main').css('margin-left', '0');
                     leSwap();
@@ -112,7 +112,7 @@ app = Sammy('#main', function (sam) {
             } else if (store.get('slide') == 'to') {
                 $('#slideTo').css('display', 'inline-block');
                 rendered.appendTo($('#slideTo'));
-				$('#main').animate({marginLeft: '-'+ blockSize +'px'}, 500, function() {
+				$('#main').animate({marginLeft: '-'+ blockSize +'px'}, 300, function() {
                     $('#main').html($('#slideTo').html());
                     $('#main').css('margin-left', '0');
                     leSwap();

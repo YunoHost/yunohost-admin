@@ -1,5 +1,4 @@
 html, body {
-    height: 100%;
     width: 100%;
     font-family: 'Source Sans Pro';
 }
@@ -15,9 +14,7 @@ body h5 {
 #slider {
     margin-left: auto;
     margin-right: auto;
-    /*margin-top: 2%;*/
     padding: 5px;
-    /*background: #e8e8e8;*/
     max-width: 750px;
     width: 100%;
     height: 100%;
@@ -56,7 +53,6 @@ body .form-control {
     text-align: center;
     max-width: 240px;
     font-size: 25px;
-    /*font-weight: bold;*/
     margin: -35px auto 0 auto;
 }
 
