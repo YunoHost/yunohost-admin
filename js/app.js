@@ -166,7 +166,7 @@ app = Sammy('#main', function (sam) {
     });
 
     sam.get('#/login', function (c) {
-        $('#disconnect-button').hide();
+        $('#logout-button').hide();
         store.set('path-1', '#/login');
         c.view('login');
     });
@@ -177,13 +177,24 @@ app = Sammy('#main', function (sam) {
         store.set('password', btoa(c.params['password']));
         c.api('/users', function(data) {
             store.set('connected', true);
-            $('#disconnect-button').fadeIn();
+            $('#logout-button').fadeIn();
+            c.flash('success', 'Logged in');
             if (store.get('path')) {
                 c.redirect(store.get('path'));
             } else {
                 c.redirect('#/');
             }
         });
+    });
+
+    sam.get('#/logout', function (c) {
+        store.clear('url');
+        store.clear('user');
+        store.clear('password');
+        store.clear('connected');
+        store.set('path', '#/');
+        c.flash('success', 'Logged out');
+        c.redirect('#/login');
     });
 
     /**
@@ -205,7 +216,7 @@ app = Sammy('#main', function (sam) {
 
     sam.post('#/users', function (c) {
         if (c.params['password'] == c.params['confirmation']) {
-            c.params['mail'] = c.params['email'] + '@' + c.params['domain'];
+            c.params['mail'] = c.params['email'] + c.params['domain'];
             c.api('/users', function(data) { // http://api.yunohost.org/#!/user/user_create_post_2
                 c.redirect('#/users');
             }, 'POST', c.params.toHash());

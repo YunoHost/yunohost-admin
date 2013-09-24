@@ -1,5 +1,14 @@
 html, body {
     height: 100%;
+    font-family: 'Source Sans Pro';
+}
+
+body h1,
+body h2,
+body h3,
+body h4,
+body h5 {
+    font-family: 'Source Sans Pro';
 }
 
 #slider {
@@ -34,12 +43,6 @@ html, body {
     height: 100%;
     padding: 5px;
 }
-
-/*.panel-title {*/
-    /*font-size: 18px;*/
-    /*font-weight: bold;*/
-    /*line-height: 25px;*/
-/*}*/
 
 body .form-control {
     padding: 6px;
