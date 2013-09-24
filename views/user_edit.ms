@@ -18,10 +18,11 @@
         </div>
         <div class="form-group">
             <label for="firstname" class="col-sm-3 control-label">Fullname</label>
-            <div class="col-sm-4">
+            <div class="clearfix visible-xs"></div>
+            <div class="col-sm-4 col-xs-6">
                 <input type="text" name="firstname" class="form-control" placeholder="{{Firstname}}">
             </div>
-            <div class="col-sm-5">
+            <div class="col-sm-5 col-xs-6">
                 <input type="text" name="lastname" class="form-control" placeholder="{{Lastname}}">
             </div>
         </div>

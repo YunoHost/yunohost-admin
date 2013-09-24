@@ -18,20 +18,22 @@
         </div>
         <div class="form-group">
             <label for="firstname" class="col-sm-3 control-label">Fullname</label>
-            <div class="col-sm-4">
+            <div class="clearfix visible-xs"></div>
+            <div class="col-sm-4 col-xs-6">
                 <input type="text" name="firstname" class="form-control" placeholder="John" required>
             </div>
-            <div class="col-sm-5">
+            <div class="col-sm-5 col-xs-6">
                 <input type="text" name="lastname" class="form-control" placeholder="Doe" required>
             </div>
         </div>
         <hr>
         <div class="form-group">
             <label for="mail" class="col-sm-3 control-label">Mail</label>
-            <div class="col-sm-4">
+            <div class="clearfix visible-xs"></div>
+            <div class="col-sm-4 col-xs-6">
                 <input type="text" name="email" class="form-control" placeholder="johndoe" required>
             </div>
-            <div class="col-sm-5">
+            <div class="col-sm-5 col-xs-6">
                <select class="form-control" name="domain">
                    {{#Domains}}
                        <option>@{{.}}</option>

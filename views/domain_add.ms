@@ -44,10 +44,11 @@
         <hr>
         <div class="form-group">
             <label for="ddomain" class="col-sm-3 control-label">Domain name</label>
-            <div class="col-sm-4">
+            <div class="clearfix visible-xs"></div>
+            <div class="col-sm-4 col-xs-6">
                 <input type="text" name="ddomain" class="form-control" placeholder="myserver">
             </div>
-            <div class="col-sm-5">
+            <div class="col-sm-5 col-xs-6">
                <select class="form-control" name="ddomain-ext">
                    {{#DDomains}}
                        <option>{{.}}</option>
