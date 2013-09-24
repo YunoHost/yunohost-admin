@@ -306,4 +306,8 @@ app = Sammy('#main', function (sam) {
  */
 $(document).ready(function () {
     app.run('#/');
+    $('#slider-container').width(2*$('#slider').innerWidth() +'px');
+    $(window).resize(function() {
+        $('#slider-container').width(2*$('#slider').innerWidth() +'px');
+    });
 });

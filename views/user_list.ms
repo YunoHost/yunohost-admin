@@ -1,8 +1,8 @@
 <div class="pull-left">
-    <a href="#/" class="btn btn-lg btn-default slide back"><span class="glyphicon glyphicon-chevron-left"></span> Menu</a>
+    <a href="#/" class="btn btn-default slide back"><span class="glyphicon glyphicon-chevron-left"></span> Menu</a>
 </div>
 <div class="pull-right">
-    <a href="#/users/create" class="btn btn-lg btn-success slide"><span class="glyphicon glyphicon-plus"></span> New user</a>
+    <a href="#/users/create" class="btn btn-success slide"><span class="glyphicon glyphicon-plus"></span> New user</a>
 </div>
 <div class="clearfix"></div>
 <div class="view-title">Users</div>
