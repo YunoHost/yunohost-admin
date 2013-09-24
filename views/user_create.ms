@@ -32,14 +32,11 @@
                 <input type="text" name="email" class="form-control" placeholder="johndoe" required>
             </div>
             <div class="col-sm-5" style="padding-left: 0">
-                <div class="input-group">
-                    <span class="input-group-addon">@</span>
-                    <select class="form-control" name="domain">
-                        {{#Domains}}
-                            <option>{{.}}</option>
-                        {{/Domains}}
-                    </select>
-                </div>
+               <select class="form-control" name="domain">
+                   {{#Domains}}
+                       <option>@{{.}}</option>
+                   {{/Domains}}
+               </select>
             </div>
         </div>
         <hr>

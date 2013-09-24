@@ -63,7 +63,14 @@ app = Sammy('#main', function (sam) {
                 callback(data);
             })
             .fail(function(xhr) {
-                c.flash('fail', xhr.responseJSON.error);
+                console.log(xhr);
+                if (xhr.status == 401) {
+                    c.flash('fail', 'Wrong password');
+                } else if (typeof xhr.responseJSON !== 'undefined') {
+                    c.flash('fail', xhr.responseJSON.error);
+                } else {
+                    c.flash('fail', 'Server error');
+                }
                 c.redirect(store.get('path-1'));
                 store.clear('slide');
             })
@@ -129,7 +136,7 @@ app = Sammy('#main', function (sam) {
         store.set('path', req.path);
 
         // Redirect to login page if no credentials stored
-        if (!store.get('password')) {
+        if (!store.get('connected')) {
             req.redirect('#/login');
             return false;
         }
@@ -160,6 +167,7 @@ app = Sammy('#main', function (sam) {
 
     sam.get('#/login', function (c) {
         $('#disconnect-button').hide();
+        store.set('path-1', '#/login');
         c.view('login');
     });
 
@@ -168,6 +176,7 @@ app = Sammy('#main', function (sam) {
         store.set('user', 'admin');
         store.set('password', btoa(c.params['password']));
         c.api('/users', function(data) {
+            store.set('connected', true);
             $('#disconnect-button').fadeIn();
             if (store.get('path')) {
                 c.redirect(store.get('path'));
@@ -177,14 +186,19 @@ app = Sammy('#main', function (sam) {
         });
     });
 
+    /**
+     * Users
+     *
+     */
+
     sam.get('#/users', function (c) {
-        c.api('/users', function(data) {
+        c.api('/users', function(data) { // http://api.yunohost.org/#!/user/user_list_get_3
             c.view('user_list', data);
         });
     });
 
     sam.get('#/users/create', function (c) {
-        c.api('/domains', function(data) {
+        c.api('/domains', function(data) { // http://api.yunohost.org/#!/domain/domain_list_get_2
             c.view('user_create', data);
         });
     });
@@ -192,7 +206,7 @@ app = Sammy('#main', function (sam) {
     sam.post('#/users', function (c) {
         if (c.params['password'] == c.params['confirmation']) {
             c.params['mail'] = c.params['email'] + '@' + c.params['domain'];
-            c.api('/users', function(data) {
+            c.api('/users', function(data) { // http://api.yunohost.org/#!/user/user_create_post_2
                 c.redirect('#/users');
             }, 'POST', c.params.toHash());
         } else {
@@ -203,13 +217,13 @@ app = Sammy('#main', function (sam) {
     });
 
     sam.get('#/users/:user', function (c) {
-        c.api('/users/'+ c.params['user'], function(data) {
+        c.api('/users/'+ c.params['user'], function(data) { // http://api.yunohost.org/#!/user/user_info_get_0
             c.view('user_info', data);
         });
     });
 
     sam.get('#/users/:user/edit', function (c) {
-        c.api('/users/'+ c.params['user'], function(data) {
+        c.api('/users/'+ c.params['user'], function(data) { // http://api.yunohost.org/#!/user/user_info_get_0
             c.view('user_edit', data);
         });
     });
@@ -224,7 +238,7 @@ app = Sammy('#main', function (sam) {
             store.clear('slide');
             c.redirect('#/users/'+ c.params['user'] + '/edit');
         } else {
-            c.api('/users/'+ c.params['user'], function(data) {
+            c.api('/users/'+ c.params['user'], function(data) { // http://api.yunohost.org/#!/user/user_update_put_1
                 c.redirect('#/users/'+ c.params['user']);
             }, 'PUT', params);
         }
@@ -232,13 +246,45 @@ app = Sammy('#main', function (sam) {
 
     sam.get('#/users/:user/delete', function (c) {
         if (confirm('Are you sure you want to delete '+ c.params['user'] +' ?')) {
-            c.api('/users/'+ c.params['user'], function(data) {
+            c.api('/users/'+ c.params['user'], function(data) { // http://api.yunohost.org/#!/user/user_delete_delete_4
                 c.redirect('#/users');
             }, 'DELETE');
         } else {
             store.clear('slide');
             c.redirect('#/users/'+ c.params['user']);
         }
+    });
+
+    /**
+     * Domains
+     *
+     */
+
+    sam.get('#/domains', function (c) {
+        c.api('/domains', function(data) { // http://api.yunohost.org/#!/domain/domain_list_get_2
+            c.view('domain_list', data);
+        });
+    });
+
+    sam.get('#/domains/add', function (c) {
+        c.view('domain_add', {'DDomains': ['.nohost.me', '.noho.st']});
+    });
+
+    sam.post('#/domains', function (c) {
+        if (c.params['domain'] == '') {
+            if (c.params['ddomain'] == '') {
+                c.flash('fail', "You should indicate a domain");
+                store.clear('slide');
+                c.redirect('#/domains/add');
+            }
+            params = { 'domains': c.params['ddomain'] + c.params['ddomain-ext'] }
+        } else {
+            params = { 'domains': c.params['domain'] }
+        }
+
+        c.api('/domains', function(data) { // http://api.yunohost.org/#!/domain/domain_add_post_1
+            c.redirect('#/domains');
+        }, 'POST', params);
     });
 });
 
