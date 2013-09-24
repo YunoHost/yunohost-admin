@@ -71,8 +71,8 @@ app = Sammy('#main', function (sam) {
                 } else {
                     c.flash('fail', 'Server error');
                 }
-                c.redirect(store.get('path-1'));
                 store.clear('slide');
+                c.redirect(store.get('path-1'));
             })
             .done(function(data) {
                 console.log(data);
@@ -296,6 +296,39 @@ app = Sammy('#main', function (sam) {
         c.api('/domains', function(data) { // http://api.yunohost.org/#!/domain/domain_add_post_1
             c.redirect('#/domains');
         }, 'POST', params);
+    });
+
+    /**
+     * Apps
+     *
+     */
+
+    sam.get('#/apps', function (c) {
+        c.api('/app/list', function(data) { // http://api.yunohost.org/#!/app/app_list_get_8
+            // Keep only installed apps
+            data2 = { 'Apps': [], 'Installed': true }
+            $.each(data['Apps'], function(k, v) {
+                if (v['Installed'] !== 'No') data2['Apps'].push(v);
+            });
+            c.view('app_list', data2);
+        });
+    });
+
+    sam.get('#/apps/install', function (c) {
+        c.api('/app/list', function(data) { // http://api.yunohost.org/#!/app/app_list_get_8
+            // Keep only uninstalled apps
+            data2 = { 'Apps': [] }
+            $.each(data['Apps'], function(k, v) {
+                if (v['Installed'] !== 'Yes') data2['Apps'].push(v);
+            });
+            c.view('app_list', data2);
+        });
+    });
+
+    sam.get('#/apps/refresh', function (c) {
+        c.api('/app/lists', function(data) { // http://api.yunohost.org/#!/app/app_fetchlist_put_5
+            c.redirect(store.get('path'));
+        }, 'PUT');
     });
 });
 

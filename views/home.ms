@@ -1,3 +1,9 @@
+<div class="page-header visible-xs">
+    <h1 class="pull-left">YunoHost <small>Administration</small></h1>
+    <div class="clearfix"></div>
+    <br />
+</div>
+
 <div class="list-group">
     <a href="#/users" class="list-group-item slide">
         <h4 class="pull-left list-group-item-heading">Users</h4>

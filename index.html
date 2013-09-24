@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="cache-control" content="no-cache" />
-    <meta name="viewport" content="width=device-width, user-scalable=false;">
+    <meta name="viewport" content="width=device-width, user-scalable=no">
     <title>YunoHost admin</title>
     <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
     <link href="css/style.css" rel="stylesheet" media="screen">
@@ -11,18 +11,18 @@
 </head>
 <body>
     <div id="slider">
-        <div class="page-header">
+        <div class="page-header hidden-xs">
             <h1 class="pull-left">YunoHost <small>Administration</small></h1>
-            <a id="logout-button" href="#/logout" class="hidden-xs pull-right" style="padding-top: 29px; padding-right: 5px; font-size: 24px;"><span class="glyphicon glyphicon-log-out"></span></a>
+            <a id="logout-button" href="#/logout" class="pull-right" style="padding-top: 29px; padding-right: 5px; font-size: 24px;"><span class="glyphicon glyphicon-log-out"></span></a>
             <div class="clearfix"></div>
+            <br />
         </div>
-        <br />
         <div id="flash" class="alert" style="display: none">
         </div>
         <div id="slider-container">
             <div id="slideBack" class="block"></div>
             <div id="main" class="block">
-                <a class="slide" href="#/login">Login</a>
+                <div class="text-center"><a class="slide" href="#/login"><img src="img/ajax-loader.gif"></a></div>
             </div>
             <div id="slideTo" class="block"></div>
         </div>
