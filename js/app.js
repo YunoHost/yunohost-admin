@@ -83,42 +83,48 @@ app = Sammy('#main', function (sam) {
         view: function (view, data) {
             rendered = this.render('views/'+ view +'.ms', data);
 
-            function leSwap() {
-                rendered.swap(function() {
-                    $('.slide').on('click', function() {
-                        $(this).addClass('active');
-                        if ($(this).hasClass('back')) {
-                            store.set('slide', 'back');
-                        } else {
-                            store.set('slide', 'to');
-                        }
+            enableSlide = true; // Change to false to disable animation
+
+            if (enableSlide) {
+                function leSwap() {
+                    rendered.swap(function() {
+                        $('.slide').on('click', function() {
+                            $(this).addClass('active');
+                            if ($(this).hasClass('back')) {
+                                store.set('slide', 'back');
+                            } else {
+                                store.set('slide', 'to');
+                            }
+                        });
                     });
-                });
-            }
+                }
 
-            blockSize = $('#slider').width();
+                blockSize = $('#slider').width();
 
-            // Slide back effect
-            if (store.get('slide') == 'back') {
-                store.clear('slide');
-                $('#slideBack').css('display', 'none');
-                $('#slider-container').removeClass('move').css('margin-left', '-'+ blockSize +'px');
-                $('#slideTo').show().html($('#main').html());
-                leSwap();
-                $('#slider-container').addClass('move').css('margin-left', '0px');
+                // Slide back effect
+                if (store.get('slide') == 'back') {
+                    store.clear('slide');
+                    $('#slideBack').css('display', 'none');
+                    $('#slider-container').removeClass('move').css('margin-left', '-'+ blockSize +'px');
+                    $('#slideTo').show().html($('#main').html());
+                    leSwap();
+                    $('#slider-container').addClass('move').css('margin-left', '0px');
 
-            // Slide to effect
-            } else if (store.get('slide') == 'to') {
-                store.clear('slide');
-                $('#slideTo').css('display', 'none');
-                $('#slider-container').removeClass('move').css('margin-left', '-'+ blockSize +'px');
-                $('#slider-container').removeClass('move').css('margin-left', '0px');
-                $('#slideBack').show().html($('#main').html());
-                leSwap();
-                $('#slider-container').addClass('move').css('margin-left', '-'+ blockSize +'px');
+                // Slide to effect
+                } else if (store.get('slide') == 'to') {
+                    store.clear('slide');
+                    $('#slideTo').css('display', 'none');
+                    $('#slider-container').removeClass('move').css('margin-left', '-'+ blockSize +'px');
+                    $('#slider-container').removeClass('move').css('margin-left', '0px');
+                    $('#slideBack').show().html($('#main').html());
+                    leSwap();
+                    $('#slider-container').addClass('move').css('margin-left', '-'+ blockSize +'px');
 
+                } else {
+                    leSwap();
+                }
             } else {
-                leSwap();
+                rendered.swap();
             }
         }
     });
@@ -167,21 +173,42 @@ app = Sammy('#main', function (sam) {
     sam.get('#/login', function (c) {
         $('#logout-button').hide();
         store.set('path-1', '#/login');
-        c.view('login');
+
+        // Check if te client is hosted on a yunohost node
+        domain = window.location.hostname
+        $.getJSON('http://'+ domain +':6767/api', function(data) {
+            $.getJSON('http://'+ domain +':6767/installed', function(data) {
+                if (!data.installed) {
+                    c.view('postinstall');
+                } else {
+                    c.view('login', { 'domain': domain });
+                }
+            });
+        })
+        .fail(function() {
+            c.view('login');
+        });
     });
 
     sam.post('#/login', function (c) {
-        store.set('url', 'http://'+ c.params['url']);
+        store.set('url', 'http://'+ c.params['domain'] +':6767');
         store.set('user', 'admin');
         store.set('password', btoa(c.params['password']));
-        c.api('/users', function(data) {
-            store.set('connected', true);
-            $('#logout-button').fadeIn();
-            c.flash('success', 'Logged in');
-            if (store.get('path')) {
-                c.redirect(store.get('path'));
+        c.api('/api', function(data) {
+            if (data.apiVersion == '0.1') {
+                c.api('/users', function(data) {
+                    store.set('connected', true);
+                    $('#logout-button').fadeIn();
+                    c.flash('success', 'Logged in');
+                    if (store.get('path')) {
+                        c.redirect(store.get('path'));
+                    } else {
+                        c.redirect('#/');
+                    }
+                });
             } else {
-                c.redirect('#/');
+                c.flash('fail', 'Non-compatible API (0.1 required)');
+                c.redirect('#/login');
             }
         });
     });
@@ -338,6 +365,8 @@ app = Sammy('#main', function (sam) {
  */
 $(document).ready(function () {
     app.run('#/');
+
+    // Fixes for sliding effect
     $('#slider-container').width(2*$('#slider').width() +'px');
     $(window).resize(function() {
         $('#slideBack').css('display', 'none');
