@@ -44,11 +44,11 @@ body h5 {
 }
 
 .move {
-    -webkit-transition: margin-left 0.3s ease, margin-right 0.3s ease;
-    -moz-transition: margin-left 0.3s ease, margin-right 0.3s ease;
-    -o-transition: margin-left 0.3s ease, margin-right 0.3s ease;
-    -ms-transition: margin-left 0.3s ease, margin-right 0.3s ease;
-    transition: margin-left 0.3s ease, margin-right 0.3s ease;
+    -webkit-transition: margin-left 0.4s ease, margin-right 0.4s ease;
+    -moz-transition: margin-left 0.4s ease, margin-right 0.4s ease;
+    -o-transition: margin-left 0.4s ease, margin-right 0.4s ease;
+    -ms-transition: margin-left 0.4s ease, margin-right 0.4s ease;
+    transition: margin-left 0.4s ease, margin-right 0.4s ease;
 }
 
 body .form-control {

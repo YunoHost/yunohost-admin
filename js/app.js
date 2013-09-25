@@ -96,24 +96,27 @@ app = Sammy('#main', function (sam) {
                 });
             }
 
-            blockSize = $('#slider').innerWidth()-20;
+            blockSize = $('#slider').width();
 
+            // Slide back effect
             if (store.get('slide') == 'back') {
-                if ($('#slideBack').is(':visible')) $('#slideBack').hide();
+                store.clear('slide');
+                $('#slideBack').css('display', 'none');
                 $('#slider-container').removeClass('move').css('margin-left', '-'+ blockSize +'px');
                 $('#slideTo').show().html($('#main').html());
                 leSwap();
                 $('#slider-container').addClass('move').css('margin-left', '0px');
 
-                store.clear('slide');
+            // Slide to effect
             } else if (store.get('slide') == 'to') {
-                if ($('#slideTo').is(':visible')) $('#slideTo').hide();
+                store.clear('slide');
+                $('#slideTo').css('display', 'none');
+                $('#slider-container').removeClass('move').css('margin-left', '-'+ blockSize +'px');
                 $('#slider-container').removeClass('move').css('margin-left', '0px');
                 $('#slideBack').show().html($('#main').html());
                 leSwap();
-                $('#slider-container').addClass('move').css('margin-left', '-'+ ($('#slider').innerWidth()-10) +'px');
+                $('#slider-container').addClass('move').css('margin-left', '-'+ blockSize +'px');
 
-                store.clear('slide');
             } else {
                 leSwap();
             }
@@ -335,10 +338,8 @@ app = Sammy('#main', function (sam) {
  */
 $(document).ready(function () {
     app.run('#/');
-        $('.block').width($('#slider').innerWidth()-20);
-    $('#slider-container').width(3*$('#slider').innerWidth() +'px');
+    $('#slider-container').width(2*$('#slider').width() +'px');
     $(window).resize(function() {
-        $('.block').width($('#slider').innerWidth()-20);
-        $('#slider-container').width(3*$('#slider').innerWidth() +'px');
+        $('#slider-container').width(2*$('#slider').width() +'px');
     });
 });
