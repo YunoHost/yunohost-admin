@@ -30,19 +30,25 @@ body h5 {
 }
 
 #main {
-    /*background: #e8e8e8;*/
     float: left;
-    position: relative;
     overflow: hidden;
 }
 
 .block {
-    display: inline-block;
+    float:left;
     height: 100%;
     max-width: 750px;
     width: 49%;
     height: 100%;
     padding: 5px;
+}
+
+.move {
+    -webkit-transition: margin-left 0.3s ease, margin-right 0.3s ease;
+    -moz-transition: margin-left 0.3s ease, margin-right 0.3s ease;
+    -o-transition: margin-left 0.3s ease, margin-right 0.3s ease;
+    -ms-transition: margin-left 0.3s ease, margin-right 0.3s ease;
+    transition: margin-left 0.3s ease, margin-right 0.3s ease;
 }
 
 body .form-control {

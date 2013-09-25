@@ -84,8 +84,6 @@ app = Sammy('#main', function (sam) {
             rendered = this.render('views/'+ view +'.ms', data);
 
             function leSwap() {
-                $('#slideBack').hide().html('');
-                $('#slideTo').hide().html('');
                 rendered.swap(function() {
                     $('.slide').on('click', function() {
                         $(this).addClass('active');
@@ -101,22 +99,20 @@ app = Sammy('#main', function (sam) {
             blockSize = $('#slider').innerWidth();
 
             if (store.get('slide') == 'back') {
-                $('#slideBack').css('display', 'inline-block').css('margin-left', '-'+ 2*blockSize +'px');
-                rendered.appendTo($('#slideBack'));
-                $('#main').animate({marginLeft: blockSize +'px'}, 300, function() {
-                    $('#main').html($('#slideBack').html());
-                    $('#main').css('margin-left', '0');
-                    leSwap();
-                });
+                if ($('#slideBack').is(':visible')) $('#slideBack').hide();
+                $('#slider-container').removeClass('move').css('margin-left', '-'+ blockSize +'px');
+                $('#slideTo').show().html($('#main').html());
+                leSwap();
+                $('#slider-container').addClass('move').css('margin-left', '0px');
+
                 store.clear('slide');
             } else if (store.get('slide') == 'to') {
-                $('#slideTo').css('display', 'inline-block');
-                rendered.appendTo($('#slideTo'));
-				$('#main').animate({marginLeft: '-'+ blockSize +'px'}, 300, function() {
-                    $('#main').html($('#slideTo').html());
-                    $('#main').css('margin-left', '0');
-                    leSwap();
-                });
+                if ($('#slideTo').is(':visible')) $('#slideTo').hide();
+                $('#slider-container').removeClass('move').css('margin-left', '0px');
+                $('#slideBack').show().html($('#main').html());
+                leSwap();
+                $('#slider-container').addClass('move').css('margin-left', '-'+ blockSize +'px');
+
                 store.clear('slide');
             } else {
                 leSwap();
@@ -341,6 +337,7 @@ $(document).ready(function () {
     app.run('#/');
     $('#slider-container').width(2*$('#slider').innerWidth() +'px');
     $(window).resize(function() {
+        $('#slideBack').css('margin-left', '-'+ $('#slider').innerWidth() +'px');
         $('#slider-container').width(2*$('#slider').innerWidth() +'px');
     });
 });
