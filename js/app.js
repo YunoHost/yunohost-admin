@@ -340,6 +340,8 @@ $(document).ready(function () {
     app.run('#/');
     $('#slider-container').width(2*$('#slider').width() +'px');
     $(window).resize(function() {
-        $('#slider-container').width(2*$('#slider').width() +'px');
+        $('#slideBack').css('display', 'none');
+        $('#slideTo').css('display', 'none');
+        $('#slider-container').width(2*$('#slider').width() +'px').removeClass('move').css('margin-left', '0px');
     });
 });
