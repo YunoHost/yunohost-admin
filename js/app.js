@@ -176,7 +176,11 @@ app = Sammy('#main', function (sam) {
 
         // Check if te client is hosted on a yunohost node
         domain = window.location.hostname
-        $.getJSON('http://'+ domain +':6767/api', function(data) {
+        $.ajax({
+            url: 'http://'+ domain +':6767/api',
+            timeout: 3000
+        })
+        .success(function() {
             $.getJSON('http://'+ domain +':6767/installed', function(data) {
                 if (!data.installed) {
                     c.view('postinstall');
