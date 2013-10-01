@@ -237,11 +237,12 @@ app = Sammy('#main', function (sam) {
                 if (c.params['ddomain'] == '') {
                     c.flash('fail', "You should indicate a domain");
                     store.clear('slide');
-                    c.redirect('#/domains/add');
+                    c.redirect('#/postinstall');
+                } else {
+                    params = { 'domain': c.params['ddomain'] + c.params['ddomain-ext'] }
                 }
-                params = { 'domain': c.params['ddomain'] + c.params['ddomain-ext'] }
             } else {
-                params = { 'domaim': c.params['domain'] }
+                params = { 'domain': c.params['domain'] }
             }
 
             params['password'] = c.params['password']
