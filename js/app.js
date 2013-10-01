@@ -134,7 +134,7 @@ app = Sammy('#main', function (sam) {
      * Filters
      *
      */
-    sam.before({except: {path: '#/login'}}, function (req) {
+    sam.before({except: {path: ['#/login', '#/postinstall']}}, function (req) {
 
         // Store path for further redirections
         store.set('path-1', store.get('path'));
@@ -183,7 +183,7 @@ app = Sammy('#main', function (sam) {
         .success(function() {
             $.getJSON('http://'+ domain +':6767/installed', function(data) {
                 if (!data.installed) {
-                    c.view('postinstall');
+                    c.redirect('#/postinstall');
                 } else {
                     c.view('login', { 'domain': domain });
                 }
@@ -225,6 +225,36 @@ app = Sammy('#main', function (sam) {
         store.set('path', '#/');
         c.flash('success', 'Logged out');
         c.redirect('#/login');
+    });
+
+    sam.get('#/postinstall', function(c) {
+        c.view('postinstall', {'DDomains': ['.nohost.me', '.noho.st']});
+    });
+
+    sam.post('#/postinstall', function (c) {
+        if (c.params['password'] == c.params['confirmation']) {
+            if (c.params['domain'] == '') {
+                if (c.params['ddomain'] == '') {
+                    c.flash('fail', "You should indicate a domain");
+                    store.clear('slide');
+                    c.redirect('#/domains/add');
+                }
+                params = { 'domain': c.params['ddomain'] + c.params['ddomain-ext'] }
+            } else {
+                params = { 'domaim': c.params['domain'] }
+            }
+
+            params['password'] = c.params['password']
+
+            store.set('url', 'http://'+ window.location.hostname +':6767');
+            store.set('user', 'admin');
+            store.set('password', btoa('yunohost'));
+            c.api('/postinstall', function(data) { // http://api.yunohost.org/#!/tools/tools_postinstall_post_0
+                c.redirect('#/');
+            }, 'POST', params);
+        } else {
+            c.flash('fail', "Passwords don't match");
+        }
     });
 
     /**
