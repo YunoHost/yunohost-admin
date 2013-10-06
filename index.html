@@ -2,8 +2,10 @@
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
     <meta http-equiv="cache-control" content="no-cache" />
-    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport" content="user-scalable=no, width=device-width, height=device-height" />
     <title>YunoHost admin</title>
     <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
     <link href="css/style.css" rel="stylesheet" media="screen">
@@ -36,7 +38,10 @@
     <script type="text/javascript" src="js/vendor/sammy.json.js"></script>
     <script type="text/javascript" src="js/vendor/sammy.storage.js"></script>
     <script type="text/javascript" src="js/vendor/bootstrap.min.js"></script>
+    <script type="text/javascript" src="phonegap.js"></script>
     <script type="text/javascript" src="js/app.js"></script>
-
+    <script type="text/javascript">
+        app.initialize();
+    </script>
 </body>
 </html>

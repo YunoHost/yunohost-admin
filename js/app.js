@@ -177,11 +177,11 @@ app = Sammy('#main', function (sam) {
         // Check if te client is hosted on a yunohost node
         domain = window.location.hostname
         $.ajax({
-            url: 'http://'+ domain +':6767/api',
+            url: 'https://'+ domain +':6767/api',
             timeout: 3000
         })
         .success(function() {
-            $.getJSON('http://'+ domain +':6767/installed', function(data) {
+            $.getJSON('https://'+ domain +':6767/installed', function(data) {
                 if (!data.installed) {
                     c.redirect('#/postinstall');
                 } else {
@@ -195,7 +195,7 @@ app = Sammy('#main', function (sam) {
     });
 
     sam.post('#/login', function (c) {
-        store.set('url', 'http://'+ c.params['domain'] +':6767');
+        store.set('url', 'https://'+ c.params['domain'] +':6767');
         store.set('user', 'admin');
         store.set('password', btoa(c.params['password']));
         c.api('/api', function(data) {
@@ -247,7 +247,7 @@ app = Sammy('#main', function (sam) {
 
             params['password'] = c.params['password']
 
-            store.set('url', 'http://'+ window.location.hostname +':6767');
+            store.set('url', 'https://'+ window.location.hostname +':6767');
             store.set('user', 'admin');
             store.set('password', btoa('yunohost'));
             c.api('/postinstall', function(data) { // http://api.yunohost.org/#!/tools/tools_postinstall_post_0
