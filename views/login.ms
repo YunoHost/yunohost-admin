@@ -7,7 +7,7 @@
 <form action="#/login" id="form" method="post">
     <div class="input-group"{{#domain}} style="display: none"{{/domain}}>
         <span class="input-group-addon"> <span class="glyphicon glyphicon-cloud"></span> </span>
-        <input type="text" name="domain" class="form-control" placeholder="myserver.org"{{#domain}} value="{{domain}}" disabled{{/domain}}>
+        <input type="{{#domain}}hidden{{/domain}}{{^domain}}text{{/domain}}" name="domain" class="form-control" placeholder="myserver.org"{{#domain}} value="{{domain}}" {{/domain}}>
     </div>
     <br />
     <div class="input-group">
@@ -17,4 +17,3 @@
     <br />
     <input id="submit" type="submit" value="Login" class="btn btn-success pull-right"/>
 </form>
-
