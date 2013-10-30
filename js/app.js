@@ -141,7 +141,7 @@ app = Sammy('#main', function (sam) {
         store.set('path', req.path);
 
         // Redirect to login page if no credentials stored
-        if (!store.get('connected')) {
+        if (!store.get('connected') && window.localStorage.getItem("isConnected") != 'true') {
             req.redirect('#/login');
             return false;
         }
@@ -202,6 +202,7 @@ app = Sammy('#main', function (sam) {
             if (data.apiVersion == '0.1') {
                 c.api('/users', function(data) {
                     store.set('connected', true);
+                    window.localStorage.setItem("isConnected", "true");
                     $('#logout-button').fadeIn();
                     c.flash('success', 'Logged in');
                     if (store.get('path')) {
