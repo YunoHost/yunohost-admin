@@ -42,6 +42,13 @@ app = Sammy('#main', function (sam) {
             method = typeof method !== 'undefined' ? method : 'GET';
             data   = typeof data   !== 'undefined' ? data   : {};
             auth   = "Basic "+ btoa(store.get('user') +':'+ atob(store.get('password')));
+            if (uri == '/postinstall') {
+                var installing = false;
+
+                check = setInterval(function () {
+                    installing = true;
+                }, 4000);
+            }
             jQuery.ajax({
                 url: store.get('url') + uri,
                 type: method,
@@ -69,6 +76,11 @@ app = Sammy('#main', function (sam) {
                 } else if (typeof xhr.responseJSON !== 'undefined') {
                     c.flash('fail', xhr.responseJSON.error);
                 } else {
+                    if (uri == '/postinstall') {
+                        if (installing) {
+                            window.location.replace('https://'+ data['domain'] +'/ynhadmin');
+                        }
+                    }
                     c.flash('fail', 'Server error');
                 }
                 store.clear('slide');
