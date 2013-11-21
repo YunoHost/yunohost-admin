@@ -45,9 +45,14 @@ app = Sammy('#main', function (sam) {
             if (uri == '/postinstall') {
                 var installing = false;
 
-                check = setInterval(function () {
+                setInterval(function () {
                     installing = true;
-                }, 4000);
+                }, 6000);
+            }
+            if (uri == '/postinstall') {
+                $('#popup-title').text('Installing');
+                $('#popup-body').html('<p>YunoHost is being installed on <strong>'+ data.domain +'</strong>. It may take a few minutes ...</p><br><div class="text-center"><img src="img/ajax-loader.gif"></div>');
+                $('#popup').modal('show');
             }
             jQuery.ajax({
                 url: store.get('url') + uri,
@@ -78,10 +83,12 @@ app = Sammy('#main', function (sam) {
                 } else {
                     if (uri == '/postinstall') {
                         if (installing) {
-                            window.location.replace('https://'+ data['domain'] +'/ynhadmin');
+                            $('#popup-body').html('<p>YunoHost has been successfully installed, please go to <a href="https://'+ window.location.hostname +'/ynhadmin" target="_blank"><strong>https://'+ window.location.hostname +'/ynhadmin</strong></a>.</p>');
+                        } else {
+                            $('#popup').modal('hide');
                         }
                     }
-                    c.flash('fail', 'Server error');
+                    c.flash('fail', 'An error occured at post-installation.');
                 }
                 store.clear('slide');
                 c.redirect(store.get('path-1'));
