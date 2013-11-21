@@ -88,7 +88,7 @@ app = Sammy('#main', function (sam) {
                             $('#popup').modal('hide');
                         }
                     }
-                    c.flash('fail', 'An error occured at post-installation.');
+                    c.flash('fail', 'Server error');
                 }
                 store.clear('slide');
                 c.redirect(store.get('path-1'));
@@ -196,11 +196,11 @@ app = Sammy('#main', function (sam) {
         // Check if te client is hosted on a yunohost node
         domain = window.location.hostname
         $.ajax({
-            url: 'https://'+ domain +':6767/api',
+            url: 'https://'+ domain +'/ynhapi/api',
             timeout: 3000
         })
         .success(function() {
-            $.getJSON('https://'+ domain +':6767/installed', function(data) {
+            $.getJSON('https://'+ domain +'/ynhapi/installed', function(data) {
                 if (!data.installed) {
                     c.redirect('#/postinstall');
                 } else {
@@ -214,7 +214,7 @@ app = Sammy('#main', function (sam) {
     });
 
     sam.post('#/login', function (c) {
-        store.set('url', 'https://'+ c.params['domain'] +':6767');
+        store.set('url', 'https://'+ c.params['domain'] +'/ynhapi');
         store.set('user', 'admin');
         store.set('password', btoa(c.params['password']));
         c.api('/api', function(data) {
@@ -267,7 +267,7 @@ app = Sammy('#main', function (sam) {
 
             params['password'] = c.params['password']
 
-            store.set('url', 'https://'+ window.location.hostname +':6767');
+            store.set('url', 'https://'+ window.location.hostname +'/ynhapi');
             store.set('user', 'admin');
             store.set('password', btoa('yunohost'));
             c.api('/postinstall', function(data) { // http://api.yunohost.org/#!/tools/tools_postinstall_post_0
