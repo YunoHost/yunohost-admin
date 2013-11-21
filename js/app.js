@@ -41,6 +41,7 @@ app = Sammy('#main', function (sam) {
             c = this;
             method = typeof method !== 'undefined' ? method : 'GET';
             data   = typeof data   !== 'undefined' ? data   : {};
+            var args = data;
             auth   = "Basic "+ btoa(store.get('user') +':'+ atob(store.get('password')));
             if (uri == '/postinstall') {
                 var installing = false;
@@ -83,15 +84,22 @@ app = Sammy('#main', function (sam) {
                 } else {
                     if (uri == '/postinstall') {
                         if (installing) {
+                            if (args.domain.match(/\.nohost\.me$/) || args.domain.match(/\.noho\.st$/)) {
+                                interval = 150000;
+                            } else {
+                                interval = 5000;
+                            }
                             setInterval(function () {
                                 $('#popup-title').text('Installation complete');
-                                $('#popup-body').html('<p>YunoHost has been successfully installed, please go to <a href="https://'+ window.location.hostname +'/ynhadmin" target="_blank"><strong>https://'+ window.location.hostname +'/ynhadmin</strong></a>.</p>');
-                            }, 5000);
+                                $('#popup-body').html('<p>YunoHost has been successfully installed, please go to <a href="https://'+ args.domain +'/ynhadmin" target="_blank"><strong>https://'+ args.domain +'/ynhadmin</strong></a>.</p><br><p><small><a href="https://doc.yunohost.org/#/dns" target="_blank">Not working ?</a></small></p>');
+                            }, interval);
                         } else {
                             $('#popup').modal('hide');
+                            c.flash('fail', 'An error occured, try again');
                         }
+                    } else {
+                        c.flash('fail', 'Server error');
                     }
-                    c.flash('fail', 'Server error');
                 }
                 store.clear('slide');
                 c.redirect(store.get('path-1'));
