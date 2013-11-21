@@ -83,7 +83,10 @@ app = Sammy('#main', function (sam) {
                 } else {
                     if (uri == '/postinstall') {
                         if (installing) {
-                            $('#popup-body').html('<p>YunoHost has been successfully installed, please go to <a href="https://'+ window.location.hostname +'/ynhadmin" target="_blank"><strong>https://'+ window.location.hostname +'/ynhadmin</strong></a>.</p>');
+                            setInterval(function () {
+                                $('#popup-title').text('Installation complete');
+                                $('#popup-body').html('<p>YunoHost has been successfully installed, please go to <a href="https://'+ window.location.hostname +'/ynhadmin" target="_blank"><strong>https://'+ window.location.hostname +'/ynhadmin</strong></a>.</p>');
+                            }, 5000);
                         } else {
                             $('#popup').modal('hide');
                         }
