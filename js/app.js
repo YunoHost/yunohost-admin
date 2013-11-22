@@ -452,6 +452,17 @@ app = Sammy('#main', function (sam) {
         }, 'POST', params);
     });
 
+    sam.get('#/apps/:app/uninstall', function (c) {
+        if (confirm('Are you sure you want to uninstall '+ c.params['app'] +' ?')) {
+            c.api('/app', function() { // http://api.yunohost.org/#!/user/user_delete_delete_4
+                c.redirect('#/apps');
+            }, 'DELETE', { 'app': c.params['app'] } );
+        } else {
+            store.clear('slide');
+            c.redirect('#/apps/'+ c.params['app']);
+        }
+    });
+
     sam.get('#/apps/refresh', function (c) {
         c.api('/app/lists', function(data) { // http://api.yunohost.org/#!/app/app_fetchlist_put_5
             c.redirect(store.get('path'));
