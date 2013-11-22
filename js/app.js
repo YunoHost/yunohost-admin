@@ -16,6 +16,16 @@ app = Sammy('#main', function (sam) {
      */
     sam.helpers({
 
+        // Serialize an object
+        serialize : function(obj) {
+          var str = [];
+          for(var p in obj)
+            if (obj.hasOwnProperty(p)) {
+              str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+            }
+          return str.join("&");
+        },
+
         // Flash helper to diplay instant notifications
         flash: function (level, message) {
             flashs = store.get('flash');
@@ -421,7 +431,7 @@ app = Sammy('#main', function (sam) {
     });
 
     sam.get('#/apps/:app', function (c) {
-        c.api('/app/'+c.params['app']+'?raw=true', function(data) { // http://api.yunohost.org/#!/app/app_list_get_8
+        c.api('/app/'+c.params['app']+'?raw=true', function(data) { // http://api.yunohost.org/#!/app/app_info_get_9
             c.view('app_info', data);
         });
     });
@@ -430,6 +440,16 @@ app = Sammy('#main', function (sam) {
         c.api('/apps?raw=true', function(data) { // http://api.yunohost.org/#!/app/app_list_get_8
             c.view('app_install', data[c.params['app']]);
         });
+    });
+
+    sam.post('#/apps', function(c) {
+        params = { 'label': c.params['label'], 'app': c.params['app'] }
+        delete c.params['label'];
+        delete c.params['app'];
+        params['args'] = c.serialize(c.params.toHash());
+        c.api('/app', function() { // http://api.yunohost.org/#!/app/app_install_post_2
+            c.redirect('#/apps');
+        }, 'POST', params);
     });
 
     sam.get('#/apps/refresh', function (c) {

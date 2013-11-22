@@ -42,6 +42,7 @@
         </div>
         {{/manifest.arguments.install}}
         <hr>
+        <input type="hidden" name="app" value="{{manifest.id}}">
         <div class="text-center">
             <input type="submit" class="btn btn-success slide back" value="Install">
         </div>
