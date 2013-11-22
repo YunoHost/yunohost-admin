@@ -396,24 +396,39 @@ app = Sammy('#main', function (sam) {
      */
 
     sam.get('#/apps', function (c) {
-        c.api('/app/list', function(data) { // http://api.yunohost.org/#!/app/app_list_get_8
+        c.api('/apps', function(data) { // http://api.yunohost.org/#!/app/app_list_get_8
             // Keep only installed apps
             data2 = { 'Apps': [], 'Installed': true }
             $.each(data['Apps'], function(k, v) {
-                if (v['Installed'] !== 'No') data2['Apps'].push(v);
+                if (v['Installed']) data2['Apps'].push(v);
             });
             c.view('app_list', data2);
         });
     });
 
     sam.get('#/apps/install', function (c) {
-        c.api('/app/list', function(data) { // http://api.yunohost.org/#!/app/app_list_get_8
+        c.api('/apps', function(data) { // http://api.yunohost.org/#!/app/app_list_get_8
+        c.api('/apps?raw=true', function(dataraw) { // http://api.yunohost.org/#!/app/app_list_get_8
             // Keep only uninstalled apps
             data2 = { 'Apps': [] }
             $.each(data['Apps'], function(k, v) {
-                if (v['Installed'] !== 'Yes') data2['Apps'].push(v);
+                if (dataraw[v['ID']].manifest.multi_instance) v['Installed'] = false;
+                if (!v['Installed']) data2['Apps'].push(v);
             });
             c.view('app_list', data2);
+        });
+        });
+    });
+
+    sam.get('#/apps/:app', function (c) {
+        c.api('/app/'+c.params['app']+'?raw=true', function(data) { // http://api.yunohost.org/#!/app/app_list_get_8
+            c.view('app_info', data);
+        });
+    });
+
+    sam.get('#/apps/install/:app', function (c) {
+        c.api('/apps?raw=true', function(data) { // http://api.yunohost.org/#!/app/app_list_get_8
+            c.view('app_install', data[c.params['app']]);
         });
     });
 

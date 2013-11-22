@@ -25,11 +25,11 @@
 
 <div class="list-group">
 {{#Apps}}
-    <a href="#/apps/{{ID}}" class="list-group-item slide">
+    <a href="#/apps/{{^Installed}}install/{{/Installed}}{{ID}}" class="list-group-item slide">
         <h4 class="pull-left list-group-item-heading">{{Name}} <small>{{ID}}</small></h4>
         <span class="glyphicon glyphicon-chevron-right pull-right"></span>
         <div class="clearfix"></div>
-        <p class="list-group-item-text">{{Description}}</p>
+        <p class="list-group-item-text">{{Description.en}}</p>
     </a>
 {{/Apps}}
 </div>
