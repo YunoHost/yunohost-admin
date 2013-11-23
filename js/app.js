@@ -96,7 +96,6 @@ app = Sammy('#main', function (sam) {
             })
             .fail(function(xhr) {
                 console.log(xhr);
-                    c.flash('fail', 'Wrong password');
                 if (xhr.status == 401) {
                     c.flash('fail', 'Wrong password');
                 } else if (typeof xhr.responseJSON !== 'undefined') {
