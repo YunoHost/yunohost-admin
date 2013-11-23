@@ -105,7 +105,7 @@ app = Sammy('#main', function (sam) {
                         if (installing) {
                             if (args.domain.match(/\.nohost\.me$/) || args.domain.match(/\.noho\.st$/)) {
                                 $('#popup-title').text('Installed');
-                                $('#popup-body').html('<p>YunoHost has been successfully installed, we\'ll wait for DNS to be propagated. It will take 3 minutes ...</p><br><div class="text-center"><img src="img/ajax-loader.gif"></div><br>');
+                                $('#popup-body p').text('YunoHost has been successfully installed, we\'ll wait for DNS to be propagated. It will take 3 minutes ...');
                                 interval = 180000;
                             } else {
                                 interval = 5000;
