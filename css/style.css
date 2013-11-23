@@ -70,3 +70,11 @@ body .page-header {
 div.br {
     height: 30px;
 }
+
+div.loader-content {
+    position: fixed;
+    bottom: 0;
+    padding: 30px;
+    right: 0;
+    z-index: 2000;
+}

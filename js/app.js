@@ -9,6 +9,7 @@ app = Sammy('#main', function (sam) {
 
     // Initialize storage
     var store = new Sammy.Store({name: 'storage', type: 'session'});
+    var loaded = false;
 
     /**
      * Helpers
@@ -59,11 +60,20 @@ app = Sammy('#main', function (sam) {
                 setInterval(function () {
                     installing = true;
                 }, 6000);
-            }
-            if (uri == '/postinstall') {
+
                 $('#popup-title').text('Installing');
-                $('#popup-body').html('<p>YunoHost is being installed on <strong>'+ data.domain +'</strong>. It may take a few minutes ...</p><br><div class="text-center"><img src="img/ajax-loader.gif"></div>');
+                $('#popup-body').html('<p>YunoHost is being installed on <strong>'+ data.domain +'</strong>. It may take a few minutes ...</p><br><div class="text-center"><img src="img/ajax-loader.gif"></div><br>');
                 $('#popup').modal('show');
+            } else {
+                loaded = false;
+                if ($('div.loader-content').length == 0) {
+                setInterval(function () {
+                    if (!loaded && $('div.loader-content').length == 0) {
+                        console.log('meh');
+                        $('#main').append('<div class="loader-content"><img src="img/ajax-loader.gif"></div>');
+                    }
+                }, 500);
+                }
             }
             jQuery.ajax({
                 url: store.get('url') + uri,
@@ -87,15 +97,18 @@ app = Sammy('#main', function (sam) {
             })
             .fail(function(xhr) {
                 console.log(xhr);
+                    c.flash('fail', 'Wrong password');
                 if (xhr.status == 401) {
                     c.flash('fail', 'Wrong password');
-                } else if (typeof xhr.responseJSON !== 'undefined') {
+                } else if (typeof xhr.responseJSON !== undefined) {
                     c.flash('fail', xhr.responseJSON.error);
                 } else {
                     if (uri == '/postinstall') {
                         if (installing) {
                             if (args.domain.match(/\.nohost\.me$/) || args.domain.match(/\.noho\.st$/)) {
-                                interval = 150000;
+                                $('#popup-title').text('Installed');
+                                $('#popup-body').html('<p>YunoHost has been successfully installed, we\'ll wait for DNS to be propagated. It will take 3 minutes ...</p><br><div class="text-center"><img src="img/ajax-loader.gif"></div><br>');
+                                interval = 180000;
                             } else {
                                 interval = 5000;
                             }
@@ -115,6 +128,8 @@ app = Sammy('#main', function (sam) {
                 c.redirect(store.get('path-1'));
             })
             .done(function(data) {
+                loaded = true;
+                $('div.loader-content').remove();
                 console.log(data);
             });
         },
@@ -124,6 +139,9 @@ app = Sammy('#main', function (sam) {
             rendered = this.render('views/'+ view +'.ms', data);
 
             enableSlide = true; // Change to false to disable animation
+
+            loaded = true;
+            $('div.loader-content').remove();
 
             if (enableSlide) {
                 function leSwap() {
