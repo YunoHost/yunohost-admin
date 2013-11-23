@@ -99,7 +99,7 @@ app = Sammy('#main', function (sam) {
                     c.flash('fail', 'Wrong password');
                 if (xhr.status == 401) {
                     c.flash('fail', 'Wrong password');
-                } else if (typeof xhr.responseJSON !== undefined) {
+                } else if (typeof xhr.responseJSON !== 'undefined') {
                     c.flash('fail', xhr.responseJSON.error);
                 } else {
                     if (uri == '/postinstall') {
