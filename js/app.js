@@ -69,7 +69,6 @@ app = Sammy('#main', function (sam) {
                 if ($('div.loader-content').length == 0) {
                 setInterval(function () {
                     if (!loaded && $('div.loader-content').length == 0) {
-                        console.log('meh');
                         $('#main').append('<div class="loader-content"><img src="img/ajax-loader.gif"></div>');
                     }
                 }, 500);
