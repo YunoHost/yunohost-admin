@@ -446,6 +446,12 @@ app = Sammy('#main', function (sam) {
         });
     });
 
+    sam.get('#/apps/refresh', function (c) {
+        c.api('/app/lists', function(data) { // http://api.yunohost.org/#!/app/app_fetchlist_put_5
+            c.redirect(store.get('path'));
+        }, 'PUT');
+    });
+
     sam.get('#/apps/:app', function (c) {
         c.api('/app/'+c.params['app']+'?raw=true', function(data) { // http://api.yunohost.org/#!/app/app_info_get_9
             c.view('app_info', data);
@@ -477,12 +483,6 @@ app = Sammy('#main', function (sam) {
             store.clear('slide');
             c.redirect('#/apps/'+ c.params['app']);
         }
-    });
-
-    sam.get('#/apps/refresh', function (c) {
-        c.api('/app/lists', function(data) { // http://api.yunohost.org/#!/app/app_fetchlist_put_5
-            c.redirect(store.get('path'));
-        }, 'PUT');
     });
 });
 
