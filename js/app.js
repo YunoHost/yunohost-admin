@@ -7,8 +7,18 @@ app = Sammy('#main', function (sam) {
     // Plugins
     sam.use('Mustache', 'ms');
 
+    // Look for supported type of storage to use
+    var storageType;
+    if (Sammy.Store.isAvailable('session')) {
+        storageType = 'session';
+    } else if (Sammy.Store.isAvailable('cookie')) {
+        storageType = 'cookie';
+    } else {
+        storageType = 'memory';
+    }
+
     // Initialize storage
-    var store = new Sammy.Store({name: 'storage', type: 'session'});
+    var store = new Sammy.Store({name: 'storage', type: storageType});
     var loaded = false;
 
     /**
@@ -197,7 +207,7 @@ app = Sammy('#main', function (sam) {
         store.set('path', req.path);
 
         // Redirect to login page if no credentials stored
-        if (!store.get('connected') && window.localStorage.getItem("isConnected") != 'true') {
+        if (!store.get('connected') != 'true') {
             req.redirect('#/login');
             return false;
         }
@@ -258,7 +268,6 @@ app = Sammy('#main', function (sam) {
             if (data.apiVersion == '0.1') {
                 c.api('/users', function(data) {
                     store.set('connected', true);
-                    window.localStorage.setItem("isConnected", "true");
                     $('#logout-button').fadeIn();
                     c.flash('success', 'Logged in');
                     if (store.get('path')) {
