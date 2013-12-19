@@ -231,6 +231,9 @@ app = Sammy('#main', function (sam) {
      *
      */
     sam.get('#/', function (c) {
+        // Show development note
+        c.flash('info', '<b>You are using a development version.</b><br />' +
+            'Please note that you can use the <a href="https://doc.yunohost.org/#/moulinette" target="_blank">moulinette</a>  if you want to access to more YunoHost\'s features.');
         c.view('home');
     });
 
@@ -263,7 +266,7 @@ app = Sammy('#main', function (sam) {
         store.set('user', 'admin');
         store.set('password', btoa(c.params['password']));
         c.api('/api', function(data) {
-            if (data.apiVersion == '0.1') {
+            if (data.apiVersion) {
                 c.api('/users', function(data) {
                     store.set('connected', true);
                     $('#logout-button').fadeIn();
@@ -275,7 +278,7 @@ app = Sammy('#main', function (sam) {
                     }
                 });
             } else {
-                c.flash('fail', 'Non-compatible API (0.1 required)');
+                c.flash('fail', 'Non-compatible API');
                 c.redirect('#/login');
             }
         });
