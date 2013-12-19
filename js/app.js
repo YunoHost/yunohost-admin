@@ -47,14 +47,12 @@ app = Sammy('#main', function (sam) {
             html = '';
             for(lvl in flashs) {
                 flashs[lvl].forEach( function(msg) {
-                    html += '<div class="'+ lvl +'">'+ msg +'</div>';
+                    if (lvl == 'fail') { alertClass = 'alert-danger'; }
+                    else               { alertClass = 'alert-'+ lvl; }
+                    html += '<div class="alert '+ alertClass +'">'+ msg +'</div>';
                 });
             }
-            if      (level == 'fail')    { alertClass = 'alert-danger'; }
-            else if (level == 'success') { alertClass = 'alert-success'; }
-            else                         { alertClass = 'alert-info'; }
-
-            $('#flash').removeClass().addClass('alert '+ alertClass).html(html).fadeIn();
+            $('#flash').html(html).fadeIn();
         },
 
         // API connection helper
