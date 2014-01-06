@@ -19,7 +19,7 @@
     </div>
     <div id="collapseOne" class="panel-collapse collapse">
       <div class="panel-body">
-        <small>... and I have <a href="http://doc.yunohost.org">set my DNS correctly</a>.</small>
+        <small>... and I have <a href="http://doc.yunohost.org/#/dns">set my DNS correctly</a>.</small>
         <hr>
         <div class="form-group">
             <label for="domain" class="col-sm-3 control-label">Domain name</label>
