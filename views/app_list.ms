@@ -32,4 +32,12 @@
         <p class="list-group-item-text">{{Description.en}}</p>
     </a>
 {{/Apps}}
+
+{{^Apps}}
+<div class="alert alert-warning">
+    <span class="glyphicon glyphicon-exclamation-sign"></span>
+    No installed apps.
+</div>
+{{/Apps}}
+
 </div>
