@@ -494,6 +494,69 @@ app = Sammy('#main', function (sam) {
             c.redirect('#/apps/'+ c.params['app']);
         }
     });
+
+    /**
+     * Services
+     *
+     */
+
+    // All services status
+    sam.get('#/services', function (c) {
+        c.api('/service/status', function(data) { // ?
+            data2 = { 'services': [] }
+            $.each(data, function(k, v) {
+                v.name = k;
+                v.is_loaded = (v.loaded=='enabled') ? true : false;
+                v.is_running = (v.status=='running') ? true : false;
+                data2.services.push(v);
+            });
+            c.view('service_list', data2);
+        });
+    });
+
+    // Status & actions for a service
+    sam.get('#/services/:service', function (c) {
+        params = { 'names': c.params['service'] }
+        c.api('/service/status', function(data) { // ?
+            data2 = { 'service': data }
+            data2.service.name = c.params['service'];
+            data2.service.is_loaded = (data.loaded=='enabled') ? true : false;
+            data2.service.is_running = (data.status=='running') ? true : false;
+
+            store.clear('slide');
+            c.view('service_info', data2);
+        }, 'GET', params);
+    });
+
+    // Service log
+    sam.get('#/services/:service/log', function (c) {
+        params = { 'name': c.params['service'], 'number': 50 }
+        c.api('/service/log', function(data) { // ?
+            data2 = { 'logs': [], 'name': c.params['service'] }
+            $.each(data, function(k, v) {
+                data2.logs.push({name: k, log: v.join('\n')});
+            });
+
+            store.clear('slide');
+            c.view('service_log', data2);
+        }, 'GET', params);
+    });
+
+    // Enable/Disable & Start/Stop service
+    sam.get('#/services/:service/:action', function (c) {
+        if (confirm('Are you sure you want to '+ c.params['action'] +' '+ c.params['service'] +' ?')) {
+            params = { 'names': c.params['service'] }
+            c.api('/service/'+ c.params['action'], function(data) {
+                store.clear('slide');
+                c.redirect('#/services/'+ c.params['service']);
+            }, 'GET',  params);
+        } else {
+            store.clear('slide');
+            c.redirect('#/services/'+ c.params['service']);
+        }
+    });
+
+
 });
 
 
