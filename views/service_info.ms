@@ -10,7 +10,7 @@
     <h2>Status</h2>
     {{#service}}
         <div class="pull-left">
-            Loaded: 
+            Start on boot:
             <span class="text-{{#is_loaded}}success{{/is_loaded}}{{^is_loaded}}danger{{/is_loaded}}">
             {{loaded}}
             </span>
