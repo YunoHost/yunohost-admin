@@ -12,11 +12,6 @@
         <h3 class="list-group-item-heading">{{name}}</h3>
         <div class="clearfix"></div>
         <div class="list-group-item-text">
-            Loaded: 
-            <span class="text-{{#is_loaded}}success{{/is_loaded}}{{^is_loaded}}danger{{/is_loaded}}">
-            {{loaded}}
-            </span>
-            <br>
             Status: 
             <span class="text-{{#is_running}}success{{/is_running}}{{^is_running}}danger{{/is_running}}">
             {{status}}
