@@ -79,7 +79,7 @@ div.br {
     right: 0;
     z-index: 2000;
     text-align: center;
-    background: rgba(255, 255, 255, 0.25);
+    background: rgba(255, 255, 255, 0.5);
     padding-top: 10%;
 }
 .loader-content img {
