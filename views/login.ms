@@ -5,9 +5,9 @@
 </div>
 
 <form action="#/login" id="form" method="post">
-    <div class="input-group"{{#domain}} style="display: none"{{/domain}}>
+    <div class="input-group {{#domain}} hidden{{/domain}}">
         <span class="input-group-addon"> <span class="glyphicon glyphicon-cloud"></span> </span>
-        <input type="{{#domain}}hidden{{/domain}}{{^domain}}text{{/domain}}" name="domain" class="form-control" placeholder="myserver.org"{{#domain}} value="{{domain}}" {{/domain}}>
+        <input type="{{#if domain}}hidden{{else}}text{{/if}}" name="domain" class="form-control" placeholder="myserver.org" value="{{domain}}">
     </div>
     <br />
     <div class="input-group">
