@@ -247,7 +247,7 @@ app = Sammy('#main', function (sam) {
     });
 
     sam.get('#/login', function (c) {
-        $('#logout-button').hide();
+        $('.logout-button').hide();
         store.set('path-1', '#/login');
 
         // Check if te client is hosted on a yunohost node
@@ -278,7 +278,7 @@ app = Sammy('#main', function (sam) {
             if (data.apiVersion) {
                 c.api('/users', function(data) {
                     store.set('connected', true);
-                    $('#logout-button').fadeIn();
+                    $('.logout-button').fadeIn();
                     c.flash('success', 'Logged in');
                     if (store.get('path')) {
                         c.redirect(store.get('path'));

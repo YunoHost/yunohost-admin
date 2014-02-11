@@ -13,14 +13,15 @@
 </head>
 <body>
     <div id="slider">
-        <div class="page-header hidden-xs">
+        <div class="page-header clearfix hidden-xs">
+            <a href="#/logout" class="pull-right logout-button">
+                <span class="glyphicon glyphicon-log-out"></span><span class="text-hide">Logout</span>
+            </a>
             <h1 class="pull-left">YunoHost <small>Administration</small></h1>
-            <a id="logout-button" href="#/logout" class="pull-right" style="padding-top: 29px; padding-right: 5px; font-size: 24px;"><span class="glyphicon glyphicon-log-out"></span></a>
-            <div class="clearfix"></div>
-            <br />
         </div>
-        <div id="flash" style="display: none">
-        </div>
+
+        <div id="flash" style="display: none"></div>
+
         <div id="slider-container">
             <div id="slideBack" class="block" style="display: none;"></div>
             <div id="main" class="block">
@@ -29,6 +30,7 @@
             <div id="slideTo" class="block" style="display: none; z-index: 100;"></div>
             <div class="clearfix"></div>
         </div>
+
     </div>
 
     <div id="popup" class="modal fade">

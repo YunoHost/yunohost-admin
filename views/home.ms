@@ -1,7 +1,8 @@
-<div class="page-header visible-xs">
+<div class="page-header clearfix visible-xs">
+    <a href="#/logout" class="pull-right logout-button">
+        <span class="glyphicon glyphicon-log-out"></span><span class="text-hide">Logout</span>
+    </a>
     <h1 class="pull-left">YunoHost <small>Administration</small></h1>
-    <div class="clearfix"></div>
-    <br />
 </div>
 
 <div class="list-group">

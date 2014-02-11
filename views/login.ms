@@ -1,7 +1,5 @@
-<div class="page-header visible-xs">
+<div class="page-header clearfix visible-xs">
     <h1 class="pull-left">YunoHost <small>Administration</small></h1>
-    <div class="clearfix"></div>
-    <br />
 </div>
 
 <form action="#/login" id="form" method="post">
