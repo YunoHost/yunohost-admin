@@ -93,3 +93,8 @@ div.br {
     display: inline-block;
     vertical-align: middle;
 }
+
+
+.help-block {
+    text-align: right;
+}
