@@ -234,7 +234,16 @@ app = Sammy('#main', function (sam) {
         // Show development note
         c.flash('info', '<b>You are using a development version.</b><br />' +
             'Please note that you can use the <a href="https://doc.yunohost.org/#/moulinette" target="_blank">moulinette</a>  if you want to access to more YunoHost\'s features.');
-        c.view('home');
+
+        // Available sections
+        data = {links: [
+            {name: "Users", path: '#/users'},
+            {name: "Domains", path: '#/domains'},
+            {name: "Applications", path: '#/apps'},
+            {name: "Services", path: '#/services'},
+        ]};
+
+        c.view('home', data);
     });
 
     sam.get('#/login', function (c) {
