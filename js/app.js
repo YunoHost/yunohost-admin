@@ -543,7 +543,7 @@ app = Sammy('#main', function (sam) {
         c.api('/service/log', function(data) { // ?
             data2 = { 'logs': [], 'name': c.params['service'] }
             $.each(data, function(k, v) {
-                data2.logs.push({name: k, log: v.join('\n')});
+                data2.logs.push({filename: k, filecontent: v.join('\n')});
             });
 
             store.clear('slide');

@@ -7,9 +7,9 @@
 
 <div class="container">
     {{#logs}}
-        <h2>{{name}}</h2>
+        <h2>{{filename}}</h2>
         <pre class="service-log">
-        {{log}}
+        {{filecontent}}
         </pre>
     {{/logs}}
 </div>
