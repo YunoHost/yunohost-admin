@@ -20,5 +20,10 @@
         <span class="glyphicon glyphicon-chevron-right pull-right"></span>
         <div class="clearfix"></div>
     </a>
+    <a href="#/services" class="list-group-item slide">
+        <h4 class="pull-left list-group-item-heading">Services</h4>
+        <span class="glyphicon glyphicon-chevron-right pull-right"></span>
+        <div class="clearfix"></div>
+    </a>
 </div>
 
