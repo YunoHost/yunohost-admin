@@ -5,7 +5,7 @@ app = Sammy('#main', function (sam) {
      *
      */
     // Plugins
-    sam.use('Mustache', 'ms');
+    sam.use('Handlebars', 'ms');
 
     // Look for supported type of storage to use
     var storageType;
