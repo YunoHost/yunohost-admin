@@ -36,15 +36,15 @@
                     <table class="table table-condensed">
                         <tr>
                             <td>Used</td>
-                            <td>{{system.memory.ram.used}} ({{system.memory.ram.percent}} %)</td>
+                            <td>{{humanSize system.memory.ram.used}} ({{system.memory.ram.percent}} %)</td>
                         </tr>
                         <tr>
                             <td>Free</td>
-                            <td>{{system.memory.ram.free}}</td>
+                            <td>{{humanSize system.memory.ram.free}}</td>
                         </tr>
                         <tr class="active">
                             <td>Total</td>
-                            <td>{{system.memory.ram.total}}</td>
+                            <td>{{humanSize system.memory.ram.total}}</td>
                         </tr>
                     </table>
 
@@ -52,15 +52,15 @@
                     <table class="table table-condensed">
                         <tr>
                             <td>Used</td>
-                            <td>{{system.memory.swap.used}} ({{system.memory.swap.percent}} %)</td>
+                            <td>{{humanSize system.memory.swap.used}} ({{system.memory.swap.percent}} %)</td>
                         </tr>
                         <tr>
                             <td>Free</td>
-                            <td>{{system.memory.swap.free}}</td>
+                            <td>{{humanSize system.memory.swap.free}}</td>
                         </tr>
                         <tr class="active">
                             <td>Total</td>
-                            <td>{{system.memory.swap.total}}</td>
+                            <td>{{humanSize system.memory.swap.total}}</td>
                         </tr>
                     </table>
                 </div>
@@ -147,18 +147,18 @@
                     <table class="table table-condensed">
                         <tr>
                             <td>Cx</td>
-                            <td>{{cx}}</td>
-                            <td>{{cumulative_cx}} (cumulative)</td>
+                            <td>{{humanSize cx}}</td>
+                            <td>{{humanSize cumulative_cx}} (cumulative)</td>
                         </tr>
                         <tr>
                             <td>Rx</td>
-                            <td>{{rx}}</td>
-                            <td>{{cumulative_rx}} (cumulative)</td>
+                            <td>{{humanSize rx}}</td>
+                            <td>{{humanSize cumulative_rx}} (cumulative)</td>
                         </tr>
                         <tr>
                             <td>Tx</td>
-                            <td>{{tx}}</td>
-                            <td>{{cumulative_tx}} (cumulative)</td>
+                            <td>{{humanSize tx}}</td>
+                            <td>{{humanSize cumulative_tx}} (cumulative)</td>
                         </tr>
                     </table>
                 {{/each}}
@@ -188,13 +188,13 @@
                                 <td>Mount point</td><td>{{ filesystem.mnt_point }}</td>
                             </tr>
                             <tr>
-                                <td>Size</td><td>{{ filesystem.size }}</td>
+                                <td>Size</td><td>{{humanSize filesystem.size }}</td>
                             </tr>
                             <tr>
-                                <td>Used</td><td>{{ filesystem.used }}</td>
+                                <td>Used</td><td>{{humanSize filesystem.used }}</td>
                             </tr>
                             <tr class="active">
-                                <td>Available</td><td>{{ filesystem.avail }}</td>
+                                <td>Available</td><td>{{humanSize filesystem.avail }}</td>
                             </tr>
                         </table>
                     </div>
@@ -202,10 +202,10 @@
                         <h4>I/O <small>Time since update: {{ io.time_since_update }}</small></h4>
                         <table class="table table-condensed">
                             <tr>
-                                <td>Read</td><td>{{ io.read_bytes }}</td>
+                                <td>Read</td><td>{{humanSize io.read_bytes }}</td>
                             </tr>
                             <tr>
-                                <td>Write</td><td>{{ io.write_bytes }}</td>
+                                <td>Write</td><td>{{humanSize io.write_bytes }}</td>
                             </tr>
                         </table>
                     </div>
