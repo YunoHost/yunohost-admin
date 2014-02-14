@@ -141,6 +141,7 @@
 
                 <h3>Usage</h3>
                 {{#each network.usage}}
+                <div class="clearfix">
                     <h4>
                         {{@key}}
                         <small>Time since update: {{humanTime time_since_update}}</small>
@@ -162,6 +163,7 @@
                             <td>{{humanSize cumulative_tx}} (cumulative)</td>
                         </tr>
                     </table>
+                </div>
                 {{/each}}
             </div>
         </div>
@@ -177,6 +179,7 @@
         <div id="disk" class="panel-collapse collapse">
             <div class="panel-body">
                 {{#each disk}}
+                <div class="clearfix">
                 <h3>{{@key}}</h3>
                 <div class="row">
                     <div class="col-md-6">
@@ -210,6 +213,7 @@
                             </tr>
                         </table>
                     </div>
+                </div>
                 {{/each}}
             </div>
         </div>
