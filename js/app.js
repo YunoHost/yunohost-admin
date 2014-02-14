@@ -16,6 +16,13 @@ app = Sammy('#main', function (sam) {
     Handlebars.registerHelper('humanTime', function(time) {
         return Math.round(time) + 's';
     });
+    Handlebars.registerHelper('bitRate', function(bytes, time) {
+        var sizes = ['b', 'Kb', 'Mb', 'Gb', 'Tb'];
+        if (time == 0) return 'n/a';
+        var bps = bytes / time * 8;
+        var i = parseInt(Math.floor(Math.log(bps) / Math.log(1024)));
+        return Math.round(bps / Math.pow(1024, i), 2) + ' ' + sizes[[i]] + '/s';
+    });
 
 
     // Look for supported type of storage to use

@@ -149,17 +149,17 @@
                     <table class="table table-condensed">
                         <tr>
                             <td><span class="glyphicon glyphicon-cloud-download"> Rx</span></td>
-                            <td>{{humanSize rx}}</td>
+                            <td>{{bitRate rx time_since_update}}</td>
                             <td>{{humanSize cumulative_rx}} (cumulative)</td>
                         </tr>
                         <tr>
                             <td><span class="glyphicon glyphicon-cloud-upload"> Tx</td>
-                            <td>{{humanSize tx}}</td>
+                            <td>{{bitRate tx time_since_update}}</td>
                             <td>{{humanSize cumulative_tx}} (cumulative)</td>
                         </tr>
                         <tr class="active">
-                            <td>Cx</td>
-                            <td>{{humanSize cx}}</td>
+                            <td>Rx + Tx</td>
+                            <td>{{bitRate cx time_since_update}}</td>
                             <td>{{humanSize cumulative_cx}} (cumulative)</td>
                         </tr>
                     </table>
