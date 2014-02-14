@@ -142,7 +142,7 @@
                 {{#each network.usage}}
                     <h4>
                         {{@key}}
-                        <small>Time since update: {{time_since_update}}</small>
+                        <small>Time since update: {{humanTime time_since_update}}</small>
                     </h4>
                     <table class="table table-condensed">
                         <tr>
@@ -199,7 +199,7 @@
                         </table>
                     </div>
                     <div class="col-md-6">
-                        <h4>I/O <small>Time since update: {{ io.time_since_update }}</small></h4>
+                        <h4>I/O <small>Time since update: {{humanTime io.time_since_update }}</small></h4>
                         <table class="table table-condensed">
                             <tr>
                                 <td>Read</td><td>{{humanSize io.read_bytes }}</td>

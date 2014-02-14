@@ -13,6 +13,9 @@ app = Sammy('#main', function (sam) {
         var i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
         return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[[i]];
     });
+    Handlebars.registerHelper('humanTime', function(time) {
+        return Math.round(time) + 's';
+    });
 
 
     // Look for supported type of storage to use
