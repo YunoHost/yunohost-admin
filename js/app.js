@@ -231,6 +231,7 @@ app = Sammy('#main', function (sam) {
      *
      */
     sam.get('#/', function (c) {
+
         // Show development note
         c.flash('info', '<b>You are using a development version.</b><br />' +
             'Please note that you can use the <a href="https://doc.yunohost.org/#/moulinette" target="_blank">moulinette</a>  if you want to access to more YunoHost\'s features.');
@@ -241,6 +242,7 @@ app = Sammy('#main', function (sam) {
             {name: "Domains", path: '#/domains'},
             {name: "Applications", path: '#/apps'},
             {name: "Services", path: '#/services'},
+            {name: "Monitoring", path: '#/monitor'},
         ]};
 
         c.view('home', data);
@@ -564,6 +566,77 @@ app = Sammy('#main', function (sam) {
             c.redirect('#/services/'+ c.params['service']);
         }
     });
+
+
+    /**
+     * Monitor
+     *
+     */
+
+    // 
+    sam.get('#/monitor', function (c) {
+        monitorData = {}
+
+        // Put this function elswere ?
+        function bytesToSize(bytes) {
+            var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+            if (bytes == 0) return 'n/a';
+            var i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
+            return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[[i]];
+        };
+
+        // Why this method ? 
+        c.api('/monitor/update-stats', function(data) { // ?
+
+            c.api('/monitor/system', function(data) {
+                monitorData.system = data;
+
+                // Convert byte to human readable string
+                $.each(monitorData.system.memory, function(k,v) {
+                    monitorData.system.memory[k].free = bytesToSize(v.free);
+                    monitorData.system.memory[k].used = bytesToSize(v.used);
+                    monitorData.system.memory[k].total = bytesToSize(v.total);
+                });
+                
+                c.api('/monitor/disk', function(data) {
+                    monitorData.disk = data;
+
+                    // Convert byte to human readable string
+                    $.each(monitorData.disk, function(k,v) {
+                        monitorData.disk[k].filesystem.avail = bytesToSize(v.filesystem.avail);
+                        monitorData.disk[k].filesystem.size = bytesToSize(v.filesystem.size);
+                        monitorData.disk[k].filesystem.used = bytesToSize(v.filesystem.used);
+                        monitorData.disk[k].io.read_bytes = bytesToSize(v.io.read_bytes);
+                        monitorData.disk[k].io.write_bytes = bytesToSize(v.io.write_bytes);
+                    });
+
+                    c.api('/monitor/network', function(data) {
+                        monitorData.network = data;
+                        
+                        // Remove useless interface
+                        delete monitorData.network.usage.lo;
+
+                        // Convert byte to human readable string
+                        $.each(monitorData.network.usage, function(k,v) {
+                            monitorData.network.usage[k].cx = bytesToSize(v.cx);
+                            monitorData.network.usage[k].cumulative_cx = bytesToSize(v.cumulative_cx);
+                            monitorData.network.usage[k].rx = bytesToSize(v.rx);
+                            monitorData.network.usage[k].cumulative_rx = bytesToSize(v.cumulative_rx);
+                            monitorData.network.usage[k].tx = bytesToSize(v.tx);
+                            monitorData.network.usage[k].cumulative_tx = bytesToSize(v.cumulative_tx);
+                        });
+
+
+                        c.view('monitor', monitorData);
+                    });
+
+                });                
+            });
+
+
+        }, 'POST', {period: 'day'});
+    });
+
 
 
 });
