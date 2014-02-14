@@ -5,6 +5,7 @@
 <div class="view-title">Monitoring</div>
 <div class="br"></div>
 
+{{#if status}}
 <div class="panel panel-default">
     <div class="panel-heading">
         <h2 class="panel-title"><span class="glyphicon glyphicon-info-sign"></span> Infos</h2>
@@ -216,5 +217,12 @@
 
 </div><!-- .panel-group -->
 
-
+{{else}}
+<div class="alert alert-warning">
+    <span class="glyphicon glyphicon-exclamation-sign"></span>
+    Monitoring is not enabled.
+    <br>
+    Check <a href="/#/services/glances">glances</a> service status.
 </div>
+
+{{/if}}

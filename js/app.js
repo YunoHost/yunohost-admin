@@ -589,28 +589,36 @@ app = Sammy('#main', function (sam) {
         monitorData = {}
 
         // Why this method ? 
-        c.api('/monitor/update-stats', function(data) { // ?
+        c.api('/service/status', function(data) { // ?
+            monitorData.status = true;
 
-            c.api('/monitor/system', function(data) {
-                monitorData.system = data;
+            if (data.status == 'running') {
+                c.api('/monitor/system', function(data) {
+                    monitorData.system = data;
 
-                c.api('/monitor/disk', function(data) {
-                    monitorData.disk = data;
+                    c.api('/monitor/disk', function(data) {
+                        monitorData.disk = data;
 
-                    c.api('/monitor/network', function(data) {
-                        monitorData.network = data;
-                        
-                        // Remove useless interface
-                        delete monitorData.network.usage.lo;
+                        c.api('/monitor/network', function(data) {
+                            monitorData.network = data;
 
-                        c.view('monitor', monitorData);
+                            // Remove useless interface
+                            delete monitorData.network.usage.lo;
+
+                            c.view('monitor', monitorData);
+                        });
+
                     });
+                });
+            }
+            else {
+                monitorData.status = false;
+                c.view('monitor', monitorData);
+            }
 
-                });                
-            });
 
 
-        }, 'POST', {period: 'day'});
+        }, 'GET', {names: 'glances'});
     });
 
 
