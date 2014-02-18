@@ -13,7 +13,7 @@
     <div class="panel-body">
         <ul class="list-unstyled">
           <li><b>Hostname: </b>{{system.infos.hostname}}</li>
-          <li><b>OS: </b>{{system.infos.os_name}} - {{system.infos.linux_distro}} ({{system.infos.os_version}} {{system.infos.platform}})</li>
+          <li><b>OS: </b>{{ucwords system.infos.linux_distro}} {{system.infos.platform}} ({{system.infos.os_name}} {{system.infos.os_version}})</li>
           <li><b>Uptime: </b>{{system.uptime}}</li>
         </ul>
     </div>
