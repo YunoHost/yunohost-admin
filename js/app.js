@@ -7,6 +7,11 @@ app = Sammy('#main', function (sam) {
     // Plugins
     sam.use('Handlebars', 'ms');
 
+    Handlebars.registerHelper('ucwords', function(str) {
+        return (str + '').replace(/^([a-z\u00E0-\u00FC])|\s+([a-z\u00E0-\u00FC])/g, function ($1) {
+            return $1.toUpperCase();
+        });
+    });
     Handlebars.registerHelper('humanSize', function(bytes) {
         var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
         if (bytes == 0) return 'n/a';
