@@ -98,3 +98,11 @@ div.br {
 .help-block {
     text-align: right;
 }
+
+th h3,
+th h4 {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+th h4 {font-size: 16px;}
+th h4 small {font-size: 12px;}

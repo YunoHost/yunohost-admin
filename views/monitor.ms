@@ -142,26 +142,36 @@
                 <h3>Usage</h3>
                 {{#each network.usage}}
                 <div class="clearfix">
-                    <h4>
-                        {{@key}}
-                        <small>Time since update: {{humanTime time_since_update}}</small>
-                    </h4>
                     <table class="table table-condensed">
-                        <tr>
-                            <td><span class="glyphicon glyphicon-cloud-download"> Rx</span></td>
-                            <td>{{bitRate rx time_since_update}}</td>
-                            <td>{{humanSize cumulative_rx}} (cumulative)</td>
-                        </tr>
-                        <tr>
-                            <td><span class="glyphicon glyphicon-cloud-upload"> Tx</td>
-                            <td>{{bitRate tx time_since_update}}</td>
-                            <td>{{humanSize cumulative_tx}} (cumulative)</td>
-                        </tr>
-                        <tr class="active">
-                            <td>Rx + Tx</td>
-                            <td>{{bitRate cx time_since_update}}</td>
-                            <td>{{humanSize cumulative_cx}} (cumulative)</td>
-                        </tr>
+                        <thead>
+                            <tr>
+                                <th>
+                                    <h4>
+                                    {{@key}}
+                                    <small>Time since update: {{humanTime time_since_update}}</small>
+                                </h4>
+                                </th>
+                                <th>Bitrate</th>
+                                <th>Cumulative bitrate</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Rx</span></td>
+                                <td>{{bitRate rx time_since_update}}</td>
+                                <td>{{humanSize cumulative_rx}}</td>
+                            </tr>
+                            <tr>
+                                <td>Tx</td>
+                                <td>{{bitRate tx time_since_update}}</td>
+                                <td>{{humanSize cumulative_tx}}</td>
+                            </tr>
+                            <tr class="active">
+                                <td>Rx + Tx</td>
+                                <td>{{bitRate cx time_since_update}}</td>
+                                <td>{{humanSize cumulative_cx}}</td>
+                            </tr>
+                        </tbody>
                     </table>
                 </div>
                 {{/each}}
