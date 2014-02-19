@@ -131,9 +131,8 @@
                     {{#each network.infos.local_ip}}
                         <tr>
                             <td>{{@key}}</td>
-                            {{#this}}
-                                <td>{{.}}</td>
-                            {{/this}}
+                            <td>{{#this.ipv4}}{{this}}{{/this.ipv4}}</td>
+                            <td>{{#this.ipv6}}{{this}}{{/this.ipv6}}</td>
                         </tr>
                     {{/each}}
                     </tbody>
