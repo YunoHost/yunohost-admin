@@ -147,29 +147,24 @@
                             <tr>
                                 <th>
                                     <h4>
-                                    {{@key}}
-                                    <small>Time since update: {{humanTime time_since_update}}</small>
-                                </h4>
+                                        {{@key}}
+                                        <small>Time since update: {{humanTime time_since_update}}</small>
+                                    </h4>
                                 </th>
-                                <th>Bitrate</th>
-                                <th>Cumulative bitrate</th>
+                                <th>Bit rate</th>
+                                <th>Cumulative usage</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>Rx</span></td>
-                                <td>{{bitRate rx time_since_update}}</td>
-                                <td>{{humanSize cumulative_rx}}</td>
-                            </tr>
-                            <tr>
-                                <td>Tx</td>
+                                <td>Transmission</td>
                                 <td>{{bitRate tx time_since_update}}</td>
                                 <td>{{humanSize cumulative_tx}}</td>
                             </tr>
-                            <tr class="active">
-                                <td>Rx + Tx</td>
-                                <td>{{bitRate cx time_since_update}}</td>
-                                <td>{{humanSize cumulative_cx}}</td>
+                            <tr>
+                                <td>Reception</td>
+                                <td>{{bitRate rx time_since_update}}</td>
+                                <td>{{humanSize cumulative_rx}}</td>
                             </tr>
                         </tbody>
                     </table>
