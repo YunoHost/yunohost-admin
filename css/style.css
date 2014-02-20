@@ -57,9 +57,8 @@ body .form-control {
 
 .view-title {
     text-align: center;
-    max-width: 240px;
     font-size: 25px;
-    margin: -35px auto 0 auto;
+    margin: -35px 120px 0 120px;
 }
 
 .page-header {
