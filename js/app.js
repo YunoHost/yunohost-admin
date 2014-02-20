@@ -670,6 +670,7 @@ app = Sammy('#main', function (sam) {
             delete params['confirm_new_password'];
             // Update password and redirect to the home
             c.api('/adminpw', function(data) { // http://api.yunohost.org/#!/tools/tools_adminpw_put_3
+                store.set('password', btoa(params['new_password']));
                 c.redirect('#/');
             }, 'PUT', params);
         }
