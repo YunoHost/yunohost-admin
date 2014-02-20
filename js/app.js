@@ -266,6 +266,7 @@ app = Sammy('#main', function (sam) {
             {name: "Applications", path: '#/apps'},
             {name: "Services", path: '#/services'},
             {name: "Monitoring", path: '#/monitor'},
+            {name: "Tools", path: '#/tools'},
         ]};
 
         c.view('home', data);
@@ -632,6 +633,49 @@ app = Sammy('#main', function (sam) {
 
         }, 'GET', {names: 'glances'});
     });
+
+
+    /**
+     * Tools
+     *
+     */
+
+    sam.get('#/tools', function (c) {
+        // Available tools
+        data = {links: [
+            {name: "Change administration password", path: '#/tools/adminpw'},
+        ]};
+        c.view('tools_list', data);
+    });
+
+    // Update administration password
+    sam.get('#/tools/adminpw', function (c) {
+        c.view('tools_adminpw');
+    });
+    sam.put('#/tools/adminpw', function (c) {
+        params = {}
+        $.each(c.params.toHash(), function(key, value) {
+            if (value !== '') { params[key] = value; }
+        });
+        if ($.isEmptyObject(params)) {
+            c.flash('fail', 'You should modify something');
+            store.clear('slide');
+            c.redirect('#/tools/adminpw');
+        } else if (params['new_password'] !== params['confirm_new_password']) {
+            c.flash('fail', 'Your password didn\'t match');
+            store.clear('slide');
+            c.redirect('#/tools/adminpw');
+        } else {
+            // Remove useless variable
+            delete params['confirm_new_password'];
+            // Update password and redirect to the home
+            c.api('/adminpw', function(data) { // http://api.yunohost.org/#!/tools/tools_adminpw_put_3
+                c.redirect('#/');
+            }, 'PUT', params);
+        }
+    });
+
+
 
 
 
