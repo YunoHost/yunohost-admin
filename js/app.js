@@ -221,14 +221,14 @@ app = Sammy('#main', function (sam) {
      * Filters
      *
      */
-    sam.before(['#/apps/install/:app'], function (req){
+    sam.before(/apps\/install\//, function (req){
         // Preload domains list.
         req.params.domains = [];
         req.api('/domains', function(data) {
             req.params.domains = data.Domains;
         });
     });
-    sam.before(['#/apps/install/:app'], function (req){
+    sam.before(/apps\/install\//, function (req){
         // Preload users lists.
         req.params.users = [];
         req.api('/users', function(data) {
