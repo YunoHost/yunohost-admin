@@ -43,7 +43,17 @@
                     {{#allowedValues}}<option value="{{value}}">{{label}}</option>{{/allowedValues}}
                 </select>
                 {{else}}
-                <input type="text" name="{{name}}" class="form-control" value="{{default}}" placeholder="{{example}}" required>
+                    {{#if choices}}
+                        {{#each choices}}
+                        <div class="radio">
+                        <label for="{{../name}}-{{key}}">
+                            <input type="radio" id="{{../name}}-{{key}}" name="{{../name}}" value="{{value}}" {{#if checked}}checked{{/if}} required> {{value}}
+                        </label>
+                        </div>
+                        {{/each}}
+                    {{else}}
+                    <input type="text" name="{{name}}" class="form-control" value="{{default}}" placeholder="{{example}}" required>
+                    {{/if}}
                 {{/if}}
 
                 {{#if help}}

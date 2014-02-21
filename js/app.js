@@ -524,6 +524,18 @@ app = Sammy('#main', function (sam) {
             $.each(appData.manifest.arguments.install, function(k, v) {
                 appData.manifest.arguments.install[k].allowedValues = [];
 
+                // Radio button
+                if (typeof appData.manifest.arguments.install[k].choices !== 'undefined') {
+                    // Update choices values with  key and checked data
+                    $.each(appData.manifest.arguments.install[k].choices, function(ck, cv){
+                        appData.manifest.arguments.install[k].choices[ck] = {
+                            value: cv,
+                            key: ck,
+                            checked: (cv == appData.manifest.arguments.install[k].default) ? true : false,
+                        };
+                    });
+                }
+
                 // Special case for domain input.
                 // Display a list of available domains
                 if (v.name == 'domain') {
