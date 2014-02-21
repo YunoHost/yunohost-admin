@@ -221,8 +221,22 @@ app = Sammy('#main', function (sam) {
      * Filters
      *
      */
-    sam.before({except: {path: ['#/login', '#/postinstall']}}, function (req) {
+    sam.before(['#/apps/install/:app'], function (req){
+        // Preload domains list.
+        req.params.domains = [];
+        req.api('/domains', function(data) {
+            req.params.domains = data.Domains;
+        });
+    });
+    sam.before(['#/apps/install/:app'], function (req){
+        // Preload users lists.
+        req.params.users = [];
+        req.api('/users', function(data) {
+            req.params.users = data.Users;
+        });
+    });
 
+    sam.before({except: {path: ['#/login', '#/postinstall']}}, function (req) {
         // Store path for further redirections
         store.set('path-1', store.get('path'));
         store.set('path', req.path);
@@ -505,7 +519,37 @@ app = Sammy('#main', function (sam) {
 
     sam.get('#/apps/install/:app', function (c) {
         c.api('/apps?raw=true', function(data) { // http://api.yunohost.org/#!/app/app_list_get_8
-            c.view('app_install', data[c.params['app']]);
+            appData = data[c.params['app']];
+
+            $.each(appData.manifest.arguments.install, function(k, v) {
+                appData.manifest.arguments.install[k].allowedValues = [];
+
+                // Special case for domain input.
+                // Display a list of available domains
+                if (v.name == 'domain') {
+                    $.each(c.params.domains, function(key, domain){
+                        appData.manifest.arguments.install[k].allowedValues.push({
+                            value: domain,
+                            label: domain,
+                        });
+                    })
+                    appData.manifest.arguments.install[k].help = "<a href='#/domains'>Manage domains</a>";
+                }
+
+                // Special case for admin input.
+                // Display a list of available users
+                if (v.name == 'admin') {
+                    $.each(c.params.users, function(key, user){
+                        appData.manifest.arguments.install[k].allowedValues.push({
+                            value: user.Username,
+                            label: user.Fullname+' ('+user.Mail+')'
+                        });
+                    })
+                    appData.manifest.arguments.install[k].help = "<a href='#/users'>Manage users</a>";
+                }
+            });
+
+            c.view('app_install', appData);
         });
     });
 

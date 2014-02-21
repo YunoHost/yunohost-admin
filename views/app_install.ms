@@ -37,7 +37,18 @@
         <div class="form-group">
             <label for="{{name}}" class="col-sm-12">{{ask.en}}</label>
             <div class="col-sm-12">
+                {{#if allowedValues}}
+                <select name="{{name}}" required placeholder="{{example}}" class="form-control" {{#if multipleValues}}multiple{{/if}}>
+                    <option value="" default disabled selected>{{example}}</option>
+                    {{#allowedValues}}<option value="{{value}}">{{label}}</option>{{/allowedValues}}
+                </select>
+                {{else}}
                 <input type="text" name="{{name}}" class="form-control" value="{{default}}" placeholder="{{example}}" required>
+                {{/if}}
+
+                {{#if help}}
+                <span class="help-block">{{{help}}}</span>
+                {{/if}}
             </div>
         </div>
         {{/manifest.arguments.install}}
