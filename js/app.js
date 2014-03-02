@@ -603,6 +603,117 @@ app = Sammy('#main', function (sam) {
         }
     });
 
+    // Manage app access
+    sam.get('#/apps/:app/access', function (c) {
+        c.api('/app/'+c.params['app']+'?raw=true', function(data) { // http://api.yunohost.org/#!/app/app_info_get_9
+            c.api('/users', function(dataUsers) {
+
+                // allowed_users as array
+                if (typeof data.settings.allowed_users !== 'undefined') {
+                    if (data.settings.allowed_users.length === 0) {
+                        // Force empty array, means no user has access
+                        data.settings.allowed_users = [];
+                    }
+                    else {
+                        data.settings.allowed_users = data.settings.allowed_users.split(',');
+                    }
+                } else {
+                    data.settings.allowed_users = []; // Force array
+                    // if 'allowed_users' is undefined, everyone has access
+                    // that means that undefined is different from empty array
+                    data.settings.allow_everyone = true;
+                }
+
+                // Available users
+                data.users = [];
+                $.each(dataUsers.Users, function(key, user){
+                    // Do not list allowed_users in select list
+                    if ( data.settings.allowed_users.indexOf(user.Username) === -1 ) {
+                        data.users.push({
+                            value: user.Username,
+                            label: user.Fullname+' ('+user.Mail+')'
+                        });
+                    } else {
+                        // Complete allowed_users data
+                        data.settings.allowed_users[data.settings.allowed_users.indexOf(user.Username)] = {
+                            username: user.Username,
+                            fullname: user.Fullname,
+                            mail: user.Mail,
+                        }
+                    }
+                })
+
+                c.view('app_access', data);
+            });
+        });
+    });
+
+    // Remove all access
+    sam.get('#/apps/:app/access/remove', function (c) {
+        if (confirm('Are you sure you want to remove all access to '+ c.params['app'] +' ?')) {
+            params = {'apps': c.params['app'], 'users':[]}
+            c.api('/app/access?'+c.serialize(params), function(data) { // http://api.yunohost.org/#!/app/app_removeaccess_delete_12
+                store.clear('slide');
+                c.redirect('#/apps/'+ c.params['app']+ '/access');
+            }, 'DELETE', params);
+        } else {
+            store.clear('slide');
+            c.redirect('#/apps/'+ c.params['app']+ '/access');
+        }
+    });
+
+    // Remove access to a specific user
+    sam.get('#/apps/:app/access/remove/:user', function (c) {
+        if (confirm('Are you sure you want to remove access to '+ c.params['app'] +' for '+ c.params['user'] +' ?')) {
+            params = {'apps': c.params['app'], 'users': c.params['user']}
+            c.api('/app/access?'+c.serialize(params), function(data) { // http://api.yunohost.org/#!/app/app_removeaccess_delete_12
+                store.clear('slide');
+                c.redirect('#/apps/'+ c.params['app']+ '/access');
+            }, 'DELETE', params); // passing 'params' here is useless because jQuery doesn't handle ajax datas for DELETE requests. Passing parameters through uri.
+        } else {
+            store.clear('slide');
+            c.redirect('#/apps/'+ c.params['app']+ '/access');
+        }
+    });
+
+    // Grant all access
+    sam.get('#/apps/:app/access/add', function (c) {
+        if (confirm('Are you sure you want to add access to '+ c.params['app'] +' for all users ?')) {
+            params = {'apps': c.params['app'], 'users': null}
+            c.api('/app/access', function() { // http://api.yunohost.org/#!/app/app_addaccess_put_13
+                store.clear('slide');
+                c.redirect('#/apps/'+ c.params['app'] +'/access');
+            }, 'PUT', params);
+        } else {
+            store.clear('slide');
+            c.redirect('#/apps/'+ c.params['app']+ '/access');
+        }
+    });
+
+    // Grant access for a specific user
+    sam.post('#/apps/:app/access/add', function (c) {
+        params = {'users': c.params['user'], 'apps': c.params['app']}
+        c.api('/app/access', function() { // http://api.yunohost.org/#!/app/app_addaccess_put_13
+            store.clear('slide');
+            c.redirect('#/apps/'+ c.params['app'] +'/access');
+        }, 'PUT', params);
+    });
+
+    // Clear access (reset)
+    sam.get('#/apps/:app/access/clear', function (c) {
+        if (confirm('Are you sure you want to clear all access to '+ c.params['app'] +' ?')) {
+            params = {'apps': c.params['app']}
+            c.api('/app/access', function() { //
+                store.clear('slide');
+                c.redirect('#/apps/'+ c.params['app'] +'/access');
+            }, 'POST', params);
+        } else {
+            store.clear('slide');
+            c.redirect('#/apps/'+ c.params['app']+ '/access');
+        }
+    });
+
+
     /**
      * Services
      *
