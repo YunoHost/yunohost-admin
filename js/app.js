@@ -393,10 +393,16 @@ app = Sammy('#main', function (sam) {
 
     sam.post('#/users', function (c) {
         if (c.params['password'] == c.params['confirmation']) {
-            c.params['mail'] = c.params['email'] + c.params['domain'];
-            c.api('/users', function(data) { // http://api.yunohost.org/#!/user/user_create_post_2
-                c.redirect('#/users');
-            }, 'POST', c.params.toHash());
+            if (c.params['password'].length < 4) {
+                c.flash('fail', "Passwords is too short");
+                store.clear('slide');
+            }
+            else {
+                c.params['mail'] = c.params['email'] + c.params['domain'];
+                c.api('/users', function(data) { // http://api.yunohost.org/#!/user/user_create_post_2
+                    c.redirect('#/users');
+                }, 'POST', c.params.toHash());
+            }
         } else {
             c.flash('fail', "Passwords don't match");
             store.clear('slide');

@@ -52,6 +52,7 @@
             <label for="confirmation" class="col-sm-3 control-label">Confirmation</label>
             <div class="col-sm-9">
                 <input type="password" name="confirmation" class="form-control" placeholder="•••••" required>
+                <div class="help-block">Password must be at least 4 characters long.</div>
             </div>
         </div>
     </div>
