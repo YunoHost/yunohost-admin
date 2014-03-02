@@ -481,6 +481,19 @@ app = Sammy('#main', function (sam) {
         }, 'POST', params);
     });
 
+    sam.get('#/domains/:domain/delete', function (c) {
+        if (confirm('Are you sure you want to delete '+ c.params['domain'] +' ?')) {
+            c.api('/domains/'+ c.params['domain'], function(data) { // http://api.yunohost.org/#!/domain/domain_remove_delete_3
+                store.clear('slide');
+                c.redirect('#/domains');
+            }, 'DELETE');
+        } else {
+            store.clear('slide');
+            c.redirect('#/domains');
+        }
+    });
+
+
     /**
      * Apps
      *

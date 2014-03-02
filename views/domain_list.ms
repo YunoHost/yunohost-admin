@@ -9,11 +9,13 @@
 <div class="br"></div>
 
 <div class="list-group">
-{{#Domains}}
-    <a href="#/domains/{{.}}" class="list-group-item slide">
-        <h4 class="pull-left list-group-item-heading">{{.}}</h4>
-        <span class="glyphicon glyphicon-chevron-right pull-right"></span>
-        <div class="clearfix"></div>
-    </a>
-{{/Domains}}
+	{{#Domains}}
+	<div class="list-group-item">
+        <a href="#/domains/{{.}}/delete" class="btn btn-danger slide back pull-right">
+            <span class="glyphicon glyphicon-trash"></span> Delete
+        </a>
+        <h2 class="list-group-item-heading">{{.}}</h2>
+        <a href="https://{{.}}" target="_blank">https://{{.}}</a>
+	</div>
+	{{/Domains}}
 </div>
