@@ -126,7 +126,6 @@ app = Sammy('#main', function (sam) {
                 callback(data);
             })
             .fail(function(xhr) {
-                console.log(xhr);
                 if (xhr.status == 401) {
                     c.flash('fail', 'Wrong password');
                 } else if (typeof xhr.responseJSON !== 'undefined') {
@@ -159,7 +158,6 @@ app = Sammy('#main', function (sam) {
             .done(function(data) {
                 loaded = true;
                 $('div.loader-content').remove();
-                console.log(data);
             });
         },
 
