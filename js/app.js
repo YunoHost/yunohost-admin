@@ -462,7 +462,7 @@ app = Sammy('#main', function (sam) {
         c.view('domain_add', {'DDomains': ['.nohost.me', '.noho.st']});
     });
 
-    sam.post('#/domains', function (c) {
+    sam.post('#/domains/add', function (c) {
         if (c.params['domain'] == '') {
             if (c.params['ddomain'] == '') {
                 c.flash('fail', "You should indicate a domain");

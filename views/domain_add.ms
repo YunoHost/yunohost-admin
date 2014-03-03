@@ -6,7 +6,7 @@
 
 <div class="br"></div>
 
-<form action="#/domains" method="POST" class="form-horizontal">
+<form action="#/domains/add" method="POST" class="form-horizontal">
 
 <div class="panel-group" id="accordion">
   <div class="panel panel-default">
