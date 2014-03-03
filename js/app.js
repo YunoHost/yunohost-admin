@@ -83,6 +83,10 @@ app = Sammy('#main', function (sam) {
             c = this;
             method = typeof method !== 'undefined' ? method : 'GET';
             data   = typeof data   !== 'undefined' ? data   : {};
+            if (window.navigator && window.navigator.language && (typeof data.locale === 'undefined')) {
+                data.locale = window.navigator.language;
+            }
+
             var args = data;
             auth   = "Basic "+ btoa(store.get('user') +':'+ atob(store.get('password')));
             if (uri == '/postinstall') {
