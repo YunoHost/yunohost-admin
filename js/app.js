@@ -742,7 +742,6 @@ app = Sammy('#main', function (sam) {
             data2.service.is_loaded = (data.loaded=='enabled') ? true : false;
             data2.service.is_running = (data.status=='running') ? true : false;
 
-            store.clear('slide');
             c.view('service_info', data2);
         }, 'GET', params);
     });
