@@ -596,7 +596,7 @@ app = Sammy('#main', function (sam) {
 
     sam.get('#/apps/:app/uninstall', function (c) {
         if (confirm('Are you sure you want to uninstall '+ c.params['app'] +' ?')) {
-            c.api('/app/'+ c.params['app'], function() { // http://api.yunohost.org/#!/app/app_remove_delete_4
+            c.api('/app?app='+ c.params['app'], function() { // http://api.yunohost.org/#!/app/app_remove_delete_4
                 c.redirect('#/apps');
             }, 'DELETE');
         } else {
