@@ -454,7 +454,19 @@ app = Sammy('#main', function (sam) {
 
     sam.get('#/domains', function (c) {
         c.api('/domains', function(data) { // http://api.yunohost.org/#!/domain/domain_list_get_2
-            c.view('domain_list', data);
+            c.api('/domain/main', function(data2) {
+                domains = [];
+                $.each(data.Domains, function(k, domain) {
+                    domains.push({
+                        url: domain,
+                        main: (domain == data2.current_main_domain) ? true : false
+                    });
+                })
+
+                // Sort domains with main domain first
+                domains.sort(function(a, b){ return -2*(a.main) + 1; })
+                c.view('domain_list', {domains: domains});
+            }, 'PUT')
         });
     });
 
@@ -485,6 +497,32 @@ app = Sammy('#main', function (sam) {
                 store.clear('slide');
                 c.redirect('#/domains');
             }, 'DELETE');
+        } else {
+            store.clear('slide');
+            c.redirect('#/domains');
+        }
+    });
+
+    // Set default domain
+    sam.post('#/domains', function (c) {
+        if (c.params['domain'] == '') {
+            c.flash('fail', "You should select a domain default domain");
+            store.clear('slide');
+            c.redirect('#/domains');
+        } else if (confirm('Are you sure you want to change the main domain ?')) {
+
+            params = {'new_domain': c.params['domain']}
+            c.api('/domain/main', function(data) { // http://api.yunohost.org/#!/tools/tools_maindomain_put_1
+                store.clear('slide');
+                c.redirect('#/domains');
+            }, 'PUT', params);
+
+            // Wait 15s and refresh the page
+            refreshDomain = window.setTimeout(function(){
+                store.clear('slide');
+                c.redirect('#/domains')
+            }, 15000);
+
         } else {
             store.clear('slide');
             c.redirect('#/domains');
