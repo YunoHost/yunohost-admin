@@ -23,27 +23,27 @@
 
         <div class="pull-right">
         {{#is_loaded}}
-            <a href="#/services/{{name}}/disable" class="btn btn-danger slide back">
+            <a href="#/services/{{name}}/disable" class="btn btn-danger">
                 <span class="glyphicon glyphicon-remove"></span> Disable
             </a>
         {{/is_loaded}}
         {{^is_loaded}}
-            <a href="#/services/{{name}}/enable" class="btn btn-success slide back">
+            <a href="#/services/{{name}}/enable" class="btn btn-success">
                 <span class="glyphicon glyphicon-ok"></span> Enable
             </a>
         {{/is_loaded}}
 
         {{#is_running}}
-            <a href="#/services/{{name}}/stop" class="btn btn-danger slide back">
+            <a href="#/services/{{name}}/stop" class="btn btn-danger">
                 <span class="glyphicon glyphicon-stop"></span> Stop
             </a>
         {{/is_running}}
         {{^is_running}}
-            <a href="#/services/{{name}}/start" class="btn btn-success slide back">
+            <a href="#/services/{{name}}/start" class="btn btn-success">
                 <span class="glyphicon glyphicon-play"></span> Start
             </a>
         {{/is_running}}
-            <a href="#/services/{{name}}/log" class="btn btn-default slide back">
+            <a href="#/services/{{name}}/log" class="btn btn-default slide">
                 <span class="glyphicon glyphicon-book"></span> Log
             </a>
         </div>

@@ -797,7 +797,6 @@ app = Sammy('#main', function (sam) {
                 data2.logs.push({filename: k, filecontent: v.join('\n')});
             });
 
-            store.clear('slide');
             c.view('service_log', data2);
         }, 'GET', params);
     });
