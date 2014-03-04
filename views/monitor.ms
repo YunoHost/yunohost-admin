@@ -131,8 +131,8 @@
                     {{#each network.infos.local_ip}}
                         <tr>
                             <td>{{@key}}</td>
-                            <td>{{#this.ipv4}}{{this}}{{/this.ipv4}}</td>
-                            <td>{{#this.ipv6}}{{this}}{{/this.ipv6}}</td>
+                            <td>{{ ipv4 }}</td>
+                            <td>{{ ipv6 }}</td>
                         </tr>
                     {{/each}}
                     </tbody>
@@ -230,7 +230,7 @@
     <span class="glyphicon glyphicon-exclamation-sign"></span>
     Monitoring is not enabled.
     <br>
-    Check <a href="/#/services/glances">glances</a> service status.
+    Check <a href="#/services/glances">glances</a> service status.
 </div>
 
 {{/if}}
