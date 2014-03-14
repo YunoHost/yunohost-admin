@@ -1,60 +1,15 @@
 @import "../bootstrap/less/bootstrap.less";
 
-
-html, body {
-    width:100%; 
-}
-
-/* 
- * The top heading of the doc
+/* Comments:
+ *
+ * 1. we need to rationalise the use of width and max widths. they seem to be
+ * completely arbitrarily chosen. May not allow for a lot of flexibility…
+ * especially on different screens size.
  *
  */
 
-#masthead {
-    .page-header;
-    .clearfix;
-    .hidden-xs;
-    .make-row(12);
-
-    .app.title {
-        .make-sm-column(10);
-        .desc {
-            .small;
-        }
-    }
-
-    .logout-button {
-        .make-sm-column(2);
-        a {
-            .hidden;
-            .glyphicon;
-            .glyphicon-log-out;
-            .btn; 
-            .btn-link;
-        }
-    }
-}
-
-#slider {
-    .center-block;
-    padding: 5px;
-    max-width: 750px;
-    width: 100%;
-    height: 100%;
-    position: relative;
-    overflow: hidden;
-    text-align: left;
-}
-
-#slider-container {
-    max-width: 1500px;/*[RFC] why the max-width? */
-    width: 1500px; 
-    height: 100%;
-}
-
-#main {
-    float: left;
-    overflow: hidden;
+html, body {
+    width:100%; 
 }
 
 .block {
@@ -74,6 +29,119 @@ html, body {
     transition: margin-left 0.4s ease-in-out;
 }
 
+.placehold {
+    font-size: 0.0001em;
+    color: transparent;
+}
+
+/* 
+ * The top heading of the doc
+ *
+ */
+
+#masthead {
+    .page-header;
+    .clearfix;
+    .hidden-xs;
+    .make-row(12);
+    margin-top: 0;
+    padding: 0 10px;
+
+    .app.title, .logout-button {
+        margin-top: 20px;
+    }
+
+    .app.title {
+        .make-sm-column(10);
+        .desc {
+            .small;
+        }
+    }
+
+    .logout-button {
+        .make-sm-column(2);
+        font-size: 2em;
+        a {
+            .hidden;
+            .glyphicon;
+            .glyphicon-log-out;
+            .btn; 
+            .btn-link;
+        }
+    }
+}
+
+/* 
+ * The “slider”
+ *
+ */
+
+#slider {
+    .center-block;
+    padding: 5px;
+    max-width: 750px;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    text-align: left;
+}
+
+#slider-container {
+    max-width: 1500px;/*[RFC] why the max-width? */
+    width: 1500px; 
+    height: 100%;
+}
+
+#slideBack, #slideTo, #main {
+    .block;
+}
+
+/* 
+ * The main part of the app
+ *
+ */
+
+#main {
+    float: left;
+    overflow: hidden;
+}
+
+.ajax-loader {
+    .placehold;
+    background: url(/img/ajax-loader.gif) 50% 50% no-repeat transparent;
+    width: 24px;
+    height: 24px;
+}
+
+/* 
+ * The pop up dialog
+ *
+ */
+
+#popup {
+    .modal;
+    .fade;
+    .modal-dialog;
+
+    #popup-title {
+        .modal-dialog;
+        .modal-content;
+        .modal-header;
+        .modal-title;
+    }
+    #popup-body {
+        .modal-dialog;
+        .modal-content;
+        .modal-body;
+    }
+}
+
+/* 
+ * Various styles 
+ *
+ */
+
 body .form-control {
     padding: 6px;
 }
@@ -83,18 +151,6 @@ body .form-control {
     font-size: 25px;
     margin: -35px 120px 0 120px;
 }
-
-.page-header {
-    margin-top: 0px;
-    padding: 0 10px;
-}
-    .page-header h1,
-    .page-header .logout-button {
-        margin-top:20px;
-    }
-    .page-header h1 {max-width: 85%; /* leave space for logout button */}
-    .logout-button {font-size:2em;}
-
 
 div.br {
     height: 30px;
@@ -111,6 +167,7 @@ div.br {
     background: rgba(255, 255, 255, 0.5);
     padding-top: 10%;
 }
+
 .loader-content img {
     display: inline-block;
     vertical-align: middle;
