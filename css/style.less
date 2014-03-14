@@ -1,8 +1,138 @@
 @import "../bootstrap/less/bootstrap.less";
 
 
-@import "style.css";
+html, body {
+    width:100%; 
+}
+
+/* 
+ * The top heading of the doc
+ *
+ */
+
+#masthead {
+    .page-header;
+    .clearfix;
+    .hidden-xs;
+    .make-row(12);
+
+    .app.title {
+        .make-sm-column(10);
+        .desc {
+            .small;
+        }
+    }
+
+    .logout-button {
+        .make-sm-column(2);
+        a {
+            .hidden;
+            .glyphicon;
+            .glyphicon-log-out;
+            .btn; 
+            .btn-link;
+        }
+    }
+}
+
+#slider {
+    .center-block;
+    padding: 5px;
+    max-width: 750px;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    text-align: left;
+}
+
+#slider-container {
+    max-width: 1500px;/*[RFC] why the max-width? */
+    width: 1500px; 
+    height: 100%;
+}
+
+#main {
+    float: left;
+    overflow: hidden;
+}
+
+.block {
+    float:left;
+    height: 100%;
+    max-width: 750px;
+    width: 50%;
+    height: 100%;
+    padding: 5px;
+}
+
+.move {
+    -webkit-transition: margin-left 0.4s ease-in-out;
+    -moz-transition: margin-left 0.4s ease-in-out;
+    -o-transition: margin-left 0.4s ease-in-out;
+    -ms-transition: margin-left 0.4s ease-in-out;
+    transition: margin-left 0.4s ease-in-out;
+}
+
+body .form-control {
+    padding: 6px;
+}
+
+.view-title {
+    text-align: center;
+    font-size: 25px;
+    margin: -35px 120px 0 120px;
+}
+
+.page-header {
+    margin-top: 0px;
+    padding: 0 10px;
+}
+    .page-header h1,
+    .page-header .logout-button {
+        margin-top:20px;
+    }
+    .page-header h1 {max-width: 85%; /* leave space for logout button */}
+    .logout-button {font-size:2em;}
 
 
+div.br {
+    height: 30px;
+}
+
+.loader-content {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 2000;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.5);
+    padding-top: 10%;
+}
+.loader-content img {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+
+.help-block {
+    text-align: right;
+}
+
+th h3,
+th h4 {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+th h4 {font-size: 16px;}
+th h4 small {font-size: 12px;}
+
+
+select option[default] {
+    color: #999;
+    font-style: italic;
+}
 
 @import "../fonts.css";
