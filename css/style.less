@@ -10,6 +10,7 @@
 
 html, body {
     width:100%; 
+    font-family: 'Source Code Pro';
 }
 
 .block {
@@ -195,3 +196,9 @@ select option[default] {
 @import "../fonts.css"; 
 /* TODO remove all glyphicons in the future to remove this line*/
 @import "font-awesome.less";
+
+
+/* various fixes */
+
+a[class*="fa-"]:hover {text-decoration:none;}
+
