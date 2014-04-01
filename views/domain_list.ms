@@ -16,7 +16,7 @@
             <span class="glyphicon glyphicon-star"></span> Default
         </span>
         {{else}}
-        <a href="#/domains/{{.}}/delete" class="btn btn-danger slide back pull-right">
+        <a href="#/domains/{{url}}/delete" class="btn btn-danger slide back pull-right">
             <span class="glyphicon glyphicon-trash"></span> Delete
         </a>
         {{/if}}
