@@ -7,41 +7,37 @@
     <meta name="format-detection" content="telephone=no" />
     <meta name="viewport" content="user-scalable=no, width=device-width, height=device-height" />
     <title>YunoHost admin</title>
-    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
-    <link href="css/style.css" rel="stylesheet" media="screen">
-    <link href="css/fonts.css" rel="stylesheet" media="screen">
+    <link href="css/style.min.css" rel="stylesheet" media="screen">
 </head>
 <body>
-    <div id="slider">
-        <div class="page-header clearfix hidden-xs">
-            <a href="#/logout" class="pull-right logout-button">
-                <span class="glyphicon glyphicon-log-out"></span><span class="text-hide">Logout</span>
-            </a>
-            <h1 class="pull-left">YunoHost <small>Administration</small></h1>
-        </div>
+    <div id="slider" role="application">
 
-        <div id="flash" style="display: none"></div>
+        <header id="masthead">
+            <h1 class="app title">YunoHost <span class="desc">Administration</span></h1>
+            <span class="logout-button" role="button"><a class="fa-sign-out" href="#/logout" title="Logout"><span class="sr-only">Logout</span></a></span>
+        </header>
+
+        <div id="flash" role="alert" style="display: none"></div>
 
         <div id="slider-container">
-            <div id="slideBack" class="block" style="display: none;"></div>
-            <div id="main" class="block">
-                <div class="text-center"><a class="slide" href="#/login"><img src="img/ajax-loader.gif"></a></div>
+
+            <div id="slideBack" style="display: none;"></div>
+
+            <div id="main" role="main">
+                <a class="slide" href="#/login">
+                    <span class="ajax-loader">loading…</span>
+                </a>
             </div>
-            <div id="slideTo" class="block" style="display: none; z-index: 100;"></div>
-            <div class="clearfix"></div>
-        </div>
+
+            <div id="slideTo" style="display: none; z-index: 100;"></div>
+
+        </div><!--/#slider-container-->
 
     </div>
 
-    <div id="popup" class="modal fade">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                   <h3 class="modal-title" id="popup-title"></h3>
-                </div>
-                <div class="modal-body" id="popup-body"></div>
-            </div>
-        </div>
+    <div id="popup" role="dialog">
+        <h2  id="popup-title"></h2>
+        <div  id="popup-body"></div>
     </div>
 
     <script type="text/javascript" src="js/vendor/jquery-1.10.1.min.js"></script>
