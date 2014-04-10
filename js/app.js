@@ -295,11 +295,11 @@ app = Sammy('#main', function (sam) {
         // Check if te client is hosted on a yunohost node
         domain = window.location.hostname
         $.ajax({
-            url: 'https://'+ domain +'/ynhapi/api',
+            url: 'https://'+ domain +'/yunohost/api/api',
             timeout: 3000
         })
         .success(function() {
-            $.getJSON('https://'+ domain +'/ynhapi/installed', function(data) {
+            $.getJSON('https://'+ domain +'/yunohost/api/installed', function(data) {
                 if (!data.installed) {
                     c.redirect('#/postinstall');
                 } else {
@@ -313,7 +313,7 @@ app = Sammy('#main', function (sam) {
     });
 
     sam.post('#/login', function (c) {
-        store.set('url', 'https://'+ c.params['domain'] +'/ynhapi');
+        store.set('url', 'https://'+ c.params['domain'] +'/yunohost/api');
         store.set('user', 'admin');
         store.set('password', btoa(c.params['password']));
         c.api('/api', function(data) {
@@ -365,7 +365,7 @@ app = Sammy('#main', function (sam) {
 
             params['password'] = c.params['password']
 
-            store.set('url', 'https://'+ window.location.hostname +'/ynhapi');
+            store.set('url', 'https://'+ window.location.hostname +'/yunohost/api');
             store.set('user', 'admin');
             store.set('password', btoa('yunohost'));
             c.api('/postinstall', function(data) { // http://api.yunohost.org/#!/tools/tools_postinstall_post_0
