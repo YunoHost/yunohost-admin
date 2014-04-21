@@ -94,7 +94,7 @@ app = Sammy('#main', function (sam) {
 
                 setInterval(function () {
                     installing = true;
-                }, 2500);
+                }, 1500);
 
                 $('#popup-title').text('Installing');
                 $('#popup-body').html('<p>YunoHost is being installed on <strong>'+ data.domain +'</strong>. It may take a few minutes ...</p><br><div class="text-center"><img src="img/ajax-loader.gif"></div><br>');
@@ -131,8 +131,10 @@ app = Sammy('#main', function (sam) {
             })
             .fail(function(xhr) {
                 if (xhr.status == 401) {
+                    $('#popup').modal('hide');
                     c.flash('fail', 'Wrong password');
                 } else if (typeof xhr.responseJSON !== 'undefined') {
+                    $('#popup').modal('hide');
                     c.flash('fail', xhr.responseJSON.error);
                 } else {
                     if (uri == '/postinstall') {
