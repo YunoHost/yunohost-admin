@@ -94,7 +94,7 @@ app = Sammy('#main', function (sam) {
 
                 setInterval(function () {
                     installing = true;
-                }, 6000);
+                }, 2500);
 
                 $('#popup-title').text('Installing');
                 $('#popup-body').html('<p>YunoHost is being installed on <strong>'+ data.domain +'</strong>. It may take a few minutes ...</p><br><div class="text-center"><img src="img/ajax-loader.gif"></div><br>');
@@ -146,7 +146,7 @@ app = Sammy('#main', function (sam) {
                             }
                             setInterval(function () {
                                 $('#popup-title').text('Installation complete');
-                                $('#popup-body').html('<p>YunoHost has been successfully installed, please go to <a href="https://'+ args.domain +'/ynhadmin" target="_blank"><strong>https://'+ args.domain +'/ynhadmin</strong></a>.</p><br><p><small><a href="https://doc.yunohost.org/#/dns" target="_blank">Not working ?</a></small></p>');
+                                $('#popup-body').html('<p>YunoHost has been successfully installed, please go to <a href="https://'+ args.domain +'/yunohost/admin" target="_blank"><strong>https://'+ args.domain +'/yunohost/admin</strong></a> and create your first user.</p><br><p><small><a href="https://doc.yunohost.org/#/dns" target="_blank">Not working ?</a></small></p>');
                             }, interval);
                         } else {
                             $('#popup').modal('hide');
