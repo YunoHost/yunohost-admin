@@ -385,13 +385,13 @@ app = Sammy('#main', function (sam) {
 
     sam.get('#/users', function (c) {
         c.api('/users', function(data) { // http://api.yunohost.org/#!/user/user_list_get_3
-            c.view('user_list', data);
+            c.view('user/user_list', data);
         });
     });
 
     sam.get('#/users/create', function (c) {
         c.api('/domains', function(data) { // http://api.yunohost.org/#!/domain/domain_list_get_2
-            c.view('user_create', data);
+            c.view('user/user_create', data);
         });
     });
 
@@ -416,13 +416,13 @@ app = Sammy('#main', function (sam) {
 
     sam.get('#/users/:user', function (c) {
         c.api('/users/'+ c.params['user'], function(data) { // http://api.yunohost.org/#!/user/user_info_get_0
-            c.view('user_info', data);
+            c.view('user/user_info', data);
         });
     });
 
     sam.get('#/users/:user/edit', function (c) {
         c.api('/users/'+ c.params['user'], function(data) { // http://api.yunohost.org/#!/user/user_info_get_0
-            c.view('user_edit', data);
+            c.view('user/user_edit', data);
         });
     });
 
@@ -471,13 +471,13 @@ app = Sammy('#main', function (sam) {
 
                 // Sort domains with main domain first
                 domains.sort(function(a, b){ return -2*(a.main) + 1; })
-                c.view('domain_list', {domains: domains});
+                c.view('domain/domain_list', {domains: domains});
             }, 'PUT')
         });
     });
 
     sam.get('#/domains/add', function (c) {
-        c.view('domain_add', {'DDomains': ['.nohost.me', '.noho.st']});
+        c.view('domain/domain_add', {'DDomains': ['.nohost.me', '.noho.st']});
     });
 
     sam.post('#/domains/add', function (c) {
@@ -548,7 +548,7 @@ app = Sammy('#main', function (sam) {
             $.each(data['Apps'], function(k, v) {
                 if (v['Installed']) data2['Apps'].push(v);
             });
-            c.view('app_list', data2);
+            c.view('app/app_list', data2);
         });
     });
 
@@ -561,7 +561,7 @@ app = Sammy('#main', function (sam) {
                 if (dataraw[v['ID']].manifest.multi_instance) v['Installed'] = false;
                 if (!v['Installed'] && !v['ID'].match(/__[0-9]{1,5}$/)) data2['Apps'].push(v);
             });
-            c.view('app_list', data2);
+            c.view('app/app_list', data2);
         });
         });
     });
@@ -574,7 +574,7 @@ app = Sammy('#main', function (sam) {
 
     sam.get('#/apps/:app', function (c) {
         c.api('/app/'+c.params['app']+'?raw=true', function(data) { // http://api.yunohost.org/#!/app/app_info_get_9
-            c.view('app_info', data);
+            c.view('app/app_info', data);
         });
     });
 
@@ -622,7 +622,7 @@ app = Sammy('#main', function (sam) {
                 }
             });
 
-            c.view('app_install', appData);
+            c.view('app/app_install', appData);
         });
     });
 
@@ -687,7 +687,7 @@ app = Sammy('#main', function (sam) {
                     }
                 })
 
-                c.view('app_access', data);
+                c.view('app/app_access', data);
             });
         });
     });
@@ -773,7 +773,7 @@ app = Sammy('#main', function (sam) {
                 v.is_running = (v.status=='running') ? true : false;
                 data2.services.push(v);
             });
-            c.view('service_list', data2);
+            c.view('service/service_list', data2);
         });
     });
 
@@ -786,7 +786,7 @@ app = Sammy('#main', function (sam) {
             data2.service.is_loaded = (data.loaded=='enabled') ? true : false;
             data2.service.is_running = (data.status=='running') ? true : false;
 
-            c.view('service_info', data2);
+            c.view('service/service_info', data2);
         }, 'GET', params);
     });
 
@@ -799,7 +799,7 @@ app = Sammy('#main', function (sam) {
                 data2.logs.push({filename: k, filecontent: v.join('\n')});
             });
 
-            c.view('service_log', data2);
+            c.view('service/service_log', data2);
         }, 'GET', params);
     });
 
@@ -844,7 +844,7 @@ app = Sammy('#main', function (sam) {
                             // Remove useless interface
                             delete monitorData.network.usage.lo;
 
-                            c.view('monitor', monitorData);
+                            c.view('monitor/monitor', monitorData);
                         });
 
                     });
@@ -852,7 +852,7 @@ app = Sammy('#main', function (sam) {
             }
             else {
                 monitorData.status = false;
-                c.view('monitor', monitorData);
+                c.view('monitor/monitor', monitorData);
             }
 
 
@@ -871,12 +871,12 @@ app = Sammy('#main', function (sam) {
         data = {links: [
             {name: "Change administration password", path: '#/tools/adminpw'},
         ]};
-        c.view('tools_list', data);
+        c.view('tools/tools_list', data);
     });
 
     // Update administration password
     sam.get('#/tools/adminpw', function (c) {
-        c.view('tools_adminpw');
+        c.view('tools/tools_adminpw');
     });
     sam.put('#/tools/adminpw', function (c) {
         params = {}
