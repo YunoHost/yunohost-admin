@@ -285,6 +285,7 @@ app = Sammy('#main', function (sam) {
             {name: "Services", path: '#/services'},
             {name: "Monitoring", path: '#/monitor'},
             {name: "Tools", path: '#/tools'},
+            {name: "Backup", path: '#/backup'},
         ]};
 
         c.view('home', data);
@@ -900,6 +901,16 @@ app = Sammy('#main', function (sam) {
                 c.redirect('#/');
             }, 'PUT', params);
         }
+    });
+
+
+    /**
+     * Backup
+     *
+     */
+
+    sam.get('#/backup', function (c) {
+        c.view('backup/backup');
     });
 
 
