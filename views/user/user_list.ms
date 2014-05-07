@@ -16,7 +16,7 @@
 {{#Users}}
     <a href="#/users/{{Username}}" class="list-group-item slide clearfix">
         <span class="pull-right fa-chevron-right"></span>
-        <h4 class="list-group-item-heading">{{Username}} <small>{{Fullname}}</small></h4>
+        <h2 class="list-group-item-heading">{{Username}} <small>{{Fullname}}</small></h2>
         <p class="list-group-item-text">{{Mail}}</p>
     </a>
 {{/Users}}

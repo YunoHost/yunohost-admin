@@ -4,13 +4,13 @@
     </a>
 </div>
 <div class="clearfix"></div>
-<div class="view-title">Monitoring</div>
+<h1 class="view-title">Monitoring</h1>
 <div class="br"></div>
 
 {{#if status}}
 <div class="panel panel-default">
     <div class="panel-heading">
-        <h2 class="panel-title"><span class="fa-info-circle"></span> Infos</h2>
+        <h2 class="panel-title"><span class="fa-fw fa-info-circle"></span> Infos</h2>
     </div>
     <div class="panel-body">
         <ul class="list-unstyled">
@@ -26,7 +26,7 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             <h2 class="panel-title">
-                <span class="fa-cog"></span> 
+                <span class="fa-fw fa-cog"></span> 
                 <a data-toggle="collapse" data-parent="#accordion" href="#system">System</a>
             </h2>
         </div>
@@ -110,7 +110,7 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             <h2 class="panel-title">
-                <span class="fa-cloud"></span>
+                <span class="fa-fw fa-cloud"></span>
                 <a data-toggle="collapse" data-parent="#accordion" href="#network">Network</a>
             </h2>
         </div>
@@ -178,7 +178,7 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             <h2 class="panel-title">
-                <span class="fa-hdd-o"></span>
+                <span class="fa-fw fa-hdd-o"></span>
                 <a data-toggle="collapse" data-parent="#accordion" href="#disk">Disk</a>
             </h2>
         </div>

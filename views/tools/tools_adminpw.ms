@@ -4,7 +4,7 @@
     </a>
 </div>
 <div class="clearfix"></div>
-<div class="view-title">Change administration password</div>
+<h1 class="view-title">Change administration password</h1>
 <div class="br"></div>
 
 <form action="#/tools/adminpw" method="PUT" class="form-horizontal">

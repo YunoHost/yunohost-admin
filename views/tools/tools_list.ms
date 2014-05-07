@@ -4,7 +4,7 @@
     </a>
 </div>
 <div class="clearfix"></div>
-<div class="view-title">Tools</div>
+<h1 class="view-title">Tools</h1>
 <div class="br"></div>
 
 
@@ -12,7 +12,7 @@
 {{#links}}
     <a href="{{path}}" class="list-group-item slide">
         <span class="fa-chevron-right pull-right"></span>
-        <h4 class="list-group-item-heading">{{name}}</h4>
+        <h2 class="list-group-item-heading">{{name}}</h2>
     </a>
 {{/links}}
 </div>

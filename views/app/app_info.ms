@@ -9,7 +9,7 @@
     </a>
 </div>
 <div class="clearfix"></div>
-<div class="view-title">{{settings.label}}</div>
+<h1 class="view-title">{{settings.label}}</h1>
 
 <div class="br"></div>
 

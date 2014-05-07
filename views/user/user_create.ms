@@ -4,7 +4,7 @@
     </a>
 </div>
 <div class="clearfix"></div>
-<div class="view-title">New user</div>
+<h1 class="view-title">New user</h1>
 
 <div class="br"></div>
 

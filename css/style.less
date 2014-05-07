@@ -1,5 +1,14 @@
 @import "../bootstrap/less/bootstrap.less";
 
+// Variables override
+@font-size-h1:            floor((@font-size-base * 2.15)); // ~30px
+@font-size-h2:            ceil((@font-size-base * 1.7)); // ~24px
+@font-size-h3:            ceil((@font-size-base * 1.25)); // ~18px
+@font-size-h4:            @font-size-base;
+@font-size-h5:            ceil((@font-size-base * 0.85)); // ~12px
+@font-size-h6:            ceil((@font-size-base * 0.7)); // ~10px
+
+
 /* Comments:
  *
  * 1. we need to rationalise the use of width and max widths. they seem to be
@@ -181,9 +190,16 @@ body .form-control {
 
 .view-title {
     text-align: center;
-    font-size: 25px;
     margin: -35px 120px 0 120px;
 }
+
+// Preserve font-size in panel titles.
+h1.panel-title {font-size: @font-size-h1;}
+h2.panel-title {font-size: @font-size-h2;}
+h3.panel-title {font-size: @font-size-h3;}
+h4.panel-title {font-size: @font-size-h4;}
+h5.panel-title {font-size: @font-size-h5;}
+h6.panel-title {font-size: @font-size-h6;}
 
 div.br {
     height: 30px;

@@ -6,7 +6,7 @@
 <div class="pull-right">
 </div>
 <div class="clearfix"></div>
-<div class="view-title">{{settings.label}} access</div>
+<h1 class="view-title">{{settings.label}} access</h1>
 
 <div class="br"></div>
 

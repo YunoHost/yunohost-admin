@@ -10,7 +10,7 @@
     </a>
 </div>
 <div class="clearfix"></div>
-<div class="view-title">Installed apps</div>
+<h1 class="view-title">Installed apps</h1>
 {{/Installed}}
 
 
@@ -26,7 +26,7 @@
     </a>
 </div>
 <div class="clearfix"></div>
-<div class="view-title">Available apps</div>
+<h1 class="view-title">Available apps</h1>
 {{/Installed}}
 
 <div class="br"></div>
@@ -35,7 +35,7 @@
 {{#Apps}}
     <a href="#/apps/{{^Installed}}install/{{/Installed}}{{ID}}" class="list-group-item slide">
         <span class="fa-chevron-right pull-right"></span>
-        <h4 class="list-group-item-heading">{{Name}} <small>{{ID}}</small></h4>
+        <h2 class="list-group-item-heading">{{Name}} <small>{{ID}}</small></h2>
         <p class="list-group-item-text">{{Description.en}}</p>
     </a>
 {{/Apps}}

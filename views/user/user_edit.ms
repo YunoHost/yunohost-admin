@@ -4,7 +4,7 @@
     </a>
 </div>
 <div class="clearfix"></div>
-<div class="view-title">Edit {{Username}}</div>
+<h1 class="view-title">Edit {{Username}}</h1>
 
 <div class="br"></div>
 

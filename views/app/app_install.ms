@@ -4,7 +4,7 @@
     </a>
 </div>
 <div class="clearfix"></div>
-<div class="view-title">Install {{manifest.name}}</div>
+<h1 class="view-title">Install {{manifest.name}}</h1>
 
 <div class="br"></div>
 

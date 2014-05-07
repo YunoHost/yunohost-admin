@@ -6,8 +6,8 @@
 <div class="list-group">
 {{#links}}
 	<a href="{{path}}" class="list-group-item slide clearfix">
-        <h4 class="pull-left list-group-item-heading">{{name}}</h4>
         <span class="pull-right fa-chevron-right"></span>
+        <h2 class="list-group-item-heading">{{name}}</h2>
 	</a>
 {{/links}}
 </div>
