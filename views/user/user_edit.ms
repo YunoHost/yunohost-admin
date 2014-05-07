@@ -34,6 +34,20 @@
                 <input type="email" name="mail" class="form-control" placeholder="{{Mail}}">
             </div>
         </div>
+        <hr>
+        <div class="form-group">
+            <label for="password" class="col-sm-3 control-label">Password</label>
+            <div class="col-sm-9">
+                <input type="password" name="password" class="form-control" placeholder="•••••">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="confirmation" class="col-sm-3 control-label">Confirmation</label>
+            <div class="col-sm-9">
+                <input type="password" name="confirmation" class="form-control" placeholder="•••••">
+                <div class="help-block">Password must be at least 4 characters long.</div>
+            </div>
+        </div>
     </div>
 </div>
 

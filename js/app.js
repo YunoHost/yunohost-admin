@@ -399,7 +399,7 @@ app = Sammy('#main', function (sam) {
     sam.post('#/users', function (c) {
         if (c.params['password'] == c.params['confirmation']) {
             if (c.params['password'].length < 4) {
-                c.flash('fail', "Passwords is too short");
+                c.flash('fail', "Password is too short");
                 store.clear('slide');
             }
             else {
@@ -430,16 +430,36 @@ app = Sammy('#main', function (sam) {
     sam.put('#/users/:user', function (c) {
         params = {}
         $.each(c.params.toHash(), function(key, value) {
-            if (value !== '' && value !== 'user') { params[key] = value; }
+            if (value !== '' && key !== 'user') { params[key] = value; }
         });
+
         if ($.isEmptyObject(params)) {
             c.flash('fail', 'You should modify something');
             store.clear('slide');
-            c.redirect('#/users/'+ c.params['user'] + '/edit');
+            // c.redirect('#/users/'+ c.params['user'] + '/edit');
         } else {
-            c.api('/users/'+ c.params['user'], function(data) { // http://api.yunohost.org/#!/user/user_update_put_1
-                c.redirect('#/users/'+ c.params['user']);
-            }, 'PUT', params);
+            if (params['password']) {
+                if (params['password'] == params['confirmation']) {
+                    if (params['password'].length < 4) {
+                        c.flash('fail', "Password is too short");
+                        store.clear('slide');
+                    }
+                    else {
+                        params['change_password'] = params['password'];
+                        c.api('/users/'+ c.params['user'], function(data) { // http://api.yunohost.org/#!/user/user_update_put_1
+                            c.redirect('#/users/'+ c.params['user']);
+                        }, 'PUT', params);
+                    }
+                } else {
+                    c.flash('fail', "Passwords don't match");
+                    store.clear('slide');
+                }
+            }
+            else {
+                c.api('/users/'+ c.params['user'], function(data) { // http://api.yunohost.org/#!/user/user_update_put_1
+                    c.redirect('#/users/'+ c.params['user']);
+                }, 'PUT', params);
+            }
         }
     });
 
