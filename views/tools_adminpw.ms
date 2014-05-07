@@ -1,5 +1,7 @@
 <div class="pull-left">
-    <a href="#/tools" class="btn btn-default slide back"><span class="glyphicon glyphicon-chevron-left"></span> Tools</a>
+    <a href="#/tools" class="btn btn-default slide back">
+    	<span class="fa-chevron-left"></span> Tools
+    </a>
 </div>
 <div class="clearfix"></div>
 <div class="view-title">Change administration password</div>

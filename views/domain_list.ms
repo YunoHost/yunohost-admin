@@ -1,8 +1,12 @@
 <div class="pull-left">
-    <a href="#/" class="btn btn-default slide back"><span class="glyphicon glyphicon-chevron-left"></span> Menu</a>
+    <a href="#/" class="btn btn-default slide back">
+        <span class="fa-chevron-left"></span> Menu
+    </a>
 </div>
 <div class="pull-right">
-    <a href="#/domains/add" class="btn btn-success slide"><span class="glyphicon glyphicon-plus"></span> Add domain</a>
+    <a href="#/domains/add" class="btn btn-success slide">
+        <span class="fa-plus"></span> Add domain
+    </a>
 </div>
 <div class="clearfix"></div>
 <div class="view-title">Domains</div>
@@ -13,11 +17,11 @@
 	<div class="list-group-item">
         {{#if main}}
         <span class="container text-success pull-right">
-            <span class="glyphicon glyphicon-star"></span> Default
+            <span class="fa-star"></span> Default
         </span>
         {{else}}
         <a href="#/domains/{{url}}/delete" class="btn btn-danger slide back pull-right">
-            <span class="glyphicon glyphicon-trash"></span> Delete
+            <span class="fa-trash-o"></span> Delete
         </a>
         {{/if}}
         <h2 class="list-group-item-heading">{{url}}</h2>

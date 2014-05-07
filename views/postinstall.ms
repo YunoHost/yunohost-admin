@@ -4,9 +4,7 @@
     <p>A last step is necessary to fulfill the installation: You have to link your YunoHost instance to a domain name, and set a new administrator password.</p>
 </div>
 
-<div class="br"></div>
 <h2>Domain</h2>
-<div class="br"></div>
 <div class="panel-group" id="accordion">
   <div class="panel panel-default">
     <div class="panel-heading">
@@ -19,12 +17,16 @@
     <div id="collapseOne" class="panel-collapse collapse in">
       <div class="panel-body">
         <small>... and I have <a href="http://doc.yunohost.org/#/dns">set my DNS correctly</a>.</small>
-        <hr>
+        <div class="br"></div>
         <div class="form-group">
-            <label for="domain" class="col-sm-3 control-label">Domain name</label>
-            <div class="col-sm-9 input-group">
-                <span class="input-group-addon"> <span class="glyphicon glyphicon-cloud"></span> </span>
-                <input type="text" name="domain" class="form-control" placeholder="myserver.org">
+            <strong class="col-sm-3 control-label">Domain name</strong>
+            <div class="col-sm-9">
+              <div class="input-group">
+                <label for="domain" class="input-group-addon">
+                  <span class="fa-fw fa-cloud"></span><span class="sr-only">Domain</span>
+                </label>
+                <input type="text" id="domain" name="domain" class="form-control" placeholder="myserver.org">
+              </div>
             </div>
         </div>
       </div>
@@ -41,13 +43,17 @@
     <div id="collapseTwo" class="panel-collapse collapse">
       <div class="panel-body">
         <small>... and I want a dynamic DNS service.</small>
-        <hr>
+        <div class="br"></div>
         <div class="form-group">
-            <label for="ddomain" class="col-sm-3 control-label">Domain name</label>
+            <strong class="col-sm-3 control-label">Domain name</strong>
             <div class="clearfix visible-xs"></div>
-            <div class="col-sm-4 col-xs-6 input-group">
-                <span class="input-group-addon"> <span class="glyphicon glyphicon-cloud"></span> </span>
-                <input type="text" name="ddomain" class="form-control" placeholder="myserver">
+            <div class="col-sm-4 col-xs-6">
+              <div class="input-group">
+                <label for="ddomain" class="input-group-addon">
+                  <span class="fa-fw fa-cloud"></span><span class="sr-only">Domain</span>
+                </label>
+                <input type="text" id="ddomain" name="ddomain" class="form-control" placeholder="myserver">
+              </div>
             </div>
             <div class="col-sm-5 col-xs-6">
                <select class="form-control" name="ddomain-ext">
@@ -65,22 +71,25 @@
 <div class="br"></div>
 
 <h2>Password</h2>
-<div class="br"></div>
-<div class="form-group">
-    <label for="password" class="col-sm-3 control-label">New admin password</label>
-    <div class="col-sm-9">
-        <input type="password" name="password" class="form-control" placeholder="••••••">
-    </div>
-</div>
+<div class="panel panel-default">
+  <div class="panel-body">
 
-<div class="form-group">
-    <label for="confirmation" class="col-sm-3 control-label">Confirmation</label>
-    <div class="col-sm-9">
-        <input type="password" name="confirmation" class="form-control" placeholder="••••••">
+    <div class="form-group">
+        <label for="password" class="col-sm-3 control-label">New admin password</label>
+        <div class="col-sm-9">
+            <input type="password" id="password" name="password" class="form-control" placeholder="••••••">
+        </div>
     </div>
-</div>
 
-<div class="br"></div>
+    <div class="form-group">
+        <label for="confirmation" class="col-sm-3 control-label">Confirmation</label>
+        <div class="col-sm-9">
+            <input type="password" id="confirmation" name="confirmation" class="form-control" placeholder="••••••">
+        </div>
+    </div>
+
+  </div>
+</div>
 
 <div class="text-center">
     <input type="submit" class="btn btn-success" value="Go !">

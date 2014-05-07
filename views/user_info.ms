@@ -1,8 +1,12 @@
 <div class="pull-left">
-    <a href="#/users" class="btn btn-default slide back"><span class="glyphicon glyphicon-chevron-left"></span> User list</a>
+    <a href="#/users" class="btn btn-default slide back">
+        <span class="fa-chevron-left"></span> User list
+    </a>
 </div>
 <div class="pull-right">
-    <a href="#/users/{{Username}}/edit" class="btn btn-info slide"><span class="glyphicon glyphicon-edit"></span> Edit</a>
+    <a href="#/users/{{Username}}/edit" class="btn btn-info slide">
+        <span class="fa-edit"></span> Edit
+    </a>
 </div>
 <div class="clearfix"></div>
 <div class="view-title">{{Username}}</div>
@@ -34,5 +38,7 @@
 </ul>
 
 <div class="text-center">
-    <a href="#/users/{{Username}}/delete" class="btn btn-danger slide back"><span class="glyphicon glyphicon-trash"></span> Delete</a>
+    <a href="#/users/{{Username}}/delete" class="btn btn-danger slide back">
+        <span class="fa-trash-o"></span> Delete
+    </a>
 </div>

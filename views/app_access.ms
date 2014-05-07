@@ -1,5 +1,7 @@
 <div class="pull-left">
-    <a href="#/apps/{{settings.id}}" class="btn btn-default slide back"><span class="glyphicon glyphicon-chevron-left"></span> {{settings.label}}</a>
+    <a href="#/apps/{{settings.id}}" class="btn btn-default slide back">
+        <span class="fa-chevron-left"></span> {{settings.label}}
+    </a>
 </div>
 <div class="pull-right">
 </div>
@@ -17,7 +19,7 @@
         {{#each settings.allowed_users}}
         <div class="list-group-item">
             <a href="#/apps/{{../settings.id}}/access/remove/{{username}}" class="btn btn-danger slide back pull-right">
-                <span class="glyphicon glyphicon-trash"></span> Remove access
+                <span class="fa-trash-o"></span> Remove access
             </a>
             <h3 class="list-group-item-heading">{{fullname}} ({{mail}})</h3>
             <a href="#/users/{{username}}">View {{username}}'s profile</a>
@@ -70,7 +72,7 @@
                 All existing users will have access to {{settings.label}}.
             </p>
             <a href="#/apps/{{settings.id}}/access/add" class="btn btn-success slide back">
-                <span class="glyphicon glyphicon-plus"></span> Add access to all
+                <span class="fa-plus"></span> Add access to all
             </a>
         </div>
         <hr>
@@ -81,7 +83,7 @@
                 No users will have access to {{settings.label}}.
             </p>
             <a href="#/apps/{{../settings.id}}/access/remove" class="btn btn-danger slide back">
-                <span class="glyphicon glyphicon-trash"></span> Remove all access
+                <span class="fa-trash-o"></span> Remove all access
             </a>
         </div>
         <hr>
@@ -92,7 +94,7 @@
                 Every user will have access to {{settings.label}}.
             </p>
             <a href="#/apps/{{settings.id}}/access/clear" class="btn btn-primary slide back">
-                <span class="glyphicon glyphicon-trash"></span> Clear all access
+                <span class="fa-unlock-alt"></span> Clear all access
             </a>
         </div>
         {{/unless}}

@@ -1,17 +1,14 @@
-<div class="page-header clearfix visible-xs">
-    <a href="#/logout" class="pull-right logout-button">
-        <span class="glyphicon glyphicon-log-out"></span><span class="text-hide">Logout</span>
-    </a>
-    <h1 class="pull-left">YunoHost <small>Administration</small></h1>
-</div>
+<header class="page-header clearfix visible-xs">
+    <h1 class="app title">YunoHost <span class="desc">Administration</span></h1>
+    <span class="logout-button" role="button"><a class="fa-sign-out" href="#/logout" title="Logout"><span class="sr-only">Logout</span></a></span>
+</header>
 
 <div class="list-group">
 {{#links}}
-    <a href="{{path}}" class="list-group-item slide">
+	<a href="{{path}}" class="list-group-item slide clearfix">
         <h4 class="pull-left list-group-item-heading">{{name}}</h4>
-        <span class="glyphicon glyphicon-chevron-right pull-right"></span>
-        <div class="clearfix"></div>
-    </a>
+        <span class="pull-right fa-chevron-right"></span>
+	</a>
 {{/links}}
 </div>
 

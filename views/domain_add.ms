@@ -1,5 +1,7 @@
 <div class="pull-left">
-    <a href="#/domains" class="btn btn-default slide back"><span class="glyphicon glyphicon-chevron-left"></span> Domain list</a>
+    <a href="#/domains" class="btn btn-default slide back">
+      <span class="fa-chevron-left"></span> Domain list
+    </a>
 </div>
 <div class="clearfix"></div>
 <div class="view-title">Add domain</div>

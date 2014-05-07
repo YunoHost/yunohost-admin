@@ -1,8 +1,12 @@
 <div class="pull-left">
-    <a href="#/apps" class="btn btn-default slide back"><span class="glyphicon glyphicon-chevron-left"></span> App list</a>
+    <a href="#/apps" class="btn btn-default slide back">
+        <span class="fa-chevron-left"></span> App list
+    </a>
 </div>
 <div class="pull-right">
-    <a href="#/apps/{{settings.id}}/access" class="btn btn-info slide"><span class="glyphicon glyphicon-lock"></span> Access</a>
+    <a href="#/apps/{{settings.id}}/access" class="btn btn-info slide">
+        <span class="fa-lock"></span> Access
+    </a>
 </div>
 <div class="clearfix"></div>
 <div class="view-title">{{settings.label}}</div>
@@ -34,5 +38,7 @@
 </ul>
 
 <div class="text-center">
-    <a href="#/apps/{{settings.id}}/uninstall" class="btn btn-danger slide back"><span class="glyphicon glyphicon-trash"></span> Uninstall</a>
+    <a href="#/apps/{{settings.id}}/uninstall" class="btn btn-danger slide back">
+        <span class="fa-trash-o"></span> Uninstall
+    </a>
 </div>

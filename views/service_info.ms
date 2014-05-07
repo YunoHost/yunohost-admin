@@ -1,5 +1,7 @@
 <div class="pull-left">
-    <a href="#/services" class="btn btn-default slide back"><span class="glyphicon glyphicon-chevron-left"></span> Services list</a>
+    <a href="#/services" class="btn btn-default slide back">
+        <span class="fa-chevron-left"></span> Services list
+    </a>
 </div>
 <div class="clearfix"></div>
 <div class="view-title">{{service.name}}</div>
@@ -24,27 +26,27 @@
         <div class="pull-right">
         {{#is_loaded}}
             <a href="#/services/{{name}}/disable" class="btn btn-danger">
-                <span class="glyphicon glyphicon-remove"></span> Disable
+                <span class="fa-square-o"></span> Disable
             </a>
         {{/is_loaded}}
         {{^is_loaded}}
             <a href="#/services/{{name}}/enable" class="btn btn-success">
-                <span class="glyphicon glyphicon-ok"></span> Enable
+                <span class="fa-check-square-o"></span> Enable
             </a>
         {{/is_loaded}}
 
         {{#is_running}}
             <a href="#/services/{{name}}/stop" class="btn btn-danger">
-                <span class="glyphicon glyphicon-stop"></span> Stop
+                <span class="fa-stop"></span> Stop
             </a>
         {{/is_running}}
         {{^is_running}}
             <a href="#/services/{{name}}/start" class="btn btn-success">
-                <span class="glyphicon glyphicon-play"></span> Start
+                <span class="fa-play"></span> Start
             </a>
         {{/is_running}}
             <a href="#/services/{{name}}/log" class="btn btn-default slide">
-                <span class="glyphicon glyphicon-book"></span> Log
+                <span class="fa-book"></span> Log
             </a>
         </div>
 

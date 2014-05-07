@@ -1,5 +1,7 @@
 <div class="pull-left">
-    <a href="#/apps/install" class="btn btn-default slide back"><span class="glyphicon glyphicon-chevron-left"></span> App list</a>
+    <a href="#/apps/install" class="btn btn-default slide back">
+        <span class="fa-chevron-left"></span> App list
+    </a>
 </div>
 <div class="clearfix"></div>
 <div class="view-title">Install {{manifest.name}}</div>

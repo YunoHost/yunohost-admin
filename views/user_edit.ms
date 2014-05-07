@@ -1,5 +1,7 @@
 <div class="pull-left">
-    <a href="#/users/{{Username}}" class="btn btn-default slide back"><span class="glyphicon glyphicon-chevron-left"></span> Info</a>
+    <a href="#/users/{{Username}}" class="btn btn-default slide back">
+        <span class="fa-chevron-left"></span> Info
+    </a>
 </div>
 <div class="clearfix"></div>
 <div class="view-title">Edit {{Username}}</div>

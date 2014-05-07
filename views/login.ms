@@ -3,14 +3,20 @@
 </div>
 
 <form action="#/login" id="form" method="post">
-    <div class="input-group {{#domain}} hidden{{/domain}}">
-        <span class="input-group-addon"> <span class="glyphicon glyphicon-cloud"></span> </span>
-        <input type="{{#if domain}}hidden{{else}}text{{/if}}" name="domain" class="form-control" placeholder="myserver.org" value="{{domain}}">
+    <div class="input-group {{#domain}} hidden {{/domain}}">
+        <label for="domain" class="input-group-addon">
+            <span class="fa-fw fa-cloud"></span>
+            <span class="sr-only">Domain</span>
+        </label>
+        <input type="{{#if domain}}hidden{{else}}text{{/if}}" id="domain" name="domain" class="form-control" placeholder="myserver.org" value="{{domain}}">
     </div>
     <br />
     <div class="input-group">
-        <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span> </span>
-        <input type="password" name="password" class="form-control" placeholder="Admin password">
+        <label for="password" class="input-group-addon">
+            <span class="fa-fw fa-lock"></span>
+            <span class="sr-only">Password</span>
+        </label>
+        <input type="password" id="password" name="password" class="form-control" placeholder="Admin password">
     </div>
     <br />
     <input id="submit" type="submit" value="Login" class="btn btn-success pull-right"/>

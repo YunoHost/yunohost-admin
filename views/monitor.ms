@@ -1,5 +1,7 @@
 <div class="pull-left">
-    <a href="#/" class="btn btn-default slide back"><span class="glyphicon glyphicon-chevron-left"></span> Menu</a>
+    <a href="#/" class="btn btn-default slide back">
+        <span class="fa-chevron-left"></span> Menu
+    </a>
 </div>
 <div class="clearfix"></div>
 <div class="view-title">Monitoring</div>
@@ -8,7 +10,7 @@
 {{#if status}}
 <div class="panel panel-default">
     <div class="panel-heading">
-        <h2 class="panel-title"><span class="glyphicon glyphicon-info-sign"></span> Infos</h2>
+        <h2 class="panel-title"><span class="fa-info-circle"></span> Infos</h2>
     </div>
     <div class="panel-body">
         <ul class="list-unstyled">
@@ -24,7 +26,7 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             <h2 class="panel-title">
-                <span class="glyphicon glyphicon-cog"></span> 
+                <span class="fa-cog"></span> 
                 <a data-toggle="collapse" data-parent="#accordion" href="#system">System</a>
             </h2>
         </div>
@@ -108,7 +110,7 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             <h2 class="panel-title">
-                <span class="glyphicon glyphicon-cloud"></span>
+                <span class="fa-cloud"></span>
                 <a data-toggle="collapse" data-parent="#accordion" href="#network">Network</a>
             </h2>
         </div>
@@ -176,7 +178,7 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             <h2 class="panel-title">
-                <span class="glyphicon glyphicon-hdd"></span>
+                <span class="fa-hdd-o"></span>
                 <a data-toggle="collapse" data-parent="#accordion" href="#disk">Disk</a>
             </h2>
         </div>
@@ -227,7 +229,7 @@
 
 {{else}}
 <div class="alert alert-warning">
-    <span class="glyphicon glyphicon-exclamation-sign"></span>
+    <span class="fa-exclamation-triangle"></span>
     Monitoring is not enabled.
     <br>
     Check <a href="#/services/glances">glances</a> service status.
