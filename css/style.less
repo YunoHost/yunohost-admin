@@ -213,7 +213,10 @@ body .form-control {
 
 .view-title {
     text-align: center;
-    margin: -35px 120px 0 120px;
+    margin: 20px auto 0;
+    @media (min-width: @screen-xs-min) {
+        margin: -35px 120px 0 120px;
+    }
 }
 
 // Preserve font-size in panel titles.
