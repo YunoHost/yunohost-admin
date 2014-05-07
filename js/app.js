@@ -916,6 +916,7 @@ app = Sammy('#main', function (sam) {
         // Available tools
         data = {links: [
             {name: "Change administration password", path: '#/tools/adminpw'},
+            {name: "System update", path: '#/tools/update'},
         ]};
         c.view('tools/tools_list', data);
     });
@@ -945,6 +946,35 @@ app = Sammy('#main', function (sam) {
                 store.set('password', btoa(params['new_password']));
                 c.redirect('#/');
             }, 'PUT', params);
+        }
+    });
+
+    // System update & upgrade
+    sam.get('#/tools/update', function (c) {
+        c.api('/update', function(data) {
+            c.view('tools/tools_update', data);
+        }, 'PUT');
+    });
+
+    sam.get('#/tools/upgrade/:type', function (c) {
+        if (c.params['type'] !== 'apps' && c.params['type'] !== 'packages') {
+            c.flash('fail', 'Error');
+            store.clear('slide');
+            c.redirect('#/tools/update');
+        }
+        if (confirm('Are you sure you want update every '+c.params['type']+' ?')) {
+            params = {
+                'ignore_packages': (c.params['type'] == 'packages') ? false : true,
+                'ignore_apps': (c.params['type'] == 'apps') ? false : true,
+            }
+            c.api('/upgrade', function(data) {
+                // 'log' is a reserved name, maybe in handlebars
+                data.logs = data.log;
+                c.view('tools/tools_upgrade', data);
+            }, 'PUT', params);
+        } else {
+            store.clear('slide');
+            c.redirect('#/tools/update');
         }
     });
 
