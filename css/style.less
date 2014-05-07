@@ -11,15 +11,40 @@
 html, body {
     width:100%; 
 }
+html {
+    /* Force vertical scrollbar to prevent centering jumps. */
+    overflow-y: scroll;
+}
+body {
+    max-width: @container-md;
+    margin: auto;
+}
 
 .block {
     float:left;
     height: 100%;
-    max-width: 750px;
+    /*max-width: 750px;*/
     width: 50%;
     height: 100%;
     padding: 5px;
 }
+
+/* Fix bootstrap use of width. We prefer max-width. */
+.container {
+  @media (min-width: @screen-sm-min) {
+    width: auto;
+    max-width: @container-sm;
+  }
+  @media (min-width: @screen-md-min) {
+    width: auto;
+    max-width: @container-md;
+  }
+  @media (min-width: @screen-lg-min) {
+    width: auto;
+    max-width: @container-lg;
+  }
+}
+
 
 .move {
     -webkit-transition: margin-left 0.4s ease-in-out;
@@ -40,9 +65,10 @@ html, body {
  */
 
 #masthead {
-    .page-header;
-    .clearfix;
     .hidden-xs;
+}
+.page-header {
+    .clearfix;
     .make-row(12);
     margin-top: 0;
     padding: 0 10px;
@@ -52,7 +78,7 @@ html, body {
     }
 
     .app.title {
-        .make-sm-column(10);
+        .make-xs-column(10);
         .desc {
             .small;
             color: @gray-light;
@@ -60,12 +86,11 @@ html, body {
     }
 
     .logout-button {
-        .make-sm-column(2);
+        .make-xs-column(2);
         .btn; 
         .btn-link;
         text-align: right;
         a.fa-sign-out {
-            .fa;
             .fa-2x;
         }
     }
@@ -79,7 +104,6 @@ html, body {
 #slider {
     .center-block;
     padding: 5px;
-    max-width: 750px;
     width: 100%;
     height: 100%;
     position: relative;
@@ -88,8 +112,10 @@ html, body {
 }
 
 #slider-container {
-    max-width: 1500px;/*[RFC] why the max-width? */
-    width: 1500px; 
+    /*[RFC] why the max-width? */
+    /*max-width: 1500px;*/
+    /*width: 1500px; */
+    width: 100%;
     height: 100%;
 }
 
@@ -103,8 +129,8 @@ html, body {
  */
 
 #main {
-    float: left;
-    overflow: hidden;
+    /*float: left;*/
+    /*overflow: hidden;*/
 }
 
 .ajax-loader {
@@ -199,5 +225,6 @@ select option[default] {
 
 /* various fixes */
 
+[class*="fa-"] {.fa;}
 a[class*="fa-"]:hover {text-decoration:none;}
 
