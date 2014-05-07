@@ -9,7 +9,7 @@
     </a>
 </div>
 <div class="clearfix"></div>
-<div class="view-title">Users</div>
+<h1 class="view-title">Users</h1>
 <div class="br"></div>
 
 <div class="list-group">
