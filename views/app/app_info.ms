@@ -32,7 +32,7 @@
         <div class="row">
             <div class="col-sm-3 text-right hidden-xs"><strong>URL</strong></div>
             <div class="col-sm-3 visible-xs"><strong>URL</strong></div>
-            <div class="col-sm-9"> <a href="http://{{settings.domain}}{{settings.path}}" target="_blank">http://{{settings.domain}}{{settings.path}}</a></div>
+            <div class="col-sm-9"> <a href="https://{{settings.domain}}{{settings.path}}" target="_blank">https://{{settings.domain}}{{settings.path}}</a></div>
         </div>
     </li>
 </ul>
