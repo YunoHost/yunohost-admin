@@ -63,7 +63,7 @@ app = Sammy('#main', function (sam) {
         // Flash helper to diplay instant notifications
         flash: function (level, message) {
             flashs = store.get('flash');
-            if (!flashs) { flashs = {'info': [], 'fail': [], 'success': [] } }
+            if (!flashs) { flashs = {'info': [], 'fail': [], 'warning': [], 'success': [] } }
             flashs[level].push(message);
             store.set('flash', flashs);
 
@@ -275,7 +275,8 @@ app = Sammy('#main', function (sam) {
 
         // Show development note
         c.flash('info', '<b>You are using a development version.</b><br />' +
-            'Please note that you can use the <a href="https://doc.yunohost.org/#/moulinette" target="_blank">moulinette</a>  if you want to access to more YunoHost\'s features.');
+            'Please note that you can use the <a href="https://doc.yunohost.org/#/moulinette" target="_blank" class="alert-link">moulinette</a>  if you want to access to more YunoHost\'s features.');
+
 
         // Available sections
         data = {links: [
@@ -288,7 +289,15 @@ app = Sammy('#main', function (sam) {
             {name: "Backup", path: '#/backup'},
         ]};
 
-        c.view('home', data);
+        c.api('/users', function(data2) {
+            // Warn admin if no users are created.
+            if (data2.Users.length == 0) {
+                c.flash('warning', "You probably need to <a href='#/users/create' class='alert-link'>create a user</a> first.");
+            }
+
+            c.view('home', data);
+        });
+
     });
 
     sam.get('#/login', function (c) {

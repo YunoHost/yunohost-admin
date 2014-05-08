@@ -20,4 +20,12 @@
         <p class="list-group-item-text">{{Mail}}</p>
     </a>
 {{/Users}}
+
+{{^Users}}
+<div class="alert alert-warning">
+    <span class="fa-exclamation-triangle"></span>
+    No users.
+</div>
+{{/Users}}
+
 </div>
