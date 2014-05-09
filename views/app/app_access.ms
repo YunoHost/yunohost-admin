@@ -12,7 +12,7 @@
 
 <div class="panel panel-default">
     <div class="panel-heading">
-        <h2 class="panel-title">Allowed users</h2>
+        <h2 class="panel-title"><span class="fa-fw fa-users"></span> Allowed users</h2>
     </div>
     {{#if settings.allowed_users}}
     <div class="list-group">
@@ -60,6 +60,7 @@
     <div class="panel-heading">
         <h2 class="panel-title">
             <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                <span class="fa-fw fa-wrench"></span>
                 Bulk operations
             </a>
         </h2>

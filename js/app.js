@@ -604,6 +604,8 @@ app = Sammy('#main', function (sam) {
 
     sam.get('#/apps/:app', function (c) {
         c.api('/app/'+c.params['app']+'?raw=true', function(data) { // http://api.yunohost.org/#!/app/app_info_get_9
+            // Presentation
+            data.settings.allowed_users = data.settings.allowed_users.replace(',', ', ');
             c.view('app/app_info', data);
         });
     });
@@ -787,6 +789,19 @@ app = Sammy('#main', function (sam) {
         }
     });
 
+    // Make app default
+    sam.get('#/apps/:app/default', function (c) {
+        if (confirm('Are you sure you want to make this app default ?')) {
+            params = {'app': c.params['app']}
+            c.api('/app/default', function() { //
+                store.clear('slide');
+                c.redirect('#/apps/'+ c.params['app']);
+            }, 'PUT', params);
+        } else {
+            store.clear('slide');
+            c.redirect('#/apps/'+ c.params['app']);
+        }
+    });
 
     /**
      * Services
