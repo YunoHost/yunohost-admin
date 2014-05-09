@@ -16,12 +16,12 @@
         {{#packages}}
         <div class="list-group-item">
             <h3 class="list-group-item-heading">{{name}} <small>{{fullname}}</small></h3>
-            <p class="list-group-item-text">{{changelog}}</p>
+            <p class="list-group-item-text">{{{changelog}}}</p>
         </div>
         {{/packages}}
 
         <div class="br"></div>
-        <a href="#/tools/upgrade/packages" class="btn btn-default">Upgrade packages</a>
+        <a href="#/tools/upgrade/packages" class="btn btn-success">Upgrade packages</a>
     {{else}}
     There is no packages to upgrade.
     {{/if}}

@@ -952,6 +952,10 @@ app = Sammy('#main', function (sam) {
     // System update & upgrade
     sam.get('#/tools/update', function (c) {
         c.api('/update', function(data) {
+            packagesLength = data.packages.length;
+            for(var i = 0; i < packagesLength; i++) {
+                data.packages[i].changelog = data.packages[i].changelog.replace(/\n/g, '<br />');
+            }
             c.view('tools/tools_update', data);
         }, 'PUT');
     });
