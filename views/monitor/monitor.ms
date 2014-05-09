@@ -13,11 +13,14 @@
         <h2 class="panel-title"><span class="fa-fw fa-info-circle"></span> Infos</h2>
     </div>
     <div class="panel-body">
-        <ul class="list-unstyled">
-          <li><b>Hostname: </b>{{system.infos.hostname}}</li>
-          <li><b>OS: </b>{{ucwords system.infos.linux_distro}} {{system.infos.platform}} ({{system.infos.os_name}} {{system.infos.os_version}})</li>
-          <li><b>Uptime: </b>{{system.uptime}}</li>
-        </ul>
+        <dl class="dl-horizontal">
+            <dt>Hostname</dt>
+            <dd>{{system.infos.hostname}}</dd>
+            <dt>OS</dt>
+            <dd>{{ucwords system.infos.linux_distro}} {{system.infos.platform}} ({{system.infos.os_name}} {{system.infos.os_version}})</dd>
+            <dt>Uptime</dt>
+            <dd>{{system.uptime}}</dd>
+        </dl>
     </div>
 </div>
 
