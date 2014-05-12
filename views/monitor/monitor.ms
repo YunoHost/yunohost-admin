@@ -1,24 +1,24 @@
 <div class="pull-left">
     <a href="#/" class="btn btn-default slide back">
-        <span class="fa-chevron-left"></span> Menu
+        <span class="fa-chevron-left"></span> {{t 'menu'}}
     </a>
 </div>
 <div class="clearfix"></div>
-<h1 class="view-title">Monitoring</h1>
+<h1 class="view-title">{{t 'monitoring'}}</h1>
 <div class="br"></div>
 
 {{#if status}}
 <div class="panel panel-default">
     <div class="panel-heading">
-        <h2 class="panel-title"><span class="fa-fw fa-info-circle"></span> Infos</h2>
+        <h2 class="panel-title"><span class="fa-fw fa-info-circle"></span> {{t 'infos'}}</h2>
     </div>
     <div class="panel-body">
         <dl class="dl-horizontal">
-            <dt>Hostname</dt>
+            <dt>{{t 'hostname'}}</dt>
             <dd>{{system.infos.hostname}}</dd>
-            <dt>OS</dt>
+            <dt>{{t 'os'}}</dt>
             <dd>{{ucwords system.infos.linux_distro}} {{system.infos.platform}} ({{system.infos.os_name}} {{system.infos.os_version}})</dd>
-            <dt>Uptime</dt>
+            <dt>{{t 'uptime'}}</dt>
             <dd>{{system.uptime}}</dd>
         </dl>
     </div>
@@ -30,78 +30,78 @@
         <div class="panel-heading">
             <h2 class="panel-title">
                 <span class="fa-fw fa-cog"></span> 
-                <a data-toggle="collapse" data-parent="#accordion" href="#system">System</a>
+                <a data-toggle="collapse" data-parent="#accordion" href="#system">{{t 'system'}}</a>
             </h2>
         </div>
         <div id="system" class="panel-collapse collapse">
             <div class="panel-body row">
 
                 <div class="col-md-4">
-                    <h3>Memory</h3>
-                    <h4>RAM</h4>
+                    <h3>{{t 'memory'}}</h3>
+                    <h4>{{t 'ram'}}</h4>
                     <table class="table table-condensed">
                         <tr>
-                            <td>Used</td>
+                            <td>{{t 'used'}}</td>
                             <td>{{humanSize system.memory.ram.used}} ({{system.memory.ram.percent}} %)</td>
                         </tr>
                         <tr>
-                            <td>Free</td>
+                            <td>{{t 'free'}}</td>
                             <td>{{humanSize system.memory.ram.free}}</td>
                         </tr>
                         <tr class="active">
-                            <td>Total</td>
+                            <td>{{t 'total'}}</td>
                             <td>{{humanSize system.memory.ram.total}}</td>
                         </tr>
                     </table>
 
-                    <h4>Swap</h4>
+                    <h4>{{t 'swap'}}</h4>
                     <table class="table table-condensed">
                         <tr>
-                            <td>Used</td>
+                            <td>{{t 'used'}}</td>
                             <td>{{humanSize system.memory.swap.used}} ({{system.memory.swap.percent}} %)</td>
                         </tr>
                         <tr>
-                            <td>Free</td>
+                            <td>{{t 'free'}}</td>
                             <td>{{humanSize system.memory.swap.free}}</td>
                         </tr>
                         <tr class="active">
-                            <td>Total</td>
+                            <td>{{t 'total'}}</td>
                             <td>{{humanSize system.memory.swap.total}}</td>
                         </tr>
                     </table>
                 </div>
 
                 <div class="col-md-4">
-                    <h3>CPU Load</h3>
+                    <h3>{{t 'cpu_load'}}</h3>
                     <table class="table table-condensed">
                         <tr>
-                            <td>1 min</td>
+                            <td>{{t 'count_min' "1"}}</td>
                             <td>{{system.cpu.load.min1}}</td>
                         </tr>
                         <tr>
-                            <td>5 min</td>
+                            <td>{{t 'count_min' "5"}}</td>
                             <td>{{system.cpu.load.min5}}</td>
                         </tr>
                         <tr>
-                            <td>15 min</td>
+                            <td>{{t 'count_min' "15"}}</td>
                             <td>{{system.cpu.load.min15}}</td>
                         </tr>
                     </table>
                 </div>
 
                 <div class="col-md-4">
-                    <h3>Process</h3>
+                    <h3>{{t 'process'}}</h3>
                     <table class="table table-condensed">
                         <tr>
-                            <td>Running</td>
+                            <td>{{t 'running'}}</td>
                             <td>{{system.process.running}}</td>
                         </tr>
                         <tr>
-                            <td>Sleeping</td>
+                            <td>{{t 'sleeping'}}</td>
                             <td>{{system.process.sleeping}}</td>
                         </tr>
                         <tr class="active">
-                            <td>Total</td>
+                            <td>{{t 'total'}}</td>
                             <td>{{system.process.total}}</td>
                         </tr>
                     </table>
@@ -114,22 +114,22 @@
         <div class="panel-heading">
             <h2 class="panel-title">
                 <span class="fa-fw fa-cloud"></span>
-                <a data-toggle="collapse" data-parent="#accordion" href="#network">Network</a>
+                <a data-toggle="collapse" data-parent="#accordion" href="#network">{{t 'network'}}</a>
             </h2>
         </div>
         <div id="network" class="panel-collapse collapse">
             <div class="panel-body">
-                <b>Public IP: </b>{{network.infos.public_ip}}
+                <b>{{t 'public_ip'}}</b>{{network.infos.public_ip}}
                 <br>
-                <b>Gateway: </b>{{network.infos.gateway}}
+                <b>{{t 'gateway'}}</b>{{network.infos.gateway}}
 
-                <h3>Local IP</h3>
+                <h3>{{t 'local_ip'}}</h3>
                 <table class="table table-condensed">
                     <thead>
                         <tr>
-                            <th>Interface</th>
-                            <th>IPv4</th>
-                            <th>IPv6</th>
+                            <th>{{t 'interface'}}</th>
+                            <th>{{t 'ipv4'}}</th>
+                            <th>{{t 'ipv6'}}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -143,7 +143,7 @@
                     </tbody>
                 </table>
 
-                <h3>Usage</h3>
+                <h3>{{t 'usage'}}</h3>
                 {{#each network.usage}}
                 <div class="clearfix">
                     <table class="table table-condensed">
@@ -152,21 +152,21 @@
                                 <th>
                                     <h4>
                                         {{@key}}
-                                        <small>Time since update: {{humanTime time_since_update}}</small>
+                                        <small>{{t 'time_since_update'}}{{humanTime time_since_update}}</small>
                                     </h4>
                                 </th>
-                                <th>Bit rate</th>
-                                <th>Cumulative usage</th>
+                                <th>{{t 'bit_rate'}}</th>
+                                <th>{{t 'cumulative_usage'}}</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>Transmission</td>
+                                <td>{{t 'transmission'}}</td>
                                 <td>{{bitRate tx time_since_update}}</td>
                                 <td>{{humanSize cumulative_tx}}</td>
                             </tr>
                             <tr>
-                                <td>Reception</td>
+                                <td>{{t 'reception'}}</td>
                                 <td>{{bitRate rx time_since_update}}</td>
                                 <td>{{humanSize cumulative_rx}}</td>
                             </tr>
@@ -182,7 +182,7 @@
         <div class="panel-heading">
             <h2 class="panel-title">
                 <span class="fa-fw fa-hdd-o"></span>
-                <a data-toggle="collapse" data-parent="#accordion" href="#disk">Disk</a>
+                <a data-toggle="collapse" data-parent="#accordion" href="#disk">{{t 'disk'}}</a>
             </h2>
         </div>
         <div id="disk" class="panel-collapse collapse">
@@ -192,33 +192,33 @@
                 <h3>{{@key}}</h3>
                 <div class="row">
                     <div class="col-md-6">
-                        <h4>Filesystem</h4>
+                        <h4>{{t 'filesystem'}}</h4>
                         <table class="table table-condensed">
                             <tr>
-                                <td>FS Type</td><td>{{ filesystem.fs_type }}</td>
+                                <td>{{t 'fs_type'}}</td><td>{{ filesystem.fs_type }}</td>
                             </tr>
                             <tr>
-                                <td>Mount point</td><td>{{ filesystem.mnt_point }}</td>
+                                <td>{{t 'mount_point'}}</td><td>{{ filesystem.mnt_point }}</td>
                             </tr>
                             <tr>
-                                <td>Size</td><td>{{humanSize filesystem.size }}</td>
+                                <td>{{t 'size'}}</td><td>{{humanSize filesystem.size }}</td>
                             </tr>
                             <tr>
-                                <td>Used</td><td>{{humanSize filesystem.used }}</td>
+                                <td>{{t 'used'}}</td><td>{{humanSize filesystem.used }}</td>
                             </tr>
                             <tr class="active">
-                                <td>Available</td><td>{{humanSize filesystem.avail }}</td>
+                                <td>{{t 'available'}}</td><td>{{humanSize filesystem.avail }}</td>
                             </tr>
                         </table>
                     </div>
                     <div class="col-md-6">
-                        <h4>I/O <small>Time since update: {{humanTime io.time_since_update }}</small></h4>
+                        <h4>{{t 'io'}} <small>{{t 'time_since_update'}}{{humanTime io.time_since_update }}</small></h4>
                         <table class="table table-condensed">
                             <tr>
-                                <td>Read</td><td>{{humanSize io.read_bytes }}</td>
+                                <td>{{t 'read'}}</td><td>{{humanSize io.read_bytes }}</td>
                             </tr>
                             <tr>
-                                <td>Write</td><td>{{humanSize io.write_bytes }}</td>
+                                <td>{{t 'write'}}</td><td>{{humanSize io.write_bytes }}</td>
                             </tr>
                         </table>
                     </div>
@@ -233,9 +233,9 @@
 {{else}}
 <div class="alert alert-warning">
     <span class="fa-exclamation-triangle"></span>
-    Monitoring is not enabled.
+    {{t 'monitoring_disabled'}}
     <br>
-    Check <a href="#/services/glances">glances</a> service status.
+    {{t 'monitoring_check_glances'}}
 </div>
 
 {{/if}}

@@ -4,7 +4,7 @@
     </a>
 </div>
 <div class="clearfix"></div>
-<h1 class="view-title">{{name}} log</h1>
+<h1 class="view-title">{{t 'service_log' name}}</h1>
 <div class="br"></div>
 
 <div class="container">

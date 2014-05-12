@@ -1,10 +1,10 @@
 <div class="pull-left">
     <a href="#/domains" class="btn btn-default slide back">
-      <span class="fa-chevron-left"></span> Domain list
+      <span class="fa-chevron-left"></span> {{t 'domain_list'}}
     </a>
 </div>
 <div class="clearfix"></div>
-<h1 class="view-title">Add domain</h1>
+<h1 class="view-title">{{t 'domain_add'}}</h1>
 
 <div class="br"></div>
 
@@ -15,18 +15,18 @@
     <div class="panel-heading">
       <h4 class="panel-title">
         <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-          I already have a domain ...
+          {{t 'domain_add_panel_with_domain'}}
         </a>
       </h4>
     </div>
     <div id="collapseOne" class="panel-collapse collapse">
       <div class="panel-body">
-        <small>... and I have <a href="http://doc.yunohost.org/#/dns">set my DNS correctly</a>.</small>
+        <small>{{t 'domain_add_dns_doc'}}</small>
         <hr>
         <div class="form-group">
-            <label for="domain" class="col-sm-3 control-label">Domain name</label>
+            <label for="domain" class="col-sm-3 control-label">{{t 'domain_name'}}</label>
             <div class="col-sm-9">
-                <input type="text" name="domain" class="form-control" placeholder="myserver.org">
+                <input type="text" name="domain" class="form-control" placeholder="{{t 'myserver_org'}}">
             </div>
         </div>
       </div>
@@ -36,19 +36,19 @@
     <div class="panel-heading">
       <h4 class="panel-title">
         <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
-          I don't have a domain ...
+          {{t 'domain_add_panel_with_domain'}}
         </a>
       </h4>
     </div>
     <div id="collapseTwo" class="panel-collapse collapse">
       <div class="panel-body">
-        <small>... and I want a dynamic DNS service.</small>
+        <small>{{t 'domain_add_dyndns_doc'}}</small>
         <hr>
         <div class="form-group">
-            <label for="ddomain" class="col-sm-3 control-label">Domain name</label>
+            <label for="ddomain" class="col-sm-3 control-label">{{t 'domain_name'}}</label>
             <div class="clearfix visible-xs"></div>
             <div class="col-sm-4 col-xs-6">
-                <input type="text" name="ddomain" class="form-control" placeholder="myserver">
+                <input type="text" name="ddomain" class="form-control" placeholder="{{t 'myserver'}}">
             </div>
             <div class="col-sm-5 col-xs-6">
                <select class="form-control" name="ddomain-ext">
@@ -66,7 +66,7 @@
 <div class="br"></div>
 
 <div class="text-center">
-    <input type="submit" class="btn btn-success slide back" value="Save">
+    <input type="submit" class="btn btn-success slide back" value="{{t 'add'}}">
 </div>
 
 </form>

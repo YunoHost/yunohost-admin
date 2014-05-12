@@ -1,6 +1,6 @@
 <div class="pull-left">
     <a href="#/services" class="btn btn-default slide back">
-        <span class="fa-chevron-left"></span> Services list
+        <span class="fa-chevron-left"></span> {{t 'services_list'}}
     </a>
 </div>
 <div class="clearfix"></div>
@@ -9,15 +9,15 @@
 
 <div class="container">
 
-    <h2>Status</h2>
+    <h2>{{t 'status'}}</h2>
     {{#service}}
         <div class="pull-left">
-            Start on boot:
+            {{t 'service_start_on_boot'}}
             <span class="text-{{#is_loaded}}success{{/is_loaded}}{{^is_loaded}}danger{{/is_loaded}}">
             {{loaded}}
             </span>
             <br>
-            Status: 
+            {{t 'service_status'}}
             <span class="text-{{#is_running}}success{{/is_running}}{{^is_running}}danger{{/is_running}}">
             {{status}}
             </span>
@@ -26,27 +26,27 @@
         <div class="pull-right">
         {{#is_loaded}}
             <a href="#/services/{{name}}/disable" class="btn btn-danger">
-                <span class="fa-square-o"></span> Disable
+                <span class="fa-square-o"></span> {{t 'disable'}}
             </a>
         {{/is_loaded}}
         {{^is_loaded}}
             <a href="#/services/{{name}}/enable" class="btn btn-success">
-                <span class="fa-check-square-o"></span> Enable
+                <span class="fa-check-square-o"></span> {{t 'enable'}}
             </a>
         {{/is_loaded}}
 
         {{#is_running}}
             <a href="#/services/{{name}}/stop" class="btn btn-danger">
-                <span class="fa-stop"></span> Stop
+                <span class="fa-stop"></span> {{t 'stop'}}
             </a>
         {{/is_running}}
         {{^is_running}}
             <a href="#/services/{{name}}/start" class="btn btn-success">
-                <span class="fa-play"></span> Start
+                <span class="fa-play"></span> {{t 'start'}}
             </a>
         {{/is_running}}
             <a href="#/services/{{name}}/log" class="btn btn-default slide">
-                <span class="fa-book"></span> Log
+                <span class="fa-book"></span> {{t 'log'}}
             </a>
         </div>
 

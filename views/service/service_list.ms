@@ -1,10 +1,10 @@
 <div class="pull-left">
     <a href="#/" class="btn btn-default slide back">
-        <span class="fa-chevron-left"></span> Menu
+        <span class="fa-chevron-left"></span> {{t 'menu'}}
     </a>
 </div>
 <div class="clearfix"></div>
-<h1 class="view-title">Services</h1>
+<h1 class="view-title">{{t 'services'}}</h1>
 <div class="br"></div>
 
 <div class="list-group">
@@ -13,7 +13,7 @@
         <span class="fa-chevron-right pull-right"></span>
         <h2 class="list-group-item-heading">{{name}}</h2>
         <div class="list-group-item-text">
-            Status: 
+            {{t 'service_status'}}
             <span class="text-{{#is_running}}success{{/is_running}}{{^is_running}}danger{{/is_running}}">
             {{status}}
             </span>

@@ -1,32 +1,32 @@
 {{#Installed}}
 <div class="pull-left">
     <a href="#/" class="btn btn-default slide back">
-        <span class="fa-chevron-left"></span> Menu
+        <span class="fa-chevron-left"></span> {{t 'menu'}}
     </a>
 </div>
 <div class="pull-right">
     <a href="#/apps/install" class="btn btn-success slide">
-        <span class="fa-plus"></span> Install
+        <span class="fa-plus"></span> {{t 'install'}}
     </a>
 </div>
 <div class="clearfix"></div>
-<h1 class="view-title">Installed apps</h1>
+<h1 class="view-title">{{t 'installed_apps'}}</h1>
 {{/Installed}}
 
 
 {{^Installed}}
 <div class="pull-left">
     <a href="#/apps" class="btn btn-default slide back">
-        <span class="fa-chevron-left"></span> Installed apps
+        <span class="fa-chevron-left"></span> {{t 'installed_apps'}}
     </a>
 </div>
 <div class="pull-right">
     <a href="#/apps/refresh" class="btn btn-info">
-        <span class="fa-refresh"></span> Refresh list
+        <span class="fa-refresh"></span> {{t 'refresh_app_list'}}
     </a>
 </div>
 <div class="clearfix"></div>
-<h1 class="view-title">Available apps</h1>
+<h1 class="view-title">{{t 'available_apps'}}</h1>
 {{/Installed}}
 
 <div class="br"></div>
@@ -43,7 +43,7 @@
 {{^Apps}}
 <div class="alert alert-warning">
     <span class="fa-exclamation-triangle"></span>
-    No installed apps.
+    {{t 'no_installed_apps'}}
 </div>
 {{/Apps}}
 

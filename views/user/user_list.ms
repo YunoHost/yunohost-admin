@@ -1,15 +1,15 @@
 <div class="pull-left">
     <a href="#/" class="btn btn-default slide back">
-    	<span class="fa-chevron-left"></span> Menu
+    	<span class="fa-chevron-left"></span> {{t 'menu'}}
     </a>
 </div>
 <div class="pull-right">
     <a href="#/users/create" class="btn btn-success slide">
-    	<span class="fa-plus"></span> New user
+    	<span class="fa-plus"></span> {{t 'users_new'}}
     </a>
 </div>
 <div class="clearfix"></div>
-<h1 class="view-title">Users</h1>
+<h1 class="view-title">{{t 'users'}}</h1>
 <div class="br"></div>
 
 <div class="list-group">
@@ -24,7 +24,7 @@
 {{^Users}}
 <div class="alert alert-warning">
     <span class="fa-exclamation-triangle"></span>
-    No users.
+    {{t 'users_no'}}
 </div>
 {{/Users}}
 

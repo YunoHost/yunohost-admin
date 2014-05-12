@@ -1,6 +1,6 @@
 <header class="page-header clearfix visible-xs">
     <h1 class="app title">YunoHost <span class="desc">Administration</span></h1>
-    <span class="logout-button" role="button"><a class="fa-sign-out" href="#/logout" title="Logout"><span class="sr-only">Logout</span></a></span>
+    <span class="logout-button" role="button"><a class="fa-sign-out" href="#/logout" title="{{t 'logout'}}"><span class="sr-only">{{t 'logout'}}</span></a></span>
 </header>
 
 <div class="list-group">

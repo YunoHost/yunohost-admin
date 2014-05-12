@@ -6,18 +6,18 @@
     <div class="input-group {{#domain}} hidden {{/domain}}">
         <label for="domain" class="input-group-addon">
             <span class="fa-fw fa-cloud"></span>
-            <span class="sr-only">Domain</span>
+            <span class="sr-only">{{t 'domain'}}</span>
         </label>
-        <input type="{{#if domain}}hidden{{else}}text{{/if}}" id="domain" name="domain" class="form-control" placeholder="myserver.org" value="{{domain}}">
+        <input type="{{#if domain}}hidden{{else}}text{{/if}}" id="domain" name="domain" class="form-control" placeholder="{{t 'myserver_org'}}" value="{{domain}}">
     </div>
     <br />
     <div class="input-group">
         <label for="password" class="input-group-addon">
             <span class="fa-fw fa-lock"></span>
-            <span class="sr-only">Password</span>
+            <span class="sr-only">{{t 'password'}}</span>
         </label>
-        <input type="password" id="password" name="password" class="form-control" placeholder="Administration password">
+        <input type="password" id="password" name="password" class="form-control" placeholder="{{t 'administration_password'}}">
     </div>
     <br />
-    <input id="submit" type="submit" value="Login" class="btn btn-success pull-right"/>
+    <input id="submit" type="submit" value="{{t 'login'}}" class="btn btn-success pull-right" />
 </form>

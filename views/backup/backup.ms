@@ -1,15 +1,14 @@
 <div class="pull-left">
     <a href="#/" class="btn btn-default slide back">
-        <span class="fa-chevron-left"></span> Menu
+        <span class="fa-chevron-left"></span> {{t 'menu'}}
     </a>
 </div>
 <div class="clearfix"></div>
-<h1 class="view-title">Backup</h1>
+<h1 class="view-title">{{t 'backup'}}</h1>
 <div class="br"></div>
 
 <div class="alert alert-warning">
     <span class="fa-exclamation-triangle"></span>
-    <strong>The backup system is not implemented yet.</strong>
-    <br>
-    You should take care of backing up your data yourself for now.
+    <strong>{{t 'backup_warning_title'}}</strong>
+    <br>{{t 'backup_warning_desc'}}
 </div>

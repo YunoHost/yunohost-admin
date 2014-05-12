@@ -1,10 +1,10 @@
 <div class="pull-left">
     <a href="#/apps/install" class="btn btn-default slide back">
-        <span class="fa-chevron-left"></span> App list
+        <span class="fa-chevron-left"></span> {{t 'app_list'}}
     </a>
 </div>
 <div class="clearfix"></div>
-<h1 class="view-title">Install {{manifest.name}}</h1>
+<h1 class="view-title">{{t 'install_name' manifest.name}}</h1>
 
 <div class="br"></div>
 
@@ -13,15 +13,15 @@
 <ul class="list-group">
     <li class="list-group-item">
         <div class="row">
-            <div class="col-sm-3 text-right hidden-xs"><strong>ID</strong></div>
-            <div class="col-sm-3 visible-xs"><strong>ID</strong></div>
+            <div class="col-sm-3 text-right hidden-xs"><strong>{{t 'id'}}</strong></div>
+            <div class="col-sm-3 visible-xs"><strong>{{t 'id'}}</strong></div>
             <div class="col-sm-9"> {{manifest.id}}</div>
         </div>
     </li>
     <li class="list-group-item">
         <div class="row">
-            <div class="col-sm-3 text-right hidden-xs"><strong>Description</strong></div>
-            <div class="col-sm-3 visible-xs"><strong>Description</strong></div>
+            <div class="col-sm-3 text-right hidden-xs"><strong>{{t 'description'}}</strong></div>
+            <div class="col-sm-3 visible-xs"><strong>{{t 'description'}}</strong></div>
             <div class="col-sm-9"> {{manifest.description.en}}</div>
         </div>
     </li>
@@ -30,7 +30,7 @@
 <div class="panel panel-default">
     <div class="panel-body">
         <div class="form-group">
-            <label for="label" class="col-sm-12">Label for {{manifest.name}}</label>
+            <label for="label" class="col-sm-12">{{t 'label_for_manifestname' manifest.name}}</label>
             <div class="col-sm-12">
                 <input type="text" name="label" class="form-control" value="{{manifest.name}}" required>
             </div>
@@ -67,7 +67,7 @@
         <hr>
         <input type="hidden" name="app" value="{{manifest.id}}">
         <div class="text-center">
-            <input type="submit" class="btn btn-success slide back" value="Install">
+            <input type="submit" class="btn btn-success slide back" value="{{t 'install'}}">
         </div>
     </div>
 </div>
