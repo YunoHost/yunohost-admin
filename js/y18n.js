@@ -32,7 +32,7 @@
         var translation = this.lookup(key, options);
 
         // Translation fallback
-        if ((typeof translation === 'undefined' || translation === undefined) && options.locale !== y18n.defaultLocale) {
+        if ((typeof translation === 'undefined' || translation === key) && options.locale !== y18n.defaultLocale) {
             options.locale = y18n.defaultLocale;
             return this.translate(key, options);
         }
