@@ -29,6 +29,11 @@ app = Sammy('#main', function (sam) {
         return Math.round(bps / Math.pow(1024, i), 2) + ' ' + sizes[[i]] + '/s';
     });
 
+    Handlebars.registerHelper('t', function(y18n_key) {
+      var result = y18n.t(y18n_key, Array.prototype.slice.call(arguments, 1));
+      return new Handlebars.SafeString(result);
+    });
+
 
     // Look for supported type of storage to use
     var storageType;
@@ -1003,7 +1008,29 @@ app = Sammy('#main', function (sam) {
  * Run the app
  *
  */
+
 $(document).ready(function () {
+
+    /**
+     * Translations
+     */
+
+    // Default language
+    $.getJSON('locales/en.json', function(data){
+        y18n.translations['en'] = data;
+    });
+
+    // User language
+    if (window.navigator && window.navigator.language) {
+        y18n.locale = window.navigator.language;
+        $.getJSON('locales/'+ y18n.locale +'.json', function(data){
+            y18n.translations[y18n.locale] = data;
+        });
+    }
+
+    /**
+     * Application
+     */
     app.run('#/');
 
     // Fixes for sliding effect
