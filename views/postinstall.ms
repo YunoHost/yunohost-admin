@@ -75,7 +75,7 @@
   <div class="panel-body">
 
     <div class="form-group">
-        <label for="password" class="col-sm-3 control-label">New admin password</label>
+        <label for="password" class="col-sm-3 control-label">New administration password</label>
         <div class="col-sm-9">
             <input type="password" id="password" name="password" class="form-control" placeholder="••••••">
         </div>

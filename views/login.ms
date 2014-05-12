@@ -16,7 +16,7 @@
             <span class="fa-fw fa-lock"></span>
             <span class="sr-only">Password</span>
         </label>
-        <input type="password" id="password" name="password" class="form-control" placeholder="Admin password">
+        <input type="password" id="password" name="password" class="form-control" placeholder="Administration password">
     </div>
     <br />
     <input id="submit" type="submit" value="Login" class="btn btn-success pull-right"/>
