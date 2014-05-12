@@ -38,7 +38,7 @@
         }
 
         // Variables remplacement
-        return (translation) ? translation.printf(options) : undefined;
+        return (translation) ? translation.printf(options) : key;
     }
 
     y18n.lookup = function(key, options) {
