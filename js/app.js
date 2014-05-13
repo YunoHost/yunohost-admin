@@ -745,7 +745,7 @@ app = Sammy('#main', function (sam) {
 
     // Grant all access
     sam.get('#/apps/:app/access/add', function (c) {
-        if (confirm(y18n.t('confirm_access_add_all', [c.params['app']]))) {
+        if (confirm(y18n.t('confirm_access_add', [c.params['app']]))) {
             params = {'apps': c.params['app'], 'users': null}
             c.api('/app/access', function() { // http://api.yunohost.org/#!/app/app_addaccess_put_13
                 store.clear('slide');
@@ -768,7 +768,7 @@ app = Sammy('#main', function (sam) {
 
     // Clear access (reset)
     sam.get('#/apps/:app/access/clear', function (c) {
-        if (confirm(y18n.t('confirm_access_clear_all', [c.params['app']]))) {
+        if (confirm(y18n.t('confirm_access_clear', [c.params['app']]))) {
             params = {'apps': c.params['app']}
             c.api('/app/access', function() { //
                 store.clear('slide');
