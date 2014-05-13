@@ -84,7 +84,7 @@
     "allowed_users" : "Utilisateurs autorisés",
     "remove_access" : "Retirer les accès",
     "view_user_profile" : "Voir le profil de %s",
-    "rveryone_has_access" : "Tous les utilisateurs ont accès.",
+    "everyone_has_access" : "Tous les utilisateurs ont accès.",
     "no_allowed_users" : "Aucun utilisateur autorisé.",
     "select_user" : "Choisissez un utilisateur",
     "no_user_to_add" : "Aucun utilisateur à ajouter.",

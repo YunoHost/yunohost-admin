@@ -84,7 +84,7 @@
     "allowed_users" : "Allowed users",
     "remove_access" : "Remove access",
     "view_user_profile" : "View %s's profile",
-    "rveryone_has_access" : "Everyone has access.",
+    "everyone_has_access" : "Everyone has access.",
     "no_allowed_users" : "No allowed users.",
     "select_user" : "Select user",
     "no_user_to_add" : "No more users to add.",
