@@ -4,7 +4,7 @@
     "password" : "Mot de passe",
     "administration_password" : "Mot de passe d'administration",
     "password_confirmation" : "Confirmation du mot de passe",
-    "password_new" : "New password",
+    "password_new" : "Nouveau mot de passe",
     "password_description" : "Le mot de passe doit faire au moins 4 caractères.",
     "login" : "Connexion",
     "logout" : "Déconnexion",

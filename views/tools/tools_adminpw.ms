@@ -25,7 +25,7 @@
 	            </div>
 	        </div>
 	        <div class="form-group">
-	            <label for="confirm_new_password" class="col-sm-3 control-label">{{t 'password_confirm'}}</label>
+	            <label for="confirm_new_password" class="col-sm-3 control-label">{{t 'password_confirmation'}}</label>
 	            <div class="col-sm-5 col-xs-12">
 	                <input type="password" name="confirm_new_password" class="form-control" placeholder="{{t 'tools_adminpw_confirm_placeholder'}}" />
 	            </div>
