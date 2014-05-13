@@ -14,5 +14,5 @@
 {{/logs}}
 </pre>
 {{else}}
-No log.
+	{{t 'no_log'}}
 {{/if}}

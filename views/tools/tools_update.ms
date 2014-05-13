@@ -21,9 +21,9 @@
         {{/packages}}
 
         <div class="br"></div>
-        <a href="#/tools/upgrade/packages" class="btn btn-success">{{t 'system_packages_btn'}}</a>
+        <a href="#/tools/upgrade/packages" class="btn btn-success">{{t 'system_upgrade_btn'}}</a>
     {{else}}
-    {{t 'system_packages_desc'}}
+    {{t 'system_packages_nothing'}}
     {{/if}}
     </div>
 </div>
@@ -41,9 +41,9 @@
         {{/apps}}
 
         <div class="br"></div>
-        <a href="#/tools/upgrade/apps" class="btn btn-success">{{t 'system_apps_btn'}}</a>
+        <a href="#/tools/upgrade/apps" class="btn btn-success">{{t 'system_upgrade_btn'}}</a>
     {{else}}
-    {{t 'system_packages_desc'}}
+    {{t 'system_apps_nothing'}}
     {{/if}}
     </div>
 </div>

@@ -101,8 +101,9 @@ app = Sammy('#main', function (sam) {
                     installing = true;
                 }, 1500);
 
-                $('#popup-title').text('Installing');
-                $('#popup-body').html('<p>YunoHost is being installed on <strong>'+ data.domain +'</strong>. It may take a few minutes ...</p><br><div class="text-center"><img src="img/ajax-loader.gif"></div><br>');
+                $('#popup-title').text(y18n.t('installing'));
+                $('#popup-body').html('<p>'+y18n.t('installation_complete_wait', [data.domain])+'</p>');
+                $('#popup-body').append('<div class="loader-content"><img src="img/ajax-loader.gif"></div>');
                 $('#popup').modal('show');
             } else {
                 loaded = false;
@@ -137,7 +138,7 @@ app = Sammy('#main', function (sam) {
             .fail(function(xhr) {
                 if (xhr.status == 401) {
                     $('#popup').modal('hide');
-                    c.flash('fail', 'Wrong password');
+                    c.flash('fail', y18n.t('wrong_password'));
                 } else if (typeof xhr.responseJSON !== 'undefined') {
                     $('#popup').modal('hide');
                     c.flash('fail', xhr.responseJSON.error);
@@ -145,22 +146,25 @@ app = Sammy('#main', function (sam) {
                     if (uri == '/postinstall') {
                         if (installing) {
                             if (args.domain.match(/\.nohost\.me$/) || args.domain.match(/\.noho\.st$/)) {
-                                $('#popup-title').text('Installed');
-                                $('#popup-body p').text('YunoHost has been successfully installed, we\'ll wait for DNS to be propagated. It will take 3 minutes ...');
+                                $('#popup-title').text(y18n.t('installed'));
+                                $('#popup-body p').text(y18n.t('installation_complete_dns'));
                                 interval = 180000;
                             } else {
                                 interval = 5000;
                             }
                             setInterval(function () {
-                                $('#popup-title').text('Installation complete');
-                                $('#popup-body').html('<p>YunoHost has been successfully installed, please go to <a href="https://'+ args.domain +'/yunohost/admin" target="_blank"><strong>https://'+ args.domain +'/yunohost/admin</strong></a> and create your first user.</p><br><p><small><a href="https://doc.yunohost.org/#/dns" target="_blank">Not working ?</a></small></p>');
+                                $('#popup-title').text(y18n.t('installation_complete'));
+                                $('#popup-body').html(
+                                    '<p>'+ y18n.t('installation_complete_desc', ['https://'+ args.domain +'/yunohost/admin']) +'</p>'
+                                    + '<br>'
+                                    + '<p><small>'+ y18n.t('installation_complete_help_dns') +'</small></p>');
                             }, interval);
                         } else {
                             $('#popup').modal('hide');
-                            c.flash('fail', 'An error occured, try again');
+                            c.flash('fail', y18n.t('error_occured'));
                         }
                     } else {
-                        c.flash('fail', 'Server error');
+                        c.flash('fail', y18n.t('error_server'));
                     }
                 }
                 store.clear('slide');
@@ -277,32 +281,14 @@ app = Sammy('#main', function (sam) {
      *
      */
     sam.get('#/', function (c) {
-
-        // Show development note
-        c.flash('info', '<b>You are using a development version.</b><br />' +
-            'Please note that you can use the <a href="https://doc.yunohost.org/#/moulinette" target="_blank" class="alert-link">moulinette</a>  if you want to access to more YunoHost\'s features.');
-
-
-        // Available sections
-        data = {links: [
-            {name: "Users", path: '#/users'},
-            {name: "Domains", path: '#/domains'},
-            {name: "Applications", path: '#/apps'},
-            {name: "Services", path: '#/services'},
-            {name: "Monitoring", path: '#/monitor'},
-            {name: "Tools", path: '#/tools'},
-            {name: "Backup", path: '#/backup'},
-        ]};
-
-        c.api('/users', function(data2) {
+        c.api('/users', function(data) {
             // Warn admin if no users are created.
-            if (data2.Users.length == 0) {
-                c.flash('warning', "You probably need to <a href='#/users/create' class='alert-link'>create a user</a> first.");
+            if (data.Users.length == 0) {
+                c.flash('warning', y18n.t('warning_first_user'));
             }
 
-            c.view('home', data);
+            c.view('home');
         });
-
     });
 
     sam.get('#/login', function (c) {
@@ -338,7 +324,7 @@ app = Sammy('#main', function (sam) {
                 c.api('/users', function(data) {
                     store.set('connected', true);
                     $('.logout-button').fadeIn();
-                    c.flash('success', 'Logged in');
+                    c.flash('success', y18n.t('logged_in'));
                     if (store.get('path')) {
                         c.redirect(store.get('path'));
                     } else {
@@ -346,7 +332,7 @@ app = Sammy('#main', function (sam) {
                     }
                 });
             } else {
-                c.flash('fail', 'Non-compatible API');
+                c.flash('fail', y18n.t('non_compatible_api'));
                 c.redirect('#/login');
             }
         });
@@ -358,7 +344,7 @@ app = Sammy('#main', function (sam) {
         store.clear('password');
         store.clear('connected');
         store.set('path', '#/');
-        c.flash('success', 'Logged out');
+        c.flash('success', y18n.t('logged_out'));
         c.redirect('#/login');
     });
 
@@ -370,7 +356,7 @@ app = Sammy('#main', function (sam) {
         if (c.params['password'] == c.params['confirmation']) {
             if (c.params['domain'] == '') {
                 if (c.params['ddomain'] == '') {
-                    c.flash('fail', "You should indicate a domain");
+                    c.flash('fail', y18n.t('error_select_domain'));
                     store.clear('slide');
                     c.redirect('#/postinstall');
                 } else {
@@ -389,7 +375,7 @@ app = Sammy('#main', function (sam) {
                 c.redirect('#/');
             }, 'POST', params);
         } else {
-            c.flash('fail', "Passwords don't match");
+            c.flash('fail', y18n.t('passwords_dont_match'));
         }
     });
 
@@ -413,7 +399,7 @@ app = Sammy('#main', function (sam) {
     sam.post('#/users', function (c) {
         if (c.params['password'] == c.params['confirmation']) {
             if (c.params['password'].length < 4) {
-                c.flash('fail', "Password is too short");
+                c.flash('fail', y18n.t('password_too_short'));
                 store.clear('slide');
             }
             else {
@@ -423,7 +409,7 @@ app = Sammy('#main', function (sam) {
                 }, 'POST', c.params.toHash());
             }
         } else {
-            c.flash('fail', "Passwords don't match");
+            c.flash('fail', y18n.t('passwords_dont_match'));
             store.clear('slide');
             //c.redirect('#/users/create');
         }
@@ -448,14 +434,14 @@ app = Sammy('#main', function (sam) {
         });
 
         if ($.isEmptyObject(params)) {
-            c.flash('fail', 'You should modify something');
+            c.flash('fail', y18n.t('error_modify_something'));
             store.clear('slide');
             // c.redirect('#/users/'+ c.params['user'] + '/edit');
         } else {
             if (params['password']) {
                 if (params['password'] == params['confirmation']) {
                     if (params['password'].length < 4) {
-                        c.flash('fail', "Password is too short");
+                        c.flash('fail', y18n.t('password_too_short'));
                         store.clear('slide');
                     }
                     else {
@@ -465,7 +451,7 @@ app = Sammy('#main', function (sam) {
                         }, 'PUT', params);
                     }
                 } else {
-                    c.flash('fail', "Passwords don't match");
+                    c.flash('fail', y18n.t('passwords_dont_match'));
                     store.clear('slide');
                 }
             }
@@ -478,7 +464,7 @@ app = Sammy('#main', function (sam) {
     });
 
     sam.get('#/users/:user/delete', function (c) {
-        if (confirm('Are you sure you want to delete '+ c.params['user'] +' ?')) {
+        if (confirm(y18n.t('confirm_delete', [c.params['user']]))) {
             c.api('/users/'+ c.params['user'], function(data) { // http://api.yunohost.org/#!/user/user_delete_delete_4
                 c.redirect('#/users');
             }, 'DELETE');
@@ -518,7 +504,7 @@ app = Sammy('#main', function (sam) {
     sam.post('#/domains/add', function (c) {
         if (c.params['domain'] == '') {
             if (c.params['ddomain'] == '') {
-                c.flash('fail', "You should indicate a domain");
+                c.flash('fail', y18n.t('error_select_domain'));
                 store.clear('slide');
                 c.redirect('#/domains/add');
             }
@@ -533,7 +519,7 @@ app = Sammy('#main', function (sam) {
     });
 
     sam.get('#/domains/:domain/delete', function (c) {
-        if (confirm('Are you sure you want to delete '+ c.params['domain'] +' ?')) {
+        if (confirm(y18n.t('confirm_delete', [c.params['domain']]))) {
             c.api('/domains/'+ c.params['domain'], function(data) { // http://api.yunohost.org/#!/domain/domain_remove_delete_3
                 store.clear('slide');
                 c.redirect('#/domains');
@@ -547,10 +533,10 @@ app = Sammy('#main', function (sam) {
     // Set default domain
     sam.post('#/domains', function (c) {
         if (c.params['domain'] == '') {
-            c.flash('fail', "You should select a domain default domain");
+            c.flash('fail', y18n.t('error_select_domain'));
             store.clear('slide');
             c.redirect('#/domains');
-        } else if (confirm('Are you sure you want to change the main domain ?')) {
+        } else if (confirm(y18n.t('confirm_change_maindomain'))) {
 
             params = {'new_domain': c.params['domain']}
             c.api('/domain/main', function(data) { // http://api.yunohost.org/#!/tools/tools_maindomain_put_1
@@ -674,7 +660,7 @@ app = Sammy('#main', function (sam) {
     });
 
     sam.get('#/apps/:app/uninstall', function (c) {
-        if (confirm('Are you sure you want to uninstall '+ c.params['app'] +' ?')) {
+        if (confirm(y18n.t('confirm_uninstall', [c.params['app']]))) {
             c.api('/app?app='+ c.params['app'], function() { // http://api.yunohost.org/#!/app/app_remove_delete_4
                 c.redirect('#/apps');
             }, 'DELETE');
@@ -731,7 +717,7 @@ app = Sammy('#main', function (sam) {
 
     // Remove all access
     sam.get('#/apps/:app/access/remove', function (c) {
-        if (confirm('Are you sure you want to remove all access to '+ c.params['app'] +' ?')) {
+        if (confirm(y18n.t('confirm_access_remove_all', [c.params['app']]))) {
             params = {'apps': c.params['app'], 'users':[]}
             c.api('/app/access?'+c.serialize(params), function(data) { // http://api.yunohost.org/#!/app/app_removeaccess_delete_12
                 store.clear('slide');
@@ -745,7 +731,7 @@ app = Sammy('#main', function (sam) {
 
     // Remove access to a specific user
     sam.get('#/apps/:app/access/remove/:user', function (c) {
-        if (confirm('Are you sure you want to remove access to '+ c.params['app'] +' for '+ c.params['user'] +' ?')) {
+        if (confirm(y18n.t('confirm_access_remove_user', [c.params['app'], c.params['user']]))) {
             params = {'apps': c.params['app'], 'users': c.params['user']}
             c.api('/app/access?'+c.serialize(params), function(data) { // http://api.yunohost.org/#!/app/app_removeaccess_delete_12
                 store.clear('slide');
@@ -759,7 +745,7 @@ app = Sammy('#main', function (sam) {
 
     // Grant all access
     sam.get('#/apps/:app/access/add', function (c) {
-        if (confirm('Are you sure you want to add access to '+ c.params['app'] +' for all users ?')) {
+        if (confirm(y18n.t('confirm_access_add_all', [c.params['app']]))) {
             params = {'apps': c.params['app'], 'users': null}
             c.api('/app/access', function() { // http://api.yunohost.org/#!/app/app_addaccess_put_13
                 store.clear('slide');
@@ -782,7 +768,7 @@ app = Sammy('#main', function (sam) {
 
     // Clear access (reset)
     sam.get('#/apps/:app/access/clear', function (c) {
-        if (confirm('Are you sure you want to clear all access to '+ c.params['app'] +' ?')) {
+        if (confirm(y18n.t('confirm_access_clear_all', [c.params['app']]))) {
             params = {'apps': c.params['app']}
             c.api('/app/access', function() { //
                 store.clear('slide');
@@ -796,7 +782,7 @@ app = Sammy('#main', function (sam) {
 
     // Make app default
     sam.get('#/apps/:app/default', function (c) {
-        if (confirm('Are you sure you want to make this app default ?')) {
+        if (confirm(y18n.t('confirm_app_default'))) {
             params = {'app': c.params['app']}
             c.api('/app/default', function() { //
                 store.clear('slide');
@@ -856,7 +842,7 @@ app = Sammy('#main', function (sam) {
 
     // Enable/Disable & Start/Stop service
     sam.get('#/services/:service/:action', function (c) {
-        if (confirm('Are you sure you want to '+ c.params['action'] +' '+ c.params['service'] +' ?')) {
+        if (confirm(y18n.t('confirm_service_action', [y18n.t(c.params['action']), c.params['service']]))) {
             params = { 'names': c.params['service'] }
             c.api('/service/'+ c.params['action'], function(data) {
                 store.clear('slide');
@@ -918,12 +904,7 @@ app = Sammy('#main', function (sam) {
      */
 
     sam.get('#/tools', function (c) {
-        // Available tools
-        data = {links: [
-            {name: "Change administration password", path: '#/tools/adminpw'},
-            {name: "System update", path: '#/tools/update'},
-        ]};
-        c.view('tools/tools_list', data);
+        c.view('tools/tools_list');
     });
 
     // Update administration password
@@ -936,11 +917,11 @@ app = Sammy('#main', function (sam) {
             if (value !== '') { params[key] = value; }
         });
         if ($.isEmptyObject(params)) {
-            c.flash('fail', 'You should modify something');
+            c.flash('fail', y18n.t('error_modify_something'));
             store.clear('slide');
             c.redirect('#/tools/adminpw');
         } else if (params['new_password'] !== params['confirm_new_password']) {
-            c.flash('fail', 'Your password didn\'t match');
+            c.flash('fail', y18n.t('passwords_dont_match'));
             store.clear('slide');
             c.redirect('#/tools/adminpw');
         } else {
@@ -967,11 +948,11 @@ app = Sammy('#main', function (sam) {
 
     sam.get('#/tools/upgrade/:type', function (c) {
         if (c.params['type'] !== 'apps' && c.params['type'] !== 'packages') {
-            c.flash('fail', 'Error');
+            c.flash('fail', y18n.t('error_server'));
             store.clear('slide');
             c.redirect('#/tools/update');
         }
-        if (confirm('Are you sure you want update every '+c.params['type']+' ?')) {
+        if (confirm(y18n.t('confirm_update_type', [y18n.t('system_'+c.params['type']).toLowerCase()]))) {
             params = {
                 'ignore_packages': (c.params['type'] == 'packages') ? false : true,
                 'ignore_apps': (c.params['type'] == 'apps') ? false : true,

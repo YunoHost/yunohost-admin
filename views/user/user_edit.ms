@@ -45,7 +45,7 @@
             <label for="confirmation" class="col-sm-3 control-label">{{t 'password_confirmation'}}</label>
             <div class="col-sm-9">
                 <input type="password" name="confirmation" class="form-control" placeholder="•••••">
-                <div class="help-block">{{t 'password_decription'}}</div>
+                <div class="help-block">{{t 'password_description'}}</div>
             </div>
         </div>
     </div>

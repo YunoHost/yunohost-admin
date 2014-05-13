@@ -9,11 +9,13 @@
 
 
 <div class="list-group">
-{{#links}}
-    <a href="{{path}}" class="list-group-item slide">
+    <a href="#/tools/adminpw" class="list-group-item slide">
         <span class="fa-chevron-right pull-right"></span>
-        <h2 class="list-group-item-heading">{{name}}</h2>
+        <h2 class="list-group-item-heading">{{t 'tools_adminpw'}}</h2>
     </a>
-{{/links}}
+    <a href="#/tools/update" class="list-group-item slide">
+        <span class="fa-chevron-right pull-right"></span>
+        <h2 class="list-group-item-heading">{{t 'system_update'}}</h2>
+    </a>
 </div>
 
