@@ -12,7 +12,7 @@
         <span class="pull-right fa-chevron-right"></span>
         <h2 class="list-group-item-heading">{{t 'domains'}}</h2>
 	</a>
-	<a href="#/applications" class="list-group-item slide clearfix">
+	<a href="#/apps" class="list-group-item slide clearfix">
         <span class="pull-right fa-chevron-right"></span>
         <h2 class="list-group-item-heading">{{t 'applications'}}</h2>
 	</a>
