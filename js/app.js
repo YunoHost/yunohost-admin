@@ -155,7 +155,7 @@ app = Sammy('#main', function (sam) {
                             setInterval(function () {
                                 $('#popup-title').text(y18n.t('installation_complete'));
                                 $('#popup-body').html(
-                                    '<p>'+ y18n.t('installation_complete_desc', ['https://'+ args.domain +'/yunohost/admin']) +'</p>'
+                                    '<p>'+ y18n.t('installation_complete_desc', ['https://'+ args.domain +'/yunohost/admin', args.domain +'/yunohost/admin']) +'</p>'
                                     + '<br>'
                                     + '<p><small>'+ y18n.t('installation_complete_help_dns') +'</small></p>');
                             }, interval);
