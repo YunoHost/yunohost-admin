@@ -42,6 +42,7 @@
     "wrong_password" : "Wrong password",
     "passwords_dont_match" : "Passwords don't match",
     "passwords_too_short" : "Password is too short",
+    "password_empty" : "Password field is empty",
     "logged_in" : "Logged in",
     "logged_out" : "Logged out",
     "error_occured" : "An error occured, try again",

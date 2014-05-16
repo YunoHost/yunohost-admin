@@ -354,7 +354,10 @@ app = Sammy('#main', function (sam) {
     });
 
     sam.post('#/postinstall', function (c) {
-        if (c.params['password'] == c.params['confirmation']) {
+        if (c.params['password'] == '' || c.params['confirmation'] == '') {
+            c.flash('fail', y18n.t('password_empty'))
+        }
+        else if (c.params['password'] == c.params['confirmation']) {
             if (c.params['domain'] == '') {
                 if (c.params['ddomain'] == '') {
                     c.flash('fail', y18n.t('error_select_domain'));
