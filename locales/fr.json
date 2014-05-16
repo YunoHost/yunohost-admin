@@ -164,7 +164,7 @@
     "tools_adminpw_new_placeholder" : "Entrez le nouveau mot de passe",
     "tools_adminpw_confirm_placeholder" : "Confirmez le nouveau mot de passe",
 
-    "system_update" : "Mises à jour du système",
+    "system_update" : "Mettre à jour le système",
     "system_upgrade" : "Mise à jour du système",
     "system_upgrade_btn" : "Mettre à jour",
     "system_packages" : "Paquets",
