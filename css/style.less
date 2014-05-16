@@ -187,9 +187,12 @@ body {
 #popup {
     .modal;
     .fade;
-    .modal-dialog;
-    .modal-content;
     overflow-y: auto;
+
+    & > div {
+        .modal-dialog;
+        .modal-content;
+    }
 
     #popup-title {
         .modal-header;

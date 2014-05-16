@@ -81,6 +81,7 @@ app = Sammy('#main', function (sam) {
                 });
             }
             $('#flash').html(html).fadeIn();
+            document.body.scrollTop = document.documentElement.scrollTop = 0;
         },
 
         // API connection helper
