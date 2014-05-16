@@ -110,8 +110,8 @@
     "domain_default_desc" : "Les utilisateurs se connecteront au domaine par défaut.",
     "domain_select" : "Selectionnez un domaine",
 
-    "monitoring" : "Monitoring",
-    "hostname" : "Hostname",
+    "monitoring" : "État du serveur",
+    "hostname" : "Nom d'hôte",
     "os" : "OS",
     "uptime" : "Uptime",
     "system" : "Système",
@@ -148,7 +148,7 @@
     "io" : "E/S",
     "read" : "Lecture",
     "write" : "Écriture",
-    "monitoring_disabled" : "Le monitoring n'est pas activé.",
+    "monitoring_disabled" : "Le suivi de l'état du serveur n'est pas activé.",
     "monitoring_check_glances" : "Verifiez l'état du service <a href='#/services/glances'>glances</a>.",
 
     "services" : "Services",
