@@ -104,14 +104,14 @@ app = Sammy('#main', function (sam) {
 
                 $('#popup-title').text(y18n.t('installing'));
                 $('#popup-body').html('<p>'+y18n.t('installation_complete_wait', [data.domain])+'</p>');
-                $('#popup-body').append('<div class="loader-content"><img src="img/ajax-loader.gif"></div>');
+                $('#popup-body').append('<div class="loader loader-popup"></div>');
                 $('#popup').modal('show');
             } else {
                 loaded = false;
-                if ($('div.loader-content').length == 0) {
+                if ($('div.loader').length == 0) {
                 setInterval(function () {
-                    if (!loaded && $('div.loader-content').length == 0) {
-                        $('#main').append('<div class="loader-content"><img src="img/ajax-loader.gif"></div>');
+                    if (!loaded && $('div.loader').length == 0) {
+                        $('#main').append('<div class="loader loader-content"></div>');
                     }
                 }, 500);
                 }
@@ -173,7 +173,7 @@ app = Sammy('#main', function (sam) {
             })
             .done(function(data) {
                 loaded = true;
-                $('div.loader-content').remove();
+                $('div.loader').remove();
             });
         },
 
@@ -184,7 +184,7 @@ app = Sammy('#main', function (sam) {
             enableSlide = true; // Change to false to disable animation
 
             loaded = true;
-            $('div.loader-content').remove();
+            $('div.loader').remove();
 
             if (enableSlide) {
                 function leSwap() {

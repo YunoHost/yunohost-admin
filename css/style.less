@@ -232,6 +232,12 @@ div.br {
     height: 30px;
 }
 
+.loader {
+    display: block;
+    z-index: 2000;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.5) url(../img/ajax-loader.gif) center 15% no-repeat;
+}
 .loader-content {
     position: fixed;
     top: 0;
@@ -239,16 +245,13 @@ div.br {
     left: 0;
     right: 0;
     z-index: 2000;
-    text-align: center;
-    background: rgba(255, 255, 255, 0.5);
-    padding-top: 10%;
 }
-
-.loader-content img {
-    display: inline-block;
-    vertical-align: middle;
+.loader-popup {
+    margin: auto;
+    height: 24px;
+    width: 24px;
+    background-position: center top;
 }
-
 
 .help-block {
     text-align: right;
