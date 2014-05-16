@@ -13,19 +13,19 @@
 <div class="br"></div>
 
 <div class="list-group">
-{{#Users}}
-    <a href="#/users/{{Username}}" class="list-group-item slide clearfix">
+{{#users}}
+    <a href="#/users/{{username}}" class="list-group-item slide clearfix">
         <span class="pull-right fa-chevron-right"></span>
-        <h2 class="list-group-item-heading">{{Username}} <small>{{Fullname}}</small></h2>
-        <p class="list-group-item-text">{{Mail}}</p>
+        <h2 class="list-group-item-heading">{{username}} <small>{{fullname}}</small></h2>
+        <p class="list-group-item-text">{{mail}}</p>
     </a>
-{{/Users}}
+{{/users}}
 
-{{^Users}}
+{{^users}}
 <div class="alert alert-warning">
     <span class="fa-exclamation-triangle"></span>
     {{t 'users_no'}}
 </div>
-{{/Users}}
+{{/users}}
 
 </div>

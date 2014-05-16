@@ -45,6 +45,7 @@
     "password_empty" : "Le champ mot de passe est vide",
     "logged_in" : "Connecté",
     "logged_out" : "Déconnecté",
+    "unauthorized" : "Non autorisé",
     "error_occured" : "Une erreur est survenue, veuillez réessayer.",
     "error_server" : "Erreur serveur",
     "error_select_domain" : "Vous devez indiquer un domaine.",

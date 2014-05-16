@@ -57,9 +57,9 @@
             </div>
             <div class="col-sm-5 col-xs-6">
                <select class="form-control" name="ddomain-ext">
-                   {{#DDomains}}
+                   {{#ddomains}}
                        <option>{{.}}</option>
-                   {{/DDomains}}
+                   {{/ddomains}}
                </select>
             </div>
         </div>

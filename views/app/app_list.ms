@@ -1,4 +1,4 @@
-{{#Installed}}
+{{#installed}}
 <div class="pull-left">
     <a href="#/" class="btn btn-default slide back">
         <span class="fa-chevron-left"></span> {{t 'menu'}}
@@ -11,10 +11,10 @@
 </div>
 <div class="clearfix"></div>
 <h1 class="view-title">{{t 'installed_apps'}}</h1>
-{{/Installed}}
+{{/installed}}
 
 
-{{^Installed}}
+{{^installed}}
 <div class="pull-left">
     <a href="#/apps" class="btn btn-default slide back">
         <span class="fa-chevron-left"></span> {{t 'installed_apps'}}
@@ -27,24 +27,24 @@
 </div>
 <div class="clearfix"></div>
 <h1 class="view-title">{{t 'available_apps'}}</h1>
-{{/Installed}}
+{{/installed}}
 
 <div class="br"></div>
 
 <div class="list-group">
-{{#Apps}}
-    <a href="#/apps/{{^Installed}}install/{{/Installed}}{{ID}}" class="list-group-item slide">
+{{#apps}}
+    <a href="#/apps/{{^installed}}install/{{/installed}}{{id}}" class="list-group-item slide">
         <span class="fa-chevron-right pull-right"></span>
-        <h2 class="list-group-item-heading">{{Name}} <small>{{ID}}</small></h2>
-        <p class="list-group-item-text">{{Description.en}}</p>
+        <h2 class="list-group-item-heading">{{name}} <small>{{id}}</small></h2>
+        <p class="list-group-item-text">{{description.en}}</p>
     </a>
-{{/Apps}}
+{{/apps}}
 
-{{^Apps}}
+{{^apps}}
 <div class="alert alert-warning">
     <span class="fa-exclamation-triangle"></span>
     {{t 'no_installed_apps'}}
 </div>
-{{/Apps}}
+{{/apps}}
 
 </div>

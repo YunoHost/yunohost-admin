@@ -36,7 +36,7 @@
     <div class="panel-heading">
       <h4 class="panel-title">
         <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
-          {{t 'domain_add_panel_with_domain'}}
+          {{t 'domain_add_panel_without_domain'}}
         </a>
       </h4>
     </div>
@@ -52,9 +52,9 @@
             </div>
             <div class="col-sm-5 col-xs-6">
                <select class="form-control" name="ddomain-ext">
-                   {{#DDomains}}
+                   {{#ddomains}}
                        <option>{{.}}</option>
-                   {{/DDomains}}
+                   {{/ddomains}}
                </select>
             </div>
         </div>

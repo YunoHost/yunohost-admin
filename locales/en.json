@@ -45,6 +45,7 @@
     "password_empty" : "Password field is empty",
     "logged_in" : "Logged in",
     "logged_out" : "Logged out",
+    "unauthorized" : "Unauthorized",
     "error_occured" : "An error occured, try again",
     "error_server" : "Server error",
     "error_select_domain" : "You should indicate a domain",

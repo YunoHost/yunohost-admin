@@ -94,8 +94,8 @@ app = Sammy('#main', function (sam) {
             }
 
             var args = data;
-            auth   = "Basic "+ btoa(store.get('user') +':'+ atob(store.get('password')));
-            if (uri == '/postinstall') {
+            // auth   = "Basic "+ btoa('admin' +':'+ atob('yolo'));
+            if (uri === '/postinstall') {
                 var installing = false;
 
                 setInterval(function () {
@@ -123,12 +123,44 @@ app = Sammy('#main', function (sam) {
                 data: data,
                 traditional: true,
                 dataType: 'json',
-                beforeSend: function(req) {
-                    req.setRequestHeader('Authorization', auth);
-                }
+                // beforeSend: function(req) {
+                //     req.setRequestHeader('Authorization', auth);
+                // }
             })
-            .success(function(data) {
-                data = typeof data !== 'undefined' ? data : {};
+            /*
+            .always(function(data) {
+                if (data.status !== 'undefined' && uri === '/login') {
+                    if (data.status === 401) {
+                        $('#popup').modal('hide');
+                        c.flash('fail', y18n.t('wrong_password'));
+                    }
+                    // 200 & empty response TODO: better comment
+                    // /login
+                    else if (data.status === 200) {
+                        // data = typeof data !== 'undefined' ? data : {};
+                        if (typeof data.win !== 'undefined') {
+                            $.each(data.win, function(k, v) {
+                                c.flash('success', v);
+                            });
+                        }
+                        callback(data);                        
+                    }
+                }
+                loaded = true;
+                $('div.loader').remove();
+
+            })
+*/
+            .always(function(xhr, ts, error) {
+                // console.log("always");
+                // console.log(xhr);
+                // console.log(ts);
+                // console.log(error);
+            })
+            .done(function(data) {
+                // console.log('success');console.log(data);
+                // data = typeof data !== 'undefined' ? data : {};
+                data = data || {};
                 if (typeof data.win !== 'undefined') {
                     $.each(data.win, function(k, v) {
                         c.flash('success', v);
@@ -137,9 +169,13 @@ app = Sammy('#main', function (sam) {
                 callback(data);
             })
             .fail(function(xhr) {
+                // console.log('fail');console.log(xhr);
                 if (xhr.status == 401) {
                     $('#popup').modal('hide');
-                    c.flash('fail', y18n.t('wrong_password'));
+                    if (uri !== '/login') {
+                        c.flash('fail', y18n.t('unauthorized'));
+                        c.redirect('#/login');
+                    }
                 } else if (typeof xhr.responseJSON !== 'undefined') {
                     $('#popup').modal('hide');
                     c.flash('fail', xhr.responseJSON.error);
@@ -170,10 +206,6 @@ app = Sammy('#main', function (sam) {
                 }
                 store.clear('slide');
                 c.redirect(store.get('path-1'));
-            })
-            .done(function(data) {
-                loaded = true;
-                $('div.loader').remove();
             });
         },
 
@@ -239,14 +271,14 @@ app = Sammy('#main', function (sam) {
         // Preload domains list.
         req.params.domains = [];
         req.api('/domains', function(data) {
-            req.params.domains = data.Domains;
+            req.params.domains = data.domains;
         });
     });
     sam.before(/apps\/install\//, function (req){
         // Preload users lists.
         req.params.users = [];
         req.api('/users', function(data) {
-            req.params.users = data.Users;
+            req.params.users = data.users;
         });
     });
 
@@ -284,7 +316,7 @@ app = Sammy('#main', function (sam) {
     sam.get('#/', function (c) {
         c.api('/users', function(data) {
             // Warn admin if no users are created.
-            if (data.Users.length == 0) {
+            if (data.users.length == 0) {
                 c.flash('warning', y18n.t('warning_first_user'));
             }
 
@@ -299,17 +331,16 @@ app = Sammy('#main', function (sam) {
         // Check if te client is hosted on a yunohost node
         domain = window.location.hostname
         $.ajax({
-            url: 'https://'+ domain +'/yunohost/api/api',
+            dataType: "json",
+            url: 'https://'+ domain +'/yunohost/api/installed',
             timeout: 3000
         })
-        .success(function() {
-            $.getJSON('https://'+ domain +'/yunohost/api/installed', function(data) {
-                if (!data.installed) {
-                    c.redirect('#/postinstall');
-                } else {
-                    c.view('login', { 'domain': domain });
-                }
-            });
+        .success(function(data) {
+            if (!data.installed) {
+                c.redirect('#/postinstall');
+            } else {
+                c.view('login', { 'domain': domain });
+            }
         })
         .fail(function() {
             c.view('login');
@@ -318,12 +349,14 @@ app = Sammy('#main', function (sam) {
 
     sam.post('#/login', function (c) {
         store.set('url', 'https://'+ c.params['domain'] +'/yunohost/api');
-        store.set('user', 'admin');
-        store.set('password', btoa(c.params['password']));
-        c.api('/api', function(data) {
-            if (data.apiVersion) {
-                c.api('/users', function(data) {
+        // c.api('/api', function(data) {
+            // if (data.apiVersion) {
+                params = {
+                    'password': c.params['password']
+                }
+                c.api('/login', function(data) {
                     store.set('connected', true);
+
                     $('.logout-button').fadeIn();
                     c.flash('success', y18n.t('logged_in'));
                     if (store.get('path')) {
@@ -331,26 +364,26 @@ app = Sammy('#main', function (sam) {
                     } else {
                         c.redirect('#/');
                     }
-                });
-            } else {
-                c.flash('fail', y18n.t('non_compatible_api'));
-                c.redirect('#/login');
-            }
-        });
+                }, 'POST', params);
+            // } else {
+            //     c.flash('fail', y18n.t('non_compatible_api'));
+            //     c.redirect('#/login');
+            // }
+        // });
     });
 
     sam.get('#/logout', function (c) {
-        store.clear('url');
-        store.clear('user');
-        store.clear('password');
-        store.clear('connected');
-        store.set('path', '#/');
-        c.flash('success', y18n.t('logged_out'));
-        c.redirect('#/login');
+        c.api('/logout', function (data) {
+            store.clear('url');
+            store.clear('connected');
+            store.set('path', '#/');
+            c.flash('success', y18n.t('logged_out'));
+            c.redirect('#/login');
+        });
     });
 
     sam.get('#/postinstall', function(c) {
-        c.view('postinstall', {'DDomains': ['.nohost.me', '.noho.st']});
+        c.view('postinstall', {'ddomains': ['.nohost.me', '.noho.st']});
     });
 
     sam.post('#/postinstall', function (c) {
@@ -408,7 +441,7 @@ app = Sammy('#main', function (sam) {
             }
             else {
                 c.params['mail'] = c.params['email'] + c.params['domain'];
-                c.api('/users', function(data) { // http://api.yunohost.org/#!/user/user_create_post_2
+                c.api('/user', function(data) { // http://api.yunohost.org/#!/user/user_create_post_2
                     c.redirect('#/users');
                 }, 'POST', c.params.toHash());
             }
@@ -420,13 +453,13 @@ app = Sammy('#main', function (sam) {
     });
 
     sam.get('#/users/:user', function (c) {
-        c.api('/users/'+ c.params['user'], function(data) { // http://api.yunohost.org/#!/user/user_info_get_0
+        c.api('/user/'+ c.params['user'], function(data) { // http://api.yunohost.org/#!/user/user_info_get_0
             c.view('user/user_info', data);
         });
     });
 
     sam.get('#/users/:user/edit', function (c) {
-        c.api('/users/'+ c.params['user'], function(data) { // http://api.yunohost.org/#!/user/user_info_get_0
+        c.api('/user/'+ c.params['user'], function(data) { // http://api.yunohost.org/#!/user/user_info_get_0
             c.view('user/user_edit', data);
         });
     });
@@ -450,7 +483,7 @@ app = Sammy('#main', function (sam) {
                     }
                     else {
                         params['change_password'] = params['password'];
-                        c.api('/users/'+ c.params['user'], function(data) { // http://api.yunohost.org/#!/user/user_update_put_1
+                        c.api('/user/update/'+ c.params['user'], function(data) { // http://api.yunohost.org/#!/user/user_update_put_1
                             c.redirect('#/users/'+ c.params['user']);
                         }, 'PUT', params);
                     }
@@ -460,7 +493,7 @@ app = Sammy('#main', function (sam) {
                 }
             }
             else {
-                c.api('/users/'+ c.params['user'], function(data) { // http://api.yunohost.org/#!/user/user_update_put_1
+                c.api('/user/update/'+ c.params['user'], function(data) { // http://api.yunohost.org/#!/user/user_update_put_1
                     c.redirect('#/users/'+ c.params['user']);
                 }, 'PUT', params);
             }
@@ -469,7 +502,7 @@ app = Sammy('#main', function (sam) {
 
     sam.get('#/users/:user/delete', function (c) {
         if (confirm(y18n.t('confirm_delete', [c.params['user']]))) {
-            c.api('/users/'+ c.params['user'], function(data) { // http://api.yunohost.org/#!/user/user_delete_delete_4
+            c.api('/user/delete/'+ c.params['user'], function(data) { // http://api.yunohost.org/#!/user/user_delete_delete_4
                 c.redirect('#/users');
             }, 'DELETE');
         } else {
@@ -487,7 +520,7 @@ app = Sammy('#main', function (sam) {
         c.api('/domains', function(data) { // http://api.yunohost.org/#!/domain/domain_list_get_2
             c.api('/domain/main', function(data2) {
                 domains = [];
-                $.each(data.Domains, function(k, domain) {
+                $.each(data.domains, function(k, domain) {
                     domains.push({
                         url: domain,
                         main: (domain == data2.current_main_domain) ? true : false
@@ -495,14 +528,14 @@ app = Sammy('#main', function (sam) {
                 })
 
                 // Sort domains with main domain first
-                domains.sort(function(a, b){ return -2*(a.main) + 1; })
+                domains.sort(function(a, b){ return -2*(a.main) + 1; });
                 c.view('domain/domain_list', {domains: domains});
-            }, 'PUT')
+            }, 'PUT');
         });
     });
 
     sam.get('#/domains/add', function (c) {
-        c.view('domain/domain_add', {'DDomains': ['.nohost.me', '.noho.st']});
+        c.view('domain/domain_add', {'ddomains': ['.nohost.me', '.noho.st']});
     });
 
     sam.post('#/domains/add', function (c) {
@@ -517,14 +550,14 @@ app = Sammy('#main', function (sam) {
             params = { 'domains': c.params['domain'] }
         }
 
-        c.api('/domains', function(data) { // http://api.yunohost.org/#!/domain/domain_add_post_1
+        c.api('/domain/create', function(data) { // http://api.yunohost.org/#!/domain/domain_add_post_1
             c.redirect('#/domains');
         }, 'POST', params);
     });
 
     sam.get('#/domains/:domain/delete', function (c) {
         if (confirm(y18n.t('confirm_delete', [c.params['domain']]))) {
-            c.api('/domains/'+ c.params['domain'], function(data) { // http://api.yunohost.org/#!/domain/domain_remove_delete_3
+            c.api('/domain/delete/'+ c.params['domain'], function(data) { // http://api.yunohost.org/#!/domain/domain_remove_delete_3
                 store.clear('slide');
                 c.redirect('#/domains');
             }, 'DELETE');
@@ -569,9 +602,9 @@ app = Sammy('#main', function (sam) {
     sam.get('#/apps', function (c) {
         c.api('/apps', function(data) { // http://api.yunohost.org/#!/app/app_list_get_8
             // Keep only installed apps
-            data2 = { 'Apps': [], 'Installed': true }
-            $.each(data['Apps'], function(k, v) {
-                if (v['Installed']) data2['Apps'].push(v);
+            data2 = { 'apps': [], 'installed': true }
+            $.each(data['apps'], function(k, v) {
+                if (v['installed']) data2['apps'].push(v);
             });
             c.view('app/app_list', data2);
         });
@@ -579,34 +612,35 @@ app = Sammy('#main', function (sam) {
 
     sam.get('#/apps/install', function (c) {
         c.api('/apps', function(data) { // http://api.yunohost.org/#!/app/app_list_get_8
-        c.api('/apps?raw=true', function(dataraw) { // http://api.yunohost.org/#!/app/app_list_get_8
-            // Keep only uninstalled apps
-            data2 = { 'Apps': [] }
-            $.each(data['Apps'], function(k, v) {
-                if (dataraw[v['ID']].manifest.multi_instance) v['Installed'] = false;
-                if (!v['Installed'] && !v['ID'].match(/__[0-9]{1,5}$/)) data2['Apps'].push(v);
+            c.api('/apps?raw', function(dataraw) { // http://api.yunohost.org/#!/app/app_list_get_8
+                // Keep only uninstalled apps
+                data2 = { 'apps': [] }
+                $.each(data['apps'], function(k, v) {
+                    if (dataraw[v['id']].manifest.multi_instance) v['installed'] = false;
+                    if (!v['installed'] && !v['id'].match(/__[0-9]{1,5}$/)) data2['apps'].push(v);
+                });
+                c.view('app/app_list', data2);
             });
-            c.view('app/app_list', data2);
-        });
         });
     });
 
     sam.get('#/apps/refresh', function (c) {
-        c.api('/app/lists', function(data) { // http://api.yunohost.org/#!/app/app_fetchlist_put_5
-            c.redirect(store.get('path'));
+        c.api('/applist/refresh', function(data) { // http://api.yunohost.org/#!/app/app_fetchlist_put_5
+            // c.redirect(store.get('path'));
+            c.redirect('#/apps/install');
         }, 'PUT');
     });
 
     sam.get('#/apps/:app', function (c) {
-        c.api('/app/'+c.params['app']+'?raw=true', function(data) { // http://api.yunohost.org/#!/app/app_info_get_9
+        c.api('/app/'+c.params['app']+'?raw', function(data) { // http://api.yunohost.org/#!/app/app_info_get_9
             // Presentation
-            data.settings.allowed_users = data.settings.allowed_users.replace(',', ', ');
+            data.settings.allowed_users = (data.settings.allowed_users) ? data.settings.allowed_users.replace(',', ', ') : '';
             c.view('app/app_info', data);
         });
     });
 
     sam.get('#/apps/install/:app', function (c) {
-        c.api('/apps?raw=true', function(data) { // http://api.yunohost.org/#!/app/app_list_get_8
+        c.api('/applist?raw', function(data) { // http://api.yunohost.org/#!/app/app_list_get_8
             appData = data[c.params['app']];
 
             $.each(appData.manifest.arguments.install, function(k, v) {
@@ -641,8 +675,8 @@ app = Sammy('#main', function (sam) {
                 if (v.name == 'admin') {
                     $.each(c.params.users, function(key, user){
                         appData.manifest.arguments.install[k].allowedValues.push({
-                            value: user.Username,
-                            label: user.Fullname+' ('+user.Mail+')'
+                            value: user.username,
+                            label: user.fullname+' ('+user.mail+')'
                         });
                     })
                     appData.manifest.arguments.install[k].help = "<a href='#/users'>Manage users</a>";
@@ -658,14 +692,14 @@ app = Sammy('#main', function (sam) {
         delete c.params['label'];
         delete c.params['app'];
         params['args'] = c.serialize(c.params.toHash());
-        c.api('/app', function() { // http://api.yunohost.org/#!/app/app_install_post_2
+        c.api('/app/install', function() { // http://api.yunohost.org/#!/app/app_install_post_2
             c.redirect('#/apps');
         }, 'POST', params);
     });
 
     sam.get('#/apps/:app/uninstall', function (c) {
         if (confirm(y18n.t('confirm_uninstall', [c.params['app']]))) {
-            c.api('/app?app='+ c.params['app'], function() { // http://api.yunohost.org/#!/app/app_remove_delete_4
+            c.api('/app/delete?app='+ c.params['app'], function() { // http://api.yunohost.org/#!/app/app_remove_delete_4
                 c.redirect('#/apps');
             }, 'DELETE');
         } else {
@@ -676,7 +710,7 @@ app = Sammy('#main', function (sam) {
 
     // Manage app access
     sam.get('#/apps/:app/access', function (c) {
-        c.api('/app/'+c.params['app']+'?raw=true', function(data) { // http://api.yunohost.org/#!/app/app_info_get_9
+        c.api('/app/'+c.params['app']+'?raw', function(data) { // http://api.yunohost.org/#!/app/app_info_get_9
             c.api('/users', function(dataUsers) {
 
                 // allowed_users as array
@@ -697,19 +731,19 @@ app = Sammy('#main', function (sam) {
 
                 // Available users
                 data.users = [];
-                $.each(dataUsers.Users, function(key, user){
+                $.each(dataUsers.users, function(key, user){
                     // Do not list allowed_users in select list
-                    if ( data.settings.allowed_users.indexOf(user.Username) === -1 ) {
+                    if ( data.settings.allowed_users.indexOf(user.username) === -1 ) {
                         data.users.push({
-                            value: user.Username,
-                            label: user.Fullname+' ('+user.Mail+')'
+                            value: user.username,
+                            label: user.fullname+' ('+user.mail+')'
                         });
                     } else {
                         // Complete allowed_users data
-                        data.settings.allowed_users[data.settings.allowed_users.indexOf(user.Username)] = {
-                            username: user.Username,
-                            fullname: user.Fullname,
-                            mail: user.Mail,
+                        data.settings.allowed_users[data.settings.allowed_users.indexOf(user.username)] = {
+                            username: user.username,
+                            fullname: user.fullname,
+                            mail: user.mail,
                         }
                     }
                 })
@@ -723,7 +757,7 @@ app = Sammy('#main', function (sam) {
     sam.get('#/apps/:app/access/remove', function (c) {
         if (confirm(y18n.t('confirm_access_remove_all', [c.params['app']]))) {
             params = {'apps': c.params['app'], 'users':[]}
-            c.api('/app/access?'+c.serialize(params), function(data) { // http://api.yunohost.org/#!/app/app_removeaccess_delete_12
+            c.api('/app/access/delete?'+c.serialize(params), function(data) { // http://api.yunohost.org/#!/app/app_removeaccess_delete_12
                 store.clear('slide');
                 c.redirect('#/apps/'+ c.params['app']+ '/access');
             }, 'DELETE', params);
@@ -737,7 +771,7 @@ app = Sammy('#main', function (sam) {
     sam.get('#/apps/:app/access/remove/:user', function (c) {
         if (confirm(y18n.t('confirm_access_remove_user', [c.params['app'], c.params['user']]))) {
             params = {'apps': c.params['app'], 'users': c.params['user']}
-            c.api('/app/access?'+c.serialize(params), function(data) { // http://api.yunohost.org/#!/app/app_removeaccess_delete_12
+            c.api('/app/access/delete?'+c.serialize(params), function(data) { // http://api.yunohost.org/#!/app/app_removeaccess_delete_12
                 store.clear('slide');
                 c.redirect('#/apps/'+ c.params['app']+ '/access');
             }, 'DELETE', params); // passing 'params' here is useless because jQuery doesn't handle ajax datas for DELETE requests. Passing parameters through uri.
@@ -751,7 +785,7 @@ app = Sammy('#main', function (sam) {
     sam.get('#/apps/:app/access/add', function (c) {
         if (confirm(y18n.t('confirm_access_add', [c.params['app']]))) {
             params = {'apps': c.params['app'], 'users': null}
-            c.api('/app/access', function() { // http://api.yunohost.org/#!/app/app_addaccess_put_13
+            c.api('/app/access/grant', function() { // http://api.yunohost.org/#!/app/app_addaccess_put_13
                 store.clear('slide');
                 c.redirect('#/apps/'+ c.params['app'] +'/access');
             }, 'PUT', params);
@@ -764,7 +798,7 @@ app = Sammy('#main', function (sam) {
     // Grant access for a specific user
     sam.post('#/apps/:app/access/add', function (c) {
         params = {'users': c.params['user'], 'apps': c.params['app']}
-        c.api('/app/access', function() { // http://api.yunohost.org/#!/app/app_addaccess_put_13
+        c.api('/app/access/grant', function() { // http://api.yunohost.org/#!/app/app_addaccess_put_13
             store.clear('slide');
             c.redirect('#/apps/'+ c.params['app'] +'/access');
         }, 'PUT', params);
@@ -774,7 +808,7 @@ app = Sammy('#main', function (sam) {
     sam.get('#/apps/:app/access/clear', function (c) {
         if (confirm(y18n.t('confirm_access_clear', [c.params['app']]))) {
             params = {'apps': c.params['app']}
-            c.api('/app/access', function() { //
+            c.api('/app/access/clear', function() { //
                 store.clear('slide');
                 c.redirect('#/apps/'+ c.params['app'] +'/access');
             }, 'POST', params);
@@ -848,10 +882,13 @@ app = Sammy('#main', function (sam) {
     sam.get('#/services/:service/:action', function (c) {
         if (confirm(y18n.t('confirm_service_action', [y18n.t(c.params['action']), c.params['service']]))) {
             params = { 'names': c.params['service'] }
+
+            var method = (c.params['action'] == 'start' || c.params['action'] == 'enable') ? 'PUT' : 'DELETE';
+
             c.api('/service/'+ c.params['action'], function(data) {
                 store.clear('slide');
                 c.redirect('#/services/'+ c.params['service']);
-            }, 'GET',  params);
+            }, method,  params);
         } else {
             store.clear('slide');
             c.redirect('#/services/'+ c.params['service']);
@@ -934,7 +971,7 @@ app = Sammy('#main', function (sam) {
             // Update password and redirect to the home
             c.api('/adminpw', function(data) { // http://api.yunohost.org/#!/tools/tools_adminpw_put_3
                 store.set('password', btoa(params['new_password']));
-                c.redirect('#/');
+                c.redirect('#/logout');
             }, 'PUT', params);
         }
     });

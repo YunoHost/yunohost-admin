@@ -37,9 +37,9 @@
             </div>
             <div class="col-sm-5 col-xs-6">
                <select class="form-control" name="domain">
-                   {{#Domains}}
+                   {{#domains}}
                        <option>@{{.}}</option>
-                   {{/Domains}}
+                   {{/domains}}
                </select>
             </div>
         </div>
