@@ -100,14 +100,13 @@ body {
  *
  */
 
-#masthead {
+/*#masthead {
     .hidden-xs;
-}
+}*/
 .page-header {
     .clearfix;
     .make-row(12);
     margin-top: 0;
-    padding: 0 10px;
 
     .app.title, .logout-button {
         margin-top: 20px;
@@ -115,7 +114,52 @@ body {
 
     .app.title {
         .make-xs-column(10);
-        padding-left: 0;
+
+        a {
+            color: #444;
+            text-decoration: none;
+            position: relative;
+            -webkit-transition: all 0.1s ease;
+                    transition: all 0.1s ease;
+
+            &:before {
+                .fa;
+                /*.fa-chevron-left;*/
+                content: "\f053";
+                display: block;
+                height: 1em;
+                width: 1em;
+                position: absolute;
+                top: 50%;
+                margin-top: -0.4em;
+                left: -10px;
+                opacity: 0;
+                font-size: 0.5em;
+                line-height: 1;
+                color: @gray-light;
+                -webkit-transition: all 0.1s ease;
+                        transition: all 0.1s ease;
+
+            }
+            &:hover {
+                &:before {
+                    opacity: 1;
+                    left: -15px;
+                }
+            }
+        }
+
+        span {
+            display: inline-block;
+            vertical-align: middle;
+        }
+/*        .ynh {
+            height: 1.2em;
+            width: 1.4em;
+            background: url(../img/logo-ynh.svg) 0 0 no-repeat;
+            background-size: cover;
+            text-indent: -9999px;
+        }*/
         .desc {
             .small;
             color: @gray-light;

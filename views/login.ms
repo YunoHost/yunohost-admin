@@ -1,7 +1,3 @@
-<div class="page-header clearfix visible-xs">
-    <h1 class="pull-left">YunoHost <small>Administration</small></h1>
-</div>
-
 <form action="#/login" id="form" method="post">
     <div class="input-group {{#domain}} hidden {{/domain}}">
         <label for="domain" class="input-group-addon">
