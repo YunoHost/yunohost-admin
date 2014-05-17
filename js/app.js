@@ -188,16 +188,21 @@ app = Sammy('#main', function (sam) {
                             if (args.domain.match(/\.nohost\.me$/) || args.domain.match(/\.noho\.st$/)) {
                                 $('#popup-title').text(y18n.t('installed'));
                                 $('#popup-body p').text(y18n.t('installation_complete_dns'));
-                                interval = 180000;
+                                interval = 120000;
                             } else {
                                 interval = 5000;
                             }
                             setInterval(function () {
-                                $('#popup-title').text(y18n.t('installation_complete'));
-                                $('#popup-body').html(
-                                    '<p>'+ y18n.t('installation_complete_desc', ['https://'+ args.domain +'/yunohost/admin', args.domain +'/yunohost/admin']) +'</p>'
-                                    + '<br>'
-                                    + '<p><small>'+ y18n.t('installation_complete_help_dns') +'</small></p>');
+                                $.post(store.get('url') +'/login', function(data) {
+                                    store.set('connected', true);
+                                    $('.logout-button').fadeIn();
+                                    c.flash('success', y18n.t('installation_complete'));
+                                    c.redirect('#/');
+                                })
+                                .fail(function() {
+                                    $('#popup').modal('hide');
+                                    c.flash('fail', y18n.t('error_occured'));
+                                });
                             }, interval);
                         } else {
                             $('#popup').modal('hide');
