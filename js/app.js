@@ -179,6 +179,9 @@ app = Sammy('#main', function (sam) {
                 } else if (typeof xhr.responseJSON !== 'undefined') {
                     $('#popup').modal('hide');
                     c.flash('fail', xhr.responseJSON.error);
+                } else if (typeof xhr.responseText !== 'undefined') {
+                    $('#popup').modal('hide');
+                    c.flash('fail', xhr.responseText);
                 } else {
                     if (uri == '/postinstall') {
                         if (installing) {
