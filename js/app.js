@@ -997,10 +997,9 @@ app = Sammy('#main', function (sam) {
             c.redirect('#/tools/update');
         }
         if (confirm(y18n.t('confirm_update_type', [y18n.t('system_'+c.params['type']).toLowerCase()]))) {
-            params = {
-                'ignore_packages': (c.params['type'] == 'packages') ? false : true,
-                'ignore_apps': (c.params['type'] == 'apps') ? false : true,
-            }
+            params = []
+            if (c.params['type'] == 'packages') {params.push('ignore-apps');}
+            if (c.params['type'] == 'apps') {params.push('ignore-packages');}
             c.api('/upgrade', function(data) {
                 // 'log' is a reserved name, maybe in handlebars
                 data.logs = data.log;
