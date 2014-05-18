@@ -52,6 +52,7 @@
     "error_modify_something" : "You should modify something",
     "non_compatible_api" : "Non-compatible API",
     "warning_first_user" : "You probably need to <a href='#/users/create' class='alert-link'>create a user</a> first.",
+    "unknown_action" : "Unknown action %s",
 
     "confirm_delete" : "Are you sure you want to delete %s ?",
     "confirm_change_maindomain" : "Are you sure you want to change the main domain ?",

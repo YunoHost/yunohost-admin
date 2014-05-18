@@ -450,7 +450,7 @@ app = Sammy('#main', function (sam) {
             }
             else {
                 c.params['mail'] = c.params['email'] + c.params['domain'];
-                c.api('/user', function(data) { // http://api.yunohost.org/#!/user/user_create_post_2
+                c.api('/users', function(data) { // http://api.yunohost.org/#!/user/user_create_post_2
                     c.redirect('#/users');
                 }, 'POST', c.params.toHash());
             }
@@ -462,13 +462,13 @@ app = Sammy('#main', function (sam) {
     });
 
     sam.get('#/users/:user', function (c) {
-        c.api('/user/'+ c.params['user'], function(data) { // http://api.yunohost.org/#!/user/user_info_get_0
+        c.api('/users/'+ c.params['user'], function(data) { // http://api.yunohost.org/#!/user/user_info_get_0
             c.view('user/user_info', data);
         });
     });
 
     sam.get('#/users/:user/edit', function (c) {
-        c.api('/user/'+ c.params['user'], function(data) { // http://api.yunohost.org/#!/user/user_info_get_0
+        c.api('/users/'+ c.params['user'], function(data) { // http://api.yunohost.org/#!/user/user_info_get_0
             c.view('user/user_edit', data);
         });
     });
@@ -492,7 +492,7 @@ app = Sammy('#main', function (sam) {
                     }
                     else {
                         params['change_password'] = params['password'];
-                        c.api('/user/update/'+ c.params['user'], function(data) { // http://api.yunohost.org/#!/user/user_update_put_1
+                        c.api('/users/'+ c.params['user'], function(data) { // http://api.yunohost.org/#!/user/user_update_put_1
                             c.redirect('#/users/'+ c.params['user']);
                         }, 'PUT', params);
                     }
@@ -502,7 +502,7 @@ app = Sammy('#main', function (sam) {
                 }
             }
             else {
-                c.api('/user/update/'+ c.params['user'], function(data) { // http://api.yunohost.org/#!/user/user_update_put_1
+                c.api('/users/'+ c.params['user'], function(data) { // http://api.yunohost.org/#!/user/user_update_put_1
                     c.redirect('#/users/'+ c.params['user']);
                 }, 'PUT', params);
             }
@@ -511,7 +511,7 @@ app = Sammy('#main', function (sam) {
 
     sam.get('#/users/:user/delete', function (c) {
         if (confirm(y18n.t('confirm_delete', [c.params['user']]))) {
-            c.api('/user/delete/'+ c.params['user'], function(data) { // http://api.yunohost.org/#!/user/user_delete_delete_4
+            c.api('/users/'+ c.params['user'], function(data) { // http://api.yunohost.org/#!/user/user_delete_delete_4
                 c.redirect('#/users');
             }, 'DELETE');
         } else {
@@ -527,7 +527,7 @@ app = Sammy('#main', function (sam) {
 
     sam.get('#/domains', function (c) {
         c.api('/domains', function(data) { // http://api.yunohost.org/#!/domain/domain_list_get_2
-            c.api('/domain/main', function(data2) {
+            c.api('/domains/main', function(data2) {
                 domains = [];
                 $.each(data.domains, function(k, domain) {
                     domains.push({
@@ -559,14 +559,14 @@ app = Sammy('#main', function (sam) {
             params = { 'domains': c.params['domain'] }
         }
 
-        c.api('/domain/create', function(data) { // http://api.yunohost.org/#!/domain/domain_add_post_1
+        c.api('/domains', function(data) { // http://api.yunohost.org/#!/domain/domain_add_post_1
             c.redirect('#/domains');
         }, 'POST', params);
     });
 
     sam.get('#/domains/:domain/delete', function (c) {
         if (confirm(y18n.t('confirm_delete', [c.params['domain']]))) {
-            c.api('/domain/delete/'+ c.params['domain'], function(data) { // http://api.yunohost.org/#!/domain/domain_remove_delete_3
+            c.api('/domains/'+ c.params['domain'], function(data) { // http://api.yunohost.org/#!/domain/domain_remove_delete_3
                 store.clear('slide');
                 c.redirect('#/domains');
             }, 'DELETE');
@@ -585,7 +585,7 @@ app = Sammy('#main', function (sam) {
         } else if (confirm(y18n.t('confirm_change_maindomain'))) {
 
             params = {'new_domain': c.params['domain']}
-            c.api('/domain/main', function(data) { // http://api.yunohost.org/#!/tools/tools_maindomain_put_1
+            c.api('/domains/main', function(data) { // http://api.yunohost.org/#!/tools/tools_maindomain_put_1
                 store.clear('slide');
                 c.redirect('#/domains');
             }, 'PUT', params);
@@ -634,14 +634,14 @@ app = Sammy('#main', function (sam) {
     });
 
     sam.get('#/apps/refresh', function (c) {
-        c.api('/applist/refresh', function(data) { // http://api.yunohost.org/#!/app/app_fetchlist_put_5
+        c.api('/appslists', function(data) { // http://api.yunohost.org/#!/app/app_fetchlist_put_5
             // c.redirect(store.get('path'));
             c.redirect('#/apps/install');
         }, 'PUT');
     });
 
     sam.get('#/apps/:app', function (c) {
-        c.api('/app/'+c.params['app']+'?raw', function(data) { // http://api.yunohost.org/#!/app/app_info_get_9
+        c.api('/apps/'+c.params['app']+'?raw', function(data) { // http://api.yunohost.org/#!/app/app_info_get_9
             // Presentation
             data.settings.allowed_users = (data.settings.allowed_users) ? data.settings.allowed_users.replace(',', ', ') : '';
             c.view('app/app_info', data);
@@ -649,7 +649,7 @@ app = Sammy('#main', function (sam) {
     });
 
     sam.get('#/apps/install/:app', function (c) {
-        c.api('/applist?raw', function(data) { // http://api.yunohost.org/#!/app/app_list_get_8
+        c.api('/apps?raw', function(data) { // http://api.yunohost.org/#!/app/app_list_get_8
             appData = data[c.params['app']];
 
             $.each(appData.manifest.arguments.install, function(k, v) {
@@ -701,14 +701,14 @@ app = Sammy('#main', function (sam) {
         delete c.params['label'];
         delete c.params['app'];
         params['args'] = c.serialize(c.params.toHash());
-        c.api('/app/install', function() { // http://api.yunohost.org/#!/app/app_install_post_2
+        c.api('/apps', function() { // http://api.yunohost.org/#!/app/app_install_post_2
             c.redirect('#/apps');
         }, 'POST', params);
     });
 
     sam.get('#/apps/:app/uninstall', function (c) {
         if (confirm(y18n.t('confirm_uninstall', [c.params['app']]))) {
-            c.api('/app/delete?app='+ c.params['app'], function() { // http://api.yunohost.org/#!/app/app_remove_delete_4
+            c.api('/apps/'+ c.params['app'], function() { // http://api.yunohost.org/#!/app/app_remove_delete_4
                 c.redirect('#/apps');
             }, 'DELETE');
         } else {
@@ -719,7 +719,7 @@ app = Sammy('#main', function (sam) {
 
     // Manage app access
     sam.get('#/apps/:app/access', function (c) {
-        c.api('/app/'+c.params['app']+'?raw', function(data) { // http://api.yunohost.org/#!/app/app_info_get_9
+        c.api('/apps/'+c.params['app']+'?raw', function(data) { // http://api.yunohost.org/#!/app/app_info_get_9
             c.api('/users', function(dataUsers) {
 
                 // allowed_users as array
@@ -766,7 +766,7 @@ app = Sammy('#main', function (sam) {
     sam.get('#/apps/:app/access/remove', function (c) {
         if (confirm(y18n.t('confirm_access_remove_all', [c.params['app']]))) {
             params = {'apps': c.params['app'], 'users':[]}
-            c.api('/app/access/delete?'+c.serialize(params), function(data) { // http://api.yunohost.org/#!/app/app_removeaccess_delete_12
+            c.api('/access?'+c.serialize(params), function(data) { // http://api.yunohost.org/#!/app/app_removeaccess_delete_12
                 store.clear('slide');
                 c.redirect('#/apps/'+ c.params['app']+ '/access');
             }, 'DELETE', params);
@@ -780,7 +780,7 @@ app = Sammy('#main', function (sam) {
     sam.get('#/apps/:app/access/remove/:user', function (c) {
         if (confirm(y18n.t('confirm_access_remove_user', [c.params['app'], c.params['user']]))) {
             params = {'apps': c.params['app'], 'users': c.params['user']}
-            c.api('/app/access/delete?'+c.serialize(params), function(data) { // http://api.yunohost.org/#!/app/app_removeaccess_delete_12
+            c.api('/access?'+c.serialize(params), function(data) { // http://api.yunohost.org/#!/app/app_removeaccess_delete_12
                 store.clear('slide');
                 c.redirect('#/apps/'+ c.params['app']+ '/access');
             }, 'DELETE', params); // passing 'params' here is useless because jQuery doesn't handle ajax datas for DELETE requests. Passing parameters through uri.
@@ -794,7 +794,7 @@ app = Sammy('#main', function (sam) {
     sam.get('#/apps/:app/access/add', function (c) {
         if (confirm(y18n.t('confirm_access_add', [c.params['app']]))) {
             params = {'apps': c.params['app'], 'users': null}
-            c.api('/app/access/grant', function() { // http://api.yunohost.org/#!/app/app_addaccess_put_13
+            c.api('/access', function() { // http://api.yunohost.org/#!/app/app_addaccess_put_13
                 store.clear('slide');
                 c.redirect('#/apps/'+ c.params['app'] +'/access');
             }, 'PUT', params);
@@ -807,7 +807,7 @@ app = Sammy('#main', function (sam) {
     // Grant access for a specific user
     sam.post('#/apps/:app/access/add', function (c) {
         params = {'users': c.params['user'], 'apps': c.params['app']}
-        c.api('/app/access/grant', function() { // http://api.yunohost.org/#!/app/app_addaccess_put_13
+        c.api('/access', function() { // http://api.yunohost.org/#!/app/app_addaccess_put_13
             store.clear('slide');
             c.redirect('#/apps/'+ c.params['app'] +'/access');
         }, 'PUT', params);
@@ -817,7 +817,7 @@ app = Sammy('#main', function (sam) {
     sam.get('#/apps/:app/access/clear', function (c) {
         if (confirm(y18n.t('confirm_access_clear', [c.params['app']]))) {
             params = {'apps': c.params['app']}
-            c.api('/app/access/clear', function() { //
+            c.api('/access', function() { //
                 store.clear('slide');
                 c.redirect('#/apps/'+ c.params['app'] +'/access');
             }, 'POST', params);
@@ -830,11 +830,10 @@ app = Sammy('#main', function (sam) {
     // Make app default
     sam.get('#/apps/:app/default', function (c) {
         if (confirm(y18n.t('confirm_app_default'))) {
-            params = {'app': c.params['app']}
-            c.api('/app/default', function() { //
+            c.api('/apps/'+ c.params['app']  +'/default', function() { //
                 store.clear('slide');
                 c.redirect('#/apps/'+ c.params['app']);
-            }, 'PUT', params);
+            }, 'PUT');
         } else {
             store.clear('slide');
             c.redirect('#/apps/'+ c.params['app']);
@@ -848,7 +847,7 @@ app = Sammy('#main', function (sam) {
 
     // All services status
     sam.get('#/services', function (c) {
-        c.api('/service/status', function(data) { // ?
+        c.api('/services', function(data) { // ?
             data2 = { 'services': [] }
             $.each(data, function(k, v) {
                 v.name = k;
@@ -862,8 +861,7 @@ app = Sammy('#main', function (sam) {
 
     // Status & actions for a service
     sam.get('#/services/:service', function (c) {
-        params = { 'names': c.params['service'] }
-        c.api('/service/status', function(data) { // ?
+        c.api('/services/'+ c.params['service'], function(data) { // ?
             data2 = { 'service': data }
             data2.service.name = c.params['service'];
             data2.service.is_loaded = (data.loaded=='enabled') ? true : false;
@@ -871,13 +869,13 @@ app = Sammy('#main', function (sam) {
 
             store.clear('slide');
             c.view('service/service_info', data2);
-        }, 'GET', params);
+        }, 'GET');
     });
 
     // Service log
     sam.get('#/services/:service/log', function (c) {
-        params = { 'name': c.params['service'], 'number': 50 }
-        c.api('/service/log', function(data) { // ?
+        params = { 'number': 50 }
+        c.api('/services/'+ c.params['service'] +'/log', function(data) { // ?
             data2 = { 'logs': [], 'name': c.params['service'] }
             $.each(data, function(k, v) {
                 data2.logs.push({filename: k, filecontent: v.join('\n')});
@@ -890,14 +888,35 @@ app = Sammy('#main', function (sam) {
     // Enable/Disable & Start/Stop service
     sam.get('#/services/:service/:action', function (c) {
         if (confirm(y18n.t('confirm_service_action', [y18n.t(c.params['action']), c.params['service']]))) {
-            params = { 'names': c.params['service'] }
+            var method = null, endurl = c.params['service'];
 
-            var method = (c.params['action'] == 'start' || c.params['action'] == 'enable') ? 'PUT' : 'DELETE';
+            switch (c.params['action']) {
+                case 'start':
+                    method = 'PUT';
+                    break;
+                case 'stop':
+                    method = 'DELETE';
+                    break;
+                case 'enable':
+                    method = 'PUT';
+                    endurl += '/enable';
+                    break;
+                case 'disable':
+                    method = 'DELETE';
+                    endurl += '/enable';
+                    break;
+                default:
+                    c.flash('fail', y18n.t('unknown_action', [c.params['action']]));
+                    store.clear('slide');
+                    c.redirect('#/services/'+ c.params['service']);
+            }
 
-            c.api('/service/'+ c.params['action'], function(data) {
-                store.clear('slide');
-                c.redirect('#/services/'+ c.params['service']);
-            }, method,  params);
+            if (method && endurl) {
+                c.api('/services/'+ endurl, function(data) {
+                    store.clear('slide');
+                    c.redirect('#/services/'+ c.params['service']);
+                }, method);
+            }
         } else {
             store.clear('slide');
             c.redirect('#/services/'+ c.params['service']);
@@ -915,7 +934,7 @@ app = Sammy('#main', function (sam) {
         monitorData = {}
 
         // Why this method ? 
-        c.api('/service/status', function(data) { // ?
+        c.api('/services/glances', function(data) { // ?
             monitorData.status = true;
 
             if (data.status == 'running') {
@@ -944,7 +963,7 @@ app = Sammy('#main', function (sam) {
 
 
 
-        }, 'GET', {names: 'glances'});
+        }, 'GET');
     });
 
 
