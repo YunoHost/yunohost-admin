@@ -84,6 +84,25 @@ app = Sammy('#main', function (sam) {
             document.body.scrollTop = document.documentElement.scrollTop = 0;
         },
 
+        // Websocket connection
+        websocket: function(callback) {
+            c = this;
+            if (store.get('connected')) {
+                c.ws = new WebSocket('wss://'+ store.get('url') +'/messages');
+                c.ws.onmessage = function(evt) {
+                    console.log(evt.data);
+                }
+                c.ws.onopen = function() {
+                    if (typeof callback === 'function') {
+                        callback();
+                    }
+                }
+                c.ws.onclose = function() {
+                    delete c.ws;
+                }
+            }
+        }, 
+
         // API connection helper
         api: function (uri, callback, method, data) {
             c = this;
@@ -117,7 +136,7 @@ app = Sammy('#main', function (sam) {
                 }
             }
             jQuery.ajax({
-                url: store.get('url') + uri,
+                url: 'https://'+ store.get('url') + uri,
                 type: method,
                 crossdomain: true,
                 data: data,
@@ -291,7 +310,7 @@ app = Sammy('#main', function (sam) {
         });
     });
 
-    sam.before({except: {path: ['#/login', '#/postinstall']}}, function (req) {
+    sam.before({except: {path: ['#/logout', '#/login', '#/postinstall']}}, function (req) {
         // Store path for further redirections
         store.set('path-1', store.get('path'));
         store.set('path', req.path);
@@ -357,7 +376,7 @@ app = Sammy('#main', function (sam) {
     });
 
     sam.post('#/login', function (c) {
-        store.set('url', 'https://'+ c.params['domain'] +'/yunohost/api');
+        store.set('url', c.params['domain'] +'/yunohost/api');
         // c.api('/api', function(data) {
             // if (data.apiVersion) {
                 params = {
@@ -365,6 +384,7 @@ app = Sammy('#main', function (sam) {
                 }
                 c.api('/login', function(data) {
                     store.set('connected', true);
+                    c.websocket();
 
                     $('.logout-button').fadeIn();
                     c.flash('success', y18n.t('logged_in'));
@@ -414,7 +434,7 @@ app = Sammy('#main', function (sam) {
 
             params['password'] = c.params['password']
 
-            store.set('url', 'https://'+ window.location.hostname +'/yunohost/api');
+            store.set('url', window.location.hostname +'/yunohost/api');
             store.set('user', 'admin');
             store.set('password', btoa('yunohost'));
             c.api('/postinstall', function(data) { // http://api.yunohost.org/#!/tools/tools_postinstall_post_0
@@ -1047,7 +1067,7 @@ app = Sammy('#main', function (sam) {
     });
 
 
-
+    sam.websocket();
 
 
 });
