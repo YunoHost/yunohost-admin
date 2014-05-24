@@ -67,21 +67,30 @@ app = Sammy('#main', function (sam) {
 
         // Flash helper to diplay instant notifications
         flash: function (level, message) {
-            flashs = store.get('flash');
-            if (!flashs) { flashs = {'info': [], 'fail': [], 'warning': [], 'success': [] } }
-            flashs[level].push(message);
-            store.set('flash', flashs);
-
-            html = '';
-            for(lvl in flashs) {
-                flashs[lvl].forEach( function(msg) {
-                    if (lvl == 'fail') { alertClass = 'alert-danger'; }
-                    else               { alertClass = 'alert-'+ lvl; }
-                    html += '<div class="alert '+ alertClass +'">'+ msg +'</div>';
-                });
+            if (!store.get('flash')) {
+                store.set('flash', true);
             }
-            $('#flash').html(html).fadeIn();
+            if (level == 'fail') { alertClass = 'alert-danger'; }
+            else                      { alertClass = 'alert-'+ level; }
+            if ($('#flash .alert').last().hasClass(alertClass)) {
+                if (level == 'log') {
+                    $('#flash .alert').last().append('<p style="display: none">'+ message +'</p>');
+                } else {
+                    $('#flash .alert').last().append('<p>'+ message +'</p>');
+                }
+            } else {
+                if (level == 'log') {
+                    $('#flash').append('<pre style="display:none" class="alert '+ alertClass +'"><div><button type="button" class="btn btn-default btn-small">'+ y18n.t('log') +'</button></div><p style="display: none">'+ message +'</p></pre>').show();
+                } else {
+                    $('#flash').append('<div style="display:none" class="alert '+ alertClass +'"><p>'+ message +'</p></div>').show();
+                }
+                $('#flash .alert').last().fadeIn();
+            }
             document.body.scrollTop = document.documentElement.scrollTop = 0;
+            $('#flash .alert-log button').on('click', function() {
+                $('#flash .alert-log p:hidden').fadeIn();
+                $('#flash .alert-log div').hide();
+            });
         },
 
         // Websocket connection
@@ -91,6 +100,9 @@ app = Sammy('#main', function (sam) {
                 c.ws = new WebSocket('wss://'+ store.get('url') +'/messages');
                 c.ws.onmessage = function(evt) {
                     console.log(evt.data);
+                    $.each($.parseJSON(evt.data), function(k, v) {
+                        c.flash(k, v);
+                    });
                 }
                 c.ws.onopen = function() {
                     if (typeof callback === 'function') {
