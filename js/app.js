@@ -168,7 +168,6 @@ app = Sammy('#main', function (sam) {
                 .always(function(data) {
                     if (data.status !== 'undefined' && uri === '/login') {
                         if (data.status === 401) {
-                            $('#popup').modal('hide');
                             c.flash('fail', y18n.t('wrong_password'));
                         }
                         // 200 & empty response TODO: better comment
@@ -198,29 +197,21 @@ app = Sammy('#main', function (sam) {
                     // console.log('success');console.log(data);
                     // data = typeof data !== 'undefined' ? data : {};
                     data = data || {};
-                    if (typeof data.win !== 'undefined') {
-                        $.each(data.win, function(k, v) {
-                            c.flash('success', v);
-                        });
-                    }
                     callback(data);
                 })
                 .fail(function(xhr) {
                     // console.log('fail');console.log(xhr);
                     if (xhr.status == 401) {
-                        $('#popup').modal('hide');
                         if (uri !== '/login') {
                             c.flash('fail', y18n.t('unauthorized'));
                             c.redirect('#/login');
                         }
                     } else if (typeof xhr.responseJSON !== 'undefined') {
-                        $('#popup').modal('hide');
                         c.flash('fail', xhr.responseJSON.error);
                     } else if (typeof xhr.responseText !== 'undefined' && uri !== '/postinstall') {
-                        $('#popup').modal('hide');
                         c.flash('fail', xhr.responseText);
                     } else {
-                        if (uri == '/postinstall') {
+                        if (uri === '/postinstall') {
                             if (installing) {
                                 checkInstall = setInterval(function () {
                                     c.checkInstall(function(isInstalled) {
@@ -238,8 +229,10 @@ app = Sammy('#main', function (sam) {
                             c.flash('fail', y18n.t('error_server'));
                         }
                     }
-                    store.clear('slide');
-                    c.redirect(store.get('path-1'));
+                    if (uri !== '/postinstall') {
+                        store.clear('slide');
+                        c.redirect(store.get('path-1'));
+                    };
                 });
             }
         }, 
