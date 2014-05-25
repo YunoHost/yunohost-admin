@@ -222,17 +222,18 @@ app = Sammy('#main', function (sam) {
                     } else {
                         if (uri == '/postinstall') {
                             if (installing) {
-                                setInterval(function () {
-                                    if (window.location.hostname === args.domain) {
-                                        document.location.href = 'https://'+ args.domain +'/yunohost/admin';
-                                    } else {
-                                        c.checkInstall(function(isInstalled) {
-                                            if (isInstalled) {
-                                                c.flash('success', y18n.t('installation_complete'));
+                                checkInstall = setInterval(function () {
+                                    c.checkInstall(function(isInstalled) {
+                                        if (isInstalled) {
+                                            c.flash('success', y18n.t('installation_complete'));
+                                            clearInterval(checkInstall);
+                                            if (window.location.hostname === args.domain) {
+                                                document.location.href = 'https://'+ args.domain +'/yunohost/admin';
+                                            } else {
                                                 c.redirect('#/login');
                                             }
-                                        });
-                                    }
+                                        }
+                                    });
                                 }, 5000);
                             } else {
                                 c.flash('fail', y18n.t('error_occured'));
