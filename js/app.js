@@ -93,6 +93,21 @@ app = Sammy('#main', function (sam) {
             });
         },
 
+        isInstalled: function() {
+            domain = window.location.hostname;
+            $.ajax({
+                dataType: "json",
+                url: 'https://'+ domain +'/yunohost/api/installed',
+                timeout: 3000
+            })
+            .success(function(data) {
+                return data.installed;
+            })
+            .fail(function() {
+                return false;
+            });
+        },
+
         // API call
         api: function(uri, callback, method, data) {
             c = this;
@@ -108,6 +123,10 @@ app = Sammy('#main', function (sam) {
 
             // If not connected, WebSocket connection will raise an error, but we do not want to interrupt API request
             ws.onerror = ws.onopen;
+
+            ws.onclose = function() {
+                store.clear('flash');
+            }
 
             ws.onopen = function(evt) {
                 method = typeof method !== 'undefined' ? method : 'GET';
@@ -125,19 +144,15 @@ app = Sammy('#main', function (sam) {
                         installing = true;
                     }, 1500);
 
-                    $('#popup-title').text(y18n.t('installing'));
-                    $('#popup-body').html('<p>'+y18n.t('installation_complete_wait', [data.domain])+'</p>');
-                    $('#popup-body').append('<div class="loader loader-popup"></div>');
-                    $('#popup').modal('show');
                 } else {
                     loaded = false;
-                    if ($('div.loader').length == 0) {
+                }
+                if ($('div.loader').length == 0) {
                     setInterval(function () {
                         if (!loaded && $('div.loader').length == 0) {
                             $('#main').append('<div class="loader loader-content"></div>');
                         }
                     }, 500);
-                    }
                 }
                 jQuery.ajax({
                     url: 'https://'+ store.get('url') + uri,
@@ -208,28 +223,17 @@ app = Sammy('#main', function (sam) {
                     } else {
                         if (uri == '/postinstall') {
                             if (installing) {
-                                if (args.domain.match(/\.nohost\.me$/) || args.domain.match(/\.noho\.st$/)) {
-                                    $('#popup-title').text(y18n.t('installed'));
-                                    $('#popup-body p').text(y18n.t('installation_complete_dns'));
-                                    interval = 180000;
-                                } else {
-                                    interval = 5000;
-                                }
                                 setInterval(function () {
                                     if (window.location.hostname === args.domain) {
-                                        $('#popup-title').text(y18n.t('installation_complete'));
-                                        $('#popup-body').html(
-                                            '<p>'+ y18n.t('installation_complete_desc', ['https://'+ args.domain +'/yunohost/admin', args.domain +'/yunohost/admin']) +'</p>'
-                                            + '<br>'
-                                            + '<p><small>'+ y18n.t('installation_complete_help_dns') +'</small></p>');
+                                        window.open('https://'+ args.domain +'/yunohost/admin');
                                     } else {
-                                        $('#popup').modal('hide');
-                                        c.flash('success', y18n.t('installation_complete'));
-                                        c.redirect('#/login');
+                                        if (!c.isInstalled()) {
+                                            c.flash('success', y18n.t('installation_complete'));
+                                            c.redirect('#/login');
+                                        }
                                     }
-                                }, interval);
+                                }, 5000);
                             } else {
-                                $('#popup').modal('hide');
                                 c.flash('fail', y18n.t('error_occured'));
                             }
                         } else {
@@ -243,7 +247,8 @@ app = Sammy('#main', function (sam) {
         }, 
 
         // Render view (cross-browser)
-        view: function (view, data) {
+        view: function (view, data, callback) {
+            callback = typeof callback !== 'undefined' ? callback : function() {};
             rendered = this.render('views/'+ view +'.ms', data);
 
             enableSlide = true; // Change to false to disable animation
@@ -262,6 +267,7 @@ app = Sammy('#main', function (sam) {
                                 store.set('slide', 'to');
                             }
                         });
+                        callback();
                     });
                 }
 
@@ -290,7 +296,7 @@ app = Sammy('#main', function (sam) {
                     leSwap();
                 }
             } else {
-                rendered.swap();
+                rendered.swap(callback);
             }
         }
     });
@@ -315,7 +321,7 @@ app = Sammy('#main', function (sam) {
         });
     });
 
-    sam.before({except: {path: ['#/logout', '#/login', '#/postinstall']}}, function (req) {
+    sam.before({except: {path: ['#/logout', '#/login', '#/postinstall', '#/postinstall/domain', '#/postinstall/password']}}, function (req) {
         // Store path for further redirections
         store.set('path-1', store.get('path'));
         store.set('path', req.path);
@@ -358,26 +364,12 @@ app = Sammy('#main', function (sam) {
     });
 
     sam.get('#/login', function (c) {
+        $('#masthead').show();
         $('.logout-button').hide();
         store.set('path-1', '#/login');
-
-        // Check if te client is hosted on a yunohost node
-        domain = window.location.hostname
-        $.ajax({
-            dataType: "json",
-            url: 'https://'+ domain +'/yunohost/api/installed',
-            timeout: 3000
-        })
-        .success(function(data) {
-            if (!data.installed) {
-                c.redirect('#/postinstall');
-            } else {
-                c.view('login', { 'domain': domain });
-            }
-        })
-        .fail(function() {
-            c.view('login');
-        });
+        if (!c.isInstalled()) {
+            c.redirect('#/postinstall');
+        }
     });
 
     sam.post('#/login', function (c) {
@@ -416,34 +408,69 @@ app = Sammy('#main', function (sam) {
     });
 
     sam.get('#/postinstall', function(c) {
-        c.view('postinstall', {'ddomains': ['.nohost.me', '.noho.st']});
+        $('#masthead').hide();
+        c.view('postinstall/postinstall_1');
+    });
+
+    sam.get('#/postinstall/domain', function(c) {
+        $('#masthead').hide();
+        c.view('postinstall/postinstall_2', {'ddomains': ['.nohost.me', '.noho.st']}, function() {
+            $('#domain, #ddomain').keyup(function(event){
+                if(event.keyCode == 13){
+                    $('a.savedomain').click();
+                }
+            });
+            $('a.savedomain').on('click', function(e) {
+                if ($('#domain').val() === '') {
+                    if ($('#ddomain').val() === '') {
+                        e.preventDefault();
+                        store.clear('slide');
+                        c.flash('fail', y18n.t('error_select_domain'));
+                    } else {
+                        domain = $('#ddomain').val() + $('select[name="ddomain-ext"]').val();
+                    }
+                } else {
+                    domain = $('#domain').val();
+                }
+                store.set('maindomain', domain);
+            });
+        });
+        
+    });
+
+    sam.get('#/postinstall/password', function(c) {
+        $('#masthead').hide();
+        $('#flash .alert').remove();
+        if (!store.get('maindomain')) {
+            store.clear('slide');
+            c.redirect('#/postinstall/domain');
+        } else {
+            c.view('postinstall/postinstall_3', { 'domain': store.get('maindomain') });
+        }
     });
 
     sam.post('#/postinstall', function (c) {
         if (c.params['password'] == '' || c.params['confirmation'] == '') {
-            c.flash('fail', y18n.t('password_empty'))
+            c.flash('fail', y18n.t('password_empty'));
         }
         else if (c.params['password'] == c.params['confirmation']) {
-            if (c.params['domain'] == '') {
-                if (c.params['ddomain'] == '') {
-                    c.flash('fail', y18n.t('error_select_domain'));
-                    store.clear('slide');
-                    c.redirect('#/postinstall');
-                } else {
-                    params = { 'domain': c.params['ddomain'] + c.params['ddomain-ext'] }
-                }
+            if (c.params['domain'] === '') {
+                c.flash('fail', y18n.t('error_select_domain'));
+                store.clear('slide');
+                c.redirect('#/postinstall/domain');
             } else {
                 params = { 'domain': c.params['domain'] }
             }
 
-            params['password'] = c.params['password']
+            if (confirm(y18n.t('confirm_postinstall', [c.params['domain']]))) {
+                params['password'] = c.params['password']
 
-            store.set('url', window.location.hostname +'/yunohost/api');
-            store.set('user', 'admin');
-            store.set('password', btoa('yunohost'));
-            c.api('/postinstall', function(data) { // http://api.yunohost.org/#!/tools/tools_postinstall_post_0
-                c.redirect('#/');
-            }, 'POST', params);
+                store.set('url', window.location.hostname +'/yunohost/api');
+                store.set('user', 'admin');
+                c.api('/postinstall', function(data) { // http://api.yunohost.org/#!/tools/tools_postinstall_post_0
+                    c.redirect('#/login');
+                }, 'POST', params);
+            }
         } else {
             c.flash('fail', y18n.t('passwords_dont_match'));
         }
