@@ -93,7 +93,7 @@ app = Sammy('#main', function (sam) {
             });
         },
 
-        isInstalled: function() {
+        checkInstall: function(callback) {
             domain = window.location.hostname;
             $.ajax({
                 dataType: "json",
@@ -101,10 +101,10 @@ app = Sammy('#main', function (sam) {
                 timeout: 3000
             })
             .success(function(data) {
-                return data.installed;
+                callback(data.installed);
             })
             .fail(function() {
-                return false;
+                callback(false);
             });
         },
 
@@ -227,10 +227,12 @@ app = Sammy('#main', function (sam) {
                                     if (window.location.hostname === args.domain) {
                                         window.open('https://'+ args.domain +'/yunohost/admin');
                                     } else {
-                                        if (!c.isInstalled()) {
-                                            c.flash('success', y18n.t('installation_complete'));
-                                            c.redirect('#/login');
-                                        }
+                                        c.checkInstall(function(isInstalled) {
+                                            if (isInstalled) {
+                                                c.flash('success', y18n.t('installation_complete'));
+                                                c.redirect('#/login');
+                                            }
+                                        });
                                     }
                                 }, 5000);
                             } else {
@@ -367,9 +369,14 @@ app = Sammy('#main', function (sam) {
         $('#masthead').show();
         $('.logout-button').hide();
         store.set('path-1', '#/login');
-        if (!c.isInstalled()) {
-            c.redirect('#/postinstall');
-        }
+        c.checkInstall(function(isInstalled) {
+            if (isInstalled) {
+                domain = window.location.hostname;
+                c.view('login', { 'domain': domain });
+            } else {
+                c.view('login');
+            }
+        });
     });
 
     sam.post('#/login', function (c) {
