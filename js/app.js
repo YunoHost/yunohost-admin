@@ -104,7 +104,7 @@ app = Sammy('#main', function (sam) {
                 callback(data.installed);
             })
             .fail(function() {
-                callback(false);
+                callback(undefined);
             });
         },
 
@@ -224,17 +224,13 @@ app = Sammy('#main', function (sam) {
                             if (installing) {
                                 checkInstall = setInterval(function () {
                                     c.checkInstall(function(isInstalled) {
-                                        if (isInstalled) {
+                                        if (isInstalled || (window.location.hostname === args.domain && typeof isInstalled === 'undefined')) {
                                             c.flash('success', y18n.t('installation_complete'));
                                             clearInterval(checkInstall);
-                                            if (window.location.hostname === args.domain) {
-                                                document.location.href = 'https://'+ args.domain +'/yunohost/admin';
-                                            } else {
-                                                c.redirect('#/login');
-                                            }
+                                            document.location.href = 'https://'+ window.location.hostname +'/yunohost/admin/#/login';
                                         }
                                     });
-                                }, 5000);
+                                }, 6000);
                             } else {
                                 c.flash('fail', y18n.t('error_occured'));
                             }
