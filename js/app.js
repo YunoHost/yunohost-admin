@@ -93,161 +93,154 @@ app = Sammy('#main', function (sam) {
             });
         },
 
-        // Websocket connection
-        websocket: function(callback) {
+        // API call
+        api: function(uri, callback, method, data) {
             c = this;
-            if (store.get('connected')) {
-                c.ws = new WebSocket('wss://'+ store.get('url') +'/messages');
-                c.ws.onmessage = function(evt) {
-                    console.log(evt.data);
-                    $.each($.parseJSON(evt.data), function(k, v) {
-                        c.flash(k, v);
-                    });
+
+            // Open a WebSocket connection to retrieve live messages from the moulinette
+            ws = new WebSocket('wss://'+ store.get('url') +'/messages');
+            ws.onmessage = function(evt) {
+                console.log(evt.data);
+                $.each($.parseJSON(evt.data), function(k, v) {
+                    c.flash(k, v);
+                });
+            }
+
+            // If not connected, WebSocket connection will raise an error, but we do not want to interrupt API request
+            ws.onerror = ws.onopen;
+
+            ws.onopen = function(evt) {
+                method = typeof method !== 'undefined' ? method : 'GET';
+                data   = typeof data   !== 'undefined' ? data   : {};
+                if (window.navigator && window.navigator.language && (typeof data.locale === 'undefined')) {
+                    data.locale = window.navigator.language;
                 }
-                c.ws.onopen = function() {
-                    if (typeof callback === 'function') {
-                        callback();
+
+                var args = data;
+                // auth   = "Basic "+ btoa('admin' +':'+ atob('yolo'));
+                if (uri === '/postinstall') {
+                    var installing = false;
+
+                    setInterval(function () {
+                        installing = true;
+                    }, 1500);
+
+                    $('#popup-title').text(y18n.t('installing'));
+                    $('#popup-body').html('<p>'+y18n.t('installation_complete_wait', [data.domain])+'</p>');
+                    $('#popup-body').append('<div class="loader loader-popup"></div>');
+                    $('#popup').modal('show');
+                } else {
+                    loaded = false;
+                    if ($('div.loader').length == 0) {
+                    setInterval(function () {
+                        if (!loaded && $('div.loader').length == 0) {
+                            $('#main').append('<div class="loader loader-content"></div>');
+                        }
+                    }, 500);
                     }
                 }
-                c.ws.onclose = function() {
-                    delete c.ws;
-                }
+                jQuery.ajax({
+                    url: 'https://'+ store.get('url') + uri,
+                    type: method,
+                    crossdomain: true,
+                    data: data,
+                    traditional: true,
+                    dataType: 'json',
+                    // beforeSend: function(req) {
+                    //     req.setRequestHeader('Authorization', auth);
+                    // }
+                })
+                /*
+                .always(function(data) {
+                    if (data.status !== 'undefined' && uri === '/login') {
+                        if (data.status === 401) {
+                            $('#popup').modal('hide');
+                            c.flash('fail', y18n.t('wrong_password'));
+                        }
+                        // 200 & empty response TODO: better comment
+                        // /login
+                        else if (data.status === 200) {
+                            // data = typeof data !== 'undefined' ? data : {};
+                            if (typeof data.win !== 'undefined') {
+                                $.each(data.win, function(k, v) {
+                                    c.flash('success', v);
+                                });
+                            }
+                            callback(data);                        
+                        }
+                    }
+                    loaded = true;
+                    $('div.loader').remove();
+
+                })
+*/
+                .always(function(xhr, ts, error) {
+                    // console.log("always");
+                    // console.log(xhr);
+                    // console.log(ts);
+                    // console.log(error);
+                })
+                .done(function(data) {
+                    // console.log('success');console.log(data);
+                    // data = typeof data !== 'undefined' ? data : {};
+                    data = data || {};
+                    if (typeof data.win !== 'undefined') {
+                        $.each(data.win, function(k, v) {
+                            c.flash('success', v);
+                        });
+                    }
+                    callback(data);
+                })
+                .fail(function(xhr) {
+                    // console.log('fail');console.log(xhr);
+                    if (xhr.status == 401) {
+                        $('#popup').modal('hide');
+                        if (uri !== '/login') {
+                            c.flash('fail', y18n.t('unauthorized'));
+                            c.redirect('#/login');
+                        }
+                    } else if (typeof xhr.responseJSON !== 'undefined') {
+                        $('#popup').modal('hide');
+                        c.flash('fail', xhr.responseJSON.error);
+                    } else if (typeof xhr.responseText !== 'undefined' && uri !== '/postinstall') {
+                        $('#popup').modal('hide');
+                        c.flash('fail', xhr.responseText);
+                    } else {
+                        if (uri == '/postinstall') {
+                            if (installing) {
+                                if (args.domain.match(/\.nohost\.me$/) || args.domain.match(/\.noho\.st$/)) {
+                                    $('#popup-title').text(y18n.t('installed'));
+                                    $('#popup-body p').text(y18n.t('installation_complete_dns'));
+                                    interval = 180000;
+                                } else {
+                                    interval = 5000;
+                                }
+                                setInterval(function () {
+                                    if (window.location.hostname === args.domain) {
+                                        $('#popup-title').text(y18n.t('installation_complete'));
+                                        $('#popup-body').html(
+                                            '<p>'+ y18n.t('installation_complete_desc', ['https://'+ args.domain +'/yunohost/admin', args.domain +'/yunohost/admin']) +'</p>'
+                                            + '<br>'
+                                            + '<p><small>'+ y18n.t('installation_complete_help_dns') +'</small></p>');
+                                    } else {
+                                        $('#popup').modal('hide');
+                                        c.flash('success', y18n.t('installation_complete'));
+                                        c.redirect('#/login');
+                                    }
+                                }, interval);
+                            } else {
+                                $('#popup').modal('hide');
+                                c.flash('fail', y18n.t('error_occured'));
+                            }
+                        } else {
+                            c.flash('fail', y18n.t('error_server'));
+                        }
+                    }
+                    store.clear('slide');
+                    c.redirect(store.get('path-1'));
+                });
             }
         }, 
-
-        // API connection helper
-        api: function (uri, callback, method, data) {
-            c = this;
-            method = typeof method !== 'undefined' ? method : 'GET';
-            data   = typeof data   !== 'undefined' ? data   : {};
-            if (window.navigator && window.navigator.language && (typeof data.locale === 'undefined')) {
-                data.locale = window.navigator.language;
-            }
-
-            var args = data;
-            // auth   = "Basic "+ btoa('admin' +':'+ atob('yolo'));
-            if (uri === '/postinstall') {
-                var installing = false;
-
-                setInterval(function () {
-                    installing = true;
-                }, 1500);
-
-                $('#popup-title').text(y18n.t('installing'));
-                $('#popup-body').html('<p>'+y18n.t('installation_complete_wait', [data.domain])+'</p>');
-                $('#popup-body').append('<div class="loader loader-popup"></div>');
-                $('#popup').modal('show');
-            } else {
-                loaded = false;
-                if ($('div.loader').length == 0) {
-                setInterval(function () {
-                    if (!loaded && $('div.loader').length == 0) {
-                        $('#main').append('<div class="loader loader-content"></div>');
-                    }
-                }, 500);
-                }
-            }
-            jQuery.ajax({
-                url: 'https://'+ store.get('url') + uri,
-                type: method,
-                crossdomain: true,
-                data: data,
-                traditional: true,
-                dataType: 'json',
-                // beforeSend: function(req) {
-                //     req.setRequestHeader('Authorization', auth);
-                // }
-            })
-            /*
-            .always(function(data) {
-                if (data.status !== 'undefined' && uri === '/login') {
-                    if (data.status === 401) {
-                        $('#popup').modal('hide');
-                        c.flash('fail', y18n.t('wrong_password'));
-                    }
-                    // 200 & empty response TODO: better comment
-                    // /login
-                    else if (data.status === 200) {
-                        // data = typeof data !== 'undefined' ? data : {};
-                        if (typeof data.win !== 'undefined') {
-                            $.each(data.win, function(k, v) {
-                                c.flash('success', v);
-                            });
-                        }
-                        callback(data);                        
-                    }
-                }
-                loaded = true;
-                $('div.loader').remove();
-
-            })
-*/
-            .always(function(xhr, ts, error) {
-                // console.log("always");
-                // console.log(xhr);
-                // console.log(ts);
-                // console.log(error);
-            })
-            .done(function(data) {
-                // console.log('success');console.log(data);
-                // data = typeof data !== 'undefined' ? data : {};
-                data = data || {};
-                if (typeof data.win !== 'undefined') {
-                    $.each(data.win, function(k, v) {
-                        c.flash('success', v);
-                    });
-                }
-                callback(data);
-            })
-            .fail(function(xhr) {
-                // console.log('fail');console.log(xhr);
-                if (xhr.status == 401) {
-                    $('#popup').modal('hide');
-                    if (uri !== '/login') {
-                        c.flash('fail', y18n.t('unauthorized'));
-                        c.redirect('#/login');
-                    }
-                } else if (typeof xhr.responseJSON !== 'undefined') {
-                    $('#popup').modal('hide');
-                    c.flash('fail', xhr.responseJSON.error);
-                } else if (typeof xhr.responseText !== 'undefined' && uri !== '/postinstall') {
-                    $('#popup').modal('hide');
-                    c.flash('fail', xhr.responseText);
-                } else {
-                    if (uri == '/postinstall') {
-                        if (installing) {
-                            if (args.domain.match(/\.nohost\.me$/) || args.domain.match(/\.noho\.st$/)) {
-                                $('#popup-title').text(y18n.t('installed'));
-                                $('#popup-body p').text(y18n.t('installation_complete_dns'));
-                                interval = 180000;
-                            } else {
-                                interval = 5000;
-                            }
-                            setInterval(function () {
-                                if (window.location.hostname === args.domain) {
-                                    $('#popup-title').text(y18n.t('installation_complete'));
-                                    $('#popup-body').html(
-                                        '<p>'+ y18n.t('installation_complete_desc', ['https://'+ args.domain +'/yunohost/admin', args.domain +'/yunohost/admin']) +'</p>'
-                                        + '<br>'
-                                        + '<p><small>'+ y18n.t('installation_complete_help_dns') +'</small></p>');
-                                } else {
-                                    $('#popup').modal('hide');
-                                    c.flash('success', y18n.t('installation_complete'));
-                                    c.redirect('#/login');
-                                }
-                            }, interval);
-                        } else {
-                            $('#popup').modal('hide');
-                            c.flash('fail', y18n.t('error_occured'));
-                        }
-                    } else {
-                        c.flash('fail', y18n.t('error_server'));
-                    }
-                }
-                store.clear('slide');
-                c.redirect(store.get('path-1'));
-            });
-        },
 
         // Render view (cross-browser)
         view: function (view, data) {
@@ -396,7 +389,6 @@ app = Sammy('#main', function (sam) {
                 }
                 c.api('/login', function(data) {
                     store.set('connected', true);
-                    c.websocket();
 
                     $('.logout-button').fadeIn();
                     c.flash('success', y18n.t('logged_in'));
@@ -1077,9 +1069,6 @@ app = Sammy('#main', function (sam) {
     sam.get('#/backup', function (c) {
         c.view('backup/backup');
     });
-
-
-    sam.websocket();
 
 
 });
