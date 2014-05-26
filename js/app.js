@@ -406,7 +406,13 @@ app = Sammy('#main', function (sam) {
 
     sam.get('#/postinstall', function(c) {
         $('#masthead').hide();
-        c.view('postinstall/postinstall_1');
+        c.checkInstall(function(isInstalled) {
+            if (isInstalled) {
+                c.redirect('#/login');
+            } else {
+                c.view('postinstall/postinstall_1');
+            }
+        });
     });
 
     sam.get('#/postinstall/domain', function(c) {
