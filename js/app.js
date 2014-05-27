@@ -359,13 +359,24 @@ app = Sammy('#main', function (sam) {
         $('#masthead').show();
         $('.logout-button').hide();
         store.set('path-1', '#/login');
+        if ($('div.loader').length == 0) {
+            setInterval(function () {
+                if (!loaded && $('div.loader').length == 0) {
+                    $('#main').append('<div class="loader loader-content"></div>');
+                }
+            }, 500);
+        }
         c.checkInstall(function(isInstalled) {
             if (isInstalled) {
                 domain = window.location.hostname;
+                $('div.loader').remove();
                 c.view('login', { 'domain': domain });
             } else if (typeof isInstalled === 'undefined') {
-                setInterval(c.redirect('#/login'), 5000);
+                setTimeout(function() {
+                    c.redirect('#/');
+                }, 5000);
             } else {
+                $('div.loader').remove();
                 c.redirect('#/postinstall');
             }
         });
