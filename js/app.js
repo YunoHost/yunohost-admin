@@ -363,6 +363,8 @@ app = Sammy('#main', function (sam) {
             if (isInstalled) {
                 domain = window.location.hostname;
                 c.view('login', { 'domain': domain });
+            } else if (typeof isInstalled === 'undefined') {
+                setInterval(c.redirect('#/login'), 5000);
             } else {
                 c.redirect('#/postinstall');
             }
@@ -407,7 +409,7 @@ app = Sammy('#main', function (sam) {
     sam.get('#/postinstall', function(c) {
         $('#masthead').hide();
         c.checkInstall(function(isInstalled) {
-            if (isInstalled) {
+            if (isInstalled || typeof isInstalled === 'undefined') {
                 c.redirect('#/login');
             } else {
                 c.view('postinstall/postinstall_1');
