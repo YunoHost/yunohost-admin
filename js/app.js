@@ -179,7 +179,7 @@ app = Sammy('#main', function (sam) {
                                     c.flash('success', v);
                                 });
                             }
-                            callback(data);
+                            callback(data);                        
                         }
                     }
                     loaded = true;
@@ -213,10 +213,16 @@ app = Sammy('#main', function (sam) {
                     } else {
                         if (uri === '/postinstall') {
                             if (installing) {
-                                setTimeout(function () {
-                                    c.flash('success', y18n.t('installation_complete'));
-                                    window.location.href = 'https://'+ window.location.hostname +'/yunohost/admin/';
-                                }, 10000);
+                                interval = window.location.hostname === args.domain ? 20000 : 5000;
+                                checkInstall = setInterval(function () {
+                                    c.checkInstall(function(isInstalled) {
+                                        if (isInstalled || (window.location.hostname === args.domain && typeof isInstalled === 'undefined')) {
+                                            c.flash('success', y18n.t('installation_complete'));
+                                            clearInterval(checkInstall);
+                                            window.location.href = 'https://'+ window.location.hostname +'/yunohost/admin/';
+                                        }
+                                    });
+                                }, interval);
                             } else {
                                 c.flash('fail', y18n.t('error_occured'));
                             }
@@ -230,7 +236,7 @@ app = Sammy('#main', function (sam) {
                     };
                 });
             }
-        },
+        }, 
 
         // Render view (cross-browser)
         view: function (view, data, callback) {
@@ -432,7 +438,7 @@ app = Sammy('#main', function (sam) {
                 store.set('maindomain', domain);
             });
         });
-
+        
     });
 
     sam.get('#/postinstall/password', function(c) {
@@ -977,11 +983,11 @@ app = Sammy('#main', function (sam) {
      *
      */
 
-    //
+    // 
     sam.get('#/monitor', function (c) {
         monitorData = {}
 
-        // Why this method ?
+        // Why this method ? 
         c.api('/services/glances', function(data) { // ?
             monitorData.status = true;
 
