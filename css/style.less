@@ -270,16 +270,31 @@ div.br {
     height: 30px;
 }
 
-@keyframes pacmanLinearMove {
-    0% { background-position: 30% 15%; }
-    100% { background-position: 70% 15%; }
+@-webkit-keyframes pacmanlinearmove {
+    from { background-position: 30% 15%; }
+    to { background-position: 70% 15%; }
+}
+@-moz-keyframes pacmanlinearmove {
+    from { background-position: 30% 15%; }
+    to { background-position: 70% 15%; }
+}
+@-o-keyframes pacmanlinearmove {
+    from { background-position: 30% 15%; }
+    to { background-position: 70% 15%; }
+}
+@keyframes pacmanlinearmove {
+    from { background-position: 30% 15%; }
+    to { background-position: 70% 15%; }
 }
 .loader {
     display: block;
     z-index: 2000;
     text-align: center;
     background: rgba(255, 255, 255, 0.5) url(../img/ajax-loader.gif) center 15% no-repeat;
-    animation: pacmanLinearMove 5s linear infinite;
+    -webkit-animation: pacmanlinearmove 5s linear infinite;
+       -moz-animation: pacmanlinearmove 5s linear infinite;
+         -o-animation: pacmanlinearmove 5s linear infinite;
+            animation: pacmanlinearmove 5s linear infinite;
 }
 .loader-content {
     position: fixed;
