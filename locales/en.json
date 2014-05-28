@@ -191,5 +191,7 @@
     "user_username" : "Username",
     "user_username_edit" : "Edit %s",
     "user_fullname" : "Fullname",
-    "user_email" : "Email"
+    "user_email" : "Email",
+    "user_emailaliases" : "Mail aliases",
+    "user_emailforward" : "Mail forward"
 }

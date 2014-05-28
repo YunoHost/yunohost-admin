@@ -35,7 +35,34 @@
             <div class="col-sm-9"> {{mail}}</div>
         </div>
     </li>
+    <li class="list-group-item">
+        <div class="row">
+            <div class="col-sm-3 text-right hidden-xs"><strong>{{t 'user_emailaliases'}}</strong></div>
+            <div class="col-sm-3 visible-xs"><strong>{{t 'user_emailaliases'}}</strong></div>
+            <div class="col-sm-9">
+            {{#if mail-aliases}}
+                {{#mail-aliases}}
+                    {{.}}<br>
+                {{/mail-aliases}}
+            {{/if}}
+            </div>
+        </div>
+    </li>
+    <li class="list-group-item">
+        <div class="row">
+            <div class="col-sm-3 text-right hidden-xs"><strong>{{t 'user_emailforward'}}</strong></div>
+            <div class="col-sm-3 visible-xs"><strong>{{t 'user_emailforward'}}</strong></div>
+            <div class="col-sm-9">
+            {{#if mail-forward}}
+                {{#mail-forward}}
+                    {{.}}<br>
+                {{/mail-forward}}
+            {{/if}}
+            </div>
+        </div>
+    </li>
 </ul>
+
 
 <div class="text-center">
     <a href="#/users/{{username}}/delete" class="btn btn-danger slide back">

@@ -189,5 +189,7 @@
     "user_username" : "Nom d'utilisateur",
     "user_username_edit" : "Editer %s",
     "user_fullname" : "Nom complet",
-    "user_email" : "Email"
+    "user_email" : "Email",
+    "user_emailaliases" : "Adresses supplémentaires",
+    "user_emailforward" : "Adresses de transfert"
 }
