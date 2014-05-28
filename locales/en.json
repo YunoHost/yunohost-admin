@@ -34,10 +34,6 @@
     "installing" : "Installing",
     "installed" : "Installed",
     "installation_complete" : "Installation complete",
-    "installation_complete_wait" : "YunoHost is being installed on <strong>%s</strong>. It may take a few minutes…",
-    "installation_complete_dns" : "YunoHost has been successfully installed, we'll wait for DNS to be propagated. It will take 3 minutes…",
-    "installation_complete_desc" : "YunoHost has been successfully installed, please go to <a href='%s'>%s</a> and create your first user.",
-    "installation_complete_help_dns" : "<a href='https://doc.yunohost.org/#/dns' target='_blank'>Not working ?</a>",
 
     "wrong_password" : "Wrong password",
     "passwords_dont_match" : "Passwords don't match",
