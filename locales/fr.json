@@ -111,7 +111,7 @@
     "domain_add_panel_with_domain" : "J'ai déjà un nom de domaine …",
     "domain_add_panel_without_domain" : "Je n'ai pas de nom de domaine …",
     "domain_add_dns_doc" : "… et j'ai <a href='//yunohost.org/dns'>configué mes DNS correctement</a>.",
-    "domain_add_dyndns_doc" : "… et je souhaite un service de DNS dynamique.",
+    "domain_add_dyndns_doc" : "… et je souhaite un nom de domaine préconfiguré.",
     "domain_default" : "Domaine par défaut",
     "domain_default_desc" : "Les utilisateurs se connecteront au domaine par défaut.",
     "domain_select" : "Selectionnez un domaine",
