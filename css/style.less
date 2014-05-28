@@ -216,12 +216,6 @@ body {
     padding-right: 0;
 }
 
-.ajax-loader {
-    .placehold;
-    background: url(/img/ajax-loader.gif) 50% 50% no-repeat transparent;
-    width: 24px;
-    height: 24px;
-}
 
 /* 
  * The pop up dialog
@@ -276,11 +270,16 @@ div.br {
     height: 30px;
 }
 
+@keyframes pacmanLinearMove {
+    0% { background-position: 30% 15%; }
+    100% { background-position: 70% 15%; }
+}
 .loader {
     display: block;
     z-index: 2000;
     text-align: center;
     background: rgba(255, 255, 255, 0.5) url(../img/ajax-loader.gif) center 15% no-repeat;
+    animation: pacmanLinearMove 5s linear infinite;
 }
 .loader-content {
     position: fixed;
