@@ -63,7 +63,7 @@
 
     "postinstall_intro_1" : "Félicitations ! YunoHost a été installé avec succès.",
     "postinstall_intro_2" : "Deux étapes de configuration supplémentaires sont nécessaires pour activer les services de votre serveur.",
-    "postinstall_intro_3" : "Vous pouvez obtenir plus d'informations en vous rendant sur <a href='//yunohost.org/postinstall_fr'>la page de documentation appropriée</a>.",
+    "postinstall_intro_3" : "Vous pouvez obtenir plus d'informations en vous rendant sur <a href='//yunohost.org/postinstall_fr' target='_blank'>la page de documentation appropriée</a>.",
     "begin" : "C'est parti !",
     "postinstall_domain" : "C'est le premier nom de domaine lié à votre serveur YunoHost, mais également celui qui servira pour le portail d'authentification. Il sera donc visible pour tous vos utilisateurs, choisissez-le avec soin.",
     "previous" : "Précédent",
