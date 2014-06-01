@@ -106,6 +106,7 @@
     "multi_instance" : "Multi instance",
     "manage_domains" : "Manage domains",
     "manage_users" : "Manage users",
+    "install_time" : "Install time",
 
     "backup" : "Backup",
     "backup_warning_title" : "The backup system is not implemented yet.",

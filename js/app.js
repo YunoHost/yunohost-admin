@@ -718,6 +718,9 @@ app = Sammy('#main', function (sam) {
                         data.manifest.description['en']
                         ;
 
+            // Installation date
+            var d = new Date(data.settings.install_time * 1000);
+            data.install_time = d.getDate() + '/' + (d.getMonth()+1) + '/' + d.getFullYear();
 
             c.view('app/app_info', data);
         });

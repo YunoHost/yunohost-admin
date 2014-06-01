@@ -22,6 +22,8 @@
             <dd>{{description}}</dd>
             <dt>{{t 'multi_instance'}}</dt>
             <dd>{{#if manifest.multi_instance}}{{t 'yes'}}{{else}}{{t 'no'}}{{/if}}</dd>
+            <dt>{{t 'install_time'}}</dt>
+            <dd>{{install_time}}</dd>
             <dt>{{t 'url'}}</dt>
             <dd><a href="https://{{settings.domain}}{{settings.path}}" target="_blank">https://{{settings.domain}}{{settings.path}}</a></dd>
         </dl>

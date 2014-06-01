@@ -106,6 +106,7 @@
     "multi_instance" : "Multi instance",
     "manage_domains" : "Gerer les domaines",
     "manage_users" : "Gerer les utilisateurs",
+    "install_time" : "Date d'installation",
 
 
     "backup" : "Sauvegarde",
