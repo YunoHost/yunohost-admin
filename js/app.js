@@ -536,12 +536,41 @@ app = Sammy('#main', function (sam) {
 
     sam.get('#/users/:user/edit', function (c) {
         c.api('/users/'+ c.params['user'], function(data) { // http://api.yunohost.org/#!/user/user_info_get_0
-            c.view('user/user_edit', data);
+            c.api('/domains', function(dataDomains) { // http://api.yunohost.org/#!/domain/domain_list_get_2
+
+                email = data.mail.split('@');
+                data.email = {
+                    username : email[0],
+                    domain : email[1]
+                }
+
+
+                data.domains = []
+                $.each(dataDomains.domains, function(key, value) {
+                    data.domains.push({
+                        domain: value,
+                        selected: (value == data.email.domain) ? true : false
+                    })
+                });
+
+                c.view('user/user_edit', data);
+            });
         });
     });
 
     sam.put('#/users/:user', function (c) {
         params = {}
+
+        // concat email/domain pseudo field
+        if (c.params['mail'] !== c.params['email'] + c.params['domain']) {
+            c.params['mail'] = c.params['email'] + c.params['domain'];
+        }
+        else {
+            c.params['mail'] = '';
+        }
+        c.params['email'] = '';
+        c.params['domain'] = '';
+
         $.each(c.params.toHash(), function(key, value) {
             if (value !== '' && key !== 'user') { params[key] = value; }
         });

@@ -29,10 +29,20 @@
             </div>
         </div>
         <div class="form-group">
-            <label for="mail" class="col-sm-3 control-label">{{t 'user_email'}}</label>
-            <div class="col-sm-9">
-                <input type="email" id="mail" name="mail" class="form-control" placeholder="{{mail}}">
+            <label for="email" class="col-sm-3 control-label">{{t 'user_email'}}</label>
+            <div class="clearfix visible-xs"></div>
+            <input type="hidden" id="mail" name="mail" class="form-control" value="{{mail}}">
+            <div class="col-sm-4 col-xs-6">
+                <input type="text" id="email" name="email" class="form-control" placeholder="{{email.username}}" value="{{email.username}}">
             </div>
+            <div class="col-sm-5 col-xs-6">
+               <select class="form-control" name="domain">
+                   {{#domains}}
+                       <option {{#if selected}}selected="selected"{{/if}}>@{{domain}}</option>
+                   {{/domains}}
+               </select>
+            </div>
+
         </div>
         <hr>
         <div class="form-group">
