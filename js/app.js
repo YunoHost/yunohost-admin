@@ -711,6 +711,15 @@ app = Sammy('#main', function (sam) {
         c.api('/apps/'+c.params['app']+'?raw', function(data) { // http://api.yunohost.org/#!/app/app_info_get_9
             // Presentation
             data.settings.allowed_users = (data.settings.allowed_users) ? data.settings.allowed_users.replace(',', ', ') : '';
+
+            // Multilingual description
+            if (window.navigator && window.navigator.language) {
+                data.description = (typeof data.manifest.description[window.navigator.language] !== 'indefined') ?
+                                        data.manifest.description[window.navigator.language] :
+                                        data.manifest.description['en']
+                                        ;
+            }
+
             c.view('app/app_info', data);
         });
     });
@@ -758,6 +767,14 @@ app = Sammy('#main', function (sam) {
                     appData.manifest.arguments.install[k].help = "<a href='#/users'>Manage users</a>";
                 }
             });
+
+            // Multilingual description
+            if (window.navigator && window.navigator.language) {
+                appData.description = (typeof appData.manifest.description[window.navigator.language] !== 'indefined') ?
+                                        appData.manifest.description[window.navigator.language] :
+                                        appData.manifest.description['en']
+                                        ;
+            }
 
             c.view('app/app_install', appData);
         });

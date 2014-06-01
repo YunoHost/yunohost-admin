@@ -19,9 +19,9 @@
             <dt>{{t 'id'}}</dt>
             <dd>{{settings.id}}</dd>
             <dt>{{t 'description'}}</dt>
-            <dd>{{manifest.description.en}}</dd>
-            <dt>{{t 'mode'}}</dt>
-            <dd>{{settings.mode}}</dd>
+            <dd>{{description}}</dd>
+            <dt>{{t 'multi_instance'}}</dt>
+            <dd>{{#if manifest.multi_instance}}{{t 'yes'}}{{else}}{{t 'no'}}{{/if}}</dd>
             <dt>{{t 'url'}}</dt>
             <dd><a href="https://{{settings.domain}}{{settings.path}}" target="_blank">https://{{settings.domain}}{{settings.path}}</a></dd>
         </dl>

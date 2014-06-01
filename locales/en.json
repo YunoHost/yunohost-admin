@@ -30,6 +30,8 @@
     "start" : "Start",
     "stop" : "Stop",
     "log" : "Log",
+    "yes" : "Yes",
+    "no" : "No",
 
     "installing" : "Installing",
     "installed" : "Installed",
@@ -101,6 +103,7 @@
     "app_access_addall_btn" : "Add access to all",
     "app_access_removeall_btn" : "Remove all access",
     "app_access_clearall_btn" : "Clear all access",
+    "multi_instance" : "Multi instance",
 
     "backup" : "Backup",
     "backup_warning_title" : "The backup system is not implemented yet.",

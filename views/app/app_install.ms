@@ -10,24 +10,27 @@
 
 <form action="#/apps" method="POST" class="form-horizontal">
 
-<ul class="list-group">
-    <li class="list-group-item">
-        <div class="row">
-            <div class="col-sm-3 text-right hidden-xs"><strong>{{t 'id'}}</strong></div>
-            <div class="col-sm-3 visible-xs"><strong>{{t 'id'}}</strong></div>
-            <div class="col-sm-9"> {{manifest.id}}</div>
-        </div>
-    </li>
-    <li class="list-group-item">
-        <div class="row">
-            <div class="col-sm-3 text-right hidden-xs"><strong>{{t 'description'}}</strong></div>
-            <div class="col-sm-3 visible-xs"><strong>{{t 'description'}}</strong></div>
-            <div class="col-sm-9"> {{manifest.description.en}}</div>
-        </div>
-    </li>
-</ul>
-<br>
 <div class="panel panel-default">
+    <div class="panel-heading">
+        <h2 class="panel-title"><span class="fa-fw fa-info-circle"></span> {{t 'infos'}}</h2>
+    </div>
+    <div class="panel-body">
+        <dl class="dl-horizontal">
+            <dt>{{t 'id'}}</dt>
+            <dd>{{manifest.id}}</dd>
+            <dt>{{t 'description'}}</dt>
+            <dd>{{description}}</dd>
+            <dt>{{t 'multi_instance'}}</dt>
+            <dd>{{#if manifest.multi_instance}}{{t 'yes'}}{{else}}{{t 'no'}}{{/if}}</dd>
+        </dl>
+    </div>
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2 class="panel-title"><span class="fa-fw fa-download"></span> {{t 'install'}}</h2>
+    </div>
     <div class="panel-body">
         <div class="form-group">
             <label for="label" class="col-sm-12">{{t 'label_for_manifestname' manifest.name}}</label>
