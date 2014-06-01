@@ -713,12 +713,11 @@ app = Sammy('#main', function (sam) {
             data.settings.allowed_users = (data.settings.allowed_users) ? data.settings.allowed_users.replace(',', ', ') : '';
 
             // Multilingual description
-            if (window.navigator && window.navigator.language) {
-                data.description = (typeof data.manifest.description[window.navigator.language] !== 'indefined') ?
-                                        data.manifest.description[window.navigator.language] :
-                                        data.manifest.description['en']
-                                        ;
-            }
+            appData.description = (typeof appData.manifest.description[y18n.locale] !== 'indefined') ?
+                        appData.manifest.description[y18n.locale] :
+                        appData.manifest.description['en']
+                        ;
+
 
             c.view('app/app_info', data);
         });
@@ -752,7 +751,7 @@ app = Sammy('#main', function (sam) {
                             label: domain,
                         });
                     })
-                    appData.manifest.arguments.install[k].help = "<a href='#/domains'>Manage domains</a>";
+                    appData.manifest.arguments.install[k].help = "<a href='#/domains'>"+y18n.t('manage_domains')+"</a>";
                 }
 
                 // Special case for admin input.
@@ -764,17 +763,21 @@ app = Sammy('#main', function (sam) {
                             label: user.fullname+' ('+user.mail+')'
                         });
                     })
-                    appData.manifest.arguments.install[k].help = "<a href='#/users'>Manage users</a>";
+                    appData.manifest.arguments.install[k].help = "<a href='#/users'>"+y18n.t('manage_users')+"</a>";
                 }
+
+                // Multilingual description
+                appData.manifest.arguments.install[k].label = (typeof appData.manifest.arguments.install[k].ask[y18n.locale] !== 'indefined') ?
+                                    appData.manifest.arguments.install[k].ask[y18n.locale] :
+                                    appData.manifest.arguments.install[k].ask['en']
+                                    ;
             });
 
             // Multilingual description
-            if (window.navigator && window.navigator.language) {
-                appData.description = (typeof appData.manifest.description[window.navigator.language] !== 'indefined') ?
-                                        appData.manifest.description[window.navigator.language] :
-                                        appData.manifest.description['en']
-                                        ;
-            }
+            appData.description = (typeof appData.manifest.description[y18n.locale] !== 'indefined') ?
+                                    appData.manifest.description[y18n.locale] :
+                                    appData.manifest.description['en']
+                                    ;
 
             c.view('app/app_install', appData);
         });

@@ -104,6 +104,8 @@
     "app_access_removeall_btn" : "Remove all access",
     "app_access_clearall_btn" : "Clear all access",
     "multi_instance" : "Multi instance",
+    "manage_domains" : "Manage domains",
+    "manage_users" : "Manage users",
 
     "backup" : "Backup",
     "backup_warning_title" : "The backup system is not implemented yet.",
