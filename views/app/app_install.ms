@@ -35,7 +35,7 @@
         <div class="form-group">
             <label for="label" class="col-sm-12">{{t 'label_for_manifestname' manifest.name}}</label>
             <div class="col-sm-12">
-                <input type="text" name="label" class="form-control" value="{{manifest.name}}" required>
+                <input type="text" id="label" name="label" class="form-control" value="{{manifest.name}}" required>
             </div>
         </div>
         {{#manifest.arguments.install}} 
@@ -43,7 +43,7 @@
             <label for="{{name}}" class="col-sm-12">{{ask.en}}</label>
             <div class="col-sm-12">
                 {{#if allowedValues}}
-                <select name="{{name}}" required placeholder="{{example}}" class="form-control" {{#if multipleValues}}multiple{{/if}}>
+                <select id="{{name}}" name="{{name}}" required placeholder="{{example}}" class="form-control" {{#if multipleValues}}multiple{{/if}}>
                     <option value="" default disabled selected>{{example}}</option>
                     {{#allowedValues}}<option value="{{value}}">{{label}}</option>{{/allowedValues}}
                 </select>
@@ -57,7 +57,7 @@
                         </div>
                         {{/each}}
                     {{else}}
-                    <input type="text" name="{{name}}" class="form-control" value="{{default}}" placeholder="{{example}}" required>
+                    <input type="text" id="{{name}}" name="{{name}}" class="form-control" value="{{default}}" placeholder="{{example}}" required>
                     {{/if}}
                 {{/if}}
 
