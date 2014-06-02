@@ -40,7 +40,7 @@
         </div>
         {{#manifest.arguments.install}} 
         <div class="form-group">
-            <label for="{{name}}" class="col-sm-12">{{ask.en}}</label>
+            <label for="{{name}}" class="col-sm-12">{{label}}</label>
             <div class="col-sm-12">
                 {{#if allowedValues}}
                 <select id="{{name}}" name="{{name}}" required placeholder="{{example}}" class="form-control" {{#if multipleValues}}multiple{{/if}}>
