@@ -21,7 +21,7 @@
             <dt>{{t 'description'}}</dt>
             <dd>{{description}}</dd>
             <dt>{{t 'multi_instance'}}</dt>
-            <dd>{{#if manifest.multi_instance}}{{t 'yes'}}{{else}}{{t 'no'}}{{/if}}</dd>
+            <dd>{{manifest.multi_instance}}</dd>
         </dl>
     </div>
 </div>

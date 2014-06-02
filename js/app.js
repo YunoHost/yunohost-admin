@@ -747,6 +747,9 @@ app = Sammy('#main', function (sam) {
                         data.manifest.description['en']
                         ;
 
+            // Multi Instance settings
+            data.manifest.multi_instance = (data.manifest.multi_instance == 'true') ? y18n.t('yes') : y18n.t('no');
+
             // Installation date
             var d = new Date(data.settings.install_time * 1000);
             data.install_time = d.getDate() + '/' + (d.getMonth()+1) + '/' + d.getFullYear();
@@ -810,6 +813,9 @@ app = Sammy('#main', function (sam) {
                                     appData.manifest.description[y18n.locale] :
                                     appData.manifest.description['en']
                                     ;
+
+            // Multi Instance settings
+            appData.manifest.multi_instance = (appData.manifest.multi_instance == 'true') ? y18n.t('yes') : y18n.t('no');
 
             c.view('app/app_install', appData);
         });
