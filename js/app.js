@@ -1086,6 +1086,152 @@ app = Sammy('#main', function (sam) {
         }
     });
 
+    /**
+     * Firewall
+     *
+     */
+
+    // Firewall status
+    sam.get('#/firewall', function (c) {
+        c.api('/firewall?raw', function(data) {
+            var firewall = {
+                ports : {},
+                upnp : false
+            };
+
+            // Reorganize ports
+            $.each(['ipv4', 'ipv6', 'uPnP'], function(i, protocol) {
+                $.each(['TCP', 'UDP'], function(j, connection) {
+                    firewall.ports[connection] = firewall.ports[connection] || {}; 
+                    $.each(data[protocol][connection], function(k, port) {
+                        firewall.ports[connection][port] = firewall.ports[connection][port] || {}; 
+                        firewall.ports[connection][port][protocol] = true;
+                    });
+                });
+            });
+
+            // Get UPnP status
+            firewall.upnp = data.uPnP.enabled;
+
+            c.view('firewall/firewall', firewall);
+        });
+    });
+
+    // Enable/Disable UPnP
+    sam.get('#/firewall/upnp/:action', function (c) {
+        if (confirm(y18n.t('confirm_upnp_action', [y18n.t(c.params['action'])] ))) {
+            params = {'action' : c.params['action']}
+            c.api('/firewall/upnp', function(data) {
+                store.clear('slide');
+                c.redirect('#/firewall');
+            }, 'GET', params);
+        }
+        else {
+            store.clear('slide');
+            c.redirect('#/firewall');
+        }
+    });
+
+    // Toggle port status
+    sam.helper('togglePort', function(port, protocol, connection, action) {
+        var method = null
+            , endurl = []
+            , c = this
+        ;
+
+        if (port != parseInt(port) || port < 0 || port > 65535) {
+            c.flash('fail', y18n.t('unknown_argument', [port]));
+            store.clear('slide');
+            c.redirect('#/firewall');
+        }
+
+        switch (connection) {
+            case 'ipv4':
+                break;
+            case 'ipv6':
+                endurl = 'ipv6'
+                break;
+        }
+
+        switch (protocol) {
+            case 'udp':
+                protocol = 'UDP';
+                break;
+            case 'both':
+                protocol = 'Both';
+                break;
+            case 'tcp':
+            default:
+                protocol = [];
+        }
+
+        switch (action) {
+            case "open":
+                method = 'POST';
+                break;
+            case "close":
+                method = 'DELETE';
+                break;
+            default:
+                c.flash('fail', y18n.t('unknown_action', [action]));
+                store.clear('slide');
+                c.redirect('#/firewall');
+        }
+
+        if (method !== null && protocol !== null && port != null) {
+            // port:
+            // protocol:
+            //    - UDP
+            //    - TCP
+            //    - Both
+            // --ipv6:
+            // --no-upnp:
+            var params = {
+                'port' : port,
+                'protocol' : protocol,
+            }
+            c.api('/firewall/port?'+endurl, function(data) {
+                store.clear('slide');
+                c.redirect('#/firewall');
+            }, method, params);
+        }
+        else {
+            store.clear('slide');
+            c.redirect('#/firewall');
+        }
+        return;
+    });
+
+    // #/firewall/port/{{@key}}/tcp/ipv4/close
+    sam.get('#/firewall/port/:port/:protocol/:connection/:action', function (c) {
+        if (confirm(y18n.t('confirm_firewall', [ y18n.t(c.params['action']), c.params['port'], c.params['protocol'], c.params['connection'] ]))) {
+            c.togglePort(
+                c.params['port'],
+                c.params['protocol'],
+                c.params['connection'],
+                c.params['action']
+            );
+        }
+        else {
+            store.clear('slide');
+            c.redirect('#/firewall');
+        }
+    });
+
+    sam.post('#/firewall/port', function (c) {
+        if (confirm(y18n.t('confirm_firewall', [ y18n.t(c.params['action']), c.params['port'], c.params['protocol'], c.params['connection'] ]))) {
+            c.togglePort(
+                c.params['port'],
+                c.params['protocol'],
+                c.params['connection'],
+                c.params['action']
+            );
+        }
+        else {
+            store.clear('slide');
+            c.redirect('#/firewall');
+        }
+    });
 
     /**
      * Monitor

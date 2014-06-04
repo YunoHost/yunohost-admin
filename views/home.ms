@@ -15,6 +15,10 @@
         <span class="pull-right fa-chevron-right"></span>
         <h2 class="list-group-item-heading">{{t 'services'}}</h2>
 	</a>
+	<a href="#/firewall" class="list-group-item slide clearfix">
+        <span class="pull-right fa-chevron-right"></span>
+        <h2 class="list-group-item-heading">{{t 'firewall'}}</h2>
+	</a>
 	<a href="#/monitor" class="list-group-item slide clearfix">
         <span class="pull-right fa-chevron-right"></span>
         <h2 class="list-group-item-heading">{{t 'monitoring'}}</h2>

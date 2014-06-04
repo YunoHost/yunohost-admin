@@ -32,6 +32,9 @@
     "log" : "Journal",
     "yes" : "Oui",
     "no" : "Non",
+    "open" : "Ouvrir",
+    "close" : "Fermer",
+    "both" : "Les deux",
 
     "installing" : "Installation",
     "installed" : "Installé",
@@ -51,6 +54,7 @@
     "non_compatible_api" : "API non compatible",
     "warning_first_user" : "Vous devez probablement d'abord <a href='#/users/create' class='alert-link'>créer un utilisateur</a>.",
     "unknown_action" : "Action %s inconnue",
+    "unknown_argument" : "Argument inconnu : %s",
 
     "confirm_delete" : "Êtes-vous sur de vouloir supprimer %s ?",
     "confirm_change_maindomain" : "Êtes-vous sur de vouloir changer le domaine principal ?",
@@ -169,6 +173,20 @@
     "service_start_on_boot" : "Lancer au démarrage : ",
     "service_status" : "Statut : ",
     "service_log" : "Journal de %s",
+
+    "firewall" : "Pare-feu",
+    "upnp" : "UPnP",
+    "upnp_enabled" : "l'UPnP est activé.",
+    "upnp_disabled" : "l'UPnP est désactivé.",
+    "confirm_upnp_action" : "Êtes-vous sur de vouloir %s l'UPnP ?",
+    "action" : "Action",
+    "protocol" : "Protocole",
+    "connection" : "Connexion",
+    "tcp" : "TCP",
+    "udp" : "UDP",
+    "port" : "Port",
+    "ports" : "Ports",
+    "confirm_firewall" : "Êtes-vous sur de vouloir %s le port %s (protocole: %s, connexion: %s)",
 
     "tools" : "Outils",
     "tools_adminpw" : "Changer le mot de passe d'administration",
