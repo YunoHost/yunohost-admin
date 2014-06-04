@@ -87,6 +87,7 @@
     "app_list" : "App list",
     "uninstall" : "Uninstall",
     "install_name" : "Install %s",
+    "label" : "Label",
     "label_for_manifestname" : "Label for %s",
     "app_info_access_desc" : "Manage user access. Allowed users: %s.",
     "app_info_default_desc" : "Redirect domain root to this application (%s).",
@@ -111,6 +112,8 @@
     "manage_domains" : "Manage domains",
     "manage_users" : "Manage users",
     "install_time" : "Install time",
+    "custom_app_install" : "Install custom app",
+    "custom_app_url_only_github" : "Currently only from GitHub",
 
     "backup" : "Backup",
     "backup_warning_title" : "The backup system is not implemented yet.",

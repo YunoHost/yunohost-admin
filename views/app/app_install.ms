@@ -17,7 +17,7 @@
     <div class="panel-body">
         <dl class="dl-horizontal">
             <dt>{{t 'id'}}</dt>
-            <dd>{{manifest.id}}</dd>
+            <dd>{{id}}</dd>
             <dt>{{t 'description'}}</dt>
             <dd>{{description}}</dd>
             <dt>{{t 'multi_instance'}}</dt>
@@ -68,7 +68,7 @@
         </div>
         {{/manifest.arguments.install}}
         <hr>
-        <input type="hidden" name="app" value="{{manifest.id}}">
+        <input type="hidden" name="app" value="{{id}}">
         <div class="text-center">
             <input type="submit" class="btn btn-success slide back" value="{{t 'install'}}">
         </div>
