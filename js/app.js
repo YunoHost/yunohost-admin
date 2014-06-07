@@ -201,8 +201,13 @@ app = Sammy('#main', function (sam) {
                 })
                 .fail(function(xhr) {
                     // console.log('fail');console.log(xhr);
-                    if (xhr.status == 401) {
-                        if (uri !== '/login') {
+                    if (xhr.status == 200) {
+                        // Fail with 200, WTF
+                        callback({});
+                    } else if (xhr.status == 401) {
+                        if (uri === '/login') {
+                            c.flash('fail', y18n.t('wrong_password'));
+                        } else {
                             c.flash('fail', y18n.t('unauthorized'));
                             c.redirect('#/login');
                         }
