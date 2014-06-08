@@ -109,26 +109,10 @@ app = Sammy('#main', function (sam) {
         },
 
         // API call
-        api: function(uri, callback, method, data) {
+        api: function(uri, callback, method, data, websocket) {
             c = this;
 
-            // Open a WebSocket connection to retrieve live messages from the moulinette
-            ws = new WebSocket('wss://'+ store.get('url') +'/messages');
-            ws.onmessage = function(evt) {
-                console.log(evt.data);
-                $.each($.parseJSON(evt.data), function(k, v) {
-                    c.flash(k, v);
-                });
-            }
-
-            // If not connected, WebSocket connection will raise an error, but we do not want to interrupt API request
-            ws.onerror = ws.onopen;
-
-            ws.onclose = function() {
-                store.clear('flash');
-            }
-
-            ws.onopen = function(evt) {
+            call = function(uri, callback, method, data) {
                 method = typeof method !== 'undefined' ? method : 'GET';
                 data   = typeof data   !== 'undefined' ? data   : {};
                 if (window.navigator && window.navigator.language && (typeof data.locale === 'undefined')) {
@@ -241,6 +225,32 @@ app = Sammy('#main', function (sam) {
                     };
                 });
             }
+
+            websocket = typeof websocket !== 'undefined' ? websocket : true;
+
+            if (websocket) {
+
+                // Open a WebSocket connection to retrieve live messages from the moulinette
+                ws = new WebSocket('wss://'+ store.get('url') +'/messages');
+                ws.onmessage = function(evt) {
+                    console.log(evt.data);
+                    $.each($.parseJSON(evt.data), function(k, v) {
+                        c.flash(k, v);
+                    });
+                }
+
+                // If not connected, WebSocket connection will raise an error, but we do not want to interrupt API request
+                ws.onerror = ws.onopen;
+
+                ws.onclose = function() {
+                    store.clear('flash');
+                }
+
+                ws.onopen = call(uri, callback, method, data);
+            } else {
+                call(uri, callback, method, data);
+            }
+
         },
 
         // Render view (cross-browser)
@@ -404,7 +414,7 @@ app = Sammy('#main', function (sam) {
                     } else {
                         c.redirect('#/');
                     }
-                }, 'POST', params);
+                }, 'POST', params, false);
             // } else {
             //     c.flash('fail', y18n.t('non_compatible_api'));
             //     c.redirect('#/login');
@@ -419,7 +429,7 @@ app = Sammy('#main', function (sam) {
             store.set('path', '#/');
             c.flash('success', y18n.t('logged_out'));
             c.redirect('#/login');
-        });
+        }, 'GET', {}, false);
     });
 
     sam.get('#/postinstall', function(c) {
