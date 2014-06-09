@@ -1208,10 +1208,12 @@ $(document).ready(function () {
 
     // User language
     if (window.navigator && window.navigator.language) {
-        y18n.locale = window.navigator.language;
-        $.getJSON('locales/'+ y18n.locale +'.json', function(data){
-            y18n.translations[y18n.locale] = data;
-        });
+        y18n.locale = window.navigator.language.substr(0, 2);
+        if (y18n.locale !== 'en') {
+            $.getJSON('locales/'+ y18n.locale +'.json', function(data){
+                y18n.translations[y18n.locale] = data;
+            });
+        }
     }
 
     /**
