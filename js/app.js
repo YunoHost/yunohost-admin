@@ -817,14 +817,14 @@ app = Sammy('#main', function (sam) {
                 }
 
                 // Multilingual description
-                appData.manifest.arguments.install[k].label = (typeof appData.manifest.arguments.install[k].ask[y18n.locale] !== 'indefined') ?
+                appData.manifest.arguments.install[k].label = (typeof appData.manifest.arguments.install[k].ask[y18n.locale] !== 'undefined') ?
                                     appData.manifest.arguments.install[k].ask[y18n.locale] :
                                     appData.manifest.arguments.install[k].ask['en']
                                     ;
             });
 
             // Multilingual description
-            appData.description = (typeof appData.manifest.description[y18n.locale] !== 'indefined') ?
+            appData.description = (typeof appData.manifest.description[y18n.locale] !== 'undefined') ?
                                     appData.manifest.description[y18n.locale] :
                                     appData.manifest.description['en']
                                     ;
