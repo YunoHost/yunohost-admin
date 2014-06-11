@@ -359,6 +359,15 @@ app = Sammy('#main', function (sam) {
 
 
     /**
+     * Errors
+     */
+    sam.notFound = function(){
+        // Redirect to home page on 404.
+        window.location = '#/';
+    };
+
+
+    /**
      * Routes
      *
      * Note: var "c" is Sammy's route context
