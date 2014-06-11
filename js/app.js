@@ -777,51 +777,54 @@ app = Sammy('#main', function (sam) {
         c.api('/apps?raw', function(data) { // http://api.yunohost.org/#!/app/app_list_get_8
             appData = data[c.params['app']];
 
-            $.each(appData.manifest.arguments.install, function(k, v) {
-                appData.manifest.arguments.install[k].allowedValues = [];
+            // Loop through installation arguments
+            if (typeof appData.manifest.arguments.install !== 'undefined') {
+                $.each(appData.manifest.arguments.install, function(k, v) {
+                    appData.manifest.arguments.install[k].allowedValues = [];
 
-                // Radio button
-                if (typeof appData.manifest.arguments.install[k].choices !== 'undefined') {
-                    // Update choices values with  key and checked data
-                    $.each(appData.manifest.arguments.install[k].choices, function(ck, cv){
-                        appData.manifest.arguments.install[k].choices[ck] = {
-                            value: cv,
-                            key: ck,
-                            checked: (cv == appData.manifest.arguments.install[k].default) ? true : false,
-                        };
-                    });
-                }
-
-                // Special case for domain input.
-                // Display a list of available domains
-                if (v.name == 'domain') {
-                    $.each(c.params.domains, function(key, domain){
-                        appData.manifest.arguments.install[k].allowedValues.push({
-                            value: domain,
-                            label: domain,
+                    // Radio button
+                    if (typeof appData.manifest.arguments.install[k].choices !== 'undefined') {
+                        // Update choices values with  key and checked data
+                        $.each(appData.manifest.arguments.install[k].choices, function(ck, cv){
+                            appData.manifest.arguments.install[k].choices[ck] = {
+                                value: cv,
+                                key: ck,
+                                checked: (cv == appData.manifest.arguments.install[k].default) ? true : false,
+                            };
                         });
-                    })
-                    appData.manifest.arguments.install[k].help = "<a href='#/domains'>"+y18n.t('manage_domains')+"</a>";
-                }
+                    }
 
-                // Special case for admin input.
-                // Display a list of available users
-                if (v.name == 'admin') {
-                    $.each(c.params.users, function(key, user){
-                        appData.manifest.arguments.install[k].allowedValues.push({
-                            value: user.username,
-                            label: user.fullname+' ('+user.mail+')'
-                        });
-                    })
-                    appData.manifest.arguments.install[k].help = "<a href='#/users'>"+y18n.t('manage_users')+"</a>";
-                }
+                    // Special case for domain input.
+                    // Display a list of available domains
+                    if (v.name == 'domain') {
+                        $.each(c.params.domains, function(key, domain){
+                            appData.manifest.arguments.install[k].allowedValues.push({
+                                value: domain,
+                                label: domain,
+                            });
+                        })
+                        appData.manifest.arguments.install[k].help = "<a href='#/domains'>"+y18n.t('manage_domains')+"</a>";
+                    }
 
-                // Multilingual description
-                appData.manifest.arguments.install[k].label = (typeof appData.manifest.arguments.install[k].ask[y18n.locale] !== 'undefined') ?
-                                    appData.manifest.arguments.install[k].ask[y18n.locale] :
-                                    appData.manifest.arguments.install[k].ask['en']
-                                    ;
-            });
+                    // Special case for admin input.
+                    // Display a list of available users
+                    if (v.name == 'admin') {
+                        $.each(c.params.users, function(key, user){
+                            appData.manifest.arguments.install[k].allowedValues.push({
+                                value: user.username,
+                                label: user.fullname+' ('+user.mail+')'
+                            });
+                        })
+                        appData.manifest.arguments.install[k].help = "<a href='#/users'>"+y18n.t('manage_users')+"</a>";
+                    }
+
+                    // Multilingual description
+                    appData.manifest.arguments.install[k].label = (typeof appData.manifest.arguments.install[k].ask[y18n.locale] !== 'undefined') ?
+                                        appData.manifest.arguments.install[k].ask[y18n.locale] :
+                                        appData.manifest.arguments.install[k].ask['en']
+                                        ;
+                });
+            }
 
             // Multilingual description
             appData.description = (typeof appData.manifest.description[y18n.locale] !== 'undefined') ?
