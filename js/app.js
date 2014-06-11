@@ -275,6 +275,8 @@ app = Sammy('#main', function (sam) {
                             }
                         });
                         callback();
+                        // Force scrollTop on page load
+                        $('html, body').scrollTop(0);
                     });
                 }
 
@@ -303,7 +305,11 @@ app = Sammy('#main', function (sam) {
                     leSwap();
                 }
             } else {
-                rendered.swap(callback);
+                rendered.swap(function(){
+                    callback()
+                    // Force scrollTop on page load
+                    $('html, body').scrollTop(0);
+                });
             }
         }
     });
