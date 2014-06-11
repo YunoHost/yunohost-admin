@@ -226,7 +226,7 @@ app = Sammy('#main', function (sam) {
                 });
             }
 
-            websocket = typeof websocket !== 'undefined' ? websocket : true;
+            websocket = typeof websocket !== 'undefined' ? websocket : false;
 
             if (websocket) {
 
