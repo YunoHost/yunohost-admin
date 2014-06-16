@@ -859,6 +859,11 @@ app = Sammy('#main', function (sam) {
         delete c.params['label'];
         delete c.params['app'];
         params['args'] = c.serialize(c.params.toHash());
+        // Do not pass empty args.
+        if (params['args'] == "") {
+            delete params['args'];
+        }
+
         c.api('/apps', function() { // http://api.yunohost.org/#!/app/app_install_post_2
             c.redirect('#/apps');
         }, 'POST', params);
