@@ -680,9 +680,9 @@ app = Sammy('#main', function (sam) {
                 store.clear('slide');
                 c.redirect('#/domains/add');
             }
-            params = { 'domains': c.params['ddomain'] + c.params['ddomain-ext'] }
+            params = { 'domain': c.params['ddomain'] + c.params['ddomain-ext'] }
         } else {
-            params = { 'domains': c.params['domain'] }
+            params = { 'domain': c.params['domain'] }
         }
 
         c.api('/domains', function(data) { // http://api.yunohost.org/#!/domain/domain_add_post_1
