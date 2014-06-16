@@ -233,7 +233,7 @@ app = Sammy('#main', function (sam) {
                 // Open a WebSocket connection to retrieve live messages from the moulinette
                 ws = new WebSocket('wss://'+ store.get('url') +'/messages');
                 ws.onmessage = function(evt) {
-                    console.log(evt.data);
+                    // console.log(evt.data);
                     $.each($.parseJSON(evt.data), function(k, v) {
                         c.flash(k, v);
                     });
