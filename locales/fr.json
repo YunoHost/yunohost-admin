@@ -111,7 +111,7 @@
 
     "backup" : "Sauvegarde",
     "backup_warning_title" : "Le système de sauvegarde n'est pas encore implémenté.",
-    "backup_warning_desc" : "Vous devriez prendre soin de sauvegarder vos données vous-mêmes pour le moment.",
+    "backup_warning_desc" : "Vous devriez prendre soin de sauvegarder vos données vous-même pour le moment.",
 
     "domain_list" : "Liste des domaines",
     "domain_add" : "Ajouter un domaine",
