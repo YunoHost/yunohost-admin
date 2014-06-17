@@ -1204,7 +1204,7 @@ app = Sammy('#main', function (sam) {
 
     // #/firewall/port/{{@key}}/tcp/ipv4/close
     sam.get('#/firewall/port/:port/:protocol/:connection/:action', function (c) {
-        if (confirm(y18n.t('confirm_firewall', [ y18n.t(c.params['action']), c.params['port'], c.params['protocol'], c.params['connection'] ]))) {
+        if (confirm(y18n.t('confirm_firewall', [ y18n.t(c.params['action']), c.params['port'], y18n.t(c.params['protocol']), y18n.t(c.params['connection']) ]))) {
             c.togglePort(
                 c.params['port'],
                 c.params['protocol'],
@@ -1219,7 +1219,7 @@ app = Sammy('#main', function (sam) {
     });
 
     sam.post('#/firewall/port', function (c) {
-        if (confirm(y18n.t('confirm_firewall', [ y18n.t(c.params['action']), c.params['port'], c.params['protocol'], c.params['connection'] ]))) {
+        if (confirm(y18n.t('confirm_firewall', [ y18n.t(c.params['action']), c.params['port'], y18n.t(c.params['protocol']), y18n.t(c.params['connection']) ]))) {
             c.togglePort(
                 c.params['port'],
                 c.params['protocol'],
