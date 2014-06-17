@@ -134,7 +134,7 @@
                 </div>
                 <div class="col-xs-6 col-sm-3">
                     <label for="port" class="control-label">{{t 'port'}}</label>
-                    <input type="number" id="port" name="port" class="form-control" required>
+                    <input type="number" id="port" name="port" class="form-control" required min="1" max="65535">
                 </div>
                 <div class="col-xs-6 col-sm-3">
                     <label for="connection" class="control-label">{{t 'connection'}}</label>
