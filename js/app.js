@@ -1345,6 +1345,10 @@ app = Sammy('#main', function (sam) {
         }
     });
 
+    // Download SSL Certificate Authority
+    sam.get('#/tools/ca', function (c) {
+        c.view('tools/tools_ca');
+    });
 
     /**
      * Backup

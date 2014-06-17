@@ -194,6 +194,9 @@
     "tools_adminpw_current_placeholder" : "Entrez le mot de passe actuel",
     "tools_adminpw_new_placeholder" : "Entrez le nouveau mot de passe",
     "tools_adminpw_confirm_placeholder" : "Confirmez le nouveau mot de passe",
+    "tools_download_ca" : "Télécharger l'autorité de certification SSL (CA)",
+    "tools_download_ca_desc" : "Cliquez ici pour télécharger l'autorité de certification SSL (CA)",
+
 
     "system_update" : "Mettre à jour le système",
     "system_upgrade" : "Mise à jour du système",

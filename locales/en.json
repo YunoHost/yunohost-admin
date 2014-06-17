@@ -193,6 +193,8 @@
     "tools_adminpw_current_placeholder" : "Enter your current password",
     "tools_adminpw_new_placeholder" : "Enter the new password",
     "tools_adminpw_confirm_placeholder" : "Confirm the new password",
+    "tools_download_ca" : "Download SSL Certificate Authority (CA)",
+    "tools_download_ca_desc" : "Click here to download your SSL certificate authority (CA)",
 
     "system_update" : "System update",
     "system_upgrade" : "System upgrade",
