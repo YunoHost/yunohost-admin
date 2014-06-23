@@ -1326,19 +1326,20 @@ app = Sammy('#main', function (sam) {
 
     sam.get('#/tools/upgrade/:type', function (c) {
         if (c.params['type'] !== 'apps' && c.params['type'] !== 'packages') {
-            c.flash('fail', y18n.t('error_server'));
+            c.flash('fail', y18n.t('unknown_argument', [c.params['type']]));
             store.clear('slide');
             c.redirect('#/tools/update');
         }
-        if (confirm(y18n.t('confirm_update_type', [y18n.t('system_'+c.params['type']).toLowerCase()]))) {
-            params = []
-            if (c.params['type'] == 'packages') {params.push('ignore-apps');}
-            if (c.params['type'] == 'apps') {params.push('ignore-packages');}
-            c.api('/upgrade', function(data) {
+        else if (confirm(y18n.t('confirm_update_type', [y18n.t('system_'+c.params['type']).toLowerCase()]))) {
+            endurl = '';
+            if (c.params['type'] == 'packages') {endurl = 'ignore_apps';}
+            else if (c.params['type'] == 'apps') {endurl = 'ignore_packages';}
+
+            c.api('/upgrade?'+endurl, function(data) {
                 // 'log' is a reserved name, maybe in handlebars
                 data.logs = data.log;
                 c.view('tools/tools_upgrade', data);
-            }, 'PUT', params);
+            }, 'PUT');
         } else {
             store.clear('slide');
             c.redirect('#/tools/update');
