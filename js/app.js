@@ -772,7 +772,7 @@ app = Sammy('#main', function (sam) {
             data.settings.allowed_users = (data.settings.allowed_users) ? data.settings.allowed_users.replace(',', ', ') : '';
 
             // Multilingual description
-            data.description = (typeof data.manifest.description[y18n.locale] !== 'indefined') ?
+            data.description = (typeof data.manifest.description[y18n.locale] !== 'undefined') ?
                         data.manifest.description[y18n.locale] :
                         data.manifest.description['en']
                         ;
