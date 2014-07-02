@@ -5,11 +5,16 @@
 </div>
 <div class="clearfix"></div>
 <h1 class="view-title">{{service.name}}</h1>
+
 <div class="br"></div>
 
-<div class="container">
 
-    <h2>{{t 'status'}}</h2>
+<div class="panel panel-default">
+    <div class="panel-heading">
+    <h2 class="panel-title"><span class="fa-fw fa-info-circle"></span> {{t 'status'}}</h2>
+    </div>
+    <div class="panel-body">
+        <dl class="dl-horizontal">
     {{#service}}
         <div class="pull-left">
             {{t 'service_start_on_boot'}}
@@ -51,4 +56,6 @@
         </div>
 
     {{/service}}
+        </dl>
+    </div>
 </div>
