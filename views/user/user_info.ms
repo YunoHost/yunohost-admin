@@ -13,29 +13,22 @@
 
 <div class="br"></div>
 
-<ul class="list-group">
-    <li class="list-group-item">
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2 class="panel-title"><span class="fa-fw fa-user"></span> {{fullname}}</h2>
+    </div>
+    <div class="panel-body">
+        <dl class="dl-horizontal">
         <div class="row">
             <div class="col-sm-3 text-right hidden-xs"><strong>{{t 'user_username'}}</strong></div>
             <div class="col-sm-3 visible-xs"><strong>{{t 'user_username'}}</strong></div>
             <div class="col-sm-9"> {{username}}</div>
         </div>
-    </li>
-    <li class="list-group-item">
-        <div class="row">
-            <div class="col-sm-3 text-right hidden-xs"><strong>{{t 'user_fullname'}}</strong></div>
-            <div class="col-sm-3 visible-xs"><strong>{{t 'user_fullname'}}</strong></div>
-            <div class="col-sm-9"> {{fullname}}</div>
-        </div>
-    </li>
-    <li class="list-group-item">
         <div class="row">
             <div class="col-sm-3 text-right hidden-xs"><strong>{{t 'user_email'}}</strong></div>
             <div class="col-sm-3 visible-xs"><strong>{{t 'user_email'}}</strong></div>
             <div class="col-sm-9"> {{mail}}</div>
         </div>
-    </li>
-    <li class="list-group-item">
         <div class="row">
             <div class="col-sm-3 text-right hidden-xs"><strong>{{t 'user_emailaliases'}}</strong></div>
             <div class="col-sm-3 visible-xs"><strong>{{t 'user_emailaliases'}}</strong></div>
@@ -47,8 +40,6 @@
             {{/if}}
             </div>
         </div>
-    </li>
-    <li class="list-group-item">
         <div class="row">
             <div class="col-sm-3 text-right hidden-xs"><strong>{{t 'user_emailforward'}}</strong></div>
             <div class="col-sm-3 visible-xs"><strong>{{t 'user_emailforward'}}</strong></div>
@@ -60,9 +51,9 @@
             {{/if}}
             </div>
         </div>
-    </li>
-</ul>
-
+        </dl>
+    </div>
+</div>
 
 <div class="text-center">
     <a href="#/users/{{username}}/delete" class="btn btn-danger slide back">
