@@ -9,7 +9,6 @@
     </div>
 </div>
 <div class="clearfix"></div>
-<h1 class="view-title">{{t 'system_upgrade'}}</h1>
 <div class="br"></div>
 
 {{#if logs}}
