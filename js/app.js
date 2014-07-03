@@ -692,10 +692,11 @@ app = Sammy('#main', function (sam) {
 
     sam.get('#/domains/:domain/delete', function (c) {
         if (confirm(y18n.t('confirm_delete', [c.params['domain']]))) {
+            params = {'domain' : c.params['domain']};
             c.api('/domains/'+ c.params['domain'], function(data) { // http://api.yunohost.org/#!/domain/domain_remove_delete_3
                 store.clear('slide');
                 c.redirect('#/domains');
-            }, 'DELETE');
+            }, 'DELETE', params);
         } else {
             store.clear('slide');
             c.redirect('#/domains');
