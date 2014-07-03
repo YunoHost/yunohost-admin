@@ -207,6 +207,8 @@
     "system_packages_nothing" : "There is no packages to upgrade.",
     "system_apps_nothing" : "There is no apps to upgrade.",
     "no_log" : "No log.",
+    "system_delayed_upgrade_warning" : "<b>%s</b> will be upgraded automatically within the next hour.",
+    "system_delayed_upgrade" : "Delayed upgrade",
 
     "users" : "Users",
     "users_new" : "New user",

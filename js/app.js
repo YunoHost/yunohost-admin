@@ -1411,7 +1411,14 @@ app = Sammy('#main', function (sam) {
         c.api('/update', function(data) {
             packagesLength = data.packages.length;
             for(var i = 0; i < packagesLength; i++) {
+                data.packages[i].delayed = false;
                 data.packages[i].changelog = data.packages[i].changelog.replace(/\n/g, '<br />');
+
+                // Check for special packages that need delayed upgrade.
+                if (["moulinette", "moulinette-yunohost", "yunohost-admin", "yunohost-config-nginx", "ssowat", "python"].indexOf(data.packages[i].name) != -1) {
+                    c.flash('warning', y18n.t('system_delayed_upgrade_warning', [data.packages[i].name]));
+                    data.packages[i].delayed = true;
+                }
             }
             c.view('tools/tools_update', data);
         }, 'PUT');

@@ -209,6 +209,8 @@
     "system_packages_nothing" : "Il n'y a aucun paquet à mettre à jour.",
     "system_apps_nothing" : "Il n'y a aucune application à mettre à jour.",
     "no_log" : "Aucun journal.",
+    "system_delayed_upgrade_warning" : "<b>%s</b> sera mis-à-jour automatiquement durant l'heure suivante.",
+    "system_delayed_upgrade" : "Mise à jour en attente",
 
     "users" : "Utilisateurs",
     "users_new" : "Nouvel utilisateur",

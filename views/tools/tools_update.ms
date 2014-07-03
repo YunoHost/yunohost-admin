@@ -15,6 +15,11 @@
     {{#if packages}}
         {{#packages}}
         <div class="list-group-item">
+            {{#if delayed}}
+            <span class="text-warning pull-right">
+                <span class="fa-warning"></span> {{t 'system_delayed_upgrade'}}
+            </span>
+            {{/if}}
             <h3 class="list-group-item-heading">{{name}} <small>{{fullname}}</small></h3>
             <p class="list-group-item-text">{{{changelog}}}</p>
         </div>
