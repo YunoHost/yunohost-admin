@@ -2,7 +2,7 @@
     <div class="row">
         <div id="bc1" class="btn-group btn-breadcrumb">
             <a href="#/" class="btn btn-default"><i class="fa fa-home"></i></a>
-            <a href="#/users" class="btn btn-default"><div>{{t 'domains'}}</div></a>
+            <a href="#/domains" class="btn btn-default"><div>{{t 'domains'}}</div></a>
         </div>
     </div>
 </div>
