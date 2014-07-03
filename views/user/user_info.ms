@@ -17,19 +17,18 @@
     <div class="panel-heading">
         <h2 class="panel-title"><span class="fa-fw fa-user"></span> {{fullname}}</h2>
     </div>
-    <div class="panel-body">
-        <dl class="dl-horizontal">
-        <div class="row">
+    <ul class="panel-body list-group">
+        <li class="list-group-item row">
             <div class="col-sm-3 text-right hidden-xs"><strong>{{t 'user_username'}}</strong></div>
             <div class="col-sm-3 visible-xs"><strong>{{t 'user_username'}}</strong></div>
             <div class="col-sm-9"> {{username}}</div>
-        </div>
-        <div class="row">
+        </li>
+        <li class="list-group-item row">
             <div class="col-sm-3 text-right hidden-xs"><strong>{{t 'user_email'}}</strong></div>
             <div class="col-sm-3 visible-xs"><strong>{{t 'user_email'}}</strong></div>
             <div class="col-sm-9"> {{mail}}</div>
-        </div>
-        <div class="row">
+        </li>
+        <li class="list-group-item row">
             <div class="col-sm-3 text-right hidden-xs"><strong>{{t 'user_emailaliases'}}</strong></div>
             <div class="col-sm-3 visible-xs"><strong>{{t 'user_emailaliases'}}</strong></div>
             <div class="col-sm-9">
@@ -39,8 +38,8 @@
                 {{/mail-aliases}}
             {{/if}}
             </div>
-        </div>
-        <div class="row">
+        </li>
+        <li class="list-group-item row">
             <div class="col-sm-3 text-right hidden-xs"><strong>{{t 'user_emailforward'}}</strong></div>
             <div class="col-sm-3 visible-xs"><strong>{{t 'user_emailforward'}}</strong></div>
             <div class="col-sm-9">
@@ -50,9 +49,8 @@
                 {{/mail-forward}}
             {{/if}}
             </div>
-        </div>
-        </dl>
-    </div>
+        </li>
+    </ul>
 </div>
 
 <div class="text-center">
