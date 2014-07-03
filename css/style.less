@@ -108,71 +108,58 @@ body {
     .make-row(12);
     margin-top: 0;
 
-    .app.title, .logout-button {
+    .homelink,
+    .logout-button {
         margin-top: 20px;
     }
 
-    .app.title {
-        .make-xs-column(10);
+    .homelink {
+        .make-xs-column(2);
+        position: relative;
+        display: block;
 
-        a {
-            color: #444;
-            text-decoration: none;
-            position: relative;
+        &:before {
+            .fa;
+            /*.fa-chevron-left;*/
+            content: "\f053";
+            display: block;
+            height: 1em;
+            width: 1em;
+            position: absolute;
+            top: 50%;
+            margin-top: -0.4em;
+            left: 5px;
+            opacity: 0;
+            font-size: 1em;
+            line-height: 1;
+            color: @gray-light;
             -webkit-transition: all 0.1s ease;
                     transition: all 0.1s ease;
 
+        }
+        &:hover {
             &:before {
-                .fa;
-                /*.fa-chevron-left;*/
-                content: "\f053";
-                display: block;
-                height: 1em;
-                width: 1em;
-                position: absolute;
-                top: 50%;
-                margin-top: -0.4em;
-                left: -10px;
-                opacity: 0;
-                font-size: 0.5em;
-                line-height: 1;
-                color: @gray-light;
-                -webkit-transition: all 0.1s ease;
-                        transition: all 0.1s ease;
-
-            }
-            &:hover {
-                &:before {
-                    opacity: 1;
-                    left: -15px;
-                }
+                opacity: 1;
+                left: 0px;
             }
         }
-
-        span {
-            display: inline-block;
-            vertical-align: middle;
-        }
-/*        .ynh {
-            height: 1.2em;
-            width: 1.4em;
-            background: url(../img/logo-ynh.svg) 0 0 no-repeat;
-            background-size: cover;
-            text-indent: -9999px;
-        }*/
-        .desc {
-            .small;
-            color: @gray-light;
-        }
+        
     }
 
     .logout-button {
         .make-xs-column(2);
+        .make-xs-column-offset(8);
         .btn; 
         .btn-link;
         text-align: right;
         a.fa-sign-out {
             .fa-2x;
+            color: @gray-light;
+            -webkit-transition: all 0.1s ease;
+                    transition: all 0.1s ease;
+            &:hover {
+                color: @gray;
+            }
         }
     }
 }
