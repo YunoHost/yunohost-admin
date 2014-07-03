@@ -2,7 +2,7 @@
     <div class="row">
         <div id="bc1" class="btn-group btn-breadcrumb">
             <a href="#/" class="btn btn-default"><i class="fa fa-home"></i></a>
-            <a href="#/backup" class="btn btn-default"><div>{{t 'firewall'}}</div></a>
+            <a href="#/firewall" class="btn btn-default"><div>{{t 'firewall'}}</div></a>
         </div>
     </div>
 </div>
