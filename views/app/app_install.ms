@@ -1,12 +1,11 @@
-<div class="pull-left">
-    <a href="#/apps/install" class="btn btn-default slide back">
-        <span class="fa-chevron-left"></span> {{t 'app_list'}}
-    </a>
+<div class="btn-breadcrumb">
+    <a href="#/" ><i class="fa-home"></i><span class="sr-only">{{t 'home'}}</span></a>
+    <a href="#/apps">{{t 'applications'}}</a>
+    <a href="#/apps/install">{{t 'install'}}</a>
+    <a href="#/apps/install/{{id}}">{{manifest.name}}</a>
 </div>
-<div class="clearfix"></div>
-<h1 class="view-title">{{t 'install_name' manifest.name}}</h1>
 
-<div class="br"></div>
+<div class="separator"></div>
 
 <form action="#/apps" method="POST" class="form-horizontal">
 

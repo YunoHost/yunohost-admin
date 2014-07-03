@@ -1,11 +1,9 @@
-<div class="pull-left">
-    <a href="#/" class="btn btn-default slide back">
-        <span class="fa-chevron-left"></span> {{t 'menu'}}
-    </a>
+<div class="btn-breadcrumb">
+    <a href="#/" ><i class="fa-home"></i><span class="sr-only">{{t 'home'}}</span></a>
+    <a href="#/backup">{{t 'backup'}}</a>
 </div>
-<div class="clearfix"></div>
-<h1 class="view-title">{{t 'backup'}}</h1>
-<div class="br"></div>
+
+<div class="separator"></div>
 
 <div class="alert alert-warning">
     <span class="fa-exclamation-triangle"></span>

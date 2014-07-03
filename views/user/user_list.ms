@@ -1,16 +1,15 @@
-<div class="pull-left">
-    <a href="#/" class="btn btn-default slide back">
-    	<span class="fa-chevron-left"></span> {{t 'menu'}}
-    </a>
-</div>
-<div class="pull-right">
+<div class="btn-breadcrumb">
+    <a href="#/"><i class="fa-home"></i><span class="sr-only">{{t 'home'}}</span></a>
+    <a href="#/users" class="btn btn-default">{{t 'users'}}</a>
+</div>   
+
+<div class="actions-group">
     <a href="#/users/create" class="btn btn-success slide">
     	<span class="fa-plus"></span> {{t 'users_new'}}
     </a>
 </div>
-<div class="clearfix"></div>
-<h1 class="view-title">{{t 'users'}}</h1>
-<div class="br"></div>
+
+<div class="separator"></div>
 
 <div class="list-group">
 {{#users}}

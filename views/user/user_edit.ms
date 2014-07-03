@@ -1,12 +1,12 @@
-<div class="pull-left">
-    <a href="#/users/{{username}}" class="btn btn-default slide back">
-        <span class="fa-chevron-left"></span> {{t 'info'}}
-    </a>
+<div class="btn-breadcrumb">
+    <a href="#/" ><i class="fa-home"></i><span class="sr-only">{{t 'home'}}</span></a>
+    <a href="#/users" class="visible-xs">&hellip;</a>
+    <a href="#/users" class="hidden-xs">{{t 'users'}}</a>
+    <a href="#/users/{{username}}">{{username}}</a>
+    <a href="#/users/{{username}}/edit">{{t 'user_username_edit' username}}</a>
 </div>
-<div class="clearfix"></div>
-<h1 class="view-title">{{t 'user_username_edit' username}}</h1>
 
-<div class="br"></div>
+<div class="separator"></div>
 
 <form action="#/users/{{username}}" method="PUT" class="form-horizontal">
 
