@@ -218,7 +218,7 @@
     "users_list" : "Liste des utilisateurs",
 
     "user_username" : "Nom d'utilisateur",
-    "user_username_edit" : "Éditer %s",
+    "user_username_edit" : "Éditer le compte de %s",
     "user_fullname" : "Nom complet",
     "user_email" : "Email",
     "user_emailaliases" : "Adresses supplémentaires",
