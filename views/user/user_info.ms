@@ -2,7 +2,7 @@
     <div class="row">
         <div id="bc1" class="btn-group btn-breadcrumb">
             <a href="#/" class="btn btn-default"><i class="fa fa-home"></i></a>
-            <a href="#/users" class="btn btn-default hidden-xs"><div>{{t 'users_list'}}</div></a>
+            <a href="#/users" class="btn btn-default hidden-xs"><div>{{t 'users'}}</div></a>
             <a href="#/users" class="btn btn-default visible-xs"><div>...</div></a>
             <a href="#/users/{{username}}" class="btn btn-default"><div>{{username}}</div></a>
         </div> 
