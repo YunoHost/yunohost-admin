@@ -1,12 +1,17 @@
-<div class="pull-left">
-    <a href="#/apps/{{settings.id}}" class="btn btn-default slide back">
-        <span class="fa-chevron-left"></span> {{settings.label}}
-    </a>
+<div class="container pull-left">
+    <div class="row">
+        <div id="bc1" class="btn-group btn-breadcrumb">
+            <a href="#/" class="btn btn-default"><i class="fa fa-home"></i></a>
+            <a href="#/apps" class="btn btn-default hidden-xs"><div>{{t 'installed_apps'}}</div></a>
+            <a href="#/apps" class="btn btn-default visible-xs"><div>...</div></a>
+            <a href="#/apps/{{settings.id}}" class="btn btn-default"><div>{{settings.label}}</div></a>
+            <a href="#/apps/{{settings.id}}/access" class="btn btn-default"><div>{{t 'app_access_title' settings.label}}</div></a>
+        </div>
+    </div>
 </div>
 <div class="pull-right">
 </div>
 <div class="clearfix"></div>
-<h1 class="view-title">{{t 'app_access_title' settings.label}}</h1>
 
 <div class="br"></div>
 

@@ -1,8 +1,11 @@
 {{#installed}}
-<div class="pull-left">
-    <a href="#/" class="btn btn-default slide back">
-        <span class="fa-chevron-left"></span> {{t 'menu'}}
-    </a>
+<div class="container pull-left">
+    <div class="row">
+        <div id="bc1" class="btn-group btn-breadcrumb">
+            <a href="#/" class="btn btn-default"><i class="fa fa-home"></i></a>
+            <a href="#/apps" class="btn btn-default"><div>{{t 'installed_apps'}}</div></a>
+        </div>
+    </div>
 </div>
 <div class="pull-right">
     <a href="#/apps/install" class="btn btn-success slide">
@@ -10,7 +13,6 @@
     </a>
 </div>
 <div class="clearfix"></div>
-<h1 class="view-title">{{t 'installed_apps'}}</h1>
 {{/installed}}
 
 
