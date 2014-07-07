@@ -266,9 +266,9 @@ app = Sammy('#main', function (sam) {
             if (enableSlide) {
                 function leSwap() {
                     rendered.swap(function() {
-                        $('.slide').on('click', function() {
+                        $('.slide, .btn-breadcrumb a:not(:last-child)').on('click', function() {
                             $(this).addClass('active');
-                            if ($(this).hasClass('back')) {
+                            if ($(this).hasClass('back') || $(this).parent('.btn-breadcrumb').length) {
                                 store.set('slide', 'back');
                             } else {
                                 store.set('slide', 'to');
