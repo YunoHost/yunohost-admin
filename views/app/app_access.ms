@@ -37,13 +37,14 @@
         {{#if users}}
         <form method="POST" action="#/apps/{{settings.id}}/access/add" class="row">
             <input type="hidden" name="app" value="{{settings.id}}">
-            <div class="col-xs-9 col-sm-6">
+            <div class="col-sm-6">
                 <select name="user" required class="form-control">
                     <option value="" default disabled selected>{{t 'select_user'}}</option>
                     {{#users}}<option value="{{value}}">{{label}}</option>{{/users}}
                 </select>
             </div>
-            <div class="col-xs-3 col-sm-6">
+            <div class="col-sm-6">
+                <br class="visible-xs" />
                 <input type="submit" class="btn btn-success slide back" value="{{t 'add'}}">
             </div>
         </form>
