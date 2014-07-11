@@ -1,10 +1,14 @@
-<div class="pull-left">
-    <a href="#/services/{{name}}" class="btn btn-default slide back">
-    	<span class="fa-chevron-left"></span> {{name}}
-    </a>
+<div class="container pull-left">
+    <div class="row">
+        <div id="bc1" class="btn-group btn-breadcrumb">
+            <a href="#/" class="btn btn-default"><i class="fa fa-home"></i></a>
+            <a href="#/services" class="btn btn-default"><div>{{t 'services'}}</div></a>
+            <a href="#/services/{{service.name}}" class="btn btn-default"><div>{{service.name}}</div></a>
+            <a href="#/services/{{service.name}}/log" class="btn btn-default"><div>{{t 'service_log' name}}</div></a>
+        </div>
+    </div>
 </div>
 <div class="clearfix"></div>
-<h1 class="view-title">{{t 'service_log' name}}</h1>
 <div class="br"></div>
 
 <div class="container">

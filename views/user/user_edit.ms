@@ -1,10 +1,15 @@
-<div class="pull-left">
-    <a href="#/users/{{username}}" class="btn btn-default slide back">
-        <span class="fa-chevron-left"></span> {{t 'info'}}
-    </a>
+<div class="container pull-left">
+    <div class="row">
+        <div id="bc1" class="btn-group btn-breadcrumb">
+            <a href="#/" class="btn btn-default"><i class="fa fa-home"></i></a>
+            <a href="#/users" class="btn btn-default visible-xs"><div>...</div></a>
+            <a href="#/users" class="btn btn-default hidden-xs"><div>{{t 'users'}}</div></a>
+            <a href="#/users/{{username}}" class="btn btn-default"><div>{{username}}</div></a>
+            <a href="#/users/{{username}}/edit" class="btn btn-default"><div>{{t 'user_username_edit' username}}</div></a>
+        </div>
+    </div>
 </div>
 <div class="clearfix"></div>
-<h1 class="view-title">{{t 'user_username_edit' username}}</h1>
 
 <div class="br"></div>
 

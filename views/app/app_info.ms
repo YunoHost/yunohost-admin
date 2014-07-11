@@ -1,12 +1,15 @@
-<div class="pull-left">
-    <a href="#/apps" class="btn btn-default slide back">
-        <span class="fa-chevron-left"></span> {{t 'app_list'}}
-    </a>
+<div class="container pull-left">
+    <div class="row">
+        <div id="bc1" class="btn-group btn-breadcrumb">
+            <a href="#/" class="btn btn-default"><i class="fa fa-home"></i></a>
+            <a href="#/apps" class="btn btn-default"><div>{{t 'installed_apps'}}</div></a>
+            <a href="#/apps/{{settings.id}}" class="btn btn-default"><div>{{settings.label}}</div></a>
+        </div>
+    </div>
 </div>
 <div class="pull-right">
 </div>
 <div class="clearfix"></div>
-<h1 class="view-title">{{settings.label}}</h1>
 
 <div class="br"></div>
 

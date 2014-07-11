@@ -1,10 +1,12 @@
-<div class="pull-left">
-    <a href="#/" class="btn btn-default slide back">
-        <span class="fa-chevron-left"></span> {{t 'menu'}}
-    </a>
+<div class="container pull-left">
+    <div class="row">
+        <div id="bc1" class="btn-group btn-breadcrumb">
+            <a href="#/" class="btn btn-default"><i class="fa fa-home"></i></a>
+            <a href="#/monitor" class="btn btn-default"><div>{{t 'monitoring'}}</div></a>
+        </div>
+    </div>
 </div>
 <div class="clearfix"></div>
-<h1 class="view-title">{{t 'monitoring'}}</h1>
 <div class="br"></div>
 
 {{#if status}}
