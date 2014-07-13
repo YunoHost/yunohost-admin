@@ -317,11 +317,21 @@ select option[default] {
 }
 
 
+a.list-group-item,
+a.list-group-item-heading,
+.list-group-item-heading a {
+  color: #333;
+}
+
 .list-group-item .pull-right.fa-chevron-right {
     position: absolute;
     right: 1em;
     top: 50%;
     margin-top: -0.5em;
+}
+
+.panel > .list-group + .panel-footer {
+  border-top: 0;
 }
 
 
