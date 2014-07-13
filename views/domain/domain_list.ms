@@ -39,13 +39,13 @@
     <div class="panel-body">
         <p>{{t 'domain_default_desc'}}</p>
         <form method="POST" action="#/domains" class="row">
-            <div class="col-xs-9 col-sm-6">
+            <div class="form-group col-sm-6">
                 <select name="domain" required class="form-control">
                     <option value="" default disabled selected>{{t 'domain_select'}}</option>
                     {{#domains}}{{#unless main}}<option value="{{url}}">{{url}}</option>{{/unless}}{{/domains}}
                 </select>
             </div>
-            <div class="col-xs-3 col-sm-6">
+            <div class="form-group col-sm-6">
                 <input type="submit" class="btn btn-success slide back" value="{{t 'set_default'}}">
             </div>
         </form>
