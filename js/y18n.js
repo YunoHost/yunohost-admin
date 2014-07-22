@@ -25,8 +25,8 @@
      * Translation
      */
     y18n.translate = function(key, options) {
-        options = options || {'locale' : y18n.locale};
-        options.locale = options.locale || y18n.locale;
+        options = options || {'locale' : y18n.locale};
+        options.locale = options.locale || y18n.locale;
 
         // Get translation
         var translation = this.lookup(key, options);
@@ -41,8 +41,8 @@
         return (translation) ? translation.printf(options) : key;
     }
 
-    y18n.lookup = function(key, options) {
-        // Default locale 
+    y18n.lookup = function(key, options) {
+        // Default locale
         if (typeof options.locale === 'undefined') {
             options.locale = y18n.locale;
         }
