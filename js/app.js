@@ -892,9 +892,12 @@ app = Sammy('#main', function (sam) {
         delete c.params['label'];
         delete c.params['url'];
 
+        // Force trailing slash
+        params.app = params.app.replace(/\/?$/, '/');
+
         // Get manifest.json to get additional parameters
         jQuery.ajax({
-            url: params.app.replace('github.com', 'rawgit.com') + '/master/manifest.json',
+            url: params.app.replace('github.com', 'rawgit.com') + 'master/manifest.json',
             type: 'GET',
             crossdomain: true,
             dataType: 'json',
