@@ -37,27 +37,17 @@
                 <input type="text" id="label" name="label" class="form-control" value="{{manifest.name}}" required>
             </div>
         </div>
-        {{#manifest.arguments.install}} 
+        {{#manifest.arguments.install}}
         <div class="form-group">
             <label for="{{name}}" class="col-sm-12">{{label}}</label>
             <div class="col-sm-12">
-                {{#if allowedValues}}
-                <select id="{{name}}" name="{{name}}" required placeholder="{{example}}" class="form-control" {{#if multipleValues}}multiple{{/if}}>
-                    <option value="" default disabled selected>{{example}}</option>
-                    {{#allowedValues}}<option value="{{value}}">{{label}}</option>{{/allowedValues}}
+
+                {{#if choices}}
+                <select id="{{name}}" name="{{name}}" required class="form-control">
+                    {{#choices}}<option value="{{value}}" {{#if selected}}selected{{/if}}>{{label}}</option>{{/choices}}
                 </select>
                 {{else}}
-                    {{#if choices}}
-                        {{#each choices}}
-                        <div class="radio">
-                        <label for="{{../name}}-{{key}}">
-                            <input type="radio" id="{{../name}}-{{key}}" name="{{../name}}" value="{{value}}" {{#if checked}}checked{{/if}} required> {{value}}
-                        </label>
-                        </div>
-                        {{/each}}
-                    {{else}}
-                    <input type="text" id="{{name}}" name="{{name}}" class="form-control" value="{{default}}" placeholder="{{example}}" required>
-                    {{/if}}
+                <input type="{{type}}" id="{{name}}" name="{{name}}" class="form-control" value="{{default}}" placeholder="{{example}}" {{required}}>
                 {{/if}}
 
                 {{#if help}}

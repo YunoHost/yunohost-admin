@@ -796,7 +796,9 @@ app = Sammy('#main', function (sam) {
             // Loop through installation arguments
             if (typeof appData.manifest.arguments.install !== 'undefined') {
                 $.each(appData.manifest.arguments.install, function(k, v) {
-                    appData.manifest.arguments.install[k].allowedValues = [];
+                    // Default values
+                    appData.manifest.arguments.install[k].type = 'text';
+                    appData.manifest.arguments.install[k].required = 'required';
 
                     // Radio button
                     if (typeof appData.manifest.arguments.install[k].choices !== 'undefined') {
@@ -804,8 +806,8 @@ app = Sammy('#main', function (sam) {
                         $.each(appData.manifest.arguments.install[k].choices, function(ck, cv){
                             appData.manifest.arguments.install[k].choices[ck] = {
                                 value: cv,
-                                key: ck,
-                                checked: (cv == appData.manifest.arguments.install[k].default) ? true : false,
+                                label: cv,
+                                selected: (cv == appData.manifest.arguments.install[k].default) ? true : false,
                             };
                         });
                     }
@@ -813,25 +815,39 @@ app = Sammy('#main', function (sam) {
                     // Special case for domain input.
                     // Display a list of available domains
                     if (v.name == 'domain') {
+                        appData.manifest.arguments.install[k].choices = [];
                         $.each(c.params.domains, function(key, domain){
-                            appData.manifest.arguments.install[k].allowedValues.push({
+                            appData.manifest.arguments.install[k].choices.push({
                                 value: domain,
                                 label: domain,
+                                selected: false,
                             });
-                        })
+                        });
                         appData.manifest.arguments.install[k].help = "<a href='#/domains'>"+y18n.t('manage_domains')+"</a>";
                     }
 
                     // Special case for admin input.
                     // Display a list of available users
                     if (v.name == 'admin') {
+                        appData.manifest.arguments.install[k].choices = [];
                         $.each(c.params.users, function(key, user){
-                            appData.manifest.arguments.install[k].allowedValues.push({
+                            appData.manifest.arguments.install[k].choices.push({
                                 value: user.username,
-                                label: user.fullname+' ('+user.mail+')'
+                                label: user.fullname+' ('+user.mail+')',
+                                selected: false,
                             });
-                        })
+                        });
                         appData.manifest.arguments.install[k].help = "<a href='#/users'>"+y18n.t('manage_users')+"</a>";
+                    }
+
+                    // Special case for password input.
+                    if (v.name == 'password') {
+                        appData.manifest.arguments.install[k].type = 'password';
+                    }
+
+                    // Optional field
+                    if (typeof v.optional !== 'undefined' && v.optional == "true") {
+                        appData.manifest.arguments.install[k].required = '';
                     }
 
                     // Multilingual description
@@ -896,7 +912,9 @@ app = Sammy('#main', function (sam) {
 
             if (typeof appData.manifest.arguments.install !== 'undefined') {
                 $.each(appData.manifest.arguments.install, function(k, v) {
-                    appData.manifest.arguments.install[k].allowedValues = [];
+                    // Default values
+                    appData.manifest.arguments.install[k].type = 'text';
+                    appData.manifest.arguments.install[k].required = 'required';
 
                     // Radio button
                     if (typeof appData.manifest.arguments.install[k].choices !== 'undefined') {
@@ -904,8 +922,8 @@ app = Sammy('#main', function (sam) {
                         $.each(appData.manifest.arguments.install[k].choices, function(ck, cv){
                             appData.manifest.arguments.install[k].choices[ck] = {
                                 value: cv,
-                                key: ck,
-                                checked: (cv == appData.manifest.arguments.install[k].default) ? true : false,
+                                label: cv,
+                                selected: (cv == appData.manifest.arguments.install[k].default) ? true : false,
                             };
                         });
                     }
@@ -913,25 +931,39 @@ app = Sammy('#main', function (sam) {
                     // Special case for domain input.
                     // Display a list of available domains
                     if (v.name == 'domain') {
+                        appData.manifest.arguments.install[k].choices = [];
                         $.each(c.params.domains, function(key, domain){
-                            appData.manifest.arguments.install[k].allowedValues.push({
+                            appData.manifest.arguments.install[k].choices.push({
                                 value: domain,
                                 label: domain,
+                                selected: false
                             });
-                        })
+                        });
                         appData.manifest.arguments.install[k].help = "<a href='#/domains'>"+y18n.t('manage_domains')+"</a>";
                     }
 
                     // Special case for admin input.
                     // Display a list of available users
                     if (v.name == 'admin') {
+                        appData.manifest.arguments.install[k].choices = [];
                         $.each(c.params.users, function(key, user){
-                            appData.manifest.arguments.install[k].allowedValues.push({
+                            appData.manifest.arguments.install[k].choices.push({
                                 value: user.username,
-                                label: user.fullname+' ('+user.mail+')'
+                                label: user.fullname+' ('+user.mail+')',
+                                selected: false
                             });
-                        })
+                        });
                         appData.manifest.arguments.install[k].help = "<a href='#/users'>"+y18n.t('manage_users')+"</a>";
+                    }
+
+                    // Special case for password input.
+                    if (v.name == 'password') {
+                        appData.manifest.arguments.install[k].type = 'password';
+                    }
+
+                    // Optional field
+                    if (typeof v.optional !== 'undefined' && v.optional == "true") {
+                        appData.manifest.arguments.install[k].required = '';
                     }
 
                     // Multilingual description
