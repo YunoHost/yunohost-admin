@@ -872,18 +872,26 @@ app = Sammy('#main', function (sam) {
     });
 
     sam.post('#/apps', function(c) {
-        params = { 'label': c.params['label'], 'app': c.params['app'] }
-        delete c.params['label'];
-        delete c.params['app'];
-        params['args'] = c.serialize(c.params.toHash());
-        // Do not pass empty args.
-        if (params['args'] == "") {
-            delete params['args'];
-        }
+        // Warn admin if app is going to be installed on domain root.
+        if (c.params['path'] !== '/' || confirm(y18n.t('confirm_install_domain_root', [c.params['domain']]))) {
+            params = { 'label': c.params['label'], 'app': c.params['app'] }
+            delete c.params['label'];
+            delete c.params['app'];
+            params['args'] = c.serialize(c.params.toHash());
+            // Do not pass empty args.
+            if (params['args'] == "") {
+                delete params['args'];
+            }
 
-        c.api('/apps', function() { // http://api.yunohost.org/#!/app/app_install_post_2
-            c.redirect('#/apps');
-        }, 'POST', params);
+            c.api('/apps', function() { // http://api.yunohost.org/#!/app/app_install_post_2
+                c.redirect('#/apps');
+            }, 'POST', params);
+        }
+        else {
+            c.flash('warning', y18n.t('app_install_cancel'));
+            store.clear('slide');
+            c.redirect('#/apps/install');
+        }
     });
 
     // Install custom app from github
