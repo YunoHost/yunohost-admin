@@ -114,7 +114,8 @@
     "install_time" : "Date d'installation",
     "custom_app_install" : "Installer une application personnalisée",
     "custom_app_url_only_github" : "Uniquement depuis GitHub",
-
+    "confirm_install_domain_root" : "Vous ne pourrez pas installer d'autres applications sur %s. Continuer ?",
+    "app_install_cancel" : "Installation annulée",
 
     "backup" : "Sauvegarde",
     "backup_warning_title" : "Le système de sauvegarde n'est pas encore implémenté.",
