@@ -484,28 +484,37 @@ app = Sammy('#main', function (sam) {
 
     sam.get('#/postinstall/domain', function(c) {
         $('#masthead').hide();
-        c.view('postinstall/postinstall_2', {'ddomains': ['.nohost.me', '.noho.st']}, function() {
-            $('#domain, #ddomain').keyup(function(event){
-                if(event.keyCode == 13){
-                    $('a.savedomain').click();
-                }
+        $.get('http://dyndns.yunohost.org/domains', function() {})
+            .done(function(data){
+                c.params.ddomains = data.map(function(dom){return '.'+dom;});
+                // c.view('domain/domain_add', c.params);
+            })
+            .fail(function() {
+                c.params.ddomains = ['.nohost.me', '.noho.st'];
+            })
+            .always(function() {
+                c.view('postinstall/postinstall_2', c.params, function() {
+                    $('#domain, #ddomain').keyup(function(event){
+                        if(event.keyCode == 13){
+                            $('a.savedomain').click();
+                        }
+                    });
+                    $('a.savedomain').on('click', function(e) {
+                        if ($('#domain').val() === '') {
+                            if ($('#ddomain').val() === '') {
+                                e.preventDefault();
+                                store.clear('slide');
+                                c.flash('fail', y18n.t('error_select_domain'));
+                            } else {
+                                domain = $('#ddomain').val() + $('select[name="ddomain-ext"]').val();
+                            }
+                        } else {
+                            domain = $('#domain').val();
+                        }
+                        store.set('maindomain', domain);
+                    });
+                });
             });
-            $('a.savedomain').on('click', function(e) {
-                if ($('#domain').val() === '') {
-                    if ($('#ddomain').val() === '') {
-                        e.preventDefault();
-                        store.clear('slide');
-                        c.flash('fail', y18n.t('error_select_domain'));
-                    } else {
-                        domain = $('#ddomain').val() + $('select[name="ddomain-ext"]').val();
-                    }
-                } else {
-                    domain = $('#domain').val();
-                }
-                store.set('maindomain', domain);
-            });
-        });
-
     });
 
     sam.get('#/postinstall/password', function(c) {
@@ -694,7 +703,17 @@ app = Sammy('#main', function (sam) {
     });
 
     sam.get('#/domains/add', function (c) {
-        c.view('domain/domain_add', {'ddomains': ['.nohost.me', '.noho.st']});
+        $.get('http://dyndns.yunohost.org/domains', function() {})
+            .done(function(data){
+                c.params.ddomains = data.map(function(dom){return '.'+dom;});
+                // c.view('domain/domain_add', c.params);
+            })
+            .fail(function() {
+                c.params.ddomains = ['.nohost.me', '.noho.st'];
+            })
+            .always(function() {
+                c.view('domain/domain_add', c.params);
+            });
     });
 
     sam.post('#/domains/add', function (c) {
