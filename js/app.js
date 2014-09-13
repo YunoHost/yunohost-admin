@@ -835,6 +835,17 @@ app = Sammy('#main', function (sam) {
                         appData.manifest.arguments.install[k].help = "<a href='#/users'>"+y18n.t('manage_users')+"</a>";
                     }
 
+                    // Special case for app input.
+                    // Display a list of available installed apps
+                    if (v.name == 'app') {
+                        $.each(data, function(key, app){
+                            if (app['installed']) appData.manifest.arguments.install[k].allowedValues.push({
+                                value: key,
+                                label: key
+                            });
+                        })
+                        appData.manifest.arguments.install[k].help = "<a href='#/apps'>"+y18n.t('manage_apps')+"</a>";
+                    }
                     // Multilingual description
                     appData.manifest.arguments.install[k].label = (typeof appData.manifest.arguments.install[k].ask[y18n.locale] !== 'undefined') ?
                                         appData.manifest.arguments.install[k].ask[y18n.locale] :
