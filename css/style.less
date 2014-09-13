@@ -83,11 +83,11 @@ body {
 
 
 .move {
-    -webkit-transition: margin-left 0.4s ease-in-out;
-    -moz-transition: margin-left 0.4s ease-in-out;
-    -o-transition: margin-left 0.4s ease-in-out;
-    -ms-transition: margin-left 0.4s ease-in-out;
-    transition: margin-left 0.4s ease-in-out;
+    -webkit-transition: margin-left 0.2s ease-in-out;
+    -moz-transition: margin-left 0.2s ease-in-out;
+    -o-transition: margin-left 0.2s ease-in-out;
+    -ms-transition: margin-left 0.2s ease-in-out;
+    transition: margin-left 0.2s ease-in-out;
 }
 
 .placehold {
@@ -317,11 +317,21 @@ select option[default] {
 }
 
 
+a.list-group-item,
+a.list-group-item-heading,
+.list-group-item-heading a {
+  color: #333;
+}
+
 .list-group-item .pull-right.fa-chevron-right {
     position: absolute;
     right: 1em;
     top: 50%;
     margin-top: -0.5em;
+}
+
+.panel > .list-group + .panel-footer {
+  border-top: 0;
 }
 
 
@@ -338,4 +348,85 @@ select option[default] {
 
 @media screen and (max-width: 767px) {
     .table-responsive {border: none;}
+}
+
+.actions-group {
+  .pull-right;
+}
+
+/* Breadcrumbs from http://bootsnipp.com/snippets/featured/triangle-breadcrumbs-arrows */
+.btn-breadcrumb {
+  .pull-left;
+  &:extend(.btn-group all);
+  a {
+    .btn-default();
+    &:extend(.btn, .btn.btn-default all, .btn-group > .btn all);
+    & + a {
+      &:extend(.btn-group .btn + .btn all);
+    }
+
+    &:hover {text-decoration: none;}
+  }
+}
+
+.btn-breadcrumb a:not(:last-child):after {
+  content: " ";
+  display: block;
+  width: 0;
+  height: 0;
+  border-top: 17px solid transparent;
+  border-bottom: 17px solid transparent;
+  border-left: 10px solid white;
+  position: absolute;
+  top: 50%;
+  margin-top: -17px;
+  left: 100%;
+  z-index: 3;
+}
+.btn-breadcrumb a:not(:last-child):before {
+  content: " ";
+  display: block;
+  width: 0;
+  height: 0;
+  border-top: 17px solid transparent;
+  border-bottom: 17px solid transparent;
+  border-left: 10px solid rgb(173, 173, 173);
+  position: absolute;
+  top: 50%;
+  margin-top: -17px;
+  margin-left: 1px;
+  left: 100%;
+  z-index: 3;
+}
+
+.btn-breadcrumb a {
+  padding:6px 12px 6px 24px;
+}
+.btn-breadcrumb a:first-child {
+  padding:6px 6px 6px 10px;
+}
+.btn-breadcrumb a:last-child {
+  padding:6px 18px 6px 24px;
+}
+
+
+/** Default button **/
+.btn-group.btn-breadcrumb a:not(:last-child):after {
+  border-left: 10px solid #fff;
+}
+.btn-group.btn-breadcrumb a:not(:last-child):before {
+  border-left: 10px solid #ccc;
+}
+.btn-group.btn-breadcrumb a:hover:not(:last-child):after {
+  border-left: 10px solid #ebebeb;
+}
+.btn-group.btn-breadcrumb a:hover:not(:last-child):before {
+  border-left: 10px solid #adadad;
+}
+
+
+
+.separator {
+  .clearfix();
+  margin-bottom: 25px;
 }

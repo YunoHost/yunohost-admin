@@ -1,11 +1,9 @@
-<div class="pull-left">
-    <a href="#/" class="btn btn-default slide back">
-        <span class="fa-chevron-left"></span> {{t 'menu'}}
-    </a>
+<div class="btn-breadcrumb">
+    <a href="#/" ><i class="fa-home"></i><span class="sr-only">{{t 'home'}}</span></a>
+    <a href="#/firewall">{{t 'firewall'}}</a>
 </div>
-<div class="clearfix"></div>
-<h1 class="view-title">{{t 'firewall'}}</h1>
-<div class="br"></div>
+
+<div class="separator"></div>
 
 <div class="panel panel-default">
     <div class="panel-heading">
@@ -76,20 +74,20 @@
                     <td>
                     {{#if this.ipv4}}
                     <span class="fa-check"></span>
-                    <a class="btn btn-xs btn-danger" href="#/firewall/port/{{@key}}/tcp/ipv4/close">{{t 'close'}}</a>
+                    <a class="btn btn-xs btn-danger" href="#/firewall/port/{{@key}}/udp/ipv4/close">{{t 'close'}}</a>
                     {{else}}
                     <span></span>
                     <span class="fa-times"></span>
-                    <a class="btn btn-xs btn-success" href="#/firewall/port/{{@key}}/tcp/ipv4/open">{{t 'open'}}</a>
+                    <a class="btn btn-xs btn-success" href="#/firewall/port/{{@key}}/udp/ipv4/open">{{t 'open'}}</a>
                     {{/if}}
                     </td>
                     <td>
                     {{#if this.ipv6}}
                     <span class="fa-check"></span>
-                    <a class="btn btn-xs btn-danger" href="#/firewall/port/{{@key}}/tcp/ipv6/close">{{t 'close'}}</a>
+                    <a class="btn btn-xs btn-danger" href="#/firewall/port/{{@key}}/udp/ipv6/close">{{t 'close'}}</a>
                     {{else}}
                     <span class="fa-times"></span>
-                    <a class="btn btn-xs btn-success" href="#/firewall/port/{{@key}}/tcp/ipv6/open">{{t 'open'}}</a>
+                    <a class="btn btn-xs btn-success" href="#/firewall/port/{{@key}}/udp/ipv6/open">{{t 'open'}}</a>
                     {{/if}}
                     </td>
                     <td>

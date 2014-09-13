@@ -1,11 +1,10 @@
-<div class="pull-left">
-    <a href="#/tools" class="btn btn-default slide back">
-    	<span class="fa-chevron-left"></span> {{t 'tools'}}
-    </a>
+<div class="btn-breadcrumb">
+    <a href="#/" ><i class="fa-home"></i><span class="sr-only">{{t 'home'}}</span></a>
+    <a href="#/tools">{{t 'tools'}}</a>
+    <a href="#/tools/adminpw">{{t 'tools_adminpw'}}</a>
 </div>
-<div class="clearfix"></div>
-<h1 class="view-title">{{t 'tools_adminpw'}}</h1>
-<div class="br"></div>
+
+<div class="separator"></div>
 
 <form action="#/tools/adminpw" method="PUT" class="form-horizontal">
 

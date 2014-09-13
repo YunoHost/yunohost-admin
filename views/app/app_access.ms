@@ -1,14 +1,12 @@
-<div class="pull-left">
-    <a href="#/apps/{{settings.id}}" class="btn btn-default slide back">
-        <span class="fa-chevron-left"></span> {{settings.label}}
-    </a>
+<div class="btn-breadcrumb">
+    <a href="#/" ><i class="fa-home"></i><span class="sr-only">{{t 'home'}}</span></a>
+    <a href="#/apps" class="hidden-xs">{{t 'applications'}}</a>
+    <a href="#/apps" class="visible-xs">&hellip;</a>
+    <a href="#/apps/{{settings.id}}">{{settings.label}}</a>
+    <a href="#/apps/{{settings.id}}/access">{{t 'app_access'}}</a>
 </div>
-<div class="pull-right">
-</div>
-<div class="clearfix"></div>
-<h1 class="view-title">{{t 'app_access_title' settings.label}}</h1>
 
-<div class="br"></div>
+<div class="separator"></div>
 
 <div class="panel panel-default">
     <div class="panel-heading">
@@ -39,13 +37,14 @@
         {{#if users}}
         <form method="POST" action="#/apps/{{settings.id}}/access/add" class="row">
             <input type="hidden" name="app" value="{{settings.id}}">
-            <div class="col-xs-9 col-sm-6">
+            <div class="col-sm-6">
                 <select name="user" required class="form-control">
                     <option value="" default disabled selected>{{t 'select_user'}}</option>
                     {{#users}}<option value="{{value}}">{{label}}</option>{{/users}}
                 </select>
             </div>
-            <div class="col-xs-3 col-sm-6">
+            <div class="col-sm-6">
+                <br class="visible-xs" />
                 <input type="submit" class="btn btn-success slide back" value="{{t 'add'}}">
             </div>
         </form>

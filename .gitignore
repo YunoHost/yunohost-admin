@@ -1,1 +1,4 @@
 *.swp
+
+# Symlink to ca.crt file
+ca.crt

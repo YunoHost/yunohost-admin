@@ -1,12 +1,10 @@
-<div class="pull-left">
-    <a href="#/domains" class="btn btn-default slide back">
-      <span class="fa-chevron-left"></span> {{t 'domain_list'}}
-    </a>
+<div class="btn-breadcrumb">
+    <a href="#/" ><i class="fa-home"></i><span class="sr-only">{{t 'home'}}</span></a>
+    <a href="#/domains">{{t 'domains'}}</a>
+    <a href="#/domains/add">{{t 'domain_add'}}</a>
 </div>
-<div class="clearfix"></div>
-<h1 class="view-title">{{t 'domain_add'}}</h1>
 
-<div class="br"></div>
+<div class="separator"></div>
 
 <form action="#/domains/add" method="POST" class="form-horizontal">
 

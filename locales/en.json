@@ -35,6 +35,7 @@
     "open" : "Open",
     "close" : "Close",
     "both" : "Both",
+    "home" : "Home",
 
     "installing" : "Installing",
     "installed" : "Installed",
@@ -114,6 +115,8 @@
     "install_time" : "Install time",
     "custom_app_install" : "Install custom app",
     "custom_app_url_only_github" : "Currently only from GitHub",
+    "confirm_install_domain_root" : "You will not be able to install any other app on %s. Continue ?",
+    "app_install_cancel" : "Installation cancelled",
 
     "backup" : "Backup",
     "backup_warning_title" : "The backup system is not implemented yet.",

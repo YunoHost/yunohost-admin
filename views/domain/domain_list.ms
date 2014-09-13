@@ -1,16 +1,15 @@
-<div class="pull-left">
-    <a href="#/" class="btn btn-default slide back">
-        <span class="fa-chevron-left"></span> {{t 'menu'}}
-    </a>
+<div class="btn-breadcrumb">
+    <a href="#/" ><i class="fa-home"></i><span class="sr-only">{{t 'home'}}</span></a>
+    <a href="#/domains">{{t 'domains'}}</a>
 </div>
-<div class="pull-right">
+
+<div class="actions-group">
     <a href="#/domains/add" class="btn btn-success slide">
         <span class="fa-plus"></span> {{t 'domain_add'}}
     </a>
 </div>
-<div class="clearfix"></div>
-<h1 class="view-title">{{t 'domains'}}</h1>
-<div class="br"></div>
+
+<div class="separator"></div>
 
 <div class="list-group">
 	{{#domains}}
@@ -39,13 +38,13 @@
     <div class="panel-body">
         <p>{{t 'domain_default_desc'}}</p>
         <form method="POST" action="#/domains" class="row">
-            <div class="col-xs-9 col-sm-6">
+            <div class="form-group col-sm-6">
                 <select name="domain" required class="form-control">
                     <option value="" default disabled selected>{{t 'domain_select'}}</option>
                     {{#domains}}{{#unless main}}<option value="{{url}}">{{url}}</option>{{/unless}}{{/domains}}
                 </select>
             </div>
-            <div class="col-xs-3 col-sm-6">
+            <div class="form-group col-sm-6">
                 <input type="submit" class="btn btn-success slide back" value="{{t 'set_default'}}">
             </div>
         </form>

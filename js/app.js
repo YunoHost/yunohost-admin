@@ -266,9 +266,9 @@ app = Sammy('#main', function (sam) {
             if (enableSlide) {
                 function leSwap() {
                     rendered.swap(function() {
-                        $('.slide').on('click', function() {
+                        $('.slide, .btn-breadcrumb a:not(:last-child)').on('click', function() {
                             $(this).addClass('active');
-                            if ($(this).hasClass('back')) {
+                            if ($(this).hasClass('back') || $(this).parent('.btn-breadcrumb').length) {
                                 store.set('slide', 'back');
                             } else {
                                 store.set('slide', 'to');
@@ -692,11 +692,10 @@ app = Sammy('#main', function (sam) {
 
     sam.get('#/domains/:domain/delete', function (c) {
         if (confirm(y18n.t('confirm_delete', [c.params['domain']]))) {
-            params = {'domain' : c.params['domain']};
             c.api('/domains/'+ c.params['domain'], function(data) { // http://api.yunohost.org/#!/domain/domain_remove_delete_3
                 store.clear('slide');
                 c.redirect('#/domains');
-            }, 'DELETE', params);
+            }, 'DELETE');
         } else {
             store.clear('slide');
             c.redirect('#/domains');
@@ -797,7 +796,9 @@ app = Sammy('#main', function (sam) {
             // Loop through installation arguments
             if (typeof appData.manifest.arguments.install !== 'undefined') {
                 $.each(appData.manifest.arguments.install, function(k, v) {
-                    appData.manifest.arguments.install[k].allowedValues = [];
+                    // Default values
+                    appData.manifest.arguments.install[k].type = 'text';
+                    appData.manifest.arguments.install[k].required = 'required';
 
                     // Radio button
                     if (typeof appData.manifest.arguments.install[k].choices !== 'undefined') {
@@ -805,8 +806,8 @@ app = Sammy('#main', function (sam) {
                         $.each(appData.manifest.arguments.install[k].choices, function(ck, cv){
                             appData.manifest.arguments.install[k].choices[ck] = {
                                 value: cv,
-                                key: ck,
-                                checked: (cv == appData.manifest.arguments.install[k].default) ? true : false,
+                                label: cv,
+                                selected: (cv == appData.manifest.arguments.install[k].default) ? true : false,
                             };
                         });
                     }
@@ -814,24 +815,28 @@ app = Sammy('#main', function (sam) {
                     // Special case for domain input.
                     // Display a list of available domains
                     if (v.name == 'domain') {
+                        appData.manifest.arguments.install[k].choices = [];
                         $.each(c.params.domains, function(key, domain){
-                            appData.manifest.arguments.install[k].allowedValues.push({
+                            appData.manifest.arguments.install[k].choices.push({
                                 value: domain,
                                 label: domain,
+                                selected: false,
                             });
-                        })
+                        });
                         appData.manifest.arguments.install[k].help = "<a href='#/domains'>"+y18n.t('manage_domains')+"</a>";
                     }
 
                     // Special case for admin input.
                     // Display a list of available users
                     if (v.name == 'admin') {
+                        appData.manifest.arguments.install[k].choices = [];
                         $.each(c.params.users, function(key, user){
-                            appData.manifest.arguments.install[k].allowedValues.push({
+                            appData.manifest.arguments.install[k].choices.push({
                                 value: user.username,
-                                label: user.fullname+' ('+user.mail+')'
+                                label: user.fullname+' ('+user.mail+')',
+                                selected: false,
                             });
-                        })
+                        });
                         appData.manifest.arguments.install[k].help = "<a href='#/users'>"+y18n.t('manage_users')+"</a>";
                     }
 
@@ -846,6 +851,17 @@ app = Sammy('#main', function (sam) {
                         })
                         appData.manifest.arguments.install[k].help = "<a href='#/apps'>"+y18n.t('manage_apps')+"</a>";
                     }
+
+                    // Special case for password input.
+                    if (v.name == 'password') {
+                        appData.manifest.arguments.install[k].type = 'password';
+                    }
+
+                    // Optional field
+                    if (typeof v.optional !== 'undefined' && v.optional == "true") {
+                        appData.manifest.arguments.install[k].required = '';
+                    }
+
                     // Multilingual description
                     appData.manifest.arguments.install[k].label = (typeof appData.manifest.arguments.install[k].ask[y18n.locale] !== 'undefined') ?
                                         appData.manifest.arguments.install[k].ask[y18n.locale] :
@@ -868,18 +884,26 @@ app = Sammy('#main', function (sam) {
     });
 
     sam.post('#/apps', function(c) {
-        params = { 'label': c.params['label'], 'app': c.params['app'] }
-        delete c.params['label'];
-        delete c.params['app'];
-        params['args'] = c.serialize(c.params.toHash());
-        // Do not pass empty args.
-        if (params['args'] == "") {
-            delete params['args'];
-        }
+        // Warn admin if app is going to be installed on domain root.
+        if (c.params['path'] !== '/' || confirm(y18n.t('confirm_install_domain_root', [c.params['domain']]))) {
+            params = { 'label': c.params['label'], 'app': c.params['app'] }
+            delete c.params['label'];
+            delete c.params['app'];
+            params['args'] = c.serialize(c.params.toHash());
+            // Do not pass empty args.
+            if (params['args'] == "") {
+                delete params['args'];
+            }
 
-        c.api('/apps', function() { // http://api.yunohost.org/#!/app/app_install_post_2
-            c.redirect('#/apps');
-        }, 'POST', params);
+            c.api('/apps', function() { // http://api.yunohost.org/#!/app/app_install_post_2
+                c.redirect('#/apps');
+            }, 'POST', params);
+        }
+        else {
+            c.flash('warning', y18n.t('app_install_cancel'));
+            store.clear('slide');
+            c.redirect('#/apps/install');
+        }
     });
 
     // Install custom app from github
@@ -888,9 +912,12 @@ app = Sammy('#main', function (sam) {
         delete c.params['label'];
         delete c.params['url'];
 
+        // Force trailing slash
+        params.app = params.app.replace(/\/?$/, '/');
+
         // Get manifest.json to get additional parameters
         jQuery.ajax({
-            url: params.app.replace('github.com', 'rawgit.com') + '/master/manifest.json',
+            url: params.app.replace('github.com', 'rawgit.com') + 'master/manifest.json',
             type: 'GET',
             crossdomain: true,
             dataType: 'json',
@@ -908,7 +935,9 @@ app = Sammy('#main', function (sam) {
 
             if (typeof appData.manifest.arguments.install !== 'undefined') {
                 $.each(appData.manifest.arguments.install, function(k, v) {
-                    appData.manifest.arguments.install[k].allowedValues = [];
+                    // Default values
+                    appData.manifest.arguments.install[k].type = 'text';
+                    appData.manifest.arguments.install[k].required = 'required';
 
                     // Radio button
                     if (typeof appData.manifest.arguments.install[k].choices !== 'undefined') {
@@ -916,8 +945,8 @@ app = Sammy('#main', function (sam) {
                         $.each(appData.manifest.arguments.install[k].choices, function(ck, cv){
                             appData.manifest.arguments.install[k].choices[ck] = {
                                 value: cv,
-                                key: ck,
-                                checked: (cv == appData.manifest.arguments.install[k].default) ? true : false,
+                                label: cv,
+                                selected: (cv == appData.manifest.arguments.install[k].default) ? true : false,
                             };
                         });
                     }
@@ -925,25 +954,39 @@ app = Sammy('#main', function (sam) {
                     // Special case for domain input.
                     // Display a list of available domains
                     if (v.name == 'domain') {
+                        appData.manifest.arguments.install[k].choices = [];
                         $.each(c.params.domains, function(key, domain){
-                            appData.manifest.arguments.install[k].allowedValues.push({
+                            appData.manifest.arguments.install[k].choices.push({
                                 value: domain,
                                 label: domain,
+                                selected: false
                             });
-                        })
+                        });
                         appData.manifest.arguments.install[k].help = "<a href='#/domains'>"+y18n.t('manage_domains')+"</a>";
                     }
 
                     // Special case for admin input.
                     // Display a list of available users
                     if (v.name == 'admin') {
+                        appData.manifest.arguments.install[k].choices = [];
                         $.each(c.params.users, function(key, user){
-                            appData.manifest.arguments.install[k].allowedValues.push({
+                            appData.manifest.arguments.install[k].choices.push({
                                 value: user.username,
-                                label: user.fullname+' ('+user.mail+')'
+                                label: user.fullname+' ('+user.mail+')',
+                                selected: false
                             });
-                        })
+                        });
                         appData.manifest.arguments.install[k].help = "<a href='#/users'>"+y18n.t('manage_users')+"</a>";
+                    }
+
+                    // Special case for password input.
+                    if (v.name == 'password') {
+                        appData.manifest.arguments.install[k].type = 'password';
+                    }
+
+                    // Optional field
+                    if (typeof v.optional !== 'undefined' && v.optional == "true") {
+                        appData.manifest.arguments.install[k].required = '';
                     }
 
                     // Multilingual description
