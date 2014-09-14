@@ -256,7 +256,12 @@ app = Sammy('#main', function (sam) {
         // Render view (cross-browser)
         view: function (view, data, callback) {
             callback = typeof callback !== 'undefined' ? callback : function() {};
-            rendered = this.render('views/'+ view +'.ms', data);
+            baseView='';
+            if (typeof view !== 'string') {
+                baseView='modules/'+view[0]+'/';
+                view=view[1];
+            }
+            rendered = this.render(baseView+'views/'+view+'.ms', data);
 
             enableSlide = true; // Change to false to disable animation
 
@@ -1519,6 +1524,39 @@ app = Sammy('#main', function (sam) {
 });
 
 
+// Load default and modules translations
+var loadLocales = function (modules) {
+	modules = typeof modules !== 'undefined' ? modules : {};
+	var concatObject= function (o1,o2) {
+		for(var k in o2) o1[k]=o2[k];
+	}
+	// Default language
+	y18n.translations['en']={};
+	$.getJSON('locales/en.json', function(data){
+		concatObject(y18n.translations['en'], data);
+	});
+	
+	// User language
+	if (y18n.locale !== 'en') {
+		y18n.translations[y18n.locale]={};
+		$.getJSON('locales/'+ y18n.locale +'.json', function(data){
+			concatObject(y18n.translations[y18n.locale], data);
+		});
+	}
+	
+	$.each( modules, function( key, val ) {
+		localesDir='modules/'+key+'/locales/';
+		$.getJSON(localesDir+'en.json', function(data){
+			concatObject(y18n.translations['en'], data);
+		});
+		if (y18n.locale !== 'en') {
+			$.getJSON(localesDir+y18n.locale+'.json', function(data){
+				concatObject(y18n.translations[y18n.locale], data);
+			});
+		}
+	});
+};
+
 /**
  * Run the app
  *
@@ -1526,29 +1564,34 @@ app = Sammy('#main', function (sam) {
 
 $(document).ready(function () {
 
-    /**
-     * Translations
-     */
+    
+	requirejs.config({
+		baseUrl: 'modules'
+	});
 
-    // Default language
-    $.getJSON('locales/en.json', function(data){
-        y18n.translations['en'] = data;
-    });
+	$.getJSON( "modules/list.json", function( modules ) {
+		/**
+		 * Translations
+		 */
+		if (window.navigator && window.navigator.language) {
+			y18n.locale = window.navigator.language.substr(0, 2);
+		}
+		loadLocales(modules);
 
-    // User language
-    if (window.navigator && window.navigator.language) {
-        y18n.locale = window.navigator.language.substr(0, 2);
-        if (y18n.locale !== 'en') {
-            $.getJSON('locales/'+ y18n.locale +'.json', function(data){
-                y18n.translations[y18n.locale] = data;
-            });
-        }
-    }
-
-    /**
-     * Application
-     */
-    app.run('#/');
+		/**
+		 * Application
+		 */
+		var scripts = [];
+		$.each( modules, function( key, val ) {
+			scripts.push(key+'/main');
+		});
+		requirejs(scripts,function () {
+			$.each( modules, function( key, val ) {
+				app.use(window[val],key);
+			});
+			app.run('#/');
+		});
+	});
 
     // Fixes for sliding effect
     $('#slider-container').width(2*$('#slider').width() +'px');
