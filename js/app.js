@@ -48,6 +48,7 @@ app = Sammy('#main', function (sam) {
     // Initialize storage
     var store = new Sammy.Store({name: 'storage', type: storageType});
     var loaded = false;
+    var isInstalledTry = 3;
 
     /**
      * Helpers
@@ -396,15 +397,38 @@ app = Sammy('#main', function (sam) {
                 }
             }, 500);
         }
+
         c.checkInstall(function(isInstalled) {
             if (isInstalled) {
                 domain = window.location.hostname;
                 $('div.loader').remove();
                 c.view('login', { 'domain': domain });
             } else if (typeof isInstalled === 'undefined') {
-                setTimeout(function() {
-                    c.redirect('#/');
-                }, 5000);
+                if (isInstalledTry > 0) {
+                    isInstalledTry--;
+                    loaded = false; // Show pacman
+                    setTimeout(function() {
+                        c.redirect('#/');
+                    }, 5000);
+                }
+                else {
+                    // Reset count
+                    isInstalledTry = 3;
+
+                    // API is not responding after 3 try
+                    $( document ).ajaxError(function( event, request, settings ) {
+                        // Display error if status != 200.
+                        // .ajaxError fire even with status code 200 because json is sometimes not valid.
+                        if (request.status !== 200) c.flash('fail', y18n.t('api_not_responding', [request.status+' '+request.statusText] ));
+
+                        // Unbind directly
+                        $(document).off('ajaxError');
+                    });
+
+                    // Remove pacman
+                    loaded = true;
+                    $('div.loader').remove();
+                }
             } else {
                 $('div.loader').remove();
                 c.redirect('#/postinstall');
