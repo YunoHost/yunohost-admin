@@ -117,7 +117,7 @@ app = Sammy('#main', function (sam) {
                 method = typeof method !== 'undefined' ? method : 'GET';
                 data   = typeof data   !== 'undefined' ? data   : {};
                 if (window.navigator && window.navigator.language && (typeof data.locale === 'undefined')) {
-                    data.locale = window.navigator.language;
+                    data.locale = y18n.locale || window.navigator.language.substr(0, 2);
                 }
 
                 var args = data;
