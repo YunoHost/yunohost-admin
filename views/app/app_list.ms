@@ -63,7 +63,7 @@
             </div>
             <div class="form-group">
                 <div class="text-center">
-                    <input type="submit" class="btn btn-success slide back" value="{{t 'install'}}">
+                    <input type="submit" class="btn btn-success slide" value="{{t 'install'}}">
                 </div>
             </div>
         </form>
