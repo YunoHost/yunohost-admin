@@ -812,6 +812,12 @@ app = Sammy('#main', function (sam) {
         });
     });
 
+    // Special case for custom app installation.
+    sam.get('#/apps/install/custom', function (c) {
+        // If we try to GET /apps/install/custom, it means that installation fail.
+        // Need to redirect to apps/install to get rid of pacamn and see the log.
+        c.redirect('#/apps/install');
+    });
     sam.get('#/apps/install/:app', function (c) {
         c.api('/apps?raw', function(data) { // http://api.yunohost.org/#!/app/app_list_get_8
             appData = data[c.params['app']];
