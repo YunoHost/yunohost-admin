@@ -22,6 +22,27 @@
 
 
     /**
+     * HTML Inline translation
+     */
+    y18n.translateInlineHTML = function(){
+      // Inner HTML
+      [].forEach.call(
+        document.querySelectorAll('[data-y18n]'),
+        function(el){
+          el.innerText = y18n.translate(el.getAttribute('data-y18n'))
+        }
+      );
+
+      // Attributes
+      [].forEach.call(
+        document.querySelectorAll('[data-y18n-title]'),
+        function(el){
+          el.title = y18n.translate(el.getAttribute('data-y18n-title'))
+        }
+      );
+    }
+
+    /**
      * Translation
      */
     y18n.translate = function(key, options) {
