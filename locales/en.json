@@ -67,7 +67,7 @@
     "confirm_access_clear" : "Are you sure you want to clear all access to %s ?",
     "confirm_app_default" : "Are you sure you want to make this app default ?",
     "confirm_service_action" : "Are you sure you want to %s %s ?",
-    "confirm_update_type" : "Are you sure you want update every %s %s ?",
+    "confirm_update_type" : "Are you sure you want update every %s ?",
 
     "postinstall_intro_1" : "Congratulations! YunoHost has been successfully installed.",
     "postinstall_intro_2" : "Two more configuration steps are required to activate the services of your server.",

@@ -62,7 +62,7 @@
     "confirm_access_clear": "Alle Zugriffsrechte zu %s löschen?",
     "confirm_app_default": "Diese App als Standard einstellen?",
     "confirm_service_action": "Willst du wirklich folgenden Dienst %s? - %s",
-    "confirm_update_type": "Willst du wirklich alle %s%s updaten?",
+    "confirm_update_type": "Willst du wirklich alle %s updaten?",
     "postinstall_intro_1": "Gratuliere! YunoHost wurde erfolgreich installiert.",
     "postinstall_intro_2": "Es gibt noch zwei weitere Einstellungschritte, um den Dienst auf deinem Server zu aktivieren.",
     "postinstall_intro_3": "Du kannst mehr Infos unter der <a href='//yunohost.org/postinstall' target='_blank'>entsprechenden Dokumentationseite</a> finden.",
