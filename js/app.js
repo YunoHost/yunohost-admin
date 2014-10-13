@@ -926,112 +926,119 @@ app = Sammy('#main', function (sam) {
 
     // Install custom app from github
     sam.post('#/apps/install/custom', function(c) {
-        params = { 'label': c.params['label'], 'app': c.params['url'] }
-        delete c.params['label'];
-        delete c.params['url'];
+        if (confirm(y18n.t('confirm_install_custom_app'))) {
+            params = { 'label': c.params['label'], 'app': c.params['url'] }
+            delete c.params['label'];
+            delete c.params['url'];
 
-        // Force trailing slash
-        params.app = params.app.replace(/\/?$/, '/');
+            // Force trailing slash
+            params.app = params.app.replace(/\/?$/, '/');
 
-        // Get manifest.json to get additional parameters
-        jQuery.ajax({
-            url: params.app.replace('github.com', 'rawgit.com') + 'master/manifest.json',
-            type: 'GET',
-            crossdomain: true,
-            dataType: 'json',
-        })
-        .done(function(manifest) {
-            manifest = manifest || {};
+            // Get manifest.json to get additional parameters
+            jQuery.ajax({
+                url: params.app.replace('github.com', 'rawgit.com') + 'master/manifest.json',
+                type: 'GET',
+                crossdomain: true,
+                dataType: 'json',
+            })
+            .done(function(manifest) {
+                manifest = manifest || {};
 
-            // Fake appData (see '#/apps/install/:app' route)
-            var appData = {
-                manifest : manifest,
-                id : params.app,
-                multi_instance : manifest.multi_instance,
-            };
+                // Fake appData (see '#/apps/install/:app' route)
+                var appData = {
+                    manifest : manifest,
+                    id : params.app,
+                    multi_instance : manifest.multi_instance,
+                };
 
 
-            if (typeof appData.manifest.arguments.install !== 'undefined') {
-                $.each(appData.manifest.arguments.install, function(k, v) {
-                    // Default values
-                    appData.manifest.arguments.install[k].type = 'text';
-                    appData.manifest.arguments.install[k].required = 'required';
+                if (typeof appData.manifest.arguments.install !== 'undefined') {
+                    $.each(appData.manifest.arguments.install, function(k, v) {
+                        // Default values
+                        appData.manifest.arguments.install[k].type = 'text';
+                        appData.manifest.arguments.install[k].required = 'required';
 
-                    // Radio button
-                    if (typeof appData.manifest.arguments.install[k].choices !== 'undefined') {
-                        // Update choices values with  key and checked data
-                        $.each(appData.manifest.arguments.install[k].choices, function(ck, cv){
-                            appData.manifest.arguments.install[k].choices[ck] = {
-                                value: cv,
-                                label: cv,
-                                selected: (cv == appData.manifest.arguments.install[k].default) ? true : false,
-                            };
-                        });
-                    }
-
-                    // Special case for domain input.
-                    // Display a list of available domains
-                    if (v.name == 'domain') {
-                        appData.manifest.arguments.install[k].choices = [];
-                        $.each(c.params.domains, function(key, domain){
-                            appData.manifest.arguments.install[k].choices.push({
-                                value: domain,
-                                label: domain,
-                                selected: false
+                        // Radio button
+                        if (typeof appData.manifest.arguments.install[k].choices !== 'undefined') {
+                            // Update choices values with  key and checked data
+                            $.each(appData.manifest.arguments.install[k].choices, function(ck, cv){
+                                appData.manifest.arguments.install[k].choices[ck] = {
+                                    value: cv,
+                                    label: cv,
+                                    selected: (cv == appData.manifest.arguments.install[k].default) ? true : false,
+                                };
                             });
-                        });
-                        appData.manifest.arguments.install[k].help = "<a href='#/domains'>"+y18n.t('manage_domains')+"</a>";
-                    }
+                        }
 
-                    // Special case for admin input.
-                    // Display a list of available users
-                    if (v.name == 'admin') {
-                        appData.manifest.arguments.install[k].choices = [];
-                        $.each(c.params.users, function(key, user){
-                            appData.manifest.arguments.install[k].choices.push({
-                                value: user.username,
-                                label: user.fullname+' ('+user.mail+')',
-                                selected: false
+                        // Special case for domain input.
+                        // Display a list of available domains
+                        if (v.name == 'domain') {
+                            appData.manifest.arguments.install[k].choices = [];
+                            $.each(c.params.domains, function(key, domain){
+                                appData.manifest.arguments.install[k].choices.push({
+                                    value: domain,
+                                    label: domain,
+                                    selected: false
+                                });
                             });
-                        });
-                        appData.manifest.arguments.install[k].help = "<a href='#/users'>"+y18n.t('manage_users')+"</a>";
-                    }
+                            appData.manifest.arguments.install[k].help = "<a href='#/domains'>"+y18n.t('manage_domains')+"</a>";
+                        }
 
-                    // Special case for password input.
-                    if (v.name == 'password') {
-                        appData.manifest.arguments.install[k].type = 'password';
-                    }
+                        // Special case for admin input.
+                        // Display a list of available users
+                        if (v.name == 'admin') {
+                            appData.manifest.arguments.install[k].choices = [];
+                            $.each(c.params.users, function(key, user){
+                                appData.manifest.arguments.install[k].choices.push({
+                                    value: user.username,
+                                    label: user.fullname+' ('+user.mail+')',
+                                    selected: false
+                                });
+                            });
+                            appData.manifest.arguments.install[k].help = "<a href='#/users'>"+y18n.t('manage_users')+"</a>";
+                        }
 
-                    // Optional field
-                    if (typeof v.optional !== 'undefined' && v.optional == "true") {
-                        appData.manifest.arguments.install[k].required = '';
-                    }
+                        // Special case for password input.
+                        if (v.name == 'password') {
+                            appData.manifest.arguments.install[k].type = 'password';
+                        }
 
-                    // Multilingual description
-                    appData.manifest.arguments.install[k].label = (typeof appData.manifest.arguments.install[k].ask[y18n.locale] !== 'undefined') ?
-                                        appData.manifest.arguments.install[k].ask[y18n.locale] :
-                                        appData.manifest.arguments.install[k].ask['en']
+                        // Optional field
+                        if (typeof v.optional !== 'undefined' && v.optional == "true") {
+                            appData.manifest.arguments.install[k].required = '';
+                        }
+
+                        // Multilingual description
+                        appData.manifest.arguments.install[k].label = (typeof appData.manifest.arguments.install[k].ask[y18n.locale] !== 'undefined') ?
+                                            appData.manifest.arguments.install[k].ask[y18n.locale] :
+                                            appData.manifest.arguments.install[k].ask['en']
+                                            ;
+                    });
+                }
+
+                // Multilingual description
+                appData.description = (typeof appData.manifest.description[y18n.locale] !== 'undefined') ?
+                                        appData.manifest.description[y18n.locale] :
+                                        appData.manifest.description['en']
                                         ;
-                });
-            }
 
-            // Multilingual description
-            appData.description = (typeof appData.manifest.description[y18n.locale] !== 'undefined') ?
-                                    appData.manifest.description[y18n.locale] :
-                                    appData.manifest.description['en']
-                                    ;
+                // Multi Instance settings
+                appData.manifest.multi_instance = (appData.manifest.multi_instance == 'true') ? y18n.t('yes') : y18n.t('no');
 
-            // Multi Instance settings
-            appData.manifest.multi_instance = (appData.manifest.multi_instance == 'true') ? y18n.t('yes') : y18n.t('no');
-
-            // View app install form
-            c.view('app/app_install', appData);
-        })
-        .fail(function(xhr) {
-            c.flash('fail', y18n.t('app_install_custom_no_manifest'));
+                // View app install form
+                c.view('app/app_install', appData);
+            })
+            .fail(function(xhr) {
+                c.flash('fail', y18n.t('app_install_custom_no_manifest'));
+                store.clear('slide');
+                c.redirect('#/apps/install');
+            });
+        }
+        else {
+            c.flash('warning', y18n.t('app_install_cancel'));
             store.clear('slide');
             c.redirect('#/apps/install');
-        });
+        }
     });
 
 

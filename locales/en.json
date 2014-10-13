@@ -117,7 +117,8 @@
     "custom_app_install" : "Install custom app",
     "custom_app_url_only_github" : "Currently only from GitHub",
     "confirm_install_domain_root" : "You will not be able to install any other app on %s. Continue ?",
-    "app_install_cancel" : "Installation cancelled",
+    "app_install_cancel" : "Installation cancelled.",
+    "confirm_install_custom_app" : "Installing 3rd party applications may compromise the security of your system. Use at your own risks.",
 
     "backup" : "Backup",
     "backup_warning_title" : "The backup system is not implemented yet.",
