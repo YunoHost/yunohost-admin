@@ -484,10 +484,9 @@ app = Sammy('#main', function (sam) {
 
     sam.get('#/postinstall/domain', function(c) {
         $('#masthead').hide();
-        $.get('http://dyndns.yunohost.org/domains', function() {})
+        $.get('https://dyndns.yunohost.org/domains', function() {})
             .done(function(data){
                 c.params.ddomains = data.map(function(dom){return '.'+dom;});
-                // c.view('domain/domain_add', c.params);
             })
             .fail(function() {
                 c.params.ddomains = ['.nohost.me', '.noho.st'];
@@ -703,10 +702,9 @@ app = Sammy('#main', function (sam) {
     });
 
     sam.get('#/domains/add', function (c) {
-        $.get('http://dyndns.yunohost.org/domains', function() {})
+        $.get('https://dyndns.yunohost.org/domains', function() {})
             .done(function(data){
                 c.params.ddomains = data.map(function(dom){return '.'+dom;});
-                // c.view('domain/domain_add', c.params);
             })
             .fail(function() {
                 c.params.ddomains = ['.nohost.me', '.noho.st'];
