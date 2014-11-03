@@ -1545,7 +1545,7 @@ var loadLocales = function (modules) {
 	}
 	
 	$.each( modules, function( key, val ) {
-		localesDir='modules/'+key+'/locales/';
+		localesDir='modules/'+val+'/locales/';
 		$.getJSON(localesDir+'en.json', function(data){
 			concatObject(y18n.translations['en'], data);
 		});
@@ -1568,8 +1568,10 @@ $(document).ready(function () {
 	requirejs.config({
 		baseUrl: 'modules'
 	});
-
-	$.getJSON( "modules/list.json", function( modules ) {
+    
+    
+    callback=function(data) {
+        modules=data.modules
 		/**
 		 * Translations
 		 */
@@ -1583,16 +1585,32 @@ $(document).ready(function () {
 		 */
 		var scripts = [];
 		$.each( modules, function( key, val ) {
-			scripts.push(key+'/main');
+			scripts.push(val+'/main');
 		});
 		requirejs(scripts,function () {
 			$.each( modules, function( key, val ) {
-				app.use(window[val],key);
+				app.use(window[val],val);
 			});
 			app.run('#/');
 		});
-	});
-
+	};
+    jQuery.ajax({
+        url: 'https://'+ window.location.hostname + '/yunohost/api/modules',
+        type: 'GET',
+        crossdomain: true,
+        data: {},
+        traditional: true,
+        dataType: 'json'
+    })
+    .done(function(data) {
+        data = data || {};
+        callback(data);
+    })
+    .fail(function(xhr) {
+        if (xhr.status == 200) {
+            callback({});
+        }
+    });
     // Fixes for sliding effect
     $('#slider-container').width(2*$('#slider').width() +'px');
     $(window).resize(function() {
