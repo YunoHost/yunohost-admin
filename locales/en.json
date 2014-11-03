@@ -113,6 +113,7 @@
     "multi_instance" : "Multi instance",
     "manage_domains" : "Manage domains",
     "manage_users" : "Manage users",
+    "manage_apps" : "Manage apps",
     "install_time" : "Install time",
     "custom_app_install" : "Install custom app",
     "custom_app_url_only_github" : "Currently only from GitHub",

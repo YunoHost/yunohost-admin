@@ -47,7 +47,7 @@
                     {{#choices}}<option value="{{value}}" {{#if selected}}selected{{/if}}>{{label}}</option>{{/choices}}
                 </select>
                 {{else}}
-                <input type="{{type}}" id="{{name}}" name="{{name}}" class="form-control" value="{{default}}" placeholder="{{example}}" {{required}}>
+                <input type="{{inputType}}" id="{{name}}" name="{{name}}" class="form-control" value="{{default}}" placeholder="{{example}}" {{required}}>
                 {{/if}}
 
                 {{#if help}}

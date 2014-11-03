@@ -112,6 +112,7 @@
     "multi_instance" : "Multi instance",
     "manage_domains" : "Gérer les domaines",
     "manage_users" : "Gérer les utilisateurs",
+    "manage_apps" : "Gérer les applications",
     "install_time" : "Date d'installation",
     "custom_app_install" : "Installer une application personnalisée",
     "custom_app_url_only_github" : "Uniquement depuis GitHub",
