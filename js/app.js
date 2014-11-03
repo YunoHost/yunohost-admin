@@ -371,6 +371,47 @@ app = Sammy('#main', function (sam) {
                 c.flash('warning', y18n.t('warning_first_user'));
             }
 
+            // Get security feed and display new items
+            var securityFeed = 'https://yunohost.org/security.rss'
+
+            $.ajax({
+                url: securityFeed,
+                // dataType: (jQuery.browser.msie) ? "text" : "xml",
+                dataType: "xml"
+            })
+            .done(function(xml){
+                // Get viewed security alerts from cookie
+                $.cookie.json = true;
+                var viewedItems = $.cookie('ynhSecurityViewedItems') || [];
+
+                // Loop through items
+                $('item', xml).each(function(k, v) {
+                    var item = {
+                        guid: $('guid', v)[0].innerHTML,
+                        title: $('title', v)[0].innerHTML,
+                        url: $('link', v)[0].innerHTML,
+                        desc: $('description', v)[0].textContent
+                    }
+                    if (viewedItems.indexOf(item.guid) === -1) {
+                        // Show security message to administrator
+                        // var warning = '<h2>'+ item.title +'</h2>'+ item.desc
+                        var warning = item.title + ' (<a href="'+ item.url +'" class="alert-link" target="_blank">'+y18n.t('read_more')+'</a>)';
+                        c.flash('warning', warning);
+
+                        // Store viewed item
+                        viewedItems.push(item.guid);
+                    }
+                });
+
+                // Saved viewed items to cookie
+                $.cookie('ynhSecurityViewedItems', viewedItems, {
+                    expire: 7
+                });
+            })
+            .fail(function() {
+                c.flash('fail', y18n.t('error_retrieve_feed', [securityFeed]))
+            });
+
             c.view('home');
         });
     });

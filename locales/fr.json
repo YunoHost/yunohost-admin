@@ -35,6 +35,8 @@
     "open" : "Ouvrir",
     "close" : "Fermer",
     "both" : "Les deux",
+    "home" : "Accueil",
+    "read_more" : "En savoir plus",
 
     "installing" : "Installation",
     "installed" : "Installé",
@@ -56,6 +58,7 @@
     "unknown_action" : "Action %s inconnue",
     "unknown_argument" : "Argument inconnu : %s",
     "api_not_responding" : "l'API ne répond pas (Erreur : %s)",
+    "error_retrieve_feed" : "Impossible de récuperer le flux : %s",
 
     "confirm_delete" : "Êtes-vous sur de vouloir supprimer %s ?",
     "confirm_change_maindomain" : "Êtes-vous sur de vouloir changer le domaine principal ?",
