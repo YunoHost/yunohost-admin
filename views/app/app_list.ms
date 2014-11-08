@@ -32,7 +32,7 @@
     <a href="#/apps/{{^installed}}install/{{/installed}}{{id}}" class="list-group-item slide">
         <span class="fa-chevron-right pull-right"></span>
         <h2 class="list-group-item-heading">{{name}} <small>{{id}}</small></h2>
-        <p class="list-group-item-text">{{description.en}}</p>
+        <p class="list-group-item-text">{{description}}</p>
     </a>
 {{/apps}}
 
