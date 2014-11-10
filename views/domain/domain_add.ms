@@ -24,7 +24,7 @@
         <div class="form-group">
             <label for="domain" class="col-sm-3 control-label">{{t 'domain_name'}}</label>
             <div class="col-sm-9">
-                <input type="text" id="domain" name="domain" class="form-control" placeholder="{{t 'myserver_org'}}">
+                <input type="text" id="domain" name="domain" class="form-control" placeholder="{{t 'myserver_org'}}" pattern="^[a-z0-9-.]+.[a-z]$">
             </div>
         </div>
       </div>
@@ -46,7 +46,7 @@
             <label for="ddomain" class="col-sm-3 control-label">{{t 'domain_name'}}</label>
             <div class="clearfix visible-xs"></div>
             <div class="col-sm-4 col-xs-6">
-                <input type="text" id="ddomain" name="ddomain" class="form-control" placeholder="{{t 'myserver'}}">
+                <input type="text" id="ddomain" name="ddomain" class="form-control" placeholder="{{t 'myserver'}}" pattern="^[a-z0-9-]$">
             </div>
             <div class="col-sm-5 col-xs-6">
                <select class="form-control" name="ddomain-ext">
