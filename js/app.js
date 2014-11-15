@@ -277,6 +277,18 @@ app = Sammy('#main', function (sam) {
                     $('html, body').scrollTop(0);
                 });
             }
+        },
+
+        arraySortById: function(arr) {
+            arr.sort(function(a, b){
+                if (a.id > b.id) {
+                    return 1;
+                }
+                else if (a.id < b.id) {
+                    return -1;
+                }
+                return 0;
+            });
         }
     });
 
@@ -793,6 +805,8 @@ app = Sammy('#main', function (sam) {
             $.each(data['apps'], function(k, v) {
                 if (v['installed']) data2['apps'].push(v);
             });
+
+            c.arraySortById(data2.apps);
             c.view('app/app_list', data2);
         });
     });
@@ -807,6 +821,8 @@ app = Sammy('#main', function (sam) {
                     if (dataraw[v['id']].manifest.multi_instance) v['installed'] = false;
                     if (!v['installed'] && !v['id'].match(/__[0-9]{1,5}$/)) data2['apps'].push(v);
                 });
+
+                c.arraySortById(data2.apps);
                 c.view('app/app_list', data2);
             });
         });
