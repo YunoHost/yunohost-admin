@@ -206,7 +206,10 @@
     "tools_adminpw_confirm_placeholder" : "Confirmez le nouveau mot de passe",
     "tools_download_ca" : "Télécharger l'autorité de certification SSL (CA)",
     "tools_download_ca_desc" : "Cliquez ici pour télécharger l'autorité de certification SSL (CA)",
-
+    "tools_security_feed" : "Alertes de sécurité",
+    "tools_security_feed_no_items" : "Aucune alertes de sécurité",
+    "tools_security_feed_view_items" : "Voir toutes les alertes de sécurité",
+    "tools_security_feed_subscribe_rss" : "S'inscrire au flux RSS des alertes de sécurité",
 
     "system_update" : "Mettre à jour le système",
     "system_upgrade" : "Mise à jour du système",

@@ -206,6 +206,10 @@
     "tools_adminpw_confirm_placeholder" : "Confirm the new password",
     "tools_download_ca" : "Download SSL Certificate Authority (CA)",
     "tools_download_ca_desc" : "Click here to download your SSL certificate authority (CA)",
+    "tools_security_feed" : "Security notifications",
+    "tools_security_feed_no_items" : "No security notifications",
+    "tools_security_feed_view_items" : "View all security notifications",
+    "tools_security_feed_subscribe_rss" : "Subscribe to security notifications RSS",
 
     "system_update" : "System update",
     "system_upgrade" : "System upgrade",

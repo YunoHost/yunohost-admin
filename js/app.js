@@ -1577,6 +1577,48 @@ app = Sammy('#main', function (sam) {
         c.view('tools/tools_ca');
     });
 
+    // Security feed
+    sam.get('#/tools/security-feed', function (c) {
+        data = {
+            items: []
+        };
+
+        // Get security feed and display items
+        var securityUrl = 'https://forum.yunohost.org/c/security';
+        var securityFeed = 'https://yunohost.org/security.rss';
+            var securityFeed = 'https://yolo.swag/yunohost/admin/security.rss';
+
+        data.url = {
+            web: securityUrl,
+            rss: securityFeed
+        }
+
+        $.ajax({
+            url: securityFeed,
+            // dataType: (jQuery.browser.msie) ? "text" : "xml",
+            dataType: "xml"
+        })
+        .done(function(xml){
+
+            // Loop through items
+            $('item', xml).each(function(k, v) {
+                var item = {
+                    guid: $('guid', v)[0].innerHTML,
+                    title: $('title', v)[0].innerHTML,
+                    url: $('link', v)[0].innerHTML,
+                    desc: $('description', v)[0].textContent
+                }
+                data.items.push(item);
+            });
+
+            console.log(data);
+            c.view('tools/tools_security_feed', data);
+        })
+        .fail(function() {
+            c.flash('fail', y18n.t('error_retrieve_feed', [securityFeed]))
+        });
+
+    });
 
     /**
      * Backup
