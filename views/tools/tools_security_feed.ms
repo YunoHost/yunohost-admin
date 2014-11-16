@@ -28,7 +28,7 @@
 </div>
 {{/if}}
 
-<div class="separator"></div>
-
-<a href="{{url.web}}" class="btn btn-success" target="_blank"><span class="fa-list"></span> {{t 'tools_security_feed_view_items'}}</a> 
-<a href="{{url.rss}}" class="btn btn-warning" target="_blank"><span class="fa-rss"></span> {{t 'tools_security_feed_subscribe_rss'}}</a>
+<div>
+    <a href="{{url.web}}" class="btn btn-success" target="_blank"><span class="fa-list"></span> {{t 'tools_security_feed_view_items'}}</a> 
+    <a href="{{url.rss}}" class="btn btn-warning" target="_blank"><span class="fa-rss"></span> {{t 'tools_security_feed_subscribe_rss'}}</a>
+</div>
