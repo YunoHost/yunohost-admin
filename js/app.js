@@ -1586,7 +1586,6 @@ app = Sammy('#main', function (sam) {
         // Get security feed and display items
         var securityUrl = 'https://forum.yunohost.org/c/security';
         var securityFeed = 'https://yunohost.org/security.rss';
-            var securityFeed = 'https://yolo.swag/yunohost/admin/security.rss';
 
         data.url = {
             web: securityUrl,
