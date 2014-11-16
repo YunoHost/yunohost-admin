@@ -27,16 +27,12 @@
     </div>
 </div>
 
-<div class="panel-group" id="accordion">
 <div class="panel panel-default">
     <div class="panel-heading">
         <h2 class="panel-title">
-            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-                <span class="fa-fw fa-wrench"></span> {{t 'operations'}}
-            </a>
+            <span class="fa-fw fa-wrench"></span> {{t 'operations'}}
         </h2>
     </div>
-    <div id="collapseOne" class="panel-collapse collapse">
     <div class="panel-body">
         <div class="container">
             <p>{{t 'app_info_access_desc' settings.allowed_users}}</p>
@@ -59,6 +55,4 @@
             </a>
         </div>
     </div>
-    </div>
-</div>
 </div>
