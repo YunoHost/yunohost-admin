@@ -1606,12 +1606,12 @@ app = Sammy('#main', function (sam) {
                     guid: $('guid', v)[0].innerHTML,
                     title: $('title', v)[0].innerHTML,
                     url: $('link', v)[0].innerHTML,
-                    desc: $('description', v)[0].textContent
+                    desc: $('description', v)[0].textContent,
+                    date: $('pubDate', v)[0].innerHTML.split(' +')[0],
                 }
                 data.items.push(item);
             });
 
-            console.log(data);
             c.view('tools/tools_security_feed', data);
         })
         .fail(function() {

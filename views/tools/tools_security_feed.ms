@@ -12,10 +12,13 @@
         <div class="list-group-item">
             <!-- <a href="{{url}}" class="fa-chevron-right pull-right"></a> -->
             <h2 class="list-group-item-heading"><a href="{{url}}">{{title}}</a></h2>
-            <div class="list-group-item-text">{{{desc}}}</div>
-            <p class="text-right">
-                <a href="{{url}}" class="btn btn-default">{{t 'read_more'}}</a>
-            </p>
+            <div class="list-group-item-text">
+                <p class="pub-date"><em>{{date}}</em></p>
+                {{{desc}}}
+                <p class="text-right">
+                    <a href="{{url}}" class="btn btn-default">{{t 'read_more'}}</a>
+                </p>
+            </div>
         </div>
     {{/items}}
     </div>
