@@ -752,11 +752,14 @@ app = Sammy('#main', function (sam) {
                         url: domain,
                         main: (domain == data2.current_main_domain) ? true : false
                     });
-                })
+                });
+
+                // Do not show main domain form if we have only 1 domain
+                main_domain_form = (domains.length > 1) ? true: false;
 
                 // Sort domains with main domain first
                 domains.sort(function(a, b){ return -2*(a.main) + 1; });
-                c.view('domain/domain_list', {domains: domains});
+                c.view('domain/domain_list', {domains: domains, main_domain_form: main_domain_form});
             }, 'PUT');
         });
     });

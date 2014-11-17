@@ -29,6 +29,7 @@
 	{{/domains}}
 </div>
 
+{{#if main_domain_form}}
 <div class="panel panel-default">
     <div class="panel-heading">
         <h2 class="panel-title">
@@ -51,3 +52,4 @@
 
     </div>
 </div>
+{{/if}}
