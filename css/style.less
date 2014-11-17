@@ -209,24 +209,51 @@ body {
  *
  */
 
-#popup {
+#modal {
     .modal;
     .fade;
     overflow-y: auto;
 
     & > div {
-        .modal-dialog;
+      .modal-dialog;
+      & > div {
         .modal-content;
+      }
     }
 
-    #popup-title {
-        .modal-header;
+    header {
+      .modal-header;
+
+      .title {
         .modal-title;
+        font-weight: bold;
+        text-transform: uppercase;
+        margin: 0;
+      }
     }
-    #popup-body {
-        .modal-body;
+    &.no-title header {display: none;}
+
+    .content {
+      .modal-body;
+    }
+
+    footer {
+      .modal-footer;
+
+      button {
+        .btn;
+        &#modal-cancel {.btn-link;}
+        &#modal-confirm {.btn-primary;}
+      }
     }
 }
+@media (min-width: 768px) {
+  #modal > div > div {
+    width: 600px;
+    margin: 30px auto;
+  }
+}
+
 
 /* 
  * Various styles 

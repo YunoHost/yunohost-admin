@@ -40,10 +40,23 @@
 
     </div>
 
-    <div id="popup" role="dialog"><div>
-        <h2 id="popup-title"></h2>
-        <div id="popup-body"></div>
-    </div></div>
+    <div id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+        <div><div>
+            <header>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only" data-y18n="close">Close</span>
+                </button>
+                <h4 class="title" id="modalLabel"></h4>
+            </header>
+            <div class="content"></div>
+            <footer>
+                <button type="button" id="modal-cancel" data-action="cancel" data-y18n="cancel">Cancel</button>
+                <button type="button" id="modal-confirm" data-action="confirm" data-y18n="ok">OK</button>
+            </footer>
+        </div></div>
+    </div>
+
 
     <script type="text/javascript" src="js/vendor/jquery-1.10.1.min.js"></script>
     <script type="text/javascript" src="js/vendor/handlebars-v1.3.0.js"></script>

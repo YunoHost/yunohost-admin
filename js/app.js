@@ -228,6 +228,7 @@ app = Sammy('#main', function (sam) {
 
             loaded = true;
             $('div.loader').remove();
+            $('#modal').modal('hide');
 
             if (enableSlide) {
                 function leSwap() {
@@ -277,6 +278,48 @@ app = Sammy('#main', function (sam) {
                     $('html, body').scrollTop(0);
                 });
             }
+        },
+
+        confirm: function(title, content, confirmCallback, cancelCallback) {
+            // Default callbacks
+            confirmCallback = typeof confirmCallback !== 'undefined' ? confirmCallback : function() {};
+            cancelCallback = typeof cancelCallback !== 'undefined' ? cancelCallback : function() {};
+
+            // Get modal element
+            box = $('#modal');
+
+            // Modal title
+            if (typeof title === 'string' && title.length) {
+                $('.title', box).html(title);
+            }
+            else {
+                box.addClass('no-title');
+            }
+
+            // Modal content
+            $('.content', box).html(content);
+
+            // Handle buttons
+            $('footer button', box)
+                .click(function(e){
+                    e.preventDefault();
+
+                    // Reset & Hide modal
+                    box
+                        .removeClass('no-title')
+                        .modal('hide');
+
+                    // Do corresponding callback
+                    if ($(this).data('action') == 'confirm') {
+                        confirmCallback();
+                    }
+                    else {
+                        cancelCallback();
+                    }
+                });
+
+            // Show modal
+            return box.modal('show');
         },
 
         arraySortById: function(arr) {
