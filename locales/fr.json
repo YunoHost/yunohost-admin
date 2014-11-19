@@ -72,6 +72,7 @@
     "confirm_service_action" : "Êtes-vous sur de vouloir %s %s ?",
     "confirm_update_type" : "Êtes-vous sur de vouloir mettre à jour tous les %s ?",
 
+    "postinstall" : "Post-installation",
     "postinstall_intro_1" : "Félicitations ! YunoHost a été installé avec succès.",
     "postinstall_intro_2" : "Deux étapes de configuration supplémentaires sont nécessaires pour activer les services de votre serveur.",
     "postinstall_intro_3" : "Vous pouvez obtenir plus d'informations en vous rendant sur <a href='//yunohost.org/postinstall_fr' target='_blank'>la page de documentation appropriée</a>.",

@@ -633,15 +633,21 @@ app = Sammy('#main', function (sam) {
                 params = { 'domain': c.params['domain'] }
             }
 
-            if (confirm(y18n.t('confirm_postinstall', [c.params['domain']]))) {
-                params['password'] = c.params['password']
+            c.confirm(
+                y18n.t('postinstall'),
+                y18n.t('confirm_postinstall', [c.params['domain']]),
+                function(){
+                    params['password'] = c.params['password']
 
-                store.set('url', window.location.hostname +'/yunohost/api');
-                store.set('user', 'admin');
-                c.api('/postinstall', function(data) { // http://api.yunohost.org/#!/tools/tools_postinstall_post_0
-                    c.redirect('#/login');
-                }, 'POST', params);
-            }
+                    store.set('url', window.location.hostname +'/yunohost/api');
+                    store.set('user', 'admin');
+                    c.api('/postinstall', function(data) { // http://api.yunohost.org/#!/tools/tools_postinstall_post_0
+                        c.redirect('#/login');
+                    }, 'POST', params);
+                },
+                function(){
+                }
+            );
         } else {
             c.flash('fail', y18n.t('passwords_dont_match'));
         }
@@ -1402,42 +1408,6 @@ app = Sammy('#main', function (sam) {
                 c.redirect('#/services/'+ c.params['service']);
             }
         );
-        /*
-        if (confirm(y18n.t('confirm_service_action', [y18n.t(c.params['action']), c.params['service']]))) {
-            var method = null, endurl = c.params['service'];
-
-            switch (c.params['action']) {
-                case 'start':
-                    method = 'PUT';
-                    break;
-                case 'stop':
-                    method = 'DELETE';
-                    break;
-                case 'enable':
-                    method = 'PUT';
-                    endurl += '/enable';
-                    break;
-                case 'disable':
-                    method = 'DELETE';
-                    endurl += '/enable';
-                    break;
-                default:
-                    c.flash('fail', y18n.t('unknown_action', [c.params['action']]));
-                    store.clear('slide');
-                    c.redirect('#/services/'+ c.params['service']);
-            }
-
-            if (method && endurl) {
-                c.api('/services/'+ endurl, function(data) {
-                    store.clear('slide');
-                    c.redirect('#/services/'+ c.params['service']);
-                }, method);
-            }
-        } else {
-            store.clear('slide');
-            c.redirect('#/services/'+ c.params['service']);
-        }
-        */
     });
 
 
@@ -1474,17 +1444,21 @@ app = Sammy('#main', function (sam) {
 
     // Enable/Disable UPnP
     sam.get('#/firewall/upnp/:action', function (c) {
-        if (confirm(y18n.t('confirm_upnp_action', [y18n.t(c.params['action'])] ))) {
-            params = {'action' : c.params['action']}
-            c.api('/firewall/upnp', function(data) {
+        c.confirm(
+            y18n.t('firewall'),
+            y18n.t('confirm_upnp_action', [y18n.t(c.params['action'])]),
+            function(){
+                params = {'action' : c.params['action']}
+                c.api('/firewall/upnp', function(data) {
+                    store.clear('slide');
+                    c.redirect('#/firewall');
+                }, 'GET', params);
+            },
+            function(){
                 store.clear('slide');
                 c.redirect('#/firewall');
-            }, 'GET', params);
-        }
-        else {
-            store.clear('slide');
-            c.redirect('#/firewall');
-        }
+            }
+        );
     });
 
     // Toggle port status helper (available in every controller)
@@ -1560,34 +1534,42 @@ app = Sammy('#main', function (sam) {
     // Update port status from direct link
     // #/firewall/port/{{@key}}/tcp/ipv4/close
     sam.get('#/firewall/port/:port/:protocol/:connection/:action', function (c) {
-        if (confirm(y18n.t('confirm_firewall', [ y18n.t(c.params['action']), c.params['port'], y18n.t(c.params['protocol']), y18n.t(c.params['connection']) ]))) {
-            c.togglePort(
-                c.params['port'],
-                c.params['protocol'],
-                c.params['connection'],
-                c.params['action']
-            );
-        }
-        else {
-            store.clear('slide');
-            c.redirect('#/firewall');
-        }
+        c.confirm(
+            y18n.t('firewall'),
+            y18n.t( 'confirm_firewall', [ y18n.t(c.params['action']), c.params['port'], y18n.t(c.params['protocol']), y18n.t(c.params['connection'])]),
+            function(){
+                c.togglePort(
+                    c.params['port'],
+                    c.params['protocol'],
+                    c.params['connection'],
+                    c.params['action']
+                );
+            },
+            function(){
+                store.clear('slide');
+                c.redirect('#/firewall');
+            }
+        );
     });
 
     // Update port status from form
     sam.post('#/firewall/port', function (c) {
-        if (confirm(y18n.t('confirm_firewall', [ y18n.t(c.params['action']), c.params['port'], y18n.t(c.params['protocol']), y18n.t(c.params['connection']) ]))) {
-            c.togglePort(
-                c.params['port'],
-                c.params['protocol'],
-                c.params['connection'],
-                c.params['action']
-            );
-        }
-        else {
-            store.clear('slide');
-            c.redirect('#/firewall');
-        }
+        c.confirm(
+            y18n.t('firewall'),
+            y18n.t('confirm_firewall', [ y18n.t(c.params['action']), c.params['port'], y18n.t(c.params['protocol']), y18n.t(c.params['connection']) ]),
+            function(){
+                c.togglePort(
+                    c.params['port'],
+                    c.params['protocol'],
+                    c.params['connection'],
+                    c.params['action']
+                );
+            },
+            function(){
+                store.clear('slide');
+                c.redirect('#/firewall');
+            }
+        );
     });
 
 
@@ -1696,19 +1678,27 @@ app = Sammy('#main', function (sam) {
             store.clear('slide');
             c.redirect('#/tools/update');
         }
-        else if (confirm(y18n.t('confirm_update_type', [y18n.t('system_'+c.params['type']).toLowerCase()]))) {
-            endurl = '';
-            if (c.params['type'] == 'packages') {endurl = 'ignore_apps';}
-            else if (c.params['type'] == 'apps') {endurl = 'ignore_packages';}
+        else {
+            c.confirm(
+                y18n.t('tools'),
+                y18n.t('confirm_update_type', [y18n.t('system_'+c.params['type']).toLowerCase()]),
+                function(){
+                    endurl = '';
+                    if (c.params['type'] == 'packages') {endurl = 'ignore_apps';}
+                    else if (c.params['type'] == 'apps') {endurl = 'ignore_packages';}
 
-            c.api('/upgrade?'+endurl, function(data) {
-                // 'log' is a reserved name, maybe in handlebars
-                data.logs = data.log;
-                c.view('tools/tools_upgrade', data);
-            }, 'PUT');
-        } else {
-            store.clear('slide');
-            c.redirect('#/tools/update');
+                    c.api('/upgrade?'+endurl, function(data) {
+                        // 'log' is a reserved name, maybe in handlebars
+                        data.logs = data.log;
+                        c.view('tools/tools_upgrade', data);
+                    }, 'PUT');
+
+                },
+                function(){
+                    store.clear('slide');
+                    c.redirect('#/tools/update');
+                }
+            );
         }
     });
 
