@@ -977,7 +977,7 @@ app = Sammy('#main', function (sam) {
     sam.get('#/apps/:app', function (c) {
         c.api('/apps/'+c.params['app']+'?raw', function(data) { // http://api.yunohost.org/#!/app/app_info_get_9
             // Presentation
-            data.settings.allowed_users = (data.settings.allowed_users) ? data.settings.allowed_users.replace(',', ', ') : '';
+            data.settings.allowed_users = (data.settings.allowed_users) ? data.settings.allowed_users.replace(',', ', ')+"." : y18n.t('everyone_has_access');
 
             // Multilingual description
             data.description = (typeof data.manifest.description[y18n.locale] !== 'undefined') ?

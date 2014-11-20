@@ -95,7 +95,7 @@
     "install_name" : "Installer %s",
     "label" : "Libellé",
     "label_for_manifestname" : "Libellé pour %s",
-    "app_info_access_desc" : "Gestion des droits d'accès. Utilisateurs autorisés : %s.",
+    "app_info_access_desc" : "Gestion des droits d'accès. Utilisateurs autorisés : %s",
     "app_info_default_desc" : "Redirige la racine du domaine vers cette application (%s).",
     "app_info_uninstall_desc" : "Supprimer cette application.",
     "app_access" : "Accès",

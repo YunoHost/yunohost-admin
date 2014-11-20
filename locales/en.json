@@ -95,7 +95,7 @@
     "install_name" : "Install %s",
     "label" : "Label",
     "label_for_manifestname" : "Label for %s",
-    "app_info_access_desc" : "Manage user access. Allowed users: %s.",
+    "app_info_access_desc" : "Manage user access. Allowed users: %s",
     "app_info_default_desc" : "Redirect domain root to this application (%s).",
     "app_info_uninstall_desc" : "Remove this application.",
     "app_access" : "Access",
