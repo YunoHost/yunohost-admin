@@ -235,5 +235,7 @@
     "user_fullname" : "Nom complet",
     "user_email" : "Email",
     "user_emailaliases" : "Adresses supplémentaires",
-    "user_emailforward" : "Adresses de transfert"
+    "user_emailforward" : "Adresses de transfert",
+    "user_new_mail": "nouvelle_adresse@domaine.org",
+    "user_new_forward": "nouveau_transfert@domainedistant.org"
 }

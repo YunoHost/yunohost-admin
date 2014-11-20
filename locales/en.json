@@ -235,5 +235,7 @@
     "user_fullname" : "Fullname",
     "user_email" : "Email",
     "user_emailaliases" : "Mail aliases",
-    "user_emailforward" : "Mail forward"
+    "user_emailforward" : "Mail forward",
+    "user_new_mail": "newmail@mydomain.org",
+    "user_new_forward": "newforward@myforeigndomain.org"
 }

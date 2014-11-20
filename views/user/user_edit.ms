@@ -44,6 +44,29 @@
             </div>
 
         </div>
+
+        <hr>
+        <div class="form-group">
+            <label for="mailalias" class="col-sm-3 control-label">{{t 'user_emailaliases'}}</label>
+            <div class="col-sm-9">
+            {{#mail-aliases}}
+            <input type="email" name="mailalias" class="form-control" value="{{.}}" style="margin-bottom: 5px;">
+            {{/mail-aliases}}
+            <input id="mailalias" type="email" name="mailalias" class="mailalias-input form-control" placeholder="{{t 'user_new_mail'}}">
+            </div>
+        </div>
+
+        <hr>
+        <div class="form-group">
+            <label for="mailforward" class="col-sm-3 control-label">{{t 'user_emailforward'}}</label>
+            <div class="col-sm-9">
+            {{#mail-forward}}
+            <input type="email" name="mailforward" class="form-control" value="{{.}}" style="margin-bottom: 5px;">
+            {{/mail-forward}}
+            <input id="mailforward" type="email" name="mailforward" class="mailforward-input form-control" placeholder="{{t 'user_new_forward'}}">
+            </div>
+        </div>
+
         <hr>
         <div class="form-group">
             <label for="password" class="col-sm-3 control-label">{{t 'password'}}</label>
@@ -58,6 +81,7 @@
                 <div class="help-block">{{t 'password_description'}}</div>
             </div>
         </div>
+
     </div>
 </div>
 
