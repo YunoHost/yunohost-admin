@@ -623,7 +623,7 @@ app = Sammy('#main', function (sam) {
             store.clear('slide');
             c.redirect('#/postinstall/domain');
         } else {
-            c.view('postinstall/postinstall_3', { 'domain': store.get('maindomain') });
+            c.view('postinstall/postinstall_3', { 'domain': store.get('maindomain').toLowerCase() });
         }
     });
 
@@ -638,7 +638,7 @@ app = Sammy('#main', function (sam) {
                 store.clear('slide');
                 c.redirect('#/postinstall/domain');
             } else {
-                params = { 'domain': c.params['domain'] }
+                params = { 'domain': c.params['domain'].toLowerCase() }
             }
 
             c.confirm(
@@ -869,9 +869,9 @@ app = Sammy('#main', function (sam) {
                 store.clear('slide');
                 c.redirect('#/domains/add');
             }
-            params = { 'domain': c.params['ddomain'] + c.params['ddomain-ext'] }
+            params = { 'domain': c.params['ddomain'].toLowerCase() + c.params['ddomain-ext'] }
         } else {
-            params = { 'domain': c.params['domain'] }
+            params = { 'domain': c.params['domain'].toLowerCase() }
         }
 
         c.api('/domains', function(data) { // http://api.yunohost.org/#!/domain/domain_add_post_1
