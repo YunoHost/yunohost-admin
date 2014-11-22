@@ -1673,12 +1673,16 @@ app = Sammy('#main', function (sam) {
             store.clear('slide');
             c.redirect('#/tools/adminpw');
         } else {
-            // Remove useless variable
-            delete params['confirm_new_password'];
-            // Update password and redirect to the home
-            c.api('/adminpw', function(data) { // http://api.yunohost.org/#!/tools/tools_adminpw_put_3
-                c.redirect('#/logout');
-            }, 'PUT', params);
+            c.api('/login', function(data) {
+                // Remove useless variable
+                delete params['old_password'];
+                delete params['confirm_new_password'];
+
+                // Update password and redirect to the home
+                c.api('/adminpw', function(data) { // http://api.yunohost.org/#!/tools/tools_adminpw_put_3
+                    c.redirect('#/logout');
+                }, 'PUT', params);
+            }, 'POST', { 'password': params['old_password'] }, false);
         }
     });
 
