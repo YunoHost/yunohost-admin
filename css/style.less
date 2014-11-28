@@ -41,7 +41,7 @@ a[class*="fa-"]:hover {text-decoration:none;}
  */
 
 html, body {
-    width:100%; 
+    width:100%;
 }
 html {
     /* Force vertical scrollbar to prevent centering jumps. */
@@ -95,7 +95,7 @@ body {
     color: transparent;
 }
 
-/* 
+/*
  * The top heading of the doc
  *
  */
@@ -143,13 +143,13 @@ body {
                 left: 0px;
             }
         }
-        
+
     }
 
     .logout-button {
         .make-xs-column(2);
         .make-xs-column-offset(8);
-        .btn; 
+        .btn;
         .btn-link;
         text-align: right;
         a.fa-sign-out {
@@ -164,7 +164,7 @@ body {
     }
 }
 
-/* 
+/*
  * The “slider”
  *
  */
@@ -191,7 +191,7 @@ body {
     .block;
 }
 
-/* 
+/*
  * The main part of the app
  *
  */
@@ -204,7 +204,7 @@ body {
 }
 
 
-/* 
+/*
  * The pop up dialog
  *
  */
@@ -212,6 +212,7 @@ body {
 #modal {
     .modal;
     .fade;
+    z-index: 2001; // more than pacman
     overflow-y: auto;
 
     & > div {
@@ -255,8 +256,8 @@ body {
 }
 
 
-/* 
- * Various styles 
+/*
+ * Various styles
  *
  */
 
