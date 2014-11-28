@@ -1139,13 +1139,15 @@ app = Sammy('#main', function (sam) {
 
     // Install custom app from github
     sam.post('#/apps/install/custom', function(c) {
+
+        params = { 'label': c.params['label'], 'app': c.params['url'] }
+        delete c.params['label'];
+        delete c.params['url'];
+
         c.confirm(
             y18n.t('applications'),
             y18n.t('confirm_install_custom_app'),
             function(){
-                params = { 'label': c.params['label'], 'app': c.params['url'] }
-                delete c.params['label'];
-                delete c.params['url'];
 
                 // Force trailing slash
                 params.app = params.app.replace(/\/?$/, '/');
