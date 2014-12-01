@@ -369,16 +369,7 @@ app = Sammy('#main', function (sam) {
             req.params.users = data.users;
         });
     });
-    sam.before(/apps\/install\//, function (req){
-        // Preload apps list.
-        req.params.apps = [];
-        req.api('/apps', function(data) {
-            // Only installed apps
-            $.each(data['apps'], function(k, v) {
-                if (v['installed']) req.params.apps.push(v);
-            });
-        });
-    });
+
 
     sam.before({except: {path: ['#/logout', '#/login', '#/postinstall', '#/postinstall/domain', '#/postinstall/password']}}, function (req) {
         // Store path for further redirections
