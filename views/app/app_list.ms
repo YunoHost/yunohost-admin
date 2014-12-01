@@ -1,4 +1,4 @@
-{{#installed}}
+{{#installed_apps}}
 <div class="btn-breadcrumb">
     <a href="#/" ><i class="fa-home"></i><span class="sr-only">{{t 'home'}}</span></a>
     <a href="#/apps">{{t 'applications'}}</a>
@@ -9,9 +9,9 @@
         <span class="fa-plus"></span> {{t 'install'}}
     </a>
 </div>
-{{/installed}}
+{{/installed_apps}}
 
-{{^installed}}
+{{^installed_apps}}
 <div class="btn-breadcrumb">
     <a href="#/" ><i class="fa-home"></i><span class="sr-only">{{t 'home'}}</span></a>
     <a href="#/apps">{{t 'applications'}}</a>
@@ -23,7 +23,7 @@
         <span class="fa-refresh"></span> {{t 'refresh_app_list'}}
     </a>
 </div>
-{{/installed}}
+{{/installed_apps}}
 
 <div class="separator"></div>
 
@@ -45,7 +45,7 @@
 
 </div>
 
-{{^installed}}
+{{^installed_apps}}
 <div class="panel panel-default">
     <div class="panel-heading">
         <h2 class="panel-title"><span class="fa-fw fa-download"></span> {{t 'custom_app_install'}}</h2>
@@ -70,4 +70,4 @@
     </div>
 </div>
 
-{{/installed}}
+{{/installed_apps}}

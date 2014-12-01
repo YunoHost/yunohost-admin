@@ -938,7 +938,7 @@ app = Sammy('#main', function (sam) {
     sam.get('#/apps', function (c) {
         c.api('/apps', function(data) { // http://api.yunohost.org/#!/app/app_list_get_8
             // Keep only installed apps
-            data2 = { 'apps': [], 'installed': true }
+            data2 = { 'apps': [], 'installed_apps': true }
             $.each(data['apps'], function(k, v) {
                 if (v['installed']) data2['apps'].push(v);
             });
@@ -952,13 +952,15 @@ app = Sammy('#main', function (sam) {
     sam.get('#/apps/install', function (c) {
         c.api('/apps', function(data) { // http://api.yunohost.org/#!/app/app_list_get_8
             c.api('/apps?raw', function(dataraw) { // http://api.yunohost.org/#!/app/app_list_get_8
-                // Keep only uninstalled apps
-                data2 = { 'apps': [] }
+                // Keep only uninstalled apps, or multi-instance apps
+                data2 = { 'apps': [], 'installed_apps': false }
                 $.each(data['apps'], function(k, v) {
-                    if (dataraw[v['id']].manifest.multi_instance) v['installed'] = false;
-                    if (!v['installed'] && !v['id'].match(/__[0-9]{1,5}$/)) data2['apps'].push(v);
+                    if ((!v['installed'] || dataraw[v['id']].manifest.multi_instance == "true") && !v['id'].match(/__[0-9]{1,5}$/)) {
+                        data2['apps'].push(v);
+                    }
                 });
 
+                // Sort app list
                 c.arraySortById(data2.apps);
                 c.view('app/app_list', data2);
             });
