@@ -17,7 +17,7 @@
         </a>
       </h4>
     </div>
-    <div id="collapseOne" class="panel-collapse collapse">
+    <div id="collapseOne" class="panel-collapse {{#if allowDyndnsDomain }}collapse{{/if}}">
       <div class="panel-body">
         <small>{{t 'domain_add_dns_doc'}}</small>
         <hr>
@@ -30,6 +30,7 @@
       </div>
     </div>
   </div>
+  {{#if allowDyndnsDomain }}
   <div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title">
@@ -59,6 +60,7 @@
       </div>
     </div>
   </div>
+  {{/if}}
 </div>
 
 <div class="br"></div>

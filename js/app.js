@@ -348,6 +348,13 @@ app = Sammy('#main', function (sam) {
      * Filters
      *
      */
+    sam.before(/domains\/add/, function (req){
+        // Preload domains list.
+        req.params.domains = [];
+        req.api('/domains', function(data) {
+            req.params.domains = data.domains;
+        });
+    });
     sam.before(/apps\/install\//, function (req){
         // Preload domains list.
         req.params.domains = [];
@@ -857,7 +864,21 @@ app = Sammy('#main', function (sam) {
                 c.params.ddomains = ['.nohost.me', '.noho.st'];
             })
             .always(function() {
-                c.view('domain/domain_add', c.params);
+                data = {
+                    ddomains : c.params.ddomains,
+                    domains : c.params.domains,
+                    allowDyndnsDomain : true
+                }
+
+                // Allow only 1 DynDns domain.
+                var regex = data.ddomains.join('|')
+                $.each(data.domains, function(k, domain) {
+                    if ( domain.search(regex) > 0 ) {
+                        data.allowDyndnsDomain = false;
+                    }
+                });
+
+                c.view('domain/domain_add', data);
             });
     });
 
