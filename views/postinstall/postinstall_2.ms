@@ -50,7 +50,7 @@
                 <label for="ddomain" class="input-group-addon">
                   <span class="fa-fw fa-cloud"></span><span class="sr-only">{{t 'domain'}}</span>
                 </label>
-                <input type="text" id="ddomain" name="ddomain" class="form-control" placeholder="{{t 'myserver'}}" pattern="^[a-z0-9-]$">
+                <input type="text" id="ddomain" name="ddomain" class="form-control" placeholder="{{t 'myserver'}}" pattern="^[a-z0-9-]+$">
               </div>
             </div>
             <div class="col-sm-5 col-xs-6">
