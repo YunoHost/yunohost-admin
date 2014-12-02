@@ -881,12 +881,14 @@ app = Sammy('#main', function (sam) {
                 store.clear('slide');
                 c.redirect('#/domains/add');
             }
-            params = { 'domain': c.params['ddomain'].toLowerCase() + c.params['ddomain-ext'] }
+            params = {'domain': c.params['ddomain'] + c.params['ddomain-ext']}
+            endurl = 'dyndns'
         } else {
-            params = { 'domain': c.params['domain'].toLowerCase() }
+            params = { 'domain': c.params['domain'] }
+            endurl = '';
         }
 
-        c.api('/domains', function(data) { // http://api.yunohost.org/#!/domain/domain_add_post_1
+        c.api('/domains?'+endurl, function(data) { // http://api.yunohost.org/#!/domain/domain_add_post_1
             c.redirect('#/domains');
         }, 'POST', params);
     });
