@@ -1,0 +1,7 @@
+#!/bin/bash
+if [ ! -f  /usr/share/yunohost/admin/ca.crt ];
+then
+	ln -s /etc/ssl/certs/ca-yunohost_crt.pem /usr/share/yunohost/admin/ca.crt
+fi
+chown -R www-data: /usr/share/yunohost/admin
+service yunohost-api restart

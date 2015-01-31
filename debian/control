@@ -1,0 +1,15 @@
+Source: yunohost-admin
+Section: utils
+Priority: extra
+Maintainer: Adrien Beudin <beudbeud@yunohost.org>
+Build-Depends: debhelper (>=8.0.0)
+Standards-Version: 3.9.1
+
+Package: yunohost-admin
+Architecture: all
+Homepage: http://yunohost.org/
+Conflicts: yunohost-apps-admin
+Replaces: yunohost-apps-admin
+Depends: moulinette-yunohost
+Description: Yunohost admin interface
+ Yunohost admin interface
