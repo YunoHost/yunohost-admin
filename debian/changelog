@@ -1,3 +1,9 @@
+yunohost-admin (2.1.1) testing; urgency=low
+
+  * Bump version to 2.1.1 to bootstrap new build workflow
+
+ -- Julien Malik <julien.malik@paraiso.me>  Thu, 12 Feb 2015 14:16:52 +0100
+
 yunohost-admin (2.0-rc1~megusta17) megusta; urgency=low
 
   * Production build: App install fixes and improvments. Other fixes.
