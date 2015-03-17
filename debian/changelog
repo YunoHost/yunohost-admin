@@ -1,3 +1,16 @@
+yunohost-admin (2.1.2) testing; urgency=low
+
+  [ opi ]
+  * [enh] Add Debian package configuration.
+  * [fix] Properly install SSOwat files
+  * [fix] Move sources to a dedicated folder.
+
+  [ Jérôme Lebleu ]
+  * [i18n] Update translations from Transifex
+  * [i18n] Remove untranslated Polish keys
+
+ -- Julien Malik <julien.malik@paraiso.me>  Tue, 17 Mar 2015 16:47:08 +0100
+
 yunohost-admin (2.1.1) testing; urgency=low
 
   * Bump version to 2.1.1 to bootstrap new build workflow
