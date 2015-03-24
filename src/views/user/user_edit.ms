@@ -42,7 +42,12 @@
                    {{/domains}}
                </select>
             </div>
-
+        </div>
+        <div class="form-group">
+            <label for="username" class="col-sm-3 control-label">{{t 'user_quota'}}</label>
+            <div class="col-sm-9">
+                <input type="text" id="mailbox-quota" name="mailbox-quota" class="form-control" placeholder="{{mailbox-quota}}" value="{{mailbox-quota}}">
+            </div>
         </div>
 
         <hr>

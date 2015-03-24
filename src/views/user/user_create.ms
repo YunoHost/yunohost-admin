@@ -44,6 +44,13 @@
         </div>
         <hr>
         <div class="form-group">
+            <label for="quota" class="col-sm-3 control-label">{{t 'user_quota'}}</label>
+            <div class="col-sm-9">
+                <input type="ext" id="quota" name="quota" class="form-control" placeholder="10G" required>
+                <div class="help-block">{{t 'quota_description'}}</div>
+            </div>
+        </div>
+        <div class="form-group">
             <label for="password" class="col-sm-3 control-label">{{t 'password'}}</label>
             <div class="col-sm-9">
                 <input type="password" id="password" name="password" class="form-control" placeholder="•••••" required>

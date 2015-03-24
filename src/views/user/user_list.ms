@@ -17,6 +17,7 @@
         <span class="pull-right fa-chevron-right"></span>
         <h2 class="list-group-item-heading">{{username}} <small>{{fullname}}</small></h2>
         <p class="list-group-item-text">{{mail}}</p>
+        <p class="list-group-item-text">{{mailbox-quota}}</p>
     </a>
 {{/users}}
 

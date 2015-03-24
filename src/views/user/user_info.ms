@@ -34,6 +34,12 @@
           </tr>
 
           <tr>
+            <td><strong>{{t 'user_quota'}}</strong></td>
+
+            <td>{{mailbox-quota}}</td>
+          </tr
+
+          <tr>
             <td><strong>{{t 'user_emailaliases'}}</strong></td>
 
             <td>{{#if mail-aliases}} {{#mail-aliases}}
