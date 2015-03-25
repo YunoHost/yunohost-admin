@@ -1064,9 +1064,9 @@ app = Sammy('#main', function (sam) {
                 // Display a list of available users
                 if (v.name == 'admin' || data.manifest.arguments.install[k].type == 'user') {
                     data.manifest.arguments.install[k].choices = [];
-                    $.each(params.users, function(key, user){
+                    $.each(params.users, function(username, user){
                         data.manifest.arguments.install[k].choices.push({
-                            value: user.username,
+                            value: username,
                             label: user.fullname+' ('+user.mail+')',
                             selected: false
                         });
@@ -1239,17 +1239,17 @@ app = Sammy('#main', function (sam) {
 
                 // Available users
                 data.users = [];
-                $.each(dataUsers.users, function(key, user){
+                $.each(dataUsers.users, function(username, user){
                     // Do not list allowed_users in select list
-                    if ( data.settings.allowed_users.indexOf(user.username) === -1 ) {
+                    if ( data.settings.allowed_users.indexOf(username) === -1 ) {
                         data.users.push({
-                            value: user.username,
+                            value: username,
                             label: user.fullname+' ('+user.mail+')'
                         });
                     } else {
                         // Complete allowed_users data
-                        data.settings.allowed_users[data.settings.allowed_users.indexOf(user.username)] = {
-                            username: user.username,
+                        data.settings.allowed_users[data.settings.allowed_users.indexOf(username)] = {
+                            username: username,
                             fullname: user.fullname,
                             mail: user.mail,
                         }
