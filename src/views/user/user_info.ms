@@ -34,7 +34,7 @@
           </tr>
 
           <tr>
-            <td><strong>{{t 'user_quota'}}</strong></td>
+            <td><strong>{{t 'user_mailbox_quota'}}</strong></td>
 
             <td>{{mailbox-quota}}</td>
           </tr

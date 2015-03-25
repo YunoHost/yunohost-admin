@@ -17,7 +17,6 @@
         <span class="pull-right fa-chevron-right"></span>
         <h2 class="list-group-item-heading">{{@key}} <small>{{fullname}}</small></h2>
         <p class="list-group-item-text">{{mail}}</p>
-        <p class="list-group-item-text">{{mailbox-quota}}</p>
     </a>
 {{else}}
 <div class="alert alert-warning">

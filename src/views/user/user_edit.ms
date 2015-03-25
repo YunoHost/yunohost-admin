@@ -44,9 +44,10 @@
             </div>
         </div>
         <div class="form-group">
-            <label for="username" class="col-sm-3 control-label">{{t 'user_quota'}}</label>
+            <label for="mailbox-quota" class="col-sm-3 control-label">{{t 'user_mailbox_quota'}}</label>
             <div class="col-sm-9">
-                <input type="text" id="mailbox-quota" name="mailbox-quota" class="form-control" placeholder="{{mailbox-quota}}" value="{{mailbox-quota}}">
+                <input type="text" id="mailbox-quota" name="mailbox_quota" class="form-control" placeholder="{{mailbox-quota}}">
+                <div class="help-block">{{t 'mailbox_quota_description'}}</div>
             </div>
         </div>
 
