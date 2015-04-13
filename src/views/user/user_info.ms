@@ -35,8 +35,11 @@
 
           <tr>
             <td><strong>{{t 'user_mailbox_quota'}}</strong></td>
-
+	    {{#if mailbox-quota.use}}
+            <td>{{mailbox-quota.use}} / {{mailbox-quota.limit}}</td>
+            {{else}}
             <td>{{mailbox-quota}}</td>
+            {{/if}}
           </tr
 
           <tr>
