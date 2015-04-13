@@ -180,6 +180,9 @@
     "write" : "Write",
     "monitoring_disabled" : "Monitoring is not enabled.",
     "monitoring_check_glances" : "Check <a href='#/services/glances'>glances</a> service status.",
+    "check" : "Check",
+    "check_stmp" : "Check 25 port access : ",
+    "check_mx" : "Check the MX record : ",
 
     "services" : "Services",
     "services_list" : "Services list",

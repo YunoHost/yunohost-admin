@@ -27,6 +27,31 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             <h2 class="panel-title">
+                <span class="fa-fw fa-check-square-o"></span>
+                <a data-toggle="collapse" data-parent="#accordion" href="#check">{{t 'check'}}</a>
+            </h2>
+        </div>
+        <div id="check" class="panel-collapse collapse">
+            <div class="panel-body">
+                <b>{{t 'check_stmp'}}</b>{{network.check.smtp_check}}
+                <br>
+                <b>{{t 'check_mx'}}</b>
+                {{#if network.check.mx_check.mx0}} 
+                <ul>
+                    {{#each network.check.mx_check}}
+                            <li>{{this}}</li>
+                    {{/each}}
+                </ul>
+                {{else}}
+                          {{network.check.mx_check}}
+                {{/if}}
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h2 class="panel-title">
                 <span class="fa-fw fa-cog"></span> 
                 <a data-toggle="collapse" data-parent="#accordion" href="#system">{{t 'system'}}</a>
             </h2>
