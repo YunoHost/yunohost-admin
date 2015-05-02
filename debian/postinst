@@ -4,4 +4,10 @@ then
 	ln -s /etc/ssl/certs/ca-yunohost_crt.pem /usr/share/yunohost/admin/ca.crt
 fi
 chown -R www-data: /usr/share/yunohost/admin
+
+if [ $(lsb_release -c | awk '{print $2}') = jessie ];
+then
+	service yunohost-api stop
+fi
+
 service yunohost-api restart
