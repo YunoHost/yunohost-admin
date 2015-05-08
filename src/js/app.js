@@ -1536,9 +1536,8 @@ app = Sammy('#main', function (sam) {
             case 'both':
                 protocol = 'Both';
                 break;
-            case 'tcp':
             default:
-                protocol = [];
+                protocol = 'TCP';
         }
 
         switch (action) {
