@@ -1,3 +1,9 @@
+yunohost-admin (2.2.1) stable; urgency=low
+
+  * Bumping version to 2.2.1
+
+ -- kload <kload@kload.fr>  Fri, 08 May 2015 20:01:42 +0000
+
 yunohost-admin (2.2.0) stable; urgency=low
 
   * Bumping version to 2.2.0
