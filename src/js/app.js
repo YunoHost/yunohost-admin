@@ -422,7 +422,8 @@ app = Sammy('#main', function (sam) {
 
             // Get security feed and display new items
             var securityFeed = 'https://yunohost.org/security.rss'
-
+            var forumUrl = 'https://forum.yunohost.org';
+            
             $.ajax({
                 url: securityFeed,
                 // dataType: (jQuery.browser.msie) ? "text" : "xml",
@@ -431,15 +432,22 @@ app = Sammy('#main', function (sam) {
             .done(function(xml){
                 // Get viewed security alerts from cookie
                 $.cookie.json = true;
-                var viewedItems = $.cookie('ynhSecurityViewedItems') || [];
+                var viewedItems = $.cookie('ynhSecurityViewedItems') ||Â [];
 
                 // Loop through items
                 $('item', xml).each(function(k, v) {
+                    var link=$('link', v)[0].innerHTML;
+                    if (typeof link == 'string' && link!='' && link.charAt(0)=='/')
+                        link=forumUrl+link;
+                    var description=$('description', v)[0].textContent;
+                    description=description.replace('href="/','href="'+forumUrl+'/');
+                    
                     var item = {
                         guid: $('guid', v)[0].innerHTML,
                         title: $('title', v)[0].innerHTML,
-                        url: $('link', v)[0].innerHTML,
-                        desc: $('description', v)[0].textContent
+                        url: link,
+                        desc: description,
+                        date: $('pubDate', v)[0].innerHTML.split(' +')[0],
                     }
                     if (viewedItems.indexOf(item.guid) === -1) {
                         // Show security message to administrator
@@ -682,7 +690,7 @@ app = Sammy('#main', function (sam) {
     // Create user (POST)
     sam.post('#/users', function (c) {
         if (c.params['password'] == c.params['confirmation']) {
-            if (c.params['password'].length < 4) {
+            if (c.params['password'].length < 4)Â {
                 c.flash('fail', y18n.t('password_too_short'));
                 store.clear('slide');
             }
@@ -774,7 +782,7 @@ app = Sammy('#main', function (sam) {
             } else {
                 if (params['password']) {
                     if (params['password'] == params['confirmation']) {
-                        if (params['password'].length < 4) {
+                        if (params['password'].length < 4)Â {
                             c.flash('fail', y18n.t('password_too_short'));
                             store.clear('slide');
                             c.redirect('#/users/'+ c.params['user'] + '/edit');
@@ -1132,7 +1140,7 @@ app = Sammy('#main', function (sam) {
     // Install app (POST)
     sam.post('#/apps', function(c) {
         // Warn admin if app is going to be installed on domain root.
-        if (c.params['path'] !== '/' || confirm(y18n.t('confirm_install_domain_root', [c.params['domain']]))) {
+        if (c.params['path'] !== '/' ||Â confirm(y18n.t('confirm_install_domain_root', [c.params['domain']])))Â {
             params = { 'label': c.params['label'], 'app': c.params['app'] }
             delete c.params['label'];
             delete c.params['app'];
@@ -1474,9 +1482,9 @@ app = Sammy('#main', function (sam) {
             // Reorganize ports
             $.each(['ipv4', 'ipv6', 'uPnP'], function(i, protocol) {
                 $.each(['TCP', 'UDP'], function(j, connection) {
-                    firewall.ports[connection] = firewall.ports[connection] || {}; 
+                    firewall.ports[connection] = firewall.ports[connection] || {};Â 
                     $.each(data[protocol][connection], function(k, port) {
-                        firewall.ports[connection][port] = firewall.ports[connection][port] || {}; 
+                        firewall.ports[connection][port] = firewall.ports[connection][port] || {};Â 
                         firewall.ports[connection][port][protocol] = true;
                     });
                 });
@@ -1764,6 +1772,7 @@ app = Sammy('#main', function (sam) {
         };
 
         // Get security feed and display items
+        var forumUrl = 'https://forum.yunohost.org';
         var securityUrl = 'https://forum.yunohost.org/c/security';
         var securityFeed = 'https://yunohost.org/security.rss';
 
@@ -1778,14 +1787,19 @@ app = Sammy('#main', function (sam) {
             dataType: "xml"
         })
         .done(function(xml){
-
             // Loop through items
             $('item', xml).each(function(k, v) {
+                var link=$('link', v)[0].innerHTML;
+                if (typeof link == 'string' && link!='' && link.charAt(0)=='/')
+                    link=forumUrl+link;
+                var description=$('description', v)[0].textContent;
+                description=description.replace('href="/','href="'+forumUrl+'/');
+                
                 var item = {
                     guid: $('guid', v)[0].innerHTML,
                     title: $('title', v)[0].innerHTML,
-                    url: $('link', v)[0].innerHTML,
-                    desc: $('description', v)[0].textContent,
+                    url: link,
+                    desc: description,
                     date: $('pubDate', v)[0].innerHTML.split(' +')[0],
                 }
                 data.items.push(item);
@@ -1851,3 +1865,4 @@ $(document).ready(function () {
         $('#slider-container').width(2*$('#slider').width() +'px').removeClass('move').css('margin-left', '0px');
     });
 });
+
