@@ -422,6 +422,7 @@ app = Sammy('#main', function (sam) {
 
             // Get security feed and display new items
             var securityFeed = 'https://yunohost.org/security.rss'
+            var forumUrl = 'https://forum.yunohost.org';
 
             $.ajax({
                 url: securityFeed,
@@ -435,11 +436,18 @@ app = Sammy('#main', function (sam) {
 
                 // Loop through items
                 $('item', xml).each(function(k, v) {
+                    var link=$('link', v)[0].innerHTML;
+                    if (typeof link == 'string' && link!='' && link.charAt(0)=='/')
+                        link=forumUrl+link;
+                    var description=$('description', v)[0].textContent;
+                    description=description.replace('href="/','href="'+forumUrl+'/');
+
                     var item = {
                         guid: $('guid', v)[0].innerHTML,
                         title: $('title', v)[0].innerHTML,
-                        url: $('link', v)[0].innerHTML,
-                        desc: $('description', v)[0].textContent
+                        url: link,
+                        desc: description,
+                        date: $('pubDate', v)[0].innerHTML.split(' +')[0],
                     }
                     if (viewedItems.indexOf(item.guid) === -1) {
                         // Show security message to administrator
@@ -1764,6 +1772,7 @@ app = Sammy('#main', function (sam) {
         };
 
         // Get security feed and display items
+        var forumUrl = 'https://forum.yunohost.org';
         var securityUrl = 'https://forum.yunohost.org/c/security';
         var securityFeed = 'https://yunohost.org/security.rss';
 
@@ -1778,14 +1787,19 @@ app = Sammy('#main', function (sam) {
             dataType: "xml"
         })
         .done(function(xml){
-
             // Loop through items
             $('item', xml).each(function(k, v) {
+                var link=$('link', v)[0].innerHTML;
+                if (typeof link == 'string' && link!='' && link.charAt(0)=='/')
+                    link=forumUrl+link;
+                var description=$('description', v)[0].textContent;
+                description=description.replace('href="/','href="'+forumUrl+'/');
+
                 var item = {
                     guid: $('guid', v)[0].innerHTML,
                     title: $('title', v)[0].innerHTML,
-                    url: $('link', v)[0].innerHTML,
-                    desc: $('description', v)[0].textContent,
+                    url: link,
+                    desc: description,
                     date: $('pubDate', v)[0].innerHTML.split(' +')[0],
                 }
                 data.items.push(item);
