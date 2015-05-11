@@ -1524,9 +1524,10 @@ app = Sammy('#main', function (sam) {
 
         switch (connection) {
             case 'ipv4':
+                endurl = 'ipv4_only';
                 break;
             case 'ipv6':
-                endurl = 'ipv6'
+                endurl = 'ipv6_only';
                 break;
         }
 
@@ -1560,7 +1561,8 @@ app = Sammy('#main', function (sam) {
             //    - UDP
             //    - TCP
             //    - Both
-            // --ipv6:
+            // --ipv4-only:
+            // --ipv6-only:
             // --no-upnp:
             var params = {
                 'port' : port,
