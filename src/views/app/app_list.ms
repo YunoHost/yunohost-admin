@@ -29,7 +29,7 @@
 
 <div class="list-group">
 {{#apps}}
-    <a href="#/apps/{{^installed}}install/{{/installed}}{{id}}" class="list-group-item slide">
+    <a href="#/apps/{{#install_link}}install/{{/install_link}}{{id}}" class="list-group-item slide">
         <span class="fa-chevron-right pull-right"></span>
         <h2 class="list-group-item-heading">{{name}} <small>{{id}}</small></h2>
         <p class="list-group-item-text">{{description}}</p>

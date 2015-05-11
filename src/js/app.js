@@ -970,6 +970,7 @@ app = Sammy('#main', function (sam) {
                 data2 = { 'apps': [], 'installed_apps': false }
                 $.each(data['apps'], function(k, v) {
                     if ((!v['installed'] || dataraw[v['id']].manifest.multi_instance == "true") && !v['id'].match(/__[0-9]{1,5}$/)) {
+                        v['install_link']=true;
                         data2['apps'].push(v);
                     }
                 });
