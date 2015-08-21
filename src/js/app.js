@@ -1179,13 +1179,12 @@ app = Sammy('#main', function (sam) {
 
                 // Get manifest.json to get additional parameters
                 jQuery.ajax({
-                    url: params.app.replace('github.com', 'rawgit.com') + 'master/manifest.json',
+                    url: params.app.replace('github.com', 'raw.githubusercontent.com') + 'master/manifest.json',
                     type: 'GET',
-                    crossdomain: true,
-                    dataType: 'json',
                 })
                 .done(function(manifest) {
-                    manifest = manifest || {};
+                    // raw.githubusercontent.com serve content as plain text
+                    manifest = jQuery.parseJSON(manifest) || {};
 
                     c.appInstallForm(
                         params.app,
