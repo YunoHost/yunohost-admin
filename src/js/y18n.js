@@ -7,7 +7,7 @@
         locale: "en",
         placeholder: /(?:\{\{|%\{)(.*?)(?:\}\}?)/gm,
         translations: {},
-    }
+    };
 
     /**
      * Initialization
@@ -17,7 +17,7 @@
         for (var key in defaultOptions) {
             y18n[key] = (typeof y18n[key] !== 'undefined') ? y18n[key] : defaultOptions[key];
         }
-    }
+    };
     y18n.init();
 
 
@@ -29,7 +29,7 @@
       [].forEach.call(
         document.querySelectorAll('[data-y18n]'),
         function(el){
-          el.innerText = y18n.translate(el.getAttribute('data-y18n'))
+          el.innerText = y18n.translate(el.getAttribute('data-y18n'));
         }
       );
 
@@ -37,10 +37,10 @@
       [].forEach.call(
         document.querySelectorAll('[data-y18n-title]'),
         function(el){
-          el.title = y18n.translate(el.getAttribute('data-y18n-title'))
+          el.title = y18n.translate(el.getAttribute('data-y18n-title'));
         }
       );
-    }
+    };
 
     /**
      * Translation
@@ -60,7 +60,7 @@
 
         // Variables remplacement
         return (translation) ? translation.printf(options) : key;
-    }
+    };
 
     y18n.lookup = function(key, options) {
         // Default locale
@@ -74,7 +74,7 @@
                 return y18n.translations[options.locale][key];
             }
         }
-    }
+    };
 
     // Save some typing
     y18n.t = y18n.translate;
