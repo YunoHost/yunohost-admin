@@ -1,4 +1,4 @@
-app = Sammy('#main', function (sam) {
+var app = Sammy('#main', function (sam) {
 
     /**
      * Sammy Configuration

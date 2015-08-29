@@ -1,0 +1,25 @@
+{
+  "name": "yunohost-admin",
+  "description": "YunoHost Admin web interface",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/YunoHost/yunohost-admin"
+  },
+  "author": "Yunohost",
+  "license": "AGPL v3",
+  "bugs": {
+    "url": "https://github.com/YunoHost/yunohost-admin/issues"
+  },
+  "homepage": "https://github.com/YunoHost/yunohost-admin",
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-autoprefixer": "^2.3.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-cssmin": "^0.1.7",
+    "gulp-imagemin": "^2.3.0",
+    "gulp-jshint": "^1.11.2",
+    "gulp-less": "^3.0.3",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^1.2.0"
+  }
+}

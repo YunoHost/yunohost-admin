@@ -1,3 +1,5 @@
+@font-path: "../../fonts/";
+
 /*
  * Bootstrap
  */
@@ -11,25 +13,27 @@
 @font-size-h5:            ceil((@font-size-base * 0.85)); // ~12px
 @font-size-h6:            ceil((@font-size-base * 0.7)); // ~10px
 
+@icon-font-path: @font-path;
+
+
 /*
  * FontAwesome
  */
 @import "../fonts/font-awesome-4.0.3/less/font-awesome.less";
 
 // variables override
-@fa-font-path:        "../fonts/font-awesome-4.0.3/fonts";
+@fa-font-path:        "@{font-path}font-awesome-4.0.3/fonts";
 
 // Fixes
 [class*="fa-"] {.fa;}
 a[class*="fa-"]:hover {text-decoration:none;}
 
 
-
 /*
  * YNH Fonts
  */
-@import "fonts.css";
-
+@import "fonts.less";
+@ynh-font-path: @font-path;
 
 
 /* Comments:
@@ -83,10 +87,6 @@ body {
 
 
 .move {
-    -webkit-transition: margin-left 0.2s ease-in-out;
-    -moz-transition: margin-left 0.2s ease-in-out;
-    -o-transition: margin-left 0.2s ease-in-out;
-    -ms-transition: margin-left 0.2s ease-in-out;
     transition: margin-left 0.2s ease-in-out;
 }
 
@@ -133,8 +133,7 @@ body {
             font-size: 1em;
             line-height: 1;
             color: @gray-light;
-            -webkit-transition: all 0.1s ease;
-                    transition: all 0.1s ease;
+            transition: all 0.1s ease;
 
         }
         &:hover {
@@ -155,8 +154,7 @@ body {
         a.fa-sign-out {
             .fa-2x;
             color: @gray-light;
-            -webkit-transition: all 0.1s ease;
-                    transition: all 0.1s ease;
+            transition: all 0.1s ease;
             &:hover {
                 color: @gray;
             }
@@ -323,10 +321,7 @@ div.br {
     z-index: 2000;
     text-align: center;
     background: rgba(255, 255, 255, 0.5) url(../img/ajax-loader.gif) center 15% no-repeat;
-    -webkit-animation: pacmanlinearmove 5s linear infinite;
-       -moz-animation: pacmanlinearmove 5s linear infinite;
-         -o-animation: pacmanlinearmove 5s linear infinite;
-            animation: pacmanlinearmove 5s linear infinite;
+    animation: pacmanlinearmove 5s linear infinite;
 }
 .loader-content {
     position: fixed;

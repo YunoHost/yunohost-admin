@@ -1,4 +1,8 @@
 *.swp
 
+# npm files
+node_modules
+npm-debug.log
+
 # Symlink to ca.crt file
 ca.crt
