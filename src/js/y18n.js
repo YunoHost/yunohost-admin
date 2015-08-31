@@ -29,7 +29,7 @@
       [].forEach.call(
         document.querySelectorAll('[data-y18n]'),
         function(el){
-          el.innerText = y18n.translate(el.getAttribute('data-y18n'));
+          el.innerHTML = y18n.translate(el.getAttribute('data-y18n'));
         }
       );
 
