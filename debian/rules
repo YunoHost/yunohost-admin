@@ -4,5 +4,15 @@
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
 
+# Get package version
+# dpkg-parsechangelog > 1.17 could use dpkg-parsechangelog --show-field Version
+DEBVERS := $(shell dpkg-parsechangelog | sed -n -e 's/^Version: //p')
+
 %:
 	dh  $@
+
+override_dh_install:
+	# Replace VERSION with current package version to prevent web browser
+	# to serve old css/js files
+	sed -i 's/VERSION/'$DEBVERS'/g' src/index.html
+	dh_install
