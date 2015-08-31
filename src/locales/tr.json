@@ -8,7 +8,7 @@
     "password_description": "Parola en az 4 karekterden oluşmalı",
     "login": "Giriş",
     "logout": "Çıkış",
-    "loading": "Yükleniyor",
+    "loading": "Yükleniyor …",
     "domain_name": "Domain ismi",
     "myserver_org": "sunucum.org",
     "myserver": "sunucum",

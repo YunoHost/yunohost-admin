@@ -8,7 +8,7 @@
     "password_description": "Das Passwort muss mindestens 4 Zeichen enthalten.",
     "login": "Anmelden",
     "logout": "Abmelden",
-    "loading": "wird geladen...",
+    "loading": "wird geladen …",
     "domain_name": "Domain",
     "myserver_org": "meinserver.org",
     "myserver": "meinserver",

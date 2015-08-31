@@ -8,7 +8,7 @@
     "password_description" : "Password must be at least 4 characters long.",
     "login" : "Login",
     "logout" : "Logout",
-    "loading" : "Loading",
+    "loading" : "Loading …",
     "domain_name" : "Domain name",
     "myserver_org" : "myserver.org",
     "myserver" : "myserver",

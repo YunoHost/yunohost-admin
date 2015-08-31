@@ -8,7 +8,7 @@
     "password_description": "Ο κωδικός πρόσβασης πρέπει να είναι τουλάχιστον 4 χαρακτήρες.",
     "login": "Σύνδεση",
     "logout": "Αποσύνδεση",
-    "loading": "Φόρτωση",
+    "loading": "Φόρτωση …",
     "domain_name": "Όνομα τομέα",
     "myserver_org": "myserver.org",
     "myserver": "myserver",

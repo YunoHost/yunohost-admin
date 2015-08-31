@@ -8,7 +8,7 @@
     "password_description": "Le mot de passe doit faire au moins 4 caractères.",
     "login": "Connexion",
     "logout": "Déconnexion",
-    "loading": "Chargement",
+    "loading": "Chargement …",
     "domain_name": "Nom de domaine",
     "myserver_org": "monserver.fr",
     "myserver": "monserver",

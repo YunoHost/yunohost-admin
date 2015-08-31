@@ -8,7 +8,7 @@
     "password_description": "A senha deve ter o mínimo de 4 caracteres.",
     "login": "Iniciar sessão",
     "logout": "Terminar sessão",
-    "loading": "Inicializando",
+    "loading": "Inicializando …",
     "domain_name": "Nome do domínio",
     "myserver_org": "meuservidor.org",
     "myserver": "meuservidor",
