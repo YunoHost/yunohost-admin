@@ -20,6 +20,13 @@ gulp.task('build', [
 ]);
 
 
+// Watch task
+gulp.task('watch', function(){
+    gulp.watch('js/*.js', ['js']);
+    gulp.watch('css/*.less', ['css']);
+});
+
+
 // JS task
 gulp.task('js', function() {
     return gulp.src([
