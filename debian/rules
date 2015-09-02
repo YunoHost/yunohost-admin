@@ -14,5 +14,5 @@ DEBVERS := $(shell dpkg-parsechangelog | sed -n -e 's/^Version: //p')
 override_dh_install:
 	# Replace VERSION with current package version to prevent web browser
 	# to serve old css/js files
-	sed -i 's/VERSION/'${DEBVERS}'/g' src/index.html
+	sed -i 's/VERSION/$(DEBVERS)/g' src/index.html
 	dh_install
