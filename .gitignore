@@ -6,3 +6,6 @@ npm-debug.log
 
 # Symlink to ca.crt file
 ca.crt
+
+# Debug CSS file
+src/css/style.css

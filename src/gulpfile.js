@@ -4,6 +4,7 @@ var gulp = require('gulp');
 // Include required Gulp packages
 var concat = require('gulp-concat'),
     uglify = require('gulp-uglify'),
+    csslint = require('gulp-csslint'),
     jshint = require('gulp-jshint'),
     less = require('gulp-less'),
     autoprefixer = require('gulp-autoprefixer'),
@@ -65,6 +66,17 @@ gulp.task('css', function () {
         }))
         .pipe(cssmin())
         .pipe(gulp.dest('./dist/css'))
+});
+
+
+// CSS/Less lint task
+gulp.task('css-lint', function() {
+    return gulp.src('css/style.less')
+        .pipe(less())
+        .pipe(autoprefixer())
+        .pipe(csslint())
+        .pipe(csslint.reporter('compact'))
+        .pipe(gulp.dest('./css/'))
 });
 
 
