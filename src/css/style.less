@@ -410,34 +410,28 @@ a.list-group-item-heading,
   }
 }
 
-.btn-breadcrumb a:not(:last-child):after {
-  content: " ";
-  display: block;
-  width: 0;
-  height: 0;
-  border-top: 17px solid transparent;
-  border-bottom: 17px solid transparent;
-  border-left: 10px solid white;
-  position: absolute;
-  top: 50%;
-  margin-top: -17px;
-  left: 100%;
-  z-index: 3;
-}
-.btn-breadcrumb a:not(:last-child):before {
-  content: " ";
-  display: block;
-  width: 0;
-  height: 0;
-  border-top: 17px solid transparent;
-  border-bottom: 17px solid transparent;
-  border-left: 10px solid rgb(173, 173, 173);
-  position: absolute;
-  top: 50%;
-  margin-top: -17px;
-  margin-left: 1px;
-  left: 100%;
-  z-index: 3;
+.btn-breadcrumb a:not(:last-child) {
+  &:after,
+  &:before {
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    z-index: 3;
+    content: " ";
+    display: block;
+    width: 0;
+    height: 0;
+    border-top: 17px solid transparent;
+    border-bottom: 17px solid transparent;
+    margin-top: -17px;
+  }
+  &:after {
+    border-left: 10px solid white;
+  }
+  &:before {
+    border-left: 10px solid rgb(173, 173, 173);
+    margin-left: 1px;
+  }
 }
 
 .btn-breadcrumb a {
@@ -449,22 +443,6 @@ a.list-group-item-heading,
 .btn-breadcrumb a:last-child {
   padding:6px 18px 6px 24px;
 }
-
-
-/** Default button **/
-.btn-group.btn-breadcrumb a:not(:last-child):after {
-  border-left: 10px solid #fff;
-}
-.btn-group.btn-breadcrumb a:not(:last-child):before {
-  border-left: 10px solid #ccc;
-}
-.btn-group.btn-breadcrumb a:hover:not(:last-child):after {
-  border-left: 10px solid #ebebeb;
-}
-.btn-group.btn-breadcrumb a:hover:not(:last-child):before {
-  border-left: 10px solid #adadad;
-}
-
 
 
 .separator {
