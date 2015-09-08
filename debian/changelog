@@ -1,3 +1,39 @@
+yunohost-admin (2.2.2) testing; urgency=low
+
+  [ zamentur ]
+  * [fix] Link broken on security alert (#95)
+  * [fix] Can't install several instances of multisite apps (#94)
+
+  [ Jérôme Lebleu ]
+  * [fix] Pass proper arguments when enable/disable a port (fix #96)
+
+  [ opi ]
+  * [enh] Add link that redirect to user interface (SSO). #85
+
+  [ M5oul ]
+  * Add AGPL license
+
+  [ opi ]
+  * [enh] Use githubusercontent.com instead of rawgit.com
+  * [enh] Use Gulp to process Less, JS and images files.
+  * [enh] Pass jshint.
+  * [fix] Add missing href attribute in user interface link.
+  * [fix] Add missing translation string for user interface link.
+  * [fix] Remove old phonegap JS code.
+  * [enh] Add Gulp watch task.
+  * [fix] Use standard innerHTML to translate page content.
+  * [enh] Append hellip to every language 'loading' string.
+  * [enh] Use current pkg version in index.html to update browser cache.
+  * [enh] Move script in head tag.
+  * [fix] Remove old config.xml file for phonegap.
+  * [fix] Sed current pkg version in index.html
+  * [fix] Last commit was wrong. Fix Debian makefile.
+  * [fix] Add missing clearfix for main slider content.
+  * [enh] Add CSS Lint task.
+  * [fix] CSS cleanup and rebuild.
+
+ -- opi <opi@no-log.org>  Tue, 08 Sep 2015 15:52:23 +0200
+
 yunohost-admin (2.2.1) stable; urgency=low
 
   * Bumping version to 2.2.1
