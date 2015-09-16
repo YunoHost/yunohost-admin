@@ -6,7 +6,7 @@
     "url": "https://github.com/YunoHost/yunohost-admin"
   },
   "author": "Yunohost",
-  "license": "AGPL v3",
+  "license": "AGPL-3.0",
   "bugs": {
     "url": "https://github.com/YunoHost/yunohost-admin/issues"
   },
