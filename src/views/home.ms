@@ -31,4 +31,8 @@
         <span class="pull-right fa-chevron-right"></span>
         <h2 class="list-group-item-heading"><span class="fa-fw fa-archive"></span> {{t 'backup'}}</h2>
     </a>
+    <div class="help text-info" id="callout-type-b-i-elems">
+        <h3>{{t 'Welcome in the administration panel'}}</h3>
+        <p></p>
+    </div>
 </div>
