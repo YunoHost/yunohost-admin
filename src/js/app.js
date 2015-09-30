@@ -4,6 +4,7 @@ var app = Sammy('#main', function (sam) {
      * Sammy Configuration
      *
      */
+    
     // Plugins
     sam.use('Handlebars', 'ms');
 
@@ -49,11 +50,12 @@ var app = Sammy('#main', function (sam) {
     var store = new Sammy.Store({name: 'storage', type: storageType});
     var loaded = false;
     var isInstalledTry = 3;
-
+    
     /**
      * Helpers
      *
      */
+    
     sam.helpers({
 
         // Serialize an object
@@ -229,6 +231,17 @@ var app = Sammy('#main', function (sam) {
             loaded = true;
             $('div.loader').remove();
             $('#modal').modal('hide');
+            
+            //Toggle and store helpboxes display property at button switch
+            $('#help-switch').change(function() {
+                store.set('display_help', $('#help-switch').prop('checked'));
+                if(store.get('display_help')){
+                    $('.help').show();
+                }else{
+                    $('.help').hide();
+                }
+            });
+            
 
             if (enableSlide) {
                 var leSwap = function() {
@@ -459,7 +472,12 @@ var app = Sammy('#main', function (sam) {
                         viewedItems.push(item.guid);
                     }
                 });
-
+                
+                //display help blocks by default
+                if(!store.exists('display_help')){
+                    store.set('display_help', true);
+                }
+                
                 // Saved viewed items to cookie
                 $.cookie('ynhSecurityViewedItems', viewedItems, {
                     expire: 7
@@ -845,10 +863,13 @@ var app = Sammy('#main', function (sam) {
 
                 // Do not show main domain form if we have only 1 domain
                 main_domain_form = (domains.length > 1) ? true: false;
-
+                
+                //Get display statut for view 
+                display_help = (store.get('display_help')) ? "block" : "none";
+                
                 // Sort domains with main domain first
                 domains.sort(function(a, b){ return -2*(a.main) + 1; });
-                c.view('domain/domain_list', {domains: domains, main_domain_form: main_domain_form});
+                c.view('domain/domain_list', {domains: domains, main_domain_form: main_domain_form, display_help: display_help});
             }, 'PUT');
         });
     });
@@ -1858,6 +1879,7 @@ $(document).ready(function () {
      * Application
      */
     app.run('#/');
+
 
     // Fixes for sliding effect
     $('#slider-container').width(2*$('#slider').width() +'px');

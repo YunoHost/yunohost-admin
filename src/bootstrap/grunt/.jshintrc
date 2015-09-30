@@ -1,7 +1,16 @@
 {
-  "extends" : "../js/.jshintrc",
-  "asi"     : false,
-  "browser" : false,
-  "es3"     : false,
-  "node"    : true
+  "asi": false,
+  "camelcase": true,
+  "curly": true,
+  "eqeqeq": true,
+  "immed": true,
+  "indent": 2,
+  "newcap": true,
+  "noarg": true,
+  "nonbsp": true,
+  "quotmark": "single",
+  "undef": true,
+  "strict": true,
+  "trailing": true,
+  "node" : true
 }

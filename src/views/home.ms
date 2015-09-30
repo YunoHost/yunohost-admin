@@ -1,8 +1,4 @@
 <div class="list-group">
-    <div class="help" id="callout-type-b-i-elems">
-        <h3>{{t 'Welcome to the administration panel'}}</h3>
-        <p>Lorem ipsum dolorem trolololo ut</p>
-    </div>
     <a href="#/users" class="list-group-item slide clearfix">
         <span class="pull-right fa-chevron-right"></span>
         <h2 class="list-group-item-heading"><span class="fa-fw fa-users"></span> {{t 'users'}}</h2>

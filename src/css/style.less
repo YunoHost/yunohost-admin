@@ -15,6 +15,8 @@
 
 @icon-font-path: @font-path;
 
+// bootstrap toggle for switch-like buttons
+@import "../bootstrap/bootstrap-toggle/css/bootstrap-toggle.less";
 
 /*
  * FontAwesome
@@ -89,6 +91,12 @@ body {
     
     border-image: none;
     border-radius: 3px;
+}
+
+.toggle {
+    position: absolute;
+    top: 40px;
+    right: 45%;
 }
 
 /* Fix bootstrap use of width. We prefer max-width. */
