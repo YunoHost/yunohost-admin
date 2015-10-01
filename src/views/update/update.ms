@@ -1,7 +1,6 @@
 <div class="btn-breadcrumb">
     <a href="#/" ><i class="fa-home"></i><span class="sr-only">{{t 'home'}}</span></a>
-    <a href="#/tools">{{t 'tools'}}</a>
-    <a href="#/tools/update">{{t 'system_update'}}</a>
+    <a href="#/update">{{t 'system_update'}}</a>
 </div>
 
 <div class="separator"></div>
@@ -27,7 +26,7 @@
         {{/packages}}
     </div>
     <div class="panel-footer">
-        <a href="#/tools/upgrade/packages" class="btn btn-success">{{t 'system_upgrade_btn'}}</a>
+        <a href="#/upgrade/packages" class="btn btn-success">{{t 'system_upgrade_btn'}}</a>
     </div>
     {{else}}
     <div class="panel-body">
@@ -49,7 +48,7 @@
         {{/apps}}
     </div>
     <div class="panel-footer">
-        <a href="#/tools/upgrade/apps" class="btn btn-success">{{t 'system_upgrade_btn'}}</a>
+        <a href="#/upgrade/apps" class="btn btn-success">{{t 'system_upgrade_btn'}}</a>
     </div>
     {{else}}
     <div class="panel-body">

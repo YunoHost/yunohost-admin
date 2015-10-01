@@ -11,7 +11,7 @@
         <span class="pull-right fa-chevron-right"></span>
         <h2 class="list-group-item-heading"><span class="fa-fw fa-rocket"></span> {{t 'applications'}}</h2>
     </a>
-    <a href="#/tools/update" class="list-group-item slide">
+    <a href="#/update" class="list-group-item slide">
         <span class="fa-chevron-right pull-right"></span>
         <h2 class="list-group-item-heading"><span class="fa-fw fa-refresh"></span> {{t 'system_update'}}</h2>
     </a>

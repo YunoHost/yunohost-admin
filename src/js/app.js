@@ -1714,7 +1714,7 @@ var app = Sammy('#main', function (sam) {
     });
 
     // System update & upgrade
-    sam.get('#/tools/update', function (c) {
+    sam.get('#/update', function (c) {
         c.api('/update', function(data) {
             packagesLength = data.packages.length;
             for(var i = 0; i < packagesLength; i++) {
@@ -1727,16 +1727,16 @@ var app = Sammy('#main', function (sam) {
                     data.packages[i].delayed = true;
                 }
             }
-            c.view('tools/tools_update', data);
+            c.view('update/update', data);
         }, 'PUT');
     });
 
     // Upgrade apps or packages
-    sam.get('#/tools/upgrade/:type', function (c) {
+    sam.get('#/upgrade/:type', function (c) {
         if (c.params['type'] !== 'apps' && c.params['type'] !== 'packages') {
             c.flash('fail', y18n.t('unknown_argument', [c.params['type']]));
             store.clear('slide');
-            c.redirect('#/tools/update');
+            c.redirect('#/update');
         }
         else {
             c.confirm(
@@ -1750,13 +1750,13 @@ var app = Sammy('#main', function (sam) {
                     c.api('/upgrade?'+endurl, function(data) {
                         // 'log' is a reserved name, maybe in handlebars
                         data.logs = data.log;
-                        c.view('tools/tools_upgrade', data);
+                        c.view('upgrade/upgrade', data);
                     }, 'PUT');
 
                 },
                 function(){
                     store.clear('slide');
-                    c.redirect('#/tools/update');
+                    c.redirect('#/update');
                 }
             );
         }
