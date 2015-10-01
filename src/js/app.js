@@ -1635,7 +1635,7 @@ var app = Sammy('#main', function (sam) {
      */
 
     // Server monitoring
-    sam.get('#/monitor', function (c) {
+    sam.get('#/tools/monitor', function (c) {
         monitorData = {};
 
         // Why this method ?
@@ -1663,7 +1663,7 @@ var app = Sammy('#main', function (sam) {
             }
             else {
                 monitorData.status = false;
-                c.view('monitor/monitor', monitorData);
+                c.view('tools/tools_monitor', monitorData);
             }
 
         }, 'GET');
