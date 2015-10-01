@@ -1819,11 +1819,248 @@ var app = Sammy('#main', function (sam) {
      * Backup
      *
      */
-
-    // Backup view
+    
+    var config_hooks = [
+        'system_ldap',
+        'system_ssowat',
+        'system_cron',
+        'system_ssh',
+        'system_xmpp',
+        'system_mysql',
+        'system_yunohost',
+        'system_nginx'
+    ];
+    // Storage list
     sam.get('#/backup', function (c) {
-        c.view('backup/backup');
+        var storages = [];
+        
+        var item = {
+                id: 'local',
+                name: y18n.t('local_archives'),
+                uri: '/home/yunohost.backup/'
+            };
+        storages.push(item);
+        
+        c.view('backup/backup', {'storages':storages});
     });
+    
+    // Storage list
+    sam.get('#/storages/create', function (c) {        
+        c.view('backup/storage_create', {});
+    });
+    
+    // Create a storage
+    sam.post('#/storages', function (c) {   
+        store.clear('slide');
+        c.redirect('#/storages');
+    });
+    
+    // Create a backup
+    sam.get('#/backup/:storage/create', function (c) {
+        var data=[];
+        data['storage']={
+            id:c.params['storage'],
+            name:y18n.t('local_archives')
+        };           
+        data['hooks']=[
+            {
+                id:'system_home',
+                name:y18n.t('home_data')
+            },
+            {
+                id:'system_mail',
+                name:y18n.t('mail')
+            },
+            {
+                id:'adminjs_group_hooks_config',
+                name:y18n.t('configuration'),
+                hooks:config_hooks
+            }
+        ];
+        //TODO: (ljf) add personal hools in data['items']
+        data['apps']=[];
+        c.api('/apps?raw', function(dataraw) { // http://api.yunohost.org/#!/app/app_list_get_8
+            $.each(dataraw, function(app_id, app) {
+                if (app['installed']) {
+                    data['apps'].push({
+                        id: app_id,
+                        app_id: app_id,
+                        name: app['manifest']['name']
+                    });
+                }
+            });
+            c.view('backup/backup_create', data);
+        });
+        
+    });
+    
+    
+    sam.post('#/backup/:storage', function (c) {
+        var params = {
+            'hooks': c.params['hooks'], 
+            'apps': c.params['apps']
+        };
+        if (params['hooks']==undefined)
+            params['hooks']=[];
+        else if (params['hooks'].constructor !== Array)
+            params['hooks']=[params['hooks']];
+        if (params['apps']==undefined)
+            params['apps']=[];
+        else if (params['apps'].constructor !== Array)
+            params['apps']=[params['apps']];
+        var config_pos=params['hooks'].indexOf('adminjs_group_hooks_config');
+        if (config_pos>-1)
+        {
+            params['hooks'].splice(config_pos, 1);
+            params['hooks']=params['hooks'].concat(config_hooks);
+        }
+        if (params['hooks'].length==0)
+            params['ignore_hooks']='';
+        if (params['apps'].length==0)
+            params['ignore_apps']='';
+            
+        c.api('/backup', function() {
+            store.clear('slide');
+            c.redirect('#/backup/'+ c.params['storage']);
+        }, 'POST', params);
+    });
+    
+    // Restore a backup
+    sam.post('#/backup/:storage/:archive/restore', function (c) {
+        c.confirm(
+            y18n.t('backup'),
+            y18n.t('confirm_restore', [c.params['archive']]),
+            $.proxy(function(c){
+                var params={};
+                params['apps']=c.params['apps'];
+                params['hooks']=c.params['hooks'];
+                if (params['hooks']==undefined)
+                    params['hooks']=[];
+                else if (params['hooks'].constructor !== Array)
+                    params['hooks']=[params['hooks']];
+                if (params['apps']==undefined)
+                    params['apps']=[];
+                else if (params['apps'].constructor !== Array)
+                    params['apps']=[params['apps']];
+                if (params['hooks'].length==0)
+                    params['ignore_hooks']='';
+                if (params['apps'].length==0)
+                    params['ignore_apps']='';
+                var config_pos=params['hooks'].indexOf('adminjs_group_hooks_config');
+                if (config_pos>-1)
+                {
+                    params['hooks'].splice(config_pos, 1);
+                    params['hooks']=params['hooks'].concat(config_hooks);
+                }
+                params['force']='';
+                c.api('/backup/restore/'+c.params['archive'], function(data) {            
+                    store.clear('slide');
+                    c.redirect('#/backup/'+ c.params['storage']+'/'+c.params['archive']);
+                }, 'POST', params);
+            },this,c),
+            function(){
+                store.clear('slide');
+                c.redirect('#/backup/'+ c.params['storage']+'/'+c.params['archive']);
+            }
+        );
+        
+    });
+    
+    // Delete a backup
+    sam.get('#/backup/:storage/:archive/delete', function (c) {
+        c.confirm(
+            y18n.t('backup'),
+            y18n.t('confirm_delete', [c.params['archive']]),
+            function(){
+                c.api('/backup/'+c.params['archive'], function(data) { 
+                    c.redirect('#/backup/'+ c.params['storage']);
+                }, 'DELETE');
+            },
+            function(){
+                store.clear('slide');
+                c.redirect('#/backup/'+ c.params['storage']+'/'+c.params['archive']);
+            }
+        );
+    });
+    
+    // Download a backup
+    sam.get('#/backup/:storage/:archive/download', function (c) {
+        c.api('/backup/'+c.params['archive']+'/download', function(data) { 
+            c.redirect('#/backup/'+ c.params['storage']+'/'+c.params['archive']);
+        }, 'GET');
+    });
+    
+    // Copy a backup
+    sam.get('#/backup/:storage/:archive/copy', function (c) {
+        store.clear('slide');
+        c.redirect('#/backup/'+ c.params['storage']+'/'+c.params['archive']);  
+    });
+    
+    // Upload a backup
+    sam.get('#/backup/:storage/:archive/upload', function (c) {
+        store.clear('slide');
+        c.redirect('#/backup/'+ c.params['storage']+'/'+c.params['archive']);        
+    });
+    
+    
+    // Get archive info
+    sam.get('#/backup/:storage/:archive', function (c) {
+        c.api('/backup/archives/'+c.params['archive']+'?with_details', function(data) { 
+            data['storage']={
+                id:c.params['storage'],
+                name:y18n.t('local_archives')
+            };
+            data['other_storages']=[];
+            data['name']=c.params['archive'];            
+            data['hooks2']={}; 
+            
+            $.each(data['hooks'], function(hook, paths) {
+                if (hook.substring(0, 7)=='system_')
+                {
+                    var service=hook.slice(7);
+                    if (service=='home')
+                        data['hooks2']['system_home']={
+                            name:y18n.t('home_data')
+                        };
+                    else if (service=='mail')
+                        data['hooks2']['system_mail']={
+                            name:y18n.t('mail')
+                        };
+                    else
+                        data['hooks2']['adminjs_group_hooks_config']={
+                            name:y18n.t('configuration')
+                        };
+                        
+                }
+                else
+                    data['hooks2'][hook]={
+                        name:hook
+                    };
+            });         
+            data['hooks']=data['hooks2'];
+            data['items']=(data['hooks']!={} || data['apps']!=[]); 
+            c.view('backup/backup_info', data);
+        });
+    });
+    
+    
+    // Archive list
+    sam.get('#/backup/:storage', function (c) {
+        c.api('/backup/archives?with_info', function(data) { 
+            data['storage']={
+                id:'local',
+                name:y18n.t('local_archives')
+            };
+            data['archives2']=[];
+            $.each(data['archives'], function(name, info) {
+                info['name']=name;
+                data['archives2'].unshift(info)
+            });
+            data['archives']=data['archives2'];
+            c.view('backup/backup_list', data);
+        });
+    });
+    
 
 });
 
