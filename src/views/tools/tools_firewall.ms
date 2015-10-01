@@ -1,6 +1,7 @@
 <div class="btn-breadcrumb">
     <a href="#/" ><i class="fa-home"></i><span class="sr-only">{{t 'home'}}</span></a>
-    <a href="#/firewall">{{t 'firewall'}}</a>
+    <a href="#/tools">{{t 'tools'}}</a>
+    <a href="#/tools/firewall">{{t 'firewall'}}</a>
 </div>
 
 <div class="separator"></div>
@@ -28,20 +29,20 @@
                     <td>
                     {{#if this.ipv4}}
                     <span class="fa-check"></span>
-                    <a class="btn btn-xs btn-danger" href="#/firewall/port/{{@key}}/tcp/ipv4/close">{{t 'close'}}</a>
+                    <a class="btn btn-xs btn-danger" href="#/tools/firewall/port/{{@key}}/tcp/ipv4/close">{{t 'close'}}</a>
                     {{else}}
                     <span></span>
                     <span class="fa-times"></span>
-                    <a class="btn btn-xs btn-success" href="#/firewall/port/{{@key}}/tcp/ipv4/open">{{t 'open'}}</a>
+                    <a class="btn btn-xs btn-success" href="#/tools/firewall/port/{{@key}}/tcp/ipv4/open">{{t 'open'}}</a>
                     {{/if}}
                     </td>
                     <td>
                     {{#if this.ipv6}}
                     <span class="fa-check"></span>
-                    <a class="btn btn-xs btn-danger" href="#/firewall/port/{{@key}}/tcp/ipv6/close">{{t 'close'}}</a>
+                    <a class="btn btn-xs btn-danger" href="#/tools/firewall/port/{{@key}}/tcp/ipv6/close">{{t 'close'}}</a>
                     {{else}}
                     <span class="fa-times"></span>
-                    <a class="btn btn-xs btn-success" href="#/firewall/port/{{@key}}/tcp/ipv6/open">{{t 'open'}}</a>
+                    <a class="btn btn-xs btn-success" href="#/tools/firewall/port/{{@key}}/tcp/ipv6/open">{{t 'open'}}</a>
                     {{/if}}
                     </td>
                     <td>
@@ -74,20 +75,20 @@
                     <td>
                     {{#if this.ipv4}}
                     <span class="fa-check"></span>
-                    <a class="btn btn-xs btn-danger" href="#/firewall/port/{{@key}}/udp/ipv4/close">{{t 'close'}}</a>
+                    <a class="btn btn-xs btn-danger" href="#/tools/firewall/port/{{@key}}/udp/ipv4/close">{{t 'close'}}</a>
                     {{else}}
                     <span></span>
                     <span class="fa-times"></span>
-                    <a class="btn btn-xs btn-success" href="#/firewall/port/{{@key}}/udp/ipv4/open">{{t 'open'}}</a>
+                    <a class="btn btn-xs btn-success" href="#/tools/firewall/port/{{@key}}/udp/ipv4/open">{{t 'open'}}</a>
                     {{/if}}
                     </td>
                     <td>
                     {{#if this.ipv6}}
                     <span class="fa-check"></span>
-                    <a class="btn btn-xs btn-danger" href="#/firewall/port/{{@key}}/udp/ipv6/close">{{t 'close'}}</a>
+                    <a class="btn btn-xs btn-danger" href="#/tools/firewall/port/{{@key}}/udp/ipv6/close">{{t 'close'}}</a>
                     {{else}}
                     <span class="fa-times"></span>
-                    <a class="btn btn-xs btn-success" href="#/firewall/port/{{@key}}/udp/ipv6/open">{{t 'open'}}</a>
+                    <a class="btn btn-xs btn-success" href="#/tools/firewall/port/{{@key}}/udp/ipv6/open">{{t 'open'}}</a>
                     {{/if}}
                     </td>
                     <td>
@@ -121,7 +122,7 @@
         <h2 class="panel-title"><span class="fa-fw fa-cog"></span> {{t 'operations'}}</h2>
     </div>
     <div class="panel-body">
-        <form action="#/firewall/port" method="POST" class="">
+        <form action="#/tools/firewall/port" method="POST" class="">
             <div class="form-group row">
                 <div class="col-xs-6 col-sm-3">
                     <label for="action" class="control-label">{{t 'action'}}</label>
@@ -167,10 +168,10 @@
     <div class="panel-body">
         {{#if upnp}}
             <p class="text-success">{{t 'upnp_enabled'}}</p>
-            <a href="#/firewall/upnp/disable" class="btn btn-danger">{{t 'disable'}}</a>
+            <a href="#/tools/firewall/upnp/disable" class="btn btn-danger">{{t 'disable'}}</a>
         {{else}}
             <p class="text-danger">{{t 'upnp_disabled'}}</p>
-            <a href="#/firewall/upnp/enable" class="btn btn-success">{{t 'enable'}}</a>
+            <a href="#/tools/firewall/upnp/enable" class="btn btn-success">{{t 'enable'}}</a>
         {{/if}}
     </div>
 </div>
