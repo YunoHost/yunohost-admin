@@ -322,6 +322,7 @@ var app = Sammy('#main', function (sam) {
                 .click(function(e){
                     e.preventDefault();
 
+                    $('#modal footer button').unbind( "click" );
                     // Reset & Hide modal
                     box
                         .removeClass('no-title')
@@ -358,7 +359,67 @@ var app = Sammy('#main', function (sam) {
             return arr1.filter(function (a) {
                 return ((arr2.indexOf(a) == -1) && (a !== ""));
             });
-        }
+        },
+        
+        groupHooks: function(hooks) {
+            data={}; 
+            var rules=[
+                {
+                    id:'configuration',
+                    isIn:function (hook) { 
+                        return hook.indexOf('conf_')==0
+                    }
+                }
+            ];
+            
+            $.each(hooks, function(i, hook) {
+                var group_id=hook;
+                $.each(rules, function(i, rule) {
+                    if (rule.isIn(hook))
+                    {
+                        group_id='adminjs_group_'+rule.id;
+                        return false;
+                    }
+                });
+                if(group_id in data) 
+                    data[group_id]={
+                        name:y18n.t('hook_'+group_id),
+                        value:data[group_id].value+','+hook,
+                        description:data[group_id].description+', '+y18n.t('hook_'+hook)
+                    };
+                else
+                    data[group_id]={
+                        name:y18n.t('hook_'+group_id),
+                        value:hook,
+                        description:(group_id==hook)?y18n.t('hook_desc_'+hook):y18n.t('hook_'+hook)
+                    };
+            });         
+            return data;
+        },
+        
+        ungroupHooks: function(hooks,apps) {
+            var data={};
+            data['apps']=apps;
+            data['hooks']=hooks;
+            if (data['hooks']==undefined)
+                data['hooks']=[];
+            else if (data['hooks'].constructor !== Array)
+                data['hooks']=[data['hooks']];
+            if (data['apps']==undefined)
+                data['apps']=[];
+            else if (data['apps'].constructor !== Array)
+                data['apps']=[params['apps']];
+            if (data['hooks'].length==0)
+                data['ignore_hooks']='';
+            if (data['apps'].length==0)
+                data['ignore_apps']='';
+            var split_hooks=[];
+            $.each(data['hooks'], function(i, hook) {
+                split_hooks.concat(hook.split(','));
+            });
+            data['hooks']=split_hooks;
+            return data;
+        },
     });
 
 
@@ -1529,7 +1590,7 @@ var app = Sammy('#main', function (sam) {
      */
 
     // Firewall status
-    sam.get('#/firewall', function (c) {
+    sam.get('#/tools/firewall', function (c) {
         c.api('/firewall?raw', function(data) {
             var firewall = {
                 ports : {},
@@ -1550,12 +1611,12 @@ var app = Sammy('#main', function (sam) {
             // Get UPnP status
             firewall.upnp = data.uPnP.enabled;
 
-            c.view('firewall/firewall', firewall);
+            c.view('tools/tools_firewall', firewall);
         });
     });
 
     // Enable/Disable UPnP
-    sam.get('#/firewall/upnp/:action', function (c) {
+    sam.get('#/tools/firewall/upnp/:action', function (c) {
         c.confirm(
             y18n.t('firewall'),
             y18n.t('confirm_upnp_action', [y18n.t(c.params['action'])]),
@@ -1563,12 +1624,12 @@ var app = Sammy('#main', function (sam) {
                 params = {'action' : c.params['action']};
                 c.api('/firewall/upnp', function(data) {
                     store.clear('slide');
-                    c.redirect('#/firewall');
+                    c.redirect('#/tools/firewall');
                 }, 'GET', params);
             },
             function(){
                 store.clear('slide');
-                c.redirect('#/firewall');
+                c.redirect('#/tools/firewall');
             }
         );
     });
@@ -1583,7 +1644,7 @@ var app = Sammy('#main', function (sam) {
         if (port != parseInt(port) || port < 0 || port > 65535) {
             c.flash('fail', y18n.t('unknown_argument', [port]));
             store.clear('slide');
-            c.redirect('#/firewall');
+            c.redirect('#/tools/firewall');
         }
 
         switch (connection) {
@@ -1616,7 +1677,7 @@ var app = Sammy('#main', function (sam) {
             default:
                 c.flash('fail', y18n.t('unknown_action', [action]));
                 store.clear('slide');
-                c.redirect('#/firewall');
+                c.redirect('#/tools/firewall');
         }
 
         if (method !== null && protocol !== null && port !== null) {
@@ -1634,19 +1695,19 @@ var app = Sammy('#main', function (sam) {
             };
             c.api('/firewall/port?'+endurl, function(data) {
                 store.clear('slide');
-                c.redirect('#/firewall');
+                c.redirect('#/tools/firewall');
             }, method, params);
         }
         else {
             store.clear('slide');
-            c.redirect('#/firewall');
+            c.redirect('#/tools/firewall');
         }
         return;
     });
 
     // Update port status from direct link
     // #/firewall/port/{{@key}}/tcp/ipv4/close
-    sam.get('#/firewall/port/:port/:protocol/:connection/:action', function (c) {
+    sam.get('#/tools/firewall/port/:port/:protocol/:connection/:action', function (c) {
         c.confirm(
             y18n.t('firewall'),
             y18n.t( 'confirm_firewall', [ y18n.t(c.params['action']), c.params['port'], y18n.t(c.params['protocol']), y18n.t(c.params['connection'])]),
@@ -1660,13 +1721,13 @@ var app = Sammy('#main', function (sam) {
             },
             function(){
                 store.clear('slide');
-                c.redirect('#/firewall');
+                c.redirect('#/tools/firewall');
             }
         );
     });
 
     // Update port status from form
-    sam.post('#/firewall/port', function (c) {
+    sam.post('#/tools/firewall/port', function (c) {
         c.confirm(
             y18n.t('firewall'),
             y18n.t('confirm_firewall', [ y18n.t(c.params['action']), c.params['port'], y18n.t(c.params['protocol']), y18n.t(c.params['connection']) ]),
@@ -1680,7 +1741,7 @@ var app = Sammy('#main', function (sam) {
             },
             function(){
                 store.clear('slide');
-                c.redirect('#/firewall');
+                c.redirect('#/tools/firewall');
             }
         );
     });
@@ -1694,7 +1755,7 @@ var app = Sammy('#main', function (sam) {
      */
 
     // Server monitoring
-    sam.get('#/monitor', function (c) {
+    sam.get('#/tools/monitor', function (c) {
         monitorData = {};
 
         // Why this method ?
@@ -1722,7 +1783,7 @@ var app = Sammy('#main', function (sam) {
             }
             else {
                 monitorData.status = false;
-                c.view('monitor/monitor', monitorData);
+                c.view('tools/tools_monitor', monitorData);
             }
 
         }, 'GET');
@@ -1775,7 +1836,7 @@ var app = Sammy('#main', function (sam) {
     });
 
     // System update & upgrade
-    sam.get('#/tools/update', function (c) {
+    sam.get('#/update', function (c) {
         c.api('/update', function(data) {
             packagesLength = data.packages.length;
             for(var i = 0; i < packagesLength; i++) {
@@ -1788,16 +1849,16 @@ var app = Sammy('#main', function (sam) {
                     data.packages[i].delayed = true;
                 }
             }
-            c.view('tools/tools_update', data);
+            c.view('update/update', data);
         }, 'PUT');
     });
 
     // Upgrade apps or packages
-    sam.get('#/tools/upgrade/:type', function (c) {
+    sam.get('#/upgrade/:type', function (c) {
         if (c.params['type'] !== 'apps' && c.params['type'] !== 'packages') {
             c.flash('fail', y18n.t('unknown_argument', [c.params['type']]));
             store.clear('slide');
-            c.redirect('#/tools/update');
+            c.redirect('#/update');
         }
         else {
             c.confirm(
@@ -1811,13 +1872,13 @@ var app = Sammy('#main', function (sam) {
                     c.api('/upgrade?'+endurl, function(data) {
                         // 'log' is a reserved name, maybe in handlebars
                         data.logs = data.log;
-                        c.view('tools/tools_upgrade', data);
+                        c.view('upgrade/upgrade', data);
                     }, 'PUT');
 
                 },
                 function(){
                     store.clear('slide');
-                    c.redirect('#/tools/update');
+                    c.redirect('#/update');
                 }
             );
         }
@@ -1882,11 +1943,165 @@ var app = Sammy('#main', function (sam) {
      * =============================================================
      *
      */
-
-    // Backup view
+    
+    var config_hooks = [
+        'system_ldap',
+        'system_ssowat',
+        'system_cron',
+        'system_ssh',
+        'system_xmpp',
+        'system_mysql',
+        'system_yunohost',
+        'system_nginx'
+    ];
+    // Storage list
     sam.get('#/backup', function (c) {
-        c.view('backup/backup');
+        var storages = [];
+        
+        var item = {
+                id: 'local',
+                name: y18n.t('local_archives'),
+                uri: '/home/yunohost.backup/'
+            };
+        storages.push(item);
+        
+        c.view('backup/backup', {'storages':storages});
     });
+    
+    // Storage list
+    sam.get('#/storages/create', function (c) {        
+        c.view('backup/storage_create', {});
+    });
+    
+    // Create a storage
+    sam.post('#/storages', function (c) {   
+        store.clear('slide');
+        c.redirect('#/storages');
+    });
+    
+    // Create a backup
+    sam.get('#/backup/:storage/create', function (c) {
+        var data=[];
+        data['storage']={
+            id:c.params['storage'],
+            name:y18n.t('local_archives')
+        };  
+        c.api('/hooks/backup', function(hooks) {  
+            data['hooks']=c.groupHooks(hooks['hooks']);
+            data['apps']={};
+            c.api('/apps?raw', function(apps) { // http://api.yunohost.org/#!/app/app_list_get_8
+                $.each(apps, function(app_id, app) {
+                    if (app['installed'])
+                        data['apps'][app_id]={
+                            name: app['manifest']['name']
+                        };
+                });
+                c.view('backup/backup_create', data);
+            });
+        });
+        
+    });
+    
+    
+    sam.post('#/backup/:storage', function (c) {
+        var params = c.ungroupHooks(c.params['hooks'],c.params['apps']);
+        c.api('/backup', function() {
+            store.clear('slide');
+            c.redirect('#/backup/'+ c.params['storage']);
+        }, 'POST', params);
+    });
+    
+    // Restore a backup
+    sam.post('#/backup/:storage/:archive/restore', function (c) {
+        c.confirm(
+            y18n.t('backup'),
+            y18n.t('confirm_restore', [c.params['archive']]),
+            $.proxy(function(c){
+                var params=c.ungroupHooks(c.params['hooks'],c.params['apps']);
+                params['force']='';
+                c.api('/backup/restore/'+c.params['archive'], function(data) {            
+                    store.clear('slide');
+                    c.redirect('#/backup/'+ c.params['storage']+'/'+c.params['archive']);
+                }, 'POST', params);
+            },this,c),
+            function(){
+                store.clear('slide');
+                c.redirect('#/backup/'+ c.params['storage']+'/'+c.params['archive']);
+            }
+        );
+        
+    });
+    
+    // Delete a backup
+    sam.get('#/backup/:storage/:archive/delete', function (c) {
+        c.confirm(
+            y18n.t('backup'),
+            y18n.t('confirm_delete', [c.params['archive']]),
+            function(){
+                c.api('/backup/archives/'+c.params['archive'], function(data) { 
+                    c.redirect('#/backup/'+ c.params['storage']);
+                }, 'DELETE');
+            },
+            function(){
+                store.clear('slide');
+                c.redirect('#/backup/'+ c.params['storage']+'/'+c.params['archive']);
+            }
+        );
+    });
+    
+    // Download a backup
+    sam.get('#/backup/:storage/:archive/download', function (c) {
+        c.api('/backup/'+c.params['archive']+'/download', function(data) { 
+            c.redirect('#/backup/'+ c.params['storage']+'/'+c.params['archive']);
+        }, 'GET');
+    });
+    
+    // Copy a backup
+    sam.get('#/backup/:storage/:archive/copy', function (c) {
+        store.clear('slide');
+        c.redirect('#/backup/'+ c.params['storage']+'/'+c.params['archive']);  
+    });
+    
+    // Upload a backup
+    sam.get('#/backup/:storage/:archive/upload', function (c) {
+        store.clear('slide');
+        c.redirect('#/backup/'+ c.params['storage']+'/'+c.params['archive']);        
+    });
+    
+    
+    // Get archive info
+    sam.get('#/backup/:storage/:archive', function (c) {
+        c.api('/backup/archives/'+c.params['archive']+'?with_details', function(data) { 
+            data['storage']={
+                id:c.params['storage'],
+                name:y18n.t('local_archives')
+            };
+            data['other_storages']=[];
+            data['name']=c.params['archive'];
+            data['hooks']=c.groupHooks(Object.keys(data['hooks']));
+            data['items']=(data['hooks']!={} || data['apps']!=[]); 
+            c.view('backup/backup_info', data);
+        });
+    });
+    
+    
+    // Archive list
+    sam.get('#/backup/:storage', function (c) {
+        c.api('/backup/archives?with_info', function(data) { 
+            data['storage']={
+                id:'local',
+                name:y18n.t('local_archives')
+            };
+            data['archives2']=[];
+            $.each(data['archives'], function(name, info) {
+                info['name']=name;
+                data['archives2'].unshift(info)
+            });
+            data['archives']=data['archives2'];
+            c.view('backup/backup_list', data);
+        });
+    });
+    
 
 });
 

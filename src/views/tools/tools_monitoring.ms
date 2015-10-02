@@ -1,6 +1,7 @@
 <div class="btn-breadcrumb">
     <a href="#/" ><i class="fa-home"></i><span class="sr-only">{{t 'home'}}</span></a>
-    <a href="#/monitor">{{t 'monitoring'}}</a>
+    <a href="#/tools">{{t 'tools'}}</a>
+    <a href="#/tools/monitor">{{t 'monitoring'}}</a>
 </div>
 
 <div class="separator"></div>
