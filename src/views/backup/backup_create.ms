@@ -26,7 +26,7 @@
     </div>
     <div class="separator"></div>
     
-    <div class="panel panel-default">
+    <!--<div class="panel panel-default">
         <div class="panel-heading">
             <h2 class="panel-title"><span class="fa-fw fa-lock"></span> {{t 'backup_optional_encryption'}}</h2>
         </div>
@@ -43,7 +43,7 @@
             </div>
         </div>
     </div>
-    <div class="separator"></div>
+    <div class="separator"></div>-->
     <span class="pull-right">
         <input type="submit" class="btn btn-success slide back" value="{{t 'backup_action'}}" />
     </span>

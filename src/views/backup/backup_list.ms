@@ -31,7 +31,7 @@
 
 </div>
 
-<div class="panel panel-default">
+<!--<div class="panel panel-default">
     <div class="panel-heading">
         <h2 class="panel-title"><span class="fa-fw fa-download"></span> {{t 'upload_archive'}}</h2>
     </div>
@@ -50,4 +50,4 @@
             </div>
         </form>
     </div>
-</div>
+</div>-->

@@ -47,13 +47,13 @@
         </h2>
     </div>
     <div class="panel-body">
-        <div class="container">
+        <!--<div class="container">
             <p>{{t 'backup_archive_download'}}</p>
             <a class="btn btn-info slide" href="#/backup/{{storage.id}}/{{name}}/download">
                 <span class="fa-download"></span> {{t 'download'}}
             </a>
         </div>
-        <hr>
+        <hr>-->
         <div class="container">
             <p>{{t 'backup_archive_delete'}}</p>
             <a href="#/backup/{{storage.id}}/{{name}}/delete" class="btn btn-danger slide">
