@@ -1,3 +1,8 @@
+<div class="help" style="display: {{display_help}}">
+    <h3>{{t 'Welcome to the admin panel'}}</h3>
+    <p>Lorem ipsum dolorem trolololo ut</p>
+</div>
+
 <div class="list-group">
     <a href="#/users" class="list-group-item slide clearfix">
         <span class="pull-right fa-chevron-right"></span>

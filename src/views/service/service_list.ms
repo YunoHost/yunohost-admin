@@ -1,3 +1,8 @@
+<div class="help" style="display: {{display_help}}">
+    <h3>{{t 'Welcome to the domains panel'}}</h3>
+    <p>Lorem ipsum dolorem trolololo ut</p>
+</div>
+
 <div class="btn-breadcrumb">
     <a href="#/" ><i class="fa-home"></i><span class="sr-only">{{t 'home'}}</span></a>
     <a href="#/services">{{t 'services'}}</a>
