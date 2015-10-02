@@ -13,8 +13,9 @@
     <div class="list-group">
         {{#each hooks}}
             <label for="{{@key}}" class="list-group-item">
-                <span class="pull-right"><input type="checkbox" id="{{@key}}" name="hooks" value="{{@key}}" checked></span>
+                <span class="pull-right"><input type="checkbox" id="{{@key}}" name="hooks" value="{{value}}" checked></span>
                 <h2 class="list-group-item-heading">{{name}}</h2>
+                <p class="list-group-item-text">{{description}}</p>
             </label>
         {{/each}}
         {{#each apps}}

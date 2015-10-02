@@ -11,9 +11,10 @@
 <form action="#/backup/{{storage.id}}" method="POST" class="form-horizontal">
     <div class="list-group">
         {{#each hooks}}
-            <label for="{{id}}" class="list-group-item">
-                <span class="pull-right"><input type="checkbox" id="{{id}}" name="hooks" value="{{id}}" checked></span>
+            <label for="{{@key}}" class="list-group-item">
+                <span class="pull-right"><input type="checkbox" id="{{@key}}" name="hooks" value="{{value}}" checked></span>
                 <h2 class="list-group-item-heading">{{name}}</h2>
+                <p class="list-group-item-text">{{description}}</p>
             </label>
         {{/each}}
         {{#each apps}}
