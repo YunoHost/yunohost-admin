@@ -1533,7 +1533,7 @@ var app = Sammy('#main', function (sam) {
      */
 
     // Firewall status
-    sam.get('#/firewall', function (c) {
+    sam.get('#/tools/firewall', function (c) {
         c.api('/firewall?raw', function(data) {
             var firewall = {
                 ports : {},
@@ -1554,12 +1554,12 @@ var app = Sammy('#main', function (sam) {
             // Get UPnP status
             firewall.upnp = data.uPnP.enabled;
 
-            c.view('firewall/firewall', firewall);
+            c.view('tools/tools_firewall', firewall);
         });
     });
 
     // Enable/Disable UPnP
-    sam.get('#/firewall/upnp/:action', function (c) {
+    sam.get('#/tools/firewall/upnp/:action', function (c) {
         c.confirm(
             y18n.t('firewall'),
             y18n.t('confirm_upnp_action', [y18n.t(c.params['action'])]),
@@ -1567,12 +1567,12 @@ var app = Sammy('#main', function (sam) {
                 params = {'action' : c.params['action']};
                 c.api('/firewall/upnp', function(data) {
                     store.clear('slide');
-                    c.redirect('#/firewall');
+                    c.redirect('#/tools/firewall');
                 }, 'GET', params);
             },
             function(){
                 store.clear('slide');
-                c.redirect('#/firewall');
+                c.redirect('#/tools/firewall');
             }
         );
     });
@@ -1587,7 +1587,7 @@ var app = Sammy('#main', function (sam) {
         if (port != parseInt(port) || port < 0 || port > 65535) {
             c.flash('fail', y18n.t('unknown_argument', [port]));
             store.clear('slide');
-            c.redirect('#/firewall');
+            c.redirect('#/tools/firewall');
         }
 
         switch (connection) {
@@ -1620,7 +1620,7 @@ var app = Sammy('#main', function (sam) {
             default:
                 c.flash('fail', y18n.t('unknown_action', [action]));
                 store.clear('slide');
-                c.redirect('#/firewall');
+                c.redirect('#/tools/firewall');
         }
 
         if (method !== null && protocol !== null && port !== null) {
@@ -1638,19 +1638,19 @@ var app = Sammy('#main', function (sam) {
             };
             c.api('/firewall/port?'+endurl, function(data) {
                 store.clear('slide');
-                c.redirect('#/firewall');
+                c.redirect('#/tools/firewall');
             }, method, params);
         }
         else {
             store.clear('slide');
-            c.redirect('#/firewall');
+            c.redirect('#/tools/firewall');
         }
         return;
     });
 
     // Update port status from direct link
     // #/firewall/port/{{@key}}/tcp/ipv4/close
-    sam.get('#/firewall/port/:port/:protocol/:connection/:action', function (c) {
+    sam.get('#/tools/firewall/port/:port/:protocol/:connection/:action', function (c) {
         c.confirm(
             y18n.t('firewall'),
             y18n.t( 'confirm_firewall', [ y18n.t(c.params['action']), c.params['port'], y18n.t(c.params['protocol']), y18n.t(c.params['connection'])]),
@@ -1664,13 +1664,13 @@ var app = Sammy('#main', function (sam) {
             },
             function(){
                 store.clear('slide');
-                c.redirect('#/firewall');
+                c.redirect('#/tools/firewall');
             }
         );
     });
 
     // Update port status from form
-    sam.post('#/firewall/port', function (c) {
+    sam.post('#/tools/firewall/port', function (c) {
         c.confirm(
             y18n.t('firewall'),
             y18n.t('confirm_firewall', [ y18n.t(c.params['action']), c.params['port'], y18n.t(c.params['protocol']), y18n.t(c.params['connection']) ]),
@@ -1684,7 +1684,7 @@ var app = Sammy('#main', function (sam) {
             },
             function(){
                 store.clear('slide');
-                c.redirect('#/firewall');
+                c.redirect('#/tools/firewall');
             }
         );
     });
@@ -1696,7 +1696,7 @@ var app = Sammy('#main', function (sam) {
      */
 
     // Server monitoring
-    sam.get('#/monitor', function (c) {
+    sam.get('#/tools/monitor', function (c) {
         monitorData = {};
 
         // Why this method ?
@@ -1724,7 +1724,7 @@ var app = Sammy('#main', function (sam) {
             }
             else {
                 monitorData.status = false;
-                c.view('monitor/monitor', monitorData);
+                c.view('tools/tools_monitor', monitorData);
             }
 
         }, 'GET');
@@ -1775,7 +1775,7 @@ var app = Sammy('#main', function (sam) {
     });
 
     // System update & upgrade
-    sam.get('#/tools/update', function (c) {
+    sam.get('#/update', function (c) {
         c.api('/update', function(data) {
             packagesLength = data.packages.length;
             for(var i = 0; i < packagesLength; i++) {
@@ -1788,16 +1788,16 @@ var app = Sammy('#main', function (sam) {
                     data.packages[i].delayed = true;
                 }
             }
-            c.view('tools/tools_update', data);
+            c.view('update/update', data);
         }, 'PUT');
     });
 
     // Upgrade apps or packages
-    sam.get('#/tools/upgrade/:type', function (c) {
+    sam.get('#/upgrade/:type', function (c) {
         if (c.params['type'] !== 'apps' && c.params['type'] !== 'packages') {
             c.flash('fail', y18n.t('unknown_argument', [c.params['type']]));
             store.clear('slide');
-            c.redirect('#/tools/update');
+            c.redirect('#/update');
         }
         else {
             c.confirm(
@@ -1811,13 +1811,13 @@ var app = Sammy('#main', function (sam) {
                     c.api('/upgrade?'+endurl, function(data) {
                         // 'log' is a reserved name, maybe in handlebars
                         data.logs = data.log;
-                        c.view('tools/tools_upgrade', data);
+                        c.view('upgrade/upgrade', data);
                     }, 'PUT');
 
                 },
                 function(){
                     store.clear('slide');
-                    c.redirect('#/tools/update');
+                    c.redirect('#/update');
                 }
             );
         }
