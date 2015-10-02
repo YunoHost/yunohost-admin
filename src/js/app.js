@@ -304,6 +304,7 @@ var app = Sammy('#main', function (sam) {
                 .click(function(e){
                     e.preventDefault();
 
+                    $('#modal footer button').unbind( "click" );
                     // Reset & Hide modal
                     box
                         .removeClass('no-title')
