@@ -1092,6 +1092,13 @@ var app = Sammy('#main', function (sam) {
         });
     });
 
+    // Get app debug page
+    sam.get('#/apps/:app/debug', function (c) {
+        c.api('/apps/'+c.params['app']+'/debug', function(data) {
+            c.view('app/app_debug', data);
+        });
+    });
+
     // Special case for custom app installation.
     sam.get('#/apps/install/custom', function (c) {
         // If we try to GET /apps/install/custom, it means that installation fail.
