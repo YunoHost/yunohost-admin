@@ -58,7 +58,7 @@
         <div class="container">
             <p>{{t 'app_info_debug_desc'}}</p>
             <a href="#/apps/{{settings.id}}/debug" class="btn btn-warning slide">
-                <span class="fa-trash-o"></span> {{t 'app_debug_tab'}}
+                <span class="fa-bug"></span> {{t 'app_debug_tab'}}
             </a>
         </div>
     </div>
