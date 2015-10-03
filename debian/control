@@ -10,6 +10,6 @@ Architecture: all
 Homepage: http://yunohost.org/
 Conflicts: yunohost-apps-admin
 Replaces: yunohost-apps-admin
-Depends: moulinette-yunohost
+Depends: yunohost
 Description: Yunohost admin interface
  Yunohost admin interface
