@@ -395,6 +395,7 @@ a.list-group-item-heading,
   .pull-right;
 }
 
+
 /* Breadcrumbs from http://bootsnipp.com/snippets/featured/triangle-breadcrumbs-arrows */
 .btn-breadcrumb {
   .pull-left;
@@ -407,6 +408,10 @@ a.list-group-item-heading,
     }
 
     &:hover {text-decoration: none;}
+
+    padding:6px 12px 6px 24px;
+    &:first-child {padding:6px 6px 6px 10px;}
+    &:last-child {padding:6px 18px 6px 24px;}
   }
 }
 
@@ -432,16 +437,14 @@ a.list-group-item-heading,
     border-left: 10px solid rgb(173, 173, 173);
     margin-left: 1px;
   }
-}
-
-.btn-breadcrumb a {
-  padding:6px 12px 6px 24px;
-}
-.btn-breadcrumb a:first-child {
-  padding:6px 6px 6px 10px;
-}
-.btn-breadcrumb a:last-child {
-  padding:6px 18px 6px 24px;
+  &:hover {
+    &:after {
+      border-left: 10px solid #ebebeb;
+    }
+    &:before {
+      border-left: 10px solid #adadad;
+    }
+  }
 }
 
 
