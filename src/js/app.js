@@ -81,16 +81,15 @@ var app = Sammy('#main', function (sam) {
                 }
             } else {
                 if (level == 'log') {
-                    $('#flash').append('<pre style="display:none" class="alert alert-dismissable '+ alertClass +'"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><div><button type="button" class="btn btn-default btn-small">'+ y18n.t('log') +'</button></div><p style="display: none">'+ message +'</p></pre>').show();
+                    $('#flash').append('<pre style="display:none" class="alert alert-dismissable '+ alertClass +'"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><button type="button" class="btn btn-default btn-small" data-show="log">'+ y18n.t('log') +'</button><p style="display: none">'+ message +'</p></pre>').show();
                 } else {
                     $('#flash').append('<div style="display:none" class="alert alert-dismissable '+ alertClass +'"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><p>'+ message +'</p></div>').show();
                 }
                 $('#flash .alert').last().fadeIn();
             }
             document.body.scrollTop = document.documentElement.scrollTop = 0;
-            $('#flash .alert-log button.btn-small').on('click', function() {
-                $('#flash .alert-log p:hidden').fadeIn();
-                $('#flash .alert-log div').hide();
+            $('#flash [data-show="log"]').on('click', function() {
+                $(this).hide().nextAll('p').fadeIn();
             });
         },
 
