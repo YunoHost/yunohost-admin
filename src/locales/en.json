@@ -244,7 +244,7 @@
     "user_new_forward": "newforward@myforeigndomain.org",
     "user_mailbox_quota": "Mailbox quota",
     "mailbox_quota_description": "Mailbox quota must be a size with b/k/M/G/T suffix or 0 to disable the quota.",
-    
+
     "local_archives": "Local archives",
     "storages_new": "New remote storage",
     "storages_no": "No storages.",
@@ -260,9 +260,9 @@
     "restore": "Restore",
     "download": "Download",
     "hook_data_home": "User data",
-    "hook_desc_data_home": "User data located in /home/USER",
+    "hook_data_home_desc": "User data located in /home/USER",
     "hook_data_mail": "Mail",
-    "hook_desc_data_mail": "Mail which are on the server",
+    "hook_data_mail_desc": "Mail which are on the server",
     "hook_conf_ldap": "LDAP",
     "hook_conf_ssh": "SSH",
     "hook_conf_ynh_mysql": "Password MySQL",

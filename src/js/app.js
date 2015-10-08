@@ -373,7 +373,7 @@ var app = Sammy('#main', function (sam) {
                     data[group_id]={
                         name:y18n.t('hook_'+group_id),
                         value:hook,
-                        description:(group_id==hook)?y18n.t('hook_desc_'+hook):y18n.t('hook_'+hook)
+                        description:(group_id==hook)?y18n.t('hook_'+hook+'_desc'):y18n.t('hook_'+hook)
                     };
             });         
             return data;
