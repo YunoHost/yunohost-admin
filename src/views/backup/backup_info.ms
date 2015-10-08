@@ -25,7 +25,7 @@
 <form action="#/backup/{{storage.id}}/{{name}}/restore" method="POST" class="form-horizontal">
 <div class="panel panel-default">
     <div class="panel-heading">
-        <h2 class="panel-title"><span class="fa-fw fa-archive"></span>{{t 'backup_content'}}</h2>
+        <h2 class="panel-title"><span class="fa-fw fa-archive"></span> {{t 'backup_content'}}</h2>
     </div>
     {{#if items}}
     <div class="list-group">
