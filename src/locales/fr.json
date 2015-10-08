@@ -226,6 +226,7 @@
     "user_new_mail": "nouvelle_adresse@domaine.org",
     "user_new_forward": "nouveau_transfert@domainedistant.org",
 
+    "backup_content": "Contenu de la sauvegarde",
     "local_archives": "Archives locales",
     "storages_new": "Nouveau stockage distant",
     "storages_no": "Aucun stockage.",
@@ -240,6 +241,7 @@
     "backup_create": "Créer une sauvegarde",
     "restore": "Restaurer",
     "download": "Télécharger",
+    "created_at": "Crée le",
     "hook_data_home": "Données utilisateurs",
     "hook_data_home_desc": "Les données des utilisateurs situées dans /home/USER",
     "hook_data_mail": "Mail",

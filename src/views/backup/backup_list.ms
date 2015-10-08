@@ -1,9 +1,7 @@
-
-
 <div class="btn-breadcrumb">
     <a href="#/"><i class="fa-home"></i><span class="sr-only">{{t 'home'}}</span></a>
-    <a href="#/backup" class="btn btn-default">{{t 'backup'}}</a>
-    <a href="#/backup/{{storage.id}}" class="btn btn-default">{{storage.name}}</a>
+    <a href="#/backup">{{t 'backup'}}</a>
+    <a href="#/backup/{{storage.id}}">{{storage.name}}</a>
 </div>
 
 <div class="actions-group">

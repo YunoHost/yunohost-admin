@@ -1,41 +1,62 @@
-
-
 <div class="btn-breadcrumb">
     <a href="#/"><i class="fa-home"></i><span class="sr-only">{{t 'home'}}</span></a>
-    <a href="#/backup" class="btn btn-default">{{t 'backup'}}</a>
-    <a href="#/backup/{{storage.id}}" class="btn btn-default">{{storage.name}}</a>
-    <a href="#/backup/{{storage.id}}/{{name}}" class="btn btn-default">{{name}}</a>
+    <a href="#/backup">{{t 'backup'}}</a>
+    <a href="#/backup/{{storage.id}}">{{storage.name}}</a>
+    <a href="#/backup/{{storage.id}}/{{name}}">{{name}}</a>
 </div>
 
 <div class="separator"></div>
 
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2 class="panel-title"><span class="fa-fw fa-info-circle"></span> {{t 'infos'}}</h2>
+    </div>
+    <div class="panel-body">
+        <dl class="dl-horizontal">
+            <dt>{{t 'id'}}</dt><dd>{{ name }}</dd>
+            <dt>{{t 'created_at'}}</dt><dd>{{ created_at }}</dd>
+            <dt>{{t 'size'}}</dt><dd>{{ humanSize size}}</dd>
+            <dt>{{t 'path'}}</dt><dd>{{ path }}</dd>
+        </dl>
+    </div>
+</div>
+
+
 <form action="#/backup/{{storage.id}}/{{name}}/restore" method="POST" class="form-horizontal">
-    <div class="list-group">
-        {{#each hooks}}
-            <label for="{{@key}}" class="list-group-item">
-                <span class="pull-right"><input type="checkbox" id="{{@key}}" name="hooks" value="{{value}}" checked></span>
-                <h2 class="list-group-item-heading">{{name}}</h2>
-                <p class="list-group-item-text">{{description}}</p>
-            </label>
-        {{/each}}
-        {{#each apps}}
-            <label for="{{id}}" class="list-group-item">
-                <span class="pull-right"><input type="checkbox" id="{{id}}" name="apps" value="{{id}}" checked></span>
-                <h2 class="list-group-item-heading">{{name}} <small>{{id}}</small></h2>
-            </label>
-        {{/each}}
-        {{^items}}
-            <div class="alert alert-warning">
-                <span class="fa-exclamation-triangle"></span>
-                {{t 'archive_empty'}}
-            </div>
-        {{/items}}
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2 class="panel-title"><span class="fa-fw fa-archive"></span>{{t 'backup_content'}}</h2>
     </div>
     {{#if items}}
-        <span class="pull-right">
-            <input type="submit" class="btn btn-danger slide back" value="{{t 'restore'}}" />
-        </span>
+    <div class="list-group">
+        {{#each hooks}}
+        <label for="{{@key}}" class="list-group-item">
+            <input type="checkbox" id="{{@key}}" name="hooks" value="{{value}}" checked class="pull-right">
+            <h2 class="list-group-item-heading">{{name}}</h2>
+            <p class="list-group-item-text">{{description}}</p>
+        </label>
+        {{/each}}
+        {{#each apps}}
+        <label for="{{id}}" class="list-group-item">
+            <input type="checkbox" id="{{id}}" name="apps" value="{{id}}" checked class="pull-right">
+            <h2 class="list-group-item-heading">{{name}} <small>{{id}}</small></h2>
+        </label>
+        {{/each}}
+        <div class="list-group-item clearfix">
+            <span class="pull-right ">
+                <input type="submit" class="btn btn-success slide back" value="{{t 'restore'}}" />
+            </span>
+        </div>
+    </div>
+    {{else}}
+    <div class="panel-body">
+        <div class="alert alert-warning">
+            <span class="fa-exclamation-triangle"></span>
+            {{t 'archive_empty'}}
+        </div>
+    </div>
     {{/if}}
+</div>
 </form>
 
 <div class="separator"></div>
@@ -57,7 +78,7 @@
         <div class="container">
             <p>{{t 'backup_archive_delete'}}</p>
             <a href="#/backup/{{storage.id}}/{{name}}/delete" class="btn btn-danger slide">
-                <span class="fa-trash"></span> {{t 'delete'}}
+                <span class="fa-trash-o"></span> {{t 'delete'}}
             </a>
         </div>
         {{#if other_storages}}

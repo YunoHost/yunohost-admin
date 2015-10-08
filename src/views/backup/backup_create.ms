@@ -1,9 +1,8 @@
-
 <div class="btn-breadcrumb">
     <a href="#/"><i class="fa-home"></i><span class="sr-only">{{t 'home'}}</span></a>
-    <a href="#/backup" class="btn btn-default">{{t 'backup'}}</a>
-    <a href="#/backup/{{storage.id}}" class="btn btn-default">{{storage.name}}</a>
-    <a href="#/backup/{{storage.id}}/create" class="btn btn-default">{{t 'backup_create'}}</a>
+    <a href="#/backup">{{t 'backup'}}</a>
+    <a href="#/backup/{{storage.id}}">{{storage.name}}</a>
+    <a href="#/backup/{{storage.id}}/create">{{t 'backup_create'}}</a>
 </div>
 
 <div class="separator"></div>
@@ -12,20 +11,20 @@
     <div class="list-group">
         {{#each hooks}}
             <label for="{{@key}}" class="list-group-item">
-                <span class="pull-right"><input type="checkbox" id="{{@key}}" name="hooks" value="{{value}}" checked></span>
+                <input type="checkbox" id="{{@key}}" name="hooks" value="{{value}}" checked class="pull-right">
                 <h2 class="list-group-item-heading">{{name}}</h2>
                 <p class="list-group-item-text">{{description}}</p>
             </label>
         {{/each}}
         {{#each apps}}
             <label for="{{id}}" class="list-group-item">
-                <span class="pull-right"><input type="checkbox" id="{{id}}" name="apps" value="{{id}}" checked></span>
+                <input type="checkbox" id="{{id}}" name="apps" value="{{id}}" checked class="pull-right">
                 <h2 class="list-group-item-heading">{{name}} <small>{{id}}</small></h2>
             </label>
         {{/each}}
     </div>
     <div class="separator"></div>
-    
+
     <!--<div class="panel panel-default">
         <div class="panel-heading">
             <h2 class="panel-title"><span class="fa-fw fa-lock"></span> {{t 'backup_optional_encryption'}}</h2>
