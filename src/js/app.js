@@ -1,9 +1,11 @@
 var app = Sammy('#main', function (sam) {
 
     /**
-     * Sammy Configuration
-     *
+     * =============================================================
+     *                  === SAMMY CONFIGURATION ===
+     * =============================================================
      */
+    
     // Plugins
     sam.use('Handlebars', 'ms');
 
@@ -49,13 +51,17 @@ var app = Sammy('#main', function (sam) {
     var store = new Sammy.Store({name: 'storage', type: storageType});
     var loaded = false;
     var isInstalledTry = 3;
-
+    
     /**
-     * Helpers
+     * =============================================================
+     *                       === HELPERS ===
+     * =============================================================
      *
      */
+    
     sam.helpers({
 
+        
         // Serialize an object
         serialize : function(obj) {
           var str = [];
@@ -221,6 +227,7 @@ var app = Sammy('#main', function (sam) {
         // Render view (cross-browser)
         view: function (view, data, callback) {
             callback = typeof callback !== 'undefined' ? callback : function() {};
+            data.display_help = (store.get('display_help')) ? "block" : "none";
             rendered = this.render('views/'+ view +'.ms', data);
 
             enableSlide = true; // Change to false to disable animation
@@ -228,6 +235,17 @@ var app = Sammy('#main', function (sam) {
             loaded = true;
             $('div.loader').remove();
             $('#modal').modal('hide');
+            
+            //Toggle and store helpboxes display property at button switch
+            $('#help-switch').change(function() {
+                store.set('display_help', $('#help-switch').prop('checked'));
+                if(store.get('display_help')){
+                    $('.help').show("normal");
+                }else{
+                    $('.help').hide("normal");
+                }
+            });
+            
 
             if (enableSlide) {
                 var leSwap = function() {
@@ -405,7 +423,9 @@ var app = Sammy('#main', function (sam) {
 
 
     /**
-     * Filters
+     * =============================================================
+     *                       === FILTERS ===
+     * =============================================================
      *
      */
     sam.before(/domains\/add/, function (req){
@@ -456,7 +476,9 @@ var app = Sammy('#main', function (sam) {
 
 
     /**
-     * Errors
+     * =============================================================
+     *                        === ERRORS ===
+     * =============================================================
      */
     sam.notFound = function(){
         // Redirect to home page on 404.
@@ -465,14 +487,23 @@ var app = Sammy('#main', function (sam) {
 
 
     /**
-     * Routes
+     * =============================================================
+     *                       === ROUTES ===
+     * =============================================================
      *
      * Note: var "c" is Sammy's route context
      * @doc http://sammyjs.org/docs/api/#Sammy.EventContext
      *
      */
 
-     // Home page
+     
+    
+    /**
+     * =============================================================
+     *                          Home page    
+     * =============================================================
+     */
+    
     sam.get('#/', function (c) {
         c.api('/users', function(data) {
             // Warn admin if no users are created.
@@ -519,7 +550,12 @@ var app = Sammy('#main', function (sam) {
                         viewedItems.push(item.guid);
                     }
                 });
-
+                
+                //display help blocks by default
+                if(!store.exists('display_help')){
+                    store.set('display_help', true);
+                }
+                
                 // Saved viewed items to cookie
                 $.cookie('ynhSecurityViewedItems', viewedItems, {
                     expire: 7
@@ -528,15 +564,17 @@ var app = Sammy('#main', function (sam) {
             .fail(function() {
                 c.flash('fail', y18n.t('error_retrieve_feed', [securityFeed]));
             });
-
-            c.view('home');
+            
+            c.view('home', {});
         });
     });
 
 
 
     /**
-     * Login
+     * =============================================================
+     *                            Login
+     * =============================================================
      *
      */
 
@@ -592,7 +630,9 @@ var app = Sammy('#main', function (sam) {
 
 
     /**
-     * Logout
+     * =============================================================
+     *                            Logout
+     * =============================================================
      *
      */
 
@@ -630,7 +670,9 @@ var app = Sammy('#main', function (sam) {
 
 
     /**
-     * Post installation
+     * =============================================================
+     *                     Post installation
+     * =============================================================
      *
      */
 
@@ -729,7 +771,9 @@ var app = Sammy('#main', function (sam) {
 
 
     /**
-     * Users
+     * =============================================================
+     *                           Users
+     * =============================================================
      *
      */
 
@@ -887,7 +931,9 @@ var app = Sammy('#main', function (sam) {
 
 
     /**
-     * Domains
+     * =============================================================
+     *                             Domains
+     * =============================================================
      *
      */
 
@@ -905,10 +951,13 @@ var app = Sammy('#main', function (sam) {
 
                 // Do not show main domain form if we have only 1 domain
                 main_domain_form = (domains.length > 1) ? true: false;
-
+                
+                //Get display statut for view 
+                display_help = (store.get('display_help')) ? "block" : "none";
+                
                 // Sort domains with main domain first
                 domains.sort(function(a, b){ return -2*(a.main) + 1; });
-                c.view('domain/domain_list', {domains: domains, main_domain_form: main_domain_form});
+                c.view('domain/domain_list', {domains: domains, main_domain_form: main_domain_form });
             }, 'PUT');
         });
     });
@@ -1012,7 +1061,9 @@ var app = Sammy('#main', function (sam) {
 
 
     /**
-     * Apps
+     * =============================================================
+     *                              Apps
+     * =============================================================
      *
      */
 
@@ -1434,14 +1485,17 @@ var app = Sammy('#main', function (sam) {
 
 
     /**
-     * Services
+     * =============================================================
+     *                          Services
+     * =============================================================
      *
      */
 
     // All services status
     sam.get('#/services', function (c) {
         c.api('/services', function(data) { // ?
-            data2 = { 'services': [] };
+            
+            data2 = { 'services': []};
             $.each(data, function(k, v) {
                 v.name = k;
                 // Handlebars want booleans
@@ -1452,6 +1506,7 @@ var app = Sammy('#main', function (sam) {
                 v.loaded = y18n.t(v.loaded);
                 data2.services.push(v);
             });
+           
             c.view('service/service_list', data2);
         });
     });
@@ -1534,7 +1589,9 @@ var app = Sammy('#main', function (sam) {
 
 
     /**
-     * Firewall
+     * =============================================================
+     *                            Firewall
+     * =============================================================
      *
      */
 
@@ -1697,7 +1754,9 @@ var app = Sammy('#main', function (sam) {
 
 
     /**
-     * Monitor
+     * =============================================================
+     *                            Monitor
+     * =============================================================
      *
      */
 
@@ -1738,7 +1797,9 @@ var app = Sammy('#main', function (sam) {
 
 
     /**
-     * Tools
+     * =============================================================
+     *                              Tools
+     * =============================================================
      *
      */
 
@@ -1883,7 +1944,9 @@ var app = Sammy('#main', function (sam) {
     });
 
     /**
-     * Backup
+     * =============================================================
+     *                             Backup
+     * =============================================================
      *
      */
     
@@ -2050,8 +2113,11 @@ var app = Sammy('#main', function (sam) {
 
 
 /**
- * Translations
+ * =============================================================
+ *                     === TRANSLATIONS ===
+ * =============================================================
  */
+
 $.getJSON('locales/en.json', function(data){
     y18n.translations['en'] = data;
     y18n.translateInlineHTML();
@@ -2070,15 +2136,19 @@ if (window.navigator && window.navigator.language) {
 
 
 /**
- * Run the app
+ * =============================================================
+ *                     === RUN THE APP ===
+ * =============================================================
  *
  */
+
 $(document).ready(function () {
 
     /**
      * Application
      */
     app.run('#/');
+
 
     // Fixes for sliding effect
     $('#slider-container').width(2*$('#slider').width() +'px');

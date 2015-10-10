@@ -38,7 +38,8 @@ gulp.task('js', function() {
             'js/vendor/sammy.handlebars.js',
             'js/vendor/sammy.json.js',
             'js/vendor/sammy.storage.js',
-            'js/vendor/bootstrap.min.js',
+            'bootstrap/dist/js/bootstrap.min.js',
+            'bootstrap/bootstrap-toggle/js/bootstrap-toggle.min.js',
             'js/y18n.js',
             'js/app.js'
         ])
