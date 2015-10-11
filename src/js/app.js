@@ -71,26 +71,37 @@ var app = Sammy('#main', function (sam) {
             if (!store.get('flash')) {
                 store.set('flash', true);
             }
-            if (level == 'fail') { alertClass = 'alert-danger'; }
-            else                      { alertClass = 'alert-'+ level; }
-            if ($('#flash .alert').last().hasClass(alertClass)) {
-                if (level == 'log') {
-                    $('#flash .alert').last().append('<p style="display: none">'+ message +'</p>');
-                } else {
-                    $('#flash .alert').last().append('<p>'+ message +'</p>');
-                }
-            } else {
-                if (level == 'log') {
-                    $('#flash').append('<pre style="display:none" class="alert alert-dismissable '+ alertClass +'"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><button type="button" class="btn btn-default btn-small" data-show="log">'+ y18n.t('log') +'</button><p style="display: none">'+ message +'</p></pre>').show();
-                } else {
-                    $('#flash').append('<div style="display:none" class="alert alert-dismissable '+ alertClass +'"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><p>'+ message +'</p></div>').show();
-                }
-                $('#flash .alert').last().fadeIn();
+
+            var flashContainer = $('#flash'),
+                  lastFlashAlert = $('.alert:last-child', flashContainer),
+                  alertClass = (level !== 'fail') ? alertClass = 'alert-'+ level : 'alert-danger';
+
+            // If last alert has the same class, append content into it
+            if (lastFlashAlert.hasClass(alertClass)) {
+                lastFlashAlert.append('<p>'+ message +'</p>');
             }
+            // Else, create a new alert box
+            else {
+                var alertCloseButton = '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>';
+                if (level == 'log') {
+                    // Log messages could be very long
+                    // Hidden by default with a "view log" button
+                    flashContainer
+                        .append('<pre class="alert alert-dismissable '+ alertClass +'">'+alertCloseButton+
+                                      '<button type="button" class="btn-show-log">'+ y18n.t('log') +'</button>'+
+                                      '<p>'+ message +'</p></pre>')
+                        .find('.btn-show-log').on('click', function() {
+                            $(this).hide().nextAll('p').fadeIn();
+                        });
+                } else {
+                    flashContainer
+                        .append('<div class="alert alert-dismissable '+ alertClass +'">'+alertCloseButton+
+                                      '<p>'+ message +'</p></div>');
+                }
+            }
+
+            // Scroll to the top
             document.body.scrollTop = document.documentElement.scrollTop = 0;
-            $('#flash [data-show="log"]').on('click', function() {
-                $(this).hide().nextAll('p').fadeIn();
-            });
         },
 
         checkInstall: function(callback) {
@@ -444,7 +455,7 @@ var app = Sammy('#main', function (sam) {
 
         // Clear flash display
         if (!store.get('flash')) {
-            $('#flash').fadeOut(function() { $('#flash').html(''); });
+            $('#flash').fadeOut(function() { $('#flash').html('').show(); });
         }
     });
 
