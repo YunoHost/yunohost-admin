@@ -198,7 +198,7 @@ var app = Sammy('#main', function (sam) {
                     }
                     if (uri !== '/postinstall') {
                         store.clear('slide');
-                        c.redirect(store.get('path-1'));
+                        c.view(store.get('path-1'), null, null, false);
                     }
                 });
             };
@@ -230,11 +230,11 @@ var app = Sammy('#main', function (sam) {
         },
 
         // Render view (cross-browser)
-        view: function (view, data, callback) {
+        view: function (view, data, callback, enableSlide) {
             callback = typeof callback !== 'undefined' ? callback : function() {};
             rendered = this.render('views/'+ view +'.ms', data);
 
-            enableSlide = true; // Change to false to disable animation
+            enableSlide = (typeof callback !== 'undefined') ? enableSlide : true; // Change to false to disable animation
 
             loaded = true;
             $('div.loader').remove();
