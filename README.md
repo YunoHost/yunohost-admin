@@ -2,6 +2,10 @@
 
 JS client for YunoHost API
 
+**Please report issues here** (no registration needed):    
+https://dev.yunohost.org/projects/yunohost/issues
+
+
 ## Installation
 
 This client is a part of the YunoHost projet, and can not be installed
