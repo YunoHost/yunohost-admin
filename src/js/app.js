@@ -72,7 +72,7 @@ var app = Sammy('#main', function (sam) {
                 store.set('flash', true);
             }
 
-            $('#slider').css('padding-top', '30px');
+            //$('#slider').css('padding-top', '30px');
 
             var flashContainer = $('#flashMessage'),
                   alertClass = (level !== 'fail') ? alertClass = 'alert-'+ level : 'alert-danger';
