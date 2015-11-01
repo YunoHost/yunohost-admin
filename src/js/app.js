@@ -234,7 +234,7 @@ var app = Sammy('#main', function (sam) {
             callback = typeof callback !== 'undefined' ? callback : function() {};
             rendered = this.render('views/'+ view +'.ms', data);
 
-            enableSlide = (typeof callback !== 'undefined') ? enableSlide : true; // Change to false to disable animation
+            enableSlide = (typeof enableSlide !== 'undefined') ? enableSlide : true; // Change to false to disable animation
 
             loaded = true;
             $('div.loader').remove();
