@@ -12,6 +12,8 @@
     <script type="text/javascript" src="dist/js/script.min.js?version=VERSION"></script>
 </head>
 <body>
+    <div id="flashMessage"></div>
+
     <div id="slider" role="application">
 
         <header id="masthead" class="page-header">
@@ -19,11 +21,16 @@
                 <img src="dist/img/icon.png" style="width: 70px;">
             </a>
             <span class="logout-button pull-right" role="button">
-                <a class="fa-sign-out" href="#/logout" title="Logout" data-y18n-title="logout"><span class="sr-only" data-y18n="logout">Logout</span></a>
+                <a class="btn btn-primary btn-sm" href="#/logout" title="Logout" data-y18n-title="user_interface_link">
+                    <span data-y18n="user_interface_link">User interface</span>&nbsp;
+                    <i class="fa-user"></i>
+                </a>
+                <a class="btn btn-default btn-sm" href="#/logout" title="Logout" data-y18n-title="logout">
+                    <span data-y18n="logout">Logout</span>&nbsp;
+                    <i class="fa-sign-out"></i>
+                </a>
             </span>
         </header>
-
-        <div id="flash" role="alert"></div>
 
         <div id="slider-container">
 
@@ -38,10 +45,6 @@
             <div id="slideTo" style="display: none; z-index: 100;"></div>
 
         </div><!--/#slider-container-->
-
-        <footer class="page-footer">
-            <a href="/" class="ssolink" data-y18n="user_interface_link" target="_blank">User interface</a>
-        </footer>
     </div>
 
     <div id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">

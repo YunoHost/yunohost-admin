@@ -106,10 +106,10 @@ body {
 .page-header {
     .clearfix;
     .make-row(12);
-    margin-top: 0;
+    margin: 0 0 20px;
+    padding-bottom: 20px;
 
-    .homelink,
-    .logout-button {
+    .homelink {
         margin-top: 20px;
     }
 
@@ -146,11 +146,14 @@ body {
     }
 
     .logout-button {
-        .make-xs-column(2);
-        .make-xs-column-offset(8);
+        .make-sm-column(2);
+        .make-sm-column-offset(8);
         .btn;
-        .btn-link;
-        text-align: right;
+        padding: 17px 0 0;
+        a {
+            display: block;
+            margin: 3px 0;
+        }
         a.fa-sign-out {
             .fa-2x;
             color: @gray-light;
@@ -161,21 +164,6 @@ body {
         }
     }
 }
-
-
-/*
- * The footer of the doc
- *
- */
-.page-footer {
-    .clearfix;
-    .make-row(12);
-
-    padding: 9px 15px 0 15px;
-    margin: 20px 0 40px;
-    border-top: 1px solid #EEE;
-}
-
 
 
 /*
@@ -500,13 +488,38 @@ input[type='radio'].nice-radio {
 }
 
 
-/** Alert messages **/
-.alert {}
-.alert-log {
-    p {display: none;}
-    .btn-show-log {
-         .btn();
-         .btn-default();
-         .btn-sm();
+/** Flash messages **/
+
+#flashMessage {
+    position: fixed;
+    top: 0px;
+    max-height: 30px;
+    z-index: 2001; // above pacman
+    opacity: 0.9;
+    width: 100%;
+    left: 0;
+    overflow: hidden;
+    -webkit-transition: max-height 0.15s;
+    -moz-transition: max-height 0.15s;
+    transition: max-height 0.15s;
+    &:hover, &:active, &:focus {
+        opacity: 1;
+        overflow-y: auto;
+        height: inherit;
+        max-height: 70%;
+        outline: 1px solid #ccc;
+        border-top: none;
+        border-radius: 0;
+    }
+    p {
+        padding: 4px 10px;
+        min-height: 30px;
+        line-height: 22px;
+        margin: 0;
+    }
+    div.alert-log p {
+        background-color: #eee;
+        color: #333;
+        font-family: Consolas,"Liberation Mono",Menlo,Courier,monospace;
     }
 }

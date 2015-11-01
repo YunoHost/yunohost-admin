@@ -72,36 +72,15 @@ var app = Sammy('#main', function (sam) {
                 store.set('flash', true);
             }
 
-            var flashContainer = $('#flash'),
-                  lastFlashAlert = $('.alert:last-child', flashContainer),
+            $('#slider').css('padding-top', '30px');
+
+            var flashContainer = $('#flashMessage'),
                   alertClass = (level !== 'fail') ? alertClass = 'alert-'+ level : 'alert-danger';
 
-            // If last alert has the same class, append content into it
-            if (lastFlashAlert.hasClass(alertClass)) {
-                lastFlashAlert.append('<p>'+ message +'</p>');
-            }
-            // Else, create a new alert box
-            else {
-                var alertCloseButton = '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>';
-                if (level == 'log') {
-                    // Log messages could be very long
-                    // Hidden by default with a "view log" button
-                    flashContainer
-                        .append('<pre class="alert alert-dismissable '+ alertClass +'">'+alertCloseButton+
-                                      '<button type="button" class="btn-show-log">'+ y18n.t('log') +'</button>'+
-                                      '<p>'+ message +'</p></pre>')
-                        .find('.btn-show-log').on('click', function() {
-                            $(this).hide().nextAll('p').fadeIn();
-                        });
-                } else {
-                    flashContainer
-                        .append('<div class="alert alert-dismissable '+ alertClass +'">'+alertCloseButton+
-                                      '<p>'+ message +'</p></div>');
-                }
-            }
 
-            // Scroll to the top
-            document.body.scrollTop = document.documentElement.scrollTop = 0;
+            flashContainer
+                .prepend('<div class="alert-msg '+ alertClass +'">'+
+                              '<p>'+ message +'</p></div>');
         },
 
         checkInstall: function(callback) {
@@ -218,9 +197,7 @@ var app = Sammy('#main', function (sam) {
                 // If not connected, WebSocket connection will raise an error, but we do not want to interrupt API request
                 ws.onerror = ws.onopen;
 
-                ws.onclose = function() {
-                    store.clear('flash');
-                };
+                ws.onclose = function() {};
 
                 ws.onopen = call(uri, callback, method, data);
             } else {
@@ -239,6 +216,7 @@ var app = Sammy('#main', function (sam) {
             loaded = true;
             $('div.loader').remove();
             $('#modal').modal('hide');
+            $('#flashModal').modal('hide');
 
             if (enableSlide) {
                 var leSwap = function() {
@@ -459,11 +437,7 @@ var app = Sammy('#main', function (sam) {
         }
     });
 
-    sam.after(function () {
-
-        // Clear flash notifications
-        store.clear('flash');
-    });
+    sam.after(function () {});
 
 
     /**
@@ -1740,7 +1714,7 @@ var app = Sammy('#main', function (sam) {
                             // Remove useless interface
                             delete monitorData.network.usage.lo;
 
-                            c.view('monitor/monitor', monitorData);
+                            c.view('tools/tools_monitoring', monitorData);
                         });
 
                     });
@@ -1748,7 +1722,7 @@ var app = Sammy('#main', function (sam) {
             }
             else {
                 monitorData.status = false;
-                c.view('tools/tools_monitor', monitorData);
+                c.view('tools/tools_monitoring', monitorData);
             }
 
         }, 'GET');
