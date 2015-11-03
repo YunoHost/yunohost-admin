@@ -1,3 +1,20 @@
+yunohost-admin (2.3.0) testing; urgency=low
+
+  [ features ]
+  * Backup/restore interface
+  * App debug interface
+  * Enhance flash messages display (issuefix #64)
+
+  [ bugfixes ]
+  * Use valid SPDF license expression.
+  * Breadcrumb hover
+  * User interface link
+
+  [ other ]
+  * Update translations from Transifex
+
+ -- kload <kload@kload.fr>  Tue, 03 Nov 2015 12:45:09 +0000
+
 yunohost-admin (2.2.2) testing; urgency=low
 
   [ zamentur ]
