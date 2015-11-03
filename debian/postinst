@@ -1,13 +1,37 @@
 #!/bin/bash
-if [ ! -f  /usr/share/yunohost/admin/ca.crt ];
-then
-	ln -s /etc/ssl/certs/ca-yunohost_crt.pem /usr/share/yunohost/admin/ca.crt
-fi
-chown -R www-data: /usr/share/yunohost/admin
 
-if [ $(lsb_release -c | awk '{print $2}') = jessie ];
-then
-	service yunohost-api stop
-fi
+set -e
 
-service yunohost-api restart
+do_configure() {
+  # make the CA available from the web interface
+  if [ ! -f  /usr/share/yunohost/admin/ca.crt ]; then
+      ln -s /etc/ssl/certs/ca-yunohost_crt.pem /usr/share/yunohost/admin/ca.crt
+  fi
+}
+
+# summary of how this script can be called:
+#        * <postinst> `configure' <most-recently-configured-version>
+#        * <old-postinst> `abort-upgrade' <new version>
+#        * <conflictor's-postinst> `abort-remove' `in-favour' <package>
+#          <new-version>
+#        * <deconfigured's-postinst> `abort-deconfigure' `in-favour'
+#          <failed-install-package> <version> `removing'
+#          <conflicting-package> <version>
+# for details, see http://www.debian.org/doc/debian-policy/ or
+# the debian-policy package
+
+case "$1" in
+    configure)
+        do_configure
+    ;;
+    abort-upgrade|abort-remove|abort-deconfigure)
+    ;;
+    *)
+        echo "postinst called with unknown argument \`$1'" >&2
+        exit 1
+    ;;
+esac
+
+#DEBHELPER#
+
+exit 0

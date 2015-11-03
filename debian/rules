@@ -8,11 +8,18 @@
 # dpkg-parsechangelog > 1.17 could use dpkg-parsechangelog --show-field Version
 DEBVERS := $(shell dpkg-parsechangelog | sed -n -e 's/^Version: //p')
 
+# Define temporary debian directory
+TMPDIR = $$(pwd)/debian/yunohost-admin
+
 %:
 	dh  $@
 
-override_dh_install:
+override_dh_auto_install:
 	# Replace VERSION with current package version to prevent web browser
 	# to serve old css/js files
 	sed -i 's/VERSION/$(DEBVERS)/g' src/index.html
-	dh_install
+
+	# Install source files and set permissions
+	mkdir -p $(TMPDIR)/usr/share/yunohost
+	cp -r src $(TMPDIR)/usr/share/yunohost/admin
+	chown -R www-data $(TMPDIR)/usr/share/yunohost/admin

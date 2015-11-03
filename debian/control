@@ -1,15 +1,21 @@
 Source: yunohost-admin
 Section: utils
 Priority: extra
-Maintainer: Adrien Beudin <beudbeud@yunohost.org>
-Build-Depends: debhelper (>=8.0.0)
-Standards-Version: 3.9.1
+Maintainer: YunoHost Contributors <contrib@yunohost.org>
+Build-Depends: debhelper (>=9)
+Standards-Version: 3.9.6
+Homepage: https://yunohost.org/
 
 Package: yunohost-admin
 Architecture: all
-Homepage: http://yunohost.org/
 Conflicts: yunohost-apps-admin
 Replaces: yunohost-apps-admin
-Depends: yunohost
-Description: Yunohost admin interface
- Yunohost admin interface
+Depends: ${misc:Depends}
+ , yunohost (>= 2.3.0)
+Description: web administration interface for yunohost
+ YunoHost aims to make self-hosting accessible to everyone. It configures
+ an email, Web and IM server alongside a LDAP base. It also provides
+ facilities to manage users, domains, apps and so.
+ .
+ This package contains a JavaScript web client for the YunoHost API which
+ allows to administrate the server.
