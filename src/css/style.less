@@ -383,59 +383,6 @@ a.list-group-item-heading,
   .pull-right;
 }
 
-
-/* Breadcrumbs from http://bootsnipp.com/snippets/featured/triangle-breadcrumbs-arrows */
-.btn-breadcrumb {
-  .pull-left;
-  &:extend(.btn-group all);
-  a {
-    .btn-default();
-    &:extend(.btn, .btn.btn-default all, .btn-group > .btn all);
-    & + a {
-      &:extend(.btn-group .btn + .btn all);
-    }
-
-    &:hover {text-decoration: none;}
-
-    padding:6px 12px 6px 24px;
-    &:first-child {padding:6px 6px 6px 10px;}
-    &:last-child {padding:6px 18px 6px 24px;}
-  }
-}
-
-.btn-breadcrumb a:not(:last-child) {
-  &:after,
-  &:before {
-    position: absolute;
-    top: 50%;
-    left: 100%;
-    z-index: 3;
-    content: " ";
-    display: block;
-    width: 0;
-    height: 0;
-    border-top: 17px solid transparent;
-    border-bottom: 17px solid transparent;
-    margin-top: -17px;
-  }
-  &:after {
-    border-left: 10px solid white;
-  }
-  &:before {
-    border-left: 10px solid rgb(173, 173, 173);
-    margin-left: 1px;
-  }
-  &:hover {
-    &:after {
-      border-left: 10px solid #ebebeb;
-    }
-    &:before {
-      border-left: 10px solid #adadad;
-    }
-  }
-}
-
-
 .separator {
   .clearfix();
   margin-bottom: 25px;
@@ -444,6 +391,33 @@ a.list-group-item-heading,
 label .list-group-item-text {
     font-weight:normal;
 }
+
+
+
+/** Breadcrumb **/
+@breadcrumb-bg: none;
+.btn-breadcrumb {
+  .pull-left;
+    &:extend(.breadcrumb all);
+    // Bootstrap uses ul>li structure, we simply use <a>
+    a {
+        display: inline-block;
+        color: @gray-light;
+        & + a {
+            &:before {
+                display: inline-block;
+                content: "@{breadcrumb-separator}\00a0"; // Unicode space added since inline-block means non-collapsing white-space
+                padding: 0 5px;
+                color: @breadcrumb-color;
+            }
+        }
+        &:hover,
+        &:focus {
+            color: @link-hover-color;
+        }
+    }
+}
+
 
 
 /** Beautiful checkbox/radio **/
