@@ -44,31 +44,6 @@ a[class*="fa-"]:hover {text-decoration:none;}
  *
  */
 
-html, body {
-    width:100%;
-}
-html {
-    /* Force vertical scrollbar to prevent centering jumps. */
-    overflow-y: scroll;
-}
-body {
-    max-width: @container-md;
-    margin: auto;
-    padding: 0 10px;
-    @media (min-width: @screen-sm-min) {
-        padding: 0 20px;
-    }
-}
-
-.block {
-    float:left;
-    height: 100%;
-    /*max-width: 750px;*/
-    width: 50%;
-    height: 100%;
-    padding: 5px;
-}
-
 /* Fix bootstrap use of width. We prefer max-width. */
 .container {
   @media (min-width: @screen-sm-min) {
@@ -85,6 +60,31 @@ body {
   }
 }
 
+
+html, body {
+    width:100%;
+}
+html {
+    /* Force vertical scrollbar to prevent centering jumps. */
+    overflow-y: scroll;
+}
+body {
+    &:extend(.container all);
+    margin: auto;
+    padding: 0 10px;
+    @media (min-width: @screen-sm-min) {
+        padding: 0 20px;
+    }
+}
+
+.block {
+    float:left;
+    height: 100%;
+    /*max-width: 750px;*/
+    width: 50%;
+    height: 100%;
+    padding: 5px;
+}
 
 .move {
     transition: margin-left 0.2s ease-in-out;
