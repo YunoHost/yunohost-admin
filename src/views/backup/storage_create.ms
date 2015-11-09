@@ -1,8 +1,8 @@
 
 <div class="btn-breadcrumb">
     <a href="#/"><i class="fa-home"></i><span class="sr-only">{{t 'home'}}</span></a>
-    <a href="#/backup" class="btn btn-default">{{t 'backup'}}</a>
-    <a href="#/backup/{{storage.id}}/create" class="btn btn-default">{{t 'storage_create'}}</a>
+    <a href="#/backup">{{t 'backup'}}</a>
+    <a href="#/backup/{{storage.id}}/create">{{t 'storage_create'}}</a>
 </div>
 
 <div class="separator"></div>

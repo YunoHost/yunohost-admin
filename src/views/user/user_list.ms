@@ -1,6 +1,6 @@
 <div class="btn-breadcrumb">
     <a href="#/"><i class="fa-home"></i><span class="sr-only">{{t 'home'}}</span></a>
-    <a href="#/users" class="btn btn-default">{{t 'users'}}</a>
+    <a href="#/users">{{t 'users'}}</a>
 </div>
 
 <div class="actions-group">
