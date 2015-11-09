@@ -175,7 +175,7 @@ body {
 
 #slider {
     .center-block;
-    padding: 5px;
+    padding: 30px 5px;
     width: 100%;
     height: 100%;
     position: relative;
@@ -464,54 +464,72 @@ input[type='radio'].nice-radio {
 }
 
 
-/** Flash messages **/
 
+/** Flash messages **/
 #flashMessage {
-    position: fixed;
-    bottom: 0px;
-    max-height: 30px;
-    z-index: 2001; // above pacman
-    opacity: 0.9;
-    width: 100%;
-    left: 0;
-    overflow: hidden;
-    -webkit-transition: max-height 0.15s;
-    -moz-transition: max-height 0.15s;
-    transition: max-height 0.15s;
-    &:hover, &:active, &:focus {
-        opacity: 1;
-        overflow-y: auto;
-        height: inherit;
-        max-height: 70%;
-        outline: 1px solid #ccc;
-        border-top: none;
-        border-radius: 0;
+    max-height: 120px;
+    overflow-y: auto;
+    margin-bottom: 20px;
+    &:empty {margin-bottom: 0;}
+
+   .alert-fail {
+        .alert-danger();
     }
-    p {
-        padding: 4px 10px;
-        min-height: 30px;
-        line-height: 22px;
-        margin: 0;
+
+    .alert {
+        margin-bottom: 0;
+        & + .alert {margin-top: 15px;}
+
+        p {
+            &:extend(.container);
+            margin: 0 auto;
+            padding-left: 25px;
+            padding-right: 25px;
+            & + p {margin-top: 0.5em;}
+        }
+
     }
-    div.alert-msg {
-        font-size: 15px;
-        font-family: Consolas,"Liberation Mono",Menlo,Courier,monospace;
-        background-color: #002b36;
-        //color: #eee;
-    }
-    div.alert-info p {
-        color: #2aa198;
-    }
-    div.alert-success p {
-        color: #859900;
-    }
-    div.alert-warning p {
-        color: #cb4b16;
-    }
-    div.alert-danger p {
-        color: #dc322f;
-    }
-    div.alert-log p {
-        color: #839496;
+}
+
+@media screen and (min-width: 640px) {
+    #flashMessage {
+        position: fixed;
+        top: 0px;
+        left: 0;
+        right: 0;
+        z-index: 2001; // above pacman
+        max-height: 30px;
+        opacity: 0.9;
+        overflow: hidden;
+        box-shadow: 0px 0 1px rgba(0,0,0, 0.2);
+        .transition(max-height 0.15s);
+        &:hover, &:active, &:focus {
+            opacity: 1;
+            overflow-y: auto;
+            height: auto;
+            max-height: 70%;
+            box-shadow: 1px 0 2px rgba(0,0,0, 0.5);
+        }
+        p {
+            padding: 4px 10px;
+            min-height: 30px;
+            line-height: 22px;
+        }
+        .alert {
+            // Override bootstrap defaults
+            padding: 0;
+            margin: 0;
+            border: 0;
+            border-radius: 0;
+            & + .alert {margin-top: 0;}
+
+            // YNH custom
+            font-family: Consolas,"Liberation Mono",Menlo,Courier,monospace;
+        }
+
+        .alert-log {
+            background-color: #eee;
+            color: #333;
+        }
     }
 }

@@ -72,14 +72,8 @@ var app = Sammy('#main', function (sam) {
                 store.set('flash', true);
             }
 
-            //$('#slider').css('padding-top', '30px');
-
-            var flashContainer = $('#flashMessage'),
-                  alertClass = (level !== 'fail') ? alertClass = 'alert-'+ level : 'alert-danger';
-
-
-            flashContainer
-                .prepend('<div class="alert-msg '+ alertClass +'">'+
+            $('#flashMessage')
+                .prepend('<div class="alert  alert-'+ level +'">'+
                               '<p>'+ message +'</p></div>');
         },
 
