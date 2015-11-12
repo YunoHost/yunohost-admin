@@ -260,6 +260,9 @@ var app = Sammy('#main', function (sam) {
                     $('html, body').scrollTop(0);
                 });
             }
+
+            // Resize window according to updated content.
+            $('body').resize();
         },
 
         confirm: function(title, content, confirmCallback, cancelCallback) {
