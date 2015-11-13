@@ -72,6 +72,8 @@ var app = Sammy('#main', function (sam) {
                 store.set('flash', true);
             }
 
+            $('#slider').css('padding-top', '30px');
+
             $('#flashMessage')
                 .prepend('<div class="alert  alert-'+ level +'">'+
                               '<p>'+ message +'</p></div>');
