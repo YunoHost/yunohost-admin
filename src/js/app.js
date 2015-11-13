@@ -226,6 +226,12 @@ var app = Sammy('#main', function (sam) {
                         callback();
                         // Force scrollTop on page load
                         $('html, body').scrollTop(0);
+
+                        // Resize body after the animation finishes (0.2s css transition)
+                        // https://github.com/YunoHost/yunohost-admin/blob/231aac076a3aa836409b0d33fe02e48975990b7a/src/css/style.less#L92
+                        setTimeout(function() {
+                            $('body').resize();
+                        }, 210);
                     });
                 };
 
@@ -258,11 +264,9 @@ var app = Sammy('#main', function (sam) {
                     callback();
                     // Force scrollTop on page load
                     $('html, body').scrollTop(0);
+                    $('body').resize();
                 });
             }
-
-            // Resize window according to updated content.
-            $('body').resize();
         },
 
         confirm: function(title, content, confirmCallback, cancelCallback) {
