@@ -63,7 +63,6 @@
     "unknown_argument" : "Unknown argument : %s",
     "api_not_responding" : "API is not responding (Error : %s)",
     "error_retrieve_feed" : "Could not retrieve feed : %s",
-    "uri_not_found" : "Page not found : %s",
 
     "confirm_delete" : "Are you sure you want to delete %s ?",
     "confirm_change_maindomain" : "Are you sure you want to change the main domain ?",
