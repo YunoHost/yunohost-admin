@@ -387,15 +387,18 @@ var app = Sammy('#main', function (sam) {
             if (data['apps']==undefined)
                 data['apps']=[];
             else if (data['apps'].constructor !== Array)
-                data['apps']=[params['apps']];
+                data['apps']=[data['apps']];
             if (data['hooks'].length==0)
                 data['ignore_hooks']='';
             if (data['apps'].length==0)
                 data['ignore_apps']='';
+
+            // Some hook value contains multiple hooks separated by commas
             var split_hooks=[];
             $.each(data['hooks'], function(i, hook) {
-                split_hooks.concat(hook.split(','));
+                split_hooks = split_hooks.concat(hook.split(','));
             });
+
             data['hooks']=split_hooks;
             return data;
         },
