@@ -34,18 +34,22 @@
         </div>
         <div id="check" class="panel-collapse collapse">
             <div class="panel-body">
-                <b>{{t 'check_stmp'}}</b>{{network.check.smtp_check}}
-                <br>
-                <b>{{t 'check_mx'}}</b>
-                {{#if network.check.mx_check.mx0}} 
-                <ul>
-                    {{#each network.check.mx_check}}
-                            <li>{{this}}</li>
-                    {{/each}}
-                </ul>
-                {{else}}
-                          {{network.check.mx_check}}
-                {{/if}}
+                <dl class="dl-horizontal">
+                    <dt>{{t 'check_stmp'}}</dt>
+                    <dd>{{network.check.smtp_check}}</dd>
+                    <dt>{{t 'check_mx'}}</dt>
+                    <dd>
+                        {{#if network.check.mx_check.mx0}}
+                        <ul>
+                            {{#each network.check.mx_check}}
+                                    <li>{{this}}</li>
+                            {{/each}}
+                        </ul>
+                        {{else}}
+                              {{network.check.mx_check}}
+                        {{/if}}
+                    </dd>
+                </dl>
             </div>
         </div>
     </div>
