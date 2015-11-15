@@ -16,6 +16,8 @@
 @icon-font-path: @font-path;
 
 @border-radius-base: 0;
+@border-radius-small: @border-radius-base;
+@border-radius-large: @border-radius-base;
 
 
 /*
@@ -151,23 +153,22 @@ button {
 
     }
 
-    .logout-button {
+    .buttons {
+        .pull-right;
         .make-sm-column(2);
         .make-sm-column-offset(8);
-        .btn;
         padding: 17px 0 0;
         a {
+            .btn;
+            .btn-sm;
             display: block;
             margin: 3px 0;
-            border-radius: 0;
         }
-        a.fa-sign-out {
-            .fa-2x;
-            color: @gray-light;
-            transition: all 0.1s ease;
-            &:hover {
-                color: @gray;
-            }
+        .user-interface-btn {
+            .btn-primary;
+        }
+        .logout-btn {
+            .btn-default;
         }
     }
 }
