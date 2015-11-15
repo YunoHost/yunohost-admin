@@ -1,3 +1,34 @@
+yunohost-admin (2.3.1) testing; urgency=low
+
+  [ Jérôme Lebleu ]
+  * [fix] Update and review Debian packaging
+
+  [ opi ]
+  * [fix] Better use of container class.
+  * [enh] Use lighter breadcrumb style.
+  * [enh] Tired of border-radius.
+  * [enh] Less nerdy notification zone, with some tiny improvments.
+  * [fix] Do not use btn-default helper for breadcrumb.
+  * [enh] Resize body after content refresh.
+
+  [ kload ]
+  * [fix] Sliding effect
+  * [enh] Use monospaced font only for command display
+  * [fix] Border radius on header buttons
+  * [fix] Transform an 'info' message into 'log' when necessary
+
+  [ opi ]
+  * [fix] Generic alert-log style. Reduce font size.
+  * [enh] Add toggle and clear buttons in flashMessage.
+  * [fix] Cleanup header buttons.
+  * [fix] Logout button visible even when already logged out.
+  * [enh] Flash messages buttons.
+
+  [ kload ]
+  * [fix] Replace the eraser with the trash icon (more explicit)
+
+ -- kload <kload@kload.fr>  Sun, 15 Nov 2015 13:28:51 +0000
+
 yunohost-admin (2.3.0) testing; urgency=low
 
   [ features ]
