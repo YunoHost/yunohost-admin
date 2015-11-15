@@ -536,7 +536,7 @@ var app = Sammy('#main', function (sam) {
 
     sam.get('#/login', function (c) {
         $('#masthead').show();
-        $('.logout-button').hide();
+        $('#masthead .logout-btn').hide();
         store.set('path-1', '#/login');
         if ($('div.loader').length === 0) {
             setInterval(function () {
@@ -599,7 +599,7 @@ var app = Sammy('#main', function (sam) {
         c.api('/login', function(data) {
             store.set('connected', true);
 
-            $('.logout-button').fadeIn();
+            $('#masthead .logout-btn').fadeIn();
             c.flash('success', y18n.t('logged_in'));
             if (store.get('path')) {
                 c.redirect(store.get('path'));
