@@ -74,8 +74,13 @@ var app = Sammy('#main', function (sam) {
 
             $('#slider').css('padding-top', '30px');
 
+            // If the line is a bash command
+            if (level === 'info' && message.charAt(0) === '+') {
+                level = 'log';
+            }
+
             $('#flashMessage')
-                .prepend('<div class="alert  alert-'+ level +'">'+
+                .prepend('<div class="alert alert-'+ level +'">'+
                               '<p>'+ message +'</p></div>');
         },
 
