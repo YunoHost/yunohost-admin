@@ -1937,6 +1937,7 @@ var app = Sammy('#main', function (sam) {
                 $.each(apps, function(app_id, app) {
                     if (app['installed'])
                         data['apps'][app_id]={
+                            id: app_id,
                             name: app['manifest']['name']
                         };
                 });
