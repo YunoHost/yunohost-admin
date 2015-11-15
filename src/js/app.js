@@ -146,6 +146,12 @@ var app = Sammy('#main', function (sam) {
                     if (xhr.status == 200) {
                         // Fail with 200, WTF
                         callback({});
+                    } else if (xhr.status == 404) {
+                        // API's 404 are not JSON, we can't use raw responseJSON
+                        // and responseText is a complete HTML document.
+                        c.flash('fail', y18n.t('uri_not_found', [uri]));
+                        // Redirect to previous page.
+                        c.redirect(store.get('path-1'));
                     } else if (xhr.status == 401) {
                         if (uri === '/login') {
                             c.flash('fail', y18n.t('wrong_password'));
