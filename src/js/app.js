@@ -72,14 +72,15 @@ var app = Sammy('#main', function (sam) {
                 store.set('flash', true);
             }
 
-            $('#slider').css('padding-top', '30px');
+            $('#slider').addClass('with-flashMessage');
+
 
             // If the line is a bash command
             if (level === 'info' && message.charAt(0) === '+') {
                 level = 'log';
             }
 
-            $('#flashMessage')
+            $('#flashMessage .messages')
                 .prepend('<div class="alert alert-'+ level +'">'+
                               '<p>'+ message +'</p></div>');
         },
@@ -2087,4 +2088,14 @@ $(document).ready(function () {
         $('#slideTo').css('display', 'none');
         $('#slider-container').width(2*$('#slider').width() +'px').removeClass('move').css('margin-left', '0px');
     });
+
+    // Flash messages
+    var flashMessage = $('#flashMessage');
+    $('#toggle-btn', flashMessage).click(function(e) {
+        flashMessage.toggleClass('open');
+    })
+    $('#clear-btn', flashMessage).click(function(e) {
+        flashMessage.removeClass('open').find('.messages').html('');
+        $('#slider').removeClass('with-flashMessage');
+    })
 });

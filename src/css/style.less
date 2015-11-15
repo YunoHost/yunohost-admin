@@ -79,6 +79,10 @@ body {
     }
 }
 
+button {
+    &:extend(.btn);
+}
+
 .block {
     float:left;
     height: 100%;
@@ -473,6 +477,8 @@ input[type='radio'].nice-radio {
     margin-bottom: 20px;
     &:empty {margin-bottom: 0;}
 
+    button {display: none;}
+
    .alert-fail {
         .alert-danger();
     }
@@ -482,10 +488,7 @@ input[type='radio'].nice-radio {
         & + .alert {margin-top: 15px;}
 
         p {
-            &:extend(.container);
             margin: 0 auto;
-            padding-left: 25px;
-            padding-right: 25px;
             & + p {margin-top: 0.5em;}
         }
     }
@@ -500,35 +503,86 @@ input[type='radio'].nice-radio {
 }
 
 @media screen and (min-width: 640px) {
+    #slider {
+        #toggle-btn {display: none;}
+        &.with-flashMessage {
+            padding-top: 30px;
+            #toggle-btn {display: block;}
+        }
+    }
+
     #flashMessage {
         position: fixed;
-        top: 0px;
+        top: 0;
         left: 0;
         right: 0;
         z-index: 2001; // above pacman
         max-height: 30px;
         opacity: 0.9;
         overflow: hidden;
+        box-shadow: 0 0 1px rgba(0,0,0, 0.2);
         .transition(max-height 0.15s);
-        &:hover, &:active, &:focus {
+        &:hover,
+        &:active,
+        &:focus,
+        &.open {
             opacity: 1;
             overflow-y: auto;
             height: auto;
+            min-height: 30px;
             max-height: 70%;
-            border-bottom: #ddd solid 1px;
+            box-shadow: 0px 0 1px rgba(0,0,0, 0.5);
         }
+
         p {
             padding: 4px 10px;
             min-height: 30px;
             line-height: 22px;
         }
+
         .alert {
             // Override bootstrap defaults
-            padding: 0;
+            padding: 0 100px; // Space for buttons
             margin: 0;
             border: 0;
             border-radius: 0;
             & + .alert {margin-top: 0;}
+        }
+
+        button {
+            .btn-xs;
+            .btn-link;
+            margin: 4px 10px;
+            max-height: 22px;
+
+            color: @text-color;
+            &:hover,
+            &:active,
+            &:focus {text-decoration: none;}
+        }
+
+        #toggle-btn {
+            float: left;
+            .caret {
+                .rotate(270deg);
+                .transition(all 0.15s);
+            }
+        }
+        &.open #toggle-btn {
+            .caret {.rotate(360deg);}
+        }
+
+        #clear-btn {
+            float: right;
+            display: none;
+        }
+        &:hover,
+        &:active,
+        &:focus,
+        &.open {
+            #clear-btn {
+                display: block
+            }
         }
 
     }
