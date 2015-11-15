@@ -161,8 +161,8 @@ var app = Sammy('#main', function (sam) {
                         }
                     } else if (typeof xhr.responseJSON !== 'undefined') {
                         c.flash('fail', xhr.responseJSON.error);
-                    } else if (typeof xhr.responseText !== 'undefined' && uri !== '/postinstall') {
-                        c.flash('fail', xhr.responseText);
+                    } else if (typeof xhr.statusText !== 'undefined' && uri !== '/postinstall') {
+                        c.flash('fail', xhr.statusText);
                     } else {
                         if (uri === '/postinstall') {
                             if (installing) {
