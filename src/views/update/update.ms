@@ -7,7 +7,7 @@
 
 <div class="panel panel-default">
     <div class="panel-heading">
-        <h2 class="panel-title"> {{t 'system_packages'}}</h2>
+        <h2 class="panel-title"><span class="fa-fw fa-cube"></span> {{t 'system'}}</h2>
     </div>
     {{#if packages}}
     <div class="list-group">
@@ -37,7 +37,7 @@
 
 <div class="panel panel-default">
     <div class="panel-heading">
-        <h2 class="panel-title"> {{t 'system_apps'}}</h2>
+        <h2 class="panel-title"><span class="fa-fw fa-cubes"></span> {{t 'applications'}}</h2>
     </div>
     {{#if apps}}
     <div class="list-group">
