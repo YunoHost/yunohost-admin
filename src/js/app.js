@@ -1040,7 +1040,11 @@ var app = Sammy('#main', function (sam) {
             // Keep only installed apps
             data2 = { 'apps': [], 'installed_apps': true };
             $.each(data['apps'], function(k, v) {
-                if (v['installed']) data2['apps'].push(v);
+                if (v['installed']) {
+                    // On installed app, override name with current label
+                    v.name = (v.label) ? v.label : v.name;
+                    data2['apps'].push(v);
+                }
             });
 
             c.arraySortById(data2.apps);
