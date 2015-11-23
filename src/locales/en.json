@@ -146,6 +146,7 @@
     "domain_select" : "Select domain",
 
     "monitoring" : "Monitoring",
+    "versions" : "Versions",
     "hostname" : "Hostname",
     "os" : "OS",
     "uptime" : "Uptime",

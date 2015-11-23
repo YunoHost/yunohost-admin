@@ -1726,7 +1726,11 @@ var app = Sammy('#main', function (sam) {
                             // Remove useless interface
                             delete monitorData.network.usage.lo;
 
-                            c.view('tools/tools_monitoring', monitorData);
+                            // Get YunoHost versions too
+                            c.api('/version', function(versions) {
+                                monitorData.versions = versions;
+                                c.view('tools/tools_monitoring', monitorData);
+                            });
                         });
 
                     });
@@ -1885,6 +1889,14 @@ var app = Sammy('#main', function (sam) {
         });
 
     });
+
+    // Security feed
+    sam.get('#/tools/versions', function (c) {
+        c.api('/version', function(versions) {
+            c.view('tools/tools_versions', {'versions' : versions});
+        });
+    });
+
 
     /**
      * Backup

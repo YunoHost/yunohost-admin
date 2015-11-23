@@ -23,6 +23,20 @@
     </div>
 </div>
 
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2 class="panel-title"><span class="fa-fw fa-cogs"></span> {{t 'versions'}}</h2>
+    </div>
+    <div class="panel-body">
+        <dl class="dl-horizontal">
+            {{#each versions}}
+            <dt>{{@key}}</dt>
+            <dd>{{.}}</dd>
+            {{/each}}
+        </dl>
+    </div>
+</div>
+
 <div class="panel-group" id="accordion">
 
     <div class="panel panel-default">
