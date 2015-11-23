@@ -105,6 +105,7 @@
     "app_access" : "Access",
     "app_make_default" : "Make default",
     "app_debug_tab" : "Display debug information",
+    "app_debug_no_logs" : "Application logs are not available",
     "app_access_title" : "%s access",
     "allowed_users" : "Allowed users",
     "remove_access" : "Remove access",

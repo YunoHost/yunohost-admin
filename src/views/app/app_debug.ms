@@ -7,6 +7,7 @@
 
 <div class="separator"></div>
 
+{{#if services}}
 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 {{#services}}
     <div class="panel panel-default">
@@ -28,3 +29,10 @@
     </div>
 {{/services}}
 </div>
+
+{{else}}
+<div class="alert alert-warning">
+    <span class="fa-exclamation-triangle"></span>
+    {{t 'app_debug_no_logs'}}
+</div>
+{{/if}}
