@@ -1,5 +1,33 @@
 var app = Sammy('#main', function (sam) {
 
+
+    /**
+     * Application bootstrap
+     *
+     */
+    sam.bind('run', function () {
+
+        // Fixes for sliding effect
+        $('#slider-container').width(2*$('#slider').width() +'px');
+        $(window).resize(function() {
+            $('#slideBack').css('display', 'none');
+            $('#slideTo').css('display', 'none');
+            $('#slider-container').width(2*$('#slider').width() +'px').removeClass('move').css('margin-left', '0px');
+        });
+
+        // Flash messages
+        var flashMessage = $('#flashMessage');
+        $('#toggle-btn', flashMessage).click(function(e) {
+            flashMessage.toggleClass('open');
+        });
+        $('#clear-btn', flashMessage).click(function(e) {
+            flashMessage.removeClass('open').find('.messages').html('');
+            $('#slider').removeClass('with-flashMessage');
+        });
+
+    });
+
+
     /**
      * Sammy Configuration
      *
@@ -2096,22 +2124,4 @@ $(document).ready(function () {
      * Application
      */
     app.run('#/');
-
-    // Fixes for sliding effect
-    $('#slider-container').width(2*$('#slider').width() +'px');
-    $(window).resize(function() {
-        $('#slideBack').css('display', 'none');
-        $('#slideTo').css('display', 'none');
-        $('#slider-container').width(2*$('#slider').width() +'px').removeClass('move').css('margin-left', '0px');
-    });
-
-    // Flash messages
-    var flashMessage = $('#flashMessage');
-    $('#toggle-btn', flashMessage).click(function(e) {
-        flashMessage.toggleClass('open');
-    })
-    $('#clear-btn', flashMessage).click(function(e) {
-        flashMessage.removeClass('open').find('.messages').html('');
-        $('#slider').removeClass('with-flashMessage');
-    })
 });
