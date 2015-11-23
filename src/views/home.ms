@@ -9,7 +9,7 @@
     </a>
     <a href="#/apps" class="list-group-item slide clearfix">
         <span class="pull-right fa-chevron-right"></span>
-        <h2 class="list-group-item-heading"><span class="fa-fw fa-rocket"></span> {{t 'applications'}}</h2>
+        <h2 class="list-group-item-heading"><span class="fa-fw fa-cubes"></span> {{t 'applications'}}</h2>
     </a>
     <a href="#/update" class="list-group-item slide">
         <span class="fa-chevron-right pull-right"></span>
