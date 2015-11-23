@@ -100,8 +100,8 @@ var app = Sammy('#main', function (sam) {
                 store.set('flash', true);
             }
 
+            // Helper CSS class on main wrapper
             $('#slider').addClass('with-flashMessage');
-
 
             // If the line is a bash command
             if (level === 'info' && message.charAt(0) === '+') {
@@ -246,7 +246,6 @@ var app = Sammy('#main', function (sam) {
             loaded = true;
             $('div.loader').remove();
             $('#modal').modal('hide');
-            $('#flashModal').modal('hide');
 
             if (enableSlide) {
                 var leSwap = function() {
@@ -469,11 +468,6 @@ var app = Sammy('#main', function (sam) {
         if (!store.get('connected')) {
             req.redirect('#/login');
             return false;
-        }
-
-        // Clear flash display
-        if (!store.get('flash')) {
-            $('#flash').fadeOut(function() { $('#flash').html('').show(); });
         }
     });
 
@@ -709,7 +703,6 @@ var app = Sammy('#main', function (sam) {
     // Step 3 : administration passowrd
     sam.get('#/postinstall/password', function(c) {
         $('#masthead').hide();
-        $('#flash .alert').remove();
         if (!store.get('maindomain')) {
             store.clear('slide');
             c.redirect('#/postinstall/domain');
