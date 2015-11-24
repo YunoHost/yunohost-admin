@@ -39,8 +39,11 @@ gulp.task('js', function() {
             'js/vendor/sammy.json.js',
             'js/vendor/sammy.storage.js',
             'js/vendor/bootstrap.js',
-            'js/y18n.js',
-            'js/app.js'
+            'js/yunohost/y18n.js',
+            'js/yunohost/app.js',
+            'js/yunohost/helpers.js',
+            'js/yunohost/filters.js',
+            'js/yunohost/controllers/*.js',
         ])
         .pipe(uglify())
         .pipe(concat('script.min.js'))

@@ -1,0 +1,105 @@
+(function() {
+    // Get application context
+    var app = Sammy.apps['#main'];
+    var store = app.store;
+
+    /**
+     * Services
+     *
+     */
+
+    // All services status
+    app.get('#/services', function (c) {
+        c.api('/services', function(data) { // ?
+            data2 = { 'services': [] };
+            $.each(data, function(k, v) {
+                v.name = k;
+                // Handlebars want booleans
+                v.is_loaded = (v.loaded=='enabled') ? true : false;
+                v.is_running = (v.status=='running') ? true : false;
+                // Translate status and loaded state
+                v.status = y18n.t(v.status);
+                v.loaded = y18n.t(v.loaded);
+                data2.services.push(v);
+            });
+            c.view('service/service_list', data2);
+        });
+    });
+
+    // Status & actions for a service
+    app.get('#/services/:service', function (c) {
+        c.api('/services/'+ c.params['service'], function(data) { // ?
+            data2 = { 'service': data };
+            data2.service.name = c.params['service'];
+            // Handlebars want booleans
+            data2.service.is_loaded = (data.loaded=='enabled') ? true : false;
+            data2.service.is_running = (data.status=='running') ? true : false;
+            // Translate status and loaded state
+            data2.service.status = y18n.t(data.status);
+            data2.service.loaded = y18n.t(data.loaded);
+            store.clear('slide');
+            c.view('service/service_info', data2);
+        }, 'GET');
+    });
+
+    // Service log
+    app.get('#/services/:service/log', function (c) {
+        params = { 'number': 50 };
+        c.api('/services/'+ c.params['service'] +'/log', function(data) { // ?
+            data2 = { 'logs': [], 'name': c.params['service'] };
+            $.each(data, function(k, v) {
+                data2.logs.push({filename: k, filecontent: v.join('\n')});
+            });
+
+            c.view('service/service_log', data2);
+        }, 'GET', params);
+    });
+
+    // Enable/Disable & Start/Stop service
+    app.get('#/services/:service/:action', function (c) {
+        c.confirm(
+            "Service",
+            y18n.t('confirm_service_action', [y18n.t(c.params['action']), c.params['service']]),
+            function(){
+                var method = null, endurl = c.params['service'];
+
+                switch (c.params['action']) {
+                    case 'start':
+                        method = 'PUT';
+                        break;
+                    case 'stop':
+                        method = 'DELETE';
+                        break;
+                    case 'enable':
+                        method = 'PUT';
+                        endurl += '/enable';
+                        break;
+                    case 'disable':
+                        method = 'DELETE';
+                        endurl += '/enable';
+                        break;
+                    default:
+                        c.flash('fail', y18n.t('unknown_action', [c.params['action']]));
+                        store.clear('slide');
+                        c.redirect('#/services/'+ c.params['service']);
+                }
+
+                if (method && endurl) {
+                    c.api('/services/'+ endurl, function(data) {
+                        store.clear('slide');
+                        c.redirect('#/services/'+ c.params['service']);
+                    }, method);
+                }
+                else {
+                    store.clear('slide');
+                    c.redirect('#/services/'+ c.params['service']);
+                }
+            },
+            function(){
+                store.clear('slide');
+                c.redirect('#/services/'+ c.params['service']);
+            }
+        );
+    });
+
+})();
