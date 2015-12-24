@@ -1,3 +1,32 @@
+yunohost-admin (2.3.2) testing; urgency=low
+
+  [ opi ]
+  * [up] Bootstrap v3.3.5
+  * [up] FontAwesome v4.4.0. Use generic folder name.
+  * [enh] Add light radius on button. Rebuild CSS with Bootstrap update.
+  * [enh] Harmonize monitoring view.
+  * [enh] Use a more generic API error handler.
+  * [enh] Split hooks and apps on backup create page.
+  * [enh] Pretty icons and better wording on system update view.
+  * [enh] Display YunoHost packages versions.
+  * [enh] Move application bootstrap in Sammy run event listener.
+  * [enh] Display warning when no debug logs are available.
+  * [enh] Display app label in installed app list.
+  * [fix] API's 404 breaks page and message layout.
+  * [fix] dl/dt/dd style.
+  * [fix] Handle alert-error class.
+  * [fix] Use request statusText on API error.
+  * [fix] Missing app_id on backup create page.
+  * [fix] unGroupHooks helper.
+  * [fix] Restore 'Source Pro' font stack.
+  * [fix] Cleanup JS about flash messages and rebuild dist.
+  * [fix] Applications icon is now 'cubes'.
+
+  [ Jérôme Lebleu ]
+  * [fix] Update yunohost dependency minimum version
+
+ -- Jérôme Lebleu <jerome@maroufle.fr>  Thu, 24 Dec 2015 15:51:06 +0100
+
 yunohost-admin (2.3.1) testing; urgency=low
 
   [ Jérôme Lebleu ]
