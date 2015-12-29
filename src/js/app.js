@@ -1866,6 +1866,11 @@ var app = Sammy('#main', function (sam) {
     sam.get('#/tools/ca', function (c) {
         c.view('tools/tools_ca');
     });
+    
+    // System Reboot
+    sam.get('#/tools/reboot_server', function (c) {
+        c.api('tools/reboot_server') {
+    });
 
     // Security feed
     sam.get('#/tools/security-feed', function (c) {
