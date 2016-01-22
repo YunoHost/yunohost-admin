@@ -88,7 +88,7 @@
     "install": "Installieren", 
     "install_name": "%s installieren", 
     "install_time": "Installationszeit", 
-    "installation_complete": "Installation erfolgreich beendet", 
+    "installation_complete": "vollständig installiert", 
     "installed": "Installiert", 
     "installed_apps": "installierte Apps", 
     "installing": "wird installiert...", 
