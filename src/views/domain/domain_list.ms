@@ -12,44 +12,19 @@
 <div class="separator"></div>
 
 <div class="list-group">
-	{{#domains}}
-	<div class="list-group-item">
-        {{#if main}}
-        <span class="container text-success pull-right">
-            <span class="fa-star"></span> {{t 'default'}}
-        </span>
-        {{else}}
-        <a href="#/domains/{{url}}/delete" class="btn btn-danger slide back pull-right">
-            <span class="fa-trash-o"></span> {{t 'delete'}}
-        </a>
-        {{/if}}
-        <h2 class="list-group-item-heading">{{url}}</h2>
-        <a href="https://{{url}}" target="_blank">https://{{url}}</a>
-	</div>
-	{{/domains}}
-</div>
-
-{{#if main_domain_form}}
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <h2 class="panel-title">
-            {{t 'domain_default'}}
+    {{#each domains}}
+    <a href="#/domains/{{url}}" class="list-group-item slide clearfix">
+        <span class="pull-right fa-chevron-right"></span>
+        <h2 class="list-group-item-heading">
+            {{url}}
+            {{#if main}}<small><span class="fa-star" title="{{t 'default'}}"></span></small>{{/if}}
         </h2>
+        <p class="list-group-item-text">https://{{url}}</p>
+    </a>
+    {{else}}
+    <div class="alert alert-warning">
+        <span class="fa-exclamation-triangle"></span>
+        {{t 'domains_no'}}
     </div>
-    <div class="panel-body">
-        <p>{{t 'domain_default_desc'}}</p>
-        <form method="POST" action="#/domains" class="row">
-            <div class="form-group col-sm-6">
-                <select name="domain" required class="form-control">
-                    <option value="" default disabled selected>{{t 'domain_select'}}</option>
-                    {{#domains}}{{#unless main}}<option value="{{url}}">{{url}}</option>{{/unless}}{{/domains}}
-                </select>
-            </div>
-            <div class="form-group col-sm-6">
-                <input type="submit" class="btn btn-success slide back" value="{{t 'set_default'}}">
-            </div>
-        </form>
-
-    </div>
+    {{/each}}
 </div>
-{{/if}}

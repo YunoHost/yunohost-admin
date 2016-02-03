@@ -30,6 +30,29 @@
         });
     });
 
+    // List existing domains
+    app.get('#/domains/:domain', function (c) {
+        c.api('/domains/main', function(dataMain) {
+            domain = {
+                name: c.params['domain'],
+                main: (c.params['domain'] == dataMain.current_main_domain) ? true : false,
+                url: "https://"+c.params['domain']            
+            }
+            c.view('domain/domain_info', domain);
+        }, 'PUT');
+    });
+
+    // Domain DNS
+    app.get('#/domains/:domain/dns', function (c) {
+        c.api('/domains/' + c.params['domain'] + '/dns', function(data) {
+            domain = {
+                name: c.params['domain'],
+                dns: data
+            }
+            c.view('domain/domain_dns', domain);
+        });
+    });
+
     // Add domain form
     app.get('#/domains/add', function (c) {
         $.get('https://dyndns.yunohost.org/domains', function() {})
