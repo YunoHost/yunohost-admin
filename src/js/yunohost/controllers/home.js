@@ -81,11 +81,7 @@
         $('#masthead .logout-btn').hide();
         store.set('path-1', '#/login');
         if ($('div.loader').length === 0) {
-            setInterval(function () {
-                if (!app.loaded && $('div.loader').length === 0) {
-                    $('#main').append('<div class="loader loader-content"></div>');
-                }
-            }, 500);
+            $('#main').append('<div class="loader loader-content"></div>');
         }
 
         c.checkInstall(function(isInstalled) {

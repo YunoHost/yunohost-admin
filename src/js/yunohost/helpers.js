@@ -74,11 +74,7 @@
 
                 loaded = false;
                 if ($('div.loader').length === 0) {
-                    setInterval(function () {
-                        if (!loaded && $('div.loader').length === 0) {
-                            $('#main').append('<div class="loader loader-content"></div>');
-                        }
-                    }, 500);
+                    $('#main').append('<div class="loader loader-content"></div>');
                 }
 
                 jQuery.ajax({
