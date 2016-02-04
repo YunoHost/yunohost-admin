@@ -544,6 +544,9 @@ input[type='radio'].nice-radio {
         overflow: hidden;
         box-shadow: 0 0 1px rgba(0,0,0, 0.2);
         .transition(max-height 0.15s);
+        .messages {
+            max-height: 30px;
+        }
         &:hover,
         &:active,
         &:focus,
@@ -554,6 +557,9 @@ input[type='radio'].nice-radio {
             min-height: 30px;
             max-height: 70%;
             box-shadow: 0px 0 1px rgba(0,0,0, 0.5);
+            .messages {
+                max-height: none;
+            }
         }
 
         p {
