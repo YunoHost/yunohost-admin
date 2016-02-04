@@ -67,8 +67,14 @@
 
 
         // Look for supported type of storage to use
+        /**
+         * http://sammyjs.org/docs/api/0.7.4/all#Sammy.Store.LocalStorage
+         * LocalStorage is our favorite, as it allows multiple tabs
+         */
         var storageType;
-        if (Sammy.Store.isAvailable('session')) {
+        if (Sammy.Store.isAvailable('local')) {
+            storageType = 'local';
+        } else if (Sammy.Store.isAvailable('session')) {
             storageType = 'session';
         } else if (Sammy.Store.isAvailable('cookie')) {
             storageType = 'cookie';
