@@ -40,7 +40,7 @@ gulp.task('js', function() {
             'js/vendor/sammy.storage.js',
             'js/vendor/bootstrap.js',
             'js/yunohost/y18n.js',
-            'js/yunohost/app.js',
+            'js/yunohost/main.js',
             'js/yunohost/helpers.js',
             'js/yunohost/filters.js',
             'js/yunohost/controllers/*.js',
