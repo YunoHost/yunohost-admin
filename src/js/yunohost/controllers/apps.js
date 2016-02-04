@@ -101,6 +101,7 @@
                 data.manifest.arguments.install[k].type = (typeof v.type !== 'undefined') ? v.type : 'string';
                 data.manifest.arguments.install[k].inputType = 'text';
                 data.manifest.arguments.install[k].required = (typeof v.optional !== 'undefined' && v.optional == "true") ? '' : 'required';
+                data.manifest.arguments.install[k].attributes = "";
 
                 // Input with choices becomes select list
                 if (typeof data.manifest.arguments.install[k].choices !== 'undefined') {
@@ -153,6 +154,21 @@
                         });
                     });
                     data.manifest.arguments.install[k].help = "<a href='#/apps'>"+y18n.t('manage_apps')+"</a>";
+                }
+
+                // Boolean fields
+                if (data.manifest.arguments.install[k].type == 'boolean') {
+                    data.manifest.arguments.install[k].inputType = 'checkbox';
+
+                    // Checked or not ?
+                    if (typeof data.manifest.arguments.install[k].default !== 'undefined') {
+                        if (data.manifest.arguments.install[k].default == "True" || data.manifest.arguments.install[k].default == "1") {
+                            data.manifest.arguments.install[k].attributes = 'checked="checked"';
+                        }
+                    }
+
+                    // 'default' is used as value, so we need to force it for checkboxes.
+                    data.manifest.arguments.install[k].default = 1;
                 }
 
                 // 'password' type input.

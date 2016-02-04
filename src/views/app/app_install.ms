@@ -7,7 +7,7 @@
 
 <div class="separator"></div>
 
-<form action="#/apps" method="POST" class="form-horizontal">
+<form action="#/apps" method="POST" class="form-horizontal form-app-install">
 
 <div class="panel panel-default">
     <div class="panel-heading">
@@ -43,11 +43,11 @@
             <div class="col-sm-12">
 
                 {{#if choices}}
-                <select id="{{name}}" name="{{name}}" required class="form-control">
+                <select id="{{name}}" name="{{name}}" required class="form-control" {{attributes}}>
                     {{#choices}}<option value="{{value}}" {{#if selected}}selected{{/if}}>{{label}}</option>{{/choices}}
                 </select>
                 {{else}}
-                <input type="{{inputType}}" id="{{name}}" name="{{name}}" class="form-control" value="{{default}}" placeholder="{{example}}" {{required}}>
+                <input type="{{inputType}}" id="{{name}}" name="{{name}}" class="form-control" value="{{default}}" placeholder="{{example}}" {{required}} {{attributes}}>
                 {{/if}}
 
                 {{#if help}}
