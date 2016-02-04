@@ -162,7 +162,7 @@
 
                     // Checked or not ?
                     if (typeof data.manifest.arguments.install[k].default !== 'undefined') {
-                        if (data.manifest.arguments.install[k].default == "True" || data.manifest.arguments.install[k].default == "1") {
+                        if (data.manifest.arguments.install[k].default == true) {
                             data.manifest.arguments.install[k].attributes = 'checked="checked"';
                         }
                     }
