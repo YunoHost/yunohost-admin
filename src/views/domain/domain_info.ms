@@ -31,9 +31,9 @@
     </div>
     <div class="panel-body">
         <div class="container">
-            <p>{{t 'domain_visit' url}}</p>
+            <p>{{t 'domain_visit_url' url}}</p>
             <a href="{{url}}" class="btn btn-success" target="_blank">
-                {{t 'visit'}} {{url}} <span class="fa-fw fa-external-link"></span>
+                {{t 'domain_visit'}} <span class="fa-fw fa-external-link"></span>
             </a>
         </div>
         {{#unless main}}

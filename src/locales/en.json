@@ -145,6 +145,13 @@
     "domain_default" : "Default domain",
     "domain_default_desc" : "The default domain is the connection domain where users log in.",
     "domain_select" : "Select domain",
+    "domain_default_longdesc" : "This is your default domain.",
+    "domain_visit_url" : "Visit %s",
+    "domain_visit" : "Visit",
+    "dns" : "DNS",
+    "domain_dns_longdesc" : "View DNS configuration",
+    "domain_dns_config" : "DNS configuration",
+    "domain_delete_longdesc" : "Delete this domain",
 
     "monitoring" : "Monitoring",
     "versions" : "Versions",
