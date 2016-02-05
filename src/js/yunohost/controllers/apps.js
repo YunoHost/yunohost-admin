@@ -12,13 +12,13 @@
     app.get('#/apps', function (c) {
         c.api('/apps', function(data) { // http://api.yunohost.org/#!/app/app_list_get_8
             // Keep only installed apps
-            data2 = { 'apps': [], 'installed_apps': true };
+            apps = [];
             $.each(data['apps'], function(k, v) {
-                if (v['installed']) data2['apps'].push(v);
+                if (v['installed']) apps.push(v);
             });
 
-            c.arraySortById(data2.apps);
-            c.view('app/app_list', data2);
+            c.arraySortById(apps);
+            c.view('app/app_list', {apps: apps});
         });
     });
 
@@ -27,17 +27,16 @@
         c.api('/apps', function(data) { // http://api.yunohost.org/#!/app/app_list_get_8
             c.api('/apps?raw', function(dataraw) { // http://api.yunohost.org/#!/app/app_list_get_8
                 // Keep only uninstalled apps, or multi-instance apps
-                data2 = { 'apps': [], 'installed_apps': false };
+                apps = [];
                 $.each(data['apps'], function(k, v) {
                     if ((!v['installed'] || dataraw[v['id']].manifest.multi_instance == "true") && !v['id'].match(/__[0-9]{1,5}$/)) {
-                        v['install_link']=true;
-                        data2['apps'].push(v);
+                        apps.push(v);
                     }
                 });
 
                 // Sort app list
-                c.arraySortById(data2.apps);
-                c.view('app/app_list', data2);
+                c.arraySortById(apps);
+                c.view('app/app_list_install', {apps: apps});
             });
         });
     });
