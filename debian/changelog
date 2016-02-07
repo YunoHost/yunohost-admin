@@ -1,3 +1,25 @@
+yunohost-admin (2.3.3) testing; urgency=low
+
+  [ opi ]
+  * [enh] Split application script in multiple files.
+  * [enh] Support boolean argument type in app manifest. #141
+  * [fix] Allow dots in third party app url. #109
+  * [fix] Prevent delay while displaying pacman loader.
+  * [enh] Make session persists accross multiple tabs. #144
+  * [enh] Rename main js file to avoid confusion with apps controller.
+  * [fix] Display responseText on API error. #171
+  * [fix] Display last flash message first. Bug introduced in 0864548c0.
+  * [fix] Use real json boolean value for default key. #141
+  * [enh] Add domain info page with DNS config.
+  * [fix] Translate missing string about domain & DNS.
+  * [enh] Add colored badges.
+  * [enh] Split app list templates, add 'installed' badge.
+
+  [ Jérôme Lebleu ]
+  * [fix] Update yunohost dependency minimum version
+
+ -- Jérôme Lebleu <jerome@yunohost.org>  Sun, 07 Feb 2016 19:13:55 +0100
+
 yunohost-admin (2.3.2) testing; urgency=low
 
   [ opi ]
