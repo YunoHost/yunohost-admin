@@ -1,3 +1,9 @@
+yunohost-admin (2.3.4) testing; urgency=low
+
+  * [fix] Define domain addition route before domain info.
+
+ -- Jérôme Lebleu <jerome@yunohost.org>  Sun, 07 Feb 2016 19:56:52 +0100
+
 yunohost-admin (2.3.3) testing; urgency=low
 
   [ opi ]
