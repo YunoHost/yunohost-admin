@@ -11,7 +11,7 @@ Architecture: all
 Conflicts: yunohost-apps-admin
 Replaces: yunohost-apps-admin
 Depends: ${misc:Depends}
- , yunohost (>= 2.3.5)
+ , yunohost (>= 2.3.6)
 Description: web administration interface for yunohost
  YunoHost aims to make self-hosting accessible to everyone. It configures
  an email, Web and IM server alongside a LDAP base. It also provides
