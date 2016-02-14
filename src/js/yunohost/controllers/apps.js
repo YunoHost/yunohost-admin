@@ -30,7 +30,12 @@
                 apps = [];
                 $.each(data['apps'], function(k, v) {
                     if ((!v['installed'] || dataraw[v['id']].manifest.multi_instance == "true") && !v['id'].match(/__[0-9]{1,5}$/)) {
-                        apps.push(v);
+                        if (dataraw[v['id']]['store']!='yunohost')
+                        {
+                            dataraw[v['id']]['isUnofficial']=true;
+                        }
+                        dataraw[v['id']]['description']=v.description;
+                        apps.push(dataraw[v['id']]);
                     }
                 });
 
