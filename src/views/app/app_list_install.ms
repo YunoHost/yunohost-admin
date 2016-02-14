@@ -17,10 +17,14 @@
     <a href="#/apps/install/{{id}}" class="list-group-item slide" title="{{t 'install'}}">
         <span class="fa-chevron-right pull-right"></span>
         <h2 class="list-group-item-heading">
-            {{name}} <small>{{id}}</small>
+            {{manifest.name}} <small>{{manifest.id}}</small>
             {{#installed}}<span class="badge badge-success">{{t 'installed'}}</span>{{/installed}}
         </h2>
-        <p class="list-group-item-text">{{description}}</p>
+        <p class="list-group-item-text">{{manifest.description}}</p>
+        {{#isUnofficial}}
+            <p class="list-group-item-text">{{t 'app_store'}} {{store}}</p>
+            <p class="list-group-item-text">{{t 'app_state'}} {{state}}</p>
+        {{/isUnofficial}}
     </a>
 {{/apps}}
 
