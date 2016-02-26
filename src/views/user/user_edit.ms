@@ -15,17 +15,17 @@
         <div class="form-group">
             <label for="username" class="col-sm-3 control-label">{{t 'user_username'}}</label>
             <div class="col-sm-9">
-                <input type="text" id="username" name="username" class="form-control" placeholder="{{username}}" disabled>
+                <input type="text" id="username" name="username" class="form-control" value="{{username}}" disabled>
             </div>
         </div>
         <div class="form-group">
             <label for="firstname" class="col-sm-3 control-label">{{t 'user_fullname'}}</label>
             <div class="clearfix visible-xs"></div>
             <div class="col-sm-4 col-xs-6">
-                <input type="text" id="firstname" name="firstname" class="form-control" placeholder="{{firstname}}">
+                <input type="text" id="firstname" name="firstname" class="form-control" value="{{firstname}}">
             </div>
             <div class="col-sm-5 col-xs-6">
-                <input type="text" name="lastname" class="form-control" placeholder="{{lastname}}">
+                <input type="text" name="lastname" class="form-control" value="{{lastname}}">
             </div>
         </div>
         <div class="form-group">
@@ -33,7 +33,7 @@
             <div class="clearfix visible-xs"></div>
             <input type="hidden" id="mail" name="mail" class="form-control" value="{{mail}}">
             <div class="col-sm-4 col-xs-6">
-                <input type="text" id="email" name="email" class="form-control" placeholder="{{email.username}}" value="{{email.username}}">
+                <input type="text" id="email" name="email" class="form-control" value="{{email.username}}">
             </div>
             <div class="col-sm-5 col-xs-6">
                <select class="form-control" name="domain">
@@ -46,7 +46,7 @@
         <div class="form-group">
             <label for="mailbox-quota" class="col-sm-3 control-label">{{t 'user_mailbox_quota'}}</label>
             <div class="col-sm-9">
-                <input type="text" id="mailbox-quota" name="mailbox_quota" class="form-control" placeholder="{{mailbox-quota.limit}}">
+                <input type="text" id="mailbox-quota" name="mailbox_quota" class="form-control" value="{{mailbox-quota.limit}}">
                 <div class="help-block">{{t 'mailbox_quota_description'}}</div>
             </div>
         </div>
