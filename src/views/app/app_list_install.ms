@@ -43,6 +43,10 @@
         <h2 class="panel-title"><span class="fa-fw fa-download"></span> {{t 'custom_app_install'}}</h2>
     </div>
     <div class="panel-body">
+        <p class="alert alert-warning">
+            <span class="fa-warning"></span>
+            {{t 'confirm_install_custom_app'}}
+        </p>
         <form action="#/apps/install/custom" method="POST" class="form-horizontal">
             <div class="form-group has-feedback">
                 <label for="label" class="col-sm-12">{{t 'url'}}</label>
