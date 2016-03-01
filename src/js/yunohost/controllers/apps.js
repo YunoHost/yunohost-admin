@@ -26,15 +26,14 @@
     app.get('#/apps/install', function (c) {
         c.api('/apps', function(data) { // http://api.yunohost.org/#!/app/app_list_get_8
             c.api('/apps?raw', function(dataraw) { // http://api.yunohost.org/#!/app/app_list_get_8
-                // Keep only uninstalled apps, or multi-instance apps
                 apps = [];
                 $.each(data['apps'], function(k, v) {
+                    // Keep only uninstalled apps, or multi-instance apps
                     if ((!v['installed'] || dataraw[v['id']].manifest.multi_instance == "true") && !v['id'].match(/__[0-9]{1,5}$/)) {
-                        if (dataraw[v['id']]['store']!='yunohost')
-                        {
-                            dataraw[v['id']]['isUnofficial']=true;
-                        }
-                        dataraw[v['id']]['description']=v.description;
+                        // Check app source
+                        dataraw[v['id']]['official'] = (dataraw[v['id']]['repository'] == 'yunohost');
+
+                        jQuery.extend(dataraw[v['id']], v);
                         apps.push(dataraw[v['id']]);
                     }
                 });
