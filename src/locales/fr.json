@@ -25,7 +25,7 @@
     "app_repository": "Origine de l'application : ", 
     "app_state": "État de l'application : ", 
     "app_state_inprogress": "En cours", 
-    "app_state_notworking": "Ne fonctionne pas", 
+    "app_state_notworking": "Non fonctionnelle", 
     "app_state_validated": "Validée", 
     "app_state_working": "Fonctionnelle", 
     "application": "Application", 
