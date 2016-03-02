@@ -133,7 +133,7 @@
                     }
                     if (uri !== '/postinstall') {
                         store.clear('slide');
-                        c.view(store.get('path-1'), null, null, false);
+                        c.redirect(store.get('path-1'));
                     }
                 });
             };
