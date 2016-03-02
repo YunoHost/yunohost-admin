@@ -35,6 +35,7 @@
                     var link=$('link', v)[0].innerHTML;
                     if (typeof link == 'string' && link !== '' && link.charAt(0) == '/')
                         link=forumUrl+link;
+
                     var description=$('description', v)[0].textContent;
                     description=description.replace('href="/','href="'+forumUrl+'/');
 
@@ -55,7 +56,6 @@
                         viewedItems.push(item.guid);
                     }
                 });
-
                 // Saved viewed items to cookie
                 $.cookie('ynhSecurityViewedItems', viewedItems, {
                     expire: 7
@@ -77,8 +77,8 @@
      */
 
     app.get('#/login', function (c) {
-        $('#masthead').show();
-        $('#masthead .logout-btn').hide();
+        $('#masthead').show()
+            .find('.logout-btn').hide();
         store.set('path-1', '#/login');
         if ($('div.loader').length === 0) {
             $('#main').append('<div class="loader loader-content"></div>');
