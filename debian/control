@@ -17,5 +17,6 @@ Description: web administration interface for yunohost
  an email, Web and IM server alongside a LDAP base. It also provides
  facilities to manage users, domains, apps and so.
  .
- This package contains a JavaScript web client for the YunoHost API which
- allows to administrate the server.
+ This package contains the JavaScript web client for the YunoHost API, 
+ providing a web-based interface for system administration of a 
+ YunoHost server.
