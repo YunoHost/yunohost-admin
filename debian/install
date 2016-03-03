@@ -1,0 +1,4 @@
+src/dist usr/share/yunohost/admin
+src/locales usr/share/yunohost/admin
+src/views usr/share/yunohost/admin
+src/index.html usr/share/yunohost/admin
