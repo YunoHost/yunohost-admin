@@ -4,7 +4,7 @@
 # Debian generated stuff
 debian/*.log
 debian/files
-debian/yunohost-admin
+debian/yunohost-admin*
 
 # npm files
 src/node_modules
