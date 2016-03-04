@@ -18,6 +18,7 @@ ln -s /usr/share/yunohost/yunohost-admin/src admin
 apt-get install nodejs nodejs-legacy npm -y
 cd admin
 npm install
+node_modules/.bin/bower install
 node_modules/.bin/gulp build
 ```
 

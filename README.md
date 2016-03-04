@@ -23,6 +23,8 @@ build with:
 ```sh
 cd src
 npm install
+npm install -g bower
+bower install
 npm install -g gulp
 gulp build
 ```
