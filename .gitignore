@@ -1,9 +1,11 @@
 *.swp
 *~
 
+debian/*.log
+
 # npm files
-node_modules
-npm-debug.log
+src/node_modules
+src/npm-debug.log
 
 # Symlink to ca.crt file
 ca.crt
@@ -11,4 +13,5 @@ ca.crt
 # Debug CSS file
 src/css/style.css
 
-bower_components
+src/bower_components
+src/dist
