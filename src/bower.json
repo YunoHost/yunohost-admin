@@ -1,0 +1,13 @@
+{
+  "name": "yunohost-admin",
+  "description": "YunoHost Admin web interface",
+  "license": "AGPL-3.0",
+  "private": true,
+  "dependencies": {
+    "bootstrap": "^3.3.6",
+    "font-awesome": "^4.5.0",
+    "handlebars": "^1.3.0",
+    "sammy" : "^0.7.6",
+    "js-cookie": "^2.2.0"
+  }
+}

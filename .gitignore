@@ -10,3 +10,5 @@ ca.crt
 
 # Debug CSS file
 src/css/style.css
+
+bower_components

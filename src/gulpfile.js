@@ -31,14 +31,14 @@ gulp.task('watch', function(){
 // JS task
 gulp.task('js', function() {
     return gulp.src([
-            'js/vendor/jquery-1.10.1.min.js',
-            'js/vendor/jquery.cookie.js',
-            'js/vendor/handlebars-v1.3.0.js',
-            'js/vendor/sammy.js',
-            'js/vendor/sammy.handlebars.js',
-            'js/vendor/sammy.json.js',
-            'js/vendor/sammy.storage.js',
-            'js/vendor/bootstrap.js',
+            'bower_components/jquery/dist/jquery.js',
+            'bower_components/js-cookie/js.cookie.js',
+            'bower_components/handlebars/handlebars.js',
+            'bower_components/sammy/lib/sammy.js',
+            'bower_components/sammy/lib/plugins/sammy.handlebars.js',
+            'bower_components/sammy/lib/plugins/sammy.json.js',
+            'bower_components/sammy/lib/plugins/sammy.storage.js',
+            'bower_components/bootstrap/dist/js/bootstrap.js',
             'js/yunohost/y18n.js',
             'js/yunohost/main.js',
             'js/yunohost/helpers.js',
