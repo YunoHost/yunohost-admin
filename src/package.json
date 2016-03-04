@@ -23,9 +23,5 @@
     "gulp-rename": "^1.2.2",
     "gulp-uglify": "^1.2.0",
     "bower": "^1.7.7"
-  },
-  "scripts": {
-    "postinstall": "bower install",
-    "postinstall": "gulp build"
   }
 }
