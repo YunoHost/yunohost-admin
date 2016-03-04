@@ -23,11 +23,16 @@ build with:
 ```sh
 cd src
 npm install
+npm install -g bower
+bower install
 npm install -g gulp
 gulp build
 ```
 
 ## Dependencies
 
-* Bootstrap 3.1.1
-* Font-Awesome 4.0.3
+* Bootstrap 3.3.6
+* Font-Awesome 4.5.0
+* Handlebars 1.3.0
+* Sammy 0.7.6
+* Jquery-Cookie 2.1.0
