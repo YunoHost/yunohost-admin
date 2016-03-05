@@ -27,8 +27,7 @@
             })
             .done(function(xml){
                 // Get viewed security alerts from cookie
-                $.cookie.json = true;
-                var viewedItems = $.cookie('ynhSecurityViewedItems') || [];
+                var viewedItems = Cookies.get('ynhSecurityViewedItems') || [];
 
                 // Loop through items
                 $('item', xml).each(function(k, v) {
@@ -57,8 +56,8 @@
                     }
                 });
                 // Saved viewed items to cookie
-                $.cookie('ynhSecurityViewedItems', viewedItems, {
-                    expire: 7
+                Cookies.set('ynhSecurityViewedItems', viewedItems, {
+                    expires: 7
                 });
             })
             .fail(function() {
