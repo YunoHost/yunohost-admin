@@ -33,7 +33,7 @@ gulp.task('watch', function(){
 gulp.task('js', function() {
     return gulp.src([
             'bower_components/jquery/dist/jquery.js',
-            'bower_components/js-cookie/js.cookie.js',
+            'bower_components/js-cookie/src/js.cookie.js',
             'bower_components/handlebars/handlebars.js',
             'bower_components/sammy/lib/sammy.js',
             'bower_components/sammy/lib/plugins/sammy.handlebars.js',
