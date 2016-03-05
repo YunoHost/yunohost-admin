@@ -1,4 +1,4 @@
-@font-path: "../../fonts/";
+@font-path: "../fonts/";
 
 /*
  * Bootstrap
@@ -30,7 +30,7 @@
 @import "../bower_components/font-awesome/less/font-awesome.less";
 
 // variables override
-@fa-font-path:        "@{font-path}font-awesome/fonts";
+@fa-font-path: @font-path;
 
 // Fixes
 [class*="fa-"] {.fa;}

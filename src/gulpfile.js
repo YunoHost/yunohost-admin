@@ -16,6 +16,7 @@ var concat = require('gulp-concat'),
 // Global build task
 gulp.task('build', [
     'css',
+    'fonts',
     'js',
     'img',
 ]);
@@ -58,6 +59,14 @@ gulp.task('js-lint', function() {
         .pipe(jshint.reporter('default'));
 });
 
+// Fonts
+gulp.task('fonts', function() {
+    return gulp.src([
+            'bower_components/font-awesome/fonts/*',
+            'fonts/*'
+        ])
+        .pipe(gulp.dest('./dist/fonts'))
+});
 
 // CSS task
 gulp.task('css', function () {
