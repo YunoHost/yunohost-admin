@@ -63,7 +63,16 @@ gulp.task('js-lint', function() {
 gulp.task('fonts', function() {
     return gulp.src([
             'bower_components/font-awesome/fonts/*',
-            'fonts/*'
+            'bower_components/source-code-pro/EOT/*.eot',
+            'bower_components/source-code-pro/OTF/*.otf',
+            'bower_components/source-code-pro/TTF/*.ttf',
+            'bower_components/source-code-pro/WOFF/OTF/*.woff',
+            'bower_components/source-code-pro/WOFF2/TTF/*.woff2',
+            'bower_components/source-sans-pro/EOT/*.eot',
+            'bower_components/source-sans-pro/OTF/*.otf',
+            'bower_components/source-sans-pro/TTF/*.ttf',
+            'bower_components/source-sans-pro/WOFF/OTF/*.woff',
+            'bower_components/source-sans-pro/WOFF2/TTF/*.woff2',
         ])
         .pipe(gulp.dest('./dist/fonts'))
 });
