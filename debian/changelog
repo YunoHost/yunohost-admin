@@ -1,3 +1,110 @@
+yunohost-admin (2.3.5) testing; urgency=low
+
+  [ zamentur ]
+  * [enh] display store and state of each apps
+
+  [ opi ]
+  * [fix] Using value instead of placeholder prevent returning empty values.
+  * [fix] Revert french translation from f6e65cbc012.
+  * [fix] Use repository term instead of store. JS Cleanup.
+
+  [ DUBWiSE ]
+  * [i18n] Translated using Weblate (Dutch)
+
+  [ danc ]
+  * [i18n] Translated using Weblate (Italian)
+  * [i18n] Translated using Weblate (Italian)
+
+  [ étienne Deparis ]
+  * [i18n] Translated using Weblate (French)
+
+  [ Jean-Baptiste ]
+  * [i18n] Translated using Weblate (French)
+
+  [ dosch ]
+  * [i18n] Translated using Weblate (Dutch)
+
+  [ Jean-Baptiste ]
+  * [i18n] Translated using Weblate (French)
+
+  [ Thomas Bille ]
+  * [i18n] Translated using Weblate (Italian)
+
+  [ P ]
+  * [i18n] Translated using Weblate (Portuguese)
+
+  [ Felix Bartels ]
+  * [i18n] Translated using Weblate (German)
+
+  [ davidba123 ]
+  * [i18n] Translated using Weblate (German)
+
+  [ Felix Bartels ]
+  * [i18n] Translated using Weblate (German)
+  * [i18n] Translated using Weblate (German)
+
+  [ Zamentur aka ljf ]
+  * [i18n] Translated using Weblate (French)
+
+  [ Jérôme Lebleu ]
+  * [i18n] Translated using Weblate (French)
+
+  [ opi ]
+  * [i18n] Translated using Weblate (French)
+  * [i18n] Translated using Weblate (French)
+  * [enh] Add extra warning for 3rd party app install form. cc Bram
+  * [enh] Cleanup
+  * [fix] Call redirect() on path, not view(). Fix #205
+
+  [ Julien Malik ]
+  * [fix] remove executable permissions from font files
+
+  [ julienmalik ]
+  * [fix] Modify package description (lintian)
+
+  [ Julien Malik ]
+  * [enh] remove third parties from source, use bower
+  * [enh] remove dist folder from src. it is generated during build
+  * [fix] js-cookie only has 2.1.0 max
+  * [fix] debian/stable npm does not seem to support several postinstall scripts
+  * [enh] additionnal stuff in .gitignore
+  * [enh] only install required files
+  * [enh] add some more debian stuff to .gitignore
+  * [enh] add some more debian stuff to .gitignore
+  * [enh] run npm, bower and gulp at build time. make sure it starts from a clean env
+  * [doc] Update README
+  * [doc] Update README with deps
+
+  [ opi ]
+  * [fix] Source path in deb copyright file
+
+  [ Julien Malik ]
+  * [fix] the version of npm on stable seems to prefer another way for options
+
+  [ Jérôme Lebleu ]
+  * [fix] Add required build dependencies
+
+  [ Julien Malik ]
+  * [enh] separate calls so that the makefile can error out at first error
+
+  [ opi ]
+  * [fix] Revert hardcoded version introduced in 0f8350a1e3
+
+  [ Julien Malik ]
+  * [fix] fonts were forgotten along the way
+  * [fix] fix source path of js-cookie
+  * [enh] move to new js-cookie API
+
+  [ opi ]
+  * [fix] Do not override Font-Awesome font path.
+  * [enh] Remove SourcePro fonts from source, use bower too.
+  * [fix] NPM package bugtracker url.
+  * [fix] Use fixed version for bower components.
+  * [fix] Remove useless .htaccess file.
+  * [enh] Do not print old security notice. Append date and reverse order. Fix #186
+
+ -- opi <opi@zeropi.net>  Mon, 07 Mar 2016 14:25:35 +0100
+
 yunohost-admin (2.3.4) testing; urgency=low
 
   * [fix] Define domain addition route before domain info.
