@@ -29,28 +29,34 @@
                 // Get viewed security alerts from cookie
                 var viewedItems = Cookies.get('ynhSecurityViewedItems') || [];
 
-                // Loop through items
-                $('item', xml).each(function(k, v) {
-                    var link=$('link', v)[0].innerHTML;
+                // Get 6 month earlier date
+                var SixMonthEarlier = new Date();
+                SixMonthEarlier.setMonth(SixMonthEarlier.getMonth() - 6);
+
+                // Loop through items in a reverse order (older first)
+                $($('item', xml).get().reverse()).each(function(k, v) {
+                    var link=$('link', v).text();
                     if (typeof link == 'string' && link !== '' && link.charAt(0) == '/')
                         link=forumUrl+link;
 
-                    var description=$('description', v)[0].textContent;
-                    description=description.replace('href="/','href="'+forumUrl+'/');
+                    // var description=$('description', v).text();
+                    // description=description.replace('href="/','href="'+forumUrl+'/');
 
                     var item = {
-                        guid: $('guid', v)[0].innerHTML,
-                        title: $('title', v)[0].innerHTML,
+                        guid: $('guid', v).text(),
+                        title: $('title', v).text(),
                         url: link,
-                        desc: description,
-                        date: $('pubDate', v)[0].innerHTML.split(' +')[0],
+                        // desc: description,
+                        date: new Date($('pubDate', v).text()),
                     };
-                    if (viewedItems.indexOf(item.guid) === -1) {
-                        // Show security message to administrator
-                        // var warning = '<h2>'+ item.title +'</h2>'+ item.desc
-                        var warning = item.title + ' (<a href="'+ item.url +'" class="alert-link" target="_blank">'+y18n.t('read_more')+'</a>)';
-                        c.flash('warning', warning);
 
+                    // If item is not already viewed and is not older than 6 month
+                    if (viewedItems.indexOf(item.guid) === -1 && (item.date.getTime() > SixMonthEarlier.getTime())) {
+                        // Show security message to administrator
+                        var warning = item.title + ' - ' + 
+                                                item.date.toISOString().substring(0, 10) + 
+                                                ' (<a href="'+ item.url +'" class="alert-link" target="_blank">'+y18n.t('read_more')+'</a>)';
+                        c.flash('warning', warning);
                         // Store viewed item
                         viewedItems.push(item.guid);
                     }
