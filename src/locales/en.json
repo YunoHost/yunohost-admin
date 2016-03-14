@@ -302,5 +302,10 @@
     "storage_create": "Add a remote storage",
     "confirm_restore": "Are you sure you want to restore %s ?",
     "backup_type": "Type",
-    "path": "Path"
+    "path": "Path",
+
+    "diagnosis" : "Diagnosis",
+    "diagnosis_with_private" : "Diagnosis with private data",
+    "diagnosis_view_private" : "Show diagnosis with private data",
+    "diagnosis_hide_private" : "Show diagnosis without private data"
 }

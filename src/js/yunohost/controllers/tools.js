@@ -148,10 +148,25 @@
 
     });
 
-    // Security feed
+    // Packages version
     app.get('#/tools/versions', function (c) {
         c.api('/version', function(versions) {
             c.view('tools/tools_versions', {'versions' : versions});
+        });
+    });
+
+    // Diagnosis
+    app.get('#/tools/diagnosis(/:private)?', function (c) {
+        // See http://sammyjs.org/docs/routes for splat documentation
+        private = (c.params.splat[0] == 'private');
+
+        endurl = (private) ? '?private' : '';
+        c.api('/diagnosis'+endurl, function(diagnosis) {
+            c.view('tools/tools_diagnosis', {
+                'diagnosis' : JSON.stringify(diagnosis, undefined, 4),
+                'raw' : diagnosis,
+                'private' : private
+            });
         });
     });
 
