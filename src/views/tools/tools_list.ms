@@ -7,6 +7,14 @@
 
 
 <div class="list-group">
+    <a href="#/tools/monitor" class="list-group-item slide clearfix">
+        <span class="pull-right fa-chevron-right"></span>
+        <h2 class="list-group-item-heading">{{t 'monitoring'}}</h2>
+    </a>
+    <a href="#/tools/firewall" class="list-group-item slide clearfix">
+        <span class="pull-right fa-chevron-right"></span>
+        <h2 class="list-group-item-heading">{{t 'firewall'}}</h2>
+    </a>
     <a href="#/tools/adminpw" class="list-group-item slide">
         <span class="fa-chevron-right pull-right"></span>
         <h2 class="list-group-item-heading">{{t 'tools_adminpw'}}</h2>
@@ -22,13 +30,5 @@
     <a href="#/tools/versions" class="list-group-item slide clearfix">
         <span class="pull-right fa-chevron-right"></span>
         <h2 class="list-group-item-heading">{{t 'versions'}}</h2>
-    </a>
-    <a href="#/tools/monitor" class="list-group-item slide clearfix">
-        <span class="pull-right fa-chevron-right"></span>
-        <h2 class="list-group-item-heading">{{t 'monitoring'}}</h2>
-    </a>
-    <a href="#/tools/firewall" class="list-group-item slide clearfix">
-        <span class="pull-right fa-chevron-right"></span>
-        <h2 class="list-group-item-heading">{{t 'firewall'}}</h2>
     </a>
 </div>
