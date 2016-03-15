@@ -92,7 +92,22 @@
                     callback(data);
                 })
                 .fail(function(xhr) {
-                    if (xhr.status == 200) {
+                    if (uri === '/postinstall') {
+                        if (installing) {
+                            interval = window.location.hostname === args.domain ? 20000 : 5000;
+                            checkInstall = setInterval(function () {
+                                c.checkInstall(function(isInstalled) {
+                                    if (isInstalled || typeof isInstalled === 'undefined') {
+                                        c.flash('success', y18n.t('installation_complete'));
+                                        clearInterval(checkInstall);
+                                        window.location.href = 'https://'+ window.location.hostname +'/yunohost/admin/';
+                                    }
+                                });
+                            }, interval);
+                        } else {
+                            c.flash('fail', y18n.t('error_occured'));
+                        }
+                    } else if (xhr.status == 200) {
                         // Fail with 200, WTF
                         callback({});
                     } else if (xhr.status == 401) {
@@ -102,34 +117,13 @@
                             c.flash('fail', y18n.t('unauthorized'));
                             c.redirect('#/login');
                         }
-                    } else if (typeof xhr.responseJSON !== 'undefined') {
-                        c.flash('fail', xhr.responseJSON.error);
-                    } else if (typeof xhr.statusText !== 'undefined' && uri !== '/postinstall') {
-                        var errorMessage = xhr.status+' '+xhr.statusText;
-                        // If some more text is available, display it to user.
-                        if (typeof xhr.responseText !== 'undefined') {
-                            errorMessage += ' - ' + xhr.responseText;
-                        }
-                        c.flash('fail', y18n.t('api_not_responding', [errorMessage]));
+                    } else if (xhr.status == 502) {
+                        c.flash('fail', y18n.t('api_not_responding'));
+                    } else if (typeof xhr.responseText !== 'undefined') {
+                        c.flash('fail', xhr.responseText);
                     } else {
-                        if (uri === '/postinstall') {
-                            if (installing) {
-                                interval = window.location.hostname === args.domain ? 20000 : 5000;
-                                checkInstall = setInterval(function () {
-                                    c.checkInstall(function(isInstalled) {
-                                        if (isInstalled || typeof isInstalled === 'undefined') {
-                                            c.flash('success', y18n.t('installation_complete'));
-                                            clearInterval(checkInstall);
-                                            window.location.href = 'https://'+ window.location.hostname +'/yunohost/admin/';
-                                        }
-                                    });
-                                }, interval);
-                            } else {
-                                c.flash('fail', y18n.t('error_occured'));
-                            }
-                        } else {
-                            c.flash('fail', y18n.t('error_server'));
-                        }
+                        var errorMessage = xhr.status+' '+xhr.statusText;
+                        c.flash('fail', y18n.t('error_server_unexpected', [errorMessage]));
                     }
                     if (uri !== '/postinstall') {
                         store.clear('slide');
