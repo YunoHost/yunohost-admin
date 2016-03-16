@@ -7,7 +7,7 @@
 
 <div class="separator"></div>
 
-<form action="#/users" method="POST" class="form-horizontal">
+<form action="#/users/create" method="POST" class="form-horizontal">
 
 <div class="panel panel-default">
     <div class="panel-body">
