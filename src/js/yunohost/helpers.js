@@ -92,6 +92,8 @@
                     callback(data);
                 })
                 .fail(function(xhr) {
+                    // Postinstall is a custom case, we have to wait that
+                    // operation is done before doing anything
                     if (uri === '/postinstall') {
                         if (installing) {
                             interval = window.location.hostname === args.domain ? 20000 : 5000;
@@ -107,27 +109,42 @@
                         } else {
                             c.flash('fail', y18n.t('error_occured'));
                         }
-                    } else if (xhr.status == 200) {
-                        // Fail with 200, WTF
-                        callback({});
-                    } else if (xhr.status == 401) {
-                        if (uri === '/login') {
-                            c.flash('fail', y18n.t('wrong_password'));
-                        } else {
-                            c.flash('fail', y18n.t('unauthorized'));
-                            c.redirect('#/login');
-                        }
-                    } else if (xhr.status == 502) {
-                        c.flash('fail', y18n.t('api_not_responding'));
-                    } else if (typeof xhr.responseText !== 'undefined') {
-                        c.flash('fail', xhr.responseText);
-                    } else {
-                        var errorMessage = xhr.status+' '+xhr.statusText;
-                        c.flash('fail', y18n.t('error_server_unexpected', [errorMessage]));
                     }
-                    if (uri !== '/postinstall') {
+                    // Regular errors
+                    else {
+                        if (xhr.status == 200) {
+                            // Fail with 200, WTF
+                            callback({});
+                        }
+                        // Unauthorized or wrong password
+                        else if (xhr.status == 401) {
+                            if (uri === '/login') {
+                                c.flash('fail', y18n.t('wrong_password'));
+                            } else {
+                                c.flash('fail', y18n.t('unauthorized'));
+                                c.redirect('#/login');
+                            }
+                        }
+                        // 502 Bad gateway means API is down
+                        else if (xhr.status == 502) {
+                            c.flash('fail', y18n.t('api_not_responding'));
+                        }
+                        // More verbose error messages first
+                        else if (typeof xhr.responseText !== 'undefined') {
+                            c.flash('fail', xhr.responseText);
+                        }
+                        // Return HTTP error code at least
+                        else {
+                            var errorMessage = xhr.status+' '+xhr.statusText;
+                            c.flash('fail', y18n.t('error_server_unexpected', [errorMessage]));
+                        }
+
+                        // Remove loader if any
+                        $('div.loader').remove();
+
+                        // Force scrollTop on page load
+                        $('html, body').scrollTop(0);
                         store.clear('slide');
-                        c.redirect(store.get('path-1'));
                     }
                 });
             };
