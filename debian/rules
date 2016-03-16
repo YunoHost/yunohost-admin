@@ -22,7 +22,7 @@ override_dh_auto_install:
 	# Run npm/bower/gulp
 	# For some unknown reason, the postinstall scripts in package.json cannot be run, and triggers this error :
 	# "npm WARN cannot run in wd yunohost-admin@ bower install && gulp build (wd=/build/path)"
-	cd src ; npm --progress false --loglevel warn --color false install
+	cd src ; npm --progress false --loglevel warn --color false --unsafe-perm install
 	cd src ; node_modules/bower/bin/bower install --allow-root
 	cd src ; node_modules/gulp/bin/gulp.js build
 
