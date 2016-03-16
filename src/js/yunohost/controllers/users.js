@@ -23,7 +23,7 @@
     });
 
     // Create user (POST)
-    app.post('#/users', function (c) {
+    app.post('#/users/create', function (c) {
         if (c.params['password'] == c.params['confirmation']) {
             if (c.params['password'].length < 4) {
                 c.flash('fail', y18n.t('password_too_short'));
