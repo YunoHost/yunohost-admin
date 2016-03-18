@@ -10,13 +10,8 @@
 
     // List installed apps
     app.get('#/apps', function (c) {
-        c.api('/apps', function(data) { // http://api.yunohost.org/#!/app/app_list_get_8
-            // Keep only installed apps
-            apps = [];
-            $.each(data['apps'], function(k, v) {
-                if (v['installed']) apps.push(v);
-            });
-
+        c.api('/apps?installed', function(data) { // http://api.yunohost.org/#!/app/app_list_get_8
+            apps = data['apps'];
             c.arraySortById(apps);
             c.view('app/app_list', {apps: apps});
         });
