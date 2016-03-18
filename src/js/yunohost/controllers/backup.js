@@ -52,14 +52,8 @@
         c.api('/hooks/backup', function(hooks) {
             data['hooks']=c.groupHooks(hooks['hooks']);
             data['apps']={};
-            c.api('/apps?raw', function(apps) { // http://api.yunohost.org/#!/app/app_list_get_8
-                $.each(apps, function(app_id, app) {
-                    if (app['installed'])
-                        data['apps'][app_id]={
-                            id: app_id,
-                            name: app['manifest']['name']
-                        };
-                });
+            c.api('/apps?with_backup', function(apps_list) {
+                data['apps'] = apps_list.apps;
                 c.view('backup/backup_create', data);
             });
         });

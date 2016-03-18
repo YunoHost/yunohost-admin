@@ -33,8 +33,7 @@
                 <div class="list-group-item">
                     <input type="checkbox" id="{{id}}" name="apps" value="{{id}}" checked class="nice-checkbox">
                     <label for="{{id}}" class="pull-right"><span class="sr-only">{{t 'check'}}</span></label>
-                    <h2 class="list-group-item-heading">{{name}} <small>{{id}}</small></h2>
-                    <p class="list-group-item-text">{{description}}</p>
+                    <h2 class="list-group-item-heading">{{label}} <small>{{id}}</small></h2>
                 </div>
             {{/each}}
         </div>
