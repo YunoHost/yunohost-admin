@@ -33,9 +33,13 @@
                 level = 'log';
             }
 
+            // Add message
             $('#flashMessage .messages')
                 .prepend('<div class="alert alert-'+ level +'">'+
                               '<p>'+ message +'</p></div>');
+
+            // Scroll to top to view new messages
+            $('#flashMessage').scrollTop(0);
         },
 
         checkInstall: function(callback) {
