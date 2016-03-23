@@ -1,3 +1,26 @@
+yunohost-admin (2.3.6) testing; urgency=low
+
+  [ opi ]
+  * [enh] Reorder tools list.
+  * [enh] Add diagnosis. #39
+  * [enh] Use new --installed option for main apps list.
+  * [enh] Scroll to Top to view new messages.
+  * [enh] Use less JS for sliding animation.
+  * [fix] Use latest nodejs LTS when building deb package.
+  * [fix] Only display apps with backup script on backup creation page. #227
+  * [fix] User create form POST on same url to prevent strange redirection
+    and form cleaning.
+  * [fix] Prevent data loss on form errors. Add some comments too.
+
+  [ Jérôme Lebleu ]
+  * [fix] Watch all js subdirectories with gulp
+  * [fix] Reorder and catch proper response from API failed calls
+
+  [ Julien Malik ]
+  * [fix] Use --unsafe-perm to allow build in pbuilder environment
+
+ -- Jérôme Lebleu <jerome@yunohost.org>  Wed, 23 Mar 2016 11:56:15 +0100
+
 yunohost-admin (2.3.5) testing; urgency=low
 
   [ zamentur ]
