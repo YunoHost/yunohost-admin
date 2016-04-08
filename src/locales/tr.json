@@ -1,7 +1,7 @@
 {
     "add": "Ekle",
     "administration_password": "Yönetici parolası",
-    "api_not_responding": "API cevap vermiyor (Hata. %s)",
+    "api_not_responding": "API cevap vermiyor",
     "both": "İkisi birden",
     "cancel": "İptal et",
     "close": "Kapat",
