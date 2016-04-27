@@ -30,7 +30,15 @@
                 store.clear('slide');
             }
             else {
+                // Force unit or disable quota
+                if (c.params['mailbox_quota']) {
+                    c.params['mailbox_quota'] += "M";
+                }
+                else {c.params['mailbox_quota'] = 0;}
+
+                // Compute email field
                 c.params['mail'] = c.params['email'] + c.params['domain'];
+
                 c.api('/users', function(data) { // http://api.yunohost.org/#!/user/user_create_post_2
                     c.redirect('#/users');
                 }, 'POST', c.params.toHash());
@@ -60,6 +68,28 @@
                     username : email[0],
                     domain : email[1]
                 };
+console.log(data);
+                // Return quota with M unit
+                if (data['mailbox-quota'].limit) {
+                    var unit = data['mailbox-quota'].limit.slice(-1);
+                    var value = data['mailbox-quota'].limit.substr(0, data['mailbox-quota'].limit.length -1);
+                    if (unit == 'b') {
+                        data.quota = Math.ceil(value / (1024 * 1024));
+                    }
+                    else if (unit == 'k') {
+                        data.quota = Math.ceil(value / 1024);
+                    }
+                    else if (unit == 'M') {
+                        data.quota = value;
+                    }
+                    else if (unit == 'G') {
+                        data.quota = Math.ceil(value * 1024);
+                    }
+                    else if (unit == 'T') {
+                        data.quota = Math.ceil(value * 1024 * 1024);
+                    }
+                }
+                else {data.quota = 0;}
 
                 // Domains
                 data.domains = [];
@@ -79,6 +109,11 @@
     app.put('#/users/:user', function (c) {
         // Get full user object
         c.api('/users/'+ c.params['user'], function(user) {
+            // Force unit or disable quota
+            if (c.params['mailbox_quota']) {
+                c.params['mailbox_quota'] += "M";
+            }
+            else {c.params['mailbox_quota'] = 0;}
 
             // concat email/domain pseudo field
             if (c.params['mail'] !== c.params['email'] + c.params['domain']) {

@@ -263,7 +263,8 @@
     "user_new_mail": "newmail@mydomain.org",
     "user_new_forward": "newforward@myforeigndomain.org",
     "user_mailbox_quota": "Mailbox quota",
-    "mailbox_quota_description": "Mailbox quota must be a size with b/k/M/G/T suffix or 0 to disable the quota.",
+    "mailbox_quota_description": "For example, 700M is a CD, 4700M is a DVD.",
+    "mailbox_quota_placeholder": "Leave empty or 0 to disable.",
 
     "backup_content": "Backup content",
     "local_archives": "Local archives",
