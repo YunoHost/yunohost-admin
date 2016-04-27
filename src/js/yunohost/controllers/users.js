@@ -68,7 +68,7 @@
                     username : email[0],
                     domain : email[1]
                 };
-console.log(data);
+
                 // Return quota with M unit
                 if (data['mailbox-quota'].limit) {
                     var unit = data['mailbox-quota'].limit.slice(-1);
