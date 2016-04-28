@@ -31,6 +31,15 @@ gulp build
 Alternatively you can pas the `--dev` option to gulp which improve building
 speed by bypassing compression tasks.
 
+On a YunoHost instance, the web admin files are located at 
+`/usr/share/yunohost/admin`.
+
+**Note:** The `.ms` - moustache - files are cached by the browser. You have to
+reach them manually some times you modify them. (e.g. go to
+https://example.com/yunohost/admin/views/domain/domain_list.ms)
+
+
+
 ## Dependencies
 
 * Bootstrap 3.3.6
