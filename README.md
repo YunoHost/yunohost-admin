@@ -28,6 +28,8 @@ bower install
 npm install -g gulp
 gulp build
 ```
+Alternatively you can pas the `--dev` option to gulp which improve building
+speed by bypassing compression tasks.
 
 ## Dependencies
 

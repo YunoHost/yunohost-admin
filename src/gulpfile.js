@@ -11,7 +11,13 @@ var concat = require('gulp-concat'),
     cssmin = require('gulp-cssmin'),
     imagemin = require('gulp-imagemin'),
     rename = require('gulp-rename')
+    util = require('gulp-util')
+    gulpif = require('gulp-if')
     ;
+
+// Environment variables
+isDev = (util.env.dev) ? true : false;
+isProduction = !isDev;
 
 // Global build task
 gulp.task('build', [
@@ -46,7 +52,7 @@ gulp.task('js', function() {
             'js/yunohost/filters.js',
             'js/yunohost/controllers/*.js',
         ])
-        .pipe(uglify())
+        .pipe(gulpif(isProduction, uglify()))
         .pipe(concat('script.min.js'))
         .pipe(gulp.dest('./dist/js'))
 });
@@ -85,7 +91,7 @@ gulp.task('css', function () {
         .pipe(rename({
             suffix: '.min'
         }))
-        .pipe(cssmin())
+        .pipe(gulpif(isProduction, cssmin()))
         .pipe(gulp.dest('./dist/css'))
 });
 
@@ -104,6 +110,6 @@ gulp.task('css-lint', function() {
 // Images task
 gulp.task('img', function () {
     return gulp.src('img/*')
-        .pipe(imagemin())
+        .pipe(gulpif(isProduction, imagemin()))
         .pipe(gulp.dest('./dist/img'))
 });
