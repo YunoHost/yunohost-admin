@@ -192,7 +192,7 @@
     "os": "OS",
     "password": "Mot de passe",
     "password_confirmation": "Confirmation du mot de passe",
-    "password_description": "Le mot de passe doit faire au moins 4 caractères.",
+    "password_description": "Le mot de passe doit faire au moins %s caractères.",
     "password_empty": "Le champ mot de passe est vide",
     "password_new": "Nouveau mot de passe",
     "passwords_dont_match": "Les mots de passe ne correspondent pas",
