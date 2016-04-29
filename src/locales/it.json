@@ -148,7 +148,7 @@
     "os": "OS",
     "password": "Password",
     "password_confirmation": "Conferma password",
-    "password_description": "La password deve essere lunga almeno 4 caratteri.",
+    "password_description": "La password deve essere lunga almeno %s caratteri.",
     "password_empty": "Il campo password è vuoto",
     "password_new": "Nuova password",
     "passwords_dont_match": "Le password non corrispondono",
