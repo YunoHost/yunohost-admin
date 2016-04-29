@@ -3,6 +3,8 @@
     var app = Sammy.apps['#main'];
     var store = app.store;
 
+    var PASSWORD_MIN_LENGTH = 4;
+
     /**
      * Users
      *
@@ -18,6 +20,10 @@
     // Create user form
     app.get('#/users/create', function (c) {
         c.api('/domains', function(data) { // http://api.yunohost.org/#!/domain/domain_list_get_2
+
+            // Password min length
+            data.password_min_length = PASSWORD_MIN_LENGTH;
+
             c.view('user/user_create', data);
         });
     });
@@ -25,7 +31,7 @@
     // Create user (POST)
     app.post('#/users/create', function (c) {
         if (c.params['password'] == c.params['confirmation']) {
-            if (c.params['password'].length < 4) {
+            if (c.params['password'].length < PASSWORD_MIN_LENGTH) {
                 c.flash('fail', y18n.t('password_too_short'));
                 store.clear('slide');
             }
@@ -61,6 +67,9 @@
     app.get('#/users/:user/edit', function (c) {
         c.api('/users/'+ c.params['user'], function(data) { // http://api.yunohost.org/#!/user/user_info_get_0
             c.api('/domains', function(dataDomains) { // http://api.yunohost.org/#!/domain/domain_list_get_2
+
+                // Password min length
+                data.password_min_length = PASSWORD_MIN_LENGTH;
 
                 // User email use a fake splitted field
                 email = data.mail.split('@');
@@ -152,7 +161,7 @@
             } else {
                 if (params['password']) {
                     if (params['password'] == params['confirmation']) {
-                        if (params['password'].length < 4) {
+                        if (params['password'].length < PASSWORD_MIN_LENGTH) {
                             c.flash('fail', y18n.t('password_too_short'));
                             store.clear('slide');
                             c.redirect('#/users/'+ c.params['user'] + '/edit');

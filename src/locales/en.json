@@ -5,7 +5,7 @@
     "administration_password" : "Administration password",
     "password_confirmation" : "Password confirmation",
     "password_new" : "New password",
-    "password_description" : "Password must be at least 4 characters long.",
+    "password_description" : "Password must be at least %s characters long.",
     "login" : "Login",
     "logout" : "Logout",
     "loading" : "Loading …",
