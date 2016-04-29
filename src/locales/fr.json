@@ -41,6 +41,7 @@
     "backup_content": "Contenu de la sauvegarde",
     "backup_create": "Créer une sauvegarde",
     "backup_encryption_warning": "N'oubliez pas ce mot de passe, vous en aurez besoin pour restaurer cette sauvegarde",
+    "backup_experimental_warning": "Soyez conscient que la fonctionnalité de sauvegarde est encore expérimentale, et n'est pas parfaitement fiable.",
     "backup_new": "Nouvelle sauvegarde",
     "backup_optional_encryption": "Chiffrement optionnel",
     "backup_optional_password": "Mot de passe optionnel",
