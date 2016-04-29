@@ -131,7 +131,7 @@
     "os": "Sistema operativo",
     "password": "Contraseña",
     "password_confirmation": "Contraseña de confirmación",
-    "password_description": "El contraseña debe ser al menos 4 impresión.",
+    "password_description": "El contraseña debe ser al menos %s impresión.",
     "password_empty": "Campo contraseña está vacío",
     "password_new": "Nueva contraseña",
     "passwords_dont_match": "La contraseña no coinciden",
