@@ -1,3 +1,24 @@
+yunohost-admin (2.3.7) testing; urgency=low
+
+  Thanks to every contributors and translators: Jean-Baptise, Jéröme Lebleu and opi
+
+  [ J�Translations ]
+  * [i18n] Translated using Weblate (French)
+  * [i18n] Translated using Weblate (Dutch)
+  * [i18n] Translated using Weblate (German)
+  * [i18n] Translated using Weblate (Italian)
+  * [i18n] Translated using Weblate (Spanish)
+  * [i18n] Translated using Weblate (Turkish)
+
+  [ Fixes and improvments ]
+  * [fix] Remove unused postinstall template.
+  * Improve user quota field UX. Fix #283
+  * [enh] Add --dev option to gulp tasks tp prevent time consuming compression.
+  * [enh] Remove old README and update current one.
+  * [enh] Use PASSWORD_MIN_LENGTH constant.
+
+ -- opi <opi@zeropi.net>  Sat, 30 Apr 2016 21:07:08 +0200
+
 yunohost-admin (2.3.6) testing; urgency=low
 
   [ opi ]
