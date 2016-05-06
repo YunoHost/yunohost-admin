@@ -23,8 +23,15 @@
 
             // Password min length
             data.password_min_length = PASSWORD_MIN_LENGTH;
-
-            c.view('user/user_create', data);
+            c.view('user/user_create', data, function(){
+                var usernameField = $('#username');
+                usernameField.on('blur', function(){
+                    var emailField = $('#email');
+                    if (emailField.val() == '') {
+                        emailField.val(usernameField.val());
+                    }
+                });
+            });
         });
     });
 
