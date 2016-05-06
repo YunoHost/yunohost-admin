@@ -14,11 +14,12 @@
         <h2 class="panel-title"><span class="fa-fw fa-stethoscope"></span> {{t 'diagnosis'}}</h2>
     </div>
     <div class="panel-body">
-        <pre>{{ diagnosis }}</pre>
+        <pre id="diagnosis">{{ diagnosis }}</pre>
         {{#if private}}
         <a class="btn btn-primary" href="#/tools/diagnosis">{{t 'diagnosis_hide_private'}}</a>
         {{else}}
         <a class="btn btn-primary" href="#/tools/diagnosis/private">{{t 'diagnosis_view_private'}}</a>
         {{/if}}
+        <button data-paste-content="#diagnosis"><i class="fa-cloud-upload"></i> {{t 'upload'}}</button>
     </div>
 </div>

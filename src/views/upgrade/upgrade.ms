@@ -7,11 +7,12 @@
 <div class="separator"></div>
 
 {{#if logs}}
-<pre class="upgrade-log log">
+<pre id="upgrade-log" class="upgrade-log log">
 {{#logs}}
     {{.}}
 {{/logs}}
 </pre>
+<button data-paste-content="#upgrade-log"><i class="fa-cloud-upload"></i> {{t 'upload'}}</button>
 {{else}}
         {{t 'no_log'}}
 {{/if}}
