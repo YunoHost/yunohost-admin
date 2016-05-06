@@ -179,6 +179,8 @@
 
         // Render view (cross-browser)
         view: function (view, data, callback, enableSlide) {
+            c = this;
+
             callback = typeof callback !== 'undefined' ? callback : function() {};
             rendered = this.render('views/'+ view +'.ms', data);
 
