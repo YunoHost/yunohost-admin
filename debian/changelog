@@ -1,3 +1,12 @@
+yunohost-admin (2.3.8) testing; urgency=low
+
+  * [enh][ux] Prefill email field value with username if empty.
+  * [enh] Implements 'paste online' helper.
+  * [enh] Use paste button on every log section.
+  * [enh] Add icon for diagnosis toggle button.
+
+ -- opi <opi@zeropi.net>  Fri, 06 May 2016 19:57:35 +0200
+
 yunohost-admin (2.3.7) testing; urgency=low
 
   Thanks to every contributors and translators: Jean-Baptise, Jéröme Lebleu and opi
