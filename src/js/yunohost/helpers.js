@@ -199,6 +199,9 @@
                                 store.set('slide', 'to');
                             }
                         });
+                        // Paste <pre> helper
+                        c.prePaste();
+                        // Run callback
                         callback();
                         // Force scrollTop on page load
                         $('html, body').scrollTop(0);
@@ -236,6 +239,9 @@
                 }
             } else {
                 rendered.swap(function(){
+                    // Paste <pre> helper
+                    c.prePaste();
+                    // Run callback
                     callback();
                     // Force scrollTop on page load
                     $('html, body').scrollTop(0);
@@ -373,6 +379,35 @@
 
             return data;
         },
+
+        // Paste <pre>
+        prePaste: function() {
+            var pasteButtons = $('button[data-paste-content]');
+            pasteButtons.on('click', function(){
+                // Get paste content element
+                var preElement = $($(this).data('paste-content'));
+
+                // Add pacman loader
+                $('#main').append('<div class="loader loader-content"></div>');
+
+                // Send to paste.yunohost.org
+                $.ajax({
+                    type: "POST",
+                    url: 'https://paste.yunohost.org/documents',
+                    data: preElement[0].innerHTML,
+                })
+                .success(function(data, textStatus, jqXHR) {
+                    window.open('https://paste.yunohost.org/' + data.key, '_blank');
+                })
+                .fail(function() {
+                    c.flash('fail', y18n.t('paste_error'));
+                })
+                .always(function(){
+                    // Remove pacman
+                    $('div.loader').remove();
+                });
+            });
+        }
     });
 
 })();

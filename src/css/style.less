@@ -80,8 +80,11 @@ body {
     }
 }
 
+.btn {
+    & + .btn {margin-left: 8px;}
+}
 button {
-    &:extend(.btn);
+    &:extend(.btn all);
 }
 
 .block {
@@ -404,6 +407,14 @@ label .list-group-item-text {
     font-weight:normal;
 }
 
+/* Paste buttons */
+button[data-paste-content] {
+    &:extend(.btn all);
+    &:extend(.btn-default all);
+    & + pre {
+        margin-top: 10px;
+    }
+}
 
 
 /** Breadcrumb **/

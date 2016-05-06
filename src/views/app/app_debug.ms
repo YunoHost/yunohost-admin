@@ -22,7 +22,8 @@
             <div class="panel-body">
             {{#logs}}
                 <h3>{{file_name}}</h3>
-                <pre class="service-log">{{file_content}}</pre>
+                <pre id="service-log-{{ @index }}" class="service-log">{{file_content}}</pre>
+                <button data-paste-content="#service-log-{{ @index }}"><i class="fa-cloud-upload"></i> {{t 'upload'}}</button>
             {{/logs}}
             </div>
         </div>
