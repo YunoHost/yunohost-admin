@@ -139,10 +139,6 @@
     "confirm_install_custom_app" : "Installing 3rd party applications may compromise the security of your system. Use at your own risks.",
     "app_install_custom_no_manifest" : "No manifest.json file",
 
-    "backup" : "Backup",
-    "backup_warning_title" : "The backup system is not implemented yet.",
-    "backup_warning_desc" : "You should take care of backing up your data yourself for now.",
-
     "domain_list" : "Domain list",
     "domain_add" : "Add domain",
     "domain_add_panel_with_domain" : "I already have a domain name…",
@@ -266,6 +262,8 @@
     "mailbox_quota_description": "For example, 700M is a CD, 4700M is a DVD.",
     "mailbox_quota_placeholder": "Leave empty or 0 to disable.",
 
+    "backup" : "Backup",
+    "backup_experimental_warning" : "Be aware that the backup feature is still experimental, and may not be fully reliable.",
     "backup_content": "Backup content",
     "local_archives": "Local archives",
     "storages_new": "New remote storage",

@@ -7,6 +7,10 @@
 
 <div class="separator"></div>
 
+<div class="alert alert-warning">{{t 'backup_experimental_warning'}}</div>
+
+<div class="separator"></div>
+
 <div class="panel panel-default">
     <div class="panel-heading">
         <h2 class="panel-title"><span class="fa-fw fa-info-circle"></span> {{t 'infos'}}</h2>

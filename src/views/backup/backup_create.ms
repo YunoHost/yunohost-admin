@@ -7,6 +7,10 @@
 
 <div class="separator"></div>
 
+<div class="alert alert-warning">{{t 'backup_experimental_warning'}}</div>
+
+<div class="separator"></div>
+
 <form action="#/backup/{{storage.id}}" method="POST" class="form-horizontal">
     <div class="panel panel-default">
         <div class="panel-heading">

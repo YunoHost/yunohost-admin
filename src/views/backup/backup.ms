@@ -11,6 +11,10 @@
 
 <div class="separator"></div>
 
+<div class="alert alert-warning">{{t 'backup_experimental_warning'}}</div>
+
+<div class="separator"></div>
+
 <div class="list-group">
 {{#each storages}}
     <a href="#/backup/{{id}}" class="list-group-item slide clearfix">
