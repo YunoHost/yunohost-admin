@@ -157,6 +157,7 @@
                 // Boolean fields
                 if (data.manifest.arguments.install[k].type == 'boolean') {
                     data.manifest.arguments.install[k].inputType = 'checkbox';
+                    data.manifest.arguments.install[k].required = '';
 
                     // Checked or not ?
                     if (typeof data.manifest.arguments.install[k].default !== 'undefined') {
