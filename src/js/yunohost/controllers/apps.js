@@ -167,6 +167,9 @@
 
                     // 'default' is used as value, so we need to force it for checkboxes.
                     data.manifest.arguments.install[k].default = 1;
+
+                    // Checkbox should not be required to be unchecked
+                    data.manifest.arguments.install[k].required = '';
                 }
 
                 // 'password' type input.
