@@ -12,7 +12,7 @@
     app.get('#/', function (c) {
         c.api('/users', function(data) {
             // Warn admin if no users are created.
-            if (data.users.length === 0) {
+            if (typeof data.users !== 'undefined' && data.users.length === 0) {
                 c.flash('warning', y18n.t('warning_first_user'));
             }
 
