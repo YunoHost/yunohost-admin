@@ -43,10 +43,9 @@
         },
 
         checkInstall: function(callback) {
-            domain = window.location.hostname;
             $.ajax({
                 dataType: "json",
-                url: 'https://'+ domain +'/yunohost/api/installed',
+                url: 'https://'+ store.get('url') +'/installed',
                 timeout: 3000
             })
             .success(function(data) {
@@ -82,7 +81,7 @@
                 }
 
                 jQuery.ajax({
-                    url: 'https://'+ store.get('url') + uri,
+                    url: 'https://' + store.get('url') + uri,
                     type: method,
                     crossdomain: true,
                     data: data,

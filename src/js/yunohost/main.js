@@ -4,25 +4,6 @@
 
 
         /**
-         * Application bootstrap
-         *
-         */
-        sam.bind('run', function () {
-
-            // Flash messages
-            var flashMessage = $('#flashMessage');
-            $('#toggle-btn', flashMessage).click(function(e) {
-                flashMessage.toggleClass('open');
-            });
-            $('#clear-btn', flashMessage).click(function(e) {
-                flashMessage.removeClass('open').find('.messages').html('');
-                $('#slider').removeClass('with-flashMessage');
-            });
-
-        });
-
-
-        /**
          * Sammy Configuration
          *
          */
@@ -78,6 +59,28 @@
         sam.store = new Sammy.Store({name: 'storage', type: storageType});
         sam.loaded = false;
         sam.isInstalledTry = 3;
+
+
+
+        /**
+         * Application bootstrap
+         *
+         */
+        sam.bind('run', function () {
+            // Store url
+            sam.store.set('url', window.location.hostname + '/yunohost/api');
+
+            // Flash messages
+            var flashMessage = $('#flashMessage');
+            $('#toggle-btn', flashMessage).click(function(e) {
+                flashMessage.toggleClass('open');
+            });
+            $('#clear-btn', flashMessage).click(function(e) {
+                flashMessage.removeClass('open').find('.messages').html('');
+                $('#slider').removeClass('with-flashMessage');
+            });
+
+        });
 
 
         /**

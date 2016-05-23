@@ -91,9 +91,10 @@
 
         c.checkInstall(function(isInstalled) {
             if (isInstalled) {
-                domain = window.location.hostname;
+                // Remove loader
                 $('div.loader').remove();
-                c.view('login', { 'domain': domain });
+                // Pass domain to hide form field
+                c.view('login', { 'domain': window.location.hostname });
             } else if (typeof isInstalled === 'undefined') {
                 if (app.isInstalledTry > 0) {
                     app.isInstalledTry--;
@@ -134,6 +135,7 @@
      */
 
     app.post('#/login', function (c) {
+        // Store url from params, it could have change form 'run' state
         store.set('url', c.params['domain'] +'/yunohost/api');
 
         params = {
