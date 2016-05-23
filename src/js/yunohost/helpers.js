@@ -221,19 +221,19 @@
                 if (store.get('slide') == 'back') {
                     store.clear('slide');
                     $('#slideBack').css('display', 'none');
-                    $('#slider-container').removeClass('move').css('margin-left', '-100%');
+                    $('#slider-container').css('margin-left', '-100%');
                     $('#slideTo').show().html($('#main').html());
                     leSwap();
-                    $('#slider-container').addClass('move').css('margin-left', '0px');
+                    $('#slider-container').css('margin-left', '0px');
 
                 // Slide to effect
                 } else if (store.get('slide') == 'to') {
                     store.clear('slide');
                     $('#slideTo').css('display', 'none');
-                    $('#slider-container').removeClass('move').css('margin-left', '0px');
+                    $('#slider-container').css('margin-left', '0px');
                     $('#slideBack').show().html($('#main').html());
                     leSwap();
-                    $('#slider-container').addClass('move').css('margin-left', '-100%');
+                    $('#slider-container').css('margin-left', '-100%');
 
                 } else {
                     leSwap();
