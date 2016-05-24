@@ -1,3 +1,15 @@
+yunohost-admin (2.4.0.1) stable; urgency=low
+
+  [ Jérôme Lebleu ]
+  * [fix] Ensure checkbox is not required for boolean fields
+  * [doc] Comment that checkbox should not be required
+
+  [ opi ]
+  * [fix] Prevent acces to undefined variable.
+  * [enh] Clean use of store.set(url). Get url value ASAP.
+
+ -- opi <opi@zeropi.net>  Tue, 24 May 2016 13:15:43 +0200
+
 yunohost-admin (2.4.0) stable; urgency=low
 
   * [enh] Warn user that backup is still experimental.
