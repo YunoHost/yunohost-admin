@@ -294,5 +294,6 @@
     "warning_first_user": "Vous devez probablement d'abord <a href='#/users/create' class='alert-link'>créer un utilisateur</a>.",
     "write": "Écriture",
     "wrong_password": "Mot de passe incorrect",
-    "yes": "Oui"
+    "yes": "Oui",
+    "form_input_example": "Exemple : %s"
 }
