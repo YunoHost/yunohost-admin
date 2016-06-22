@@ -50,6 +50,9 @@
                 <input type="{{inputType}}" id="{{name}}" name="{{name}}" class="form-control" value="{{default}}" placeholder="{{example}}" {{required}} {{{attributes}}}>
                 {{/if}}
 
+                {{#if example}}
+                <span class="help-block example-help-block">{{t 'form_input_example' example}}</span>
+                {{/if}}
                 {{#if help}}
                 <span class="help-block">{{{help}}}</span>
                 {{/if}}
