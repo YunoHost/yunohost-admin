@@ -108,6 +108,15 @@
         });
     });
 
+    // One journal
+    app.get('#/tools/journals/:file_name', function (c) {
+        c.api("/journals/" + c.params["file_name"], function(journal) {
+            c.view('tools/tools_journal', {
+                "journal": journal,
+            });
+        });
+    });
+
     // Download SSL Certificate Authority
     app.get('#/tools/ca', function (c) {
         c.view('tools/tools_ca');
