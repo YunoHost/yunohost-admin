@@ -10,11 +10,10 @@
 
 <div class="panel panel-default">
     <div class="panel-heading">
-        <h2 class="panel-title"><span class="fa-fw fa-info-circle"></span> {{t 'infos'}}</h2>
+        <h2 class="panel-title"><span class="fa-fw fa-info-circle"></span> {{ name }}</h2>
     </div>
     <div class="panel-body">
         <dl class="dl-horizontal">
-            <dt>{{t 'name'}}</dt><dd>{{ name }}</dd>
             <dt>{{t 'started_at'}}</dt> <dd>{{ started_at }}</dd>
             <dt>{{t 'path'}}</dt> <dd>{{ path }}</dd>
             {{#each metadata}}
