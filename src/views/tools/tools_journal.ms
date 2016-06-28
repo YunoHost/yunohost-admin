@@ -29,15 +29,15 @@
     <div class="panel-heading">
         <h2 class="panel-title"><span class="fa-fw fa-file-text"></span> {{t 'logs'}}</h2>
     </div>
-    <div class="panel-body">
+    <div class="panel-body overflow-auto">
         <table>
             <tr>
                 <td> <!-- no indent because pre is sensible to whitespaces -->
 <pre>{{#logs}}{{datetime}}
 {{/logs}}</pre>
                 </td>
-                <td> <!-- no indent because pre is sensible to whitespaces -->
-<pre>{{#logs}}{{{line}}}
+                <td class="full-width"> <!-- no indent because pre is sensible to whitespaces -->
+<pre class="full-width">{{#logs}}{{{line}}}
 {{/logs}}</pre>
                 </td>
             </tr>
