@@ -95,6 +95,19 @@
         }
     });
 
+    // Display journals list
+    app.get('#/tools/journals', function (c) {
+        c.api("/journals", function(categories) {
+            c.view('tools/tools_journals', {
+                "data": categories,
+                formatDate: function() {
+                    console.log("caca");
+                    return this.started_at.getDate();
+                }
+            });
+        });
+    });
+
     // Download SSL Certificate Authority
     app.get('#/tools/ca', function (c) {
         c.view('tools/tools_ca');

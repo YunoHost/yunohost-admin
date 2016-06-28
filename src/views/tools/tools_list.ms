@@ -11,6 +11,10 @@
         <span class="pull-right fa-chevron-right"></span>
         <h2 class="list-group-item-heading">{{t 'diagnosis'}}</h2>
     </a>
+    <a href="#/tools/journals" class="list-group-item slide clearfix">
+        <span class="pull-right fa-chevron-right"></span>
+        <h2 class="list-group-item-heading">{{t 'journals'}}</h2>
+    </a>
     <a href="#/tools/monitor" class="list-group-item slide clearfix">
         <span class="pull-right fa-chevron-right"></span>
         <h2 class="list-group-item-heading">{{t 'monitoring'}}</h2>
