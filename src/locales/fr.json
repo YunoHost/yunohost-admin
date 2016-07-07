@@ -1,4 +1,5 @@
 {
+    "old_2_2_upgrade_link" : "<b>Attention</b>: vous utilisez l'ancienne version 2.2 de YunoHost, vous devriez la mettre à jours vers la version 2.4 <a target='_blank' href='https://forum.yunohost.org/t/yunohost-2-4-released/1544'>en suivant ces instructions</a>",
     "domain": "Domaine",
     "domains": "Domaines",
     "password": "Mot de passe",
