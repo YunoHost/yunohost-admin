@@ -43,11 +43,11 @@
             <div class="col-sm-12">
 
                 {{#if choices}}
-                <select id="{{name}}" name="{{name}}" required class="form-control" {{attributes}}>
+                <select id="{{name}}" name="{{name}}" required class="form-control" {{{attributes}}}>
                     {{#choices}}<option value="{{value}}" {{#if selected}}selected{{/if}}>{{label}}</option>{{/choices}}
                 </select>
                 {{else}}
-                <input type="{{inputType}}" id="{{name}}" name="{{name}}" class="form-control" value="{{default}}" placeholder="{{example}}" {{required}} {{attributes}}>
+                <input type="{{inputType}}" id="{{name}}" name="{{name}}" class="form-control" value="{{default}}" placeholder="{{example}}" {{required}} {{{attributes}}}>
                 {{/if}}
 
                 {{#if help}}

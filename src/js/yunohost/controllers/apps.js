@@ -170,6 +170,14 @@
 
                     // Checkbox should not be required to be unchecked
                     data.manifest.arguments.install[k].required = '';
+
+                    // Clone a hidden input with empty value
+                    // https://stackoverflow.com/questions/476426/submit-an-html-form-with-empty-checkboxes
+                    inputClone = {};
+                    inputClone.name = data.manifest.arguments.install[k].name;
+                    inputClone.inputType = 'hidden';
+                    inputClone.default = 0;
+                    data.manifest.arguments.install.push(inputClone);
                 }
 
                 // 'password' type input.
@@ -221,6 +229,15 @@
             params = { 'label': c.params['label'], 'app': c.params['app'] };
             delete c.params['label'];
             delete c.params['app'];
+
+            // Check for duplicate arg produced by empty checkbox. (See inputClone)
+            $.each(c.params, function(k, v) {
+                if (typeof(v) === 'object' && Array.isArray(v)) {
+                    // And return only first value
+                    c.params[k] = v[0];
+                }
+            });
+
             params['args'] = c.serialize(c.params.toHash());
             // Do not pass empty args.
             if (params['args'] === "") {

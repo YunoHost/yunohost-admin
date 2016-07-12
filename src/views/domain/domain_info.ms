@@ -52,7 +52,7 @@
         <div class="container">
             <p>{{t 'domain_dns_longdesc'}}</p>
             <a href="#/domains/{{name}}/dns" class="btn btn-default slide">
-                <span class="fa-fw fa-globe"></span> {{t 'domain_dns_config'}}
+                {{t 'domain_dns_config'}} <span class="fa-fw fa-globe"></span>
             </a>
         </div>
         <hr>
