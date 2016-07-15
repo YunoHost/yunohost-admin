@@ -1,3 +1,25 @@
+yunohost-admin (2.4.1) stable; urgency=low
+
+  [ Juanu ]
+  * [i18n] Translated using Weblate (Spanish)
+
+  [ Vincent ]
+  * [i18n] Translated using Weblate (Italian)
+
+  [ Bugsbane ]
+  * [i18n] Translated using Weblate (English)
+
+  [ Jean-Baptiste ]
+  * [i18n] Translated using Weblate (French)
+
+  [ opi ]
+  * [fix] Icon position.
+  * [fix] Allow checkbox to be unchecked even if default is true.
+  * [fix] Do not escape html attributes on app install form.
+  * [enh] Display manifest example as help text.
+
+ -- opi <opi@zeropi.net>  Fri, 15 Jul 2016 15:27:49 +0200
+
 yunohost-admin (2.4.0.1) stable; urgency=low
 
   [ Jérôme Lebleu ]
