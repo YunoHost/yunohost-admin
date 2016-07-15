@@ -295,5 +295,6 @@
     "write": "Écriture",
     "wrong_password": "Mot de passe incorrect",
     "yes": "Oui",
-    "form_input_example": "Exemple : %s"
+    "form_input_example": "Exemple : %s",
+    "footer_version": "Propulsé par <a href='https://yunohost.org'>YunoHost</a> %s 1."
 }
