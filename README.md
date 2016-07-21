@@ -17,7 +17,7 @@ We use `gulp` to compile Less files and minify the JavaScript. Assuming [nodejs]
 
 ```sh
 cd src
-npm i
+npm install
 npm run build
 ```
 
