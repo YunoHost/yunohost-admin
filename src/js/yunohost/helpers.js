@@ -180,18 +180,24 @@
         view: function (view, data, callback, enableSlide) {
             c = this;
 
+            // Default
             callback = typeof callback !== 'undefined' ? callback : function() {};
-            rendered = this.render('views/'+ view +'.ms', data);
-
             enableSlide = (typeof enableSlide !== 'undefined') ? enableSlide : true; // Change to false to disable animation
 
             loaded = true;
+
+            // Hide loader and modal
             $('div.loader').remove();
             $('#modal').modal('hide');
 
-            if (enableSlide) {
-                var leSwap = function() {
-                    rendered.swap(function() {
+            // Render content
+            rendered = this.render('views/'+ view +'.ms', data);
+
+            // Update content helper
+            var leSwap = function() {
+                rendered.swap(function() {
+                    // Slide direction
+                    if (enableSlide) {
                         $('.slide, .btn-breadcrumb a:not(:last-child)').on('click', function() {
                             $(this).addClass('active');
                             if ($(this).hasClass('back') || $(this).parent('.btn-breadcrumb').length) {
@@ -200,54 +206,40 @@
                                 store.set('slide', 'to');
                             }
                         });
-                        // Paste <pre> helper
-                        c.prePaste();
-                        // Run callback
-                        callback();
-                        // Force scrollTop on page load
-                        $('html, body').scrollTop(0);
+                    }
 
-                        // Resize body after the animation finishes (0.2s css transition)
-                        // https://github.com/YunoHost/yunohost-admin/blob/231aac076a3aa836409b0d33fe02e48975990b7a/src/css/style.less#L92
-                        setTimeout(function() {
-                            $('body').resize();
-                        }, 210);
-                    });
-                };
-
-                blockSize = $('#slider').width();
-
-                // Slide back effect
-                if (store.get('slide') == 'back') {
-                    store.clear('slide');
-                    $('#slideBack').css('display', 'none');
-                    $('#slider-container').removeClass('move').css('margin-left', '-100%');
-                    $('#slideTo').show().html($('#main').html());
-                    leSwap();
-                    $('#slider-container').addClass('move').css('margin-left', '0px');
-
-                // Slide to effect
-                } else if (store.get('slide') == 'to') {
-                    store.clear('slide');
-                    $('#slideTo').css('display', 'none');
-                    $('#slider-container').removeClass('move').css('margin-left', '0px');
-                    $('#slideBack').show().html($('#main').html());
-                    leSwap();
-                    $('#slider-container').addClass('move').css('margin-left', '-100%');
-
-                } else {
-                    leSwap();
-                }
-            } else {
-                rendered.swap(function(){
                     // Paste <pre> helper
                     c.prePaste();
+
                     // Run callback
                     callback();
+
                     // Force scrollTop on page load
                     $('html, body').scrollTop(0);
-                    $('body').resize();
                 });
+            };
+
+            // Slide back effect
+            if (enableSlide && store.get('slide') == 'back') {
+                store.clear('slide');
+                $('#slideBack').css('display', 'none');
+                $('#slider-container').css('margin-left', '-100%');
+                $('#slideTo').show().html($('#main').html());
+                leSwap();
+                $('#slider-container').css('margin-left', '0px');
+            }
+            // Slide to effect
+            else if (enableSlide && store.get('slide') == 'to') {
+                store.clear('slide');
+                $('#slideTo').css('display', 'none');
+                $('#slider-container').css('margin-left', '0px');
+                $('#slideBack').show().html($('#main').html());
+                leSwap();
+                $('#slider-container').css('margin-left', '-100%');
+            }
+            // No slideing effect
+            else {
+                leSwap();
             }
         },
 

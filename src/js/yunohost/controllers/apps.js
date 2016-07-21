@@ -103,14 +103,22 @@
 
                 // Input with choices becomes select list
                 if (typeof data.manifest.arguments.install[k].choices !== 'undefined') {
-                    // Update choices values with  key and checked data
+                    // Update choices values with key and checked data
+                    var choices = []
                     $.each(data.manifest.arguments.install[k].choices, function(ck, cv){
-                        data.manifest.arguments.install[k].choices[ck] = {
-                            value: cv,
+                        // Non key/value choices have numeric key, that we don't want.
+                        if (typeof ck == "number") {
+                            // Key is Value in this case.
+                            ck = cv;
+                        }
+
+                        choices.push({
+                            value: ck,
                             label: cv,
-                            selected: (cv == data.manifest.arguments.install[k].default) ? true : false,
-                        };
+                            selected: (ck == data.manifest.arguments.install[k].default) ? true : false,
+                        });
                     });
+                    data.manifest.arguments.install[k].choices = choices;
                 }
 
                 // Special case for domain input.

@@ -5,6 +5,13 @@
     "type": "git",
     "url": "https://github.com/YunoHost/yunohost-admin"
   },
+  "scripts": {
+    "postinstall": "bower install",
+    "build": "gulp build",
+    "build-dev": "gulp build --dev",
+    "watch": "gulp watch",
+    "watch-dev": "gulp watch --dev"
+  },
   "author": "Yunohost",
   "license": "AGPL-3.0",
   "bugs": {
