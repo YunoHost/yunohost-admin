@@ -547,6 +547,7 @@ var app = Sammy('#main', function (sam) {
 
             $('.logout-button').fadeIn();
             c.flash('success', y18n.t('logged_in'));
+            c.flash('warning', y18n.t('old_2_2_upgrade_link'));
             if (store.get('path')) {
                 c.redirect(store.get('path'));
             } else {

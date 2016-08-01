@@ -49,6 +49,7 @@
     "passwords_too_short" : "Password is too short",
     "password_empty" : "Password field is empty",
     "logged_in" : "Logged in",
+    "old_2_2_upgrade_link" : "<b>Warning</b>: you are using the old version 2.2 of YunoHost, you should upgrade to 2.4 <a target='_blank' href='https://forum.yunohost.org/t/yunohost-2-4-released/1544'>by following those instructions</a>",
     "logged_out" : "Logged out",
     "unauthorized" : "Unauthorized",
     "error_occured" : "An error occured, try again",
