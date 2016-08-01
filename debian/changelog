@@ -1,3 +1,12 @@
+yunohost-admin (2.2.3) old-stable; urgency=low
+
+  [ Laurent Peuch ]
+  * [enh] display alert regarding moving to 2.4 with YunoHost once logged
+  * [mod] update minified file
+  * [fix] use link to french forum post
+
+ -- opi <opi@zeropi.net>  Mon, 01 Aug 2016 12:40:20 +0200
+
 yunohost-admin (2.2.2) testing; urgency=low
 
   [ zamentur ]
