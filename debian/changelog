@@ -1,3 +1,27 @@
+yunohost-admin (2.4.2) stable; urgency=low
+
+  [ Lars-Magnus Skog ]
+  * simplify install and build
+
+  [ opi ]
+  * [fix] Remove useless 'move' CSS class.
+  * [fix] Prevent empty space before footer.
+  * [fix] No need to resize body on every content update.
+  * [enh] Cleanup app view() helper.
+  * [enh] Add 'watch' npm script.
+  * [enh] Be more explicit on npm command.
+  * [enh] Display YNH version in footer. Need body padding improvments. #316
+  * [enh] Allow key/value choices in manifest arguments.
+
+  [ Jérome Lebleu ]
+  * [fix] Run npm/gulp at build in Debian rules
+
+  [ Laurent Peuch ]
+  * [enh] add empty file for hindie to enable it in weblate
+  * [fix] api correctly returns boolean value now
+
+ -- Laurent Peuch <cortex@worlddomination.be>  Sun, 14 Aug 2016 19:02:25 +0200
+
 yunohost-admin (2.4.1) stable; urgency=low
 
   [ Juanu ]
