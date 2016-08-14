@@ -24,7 +24,7 @@
                 apps = [];
                 $.each(data['apps'], function(k, v) {
                     // Keep only uninstalled apps, or multi-instance apps
-                    if ((!v['installed'] || dataraw[v['id']].manifest.multi_instance == "true") && !v['id'].match(/__[0-9]{1,5}$/)) {
+                    if ((!v['installed'] || dataraw[v['id']].manifest.multi_instance) && !v['id'].match(/__[0-9]{1,5}$/)) {
                         // Check app source
                         dataraw[v['id']]['official'] = (dataraw[v['id']]['repository'] == 'yunohost');
 
@@ -61,7 +61,7 @@
                         ;
 
             // Multi Instance settings
-            data.manifest.multi_instance = (data.manifest.multi_instance == 'true') ? y18n.t('yes') : y18n.t('no');
+            data.manifest.multi_instance = data.manifest.multi_instance ? y18n.t('yes') : y18n.t('no');
 
             // Installation date
             var d = new Date(data.settings.install_time * 1000);
@@ -210,7 +210,7 @@
                                 ;
 
         // Multi Instance settings boolean to text
-        data.manifest.multi_instance = (data.manifest.multi_instance == 'true') ? y18n.t('yes') : y18n.t('no');
+        data.manifest.multi_instance = data.manifest.multi_instance ? y18n.t('yes') : y18n.t('no');
 
         // View app install form
         c.view('app/app_install', data);
