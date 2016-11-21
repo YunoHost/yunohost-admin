@@ -57,6 +57,19 @@
         </div>
         <hr>
         <div class="container">
+            <p>Gérer le certificat</p>
+            {{#unless enable_cert_management}}
+            <p><span class="fa-fw fa-exclamation-circle"></span> The 'letsencrypt'
+            app is currently installed and conflicts with this feature. Please
+            uninstall it first to use the new certificate management
+            interface.</p>
+            {{/unless}}
+            <a href="#/domains/{{name}}/cert-management" class="btn btn-default slide {{#unless enable_cert_management}}disabled{{/unless}}">
+                Certificat SSL <span class="fa-fw fa-lock"></span>
+            </a>
+        </div>
+        <hr>
+        <div class="container">
             <p>{{t 'domain_delete_longdesc' name}}</p>
             <a href="#/domains/{{name}}/delete" class="btn btn-danger slide back">
                 {{t 'delete'}} <span class="fa-fw fa-trash-o"></span>
