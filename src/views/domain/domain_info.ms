@@ -57,15 +57,14 @@
         </div>
         <hr>
         <div class="container">
-            <p>Gérer le certificat</p>
+            <p>{{t 'certificate_manage'}}</p>
             {{#unless enable_cert_management}}
-            <p><span class="fa-fw fa-exclamation-circle"></span> The 'letsencrypt'
-            app is currently installed and conflicts with this feature. Please
-            uninstall it first to use the new certificate management
-            interface.</p>
+            <p><span class="fa-fw fa-exclamation-circle"></span>
+            {{t 'certificate_old_letsencrypt_app_conflict'}}
+            </p>
             {{/unless}}
             <a href="#/domains/{{name}}/cert-management" class="btn btn-default slide {{#unless enable_cert_management}}disabled{{/unless}}">
-                Certificat SSL <span class="fa-fw fa-lock"></span>
+                {{t 'ssl_certificate'}} <span class="fa-fw fa-lock"></span>
             </a>
         </div>
         <hr>

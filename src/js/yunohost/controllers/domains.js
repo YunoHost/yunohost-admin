@@ -83,6 +83,10 @@
         c.api('/domains/main', function(dataMain) {
             c.api('/apps?installed', function(data) { // http://api.yunohost.org/#!/app/app_list_get_8
 
+                // FIXME - This dirty trick (along with the previous API call
+                //  for apps installed) should be removed once letsencrypt_ynh
+                //  is not used by many people anymore. Probably around 07/2017
+                //  or end of 2017...
                 enable_cert_management_ = true;
                 $.each(data['apps'], function(k, v) {
                     if (v.id == "letsencrypt")
@@ -98,7 +102,6 @@
                     url: "https://"+c.params['domain'],
                     enable_cert_management: enable_cert_management_
                 };
-                console.log(domain);
                 c.view('domain/domain_info', domain);
             });
         }, 'PUT');
