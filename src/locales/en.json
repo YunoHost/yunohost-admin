@@ -281,6 +281,7 @@
     "user_fullname": "Full name",
     "user_interface_link": "User interface",
     "user_mailbox_quota": "Mailbox quota",
+    "user_mailbox_use": "Mailbox used space",
     "user_new_forward": "newforward@myforeigndomain.org",
     "user_new_mail": "newmail@mydomain.org",
     "user_username": "Username",

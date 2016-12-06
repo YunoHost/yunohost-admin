@@ -35,12 +35,13 @@
 
           <tr>
             <td><strong>{{t 'user_mailbox_quota'}}</strong></td>
-	    {{#if mailbox-quota.use}}
-            <td>{{mailbox-quota.use}} / {{mailbox-quota.limit}}</td>
-            {{else}}
-            <td>{{mailbox-quota}}</td>
-            {{/if}}
-          </tr
+            <td>{{mailbox-quota.limit}}</td>
+          </tr>
+
+          <tr>
+            <td><strong>{{t 'user_mailbox_use'}}</strong></td>
+            <td>{{mailbox-quota.use}}</td>
+          </tr>
 
           <tr>
             <td><strong>{{t 'user_emailaliases'}}</strong></td>
