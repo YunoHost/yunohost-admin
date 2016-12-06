@@ -81,12 +81,29 @@
     // Get existing domain info
     app.get('#/domains/:domain', function (c) {
         c.api('/domains/main', function(dataMain) {
-            domain = {
-                name: c.params['domain'],
-                main: (c.params['domain'] == dataMain.current_main_domain) ? true : false,
-                url: "https://"+c.params['domain']
-            }
-            c.view('domain/domain_info', domain);
+            c.api('/apps?installed', function(data) { // http://api.yunohost.org/#!/app/app_list_get_8
+
+                // FIXME - This dirty trick (along with the previous API call
+                //  for apps installed) should be removed once letsencrypt_ynh
+                //  is not used by many people anymore. Probably around 07/2017
+                //  or end of 2017...
+                enable_cert_management_ = true;
+                $.each(data['apps'], function(k, v) {
+                    if (v.id == "letsencrypt")
+                    {
+                        enable_cert_management_ = false;
+                    }
+                });
+
+
+                domain = {
+                    name: c.params['domain'],
+                    main: (c.params['domain'] == dataMain.current_main_domain) ? true : false,
+                    url: "https://"+c.params['domain'],
+                    enable_cert_management: enable_cert_management_
+                };
+                c.view('domain/domain_info', domain);
+            });
         }, 'PUT');
     });
 
@@ -100,6 +117,164 @@
             c.view('domain/domain_dns', domain);
         });
     });
+
+    // Domain certificate
+    app.get('#/domains/:domain/cert-management', function (c) {
+        c.api('/domains/cert-status/' + c.params['domain'] + '?full', function(data) {
+
+            s = data["certificates"][c.params['domain']]
+           
+            status_ = {}
+            status_.CA_type       = s.CA_type.verbose
+            status_.CA_name       = s.CA_name
+            status_.validity      = s.validity
+            status_.ACME_eligible = s.ACME_eligible
+
+            switch (s.summary.code) 
+            {
+                case "critical" :
+                    status_.alert_type = "danger";
+                    status_.alert_icon = "exclamation-circle" ;
+                    status_.alert_message = y18n.t('certificate_alert_not_valid');
+                    break;
+                case "warning" :
+                    status_.alert_type = "warning";
+                    status_.alert_icon = "exclamation-triangle";
+                    status_.alert_message = y18n.t('certificate_alert_selfsigned');
+                    break;
+                case "attention" :
+                    if (status_.CA_type == "lets-encrypt")
+                    {
+                        status_.alert_type = "warning";
+                        status_.alert_icon = "clock-o";
+                        status_.alert_message = y18n.t('certificate_alert_letsencrypt_about_to_expire');
+                    }
+                    else 
+                    {
+                        status_.alert_type = "danger";
+                        status_.alert_icon = "clock-o";
+                        status_.alert_message = y18n.t('certificate_alert_about_to_expire');
+                    }
+                    break;
+                case "good" :
+                    status_.alert_type = "success";
+                    status_.alert_icon = "check-circle";
+                    status_.alert_message = y18n.t('certificate_alert_good');
+                    break;
+                case "great" :
+                    status_.alert_type = "success";
+                    status_.alert_icon = "thumbs-up";
+                    status_.alert_message = y18n.t('certificate_alert_great');
+                    break;
+                default :
+                    status_.alert_type = "warning"
+                    status_.alert_icon = "question"
+                    status_.alert_message = y18n.t('certificate_alert_unknown');
+                    break;
+            }
+
+            actions_enabled = {};
+            actions_enabled.install_letsencrypt = false;
+            actions_enabled.manual_renew_letsencrpt = false;
+            actions_enabled.regen_selfsigned = false;
+            actions_enabled.replace_with_selfsigned = false;
+
+            switch (s.CA_type.code) 
+            {
+                case "self-signed" :
+                    actions_enabled.install_letsencrypt = true;
+                    actions_enabled.regen_selfsigned = true;
+                    break;
+                case "lets-encrypt" :
+                    actions_enabled.manual_renew_letsencrpt = true;
+                    actions_enabled.replace_with_selfsigned = true;
+                    break;
+                default :
+                    actions_enabled.replace_with_selfsigned = true;
+                    break;
+            }
+
+            data_ = {
+                name: c.params['domain'],
+                status: status_,
+                actions_enabled : actions_enabled
+            };
+            c.view('domain/domain_cert', data_);
+        });
+    });
+
+    // Install let's encrypt certificate on domain
+    app.get('#/domains/:domain/cert-install-LE', function (c) {
+        c.confirm(
+            y18n.t('certificate'),
+            y18n.t('confirm_cert_install_LE', [c.params['domain']]),
+            function(){
+                c.api('/domains/cert-install/' + c.params['domain'], function(data) {
+                    store.clear('slide');
+                    c.redirect('#/domains/'+c.params['domain']+'/cert-management');
+                }, 'POST');
+            },
+            function(){
+                store.clear('slide');
+                c.redirect('#/domains/'+c.params['domain']+'/cert-management');
+            }
+        );
+    });
+
+    // Regenerate a self-signed certificate
+    app.get('#/domains/:domain/cert-regen-selfsigned', function (c) {
+        c.confirm(
+            y18n.t('certificate'),
+            y18n.t('confirm_cert_regen_selfsigned', [c.params['domain']]),
+            function(){
+                c.api('/domains/cert-install/' + c.params['domain'] + "?self_signed", function(data) {
+                    store.clear('slide');
+                    c.redirect('#/domains/'+c.params['domain']+'/cert-management');
+                }, 'POST');
+            },
+            function(){
+                store.clear('slide');
+                c.redirect('#/domains/'+c.params['domain']+'/cert-management');
+            }
+        );
+    });
+
+    // Manually renew a Let's Encrypt certificate
+    app.get('#/domains/:domain/cert-renew-letsencrypt', function (c) {
+        c.confirm(
+            y18n.t('certificate'),
+            y18n.t('confirm_cert_manual_renew_LE', [c.params['domain']]),
+            function(){
+                c.api('/domains/cert-renew/' + c.params['domain'] + "?force", function(data) {
+                    store.clear('slide');
+                    c.redirect('#/domains/'+c.params['domain']+'/cert-management');
+                }, 'POST');
+            },
+            function(){
+                store.clear('slide');
+                c.redirect('#/domains/'+c.params['domain']+'/cert-management');
+            }
+        );
+    });
+
+    // Replace valid cert with self-signed
+    app.get('#/domains/:domain/cert-replace-with-selfsigned', function (c) {
+        c.confirm(
+            y18n.t('certificate'),
+            y18n.t('confirm_cert_revert_to_selfsigned', [c.params['domain']]),
+            function(){
+                c.api('/domains/cert-install/' + c.params['domain'] + "?self_signed&force", function(data) {
+                    store.clear('slide');
+                    c.redirect('#/domains/'+c.params['domain']+'/cert-management');
+                }, 'POST');
+            },
+            function(){
+                store.clear('slide');
+                c.redirect('#/domains/'+c.params['domain']+'/cert-management');
+            }
+        );
+    });
+
 
     // Remove existing domain
     app.get('#/domains/:domain/delete', function (c) {

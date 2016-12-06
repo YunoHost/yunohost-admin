@@ -57,6 +57,18 @@
         </div>
         <hr>
         <div class="container">
+            <p>{{t 'certificate_manage'}}</p>
+            {{#unless enable_cert_management}}
+            <p><span class="fa-fw fa-exclamation-circle"></span>
+            {{t 'certificate_old_letsencrypt_app_conflict'}}
+            </p>
+            {{/unless}}
+            <a href="#/domains/{{name}}/cert-management" class="btn btn-default slide {{#unless enable_cert_management}}disabled{{/unless}}">
+                {{t 'ssl_certificate'}} <span class="fa-fw fa-lock"></span>
+            </a>
+        </div>
+        <hr>
+        <div class="container">
             <p>{{t 'domain_delete_longdesc' name}}</p>
             <a href="#/domains/{{name}}/delete" class="btn btn-danger slide back">
                 {{t 'delete'}} <span class="fa-fw fa-trash-o"></span>
