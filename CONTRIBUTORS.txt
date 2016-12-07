@@ -23,7 +23,7 @@ YunoHost Administration Contributors & Translators
 - Laurent 'Bram' Peuch
 - Valentin 'zamentur' / 'ljf' Grimaud
 - M5oul
-- Jean-Baptiste
+- Jean-Baptiste aka 'jibec'
 - Juanu
 - Adrien 'Beudbeud' Beudin
 - Felix Bartels
