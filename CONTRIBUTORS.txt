@@ -5,7 +5,7 @@ Everyone is encouraged to submit issues and changes, and to contribute in other 
 
 Initial YunoHost web administration was built by Kload, for YunoHost v2.
 
-Most of code is written by opi, with help of numerous contributors.
+Most of code was written by opi, with help of numerous contributors.
 
 Translation is made by a bunch of lovely people over the world.
 
