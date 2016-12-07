@@ -3,9 +3,7 @@ Everyone is encouraged to submit issues and changes, and to contribute in other 
 
 --
 
-Initial project was built by Kload, for YunoHost v2.
-
-Design was created by Théodore 'Tozz' Faure and Thomas 'Courgette' Lebeau and implemented by Courgette himself.
+Initial YunoHost web administration was built by Kload, for YunoHost v2.
 
 Most of code is written by opi, with help of numerous contributors.
 
