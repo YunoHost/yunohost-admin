@@ -1,0 +1,45 @@
+YunoHost is built and maintained by the YunoHost project community.
+Everyone is encouraged to submit issues and changes, and to contribute in other ways -- see https://yunohost.org/contribute to find out how.
+
+--
+
+Initial project was built by Kload, for YunoHost v2.
+
+Design was created by Théodore 'Tozz' Faure and Thomas 'Courgette' Lebeau and implemented by Courgette himself.
+
+Most of code is written by opi, with help of numerous contributors.
+
+Translation is made by a bunch of lovely people over the world.
+
+We would like to thank anyone who ever helped the YunoHost project, and especially the web administration project <3
+
+
+YunoHost Administration Contributors & Translators
+--------------------------------------------------
+
+- opi
+- Kload
+- Jérôme Lebleu
+- Julien 'ju' Malik
+- Hugo Roy
+- Laurent 'Bram' Peuch
+- Valentin 'zamentur' / 'ljf' Grimaud
+- M5oul
+- Jean-Baptiste
+- Juanu
+- Adrien 'Beudbeud' Beudin
+- Felix Bartels
+- Alexandre 'Aleks' Aubin
+- danc
+- dattaz
+- Bugsbane
+- DUBWiSE
+- Lars-Magnus Skog
+- P
+- Thomas Bille
+- Thomas 'Courgette' Lebeau
+- Vincent
+- davidba123
+- dblugeon
+- dosch
+- Étienne 'milouse' Deparis
