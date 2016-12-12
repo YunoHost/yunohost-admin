@@ -1,3 +1,18 @@
+yunohost-admin (2.5.0) testing; urgency=low
+
+  dattaz and opi
+  * Add noscript tag
+  * Update alert when javascript is not enable
+
+  Alexandre Aubin
+  * Let's encrypt web interface
+
+  Updated translations: French (jibec), Hindi (Anmol) and Italian (Thomas Bille).
+
+  Thanks to Anmol, dattaz, opi, jibec, Moul and Thomas Bille for your contributions <3
+
+ -- Laurent Peuch <cortex@worlddomination.be>  Mon, 12 Dec 2016 21:32:09 +0100
+
 yunohost-admin (2.4.2) stable; urgency=low
 
   [ Lars-Magnus Skog ]
