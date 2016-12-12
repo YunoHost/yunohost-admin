@@ -295,5 +295,7 @@
     "warning_first_user": "Es probable que tenga que crear primero un usuario <a href='#/users/create' class='alert-link'> </a>.",
     "write": "Escribir",
     "wrong_password": "Contraseña incorrecta",
-    "yes": "Sí"
+    "yes": "Sí",
+    "footer_version": "Con tecnología <a href='https://yunohost.org'>YunoHost</a> %s.",
+    "form_input_example": "Por ejemplo: %s"
 }

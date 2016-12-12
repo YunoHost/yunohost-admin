@@ -12,7 +12,7 @@
     "app_access_removeall_btn": "Rimuovi tutti gli accessi",
     "app_access_removeall_desc": "Nessun utente avrà accesso a %s.",
     "app_access_title": "accesso %s",
-    "app_debug_no_logs": "Logs non disponibili",
+    "app_debug_no_logs": "Logs dell'applicazione non disponibili",
     "app_debug_tab": "Visualizzare informazioni di debug",
     "app_info_access_desc": "Gestisci accesso utente. Utenti consentiti: %s",
     "app_info_debug_desc": "Visualizzare informazioni di debug per quest'applicazione.",
@@ -245,5 +245,10 @@
     "warning_first_user": "Probabilmente dovresti <a href='#/users/create' class='alert-link'>creare un utente</a> prima.",
     "write": "Write",
     "wrong_password": "Password sbagliata",
-    "yes": "Si"
+    "yes": "Si",
+    "app_state": "Stato dell'applicazione: ",
+    "app_state_inprogress": "In corso",
+    "confirm_install_custom_app": "L'installazione di applicazioni 3rd party può compromettere la sicurezza del sistema. Utilizzare a proprio rischio.",
+    "backup_archive_copy": "Copia questo archivio su un altro storage",
+    "confirm_install_domain_root": "Non sarà in grado di installare qualsiasi altra applicazione su %s. Continuare ?"
 }
