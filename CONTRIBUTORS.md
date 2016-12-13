@@ -72,5 +72,3 @@ If you want to help translation, please visit https://translate.yunohost.org/pro
 ### Spanish
 
 - Juanu
-
-
