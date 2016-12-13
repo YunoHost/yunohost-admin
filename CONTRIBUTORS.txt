@@ -32,42 +32,42 @@ If you want to help translation, please visit https://translate.yunohost.org/pro
 
 ## Dutch
 
-- DUBWiSE <accounts@maartenderks.nl>
-- dosch <git@dosch.nl>
+- DUBWiSE
+- dosch
 
 ## English
 
-- Bugsbane <user581@xymail.info>
+- Bugsbane
 
 ## French
 
-- Étienne Deparis <etienne@depar.is>
-- Jean-Baptiste Holcroft <jean-baptiste@holcroft.fr>
-- Jérôme Lebleu <jerome@yunohost.org>
-- ljf (zamentur) <ljf@grimaud.me>
-- opi <opi@zeropi.net>
+- Étienne Deparis
+- Jean-Baptiste Holcroft
+- Jérôme Lebleu
+- ljf (zamentur)
+- opi
 
 ## German
 
-- <david.bartke@web.de>
-- Felix Bartels <felix@host-consultants.de>
+- david.bartke
+- Felix Bartels
 
 ## Hindi
 
-- Anmol <github@datamol.in>
+- Anmol
 
 ## Italian
 
--  <github@danneso.eu.org>
-- Thomas Bille <thomas.bille625@gmail.com>
-- Vincent <vincent.manillier@openmailbox.org>
+- danneso
+- Thomas Bille
+- Vincent
 
 ## Portuguese
 
-- Deleted User <noreply@weblate.org>
+- Deleted User
 
 ## Spanish
 
-- Juanu <juanu.sandoval@gmail.com>
+- Juanu
 
 
