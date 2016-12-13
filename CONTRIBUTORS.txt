@@ -12,8 +12,8 @@ Translation is made by a bunch of lovely people over the world.
 We would like to thank anyone who ever helped the YunoHost project, and especially the web administration project <3
 
 
-YunoHost Administration Contributors & Translators
---------------------------------------------------
+YunoHost Administration Contributors
+------------------------------------
 
 - opi
 - Kload
@@ -23,21 +23,51 @@ YunoHost Administration Contributors & Translators
 - Laurent 'Bram' Peuch
 - Valentin 'zamentur' / 'ljf' Grimaud
 - M5oul
-- Jean-Baptiste aka 'jibec'
-- Juanu
-- Adrien 'Beudbeud' Beudin
-- Felix Bartels
-- Alexandre 'Aleks' Aubin
-- danc
-- dattaz
-- Bugsbane
-- DUBWiSE
-- Lars-Magnus Skog
-- P
-- Thomas Bille
-- Thomas 'Courgette' Lebeau
-- Vincent
-- davidba123
-- dblugeon
-- dosch
-- Étienne 'milouse' Deparis
+
+
+YunoHost Administration Translators
+-----------------------------------
+
+If you want to help translation, please visit https://translate.yunohost.org/projects/yunohost/yunohost-admin/
+
+## Dutch
+
+- DUBWiSE <accounts@maartenderks.nl>
+- dosch <git@dosch.nl>
+
+## English
+
+- Bugsbane <user581@xymail.info>
+
+## French
+
+- Étienne Deparis <etienne@depar.is>
+- Jean-Baptiste Holcroft <jean-baptiste@holcroft.fr>
+- Jérôme Lebleu <jerome@yunohost.org>
+- ljf (zamentur) <ljf@grimaud.me>
+- opi <opi@zeropi.net>
+
+## German
+
+- <david.bartke@web.de>
+- Felix Bartels <felix@host-consultants.de>
+
+## Hindi
+
+- Anmol <github@datamol.in>
+
+## Italian
+
+-  <github@danneso.eu.org>
+- Thomas Bille <thomas.bille625@gmail.com>
+- Vincent <vincent.manillier@openmailbox.org>
+
+## Portuguese
+
+- Deleted User <noreply@weblate.org>
+
+## Spanish
+
+- Juanu <juanu.sandoval@gmail.com>
+
+
