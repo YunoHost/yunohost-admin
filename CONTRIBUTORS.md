@@ -1,3 +1,6 @@
+YunoHost web administration contributors
+========================================
+
 YunoHost is built and maintained by the YunoHost project community.
 Everyone is encouraged to submit issues and changes, and to contribute in other ways -- see https://yunohost.org/contribute to find out how.
 
@@ -35,11 +38,11 @@ If you want to help translation, please visit https://translate.yunohost.org/pro
 - DUBWiSE
 - dosch
 
-## English
+### English
 
 - Bugsbane
 
-## French
+### French
 
 - Étienne Deparis
 - Jean-Baptiste Holcroft
@@ -47,26 +50,26 @@ If you want to help translation, please visit https://translate.yunohost.org/pro
 - ljf (zamentur)
 - opi
 
-## German
+### German
 
 - david.bartke
 - Felix Bartels
 
-## Hindi
+### Hindi
 
 - Anmol
 
-## Italian
+### Italian
 
 - danneso
 - Thomas Bille
 - Vincent
 
-## Portuguese
+### Portuguese
 
 - Deleted User
 
-## Spanish
+### Spanish
 
 - Juanu
 
