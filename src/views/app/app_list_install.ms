@@ -17,7 +17,7 @@
     <a href="#/apps/install/{{id}}" class="list-group-item slide" title="{{t 'install'}}">
         <span class="fa-chevron-right pull-right"></span>
         <h2 class="list-group-item-heading">
-            {{name}} <small>{{id}}</small>
+            {{name}} <small>{{id}} (Level {{level}})</small>
             {{#installed}}<span class="badge badge-success" title="{{t 'status'}}">{{t 'installed'}}</span>{{/installed}}
         </h2>
         <p class="list-group-item-text">{{description}}</p>
