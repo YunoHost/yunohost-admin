@@ -157,6 +157,7 @@
     "ipv6": "IPv6",
     "label": "Label",
     "label_for_manifestname": "Label for %s",
+    "level": "Level",
     "loading": "Loading …",
     "local_archives": "Local archives",
     "local_ip": "Local IP",
