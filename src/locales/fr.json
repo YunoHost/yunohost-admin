@@ -323,5 +323,6 @@
     "regenerate_selfsigned_cert_message": "Si vous le souhaitez, vous pouvez régénérer les certificats auto-signés.",
     "regenerate_selfsigned_cert": "Régénérer les certificats auto-signés",
     "revert_to_selfsigned_cert_message": "Si vous le souhaitez vraiment, vous pouvez réinstaller un certificat auto-signé (non recommandé).",
-    "revert_to_selfsigned_cert": "Retourner à un certificat auto-signé"
+    "revert_to_selfsigned_cert": "Retourner à un certificat auto-signé",
+    "user_mailbox_use": "Espace utilisé de la boite aux lettres"
 }
