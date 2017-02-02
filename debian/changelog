@@ -1,3 +1,25 @@
+yunohost-admin (2.5.1) stable; urgency=low
+
+  [ ljf ]
+  * [fix] Avoid incomprehensible info about quota (#640)
+
+  [ Juanu ]
+  * [i18n] Translated using Weblate (Spanish)
+
+  [ Laurent Peuch ]
+  * [enh] add empty json file for breton translation
+
+  [ opi ]
+  * [enh][love] Create CONTRIBUTORS.md file. (#140)
+
+  [ Moul ]
+  * [enh] readme: add translation badge status.
+
+  [ Jean-Baptiste Holcroft ]
+  * [i18n] Translated using Weblate (French)
+
+ -- opi <opi@zeropi.net>  Thu, 02 Feb 2017 11:33:16 +0100
+
 yunohost-admin (2.5.0) testing; urgency=low
 
   dattaz and opi
