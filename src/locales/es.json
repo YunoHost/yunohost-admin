@@ -324,5 +324,6 @@
     "regenerate_selfsigned_cert_message": "Si lo desea, puede regenerar el certificado autofirmado.",
     "regenerate_selfsigned_cert": "Regenerar certificado autofirmado",
     "revert_to_selfsigned_cert_message": "Si realmente lo desea, puede reinstalar un certificado autofirmado. (No recomendado)",
-    "revert_to_selfsigned_cert": "Volver a un certificado autofirmado"
+    "revert_to_selfsigned_cert": "Volver a un certificado autofirmado",
+    "user_mailbox_use": "Espacio utilzado"
 }
