@@ -54,6 +54,7 @@ If you want to help translation, please visit https://translate.yunohost.org/pro
 
 - david.bartke
 - Felix Bartels
+- Fabian Gruber (burst3r)
 
 ### Hindi
 
