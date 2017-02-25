@@ -143,7 +143,7 @@
         };
         c.api('/login', function(data) {
             store.set('connected', true);
-
+            c.trigger('login');
             $('#masthead .logout-btn').fadeIn();
             c.flash('success', y18n.t('logged_in'));
             if (store.get('path')) {
@@ -160,6 +160,7 @@
             store.clear('url');
             store.clear('connected');
             store.set('path', '#/');
+            c.trigger('logout');
             c.flash('success', y18n.t('logged_out'));
             c.redirect('#/login');
         }, 'GET', {}, false);
