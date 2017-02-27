@@ -43,9 +43,14 @@
         },
 
         checkInstall: function(callback) {
+            // Get base url from store or guess from current url
+            var baseUrl = (store.get('url') !== null) ? store.get('url')
+                            : window.location.hostname + '/yunohost/api';
+
+            // Call API endpoint
             $.ajax({
                 dataType: "json",
-                url: 'https://'+ store.get('url') +'/installed',
+                url: 'https://'+ baseUrl +'/installed',
                 timeout: 3000
             })
             .success(function(data) {
