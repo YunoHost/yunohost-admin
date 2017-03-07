@@ -71,9 +71,11 @@
             sam.store.set('url', window.location.hostname + '/yunohost/api');
 
             // Get YunoHost version
-            this.api('/version', function(versions) {
-                $('#yunohost-version').html(y18n.t('footer_version', [versions.yunohost]));
-            });
+            if (sam.store.get('connected')) {
+                this.api('/version', function(versions) {
+                    $('#yunohost-version').html(y18n.t('footer_version', [versions.yunohost]));
+                });
+            }
 
             // Flash messages
             var flashMessage = $('#flashMessage');
