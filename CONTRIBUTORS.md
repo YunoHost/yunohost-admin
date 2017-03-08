@@ -26,6 +26,7 @@ YunoHost Administration Contributors
 - Laurent 'Bram' Peuch
 - Valentin 'zamentur' / 'ljf' Grimaud
 - M5oul
+- thardev
 
 
 YunoHost Administration Translators
