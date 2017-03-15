@@ -40,6 +40,11 @@
         {{#manifest.arguments.install}}
         <div class="form-group">
             <label for="{{name}}" class="col-sm-12">{{label}}</label>
+
+            {{#if helpText}}
+            <span class="help-block help-block--help col-sm-12">{{{helpText}}}</span>
+            {{/if}}
+
             <div class="col-sm-12">
 
                 {{#if choices}}
@@ -50,12 +55,14 @@
                 <input type="{{inputType}}" id="{{name}}" name="{{name}}" class="form-control" value="{{default}}" placeholder="{{example}}" {{required}} {{{attributes}}}>
                 {{/if}}
 
+                {{#if helpLink}}
+                <span class="help-block help-block--link">{{{helpLink}}}</span>
+                {{/if}}
+
                 {{#if example}}
-                <span class="help-block example-help-block">{{t 'form_input_example' example}}</span>
+                <span class="help-block help-block--example">{{t 'form_input_example' example}}</span>
                 {{/if}}
-                {{#if help}}
-                <span class="help-block">{{{help}}}</span>
-                {{/if}}
+
             </div>
         </div>
         {{/manifest.arguments.install}}

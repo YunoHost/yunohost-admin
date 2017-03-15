@@ -100,6 +100,23 @@
                 data.manifest.arguments.install[k].inputType = 'text';
                 data.manifest.arguments.install[k].required = (typeof v.optional !== 'undefined' && v.optional == "true") ? '' : 'required';
                 data.manifest.arguments.install[k].attributes = "";
+                data.manifest.arguments.install[k].helpText = "";
+                data.manifest.arguments.install[k].helpLink = "";
+
+
+                // Multilingual label
+                data.manifest.arguments.install[k].label = (typeof data.manifest.arguments.install[k].ask[y18n.locale] !== 'undefined') ?
+                                    data.manifest.arguments.install[k].ask[y18n.locale] :
+                                    data.manifest.arguments.install[k].ask['en']
+                                    ;
+
+                // Multilingual help text
+                if (typeof data.manifest.arguments.install[k].help !== 'undefined') {
+                    data.manifest.arguments.install[k].helpText = (typeof data.manifest.arguments.install[k].help[y18n.locale] !== 'undefined') ?
+                                        data.manifest.arguments.install[k].help[y18n.locale] :
+                                        data.manifest.arguments.install[k].help['en']
+                                        ;
+                }
 
                 // Input with choices becomes select list
                 if (typeof data.manifest.arguments.install[k].choices !== 'undefined') {
@@ -132,7 +149,9 @@
                             selected: false
                         });
                     });
-                    data.manifest.arguments.install[k].help = "<a href='#/domains'>"+y18n.t('manage_domains')+"</a>";
+
+                    // Custom help link
+                    data.manifest.arguments.install[k].helpLink += "<a href='#/domains'>"+y18n.t('manage_domains')+"</a>";
                 }
 
                 // Special case for admin / user input.
@@ -146,7 +165,9 @@
                             selected: false
                         });
                     });
-                    data.manifest.arguments.install[k].help = "<a href='#/users'>"+y18n.t('manage_users')+"</a>";
+
+                    // Custom help link
+                    data.manifest.arguments.install[k].helpLink += "<a href='#/users'>"+y18n.t('manage_users')+"</a>";
                 }
 
                 // 'app' type input display a list of available apps
@@ -159,7 +180,9 @@
                             selected: false
                         });
                     });
-                    data.manifest.arguments.install[k].help = "<a href='#/apps'>"+y18n.t('manage_apps')+"</a>";
+
+                    // Custom help link
+                    data.manifest.arguments.install[k].helpLink += "<a href='#/apps'>"+y18n.t('manage_apps')+"</a>";
                 }
 
                 // Boolean fields
@@ -194,12 +217,6 @@
                     data.manifest.arguments.install[k].inputType = 'password';
                 }
 
-
-                // Multilingual label
-                data.manifest.arguments.install[k].label = (typeof data.manifest.arguments.install[k].ask[y18n.locale] !== 'undefined') ?
-                                    data.manifest.arguments.install[k].ask[y18n.locale] :
-                                    data.manifest.arguments.install[k].ask['en']
-                                    ;
             });
         }
 
