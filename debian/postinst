@@ -7,6 +7,9 @@ do_configure() {
   if [ ! -f  /usr/share/yunohost/admin/ca.crt ]; then
       ln -s /etc/ssl/certs/ca-yunohost_crt.pem /usr/share/yunohost/admin/ca.crt
   fi
+
+  # Set document root permissions
+  chown -R root:root /usr/share/yunohost/admin
 }
 
 # summary of how this script can be called:
