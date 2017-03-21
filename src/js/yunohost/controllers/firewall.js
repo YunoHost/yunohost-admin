@@ -38,7 +38,7 @@
     app.get('#/tools/firewall/upnp/:action', function (c) {
         c.confirm(
             y18n.t('firewall'),
-            y18n.t('confirm_upnp_action', [y18n.t(c.params['action'])]),
+            y18n.t('confirm_upnp_' + c.params['action'].toLowerCase()),
             function(){
                 params = {'action' : c.params['action']};
                 c.api('/firewall/upnp', function(data) {

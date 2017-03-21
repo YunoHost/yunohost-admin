@@ -79,6 +79,8 @@
     "confirm_update_apps": "Are you sure you want update every applications ?",
     "confirm_update_packages": "Are you sure you want update every packages ?",
     "confirm_upnp_action": "Are you sure you want to %s UPnP ?",
+    "confirm_upnp_enable": "Are you sure you want to enable UPnP ?",
+    "confirm_upnp_disable": "Are you sure you want to disable UPnP ?",
     "connection": "Connection",
     "copy": "Copy",
     "count_min": "%s min",
