@@ -63,6 +63,7 @@ If you want to help translation, please visit https://translate.yunohost.org/pro
 
 ### Italian
 
+- bricabrac
 - danneso
 - Thomas Bille
 - Vincent
@@ -74,3 +75,4 @@ If you want to help translation, please visit https://translate.yunohost.org/pro
 ### Spanish
 
 - Juanu
+- rokaz
