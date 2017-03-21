@@ -74,7 +74,7 @@
         else {
             c.confirm(
                 y18n.t('tools'),
-                y18n.t('confirm_update_type', [y18n.t('system_'+c.params['type']).toLowerCase()]),
+                y18n.t('confirm_update_' + c.params['type'].toLowerCase()),
                 function(){
                     endurl = '';
                     if (c.params['type'] == 'packages') {endurl = 'ignore_apps';}
