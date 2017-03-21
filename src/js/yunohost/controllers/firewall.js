@@ -38,6 +38,7 @@
     app.get('#/tools/firewall/upnp/:action', function (c) {
         c.confirm(
             y18n.t('firewall'),
+            // confirm_upnp_enable and confirm_upnp_disable
             y18n.t('confirm_upnp_' + c.params['action'].toLowerCase()),
             function(){
                 params = {'action' : c.params['action']};
@@ -129,6 +130,7 @@
     app.get('#/tools/firewall/port/:port/:protocol/:connection/:action', function (c) {
         c.confirm(
             y18n.t('firewall'),
+            // confirm_firewall_open and confirm_firewall_close
             y18n.t( 'confirm_firewall_' + c.params['action'].toLowerCase(), [ c.params['port'], y18n.t(c.params['protocol']), y18n.t(c.params['connection'])]),
             function(){
                 c.togglePort(

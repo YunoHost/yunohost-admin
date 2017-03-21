@@ -74,6 +74,7 @@
         else {
             c.confirm(
                 y18n.t('tools'),
+                // confirm_update_apps and confirm_update_packages
                 y18n.t('confirm_update_' + c.params['type'].toLowerCase()),
                 function(){
                     endurl = '';
