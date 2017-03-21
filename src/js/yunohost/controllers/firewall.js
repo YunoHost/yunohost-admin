@@ -129,7 +129,7 @@
     app.get('#/tools/firewall/port/:port/:protocol/:connection/:action', function (c) {
         c.confirm(
             y18n.t('firewall'),
-            y18n.t( 'confirm_firewall', [ y18n.t(c.params['action']), c.params['port'], y18n.t(c.params['protocol']), y18n.t(c.params['connection'])]),
+            y18n.t( 'confirm_firewall_' + c.params['action'].toLowerCase(), [ c.params['port'], y18n.t(c.params['protocol']), y18n.t(c.params['connection'])]),
             function(){
                 c.togglePort(
                     c.params['port'],
@@ -149,7 +149,7 @@
     app.post('#/tools/firewall/port', function (c) {
         c.confirm(
             y18n.t('firewall'),
-            y18n.t('confirm_firewall', [ y18n.t(c.params['action']), c.params['port'], y18n.t(c.params['protocol']), y18n.t(c.params['connection']) ]),
+            y18n.t('confirm_firewall_' + c.params['action'].toLowerCase(), [ c.params['port'], y18n.t(c.params['protocol']), y18n.t(c.params['connection']) ]),
             function(){
                 c.togglePort(
                     c.params['port'],
