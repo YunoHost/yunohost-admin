@@ -59,7 +59,7 @@
     app.get('#/services/:service/:action', function (c) {
         c.confirm(
             "Service",
-            y18n.t('confirm_service_action', [y18n.t(c.params['action']), c.params['service']]),
+            y18n.t('confirm_service_' + c.params['action'].toLowerCase(), [c.params['service']]),
             function(){
                 var method = null, endurl = c.params['service'];
 
