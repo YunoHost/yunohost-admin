@@ -1,17 +1,16 @@
 # YunoHost Admin
 
-JS client for YunoHost API
+[YunoHost](https://yunohost.org) administration web interface (JS client for the API).
 
-<a href="https://translate.yunohost.org/engage/yunohost/?utm_source=widget">
-<img src="https://translate.yunohost.org/widgets/yunohost/-/287x66-white.png" alt="Translation status" />
-</a>
+This client is a part of the YunoHost projet, and can not be installed directly. Please visit YunoHost website for [installation instructions](https://yunohost.org/install).
 
-**Please report issues here** (no registration needed):    
-https://dev.yunohost.org/projects/yunohost/issues
+## Bug tracker
 
-## Installation
+Please report issues on the [YunoHost Bugtracker](https://dev.yunohost.org/projects/yunohost/issues), no registration needed.
 
-This client is a part of the YunoHost projet, and can not be installed directly. Please visit [YunoHost website](https://yunohost.org) for more information.
+## Translate
+
+[![Translation status](https://translate.yunohost.org/widgets/yunohost/-/287x66-white.png)](https://translate.yunohost.org/engage/yunohost/?utm_source=widget)
 
 ## Contributing
 
