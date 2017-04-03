@@ -27,17 +27,10 @@
         {{/official}}
     </a>
 {{/apps}}
-
-{{^apps}}
-<div class="alert alert-warning">
-    <span class="fa-exclamation-triangle"></span>
-    {{t 'no_installed_apps'}}
 </div>
-{{/apps}}
 
 </div>
 
-{{^installed_apps}}
 <div class="panel panel-default">
     <div class="panel-heading">
         <h2 class="panel-title"><span class="fa-fw fa-download"></span> {{t 'custom_app_install'}}</h2>
@@ -65,5 +58,3 @@
         </form>
     </div>
 </div>
-
-{{/installed_apps}}
