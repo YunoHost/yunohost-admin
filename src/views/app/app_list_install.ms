@@ -5,7 +5,10 @@
 </div>
 
 <div class="actions-group">
-    <a href="#/apps/refresh" class="btn btn-info">
+    <a href="#/apps/lists" class="btn btn-success">
+        <span class="fa-list"></span> {{t 'appslists_manage'}}
+    </a>
+    <a href="#/apps/lists/refresh" class="btn btn-info">
         <span class="fa-refresh"></span> {{t 'refresh_app_list'}}
     </a>
 </div>
@@ -27,8 +30,6 @@
         {{/official}}
     </a>
 {{/apps}}
-</div>
-
 </div>
 
 <div class="panel panel-default">
