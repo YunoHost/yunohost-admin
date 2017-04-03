@@ -38,7 +38,8 @@
     app.get('#/tools/firewall/upnp/:action', function (c) {
         c.confirm(
             y18n.t('firewall'),
-            y18n.t('confirm_upnp_action', [y18n.t(c.params['action'])]),
+            // confirm_upnp_enable and confirm_upnp_disable
+            y18n.t('confirm_upnp_' + c.params['action'].toLowerCase()),
             function(){
                 params = {'action' : c.params['action']};
                 c.api('/firewall/upnp', function(data) {
@@ -129,7 +130,8 @@
     app.get('#/tools/firewall/port/:port/:protocol/:connection/:action', function (c) {
         c.confirm(
             y18n.t('firewall'),
-            y18n.t( 'confirm_firewall', [ y18n.t(c.params['action']), c.params['port'], y18n.t(c.params['protocol']), y18n.t(c.params['connection'])]),
+            // confirm_firewall_open and confirm_firewall_close
+            y18n.t( 'confirm_firewall_' + c.params['action'].toLowerCase(), [ c.params['port'], y18n.t(c.params['protocol']), y18n.t(c.params['connection'])]),
             function(){
                 c.togglePort(
                     c.params['port'],
@@ -149,7 +151,7 @@
     app.post('#/tools/firewall/port', function (c) {
         c.confirm(
             y18n.t('firewall'),
-            y18n.t('confirm_firewall', [ y18n.t(c.params['action']), c.params['port'], y18n.t(c.params['protocol']), y18n.t(c.params['connection']) ]),
+            y18n.t('confirm_firewall_' + c.params['action'].toLowerCase(), [ c.params['port'], y18n.t(c.params['protocol']), y18n.t(c.params['connection']) ]),
             function(){
                 c.togglePort(
                     c.params['port'],
