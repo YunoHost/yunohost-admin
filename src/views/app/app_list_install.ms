@@ -42,7 +42,7 @@
         </p>
         <form action="#/apps/install/custom" method="POST" class="form-horizontal">
             <div class="form-group has-feedback">
-                <label for="label" class="col-sm-12">{{t 'url'}}</label>
+                <label for="url" class="col-sm-12">{{t 'url'}}</label>
                 <div class="col-sm-12">
                     <input type="url" id="url" name="url" class="form-control" value="" placeholder="https://github.com/USER/REPOSITORY" required pattern="^https://github.com/[a-zA-Z0-9-_.]+/[a-zA-Z0-9-_.]+[/]?$">
                     <p class="text-warning">
