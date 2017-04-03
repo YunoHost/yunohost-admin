@@ -324,5 +324,15 @@
     "regenerate_selfsigned_cert": "Régénérer les certificats auto-signés",
     "revert_to_selfsigned_cert_message": "Si vous le souhaitez vraiment, vous pouvez réinstaller un certificat auto-signé (non recommandé).",
     "revert_to_selfsigned_cert": "Retourner à un certificat auto-signé",
-    "user_mailbox_use": "Espace utilisé de la boite aux lettres"
+    "user_mailbox_use": "Espace utilisé de la boite aux lettres",
+    "confirm_firewall_open": "Voulez-vous vraiment ouvrir le port %s (protocole: %s, connexion: %s)",
+    "confirm_firewall_close": "Voulez-vous vraiment fermer le port %s (protocole: %s, connexion: %s)",
+    "confirm_service_start": "Voulez-vous vraiment démarrer %s ?",
+    "confirm_service_stop": "Voulez-vous vraiment arrêter %s ?",
+    "confirm_service_enable": "Voulez-vous vraiment activer %s ?",
+    "confirm_service_disable": "Voulez-vous vraiment désactiver %s ?",
+    "confirm_update_apps": "Voulez-vous vraiment mettre à jour toutes les applications ?",
+    "confirm_update_packages": "Voulez-vous vraiment mettre à jour tous les paquets ?",
+    "confirm_upnp_enable": "Voulez-vous vraiment activer l'UPnP ?",
+    "confirm_upnp_disable": "Voulez-vous vraiment désactiver l'UPnP ?"
 }
