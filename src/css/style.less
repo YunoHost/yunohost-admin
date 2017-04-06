@@ -356,14 +356,16 @@ div.br {
     background-position: center top;
 }
 
-.help-block {
-    text-align: right;
+.help-block--link {
+    float: right;
+    margin-left: 2em;
 }
 
-.example-help-block {
-    text-align: left;
-    float: left;
+.help-block--help {
+    margin: 0 0 5px 0;
 }
+.help-block--example {}
+
 .quota-help-block {
     text-align: left;
     line-height: 1.2;
@@ -514,6 +516,7 @@ input[type='radio'].nice-radio {
 /** App install form **/
 .form-app-install {
     .form-group {
+        margin-bottom: 25px;
         label {cursor: pointer;}
     }
     .form-control {
