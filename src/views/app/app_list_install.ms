@@ -41,6 +41,13 @@
             <span class="fa-warning"></span>
             {{t 'confirm_install_custom_app'}}
         </p>
+        <div class="alert alert-info">
+            <p><span class="fa-lightbulb-o"></span>
+            {{t 'install_custom_app_appslist_info'}}</p>
+            <p>
+                <a href="#/apps/list" class="btn btn-info">{{t 'appslists_manage'}}</a>
+            </p>
+        </div>
         <form action="#/apps/install/custom" method="POST" class="form-horizontal">
             <div class="form-group has-feedback">
                 <label for="url" class="col-sm-12">{{t 'url'}}</label>

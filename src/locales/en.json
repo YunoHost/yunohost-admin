@@ -337,6 +337,7 @@
     "appslists_info_remove_desc" : "Applications from this list will not be available anymore.",
     "appslist_last_update" : "Last update",
     "appslists_unknown_list" : "Unknown apps list: %s",
-    "name" : "Name"
+    "name" : "Name",
+    "install_custom_app_appslist_info" : "Note that you can use alternative applications lists to install some other apps maintained by the YunoHost community."
 }
 
