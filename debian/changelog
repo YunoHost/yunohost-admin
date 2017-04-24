@@ -1,3 +1,25 @@
+yunohost-admin (2.6.0) testing; urgency=low
+
+## Major improvements
+
+  * [enh] Display help text from manifest during app installation. (#152)
+  * [fix] Show version only when connected
+
+## Other improvements
+
+  * [fix]ÂGuess API's baseurl is store is empty.
+  * [fix] Avoid empty whitespace for the first line of the logs display (#151)
+  * [fix] Set document root permission during package install. (#156)
+  * [fix] Cleanup app_list_install template (unused code since 66dbcf50).
+  * [fix] Label for custom app url.
+  * [fix] Misc typos, messages, README improvements,
+  * [love] Add missing contributors & translators
+  * Updated translations for German, Spanish, Portuguese, Italian, French
+
+Thanks to all contributors (opi, Bram, thardev) and translators ! <3
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Mon, 24 Apr 2017 13:06:50 -0400
+
 yunohost-admin (2.5.1) stable; urgency=low
 
   [ ljf ]
