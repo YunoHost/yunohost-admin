@@ -278,7 +278,7 @@
     "yes": "Ja",
     "app_state_validated": "Bestätigt",
     "app_state_inprogress": "in Bearbeitung",
-    "app_state": "Applikationsstatus ",
+    "app_state": "Applikationsstatus: ",
     "app_repository": "Applikationsherkunft ",
     "app_state_notworking": "Funktioniert nicht",
     "app_state_working": "Funktioniert",
@@ -325,5 +325,15 @@
     "regenerate_selfsigned_cert": "Selbstsigniertes Zertifikat erneuern",
     "revert_to_selfsigned_cert_message": "Wenn du willst, kannst du erneut ein selbstsigniertes Zertifikat installieren. (Nicht empfohlen)",
     "revert_to_selfsigned_cert": "In ein selbstsigniertes Zertifikat umwandeln",
-    "confirm_cert_revert_to_selfsigned": "Bist du sicher, dass du dieser Domain erneut ein selbstsigniertes Zertifikat zuweisen willst ?"
+    "confirm_cert_revert_to_selfsigned": "Bist du sicher, dass du dieser Domain erneut ein selbstsigniertes Zertifikat zuweisen willst ?",
+    "confirm_service_start": "Möchtest du wirklich %s starten?",
+    "confirm_service_stop": "Möchtest du wirklich %s anhalten?",
+    "confirm_service_enable": "Möchtest du wirklich %s aktivieren?",
+    "confirm_service_disable": "Möchtest du wirklich %s deaktivieren?",
+    "confirm_update_apps": "Möchtest du wirklich alle Anwendungen aktualisieren?",
+    "confirm_update_packages": "Möchtest du wirklich alle Pakete aktualisieren?",
+    "confirm_upnp_enable": "Möchtest du wirklich UPnP aktivieren?",
+    "confirm_upnp_disable": "Möchtest du wirklich UPnP deaktivieren?",
+    "confirm_firewall_open": "Möchtest du wirklich Port %s1 öffnen? (Protokoll: %s2, Verbindung: %s3)",
+    "confirm_firewall_close": "Möchtest du wirklich Port %s1 schließen? (Protokoll: %s2, Verbindung: %s3)"
 }
