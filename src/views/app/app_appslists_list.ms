@@ -35,7 +35,7 @@
             <div class="form-group">
                 <div class="col-md-10 col-sm-12">
                     <p>{{t 'install_community_appslists_info'}}</p>
-                    <p class="alert alert-warning">
+                    <p class="alert alert-danger">
                         <span class="fa-warning"></span> {{t 'install_community_appslists_warning'}}
                     </p>
                     <input type="submit" class="btn btn-success slide" value="{{t 'add'}}">
