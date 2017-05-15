@@ -36,8 +36,8 @@
     </div>
     <div class="panel-body">
         <form action="#/apps/lists" method="POST" class="form-horizontal">
-            <input type="hidden" id="appslist_name" name="appslist_name" value="community" required />
-            <input type="hidden" id="appslist_url" name="appslist_url" value="https://app.yunohost.org/community.json" required />
+            <input type="hidden" name="appslist_name" value="community" required />
+            <input type="hidden" name="appslist_url" value="https://app.yunohost.org/community.json" required />
             <div class="form-group">
                 <div class="col-md-10 col-sm-12">
                     <p>{{t 'install_community_appslists_info'}}</p>
