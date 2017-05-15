@@ -20,7 +20,7 @@
 
     // Update administration password (PUT)
     app.put('#/tools/adminpw', function (c) {
-        params = {};
+        var params = {};
         $.each(c.params.toHash(), function(key, value) {
             if (value !== '') { params[key] = value; }
         });
@@ -49,7 +49,7 @@
     // System update & upgrade
     app.get('#/update', function (c) {
         c.api('/update', function(data) {
-            packagesLength = data.packages.length;
+            var packagesLength = data.packages.length;
             for(var i = 0; i < packagesLength; i++) {
                 data.packages[i].delayed = false;
                 data.packages[i].changelog = data.packages[i].changelog.replace(/\n/g, '<br />');
@@ -77,7 +77,7 @@
                 // confirm_update_apps and confirm_update_packages
                 y18n.t('confirm_update_' + c.params['type'].toLowerCase()),
                 function(){
-                    endurl = '';
+                    var endurl = '';
                     if (c.params['type'] == 'packages') {endurl = 'ignore_apps';}
                     else if (c.params['type'] == 'apps') {endurl = 'ignore_packages';}
 
@@ -103,7 +103,7 @@
 
     // Security feed
     app.get('#/tools/security-feed', function (c) {
-        data = {
+        var data = {
             items: []
         };
 
@@ -125,11 +125,12 @@
         .done(function(xml){
             // Loop through items
             $('item', xml).each(function(k, v) {
-                var link=$('link', v)[0].innerHTML;
-                if (typeof link == 'string' && link !== '' && link.charAt(0) == '/')
-                    link=forumUrl+link;
-                var description=$('description', v)[0].textContent;
-                description=description.replace('href="/','href="'+forumUrl+'/');
+                var link = $('link', v)[0].innerHTML;
+                if (typeof link == 'string' && link !== '' && link.charAt(0) == '/') {
+                    link = forumUrl+link;
+                }
+                var description = $('description', v)[0].textContent;
+                description = description.replace('href="/','href="'+forumUrl+'/');
 
                 var item = {
                     guid: $('guid', v)[0].innerHTML,
@@ -159,9 +160,9 @@
     // Diagnosis
     app.get('#/tools/diagnosis(/:private)?', function (c) {
         // See http://sammyjs.org/docs/routes for splat documentation
-        private = (c.params.splat[0] == 'private');
+        var private = (c.params.splat[0] == 'private');
 
-        endurl = (private) ? '?private' : '';
+        var endurl = (private) ? '?private' : '';
         c.api('/diagnosis'+endurl, function(diagnosis) {
             c.view('tools/tools_diagnosis', {
                 'diagnosis' : JSON.stringify(diagnosis, undefined, 4),

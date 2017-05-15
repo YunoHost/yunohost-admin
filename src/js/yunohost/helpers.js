@@ -80,7 +80,7 @@
                     }, 1500);
                 }
 
-                loaded = false;
+                app.loaded = false;
                 if ($('div.loader').length === 0) {
                     $('#main').append('<div class="loader loader-content"></div>');
                 }
@@ -161,7 +161,7 @@
             if (websocket) {
 
                 // Open a WebSocket connection to retrieve live messages from the moulinette
-                ws = new WebSocket('wss://'+ store.get('url') +'/messages');
+                var ws = new WebSocket('wss://'+ store.get('url') +'/messages');
                 ws.onmessage = function(evt) {
                     // console.log(evt.data);
                     $.each($.parseJSON(evt.data), function(k, v) {
@@ -189,14 +189,14 @@
             callback = typeof callback !== 'undefined' ? callback : function() {};
             enableSlide = (typeof enableSlide !== 'undefined') ? enableSlide : true; // Change to false to disable animation
 
-            loaded = true;
+            app.loaded = true;
 
             // Hide loader and modal
             $('div.loader').remove();
             $('#modal').modal('hide');
 
             // Render content
-            rendered = this.render('views/'+ view +'.ms', data);
+            var rendered = this.render('views/'+ view +'.ms', data);
 
             // Update content helper
             var leSwap = function() {
@@ -254,7 +254,7 @@
             cancelCallback = typeof cancelCallback !== 'undefined' ? cancelCallback : function() {};
 
             // Get modal element
-            box = $('#modal');
+            var box = $('#modal');
 
             // Modal title
             if (typeof title === 'string' && title.length) {
@@ -312,8 +312,8 @@
         },
 
         groupHooks: function(hooks) {
-            data={};
-            var rules=[
+            var data = {};
+            var rules = [
                 {
                     id:'configuration',
                     isIn:function (hook) {
@@ -350,7 +350,7 @@
         },
         
         ungroupHooks: function(hooks,apps) {
-            var data={};
+            var data = {};
             data['apps'] = apps || [];
             data['hooks'] = hooks || [];
             

@@ -11,7 +11,7 @@
     // List installed apps
     app.get('#/apps', function (c) {
         c.api('/apps?installed', function(data) { // http://api.yunohost.org/#!/app/app_list_get_8
-            apps = data['apps'];
+            var apps = data['apps'];
             c.arraySortById(apps);
             c.view('app/app_list', {apps: apps});
         });
@@ -21,7 +21,7 @@
     app.get('#/apps/install', function (c) {
         c.api('/apps', function(data) { // http://api.yunohost.org/#!/app/app_list_get_8
             c.api('/apps?raw', function(dataraw) { // http://api.yunohost.org/#!/app/app_list_get_8
-                apps = [];
+                var apps = [];
                 $.each(data['apps'], function(k, v) {
                     // Keep only uninstalled apps, or multi-instance apps
                     if ((!v['installed'] || dataraw[v['id']].manifest.multi_instance) && !v['id'].match(/__[0-9]{1,5}$/)) {
@@ -87,7 +87,7 @@
 
     // Helper function that build app installation form
     app.helper('appInstallForm', function(appId, manifest, params) {
-        data = {
+        var data = {
             id: appId,
             manifest: manifest
         };
@@ -204,10 +204,11 @@
 
                     // Clone a hidden input with empty value
                     // https://stackoverflow.com/questions/476426/submit-an-html-form-with-empty-checkboxes
-                    inputClone = {};
-                    inputClone.name = data.manifest.arguments.install[k].name;
-                    inputClone.inputType = 'hidden';
-                    inputClone.default = 0;
+                    var inputClone = {
+                        name : data.manifest.arguments.install[k].name,
+                        inputType : 'hidden',
+                        default : 0
+                    };
                     data.manifest.arguments.install.push(inputClone);
                 }
 
@@ -237,13 +238,11 @@
     // App installation form
     app.get('#/apps/install/:app', function (c) {
         c.api('/apps?raw', function(data) { // http://api.yunohost.org/#!/app/app_list_get_8
-
             c.appInstallForm(
                 c.params['app'],
                 data[c.params['app']].manifest,
                 c.params
             );
-
         });
     });
 
@@ -251,11 +250,14 @@
     app.post('#/apps', function(c) {
         // Warn admin if app is going to be installed on domain root.
         if (c.params['path'] !== '/' || confirm(y18n.t('confirm_install_domain_root', [c.params['domain']]))) {
-            params = { 'label': c.params['label'], 'app': c.params['app'] };
-            delete c.params['label'];
-            delete c.params['app'];
+            var params = {
+                label: c.params['label'],
+                app: c.params['app']
+            };
 
             // Check for duplicate arg produced by empty checkbox. (See inputClone)
+            delete c.params['label'];
+            delete c.params['app'];
             $.each(c.params, function(k, v) {
                 if (typeof(v) === 'object' && Array.isArray(v)) {
                     // And return only first value
@@ -264,6 +266,7 @@
             });
 
             params['args'] = c.serialize(c.params.toHash());
+
             // Do not pass empty args.
             if (params['args'] === "") {
                 delete params['args'];
@@ -283,7 +286,10 @@
     // Install custom app from github
     app.post('#/apps/install/custom', function(c) {
 
-        params = { 'label': c.params['label'], 'app': c.params['url'] };
+        var params = {
+            label: c.params['label'],
+            app: c.params['url']
+        };
         delete c.params['label'];
         delete c.params['url'];
 
@@ -393,7 +399,10 @@
             y18n.t('applications'),
             y18n.t('confirm_access_remove_all', [c.params['app']]),
             function() {
-                params = {'apps': c.params['app'], 'users':[]};
+                var params = {
+                    apps: c.params['app'],
+                    users: []
+                };
                 c.api('/access?'+c.serialize(params), function(data) { // http://api.yunohost.org/#!/app/app_removeaccess_delete_12
                     store.clear('slide');
                     c.redirect('#/apps/'+ c.params['app']+ '/access');
@@ -412,7 +421,10 @@
             y18n.t('applications'),
             y18n.t('confirm_access_remove_user', [c.params['app'], c.params['user']]),
             function() {
-                params = {'apps': c.params['app'], 'users': c.params['user']};
+                var params = {
+                    apps: c.params['app'],
+                    users: c.params['user']
+                };
                 c.api('/access?'+c.serialize(params), function(data) { // http://api.yunohost.org/#!/app/app_removeaccess_delete_12
                     store.clear('slide');
                     c.redirect('#/apps/'+ c.params['app']+ '/access');
@@ -431,7 +443,10 @@
             y18n.t('applications'),
             y18n.t('confirm_access_add', [c.params['app']]),
             function() {
-                params = {'apps': c.params['app'], 'users': null};
+                var params = {
+                    apps: c.params['app'],
+                    users: null
+                };
                 c.api('/access', function() { // http://api.yunohost.org/#!/app/app_addaccess_put_13
                     store.clear('slide');
                     c.redirect('#/apps/'+ c.params['app'] +'/access');
@@ -446,7 +461,10 @@
 
     // Grant access for a specific user
     app.post('#/apps/:app/access/add', function (c) {
-        params = {'users': c.params['user'], 'apps': c.params['app']};
+        var params = {
+            users: c.params['user'],
+            apps: c.params['app']
+        };
         c.api('/access', function() { // http://api.yunohost.org/#!/app/app_addaccess_put_13
             store.clear('slide');
             c.redirect('#/apps/'+ c.params['app'] +'/access');
@@ -459,7 +477,9 @@
             y18n.t('applications'),
             y18n.t('confirm_access_clear', [c.params['app']]),
             function() {
-                params = {'apps': c.params['app']};
+                var params = {
+                    apps: c.params['app']
+                };
                 c.api('/access', function() { //
                     store.clear('slide');
                     c.redirect('#/apps/'+ c.params['app'] +'/access');

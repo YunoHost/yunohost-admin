@@ -11,7 +11,9 @@
     // All services status
     app.get('#/services', function (c) {
         c.api('/services', function(data) { // ?
-            data2 = { 'services': [] };
+            var data2 = {
+                services: []
+            };
             $.each(data, function(k, v) {
                 v.name = k;
                 // Handlebars want booleans
@@ -29,7 +31,9 @@
     // Status & actions for a service
     app.get('#/services/:service', function (c) {
         c.api('/services/'+ c.params['service'], function(data) { // ?
-            data2 = { 'service': data };
+            var data2 = {
+                service: data
+            };
             data2.service.name = c.params['service'];
             // Handlebars want booleans
             data2.service.is_loaded = (data.loaded=='enabled') ? true : false;
@@ -44,7 +48,9 @@
 
     // Service log
     app.get('#/services/:service/log', function (c) {
-        params = { 'number': 50 };
+        var params = {
+            number: 50
+        };
         c.api('/services/'+ c.params['service'] +'/log', function(data) { // ?
             data2 = { 'logs': [], 'name': c.params['service'] };
             $.each(data, function(k, v) {
@@ -62,7 +68,8 @@
             // confirm_service_start, confirm_service_stop, confirm_service_enable and confirm_service_disable
             y18n.t('confirm_service_' + c.params['action'].toLowerCase(), [c.params['service']]),
             function(){
-                var method = null, endurl = c.params['service'];
+                var method = null,
+                    endurl = c.params['service'];
 
                 switch (c.params['action']) {
                     case 'start':
