@@ -330,6 +330,7 @@
     "revert_to_selfsigned_cert_message" : "If you really want to, you can reinstall a self-signed certificate. (Not recommended)",
     "revert_to_selfsigned_cert" : "Revert to a self-signed certificate",
     "appslists" : "Applications lists",
+    "appslists_no_lists" : "No applications lists",
     "appslists_custom" : "Custom applications list",
     "appslists_manage" : "Manage applications lists",
     "appslists_confirm_remove" : "Are you sure you want to remove this applications list?",

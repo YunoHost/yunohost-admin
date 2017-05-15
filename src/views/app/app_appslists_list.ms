@@ -20,6 +20,12 @@
             </h2>
         </a>
         {{/appslists}}
+        {{^appslists}}
+        <p class="list-group-item text-warning">
+            <span class="fa-exclamation-triangle"></span>
+            {{t 'appslists_no_lists'}}
+        </p>
+        {{/appslists}}
     </div>
 </div>
 
