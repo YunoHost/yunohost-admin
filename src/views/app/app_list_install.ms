@@ -43,7 +43,7 @@
         </p>
         <div class="alert alert-info">
             <p><span class="fa-lightbulb-o"></span>
-            {{t 'install_custom_app_appslist_info'}}</p>
+            {{t 'install_custom_app_appslists_info'}}</p>
             <p>
                 <a href="#/apps/lists" class="btn btn-info">{{t 'appslists_manage'}}</a>
             </p>

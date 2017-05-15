@@ -332,12 +332,12 @@
     "appslists" : "Applications lists",
     "appslists_add" : "Add applications list",
     "appslists_manage" : "Manage applications lists",
-    "appslist_confirm_remove" : "Are you sure you want to remove this applications list?",
+    "appslists_confirm_remove" : "Are you sure you want to remove this applications list?",
     "appslists_info_refresh_desc" : "Refresh applications status from this list.",
     "appslists_info_remove_desc" : "Applications from this list will not be available anymore.",
-    "appslist_last_update" : "Last update",
+    "appslists_last_update" : "Last update",
     "appslists_unknown_list" : "Unknown apps list: %s",
     "name" : "Name",
-    "install_custom_app_appslist_info" : "Note that you can use alternative applications lists to install some other apps maintained by the YunoHost community."
+    "install_custom_app_appslists_info" : "Note that you can use alternative applications lists to install some other apps maintained by the YunoHost community."
 }
 

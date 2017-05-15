@@ -108,7 +108,7 @@
     app.get('#/apps/lists/:appslist/remove', function (c) {
         c.confirm(
             y18n.t('appslist'),
-            y18n.t('appslist_confirm_remove', [c.params['app']]),
+            y18n.t('appslists_confirm_remove', [c.params['app']]),
             function() {
                 c.api('/appslists', function() {
                     c.redirect('#/apps/lists');
