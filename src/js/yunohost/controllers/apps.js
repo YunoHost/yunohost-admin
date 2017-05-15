@@ -44,15 +44,24 @@
     app.get('#/apps/lists', function (c) {
         c.api('/appslists', function(data) {
             list = [];
+            var has_community_list = false;
             $.each(data, function(listname, listinfo) {
                 list.push({
                     'name': listname,
                     'url': listinfo['url'],
                     'lastUpdate': listinfo['lastUpdate']
                 });
+
+                // Check for community list
+                if (listname == 'community' || listinfo['url'] == 'https://app.yunohost.org/community.json') {
+                    has_community_list = true;
+                }
             });
 
-            c.view('app/app_appslists_list', {appslists: list});
+            c.view('app/app_appslists_list', {
+                appslists: list,
+                has_community_list: has_community_list
+            });
         }, 'GET');
     });
 
