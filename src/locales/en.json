@@ -1,6 +1,7 @@
 {
     "action": "Action",
     "add": "Add",
+    "remove": "Remove",
     "administration_password": "Administration password",
     "allowed_users": "Allowed users",
     "api_not_responding": "API is not responding",
