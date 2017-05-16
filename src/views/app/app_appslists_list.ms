@@ -39,7 +39,7 @@
             <input type="hidden" name="appslist_name" value="community" required />
             <input type="hidden" name="appslist_url" value="https://app.yunohost.org/community.json" required />
             <div class="form-group">
-                <div class="col-md-10 col-sm-12">
+                <div class="col-md-12 col-sm-12">
                     <p>{{t 'install_community_appslists_info'}}</p>
                     <p class="alert alert-warning">
                         <span class="fa-warning"></span> {{t 'install_community_appslists_warning'}}
