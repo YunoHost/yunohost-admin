@@ -325,5 +325,15 @@
     "regenerate_selfsigned_cert": "Regenerar certificado autofirmado",
     "revert_to_selfsigned_cert_message": "Si realmente lo desea, puede reinstalar un certificado autofirmado. (No recomendado)",
     "revert_to_selfsigned_cert": "Volver a un certificado autofirmado",
-    "user_mailbox_use": "Espacio utilzado"
+    "user_mailbox_use": "Espacio utilzado",
+    "confirm_firewall_open": "¿Está seguro de que desea abrir el puerto %s? (protocolo: %s, conexión: %s)",
+    "confirm_firewall_close": "¿Está seguro de que desea cerrar el puerto %s? (protocolo: %s, conexión: %s)",
+    "confirm_service_start": "¿Está seguro de que desea iniciar %s?",
+    "confirm_service_stop": "¿Está seguro de que desea parar %s?",
+    "confirm_service_enable": "¿Está seguro de que desea habilitar %s?",
+    "confirm_service_disable": "¿Está seguro de que desea deshabilitar %s?",
+    "confirm_update_apps": "¿Está seguro de que desea actualizar todas las aplicaciones?",
+    "confirm_update_packages": "¿Está seguro de que desea actualizar todos los paquetes?",
+    "confirm_upnp_enable": "¿Está seguro de que desea habilitar UPnP?",
+    "confirm_upnp_disable": "¿Está seguro de que desea deshabilitar UPnP?"
 }
