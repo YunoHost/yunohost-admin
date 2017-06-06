@@ -325,7 +325,7 @@
     "regenerate_selfsigned_cert": "Regenerar certificado autofirmado",
     "revert_to_selfsigned_cert_message": "Si realmente lo desea, puede reinstalar un certificado autofirmado. (No recomendado)",
     "revert_to_selfsigned_cert": "Volver a un certificado autofirmado",
-    "user_mailbox_use": "Espacio utilzado",
+    "user_mailbox_use": "Espacio utilizado",
     "confirm_firewall_open": "¿Está seguro de que desea abrir el puerto %s? (protocolo: %s, conexión: %s)",
     "confirm_firewall_close": "¿Está seguro de que desea cerrar el puerto %s? (protocolo: %s, conexión: %s)",
     "confirm_service_start": "¿Está seguro de que desea iniciar %s?",
