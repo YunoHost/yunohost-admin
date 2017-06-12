@@ -5,7 +5,10 @@
 </div>
 
 <div class="actions-group">
-    <a href="#/apps/refresh" class="btn btn-info">
+    <a href="#/apps/lists" class="btn btn-success">
+        <span class="fa-list"></span> {{t 'appslists_manage'}}
+    </a>
+    <a href="#/apps/lists/refresh" class="btn btn-info">
         <span class="fa-refresh"></span> {{t 'refresh_app_list'}}
     </a>
 </div>
@@ -29,8 +32,6 @@
 {{/apps}}
 </div>
 
-</div>
-
 <div class="panel panel-default">
     <div class="panel-heading">
         <h2 class="panel-title"><span class="fa-fw fa-download"></span> {{t 'custom_app_install'}}</h2>
@@ -40,6 +41,13 @@
             <span class="fa-warning"></span>
             {{t 'confirm_install_custom_app'}}
         </p>
+        <div class="alert alert-info">
+            <p><span class="fa-lightbulb-o"></span>
+            {{t 'install_custom_app_appslists_info'}}</p>
+            <p>
+                <a href="#/apps/lists" class="btn btn-info">{{t 'appslists_manage'}}</a>
+            </p>
+        </div>
         <form action="#/apps/install/custom" method="POST" class="form-horizontal">
             <div class="form-group has-feedback">
                 <label for="url" class="col-sm-12">{{t 'url'}}</label>
