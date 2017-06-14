@@ -335,7 +335,7 @@
     "appslists_custom" : "Custom applications list",
     "appslists_manage" : "Manage applications lists",
     "appslists_confirm_remove" : "Are you sure you want to remove this applications list?",
-    "appslists_info_refresh_desc" : "Refresh applications status from this list.",
+    "appslists_info_refresh_desc" : "Refresh applications status for this list.",
     "appslists_info_remove_desc" : "Applications from this list will not be available anymore.",
     "appslists_last_update" : "Last update",
     "appslists_unknown_list" : "Unknown apps list: %s",
