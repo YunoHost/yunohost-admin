@@ -133,7 +133,7 @@
             };
             data['other_storages']=[];
             data['name']=c.params['archive'];
-            data['hooks']=c.groupHooks(Object.keys(data['hooks']));
+            data['hooks']=c.groupHooks(Object.keys(data['system']));
             data['items']=(data['hooks']!={} || data['apps']!=[]);
             c.view('backup/backup_info', data);
         });
