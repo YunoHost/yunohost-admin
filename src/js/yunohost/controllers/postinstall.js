@@ -25,10 +25,10 @@
         $('#masthead').hide();
         $.get('https://dyndns.yunohost.org/domains', function() {})
             .done(function(data){
-                c.params.ddomains = data.map(function(dom){return '.'+dom;});
+                c.params['ddomains'] = data.map(function(dom){return '.'+dom;});
             })
             .fail(function() {
-                c.params.ddomains = ['.nohost.me', '.noho.st'];
+                c.params['ddomains'] = ['.nohost.me', '.noho.st'];
             })
             .always(function() {
                 c.view('postinstall/postinstall_2', c.params, function() {
@@ -77,14 +77,16 @@
                 store.clear('slide');
                 c.redirect('#/postinstall/domain');
             } else {
-                params = { 'domain': c.params['domain'].toLowerCase() };
+                var params = {
+                    domain: c.params['domain'].toLowerCase()
+                };
             }
 
             c.confirm(
                 y18n.t('postinstall'),
                 y18n.t('confirm_postinstall', [c.params['domain']]),
                 function(){
-                    params['password'] = c.params['password'];
+                    params.password = c.params['password'];
 
                     store.set('url', window.location.hostname +'/yunohost/api');
                     store.set('user', 'admin');

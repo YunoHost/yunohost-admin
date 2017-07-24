@@ -12,8 +12,8 @@
     app.get('#/tools/firewall', function (c) {
         c.api('/firewall?raw', function(data) {
             var firewall = {
-                ports : {},
-                upnp : false
+                ports: {},
+                upnp: false
             };
 
             // Reorganize ports
@@ -41,7 +41,9 @@
             // confirm_upnp_enable and confirm_upnp_disable
             y18n.t('confirm_upnp_' + c.params['action'].toLowerCase()),
             function(){
-                params = {'action' : c.params['action']};
+                var params = {
+                    action : c.params['action']
+                };
                 c.api('/firewall/upnp', function(data) {
                     store.clear('slide');
                     c.redirect('#/tools/firewall');
@@ -57,8 +59,8 @@
     // Toggle port status helper (available in every controller)
     app.helper('togglePort', function(port, protocol, connection, action) {
         var method = null,
-              endurl = [],
-              c = this
+            endurl = [],
+            c = this
         ;
 
         if (port != parseInt(port) || port < 0 || port > 65535) {
@@ -110,8 +112,8 @@
             // --ipv6-only:
             // --no-upnp:
             var params = {
-                'port' : port,
-                'protocol' : protocol,
+                port : port,
+                protocol : protocol
             };
             c.api('/firewall/port?'+endurl, function(data) {
                 store.clear('slide');

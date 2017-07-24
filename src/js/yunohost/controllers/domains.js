@@ -12,7 +12,7 @@
     app.get('#/domains', function (c) {
         c.api('/domains', function(data) { // http://api.yunohost.org/#!/domain/domain_list_get_2
             c.api('/domains/main', function(data2) {
-                domains = [];
+                var domains = [];
                 $.each(data.domains, function(k, domain) {
                     domains.push({
                         url: domain,
@@ -21,11 +21,14 @@
                 });
 
                 // Do not show main domain form if we have only 1 domain
-                main_domain_form = (domains.length > 1) ? true: false;
+                var main_domain_form = (domains.length > 1) ? true: false;
 
                 // Sort domains with main domain first
                 domains.sort(function(a, b){ return -2*(a.main) + 1; });
-                c.view('domain/domain_list', {domains: domains, main_domain_form: main_domain_form});
+                c.view('domain/domain_list', {
+                    domains: domains,
+                    main_domain_form: main_domain_form
+                });
             }, 'PUT');
         });
     });
@@ -40,10 +43,10 @@
                 c.params.ddomains = ['.nohost.me', '.noho.st'];
             })
             .always(function() {
-                data = {
-                    ddomains : c.params.ddomains,
-                    domains : c.params.domains,
-                    allowDyndnsDomain : true
+                var data = {
+                    ddomains: c.params.ddomains,
+                    domains: c.params.domains,
+                    allowDyndnsDomain: true
                 };
 
                 // Allow only 1 DynDns domain.
@@ -60,17 +63,18 @@
 
     // Add domain (POST)
     app.post('#/domains/add', function (c) {
+        var params = {};
+        var endurl = '';
         if (c.params['domain'] === '') {
             if (c.params['ddomain'] === '') {
                 c.flash('fail', y18n.t('error_select_domain'));
                 store.clear('slide');
                 c.redirect('#/domains/add');
             }
-            params = {'domain': c.params['ddomain'] + c.params['ddomain-ext']};
+            params.domain = c.params['ddomain'] + c.params['ddomain-ext'];
             endurl = 'dyndns';
         } else {
-            params = { 'domain': c.params['domain'] };
-            endurl = '';
+            params.domain = c.params['domain'];
         }
 
         c.api('/domains?'+endurl, function(data) { // http://api.yunohost.org/#!/domain/domain_add_post_1
@@ -87,16 +91,15 @@
                 //  for apps installed) should be removed once letsencrypt_ynh
                 //  is not used by many people anymore. Probably around 07/2017
                 //  or end of 2017...
-                enable_cert_management_ = true;
+                var enable_cert_management_ = true;
                 $.each(data['apps'], function(k, v) {
-                    if (v.id == "letsencrypt")
-                    {
+                    if (v.id == "letsencrypt") {
                         enable_cert_management_ = false;
                     }
                 });
 
 
-                domain = {
+                var domain = {
                     name: c.params['domain'],
                     main: (c.params['domain'] == dataMain.current_main_domain) ? true : false,
                     url: "https://"+c.params['domain'],
@@ -110,10 +113,10 @@
     // Domain DNS
     app.get('#/domains/:domain/dns', function (c) {
         c.api('/domains/' + c.params['domain'] + '/dns', function(data) {
-            domain = {
+            var domain = {
                 name: c.params['domain'],
                 dns: data
-            }
+            };
             c.view('domain/domain_dns', domain);
         });
     });
@@ -122,16 +125,15 @@
     app.get('#/domains/:domain/cert-management', function (c) {
         c.api('/domains/cert-status/' + c.params['domain'] + '?full', function(data) {
 
-            s = data["certificates"][c.params['domain']]
-           
-            status_ = {}
-            status_.CA_type       = s.CA_type.verbose
-            status_.CA_name       = s.CA_name
-            status_.validity      = s.validity
-            status_.ACME_eligible = s.ACME_eligible
+            var s = data["certificates"][c.params['domain']];
+            var status_ = {
+                CA_type: s.CA_type.verbose,
+                CA_name: s.CA_name,
+                validity: s.validity,
+                ACME_eligible: s.ACME_eligible
+            };
 
-            switch (s.summary.code) 
-            {
+            switch (s.summary.code) {
                 case "critical" :
                     status_.alert_type = "danger";
                     status_.alert_icon = "exclamation-circle" ;
@@ -143,14 +145,12 @@
                     status_.alert_message = y18n.t('certificate_alert_selfsigned');
                     break;
                 case "attention" :
-                    if (status_.CA_type == "lets-encrypt")
-                    {
+                    if (status_.CA_type == "lets-encrypt") {
                         status_.alert_type = "warning";
                         status_.alert_icon = "clock-o";
                         status_.alert_message = y18n.t('certificate_alert_letsencrypt_about_to_expire');
                     }
-                    else 
-                    {
+                    else {
                         status_.alert_type = "danger";
                         status_.alert_icon = "clock-o";
                         status_.alert_message = y18n.t('certificate_alert_about_to_expire');
@@ -173,14 +173,14 @@
                     break;
             }
 
-            actions_enabled = {};
-            actions_enabled.install_letsencrypt = false;
-            actions_enabled.manual_renew_letsencrpt = false;
-            actions_enabled.regen_selfsigned = false;
-            actions_enabled.replace_with_selfsigned = false;
+            var actions_enabled = {
+                install_letsencrypt: false,
+                manual_renew_letsencrpt: false,
+                regen_selfsigned: false,
+                replace_with_selfsigned: false
+            };
 
-            switch (s.CA_type.code) 
-            {
+            switch (s.CA_type.code) {
                 case "self-signed" :
                     actions_enabled.install_letsencrypt = true;
                     actions_enabled.regen_selfsigned = true;
@@ -305,14 +305,16 @@
                 y18n.t('domains'),
                 y18n.t('confirm_change_maindomain'),
                 function(){
-                    params = {'new_domain': c.params['domain']};
+                    var params = {
+                        new_domain: c.params['domain']
+                    };
                     c.api('/domains/main', function(data) { // http://api.yunohost.org/#!/tools/tools_maindomain_put_1
                         store.clear('slide');
                         c.redirect('#/domains');
                     }, 'PUT', params);
 
                     // Wait 15s and refresh the page
-                    refreshDomain = window.setTimeout(function(){
+                    var refreshDomain = window.setTimeout(function(){
                         store.clear('slide');
                         c.redirect('#/domains');
                     }, 15000);

@@ -35,9 +35,10 @@
 
                 // Loop through items in a reverse order (older first)
                 $($('item', xml).get().reverse()).each(function(k, v) {
-                    var link=$('link', v).text();
-                    if (typeof link == 'string' && link !== '' && link.charAt(0) == '/')
-                        link=forumUrl+link;
+                    var link = $('link', v).text();
+                    if (typeof link == 'string' && link !== '' && link.charAt(0) == '/') {
+                        link = forumUrl+link;
+                    }
 
                     // var description=$('description', v).text();
                     // description=description.replace('href="/','href="'+forumUrl+'/');
@@ -138,8 +139,8 @@
         // Store url from params, it could have change form 'run' state
         store.set('url', c.params['domain'] +'/yunohost/api');
 
-        params = {
-            'password': c.params['password']
+        var params = {
+            password: c.params['password']
         };
         c.api('/login', function(data) {
             store.set('connected', true);

@@ -18,14 +18,15 @@
         'system_yunohost',
         'system_nginx'
     ];
+
     // Storage list
     app.get('#/backup', function (c) {
         var storages = [];
         var item = {
-                id: 'local',
-                name: y18n.t('local_archives'),
-                uri: '/home/yunohost.backup/'
-            };
+            id: 'local',
+            name: y18n.t('local_archives'),
+            uri: '/home/yunohost.backup/'
+        };
         storages.push(item);
 
         c.view('backup/backup', {'storages':storages});
@@ -44,14 +45,14 @@
 
     // Create a backup
     app.get('#/backup/:storage/create', function (c) {
-        var data=[];
-        data['storage']={
+        var data = [];
+        data['storage'] = {
             id:c.params['storage'],
             name:y18n.t('local_archives')
         };
         c.api('/hooks/backup', function(hooks) {
-            data['hooks']=c.groupHooks(hooks['hooks']);
-            data['apps']={};
+            data['hooks'] = c.groupHooks(hooks['hooks']);
+            data['apps'] = {};
             c.api('/apps?with_backup', function(apps_list) {
                 data['apps'] = apps_list.apps;
                 c.view('backup/backup_create', data);
@@ -74,13 +75,13 @@
             y18n.t('backup'),
             y18n.t('confirm_restore', [c.params['archive']]),
             $.proxy(function(c){
-                var params=c.ungroupHooks(c.params['hooks'],c.params['apps']);
-                params['force']='';
+                var params = c.ungroupHooks(c.params['hooks'],c.params['apps']);
+                params['force'] = '';
                 c.api('/backup/restore/'+c.params['archive'], function(data) {
                     store.clear('slide');
                     c.redirect('#/backup/'+ c.params['storage']+'/'+c.params['archive']);
                 }, 'POST', params);
-            },this,c),
+            }, this, c),
             function(){
                 store.clear('slide');
                 c.redirect('#/backup/'+ c.params['storage']+'/'+c.params['archive']);
@@ -127,14 +128,14 @@
     // Get archive info
     app.get('#/backup/:storage/:archive', function (c) {
         c.api('/backup/archives/'+c.params['archive']+'?with_details', function(data) {
-            data['storage']={
-                id:c.params['storage'],
-                name:y18n.t('local_archives')
+            data.storage = {
+                id: c.params['storage'],
+                name: y18n.t('local_archives')
             };
-            data['other_storages']=[];
-            data['name']=c.params['archive'];
-            data['hooks']=c.groupHooks(Object.keys(data['system']));
-            data['items']=(data['hooks']!={} || data['apps']!=[]);
+            data.other_storages = [];
+            data.name = c.params['archive'];
+            data.hooks = c.groupHooks(Object.keys(data['system']));
+            data.items = (data['hooks']!={} || data['apps']!=[]);
             c.view('backup/backup_info', data);
         });
     });
@@ -142,16 +143,16 @@
     // Archive list
     app.get('#/backup/:storage', function (c) {
         c.api('/backup/archives?with_info', function(data) {
-            data['storage']={
-                id:'local',
-                name:y18n.t('local_archives')
+            data.storage = {
+                id: 'local',
+                name: y18n.t('local_archives')
             };
-            data['archives2']=[];
+            data.archives2 = [];
             $.each(data['archives'], function(name, info) {
-                info['name']=name;
-                data['archives2'].unshift(info)
+                info.name = name;
+                data.archives2.unshift(info)
             });
-            data['archives']=data['archives2'];
+            data.archives = data.archives2;
             c.view('backup/backup_list', data);
         });
     });

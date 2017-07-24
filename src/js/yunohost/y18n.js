@@ -6,7 +6,7 @@
         defaultLocale: "en",
         locale: "en",
         placeholder: /(?:\{\{|%\{)(.*?)(?:\}\}?)/gm,
-        translations: {},
+        translations: {}
     };
 
     /**
