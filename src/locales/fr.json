@@ -334,5 +334,20 @@
     "confirm_update_apps": "Voulez-vous vraiment mettre à jour toutes les applications ?",
     "confirm_update_packages": "Voulez-vous vraiment mettre à jour tous les paquets ?",
     "confirm_upnp_enable": "Voulez-vous vraiment activer l'UPnP ?",
-    "confirm_upnp_disable": "Voulez-vous vraiment désactiver l'UPnP ?"
+    "confirm_upnp_disable": "Voulez-vous vraiment désactiver l'UPnP ?",
+    "remove": "Supprimer",
+    "appslists": "Listes d’applications",
+    "appslists_no_lists": "Aucune liste d’applications",
+    "appslists_custom": "Liste personnalisée d’applications",
+    "appslists_manage": "Gérer les listes d’applications",
+    "appslists_confirm_remove": "Voulez-vous vraiment supprimer cette liste d’applications ?",
+    "appslists_info_refresh_desc": "Actualiser le statut des applications de cette liste.",
+    "appslists_info_remove_desc": "Les applications de cette liste ne seront plus disponibles.",
+    "appslists_last_update": "Dernière mise à jour",
+    "appslists_unknown_list": "La liste « %s » est inconnue",
+    "appslists_community_list": "Liste des applications communautaires",
+    "name": "Nom",
+    "install_community_appslists_info": "La liste des applications communautaires vous permet d’installer les applications maintenues par la communauté. <br />Parcourez la liste complète sur <a href='https://yunohost.org/apps_in_progress'>yunohost.org/apps_in_progress_fr</a>.",
+    "install_community_appslists_warning": "Ces applications <strong>ne sont ni</strong> officielles, ni maintenues par l’équipe YunoHost. <br />Installer ces applications est à vos risques et périls, et peut casser votre système.",
+    "install_custom_app_appslists_info": "Vous pouvez utiliser des listes alternatives d’applications pour installer d’autres applications maintenues par la communauté YunoHost."
 }

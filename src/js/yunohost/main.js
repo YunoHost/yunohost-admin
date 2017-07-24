@@ -25,6 +25,10 @@
         Handlebars.registerHelper('humanTime', function(time) {
             return Math.round(time) + 's';
         });
+        Handlebars.registerHelper('timestampToDate', function(timestamp) {
+            var date = new Date(timestamp * 1000);
+            return date.toLocaleString();
+        });
         Handlebars.registerHelper('bitRate', function(bytes, time) {
             var sizes = ['b', 'Kb', 'Mb', 'Gb', 'Tb'];
             if (time === 0) return 'n/a';

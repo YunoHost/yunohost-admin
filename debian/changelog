@@ -1,3 +1,15 @@
+yunohost-admin (2.6.1) stable; urgency=low
+
+Major changes since 2.6.0
+-----------
+
+  * [enh] Manage appslists. #875 (#158)
+  * [i18n] Update Spanish, German and French translations
+
+Thanks to all contributors : opi, moul, Jibec, Juanu and franzos
+
+ -- ljf <ljf+yunohost@grimaud.me>  Wed, 21 Jun 2017 18:26:35 -0400
+
 yunohost-admin (2.6.0) testing; urgency=low
 
 ## Major improvements
