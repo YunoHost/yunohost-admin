@@ -1,3 +1,11 @@
+yunohost-admin (2.6.2) stable; urgency=low
+
+## Minor fix
+
+  * 'hooks' key is now 'system' in backup info (#165)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Wed, 26 Jul 2017 12:09:03 -0400
+
 yunohost-admin (2.6.1) stable; urgency=low
 
 Major changes since 2.6.0
