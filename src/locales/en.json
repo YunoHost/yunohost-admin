@@ -159,6 +159,7 @@
     "installed_apps": "Installed apps",
     "installing": "Installing",
     "interface": "Interface",
+    "internal_exception": "<strong>Yunohost encountered an internal error :/</strong><br><em>Really sorry about that.<br>You should look for help on <a href=\"https://forum.yunohost.org/\">the forum</a> or <a href=\"https://chat.yunohost.org/\">the chat</a> to fix the situation, or report the bug on <a href=\"https://dev.yunohost.org/projects/yunohost/issues\">the bugtracker</a>.</em><br>The following information might be useful for the person helping you :<h3>Action</h3><pre>%s%s</pre><h3>Traceback</h3><pre>%s</pre>",
     "io": "I/O",
     "ipv4": "IPv4",
     "ipv6": "IPv6",
@@ -345,4 +346,3 @@
     "install_community_appslists_warning" : "Note that these applications packages are <strong>not</strong> official and not maintained by the YunoHost team.<br />Installing these applications is at your own risk and could break your system.",
     "install_custom_app_appslists_info" : "Note that you can use alternative applications lists to install some other apps maintained by the YunoHost community."
 }
-

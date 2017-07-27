@@ -133,6 +133,13 @@
                                 c.redirect('#/login');
                             }
                         }
+                        // 500
+                        else if (xhr.status == 500) {
+                            error_log = JSON.parse(xhr.responseText);
+                            error_log.route = error_log.route.join(' ') + '\n';
+                            error_log.arguments = JSON.stringify(error_log.arguments);
+                            c.flash('fail', y18n.t('internal_exception', [error_log.route, error_log.arguments, error_log.traceback]));
+                        }
                         // 502 Bad gateway means API is down
                         else if (xhr.status == 502) {
                             c.flash('fail', y18n.t('api_not_responding'));
