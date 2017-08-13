@@ -89,6 +89,7 @@
     "default": "Default",
     "delete": "Delete",
     "description": "Description",
+    "domain_dns_conf_is_just_a_recommendation": "This page shows you the *recommended* configuration. It does *not* configure the DNS for you. It is your responsability to configure your DNS zone in your DNS registrar according to this recommendation.",
     "diagnosis": "Diagnosis",
     "diagnosis_hide_private": "Show diagnostic information without private data",
     "diagnosis_view_private": "Show diagnostic information including private data",
