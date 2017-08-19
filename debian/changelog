@@ -1,3 +1,16 @@
+yunohost-admin (2.7.1) testing; urgency=low
+
+  [ Alexandre Aubin ]
+  * [fix] Tell user that domain dns-conf shows a recommendation only
+
+  [ Translations ]
+  * Added translation using Weblate (Russian) (Evgeniy Ozhiganov)
+  * [i18n] Translated using Weblate (Esperanto) (MCMic)
+
+Thanks to all contributors (MCMic, Aleks, Ozhiganov) <3 !
+
+ -- Laurent Peuch <cortex@worlddomination.be>  Sat, 19 Aug 2017 22:43:15 +0000
+
 yunohost-admin (2.7.0) testing; urgency=low
 
   * [enh] Variable assignment code cleanup. (#161)
