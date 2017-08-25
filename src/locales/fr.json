@@ -349,5 +349,7 @@
     "name": "Nom",
     "install_community_appslists_info": "La liste des applications communautaires vous permet d’installer les applications maintenues par la communauté. <br />Parcourez la liste complète sur <a href='https://yunohost.org/apps_in_progress'>yunohost.org/apps_in_progress_fr</a>.",
     "install_community_appslists_warning": "Ces applications <strong>ne sont ni</strong> officielles, ni maintenues par l’équipe YunoHost. <br />Installer ces applications est à vos risques et périls, et peut casser votre système.",
-    "install_custom_app_appslists_info": "Vous pouvez utiliser des listes alternatives d’applications pour installer d’autres applications maintenues par la communauté YunoHost."
+    "install_custom_app_appslists_info": "Vous pouvez utiliser des listes alternatives d’applications pour installer d’autres applications maintenues par la communauté YunoHost.",
+    "domain_dns_conf_is_just_a_recommendation": "Cette page montre la configuration *recommandée*. Elle ne configure *pas* le DNS pour vous. Il est de votre responsabilité que de configurer votre zone DNS chez votre registrar DNS avec cette recommandation.",
+    "internal_exception": "<strong>YunoHost a rencontré une erreur interne :/</strong><br><em>Vraiment navré.<br>Vous devriez chercher de l’aide sur <a href=\"https://forum.yunohost.org/\">le forum</a> ou <a href=\"https://chat.yunohost.org/\">le salon</a> pour résoudre le problème, ou rapporter le bogue sur <a href=\"https://dev.yunohost.org/projects/yunohost/issues\">l’outil de suivi</a>.</em><br>Les informations suivantes peuvent être utile à l’interlocuteur vous aidant :<h3>Action</h3><pre>%s 1%s 2</pre><h3>Trace</h3><pre>%s 3</pre>"
 }
