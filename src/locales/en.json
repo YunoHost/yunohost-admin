@@ -275,7 +275,7 @@
     "tools_reboot_btn": "Reboot",
     "tools_shutdown": "Shutdown your server",
     "tools_shutdown_btn": "Shutdown",
-    "tools_shutdown_reboot": "Shutdown / reboot",
+    "tools_shutdown_reboot": "Shutdown or reboot",
     "total": "Total",
     "transmission": "Transmission",
     "udp": "UDP",
