@@ -157,6 +157,37 @@
         });
     });
 
+    // Reboot or shutdown button
+    app.get('#/tools/reboot', function (c) {
+        c.view('tools/tools_reboot');
+    });
+
+    // Reboot or shutdown actions
+    app.get('#/tools/reboot/:action', function (c) {
+        var action = c.params['action'].toLowerCase();
+        if (action == 'reboot' || action == 'shutdown') {
+            c.confirm(
+                y18n.t('tools_' + action),
+                // confirm_reboot_action_reboot or confirm_reboot_action_shutdown
+                y18n.t('confirm_reboot_action_' + action),
+                function(){
+                    c.api('/'+action+'?force', function(data) {
+                        c.redirect('#/logout');
+                    }, 'PUT');
+                },
+                function(){
+                    store.clear('slide');
+                    c.redirect('#/tools/reboot');
+                }
+            );
+        }
+        else {
+            c.flash('fail', y18n.t('unknown_action', [action]));
+            store.clear('slide');
+            c.redirect('#/tools/reboot');
+        }
+    });
+
     // Diagnosis
     app.get('#/tools/diagnosis(/:private)?', function (c) {
         // See http://sammyjs.org/docs/routes for splat documentation
