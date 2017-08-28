@@ -76,7 +76,7 @@
     "confirm_uninstall": "Are you sure you want to uninstall %s ?",
     "confirm_update_apps": "Are you sure you want to update all applications?",
     "confirm_update_packages": "Are you sure you want to update all packages?",
-    "confirm_update_specific_app": "Are you sure you want to update this application ?",
+    "confirm_update_specific_app": "Are you sure you want to update %s?",
     "confirm_upnp_enable": "Are you sure you want to enable UPnP?",
     "confirm_upnp_disable": "Are you sure you want to disable UPnP?",
     "connection": "Connection",

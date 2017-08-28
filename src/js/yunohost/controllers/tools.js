@@ -100,7 +100,7 @@
     app.get('#/upgrade/apps/:app', function (c) {
         c.confirm(
             y18n.t('tools'),
-            y18n.t('confirm_update_specific_app'),
+            y18n.t('confirm_update_specific_app', [c.params['app']]),
             function(){
                 c.api('/upgrade/apps?app='+c.params['app'].toLowerCase(),
                         function(data) {
