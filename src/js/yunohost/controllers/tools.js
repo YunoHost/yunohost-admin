@@ -100,7 +100,6 @@
     app.get('#/upgrade/apps/:app', function (c) {
         c.confirm(
             y18n.t('tools'),
-            // confirm_update_apps and confirm_update_packages
             y18n.t('confirm_update_specific_app'),
             function(){
                 c.api('/upgrade/apps?app='+c.params['app'].toLowerCase(),
@@ -109,7 +108,6 @@
                             data.logs = data.log;
                             c.view('upgrade/upgrade', data);
                         }, 'PUT');
-
             },
             function(){
                 store.clear('slide');
