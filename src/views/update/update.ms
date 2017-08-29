@@ -26,7 +26,7 @@
         {{/packages}}
     </div>
     <div class="panel-footer">
-        <a href="#/upgrade/packages" class="btn btn-success">{{t 'system_upgrade_btn'}}</a>
+        <a href="#/upgrade/packages" class="btn btn-success">{{t 'system_upgrade_all_packages_btn'}}</a>
     </div>
     {{else}}
     <div class="panel-body">
@@ -49,7 +49,7 @@
         {{/apps}}
     </div>
     <div class="panel-footer">
-        <a href="#/upgrade/apps" class="btn btn-success">{{t 'system_upgrade_btn'}}</a>
+        <a href="#/upgrade/apps" class="btn btn-success">{{t 'system_upgrade_all_applications_btn'}}</a>
     </div>
     {{else}}
     <div class="panel-body">

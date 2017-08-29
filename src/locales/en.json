@@ -256,6 +256,8 @@
     "system_update": "System update",
     "system_upgrade": "System upgrade",
     "system_upgrade_btn": "Upgrade",
+    "system_upgrade_all_applications_btn": "Upgrade all applications",
+    "system_upgrade_all_packages_btn": "Upgrade all packages",
     "tcp": "TCP",
     "time_since_update": "Time since update: ",
     "tools": "Tools",
