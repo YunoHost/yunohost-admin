@@ -42,14 +42,10 @@
     {{#if apps}}
     <div class="list-group">
         {{#apps}}
-        <div class="list-group-item"><div class="row"><div class="col-md-12">
-            <div class="pull-left">
-                <h3 class="list-group-item-heading">{{label}} <small>{{id}}</small></h3>
-            </div>
-            <div class="pull-right">
-                <a href="#/upgrade/apps/{{id}}" class="btn btn-success">{{t 'system_upgrade_btn'}}</a>
-            </div>
-        </div></div></div>
+        <div class="list-group-item clearfix">
+            <a href="#/upgrade/apps/{{id}}" class="btn btn-success pull-right">{{t 'system_upgrade_btn'}}</a>
+            <h3 class="list-group-item-heading">{{label}} <small>{{id}}</small></h3>
+        </div>
         {{/apps}}
     </div>
     <div class="panel-footer">
