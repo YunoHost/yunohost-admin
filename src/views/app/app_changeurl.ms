@@ -8,7 +8,7 @@
 
 <div class="separator"></div>
 
-<form action="#/apps/{{id}}/changeurl/submit" method="POST" class="form-horizontal form-app-install">
+<form action="#/apps/{{id}}/changeurl" method="POST" class="form-horizontal form-app-install">
     <div class="panel panel-default">
         <div class="panel-heading">
             <h2 class="panel-title"><span class="fa-fw fa-exchange"></span> {{t 'app_change_url'}}</h2>

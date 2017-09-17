@@ -601,7 +601,7 @@
     });
     
     // Change app URL
-    app.post('#/apps/:app/changeurl/submit', function (c) {
+    app.post('#/apps/:app/changeurl', function (c) {
         c.confirm(
             y18n.t('applications'),
             y18n.t('confirm_app_change_url', [c.params['app']]),
