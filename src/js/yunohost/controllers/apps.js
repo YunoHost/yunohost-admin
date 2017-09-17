@@ -572,4 +572,50 @@
         );
     });
 
+    // Get app change URL page
+    app.get('#/apps/:app/changeurl', function (c) {
+            c.api('/apps/'+c.params['app']+'?raw', function(app_data) {
+                c.api('/domains', function(domain_data) { // http://api.yunohost.org/#!/domain/domain_list_get_2
+
+                // Display a list of available domains
+                var domains = [];
+                $.each(domain_data.domains, function(k, domain) {
+                    domains.push({
+                        value: domain,
+                        label: domain,
+                        // Select current domain
+                        selected: (domain == app_data.settings.domain ? true : false)
+                    });
+                });
+
+                data = {
+                  id: c.params['app'],
+                  label: app_data.manifest.name,
+                  domains: domains,
+                  // Pre-fill with current path
+                  path: app_data.settings.path
+                };
+                c.view('app/app_changeurl', data);
+            });
+        });
+    });
+    
+    // Change app URL
+    app.post('#/apps/:app/changeurl/submit', function (c) {
+        c.confirm(
+            y18n.t('applications'),
+            y18n.t('confirm_app_change_url', [c.params['app']]),
+            function() {
+                params = {'domain': c.params['domain'], 'path': c.params['path']};
+                c.api('/apps/' + c.params['app'] + '/changeurl', function(data) { // Call changeurl API
+                    store.clear('slide');
+                    c.redirect('#/apps/'+ c.params['app']);
+                }, 'PUT', params);
+            },
+            function() {
+                store.clear('slide');
+                c.redirect('#/apps/'+ c.params['app'] + '/changeurl');
+            }
+        );
+    });   
 })();

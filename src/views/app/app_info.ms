@@ -49,6 +49,13 @@
         </div>
         <hr>
         <div class="container">
+            <p>{{t 'app_info_changeurl_desc' settings.domain}}</p>
+            <a href="#/apps/{{settings.id}}/changeurl" class="btn btn-info slide">
+                <span class="fa-exchange"></span> {{t 'app_change_url'}}
+            </a>
+        </div>
+        <hr>        
+        <div class="container">
             <p>{{t 'app_info_uninstall_desc'}}</p>
             <a href="#/apps/{{settings.id}}/uninstall" class="btn btn-danger slide back">
                 <span class="fa-trash-o"></span> {{t 'uninstall'}}
