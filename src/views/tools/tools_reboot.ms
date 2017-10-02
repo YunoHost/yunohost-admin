@@ -8,6 +8,11 @@
 
 
 <div class="panel panel-default">
+    <div class="panel-heading">
+        <h2 class="panel-title">
+            <span class="fa-fw fa-wrench"></span> {{t 'operations'}}
+        </h2>
+    </div>
     <div class="panel-body">
         <p>   
             <a href="#/tools/reboot/reboot" class="btn btn-danger">
