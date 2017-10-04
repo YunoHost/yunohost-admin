@@ -62,10 +62,10 @@
         },
 
         // API call
-        api: function(uri, callback, method, data, websocket) {
+        api: function(uri, callback, method, data, websocket, callbackOnFailure) {
             c = this;
 
-            call = function(uri, callback, method, data) {
+            call = function(uri, callback, method, data, callbackOnFailure) {
                 method = typeof method !== 'undefined' ? method : 'GET';
                 data   = typeof data   !== 'undefined' ? data   : {};
                 if (window.navigator && window.navigator.language && (typeof data.locale === 'undefined')) {
@@ -84,6 +84,71 @@
                 if ($('div.loader').length === 0) {
                     $('#main').append('<div class="loader loader-content"></div>');
                 }
+                if (typeof callbackOnFailure !== 'function') {
+                    callbackOnFailure = function(xhr) {
+                        // Postinstall is a custom case, we have to wait that
+                        // operation is done before doing anything
+                        if (uri === '/postinstall') {
+                            if (installing) {
+                                interval = window.location.hostname === args.domain ? 20000 : 5000;
+                                checkInstall = setInterval(function () {
+                                    c.checkInstall(function(isInstalled) {
+                                        if (isInstalled || typeof isInstalled === 'undefined') {
+                                            c.flash('success', y18n.t('installation_complete'));
+                                            clearInterval(checkInstall);
+                                            window.location.href = 'https://'+ window.location.hostname +'/yunohost/admin/';
+                                        }
+                                    });
+                                }, interval);
+                            } else {
+                                c.flash('fail', y18n.t('error_occured'));
+                            }
+                        }
+                        // Regular errors
+                        else {
+                            if (xhr.status == 200) {
+                                // Fail with 200, WTF
+                                callback({});
+                            }
+                            // Unauthorized or wrong password
+                            else if (xhr.status == 401) {
+                                if (uri === '/login') {
+                                    c.flash('fail', y18n.t('wrong_password'));
+                                } else {
+                                    c.flash('fail', y18n.t('unauthorized'));
+                                    c.redirect('#/login');
+                                }
+                            }
+                            // 500
+                            else if (xhr.status == 500) {
+                                error_log = JSON.parse(xhr.responseText);
+                                error_log.route = error_log.route.join(' ') + '\n';
+                                error_log.arguments = JSON.stringify(error_log.arguments);
+                                c.flash('fail', y18n.t('internal_exception', [error_log.route, error_log.arguments, error_log.traceback]));
+                            }
+                            // 502 Bad gateway means API is down
+                            else if (xhr.status == 502) {
+                                c.flash('fail', y18n.t('api_not_responding'));
+                            }
+                            // More verbose error messages first
+                            else if (typeof xhr.responseText !== 'undefined') {
+                                c.flash('fail', xhr.responseText);
+                            }
+                            // Return HTTP error code at least
+                            else {
+                                var errorMessage = xhr.status+' '+xhr.statusText;
+                                c.flash('fail', y18n.t('error_server_unexpected', [errorMessage]));
+                            }
+
+                            // Remove loader if any
+                            $('div.loader').remove();
+
+                            // Force scrollTop on page load
+                            $('html, body').scrollTop(0);
+                            store.clear('slide');
+                        }
+                    };
+                }
 
                 jQuery.ajax({
                     url: 'https://' + store.get('url') + uri,
@@ -99,69 +164,7 @@
                     data = data || {};
                     callback(data);
                 })
-                .fail(function(xhr) {
-                    // Postinstall is a custom case, we have to wait that
-                    // operation is done before doing anything
-                    if (uri === '/postinstall') {
-                        if (installing) {
-                            interval = window.location.hostname === args.domain ? 20000 : 5000;
-                            checkInstall = setInterval(function () {
-                                c.checkInstall(function(isInstalled) {
-                                    if (isInstalled || typeof isInstalled === 'undefined') {
-                                        c.flash('success', y18n.t('installation_complete'));
-                                        clearInterval(checkInstall);
-                                        window.location.href = 'https://'+ window.location.hostname +'/yunohost/admin/';
-                                    }
-                                });
-                            }, interval);
-                        } else {
-                            c.flash('fail', y18n.t('error_occured'));
-                        }
-                    }
-                    // Regular errors
-                    else {
-                        if (xhr.status == 200) {
-                            // Fail with 200, WTF
-                            callback({});
-                        }
-                        // Unauthorized or wrong password
-                        else if (xhr.status == 401) {
-                            if (uri === '/login') {
-                                c.flash('fail', y18n.t('wrong_password'));
-                            } else {
-                                c.flash('fail', y18n.t('unauthorized'));
-                                c.redirect('#/login');
-                            }
-                        }
-                        // 500
-                        else if (xhr.status == 500) {
-                            error_log = JSON.parse(xhr.responseText);
-                            error_log.route = error_log.route.join(' ') + '\n';
-                            error_log.arguments = JSON.stringify(error_log.arguments);
-                            c.flash('fail', y18n.t('internal_exception', [error_log.route, error_log.arguments, error_log.traceback]));
-                        }
-                        // 502 Bad gateway means API is down
-                        else if (xhr.status == 502) {
-                            c.flash('fail', y18n.t('api_not_responding'));
-                        }
-                        // More verbose error messages first
-                        else if (typeof xhr.responseText !== 'undefined') {
-                            c.flash('fail', xhr.responseText);
-                        }
-                        // Return HTTP error code at least
-                        else {
-                            var errorMessage = xhr.status+' '+xhr.statusText;
-                            c.flash('fail', y18n.t('error_server_unexpected', [errorMessage]));
-                        }
-
-                        // Remove loader if any
-                        $('div.loader').remove();
-
-                        // Force scrollTop on page load
-                        $('html, body').scrollTop(0);
-                        store.clear('slide');
-                    }
-                });
+                .fail(callbackOnFailure);
             };
 
             websocket = typeof websocket !== 'undefined' ? websocket : true;
@@ -181,9 +184,9 @@
 
                 ws.onclose = function() {};
 
-                ws.onopen = call(uri, callback, method, data);
+                ws.onopen = call(uri, callback, method, data, callbackOnFailure);
             } else {
-                call(uri, callback, method, data);
+                call(uri, callback, method, data, callbackOnFailure);
             }
 
         },
