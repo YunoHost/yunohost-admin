@@ -213,11 +213,6 @@
             c.redirect('#/tools/reboot');
         }
     });
-    app.get('#/tools/reboot/:action/done', function (c) {
-        var action = c.params['action'].toLowerCase();
-        if (action == 'reboot' || action == 'shutdown') {
-        }
-    });
 
     // Diagnosis
     app.get('#/tools/diagnosis(/:private)?', function (c) {
