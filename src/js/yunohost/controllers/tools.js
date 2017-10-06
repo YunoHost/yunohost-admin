@@ -95,6 +95,27 @@
             );
         }
     });
+    
+    // Upgrade a specific apps
+    app.get('#/upgrade/apps/:app', function (c) {
+        c.confirm(
+            y18n.t('tools'),
+            y18n.t('confirm_update_specific_app', [c.params['app']]),
+            function(){
+                c.api('/upgrade/apps?app='+c.params['app'].toLowerCase(),
+                        function(data) {
+                            // 'log' is a reserved name, maybe in handlebars
+                            data.logs = data.log;
+                            c.view('upgrade/upgrade', data);
+                        }, 'PUT');
+            },
+            function(){
+                store.clear('slide');
+                c.redirect('#/update');
+            }
+        );
+    });
+
 
     // Download SSL Certificate Authority
     app.get('#/tools/ca', function (c) {
