@@ -178,6 +178,63 @@
         });
     });
 
+    // Reboot or shutdown button
+    app.get('#/tools/reboot', function (c) {
+        c.view('tools/tools_reboot');
+    });
+
+    // Reboot or shutdown actions
+    app.get('#/tools/reboot/:action', function (c) {
+        var action = c.params['action'].toLowerCase();
+        if (action == 'reboot' || action == 'shutdown') {
+            c.confirm(
+                y18n.t('tools_' + action),
+                // confirm_reboot_action_reboot or confirm_reboot_action_shutdown
+                y18n.t('confirm_reboot_action_' + action),
+                function(){
+                    c.api('/'+action+'?force', function(data) {
+                        // This code is not executed due to 502 response (reboot or shutdown)
+                        c.redirect('#/logout');
+                    }, 'PUT', {}, false, function (xhr) {
+                        c.flash('success', y18n.t('tools_' + action + '_done'))
+                        // Disconnect from the webadmin 
+                        store.clear('url');
+                        store.clear('connected');
+                        store.set('path', '#/');
+                        
+                        // Rename the page to allow refresh without ask for rebooting
+                        window.location.href = window.location.href.split('#')[0] + '#/';
+                        // Display reboot or shutdown info
+                        // We can't use template because now the webserver is off 
+                        if (action == 'reboot') {
+                            $('#main').replaceWith('<div id="main"><div class="alert alert-warning"><i class="fa-refresh"></i> ' + y18n.t('tools_rebooting') + '</div></div>');
+                        }
+                        else {
+                            $('#main').replaceWith('<div id="main"><div class="alert alert-warning"><i class="fa-power-off"></i> ' + y18n.t('tools_shuttingdown') + '</div></div>');
+                        }
+
+                        // Remove loader if any
+                        $('div.loader').remove();
+
+                        // Force scrollTop on page load
+                        $('html, body').scrollTop(0);
+                        store.clear('slide');
+                    });
+
+                },
+                function(){
+                    store.clear('slide');
+                    c.redirect('#/tools/reboot');
+                }
+            );
+        }
+        else {
+            c.flash('fail', y18n.t('unknown_action', [action]));
+            store.clear('slide');
+            c.redirect('#/tools/reboot');
+        }
+    });
+
     // Diagnosis
     app.get('#/tools/diagnosis(/:private)?', function (c) {
         // See http://sammyjs.org/docs/routes for splat documentation
