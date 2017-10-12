@@ -1,3 +1,14 @@
+yunohost-admin (2.7.3) testing; urgency=low
+
+  * [i18n] Improve french translation (#170)
+  * [fix] Add "OK" in translatable strings (#171)
+  * [enh] Be able to upgrade single apps (#172)
+  * [enh] Reboot/shutdown from admin interface (#173)
+
+Thanks to all contributors <3 ! (opi, ljf, ariasuni, Jibec)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Thu, 12 Oct 2017 16:51:24 -0400
+
 yunohost-admin (2.7.2) stable; urgency=low
 
 Releasing as stable
