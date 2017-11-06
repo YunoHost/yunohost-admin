@@ -365,6 +365,6 @@
     "tools_shutdown": "Eteindre votre serveur",
     "tools_shutdown_btn": "Eteindre",
     "tools_shutdown_done": "Arrêt en cours...",
-    "tools_shuttingdown": "Votre serveur est éteint. Quand votre serveur est éteint vous ne pouvez plus utiliser l'interface d'administration.",
+    "tools_shuttingdown": "Votre serveur est éteint. Tant que votre serveur est éteint vous ne pouvez plus utiliser l'interface d'administration.",
     "tools_shutdown_reboot": "Arrêter/Redémarrer"
 }
