@@ -353,5 +353,18 @@
     "domain_dns_conf_is_just_a_recommendation": "Cette page montre la configuration *recommandée*. Elle ne configure *pas* le DNS pour vous. Il est de votre responsabilité que de configurer votre zone DNS chez votre registrar DNS avec cette recommandation.",
     "internal_exception": "<strong>YunoHost a rencontré une erreur interne :/</strong><br><em>Vraiment navré.<br>Vous devriez chercher de l’aide sur <a href=\"https://forum.yunohost.org/\">le forum</a> ou <a href=\"https://chat.yunohost.org/\">le salon</a> pour résoudre le problème, ou rapporter le bogue sur <a href=\"https://dev.yunohost.org/projects/yunohost/issues\">l’outil de suivi</a>.</em><br>Les informations suivantes peuvent être utile à l’interlocuteur vous aidant :<h3>Action</h3><pre>%s %s</pre><h3>Trace</h3><pre>%s</pre>",
     "confirm_reboot_action_reboot": "Êtes vous sûr de vouloir redémarrer votre serveur ?",
-    "confirm_reboot_action_shutdown": "Êtes vous sûr de vouloir éteindre votre serveur ?"
+    "confirm_reboot_action_shutdown": "Êtes vous sûr de vouloir éteindre votre serveur ?",
+    "confirm_update_specific_app": "Êtes vous sûr de vouloir mettre à jour %s ?",
+    "ok": "OK",
+    "system_upgrade_all_applications_btn": "Mettre à jour toutes les applications",
+    "system_upgrade_all_packages_btn": "Mettre à jour tous les paquets",
+    "tools_reboot": "Redémarrer votre serveur",
+    "tools_reboot_btn": "Redémarrer",
+    "tools_reboot_done": "Redémarrage...",
+    "tools_rebooting": "Votre serveur redémarre. Pour retourner sur l'interface d'administration vous devez attendre que votre serveur soit démarré. Pour pouvez vérifier cela en actualisant cette page (F5).",
+    "tools_shutdown": "Eteindre votre serveur",
+    "tools_shutdown_btn": "Eteindre",
+    "tools_shutdown_done": "Arrêt en cours...",
+    "tools_shuttingdown": "Votre serveur est éteint. Tant que votre serveur est éteint vous ne pouvez plus utiliser l'interface d'administration.",
+    "tools_shutdown_reboot": "Arrêter/Redémarrer"
 }
