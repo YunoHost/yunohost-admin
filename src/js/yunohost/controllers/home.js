@@ -71,8 +71,9 @@
                 c.flash('fail', y18n.t('error_retrieve_feed', [securityFeed]));
             });
 
-            c.api("/meltdown-spectre-check", function(data) {
-                if (!data.safe) {
+            c.api("/diagnosis", function(data) {
+                console.log(data);
+                if (data.security["spectre-meltdown"]) {
                     c.flash('danger', y18n.t('meltdown_spectre'));
                 }
             });
