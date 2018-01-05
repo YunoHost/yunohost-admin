@@ -71,6 +71,12 @@
                 c.flash('fail', y18n.t('error_retrieve_feed', [securityFeed]));
             });
 
+            c.api("/meltdown-spectre-check", function(data) {
+                if (!data.safe) {
+                    c.flash('danger', y18n.t('meltdown_spectre'));
+                }
+            });
+
             c.view('home');
         });
     });
