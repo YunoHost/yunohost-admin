@@ -131,7 +131,7 @@
     "everyone_has_access": "Everyone has access.",
     "filesystem": "Filesystem",
     "firewall": "Firewall",
-    "footer_version" : "Powered by <a href='https://yunohost.org'>YunoHost</a> %s.",
+    "footer_version" : "Powered by <a href='https://yunohost.org'>YunoHost</a> %s (%s).",
     "form_input_example" : "Example: %s",
     "free": "Free",
     "fs_type": "FS Type",

@@ -296,7 +296,7 @@
     "wrong_password": "Mot de passe incorrect",
     "yes": "Oui",
     "form_input_example": "Exemple : %s",
-    "footer_version": "Propulsé par <a href='https://yunohost.org'>YunoHost</a> %s.",
+    "footer_version": "Propulsé par <a href='https://yunohost.org'>YunoHost</a> %s (%s).",
     "certificate_alert_not_valid": "Critique : le certificat actuel est invalide ! Le HTTPS ne fonctionnera pas du tout !",
     "certificate_alert_selfsigned": "Attention : le certification actuel est auto-signé. Les navigateurs afficheront une alerte effrayante aux nouveaux visiteurs !",
     "certificate_alert_letsencrypt_about_to_expire": "Le certificat actuel est sur le point d’expirer. Il doit être renouvelé automatiquement prochainement.",
