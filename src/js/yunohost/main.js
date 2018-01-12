@@ -42,6 +42,23 @@
           return new Handlebars.SafeString(result);
         });
 
+        // Block helper to add a tooltip to any element
+        Handlebars.registerHelper('tooltip', function(tooltip, options) {
+          return new Handlebars.SafeString(
+              '<span data-toggle="tooltip" title="' + tooltip + '" data-placement="right">'
+              + options.fn(this)
+              + '</span>');
+        });
+        
+        // Load tooltips on the page; needed if using tooltips
+        Handlebars.registerHelper('load_tooltips', function() {
+          return new Handlebars.SafeString(
+              '<script>'
+              + '$(document).ready(function(){'
+              + '$(\'[data-toggle="tooltip"]\').tooltip();'
+              + '});'
+              + '</script>');
+        });
 
         // Look for supported type of storage to use
         /**
