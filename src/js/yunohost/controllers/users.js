@@ -79,7 +79,7 @@
                 data.password_min_length = PASSWORD_MIN_LENGTH;
 
                 // User email use a fake splitted field
-                email = data.mail.split('@');
+                var email = data.mail.split('@');
                 data.email = {
                     username : email[0],
                     domain : email[1]
@@ -156,7 +156,7 @@
             c.params['mailalias'] = c.params['mailforward'] = '';
 
             // Remove empty inputs
-            params = {};
+            var params = {};
             $.each(c.params.toHash(), function(key, value) {
                 if (value.length > 0 && key !== 'user') { params[key] = value; }
             });

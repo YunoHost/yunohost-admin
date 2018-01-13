@@ -1,3 +1,63 @@
+yunohost-admin (2.7.5) stable; urgency=low
+
+  (Bumping version number for stable release)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Sat, 02 Dec 2017 12:34:45 -0500
+
+yunohost-admin (2.7.4) testing; urgency=low
+
+  * [i18n] Improve French. German translations
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Tue, 28 Nov 2017 18:58:04 -0500
+
+yunohost-admin (2.7.3) testing; urgency=low
+
+  * [i18n] Improve french translation (#170)
+  * [fix] Add "OK" in translatable strings (#171)
+  * [enh] Be able to upgrade single apps (#172)
+  * [enh] Reboot/shutdown from admin interface (#173)
+
+Thanks to all contributors <3 ! (opi, ljf, ariasuni, Jibec)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Thu, 12 Oct 2017 16:51:24 -0400
+
+yunohost-admin (2.7.2) stable; urgency=low
+
+Releasing as stable
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Tue, 22 Aug 2017 21:36:35 -0400
+
+yunohost-admin (2.7.1) testing; urgency=low
+
+  [ Alexandre Aubin ]
+  * [fix] Tell user that domain dns-conf shows a recommendation only
+
+  [ Translations ]
+  * Added translation using Weblate (Russian) (Evgeniy Ozhiganov)
+  * [i18n] Translated using Weblate (Esperanto) (MCMic)
+
+Thanks to all contributors (MCMic, Aleks, Ozhiganov) <3 !
+
+ -- Laurent Peuch <cortex@worlddomination.be>  Sat, 19 Aug 2017 22:43:15 +0000
+
+yunohost-admin (2.7.0) testing; urgency=low
+
+  * [enh] Variable assignment code cleanup. (#161)
+  * [fix] Friendlier and more meaningful 'error 500' (#166)
+  * [i18n] Started Russian translation (#167)
+
+Thanks to all contributors (opi, Aleks, Ozhiganov) <3 !
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Mon, 07 Aug 2017 12:49:55 -0400
+
+yunohost-admin (2.6.2) stable; urgency=low
+
+## Minor fix
+
+  * 'hooks' key is now 'system' in backup info (#165)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Wed, 26 Jul 2017 12:09:03 -0400
+
 yunohost-admin (2.6.1) stable; urgency=low
 
 Major changes since 2.6.0

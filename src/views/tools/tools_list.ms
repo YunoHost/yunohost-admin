@@ -31,6 +31,10 @@
         <span class="fa-chevron-right pull-right"></span>
         <h2 class="list-group-item-heading">{{t 'tools_security_feed'}}</h2>
     </a>
+    <a href="#/tools/reboot" class="list-group-item slide clearfix">
+        <span class="pull-right fa-chevron-right"></span>
+        <h2 class="list-group-item-heading">{{t 'tools_shutdown_reboot'}}</h2>
+    </a>
     <a href="#/tools/versions" class="list-group-item slide clearfix">
         <span class="pull-right fa-chevron-right"></span>
         <h2 class="list-group-item-heading">{{t 'versions'}}</h2>

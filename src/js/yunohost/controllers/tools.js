@@ -20,7 +20,7 @@
 
     // Update administration password (PUT)
     app.put('#/tools/adminpw', function (c) {
-        params = {};
+        var params = {};
         $.each(c.params.toHash(), function(key, value) {
             if (value !== '') { params[key] = value; }
         });
@@ -49,7 +49,7 @@
     // System update & upgrade
     app.get('#/update', function (c) {
         c.api('/update', function(data) {
-            packagesLength = data.packages.length;
+            var packagesLength = data.packages.length;
             for(var i = 0; i < packagesLength; i++) {
                 data.packages[i].delayed = false;
                 data.packages[i].changelog = data.packages[i].changelog.replace(/\n/g, '<br />');
@@ -77,7 +77,7 @@
                 // confirm_update_apps and confirm_update_packages
                 y18n.t('confirm_update_' + c.params['type'].toLowerCase()),
                 function(){
-                    endurl = '';
+                    var endurl = '';
                     if (c.params['type'] == 'packages') {endurl = 'ignore_apps';}
                     else if (c.params['type'] == 'apps') {endurl = 'ignore_packages';}
 
@@ -95,6 +95,27 @@
             );
         }
     });
+    
+    // Upgrade a specific apps
+    app.get('#/upgrade/apps/:app', function (c) {
+        c.confirm(
+            y18n.t('tools'),
+            y18n.t('confirm_update_specific_app', [c.params['app']]),
+            function(){
+                c.api('/upgrade/apps?app='+c.params['app'].toLowerCase(),
+                        function(data) {
+                            // 'log' is a reserved name, maybe in handlebars
+                            data.logs = data.log;
+                            c.view('upgrade/upgrade', data);
+                        }, 'PUT');
+            },
+            function(){
+                store.clear('slide');
+                c.redirect('#/update');
+            }
+        );
+    });
+
 
     // Download SSL Certificate Authority
     app.get('#/tools/ca', function (c) {
@@ -103,7 +124,7 @@
 
     // Security feed
     app.get('#/tools/security-feed', function (c) {
-        data = {
+        var data = {
             items: []
         };
 
@@ -125,11 +146,12 @@
         .done(function(xml){
             // Loop through items
             $('item', xml).each(function(k, v) {
-                var link=$('link', v)[0].innerHTML;
-                if (typeof link == 'string' && link !== '' && link.charAt(0) == '/')
-                    link=forumUrl+link;
-                var description=$('description', v)[0].textContent;
-                description=description.replace('href="/','href="'+forumUrl+'/');
+                var link = $('link', v)[0].innerHTML;
+                if (typeof link == 'string' && link !== '' && link.charAt(0) == '/') {
+                    link = forumUrl+link;
+                }
+                var description = $('description', v)[0].textContent;
+                description = description.replace('href="/','href="'+forumUrl+'/');
 
                 var item = {
                     guid: $('guid', v)[0].innerHTML,
@@ -156,12 +178,69 @@
         });
     });
 
+    // Reboot or shutdown button
+    app.get('#/tools/reboot', function (c) {
+        c.view('tools/tools_reboot');
+    });
+
+    // Reboot or shutdown actions
+    app.get('#/tools/reboot/:action', function (c) {
+        var action = c.params['action'].toLowerCase();
+        if (action == 'reboot' || action == 'shutdown') {
+            c.confirm(
+                y18n.t('tools_' + action),
+                // confirm_reboot_action_reboot or confirm_reboot_action_shutdown
+                y18n.t('confirm_reboot_action_' + action),
+                function(){
+                    c.api('/'+action+'?force', function(data) {
+                        // This code is not executed due to 502 response (reboot or shutdown)
+                        c.redirect('#/logout');
+                    }, 'PUT', {}, false, function (xhr) {
+                        c.flash('success', y18n.t('tools_' + action + '_done'))
+                        // Disconnect from the webadmin 
+                        store.clear('url');
+                        store.clear('connected');
+                        store.set('path', '#/');
+                        
+                        // Rename the page to allow refresh without ask for rebooting
+                        window.location.href = window.location.href.split('#')[0] + '#/';
+                        // Display reboot or shutdown info
+                        // We can't use template because now the webserver is off 
+                        if (action == 'reboot') {
+                            $('#main').replaceWith('<div id="main"><div class="alert alert-warning"><i class="fa-refresh"></i> ' + y18n.t('tools_rebooting') + '</div></div>');
+                        }
+                        else {
+                            $('#main').replaceWith('<div id="main"><div class="alert alert-warning"><i class="fa-power-off"></i> ' + y18n.t('tools_shuttingdown') + '</div></div>');
+                        }
+
+                        // Remove loader if any
+                        $('div.loader').remove();
+
+                        // Force scrollTop on page load
+                        $('html, body').scrollTop(0);
+                        store.clear('slide');
+                    });
+
+                },
+                function(){
+                    store.clear('slide');
+                    c.redirect('#/tools/reboot');
+                }
+            );
+        }
+        else {
+            c.flash('fail', y18n.t('unknown_action', [action]));
+            store.clear('slide');
+            c.redirect('#/tools/reboot');
+        }
+    });
+
     // Diagnosis
     app.get('#/tools/diagnosis(/:private)?', function (c) {
         // See http://sammyjs.org/docs/routes for splat documentation
-        private = (c.params.splat[0] == 'private');
+        var private = (c.params.splat[0] == 'private');
 
-        endurl = (private) ? '?private' : '';
+        var endurl = (private) ? '?private' : '';
         c.api('/diagnosis'+endurl, function(diagnosis) {
             c.view('tools/tools_diagnosis', {
                 'diagnosis' : JSON.stringify(diagnosis, undefined, 4),

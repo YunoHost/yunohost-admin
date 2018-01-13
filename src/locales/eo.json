@@ -1,1 +1,6 @@
-{}
+{
+    "password": "Pasvorto",
+    "login": "Ensaluti",
+    "logout": "Elsaluti",
+    "cancel": "Nuligi"
+}
