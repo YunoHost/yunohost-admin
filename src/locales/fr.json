@@ -361,7 +361,7 @@
     "tools_reboot": "Redémarrer votre serveur",
     "tools_reboot_btn": "Redémarrer",
     "tools_reboot_done": "Redémarrage...",
-    "tools_rebooting": "Votre serveur redémarre. Pour retourner sur l'interface d'administration vous devez attendre que votre serveur soit démarré. Vous pouvez vérifier cela en actualisant cette page (F5).",
+    "tools_rebooting": "Votre serveur redémarre. Pour retourner sur l'interface d'administration vous devez attendre que votre serveur soit démarré. Pour pouvez vérifier cela en actualisant cette page (F5).",
     "tools_shutdown": "Eteindre votre serveur",
     "tools_shutdown_btn": "Eteindre",
     "tools_shutdown_done": "Arrêt en cours...",
