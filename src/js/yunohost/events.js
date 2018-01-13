@@ -9,7 +9,7 @@
      */
     app.bind('login', function(e, data) {
         this.api('/version', function(versions) {
-            $('#yunohost-version').html(y18n.t('footer_version', [versions.yunohost]));
+            $('#yunohost-version').html(y18n.t('footer_version', [versions.yunohost.version, versions.yunohost.repo]));
         });
     });
 
