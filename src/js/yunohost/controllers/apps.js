@@ -592,6 +592,26 @@
         );
     });
 
+    // Get app change label page
+    app.get('#/apps/:app/changelabel', function (c) {
+            c.api('/apps/'+c.params['app']+'?raw', function(app_data) {
+              data = {
+                id: c.params['app'],
+                label: app_data.settings.label,
+              };
+              c.view('app/app_changelabel', data);
+        });
+    });
+    
+    // Change app label
+    app.post('#/apps/:app/changelabel', function (c) {
+        params = {'new_label': c.params['label']};
+        c.api('/apps/' + c.params['app'] + '/label', function(data) { // Call changelabel API
+            store.clear('slide');
+            c.redirect('#/apps/'+ c.params['app']);
+        }, 'PUT', params);
+    });
+
     // Get app change URL page
     app.get('#/apps/:app/changeurl', function (c) {
             c.api('/apps/'+c.params['app']+'?raw', function(app_data) {

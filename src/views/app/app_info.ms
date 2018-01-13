@@ -15,6 +15,8 @@
         <dl class="dl-horizontal">
             <dt>{{t 'id'}}</dt>
             <dd>{{settings.id}}</dd>
+            <dt>{{t 'label'}}</dt>
+            <dd>{{settings.label}}</dd>
             <dt>{{t 'description'}}</dt>
             <dd>{{description}}</dd>
             <dt>{{t 'multi_instance'}}</dt>
@@ -34,6 +36,13 @@
         </h2>
     </div>
     <div class="panel-body">
+        <div class="container">
+            <p>{{t 'app_info_changelabel_desc' settings.label}}</p>
+            <a href="#/apps/{{settings.id}}/changelabel" class="btn btn-info slide">
+                <span class="fa-tag"></span> {{t 'app_change_label'}}
+            </a>
+        </div>
+        <hr>
         <div class="container">
             <p>{{t 'app_info_access_desc' settings.allowed_users}}</p>
             <a href="#/apps/{{settings.id}}/access" class="btn btn-info slide">
