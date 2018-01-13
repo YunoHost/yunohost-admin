@@ -343,7 +343,7 @@
     "install_letsencrypt_cert" : "Install a Let's Encrypt certificate",
     "manually_renew_letsencrypt_message" : "Certificate will be automatically renewed during the last 15 days of validity. You can manually renew it if you want to. (Not recommended).",
     "manually_renew_letsencrypt" : "Manually renew now",
-    "meltdown_spectre" : "You are vulnerable to the <a target=\"_blank\" href=\"https://meltdownattack.com/\">spectre and meltdown</a> critical security vulnerabilities. To apply the security patchs, you need to <a href=\"#/update\">update your system</a> then <a href=\"#/tools/reboot\">reboot it</a> to load the new linux kernel.",
+    "meltdown" : "You are vulnerable to the <a target=\"_blank\" href=\"https://meltdownattack.com/\">meltdown</a> critical security vulnerability. To fix that, you need to <a href=\"#/update\">update your system</a> then <a href=\"#/tools/reboot\">reboot it</a> to load the new linux kernel.",
     "regenerate_selfsigned_cert_message" : "If you want, you can regenerate the self-signed certificate.",
     "regenerate_selfsigned_cert" : "Regenerate self-signed certificate",
     "revert_to_selfsigned_cert_message" : "If you really want to, you can reinstall a self-signed certificate. (Not recommended)",
