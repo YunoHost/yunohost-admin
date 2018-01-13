@@ -71,6 +71,13 @@
                 c.flash('fail', y18n.t('error_retrieve_feed', [securityFeed]));
             });
 
+            c.api("/diagnosis", function(data) {
+                console.log(data);
+                if (data.security["CVE-2017-5754"].vulnerable) {
+                    c.flash('danger', y18n.t('meltdown'));
+                }
+            });
+
             c.view('home');
         });
     });
