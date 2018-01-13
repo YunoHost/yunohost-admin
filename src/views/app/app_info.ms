@@ -49,6 +49,21 @@
         </div>
         <hr>
         <div class="container">
+            <p>{{t 'app_info_changeurl_desc' settings.domain}}</p>
+            {{#if change_url}}
+                <a href="#/apps/{{settings.id}}/changeurl" class="btn btn-info slide">
+                    <span class="fa-exchange"></span> {{t 'app_change_url'}}
+                </a>
+            {{else}}
+                {{#tooltip (t 'app_info_change_url_disabled_tooltip') }}
+                    <a href="#/apps/{{settings.id}}/changeurl" class="btn btn-info slide disabled">
+                        <span class="fa-exchange"></span> {{t 'app_change_url'}}
+                    </a>
+                {{/tooltip}}
+            {{/if}}
+        </div>
+        <hr>
+        <div class="container">
             <p>{{t 'app_info_uninstall_desc'}}</p>
             <a href="#/apps/{{settings.id}}/uninstall" class="btn btn-danger slide back">
                 <span class="fa-trash-o"></span> {{t 'uninstall'}}
@@ -63,3 +78,4 @@
         </div>
     </div>
 </div>
+{{load_tooltips}}
