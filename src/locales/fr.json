@@ -366,5 +366,13 @@
     "tools_shutdown_btn": "Eteindre",
     "tools_shutdown_done": "Arrêt en cours...",
     "tools_shuttingdown": "Votre serveur est éteint. Tant que votre serveur est éteint vous ne pouvez plus utiliser l'interface d'administration.",
-    "tools_shutdown_reboot": "Arrêter/Redémarrer"
+    "tools_shutdown_reboot": "Arrêter/Redémarrer",
+    "app_change_label": "Changer le libellé",
+    "app_change_url": "Changer l’URL",
+    "app_info_changelabel_desc": "Change le libellé de l’application dans le portail.",
+    "app_info_changeurl_desc": "Change l’adresse d’accès de cette application (domaine et/ou chemin).",
+    "app_info_change_url_disabled_tooltip": "Cette fonctionnalité n’a pas encore été implémentée pour cette application",
+    "confirm_app_change_url": "Voulez-vous vraiment changer l’adresse d’accès de cette application ?",
+    "path_url": "Chemin",
+    "meltdown": "Vous êtes vulnérable à la faille de sécurité critque <a target=\"_blank\" href=\"https://meltdownattack.com/\">meltdown</a>. Pour résoudre le problème, vous devez <a href=\"#/update\">mettre à jour votre syst-me</a> puis <a href=\"#/tools/reboot\">le redémarrer</a> pour charger le nouveau noyau linux."
 }
