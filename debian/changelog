@@ -1,3 +1,20 @@
+yunohost-admin (2.7.6) testing; urgency=low
+
+  Major changes:
+
+  * [enh] Diagnose and display warning and instruction to fix Meltdown vulnerability
+  * [enh] Add app change URL feature
+  * [enh] Add app change label feature
+
+  Misc fixes/improvements:
+
+  * [enh] display stable/testing/unstable in footer
+  * [i18n] Improve French translation
+
+  Thanks to all contributors (JimboeJoe, Bram, Jibec, ewilly) ! <3
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Tue, 16 Jan 2018 17:45:08 -0500
+
 yunohost-admin (2.7.5) stable; urgency=low
 
   (Bumping version number for stable release)
