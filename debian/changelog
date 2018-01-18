@@ -1,3 +1,10 @@
+yunohost-admin (2.7.7) stable; urgency=low
+
+  * [fix] version data structure has changed
+  * Releasing as stable
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Thu, 18 Jan 2018 17:48:20 -0500
+
 yunohost-admin (2.7.6) testing; urgency=low
 
   Major changes:
