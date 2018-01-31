@@ -250,4 +250,31 @@
         });
     });
 
+    // Reboot or shutdown button
+    app.get('#/tools/migrations', function (c) {
+        c.api('/migrations', function(migrations) {
+        c.api('/migrations/state', function(state) {
+            
+            var lastRunMigration = state.last_run_migration.number;
+            var migrationsLength = migrations.migrations.length;
+            var upToDate = true;
+
+            for(var i = 0; i < migrationsLength; i++) {
+                var thisMigration = migrations.migrations[i];
+                thisMigration.name = thisMigration.name.replace(/_/g, ' ')
+                thisMigration.todo = (thisMigration.number == lastRunMigration);
+                if (thisMigration.todo) { upToDate = false; }
+            };
+
+            
+            c.view('tools/tools_migrations', {
+                'migrations' : migrations.migrations.reverse(),
+                'upToDate' : upToDate
+            });
+            
+        });
+        });    
+    });
+
+
 })();
