@@ -6,55 +6,47 @@
 
 <div class="separator"></div>
 
-{{#if upToDate}}
-<div class="alert alert-success">
-    <span class="fa-fw fa-check-circle"></span> No migrations to be run !
-</div>
-{{else}}
-<div class="alert alert-warning">
-    <span class="fa-fw fa-exclamation-triangle"></span> There are pending migrations that need to be ran.
-</div>
-{{/if}}
-
 <div class="panel panel-default">
     <div class="panel-heading">
-        <h2 class="panel-title"><span class="fa-fw fa-cogs"></span> {{t 'pending_migrations'}}
+        <h2 class="panel-title"><span class="fa-fw fa-cogs"></span> {{t 'migrations_pending'}}
+        {{#if pending_migrations}}
         <div class="btn-toolbar pull-right">
             <a href="#" class="btn btn-success" style="margin-top: -3px"><span class="fa-fw fa-play"></span> {{t 'run'}}</a>
             <a href="#" class="btn btn-warning" style="margin-top: -3px"><span class="fa-fw fa-close"></span> {{t 'skip'}}</a>
         </div>
+        {{/if}}
         </h2>
     </div>
     
-    {{#if migrations}}
+    {{#if pending_migrations}}
         <div class="list-group">
-        {{#migrations}}
+        {{#pending_migrations}}
         <div class="list-group-item clearfix">
             <h3 class="list-group-item-heading" style="text-transform: capitalize;">
                 {{ number }}. {{ name }}
             </h3>
             <p id="description-migration-{{number}}" class="list-group-item-text">
-                (No description available)
+                {{ description }}
             </p>
         </div>
-        {{/migrations}}
+        {{/pending_migrations}}
         </div>
     {{else}}
     <div class="panel-body">
-        <span class="text-success"><span class="fa-fw fa-check-circle"></span> No pending migrations !</span>
+        <span class="text-success"><span class="fa-fw fa-check-circle"></span>{{t 'migrations_no_pending' }}</span>
     </div>
     {{/if}}
 </div>
 
 <div class="panel panel-default">
     <div class="panel-heading">
-        <h2 class="panel-title"><span class="fa-fw fa-cogs"></span> {{t 'previous_migrations'}}
+        <h2 class="panel-title"><span class="fa-fw fa-cogs"></span> {{t 'migrations_done'}}
         </h2>
     </div>
     
-    {{#if previous_migrations}}
+    {{#if done_migrations}}
         <div class="list-group">
-        {{#previous_migrations}}
+        {{#done_migrations}}
         <div class="list-group-item clearfix">
             <h3 class="list-group-item-heading" style="text-transform: capitalize;">
                 <a data-toggle="collapse" href="#description-migration-{{number}}">
@@ -62,14 +54,14 @@
                 </a>
             </h3>
             <p id="description-migration-{{number}}" class="list-group-item-text collapse">
-                (No description available)
+                {{ description }}
             </p>
         </div>
-        {{/previous_migrations}}
+        {{/done_migrations}}
         </div>
     {{else}}
     <div class="panel-body">
-        <span class="text-info">No previous migrations.</span>
+        <span class="text-info">{{t 'migrations_no_done' }}</span>
     </div>
     {{/if}}
 </div>

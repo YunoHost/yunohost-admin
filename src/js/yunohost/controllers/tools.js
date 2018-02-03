@@ -252,28 +252,17 @@
 
     // Reboot or shutdown button
     app.get('#/tools/migrations', function (c) {
-        c.api('/migrations', function(migrations) {
-        c.api('/migrations/state', function(state) {
-            
-            var lastRunMigration = state.last_run_migration.number;
-            var migrationsLength = migrations.migrations.length;
-            var upToDate = true;
-
-            for(var i = 0; i < migrationsLength; i++) {
-                var thisMigration = migrations.migrations[i];
-                thisMigration.name = thisMigration.name.replace(/_/g, ' ')
-                thisMigration.todo = (thisMigration.number == lastRunMigration);
-                if (thisMigration.todo) { upToDate = false; }
-            };
-
-            
+        console.log("test");
+        c.api('/migrations?pending', function(pending_migrations) {
+        c.api('/migrations?done', function(done_migrations) {
+            console.log(pending_migrations);
+            console.log(done_migrations);
             c.view('tools/tools_migrations', {
-                'migrations' : migrations.migrations.reverse(),
-                'upToDate' : upToDate
+                'pending_migrations' : pending_migrations.migrations.reverse(),
+                'done_migrations' : done_migrations.migrations.reverse()
             });
-            
         });
-        });    
+        });
     });
 
 
