@@ -264,16 +264,17 @@
 
     app.get('#/tools/migrations/run', function (c) {
         c.api('/migrations?pending', function(pending_migrations) {
+            pending_migrations = pending_migrations.migrations;
             var disclaimers = [];
             var migrationsLength = pending_migrations.length;
             for(var i = 0; i < migrationsLength; i++) {
-                if (pending_migrations[i].disclaimer)
+                var m = pending_migrations[i];
+                if (m.disclaimer)
                 {
-                    disclaimers.push(pending_migrations[i].disclaimer);
-                    console.log("Disclaimer found !");
+                    disclaimers.push("<h3>"+m.number+". "+m.name+"</h3>"
+                                     +m.disclaimer.replace(/\n/g, "<br />"));
                 }
             };
-            console.log(disclaimers);
             if (disclaimers.length)
             {
                 c.confirm(
