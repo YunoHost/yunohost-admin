@@ -11,8 +11,8 @@
         <h2 class="panel-title"><span class="fa-fw fa-cogs"></span> {{t 'migrations_pending'}}
         {{#if pending_migrations}}
         <div class="btn-toolbar pull-right">
-            <a href="#" class="btn btn-success" style="margin-top: -3px"><span class="fa-fw fa-play"></span> {{t 'run'}}</a>
-            <a href="#" class="btn btn-warning" style="margin-top: -3px"><span class="fa-fw fa-close"></span> {{t 'skip'}}</a>
+            <a href="#/tools/migrations/run" class="btn btn-success" style="margin-top: -3px"><span class="fa-fw fa-play"></span> {{t 'run'}}</a>
+            <a href="#/tools/migrations/skip" class="btn btn-warning" style="margin-top: -3px"><span class="fa-fw fa-close"></span> {{t 'skip'}}</a>
         </div>
         {{/if}}
         </h2>

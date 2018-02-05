@@ -95,7 +95,7 @@
             );
         }
     });
-    
+
     // Upgrade a specific apps
     app.get('#/upgrade/apps/:app', function (c) {
         c.confirm(
@@ -197,15 +197,15 @@
                         c.redirect('#/logout');
                     }, 'PUT', {}, false, function (xhr) {
                         c.flash('success', y18n.t('tools_' + action + '_done'))
-                        // Disconnect from the webadmin 
+                        // Disconnect from the webadmin
                         store.clear('url');
                         store.clear('connected');
                         store.set('path', '#/');
-                        
+
                         // Rename the page to allow refresh without ask for rebooting
                         window.location.href = window.location.href.split('#')[0] + '#/';
                         // Display reboot or shutdown info
-                        // We can't use template because now the webserver is off 
+                        // We can't use template because now the webserver is off
                         if (action == 'reboot') {
                             $('#main').replaceWith('<div id="main"><div class="alert alert-warning"><i class="fa-refresh"></i> ' + y18n.t('tools_rebooting') + '</div></div>');
                         }
@@ -252,11 +252,8 @@
 
     // Reboot or shutdown button
     app.get('#/tools/migrations', function (c) {
-        console.log("test");
         c.api('/migrations?pending', function(pending_migrations) {
         c.api('/migrations?done', function(done_migrations) {
-            console.log(pending_migrations);
-            console.log(done_migrations);
             c.view('tools/tools_migrations', {
                 'pending_migrations' : pending_migrations.migrations.reverse(),
                 'done_migrations' : done_migrations.migrations.reverse()
@@ -265,5 +262,62 @@
         });
     });
 
+    app.get('#/tools/migrations/run', function (c) {
+        c.api('/migrations?pending', function(pending_migrations) {
+            var disclaimers = [];
+            var migrationsLength = pending_migrations.length;
+            for(var i = 0; i < migrationsLength; i++) {
+                if (pending_migrations[i].disclaimer)
+                {
+                    disclaimers.push(pending_migrations[i].disclaimer);
+                    console.log("Disclaimer found !");
+                }
+            };
+            console.log(disclaimers);
+            if (disclaimers.length)
+            {
+                c.confirm(
+                    y18n.t('migrations'),
+                    disclaimers.join('<hr>'),
+                    function(){
+                        c.api('/migrations/migrate?accept-disclaimer',
+                        function (data) {
+                            store.clear('slide');
+                            c.redirect('#/tools/migrations');
+                        }, 'POST')
+                    },
+                    function(){
+                        store.clear('slide');
+                        c.redirect('#/tools/migrations');
+                    }
+                );
+            }
+            else
+            {
+                c.api('/migrations/migrate',
+                function (data) {
+                    store.clear('slide');
+                    c.redirect('#/tools/migrations');
+                }, 'POST')
+            }
+        });
+    });
+
+    app.get('#/tools/migrations/skip', function (c) {
+        c.confirm(
+            y18n.t('migrations'),
+            y18n.t('confirm_migrations_skip'),
+            function(){
+                c.api('/migrations/migrate?skip', function(data) {
+                    store.clear('slide');
+                    c.redirect('#/tools/migrations');
+                }, 'POST');
+            },
+            function(){
+                store.clear('slide');
+                c.redirect('#/tools/migrations');
+            }
+        );
+    });
 
 })();
