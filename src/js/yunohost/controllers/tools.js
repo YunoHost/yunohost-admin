@@ -254,9 +254,20 @@
     app.get('#/tools/migrations', function (c) {
         c.api('/migrations?pending', function(pending_migrations) {
         c.api('/migrations?done', function(done_migrations) {
+            pending_migrations = pending_migrations.migrations;
+            done_migrations = done_migrations.migrations;
+
+            // Get rid of _ in the raw name of migrations (cosmetic)
+            for(var i = 0; i < pending_migrations.length; i++) {
+                pending_migrations[i].name = pending_migrations[i].name.replace(/_/g, " ")
+            }
+            for(var i = 0; i < done_migrations.length; i++) {
+                done_migrations[i].name = done_migrations[i].name.replace(/_/g, " ")
+            }
+
             c.view('tools/tools_migrations', {
-                'pending_migrations' : pending_migrations.migrations.reverse(),
-                'done_migrations' : done_migrations.migrations.reverse()
+                'pending_migrations' : pending_migrations.reverse(),
+                'done_migrations' : done_migrations.reverse()
             });
         });
         });
