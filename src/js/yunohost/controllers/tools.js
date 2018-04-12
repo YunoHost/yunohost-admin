@@ -281,7 +281,7 @@
                     y18n.t('migrations'),
                     disclaimers.join('<hr>'),
                     function(){
-                        c.api('/migrations/migrate?accept-disclaimer',
+                        c.api('/migrations/migrate?accept_disclaimer',
                         function (data) {
                             store.clear('slide');
                             c.redirect('#/tools/migrations');
@@ -299,7 +299,7 @@
                 function (data) {
                     store.clear('slide');
                     c.redirect('#/tools/migrations');
-                }, 'POST')
+                }, 'POST');
             }
         });
     });
