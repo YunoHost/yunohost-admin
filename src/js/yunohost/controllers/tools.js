@@ -260,6 +260,10 @@
             // Get rid of _ in the raw name of migrations (cosmetic)
             for(var i = 0; i < pending_migrations.length; i++) {
                 pending_migrations[i].name = pending_migrations[i].name.replace(/_/g, " ")
+                if (pending_migrations[i].disclaimer)
+                {
+                    pending_migrations[i].disclaimer = pending_migrations[i].disclaimer.replace(/\n/g, "<br />");
+                }
             }
             for(var i = 0; i < done_migrations.length; i++) {
                 done_migrations[i].name = done_migrations[i].name.replace(/_/g, " ")
@@ -274,45 +278,43 @@
     });
 
     app.get('#/tools/migrations/run', function (c) {
-        c.api('/migrations?pending', function(pending_migrations) {
-            pending_migrations = pending_migrations.migrations;
-            var disclaimers = [];
-            var migrationsLength = pending_migrations.length;
-            for(var i = 0; i < migrationsLength; i++) {
-                var m = pending_migrations[i];
-                if (m.disclaimer)
-                {
-                    disclaimers.push("<h3>"+m.number+". "+m.name+"</h3>"
-                                     +m.disclaimer.replace(/\n/g, "<br />"));
-                }
-            };
-            if (disclaimers.length)
+        var disclaimerAcks = $(".disclaimer-ack");
+        var withAcceptDisclaimerFlag = false;
+        for (var i = 0 ; i < disclaimerAcks.length ; i++)
+        {
+            console.log($(disclaimerAcks[i]).find("input:checked").val());
+            if (! $(disclaimerAcks[i]).find("input:checked").val())
             {
-                c.confirm(
-                    y18n.t('migrations'),
-                    disclaimers.join('<hr>'),
-                    function(){
-                        c.api('/migrations/migrate?accept_disclaimer',
-                        function (data) {
-                            store.clear('slide');
-                            c.redirect('#/tools/migrations');
-                        }, 'POST')
-                    },
-                    function(){
-                        store.clear('slide');
-                        c.redirect('#/tools/migrations');
-                    }
-                );
+                // FIXME / TODO i18n
+                c.flash('fail', "Some of these migrations require you to acknowledge a disclaimer before running them.");
+                c.redirect('#/tools/migrations');
+                return;
             }
             else
             {
-                c.api('/migrations/migrate',
+                withAcceptDisclaimerFlag = true;
+            }
+        };
+
+        // Not sure if necessary, but this distinction is to avoid accidentally
+        // triggering a migration with a disclaimer if one goes to the
+        // /tools/migrations/run page "directly" somehow ...
+        if (withAcceptDisclaimerFlag)
+        {
+            c.api('/migrations/migrate?accept_disclaimer',
                 function (data) {
                     store.clear('slide');
                     c.redirect('#/tools/migrations');
-                }, 'POST');
-            }
-        });
+                }, 'POST')
+        }
+        else
+        {
+            c.api('/migrations/migrate',
+                function (data) {
+                    store.clear('slide');
+                    c.redirect('#/tools/migrations');
+                }, 'POST')
+        }
     });
 
     app.get('#/tools/migrations/skip', function (c) {

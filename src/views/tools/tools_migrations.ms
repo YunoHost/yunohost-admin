@@ -28,6 +28,17 @@
             <p id="description-migration-{{number}}" class="list-group-item-text">
                 {{ description }}
             </p>
+            {{#if disclaimer }}
+            <hr>
+            <p id="disclaimer-migration-{{number}}" class="list-group-item-text">
+                {{ disclaimer }}
+                <div style="margin-left:20px">
+                <label style="" id="disclaimer-ack-migration-{{number}}" class="checkbox disclaimer-ack">
+                    <input type="checkbox"> I read and understood this disclaimer
+                </label>
+                </div>
+            </p>
+            {{/if}}
         </div>
         {{/pending_migrations}}
         </div>
