@@ -95,7 +95,7 @@
             );
         }
     });
-    
+
     // Upgrade a specific apps
     app.get('#/upgrade/apps/:app', function (c) {
         c.confirm(
@@ -197,15 +197,15 @@
                         c.redirect('#/logout');
                     }, 'PUT', {}, false, function (xhr) {
                         c.flash('success', y18n.t('tools_' + action + '_done'))
-                        // Disconnect from the webadmin 
+                        // Disconnect from the webadmin
                         store.clear('url');
                         store.clear('connected');
                         store.set('path', '#/');
-                        
+
                         // Rename the page to allow refresh without ask for rebooting
                         window.location.href = window.location.href.split('#')[0] + '#/';
                         // Display reboot or shutdown info
-                        // We can't use template because now the webserver is off 
+                        // We can't use template because now the webserver is off
                         if (action == 'reboot') {
                             $('#main').replaceWith('<div id="main"><div class="alert alert-warning"><i class="fa-refresh"></i> ' + y18n.t('tools_rebooting') + '</div></div>');
                         }
@@ -248,6 +248,90 @@
                 'private' : private
             });
         });
+    });
+
+    // Reboot or shutdown button
+    app.get('#/tools/migrations', function (c) {
+        c.api('/migrations?pending', function(pending_migrations) {
+        c.api('/migrations?done', function(done_migrations) {
+            pending_migrations = pending_migrations.migrations;
+            done_migrations = done_migrations.migrations;
+
+            // Get rid of _ in the raw name of migrations (cosmetic)
+            for(var i = 0; i < pending_migrations.length; i++) {
+                pending_migrations[i].name = pending_migrations[i].name.replace(/_/g, " ")
+                if (pending_migrations[i].disclaimer)
+                {
+                    pending_migrations[i].disclaimer = pending_migrations[i].disclaimer.replace(/\n/g, "<br />");
+                }
+            }
+            for(var i = 0; i < done_migrations.length; i++) {
+                done_migrations[i].name = done_migrations[i].name.replace(/_/g, " ")
+            }
+
+            c.view('tools/tools_migrations', {
+                'pending_migrations' : pending_migrations.reverse(),
+                'done_migrations' : done_migrations.reverse()
+            });
+        });
+        });
+    });
+
+    app.get('#/tools/migrations/run', function (c) {
+        var disclaimerAcks = $(".disclaimer-ack");
+        var withAcceptDisclaimerFlag = false;
+        for (var i = 0 ; i < disclaimerAcks.length ; i++)
+        {
+            console.log($(disclaimerAcks[i]).find("input:checked").val());
+            if (! $(disclaimerAcks[i]).find("input:checked").val())
+            {
+                // FIXME / TODO i18n
+                c.flash('fail', "Some of these migrations require you to acknowledge a disclaimer before running them.");
+                c.redirect('#/tools/migrations');
+                return;
+            }
+            else
+            {
+                withAcceptDisclaimerFlag = true;
+            }
+        };
+
+        // Not sure if necessary, but this distinction is to avoid accidentally
+        // triggering a migration with a disclaimer if one goes to the
+        // /tools/migrations/run page "directly" somehow ...
+        if (withAcceptDisclaimerFlag)
+        {
+            c.api('/migrations/migrate?accept_disclaimer',
+                function (data) {
+                    store.clear('slide');
+                    c.redirect('#/tools/migrations');
+                }, 'POST')
+        }
+        else
+        {
+            c.api('/migrations/migrate',
+                function (data) {
+                    store.clear('slide');
+                    c.redirect('#/tools/migrations');
+                }, 'POST')
+        }
+    });
+
+    app.get('#/tools/migrations/skip', function (c) {
+        c.confirm(
+            y18n.t('migrations'),
+            y18n.t('confirm_migrations_skip'),
+            function(){
+                c.api('/migrations/migrate?skip', function(data) {
+                    store.clear('slide');
+                    c.redirect('#/tools/migrations');
+                }, 'POST');
+            },
+            function(){
+                store.clear('slide');
+                c.redirect('#/tools/migrations');
+            }
+        );
     });
 
 })();
