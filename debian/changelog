@@ -1,3 +1,9 @@
+yunohost-admin (3.0.0~beta1) testing; urgency=low
+
+  Beta release for Stretch
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Thu, 03 May 2018 03:04:45 +0000
+
 yunohost-admin (2.7.11) testing; urgency=low
 
   * [i18n] Updated translations for French, Arabic, Dutch, Occitan and Spanish
