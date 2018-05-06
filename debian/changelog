@@ -1,3 +1,10 @@
+yunohost-admin (2.7.13) testing; urgency=low
+
+  * [enh] Add interface for migrations (#186)
+  * [i18n] Improve French translation
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Sun, 06 May 2018 23:16:15 +0000
+
 yunohost-admin (2.7.12) stable; urgency=low
 
   * Bumping version number for stable release
