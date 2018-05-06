@@ -1,3 +1,9 @@
+yunohost-admin (2.7.12) stable; urgency=low
+
+  * Bumping version number for stable release
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Sun, 06 May 2018 16:47:05 +0000
+
 yunohost-admin (2.7.11) testing; urgency=low
 
   * [i18n] Updated translations for French, Arabic, Dutch, Occitan and Spanish

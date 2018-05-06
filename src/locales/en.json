@@ -292,7 +292,7 @@
     "tools_reboot": "Reboot your server",
     "tools_reboot_btn": "Reboot",
     "tools_reboot_done": "Rebooting...",
-    "tools_rebooting": "Your server is rebooting. To return on the web administration interface you need to wait your server to be up. You can check that by refreshing regularly this page (F5).",
+    "tools_rebooting": "Your server is rebooting. To return to the web administration interface you need to wait for your server to be up. You can check that by refreshing this page (F5).",
     "tools_shutdown": "Shutdown your server",
     "tools_shutdown_btn": "Shutdown",
     "tools_shutdown_done": "Shutting down...",
