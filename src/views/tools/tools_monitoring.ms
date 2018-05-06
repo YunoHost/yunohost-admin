@@ -31,7 +31,7 @@
         <dl class="dl-horizontal">
             {{#each versions}}
             <dt>{{@key}}</dt>
-            <dd>{{.}}</dd>
+            <dd>{{version}} ({{repo}})</dd>
             {{/each}}
         </dl>
     </div>

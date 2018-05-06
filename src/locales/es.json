@@ -335,5 +335,6 @@
     "confirm_update_apps": "¿Está seguro de que desea actualizar todas las aplicaciones?",
     "confirm_update_packages": "¿Está seguro de que desea actualizar todos los paquetes?",
     "confirm_upnp_enable": "¿Está seguro de que desea habilitar UPnP?",
-    "confirm_upnp_disable": "¿Está seguro de que desea deshabilitar UPnP?"
+    "confirm_upnp_disable": "¿Está seguro de que desea deshabilitar UPnP?",
+    "ok": "OK"
 }

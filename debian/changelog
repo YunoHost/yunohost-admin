@@ -1,3 +1,12 @@
+yunohost-admin (2.7.11) testing; urgency=low
+
+  * [i18n] Updated translations for French, Arabic, Dutch, Occitan and Spanish
+  * [fix] Version datastructure has changed
+
+  Thanks to all contributors (Jibec, Bram, Moul, ButterflyOfFire, syl, Matthieu, Quenti, bjarkan)  <3 !
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Tue, 01 May 2018 23:20:54 +0000
+
 yunohost-admin (2.7.7) stable; urgency=low
 
   * [fix] version data structure has changed

@@ -288,7 +288,7 @@
     "tools_shutdown": "Shutdown your server",
     "tools_shutdown_btn": "Shutdown",
     "tools_shutdown_done": "Shutting down...",
-    "tools_shuttingdown": "Your server is powerring off. As long as your server is off, you won't be able to use the web administration.",
+    "tools_shuttingdown": "Your server is powering off. As long as your server is off, you won't be able to use the web administration.",
     "tools_shutdown_reboot": "Shutdown/Reboot",
     "total": "Total",
     "transmission": "Transmission",
