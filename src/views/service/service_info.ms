@@ -9,7 +9,24 @@
 
 <div class="panel panel-default">
     <div class="panel-heading">
-    <h2 class="panel-title"><span class="fa-fw fa-info-circle"></span> {{t 'status'}}</h2>
+    <h2 class="panel-title"><span class="fa-fw fa-info-circle"></span> {{t 'infos'}}</h2>
+    </div>
+    <div class="panel-body">
+    {{#service}}
+        <dl class="dl-horizontal">
+            <dt>{{t 'name'}}</dt>
+            <dd>{{name}}</dd>
+            <dt>{{t 'description'}}</dt>
+            <dd>{{description}}</dd>
+        </dl>
+    {{/service}}
+    </div>
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+    <h2 class="panel-title"><span class="fa-fw fa-wrench"></span> {{t 'status'}}</h2>
     </div>
     <div class="panel-body">
         <dl class="dl-horizontal">
