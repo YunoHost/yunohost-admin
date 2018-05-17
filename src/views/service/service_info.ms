@@ -24,6 +24,9 @@
             <span class="text-{{#is_running}}success{{/is_running}}{{^is_running}}danger{{/is_running}}">
             {{status}}
             </span>
+            <br>
+            {{t 'started_at'}}
+            {{active_at.human}}
         </div>
 
         <div class="pull-right">
