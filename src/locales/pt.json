@@ -4,7 +4,7 @@
     "administration_password": "Senha de administração",
     "allowed_users": "Utilizadores permitidos",
     "app_access": "Aceder",
-    "app_access_addall_btn": "Adicionar acesso a todos",
+    "app_access_addall_btn": "Habilitar acesso a todos",
     "app_access_addall_desc": "Todos os utilizadores existentes terão acesso a %s.",
     "app_access_clearall_btn": "Limpar todos os acessos",
     "app_access_clearall_desc": "Qualquer utilizador terá acesso a %s.",
@@ -222,5 +222,11 @@
     "write": "Escrita",
     "wrong_password": "Senha errada",
     "yes": "Sim",
-    "cancel": "Cancelar"
+    "cancel": "Cancelar",
+    "remove": "Remover",
+    "api_not_responding": "API não está respondendo",
+    "app_change_label": "Mudar label",
+    "app_change_url": "Mudar URL",
+    "app_debug_no_logs": "Logs da aplicação não estão disponíveis",
+    "app_debug_tab": "Mostrar debug"
 }
