@@ -248,6 +248,7 @@
     "running": "Running",
     "save": "Save",
     "select_user": "Select user",
+    "service_description": "Description:",
     "service_log": "%s log",
     "service_start_on_boot": "Start on boot: ",
     "service_status": "Status: ",
