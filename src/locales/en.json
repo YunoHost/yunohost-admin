@@ -258,6 +258,7 @@
     "size": "Size",
     "skip": "Skip",
     "start": "Start",
+    "started_at": "Started at:",
     "status": "Status",
     "stop": "Stop",
     "storage_create": "Add remote storage",
