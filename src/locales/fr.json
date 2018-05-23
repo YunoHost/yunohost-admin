@@ -383,5 +383,6 @@
     "migrations_no_done": "Aucune migration précédente",
     "run": "Lancer",
     "skip": "Sauter",
-    "service_description": "Description :"
+    "service_description": "Description :",
+    "started_at": "Démarré à :"
 }
