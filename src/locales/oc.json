@@ -363,5 +363,17 @@
     "name": "Nom",
     "install_community_appslists_info": "La lista de las aplicacions de la comunitat vos permet d’installar d’aplicacion mantengudas per la comunitat.<br /> Gaitatz la lista complèta sus <a href='https://yunohost.org/apps_in_progress'>yunohost.org/apps_in_progress</a>.",
     "install_community_appslists_warning": "Aquestas aplicacions <strong>son pas</strong> oficialas, nimai mantengudas per la còla YunoHost.<br /> Installar aquestas aplicacions es amb vòstra resèrva, pòt perilhar vòstre sistèma.",
-    "install_custom_app_appslists_info": "Podètz utilizar de listas alternativas d’aplicacions per installar mai aplicacions mantengudas per la comunitat YunoHost."
+    "install_custom_app_appslists_info": "Podètz utilizar de listas alternativas d’aplicacions per installar mai aplicacions mantengudas per la comunitat YunoHost.",
+    "io": "E/S",
+    "service_description": "Descripcion :",
+    "user_mailbox_quota": "Quòta de la bóstia de las letras",
+    "user_mailbox_use": "Espaci utilizat per la bóstia de las letras",
+    "certificate_alert_not_valid": "Critic : lo certificat actual es invalid ! Lo HTTPS foncionarà pas ges !",
+    "certificate_alert_selfsigned": "Atencion : lo certificat actual es auto-signat. Los navegadors mostraràn una alèrta espaventosa als nòus visitaires !",
+    "certificate_alert_letsencrypt_about_to_expire": "Lo certificat actual es a man d’expirar. Calrà lèu lo renovar automaticament.",
+    "certificate_alert_about_to_expire": "Atencion : lo certificat actual es a man d’expirar ! Serà pas renovat automaticament !",
+    "certificate_alert_great": "Perfièch ! Sètz a utilizar un certificat  Let’s Encrypt valid !",
+    "certificate_old_letsencrypt_app_conflict": "L’aplicacion « letsencrypt » es actualament installada e es en conflicte amb aquesta foncionalitat. Mercés de la desinstallar per utilizar la novèla interfàcia de gestion dels certificats.",
+    "domain_not_eligible_for_ACME": "Aqueste domeni sembla pas prèst per un certificat Let's Encrypt. Mercés de verificar la configuracion DNS e l’accessibilitat del servidor HTTP.",
+    "manually_renew_letsencrypt_message": "Lo certificat serà renovat automaticament pendent los 15 darrièrs jorns de validitat. Podètz lo renovar manualament se volètz. (Pas recomandat)"
 }
