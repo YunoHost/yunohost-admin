@@ -382,5 +382,6 @@
     "migrations_no_pending": "Aucune migration en attente",
     "migrations_no_done": "Aucune migration précédente",
     "run": "Lancer",
-    "skip": "Sauter"
+    "skip": "Sauter",
+    "service_description": "Description:"
 }
