@@ -377,5 +377,6 @@
     "domain_not_eligible_for_ACME": "Aqueste domeni sembla pas prèst per un certificat Let's Encrypt. Mercés de verificar la configuracion DNS e l’accessibilitat del servidor HTTP.",
     "manually_renew_letsencrypt_message": "Lo certificat serà renovat automaticament pendent los 15 darrièrs jorns de validitat. Podètz lo renovar manualament se volètz. (Pas recomandat).",
     "meltdown": "Sètz vulnerable a la falha de seguretat critica <a target=\"_blank\" href=\"https://meltdownattack.com/\">meltdown</a>. Per dire de resòlvre aqueste problèma, vos cal <a href=\"#/update\">actualizar vòstre sistèma</a> puèi <a href=\"#/tools/reboot\"> lo tornar aviar</a> per cargar lo nòu nuclèu linux.",
-    "revert_to_selfsigned_cert_message": "S’o volètz vertadièrament, podètz tornar installar lo certificat auto-signat. (Pas recomandat)"
+    "revert_to_selfsigned_cert_message": "S’o volètz vertadièrament, podètz tornar installar lo certificat auto-signat. (Pas recomandat)",
+    "started_at": "Aviat a :"
 }
