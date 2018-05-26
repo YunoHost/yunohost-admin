@@ -383,7 +383,7 @@
 
         // Paste <pre>
         prePaste: function() {
-            var pasteButtons = $('button[data-paste-content]');
+            var pasteButtons = $('button[data-paste-content],a[data-paste-content]');
             pasteButtons.on('click', function(){
                 // Get paste content element
                 var preElement = $($(this).data('paste-content'));

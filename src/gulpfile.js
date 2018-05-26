@@ -41,6 +41,7 @@ gulp.task('js', function() {
             'bower_components/jquery/dist/jquery.js',
             'bower_components/js-cookie/src/js.cookie.js',
             'bower_components/handlebars/handlebars.js',
+            'bower_components/handlebars-helper-intl/dist/handlebars-intl-with-locales.js',
             'bower_components/sammy/lib/sammy.js',
             'bower_components/sammy/lib/plugins/sammy.handlebars.js',
             'bower_components/sammy/lib/plugins/sammy.json.js',

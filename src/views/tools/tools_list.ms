@@ -11,9 +11,9 @@
         <span class="pull-right fa-chevron-right"></span>
         <h2 class="list-group-item-heading">{{t 'diagnosis'}}</h2>
     </a>
-    <a href="#/tools/journals" class="list-group-item slide clearfix">
+    <a href="#/tools/logs" class="list-group-item slide clearfix">
         <span class="pull-right fa-chevron-right"></span>
-        <h2 class="list-group-item-heading">{{t 'journals'}}</h2>
+        <h2 class="list-group-item-heading">{{t 'logs'}}</h2>
     </a>
     <a href="#/tools/monitor" class="list-group-item slide clearfix">
         <span class="pull-right fa-chevron-right"></span>

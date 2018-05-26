@@ -96,12 +96,11 @@
     });
 
     // Display journals list
-    app.get('#/tools/journals', function (c) {
-        c.api("/journals", function(categories) {
-            c.view('tools/tools_journals', {
+    app.get('#/tools/logs', function (c) {
+        c.api("/logs", function(categories) {
+            c.view('tools/tools_logs', {
                 "data": categories,
                 formatDate: function() {
-                    console.log("caca");
                     return this.started_at.getDate();
                 }
             });
@@ -109,10 +108,26 @@
     });
 
     // One journal
-    app.get('#/tools/journals/:file_name', function (c) {
-        c.api("/journals/" + c.params["file_name"], function(journal) {
-            c.view('tools/tools_journal', {
-                "journal": journal,
+    app.get(/\#\/tools\/logs\/(.*)(\?number=(\d+))?/, function (c) {
+        var params = "?path=" + c.params["splat"][0];
+        var number = (c.params["number"])?c.params["number"]:50;
+        params += "&number=" + number;
+        
+        c.api("/logs/display" + params, function(log) {
+            if ('metadata' in log) {
+                if ('started_at' in log.metadata) {
+                    log.metadata.started_at = Date.parse(log.metadata.started_at)
+                }
+                if ('ended_at' in log.metadata) {
+                    log.metadata.ended_at = Date.parse(log.metadata.ended_at)
+                }
+                if (!'env' in log.metadata && 'args' in log.metadata) {
+                    log.metadata.env = log.metadata.args
+                }
+            }
+            c.view('tools/tools_log', {
+                "log": log,
+                "next_number": log.logs.length == number ? number * 10:false
             });
         });
     });
