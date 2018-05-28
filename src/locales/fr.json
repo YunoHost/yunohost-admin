@@ -361,7 +361,7 @@
     "tools_reboot": "Redémarrer votre serveur",
     "tools_reboot_btn": "Redémarrer",
     "tools_reboot_done": "Redémarrage...",
-    "tools_rebooting": "Votre serveur redémarre. Pour retourner sur l’interface d'administration vous devez attendre que votre serveur soit démarré. Vous pouvez vérifier cela en actualisant cette page (F5).",
+    "tools_rebooting": "Votre serveur redémarre. Pour retourner sur l’interface d'administration vous devez attendre que votre serveur soit démarré. Vous pouvez le vérifier en actualisant cette page (F5).",
     "tools_shutdown": "Eteindre votre serveur",
     "tools_shutdown_btn": "Eteindre",
     "tools_shutdown_done": "Arrêt en cours...",
@@ -374,5 +374,13 @@
     "app_info_change_url_disabled_tooltip": "Cette fonctionnalité n’a pas encore été implémentée pour cette application",
     "confirm_app_change_url": "Voulez-vous vraiment changer l’adresse d’accès de cette application ?",
     "path_url": "Chemin",
-    "meltdown": "Vous êtes vulnérable à la faille de sécurité critique <a target=\"_blank\" href=\"https://meltdownattack.com/\">meltdown</a>. Pour résoudre le problème, vous devez <a href=\"#/update\">mettre à jour votre système</a> puis <a href=\"#/tools/reboot\">le redémarrer</a> pour charger le nouveau noyau linux."
+    "meltdown": "Vous êtes vulnérable à la faille de sécurité critique <a target=\"_blank\" href=\"https://meltdownattack.com/\">meltdown</a>. Pour résoudre le problème, vous devez <a href=\"#/update\">mettre à jour votre système</a> puis <a href=\"#/tools/reboot\">le redémarrer</a> pour charger le nouveau noyau linux.",
+    "confirm_migrations_skip": "Sauter les migrations n’est pas recommandé. Voulez-vous vraiment le faire ?",
+    "migrations": "Migrations",
+    "migrations_pending": "Migrations en attente",
+    "migrations_done": "Migrations précédentes",
+    "migrations_no_pending": "Aucune migration en attente",
+    "migrations_no_done": "Aucune migration précédente",
+    "run": "Lancer",
+    "skip": "Sauter"
 }

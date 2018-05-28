@@ -1,8 +1,36 @@
+yunohost-admin (3.0.0~beta1.1) testing; urgency=low
+
+  Merging with jessie's branches
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Mon, 28 May 2018 02:43:00 +0000
+
 yunohost-admin (3.0.0~beta1) testing; urgency=low
 
   Beta release for Stretch
 
  -- Alexandre Aubin <alex.aubin@mailoo.org>  Thu, 03 May 2018 03:04:45 +0000
+
+yunohost-admin (2.7.13.1) testing; urgency=low
+
+  * [i18n] Improve French, Portuguese, Arabic, Occitan translations
+  * [enh] Improve services page following changes in the core (#191)
+
+  Contributors : Bram, ButterflyOfFire, Jibec, itxtoledo, Quent-in
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Mon, 28 May 2018 02:43:00 +0000
+
+yunohost-admin (2.7.13) testing; urgency=low
+
+  * [enh] Add interface for migrations (#186)
+  * [i18n] Improve French translation
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Sun, 06 May 2018 23:16:15 +0000
+
+yunohost-admin (2.7.12) stable; urgency=low
+
+  * Bumping version number for stable release
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Sun, 06 May 2018 16:47:05 +0000
 
 yunohost-admin (2.7.11) testing; urgency=low
 

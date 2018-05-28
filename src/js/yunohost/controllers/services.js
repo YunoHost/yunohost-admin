@@ -24,6 +24,17 @@
                 v.loaded = y18n.t(v.loaded);
                 data2.services.push(v);
             });
+
+            data2.services.sort(function (a, b) {
+                if (a.name > b.name) {
+                    return 1;
+                }
+                else if (a.name < b.name) {
+                    return -1;
+                }
+                return 0;
+            });
+
             c.view('service/service_list', data2);
         });
     });

@@ -71,7 +71,7 @@
     "confirm_delete": "هل تود حقًا حذف %s ؟",
     "confirm_firewall_open": "متأكد مِن أنك تود فتح منفذ %s ؟ (بروتوكول : %s، إتصال : %s)",
     "confirm_firewall_close": "متأكد مِن أنك تود إغلاق منفذ %s ؟ (بروتوكول : %s، إتصال : %s)",
-    "confirm_install_custom_app": "",
+    "confirm_install_custom_app": "إنّ خيار تنصيب تطبيقات خارجية قد يؤثر على أمان نظامك. استخدم ذلك بكل مسؤولية و عِلم بالمخاطر.",
     "confirm_install_domain_root": "لن يكون بإمكانك تنصيب أي برنامج آخر على %s. هل تريد المواصلة ؟",
     "confirm_postinstall": "إنك بصدد إطلاق خطوة ما بعد التنصيب على النطاق %s. سوف تستغرق العملية بضع دقائق، لذلك *يُرجى عدم إيقاف العملية*.",
     "confirm_restore": "متأكد مِن أنك تريد استعادة %s ؟",
@@ -366,7 +366,14 @@
     "appslists_unknown_list": "قائمة البرمجيات مجهولة : %s",
     "appslists_community_list": "قائمة برمجيات المجتمع",
     "name": "الإسم",
-    "install_community_appslists_info": "",
+    "install_community_appslists_info": "تتيح لك قائمة التطبيقات المجتمعية إمكانية تثبيت التطبيقات المُصانة.<br /> اطلع على القائمة كاملة على <a href='https://yunohost.org/apps_in_progress'>yunohost.org/apps_in_progress</a>.",
     "install_community_appslists_warning": "",
-    "install_custom_app_appslists_info": "بإمكانكم استخدام قوائم تطبيقات بديلة لتنصيب تطبيقات أخرى يدعمها مجتمع واي يونوهوست YunoHost."
+    "install_custom_app_appslists_info": "بإمكانكم استخدام قوائم تطبيقات بديلة لتنصيب تطبيقات أخرى يدعمها مجتمع واي يونوهوست YunoHost.",
+    "migrations": "الارتحال",
+    "migrations_pending": "الترحيلات المعلقة",
+    "migrations_done": "الترحيلات السابقة",
+    "migrations_no_pending": "لا توجد هناك أية ترحيلات معلقة",
+    "migrations_no_done": "لا توجد هناك أية ترحيلات في السابق",
+    "run": "شَغِّل",
+    "skip": "تخطي"
 }
