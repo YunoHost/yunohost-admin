@@ -7,22 +7,22 @@
 <div class="separator"></div>
 
 {{#if data}}
-{{#data}}
 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+{{#data}}
     <div class="panel panel-default">
-        <div class="panel-heading" role="tab" id="heading-uo">
+        <div class="panel-heading" role="tab" id="heading-{{key}}">
             <h2 class="panel-title">
-                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-uo" aria-expanded="true" aria-controls="collapse-uo">
-                    <span class="fa-fw fa-info-circle"></span>{{t 'unit_operation'}}
+                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-{{key}}" aria-expanded="true" aria-controls="collapse-{{key}}">
+                    <span class="fa-fw fa-info-circle"></span>{{t key}}
                 </a>
             </h2>
         </div>
-        <div id="collapse-uo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-uo">
-            <div class="list-group">{{#operations}}
-                <a href="#/tools/logs/{{ name }}" class="list-group-item"><small>{{ started_at }}</small> {{ name }}</a>
-            {{/operations}}</div>
+        <div id="collapse-{{key}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-{{key}}">
+            <div class="list-group">{{#value}}
+                <a href="#/tools/logs/{{ name }}" class="list-group-item"><small>{{ started_at }}</small> {{ description }}</a>
+            {{/value}}</div>
             </div>
     </div>
-</div>
 {{/data}}
+</div>
 {{/if}}

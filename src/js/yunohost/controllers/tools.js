@@ -98,8 +98,18 @@
     // Display journals list
     app.get('#/tools/logs', function (c) {
         c.api("/logs", function(categories) {
+            data = [];
+            for (var category in categories) {
+                if (categories.hasOwnProperty(category)) {
+                    data.push({
+                        key:category,
+                        value:categories[category]
+                    });
+                }
+            }
+
             c.view('tools/tools_logs', {
-                "data": categories,
+                "data": data,
                 formatDate: function() {
                     return this.started_at.getDate();
                 }
