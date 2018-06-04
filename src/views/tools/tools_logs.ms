@@ -17,7 +17,7 @@
                 </a>
             </h2>
         </div>
-        <div id="collapse-{{key}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-{{key}}">
+        <div id="collapse-{{key}}" class="panel-collapse{{#if @first}}{{else}} collapse{{/if}}" role="tabpanel" aria-labelledby="heading-{{key}}">
             <div class="list-group">
             {{#if value}}
             {{#value}}
