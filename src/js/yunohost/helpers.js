@@ -395,7 +395,7 @@
                 $.ajax({
                     type: "POST",
                     url: 'https://paste.yunohost.org/documents',
-                    data: preElement[0].innerHTML,
+                    data: preElement.text(),
                 })
                 .success(function(data, textStatus, jqXHR) {
                     window.open('https://paste.yunohost.org/' + data.key, '_blank');
