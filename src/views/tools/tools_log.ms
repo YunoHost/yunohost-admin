@@ -7,7 +7,7 @@
 
 <div class="actions-group">
     <a data-paste-content="#description, #metadata, #env, #log" class="btn btn-success">
-        <span class="fa-cloud-upload"></span> {{t 'upload'}}
+        <span class="fa-cloud-upload"></span> {{t 'logs_share_with_yunopaste'}}
     </a>
 </div>
 

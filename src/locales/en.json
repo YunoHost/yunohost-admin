@@ -323,5 +323,6 @@
     "logs_started_at": "Start",
     "logs_path": "Path",
     "logs_context": "Context",
+    "logs_share_with_yunopaste": "Share with YunoPaste",
     "logs_more": "Display more lines"
 }
