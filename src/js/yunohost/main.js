@@ -38,7 +38,16 @@
           var result = y18n.t(y18n_key, Array.prototype.slice.call(arguments, 1));
           return new Handlebars.SafeString(result);
         });
-
+        
+        Handlebars.registerHelper('concat', function() {
+            var outStr = '';
+            for(var arg in arguments){
+                if(typeof arguments[arg]!='object'){
+                    outStr += arguments[arg];
+                }
+            }
+            return outStr;
+        });
 
         // Look for supported type of storage to use
         /**

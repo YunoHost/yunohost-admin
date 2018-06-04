@@ -307,5 +307,14 @@
     "diagnosis" : "Diagnosis",
     "diagnosis_with_private" : "Diagnosis with private data",
     "diagnosis_view_private" : "Show diagnosis with private data",
-    "diagnosis_hide_private" : "Show diagnosis without private data"
+    "diagnosis_hide_private" : "Show diagnosis without private data",
+    "logs": "Logs",
+    "logs_operation": "Operations made on system with YunoHost",
+    "logs_history": "History of command run on system",
+    "logs_package": "Debian packages management history",
+    "logs_system": "Kernel logs and others low level events",
+    "logs_access": "List of access and bans",
+    "logs_service": "Services logs",
+    "logs_app": "Apps logs",
+    "logs_no_logs_registered": "No log registered for this category"
 }

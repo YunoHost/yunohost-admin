@@ -99,10 +99,20 @@
     app.get('#/tools/logs', function (c) {
         c.api("/logs", function(categories) {
             data = [];
+            icons = {
+                'operation': 'wrench',
+                'history': 'history',
+                'package': 'puzzle-piece',
+                'system': 'cogs',
+                'access': 'ban',
+                'service': 'cog',
+                'app': 'cubes'
+            }
             for (var category in categories) {
                 if (categories.hasOwnProperty(category)) {
                     data.push({
                         key:category,
+                        icon:(category in icons)?icons[category]:'info-circle',
                         value:categories[category]
                     });
                 }

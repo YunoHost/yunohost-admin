@@ -13,15 +13,21 @@
         <div class="panel-heading" role="tab" id="heading-{{key}}">
             <h2 class="panel-title">
                 <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-{{key}}" aria-expanded="true" aria-controls="collapse-{{key}}">
-                    <span class="fa-fw fa-info-circle"></span>{{t key}}
+                    <span class="fa-fw fa-{{icon}}"></span>{{t (concat 'logs_' key)}}
                 </a>
             </h2>
         </div>
         <div id="collapse-{{key}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-{{key}}">
-            <div class="list-group">{{#value}}
+            <div class="list-group">
+            {{#if value}}
+            {{#value}}
                 <a href="#/tools/logs/{{ name }}" class="list-group-item"><small>{{ started_at }}</small> {{ description }}</a>
-            {{/value}}</div>
+            {{/value}}
+            {{else}}
+                <div class="list-group"><span class="list-group-item">{{t 'logs_no_logs_registered'}}</span></div>
+            {{/if}}
             </div>
+        </div>
     </div>
 {{/data}}
 </div>
