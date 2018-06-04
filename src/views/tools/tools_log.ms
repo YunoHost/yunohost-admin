@@ -21,9 +21,10 @@
     </div>
     <div class="panel-body">
         <dl class="dl-horizontal" id="metadata">
-<dt>{{t 'path'}}</dt> <dd>{{ log.log_path }}</dd>
-{{#if log.metadata.started_at}}<dt>{{t 'started_at'}}</dt> <dd>{{formatTime log.metadata.started_at day="numeric" month="long" year="numeric" hour="numeric" minute="numeric"}}</dd>
-{{/if}}{{#if log.metadata.ended_at}}<dt>{{t 'ended_at'}}</dt> <dd>{{formatTime log.metadata.ended_at day="numeric" month="long" year="numeric" hour="numeric" minute="numeric"}}</dd>{{/if}}
+<dt>{{t 'logs_path'}}</dt> <dd>{{ log.log_path }}</dd>
+{{#if log.metadata.started_at}}<dt>{{t 'logs_started_at'}}</dt> <dd>{{formatTime log.metadata.started_at day="numeric" month="long" year="numeric" hour="numeric" minute="numeric"}}</dd>
+{{/if}}{{#if log.metadata.ended_at}}<dt>{{t 'logs_ended_at'}}</dt> <dd>{{formatTime log.metadata.ended_at day="numeric" month="long" year="numeric" hour="numeric" minute="numeric"}}</dd>{{/if}}
+{{#if log.metadata.error}}<dt>{{t 'logs_error'}}</dt> <dd>{{t 'logs_end_with_error'}} {{log.metadata.error}}</dd>{{/if}}
         </dl>
     </div>
 </div>
@@ -32,7 +33,7 @@
     <div class="panel-heading" role="tab" id="heading-context">
         <h2 class="panel-title">
             <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-context" aria-expanded="true" aria-controls="collapse-context">
-                <span class="fa-fw fa-bug"></span>{{t 'Context'}}
+                <span class="fa-fw fa-bug"></span>{{t 'logs_context'}}
             </a>
         </h2>
     </div>
@@ -53,10 +54,7 @@
         <h2 class="panel-title"><span class="fa-fw fa-file-text"></span> {{#if log.metadata}}{{t 'logs'}}{{else}}{{log.log_path}}{{/if}}</h2>
     </div>
     <div class="panel-body overflow-auto">
-        {{#if log.metadata.error}}
-            <div class="alert alert-warning" role="alert"><span class="fas fa-exclamation-triangle"></span> <strong>{{t 'Error'}}</strong>: {{log.metadata.error}}</div>
-        {{/if}}
-{{#if next_number}}<a href="#/tools/logs/{{#if log.name}}{{ log.name }}{{else}}{{ log.log_path }}{{/if}}?number={{ next_number }}">MORE</a>{{/if}}
+{{#if next_number}}<a href="#/tools/logs/{{#if log.name}}{{ log.name }}{{else}}{{ log.log_path }}{{/if}}?number={{ next_number }}" class="btn btn-default full-width"><span class="fa-fw fa-plus"></span> {{t 'logs_more'}}</a>{{/if}}
         <!-- no indent because pre is sensible to whitespaces -->
 <pre id="log" class="full-width">{{#log.logs}}{{.}}
 {{/log.logs}}</pre>

@@ -316,5 +316,12 @@
     "logs_access": "List of access and bans",
     "logs_service": "Services logs",
     "logs_app": "Apps logs",
-    "logs_no_logs_registered": "No log registered for this category"
+    "logs_no_logs_registered": "No log registered for this category",
+    "logs_end_with_error": "This log finished with the error :",
+    "logs_error": "Error",
+    "logs_ended_at": "End",
+    "logs_started_at": "Start",
+    "logs_path": "Path",
+    "logs_context": "Context",
+    "logs_more": "Display more lines"
 }
