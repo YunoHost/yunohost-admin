@@ -9,6 +9,7 @@
 {{#if data}}
 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 {{#data}}
+{{#if value}}
     <div class="panel panel-default">
         <div class="panel-heading" role="tab" id="heading-{{key}}">
             <h2 class="panel-title">
@@ -19,16 +20,13 @@
         </div>
         <div id="collapse-{{key}}" class="panel-collapse{{#if @first}}{{else}} collapse{{/if}}" role="tabpanel" aria-labelledby="heading-{{key}}">
             <div class="list-group">
-            {{#if value}}
             {{#value}}
                 <a href="#/tools/logs/{{ name }}" class="list-group-item"><small>{{ started_at }}</small> {{ description }}</a>
             {{/value}}
-            {{else}}
-                <div class="list-group"><span class="list-group-item">{{t 'logs_no_logs_registered'}}</span></div>
-            {{/if}}
             </div>
         </div>
     </div>
+{{/if}}
 {{/data}}
 </div>
 {{/if}}
