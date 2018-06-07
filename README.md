@@ -6,7 +6,7 @@ This client is a part of the YunoHost projet, and can not be installed directly.
 
 ## Bug tracker
 
-Please report issues on the [YunoHost Bugtracker](https://dev.yunohost.org/projects/yunohost/issues), no registration needed.
+Please report issues on the [YunoHost Bugtracker](https://github.com/YunoHost/issues).
 
 ## Translate
 
