@@ -48,9 +48,9 @@
             data2.service.name = c.params['service'];
             // Handlebars want booleans
             data2.service.is_loaded = (data.loaded=='enabled') ? true : false;
-            data2.service.is_running = (data.status=='running') ? true : false;
+            data2.service.is_running = (data.active=='active') ? true : false;
             // Translate status and loaded state
-            data2.service.status = y18n.t(data.status);
+            data2.service.active = y18n.t(data.active);
             data2.service.loaded = y18n.t(data.loaded);
             store.clear('slide');
             c.view('service/service_info', data2);
