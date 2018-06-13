@@ -18,7 +18,7 @@
                 v.name = k;
                 // Handlebars want booleans
                 v.is_loaded = (v.loaded=='enabled') ? true : false;
-                v.is_running = (v.status=='running') ? true : false;
+                v.is_running = (v.active=='active') ? true : false;
                 // Translate status and loaded state
                 v.status = y18n.t(v.status);
                 v.loaded = y18n.t(v.loaded);
