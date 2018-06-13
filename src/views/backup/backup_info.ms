@@ -33,9 +33,9 @@
     </div>
     {{#if items}}
     <div class="list-group">
-        {{#each hooks}}
+        {{#each system_parts}}
         <div class="list-group-item">
-            <input type="checkbox" id="{{@key}}" name="hooks" value="{{value}}" checked class="nice-checkbox">
+            <input type="checkbox" id="{{@key}}" name="system_parts" value="{{value}}" checked class="nice-checkbox">
             <label for="{{@key}}" class="pull-right"><span class="sr-only">{{t 'check'}}</span></label>
             <h2 class="list-group-item-heading">{{name}}</h2>
             <p class="list-group-item-text">{{description}}</p>
