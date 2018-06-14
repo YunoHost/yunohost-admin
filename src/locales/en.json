@@ -48,7 +48,6 @@
     "backup_content": "Backup content",
     "backup_create": "Create a backup",
     "backup_encryption_warning": "Don't forget this password, you'll need it if you want restore the archive",
-    "backup_experimental_warning": "Be aware that the backup feature is still experimental, and may not be fully reliable.",
     "backup_new": "New backup",
     "backup_optional_encryption": "Optional encryption",
     "backup_optional_password": "Optional password",
