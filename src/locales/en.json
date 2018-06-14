@@ -1,5 +1,6 @@
 {
     "action": "Action",
+    "active": "Active",
     "add": "Add",
     "remove": "Remove",
     "administration_password": "Administration password",
