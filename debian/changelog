@@ -1,3 +1,9 @@
+yunohost-admin (3.0.0~beta1.3) testing; urgency=low
+
+  Merging with jessie's branches
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Sat, 16 Jun 2018 00:36:00 +0000
+
 yunohost-admin (3.0.0~beta1.2) testing; urgency=low
 
   Merging with jessie's branches
