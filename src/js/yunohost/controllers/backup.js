@@ -62,7 +62,7 @@
 
 
     app.post('#/backup/:storage', function (c) {
-        var params = c.ungroupHooks(c.params['hooks'],c.params['apps']);
+        var params = c.ungroupHooks(c.params['system_parts'],c.params['apps']);
         c.api('/backup', function() {
             store.clear('slide');
             c.redirect('#/backup/'+ c.params['storage']);
@@ -75,7 +75,7 @@
             y18n.t('backup'),
             y18n.t('confirm_restore', [c.params['archive']]),
             $.proxy(function(c){
-                var params = c.ungroupHooks(c.params['hooks'],c.params['apps']);
+                var params = c.ungroupHooks(c.params['system_parts'],c.params['apps']);
                 params['force'] = '';
                 c.api('/backup/restore/'+c.params['archive'], function(data) {
                     store.clear('slide');
@@ -134,7 +134,7 @@
             };
             data.other_storages = [];
             data.name = c.params['archive'];
-            data.hooks = c.groupHooks(Object.keys(data['system']));
+            data.system_parts = c.groupHooks(Object.keys(data['system']));
             data.items = (data['hooks']!={} || data['apps']!=[]);
             c.view('backup/backup_info', data);
         });

@@ -13,7 +13,7 @@
         <div class="list-group-item-text">
             {{t 'service_status'}}
             <span class="text-{{#is_running}}success{{/is_running}}{{^is_running}}danger{{/is_running}}">
-            {{status}}
+            {{active}}
             </span>
             <br>
             {{t 'started_at'}}
