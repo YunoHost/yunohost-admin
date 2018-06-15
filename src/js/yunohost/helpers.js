@@ -359,32 +359,31 @@
             return data;
         },
         
-        ungroupHooks: function(hooks,apps) {
+        ungroupHooks: function(system_parts,apps) {
             var data = {};
             data['apps'] = apps || [];
-            data['hooks'] = hooks || [];
+            data['system'] = system_parts || [];
             
-            if (data['hooks'].constructor !== Array) {
-                data['hooks'] = [data['hooks']];
+            if (data['system'].constructor !== Array) {
+                data['system'] = [data['system']];
             }
             if (data['apps'].constructor !== Array) {
                 data['apps'] = [data['apps']];
             }
 
-            if (data['hooks'].length == 0) {
-                data['ignore_hooks'] = '';
-            }
-            if (data['apps'].length == 0) {
-                data['ignore_apps'] = '';
-            }
-
             // Some hook value contains multiple hooks separated by commas
             var split_hooks = [];
-            $.each(data['hooks'], function(i, hook) {
+            $.each(data['system'], function(i, hook) {
                 split_hooks = split_hooks.concat(hook.split(','));
             });
-            data['hooks'] = split_hooks;
+            data['system'] = split_hooks;
 
+            if (data['system'].length == 0) {
+                delete data['system'];
+	    }
+            if (data['apps'].length == 0) {
+                delete data['apps'];
+	    }
             return data;
         },
 
