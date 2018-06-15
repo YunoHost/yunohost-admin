@@ -1,3 +1,13 @@
+yunohost-admin (2.7.13.2) testing; urgency=low
+
+  * [fix] Display active/inactive in service page instead of running/exited/dead
+  * [fix] Remove "experimental" warning for the backup
+  * [fix] Fix a bug in backup restore
+
+  Contributors : Bram and Aleks
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Fri, 15 Jun 2018 20:15:00 +0000
+
 yunohost-admin (2.7.13.1) testing; urgency=low
 
   * [i18n] Improve French, Portuguese, Arabic, Occitan translations
