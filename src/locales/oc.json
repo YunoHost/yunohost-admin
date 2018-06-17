@@ -310,7 +310,7 @@
     "users_list": "Lista dels utilizaires",
     "users_new": "Nòu utilizaire",
     "domain_dns_conf_is_just_a_recommendation": "Aquesta pagina mòstra la configuracion *recomandada*. Configura *pas* lo DNS per vos. Es vòstra responsabilitat la configuracion de la zòna DNS en çò vòstre registrar DNS amb aquesta recomandacion.",
-    "internal_exception": "<strong>YunoHost a rescontrat una error intèrna :/</strong><br><em>O planhèm.<br>Deuriatz cercar d’ajuda al <a href=\"https://forum.yunohost.org/\">forum</a> o al <a href=\"https://chat.yunohost.org/\">salon</a> per resòlver lo problèma, o raportar lo bug sus <a href=\"https://dev.yunohost.org/projects/yunohost/issues\">l’aisina de seguiment</a>.</em><br>Las informacions seguentas pòdon èsser utilas a vòstres interlocutors que vos ajuda :<h3>Accion</h3><pre>%s %s</pre><h3>Traça</h3><pre>%s</pre>",
+    "internal_exception": "<strong>YunoHost a rescontrat una error intèrna :/</strong><br><em>O planhèm.<br>Deuriatz cercar d’ajuda al <a href=\"https://forum.yunohost.org/\">forum</a> o al <a href=\"https://chat.yunohost.org/\">salon</a> per resòlver lo problèma, o senhalar lo bug sus <a href=\"https://yunohost.org/projects/YunoHost/issues\">l’aisina de seguiment</a>.</em><br>Las informacions seguentas pòdon èsser utilas a vòstres interlocutors que vos ajudan :<h3>Accion</h3><pre>%s%s</pre><h3>Traça</h3><pre>%s</pre>",
     "mount_point": "Ponch de montatge",
     "postinstall_domain": "Aquò es lo primièr nom de domeni ligat al servidor YunoHost, mas tanben lo que servirà al portanèl d’identificacion. Serà doncas visible per totes los utilizaires, causissètz-lo amb suènh.",
     "postinstall_intro_2": "Doas etapas mai son necessàrias per activar lo servidor.",
