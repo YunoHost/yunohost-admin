@@ -1,3 +1,10 @@
+yunohost-admin (2.7.14) stable; urgency=low
+
+  * Improved Occitan, French, Portuguese, Arabic translations
+  * Release as stable
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Sun, 17 Jun 2018 01:33:02 +0000
+
 yunohost-admin (2.7.13.2) testing; urgency=low
 
   * [fix] Display active/inactive in service page instead of running/exited/dead
