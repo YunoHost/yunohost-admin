@@ -375,5 +375,8 @@
     "migrations_no_pending": "لا توجد هناك أية ترحيلات معلقة",
     "migrations_no_done": "لا توجد هناك أية ترحيلات في السابق",
     "run": "شَغِّل",
-    "skip": "تخطي"
+    "skip": "تخطي",
+    "confirm_migrations_skip": "إنّ تخطي التهجير غير مستحسَن. متأكد مِن أنك تريد ذلك ؟",
+    "service_description": "الوصف :",
+    "started_at": "تم تشغيله على :"
 }

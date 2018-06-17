@@ -11,7 +11,7 @@
     "app_access_removeall_btn": "Remover todos os acessos",
     "app_access_removeall_desc": "Nenhum utilizador terá acesso a %s.",
     "app_access_title": "%s acesso",
-    "app_info_access_desc": "Manage user access. Allowed users: %s",
+    "app_info_access_desc": "Gerir acesso de usuários. Usuários permitidos: %s",
     "app_info_default_desc": "Redirecionar domínio principal para esta aplicação (%s).",
     "app_info_uninstall_desc": "Remover esta aplicação.",
     "app_list": "Lista de aplicações",
@@ -105,7 +105,7 @@
     "logged_out": "Sessão terminada",
     "login": "Iniciar sessão",
     "logout": "Terminar sessão",
-    "manage_apps": "Manage apps",
+    "manage_apps": "Gerenciar aplicações",
     "manage_domains": "Gerir domínios",
     "manage_users": "Gerir utilizadores",
     "memory": "Memória",
@@ -228,5 +228,6 @@
     "app_change_label": "Mudar label",
     "app_change_url": "Mudar URL",
     "app_debug_no_logs": "Logs da aplicação não estão disponíveis",
-    "app_debug_tab": "Mostrar debug"
+    "app_debug_tab": "Mostrar debug",
+    "ok": "Confirmar"
 }
