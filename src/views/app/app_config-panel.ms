@@ -25,7 +25,7 @@
         </div>
         <div id="collapse-{{ @index }}" class="panel-collapse {{#if (neq @index 0)}}collapse{{/if}}" role="tabpanel" aria-labelledby="heading-{{ @index }}">
             <div class="panel-body">
-            <form class="form-horizontal">
+            <form class="form-horizontal" action="#/apps/{{../../app_id}}/config" method="POST">
                 {{#sections}}
                 <div class="panel panel-default">
                     <div class="panel-heading"><h3 class="panel-title">{{name}} <small>{{help}}</small></h3></div>
@@ -36,7 +36,7 @@
                             <label for="{{id}}" class="col-sm-2 control-label">{{name}}</label>
                             <div class="col-sm-10">
                             {{#if (in type "number" "text" "password" "color" "date" "datetime-local" "email" "month number" "range" "search" "tel" "time" "url" "week")}}
-                                <input type="number" class="form-control" id="{{id}}" placeholder="{{placeholder}}">
+                                <input type="number" class="form-control" id="{{id}}" name="{{id}}" placeholder="{{placeholder}}">
                                 <span class="help-block">{{ help }}</span>
                             {{else if (eq type "bool")}}
                             <input type="radio" name="{{id}}" value="true" {{#if value}}checked{{/if}}> yes

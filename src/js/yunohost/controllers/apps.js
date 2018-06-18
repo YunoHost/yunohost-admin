@@ -167,6 +167,27 @@
         });
     });
 
+    app.post('#/apps/:app/config', function(c) {
+        // taken from app install
+        $.each(c.params, function(k, v) {
+            if (typeof(v) === 'object' && Array.isArray(v)) {
+                // And return only first value
+                c.params[k] = v[0];
+            }
+        });
+
+        var app_id = c.params['app'];
+        delete c.params['app'];
+
+        var params = {
+            'args': c.serialize(c.params.toHash())
+        }
+
+        c.api('/apps/'+app_id+'/config', function() { // http://api.yunohost.org/#!/app/app_install_post_2
+            c.redirect('#/apps/'+app_id+'/config-panel');
+        }, 'POST', params);
+    })
+
     // Special case for custom app installation.
     app.get('#/apps/install/custom', function (c) {
         // If we try to GET /apps/install/custom, it means that installation fail.
