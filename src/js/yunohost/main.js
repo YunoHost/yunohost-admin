@@ -66,6 +66,10 @@
           return a === b;
         });
 
+        Handlebars.registerHelper('neq', function(a, b) {
+          return a !== b;
+        });
+
         Handlebars.registerHelper('in', function(a) {
           // skip first one
           for (var i = 1; i < arguments.length; ++i) {
