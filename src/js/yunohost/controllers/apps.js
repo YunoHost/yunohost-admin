@@ -160,6 +160,13 @@
         });
     });
 
+    // Get app config panel
+    app.get('#/apps/:app/config-panel', function (c) {
+        c.api('/apps/'+c.params['app']+'/config-panel', function(data) {
+            c.view('app/app_config-panel', data);
+        });
+    });
+
     // Special case for custom app installation.
     app.get('#/apps/install/custom', function (c) {
         // If we try to GET /apps/install/custom, it means that installation fail.
