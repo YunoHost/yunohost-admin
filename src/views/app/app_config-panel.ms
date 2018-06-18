@@ -1,8 +1,8 @@
 <div class="btn-breadcrumb">
     <a href="#/" ><i class="fa-home"></i><span class="sr-only">{{t 'home'}}</span></a>
     <a href="#/apps">{{t 'applications'}}</a>
-    <a href="#/apps/{{name}}">{{label}}</a>
-    <a href="#/apps/{{name}}/config-panel">{{t 'config-panel'}}</a>
+    <a href="#/apps/{{app_id}}">{{app_name}}</a>
+    <a href="#/apps/{{app_id}}/config-panel">{{t 'config-panel'}}</a>
 </div>
 
 <div class="separator"></div>
@@ -11,7 +11,7 @@
 
 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 {{#config_panel}}
-<h2>{{name}}</h2>
+<h2>{{../app_name}} configuration panel</h2>
 <hr>
 {{#panel}}
     <div class="panel panel-default">
