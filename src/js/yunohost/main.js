@@ -49,7 +49,7 @@
               + options.fn(this)
               + '</span>');
         });
-        
+
         // Load tooltips on the page; needed if using tooltips
         Handlebars.registerHelper('load_tooltips', function() {
           return new Handlebars.SafeString(
