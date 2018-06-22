@@ -7,6 +7,9 @@
 
 <div class="separator"></div>
 
+<div class="alert alert-warning" role="alert">{{t 'experimental_warning'}}</div>
+
+
 {{#if config_panel}}
 
 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
