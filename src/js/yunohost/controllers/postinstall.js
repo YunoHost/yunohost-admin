@@ -28,7 +28,7 @@
                 c.params['ddomains'] = data.map(function(dom){return '.'+dom;});
             })
             .fail(function() {
-                c.params['ddomains'] = ['.nohost.me', '.noho.st'];
+                c.params['ddomains'] = ['.nohost.me', '.noho.st', '.ynh.fr'];
             })
             .always(function() {
                 c.view('postinstall/postinstall_2', c.params, function() {
