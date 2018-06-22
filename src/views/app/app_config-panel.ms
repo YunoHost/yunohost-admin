@@ -23,7 +23,7 @@
                 </a>
             </h2>
         </div>
-        <div id="collapse-{{ @index }}" class="panel-collapse {{#if (neq @index 0)}}collapse{{/if}}" role="tabpanel" aria-labelledby="heading-{{ @index }}">
+        <div id="collapse-{{ @index }}" class="panel-collapse collapse {{#if (eq @index 0)}}in{{/if}}" role="tabpanel" aria-labelledby="heading-{{ @index }}">
             <div class="panel-body">
             <form class="form-horizontal" action="#/apps/{{../../app_id}}/config" method="POST">
                 {{#sections}}
