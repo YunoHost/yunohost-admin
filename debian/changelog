@@ -1,3 +1,283 @@
+yunohost-admin (3.0.0) stable; urgency=low
+
+  Merging with jessie's branches
+  Releasing as stable
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Fri, 17 Jun 2018 03:38:00 +0000
+
+yunohost-admin (3.0.0~beta1.3) testing; urgency=low
+
+  Merging with jessie's branches
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Sat, 16 Jun 2018 00:36:00 +0000
+
+yunohost-admin (3.0.0~beta1.2) testing; urgency=low
+
+  Merging with jessie's branches
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Fri, 15 Jun 2018 23:23:00 +0000
+
+yunohost-admin (3.0.0~beta1.1) testing; urgency=low
+
+  Merging with jessie's branches
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Mon, 28 May 2018 02:43:00 +0000
+
+yunohost-admin (3.0.0~beta1) testing; urgency=low
+
+  Beta release for Stretch
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Thu, 03 May 2018 03:04:45 +0000
+
+yunohost-admin (2.7.14) stable; urgency=low
+
+  * Improved Occitan, French, Portuguese, Arabic translations
+  * Release as stable
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Sun, 17 Jun 2018 01:33:02 +0000
+
+yunohost-admin (2.7.13.2) testing; urgency=low
+
+  * [fix] Display active/inactive in service page instead of running/exited/dead
+  * [fix] Remove "experimental" warning for the backup
+  * [fix] Fix a bug in backup restore
+
+  Contributors : Bram and Aleks
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Fri, 15 Jun 2018 20:15:00 +0000
+
+yunohost-admin (2.7.13.1) testing; urgency=low
+
+  * [i18n] Improve French, Portuguese, Arabic, Occitan translations
+  * [enh] Improve services page following changes in the core (#191)
+
+  Contributors : Bram, ButterflyOfFire, Jibec, itxtoledo, Quent-in
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Mon, 28 May 2018 02:43:00 +0000
+
+yunohost-admin (2.7.13) testing; urgency=low
+
+  * [enh] Add interface for migrations (#186)
+  * [i18n] Improve French translation
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Sun, 06 May 2018 23:16:15 +0000
+
+yunohost-admin (2.7.12) stable; urgency=low
+
+  * Bumping version number for stable release
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Sun, 06 May 2018 16:47:05 +0000
+
+yunohost-admin (2.7.11) testing; urgency=low
+
+  * [i18n] Updated translations for French, Arabic, Dutch, Occitan and Spanish
+  * [fix] Version datastructure has changed
+
+  Thanks to all contributors (Jibec, Bram, Moul, ButterflyOfFire, syl, Matthieu, Quenti, bjarkan)  <3 !
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Tue, 01 May 2018 23:20:54 +0000
+
+yunohost-admin (2.7.7) stable; urgency=low
+
+  * [fix] version data structure has changed
+  * Releasing as stable
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Thu, 18 Jan 2018 17:48:20 -0500
+
+yunohost-admin (2.7.6) testing; urgency=low
+
+  Major changes:
+
+  * [enh] Diagnose and display warning and instruction to fix Meltdown vulnerability
+  * [enh] Add app change URL feature
+  * [enh] Add app change label feature
+
+  Misc fixes/improvements:
+
+  * [enh] display stable/testing/unstable in footer
+  * [i18n] Improve French translation
+
+  Thanks to all contributors (JimboeJoe, Bram, Jibec, ewilly) ! <3
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Tue, 16 Jan 2018 17:45:08 -0500
+
+yunohost-admin (2.7.5) stable; urgency=low
+
+  (Bumping version number for stable release)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Sat, 02 Dec 2017 12:34:45 -0500
+
+yunohost-admin (2.7.4) testing; urgency=low
+
+  * [i18n] Improve French. German translations
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Tue, 28 Nov 2017 18:58:04 -0500
+
+yunohost-admin (2.7.3) testing; urgency=low
+
+  * [i18n] Improve french translation (#170)
+  * [fix] Add "OK" in translatable strings (#171)
+  * [enh] Be able to upgrade single apps (#172)
+  * [enh] Reboot/shutdown from admin interface (#173)
+
+Thanks to all contributors <3 ! (opi, ljf, ariasuni, Jibec)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Thu, 12 Oct 2017 16:51:24 -0400
+
+yunohost-admin (2.7.2) stable; urgency=low
+
+Releasing as stable
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Tue, 22 Aug 2017 21:36:35 -0400
+
+yunohost-admin (2.7.1) testing; urgency=low
+
+  [ Alexandre Aubin ]
+  * [fix] Tell user that domain dns-conf shows a recommendation only
+
+  [ Translations ]
+  * Added translation using Weblate (Russian) (Evgeniy Ozhiganov)
+  * [i18n] Translated using Weblate (Esperanto) (MCMic)
+
+Thanks to all contributors (MCMic, Aleks, Ozhiganov) <3 !
+
+ -- Laurent Peuch <cortex@worlddomination.be>  Sat, 19 Aug 2017 22:43:15 +0000
+
+yunohost-admin (2.7.0) testing; urgency=low
+
+  * [enh] Variable assignment code cleanup. (#161)
+  * [fix] Friendlier and more meaningful 'error 500' (#166)
+  * [i18n] Started Russian translation (#167)
+
+Thanks to all contributors (opi, Aleks, Ozhiganov) <3 !
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Mon, 07 Aug 2017 12:49:55 -0400
+
+yunohost-admin (2.6.2) stable; urgency=low
+
+## Minor fix
+
+  * 'hooks' key is now 'system' in backup info (#165)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Wed, 26 Jul 2017 12:09:03 -0400
+
+yunohost-admin (2.6.1) stable; urgency=low
+
+Major changes since 2.6.0
+-----------
+
+  * [enh] Manage appslists. #875 (#158)
+  * [i18n] Update Spanish, German and French translations
+
+Thanks to all contributors : opi, moul, Jibec, Juanu and franzos
+
+ -- ljf <ljf+yunohost@grimaud.me>  Wed, 21 Jun 2017 18:26:35 -0400
+
+yunohost-admin (2.6.0) testing; urgency=low
+
+## Major improvements
+
+  * [enh] Display help text from manifest during app installation. (#152)
+  * [fix] Show version only when connected
+
+## Other improvements
+
+  * [fix]ÂGuess API's baseurl is store is empty.
+  * [fix] Avoid empty whitespace for the first line of the logs display (#151)
+  * [fix] Set document root permission during package install. (#156)
+  * [fix] Cleanup app_list_install template (unused code since 66dbcf50).
+  * [fix] Label for custom app url.
+  * [fix] Misc typos, messages, README improvements,
+  * [love] Add missing contributors & translators
+  * Updated translations for German, Spanish, Portuguese, Italian, French
+
+Thanks to all contributors (opi, Bram, thardev) and translators ! <3
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Mon, 24 Apr 2017 13:06:50 -0400
+
+yunohost-admin (2.5.1) stable; urgency=low
+
+  [ ljf ]
+  * [fix] Avoid incomprehensible info about quota (#640)
+
+  [ Juanu ]
+  * [i18n] Translated using Weblate (Spanish)
+
+  [ Laurent Peuch ]
+  * [enh] add empty json file for breton translation
+
+  [ opi ]
+  * [enh][love] Create CONTRIBUTORS.md file. (#140)
+
+  [ Moul ]
+  * [enh] readme: add translation badge status.
+
+  [ Jean-Baptiste Holcroft ]
+  * [i18n] Translated using Weblate (French)
+
+ -- opi <opi@zeropi.net>  Thu, 02 Feb 2017 11:33:16 +0100
+
+yunohost-admin (2.5.0) testing; urgency=low
+
+  dattaz and opi
+  * Add noscript tag
+  * Update alert when javascript is not enable
+
+  Alexandre Aubin
+  * Let's encrypt web interface
+
+  Updated translations: French (jibec), Hindi (Anmol) and Italian (Thomas Bille).
+
+  Thanks to Anmol, dattaz, opi, jibec, Moul and Thomas Bille for your contributions <3
+
+ -- Laurent Peuch <cortex@worlddomination.be>  Mon, 12 Dec 2016 21:32:09 +0100
+
+yunohost-admin (2.4.2) stable; urgency=low
+
+  [ Lars-Magnus Skog ]
+  * simplify install and build
+
+  [ opi ]
+  * [fix] Remove useless 'move' CSS class.
+  * [fix] Prevent empty space before footer.
+  * [fix] No need to resize body on every content update.
+  * [enh] Cleanup app view() helper.
+  * [enh] Add 'watch' npm script.
+  * [enh] Be more explicit on npm command.
+  * [enh] Display YNH version in footer. Need body padding improvments. #316
+  * [enh] Allow key/value choices in manifest arguments.
+
+  [ Jérome Lebleu ]
+  * [fix] Run npm/gulp at build in Debian rules
+
+  [ Laurent Peuch ]
+  * [enh] add empty file for hindie to enable it in weblate
+  * [fix] api correctly returns boolean value now
+
+ -- Laurent Peuch <cortex@worlddomination.be>  Sun, 14 Aug 2016 19:02:25 +0200
+
+yunohost-admin (2.4.1) stable; urgency=low
+
+  [ Juanu ]
+  * [i18n] Translated using Weblate (Spanish)
+
+  [ Vincent ]
+  * [i18n] Translated using Weblate (Italian)
+
+  [ Bugsbane ]
+  * [i18n] Translated using Weblate (English)
+
+  [ Jean-Baptiste ]
+  * [i18n] Translated using Weblate (French)
+
+  [ opi ]
+  * [fix] Icon position.
+  * [fix] Allow checkbox to be unchecked even if default is true.
+  * [fix] Do not escape html attributes on app install form.
+  * [enh] Display manifest example as help text.
+
+ -- opi <opi@zeropi.net>  Fri, 15 Jul 2016 15:27:49 +0200
+
 yunohost-admin (2.4.0.1) stable; urgency=low
 
   [ JÃ©rÃ´me Lebleu ]

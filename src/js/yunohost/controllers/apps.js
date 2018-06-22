@@ -11,7 +11,7 @@
     // List installed apps
     app.get('#/apps', function (c) {
         c.api('/apps?installed', function(data) { // http://api.yunohost.org/#!/app/app_list_get_8
-            apps = data['apps'];
+            var apps = data['apps'];
             c.arraySortById(apps);
             c.view('app/app_list', {apps: apps});
         });
@@ -21,10 +21,10 @@
     app.get('#/apps/install', function (c) {
         c.api('/apps', function(data) { // http://api.yunohost.org/#!/app/app_list_get_8
             c.api('/apps?raw', function(dataraw) { // http://api.yunohost.org/#!/app/app_list_get_8
-                apps = [];
+                var apps = [];
                 $.each(data['apps'], function(k, v) {
                     // Keep only uninstalled apps, or multi-instance apps
-                    if ((!v['installed'] || dataraw[v['id']].manifest.multi_instance == "true") && !v['id'].match(/__[0-9]{1,5}$/)) {
+                    if ((!v['installed'] || dataraw[v['id']].manifest.multi_instance) && !v['id'].match(/__[0-9]{1,5}$/)) {
                         // Check app source
                         dataraw[v['id']]['official'] = (dataraw[v['id']]['repository'] == 'yunohost');
 
@@ -40,12 +40,94 @@
         });
     });
 
+    // List available apps lists
+    app.get('#/apps/lists', function (c) {
+        c.api('/appslists', function(data) {
+            list = [];
+            var has_community_list = false;
+            $.each(data, function(listname, listinfo) {
+                list.push({
+                    'name': listname,
+                    'url': listinfo['url'],
+                    'lastUpdate': listinfo['lastUpdate']
+                });
+
+                // Check for community list
+                if (listname == 'community' || listinfo['url'] == 'https://app.yunohost.org/community.json') {
+                    has_community_list = true;
+                }
+            });
+
+            c.view('app/app_appslists_list', {
+                appslists: list,
+                has_community_list: has_community_list
+            });
+        }, 'GET');
+    });
+
+    // Add a new apps list
+    app.post('#/apps/lists', function (c) {
+        list = {
+            'name' : c.params['appslist_name'],
+            'url' : c.params['appslist_url']
+        }
+
+        c.api('/appslists', function(data) {
+            store.clear('slide');
+            c.redirect('#/apps/lists/' + list.name);
+        }, 'PUT', list);
+    });
+
+    // Show appslist info and operations
+    app.get('#/apps/lists/:appslist', function (c) {
+        c.api('/appslists', function(data) {
+            if (typeof data[c.params['appslist']] !== 'undefined') {
+                list = {
+                    'name' : c.params['appslist'],
+                    'url': data[c.params['appslist']]['url'],
+                    'lastUpdate': data[c.params['appslist']]['lastUpdate'],
+                    'removable' : (c.params['appslist'] !== 'yunohost') ? true : false // Do not remove default apps list
+                };
+                c.view('app/app_appslists_info', {appslist: list});
+            }
+            else {
+                c.flash('warning', y18n.t('appslists_unknown_list', [c.params['appslist']]));
+                store.clear('slide');
+                c.redirect('#/apps/lists');
+            }
+        }, 'GET');
+    });
+
     // Refresh available apps list
-    app.get('#/apps/refresh', function (c) {
-        c.api('/appslists', function(data) { // http://api.yunohost.org/#!/app/app_fetchlist_put_5
+    app.get('#/apps/lists/refresh', function (c) {
+        c.api('/appslists', function(data) {
             // c.redirect(store.get('path'));
             c.redirect('#/apps/install');
         }, 'PUT');
+    });
+
+    // Refresh specific apps list
+    app.get('#/apps/lists/:appslist/refresh', function (c) {
+        c.api('/appslists', function(data) {
+            c.redirect('#/apps/lists');
+        }, 'PUT', {'name' : c.params['appslist']});
+    });
+
+    // Remove apps list
+    app.get('#/apps/lists/:appslist/remove', function (c) {
+        c.confirm(
+            y18n.t('appslist'),
+            y18n.t('appslists_confirm_remove', [c.params['app']]),
+            function() {
+                c.api('/appslists', function() {
+                    c.redirect('#/apps/lists');
+                }, 'DELETE', {'name' : c.params['appslist']});
+            },
+            function() {
+                store.clear('slide');
+                c.redirect('#/apps/lists/'+ c.params['appslist']);
+            }
+        );
     });
 
     // Get app information
@@ -61,7 +143,7 @@
                         ;
 
             // Multi Instance settings
-            data.manifest.multi_instance = (data.manifest.multi_instance == 'true') ? y18n.t('yes') : y18n.t('no');
+            data.manifest.multi_instance = data.manifest.multi_instance ? y18n.t('yes') : y18n.t('no');
 
             // Installation date
             var d = new Date(data.settings.install_time * 1000);
@@ -87,7 +169,7 @@
 
     // Helper function that build app installation form
     app.helper('appInstallForm', function(appId, manifest, params) {
-        data = {
+        var data = {
             id: appId,
             manifest: manifest
         };
@@ -100,17 +182,42 @@
                 data.manifest.arguments.install[k].inputType = 'text';
                 data.manifest.arguments.install[k].required = (typeof v.optional !== 'undefined' && v.optional == "true") ? '' : 'required';
                 data.manifest.arguments.install[k].attributes = "";
+                data.manifest.arguments.install[k].helpText = "";
+                data.manifest.arguments.install[k].helpLink = "";
+
+
+                // Multilingual label
+                data.manifest.arguments.install[k].label = (typeof data.manifest.arguments.install[k].ask[y18n.locale] !== 'undefined') ?
+                                    data.manifest.arguments.install[k].ask[y18n.locale] :
+                                    data.manifest.arguments.install[k].ask['en']
+                                    ;
+
+                // Multilingual help text
+                if (typeof data.manifest.arguments.install[k].help !== 'undefined') {
+                    data.manifest.arguments.install[k].helpText = (typeof data.manifest.arguments.install[k].help[y18n.locale] !== 'undefined') ?
+                                        data.manifest.arguments.install[k].help[y18n.locale] :
+                                        data.manifest.arguments.install[k].help['en']
+                                        ;
+                }
 
                 // Input with choices becomes select list
                 if (typeof data.manifest.arguments.install[k].choices !== 'undefined') {
-                    // Update choices values with  key and checked data
+                    // Update choices values with key and checked data
+                    var choices = []
                     $.each(data.manifest.arguments.install[k].choices, function(ck, cv){
-                        data.manifest.arguments.install[k].choices[ck] = {
-                            value: cv,
+                        // Non key/value choices have numeric key, that we don't want.
+                        if (typeof ck == "number") {
+                            // Key is Value in this case.
+                            ck = cv;
+                        }
+
+                        choices.push({
+                            value: ck,
                             label: cv,
-                            selected: (cv == data.manifest.arguments.install[k].default) ? true : false,
-                        };
+                            selected: (ck == data.manifest.arguments.install[k].default) ? true : false,
+                        });
                     });
+                    data.manifest.arguments.install[k].choices = choices;
                 }
 
                 // Special case for domain input.
@@ -124,7 +231,9 @@
                             selected: false
                         });
                     });
-                    data.manifest.arguments.install[k].help = "<a href='#/domains'>"+y18n.t('manage_domains')+"</a>";
+
+                    // Custom help link
+                    data.manifest.arguments.install[k].helpLink += "<a href='#/domains'>"+y18n.t('manage_domains')+"</a>";
                 }
 
                 // Special case for admin / user input.
@@ -138,7 +247,9 @@
                             selected: false
                         });
                     });
-                    data.manifest.arguments.install[k].help = "<a href='#/users'>"+y18n.t('manage_users')+"</a>";
+
+                    // Custom help link
+                    data.manifest.arguments.install[k].helpLink += "<a href='#/users'>"+y18n.t('manage_users')+"</a>";
                 }
 
                 // 'app' type input display a list of available apps
@@ -151,7 +262,9 @@
                             selected: false
                         });
                     });
-                    data.manifest.arguments.install[k].help = "<a href='#/apps'>"+y18n.t('manage_apps')+"</a>";
+
+                    // Custom help link
+                    data.manifest.arguments.install[k].helpLink += "<a href='#/apps'>"+y18n.t('manage_apps')+"</a>";
                 }
 
                 // Boolean fields
@@ -170,6 +283,15 @@
 
                     // Checkbox should not be required to be unchecked
                     data.manifest.arguments.install[k].required = '';
+
+                    // Clone a hidden input with empty value
+                    // https://stackoverflow.com/questions/476426/submit-an-html-form-with-empty-checkboxes
+                    var inputClone = {
+                        name : data.manifest.arguments.install[k].name,
+                        inputType : 'hidden',
+                        default : 0
+                    };
+                    data.manifest.arguments.install.push(inputClone);
                 }
 
                 // 'password' type input.
@@ -178,12 +300,6 @@
                     data.manifest.arguments.install[k].inputType = 'password';
                 }
 
-
-                // Multilingual label
-                data.manifest.arguments.install[k].label = (typeof data.manifest.arguments.install[k].ask[y18n.locale] !== 'undefined') ?
-                                    data.manifest.arguments.install[k].ask[y18n.locale] :
-                                    data.manifest.arguments.install[k].ask['en']
-                                    ;
             });
         }
 
@@ -194,7 +310,7 @@
                                 ;
 
         // Multi Instance settings boolean to text
-        data.manifest.multi_instance = (data.manifest.multi_instance == 'true') ? y18n.t('yes') : y18n.t('no');
+        data.manifest.multi_instance = data.manifest.multi_instance ? y18n.t('yes') : y18n.t('no');
 
         // View app install form
         c.view('app/app_install', data);
@@ -204,13 +320,11 @@
     // App installation form
     app.get('#/apps/install/:app', function (c) {
         c.api('/apps?raw', function(data) { // http://api.yunohost.org/#!/app/app_list_get_8
-
             c.appInstallForm(
                 c.params['app'],
                 data[c.params['app']].manifest,
                 c.params
             );
-
         });
     });
 
@@ -218,10 +332,23 @@
     app.post('#/apps', function(c) {
         // Warn admin if app is going to be installed on domain root.
         if (c.params['path'] !== '/' || confirm(y18n.t('confirm_install_domain_root', [c.params['domain']]))) {
-            params = { 'label': c.params['label'], 'app': c.params['app'] };
+            var params = {
+                label: c.params['label'],
+                app: c.params['app']
+            };
+
+            // Check for duplicate arg produced by empty checkbox. (See inputClone)
             delete c.params['label'];
             delete c.params['app'];
+            $.each(c.params, function(k, v) {
+                if (typeof(v) === 'object' && Array.isArray(v)) {
+                    // And return only first value
+                    c.params[k] = v[0];
+                }
+            });
+
             params['args'] = c.serialize(c.params.toHash());
+
             // Do not pass empty args.
             if (params['args'] === "") {
                 delete params['args'];
@@ -241,7 +368,10 @@
     // Install custom app from github
     app.post('#/apps/install/custom', function(c) {
 
-        params = { 'label': c.params['label'], 'app': c.params['url'] };
+        var params = {
+            label: c.params['label'],
+            app: c.params['url']
+        };
         delete c.params['label'];
         delete c.params['url'];
 
@@ -351,7 +481,10 @@
             y18n.t('applications'),
             y18n.t('confirm_access_remove_all', [c.params['app']]),
             function() {
-                params = {'apps': c.params['app'], 'users':[]};
+                var params = {
+                    apps: c.params['app'],
+                    users: []
+                };
                 c.api('/access?'+c.serialize(params), function(data) { // http://api.yunohost.org/#!/app/app_removeaccess_delete_12
                     store.clear('slide');
                     c.redirect('#/apps/'+ c.params['app']+ '/access');
@@ -370,7 +503,10 @@
             y18n.t('applications'),
             y18n.t('confirm_access_remove_user', [c.params['app'], c.params['user']]),
             function() {
-                params = {'apps': c.params['app'], 'users': c.params['user']};
+                var params = {
+                    apps: c.params['app'],
+                    users: c.params['user']
+                };
                 c.api('/access?'+c.serialize(params), function(data) { // http://api.yunohost.org/#!/app/app_removeaccess_delete_12
                     store.clear('slide');
                     c.redirect('#/apps/'+ c.params['app']+ '/access');
@@ -389,7 +525,10 @@
             y18n.t('applications'),
             y18n.t('confirm_access_add', [c.params['app']]),
             function() {
-                params = {'apps': c.params['app'], 'users': null};
+                var params = {
+                    apps: c.params['app'],
+                    users: null
+                };
                 c.api('/access', function() { // http://api.yunohost.org/#!/app/app_addaccess_put_13
                     store.clear('slide');
                     c.redirect('#/apps/'+ c.params['app'] +'/access');
@@ -404,7 +543,10 @@
 
     // Grant access for a specific user
     app.post('#/apps/:app/access/add', function (c) {
-        params = {'users': c.params['user'], 'apps': c.params['app']};
+        var params = {
+            users: c.params['user'],
+            apps: c.params['app']
+        };
         c.api('/access', function() { // http://api.yunohost.org/#!/app/app_addaccess_put_13
             store.clear('slide');
             c.redirect('#/apps/'+ c.params['app'] +'/access');
@@ -417,7 +559,9 @@
             y18n.t('applications'),
             y18n.t('confirm_access_clear', [c.params['app']]),
             function() {
-                params = {'apps': c.params['app']};
+                var params = {
+                    apps: c.params['app']
+                };
                 c.api('/access', function() { //
                     store.clear('slide');
                     c.redirect('#/apps/'+ c.params['app'] +'/access');
@@ -448,4 +592,70 @@
         );
     });
 
+    // Get app change label page
+    app.get('#/apps/:app/changelabel', function (c) {
+            c.api('/apps/'+c.params['app']+'?raw', function(app_data) {
+              data = {
+                id: c.params['app'],
+                label: app_data.settings.label,
+              };
+              c.view('app/app_changelabel', data);
+        });
+    });
+    
+    // Change app label
+    app.post('#/apps/:app/changelabel', function (c) {
+        params = {'new_label': c.params['label']};
+        c.api('/apps/' + c.params['app'] + '/label', function(data) { // Call changelabel API
+            store.clear('slide');
+            c.redirect('#/apps/'+ c.params['app']);
+        }, 'PUT', params);
+    });
+
+    // Get app change URL page
+    app.get('#/apps/:app/changeurl', function (c) {
+            c.api('/apps/'+c.params['app']+'?raw', function(app_data) {
+                c.api('/domains', function(domain_data) { // http://api.yunohost.org/#!/domain/domain_list_get_2
+
+                // Display a list of available domains
+                var domains = [];
+                $.each(domain_data.domains, function(k, domain) {
+                    domains.push({
+                        value: domain,
+                        label: domain,
+                        // Select current domain
+                        selected: (domain == app_data.settings.domain ? true : false)
+                    });
+                });
+
+                data = {
+                  id: c.params['app'],
+                  label: app_data.manifest.name,
+                  domains: domains,
+                  // Pre-fill with current path
+                  path: app_data.settings.path
+                };
+                c.view('app/app_changeurl', data);
+            });
+        });
+    });
+    
+    // Change app URL
+    app.post('#/apps/:app/changeurl', function (c) {
+        c.confirm(
+            y18n.t('applications'),
+            y18n.t('confirm_app_change_url', [c.params['app']]),
+            function() {
+                params = {'domain': c.params['domain'], 'path': c.params['path']};
+                c.api('/apps/' + c.params['app'] + '/changeurl', function(data) { // Call changeurl API
+                    store.clear('slide');
+                    c.redirect('#/apps/'+ c.params['app']);
+                }, 'PUT', params);
+            },
+            function() {
+                store.clear('slide');
+                c.redirect('#/apps/'+ c.params['app'] + '/changeurl');
+            }
+        );
+    });   
 })();

@@ -14,7 +14,7 @@
         <dl class="dl-horizontal">
             {{#each versions}}
             <dt>{{@key}}</dt>
-            <dd>{{.}}</dd>
+            <dd>{{version}} ({{repo}})</dd>
             {{/each}}
         </dl>
         <a href="#/update" class="btn btn-success pull-right">{{t 'system_update'}}</a>

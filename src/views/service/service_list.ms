@@ -9,13 +9,16 @@
 {{#services}}
     <a href="#/services/{{name}}" class="list-group-item slide service-{{name}}">
         <span class="fa-chevron-right pull-right"></span>
-        <h2 class="list-group-item-heading">{{name}}</h2>
+        <h2 class="list-group-item-heading">{{name}} <small>{{description}}</small></h2>
         <div class="list-group-item-text">
             {{t 'service_status'}}
             <span class="text-{{#is_running}}success{{/is_running}}{{^is_running}}danger{{/is_running}}">
-            {{status}}
+            {{active}}
             </span>
+            <br>
+            {{t 'started_at'}}
+            {{active_at.human}}
         </div>
-	</a>
+    </a>
 {{/services}}
 </div>

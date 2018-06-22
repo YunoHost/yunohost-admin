@@ -43,9 +43,14 @@
         },
 
         checkInstall: function(callback) {
+            // Get base url from store or guess from current url
+            var baseUrl = (store.get('url') !== null) ? store.get('url')
+                            : window.location.hostname + '/yunohost/api';
+
+            // Call API endpoint
             $.ajax({
                 dataType: "json",
-                url: 'https://'+ store.get('url') +'/installed',
+                url: 'https://'+ baseUrl +'/installed',
                 timeout: 3000
             })
             .success(function(data) {
@@ -57,10 +62,10 @@
         },
 
         // API call
-        api: function(uri, callback, method, data, websocket) {
+        api: function(uri, callback, method, data, websocket, callbackOnFailure) {
             c = this;
 
-            call = function(uri, callback, method, data) {
+            call = function(uri, callback, method, data, callbackOnFailure) {
                 method = typeof method !== 'undefined' ? method : 'GET';
                 data   = typeof data   !== 'undefined' ? data   : {};
                 if (window.navigator && window.navigator.language && (typeof data.locale === 'undefined')) {
@@ -75,9 +80,74 @@
                     }, 1500);
                 }
 
-                loaded = false;
+                app.loaded = false;
                 if ($('div.loader').length === 0) {
                     $('#main').append('<div class="loader loader-content"></div>');
+                }
+                if (typeof callbackOnFailure !== 'function') {
+                    callbackOnFailure = function(xhr) {
+                        // Postinstall is a custom case, we have to wait that
+                        // operation is done before doing anything
+                        if (uri === '/postinstall') {
+                            if (installing) {
+                                interval = window.location.hostname === args.domain ? 20000 : 5000;
+                                checkInstall = setInterval(function () {
+                                    c.checkInstall(function(isInstalled) {
+                                        if (isInstalled || typeof isInstalled === 'undefined') {
+                                            c.flash('success', y18n.t('installation_complete'));
+                                            clearInterval(checkInstall);
+                                            window.location.href = 'https://'+ window.location.hostname +'/yunohost/admin/';
+                                        }
+                                    });
+                                }, interval);
+                            } else {
+                                c.flash('fail', y18n.t('error_occured'));
+                            }
+                        }
+                        // Regular errors
+                        else {
+                            if (xhr.status == 200) {
+                                // Fail with 200, WTF
+                                callback({});
+                            }
+                            // Unauthorized or wrong password
+                            else if (xhr.status == 401) {
+                                if (uri === '/login') {
+                                    c.flash('fail', y18n.t('wrong_password'));
+                                } else {
+                                    c.flash('fail', y18n.t('unauthorized'));
+                                    c.redirect('#/login');
+                                }
+                            }
+                            // 500
+                            else if (xhr.status == 500) {
+                                error_log = JSON.parse(xhr.responseText);
+                                error_log.route = error_log.route.join(' ') + '\n';
+                                error_log.arguments = JSON.stringify(error_log.arguments);
+                                c.flash('fail', y18n.t('internal_exception', [error_log.route, error_log.arguments, error_log.traceback]));
+                            }
+                            // 502 Bad gateway means API is down
+                            else if (xhr.status == 502) {
+                                c.flash('fail', y18n.t('api_not_responding'));
+                            }
+                            // More verbose error messages first
+                            else if (typeof xhr.responseText !== 'undefined') {
+                                c.flash('fail', xhr.responseText);
+                            }
+                            // Return HTTP error code at least
+                            else {
+                                var errorMessage = xhr.status+' '+xhr.statusText;
+                                c.flash('fail', y18n.t('error_server_unexpected', [errorMessage]));
+                            }
+
+                            // Remove loader if any
+                            $('div.loader').remove();
+
+                            // Force scrollTop on page load
+                            $('html, body').scrollTop(0);
+                            store.clear('slide');
+                        }
+                    };
                 }
 
                 jQuery.ajax({
@@ -94,69 +164,14 @@
                     data = data || {};
                     callback(data);
                 })
-                .fail(function(xhr) {
-                    // Postinstall is a custom case, we have to wait that
-                    // operation is done before doing anything
-                    if (uri === '/postinstall') {
-                        if (installing) {
-                            interval = window.location.hostname === args.domain ? 20000 : 5000;
-                            checkInstall = setInterval(function () {
-                                c.checkInstall(function(isInstalled) {
-                                    if (isInstalled || typeof isInstalled === 'undefined') {
-                                        c.flash('success', y18n.t('installation_complete'));
-                                        clearInterval(checkInstall);
-                                        window.location.href = 'https://'+ window.location.hostname +'/yunohost/admin/';
-                                    }
-                                });
-                            }, interval);
-                        } else {
-                            c.flash('fail', y18n.t('error_occured'));
-                        }
-                    }
-                    // Regular errors
-                    else {
-                        if (xhr.status == 200) {
-                            // Fail with 200, WTF
-                            callback({});
-                        }
-                        // Unauthorized or wrong password
-                        else if (xhr.status == 401) {
-                            if (uri === '/login') {
-                                c.flash('fail', y18n.t('wrong_password'));
-                            } else {
-                                c.flash('fail', y18n.t('unauthorized'));
-                                c.redirect('#/login');
-                            }
-                        }
-                        // 502 Bad gateway means API is down
-                        else if (xhr.status == 502) {
-                            c.flash('fail', y18n.t('api_not_responding'));
-                        }
-                        // More verbose error messages first
-                        else if (typeof xhr.responseText !== 'undefined') {
-                            c.flash('fail', xhr.responseText);
-                        }
-                        // Return HTTP error code at least
-                        else {
-                            var errorMessage = xhr.status+' '+xhr.statusText;
-                            c.flash('fail', y18n.t('error_server_unexpected', [errorMessage]));
-                        }
-
-                        // Remove loader if any
-                        $('div.loader').remove();
-
-                        // Force scrollTop on page load
-                        $('html, body').scrollTop(0);
-                        store.clear('slide');
-                    }
-                });
+                .fail(callbackOnFailure);
             };
 
             websocket = typeof websocket !== 'undefined' ? websocket : true;
             if (websocket) {
 
                 // Open a WebSocket connection to retrieve live messages from the moulinette
-                ws = new WebSocket('wss://'+ store.get('url') +'/messages');
+                var ws = new WebSocket('wss://'+ store.get('url') +'/messages');
                 ws.onmessage = function(evt) {
                     // console.log(evt.data);
                     $.each($.parseJSON(evt.data), function(k, v) {
@@ -169,9 +184,9 @@
 
                 ws.onclose = function() {};
 
-                ws.onopen = call(uri, callback, method, data);
+                ws.onopen = call(uri, callback, method, data, callbackOnFailure);
             } else {
-                call(uri, callback, method, data);
+                call(uri, callback, method, data, callbackOnFailure);
             }
 
         },
@@ -180,18 +195,24 @@
         view: function (view, data, callback, enableSlide) {
             c = this;
 
+            // Default
             callback = typeof callback !== 'undefined' ? callback : function() {};
-            rendered = this.render('views/'+ view +'.ms', data);
-
             enableSlide = (typeof enableSlide !== 'undefined') ? enableSlide : true; // Change to false to disable animation
 
-            loaded = true;
+            app.loaded = true;
+
+            // Hide loader and modal
             $('div.loader').remove();
             $('#modal').modal('hide');
 
-            if (enableSlide) {
-                var leSwap = function() {
-                    rendered.swap(function() {
+            // Render content
+            var rendered = this.render('views/'+ view +'.ms', data);
+
+            // Update content helper
+            var leSwap = function() {
+                rendered.swap(function() {
+                    // Slide direction
+                    if (enableSlide) {
                         $('.slide, .btn-breadcrumb a:not(:last-child)').on('click', function() {
                             $(this).addClass('active');
                             if ($(this).hasClass('back') || $(this).parent('.btn-breadcrumb').length) {
@@ -200,54 +221,40 @@
                                 store.set('slide', 'to');
                             }
                         });
-                        // Paste <pre> helper
-                        c.prePaste();
-                        // Run callback
-                        callback();
-                        // Force scrollTop on page load
-                        $('html, body').scrollTop(0);
+                    }
 
-                        // Resize body after the animation finishes (0.2s css transition)
-                        // https://github.com/YunoHost/yunohost-admin/blob/231aac076a3aa836409b0d33fe02e48975990b7a/src/css/style.less#L92
-                        setTimeout(function() {
-                            $('body').resize();
-                        }, 210);
-                    });
-                };
-
-                blockSize = $('#slider').width();
-
-                // Slide back effect
-                if (store.get('slide') == 'back') {
-                    store.clear('slide');
-                    $('#slideBack').css('display', 'none');
-                    $('#slider-container').removeClass('move').css('margin-left', '-100%');
-                    $('#slideTo').show().html($('#main').html());
-                    leSwap();
-                    $('#slider-container').addClass('move').css('margin-left', '0px');
-
-                // Slide to effect
-                } else if (store.get('slide') == 'to') {
-                    store.clear('slide');
-                    $('#slideTo').css('display', 'none');
-                    $('#slider-container').removeClass('move').css('margin-left', '0px');
-                    $('#slideBack').show().html($('#main').html());
-                    leSwap();
-                    $('#slider-container').addClass('move').css('margin-left', '-100%');
-
-                } else {
-                    leSwap();
-                }
-            } else {
-                rendered.swap(function(){
                     // Paste <pre> helper
                     c.prePaste();
+
                     // Run callback
                     callback();
+
                     // Force scrollTop on page load
                     $('html, body').scrollTop(0);
-                    $('body').resize();
                 });
+            };
+
+            // Slide back effect
+            if (enableSlide && store.get('slide') == 'back') {
+                store.clear('slide');
+                $('#slideBack').css('display', 'none');
+                $('#slider-container').css('margin-left', '-100%');
+                $('#slideTo').show().html($('#main').html());
+                leSwap();
+                $('#slider-container').css('margin-left', '0px');
+            }
+            // Slide to effect
+            else if (enableSlide && store.get('slide') == 'to') {
+                store.clear('slide');
+                $('#slideTo').css('display', 'none');
+                $('#slider-container').css('margin-left', '0px');
+                $('#slideBack').show().html($('#main').html());
+                leSwap();
+                $('#slider-container').css('margin-left', '-100%');
+            }
+            // No slideing effect
+            else {
+                leSwap();
             }
         },
 
@@ -257,7 +264,7 @@
             cancelCallback = typeof cancelCallback !== 'undefined' ? cancelCallback : function() {};
 
             // Get modal element
-            box = $('#modal');
+            var box = $('#modal');
 
             // Modal title
             if (typeof title === 'string' && title.length) {
@@ -315,8 +322,8 @@
         },
 
         groupHooks: function(hooks) {
-            data={};
-            var rules=[
+            var data = {};
+            var rules = [
                 {
                     id:'configuration',
                     isIn:function (hook) {
@@ -352,32 +359,31 @@
             return data;
         },
         
-        ungroupHooks: function(hooks,apps) {
-            var data={};
+        ungroupHooks: function(system_parts,apps) {
+            var data = {};
             data['apps'] = apps || [];
-            data['hooks'] = hooks || [];
+            data['system'] = system_parts || [];
             
-            if (data['hooks'].constructor !== Array) {
-                data['hooks'] = [data['hooks']];
+            if (data['system'].constructor !== Array) {
+                data['system'] = [data['system']];
             }
             if (data['apps'].constructor !== Array) {
                 data['apps'] = [data['apps']];
             }
 
-            if (data['hooks'].length == 0) {
-                data['ignore_hooks'] = '';
-            }
-            if (data['apps'].length == 0) {
-                data['ignore_apps'] = '';
-            }
-
             // Some hook value contains multiple hooks separated by commas
             var split_hooks = [];
-            $.each(data['hooks'], function(i, hook) {
+            $.each(data['system'], function(i, hook) {
                 split_hooks = split_hooks.concat(hook.split(','));
             });
-            data['hooks'] = split_hooks;
+            data['system'] = split_hooks;
 
+            if (data['system'].length == 0) {
+                delete data['system'];
+	    }
+            if (data['apps'].length == 0) {
+                delete data['apps'];
+	    }
             return data;
         },
 

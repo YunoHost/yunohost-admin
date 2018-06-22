@@ -15,6 +15,8 @@
         <dl class="dl-horizontal">
             <dt>{{t 'id'}}</dt>
             <dd>{{settings.id}}</dd>
+            <dt>{{t 'label'}}</dt>
+            <dd>{{settings.label}}</dd>
             <dt>{{t 'description'}}</dt>
             <dd>{{description}}</dd>
             <dt>{{t 'multi_instance'}}</dt>
@@ -35,6 +37,13 @@
     </div>
     <div class="panel-body">
         <div class="container">
+            <p>{{t 'app_info_changelabel_desc' settings.label}}</p>
+            <a href="#/apps/{{settings.id}}/changelabel" class="btn btn-info slide">
+                <span class="fa-tag"></span> {{t 'app_change_label'}}
+            </a>
+        </div>
+        <hr>
+        <div class="container">
             <p>{{t 'app_info_access_desc' settings.allowed_users}}</p>
             <a href="#/apps/{{settings.id}}/access" class="btn btn-info slide">
                 <span class="fa-lock"></span> {{t 'app_access'}}
@@ -46,6 +55,21 @@
             <a href="#/apps/{{settings.id}}/default" class="btn btn-success slide">
                 <span class="fa-star"></span> {{t 'app_make_default'}}
             </a>
+        </div>
+        <hr>
+        <div class="container">
+            <p>{{t 'app_info_changeurl_desc' settings.domain}}</p>
+            {{#if change_url}}
+                <a href="#/apps/{{settings.id}}/changeurl" class="btn btn-info slide">
+                    <span class="fa-exchange"></span> {{t 'app_change_url'}}
+                </a>
+            {{else}}
+                {{#tooltip (t 'app_info_change_url_disabled_tooltip') }}
+                    <a href="#/apps/{{settings.id}}/changeurl" class="btn btn-info slide disabled">
+                        <span class="fa-exchange"></span> {{t 'app_change_url'}}
+                    </a>
+                {{/tooltip}}
+            {{/if}}
         </div>
         <hr>
         <div class="container">
@@ -63,3 +87,4 @@
         </div>
     </div>
 </div>
+{{load_tooltips}}

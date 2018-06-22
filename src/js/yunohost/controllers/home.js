@@ -35,9 +35,10 @@
 
                 // Loop through items in a reverse order (older first)
                 $($('item', xml).get().reverse()).each(function(k, v) {
-                    var link=$('link', v).text();
-                    if (typeof link == 'string' && link !== '' && link.charAt(0) == '/')
-                        link=forumUrl+link;
+                    var link = $('link', v).text();
+                    if (typeof link == 'string' && link !== '' && link.charAt(0) == '/') {
+                        link = forumUrl+link;
+                    }
 
                     // var description=$('description', v).text();
                     // description=description.replace('href="/','href="'+forumUrl+'/');
@@ -68,6 +69,13 @@
             })
             .fail(function() {
                 c.flash('fail', y18n.t('error_retrieve_feed', [securityFeed]));
+            });
+
+            c.api("/diagnosis", function(data) {
+                console.log(data);
+                if (data.security["CVE-2017-5754"].vulnerable) {
+                    c.flash('danger', y18n.t('meltdown'));
+                }
             });
 
             c.view('home');
@@ -138,12 +146,12 @@
         // Store url from params, it could have change form 'run' state
         store.set('url', c.params['domain'] +'/yunohost/api');
 
-        params = {
-            'password': c.params['password']
+        var params = {
+            password: c.params['password']
         };
         c.api('/login', function(data) {
             store.set('connected', true);
-
+            c.trigger('login');
             $('#masthead .logout-btn').fadeIn();
             c.flash('success', y18n.t('logged_in'));
             if (store.get('path')) {
@@ -160,6 +168,7 @@
             store.clear('url');
             store.clear('connected');
             store.set('path', '#/');
+            c.trigger('logout');
             c.flash('success', y18n.t('logged_out'));
             c.redirect('#/login');
         }, 'GET', {}, false);

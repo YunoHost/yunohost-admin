@@ -10,7 +10,7 @@
 
     // Server monitoring
     app.get('#/tools/monitor', function (c) {
-        monitorData = {};
+        var monitorData = {};
 
         // Why this method ?
         c.api('/services/glances', function(data) { // ?

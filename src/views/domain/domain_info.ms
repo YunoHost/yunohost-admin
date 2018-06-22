@@ -52,7 +52,19 @@
         <div class="container">
             <p>{{t 'domain_dns_longdesc'}}</p>
             <a href="#/domains/{{name}}/dns" class="btn btn-default slide">
-                <span class="fa-fw fa-globe"></span> {{t 'domain_dns_config'}}
+                {{t 'domain_dns_config'}} <span class="fa-fw fa-globe"></span>
+            </a>
+        </div>
+        <hr>
+        <div class="container">
+            <p>{{t 'certificate_manage'}}</p>
+            {{#unless enable_cert_management}}
+            <p><span class="fa-fw fa-exclamation-circle"></span>
+            {{t 'certificate_old_letsencrypt_app_conflict'}}
+            </p>
+            {{/unless}}
+            <a href="#/domains/{{name}}/cert-management" class="btn btn-default slide {{#unless enable_cert_management}}disabled{{/unless}}">
+                {{t 'ssl_certificate'}} <span class="fa-fw fa-lock"></span>
             </a>
         </div>
         <hr>

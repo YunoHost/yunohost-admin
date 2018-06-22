@@ -9,7 +9,24 @@
 
 <div class="panel panel-default">
     <div class="panel-heading">
-    <h2 class="panel-title"><span class="fa-fw fa-info-circle"></span> {{t 'status'}}</h2>
+    <h2 class="panel-title"><span class="fa-fw fa-info-circle"></span> {{t 'infos'}}</h2>
+    </div>
+    <div class="panel-body">
+    {{#service}}
+        <dl class="dl-horizontal">
+            <dt>{{t 'name'}}</dt>
+            <dd>{{name}}</dd>
+            <dt>{{t 'description'}}</dt>
+            <dd>{{description}}</dd>
+        </dl>
+    {{/service}}
+    </div>
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+    <h2 class="panel-title"><span class="fa-fw fa-wrench"></span> {{t 'status'}}</h2>
     </div>
     <div class="panel-body">
         <dl class="dl-horizontal">
@@ -22,8 +39,11 @@
             <br>
             {{t 'service_status'}}
             <span class="text-{{#is_running}}success{{/is_running}}{{^is_running}}danger{{/is_running}}">
-            {{status}}
+            {{active}}
             </span>
+            <br>
+            {{t 'started_at'}}
+            {{active_at.human}}
         </div>
 
         <div class="pull-right">

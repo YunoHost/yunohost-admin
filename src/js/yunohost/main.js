@@ -26,6 +26,10 @@
         Handlebars.registerHelper('humanTime', function(time) {
             return Math.round(time) + 's';
         });
+        Handlebars.registerHelper('timestampToDate', function(timestamp) {
+            var date = new Date(timestamp * 1000);
+            return date.toLocaleString();
+        });
         Handlebars.registerHelper('bitRate', function(bytes, time) {
             var sizes = ['b', 'Kb', 'Mb', 'Gb', 'Tb'];
             if (time === 0) return 'n/a';
@@ -47,6 +51,24 @@
                 }
             }
             return outStr;
+        });
+
+        // Block helper to add a tooltip to any element
+        Handlebars.registerHelper('tooltip', function(tooltip, options) {
+          return new Handlebars.SafeString(
+              '<span data-toggle="tooltip" title="' + tooltip + '" data-placement="right">'
+              + options.fn(this)
+              + '</span>');
+        });
+        
+        // Load tooltips on the page; needed if using tooltips
+        Handlebars.registerHelper('load_tooltips', function() {
+          return new Handlebars.SafeString(
+              '<script>'
+              + '$(document).ready(function(){'
+              + '$(\'[data-toggle="tooltip"]\').tooltip();'
+              + '});'
+              + '</script>');
         });
 
         // Look for supported type of storage to use
@@ -79,6 +101,13 @@
         sam.bind('run', function () {
             // Store url
             sam.store.set('url', window.location.hostname + '/yunohost/api');
+
+            // Get YunoHost version
+            if (sam.store.get('connected')) {
+                this.api('/version', function(versions) {
+                    $('#yunohost-version').html(y18n.t('footer_version', [versions.yunohost.version, versions.yunohost.repo]));
+                });
+            }
 
             // Flash messages
             var flashMessage = $('#flashMessage');

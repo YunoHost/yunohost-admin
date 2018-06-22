@@ -11,17 +11,30 @@
     // All services status
     app.get('#/services', function (c) {
         c.api('/services', function(data) { // ?
-            data2 = { 'services': [] };
+            var data2 = {
+                services: []
+            };
             $.each(data, function(k, v) {
                 v.name = k;
                 // Handlebars want booleans
                 v.is_loaded = (v.loaded=='enabled') ? true : false;
-                v.is_running = (v.status=='running') ? true : false;
+                v.is_running = (v.active=='active') ? true : false;
                 // Translate status and loaded state
                 v.status = y18n.t(v.status);
                 v.loaded = y18n.t(v.loaded);
                 data2.services.push(v);
             });
+
+            data2.services.sort(function (a, b) {
+                if (a.name > b.name) {
+                    return 1;
+                }
+                else if (a.name < b.name) {
+                    return -1;
+                }
+                return 0;
+            });
+
             c.view('service/service_list', data2);
         });
     });
@@ -29,13 +42,15 @@
     // Status & actions for a service
     app.get('#/services/:service', function (c) {
         c.api('/services/'+ c.params['service'], function(data) { // ?
-            data2 = { 'service': data };
+            var data2 = {
+                service: data
+            };
             data2.service.name = c.params['service'];
             // Handlebars want booleans
             data2.service.is_loaded = (data.loaded=='enabled') ? true : false;
-            data2.service.is_running = (data.status=='running') ? true : false;
+            data2.service.is_running = (data.active=='active') ? true : false;
             // Translate status and loaded state
-            data2.service.status = y18n.t(data.status);
+            data2.service.active = y18n.t(data.active);
             data2.service.loaded = y18n.t(data.loaded);
             store.clear('slide');
             c.view('service/service_info', data2);
@@ -44,7 +59,9 @@
 
     // Service log
     app.get('#/services/:service/log', function (c) {
-        params = { 'number': 50 };
+        var params = {
+            number: 50
+        };
         c.api('/services/'+ c.params['service'] +'/log', function(data) { // ?
             data2 = { 'logs': [], 'name': c.params['service'] };
             $.each(data, function(k, v) {
@@ -59,9 +76,11 @@
     app.get('#/services/:service/:action', function (c) {
         c.confirm(
             "Service",
-            y18n.t('confirm_service_action', [y18n.t(c.params['action']), c.params['service']]),
+            // confirm_service_start, confirm_service_stop, confirm_service_enable and confirm_service_disable
+            y18n.t('confirm_service_' + c.params['action'].toLowerCase(), [c.params['service']]),
             function(){
-                var method = null, endurl = c.params['service'];
+                var method = null,
+                    endurl = c.params['service'];
 
                 switch (c.params['action']) {
                     case 'start':

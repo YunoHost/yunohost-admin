@@ -51,6 +51,7 @@ gulp.task('js', function() {
             'js/yunohost/main.js',
             'js/yunohost/helpers.js',
             'js/yunohost/filters.js',
+            'js/yunohost/events.js',
             'js/yunohost/controllers/*.js',
         ])
         .pipe(gulpif(isProduction, uglify()))

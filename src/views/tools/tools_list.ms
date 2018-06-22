@@ -14,6 +14,10 @@
     <a href="#/tools/logs" class="list-group-item slide clearfix">
         <span class="pull-right fa-chevron-right"></span>
         <h2 class="list-group-item-heading">{{t 'logs'}}</h2>
+    </a>    
+    <a href="#/tools/migrations" class="list-group-item slide clearfix">
+        <span class="pull-right fa-chevron-right"></span>
+        <h2 class="list-group-item-heading">{{t 'migrations'}}</h2>
     </a>
     <a href="#/tools/monitor" class="list-group-item slide clearfix">
         <span class="pull-right fa-chevron-right"></span>
@@ -34,6 +38,10 @@
     <a href="#/tools/security-feed" class="list-group-item slide">
         <span class="fa-chevron-right pull-right"></span>
         <h2 class="list-group-item-heading">{{t 'tools_security_feed'}}</h2>
+    </a>
+    <a href="#/tools/reboot" class="list-group-item slide clearfix">
+        <span class="pull-right fa-chevron-right"></span>
+        <h2 class="list-group-item-heading">{{t 'tools_shutdown_reboot'}}</h2>
     </a>
     <a href="#/tools/versions" class="list-group-item slide clearfix">
         <span class="pull-right fa-chevron-right"></span>

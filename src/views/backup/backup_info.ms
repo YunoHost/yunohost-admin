@@ -7,10 +7,6 @@
 
 <div class="separator"></div>
 
-<div class="alert alert-warning">{{t 'backup_experimental_warning'}}</div>
-
-<div class="separator"></div>
-
 <div class="panel panel-default">
     <div class="panel-heading">
         <h2 class="panel-title"><span class="fa-fw fa-info-circle"></span> {{t 'infos'}}</h2>
@@ -33,9 +29,9 @@
     </div>
     {{#if items}}
     <div class="list-group">
-        {{#each hooks}}
+        {{#each system_parts}}
         <div class="list-group-item">
-            <input type="checkbox" id="{{@key}}" name="hooks" value="{{value}}" checked class="nice-checkbox">
+            <input type="checkbox" id="{{@key}}" name="system_parts" value="{{value}}" checked class="nice-checkbox">
             <label for="{{@key}}" class="pull-right"><span class="sr-only">{{t 'check'}}</span></label>
             <h2 class="list-group-item-heading">{{name}}</h2>
             <p class="list-group-item-text">{{description}}</p>
@@ -43,9 +39,9 @@
         {{/each}}
         {{#each apps}}
         <div class="list-group-item">
-            <input type="checkbox" id="{{id}}" name="apps" value="{{id}}" checked class="nice-checkbox">
-            <label for="{{id}}" class="pull-right"><span class="sr-only">{{t 'check'}}</span></label>
-            <h2 class="list-group-item-heading">{{name}} <small>{{id}}</small></h2>
+            <input type="checkbox" id="{{@key}}" name="apps" value="{{@key}}" checked class="nice-checkbox">
+            <label for="{{@key}}" class="pull-right"><span class="sr-only">{{t 'check'}}</span></label>
+            <h2 class="list-group-item-heading">{{name}} <small>{{@key}}</small></h2>
         </div>
         {{/each}}
         <div class="list-group-item clearfix">
