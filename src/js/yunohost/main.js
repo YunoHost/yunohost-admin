@@ -49,7 +49,7 @@
               + options.fn(this)
               + '</span>');
         });
-        
+
         // Load tooltips on the page; needed if using tooltips
         Handlebars.registerHelper('load_tooltips', function() {
           return new Handlebars.SafeString(
@@ -58,6 +58,25 @@
               + '$(\'[data-toggle="tooltip"]\').tooltip();'
               + '});'
               + '</script>');
+        });
+
+        // equality stuff because mustache/Handlebars is lame
+        // source https://stackoverflow.com/a/31632215
+        Handlebars.registerHelper('eq', function(a, b) {
+          return a === b;
+        });
+
+        Handlebars.registerHelper('neq', function(a, b) {
+          return a !== b;
+        });
+
+        Handlebars.registerHelper('in', function(a) {
+          // skip first one
+          for (var i = 1; i < arguments.length; ++i) {
+            if (arguments[i] == a)
+              return true;
+          }
+          return false;
         });
 
         // Look for supported type of storage to use
