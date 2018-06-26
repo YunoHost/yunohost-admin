@@ -68,7 +68,7 @@
     "unknown_argument": "Belirsiz argüman: %s",
     "upnp": "UPnP",
     "url": "URL",
-    "warning_first_user": "Büyük ihtimalle önce <a href='#/users/create' class='alert-link'>kullanıcı oluşturmanız</a> gerekiyor",
+    "warning_first_user": "Büyük ihtimalle önce <a href='#/users/create' class='alert-link'>kullanıcı oluşturmanız</a> gerekiyor.",
     "wrong_password": "Yanlış parola",
     "yes": "Evet"
 }
