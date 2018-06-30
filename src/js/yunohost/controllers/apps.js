@@ -195,6 +195,141 @@
         c.redirect('#/apps/install');
     });
 
+    // Helper function that formats YunoHost style arguments for generating a form
+    function formatYunoHostStyleArguments(args, params) {
+        if (!args) {
+            return;
+        }
+
+        // this is in place modification, I don't like it but it was done this way
+        $.each(args, function(k, v) {
+
+            // Default values
+            args[k].type = (typeof v.type !== 'undefined') ? v.type : 'string';
+            args[k].inputType = 'text';
+            args[k].required = (typeof v.optional !== 'undefined' && v.optional == "true") ? '' : 'required';
+            args[k].attributes = "";
+            args[k].helpText = "";
+            args[k].helpLink = "";
+
+
+            // Multilingual label
+            args[k].label = (typeof args[k].ask[y18n.locale] !== 'undefined') ?
+                                args[k].ask[y18n.locale] :
+                                args[k].ask['en']
+                                ;
+
+            // Multilingual help text
+            if (typeof args[k].help !== 'undefined') {
+                args[k].helpText = (typeof args[k].help[y18n.locale] !== 'undefined') ?
+                                    args[k].help[y18n.locale] :
+                                    args[k].help['en']
+                                    ;
+            }
+
+            // Input with choices becomes select list
+            if (typeof args[k].choices !== 'undefined') {
+                // Update choices values with key and checked data
+                var choices = []
+                $.each(args[k].choices, function(ck, cv){
+                    // Non key/value choices have numeric key, that we don't want.
+                    if (typeof ck == "number") {
+                        // Key is Value in this case.
+                        ck = cv;
+                    }
+
+                    choices.push({
+                        value: ck,
+                        label: cv,
+                        selected: (ck == args[k].default) ? true : false,
+                    });
+                });
+                args[k].choices = choices;
+            }
+
+            // Special case for domain input.
+            // Display a list of available domains
+            if (v.name == 'domain' || args[k].type == 'domain') {
+                args[k].choices = [];
+                $.each(params.domains, function(key, domain){
+                    args[k].choices.push({
+                        value: domain,
+                        label: domain,
+                        selected: false
+                    });
+                });
+
+                // Custom help link
+                args[k].helpLink += "<a href='#/domains'>"+y18n.t('manage_domains')+"</a>";
+            }
+
+            // Special case for admin / user input.
+            // Display a list of available users
+            if (v.name == 'admin' || args[k].type == 'user') {
+                args[k].choices = [];
+                $.each(params.users, function(username, user){
+                    args[k].choices.push({
+                        value: username,
+                        label: user.fullname+' ('+user.mail+')',
+                        selected: false
+                    });
+                });
+
+                // Custom help link
+                args[k].helpLink += "<a href='#/users'>"+y18n.t('manage_users')+"</a>";
+            }
+
+            // 'app' type input display a list of available apps
+            if (args[k].type == 'app') {
+                args[k].choices = [];
+                $.each(params.apps, function(key, app){
+                    args[k].choices.push({
+                        value: app.id,
+                        label: app.name,
+                        selected: false
+                    });
+                });
+
+                // Custom help link
+                args[k].helpLink += "<a href='#/apps'>"+y18n.t('manage_apps')+"</a>";
+            }
+
+            // Boolean fields
+            if (args[k].type == 'boolean') {
+                args[k].inputType = 'checkbox';
+
+                // Checked or not ?
+                if (typeof args[k].default !== 'undefined') {
+                    if (args[k].default == true) {
+                        args[k].attributes = 'checked="checked"';
+                    }
+                }
+
+                // 'default' is used as value, so we need to force it for checkboxes.
+                args[k].default = 1;
+
+                // Checkbox should not be required to be unchecked
+                args[k].required = '';
+
+                // Clone a hidden input with empty value
+                // https://stackoverflow.com/questions/476426/submit-an-html-form-with-empty-checkboxes
+                var inputClone = {
+                    name : args[k].name,
+                    inputType : 'hidden',
+                    default : 0
+                };
+                args.push(inputClone);
+            }
+
+            // 'password' type input.
+            if (v.name == 'password' || args[k].type == 'password') {
+                // Change html input type
+                args[k].inputType = 'password';
+            }
+
+        });
+    }
+
     // Helper function that build app installation form
     app.helper('appInstallForm', function(appId, manifest, params) {
         var data = {
@@ -202,134 +337,7 @@
             manifest: manifest
         };
 
-        if (typeof data.manifest.arguments.install !== 'undefined') {
-            $.each(data.manifest.arguments.install, function(k, v) {
-
-                // Default values
-                data.manifest.arguments.install[k].type = (typeof v.type !== 'undefined') ? v.type : 'string';
-                data.manifest.arguments.install[k].inputType = 'text';
-                data.manifest.arguments.install[k].required = (typeof v.optional !== 'undefined' && v.optional == "true") ? '' : 'required';
-                data.manifest.arguments.install[k].attributes = "";
-                data.manifest.arguments.install[k].helpText = "";
-                data.manifest.arguments.install[k].helpLink = "";
-
-
-                // Multilingual label
-                data.manifest.arguments.install[k].label = (typeof data.manifest.arguments.install[k].ask[y18n.locale] !== 'undefined') ?
-                                    data.manifest.arguments.install[k].ask[y18n.locale] :
-                                    data.manifest.arguments.install[k].ask['en']
-                                    ;
-
-                // Multilingual help text
-                if (typeof data.manifest.arguments.install[k].help !== 'undefined') {
-                    data.manifest.arguments.install[k].helpText = (typeof data.manifest.arguments.install[k].help[y18n.locale] !== 'undefined') ?
-                                        data.manifest.arguments.install[k].help[y18n.locale] :
-                                        data.manifest.arguments.install[k].help['en']
-                                        ;
-                }
-
-                // Input with choices becomes select list
-                if (typeof data.manifest.arguments.install[k].choices !== 'undefined') {
-                    // Update choices values with key and checked data
-                    var choices = []
-                    $.each(data.manifest.arguments.install[k].choices, function(ck, cv){
-                        // Non key/value choices have numeric key, that we don't want.
-                        if (typeof ck == "number") {
-                            // Key is Value in this case.
-                            ck = cv;
-                        }
-
-                        choices.push({
-                            value: ck,
-                            label: cv,
-                            selected: (ck == data.manifest.arguments.install[k].default) ? true : false,
-                        });
-                    });
-                    data.manifest.arguments.install[k].choices = choices;
-                }
-
-                // Special case for domain input.
-                // Display a list of available domains
-                if (v.name == 'domain' || data.manifest.arguments.install[k].type == 'domain') {
-                    data.manifest.arguments.install[k].choices = [];
-                    $.each(params.domains, function(key, domain){
-                        data.manifest.arguments.install[k].choices.push({
-                            value: domain,
-                            label: domain,
-                            selected: false
-                        });
-                    });
-
-                    // Custom help link
-                    data.manifest.arguments.install[k].helpLink += "<a href='#/domains'>"+y18n.t('manage_domains')+"</a>";
-                }
-
-                // Special case for admin / user input.
-                // Display a list of available users
-                if (v.name == 'admin' || data.manifest.arguments.install[k].type == 'user') {
-                    data.manifest.arguments.install[k].choices = [];
-                    $.each(params.users, function(username, user){
-                        data.manifest.arguments.install[k].choices.push({
-                            value: username,
-                            label: user.fullname+' ('+user.mail+')',
-                            selected: false
-                        });
-                    });
-
-                    // Custom help link
-                    data.manifest.arguments.install[k].helpLink += "<a href='#/users'>"+y18n.t('manage_users')+"</a>";
-                }
-
-                // 'app' type input display a list of available apps
-                if (data.manifest.arguments.install[k].type == 'app') {
-                    data.manifest.arguments.install[k].choices = [];
-                    $.each(params.apps, function(key, app){
-                        data.manifest.arguments.install[k].choices.push({
-                            value: app.id,
-                            label: app.name,
-                            selected: false
-                        });
-                    });
-
-                    // Custom help link
-                    data.manifest.arguments.install[k].helpLink += "<a href='#/apps'>"+y18n.t('manage_apps')+"</a>";
-                }
-
-                // Boolean fields
-                if (data.manifest.arguments.install[k].type == 'boolean') {
-                    data.manifest.arguments.install[k].inputType = 'checkbox';
-
-                    // Checked or not ?
-                    if (typeof data.manifest.arguments.install[k].default !== 'undefined') {
-                        if (data.manifest.arguments.install[k].default == true) {
-                            data.manifest.arguments.install[k].attributes = 'checked="checked"';
-                        }
-                    }
-
-                    // 'default' is used as value, so we need to force it for checkboxes.
-                    data.manifest.arguments.install[k].default = 1;
-
-                    // Checkbox should not be required to be unchecked
-                    data.manifest.arguments.install[k].required = '';
-
-                    // Clone a hidden input with empty value
-                    // https://stackoverflow.com/questions/476426/submit-an-html-form-with-empty-checkboxes
-                    var inputClone = {
-                        name : data.manifest.arguments.install[k].name,
-                        inputType : 'hidden',
-                        default : 0
-                    };
-                    data.manifest.arguments.install.push(inputClone);
-                }
-
-                // 'password' type input.
-                if (v.name == 'password' || data.manifest.arguments.install[k].type == 'password') {
-                    // Change html input type
-                    data.manifest.arguments.install[k].inputType = 'password';
-                }
-
-            });
-        }
+        formatYunoHostStyleArguments(data.manifest.arguments.install, params);
 
         // Multilingual description
         data.description = (typeof data.manifest.description[y18n.locale] !== 'undefined') ?
