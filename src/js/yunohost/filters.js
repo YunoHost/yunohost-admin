@@ -8,27 +8,26 @@
      * Filters
      *
      */
-    app.before(/domains\/add/, function (req){
+
+    function prefetchDomains(req) {
         // Preload domains list.
         req.params.domains = [];
         req.api('/domains', function(data) {
             req.params.domains = data.domains;
         });
-    });
-    app.before(/apps\/install\//, function (req){
-        // Preload domains list.
-        req.params.domains = [];
-        req.api('/domains', function(data) {
-            req.params.domains = data.domains;
-        });
-    });
-    app.before(/apps\/install\//, function (req){
+    }
+
+    function prefetchUsers(req){
         // Preload users lists.
         req.params.users = [];
         req.api('/users', function(data) {
             req.params.users = data.users;
         });
-    });
+    }
+
+    app.before(/domains\/add/, prefetchDomains);
+    app.before(/apps\/install\//, prefetchDomains);
+    app.before(/apps\/install\//, prefetchUsers);
 
 
     app.before({except: {path: ['#/logout', '#/login', '#/postinstall', '#/postinstall/domain', '#/postinstall/password']}}, function (req) {
