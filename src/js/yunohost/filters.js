@@ -28,6 +28,8 @@
     app.before(/domains\/add/, prefetchDomains);
     app.before(/apps\/install\//, prefetchDomains);
     app.before(/apps\/install\//, prefetchUsers);
+    app.before(/apps\/\w+\/actions/, prefetchUsers);
+    app.before(/apps\/\w+\/actions/, prefetchDomains);
 
 
     app.before({except: {path: ['#/logout', '#/login', '#/postinstall', '#/postinstall/domain', '#/postinstall/password']}}, function (req) {
