@@ -29,6 +29,7 @@
     "app_install_custom_no_manifest": "No manifest.json file",
     "app_list": "App list",
     "app_make_default": "Make default",
+    "app_no_actions": "This application doesn't have any actions",
     "app_repository": "Application origin: ",
     "app_state": "Application state: ",
     "app_state_inprogress": "In progress",

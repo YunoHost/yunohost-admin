@@ -160,6 +160,25 @@
         });
     });
 
+    // Get app actions list
+    app.get('#/apps/:app/actions', function (c) {
+        c.api('/apps/'+c.params['app']+'/actions', function(data) {
+            $.each(data.actions, function(_, action) {
+                formatYunoHostStyleArguments(action.arguments, c.params);
+
+                // Multilingual description
+                action.description = (typeof action.description[y18n.locale] !== 'undefined') ?
+                                        action.description[y18n.locale] :
+                                        action.description['en']
+                                        ;
+
+            });
+
+            c.view('app/app_actions', data);
+            return;
+        });
+    });
+
     // Get app config panel
     app.get('#/apps/:app/config-panel', function (c) {
         c.api('/apps/'+c.params['app']+'/config-panel', function(data) {
