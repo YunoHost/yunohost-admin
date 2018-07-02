@@ -11,7 +11,7 @@
 
 {{#if actions}}
 {{#actions}}
-<form action="#/apps" method="POST" class="form-horizontal form-app-install">
+<form action="#/apps/{{../app_id}}/actions/{{id}}" method="PUT" class="form-horizontal form-app-install">
 <div class="panel panel-default">
     <div class="panel-heading">
         <h2 class="panel-title">{{name}}</h2>

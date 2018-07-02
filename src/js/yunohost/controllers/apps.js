@@ -179,6 +179,30 @@
         });
     });
 
+    // Perform application
+    app.put('#/apps/:app/actions/:action', function(c) {
+        // taken from app install
+        $.each(c.params, function(k, v) {
+            if (typeof(v) === 'object' && Array.isArray(v)) {
+                // And return only first value
+                c.params[k] = v[0];
+            }
+        });
+
+        var app_id = c.params['app'];
+        delete c.params['app'];
+        var action_id = c.params['action'];
+        delete c.params['action'];
+
+        var params = {
+            'args': c.serialize(c.params.toHash())
+        }
+
+        c.api('/apps/'+app_id+'/actions/'+action_id, function() { // http://api.yunohost.org/#!/app/app_install_post_2
+            c.redirect('#/apps/'+app_id+'/actions');
+        }, 'PUT', params);
+    });
+
     // Get app config panel
     app.get('#/apps/:app/config-panel', function (c) {
         c.api('/apps/'+c.params['app']+'/config-panel', function(data) {
