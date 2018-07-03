@@ -50,6 +50,38 @@
               + '</span>');
         });
 
+        Handlebars.registerHelper('helpTooltip', function(text, url) {
+            var help = null;
+            var helpUrl = null;
+            if (text && text.string && text.string.trim() != "")
+            {
+                help = text.string;
+            }
+            if (url && url.string && url.string.trim() != "")
+            {
+                helpUrl = url.string;
+            }
+            if (help == null && helpUrl == null)
+            {
+                return "";
+            }
+
+            if (helpUrl == null)
+            {
+                return new Handlebars.SafeString(
+                    '<span data-toggle="tooltip" title="' + help + '" data-html="true" data-placement="right">'
+                    + '      <i class="fa-question-circle"></i>'
+                    + '</span>');
+            }
+            else
+            {
+                return new Handlebars.SafeString(
+                    '<span data-toggle="tooltip" title="' + help + '" data-html="true" data-placement="right">'
+                    + '      <a href="' + helpUrl + '" class="fa-question-circle"></a>'
+                    + '</span>');
+            }
+        });
+
         // Load tooltips on the page; needed if using tooltips
         Handlebars.registerHelper('load_tooltips', function() {
           return new Handlebars.SafeString(
