@@ -384,5 +384,6 @@
     "run": "Lancer",
     "skip": "Sauter",
     "service_description": "Description :",
-    "started_at": "Démarré à :"
+    "started_at": "Démarré à :",
+    "active": "Actif"
 }
