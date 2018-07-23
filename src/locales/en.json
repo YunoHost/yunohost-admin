@@ -245,7 +245,7 @@
     "logs_path": "Path",
     "logs_context": "Context",
     "logs_share_with_yunopaste": "Share with YunoPaste",
-    "logs_more": "Display more lines"
+    "logs_more": "Display more lines",
     "path_url": "Path",
     "port": "Port",
     "ports": "Ports",
