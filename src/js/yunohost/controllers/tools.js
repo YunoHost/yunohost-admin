@@ -121,9 +121,7 @@
 
             c.view('tools/tools_logs', {
                 "data": data,
-                formatDate: function() {
-                    return this.started_at.getDate();
-                }
+	        "locale": y18n.locale
             });
         });
     });
@@ -148,7 +146,8 @@
             }
             c.view('tools/tools_log', {
                 "log": log,
-                "next_number": log.logs.length == number ? number * 10:false
+                "next_number": log.logs.length == number ? number * 10:false,
+                "locale": y18n.locale
             });
         });
     });

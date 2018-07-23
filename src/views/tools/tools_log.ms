@@ -13,6 +13,7 @@
 
 <div class="separator"></div>
 
+{{#intl locales=locale}}
 {{#if log.metadata}}
 <div class="panel panel-default">
     <div class="panel-heading">
@@ -60,3 +61,4 @@
 {{/log.logs}}</pre>
     </div>
 </div>
+{{/intl}}

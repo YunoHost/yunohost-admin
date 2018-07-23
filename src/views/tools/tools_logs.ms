@@ -6,6 +6,7 @@
 
 <div class="separator"></div>
 
+{{#intl locales=locale}}
 {{#if data}}
 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 {{#data}}
@@ -21,7 +22,7 @@
         <div id="collapse-{{key}}" class="panel-collapse{{#if @first}}{{else}} collapse{{/if}}" role="tabpanel" aria-labelledby="heading-{{key}}">
             <div class="list-group">
             {{#value}}
-                <a href="#/tools/logs/{{ name }}" class="list-group-item"><small>{{ started_at }}</small> {{ description }}</a>
+                <a href="#/tools/logs/{{ name }}" class="list-group-item" title='{{formatTime started_at day="numeric" month="long" year="numeric" hour="numeric" minute="numeric"}}'><small style="margin-right:20px;" >{{formatRelative started_at}}</small> {{ description }}</a>
             {{/value}}
             </div>
         </div>
@@ -30,3 +31,4 @@
 {{/data}}
 </div>
 {{/if}}
+{{/intl}}
