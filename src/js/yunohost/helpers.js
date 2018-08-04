@@ -137,8 +137,8 @@
                             // Return HTTP error code at least
                             else {
                                 var errorMessage = xhr.status+' '+xhr.statusText;
-				console.log(xhr);
                                 c.flash('fail', y18n.t('error_server_unexpected', [errorMessage]));
+                                console.log(xhr);
                             }
 
                             // Remove loader if any
