@@ -138,6 +138,7 @@
                             else {
                                 var errorMessage = xhr.status+' '+xhr.statusText;
                                 c.flash('fail', y18n.t('error_server_unexpected', [errorMessage]));
+                                console.log(xhr);
                             }
 
                             // Remove loader if any
