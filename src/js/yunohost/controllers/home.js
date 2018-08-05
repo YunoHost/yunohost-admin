@@ -72,7 +72,6 @@
             });
 
             c.api("/diagnosis", function(data) {
-                console.log(data);
                 if (data.security["CVE-2017-5754"].vulnerable) {
                     c.flash('danger', y18n.t('meltdown'));
                 }
