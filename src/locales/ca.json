@@ -199,5 +199,16 @@
     "mode": "Mode",
     "monitoring": "Monitoratge",
     "monitoring_check_glances": "Verifiqueu l'estat del servei <a href='#/services/glances'>glances</a>.",
-    "monitoring_disabled": "El monitoratge no està activat"
+    "monitoring_disabled": "El monitoratge no està activat",
+    "mount_point": "Punt de muntatge",
+    "multi_instance": "Instàncies múltiples",
+    "myserver": "elmeuservidor",
+    "myserver_org": "elmeuservidor.org",
+    "network": "Xarxa",
+    "next": "Següent",
+    "no": "No",
+    "no_allowed_users": "Cap usuari autoritzat.",
+    "no_installed_apps": "No hi ha aplicacions instal·lades.",
+    "no_log": "No hi ha registre.",
+    "no_user_to_add": "Cap usuari a afegir"
 }
