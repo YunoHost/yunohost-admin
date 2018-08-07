@@ -136,5 +136,7 @@
     "error_server": "Error del servidor",
     "error_server_unexpected": "Error inesperat en el servidor (%s)",
     "everyone_has_access": "Tots els usuaris tenen accés",
-    "filesystem": "Sistema de fitxers"
+    "filesystem": "Sistema de fitxers",
+    "firewall": "Tallafoc",
+    "footer_version": "Propulsat per <a href='https://yunohost.org'> YunoHost</a> %s (%s)"
 }
