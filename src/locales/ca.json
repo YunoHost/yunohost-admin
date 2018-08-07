@@ -138,5 +138,14 @@
     "everyone_has_access": "Tots els usuaris tenen accés",
     "filesystem": "Sistema de fitxers",
     "firewall": "Tallafoc",
-    "footer_version": "Propulsat per <a href='https://yunohost.org'> YunoHost</a> %s (%s)"
+    "footer_version": "Propulsat per <a href='https://yunohost.org'> YunoHost</a> %s (%s)",
+    "form_input_example": "Exemple: %s",
+    "free": "Lliure",
+    "fs_type": "Tipus de sistema de fitxers",
+    "gateway": "Passarel·la: ",
+    "home": "Inici",
+    "hook_adminjs_group_configuration": "Configuració",
+    "hook_conf_cron": "Tasques periòdiques",
+    "hook_conf_ldap": "LDAP",
+    "hook_conf_nginx": "Nginx"
 }
