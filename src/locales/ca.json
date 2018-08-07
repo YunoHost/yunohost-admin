@@ -19,5 +19,10 @@
     "app_debug_no_logs": "Els registres de l'aplicació no estan disponibles",
     "app_debug_tab": "Mostra la informació de depuració",
     "app_info_access_desc": "Administrar l'accés d'usuaris. Usuaris permesos: %s",
-    "app_info_changelabel_desc": "Canvia l'etiqueta de l'aplicació al portal"
+    "app_info_changelabel_desc": "Canvia l'etiqueta de l'aplicació al portal",
+    "app_info_debug_desc": "Mostrar la informació de depuració per aquesta aplicació.",
+    "app_info_default_desc": "Redirigeix l'arrel del domini a aquesta aplicació (%s).",
+    "app_info_changeurl_desc": "Canvia l'adreça d'accés (URL) d'aquesta aplicació (domini i/o camí).",
+    "app_info_change_url_disabled_tooltip": "Encara no s'ha implementat aquesta funcionalitat per a aquesta aplicació",
+    "app_info_uninstall_desc": "Eliminar aquesta aplicació"
 }
