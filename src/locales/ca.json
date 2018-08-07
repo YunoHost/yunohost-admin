@@ -218,5 +218,13 @@
     "os": "Sistema operatiu",
     "password": "Contrasenya",
     "password_confirmation": "Confirmar contrasenya",
-    "password_description": "La contrasenya ha de tenir com a mínim %s caràcters"
+    "password_description": "La contrasenya ha de tenir com a mínim %s caràcters.",
+    "password_empty": "El camp de la contrasenya està buit",
+    "password_new": "Nova contrasenya",
+    "passwords_dont_match": "Les contrasenyes no coincideixen",
+    "passwords_too_short": "La contrasenya és massa curta",
+    "path": "Camí",
+    "path_url": "Camí",
+    "port": "Port",
+    "ports": "Ports"
 }
