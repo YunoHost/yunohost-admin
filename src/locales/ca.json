@@ -149,5 +149,11 @@
     "hook_conf_ldap": "LDAP",
     "hook_conf_nginx": "Nginx",
     "hook_conf_ssh": "SSH",
-    "hook_conf_ssowat": "SSOwat"
+    "hook_conf_ssowat": "SSOwat",
+    "hook_conf_xmpp": "XMPP",
+    "hook_conf_ynh_certs": "Certificats de seguretat",
+    "hook_conf_ynh_firewall": "Tallafoc",
+    "hook_conf_ynh_mysql": "Contrasenya de MySQL",
+    "hook_data_home": "Dades d'usuari",
+    "hook_data_home_desc": "Les dades d'usuari són a /home/USUARI"
 }
