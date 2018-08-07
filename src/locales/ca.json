@@ -5,5 +5,19 @@
     "remove": "Suprimir",
     "administration_password": "Contrasenya d'administració",
     "allowed_users": "Usuaris permesos",
-    "api_not_responding": "L'API no està responent"
+    "api_not_responding": "L'API no respon",
+    "app_access": "Accés",
+    "app_access_addall_btn": "Habilitar l'accés a tots els utilitzadors",
+    "app_access_addall_desc": "Tots els usuaris existents tindran accés a %s.",
+    "app_access_clearall_btn": "Desactivar tots els accessos",
+    "app_access_clearall_desc": "Cada usuari tindrà accés a %s.",
+    "app_access_removeall_btn": "Eliminar tots els accessos",
+    "app_access_removeall_desc": "Cap usuari tindrà accés a %s.",
+    "app_access_title": "Accés a %s",
+    "app_change_label": "Canviar l'etiqueta",
+    "app_change_url": "Canvia l'URL",
+    "app_debug_no_logs": "Els registres de l'aplicació no estan disponibles",
+    "app_debug_tab": "Mostra la informació de depuració",
+    "app_info_access_desc": "Administrar l'accés d'usuaris. Usuaris permesos: %s",
+    "app_info_changelabel_desc": "Canvia l'etiqueta de l'aplicació al portal"
 }
