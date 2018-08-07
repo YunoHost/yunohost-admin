@@ -1,1 +1,9 @@
-{}
+{
+    "action": "Acció",
+    "active": "Actiu",
+    "add": "Afegir",
+    "remove": "Suprimir",
+    "administration_password": "Contrasenya d'administració",
+    "allowed_users": "Usuaris permesos",
+    "api_not_responding": "L'API no està responent"
+}
