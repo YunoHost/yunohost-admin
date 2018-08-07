@@ -147,5 +147,7 @@
     "hook_adminjs_group_configuration": "Configuració",
     "hook_conf_cron": "Tasques periòdiques",
     "hook_conf_ldap": "LDAP",
-    "hook_conf_nginx": "Nginx"
+    "hook_conf_nginx": "Nginx",
+    "hook_conf_ssh": "SSH",
+    "hook_conf_ssowat": "SSOwat"
 }
