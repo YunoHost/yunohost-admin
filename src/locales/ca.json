@@ -155,5 +155,8 @@
     "hook_conf_ynh_firewall": "Tallafoc",
     "hook_conf_ynh_mysql": "Contrasenya de MySQL",
     "hook_data_home": "Dades d'usuari",
-    "hook_data_home_desc": "Les dades d'usuari són a /home/USUARI"
+    "hook_data_home_desc": "Les dades d'usuari són a /home/USUARI",
+    "hook_data_mail": "Correu",
+    "hook_data_mail_desc": "Correu en el servidor",
+    "hostname": "Nom de l'amfitrió"
 }
