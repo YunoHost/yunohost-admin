@@ -308,5 +308,7 @@
     "unknown_argument": "Argument desconegut: %s",
     "upload": "Pujar",
     "upload_archive": "Pujar fitxer",
-    "upnp": "UPnP"
+    "upnp": "UPnP",
+    "upnp_disabled": "UPnP està desactivat.",
+    "upnp_enabled": "UPnP està activat"
 }
