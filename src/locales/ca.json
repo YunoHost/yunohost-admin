@@ -135,5 +135,6 @@
     "error_select_domain": "Heu d'indicar un domini",
     "error_server": "Error del servidor",
     "error_server_unexpected": "Error inesperat en el servidor (%s)",
-    "everyone_has_access": "Tots els usuaris tenen accés"
+    "everyone_has_access": "Tots els usuaris tenen accés",
+    "filesystem": "Sistema de fitxers"
 }
