@@ -172,5 +172,6 @@
     "interface": "Interfície",
     "internal_exception": "<strong> YunoHost a trobat un error intern :/</strong><br><em>Ens sap molt greu.<br> Hauria de buscar ajuda a <a href=\"https://forum.yunohost.org/\">el formum</a> o <a href=\"https://chat.yunohost.org/\"> el xat</a> per arreglar el problema, o per notificar el bug a <a href=\"https://github.com/YunoHost/issues\">the bugtracker</a>.</em><br> La informació següent pot ser útil per la persona que l'ajudi: <h3> Acció</h3><pre>%s%s</pre><h3> Traça </h3><pre>%s</pre>",
     "io": "I/O",
-    "ipv4": "IPv4"
+    "ipv4": "IPv4",
+    "ipv6": "IPv6"
 }
