@@ -254,5 +254,17 @@
     "services": "Serveis",
     "services_list": "Llista de serveis",
     "set_default": "Establir com a predeterminat",
-    "size": "Tamany"
+    "size": "Talla",
+    "skip": "Passar",
+    "start": "Engegar",
+    "started_at": "Engegat a:",
+    "status": "Estat",
+    "stop": "Aturar",
+    "storage_create": "Afegir emmagatzematge remot",
+    "storages_new": "Nou emmagatzematge remot",
+    "storages_no": "Sense emmagatzematge.",
+    "swap": "Memòria d'intercanvi",
+    "system": "Sistema",
+    "system_apps": "Aplicacions",
+    "system_apps_nothing": "No hi ha aplicacions per actualitzar"
 }
