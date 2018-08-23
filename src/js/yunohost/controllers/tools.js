@@ -96,6 +96,62 @@
         }
     });
 
+    // Display journals list
+    app.get('#/tools/logs', function (c) {
+        c.api("/logs", function(categories) {
+            data = [];
+            icons = {
+                'operation': 'wrench',
+                'history': 'history',
+                'package': 'puzzle-piece',
+                'system': 'cogs',
+                'access': 'ban',
+                'service': 'cog',
+                'app': 'cubes'
+            }
+            for (var category in categories) {
+                if (categories.hasOwnProperty(category)) {
+                    data.push({
+                        key:category,
+                        icon:(category in icons)?icons[category]:'info-circle',
+                        value:categories[category]
+                    });
+                }
+            }
+
+            c.view('tools/tools_logs', {
+                "data": data,
+	        "locale": y18n.locale
+            });
+        });
+    });
+
+    // One journal
+    app.get(/\#\/tools\/logs\/(.*)(\?number=(\d+))?/, function (c) {
+        var params = "?path=" + c.params["splat"][0];
+        var number = (c.params["number"])?c.params["number"]:50;
+        params += "&number=" + number;
+        
+        c.api("/logs/display" + params, function(log) {
+            if ('metadata' in log) {
+                if ('started_at' in log.metadata) {
+                    log.metadata.started_at = Date.parse(log.metadata.started_at)
+                }
+                if ('ended_at' in log.metadata) {
+                    log.metadata.ended_at = Date.parse(log.metadata.ended_at)
+                }
+                if (!'env' in log.metadata && 'args' in log.metadata) {
+                    log.metadata.env = log.metadata.args
+                }
+            }
+            c.view('tools/tools_log', {
+                "log": log,
+                "next_number": log.logs.length == number ? number * 10:false,
+                "locale": y18n.locale
+            });
+        });
+    });
+    
     // Upgrade a specific apps
     app.get('#/upgrade/apps/:app', function (c) {
         c.confirm(

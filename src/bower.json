@@ -6,6 +6,7 @@
   "dependencies": {
     "bootstrap": "3.3.6",
     "font-awesome": "4.5.0",
+    "handlebars-helper-intl": "1.1.2",
     "handlebars": "4.0.11",
     "sammy": "0.7.6",
     "js-cookie": "2.1.0",

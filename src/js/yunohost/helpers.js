@@ -390,7 +390,7 @@
 
         // Paste <pre>
         prePaste: function() {
-            var pasteButtons = $('button[data-paste-content]');
+            var pasteButtons = $('button[data-paste-content],a[data-paste-content]');
             pasteButtons.on('click', function(){
                 // Get paste content element
                 var preElement = $($(this).data('paste-content'));
@@ -402,7 +402,7 @@
                 $.ajax({
                     type: "POST",
                     url: 'https://paste.yunohost.org/documents',
-                    data: preElement[0].innerHTML,
+                    data: preElement.text(),
                 })
                 .success(function(data, textStatus, jqXHR) {
                     window.open('https://paste.yunohost.org/' + data.key, '_blank');

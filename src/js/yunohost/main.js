@@ -10,6 +10,7 @@
 
         // Plugins
         sam.use('Handlebars', 'ms');
+        window.HandlebarsIntl.registerWith(Handlebars);
 
         Handlebars.registerHelper('ucwords', function(str) {
             return (str + '').replace(/^([a-z\u00E0-\u00FC])|\s+([a-z\u00E0-\u00FC])/g, function ($1) {
@@ -40,6 +41,16 @@
         Handlebars.registerHelper('t', function(y18n_key) {
           var result = y18n.t(y18n_key, Array.prototype.slice.call(arguments, 1));
           return new Handlebars.SafeString(result);
+        });
+        
+        Handlebars.registerHelper('concat', function() {
+            var outStr = '';
+            for(var arg in arguments){
+                if(typeof arguments[arg]!='object'){
+                    outStr += arguments[arg];
+                }
+            }
+            return outStr;
         });
 
         // Block helper to add a tooltip to any element
