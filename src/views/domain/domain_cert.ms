@@ -46,7 +46,7 @@
             <p><span class="fa-fw fa-meh-o"></span>
             {{t 'domain_not_eligible_for_ACME'}}</p>
         {{/if}}
-            <a href="#/domains/{{name}}/cert-install-LE" class="btn btn-success {{#unless status.ACME_eligible}}disabled{{/unless}}">
+            <a href="#/domains/{{name}}/cert-install-LE" role="button" class="btn btn-success {{#unless status.ACME_eligible}}disabled{{/unless}}">
                 <span class="fa-star"></span> {{t 'install_letsencrypt_cert'}}
             </a>
         <hr>
@@ -56,7 +56,7 @@
         <div class="container">
         <p>{{t 'manually_renew_letsencrypt_message'}}</p>
             <a href="#/domains/{{name}}/cert-renew-letsencrypt" class="btn btn-warning">
-                <span class="fa-refresh"></span> {{t 'manually_renew_letsencrypt'}}
+                <span role="button" class="fa-refresh"></span> {{t 'manually_renew_letsencrypt'}}
             </a>
         </div>
         <hr>
@@ -64,7 +64,7 @@
         {{#if actions_enabled.regen_selfsigned}}
         <div class="container">
         <p>{{t 'regenerate_selfsigned_cert_message'}}</p>
-            <a href="#/domains/{{name}}/cert-regen-selfsigned" class="btn btn-warning">
+            <a href="#/domains/{{name}}/cert-regen-selfsigned" role="button" class="btn btn-warning">
                 <span class="fa-refresh"></span> {{t 'regenerate_selfsigned_cert'}}
             </a>
         </div>
@@ -73,7 +73,7 @@
         {{#if actions_enabled.replace_with_selfsigned}}
         <div class="container">
             <p>{{t 'revert_to_selfsigned_cert_message'}}</p>
-            <a href="#/domains/{{name}}/cert-replace-with-selfsigned" class="btn btn-danger">
+            <a href="#/domains/{{name}}/cert-replace-with-selfsigned" role="button" class="btn btn-danger">
                 <span class="fa-exclamation-triangle"></span> {{t 'revert_to_selfsigned_cert'}}
             </a>
         </div>

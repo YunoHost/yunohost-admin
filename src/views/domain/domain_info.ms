@@ -32,7 +32,7 @@
     <div class="panel-body">
         <div class="container">
             <p>{{t 'domain_visit_url' url}}</p>
-            <a href="{{url}}" class="btn btn-success" target="_blank">
+            <a role="button" href="{{url}}" class="btn btn-success" target="_blank">
                 {{t 'domain_visit'}} <span class="fa-fw fa-external-link"></span>
             </a>
         </div>
@@ -42,7 +42,7 @@
             <p>{{t 'domain_default_desc'}}</p>
             <form method="POST" action="#/domains">
                     <input type="hidden" name="domain" value="{{name}}" required class="form-control">
-                    <button type="submit" class="btn btn-primary slide back" value="{{t 'set_default'}}">
+                    <button type="submit" role="button" class="btn btn-primary slide back" value="{{t 'set_default'}}">
                         {{t 'set_default'}} <span class="fa-fw fa-star"></span>
                     </button>
             </form>
@@ -51,7 +51,7 @@
         <hr>
         <div class="container">
             <p>{{t 'domain_dns_longdesc'}}</p>
-            <a href="#/domains/{{name}}/dns" class="btn btn-default slide">
+            <a role="button" href="#/domains/{{name}}/dns"  class="btn btn-default slide">
                 {{t 'domain_dns_config'}} <span class="fa-fw fa-globe"></span>
             </a>
         </div>
@@ -63,14 +63,14 @@
             {{t 'certificate_old_letsencrypt_app_conflict'}}
             </p>
             {{/unless}}
-            <a href="#/domains/{{name}}/cert-management" class="btn btn-default slide {{#unless enable_cert_management}}disabled{{/unless}}">
+            <a href="#/domains/{{name}}/cert-management" role="button" class="btn btn-default slide {{#unless enable_cert_management}}disabled{{/unless}}">
                 {{t 'ssl_certificate'}} <span class="fa-fw fa-lock"></span>
             </a>
         </div>
         <hr>
         <div class="container">
             <p>{{t 'domain_delete_longdesc' name}}</p>
-            <a href="#/domains/{{name}}/delete" class="btn btn-danger slide back">
+            <a href="#/domains/{{name}}/delete" role="button" class="btn btn-danger slide back">
                 {{t 'delete'}} <span class="fa-fw fa-trash-o"></span>
             </a>
         </div>
