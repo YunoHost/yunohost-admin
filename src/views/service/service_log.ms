@@ -11,6 +11,6 @@
     {{#logs}}
         <h2>{{filename}}</h2>
         <pre id="log" class="service-log">{{filecontent}}</pre>
-        <button data-paste-content="#log"><i class="fa-cloud-upload"></i> {{t 'upload'}}</button>
+        <button data-paste-content="#log"><i role="button" class="fa-cloud-upload"></i> {{t 'upload'}}</button>
     {{/logs}}
 </div>
