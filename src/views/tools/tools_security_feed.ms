@@ -16,7 +16,7 @@
                 <p class="pub-date"><em>{{date}}</em></p>
                 {{{desc}}}
                 <p class="text-right">
-                    <a href="{{url}}" class="btn btn-default">{{t 'read_more'}}</a>
+                    <a href="{{url}}" role="button"  class="btn btn-default">{{t 'read_more'}}</a>
                 </p>
             </div>
         </div>
@@ -29,6 +29,6 @@
 {{/if}}
 
 <div>
-    <a href="{{url.web}}" class="btn btn-success" target="_blank"><span class="fa-list"></span> {{t 'tools_security_feed_view_items'}}</a> 
-    <a href="{{url.rss}}" class="btn btn-warning" target="_blank"><span class="fa-rss"></span> {{t 'tools_security_feed_subscribe_rss'}}</a>
+    <a role="button" href="{{url.web}}" class="btn btn-success" target="_blank"><span class="fa-list"></span> {{t 'tools_security_feed_view_items'}}</a> 
+    <a role="button" href="{{url.rss}}" class="btn btn-warning" target="_blank"><span class="fa-rss"></span> {{t 'tools_security_feed_subscribe_rss'}}</a>
 </div>

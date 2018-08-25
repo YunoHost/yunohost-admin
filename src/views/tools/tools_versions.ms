@@ -17,6 +17,6 @@
             <dd>{{version}} ({{repo}})</dd>
             {{/each}}
         </dl>
-        <a href="#/update" class="btn btn-success pull-right">{{t 'system_update'}}</a>
+        <a role="button" href="#/update" class="btn btn-success pull-right">{{t 'system_update'}}</a>
     </div>
 </div>

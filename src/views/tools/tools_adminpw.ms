@@ -33,7 +33,7 @@
 	</div>
 
 	<div class="text-center">
-	    <input type="submit" class="btn btn-success slide back" value="{{t 'save'}}">
+	    <input role="button" type="submit" class="btn btn-success slide back" value="{{t 'save'}}">
 	</div>
 
 </form>

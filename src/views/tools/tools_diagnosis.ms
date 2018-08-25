@@ -16,10 +16,10 @@
     <div class="panel-body">
         <pre id="diagnosis">{{ diagnosis }}</pre>
         {{#if private}}
-        <a class="btn btn-primary" href="#/tools/diagnosis"><i class="fa-eye-slash"></i> {{t 'diagnosis_hide_private'}}</a>
+        <a class="btn btn-primary" role="button" href="#/tools/diagnosis"><i class="fa-eye-slash"></i> {{t 'diagnosis_hide_private'}}</a>
         {{else}}
-        <a class="btn btn-primary" href="#/tools/diagnosis/private"><i class="fa-eye"></i> {{t 'diagnosis_view_private'}}</a>
+        <a class="btn btn-primary" role="button" href="#/tools/diagnosis/private"><i class="fa-eye"></i> {{t 'diagnosis_view_private'}}</a>
         {{/if}}
-        <button data-paste-content="#diagnosis"><i class="fa-cloud-upload"></i> {{t 'upload'}}</button>
+        <button data-paste-content="#diagnosis"><i role="button" class="fa-cloud-upload"></i> {{t 'upload'}}</button>
     </div>
 </div>

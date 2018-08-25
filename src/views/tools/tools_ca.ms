@@ -9,6 +9,6 @@
 <div class="panel panel-default">
     <div class="panel-body">
     	<p>{{t 'tools_download_ca_desc'}}</p>
-    	<a href="ca.crt" class="btn btn-success">CA.crt</a>
+    	<a role="button" href="ca.crt" class="btn btn-success">CA.crt</a>
     </div>
 </div>
