@@ -66,7 +66,7 @@
 <div class="br"></div>
 
 <div class="text-center">
-    <input type="submit" https://192.168.33.3/yunohost/admin/#/domains/yolo.test/cert-management class="btn btn-success slide back" value="{{t 'add'}}">
+    <input type="submit" role="button" class="btn btn-success slide back" value="{{t 'add'}}">
 </div>
 
 </form>
