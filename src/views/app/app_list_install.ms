@@ -60,7 +60,7 @@
             </div>
             <div class="form-group">
                 <div class="text-center">
-                    <input role="button"type="submit" role="button"  class="btn btn-success slide" value="{{t 'install'}}">
+                    <input type="submit" role="button" class="btn btn-success slide" value="{{t 'install'}}">
                 </div>
             </div>
         </form>
