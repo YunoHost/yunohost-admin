@@ -46,7 +46,7 @@
             <p><span class="fa-fw fa-meh-o"></span>
             {{t 'domain_not_eligible_for_ACME'}}</p>
         {{/if}}
-            <a href="#/domains/{{name}}/cert-install-LE" role="button" class="btn btn-success {{#unless status.ACME_eligible}}disabled{{/unless}}">
+            <a role="button" href="#/domains/{{name}}/cert-install-LE" class="btn btn-success {{#unless status.ACME_eligible}}disabled{{/unless}}">
                 <span class="fa-star"></span> {{t 'install_letsencrypt_cert'}}
             </a>
         <hr>
@@ -55,8 +55,8 @@
         {{#if actions_enabled.manual_renew_letsencrpt}}
         <div class="container">
         <p>{{t 'manually_renew_letsencrypt_message'}}</p>
-            <a href="#/domains/{{name}}/cert-renew-letsencrypt" class="btn btn-warning">
-                <span role="button" class="fa-refresh"></span> {{t 'manually_renew_letsencrypt'}}
+            <a role="button" href="#/domains/{{name}}/cert-renew-letsencrypt" class="btn btn-warning">
+                <span class="fa-refresh"></span> {{t 'manually_renew_letsencrypt'}}
             </a>
         </div>
         <hr>

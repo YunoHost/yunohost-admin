@@ -42,7 +42,7 @@
             <p>{{t 'domain_default_desc'}}</p>
             <form method="POST" action="#/domains">
                     <input type="hidden" name="domain" value="{{name}}" required class="form-control">
-                    <button type="submit" role="button" class="btn btn-primary slide back" value="{{t 'set_default'}}">
+                    <button type="submit" class="btn btn-primary slide back" value="{{t 'set_default'}}">
                         {{t 'set_default'}} <span class="fa-fw fa-star"></span>
                     </button>
             </form>

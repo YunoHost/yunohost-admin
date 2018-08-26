@@ -20,6 +20,6 @@
         {{else}}
         <a class="btn btn-primary" role="button" href="#/tools/diagnosis/private"><i class="fa-eye"></i> {{t 'diagnosis_view_private'}}</a>
         {{/if}}
-        <button data-paste-content="#diagnosis"><i role="button" class="fa-cloud-upload"></i> {{t 'upload'}}</button>
+        <button data-paste-content="#diagnosis"><i class="fa-cloud-upload"></i> {{t 'upload'}}</button>
     </div>
 </div>
