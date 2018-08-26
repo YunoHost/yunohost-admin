@@ -17,6 +17,18 @@
         });
     });
 
+    function levelToColor(level){
+      if (level > 6){
+        return 'success'
+      }
+      else if (level > 2){
+        return 'warning'
+      }
+      else {
+        return 'danger'
+      }
+    }
+
     // List available apps
     app.get('#/apps/install', function (c) {
         c.api('/apps', function(data) { // http://api.yunohost.org/#!/app/app_list_get_8
@@ -27,12 +39,12 @@
                     if ((!v['installed'] || dataraw[v['id']].manifest.multi_instance) && !v['id'].match(/__[0-9]{1,5}$/)) {
                         // Check app source
                         dataraw[v['id']]['official'] = (dataraw[v['id']]['repository'] == 'yunohost');
+                        dataraw[v['id']]['color'] = levelToColor(dataraw[v['id']]['level'])
 
                         jQuery.extend(dataraw[v['id']], v);
                         apps.push(dataraw[v['id']]);
                     }
                 });
-
                 // Sort app list
                 c.arraySortById(apps);
                 c.view('app/app_list_install', {apps: apps});
@@ -681,7 +693,7 @@
               c.view('app/app_changelabel', data);
         });
     });
-    
+
     // Change app label
     app.post('#/apps/:app/changelabel', function (c) {
         params = {'new_label': c.params['label']};
@@ -718,7 +730,7 @@
             });
         });
     });
-    
+
     // Change app URL
     app.post('#/apps/:app/changeurl', function (c) {
         c.confirm(
@@ -736,5 +748,5 @@
                 c.redirect('#/apps/'+ c.params['app'] + '/changeurl');
             }
         );
-    });   
+    });
 })();

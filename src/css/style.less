@@ -558,22 +558,56 @@ input[type='radio'].nice-radio {
 }
 
 .app-card {
-    margin-bottom: 20px;
-    width: 30%;
-    float: left;
-    min-height: 1px;
-    margin-right: 10px;
-    margin-left: 10px;
-    border-radius: 4px;
+    // margin-bottom: 20px;
+    // width: 30%;
+    // float: left;
+    // min-height: 1px;
+    // margin-right: 10px;
+    // margin-left: 10px;
+    border-radius: .5rem;
+}
+
+.grid {
+    display: grid;
+    grid-auto-rows: minmax(125px, auto);
+    grid-gap: .5rem;
+}
+
+.app-card-desc {
+    height: 6rem;
+    overflow: hidden;
+}
+
+.app-card-date-maintainer {
+    text-align: right;
+    max-height: 18px;
+    margin-bottom: 3px;
+    margin-right: 7px;
+    margin-top: -5px;
 }
 
 .btn-group {
     width: 100%;
-    margin-left: 0px;
+    .btn:first-child{
+      border-bottom-left-radius: .5rem;
+    }
+    .btn:last-child{
+      border-bottom-right-radius: .5rem;
+      margin-left: 0;
+    }
 }
 
 .panel-body {
-    padding: 15px;
+    padding: 1.5rem;
+
+    h3 {
+      margin-top: 0;
+      margin-bottom: .5rem;
+    }
+
+    .category {
+      margin-bottom: .5rem;
+    }
 }
 
 
@@ -617,6 +651,11 @@ input[type='radio'].nice-radio {
             padding-top: 30px;
             #toggle-btn {display: block;}
         }
+    }
+
+    .grid {
+        grid-template-columns: repeat(3, 1fr);
+        grid-gap: 10px;
     }
 
     #flashMessage {

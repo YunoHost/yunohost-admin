@@ -15,32 +15,29 @@
 
 <div class="separator"></div>
 
-<div class="list-group">
+<div class="list-group grid">
 {{#apps}}
-  <div class="app-card_ampache app-card panel panel-default" id="app-card_ampache">
+  <div class="app-card panel panel-default">
         <div class="panel-body">
             <h3>{{name}}</h3>
-            <div class="category"> <span class="label label-success label-as-badge">{{level}}</span>
+            <div class="category"> <span class="label label-{{color}} label-as-badge">{{level}}</span>
             <span class="label label-success label-as-badge app-validated">validated</span>
             <span class="label label-default">AGPL-3.0</span></div>
             <div class="app-card-desc">{{description}}</div>
         </div>
             <div class="app-card-date-maintainer">
-                <span class="glyphicon glyphicon-refresh"></span> 10 April 2018 -
-                <span title="Current maintainer of this package" class="maintained"><span class="glyphicon glyphicon-user"></span> aymhce</span>
+                <i class="fas fa-sync"></i> 10 April 2018 -
+                <span title="Current maintainer of this package" class="maintained"></span><i class="fa-user"></i> aymhce</span>
             </div>
             <div class="btn-group" role="group">
-                <a href="https://github.com/YunoHost-Apps/ampache_ynh" target="_BLANK" type="button" class="btn btn-default col-sm-4">
-                    <span class="glyphicon glyphicon-globe" aria-hidden="true"></span>
-                    Code
+                <a href="github.com" target="_BLANK" type="button" class="btn btn-default col-sm-4">
+                    <i class="fa-globe"></i> Code
                 </a>
                 <a href="#/app_ampache_en" target="_BLANK" type="button" class="btn btn-default col-sm-4">
-                    <span class="glyphicon glyphicon-book" aria-hidden="true"></span>
-                    Doc
+                    <i class="fa-book"></i> Doc
                 </a>
-                <a href="#/apps/install/{{id}}" target="_BLANK" type="button" class="btn btn-success col-sm-4 active">
-                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                    Install
+                <a href="#/apps/install/{{id}}" type="button" class="btn btn-{{color}} col-sm-4 active">
+                    <i class="fa-plus"></i> Install
                 </a>
             </div>
     </div>
