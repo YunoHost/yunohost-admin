@@ -5,7 +5,7 @@
 </div>
 
 <div class="actions-group">
-    <a href="#/backup/{{storage.id}}/create" class="btn btn-success slide">
+    <a role="button" href="#/backup/{{storage.id}}/create" class="btn btn-success slide">
         <span class="fa-plus"></span> {{t 'backup_new'}}
     </a>
 </div>
