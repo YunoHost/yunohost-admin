@@ -5,10 +5,10 @@
 </div>
 
 <div class="actions-group">
-    <a href="#/apps/lists" class="btn btn-success">
+    <a href="#/apps/lists" role="button" class="btn btn-success">
         <span class="fa-list"></span> {{t 'appslists_manage'}}
     </a>
-    <a href="#/apps/lists/refresh" class="btn btn-info">
+    <a href="#/apps/lists/refresh" role="button" class="btn btn-info">
         <span class="fa-refresh"></span> {{t 'refresh_app_list'}}
     </a>
 </div>
@@ -45,7 +45,7 @@
             <p><span class="fa-lightbulb-o"></span>
             {{t 'install_custom_app_appslists_info'}}</p>
             <p>
-                <a href="#/apps/lists" class="btn btn-info">{{t 'appslists_manage'}}</a>
+                <a role="button" href="#/apps/lists" class="btn btn-info">{{t 'appslists_manage'}}</a>
             </p>
         </div>
         <form action="#/apps/install/custom" method="POST" class="form-horizontal">
@@ -60,7 +60,7 @@
             </div>
             <div class="form-group">
                 <div class="text-center">
-                    <input type="submit" class="btn btn-success slide" value="{{t 'install'}}">
+                    <input type="submit" role="button" class="btn btn-success slide" value="{{t 'install'}}">
                 </div>
             </div>
         </form>

@@ -61,8 +61,8 @@
         </tbody>
       </table>
         <span class="pull-right">
-          <a href="#/users/{{username}}/edit" class="btn btn-info slide"><span class="fa-pencil-square-o"/> {{t 'user_username_edit' username}}</a>
-          <a href="#/users/{{username}}/delete" class="btn btn-danger slide back"><span class="fa-trash-o"/> {{t 'delete'}}</a>
+          <a role="button" href="#/users/{{username}}/edit" class="btn btn-info slide"><span class="fa-pencil-square-o"/> {{t 'user_username_edit' username}}</a>
+          <a role="button" href="#/users/{{username}}/delete" class="btn btn-danger slide back"><span class="fa-trash-o"/> {{t 'delete'}}</a>
         </span>
     </div>
   </div>

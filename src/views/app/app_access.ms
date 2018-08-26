@@ -16,7 +16,7 @@
     <div class="list-group">
         {{#each settings.allowed_users}}
         <div class="list-group-item">
-            <a href="#/apps/{{../settings.id}}/access/remove/{{username}}" class="btn btn-danger slide back pull-right">
+            <a role="button" href="#/apps/{{../settings.id}}/access/remove/{{username}}" class="btn btn-danger slide back pull-right">
                 <span class="fa-trash-o"></span> {{t 'remove_access'}}
             </a>
             <h3 class="list-group-item-heading">{{fullname}} ({{mail}})</h3>
@@ -68,7 +68,7 @@
         {{#if users}}
         <div class="container">
             <p>{{t 'app_access_addall_desc' settings.label}}</p>
-            <a href="#/apps/{{settings.id}}/access/add" class="btn btn-success slide back">
+            <a role="button" href="#/apps/{{settings.id}}/access/add" class="btn btn-success slide back">
                 <span class="fa-plus"></span> {{t 'app_access_addall_btn'}}
             </a>
         </div>
@@ -77,7 +77,7 @@
         {{#if settings.allowed_users}}
         <div class="container">
             <p>{{t 'app_access_removeall_desc' settings.label}}</p>
-            <a href="#/apps/{{../settings.id}}/access/remove" class="btn btn-danger slide back">
+            <a role="button" href="#/apps/{{../settings.id}}/access/remove" class="btn btn-danger slide back">
                 <span class="fa-trash-o"></span> {{t 'app_access_removeall_btn'}}
             </a>
         </div>
@@ -86,7 +86,7 @@
         {{#unless settings.allow_everyone}}
         <div class="container">
             <p>{{t 'app_access_clearall_desc' settings.label}}</p>
-            <a href="#/apps/{{settings.id}}/access/clear" class="btn btn-primary slide back">
+            <a role="button" href="#/apps/{{settings.id}}/access/clear" class="btn btn-primary slide back">
                 <span class="fa-unlock-alt"></span> {{t 'app_access_clearall_btn'}}
             </a>
         </div>

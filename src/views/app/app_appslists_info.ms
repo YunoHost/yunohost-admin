@@ -32,7 +32,7 @@
     <div class="panel-body">
         <div class="container">
             <p>{{t 'appslists_info_refresh_desc'}}</p>
-            <a href="#/apps/lists/{{appslist.name}}/refresh" class="btn btn-info slide">
+            <a href="#/apps/lists/{{appslist.name}}/refresh" role="button" class="btn btn-info slide">
                 <span class="fa-refresh"></span> {{t 'refresh_app_list'}}
             </a>
         </div>
@@ -40,7 +40,7 @@
         <hr>
         <div class="container">
             <p>{{t 'appslists_info_remove_desc'}}</p>
-            <a href="#/apps/lists/{{appslist.name}}/remove" class="btn btn-danger slide back">
+            <a role="button" href="#/apps/lists/{{appslist.name}}/remove" class="btn btn-danger slide back">
                 <span class="fa-trash-o"></span> {{t 'remove'}}
             </a>
         </div>

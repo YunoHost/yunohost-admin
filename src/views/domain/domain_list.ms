@@ -4,7 +4,7 @@
 </div>
 
 <div class="actions-group">
-    <a href="#/domains/add" class="btn btn-success slide">
+    <a role="button" href="#/domains/add" class="btn btn-success slide">
         <span class="fa-plus"></span> {{t 'domain_add'}}
     </a>
 </div>

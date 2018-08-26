@@ -38,21 +38,21 @@
     <div class="panel-body">
         <div class="container">
             <p>{{t 'app_info_changelabel_desc' settings.label}}</p>
-            <a href="#/apps/{{settings.id}}/changelabel" class="btn btn-info slide">
+            <a role="button" href="#/apps/{{settings.id}}/changelabel" class="btn btn-info slide">
                 <span class="fa-tag"></span> {{t 'app_change_label'}}
             </a>
         </div>
         <hr>
         <div class="container">
             <p>{{t 'app_info_access_desc' settings.allowed_users}}</p>
-            <a href="#/apps/{{settings.id}}/access" class="btn btn-info slide">
+            <a role="button" href="#/apps/{{settings.id}}/access" class="btn btn-info slide">
                 <span class="fa-lock"></span> {{t 'app_access'}}
             </a>
         </div>
         <hr>
         <div class="container">
             <p>{{t 'app_info_default_desc' settings.domain}}</p>
-            <a href="#/apps/{{settings.id}}/default" class="btn btn-success slide">
+            <a role="button" href="#/apps/{{settings.id}}/default" class="btn btn-success slide">
                 <span class="fa-star"></span> {{t 'app_make_default'}}
             </a>
         </div>
@@ -60,7 +60,7 @@
         <div class="container">
             <p>{{t 'app_info_changeurl_desc' settings.domain}}</p>
             {{#if change_url}}
-                <a href="#/apps/{{settings.id}}/changeurl" class="btn btn-info slide">
+                <a href="#/apps/{{settings.id}}/changeurl" role="button" class="btn btn-info slide">
                     <span class="fa-exchange"></span> {{t 'app_change_url'}}
                 </a>
             {{else}}
@@ -74,14 +74,14 @@
         <hr>
         <div class="container">
             <p>{{t 'app_info_uninstall_desc'}}</p>
-            <a href="#/apps/{{settings.id}}/uninstall" class="btn btn-danger slide back">
+            <a href="#/apps/{{settings.id}}/uninstall" role="button" class="btn btn-danger slide back">
                 <span class="fa-trash-o"></span> {{t 'uninstall'}}
             </a>
         </div>
         <hr>
         <div class="container">
             <p>{{t 'app_info_debug_desc'}}</p>
-            <a href="#/apps/{{settings.id}}/debug" class="btn btn-warning slide">
+            <a href="#/apps/{{settings.id}}/debug" role="button" class ="btn btn-warning slide">
                 <span class="fa-bug"></span> {{t 'app_debug_tab'}}
             </a>
         </div>
