@@ -44,7 +44,7 @@
         {{#apps}}
         <div class="list-group-item clearfix">
             <a href="#/upgrade/apps/{{id}}" role="button" class="btn btn-success pull-right">{{t 'system_upgrade_btn'}}</a>
-            <h3 class="list-group-item-heading">{11{label}} <small>{{id}}</small></h3>
+            <h3 class="list-group-item-heading">{{label}} <small>{{id}}</small></h3>
         </div>
         {{/apps}}
     </div>
