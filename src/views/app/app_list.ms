@@ -5,7 +5,7 @@
 
 <div class="actions-group">
     <a role="button" href="#/apps/install" class="btn btn-success slide">
-0.        <span class="fa-plus"></span> {{t 'install'}}
+        <span class="fa-plus"></span> {{t 'install'}}
     </a>
 </div>
 
