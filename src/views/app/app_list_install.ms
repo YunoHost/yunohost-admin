@@ -45,7 +45,7 @@
             <p><span class="fa-lightbulb-o"></span>
             {{t 'install_custom_app_appslists_info'}}</p>
             <p>
-                <a role="button" href="#/apps/lists" role="button" class="btn btn-info">{{t 'appslists_manage'}}</a>
+                <a role="button" href="#/apps/lists" class="btn btn-info">{{t 'appslists_manage'}}</a>
             </p>
         </div>
         <form action="#/apps/install/custom" method="POST" class="form-horizontal">
