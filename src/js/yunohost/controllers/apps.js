@@ -470,7 +470,7 @@
                    rawpath = 'raw/master/manifest.json';
                    var giturl = params.app + rawpath;
                 } // Install custom app from github
-                else if (params.app.indexOf("github.com") !== "-1") {
+                else if (params.app.indexOf("github.com") !== -1) {
                     rawpath = 'master/manifest.json';
                     var giturl = params.app.replace('github.com', 'raw.githubusercontent.com') + rawpath;
                 }
