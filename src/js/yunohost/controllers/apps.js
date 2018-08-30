@@ -17,29 +17,49 @@
         });
     });
 
-    function levelToColor(level){
-      if (level > 6){
-        return 'success'
+    function levelToColor(level) {
+      if (level > 6) {
+        return 'success';
       }
-      else if (level > 2){
-        return 'warning'
+      else if (level > 2) {
+        return 'warning';
       }
       else {
-        return 'danger'
+        return 'danger';
       }
     }
 
+
+    function timeConverter(UNIX_timestamp) {
+        var a = new Date(UNIX_timestamp*1000);
+        var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+        var year = a.getFullYear();
+        var month = months[a.getMonth()];
+        var date = a.getDate();
+        var hour = a.getHours();
+        var min = a.getMinutes();
+        if (hour < 10) { hour = '0' + hour; }
+        if (min < 10) { min = '0' + min; }
+        var time = date+' '+month+' '+year;//+' at '+hour+':'+min
+        return time;
+    }
+
+
     // List available apps
     app.get('#/apps/install', function (c) {
-        c.api('/apps', function(data) { // http://api.yunohost.org/#!/app/app_list_get_8
-            c.api('/apps?raw', function(dataraw) { // http://api.yunohost.org/#!/app/app_list_get_8
-                var apps = [];
+        c.api('/apps', function (data) { // http://api.yunohost.org/#!/app/app_list_get_8
+            c.api('/apps?raw', function (dataraw) { // http://api.yunohost.org/#!/app/app_list_get_8
+                var apps = []
                 $.each(data['apps'], function(k, v) {
                     // Keep only uninstalled apps, or multi-instance apps
                     if ((!v['installed'] || dataraw[v['id']].manifest.multi_instance) && !v['id'].match(/__[0-9]{1,5}$/)) {
                         // Check app source
-                        dataraw[v['id']]['official'] = (dataraw[v['id']]['repository'] == 'yunohost');
-                        dataraw[v['id']]['color'] = levelToColor(dataraw[v['id']]['level'])
+                        dataraw[v['id']]['official'] = (dataraw[v['id']]['repository'] === 'yunohost');
+                        dataraw[v['id']]['color'] = levelToColor(dataraw[v['id']]['level']);
+                        dataraw[v['id']]['displayLicense'] = (dataraw[v['id']]['manifest']['license'] !== undefined
+                                                              && dataraw[v['id']]['manifest']['license'] !== 'free');
+                        dataraw[v['id']]['updateDate'] = timeConverter(dataraw[v['id']]['lastUpdate']);
+
 
                         jQuery.extend(dataraw[v['id']], v);
                         apps.push(dataraw[v['id']]);

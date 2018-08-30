@@ -20,20 +20,24 @@
   <div class="app-card panel panel-default">
         <div class="panel-body">
             <h3>{{name}}</h3>
-            <div class="category"> <span class="label label-{{color}} label-as-badge">{{level}}</span>
-            <span class="label label-success label-as-badge app-validated">validated</span>
-            <span class="label label-default">AGPL-3.0</span></div>
+            <div class="category">
+              <span class="label label-{{color}} label-as-badge">{{level}}</span>
+              {{^official}}<span class="label label-info label-as-badge app-validated">{{t 'community'}}</span>{{/official}}
+              {{#official}}<span class="label label-success label-as-badge app-validated">{{t 'official'}}</span>{{/official}}
+              {{#displayLicense}}<span class="label label-default">{{license}}</span>{{/displayLicense}}
+            </div>
             <div class="app-card-desc">{{description}}</div>
         </div>
             <div class="app-card-date-maintainer">
-                <i class="fas fa-sync"></i> 10 April 2018 -
-                <span title="Current maintainer of this package" class="maintained"></span><i class="fa-user"></i> aymhce</span>
+                <i class="fas fa-sync"></i> {{updateDate}} -
+                {{#maintained}}<span title="Current maintainer of this package" class="maintained"></span><i class="fa-user"></i> {{manifest.maintainer.name}}</span>{{/maintained}}
+            {{^maintained}}<i class="fas fa-warning"></i> {{t 'Unmaintained'}}{{/maintained}}
             </div>
             <div class="btn-group" role="group">
-                <a href="github.com" target="_BLANK" type="button" class="btn btn-default col-sm-4">
+                <a href="{{git.url}}" target="_BLANK" type="button" class="btn btn-default col-sm-4">
                     <i class="fa-globe"></i> Code
                 </a>
-                <a href="#/app_ampache_en" target="_BLANK" type="button" class="btn btn-default col-sm-4">
+                <a href="{{git.url}}/blob/master/README.md" target="_BLANK" type="button" class="btn btn-default col-sm-4">
                     <i class="fa-book"></i> Doc
                 </a>
                 <a href="#/apps/install/{{id}}" type="button" class="btn btn-{{color}} col-sm-4 active">
