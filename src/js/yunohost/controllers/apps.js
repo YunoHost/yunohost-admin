@@ -96,9 +96,42 @@
                         apps.push(dataraw[v['id']]);
                     }
                 });
+
                 // Sort app list
                 c.arraySortById(apps);
-                c.view('app/app_list_install', {apps: apps});
+                c.view('app/app_list_install', {apps: apps}, function(){
+
+                var cardGrid = jQuery('.grid').isotope({
+                  itemSelector: '.app-card',
+                  layoutMode: 'fitRows',
+                  getSortData: {
+                    name: '.app-level',
+                    symbol: '.app-state'
+                  }
+                });
+
+                // filter functions
+                var filterFns = {
+                  // show if number is greater than 50
+                  levelSufficient: function() {
+                    var level = jQuery(this).find('.app-level').text();
+                    return (parseInt( level ) > 2);
+                  },
+                  // show if name ends with -ium
+                  stateWorking: function() {
+                    return (jQuery(this).find('.app-state').text() === 'working');
+                  }
+                };
+
+                // bind filter button click
+                jQuery('#appFilters').on( 'click', 'button', function() {
+                  var filterValue = jQuery( this ).attr('data-filter');
+                  console.log('mouahahahaha')
+                  // use filterFn if matches value
+                  filterValue = filterFns[ filterValue ] || filterValue;
+                  cardGrid.isotope({ filter: filterValue });
+                });
+              });
             });
         });
     });

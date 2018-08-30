@@ -4,7 +4,7 @@
   "license": "AGPL-3.0",
   "private": true,
   "dependencies": {
-    "bootstrap": "3.3.6",
+    "bootstrap": "4.1.3",
     "font-awesome": "4.5.0",
     "handlebars-helper-intl": "1.1.2",
     "handlebars": "4.0.11",

@@ -15,17 +15,44 @@
 
 <div class="separator"></div>
 
+<div class="input-group">
+    <span class="input-group-addon" id="basic-addon0"><i class="fas fa-search"></i></span>
+    <input type="text" id="filter-app-cards" class="form-control"  placeholder="Search for apps..." aria-describedby="basic-addon0"/>
+    <div class="input-group-btn">
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span id="app-cards-list-filter-text">Only official apps</span> <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+            <li><a href="#" id="app-cards-list-validated">Only official apps</a></li>
+            <li><a href="#" id="app-cards-list-working">Only working apps</a></li>
+            <li><a href="#" id="app-cards-list-working-inprogress">In progress/not working apps</a></li>
+            <li><a href="#" id="app-cards-list-all-apps">All apps</a></li>
+        </ul>
+    </div>
+</div>
+
+<div class="separator"></div>
+
+<h1>Filter</h1>
+<div id="appFilters" class="button-group">
+  <button class="button is-checked" data-filter="*">show all</button>
+  <button class="button" data-filter="levelSufficient">level</button>
+  <button class="button" data-filter="stateWorking">state</button>
+</div>
+
+<div class="separator"></div>
+
 <div class="list-group grid">
 {{#apps}}
   <div class="app-card panel panel-default">
         <div class="panel-body">
             <h3>{{name}}</h3>
             <div class="category">
-              <a href="https://yunohost.org/#/packaging_apps_levels_fr"><span class="label label-{{levelColor}} label-as-badge" title="{{t 'app_level'}}">{{levelFormatted}}</span></a>
+              <a href="https://yunohost.org/#/packaging_apps_levels_fr"><span class="label label-{{levelColor}} label-as-badge app-level" title="{{t 'app_level'}}">{{levelFormatted}}</span></a>
               {{^official}}<span class="label label-info label-as-badge app-validated">{{t 'community'}}</span>{{/official}}
               {{#official}}<span class="label label-success label-as-badge app-validated">{{t 'official'}}</span>{{/official}}
-              <span class="label label-{{stateColor}} label-as-badge app-validated">{{state}}</span>
-              {{#displayLicense}}<span class="label label-default">{{license}}</span>{{/displayLicense}}
+              <span class="label label-{{stateColor}} label-as-badge app-state">{{state}}</span>
+              {{#displayLicense}}<span class="label label-default app-license">{{license}}</span>{{/displayLicense}}
             </div>
             <div class="app-card-desc">{{description}}</div>
         </div>
