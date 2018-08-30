@@ -18,15 +18,41 @@
     });
 
     function levelToColor(level) {
-      if (level > 6) {
-        return 'success';
-      }
-      else if (level > 2) {
-        return 'warning';
-      }
-      else {
-        return 'danger';
-      }
+        if (level > 6) {
+            return 'success';
+        }
+        else if (level > 2) {
+            return 'warning';
+        }
+        else if (isNaN(level)) {
+            return 'default';
+        } else {
+            return 'danger'
+        }
+    }
+
+    function stateToColor(state) {
+        if (state === "working" || state === "validated") {
+            return 'success';
+        }
+        else if (state === "inprogress") {
+            return 'warning';
+        }
+        else {
+            return 'danger';
+        }
+    }
+
+    function combineColors(stateColor, levelColor, installable) {
+        if (stateColor === "dangers" || levelColor === "danger") {
+            return 'danger';
+        }
+        if (stateColor === "warnings" || levelColor === "warnings" || levelColor === "default") {
+            return 'warning';
+        }
+        else {
+            return 'success';
+        }
     }
 
 
@@ -51,15 +77,20 @@
             c.api('/apps?raw', function (dataraw) { // http://api.yunohost.org/#!/app/app_list_get_8
                 var apps = []
                 $.each(data['apps'], function(k, v) {
-                    // Keep only uninstalled apps, or multi-instance apps
-                    if ((!v['installed'] || dataraw[v['id']].manifest.multi_instance) && !v['id'].match(/__[0-9]{1,5}$/)) {
+                    // Keep only on instance of each apps
+                    if (!v['id'].match(/__[0-9]{1,5}$/)) {
                         // Check app source
+                        dataraw[v['id']]['installable'] = (!v['installed'] || dataraw[v['id']].manifest.multi_instance)
                         dataraw[v['id']]['official'] = (dataraw[v['id']]['repository'] === 'yunohost');
-                        dataraw[v['id']]['color'] = levelToColor(dataraw[v['id']]['level']);
+                        levelFormatted = parseInt(dataraw[v['id']]['level']);
+                        dataraw[v['id']]['levelFormatted'] = isNaN(levelFormatted) ? '?' : levelFormatted;
+                        dataraw[v['id']]['levelColor'] = levelToColor(levelFormatted);
+                        dataraw[v['id']]['stateColor'] = stateToColor(dataraw[v['id']]['state']);
+                        dataraw[v['id']]['installColor'] = combineColors(dataraw[v['id']]['stateColor'], dataraw[v['id']]['levelColor']);
                         dataraw[v['id']]['displayLicense'] = (dataraw[v['id']]['manifest']['license'] !== undefined
                                                               && dataraw[v['id']]['manifest']['license'] !== 'free');
                         dataraw[v['id']]['updateDate'] = timeConverter(dataraw[v['id']]['lastUpdate']);
-
+                        dataraw[v['id']]['isSafe'] = (dataraw[v['id']]['installColor'] === 'danger');
 
                         jQuery.extend(dataraw[v['id']], v);
                         apps.push(dataraw[v['id']]);

@@ -21,9 +21,10 @@
         <div class="panel-body">
             <h3>{{name}}</h3>
             <div class="category">
-              <span class="label label-{{color}} label-as-badge">{{level}}</span>
+              <a href="https://yunohost.org/#/packaging_apps_levels_fr"><span class="label label-{{levelColor}} label-as-badge" title="{{t 'app_level'}}">{{levelFormatted}}</span></a>
               {{^official}}<span class="label label-info label-as-badge app-validated">{{t 'community'}}</span>{{/official}}
               {{#official}}<span class="label label-success label-as-badge app-validated">{{t 'official'}}</span>{{/official}}
+              <span class="label label-{{stateColor}} label-as-badge app-validated">{{state}}</span>
               {{#displayLicense}}<span class="label label-default">{{license}}</span>{{/displayLicense}}
             </div>
             <div class="app-card-desc">{{description}}</div>
@@ -38,10 +39,10 @@
                     <i class="fa-globe"></i> Code
                 </a>
                 <a href="{{git.url}}/blob/master/README.md" target="_BLANK" type="button" class="btn btn-default col-sm-4">
-                    <i class="fa-book"></i> Doc
+                    <i class="fa-book"></i> Readme
                 </a>
-                <a href="#/apps/install/{{id}}" type="button" class="btn btn-{{color}} col-sm-4 active">
-                    <i class="fa-plus"></i> Install
+                <a href="#/apps/install/{{id}}" type="button" class="btn btn-{{installColor}} col-sm-4 active">
+                    <i class="fa-plus"></i> Install {{#isSafe}}<i class="fa-warning"></i>{{/isSafe}}
                 </a>
             </div>
     </div>

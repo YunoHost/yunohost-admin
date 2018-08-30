@@ -10,6 +10,7 @@
     "handlebars": "4.0.11",
     "sammy": "0.7.6",
     "js-cookie": "2.1.0",
+    "isotope-layout": "3.0.6",
     "source-sans-pro": "git://github.com/adobe-fonts/source-sans-pro.git#2.020R-ro/1.075R-it",
     "source-code-pro": "git://github.com/adobe-fonts/source-code-pro.git#2.010R-ro/1.030R-it"
   }

@@ -47,6 +47,7 @@ gulp.task('js', function() {
             'bower_components/sammy/lib/plugins/sammy.json.js',
             'bower_components/sammy/lib/plugins/sammy.storage.js',
             'bower_components/bootstrap/dist/js/bootstrap.js',
+            'bower_components/isotope-layout/dist/isotope.pkgd.js',
             'js/yunohost/y18n.js',
             'js/yunohost/main.js',
             'js/yunohost/helpers.js',
