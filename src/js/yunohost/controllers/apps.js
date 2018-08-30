@@ -444,7 +444,6 @@
         }
     });
 
-    // Install custom app from github
     app.post('#/apps/install/custom', function(c) {
 
         var params = {
@@ -461,10 +460,23 @@
 
                 // Force trailing slash
                 params.app = params.app.replace(/\/?$/, '/');
-
-                // Get manifest.json to get additional parameters
+                var rawpath = "";
+                if(function() {
+                    var xhr_object = new XMLHttpRequest(); 
+                    xhr_object.open("GET", params.app + "raw/master/manifest.json", false);
+                    xhr_object.send(null);
+                } == true) {
+                    rawpath = 'raw/master/manifest.json';
+                } // Install custom app from github
+                else if (params.app.indexOf("github.com") !== "-1") {
+                    params.app = params.app.replace('github.com', 'raw.githubusercontent.com');
+                    rawpath = 'master/manifest.json';
+                }
+                else {
+                    console.log("You git host is not supported");
+                }
                 jQuery.ajax({
-                    url: params.app.replace('github.com', 'raw.githubusercontent.com') + 'master/manifest.json',
+                    url: params.app + rawpath,
                     type: 'GET',
                 })
                 .done(function(manifest) {
