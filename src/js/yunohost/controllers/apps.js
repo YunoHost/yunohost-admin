@@ -467,17 +467,18 @@
                     xhr_object.send(null);
                     return xhr_object.status;
                 } === 200) {
-                    rawpath = 'raw/master/manifest.json';
+                   rawpath = 'raw/master/manifest.json';
+                   var giturl = params.app + rawpath;
                 } // Install custom app from github
                 else if (params.app.indexOf("github.com") !== "-1") {
-                    params.app = params.app.replace('github.com', 'raw.githubusercontent.com');
                     rawpath = 'master/manifest.json';
+                    var giturl = params.app.replace('github.com', 'raw.githubusercontent.com') + rawpath;
                 }
                 else {
                     console.log("You git host is not supported");
                 }
                 jQuery.ajax({
-                    url: params.app + rawpath,
+                    url: giturl,
                     type: 'GET',
                 })
                 .done(function(manifest) {
