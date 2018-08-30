@@ -465,7 +465,8 @@
                     var xhr_object = new XMLHttpRequest(); 
                     xhr_object.open("GET", params.app + "raw/master/manifest.json", false);
                     xhr_object.send(null);
-                } == true) {
+                    return xhr_object.status
+                } === 200) {
                     rawpath = 'raw/master/manifest.json';
                 } // Install custom app from github
                 else if (params.app.indexOf("github.com") !== "-1") {
