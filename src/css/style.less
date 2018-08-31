@@ -557,10 +557,11 @@ input[type='radio'].nice-radio {
     }
 }
 
+// only one card for small screens
 .app-card {
     border-radius: .5rem;
-    width: 30%;
-    margin: 1%;
+    margin: 2%;
+    width: 96%;
 }
 
 .grid {
@@ -649,9 +650,10 @@ input[type='radio'].nice-radio {
         }
     }
 
-    .grid {
-        grid-template-columns: repeat(3, 1fr);
-        grid-gap: 10px;
+    // display 2 cards between 640 and 992px
+    .app-card {
+      width: 47.9%;
+      margin: 1%;
     }
 
     #flashMessage {
@@ -741,5 +743,14 @@ input[type='radio'].nice-radio {
             }
         }
 
+    }
+}
+
+// bootstrap breakpoint for large screen is 992px
+@media screen and (min-width: 992px) {
+    .app-card {
+      // display 3 cards by row
+      width: 31.3%;
+      margin: 1%;
     }
 }
