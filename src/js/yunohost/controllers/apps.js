@@ -21,7 +21,7 @@
         if (level > 6) {
             return 'success';
         }
-        else if (level > 2) {
+        else if (level >= 2) {
             return 'warning';
         }
         else if (isNaN(level)) {
@@ -77,11 +77,11 @@
             c.api('/apps?raw', function (dataraw) { // http://api.yunohost.org/#!/app/app_list_get_8
                 var apps = []
                 $.each(data['apps'], function(k, v) {
-                    // Keep only the first instance of each app
-                    if (!v['id'].match(/__[0-9]{1,5}$/)) {
+                    // Keep only the first instance of each app and remove community not working apps
+                    if (!v['id'].match(/__[0-9]{1,5}$/) && (dataraw[v['id']]['repository'] === 'yunohost' || dataraw[v['id']]['state'] !== 'notworking')) {
                         // Check app source
                         dataraw[v['id']]['installable'] = (!v['installed'] || dataraw[v['id']].manifest.multi_instance)
-                        dataraw[v['id']]['official'] = (dataraw[v['id']]['repository'] === 'yunohost');
+                        dataraw[v['id']]['status'] = (dataraw[v['id']]['repository'] === 'yunohost') ? 'official' : 'community';
                         levelFormatted = parseInt(dataraw[v['id']]['level']);
                         dataraw[v['id']]['levelFormatted'] = isNaN(levelFormatted) ? '?' : levelFormatted;
                         dataraw[v['id']]['levelColor'] = levelToColor(levelFormatted);
@@ -99,54 +99,43 @@
 
                 // Sort app list
                 c.arraySortById(apps);
-                c.view('app/app_list_install', {apps: apps}, function(){
 
-                var cardGrid = jQuery('.grid').isotope({
-                  itemSelector: '.app-card',
-                  layoutMode: 'fitRows',
-                  transitionDuration: 200,
-                  getSortData: {
-                    name: '.app-level',
-                    symbol: '.app-state'
-                  }
-                });
 
-                // filter functions
-                var filterFns = {
-                  levelSufficient: function() {
-                    var level = jQuery(this).find('.app-level').text();
-                    return (parseInt( level ) > 2);
-                  },
-                  stateWorking: function() {
-                    return (jQuery(this).find('.app-state').text() === 'working');
-                  },
-                  nameContains: function() {
-                     var inputTitle = jQuery(this).find("#filter-app-cards").text().toLowerCase();
-                     var res = (jQuery(this).find('.app-title').text().toLowerCase().indexOf(inputTitle) > -1);
-                      console.log(inputTitle);
-                      return res;
-                  }
-                };
+				// setup filtering of apps once the view is loaded
+				function  setupFilterEvents () {
+				    // Uses plugin isotope to filter apps (we could had ordering to)
+                    var cardGrid = jQuery('.grid').isotope({
+                      itemSelector: '.app-card',
+                      layoutMode: 'fitRows',
+                      transitionDuration: 200
+                    });
 
-                // bind filter button click
-                jQuery('#appFilters').on('click', 'button', function() {
-                    var filterValue = jQuery( this ).attr('data-filter');
-                    filterValue = filterFns[ filterValue ] || filterValue;
-                    cardGrid.isotope({ filter: filterValue });
-                });
+			        filterByClassAndName = function(filterClass) {
+			          var input = jQuery("#filter-app-cards").val().toLowerCase();
+			          var stringMatch = (jQuery(this).find('.app-title').text().toLowerCase().indexOf(input) > -1);
+			          var classMatch = jQuery(this).hasClass(filterClass);
+					  return stringMatch && classMatch;
+			        },
+		
+				    // Keep only official apps at render
+                    cardGrid.isotope({ filter: '.official' });
 
-                jQuery("#filter-app-cards").on("keyup", function() {
-                    // var filterValue = 'nameContains'
-                    // filterValue = filterFns[ filterValue ] || filterValue;
-                    // console.log(filterValue);
-                    // console.log(input)
-                    cardGrid.isotope({ filter: function(){
-                      var input = jQuery("#filter-app-cards").val().toLowerCase();
-                      return (jQuery(this).find('.app-title').text().toLowerCase().indexOf(input) > -1);
-                    }
-                  });
-                });
-              });
+				    jQuery('.dropdownFilter').on('click', function() {
+                        cardGrid.isotope({ filter: filterByClassAndName });
+
+				    	// change dropdown label
+				    	jQuery('#app-cards-list-filter-text').text(jQuery(this).find('.menu-item').text());
+                    });
+
+                    jQuery("#filter-app-cards").on("keyup", function() {
+                        cardGrid.isotope({ filter: filterByClassAndName });
+				    });
+				}; 
+
+
+				// render
+                c.view('app/app_list_install', {apps: apps}, setupFilterEvents);
+
             });
         });
     });
