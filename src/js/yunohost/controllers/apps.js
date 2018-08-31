@@ -77,7 +77,7 @@
             c.api('/apps?raw', function (dataraw) { // http://api.yunohost.org/#!/app/app_list_get_8
                 var apps = []
                 $.each(data['apps'], function(k, v) {
-                    // Keep only on instance of each apps
+                    // Keep only the first instance of each app
                     if (!v['id'].match(/__[0-9]{1,5}$/)) {
                         // Check app source
                         dataraw[v['id']]['installable'] = (!v['installed'] || dataraw[v['id']].manifest.multi_instance)
@@ -104,6 +104,7 @@
                 var cardGrid = jQuery('.grid').isotope({
                   itemSelector: '.app-card',
                   layoutMode: 'fitRows',
+                  transitionDuration: 200,
                   getSortData: {
                     name: '.app-level',
                     symbol: '.app-state'
@@ -112,24 +113,38 @@
 
                 // filter functions
                 var filterFns = {
-                  // show if number is greater than 50
                   levelSufficient: function() {
                     var level = jQuery(this).find('.app-level').text();
                     return (parseInt( level ) > 2);
                   },
-                  // show if name ends with -ium
                   stateWorking: function() {
                     return (jQuery(this).find('.app-state').text() === 'working');
+                  },
+                  nameContains: function() {
+                     var inputTitle = jQuery(this).find("#filter-app-cards").text().toLowerCase();
+                     var res = (jQuery(this).find('.app-title').text().toLowerCase().indexOf(inputTitle) > -1);
+                      console.log(inputTitle);
+                      return res;
                   }
                 };
 
                 // bind filter button click
-                jQuery('#appFilters').on( 'click', 'button', function() {
-                  var filterValue = jQuery( this ).attr('data-filter');
-                  console.log('mouahahahaha')
-                  // use filterFn if matches value
-                  filterValue = filterFns[ filterValue ] || filterValue;
-                  cardGrid.isotope({ filter: filterValue });
+                jQuery('#appFilters').on('click', 'button', function() {
+                    var filterValue = jQuery( this ).attr('data-filter');
+                    filterValue = filterFns[ filterValue ] || filterValue;
+                    cardGrid.isotope({ filter: filterValue });
+                });
+
+                jQuery("#filter-app-cards").on("keyup", function() {
+                    // var filterValue = 'nameContains'
+                    // filterValue = filterFns[ filterValue ] || filterValue;
+                    // console.log(filterValue);
+                    // console.log(input)
+                    cardGrid.isotope({ filter: function(){
+                      var input = jQuery("#filter-app-cards").val().toLowerCase();
+                      return (jQuery(this).find('.app-title').text().toLowerCase().indexOf(input) > -1);
+                    }
+                  });
                 });
               });
             });

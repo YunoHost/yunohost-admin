@@ -46,7 +46,7 @@
 {{#apps}}
   <div class="app-card panel panel-default">
         <div class="panel-body">
-            <h3>{{name}}</h3>
+            <h3 class="app-title">{{name}}</h3>
             <div class="category">
               <a href="https://yunohost.org/#/packaging_apps_levels_fr"><span class="label label-{{levelColor}} label-as-badge app-level" title="{{t 'app_level'}}">{{levelFormatted}}</span></a>
               {{^official}}<span class="label label-info label-as-badge app-validated">{{t 'community'}}</span>{{/official}}
@@ -68,9 +68,14 @@
                 <a href="{{git.url}}/blob/master/README.md" target="_BLANK" type="button" class="btn btn-default col-sm-4">
                     <i class="fa-book"></i> Readme
                 </a>
+                {{#installable}}
                 <a href="#/apps/install/{{id}}" type="button" class="btn btn-{{installColor}} col-sm-4 active">
                     <i class="fa-plus"></i> Install {{#isSafe}}<i class="fa-warning"></i>{{/isSafe}}
                 </a>
+                {{/installable}}
+                {{^installable}}
+                <span href="#/apps/install/{{id}}" type="button" class="btn btn-default col-sm-4 active disabled"> Installed </span>
+                {{/installable}}
             </div>
     </div>
 {{/apps}}
