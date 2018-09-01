@@ -31,6 +31,7 @@
 			    issue = true;
 			}
 			else if (type_ == "error") {
+		            type_ = "danger";
 			    icon = "times";
 			    issue = true;
 			}
@@ -39,7 +40,21 @@
 			data.reports[i].reports[j].issue = issue;
 		    };
 		};
-		c.view('diagnosis/diagnosis_show', data);
+		c.view('diagnosis/diagnosis_show', data, function() {
+			$(".rerun-diagnosis").click(function() {
+				var category = $(this).attr("category");
+				c.api('/diagnosis/run', function(data) {
+					// This is a copy-pasta of some of the
+					// redirect/refresh code of sammy.js
+					// because for some reason calling the function did not work >.>
+					var to = "#/diagnosis";
+					c.trigger('redirect', {to: to});
+					c.app.last_location = c.path;
+					c.app.setLocation(to);
+					c.app.trigger('location-changed');
+				}, 'POST', {"categories": [category], "force":true});
+			});
+		});
         }, 'GET');
 
     });

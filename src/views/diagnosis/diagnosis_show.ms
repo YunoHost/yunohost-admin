@@ -9,7 +9,7 @@
 <div class="panel panel-default">
     <div class="panel-heading">
         <h2 class="panel-title" style="display: inline-block">{{ description }}</h2>
-	<a href="#" role="button" class="btn btn-sm btn-info pull-right"><span class="fa-fw fa-refresh"></span> {{t 'recheck'}}</a>
+	<a role="button" category="{{ id }}" class="btn btn-sm btn-info pull-right rerun-diagnosis"><span class="fa-fw fa-refresh"></span> {{t 'rerun_diagnosis'}}</a>
     </div>
     <div class="panel-body">
 	<ul class="list-group">
