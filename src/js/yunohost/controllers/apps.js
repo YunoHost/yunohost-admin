@@ -110,10 +110,12 @@
                       transitionDuration: 200
                     });
 
-			        filterByClassAndName = function(filterClass) {
+			        filterByClassAndName = function() {
 			          var input = jQuery("#filter-app-cards").val().toLowerCase();
 			          var stringMatch = (jQuery(this).find('.app-title').text().toLowerCase().indexOf(input) > -1);
-			          var classMatch = jQuery(this).hasClass(filterClass);
+
+					  var filterClass = jQuery("#dropdownFilter").attr("data-filter");	
+			          var classMatch = (filterClass === '*') ? true : jQuery(this).hasClass(filterClass);
 					  return stringMatch && classMatch;
 			        },
 		
@@ -121,10 +123,12 @@
                     cardGrid.isotope({ filter: '.official' });
 
 				    jQuery('.dropdownFilter').on('click', function() {
-                        cardGrid.isotope({ filter: filterByClassAndName });
-
 				    	// change dropdown label
 				    	jQuery('#app-cards-list-filter-text').text(jQuery(this).find('.menu-item').text());
+						// change filter attribute
+				    	jQuery('#dropdownFilter').attr("data-filter", jQuery(this).attr("data-filter"));
+
+                        cardGrid.isotope({ filter: filterByClassAndName });
                     });
 
                     jQuery("#filter-app-cards").on("keyup", function() {

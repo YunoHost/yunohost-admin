@@ -22,7 +22,7 @@
         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <span id="app-cards-list-filter-text">Only official apps</span> <span class="caret"></span>
         </button>
-        <ul id="dropdownFilter" class="dropdown-menu" role="menu">
+        <ul id="dropdownFilter" class="dropdown-menu" data-filter="official" role="menu">
             <li class="button dropdownFilter" data-filter="official"><a class="menu-item" role="menu-item" tabindex="-1">Only official apps</a></li>
             <li role="presentation" class="button dropdownFilter" data-filter="working"><a class="menu-item" role="menu-item" tabindex="-1">Only working apps</a></li>
             <li role="presentation" class="button dropdownFilter" data-filter="*"><a class="menu-item" role="menu-item" tabindex="-1">All apps</a></li>
