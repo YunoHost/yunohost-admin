@@ -51,14 +51,14 @@
             {{^maintained}}<i class="fas fa-warning"></i> {{t 'unmaintained'}}{{/maintained}}
             </div>
             <div class="btn-group" role="group">
-                <a href="{{git.url}}" target="_BLANK" type="button" role="button" class="btn btn-default col-sm-4">
+                <a href="{{git.url}}" target="_BLANK" type="button" role="button" class="btn btn-default col-xs-4">
                     <i class="fa-globe"></i> Code
                 </a>
-                <a href="{{git.url}}/blob/master/README.md" target="_BLANK" type="button" role="button" class="btn btn-default col-sm-4">
+                <a href="{{git.url}}/blob/master/README.md" target="_BLANK" type="button" role="button" class="btn btn-default col-xs-4">
                     <i class="fa-book"></i> Readme
                 </a>
                 {{#installable}}
-                <a href="#/apps/install/{{id}}" type="button" role="button" class="btn btn-{{installColor}} col-sm-4 active">
+                <a href="#/apps/install/{{id}}" type="button" role="button" class="btn btn-{{installColor}} col-xs-4 active">
                     <i class="fa-plus"></i> {{t 'install'}}{{^isSafe}} <i class="fa-warning"></i>{{/isSafe}}
                 </a>
                 {{/installable}}

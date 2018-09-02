@@ -78,13 +78,13 @@
                 var apps = []
                 $.each(data['apps'], function(k, v) {
 					var state = dataraw[v['id']]['state'];
-					var isWorking = (state === 'working' || state === 'validated');
+					var levelFormatted = parseInt(dataraw[v['id']]['level']);
+					var isWorking = (state === 'working' || state === 'validated') && levelFormatted > 0;
                     // Keep only the first instance of each app and remove community not working apps
                     if (!v['id'].match(/__[0-9]{1,5}$/) && (dataraw[v['id']]['repository'] === 'yunohost' || state !== 'notworking')) {
 
                         dataraw[v['id']]['installable'] = (!v['installed'] || dataraw[v['id']].manifest.multi_instance)
                         dataraw[v['id']]['status'] = (dataraw[v['id']]['repository'] === 'yunohost') ? 'official' : 'community';
-                        levelFormatted = parseInt(dataraw[v['id']]['level']);
                         dataraw[v['id']]['levelFormatted'] = isNaN(levelFormatted) ? '?' : levelFormatted;
                         dataraw[v['id']]['levelColor'] = levelToColor(levelFormatted);
                         dataraw[v['id']]['stateColor'] = stateToColor(state);
