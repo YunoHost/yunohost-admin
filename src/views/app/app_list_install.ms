@@ -21,7 +21,6 @@
         <span class="fa-chevron-right pull-right"></span>
         <h2 class="list-group-item-heading">
             {{name}} <small>{{id}}</small>
-            {{#installed}}<span class="badge badge-success" title="{{t 'status'}}">{{t 'installed'}}</span>{{/installed}}
         </h2>
         <p class="list-group-item-text">{{description}}</p>
         {{^official}}
