@@ -38,7 +38,7 @@
         <div class="panel-body">
             <h2 class="app-title">{{name}}</h2>
             <div class="category">
-              <a href="https://yunohost.org/#/packaging_apps_levels_fr"><span class="label label-{{levelColor}} label-as-badge app-level" title="{{t 'app_level'}}">{{levelFormatted}}</span></a>
+              <a target="_BLANK" href="https://yunohost.org/#/packaging_apps_levels_fr"><span class="label label-{{levelColor}} label-as-badge app-level" title="{{t 'app_level'}}">{{levelFormatted}}</span></a>
               <span class="label label-info label-as-badge app-status">{{t status}}</span>
               <span class="label label-{{stateColor}} label-as-badge app-state">{{t state}}</span>
               {{#displayLicense}}<span class="label label-default app-license" title="{{t 'app_license'}}">{{license}}</span>{{/displayLicense}}
