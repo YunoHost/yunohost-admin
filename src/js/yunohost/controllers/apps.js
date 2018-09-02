@@ -77,20 +77,23 @@
             c.api('/apps?raw', function (dataraw) { // http://api.yunohost.org/#!/app/app_list_get_8
                 var apps = []
                 $.each(data['apps'], function(k, v) {
+					var state = dataraw[v['id']]['state'];
+					var isWorking = (state === 'working' || state === 'validated');
                     // Keep only the first instance of each app and remove community not working apps
-                    if (!v['id'].match(/__[0-9]{1,5}$/) && (dataraw[v['id']]['repository'] === 'yunohost' || dataraw[v['id']]['state'] !== 'notworking')) {
-                        // Check app source
+                    if (!v['id'].match(/__[0-9]{1,5}$/) && (dataraw[v['id']]['repository'] === 'yunohost' || state !== 'notworking')) {
+
                         dataraw[v['id']]['installable'] = (!v['installed'] || dataraw[v['id']].manifest.multi_instance)
                         dataraw[v['id']]['status'] = (dataraw[v['id']]['repository'] === 'yunohost') ? 'official' : 'community';
                         levelFormatted = parseInt(dataraw[v['id']]['level']);
                         dataraw[v['id']]['levelFormatted'] = isNaN(levelFormatted) ? '?' : levelFormatted;
                         dataraw[v['id']]['levelColor'] = levelToColor(levelFormatted);
-                        dataraw[v['id']]['stateColor'] = stateToColor(dataraw[v['id']]['state']);
+                        dataraw[v['id']]['stateColor'] = stateToColor(state);
                         dataraw[v['id']]['installColor'] = combineColors(dataraw[v['id']]['stateColor'], dataraw[v['id']]['levelColor']);
                         dataraw[v['id']]['displayLicense'] = (dataraw[v['id']]['manifest']['license'] !== undefined
                                                               && dataraw[v['id']]['manifest']['license'] !== 'free');
                         dataraw[v['id']]['updateDate'] = timeConverter(dataraw[v['id']]['lastUpdate']);
-                        dataraw[v['id']]['isSafe'] = (dataraw[v['id']]['installColor'] === 'danger');
+                        dataraw[v['id']]['isSafe'] = (dataraw[v['id']]['installColor'] !== 'danger');
+                        dataraw[v['id']]['isWorking'] = isWorking ? "isworking" : "notFullyWorking";
 
                         jQuery.extend(dataraw[v['id']], v);
                         apps.push(dataraw[v['id']]);
@@ -99,7 +102,6 @@
 
                 // Sort app list
                 c.arraySortById(apps);
-
 
 				// setup filtering of apps once the view is loaded
 				function  setupFilterEvents () {
@@ -110,16 +112,16 @@
                       transitionDuration: 200
                     });
 
-			        filterByClassAndName = function() {
+			        filterByClassAndName = function () {
 			          var input = jQuery("#filter-app-cards").val().toLowerCase();
-			          var stringMatch = (jQuery(this).find('.app-title').text().toLowerCase().indexOf(input) > -1);
+			          var inputMatch = (jQuery(this).find('.app-title').text().toLowerCase().indexOf(input) > -1);
 
 					  var filterClass = jQuery("#dropdownFilter").attr("data-filter");	
 			          var classMatch = (filterClass === '*') ? true : jQuery(this).hasClass(filterClass);
-					  return stringMatch && classMatch;
+					  return inputMatch && classMatch;
 			        },
 		
-				    // Keep only official apps at render
+				    // Keep only official apps at first render
                     cardGrid.isotope({ filter: '.official' });
 
 				    jQuery('.dropdownFilter').on('click', function() {
@@ -127,7 +129,7 @@
 				    	jQuery('#app-cards-list-filter-text').text(jQuery(this).find('.menu-item').text());
 						// change filter attribute
 				    	jQuery('#dropdownFilter').attr("data-filter", jQuery(this).attr("data-filter"));
-
+						// filter !
                         cardGrid.isotope({ filter: filterByClassAndName });
                     });
 
@@ -135,7 +137,6 @@
                         cardGrid.isotope({ filter: filterByClassAndName });
 				    });
 				}; 
-
 
 				// render
                 c.view('app/app_list_install', {apps: apps}, setupFilterEvents);

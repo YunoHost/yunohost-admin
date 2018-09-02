@@ -17,15 +17,15 @@
 
 <div class="input-group" id="app-filter-input">
     <span class="input-group-addon"><i class="fas fa-search"></i></span>
-    <input type="text" id="filter-app-cards" class="form-control"  placeholder="Search for apps..." aria-describedby="basic-addon0"/>
+    <input type="text" id="filter-app-cards" class="form-control" role="textbox"  placeholder="{{t 'search_for_apps'}}" aria-describedby="basic-addon0"/>
     <div class="input-group-btn">
         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <span id="app-cards-list-filter-text">Only official apps</span> <span class="caret"></span>
+            <span id="app-cards-list-filter-text">{{t 'only_official_apps'}}</span> <span class="caret"></span>
         </button>
         <ul id="dropdownFilter" class="dropdown-menu" data-filter="official" role="menu">
-            <li class="button dropdownFilter" data-filter="official"><a class="menu-item" role="menu-item" tabindex="-1">Only official apps</a></li>
-            <li role="presentation" class="button dropdownFilter" data-filter="working"><a class="menu-item" role="menu-item" tabindex="-1">Only working apps</a></li>
-            <li role="presentation" class="button dropdownFilter" data-filter="*"><a class="menu-item" role="menu-item" tabindex="-1">All apps</a></li>
+            <li class="button dropdownFilter" data-filter="official"><a class="menu-item" role="menu-item" tabindex="-1">{{t 'only_official_apps'}}</a></li>
+            <li role="presentation" class="button dropdownFilter" data-filter="isworking"><a class="menu-item" role="menu-item" tabindex="-1">{{t 'only_working_apps'}}</a></li>
+            <li role="presentation" class="button dropdownFilter" data-filter="*"><a class="menu-item" role="menu-item" tabindex="-1">{{t 'all_apps'}}</a></li>
         </ul>
     </div>
 </div>
@@ -34,36 +34,36 @@
 
 <div class="list-group grid">
 {{#apps}}
-  <div class="app-card panel panel-default {{status}} {{state}} {{level}}-level">
+  <div class="app-card panel panel-default {{status}} {{state}} {{isWorking}} {{level}}-level">
         <div class="panel-body">
             <h2 class="app-title">{{name}}</h2>
             <div class="category">
               <a href="https://yunohost.org/#/packaging_apps_levels_fr"><span class="label label-{{levelColor}} label-as-badge app-level" title="{{t 'app_level'}}">{{levelFormatted}}</span></a>
               <span class="label label-info label-as-badge app-status">{{t status}}</span>
               <span class="label label-{{stateColor}} label-as-badge app-state">{{t state}}</span>
-              {{#displayLicense}}<span class="label label-default app-license">{{license}}</span>{{/displayLicense}}
+              {{#displayLicense}}<span class="label label-default app-license" title="{{t 'app_license'}}">{{license}}</span>{{/displayLicense}}
             </div>
             <div class="app-card-desc">{{description}}</div>
         </div>
             <div class="app-card-date-maintainer">
                 <i class="fas fa-sync"></i> {{updateDate}} -
-                {{#maintained}}<span title="Current maintainer of this package" class="maintained"></span><i class="fa-user"></i> {{manifest.maintainer.name}}</span>{{/maintained}}
-            {{^maintained}}<i class="fas fa-warning"></i> {{t 'Unmaintained'}}{{/maintained}}
+                {{#maintained}}<span title="{{t 'current_maintainer_title'}}" class="maintained"></span><i class="fa-user"></i> {{manifest.maintainer.name}}</span>{{/maintained}}
+            {{^maintained}}<i class="fas fa-warning"></i> {{t 'unmaintained'}}{{/maintained}}
             </div>
             <div class="btn-group" role="group">
-                <a href="{{git.url}}" target="_BLANK" type="button" class="btn btn-default col-sm-4">
+                <a href="{{git.url}}" target="_BLANK" type="button" role="button" class="btn btn-default col-sm-4">
                     <i class="fa-globe"></i> Code
                 </a>
-                <a href="{{git.url}}/blob/master/README.md" target="_BLANK" type="button" class="btn btn-default col-sm-4">
+                <a href="{{git.url}}/blob/master/README.md" target="_BLANK" type="button" role="button" class="btn btn-default col-sm-4">
                     <i class="fa-book"></i> Readme
                 </a>
                 {{#installable}}
-                <a href="#/apps/install/{{id}}" type="button" class="btn btn-{{installColor}} col-sm-4 active">
-                    <i class="fa-plus"></i> Install {{#isSafe}}<i class="fa-warning"></i>{{/isSafe}}
+                <a href="#/apps/install/{{id}}" type="button" role="button" class="btn btn-{{installColor}} col-sm-4 active">
+                    <i class="fa-plus"></i> {{t 'install'}}{{^isSafe}} <i class="fa-warning"></i>{{/isSafe}}
                 </a>
                 {{/installable}}
                 {{^installable}}
-                <span href="#/apps/install/{{id}}" type="button" class="btn btn-default col-sm-4 active disabled"> Installed </span>
+                <span href="#/apps/install/{{id}}" type="button" class="btn btn-default col-sm-4 active disabled"> {{t 'installed'}}</span>
                 {{/installable}}
             </div>
     </div>
