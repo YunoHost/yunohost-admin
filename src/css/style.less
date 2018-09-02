@@ -559,8 +559,7 @@ input[type='radio'].nice-radio {
 
 // only one card for small screens
 .app-card {
-    margin: 2%;
-    width: 96%;
+	width: 100%;
 	.btn-group {
 		width: 100%;
 		.btn{
@@ -570,7 +569,6 @@ input[type='radio'].nice-radio {
 }
 
 #app-filter-input{
-	margin: 1%;
 	.dropdown-menu{
 		min-width: 120px;
 		right: 0;
@@ -584,12 +582,6 @@ input[type='radio'].nice-radio {
 
 .app-title {
     margin-top: 5px;
-}
-
-.grid {
-    display: grid;
-    grid-auto-rows: minmax(125px, auto);
-    grid-gap: .5rem;
 }
 
 .app-card-desc {
@@ -667,6 +659,11 @@ input[type='radio'].nice-radio {
       width: 47.9%;
       margin: 1%;
     }
+
+	.grid {
+	   background: #f5f5f5;
+	   border: 1px solid #ddd;
+	}
 
     #flashMessage {
         position: fixed;
