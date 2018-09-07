@@ -360,7 +360,7 @@
     "system_upgrade_all_packages_btn": "Mettre à jour tous les paquets",
     "tools_reboot": "Redémarrer votre serveur",
     "tools_reboot_btn": "Redémarrer",
-    "tools_reboot_done": "Redémarrage...",
+    "tools_reboot_done": "Redémarrage …",
     "tools_rebooting": "Votre serveur redémarre. Pour retourner sur l’interface d'administration vous devez attendre que votre serveur soit démarré. Vous pouvez le vérifier en actualisant cette page (F5).",
     "tools_shutdown": "Eteindre votre serveur",
     "tools_shutdown_btn": "Eteindre",
@@ -384,5 +384,6 @@
     "run": "Lancer",
     "skip": "Sauter",
     "service_description": "Description :",
-    "started_at": "Démarré à :"
+    "started_at": "Démarré à :",
+    "active": "Actif"
 }

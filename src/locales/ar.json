@@ -378,5 +378,6 @@
     "skip": "تخطي",
     "confirm_migrations_skip": "إنّ تخطي التهجير غير مستحسَن. متأكد مِن أنك تريد ذلك ؟",
     "service_description": "الوصف :",
-    "started_at": "تم تشغيله على :"
+    "started_at": "تم تشغيله على :",
+    "active": "مُفعَّل"
 }
