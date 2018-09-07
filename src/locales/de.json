@@ -364,5 +364,6 @@
     "appslists_unknown_list": "Die Liste %s ist unbekannt",
     "appslists_community_list": "Applikationsliste der Community",
     "name": "Name",
-    "install_community_appslists_warning": "Nimm zur Kenntnis, dass diese Applikationen <strong>nicht</strong> offiziell sind und nicht von YunoHost gepflegt werden.<br /> Diese Applikationen sind auf eigenes Risiko zu installieren und können dein System demolieren."
+    "install_community_appslists_warning": "Nimm zur Kenntnis, dass diese Applikationen <strong>nicht</strong> offiziell sind und nicht von YunoHost gepflegt werden.<br /> Diese Applikationen sind auf eigenes Risiko zu installieren und können dein System demolieren.",
+    "app_change_label": "Label ändern"
 }
