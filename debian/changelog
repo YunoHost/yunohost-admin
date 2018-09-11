@@ -1,3 +1,13 @@
+yunohost-admin (3.2.0) stable; urgency=low
+
+  * Improve accessibility of the webadmin (#206)
+  * Remove confusing "installed" label for multiinstance apps (#204)
+  * [i18n] Improve Occitan, Arabic, French, Italian, Turkish, Catalan and German translations
+
+  Thanks to all contributors (irina11y, Xaloc, BoF, ElodieA, Quenti) <3 !
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Tue, 11 Sep 2018 17:05:00 +0000
+
 yunohost-admin (3.2.0~testing1) testing; urgency=low
 
   * Web interface for operation logs (#130)
