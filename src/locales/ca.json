@@ -376,5 +376,7 @@
     "name": "Nom",
     "install_community_appslists_info": "La llista d'aplicacions de la comunitat permet instal·lar aplicacions mantingudes per la comunitat.<br /> Trobareu la llista completa a <a href='https://yunohost.org/apps_in_progress'>yunohost.org/apps_in_progress</a>.",
     "install_community_appslists_warning": "Tingueu en compte que aquestes aplicacions <strong>no</strong> són oficials i no són mantingudes per l'equip YunoHost. <br />Instal·leu aquestes aplicacions sota la vostra responsabilitat, pot posar en risc el teu sistema.",
-    "install_custom_app_appslists_info": "Podeu utilitzar llistes d'aplicacions alternatives per instal·lar altres aplicacions mantingudes per la comunitat YunoHost."
+    "install_custom_app_appslists_info": "Podeu utilitzar llistes d'aplicacions alternatives per instal·lar altres aplicacions mantingudes per la comunitat YunoHost.",
+    "user_emailforward": "Reenviament de E-mail",
+    "user_new_forward": "noureenviar@dominiextern.org"
 }
