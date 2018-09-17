@@ -1,3 +1,12 @@
+yunohost-admin (3.2.1) stable; urgency=low
+
+  * Fix an important issue where no feedback was given to the user during long actions such as postinstall (#211)
+  * Improve Arabic, Catalan and Occitan translations
+
+  Thanks to all contributors (ljf, Xaloc, BoF) <3 !
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Tue, 17 Sep 2018 18:25:00 +0000
+
 yunohost-admin (3.2.0) stable; urgency=low
 
   * Improve accessibility of the webadmin (#206)
