@@ -35,9 +35,6 @@
         if (state === "working" || state === "validated") {
             return 'success';
         }
-        else if (state === "inprogress") {
-            return 'warning';
-        }
         else {
             return 'danger';
         }
@@ -55,43 +52,27 @@
         }
     }
 
-
-    function timeConverter(UNIX_timestamp) {
-        var a = new Date(UNIX_timestamp*1000);
-        var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-        var year = a.getFullYear();
-        var month = months[a.getMonth()];
-        var date = a.getDate();
-        var hour = a.getHours();
-        var min = a.getMinutes();
-        if (hour < 10) { hour = '0' + hour; }
-        if (min < 10) { min = '0' + min; }
-        var time = date+' '+month+' '+year;//+' at '+hour+':'+min
-        return time;
-    }
-
-
     // List available apps
     app.get('#/apps/install', function (c) {
         c.api('/apps', function (data) { // http://api.yunohost.org/#!/app/app_list_get_8
             c.api('/apps?raw', function (dataraw) { // http://api.yunohost.org/#!/app/app_list_get_8
                 var apps = []
                 $.each(data['apps'], function(k, v) {
-					var state = dataraw[v['id']]['state'];
-					var levelFormatted = parseInt(dataraw[v['id']]['level']);
-					var isWorking = (state === 'working' || state === 'validated') && levelFormatted > 0;
+                    var state = dataraw[v['id']]['state'];
+                    var levelFormatted = parseInt(dataraw[v['id']]['level']);
+                    var isWorking = (state === 'working' || state === 'validated') && levelFormatted > 0;
                     // Keep only the first instance of each app and remove community not working apps
                     if (!v['id'].match(/__[0-9]{1,5}$/) && (dataraw[v['id']]['repository'] === 'yunohost' || state !== 'notworking')) {
 
                         dataraw[v['id']]['installable'] = (!v['installed'] || dataraw[v['id']].manifest.multi_instance)
-                        dataraw[v['id']]['status'] = (dataraw[v['id']]['repository'] === 'yunohost') ? 'official' : 'community';
+                        dataraw[v['id']]['isCommunity'] = !(dataraw[v['id']]['repository'] === 'yunohost');
                         dataraw[v['id']]['levelFormatted'] = isNaN(levelFormatted) ? '?' : levelFormatted;
                         dataraw[v['id']]['levelColor'] = levelToColor(levelFormatted);
                         dataraw[v['id']]['stateColor'] = stateToColor(state);
                         dataraw[v['id']]['installColor'] = combineColors(dataraw[v['id']]['stateColor'], dataraw[v['id']]['levelColor']);
                         dataraw[v['id']]['displayLicense'] = (dataraw[v['id']]['manifest']['license'] !== undefined
                                                               && dataraw[v['id']]['manifest']['license'] !== 'free');
-                        dataraw[v['id']]['updateDate'] = timeConverter(dataraw[v['id']]['lastUpdate']);
+                        dataraw[v['id']]['updateDate'] = dataraw[v['id']]['lastUpdate'] * 1000;
                         dataraw[v['id']]['isSafe'] = (dataraw[v['id']]['installColor'] !== 'danger');
                         dataraw[v['id']]['isWorking'] = isWorking ? "isworking" : "notFullyWorking";
 
@@ -103,42 +84,42 @@
                 // Sort app list
                 c.arraySortById(apps);
 
-				// setup filtering of apps once the view is loaded
-				function  setupFilterEvents () {
-				    // Uses plugin isotope to filter apps (we could had ordering to)
+                // setup filtering of apps once the view is loaded
+                function  setupFilterEvents () {
+                    // Uses plugin isotope to filter apps (we could had ordering to)
                     var cardGrid = jQuery('.grid').isotope({
                       itemSelector: '.app-card',
                       layoutMode: 'fitRows',
                       transitionDuration: 200
                     });
 
-			        filterByClassAndName = function () {
-			          var input = jQuery("#filter-app-cards").val().toLowerCase();
-			          var inputMatch = (jQuery(this).find('.app-title').text().toLowerCase().indexOf(input) > -1);
+                    filterByClassAndName = function () {
+                      var input = jQuery("#filter-app-cards").val().toLowerCase();
+                      var inputMatch = (jQuery(this).find('.app-title').text().toLowerCase().indexOf(input) > -1);
 
-					  var filterClass = jQuery("#dropdownFilter").attr("data-filter");	
-			          var classMatch = (filterClass === '*') ? true : jQuery(this).hasClass(filterClass);
-					  return inputMatch && classMatch;
-			        },
-		
-				    // Keep only official apps at first render
-                    cardGrid.isotope({ filter: '.official' });
+                      var filterClass = jQuery("#dropdownFilter").attr("data-filter");
+                      var classMatch = (filterClass === '*') ? true : jQuery(this).hasClass(filterClass);
+                      return inputMatch && classMatch;
+                    },
 
-				    jQuery('.dropdownFilter').on('click', function() {
-				    	// change dropdown label
-				    	jQuery('#app-cards-list-filter-text').text(jQuery(this).find('.menu-item').text());
-						// change filter attribute
-				    	jQuery('#dropdownFilter').attr("data-filter", jQuery(this).attr("data-filter"));
-						// filter !
+                    // Keep only official apps at first render
+                    cardGrid.isotope({ filter: '.isworking' });
+
+                    jQuery('.dropdownFilter').on('click', function() {
+                        // change dropdown label
+                        jQuery('#app-cards-list-filter-text').text(jQuery(this).find('.menu-item').text());
+                         // change filter attribute
+                        jQuery('#dropdownFilter').attr("data-filter", jQuery(this).attr("data-filter"));
+                        // filter !
                         cardGrid.isotope({ filter: filterByClassAndName });
                     });
 
                     jQuery("#filter-app-cards").on("keyup", function() {
                         cardGrid.isotope({ filter: filterByClassAndName });
-				    });
-				}; 
+                    });
+                }; 
 
-				// render
+                // render
                 c.view('app/app_list_install', {apps: apps}, setupFilterEvents);
 
             });

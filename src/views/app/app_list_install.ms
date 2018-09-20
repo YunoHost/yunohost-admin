@@ -19,12 +19,12 @@
     <span class="input-group-addon"><i class="fas fa-search"></i></span>
     <input type="text" id="filter-app-cards" class="form-control" role="textbox"  placeholder="{{t 'search_for_apps'}}" aria-describedby="basic-addon0"/>
     <div class="input-group-btn">
-        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <span id="app-cards-list-filter-text">{{t 'only_official_apps'}}</span> <span class="caret"></span>
+        <button type="button" role="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span id="app-cards-list-filter-text">{{t 'only_working_apps'}}</span> <span class="caret"></span>
         </button>
-        <ul id="dropdownFilter" class="dropdown-menu" data-filter="official" role="menu">
-            <li class="button dropdownFilter" data-filter="official"><a class="menu-item" role="menu-item" tabindex="-1">{{t 'only_official_apps'}}</a></li>
+        <ul id="dropdownFilter" class="dropdown-menu" data-filter="isworking" role="menu">
             <li role="presentation" class="button dropdownFilter" data-filter="isworking"><a class="menu-item" role="menu-item" tabindex="-1">{{t 'only_working_apps'}}</a></li>
+            <li role="presentation" class="button dropdownFilter" data-filter="validated"><a class="menu-item" role="menu-item" tabindex="-1">{{t 'only_validated_apps'}}</a></li>
             <li role="presentation" class="button dropdownFilter" data-filter="*"><a class="menu-item" role="menu-item" tabindex="-1">{{t 'all_apps'}}</a></li>
         </ul>
     </div>
@@ -38,15 +38,15 @@
         <div class="panel-body">
             <h2 class="app-title">{{name}}</h2>
             <div class="category">
-              <a target="_BLANK" href="https://yunohost.org/#/packaging_apps_levels_fr"><span class="label label-{{levelColor}} label-as-badge app-level" title="{{t 'app_level'}}">{{levelFormatted}}</span></a>
-              <span class="label label-info label-as-badge app-status">{{t status}}</span>
               <span class="label label-{{stateColor}} label-as-badge app-state">{{t state}}</span>
+              {{#isCommunity}} <span class="label label-info label-as-badge app-status">{{t 'community'}}</span>{{/isCommunity}}
+              <a target="_BLANK" href="https://yunohost.org/#/packaging_apps_levels_fr"><span class="label label-{{levelColor}} label-as-badge app-level" title="{{t 'app_level'}}">{{t 'level'}} {{levelFormatted}}</span></a>
               {{#displayLicense}}<span class="label label-default app-license" title="{{t 'app_license'}}">{{license}}</span>{{/displayLicense}}
             </div>
             <div class="app-card-desc">{{description}}</div>
         </div>
             <div class="app-card-date-maintainer">
-                <i class="fas fa-sync"></i> {{updateDate}} -
+                <i class="fas fa-sync"></i>{{formatDate updateDate day="numeric" month="long" year="numeric"}} -
                 {{#maintained}}<span title="{{t 'current_maintainer_title'}}" class="maintained"></span><i class="fa-user"></i> {{manifest.maintainer.name}}</span>{{/maintained}}
             {{^maintained}}<i class="fas fa-warning"></i> {{t 'unmaintained'}}{{/maintained}}
             </div>
@@ -63,7 +63,7 @@
                 </a>
                 {{/installable}}
                 {{^installable}}
-                <span href="#/apps/install/{{id}}" type="button" class="btn btn-default col-sm-4 active disabled"> {{t 'installed'}}</span>
+                <span type="button" class="btn btn-default col-sm-4 active disabled"> {{t 'installed'}}</span>
                 {{/installable}}
             </div>
     </div>
