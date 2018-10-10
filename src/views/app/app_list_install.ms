@@ -40,7 +40,7 @@
             <div class="category">
               <span class="label label-{{stateColor}} label-as-badge app-state">{{t state}}</span>
               {{#isCommunity}} <span class="label label-info label-as-badge app-status">{{t 'community'}}</span>{{/isCommunity}}
-              <a target="_BLANK" href="https://yunohost.org/#/packaging_apps_levels_fr"><span class="label label-{{levelColor}} label-as-badge app-level" title="{{t 'app_level'}}">{{t 'level'}} {{levelFormatted}}</span></a>
+              <a target="_BLANK" href="https://yunohost.org/#/packaging_apps_levels"><span class="label label-{{levelColor}} label-as-badge app-level" title="{{t 'app_level'}}">{{t 'level'}} {{levelFormatted}}</span></a>
               {{#displayLicense}}<span class="label label-default app-license" title="{{t 'app_license'}}">{{license}}</span>{{/displayLicense}}
             </div>
             <div class="app-card-desc">{{description}}</div>
