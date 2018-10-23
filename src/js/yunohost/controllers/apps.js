@@ -32,7 +32,7 @@
     }
 
     function stateToColor(state) {
-        if (state === "working" || state === "validated") {
+        if (state === "working" || state === "official") {
             return 'success';
         }
         else {
@@ -58,9 +58,13 @@
             c.api('/apps?raw', function (dataraw) { // http://api.yunohost.org/#!/app/app_list_get_8
                 var apps = []
                 $.each(data['apps'], function(k, v) {
+		    if (dataraw[v['id']]['state'] === "validated")
+                    {
+                        dataraw[v['id']]['state'] = "official";
+                    }
                     var state = dataraw[v['id']]['state'];
                     var levelFormatted = parseInt(dataraw[v['id']]['level']);
-                    var isWorking = (state === 'working' || state === 'validated') && levelFormatted > 0;
+                    var isWorking = (state === 'working' || state === 'official') && levelFormatted > 0;
                     // Keep only the first instance of each app and remove community not working apps
                     if (!v['id'].match(/__[0-9]{1,5}$/) && (dataraw[v['id']]['repository'] === 'yunohost' || state !== 'notworking')) {
 
