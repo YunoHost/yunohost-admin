@@ -4,7 +4,7 @@
 </div>
 
 <div class="actions-group">
-    <!--<a href="#/storages/create" class="btn btn-success slide">
+    <!--<a role="button" href="#/storages/create" class="btn btn-success slide">
         <span class="fa-plus"></span> {{t 'storages_new'}}
     </a>-->
 </div>

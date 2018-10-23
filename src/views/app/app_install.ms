@@ -69,7 +69,7 @@
         <hr>
         <input type="hidden" name="app" value="{{id}}">
         <div class="text-center">
-            <input type="submit" class="btn btn-success slide back" value="{{t 'install'}}">
+            <input type="submit" role="button" class="btn btn-success slide back" value="{{t 'install'}}">
         </div>
     </div>
 </div>

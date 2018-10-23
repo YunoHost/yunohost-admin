@@ -4,7 +4,7 @@
 </div>
 
 <div class="actions-group">
-    <a href="#/apps/install" class="btn btn-success slide">
+    <a role="button" href="#/apps/install" class="btn btn-success slide">
         <span class="fa-plus"></span> {{t 'install'}}
     </a>
 </div>

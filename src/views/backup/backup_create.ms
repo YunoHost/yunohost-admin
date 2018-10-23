@@ -60,6 +60,6 @@
     </div>
     <div class="separator"></div>-->
     <span class="pull-right">
-        <input type="submit" class="btn btn-success slide back" value="{{t 'backup_action'}}" />
+        <input type="submit" role="button" class="btn btn-success slide back" value="{{t 'backup_action'}}" />
     </span>
 </form>

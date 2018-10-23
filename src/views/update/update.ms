@@ -26,7 +26,7 @@
         {{/packages}}
     </div>
     <div class="panel-footer">
-        <a href="#/upgrade/packages" class="btn btn-success">{{t 'system_upgrade_all_packages_btn'}}</a>
+        <a href="#/upgrade/packages" role="button" class="btn btn-success">{{t 'system_upgrade_all_packages_btn'}}</a>
     </div>
     {{else}}
     <div class="panel-body">
@@ -43,13 +43,13 @@
     <div class="list-group">
         {{#apps}}
         <div class="list-group-item clearfix">
-            <a href="#/upgrade/apps/{{id}}" class="btn btn-success pull-right">{{t 'system_upgrade_btn'}}</a>
+            <a href="#/upgrade/apps/{{id}}" role="button" class="btn btn-success pull-right">{{t 'system_upgrade_btn'}}</a>
             <h3 class="list-group-item-heading">{{label}} <small>{{id}}</small></h3>
         </div>
         {{/apps}}
     </div>
     <div class="panel-footer">
-        <a href="#/upgrade/apps" class="btn btn-success">{{t 'system_upgrade_all_applications_btn'}}</a>
+        <a role="button" href="#/upgrade/apps" class="btn btn-success">{{t 'system_upgrade_all_applications_btn'}}</a>
     </div>
     {{else}}
     <div class="panel-body">

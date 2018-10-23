@@ -4,7 +4,7 @@
 </div>
 
 <div class="actions-group">
-    <a href="#/users/create" class="btn btn-success slide">
+    <a role="button" href="#/users/create" class="btn btn-success slide">
         <span class="fa-plus"></span> {{t 'users_new'}}
     </a>
 </div>

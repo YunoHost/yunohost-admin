@@ -153,7 +153,7 @@
             </div>
             <div class="form-group row">
                 <div class="col-xs-6 col-sm-3">
-                    <input type="submit" class="btn btn-success slide back" value="{{t 'save'}}">
+                    <input role="button" type="submit" class="btn btn-success slide back" value="{{t 'save'}}">
                 </div>
             </div>
 
@@ -168,10 +168,10 @@
     <div class="panel-body">
         {{#if upnp}}
             <p class="text-success">{{t 'upnp_enabled'}}</p>
-            <a href="#/tools/firewall/upnp/disable" class="btn btn-danger">{{t 'disable'}}</a>
+            <a role="button"  href="#/tools/firewall/upnp/disable" class="btn btn-danger">{{t 'disable'}}</a>
         {{else}}
             <p class="text-danger">{{t 'upnp_disabled'}}</p>
-            <a href="#/tools/firewall/upnp/enable" class="btn btn-success">{{t 'enable'}}</a>
+            <a role="button" href="#/tools/firewall/upnp/enable" class="btn btn-success">{{t 'enable'}}</a>
         {{/if}}
     </div>
 </div>

@@ -46,7 +46,7 @@
         {{/each}}
         <div class="list-group-item clearfix">
             <span class="pull-right ">
-                <input type="submit" class="btn btn-success slide back" value="{{t 'restore'}}" />
+                <input type="submit" role="button" class="btn btn-success slide back" value="{{t 'restore'}}" />
             </span>
         </div>
     </div>
@@ -72,14 +72,14 @@
     <div class="panel-body">
         <!--<div class="container">
             <p>{{t 'backup_archive_download'}}</p>
-            <a class="btn btn-info slide" href="#/backup/{{storage.id}}/{{name}}/download">
+            <a role="button" class="btn btn-info slide" href="#/backup/{{storage.id}}/{{name}}/download">
                 <span class="fa-download"></span> {{t 'download'}}
             </a>
         </div>
         <hr>-->
         <div class="container">
             <p>{{t 'backup_archive_delete'}}</p>
-            <a href="#/backup/{{storage.id}}/{{name}}/delete" class="btn btn-danger slide">
+            <a href="#/backup/{{storage.id}}/{{name}}/delete" role="button" class="btn btn-danger slide">
                 <span class="fa-trash-o"></span> {{t 'delete'}}
             </a>
         </div>
@@ -100,7 +100,7 @@
                     </div>
                     <div class="form-group">
                         <div class="text-center">
-                            <input type="submit" class="btn btn-success slide" value="{{t 'copy'}}">
+                            <input type="submit" role="button" class="btn btn-success slide" value="{{t 'copy'}}">
                         </div>
                     </div>
                 </form>

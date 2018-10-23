@@ -65,14 +65,19 @@
         api: function(uri, callback, method, data, websocket, callbackOnFailure) {
             c = this;
 
+            method = typeof method !== 'undefined' ? method : 'GET';
+            data   = typeof data   !== 'undefined' ? data   : {};
+            if (window.navigator && window.navigator.language && (typeof data.locale === 'undefined')) {
+                data.locale = y18n.locale || window.navigator.language.substr(0, 2);
+            }
+            app.loaded = false;
+            if ($('div.loader').length === 0) {
+                $('#main').append('<div class="loader loader-content"></div>');
+            }
             call = function(uri, callback, method, data, callbackOnFailure) {
-                method = typeof method !== 'undefined' ? method : 'GET';
-                data   = typeof data   !== 'undefined' ? data   : {};
-                if (window.navigator && window.navigator.language && (typeof data.locale === 'undefined')) {
-                    data.locale = y18n.locale || window.navigator.language.substr(0, 2);
-                }
 
                 var args = data;
+                // TODO: change this code
                 if (uri === '/postinstall') {
                     var installing = false;
                     setInterval(function () {
@@ -80,10 +85,6 @@
                     }, 1500);
                 }
 
-                app.loaded = false;
-                if ($('div.loader').length === 0) {
-                    $('#main').append('<div class="loader loader-content"></div>');
-                }
                 if (typeof callbackOnFailure !== 'function') {
                     callbackOnFailure = function(xhr) {
                         // Postinstall is a custom case, we have to wait that
@@ -170,9 +171,12 @@
 
             websocket = typeof websocket !== 'undefined' ? websocket : true;
             if (websocket) {
-
                 // Open a WebSocket connection to retrieve live messages from the moulinette
                 var ws = new WebSocket('wss://'+ store.get('url') +'/messages');
+                // Flag to avoid to call twice the API
+                // We need to set that in ws object as we need to use it in ws.onopen 
+                // and several ws object could be running at the same time...
+                ws.api_called = false;
                 ws.onmessage = function(evt) {
                     // console.log(evt.data);
                     $.each($.parseJSON(evt.data), function(k, v) {
@@ -181,11 +185,18 @@
                 };
 
                 // If not connected, WebSocket connection will raise an error, but we do not want to interrupt API request
-                ws.onerror = ws.onopen;
+                ws.onerror = function () {
+                    ws.onopen();
+                };
 
-                ws.onclose = function() {};
-
-                ws.onopen = call(uri, callback, method, data, callbackOnFailure);
+                ws.onclose = function() { };
+                
+                ws.onopen = function () {
+                    if (!ws.api_called) {
+                        ws.api_called = true;
+                        call(uri, callback, method, data, callbackOnFailure);
+                    }
+                };
             } else {
                 call(uri, callback, method, data, callbackOnFailure);
             }
