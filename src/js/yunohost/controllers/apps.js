@@ -72,7 +72,7 @@
                         dataraw[v['id']]['installColor'] = combineColors(dataraw[v['id']]['stateColor'], dataraw[v['id']]['levelColor']);
                         dataraw[v['id']]['displayLicense'] = (dataraw[v['id']]['manifest']['license'] !== undefined
                                                               && dataraw[v['id']]['manifest']['license'] !== 'free');
-                        dataraw[v['id']]['updateDate'] = dataraw[v['id']]['lastUpdate'] * 1000;
+                        dataraw[v['id']]['updateDate'] = dataraw[v['id']]['lastUpdate'] * 1000 || 0;
                         dataraw[v['id']]['isSafe'] = (dataraw[v['id']]['installColor'] !== 'danger');
                         dataraw[v['id']]['isWorking'] = isWorking ? "isworking" : "notFullyWorking";
 
