@@ -15,19 +15,58 @@
 
 <div class="separator"></div>
 
-<div class="list-group">
+<div class="input-group" id="app-filter-input">
+    <span class="input-group-addon"><i class="fas fa-search"></i></span>
+    <input type="text" id="filter-app-cards" class="form-control" role="textbox"  placeholder="{{t 'search_for_apps'}}" aria-describedby="basic-addon0"/>
+    <div class="input-group-btn">
+        <button type="button" role="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span id="app-cards-list-filter-text">{{t 'only_working_apps'}}</span> <span class="caret"></span>
+        </button>
+        <ul id="dropdownFilter" class="dropdown-menu" data-filter="isworking" role="menu">
+            <li role="presentation" class="button dropdownFilter" data-filter="isworking"><a class="menu-item" role="menu-item" tabindex="-1">{{t 'only_working_apps'}}</a></li>
+            <li role="presentation" class="button dropdownFilter" data-filter="validated"><a class="menu-item" role="menu-item" tabindex="-1">{{t 'only_validated_apps'}}</a></li>
+            <li role="presentation" class="button dropdownFilter" data-filter="*"><a class="menu-item" role="menu-item" tabindex="-1">{{t 'all_apps'}}</a></li>
+        </ul>
+    </div>
+</div>
+
+<div class="separator"></div>
+
+<div class="list-group grid">
 {{#apps}}
-    <a href="#/apps/install/{{id}}" class="list-group-item slide" title="{{t 'install'}}">
-        <span class="fa-chevron-right pull-right"></span>
-        <h2 class="list-group-item-heading">
-            {{name}} <small>{{id}}</small>
-        </h2>
-        <p class="list-group-item-text">{{description}}</p>
-        {{^official}}
-            <p class="list-group-item-text">{{t 'app_repository'}}{{repository}}</p>
-            <p class="list-group-item-text">{{t 'app_state'}}{{state}}</p>
-        {{/official}}
-    </a>
+  <div class="app-card panel panel-default {{status}} {{state}} {{isWorking}} {{level}}-level">
+        <div class="panel-body">
+            <h2 class="app-title">{{name}}</h2>
+            <div class="category">
+              {{#isCommunity}} <span class="label label-info label-as-badge app-status">{{t 'community'}}</span>{{/isCommunity}}
+              <span class="label label-{{stateColor}} label-as-badge app-state">{{t state}}</span>
+              <a target="_BLANK" href="https://yunohost.org/#/packaging_apps_levels"><span class="label label-{{levelColor}} label-as-badge app-level" title="{{t 'app_level'}}">{{t 'level'}} {{levelFormatted}}</span></a>
+              {{#displayLicense}}<span class="label label-default app-license" title="{{t 'app_license'}}">{{license}}</span>{{/displayLicense}}
+            </div>
+            <div class="app-card-desc">{{description}}</div>
+        </div>
+            <div class="app-card-date-maintainer">
+                <i class="fas fa-sync"></i>{{formatDate updateDate day="numeric" month="long" year="numeric"}} -
+                {{#maintained}}<span title="{{t 'current_maintainer_title'}}" class="maintained"></span><i class="fa-user"></i> {{manifest.maintainer.name}}</span>{{/maintained}}
+            {{^maintained}}<i class="fas fa-warning"></i> {{t 'unmaintained'}}{{/maintained}}
+            </div>
+            <div class="btn-group" role="group">
+                <a href="{{git.url}}" target="_BLANK" type="button" role="button" class="btn btn-default col-xs-4">
+                    <i class="fa-globe"></i> Code
+                </a>
+                <a href="{{git.url}}/blob/master/README.md" target="_BLANK" type="button" role="button" class="btn btn-default col-xs-4">
+                    <i class="fa-book"></i> Readme
+                </a>
+                {{#installable}}
+                <a href="#/apps/install/{{id}}" type="button" role="button" class="btn btn-{{installColor}} col-xs-4 active">
+                    <i class="fa-plus"></i> {{t 'install'}}{{^isSafe}} <i class="fa-warning"></i>{{/isSafe}}
+                </a>
+                {{/installable}}
+                {{^installable}}
+                <span type="button" class="btn btn-default col-sm-4 active disabled"> {{t 'installed'}}</span>
+                {{/installable}}
+            </div>
+    </div>
 {{/apps}}
 </div>
 

@@ -17,16 +17,68 @@
         });
     });
 
+    function levelToColor(level) {
+        if (level > 6) {
+            return 'success';
+        }
+        else if (level >= 2) {
+            return 'warning';
+        }
+        else if (isNaN(level)) {
+            return 'default';
+        } else {
+            return 'danger'
+        }
+    }
+
+    function stateToColor(state) {
+        if (state === "working" || state === "official") {
+            return 'success';
+        }
+        else {
+            return 'danger';
+        }
+    }
+
+    function combineColors(stateColor, levelColor, installable) {
+        if (stateColor === "dangers" || levelColor === "danger") {
+            return 'danger';
+        }
+        if (stateColor === "warnings" || levelColor === "warnings" || levelColor === "default") {
+            return 'warning';
+        }
+        else {
+            return 'success';
+        }
+    }
+
     // List available apps
     app.get('#/apps/install', function (c) {
-        c.api('/apps', function(data) { // http://api.yunohost.org/#!/app/app_list_get_8
-            c.api('/apps?raw', function(dataraw) { // http://api.yunohost.org/#!/app/app_list_get_8
-                var apps = [];
+        c.api('/apps', function (data) { // http://api.yunohost.org/#!/app/app_list_get_8
+            c.api('/apps?raw', function (dataraw) { // http://api.yunohost.org/#!/app/app_list_get_8
+                var apps = []
                 $.each(data['apps'], function(k, v) {
-                    // Keep only uninstalled apps, or multi-instance apps
-                    if ((!v['installed'] || dataraw[v['id']].manifest.multi_instance) && !v['id'].match(/__[0-9]{1,5}$/)) {
-                        // Check app source
-                        dataraw[v['id']]['official'] = (dataraw[v['id']]['repository'] == 'yunohost');
+		    if (dataraw[v['id']]['state'] === "validated")
+                    {
+                        dataraw[v['id']]['state'] = "official";
+                    }
+                    var state = dataraw[v['id']]['state'];
+                    var levelFormatted = parseInt(dataraw[v['id']]['level']);
+                    var isWorking = (state === 'working' || state === 'official') && levelFormatted > 0;
+                    // Keep only the first instance of each app and remove community not working apps
+                    if (!v['id'].match(/__[0-9]{1,5}$/) && (dataraw[v['id']]['repository'] === 'yunohost' || state !== 'notworking')) {
+
+                        dataraw[v['id']]['installable'] = (!v['installed'] || dataraw[v['id']].manifest.multi_instance)
+                        dataraw[v['id']]['isCommunity'] = !(dataraw[v['id']]['repository'] === 'yunohost');
+                        dataraw[v['id']]['levelFormatted'] = isNaN(levelFormatted) ? '?' : levelFormatted;
+                        dataraw[v['id']]['levelColor'] = levelToColor(levelFormatted);
+                        dataraw[v['id']]['stateColor'] = stateToColor(state);
+                        dataraw[v['id']]['installColor'] = combineColors(dataraw[v['id']]['stateColor'], dataraw[v['id']]['levelColor']);
+                        dataraw[v['id']]['displayLicense'] = (dataraw[v['id']]['manifest']['license'] !== undefined
+                                                              && dataraw[v['id']]['manifest']['license'] !== 'free');
+                        dataraw[v['id']]['updateDate'] = dataraw[v['id']]['lastUpdate'] * 1000 || 0;
+                        dataraw[v['id']]['isSafe'] = (dataraw[v['id']]['installColor'] !== 'danger');
+                        dataraw[v['id']]['isWorking'] = isWorking ? "isworking" : "notFullyWorking";
 
                         jQuery.extend(dataraw[v['id']], v);
                         apps.push(dataraw[v['id']]);
@@ -35,7 +87,45 @@
 
                 // Sort app list
                 c.arraySortById(apps);
-                c.view('app/app_list_install', {apps: apps});
+
+                // setup filtering of apps once the view is loaded
+                function  setupFilterEvents () {
+                    // Uses plugin isotope to filter apps (we could had ordering to)
+                    var cardGrid = jQuery('.grid').isotope({
+                      itemSelector: '.app-card',
+                      layoutMode: 'fitRows',
+                      transitionDuration: 200
+                    });
+
+                    filterByClassAndName = function () {
+                      var input = jQuery("#filter-app-cards").val().toLowerCase();
+                      var inputMatch = (jQuery(this).find('.app-title').text().toLowerCase().indexOf(input) > -1);
+
+                      var filterClass = jQuery("#dropdownFilter").attr("data-filter");
+                      var classMatch = (filterClass === '*') ? true : jQuery(this).hasClass(filterClass);
+                      return inputMatch && classMatch;
+                    },
+
+                    // Keep only official apps at first render
+                    cardGrid.isotope({ filter: '.isworking' });
+
+                    jQuery('.dropdownFilter').on('click', function() {
+                        // change dropdown label
+                        jQuery('#app-cards-list-filter-text').text(jQuery(this).find('.menu-item').text());
+                         // change filter attribute
+                        jQuery('#dropdownFilter').attr("data-filter", jQuery(this).attr("data-filter"));
+                        // filter !
+                        cardGrid.isotope({ filter: filterByClassAndName });
+                    });
+
+                    jQuery("#filter-app-cards").on("keyup", function() {
+                        cardGrid.isotope({ filter: filterByClassAndName });
+                    });
+                }; 
+
+                // render
+                c.view('app/app_list_install', {apps: apps}, setupFilterEvents);
+
             });
         });
     });
@@ -681,7 +771,7 @@
               c.view('app/app_changelabel', data);
         });
     });
-    
+
     // Change app label
     app.post('#/apps/:app/changelabel', function (c) {
         params = {'new_label': c.params['label']};
@@ -718,7 +808,7 @@
             });
         });
     });
-    
+
     // Change app URL
     app.post('#/apps/:app/changeurl', function (c) {
         c.confirm(
@@ -736,5 +826,5 @@
                 c.redirect('#/apps/'+ c.params['app'] + '/changeurl');
             }
         );
-    });   
+    });
 })();
