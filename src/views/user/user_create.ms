@@ -65,7 +65,7 @@
             <label for="confirmation" class="col-sm-3 control-label">{{t 'password_confirmation'}}</label>
             <div class="col-sm-9">
                 <input type="password" id="confirmation" name="confirmation" class="form-control" placeholder="•••••" required>
-                <div class="help-block">{{t 'password_description' password_min_length}}</div>
+                <div class="help-block">{{t 'good_practices_about_user_password'}}</div>
             </div>
         </div>
     </div>

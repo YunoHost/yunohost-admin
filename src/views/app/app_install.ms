@@ -41,11 +41,15 @@
         <div class="form-group">
             <label for="{{name}}" class="col-sm-12">{{label}}</label>
 
+
             {{#if helpText}}
             <span class="help-block help-block--help col-sm-12">{{{helpText}}}</span>
             {{/if}}
 
             <div class="col-sm-12">
+                {{#if isPassword}}
+                <p class="text-warning">{{t 'good_practices_about_admin_password'}}</p>
+                {{/if}}
 
                 {{#if choices}}
                 <select id="{{name}}" name="{{name}}" required class="form-control" {{{attributes}}}>

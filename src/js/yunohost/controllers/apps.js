@@ -250,6 +250,7 @@
             // Default values
             args[k].type = (typeof v.type !== 'undefined') ? v.type : 'string';
             args[k].inputType = 'text';
+            args[k].isPassword = false;
             args[k].required = (typeof v.optional !== 'undefined' && v.optional == "true") ? '' : 'required';
             args[k].attributes = "";
             args[k].helpText = "";
@@ -368,6 +369,7 @@
             if (v.name == 'password' || args[k].type == 'password') {
                 // Change html input type
                 args[k].inputType = 'password';
+                args[k].isPassword = true;
             }
 
         });
