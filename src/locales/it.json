@@ -195,7 +195,7 @@
     "system_apps": "App",
     "system_apps_nothing": "Non ci sono applicazioni da aggiornare.",
     "system_delayed_upgrade": "Aggiornamento ritardato",
-    "system_delayed_upgrade_warning": "<b>%s</b> verrà aggiornato automaticamente entro la prossima ora.",
+    "system_delayed_upgrade_warning": "<b>%s</b> sarà aggiornato automaticamente nella prossima ora.",
     "system_packages": "Pacchetti",
     "system_packages_nothing": "Nessun pachetti da aggiornare.",
     "system_upgrade": "Aggiornamento del sistema",
