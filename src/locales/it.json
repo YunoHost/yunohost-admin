@@ -104,7 +104,7 @@
     "hook_conf_ynh_firewall": "Firewall",
     "hook_data_home": "Dati utente",
     "hook_data_mail": "Mail",
-    "hook_data_mail_desc": "Mail presente sul server",
+    "hook_data_mail_desc": "Mail che è sul server",
     "hostname": "Nome host",
     "id": "ID",
     "inactive": "Inattivo",
