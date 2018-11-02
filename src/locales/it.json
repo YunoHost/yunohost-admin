@@ -127,7 +127,7 @@
     "log": "Log",
     "logged_in": "Connesso",
     "logged_out": "Disconnesso",
-    "login": "Accesso",
+    "login": "Accedi",
     "logout": "Esci",
     "mailbox_quota_description": "Per esempio, 700M è un CD, 4700M è un DVD.",
     "manage_apps": "Gestisci app",
@@ -298,5 +298,6 @@
     "user_mailbox_use": "Spazio usato nella posta in arrivo",
     "versions": "Versioni",
     "certificate_alert_not_valid": "CRITICO: il certificato attuale non è valido ! HTTPS non funzionerà per niente !",
-    "certificate_alert_selfsigned": "AVVERTIMENTO: il certificato è auto-firmato. I browser esporranno un avvertimento ai nuovi visitatori !"
+    "certificate_alert_selfsigned": "AVVERTIMENTO: il certificato è auto-firmato. I browser esporranno un avvertimento ai nuovi visitatori !",
+    "ok": "OK"
 }
