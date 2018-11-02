@@ -280,7 +280,7 @@
     "hook_conf_cron": "Lavori regolari",
     "hook_conf_ynh_certs": "Certificati di sicurezza",
     "hook_conf_ynh_mysql": "Password  MySQL",
-    "hook_data_home_desc": "Dati dell'utente locate in /home/USER",
+    "hook_data_home_desc": "Dati dell'utente posizionati in /home/USER",
     "local_archives": "Archivi locali",
     "mailbox_quota_placeholder": "Lascia vuoto o metti 0 per disattivare.",
     "postinstall_domain": "Questo è il primo nome di dominio collegato al tuo server Yunohost, ma anche quello che verrà usato dagli utenti del tuo server per accedere al portale di autenticazione. Di conseguenza sarà visibile da tutti, perciò sceglilo con cura.",
