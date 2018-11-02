@@ -249,7 +249,7 @@
     "app_state": "Stato dell'applicazione: ",
     "app_state_inprogress": "In corso",
     "confirm_install_custom_app": "L'installazione di applicazioni 3rd party può compromettere la sicurezza del sistema. Utilizzare a proprio rischio.",
-    "backup_archive_copy": "Copiare questo archivio in un altro stoccaggio",
+    "backup_archive_copy": "Copia questo archivio in un altro supporto di memoria",
     "confirm_install_domain_root": "Non sarà in grado di installare qualsiasi altra applicazione su %s. Continuare ?",
     "app_state_notworking": "Non funzionando",
     "app_state_working": "Funzionando",
