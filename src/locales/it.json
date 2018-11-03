@@ -358,7 +358,12 @@
     "validity": "Validità",
     "install_letsencrypt_cert": "Installa un certificato Let's Encrypt",
     "manually_renew_letsencrypt": "Rinnova manualmente ora",
-    "appslists": "Liste applicazioni",
+    "appslists": "Liste di applicazioni",
     "appslists_no_lists": "Nessuna lista di applicazioni",
-    "appslists_custom": "Lista di applicazioni personalizzata"
+    "appslists_custom": "Lista di applicazioni personalizzata",
+    "appslists_manage": "Gestisci liste di applicazioni",
+    "appslists_last_update": "Ultimo aggiornamento",
+    "appslists_unknown_list": "Lista di applicazioni sconosciuta: %s",
+    "appslists_community_list": "Lista di applicazioni della comunità",
+    "name": "Nome"
 }
