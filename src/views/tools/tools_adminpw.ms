@@ -6,6 +6,8 @@
 
 <div class="separator"></div>
 
+<div class="alert alert-warning">{{t 'good_practices_about_admin_password'}}</div>
+
 <form action="#/tools/adminpw" method="PUT" class="form-horizontal">
 
 	<div class="panel panel-default">

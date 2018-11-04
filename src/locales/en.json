@@ -149,6 +149,8 @@
     "free": "Free",
     "fs_type": "FS Type",
     "gateway": "Gateway: ",
+    "good_practices_about_admin_password": "You are now about to define a new admin password. The password should be at least 8 characters - though it is good practice to use longer password (i.e. a passphrase) and/or to use various kind of characters (uppercase, lowercase, digits and special characters).",
+    "good_practices_about_user_password": "You are now about to define a new user password. The password should be at least 8 characters - though it is good practice to use longer password (i.e. a passphrase) and/or to use various kind of characters (uppercase, lowercase, digits and special characters).",
     "home": "Home",
     "hook_adminjs_group_configuration": "Configuration",
     "hook_conf_cron": "Regular tasks",

@@ -7,6 +7,8 @@
 <div class="panel panel-default">
   <div class="panel-body">
 
+    <div class="alert alert-warning">{{t 'good_practices_about_admin_password'}}</div>
+
     <div class="form-group">
         <label for="password" class="col-sm-4 control-label">{{t 'administration_password'}}</label>
         <div class="col-sm-8">
