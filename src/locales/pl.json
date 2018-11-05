@@ -1,3 +1,12 @@
 {
-    "password": "Hasło"
+    "password": "Hasło",
+    "action": "Akcja",
+    "active": "Aktywny",
+    "add": "Dodaj",
+    "remove": "Usuń",
+    "administration_password": "Hasło Administratora",
+    "allowed_users": "Dozwoleni użytkownicy",
+    "api_not_responding": "API nie odpowiada",
+    "app_access": "Dostęp",
+    "app_access_addall_desc": "Wszyscy aktualni użytkownicy będą mieli dostęp do %s"
 }
