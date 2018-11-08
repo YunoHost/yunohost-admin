@@ -1,3 +1,13 @@
+yunohost-admin (3.3.0) stable; urgency=low
+
+  * [enh] Rework app install list design (#205)
+  * [enh] Add advices about password strength (#212)
+  * [i18n] Improve Frenchm Catalan, Italian, Arabic, Polish, Occitan translations
+
+  Thanks to all contributors (e-lie, Aleks, Jibec, xaloc33, silkevicious, tbille, ButterflyOfFire, Krzysztof Dmowski, Quent-in) <3 !
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Thu, 08 Nov 2018 19:25:00 +0000
+
 yunohost-admin (3.2.1) stable; urgency=low
 
   * Fix an important issue where no feedback was given to the user during long actions such as postinstall (#211)
