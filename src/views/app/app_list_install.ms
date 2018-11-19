@@ -24,7 +24,7 @@
         </button>
         <ul id="dropdownFilter" class="dropdown-menu" data-filter="isworking" role="menu">
             <li role="presentation" class="button dropdownFilter" data-filter="isworking"><a class="menu-item" role="menu-item" tabindex="-1">{{t 'only_working_apps'}}</a></li>
-            <li role="presentation" class="button dropdownFilter" data-filter="validated"><a class="menu-item" role="menu-item" tabindex="-1">{{t 'only_validated_apps'}}</a></li>
+            <li role="presentation" class="button dropdownFilter" data-filter="official"><a class="menu-item" role="menu-item" tabindex="-1">{{t 'only_official_apps'}}</a></li>
             <li role="presentation" class="button dropdownFilter" data-filter="*"><a class="menu-item" role="menu-item" tabindex="-1">{{t 'all_apps'}}</a></li>
         </ul>
     </div>
