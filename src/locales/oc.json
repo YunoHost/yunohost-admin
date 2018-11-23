@@ -156,7 +156,7 @@
     "hook_data_home": "Donadas utilizaires",
     "hook_data_home_desc": "Las donadas utilizaires son plaçadas dins /home/USER",
     "hook_data_mail": "Corrièl",
-    "hook_data_mail_desc": "Los corrièls que encara sul servidor",
+    "hook_data_mail_desc": "Los corrièls que son encara sul servidor",
     "hostname": "Nom d’òst",
     "id": "ID",
     "inactive": "Inactiu",
@@ -398,5 +398,5 @@
     "logs_path": "Camin",
     "logs_context": "Contèxt",
     "logs_share_with_yunopaste": "Partejar amb YunoPaste",
-    "logs_more": "Mostrar mai de linas"
+    "logs_more": "Mostrar mai de linhas"
 }
