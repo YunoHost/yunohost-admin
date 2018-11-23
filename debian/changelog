@@ -1,4 +1,13 @@
-yunohost-admin (3.3.0) stable; urgency=low
+yunohost-admin (3.3.1) stable; urgency=low
+
+  * [fix] Fix official app install list filter (follow up of #205)
+  * [i18n] Improve Occitan translation
+
+  Thanks to all contributors (Aleks, Quent-in)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Fri, 23 Nov 2018 15:25:00 +0000
+
+yunohost-admin (3.3.0) testing; urgency=low
 
   * [enh] Rework app install list design (#205)
   * [enh] Add advices about password strength (#212)
