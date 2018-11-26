@@ -336,5 +336,17 @@
     "confirm_update_packages": "¿Está seguro de que desea actualizar todos los paquetes?",
     "confirm_upnp_enable": "¿Está seguro de que desea habilitar UPnP?",
     "confirm_upnp_disable": "¿Está seguro de que desea deshabilitar UPnP?",
-    "ok": "OK"
+    "ok": "OK",
+    "active": "Activo",
+    "remove": "Eliminar",
+    "app_change_label": "Cambiar Etiqueta",
+    "app_change_url": "Cambiar URL",
+    "app_info_changelabel_desc": "Cambiar la etiqueta de la aplicación en el portal.",
+    "app_info_changeurl_desc": "Cambiar la URL de acceso de esta aplicación (dominio y/o ruta).",
+    "app_info_change_url_disabled_tooltip": "Esta función no ha sido implementada en esta aplicación todavía",
+    "app_no_actions": "Esta aplicación no tiene ninguna acción",
+    "confirm_app_change_url": "¿Está seguro de que desea cambiar la URL de acceso a la aplicación?",
+    "confirm_migrations_skip": "No se recomienda saltarse las migraciones. ¿Está seguro de que desea hacer eso?",
+    "confirm_update_specific_app": "¿Está seguro de que desea actualizar %s ?",
+    "confirm_reboot_action_reboot": "¿Está seguro de que desea reiniciar tu servidor?"
 }
