@@ -23,7 +23,9 @@
                 v.status = y18n.t(v.status);
                 v.loaded = y18n.t(v.loaded);
                 if (v.active_at == 'unknown')
+                {
                     delete v.active_at;
+                }
                 data2.services.push(v);
             });
 
@@ -55,7 +57,9 @@
             data2.service.active = y18n.t(data.active);
             data2.service.loaded = y18n.t(data.loaded);
             if (data.active_at != 'unknown')
+            {
                 data2.service.active_at = data.active_at;
+            }
             store.clear('slide');
             c.view('service/service_info', data2);
         }, 'GET');
