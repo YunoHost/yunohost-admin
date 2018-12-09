@@ -60,8 +60,7 @@
 
             c.view('app/app_appslists_list', {
                 appslists: list,
-                has_community_list: has_community_list,
-	            locale: y18n.locale
+                has_community_list: has_community_list
             });
         }, 'GET');
     });
@@ -90,8 +89,7 @@
                     'removable' : (c.params['appslist'] !== 'yunohost') ? true : false // Do not remove default apps list
                 };
                 c.view('app/app_appslists_info', {
-                    appslist: list,
-	                locale: y18n.locale
+                    appslist: list
                 });
             }
             else {
