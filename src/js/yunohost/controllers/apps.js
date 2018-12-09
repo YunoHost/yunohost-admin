@@ -88,9 +88,7 @@
                     'lastUpdate': data[c.params['appslist']]['lastUpdate'],
                     'removable' : (c.params['appslist'] !== 'yunohost') ? true : false // Do not remove default apps list
                 };
-                c.view('app/app_appslists_info', {
-                    appslist: list
-                });
+                c.view('app/app_appslists_info', {appslist: list});
             }
             else {
                 c.flash('warning', y18n.t('appslists_unknown_list', [c.params['appslist']]));

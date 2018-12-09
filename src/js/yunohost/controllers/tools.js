@@ -121,7 +121,7 @@
 
             c.view('tools/tools_logs', {
                 "data": data,
-	            "locale": y18n.locale
+                "locale": y18n.locale
             });
         });
     });
