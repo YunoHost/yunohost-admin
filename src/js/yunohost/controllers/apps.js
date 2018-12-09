@@ -144,10 +144,7 @@
 
             // Multi Instance settings
             data.manifest.multi_instance = data.manifest.multi_instance ? y18n.t('yes') : y18n.t('no');
-
-            // Installation date
-            var d = new Date(data.settings.install_time * 1000);
-            data.install_time = d.getDate() + '/' + (d.getMonth()+1) + '/' + d.getFullYear();
+            data.install_time = new Date(data.settings.install_time * 1000);
 
             c.view('app/app_info', data);
         });
