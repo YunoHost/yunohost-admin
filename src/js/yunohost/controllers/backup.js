@@ -136,6 +136,7 @@
             data.name = c.params['archive'];
             data.system_parts = c.groupHooks(Object.keys(data['system']));
             data.items = (data['hooks']!={} || data['apps']!=[]);
+	        data.locale = y18n.locale
             c.view('backup/backup_info', data);
         });
     });
@@ -153,6 +154,7 @@
                 data.archives2.unshift(info)
             });
             data.archives = data.archives2;
+	        data.locale = y18n.locale
             c.view('backup/backup_list', data);
         });
     });

@@ -12,11 +12,12 @@
 
 <div class="separator"></div>
 
+{{#intl locales=locale}}
 <div class="list-group">
 {{#each archives}}
-    <a href="#/backup/{{../storage.id}}/{{name}}" class="list-group-item slide clearfix">
+    <a href="#/backup/{{../storage.id}}/{{name}}" class="list-group-item slide clearfix" title='{{formatTime created_at day="numeric" month="long" year="numeric" hour="numeric" minute="numeric"}}'>
         <span class="pull-right fa-chevron-right"></span>
-        <h2 class="list-group-item-heading">{{created_at}} <small>{{name}} ({{humanSize size}})</small></h2>
+        <h2 class="list-group-item-heading">{{formatRelative created_at}} <small>{{name}} ({{humanSize size}})</small></h2>
         <p class="list-group-item-text">{{path}}</p>
     </a>
 {{/each}}
@@ -28,6 +29,7 @@
 {{/archives}}
 
 </div>
+{{/intl}}
 
 <!--<div class="panel panel-default">
     <div class="panel-heading">

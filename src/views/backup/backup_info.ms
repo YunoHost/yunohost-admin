@@ -14,7 +14,7 @@
     <div class="panel-body">
         <dl class="dl-horizontal">
             <dt>{{t 'id'}}</dt><dd>{{ name }}</dd>
-            <dt>{{t 'created_at'}}</dt><dd>{{ created_at }}</dd>
+            <dt>{{t 'created_at'}}</dt><dd>{{formatTime created_at day="numeric" month="long" year="numeric" hour="numeric" minute="numeric"}}</dd>
             <dt>{{t 'size'}}</dt><dd>{{ humanSize size}}</dd>
             <dt>{{t 'path'}}</dt><dd>{{ path }}</dd>
         </dl>
