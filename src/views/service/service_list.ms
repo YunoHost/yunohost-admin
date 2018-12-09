@@ -17,7 +17,12 @@
             </span>
             <br>
             {{t 'started_at'}}
-            {{active_at.human}}
+            {{#active_at}}
+            {{formatTime . day="numeric" month="long" year="numeric" hour="numeric" minute="numeric"}}
+            {{/active_at}}
+            {{^active_at}}
+            {{t 'unknown'}}
+            {{/active_at}}
         </div>
     </a>
 {{/services}}

@@ -18,7 +18,7 @@
             <dt>{{t 'url'}}</dt>
             <dd>{{appslist.url}}</dd>
             <dt>{{t 'appslists_last_update'}}</dt>
-            <dd>{{timestampToDate appslist.lastUpdate}}</dd>
+            <dd>{{formatTime appslist.lastUpdate day="numeric" month="long" year="numeric" hour="numeric" minute="numeric"}}</dd>
         </dl>
     </div>
 </div>
