@@ -18,10 +18,10 @@
     });
 
     function levelToColor(level) {
-        if (level > 6) {
+        if (level >= 3) {
             return 'success';
         }
-        else if (level >= 2) {
+        else if (level >= 1) {
             return 'warning';
         }
         else if (isNaN(level)) {
