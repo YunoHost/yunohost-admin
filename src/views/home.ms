@@ -1,3 +1,7 @@
+<p class="alert alert-warning">
+{{t 'obsolete_version' }}
+</p>
+
 <div class="list-group">
     <a href="#/users" class="list-group-item slide clearfix">
         <span class="pull-right fa-chevron-right"></span>

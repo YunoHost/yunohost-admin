@@ -224,6 +224,7 @@
     "passwords_dont_match": "Passwords don't match",
     "passwords_too_short": "Password is too short",
     "path": "Path",
+    "obsolete_version": "You are running an obsolete version of YunoHost. The YunoHost team highly recommend to run the migration to YunoHost 3.x / Stretch available in Tools > Migrations. More information can be found on <a href='https://yunohost.org/#/jessie_stretch_migration'>this page in the documentation</a>",
     "path_url": "Path",
     "port": "Port",
     "ports": "Ports",
