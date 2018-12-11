@@ -492,11 +492,36 @@
     // App installation form
     app.get('#/apps/install/:app', function (c) {
         c.api('/apps?raw', function(data) { // http://api.yunohost.org/#!/app/app_list_get_8
-            c.appInstallForm(
-                c.params['app'],
-                data[c.params['app']].manifest,
-                c.params
-            );
+            var state_color = stateToColor(data[c.params['app']]['state']);
+            var level_color = levelToColor(parseInt(data[c.params['app']]['level']));
+            var is_safe_for_install_color = combineColors(state_color, level_color);
+
+            if ((is_safe_for_install_color === "warning") || (is_safe_for_install_color === "danger"))
+            {
+                c.confirm(
+                    y18n.t("applications"),
+                    y18n.t("confirm_install_app_"+is_safe_for_install_color),
+                    function(){
+                        c.appInstallForm(
+                            c.params['app'],
+                            data[c.params['app']].manifest,
+                            c.params
+                        );
+                    },
+                    function(){
+                        $('div.loader').remove();
+                        c.redirect('#/apps/install');
+                    }
+                );
+            }
+            else
+            {
+                c.appInstallForm(
+                    c.params['app'],
+                    data[c.params['app']].manifest,
+                    c.params
+                );
+            }
         });
     });
 
