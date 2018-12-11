@@ -41,13 +41,14 @@
     }
 
     function combineColors(stateColor, levelColor, installable) {
-        if (stateColor === "dangers" || levelColor === "danger") {
+        if (stateColor === "danger" || levelColor === "danger") {
             return 'danger';
         }
-        if (stateColor === "warnings" || levelColor === "warnings" || levelColor === "default") {
+        else if (stateColor === "warning" || levelColor === "warning" || levelColor === "default") {
             return 'warning';
         }
-        else {
+        else
+        {
             return 'success';
         }
     }
