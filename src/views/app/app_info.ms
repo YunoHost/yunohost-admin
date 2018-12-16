@@ -22,7 +22,7 @@
             <dt>{{t 'multi_instance'}}</dt>
             <dd>{{manifest.multi_instance}}</dd>
             <dt>{{t 'install_time'}}</dt>
-            <dd>{{install_time}}</dd>
+            <dd>{{formatTime install_time day="numeric" month="long" year="numeric" hour="numeric" minute="numeric"}}</dd>
             <dt>{{t 'url'}}</dt>
             <dd><a href="https://{{settings.domain}}{{settings.path}}" target="_blank">https://{{settings.domain}}{{settings.path}}</a></dd>
         </dl>

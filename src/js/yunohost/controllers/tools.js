@@ -121,7 +121,7 @@
 
             c.view('tools/tools_logs', {
                 "data": data,
-	        "locale": y18n.locale
+                "locale": y18n.locale
             });
         });
     });
@@ -134,12 +134,6 @@
         
         c.api("/logs/display" + params, function(log) {
             if ('metadata' in log) {
-                if ('started_at' in log.metadata) {
-                    log.metadata.started_at = Date.parse(log.metadata.started_at)
-                }
-                if ('ended_at' in log.metadata) {
-                    log.metadata.ended_at = Date.parse(log.metadata.ended_at)
-                }
                 if (!'env' in log.metadata && 'args' in log.metadata) {
                     log.metadata.env = log.metadata.args
                 }
