@@ -3,6 +3,8 @@
     var app = Sammy.apps['#main'];
     var store = app.store;
 
+    var initial_checks_already_performed = false;
+
     /**
      * Home
      *
@@ -10,7 +12,11 @@
 
      // Home page
     app.get('#/', function (c) {
-        c.api('/users', function(data) {
+        if (initial_checks_already_performed)
+        {
+            c.view("home");
+        }
+        else c.api('/users', function(data) {
             // Warn admin if no users are created.
             if (typeof data.users !== 'undefined' && data.users.length === 0) {
                 c.flash('warning', y18n.t('warning_first_user'));
@@ -77,6 +83,7 @@
                 }
             });
 
+            initial_checks_already_performed = true;
             c.view('home');
         });
     });
