@@ -122,9 +122,18 @@
                             }
                             // 500
                             else if (xhr.status == 500) {
-                                error_log = JSON.parse(xhr.responseText);
-                                error_log.route = error_log.route.join(' ') + '\n';
-                                error_log.arguments = JSON.stringify(error_log.arguments);
+                                try {
+                                    error_log = JSON.parse(xhr.responseText);
+                                    error_log.route = error_log.route.join(' ') + '\n';
+                                    error_log.arguments = JSON.stringify(error_log.arguments);
+                                }
+                                catch (e)
+                                {
+                                    error_log = {};
+                                    error_log.route = "Failed to parse route";
+                                    error_log.arguments = "Failed to parse arguments";
+                                    error_log.traceback = xhr.responseText;
+                                }
                                 c.flash('fail', y18n.t('internal_exception', [error_log.route, error_log.arguments, error_log.traceback]));
                             }
                             // 502 Bad gateway means API is down
