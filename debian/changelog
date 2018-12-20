@@ -1,3 +1,16 @@
+yunohost-admin (3.4.0) testing; urgency=low
+
+  * [enh] Added option to purge user's data when removing it from the admin panel (#221)
+  * [fix] Do not fail miserably if we don't have proper json during error 500 (#220)
+  * [enh] Confirm when installing experimental or low quality apps (#218)
+  * [fix] Don't run initial checks each time home page is displayed (#217)
+  * [enh] Display date in timezone of browser (#216)
+  * [i18n] Improve Occitan, Spanish and Swedish translations
+
+  Thanks to all contributors (Aleks, P. Joelson, Quenti, chateau, gdayon, ljf) <3 !
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Thu, 20 Dec 2018 22:23:00 +0000
+
 yunohost-admin (3.3.1) stable; urgency=low
 
   * [fix] Fix official app install list filter (follow up of #205)
