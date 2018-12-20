@@ -196,19 +196,43 @@
 
     // Remove existing user
     app.get('#/users/:user/delete', function (c) {
+
+        var params = {};
+
+        // make confirm content
+        var purgeCheckbox = '<div><input type="checkbox" id="purge-user-data" name="purge-user-data"> <label for="purge-user-data">'+ y18n.t('purge_user_data_checkbox', [c.params['user']]) +'</label></div>';
+        var purgeAlertMessage = '<div class="danger" style="display: none">⚠ '+ y18n.t('purge_user_data_warning') +'</div>';
+        var confirmModalContent = $('<div>'+ y18n.t('confirm_delete', [c.params['user']]) +'<br><br>'+ purgeCheckbox +'<br>'+ purgeAlertMessage +'</div>');
+
+        // display confirm modal
         c.confirm(
             y18n.t('users'),
-            y18n.t('confirm_delete', [c.params['user']]),
+            confirmModalContent,
             function(){
                 c.api('/users/'+ c.params['user'], function(data) { // http://api.yunohost.org/#!/user/user_delete_delete_4
                     c.redirect('#/users');
-                }, 'DELETE');
+                }, 'DELETE', params);
             },
             function(){
                 store.clear('slide');
                 c.redirect('#/users/'+ c.params['user']);
             }
         );
+
+        // toggle purge warning and parameter
+        confirmModalContent.find("input").click(function(){
+
+          if (confirmModalContent.find("input").is(':checked')) {
+            params.purge = "";
+            confirmModalContent.find(".warning").show();
+          }
+          else {
+            delete params.purge;
+            confirmModalContent.find(".warning").hide();
+          };
+
+        });
+
     });
 
 })();
