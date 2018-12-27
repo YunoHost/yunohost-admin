@@ -59,7 +59,7 @@
             c.api('/apps?raw', function (dataraw) { // http://api.yunohost.org/#!/app/app_list_get_8
                 var apps = []
                 $.each(data['apps'], function(k, v) {
-		    if (dataraw[v['id']]['state'] === "validated")
+                    if (dataraw[v['id']]['state'] === "validated")
                     {
                         dataraw[v['id']]['state'] = "official";
                     }
@@ -489,6 +489,10 @@
     // App installation form
     app.get('#/apps/install/:app', function (c) {
         c.api('/apps?raw', function(data) { // http://api.yunohost.org/#!/app/app_list_get_8
+            if (dataraw[v['id']]['state'] === "validated")
+            {
+                dataraw[v['id']]['state'] = "official";
+            }
             var state_color = stateToColor(data[c.params['app']]['state']);
             var level_color = levelToColor(parseInt(data[c.params['app']]['level']));
             var is_safe_for_install_color = combineColors(state_color, level_color);
