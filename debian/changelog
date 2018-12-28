@@ -1,3 +1,9 @@
+yunohost-admin (3.4.0.1) testing; urgency=low
+
+  * [fix] Minor issue where a warning would popup when installing a level7 official app
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Fri, 28 Dec 2018 14:33:00 +0000
+
 yunohost-admin (3.4.0) testing; urgency=low
 
   * [enh] Added option to purge user's data when removing it from the admin panel (#221)
