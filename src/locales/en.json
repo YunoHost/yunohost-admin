@@ -142,6 +142,7 @@
     "error_select_domain": "You should indicate a domain",
     "error_server": "Server error",
     "error_server_unexpected": "Unexpected server error (%s)",
+    "error_connection_interuptted": "The server closed the connection instead of answering it, has nginx been restarted by error? (Error code/message: %s)",
     "everyone_has_access": "Everyone has access.",
     "experimental_warning": "Warning: this feature is experimental and not consider stable, you shouldn't be using it except if you know what you are doing.",
     "filesystem": "Filesystem",

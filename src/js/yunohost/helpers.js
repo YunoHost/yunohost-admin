@@ -144,6 +144,12 @@
                             else if (typeof xhr.responseText !== 'undefined') {
                                 c.flash('fail', xhr.responseText);
                             }
+                            // 0 mean "the connexion has been closed" apparently
+                            else if (xhr.status == 0) {
+                                var errorMessage = xhr.status+' '+xhr.statusText;
+                                c.flash('fail', y18n.t('error_connection_interuptted', [errorMessage]));
+                                console.log(xhr);
+                            }
                             // Return HTTP error code at least
                             else {
                                 var errorMessage = xhr.status+' '+xhr.statusText;
