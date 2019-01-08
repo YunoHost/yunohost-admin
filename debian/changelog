@@ -1,3 +1,10 @@
+yunohost-admin (2.7.15) stable; urgency=low
+
+  * Add a warning about Jessie being deprecated and encouragement to migrate
+    to Stretch / 3.x
+ 
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Tue, 08 Jan 2019 18:00:00 +0000
+
 yunohost-admin (2.7.14) stable; urgency=low
 
   * Improved Occitan, French, Portuguese, Arabic translations
