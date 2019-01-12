@@ -174,7 +174,7 @@
                 // Open a WebSocket connection to retrieve live messages from the moulinette
                 var ws = new WebSocket('wss://'+ store.get('url') +'/messages');
                 // Flag to avoid to call twice the API
-                // We need to set that in ws object as we need to use it in ws.onopen 
+                // We need to set that in ws object as we need to use it in ws.onopen
                 // and several ws object could be running at the same time...
                 ws.api_called = false;
                 ws.onmessage = function(evt) {
@@ -190,7 +190,7 @@
                 };
 
                 ws.onclose = function() { };
-                
+
                 ws.onopen = function () {
                     if (!ws.api_called) {
                         ws.api_called = true;
@@ -313,6 +313,19 @@
             return box.modal('show');
         },
 
+        selectAllOrNone: function () {
+          // Remove active style from buttons
+          $(".select_all-none input").click(function(){ $(this).toggleClass("active"); });
+          // Select all checkbox in this panel
+          $(".select_all").click(function(){
+            $(this).parents(".panel").children(".list-group").find("input").prop("checked", true);
+          });
+          // Deselect all checkbox in this panel
+          $(".select_none").click(function(){
+            $(this).parents(".panel").children(".list-group").find("input").prop("checked", false);
+          });
+        },
+
         arraySortById: function(arr) {
             arr.sort(function(a, b){
                 if (a.id > b.id) {
@@ -367,15 +380,15 @@
                         description:(group_id==hook)?y18n.t('hook_'+hook+'_desc'):y18n.t('hook_'+hook)
                     };
                 }
-            });         
+            });
             return data;
         },
-        
+
         ungroupHooks: function(system_parts,apps) {
             var data = {};
             data['apps'] = apps || [];
             data['system'] = system_parts || [];
-            
+
             if (data['system'].constructor !== Array) {
                 data['system'] = [data['system']];
             }

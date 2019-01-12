@@ -55,7 +55,7 @@
             data['apps'] = {};
             c.api('/apps?with_backup', function(apps_list) {
                 data['apps'] = apps_list.apps;
-                c.view('backup/backup_create', data);
+                c.view('backup/backup_create', data, c.selectAllOrNone);
             });
         });
     });
@@ -137,7 +137,7 @@
             data.system_parts = c.groupHooks(Object.keys(data['system']));
             data.items = (data['hooks']!={} || data['apps']!=[]);
             data.locale = y18n.locale
-            c.view('backup/backup_info', data);
+            c.view('backup/backup_info', data, c.selectAllOrNone);
         });
     });
 
