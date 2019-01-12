@@ -200,8 +200,8 @@
         var params = {};
 
         // make confirm content
-        var purgeCheckbox = '<input type="checkbox">'+ y18n.t('purge_user_data_checkbox', [c.params['user']]) +'</input>';
-        var purgeAlertMessage = '<div class="warning" style="display: none">⚠ '+ y18n.t('purge_user_data_warning') +'</div>';
+        var purgeCheckbox = '<div><input type="checkbox" id="purge-user-data" name="purge-user-data"> <label for="purge-user-data">'+ y18n.t('purge_user_data_checkbox', [c.params['user']]) +'</label></div>';
+        var purgeAlertMessage = '<div class="danger" style="display: none">⚠ '+ y18n.t('purge_user_data_warning') +'</div>';
         var confirmModalContent = $('<div>'+ y18n.t('confirm_delete', [c.params['user']]) +'<br><br>'+ purgeCheckbox +'<br>'+ purgeAlertMessage +'</div>');
 
         // display confirm modal
