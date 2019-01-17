@@ -10,7 +10,14 @@
 <form action="#/backup/{{storage.id}}" method="POST" class="form-horizontal">
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h2 class="panel-title"><span class="fa-fw fa-cube"></span> {{t 'system'}}</h2>
+            <h2 class="panel-title">
+              <span class="fa-fw fa-cube"></span>
+              {{t 'system'}}
+              <span class="select_all-none pull-right">
+                <input type="button" role="select_all" class="btn btn-default slide back select_all" value="{{t 'select_all'}}" />
+                <input type="button" role="select_none" class="btn btn-default slide back select_none" value="{{t 'select_none'}}" />
+              </span>
+            </h2>
         </div>
         <div class="list-group">
             {{#each hooks}}
@@ -26,7 +33,14 @@
 
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h2 class="panel-title"><span class="fa-fw fa-cubes"></span> {{t 'applications'}}</h2>
+            <h2 class="panel-title">
+              <span class="fa-fw fa-cubes"></span>
+              {{t 'applications'}}
+              <span class="select_all-none pull-right">
+                <input type="button" role="select_all" class="btn btn-default slide back select_all" value="{{t 'select_all'}}" />
+                <input type="button" role="select_none" class="btn btn-default slide back select_none" value="{{t 'select_none'}}" />
+              </span>
+            </h2>
         </div>
         <div class="list-group">
             {{#each apps}}

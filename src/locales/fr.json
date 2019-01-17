@@ -221,6 +221,8 @@
     "running": "En cours d'execution",
     "save": "Sauvegarder",
     "select_user": "Choisissez un utilisateur",
+    "select_all": "Tout sélectionner",
+    "select_none": "Tout déselectionner",
     "service_log": "Journal de %s",
     "service_start_on_boot": "Lancer au démarrage : ",
     "service_status": "Statut : ",
