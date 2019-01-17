@@ -1,3 +1,14 @@
+yunohost-admin (3.4.1) testing; urgency=low
+
+  * [fix] handle super cryptic error situation (4884bff)
+  * [enh] Add "Select all/none" buttons on webadmin backup creation and
+    restore pages (#224)
+  * [i18n] Misc orthotypograhy
+
+  Thanks to all contributors (Jean-Baptiste, Laurent Peuch, chateau) <3 !
+ 
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Thu, 17 Jan 2019 22:03:00 +0000
+
 yunohost-admin (3.4.0.1) testing; urgency=low
 
   * [fix] Minor issue where a warning would popup when installing a level7 official app
