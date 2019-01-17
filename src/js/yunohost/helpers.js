@@ -147,7 +147,7 @@
                             // 0 mean "the connexion has been closed" apparently
                             else if (xhr.status == 0) {
                                 var errorMessage = xhr.status+' '+xhr.statusText;
-                                c.flash('fail', y18n.t('error_connection_interuptted', [errorMessage]));
+                                c.flash('fail', y18n.t('error_connection_interrupted', [errorMessage]));
                                 console.log(xhr);
                             }
                             // Return HTTP error code at least
