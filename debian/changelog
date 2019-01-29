@@ -1,3 +1,11 @@
+yunohost-admin (3.4.2) stable; urgency=low
+
+  * Improve German translation
+
+  Thanks to frju365 <3 !
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Tue, 29 Jan 2019 16:45:00 +0000
+
 yunohost-admin (3.4.1) testing; urgency=low
 
   * [fix] handle super cryptic error situation (4884bff)
