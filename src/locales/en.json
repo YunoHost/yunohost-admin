@@ -145,6 +145,8 @@
     "error_connection_interrupted": "The server closed the connection instead of answering it, has nginx been restarted by error? (Error code/message: %s)",
     "everyone_has_access": "Everyone has access.",
     "experimental_warning": "Warning: this feature is experimental and not consider stable, you shouldn't be using it except if you know what you are doing.",
+    "featured": "Featured",
+    "featured_and_official_apps": "Featured and official apps",
     "filesystem": "Filesystem",
     "firewall": "Firewall",
     "footer_version": "Powered by <a href='https://yunohost.org'>YunoHost</a> %s (%s).",

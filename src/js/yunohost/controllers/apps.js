@@ -66,6 +66,7 @@
                     var state = dataraw[v['id']]['state'];
                     var levelFormatted = parseInt(dataraw[v['id']]['level']);
                     var isWorking = (state === 'working' || state === 'official') && levelFormatted > 0;
+                    var isFeatured = (state === 'official' || dataraw[v['id']]['featured']);
                     // Keep only the first instance of each app and remove community not working apps
                     if (!v['id'].match(/__[0-9]{1,5}$/) && (dataraw[v['id']]['repository'] === 'yunohost' || state !== 'notworking')) {
 
@@ -80,6 +81,7 @@
                         dataraw[v['id']]['updateDate'] = dataraw[v['id']]['lastUpdate'] * 1000 || 0;
                         dataraw[v['id']]['isSafe'] = (dataraw[v['id']]['installColor'] !== 'danger');
                         dataraw[v['id']]['isWorking'] = isWorking ? "isworking" : "notFullyWorking";
+                        dataraw[v['id']]['isFeatured'] = isFeatured;
 
                         jQuery.extend(dataraw[v['id']], v);
                         apps.push(dataraw[v['id']]);
