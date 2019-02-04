@@ -27,5 +27,10 @@
     "app_state_inprogress": "Выполняется",
     "app_state_validated": "Проверенный",
     "app_state_working": "Работает",
-    "password": "Пароль"
+    "password": "Пароль",
+    "app_info_debug_desc": "Отображать отладочную информацию для этого приложения",
+    "cancel": "Отменить",
+    "login": "Логин",
+    "logout": "Выйти",
+    "ok": "ОК"
 }
