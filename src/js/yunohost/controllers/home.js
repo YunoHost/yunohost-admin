@@ -78,6 +78,8 @@
             });
 
             c.api("/diagnosis", function(data) {
+                versions = data.packages;
+                $('#yunohost-version').html(y18n.t('footer_version', [versions.yunohost.version, versions.yunohost.repo]));
                 if (data.security["CVE-2017-5754"].vulnerable) {
                     c.flash('danger', y18n.t('meltdown'));
                 }
