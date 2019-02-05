@@ -170,5 +170,12 @@
     "interface": "Интерфейс",
     "io": "I/O",
     "ipv4": "IPv4",
-    "ipv6": "IPv6"
+    "ipv6": "IPv6",
+    "loading": "Загружается…",
+    "log": "Лог",
+    "logged_in": "Вы вошли",
+    "mailbox_quota_description": "Например, 700M это CD, 4700M это DVD.",
+    "mailbox_quota_placeholder": "Оставьте пустым или поставьте 0, чтобы отключить.",
+    "manage_apps": "Управление приложениями",
+    "manage_domains": "Управление доманами"
 }
