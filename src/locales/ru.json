@@ -199,5 +199,13 @@
     "os": "ОС",
     "password_confirmation": "Подтвердите пароль",
     "password_description": "Пароль должен иметь минимум %s1 символов.",
-    "password_empty": "Поле для ввода пароля пусто."
+    "password_empty": "Поле для ввода пароля пусто",
+    "password_new": "Новый пароль",
+    "passwords_dont_match": "Пароли не совпадают",
+    "passwords_too_short": "Пароль слишком короткий",
+    "logs": "Логи",
+    "logs_history": "История команд, выполненных в системе",
+    "logs_package": "История действий с пакетами Debian",
+    "logs_system": "Логи ядра и другие низкоуровневые события",
+    "logs_access": "Список доступов и банков"
 }
