@@ -169,5 +169,6 @@
     "installing": "Устанавливаю",
     "interface": "Интерфейс",
     "io": "I/O",
-    "ipv4": "IPv4"
+    "ipv4": "IPv4",
+    "ipv6": "IPv6"
 }
