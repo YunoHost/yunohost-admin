@@ -216,5 +216,22 @@
     "logs_started_at": "Старт",
     "logs_context": "Контекст",
     "logs_share_with_yunopaste": "Расшарить с YunoPaste",
-    "logs_more": "Отразить больше линий"
+    "logs_more": "Отразить больше линий",
+    "active": "Активный",
+    "port": "Порт",
+    "ports": "Порты",
+    "meltdown": "Вы в опасности <a target=\"_blank\" href=\"https://meltdownattack.com/\">meltdown</a> из-за критической аппаратной уязвимости. Чтобы устранить уязвимость, вы должны<a href=\"#/update\">обновить систему,</a>потом <a href=\"#/tools/reboot”>перезагрузить ее,</a>чтобы установить новое ядро Linux.",
+    "appslists": "Списки приложений",
+    "appslists_no_lists": "Нет списков приложений",
+    "appslists_custom": "Пользовательский список приложений",
+    "appslists_manage": "Управлять списками приложений",
+    "appslists_confirm_remove": "Вы уверены, что хотите удалить этот список приложений?",
+    "appslists_info_refresh_desc": "Обновите статус приложений из этого списка.",
+    "appslists_info_remove_desc": "Приложения из этого списка больше не будут доступны.",
+    "appslists_last_update": "Последнее обновление",
+    "appslists_unknown_list": "Неизвестный список приложений: %s",
+    "appslists_community_list": "Список приложений сообщества",
+    "name": "Имя",
+    "install_community_appslists_info": "Список приложений сообщества даёт вам возможность установить приложения, созданные сообществом. <br />Полный список смотри на<a href='https://yunohost.org/apps'>yunohost.org/apps</a>.",
+    "install_community_appslists_warning": "Внимание! Пакеты этих приложений не являются <strong>not</strong> официальными и не созданы командой YonoHost. <br />Устанавливая эти приложения, вы сами отвечаете за последствия и рискуете крахом вашей системы."
 }
