@@ -208,5 +208,13 @@
     "logs_package": "История действий с пакетами Debian",
     "logs_system": "Логи ядра и другие низкоуровневые события",
     "logs_access": "Список доступов и банов",
-    "logs_app": "Список приложений"
+    "logs_app": "Списки приложений",
+    "logs_no_logs_registered": "Нет зарегистрированных логов для этой категории",
+    "logs_end_with_error": "Лог закончился ошибкой :",
+    "logs_error": "Ошибка",
+    "logs_ended_at": "Конец",
+    "logs_started_at": "Старт",
+    "logs_context": "Контекст",
+    "logs_share_with_yunopaste": "Расшарить с YunoPaste",
+    "logs_more": "Отразить больше линий"
 }
