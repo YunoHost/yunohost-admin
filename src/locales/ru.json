@@ -271,7 +271,7 @@
     "uninstall": "Удалить",
     "unknown_action": "Неизвестное действие %s",
     "unknown_argument": "Неизвестный аргумент : %s",
-    "upload": "Upload",
+    "upload": "",
     "upload_archive": "Сгрузить архив",
     "upnp": "UPnP",
     "upnp_disabled": "UPnP отключён.",
