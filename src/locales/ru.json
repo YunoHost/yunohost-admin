@@ -244,7 +244,7 @@
     "confirm_postinstall": "Вы начинаете процесс конфигурации домена %s. Это займёт несколько минут, *не прерывайте процесс*.",
     "domain_add_dns_doc": "… я <a href='//yunohost.org/dns'>set my DNS установил мой DNS правильно</a>.",
     "gateway": "Шлюз: ",
-    "internal_exception": "<strong>Yunohost сообщает о внутренней ошибке :/</strong><br><em>Нам очень жаль.<br>Ищите помощь на<a href=\"https://forum.yunohost.org/\">форуме</a> или <a href=\"https://chat.yunohost.org/\">в чате </a> чтобы обсудить ситуацию , или сообщите об ошибке на<a href=\"https://github.com/YunoHost/issues\">тут</a>.</em><br>Следующая информация может быть полезной для человека, помогающего вам :<h3>Action</h3><pre>%s%s</pre><h3>Traceback</h3><pre>%s</pre>",
+    "internal_exception": "<strong>Yunohost сообщает о внутренней ошибке :/</strong><br><em>Нам очень жаль.<br>Ищите помощь на<a href=\"https://forum.yunohost.org/\">форуме</a> или <a href=\"https://chat.yunohost.org/\">в чате, </a> чтобы обсудить ситуацию, или сообщите об ошибке  <a href=\"https://github.com/YunoHost/issues\">тут</a>.</em><br>Следующая информация может быть полезной для человека, помогающего вам :<h3>Action</h3><pre>%s%s</pre><h3>Traceback</h3><pre>%s</pre>",
     "tools": "Инструменты",
     "tools_adminpw": "Смените пароль администратора",
     "tools_adminpw_confirm_placeholder": "Подтвердите новый пароль",
@@ -311,5 +311,7 @@
     "confirm_cert_install_LE": "Вы уверены, что хотите установить сертификат Let’s Encrypt для этого домена ?",
     "confirm_cert_manual_renew_LE": "Вы уверены, что хотите вручную обновить сертификат Let’s Encrypt для этого домена?",
     "certificate": "Сертификат",
-    "certificate_status": "Статус сертификата"
+    "certificate_status": "Статус сертификата",
+    "mount_point": "Точка монтирования",
+    "no_allowed_users": "Нет разрешённых пользователей"
 }
