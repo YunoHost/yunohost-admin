@@ -51,8 +51,8 @@
         </div>
             <div class="app-card-date-maintainer">
                 <i class="fas fa-sync"></i>{{formatDate updateDate day="numeric" month="long" year="numeric"}} -
-                {{#maintained}}<span title="{{t 'current_maintainer_title'}}" class="maintained"></span><i class="fa-user"></i> {{manifest.maintainer.name}}</span>{{/maintained}}
-            {{^maintained}}<i class="fas fa-warning"></i> {{t 'unmaintained'}}{{/maintained}}
+                <span title="{{t 'current_maintainer_title'}}" class="maintained"></span><i class="fa-user"></i> {{manifest.maintainer.name}}</span>
+            {{^maintained}}<span class="label label-{{MaintainedColor}} label-as-badge MaintainedStatus" title="{{t MaintainedStatus}}"><i class="fa-warning"></i> {{t MaintainedStatus}}</span>{{/maintained}}
             </div>
             <div class="btn-group" role="group">
                 <a href="{{git.url}}" target="_BLANK" type="button" role="button" class="btn btn-default col-xs-4">

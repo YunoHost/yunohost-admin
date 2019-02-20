@@ -40,6 +40,21 @@
         }
     }
 
+    function stateToMaintained(state) {
+        if ( state === "request_help" ) {
+            return 'info';
+        }
+        else if ( state === "request_adoption" ) {
+            return 'warning';
+        }
+        else if ( state === "orphaned" ) {
+            return 'danger';
+        }
+        else {
+            return 'default';
+        }
+    }
+
     function combineColors(stateColor, levelColor, installable) {
         if (stateColor === "danger" || levelColor === "danger") {
             return 'danger';
@@ -74,6 +89,24 @@
                     var isFeatured = ( dataraw[v['id']]['featured'] && dataraw[v['id']]['high_quality']);
                     // Update the status featured with the previous condition
                     dataraw[v['id']]['featured'] = isFeatured;
+
+                    if ( dataraw[v['id']]['maintained'] !== true )
+                    {
+                        // Set the maintained status at Orphaned if the value of 'maintained' is 'false'
+                        if ( dataraw[v['id']]['maintained'] === false )
+                        {
+                            dataraw[v['id']]['MaintainedStatus'] = "orphaned";
+                        }
+                        // Otherwise, set 'MaintainedStatus' at the value of 'maintained' and set 'maintained' as 'false'
+                        else
+                        {
+                            dataraw[v['id']]['MaintainedStatus'] = dataraw[v['id']]['maintained'];
+                            dataraw[v['id']]['maintained'] = false;
+                        }
+                        // Set the color for the label
+                        dataraw[v['id']]['MaintainedColor'] = stateToMaintained(dataraw[v['id']]['MaintainedStatus']);
+                    }
+
                     // Keep only the first instance of each app and remove community not working apps
                     if (!v['id'].match(/__[0-9]{1,5}$/) && (dataraw[v['id']]['repository'] === 'yunohost' || state !== 'notworking')) {
 
