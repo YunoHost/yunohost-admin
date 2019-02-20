@@ -138,7 +138,7 @@
     "enabled": "Enabled",
     "error_modify_something": "You should modify something",
     "error_occured": "An error occurred, try again",
-    "error_retrieve_feed": "Could not retrieve feed: %s",
+    "error_retrieve_feed": "Could not retrieve feed: %s. You might have a plugin prevent your browser from performing this request (or the website is down).",
     "error_select_domain": "You should indicate a domain",
     "error_server": "Server error",
     "error_server_unexpected": "Unexpected server error (%s)",
