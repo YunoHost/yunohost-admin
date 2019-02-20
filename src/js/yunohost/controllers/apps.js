@@ -66,7 +66,14 @@
                     var state = dataraw[v['id']]['state'];
                     var levelFormatted = parseInt(dataraw[v['id']]['level']);
                     var isWorking = (state === 'working' || state === 'official') && levelFormatted > 0;
-                    var isFeatured = (state === 'official' || dataraw[v['id']]['featured']);
+                    // To be a High Quality app, the app have to be over the level 7
+                    var isHighQuality = ( dataraw[v['id']]['high_quality'] && parseInt(dataraw[v['id']]['level']) > 7 );
+                    // Update the status high_quality with the previous condition
+                    dataraw[v['id']]['high_quality'] = isHighQuality;
+                    // To be a Featured app, the app have to be flag as High Quality.
+                    var isFeatured = ( dataraw[v['id']]['featured'] && dataraw[v['id']]['high_quality']);
+                    // Update the status featured with the previous condition
+                    dataraw[v['id']]['featured'] = isFeatured;
                     // Keep only the first instance of each app and remove community not working apps
                     if (!v['id'].match(/__[0-9]{1,5}$/) && (dataraw[v['id']]['repository'] === 'yunohost' || state !== 'notworking')) {
 
@@ -81,7 +88,8 @@
                         dataraw[v['id']]['updateDate'] = dataraw[v['id']]['lastUpdate'] * 1000 || 0;
                         dataraw[v['id']]['isSafe'] = (dataraw[v['id']]['installColor'] !== 'danger');
                         dataraw[v['id']]['isWorking'] = isWorking ? "isworking" : "notFullyWorking";
-                        dataraw[v['id']]['isFeatured'] = isFeatured;
+                        dataraw[v['id']]['isHighQuality'] = isHighQuality ? "isHighQuality" : "What I'm suppose to put here?";
+                        dataraw[v['id']]['isFeatured'] = isFeatured ? "isFeatured" : "What I'm suppose to put here?";
 
                         jQuery.extend(dataraw[v['id']], v);
                         apps.push(dataraw[v['id']]);

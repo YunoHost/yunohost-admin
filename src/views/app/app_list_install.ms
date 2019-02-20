@@ -25,7 +25,8 @@
         <ul id="dropdownFilter" class="dropdown-menu" data-filter="isworking" role="menu">
             <li role="presentation" class="button dropdownFilter" data-filter="isworking"><a class="menu-item" role="menu-item" tabindex="-1">{{t 'only_working_apps'}}</a></li>
             <li role="presentation" class="button dropdownFilter" data-filter="official"><a class="menu-item" role="menu-item" tabindex="-1">{{t 'only_official_apps'}}</a></li>
-            <li role="presentation" class="button dropdownFilter" data-filter="isFeatured"><a class="menu-item" role="menu-item" tabindex="-1">{{t 'featured_and_official_apps'}}</a></li>
+            <li role="presentation" class="button dropdownFilter" data-filter="isHighQuality"><a class="menu-item" role="menu-item" tabindex="-1">{{t 'high_quality_apps'}}</a></li>
+            <li role="presentation" class="button dropdownFilter" data-filter="isFeatured"><a class="menu-item" role="menu-item" tabindex="-1">{{t 'featured_apps'}}</a></li>
             <li role="presentation" class="button dropdownFilter" data-filter="*"><a class="menu-item" role="menu-item" tabindex="-1">{{t 'all_apps'}}</a></li>
         </ul>
     </div>
@@ -35,7 +36,7 @@
 
 <div class="list-group grid">
 {{#apps}}
-  <div class="app-card panel panel-default {{status}} {{state}} {{isWorking}} {{level}}-level {{isFeatured}}">
+  <div class="app-card panel panel-default {{status}} {{state}} {{isWorking}} {{level}}-level {{isFeatured}} {{isHighQuality}}">
         <div class="panel-body">
             <h2 class="app-title">{{name}}</h2>
             <div class="category">
@@ -43,7 +44,8 @@
               <span class="label label-{{stateColor}} label-as-badge app-state">{{t state}}</span>
               <a target="_BLANK" href="https://yunohost.org/#/packaging_apps_levels"><span class="label label-{{levelColor}} label-as-badge app-level" title="{{t 'app_level'}}">{{t 'level'}} {{levelFormatted}}</span></a>
               {{#displayLicense}}<span class="label label-default app-license" title="{{t 'app_license'}}">{{license}}</span>{{/displayLicense}}
-              {{#featured}}<i class="fas fa-star"></i> {{t 'featured'}}{{/featured}}
+              {{#featured}}<span class="label label-danger label-as-badge featured" title="{{t 'featured'}}">{{t 'featured'}}</span>{{/featured}}
+              {{#high_quality}}<span class="label label-primary label-as-badge high_quality" title="{{t 'high_quality'}}">{{t 'high_quality'}}</span>{{/high_quality}}
             </div>
             <div class="app-card-desc">{{description}}</div>
         </div>
