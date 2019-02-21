@@ -149,9 +149,9 @@
             // Store url
             sam.store.set('url', window.location.hostname + '/yunohost/api');
 
-            // Get YunoHost version
             if (sam.store.get('connected')) {
-                this.api('/version', function(versions) {
+                this.api('/diagnosis', function(diagnosis) {
+                    versions = diagnosis.packages;
                     $('#yunohost-version').html(y18n.t('footer_version', [versions.yunohost.version, versions.yunohost.repo]));
                 });
             }

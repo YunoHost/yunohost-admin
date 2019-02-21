@@ -223,8 +223,8 @@
 
     // Packages version
     app.get('#/tools/versions', function (c) {
-        c.api('/version', function(versions) {
-            c.view('tools/tools_versions', {'versions' : versions});
+        c.api('/diagnosis', function(diagnosis) {
+            c.view('tools/tools_versions', {'versions' : diagnosis.packages });
         });
     });
 
