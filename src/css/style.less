@@ -342,16 +342,29 @@ div.br {
     z-index: 2000;
     text-align: center;
     background: rgba(255, 255, 255, 0.5) url(../img/ajax-loader.gif) center 15% no-repeat;
-    animation: pacmanlinearmove 4s linear infinite;
+    animation: pacmanlinearmove 5s linear infinite;
 }
 .loader-content {
     position: fixed;
     top: 0;
     bottom: 0;
-    left: -20%;
-    right: -20%;
+    left: 0;
+    right: 0;
     z-index: 2000;
 }
+
+.with-nyancat {
+    .loader{
+        background: rgba(255, 255, 255, 0.5) url(../img/nyancat.gif) center 15% no-repeat;
+        animation: pacmanlinearmove 6s linear infinite;
+    }
+    .loader-content {
+        left: -20%;
+        right: -20%;
+    }
+}
+
+
 .loader-popup {
     margin: auto;
     height: 24px;
