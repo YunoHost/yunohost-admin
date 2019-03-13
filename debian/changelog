@@ -1,3 +1,14 @@
+yunohost-admin (3.5.0) testing; urgency=low
+
+  - [enh] Remove dependency to GET /version to fetch version (#226)
+  - [enh] Add Konami code ;) (#208)
+  - [fix] Explain the user why the security.rss feed retrieval might not been working (18d6a00)
+  - [i18n] Improve Russian translation
+
+  Contributors: Alexandre Aubin, Алексей
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Wed, 13 Mar 2019 16:40:00 +0000
+
 yunohost-admin (3.4.2) stable; urgency=low
 
   * Improve German translation
