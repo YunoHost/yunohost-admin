@@ -30,8 +30,8 @@
                             delete monitorData.network.usage.lo;
 
                             // Get YunoHost versions too
-                            c.api('/version', function(versions) {
-                                monitorData.versions = versions;
+                            c.api('/diagnosis', function(diagnosis) {
+                                monitorData.versions = diagnosis.packages;
                                 c.view('tools/tools_monitoring', monitorData);
                             });
                         });

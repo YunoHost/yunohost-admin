@@ -55,7 +55,7 @@
                 data.packages[i].changelog = data.packages[i].changelog.replace(/\n/g, '<br />');
 
                 // Check for special packages that need delayed upgrade.
-                if (["moulinette", "moulinette-yunohost", "yunohost-admin", "yunohost-config-nginx", "ssowat", "python"].indexOf(data.packages[i].name) != -1) {
+                if (["moulinette", "yunohost", "yunohost-admin", "ssowat", "python"].indexOf(data.packages[i].name) != -1) {
                     c.flash('warning', y18n.t('system_delayed_upgrade_warning', [data.packages[i].name]));
                     data.packages[i].delayed = true;
                 }
@@ -223,8 +223,8 @@
 
     // Packages version
     app.get('#/tools/versions', function (c) {
-        c.api('/version', function(versions) {
-            c.view('tools/tools_versions', {'versions' : versions});
+        c.api('/diagnosis', function(diagnosis) {
+            c.view('tools/tools_versions', {'versions' : diagnosis.packages });
         });
     });
 

@@ -1,3 +1,14 @@
+yunohost-admin (3.5.0) testing; urgency=low
+
+  - [enh] Remove dependency to GET /version to fetch version (#226)
+  - [enh] Add Konami code ;) (#208)
+  - [fix] Explain the user why the security.rss feed retrieval might not been working (18d6a00)
+  - [i18n] Improve Russian translation
+
+  Contributors: Alexandre Aubin, Алексей
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Wed, 13 Mar 2019 16:40:00 +0000
+
 yunohost-admin (3.4.2) stable; urgency=low
 
   * Improve German translation
@@ -275,7 +286,7 @@ yunohost-admin (2.6.0) testing; urgency=low
 
 ## Other improvements
 
-  * [fix]�Guess API's baseurl is store is empty.
+  * [fix] Guess API's baseurl is store is empty.
   * [fix] Avoid empty whitespace for the first line of the logs display (#151)
   * [fix] Set document root permission during package install. (#156)
   * [fix] Cleanup app_list_install template (unused code since 66dbcf50).
@@ -340,7 +351,7 @@ yunohost-admin (2.4.2) stable; urgency=low
   * [enh] Display YNH version in footer. Need body padding improvments. #316
   * [enh] Allow key/value choices in manifest arguments.
 
-  [ J�rome Lebleu ]
+  [ Jérome Lebleu ]
   * [fix] Run npm/gulp at build in Debian rules
 
   [ Laurent Peuch ]
@@ -407,9 +418,9 @@ yunohost-admin (2.3.8) testing; urgency=low
 
 yunohost-admin (2.3.7) testing; urgency=low
 
-  Thanks to every contributors and translators: Jean-Baptise, Jéröme Lebleu and opi
+  Thanks to every contributors and translators: Jean-Baptise, Jérôme Lebleu and opi
 
-  [ J�Translations ]
+  [ Translations ]
   * [i18n] Translated using Weblate (French)
   * [i18n] Translated using Weblate (Dutch)
   * [i18n] Translated using Weblate (German)
@@ -466,7 +477,7 @@ yunohost-admin (2.3.5) testing; urgency=low
   * [i18n] Translated using Weblate (Italian)
   * [i18n] Translated using Weblate (Italian)
 
-  [ étienne Deparis ]
+  [ Etienne Deparis ]
   * [i18n] Translated using Weblate (French)
 
   [ Jean-Baptiste ]
@@ -539,7 +550,7 @@ yunohost-admin (2.3.5) testing; urgency=low
   * [enh] separate calls so that the makefile can error out at first error
 
   [ opi ]
-  * [fix] Revert hardcoded version introduced in 0f8350a1e3
+  * [fix] Revert hardcoded version introduced in 0f8350a1e3
 
   [ Julien Malik ]
   * [fix] fonts were forgotten along the way
