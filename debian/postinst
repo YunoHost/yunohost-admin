@@ -10,6 +10,12 @@ do_configure() {
 
   # Set document root permissions
   chown -R root:root /usr/share/yunohost/admin
+
+  # Replace RANDOMHASH with a random hash to invalidate
+  # old cache ... we generate this locally on each machine
+  # to avoid leaking stuff like the version
+  RANDOMHASH=$(openssl rand -hex 4)
+  sed -i 's/RANDOMHASH/$RANDOMHASH/g' /usr/share/yunohost/admin/index.html
 }
 
 # summary of how this script can be called:
