@@ -33,6 +33,8 @@
                 level = 'log';
             }
 
+            message = message.split("\n").join("<br />");
+
             // Add message
             $('#flashMessage .messages')
                 .prepend('<div class="alert alert-'+ level +'">'+
