@@ -339,12 +339,14 @@
             args[k].type = (typeof v.type !== 'undefined') ? v.type : 'string';
             args[k].inputType = 'text';
             args[k].isPassword = false;
+            args[k].isDisplayText = false;
             args[k].required = (typeof v.optional !== 'undefined' && v.optional == "true") ? '' : 'required';
             args[k].attributes = "";
             args[k].helpText = "";
             args[k].helpLink = "";
 
 
+            console.log(args[k]);
             // Multilingual label
             args[k].label = (typeof args[k].ask[y18n.locale] !== 'undefined') ?
                                 args[k].ask[y18n.locale] :
@@ -458,6 +460,11 @@
                 // Change html input type
                 args[k].inputType = 'password';
                 args[k].isPassword = true;
+            }
+
+            if (args[k].type == "display_text") {
+                args[k].isDisplayText = true;
+                args[k].label = args[k].label.split("\n");
             }
 
         });
