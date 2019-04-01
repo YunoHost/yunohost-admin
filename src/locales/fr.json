@@ -397,7 +397,7 @@
     "confirm_install_app_danger": "AVERTISSEMENT ! Cette application est encore expérimentale et risque de casser votre système ! Vous ne devriez probablement PAS l’installer si vous ne savez pas ce que vous faites. Voulez-vous vraiment prendre ce risque ?",
     "current_maintainer_title": "Mainteneur actuel de ce paquet",
     "error_connection_interrupted": "Le serveur a fermé la connexion au lieu d’y répondre, Nginx a-t-il été redémarré par erreur ? (Code/message d’erreur : %s)",
-    "experimental_warning": "Attention : cette fonctionnalité est expérimentale et ne doit pas être considérée comme stable, vous ne devriez pas l’utiliser à moins que vous ne sachiez ce que vous faites.",
+    "experimental_warning": "Attention : cette fonctionnalité est expérimentale et ne doit pas être considérée comme stable, vous ne devriez pas l’utiliser à moins que vous ne sachiez ce que vous faites...",
     "good_practices_about_admin_password": "Vous êtes maintenant sur le point de définir un nouveau mot de passe administrateur. Le mot de passe doit comporter au moins 8 caractères — bien qu’il soit recommandé d’utiliser un mot de passe plus long (c’est-à-dire une phrase secrète) et/ou d’utiliser différents types de caractères (majuscules, minuscules, chiffres et caractères spéciaux).",
     "good_practices_about_user_password": "Vous êtes maintenant sur le point de définir un nouveau mot de passe utilisateur. Le mot de passe doit comporter au moins 8 caractères — bien qu’il soit recommandé d’utiliser un mot de passe plus long (c’est-à-dire une phrase secrète) et/ou d’utiliser différents types de caractères (majuscules, minuscules, chiffres et caractères spéciaux).",
     "level": "niveau",
