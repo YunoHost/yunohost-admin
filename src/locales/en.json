@@ -371,6 +371,7 @@
     "users_new": "New user",
     "users_no": "No users.",
     "versions": "Versions",
+    "version": "Version",
     "view_user_profile": "View %s's profile",
     "warning_first_user": "You probably need to <a href='#/users/create' class='alert-link'>create a user</a> first.",
     "write": "Write",
