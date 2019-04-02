@@ -345,8 +345,6 @@
             args[k].helpText = "";
             args[k].helpLink = "";
 
-
-            console.log(args[k]);
             // Multilingual label
             args[k].label = (typeof args[k].ask[y18n.locale] !== 'undefined') ?
                                 args[k].ask[y18n.locale] :
