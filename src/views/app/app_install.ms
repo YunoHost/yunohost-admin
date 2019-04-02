@@ -39,6 +39,13 @@
         </div>
         {{#manifest.arguments.install}}
         <div class="form-group">
+            {{#if isDisplayText}}
+            <div class="col-sm-12">
+                {{#label}}
+                <p>{{.}}</p>
+                {{/label}}
+            </div>
+            {{else}}
             <label for="{{name}}" class="col-sm-12">{{label}}</label>
 
 
@@ -68,6 +75,7 @@
                 {{/if}}
 
             </div>
+            {{/if}}
         </div>
         {{/manifest.arguments.install}}
         <hr>
