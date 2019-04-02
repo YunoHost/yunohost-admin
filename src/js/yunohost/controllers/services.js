@@ -60,6 +60,10 @@
             {
                 data2.service.active_at = data.active_at;
             }
+            else
+            {
+                data2.service.active_at = 0;
+            }
             store.clear('slide');
             c.view('service/service_info', data2);
         }, 'GET');
