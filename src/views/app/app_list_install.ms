@@ -43,7 +43,7 @@
               <span class="label label-{{stateColor}} label-as-badge app-state">{{t state}}</span>
               <a target="_BLANK" href="https://yunohost.org/#/packaging_apps_levels"><span class="label label-{{levelColor}} label-as-badge app-level" title="{{t 'app_level'}}">{{t 'level'}} {{levelFormatted}}</span></a>
               {{#displayLicense}}<span class="label label-default app-license" title="{{t 'app_license'}}">{{license}}</span>{{/displayLicense}}
-              {{#featured}}<span class="label label-danger label-as-badge featured" title="{{t 'featured'}}">{{t 'featured'}}</span>{{/featured}}
+              {{#featured}}<span class="label label-success label-as-badge featured" title="{{t 'featured'}}">{{t 'featured'}}</span>{{/featured}}
               {{#high_quality}}<span class="label label-primary label-as-badge high_quality" title="{{t 'high_quality'}}">{{t 'high_quality'}}</span>{{/high_quality}}
             </div>
             <div class="app-card-desc">{{description}}</div>
