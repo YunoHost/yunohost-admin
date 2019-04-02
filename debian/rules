@@ -15,10 +15,6 @@ TMPDIR = $$(pwd)/debian/yunohost-admin
 	dh  $@
 
 override_dh_auto_build:
-	# Replace VERSION with current package version to prevent web browser
-	# to serve old css/js files
-	sed -i 's/VERSION/$(DEBVERS)/g' src/index.html
-
 	# Run npm/bower/gulp
 	cd src ; npm --progress false --loglevel warn --color false install
 	cd src ; node_modules/gulp/bin/gulp.js build
