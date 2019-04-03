@@ -229,5 +229,6 @@
     "app_change_url": "Mudar URL",
     "app_debug_no_logs": "Logs da aplicação não estão disponíveis",
     "app_debug_tab": "Mostrar debug",
-    "ok": "Confirmar"
+    "ok": "Confirmar",
+    "all_apps": "Todas as aplicações"
 }
