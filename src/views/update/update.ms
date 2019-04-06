@@ -19,9 +19,8 @@
             </span>
             {{/if}}
             <h3 class="list-group-item-heading">
-                <a data-toggle="collapse" href="#changelog-package-{{@index}}">{{name}}</a> <small>{{fullname}}</small>
+                {{name}} <small>{{fullname}}</small>
             </h3>
-            <p id="changelog-package-{{@index}}" class="list-group-item-text collapse">{{{changelog}}}</p>
         </div>
         {{/packages}}
     </div>
