@@ -1,3 +1,13 @@
+yunohost-admin (3.5.2) stable; urgency=low
+
+  - Release as stable !
+  - [fix] No more changelog, c.f. change in tools_update
+  - [i18n] Improve translations for Catalan, Arabic, Italian, Bengali
+
+  Thanks to all contributors (Aleks, Xaloc, BoF, silkevicious, mytechpro) <3 !
+ 
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Wed, 10 Apr 2019 02:00:00 +0000
+
 yunohost-admin (3.5.1) testing; urgency=low
 
   - [enh] Display version inside app info (#235)
