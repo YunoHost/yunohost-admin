@@ -99,7 +99,7 @@
     "default": "Predeterminat",
     "delete": "Suprimir",
     "description": "Descripció",
-    "domain_dns_conf_is_just_a_recommendation": "Aquesta pàgina mostra la configuració *recomanada*. Aquesta pàgina *no* configura el DNS. És la seva responsabilitat configurar la seva zona DNS al seu registrar DNS en acord amb aquesta recomanació.",
+    "domain_dns_conf_is_just_a_recommendation": "Aquesta pàgina mostra la configuració *recomanada*. Aquesta pàgina *no* configura el DNS. És la seva responsabilitat configurar la zona DNS al seu registrar DNS en acord amb aquesta recomanació.",
     "diagnosis": "Diagnòstic",
     "diagnosis_hide_private": "Mostrar les dades de diagnòstic sense dades privades",
     "diagnosis_view_private": "Mostrar les dades de diagnòstic incloses les dades privades",
@@ -416,5 +416,6 @@
     "select_none": "No en seleccionis cap",
     "unmaintained": "No mantingut",
     "purge_user_data_checkbox": "Purga les dades de %s? (Això suprimirà el contingut de la carpeta home i mail.)",
-    "purge_user_data_warning": "Purgar les dades de l'usuari no és reversible. Assegureu-vos de saber el que esteu fent!"
+    "purge_user_data_warning": "Purgar les dades de l'usuari no és reversible. Assegureu-vos de saber el que esteu fent!",
+    "version": "Versió"
 }
