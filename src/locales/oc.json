@@ -417,5 +417,6 @@
     "select_none": "O deselecionnar tot",
     "unmaintained": "Pas mantenguda",
     "purge_user_data_checkbox": "Purgar las donadas de %s ?(Aquò suprimirà lo contengut dels repertòris home e mail)",
-    "purge_user_data_warning": "Purgar las donadas de l’utilizaire es pas reversible. Asseguratz-vos de saber çò que fasètz !"
+    "purge_user_data_warning": "Purgar las donadas de l’utilizaire es pas reversible. Asseguratz-vos de saber çò que fasètz !",
+    "version": "Version"
 }
