@@ -168,7 +168,7 @@
     "hook_data_home": "User data",
     "hook_data_home_desc": "User data located in /home/USER",
     "hook_data_mail": "Mail",
-    "hook_data_mail_desc": "Mail which is on the server",
+    "hook_data_mail_desc": "Mails stored on the server",
     "hostname": "Hostname",
     "id": "ID",
     "inactive": "Inactive",
