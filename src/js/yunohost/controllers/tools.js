@@ -97,9 +97,9 @@
 
     // Display journals list
     app.get('#/tools/logs', function (c) {
-        c.api("/logs", function(categories) {
+        c.api("/logs?limit=25&with_details", function(categories) {
             data = [];
-            icons = {
+            category_icons = {
                 'operation': 'wrench',
                 'history': 'history',
                 'package': 'puzzle-piece',
@@ -108,11 +108,20 @@
                 'service': 'cog',
                 'app': 'cubes'
             }
+            success_icons = {
+                true: 'check text-success',
+                false: 'close text-danger',
+                '?': 'question text-warning'
+            }
             for (var category in categories) {
+                for (var log in categories[category])
+                {
+                    categories[category][log].success_icon = success_icons[categories[category][log].success]
+                }
                 if (categories.hasOwnProperty(category)) {
                     data.push({
                         key:category,
-                        icon:(category in icons)?icons[category]:'info-circle',
+                        icon:(category in category_icons)?category_icons[category]:'info-circle',
                         value:categories[category]
                     });
                 }
