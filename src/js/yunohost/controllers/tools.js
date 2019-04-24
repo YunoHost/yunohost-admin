@@ -55,27 +55,20 @@
 
     // Upgrade apps or packages
     app.get('#/upgrade/:type', function (c) {
-        if (c.params['type'] !== 'apps' && c.params['type'] !== 'system') {
-            c.flash('fail', y18n.t('unknown_argument', [c.params['type']]));
-            store.clear('slide');
-            c.redirect('#/update');
-        }
-        else {
-            c.confirm(
-                y18n.t('tools'),
-                // confirm_update_apps and confirm_update_packages
-                y18n.t('confirm_update_' + c.params['type'].toLowerCase()),
-                function(){
-                    c.api('/upgrade?'+c.params["type"], function(data) {
-                        c.view('home', data);
-                    }, 'PUT');
-                },
-                function(){
-                    store.clear('slide');
-                    c.redirect('#/update');
-                }
-            );
-        }
+        c.confirm(
+            y18n.t('tools'),
+            // confirm_update_apps and confirm_update_packages
+            y18n.t('confirm_update_' + c.params['type'].toLowerCase()),
+            function(){
+                c.api('/upgrade?'+c.params["type"], function(data) {
+                    c.view('home', data);
+                }, 'PUT');
+            },
+            function(){
+                store.clear('slide');
+                c.redirect('#/update');
+            }
+        );
     });
 
     // Display journals list
