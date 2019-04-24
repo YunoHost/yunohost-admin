@@ -2,7 +2,11 @@
     <a href="#/" ><i class="fa-home"></i><span class="sr-only">{{t 'home'}}</span></a>
     <a href="#/tools">{{t 'tools'}}</a>
     <a href="#/tools/logs">{{t 'logs'}}</a>
+    {{#if log.name}}
+    <a href="#/tools/logs/{{ log.name }}">{{ log.name }}</a>
+    {{else}}
     <a href="#/tools/logs/{{ log.log_path }}">{{ log.log_path }}</a>
+    {{/if}}
 </div>
 
 <div class="actions-group">
