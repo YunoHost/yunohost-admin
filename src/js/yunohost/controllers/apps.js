@@ -75,11 +75,10 @@
                     var state = dataraw[v['id']]['state'];
                     var levelFormatted = parseInt(dataraw[v['id']]['level']);
                     var isWorking = (state === 'working' || state === "high-quality") && levelFormatted > 0;
-                    // Keep only the first instance of each app and remove community not working apps
-                    if (!v['id'].match(/__[0-9]{1,5}$/) && (dataraw[v['id']]['repository'] === 'yunohost' || state !== 'notworking')) {
+                    // Keep only the first instance of each app and remove not working apps
+                    if (!v['id'].match(/__[0-9]{1,5}$/) && (state !== 'notworking')) {
 
                         dataraw[v['id']]['installable'] = (!v['installed'] || dataraw[v['id']].manifest.multi_instance)
-                        dataraw[v['id']]['isCommunity'] = !(dataraw[v['id']]['repository'] === 'yunohost');
                         dataraw[v['id']]['levelFormatted'] = isNaN(levelFormatted) ? '?' : levelFormatted;
                         dataraw[v['id']]['levelColor'] = levelToColor(levelFormatted);
                         dataraw[v['id']]['stateColor'] = stateToColor(state);
@@ -89,6 +88,7 @@
                         dataraw[v['id']]['updateDate'] = dataraw[v['id']]['lastUpdate'] * 1000 || 0;
                         dataraw[v['id']]['isSafe'] = (dataraw[v['id']]['installColor'] !== 'danger');
                         dataraw[v['id']]['isWorking'] = isWorking ? "isworking" : "notFullyWorking";
+                        dataraw[v['id']]['isHighQuality'] = (state === "high-quality") ? "ishighquality" : "";
 
                         jQuery.extend(dataraw[v['id']], v);
                         apps.push(dataraw[v['id']]);
