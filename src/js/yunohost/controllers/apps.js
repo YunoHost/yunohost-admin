@@ -18,8 +18,11 @@
     });
 
     function levelToColor(level) {
-        if (level >= 3) {
+        if (level >= 8) {
             return 'success';
+        }
+        else if (level > 4) {
+            return 'hmokay';
         }
         else if (level >= 1) {
             return 'warning';
@@ -32,8 +35,11 @@
     }
 
     function stateToColor(state) {
-        if (state === "working" || state === "official") {
+        if (state === "high-quality") {
             return 'success';
+        }
+        else if (state === "working") {
+            return 'hmokay';
         }
         else {
             return 'danger';
@@ -47,6 +53,9 @@
         else if (stateColor === "warning" || levelColor === "warning" || levelColor === "default") {
             return 'warning';
         }
+        else if (stateColor === "hmokay" || levelColor === "hmokay") {
+            return 'hmokay';
+        }
         else
         {
             return 'success';
@@ -59,13 +68,13 @@
             c.api('/apps?raw', function (dataraw) { // http://api.yunohost.org/#!/app/app_list_get_8
                 var apps = []
                 $.each(data['apps'], function(k, v) {
-                    if (dataraw[v['id']]['state'] === "validated")
+                    if(dataraw[v['id']]['high_quality'] && parseInt(dataraw[v['id']]['level']) > 7)
                     {
-                        dataraw[v['id']]['state'] = "official";
+                        dataraw[v['id']]['state'] = "high-quality";
                     }
                     var state = dataraw[v['id']]['state'];
                     var levelFormatted = parseInt(dataraw[v['id']]['level']);
-                    var isWorking = (state === 'working' || state === 'official') && levelFormatted > 0;
+                    var isWorking = (state === 'working' || state === "high-quality") && levelFormatted > 0;
                     // Keep only the first instance of each app and remove community not working apps
                     if (!v['id'].match(/__[0-9]{1,5}$/) && (dataraw[v['id']]['repository'] === 'yunohost' || state !== 'notworking')) {
 
