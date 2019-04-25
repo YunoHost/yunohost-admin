@@ -68,7 +68,7 @@
             c.api('/apps?raw', function (dataraw) { // http://api.yunohost.org/#!/app/app_list_get_8
                 var apps = []
                 $.each(data['apps'], function(k, v) {
-                    if(dataraw[v['id']]['high_quality'] && parseInt(dataraw[v['id']]['level']) > 7)
+                    if (dataraw[v['id']]['high_quality'] && parseInt(dataraw[v['id']]['level']) > 7)
                     {
                         dataraw[v['id']]['state'] = "high-quality";
                     }
@@ -87,8 +87,10 @@
                                                               && dataraw[v['id']]['manifest']['license'] !== 'free');
                         dataraw[v['id']]['updateDate'] = dataraw[v['id']]['lastUpdate'] * 1000 || 0;
                         dataraw[v['id']]['isSafe'] = (dataraw[v['id']]['installColor'] !== 'danger');
+                        dataraw[v['id']]['decentQuality'] = (dataraw[v['id']]['levelColor'] === "hmokay"
+                                                          || dataraw[v['id']]['levelColor'] === "success")?"decentQuality":"badQuality";
                         dataraw[v['id']]['isWorking'] = isWorking ? "isworking" : "notFullyWorking";
-                        dataraw[v['id']]['isHighQuality'] = (state === "high-quality") ? "ishighquality" : "";
+                        dataraw[v['id']]['isHighQuality'] = (state === "high-quality") ? "isHighQuality" : "";
 
                         jQuery.extend(dataraw[v['id']], v);
                         apps.push(dataraw[v['id']]);
@@ -116,8 +118,8 @@
                       return inputMatch && classMatch;
                     },
 
-                    // Keep only official apps at first render
-                    cardGrid.isotope({ filter: '.isworking' });
+                    // Default filter is 'decent quality apps'
+                    cardGrid.isotope({ filter: '.decentQuality' });
 
                     jQuery('.dropdownFilter').on('click', function() {
                         // change dropdown label

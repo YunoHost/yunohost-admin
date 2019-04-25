@@ -20,11 +20,12 @@
     <input type="text" id="filter-app-cards" class="form-control" role="textbox"  placeholder="{{t 'search_for_apps'}}" aria-describedby="basic-addon0"/>
     <div class="input-group-btn">
         <button type="button" role="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <span id="app-cards-list-filter-text">{{t 'only_working_apps'}}</span> <span class="caret"></span>
+            <span id="app-cards-list-filter-text">{{t 'only_decent_quality_apps'}}</span> <span class="caret"></span>
         </button>
-        <ul id="dropdownFilter" class="dropdown-menu" data-filter="isworking" role="menu">
+        <ul id="dropdownFilter" class="dropdown-menu" data-filter="decentQuality" role="menu">
+            <li role="presentation" class="button dropdownFilter" data-filter="isHighQuality"><a class="menu-item" role="menu-item" tabindex="-1">{{t 'only_highquality_apps'}}</a></li>
+            <li role="presentation" class="button dropdownFilter" data-filter="decentQuality"><a class="menu-item" role="menu-item" tabindex="-1">{{t 'only_decent_quality_apps'}}</a></li>
             <li role="presentation" class="button dropdownFilter" data-filter="isworking"><a class="menu-item" role="menu-item" tabindex="-1">{{t 'only_working_apps'}}</a></li>
-            <li role="presentation" class="button dropdownFilter" data-filter="ishighquality"><a class="menu-item" role="menu-item" tabindex="-1">{{t 'only_highquality_apps'}}</a></li>
             <li role="presentation" class="button dropdownFilter" data-filter="*"><a class="menu-item" role="menu-item" tabindex="-1">{{t 'all_apps'}}</a></li>
         </ul>
     </div>
@@ -34,7 +35,7 @@
 
 <div class="list-group grid">
 {{#apps}}
-  <div class="app-card panel panel-default {{status}} {{state}} {{isWorking}} {{isHighQuality}} {{level}}-level">
+  <div class="app-card panel panel-default {{status}} {{state}} {{isWorking}} {{isHighQuality}} {{decentQuality}} {{level}}-level">
         <div class="panel-body">
             <h2 class="app-title">{{name}}</h2>
             <div class="category">
