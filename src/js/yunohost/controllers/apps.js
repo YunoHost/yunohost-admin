@@ -83,43 +83,46 @@
             c.api('/apps?raw', function (dataraw) { // http://api.yunohost.org/#!/app/app_list_get_8
                 var apps = []
                 $.each(data['apps'], function(k, v) {
-                    if (dataraw[v['id']]['high_quality'] && parseInt(dataraw[v['id']]['level']) > 7)
+                    app = dataraw[v['id']];
+                    app.level = parseInt(app.level);
+
+                    if (app.high_quality && app.level > 7)
                     {
-                        dataraw[v['id']]['state'] = "high-quality";
+                        app.state = "high-quality";
                     }
-                    if ( dataraw[v['id']]['maintained'] === false )
+                    if ( app.maintained === false )
                     {
-                        dataraw[v['id']]['maintained'] = "orphaned";
+                        app.maintained = "orphaned";
                     }
-                    else if ( dataraw[v['id']]['maintained'] === true )
+                    else if ( app.maintained === true )
                     {
-                        dataraw[v['id']]['maintained'] = "maintained";
+                        app.maintained = "maintained";
                     }
 
-                    var state = dataraw[v['id']]['state'];
-                    var levelFormatted = parseInt(dataraw[v['id']]['level']);
-                    var isWorking = (state === 'working' || state === "high-quality") && levelFormatted > 0;
+                    var isWorking = (app.state === 'working' || app.state === "high-quality") && app.level > 0;
 
                     // Keep only the first instance of each app and remove not working apps
-                    if (!v['id'].match(/__[0-9]{1,5}$/) && (state !== 'notworking')) {
+                    if (!v['id'].match(/__[0-9]{1,5}$/) && (app.state !== 'notworking')) {
 
-                        dataraw[v['id']]['installable'] = (!v['installed'] || dataraw[v['id']].manifest.multi_instance)
-                        dataraw[v['id']]['levelFormatted'] = isNaN(levelFormatted) ? '?' : levelFormatted;
-                        dataraw[v['id']]['levelColor'] = levelToColor(levelFormatted);
-                        dataraw[v['id']]['stateColor'] = stateToColor(state);
-                        dataraw[v['id']]['maintainedColor'] = maintainedStateToColor(dataraw[v['id']]['maintained']);
-                        dataraw[v['id']]['installColor'] = combineColors(dataraw[v['id']]['stateColor'], dataraw[v['id']]['levelColor']);
-                        dataraw[v['id']]['displayLicense'] = (dataraw[v['id']]['manifest']['license'] !== undefined
-                                                              && dataraw[v['id']]['manifest']['license'] !== 'free');
-                        dataraw[v['id']]['updateDate'] = dataraw[v['id']]['lastUpdate'] * 1000 || 0;
-                        dataraw[v['id']]['isSafe'] = (dataraw[v['id']]['installColor'] !== 'danger');
-                        dataraw[v['id']]['decentQuality'] = (dataraw[v['id']]['levelColor'] === "hmokay"
-                                                          || dataraw[v['id']]['levelColor'] === "success")?"decentQuality":"badQuality";
-                        dataraw[v['id']]['isWorking'] = isWorking ? "isworking" : "notFullyWorking";
-                        dataraw[v['id']]['isHighQuality'] = (state === "high-quality") ? "isHighQuality" : "";
+                        app.installable = (!v.installed || app.manifest.multi_instance)
+                        app.levelFormatted = isNaN(app.level) ? '?' : app.level;
 
-                        jQuery.extend(dataraw[v['id']], v);
-                        apps.push(dataraw[v['id']]);
+                        app.levelColor = levelToColor(app.level);
+                        app.stateColor = stateToColor(app.state);
+                        app.maintainedColor = maintainedStateToColor(app.maintained);
+                        app.installColor = combineColors(app.stateColor, app.levelColor);
+
+                        app.displayLicense = (app['manifest']['license'] !== undefined
+                                           && app['manifest']['license'] !== 'free');
+                        app.updateDate = app.lastUpdate * 1000 || 0;
+                        app.isSafe = (app.installColor !== 'danger');
+                        app.isWorking = isWorking ? "isworking" : "notFullyWorking";
+                        app.isHighQuality = (app.state === "high-quality") ? "isHighQuality" : "";
+                        app.decentQuality = (app.levelColor === "hmokay"
+                                          || app.levelColor === "success")?"decentQuality":"badQuality";
+
+                        jQuery.extend(app, v);
+                        apps.push(app);
                     }
                 });
 
@@ -159,7 +162,7 @@
                     jQuery("#filter-app-cards").on("keyup", function() {
                         cardGrid.isotope({ filter: filterByClassAndName });
                     });
-                }; 
+                };
 
                 // render
                 c.view('app/app_list_install', {apps: apps}, setupFilterEvents);
