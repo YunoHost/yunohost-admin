@@ -46,7 +46,7 @@
         }
     }
 
-    function stateToMaintained(state) {
+    function maintainedStateToColor(state) {
         if ( state === "request_help" ) {
             return 'info';
         }
@@ -57,7 +57,7 @@
             return 'danger';
         }
         else {
-            return 'default';
+            return 'success';
         }
     }
 
@@ -87,26 +87,18 @@
                     {
                         dataraw[v['id']]['state'] = "high-quality";
                     }
+                    if ( dataraw[v['id']]['maintained'] === false )
+                    {
+                        dataraw[v['id']]['maintained'] = "orphaned";
+                    }
+                    else if ( dataraw[v['id']]['maintained'] === true )
+                    {
+                        dataraw[v['id']]['maintained'] = "maintained";
+                    }
+
                     var state = dataraw[v['id']]['state'];
                     var levelFormatted = parseInt(dataraw[v['id']]['level']);
                     var isWorking = (state === 'working' || state === "high-quality") && levelFormatted > 0;
-
-                    if ( dataraw[v['id']]['maintained'] !== true )
-                    {
-                        // Set the maintained status at Orphaned if the value of 'maintained' is 'false'
-                        if ( dataraw[v['id']]['maintained'] === false )
-                        {
-                            dataraw[v['id']]['MaintainedStatus'] = "orphaned";
-                        }
-                        // Otherwise, set 'MaintainedStatus' at the value of 'maintained' and set 'maintained' as 'false'
-                        else
-                        {
-                            dataraw[v['id']]['MaintainedStatus'] = dataraw[v['id']]['maintained'];
-                            dataraw[v['id']]['maintained'] = false;
-                        }
-                        // Set the color for the label
-                        dataraw[v['id']]['MaintainedColor'] = stateToMaintained(dataraw[v['id']]['MaintainedStatus']);
-                    }
 
                     // Keep only the first instance of each app and remove not working apps
                     if (!v['id'].match(/__[0-9]{1,5}$/) && (state !== 'notworking')) {
@@ -115,6 +107,7 @@
                         dataraw[v['id']]['levelFormatted'] = isNaN(levelFormatted) ? '?' : levelFormatted;
                         dataraw[v['id']]['levelColor'] = levelToColor(levelFormatted);
                         dataraw[v['id']]['stateColor'] = stateToColor(state);
+                        dataraw[v['id']]['maintainedColor'] = maintainedStateToColor(dataraw[v['id']]['maintained']);
                         dataraw[v['id']]['installColor'] = combineColors(dataraw[v['id']]['stateColor'], dataraw[v['id']]['levelColor']);
                         dataraw[v['id']]['displayLicense'] = (dataraw[v['id']]['manifest']['license'] !== undefined
                                                               && dataraw[v['id']]['manifest']['license'] !== 'free');

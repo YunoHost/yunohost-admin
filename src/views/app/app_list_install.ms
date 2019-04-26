@@ -41,6 +41,7 @@
             <div class="category">
               <span class="label label-{{stateColor}} label-as-badge app-state">{{t state}}</span>
               <a target="_BLANK" href="https://yunohost.org/#/packaging_apps_levels"><span class="label label-{{levelColor}} label-as-badge app-level" title="{{t 'app_level'}}">{{t 'level'}} {{levelFormatted}}</span></a>
+              <span class="label label-{{maintainedColor}} label-as-badge maintained-status" title="{{t (concat maintained '_details') }}"> {{t maintained}}</span>
               {{#displayLicense}}<span class="label label-default app-license" title="{{t 'app_license'}}">{{license}}</span>{{/displayLicense}}
             </div>
             <div class="app-card-desc">{{description}}</div>
@@ -48,7 +49,6 @@
             <div class="app-card-date-maintainer">
                 <i class="fa-refresh"></i> {{formatDate updateDate day="numeric" month="long" year="numeric"}} -
                 <span title="{{t 'current_maintainer_title'}}" class="maintained"></span><i class="fa-user"></i> {{manifest.maintainer.name}}</span>
-            {{^maintained}}<span class="label label-{{MaintainedColor}} label-as-badge MaintainedStatus" title="{{t MaintainedStatus}}"><i class="fa-warning"></i> {{t MaintainedStatus}}</span>{{/maintained}}
             </div>
             <div class="btn-group" role="group">
                 <a href="{{git.url}}" target="_BLANK" type="button" role="button" class="btn btn-default col-xs-4">
