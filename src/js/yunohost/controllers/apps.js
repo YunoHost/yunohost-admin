@@ -19,10 +19,10 @@
 
     function levelToColor(level) {
         if (level >= 8) {
-            return 'success';
+            return 'best';
         }
         else if (level > 4) {
-            return 'hmokay';
+            return 'success';
         }
         else if (level >= 1) {
             return 'warning';
@@ -36,10 +36,10 @@
 
     function stateToColor(state) {
         if (state === "high-quality") {
-            return 'success';
+            return 'best';
         }
         else if (state === "working") {
-            return 'hmokay';
+            return 'success';
         }
         else {
             return 'danger';
@@ -67,9 +67,6 @@
         }
         else if (stateColor === "warning" || levelColor === "warning" || levelColor === "default") {
             return 'warning';
-        }
-        else if (stateColor === "hmokay" || levelColor === "hmokay") {
-            return 'hmokay';
         }
         else
         {
@@ -152,8 +149,7 @@
                         app.isSafe = (app.installColor !== 'danger');
                         app.isWorking = isWorking ? "isworking" : "notFullyWorking";
                         app.isHighQuality = (app.state === "high-quality") ? "isHighQuality" : "";
-                        app.decentQuality = (app.levelColor === "hmokay"
-                                          || app.levelColor === "success")?"decentQuality":"badQuality";
+                        app.decentQuality = (app.level > 4)?"decentQuality":"badQuality";
 
                         jQuery.extend(app, v);
                         apps.push(app);
