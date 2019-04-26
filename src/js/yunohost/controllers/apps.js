@@ -77,6 +77,39 @@
         }
     }
 
+    function extractMaintainer(manifest) {
+        if (manifest.maintainer === undefined)
+        {
+            if ((manifest.developer !== undefined) && (manifest.developer.name !== undefined))
+            {
+                return manifest.developer.name;
+            }
+            else
+            {
+                return "?";
+            }
+        }
+        else if (Array.isArray(manifest.maintainer))
+        {
+            maintainers = [];
+            manifest.maintainer.forEach(function(maintainer) {
+                if (maintainer.name !== undefined)
+                {
+                    maintainers.push(maintainer.name);
+                }
+            });
+            return maintainers.join(', ');
+        }
+        else if (manifest.maintainer.name !== undefined)
+        {
+            return manifest.maintainer.name;
+        }
+        else
+        {
+            return "?";
+        }
+    }
+
     // List available apps
     app.get('#/apps/install', function (c) {
         c.api('/apps', function (data) { // http://api.yunohost.org/#!/app/app_list_get_8
@@ -99,6 +132,7 @@
                         app.maintained = "maintained";
                     }
 
+                    app.manifest.maintainer = extractMaintainer(app.manifest);
                     var isWorking = (app.state === 'working' || app.state === "high-quality") && app.level > 0;
 
                     // Keep only the first instance of each app and remove not working apps

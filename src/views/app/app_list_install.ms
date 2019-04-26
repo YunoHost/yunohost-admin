@@ -48,7 +48,7 @@
         </div>
             <div class="app-card-date-maintainer">
                 <i class="fa-refresh"></i> {{formatDate updateDate day="numeric" month="long" year="numeric"}} -
-                <span title="{{t 'current_maintainer_title'}}" class="maintained"></span><i class="fa-user"></i> {{manifest.maintainer.name}}</span>
+                <span title="{{t 'current_maintainer_title'}}" class="maintained"></span><i class="fa-user"></i> {{manifest.maintainer}}</span>
             </div>
             <div class="btn-group" role="group">
                 <a href="{{git.url}}" target="_BLANK" type="button" role="button" class="btn btn-default col-xs-4">
