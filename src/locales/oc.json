@@ -156,7 +156,7 @@
     "hook_data_home": "Donadas utilizaires",
     "hook_data_home_desc": "Las donadas utilizaires son plaçadas dins /home/USER",
     "hook_data_mail": "Corrièl",
-    "hook_data_mail_desc": "Los corrièls que son encara sul servidor",
+    "hook_data_mail_desc": "Los corrièls gardats sul servidor",
     "hostname": "Nom d’òst",
     "id": "ID",
     "inactive": "Inactiu",
