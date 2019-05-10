@@ -41,7 +41,7 @@
             <input type="checkbox" id="{{@key}}" name="system_parts" value="{{value}}" checked class="nice-checkbox">
             <label for="{{@key}}" class="pull-right"><span class="sr-only">{{t 'check'}}</span></label>
             <h2 class="list-group-item-heading">{{name}}</h2>
-            <p class="list-group-item-text">{{t 'description'}} - {{description}}</p>
+            <p class="list-group-item-text">{{description}}</p>
         </div>
         {{/each}}
         {{#each apps}}
@@ -49,8 +49,8 @@
             <input type="checkbox" id="{{@key}}" name="apps" value="{{@key}}" checked class="nice-checkbox">
             <label for="{{@key}}" class="pull-right"><span class="sr-only">{{t 'check'}}</span></label>
             <h2 class="list-group-item-heading">{{name}} <small>{{@key}} ({{ humanSize size }})</small></h2>
-            <p class="list-group-item-text">{{t 'description'}} - {{description}}</p>
-            <p class="list-group-item-text">{{t 'version'}} - {{version}}</p>
+            <p class="list-group-item-text">{{description}}</p>
+            <p class="list-group-item-text">{{t 'version'}} {{version}}</p>
         </div>
         {{/each}}
         <div class="list-group-item clearfix">
