@@ -52,7 +52,6 @@
             var packagesLength = data.packages.length;
             for(var i = 0; i < packagesLength; i++) {
                 data.packages[i].delayed = false;
-                data.packages[i].changelog = data.packages[i].changelog.replace(/\n/g, '<br />');
 
                 // Check for special packages that need delayed upgrade.
                 if (["moulinette", "yunohost", "yunohost-admin", "ssowat", "python"].indexOf(data.packages[i].name) != -1) {
