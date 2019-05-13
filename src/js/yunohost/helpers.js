@@ -363,7 +363,7 @@
             });
         },
 
-        groupHooks: function(hooks) {
+        groupHooks: function(hooks, raw_infos){
             var data = {};
             var rules = [
                 {
@@ -376,6 +376,7 @@
 
             $.each(hooks, function(i, hook) {
                 var group_id=hook;
+                var hook_size=(raw_infos && raw_infos[hook] && raw_infos[hook].size)?raw_infos[hook].size:0;
                 $.each(rules, function(i, rule) {
                     if (rule.isIn(hook)) {
                         group_id = 'adminjs_group_'+rule.id;
@@ -387,14 +388,16 @@
                     data[group_id] = {
                         name:y18n.t('hook_'+group_id),
                         value:data[group_id].value+','+hook,
-                        description:data[group_id].description+', '+y18n.t('hook_'+hook)
+                        description:data[group_id].description+', '+y18n.t('hook_'+hook),
+                        size:data[group_id].size + hook_size
                     };
                 }
                 else {
                     data[group_id] = {
                         name:y18n.t('hook_'+group_id),
                         value:hook,
-                        description:(group_id==hook)?y18n.t('hook_'+hook+'_desc'):y18n.t('hook_'+hook)
+                        description:(group_id==hook)?y18n.t('hook_'+hook+'_desc'):y18n.t('hook_'+hook),
+                        size:hook_size
                     };
                 }
             });
