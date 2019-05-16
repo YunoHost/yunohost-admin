@@ -9,23 +9,18 @@
     <div class="panel-heading">
         <h2 class="panel-title"><span class="fa-fw fa-cube"></span> {{t 'system'}}</h2>
     </div>
-    {{#if packages}}
+    {{#if system}}
     <div class="list-group">
-        {{#packages}}
+        {{#system}}
         <div class="list-group-item">
-            {{#if delayed}}
-            <span class="text-warning pull-right">
-                <span class="fa-warning"></span> {{t 'system_delayed_upgrade'}}
-            </span>
-            {{/if}}
             <h3 class="list-group-item-heading">
                 {{name}} <small>{{fullname}}</small>
             </h3>
         </div>
-        {{/packages}}
+        {{/system}}
     </div>
     <div class="panel-footer">
-        <a href="#/upgrade/packages" role="button" class="btn btn-success">{{t 'system_upgrade_all_packages_btn'}}</a>
+        <a href="#/upgrade/system" role="button" class="btn btn-success">{{t 'system_upgrade_all_packages_btn'}}</a>
     </div>
     {{else}}
     <div class="panel-body">
