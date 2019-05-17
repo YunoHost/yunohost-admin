@@ -50,7 +50,7 @@
                 done = done * 100 / total;
                 ongoing = ongoing * 100 / total;
                 // Actually build the message with the progress bar
-                message = '<div class="progress"><div class="progress-bar progress-bar-success" role="progressbar" style="width:'+done+'%"></div><div class="progress-bar" role="progressbar" style="width:'+ongoing+'%;"></div></div><p style="display: inline-block;">' + message + '</p>';
+                message = '<div class="progress"><div class="progress-bar progress-bar-success" role="progressbar" style="width:'+done+'%"></div><div class="progress-bar progress-bar-striped active" role="progressbar" style="width:'+ongoing+'%;"></div></div><p style="display: inline-block;">' + message + '</p>';
             }
             else
             {
