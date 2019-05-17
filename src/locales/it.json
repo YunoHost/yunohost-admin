@@ -424,5 +424,6 @@
     "version": "Versione",
     "purge_user_data_checkbox": "Eliminare i dati di %s? (Questo rimuoverà il contenuto delle sue cartelle home e mail.)",
     "purge_user_data_warning": "L'eliminazione dei dati utente non è annullabile. Assicurati di sapere cosa stai facendo!",
-    "hook_conf_ynh_currenthost": "Dominio principale attuale"
+    "hook_conf_ynh_currenthost": "Dominio principale attuale",
+    "confirm_update_system": "Sei sicuro di voler aggiornare tutti i pacchetti di sistema?"
 }
