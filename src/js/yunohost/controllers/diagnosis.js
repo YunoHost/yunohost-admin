@@ -43,7 +43,7 @@
 		c.view('diagnosis/diagnosis_show', data, function() {
 			$(".rerun-diagnosis").click(function() {
 				var category = $(this).attr("category");
-				c.api('/diagnosis/run', function(data) {
+				c.api('/diagnosis/run?force', function(data) {
 					// This is a copy-pasta of some of the
 					// redirect/refresh code of sammy.js
 					// because for some reason calling the function did not work >.>
@@ -52,7 +52,7 @@
 					c.app.last_location = c.path;
 					c.app.setLocation(to);
 					c.app.trigger('location-changed');
-				}, 'POST', {"categories": [category], "force":true});
+				}, 'POST', {"categories": [category]});
 			});
 		});
         }, 'GET');
