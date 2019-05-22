@@ -156,7 +156,7 @@
     "hook_data_home": "Donadas utilizaires",
     "hook_data_home_desc": "Las donadas utilizaires son plaçadas dins /home/USER",
     "hook_data_mail": "Corrièl",
-    "hook_data_mail_desc": "Los corrièls que son encara sul servidor",
+    "hook_data_mail_desc": "Los corrièls gardats sul servidor",
     "hostname": "Nom d’òst",
     "id": "ID",
     "inactive": "Inactiu",
@@ -417,5 +417,6 @@
     "select_none": "O deselecionnar tot",
     "unmaintained": "Pas mantenguda",
     "purge_user_data_checkbox": "Purgar las donadas de %s ?(Aquò suprimirà lo contengut dels repertòris home e mail)",
-    "purge_user_data_warning": "Purgar las donadas de l’utilizaire es pas reversible. Asseguratz-vos de saber çò que fasètz !"
+    "purge_user_data_warning": "Purgar las donadas de l’utilizaire es pas reversible. Asseguratz-vos de saber çò que fasètz !",
+    "version": "Version"
 }

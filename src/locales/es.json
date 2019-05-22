@@ -139,7 +139,7 @@
     "hook_data_home": "Datos de usuario",
     "hook_data_home_desc": "Datos de usuario en /home/USUARIO",
     "hook_data_mail": "Correo",
-    "hook_data_mail_desc": "Correo en el servidor",
+    "hook_data_mail_desc": "Correos almacenados en el servidor",
     "hostname": "Nombre del anfitrión",
     "id": "ID",
     "inactive": "Inactivo",
@@ -354,5 +354,16 @@
     "migrations": "Migraciones",
     "migrations_pending": "Migraciones pendientes",
     "migrations_done": "Migraciones anteriores",
-    "logs_operation": "Operaciones realizadas en el sistema con YunoHost"
+    "logs_operation": "Operaciones realizadas en el sistema con YunoHost",
+    "all_apps": "Todas las aplicaciones",
+    "app_license": "Licencia de la aplicación",
+    "app_level": "Nivel de la aplicación",
+    "app_state_official": "Oficial",
+    "confirm_install_app_warning": "Aviso: esta aplicación puede funcionar pero no está bien integrada en YunoHost. Algunas características como inicio de sesión único y copia de seguridad/restauración podría no estar disponible.",
+    "confirm_install_app_danger": "¡AVISO! ¡Esta aplicación es aún experimental (puede que ni funcione) y es probable que rompa su sistema! Seguramente debería NO instalarla salvo que sepa lo que está haciendo. ¿Está dispuesto a correr ese riesgo?",
+    "current_maintainer_title": "Mantenedor actual de este paquete",
+    "error_connection_interrupted": "El servidor cerró la conexión en vez de responder, ¿se ha reiniciado nginx por error? (Código de error/mensaje: %s)",
+    "experimental_warning": "Aviso: esta característica es experimental y no se considera estable, no debería usarla salvo que sepa lo que está haciendo.",
+    "good_practices_about_admin_password": "Está a punto de establecer una nueva contraseña de administrador. La contraseña debería de ser de al menos 8 caracteres, aunque es una buena práctica usar una contraseña más larga (es decir, una frase de paso) y/o usar varias clases de caracteres (mayúsculas, minúsculas, dígitos y caracteres especiales).",
+    "good_practices_about_user_password": "Está a punto de establecer una nueva contraseña de usuario. La contraseña debería de ser de al menos 8 caracteres, aunque es una buena práctica usar una contraseña más larga (es decir, una frase de paso) y/o usar varias clases de caracteres (mayúsculas, minúsculas, dígitos y caracteres especiales)."
 }

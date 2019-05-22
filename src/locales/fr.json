@@ -128,7 +128,7 @@
     "home": "Accueil",
     "hook_adminjs_group_configuration": "Configuration",
     "hook_conf_cron": "Tâches régulières",
-    "hook_conf_ldap": "LDAP",
+    "hook_conf_ldap": "Base de donnée LDAP",
     "hook_conf_nginx": "Nginx",
     "hook_conf_ssh": "SSH",
     "hook_conf_ssowat": "SSOwat",
@@ -423,5 +423,7 @@
     "search_for_apps": "Recherche des applications…",
     "unmaintained": "Non maintenue",
     "purge_user_data_checkbox": "Purger les données de l’utilisateur %s ? (Cela supprimera le contenu de ses répertoires home et mail.)",
-    "purge_user_data_warning": "La purge des données de l’utilisateur n’est pas réversible. Assurez-vous de savoir ce que vous faites !"
+    "purge_user_data_warning": "La purge des données de l’utilisateur n’est pas réversible. Assurez-vous de savoir ce que vous faites !",
+    "version": "Version",
+    "confirm_update_system": "Voulez-vous vraiment mettre à jour tous les paquets système ?"
 }

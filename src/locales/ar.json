@@ -401,5 +401,10 @@
     "logs_more": "اظهر المزيد مِن الأسطر",
     "search_for_apps": "البحث عن تطبيقات…",
     "select_all": "تحديد الكل",
-    "version": "الإصدار"
+    "version": "الإصدار",
+    "app_no_actions": "لا يحتوي هذا التطبيق على أية إجراءات",
+    "logs_operation": "الإجراءات التي طرأت على النظام عبر YunoHost",
+    "logs_no_logs_registered": "لم يُسجَّل هناك أي حدث في سِجِل هذه الفئة",
+    "logs_end_with_error": "انتهى هذا السِجِل بالخطأ التالي:",
+    "unmaintained": "غير مُصان"
 }
