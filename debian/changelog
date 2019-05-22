@@ -1,3 +1,18 @@
+yunohost-admin (3.6.0) testing; urgency=low
+
+  - [enh] Improve log list (#241)
+  - [enh] Propagate tools_update and tools_upgrade api changes (#240)
+  - [fix] Buggy template for app actions (#239)
+  - [enh] Add apps infos in backup info view (#236)
+  - [enh] Better wording for mail backup description (49c15ab)
+  - [fix] Fix 'last update' refresh icon (9ac324b)
+  - [fix] 'unable to write random state' during debian postinst step (aa65dac)
+  - [i18n] Improve translations for Catalan, Occitan, French, Spanish, Arabic, Italian
+
+  Thanks to all contributors (Aleks, ButterflyOfFire, Guillaume R, Kayou, Maximilien, Quentí, Sylke Vicious, advocatux, xaloc33) <3 !
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Wed, 22 May 2019 19:38:00 +0000
+
 yunohost-admin (3.5.2) stable; urgency=low
 
   - Release as stable !
