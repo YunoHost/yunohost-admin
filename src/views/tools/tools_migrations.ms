@@ -22,12 +22,9 @@
         <div class="list-group">
         {{#pending_migrations}}
         <div class="list-group-item clearfix">
-            <h3 class="list-group-item-heading" style="text-transform: capitalize;">
-                {{ number }}. {{ name }}
+            <h3 class="list-group-item-heading">
+                {{ number }}. {{ description }}
             </h3>
-            <p id="description-migration-{{number}}" class="list-group-item-text">
-                {{ description }}
-            </p>
             {{#if disclaimer }}
             <hr>
             <p id="disclaimer-migration-{{number}}" class="list-group-item-text">
@@ -51,22 +48,20 @@
 
 <div class="panel panel-default">
     <div class="panel-heading">
-        <h2 class="panel-title"><span class="fa-fw fa-cogs"></span> {{t 'migrations_done'}}
+        <h2 class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#done_migrations" aria-expanded="true" aria-controls="done_migrations">
+            <span class="fa-fw fa-cogs"></span> {{t 'migrations_done'}}
+        </a>
         </h2>
     </div>
     
     {{#if done_migrations}}
-        <div class="list-group">
+        <div id="done_migrations" class="list-group panel-collapse collapse" role="tabpanel" aria-labelledby="heading-{{key}}">
         {{#done_migrations}}
         <div class="list-group-item clearfix">
-            <h3 class="list-group-item-heading" style="text-transform: capitalize;">
-                <a data-toggle="collapse" href="#description-migration-{{number}}">
-                {{ number }}. {{ name }}
-                </a>
+            <h3 class="list-group-item-heading">
+                {{ number }}. {{ description }}
             </h3>
-            <p id="description-migration-{{number}}" class="list-group-item-text collapse">
-                {{ description }}
-            </p>
         </div>
         {{/done_migrations}}
         </div>
