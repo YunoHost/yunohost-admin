@@ -208,13 +208,6 @@
 
     });
 
-    // Packages version
-    app.get('#/tools/versions', function (c) {
-        c.api('/diagnosis', function(diagnosis) {
-            c.view('tools/tools_versions', {'versions' : diagnosis.packages });
-        });
-    });
-
     // Reboot or shutdown button
     app.get('#/tools/reboot', function (c) {
         c.view('tools/tools_reboot');
