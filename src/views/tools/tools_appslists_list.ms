@@ -1,7 +1,7 @@
 <div class="btn-breadcrumb">
     <a href="#/" ><i class="fa-home"></i><span class="sr-only">{{t 'home'}}</span></a>
-    <a href="#/apps">{{t 'applications'}}</a>
-    <a href="#/apps/lists">{{t 'appslists'}}</a>
+    <a href="#/tools">{{t 'tools'}}</a>
+    <a href="#/tools/appslists">{{t 'appslists'}}</a>
 </div>
 
 <div class="separator"></div>
@@ -13,7 +13,7 @@
 
     <div class="list-group">
         {{#appslists}}
-        <a href="#/apps/lists/{{name}}" class="list-group-item">
+        <a href="#/tools/appslists/{{name}}" class="list-group-item">
             <span class="fa-chevron-right pull-right"></span>
             <h2 class="list-group-item-heading">
                 {{name}}

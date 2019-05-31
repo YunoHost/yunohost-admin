@@ -364,4 +364,93 @@
         );
     });
 
+    // List available apps lists
+    app.get('#/tools/appslists', function (c) {
+        c.api('/appslists', function(data) {
+            list = [];
+            var has_community_list = false;
+            $.each(data, function(listname, listinfo) {
+                list.push({
+                    'name': listname,
+                    'url': listinfo['url'],
+                    'lastUpdate': listinfo['lastUpdate']
+                });
+
+                // Check for community list
+                if (listname == 'community' || listinfo['url'] == 'https://app.yunohost.org/community.json') {
+                    has_community_list = true;
+                }
+            });
+
+            c.view('tools/tools_appslists_list', {
+                appslists: list,
+                has_community_list: has_community_list
+            });
+        }, 'GET');
+    });
+
+    // Add a new apps list
+    app.post('#/tools/appslists', function (c) {
+        list = {
+            'name' : c.params['appslist_name'],
+            'url' : c.params['appslist_url']
+        }
+
+        c.api('/appslists', function(data) {
+            store.clear('slide');
+            c.redirect('#/apps/lists/' + list.name);
+        }, 'PUT', list);
+    });
+
+    // Show appslist info and operations
+    app.get('#/tools/appslists/:appslist', function (c) {
+        c.api('/appslists', function(data) {
+            if (typeof data[c.params['appslist']] !== 'undefined') {
+                list = {
+                    'name' : c.params['appslist'],
+                    'url': data[c.params['appslist']]['url'],
+                    'lastUpdate': data[c.params['appslist']]['lastUpdate'],
+                    'removable' : (c.params['appslist'] !== 'yunohost') ? true : false // Do not remove default apps list
+                };
+                c.view('tools/tools_appslists_info', {appslist: list});
+            }
+            else {
+                c.flash('warning', y18n.t('appslists_unknown_list', [c.params['appslist']]));
+                store.clear('slide');
+                c.redirect('#/apps/lists');
+            }
+        }, 'GET');
+    });
+
+    // Refresh available apps list
+    app.get('#/tools/appslists/refresh', function (c) {
+        c.api('/appslists', function(data) {
+            // c.redirect(store.get('path'));
+            c.redirect('#/apps/install');
+        }, 'PUT');
+    });
+
+    // Refresh specific apps list
+    app.get('#/tools/appslists/:appslist/refresh', function (c) {
+        c.api('/appslists', function(data) {
+            c.redirect('#/apps/lists');
+        }, 'PUT', {'name' : c.params['appslist']});
+    });
+
+    // Remove apps list
+    app.get('#/tools/appslists/:appslist/remove', function (c) {
+        c.confirm(
+            y18n.t('appslist'),
+            y18n.t('appslists_confirm_remove', [c.params['app']]),
+            function() {
+                c.api('/appslists', function() {
+                    c.redirect('#/apps/lists');
+                }, 'DELETE', {'name' : c.params['appslist']});
+            },
+            function() {
+                store.clear('slide');
+                c.redirect('#/apps/lists/'+ c.params['appslist']);
+            }
+        );
+    });
 })();
