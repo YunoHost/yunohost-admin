@@ -391,7 +391,7 @@
 
         c.api('/appslists', function(data) {
             store.clear('slide');
-            c.redirect('#/apps/lists/' + list.name);
+            c.redirect('#/tools/appslists/' + list.name);
         }, 'PUT', list);
     });
 
@@ -410,7 +410,7 @@
             else {
                 c.flash('warning', y18n.t('appslists_unknown_list', [c.params['appslist']]));
                 store.clear('slide');
-                c.redirect('#/apps/lists');
+                c.redirect('#/tools/appslists');
             }
         }, 'GET');
     });
@@ -426,7 +426,7 @@
     // Refresh specific apps list
     app.get('#/tools/appslists/:appslist/refresh', function (c) {
         c.api('/appslists', function(data) {
-            c.redirect('#/apps/lists');
+            c.redirect('#/tools/appslists');
         }, 'PUT', {'name' : c.params['appslist']});
     });
 
@@ -437,12 +437,12 @@
             y18n.t('appslists_confirm_remove', [c.params['app']]),
             function() {
                 c.api('/appslists', function() {
-                    c.redirect('#/apps/lists');
+                    c.redirect('#/tools/appslists');
                 }, 'DELETE', {'name' : c.params['appslist']});
             },
             function() {
                 store.clear('slide');
-                c.redirect('#/apps/lists/'+ c.params['appslist']);
+                c.redirect('#/tools/appslists/'+ c.params['appslist']);
             }
         );
     });

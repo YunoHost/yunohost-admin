@@ -34,7 +34,7 @@
         <h2 class="panel-title"><span class="fa-fw fa-plus"></span> {{t 'appslists_custom'}}</h2>
     </div>
     <div class="panel-body">
-        <form action="#/apps/lists" method="POST" class="form-horizontal">
+        <form action="#/tools/appslists" method="POST" class="form-horizontal">
             <div class="form-group has-feedback">
                 <label for="appslist_name" class="col-md-2 col-sm-12 control-label">{{t 'name'}}</label>
                 <div class="col-md-10 col-sm-12">
