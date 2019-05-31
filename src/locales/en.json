@@ -414,10 +414,7 @@
     "appslists_info_remove_desc": "Applications from this list will not be available anymore.",
     "appslists_last_update": "Last update",
     "appslists_unknown_list": "Unknown apps list: %s",
-    "appslists_community_list": "Community applications list",
     "name": "Name",
-    "install_community_appslists_info": "Community applications list allows you to install community maintained applications.<br />See the full list on <a href='https://yunohost.org/apps'>yunohost.org/apps</a>.",
-    "install_community_appslists_warning": "Note that these applications packages are <strong>not</strong> official and not maintained by the YunoHost team.<br />Installing these applications is at your own risk and could break your system.",
     "purge_user_data_checkbox": "Purge %s's data? (This will remove the content of it's home and mail directories.)",
     "purge_user_data_warning": "Purging user's data is not reversible. Be sure you know what you're doing!"
 }

@@ -29,29 +29,6 @@
     </div>
 </div>
 
-{{^has_community_list}}
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <h2 class="panel-title"><span class="fa-fw fa-plus"></span> {{t 'appslists_community_list'}}</h2>
-    </div>
-    <div class="panel-body">
-        <form action="#/apps/lists" method="POST" class="form-horizontal">
-            <input type="hidden" name="appslist_name" value="community" required />
-            <input type="hidden" name="appslist_url" value="https://app.yunohost.org/community.json" required />
-            <div class="form-group">
-                <div class="col-md-12 col-sm-12">
-                    <p>{{t 'install_community_appslists_info'}}</p>
-                    <p class="alert alert-warning">
-                        <span class="fa-warning"></span> {{t 'install_community_appslists_warning'}}
-                    </p>
-                    <input type="submit" class="btn btn-success slide" value="{{t 'add'}}">
-                </div>
-            </div>
-        </form>
-    </div>
-</div>
-{{/has_community_list}}
-
 <div class="panel panel-default">
     <div class="panel-heading">
         <h2 class="panel-title"><span class="fa-fw fa-plus"></span> {{t 'appslists_custom'}}</h2>
@@ -67,7 +44,7 @@
             <div class="form-group has-feedback">
                 <label for="appslist_url" class="col-md-2 col-sm-12 control-label">{{t 'url'}}</label>
                 <div class="col-md-10 col-sm-12">
-                    <input type="url" id="appslist_url" name="appslist_url" class="form-control" value="" placeholder="https://app.yunohost.org/community.json" required />
+                    <input type="url" id="appslist_url" name="appslist_url" class="form-control" value="" placeholder="https://some.domain.tld/somelist.json" required />
                 </div>
             </div>
             <div class="form-group">
