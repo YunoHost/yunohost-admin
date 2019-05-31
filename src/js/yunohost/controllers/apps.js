@@ -143,8 +143,6 @@
                         app.maintainedColor = maintainedStateToColor(app.maintained);
                         app.installColor = combineColors(app.stateColor, app.levelColor);
 
-                        app.displayLicense = (app['manifest']['license'] !== undefined
-                                           && app['manifest']['license'] !== 'free');
                         app.updateDate = app.lastUpdate * 1000 || 0;
                         app.isSafe = (app.installColor !== 'danger');
                         app.isWorking = isWorking ? "isworking" : "notFullyWorking";
@@ -542,7 +540,8 @@
     app.helper('appInstallForm', function(appId, manifest, params) {
         var data = {
             id: appId,
-            manifest: manifest
+            manifest: manifest,
+            displayLicense: (manifest['license'] !== undefined && manifest['license'] !== 'free')
         };
 
         formatYunoHostStyleArguments(data.manifest.arguments.install, params);

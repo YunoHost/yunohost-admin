@@ -42,7 +42,6 @@
               <span class="label label-{{stateColor}} label-as-badge app-state" title="{{t (concat 'app_state_' state '_explanation') }}">{{t (concat 'app_state_' state) }}</span>
               <a target="_BLANK" href="https://yunohost.org/#/packaging_apps_levels"><span class="label label-{{levelColor}} label-as-badge app-level" title="{{t 'app_level'}}">{{t 'level'}} {{levelFormatted}}</span></a>
               <span class="label label-{{maintainedColor}} label-as-badge maintained-status" title="{{t (concat maintained '_details') }}"> {{t maintained}}</span>
-              {{#displayLicense}}<span class="label label-default app-license" title="{{t 'app_license'}}">{{license}}</span>{{/displayLicense}}
             </div>
             <div class="app-card-desc">{{description}}</div>
         </div>
