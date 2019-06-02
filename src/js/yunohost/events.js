@@ -57,7 +57,7 @@
                                                 ' (<a href="'+ item.url +'" class="alert-link" target="_blank">'+y18n.t('read_more')+'</a>)';
                         c.flash('warning', warning);
                         // Store viewed item
-                        viewedItems.push(item.guid);i
+                        viewedItems.push(item.guid);
                     }
                 });
                 // Saved viewed items to cookie
