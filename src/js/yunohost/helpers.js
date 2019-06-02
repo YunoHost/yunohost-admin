@@ -59,10 +59,10 @@
 
             // Add message
             $('#flashMessage .messages')
-                .prepend('<div class="alert alert-'+ level +'">'+message+'</div>');
+                .append('<div class="alert alert-'+ level +'">'+message+'</div>');
 
             // Scroll to top to view new messages
-            $('#flashMessage').scrollTop(0);
+            $('#flashMessage').scrollTop(1000000000);
         },
 
         checkInstall: function(callback) {
