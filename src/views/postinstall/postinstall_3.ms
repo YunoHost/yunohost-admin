@@ -12,14 +12,14 @@
     <div class="form-group">
         <label for="password" class="col-sm-4 control-label">{{t 'administration_password'}}</label>
         <div class="col-sm-8">
-            <input required type="password" id="password" name="password" class="form-control" placeholder="••••••">
+            <input required type="password" id="password" name="password" class="form-control" minlength="8" maxlength="127" placeholder="••••••">
         </div>
     </div>
 
     <div class="form-group">
         <label for="confirmation" class="col-sm-4 control-label">{{t 'password_confirmation'}}</label>
         <div class="col-sm-8">
-            <input required type="password" id="confirmation" name="confirmation" class="form-control" placeholder="••••••">
+            <input required type="password" id="confirmation" name="confirmation" class="form-control" minlength="8" maxlength="127" placeholder="••••••">
         </div>
     </div>
 
