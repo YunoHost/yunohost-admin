@@ -20,7 +20,7 @@
             <dt>{{t 'description'}}</dt>
             <dd>{{description}}</dd>
             <dt>{{t 'version'}}</dt>
-            <dd>{{manifest.version}}</dd>
+            <dd>{{version}}</dd>
             <dt>{{t 'multi_instance'}}</dt>
             <dd>{{manifest.multi_instance}}</dd>
             <dt>{{t 'install_time'}}</dt>
