@@ -550,6 +550,21 @@ input[type='radio'].nice-radio {
     }
 }
 
+.messages .progress {
+   display:inline-block;
+   height:0.8em;
+   margin-bottom: 0;
+   width: 200px;
+   border-radius: 5px;
+}
+
+.messages .progress-bar-striped {
+    background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.4) 50%, rgba(255, 255, 255, 0.5) 75%, transparent 75%, transparent);
+}
+
+.messages .progress-bar.active {
+   animation-direction: reverse;
+}
 
 /** custom badges **/
 .badge {

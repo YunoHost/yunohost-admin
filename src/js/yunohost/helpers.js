@@ -35,10 +35,31 @@
 
             message = message.split("\n").join("<br />");
 
+            // If the message starts with a progress bar
+            progressbar = message.match(/^\[#*\+*\.*\] > /);
+            if (progressbar)
+            {
+                progressbar = progressbar[0];
+                // Remove the progress bar from the mesage
+                message = message.replace(progressbar,"");
+                // Compute percent
+                done = (progressbar.match(/#/g)||[]).length;
+                ongoing = (progressbar.match(/\+/g)||[]).length;
+                remaining = (progressbar.match(/\./g)||[]).length;
+                total = done + ongoing + remaining;
+                done = done * 100 / total;
+                ongoing = ongoing * 100 / total;
+                // Actually build the message with the progress bar
+                message = '<div class="progress"><div class="progress-bar progress-bar-success" role="progressbar" style="width:'+done+'%"></div><div class="progress-bar progress-bar-striped active" role="progressbar" style="width:'+ongoing+'%;"></div></div><p style="display: inline-block;">' + message + '</p>';
+            }
+            else
+            {
+                message = '<p>'+message+'</p>';
+            }
+
             // Add message
             $('#flashMessage .messages')
-                .prepend('<div class="alert alert-'+ level +'">'+
-                              '<p>'+ message +'</p></div>');
+                .prepend('<div class="alert alert-'+ level +'">'+message+'</div>');
 
             // Scroll to top to view new messages
             $('#flashMessage').scrollTop(0);
