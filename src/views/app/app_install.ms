@@ -19,6 +19,10 @@
             <dd>{{id}}</dd>
             <dt>{{t 'description'}}</dt>
             <dd>{{description}}</dd>
+            {{#displayLicense}}
+            <dt>{{t 'license'}}</dt>
+            <dd>{{manifest.license}}</dd>
+            {{/displayLicense}}
             <dt>{{t 'version'}}</dt>
             <dd>{{manifest.version}}</dd>
             <dt>{{t 'multi_instance'}}</dt>
