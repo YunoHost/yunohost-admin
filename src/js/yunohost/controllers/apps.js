@@ -294,6 +294,11 @@
     // Get app config panel
     app.get('#/apps/:app/config-panel', function (c) {
         c.api('/apps/'+c.params['app']+'/config-panel', function(data) {
+            $.each(data.config_panel.panel, function(_, panel) {
+                $.each(panel.sections, function(_, section) {
+                    formatYunoHostStyleArguments(section.options, c.params);
+                });
+            });
             c.view('app/app_config-panel', data);
         });
     });
@@ -430,6 +435,7 @@
             if (args[k].type == 'boolean') {
                 args[k].inputType = 'checkbox';
 
+                console.log(args[k]);
                 // Checked or not ?
                 if (typeof args[k].default !== 'undefined') {
                     if (args[k].default == true) {

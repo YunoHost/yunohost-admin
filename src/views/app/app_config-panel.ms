@@ -36,18 +36,48 @@
                         <ul>
                         {{#options}}
                         <div class="form-group">
-                            <label for="{{id}}" class="col-sm-2 control-label">{{name}}</label>
+                            <label for="{{name}}" class="col-sm-2 control-label">{{label}}</label>
+
+                            <div class="col-sm-10">
+
+                                {{#if choices}}
+                                <select id="{{name}}" name="{{name}}" required class="form-control" {{{attributes}}}>
+                                    {{#choices}}<option value="{{value}}" {{#if selected}}selected{{/if}}>{{label}}</option>{{/choices}}
+                                </select>
+                                {{else if (eq inputType "checkbox")}}
+                                <input type="{{inputType}}" id="{{name}}" name="{{name}}" class="form-control auto-width" value="{{default}}" placeholder="{{example}}" {{required}} {{{attributes}}}>
+                                {{else}}
+                                <input type="{{inputType}}" id="{{name}}" name="{{name}}" class="form-control" value="{{default}}" placeholder="{{example}}" {{required}} {{{attributes}}}>
+                                {{/if}}
+
+                                {{#if helpLink}}
+                                <span class="help-block help-block--link">{{{helpLink}}}</span>
+                                {{/if}}
+
+                                {{#if example}}
+                                <span class="help-block help-block--example">{{t 'form_input_example' example}}</span>
+                                {{/if}}
+
+                                {{#if helpText}}
+                                <span class="help-block">{{{helpText}}}</span>
+                                {{/if}}
+                            </div>
+                        </div>
+                        <!--
+                        <div class="form-group">
+                            <label for="{{name}}" class="col-sm-2 control-label">{{name}}</label>
                             <div class="col-sm-10">
                             {{#if (in type "number" "text" "password" "color" "date" "datetime-local" "email" "month number" "range" "search" "tel" "time" "url" "week")}}
-                                <input type="number" class="form-control" id="{{id}}" name="{{id}}" placeholder="{{placeholder}}">
+                                <input type="number" class="form-control" id="{{name}}" name="{{name}}" placeholder="{{placeholder}}">
                                 <span class="help-block">{{ help }}</span>
                             {{else if (eq type "bool")}}
-                            <input type="radio" name="{{id}}" value="true" {{#if value}}checked{{/if}}> yes
-                            <input type="radio" name="{{id}}" value="false"{{#if (eq value false)}}checked{{/if}}> no
+                            <input type="radio" name="{{name}}" value="true" {{#if value}}checked{{/if}}> yes
+                            <input type="radio" name="{{name}}" value="false"{{#if (eq value false)}}checked{{/if}}> no
                             <span class="help-block">{{ help }}</span>
                             {{/if}}
                             </div>
                         </div>
+                        -->
                         {{/options}}
                         </ul></li>
                         </ul>
