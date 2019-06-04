@@ -1,3 +1,16 @@
+yunohost-admin (3.6.1) testing; urgency=low
+
+  - [fix] Do not show URL if app doesn't have one (#247)
+  - [enh] display the current version of the app (#246)
+  - [enh] Set minlength/maxlength on admin password form (#245)
+  - [enh] Convert ascii progress bars to bootstrap progress bar (#244)
+  - [enh] High quality apps and maintained states (#242)
+  - [enh] Clean migration screen a bit (b4ed005)
+
+  Thanks to all contributors <3 ! (Aleks, Kay0u, Bram, L. Murphy, Maniack)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Tue, 04 Jun 2019 13:20:00  +0000
+
 yunohost-admin (3.6.0) testing; urgency=low
 
   - [enh] Improve log list (#241)
