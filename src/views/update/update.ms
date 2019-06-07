@@ -7,7 +7,7 @@
 
 <div class="panel panel-default">
     <div class="panel-heading">
-        <h2 class="panel-title"><span class="fa-fw fa-cube"></span> {{t 'system'}}</h2>
+        <h2 class="panel-title"><span class="fa-fw fa-server"></span> {{t 'system'}}</h2>
     </div>
     {{#if system}}
     <div class="list-group">
