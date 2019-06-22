@@ -1,8 +1,8 @@
 <div class="btn-breadcrumb">
     <a href="#/" ><i class="fa-home"></i><span class="sr-only">{{t 'home'}}</span></a>
-    <a href="#/apps">{{t 'applications'}}</a>
-    <a href="#/apps/lists">{{t 'appslists'}}</a>
-    <a href="#/apps/lists/{{name}}">{{appslist.name}}</a>
+    <a href="#/tools">{{t 'tools'}}</a>
+    <a href="#/tools/appslists">{{t 'appslists'}}</a>
+    <a href="#/tools/appslists/{{name}}">{{appslist.name}}</a>
 </div>
 
 <div class="separator"></div>
@@ -32,7 +32,7 @@
     <div class="panel-body">
         <div class="container">
             <p>{{t 'appslists_info_refresh_desc'}}</p>
-            <a href="#/apps/lists/{{appslist.name}}/refresh" role="button" class="btn btn-info slide">
+            <a href="#/tools/appslists/{{appslist.name}}/refresh" role="button" class="btn btn-info slide">
                 <span class="fa-refresh"></span> {{t 'refresh_app_list'}}
             </a>
         </div>
@@ -40,7 +40,7 @@
         <hr>
         <div class="container">
             <p>{{t 'appslists_info_remove_desc'}}</p>
-            <a role="button" href="#/apps/lists/{{appslist.name}}/remove" class="btn btn-danger slide back">
+            <a role="button" href="#/tools/appslists/{{appslist.name}}/remove" class="btn btn-danger slide back">
                 <span class="fa-trash-o"></span> {{t 'remove'}}
             </a>
         </div>
