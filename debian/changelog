@@ -1,3 +1,13 @@
+yunohost-admin (3.6.2) testing; urgency=low
+
+  - [mod] Move applist management to Tools section (#248)
+  - [enh] Display from/to version on upgrade screen (#252)
+  - [i18n] Improve translations for Catalan, Occitan 
+
+  Thanks to all contributors <3 ! (Aleks, Quentí, xaloc33)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Mon, 24 Jun 2019 18:00:00  +0000
+
 yunohost-admin (3.6.1) testing; urgency=low
 
   - [fix] Do not show URL if app doesn't have one (#247)
