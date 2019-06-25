@@ -34,7 +34,7 @@
                     <div class="panel-heading"><h3 class="panel-title">{{name}} <small>{{help}}</small></h3></div>
                     <div class="panel-body">
                         {{#options}}
-                        <div class="form-group">
+                        <div class="form-group input-{{inputType}}">
                             <label for="{{name}}" class="col-sm-2 control-label">{{label}}</label>
 
                             <div class="col-sm-10">
