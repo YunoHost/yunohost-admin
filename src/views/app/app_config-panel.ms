@@ -16,6 +16,7 @@
 {{#config_panel}}
 <h2>{{../app_name}} configuration panel</h2>
 <hr>
+<form class="form-horizontal" action="#/apps/{{../app_id}}/config" method="POST">
 {{#panel}}
     <div class="panel panel-default">
         <div class="panel-heading" role="tab" id="heading-{{ @index }}">
@@ -28,7 +29,6 @@
         </div>
         <div id="collapse-{{ @index }}" class="panel-collapse collapse {{#if (eq @index 0)}}in{{/if}}" role="tabpanel" aria-labelledby="heading-{{ @index }}">
             <div class="panel-body">
-            <form class="form-horizontal" action="#/apps/{{../../app_id}}/config" method="POST">
                 {{#sections}}
                 <div class="panel panel-default">
                     <div class="panel-heading"><h3 class="panel-title">{{name}} <small>{{help}}</small></h3></div>
@@ -85,13 +85,13 @@
                 </div>
                 {{/sections}}
 
-                <br>
-                <div><button class="btn btn-primary" type="submit">Save</button></div>
-            </form>
             </div>
         </div>
     </div>
 {{/panel}}
+<br>
+<div><button class="btn btn-primary" type="submit">Save</button></div>
+</form>
 {{/config_panel}}
 </div>
 
