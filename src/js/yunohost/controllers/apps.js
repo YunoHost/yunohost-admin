@@ -345,7 +345,7 @@
             args[k].inputType = 'text';
             args[k].isPassword = false;
             args[k].isDisplayText = false;
-            args[k].required = (typeof v.optional !== 'undefined' && v.optional == "true") ? '' : 'required';
+            args[k].required = (typeof v.optional !== 'undefined' && (v.optional == "true" || v.optional == true)) ? '' : 'required';
             args[k].attributes = "";
             args[k].helpText = "";
             args[k].helpLink = "";
