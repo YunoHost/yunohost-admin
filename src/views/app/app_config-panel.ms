@@ -33,7 +33,6 @@
                 <div class="panel panel-default">
                     <div class="panel-heading"><h3 class="panel-title">{{name}} <small>{{help}}</small></h3></div>
                     <div class="panel-body">
-                        <ul>
                         {{#options}}
                         <div class="form-group">
                             <label for="{{name}}" class="col-sm-2 control-label">{{label}}</label>
@@ -63,24 +62,7 @@
                                 {{/if}}
                             </div>
                         </div>
-                        <!--
-                        <div class="form-group">
-                            <label for="{{name}}" class="col-sm-2 control-label">{{name}}</label>
-                            <div class="col-sm-10">
-                            {{#if (in type "number" "text" "password" "color" "date" "datetime-local" "email" "month number" "range" "search" "tel" "time" "url" "week")}}
-                                <input type="number" class="form-control" id="{{name}}" name="{{name}}" placeholder="{{placeholder}}">
-                                <span class="help-block">{{ help }}</span>
-                            {{else if (eq type "bool")}}
-                            <input type="radio" name="{{name}}" value="true" {{#if value}}checked{{/if}}> yes
-                            <input type="radio" name="{{name}}" value="false"{{#if (eq value false)}}checked{{/if}}> no
-                            <span class="help-block">{{ help }}</span>
-                            {{/if}}
-                            </div>
-                        </div>
-                        -->
                         {{/options}}
-                        </ul></li>
-                        </ul>
                     </div>
                 </div>
                 {{/sections}}
