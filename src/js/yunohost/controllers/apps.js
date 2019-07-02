@@ -272,6 +272,11 @@
     // Get app config panel
     app.get('#/apps/:app/config-panel', function (c) {
         c.api('/apps/'+c.params['app']+'/config-panel', function(data) {
+            $.each(data.config_panel.panel, function(_, panel) {
+                $.each(panel.sections, function(_, section) {
+                    formatYunoHostStyleArguments(section.options, c.params);
+                });
+            });
             c.view('app/app_config-panel', data);
         });
     });
@@ -318,7 +323,7 @@
             args[k].inputType = 'text';
             args[k].isPassword = false;
             args[k].isDisplayText = false;
-            args[k].required = (typeof v.optional !== 'undefined' && v.optional == "true") ? '' : 'required';
+            args[k].required = (typeof v.optional !== 'undefined' && (v.optional == "true" || v.optional == true)) ? '' : 'required';
             args[k].attributes = "";
             args[k].helpText = "";
             args[k].helpLink = "";
