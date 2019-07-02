@@ -435,7 +435,6 @@
             if (args[k].type == 'boolean') {
                 args[k].inputType = 'checkbox';
 
-                console.log(args[k]);
                 // Checked or not ?
                 if (typeof args[k].default !== 'undefined') {
                     if (args[k].default == true) {
