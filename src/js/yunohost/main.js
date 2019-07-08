@@ -166,6 +166,61 @@
                 $('#slider').removeClass('with-flashMessage');
             });
 
+            var before = 0;
+            flashMessage.hover(function() {
+                // hover in
+                before = flashMessage[0].scrollTop;
+            }, function() {
+                // hover out
+
+                // welcome to UI annoying details (not black magic, more like
+                // meh boring problem)
+                //
+                // Situation:
+                // - you have this small flash folded line on top
+                // - when you hover it, you see all logs
+                // - without this code, when you un-hover it, suddently, the
+                //   line that was before in this small line is not the same as
+                //   before, that sucks
+                // - why? Because when you hover it, the position at which it
+                //   is considered scrolled is different because its size has
+                //   increased
+                //
+                // Additionnal context info:
+                // - folded flash div height is 30px
+                // - unfolded flash div height is displayedPageHeight * 70%
+                // - this will be used for calculation
+                //
+                // Solution:
+                // - we (well, I, the lone idiot who worked on that) have
+                //   identified 3 situations to handle
+                // - log is at BOTTOM, ther user hover, see, everything,
+                //   unhover. Here: scroll position has been moved
+                //   "displayedPageHeight * 70%" + 30px up. We detect that and
+                //   scroll back.
+                // - log is NOT at bottom, before scroll position == after
+                //   scroll position: we don't do anything
+                // - before, we weren't at bottom, then we are at max
+                //   scrollable position: user has scrolled at the bottom: after
+                //   unhover we also scroll at the bottom
+                var after = flashMessage[0].scrollTop;
+
+                var diff = (before - after);
+                var flasUnfoldedHeight = (window.innerHeight * .7);
+                var scrollTopMax = flashMessage[0].scrollTopMax;
+
+                // we haven't scrolled, got back to previous position
+                // the 30 here is the min-height of the flash zone
+                if ((diff + 30) == flasUnfoldedHeight) {
+                    flashMessage.scrollTop(before);
+                } else if (after == before) {
+                    // don't do anything, we don't want to move
+                } else if ((scrollTopMax - after) == (flasUnfoldedHeight - 30)) {
+                    // we've scrolled at the bottom, display the bottom
+                    flashMessage.scrollTop(scrollTopMax);
+                }
+            })
+
         });
 
 
