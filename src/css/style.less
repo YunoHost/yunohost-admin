@@ -756,6 +756,17 @@ input[type='radio'].nice-radio {
             & + .alert {margin-top: 0;}
         }
 
+    }
+
+    #flashMessageButtons {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 2002; // above pacman and flashMessage
+        max-height: 30px;
+        width: 41px;
+
         button {
             .btn-xs;
             .btn-link;
