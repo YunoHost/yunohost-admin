@@ -167,9 +167,11 @@
             });
 
             var before = 0;
+            var startAt = undefined;
             flashMessage.hover(function() {
                 // hover in
                 before = flashMessage[0].scrollTop;
+                startAt = new Date();
             }, function() {
                 // hover out
 
@@ -193,7 +195,10 @@
                 //
                 // Solution:
                 // - we (well, I, the lone idiot who worked on that) have
-                //   identified 3 situations to handle
+                //   identified 4 situations to handle
+                // - animation time take 0.15s, if the time between the
+                //   hover/unhover is less that that, we consider that this is a
+                //   user mistake and restore previous position
                 // - log is at BOTTOM, ther user hover, see, everything,
                 //   unhover. Here: scroll position has been moved
                 //   "displayedPageHeight * 70%" + 30px up. We detect that and
@@ -209,9 +214,11 @@
                 var flasUnfoldedHeight = (window.innerHeight * .7);
                 var scrollTopMax = flashMessage[0].scrollTopMax;
 
-                // we haven't scrolled, got back to previous position
-                // the 30 here is the min-height of the flash zone
-                if ((diff + 30) == flasUnfoldedHeight) {
+                if ((new Date() - startAt) < 150) {
+                    flashMessage.scrollTop(before);
+                } else if ((diff + 30) == flasUnfoldedHeight) {
+                    // we haven't scrolled, got back to previous position
+                    // the 30 here is the min-height of the flash zone
                     flashMessage.scrollTop(before);
                 } else if (after == before) {
                     // don't do anything, we don't want to move
