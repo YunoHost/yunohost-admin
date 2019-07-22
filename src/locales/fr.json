@@ -439,7 +439,7 @@
     "only_decent_quality_apps": "Seulement des applications d'une qualité suffisante",
     "orphaned": "non maintenue",
     "orphaned_details": "Cette application n'est plus maintenue. Il est possible qu'elle puisse encore être fonctionnelle, mais elle ne recevra plus aucune mise à jour. N'hésitez pas à prendre le relais pour la maintenir !",
-    "request_adoption": "dans l'attente d'une adoption",
+    "request_adoption": "en attente de repreneur",
     "request_adoption_details": "Le responsable actuel aimerait arrêter de maintenir cette application. N'hésitez pas à vous proposer comme nouveau responsable !",
     "request_help": "besoin d'assistance",
     "request_help_details": "Le responsable actuel aimerait de l'aide pour la maintenance de cette application. N'hésitez pas à y contribuer !"
