@@ -24,7 +24,12 @@
             <a href="#" role="button" class="btn btn-sm btn-warning pull-right" style="margin: -5px 5px"><span class="fa-fw fa-times"></span> {{t 'ignore'}}</a>
             {{/if}}
             {{#if details}}
-            <a href="#" role="button" class="btn btn-sm btn-default pull-right" style="margin: -5px 5px"><span class="fa-fw fa-level-down"></span>{{t 'details'}}</a>
+            <a role="button" class="btn btn-sm btn-default pull-right" style="margin: -5px 5px" data-toggle="collapse" href="#details-{{../id}}-{{@index}}" aria-expanded="false" aria-controls="details-{{../id}}-{{@index}}"><span class="fa-fw fa-level-down"></span>{{t 'details'}}</a>
+            <div class="collapse" id="details-{{../id}}-{{@index}}">
+                <ul>
+                {{#details}}<li>{{.}}</li>{{/details}}
+                </ul>
+            </div>
             {{/if}}
         </li>
         {{/items}}
