@@ -17,7 +17,7 @@
         <a role="button" category="{{ id }}" class="btn btn-sm btn-info pull-right rerun-diagnosis"><span class="fa-fw fa-refresh"></span> {{t 'rerun_diagnosis'}}</a>
     </div>
     <div class="panel-body collapse {{#unless noIssues}}in{{/unless}}" id="category-{{id}}">
-    <ul class="list-group">
+    <ul class="list-group" style="margin-bottom: 0px">
         <p>Last time ran : {{formatRelative time}}</p>
         {{#items}}
         <li class="list-group-item alert alert-{{status}} alert-{{status}}-yo clearfix">
@@ -26,10 +26,10 @@
             {{/if}}
             {{summary}}
             {{#if issue}}
-            <a href="#" role="button" class="btn btn-sm btn-warning pull-right" style="margin: -5px 5px"><span class="fa-fw fa-times"></span> {{t 'ignore'}}</a>
+            <a href="#" role="button" class="btn btn-sm btn-warning pull-right"><span class="fa-fw fa-times"></span> {{t 'ignore'}}</a>
             {{/if}}
             {{#if details}}
-            <a role="button" class="btn btn-sm btn-default pull-right" style="margin: -5px 5px" data-toggle="collapse" href="#details-{{../id}}-{{@index}}" aria-expanded="false" aria-controls="details-{{../id}}-{{@index}}"><span class="fa-fw fa-level-down"></span>{{t 'details'}}</a>
+            <a role="button" class="btn btn-sm btn-default pull-right" data-toggle="collapse" href="#details-{{../id}}-{{@index}}" aria-expanded="false" aria-controls="details-{{../id}}-{{@index}}"><span class="fa-fw fa-level-down"></span>{{t 'details'}}</a>
             <div class="collapse" id="details-{{../id}}-{{@index}}">
                 <ul>
                 {{#details}}<li>{{.}}</li>{{/details}}

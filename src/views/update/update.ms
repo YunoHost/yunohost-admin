@@ -37,9 +37,9 @@
     <div class="list-group">
         {{#apps}}
         <div class="list-group-item clearfix">
-            <a href="#/upgrade/apps/{{id}}" role="button" class="btn btn-success pull-right">{{t 'system_upgrade_btn'}}</a>
             <h3 class="list-group-item-heading">{{label}} <small>{{id}}</small></h3>
-            <p class="list-group-item-text">{{t 'from_to' current_version new_version}}</p>
+            <span class="list-group-item-text">{{t 'from_to' current_version new_version}}</span>
+            <a href="#/upgrade/apps/{{id}}" role="button" class="btn btn-success pull-right">{{t 'system_upgrade_btn'}}</a>
         </div>
         {{/apps}}
     </div>
