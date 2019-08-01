@@ -3,6 +3,12 @@
     <a href="#/diagnosis">{{t 'diagnosis'}}</a>
 </div>
 
+<div class="actions-group">
+    <a href="javascript:void(null);" onclick="c.api('/diagnosis/show?share', function(data) { $('div.loader').remove(); window.open(data.url, '_blank'); });" class="btn btn-success">
+        <span class="fa-cloud-upload"></span> {{t 'logs_share_with_yunopaste'}}
+    </a>
+</div>
+
 <div class="separator"></div>
 
 {{#reports}}
