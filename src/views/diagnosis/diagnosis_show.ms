@@ -8,8 +8,11 @@
 {{#reports}}
 <div class="panel panel-default">
     <div class="panel-heading">
-        <h2 class="panel-title" style="display: inline-block">{{ description }}</h2>
-    <a role="button" category="{{ id }}" class="btn btn-sm btn-info pull-right rerun-diagnosis"><span class="fa-fw fa-refresh"></span> {{t 'rerun_diagnosis'}}</a>
+        <h2 class="panel-title" style="display: inline-block; margin-right: 10px;">{{ description }}</h2>
+        {{#if noIssues}}<span class="label label-success">Everything good!</span>{{/if}}
+        {{#if errors}}<span class="label label-danger">{{ errors }} errors</span>{{/if}}
+        {{#if warnings}}<span class="label label-warning">{{ warnings }} warnings</span>{{/if}}
+        <a role="button" category="{{ id }}" class="btn btn-sm btn-info pull-right rerun-diagnosis"><span class="fa-fw fa-refresh"></span> {{t 'rerun_diagnosis'}}</a>
     </div>
     <div class="panel-body">
     <ul class="list-group">

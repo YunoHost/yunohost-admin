@@ -16,6 +16,8 @@
         {
             // Convert timestamp to datetime
             data.reports[i].time = new Date(data.reports[i].timestamp*1000);
+            data.reports[i].warnings = 0;
+            data.reports[i].errors = 0;
             for (var j = 0 ; j < data.reports[i].items.length ; j++)
             {
                 var type_ = data.reports[i].items[j].status;
@@ -29,16 +31,19 @@
                 else if (type_ == "warning") {
                     icon = "warning";
                     issue = true;
+                    data.reports[i].warnings++;
                 }
                 else if (type_ == "error") {
                     type_ = "danger";
                     icon = "times";
                     issue = true;
+                    data.reports[i].errors++;
                 }
                 data.reports[i].items[j].status = type_;
                 data.reports[i].items[j].icon = icon;
                 data.reports[i].items[j].issue = issue;
             };
+            data.reports[i].noIssues = data.reports[i].warnings + data.reports[i].errors ? false : true;
         };
         c.view('diagnosis/diagnosis_show', data, function() {
             $(".rerun-diagnosis").click(function() {
