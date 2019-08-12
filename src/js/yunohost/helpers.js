@@ -102,9 +102,9 @@
                 var args = data;
                 // TODO: change this code
                 if (uri === '/postinstall') {
-                    var installing = false;
+                    var post_installing = false;
                     setInterval(function () {
-                        installing = true;
+                        post_installing = true;
                     }, 1500);
                 }
 
@@ -112,8 +112,7 @@
                     callbackOnFailure = function(xhr) {
                         // Postinstall is a custom case, we have to wait that
                         // operation is done before doing anything
-                        if (uri === '/postinstall') {
-                            if (installing) {
+                        if ((uri === '/postinstall') && (post_installing)) {
                                 interval = window.location.hostname === args.domain ? 20000 : 5000;
                                 checkInstall = setInterval(function () {
                                     c.checkInstall(function(isInstalled) {
@@ -124,9 +123,6 @@
                                         }
                                     });
                                 }, interval);
-                            } else {
-                                c.flash('fail', y18n.t('error_occured'));
-                            }
                         }
                         // Regular errors
                         else {
