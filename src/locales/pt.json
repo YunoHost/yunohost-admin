@@ -2,7 +2,7 @@
     "action": "Ação",
     "add": "Adicionar",
     "administration_password": "Senha de administração",
-    "allowed_users": "Utilizadores permitidos",
+    "allowed_users": "Usuários permitidos",
     "app_access": "Aceder",
     "app_access_addall_btn": "Habilitar acesso a todos",
     "app_access_addall_desc": "Todos os utilizadores existentes terão acesso a %s.",
@@ -230,5 +230,7 @@
     "app_debug_no_logs": "Logs da aplicação não estão disponíveis",
     "app_debug_tab": "Mostrar debug",
     "ok": "Confirmar",
-    "all_apps": "Todas as aplicações"
+    "all_apps": "Todas as aplicações",
+    "active": "Ativo",
+    "advanced": "Avançado"
 }
