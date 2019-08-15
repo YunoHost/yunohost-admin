@@ -22,7 +22,7 @@
         <div id="collapse-{{key}}" class="panel-collapse{{#if @first}}{{else}} collapse{{/if}}" role="tabpanel" aria-labelledby="heading-{{key}}">
             <div class="list-group">
             {{#value}}
-                <a href="#/tools/logs/{{ name }}" class="list-group-item" title='{{formatTime started_at day="numeric" month="long" year="numeric" hour="numeric" minute="numeric"}}'><small style="margin-right:20px;" >{{formatRelative started_at}}</small>
+                <a href="#/tools/logs/{{ name }}" class="list-group-item"{{#if started_at }} title='{{formatTime started_at day="numeric" month="long" year="numeric" hour="numeric" minute="numeric"}}'><small style="margin-right:20px;" >{{formatRelative started_at}}</small{{/if}}>
                 <span class="fa-fw fa-{{success_icon}}"></span> {{ description }}</a>
             {{/value}}
             </div>
