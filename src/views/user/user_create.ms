@@ -32,12 +32,12 @@
             <label for="mail" class="col-sm-3 control-label">{{t 'user_email'}}</label>
             <div class="clearfix visible-xs"></div>
             <div class="col-sm-4 col-xs-6">
-                <input type="text" id="email" name="email" class="form-control" placeholder="johndoe" required>
-            </div>
+                <input type="text" id="email" name="email" class="form-control" placeholder="johndoe" data-toogle="tooltip" data-placement="top" title="{{t 'email_info'}}" disabled>
+	    </div>
             <div class="col-sm-5 col-xs-6">
                <select class="form-control" name="domain">
                    {{#domains}}
-                       <option>@{{.}}</option>
+			<option>@{{.}}</option>
                    {{/domains}}
                </select>
             </div>
