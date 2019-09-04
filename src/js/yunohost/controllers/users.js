@@ -6,6 +6,59 @@
     var PASSWORD_MIN_LENGTH = 4;
 
     /**
+     * Permissions
+     *
+     */
+
+    // List groups and permissions
+    app.get('#/permissions', function (c) {
+        c.api('/users/groups', function(data_groups) {
+            //c.api('/users/permissions', function(data_permissions) {
+                data = {
+                    'groups':[
+                        {
+                            'name': 'all_users',
+                            'all_users': "true",
+                            'users': ['ljf', 'john', 'camille', 'sam', 'eli', 'bob', 'sandra',
+                                      'aaron', 'mike'],
+                            'permissions': ['Mail', 'XMPP']
+                        },
+                        {
+                            'name': 'members',
+                            'users': ['ljf', 'john', 'eli', 'bob', 'sandra',
+                                      'aaron', 'mike'],
+                            'permissions': ['Mail', 'XMPP', 'Wekan', 'Wordpress (editor)']
+                        },
+                        {
+                            'name':'volunters',
+                            'users':['ljf', 'toto'],
+                            'permissions': []
+                        },
+                        {
+                            'name':'admins',
+                            'users':['ljf', 'toto'],
+                            'permissions': []
+                        }
+                    ],
+                    'users_with_specific_permissions':[
+                        {
+                            'username': 'ljf',
+                            'permissions': ['Nextcloud']
+                        },
+                        {
+                            'username': 'toto',
+                            'permissions': ['Nextcloud']
+                        }
+                    ],
+                    'users': ['ljf', 'toto', 'titi', 'tutu', 'tata'],
+                    'permissions': ['Mail', 'XMPP', 'Wekan', 'nextcloud']
+                };
+                c.view('user/user_permission', data);
+            //});
+        });
+    });
+
+    /**
      * Users
      *
      */
@@ -234,5 +287,8 @@
         });
 
     });
+    
+    
+
 
 })();

@@ -101,6 +101,10 @@ button {
     color: transparent;
 }
 
+.label {
+    border-radius: 1px;
+}
+
 /*
  * The top heading of the doc
  *
@@ -658,6 +662,34 @@ input[type='radio'].nice-radio {
     }
 }
 
+
+/** Permissions View **/
+#view-permissions {
+    .panel-body {
+        h3 {
+            margin-top:0;
+        }
+        .label-removable {
+            display:inline-block;
+            font-size:1.3em;
+            color:#666;
+            background-color:#ccc;
+            margin-right:7px;
+            margin-bottom:7px;
+            .label-separator {
+                margin-left:7px;
+                color:white; 
+            }
+            > a {
+                color:white; 
+                text-decoration: none;
+            }
+            > a:hover {
+                color:@label-danger-bg; 
+            }
+        }
+    }
+}
 
 /** Flash messages **/
 #flashMessage {

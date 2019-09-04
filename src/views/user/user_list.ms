@@ -4,6 +4,9 @@
 </div>
 
 <div class="actions-group">
+    <a href="#/permissions" class="btn btn-info">
+        <span class="fa-key-modern"></span> {{t 'manage_permissions'}}
+    </a> 
     <a role="button" href="#/users/create" class="btn btn-success slide">
         <span class="fa-plus"></span> {{t 'users_new'}}
     </a>
