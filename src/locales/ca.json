@@ -387,7 +387,7 @@
     "confirm_install_app_warning": "Atenció: aquesta aplicació funciona però encara no està ben integrada a YunoHost. Algunes característiques com la identificació única i la còpia de seguretat i restauració de l'aplicació poden no estar presents.",
     "confirm_install_app_danger": "ATENCIÓ! Aquesta aplicació encara és experimental (si no és que no funciona directament) i és probable que trenqui el sistema! No hauríeu d'instal·lar-la a no ser que sapigueu el que feu. Esteu segurs de voler córrer aquest risc?",
     "current_maintainer_title": "Mantenidor d'aquest paquet actualment",
-    "error_connection_interrupted": "El servidor a tancat la connexió en lloc de respondre, s'ha reiniciat nginx per error? (Codi d'error/missatge: %s)",
+    "error_connection_interrupted": "El servidor a tancat la connexió en lloc de respondre. S'han reiniciat o aturat nginx o yunohost-api per alguna raó? (Codi d'error/missatge: %s)",
     "experimental_warning": "Atenció: aquesta característica és experimental i no es considera estable, no l'hauríeu d'utilitzar a excepció de saber el que feu.",
     "good_practices_about_admin_password": "Esteu a punt de definir una nova contrasenya d'administrador. La contrasenya ha de tenir un mínim de 8 caràcters ; tot i que és de bona pràctica utilitzar una contrasenya més llarga (és a dir una frase de contrasenya) i/o utilitzar diferents tipus de caràcters (majúscules, minúscules, dígits i caràcters especials).",
     "good_practices_about_user_password": "Esteu a punt de definir una nova contrasenya d'usuari. La contrasenya ha de tenir un mínim de 8 caràcters ; tot i que és de bona pràctica utilitzar una contrasenya més llarga (és a dir una frase de contrasenya) i/o utilitzar diferents tipus de caràcters (majúscules, minúscules, dígits i caràcters especials).",
@@ -435,5 +435,7 @@
     "request_adoption": "en espera d'adopció",
     "request_adoption_details": "El desnevolupador actual voldria deixar de mantenir aquesta aplicació. Podeu proposar-vos com a nou desenvolupador!",
     "request_help": "ajuda necessària",
-    "request_help_details": "El desenvolupador actual necessita ajuda per mantenir aquesta aplicació. Podeu contribuir-hi!"
+    "request_help_details": "El desenvolupador actual necessita ajuda per mantenir aquesta aplicació. Podeu contribuir-hi!",
+    "advanced": "Avançat",
+    "from_to": "de %s fins a %s"
 }
