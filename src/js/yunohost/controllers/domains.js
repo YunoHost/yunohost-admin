@@ -306,7 +306,7 @@
                 y18n.t('confirm_change_maindomain'),
                 function(){
                     var params = {
-                        new_domain: c.params['domain']
+                        new_main_domain: c.params['domain']
                     };
                     c.api('/domains/main', function(data) { // http://api.yunohost.org/#!/tools/tools_maindomain_put_1
                         store.clear('slide');
