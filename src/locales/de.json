@@ -389,5 +389,7 @@
     "good_practices_about_admin_password": "Du bist nun dabei, ein neues Admin-Passwort zu definieren. Das Passwort sollte mindestens 8 Zeichen lang sein - es ist jedoch empfehlenswert, ein längeres Passwort (z.B. eine Passphrase) und/oder verschiedene Arten von Zeichen (Groß- und Kleinschreibung, Ziffern und Sonderzeichen) zu verwenden.",
     "from_to": "von %s nach %s",
     "experimental_warning": "Achtung: Diese Funktion ist experimentell und gilt nicht als stabil, du solltest  sie nicht verwenden, außer du weißt, was du tust.",
-    "error_connection_interrupted": "Der Server hat die Verbindung geschlossen, anstatt sie zu beantworten. Wurde nginx oder die yunohost-api aus irgendeinem Grund neu gestartet oder gestoppt? (Fehlercode/Meldung: %s)"
+    "error_connection_interrupted": "Der Server hat die Verbindung geschlossen, anstatt sie zu beantworten. Wurde nginx oder die yunohost-api aus irgendeinem Grund neu gestartet oder gestoppt? (Fehlercode/Meldung: %s)",
+    "hook_conf_ynh_currenthost": "Aktuelle Haupt-Domain",
+    "good_practices_about_user_password": "Du bist nun dabei, ein neues Benutzerpasswort zu definieren. Das Passwort sollte mindestens 8 Zeichen lang sein - es ist jedoch empfehlenswert, ein längeres Passwort (z.B. eine Passphrase) und/oder verschiedene Arten von Zeichen (Groß- und Kleinschreibung, Ziffern und Sonderzeichen) zu verwenden."
 }
