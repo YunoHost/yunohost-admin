@@ -281,7 +281,7 @@
     "app_state": "Applikationsstatus: ",
     "app_repository": "Applikationsherkunft ",
     "app_state_notworking": "Funktioniert nicht",
-    "app_state_working": "Funktioniert",
+    "app_state_working": "funktionierend",
     "backup_experimental_warning": "Bitte beachte, dass das Backup-Feature noch experimentell ist und daher noch instabil sein könnte.",
     "diagnosis": "Diagnose",
     "diagnosis_hide_private": "Zeige der Diagnose ohne persönliche Daten an",
@@ -379,5 +379,6 @@
     "active": "Aktiv",
     "app_info_changeurl_desc": "Ändern Sie die Zugriffs URL dieser Anwendung (Domain und/oder Pfad).",
     "app_state_high-quality_explanation": "Diese App ist gut in YunoHost integriert. Sie wurde (und wird!) vom YunoHost-App-Team begutachtet. Es kann erwartet werden, dass sie sicher ist und langfristig gewartet wird.",
-    "app_info_change_url_disabled_tooltip": "Dieses Feature wurde in der App noch nicht implementiert."
+    "app_info_change_url_disabled_tooltip": "Dieses Feature wurde in der App noch nicht implementiert.",
+    "confirm_app_change_url": "Sind Sie sicher, dass sie die App Zugangs URL ändern möchten?"
 }
