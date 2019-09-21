@@ -379,7 +379,7 @@
     "active": "Aktiv",
     "app_info_changeurl_desc": "Ändern Sie die Zugriffs URL dieser Anwendung (Domain und/oder Pfad).",
     "app_state_high-quality_explanation": "Diese App ist gut in YunoHost integriert. Sie wurde (und wird!) vom YunoHost-App-Team begutachtet. Es kann erwartet werden, dass sie sicher ist und langfristig gewartet wird.",
-    "app_info_change_url_disabled_tooltip": "Dieses Feature wurde in der App noch nicht implementiert.",
+    "app_info_change_url_disabled_tooltip": "Dieses Feature wurde noch nicht in der App implementiert",
     "confirm_app_change_url": "Sind Sie sicher, dass sie die App-Zugangs-URL ändern möchten?",
     "current_maintainer_title": "Aktueller Betreuer dieses Pakets",
     "confirm_update_system": "Bist du sicher, dass du alle Systempakete aktualisieren möchtest?",
