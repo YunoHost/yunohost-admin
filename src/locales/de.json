@@ -393,5 +393,7 @@
     "hook_conf_ynh_currenthost": "Aktuelle Haupt-Domain",
     "good_practices_about_user_password": "Du bist nun dabei, ein neues Benutzerpasswort zu definieren. Das Passwort sollte mindestens 8 Zeichen lang sein - es ist jedoch empfehlenswert, ein längeres Passwort (z.B. eine Passphrase) und/oder verschiedene Arten von Zeichen (Groß- und Kleinschreibung, Ziffern und Sonderzeichen) zu verwenden.",
     "maintained": "verwaltet",
-    "license": "Lizenz"
+    "license": "Lizenz",
+    "level": "Level",
+    "internal_exception": "<strong>Yunohost ist auf einen internen Fehler gestoßen:/</strong><br><em>Das tut uns wirklich leid.<br>Du solltest <a href=\"https://forum.yunohost.org/\">im Forum</a> nach Hilfe fragen oder <a href=\"https://chat.yunohost.org/\">im Chat</a>, um die Situation zu beheben, oder berichte den Fehler auf  <a href=\"https://github.com/YunoHost/issues\">dem Bugtracker</a>.</em><br>Die folgenden Informationen können für die Person, die dir hilft, nützlich sein:<h3>Action</h3><pre>%s%s</pre><h3>Traceback</h3><pre>%s</pre>"
 }
