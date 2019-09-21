@@ -385,5 +385,9 @@
     "confirm_update_system": "Bist du sicher, dass du alle Systempakete aktualisieren möchtest?",
     "confirm_migrations_skip": "Das Überspringen von Migrationen wird nicht empfohlen. Bist du sicher, dass du das tun willst?",
     "confirm_install_app_danger": "ACHTUNG! Diese Applikation ist noch experimentell (wenn nicht sogar nicht funktionsfähig) und es ist wahrscheinlich, dass sie Dein System zerstört! Du solltest sie besser NICHT installieren, es sei denn, du weißt, was du tust. Bist du bereit, dieses Risiko einzugehen?",
-    "confirm_install_app_warning": "Achtung: Diese Anwendung kann funktionieren, ist aber nicht gut in YunoHost integriert. Einige Funktionen wie Single Sign-On und Backup/Restore sind möglicherweise nicht verfügbar."
+    "confirm_install_app_warning": "Achtung: Diese Anwendung kann funktionieren, ist aber nicht gut in YunoHost integriert. Einige Funktionen wie Single Sign-On und Backup/Restore sind möglicherweise nicht verfügbar.",
+    "good_practices_about_admin_password": "Du bist nun dabei, ein neues Admin-Passwort zu definieren. Das Passwort sollte mindestens 8 Zeichen lang sein - es ist jedoch empfehlenswert, ein längeres Passwort (z.B. eine Passphrase) und/oder verschiedene Arten von Zeichen (Groß- und Kleinschreibung, Ziffern und Sonderzeichen) zu verwenden.",
+    "from_to": "von %s nach %s",
+    "experimental_warning": "Achtung: Diese Funktion ist experimentell und gilt nicht als stabil, du solltest  sie nicht verwenden, außer du weißt, was du tust.",
+    "error_connection_interrupted": "Der Server hat die Verbindung geschlossen, anstatt sie zu beantworten. Wurde nginx oder die yunohost-api aus irgendeinem Grund neu gestartet oder gestoppt? (Fehlercode/Meldung: %s)"
 }
