@@ -368,7 +368,7 @@
     "app_change_label": "Label ändern",
     "app_state_working_explanation": "Der Verwalter dieser App deklariert sie als 'funktionierend'. Das heißt sie sollte funktionieren (vgl. App Level) aber ist nicht zwangsläufig begutachtet, sie kann Probleme enthalten oder ist nicht vollkommen integriert in YunoHost.",
     "app_state_high-quality": "hohe Qualität",
-    "app_state_notworking_explanation": "Der Verwalter dieser App deklariert sie als 'nicht funktionierend'.  ES WIRD IHR SYSTEM ZERSTÖREN!",
+    "app_state_notworking_explanation": "Der Verwalter dieser App deklariert sie als 'nicht funktionierend'.  SIE WIRD IHR SYSTEM ZERSTÖREN!",
     "app_state_inprogress_explanation": "Der Verwalter dieser App deklariert sie als nicht bereit für den produktiven Einsatz. SEIEN SIE VORSICHTIG!",
     "app_no_actions": "Diese Anwendung hat keine Aktionen",
     "app_level": "App Level",
