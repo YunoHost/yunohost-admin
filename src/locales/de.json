@@ -380,5 +380,10 @@
     "app_info_changeurl_desc": "Ändern Sie die Zugriffs URL dieser Anwendung (Domain und/oder Pfad).",
     "app_state_high-quality_explanation": "Diese App ist gut in YunoHost integriert. Sie wurde (und wird!) vom YunoHost-App-Team begutachtet. Es kann erwartet werden, dass sie sicher ist und langfristig gewartet wird.",
     "app_info_change_url_disabled_tooltip": "Dieses Feature wurde in der App noch nicht implementiert.",
-    "confirm_app_change_url": "Sind Sie sicher, dass sie die App Zugangs URL ändern möchten?"
+    "confirm_app_change_url": "Sind Sie sicher, dass sie die App-Zugangs-URL ändern möchten?",
+    "current_maintainer_title": "Aktueller Betreuer dieses Pakets",
+    "confirm_update_system": "Bist du sicher, dass du alle Systempakete aktualisieren möchtest?",
+    "confirm_migrations_skip": "Das Überspringen von Migrationen wird nicht empfohlen. Bist du sicher, dass du das tun willst?",
+    "confirm_install_app_danger": "ACHTUNG! Diese Applikation ist noch experimentell (wenn nicht sogar nicht funktionsfähig) und es ist wahrscheinlich, dass sie Dein System zerstört! Du solltest sie besser NICHT installieren, es sei denn, du weißt, was du tust. Bist du bereit, dieses Risiko einzugehen?",
+    "confirm_install_app_warning": "Achtung: Diese Anwendung kann funktionieren, ist aber nicht gut in YunoHost integriert. Einige Funktionen wie Single Sign-On und Backup/Restore sind möglicherweise nicht verfügbar."
 }
