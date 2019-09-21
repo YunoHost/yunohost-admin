@@ -376,5 +376,6 @@
     "app_change_url": "URL ändern",
     "all_apps": "Alle Apps",
     "advanced": "Erweitert",
-    "active": "Aktiv"
+    "active": "Aktiv",
+    "app_info_changeurl_desc": "Ändere die Zugriffs-URL dieser Anwendung (Domain und/oder Pfad)."
 }
