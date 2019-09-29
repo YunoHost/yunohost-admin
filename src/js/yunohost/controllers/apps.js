@@ -460,24 +460,7 @@
 
                 // Force trailing slash
                 params.app = params.app.replace(/\/?$/, '/');
-                var rawpath = "";
-                var giturl  = params.app;
-                if(function() {
-                    var xhr_object = new XMLHttpRequest(); 
-                    xhr_object.open("GET", params.app + "raw/master/manifest.json", false);
-                    xhr_object.send(null);
-                    return xhr_object.status;
-                } === 200) {
-                   rawpath = 'raw/master/manifest.json';
-                   giturl = params.app + rawpath;
-                } // Install custom app from github
-                else if (params.app.indexOf("github.com") !== -1) {
-                    rawpath = 'master/manifest.json';
-                    giturl = params.app.replace('github.com', 'raw.githubusercontent.com') + rawpath;
-                }
-                else {
-                    console.log("You git host is not supported");
-                }
+                var giturl  = params.app + "raw/master/manifest.json";
                 jQuery.ajax({
                     url: giturl,
                     type: 'GET',
