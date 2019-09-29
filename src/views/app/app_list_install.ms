@@ -52,7 +52,7 @@
             <div class="form-group has-feedback">
                 <label for="url" class="col-sm-12">{{t 'url'}}</label>
                 <div class="col-sm-12">
-                    <input type="url" id="url" name="url" class="form-control" value="" placeholder="https://GITHOST.TLD/USER/REPOSITORY" required>
+                    <input type="url" id="url" name="url" class="form-control" value="" placeholder="https://GITHOST.TLD/USER/(...)/REPOSITORY" required>
                     <p class="text-warning">
                         <span class="fa-github"></span> {{t 'custom_app_url_only_github'}}
                     </p>
