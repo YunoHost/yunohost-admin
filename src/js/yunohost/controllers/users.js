@@ -12,14 +12,14 @@
 
     // List existing users
     app.get('#/users', function (c) {
-        c.api('/users', function(data) { // http://api.yunohost.org/#!/user/user_list_get_3
+        c.api('GET', '/users', {}, function(data) {
             c.view('user/user_list', data);
         });
     });
 
     // Create user form
     app.get('#/users/create', function (c) {
-        c.api('/domains', function(data) { // http://api.yunohost.org/#!/domain/domain_list_get_2
+        c.api('GET', '/domains', {}, function(data) {
 
             // Password min length
             data.password_min_length = PASSWORD_MIN_LENGTH;
@@ -52,9 +52,9 @@
                 // Compute email field
                 c.params['mail'] = c.params['email'] + c.params['domain'];
 
-                c.api('/users', function(data) { // http://api.yunohost.org/#!/user/user_create_post_2
+                c.api('POST', '/users', c.params.toHash(), function(data) {
                     c.redirect('#/users');
-                }, 'POST', c.params.toHash());
+                });
             }
         } else {
             c.flash('fail', y18n.t('passwords_dont_match'));
@@ -65,15 +65,15 @@
 
     // Show user information
     app.get('#/users/:user', function (c) {
-        c.api('/users/'+ c.params['user'], function(data) { // http://api.yunohost.org/#!/user/user_info_get_0
+        c.api('GET', '/users/'+ c.params['user'], {}, function(data) {
             c.view('user/user_info', data);
         });
     });
 
     // Edit user form
     app.get('#/users/:user/edit', function (c) {
-        c.api('/users/'+ c.params['user'], function(data) { // http://api.yunohost.org/#!/user/user_info_get_0
-            c.api('/domains', function(dataDomains) { // http://api.yunohost.org/#!/domain/domain_list_get_2
+        c.api('GET', '/users/'+ c.params['user'], {}, function(data) {
+            c.api('GET', '/domains', {}, function(dataDomains) {
 
                 // Password min length
                 data.password_min_length = PASSWORD_MIN_LENGTH;
@@ -124,7 +124,7 @@
     // Update user information
     app.put('#/users/:user', function (c) {
         // Get full user object
-        c.api('/users/'+ c.params['user'], function(user) {
+        c.api('GET', '/users/'+ c.params['user'], {}, function(user) {
             // Force unit or disable quota
             if (c.params['mailbox_quota']) {
                 c.params['mailbox_quota'] += "M";
@@ -175,9 +175,9 @@
                         }
                         else {
                             params['change_password'] = params['password'];
-                            c.api('/users/'+ c.params['user'], function(data) { // http://api.yunohost.org/#!/user/user_update_put_1
+                            c.api('PUT', '/users/'+ c.params['user'], params, function(data) {
                                 c.redirect('#/users/'+ c.params['user']);
-                            }, 'PUT', params);
+                            });
                         }
                     } else {
                         c.flash('fail', y18n.t('passwords_dont_match'));
@@ -186,9 +186,9 @@
                     }
                 }
                 else {
-                    c.api('/users/'+ c.params['user'], function(data) { // http://api.yunohost.org/#!/user/user_update_put_1
+                    c.api('PUT', '/users/'+ c.params['user'], params, function(data) {
                         c.redirect('#/users/'+ c.params['user']);
-                    }, 'PUT', params);
+                    });
                 }
             }
         }, 'GET');
@@ -209,9 +209,9 @@
             y18n.t('users'),
             confirmModalContent,
             function(){
-                c.api('/users/'+ c.params['user'], function(data) { // http://api.yunohost.org/#!/user/user_delete_delete_4
+                c.api('DELETE', '/users/'+ c.params['user'], params, function(data) {
                     c.redirect('#/users');
-                }, 'DELETE', params);
+                });
             },
             function(){
                 store.clear('slide');

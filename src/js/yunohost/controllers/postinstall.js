@@ -92,9 +92,9 @@
 
                     store.set('url', window.location.hostname +'/yunohost/api');
                     store.set('user', 'admin');
-                    c.api('/postinstall', function(data) { // http://api.yunohost.org/#!/tools/tools_postinstall_post_0
+                    c.api('POST', '/postinstall', params, function(data) {
                         c.redirect('#/login');
-                    }, 'POST', params);
+                    });
                 },
                 function(){
                 }

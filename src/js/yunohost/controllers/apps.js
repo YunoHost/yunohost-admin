@@ -10,7 +10,7 @@
 
     // List installed apps
     app.get('#/apps', function (c) {
-        c.api('/apps?installed', function(data) { // http://api.yunohost.org/#!/app/app_list_get_8
+        c.api('GET', '/apps?installed', {}, function(data) {
             var apps = data['apps'];
             c.arraySortById(apps);
             c.view('app/app_list', {apps: apps});
@@ -109,8 +109,8 @@
 
     // List available apps
     app.get('#/apps/install', function (c) {
-        c.api('/apps', function (data) { // http://api.yunohost.org/#!/app/app_list_get_8
-            c.api('/apps?raw', function (dataraw) { // http://api.yunohost.org/#!/app/app_list_get_8
+        c.api('GET', '/apps', {}, function (data) {
+            c.api('GET', '/apps?raw', {}, function (dataraw) {
                 var apps = []
                 $.each(data['apps'], function(k, v) {
                     app = dataraw[v['id']];
@@ -201,7 +201,7 @@
 
     // Get app information
     app.get('#/apps/:app', function (c) {
-        c.api('/apps/'+c.params['app']+'?raw', function(data) { // http://api.yunohost.org/#!/app/app_info_get_9
+        c.api('GET', '/apps/'+c.params['app']+'?raw', {}, function(data) {
             // Presentation
             data.settings.allowed_users = (data.settings.allowed_users) ? data.settings.allowed_users.replace(',', ', ')+"." : y18n.t('everyone_has_access');
 
@@ -221,14 +221,14 @@
 
     // Get app debug page
     app.get('#/apps/:app/debug', function (c) {
-        c.api('/apps/'+c.params['app']+'/debug', function(data) {
+        c.api('GET', '/apps/'+c.params['app']+'/debug', {}, function(data) {
             c.view('app/app_debug', data);
         });
     });
 
     // Get app actions list
     app.get('#/apps/:app/actions', function (c) {
-        c.api('/apps/'+c.params['app']+'/actions', function(data) {
+        c.api('GET', '/apps/'+c.params['app']+'/actions', {}, function(data) {
             $.each(data.actions, function(_, action) {
                 formatYunoHostStyleArguments(action.arguments, c.params);
 
@@ -264,14 +264,14 @@
             'args': c.serialize(c.params.toHash())
         }
 
-        c.api('/apps/'+app_id+'/actions/'+action_id, function() { // http://api.yunohost.org/#!/app/app_install_post_2
+        c.api('PUT', '/apps/'+app_id+'/actions/'+action_id, params, function() {
             c.redirect('#/apps/'+app_id+'/actions');
-        }, 'PUT', params);
+        });
     });
 
     // Get app config panel
     app.get('#/apps/:app/config-panel', function (c) {
-        c.api('/apps/'+c.params['app']+'/config-panel', function(data) {
+        c.api('GET', '/apps/'+c.params['app']+'/config-panel', {}, function(data) {
             $.each(data.config_panel.panel, function(_, panel) {
                 $.each(panel.sections, function(_, section) {
                     formatYunoHostStyleArguments(section.options, c.params);
@@ -297,9 +297,9 @@
             'args': c.serialize(c.params.toHash())
         }
 
-        c.api('/apps/'+app_id+'/config', function() { // http://api.yunohost.org/#!/app/app_install_post_2
+        c.api('POST', '/apps/'+app_id+'/config', params, function() {
             c.redirect('#/apps/'+app_id+'/config-panel');
-        }, 'POST', params);
+        });
     })
 
     // Special case for custom app installation.
@@ -477,7 +477,7 @@
 
     // App installation form
     app.get('#/apps/install/:app', function (c) {
-        c.api('/apps?raw', function(data) { // http://api.yunohost.org/#!/app/app_list_get_8
+        c.api('GET', '/apps?raw', {}, function(data) {
             var app_name = c.params["app"];
             var app_infos = data[app_name];
             if (app_infos['state'] === "validated")
@@ -543,9 +543,9 @@
                 delete params['args'];
             }
 
-            c.api('/apps', function() { // http://api.yunohost.org/#!/app/app_install_post_2
+            c.api('POST', '/apps', params, function() {
                 c.redirect('#/apps');
-            }, 'POST', params);
+            });
         }
         else {
             c.flash('warning', y18n.t('app_install_cancel'));
@@ -608,9 +608,9 @@
             y18n.t('applications'),
             y18n.t('confirm_uninstall', [c.params['app']]),
             function() {
-                c.api('/apps/'+ c.params['app'], function() { // http://api.yunohost.org/#!/app/app_remove_delete_4
+                c.api('DELETE', '/apps/'+ c.params['app'], {}, function() { // http://api.yunohost.org/#!/app/app_remove_delete_4
                     c.redirect('#/apps');
-                }, 'DELETE');
+                });
             },
             function() {
                 store.clear('slide');
@@ -621,8 +621,8 @@
 
     // Manage app access
     app.get('#/apps/:app/access', function (c) {
-        c.api('/apps/'+c.params['app']+'?raw', function(data) { // http://api.yunohost.org/#!/app/app_info_get_9
-            c.api('/users', function(dataUsers) {
+        c.api('GET', '/apps/'+c.params['app']+'?raw', {}, function(data) {
+            c.api('GET', '/users', {}, function(dataUsers) {
 
                 // allowed_users as array
                 if (typeof data.settings.allowed_users !== 'undefined') {
@@ -674,10 +674,10 @@
                     apps: c.params['app'],
                     users: []
                 };
-                c.api('/access?'+c.serialize(params), function(data) { // http://api.yunohost.org/#!/app/app_removeaccess_delete_12
+                c.api('DELETE', '/access?'+c.serialize(params), params, function(data) {
                     store.clear('slide');
                     c.redirect('#/apps/'+ c.params['app']+ '/access');
-                }, 'DELETE', params);
+                });
             },
             function() {
                 store.clear('slide');
@@ -696,10 +696,10 @@
                     apps: c.params['app'],
                     users: c.params['user']
                 };
-                c.api('/access?'+c.serialize(params), function(data) { // http://api.yunohost.org/#!/app/app_removeaccess_delete_12
+                c.api('DELETE', '/access?'+c.serialize(params), params, function(data) {
                     store.clear('slide');
                     c.redirect('#/apps/'+ c.params['app']+ '/access');
-                }, 'DELETE', params); // passing 'params' here is useless because jQuery doesn't handle ajax datas for DELETE requests. Passing parameters through uri.
+                });
             },
             function() {
                 store.clear('slide');
@@ -718,10 +718,10 @@
                     apps: c.params['app'],
                     users: null
                 };
-                c.api('/access', function() { // http://api.yunohost.org/#!/app/app_addaccess_put_13
+                c.api('PUT', '/access', params, function() {
                     store.clear('slide');
                     c.redirect('#/apps/'+ c.params['app'] +'/access');
-                }, 'PUT', params);
+                });
             },
             function() {
                 store.clear('slide');
@@ -736,10 +736,10 @@
             users: c.params['user'],
             apps: c.params['app']
         };
-        c.api('/access', function() { // http://api.yunohost.org/#!/app/app_addaccess_put_13
+        c.api('PUT', '/access', params, function() {
             store.clear('slide');
             c.redirect('#/apps/'+ c.params['app'] +'/access');
-        }, 'PUT', params);
+        });
     });
 
     // Clear access (reset)
@@ -751,10 +751,10 @@
                 var params = {
                     apps: c.params['app']
                 };
-                c.api('/access', function() { //
+                c.api('POST', '/access', params, function() {
                     store.clear('slide');
                     c.redirect('#/apps/'+ c.params['app'] +'/access');
-                }, 'POST', params);
+                });
             },
             function() {
                 store.clear('slide');
@@ -769,10 +769,10 @@
             y18n.t('applications'),
             y18n.t('confirm_app_default'),
             function() {
-                c.api('/apps/'+ c.params['app']  +'/default', function() { //
+                c.api('PUT', '/apps/'+c.params['app']+'/default', {}, function() {
                     store.clear('slide');
                     c.redirect('#/apps/'+ c.params['app']);
-                }, 'PUT');
+                });
             },
             function() {
                 store.clear('slide');
@@ -783,28 +783,28 @@
 
     // Get app change label page
     app.get('#/apps/:app/changelabel', function (c) {
-            c.api('/apps/'+c.params['app']+'?raw', function(app_data) {
-              data = {
+        c.api('GET', '/apps/'+c.params['app']+'?raw', {}, function(app_data) {
+            data = {
                 id: c.params['app'],
                 label: app_data.settings.label,
-              };
-              c.view('app/app_changelabel', data);
+            };
+            c.view('app/app_changelabel', data);
         });
     });
 
     // Change app label
     app.post('#/apps/:app/changelabel', function (c) {
         params = {'new_label': c.params['label']};
-        c.api('/apps/' + c.params['app'] + '/label', function(data) { // Call changelabel API
+        c.api('PUT', '/apps/' + c.params['app'] + '/label', params, function(data) { // Call changelabel API
             store.clear('slide');
             c.redirect('#/apps/'+ c.params['app']);
-        }, 'PUT', params);
+        });
     });
 
     // Get app change URL page
     app.get('#/apps/:app/changeurl', function (c) {
-            c.api('/apps/'+c.params['app']+'?raw', function(app_data) {
-                c.api('/domains', function(domain_data) { // http://api.yunohost.org/#!/domain/domain_list_get_2
+            c.api('GET', '/apps/'+c.params['app']+'?raw', {}, function(app_data) {
+                c.api('GET', '/domains', {}, function(domain_data) { // http://api.yunohost.org/#!/domain/domain_list_get_2
 
                 // Display a list of available domains
                 var domains = [];
@@ -836,10 +836,10 @@
             y18n.t('confirm_app_change_url', [c.params['app']]),
             function() {
                 params = {'domain': c.params['domain'], 'path': c.params['path']};
-                c.api('/apps/' + c.params['app'] + '/changeurl', function(data) { // Call changeurl API
+                c.api('PUT', '/apps/' + c.params['app'] + '/changeurl', params, function(data) { // Call changeurl API
                     store.clear('slide');
                     c.redirect('#/apps/'+ c.params['app']);
-                }, 'PUT', params);
+                });
             },
             function() {
                 store.clear('slide');

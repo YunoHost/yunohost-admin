@@ -10,7 +10,7 @@
 
     // Firewall status
     app.get('#/tools/firewall', function (c) {
-        c.api('/firewall?raw', function(data) {
+        c.api('GET', '/firewall?raw', {}, function(data) {
             var firewall = {
                 ports: {},
                 upnp: false
@@ -44,10 +44,10 @@
                 var params = {
                     action : c.params['action']
                 };
-                c.api('/firewall/upnp', function(data) {
+                c.api('GET', '/firewall/upnp', params, function(data) {
                     store.clear('slide');
                     c.redirect('#/tools/firewall');
-                }, 'GET', params);
+                });
             },
             function(){
                 store.clear('slide');
@@ -115,10 +115,10 @@
                 port : port,
                 protocol : protocol
             };
-            c.api('/firewall/port?'+endurl, function(data) {
+            c.api(method, '/firewall/port?'+endurl, params, function(data) {
                 store.clear('slide');
                 c.redirect('#/tools/firewall');
-            }, method, params);
+            });
         }
         else {
             store.clear('slide');

@@ -10,7 +10,7 @@
 </div>
 
 <div class="actions-group">
-    <a href="javascript:void(null);" onclick="c.api('/logs/display?path={{#if log.name}}{{ log.name }}{{else}}{{ log.log_path }}{{/if}}&share', function(data) { $('div.loader').remove(); window.open(data.url, '_blank'); });" class="btn btn-success">
+    <a href="javascript:void(null);" onclick="c.api('GET', '/logs/display?path={{#if log.name}}{{ log.name }}{{else}}{{ log.log_path }}{{/if}}&share', {}, function(data) { $('div.loader').remove(); window.open(data.url, '_blank'); });" class="btn btn-success">
         <span class="fa-cloud-upload"></span> {{t 'logs_share_with_yunopaste'}}
     </a>
 </div>

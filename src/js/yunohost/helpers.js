@@ -85,7 +85,7 @@
         },
 
         // API call
-        api: function(uri, callback, method, data, websocket, callbackOnFailure) {
+        api: function(method, uri, data, callback, callbackOnFailure, websocket) {
             c = this;
 
             method = typeof method !== 'undefined' ? method : 'GET';

@@ -10,7 +10,7 @@
 
     // All services status
     app.get('#/services', function (c) {
-        c.api('/services', function(data) { // ?
+        c.api('GET', '/services', {}, function(data) {
             var data2 = {
                 services: []
             };
@@ -45,7 +45,7 @@
 
     // Status & actions for a service
     app.get('#/services/:service', function (c) {
-        c.api('/services/'+ c.params['service'], function(data) { // ?
+        c.api('GET', '/services/'+ c.params['service'], {}, function(data) { // ?
             var data2 = {
                 service: data
             };
@@ -66,7 +66,7 @@
             }
             store.clear('slide');
             c.view('service/service_info', data2);
-        }, 'GET');
+        });
     });
 
     // Service log
@@ -74,14 +74,14 @@
         var params = {
             number: 50
         };
-        c.api('/services/'+ c.params['service'] +'/log', function(data) { // ?
+        c.api('GET', '/services/'+ c.params['service'] +'/log', params, function(data) { // ?
             data2 = { 'logs': [], 'name': c.params['service'] };
             $.each(data, function(k, v) {
                 data2.logs.push({filename: k, filecontent: v.join('\n')});
             });
 
             c.view('service/service_log', data2);
-        }, 'GET', params);
+        });
     });
 
     // Enable/Disable & Start/Stop service
@@ -116,10 +116,10 @@
                 }
 
                 if (method && endurl) {
-                    c.api('/services/'+ endurl, function(data) {
+                    c.api(method, '/services/'+ endurl, {}, function(data) {
                         store.clear('slide');
                         c.redirect('#/services/'+ c.params['service']);
-                    }, method);
+                    });
                 }
                 else {
                     store.clear('slide');

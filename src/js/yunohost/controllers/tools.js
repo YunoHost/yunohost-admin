@@ -33,24 +33,24 @@
             store.clear('slide');
             c.redirect('#/tools/adminpw');
         } else {
-            c.api('/login', function(data) {
+            c.api('POST', '/login', { 'password': params['old_password'] }, function(data) {
                 // Remove useless variable
                 delete params['old_password'];
                 delete params['confirm_new_password'];
 
                 // Update password and redirect to the home
-                c.api('/adminpw', function(data) { // http://api.yunohost.org/#!/tools/tools_adminpw_put_3
+                c.api('PUT', '/adminpw', params, function(data) {
                     c.redirect('#/logout');
-                }, 'PUT', params);
-            }, 'POST', { 'password': params['old_password'] }, false);
+                });
+            }, undefined, false);
         }
     });
 
     // System update & upgrade
     app.get('#/update', function (c) {
-        c.api('/update', function(data) {
+        c.api('PUT', '/update', {}, function(data) {
             c.view('update/update', data);
-        }, 'PUT');
+        });
     });
 
     // Upgrade apps or packages
@@ -60,12 +60,10 @@
             // confirm_update_apps and confirm_update_packages
             y18n.t('confirm_update_' + c.params['type'].toLowerCase()),
             function(){
-                c.api('/upgrade?'+c.params["type"],
-                      function(data) {
+                c.api('PUT', '/upgrade?'+c.params["type"], {}, function(data) {
                           store.clear('slide');
                           c.redirect('#/tools/logs');
-                      },
-                      'PUT');
+                });
             },
             function(){
                 store.clear('slide');
@@ -80,12 +78,10 @@
             y18n.t('tools'),
             y18n.t('confirm_update_specific_app', [c.params['app']]),
             function(){
-                c.api('/upgrade/apps?app='+c.params['app'].toLowerCase(),
-                      function(data) {
-                          store.clear('slide');
-                          c.redirect('#/tools/logs');
-                      },
-                      'PUT');
+                c.api('PUT', '/upgrade/apps?app='+c.params['app'].toLowerCase(), {}, function(data) {
+                    store.clear('slide');
+                    c.redirect('#/tools/logs');
+                });
             },
             function(){
                 store.clear('slide');
@@ -96,7 +92,7 @@
 
     // Display journals list
     app.get('#/tools/logs', function (c) {
-        c.api("/logs?limit=25&with_details", function(categories) {
+        c.api('GET', "/logs?limit=25&with_details", {}, function(categories) {
             data = [];
             category_icons = {
                 'operation': 'wrench',
@@ -139,7 +135,7 @@
         var number = (c.params["number"])?c.params["number"]:50;
         params += "&number=" + number;
         
-        c.api("/logs/display" + params, function(log) {
+        c.api('GET', "/logs/display" + params, {}, function(log) {
             if ('metadata' in log) {
                 if (!'env' in log.metadata && 'args' in log.metadata) {
                     log.metadata.env = log.metadata.args
@@ -222,10 +218,10 @@
                 // confirm_reboot_action_reboot or confirm_reboot_action_shutdown
                 y18n.t('confirm_reboot_action_' + action),
                 function(){
-                    c.api('/'+action+'?force', function(data) {
+                    c.api('PUT', '/'+action+'?force', {}, function(data) {
                         // This code is not executed due to 502 response (reboot or shutdown)
                         c.redirect('#/logout');
-                    }, 'PUT', {}, false, function (xhr) {
+                    }, function (xhr) {
                         c.flash('success', y18n.t('tools_' + action + '_done'))
                         // Disconnect from the webadmin
                         store.clear('url');
@@ -249,7 +245,7 @@
                         // Force scrollTop on page load
                         $('html, body').scrollTop(0);
                         store.clear('slide');
-                    });
+                    }, false);
 
                 },
                 function(){
@@ -271,7 +267,7 @@
         var private = (c.params.splat[0] == 'private');
 
         var endurl = (private) ? '?private' : '';
-        c.api('/diagnosis'+endurl, function(diagnosis) {
+        c.api('GET', '/diagnosis'+endurl, {}, function(diagnosis) {
             c.view('tools/tools_diagnosis', {
                 'diagnosis' : JSON.stringify(diagnosis, undefined, 4),
                 'raw' : diagnosis,
@@ -282,8 +278,8 @@
 
     // Reboot or shutdown button
     app.get('#/tools/migrations', function (c) {
-        c.api('/migrations?pending', function(pending_migrations) {
-        c.api('/migrations?done', function(done_migrations) {
+        c.api('GET', '/migrations?pending', {}, function(pending_migrations) {
+        c.api('GET', '/migrations?done', {}, function(done_migrations) {
             pending_migrations = pending_migrations.migrations;
             done_migrations = done_migrations.migrations;
 
@@ -331,19 +327,17 @@
         // /tools/migrations/run page "directly" somehow ...
         if (withAcceptDisclaimerFlag)
         {
-            c.api('/migrations/migrate?accept_disclaimer',
-                function (data) {
-                    store.clear('slide');
-                    c.redirect('#/tools/migrations');
-                }, 'POST')
+            c.api('POST', '/migrations/migrate?accept_disclaimer', {}, function (data) {
+                store.clear('slide');
+                c.redirect('#/tools/migrations');
+            })
         }
         else
         {
-            c.api('/migrations/migrate',
-                function (data) {
-                    store.clear('slide');
-                    c.redirect('#/tools/migrations');
-                }, 'POST')
+            c.api('POST', '/migrations/migrate', {}, function (data) {
+                store.clear('slide');
+                c.redirect('#/tools/migrations');
+            })
         }
     });
 
@@ -352,10 +346,10 @@
             y18n.t('migrations'),
             y18n.t('confirm_migrations_skip'),
             function(){
-                c.api('/migrations/migrate?skip&targets=' + c.params['migration_id'], function(data) {
+                c.api('POST', '/migrations/migrate?skip&targets=' + c.params['migration_id'], {}, function(data) {
                     store.clear('slide');
                     c.redirect('#/tools/migrations');
-                }, 'POST');
+                });
             },
             function(){
                 store.clear('slide');
@@ -366,7 +360,7 @@
 
     // List available apps lists
     app.get('#/tools/appslists', function (c) {
-        c.api('/appslists', function(data) {
+        c.api('GET', '/appslists', {}, function(data) {
             list = [];
             $.each(data, function(listname, listinfo) {
                 list.push({
@@ -379,7 +373,7 @@
             c.view('tools/tools_appslists_list', {
                 appslists: list
             });
-        }, 'GET');
+        });
     });
 
     // Add a new apps list
@@ -389,15 +383,15 @@
             'url' : c.params['appslist_url']
         }
 
-        c.api('/appslists', function(data) {
+        c.api('PUT', '/appslists', list, function(data) {
             store.clear('slide');
             c.redirect('#/tools/appslists/' + list.name);
-        }, 'PUT', list);
+        });
     });
 
     // Show appslist info and operations
     app.get('#/tools/appslists/:appslist', function (c) {
-        c.api('/appslists', function(data) {
+        c.api('GET', '/appslists', {}, function(data) {
             if (typeof data[c.params['appslist']] !== 'undefined') {
                 list = {
                     'name' : c.params['appslist'],
@@ -412,22 +406,22 @@
                 store.clear('slide');
                 c.redirect('#/tools/appslists');
             }
-        }, 'GET');
+        });
     });
 
     // Refresh available apps list
     app.get('#/tools/appslists/refresh', function (c) {
-        c.api('/appslists', function(data) {
+        c.api('PUT', '/appslists', {}, function(data) {
             // c.redirect(store.get('path'));
             c.redirect('#/apps/install');
-        }, 'PUT');
+        });
     });
 
     // Refresh specific apps list
     app.get('#/tools/appslists/:appslist/refresh', function (c) {
-        c.api('/appslists', function(data) {
+        c.api('PUT', '/appslists', {'name' : c.params['appslist']}, function(data) {
             c.redirect('#/tools/appslists');
-        }, 'PUT', {'name' : c.params['appslist']});
+        });
     });
 
     // Remove apps list
@@ -436,9 +430,9 @@
             y18n.t('appslist'),
             y18n.t('appslists_confirm_remove', [c.params['app']]),
             function() {
-                c.api('/appslists', function() {
+                c.api('DELETE', '/appslists', {'name' : c.params['appslist']}, function() {
                     c.redirect('#/tools/appslists');
-                }, 'DELETE', {'name' : c.params['appslist']});
+                });
             },
             function() {
                 store.clear('slide');

@@ -10,8 +10,8 @@
 
     // List existing domains
     app.get('#/domains', function (c) {
-        c.api('/domains', function(data) { // http://api.yunohost.org/#!/domain/domain_list_get_2
-            c.api('/domains/main', function(data2) {
+        c.api('GET', '/domains', {}, function(data) {
+            c.api('PUT', '/domains/main', {}, function(data2) {
                 var domains = [];
                 $.each(data.domains, function(k, domain) {
                     domains.push({
@@ -29,7 +29,7 @@
                     domains: domains,
                     main_domain_form: main_domain_form
                 });
-            }, 'PUT');
+            });
         });
     });
 
@@ -77,15 +77,15 @@
             params.domain = c.params['domain'];
         }
 
-        c.api('/domains?'+endurl, function(data) { // http://api.yunohost.org/#!/domain/domain_add_post_1
+        c.api('POST', '/domains?'+endurl, params, function(data) {
             c.redirect('#/domains');
-        }, 'POST', params);
+        });
     });
 
     // Get existing domain info
     app.get('#/domains/:domain', function (c) {
-        c.api('/domains/main', function(dataMain) {
-            c.api('/apps?installed', function(data) { // http://api.yunohost.org/#!/app/app_list_get_8
+        c.api('PUT', '/domains/main', {}, function(dataMain) {
+            c.api('GET', '/apps?installed', {}, function(data) {
 
                 // FIXME - This dirty trick (along with the previous API call
                 //  for apps installed) should be removed once letsencrypt_ynh
@@ -107,12 +107,12 @@
                 };
                 c.view('domain/domain_info', domain);
             });
-        }, 'PUT');
+        });
     });
 
     // Domain DNS
     app.get('#/domains/:domain/dns', function (c) {
-        c.api('/domains/' + c.params['domain'] + '/dns', function(data) {
+        c.api('GET', '/domains/' + c.params['domain'] + '/dns', {}, function(data) {
             var domain = {
                 name: c.params['domain'],
                 dns: data
@@ -123,7 +123,7 @@
 
     // Domain certificate
     app.get('#/domains/:domain/cert-management', function (c) {
-        c.api('/domains/cert-status/' + c.params['domain'] + '?full', function(data) {
+        c.api('GET', '/domains/cert-status/' + c.params['domain'] + '?full', {}, function(data) {
 
             var s = data["certificates"][c.params['domain']];
             var status_ = {
@@ -209,10 +209,10 @@
             y18n.t('certificate'),
             y18n.t('confirm_cert_install_LE', [c.params['domain']]),
             function(){
-                c.api('/domains/cert-install/' + c.params['domain'], function(data) {
+                c.api('POST', '/domains/cert-install/' + c.params['domain'], {}, function(data) {
                     store.clear('slide');
                     c.redirect('#/domains/'+c.params['domain']+'/cert-management');
-                }, 'POST');
+                });
             },
             function(){
                 store.clear('slide');
@@ -227,10 +227,10 @@
             y18n.t('certificate'),
             y18n.t('confirm_cert_regen_selfsigned', [c.params['domain']]),
             function(){
-                c.api('/domains/cert-install/' + c.params['domain'] + "?self_signed", function(data) {
+                c.api('POST', '/domains/cert-install/' + c.params['domain'] + "?self_signed", {}, function(data) {
                     store.clear('slide');
                     c.redirect('#/domains/'+c.params['domain']+'/cert-management');
-                }, 'POST');
+                });
             },
             function(){
                 store.clear('slide');
@@ -245,10 +245,10 @@
             y18n.t('certificate'),
             y18n.t('confirm_cert_manual_renew_LE', [c.params['domain']]),
             function(){
-                c.api('/domains/cert-renew/' + c.params['domain'] + "?force", function(data) {
+                c.api('POST', '/domains/cert-renew/' + c.params['domain'] + "?force", {}, function(data) {
                     store.clear('slide');
                     c.redirect('#/domains/'+c.params['domain']+'/cert-management');
-                }, 'POST');
+                });
             },
             function(){
                 store.clear('slide');
@@ -263,10 +263,10 @@
             y18n.t('certificate'),
             y18n.t('confirm_cert_revert_to_selfsigned', [c.params['domain']]),
             function(){
-                c.api('/domains/cert-install/' + c.params['domain'] + "?self_signed&force", function(data) {
+                c.api('POST', '/domains/cert-install/' + c.params['domain'] + "?self_signed&force", {}, function(data) {
                     store.clear('slide');
                     c.redirect('#/domains/'+c.params['domain']+'/cert-management');
-                }, 'POST');
+                });
             },
             function(){
                 store.clear('slide');
@@ -282,10 +282,10 @@
             y18n.t('domains'),
             y18n.t('confirm_delete', [c.params['domain']]),
             function(){
-                c.api('/domains/'+ c.params['domain'], function(data) { // http://api.yunohost.org/#!/domain/domain_remove_delete_3
+                c.api('DELETE', '/domains/'+ c.params['domain'], {}, function(data) {
                     store.clear('slide');
                     c.redirect('#/domains');
-                }, 'DELETE');
+                });
             },
             function(){
                 store.clear('slide');
@@ -308,10 +308,10 @@
                     var params = {
                         new_domain: c.params['domain']
                     };
-                    c.api('/domains/main', function(data) { // http://api.yunohost.org/#!/tools/tools_maindomain_put_1
+                    c.api('PUT', '/domains/main', params, function(data) {
                         store.clear('slide');
                         c.redirect('#/domains');
-                    }, 'PUT', params);
+                    });
 
                     // Wait 15s and refresh the page
                     var refreshDomain = window.setTimeout(function(){

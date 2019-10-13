@@ -12,7 +12,7 @@
     function prefetchDomains(req) {
         // Preload domains list.
         req.params.domains = [];
-        req.api('/domains', function(data) {
+        req.api('GET', '/domains', {}, function(data) {
             req.params.domains = data.domains;
         });
     }
@@ -20,7 +20,7 @@
     function prefetchUsers(req){
         // Preload users lists.
         req.params.users = [];
-        req.api('/users', function(data) {
+        req.api('GET', '/users', {}, function(data) {
             req.params.users = data.users;
         });
     }

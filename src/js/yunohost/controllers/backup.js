@@ -50,10 +50,10 @@
             id:c.params['storage'],
             name:y18n.t('local_archives')
         };
-        c.api('/hooks/backup', function(hooks) {
+        c.api('GET', '/hooks/backup', {}, function(hooks) {
             data['hooks'] = c.groupHooks(hooks['hooks']);
             data['apps'] = {};
-            c.api('/apps?with_backup', function(apps_list) {
+            c.api('GET', '/apps?with_backup', {}, function(apps_list) {
                 data['apps'] = apps_list.apps;
                 c.view('backup/backup_create', data, c.selectAllOrNone);
             });
@@ -63,10 +63,10 @@
 
     app.post('#/backup/:storage', function (c) {
         var params = c.ungroupHooks(c.params['system_parts'],c.params['apps']);
-        c.api('/backup', function() {
+        c.api('POST', '/backup', params, function() {
             store.clear('slide');
             c.redirect('#/backup/'+ c.params['storage']);
-        }, 'POST', params);
+        });
     });
 
     // Restore a backup
@@ -77,10 +77,10 @@
             $.proxy(function(c){
                 var params = c.ungroupHooks(c.params['system_parts'],c.params['apps']);
                 params['force'] = '';
-                c.api('/backup/restore/'+c.params['archive'], function(data) {
+                c.api('POST', '/backup/restore/'+c.params['archive'], params, function(data) {
                     store.clear('slide');
                     c.redirect('#/backup/'+ c.params['storage']+'/'+c.params['archive']);
-                }, 'POST', params);
+                });
             }, this, c),
             function(){
                 store.clear('slide');
@@ -95,9 +95,9 @@
             y18n.t('backup'),
             y18n.t('confirm_delete', [c.params['archive']]),
             function(){
-                c.api('/backup/archives/'+c.params['archive'], function(data) {
+                c.api('DELETE', '/backup/archives/'+c.params['archive'], {}, function(data) {
                     c.redirect('#/backup/'+ c.params['storage']);
-                }, 'DELETE');
+                });
             },
             function(){
                 store.clear('slide');
@@ -108,9 +108,9 @@
 
     // Download a backup
     app.get('#/backup/:storage/:archive/download', function (c) {
-        c.api('/backup/'+c.params['archive']+'/download', function(data) {
+        c.api('GET', '/backup/'+c.params['archive']+'/download', {}, function(data) {
             c.redirect('#/backup/'+ c.params['storage']+'/'+c.params['archive']);
-        }, 'GET');
+        });
     });
 
     // Copy a backup
@@ -127,7 +127,7 @@
 
     // Get archive info
     app.get('#/backup/:storage/:archive', function (c) {
-        c.api('/backup/archives/'+c.params['archive']+'?with_details', function(data) {
+        c.api('GET', '/backup/archives/'+c.params['archive']+'?with_details', {}, function(data) {
             data.storage = {
                 id: c.params['storage'],
                 name: y18n.t('local_archives')
@@ -143,7 +143,7 @@
 
     // Archive list
     app.get('#/backup/:storage', function (c) {
-        c.api('/backup/archives?with_info', function(data) {
+        c.api('GET', '/backup/archives?with_info', {}, function(data) {
             data.storage = {
                 id: 'local',
                 name: y18n.t('local_archives')

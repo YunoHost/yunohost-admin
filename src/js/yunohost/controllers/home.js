@@ -80,7 +80,7 @@
         var params = {
             password: c.params['password']
         };
-        c.api('/login', function(data) {
+        c.api('POST', '/login', params, function(data) {
             store.set('connected', true);
             c.trigger('login');
             $('#masthead .logout-btn').fadeIn();
@@ -90,19 +90,19 @@
             } else {
                 c.redirect('#/');
             }
-        }, 'POST', params, false);
+        }, undefined, false);
 
     });
 
     app.get('#/logout', function (c) {
-        c.api('/logout', function (data) {
+        c.api('GET', '/logout', {}, function (data) {
             store.clear('url');
             store.clear('connected');
             store.set('path', '#/');
             c.trigger('logout');
             c.flash('success', y18n.t('logged_out'));
             c.redirect('#/login');
-        }, 'GET', {}, false);
+        }, undefined, false);
     });
 
 })();
