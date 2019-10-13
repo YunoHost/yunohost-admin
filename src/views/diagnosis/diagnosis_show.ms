@@ -33,10 +33,10 @@
             {{/if}}
             {{summary}}
             {{#if ignored}}
-            <a href="#" role="button" class="btn btn-sm btn-default pull-right"><span class="fa-fw fa-bell"></span> {{t 'unignore'}}</a>
+            <a href="javascript:void(null);" onclick="diagnosis_remove_ignore_filter('{{ filter_args }}');" role="button" class="btn btn-sm btn-default pull-right"><span class="fa-fw fa-bell"></span> {{t 'unignore'}}</a>
             {{else}}
             {{#if issue}}
-            <a href="#" role="button" class="btn btn-sm btn-warning pull-right"><span class="fa-fw fa-bell-slash"></span> {{t 'ignore'}}</a>
+            <a href="javascript:void(null);" onclick="diagnosis_add_ignore_filter('{{ filter_args }}');" role="button" class="btn btn-sm btn-warning pull-right"><span class="fa-fw fa-bell-slash"></span> {{t 'ignore'}}</a>
             {{/if}}
             {{/if}}
             {{#if details}}

@@ -7,10 +7,8 @@
     // Diagnosis
     // *********
 
-    // Server monitoring
     app.get('#/diagnosis', function (c) {
 
-        // Why this method ?
         c.api('/diagnosis/show?full', function(data) {
         for (var i = 0 ; i < data.reports.length ; i++)
         {
@@ -52,6 +50,12 @@
                 data.reports[i].items[j].status = type_;
                 data.reports[i].items[j].icon = icon;
                 data.reports[i].items[j].issue = issue;
+                // We want filter_args to be something like "dnsrecords,domain=yolo.test,category=xmpp"
+                data.reports[i].items[j].filter_args = data.reports[i].id;
+                for (prop in data.reports[i].items[j].meta) {
+                    console.log(prop)
+                    data.reports[i].items[j].filter_args = data.reports[i].items[j].filter_args + ","+prop+"="+data.reports[i].items[j].meta[prop];
+                }
             };
             data.reports[i].noIssues = data.reports[i].warnings + data.reports[i].errors ? false : true;
         };
@@ -59,19 +63,33 @@
             $(".rerun-diagnosis").click(function() {
                 var category = $(this).attr("category");
                 c.api('/diagnosis/run?force', function(data) {
-                    // This is a copy-pasta of some of the
-                    // redirect/refresh code of sammy.js
-                    // because for some reason calling the function did not work >.>
-                    var to = "#/diagnosis";
-                    c.trigger('redirect', {to: to});
-                    c.app.last_location = c.path;
-                    c.app.setLocation(to);
-                    c.app.trigger('location-changed');
+                    c.force_redirect("#/diagnosis");
                 }, 'POST', {"categories": [category]});
             });
         });
         }, 'GET');
 
     });
+
+    diagnosis_add_ignore_filter = function(filter_args) {
+        c.api('/diagnosis/ignore', function(data) {
+            store.clear('slide');
+            c.force_redirect("#/diagnosis");
+        },
+        'POST',
+        {'add_filter': filter_args.split(',') }
+        );
+    };
+
+    diagnosis_remove_ignore_filter = function(filter_args) {
+        c.api('/diagnosis/ignore', function(data) {
+            store.clear('slide');
+            c.force_redirect("#/diagnosis");
+        },
+        'POST',
+        {'remove_filter': filter_args.split(',') }
+        );
+    };
+
 
 })();

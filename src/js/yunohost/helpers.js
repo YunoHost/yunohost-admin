@@ -480,6 +480,18 @@
                     $('div.loader').remove();
                 });
             });
+        },
+
+        force_redirect: function(to) {
+            c = this;
+            // This is a copy-pasta of some of the redirect/refresh code of
+            // sammy.js because for some reason calling the origina
+            // redirect/refresh function in some context does not work >.>
+            // (e.g. if you're already on the page)
+            c.trigger('redirect', {to: to});
+            c.app.last_location = c.path;
+            c.app.setLocation(to);
+            c.app.trigger('location-changed');
         }
     });
 
