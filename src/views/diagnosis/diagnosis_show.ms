@@ -20,9 +20,10 @@
         {{#if noIssues}}<span class="label label-success">{{t 'everything_good'}}</span>{{/if}}
         {{#if errors}}<span class="label label-danger">{{t 'errors' errors }}</span>{{/if}}
         {{#if warnings}}<span class="label label-warning">{{t 'warnings' warnings }}</span>{{/if}}
+        {{#if ignored}}<span class="label label-default">{{t 'ignored' ignored }}</span>{{/if}}
         <a role="button" category="{{ id }}" class="btn btn-sm btn-info pull-right rerun-diagnosis"><span class="fa-fw fa-refresh"></span> {{t 'rerun_diagnosis'}}</a>
     </div>
-    <div class="panel-body collapse {{#unless noIssues}}in{{/unless}}" id="category-{{id}}">
+    <div class="panel-body collapse {{#if errors}}in{{/if}}" id="category-{{id}}">
     <ul class="list-group" style="margin-bottom: 0px">
         <p>{{t 'last_ran' }} {{formatRelative time day="numeric" month="long" year="numeric" hour="numeric" minute="numeric" }}</p>
         {{#items}}
@@ -31,8 +32,12 @@
             <span class="fa-fw fa-{{icon}}"></span>
             {{/if}}
             {{summary}}
+            {{#if ignored}}
+            <a href="#" role="button" class="btn btn-sm btn-default pull-right"><span class="fa-fw fa-bell"></span> {{t 'unignore'}}</a>
+            {{else}}
             {{#if issue}}
-            <a href="#" role="button" class="btn btn-sm btn-warning pull-right"><span class="fa-fw fa-times"></span> {{t 'ignore'}}</a>
+            <a href="#" role="button" class="btn btn-sm btn-warning pull-right"><span class="fa-fw fa-bell-slash"></span> {{t 'ignore'}}</a>
+            {{/if}}
             {{/if}}
             {{#if details}}
             <a role="button" class="btn btn-sm btn-default pull-right" data-toggle="collapse" href="#details-{{../id}}-{{@index}}" aria-expanded="false" aria-controls="details-{{../id}}-{{@index}}"><span class="fa-fw fa-level-down"></span>{{t 'details'}}</a>

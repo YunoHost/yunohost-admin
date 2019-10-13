@@ -18,15 +18,25 @@
             data.reports[i].time = new Date(data.reports[i].timestamp*1000);
             data.reports[i].warnings = 0;
             data.reports[i].errors = 0;
+            data.reports[i].ignored = 0;
             for (var j = 0 ; j < data.reports[i].items.length ; j++)
             {
                 var type_ = data.reports[i].items[j].status;
                 type_ = type_.toLowerCase();
+                var ignored = data.reports[i].items[j].ignored;
                 var icon = "";
                 var issue = false;
 
                 if (type_ == "success") {
                     icon = "check-circle";
+                }
+                else if (ignored == true) {
+                    icon = type_;
+                    if (type_ == "error") {
+                        icon = "times"
+                    }
+                    type_ = "ignored";
+                    data.reports[i].ignored++;
                 }
                 else if (type_ == "warning") {
                     icon = "warning";
