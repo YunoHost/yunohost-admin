@@ -46,10 +46,6 @@
         <span class="fa-chevron-right pull-right"></span>
         <h2 class="list-group-item-heading">{{t 'tools_security_feed'}}</h2>
     </a>
-    <a href="#/tools/appslists" class="list-group-item slide clearfix">
-        <span class="pull-right fa-chevron-right"></span>
-        <h2 class="list-group-item-heading">{{t 'appslists'}}</h2>
-    </a>
     <a href="#/tools/ca" class="list-group-item slide">
         <span class="fa-chevron-right pull-right"></span>
         <h2 class="list-group-item-heading">{{t 'tools_download_ca'}}</h2>
