@@ -599,7 +599,7 @@
             y18n.t('applications'),
             y18n.t('confirm_uninstall', [c.params['app']]),
             function() {
-                c.api('DELETE', '/apps/'+ c.params['app'], {}, function() { // http://api.yunohost.org/#!/app/app_remove_delete_4
+                c.api('DELETE', '/apps/'+ c.params['app'], {}, function() {
                     c.redirect_to('#/apps');
                 });
             }
@@ -756,7 +756,7 @@
     // Change app label
     app.post('#/apps/:app/changelabel', function (c) {
         params = {'new_label': c.params['label']};
-        c.api('PUT', '/apps/' + c.params['app'] + '/label', params, function(data) { // Call changelabel API
+        c.api('PUT', '/apps/' + c.params['app'] + '/label', params, function(data) {
             c.redirect_to('#/apps/'+ c.params['app']);
         });
     });
@@ -764,7 +764,7 @@
     // Get app change URL page
     app.get('#/apps/:app/changeurl', function (c) {
             c.api('GET', '/apps/'+c.params['app']+'?raw', {}, function(app_data) {
-                c.api('GET', '/domains', {}, function(domain_data) { // http://api.yunohost.org/#!/domain/domain_list_get_2
+                c.api('GET', '/domains', {}, function(domain_data) {
 
                 // Display a list of available domains
                 var domains = [];
@@ -796,7 +796,7 @@
             y18n.t('confirm_app_change_url', [c.params['app']]),
             function() {
                 params = {'domain': c.params['domain'], 'path': c.params['path']};
-                c.api('PUT', '/apps/' + c.params['app'] + '/changeurl', params, function(data) { // Call changeurl API
+                c.api('PUT', '/apps/' + c.params['app'] + '/changeurl', params, function(data) {
                     c.redirect_to('#/apps/'+ c.params['app']);
                 });
             }
