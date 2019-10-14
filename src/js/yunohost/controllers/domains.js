@@ -211,9 +211,6 @@
                 c.api('POST', '/domains/cert-install/' + c.params['domain'], {}, function(data) {
                     c.redirect_to('#/domains/'+c.params['domain']+'/cert-management', {slide:false});
                 });
-            },
-            function(){
-                c.redirect_to('#/domains/'+c.params['domain']+'/cert-management', {slide:false});
             }
         );
     });
@@ -227,9 +224,6 @@
                 c.api('POST', '/domains/cert-install/' + c.params['domain'] + "?self_signed", {}, function(data) {
                     c.redirect_to('#/domains/'+c.params['domain']+'/cert-management', {slide:false});
                 });
-            },
-            function(){
-                c.redirect_to('#/domains/'+c.params['domain']+'/cert-management', {slide:false});
             }
         );
     });
@@ -243,9 +237,6 @@
                 c.api('POST', '/domains/cert-renew/' + c.params['domain'] + "?force", {}, function(data) {
                     c.redirect_to('#/domains/'+c.params['domain']+'/cert-management', {slide:false});
                 });
-            },
-            function(){
-                c.redirect_to('#/domains/'+c.params['domain']+'/cert-management', {slide:false});
             }
         );
     });
@@ -259,9 +250,6 @@
                 c.api('POST', '/domains/cert-install/' + c.params['domain'] + "?self_signed&force", {}, function(data) {
                     c.redirect_to('#/domains/'+c.params['domain']+'/cert-management', {slide:false});
                 });
-            },
-            function(){
-                c.redirect_to('#/domains/'+c.params['domain']+'/cert-management', {slide:false});
             }
         );
     });
@@ -276,10 +264,8 @@
                 c.api('DELETE', '/domains/'+ c.params['domain'], {}, function(data) {
                     c.redirect_to('#/domains');
                 });
-            },
-            function(){
-               c.redirect_to('#/domains/' + c.params["domain"], {slide:false});
-            })
+            }
+        );
     });
 
     // Set default domain
@@ -305,9 +291,6 @@
                     var refreshDomain = window.setTimeout(function(){
                         c.redirect_to('#/domains');
                     }, 15000);
-                },
-                function(){
-                    c.redirect_to('#/domains', {slide:false});
                 }
             );
         }

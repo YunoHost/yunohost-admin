@@ -206,9 +206,6 @@
                 c.api('DELETE', '/users/'+ c.params['user'], params, function(data) {
                     c.redirect_to('#/users');
                 });
-            },
-            function(){
-                c.redirect_to('#/users/'+ c.params['user'], {slide: false});
             }
         );
 

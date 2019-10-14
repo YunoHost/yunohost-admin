@@ -92,8 +92,6 @@
                     c.api('POST', '/postinstall', params, function(data) {
                         c.redirect_to('#/login');
                     });
-                },
-                function(){
                 }
             );
         } else {

@@ -121,9 +121,6 @@
                 else {
                     c.redirect_to('#/services/'+ c.params['service'], {slide: false});
                 }
-            },
-            function(){
-                c.redirect_to('#/services/'+ c.params['service'], {slide: false});
             }
         );
     });

@@ -490,6 +490,8 @@
 
             if ((is_safe_for_install_color === "warning") || (is_safe_for_install_color === "danger"))
             {
+                // Disable the pacman while we ask for confirmation
+                $('div.loader').remove();
                 c.confirm(
                     y18n.t("applications"),
                     y18n.t("confirm_install_app_"+is_safe_for_install_color),
@@ -499,10 +501,6 @@
                             app_infos.manifest,
                             c.params
                         );
-                    },
-                    function(){
-                        $('div.loader').remove();
-                        c.redirect_to('#/apps/install', {slide:false});
                     }
                 );
             }
@@ -591,10 +589,6 @@
                     c.flash('fail', y18n.t('app_install_custom_no_manifest'));
                     c.redirect_to('#/apps/install', {slide:false});
                 });
-            },
-            function(){
-                c.flash('warning', y18n.t('app_install_cancel'));
-                c.redirect_to('#/apps/install');
             }
         );
     });
@@ -608,9 +602,6 @@
                 c.api('DELETE', '/apps/'+ c.params['app'], {}, function() { // http://api.yunohost.org/#!/app/app_remove_delete_4
                     c.redirect_to('#/apps');
                 });
-            },
-            function() {
-                c.redirect_to('#/apps/'+ c.params['app'], {slide:false});
             }
         );
     });
@@ -673,9 +664,6 @@
                 c.api('DELETE', '/access?'+c.serialize(params), params, function(data) {
                     c.redirect_to('#/apps/'+ c.params['app']+ '/access', {slide:false});
                 });
-            },
-            function() {
-                c.redirect_to('#/apps/'+ c.params['app']+ '/access', {slide:false});
             }
         );
     });
@@ -693,9 +681,6 @@
                 c.api('DELETE', '/access?'+c.serialize(params), params, function(data) {
                     c.redirect_to('#/apps/'+ c.params['app']+ '/access', {slide:false});
                 });
-            },
-            function() {
-                c.redirect_to('#/apps/'+ c.params['app']+ '/access', {slide:false});
             }
         );
     });
@@ -713,9 +698,6 @@
                 c.api('PUT', '/access', params, function() {
                     c.redirect_to('#/apps/'+ c.params['app'] +'/access', {slide:false});
                 });
-            },
-            function() {
-                c.redirect_to('#/apps/'+ c.params['app']+ '/access', {slide:false});
             }
         );
     });
@@ -743,9 +725,6 @@
                 c.api('POST', '/access', params, function() {
                     c.redirect_to('#/apps/'+ c.params['app'] +'/access', {slide:false});
                 });
-            },
-            function() {
-                c.redirect_to('#/apps/'+ c.params['app']+ '/access', {slide:false});
             }
         );
     });
@@ -759,9 +738,6 @@
                 c.api('PUT', '/apps/'+c.params['app']+'/default', {}, function() {
                     c.redirect_to('#/apps/'+ c.params['app'], {slide:false});
                 });
-            },
-            function() {
-                c.redirect_to('#/apps/'+ c.params['app'], {slide:false});
             }
         );
     });
@@ -823,9 +799,6 @@
                 c.api('PUT', '/apps/' + c.params['app'] + '/changeurl', params, function(data) { // Call changeurl API
                     c.redirect_to('#/apps/'+ c.params['app']);
                 });
-            },
-            function() {
-                c.redirect_to('#/apps/'+ c.params['app'] + '/changeurl', {slide:false});
             }
         );
     });

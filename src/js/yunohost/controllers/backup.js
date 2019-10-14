@@ -78,10 +78,7 @@
                 c.api('POST', '/backup/restore/'+c.params['archive'], params, function(data) {
                     c.redirect_to('#/backup/'+ c.params['storage']+'/'+c.params['archive']);
                 });
-            }, this, c),
-            function(){
-                c.redirect_to('#/backup/'+ c.params['storage']+'/'+c.params['archive'], {slide: false});
-            }
+            }, this, c)
         );
     });
 
@@ -94,9 +91,6 @@
                 c.api('DELETE', '/backup/archives/'+c.params['archive'], {}, function(data) {
                     c.redirect_to('#/backup/'+ c.params['storage']);
                 });
-            },
-            function(){
-                c.redirect_to('#/backup/'+ c.params['storage']+'/'+c.params['archive'], {slide: false});
             }
         );
     });

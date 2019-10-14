@@ -47,9 +47,6 @@
                 c.api('GET', '/firewall/upnp', params, function(data) {
                     c.redirect_to('#/tools/firewall');
                 });
-            },
-            function(){
-                c.redirect_to('#/tools/firewall', {slide: false});
             }
         );
     });
@@ -135,9 +132,6 @@
                     c.params['connection'],
                     c.params['action']
                 );
-            },
-            function(){
-                c.redirect_to('#/tools/firewall', {slide: false});
             }
         );
     });
@@ -154,9 +148,6 @@
                     c.params['connection'],
                     c.params['action']
                 );
-            },
-            function(){
-                c.redirect_to('#/tools/firewall', {slide: false});
             }
         );
     });

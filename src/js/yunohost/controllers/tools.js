@@ -61,9 +61,6 @@
                 c.api('PUT', '/upgrade?'+c.params["type"], {}, function(data) {
                           c.redirect_to('#/tools/logs');
                 });
-            },
-            function(){
-                c.redirect_to('#/update', {slide: false});
             }
         );
     });
@@ -77,9 +74,6 @@
                 c.api('PUT', '/upgrade/apps?app='+c.params['app'].toLowerCase(), {}, function(data) {
                     c.redirect_to('#/tools/logs');
                 });
-            },
-            function(){
-                c.redirect_to('#/update', {slide: false});
             }
         );
     });
@@ -239,10 +233,6 @@
                         // Force scrollTop on page load
                         $('html, body').scrollTop(0);
                     }, false);
-
-                },
-                function(){
-                    c.redirect_to('#/tools/reboot', {slide: false});
                 }
             );
         }
@@ -338,9 +328,6 @@
                 c.api('POST', '/migrations/migrate?skip&targets=' + c.params['migration_id'], {}, function(data) {
                     c.redirect_to('#/tools/migrations', {slide: false});
                 });
-            },
-            function(){
-                c.redirect_to('#/tools/migrations', {slide: false});
             }
         );
     });
@@ -417,9 +404,6 @@
                 c.api('DELETE', '/appslists', {'name' : c.params['appslist']}, function() {
                     c.redirect_to('#/tools/appslists');
                 });
-            },
-            function() {
-                c.redirect_to('#/tools/appslists/'+ c.params['appslist'], {slide: false});
             }
         );
     });
