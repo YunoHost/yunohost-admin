@@ -3,6 +3,46 @@
     var app = Sammy.apps['#main'];
     var store = app.store;
 
+    // The logic used to temporily disable transition is from
+    // https://stackoverflow.com/a/16575811
+    function whichTransitionEvent(){
+        var t;
+        var el = document.createElement('fakeelement');
+        var transitions = {
+          'transition':'transitionend',
+          'OTransition':'oTransitionEnd',
+          'MozTransition':'transitionend',
+          'WebkitTransition':'webkitTransitionEnd'
+        }
+
+        for(t in transitions){
+            if( el.style[t] !== undefined ){
+                return transitions[t];
+            }
+        }
+    };
+    var transitionEvent = whichTransitionEvent();
+
+    function resetSliders()
+    {
+        // Disable transition effects
+        $('#slider-container').addClass('notransition');
+        // Delete the left/right temporary stuff only used during animation
+        $('#slideTo').css('display', 'none');
+        $('#slideBack').css('display', 'none');
+        // Set the margin-left back to 0
+        $('#slider-container').css('margin-left', '0');
+        // c.f. the stackoverflow thread
+        $('#slider-container')[0].offsetHeight;
+        // Remove the binding to this event handler for next times
+        //$("#slider-container").off(transitionEvent);
+        // Re-enable transition effects
+        $('#slider-container').removeClass('notransition');
+    }
+    // Now we add the transition event to detect the end of the transition effect
+    transitionEvent && $("#slider-container").on(transitionEvent, resetSliders)
+
+
     /**
      * Helpers
      *
@@ -282,20 +322,69 @@
 
             // Slide back effect
             if (enableSlide && store.get('slide') == 'back') {
+
                 store.clear('slide');
+                // Disable transition while we tweak CSS
+                $('#slider-container').addClass('notransition');
+                // "Delete" the left part of the slider
                 $('#slideBack').css('display', 'none');
+
+                // Push the slider to the left
                 $('#slider-container').css('margin-left', '-100%');
+                // slideTo is the right part, and should contain the old view,
+                // so we copypasta what's in the "center" slider (#main)
                 $('#slideTo').show().html($('#main').html());
+                // leSwap will put the new view in the "center" slider (#main)
                 leSwap();
+
+                // So now things look like:
+                //                          |                 |
+                //                          |   the screen    |
+                //                          |                 |
+                //
+                //       .     #main        .    #slideTo     .
+                //       .  the new view    .  the old view   .
+                //       ^                          ^
+                //  margin-left: -100%             currently shown
+                //
+                //            =====>>>  sliiiiide  =====>>>
+
+                // Re-add transition effect
+                $('#slider-container').removeClass('notransition');
+                // And actually play the transition effect that will move the container from left to right
                 $('#slider-container').css('margin-left', '0px');
             }
             // Slide to effect
             else if (enableSlide && store.get('slide') == 'to') {
                 store.clear('slide');
+                // Disable transition while we tweak CSS
+                $('#slider-container').addClass('notransition');
+                // "Delete" the right part of the slider
                 $('#slideTo').css('display', 'none');
+                // Push the slider to the right
                 $('#slider-container').css('margin-left', '0px');
+                // slideBack should contain the old view,
+                // so we copypasta what's in the "center" slider (#main)
                 $('#slideBack').show().html($('#main').html());
                 leSwap();
+
+                // So now things look like:
+                //
+                //                    |                 |
+                //                    |   the screen    |
+                //                    |                 |
+                //
+                //      .             .   #slideBack    .     #main      .
+                //      .             .  the old view   .  the new view  .
+                //      ^             ^        ^
+                //   margin-left: -100%      currently shown
+                //
+                //               <<<===== sliiiiide <<<=======
+
+
+                // Re-add transition effect
+                $('#slider-container').removeClass('notransition');
+                // And actually play the transition effect that will move the container from right to left
                 $('#slider-container').css('margin-left', '-100%');
             }
             // No slideing effect
