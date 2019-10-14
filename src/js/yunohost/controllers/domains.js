@@ -68,8 +68,7 @@
         if (c.params['domain'] === '') {
             if (c.params['ddomain'] === '') {
                 c.flash('fail', y18n.t('error_select_domain'));
-                store.clear('slide');
-                c.redirect('#/domains/add');
+                c.redirect_to('#/domains/add');
             }
             params.domain = c.params['ddomain'] + c.params['ddomain-ext'];
             endurl = 'dyndns';
@@ -78,7 +77,7 @@
         }
 
         c.api('POST', '/domains?'+endurl, params, function(data) {
-            c.redirect('#/domains');
+            c.redirect_to('#/domains');
         });
     });
 
@@ -210,13 +209,11 @@
             y18n.t('confirm_cert_install_LE', [c.params['domain']]),
             function(){
                 c.api('POST', '/domains/cert-install/' + c.params['domain'], {}, function(data) {
-                    store.clear('slide');
-                    c.redirect('#/domains/'+c.params['domain']+'/cert-management');
+                    c.redirect_to('#/domains/'+c.params['domain']+'/cert-management', {slide:false});
                 });
             },
             function(){
-                store.clear('slide');
-                c.redirect('#/domains/'+c.params['domain']+'/cert-management');
+                c.redirect_to('#/domains/'+c.params['domain']+'/cert-management', {slide:false});
             }
         );
     });
@@ -228,13 +225,11 @@
             y18n.t('confirm_cert_regen_selfsigned', [c.params['domain']]),
             function(){
                 c.api('POST', '/domains/cert-install/' + c.params['domain'] + "?self_signed", {}, function(data) {
-                    store.clear('slide');
-                    c.redirect('#/domains/'+c.params['domain']+'/cert-management');
+                    c.redirect_to('#/domains/'+c.params['domain']+'/cert-management', {slide:false});
                 });
             },
             function(){
-                store.clear('slide');
-                c.redirect('#/domains/'+c.params['domain']+'/cert-management');
+                c.redirect_to('#/domains/'+c.params['domain']+'/cert-management', {slide:false});
             }
         );
     });
@@ -246,13 +241,11 @@
             y18n.t('confirm_cert_manual_renew_LE', [c.params['domain']]),
             function(){
                 c.api('POST', '/domains/cert-renew/' + c.params['domain'] + "?force", {}, function(data) {
-                    store.clear('slide');
-                    c.redirect('#/domains/'+c.params['domain']+'/cert-management');
+                    c.redirect_to('#/domains/'+c.params['domain']+'/cert-management', {slide:false});
                 });
             },
             function(){
-                store.clear('slide');
-                c.redirect('#/domains/'+c.params['domain']+'/cert-management');
+                c.redirect_to('#/domains/'+c.params['domain']+'/cert-management', {slide:false});
             }
         );
     });
@@ -264,13 +257,11 @@
             y18n.t('confirm_cert_revert_to_selfsigned', [c.params['domain']]),
             function(){
                 c.api('POST', '/domains/cert-install/' + c.params['domain'] + "?self_signed&force", {}, function(data) {
-                    store.clear('slide');
-                    c.redirect('#/domains/'+c.params['domain']+'/cert-management');
+                    c.redirect_to('#/domains/'+c.params['domain']+'/cert-management', {slide:false});
                 });
             },
             function(){
-                store.clear('slide');
-                c.redirect('#/domains/'+c.params['domain']+'/cert-management');
+                c.redirect_to('#/domains/'+c.params['domain']+'/cert-management', {slide:false});
             }
         );
     });
@@ -283,23 +274,19 @@
             y18n.t('confirm_delete', [c.params['domain']]),
             function(){
                 c.api('DELETE', '/domains/'+ c.params['domain'], {}, function(data) {
-                    store.clear('slide');
-                    c.redirect('#/domains');
+                    c.redirect_to('#/domains');
                 });
             },
             function(){
-                store.clear('slide');
-                c.redirect('#/domains');
-            }
-        );
+               c.redirect_to('#/domains/' + c.params["domain"], {slide:false});
+            })
     });
 
     // Set default domain
     app.post('#/domains', function (c) {
         if (c.params['domain'] === '') {
             c.flash('fail', y18n.t('error_select_domain'));
-            store.clear('slide');
-            c.redirect('#/domains');
+            c.redirect_to('#/domains', {slide:false});
         } else {
             c.confirm(
                 y18n.t('domains'),
@@ -309,19 +296,18 @@
                         new_domain: c.params['domain']
                     };
                     c.api('PUT', '/domains/main', params, function(data) {
-                        store.clear('slide');
-                        c.redirect('#/domains');
+                        c.redirect_to('#/domains');
                     });
+
+                    // WTF ... why is this hack needed v_v
 
                     // Wait 15s and refresh the page
                     var refreshDomain = window.setTimeout(function(){
-                        store.clear('slide');
-                        c.redirect('#/domains');
+                        c.redirect_to('#/domains');
                     }, 15000);
                 },
                 function(){
-                    store.clear('slide');
-                    c.redirect('#/domains');
+                    c.redirect_to('#/domains', {slide:false});
                 }
             );
         }

@@ -26,12 +26,10 @@
         });
         if ($.isEmptyObject(params)) {
             c.flash('fail', y18n.t('error_modify_something'));
-            store.clear('slide');
-            c.redirect('#/tools/adminpw');
+            c.redirect_to('#/tools/adminpw', {slide: false});
         } else if (params['new_password'] !== params['confirm_new_password']) {
             c.flash('fail', y18n.t('passwords_dont_match'));
-            store.clear('slide');
-            c.redirect('#/tools/adminpw');
+            c.redirect_to('#/tools/adminpw', {slide: false});
         } else {
             c.api('POST', '/login', { 'password': params['old_password'] }, function(data) {
                 // Remove useless variable
@@ -40,7 +38,7 @@
 
                 // Update password and redirect to the home
                 c.api('PUT', '/adminpw', params, function(data) {
-                    c.redirect('#/logout');
+                    c.redirect_to('#/logout');
                 });
             }, undefined, false);
         }
@@ -61,13 +59,11 @@
             y18n.t('confirm_update_' + c.params['type'].toLowerCase()),
             function(){
                 c.api('PUT', '/upgrade?'+c.params["type"], {}, function(data) {
-                          store.clear('slide');
-                          c.redirect('#/tools/logs');
+                          c.redirect_to('#/tools/logs');
                 });
             },
             function(){
-                store.clear('slide');
-                c.redirect('#/update');
+                c.redirect_to('#/update', {slide: false});
             }
         );
     });
@@ -79,13 +75,11 @@
             y18n.t('confirm_update_specific_app', [c.params['app']]),
             function(){
                 c.api('PUT', '/upgrade/apps?app='+c.params['app'].toLowerCase(), {}, function(data) {
-                    store.clear('slide');
-                    c.redirect('#/tools/logs');
+                    c.redirect_to('#/tools/logs');
                 });
             },
             function(){
-                store.clear('slide');
-                c.redirect('#/update');
+                c.redirect_to('#/update', {slide: false});
             }
         );
     });
@@ -220,7 +214,7 @@
                 function(){
                     c.api('PUT', '/'+action+'?force', {}, function(data) {
                         // This code is not executed due to 502 response (reboot or shutdown)
-                        c.redirect('#/logout');
+                        c.redirect_to('#/logout');
                     }, function (xhr) {
                         c.flash('success', y18n.t('tools_' + action + '_done'))
                         // Disconnect from the webadmin
@@ -244,20 +238,17 @@
 
                         // Force scrollTop on page load
                         $('html, body').scrollTop(0);
-                        store.clear('slide');
                     }, false);
 
                 },
                 function(){
-                    store.clear('slide');
-                    c.redirect('#/tools/reboot');
+                    c.redirect_to('#/tools/reboot', {slide: false});
                 }
             );
         }
         else {
             c.flash('fail', y18n.t('unknown_action', [action]));
-            store.clear('slide');
-            c.redirect('#/tools/reboot');
+            c.redirect_to('#/tools/reboot', {slide: false});
         }
     });
 
@@ -313,7 +304,7 @@
             {
                 // FIXME / TODO i18n
                 c.flash('fail', "Some of these migrations require you to acknowledge a disclaimer before running them.");
-                c.redirect('#/tools/migrations');
+                c.redirect_to('#/tools/migrations', {slide: false});
                 return;
             }
             else
@@ -328,15 +319,13 @@
         if (withAcceptDisclaimerFlag)
         {
             c.api('POST', '/migrations/migrate?accept_disclaimer', {}, function (data) {
-                store.clear('slide');
-                c.redirect('#/tools/migrations');
+                c.redirect_to('#/tools/migrations', {slide: false});
             })
         }
         else
         {
             c.api('POST', '/migrations/migrate', {}, function (data) {
-                store.clear('slide');
-                c.redirect('#/tools/migrations');
+                c.redirect_to('#/tools/migrations', {slide: false});
             })
         }
     });
@@ -347,13 +336,11 @@
             y18n.t('confirm_migrations_skip'),
             function(){
                 c.api('POST', '/migrations/migrate?skip&targets=' + c.params['migration_id'], {}, function(data) {
-                    store.clear('slide');
-                    c.redirect('#/tools/migrations');
+                    c.redirect_to('#/tools/migrations', {slide: false});
                 });
             },
             function(){
-                store.clear('slide');
-                c.redirect('#/tools/migrations');
+                c.redirect_to('#/tools/migrations', {slide: false});
             }
         );
     });
@@ -384,8 +371,7 @@
         }
 
         c.api('PUT', '/appslists', list, function(data) {
-            store.clear('slide');
-            c.redirect('#/tools/appslists/' + list.name);
+            c.redirect_to('#/tools/appslists/' + list.name);
         });
     });
 
@@ -403,8 +389,7 @@
             }
             else {
                 c.flash('warning', y18n.t('appslists_unknown_list', [c.params['appslist']]));
-                store.clear('slide');
-                c.redirect('#/tools/appslists');
+                c.redirect_to('#/tools/appslists', {slide: false});
             }
         });
     });
@@ -412,15 +397,14 @@
     // Refresh available apps list
     app.get('#/tools/appslists/refresh', function (c) {
         c.api('PUT', '/appslists', {}, function(data) {
-            // c.redirect(store.get('path'));
-            c.redirect('#/apps/install');
+            c.redirect_to('#/apps/install', {slide: false});
         });
     });
 
     // Refresh specific apps list
     app.get('#/tools/appslists/:appslist/refresh', function (c) {
         c.api('PUT', '/appslists', {'name' : c.params['appslist']}, function(data) {
-            c.redirect('#/tools/appslists');
+            c.redirect_to('#/tools/appslists', {slide: false});
         });
     });
 
@@ -431,12 +415,11 @@
             y18n.t('appslists_confirm_remove', [c.params['app']]),
             function() {
                 c.api('DELETE', '/appslists', {'name' : c.params['appslist']}, function() {
-                    c.redirect('#/tools/appslists');
+                    c.redirect_to('#/tools/appslists');
                 });
             },
             function() {
-                store.clear('slide');
-                c.redirect('#/tools/appslists/'+ c.params['appslist']);
+                c.redirect_to('#/tools/appslists/'+ c.params['appslist'], {slide: false});
             }
         );
     });

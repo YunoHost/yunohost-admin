@@ -40,7 +40,6 @@
         if (c.params['password'] == c.params['confirmation']) {
             if (c.params['password'].length < PASSWORD_MIN_LENGTH) {
                 c.flash('fail', y18n.t('password_too_short'));
-                store.clear('slide');
             }
             else {
                 // Force unit or disable quota
@@ -53,13 +52,11 @@
                 c.params['mail'] = c.params['email'] + c.params['domain'];
 
                 c.api('POST', '/users', c.params.toHash(), function(data) {
-                    c.redirect('#/users');
+                    c.redirect_to('#/users');
                 });
             }
         } else {
             c.flash('fail', y18n.t('passwords_dont_match'));
-            store.clear('slide');
-            //c.redirect('#/users/create');
         }
     });
 
@@ -163,31 +160,28 @@
 
             if ($.isEmptyObject(params)) {
                 c.flash('fail', y18n.t('error_modify_something'));
-                store.clear('slide');
-                c.redirect('#/users/'+ c.params['user'] + '/edit');
+                c.redirect_to('#/users/'+ c.params['user'] + '/edit', {slide: false});
             } else {
                 if (params['password']) {
                     if (params['password'] == params['confirmation']) {
                         if (params['password'].length < PASSWORD_MIN_LENGTH) {
                             c.flash('fail', y18n.t('password_too_short'));
-                            store.clear('slide');
-                            c.redirect('#/users/'+ c.params['user'] + '/edit');
+                            c.redirect_to('#/users/'+ c.params['user'] + '/edit', {slide: false});
                         }
                         else {
                             params['change_password'] = params['password'];
                             c.api('PUT', '/users/'+ c.params['user'], params, function(data) {
-                                c.redirect('#/users/'+ c.params['user']);
+                                c.redirect_to('#/users/'+ c.params['user']);
                             });
                         }
                     } else {
                         c.flash('fail', y18n.t('passwords_dont_match'));
-                        store.clear('slide');
-                        c.redirect('#/users/'+ c.params['user'] + '/edit');
+                        c.redirect_to('#/users/'+ c.params['user'] + '/edit', {slide: false});
                     }
                 }
                 else {
                     c.api('PUT', '/users/'+ c.params['user'], params, function(data) {
-                        c.redirect('#/users/'+ c.params['user']);
+                        c.redirect_to('#/users/'+ c.params['user']);
                     });
                 }
             }
@@ -210,12 +204,11 @@
             confirmModalContent,
             function(){
                 c.api('DELETE', '/users/'+ c.params['user'], params, function(data) {
-                    c.redirect('#/users');
+                    c.redirect_to('#/users');
                 });
             },
             function(){
-                store.clear('slide');
-                c.redirect('#/users/'+ c.params['user']);
+                c.redirect_to('#/users/'+ c.params['user'], {slide: false});
             }
         );
 

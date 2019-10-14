@@ -45,13 +45,11 @@
                     action : c.params['action']
                 };
                 c.api('GET', '/firewall/upnp', params, function(data) {
-                    store.clear('slide');
-                    c.redirect('#/tools/firewall');
+                    c.redirect_to('#/tools/firewall');
                 });
             },
             function(){
-                store.clear('slide');
-                c.redirect('#/tools/firewall');
+                c.redirect_to('#/tools/firewall', {slide: false});
             }
         );
     });
@@ -65,8 +63,7 @@
 
         if (port != parseInt(port) || port < 0 || port > 65535) {
             c.flash('fail', y18n.t('unknown_argument', [port]));
-            store.clear('slide');
-            c.redirect('#/tools/firewall');
+            c.redirect_to('#/tools/firewall', {slide: false});
         }
 
         switch (connection) {
@@ -98,8 +95,7 @@
                 break;
             default:
                 c.flash('fail', y18n.t('unknown_action', [action]));
-                store.clear('slide');
-                c.redirect('#/tools/firewall');
+                c.redirect_to('#/tools/firewall', {slide: false});
         }
 
         if (method !== null && protocol !== null && port !== null) {
@@ -116,13 +112,11 @@
                 protocol : protocol
             };
             c.api(method, '/firewall/port?'+endurl, params, function(data) {
-                store.clear('slide');
-                c.redirect('#/tools/firewall');
+                c.redirect_to('#/tools/firewall');
             });
         }
         else {
-            store.clear('slide');
-            c.redirect('#/tools/firewall');
+            c.redirect_to('#/tools/firewall');
         }
         return;
     });
@@ -143,8 +137,7 @@
                 );
             },
             function(){
-                store.clear('slide');
-                c.redirect('#/tools/firewall');
+                c.redirect_to('#/tools/firewall', {slide: false});
             }
         );
     });
@@ -163,8 +156,7 @@
                 );
             },
             function(){
-                store.clear('slide');
-                c.redirect('#/tools/firewall');
+                c.redirect_to('#/tools/firewall', {slide: false});
             }
         );
     });

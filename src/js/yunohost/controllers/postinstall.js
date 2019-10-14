@@ -13,7 +13,7 @@
         $('#masthead').hide();
         c.checkInstall(function(isInstalled) {
             if (isInstalled || typeof isInstalled === 'undefined') {
-                c.redirect('#/login');
+                c.redirect_to('#/login');
             } else {
                 c.view('postinstall/postinstall_1');
             }
@@ -41,7 +41,6 @@
                         if ($('#domain').val() === '') {
                             if ($('#ddomain').val() === '') {
                                 e.preventDefault();
-                                store.clear('slide');
                                 c.flash('fail', y18n.t('error_select_domain'));
                             } else {
                                 domain = $('#ddomain').val() + $('select[name="ddomain-ext"]').val();
@@ -59,8 +58,7 @@
     app.get('#/postinstall/password', function(c) {
         $('#masthead').hide();
         if (!store.get('maindomain')) {
-            store.clear('slide');
-            c.redirect('#/postinstall/domain');
+            c.redirect_to('#/postinstall/domain');
         } else {
             c.view('postinstall/postinstall_3', { 'domain': store.get('maindomain').toLowerCase() },
                 function() { },
@@ -76,8 +74,7 @@
         else if (c.params['password'] == c.params['confirmation']) {
             if (c.params['domain'] === '') {
                 c.flash('fail', y18n.t('error_select_domain'));
-                store.clear('slide');
-                c.redirect('#/postinstall/domain');
+                c.redirect_to('#/postinstall/domain', {slide: false});
             } else {
                 var params = {
                     domain: c.params['domain'].toLowerCase()
@@ -93,7 +90,7 @@
                     store.set('url', window.location.hostname +'/yunohost/api');
                     store.set('user', 'admin');
                     c.api('POST', '/postinstall', params, function(data) {
-                        c.redirect('#/login');
+                        c.redirect_to('#/login');
                     });
                 },
                 function(){

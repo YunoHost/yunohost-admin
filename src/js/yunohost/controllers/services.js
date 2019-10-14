@@ -64,7 +64,6 @@
             {
                 data2.service.active_at = 0;
             }
-            store.clear('slide');
             c.view('service/service_info', data2);
         });
     });
@@ -111,24 +110,20 @@
                         break;
                     default:
                         c.flash('fail', y18n.t('unknown_action', [c.params['action']]));
-                        store.clear('slide');
-                        c.redirect('#/services/'+ c.params['service']);
+                        c.redirect_to('#/services/'+ c.params['service'], {slide: false});
                 }
 
                 if (method && endurl) {
                     c.api(method, '/services/'+ endurl, {}, function(data) {
-                        store.clear('slide');
-                        c.redirect('#/services/'+ c.params['service']);
+                        c.redirect_to('#/services/'+ c.params['service'], {slide: false});
                     });
                 }
                 else {
-                    store.clear('slide');
-                    c.redirect('#/services/'+ c.params['service']);
+                    c.redirect_to('#/services/'+ c.params['service'], {slide: false});
                 }
             },
             function(){
-                store.clear('slide');
-                c.redirect('#/services/'+ c.params['service']);
+                c.redirect_to('#/services/'+ c.params['service'], {slide: false});
             }
         );
     });

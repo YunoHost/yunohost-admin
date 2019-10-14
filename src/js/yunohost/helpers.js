@@ -565,6 +565,29 @@
                     $('div.loader').remove();
                 });
             });
+        },
+
+        redirect_to: function(destination, options) {
+
+            options = options !== undefined ? options : {};
+
+            // If destination if the same as current url,
+            // we don't want to display the slide animation
+            // (or if the code explicitly state to disable slide animation)
+            if ((c.path.split("#")[1] == destination.split("#")[1]) || (options.slide == false))
+            {
+                store.clear('slide');
+            }
+
+            c = this;
+            // This is a copy-pasta of some of the redirect/refresh code of
+            // sammy.js because for some reason calling the original
+            // redirect/refresh function in some context does not work >.>
+            // (e.g. if you're already on the page)
+            c.trigger('redirect', {to: destination});
+            c.app.last_location = c.path;
+            c.app.setLocation(destination);
+            c.app.trigger('location-changed');
         }
     });
 

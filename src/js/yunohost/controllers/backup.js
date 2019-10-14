@@ -39,8 +39,7 @@
 
     // Create a storage
     app.post('#/storages', function (c) {
-        store.clear('slide');
-        c.redirect('#/storages');
+        c.redirect_to('#/storages');
     });
 
     // Create a backup
@@ -64,8 +63,7 @@
     app.post('#/backup/:storage', function (c) {
         var params = c.ungroupHooks(c.params['system_parts'],c.params['apps']);
         c.api('POST', '/backup', params, function() {
-            store.clear('slide');
-            c.redirect('#/backup/'+ c.params['storage']);
+            c.redirect_to('#/backup/'+ c.params['storage']);
         });
     });
 
@@ -78,13 +76,11 @@
                 var params = c.ungroupHooks(c.params['system_parts'],c.params['apps']);
                 params['force'] = '';
                 c.api('POST', '/backup/restore/'+c.params['archive'], params, function(data) {
-                    store.clear('slide');
-                    c.redirect('#/backup/'+ c.params['storage']+'/'+c.params['archive']);
+                    c.redirect_to('#/backup/'+ c.params['storage']+'/'+c.params['archive']);
                 });
             }, this, c),
             function(){
-                store.clear('slide');
-                c.redirect('#/backup/'+ c.params['storage']+'/'+c.params['archive']);
+                c.redirect_to('#/backup/'+ c.params['storage']+'/'+c.params['archive'], {slide: false});
             }
         );
     });
@@ -96,12 +92,11 @@
             y18n.t('confirm_delete', [c.params['archive']]),
             function(){
                 c.api('DELETE', '/backup/archives/'+c.params['archive'], {}, function(data) {
-                    c.redirect('#/backup/'+ c.params['storage']);
+                    c.redirect_to('#/backup/'+ c.params['storage']);
                 });
             },
             function(){
-                store.clear('slide');
-                c.redirect('#/backup/'+ c.params['storage']+'/'+c.params['archive']);
+                c.redirect_to('#/backup/'+ c.params['storage']+'/'+c.params['archive'], {slide: false});
             }
         );
     });
@@ -109,20 +104,18 @@
     // Download a backup
     app.get('#/backup/:storage/:archive/download', function (c) {
         c.api('GET', '/backup/'+c.params['archive']+'/download', {}, function(data) {
-            c.redirect('#/backup/'+ c.params['storage']+'/'+c.params['archive']);
+            c.redirect_to('#/backup/'+ c.params['storage']+'/'+c.params['archive'], {slide: false});
         });
     });
 
     // Copy a backup
     app.get('#/backup/:storage/:archive/copy', function (c) {
-        store.clear('slide');
-        c.redirect('#/backup/'+ c.params['storage']+'/'+c.params['archive']);
+        c.redirect_to('#/backup/'+ c.params['storage']+'/'+c.params['archive'], {slide: false});
     });
 
     // Upload a backup
     app.get('#/backup/:storage/:archive/upload', function (c) {
-        store.clear('slide');
-        c.redirect('#/backup/'+ c.params['storage']+'/'+c.params['archive']);
+        c.redirect_to('#/backup/'+ c.params['storage']+'/'+c.params['archive'], {slide: false});
     });
 
     // Get archive info

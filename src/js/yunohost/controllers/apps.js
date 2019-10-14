@@ -245,7 +245,7 @@
         });
     });
 
-    // Perform application
+    // Perform app action
     app.put('#/apps/:app/actions/:action', function(c) {
         // taken from app install
         $.each(c.params, function(k, v) {
@@ -265,7 +265,7 @@
         }
 
         c.api('PUT', '/apps/'+app_id+'/actions/'+action_id, params, function() {
-            c.redirect('#/apps/'+app_id+'/actions');
+            c.redirect_to('#/apps/'+app_id+'/actions', {slide:false});
         });
     });
 
@@ -298,7 +298,7 @@
         }
 
         c.api('POST', '/apps/'+app_id+'/config', params, function() {
-            c.redirect('#/apps/'+app_id+'/config-panel');
+            c.redirect_to('#/apps/'+app_id+'/config-panel', {slide:false});
         });
     })
 
@@ -306,7 +306,7 @@
     app.get('#/apps/install/custom', function (c) {
         // If we try to GET /apps/install/custom, it means that installation fail.
         // Need to redirect to apps/install to get rid of pacamn and see the log.
-        c.redirect('#/apps/install');
+        c.redirect_to('#/apps/install');
     });
 
     // Helper function that formats YunoHost style arguments for generating a form
@@ -502,7 +502,7 @@
                     },
                     function(){
                         $('div.loader').remove();
-                        c.redirect('#/apps/install');
+                        c.redirect_to('#/apps/install', {slide:false});
                     }
                 );
             }
@@ -544,13 +544,12 @@
             }
 
             c.api('POST', '/apps', params, function() {
-                c.redirect('#/apps');
+                c.redirect_to('#/apps');
             });
         }
         else {
             c.flash('warning', y18n.t('app_install_cancel'));
-            store.clear('slide');
-            c.redirect('#/apps/install');
+            c.redirect_to('#/apps/install', {slide: false});
         }
     });
 
@@ -590,14 +589,12 @@
                 })
                 .fail(function(xhr) {
                     c.flash('fail', y18n.t('app_install_custom_no_manifest'));
-                    store.clear('slide');
-                    c.redirect('#/apps/install');
+                    c.redirect_to('#/apps/install', {slide:false});
                 });
             },
             function(){
                 c.flash('warning', y18n.t('app_install_cancel'));
-                store.clear('slide');
-                c.redirect('#/apps/install');
+                c.redirect_to('#/apps/install');
             }
         );
     });
@@ -609,12 +606,11 @@
             y18n.t('confirm_uninstall', [c.params['app']]),
             function() {
                 c.api('DELETE', '/apps/'+ c.params['app'], {}, function() { // http://api.yunohost.org/#!/app/app_remove_delete_4
-                    c.redirect('#/apps');
+                    c.redirect_to('#/apps');
                 });
             },
             function() {
-                store.clear('slide');
-                c.redirect('#/apps/'+ c.params['app']);
+                c.redirect_to('#/apps/'+ c.params['app'], {slide:false});
             }
         );
     });
@@ -675,13 +671,11 @@
                     users: []
                 };
                 c.api('DELETE', '/access?'+c.serialize(params), params, function(data) {
-                    store.clear('slide');
-                    c.redirect('#/apps/'+ c.params['app']+ '/access');
+                    c.redirect_to('#/apps/'+ c.params['app']+ '/access', {slide:false});
                 });
             },
             function() {
-                store.clear('slide');
-                c.redirect('#/apps/'+ c.params['app']+ '/access');
+                c.redirect_to('#/apps/'+ c.params['app']+ '/access', {slide:false});
             }
         );
     });
@@ -697,13 +691,11 @@
                     users: c.params['user']
                 };
                 c.api('DELETE', '/access?'+c.serialize(params), params, function(data) {
-                    store.clear('slide');
-                    c.redirect('#/apps/'+ c.params['app']+ '/access');
+                    c.redirect_to('#/apps/'+ c.params['app']+ '/access', {slide:false});
                 });
             },
             function() {
-                store.clear('slide');
-                c.redirect('#/apps/'+ c.params['app']+ '/access');
+                c.redirect_to('#/apps/'+ c.params['app']+ '/access', {slide:false});
             }
         );
     });
@@ -719,13 +711,11 @@
                     users: null
                 };
                 c.api('PUT', '/access', params, function() {
-                    store.clear('slide');
-                    c.redirect('#/apps/'+ c.params['app'] +'/access');
+                    c.redirect_to('#/apps/'+ c.params['app'] +'/access', {slide:false});
                 });
             },
             function() {
-                store.clear('slide');
-                c.redirect('#/apps/'+ c.params['app']+ '/access');
+                c.redirect_to('#/apps/'+ c.params['app']+ '/access', {slide:false});
             }
         );
     });
@@ -737,8 +727,7 @@
             apps: c.params['app']
         };
         c.api('PUT', '/access', params, function() {
-            store.clear('slide');
-            c.redirect('#/apps/'+ c.params['app'] +'/access');
+            c.redirect_to('#/apps/'+ c.params['app'] +'/access', {slide:false});
         });
     });
 
@@ -752,13 +741,11 @@
                     apps: c.params['app']
                 };
                 c.api('POST', '/access', params, function() {
-                    store.clear('slide');
-                    c.redirect('#/apps/'+ c.params['app'] +'/access');
+                    c.redirect_to('#/apps/'+ c.params['app'] +'/access', {slide:false});
                 });
             },
             function() {
-                store.clear('slide');
-                c.redirect('#/apps/'+ c.params['app']+ '/access');
+                c.redirect_to('#/apps/'+ c.params['app']+ '/access', {slide:false});
             }
         );
     });
@@ -770,13 +757,11 @@
             y18n.t('confirm_app_default'),
             function() {
                 c.api('PUT', '/apps/'+c.params['app']+'/default', {}, function() {
-                    store.clear('slide');
-                    c.redirect('#/apps/'+ c.params['app']);
+                    c.redirect_to('#/apps/'+ c.params['app'], {slide:false});
                 });
             },
             function() {
-                store.clear('slide');
-                c.redirect('#/apps/'+ c.params['app']);
+                c.redirect_to('#/apps/'+ c.params['app'], {slide:false});
             }
         );
     });
@@ -796,8 +781,7 @@
     app.post('#/apps/:app/changelabel', function (c) {
         params = {'new_label': c.params['label']};
         c.api('PUT', '/apps/' + c.params['app'] + '/label', params, function(data) { // Call changelabel API
-            store.clear('slide');
-            c.redirect('#/apps/'+ c.params['app']);
+            c.redirect_to('#/apps/'+ c.params['app']);
         });
     });
 
@@ -837,13 +821,11 @@
             function() {
                 params = {'domain': c.params['domain'], 'path': c.params['path']};
                 c.api('PUT', '/apps/' + c.params['app'] + '/changeurl', params, function(data) { // Call changeurl API
-                    store.clear('slide');
-                    c.redirect('#/apps/'+ c.params['app']);
+                    c.redirect_to('#/apps/'+ c.params['app']);
                 });
             },
             function() {
-                store.clear('slide');
-                c.redirect('#/apps/'+ c.params['app'] + '/changeurl');
+                c.redirect_to('#/apps/'+ c.params['app'] + '/changeurl', {slide:false});
             }
         );
     });
