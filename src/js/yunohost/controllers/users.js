@@ -14,20 +14,16 @@
     app.get('#/permissions', function (c) {
         c.api('/users/groups?full&include_primary_groups', function(data_groups) {
         c.api('/users', function(data_users) {
-                console.log(data_users);
-                console.log(data_groups);
                 //var perms = data_permissions.permissions;
                 var specific_perms = {};
                 var all_perms = [];
-                for (var groupname in data_groups.groups) {
-                    var group = data_groups.groups[groupname];
-                    if (group.members.length == 1 && groupname == group.members[0]) {
-                        specific_perms[groupname] = group;
+                for (var user in data_users.users) {
+                    console.log(user);
+                    if (user in data_groups.groups) {
+                        if (data_groups.groups[user].permissions.length > 0)
+                            specific_perms[user] = data_groups.groups[user];
+                        delete data_groups.groups[user];
                     }
-                }
-                console.log(specific_perms);
-                for (var primary_group in specific_perms) {
-                    delete data_groups.groups[primary_group];
                 }
                 data_groups.groups['all_users'].special = true;
                 data_groups.groups['visitors'].special = true;
@@ -40,6 +36,23 @@
                 c.view('user/user_permission', data);
             });
         });
+    });
+
+    /**
+     * Groups
+     *
+     */
+
+    // Create a new group
+    app.get('#/groups/create', function (c) {
+        c.view('user/group_create', {});
+    });
+
+    app.post('#/groups/create', function (c) {
+        c.params['groupname'] = c.params['groupname'].replace(' ', '_').toLowerCase();
+        c.api('/users/groups', function(data) { 
+            c.redirect('#/permissions');
+        }, 'POST', c.params.toHash());
     });
 
     /**

@@ -1,11 +1,11 @@
 <div class="btn-breadcrumb">
     <a href="#/"><i class="fa-home"></i><span class="sr-only">{{t 'home'}}</span></a>
     <a href="#/users">{{t 'users'}}</a>
-    <a href="#/users/permissions">{{t 'perm_manage_permissions'}}</a>
+    <a href="#/permissions">{{t 'perm_manage_permissions'}}</a>
 </div>
 
 <div class="actions-group">
-    <a role="button" href="#/users/groups/create" class="btn btn-success slide">
+    <a role="button" href="#/groups/create" class="btn btn-success slide">
         <span class="fa-plus"></span> {{t 'perm_groups_new'}}
     </a>
 </div>
@@ -18,7 +18,7 @@
     <div class="panel-heading" role="tab" id="heading-context-group-{{@key}}">
             <h2 class="panel-title">
                 <a role="button" data-toggle="collapse" href="#collapse-group-{{@key}}" aria-expanded="false" aria-controls="collapse-group-{{@key}}">
-                    <span class="fa-fw fa-group"></span> {{t 'group'}} "{{#if special}}{{t @key}}{{else}}{{ucwords @key}}{{/if}}"
+                    <span class="fa-fw fa-group"></span> {{#if special}}{{t @key}}{{else}}{{t 'group'}} "{{ucwords @key}}"{{/if}}
                 </a>
             </h2>
     </div>

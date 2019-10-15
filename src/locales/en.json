@@ -159,6 +159,8 @@
     "good_practices_about_admin_password": "You are now about to define a new admin password. The password should be at least 8 characters - though it is good practice to use longer password (i.e. a passphrase) and/or to use various kind of characters (uppercase, lowercase, digits and special characters).",
     "good_practices_about_user_password": "You are now about to define a new user password. The password should be at least 8 characters - though it is good practice to use longer password (i.e. a passphrase) and/or to use various kind of characters (uppercase, lowercase, digits and special characters).",
     "group": "Group",
+    "group_name": "Group name",
+    "group_format_name_help": "You can use alpha-numeric chars and space",
     "home": "Home",
     "hook_adminjs_group_configuration": "System configurations",
     "hook_conf_cron": "Automatic tasks",
