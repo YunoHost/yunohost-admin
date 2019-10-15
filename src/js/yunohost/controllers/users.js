@@ -12,49 +12,33 @@
 
     // List groups and permissions
     app.get('#/permissions', function (c) {
-        c.api('/users/groups', function(data_groups) {
-            //c.api('/users/permissions', function(data_permissions) {
+        c.api('/users/groups?full&include_primary_groups', function(data_groups) {
+        c.api('/users', function(data_users) {
+                console.log(data_users);
+                console.log(data_groups);
+                //var perms = data_permissions.permissions;
+                var specific_perms = {};
+                var all_perms = [];
+                for (var groupname in data_groups.groups) {
+                    var group = data_groups.groups[groupname];
+                    if (group.members.length == 1 && groupname == group.members[0]) {
+                        specific_perms[groupname] = group;
+                    }
+                }
+                console.log(specific_perms);
+                for (var primary_group in specific_perms) {
+                    delete data_groups.groups[primary_group];
+                }
+                data_groups.groups['all_users'].special = true;
+                data_groups.groups['visitors'].special = true;
                 data = {
-                    'groups':[
-                        {
-                            'name': 'all_users',
-                            'all_users': "true",
-                            'users': ['ljf', 'john', 'camille', 'sam', 'eli', 'bob', 'sandra',
-                                      'aaron', 'mike'],
-                            'permissions': ['Mail', 'XMPP']
-                        },
-                        {
-                            'name': 'members',
-                            'users': ['ljf', 'john', 'eli', 'bob', 'sandra',
-                                      'aaron', 'mike'],
-                            'permissions': ['Mail', 'XMPP', 'Wekan', 'Wordpress (editor)']
-                        },
-                        {
-                            'name':'volunters',
-                            'users':['ljf', 'toto'],
-                            'permissions': []
-                        },
-                        {
-                            'name':'admins',
-                            'users':['ljf', 'toto'],
-                            'permissions': []
-                        }
-                    ],
-                    'users_with_specific_permissions':[
-                        {
-                            'username': 'ljf',
-                            'permissions': ['Nextcloud']
-                        },
-                        {
-                            'username': 'toto',
-                            'permissions': ['Nextcloud']
-                        }
-                    ],
-                    'users': ['ljf', 'toto', 'titi', 'tutu', 'tata'],
-                    'permissions': ['Mail', 'XMPP', 'Wekan', 'nextcloud']
+                    'groups':data_groups.groups,
+                    'users_with_specific_permissions': specific_perms,
+                    'users': Object.keys(data_users.users),
+                    'permissions': all_perms
                 };
                 c.view('user/user_permission', data);
-            //});
+            });
         });
     });
 

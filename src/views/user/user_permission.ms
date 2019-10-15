@@ -15,24 +15,24 @@
 <div id="view-permissions">
 {{#each groups}}
 <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="heading-context-group-{{name}}">
+    <div class="panel-heading" role="tab" id="heading-context-group-{{@key}}">
             <h2 class="panel-title">
-                <a role="button" data-toggle="collapse" href="#collapse-group-{{name}}" aria-expanded="false" aria-controls="collapse-group-{{name}}">
-                    <span class="fa-fw fa-group"></span> {{t 'group'}} "{{ucwords name}}"
+                <a role="button" data-toggle="collapse" href="#collapse-group-{{@key}}" aria-expanded="false" aria-controls="collapse-group-{{@key}}">
+                    <span class="fa-fw fa-group"></span> {{t 'group'}} "{{#if special}}{{t @key}}{{else}}{{ucwords @key}}{{/if}}"
                 </a>
             </h2>
     </div>
-    <div id="collapse-group-{{name}}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading-context-group-{{name}}">
+    <div id="collapse-group-{{@key}}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading-context-group-{{@key}}">
         <div class="panel-body">
             <div class="row">
                 <div class="col-sm-2">
                     <h3>{{t 'users'}}</h3>
                 </div>
                 <div class="col-sm-10">
-                    {{#if all_users}}
+                    {{#if special}}
                         <div class="alert alert-info" role="alert"><span class="fa-info-circle"></span> {{t 'perm_all_users_group_explanation'}}</div>
                     {{else}}
-                        {{#each users}}
+                        {{#each members}}
                             <span class="label label-default label-removable">
                                 <span class="fa-fw fa-user"></span>
                                 {{.}} 
@@ -48,7 +48,7 @@
                                 <span class="fa-plus"></span> {{t 'perm_add_user'}}
                             </button>
                             <ul class="dropdown-menu">
-                                {{#each ../../users}}
+                                {{#each ../users}}
                                     <li>{{.}}</li>
                                 {{/each}}
                             </ul>
@@ -76,7 +76,7 @@
                             <span class="fa-plus"></span> {{t 'perm_add_permission'}}
                         </button>
                         <ul class="dropdown-menu">
-                            {{#each ../../permissions}}
+                            {{#each ../permissions}}
                                 <li>{{.}}</li>
                             {{/each}}
                         </ul>
@@ -100,7 +100,7 @@
             {{#each users_with_specific_permissions}}
                 <div class="row">
                     <div class="col-sm-2">
-                        <h3>{{username}}</h3>
+                        <h3>{{@key}}</h3>
                     </div>
                     <div class="col-sm-10">
                         {{#each permissions}}
@@ -117,7 +117,7 @@
                                 <span class="fa-plus"></span> {{t 'perm_add_permission'}}
                             </button>
                             <ul class="dropdown-menu">
-                                {{#each ../../permissions}}
+                                {{#each ../permissions}}
                                     <li>{{.}}</li>
                                 {{/each}}
                             </ul>
@@ -131,7 +131,7 @@
                     <span class="fa-plus"></span> {{t 'perm_add_user'}}
                 </button>
                 <ul class="dropdown-menu">
-                    {{#each ../../users}}
+                    {{#each users}}
                         <li>{{.}}</li>
                     {{/each}}
                 </ul>
