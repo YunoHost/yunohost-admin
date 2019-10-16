@@ -122,7 +122,7 @@
         var params = "?path=" + c.params["splat"][0];
         var number = (c.params["number"])?c.params["number"]:50;
         params += "&number=" + number;
-        
+
         c.api('GET', "/logs/display" + params, {}, function(log) {
             if ('metadata' in log) {
                 if (!'env' in log.metadata && 'args' in log.metadata) {
@@ -133,10 +133,19 @@
                 "log": log,
                 "next_number": log.logs.length == number ? number * 10:false,
                 "locale": y18n.locale
+            }, function() {
+                // Configure behavior for the button to share log on Yunohost (it calls display --share)
+                $("#share-with-yunopaste").on("click", function() {
+                    c.api('GET', '/logs/display?path='+$(this).data('log-id')+'&share', {},
+                        function(data) {
+                            $('div.loader').remove();
+                            window.open(data.url, '_blank');
+                    });
+                });
             });
         });
     });
-    
+
 
     // Download SSL Certificate Authority
     app.get('#/tools/ca', function (c) {
