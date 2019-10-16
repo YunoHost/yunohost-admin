@@ -53,25 +53,25 @@
 
         <div class="pull-right">
         {{#is_loaded}}
-            <a href="#/services/{{name}}/disable" role="button" class="btn btn-danger">
+            <button class="btn btn-danger" data-service="{{name}}" data-action="disable">
                 <span class="fa-square-o"></span> {{t 'disable'}}
-            </a>
+            </button>
         {{/is_loaded}}
         {{^is_loaded}}
-            <a href="#/services/{{name}}/enable" role="button" class="btn btn-success">
+            <button class="btn btn-success" data-service="{{name}}" data-action="enable">
                 <span class="fa-check-square-o"></span> {{t 'enable'}}
-            </a>
+            </button>
         {{/is_loaded}}
 
         {{#is_running}}
-            <a href="#/services/{{name}}/stop" role="button" class="btn btn-danger">
+            <button class="btn btn-danger" data-service="{{name}}" data-action="stop">
                 <span class="fa-stop"></span> {{t 'stop'}}
-            </a>
+            </button>
         {{/is_running}}
         {{^is_running}}
-            <a href="#/services/{{name}}/start" role="button" class="btn btn-success">
+            <button class="btn btn-success" data-service="{{name}}" data-action="start">
                 <span class="fa-play"></span> {{t 'start'}}
-            </a>
+            </button>
         {{/is_running}}
             <a href="#/services/{{name}}/log" role="button" class="btn btn-default slide">
                 <span class="fa-book"></span> {{t 'log'}}

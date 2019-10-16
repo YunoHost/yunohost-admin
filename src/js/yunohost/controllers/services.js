@@ -45,7 +45,7 @@
 
     // Status & actions for a service
     app.get('#/services/:service', function (c) {
-        c.api('GET', '/services/'+ c.params['service'], {}, function(data) { // ?
+        c.api('GET', '/services/'+ c.params['service'], {}, function(data) {
             var data2 = {
                 service: data
             };
@@ -64,7 +64,50 @@
             {
                 data2.service.active_at = 0;
             }
-            c.view('service/service_info', data2);
+            c.view('service/service_info', data2, function() {
+
+                // Configure behavior for enable/disable and start/stop buttons
+                $('button[data-action]').on('click', function() {
+
+                    var service = $(this).data('service');
+                    var action = $(this).data('action');
+
+                    c.confirm("Service", y18n.t('confirm_service_' + action, [service]), function(){
+
+                        var method = null,
+                            endurl = service;
+
+                        switch (action) {
+                            case 'start':
+                                method = 'PUT';
+                                break;
+                            case 'stop':
+                                method = 'DELETE';
+                                break;
+                            case 'enable':
+                                method = 'PUT';
+                                endurl += '/enable';
+                                break;
+                            case 'disable':
+                                method = 'DELETE';
+                                endurl += '/enable';
+                                break;
+                            default:
+                                c.flash('fail', y18n.t('unknown_action', [action]));
+                                c.redirect_to('#/services/'+ service, {slide: false});
+                        }
+
+                        if (method && endurl) {
+                            c.api(method, '/services/'+ endurl, {}, function(data) {
+                                c.redirect_to('#/services/'+ service, {slide: false});
+                            });
+                        }
+                        else {
+                            c.redirect_to('#/services/'+ service, {slide: false});
+                        }
+                    });
+                });
+            });
         });
     });
 
@@ -81,48 +124,6 @@
 
             c.view('service/service_log', data2);
         });
-    });
-
-    // Enable/Disable & Start/Stop service
-    app.get('#/services/:service/:action', function (c) {
-        c.confirm(
-            "Service",
-            // confirm_service_start, confirm_service_stop, confirm_service_enable and confirm_service_disable
-            y18n.t('confirm_service_' + c.params['action'].toLowerCase(), [c.params['service']]),
-            function(){
-                var method = null,
-                    endurl = c.params['service'];
-
-                switch (c.params['action']) {
-                    case 'start':
-                        method = 'PUT';
-                        break;
-                    case 'stop':
-                        method = 'DELETE';
-                        break;
-                    case 'enable':
-                        method = 'PUT';
-                        endurl += '/enable';
-                        break;
-                    case 'disable':
-                        method = 'DELETE';
-                        endurl += '/enable';
-                        break;
-                    default:
-                        c.flash('fail', y18n.t('unknown_action', [c.params['action']]));
-                        c.redirect_to('#/services/'+ c.params['service'], {slide: false});
-                }
-
-                if (method && endurl) {
-                    c.api(method, '/services/'+ endurl, {}, function(data) {
-                        c.redirect_to('#/services/'+ c.params['service'], {slide: false});
-                    });
-                }
-                else {
-                    c.redirect_to('#/services/'+ c.params['service'], {slide: false});
-                }
-            }
-        );
     });
 
 })();
