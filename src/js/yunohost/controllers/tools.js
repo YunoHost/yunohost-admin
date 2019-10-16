@@ -47,35 +47,40 @@
     // System update & upgrade
     app.get('#/update', function (c) {
         c.api('PUT', '/update', {}, function(data) {
-            c.view('update/update', data);
+            c.view('update/update', data, function() {
+                // Configure buttons behaviors
+                $("button[data-upgrade]").on("click", function() {
+
+                    var what = $(this).data("upgrade").toLowerCase();
+
+                    // Upgrade all apps or the system
+
+                    if ((what == "system") || (what == "system"))
+                    {
+                        var confirm_message = y18n.t('confirm_update_' + what);
+                        var api_url = '/upgrade?'+what;
+                    }
+
+                    // Upgrade a specific apps
+
+                    else
+                    {
+                        var confirm_message = y18n.t('confirm_update_specific_app', [what]);
+                        var api_url = '/upgrade/apps?app='+what;
+                    }
+
+                    c.confirm(
+                        y18n.t('tools'),
+                        confirm_message,
+                        function(){
+                            c.api('PUT', api_url, {}, function(data) {
+                                c.redirect_to('#/tools/logs');
+                            });
+                        }
+                    );
+                });
+            });
         });
-    });
-
-    // Upgrade apps or packages
-    app.get('#/upgrade/:type', function (c) {
-        c.confirm(
-            y18n.t('tools'),
-            // confirm_update_apps and confirm_update_packages
-            y18n.t('confirm_update_' + c.params['type'].toLowerCase()),
-            function(){
-                c.api('PUT', '/upgrade?'+c.params["type"], {}, function(data) {
-                          c.redirect_to('#/tools/logs');
-                });
-            }
-        );
-    });
-
-    // Upgrade a specific apps
-    app.get('#/upgrade/apps/:app', function (c) {
-        c.confirm(
-            y18n.t('tools'),
-            y18n.t('confirm_update_specific_app', [c.params['app']]),
-            function(){
-                c.api('PUT', '/upgrade/apps?app='+c.params['app'].toLowerCase(), {}, function(data) {
-                    c.redirect_to('#/tools/logs');
-                });
-            }
-        );
     });
 
     // Display journals list

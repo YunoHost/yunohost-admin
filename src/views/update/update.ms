@@ -20,7 +20,7 @@
         {{/system}}
     </div>
     <div class="panel-footer">
-        <a href="#/upgrade/system" role="button" class="btn btn-success">{{t 'system_upgrade_all_packages_btn'}}</a>
+        <button class="btn btn-success" data-upgrade="system">{{t 'system_upgrade_all_packages_btn'}}</button>
     </div>
     {{else}}
     <div class="panel-body">
@@ -37,14 +37,14 @@
     <div class="list-group">
         {{#apps}}
         <div class="list-group-item clearfix">
-            <a href="#/upgrade/apps/{{id}}" role="button" class="btn btn-success pull-right">{{t 'system_upgrade_btn'}}</a>
+            <button class="btn btn-success pull-right" data-upgrade="{{id}}">{{t 'system_upgrade_btn'}}</button>
             <h3 class="list-group-item-heading">{{label}} <small>{{id}}</small></h3>
             <p class="list-group-item-text">{{t 'from_to' current_version new_version}}</p>
         </div>
         {{/apps}}
     </div>
     <div class="panel-footer">
-        <a role="button" href="#/upgrade/apps" class="btn btn-success">{{t 'system_upgrade_all_applications_btn'}}</a>
+        <button class="btn btn-success" data-upgrade="apps">{{t 'system_upgrade_all_applications_btn'}}</button>
     </div>
     {{else}}
     <div class="panel-body">
