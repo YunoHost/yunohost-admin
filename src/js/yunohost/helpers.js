@@ -424,7 +424,7 @@
                         .modal('hide');
 
                     // Do corresponding callback
-                    if ($(this).data('action') == 'confirm') {
+                    if ($(this).data('modal-action') == 'confirm') {
                         confirmCallback();
                     }
                     else {
