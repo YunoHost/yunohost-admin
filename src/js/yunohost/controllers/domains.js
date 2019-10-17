@@ -86,22 +86,10 @@
         c.api('PUT', '/domains/main', {}, function(dataMain) {
             c.api('GET', '/apps?installed', {}, function(data) {
 
-                // FIXME - This dirty trick (along with the previous API call
-                //  for apps installed) should be removed once letsencrypt_ynh
-                //  is not used by many people anymore. Probably around 07/2017
-                //  or end of 2017...
-                var enable_cert_management_ = true;
-                $.each(data['apps'], function(k, v) {
-                    if (v.id == "letsencrypt") {
-                        enable_cert_management_ = false;
-                    }
-                });
-
                 var domain = {
                     name: c.params['domain'],
                     main: (c.params['domain'] == dataMain.current_main_domain) ? true : false,
-                    url: "https://"+c.params['domain'],
-                    enable_cert_management: enable_cert_management_
+                    url: "https://"+c.params['domain']
                 };
                 c.view('domain/domain_info', domain, function() {
 
