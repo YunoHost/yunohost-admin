@@ -665,15 +665,35 @@ input[type='radio'].nice-radio {
 
 /** Permissions View **/
 #view-permissions {
+    .panel-heading a {
+        text-decoration: none;
+        &.group-delete {
+            float:right;
+            color:lighten(@label-danger-bg, 20%);
+            :hover {
+                color:@label-danger-bg;
+            }
+        }
+    }
     .panel-body {
         h3 {
             margin-top:0;
+        }
+        button.dropdown-toggle {
+            line-height: 15.666px;
+            top: -1.666px;
+        }
+        .dropdown-menu {
+            max-height: 200px;
+            overflow-y: scroll;
         }
         .label-removable {
             display:inline-block;
             font-size:1.3em;
             color:#666;
-            background-color:#ccc;
+            background-color:#eee;
+            border: #ddd 1px solid;
+            font-weight: normal;
             margin-right:7px;
             margin-bottom:7px;
             .label-separator {
@@ -681,11 +701,11 @@ input[type='radio'].nice-radio {
                 color:white; 
             }
             > a {
-                color:white; 
+                color:lighten(@label-danger-bg, 20%);
                 text-decoration: none;
             }
             > a:hover {
-                color:@label-danger-bg; 
+                color:@label-danger-bg;
             }
         }
     }

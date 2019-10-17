@@ -3,8 +3,8 @@
     <a href="#/users" class="visible-xs">&hellip;</a>
     <a href="#/users" class="hidden-xs">{{t 'users'}}</a>
     <a href="#/permissions" class="visible-xs">&hellip;</a>
-    <a href="#/permissions" class="hidden-xs">{{t 'permissions'}}</a>
-    <a href="#/groups/create">{{t 'perm_groups_new'}}</a>
+    <a href="#/permissions" class="hidden-xs">{{t 'group_permissions'}}</a>
+    <a href="#/groups/create">{{t 'group_new'}}</a>
 </div>
 
 <div class="separator"></div>

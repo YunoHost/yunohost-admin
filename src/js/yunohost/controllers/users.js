@@ -10,31 +10,100 @@
      *
      */
 
-    // List groups and permissions
+    function updateGroup(model, params) {
+        var type = params.type;
+        var operation = params.operation;
+        var item = params.item;
+        var groupname = params.group;
+        var group = data.groups[groupname];
+        var to = (operation == 'add')?group[type]:group[type + 'Inv'];
+        var from = (operation == 'add')?group[type+'Inv']:group[type];
+        // Do nothing, if array of destination already contains the item 
+        if (from.indexOf(item) === -1) return;
+
+        // Hack to disable pacman loader if any
+        if ($('div.loader').length === 0) {
+            $('#main').append('<div class="loader loader-content" style="display: none"></div>');
+        }
+        $('div.loader').css('display', 'none');
+        
+        // Update group
+        var params = {}; var url;
+        if (type == 'members') {
+            url = '/users/groups/' + groupname;
+            params[operation] = [item];
+        }
+        else {
+            url = '/users/permissions/' + item;
+            params[operation] = [groupname];
+        }
+        c.api(url, function(data_update) { 
+            to.push(item);
+            from.splice(from.indexOf(item), 1);
+            updateView(data);
+        }, 'PUT', params);
+    }
+    function updateView(model) {
+        for (var group in model.groups) {
+            model.groups[group].permissions.sort();
+            model.groups[group].permissionsInv.sort();
+            model.groups[group].members.sort();
+            model.groups[group].membersInv.sort();
+        }
+        c.view('user/user_permission', model, function () {
+            jQuery(".group-update").on('click', function (e) {
+                updateGroup(model, jQuery(this)[0].dataset);
+                return false;
+            });
+            jQuery(".group-add-user").on('click', function (e) {
+                data.groups[$(this)[0].dataset.user].display = true;
+                updateView(data);
+                return false;
+            });
+        });
+    }
+    this.displayPermission =     // List groups and permissions
     app.get('#/permissions', function (c) {
         c.api('/users/groups?full&include_primary_groups', function(data_groups) {
         c.api('/users', function(data_users) {
-                //var perms = data_permissions.permissions;
-                var specific_perms = {};
-                var all_perms = [];
-                for (var user in data_users.users) {
-                    console.log(user);
-                    if (user in data_groups.groups) {
-                        if (data_groups.groups[user].permissions.length > 0)
-                            specific_perms[user] = data_groups.groups[user];
-                        delete data_groups.groups[user];
-                    }
-                }
-                data_groups.groups['all_users'].special = true;
-                data_groups.groups['visitors'].special = true;
-                data = {
-                    'groups':data_groups.groups,
-                    'users_with_specific_permissions': specific_perms,
-                    'users': Object.keys(data_users.users),
-                    'permissions': all_perms
-                };
-                c.view('user/user_permission', data);
+        c.api('/users/permissions?short', function(data_permissions) {
+            //var perms = data_permissions.permissions;
+            var specific_perms = {};
+            var all_perms = data_permissions.permissions;
+            var users = Object.keys(data_users.users);
+            for (var group in data_groups.groups) {
+                data_groups.groups[group].primary = users.indexOf(group) !== -1;
+                data_groups.groups[group].permissionsInv = all_perms.filter(function(item) {
+                    return data_groups.groups[group].permissions.indexOf(item) === -1;
+                });
+                data_groups.groups[group].membersInv = users.filter(function(item) {
+                    return data_groups.groups[group].members.indexOf(item) === -1;
+                });
+            }
+            Handlebars.registerHelper('call', function () {
+                var args = Array.prototype.slice.call(arguments);
+                var func = args.shift();
+                args.pop();
+                return func.apply(null, args);
             });
+            data_groups.groups['all_users'].special = true;
+            data_groups.groups['visitors'].special = true;
+            data = {
+                'groups':data_groups.groups,
+                'displayPermission': function (text) {
+                    text = text.replace('.main', '');
+                    if (text.indexOf('.') > -1)
+                        text = text.replace('.', ' (') + ')';
+                    
+                    return text;
+                },
+                'displayUser': function (text) {
+                    return text;
+                },
+            };
+            updateView(data);
+        });
+        });
         });
     });
 
@@ -53,6 +122,30 @@
         c.api('/users/groups', function(data) { 
             c.redirect('#/permissions');
         }, 'POST', c.params.toHash());
+    });
+    
+    app.get('#/groups/:group/delete', function (c) {
+
+        var params = {};
+
+        // make confirm content
+        var confirmModalContent = $('<div>'+ y18n.t('confirm_delete', [c.params['group']]) +'</div>');
+
+        // display confirm modal
+        c.confirm(
+            y18n.t('groups'),
+            confirmModalContent,
+            function(){
+                c.api('/users/groups/'+ c.params['group'], function(data) {
+                    c.redirect('#/permissions');
+                }, 'DELETE', params);
+            },
+            function(){
+                //store.clear('slide');
+                c.redirect('#/permissions');
+            }
+        );
+
     });
 
     /**

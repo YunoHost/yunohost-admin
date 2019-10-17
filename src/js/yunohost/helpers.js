@@ -276,7 +276,7 @@
                     callback();
 
                     // Force scrollTop on page load
-                    $('html, body').scrollTop(0);
+                    //$('html, body').scrollTop(0);
                 });
             };
 
