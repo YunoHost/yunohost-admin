@@ -33,7 +33,7 @@
         <div class="container">
             <p>{{t 'domain_visit_url' url}}</p>
             <a role="button" href="{{url}}" class="btn btn-success" target="_blank">
-                {{t 'domain_visit'}} <span class="fa-fw fa-external-link"></span>
+                <span class="fa-fw fa-external-link"></span> {{t 'domain_visit'}}
             </a>
         </div>
         {{#unless main}}
@@ -41,7 +41,7 @@
         <div class="container">
             <p>{{t 'domain_default_desc'}}</p>
             <button class="btn btn-primary" data-action="set_default" data-domain="{{name}}">
-                {{t 'set_default'}} <span class="fa-fw fa-star"></span>
+                <span class="fa-fw fa-star"></span> {{t 'set_default'}}
             </button>
         </div>
         {{/unless}}
@@ -49,7 +49,7 @@
         <div class="container">
             <p>{{t 'domain_dns_longdesc'}}</p>
             <a role="button" href="#/domains/{{name}}/dns"  class="btn btn-default slide">
-                {{t 'domain_dns_config'}} <span class="fa-fw fa-globe"></span>
+                <span class="fa-fw fa-globe"></span> {{t 'domain_dns_config'}}
             </a>
         </div>
         <hr>
@@ -61,14 +61,14 @@
             </p>
             {{/unless}}
             <a href="#/domains/{{name}}/cert-management" role="button" class="btn btn-default slide {{#unless enable_cert_management}}disabled{{/unless}}">
-                {{t 'ssl_certificate'}} <span class="fa-fw fa-lock"></span>
+                <span class="fa-fw fa-lock"></span> {{t 'ssl_certificate'}}
             </a>
         </div>
         <hr>
         <div class="container">
             <p>{{t 'domain_delete_longdesc' name}}</p>
             <button class="btn btn-danger" data-action="delete" data-domain="{{name}}">
-                {{t 'delete'}} <span class="fa-fw fa-trash-o"></span>
+                <span class="fa-fw fa-trash-o"></span> {{t 'delete'}}
             </button>
         </div>
     </div>
