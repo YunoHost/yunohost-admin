@@ -198,60 +198,47 @@
                 status: status_,
                 actions_enabled : actions_enabled
             };
-            c.view('domain/domain_cert', data_);
+            c.view('domain/domain_cert', data_, function() {
+                // Configure install / renew buttons behavior
+                $("button[data-action]").on("click", function () {
+                    var action = $(this).data("action"),
+                        domain = $(this).data("domain"),
+                        confirm_key = "",
+                        api_url = "";
+
+                    switch (action) {
+                        case 'install-LE':
+                            confirm_key = 'confirm_cert_install_LE';
+                            api_url = '/domains/cert-install/' + domain;
+                            break;
+                        case 'regen-selfsigned':
+                            confirm_key = 'confirm_cert_regen_selfsigned';
+                            api_url = '/domains/cert-install/' + domain + "?self_signed";
+                            break;
+                        case 'renew-letsencrypt':
+                            confirm_key = 'confirm_cert_manual_renew_LE';
+                            api_url = '/domains/cert-renew/' + domain + "?force";
+                            break;
+                        case 'replace-with-selfsigned':
+                            confirm_key = 'confirm_cert_revert_to_selfsigned';
+                            api_url = '/domains/cert-install/' + domain + "?self_signed&force";
+                            break;
+                        default:
+                            c.flash('fail', y18n.t('unknown_action', [action]));
+                            return
+                    }
+
+                    c.confirm(
+                        y18n.t('certificate'),
+                        y18n.t(confirm_key, [domain]),
+                        function(){
+                            c.api('POST', api_url, {}, function(data) {
+                                c.redirect_to('#/domains/'+domain+'/cert-management', {slide:false});
+                            });
+                    });
+                });
+            });
         });
-    });
-
-    // Install let's encrypt certificate on domain
-    app.get('#/domains/:domain/cert-install-LE', function (c) {
-        c.confirm(
-            y18n.t('certificate'),
-            y18n.t('confirm_cert_install_LE', [c.params['domain']]),
-            function(){
-                c.api('POST', '/domains/cert-install/' + c.params['domain'], {}, function(data) {
-                    c.redirect_to('#/domains/'+c.params['domain']+'/cert-management', {slide:false});
-                });
-            }
-        );
-    });
-
-    // Regenerate a self-signed certificate
-    app.get('#/domains/:domain/cert-regen-selfsigned', function (c) {
-        c.confirm(
-            y18n.t('certificate'),
-            y18n.t('confirm_cert_regen_selfsigned', [c.params['domain']]),
-            function(){
-                c.api('POST', '/domains/cert-install/' + c.params['domain'] + "?self_signed", {}, function(data) {
-                    c.redirect_to('#/domains/'+c.params['domain']+'/cert-management', {slide:false});
-                });
-            }
-        );
-    });
-
-    // Manually renew a Let's Encrypt certificate
-    app.get('#/domains/:domain/cert-renew-letsencrypt', function (c) {
-        c.confirm(
-            y18n.t('certificate'),
-            y18n.t('confirm_cert_manual_renew_LE', [c.params['domain']]),
-            function(){
-                c.api('POST', '/domains/cert-renew/' + c.params['domain'] + "?force", {}, function(data) {
-                    c.redirect_to('#/domains/'+c.params['domain']+'/cert-management', {slide:false});
-                });
-            }
-        );
-    });
-
-    // Replace valid cert with self-signed
-    app.get('#/domains/:domain/cert-replace-with-selfsigned', function (c) {
-        c.confirm(
-            y18n.t('certificate'),
-            y18n.t('confirm_cert_revert_to_selfsigned', [c.params['domain']]),
-            function(){
-                c.api('POST', '/domains/cert-install/' + c.params['domain'] + "?self_signed&force", {}, function(data) {
-                    c.redirect_to('#/domains/'+c.params['domain']+'/cert-management', {slide:false});
-                });
-            }
-        );
     });
 
 
