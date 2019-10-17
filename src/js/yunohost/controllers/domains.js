@@ -97,14 +97,52 @@
                     }
                 });
 
-
                 var domain = {
                     name: c.params['domain'],
                     main: (c.params['domain'] == dataMain.current_main_domain) ? true : false,
                     url: "https://"+c.params['domain'],
                     enable_cert_management: enable_cert_management_
                 };
-                c.view('domain/domain_info', domain);
+                c.view('domain/domain_info', domain, function() {
+
+                    // Configure "set default" button
+                    $('button[data-action="set_default"]').on("click", function() {
+                        var domain = $(this).data("domain");
+                        c.confirm(
+                            y18n.t('domains'),
+                            y18n.t('confirm_change_maindomain'),
+                            function() {
+                                var params = {
+                                    new_domain: c.params['domain']
+                                };
+                                c.api('PUT', '/domains/main', params, function(data) {
+                                    c.redirect_to('#/domains');
+                                });
+
+                                // WTF ... why is this hack needed v_v
+
+                                // Wait 15s and refresh the page
+                                var refreshDomain = window.setTimeout(function(){
+                                    c.redirect_to('#/domains');
+                                }, 15000);
+                            }
+                        );
+                    });
+
+                    // Configure delete button
+                    $('button[data-action="delete"]').on("click", function() {
+                        var domain = $(this).data("domain");
+                        c.confirm(
+                            y18n.t('domains'),
+                            y18n.t('confirm_delete', [domain]),
+                            function(){
+                                c.api('DELETE', '/domains/'+ domain, {}, function(data) {
+                                    c.redirect_to('#/domains');
+                                });
+                            }
+                        );
+                    });
+                });
             });
         });
     });
@@ -239,48 +277,6 @@
                 });
             });
         });
-    });
-
-
-    // Remove existing domain
-    app.get('#/domains/:domain/delete', function (c) {
-        c.confirm(
-            y18n.t('domains'),
-            y18n.t('confirm_delete', [c.params['domain']]),
-            function(){
-                c.api('DELETE', '/domains/'+ c.params['domain'], {}, function(data) {
-                    c.redirect_to('#/domains');
-                });
-            }
-        );
-    });
-
-    // Set default domain
-    app.post('#/domains', function (c) {
-        if (c.params['domain'] === '') {
-            c.flash('fail', y18n.t('error_select_domain'));
-            c.redirect_to('#/domains', {slide:false});
-        } else {
-            c.confirm(
-                y18n.t('domains'),
-                y18n.t('confirm_change_maindomain'),
-                function(){
-                    var params = {
-                        new_domain: c.params['domain']
-                    };
-                    c.api('PUT', '/domains/main', params, function(data) {
-                        c.redirect_to('#/domains');
-                    });
-
-                    // WTF ... why is this hack needed v_v
-
-                    // Wait 15s and refresh the page
-                    var refreshDomain = window.setTimeout(function(){
-                        c.redirect_to('#/domains');
-                    }, 15000);
-                }
-            );
-        }
     });
 
 })();
