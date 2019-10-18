@@ -215,7 +215,36 @@
             data.manifest.multi_instance = data.manifest.multi_instance ? y18n.t('yes') : y18n.t('no');
             data.install_time = new Date(data.settings.install_time * 1000);
 
-            c.view('app/app_info', data);
+            c.view('app/app_info', data, function() {
+
+                // Button to set the app as default
+                $('button[data-action="set-as-default"]').on("click", function() {
+                    var app = $(this).data("app");
+                    c.confirm(
+                        y18n.t('applications'),
+                        y18n.t('confirm_app_default'),
+                        function() {
+                            c.api('PUT', '/apps/'+app+'/default', {}, function() {
+                                c.redirect_to('#/apps/'+ app, {slide:false});
+                            });
+                        }
+                    );
+                });
+
+                // Button to uninstall the app
+                $('button[data-action="uninstall"]').on("click", function() {
+                    var app = $(this).data("app");
+                    c.confirm(
+                        y18n.t('applications'),
+                        y18n.t('confirm_uninstall', [app]),
+                        function() {
+                            c.api('DELETE', '/apps/'+ app, {}, function() {
+                                c.redirect_to('#/apps');
+                            });
+                        }
+                    );
+                });
+            });
         });
     });
 
@@ -225,6 +254,10 @@
             c.view('app/app_debug', data);
         });
     });
+
+    //
+    // App actions
+    //
 
     // Get app actions list
     app.get('#/apps/:app/actions', function (c) {
@@ -268,6 +301,10 @@
             c.redirect_to('#/apps/'+app_id+'/actions', {slide:false});
         });
     });
+
+    //
+    // App config panel
+    //
 
     // Get app config panel
     app.get('#/apps/:app/config-panel', function (c) {
@@ -593,19 +630,6 @@
         );
     });
 
-    // Remove installed app
-    app.get('#/apps/:app/uninstall', function (c) {
-        c.confirm(
-            y18n.t('applications'),
-            y18n.t('confirm_uninstall', [c.params['app']]),
-            function() {
-                c.api('DELETE', '/apps/'+ c.params['app'], {}, function() {
-                    c.redirect_to('#/apps');
-                });
-            }
-        );
-    });
-
     // Manage app access
     app.get('#/apps/:app/access', function (c) {
         c.api('GET', '/apps/'+c.params['app']+'?raw', {}, function(data) {
@@ -724,19 +748,6 @@
                 };
                 c.api('POST', '/access', params, function() {
                     c.redirect_to('#/apps/'+ c.params['app'] +'/access', {slide:false});
-                });
-            }
-        );
-    });
-
-    // Make app default
-    app.get('#/apps/:app/default', function (c) {
-        c.confirm(
-            y18n.t('applications'),
-            y18n.t('confirm_app_default'),
-            function() {
-                c.api('PUT', '/apps/'+c.params['app']+'/default', {}, function() {
-                    c.redirect_to('#/apps/'+ c.params['app'], {slide:false});
                 });
             }
         );

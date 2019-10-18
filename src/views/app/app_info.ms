@@ -56,9 +56,9 @@
         <hr>
         <div class="container">
             <p>{{t 'app_info_default_desc' settings.domain}}</p>
-            <a role="button" href="#/apps/{{settings.id}}/default" class="btn btn-success slide">
+            <button class="btn btn-success" data-action="set-as-default" data-app="{{settings.id}}">
                 <span class="fa-star"></span> {{t 'app_make_default'}}
-            </a>
+            </button>
         </div>
         <hr>
         <div class="container">
@@ -78,9 +78,9 @@
         <hr>
         <div class="container">
             <p>{{t 'app_info_uninstall_desc'}}</p>
-            <a href="#/apps/{{settings.id}}/uninstall" role="button" class="btn btn-danger slide back">
+            <button class="btn btn-danger slide back" data-action="uninstall" data-app="{{settings.id}}">
                 <span class="fa-trash-o"></span> {{t 'uninstall'}}
-            </a>
+            </button>
         </div>
         <hr>
         <div class="container">
