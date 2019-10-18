@@ -264,7 +264,7 @@
         });
     });
 
-    // Reboot or shutdown button
+    // Migrations
     app.get('#/tools/migrations', function (c) {
         c.api('GET', '/migrations?pending', {}, function(pending_migrations) {
         c.api('GET', '/migrations?done', {}, function(done_migrations) {
@@ -286,57 +286,44 @@
             c.view('tools/tools_migrations', {
                 'pending_migrations' : pending_migrations.reverse(),
                 'done_migrations' : done_migrations.reverse()
+            }, function() {
+
+                // Configure button 'Run'
+                $('button[data-action="run"]').on("click", function() {
+
+                    var disclaimerAcks = $(".disclaimer-ack");
+                    for (var i = 0 ; i < disclaimerAcks.length ; i++)
+                    {
+                        if (! $(disclaimerAcks[i]).find("input:checked").val())
+                        {
+                            // FIXME / TODO i18n
+                            c.flash('fail', "Some of these migrations require you to acknowledge a disclaimer before running them.");
+                            c.redirect_to('#/tools/migrations', {slide: false});
+                            return;
+                        }
+                    };
+
+                    c.api('POST', '/migrations/migrate?accept_disclaimer', {}, function (data) {
+                        c.redirect_to('#/tools/migrations', {slide: false});
+                    });
+                });
+
+                // Configure buttons 'Skip'
+                $('button[data-action="skip"]').on("click", function() {
+                    var migration_id = $(this).data("migration");
+                    c.confirm(
+                        y18n.t('migrations'),
+                        y18n.t('confirm_migrations_skip'),
+                        function(){
+                            c.api('POST', '/migrations/migrate?skip&targets=' + migration_id, {}, function(data) {
+                                c.redirect_to('#/tools/migrations', {slide: false});
+                            });
+                        }
+                    );
+                });
             });
         });
         });
-    });
-
-    app.get('#/tools/migrations/run', function (c) {
-        var disclaimerAcks = $(".disclaimer-ack");
-        var withAcceptDisclaimerFlag = false;
-        for (var i = 0 ; i < disclaimerAcks.length ; i++)
-        {
-            console.log($(disclaimerAcks[i]).find("input:checked").val());
-            if (! $(disclaimerAcks[i]).find("input:checked").val())
-            {
-                // FIXME / TODO i18n
-                c.flash('fail', "Some of these migrations require you to acknowledge a disclaimer before running them.");
-                c.redirect_to('#/tools/migrations', {slide: false});
-                return;
-            }
-            else
-            {
-                withAcceptDisclaimerFlag = true;
-            }
-        };
-
-        // Not sure if necessary, but this distinction is to avoid accidentally
-        // triggering a migration with a disclaimer if one goes to the
-        // /tools/migrations/run page "directly" somehow ...
-        if (withAcceptDisclaimerFlag)
-        {
-            c.api('POST', '/migrations/migrate?accept_disclaimer', {}, function (data) {
-                c.redirect_to('#/tools/migrations', {slide: false});
-            })
-        }
-        else
-        {
-            c.api('POST', '/migrations/migrate', {}, function (data) {
-                c.redirect_to('#/tools/migrations', {slide: false});
-            })
-        }
-    });
-
-    app.get('#/tools/migrations/skip/:migration_id', function (c) {
-        c.confirm(
-            y18n.t('migrations'),
-            y18n.t('confirm_migrations_skip'),
-            function(){
-                c.api('POST', '/migrations/migrate?skip&targets=' + c.params['migration_id'], {}, function(data) {
-                    c.redirect_to('#/tools/migrations', {slide: false});
-                });
-            }
-        );
     });
 
     // List available apps lists
