@@ -10,7 +10,7 @@
 </div>
 
 <div class="actions-group">
-    <button id="share-with-yunopaste" class="btn btn-success" data-log-id="{{#if log.name}}{{ log.name }}{{else}}{{ log.log_path }}{{/if}}">
+    <button class="btn btn-success" data-action="share" data-log-id="{{#if log.name}}{{ log.name }}{{else}}{{ log.log_path }}{{/if}}">
         <span class="fa-cloud-upload"></span> {{t 'logs_share_with_yunopaste'}}
     </button>
 </div>

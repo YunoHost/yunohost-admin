@@ -140,7 +140,7 @@
                 "locale": y18n.locale
             }, function() {
                 // Configure behavior for the button to share log on Yunohost (it calls display --share)
-                $("#share-with-yunopaste").on("click", function() {
+                $('button[data-action="share"]').on("click", function() {
                     c.api('GET', '/logs/display?path='+$(this).data('log-id')+'&share', {},
                         function(data) {
                             $('div.loader').remove();
