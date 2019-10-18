@@ -54,11 +54,7 @@
                         y18n.t('firewall'),
                         // confirm_upnp_enable and confirm_upnp_disable
                         y18n.t('confirm_upnp_' + action),
-                        function(){
-                            c.api('GET', '/firewall/upnp', {action: action}, function(data) {
-                                c.redirect_to('#/tools/firewall');
-                            });
-                        }
+                        function(){ c.api('GET', '/firewall/upnp', {action: action}, function() { c.refresh() }); }
                     );
                });
             });
@@ -90,7 +86,7 @@
 
         if (port != parseInt(port) || port < 0 || port > 65535) {
             c.flash('fail', y18n.t('unknown_argument', [port]));
-            c.redirect_to('#/tools/firewall', {slide: false});
+            c.refresh();
         }
 
         switch (connection) {
@@ -122,29 +118,25 @@
                 break;
             default:
                 c.flash('fail', y18n.t('unknown_action', [action]));
-                c.redirect_to('#/tools/firewall', {slide: false});
+                c.refresh();
         }
 
-        if (method !== null && protocol !== null && port !== null) {
-            // port:
-            // protocol:
-            //    - UDP
-            //    - TCP
-            //    - Both
-            // --ipv4-only:
-            // --ipv6-only:
-            // --no-upnp:
-            var params = {
-                port : port,
-                protocol : protocol
-            };
-            c.api(method, '/firewall/port?'+endurl, params, function(data) {
-                c.redirect_to('#/tools/firewall');
-            });
-        }
-        else {
-            c.redirect_to('#/tools/firewall');
-        }
+        // port:
+        // protocol:
+        //    - UDP
+        //    - TCP
+        //    - Both
+        // --ipv4-only:
+        // --ipv6-only:
+        // --no-upnp:
+        var params = {
+            port : port,
+            protocol : protocol
+        };
+
+        c.api(method, '/firewall/port?'+endurl, params, function() { c.refresh() });
+
+
         return;
     });
 

@@ -100,21 +100,9 @@
                             y18n.t('domains'),
                             y18n.t('confirm_change_maindomain'),
                             function() {
-                                var params = {
-                                    new_domain: c.params['domain']
-                                };
-                                c.api('PUT', '/domains/main', params, function(data) {
-                                    c.redirect_to('#/domains');
-                                });
-
-                                // WTF ... why is this hack needed v_v
-
-                                // Wait 15s and refresh the page
-                                var refreshDomain = window.setTimeout(function(){
-                                    c.redirect_to('#/domains');
-                                }, 15000);
+                                c.api('PUT', '/domains/main', {new_domain: domain}, function() { c.refresh() });
                             }
-                        );
+                        )
                     });
 
                     // Configure delete button
@@ -257,11 +245,8 @@
                     c.confirm(
                         y18n.t('certificate'),
                         y18n.t(confirm_key, [domain]),
-                        function(){
-                            c.api('POST', api_url, {}, function(data) {
-                                c.redirect_to('#/domains/'+domain+'/cert-management', {slide:false});
-                            });
-                    });
+                        function(){ c.api('POST', api_url, {}, function() { c.refresh() }); }
+                    );
                 });
             });
         });

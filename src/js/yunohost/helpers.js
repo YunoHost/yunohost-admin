@@ -588,7 +588,13 @@
             c.app.last_location = c.path;
             c.app.setLocation(destination);
             c.app.trigger('location-changed');
+        },
+
+        refresh: function() {
+            c = this;
+            c.redirect_to(c.path, {slide: false});
         }
+
     });
 
 })();

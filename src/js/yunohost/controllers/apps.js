@@ -223,11 +223,7 @@
                     c.confirm(
                         y18n.t('applications'),
                         y18n.t('confirm_app_default'),
-                        function() {
-                            c.api('PUT', '/apps/'+app+'/default', {}, function() {
-                                c.redirect_to('#/apps/'+ app, {slide:false});
-                            });
-                        }
+                        function() { c.api('PUT', '/apps/'+app+'/default', {}, function() { c.refresh() }); }
                     );
                 });
 
@@ -584,7 +580,7 @@
         }
         else {
             c.flash('warning', y18n.t('app_install_cancel'));
-            c.redirect_to('#/apps/install', {slide: false});
+            c.refresh();
         }
     });
 
@@ -624,7 +620,7 @@
                 })
                 .fail(function(xhr) {
                     c.flash('fail', y18n.t('app_install_custom_no_manifest'));
-                    c.redirect_to('#/apps/install', {slide:false});
+                    c.refresh();
                 });
             }
         );

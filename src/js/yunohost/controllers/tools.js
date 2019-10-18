@@ -26,22 +26,25 @@
         });
         if ($.isEmptyObject(params)) {
             c.flash('fail', y18n.t('error_modify_something'));
-            c.redirect_to('#/tools/adminpw', {slide: false});
-        } else if (params['new_password'] !== params['confirm_new_password']) {
-            c.flash('fail', y18n.t('passwords_dont_match'));
-            c.redirect_to('#/tools/adminpw', {slide: false});
-        } else {
-            c.api('POST', '/login', { 'password': params['old_password'] }, function(data) {
-                // Remove useless variable
-                delete params['old_password'];
-                delete params['confirm_new_password'];
-
-                // Update password and redirect to the home
-                c.api('PUT', '/adminpw', params, function(data) {
-                    c.redirect_to('#/logout');
-                });
-            }, undefined, false);
+            c.refresh();
+            return;
         }
+        if (params['new_password'] !== params['confirm_new_password']) {
+            c.flash('fail', y18n.t('passwords_dont_match'));
+            c.refresh();
+            return;
+        }
+
+        c.api('POST', '/login', { 'password': params['old_password'] }, function(data) {
+            // Remove useless variable
+            delete params['old_password'];
+            delete params['confirm_new_password'];
+
+            // Update password and redirect to the home
+            c.api('PUT', '/adminpw', params, function(data) {
+                c.redirect_to('#/logout');
+            });
+        }, undefined, false);
     });
 
     // System update & upgrade
@@ -298,14 +301,12 @@
                         {
                             // FIXME / TODO i18n
                             c.flash('fail', "Some of these migrations require you to acknowledge a disclaimer before running them.");
-                            c.redirect_to('#/tools/migrations', {slide: false});
+                            c.refresh();
                             return;
                         }
                     };
 
-                    c.api('POST', '/migrations/migrate?accept_disclaimer', {}, function (data) {
-                        c.redirect_to('#/tools/migrations', {slide: false});
-                    });
+                    c.api('POST', '/migrations/migrate?accept_disclaimer', {}, function() { c.refresh(); });
                 });
 
                 // Configure buttons 'Skip'
@@ -315,9 +316,7 @@
                         y18n.t('migrations'),
                         y18n.t('confirm_migrations_skip'),
                         function(){
-                            c.api('POST', '/migrations/migrate?skip&targets=' + migration_id, {}, function(data) {
-                                c.redirect_to('#/tools/migrations', {slide: false});
-                            });
+                            c.api('POST', '/migrations/migrate?skip&targets=' + migration_id, {}, function() { c.refresh() });
                         }
                     );
                 });

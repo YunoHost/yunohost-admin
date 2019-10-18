@@ -94,17 +94,11 @@
                                 break;
                             default:
                                 c.flash('fail', y18n.t('unknown_action', [action]));
-                                c.redirect_to('#/services/'+ service, {slide: false});
+                                c.refresh();
+                                return;
                         }
 
-                        if (method && endurl) {
-                            c.api(method, '/services/'+ endurl, {}, function(data) {
-                                c.redirect_to('#/services/'+ service, {slide: false});
-                            });
-                        }
-                        else {
-                            c.redirect_to('#/services/'+ service, {slide: false});
-                        }
+                        c.api(method, '/services/'+ endurl, {}, function() { c.refresh(); });
                     });
                 });
             });
