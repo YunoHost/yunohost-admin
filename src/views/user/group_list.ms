@@ -12,6 +12,7 @@
 
 <div class="separator"></div>
 
+{{!-- ======================== Partial inline view ======================= --}}
 {{#*inline "label"}}
     <span class="label label-default label-removable">
         <span class="fa-fw fa-{{icon}}"></span>
@@ -42,6 +43,8 @@
     {{/if}}
 {{/inline}}
 <div id="view-groups">
+
+{{!-- ======================== Groups ======================= --}}
 {{#each groups}}
 {{#unless primary}}
 <div class="panel panel-default">
@@ -87,6 +90,9 @@
 </div>
 {{/unless}}
 {{/each}}
+
+
+{{!-- ====================== User specific permissions ==================== --}}
 <div class="panel panel-info">
     <div class="panel-heading" role="tab" id="heading-context-specific">
             <h2 class="panel-title">
