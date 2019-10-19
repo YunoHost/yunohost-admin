@@ -133,10 +133,9 @@
             if (window.navigator && window.navigator.language && (typeof data.locale === 'undefined')) {
                 data.locale = y18n.locale || window.navigator.language.substr(0, 2);
             }
-            app.loaded = false;
-            if ($('div.loader').length === 0) {
-                $('#main').append('<div class="loader loader-content"></div>');
-            }
+
+            c.showLoader();
+
             call = function(uri, callback, method, data, callbackOnFailure) {
 
                 var args = data;
@@ -152,6 +151,10 @@
                     callbackOnFailure = function(xhr) {
                         // Postinstall is a custom case, we have to wait that
                         // operation is done before doing anything
+                        //
+                        // TODO / FIXME : maybe we should add this as a
+                        // callbackonfailure during the actual api call instead
+                        // of hard-coding it here...
                         if ((uri === '/postinstall') && (post_installing)) {
                                 interval = window.location.hostname === args.domain ? 20000 : 5000;
                                 checkInstall = setInterval(function () {
@@ -216,8 +219,7 @@
                                 console.log(xhr);
                             }
 
-                            // Remove loader if any
-                            $('div.loader').remove();
+                            c.hideLoader();
 
                             // Force scrollTop on page load
                             $('html, body').scrollTop(0);
@@ -285,10 +287,8 @@
             callback = typeof callback !== 'undefined' ? callback : function() {};
             enableSlide = (typeof enableSlide !== 'undefined') ? enableSlide : true; // Change to false to disable animation
 
-            app.loaded = true;
-
             // Hide loader and modal
-            $('div.loader').remove();
+            c.hideLoader();
             $('#modal').modal('hide');
 
             // Render content
@@ -394,9 +394,13 @@
         },
 
         confirm: function(title, content, confirmCallback, cancelCallback) {
+            c = this;
+
             // Default callbacks
             confirmCallback = typeof confirmCallback !== 'undefined' ? confirmCallback : function() {};
             cancelCallback = typeof cancelCallback !== 'undefined' ? cancelCallback : function() {};
+
+            c.hideLoader();
 
             // Get modal element
             var box = $('#modal');
@@ -434,6 +438,18 @@
 
             // Show modal
             return box.modal('show');
+        },
+
+        showLoader: function() {
+            app.loaded = false; // Not sure if that's really useful ... this is from old code with no explanation what it really does ...
+            if ($('div.loader').length === 0) {
+                $('#main').append('<div class="loader loader-content"></div>');
+            }
+        },
+
+        hideLoader: function() {
+            app.loaded = true; // Not sure if that's really useful ... this is from old code with no explanation what it really does ...
+            $('div.loader').remove();
         },
 
         selectAllOrNone: function () {
@@ -545,8 +561,7 @@
                 // Get paste content element
                 var preElement = $($(this).data('paste-content'));
 
-                // Add pacman loader
-                $('#main').append('<div class="loader loader-content"></div>');
+                c.showLoader();
 
                 // Send to paste.yunohost.org
                 $.ajax({
@@ -561,8 +576,7 @@
                     c.flash('fail', y18n.t('paste_error'));
                 })
                 .always(function(){
-                    // Remove pacman
-                    $('div.loader').remove();
+                    c.hideLoader();
                 });
             });
         },

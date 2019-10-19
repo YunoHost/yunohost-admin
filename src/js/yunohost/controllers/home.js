@@ -24,20 +24,17 @@
         $('#masthead').show()
             .find('.logout-btn').hide();
         store.set('path-1', '#/login');
-        if ($('div.loader').length === 0) {
-            $('#main').append('<div class="loader loader-content"></div>');
-        }
+
+        c.showLoader();
 
         c.checkInstall(function(isInstalled) {
             if (isInstalled) {
-                // Remove loader
-                $('div.loader').remove();
+                c.hideLoader();
                 // Pass domain to hide form field
                 c.view('login', { 'domain': window.location.hostname });
             } else if (typeof isInstalled === 'undefined') {
                 if (app.isInstalledTry > 0) {
                     app.isInstalledTry--;
-                    app.loaded = false; // Show pacman
                     setTimeout(function() {
                         c.redirect('#/');
                     }, 5000);
@@ -56,12 +53,10 @@
                         $(document).off('ajaxError');
                     });
 
-                    // Remove pacman
-                    app.loaded = true;
-                    $('div.loader').remove();
+                    c.hideLoader();
                 }
             } else {
-                $('div.loader').remove();
+                c.hideLoader();
                 c.redirect('#/postinstall');
             }
         });

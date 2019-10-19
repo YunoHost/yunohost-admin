@@ -523,8 +523,6 @@
 
             if ((is_safe_for_install_color === "warning") || (is_safe_for_install_color === "danger"))
             {
-                // Disable the pacman while we ask for confirmation
-                $('div.loader').remove();
                 c.confirm(
                     y18n.t("applications"),
                     y18n.t("confirm_install_app_"+is_safe_for_install_color),

@@ -75,7 +75,7 @@
                 if (data.security["CVE-2017-5754"].vulnerable) {
                     c.flash('danger', y18n.t('meltdown'));
                 }
-                $('div.loader').remove();
+                c.hideLoader();
             });
         });
     });

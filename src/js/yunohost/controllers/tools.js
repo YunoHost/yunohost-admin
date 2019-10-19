@@ -146,7 +146,7 @@
                 $('button[data-action="share"]').on("click", function() {
                     c.api('GET', '/logs/display?path='+$(this).data('log-id')+'&share', {},
                         function(data) {
-                            $('div.loader').remove();
+                            c.hideLoader();
                             window.open(data.url, '_blank');
                     });
                 });
@@ -241,8 +241,7 @@
                                 $('#main').replaceWith('<div id="main"><div class="alert alert-warning"><i class="fa-power-off"></i> ' + y18n.t('tools_shuttingdown') + '</div></div>');
                             }
 
-                            // Remove loader if any
-                            $('div.loader').remove();
+                            c.hideLoader();
 
                             // Force scrollTop on page load
                             $('html, body').scrollTop(0);
