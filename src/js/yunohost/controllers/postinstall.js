@@ -101,6 +101,7 @@
                 store.set('url', window.location.hostname +'/yunohost/api');
                 store.set('user', 'admin');
                 c.api('POST', '/postinstall', {domain: domain, password: password}, function() {
+                    c.flash('success', y18n.t('installation_complete'));
                     c.redirect_to('#/login');
                 });
             }

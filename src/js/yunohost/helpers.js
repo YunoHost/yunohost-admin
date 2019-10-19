@@ -144,93 +144,64 @@
 
             call = function(uri, callback, method, data, callbackOnFailure) {
 
-                var args = data;
-                // TODO: change this code
-                if (uri === '/postinstall') {
-                    var post_installing = false;
-                    setInterval(function () {
-                        post_installing = true;
-                    }, 1500);
-                }
-
+                // Define default callback for failures
                 if (typeof callbackOnFailure !== 'function') {
                     callbackOnFailure = function(xhr) {
-                        // Postinstall is a custom case, we have to wait that
-                        // operation is done before doing anything
-                        //
-                        // TODO / FIXME : maybe we should add this as a
-                        // callbackonfailure during the actual api call instead
-                        // of hard-coding it here...
-                        if ((uri === '/postinstall') && (post_installing)) {
-                                interval = window.location.hostname === args.domain ? 20000 : 5000;
-                                checkInstall = setInterval(function () {
-                                    c.checkInstall(function(isInstalled) {
-                                        if (isInstalled || typeof isInstalled === 'undefined') {
-                                            c.flash('success', y18n.t('installation_complete'));
-                                            clearInterval(checkInstall);
-                                            window.location.href = 'https://'+ window.location.hostname +'/yunohost/admin/';
-                                        }
-                                    });
-                                }, interval);
+                        if (xhr.status == 200) {
+                            // Fail with 200, WTF
+                            callback({});
                         }
-                        // Regular errors
+                        // Unauthorized or wrong password
+                        else if (xhr.status == 401) {
+                            if (uri === '/login') {
+                                c.flash('fail', y18n.t('wrong_password'));
+                            } else {
+                                c.flash('fail', y18n.t('unauthorized'));
+                                c.redirect('#/login');
+                            }
+                        }
+                        // 500
+                        else if (xhr.status == 500) {
+                            try {
+                                error_log = JSON.parse(xhr.responseText);
+                                error_log.route = error_log.route.join(' ') + '\n';
+                                error_log.arguments = JSON.stringify(error_log.arguments);
+                            }
+                            catch (e)
+                            {
+                                error_log = {};
+                                error_log.route = "Failed to parse route";
+                                error_log.arguments = "Failed to parse arguments";
+                                error_log.traceback = xhr.responseText;
+                            }
+                            c.flash('fail', y18n.t('internal_exception', [error_log.route, error_log.arguments, error_log.traceback]));
+                        }
+                        // 502 Bad gateway means API is down
+                        else if (xhr.status == 502) {
+                            c.flash('fail', y18n.t('api_not_responding'));
+                        }
+                        // More verbose error messages first
+                        else if (typeof xhr.responseText !== 'undefined') {
+                            c.flash('fail', xhr.responseText);
+                        }
+                        // 0 mean "the connexion has been closed" apparently
+                        else if (xhr.status == 0) {
+                            var errorMessage = xhr.status+' '+xhr.statusText;
+                            c.flash('fail', y18n.t('error_connection_interrupted', [errorMessage]));
+                            console.log(xhr);
+                        }
+                        // Return HTTP error code at least
                         else {
-                            if (xhr.status == 200) {
-                                // Fail with 200, WTF
-                                callback({});
-                            }
-                            // Unauthorized or wrong password
-                            else if (xhr.status == 401) {
-                                if (uri === '/login') {
-                                    c.flash('fail', y18n.t('wrong_password'));
-                                } else {
-                                    c.flash('fail', y18n.t('unauthorized'));
-                                    c.redirect('#/login');
-                                }
-                            }
-                            // 500
-                            else if (xhr.status == 500) {
-                                try {
-                                    error_log = JSON.parse(xhr.responseText);
-                                    error_log.route = error_log.route.join(' ') + '\n';
-                                    error_log.arguments = JSON.stringify(error_log.arguments);
-                                }
-                                catch (e)
-                                {
-                                    error_log = {};
-                                    error_log.route = "Failed to parse route";
-                                    error_log.arguments = "Failed to parse arguments";
-                                    error_log.traceback = xhr.responseText;
-                                }
-                                c.flash('fail', y18n.t('internal_exception', [error_log.route, error_log.arguments, error_log.traceback]));
-                            }
-                            // 502 Bad gateway means API is down
-                            else if (xhr.status == 502) {
-                                c.flash('fail', y18n.t('api_not_responding'));
-                            }
-                            // More verbose error messages first
-                            else if (typeof xhr.responseText !== 'undefined') {
-                                c.flash('fail', xhr.responseText);
-                            }
-                            // 0 mean "the connexion has been closed" apparently
-                            else if (xhr.status == 0) {
-                                var errorMessage = xhr.status+' '+xhr.statusText;
-                                c.flash('fail', y18n.t('error_connection_interrupted', [errorMessage]));
-                                console.log(xhr);
-                            }
-                            // Return HTTP error code at least
-                            else {
-                                var errorMessage = xhr.status+' '+xhr.statusText;
-                                c.flash('fail', y18n.t('error_server_unexpected', [errorMessage]));
-                                console.log(xhr);
-                            }
-
-                            c.hideLoader();
-
-                            // Force scrollTop on page load
-                            $('html, body').scrollTop(0);
-                            store.clear('slide');
+                            var errorMessage = xhr.status+' '+xhr.statusText;
+                            c.flash('fail', y18n.t('error_server_unexpected', [errorMessage]));
+                            console.log(xhr);
                         }
+
+                        c.hideLoader();
+
+                        // Force scrollTop on page load
+                        $('html, body').scrollTop(0);
+                        store.clear('slide');
                     };
                 }
 
