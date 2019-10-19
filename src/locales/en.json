@@ -7,7 +7,7 @@
     "administration_password": "Administration password",
     "allowed_users": "Allowed users",
 	"all_apps": "All apps",
-    "api_not_responding": "API is not responding",
+    "api_not_responding": "The YunoHost API is not responding. Maybe 'yunohost-api' is down or got restarted?",
     "app_access": "Access",
     "app_access_addall_btn": "Enable access to all",
     "app_access_addall_desc": "All existing users will have access to %s.",
