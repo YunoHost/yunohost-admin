@@ -49,14 +49,20 @@
      */
     app.helpers({
 
-        // Serialize an object
-        serialize : function(obj) {
-          var str = [];
-          for(var p in obj)
-            if (obj.hasOwnProperty(p)) {
-              str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+        //
+        // Pacman loader management
+        //
+
+        showLoader: function() {
+            app.loaded = false; // Not sure if that's really useful ... this is from old code with no explanation what it really does ...
+            if ($('div.loader').length === 0) {
+                $('#main').append('<div class="loader loader-content"></div>');
             }
-          return str.join("&");
+        },
+
+        hideLoader: function() {
+            app.loaded = true; // Not sure if that's really useful ... this is from old code with no explanation what it really does ...
+            $('div.loader').remove();
         },
 
         // Flash helper to diplay instant notifications
@@ -279,6 +285,56 @@
 
         },
 
+
+        // Ask confirmation to the user through the modal window
+        confirm: function(title, content, confirmCallback, cancelCallback) {
+            c = this;
+
+            // Default callbacks
+            confirmCallback = typeof confirmCallback !== 'undefined' ? confirmCallback : function() {};
+            cancelCallback = typeof cancelCallback !== 'undefined' ? cancelCallback : function() {};
+
+            c.hideLoader();
+
+            // Get modal element
+            var box = $('#modal');
+
+            // Modal title
+            if (typeof title === 'string' && title.length) {
+                $('.title', box).html(title);
+            }
+            else {
+                box.addClass('no-title');
+            }
+
+            // Modal content
+            $('.content', box).html(content);
+
+            // Handle buttons
+            $('footer button', box)
+                .click(function(e){
+                    e.preventDefault();
+
+                    $('#modal footer button').unbind( "click" );
+                    // Reset & Hide modal
+                    box
+                        .removeClass('no-title')
+                        .modal('hide');
+
+                    // Do corresponding callback
+                    if ($(this).data('modal-action') == 'confirm') {
+                        confirmCallback();
+                    }
+                    else {
+                        cancelCallback();
+                    }
+                });
+
+            // Show modal
+            return box.modal('show');
+        },
+
+
         // Render view (cross-browser)
         view: function (view, data, callback, enableSlide) {
             c = this;
@@ -393,125 +449,6 @@
             }
         },
 
-        confirm: function(title, content, confirmCallback, cancelCallback) {
-            c = this;
-
-            // Default callbacks
-            confirmCallback = typeof confirmCallback !== 'undefined' ? confirmCallback : function() {};
-            cancelCallback = typeof cancelCallback !== 'undefined' ? cancelCallback : function() {};
-
-            c.hideLoader();
-
-            // Get modal element
-            var box = $('#modal');
-
-            // Modal title
-            if (typeof title === 'string' && title.length) {
-                $('.title', box).html(title);
-            }
-            else {
-                box.addClass('no-title');
-            }
-
-            // Modal content
-            $('.content', box).html(content);
-
-            // Handle buttons
-            $('footer button', box)
-                .click(function(e){
-                    e.preventDefault();
-
-                    $('#modal footer button').unbind( "click" );
-                    // Reset & Hide modal
-                    box
-                        .removeClass('no-title')
-                        .modal('hide');
-
-                    // Do corresponding callback
-                    if ($(this).data('modal-action') == 'confirm') {
-                        confirmCallback();
-                    }
-                    else {
-                        cancelCallback();
-                    }
-                });
-
-            // Show modal
-            return box.modal('show');
-        },
-
-        showLoader: function() {
-            app.loaded = false; // Not sure if that's really useful ... this is from old code with no explanation what it really does ...
-            if ($('div.loader').length === 0) {
-                $('#main').append('<div class="loader loader-content"></div>');
-            }
-        },
-
-        hideLoader: function() {
-            app.loaded = true; // Not sure if that's really useful ... this is from old code with no explanation what it really does ...
-            $('div.loader').remove();
-        },
-
-        selectAllOrNone: function () {
-          // Remove active style from buttons
-          $(".select_all-none input").click(function(){ $(this).toggleClass("active"); });
-          // Select all checkbox in this panel
-          $(".select_all").click(function(){
-            $(this).parents(".panel").children(".list-group").find("input").prop("checked", true);
-          });
-          // Deselect all checkbox in this panel
-          $(".select_none").click(function(){
-            $(this).parents(".panel").children(".list-group").find("input").prop("checked", false);
-          });
-        },
-
-        arraySortById: function(arr) {
-            arr.sort(function(a, b){
-                if (a.id > b.id) {
-                    return 1;
-                }
-                else if (a.id < b.id) {
-                    return -1;
-                }
-                return 0;
-            });
-        },
-
-        arrayDiff: function(arr1, arr2) {
-            arr1 = arr1 || [];
-            arr2 = arr2 || [];
-            return arr1.filter(function (a) {
-                return ((arr2.indexOf(a) == -1) && (a !== ""));
-            });
-        },
-
-        // Paste <pre>
-        prePaste: function() {
-            var pasteButtons = $('button[data-paste-content],a[data-paste-content]');
-            pasteButtons.on('click', function(){
-                // Get paste content element
-                var preElement = $($(this).data('paste-content'));
-
-                c.showLoader();
-
-                // Send to paste.yunohost.org
-                $.ajax({
-                    type: "POST",
-                    url: 'https://paste.yunohost.org/documents',
-                    data: preElement.text(),
-                })
-                .success(function(data, textStatus, jqXHR) {
-                    window.open('https://paste.yunohost.org/' + data.key, '_blank');
-                })
-                .fail(function() {
-                    c.flash('fail', y18n.t('paste_error'));
-                })
-                .always(function(){
-                    c.hideLoader();
-                });
-            });
-        },
-
         redirect_to: function(destination, options) {
             c = this;
 
@@ -538,6 +475,86 @@
         refresh: function() {
             c = this;
             c.redirect_to(c.path, {slide: false});
+        },
+
+        //
+        // Array / object helpers
+        //
+
+        arraySortById: function(arr) {
+            arr.sort(function(a, b){
+                if (a.id > b.id) {
+                    return 1;
+                }
+                else if (a.id < b.id) {
+                    return -1;
+                }
+                return 0;
+            });
+        },
+
+        arrayDiff: function(arr1, arr2) {
+            arr1 = arr1 || [];
+            arr2 = arr2 || [];
+            return arr1.filter(function (a) {
+                return ((arr2.indexOf(a) == -1) && (a !== ""));
+            });
+        },
+
+        // Serialize an object
+        serialize : function(obj) {
+          var str = [];
+          for(var p in obj)
+            if (obj.hasOwnProperty(p)) {
+              str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+            }
+          return str.join("&");
+        },
+
+
+        //
+        // Misc helpers used in views etc..
+        //
+
+        selectAllOrNone: function () {
+          // Remove active style from buttons
+          $(".select_all-none input").click(function(){ $(this).toggleClass("active"); });
+          // Select all checkbox in this panel
+          $(".select_all").click(function(){
+            $(this).parents(".panel").children(".list-group").find("input").prop("checked", true);
+          });
+          // Deselect all checkbox in this panel
+          $(".select_none").click(function(){
+            $(this).parents(".panel").children(".list-group").find("input").prop("checked", false);
+          });
+        },
+
+
+        // Paste <pre>
+        prePaste: function() {
+            var pasteButtons = $('button[data-paste-content],a[data-paste-content]');
+            pasteButtons.on('click', function(){
+                // Get paste content element
+                var preElement = $($(this).data('paste-content'));
+
+                c.showLoader();
+
+                // Send to paste.yunohost.org
+                $.ajax({
+                    type: "POST",
+                    url: 'https://paste.yunohost.org/documents',
+                    data: preElement.text(),
+                })
+                .success(function(data, textStatus, jqXHR) {
+                    window.open('https://paste.yunohost.org/' + data.key, '_blank');
+                })
+                .fail(function() {
+                    c.flash('fail', y18n.t('paste_error'));
+                })
+                .always(function(){
+                    c.hideLoader();
+                });
+            });
         }
 
     });
