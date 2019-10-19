@@ -50,7 +50,9 @@
             model.groups[group].members.sort();
             model.groups[group].membersInv.sort();
         }
-        c.view('user/user_permission', model, function () {
+        
+        var rendered = c.render('views/user/user_permission.ms', model);
+        rendered.swap(function () {
             jQuery(".group-update").on('click', function (e) {
                 updateGroup(model, jQuery(this)[0].dataset);
                 return false;
