@@ -3,7 +3,7 @@
     "add": "Añadir",
     "administration_password": "Contraseña de administración",
     "allowed_users": "Usuarios permitidos",
-    "api_not_responding": "La API no está respondiendo",
+    "api_not_responding": "La API de YunoHost no responde. ¿Tal vez «yunohost-api» está inoperativa o ha sido reiniciada?",
     "app_access": "Acceso",
     "app_access_addall_btn": "Habilitar acceso para todos",
     "app_access_addall_desc": "Todos los usuarios existentes tendrán acceso a %s 1.",
