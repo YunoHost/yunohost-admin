@@ -29,19 +29,17 @@
         $('#slider-container').addClass('notransition');
         // Delete the left/right temporary stuff only used during animation
         $('#slideTo').css('display', 'none');
+        $('#slideTo').html("");
         $('#slideBack').css('display', 'none');
+        $('#slideBack').html("");
         // Set the margin-left back to 0
         $('#slider-container').css('margin-left', '0');
         // c.f. the stackoverflow thread
         $('#slider-container')[0].offsetHeight;
         // Remove the binding to this event handler for next times
-        //$("#slider-container").off(transitionEvent);
         // Re-enable transition effects
         $('#slider-container').removeClass('notransition');
     }
-    // Now we add the transition event to detect the end of the transition effect
-    transitionEvent && $("#slider-container").on(transitionEvent, resetSliders)
-
 
     /**
      * Helpers
@@ -307,12 +305,11 @@
 
 
         // Render view (cross-browser)
-        view: function (view, data, callback, enableSlide) {
+        view: function (view, data, callback) {
             c = this;
 
             // Default
             callback = typeof callback !== 'undefined' ? callback : function() {};
-            enableSlide = (typeof enableSlide !== 'undefined') ? enableSlide : true; // Change to false to disable animation
 
             // Hide loader and modal
             c.hideLoader();
@@ -324,17 +321,17 @@
             // Update content helper
             var leSwap = function() {
                 rendered.swap(function() {
-                    // Slide direction
-                    if (enableSlide) {
-                        $('.slide, .btn-breadcrumb a:not(:last-child)').on('click', function() {
-                            $(this).addClass('active');
-                            if ($(this).hasClass('back') || $(this).parent('.btn-breadcrumb').length) {
-                                store.set('slide', 'back');
-                            } else {
-                                store.set('slide', 'to');
-                            }
-                        });
-                    }
+                    // Clicking on those kind of CSS elements will trigger a
+                    // slide effect i.e. the next view rendering will have
+                    // store.get('slide') set to 'back' or 'to'
+                    $('.slide, .btn-breadcrumb a:not(:last-child)').on('click', function() {
+                        $(this).addClass('active');
+                        if ($(this).hasClass('back') || $(this).parent('.btn-breadcrumb').length) {
+                            store.set('slide', 'back');
+                        } else {
+                            store.set('slide', 'to');
+                        }
+                    });
 
                     // Paste <pre> helper
                     c.prePaste();
@@ -348,7 +345,7 @@
             };
 
             // Slide back effect
-            if (enableSlide && store.get('slide') == 'back') {
+            if (store.get('slide') == 'back') {
 
                 store.clear('slide');
                 // Disable transition while we tweak CSS
@@ -378,12 +375,18 @@
 
                 // Re-add transition effect
                 $('#slider-container').removeClass('notransition');
+
+                // add the transition event to detect the end of the transition effect
+                transitionEvent
+                    && $("#slider-container").off(transitionEvent)
+                    && $("#slider-container").on(transitionEvent, resetSliders);
+
                 // And actually play the transition effect that will move the container from left to right
                 $('#slider-container').css('margin-left', '0px');
             }
             // Slide to effect
-            else if (enableSlide && store.get('slide') == 'to') {
-                store.clear('slide');
+            else if (store.get('slide') == 'to') {
+
                 // Disable transition while we tweak CSS
                 $('#slider-container').addClass('notransition');
                 // "Delete" the right part of the slider
@@ -411,6 +414,13 @@
 
                 // Re-add transition effect
                 $('#slider-container').removeClass('notransition');
+
+                // add the transition event to detect the end of the transition effect
+                var transitionEvent = whichTransitionEvent();
+                transitionEvent
+                    && $("#slider-container").off(transitionEvent)
+                    && $("#slider-container").on(transitionEvent, resetSliders);
+
                 // And actually play the transition effect that will move the container from right to left
                 $('#slider-container').css('margin-left', '-100%');
             }

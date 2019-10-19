@@ -50,7 +50,7 @@
                         }
                         store.set('maindomain', domain);
                     });
-                }, false); // We disable enableSlide because that causes some issues with accordion when using the 'previous' button
+                });
             });
     });
 
@@ -60,9 +60,7 @@
         if (!store.get('maindomain')) {
             c.redirect_to('#/postinstall/domain');
         } else {
-            c.view('postinstall/postinstall_3', { 'domain': store.get('maindomain').toLowerCase() },
-                function() { },
-                false); // We disable enableSlide because that causes some issues with accordion when using the 'previous' button
+            c.view('postinstall/postinstall_3', { 'domain': store.get('maindomain').toLowerCase() });
         }
     });
 
