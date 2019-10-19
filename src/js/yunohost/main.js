@@ -132,6 +132,14 @@
             }
         });
 
+        // Be able to call a function given in context
+        Handlebars.registerHelper('call', function () {
+            var args = Array.prototype.slice.call(arguments);
+            var func = args.shift();
+            args.pop();
+            return func.apply(null, args);
+        });
+
         Handlebars.registerHelper('in', function(a) {
           // skip first one
           for (var i = 1; i < arguments.length; ++i) {

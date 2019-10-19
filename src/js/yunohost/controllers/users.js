@@ -82,12 +82,6 @@
                     return data_groups.groups[group].members.indexOf(item) === -1;
                 });
             }
-            Handlebars.registerHelper('call', function () {
-                var args = Array.prototype.slice.call(arguments);
-                var func = args.shift();
-                args.pop();
-                return func.apply(null, args);
-            });
             data_groups.groups['all_users'].special = true;
             data_groups.groups['visitors'].special = true;
             data = {
