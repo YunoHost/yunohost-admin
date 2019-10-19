@@ -68,35 +68,43 @@
 
     // Execute post-installation
     app.post('#/postinstall', function (c) {
-        if (c.params['password'] === '' || c.params['confirmation'] === '') {
+
+        var password = c.params['password'];
+        var confirmation = c.params['confirmation'];
+        var domain = c.params['domain'].toLowerCase();
+
+        // Check password ain't empty
+        if (password === '' || confirmation === '') {
             c.flash('fail', y18n.t('password_empty'));
+            return;
         }
-        else if (c.params['password'] == c.params['confirmation']) {
-            if (c.params['domain'] === '') {
-                c.flash('fail', y18n.t('error_select_domain'));
-                c.redirect_to('#/postinstall/domain', {slide: false});
-            } else {
-                var params = {
-                    domain: c.params['domain'].toLowerCase()
-                };
-            }
 
-            c.confirm(
-                y18n.t('postinstall'),
-                y18n.t('confirm_postinstall', [c.params['domain']]),
-                function(){
-                    params.password = c.params['password'];
-
-                    store.set('url', window.location.hostname +'/yunohost/api');
-                    store.set('user', 'admin');
-                    c.api('POST', '/postinstall', params, function(data) {
-                        c.redirect_to('#/login');
-                    });
-                }
-            );
-        } else {
+        // Check password matches confirmation
+        if (password !== confirmation) {
             c.flash('fail', y18n.t('passwords_dont_match'));
+            return;
         }
+
+        // Check domain ain't empty...
+        if (domain === '') {
+            c.flash('fail', y18n.t('error_select_domain'));
+            c.redirect_to('#/postinstall/domain', {slide: false});
+            return;
+        }
+
+        // Ask confirmation to the user
+        c.confirm(
+            y18n.t('postinstall'),
+            y18n.t('confirm_postinstall', [c.params['domain']]),
+            // Start the actual postinstall process
+            function(){
+                store.set('url', window.location.hostname +'/yunohost/api');
+                store.set('user', 'admin');
+                c.api('POST', '/postinstall', {domain: domain, password: password}, function() {
+                    c.redirect_to('#/login');
+                });
+            }
+        );
     });
 
 })();
