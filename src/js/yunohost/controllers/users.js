@@ -6,9 +6,10 @@
     var PASSWORD_MIN_LENGTH = 4;
 
     /**
-     * Permissions
+     * Groups and permissions
      *
      */
+
 
     function updateGroup(model, params) {
         var type = params.type;
@@ -51,7 +52,7 @@
             model.groups[group].membersInv.sort();
         }
         
-        var rendered = c.render('views/user/user_permission.ms', model);
+        var rendered = c.render('views/user/group_list.ms', model);
         rendered.swap(function () {
             jQuery(".group-update").on('click', function (e) {
                 updateGroup(model, jQuery(this)[0].dataset);
@@ -64,8 +65,7 @@
             });
         });
     }
-    this.displayPermission =     // List groups and permissions
-    app.get('#/permissions', function (c) {
+    app.get('#/groups', function (c) {
         c.api('/users/groups?full&include_primary_groups', function(data_groups) {
         c.api('/users', function(data_users) {
         c.api('/users/permissions?short', function(data_permissions) {
@@ -109,11 +109,6 @@
         });
     });
 
-    /**
-     * Groups
-     *
-     */
-
     // Create a new group
     app.get('#/groups/create', function (c) {
         c.view('user/group_create', {});
@@ -122,7 +117,7 @@
     app.post('#/groups/create', function (c) {
         c.params['groupname'] = c.params['groupname'].replace(' ', '_').toLowerCase();
         c.api('/users/groups', function(data) { 
-            c.redirect('#/permissions');
+            c.redirect('#/groups');
         }, 'POST', c.params.toHash());
     });
     
@@ -139,12 +134,12 @@
             confirmModalContent,
             function(){
                 c.api('/users/groups/'+ c.params['group'], function(data) {
-                    c.redirect('#/permissions');
+                    c.redirect('#/groups');
                 }, 'DELETE', params);
             },
             function(){
                 //store.clear('slide');
-                c.redirect('#/permissions');
+                c.redirect('#/groups');
             }
         );
 

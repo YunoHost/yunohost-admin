@@ -2,8 +2,8 @@
     <a href="#/" ><i class="fa-home"></i><span class="sr-only">{{t 'home'}}</span></a>
     <a href="#/users" class="visible-xs">&hellip;</a>
     <a href="#/users" class="hidden-xs">{{t 'users'}}</a>
-    <a href="#/permissions" class="visible-xs">&hellip;</a>
-    <a href="#/permissions" class="hidden-xs">{{t 'group_permissions'}}</a>
+    <a href="#/groups" class="visible-xs">&hellip;</a>
+    <a href="#/groups" class="hidden-xs">{{t 'group_permissions'}}</a>
     <a href="#/groups/create">{{t 'group_new'}}</a>
 </div>
 

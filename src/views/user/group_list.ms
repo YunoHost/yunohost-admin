@@ -1,7 +1,7 @@
 <div class="btn-breadcrumb">
     <a href="#/"><i class="fa-home"></i><span class="sr-only">{{t 'home'}}</span></a>
     <a href="#/users">{{t 'users'}}</a>
-    <a href="#/permissions">{{t 'group_permissions'}}</a>
+    <a href="#/groups">{{t 'group_permissions'}}</a>
 </div>
 
 <div class="actions-group">
@@ -41,7 +41,7 @@
     </div>
     {{/if}}
 {{/inline}}
-<div id="view-permissions">
+<div id="view-groups">
 {{#each groups}}
 {{#unless primary}}
 <div class="panel panel-default">
