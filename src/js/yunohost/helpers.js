@@ -582,6 +582,7 @@
         },
 
         redirect_to: function(destination, options) {
+            c = this;
 
             options = options !== undefined ? options : {};
 
@@ -593,7 +594,6 @@
                 store.clear('slide');
             }
 
-            c = this;
             // This is a copy-pasta of some of the redirect/refresh code of
             // sammy.js because for some reason calling the original
             // redirect/refresh function in some context does not work >.>
