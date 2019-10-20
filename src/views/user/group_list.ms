@@ -79,7 +79,7 @@
                     <h3>{{t 'permissions'}}</h3>
                 </div>
                 <div class="col-sm-10">
-                    {{> labelsLine display=../displayPermission icon="key" type="permission" items=permissions inv=permissionsInv group=@key}}
+                    {{> labelsLine display=../displayPermission icon="key-modern" type="permission" items=permissions inv=permissionsInv group=@key}}
                     {{#if special}}
                     <div style="font-style:italic"><span class="fa-info-circle"></span> {{t (concat 'group_' @key '_group_explanation')}}</div>
                     {{/if}}
@@ -110,7 +110,7 @@
                         <h3><span class="fa-fw fa-user"></span> {{@key}}</h3>
                     </div>
                     <div class="col-sm-10">
-                        {{> labelsLine display=../displayPermission icon="key" type="permission" items=permissions inv=permissionsInv group=@key}}
+                        {{> labelsLine display=../displayPermission icon="key-modern" type="permission" items=permissions inv=permissionsInv group=@key}}
                     </div>
                 </div>
                 <hr />
