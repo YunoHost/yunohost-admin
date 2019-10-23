@@ -5,7 +5,7 @@
 
 <div class="actions-group">
     <a href="#/groups" class="btn btn-info">
-        <span class="fa-key-modern"></span> {{t 'group_manage_permissions'}}
+        <span class="fa-key-modern"></span> {{t 'groups_and_permissions_manage'}}
     </a> 
     <a role="button" href="#/users/create" class="btn btn-success slide">
         <span class="fa-plus"></span> {{t 'users_new'}}

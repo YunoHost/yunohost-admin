@@ -1,7 +1,7 @@
 <div class="btn-breadcrumb">
     <a href="#/"><i class="fa-home"></i><span class="sr-only">{{t 'home'}}</span></a>
     <a href="#/users">{{t 'users'}}</a>
-    <a href="#/groups">{{t 'group_permissions'}}</a>
+    <a href="#/groups">{{t 'groups_and_permissions'}}</a>
 </div>
 
 <div class="actions-group">
