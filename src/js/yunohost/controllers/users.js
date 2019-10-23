@@ -5,6 +5,18 @@
 
     var PASSWORD_MIN_LENGTH = 4;
 
+    // A small utility to convert a string to title case
+    // e.g. "hAvE a NicE dAy" --> "Have A Nice Day"
+    // Savagely stolen from https://stackoverflow.com/a/196991
+    function toTitleCase(str) {
+        return str.replace(
+            /\w\S*/g,
+            function(txt) {
+                return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+            }
+        );
+    }
+
     /**
      * Groups and permissions
      *
@@ -116,8 +128,8 @@
             data_groups.groups['all_users'].special = true;
             data_groups.groups['visitors'].special = true;
             
-            // Data given to the view with 2 functions to display permission in
-            // a better way
+            // Data given to the view with 2 functions to convert technical
+            // permission id to display names
             data = {
                 'groups':data_groups.groups,
                 'displayPermission': function (text) {
@@ -125,7 +137,14 @@
                     text = text.replace('.main', '');
                     if (text.indexOf('.') > -1)
                         text = text.replace('.', ' (') + ')';
-                    
+
+                    if (text == "mail")
+                        text = "E-mail";
+                    else if (text == "xmpp")
+                        text = "XMPP";
+                    else
+                        text = toTitleCase(text);
+
                     return text;
                 },
                 'displayUser': function (text) {
