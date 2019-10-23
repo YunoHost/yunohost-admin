@@ -62,26 +62,25 @@
     </div>
     <div id="collapse-group-{{@key}}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading-context-group-{{@key}}">
         <div class="panel-body">
-            {{#unless special}}
             <div class="row">
                 <div class="col-sm-2">
                     <h3>{{t 'users'}}</h3>
                 </div>
                 <div class="col-sm-10">
+                    {{#if special}}
+                        <div style="font-style:italic"><span class="fa-info-circle"></span> {{t (concat 'group_explain_' @key)}}</div>
+                    {{else}}
                         {{> labelsLine display=../displayUser icon="user" type="member" items=members inv=membersInv group=@key}}
+                    {{/if}}
                 </div>
             </div>
             <hr />
-            {{/unless}}
             <div class="row">
                 <div class="col-sm-2">
                     <h3>{{t 'permissions'}}</h3>
                 </div>
                 <div class="col-sm-10">
                     {{> labelsLine display=../displayPermission icon="key-modern" type="permission" items=permissions inv=permissionsInv group=@key}}
-                    {{#if special}}
-                    <div style="font-style:italic"><span class="fa-info-circle"></span> {{t (concat 'group_' @key '_group_explanation')}}</div>
-                    {{/if}}
                 </div>
             </div>
         </div>
