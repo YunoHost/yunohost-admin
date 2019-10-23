@@ -693,7 +693,7 @@ input[type='radio'].nice-radio {
             font-size:14px;
             color:#333;
             background-color:#f8f8f8;
-            border: #ddd 1px solid;
+            border: #ccc 1px solid;
             font-weight: normal;
             margin-bottom:0;
             position: relative;
@@ -704,16 +704,16 @@ input[type='radio'].nice-radio {
 
             margin-right:7px; // Spacing between labels
 
-            .label-separator {
-                margin-left:7px;
-                color:white; 
-            }
             > a {
-                color:lighten(@label-danger-bg, 20%);
+                margin-left:6px;
+                padding-left:6px;
+                border-left: #ccc 1px solid;
+                color:lighten(@label-info-bg);
+
                 text-decoration: none;
             }
             > a:hover {
-                color:@label-danger-bg;
+                color:@label-info-bg;
             }
         }
     }

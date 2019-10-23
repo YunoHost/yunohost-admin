@@ -17,7 +17,6 @@
     <span class="label label-default label-removable">
         <span class="fa-fw fa-{{icon}}"></span>
         {{text}} 
-        <span  class="label-separator" aria-hidden="true">|</span>
         <a role="button" data-type="{{type}}s" data-operation="remove" data-item="{{value}}" data-group="{{group}}" class="group-update">
             <span class="fa-close" style="margin-left:5px"></span>
             <span class="sr-only">{{t 'delete'}}</span>
