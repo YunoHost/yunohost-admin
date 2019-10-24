@@ -118,6 +118,8 @@
                 data_groups.groups[group].primary = users.indexOf(group) !== -1;
                 data_groups.groups[group].permissionsInv = all_perms.filter(function(item) {
                     return data_groups.groups[group].permissions.indexOf(item) === -1;
+                }).filter(function(item) {
+                    return group != "visitors" || (item != "mail.main" && item != "xmpp.main"); // Remove 'email' and 'xmpp' in visitors's permission choice list
                 });
                 data_groups.groups[group].membersInv = users.filter(function(item) {
                     return data_groups.groups[group].members.indexOf(item) === -1;
