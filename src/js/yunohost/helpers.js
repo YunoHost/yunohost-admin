@@ -326,10 +326,10 @@
             // Clear any remaining click event that could still be there (e.g.
             // clicking outside the modal window doesn't equal to clicking
             // cancel...
-            $('#modal footer button').unbind( "click" );
+            $('footer button', box).unbind( "click" );
 
             // Handle buttons
-            $('#modal footer button', box)
+            $('footer button', box)
                 .click(function(e){
                     e.preventDefault();
 
