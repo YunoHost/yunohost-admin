@@ -497,20 +497,6 @@
         // Misc helpers used in views etc..
         //
 
-        selectAllOrNone: function () {
-          // Remove active style from buttons
-          $(".select_all-none input").click(function(){ $(this).toggleClass("active"); });
-          // Select all checkbox in this panel
-          $(".select_all").click(function(){
-            $(this).parents(".panel").children(".list-group").find("input").prop("checked", true);
-          });
-          // Deselect all checkbox in this panel
-          $(".select_none").click(function(){
-            $(this).parents(".panel").children(".list-group").find("input").prop("checked", false);
-          });
-        },
-
-
         // Paste <pre>
         prePaste: function() {
             var pasteButtons = $('button[data-paste-content],a[data-paste-content]');

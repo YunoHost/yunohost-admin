@@ -62,7 +62,21 @@
             data['apps'] = {};
             c.api('GET', '/apps?with_backup', {}, function(apps_list) {
                 data['apps'] = apps_list.apps;
-                c.view('backup/backup_create', data, c.selectAllOrNone);
+                c.view('backup/backup_create', data, function() {
+
+                    // Configure buttons "select all" and "select none"
+
+                    // Remove active style from buttons
+                    $(".select_all-none input").click(function(){ $(this).toggleClass("active"); });
+                    // Select all checkbox in this panel
+                    $(".select_all").click(function(){
+                      $(this).parents(".panel").children(".list-group").find("input").prop("checked", true);
+                    });
+                    // Deselect all checkbox in this panel
+                    $(".select_none").click(function(){
+                      $(this).parents(".panel").children(".list-group").find("input").prop("checked", false);
+                    });
+                });
             });
         });
     });
@@ -88,7 +102,18 @@
             data.locale = y18n.locale;
             c.view('backup/backup_info', data, function() {
 
-                c.selectAllOrNone();
+                // Configure buttons "select all" and "select none"
+
+                // Remove active style from buttons
+                $(".select_all-none input").click(function(){ $(this).toggleClass("active"); });
+                // Select all checkbox in this panel
+                $(".select_all").click(function(){
+                  $(this).parents(".panel").children(".list-group").find("input").prop("checked", true);
+                });
+                // Deselect all checkbox in this panel
+                $(".select_none").click(function(){
+                  $(this).parents(".panel").children(".list-group").find("input").prop("checked", false);
+                });
 
                 // Delete button
                 $('button[data-action="delete"]').on('click', function() {
