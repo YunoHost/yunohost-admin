@@ -32,17 +32,25 @@
         c.view('backup/backup', {'storages':storages});
     });
 
-    // Storage list
-    app.get('#/storages/create', function (c) {
-        c.view('backup/storage_create', {});
+    // Archive list
+    app.get('#/backup/:storage', function (c) {
+        c.api('GET', '/backup/archives?with_info', {}, function(data) {
+            data.storage = {
+                id: 'local',
+                name: y18n.t('local_archives')
+            };
+            data.archives2 = [];
+            $.each(data['archives'], function(name, info) {
+                info.name = name;
+                data.archives2.unshift(info)
+            });
+            data.archives = data.archives2;
+            data.locale = y18n.locale
+            c.view('backup/backup_list', data);
+        });
     });
 
-    // Create a storage
-    app.post('#/storages', function (c) {
-        c.redirect_to('#/storages');
-    });
-
-    // Create a backup
+    // View to create a backup
     app.get('#/backup/:storage/create', function (c) {
         var data = [];
         data['storage'] = {
@@ -59,11 +67,26 @@
         });
     });
 
-
+    // Actually creating the backup
     app.post('#/backup/:storage', function (c) {
         var params = ungroupHooks(c.params['system_parts'],c.params['apps']);
         c.api('POST', '/backup', params, function() {
             c.redirect_to('#/backup/'+ c.params['storage']);
+        });
+    });
+
+    // Get archive info
+    app.get('#/backup/:storage/:archive', function (c) {
+        c.api('GET', '/backup/archives/'+c.params['archive']+'?with_details', {}, function(data) {
+            data.storage = {
+                id: c.params['storage'],
+                name: y18n.t('local_archives')
+            };
+            data.name = c.params['archive'];
+            data.system_parts = groupHooks(Object.keys(data['system']),data['system']);
+            data.items = (data['system']!={} || data['apps']!=[]);
+            data.locale = y18n.locale;
+            c.view('backup/backup_info', data, c.selectAllOrNone);
         });
     });
 
@@ -93,57 +116,6 @@
                 });
             }
         );
-    });
-
-    // Download a backup
-    app.get('#/backup/:storage/:archive/download', function (c) {
-        c.api('GET', '/backup/'+c.params['archive']+'/download', {}, function(data) {
-            c.redirect_to('#/backup/'+ c.params['storage']+'/'+c.params['archive'], {slide: false});
-        });
-    });
-
-    // Copy a backup
-    app.get('#/backup/:storage/:archive/copy', function (c) {
-        c.redirect_to('#/backup/'+ c.params['storage']+'/'+c.params['archive'], {slide: false});
-    });
-
-    // Upload a backup
-    app.get('#/backup/:storage/:archive/upload', function (c) {
-        c.redirect_to('#/backup/'+ c.params['storage']+'/'+c.params['archive'], {slide: false});
-    });
-
-    // Get archive info
-    app.get('#/backup/:storage/:archive', function (c) {
-        c.api('GET', '/backup/archives/'+c.params['archive']+'?with_details', {}, function(data) {
-            data.storage = {
-                id: c.params['storage'],
-                name: y18n.t('local_archives')
-            };
-            data.other_storages = [];
-            data.name = c.params['archive'];
-            data.system_parts = groupHooks(Object.keys(data['system']),data['system']);
-            data.items = (data['system']!={} || data['apps']!=[]);
-            data.locale = y18n.locale
-            c.view('backup/backup_info', data, c.selectAllOrNone);
-        });
-    });
-
-    // Archive list
-    app.get('#/backup/:storage', function (c) {
-        c.api('GET', '/backup/archives?with_info', {}, function(data) {
-            data.storage = {
-                id: 'local',
-                name: y18n.t('local_archives')
-            };
-            data.archives2 = [];
-            $.each(data['archives'], function(name, info) {
-                info.name = name;
-                data.archives2.unshift(info)
-            });
-            data.archives = data.archives2;
-            data.locale = y18n.locale
-            c.view('backup/backup_list', data);
-        });
     });
 
     function groupHooks(hooks, raw_infos) {
