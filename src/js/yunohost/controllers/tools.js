@@ -96,17 +96,20 @@
 
     // Display journals list
     app.get('#/tools/logs', function (c) {
-        c.api("/logs?limit=25&with_details", function(categories) {
+        category_icons = {
+            'operation': 'wrench',
+            'history': 'history',
+            'package': 'puzzle-piece',
+            'system': 'cogs',
+            'access': 'ban',
+            'service': 'cog',
+            'app': 'cubes'
+        }
+        url = "/logs?limit=25&with_details";
+        url += Object.keys(category_icons).join('&category[]=');
+
+        c.api(url, function(categories) {
             data = [];
-            category_icons = {
-                'operation': 'wrench',
-                'history': 'history',
-                'package': 'puzzle-piece',
-                'system': 'cogs',
-                'access': 'ban',
-                'service': 'cog',
-                'app': 'cubes'
-            }
             success_icons = {
                 true: 'check text-success',
                 false: 'close text-danger',
@@ -147,7 +150,7 @@
             }
             c.view('tools/tools_log', {
                 "log": log,
-                "next_number": log.logs.length == number ? number * 10:false,
+                "next_number": (log.logs && log.logs.length == number) ? number * 10:false,
                 "locale": y18n.locale
             });
         });
