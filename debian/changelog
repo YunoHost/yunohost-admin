@@ -1,3 +1,10 @@
+yunohost-admin (3.6.5) stable; urgency=low
+
+  - [fix] Stupid / buggy error handling for postinstall (2187657)
+  - [fix] During postinstall, using 'previous' on the password page to go back to the 'domain' page was breakin the accordion (54739f1)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Tue, 08 Oct 2019 20:30:00  +0000
+
 yunohost-admin (3.6.4) stable; urgency=low
 
   - [enh] Arguments in app config panel (#251)

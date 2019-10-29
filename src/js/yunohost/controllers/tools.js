@@ -347,12 +347,12 @@
         }
     });
 
-    app.get('#/tools/migrations/skip', function (c) {
+    app.get('#/tools/migrations/skip/:migration_id', function (c) {
         c.confirm(
             y18n.t('migrations'),
             y18n.t('confirm_migrations_skip'),
             function(){
-                c.api('/migrations/migrate?skip', function(data) {
+                c.api('/migrations/migrate?skip&targets=' + c.params['migration_id'], function(data) {
                     store.clear('slide');
                     c.redirect('#/tools/migrations');
                 }, 'POST');

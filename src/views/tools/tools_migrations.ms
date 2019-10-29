@@ -12,7 +12,6 @@
         {{#if pending_migrations}}
         <div class="btn-toolbar pull-right">
             <a href="#/tools/migrations/run" class="btn btn-sm btn-success"><span class="fa-fw fa-play"></span> {{t 'run'}}</a>
-            <a href="#/tools/migrations/skip" class="btn btn-sm btn-warning"><span class="fa-fw fa-close"></span> {{t 'skip'}}</a>
         </div>
         {{/if}}
         </h2>
@@ -24,6 +23,9 @@
         <div class="list-group-item clearfix">
             <h3 class="list-group-item-heading">
                 {{ number }}. {{ description }}
+                <div class="btn-toolbar pull-right">
+                <a href="#/tools/migrations/skip/{{ id }}" class="btn btn-xs btn-warning" style="color:white;"><span class="fa-fw fa-close"></span> {{t 'skip'}}</a>
+                </div>
             </h3>
             {{#if disclaimer }}
             <hr>

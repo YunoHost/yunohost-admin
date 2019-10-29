@@ -406,7 +406,7 @@
     "confirm_install_app_warning": "Atencion : aquesta aplicacion foncionarà mas es pas encara ben integrada a YunoHost. Unas foncionalitats coma l’identificacion unica e la salvagarda/restauracion pòdon èsser pas disponiblas.",
     "confirm_install_app_danger": "ATENCION ! Aquesta aplicacion es encara experimentala (o fonciona pas dirèctament) e es probable que còpe lo sistèma ! Deuriatz pas l’installar levat que saupèssetz çò que fasètz. Volètz vertadièrament córrer aqueste risc ?",
     "current_maintainer_title": "Mantenidor actual d’aqueste paquet",
-    "error_connection_interrupted": "Lo servidor a tampat la connexionallòc de respondre. Nginx es estat relançat per error ? (Còdi d’error/messatge : %s)",
+    "error_connection_interrupted": "Lo servidor a tampat la connexion allòc de respondre. Nginx o yunohost-api es estat relançat o arrestat per error ? (Còdi d’error/messatge : %s)",
     "good_practices_about_admin_password": "Sètz a mand de definir un nòu senhal d’administrator. Lo nòu senhal deu conténer almens 8 caractèrs, es de bon far d’utilizar un senhal mai long (es a dire una frasa de senhal) e/o utilizar mantuns tipes de caractèrs (majusculas, minusculas, nombres e caractèrs especials).",
     "good_practices_about_user_password": "Sètz a mand de definir un nòu senhal d’utilizaire. Lo nòu senhal deu conténer almens 8 caractèrs, es de bon far d’utilizar un senhal mai long (es a dire una frasa de senhal) e/o utilizar mantuns tipes de caractèrs (majusculas, minusculas, nombres e caractèrs especials).",
     "level": "nivèl",
@@ -436,5 +436,7 @@
     "request_adoption": "en espèra d’adopcion",
     "request_adoption_details": "Lo manteneire actuala volriá quitar de la mantenir. Esitetz pas a vos prepausar per venir manteneire !",
     "request_help": "ajuda necessària",
-    "request_help_details": "Lo manteneire actual volriá d’ajuda per la mantenença de l’aplicacion. Esitetz pas a i contribuïr !"
+    "request_help_details": "Lo manteneire actual volriá d’ajuda per la mantenença de l’aplicacion. Esitetz pas a i contribuïr !",
+    "advanced": "Avançat",
+    "from_to": "de %s fins a %s"
 }
