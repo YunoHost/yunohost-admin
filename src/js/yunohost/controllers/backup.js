@@ -86,7 +86,25 @@
             data.system_parts = groupHooks(Object.keys(data['system']),data['system']);
             data.items = (data['system']!={} || data['apps']!=[]);
             data.locale = y18n.locale;
-            c.view('backup/backup_info', data, c.selectAllOrNone);
+            c.view('backup/backup_info', data, function() {
+
+                c.selectAllOrNone();
+
+                // Delete button
+                $('button[data-action="delete"]').on('click', function() {
+                    var storage = $(this).data('storage');
+                    var archive = $(this).data('archive');
+                    c.confirm(
+                        y18n.t('backup'),
+                        y18n.t('confirm_delete', [archive]),
+                        function(){
+                            c.api('DELETE', '/backup/archives/'+archive, {}, function(data) {
+                                c.redirect_to('#/backup/'+ storage);
+                            });
+                        }
+                    );
+                });
+            });
         });
     });
 
@@ -102,19 +120,6 @@
                     c.redirect_to('#/backup/'+ c.params['storage']+'/'+c.params['archive']);
                 });
             }, this, c)
-        );
-    });
-
-    // Delete a backup
-    app.get('#/backup/:storage/:archive/delete', function (c) {
-        c.confirm(
-            y18n.t('backup'),
-            y18n.t('confirm_delete', [c.params['archive']]),
-            function(){
-                c.api('DELETE', '/backup/archives/'+c.params['archive'], {}, function(data) {
-                    c.redirect_to('#/backup/'+ c.params['storage']);
-                });
-            }
         );
     });
 

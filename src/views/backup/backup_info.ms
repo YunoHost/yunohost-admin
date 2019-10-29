@@ -85,9 +85,9 @@
     <div class="panel-body">
         <div class="container">
             <p>{{t 'backup_archive_delete'}}</p>
-            <a href="#/backup/{{storage.id}}/{{name}}/delete" role="button" class="btn btn-danger slide">
+            <button class="btn btn-danger slide" data-action="delete" data-storage="{{storage.id}}" data-archive="{{name}}">
                 <span class="fa-trash-o"></span> {{t 'delete'}}
-            </a>
+            </button>
         </div>
     </div>
 </div>
