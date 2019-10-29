@@ -147,7 +147,7 @@
     "hook_adminjs_group_configuration": "Configuració del sistema",
     "hook_conf_cron": "Tasques automàtiques",
     "hook_conf_ldap": "Base de dades LDAP",
-    "hook_conf_nginx": "Nginx",
+    "hook_conf_nginx": "NGINX",
     "hook_conf_ssh": "SSH",
     "hook_conf_ssowat": "SSOwat",
     "hook_conf_xmpp": "XMPP",
