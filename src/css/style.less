@@ -225,21 +225,56 @@ button {
  * Page footer
  *
  */
-.page-footer {
+#page-footer {
     .clearfix;
     .make-row(12);
     margin: 20px 0;
     padding-top: 20px;
+    margin-top: 40px;
     border-top: 1px solid #eee;
     color: #999;
     font-size: 0.9em;
-    text-align: right;
     a {
         color: #666;
         &:hover,
         &:focus {text-decoration: underline;}
     }
 }
+
+#page-footer-links {
+    text-align: left;
+    float: left;
+
+    a {
+        display: inline-block;
+    }
+
+    a::before {
+        content: "•";
+        display: inline-block;
+        vertical-align: top;
+        padding: 0 0.5em 0 0.25em;
+    }
+    a:first-child:before {content: none;}
+}
+
+#yunohost-version {
+    text-align: right;
+    float: right;
+}
+
+@media screen and (max-width: @screen-xs-min) {
+    #yunohost-version {
+        text-align: center;
+        float: none;
+    }
+    #page-footer-links {
+        text-align: center;
+        float: none;
+    }
+}
+
+
 
 /*
  * The pop up dialog
@@ -562,6 +597,10 @@ input[type='radio'].nice-radio {
    border-radius: 5px;
 }
 
+.messages div:not(:first-child) .progress {
+    display: none;
+}
+
 .messages .progress-bar-striped {
     background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.4) 50%, rgba(255, 255, 255, 0.5) 75%, transparent 75%, transparent);
 }
@@ -868,5 +907,21 @@ input[type='radio'].nice-radio {
       // display 3 cards by row
       width: 31.3%;
       margin: 1%;
+    }
+}
+
+/* Inline button in panel headers or in list group items */
+
+.list-group-item > .btn.pull-right {
+    line-height: 1em;
+    margin-top: -2px;
+}
+
+@media screen and (max-width: @screen-xs-min) {
+    .btn.pull-right, .btn-toolbar.pull-right, .btn-toolbar.pull-right > .btn {
+        margin: 0;
+        margin-top: 5px;
+        display: block;
+        float: none !important;
     }
 }
