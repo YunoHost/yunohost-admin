@@ -101,12 +101,43 @@
 
         // equality stuff because mustache/Handlebars is lame
         // source https://stackoverflow.com/a/31632215
-        Handlebars.registerHelper('eq', function(a, b) {
-          return a === b;
+        Handlebars.registerHelper({
+            eq: function(a, b) {
+                return a === b;
+            },
+            neq: function(a, b) {
+                return a !== b;
+            },
+            lt: function (v1, v2) {
+                return v1 < v2;
+            },
+            gt: function (v1, v2) {
+                return v1 > v2;
+            },
+            lte: function (v1, v2) {
+                return v1 <= v2;
+            },
+            gte: function (v1, v2) {
+                return v1 >= v2;
+            },
+            and: function () {
+                return Array.prototype.slice.call(arguments).every(function (arg) { 
+                    return (Array.isArray(arg))?arg.length !== 0:arg;
+                });
+            },
+            or: function () {
+                return Array.prototype.slice.call(arguments, 0, -1).some(function (arg) {
+                    return (Array.isArray(arg))?arg.length !== 0:arg;
+                });
+            }
         });
 
-        Handlebars.registerHelper('neq', function(a, b) {
-          return a !== b;
+        // Be able to call a function given in context
+        Handlebars.registerHelper('call', function () {
+            var args = Array.prototype.slice.call(arguments);
+            var func = args.shift();
+            args.pop();
+            return func.apply(null, args);
         });
 
         Handlebars.registerHelper('in', function(a) {
