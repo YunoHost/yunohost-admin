@@ -48,9 +48,10 @@
         </div>
         <hr>
         <div class="container">
-            <p>{{t 'app_info_access_desc' settings.allowed_users}}</p>
-            <a role="button" href="#/apps/{{settings.id}}/access" class="btn btn-info slide">
-                <span class="fa-lock"></span> {{t 'app_access'}}
+            <p>{{t 'app_info_access_desc'}} {{#each permissions}} {{ucwords .}}{{#unless @last}}, {{/unless}} {{ else }} {{t 'nobody'}} {{/each}}
+            </p>
+            <a role="button" href="#/groups" class="btn btn-info slide">
+                <span class="fa-key-modern"></span> {{t 'groups_and_permissions_manage'}}
             </a>
         </div>
         <hr>

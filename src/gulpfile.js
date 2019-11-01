@@ -71,7 +71,7 @@ gulp.task('js-lint', function() {
 // Fonts
 gulp.task('fonts', function() {
     return gulp.src([
-            'bower_components/font-awesome/fonts/*',
+            'bower_components/fork-awesome/fonts/*',
             'bower_components/source-code-pro/EOT/*.eot',
             'bower_components/source-code-pro/OTF/*.otf',
             'bower_components/source-code-pro/TTF/*.ttf',
