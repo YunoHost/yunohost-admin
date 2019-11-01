@@ -323,6 +323,11 @@
             // Modal content
             $('.content', box).html(content);
 
+            // Clear any remaining click event that could still be there (e.g.
+            // clicking outside the modal window doesn't equal to clicking
+            // cancel...
+            $('footer button', box).unbind( "click" );
+
             // Handle buttons
             $('footer button', box)
                 .click(function(e){
