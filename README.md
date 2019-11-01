@@ -38,4 +38,4 @@ https://example.com/yunohost/admin/views/domain/domain_list.ms)
 * Font-Awesome 4.5.0
 * Handlebars 1.3.0
 * Sammy 0.7.6
-* Jquery-Cookie 2.1.0
+* JS-cookie 2.1.0
