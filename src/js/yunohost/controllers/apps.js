@@ -222,13 +222,6 @@
         });
     });
 
-    // Get app debug page
-    app.get('#/apps/:app/debug', function (c) {
-        c.api('/apps/'+c.params['app']+'/debug', function(data) {
-            c.view('app/app_debug', data);
-        });
-    });
-
     // Get app actions list
     app.get('#/apps/:app/actions', function (c) {
         c.api('/apps/'+c.params['app']+'/actions', function(data) {

@@ -83,13 +83,6 @@
                 <span class="fa-trash-o"></span> {{t 'uninstall'}}
             </a>
         </div>
-        <hr>
-        <div class="container">
-            <p>{{t 'app_info_debug_desc'}}</p>
-            <a href="#/apps/{{settings.id}}/debug" role="button" class ="btn btn-warning slide">
-                <span class="fa-bug"></span> {{t 'app_debug_tab'}}
-            </a>
-        </div>
     </div>
 </div>
 {{load_tooltips}}

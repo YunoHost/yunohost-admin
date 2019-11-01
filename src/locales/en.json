@@ -9,8 +9,6 @@
     "api_not_responding": "The YunoHost API is not responding. Maybe 'yunohost-api' is down or got restarted?",
     "app_change_label": "Change Label",
     "app_change_url": "Change URL",
-    "app_debug_no_logs": "Application's logs are not available",
-    "app_debug_tab": "Display debug information",
     "app_info_access_desc": "Groups / users currently allowed to access this app:",
     "app_info_changelabel_desc": "Change app label in the portal.",
     "app_info_debug_desc": "Display debugging information for this application.",
