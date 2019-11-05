@@ -265,6 +265,17 @@
 
             c.hideLoader();
 
+            // Get modal element
+            var box = $('#modal');
+
+            // Modal title
+            if (typeof title === 'string' && title.length) {
+                $('.title', box).html(title);
+            }
+            else {
+                box.addClass('no-title');
+            }
+
             // Modal content
             $('.content', box).html(content);
 
@@ -280,12 +291,10 @@
 
                     $('#modal footer button').unbind( "click" );
                     // Reset & Hide modal
-                    box
-                        .removeClass('no-title')
-                        .modal('hide');
+                    box.removeClass('no-title').modal('hide');
 
                     // Do corresponding callback
-                    if ($(this).data('action') == 'confirm') {
+                    if ($(this).data('modal-action') == 'confirm') {
                         confirmCallback();
                     }
                     else {

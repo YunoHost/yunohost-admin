@@ -202,8 +202,10 @@
     // Get app information
     app.get('#/apps/:app', function (c) {
         c.api('GET', '/apps/'+c.params['app']+'?raw', {}, function(data) {
-            // Presentation
-            data.settings.allowed_users = (data.settings.allowed_users) ? data.settings.allowed_users.replace(',', ', ')+"." : y18n.t('everyone_has_access');
+        c.api('GET', '/users/permissions', {}, function(data_permissions) {
+
+            // Permissions
+            data.permissions = data_permissions.permissions[c.params['app']+".main"]["allowed"];
 
             // Multilingual description
             data.description = (typeof data.manifest.description[y18n.locale] !== 'undefined') ?
@@ -242,12 +244,6 @@
                 });
             });
         });
-    });
-
-    // Get app debug page
-    app.get('#/apps/:app/debug', function (c) {
-        c.api('GET', '/apps/'+c.params['app']+'/debug', {}, function(data) {
-            c.view('app/app_debug', data);
         });
     });
 
@@ -619,129 +615,6 @@
                 .fail(function(xhr) {
                     c.flash('fail', y18n.t('app_install_custom_no_manifest'));
                     c.refresh();
-                });
-            }
-        );
-    });
-
-    // Manage app access
-    app.get('#/apps/:app/access', function (c) {
-        c.api('GET', '/apps/'+c.params['app']+'?raw', {}, function(data) {
-            c.api('GET', '/users', {}, function(dataUsers) {
-
-                // allowed_users as array
-                if (typeof data.settings.allowed_users !== 'undefined') {
-                    if (data.settings.allowed_users.length === 0) {
-                        // Force empty array, means no user has access
-                        data.settings.allowed_users = [];
-                    }
-                    else {
-                        data.settings.allowed_users = data.settings.allowed_users.split(',');
-                    }
-                } else {
-                    data.settings.allowed_users = []; // Force array
-                    // if 'allowed_users' is undefined, everyone has access
-                    // that means that undefined is different from empty array
-                    data.settings.allow_everyone = true;
-                }
-
-                // Available users
-                data.users = [];
-                $.each(dataUsers.users, function(username, user){
-                    // Do not list allowed_users in select list
-                    if ( data.settings.allowed_users.indexOf(username) === -1 ) {
-                        data.users.push({
-                            value: username,
-                            label: user.fullname+' ('+user.mail+')'
-                        });
-                    } else {
-                        // Complete allowed_users data
-                        data.settings.allowed_users[data.settings.allowed_users.indexOf(username)] = {
-                            username: username,
-                            fullname: user.fullname,
-                            mail: user.mail,
-                        };
-                    }
-                });
-
-                c.view('app/app_access', data);
-            });
-        });
-    });
-
-    // Remove all access
-    app.get('#/apps/:app/access/remove', function (c) {
-        c.confirm(
-            y18n.t('applications'),
-            y18n.t('confirm_access_remove_all', [c.params['app']]),
-            function() {
-                var params = {
-                    apps: c.params['app'],
-                    users: []
-                };
-                c.api('DELETE', '/access?'+c.serialize(params), params, function(data) {
-                    c.redirect_to('#/apps/'+ c.params['app']+ '/access', {slide:false});
-                });
-            }
-        );
-    });
-
-    // Remove access to a specific user
-    app.get('#/apps/:app/access/remove/:user', function (c) {
-        c.confirm(
-            y18n.t('applications'),
-            y18n.t('confirm_access_remove_user', [c.params['app'], c.params['user']]),
-            function() {
-                var params = {
-                    apps: c.params['app'],
-                    users: c.params['user']
-                };
-                c.api('DELETE', '/access?'+c.serialize(params), params, function(data) {
-                    c.redirect_to('#/apps/'+ c.params['app']+ '/access', {slide:false});
-                });
-            }
-        );
-    });
-
-    // Grant all access
-    app.get('#/apps/:app/access/add', function (c) {
-        c.confirm(
-            y18n.t('applications'),
-            y18n.t('confirm_access_add', [c.params['app']]),
-            function() {
-                var params = {
-                    apps: c.params['app'],
-                    users: null
-                };
-                c.api('PUT', '/access', params, function() {
-                    c.redirect_to('#/apps/'+ c.params['app'] +'/access', {slide:false});
-                });
-            }
-        );
-    });
-
-    // Grant access for a specific user
-    app.post('#/apps/:app/access/add', function (c) {
-        var params = {
-            users: c.params['user'],
-            apps: c.params['app']
-        };
-        c.api('PUT', '/access', params, function() {
-            c.redirect_to('#/apps/'+ c.params['app'] +'/access', {slide:false});
-        });
-    });
-
-    // Clear access (reset)
-    app.get('#/apps/:app/access/clear', function (c) {
-        c.confirm(
-            y18n.t('applications'),
-            y18n.t('confirm_access_clear', [c.params['app']]),
-            function() {
-                var params = {
-                    apps: c.params['app']
-                };
-                c.api('POST', '/access', params, function() {
-                    c.redirect_to('#/apps/'+ c.params['app'] +'/access', {slide:false});
                 });
             }
         );

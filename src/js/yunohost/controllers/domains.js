@@ -100,7 +100,7 @@
                             y18n.t('domains'),
                             y18n.t('confirm_change_maindomain'),
                             function() {
-                                c.api('PUT', '/domains/main', {new_domain: domain}, function() { c.refresh() });
+                                c.api('PUT', '/domains/main', {new_main_domain: domain}, function() { c.refresh() });
                             }
                         )
                     });
@@ -212,6 +212,7 @@
                 status: status_,
                 actions_enabled : actions_enabled
             };
+
             c.view('domain/domain_cert', data_, function() {
                 // Configure install / renew buttons behavior
                 $("button[data-action]").on("click", function () {

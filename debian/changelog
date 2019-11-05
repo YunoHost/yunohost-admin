@@ -1,3 +1,15 @@
+yunohost-admin (3.7.0) testing; urgency=low
+
+  - [enh] Add UI for groups and permissions (YunoHost-admin#257)
+  - [mod] Rework migration system to have independent migrations (YunoHost-admin#258)
+  - [enh] Quite a lot of messages improvements, string cleaning, language rework... (YunoHost-admin/10ea04a, YunoHost-admin#265)
+  - [i18n] Improved translations for Catalan, Occitan, French, Esperanto, Arabic, German, Spanish, Norwegian Bokmål, Portuguese
+  - [fix] Inline buttons responsiveness on migration screen (YunoHost-admin#259)
+
+  Thanks to all contributors <3 ! (accross all repo: Yunohost, Moulinette, SSOwat, Yunohost-admin) : advocatux, Aksel K., Aleks, Allan N., amirale qt, Armin P., Bram, ButterflyOfFire, Carles S. A., chema o. r., decentral1se, Emmanuel V., Etienne M., Filip B., Geoff M., htsr, Jibec, Josué, Julien J., Kayou, liberodark, ljf, lucaskev, Lukas D., madtibo, Martin D., Mélanie C., nr 458 h, pitfd, ppr, Quentí, sidddy, troll, tufek yamero, xaloc33, yalh76
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Thu, 31 Oct 2019 19:00:00  +0000
+
 yunohost-admin (3.6.5) stable; urgency=low
 
   - [fix] Stupid / buggy error handling for postinstall (2187657)

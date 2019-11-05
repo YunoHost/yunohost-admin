@@ -48,9 +48,10 @@
         </div>
         <hr>
         <div class="container">
-            <p>{{t 'app_info_access_desc' settings.allowed_users}}</p>
-            <a role="button" href="#/apps/{{settings.id}}/access" class="btn btn-info slide">
-                <span class="fa-lock"></span> {{t 'app_access'}}
+            <p>{{t 'app_info_access_desc'}} {{#each permissions}} {{ucwords .}}{{#unless @last}}, {{/unless}} {{ else }} {{t 'nobody'}} {{/each}}
+            </p>
+            <a role="button" href="#/groups" class="btn btn-info slide">
+                <span class="fa-key-modern"></span> {{t 'groups_and_permissions_manage'}}
             </a>
         </div>
         <hr>
@@ -81,13 +82,6 @@
             <button class="btn btn-danger slide back" data-action="uninstall" data-app="{{settings.id}}">
                 <span class="fa-trash-o"></span> {{t 'uninstall'}}
             </button>
-        </div>
-        <hr>
-        <div class="container">
-            <p>{{t 'app_info_debug_desc'}}</p>
-            <a href="#/apps/{{settings.id}}/debug" role="button" class ="btn btn-warning slide">
-                <span class="fa-bug"></span> {{t 'app_debug_tab'}}
-            </a>
         </div>
     </div>
 </div>
