@@ -15,14 +15,14 @@
     </div>
     <div class="panel-body">
         <p>   
-            <a role="button" href="#/tools/reboot/reboot" class="btn btn-danger">
+            <button class="btn btn-danger" data-action="reboot">
                 <i class="fa-refresh"></i> {{t 'tools_reboot_btn'}}
-            </a>
+            </button>
         </p>
         <p>
-            <a role="button" href="#/tools/reboot/shutdown" class="btn btn-danger">
+            <button class="btn btn-danger" data-action="shutdown">
                 <i class="fa-power-off"></i> {{t 'tools_shutdown_btn'}}
-            </a>
+            </button>
         </p>
     </div>
 </div>

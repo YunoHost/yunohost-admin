@@ -62,7 +62,7 @@
       </table>
         <span class="pull-right">
           <a role="button" href="#/users/{{username}}/edit" class="btn btn-info slide"><span class="fa-pencil-square-o"/> {{t 'user_username_edit' username}}</a>
-          <a role="button" href="#/users/{{username}}/delete" class="btn btn-danger slide back"><span class="fa-trash-o"/> {{t 'delete'}}</a>
+          <button class="btn btn-danger" data-action="delete" data-user="{{username}}"><span class="fa-trash-o"/> {{t 'delete'}}</a>
         </span>
     </div>
   </div>

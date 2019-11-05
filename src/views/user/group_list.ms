@@ -17,10 +17,10 @@
     <span class="label label-default label-removable">
         <span class="fa-fw fa-{{icon}}"></span>
         {{text}} 
-        <a role="button" data-type="{{type}}s" data-operation="remove" data-item="{{value}}" data-group="{{group}}" class="group-update">
+        <button data-type="{{type}}s" data-action="remove" data-item="{{value}}" data-group="{{group}}">
             <span class="fa-close" style="margin-left:5px"></span>
             <span class="sr-only">{{t 'delete'}}</span>
-        </a>
+        </button>
     </span>
 {{/inline}}
 
@@ -35,7 +35,7 @@
         </button>
         <ul class="dropdown-menu">
             {{#each inv}}
-                <li><a href="#" data-type="{{../type}}s" data-operation="add" data-item="{{.}}" data-group="{{../group}}" class="group-update">{{call ../display .}}</a></li>
+                <li><button data-type="{{../type}}s" data-action="add" data-item="{{.}}" data-group="{{../group}}" >{{call ../display .}}</button></li>
             {{/each}}
         </ul>
     </div>
@@ -53,10 +53,10 @@
                 <span class="fa-fw fa-group"></span> {{#if special}}{{t (concat 'group_' @key)}}{{else}}{{t 'group'}} "{{ucwords @key}}"{{/if}}
             </a>
             {{#unless special}}
-            <a href="#/groups/{{@key}}/delete" role="button" class="group-delete">
+            <button class="group-delete" data-action="delete-group" data-group="{{@key}}">
                 <span class="fa-close"></span>
                 <span class="sr-only">{{t 'delete'}}</span>
-            </a>
+            </button>
             {{/unless}}
         </h2>
     </div>
@@ -122,7 +122,7 @@
                     {{#each groups}}
                     {{#if primary}}
                     {{#unless (or permissions display)}}
-                        <li><a href="#" data-user="{{@key}}" class="group-add-user">{{@key}}</a></li>
+                        <li><button data-action="add-user-specific-permission" data-user="{{@key}}">{{@key}}</button></li>
                     {{/unless}}
                     {{/if}}
                     {{/each}}

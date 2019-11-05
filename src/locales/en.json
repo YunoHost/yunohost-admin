@@ -385,6 +385,6 @@
     "appslists_last_update": "Last update",
     "appslists_unknown_list": "Unknown apps list: %s",
     "name": "Name",
-    "purge_user_data_checkbox": "Purge %s's data? (This will remove the content of it's home and mail directories.)",
+    "purge_user_data_checkbox": "Purge %s's data? (This will remove the content of its home and mail directories.)",
     "purge_user_data_warning": "Purging user's data is not reversible. Be sure you know what you're doing!"
 }

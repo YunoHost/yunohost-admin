@@ -181,7 +181,7 @@
             sam.store.set('url', window.location.hostname + '/yunohost/api');
 
             if (sam.store.get('connected')) {
-                this.api('/diagnosis', function(diagnosis) {
+                this.api('GET', '/diagnosis', {}, function(diagnosis) {
                     versions = diagnosis.packages;
                     $('#yunohost-version').html(y18n.t('footer_version', [versions.yunohost.version, versions.yunohost.repo]));
                 });
