@@ -3,7 +3,7 @@
     "administration_password": "Yönetici parolası",
     "api_not_responding": "API cevap vermiyor",
     "both": "İkisi birden",
-    "cancel": "İptal et",
+    "cancel": "İptal etmek",
     "close": "Kapat",
     "confirm_access_add": "%s için bütünn kullanıcılara erişim vermek istediğinizden emin misiniz ?",
     "confirm_access_remove_all": "%s'e bütün erişimleri kaldırmak istediğinizden emin misiniz ?",
@@ -70,5 +70,6 @@
     "url": "URL",
     "warning_first_user": "Büyük ihtimalle önce <a href='#/users/create' class='alert-link'>kullanıcı oluşturmanız</a> gerekiyor.",
     "wrong_password": "Yanlış parola",
-    "yes": "Evet"
+    "yes": "Evet",
+    "ok": "Tamam"
 }
