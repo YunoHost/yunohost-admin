@@ -39,7 +39,7 @@
         <div class="list-group-item clearfix">
             <button class="btn btn-success pull-right" data-upgrade="{{id}}">{{t 'system_upgrade_btn'}}</button>
             <h3 class="list-group-item-heading">{{label}} <small>{{id}}</small></h3>
-            <p class="list-group-item-text">{{t 'from_to' current_version new_version}}</p>
+            <span class="list-group-item-text">{{t 'from_to' current_version new_version}}</span>
         </div>
         {{/apps}}
     </div>

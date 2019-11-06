@@ -6,10 +6,6 @@
 <div class="separator"></div>
 
 <div class="list-group">
-    <a href="#/tools/diagnosis" class="list-group-item slide clearfix">
-        <span class="pull-right fa-chevron-right"></span>
-        <h2 class="list-group-item-heading">{{t 'diagnosis'}}</h2>
-    </a>
     <a href="#/tools/logs" class="list-group-item slide clearfix">
         <span class="pull-right fa-chevron-right"></span>
         <h2 class="list-group-item-heading">{{t 'logs'}}</h2>
