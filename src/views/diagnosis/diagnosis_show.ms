@@ -11,6 +11,8 @@
 
 <div class="separator"></div>
 
+<div class="alert alert-warning">{{t 'diagnosis_experimental_disclaimer'}}</div>
+
 {{#reports}}
 <div class="panel panel-default">
     <div class="panel-heading">
