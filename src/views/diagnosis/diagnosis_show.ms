@@ -21,7 +21,7 @@
         {{#if errors}}<span class="label label-danger">{{t 'errors' errors }}</span>{{/if}}
         {{#if warnings}}<span class="label label-warning">{{t 'warnings' warnings }}</span>{{/if}}
         {{#if ignored}}<span class="label label-default">{{t 'ignored' ignored }}</span>{{/if}}
-        <a role="button" category="{{ id }}" class="btn btn-sm btn-info pull-right rerun-diagnosis"><span class="fa-fw fa-refresh"></span> {{t 'rerun_diagnosis'}}</a>
+        <button class="btn btn-sm btn-info pull-right" data-action="rerun-diagnosis" data-category="{{ id }}"><span class="fa-fw fa-refresh"></span> {{t 'rerun_diagnosis'}}</button>
     </div>
     <div class="panel-body collapse {{#if errors}}in{{/if}}" id="category-{{id}}">
     <ul class="list-group" style="margin-bottom: 0px">
@@ -33,10 +33,10 @@
             {{/if}}
             {{summary}}
             {{#if ignored}}
-            <a href="javascript:void(null);" onclick="diagnosis_remove_ignore_filter('{{ filter_args }}');" role="button" class="btn btn-sm btn-default pull-right"><span class="fa-fw fa-bell"></span> {{t 'unignore'}}</a>
+            <button class="btn btn-sm btn-default pull-right" data-action="unignore" data-filter-args="{{ filter_args }}"><span class="fa-fw fa-bell"></span> {{t 'unignore'}}</button>
             {{else}}
             {{#if issue}}
-            <a href="javascript:void(null);" onclick="diagnosis_add_ignore_filter('{{ filter_args }}');" role="button" class="btn btn-sm btn-warning pull-right"><span class="fa-fw fa-bell-slash"></span> {{t 'ignore'}}</a>
+            <button class="btn btn-sm btn-warning pull-right" data-action="ignore" data-filter-args="{{ filter_args }}"><span class="fa-fw fa-bell-slash"></span> {{t 'ignore'}}</button>
             {{/if}}
             {{/if}}
             {{#if details}}
