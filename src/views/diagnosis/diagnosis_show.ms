@@ -4,9 +4,9 @@
 </div>
 
 <div class="actions-group">
-    <a href="javascript:void(null);" onclick="c.api('/diagnosis/show?share', function(data) { $('div.loader').remove(); window.open(data.url, '_blank'); });" class="btn btn-success">
+    <button class="btn btn-success" data-action="share">
         <span class="fa-cloud-upload"></span> {{t 'logs_share_with_yunopaste'}}
-    </a>
+    </button>
 </div>
 
 <div class="separator"></div>

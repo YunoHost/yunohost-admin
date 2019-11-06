@@ -64,6 +64,14 @@
             // Render and display the view
             c.view('diagnosis/diagnosis_show', data, function() {
 
+                // Configure share with yunopaste button
+                $("button[data-action='share']").click(function() {
+                    c.api('GET', '/diagnosis/show?share', {}, function(data) {
+                        c.hideLoader();
+                        window.open(data.url, '_blank');
+                    });
+                });
+
                 // Configure 'rerun diagnosis' button behavior
                 $("button[data-action='rerun-diagnosis']").click(function() {
                     var category = $(this).data("category");
