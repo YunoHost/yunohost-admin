@@ -251,21 +251,6 @@
         });
     });
 
-    // Diagnosis
-    app.get('#/tools/diagnosis(/:private)?', function (c) {
-        // See http://sammyjs.org/docs/routes for splat documentation
-        var private = (c.params.splat[0] == 'private');
-
-        var endurl = (private) ? '?private' : '';
-        c.api('GET', '/diagnosis'+endurl, {}, function(diagnosis) {
-            c.view('tools/tools_diagnosis', {
-                'diagnosis' : JSON.stringify(diagnosis, undefined, 4),
-                'raw' : diagnosis,
-                'private' : private
-            });
-        });
-    });
-
     // Migrations
     app.get('#/tools/migrations', function (c) {
         c.api('GET', '/migrations?pending', {}, function(pending_migrations) {
