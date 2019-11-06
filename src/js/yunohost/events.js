@@ -69,13 +69,10 @@
                 c.flash('fail', y18n.t('error_retrieve_feed', [securityFeed]));
             });
 
-            c.api("GET", "/diagnosis", {}, function(data) {
-                versions = data.packages;
-                $('#yunohost-version').html(y18n.t('footer_version', [versions.yunohost.version, versions.yunohost.repo]));
-                if (data.security["CVE-2017-5754"].vulnerable) {
-                    c.flash('danger', y18n.t('meltdown'));
-                }
-                c.hideLoader();
+            c.api("GET", "/diagnosis/show?full", {}, function(data) {
+                basesystem = data.reports.filter(function(r) { return r.id == "basesystem"; })[0];
+                version_info = basesystem.items.filter(function(i) { return (i.meta && i.meta.test && i.meta.test == "ynh_versions"); })[0];
+                $('#yunohost-version').html(y18n.t('footer_version', [version_info.data.main_version, version_info.data.repo]));
             });
         });
     });

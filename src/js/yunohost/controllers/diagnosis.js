@@ -54,7 +54,6 @@
                     // We want filter_args to be something like "dnsrecords,domain=yolo.test,category=xmpp"
                     data.reports[i].items[j].filter_args = data.reports[i].id;
                     for (prop in data.reports[i].items[j].meta) {
-                        console.log(prop)
                         data.reports[i].items[j].filter_args = data.reports[i].items[j].filter_args + ","+prop+"="+data.reports[i].items[j].meta[prop];
                     }
                 };
