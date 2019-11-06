@@ -13,7 +13,7 @@
         $('#masthead').hide();
         c.checkInstall(function(isInstalled) {
             if (isInstalled || typeof isInstalled === 'undefined') {
-                c.redirect('#/login');
+                c.redirect_to('#/login');
             } else {
                 c.view('postinstall/postinstall_1');
             }
@@ -41,7 +41,6 @@
                         if ($('#domain').val() === '') {
                             if ($('#ddomain').val() === '') {
                                 e.preventDefault();
-                                store.clear('slide');
                                 c.flash('fail', y18n.t('error_select_domain'));
                             } else {
                                 domain = $('#ddomain').val() + $('select[name="ddomain-ext"]').val();
@@ -51,7 +50,7 @@
                         }
                         store.set('maindomain', domain);
                     });
-                }, false); // We disable enableSlide because that causes some issues with accordion when using the 'previous' button
+                });
             });
     });
 
@@ -59,49 +58,52 @@
     app.get('#/postinstall/password', function(c) {
         $('#masthead').hide();
         if (!store.get('maindomain')) {
-            store.clear('slide');
-            c.redirect('#/postinstall/domain');
+            c.redirect_to('#/postinstall/domain');
         } else {
-            c.view('postinstall/postinstall_3', { 'domain': store.get('maindomain').toLowerCase() },
-                function() { },
-                false); // We disable enableSlide because that causes some issues with accordion when using the 'previous' button
+            c.view('postinstall/postinstall_3', { 'domain': store.get('maindomain').toLowerCase() });
         }
     });
 
     // Execute post-installation
     app.post('#/postinstall', function (c) {
-        if (c.params['password'] === '' || c.params['confirmation'] === '') {
+
+        var password = c.params['password'];
+        var confirmation = c.params['confirmation'];
+        var domain = c.params['domain'].toLowerCase();
+
+        // Check password ain't empty
+        if (password === '' || confirmation === '') {
             c.flash('fail', y18n.t('password_empty'));
+            return;
         }
-        else if (c.params['password'] == c.params['confirmation']) {
-            if (c.params['domain'] === '') {
-                c.flash('fail', y18n.t('error_select_domain'));
-                store.clear('slide');
-                c.redirect('#/postinstall/domain');
-            } else {
-                var params = {
-                    domain: c.params['domain'].toLowerCase()
-                };
-            }
 
-            c.confirm(
-                y18n.t('postinstall'),
-                y18n.t('confirm_postinstall', [c.params['domain']]),
-                function(){
-                    params.password = c.params['password'];
-
-                    store.set('url', window.location.hostname +'/yunohost/api');
-                    store.set('user', 'admin');
-                    c.api('/postinstall', function(data) { // http://api.yunohost.org/#!/tools/tools_postinstall_post_0
-                        c.redirect('#/login');
-                    }, 'POST', params);
-                },
-                function(){
-                }
-            );
-        } else {
+        // Check password matches confirmation
+        if (password !== confirmation) {
             c.flash('fail', y18n.t('passwords_dont_match'));
+            return;
         }
+
+        // Check domain ain't empty...
+        if (domain === '') {
+            c.flash('fail', y18n.t('error_select_domain'));
+            c.redirect_to('#/postinstall/domain', {slide: false});
+            return;
+        }
+
+        // Ask confirmation to the user
+        c.confirm(
+            y18n.t('postinstall'),
+            y18n.t('confirm_postinstall', [c.params['domain']]),
+            // Start the actual postinstall process
+            function(){
+                store.set('url', window.location.hostname +'/yunohost/api');
+                store.set('user', 'admin');
+                c.api('POST', '/postinstall', {domain: domain, password: password}, function() {
+                    c.flash('success', y18n.t('installation_complete'));
+                    c.redirect_to('#/login');
+                });
+            }
+        );
     });
 
 })();

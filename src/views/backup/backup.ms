@@ -3,12 +3,6 @@
     <a href="#/backup">{{t 'backup'}}</a>
 </div>
 
-<div class="actions-group">
-    <!--<a role="button" href="#/storages/create" class="btn btn-success slide">
-        <span class="fa-plus"></span> {{t 'storages_new'}}
-    </a>-->
-</div>
-
 <div class="separator"></div>
 
 <div class="list-group">

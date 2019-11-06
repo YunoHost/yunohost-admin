@@ -12,67 +12,46 @@
         <span class="fa-fw fa-globe"></span> {{name}}
     </h2>
   </div>
-  <div class="panel-body">
-    {{#if main}}
-    <p class="alert alert-success">
-        <span class="fa-star" title="{{t 'default'}}"></span> {{t 'domain_default_longdesc'}}
-    </p>
-    {{/if}}
-    <p><a href="{{url}}" target="_blank">{{url}}</a></p>
-
-  </div>
-</div>
-
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <h2 class="panel-title">
-            <span class="fa-fw fa-wrench"></span> {{t 'operations'}}
-        </h2>
-    </div>
     <div class="panel-body">
         <div class="container">
             <p>{{t 'domain_visit_url' url}}</p>
             <a role="button" href="{{url}}" class="btn btn-success" target="_blank">
-                {{t 'domain_visit'}} <span class="fa-fw fa-external-link"></span>
+                <span class="fa-fw fa-external-link"></span> {{t 'domain_visit'}}
             </a>
         </div>
-        {{#unless main}}
         <hr>
         <div class="container">
             <p>{{t 'domain_default_desc'}}</p>
-            <form method="POST" action="#/domains">
-                    <input type="hidden" name="domain" value="{{name}}" required class="form-control">
-                    <button type="submit" class="btn btn-primary slide back" value="{{t 'set_default'}}">
-                        {{t 'set_default'}} <span class="fa-fw fa-star"></span>
-                    </button>
-            </form>
+            {{#if main}}
+            <p class="alert alert-info">
+                <span class="fa-star" title="{{t 'default'}}"></span> {{t 'domain_default_longdesc'}}
+            </p>
+            {{else}}
+            <button class="btn btn-primary" data-action="set_default" data-domain="{{name}}">
+                <span class="fa-fw fa-star"></span> {{t 'set_default'}}
+            </button>
+            {{/if}}
         </div>
-        {{/unless}}
         <hr>
         <div class="container">
             <p>{{t 'domain_dns_longdesc'}}</p>
             <a role="button" href="#/domains/{{name}}/dns"  class="btn btn-default slide">
-                {{t 'domain_dns_config'}} <span class="fa-fw fa-globe"></span>
+                <span class="fa-fw fa-globe"></span> {{t 'domain_dns_config'}}
             </a>
         </div>
         <hr>
         <div class="container">
             <p>{{t 'certificate_manage'}}</p>
-            {{#unless enable_cert_management}}
-            <p><span class="fa-fw fa-exclamation-circle"></span>
-            {{t 'certificate_old_letsencrypt_app_conflict'}}
-            </p>
-            {{/unless}}
-            <a href="#/domains/{{name}}/cert-management" role="button" class="btn btn-default slide {{#unless enable_cert_management}}disabled{{/unless}}">
-                {{t 'ssl_certificate'}} <span class="fa-fw fa-lock"></span>
+            <a href="#/domains/{{name}}/cert-management" role="button" class="btn btn-default slide">
+                <span class="fa-fw fa-lock"></span> {{t 'ssl_certificate'}}
             </a>
         </div>
         <hr>
         <div class="container">
             <p>{{t 'domain_delete_longdesc' name}}</p>
-            <a href="#/domains/{{name}}/delete" role="button" class="btn btn-danger slide back">
-                {{t 'delete'}} <span class="fa-fw fa-trash-o"></span>
-            </a>
+            <button class="btn btn-danger" data-action="delete" data-domain="{{name}}">
+                <span class="fa-fw fa-trash-o"></span> {{t 'delete'}}
+            </button>
         </div>
     </div>
 </div>

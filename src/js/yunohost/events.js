@@ -8,7 +8,7 @@
      *
      */
     app.bind('login', function(e, data) {
-        c.api('/users', function(data) {
+        c.api('GET', '/users', {}, function(data) {
             // Warn admin if no users are created.
             if (typeof data.users !== 'undefined' && data.users.length === 0) {
                 c.flash('warning', y18n.t('warning_first_user'));
@@ -69,13 +69,13 @@
                 c.flash('fail', y18n.t('error_retrieve_feed', [securityFeed]));
             });
 
-            c.api("/diagnosis", function(data) {
+            c.api("GET", "/diagnosis", {}, function(data) {
                 versions = data.packages;
                 $('#yunohost-version').html(y18n.t('footer_version', [versions.yunohost.version, versions.yunohost.repo]));
                 if (data.security["CVE-2017-5754"].vulnerable) {
                     c.flash('danger', y18n.t('meltdown'));
                 }
-                $('div.loader').remove();
+                c.hideLoader();
             });
         });
     });

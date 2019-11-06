@@ -10,7 +10,7 @@
 
     // All services status
     app.get('#/services', function (c) {
-        c.api('/services', function(data) { // ?
+        c.api('GET', '/services', {}, function(data) {
             var data2 = {
                 services: []
             };
@@ -45,7 +45,7 @@
 
     // Status & actions for a service
     app.get('#/services/:service', function (c) {
-        c.api('/services/'+ c.params['service'], function(data) { // ?
+        c.api('GET', '/services/'+ c.params['service'], {}, function(data) {
             var data2 = {
                 service: data
             };
@@ -64,9 +64,45 @@
             {
                 data2.service.active_at = 0;
             }
-            store.clear('slide');
-            c.view('service/service_info', data2);
-        }, 'GET');
+            c.view('service/service_info', data2, function() {
+
+                // Configure behavior for enable/disable and start/stop buttons
+                $('button[data-action]').on('click', function() {
+
+                    var service = $(this).data('service');
+                    var action = $(this).data('action');
+
+                    c.confirm("Service", y18n.t('confirm_service_' + action, [service]), function(){
+
+                        var method = null,
+                            endurl = service;
+
+                        switch (action) {
+                            case 'start':
+                                method = 'PUT';
+                                break;
+                            case 'stop':
+                                method = 'DELETE';
+                                break;
+                            case 'enable':
+                                method = 'PUT';
+                                endurl += '/enable';
+                                break;
+                            case 'disable':
+                                method = 'DELETE';
+                                endurl += '/enable';
+                                break;
+                            default:
+                                c.flash('fail', y18n.t('unknown_action', [action]));
+                                c.refresh();
+                                return;
+                        }
+
+                        c.api(method, '/services/'+ endurl, {}, function() { c.refresh(); });
+                    });
+                });
+            });
+        });
     });
 
     // Service log
@@ -74,63 +110,14 @@
         var params = {
             number: 50
         };
-        c.api('/services/'+ c.params['service'] +'/log', function(data) { // ?
+        c.api('GET', '/services/'+ c.params['service'] +'/log', params, function(data) { // ?
             data2 = { 'logs': [], 'name': c.params['service'] };
             $.each(data, function(k, v) {
                 data2.logs.push({filename: k, filecontent: v.join('\n')});
             });
 
             c.view('service/service_log', data2);
-        }, 'GET', params);
-    });
-
-    // Enable/Disable & Start/Stop service
-    app.get('#/services/:service/:action', function (c) {
-        c.confirm(
-            "Service",
-            // confirm_service_start, confirm_service_stop, confirm_service_enable and confirm_service_disable
-            y18n.t('confirm_service_' + c.params['action'].toLowerCase(), [c.params['service']]),
-            function(){
-                var method = null,
-                    endurl = c.params['service'];
-
-                switch (c.params['action']) {
-                    case 'start':
-                        method = 'PUT';
-                        break;
-                    case 'stop':
-                        method = 'DELETE';
-                        break;
-                    case 'enable':
-                        method = 'PUT';
-                        endurl += '/enable';
-                        break;
-                    case 'disable':
-                        method = 'DELETE';
-                        endurl += '/enable';
-                        break;
-                    default:
-                        c.flash('fail', y18n.t('unknown_action', [c.params['action']]));
-                        store.clear('slide');
-                        c.redirect('#/services/'+ c.params['service']);
-                }
-
-                if (method && endurl) {
-                    c.api('/services/'+ endurl, function(data) {
-                        store.clear('slide');
-                        c.redirect('#/services/'+ c.params['service']);
-                    }, method);
-                }
-                else {
-                    store.clear('slide');
-                    c.redirect('#/services/'+ c.params['service']);
-                }
-            },
-            function(){
-                store.clear('slide');
-                c.redirect('#/services/'+ c.params['service']);
-            }
-        );
+        });
     });
 
 })();

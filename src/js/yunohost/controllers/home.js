@@ -24,45 +24,36 @@
         $('#masthead').show()
             .find('.logout-btn').hide();
         store.set('path-1', '#/login');
-        if ($('div.loader').length === 0) {
-            $('#main').append('<div class="loader loader-content"></div>');
+
+        c.showLoader();
+
+        // We gonna retry 3 times to check if yunohost is installed
+        if (app.isInstalledTry === undefined) {
+            app.isInstalledTry = 3;
         }
 
         c.checkInstall(function(isInstalled) {
+
             if (isInstalled) {
-                // Remove loader
-                $('div.loader').remove();
-                // Pass domain to hide form field
                 c.view('login', { 'domain': window.location.hostname });
-            } else if (typeof isInstalled === 'undefined') {
-                if (app.isInstalledTry > 0) {
-                    app.isInstalledTry--;
-                    app.loaded = false; // Show pacman
-                    setTimeout(function() {
-                        c.redirect('#/');
-                    }, 5000);
-                }
-                else {
-                    // Reset count
-                    app.isInstalledTry = 3;
+                return;
+            }
 
-                    // API is not responding after 3 try
-                    $( document ).ajaxError(function( event, request, settings ) {
-                        // Display error if status != 200.
-                        // .ajaxError fire even with status code 200 because json is sometimes not valid.
-                        if (request.status !== 200) c.flash('fail', y18n.t('api_not_responding', [request.status+' '+request.statusText] ));
-
-                        // Unbind directly
-                        $(document).off('ajaxError');
-                    });
-
-                    // Remove pacman
-                    app.loaded = true;
-                    $('div.loader').remove();
-                }
-            } else {
-                $('div.loader').remove();
+            if (typeof isInstalled !== 'undefined') {
                 c.redirect('#/postinstall');
+                return;
+            }
+
+            // If the retry counter is still up, retry this function 5 sec
+            // later
+            if (app.isInstalledTry > 0) {
+                app.isInstalledTry--;
+                setTimeout(function() {
+                    c.redirect('#/');
+                }, 5000);
+            }
+            else {
+                c.flash('fail', y18n.t('api_not_responding'));
             }
         });
     });
@@ -80,7 +71,7 @@
         var params = {
             password: c.params['password']
         };
-        c.api('/login', function(data) {
+        c.api('POST', '/login', params, function(data) {
             store.set('connected', true);
             c.trigger('login');
             $('#masthead .logout-btn').fadeIn();
@@ -90,19 +81,19 @@
             } else {
                 c.redirect('#/');
             }
-        }, 'POST', params, false);
+        }, undefined, false);
 
     });
 
     app.get('#/logout', function (c) {
-        c.api('/logout', function (data) {
+        c.api('GET', '/logout', {}, function (data) {
             store.clear('url');
             store.clear('connected');
             store.set('path', '#/');
             c.trigger('logout');
             c.flash('success', y18n.t('logged_out'));
             c.redirect('#/login');
-        }, 'GET', {}, false);
+        }, undefined, false);
     });
 
 })();
