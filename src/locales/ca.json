@@ -452,5 +452,15 @@
     "groups_and_permissions": "Grups i permisos",
     "groups_and_permissions_manage": "Gestionar grups i usuaris",
     "permissions": "Permisos",
-    "nobody": "Ningú"
+    "nobody": "Ningú",
+    "rerun_diagnosis": "Tornar a fer el diagnòstic",
+    "details": "Detalls",
+    "diagnosis_experimental_disclaimer": "Tingueu en compte que l'opció de diagnòstic encara és experimental i s'està millorant, i pot no ser del tot fiable.",
+    "everything_good": "Tot està bé!",
+    "ignore": "Ignorar",
+    "ignored": "%s ignorat",
+    "errors": "%s errors",
+    "last_ran": "Executat per última vegada:",
+    "warnings": "%s avisos",
+    "unignore": "No ignorar"
 }
