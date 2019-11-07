@@ -315,6 +315,7 @@
     "tools_shutdown_done": "Shutting down...",
     "tools_shuttingdown": "Your server is powering off. As long as your server is off, you won't be able to use the web administration.",
     "tools_shutdown_reboot": "Shutdown/Reboot",
+    "upgrades": "Upgrades",
     "udp": "UDP",
     "unauthorized": "Unauthorized",
     "unignore": "Unignore",

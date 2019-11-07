@@ -6,6 +6,10 @@
 <div class="separator"></div>
 
 <div class="list-group">
+    <a href="#/update" class="list-group-item slide">
+        <span class="fa-chevron-right pull-right"></span>
+        <h2 class="list-group-item-heading">{{t 'upgrades'}}</h2>
+    </a>
     <a href="#/tools/logs" class="list-group-item slide clearfix">
         <span class="pull-right fa-chevron-right"></span>
         <h2 class="list-group-item-heading">{{t 'logs'}}</h2>
@@ -13,6 +17,10 @@
     <a href="#/tools/migrations" class="list-group-item slide clearfix">
         <span class="pull-right fa-chevron-right"></span>
         <h2 class="list-group-item-heading">{{t 'migrations'}}</h2>
+    </a>
+    <a href="#/services" class="list-group-item slide clearfix">
+        <span class="pull-right fa-chevron-right"></span>
+        <h2 class="list-group-item-heading"> {{t 'services'}}</h2>
     </a>
     <a href="#/tools/reboot" class="list-group-item slide clearfix">
         <span class="pull-right fa-chevron-right"></span>
