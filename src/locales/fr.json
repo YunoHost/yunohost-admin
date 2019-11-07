@@ -422,7 +422,7 @@
     "logs_more": "Afficher plus de lignes",
     "search_for_apps": "Recherche des applications…",
     "unmaintained": "Non maintenue",
-    "purge_user_data_checkbox": "Voulez-vous purger les données de l’utilisateur %s ? (Cela supprimera le contenu de ses répertoires home et mail.)",
+    "purge_user_data_checkbox": "Purger les données de % s ? (Cela supprimera le contenu de ses répertoires home et mail.)",
     "purge_user_data_warning": "La purge des données de l’utilisateur n’est pas réversible. Assurez-vous de savoir ce que vous faites !",
     "version": "Version",
     "confirm_update_system": "Voulez-vous vraiment mettre à jour tous les paquets système ?",
@@ -459,5 +459,15 @@
     "group_specific_permissions": "Autorisations spécifiques à l'utilisateur",
     "groups_and_permissions": "Groupes et autorisations",
     "groups_and_permissions_manage": "Gérer les groupes et les autorisations",
-    "permissions": "Permissions"
+    "permissions": "Permissions",
+    "rerun_diagnosis": "Relancer le diagnostic",
+    "details": "Détails",
+    "diagnosis_experimental_disclaimer": "Sachez que la fonction de diagnostic est encore expérimentale et en cours de perfectionnement et qu’elle n’est peut-être pas totalement fiable.",
+    "errors": "%s erreurs",
+    "everything_good": "Tout va bien !",
+    "ignore": "Ignore",
+    "ignored": "%s ignoré",
+    "last_ran": "Dernière exécution :",
+    "unignore": "dé-ignorer",
+    "warnings": "%s avertissements"
 }
