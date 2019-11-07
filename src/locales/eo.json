@@ -440,5 +440,14 @@
     "group_explain_visitors": "Ĉi tio estas speciala grupo reprezentanta anonimajn vizitantojn",
     "group_specific_permissions": "Uzaj specifaj permesoj",
     "permissions": "Permesoj",
-    "nobody": "Neniu"
+    "nobody": "Neniu",
+    "rerun_diagnosis": "Rerun diagnozo",
+    "details": "Detaloj",
+    "diagnosis_experimental_disclaimer": "Atentu, ke la diagnoza funkcio estas ankoraŭ eksperimenta kaj polurita, kaj ĝi eble ne estas plene fidinda.",
+    "errors": "%s eraroj",
+    "everything_good": "Ĉio bona!",
+    "ignore": "Ignori",
+    "ignored": "%s ignoris",
+    "warnings": "%s avertoj",
+    "last_ran": "Lastfoje kuris:"
 }
