@@ -16,15 +16,9 @@
             };
             $.each(data, function(k, v) {
                 v.name = k;
-                // Handlebars want booleans
-                v.is_loaded = (v.loaded=='enabled') ? true : false;
-                v.is_running = (v.active=='active') ? true : false;
-                // Translate status and loaded state
-                v.status = y18n.t(v.status);
-                v.loaded = y18n.t(v.loaded);
-                if (v.active_at == 'unknown')
+                if (v.last_state_change == 'unknown')
                 {
-                    delete v.active_at;
+                    v.last_state_change = 0;
                 }
                 data2.services.push(v);
             });
@@ -46,25 +40,12 @@
     // Status & actions for a service
     app.get('#/services/:service', function (c) {
         c.api('GET', '/services/'+ c.params['service'], {}, function(data) {
-            var data2 = {
-                service: data
-            };
-            data2.service.name = c.params['service'];
-            // Handlebars want booleans
-            data2.service.is_loaded = (data.loaded=='enabled') ? true : false;
-            data2.service.is_running = (data.active=='active') ? true : false;
-            // Translate status and loaded state
-            data2.service.active = y18n.t(data.active);
-            data2.service.loaded = y18n.t(data.loaded);
-            if (data.active_at != 'unknown')
+            data.name = c.params['service'];
+            if (data.last_state_change == 'unknown')
             {
-                data2.service.active_at = data.active_at;
+                data.last_state_change = 0;
             }
-            else
-            {
-                data2.service.active_at = 0;
-            }
-            c.view('service/service_info', data2, function() {
+            c.view('service/service_info', data, function() {
 
                 // Configure behavior for enable/disable and start/stop buttons
                 $('button[data-action]').on('click', function() {

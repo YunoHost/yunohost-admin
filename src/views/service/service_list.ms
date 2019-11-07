@@ -11,18 +11,16 @@
         <span class="fa-chevron-right pull-right"></span>
         <h2 class="list-group-item-heading">{{name}} <small>{{description}}</small></h2>
         <div class="list-group-item-text">
-            {{t 'service_status'}}
-            <span class="text-{{#is_running}}success{{/is_running}}{{^is_running}}danger{{/is_running}}">
-            {{active}}
-            </span>
-            <br>
-            {{t 'started_at'}}
-            {{#active_at}}
-            {{formatTime . day="numeric" month="long" year="numeric" hour="numeric" minute="numeric"}}
-            {{/active_at}}
-            {{^active_at}}
-            {{t 'unknown'}}
-            {{/active_at}}
+            {{#if (eq status "running")}}
+                <span class="text-success">
+                    <span class="fa-fw fa-check-circle"></span>
+            {{else}}
+                <span class="text-danger">
+                    <span class="fa-fw fa-times"></span>
+            {{/if}}
+                    {{t status}}
+                </span>
+                {{t 'since'}} {{formatRelative last_state_change day="numeric" month="long" year="numeric" hour="numeric" minute="numeric" }}
         </div>
     </a>
 {{/services}}
