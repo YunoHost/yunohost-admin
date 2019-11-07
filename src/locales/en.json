@@ -256,6 +256,7 @@
     "previous": "Previous",
     "protocol": "Protocol",
     "read_more": "Read more",
+    "rerun_diagnosis": "Rerun diagnosis",
     "request_adoption": "waiting adoption",
     "request_adoption_details": "The current maintainer would like to stop maintaining this app. Feel free to propose yourself as the new maintainer!",
     "request_help": "need help",
