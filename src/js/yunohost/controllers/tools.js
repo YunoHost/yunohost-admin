@@ -26,77 +26,69 @@
         });
         if ($.isEmptyObject(params)) {
             c.flash('fail', y18n.t('error_modify_something'));
-            store.clear('slide');
-            c.redirect('#/tools/adminpw');
-        } else if (params['new_password'] !== params['confirm_new_password']) {
-            c.flash('fail', y18n.t('passwords_dont_match'));
-            store.clear('slide');
-            c.redirect('#/tools/adminpw');
-        } else {
-            c.api('/login', function(data) {
-                // Remove useless variable
-                delete params['old_password'];
-                delete params['confirm_new_password'];
-
-                // Update password and redirect to the home
-                c.api('/adminpw', function(data) { // http://api.yunohost.org/#!/tools/tools_adminpw_put_3
-                    c.redirect('#/logout');
-                }, 'PUT', params);
-            }, 'POST', { 'password': params['old_password'] }, false);
+            c.refresh();
+            return;
         }
+        if (params['new_password'] !== params['confirm_new_password']) {
+            c.flash('fail', y18n.t('passwords_dont_match'));
+            c.refresh();
+            return;
+        }
+
+        c.api('POST', '/login', { 'password': params['old_password'] }, function(data) {
+            // Remove useless variable
+            delete params['old_password'];
+            delete params['confirm_new_password'];
+
+            // Update password and redirect to the home
+            c.api('PUT', '/adminpw', params, function(data) {
+                c.redirect_to('#/logout');
+            });
+        }, undefined, false);
     });
 
     // System update & upgrade
     app.get('#/update', function (c) {
-        c.api('/update', function(data) {
-            c.view('update/update', data);
-        }, 'PUT');
-    });
+        c.api('PUT', '/update', {}, function(data) {
+            c.view('tools/tools_update', data, function() {
+                // Configure buttons behaviors
+                $("button[data-upgrade]").on("click", function() {
 
-    // Upgrade apps or packages
-    app.get('#/upgrade/:type', function (c) {
-        c.confirm(
-            y18n.t('tools'),
-            // confirm_update_apps and confirm_update_packages
-            y18n.t('confirm_update_' + c.params['type'].toLowerCase()),
-            function(){
-                c.api('/upgrade?'+c.params["type"],
-                      function(data) {
-                          store.clear('slide');
-                          c.redirect('#/tools/logs');
-                      },
-                      'PUT');
-            },
-            function(){
-                store.clear('slide');
-                c.redirect('#/update');
-            }
-        );
-    });
+                    var what = $(this).data("upgrade").toLowerCase();
 
-    // Upgrade a specific apps
-    app.get('#/upgrade/apps/:app', function (c) {
-        c.confirm(
-            y18n.t('tools'),
-            y18n.t('confirm_update_specific_app', [c.params['app']]),
-            function(){
-                c.api('/upgrade/apps?app='+c.params['app'].toLowerCase(),
-                      function(data) {
-                          store.clear('slide');
-                          c.redirect('#/tools/logs');
-                      },
-                      'PUT');
-            },
-            function(){
-                store.clear('slide');
-                c.redirect('#/update');
-            }
-        );
+                    // Upgrade all apps or the system
+
+                    if ((what == "system") || (what == "system"))
+                    {
+                        var confirm_message = y18n.t('confirm_update_' + what);
+                        var api_url = '/upgrade?'+what;
+                    }
+
+                    // Upgrade a specific apps
+
+                    else
+                    {
+                        var confirm_message = y18n.t('confirm_update_specific_app', [what]);
+                        var api_url = '/upgrade/apps?app='+what;
+                    }
+
+                    c.confirm(
+                        y18n.t('tools'),
+                        confirm_message,
+                        function(){
+                            c.api('PUT', api_url, {}, function(data) {
+                                c.redirect_to('#/tools/logs');
+                            });
+                        }
+                    );
+                });
+            });
+        });
     });
 
     // Display journals list
     app.get('#/tools/logs', function (c) {
-        c.api("/logs?limit=25&with_details", function(categories) {
+        c.api('GET', "/logs?limit=25&with_details", {}, function(categories) {
             data = [];
             category_icons = {
                 'operation': 'wrench',
@@ -138,8 +130,8 @@
         var params = "?path=" + c.params["splat"][0];
         var number = (c.params["number"])?c.params["number"]:50;
         params += "&number=" + number;
-        
-        c.api("/logs/display" + params, function(log) {
+
+        c.api('GET', "/logs/display" + params, {}, function(log) {
             if ('metadata' in log) {
                 if (!'env' in log.metadata && 'args' in log.metadata) {
                     log.metadata.env = log.metadata.args
@@ -149,10 +141,19 @@
                 "log": log,
                 "next_number": log.logs.length == number ? number * 10:false,
                 "locale": y18n.locale
+            }, function() {
+                // Configure behavior for the button to share log on Yunohost (it calls display --share)
+                $('button[data-action="share"]').on("click", function() {
+                    c.api('GET', '/logs/display?path='+$(this).data('log-id')+'&share', {},
+                        function(data) {
+                            c.hideLoader();
+                            window.open(data.url, '_blank');
+                    });
+                });
             });
         });
     });
-    
+
 
     // Download SSL Certificate Authority
     app.get('#/tools/ca', function (c) {
@@ -210,80 +211,50 @@
 
     // Reboot or shutdown button
     app.get('#/tools/reboot', function (c) {
-        c.view('tools/tools_reboot');
-    });
+        c.view('tools/tools_reboot', {}, function() {
+            // Configure reboot/shutdown buttons behavior
+            $("button[data-action]").on("click", function() {
+                var action = $(this).data("action");
 
-    // Reboot or shutdown actions
-    app.get('#/tools/reboot/:action', function (c) {
-        var action = c.params['action'].toLowerCase();
-        if (action == 'reboot' || action == 'shutdown') {
-            c.confirm(
-                y18n.t('tools_' + action),
-                // confirm_reboot_action_reboot or confirm_reboot_action_shutdown
-                y18n.t('confirm_reboot_action_' + action),
-                function(){
-                    c.api('/'+action+'?force', function(data) {
-                        // This code is not executed due to 502 response (reboot or shutdown)
-                        c.redirect('#/logout');
-                    }, 'PUT', {}, false, function (xhr) {
-                        c.flash('success', y18n.t('tools_' + action + '_done'))
-                        // Disconnect from the webadmin
-                        store.clear('url');
-                        store.clear('connected');
-                        store.set('path', '#/');
+                c.confirm(
+                    y18n.t('tools_' + action),
+                    y18n.t('confirm_reboot_action_' + action),
+                    function(){
+                        c.api('PUT', '/'+action+'?force', {}, function(data) {
+                            // This code is not executed due to 502 response (reboot or shutdown)
+                            c.redirect_to('#/logout');
+                        }, function (xhr) {
+                            c.flash('success', y18n.t('tools_' + action + '_done'))
+                            // Disconnect from the webadmin
+                            store.clear('url');
+                            store.clear('connected');
+                            store.set('path', '#/');
 
-                        // Rename the page to allow refresh without ask for rebooting
-                        window.location.href = window.location.href.split('#')[0] + '#/';
-                        // Display reboot or shutdown info
-                        // We can't use template because now the webserver is off
-                        if (action == 'reboot') {
-                            $('#main').replaceWith('<div id="main"><div class="alert alert-warning"><i class="fa-refresh"></i> ' + y18n.t('tools_rebooting') + '</div></div>');
-                        }
-                        else {
-                            $('#main').replaceWith('<div id="main"><div class="alert alert-warning"><i class="fa-power-off"></i> ' + y18n.t('tools_shuttingdown') + '</div></div>');
-                        }
+                            // Rename the page to allow refresh without ask for rebooting
+                            window.location.href = window.location.href.split('#')[0] + '#/';
+                            // Display reboot or shutdown info
+                            // We can't use template because now the webserver is off
+                            if (action == 'reboot') {
+                                $('#main').replaceWith('<div id="main"><div class="alert alert-warning"><i class="fa-refresh"></i> ' + y18n.t('tools_rebooting') + '</div></div>');
+                            }
+                            else {
+                                $('#main').replaceWith('<div id="main"><div class="alert alert-warning"><i class="fa-power-off"></i> ' + y18n.t('tools_shuttingdown') + '</div></div>');
+                            }
 
-                        // Remove loader if any
-                        $('div.loader').remove();
+                            c.hideLoader();
 
-                        // Force scrollTop on page load
-                        $('html, body').scrollTop(0);
-                        store.clear('slide');
-                    });
-
-                },
-                function(){
-                    store.clear('slide');
-                    c.redirect('#/tools/reboot');
-                }
-            );
-        }
-        else {
-            c.flash('fail', y18n.t('unknown_action', [action]));
-            store.clear('slide');
-            c.redirect('#/tools/reboot');
-        }
-    });
-
-    // Diagnosis
-    app.get('#/tools/diagnosis(/:private)?', function (c) {
-        // See http://sammyjs.org/docs/routes for splat documentation
-        var private = (c.params.splat[0] == 'private');
-
-        var endurl = (private) ? '?private' : '';
-        c.api('/diagnosis'+endurl, function(diagnosis) {
-            c.view('tools/tools_diagnosis', {
-                'diagnosis' : JSON.stringify(diagnosis, undefined, 4),
-                'raw' : diagnosis,
-                'private' : private
+                            // Force scrollTop on page load
+                            $('html, body').scrollTop(0);
+                    }, false);
+                });
             });
         });
     });
 
-    // Reboot or shutdown button
+    // Migrations
     app.get('#/tools/migrations', function (c) {
-        c.api('/migrations?pending', function(pending_migrations) {
-        c.api('/migrations?done', function(done_migrations) {
+        c.api('GET', '/migrations?pending', {}, function(pending_migrations) {
+        c.api('GET', '/migrations?done', {}, function(done_migrations) {
             pending_migrations = pending_migrations.migrations;
             done_migrations = done_migrations.migrations;
 
@@ -302,66 +273,39 @@
             c.view('tools/tools_migrations', {
                 'pending_migrations' : pending_migrations.reverse(),
                 'done_migrations' : done_migrations.reverse()
+            }, function() {
+
+                // Configure button 'Run'
+                $('button[data-action="run"]').on("click", function() {
+
+                    var disclaimerAcks = $(".disclaimer-ack");
+                    for (var i = 0 ; i < disclaimerAcks.length ; i++)
+                    {
+                        if (! $(disclaimerAcks[i]).find("input:checked").val())
+                        {
+                            // FIXME / TODO i18n
+                            c.flash('fail', "Some of these migrations require you to acknowledge a disclaimer before running them.");
+                            c.refresh();
+                            return;
+                        }
+                    };
+
+                    c.api('POST', '/migrations/migrate?accept_disclaimer', {}, function() { c.refresh(); });
+                });
+
+                // Configure buttons 'Skip'
+                $('button[data-action="skip"]').on("click", function() {
+                    var migration_id = $(this).data("migration");
+                    c.confirm(
+                        y18n.t('migrations'),
+                        y18n.t('confirm_migrations_skip'),
+                        function(){
+                            c.api('POST', '/migrations/migrate?skip&targets=' + migration_id, {}, function() { c.refresh() });
+                        }
+                    );
+                });
             });
         });
         });
     });
-
-    app.get('#/tools/migrations/run', function (c) {
-        var disclaimerAcks = $(".disclaimer-ack");
-        var withAcceptDisclaimerFlag = false;
-        for (var i = 0 ; i < disclaimerAcks.length ; i++)
-        {
-            console.log($(disclaimerAcks[i]).find("input:checked").val());
-            if (! $(disclaimerAcks[i]).find("input:checked").val())
-            {
-                // FIXME / TODO i18n
-                c.flash('fail', "Some of these migrations require you to acknowledge a disclaimer before running them.");
-                c.redirect('#/tools/migrations');
-                return;
-            }
-            else
-            {
-                withAcceptDisclaimerFlag = true;
-            }
-        };
-
-        // Not sure if necessary, but this distinction is to avoid accidentally
-        // triggering a migration with a disclaimer if one goes to the
-        // /tools/migrations/run page "directly" somehow ...
-        if (withAcceptDisclaimerFlag)
-        {
-            c.api('/migrations/migrate?accept_disclaimer',
-                function (data) {
-                    store.clear('slide');
-                    c.redirect('#/tools/migrations');
-                }, 'POST')
-        }
-        else
-        {
-            c.api('/migrations/migrate',
-                function (data) {
-                    store.clear('slide');
-                    c.redirect('#/tools/migrations');
-                }, 'POST')
-        }
-    });
-
-    app.get('#/tools/migrations/skip/:migration_id', function (c) {
-        c.confirm(
-            y18n.t('migrations'),
-            y18n.t('confirm_migrations_skip'),
-            function(){
-                c.api('/migrations/migrate?skip&targets=' + c.params['migration_id'], function(data) {
-                    store.clear('slide');
-                    c.redirect('#/tools/migrations');
-                }, 'POST');
-            },
-            function(){
-                store.clear('slide');
-                c.redirect('#/tools/migrations');
-            }
-        );
-    });
-
 })();

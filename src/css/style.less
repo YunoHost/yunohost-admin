@@ -101,10 +101,6 @@ button {
     color: transparent;
 }
 
-.label {
-    border-radius: 1px;
-}
-
 /*
  * The top heading of the doc
  *
@@ -706,12 +702,15 @@ input[type='radio'].nice-radio {
 #view-groups {
     .panel-heading a {
         text-decoration: none;
-        &.group-delete {
-            float:right;
-            color:lighten(@label-danger-bg, 20%);
-            :hover {
-                color:@label-danger-bg;
-            }
+    }
+    .group-delete {
+        font-size: 24px;
+        line-height: 24px;
+        padding: 0;
+        float:right;
+        color:lighten(@label-danger-bg, 20%);
+        :hover {
+            color:@label-danger-bg;
         }
     }
     .panel-body {
@@ -725,6 +724,10 @@ input[type='radio'].nice-radio {
         .dropdown-menu {
             max-height: 200px;
             overflow-y: auto;
+
+            button {
+                background: none;
+            }
         }
         .label-removable {
             // The following match properties from regular btn's
@@ -743,15 +746,17 @@ input[type='radio'].nice-radio {
 
             margin-right:7px; // Spacing between labels
 
-            > a {
+            > button {
+                line-height: 12px;
                 margin-left:6px;
+                padding: 0;
                 padding-left:6px;
                 border-left: #ccc 1px solid;
                 color:lighten(@label-info-bg,20);
 
                 text-decoration: none;
             }
-            > a:hover {
+            > button:hover {
                 color:@label-info-bg;
             }
         }
@@ -924,4 +929,38 @@ input[type='radio'].nice-radio {
         display: block;
         float: none !important;
     }
+}
+
+.notransition {
+  -webkit-transition: none !important;
+  -moz-transition: none !important;
+  -o-transition: none !important;
+  transition: none !important;
+}
+
+/* Just to be able to override list-group-item with alert-success's background and border colors */
+.alert-success-yo {
+	background-color: #dff0d8;
+	border-color: #d6e9c6;
+}
+
+.alert-warning-yo {
+	background-color: #fcf8e3;
+	border-color: #faebcc;
+}
+
+.alert-danger-yo {
+	background-color: #f2dede;
+	border-color: #ebccd1;
+}
+
+.alert-info-yo {
+	background-color: #d9edf7;
+	border-color: #bce8f1;
+}
+
+.alert-ignored-yo {
+	background-color: ghostwhite;
+	border-color: lightgrey;
+    color: grey;
 }

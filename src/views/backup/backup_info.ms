@@ -83,41 +83,11 @@
         </h2>
     </div>
     <div class="panel-body">
-        <!--<div class="container">
-            <p>{{t 'backup_archive_download'}}</p>
-            <a role="button" class="btn btn-info slide" href="#/backup/{{storage.id}}/{{name}}/download">
-                <span class="fa-download"></span> {{t 'download'}}
-            </a>
-        </div>
-        <hr>-->
         <div class="container">
             <p>{{t 'backup_archive_delete'}}</p>
-            <a href="#/backup/{{storage.id}}/{{name}}/delete" role="button" class="btn btn-danger slide">
+            <button class="btn btn-danger slide" data-action="delete" data-storage="{{storage.id}}" data-archive="{{name}}">
                 <span class="fa-trash-o"></span> {{t 'delete'}}
-            </a>
+            </button>
         </div>
-        {{#if other_storages}}
-            <hr>
-            <div class="container">
-                <p>{{t 'backup_archive_copy'}}</p>
-                <form action="#/backup/{{storage.id}}/{{name}}/copy" method="POST" class="form-horizontal">
-                    <div class="form-group has-feedback">
-                        <label for="label" class="col-sm-12">{{t 'url'}}</label>
-                        <div class="col-sm-12">
-                            <select id="storage" name="storage" class="form-control" required>
-                                {{#each storages}}
-                                    <option value="{{id}}">{{name}} ({{uri}})</option>
-                                {{/each}}
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="text-center">
-                            <input type="submit" role="button" class="btn btn-success slide" value="{{t 'copy'}}">
-                        </div>
-                    </div>
-                </form>
-            </div>
-        {{/if}}
     </div>
 </div>

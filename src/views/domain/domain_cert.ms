@@ -46,36 +46,36 @@
             <p><span class="fa-fw fa-meh-o"></span>
             {{t 'domain_not_eligible_for_ACME'}}</p>
         {{/if}}
-            <a role="button" href="#/domains/{{name}}/cert-install-LE" class="btn btn-success {{#unless status.ACME_eligible}}disabled{{/unless}}">
+            <button class="btn btn-success {{#unless status.ACME_eligible}}disabled{{/unless}}" data-domain="{{name}}" data-action="install-LE" >
                 <span class="fa-star"></span> {{t 'install_letsencrypt_cert'}}
-            </a>
+            </button>
         <hr>
         </div>
         {{/if}}
         {{#if actions_enabled.manual_renew_letsencrpt}}
         <div class="container">
         <p>{{t 'manually_renew_letsencrypt_message'}}</p>
-            <a role="button" href="#/domains/{{name}}/cert-renew-letsencrypt" class="btn btn-warning">
+            <button class="btn btn-warning" data-domain="{{name}}" data-action="renew-letsencrypt">
                 <span class="fa-refresh"></span> {{t 'manually_renew_letsencrypt'}}
-            </a>
+            </button>
         </div>
         <hr>
         {{/if}}
         {{#if actions_enabled.regen_selfsigned}}
         <div class="container">
         <p>{{t 'regenerate_selfsigned_cert_message'}}</p>
-            <a href="#/domains/{{name}}/cert-regen-selfsigned" role="button" class="btn btn-warning">
+            <button class="btn btn-warning" data-domain="{{name}}" data-action="regen-selfsigned">
                 <span class="fa-refresh"></span> {{t 'regenerate_selfsigned_cert'}}
-            </a>
+            </button>
         </div>
         <hr>
         {{/if}}
         {{#if actions_enabled.replace_with_selfsigned}}
         <div class="container">
             <p>{{t 'revert_to_selfsigned_cert_message'}}</p>
-            <a href="#/domains/{{name}}/cert-replace-with-selfsigned" role="button" class="btn btn-danger">
+            <button class="btn btn-danger" data-domain="{{name}}" data-action="replace-with-selfsigned">
                 <span class="fa-exclamation-triangle"></span> {{t 'revert_to_selfsigned_cert'}}
-            </a>
+            </button>
         </div>
         {{/if}}
     </div>

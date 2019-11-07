@@ -3,20 +3,64 @@
     var app = Sammy.apps['#main'];
     var store = app.store;
 
+    // The logic used to temporily disable transition is from
+    // https://stackoverflow.com/a/16575811
+    function whichTransitionEvent(){
+        var t;
+        var el = document.createElement('fakeelement');
+        var transitions = {
+          'transition':'transitionend',
+          'OTransition':'oTransitionEnd',
+          'MozTransition':'transitionend',
+          'WebkitTransition':'webkitTransitionEnd'
+        }
+
+        for(t in transitions){
+            if( el.style[t] !== undefined ){
+                return transitions[t];
+            }
+        }
+    };
+    var transitionEvent = whichTransitionEvent();
+
+    function resetSliders()
+    {
+        // Disable transition effects
+        $('#slider-container').addClass('notransition');
+        // Delete the left/right temporary stuff only used during animation
+        $('#slideTo').css('display', 'none');
+        $('#slideTo').html("");
+        $('#slideBack').css('display', 'none');
+        $('#slideBack').html("");
+        // Set the margin-left back to 0
+        $('#slider-container').css('margin-left', '0');
+        // c.f. the stackoverflow thread
+        $('#slider-container')[0].offsetHeight;
+        // Remove the binding to this event handler for next times
+        // Re-enable transition effects
+        $('#slider-container').removeClass('notransition');
+    }
+
     /**
      * Helpers
      *
      */
     app.helpers({
 
-        // Serialize an object
-        serialize : function(obj) {
-          var str = [];
-          for(var p in obj)
-            if (obj.hasOwnProperty(p)) {
-              str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+        //
+        // Pacman loader management
+        //
+
+        showLoader: function() {
+            app.loaded = false; // Not sure if that's really useful ... this is from old code with no explanation what it really does ...
+            if ($('div.loader').length === 0) {
+                $('#main').append('<div class="loader loader-content"></div>');
             }
-          return str.join("&");
+        },
+
+        hideLoader: function() {
+            app.loaded = true; // Not sure if that's really useful ... this is from old code with no explanation what it really does ...
+            $('div.loader').remove();
         },
 
         // Flash helper to diplay instant notifications
@@ -85,7 +129,7 @@
         },
 
         // API call
-        api: function(uri, callback, method, data, websocket, callbackOnFailure) {
+        api: function(method, uri, data, callback, callbackOnFailure, websocket) {
             c = this;
 
             method = typeof method !== 'undefined' ? method : 'GET';
@@ -93,96 +137,69 @@
             if (window.navigator && window.navigator.language && (typeof data.locale === 'undefined')) {
                 data.locale = y18n.locale || window.navigator.language.substr(0, 2);
             }
-            app.loaded = false;
-            if ($('div.loader').length === 0) {
-                $('#main').append('<div class="loader loader-content"></div>');
-            }
+
+            c.showLoader();
+
             call = function(uri, callback, method, data, callbackOnFailure) {
 
-                var args = data;
-                // TODO: change this code
-                if (uri === '/postinstall') {
-                    var post_installing = false;
-                    setInterval(function () {
-                        post_installing = true;
-                    }, 1500);
-                }
-
+                // Define default callback for failures
                 if (typeof callbackOnFailure !== 'function') {
                     callbackOnFailure = function(xhr) {
-                        // Postinstall is a custom case, we have to wait that
-                        // operation is done before doing anything
-                        if ((uri === '/postinstall') && (post_installing)) {
-                                interval = window.location.hostname === args.domain ? 20000 : 5000;
-                                checkInstall = setInterval(function () {
-                                    c.checkInstall(function(isInstalled) {
-                                        if (isInstalled || typeof isInstalled === 'undefined') {
-                                            c.flash('success', y18n.t('installation_complete'));
-                                            clearInterval(checkInstall);
-                                            window.location.href = 'https://'+ window.location.hostname +'/yunohost/admin/';
-                                        }
-                                    });
-                                }, interval);
+                        if (xhr.status == 200) {
+                            // Fail with 200, WTF
+                            callback({});
                         }
-                        // Regular errors
+                        // Unauthorized or wrong password
+                        else if (xhr.status == 401) {
+                            if (uri === '/login') {
+                                c.flash('fail', y18n.t('wrong_password'));
+                            } else {
+                                c.flash('fail', y18n.t('unauthorized'));
+                                c.redirect('#/login');
+                            }
+                        }
+                        // 500
+                        else if (xhr.status == 500) {
+                            try {
+                                error_log = JSON.parse(xhr.responseText);
+                                error_log.route = error_log.route.join(' ') + '\n';
+                                error_log.arguments = JSON.stringify(error_log.arguments);
+                            }
+                            catch (e)
+                            {
+                                error_log = {};
+                                error_log.route = "Failed to parse route";
+                                error_log.arguments = "Failed to parse arguments";
+                                error_log.traceback = xhr.responseText;
+                            }
+                            c.flash('fail', y18n.t('internal_exception', [error_log.route, error_log.arguments, error_log.traceback]));
+                        }
+                        // 502 Bad gateway means API is down
+                        else if (xhr.status == 502) {
+                            c.flash('fail', y18n.t('api_not_responding'));
+                        }
+                        // More verbose error messages first
+                        else if (typeof xhr.responseText !== 'undefined') {
+                            c.flash('fail', xhr.responseText);
+                        }
+                        // 0 mean "the connexion has been closed" apparently
+                        else if (xhr.status == 0) {
+                            var errorMessage = xhr.status+' '+xhr.statusText;
+                            c.flash('fail', y18n.t('error_connection_interrupted', [errorMessage]));
+                            console.log(xhr);
+                        }
+                        // Return HTTP error code at least
                         else {
-                            if (xhr.status == 200) {
-                                // Fail with 200, WTF
-                                callback({});
-                            }
-                            // Unauthorized or wrong password
-                            else if (xhr.status == 401) {
-                                if (uri === '/login') {
-                                    c.flash('fail', y18n.t('wrong_password'));
-                                } else {
-                                    c.flash('fail', y18n.t('unauthorized'));
-                                    c.redirect('#/login');
-                                }
-                            }
-                            // 500
-                            else if (xhr.status == 500) {
-                                try {
-                                    error_log = JSON.parse(xhr.responseText);
-                                    error_log.route = error_log.route.join(' ') + '\n';
-                                    error_log.arguments = JSON.stringify(error_log.arguments);
-                                }
-                                catch (e)
-                                {
-                                    error_log = {};
-                                    error_log.route = "Failed to parse route";
-                                    error_log.arguments = "Failed to parse arguments";
-                                    error_log.traceback = xhr.responseText;
-                                }
-                                c.flash('fail', y18n.t('internal_exception', [error_log.route, error_log.arguments, error_log.traceback]));
-                            }
-                            // 502 Bad gateway means API is down
-                            else if (xhr.status == 502) {
-                                c.flash('fail', y18n.t('api_not_responding'));
-                            }
-                            // More verbose error messages first
-                            else if (typeof xhr.responseText !== 'undefined') {
-                                c.flash('fail', xhr.responseText);
-                            }
-                            // 0 mean "the connexion has been closed" apparently
-                            else if (xhr.status == 0) {
-                                var errorMessage = xhr.status+' '+xhr.statusText;
-                                c.flash('fail', y18n.t('error_connection_interrupted', [errorMessage]));
-                                console.log(xhr);
-                            }
-                            // Return HTTP error code at least
-                            else {
-                                var errorMessage = xhr.status+' '+xhr.statusText;
-                                c.flash('fail', y18n.t('error_server_unexpected', [errorMessage]));
-                                console.log(xhr);
-                            }
-
-                            // Remove loader if any
-                            $('div.loader').remove();
-
-                            // Force scrollTop on page load
-                            $('html, body').scrollTop(0);
-                            store.clear('slide');
+                            var errorMessage = xhr.status+' '+xhr.statusText;
+                            c.flash('fail', y18n.t('error_server_unexpected', [errorMessage]));
+                            console.log(xhr);
                         }
+
+                        c.hideLoader();
+
+                        // Force scrollTop on page load
+                        $('html, body').scrollTop(0);
+                        store.clear('slide');
                     };
                 }
 
@@ -237,77 +254,16 @@
 
         },
 
-        // Render view (cross-browser)
-        view: function (view, data, callback, enableSlide) {
+
+        // Ask confirmation to the user through the modal window
+        confirm: function(title, content, confirmCallback, cancelCallback) {
             c = this;
 
-            // Default
-            callback = typeof callback !== 'undefined' ? callback : function() {};
-            enableSlide = (typeof enableSlide !== 'undefined') ? enableSlide : true; // Change to false to disable animation
-
-            app.loaded = true;
-
-            // Hide loader and modal
-            $('div.loader').remove();
-            $('#modal').modal('hide');
-
-            // Render content
-            var rendered = this.render('views/'+ view +'.ms', data);
-
-            // Update content helper
-            var leSwap = function() {
-                rendered.swap(function() {
-                    // Slide direction
-                    if (enableSlide) {
-                        $('.slide, .btn-breadcrumb a:not(:last-child)').on('click', function() {
-                            $(this).addClass('active');
-                            if ($(this).hasClass('back') || $(this).parent('.btn-breadcrumb').length) {
-                                store.set('slide', 'back');
-                            } else {
-                                store.set('slide', 'to');
-                            }
-                        });
-                    }
-
-                    // Paste <pre> helper
-                    c.prePaste();
-
-                    // Run callback
-                    callback();
-
-                    // Force scrollTop on page load
-                    $('html, body').scrollTop(0);
-                });
-            };
-
-            // Slide back effect
-            if (enableSlide && store.get('slide') == 'back') {
-                store.clear('slide');
-                $('#slideBack').css('display', 'none');
-                $('#slider-container').css('margin-left', '-100%');
-                $('#slideTo').show().html($('#main').html());
-                leSwap();
-                $('#slider-container').css('margin-left', '0px');
-            }
-            // Slide to effect
-            else if (enableSlide && store.get('slide') == 'to') {
-                store.clear('slide');
-                $('#slideTo').css('display', 'none');
-                $('#slider-container').css('margin-left', '0px');
-                $('#slideBack').show().html($('#main').html());
-                leSwap();
-                $('#slider-container').css('margin-left', '-100%');
-            }
-            // No slideing effect
-            else {
-                leSwap();
-            }
-        },
-
-        confirm: function(title, content, confirmCallback, cancelCallback) {
             // Default callbacks
             confirmCallback = typeof confirmCallback !== 'undefined' ? confirmCallback : function() {};
             cancelCallback = typeof cancelCallback !== 'undefined' ? cancelCallback : function() {};
+
+            c.hideLoader();
 
             // Get modal element
             var box = $('#modal');
@@ -335,12 +291,10 @@
 
                     $('#modal footer button').unbind( "click" );
                     // Reset & Hide modal
-                    box
-                        .removeClass('no-title')
-                        .modal('hide');
+                    box.removeClass('no-title').modal('hide');
 
                     // Do corresponding callback
-                    if ($(this).data('action') == 'confirm') {
+                    if ($(this).data('modal-action') == 'confirm') {
                         confirmCallback();
                     }
                     else {
@@ -352,18 +306,164 @@
             return box.modal('show');
         },
 
-        selectAllOrNone: function () {
-          // Remove active style from buttons
-          $(".select_all-none input").click(function(){ $(this).toggleClass("active"); });
-          // Select all checkbox in this panel
-          $(".select_all").click(function(){
-            $(this).parents(".panel").children(".list-group").find("input").prop("checked", true);
-          });
-          // Deselect all checkbox in this panel
-          $(".select_none").click(function(){
-            $(this).parents(".panel").children(".list-group").find("input").prop("checked", false);
-          });
+
+        // Render view (cross-browser)
+        view: function (view, data, callback) {
+            c = this;
+
+            // Default
+            callback = typeof callback !== 'undefined' ? callback : function() {};
+
+            // Hide loader and modal
+            c.hideLoader();
+            $('#modal').modal('hide');
+
+            // Render content
+            var rendered = this.render('views/'+ view +'.ms', data);
+
+            // Update content helper
+            var leSwap = function() {
+                rendered.swap(function() {
+                    // Clicking on those kind of CSS elements will trigger a
+                    // slide effect i.e. the next view rendering will have
+                    // store.get('slide') set to 'back' or 'to'
+                    $('.slide, .btn-breadcrumb a:not(:last-child)').on('click', function() {
+                        $(this).addClass('active');
+                        if ($(this).hasClass('back') || $(this).parent('.btn-breadcrumb').length) {
+                            store.set('slide', 'back');
+                        } else {
+                            store.set('slide', 'to');
+                        }
+                    });
+
+                    // Paste <pre> helper
+                    c.prePaste();
+
+                    // Run callback
+                    callback();
+
+                    // Force scrollTop on page load
+                    $('html, body').scrollTop(0);
+                });
+            };
+
+            // Slide back effect
+            if (store.get('slide') == 'back') {
+
+                store.clear('slide');
+                // Disable transition while we tweak CSS
+                $('#slider-container').addClass('notransition');
+                // "Delete" the left part of the slider
+                $('#slideBack').css('display', 'none');
+
+                // Push the slider to the left
+                $('#slider-container').css('margin-left', '-100%');
+                // slideTo is the right part, and should contain the old view,
+                // so we copypasta what's in the "center" slider (#main)
+                $('#slideTo').show().html($('#main').html());
+                // leSwap will put the new view in the "center" slider (#main)
+                leSwap();
+
+                // So now things look like:
+                //                          |                 |
+                //                          |   the screen    |
+                //                          |                 |
+                //
+                //       .     #main        .    #slideTo     .
+                //       .  the new view    .  the old view   .
+                //       ^                          ^
+                //  margin-left: -100%             currently shown
+                //
+                //            =====>>>  sliiiiide  =====>>>
+
+                // Re-add transition effect
+                $('#slider-container').removeClass('notransition');
+
+                // add the transition event to detect the end of the transition effect
+                transitionEvent
+                    && $("#slider-container").off(transitionEvent)
+                    && $("#slider-container").on(transitionEvent, resetSliders);
+
+                // And actually play the transition effect that will move the container from left to right
+                $('#slider-container').css('margin-left', '0px');
+            }
+            // Slide to effect
+            else if (store.get('slide') == 'to') {
+
+                // Disable transition while we tweak CSS
+                $('#slider-container').addClass('notransition');
+                // "Delete" the right part of the slider
+                $('#slideTo').css('display', 'none');
+                // Push the slider to the right
+                $('#slider-container').css('margin-left', '0px');
+                // slideBack should contain the old view,
+                // so we copypasta what's in the "center" slider (#main)
+                $('#slideBack').show().html($('#main').html());
+                leSwap();
+
+                // So now things look like:
+                //
+                //                    |                 |
+                //                    |   the screen    |
+                //                    |                 |
+                //
+                //      .             .   #slideBack    .     #main      .
+                //      .             .  the old view   .  the new view  .
+                //      ^             ^        ^
+                //   margin-left: -100%      currently shown
+                //
+                //               <<<===== sliiiiide <<<=======
+
+
+                // Re-add transition effect
+                $('#slider-container').removeClass('notransition');
+
+                // add the transition event to detect the end of the transition effect
+                var transitionEvent = whichTransitionEvent();
+                transitionEvent
+                    && $("#slider-container").off(transitionEvent)
+                    && $("#slider-container").on(transitionEvent, resetSliders);
+
+                // And actually play the transition effect that will move the container from right to left
+                $('#slider-container').css('margin-left', '-100%');
+            }
+            // No slideing effect
+            else {
+                leSwap();
+            }
         },
+
+        redirect_to: function(destination, options) {
+            c = this;
+
+            options = options !== undefined ? options : {};
+
+            // If destination if the same as current url,
+            // we don't want to display the slide animation
+            // (or if the code explicitly state to disable slide animation)
+            if ((c.path.split("#")[1] == destination.split("#")[1]) || (options.slide == false))
+            {
+                store.clear('slide');
+            }
+
+            // This is a copy-pasta of some of the redirect/refresh code of
+            // sammy.js because for some reason calling the original
+            // redirect/refresh function in some context does not work >.>
+            // (e.g. if you're already on the page)
+            c.trigger('redirect', {to: destination});
+            c.app.last_location = c.path;
+            c.app.setLocation(destination);
+            c.app.trigger('location-changed');
+        },
+
+        refresh: function() {
+            c = this;
+            c.redirect_to(c.path, {slide: false});
+        },
+
+        //
+        // Array / object helpers
+        //
 
         arraySortById: function(arr) {
             arr.sort(function(a, b){
@@ -385,74 +485,20 @@
             });
         },
 
-        groupHooks: function(hooks, raw_infos){
-            var data = {};
-            var rules = [
-                {
-                    id:'configuration',
-                    isIn:function (hook) {
-                        return hook.indexOf('conf_')==0
-                    }
-                }
-            ];
-
-            $.each(hooks, function(i, hook) {
-                var group_id=hook;
-                var hook_size=(raw_infos && raw_infos[hook] && raw_infos[hook].size)?raw_infos[hook].size:0;
-                $.each(rules, function(i, rule) {
-                    if (rule.isIn(hook)) {
-                        group_id = 'adminjs_group_'+rule.id;
-                        return false;
-                    }
-                });
-
-                if(group_id in data) {
-                    data[group_id] = {
-                        name:y18n.t('hook_'+group_id),
-                        value:data[group_id].value+','+hook,
-                        description:data[group_id].description+', '+y18n.t('hook_'+hook),
-                        size:data[group_id].size + hook_size
-                    };
-                }
-                else {
-                    data[group_id] = {
-                        name:y18n.t('hook_'+group_id),
-                        value:hook,
-                        description:(group_id==hook)?y18n.t('hook_'+hook+'_desc'):y18n.t('hook_'+hook),
-                        size:hook_size
-                    };
-                }
-            });
-            return data;
+        // Serialize an object
+        serialize : function(obj) {
+          var str = [];
+          for(var p in obj)
+            if (obj.hasOwnProperty(p)) {
+              str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+            }
+          return str.join("&");
         },
 
-        ungroupHooks: function(system_parts,apps) {
-            var data = {};
-            data['apps'] = apps || [];
-            data['system'] = system_parts || [];
 
-            if (data['system'].constructor !== Array) {
-                data['system'] = [data['system']];
-            }
-            if (data['apps'].constructor !== Array) {
-                data['apps'] = [data['apps']];
-            }
-
-            // Some hook value contains multiple hooks separated by commas
-            var split_hooks = [];
-            $.each(data['system'], function(i, hook) {
-                split_hooks = split_hooks.concat(hook.split(','));
-            });
-            data['system'] = split_hooks;
-
-            if (data['system'].length == 0) {
-                delete data['system'];
-	    }
-            if (data['apps'].length == 0) {
-                delete data['apps'];
-	    }
-            return data;
-        },
+        //
+        // Misc helpers used in views etc..
+        //
 
         // Paste <pre>
         prePaste: function() {
@@ -461,8 +507,7 @@
                 // Get paste content element
                 var preElement = $($(this).data('paste-content'));
 
-                // Add pacman loader
-                $('#main').append('<div class="loader loader-content"></div>');
+                c.showLoader();
 
                 // Send to paste.yunohost.org
                 $.ajax({
@@ -477,11 +522,23 @@
                     c.flash('fail', y18n.t('paste_error'));
                 })
                 .always(function(){
-                    // Remove pacman
-                    $('div.loader').remove();
+                    c.hideLoader();
                 });
             });
+        },
+
+        force_redirect: function(to) {
+            c = this;
+            // This is a copy-pasta of some of the redirect/refresh code of
+            // sammy.js because for some reason calling the origina
+            // redirect/refresh function in some context does not work >.>
+            // (e.g. if you're already on the page)
+            c.trigger('redirect', {to: to});
+            c.app.last_location = c.path;
+            c.app.setLocation(to);
+            c.app.trigger('location-changed');
         }
+
     });
 
 })();

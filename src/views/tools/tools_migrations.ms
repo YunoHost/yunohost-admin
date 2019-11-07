@@ -11,7 +11,7 @@
         <h2 class="panel-title"><span class="fa-fw fa-cogs"></span> {{t 'migrations_pending'}}
         {{#if pending_migrations}}
         <div class="btn-toolbar pull-right">
-            <a href="#/tools/migrations/run" class="btn btn-sm btn-success"><span class="fa-fw fa-play"></span> {{t 'run'}}</a>
+            <button class="btn btn-sm btn-success" data-action="run"><span class="fa-fw fa-play"></span> {{t 'run'}}</button>
         </div>
         {{/if}}
         </h2>
@@ -24,7 +24,7 @@
             <h3 class="list-group-item-heading">
                 {{ number }}. {{ description }}
                 <div class="btn-toolbar pull-right">
-                <a href="#/tools/migrations/skip/{{ id }}" class="btn btn-xs btn-warning" style="color:white;"><span class="fa-fw fa-close"></span> {{t 'skip'}}</a>
+                <button class="btn btn-xs btn-warning" style="color:white;" data-action="skip" data-migration="{{id}}"><span class="fa-fw fa-close"></span> {{t 'skip'}}</button>
                 </div>
             </h3>
             {{#if disclaimer }}
