@@ -72,9 +72,6 @@
                 <span class="fa-play"></span> {{t 'start'}}
             </button>
         {{/if}}
-            <a href="#/services/{{name}}/log" role="button" class="btn btn-default slide">
-                <span class="fa-book"></span> {{t 'log'}}
-            </a>
 
         </dl>
     </div>

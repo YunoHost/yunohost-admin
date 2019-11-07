@@ -336,9 +336,6 @@
                         }
                     });
 
-                    // Paste <pre> helper
-                    c.prePaste();
-
                     // Run callback
                     callback();
 
@@ -495,49 +492,6 @@
           return str.join("&");
         },
 
-
-        //
-        // Misc helpers used in views etc..
-        //
-
-        // Paste <pre>
-        prePaste: function() {
-            var pasteButtons = $('button[data-paste-content],a[data-paste-content]');
-            pasteButtons.on('click', function(){
-                // Get paste content element
-                var preElement = $($(this).data('paste-content'));
-
-                c.showLoader();
-
-                // Send to paste.yunohost.org
-                $.ajax({
-                    type: "POST",
-                    url: 'https://paste.yunohost.org/documents',
-                    data: preElement.text(),
-                })
-                .success(function(data, textStatus, jqXHR) {
-                    window.open('https://paste.yunohost.org/' + data.key, '_blank');
-                })
-                .fail(function() {
-                    c.flash('fail', y18n.t('paste_error'));
-                })
-                .always(function(){
-                    c.hideLoader();
-                });
-            });
-        },
-
-        force_redirect: function(to) {
-            c = this;
-            // This is a copy-pasta of some of the redirect/refresh code of
-            // sammy.js because for some reason calling the origina
-            // redirect/refresh function in some context does not work >.>
-            // (e.g. if you're already on the page)
-            c.trigger('redirect', {to: to});
-            c.app.last_location = c.path;
-            c.app.setLocation(to);
-            c.app.trigger('location-changed');
-        }
 
     });
 
