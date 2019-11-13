@@ -455,5 +455,15 @@
     "groups_and_permissions": "Grupos y permisos",
     "groups_and_permissions_manage": "Gestionar grupos y permisos",
     "permissions": "Permisos",
-    "nobody": "Nadie"
+    "nobody": "Nadie",
+    "rerun_diagnosis": "Repetir diagnóstico",
+    "details": "Detalles",
+    "diagnosis_experimental_disclaimer": "Tenga en cuenta que la característica de diagnóstico es aún experimental y está siendo mejorada y puede no ser totalmente fiable.",
+    "errors": "%s errores",
+    "everything_good": "¡Todo bien!",
+    "ignore": "Ignorar",
+    "ignored": "%s ignorado",
+    "last_ran": "Ejecutado por última vez:",
+    "unignore": "Dejar de ignorar",
+    "warnings": "%s avisos"
 }
