@@ -24,7 +24,7 @@
     </div>
     {{else}}
     <div class="panel-body">
-        {{t 'system_packages_nothing'}}
+        <span class="text-success"><span class="fa-fw fa-check-circle"></span> {{t 'system_packages_nothing'}}</span>
     </div>
     {{/if}}
 </div>
@@ -48,7 +48,7 @@
     </div>
     {{else}}
     <div class="panel-body">
-        {{t 'system_apps_nothing'}}
+        <span class="text-success"><span class="fa-fw fa-check-circle"></span> {{t 'system_apps_nothing'}}</span>
     </div>
     {{/if}}
 </div>
