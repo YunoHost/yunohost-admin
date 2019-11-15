@@ -227,7 +227,7 @@
     "uninstall": "Malinstali",
     "users_new": "Nova uzanto",
     "users": "Uzantoj",
-    "system_apps_nothing": "Ne estas programoj por ĝisdatigi.",
+    "system_apps_nothing": "Ĉiuj aplikoj estas ĝisdatigitaj!",
     "used": "Uzata",
     "tools_security_feed_view_items": "Vidu ĉiujn sekurecajn sciigojn",
     "certificate_alert_letsencrypt_about_to_expire": "Nuna atestilo estas preskaŭ eksvalidiĝi. Ĝi baldaŭ renoviĝu aŭtomate.",
@@ -259,7 +259,7 @@
     "install_letsencrypt_cert": "Instalu atestilon Lasu-Ĉifri",
     "appslists_custom": "Propra listo listo",
     "no_log": "Neniu ŝtipo.",
-    "system_packages_nothing": "Ne estas pakoj por ĝisdatigi.",
+    "system_packages_nothing": "Ĉiuj sistemaj pakoj estas ĝisdatigitaj !",
     "system_upgrade_all_applications_btn": "Ĝisdatigu ĉiujn aplikojn",
     "postinstall": "post Instalaĵo",
     "service_description": "Priskribo:",
@@ -270,7 +270,7 @@
     "unauthorized": "Ne rajtigita",
     "wrong_password": "Erara pasvorto",
     "tools_security_feed": "Sekurecaj sciigoj",
-    "system_packages": "Pakoj",
+    "system_packages": "Sistempakaĵoj",
     "certificate_alert_unknown": "Nekonata stato",
     "tools_shutdown_reboot": "Ŝalti/Rekomenci",
     "logs_started_at": "Komencu",
@@ -449,5 +449,6 @@
     "ignore": "Ignori",
     "ignored": "%s ignoris",
     "warnings": "%s avertoj",
-    "last_ran": "Lastfoje kuris:"
+    "last_ran": "Lastfoje kuris:",
+    "unignore": "un-ignori"
 }
