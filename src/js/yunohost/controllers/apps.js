@@ -578,6 +578,7 @@
         }
     });
 
+    // Install custom app from github
     app.post('#/apps/install/custom', function(c) {
 
         var params = {
@@ -594,9 +595,10 @@
 
                 // Force trailing slash
                 params.app = params.app.replace(/\/?$/, '/');
-                var giturl  = params.app + "raw/master/manifest.json";
+
+                // Get manifest.json to get additional parameters
                 jQuery.ajax({
-                    url: giturl,
+                    url: params.app.replace('github.com', 'raw.githubusercontent.com') + 'master/manifest.json',
                     type: 'GET',
                 })
                 .done(function(manifest) {
