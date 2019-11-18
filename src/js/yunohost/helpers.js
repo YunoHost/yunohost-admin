@@ -336,9 +336,6 @@
                         }
                     });
 
-                    // Paste <pre> helper
-                    c.prePaste();
-
                     // Run callback
                     callback();
 
@@ -493,39 +490,7 @@
               str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
             }
           return str.join("&");
-        },
-
-
-        //
-        // Misc helpers used in views etc..
-        //
-
-        // Paste <pre>
-        prePaste: function() {
-            var pasteButtons = $('button[data-paste-content],a[data-paste-content]');
-            pasteButtons.on('click', function(){
-                // Get paste content element
-                var preElement = $($(this).data('paste-content'));
-
-                c.showLoader();
-
-                // Send to paste.yunohost.org
-                $.ajax({
-                    type: "POST",
-                    url: 'https://paste.yunohost.org/documents',
-                    data: preElement.text(),
-                })
-                .success(function(data, textStatus, jqXHR) {
-                    window.open('https://paste.yunohost.org/' + data.key, '_blank');
-                })
-                .fail(function() {
-                    c.flash('fail', y18n.t('paste_error'));
-                })
-                .always(function(){
-                    c.hideLoader();
-                });
-            });
         }
-    });
 
+    });
 })();

@@ -16,15 +16,9 @@
             };
             $.each(data, function(k, v) {
                 v.name = k;
-                // Handlebars want booleans
-                v.is_loaded = (v.loaded=='enabled') ? true : false;
-                v.is_running = (v.active=='active') ? true : false;
-                // Translate status and loaded state
-                v.status = y18n.t(v.status);
-                v.loaded = y18n.t(v.loaded);
-                if (v.active_at == 'unknown')
+                if (v.last_state_change == 'unknown')
                 {
-                    delete v.active_at;
+                    v.last_state_change = 0;
                 }
                 data2.services.push(v);
             });
@@ -46,28 +40,26 @@
     // Status & actions for a service
     app.get('#/services/:service', function (c) {
         c.api('GET', '/services/'+ c.params['service'], {}, function(data) {
-            var data2 = {
-                service: data
-            };
-            data2.service.name = c.params['service'];
-            // Handlebars want booleans
-            data2.service.is_loaded = (data.loaded=='enabled') ? true : false;
-            data2.service.is_running = (data.active=='active') ? true : false;
-            // Translate status and loaded state
-            data2.service.active = y18n.t(data.active);
-            data2.service.loaded = y18n.t(data.loaded);
-            if (data.active_at != 'unknown')
+        c.api('GET', '/services/'+ c.params['service'] +'/log', {number: 50}, function(data_log) {
+
+            data.name = c.params['service'];
+            if (data.last_state_change == 'unknown')
             {
-                data2.service.active_at = data.active_at;
+                data.last_state_change = 0;
             }
-            else
-            {
-                data2.service.active_at = 0;
-            }
-            c.view('service/service_info', data2, function() {
+
+            data.logs = [];
+            $.each(data_log, function(k, v) {
+                data.logs.push({filename: k, filecontent: v.join('\n')});
+            });
+
+            // Sort logs by filename, put the journalctl/systemd log on top
+            data.logs.sort(function(a,b) { return a.filename === "journalctl" ? -1 : b.filename === "journalctl" ? 1 : a.filename < b.filename ? -1 : a.filename > b.filename ? 1 : 0; });
+
+            c.view('service/service_info', data, function() {
 
                 // Configure behavior for enable/disable and start/stop buttons
-                $('button[data-action]').on('click', function() {
+                $('button[data-action="start"], button[data-action="stop"]').on('click', function() {
 
                     var service = $(this).data('service');
                     var action = $(this).data('action');
@@ -77,31 +69,34 @@
                         var method = null,
                             endurl = service;
 
-                        switch (action) {
-                            case 'start':
-                                method = 'PUT';
-                                break;
-                            case 'stop':
-                                method = 'DELETE';
-                                break;
-                            case 'enable':
-                                method = 'PUT';
-                                endurl += '/enable';
-                                break;
-                            case 'disable':
-                                method = 'DELETE';
-                                endurl += '/enable';
-                                break;
-                            default:
-                                c.flash('fail', y18n.t('unknown_action', [action]));
-                                c.refresh();
-                                return;
-                        }
-
+                        method = action === "start" ? 'PUT' : 'DELETE';
                         c.api(method, '/services/'+ endurl, {}, function() { c.refresh(); });
                     });
                 });
+
+                // Configure behavior for enable/disable and start/stop buttons
+                $('button[data-action="share"]').on('click', function() {
+
+                    c.showLoader();
+
+                    // Send to paste.yunohost.org
+                    $.ajax({
+                        type: "POST",
+                        url: 'https://paste.yunohost.org/documents',
+                        data: $("#logs").text(),
+                    })
+                    .success(function(data, textStatus, jqXHR) {
+                        window.open('https://paste.yunohost.org/' + data.key, '_blank');
+                    })
+                    .fail(function() {
+                        c.flash('fail', y18n.t('paste_error'));
+                    })
+                    .always(function(){
+                        c.hideLoader();
+                    });
+                });
             });
+        });
         });
     });
 
