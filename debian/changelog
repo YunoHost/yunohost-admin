@@ -1,3 +1,9 @@
+yunohost-admin (3.6.5.1) stable; urgency=low
+
+  - [fix] Disabling security.rss for now because there's a header issue preventing it from working, and hasnt been used in 2+ years anyway
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Mon, 18 Nov 2019 16:40:00  +00000
+
 yunohost-admin (3.6.5) stable; urgency=low
 
   - [fix] Stupid / buggy error handling for postinstall (2187657)
