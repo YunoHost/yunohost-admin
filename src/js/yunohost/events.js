@@ -14,6 +14,13 @@
                 c.flash('warning', y18n.t('warning_first_user'));
             }
 
+            /*
+             * Disabling this for now because there's a duplicate Access Allow
+             * Origin header thing preventing it from working and people keep
+             * complaining about it and we havent effectively used this in 2
+             * years anyway despite various security issues.
+             *
+             *
             // Get security feed and display new items
             var securityFeed = 'https://yunohost.org/security.rss';
             var forumUrl = 'https://forum.yunohost.org';
@@ -68,6 +75,7 @@
             .fail(function(stuff) {
                 c.flash('fail', y18n.t('error_retrieve_feed', [securityFeed]));
             });
+            */
 
             c.api("/diagnosis", function(data) {
                 versions = data.packages;
