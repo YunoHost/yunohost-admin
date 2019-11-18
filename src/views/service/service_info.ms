@@ -9,13 +9,19 @@
 
 <div class="panel panel-default">
     <div class="panel-heading">
-    <h2 class="panel-title"><span class="fa-fw fa-info-circle"></span> {{t 'infos'}}</h2>
+        <h2 class="panel-title" style="display: inline-block; margin-right: 10px;"><span class="fa-fw fa-info-circle"></span> {{t name}}</h2>
+        {{#if (eq status "running")}}
+            <button class="btn btn-sm btn-danger pull-right" data-service="{{name}}" data-action="stop">
+                <span class="fa-stop"></span> {{t 'stop'}}
+            </button>
+        {{else}}
+            <button class="btn btn-sm btn-success pull-right" data-service="{{name}}" data-action="start">
+                <span class="fa-play"></span> {{t 'start'}}
+            </button>
+        {{/if}}
     </div>
     <div class="panel-body">
     <dl class="dl-horizontal">
-
-        <dt>{{t 'name'}}</dt>
-        <dd>{{name}}</dd>
 
         <dt>{{t 'description'}}</dt>
         <dd>{{description}}</dd>
@@ -55,24 +61,15 @@
     </div>
 </div>
 
-
 <div class="panel panel-default">
     <div class="panel-heading">
-    <h2 class="panel-title"><span class="fa-fw fa-wrench"></span> {{t 'operations'}}</h2>
+        <h2 class="panel-title" style="display: inline-block; margin-right: 10px;"><span class="fa-fw fa-book"></span> {{t 'logs'}}</h2>
+        <button class="btn btn-sm btn-success pull-right" data-action="share"><span class="fa-cloud-upload"></span> {{t 'logs_share_with_yunopaste'}}</button>
     </div>
-    <div class="panel-body">
-        <dl class="dl-horizontal">
-
-        {{#if (eq status "running")}}
-            <button class="btn btn-danger" data-service="{{name}}" data-action="stop">
-                <span class="fa-stop"></span> {{t 'stop'}}
-            </button>
-        {{else}}
-            <button class="btn btn-success" data-service="{{name}}" data-action="start">
-                <span class="fa-play"></span> {{t 'start'}}
-            </button>
-        {{/if}}
-
-        </dl>
+    <div id="logs" class="panel-body">
+    {{#logs}}
+        <h2>{{filename}}</h2>
+        <pre class="service-log">{{filecontent}}</pre>
+    {{/logs}}
     </div>
 </div>

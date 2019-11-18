@@ -40,15 +40,26 @@
     // Status & actions for a service
     app.get('#/services/:service', function (c) {
         c.api('GET', '/services/'+ c.params['service'], {}, function(data) {
+        c.api('GET', '/services/'+ c.params['service'] +'/log', {number: 50}, function(data_log) {
+
             data.name = c.params['service'];
             if (data.last_state_change == 'unknown')
             {
                 data.last_state_change = 0;
             }
+
+            data.logs = [];
+            $.each(data_log, function(k, v) {
+                data.logs.push({filename: k, filecontent: v.join('\n')});
+            });
+
+            // Sort logs by filename, put the journalctl/systemd log on top
+            data.logs.sort(function(a,b) { return a.filename === "journalctl" ? -1 : b.filename === "journalctl" ? 1 : a.filename < b.filename ? -1 : a.filename > b.filename ? 1 : 0; });
+
             c.view('service/service_info', data, function() {
 
                 // Configure behavior for enable/disable and start/stop buttons
-                $('button[data-action]').on('click', function() {
+                $('button[data-action="start"], button[data-action="stop"]').on('click', function() {
 
                     var service = $(this).data('service');
                     var action = $(this).data('action');
@@ -58,31 +69,34 @@
                         var method = null,
                             endurl = service;
 
-                        switch (action) {
-                            case 'start':
-                                method = 'PUT';
-                                break;
-                            case 'stop':
-                                method = 'DELETE';
-                                break;
-                            case 'enable':
-                                method = 'PUT';
-                                endurl += '/enable';
-                                break;
-                            case 'disable':
-                                method = 'DELETE';
-                                endurl += '/enable';
-                                break;
-                            default:
-                                c.flash('fail', y18n.t('unknown_action', [action]));
-                                c.refresh();
-                                return;
-                        }
-
+                        method = action === "start" ? 'PUT' : 'DELETE';
                         c.api(method, '/services/'+ endurl, {}, function() { c.refresh(); });
                     });
                 });
+
+                // Configure behavior for enable/disable and start/stop buttons
+                $('button[data-action="share"]').on('click', function() {
+
+                    c.showLoader();
+
+                    // Send to paste.yunohost.org
+                    $.ajax({
+                        type: "POST",
+                        url: 'https://paste.yunohost.org/documents',
+                        data: $("#logs").text(),
+                    })
+                    .success(function(data, textStatus, jqXHR) {
+                        window.open('https://paste.yunohost.org/' + data.key, '_blank');
+                    })
+                    .fail(function() {
+                        c.flash('fail', y18n.t('paste_error'));
+                    })
+                    .always(function(){
+                        c.hideLoader();
+                    });
+                });
             });
+        });
         });
     });
 
