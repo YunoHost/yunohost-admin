@@ -78,6 +78,7 @@
             */
 
             c.api("GET", "/diagnosis/show?full", {}, function(data) {
+                c.hideLoader();
                 basesystem = data.reports.filter(function(r) { return r.id == "basesystem"; })[0];
                 version_info = basesystem.items.filter(function(i) { return (i.meta && i.meta.test && i.meta.test == "ynh_versions"); })[0];
                 $('#yunohost-version').html(y18n.t('footer_version', [version_info.data.main_version, version_info.data.repo]));
