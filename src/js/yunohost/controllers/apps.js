@@ -158,8 +158,14 @@
             // setup filtering of apps once the view is loaded
             function  setupFilterEvents () {
                 // Uses plugin isotope to filter apps (we could had ordering to)
-                var cardGrid = jQuery('.grid').isotope({
+                var cardGrid = jQuery('#apps').isotope({
                   itemSelector: '.app-card',
+                  layoutMode: 'fitRows',
+                  transitionDuration: 200
+                });
+
+                var categoryGrid = jQuery('#app-categories').isotope({
+                  itemSelector: '.app-category-card',
                   layoutMode: 'fitRows',
                   transitionDuration: 200
                 });
@@ -191,7 +197,7 @@
             };
 
             // render
-            c.view('app/app_catalog', {apps: apps}, setupFilterEvents);
+            c.view('app/app_catalog', {apps: apps, categories: data["categories"]}, setupFilterEvents);
 
         });
     });

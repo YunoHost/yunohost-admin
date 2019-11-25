@@ -24,7 +24,20 @@
 
 <div class="separator"></div>
 
-<div class="list-group grid">
+<div id="app-categories" class="list-group grid">
+  {{#categories}}
+  <div class="app-category-card panel panel-default">
+        <div class="panel-body">
+            <h2 class="app-category-title"><span class="fa-fw fa-{{icon}}"></span> {{title}}</h2>
+            <h3 class="app-category-card-desc">{{description}}</h3>
+        </div>
+  </div>
+  {{/categories}}
+</div>
+
+<div class="separator"></div>
+
+<div id="apps" class="list-group grid">
 {{#apps}}
   <div class="app-card panel panel-default {{status}} {{state}} {{isWorking}} {{isHighQuality}} {{decentQuality}} {{level}}-level">
         <div class="panel-body">
