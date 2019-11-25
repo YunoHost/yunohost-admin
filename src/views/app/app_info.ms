@@ -22,7 +22,7 @@
             <dt>{{t 'version'}}</dt>
             <dd>{{version}}</dd>
             <dt>{{t 'multi_instance'}}</dt>
-            <dd>{{manifest.multi_instance}}</dd>
+            <dd>{{supports_multi_instance}}</dd>
             <dt>{{t 'install_time'}}</dt>
             <dd>{{formatTime install_time day="numeric" month="long" year="numeric" hour="numeric" minute="numeric"}}</dd>
             {{#if settings.domain}}
@@ -64,7 +64,7 @@
         <hr>
         <div class="container">
             <p>{{t 'app_info_changeurl_desc' settings.domain}}</p>
-            {{#if change_url}}
+            {{#if supports_change_url}}
                 <a href="#/apps/{{settings.id}}/changeurl" role="button" class="btn btn-info slide">
                     <span class="fa-exchange"></span> {{t 'app_change_url'}}
                 </a>

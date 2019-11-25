@@ -28,13 +28,13 @@
 {{#apps}}
   <div class="app-card panel panel-default {{status}} {{state}} {{isWorking}} {{isHighQuality}} {{decentQuality}} {{level}}-level">
         <div class="panel-body">
-            <h2 class="app-title">{{name}}</h2>
+            <h2 class="app-title">{{manifest.name}}</h2>
             <div class="category">
               <span class="label label-{{stateColor}} label-as-badge app-state" title="{{t (concat 'app_state_' state '_explanation') }}">{{t (concat 'app_state_' state) }}</span>
               <a target="_BLANK" href="https://yunohost.org/#/packaging_apps_levels"><span class="label label-{{levelColor}} label-as-badge app-level" title="{{t 'app_level'}}">{{t 'level'}} {{levelFormatted}}</span></a>
               <span class="label label-{{maintainedColor}} label-as-badge maintained-status" title="{{t (concat maintained '_details') }}"> {{t maintained}}</span>
             </div>
-            <div class="app-card-desc">{{description}}</div>
+            <div class="app-card-desc">{{manifest.description}}</div>
         </div>
             <div class="app-card-date-maintainer">
                 <i class="fa-refresh"></i> {{formatDate updateDate day="numeric" month="long" year="numeric"}} -
@@ -48,7 +48,7 @@
                     <i class="fa-book"></i> Readme
                 </a>
                 {{#installable}}
-                <a href="#/apps/install/{{id}}" type="button" role="button" class="btn btn-{{installColor}} col-xs-4 active">
+                <a href="#/apps/install/{{manifest.id}}" type="button" role="button" class="btn btn-{{installColor}} col-xs-4 active">
                     <i class="fa-plus"></i> {{t 'install'}}{{^isSafe}} <i class="fa-warning"></i>{{/isSafe}}
                 </a>
                 {{/installable}}

@@ -18,7 +18,7 @@
             <dt>{{t 'id'}}</dt>
             <dd>{{id}}</dd>
             <dt>{{t 'description'}}</dt>
-            <dd>{{description}}</dd>
+            <dd>{{manifest.description}}</dd>
             {{#displayLicense}}
             <dt>{{t 'license'}}</dt>
             <dd>{{manifest.license}}</dd>
