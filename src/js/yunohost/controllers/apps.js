@@ -164,35 +164,102 @@
                   transitionDuration: 200
                 });
 
-                var categoryGrid = jQuery('#app-categories').isotope({
+                // Default filter is 'decent quality apps'
+                cardGrid.isotope({ filter: '.decentQuality' });
+
+                var categoryGrid = jQuery('#category-selector').isotope({
                   itemSelector: '.app-category-card',
                   layoutMode: 'fitRows',
                   transitionDuration: 200
                 });
 
-                filterByClassAndName = function () {
+                $("#category-selector").show();
+                $("#current-category-filter").hide();
+                $("#current-category-separator").hide();
+                $("#back-to-category-selection").hide();
+                $(".subtag-selector").hide();
+
+                $("#category-selector button").on("click", function() {
+                    var category = $(this).data("category");
+                    var title = $("h2", this).html();
+
+                    // Feed info and display the selecter category next to the search bar
+                    $("#current-category-filter").html(title);
+                    $("#current-category-filter").data("category", category);
+                    $("#current-category-filter").show();
+                    $("#back-to-category-selection").show();
+                    $("#current-category-separator").show();
+
+                    // Hide the category selector
+                    $("#category-selector").hide();
+
+                    // Display the subtags selector
+                    $(".subtag-selector").hide();
+                    $(".subtag-selector[data-app-category='"+category+"']").show();
+                    cardGrid.isotope({ filter: filterApps });
+                });
+
+                $("#back-to-category-selection").on("click", function() {
+
+                    // Hide / reset selected cateory next to the search bar
+                    $("#current-category-filter").hide();
+                    $("#current-category-filter").data("category", "");
+                    $("#back-to-category-selection").hide();
+                    $("#current-category-separator").hide();
+
+                    // Display the category selector
+                    $("#category-selector").show();
+
+                    // Hide subtag selector
+                    $(".subtag-selector").hide();
+                    cardGrid.isotope({ filter: filterApps });
+                });
+
+                $(".subtag-selector button").on("click", function() {
+                    var selector = $(this).parent();
+                    var category = selector.data("app-category");
+                    $("button", selector).removeClass("active");
+                    $(this).addClass("active");
+                    cardGrid.isotope({ filter: filterApps });
+                });
+
+
+                filterApps = function () {
+
+                  // Check text search
                   var input = jQuery("#filter-app-cards").val().toLowerCase();
-                  var inputMatch = (jQuery(this).find('.app-title').text().toLowerCase().indexOf(input) > -1);
+                  if (jQuery(this).find('.app-title').text().toLowerCase().indexOf(input) <= -1) return false;
 
-                  var filterClass = jQuery("#dropdownFilter").attr("data-filter");
-                  var classMatch = (filterClass === '*') ? true : jQuery(this).hasClass(filterClass);
-                  return inputMatch && classMatch;
+                  // Check category
+                  var category = $("#current-category-filter").data("category");
+                  if ((category !== '') && (jQuery(this).data("category") !== category)) return false;
+
+                  // Check subtags
+                  var subtag = $(".subtag-selector[data-app-category='"+category+"'] button.active").data("subtag");
+                  var this_subtags = jQuery(this).data("subtags");
+                  if ((subtag !== undefined) && (subtag !== "all")) {
+                      if ((subtag === "others") && (this_subtags !== "")) return false;
+                      if ((subtag !== "others") && (this_subtags.split(",").indexOf(subtag) <= -1)) return false;
+                  }
+
+                  // Check quality criteria
+                  var class_ = jQuery("#dropdownFilter").data("filter");
+                  if ((class_ !== '*') && (! jQuery(this).hasClass(class_))) return false;
+
+                  return true;
                 },
-
-                // Default filter is 'decent quality apps'
-                cardGrid.isotope({ filter: '.decentQuality' });
 
                 jQuery('.dropdownFilter').on('click', function() {
                     // change dropdown label
                     jQuery('#app-cards-list-filter-text').text(jQuery(this).find('.menu-item').text());
                      // change filter attribute
-                    jQuery('#dropdownFilter').attr("data-filter", jQuery(this).attr("data-filter"));
+                    jQuery('#dropdownFilter').data("filter", jQuery(this).data("filter"));
                     // filter !
-                    cardGrid.isotope({ filter: filterByClassAndName });
+                    cardGrid.isotope({ filter: filterApps });
                 });
 
                 jQuery("#filter-app-cards").on("keyup", function() {
-                    cardGrid.isotope({ filter: filterByClassAndName });
+                    cardGrid.isotope({ filter: filterApps });
                 });
             };
 

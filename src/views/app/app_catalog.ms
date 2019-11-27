@@ -1,16 +1,19 @@
 <div class="btn-breadcrumb">
     <a href="#/" ><i class="fa-home"></i><span class="sr-only">{{t 'home'}}</span></a>
     <a href="#/apps">{{t 'applications'}}</a>
-    <a href="#/apps/install">{{t 'install'}}</a>
+    <a href="#/apps/catalog">{{t 'install'}}</a>
 </div>
 
 <div class="separator"></div>
 
 <div class="input-group" id="app-filter-input">
-    <span class="input-group-addon"><i class="fas fa-search"></i></span>
+    <div id="back-to-category-selection" class="input-group-btn"><button class="btn btn-primary"><i class="fa-arrow-left"></i></button></div>
+    <span id="current-category-filter" class="input-group-addon"></span>
+    <span id="current-category-separator" class="input-group-addon" style="background: white;border: none;">&nbsp;</span>
+    <span class="input-group-addon"><i class="fa-search"></i></span>
     <input type="text" id="filter-app-cards" class="form-control" role="textbox"  placeholder="{{t 'search_for_apps'}}" aria-describedby="basic-addon0"/>
     <div class="input-group-btn">
-        <button type="button" role="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <span id="app-cards-list-filter-text">{{t 'only_decent_quality_apps'}}</span> <span class="caret"></span>
         </button>
         <ul id="dropdownFilter" class="dropdown-menu" data-filter="decentQuality" role="menu">
@@ -24,22 +27,37 @@
 
 <div class="separator"></div>
 
-<div id="app-categories" class="list-group grid">
+<div id="category-selector" class="list-group grid">
   {{#categories}}
-  <div class="app-category-card panel panel-default">
+  <button class="app-category-card panel panel-default" data-category="{{id}}">
         <div class="panel-body">
-            <h2 class="app-category-title"><span class="fa-fw fa-{{icon}}"></span> {{title}}</h2>
-            <h3 class="app-category-card-desc">{{description}}</h3>
+            <h2 class="app-category-title" style="white-space: normal"><span class="fa-fw fa-{{icon}}"></span> {{title}}</h2>
+            <h3 class="app-category-card-desc" style="white-space: normal">{{description}}</h3>
         </div>
-  </div>
+  </button>
   {{/categories}}
 </div>
+
+{{#categories}}
+<div class="subtag-selector" data-app-category="{{id}}" style="text-align: center">
+    {{#if subtags}}
+    <button class="btn btn-default active" data-subtag="all">All</button>
+    {{/if}}
+    {{#subtags}}
+    <button class="btn btn-default" data-subtag="{{.}}">{{.}}</button>
+    {{/subtags}}
+    {{#if subtags}}
+    <button class="btn btn-default" data-subtag="others">Others</button>
+    {{/if}}
+</div>
+{{/categories}}
+
 
 <div class="separator"></div>
 
 <div id="apps" class="list-group grid">
 {{#apps}}
-  <div class="app-card panel panel-default {{status}} {{state}} {{isWorking}} {{isHighQuality}} {{decentQuality}} {{level}}-level">
+  <div class="app-card panel panel-default {{status}} {{state}} {{isWorking}} {{isHighQuality}} {{decentQuality}} {{level}}-level" data-category="{{category}}" data-subtags="{{#subtags}}{{.}}{{#unless @last}},{{/unless}}{{/subtags}}">
         <div class="panel-body">
             <h2 class="app-title">{{manifest.name}}</h2>
             <div class="category">

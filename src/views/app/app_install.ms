@@ -1,7 +1,7 @@
 <div class="btn-breadcrumb">
     <a href="#/" ><i class="fa-home"></i><span class="sr-only">{{t 'home'}}</span></a>
     <a href="#/apps">{{t 'applications'}}</a>
-    <a href="#/apps/install">{{t 'install'}}</a>
+    <a href="#/apps/catalog">{{t 'install'}}</a>
     <a href="#/apps/install/{{id}}">{{manifest.name}}</a>
 </div>
 
