@@ -107,14 +107,33 @@
         }
     }
 
-    // Display app catalog
+
+    // Display catalog home page where users chooses to browse a specific category
     app.get('#/apps/catalog', function (c) {
         c.api('GET', '/appscatalog?full&with_categories', {}, function (data) {
-            var apps = []
+            c.view('app/app_catalog_home', {categories: data["categories"]}, function() {
+                // Configure layout / rendering for app-category-cards
+                $('#category-selector').isotope({
+                    itemSelector: '.app-category-card',
+                    layoutMode: 'fitRows',
+                    transitionDuration: 200
+                });
+            });
+        });
+    });
+
+    // Display app catalog for a specific category
+    app.get('#/apps/catalog/:category', function (c) {
+        var category_id = c.params['category'];
+        c.api('GET', '/appscatalog?full&with_categories', {}, function (data) {
+            var apps = [];
             $.each(data['apps'], function(name, app) {
 
                 // Ignore not working apps
                 if (app.state === 'notworking') { return; }
+
+                // Ignore apps not in this category
+                if ((category_id !== "all") && (app.category !== category_id)) { return; }
 
                 app.id = app.manifest.id;
                 app.level = parseInt(app.level);
@@ -152,6 +171,15 @@
                 apps.push(app);
             });
 
+            var category = undefined;
+            $.each(data['categories'], function(i, this_category) {
+                if (this_category.id === category_id) { category = this_category; }
+            });
+
+            if (category_id === "all") {
+                category = {title:  y18n.t("all_apps"), icon: "search"};
+            }
+
             // Sort app list
             c.arraySortById(apps);
 
@@ -167,62 +195,12 @@
                 // Default filter is 'decent quality apps'
                 cardGrid.isotope({ filter: '.decentQuality' });
 
-                var categoryGrid = jQuery('#category-selector').isotope({
-                  itemSelector: '.app-category-card',
-                  layoutMode: 'fitRows',
-                  transitionDuration: 200
-                });
-
-                $("#category-selector").show();
-                $("#current-category-filter").hide();
-                $("#current-category-separator").hide();
-                $("#back-to-category-selection").hide();
-                $(".subtag-selector").hide();
-
-                $("#category-selector button").on("click", function() {
-                    var category = $(this).data("category");
-                    var title = $("h2", this).html();
-
-                    // Feed info and display the selecter category next to the search bar
-                    $("#current-category-filter").html(title);
-                    $("#current-category-filter").data("category", category);
-                    $("#current-category-filter").show();
-                    $("#back-to-category-selection").show();
-                    $("#current-category-separator").show();
-
-                    // Hide the category selector
-                    $("#category-selector").hide();
-
-                    // Display the subtags selector
-                    $(".subtag-selector").hide();
-                    $(".subtag-selector[data-app-category='"+category+"']").show();
-                    cardGrid.isotope({ filter: filterApps });
-                });
-
-                $("#back-to-category-selection").on("click", function() {
-
-                    // Hide / reset selected cateory next to the search bar
-                    $("#current-category-filter").hide();
-                    $("#current-category-filter").data("category", "");
-                    $("#back-to-category-selection").hide();
-                    $("#current-category-separator").hide();
-
-                    // Display the category selector
-                    $("#category-selector").show();
-
-                    // Hide subtag selector
-                    $(".subtag-selector").hide();
-                    cardGrid.isotope({ filter: filterApps });
-                });
-
                 $(".subtag-selector button").on("click", function() {
                     var selector = $(this).parent();
-                    var category = selector.data("app-category");
                     $("button", selector).removeClass("active");
                     $(this).addClass("active");
                     cardGrid.isotope({ filter: filterApps });
                 });
-
 
                 filterApps = function () {
 
@@ -230,12 +208,8 @@
                   var input = jQuery("#filter-app-cards").val().toLowerCase();
                   if (jQuery(this).find('.app-title').text().toLowerCase().indexOf(input) <= -1) return false;
 
-                  // Check category
-                  var category = $("#current-category-filter").data("category");
-                  if ((category !== '') && (jQuery(this).data("category") !== category)) return false;
-
                   // Check subtags
-                  var subtag = $(".subtag-selector[data-app-category='"+category+"'] button.active").data("subtag");
+                  var subtag = $(".subtag-selector button.active").data("subtag");
                   var this_subtags = jQuery(this).data("subtags");
                   if ((subtag !== undefined) && (subtag !== "all")) {
                       if ((subtag === "others") && (this_subtags !== "")) return false;
@@ -264,7 +238,7 @@
             };
 
             // render
-            c.view('app/app_catalog', {apps: apps, categories: data["categories"]}, setupFilterEvents);
+            c.view('app/app_catalog_category', {apps: apps, category: category}, setupFilterEvents);
 
         });
     });
