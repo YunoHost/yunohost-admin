@@ -57,23 +57,28 @@
 
 <div id="apps" class="list-group grid">
 {{#apps}}
-  <div class="app-card panel panel-default {{status}} {{state}} {{isWorking}} {{isHighQuality}} {{decentQuality}} {{level}}-level" data-category="{{category}}" data-subtags="{{#subtags}}{{.}}{{#unless @last}},{{/unless}}{{/subtags}}">
+  <div class="app-card panel panel-default {{state}} {{isWorking}} {{isHighQuality}} {{decentQuality}} {{level}}-level" data-category="{{category}}" data-subtags="{{#subtags}}{{.}}{{#unless @last}},{{/unless}}{{/subtags}}">
         <div class="panel-body">
-            <h2 class="app-title">{{manifest.name}}</h2>
-            <div class="category">
-              <span class="label label-{{stateColor}} label-as-badge app-state" title="{{t (concat 'app_state_' state '_explanation') }}">{{t (concat 'app_state_' state) }}</span>
-              <a target="_BLANK" href="https://yunohost.org/#/packaging_apps_levels"><span class="label label-{{levelColor}} label-as-badge app-level" title="{{t 'app_level'}}">{{t 'level'}} {{levelFormatted}}</span></a>
-              <span class="label label-{{maintainedColor}} label-as-badge maintained-status" title="{{t (concat maintained '_details') }}"> {{t maintained}}</span>
-            </div>
+            <h2 class="app-title">
+            {{manifest.name}}
+            {{#if (eq state 'working') }}
+            {{#if (eq decentQuality 'badQuality')}}
+            <span class="label label-warning label-as-badge app-state" title="{{t 'app_state_low_quality_explanation' }}">{{t 'app_state_low_quality' }}</span>
+            {{/if}}
+            {{else}}
+            <span class="label label-{{stateColor}} label-as-badge app-state" title="{{t (concat 'app_state_' state '_explanation') }}">{{t (concat 'app_state_' state) }}</span>
+            {{/if}}
+            </h2>
             <div class="app-card-desc">{{manifest.description}}</div>
         </div>
             <div class="app-card-date-maintainer">
-                <i class="fa-refresh"></i> {{formatDate updateDate day="numeric" month="long" year="numeric"}} -
-                <span title="{{t 'current_maintainer_title'}}" class="maintained"></span><i class="fa-user"></i> {{manifest.maintainer}}</span>
+              {{#if (eq maintainedColor 'danger') }}
+              <span class="text text-warning maintained-status" title="{{t (concat maintained '_details') }}"><i class="fa-warning"></i> {{t maintained}}</span>
+              {{/if}}
             </div>
             <div class="btn-group" role="group">
                 <a href="{{git.url}}" target="_BLANK" type="button" role="button" class="btn btn-default col-xs-4">
-                    <i class="fa-globe"></i> Code
+                    <i class="fa-code"></i> Code
                 </a>
                 <a href="{{git.url}}/blob/master/README.md" target="_BLANK" type="button" role="button" class="btn btn-default col-xs-4">
                     <i class="fa-book"></i> Readme
