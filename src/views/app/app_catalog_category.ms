@@ -30,13 +30,13 @@
 
 <div class="subtag-selector">
     {{#if category.subtags}}
-    <button class="btn btn-default active" data-subtag="all">All</button>
+    <button class="btn btn-default active" data-subtag="all">{{t 'all'}}</button>
     {{/if}}
     {{#category.subtags}}
-    <button class="btn btn-default" data-subtag="{{.}}">{{.}}</button>
+    <button class="btn btn-default" data-subtag="{{id}}">{{title}}</button>
     {{/category.subtags}}
     {{#if category.subtags}}
-    <button class="btn btn-default" data-subtag="others">Others</button>
+    <button class="btn btn-default" data-subtag="others">{{t 'others'}}</button>
     {{/if}}
 </div>
 
