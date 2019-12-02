@@ -241,7 +241,7 @@
     "save": "Salvagardar",
     "select_user": "Causissètz un utilizaire",
     "service_log": "Jornal de %s",
-    "service_start_on_boot": "Lançar en aviar : ",
+    "service_start_on_boot": "Lançar en aviar",
     "service_status": "Estatut : ",
     "services": "Servicis",
     "services_list": "Lista dels servicis",
@@ -463,5 +463,7 @@
     "ignore": "Ignorar",
     "ignored": "%s ignorat",
     "unignore": "Ignorar pas",
-    "warnings": "%s avises"
+    "warnings": "%s avises",
+    "configuration": "Configuracion",
+    "since": "dempuèi"
 }
