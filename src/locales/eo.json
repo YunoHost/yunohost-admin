@@ -325,7 +325,7 @@
     "tools_adminpw_current": "Aktuala Pasvorto",
     "appslists_manage": "Administri listojn de aplikoj",
     "menu": "menuo",
-    "service_start_on_boot": "Komencu je ekkuro: ",
+    "service_start_on_boot": "Komencu je ekkuro",
     "storages_new": "Nova fora stokado",
     "storage_create": "Aldonu forajn stokadojn",
     "regenerate_selfsigned_cert_message": "Se vi volas, vi povas regeneri la mem-subskribitan atestilon.",
@@ -450,5 +450,7 @@
     "ignored": "%s ignoris",
     "warnings": "%s avertoj",
     "last_ran": "Lastfoje kuris:",
-    "unignore": "un-ignori"
+    "unignore": "un-ignori",
+    "configuration": "agordo",
+    "since": "el"
 }
