@@ -10,7 +10,7 @@
 
     // List installed apps
     app.get('#/apps', function (c) {
-        c.api('GET', '/apps?installed', {}, function(data) {
+        c.api('GET', '/apps?full', {}, function(data) {
             var apps = data['apps'];
             c.arraySortById(apps);
             c.view('app/app_list', {apps: apps});
@@ -70,7 +70,7 @@
         }
         else
         {
-            return 'success';
+            return 'info';
         }
     }
 
@@ -107,101 +107,145 @@
         }
     }
 
-    // List available apps
-    app.get('#/apps/install', function (c) {
-        c.api('GET', '/apps', {}, function (data) {
-            c.api('GET', '/apps?raw', {}, function (dataraw) {
-                var apps = []
-                $.each(data['apps'], function(k, v) {
-                    app = dataraw[v['id']];
-                    app.level = parseInt(app.level);
 
-                    if (app.high_quality && app.level > 7)
-                    {
-                        app.state = "high-quality";
-                    }
-                    if ( app.maintained === false )
-                    {
-                        app.maintained = "orphaned";
-                    }
-                    else if ( app.maintained === true )
-                    {
-                        app.maintained = "maintained";
-                    }
+    // Display catalog home page where users chooses to browse a specific category
+    app.get('#/apps/catalog', function (c) {
+        c.api('GET', '/appscatalog?full&with_categories', {}, function (data) {
+            c.view('app/app_catalog_home', {categories: data["categories"]}, function() {
+                // Configure layout / rendering for app-category-cards
+                $('#category-selector').isotope({
+                    itemSelector: '.app-category-card',
+                    layoutMode: 'fitRows',
+                    transitionDuration: 200
+                });
+            });
+        });
+    });
 
-                    app.manifest.maintainer = extractMaintainer(app.manifest);
-                    var isWorking = (app.state === 'working' || app.state === "high-quality") && app.level > 0;
+    // Display app catalog for a specific category
+    app.get('#/apps/catalog/:category', function (c) {
+        var category_id = c.params['category'];
+        c.api('GET', '/appscatalog?full&with_categories', {}, function (data) {
+            var apps = [];
+            $.each(data['apps'], function(name, app) {
 
-                    // Keep only the first instance of each app and remove not working apps
-                    if (!v['id'].match(/__[0-9]{1,5}$/) && (app.state !== 'notworking')) {
+                // Ignore not working apps
+                if (app.state === 'notworking') { return; }
 
-                        app.installable = (!v.installed || app.manifest.multi_instance)
-                        app.levelFormatted = isNaN(app.level) ? '?' : app.level;
+                // Ignore apps not in this category
+                if ((category_id !== "all") && (app.category !== category_id)) { return; }
 
-                        app.levelColor = levelToColor(app.level);
-                        app.stateColor = stateToColor(app.state);
-                        app.maintainedColor = maintainedStateToColor(app.maintained);
-                        app.installColor = combineColors(app.stateColor, app.levelColor);
+                app.id = app.manifest.id;
+                app.level = parseInt(app.level);
 
-                        app.updateDate = app.lastUpdate * 1000 || 0;
-                        app.isSafe = (app.installColor !== 'danger');
-                        app.isWorking = isWorking ? "isworking" : "notFullyWorking";
-                        app.isHighQuality = (app.state === "high-quality") ? "isHighQuality" : "";
-                        app.decentQuality = (app.level > 4)?"decentQuality":"badQuality";
+                if (app.high_quality && app.level > 7)
+                {
+                    app.state = "high-quality";
+                }
+                if ( app.maintained === false )
+                {
+                    app.maintained = "orphaned";
+                }
+                else if ( app.maintained === true )
+                {
+                    app.maintained = "maintained";
+                }
 
-                        jQuery.extend(app, v);
-                        apps.push(app);
-                    }
+                app.manifest.maintainer = extractMaintainer(app.manifest);
+                var isWorking = (app.state === 'working' || app.state === "high-quality") && app.level > 0;
+
+                app.installable = (!app.installed || app.manifest.supports_multi_instance)
+                app.levelFormatted = isNaN(app.level) ? '?' : app.level;
+
+                app.levelColor = levelToColor(app.level);
+                app.stateColor = stateToColor(app.state);
+                app.maintainedColor = maintainedStateToColor(app.maintained);
+                app.installColor = combineColors(app.stateColor, app.levelColor);
+
+                app.updateDate = app.lastUpdate * 1000 || 0;
+                app.isSafe = (app.installColor !== 'danger');
+                app.isWorking = isWorking ? "isworking" : "notFullyWorking";
+                app.isHighQuality = (app.state === "high-quality") ? "isHighQuality" : "";
+                app.decentQuality = (app.level > 4)?"decentQuality":"badQuality";
+
+                apps.push(app);
+            });
+
+            var category = undefined;
+            $.each(data['categories'], function(i, this_category) {
+                if (this_category.id === category_id) { category = this_category; }
+            });
+
+            if (category_id === "all") {
+                category = {title:  y18n.t("all_apps"), icon: "search"};
+            }
+
+            // Sort app list
+            c.arraySortById(apps);
+
+            // setup filtering of apps once the view is loaded
+            function  setupFilterEvents () {
+                // Uses plugin isotope to filter apps (we could had ordering to)
+                var cardGrid = jQuery('#apps').isotope({
+                  itemSelector: '.app-card',
+                  layoutMode: 'fitRows',
+                  transitionDuration: 200
                 });
 
-                // Sort app list
-                c.arraySortById(apps);
+                // Default filter is 'decent quality apps'
+                cardGrid.isotope({ filter: '.decentQuality' });
 
-                // setup filtering of apps once the view is loaded
-                function  setupFilterEvents () {
-                    // Uses plugin isotope to filter apps (we could had ordering to)
-                    var cardGrid = jQuery('.grid').isotope({
-                      itemSelector: '.app-card',
-                      layoutMode: 'fitRows',
-                      transitionDuration: 200
-                    });
+                $(".subtag-selector button").on("click", function() {
+                    var selector = $(this).parent();
+                    $("button", selector).removeClass("active");
+                    $(this).addClass("active");
+                    cardGrid.isotope({ filter: filterApps });
+                });
 
-                    filterByClassAndName = function () {
-                      var input = jQuery("#filter-app-cards").val().toLowerCase();
-                      var inputMatch = (jQuery(this).find('.app-title').text().toLowerCase().indexOf(input) > -1);
+                filterApps = function () {
 
-                      var filterClass = jQuery("#dropdownFilter").attr("data-filter");
-                      var classMatch = (filterClass === '*') ? true : jQuery(this).hasClass(filterClass);
-                      return inputMatch && classMatch;
-                    },
+                  // Check text search
+                  var input = jQuery("#filter-app-cards").val().toLowerCase();
+                  if (jQuery(this).find('.app-title').text().toLowerCase().indexOf(input) <= -1) return false;
 
-                    // Default filter is 'decent quality apps'
-                    cardGrid.isotope({ filter: '.decentQuality' });
+                  // Check subtags
+                  var subtag = $(".subtag-selector button.active").data("subtag");
+                  var this_subtags = jQuery(this).data("subtags");
+                  if ((subtag !== undefined) && (subtag !== "all")) {
+                      if ((subtag === "others") && (this_subtags !== "")) return false;
+                      if ((subtag !== "others") && (this_subtags.split(",").indexOf(subtag) <= -1)) return false;
+                  }
 
-                    jQuery('.dropdownFilter').on('click', function() {
-                        // change dropdown label
-                        jQuery('#app-cards-list-filter-text').text(jQuery(this).find('.menu-item').text());
-                         // change filter attribute
-                        jQuery('#dropdownFilter').attr("data-filter", jQuery(this).attr("data-filter"));
-                        // filter !
-                        cardGrid.isotope({ filter: filterByClassAndName });
-                    });
+                  // Check quality criteria
+                  var class_ = jQuery("#dropdownFilter").data("filter");
+                  if ((class_ !== '*') && (! jQuery(this).hasClass(class_))) return false;
 
-                    jQuery("#filter-app-cards").on("keyup", function() {
-                        cardGrid.isotope({ filter: filterByClassAndName });
-                    });
-                };
+                  return true;
+                },
 
-                // render
-                c.view('app/app_list_install', {apps: apps}, setupFilterEvents);
+                jQuery('.dropdownFilter').on('click', function() {
+                    // change dropdown label
+                    jQuery('#app-cards-list-filter-text').text(jQuery(this).find('.menu-item').text());
+                     // change filter attribute
+                    jQuery('#dropdownFilter').data("filter", jQuery(this).data("filter"));
+                    // filter !
+                    cardGrid.isotope({ filter: filterApps });
+                });
 
-            });
+                jQuery("#filter-app-cards").on("keyup", function() {
+                    cardGrid.isotope({ filter: filterApps });
+                });
+            };
+
+            // render
+            c.view('app/app_catalog_category', {apps: apps, category: category}, setupFilterEvents);
+
         });
     });
 
     // Get app information
     app.get('#/apps/:app', function (c) {
-        c.api('GET', '/apps/'+c.params['app']+'?raw', {}, function(data) {
+        c.api('GET', '/apps/'+c.params['app']+'?full', {}, function(data) {
         c.api('GET', '/users/permissions', {}, function(data_permissions) {
 
             // Permissions
@@ -506,9 +550,9 @@
 
     // App installation form
     app.get('#/apps/install/:app', function (c) {
-        c.api('GET', '/apps?raw', {}, function(data) {
+        c.api('GET', '/appscatalog?full', {}, function(data) {
             var app_name = c.params["app"];
-            var app_infos = data[app_name];
+            var app_infos = data["apps"][app_name];
             if (app_infos['state'] === "validated")
             {
                 app_infos['state'] = "official";
@@ -535,7 +579,7 @@
             {
                 c.appInstallForm(
                     c.params['app'],
-                    data[c.params['app']].manifest,
+                    app_infos.manifest,
                     c.params
                 );
             }
@@ -622,7 +666,7 @@
 
     // Get app change label page
     app.get('#/apps/:app/changelabel', function (c) {
-        c.api('GET', '/apps/'+c.params['app']+'?raw', {}, function(app_data) {
+        c.api('GET', '/apps/'+c.params['app']+'?full', {}, function(app_data) {
             data = {
                 id: c.params['app'],
                 label: app_data.settings.label,
@@ -641,7 +685,7 @@
 
     // Get app change URL page
     app.get('#/apps/:app/changeurl', function (c) {
-            c.api('GET', '/apps/'+c.params['app']+'?raw', {}, function(app_data) {
+            c.api('GET', '/apps/'+c.params['app']+'?full', {}, function(app_data) {
                 c.api('GET', '/domains', {}, function(domain_data) {
 
                 // Display a list of available domains

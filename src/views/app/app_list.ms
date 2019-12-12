@@ -4,7 +4,7 @@
 </div>
 
 <div class="actions-group">
-    <a role="button" href="#/apps/install" class="btn btn-success slide">
+    <a role="button" href="#/apps/catalog" class="btn btn-success slide">
         <span class="fa-plus"></span> {{t 'install'}}
     </a>
 </div>
@@ -16,7 +16,7 @@
     <a href="#/apps/{{id}}" class="list-group-item slide" title="{{t 'infos'}}">
         <span class="fa-chevron-right pull-right"></span>
         <h2 class="list-group-item-heading">
-            {{label}} <small>{{name}}</small>
+            {{settings.label}} <small>{{name}}</small>
         </h2>
         <p class="list-group-item-text">{{description}}</p>
     </a>

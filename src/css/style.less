@@ -631,8 +631,12 @@ input[type='radio'].nice-radio {
     background-color: darkorchid;
 }
 
+.app-category-card {
+    text-align: center;
+}
+
 // only one card for small screens
-.app-card {
+.app-card, .app-category-card {
 	width: 100%;
 	.btn-group {
 		width: 100%;
@@ -653,13 +657,16 @@ input[type='radio'].nice-radio {
 	}
 }
 
+.app-state {
+    font-size: 10px;
+}
 
-.app-title {
+.app-title, .app-category-title {
     margin-top: 5px;
     font-weight: 600;
 }
 
-.app-card-desc {
+.app-card-desc, .app-category-card-desc {
     height: 6rem;
     overflow: hidden;
 }
@@ -670,6 +677,7 @@ input[type='radio'].nice-radio {
     margin-bottom: 3px;
     margin-right: 7px;
     margin-top: -5px;
+    height: 18px;
 }
 
 .auto-width {
@@ -686,6 +694,7 @@ input[type='radio'].nice-radio {
 
 .app-card .panel-body {
     padding: 1.5rem;
+    padding-bottom: 0.5rem;
 
     h3 {
       margin-top: 0;
@@ -695,6 +704,33 @@ input[type='radio'].nice-radio {
     .category {
       margin-bottom: .5rem;
     }
+}
+
+.app-category-card .panel-body {
+    padding: 2em;
+    height: 10em;
+    color: #333 !important;
+}
+
+.subtag-selector {
+    text-align: center;
+}
+
+.app-category-card {
+    text-decoration: none !important;
+}
+
+.app-category-card:hover {
+    border-color: #777;
+}
+
+.app-category-title {
+    line-height: 1em;
+    white-space: normal;
+}
+
+.app-category-card-desc {
+    white-space: normal;
 }
 
 
@@ -806,7 +842,7 @@ input[type='radio'].nice-radio {
     }
 
     // display 2 cards between 640 and 992px
-    .app-card {
+    .app-card, .app-category-card {
       width: 47.9%;
       margin: 1%;
     }
@@ -908,7 +944,7 @@ input[type='radio'].nice-radio {
 
 // bootstrap breakpoint for large screen is 992px
 @media screen and (min-width: 992px) {
-    .app-card {
+    .app-card, .app-category-card {
       // display 3 cards by row
       width: 31.3%;
       margin: 1%;
