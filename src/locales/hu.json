@@ -1,1 +1,6 @@
-{}
+{
+    "logged_out": "Kilépett",
+    "password": "Jelszó",
+    "cancel": "Megszünteti",
+    "ok": "Rendben"
+}
