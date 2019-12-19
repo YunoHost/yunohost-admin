@@ -4,5 +4,7 @@
     "password": "पासवर्ड",
     "action": "कार्रवाई",
     "add": "जोड़े।",
-    "administration_password": "एडमिनिस्ट्रेटर का पासवर्ड।"
+    "administration_password": "एडमिनिस्ट्रेटर का पासवर्ड।",
+    "cancel": "रद्द करना",
+    "ok": "ठीक है"
 }
