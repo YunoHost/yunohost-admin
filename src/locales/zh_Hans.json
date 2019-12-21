@@ -1,1 +1,11 @@
-{}
+{
+    "administration_password": "管理密码",
+    "advanced": "高级",
+    "all": "全部",
+    "active": "活跃",
+    "all_apps": "全部应用",
+    "app_change_url": "更改URL",
+    "app_change_label": "更改标签",
+    "add": "添加",
+    "action": "动作"
+}
