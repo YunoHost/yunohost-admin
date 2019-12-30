@@ -1,5 +1,5 @@
 {
-    "password": "Hasło",
+    "password": "hasło",
     "action": "Akcja",
     "active": "Aktywny",
     "add": "Dodaj",
@@ -60,8 +60,9 @@
     "check_mx": "Rekord MX",
     "check_stmp": "Dostęp do portu 25",
     "close": "Zamknij",
-    "logged_out": "Wylogowany",
+    "logged_out": "Wylogowano",
     "login": "Zaloguj",
     "logout": "Wyloguj",
-    "ok": "OK"
+    "ok": "OK",
+    "logged_in": "Zalogowany"
 }
