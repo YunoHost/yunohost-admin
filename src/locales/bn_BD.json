@@ -12,5 +12,9 @@
     "app_access_addall_desc": "সকল তালিকাভূক্ত ব্যবহারীদের %ভাগ প্রবেশ",
     "app_access_clearall_btn": "সকল প্রবেশ মুছুন",
     "app_access_clearall_desc": "প্রত্যেক ব্যবহারীর %ভাগ প্রবেশ",
-    "app_access_removeall_btn": "সকল প্রবেশ অপসারন"
+    "app_access_removeall_btn": "সকল প্রবেশ অপসারন",
+    "password": "পাসওয়ার্ড",
+    "cancel": "বাতিল",
+    "logged_out": "প্রস্থান",
+    "ok": "ঠিক আছে"
 }
