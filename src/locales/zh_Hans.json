@@ -7,5 +7,9 @@
     "app_change_url": "更改URL",
     "app_change_label": "更改标签",
     "add": "添加",
-    "action": "动作"
+    "action": "动作",
+    "logged_out": "登出",
+    "cancel": "取消",
+    "ok": "好",
+    "password": "密码"
 }
