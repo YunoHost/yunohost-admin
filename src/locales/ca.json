@@ -249,7 +249,7 @@
     "select_user": "Seleccioneu un usuari",
     "service_description": "Descripció:",
     "service_log": "Registre %s",
-    "service_start_on_boot": "Iniciar a l'engegada: ",
+    "service_start_on_boot": "Iniciar a l'engegada",
     "service_status": "Estat: ",
     "services": "Serveis",
     "services_list": "Llista de serveis",
@@ -462,5 +462,7 @@
     "errors": "%s errors",
     "last_ran": "Executat per última vegada:",
     "warnings": "%s avisos",
-    "unignore": "No ignorar"
+    "unignore": "No ignorar",
+    "configuration": "Configuració",
+    "since": "des de"
 }
