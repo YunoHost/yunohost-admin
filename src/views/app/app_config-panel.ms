@@ -1,8 +1,8 @@
 <div class="btn-breadcrumb">
     <a href="#/" ><i class="fa-home"></i><span class="sr-only">{{t 'home'}}</span></a>
     <a href="#/apps">{{t 'applications'}}</a>
-    <a href="#/apps/{{app_id}}">{{app_name}}</a>
-    <a href="#/apps/{{app_id}}/config-panel">{{t 'config-panel'}}</a>
+    <a href="#/apps/{{app}}">{{app_name}}</a>
+    <a href="#/apps/{{app}}/config-panel">{{t 'config-panel'}}</a>
 </div>
 
 <div class="separator"></div>
@@ -16,7 +16,7 @@
 {{#config_panel}}
 <h2>{{../app_name}} configuration panel</h2>
 <hr>
-<form class="form-horizontal" action="#/apps/{{../app_id}}/config" method="POST">
+<form class="form-horizontal" action="#/apps/{{../app}}/config" method="POST">
 {{#panel}}
     <div class="panel panel-default">
         <div class="panel-heading" role="tab" id="heading-{{ @index }}">
