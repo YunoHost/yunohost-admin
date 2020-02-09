@@ -31,7 +31,7 @@
     "app_make_default": "Establir com a predeterminat",
     "app_repository": "Origen de l'aplicació: ",
     "app_state": "Estat de l'aplicació: ",
-    "app_state_inprogress": "en procés",
+    "app_state_inprogress": "encara no funciona",
     "app_state_notworking": "no funciona",
     "app_state_validated": "Validat",
     "app_state_working": "funcionant",
@@ -430,8 +430,8 @@
     "maintained_details": "Aquesta aplicació ha estat mantinguda en els darrers mesos.",
     "only_highquality_apps": "Només aplicacions d'alta qualitat",
     "only_decent_quality_apps": "Només aplicacións de qualitat decent",
-    "orphaned": "no mantinguda",
-    "orphaned_details": "Aquesta aplicació ja no es manté. Pot ser que funcioni però no rebrà actualitzacions. No dubteu en reviure-la!",
+    "orphaned": "No mantinguda",
+    "orphaned_details": "Aquesta aplicació no ha estat mantinguda des de fa temps. Pot ser que funcioni, però no rebrà actualitzacions fins que algú es faci voluntari per ocupar-se'n. No dubteu en contribuir reviure-la!",
     "request_adoption": "en espera d'adopció",
     "request_adoption_details": "El desnevolupador actual voldria deixar de mantenir aquesta aplicació. Podeu proposar-vos com a nou desenvolupador!",
     "request_help": "ajuda necessària",
@@ -464,5 +464,10 @@
     "warnings": "%s avisos",
     "unignore": "No ignorar",
     "configuration": "Configuració",
-    "since": "des de"
+    "since": "des de",
+    "others": "Altres",
+    "catalog": "Catàleg",
+    "app_state_low_quality_explanation": "Aquesta aplicació pot funcionar, però encara té problemes, o bé encara no està completament integrada a YunoHost, o bé no respecta les bones pràctiques.",
+    "app_state_low_quality": "baixa qualitat",
+    "all": "Tot"
 }
