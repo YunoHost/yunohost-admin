@@ -1,7 +1,7 @@
 {
     "add": "Ekle",
     "administration_password": "Yönetici parolası",
-    "api_not_responding": "API cevap vermiyor",
+    "api_not_responding": "YunoHost API'si cevap vermiyor. Belki 'yunohost-api' çalışmıyor veya yeniden başlatıldı?",
     "both": "İkisi birden",
     "cancel": "İptal etmek",
     "close": "Kapat",
@@ -71,5 +71,14 @@
     "warning_first_user": "Büyük ihtimalle önce <a href='#/users/create' class='alert-link'>kullanıcı oluşturmanız</a> gerekiyor.",
     "wrong_password": "Yanlış parola",
     "yes": "Evet",
-    "ok": "Tamam"
+    "ok": "Tamam",
+    "app_info_access_desc": "Bu uygulamaya şuan erişimi olan gruplara / kullanıcılar:",
+    "app_change_url": "URL'yi değiştir",
+    "app_change_label": "Etiketi Değiştir",
+    "all_apps": "Tüm uygulamalar",
+    "all": "Tümü",
+    "remove": "Kaldır",
+    "advanced": "Gelişmiş",
+    "active": "Etkin",
+    "action": "Eylem"
 }
