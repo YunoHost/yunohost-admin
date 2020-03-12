@@ -302,5 +302,21 @@
     "domain_visit": "Visitar",
     "domain_visit_url": "Visitar %s",
     "download": "Baixar",
-    "enabled": "Ativado"
+    "enabled": "Ativado",
+    "hook_conf_ynh_mysql": "Senha MySQL",
+    "hook_conf_ynh_firewall": "Firewall",
+    "hook_conf_ynh_certs": "Certificados SSL",
+    "hook_conf_ynh_currenthost": "Domínio principal atual",
+    "hook_conf_cron": "Tarefas automáticas",
+    "hook_adminjs_group_configuration": "Configurações do sistema",
+    "home": "Início",
+    "permissions": "Permissões",
+    "app_state_low_quality_explanation": "Esta aplicação deve funcionar, mas ainda pode conter problemas, ou não está completamente integrada com YunoHost, ou não está de acordo com boas práticas.",
+    "app_state_low_quality": "baixa qualidade",
+    "all": "Todos",
+    "error_server_unexpected": "Erro inesperado no servidor (%s)",
+    "diagnosis_experimental_disclaimer": "Esteja ciente de que a ferramenta de diagnóstico ainda é experimental e está em fase de aperfeiçoamento, e pode não ser totalmente confiável.",
+    "details": "Detalhes",
+    "catalog": "Catálogo",
+    "configuration": "Configuração"
 }
