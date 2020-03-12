@@ -313,5 +313,10 @@
     "permissions": "Permissões",
     "app_state_low_quality_explanation": "Esta aplicação deve funcionar, mas ainda pode conter problemas, ou não está completamente integrada com YunoHost, ou não está de acordo com boas práticas.",
     "app_state_low_quality": "baixa qualidade",
-    "all": "Todos"
+    "all": "Todos",
+    "error_server_unexpected": "Erro inesperado no servidor (%s)",
+    "diagnosis_experimental_disclaimer": "Esteja ciente de que a ferramenta de diagnóstico ainda é experimental e está em fase de aperfeiçoamento, e pode não ser totalmente confiável.",
+    "details": "Detalhes",
+    "catalog": "Catálogo",
+    "configuration": "Configuração"
 }
