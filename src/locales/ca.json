@@ -469,5 +469,7 @@
     "catalog": "Catàleg",
     "app_state_low_quality_explanation": "Aquesta aplicació pot funcionar, però encara té problemes, o bé encara no està completament integrada a YunoHost, o bé no respecta les bones pràctiques.",
     "app_state_low_quality": "baixa qualitat",
-    "all": "Tot"
+    "all": "Tot",
+    "run_first_diagnosis": "Executa el diagnòstic inicial",
+    "diagnosis_first_run": "La funció de diagnòstic intentarà identificar problemes habituals de diferents aspectes del servidor per tal d'assegurar que tot funcioni de la millor manera possible."
 }
