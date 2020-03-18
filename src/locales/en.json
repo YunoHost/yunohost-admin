@@ -96,6 +96,8 @@
     "domain_dns_conf_is_just_a_recommendation": "This page shows you the *recommended* configuration. It does *not* configure the DNS for you. It is your responsability to configure your DNS zone in your DNS registrar according to this recommendation.",
     "diagnosis": "Diagnosis",
     "diagnosis_experimental_disclaimer": "Be aware that the diagnosis feature is still experimental and being polished, and it may not be fully reliable.",
+    "diagnosis_first_run": "The diagnosis feature will attempt to identify common issues on the different aspects of your server to help you make sure that everything works as smoothly as possible.",
+    "run_first_diagnosis": "Run initial diagnosis",
     "disable": "Disable",
     "disabled": "Disabled",
     "dns": "DNS",

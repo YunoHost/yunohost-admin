@@ -10,6 +10,11 @@
     app.get('#/diagnosis', function (c) {
         c.api('GET', '/diagnosis/show?full', {}, function(data) {
 
+            if (typeof(data.reports) === "undefined")
+            {
+                data.reports = [];
+            }
+
             // Prepare data to be displayed ...
             for (var i = 0 ; i < data.reports.length ; i++)
             {
@@ -62,6 +67,13 @@
 
             // Render and display the view
             c.view('diagnosis/diagnosis_show', data, function() {
+
+                // Button for first diagnosis
+                $("button[data-action='run-full-diagnosis']").click(function() {
+                    c.api('POST', '/diagnosis/run', {}, function(data) {
+                        c.refresh();
+                    });
+                });
 
                 // Configure share with yunopaste button
                 $("button[data-action='share']").click(function() {
