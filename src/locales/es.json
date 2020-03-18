@@ -465,5 +465,6 @@
     "ignored": "%s ignorado",
     "last_ran": "Ejecutado por última vez:",
     "unignore": "Dejar de ignorar",
-    "warnings": "%s avisos"
+    "warnings": "%s avisos",
+    "all": "Todo"
 }
