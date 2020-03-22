@@ -471,5 +471,5 @@
     "app_state_low_quality": "baixa qualitat",
     "all": "Tot",
     "run_first_diagnosis": "Executa el diagnòstic inicial",
-    "diagnosis_first_run": "La funció de diagnòstic intentarà identificar problemes habituals de diferents aspectes del servidor per tal d'assegurar que tot funcioni de la millor manera possible."
+    "diagnosis_first_run": "La funció de diagnòstic intentarà identificar problemes habituals de diferents aspectes del servidor per tal d'assegurar que tot funcioni de la millor manera possible. No tingueu por si veieu uns quants errors just després de configurar el servidor: està precisament fet per ajudar a identificar els problemes i oferir una guia de com arreglar-los. El diagnòstic també s'executarà dues vegades al dia i enviarà un correu a l'administrador si apareix algun error."
 }
