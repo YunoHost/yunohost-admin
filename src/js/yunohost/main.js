@@ -237,6 +237,13 @@
     $(document).ready(function () {
         // Run Sammy.js application
         app.run('#/');
+
+        // April fools easter egg ;)
+        var today = new Date();
+        if ((today.getDate() == 1) && (today.getMonth()+1 == 4))
+        {
+            $('#main').addClass("magikarp");
+        }
     });
 
 })();
