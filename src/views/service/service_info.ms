@@ -9,7 +9,7 @@
 
 <div class="panel panel-default">
     <div class="panel-heading">
-        <h2 class="panel-title" style="display: inline-block; margin-right: 10px;"><span class="fa-fw fa-info-circle"></span> {{t name}}</h2>
+        <h2 class="panel-title" style="display: inline-block; margin-right: 10px;"><span class="fa-fw fa-info-circle"></span> {{name}}</h2>
         {{#if (eq status "running")}}
             <button class="btn btn-sm btn-danger pull-right" data-service="{{name}}" data-action="stop">
                 <span class="fa-stop"></span> {{t 'stop'}}
