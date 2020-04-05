@@ -17,7 +17,9 @@
         <h2 class="panel-title">{{name}}</h2>
     </div>
     <div class="panel-body">
+        {{#if description}}
         <p>{{description}}</p>
+        {{/if}}
         {{#if arguments}}
         {{#arguments}}
         <div class="form-group">
