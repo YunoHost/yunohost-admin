@@ -236,10 +236,11 @@
                 formatYunoHostStyleArguments(action.arguments, c.params);
 
                 // Multilingual description
-                action.description = (typeof action.description[y18n.locale] !== 'undefined') ?
-                                        action.description[y18n.locale] :
-                                        action.description['en']
-                                        ;
+                if (action.description && Array.isArray(action.description))
+                    action.description = (typeof action.description[y18n.locale] !== 'undefined') ?
+                                            action.description[y18n.locale] :
+                                            action.description['en']
+                                            ;
 
             });
 
