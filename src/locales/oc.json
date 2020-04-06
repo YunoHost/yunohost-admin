@@ -470,5 +470,6 @@
     "all": "Totas",
     "app_state_low_quality": "qualitat bassa",
     "catalog": "Catalòg",
-    "others": "Autras"
+    "others": "Autras",
+    "run_first_diagnosis": "Executar lo diagnostic inicial"
 }
