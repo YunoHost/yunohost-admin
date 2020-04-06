@@ -217,7 +217,7 @@
     app.post('#/users/create', function (c) {
         if (c.params['password'] == c.params['confirmation']) {
             if (c.params['password'].length < PASSWORD_MIN_LENGTH) {
-                c.flash('fail', y18n.t('password_too_short'));
+                c.flash('fail', y18n.t('passwords_too_short'));
             }
             else {
                 // Force unit or disable quota
@@ -380,7 +380,7 @@
                 if (params['password']) {
                     if (params['password'] == params['confirmation']) {
                         if (params['password'].length < PASSWORD_MIN_LENGTH) {
-                            c.flash('fail', y18n.t('password_too_short'));
+                            c.flash('fail', y18n.t('passwords_too_short'));
                             c.redirect_to('#/users/'+ c.params['user'] + '/edit', {slide: false});
                         }
                         else {
