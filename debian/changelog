@@ -1,3 +1,25 @@
+yunohost-admin (3.7.1) stable; urgency=low
+
+   - [fix] Misc fixes for action / config panel (#289, #282)
+   - [enh] Add a note about some apps that need to be exposed to visitors for external client to work 
+ 
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Thu, 9 April 2020 16:09:00  +0000
+
+yunohost-admin (3.7.0.4) stable; urgency=low
+
+  - [enh] Adding easter egg for April first ;)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Web, 01 Apr 2020 00:55:00 +0000
+
+yunohost-admin (3.7.0.3) stable; urgency=low
+
+  - [enh] Friendlier / more rewarding messages when everything is up to date
+  - [i18n] Improve translations for Bengali, Catalan, Chinese, Dutch, Esperanto, French, German, Greek, Hindi, Hungarian, Nepali, Occitan, Polish, Portuguese, Spanish, Turkish
+
+  Thanks to all contributors <3 ! (Abdulkadir F. Ş., Aeris One, amirale qt, Armando F., Gustavo M., Hem S., Jeroen F., Juan, Patrick B., Quentí, xaloc33, Yifei D.)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Fri, 27 Mar 2020 21:15:00 +0000
+
 yunohost-admin (3.7.0.2) stable; urgency=low
 
   - [fix] Disabling security.rss for now

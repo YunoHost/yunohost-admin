@@ -69,6 +69,9 @@
                 <div class="col-sm-10">
                     {{#if special}}
                         <div style="font-style:italic"><span class="fa-info-circle"></span> {{t (concat 'group_explain_' @key)}}</div>
+                        {{#if (eq @key 'visitors')}}
+                        <div style="font-style:italic">{{t 'group_explain_visitors_needed_for_external_client'}}</div>
+                        {{/if}}
                     {{else}}
                         {{> labelsLine display=../displayUser icon="user" type="member" items=members inv=membersInv group=@key}}
                     {{/if}}
