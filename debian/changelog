@@ -1,9 +1,35 @@
+yunohost-admin (3.8.0) testing; urgency=low
+
+  # Major stuff
+
+  - [enh] New diagnosis interface (#209, 109f542, 95f8503, 9e0f2f7, 79839b5)
+  - [enh] App categories (#279)
+  - [enh] Rework service views (#274)
+
+  # Refactoring, cleaning
+
+  - Code refactoring, readability improvements, use buttons instead of links when it's not about changing page (#262, 4f544de, 44c27a5, 6177044)
+  - Remove the whole monitoring / glances stuff (#263)
+  - Remove the appslist system from the webadmin (#264)
+  - Remove app debug button, follow-up of corresponding PR on yunohost core (#271)
+  - Fix slider effect (787204b)
+  - Propagate parameter name change from core when changing domain (#260)
+
+  # i18n
+
+  - String definition / usage tests + cleaning of stale strings (#288)
+  - Update translations for Spanish, Esperanto, Basque, Turkish, Catalan, Hindi, German, Greek, Dutch, Polish, Portuguese, Chinese (Simplified), Nepali, French, Occitan,Italian, Bengali (Bangladesh), Hungarian
+
+  Thanks to all contributors <3 ! (Abdulkadir F. Ş., Aeris One, Aleks, Armando F. Bram, Giovanni G. Gustavo M., Hem S., Jeroen F., Juan, Kay0u, Patrick B., Quentí, Yifei D., advocatux, amirale qt, Elie G., frju365, ppr, Romain R., xaloc3)
+
+ -- Kay0u <pierre@kayou.io>  Thu, 09 Apr 2020 20:18:35 +0000
+
 yunohost-admin (3.7.1) stable; urgency=low
 
    - [fix] Misc fixes for action / config panel (#289, #282)
    - [enh] Add a note about some apps that need to be exposed to visitors for external client to work 
  
- -- Alexandre Aubin <alex.aubin@mailoo.org>  Thu, 9 April 2020 16:09:00  +0000
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Thu, 9 Apr 2020 16:09:00  +0000
 
 yunohost-admin (3.7.0.4) stable; urgency=low
 
