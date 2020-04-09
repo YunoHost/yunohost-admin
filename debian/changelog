@@ -1,9 +1,15 @@
+yunohost-admin (3.7.1.1) stable; urgency=low
+
+   - [fix] Aleks forgot to properly fix the conflicts in oc.json ~.~
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Thu, 9 Apr 2020 19:03:00  +0000
+
 yunohost-admin (3.7.1) stable; urgency=low
 
    - [fix] Misc fixes for action / config panel (#289, #282)
    - [enh] Add a note about some apps that need to be exposed to visitors for external client to work 
  
- -- Alexandre Aubin <alex.aubin@mailoo.org>  Thu, 9 April 2020 16:09:00  +0000
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Thu, 9 Apr 2020 16:09:00  +0000
 
 yunohost-admin (3.7.0.4) stable; urgency=low
 
