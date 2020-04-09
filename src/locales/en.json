@@ -154,6 +154,7 @@
     "group_new": "New group",
     "group_explain_all_users": "This is a special group containing all users accounts on the server",
     "group_explain_visitors": "This is a special group representing anonymous visitors",
+    "group_explain_visitors_needed_for_external_client": "Be careful that you need to keep some applications allowed to visitors if you intend to use them with external clients. For example, this is the case for Nextcloud if you want intend to use a synchronization client on your smartphone or desktop computer.",
     "group_specific_permissions": "User specific permissions",
     "groups_and_permissions": "Groups and permissions",
     "groups_and_permissions_manage": "Manage groups and permissions",
