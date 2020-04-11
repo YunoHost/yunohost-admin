@@ -37,11 +37,11 @@
     <ul class="list-group" style="margin-bottom: 0px">
         <p>{{t 'last_ran' }} {{formatRelative time day="numeric" month="long" year="numeric" hour="numeric" minute="numeric" }}</p>
         {{#items}}
-        <li class="list-group-item alert alert-{{status}} alert-{{status}}-yo clearfix">
+        <li class="list-group-item alert alert-{{status}} alert-{{status}}-yo clearfix diagnosis-item">
             {{#if icon}}
             <span class="fa-fw fa-{{icon}}"></span>
             {{/if}}
-            {{summary}}
+            {{{summary}}}
             {{#if ignored}}
             <button class="btn btn-sm btn-default pull-right" data-action="unignore" data-filter-args="{{ filter_args }}"><span class="fa-fw fa-bell"></span> {{t 'unignore'}}</button>
             {{else}}
@@ -51,9 +51,9 @@
             {{/if}}
             {{#if details}}
             <a role="button" class="btn btn-sm btn-default pull-right" data-toggle="collapse" href="#details-{{../id}}-{{@index}}" aria-expanded="false" aria-controls="details-{{../id}}-{{@index}}"><span class="fa-fw fa-level-down"></span>{{t 'details'}}</a>
-            <div class="collapse" id="details-{{../id}}-{{@index}}">
+            <div class="collapse diagnosis-details" id="details-{{../id}}-{{@index}}">
                 <ul>
-                {{#details}}<li>{{.}}</li>{{/details}}
+                {{#details}}<li>{{{.}}}</li>{{/details}}
                 </ul>
             </div>
             {{/if}}
