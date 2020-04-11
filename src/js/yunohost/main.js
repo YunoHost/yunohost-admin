@@ -181,10 +181,8 @@
             sam.store.set('url', window.location.hostname + '/yunohost/api');
 
             if (sam.store.get('connected')) {
-                this.api('GET', '/diagnosis/show?full', {}, function(data) {
-                    basesystem = data.reports.filter(function(r) { return r.id == "basesystem"; })[0];
-                    version_info = basesystem.items.filter(function(i) { return (i.meta && i.meta.test && i.meta.test == "ynh_versions"); })[0];
-                    $('#yunohost-version').html(y18n.t('footer_version', [version_info.data.main_version, version_info.data.repo]));
+                this.api('GET', '/versions', {}, function(data) {
+                    $('#yunohost-version').html(y18n.t('footer_version', [data.yunohost.version, data.yunohost.repo]));
                 });
             }
 
