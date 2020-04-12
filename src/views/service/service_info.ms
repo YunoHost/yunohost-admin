@@ -12,11 +12,14 @@
         <h2 class="panel-title" style="display: inline-block; margin-right: 10px;"><span class="fa-fw fa-info-circle"></span> {{name}}</h2>
         {{#if (eq status "running")}}
             <button class="btn btn-sm btn-danger pull-right" data-service="{{name}}" data-action="stop">
-                <span class="fa-stop"></span> {{t 'stop'}}
+                <span class="fa-fw fa-warning"></span> {{t 'stop'}}
+            </button>
+            <button class="btn btn-sm btn-warning pull-right" data-service="{{name}}" data-action="restart">
+                <span class="fa-fw fa-refresh"></span> {{t 'restart'}}
             </button>
         {{else}}
             <button class="btn btn-sm btn-success pull-right" data-service="{{name}}" data-action="start">
-                <span class="fa-play"></span> {{t 'start'}}
+                <span class="fa-fw fa-play"></span> {{t 'start'}}
             </button>
         {{/if}}
     </div>

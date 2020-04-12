@@ -245,6 +245,7 @@
     "request_help": "need help",
     "request_help_details": "The current maintainer would like some help with the maintainance of this app. Feel free to come contribute on it!",
     "restore": "Restore",
+    "restart": "Restart",
     "run": "Run",
     "save": "Save",
     "search_for_apps": "Search for apps...",
