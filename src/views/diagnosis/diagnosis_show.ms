@@ -28,7 +28,7 @@
         <a data-toggle="collapse" href="#category-{{id}}">{{ description }}</a>
         </h2>
         {{#if noIssues}}{{#if items}}<span class="label label-success">{{t 'everything_good'}}</span>{{/if}}{{/if}}
-        {{#if errors}}<span class="label label-danger">{{t 'errors' errors }}</span>{{/if}}
+        {{#if errors}}<span class="label label-danger">{{t 'issues' errors }}</span>{{/if}}
         {{#if warnings}}<span class="label label-warning">{{t 'warnings' warnings }}</span>{{/if}}
         {{#if ignored}}<span class="label label-default">{{t 'ignored' ignored }}</span>{{/if}}
         <button class="btn btn-sm {{#if items}}btn-info{{else}}btn-success{{/if}} pull-right" data-action="rerun-diagnosis" data-category="{{ id }}"><span class="fa-fw fa-refresh"></span> {{t 'rerun_diagnosis'}}</button>
