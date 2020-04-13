@@ -7,6 +7,11 @@
 <div class="separator"></div>
 
 <div id="category-selector" class="list-group grid">
+  <a class="app-category-card" href="#/apps/catalog/all">
+        <div class="panel-body">
+            <h2 class="app-category-title" style="padding-top: 3em'"><span class="fa-fw fa-search"></span> {{t 'all_apps'}}</h2>
+        </div>
+  </a>
   {{#categories}}
   <a class="app-category-card panel panel-default" href="#/apps/catalog/{{id}}">
         <div class="panel-body">
@@ -15,9 +20,4 @@
         </div>
   </a>
   {{/categories}}
-  <a class="app-category-card" href="#/apps/catalog/all">
-        <div class="panel-body">
-            <h2 class="app-category-title" style="padding-top: 3em'"><span class="fa-fw fa-search"></span> {{t 'all_apps'}}</h2>
-        </div>
-  </a>
 </div>
