@@ -59,18 +59,29 @@
             c.view('service/service_info', data, function() {
 
                 // Configure behavior for enable/disable and start/stop buttons
-                $('button[data-action="start"], button[data-action="stop"]').on('click', function() {
+                $('button[data-action="start"], button[data-action="restart"], button[data-action="stop"]').on('click', function() {
 
                     var service = $(this).data('service');
                     var action = $(this).data('action');
 
-                    c.confirm("Service", y18n.t('confirm_service_' + action, [service]), function(){
+                    c.confirm(y18n.t("services"), y18n.t('confirm_service_' + action, [service]), function(){
 
-                        var method = null,
-                            endurl = service;
-
-                        method = action === "start" ? 'PUT' : 'DELETE';
-                        c.api(method, '/services/'+ endurl, {}, function() { c.refresh(); });
+                        if (action == "start")
+                        {
+                            var method = "PUT";
+                            var url = "/services/" + service;
+                        }
+                        else if (action == "restart")
+                        {
+                            var method = "PUT";
+                            var url = "/services/" + service + "/restart";
+                        }
+                        else
+                        {
+                            var method = "DELETE";
+                            var url = "/services/" + service;
+                        }
+                        c.api(method, url, {}, function() { c.refresh(); });
                     });
                 });
 
