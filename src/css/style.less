@@ -1008,10 +1008,19 @@ input[type='radio'].nice-radio {
     color: grey;
 }
 
-.diagnosis-item code {
-    word-break: break-all;
-}
+.diagnosis-item {
 
-.diagnosis-item ul > li {
-    padding-top: 0.3em;
+    code {
+        word-break: break-all;
+        border-radius: 5px;
+    }
+
+    code.cmd {
+        color: white;
+        background-color: #333;
+    }
+
+    ul > li {
+        padding-top: 0.3em;
+    }
 }
