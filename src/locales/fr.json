@@ -479,5 +479,8 @@
     "others": "Autres",
     "diagnosis_first_run": "La fonctionnalité de diagnostic va tenter de trouver certains problèmes communs sur différents aspects de votre serveur pour être sûr que tout fonctionne normalement. Merci de ne pas paniquer si vous voyez une multitude d'erreurs après avoir configuré votre serveur : la fonctionnalité est précisément prévue pour les identifier et vous aider à les résoudre. Le diagnostic sera également effectué deux fois par jour et enverra un mail à l'administrateur si des erreurs sont détectées.",
     "run_first_diagnosis": "Démarrer le diagnostic initial",
-    "confirm_service_restart": "Êtes-vous certain de vouloir redémarrer %s ?"
+    "confirm_service_restart": "Êtes-vous certain de vouloir redémarrer %s ?",
+    "groups": "Groupes",
+    "restart": "Redémarrer",
+    "unmaintained_details": "Cette application n'a pas été mise à jour depuis longtemps et le responsable précédent est parti ou n'a pas le temps de maintenir cette application. N'hésitez pas à consulter le repertoire des applications pour apporter votre aide"
 }
