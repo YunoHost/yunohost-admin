@@ -8,6 +8,13 @@
     // *********
 
     app.get('#/diagnosis', function (c) {
+        c.api('POST', '/diagnosis/run?except-if-never-ran-yet', {}, function() {
+            updateDiagnosisView();
+        });
+    });
+
+
+    function updateDiagnosisView() {
         c.api('GET', '/diagnosis/show?full', {}, function(data) {
 
             if (typeof(data.reports) === "undefined")
@@ -71,7 +78,7 @@
                 // Button for first diagnosis
                 $("button[data-action='run-full-diagnosis']").click(function() {
                     c.api('POST', '/diagnosis/run', {}, function(data) {
-                        c.refresh();
+                        updateDiagnosisView();
                     });
                 });
 
@@ -87,7 +94,7 @@
                 $("button[data-action='rerun-diagnosis']").click(function() {
                     var category = $(this).data("category");
                     c.api('POST', '/diagnosis/run?force', {"categories": [category]}, function(data) {
-                        c.refresh();
+                        updateDiagnosisView();
                     });
                 });
 
@@ -95,18 +102,19 @@
                 $("button[data-action='ignore']").click(function() {
                     var filter_args = $(this).data("filter-args");
                     c.api('POST', '/diagnosis/ignore', {'add_filter': filter_args.split(',') }, function(data) {
-                        c.refresh();
+                        updateDiagnosisView();
                     })
                 });
 
                 $("button[data-action='unignore']").click(function() {
                     var filter_args = $(this).data("filter-args");
                     c.api('POST', '/diagnosis/ignore', {'remove_filter': filter_args.split(',') }, function(data) {
-                        c.refresh();
+                        updateDiagnosisView();
                     })
                 });
             });
         });
-    });
+    }
+
 
 })();
