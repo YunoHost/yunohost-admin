@@ -1,3 +1,16 @@
+yunohost-admin (3.8.1) testing; urgency=low
+
+  - Many small cosmetic and mechanics improvements for the Diagnosis view
+  - Add a 'Restart' button for services
+  - Drop 'Security feed' and 'Download self-CA auth cert' features from the Tools section
+  - Move 'Share on Yunopaste' button to make it more obvious to users (dd2570e)
+  - Display 'All apps' button at the top in app category selector (#291)
+  - Improve translations for French, German, Catalan, Turkish
+
+  Thanks to all contributors <3 ! (Kay0u, Yasin S. T., Zeik0s, E.Gaspar, xaloc33)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Thu, 19 Apr 2020 06:22:00  +0000
+
 yunohost-admin (3.8.0) testing; urgency=low
 
   # Major stuff
