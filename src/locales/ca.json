@@ -471,5 +471,11 @@
     "app_state_low_quality": "baixa qualitat",
     "all": "Tot",
     "run_first_diagnosis": "Executa el diagnòstic inicial",
-    "diagnosis_first_run": "La funció de diagnòstic intentarà identificar problemes habituals de diferents aspectes del servidor per tal d'assegurar que tot funcioni de la millor manera possible. No tingueu por si veieu uns quants errors just després de configurar el servidor: està precisament fet per ajudar a identificar els problemes i oferir una guia de com arreglar-los. El diagnòstic també s'executarà dues vegades al dia i enviarà un correu a l'administrador si apareix algun error."
+    "diagnosis_first_run": "La funció de diagnòstic intentarà identificar problemes habituals de diferents aspectes del servidor per tal d'assegurar que tot funcioni de la millor manera possible. No tingueu por si veieu uns quants errors just després de configurar el servidor: està precisament fet per ajudar a identificar els problemes i oferir una guia de com arreglar-los. El diagnòstic també s'executarà dues vegades al dia i enviarà un correu a l'administrador si apareix algun error.",
+    "confirm_service_restart": "Esteu segur de voler reiniciar %s?",
+    "group_explain_visitors_needed_for_external_client": "Vigileu ja que s'ha de permetre els visitants en algunes aplicacions si voleu utilitzar-les amb clients externs. És el cas, per exemple, de Nextcloud si voleu utilitzar el client de sincronització en el telèfon mòbil o en l'ordinador.",
+    "groups": "Grups",
+    "restart": "Reiniciar",
+    "unmaintained_details": "Fa temps que no es manté aquesta aplicació i la persona que la mantenia ja no ho fa o no té temps per fer-ho. Us convidem a mirar el repositori de l'aplicació per oferir la vostra ajuda",
+    "issues": "%s problemes"
 }
