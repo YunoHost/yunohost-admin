@@ -16,6 +16,7 @@
 
             c.api('GET', '/versions', {}, function(data) {
                 $('#yunohost-version').html(y18n.t('footer_version', [data.yunohost.version, data.yunohost.repo]));
+                c.hideLoader();
             });
         });
     });
