@@ -1,3 +1,9 @@
+yunohost-admin (3.8.1.1) testing; urgency=low
+
+  - [hotfix] Pacman hanging forever after fetching version number..
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Thu, 19 Apr 2020 16:20:00  +0000
+
 yunohost-admin (3.8.1) testing; urgency=low
 
   - Many small cosmetic and mechanics improvements for the Diagnosis view
