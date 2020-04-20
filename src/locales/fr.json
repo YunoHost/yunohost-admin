@@ -482,5 +482,7 @@
     "confirm_service_restart": "Êtes-vous certain de vouloir redémarrer %s ?",
     "groups": "Groupes",
     "restart": "Redémarrer",
-    "unmaintained_details": "Cette application n'a pas été mise à jour depuis longtemps et le responsable précédent est parti ou n'a pas le temps de maintenir cette application. N'hésitez pas à consulter le repertoire des applications pour apporter votre aide"
+    "unmaintained_details": "Cette application n'a pas été mise à jour depuis un bon moment et le responsable précédent est parti ou n'a pas le temps de maintenir cette application. N'hésitez pas à consulter le référentiel des applications pour apporter votre aide",
+    "group_explain_visitors_needed_for_external_client": "Veillez à ce que certaines applications soient autorisées pour les visiteurs si vous avez l'intention de les utiliser avec des clients externes. Par exemple, c'est le cas pour Nextcloud si vous souhaitez avoir l'intention d'utiliser un client de synchronisation sur votre smartphone ou ordinateur de bureau.",
+    "issues": "%s problèmes"
 }
