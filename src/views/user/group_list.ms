@@ -18,15 +18,17 @@
         <span class="fa-fw fa-{{icon}}"></span>
         {{text}} 
         <button data-type="{{type}}s" data-action="remove" data-item="{{value}}" data-group="{{group}}">
-            <span class="fa-close" style="margin-left:5px"></span>
-            <span class="sr-only">{{t 'delete'}}</span>
+            {{#unless protected}}
+                <span class="fa-close" style="margin-left:5px"></span>
+                <span class="sr-only">{{t 'delete'}}</span>
+            {{/unless}}
         </button>
     </span>
 {{/inline}}
 
 {{#*inline "labelsLine"}}
     {{#each items}}
-        {{> label text=(call ../display .) value=. icon=../icon type=../type item=. group=../group}}
+        {{> label text=(call ../display .) value=. icon=../icon type=../type item=. group=../group protected=(call ../is_protected . ../type ../group)}}
     {{/each}}
     {{#if inv}}
     <div class="btn-group">
@@ -73,7 +75,7 @@
                         <div style="font-style:italic">{{t 'group_explain_visitors_needed_for_external_client'}}</div>
                         {{/if}}
                     {{else}}
-                        {{> labelsLine display=../displayUser icon="user" type="member" items=members inv=membersInv group=@key}}
+                        {{> labelsLine display=../displayUser icon="user" type="member" items=members inv=membersInv group=@key is_protected=../is_protected}}
                     {{/if}}
                 </div>
             </div>
@@ -83,7 +85,7 @@
                     <h3>{{t 'permissions'}}</h3>
                 </div>
                 <div class="col-sm-10">
-                    {{> labelsLine display=../displayPermission icon="key-modern" type="permission" items=permissions inv=permissionsInv group=@key}}
+                    {{> labelsLine display=../displayPermission icon="key-modern" type="permission" items=permissions inv=permissionsInv group=@key is_protected=../is_protected}}
                 </div>
             </div>
         </div>
@@ -111,7 +113,7 @@
                         <h3><span class="fa-fw fa-user"></span> {{@key}}</h3>
                     </div>
                     <div class="col-sm-10">
-                        {{> labelsLine display=../displayPermission icon="key-modern" type="permission" items=permissions inv=permissionsInv group=@key}}
+                        {{> labelsLine display=../displayPermission icon="key-modern" type="permission" items=permissions inv=permissionsInv group=@key is_protected=../is_protected}}
                     </div>
                 </div>
                 <hr />
