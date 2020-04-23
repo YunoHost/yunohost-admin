@@ -143,12 +143,12 @@
                 "next_number": log.logs.length == number ? number * 10:false,
                 "locale": y18n.locale
             }, function() {
-                log = $("#log").html();
+                log = $("#main #log").html();
                 log = log.replace(/.*: ERROR - .*/g, function (match) { return '<span class="alert-danger">'+match+'</span>'});
                 log = log.replace(/.*: WARNING - .*/g, function (match) { return '<span class="alert-warning">'+match+'</span>'});
                 log = log.replace(/.*: SUCCESS - .*/g, function (match) { return '<span class="alert-success">'+match+'</span>'});
                 log = log.replace(/.*: INFO - .*/g, function (match) { return '<span class="alert-info">'+match+'</span>'});
-                $("#log").html(log);
+                $("#main #log").html(log);
 
                 // Configure behavior for the button to share log on Yunohost (it calls display --share)
                 $('button[data-action="share"]').on("click", function() {
