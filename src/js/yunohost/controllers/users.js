@@ -5,18 +5,6 @@
 
     var PASSWORD_MIN_LENGTH = 4;
 
-    // A small utility to convert a string to title case
-    // e.g. "hAvE a NicE dAy" --> "Have A Nice Day"
-    // Savagely stolen from https://stackoverflow.com/a/196991
-    function toTitleCase(str) {
-        return str.replace(
-            /\w\S*/g,
-            function(txt) {
-                return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-            }
-        );
-    }
-
     /**
      * Groups and permissions
      *
