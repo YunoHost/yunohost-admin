@@ -137,11 +137,19 @@
                     log.metadata.env = log.metadata.args
                 }
             }
+
             c.view('tools/tools_log', {
                 "log": log,
                 "next_number": log.logs.length == number ? number * 10:false,
                 "locale": y18n.locale
             }, function() {
+                log = $("#main #log").html();
+                log = log.replace(/.*: ERROR - .*/g, function (match) { return '<span class="alert-danger">'+match+'</span>'});
+                log = log.replace(/.*: WARNING - .*/g, function (match) { return '<span class="alert-warning">'+match+'</span>'});
+                log = log.replace(/.*: SUCCESS - .*/g, function (match) { return '<span class="alert-success">'+match+'</span>'});
+                log = log.replace(/.*: INFO - .*/g, function (match) { return '<span class="alert-info">'+match+'</span>'});
+                $("#main #log").html(log);
+
                 // Configure behavior for the button to share log on Yunohost (it calls display --share)
                 $('button[data-action="share"]').on("click", function() {
                     c.api('GET', '/logs/display?path='+$(this).data('log-id')+'&share', {},
