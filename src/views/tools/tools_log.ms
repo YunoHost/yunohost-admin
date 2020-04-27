@@ -22,10 +22,11 @@
 <dt>{{t 'logs_path'}}</dt> <dd>{{ log.log_path }}</dd>
 {{#if log.metadata.started_at}}<dt>{{t 'logs_started_at'}}</dt> <dd>{{formatTime log.metadata.started_at day="numeric" month="long" year="numeric" hour="numeric" minute="numeric"}}</dd>
 {{/if}}{{#if log.metadata.ended_at}}<dt>{{t 'logs_ended_at'}}</dt> <dd>{{formatTime log.metadata.ended_at day="numeric" month="long" year="numeric" hour="numeric" minute="numeric"}}</dd>{{/if}}
-{{#if log.metadata.error}}<dt>{{t 'logs_error'}}</dt> <dd>{{t 'logs_end_with_error'}} {{log.metadata.error}}</dd>{{/if}}
+{{#if log.metadata.error}}<dt>{{t 'logs_error'}}</dt> <dd>{{log.metadata.error}}</dd>{{/if}}
         </dl>
     </div>
 </div>
+<!--
 {{#if log.metadata.env}}
 <div class="panel panel-default">
     <div class="panel-heading" role="tab" id="heading-context">
@@ -45,6 +46,7 @@
     </div>
 </div>
 {{/if}}
+-->
 
 {{/if}}
 <div class="panel panel-default">
