@@ -16,9 +16,9 @@
     <div class="panel-body">
         <dl class="dl-horizontal">
             <dt>{{t 'id'}}</dt>
-            <dd>{{id}}</dd>
+            <dd>{{manifest.id}}</dd>
             <dt>{{t 'description'}}</dt>
-            <dd>{{manifest.description}}</dd>
+            <dd>{{description}}</dd>
             {{#displayLicense}}
             <dt>{{t 'license'}}</dt>
             <dd>{{manifest.license}}</dd>

@@ -28,6 +28,8 @@
     app.before(/domains\/add/, prefetchDomains);
     app.before(/apps\/install\//, prefetchDomains);
     app.before(/apps\/install\//, prefetchUsers);
+    app.before(/apps\/install\/custom\//, prefetchDomains);
+    app.before(/apps\/install\/custom\//, prefetchUsers);
     app.before(/apps\/\w+\/actions/, prefetchUsers);
     app.before(/apps\/\w+\/actions/, prefetchDomains);
     app.before(/apps\/\w+\/config-panel/, prefetchUsers);
