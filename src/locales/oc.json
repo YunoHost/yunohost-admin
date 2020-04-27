@@ -471,5 +471,9 @@
     "app_state_low_quality": "qualitat bassa",
     "catalog": "Catalòg",
     "others": "Autras",
-    "run_first_diagnosis": "Executar lo diagnostic inicial"
+    "run_first_diagnosis": "Executar lo diagnostic inicial",
+    "confirm_service_restart": "Volètz vertadièrament reaviar %s ?",
+    "restart": "Reaviar",
+    "groups": "Grops",
+    "issues": "%s problèmas"
 }
