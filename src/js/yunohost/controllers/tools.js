@@ -58,7 +58,7 @@
 
                     // Upgrade all apps or the system
 
-                    if ((what == "system") || (what == "system"))
+                    if ((what == "system") || (what == "apps"))
                     {
                         var confirm_message = y18n.t('confirm_update_' + what);
                         var api_url = '/upgrade?'+what;
