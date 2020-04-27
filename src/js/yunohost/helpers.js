@@ -336,11 +336,11 @@
                         }
                     });
 
-                    // Run callback
-                    callback();
-
                     // Force scrollTop on page load
                     $('html, body').scrollTop(0);
+
+                    // Run callback
+                    callback();
                 });
             };
 

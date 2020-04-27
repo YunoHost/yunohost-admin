@@ -13,8 +13,8 @@
         });
     });
 
+    function updateDiagnosisView(state) {
 
-    function updateDiagnosisView() {
         c.api('GET', '/diagnosis/show?full', {}, function(data) {
 
             if (typeof(data.reports) === "undefined")
@@ -75,6 +75,8 @@
             // Render and display the view
             c.view('diagnosis/diagnosis_show', data, function() {
 
+                restoreDiagnosisViewState(state);
+
                 // Button for first diagnosis
                 $("button[data-action='run-full-diagnosis']").click(function() {
                     c.api('POST', '/diagnosis/run', {}, function(data) {
@@ -94,7 +96,7 @@
                 $("button[data-action='rerun-diagnosis']").click(function() {
                     var category = $(this).data("category");
                     c.api('POST', '/diagnosis/run?force', {"categories": [category]}, function(data) {
-                        updateDiagnosisView();
+                        updateDiagnosisView(saveDiagnosisViewState());
                     });
                 });
 
@@ -102,19 +104,50 @@
                 $("button[data-action='ignore']").click(function() {
                     var filter_args = $(this).data("filter-args");
                     c.api('POST', '/diagnosis/ignore', {'add_filter': filter_args.split(',') }, function(data) {
-                        updateDiagnosisView();
+                        updateDiagnosisView(saveDiagnosisViewState());
                     })
                 });
 
                 $("button[data-action='unignore']").click(function() {
                     var filter_args = $(this).data("filter-args");
                     c.api('POST', '/diagnosis/ignore', {'remove_filter': filter_args.split(',') }, function(data) {
-                        updateDiagnosisView();
+                        updateDiagnosisView(saveDiagnosisViewState());
                     })
                 });
             });
         });
     }
+
+    // Save current level of scroll + which panels are collapsed / not collapsed
+    function saveDiagnosisViewState() {
+        var collapse = {};
+        $(".panel-diagnosis").each(function(i, el) {
+            console.log($(el));
+            console.log($(el).data("category"));
+            collapse[$(el).data("category")] = $($(".panel-body", el)[0]).hasClass("in");
+        });
+        return { "scroll": document.documentElement.scrollTop, "collapse": collapse };
+    }
+
+    // Restore scroll + panel collapse state
+    function restoreDiagnosisViewState(state) {
+        if (typeof state === "undefined") { return; }
+
+        Object.keys(state.collapse).forEach(function(category)  {
+            console.log(category);
+            console.log(state.collapse[category]);
+            if (state.collapse[category]) {
+                $(".panel-diagnosis[data-category='"+category+"'] .panel-body").addClass("in");
+            }
+            else
+            {
+                $(".panel-diagnosis[data-category='"+category+"'] .panel-body").removeClass("in");
+            }
+        });
+
+        window.scroll(0,state.scroll);
+    }
+
 
 
 })();
