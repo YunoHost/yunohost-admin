@@ -122,8 +122,6 @@
     function saveDiagnosisViewState() {
         var collapse = {};
         $(".panel-diagnosis").each(function(i, el) {
-            console.log($(el));
-            console.log($(el).data("category"));
             collapse[$(el).data("category")] = $($(".panel-body", el)[0]).hasClass("in");
         });
         return { "scroll": document.documentElement.scrollTop, "collapse": collapse };
@@ -134,8 +132,6 @@
         if (typeof state === "undefined") { return; }
 
         Object.keys(state.collapse).forEach(function(category)  {
-            console.log(category);
-            console.log(state.collapse[category]);
             if (state.collapse[category]) {
                 $(".panel-diagnosis[data-category='"+category+"'] .panel-body").addClass("in");
             }
