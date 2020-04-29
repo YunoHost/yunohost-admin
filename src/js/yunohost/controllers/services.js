@@ -58,6 +58,18 @@
 
             c.view('service/service_info', data, function() {
 
+                // Don't allow user to stop critical services from the webadmin
+                $('button[data-action="stop"]').each(function() {
+
+                    var critical = ['nginx', 'ssh', 'slapd', 'yunohost-api'];
+                    var service = $(this).data('service');
+
+                    if (critical.indexOf(service) >= 0)
+                    {
+                        $(this).hide();
+                    }
+                });
+
                 // Configure behavior for enable/disable and start/stop buttons
                 $('button[data-action="start"], button[data-action="restart"], button[data-action="stop"]').on('click', function() {
 
