@@ -41,6 +41,9 @@
                     if (type_ == "success") {
                         icon = "check-circle";
                     }
+                    else if (type_ == "info") {
+                        icon = "info-circle";
+                    }
                     else if (ignored == true) {
                         icon = type_;
                         if (type_ == "error") {
