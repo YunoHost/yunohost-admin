@@ -11,13 +11,15 @@
 
 <div class="separator"></div>
 
-{{#unless reports}}
 <div class="alert alert-info text-center">
+{{#if reports}}
+<p>{{t 'diagnosis_explanation'}}</p>
+{{else}}
 <p>{{t 'diagnosis_first_run'}}</p>
 <br>
 <button class="btn btn-info" data-action="run-full-diagnosis"><span class="fa-fw fa-stethoscope"></span> {{t 'run_first_diagnosis'}}</button>
+{{/if}}
 </div>
-{{/unless}}
 
 <div class="alert alert-warning text-center">{{t 'diagnosis_experimental_disclaimer'}}</div>
 
