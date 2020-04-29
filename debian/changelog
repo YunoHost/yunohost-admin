@@ -1,3 +1,19 @@
+yunohost-admin (3.8.2) testing; urgency=low
+
+  - [enh] Highlight error/warnings/... in tools > logs (#294)
+  - [enh] Hide stop button for critical services ? (#295)
+  - [fix] Stupid typo in upgrade controller prevented upgrading all apps (a3a0d8f)
+  - [fix] Custom app install + misc detail in regular app install (1592ab4)
+  - [fix] Make the 'all apps' button look like the others (9694d8a)
+  - [mod] Simplify log view (4480836)
+  - [enh] Save/restore collapse states when refreshing diagnosis view (a110e56)
+  - [enh] Add an explanation text on top of the diagnosis view (ccefdd6)
+  - [i18n] Improve translations for Esperanto, Spanish, French, Occitan, Polish, Nepali
+
+  Thanks to all contributors <3 ! (Quentí, Simon, amirale qt)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Wed, 29 Apr 2020 23:20:00  +0000
+
 yunohost-admin (3.8.1.1) testing; urgency=low
 
   - [hotfix] Pacman hanging forever after fetching version number..
