@@ -26,6 +26,13 @@
         </dl>
     </div>
 </div>
+
+{{#if log.metadata.error}}
+<div class="alert alert-danger text-center">
+<p>{{t 'operation_failed_explanation'}}</p>
+</div>
+{{/if}}
+
 <!--
 {{#if log.metadata.env}}
 <div class="panel panel-default">

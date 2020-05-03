@@ -203,6 +203,7 @@
     "orphaned": "Not maintained",
     "orphaned_details": "This app has not been maintained for quite some time. It may still be working, but won't receive any upgrade until somebody volunteers to take care of it. Feel free to contribute to revive it!",
     "others": "Others",
+    "operation_failed_explanation": "This operation failed! Really sorry about that :( You can try to <a href='https://yunohost.org/help'>ask for help</a>. Please provide *the full log* of the operation to the people helping you. You can do so by clicking on the 'Share with Yunopaste' green button. When sharing the logs, YunoHost will automatically attempt to anonymize private data like domain names and IPs.",
     "password": "Password",
     "password_confirmation": "Password confirmation",
     "password_empty": "The password field is empty",
