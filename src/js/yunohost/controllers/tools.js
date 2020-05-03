@@ -129,7 +129,7 @@
     app.get(/\#\/tools\/logs\/(.*)(\?number=(\d+))?/, function (c) {
         var params = "?path=" + c.params["splat"][0];
         var number = (c.params["number"])?c.params["number"]:50;
-        params += "&number=" + number;
+        params += "&filter_irrelevant&number=" + number;
 
         c.api('GET', "/logs/display" + params, {}, function(log) {
             if ('metadata' in log) {
