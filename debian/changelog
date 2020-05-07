@@ -1,3 +1,11 @@
+yunohost-admin (3.8.3) testing; urgency=low
+
+  - [enh] Add a note and explanation about sharing the logs when viewing logs of shared operations
+  - [enh] Filter non-relevant line in operation log view
+  - [fix] Remove an unecessary call to app list on domain view
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Thu, 07 Apr 2020 04:15:00  +0000
+
 yunohost-admin (3.8.2) testing; urgency=low
 
   - [enh] Highlight error/warnings/... in tools > logs (#294)
