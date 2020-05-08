@@ -340,7 +340,7 @@
     "certificate_authority": "Certification authority",
     "validity": "Validity",
     "domain_is_eligible_for_ACME": "This domain seems correctly configured to install a Let's Encrypt certificate!",
-    "domain_not_eligible_for_ACME": "This domain doesn't seem ready for a Let's Encrypt certificate. Please check your DNS configuration and HTTP server reachability.",
+    "domain_not_eligible_for_ACME": "This domain doesn't seem ready for a Let's Encrypt certificate. Please check your DNS configuration and HTTP server reachability. The 'DNS records' and 'Web' section in <a href='#/diagnosis'>the diagnosis page</a> can help you understand what is misconfigured.",
     "install_letsencrypt_cert": "Install a Let's Encrypt certificate",
     "manually_renew_letsencrypt_message": "Certificate will be automatically renewed during the last 15 days of validity. You can manually renew it if you want to. (Not recommended).",
     "manually_renew_letsencrypt": "Manually renew now",
