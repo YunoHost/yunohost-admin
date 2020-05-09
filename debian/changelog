@@ -1,3 +1,10 @@
+yunohost-admin (3.8.3.1) testing; urgency=low
+
+  - Add tip about the diagnosis page if domain seems not ready for ACME (e7a4df1)
+  - Support raw string in 'ask' fields from manifest (for upcoming thing in core about default strings for install questions) (ee20f55)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Sat, 09 May 2020 20:24:00 +0200
+
 yunohost-admin (3.8.3) testing; urgency=low
 
   - [enh] Add a note and explanation about sharing the logs when viewing logs of shared operations
