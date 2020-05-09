@@ -412,10 +412,16 @@
             args[k].helpLink = "";
 
             // Multilingual label
-            args[k].label = (typeof args[k].ask[y18n.locale] !== 'undefined') ?
-                                args[k].ask[y18n.locale] :
-                                args[k].ask['en']
-                                ;
+            if (typeof args[k].ask === "string")
+            {
+                args[k].label = args[k].ask;
+            }
+            else if (typeof args[k].ask[y18n.locale] !== 'undefined') {
+                args[k].label = args[k].ask[y18n.locale];
+            }
+            else {
+                args[k].label = args[k].ask['en'];
+            }
 
             // Multilingual help text
             if (typeof args[k].help !== 'undefined') {
