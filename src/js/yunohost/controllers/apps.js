@@ -154,7 +154,7 @@
                 app.manifest.maintainer = extractMaintainer(app.manifest);
                 var isWorking = (app.state === 'working' || app.state === "high-quality") && app.level > 0;
 
-                app.installable = (!app.installed || app.manifest.supports_multi_instance)
+                app.installable = (!app.installed || app.manifest.multi_instance)
                 app.levelFormatted = isNaN(app.level) ? '?' : app.level;
 
                 app.levelColor = levelToColor(app.level);
