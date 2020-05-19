@@ -318,5 +318,6 @@
     "diagnosis_experimental_disclaimer": "Esteja ciente de que a ferramenta de diagnóstico ainda é experimental e está em fase de aperfeiçoamento, e pode não ser totalmente confiável.",
     "details": "Detalhes",
     "catalog": "Catálogo",
-    "configuration": "Configuração"
+    "configuration": "Configuração",
+    "confirm_service_restart": "Tem certeza que deseja reiniciar %s?"
 }
