@@ -75,7 +75,7 @@
     "free": "Livre",
     "fs_type": "Tipo de Sistema de Ficheiros",
     "gateway": "Gateway: ",
-    "hook_conf_ldap": "LDAP",
+    "hook_conf_ldap": "Base de dados LDAP",
     "hook_conf_nginx": "Nginx",
     "hook_conf_ssh": "SSH",
     "hook_conf_ssowat": "SSOwat",
@@ -224,7 +224,7 @@
     "yes": "Sim",
     "cancel": "Cancelar",
     "remove": "Remover",
-    "api_not_responding": "API não está respondendo",
+    "api_not_responding": "A API YunoHost não está respondendo. Talvez 'yunohost-api' esteja desligada ou foi reiniciada?",
     "app_change_label": "Mudar etiqueta",
     "app_change_url": "Mudar URL",
     "app_debug_no_logs": "Logs da aplicação não estão disponíveis",
@@ -243,7 +243,7 @@
     "app_no_actions": "Esta aplicação não tem nenhuma ação",
     "app_repository": "Origem da aplicação: ",
     "app_state": "Estado da aplicação: ",
-    "app_state_inprogress": "Em curso",
+    "app_state_inprogress": "ainda não está funcionando",
     "app_state_inprogress_explanation": "O responsável desta aplicação afirmou que não está pronta ainda para ser usada em produção. TENHA CUIDADO!",
     "app_state_notworking": "Não funcionando",
     "app_state_notworking_explanation": "O responsável desta aplicação afirmou que não está funcionando. INSTALANDO-A PODE QUEBRAR SEU SISTEMA!",
@@ -318,5 +318,6 @@
     "diagnosis_experimental_disclaimer": "Esteja ciente de que a ferramenta de diagnóstico ainda é experimental e está em fase de aperfeiçoamento, e pode não ser totalmente confiável.",
     "details": "Detalhes",
     "catalog": "Catálogo",
-    "configuration": "Configuração"
+    "configuration": "Configuração",
+    "confirm_service_restart": "Tem certeza que deseja reiniciar %s?"
 }

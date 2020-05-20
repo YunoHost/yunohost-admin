@@ -10,8 +10,8 @@
 
     // List existing domains
     app.get('#/domains', function (c) {
-        c.api('/domains', function(data) { // http://api.yunohost.org/#!/domain/domain_list_get_2
-            c.api('/domains/main', function(data2) {
+        c.api('GET', '/domains', {}, function(data) {
+            c.api('PUT', '/domains/main', {}, function(data2) {
                 var domains = [];
                 $.each(data.domains, function(k, domain) {
                     domains.push({
@@ -29,7 +29,7 @@
                     domains: domains,
                     main_domain_form: main_domain_form
                 });
-            }, 'PUT');
+            });
         });
     });
 
@@ -68,8 +68,7 @@
         if (c.params['domain'] === '') {
             if (c.params['ddomain'] === '') {
                 c.flash('fail', y18n.t('error_select_domain'));
-                store.clear('slide');
-                c.redirect('#/domains/add');
+                c.redirect_to('#/domains/add');
             }
             params.domain = c.params['ddomain'] + c.params['ddomain-ext'];
             endurl = 'dyndns';
@@ -77,42 +76,53 @@
             params.domain = c.params['domain'];
         }
 
-        c.api('/domains?'+endurl, function(data) { // http://api.yunohost.org/#!/domain/domain_add_post_1
-            c.redirect('#/domains');
-        }, 'POST', params);
+        c.api('POST', '/domains?'+endurl, params, function(data) {
+            c.redirect_to('#/domains');
+        });
     });
 
     // Get existing domain info
     app.get('#/domains/:domain', function (c) {
-        c.api('/domains/main', function(dataMain) {
-            c.api('/apps?installed', function(data) { // http://api.yunohost.org/#!/app/app_list_get_8
+        c.api('PUT', '/domains/main', {}, function(dataMain) {
+            var domain = {
+                name: c.params['domain'],
+                main: (c.params['domain'] == dataMain.current_main_domain) ? true : false,
+                url: "https://"+c.params['domain']
+            };
+            c.view('domain/domain_info', domain, function() {
 
-                // FIXME - This dirty trick (along with the previous API call
-                //  for apps installed) should be removed once letsencrypt_ynh
-                //  is not used by many people anymore. Probably around 07/2017
-                //  or end of 2017...
-                var enable_cert_management_ = true;
-                $.each(data['apps'], function(k, v) {
-                    if (v.id == "letsencrypt") {
-                        enable_cert_management_ = false;
-                    }
+                // Configure "set default" button
+                $('button[data-action="set_default"]').on("click", function() {
+                    var domain = $(this).data("domain");
+                    c.confirm(
+                        y18n.t('domains'),
+                        y18n.t('confirm_change_maindomain'),
+                        function() {
+                            c.api('PUT', '/domains/main', {new_main_domain: domain}, function() { c.refresh() });
+                        }
+                    )
                 });
 
-
-                var domain = {
-                    name: c.params['domain'],
-                    main: (c.params['domain'] == dataMain.current_main_domain) ? true : false,
-                    url: "https://"+c.params['domain'],
-                    enable_cert_management: enable_cert_management_
-                };
-                c.view('domain/domain_info', domain);
+                // Configure delete button
+                $('button[data-action="delete"]').on("click", function() {
+                    var domain = $(this).data("domain");
+                    c.confirm(
+                        y18n.t('domains'),
+                        y18n.t('confirm_delete', [domain]),
+                        function(){
+                            c.api('DELETE', '/domains/'+ domain, {}, function() {
+                                c.redirect_to('#/domains');
+                            });
+                        }
+                    );
+                });
             });
-        }, 'PUT');
+        });
     });
 
     // Domain DNS
     app.get('#/domains/:domain/dns', function (c) {
-        c.api('/domains/' + c.params['domain'] + '/dns', function(data) {
+        c.api('GET', '/domains/' + c.params['domain'] + '/dns', {}, function(data) {
             var domain = {
                 name: c.params['domain'],
                 dns: data
@@ -123,7 +133,7 @@
 
     // Domain certificate
     app.get('#/domains/:domain/cert-management', function (c) {
-        c.api('/domains/cert-status/' + c.params['domain'] + '?full', function(data) {
+        c.api('GET', '/domains/cert-status/' + c.params['domain'] + '?full', {}, function(data) {
 
             var s = data["certificates"][c.params['domain']];
             var status_ = {
@@ -199,132 +209,45 @@
                 status: status_,
                 actions_enabled : actions_enabled
             };
-            c.view('domain/domain_cert', data_);
+
+            c.view('domain/domain_cert', data_, function() {
+                // Configure install / renew buttons behavior
+                $("button[data-action]").on("click", function () {
+                    var action = $(this).data("action"),
+                        domain = $(this).data("domain"),
+                        confirm_key = "",
+                        api_url = "";
+
+                    switch (action) {
+                        case 'install-LE':
+                            confirm_key = 'confirm_cert_install_LE';
+                            api_url = '/domains/cert-install/' + domain;
+                            break;
+                        case 'regen-selfsigned':
+                            confirm_key = 'confirm_cert_regen_selfsigned';
+                            api_url = '/domains/cert-install/' + domain + "?self_signed";
+                            break;
+                        case 'renew-letsencrypt':
+                            confirm_key = 'confirm_cert_manual_renew_LE';
+                            api_url = '/domains/cert-renew/' + domain + "?force";
+                            break;
+                        case 'replace-with-selfsigned':
+                            confirm_key = 'confirm_cert_revert_to_selfsigned';
+                            api_url = '/domains/cert-install/' + domain + "?self_signed&force";
+                            break;
+                        default:
+                            c.flash('fail', y18n.t('unknown_action', [action]));
+                            return
+                    }
+
+                    c.confirm(
+                        y18n.t('certificate'),
+                        y18n.t(confirm_key, [domain]),
+                        function(){ c.api('POST', api_url, {}, function() { c.refresh() }); }
+                    );
+                });
+            });
         });
-    });
-
-    // Install let's encrypt certificate on domain
-    app.get('#/domains/:domain/cert-install-LE', function (c) {
-        c.confirm(
-            y18n.t('certificate'),
-            y18n.t('confirm_cert_install_LE', [c.params['domain']]),
-            function(){
-                c.api('/domains/cert-install/' + c.params['domain'], function(data) {
-                    store.clear('slide');
-                    c.redirect('#/domains/'+c.params['domain']+'/cert-management');
-                }, 'POST');
-            },
-            function(){
-                store.clear('slide');
-                c.redirect('#/domains/'+c.params['domain']+'/cert-management');
-            }
-        );
-    });
-
-    // Regenerate a self-signed certificate
-    app.get('#/domains/:domain/cert-regen-selfsigned', function (c) {
-        c.confirm(
-            y18n.t('certificate'),
-            y18n.t('confirm_cert_regen_selfsigned', [c.params['domain']]),
-            function(){
-                c.api('/domains/cert-install/' + c.params['domain'] + "?self_signed", function(data) {
-                    store.clear('slide');
-                    c.redirect('#/domains/'+c.params['domain']+'/cert-management');
-                }, 'POST');
-            },
-            function(){
-                store.clear('slide');
-                c.redirect('#/domains/'+c.params['domain']+'/cert-management');
-            }
-        );
-    });
-
-    // Manually renew a Let's Encrypt certificate
-    app.get('#/domains/:domain/cert-renew-letsencrypt', function (c) {
-        c.confirm(
-            y18n.t('certificate'),
-            y18n.t('confirm_cert_manual_renew_LE', [c.params['domain']]),
-            function(){
-                c.api('/domains/cert-renew/' + c.params['domain'] + "?force", function(data) {
-                    store.clear('slide');
-                    c.redirect('#/domains/'+c.params['domain']+'/cert-management');
-                }, 'POST');
-            },
-            function(){
-                store.clear('slide');
-                c.redirect('#/domains/'+c.params['domain']+'/cert-management');
-            }
-        );
-    });
-
-    // Replace valid cert with self-signed
-    app.get('#/domains/:domain/cert-replace-with-selfsigned', function (c) {
-        c.confirm(
-            y18n.t('certificate'),
-            y18n.t('confirm_cert_revert_to_selfsigned', [c.params['domain']]),
-            function(){
-                c.api('/domains/cert-install/' + c.params['domain'] + "?self_signed&force", function(data) {
-                    store.clear('slide');
-                    c.redirect('#/domains/'+c.params['domain']+'/cert-management');
-                }, 'POST');
-            },
-            function(){
-                store.clear('slide');
-                c.redirect('#/domains/'+c.params['domain']+'/cert-management');
-            }
-        );
-    });
-
-
-    // Remove existing domain
-    app.get('#/domains/:domain/delete', function (c) {
-        c.confirm(
-            y18n.t('domains'),
-            y18n.t('confirm_delete', [c.params['domain']]),
-            function(){
-                c.api('/domains/'+ c.params['domain'], function(data) { // http://api.yunohost.org/#!/domain/domain_remove_delete_3
-                    store.clear('slide');
-                    c.redirect('#/domains');
-                }, 'DELETE');
-            },
-            function(){
-                store.clear('slide');
-                c.redirect('#/domains');
-            }
-        );
-    });
-
-    // Set default domain
-    app.post('#/domains', function (c) {
-        if (c.params['domain'] === '') {
-            c.flash('fail', y18n.t('error_select_domain'));
-            store.clear('slide');
-            c.redirect('#/domains');
-        } else {
-            c.confirm(
-                y18n.t('domains'),
-                y18n.t('confirm_change_maindomain'),
-                function(){
-                    var params = {
-                        new_domain: c.params['domain']
-                    };
-                    c.api('/domains/main', function(data) { // http://api.yunohost.org/#!/tools/tools_maindomain_put_1
-                        store.clear('slide');
-                        c.redirect('#/domains');
-                    }, 'PUT', params);
-
-                    // Wait 15s and refresh the page
-                    var refreshDomain = window.setTimeout(function(){
-                        store.clear('slide');
-                        c.redirect('#/domains');
-                    }, 15000);
-                },
-                function(){
-                    store.clear('slide');
-                    c.redirect('#/domains');
-                }
-            );
-        }
     });
 
 })();

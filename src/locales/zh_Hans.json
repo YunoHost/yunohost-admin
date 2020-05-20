@@ -11,5 +11,6 @@
     "logged_out": "登出",
     "cancel": "取消",
     "ok": "好",
-    "password": "密码"
+    "password": "密码",
+    "logged_in": "登录"
 }

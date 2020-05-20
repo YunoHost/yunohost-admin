@@ -23,6 +23,10 @@
         <span class="pull-right fa-chevron-right"></span>
         <h2 class="list-group-item-heading"><span class="fa-fw fa-wrench"></span> {{t 'tools'}}</h2>
     </a>
+    <a href="#/diagnosis" class="list-group-item slide clearfix">
+        <span class="pull-right fa-chevron-right"></span>
+        <h2 class="list-group-item-heading"><span class="fa-fw fa-stethoscope"></span> {{t 'diagnosis'}}</h2>
+    </a>
     <a href="#/backup" class="list-group-item slide clearfix">
         <span class="pull-right fa-chevron-right"></span>
         <h2 class="list-group-item-heading"><span class="fa-fw fa-archive"></span> {{t 'backup'}}</h2>

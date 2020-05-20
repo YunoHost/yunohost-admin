@@ -12,7 +12,7 @@
     function prefetchDomains(req) {
         // Preload domains list.
         req.params.domains = [];
-        req.api('/domains', function(data) {
+        req.api('GET', '/domains', {}, function(data) {
             req.params.domains = data.domains;
         });
     }
@@ -20,7 +20,7 @@
     function prefetchUsers(req){
         // Preload users lists.
         req.params.users = [];
-        req.api('/users', function(data) {
+        req.api('GET', '/users', {}, function(data) {
             req.params.users = data.users;
         });
     }
@@ -28,6 +28,8 @@
     app.before(/domains\/add/, prefetchDomains);
     app.before(/apps\/install\//, prefetchDomains);
     app.before(/apps\/install\//, prefetchUsers);
+    app.before(/apps\/install\/custom\//, prefetchDomains);
+    app.before(/apps\/install\/custom\//, prefetchUsers);
     app.before(/apps\/\w+\/actions/, prefetchUsers);
     app.before(/apps\/\w+\/actions/, prefetchDomains);
     app.before(/apps\/\w+\/config-panel/, prefetchUsers);

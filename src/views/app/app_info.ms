@@ -22,7 +22,7 @@
             <dt>{{t 'version'}}</dt>
             <dd>{{version}}</dd>
             <dt>{{t 'multi_instance'}}</dt>
-            <dd>{{manifest.multi_instance}}</dd>
+            <dd>{{supports_multi_instance}}</dd>
             <dt>{{t 'install_time'}}</dt>
             <dd>{{formatTime install_time day="numeric" month="long" year="numeric" hour="numeric" minute="numeric"}}</dd>
             {{#if settings.domain}}
@@ -57,14 +57,14 @@
         <hr>
         <div class="container">
             <p>{{t 'app_info_default_desc' settings.domain}}</p>
-            <a role="button" href="#/apps/{{settings.id}}/default" class="btn btn-success slide">
+            <button class="btn btn-success" data-action="set-as-default" data-app="{{settings.id}}">
                 <span class="fa-star"></span> {{t 'app_make_default'}}
-            </a>
+            </button>
         </div>
         <hr>
         <div class="container">
             <p>{{t 'app_info_changeurl_desc' settings.domain}}</p>
-            {{#if change_url}}
+            {{#if supports_change_url}}
                 <a href="#/apps/{{settings.id}}/changeurl" role="button" class="btn btn-info slide">
                     <span class="fa-exchange"></span> {{t 'app_change_url'}}
                 </a>
@@ -79,16 +79,9 @@
         <hr>
         <div class="container">
             <p>{{t 'app_info_uninstall_desc'}}</p>
-            <a href="#/apps/{{settings.id}}/uninstall" role="button" class="btn btn-danger slide back">
+            <button class="btn btn-danger slide back" data-action="uninstall" data-app="{{settings.id}}">
                 <span class="fa-trash-o"></span> {{t 'uninstall'}}
-            </a>
-        </div>
-        <hr>
-        <div class="container">
-            <p>{{t 'app_info_debug_desc'}}</p>
-            <a href="#/apps/{{settings.id}}/debug" role="button" class ="btn btn-warning slide">
-                <span class="fa-bug"></span> {{t 'app_debug_tab'}}
-            </a>
+            </button>
         </div>
     </div>
 </div>

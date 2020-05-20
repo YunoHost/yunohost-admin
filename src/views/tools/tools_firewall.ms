@@ -29,20 +29,20 @@
                     <td>
                     {{#if this.ipv4}}
                     <span class="fa-check"></span>
-                    <a class="btn btn-xs btn-danger" href="#/tools/firewall/port/{{@key}}/tcp/ipv4/close">{{t 'close'}}</a>
+                    <button class="btn btn-xs btn-danger" data-action="close" data-port="{{@key}}" data-protocol="tcp" data-connection="ipv4">{{t 'close'}}</button>
                     {{else}}
                     <span></span>
                     <span class="fa-times"></span>
-                    <a class="btn btn-xs btn-success" href="#/tools/firewall/port/{{@key}}/tcp/ipv4/open">{{t 'open'}}</a>
+                    <button class="btn btn-xs btn-success" data-action="open" data-port="{{@key}}" data-protocol="tcp" data-connection="ipv4">{{t 'open'}}</button>
                     {{/if}}
                     </td>
                     <td>
                     {{#if this.ipv6}}
                     <span class="fa-check"></span>
-                    <a class="btn btn-xs btn-danger" href="#/tools/firewall/port/{{@key}}/tcp/ipv6/close">{{t 'close'}}</a>
+                    <button class="btn btn-xs btn-danger" data-action="close" data-port="{{@key}}" data-protocol="tcp" data-connection="ipv6">{{t 'close'}}</button>
                     {{else}}
                     <span class="fa-times"></span>
-                    <a class="btn btn-xs btn-success" href="#/tools/firewall/port/{{@key}}/tcp/ipv6/open">{{t 'open'}}</a>
+                    <button class="btn btn-xs btn-success" data-action="open" data-port="{{@key}}" data-protocol="tcp" data-connection="ipv6">{{t 'open'}}</button>
                     {{/if}}
                     </td>
                     <td>
@@ -75,20 +75,20 @@
                     <td>
                     {{#if this.ipv4}}
                     <span class="fa-check"></span>
-                    <a class="btn btn-xs btn-danger" href="#/tools/firewall/port/{{@key}}/udp/ipv4/close">{{t 'close'}}</a>
+                    <button class="btn btn-xs btn-danger" data-action="close" data-port="{{@key}}" data-protocol="udp" data-connection="ipv4">{{t 'close'}}</button>
                     {{else}}
                     <span></span>
                     <span class="fa-times"></span>
-                    <a class="btn btn-xs btn-success" href="#/tools/firewall/port/{{@key}}/udp/ipv4/open">{{t 'open'}}</a>
+                    <button class="btn btn-xs btn-success" data-action="open" data-port="{{@key}}" data-protocol="udp" data-connection="ipv4">{{t 'open'}}</button>
                     {{/if}}
                     </td>
                     <td>
                     {{#if this.ipv6}}
                     <span class="fa-check"></span>
-                    <a class="btn btn-xs btn-danger" href="#/tools/firewall/port/{{@key}}/udp/ipv6/close">{{t 'close'}}</a>
+                    <button class="btn btn-xs btn-danger" data-action="close" data-port="{{@key}}" data-protocol="udp" data-connection="ipv6">{{t 'close'}}</button>
                     {{else}}
                     <span class="fa-times"></span>
-                    <a class="btn btn-xs btn-success" href="#/tools/firewall/port/{{@key}}/udp/ipv6/open">{{t 'open'}}</a>
+                    <button class="btn btn-xs btn-success" data-action="open" data-port="{{@key}}" data-protocol="udp" data-connection="ipv6">{{t 'open'}}</button>
                     {{/if}}
                     </td>
                     <td>
@@ -168,10 +168,10 @@
     <div class="panel-body">
         {{#if upnp}}
             <p class="text-success">{{t 'upnp_enabled'}}</p>
-            <a role="button"  href="#/tools/firewall/upnp/disable" class="btn btn-danger">{{t 'disable'}}</a>
+            <button class="btn btn-danger" data-upnp="disable">{{t 'disable'}}</button>
         {{else}}
             <p class="text-danger">{{t 'upnp_disabled'}}</p>
-            <a role="button" href="#/tools/firewall/upnp/enable" class="btn btn-success">{{t 'enable'}}</a>
+            <button class="btn btn-success" data-upnp="enable">{{t 'enable'}}</button>
         {{/if}}
     </div>
 </div>

@@ -21,10 +21,5 @@
         </h2>
         <p class="list-group-item-text">https://{{url}}</p>
     </a>
-    {{else}}
-    <div class="alert alert-warning">
-        <span class="fa-exclamation-triangle"></span>
-        {{t 'domains_no'}}
-    </div>
     {{/each}}
 </div>

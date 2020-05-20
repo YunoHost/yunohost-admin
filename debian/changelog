@@ -1,3 +1,79 @@
+yunohost-admin (3.8.3.1) testing; urgency=low
+
+  - Add tip about the diagnosis page if domain seems not ready for ACME (e7a4df1)
+  - Support raw string in 'ask' fields from manifest (for upcoming thing in core about default strings for install questions) (ee20f55)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Sat, 09 May 2020 20:24:00 +0200
+
+yunohost-admin (3.8.3) testing; urgency=low
+
+  - [enh] Add a note and explanation about sharing the logs when viewing logs of shared operations
+  - [enh] Filter non-relevant line in operation log view
+  - [fix] Remove an unecessary call to app list on domain view
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Thu, 07 Apr 2020 04:15:00  +0000
+
+yunohost-admin (3.8.2) testing; urgency=low
+
+  - [enh] Highlight error/warnings/... in tools > logs (#294)
+  - [enh] Hide stop button for critical services ? (#295)
+  - [fix] Stupid typo in upgrade controller prevented upgrading all apps (a3a0d8f)
+  - [fix] Custom app install + misc detail in regular app install (1592ab4)
+  - [fix] Make the 'all apps' button look like the others (9694d8a)
+  - [mod] Simplify log view (4480836)
+  - [enh] Save/restore collapse states when refreshing diagnosis view (a110e56)
+  - [enh] Add an explanation text on top of the diagnosis view (ccefdd6)
+  - [i18n] Improve translations for Esperanto, Spanish, French, Occitan, Polish, Nepali
+
+  Thanks to all contributors <3 ! (Quentí, Simon, amirale qt)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Wed, 29 Apr 2020 23:20:00  +0000
+
+yunohost-admin (3.8.1.1) testing; urgency=low
+
+  - [hotfix] Pacman hanging forever after fetching version number..
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Thu, 19 Apr 2020 16:20:00  +0000
+
+yunohost-admin (3.8.1) testing; urgency=low
+
+  - Many small cosmetic and mechanics improvements for the Diagnosis view
+  - Add a 'Restart' button for services
+  - Drop 'Security feed' and 'Download self-CA auth cert' features from the Tools section
+  - Move 'Share on Yunopaste' button to make it more obvious to users (dd2570e)
+  - Display 'All apps' button at the top in app category selector (#291)
+  - Improve translations for French, German, Catalan, Turkish
+
+  Thanks to all contributors <3 ! (Kay0u, Yasin S. T., Zeik0s, E.Gaspar, xaloc33)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Thu, 19 Apr 2020 06:22:00  +0000
+
+yunohost-admin (3.8.0) testing; urgency=low
+
+  # Major stuff
+
+  - [enh] New diagnosis interface (#209, 109f542, 95f8503, 9e0f2f7, 79839b5)
+  - [enh] App categories (#279)
+  - [enh] Rework service views (#274)
+
+  # Refactoring, cleaning
+
+  - Code refactoring, readability improvements, use buttons instead of links when it's not about changing page (#262, 4f544de, 44c27a5, 6177044)
+  - Remove the whole monitoring / glances stuff (#263)
+  - Remove the appslist system from the webadmin (#264)
+  - Remove app debug button, follow-up of corresponding PR on yunohost core (#271)
+  - Fix slider effect (787204b)
+  - Propagate parameter name change from core when changing domain (#260)
+
+  # i18n
+
+  - String definition / usage tests + cleaning of stale strings (#288)
+  - Update translations for Spanish, Esperanto, Basque, Turkish, Catalan, Hindi, German, Greek, Dutch, Polish, Portuguese, Chinese (Simplified), Nepali, French, Occitan,Italian, Bengali (Bangladesh), Hungarian
+
+  Thanks to all contributors <3 ! (Abdulkadir F. Ş., Aeris One, Aleks, Armando F. Bram, Giovanni G. Gustavo M., Hem S., Jeroen F., Juan, Kay0u, Patrick B., Quentí, Yifei D., advocatux, amirale qt, Elie G., frju365, ppr, Romain R., xaloc3)
+
+ -- Kay0u <pierre@kayou.io>  Thu, 09 Apr 2020 20:18:35 +0000
+
 yunohost-admin (3.7.1.1) stable; urgency=low
 
    - [fix] Aleks forgot to properly fix the conflicts in oc.json ~.~

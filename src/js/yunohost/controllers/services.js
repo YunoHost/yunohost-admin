@@ -10,21 +10,15 @@
 
     // All services status
     app.get('#/services', function (c) {
-        c.api('/services', function(data) { // ?
+        c.api('GET', '/services', {}, function(data) {
             var data2 = {
                 services: []
             };
             $.each(data, function(k, v) {
                 v.name = k;
-                // Handlebars want booleans
-                v.is_loaded = (v.loaded=='enabled') ? true : false;
-                v.is_running = (v.active=='active') ? true : false;
-                // Translate status and loaded state
-                v.status = y18n.t(v.status);
-                v.loaded = y18n.t(v.loaded);
-                if (v.active_at == 'unknown')
+                if (v.last_state_change == 'unknown')
                 {
-                    delete v.active_at;
+                    v.last_state_change = 0;
                 }
                 data2.services.push(v);
             });
@@ -45,28 +39,88 @@
 
     // Status & actions for a service
     app.get('#/services/:service', function (c) {
-        c.api('/services/'+ c.params['service'], function(data) { // ?
-            var data2 = {
-                service: data
-            };
-            data2.service.name = c.params['service'];
-            // Handlebars want booleans
-            data2.service.is_loaded = (data.loaded=='enabled') ? true : false;
-            data2.service.is_running = (data.active=='active') ? true : false;
-            // Translate status and loaded state
-            data2.service.active = y18n.t(data.active);
-            data2.service.loaded = y18n.t(data.loaded);
-            if (data.active_at != 'unknown')
+        c.api('GET', '/services/'+ c.params['service'], {}, function(data) {
+        c.api('GET', '/services/'+ c.params['service'] +'/log', {number: 50}, function(data_log) {
+
+            data.name = c.params['service'];
+            if (data.last_state_change == 'unknown')
             {
-                data2.service.active_at = data.active_at;
+                data.last_state_change = 0;
             }
-            else
-            {
-                data2.service.active_at = 0;
-            }
-            store.clear('slide');
-            c.view('service/service_info', data2);
-        }, 'GET');
+
+            data.logs = [];
+            $.each(data_log, function(k, v) {
+                data.logs.push({filename: k, filecontent: v.join('\n')});
+            });
+
+            // Sort logs by filename, put the journalctl/systemd log on top
+            data.logs.sort(function(a,b) { return a.filename === "journalctl" ? -1 : b.filename === "journalctl" ? 1 : a.filename < b.filename ? -1 : a.filename > b.filename ? 1 : 0; });
+
+            c.view('service/service_info', data, function() {
+
+                // Don't allow user to stop critical services from the webadmin
+                $('button[data-action="stop"]').each(function() {
+
+                    var critical = ['nginx', 'ssh', 'slapd', 'yunohost-api'];
+                    var service = $(this).data('service');
+
+                    if (critical.indexOf(service) >= 0)
+                    {
+                        $(this).hide();
+                    }
+                });
+
+                // Configure behavior for enable/disable and start/stop buttons
+                $('button[data-action="start"], button[data-action="restart"], button[data-action="stop"]').on('click', function() {
+
+                    var service = $(this).data('service');
+                    var action = $(this).data('action');
+
+                    c.confirm(y18n.t("services"), y18n.t('confirm_service_' + action, [service]), function(){
+
+                        if (action == "start")
+                        {
+                            var method = "PUT";
+                            var url = "/services/" + service;
+                        }
+                        else if (action == "restart")
+                        {
+                            var method = "PUT";
+                            var url = "/services/" + service + "/restart";
+                        }
+                        else
+                        {
+                            var method = "DELETE";
+                            var url = "/services/" + service;
+                        }
+                        c.api(method, url, {}, function() { c.refresh(); });
+                    });
+                });
+
+                // Configure behavior for enable/disable and start/stop buttons
+                $('button[data-action="share"]').on('click', function() {
+
+                    c.showLoader();
+
+                    // Send to paste.yunohost.org
+                    $.ajax({
+                        type: "POST",
+                        url: 'https://paste.yunohost.org/documents',
+                        data: $("#logs").text(),
+                    })
+                    .success(function(data, textStatus, jqXHR) {
+                        window.open('https://paste.yunohost.org/' + data.key, '_blank');
+                    })
+                    .fail(function() {
+                        c.flash('fail', y18n.t('paste_error'));
+                    })
+                    .always(function(){
+                        c.hideLoader();
+                    });
+                });
+            });
+        });
+        });
     });
 
     // Service log
@@ -74,63 +128,14 @@
         var params = {
             number: 50
         };
-        c.api('/services/'+ c.params['service'] +'/log', function(data) { // ?
+        c.api('GET', '/services/'+ c.params['service'] +'/log', params, function(data) { // ?
             data2 = { 'logs': [], 'name': c.params['service'] };
             $.each(data, function(k, v) {
                 data2.logs.push({filename: k, filecontent: v.join('\n')});
             });
 
             c.view('service/service_log', data2);
-        }, 'GET', params);
-    });
-
-    // Enable/Disable & Start/Stop service
-    app.get('#/services/:service/:action', function (c) {
-        c.confirm(
-            "Service",
-            // confirm_service_start, confirm_service_stop, confirm_service_enable and confirm_service_disable
-            y18n.t('confirm_service_' + c.params['action'].toLowerCase(), [c.params['service']]),
-            function(){
-                var method = null,
-                    endurl = c.params['service'];
-
-                switch (c.params['action']) {
-                    case 'start':
-                        method = 'PUT';
-                        break;
-                    case 'stop':
-                        method = 'DELETE';
-                        break;
-                    case 'enable':
-                        method = 'PUT';
-                        endurl += '/enable';
-                        break;
-                    case 'disable':
-                        method = 'DELETE';
-                        endurl += '/enable';
-                        break;
-                    default:
-                        c.flash('fail', y18n.t('unknown_action', [c.params['action']]));
-                        store.clear('slide');
-                        c.redirect('#/services/'+ c.params['service']);
-                }
-
-                if (method && endurl) {
-                    c.api('/services/'+ endurl, function(data) {
-                        store.clear('slide');
-                        c.redirect('#/services/'+ c.params['service']);
-                    }, method);
-                }
-                else {
-                    store.clear('slide');
-                    c.redirect('#/services/'+ c.params['service']);
-                }
-            },
-            function(){
-                store.clear('slide');
-                c.redirect('#/services/'+ c.params['service']);
-            }
-        );
+        });
     });
 
 })();
