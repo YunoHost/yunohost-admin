@@ -1,3 +1,11 @@
+yunohost-admin (3.8.3.3) stable; urgency=low
+
+  - [i18n] Translations updated for Arabic, Italian
+
+  Thanks to all contributors <3 ! (ButterflyOfFire, L. Noferini)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Tue, 26 May 2020 03:45:09 +0200
+
 yunohost-admin (3.8.3.2) stable; urgency=low
 
   - [fix] Install button in case of multi instance capability (#300)
