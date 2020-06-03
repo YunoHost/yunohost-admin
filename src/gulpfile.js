@@ -47,7 +47,7 @@ gulp.task('js', function() {
 
 // JS Lint task
 gulp.task('js-lint', function() {
-    return gulp.src('js/*.js')
+    return gulp.src('js/**/*.js')
         .pipe(jshint())
         .pipe(jshint.reporter('default'));
 });
@@ -89,8 +89,7 @@ gulp.task('css-lint', function() {
         .pipe(less())
         .pipe(autoprefixer())
         .pipe(csslint())
-        .pipe(csslint.reporter('compact'))
-        .pipe(gulp.dest('./css/'))
+        .pipe(csslint.formatter())
 });
 
 
@@ -110,12 +109,13 @@ gulp.task('views', function () {
 // Global build task
 gulp.task('build', gulp.series('css', 'fonts', 'js', 'img', 'views'));
 
-
 // Watch task
 gulp.task('watch', function() {
     gulp.watch('js/**/*.js', gulp.series('js'));
     gulp.watch('css/*.less', gulp.series('css'));
     gulp.watch('views/**/*.ms', gulp.series('views'));
 });
+
+gulp.task('lint', gulp.series('css-lint', 'js-lint'));
 
 gulp.task('default', gulp.series('build', 'watch'));
