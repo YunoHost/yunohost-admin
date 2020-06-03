@@ -31,5 +31,17 @@
     "gulp-uglify": "^3.0.2",
     "gulp-mustache": "^5.0.0"
   },
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "fork-awesome": "^1.1.7",
+    "handlebars": "^4.7.6",
+    "handlebars-intl": "1.1.2",
+    "isotope-layout": "^3.0.6",
+    "jquery": "^3.5.1",
+    "js-cookie": "^2.2.1",
+    "jshint": "^2.11.1",
+    "sammy": "^0.7.6",
+    "source-code-pro": "^2.30.2",
+    "source-sans-pro": "^3.6.0"
   }
 }
