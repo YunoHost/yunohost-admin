@@ -49,7 +49,8 @@ gulp.task('js', function() {
 gulp.task('js-lint', function() {
     return gulp.src('js/**/*.js')
         .pipe(jshint())
-        .pipe(jshint.reporter('default'));
+        .pipe(jshint.reporter('default'))
+        .pipe(jshint.reporter('fail'))
 });
 
 // Fonts
