@@ -6,7 +6,6 @@
     "url": "https://github.com/YunoHost/yunohost-admin"
   },
   "scripts": {
-    "postinstall": "bower install",
     "build": "gulp build",
     "build-dev": "gulp build --dev",
     "watch": "gulp watch",
