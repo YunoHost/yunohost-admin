@@ -124,13 +124,13 @@
             $.ajax({
                 dataType: "json",
                 url: 'https://'+ baseUrl +'/installed',
-                timeout: 3000
-            })
-            .success(function(data) {
-                callback(data.installed);
-            })
-            .fail(function() {
-                callback(undefined);
+                timeout: 3000,
+                success: function(data) {
+                    callback(data.installed);
+                },
+                fail: function() {
+                    callback(undefined);
+                }
             });
         },
 
@@ -325,7 +325,7 @@
             $('#modal').modal('hide');
 
             // Render content
-            var rendered = this.render('views/' + view + '.ms?version=' + ynh_assets_version, data);
+            var rendered = this.render('dist/views/' + view + '.ms?version=' + ynh_assets_version, data);
 
             // Update content helper
             var leSwap = function() {
