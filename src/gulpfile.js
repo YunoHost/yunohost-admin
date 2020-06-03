@@ -117,3 +117,5 @@ gulp.task('watch', function() {
     gulp.watch('css/*.less', gulp.series('css'));
     gulp.watch('views/**/*.ms', gulp.series('views'));
 });
+
+gulp.task('default', gulp.series('build', 'watch'));
