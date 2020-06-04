@@ -50,6 +50,8 @@
     // System update & upgrade
     app.get('#/update', function (c) {
         c.api('PUT', '/update', {}, function(data) {
+        c.api('GET', '/migrations?pending', {}, function(pending_migrations) {
+            data.pending_migrations = pending_migrations.migrations;
             c.view('tools/tools_update', data, function() {
                 // Configure buttons behaviors
                 $("button[data-upgrade]").on("click", function() {
@@ -83,6 +85,7 @@
                     );
                 });
             });
+        });
         });
     });
 

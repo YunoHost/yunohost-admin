@@ -228,6 +228,7 @@
     "logs_share_with_yunopaste": "Share with YunoPaste",
     "logs_more": "Display more lines",
     "path_url": "Path",
+    "pending_migrations": "There are some pending migrations waiting to be ran. Please go to the <a href='#/tools/migrations'>Tools > Migrations</a> view to run them.",
     "port": "Port",
     "ports": "Ports",
     "postinstall": "Post-installation",
