@@ -1,8 +1,11 @@
-yunohost-admin (4.0.0~alpha) unstable; urgency=low
+yunohost-admin (4.0.1~alpha) testing; urgency=low
 
-   - Tmp version for debian builds during experimental/alpha dev for Buster
+  - [mod] Update deb dependencies and build workflow (fd9949d, 01e452a, f6b8202, 8d35eac, 1a9b16c)
+  - [fix] Update npm dependencies and build workflow (#304)
 
- -- Alexandre Aubin <alex.aubin@mailoo.org>  Fri, 7 Feb 2020 22:30:00  +0000
+  Thanks to all contributors <3 ! (Arthur Lutz, Kay0u)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Fri, 05 Jun 2020 17:21:38 +0200
 
 yunohost-admin (3.8.3.3) stable; urgency=low
 
