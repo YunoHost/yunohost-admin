@@ -480,5 +480,7 @@
     "group_explain_visitors_needed_for_external_client": "Sei vorsichtig und beachte, dass du manche Anwendungen für externe Besucher freigeben musst, falls du beabsichtigst, diese mit externen Clients aufzurufen. Zum Beispiel trifft das auf Nextcloud zu, wenn du eine Synchronisation auf dem Smartphone oder Desktop PC haben möchtest.",
     "groups": "Gruppen",
     "issues": "%s Probleme",
-    "restart": "Neustart"
+    "restart": "Neustart",
+    "operation_failed_explanation": "Die Operation ist fehlgeschlagen! Das tut uns leid :( Du kannst dir <a href='https://yunohost.org/help'>hier Hilfe holen</a>. Bitte stelle *die ganzen Logs* der Operation bereit, damit dir besser geholfen werden kann. Dies tust du, indem du auf den grünen 'mit Yunopaste teilen' Knopf drückst. Wenn du die Logs teilst wird Yunohost automatisch versuchen deine privaten Daten wie Domainnamen und IP's zu anonymisieren.",
+    "diagnosis_explanation": "Die Diagnose Funktion wird versuchen, gängige Probleme in verschiedenen Teilen deines Servers zu finden,  damit alles reibungslos läuft. Die Diagnose wird auch automatisch zweimal täglich ausgeführt, falls Fehler gefunden werden, bekommt der Administrator ein E-Mail. Beachte, dass einige tests nicht relevant sind, wenn du einzelne Features (zum Beispiel XMPP) nicht benutzt oder du ein komplexes Setup hast. In diesem Fall und wenn du weisst was du tust ist es in Ordnung die dazugehoerigen Warnungen und Hinweise zu ignorieren."
 }
