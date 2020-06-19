@@ -1,3 +1,9 @@
+yunohost-admin (4.0.2~beta) testing; urgency=low
+
+  - Bump version number for beta release
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Fri, 19 Jun 2020 15:41:15 +0200
+
 yunohost-admin (4.0.1~alpha) testing; urgency=low
 
   - [mod] Update deb dependencies and build workflow (fd9949d, 01e452a, f6b8202, 8d35eac, 1a9b16c)
