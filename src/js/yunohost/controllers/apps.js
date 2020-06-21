@@ -463,6 +463,7 @@
                     });
                 });
 
+                args[k].choices[params.domains_main].selected = true;
                 // Custom help link
                 args[k].helpLink += "<a href='#/domains'>"+y18n.t('manage_domains')+"</a>";
             }
