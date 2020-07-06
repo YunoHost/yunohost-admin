@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <p>Hello</p>
+    <p>{{ $t('user_interface_link') }}</p>
   </div>
 </template>
 
