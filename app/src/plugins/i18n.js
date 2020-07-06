@@ -16,8 +16,19 @@ function loadLocaleMessages () {
   return messages
 }
 
+function getBrowserLocale() {
+    const navigatorLocale = navigator.languages !== undefined
+        ? navigator.languages[0]
+        : navigator.language
+
+    return !navigatorLocale
+        ? undefined
+        : navigatorLocale
+}
+
 export default new VueI18n({
-  locale: process.env.VUE_APP_I18N_LOCALE || 'en',
-  fallbackLocale: process.env.VUE_APP_I18N_FALLBACK_LOCALE || 'en',
+  locale: getBrowserLocale(),
+  fallbackLocale: 'en',
+  // TODO : chunk locales json and lazy load them
   messages: loadLocaleMessages()
 })
