@@ -1,24 +1,16 @@
 {
   "name": "yunohost-admin",
-  "description": "YunoHost Admin web interface",
   "version": "0.1.0",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/YunoHost/yunohost-admin"
-  },
-  "author": "Yunohost",
-  "license": "AGPL-3.0",
-  "bugs": {
-    "url": "https://github.com/YunoHost/issues"
-  },
-  "homepage": "https://github.com/YunoHost/yunohost-admin",
   "private": true,
+  "description": "YunoHost Admin web interface",
+  "author": "Yunohost",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "bootstrap-vue": "^2.1.0",
     "core-js": "^3.6.5",
     "vue": "^2.6.11"
   },
@@ -27,8 +19,14 @@
     "@vue/cli-plugin-eslint": "~4.4.0",
     "@vue/cli-service": "~4.4.0",
     "babel-eslint": "^10.1.0",
+    "bootstrap": "^4.3.1",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
+    "popper.js": "^1.16.0",
+    "portal-vue": "^2.1.6",
+    "sass": "^1.19.0",
+    "sass-loader": "^8.0.0",
+    "vue-cli-plugin-bootstrap-vue": "~0.6.0",
     "vue-template-compiler": "^2.6.11"
   },
   "eslintConfig": {
@@ -49,5 +47,14 @@
     "> 1%",
     "last 2 versions",
     "not dead"
-  ]
+  ],
+  "bugs": {
+    "url": "https://github.com/YunoHost/issues"
+  },
+  "homepage": "https://github.com/YunoHost/yunohost-admin",
+  "license": "AGPL-3.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/YunoHost/yunohost-admin"
+  }
 }
