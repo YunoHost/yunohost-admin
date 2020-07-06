@@ -7,8 +7,12 @@ debian/files
 debian/yunohost-admin*
 
 # npm files
-src/node_modules
-src/npm-debug.log
+node_modules
+npm-debug.log
+
+dist
+
+# old
 
 # Symlink to ca.crt file
 ca.crt
