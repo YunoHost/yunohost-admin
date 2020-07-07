@@ -1,0 +1,16 @@
+// This is the default scss file, more specific styling is defined directly into components.
+// It it imported in `scr/App.vue` style tag.
+
+// Bootstrap variable overrides and custom variables
+@import 'variables';
+
+// Includes Bootstrap and BootstrapVue SCSS files
+// `~` allow to import a node_modules folder (resolved by Webpack)
+@import '~bootstrap/scss/bootstrap.scss';
+@import '~bootstrap-vue/src/index.scss';
+
+// Style overrides happens after bootstrap imports
+body {
+    margin: auto;
+    max-width: 90%;
+}
