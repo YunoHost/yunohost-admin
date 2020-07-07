@@ -14,7 +14,9 @@
             </b-navbar>
         </header>
 
-        <router-view/>
+        <main>
+            <router-view/>
+        </main>
 
         <footer>
             <nav>
@@ -34,6 +36,8 @@
 
 header {
     border-bottom: 1px solid #eee;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
 
     .navbar {
         padding: 1rem;
@@ -56,6 +60,7 @@ footer {
     padding: 1rem 0;
     border-top: 1px solid #eee;
     font-size: 0.875rem;
+    margin-top: 2rem;
 
     li {
         &:not(:first-child) a::before {
