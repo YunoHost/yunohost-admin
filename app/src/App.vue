@@ -1,14 +1,10 @@
 <template>
-  <div id="app">
-    <p>{{ $t('user_interface_link') }}</p>
-  </div>
+    <div id="app">
+        <nav>
+            <b-nav>
+                <b-nav-item to="/" exact exact-active-class="active">Home</b-nav-item>
+            </b-nav>
+        </nav>
+        <router-view/>
+    </div>
 </template>
-
-<script>
-export default {
-  name: 'App',
-}
-</script>
-
-<style>
-</style>
