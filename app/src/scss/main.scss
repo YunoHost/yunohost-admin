@@ -9,8 +9,15 @@
 @import '~bootstrap/scss/bootstrap.scss';
 @import '~bootstrap-vue/src/index.scss';
 
+@import '~fork-awesome/scss/fork-awesome.scss';
+
 // Style overrides happens after bootstrap imports
 body {
     margin: auto;
     max-width: 90%;
+    font-family: "Source Sans Pro", "Helvetica Neue", "Fira Sans", Helvetica, Arial, sans-serif;
+}
+
+.fa-fw {
+    width: 1.25em;
 }
