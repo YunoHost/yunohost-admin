@@ -1,8 +1,8 @@
 <template>
-    <b-list-group-item v-bind:href="uri">
-        <span v-bind:class="'fa fa-fw fa-' + icon" aria-hidden="true"></span>
+    <b-list-group-item v-bind:to="uri">
+        <icon v-bind:iname="icon" class="fa-fw"/>
         <h2><slot></slot></h2>
-        <span class="fa fa-fw fa-chevron-right ml-auto"></span>
+        <icon iname="chevron-right" class="fa-fw fs-sm ml-auto"/>
     </b-list-group-item>
 </template>
 
@@ -15,27 +15,16 @@ export default {
 }
 </script>
 
-<style lang="scss">
-    .list-group-item {
-        padding: 0;
-        display: flex;
-        align-items: center;
-    }
-    .list-group-item-action {
-        color: #333;
-    }
-    h2 {
-        font-size: 1.25rem;
-        font-weight: 400;
-        margin: 0;
-    }
-    span.fa {
-        font-size: 1.5rem;
-        width: 3rem;
-        line-height: 3rem;
+<style lang="scss" scoped>
+.list-group-item {
+    padding: 0.75rem 0;
+    display: flex;
+    align-items: center;
+}
 
-        &.fa-chevron-right {
-            font-size: 1rem;
-        }
-    }
+h2 {
+    font-size: 1.25rem;
+    font-weight: 400;
+    margin: 0;
+}
 </style>
