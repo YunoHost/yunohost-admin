@@ -6,5 +6,12 @@ module.exports = {
       localeDir: 'locales',
       enableInSFC: false
     }
+  },
+  devServer: {
+    proxy: {
+      '^/api': {
+        target: process.env.API_URL,
+      }
+    }
   }
 }
