@@ -8,26 +8,56 @@
                     <icon iname="lock" class="sm"/>
                 </b-input-group-text>
             </template>
-            <b-form-input required type="password" v-model="password" id="input-password" :placeholder="$t('administration_password')"></b-form-input>
-            <b-input-group-append>
+            <b-form-input required id="input-password"
+                v-model="password"
+                type="password"
+                :placeholder="$t('administration_password')"
+                :state="state"
+            ></b-form-input>
+            <template v-slot:append>
                 <b-button type="submit" variant="success">{{ $t('login') }}</b-button>
-            </b-input-group-append>
+            </template>
         </b-input-group>
+        <b-form-invalid-feedback :state="state">
+            {{ $t('wrong_password') }}
+        </b-form-invalid-feedback>
     </b-form>
 </template>
 
 <script>
+import api from '@/helpers/api'
+
+
 export default {
     name: 'Login',
     data: () => {
         return {
-            password: ''
+            password: '',
+            state: null,
         }
     },
     methods: {
-        login: function () {
-            console.log(this.password);
+        async login() {
+            const connected = await api.login(this.password)
+            if (connected) {
+                this.$store.commit('CONNECTED', true);
+                this.$router.push(this.$route.query.redirect || '/')
+            } else {
+                this.$store.commit('CONNECTED', false);
+                this.state = false
+            }
         }
-    }
+    },
+    // TODO checkInstall
+    // beforeRouteEnter (to, from, next) {
+    // },
 }
 </script>
+
+<style lang="scss" scoped>
+.input-group.is-invalid {
+  ~ .invalid-feedback {
+    display: block;
+  }
+}
+</style>

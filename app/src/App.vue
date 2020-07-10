@@ -9,8 +9,8 @@
                             {{ $t('user_interface_link') }} <icon iname="user" class="sm"/>
                         </b-button>
                     </li>
-                    <li class="nav-item">
-                        <b-button to="/logout" variant="outline-dark" block size="sm">
+                    <li class="nav-item" v-bind:hidden="!connected">
+                        <b-button @click.prevent="logout" to="/logout" variant="outline-dark" block size="sm" >
                             {{ $t('logout') }} <icon iname="sign-out" class="sm"/>
                         </b-button>
                     </li>
@@ -41,6 +41,29 @@
     </div>
 </template>
 
+<script>
+import api from '@/helpers/api'
+
+
+export default {
+    name: 'App',
+    computed: {
+        connected: function () {
+            return this.$store.state.connected
+        }
+    },
+    methods: {
+        async logout() {
+            const disconnected = await api.logout()
+            if (disconnected) {
+                this.$store.commit('CONNECTED', false);
+                this.$router.push('/login')
+            }
+        }
+    },
+}
+</script>
+
 <style lang="scss">
 @import '@/scss/main.scss';
 
@@ -50,7 +73,7 @@ header {
     margin-bottom: 2rem;
 
     .navbar {
-        padding: 1rem;
+        padding: 1rem 0;
 
         img {
             width: 70px;
