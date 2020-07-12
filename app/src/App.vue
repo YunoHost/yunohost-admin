@@ -9,7 +9,7 @@
                             {{ $t('user_interface_link') }} <icon iname="user" class="sm"/>
                         </b-button>
                     </li>
-                    <li class="nav-item" v-bind:hidden="!connected">
+                    <li class="nav-item" v-show="connected">
                         <b-button @click.prevent="logout" to="/logout" variant="outline-dark" block size="sm" >
                             {{ $t('logout') }} <icon iname="sign-out" class="sm"/>
                         </b-button>
@@ -19,7 +19,7 @@
         </header>
 
         <main>
-            <router-view/>
+            <router-view v-if="isReady"/>
         </main>
 
         <footer>
@@ -34,7 +34,11 @@
                     <b-nav-item href="https://donate.yunohost.org/" target="_blank" link-classes='text-secondary'>
                         <icon iname="heart" class="sm"/> Donate
                     </b-nav-item>
-                    <b-nav-text class="ml-auto" id="yunohost-version">version</b-nav-text>
+                    <i18n v-if="yunohostInfos" path="footer_version" tag="b-nav-text" class="ml-auto" id="yunohost-version">
+                        <template v-slot:ynh><b-link href="https://yunohost.org">YunoHost</b-link></template>
+                        <template v-slot:version>{{ yunohostInfos.version }}</template>
+                        <template v-slot:repo>{{ yunohostInfos.repo }}</template>
+                    </i18n>
                 </b-nav>
             </nav>
         </footer>
@@ -42,25 +46,54 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 import api from '@/helpers/api'
 
 
 export default {
     name: 'App',
-    computed: {
-        connected: function () {
-            return this.$store.state.connected
+    data: () => {
+        return {
+            // isReady blocks the rendering of the rooter-view until we have a true info
+            // about the connected state of the user.
+            isReady: false,
         }
+    },
+    computed: {
+        ...mapState(['connected', 'yunohostInfos']),
     },
     methods: {
         async logout() {
-            const disconnected = await api.logout()
-            if (disconnected) {
-                this.$store.commit('CONNECTED', false);
-                this.$router.push('/login')
-            }
-        }
+            await api.logout()
+            this.$store.commit('CONNECTED', false);
+            this.$router.push('/login')
+        },
     },
+    // This hook is only triggered at page reload so the value of state.connected
+    // always come from the localStorage
+    async created() {
+        if (!this.$store.state.connected) {
+            // user is not connected: allow the login view to be rendered.
+            this.isReady = true
+            return
+        }
+        // localStorage 'connected' value may be true, but session may have expired.
+        // Try to get the yunohost version.
+        try {
+            const data = await api.getVersion()
+            this.$store.commit('YUNOHOST_INFOS', data.yunohost)
+        } catch (err) {
+            // Session expired, reset the 'connected' state and redirect with a query
+            // FIXME is there a case where the error may not be a 401 therefor requires
+            // better handling ?
+            this.$store.commit('CONNECTED', false);
+            this.$router.push({name: 'login', query: {redirect: this.$route.path}})
+        } finally {
+            // in any case allow the router-view to be rendered
+            this.isReady = true;
+        }
+    }
 }
 </script>
 
@@ -99,12 +132,12 @@ footer {
     font-size: 0.875rem;
     margin-top: 2rem;
 
-    li {
+    .nav-item {
         &:not(:first-child) a::before {
             content: "•";
             width: 1rem;
             display: inline-block;
-            margin-left: -1rem;
+            margin-left: -1.15rem;
         }
         &:first-child {
             margin-left: -1rem;

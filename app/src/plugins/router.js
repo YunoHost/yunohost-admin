@@ -18,7 +18,7 @@ router.beforeEach((to, from, next) => {
     if (store.state.connected || to.meta.noAuth) {
         next()
     } else {
-        next({path: '/login', query: {redirect: to.path}})
+        next({name: 'login', query: {redirect: to.path}})
     }
 })
 

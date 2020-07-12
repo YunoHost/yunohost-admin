@@ -12,13 +12,13 @@
                 v-model="password"
                 type="password"
                 :placeholder="$t('administration_password')"
-                :state="state"
+                :state="isValid"
             ></b-form-input>
             <template v-slot:append>
                 <b-button type="submit" variant="success">{{ $t('login') }}</b-button>
             </template>
         </b-input-group>
-        <b-form-invalid-feedback :state="state">
+        <b-form-invalid-feedback :state="isValid">
             {{ $t('wrong_password') }}
         </b-form-invalid-feedback>
     </b-form>
@@ -33,7 +33,7 @@ export default {
     data: () => {
         return {
             password: '',
-            state: null,
+            isValid: null,
         }
     },
     methods: {
@@ -42,9 +42,11 @@ export default {
             if (connected) {
                 this.$store.commit('CONNECTED', true);
                 this.$router.push(this.$route.query.redirect || '/')
+                const infos = await api.getVersion();
+                this.$store.commit('YUNOHOST_INFOS', infos.yunohost)
             } else {
                 this.$store.commit('CONNECTED', false);
-                this.state = false
+                this.isValid = false
             }
         }
     },
