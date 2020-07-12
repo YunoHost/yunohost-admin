@@ -1,13 +1,11 @@
 <template>
-    <span v-bind:class="'icon fa fa-' + iname" aria-hidden="true"></span>
+    <span :class="'icon fa fa-' + iname" aria-hidden="true"></span>
 </template>
 
 <script>
 export default {
     name: 'icon',
-    props: {
-        iname: String,
-    }
+    props: ['iname'],
 }
 </script>
 

@@ -1,19 +1,16 @@
 <template>
     <div class="home">
         <b-list-group>
-            <list-group-item
-                v-for="item in menu"
-                v-bind:key="item.id"
-                v-bind:uri="item.uri"
-                v-bind:icon="item.icon"
-            >{{ $t(item.translation) }}</list-group-item>
+            <b-list-group-item v-for="item in menu" :key="item.id" :to="item.uri">
+                <icon :iname="item.icon" class="fa-fw"/>
+                <h2>{{ $t(item.translation) }}</h2>
+                <icon iname="chevron-right" class="fa-fw fs-sm ml-auto"/>
+            </b-list-group-item>
         </b-list-group>
     </div>
 </template>
 
 <script>
-import ListGroupItem from '@/components/ListGroupItem'
-
 export default {
     name: 'Home',
     data: () => {
@@ -30,8 +27,19 @@ export default {
             ]
         }
     },
-    components: {
-        ListGroupItem
-    }
 }
 </script>
+
+<style lang="scss" scoped>
+.list-group-item {
+    padding: 0.75rem 0;
+    display: flex;
+    align-items: center;
+}
+
+h2 {
+    font-size: 1.25rem;
+    font-weight: 400;
+    margin: 0;
+}
+</style>
