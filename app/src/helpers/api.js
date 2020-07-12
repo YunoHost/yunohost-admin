@@ -9,6 +9,18 @@ function objectToParams(object) {
 }
 
 
+function handleResponse(response, type = 'json') {
+    return response.ok ? response[type]() : handleErrors(response)
+}
+
+
+function handleErrors(response) {
+    if (response.status == 401) {
+        throw new Error('Unauthorized');
+    }
+}
+
+
 export default {
     options: {
         credentials: 'include',
@@ -24,6 +36,14 @@ export default {
         }
     },
 
+    get(uri) {
+        return fetch('/api/' + uri, this.options)
+        .then(response => handleResponse(response))
+        .catch(err => {
+            console.log(err)
+        })
+    },
+
     login(password) {
         return fetch('/api/login', {
             method: 'POST',
@@ -34,5 +54,10 @@ export default {
 
     logout() {
         return fetch('/api/logout', this.options).then(response => (response.ok))
+    },
+
+    getVersion() {
+        return fetch('/api/versions', this.options)
+        .then(response => handleResponse(response))
     }
 }
