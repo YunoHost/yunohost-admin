@@ -9,7 +9,9 @@
             :key="index"
             :to="{name: route.name}"
             :active="index == lastIndex ? true : false"
-            >{{ route.trad ? $t(route.trad) : params[route.param] }}</b-breadcrumb-item>
+        >
+            {{ route.text }}
+        </b-breadcrumb-item>
     </b-breadcrumb>
 </template>
 
@@ -20,7 +22,19 @@ export default {
             return this.$route.params
         },
         breadcrumb: function () {
-            return this.$route.meta.breadcrumb
+            return this.$route.meta.breadcrumb.map(({name, trad, param}) => {
+                let text = ''
+                // if a traduction key string has been given and we also need to pass
+                // the route param as a variable.
+                if (trad && param) {
+                    text = this.$i18n.t(trad, {[param]: this.params[param]})
+                } else if (trad) {
+                    text = this.$i18n.t(trad)
+                } else {
+                    text = this.params[param]
+                }
+                return {name, text}
+            })
         },
         lastIndex: function () {
             return this.breadcrumb.length - 1
