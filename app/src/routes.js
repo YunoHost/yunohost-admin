@@ -3,8 +3,10 @@ import Login from './views/Login'
 
 
 const routes = [
-    {path: '/', component: Home},
-    {path: '/login', component: Login, meta: {noAuth: true}},
+    {name: 'home', path: '/', component: Home},
+    {name: 'login', path: '/login', component: Login, meta: {
+        noAuth: true
+    }},
 ]
 
 export default routes
