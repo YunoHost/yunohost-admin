@@ -100,7 +100,7 @@ export default {
 <style lang="scss">
 @import '@/scss/main.scss';
 
-header {
+#app > header {
     border-bottom: 1px solid #eee;
     margin-top: 1rem;
     margin-bottom: 1rem;
@@ -125,8 +125,7 @@ header {
     }
 }
 
-
-footer {
+#app > footer {
     padding: 1rem 0;
     border-top: 1px solid #eee;
     font-size: 0.875rem;
