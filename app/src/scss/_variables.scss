@@ -16,6 +16,7 @@
 // For exemple, turning rounding of elements off, the bases colors, etc.
 // $enable-rounded: false;
 
+$alert-padding-x: 1rem;
 
 
 /*
@@ -33,3 +34,7 @@
 
 $fa-font-path: '~fork-awesome/fonts';
 $fa-font-size-base: 1rem;
+
+
+
+$skeleton-color: #eaeaea;
