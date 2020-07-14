@@ -320,7 +320,7 @@
     "user_new_forward": "newforward@myforeigndomain.org",
     "user_new_mail": "newmail@mydomain.org",
     "user_username": "Username",
-    "user_username_edit": "Edit %s’s account",
+    "user_username_edit": "Edit {name}’s account",
     "users": "Users",
     "users_new": "New user",
     "users_no": "No users.",
