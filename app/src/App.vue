@@ -6,12 +6,12 @@
                 <b-navbar-nav class="ml-auto">
                     <li class="nav-item">
                         <b-button href="/yunohost/sso" variant="primary" block size="sm">
-                            {{ $t('user_interface_link') }} <icon iname="user" class="sm"/>
+                            {{ $t('user_interface_link') }} <icon iname="user"/>
                         </b-button>
                     </li>
                     <li class="nav-item" v-show="connected">
                         <b-button @click.prevent="logout" to="/logout" variant="outline-dark" block size="sm" >
-                            {{ $t('logout') }} <icon iname="sign-out" class="sm"/>
+                            {{ $t('logout') }} <icon iname="sign-out"/>
                         </b-button>
                     </li>
                 </b-navbar-nav>
@@ -26,13 +26,13 @@
             <nav>
                 <b-nav>
                     <b-nav-item href="https://yunohost.org/docs" target="_blank" link-classes='text-secondary'>
-                        <icon iname="book" class="sm"/> Documentation
+                        <icon iname="book"/> Documentation
                     </b-nav-item>
                     <b-nav-item href="https://yunohost.org/help" target="_blank" link-classes='text-secondary'>
-                        <icon iname="life-ring" class="sm"/> Need help?
+                        <icon iname="life-ring"/> Need help?
                     </b-nav-item>
                     <b-nav-item href="https://donate.yunohost.org/" target="_blank" link-classes='text-secondary'>
-                        <icon iname="heart" class="sm"/> Donate
+                        <icon iname="heart"/> Donate
                     </b-nav-item>
                     <i18n v-if="yunohostInfos" path="footer_version" tag="b-nav-text" class="ml-auto" id="yunohost-version">
                         <template v-slot:ynh><b-link href="https://yunohost.org">YunoHost</b-link></template>
@@ -103,7 +103,7 @@ export default {
 header {
     border-bottom: 1px solid #eee;
     margin-top: 1rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
 
     .navbar {
         padding: 1rem 0;
@@ -133,7 +133,7 @@ footer {
     margin-top: 2rem;
 
     .nav-item {
-        &:not(:first-child) a::before {
+        & + .nav-item a::before {
             content: "•";
             width: 1rem;
             display: inline-block;

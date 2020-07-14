@@ -11,12 +11,13 @@ export default {
 
 <style lang="scss" scoped>
 .icon {
-    font-size: 1.5rem;
-    width: 3rem;
+    font-size: 1rem;
+    width: 1rem;
+    text-align: center;
 
-    &.sm {
-        width: 1rem;
-        font-size: 1rem;
+    &.lg {
+        width: 3rem;
+        font-size: 1.5rem;
     }
 
     &.fs-sm {
