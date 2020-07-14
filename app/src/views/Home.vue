@@ -2,9 +2,9 @@
     <div class="home">
         <b-list-group>
             <b-list-group-item v-for="item in menu" :key="item.id" :to="item.uri">
-                <icon :iname="item.icon" class="fa-fw"/>
+                <icon :iname="item.icon" class="lg"/>
                 <h2>{{ $t(item.translation) }}</h2>
-                <icon iname="chevron-right" class="fa-fw fs-sm ml-auto"/>
+                <icon iname="chevron-right" class="lg fs-sm ml-auto"/>
             </b-list-group-item>
         </b-list-group>
     </div>
