@@ -7,17 +7,16 @@ import store from './plugins/store'
 
 import * as globalsComponents from './components/globals'
 
-
 Vue.config.productionTip = false
 
 // Register global components
-for (let component of Object.values(globalsComponents)) {
-    Vue.component(component.name, component)
+for (const component of Object.values(globalsComponents)) {
+  Vue.component(component.name, component)
 }
 
 new Vue({
-    i18n,
-    router,
-    store,
-    render: h => h(App),
+  i18n,
+  router,
+  store,
+  render: h => h(App)
 }).$mount('#app')
