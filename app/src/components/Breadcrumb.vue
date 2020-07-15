@@ -46,6 +46,6 @@ export default {
 <style lang="scss" scoped>
 .breadcrumb {
     border: none;
-    background-color: transparent;
+    background-color: transparent !important;
 }
 </style>
