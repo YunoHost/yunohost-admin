@@ -1,5 +1,5 @@
 <template>
-    <div id="app">
+    <div id="app" class="container">
         <header>
             <b-navbar>
                 <b-navbar-brand to="/" exact exact-active-class="active"><img alt="Yunohost logo" src="./assets/logo.png"></b-navbar-brand>
@@ -102,7 +102,7 @@ export default {
 
 #app > header {
     border-bottom: 1px solid #eee;
-    margin-top: 1rem;
+    padding-top: 1rem;
     margin-bottom: 1rem;
 
     .navbar {

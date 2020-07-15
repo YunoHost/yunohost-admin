@@ -84,7 +84,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/scss/_variables.scss';
+@import '@/scss/main.scss';
+
+.card-body > div {
+    flex-direction: column;
+    @include media-breakpoint-up(md) {
+        flex-direction: row;
+    }
+}
 
 h2 {
     margin: 0;
