@@ -10,7 +10,7 @@ module.exports = {
   devServer: {
     proxy: {
       '^/api': {
-        target: process.env.API_URL,
+        target: process.env.API_URL
       }
     }
   }
