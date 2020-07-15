@@ -1,27 +1,29 @@
 <template>
-    <span :class="'icon fa fa-' + iname" aria-hidden="true"></span>
+  <span :class="'icon fa fa-' + iname" aria-hidden="true" />
 </template>
 
 <script>
 export default {
-    name: 'icon',
-    props: ['iname'],
+  name: 'Icon',
+  props: {
+    iname: { type: String, required: true }
+  }
 }
 </script>
 
 <style lang="scss" scoped>
 .icon {
+  font-size: 1rem;
+  width: 1rem;
+  text-align: center;
+
+  &.lg {
+    width: 3rem;
+    font-size: 1.5rem;
+  }
+
+  &.fs-sm {
     font-size: 1rem;
-    width: 1rem;
-    text-align: center;
-
-    &.lg {
-        width: 3rem;
-        font-size: 1.5rem;
-    }
-
-    &.fs-sm {
-        font-size: 1rem;
-    }
+  }
 }
 </style>
