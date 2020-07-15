@@ -72,7 +72,6 @@
 
 <script>
 import api from '@/helpers/api'
-import Breadcrumb from '@/components/Breadcrumb'
 
 export default {
   name: 'User',
@@ -91,9 +90,6 @@ export default {
     const data = await api.get('users/' + this.name)
     if (!data) return
     this.user = data
-  },
-  components: {
-    Breadcrumb
   }
 }
 </script>

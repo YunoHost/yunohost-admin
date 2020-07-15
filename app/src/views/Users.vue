@@ -33,7 +33,6 @@
 
 <script>
 import api from '@/helpers/api'
-import Breadcrumb from '@/components/Breadcrumb'
 
 export default {
   name: 'Users',
@@ -51,9 +50,6 @@ export default {
     } else {
       this.users = data.users
     }
-  },
-  components: {
-    Breadcrumb
   }
 }
 </script>
