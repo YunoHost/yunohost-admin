@@ -17,6 +17,7 @@
 
 <script>
 export default {
+  name: 'Breadcrumb',
   computed: {
     params: function () {
       return this.$route.params
