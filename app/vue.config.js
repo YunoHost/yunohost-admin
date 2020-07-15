@@ -7,6 +7,13 @@ module.exports = {
       enableInSFC: false
     }
   },
+  css: {
+    loaderOptions: {
+      sass: {
+        prependData: '@import "@/scss/globals.scss";'
+      }
+    }
+  },
   devServer: {
     proxy: {
       '^/api': {
