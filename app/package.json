@@ -33,6 +33,7 @@
     "portal-vue": "^2.1.6",
     "sass": "^1.19.0",
     "sass-loader": "^8.0.0",
+    "standard": "^14.3.4",
     "vue-cli-plugin-bootstrap-vue": "~0.6.0",
     "vue-cli-plugin-i18n": "~1.0.1",
     "vue-template-compiler": "^2.6.11"
@@ -43,13 +44,25 @@
       "node": true
     },
     "extends": [
-      "plugin:vue/essential",
-      "eslint:recommended"
+      "plugin:vue/strongly-recommended",
+      "eslint:recommended",
+      "standard"
     ],
     "parserOptions": {
       "parser": "babel-eslint"
     },
-    "rules": {}
+    "rules": {
+      "vue/max-attributes-per-line": [
+        "error",
+        {
+          "singleline": 3,
+          "multiline": {
+            "max": 3,
+            "allowFirstLine": true
+          }
+        }
+      ]
+    }
   },
   "browserslist": [
     "> 1%",
