@@ -12,7 +12,7 @@
         <b-list-group-item
           v-for="(user, index) in (users ? users : 3)"
           :key="index"
-          :to="users ? { name: 'user', params: { name: user.username }} : null"
+          :to="users ? { name: 'user-info', params: { name: user.username }} : null"
           class="d-flex justify-content-between align-items-center pr-0"
         >
           <div>
@@ -35,7 +35,7 @@
 import api from '@/helpers/api'
 
 export default {
-  name: 'Users',
+  name: 'UserList',
   data: function () {
     return {
       users: undefined

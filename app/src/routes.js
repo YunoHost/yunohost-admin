@@ -1,28 +1,27 @@
 import Home from './views/Home'
 import Login from './views/Login'
-import Users from './views/Users'
-import User from './views/User'
+import { UserList, User } from './views/user'
 
 const routes = [
   { name: 'home', path: '/', component: Home },
   { name: 'login', path: '/login', component: Login, meta: { noAuth: true } },
+
+  // Users routes
   {
-    name: 'users',
+    name: 'user-list',
     path: '/users',
-    component: Users,
-    meta: {
-      breadcrumb: [{ name: 'users', trad: 'users' }]
-    }
+    component: UserList,
+    meta: { breadcrumb: [{ name: 'user-list', trad: 'users' }] }
   },
   {
-    name: 'user',
+    name: 'user-info',
     path: '/user/:name',
     component: User,
     props: true,
     meta: {
       breadcrumb: [
-        { name: 'users', trad: 'users' },
-        { name: 'user', param: 'name' }
+        { name: 'user-list', trad: 'users' },
+        { name: 'user-info', param: 'name' }
       ]
     }
   }

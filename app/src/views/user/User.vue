@@ -77,7 +77,7 @@ export default {
   name: 'User',
   props: {
     name: {
-      type: Object,
+      type: String,
       required: true
     }
   },
