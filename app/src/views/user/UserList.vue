@@ -1,16 +1,40 @@
 <template>
   <div class="users">
     <breadcrumb />
+
+    <div class="actions">
+      <b-input-group>
+        <template v-slot:prepend>
+          <b-input-group-text>
+            <label class="sr-only" for="search-user">{{ $t('user.search') }}</label>
+            <icon iname="search" />
+          </b-input-group-text>
+        </template>
+        <b-form-input id="search-user" v-model="search" :placeholder="$t('user.search')" />
+      </b-input-group>
+      <div class="buttons">
+        <b-button variant="info">
+          <icon iname="key-modern" />
+          {{ $t('groups_and_permissions_manage') }}
+        </b-button>
+        <b-button variant="success" :to="{name: 'user-create'}">
+          <icon iname="plus" />
+          {{ $t('users_new') }}
+        </b-button>
+      </div>
+    </div>
+
     <template v-if="users === null">
       <b-alert variant="warning" show>
         <icon iname="exclamation-triangle" class="fa-fw mr-1" />
         {{ $t('users_no') }}
       </b-alert>
     </template>
+
     <template v-else>
       <b-list-group :class="{skeleton: !users}">
         <b-list-group-item
-          v-for="(user, index) in (users ? users : 3)"
+          v-for="(user, index) in (users ? filteredUser : 3)"
           :key="index"
           :to="users ? { name: 'user-info', params: { name: user.username }} : null"
           class="d-flex justify-content-between align-items-center pr-0"
@@ -38,17 +62,23 @@ export default {
   name: 'UserList',
   data: function () {
     return {
+      search: '',
       users: undefined
     }
   },
   computed: {
+    filteredUser () {
+      return this.users.filter(user => {
+        return user.username.toLowerCase().includes(this.search.toLowerCase())
+      })
+    }
   },
   async created () {
     const data = await api.get('users')
     if (!data || Object.keys(data.users).length === 0) {
       this.users = null
     } else {
-      this.users = data.users
+      this.users = Object.values(data.users)
     }
   }
 }
@@ -57,6 +87,48 @@ export default {
 <style lang="scss" scoped>
 p {
   margin: 0
+}
+
+.actions {
+  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+
+  @include media-breakpoint-down(xs) {
+    .buttons {
+      flex-direction: column;
+      justify-content: space-between;
+    }
+  }
+
+  @include media-breakpoint-down(sm) {
+    flex-direction: column-reverse;
+    margin-bottom: 2rem;
+
+    .buttons {
+      display: flex;
+      justify-content: space-between;
+
+      .btn {
+        margin-bottom: .5rem;
+      }
+    }
+  }
+
+  @include media-breakpoint-up(md) {
+    .btn-success {
+      margin-left: .5rem;
+    }
+  }
+
+  .input-group {
+    @include media-breakpoint-up(md) {
+      width: 25%;
+    }
+    @include media-breakpoint-up(lg) {
+      width: 35%;
+    }
+  }
 }
 
 .skeleton {
