@@ -1,7 +1,11 @@
 <template>
   <div class="home">
     <b-list-group>
-      <b-list-group-item v-for="item in menu" :key="item.id" :to="item.uri">
+      <b-list-group-item
+        v-for="item in menu"
+        :key="item.id"
+        :to="{name: item.routeName}"
+      >
         <icon :iname="item.icon" class="lg" />
         <h2>{{ $t(item.translation) }}</h2>
         <icon iname="chevron-right" class="lg fs-sm ml-auto" />
@@ -16,14 +20,14 @@ export default {
   data: () => {
     return {
       menu: [
-        { id: 0, uri: '/users', icon: 'users', translation: 'users' },
-        { id: 1, uri: '/domains', icon: 'globe', translation: 'domains' },
-        { id: 2, uri: '/apps', icon: 'cubes', translation: 'applications' },
-        { id: 3, uri: '/update', icon: 'refresh', translation: 'system_update' },
-        { id: 4, uri: '/services', icon: 'cog', translation: 'services' },
-        { id: 5, uri: '/tools', icon: 'wrench', translation: 'tools' },
-        { id: 6, uri: '/diagnosis', icon: 'stethoscope', translation: 'diagnosis' },
-        { id: 7, uri: '/backup', icon: 'archive', translation: 'backup' }
+        { id: 0, routeName: 'user-list', icon: 'users', translation: 'users' },
+        { id: 1, routeName: 'domains', icon: 'globe', translation: 'domains' },
+        { id: 2, routeName: 'apps', icon: 'cubes', translation: 'applications' },
+        { id: 3, routeName: 'update', icon: 'refresh', translation: 'system_update' },
+        { id: 4, routeName: 'services', icon: 'cog', translation: 'services' },
+        { id: 5, routeName: 'tools', icon: 'wrench', translation: 'tools' },
+        { id: 6, routeName: 'diagnosis', icon: 'stethoscope', translation: 'diagnosis' },
+        { id: 7, routeName: 'backup', icon: 'archive', translation: 'backup' }
       ]
     }
   }
