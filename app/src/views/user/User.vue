@@ -95,8 +95,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/scss/main.scss';
-
 .card-body > div {
   flex-direction: column;
   @include media-breakpoint-up(md) {
