@@ -54,30 +54,26 @@
 </template>
 
 <script>
-import api from '@/helpers/api'
-
 export default {
   name: 'UserList',
   data: function () {
     return {
-      search: '',
-      users: undefined
+      search: ''
     }
   },
   computed: {
+    users () {
+      return this.$store.state.data.users
+    },
     filteredUser () {
+      const search = this.search.toLowerCase()
       return this.users.filter(user => {
-        return user.username.toLowerCase().includes(this.search.toLowerCase())
+        return user.username.toLowerCase().includes(search)
       })
     }
   },
   async created () {
-    const data = await api.get('users')
-    if (!data || Object.keys(data.users).length === 0) {
-      this.users = null
-    } else {
-      this.users = Object.values(data.users)
-    }
+    this.$store.dispatch('FETCH', 'users')
   }
 }
 </script>
