@@ -128,8 +128,12 @@ export default {
         mailbox_quota: '',
         password: '',
         confirmation: ''
-      },
-      domains: ['f']
+      }
+    }
+  },
+  computed: {
+    domains () {
+      return this.$store.state.data.domains
     }
   },
   methods: {
@@ -142,6 +146,9 @@ export default {
       data.mail = `${data.email}@${data.domain}`
       // TODO post data
     }
+  },
+  created () {
+    this.$store.dispatch('FETCH', 'domains')
   }
 }
 </script>
