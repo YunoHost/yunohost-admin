@@ -3,7 +3,7 @@
     <breadcrumb />
 
     <b-card :header="$t('users_new')" header-tag="h2">
-      <b-form id="user-create" @submit="onSubmit">
+      <b-form id="user-create" @submit.prevent="onSubmit">
         <b-form-group
           label-cols-sm="5" label-cols-lg="4" label-cols-xl="3"
           :label="$t('user_username')" label-for="input-username" label-class="test"
@@ -89,7 +89,11 @@
           <b-input
             id="input-password" placeholder="••••••••"
             v-model="form.password" type="password" required
+            :state="validation.password" @input="validatePassword"
           />
+          <b-form-invalid-feedback :state="validation.password">
+            {{ $t('passwords_too_short') }}
+          </b-form-invalid-feedback>
         </b-form-group>
 
         <b-form-group
@@ -100,7 +104,11 @@
           <b-input
             id="input-confirmation" placeholder="••••••••"
             v-model="form.confirmation" type="password" required
+            :state="validation.confirmation" @input="validatePassword"
           />
+          <b-form-invalid-feedback :state="validation.confirmation">
+            {{ $t('passwords_dont_match') }}
+          </b-form-invalid-feedback>
         </b-form-group>
       </b-form>
 
@@ -128,6 +136,10 @@ export default {
         mailbox_quota: '',
         password: '',
         confirmation: ''
+      },
+      validation: {
+        password: null,
+        confirmation: null
       }
     }
   },
@@ -137,18 +149,26 @@ export default {
     }
   },
   methods: {
-    onSubmit (e) {
-      console.log('submit', this.form)
-      e.preventDefault()
+    onSubmit () {
       const data = this.form
+      for (const key in this.validation) {
+        console.log(this.validation[key] === false, this.validation[key])
+        if (this.validation[key] === false) return
+      }
       const quota = data.mailbox_quota
       data.mailbox_quota = parseInt(quota) ? quota + 'M' : 0
       data.mail = `${data.email}@${data.domain}`
+      console.log('go')
       // TODO post data
+    },
+    validatePassword () {
+      const { password, confirmation } = this.form
+      this.validation.password = password.length >= 8 ? null : false
+      this.validation.confirmation = password === confirmation ? null : false
     }
   },
   created () {
-    this.$store.dispatch('FETCH', 'domains')
+    this.$store.dispatch('FETCH', { uri: 'domains' })
   }
 }
 </script>
