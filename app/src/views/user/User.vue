@@ -35,8 +35,8 @@
                     {{ alias }}
                   </li>
                 </ul>
-                <template v-else-if="user[mailType]">
-                  {{ user[mailType] }}
+                <template v-else-if="user[mailType][0]">
+                  {{ user[mailType][0] }}
                 </template>
               </b-col>
             </b-row>
