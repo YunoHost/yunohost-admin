@@ -73,7 +73,7 @@ export default {
     }
   },
   async created () {
-    this.$store.dispatch('FETCH', 'users')
+    this.$store.dispatch('FETCH', { uri: 'users' })
   }
 }
 </script>
