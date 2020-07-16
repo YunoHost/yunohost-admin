@@ -116,7 +116,7 @@ export default {
 @import '@/scss/main.scss';
 
 #app > header {
-  border-bottom: 1px solid #eee;
+  border-bottom: $thin-border;
   padding-top: 1rem;
   margin-bottom: 1rem;
 

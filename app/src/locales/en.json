@@ -47,6 +47,10 @@
     "catalog": "Catalog",
     "check": "Check",
     "close": "Close",
+    "common": {
+        "firstname": "First name",
+        "lastname": "Last name"
+    },
     "configuration": "Configuration",
     "confirm_app_change_url": "Are you sure you want to change the app access URL?",
     "confirm_app_default": "Are you sure you want to make this app default?",
@@ -211,6 +215,11 @@
     "passwords_dont_match": "Passwords don't match",
     "passwords_too_short": "Password is too short",
     "path": "Path",
+    "placeholder": {
+        "username": "johndoe",
+        "firstname": "John",
+        "lastname": "Doe"
+    },
     "logs": "Logs",
     "logs_operation": "Operations made on system with YunoHost",
     "logs_history": "History of command run on system",

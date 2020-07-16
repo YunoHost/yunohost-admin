@@ -4,12 +4,10 @@
 
     <div class="actions">
       <b-input-group>
-        <template v-slot:prepend>
-          <b-input-group-text>
-            <label class="sr-only" for="search-user">{{ $t('user.search') }}</label>
-            <icon iname="search" />
-          </b-input-group-text>
-        </template>
+        <b-input-group-prepend is-text>
+          <label class="sr-only" for="search-user">{{ $t('user.search') }}</label>
+          <icon iname="search" />
+        </b-input-group-prepend>
         <b-form-input id="search-user" v-model="search" :placeholder="$t('user.search')" />
       </b-input-group>
       <div class="buttons">
