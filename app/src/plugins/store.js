@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
+import dataStore from '@/helpers/dataStore'
+
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -18,7 +20,6 @@ export default new Vuex.Store({
       }
     },
     'YUNOHOST_INFOS' (state, data) {
-      console.log('version changed', data)
       state.yunohostInfos = data
     }
   },
@@ -26,5 +27,6 @@ export default new Vuex.Store({
   actions: {
   },
   modules: {
+    data: dataStore
   }
 })
