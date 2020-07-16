@@ -15,7 +15,9 @@ export default {
     }
   },
   actions: {
-    async 'FETCH' ({ commit }, uri) {
+    async 'FETCH' ({ state, commit }, { uri, force = false }) {
+      // if data has already been queried, simply return
+      if (state[uri] !== undefined && !force) return
       return api.get(uri).then(responseData => {
         const data = responseData[uri] ? responseData[uri] : responseData
         commit('SET_' + uri.toUpperCase(), data)
