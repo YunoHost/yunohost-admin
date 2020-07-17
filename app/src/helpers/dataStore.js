@@ -22,7 +22,7 @@ export default {
     'FETCH' ({ state, commit, dispatch }, { uri, param, storeKey = uri, force = false }) {
       const currentState = param ? state[storeKey][param] : state[storeKey]
       // if data has already been queried, simply return
-      if (currentState !== undefined && !force) return
+      if (currentState !== undefined && !force) return currentState
       console.log(`will query: "/${param ? `${uri}/${param}` : uri}" and will store in "${storeKey || uri}"`)
       return api.get(param ? `${uri}/${param}` : uri).then(responseData => {
         const data = responseData[uri] ? responseData[uri] : responseData
@@ -31,6 +31,7 @@ export default {
         } else {
           commit('SET_' + uri.toUpperCase(), data)
         }
+        return param ? state[storeKey][param] : state[storeKey]
       })
     }
   },
