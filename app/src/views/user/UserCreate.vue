@@ -171,7 +171,9 @@ export default {
     }
   },
   created () {
-    this.$store.dispatch('FETCH', { uri: 'domains' })
+    this.$store.dispatch('FETCH', { uri: 'domains' }).then(domains => {
+      this.form.domain = domains[0]
+    })
   }
 }
 </script>
