@@ -1,52 +1,63 @@
 <template>
   <div class="user">
     <breadcrumb />
+
     <b-card :class="{skeleton: !user}">
       <template v-slot:header>
         <h2>{{ user ? user.fullname : '' }}</h2>
       </template>
+
       <div class="d-flex align-items-center">
         <icon iname="user" class="fa-fw" />
+
         <div class="w-100">
           <template v-if="user">
             <b-row>
               <b-col><strong>{{ $t('user_username') }}</strong></b-col>
               <b-col>{{ user.username }}</b-col>
             </b-row>
+
             <b-row>
               <b-col><strong>{{ $t('user_email') }}</strong></b-col>
               <b-col class="font-italic">
                 {{ user.mail }}
               </b-col>
             </b-row>
+
             <b-row>
               <b-col><strong>{{ $t('user_mailbox_quota') }}</strong></b-col>
               <b-col>{{ user['mailbox-quota'].limit }}</b-col>
             </b-row>
+
             <b-row>
               <b-col><strong>{{ $t('user_mailbox_use') }}</strong></b-col>
               <b-col>{{ user['mailbox-quota'].use }}</b-col>
             </b-row>
+
             <b-row v-for="(trad, mailType) in {'mail-aliases': 'user_emailaliases', 'mail-forward': 'user_emailforward'}" :key="mailType">
               <b-col><strong>{{ $t(trad) }}</strong></b-col>
-              <b-col>
-                <ul v-if="user[mailType] && user[mailType].length > 1">
+
+              <b-col v-if="user[mailType]">
+                <ul v-if="user[mailType].length > 1">
                   <li v-for="(alias, index) in user[mailType]" :key="index">
                     {{ alias }}
                   </li>
                 </ul>
+
                 <template v-else-if="user[mailType][0]">
                   {{ user[mailType][0] }}
                 </template>
               </b-col>
             </b-row>
           </template>
+
           <!-- skeleton -->
           <template v-else>
             <b-row v-for="(n, index) in 6" :key="index">
               <b-col>
                 <strong class="rounded" />
               </b-col>
+
               <b-col>
                 <span v-if="n <= 4" class="rounded" />
               </b-col>
@@ -61,6 +72,7 @@
           >
             {{ user ? $t('user_username_edit', {name: user.username}) : '' }}
           </b-button>
+
           <b-button :variant="user ? 'danger' : 'dark'" class="ml-2">
             {{ user ? $t('delete') : '' }}
           </b-button>
@@ -71,8 +83,6 @@
 </template>
 
 <script>
-import api from '@/helpers/api'
-
 export default {
   name: 'User',
   props: {
@@ -81,15 +91,15 @@ export default {
       required: true
     }
   },
-  data: function () {
-    return {
-      user: undefined
+  computed: {
+    user () {
+      return this.$store.state.data.users_details[this.name]
     }
   },
-  async created () {
-    const data = await api.get('users/' + this.name)
-    if (!data) return
-    this.user = data
+  created () {
+    this.$store.dispatch('FETCH',
+      { uri: 'users', param: this.name, storeKey: 'users_details' }
+    )
   }
 }
 </script>
