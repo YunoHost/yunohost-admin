@@ -148,6 +148,11 @@ export default {
       return this.$store.state.data.domains
     }
   },
+  watch: {
+    domains (domains) {
+      this.form.domain = domains[0]
+    }
+  },
   methods: {
     onSubmit () {
       const data = this.form
