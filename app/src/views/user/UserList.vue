@@ -15,6 +15,7 @@
           <icon iname="key-modern" />
           {{ $t('groups_and_permissions_manage') }}
         </b-button>
+
         <b-button variant="success" :to="{name: 'user-create'}">
           <icon iname="plus" />
           {{ $t('users_new') }}
@@ -63,7 +64,8 @@ export default {
   },
   computed: {
     users () {
-      return this.$store.state.data.users
+      const users = this.$store.state.data.users
+      return users ? Object.values(users) : users
     },
     filteredUser () {
       const search = this.search.toLowerCase()
@@ -72,7 +74,7 @@ export default {
       })
     }
   },
-  async created () {
+  created () {
     this.$store.dispatch('FETCH', { uri: 'users' })
   }
 }

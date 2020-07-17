@@ -152,13 +152,11 @@ export default {
     onSubmit () {
       const data = this.form
       for (const key in this.validation) {
-        console.log(this.validation[key] === false, this.validation[key])
         if (this.validation[key] === false) return
       }
       const quota = data.mailbox_quota
       data.mailbox_quota = parseInt(quota) ? quota + 'M' : 0
       data.mail = `${data.email}@${data.domain}`
-      console.log('go')
       // TODO post data
     },
     validatePassword () {

@@ -1,26 +1,36 @@
+import Vue from 'vue'
 import api from './api'
 
 export default {
   state: () => ({
-    domains: undefined,
-    users: undefined
+    domains: undefined, // Array
+    users: undefined, // basic user data: Object {username: {data}}
+    users_details: {} // precise user data: Object {username: {data}}
   }),
   mutations: {
     'SET_DOMAINS' (state, domains) {
       state.domains = domains
     },
     'SET_USERS' (state, users) {
-      console.log(users)
-      state.users = Object.keys(users).length === 0 ? null : Object.values(users)
+      state.users = Object.keys(users).length === 0 ? null : users
+    },
+    'SET_USERS_PARAM' (state, [username, userData]) {
+      Vue.set(state.users_details, username, userData)
     }
   },
   actions: {
-    async 'FETCH' ({ state, commit }, { uri, force = false }) {
+    'FETCH' ({ state, commit, dispatch }, { uri, param, storeKey = uri, force = false }) {
+      const currentState = param ? state[storeKey][param] : state[storeKey]
       // if data has already been queried, simply return
-      if (state[uri] !== undefined && !force) return
-      return api.get(uri).then(responseData => {
+      if (currentState !== undefined && !force) return
+      console.log(`will query: "/${param ? `${uri}/${param}` : uri}" and will store in "${storeKey || uri}"`)
+      return api.get(param ? `${uri}/${param}` : uri).then(responseData => {
         const data = responseData[uri] ? responseData[uri] : responseData
-        commit('SET_' + uri.toUpperCase(), data)
+        if (param) {
+          commit(`SET_${uri.toUpperCase()}_PARAM`, [param, data])
+        } else {
+          commit('SET_' + uri.toUpperCase(), data)
+        }
       })
     }
   },
