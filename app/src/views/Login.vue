@@ -58,9 +58,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.input-group.is-invalid {
-  ~ .invalid-feedback {
-    display: block;
-  }
-}
 </style>

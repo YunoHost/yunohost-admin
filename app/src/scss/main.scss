@@ -30,6 +30,12 @@ body {
   color: #333;
 }
 
+.input-group.is-invalid {
+  ~ .invalid-feedback {
+    display: block;
+  }
+}
+
 
 // Fork-awesome overrides
 .fa-fw {
