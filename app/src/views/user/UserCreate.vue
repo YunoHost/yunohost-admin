@@ -191,7 +191,11 @@ export default {
 
       this.$store.dispatch('POST',
         { uri: 'users', data, param: data.username, storeKey: '' }
-      ).catch(error => {
+      ).then(responseData => {
+        // FIXME API doesn't return the same data as '/users'
+        this.$store.commit('ADD_USER', responseData)
+        this.$router.push({ name: 'user-list' })
+      }).catch(error => {
         this.server.error = error.message
         this.server.isValid = false
       })
