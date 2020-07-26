@@ -10,9 +10,12 @@ function handleResponse (response, type = 'json') {
   return response.ok ? response[type]() : handleErrors(response)
 }
 
-function handleErrors (response) {
+async function handleErrors (response) {
   if (response.status === 401) {
     throw new Error('Unauthorized')
+  } else if (response.status === 400) {
+    const message = await response.text()
+    throw new Error(message)
   }
 }
 
@@ -39,11 +42,19 @@ export default {
       })
   },
 
+  post (uri, data) {
+    return fetch('/api/' + uri, {
+      ...this.options,
+      method: 'POST',
+      body: objectToParams(data)
+    }).then(response => handleResponse(response))
+  },
+
   login (password) {
     return fetch('/api/login', {
+      ...this.options,
       method: 'POST',
-      body: objectToParams({ password }),
-      ...this.options
+      body: objectToParams({ password })
     }).then(response => (response.ok))
   },
 
