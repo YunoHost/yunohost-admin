@@ -71,16 +71,35 @@
             {{ user ? $t('user_username_edit', {name: user.username}) : '' }}
           </b-button>
 
-          <b-button :variant="user ? 'danger' : 'dark'" class="ml-2">
+          <b-button :variant="user ? 'danger' : 'dark'" class="ml-2" v-b-modal.delete-modal>
             {{ user ? $t('delete') : '' }}
           </b-button>
         </div>
       </template>
     </b-card>
+
+    <b-modal
+      v-if="user" id="delete-modal" centered
+      header-bg-variant="danger" header-text-variant="light"
+      :title="$t('confirm_delete', {name: user.username })"
+      @ok="deleteUser"
+    >
+      <b-form-group>
+        <template v-slot:description>
+          <span class="bg-warning p-2 text-dark">
+            <icon iname="exclamation-triangle" /> {{ $t('purge_user_data_warning') }}
+          </span>
+        </template>
+        <b-form-checkbox v-model="purge" class="mb-3">
+          {{ $t('purge_user_data_checkbox', {name: user.username}) }}
+        </b-form-checkbox>
+      </b-form-group>
+    </b-modal>
   </div>
 </template>
 
 <script>
+
 export default {
   name: 'UserInfo',
   props: {
@@ -89,9 +108,24 @@ export default {
       required: true
     }
   },
+  data () {
+    return {
+      purge: false
+    }
+  },
   computed: {
     user () {
       return this.$store.state.data.users_details[this.name]
+    }
+  },
+  methods: {
+    deleteUser () {
+      const data = this.purge ? { purge: '' } : {}
+      this.$store.dispatch('DELETE',
+        { uri: 'users', data, param: this.name }
+      ).then(() => {
+        this.$router.push({ name: 'user-list' })
+      })
     }
   },
   created () {

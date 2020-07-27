@@ -32,6 +32,13 @@ export default {
         }
       }
       Vue.set(user, 'fullname', `${userData.firstname} ${userData.lastname}`)
+    },
+
+    'DEL_USERS_PARAM' (state, username) {
+      Vue.delete(state.users_details, username)
+      if (state.users) {
+        Vue.delete(state.users, username)
+      }
     }
   },
 
@@ -57,7 +64,7 @@ export default {
     },
 
     'PUT' ({ state, commit }, { uri, param, data, storeKey = uri }) {
-      return api.put(param ? `${uri}/${param}` : uri, data).then(async responseData => {
+      return api.put(param ? `${uri}/${param}` : uri, data).then(responseData => {
         const data = responseData[uri] ? responseData[uri] : responseData
         if (param) {
           commit(`SET_${uri.toUpperCase()}_PARAM`, [param, data])
@@ -65,6 +72,16 @@ export default {
           commit('SET_' + uri.toUpperCase(), data)
         }
         return param ? state[storeKey][param] : state[storeKey]
+      })
+    },
+
+    'DELETE' ({ state, commit }, { uri, param, data }) {
+      return api.delete(param ? `${uri}/${param}` : uri, data).then(() => {
+        if (param) {
+          commit(`DEL_${uri.toUpperCase()}_PARAM`, param)
+        } else {
+          commit('DEL_' + uri.toUpperCase())
+        }
       })
     }
   },

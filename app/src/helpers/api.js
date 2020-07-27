@@ -58,6 +58,14 @@ export default {
     }).then(response => handleResponse(response))
   },
 
+  delete (uri, data) {
+    return fetch('/api/' + uri, {
+      ...this.options,
+      method: 'DELETE',
+      body: objectToParams(data)
+    }).then(response => response.ok ? 'ok' : handleErrors(response))
+  },
+
   login (password) {
     return fetch('/api/login', {
       ...this.options,
