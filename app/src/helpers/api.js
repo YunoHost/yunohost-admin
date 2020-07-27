@@ -50,6 +50,14 @@ export default {
     }).then(response => handleResponse(response))
   },
 
+  put (uri, data) {
+    return fetch('/api/' + uri, {
+      ...this.options,
+      method: 'PUT',
+      body: objectToParams(data)
+    }).then(response => handleResponse(response))
+  },
+
   login (password) {
     return fetch('/api/login', {
       ...this.options,

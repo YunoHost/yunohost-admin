@@ -1,19 +1,8 @@
 <template lang="html">
-  <div class="user-create">
-    <b-card :header="$t('users_new')" header-tag="h2">
-      <b-form id="user-create" @submit.prevent="onSubmit">
-        <b-form-group label-cols="auto" :label="$t('user_username')" label-for="input-username">
-          <b-input
-            id="input-username" :placeholder="$t('placeholder.username')"
-            aria-describedby="username-feedback" required
-            v-model="form.username" :state="isValid.username"
-            @input="validateUsername" @blur="populateEmail"
-          />
-          <b-form-invalid-feedback id="username-feedback" :state="isValid.username">
-            {{ this.error.username }}
-          </b-form-invalid-feedback>
-        </b-form-group>
-
+  <div class="user-edit">
+    <b-card v-if="this.form.firstname" :header="user ? $t('user_username_edit', { name: user.username }) : ''" header-tag="h2">
+      <b-form id="user-edit" @submit.prevent="onSubmit">
+        <!-- USER FULLNAME -->
         <b-form-group label-cols="auto">
           <template v-slot:label aria-hidden="true">
             {{ $t('user_fullname') }}
@@ -30,7 +19,7 @@
 
               <b-input
                 id="input-firstname" :placeholder="$t('placeholder.firstname')"
-                v-model="form.firstname" required
+                v-model="form.firstname"
               />
             </b-input-group>
 
@@ -44,12 +33,13 @@
 
               <b-input
                 id="input-firstname" :placeholder="$t('placeholder.lastname')"
-                v-model="form.lastname" required
+                v-model="form.lastname"
               />
             </b-input-group>
           </div>
         </b-form-group>
 
+        <!-- USER EMAIL -->
         <b-form-group label-cols="auto" :label="$t('user_email')" label-for="input-email">
           <splitted-mail-input
             id="input-email" feedback="email-feedback"
@@ -62,6 +52,8 @@
           </b-form-invalid-feedback>
         </b-form-group>
 
+        <!-- MAILBOX QUOTA -->
+        <hr>
         <b-form-group
           label-cols="auto" :label="$t('user_mailbox_quota')" label-for="input-mailbox-quota"
           :description="$t('mailbox_quota_description')"
@@ -69,15 +61,37 @@
           <b-input-group append="M">
             <b-input
               id="input-mailbox-quota" :placeholder="$t('mailbox_quota_placeholder')"
-              v-model="form.mailbox_quota" type="number" min="0"
+              v-model="form['mailbox-quota']" type="number" min="0"
             />
           </b-input-group>
         </b-form-group>
 
+        <!-- MAIL ALIASES -->
+        <hr>
+        <b-form-group label-cols="auto" :label="$t('user_emailaliases')" class="mail-list">
+          <splitted-mail-input
+            v-for="(alias, index) in form['mail-aliases']" :key="index"
+            feedback="mail-aliases-feedback"
+            v-model="form['mail-aliases'][index]" :domains="domains"
+          />
+        </b-form-group>
+
+        <!-- MAIL FORWARD -->
+        <hr>
+        <b-form-group label-cols="auto" :label="$t('user_emailforward')" class="mail-list">
+          <b-input
+            v-for="(forward, index) in form['mail-forward']" :key="index"
+            id="input-mailbox-quota" :placeholder="$t('user_new_forward')"
+            v-model="form['mail-forward'][index]" type="email"
+          />
+        </b-form-group>
+
+        <!-- USER PASSWORD -->
+        <hr>
         <b-form-group label-cols="auto" :label="$t('password')" label-for="input-password">
           <b-input
             id="input-password" placeholder="••••••••"
-            aria-describedby="password-feedback" required
+            aria-describedby="password-feedback"
             v-model="form.password" type="password"
             :state="isValid.password" @input="validatePassword"
           />
@@ -86,13 +100,14 @@
           </b-form-invalid-feedback>
         </b-form-group>
 
+        <!-- USER PASSWORD CONFIRMATION -->
         <b-form-group
           label-cols="auto" :label="$t('password_confirmation')" label-for="input-confirmation"
           :description="$t('good_practices_about_user_password')"
         >
           <b-input
             id="input-confirmation" placeholder="••••••••"
-            aria-describedby="confirmation-feedback" required
+            aria-describedby="confirmation-feedback"
             v-model="form.confirmation" type="password"
             :state="isValid.confirmation" @input="validatePassword"
           />
@@ -108,7 +123,7 @@
 
       <template v-slot:footer>
         <div class="d-flex d-flex justify-content-end">
-          <b-button type="submit" form="user-create" variant="success">
+          <b-button type="submit" form="user-edit" variant="success">
             {{ $t('save') }}
           </b-button>
         </div>
@@ -121,25 +136,28 @@
 import SplittedMailInput from '@/components/SplittedMailInput'
 
 export default {
+  name: 'UserEdit',
+  props: {
+    name: { type: String, required: true }
+  },
   data () {
     return {
       form: {
-        username: '',
         firstname: '',
         lastname: '',
         mail: '',
-        mailbox_quota: '',
+        'mailbox-quota': '',
+        'mail-aliases': [],
+        'mail-forward': [],
         password: '',
         confirmation: ''
       },
       isValid: {
-        username: null,
         mail: null,
         password: null,
         confirmation: null
       },
       error: {
-        username: '',
         mail: ''
       },
       server: {
@@ -150,6 +168,9 @@ export default {
   },
 
   computed: {
+    user () {
+      return this.$store.state.data.users_details[this.name]
+    },
     domains () {
       return this.$store.state.data.domains
     }
@@ -161,15 +182,36 @@ export default {
         if (this.isValid[key] === false) return
       }
 
-      const data = JSON.parse(JSON.stringify(this.form))
-      const quota = data.mailbox_quota
-      data.mailbox_quota = parseInt(quota) ? quota + 'M' : 0
+      const data = {}
 
-      this.$store.dispatch(
-        'POST', { uri: 'users', data }
-      ).then(responseData => {
-        // FIXME API doesn't return the same data as '/users'
-        this.$store.commit('ADD_USER', responseData)
+      for (const key of ['firstname', 'lastname', 'mail']) {
+        if (this.form[key] !== this.user[key]) data[key] = this.form[key]
+      }
+
+      let quota = this.form['mailbox-quota']
+      quota = parseInt(quota) ? quota + 'M' : 'No quota'
+      if (quota !== this.user['mailbox-quota'].limit) {
+        data.mailbox_quota = quota !== 'No quota' ? quota : 0
+      }
+
+      const mails = {
+        add_mailalias: arrayDiff(this.form['mail-aliases'], this.user['mail-aliases']),
+        remove_mailalias: arrayDiff(this.user['mail-aliases'], this.form['mail-aliases']),
+        add_mailforward: arrayDiff(this.form['mail-forward'], this.user['mail-forward']),
+        remove_mailforward: arrayDiff(this.user['mail-forward'], this.form['mail-forward'])
+      }
+      for (const [key, value] of Object.entries(mails)) {
+        if (value.length > 0) data[key] = value
+      }
+
+      function arrayDiff (arr1 = [], arr2 = []) {
+        return arr1.filter(item => ((arr2.indexOf(item) === -1) && (item !== '')))
+      }
+
+      console.log(data)
+      this.$store.dispatch('PUT',
+        { uri: 'users', data, param: this.user.username, storeKey: 'users_details' }
+      ).then(() => {
         this.$router.push({ name: 'user-list' })
       }).catch(error => {
         this.server.error = error.message
@@ -177,30 +219,11 @@ export default {
       })
     },
 
-    populateEmail () {
-      if (this.form.email === '') {
-        this.form.email = this.form.username
-      }
-    },
-
-    validateUsername () {
-      const username = this.form.username
-      let error = ''
-      if (!username.match('^[a-z0-9_]+$')) {
-        // FIXME check allowed characters
-        error = this.$i18n.t('form_errors.username_syntax')
-      } else if (Object.keys(this.$store.state.data.users).includes(username)) {
-        error = this.$i18n.t('form_errors.username_exists', { user: username })
-      }
-      this.error.username = error
-      this.isValid.username = error === '' ? null : false
-    },
-
     validateEmail () {
       // FIXME check allowed characters
       const isValid = this.form.mail.split('@')[0].match('^[A-Za-z0-9-_]+$')
-      this.error.email = isValid ? '' : this.$i18n.t('form_errors.email_syntax')
-      this.isValid.email = isValid ? null : false
+      this.error.mail = isValid ? '' : this.$i18n.t('form_errors.email_syntax')
+      this.isValid.mail = isValid ? null : false
     },
 
     validatePassword () {
@@ -212,7 +235,19 @@ export default {
 
   created () {
     this.$store.dispatch('FETCH', { uri: 'domains' })
-    this.$store.dispatch('FETCH', { uri: 'users' })
+    this.$store.dispatch('FETCH',
+      { uri: 'users', param: this.name, storeKey: 'users_details' }
+    ).then(userData => {
+      this.form.firstname = userData.firstname
+      this.form.lastname = userData.lastname
+      this.form.mail = userData.mail
+      this.form['mail-aliases'] = userData['mail-aliases'] ? [...userData['mail-aliases'], ''] : ['']
+      this.form['mail-forward'] = userData['mail-forward'] ? [...userData['mail-forward'], ''] : ['']
+      if (userData['mailbox-quota'].limit !== 'No quota') {
+        console.log(userData['mailbox-quota'])
+        this.form['mailbox-quota'] = userData['mailbox-quota'].limit.slice(0, -1)
+      }
+    })
   },
   components: {
     SplittedMailInput
@@ -222,9 +257,12 @@ export default {
 
 <style lang="scss" scoped>
 @include media-breakpoint-down(xs) {
-   .form-group + .form-group {
+   .form-group:not(:first-of-type) {
      padding-top: .5rem;
      border-top: $thin-border;
+   }
+   hr {
+     display: none;
    }
 }
 
@@ -234,6 +272,14 @@ export default {
     .input-group + .input-group {
       margin-left: .5rem;
     }
+  }
+}
+
+.mail-list .col > *:not(:first-of-type) {
+  margin-top: .5rem;
+
+  input {
+    max-width: 10rem;
   }
 }
 </style>
