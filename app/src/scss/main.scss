@@ -30,9 +30,32 @@ body {
   color: #333;
 }
 
-.input-group.is-invalid {
-  ~ .invalid-feedback {
+.input-group {
+  select {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  &.is-invalid ~ .invalid-feedback {
     display: block;
+  }
+}
+
+.col-form-label {
+  @include media-breakpoint-up(xs) {
+    width: 100%;
+  }
+  @include media-breakpoint-up(sm) {
+    flex-basis: 40%;
+  }
+  @include media-breakpoint-up(md) {
+    flex-basis: 30%;
+  }
+  @include media-breakpoint-up(lg) {
+    flex-basis: 25%;
+  }
+  @include media-breakpoint-up(xl) {
+    flex-basis: 20%;
   }
 }
 

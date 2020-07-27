@@ -4,10 +4,7 @@
 
     <b-card :header="$t('users_new')" header-tag="h2">
       <b-form id="user-create" @submit.prevent="onSubmit">
-        <b-form-group
-          label-cols-sm="5" label-cols-lg="4" label-cols-xl="3"
-          :label="$t('user_username')" label-for="input-username" label-class="test"
-        >
+        <b-form-group label-cols="auto" :label="$t('user_username')" label-for="input-username">
           <b-input
             id="input-username" :placeholder="$t('placeholder.username')"
             aria-describedby="username-feedback" required
@@ -19,7 +16,7 @@
           </b-form-invalid-feedback>
         </b-form-group>
 
-        <b-form-group label-cols-sm="5" label-cols-lg="4" label-cols-xl="3">
+        <b-form-group label-cols="auto">
           <template v-slot:label aria-hidden="true">
             {{ $t('user_fullname') }}
           </template>
@@ -55,10 +52,7 @@
           </div>
         </b-form-group>
 
-        <b-form-group
-          label-cols-sm="5" label-cols-lg="4" label-cols-xl="3"
-          :label="$t('user_email')" label-for="input-email"
-        >
+        <b-form-group label-cols="auto" :label="$t('user_email')" label-for="input-email">
           <b-input-group>
             <b-input
               id="input-email" :placeholder="$t('placeholder.username')"
@@ -82,8 +76,7 @@
         </b-form-group>
 
         <b-form-group
-          label-cols-sm="5" label-cols-lg="4" label-cols-xl="3"
-          :label="$t('user_mailbox_quota')" label-for="input-mailbox-quota"
+          label-cols="auto" :label="$t('user_mailbox_quota')" label-for="input-mailbox-quota"
           :description="$t('mailbox_quota_description')"
         >
           <b-input-group append="M">
@@ -94,10 +87,7 @@
           </b-input-group>
         </b-form-group>
 
-        <b-form-group
-          label-cols-sm="5" label-cols-lg="4" label-cols-xl="3"
-          :label="$t('password')" label-for="input-password"
-        >
+        <b-form-group label-cols="auto" :label="$t('password')" label-for="input-password">
           <b-input
             id="input-password" placeholder="••••••••"
             aria-describedby="password-feedback" required
@@ -110,8 +100,7 @@
         </b-form-group>
 
         <b-form-group
-          label-cols-sm="5" label-cols-lg="4" label-cols-xl="3"
-          :label="$t('password_confirmation')" label-for="input-confirmation"
+          label-cols="auto" :label="$t('password_confirmation')" label-for="input-confirmation"
           :description="$t('good_practices_about_user_password')"
         >
           <b-input
@@ -257,13 +246,6 @@ export default {
     .input-group + .input-group {
       margin-left: .5rem;
     }
-  }
-}
-
-.input-group {
-  select {
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
   }
 }
 </style>
