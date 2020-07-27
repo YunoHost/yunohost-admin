@@ -19,7 +19,7 @@
             {{ $t('user_fullname') }}
           </template>
 
-          <div class="input-double" id="group-fullname">
+          <div class="input-double">
             <b-input-group>
               <b-input-group-prepend
                 tag="label" class="ssr-only" is-text
@@ -51,25 +51,14 @@
         </b-form-group>
 
         <b-form-group label-cols="auto" :label="$t('user_email')" label-for="input-email">
-          <b-input-group>
-            <b-input
-              id="input-email" :placeholder="$t('placeholder.username')"
-              aria-describedby="email-feedback"
-              v-model="form.email" required
-              :state="isValid.email" @input="validateEmail"
-            />
+          <splitted-mail-input
+            id="input-email" feedback="email-feedback"
+            v-model="form.mail" :domains="domains"
+            :state="isValid.mail" @input="validateEmail"
+          />
 
-            <b-input-group-append>
-              <b-input-group-text>@</b-input-group-text>
-            </b-input-group-append>
-
-            <b-input-group-append>
-              <b-select v-model="form.domain" :options="domains" required />
-            </b-input-group-append>
-          </b-input-group>
-
-          <b-form-invalid-feedback id="email-feedback" :state="isValid.email">
-            {{ this.error.email }}
+          <b-form-invalid-feedback id="email-feedback" :state="isValid.mail">
+            {{ this.error.mail }}
           </b-form-invalid-feedback>
         </b-form-group>
 
@@ -129,6 +118,8 @@
 </template>
 
 <script>
+import SplittedMailInput from '@/components/SplittedMailInput'
+
 export default {
   data () {
     return {
@@ -136,21 +127,20 @@ export default {
         username: '',
         firstname: '',
         lastname: '',
-        email: '',
-        domain: '',
+        mail: '',
         mailbox_quota: '',
         password: '',
         confirmation: ''
       },
       isValid: {
         username: null,
-        email: null,
+        mail: null,
         password: null,
         confirmation: null
       },
       error: {
         username: '',
-        email: ''
+        mail: ''
       },
       server: {
         isValid: null,
@@ -174,7 +164,6 @@ export default {
       const data = JSON.parse(JSON.stringify(this.form))
       const quota = data.mailbox_quota
       data.mailbox_quota = parseInt(quota) ? quota + 'M' : 0
-      data.mail = `${data.email}@${data.domain}`
 
       this.$store.dispatch('POST',
         { uri: 'users', data, param: data.username, storeKey: '' }
@@ -209,7 +198,7 @@ export default {
 
     validateEmail () {
       // FIXME check allowed characters
-      const isValid = this.form.email.match('^[A-Za-z0-9-_]+$')
+      const isValid = this.form.mail.split('@')[0].match('^[A-Za-z0-9-_]+$')
       this.error.email = isValid ? '' : this.$i18n.t('form_errors.email_syntax')
       this.isValid.email = isValid ? null : false
     },
@@ -222,10 +211,11 @@ export default {
   },
 
   created () {
-    this.$store.dispatch('FETCH', { uri: 'domains' }).then(domains => {
-      this.form.domain = domains[0]
-    })
+    this.$store.dispatch('FETCH', { uri: 'domains' })
     this.$store.dispatch('FETCH', { uri: 'users' })
+  },
+  components: {
+    SplittedMailInput
   }
 }
 </script>
