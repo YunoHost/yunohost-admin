@@ -28,13 +28,13 @@ export default {
   },
   data () {
     return {
-      mail: this.value.split('@')[0],
-      domain: this.value.split('@')[1]
+      mail: '',
+      domain: ''
     }
   },
   watch: {
     domains () {
-      if (this.domain === undefined) {
+      if (!this.domain) {
         this.domain = this.domains[0]
       }
     }
@@ -43,6 +43,17 @@ export default {
     updateValue () {
       this.$emit('input', `${this.mail}@${this.domain}`)
     }
+  },
+  created () {
+    if (this.value) {
+      const [mail, domain] = this.value.split('@')
+      Object.assign(this, { mail, domain })
+    } else if (this.domains) {
+      this.domain = this.domains[0]
+    }
+    // if (this.domain === undefined) {
+    //   this.domain = this.domains[0]
+    // }
   }
 }
 </script>

@@ -244,7 +244,6 @@ export default {
       this.form['mail-aliases'] = userData['mail-aliases'] ? [...userData['mail-aliases'], ''] : ['']
       this.form['mail-forward'] = userData['mail-forward'] ? [...userData['mail-forward'], ''] : ['']
       if (userData['mailbox-quota'].limit !== 'No quota') {
-        console.log(userData['mailbox-quota'])
         this.form['mailbox-quota'] = userData['mailbox-quota'].limit.slice(0, -1)
       }
     })
