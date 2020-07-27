@@ -1,7 +1,5 @@
 <template lang="html">
   <div class="user-create">
-    <breadcrumb />
-
     <b-card :header="$t('users_new')" header-tag="h2">
       <b-form id="user-create" @submit.prevent="onSubmit">
         <b-form-group label-cols="auto" :label="$t('user_username')" label-for="input-username">

@@ -1,7 +1,5 @@
 <template>
   <div class="users">
-    <breadcrumb />
-
     <div class="actions">
       <b-input-group>
         <b-input-group-prepend is-text>
