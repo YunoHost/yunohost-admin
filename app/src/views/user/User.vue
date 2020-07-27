@@ -1,7 +1,5 @@
 <template>
   <div class="user">
-    <breadcrumb />
-
     <b-card :class="{skeleton: !user}">
       <template v-slot:header>
         <h2>{{ user ? user.fullname : '' }}</h2>

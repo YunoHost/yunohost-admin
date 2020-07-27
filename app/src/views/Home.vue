@@ -46,4 +46,8 @@ h2 {
     font-weight: 400;
     margin: 0;
 }
+
+.home {
+  margin-top: 2rem;
+}
 </style>

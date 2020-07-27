@@ -24,7 +24,9 @@
       </b-navbar>
     </header>
 
-    <main>
+    <breadcrumb v-if="$route.meta.breadcrumb" />
+
+    <main id="main">
       <router-view v-if="isReady" />
     </main>
 
