@@ -204,11 +204,11 @@ export default {
         if (value.length > 0) data[key] = value
       }
 
+      // FIXME move to utils
       function arrayDiff (arr1 = [], arr2 = []) {
         return arr1.filter(item => ((arr2.indexOf(item) === -1) && (item !== '')))
       }
 
-      console.log(data)
       this.$store.dispatch('PUT',
         { uri: 'users', data, param: this.user.username, storeKey: 'users_details' }
       ).then(() => {
