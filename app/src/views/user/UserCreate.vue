@@ -2,6 +2,7 @@
   <div class="user-create">
     <b-card :header="$t('users_new')" header-tag="h2">
       <b-form id="user-create" @submit.prevent="onSubmit">
+        <!-- USER NAME -->
         <b-form-group label-cols="auto" :label="$t('user_username')" label-for="input-username">
           <b-input
             id="input-username" :placeholder="$t('placeholder.username')"
@@ -14,6 +15,7 @@
           </b-form-invalid-feedback>
         </b-form-group>
 
+        <!-- USER FULLNAME -->
         <b-form-group label-cols="auto">
           <template v-slot:label aria-hidden="true">
             {{ $t('user_fullname') }}
@@ -50,6 +52,7 @@
           </div>
         </b-form-group>
 
+        <!-- USER EMAIL -->
         <b-form-group label-cols="auto" :label="$t('user_email')" label-for="input-email">
           <splitted-mail-input
             id="input-email" feedback="email-feedback"
@@ -62,6 +65,7 @@
           </b-form-invalid-feedback>
         </b-form-group>
 
+        <!-- MAILBOX QUOTA -->
         <b-form-group
           label-cols="auto" :label="$t('user_mailbox_quota')" label-for="input-mailbox-quota"
           :description="$t('mailbox_quota_description')"
@@ -74,6 +78,7 @@
           </b-input-group>
         </b-form-group>
 
+        <!-- USER PASSWORD -->
         <b-form-group label-cols="auto" :label="$t('password')" label-for="input-password">
           <b-input
             id="input-password" placeholder="••••••••"
@@ -86,6 +91,7 @@
           </b-form-invalid-feedback>
         </b-form-group>
 
+        <!-- USER PASSWORD CONFIRMATION -->
         <b-form-group
           label-cols="auto" :label="$t('password_confirmation')" label-for="input-confirmation"
           :description="$t('good_practices_about_user_password')"
