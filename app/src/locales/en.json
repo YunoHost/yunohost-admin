@@ -56,7 +56,7 @@
     "confirm_app_change_url": "Are you sure you want to change the app access URL?",
     "confirm_app_default": "Are you sure you want to make this app default?",
     "confirm_change_maindomain": "Are you sure you want to change the main domain?",
-    "confirm_delete": "Are you sure you want to delete %s?",
+    "confirm_delete": "Are you sure you want to delete {name}?",
     "confirm_firewall_open": "Are you sure you want to open port %s? (protocol: %s, connection: %s)",
     "confirm_firewall_close": "Are you sure you want to close port %s? (protocol: %s, connection: %s)",
     "confirm_install_custom_app": "WARNING! Installing 3rd party applications may compromise the integrity and security of your system. You should probably NOT install it unless you know what you are doing. Are you willing to take that risk?",
@@ -372,6 +372,6 @@
     "regenerate_selfsigned_cert": "Regenerate self-signed certificate",
     "revert_to_selfsigned_cert_message": "If you really want to, you can reinstall a self-signed certificate. (Not recommended)",
     "revert_to_selfsigned_cert": "Revert to a self-signed certificate",
-    "purge_user_data_checkbox": "Purge %s's data? (This will remove the content of its home and mail directories.)",
+    "purge_user_data_checkbox": "Purge {name}'s data? (This will remove the content of its home and mail directories.)",
     "purge_user_data_warning": "Purging user's data is not reversible. Be sure you know what you're doing!"
 }
