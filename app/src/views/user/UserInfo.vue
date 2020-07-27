@@ -82,7 +82,7 @@
 
 <script>
 export default {
-  name: 'User',
+  name: 'UserInfo',
   props: {
     name: {
       type: String,

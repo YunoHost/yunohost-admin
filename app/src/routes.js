@@ -1,6 +1,6 @@
 import Home from './views/Home'
 import Login from './views/Login'
-import { UserList, UserCreate, User, UserEdit } from './views/user'
+import { UserList, UserCreate, UserInfo, UserEdit } from './views/user'
 
 const routes = [
   { name: 'home', path: '/', component: Home },
@@ -27,7 +27,7 @@ const routes = [
   {
     name: 'user-info',
     path: '/users/:name',
-    component: User,
+    component: UserInfo,
     props: true,
     meta: {
       breadcrumb: [
