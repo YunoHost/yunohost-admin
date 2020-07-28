@@ -1,12 +1,15 @@
 import Home from './views/Home'
 import Login from './views/Login'
 import { UserList, UserCreate, UserInfo, UserEdit } from './views/user'
+import { GroupList, GroupCreate } from './views/group'
 
 const routes = [
   { name: 'home', path: '/', component: Home },
   { name: 'login', path: '/login', component: Login, meta: { noAuth: true } },
 
-  // Users routes
+  /* ───────╮
+   │  USER  │
+   ╰─────── */
   {
     name: 'user-list',
     path: '/users',
@@ -46,6 +49,33 @@ const routes = [
         { name: 'user-list', trad: 'users' },
         { name: 'user-info', param: 'name' },
         { name: 'user-edit', param: 'name', trad: 'user_username_edit' }
+      ]
+    }
+  },
+
+  /* ────────╮
+   │  GROUP  │
+   ╰──────── */
+  {
+    name: 'group-list',
+    path: '/groups',
+    component: GroupList,
+    meta: {
+      breadcrumb: [
+        { name: 'user-list', trad: 'users' },
+        { name: 'group-list', trad: 'groups_and_permissions' }
+      ]
+    }
+  },
+  {
+    name: 'group-create',
+    path: '/groups/create',
+    component: GroupCreate,
+    meta: {
+      breadcrumb: [
+        { name: 'user-list', trad: 'users' },
+        { name: 'group-list', trad: 'groups_and_permissions' },
+        { name: 'group-create', trad: 'group_new' }
       ]
     }
   }

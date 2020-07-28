@@ -1,5 +1,5 @@
 <template>
-  <div class="users">
+  <div class="user-list">
     <div class="actions">
       <b-input-group>
         <b-input-group-prepend is-text>
@@ -9,7 +9,7 @@
         <b-form-input id="search-user" v-model="search" :placeholder="$t('user.search')" />
       </b-input-group>
       <div class="buttons">
-        <b-button variant="info">
+        <b-button variant="info" :to="{ name: 'group-list'}">
           <icon iname="key-modern" />
           {{ $t('groups_and_permissions_manage') }}
         </b-button>
