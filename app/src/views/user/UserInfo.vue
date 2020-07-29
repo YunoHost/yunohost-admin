@@ -122,7 +122,7 @@ export default {
     deleteUser () {
       const data = this.purge ? { purge: '' } : {}
       this.$store.dispatch('DELETE',
-        { uri: 'users', data, param: this.name }
+        { uri: 'users', param: this.name, data, storeKey: 'users_details' }
       ).then(() => {
         this.$router.push({ name: 'user-list' })
       })
@@ -142,10 +142,6 @@ export default {
   @include media-breakpoint-up(md) {
       flex-direction: row;
   }
-}
-
-h2 {
-  margin: 0;
 }
 
 .icon.fa-user {

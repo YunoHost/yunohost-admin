@@ -34,7 +34,7 @@ body {
   .input-group-append ~ .input-group-append {
     min-width: 40%;
   }
-  
+
   select {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
@@ -63,8 +63,56 @@ body {
   }
 }
 
+.card-header h2 {
+  margin: 0;
+}
+
 
 // Fork-awesome overrides
 .fa-fw {
   width: 1.25em !important;
+}
+
+
+// custom css
+.actions {
+  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+
+  @include media-breakpoint-down(xs) {
+    .buttons {
+      flex-direction: column;
+      justify-content: space-between;
+    }
+  }
+
+  @include media-breakpoint-down(sm) {
+    flex-direction: column-reverse;
+    margin-bottom: 2rem;
+
+    .buttons {
+      display: flex;
+      justify-content: space-between;
+
+      .btn {
+        margin-bottom: .5rem;
+      }
+    }
+  }
+
+  @include media-breakpoint-up(md) {
+    .btn-success {
+      margin-left: .5rem;
+    }
+  }
+
+  .input-group {
+    @include media-breakpoint-up(md) {
+      width: 25%;
+    }
+    @include media-breakpoint-up(lg) {
+      width: 35%;
+    }
+  }
 }

@@ -83,48 +83,6 @@ p {
   margin: 0
 }
 
-.actions {
-  margin-bottom: 1.5rem;
-  display: flex;
-  justify-content: space-between;
-
-  @include media-breakpoint-down(xs) {
-    .buttons {
-      flex-direction: column;
-      justify-content: space-between;
-    }
-  }
-
-  @include media-breakpoint-down(sm) {
-    flex-direction: column-reverse;
-    margin-bottom: 2rem;
-
-    .buttons {
-      display: flex;
-      justify-content: space-between;
-
-      .btn {
-        margin-bottom: .5rem;
-      }
-    }
-  }
-
-  @include media-breakpoint-up(md) {
-    .btn-success {
-      margin-left: .5rem;
-    }
-  }
-
-  .input-group {
-    @include media-breakpoint-up(md) {
-      width: 25%;
-    }
-    @include media-breakpoint-up(lg) {
-      width: 35%;
-    }
-  }
-}
-
 .skeleton {
   @each $i, $opacity in 1 .75, 2 .5, 3 .25 {
     .list-group-item:nth-child(#{$i}) { opacity: $opacity; }

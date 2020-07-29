@@ -17,12 +17,12 @@ export default {
       state.users = Object.keys(users).length === 0 ? null : users
     },
 
-    'ADD_USER' (state, user) {
+    'ADD_USERS' (state, user) {
       // FIXME will trigger an error if first created user
       Vue.set(state.users, user.username, user)
     },
 
-    'SET_USERS_PARAM' (state, [username, userData]) {
+    'SET_USERS_DETAILS' (state, [username, userData]) {
       Vue.set(state.users_details, username, userData)
       if (!state.users) return
       const user = state.users[username]
@@ -34,7 +34,7 @@ export default {
       Vue.set(user, 'fullname', `${userData.firstname} ${userData.lastname}`)
     },
 
-    'DEL_USERS_PARAM' (state, username) {
+    'DEL_USERS_DETAILS' (state, username) {
       Vue.delete(state.users_details, username)
       if (state.users) {
         Vue.delete(state.users, username)
@@ -49,39 +49,47 @@ export default {
       if (currentState !== undefined && !force) return currentState
 
       return api.get(param ? `${uri}/${param}` : uri).then(responseData => {
-        const data = responseData[uri] ? responseData[uri] : responseData
-        if (param) {
-          commit(`SET_${uri.toUpperCase()}_PARAM`, [param, data])
-        } else {
-          commit('SET_' + uri.toUpperCase(), data)
-        }
-        return param ? state[storeKey][param] : state[storeKey]
+        const data = responseData[storeKey] ? responseData[storeKey] : responseData
+        commit('SET_' + storeKey.toUpperCase(), param ? [param, data] : data)
+        return data
       })
     },
 
-    'POST' ({ state, commit }, { uri, data }) {
-      return api.post(uri, data)
+    'FETCH_ALL' ({ state, commit }, queries) {
+      // TODO do not get if data is already present
+      return Promise.all(queries.map(({ uri, param, storeKey = uri, force = false }) => {
+        return api.get(param ? `${uri}/${param}` : uri)
+      })).then(responsesData => {
+        return responsesData.map((responseData, i) => {
+          const storeKey = queries[i].storeKey || queries[i].uri
+          const param = queries[i].param
+          const data = responseData[storeKey] ? responseData[storeKey] : responseData
+          commit('SET_' + storeKey.toUpperCase(), param ? [param, data] : data)
+          return data
+        })
+      })
+    },
+
+    'POST' ({ state, commit }, { uri, data, storeKey = uri }) {
+      return api.post(uri, data).then(responseData => {
+        console.log(responseData)
+        const data = responseData[storeKey] ? responseData[storeKey] : responseData
+        commit('ADD_' + storeKey.toUpperCase(), data)
+        return data
+      })
     },
 
     'PUT' ({ state, commit }, { uri, param, data, storeKey = uri }) {
       return api.put(param ? `${uri}/${param}` : uri, data).then(responseData => {
-        const data = responseData[uri] ? responseData[uri] : responseData
-        if (param) {
-          commit(`SET_${uri.toUpperCase()}_PARAM`, [param, data])
-        } else {
-          commit('SET_' + uri.toUpperCase(), data)
-        }
-        return param ? state[storeKey][param] : state[storeKey]
+        const data = responseData[storeKey] ? responseData[storeKey] : responseData
+        commit('SET_' + storeKey.toUpperCase(), param ? [param, data] : data)
+        return data
       })
     },
 
-    'DELETE' ({ state, commit }, { uri, param, data }) {
+    'DELETE' ({ state, commit }, { uri, param, data, storeKey = uri }) {
       return api.delete(param ? `${uri}/${param}` : uri, data).then(() => {
-        if (param) {
-          commit(`DEL_${uri.toUpperCase()}_PARAM`, param)
-        } else {
-          commit('DEL_' + uri.toUpperCase())
-        }
+        commit('DEL_' + storeKey.toUpperCase(), param)
       })
     }
   },
