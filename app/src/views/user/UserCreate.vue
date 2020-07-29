@@ -173,9 +173,7 @@ export default {
 
       this.$store.dispatch(
         'POST', { uri: 'users', data }
-      ).then(responseData => {
-        // FIXME API doesn't return the same data as '/users'
-        this.$store.commit('ADD_USER', responseData)
+      ).then(() => {
         this.$router.push({ name: 'user-list' })
       }).catch(error => {
         this.server.error = error.message
@@ -217,8 +215,7 @@ export default {
   },
 
   created () {
-    this.$store.dispatch('FETCH', { uri: 'domains' })
-    this.$store.dispatch('FETCH', { uri: 'users' })
+    this.$store.dispatch('FETCH_ALL', [{ uri: 'domains' }, { uri: 'users' }])
   },
   components: {
     SplittedMailInput

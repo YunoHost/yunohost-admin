@@ -234,10 +234,10 @@ export default {
   },
 
   created () {
-    this.$store.dispatch('FETCH', { uri: 'domains' })
-    this.$store.dispatch('FETCH',
+    this.$store.dispatch('FETCH_ALL', [
+      { uri: 'domains' },
       { uri: 'users', param: this.name, storeKey: 'users_details' }
-    ).then(userData => {
+    ]).then(([domainsData, userData]) => {
       this.form.firstname = userData.firstname
       this.form.lastname = userData.lastname
       this.form.mail = userData.mail
