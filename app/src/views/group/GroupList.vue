@@ -16,9 +16,9 @@
     </div>
 
     <!-- PRIMARY GROUPS CARDS -->
-    <template v-if="groups">
+    <template v-if="primaryGroups">
       <b-card
-        v-for="(group, name, index) in primaryGroups" :key="index"
+        v-for="(group, name, index) in filteredPrimaryGroups" :key="name"
         no-body
       >
         <b-card-header class="d-flex align-items-center">
@@ -55,10 +55,11 @@
                   </p>
                 </template>
                 <template v-else>
-                  <selectize-zone
-                    :choices="group.membersInv" :selected="group.members"
+                  <zone-selectize
+                    :choices="group.availableMembers" :selected="group.members"
                     item-icon="user" search-icon="user-plus" item-route="user-info"
                     :aria-label="$t('group_add_member')"
+                    @change="onUserChanged({ ...$event, name })"
                   />
                 </template>
               </b-col>
@@ -69,10 +70,13 @@
                 <strong>{{ $t('permissions') }}</strong>
               </b-col>
               <b-col>
-                <selectize-zone
-                  :choices="group.permissionsInv" :selected="group.permissions"
+                <zone-selectize
                   item-icon="key-modern" item-variant="info"
+                  :choices="group.availablePermissions"
+                  :selected="group.permissions"
                   :aria-label="$t('group_add_permission')"
+                  :format="formatPermission"
+                  @change="onPermissionChanged({ ...$event, name, groupType: 'primary' })"
                 />
               </b-col>
             </b-row>
@@ -80,67 +84,141 @@
         </b-collapse>
       </b-card>
     </template>
+
+    <!-- GROUP SPECIFIC CARD -->
+    <b-card no-body v-if="userGroups">
+      <b-card-header class="d-flex align-items-center">
+        <h2>
+          <icon iname="group" /> {{ $t('group_specific_permissions') }}
+        </h2>
+
+        <div class="ml-auto">
+          <b-button v-b-toggle.collapse-specific size="sm" variant="outline-secondary">
+            <icon iname="chevron-right" class="rotate" /><span class="sr-only">{{ $t('words.collapse') }}</span>
+          </b-button>
+        </div>
+      </b-card-header>
+
+      <b-collapse id="collapse-specific" visible>
+        <b-card-body>
+          <div v-for="name in userGroupsNames" :key="name">
+            <b-row>
+              <b-col md="3" lg="2">
+                <icon iname="user" /> <strong>{{ name }}</strong>
+              </b-col>
+
+              <b-col>
+                <zone-selectize
+                  item-icon="key-modern" item-variant="info"
+                  :choices="userGroups[name].availablePermissions"
+                  :selected="userGroups[name].permissions"
+                  :aria-label="$t('group_add_permission')"
+                  :format="formatPermission"
+                  @change="onPermissionChanged({ ...$event, name, groupType: 'user' })"
+                />
+              </b-col>
+            </b-row>
+            <hr>
+          </div>
+
+          <base-selectize
+            search-icon="user-plus"
+            :aria-label="$t('group_add_member')"
+            :choices="availableMembers"
+            :selected="userGroupsNames"
+            @selected="onSpecificUserAdded"
+          />
+        </b-card-body>
+      </b-collapse>
+    </b-card>
   </div>
 </template>
 
 <script>
-import SelectizeZone from '@/components/SelectizeZone'
+import ZoneSelectize from '@/components/ZoneSelectize'
+import BaseSelectize from '@/components/BaseSelectize'
 
 // TODO add global search with type (search by: group, user, permission)
 export default {
   name: 'GroupList',
 
   data: () => ({
-    search: ''
+    search: '',
+    primaryGroups: undefined,
+    userGroups: undefined
   }),
 
   computed: {
-    users () {
-      const users = this.$store.state.data.users
-      return users ? Object.values(users) : users
-    },
-
-    groups () {
-      const users = this.$store.state.data.users
-      const groups = this.$store.state.data.groups
-      const perms = this.$store.state.data.permissions
-      if (!users || !groups || !perms) return
-      const userNames = Object.keys(users)
-
-      for (const groupName in groups) {
-        groups[groupName].isPrimary = !userNames.includes(groupName)
-        groups[groupName].permissionsInv = perms.filter(perm => {
-          // Remove 'email' and 'xmpp' in visitors's permission choice list
-          if (groupName === 'visitors' && ['mail.main', 'xmpp.main'].includes(perm)) {
-            return false
-          }
-          return !groups[groupName].permissions.includes(perm)
-        })
-        groups[groupName].membersInv = userNames.filter(name => {
-          return !groups[groupName].members.includes(name)
-        })
-      }
-      groups.visitors.isSpecial = true
-      groups.all_users.isSpecial = true
-
-      return groups
-    },
-
-    permissions () {
-      return this.$store.state.data.permissions
-    },
-
-    primaryGroups () {
-      const groups = this.groups
+    filteredPrimaryGroups () {
+      const groups = this.primaryGroups
       if (!groups) return
       const search = this.search.toLowerCase()
-      const primaryGroups = {}
-      for (const [groupName, group] of Object.entries(groups)) {
-        if (group.isPrimary && groupName.toLowerCase().includes(search)) {
-          primaryGroups[groupName] = group
+      const filtered = {}
+      for (const name in groups) {
+        if (name.toLowerCase().includes(search)) {
+          filtered[name] = groups[name]
         }
       }
-      return primaryGroups
+      return filtered
+    },
+
+    userGroupsNames () {
+      const groups = this.userGroups
+      if (!groups) return
+      return Object.keys(groups).filter(name => {
+        return groups[name].permissions !== null
+      })
+    },
+
+    availableMembers () {
+      const groups = this.userGroups
+      if (!groups) return
+      return Object.keys(groups).filter(name => {
+        return groups[name].permissions === null
+      })
+    }
+  },
+
+  methods: {
+    onPermissionChanged ({ item, index, name, groupType, action }) {
+      const uri = 'users/permissions/' + item
+      const data = { [action]: name }
+      const from = action === 'add' ? 'availablePermissions' : 'permissions'
+      const to = action === 'add' ? 'permissions' : 'availablePermissions'
+      this.$store.dispatch('PUT', { uri, data }).then(() => {
+        this[groupType + 'Groups'][name][from].splice(index, 1)
+        this[groupType + 'Groups'][name][to].push(item)
+      })
+    },
+
+    onUserChanged ({ item, index, name, action }) {
+      const uri = 'users/groups/' + name
+      const data = { [action]: item }
+      const from = action === 'add' ? 'availableMembers' : 'members'
+      const to = action === 'add' ? 'members' : 'availableMembers'
+      this.$store.dispatch('PUT', { uri, data }).then(() => {
+        this.primaryGroups[name][from].splice(index, 1)
+        this.primaryGroups[name][to].push(item)
+      })
+    },
+
+    onSpecificUserAdded ({ item }) {
+      this.userGroups[item].permissions = []
+    },
+
+    // FIXME Find a way to pass a filter to a component
+    formatPermission: text => {
+      let result = text.replace('.main', '')
+      if (result.includes('.')) {
+        result = result.replace('.', ' (') + ')'
+      }
+      if (result === 'mail') return 'E-mail'
+      else if (result === 'xmpp') return 'XMPP'
+      else {
+        return result.replace(/\w\S*/g, txt => {
+          return txt.charAt(0).toUpperCase() + txt.substring(1).toLowerCase()
+        })
+      }
     }
   },
 
@@ -149,11 +227,53 @@ export default {
       { uri: 'users' },
       { uri: 'users/groups?full&include_primary_groups', storeKey: 'groups' },
       { uri: 'users/permissions?short', storeKey: 'permissions' }
-    ])
+    ]).then(([users, groups, permissions]) => {
+      // Do not use computed properties to get values from the store here to avoid auto
+      // updates while modifying values.
+
+      // pre-format the stored data for rendering
+      const primaryGroups = {}
+      const userGroups = {}
+
+      const userNames = Object.keys(users)
+      for (const groupName in groups) {
+        // copy the group to unlink it from the store
+        const group = { ...groups[groupName] }
+        group.availablePermissions = permissions.filter(perm => {
+          // Remove 'email' and 'xmpp' in visitors's permission choice list
+          if (groupName === 'visitors' && ['mail.main', 'xmpp.main'].includes(perm)) {
+            return false
+          }
+          return !group.permissions.includes(perm)
+        })
+
+        if (userNames.includes(groupName)) {
+          if (group.permissions.length === 0) {
+            // This forbid the user to appear in the displayed user list
+            group.permissions = null
+          }
+          userGroups[groupName] = group
+          continue
+        }
+
+        if (['visitors', 'all_users'].includes(groupName)) {
+          group.isSpecial = true
+        } else {
+          group.availableMembers = userNames.filter(name => {
+            return !group.members.includes(name)
+          })
+        }
+        primaryGroups[groupName] = group
+      }
+
+      this.primaryGroups = primaryGroups
+      this.userGroups = userGroups
+    })
   },
 
   components: {
-    SelectizeZone
+    ZoneSelectize,
+    BaseSelectize
   }
 }
 </script>

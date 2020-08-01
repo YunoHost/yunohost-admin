@@ -32,7 +32,7 @@
 import BaseSelectize from '@/components/BaseSelectize'
 
 export default {
-  name: 'SelectizeZone',
+  name: 'ZoneSelectize',
 
   props: {
     itemIcon: { type: String, default: null },
