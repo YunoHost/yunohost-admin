@@ -19,11 +19,11 @@
 
     <b-input-group>
       <b-input-group-prepend is-text>
-        <label class="sr-only" for="search-user">{{ $t('user.search') }}</label>
+        <label class="sr-only" for="selectize">{{ ariaLabel }}</label>
         <icon :iname="searchIcon" v-if="searchIcon" />
       </b-input-group-prepend>
       <b-form-input
-        :class="visible ? null : 'collapsed'"
+        id="selectize" :class="visible ? null : 'collapsed'"
         aria-controls="collapse" :aria-expanded="visible ? 'true' : 'false'"
         @focus="onInputFocus" @blur="onInputBlur" @keydown="onInputKeydown"
         v-model="search" ref="input"
@@ -56,7 +56,8 @@ export default {
     searchIcon: { type: String, default: 'search' },
     itemIcon: { type: String, default: null },
     itemRoute: { type: String, default: null },
-    itemVariant: { type: String, default: 'secondary' }
+    itemVariant: { type: String, default: 'secondary' },
+    ariaLabel: { type: String, required: true }
   },
 
   data: () => ({

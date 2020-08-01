@@ -337,6 +337,9 @@
     "version": "Version",
     "warnings": "%s warnings",
     "warning_first_user": "You probably need to <a href='#/users/create' class='alert-link'>create a user</a> first.",
+    "words": {
+        "collapse": "Collapse"
+    },
     "wrong_password": "Wrong password",
     "yes": "Yes",
     "certificate_alert_not_valid": "CRITICAL: Current certificate is not valid! HTTPS won't work at all!",
