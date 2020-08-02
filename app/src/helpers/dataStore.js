@@ -4,6 +4,7 @@ import api from './api'
 export default {
   state: () => ({
     domains: undefined, // Array
+    main_domain: undefined,
     users: undefined, // basic user data: Object {username: {data}}
     users_details: {}, // precise user data: Object {username: {data}}
     groups: undefined,
@@ -13,6 +14,10 @@ export default {
   mutations: {
     'SET_DOMAINS' (state, domains) {
       state.domains = domains
+    },
+
+    'SET_MAIN_DOMAIN' (state, response) {
+      state.main_domain = response.current_main_domain
     },
 
     'SET_USERS' (state, users) {

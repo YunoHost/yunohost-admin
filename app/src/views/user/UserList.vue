@@ -3,10 +3,9 @@
     <div class="actions">
       <b-input-group>
         <b-input-group-prepend is-text>
-          <label class="sr-only" for="search-user">{{ $t('user.search') }}</label>
           <icon iname="search" />
         </b-input-group-prepend>
-        <b-form-input id="search-user" v-model="search" :placeholder="$t('user.search')" />
+        <b-form-input id="search-user" v-model="search" :placeholder="$t('search.user')" />
       </b-input-group>
       <div class="buttons">
         <b-button variant="info" :to="{ name: 'group-list'}">
