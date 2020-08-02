@@ -89,7 +89,8 @@ export default {
           this.focusedIndex--
         }
       } else if (key === 'Enter') {
-        this.onSelect(this.focusedIndex)
+        this.onSelect(this.filteredChoices[this.focusedIndex])
+        this.focusedIndex = 0
       } else {
         this.focusedIndex = 0
       }
@@ -108,7 +109,6 @@ export default {
 
     onSelect (item) {
       this.$emit('selected', { item, index: this.choices.indexOf(item) })
-      this.focusedIndex = 0
     }
   },
 
