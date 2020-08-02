@@ -127,6 +127,8 @@
 import SplittedMailInput from '@/components/SplittedMailInput'
 
 export default {
+  name: 'UserCreate',
+
   data () {
     return {
       form: {
@@ -194,7 +196,7 @@ export default {
         // FIXME check allowed characters
         error = this.$i18n.t('form_errors.username_syntax')
       } else if (Object.keys(this.$store.state.data.users).includes(username)) {
-        error = this.$i18n.t('form_errors.username_exists', { user: username })
+        error = this.$i18n.t('form_errors.username_exists', { name: username })
       }
       this.error.username = error
       this.isValid.username = error === '' ? null : false
