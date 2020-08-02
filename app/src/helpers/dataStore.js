@@ -53,6 +53,10 @@ export default {
       }
     },
 
+    'DEL_GROUPS' (state, groupname) {
+      Vue.delete(state.groups, groupname)
+    },
+
     'SET_PERMISSIONS' (state, permissions) {
       state.permissions = permissions
     }
@@ -107,7 +111,7 @@ export default {
       })
     },
 
-    'DELETE' ({ state, commit }, { uri, param, data, storeKey = uri }) {
+    'DELETE' ({ state, commit }, { uri, param, data = {}, storeKey = uri }) {
       return api.delete(param ? `${uri}/${param}` : uri, data).then(() => {
         commit('DEL_' + storeKey.toUpperCase(), param)
       })
