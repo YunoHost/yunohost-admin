@@ -121,9 +121,10 @@
     "firewall": "Firewall",
     "footer_version": "Powered by {ynh} {version} ({repo}).",
     "form_errors": {
-        "username_syntax": "Invalid username: Must be lower-case alphanumeric and underscore characters only",
-        "username_exists": "The user '{user}' already exists",
-        "email_syntax": "Invalid email: Must be alphanumeric, underscore and dash characters only (e.g. someone@example.com, s0me-1@example.com)"
+        "email_syntax": "Invalid email: Must be alphanumeric, underscore and dash characters only (e.g. someone@example.com, s0me-1@example.com)",
+        "groupname_syntax": "Invalid group name: Must be alphanumeric, underscore and space characters only",
+        "username_exists": "The user '{name}' already exists",
+        "username_syntax": "Invalid username: Must be lower-case alphanumeric and underscore characters only"
     },
     "form_input_example": "Example: %s",
     "from_to": "from %s to %s",
@@ -224,7 +225,8 @@
     "placeholder": {
         "username": "johndoe",
         "firstname": "John",
-        "lastname": "Doe"
+        "lastname": "Doe",
+        "groupname": "My group name"
     },
     "logs": "Logs",
     "log_suboperations": "Sub-operations",

@@ -20,7 +20,7 @@ export default {
     },
 
     'ADD_USERS' (state, user) {
-      // FIXME will trigger an error if first created user
+      if (state.users === undefined) state.users = {}
       Vue.set(state.users, user.username, user)
     },
 
@@ -47,6 +47,12 @@ export default {
       state.groups = groups
     },
 
+    'ADD_GROUPS' (state, { name }) {
+      if (state.groups !== undefined) {
+        Vue.set(state.groups, name, { members: [], permissions: [] })
+      }
+    },
+
     'SET_PERMISSIONS' (state, permissions) {
       state.permissions = permissions
     }
@@ -68,7 +74,7 @@ export default {
     'FETCH_ALL' ({ state, commit }, queries) {
       return Promise.all(queries.map(({ uri, param, storeKey = uri, force = false }) => {
         const currentState = param ? state[storeKey][param] : state[storeKey]
-        // if data has already been queried, simply return
+        // if data has already been queried, simply return the state as cached
         if (currentState !== undefined && !force) {
           return { cached: true, responseData: currentState }
         }
