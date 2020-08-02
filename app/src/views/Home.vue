@@ -21,7 +21,7 @@ export default {
     return {
       menu: [
         { id: 0, routeName: 'user-list', icon: 'users', translation: 'users' },
-        { id: 1, routeName: 'domains', icon: 'globe', translation: 'domains' },
+        { id: 1, routeName: 'domain-list', icon: 'globe', translation: 'domains' },
         { id: 2, routeName: 'apps', icon: 'cubes', translation: 'applications' },
         { id: 3, routeName: 'update', icon: 'refresh', translation: 'system_update' },
         { id: 4, routeName: 'services', icon: 'cog', translation: 'services' },

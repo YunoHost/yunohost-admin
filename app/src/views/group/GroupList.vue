@@ -3,10 +3,9 @@
     <div class="actions">
       <b-input-group>
         <b-input-group-prepend is-text>
-          <label class="sr-only" for="search-group">Search group</label>
           <icon iname="search" />
         </b-input-group-prepend>
-        <b-form-input id="search-group" v-model="search" placeholder="Search group" />
+        <b-form-input id="search-group" v-model="search" :placeholder="$t('search.group')" />
       </b-input-group>
       <div class="buttons">
         <b-button variant="success" :to="{name: 'group-create'}">

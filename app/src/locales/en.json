@@ -225,7 +225,8 @@
         "username": "johndoe",
         "firstname": "John",
         "lastname": "Doe",
-        "groupname": "My group name"
+        "groupname": "My group name",
+        "domain": "my-domain.com"
     },
     "logs": "Logs",
     "logs_operation": "Operations made on system with YunoHost",
@@ -264,6 +265,11 @@
     "restart": "Restart",
     "run": "Run",
     "save": "Save",
+    "search": {
+        "domain": "Search for domains...",
+        "group": "Search for groups...",
+        "user": "Search for users..."
+    },
     "search_for_apps": "Search for apps...",
     "select_all": "Select all",
     "select_none": "Select none",
@@ -319,9 +325,6 @@
     "upnp_disabled": "UPnP is disabled.",
     "upnp_enabled": "UPnP is enabled.",
     "url": "URL",
-    "user": {
-        "search": "User search"
-    },
     "user_email": "Email",
     "user_emailaliases": "Mail aliases",
     "user_emailforward": "Mail forward",
