@@ -34,6 +34,7 @@
             <b-button
               v-if="!group.isSpecial" v-b-modal.delete-modal
               variant="danger" class="ml-2" size="sm"
+              @click="groupToDelete = name"
             >
               <icon :title="$t('delete')" iname="trash-o" /> <span class="sr-only">{{ $t('delete') }}</span>
             </b-button>
@@ -131,21 +132,33 @@
         </b-card-body>
       </b-collapse>
     </b-card>
+
+    <!-- DELETE GROUP MODAL -->
+    <b-modal
+      v-if="groupToDelete" id="delete-modal" centered
+      body-bg-variant="danger" body-text-variant="light"
+      @ok="deleteGroup" hide-header
+    >
+      {{ $t('confirm_delete', {name: groupToDelete }) }}
+    </b-modal>
   </div>
 </template>
 
 <script>
+import Vue from 'vue'
 import ZoneSelectize from '@/components/ZoneSelectize'
 import BaseSelectize from '@/components/BaseSelectize'
 
 // TODO add global search with type (search by: group, user, permission)
+// TODO add vuex store update on inputs
 export default {
   name: 'GroupList',
 
   data: () => ({
     search: '',
     primaryGroups: undefined,
-    userGroups: undefined
+    userGroups: undefined,
+    groupToDelete: undefined
   }),
 
   computed: {
@@ -219,6 +232,16 @@ export default {
           return txt.charAt(0).toUpperCase() + txt.substring(1).toLowerCase()
         })
       }
+    },
+
+    deleteGroup () {
+      const groupname = this.groupToDelete
+      this.$store.dispatch('DELETE',
+        { uri: 'users/groups', param: groupname, storeKey: 'groups' }
+      ).then(() => {
+        Vue.delete(this.primaryGroups, groupname)
+      })
+      this.groupToDelete = undefined
     }
   },
 
@@ -302,5 +325,10 @@ export default {
 
 .row > div:first-child {
   margin-bottom: 1rem;
+}
+
+// delete modal
+#delete-modal .modal-body {
+  display: none;
 }
 </style>
