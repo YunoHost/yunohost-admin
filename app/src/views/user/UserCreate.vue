@@ -52,9 +52,9 @@
 
     <!-- USER EMAIL -->
     <b-form-group label-cols="auto" :label="$t('user_email')" label-for="input-email">
-      <splitted-mail-input
-        id="input-email" feedback="email-feedback"
-        v-model="form.mail" :domains="domains"
+      <adress-input-select
+        id="input-email" feedback-id="email-feedback"
+        v-model="form.mail" :options="domains"
         :state="isValid.mail" @input="validateEmail"
       />
 
@@ -113,7 +113,7 @@
 
 <script>
 import BasicForm from '@/components/BasicForm'
-import SplittedMailInput from '@/components/SplittedMailInput'
+import AdressInputSelect from '@/components/AdressInputSelect'
 
 export default {
   name: 'UserCreate',
@@ -209,7 +209,7 @@ export default {
     this.$store.dispatch('FETCH_ALL', [{ uri: 'domains' }, { uri: 'users' }])
   },
   components: {
-    SplittedMailInput,
+    AdressInputSelect,
     BasicForm
   }
 }

@@ -42,10 +42,11 @@
 
     <!-- USER EMAIL -->
     <b-form-group label-cols="auto" :label="$t('user_email')" label-for="input-email">
-      <splitted-mail-input
-        id="input-email" feedback="email-feedback"
-        v-model="form.mail" :domains="domains"
+      <adress-input-select
+        id="input-email" feedback-id="email-feedback"
+        v-model="form.mail" :options="domains"
         :state="isValid.mail" @input="validateEmail"
+        :placeholder="$t('placeholder.username')"
       />
 
       <b-form-invalid-feedback id="email-feedback" :state="isValid.mail">
@@ -70,10 +71,10 @@
     <!-- MAIL ALIASES -->
     <hr>
     <b-form-group label-cols="auto" :label="$t('user_emailaliases')" class="mail-list">
-      <splitted-mail-input
+      <adress-input-select
         v-for="(alias, index) in form['mail-aliases']" :key="index"
-        feedback="mail-aliases-feedback"
-        v-model="form['mail-aliases'][index]" :domains="domains"
+        v-model="form['mail-aliases'][index]" :options="domains"
+        :placeholder="$t('placeholder.username')"
       />
     </b-form-group>
 
@@ -125,7 +126,7 @@
 
 <script>
 import BasicForm from '@/components/BasicForm'
-import SplittedMailInput from '@/components/SplittedMailInput'
+import AdressInputSelect from '@/components/AdressInputSelect'
 
 export default {
   name: 'UserEdit',
@@ -170,6 +171,7 @@ export default {
 
   methods: {
     onSubmit () {
+      console.log(this.form['mail-aliases'])
       for (const key in this.isValid) {
         if (this.isValid[key] === false) return
       }
@@ -211,9 +213,10 @@ export default {
       })
     },
 
-    validateEmail () {
+    validateEmail (mail) {
       // FIXME check allowed characters
-      const isValid = this.form.mail.split('@')[0].match('^[A-Za-z0-9-_]+$')
+      console.log('validate', mail)
+      const isValid = mail.split('@')[0].match('^[A-Za-z0-9-_]+$')
       this.error.mail = isValid ? '' : this.$i18n.t('form_errors.email_syntax')
       this.isValid.mail = isValid ? null : false
     },
@@ -233,6 +236,7 @@ export default {
       this.form.firstname = userData.firstname
       this.form.lastname = userData.lastname
       this.form.mail = userData.mail
+      console.log('fetch', this.form.mail)
       this.form['mail-aliases'] = userData['mail-aliases'] ? [...userData['mail-aliases'], ''] : ['']
       this.form['mail-forward'] = userData['mail-forward'] ? [...userData['mail-forward'], ''] : ['']
       if (userData['mailbox-quota'].limit !== 'No quota') {
@@ -241,7 +245,7 @@ export default {
     })
   },
   components: {
-    SplittedMailInput,
+    AdressInputSelect,
     BasicForm
   }
 }

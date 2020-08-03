@@ -29,7 +29,7 @@ export default {
     id: { type: String, default: null },
     state: { type: null, default: null },
     feedbackId: { type: String, default: null },
-    defaultOption: { type: String, default: null }
+    defaultOption: { type: Number, default: 0 }
   },
 
   data () {
@@ -49,12 +49,16 @@ export default {
         return this.value.split(this.separator)[0]
       },
       set (value) {
+        // FIXME, ugly hack since the `reactiveOption` v-model isn't set when `value` change
+        if (this.reactiveOption !== this.option) {
+          this.option = this.reactiveOption
+        }
         this.input = value
       }
     },
     reactiveOption: {
       get () {
-        return this.value.split(this.separator)[1] || this.options[0]
+        return this.value.split(this.separator)[1] || this.options[this.defaultOption]
       },
       set (value) {
         // FIXME, ugly hack since the `reactiveInput` v-model isn't set when `value` change
