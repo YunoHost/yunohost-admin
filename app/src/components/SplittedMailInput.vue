@@ -1,59 +1,78 @@
 <template>
   <b-input-group>
     <b-input
-      :id="id" :placeholder="$t(placeholder)" :aria-describedby="feedback"
-      v-model="mail" @input="updateValue" :state="state"
+      :id="id" :placeholder="placeholder"
+      :state="state" :aria-describedby="feedbackId"
+      v-model="reactiveInput" @input="updateValue"
     />
 
     <b-input-group-append>
-      <b-input-group-text>@</b-input-group-text>
+      <b-input-group-text>{{ separator }}</b-input-group-text>
     </b-input-group-append>
 
     <b-input-group-append>
-      <b-select v-model="domain" :options="domains" @change="updateValue" />
+      <b-select v-model="reactiveOption" :options="options" @change="updateValue" />
     </b-input-group-append>
   </b-input-group>
 </template>
 
 <script>
 export default {
-  name: 'SplittedMailInput',
+  name: 'AdressInputSelect',
+
   props: {
+    // `value` is actually passed as the `v-model` directive
     value: { type: String, required: true },
-    domains: { type: null, required: true },
-    placeholder: { type: String, default: 'placeholder.username' },
+    options: { type: Array, required: true },
+    separator: { type: String, default: '@' },
+    placeholder: { type: String, default: null },
     id: { type: String, default: null },
     state: { type: null, default: null },
-    feedback: { type: String, default: null }
+    feedbackId: { type: String, default: null },
+    defaultOption: { type: String, default: null }
   },
+
   data () {
+    // static value that are updated by the computed setters.
     return {
-      mail: '',
-      domain: ''
+      input: '',
+      option: ''
     }
   },
-  watch: {
-    domains () {
-      if (!this.domain) {
-        this.domain = this.domains[0]
+
+  // Those 'reactive' properties allows two-way value binding. If input and option where
+  // only static properties, it would be impossible to detect that `value` has changed
+  // from outside this scope.
+  computed: {
+    reactiveInput: {
+      get () {
+        return this.value.split(this.separator)[0]
+      },
+      set (value) {
+        this.input = value
+      }
+    },
+    reactiveOption: {
+      get () {
+        return this.value.split(this.separator)[1] || this.options[0]
+      },
+      set (value) {
+        // FIXME, ugly hack since the `reactiveInput` v-model isn't set when `value` change
+        if (this.reactiveInput !== this.input) {
+          this.input = this.reactiveInput
+        }
+        this.option = value
       }
     }
   },
+
   methods: {
+    // Emit an input event of the concatened data.
+    // Since the consumer of this component will use the `v-model` directive, this event
+    // will automaticly update the value of the given variable.
     updateValue () {
-      this.$emit('input', `${this.mail}@${this.domain}`)
+      this.$emit('input', this.input + this.separator + this.option)
     }
-  },
-  created () {
-    if (this.value) {
-      const [mail, domain] = this.value.split('@')
-      Object.assign(this, { mail, domain })
-    } else if (this.domains) {
-      this.domain = this.domains[0]
-    }
-    // if (this.domain === undefined) {
-    //   this.domain = this.domains[0]
-    // }
   }
 }
 </script>
