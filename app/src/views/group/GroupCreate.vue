@@ -1,37 +1,27 @@
 <template lang="html">
-  <div class="group-create">
-    <b-card :header="$t('group_new')" header-tag="h2">
-      <b-form id="group-create" @submit.prevent="onSubmit">
-        <!-- GROUP NAME -->
-        <b-form-group
-          label-cols="auto"
-          :label="$t('group_name')" label-for="input-groupname"
-          :description="$t('group_format_name_help')"
-        >
-          <b-input
-            id="input-groupname" :placeholder="$t('placeholder.groupname')"
-            aria-describedby="groupname-feedback" required
-            v-model="form.groupname" :state="isValid.groupname"
-            @input="validateGroupname"
-          />
-          <b-form-invalid-feedback id="groupname-feedback" :state="isValid.groupname">
-            {{ this.error.groupname }}
-          </b-form-invalid-feedback>
-        </b-form-group>
-      </b-form>
-
-      <template v-slot:footer>
-        <div class="d-flex d-flex justify-content-end">
-          <b-button type="submit" form="group-create" variant="success">
-            {{ $t('save') }}
-          </b-button>
-        </div>
-      </template>
-    </b-card>
-  </div>
+  <basic-form :header="$t('group_new')" @submit.prevent="onSubmit">
+    <!-- GROUP NAME -->
+    <b-form-group
+      label-cols="auto"
+      :label="$t('group_name')" label-for="input-groupname"
+      :description="$t('group_format_name_help')"
+    >
+      <b-input
+        id="input-groupname" :placeholder="$t('placeholder.groupname')"
+        aria-describedby="groupname-feedback" required
+        v-model="form.groupname" :state="isValid.groupname"
+        @input="validateGroupname"
+      />
+      <b-form-invalid-feedback id="groupname-feedback" :state="isValid.groupname">
+        {{ this.error.groupname }}
+      </b-form-invalid-feedback>
+    </b-form-group>
+  </basic-form>
 </template>
 
 <script>
+import BasicForm from '@/components/BasicForm'
+
 export default {
   name: 'GroupCreate',
 
@@ -75,6 +65,10 @@ export default {
       this.error.groupname = error
       this.isValid.groupname = error === '' ? null : false
     }
+  },
+
+  components: {
+    BasicForm
   }
 }
 </script>
