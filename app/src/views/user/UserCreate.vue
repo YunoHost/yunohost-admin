@@ -1,129 +1,118 @@
 <template lang="html">
-  <div class="user-create">
-    <b-card :header="$t('users_new')" header-tag="h2">
-      <b-form id="user-create" @submit.prevent="onSubmit">
-        <!-- USER NAME -->
-        <b-form-group label-cols="auto" :label="$t('user_username')" label-for="input-username">
-          <b-input
-            id="input-username" :placeholder="$t('placeholder.username')"
-            aria-describedby="username-feedback" required
-            v-model="form.username" :state="isValid.username"
-            @input="validateUsername" @blur="populateEmail"
-          />
-          <b-form-invalid-feedback id="username-feedback" :state="isValid.username">
-            {{ this.error.username }}
-          </b-form-invalid-feedback>
-        </b-form-group>
+  <basic-form :header="$t('users_new')" @submit.prevent="onSubmit">
+    <!-- USER NAME -->
+    <b-form-group label-cols="auto" :label="$t('user_username')" label-for="input-username">
+      <b-input
+        id="input-username" :placeholder="$t('placeholder.username')"
+        aria-describedby="username-feedback" required
+        v-model="form.username" :state="isValid.username"
+        @input="validateUsername" @blur="populateEmail"
+      />
+      <b-form-invalid-feedback id="username-feedback" :state="isValid.username">
+        {{ this.error.username }}
+      </b-form-invalid-feedback>
+    </b-form-group>
 
-        <!-- USER FULLNAME -->
-        <b-form-group label-cols="auto">
-          <template v-slot:label aria-hidden="true">
-            {{ $t('user_fullname') }}
-          </template>
-
-          <div class="input-double">
-            <b-input-group>
-              <b-input-group-prepend
-                tag="label" class="ssr-only" is-text
-                for="input-firstname"
-              >
-                {{ $t('common.firstname') }}
-              </b-input-group-prepend>
-
-              <b-input
-                id="input-firstname" :placeholder="$t('placeholder.firstname')"
-                v-model="form.firstname" required
-              />
-            </b-input-group>
-
-            <b-input-group>
-              <b-input-group-prepend
-                tag="label" class="ssr-only" is-text
-                for="input-lastname"
-              >
-                {{ $t('common.lastname') }}
-              </b-input-group-prepend>
-
-              <b-input
-                id="input-firstname" :placeholder="$t('placeholder.lastname')"
-                v-model="form.lastname" required
-              />
-            </b-input-group>
-          </div>
-        </b-form-group>
-
-        <!-- USER EMAIL -->
-        <b-form-group label-cols="auto" :label="$t('user_email')" label-for="input-email">
-          <splitted-mail-input
-            id="input-email" feedback="email-feedback"
-            v-model="form.mail" :domains="domains"
-            :state="isValid.mail" @input="validateEmail"
-          />
-
-          <b-form-invalid-feedback id="email-feedback" :state="isValid.mail">
-            {{ this.error.mail }}
-          </b-form-invalid-feedback>
-        </b-form-group>
-
-        <!-- MAILBOX QUOTA -->
-        <b-form-group
-          label-cols="auto" :label="$t('user_mailbox_quota')" label-for="input-mailbox-quota"
-          :description="$t('mailbox_quota_description')"
-        >
-          <b-input-group append="M">
-            <b-input
-              id="input-mailbox-quota" :placeholder="$t('mailbox_quota_placeholder')"
-              v-model="form.mailbox_quota" type="number" min="0"
-            />
-          </b-input-group>
-        </b-form-group>
-
-        <!-- USER PASSWORD -->
-        <b-form-group label-cols="auto" :label="$t('password')" label-for="input-password">
-          <b-input
-            id="input-password" placeholder="••••••••"
-            aria-describedby="password-feedback" required
-            v-model="form.password" type="password"
-            :state="isValid.password" @input="validatePassword"
-          />
-          <b-form-invalid-feedback id="password-feedback" :state="isValid.password">
-            {{ $t('passwords_too_short') }}
-          </b-form-invalid-feedback>
-        </b-form-group>
-
-        <!-- USER PASSWORD CONFIRMATION -->
-        <b-form-group
-          label-cols="auto" :label="$t('password_confirmation')" label-for="input-confirmation"
-          :description="$t('good_practices_about_user_password')"
-        >
-          <b-input
-            id="input-confirmation" placeholder="••••••••"
-            aria-describedby="confirmation-feedback" required
-            v-model="form.confirmation" type="password"
-            :state="isValid.confirmation" @input="validatePassword"
-          />
-          <b-form-invalid-feedback id="confirmation-feedback" :state="isValid.confirmation">
-            {{ $t('passwords_dont_match') }}
-          </b-form-invalid-feedback>
-        </b-form-group>
-
-        <b-form-invalid-feedback id="global-feedback" :state="server.isValid">
-          {{ this.server.error }}
-        </b-form-invalid-feedback>
-      </b-form>
-
-      <template v-slot:footer>
-        <div class="d-flex d-flex justify-content-end">
-          <b-button type="submit" form="user-create" variant="success">
-            {{ $t('save') }}
-          </b-button>
-        </div>
+    <!-- USER FULLNAME -->
+    <b-form-group label-cols="auto">
+      <template v-slot:label aria-hidden="true">
+        {{ $t('user_fullname') }}
       </template>
-    </b-card>
-  </div>
+
+      <div class="input-double">
+        <b-input-group>
+          <b-input-group-prepend
+            tag="label" class="ssr-only" is-text
+            for="input-firstname"
+          >
+            {{ $t('common.firstname') }}
+          </b-input-group-prepend>
+
+          <b-input
+            id="input-firstname" :placeholder="$t('placeholder.firstname')"
+            v-model="form.firstname" required
+          />
+        </b-input-group>
+
+        <b-input-group>
+          <b-input-group-prepend
+            tag="label" class="ssr-only" is-text
+            for="input-lastname"
+          >
+            {{ $t('common.lastname') }}
+          </b-input-group-prepend>
+
+          <b-input
+            id="input-firstname" :placeholder="$t('placeholder.lastname')"
+            v-model="form.lastname" required
+          />
+        </b-input-group>
+      </div>
+    </b-form-group>
+
+    <!-- USER EMAIL -->
+    <b-form-group label-cols="auto" :label="$t('user_email')" label-for="input-email">
+      <splitted-mail-input
+        id="input-email" feedback="email-feedback"
+        v-model="form.mail" :domains="domains"
+        :state="isValid.mail" @input="validateEmail"
+      />
+
+      <b-form-invalid-feedback id="email-feedback" :state="isValid.mail">
+        {{ this.error.mail }}
+      </b-form-invalid-feedback>
+    </b-form-group>
+
+    <!-- MAILBOX QUOTA -->
+    <b-form-group
+      label-cols="auto" :label="$t('user_mailbox_quota')" label-for="input-mailbox-quota"
+      :description="$t('mailbox_quota_description')"
+    >
+      <b-input-group append="M">
+        <b-input
+          id="input-mailbox-quota" :placeholder="$t('mailbox_quota_placeholder')"
+          v-model="form.mailbox_quota" type="number" min="0"
+        />
+      </b-input-group>
+    </b-form-group>
+
+    <!-- USER PASSWORD -->
+    <b-form-group label-cols="auto" :label="$t('password')" label-for="input-password">
+      <b-input
+        id="input-password" placeholder="••••••••"
+        aria-describedby="password-feedback" required
+        v-model="form.password" type="password"
+        :state="isValid.password" @input="validatePassword"
+      />
+      <b-form-invalid-feedback id="password-feedback" :state="isValid.password">
+        {{ $t('passwords_too_short') }}
+      </b-form-invalid-feedback>
+    </b-form-group>
+
+    <!-- USER PASSWORD CONFIRMATION -->
+    <b-form-group
+      label-cols="auto" :label="$t('password_confirmation')" label-for="input-confirmation"
+      :description="$t('good_practices_about_user_password')"
+    >
+      <b-input
+        id="input-confirmation" placeholder="••••••••"
+        aria-describedby="confirmation-feedback" required
+        v-model="form.confirmation" type="password"
+        :state="isValid.confirmation" @input="validatePassword"
+      />
+      <b-form-invalid-feedback id="confirmation-feedback" :state="isValid.confirmation">
+        {{ $t('passwords_dont_match') }}
+      </b-form-invalid-feedback>
+    </b-form-group>
+
+    <b-form-invalid-feedback id="global-feedback" :state="server.isValid">
+      {{ this.server.error }}
+    </b-form-invalid-feedback>
+  </basic-form>
 </template>
 
 <script>
+import BasicForm from '@/components/BasicForm'
 import SplittedMailInput from '@/components/SplittedMailInput'
 
 export default {
@@ -220,7 +209,8 @@ export default {
     this.$store.dispatch('FETCH_ALL', [{ uri: 'domains' }, { uri: 'users' }])
   },
   components: {
-    SplittedMailInput
+    SplittedMailInput,
+    BasicForm
   }
 }
 </script>
