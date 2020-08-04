@@ -16,6 +16,10 @@ export default {
       state.domains = domains
     },
 
+    'ADD_DOMAINS' (state, { domain }) {
+      state.domains.push(domain)
+    },
+
     'SET_MAIN_DOMAIN' (state, response) {
       state.main_domain = response.current_main_domain
     },
@@ -102,8 +106,10 @@ export default {
 
     'POST' ({ state, commit }, { uri, data, storeKey = uri }) {
       return api.post(uri, data).then(responseData => {
-        const data = responseData[storeKey] ? responseData[storeKey] : responseData
-        commit('ADD_' + storeKey.toUpperCase(), data)
+        // FIXME api/domains returns null
+        if (responseData === null) responseData = data
+        responseData = responseData[storeKey] ? responseData[storeKey] : responseData
+        commit('ADD_' + storeKey.toUpperCase(), responseData)
         return state[storeKey]
       })
     },

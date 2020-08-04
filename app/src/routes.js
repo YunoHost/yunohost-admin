@@ -2,7 +2,7 @@ import Home from './views/Home'
 import Login from './views/Login'
 import { UserList, UserCreate, UserInfo, UserEdit } from './views/user'
 import { GroupList, GroupCreate } from './views/group'
-import { DomainList } from './views/domain'
+import { DomainList, DomainAdd } from './views/domain'
 
 const routes = [
   { name: 'home', path: '/', component: Home },
@@ -91,6 +91,17 @@ const routes = [
     meta: {
       breadcrumb: [
         { name: 'domain-list', trad: 'domains' }
+      ]
+    }
+  },
+  {
+    name: 'domain-add',
+    path: '/domains/add',
+    component: DomainAdd,
+    meta: {
+      breadcrumb: [
+        { name: 'domain-list', trad: 'domains' },
+        { name: 'domain-add', trad: 'domain_add' }
       ]
     }
   }
