@@ -124,7 +124,7 @@ export default {
         username: '',
         firstname: '',
         lastname: '',
-        mail: '',
+        mail: ['', ''],
         mailbox_quota: '',
         password: '',
         confirmation: ''
@@ -148,7 +148,7 @@ export default {
 
   computed: {
     domains () {
-      return this.$store.state.data.domains
+      return this.$store.state.data.domains || []
     }
   },
 
@@ -159,6 +159,7 @@ export default {
       }
 
       const data = JSON.parse(JSON.stringify(this.form))
+      data.mail = data.mail.join('@')
       const quota = data.mailbox_quota
       data.mailbox_quota = parseInt(quota) ? quota + 'M' : 0
 
@@ -173,8 +174,8 @@ export default {
     },
 
     populateEmail () {
-      if (this.form.email === '') {
-        this.form.email = this.form.username
+      if (this.form.mail[0] === '') {
+        this.form.mail.splice(0, 1, this.form.username)
       }
     },
 
@@ -193,9 +194,9 @@ export default {
 
     validateEmail () {
       // FIXME check allowed characters
-      const isValid = this.form.mail.split('@')[0].match('^[A-Za-z0-9-_]+$')
-      this.error.email = isValid ? '' : this.$i18n.t('form_errors.email_syntax')
-      this.isValid.email = isValid ? null : false
+      const isValid = this.form.mail.text.match('^[A-Za-z0-9-_]+$')
+      this.error.mail = isValid ? '' : this.$i18n.t('form_errors.email_syntax')
+      this.isValid.mail = isValid ? null : false
     },
 
     validatePassword () {
@@ -206,8 +207,13 @@ export default {
   },
 
   created () {
-    this.$store.dispatch('FETCH_ALL', [{ uri: 'domains' }, { uri: 'users' }])
+    this.$store.dispatch('FETCH_ALL',
+      [{ uri: 'domains' }, { uri: 'users' }]
+    ).then(([domains]) => {
+      this.form.mail.splice(1, 1, domains[0])
+    })
   },
+
   components: {
     AdressInputSelect,
     BasicForm
