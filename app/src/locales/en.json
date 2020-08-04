@@ -124,7 +124,10 @@
         "email_syntax": "Invalid email: Must be alphanumeric, underscore and dash characters only (e.g. someone@example.com, s0me-1@example.com)",
         "groupname_syntax": "Invalid group name: Must be alphanumeric, underscore and space characters only",
         "username_exists": "The user '{name}' already exists",
-        "username_syntax": "Invalid username: Must be lower-case alphanumeric and underscore characters only"
+        "username_syntax": "Invalid username: Must be lower-case alphanumeric and underscore characters only",
+        "domain_syntax": "Invalid domain name: Must be lower-case alphanumeric, dot and dash characters only",
+        "dynDomain_syntax": "Invalid domain name: Must be lower-case alphanumeric and dash characters only"
+
     },
     "form_input_example": "Example: %s",
     "from_to": "from %s to %s",
