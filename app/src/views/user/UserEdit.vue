@@ -138,10 +138,10 @@ export default {
       form: {
         firstname: '',
         lastname: '',
-        mail: '',
+        mail: [],
         'mailbox-quota': '',
         'mail-aliases': [],
-        'mail-forward': [],
+        'mail-forward': [''],
         password: '',
         confirmation: ''
       },
@@ -165,20 +165,24 @@ export default {
       return this.$store.state.data.users_details[this.name]
     },
     domains () {
-      return this.$store.state.data.domains
+      return this.$store.state.data.domains || []
     }
   },
 
   methods: {
     onSubmit () {
-      console.log(this.form['mail-aliases'])
       for (const key in this.isValid) {
         if (this.isValid[key] === false) return
       }
 
       const data = {}
 
-      for (const key of ['firstname', 'lastname', 'mail']) {
+      const mail = this.form.mail.join('@')
+      if (mail !== this.user.mail) {
+        data.mail = mail
+      }
+
+      for (const key of ['firstname', 'lastname']) {
         if (this.form[key] !== this.user[key]) data[key] = this.form[key]
       }
 
@@ -188,9 +192,11 @@ export default {
         data.mailbox_quota = quota !== 'No quota' ? quota : 0
       }
 
+      // Concat mail aliases that have a name
+      const mailAliases = this.form['mail-aliases'].filter(alias => alias[0]).map(alias => alias.join('@'))
       const mails = {
-        add_mailalias: arrayDiff(this.form['mail-aliases'], this.user['mail-aliases']),
-        remove_mailalias: arrayDiff(this.user['mail-aliases'], this.form['mail-aliases']),
+        add_mailalias: arrayDiff(mailAliases, this.user['mail-aliases']),
+        remove_mailalias: arrayDiff(this.user['mail-aliases'], mailAliases),
         add_mailforward: arrayDiff(this.form['mail-forward'], this.user['mail-forward']),
         remove_mailforward: arrayDiff(this.user['mail-forward'], this.form['mail-forward'])
       }
@@ -203,6 +209,10 @@ export default {
         return arr1.filter(item => ((arr2.indexOf(item) === -1) && (item !== '')))
       }
 
+      // Redirect if nothing has changed
+      if (Object.keys(data).length === 0) {
+        return this.$router.push({ name: 'user-list' })
+      }
       this.$store.dispatch('PUT',
         { uri: 'users', data, param: this.user.username, storeKey: 'users_details' }
       ).then(() => {
@@ -215,8 +225,7 @@ export default {
 
     validateEmail (mail) {
       // FIXME check allowed characters
-      console.log('validate', mail)
-      const isValid = mail.split('@')[0].match('^[A-Za-z0-9-_]+$')
+      const isValid = mail[0].match('^[A-Za-z0-9-_]+$')
       this.error.mail = isValid ? '' : this.$i18n.t('form_errors.email_syntax')
       this.isValid.mail = isValid ? null : false
     },
@@ -232,15 +241,18 @@ export default {
     this.$store.dispatch('FETCH_ALL', [
       { uri: 'domains' },
       { uri: 'users', param: this.name, storeKey: 'users_details' }
-    ]).then(([domainsData, userData]) => {
-      this.form.firstname = userData.firstname
-      this.form.lastname = userData.lastname
-      this.form.mail = userData.mail
-      console.log('fetch', this.form.mail)
-      this.form['mail-aliases'] = userData['mail-aliases'] ? [...userData['mail-aliases'], ''] : ['']
-      this.form['mail-forward'] = userData['mail-forward'] ? [...userData['mail-forward'], ''] : ['']
-      if (userData['mailbox-quota'].limit !== 'No quota') {
-        this.form['mailbox-quota'] = userData['mailbox-quota'].limit.slice(0, -1)
+    ]).then(([domains, user]) => {
+      this.form.firstname = user.firstname
+      this.form.lastname = user.lastname
+      this.form.mail = user.mail.split('@')
+      this.form['mail-aliases'] = user['mail-aliases']
+        ? [...user['mail-aliases'].map(mail => mail.split('@')), ['', domains[0]]]
+        : [['', domains[0]]]
+      if (user['mail-forward']) {
+        this.form['mail-forward'] = [...user['mail-forward'], '']
+      }
+      if (user['mailbox-quota'].limit !== 'No quota') {
+        this.form['mailbox-quota'] = user['mailbox-quota'].limit.slice(0, -1)
       }
     })
   },
