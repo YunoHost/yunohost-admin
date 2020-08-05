@@ -13,8 +13,8 @@ export default {
 
 <style lang="scss" scoped>
 .icon {
-  font-size: 1rem;
-  width: 1rem;
+  font-size: inherit;
+  min-width: 1rem;
   text-align: center;
 
   &.lg {

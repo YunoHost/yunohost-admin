@@ -20,8 +20,16 @@ export default {
       state.domains.push(domain)
     },
 
+    'DEL_DOMAINS' (state, domain) {
+      state.domains.splice(state.domains.indexOf(domain), 1)
+    },
+
     'SET_MAIN_DOMAIN' (state, response) {
       state.main_domain = response.current_main_domain
+    },
+
+    'UPDATE_MAIN_DOMAIN' (state, domain) {
+      state.main_domain = domain
     },
 
     'SET_USERS' (state, users) {
@@ -43,6 +51,11 @@ export default {
         }
       }
       Vue.set(user, 'fullname', `${userData.firstname} ${userData.lastname}`)
+    },
+
+    'UPDATE_USERS_DETAILS' (state, payload) {
+      // FIXME use a common function to execute the same code ?
+      this.commit('SET_USERS_DETAILS', payload)
     },
 
     'DEL_USERS_DETAILS' (state, username) {
@@ -117,7 +130,7 @@ export default {
     'PUT' ({ state, commit }, { uri, param, data, storeKey = uri }) {
       return api.put(param ? `${uri}/${param}` : uri, data).then(responseData => {
         const data = responseData[storeKey] ? responseData[storeKey] : responseData
-        commit('SET_' + storeKey.toUpperCase(), param ? [param, data] : data)
+        commit('UPDATE_' + storeKey.toUpperCase(), param ? [param, data] : data)
         return param ? state[storeKey][param] : state[storeKey]
       })
     },
