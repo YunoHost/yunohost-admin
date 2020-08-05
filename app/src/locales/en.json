@@ -107,7 +107,7 @@
     "domain_dns_longdesc": "View DNS configuration",
     "domain_name": "Domain name",
     "domain_visit": "Visit",
-    "domain_visit_url": "Visit %s",
+    "domain_visit_url": "Visit {url}",
     "domains": "Domains",
     "enable": "Enable",
     "enabled": "Enabled",
