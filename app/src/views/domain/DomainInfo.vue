@@ -76,11 +76,6 @@ export default {
       required: true
     }
   },
-  data () {
-    return {
-      purge: false
-    }
-  },
   computed: {
     mainDomain () {
       return this.$store.state.data.main_domain
@@ -121,64 +116,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.card-body > div {
-  flex-direction: column;
-  @include media-breakpoint-up(md) {
-      flex-direction: row;
-  }
-}
-
-.icon.fa-user {
-  font-size: 10rem;
-  padding-right: 3rem;
-  padding-left: 1.75rem;
-}
-
-.row {
-  + .row {
-      border-top: 1px solid #eee;
-  }
-
-  padding: .5rem;
-}
-
-.col {
-  margin: 0;
-}
-
-ul {
-  margin: 0;
-  padding: 0;
-
-  li {
-    font-style: italic;
-    list-style: none;
-  }
-}
-
-.skeleton {
-  opacity: 0.5;
-
-  h2 {
-    height: #{2 * 1.2}rem;
-  }
-
-  .col {
-    & > * {
-      display: block;
-      background-color: $skeleton-color;
-      height: 1.5rem;
-      max-width: 8rem;
-    }
-
-    strong {
-      max-width: 12rem;
-    }
-  }
-
-  button {
-    height: calc(2.25rem + 2px);
-    width: 7rem;
-  }
-}
 </style>
