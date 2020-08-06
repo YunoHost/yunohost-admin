@@ -34,7 +34,7 @@
 
       <!-- SSL CERTIFICATE -->
       <p>{{ $t('certificate_manage') }}</p>
-      <b-button :to="{ name: 'domain-certificate', param: { name } }">
+      <b-button :to="{ name: 'domain-cert', param: { name } }">
         <icon iname="lock" /> {{ $t('ssl_certificate') }}
       </b-button>
       <hr>
