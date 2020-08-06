@@ -231,6 +231,9 @@
         "groupname": "My group name",
         "domain": "my-domain.com"
     },
+    "pluralized": {
+        "day_validity": " Expired | 1 day | {count} days"
+    },
     "logs": "Logs",
     "logs_operation": "Operations made on system with YunoHost",
     "logs_history": "History of command run on system",
