@@ -33,3 +33,13 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.input-group-append ~ .input-group-append {
+  min-width: 40%;
+}
+select {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+</style>
