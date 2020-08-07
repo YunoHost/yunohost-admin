@@ -72,7 +72,7 @@ import BasicForm from '@/components/BasicForm'
 import AdressInputSelect from '@/components/AdressInputSelect'
 
 export default {
-  name: 'GroupCreate',
+  name: 'DomainAdd',
 
   data () {
     return {

@@ -274,6 +274,7 @@
     "search": {
         "domain": "Search for domains...",
         "group": "Search for groups...",
+        "service": "Search for services",
         "user": "Search for users..."
     },
     "search_for_apps": "Search for apps...",
