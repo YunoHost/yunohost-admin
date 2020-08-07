@@ -30,19 +30,9 @@ body {
   color: #333;
 }
 
-.input-group {
-  .input-group-append ~ .input-group-append {
-    min-width: 40%;
-  }
-
-  select {
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-  }
-
-  &.is-invalid ~ .invalid-feedback {
-    display: block;
-  }
+// Allow state of input group to be displayed under the group
+.input-group .is-invalid ~ .invalid-feedback {
+  display: block;
 }
 
 .col-form-label {
