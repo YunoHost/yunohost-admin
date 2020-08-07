@@ -3,6 +3,7 @@ import Login from './views/Login'
 import { UserList, UserCreate, UserInfo, UserEdit } from './views/user'
 import { GroupList, GroupCreate } from './views/group'
 import { DomainList, DomainAdd, DomainInfo, DomainDns, DomainCert } from './views/domain'
+import { ServiceList, ServiceInfo } from './views/service'
 
 const routes = [
   { name: 'home', path: '/', component: Home },
@@ -140,6 +141,32 @@ const routes = [
         { name: 'domain-list', trad: 'domains' },
         { name: 'domain-info', param: 'name' },
         { name: 'domain-cert', trad: 'certificate' }
+      ]
+    }
+  },
+
+  /* ──────────╮
+   │  SERVICE  │
+   ╰────────── */
+  {
+    name: 'service-list',
+    path: '/services',
+    component: ServiceList,
+    meta: {
+      breadcrumb: [
+        { name: 'service-list', trad: 'services' }
+      ]
+    }
+  },
+  {
+    name: 'service-info',
+    path: '/services/:name',
+    component: ServiceInfo,
+    props: true,
+    meta: {
+      breadcrumb: [
+        { name: 'service-list', trad: 'services' },
+        { name: 'service-info', param: 'name' }
       ]
     }
   }
