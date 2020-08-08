@@ -17,6 +17,7 @@
 <script>
 export default {
   name: 'Home',
+
   data: () => {
     return {
       menu: [
@@ -25,7 +26,7 @@ export default {
         { id: 2, routeName: 'apps', icon: 'cubes', translation: 'applications' },
         { id: 3, routeName: 'update', icon: 'refresh', translation: 'system_update' },
         { id: 4, routeName: 'service-list', icon: 'cog', translation: 'services' },
-        { id: 5, routeName: 'tools', icon: 'wrench', translation: 'tools' },
+        { id: 5, routeName: 'tool-list', icon: 'wrench', translation: 'tools' },
         { id: 6, routeName: 'diagnosis', icon: 'stethoscope', translation: 'diagnosis' },
         { id: 7, routeName: 'backup', icon: 'archive', translation: 'backup' }
       ]
