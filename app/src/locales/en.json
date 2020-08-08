@@ -275,7 +275,8 @@
         "domain": "Search for domains...",
         "group": "Search for groups...",
         "service": "Search for services",
-        "user": "Search for users..."
+        "user": "Search for users...",
+        "logs": "Search in logs..."
     },
     "search_for_apps": "Search for apps...",
     "select_all": "Select all",

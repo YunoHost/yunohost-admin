@@ -4,7 +4,7 @@ import { UserList, UserCreate, UserInfo, UserEdit } from './views/user'
 import { GroupList, GroupCreate } from './views/group'
 import { DomainList, DomainAdd, DomainInfo, DomainDns, DomainCert } from './views/domain'
 import { ServiceList, ServiceInfo } from './views/service'
-import { ToolList } from './views/tool'
+import { ToolList, ToolLogs } from './views/tool'
 
 const routes = [
   { name: 'home', path: '/', component: Home },
@@ -182,6 +182,17 @@ const routes = [
     meta: {
       breadcrumb: [
         { name: 'tool-list', trad: 'tools' }
+      ]
+    }
+  },
+  {
+    name: 'tool-logs',
+    path: '/tools/logs',
+    component: ToolLogs,
+    meta: {
+      breadcrumb: [
+        { name: 'tool-list', trad: 'tools' },
+        { name: 'tool-list', trad: 'logs' }
       ]
     }
   }

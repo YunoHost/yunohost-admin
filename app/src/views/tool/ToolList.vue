@@ -22,7 +22,7 @@ export default {
   data: () => {
     return {
       menu: [
-        { id: 0, routeName: 'tool-logs', icon: 'file-text-o', translation: 'logs' },
+        { id: 0, routeName: 'tool-logs', icon: 'book', translation: 'logs' },
         { id: 1, routeName: 'tool-migrations', icon: 'share', translation: 'migrations' },
         { id: 2, routeName: 'tool-firewall', icon: 'shield', translation: 'firewall' },
         { id: 3, routeName: 'tool-adminpw', icon: 'key-modern', translation: 'tools_adminpw' },
