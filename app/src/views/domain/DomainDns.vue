@@ -7,7 +7,7 @@
       <template v-slot:header>
         <h2><icon iname="globe" /> {{ $t('domain_dns_config') }}</h2>
       </template>
-      <pre><code>{{ dnsConfig }}</code></pre>
+      <pre class="mb-0 p-3 bg-light"><code>{{ dnsConfig }}</code></pre>
     </b-card>
   </div>
 </template>
@@ -38,4 +38,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.card-body {
+  padding: 0;
+}
 </style>

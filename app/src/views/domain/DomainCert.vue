@@ -9,7 +9,7 @@
         <icon :iname="cert.alert.icon" /> {{ $t('certificate_alert_' + cert.alert.trad) }}
       </p>
 
-      <dl class="dl-horizontal">
+      <dl>
         <dt v-t="'certificate_authority'" />
         <dd>{{ cert.type }} ({{ name }})</dd>
         <hr>

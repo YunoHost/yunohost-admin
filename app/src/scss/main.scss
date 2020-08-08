@@ -93,7 +93,7 @@ body {
   }
 
   @include media-breakpoint-up(md) {
-    .btn-success {
+    .btn ~ .btn {
       margin-left: .5rem;
     }
   }
