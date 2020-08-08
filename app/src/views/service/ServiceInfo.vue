@@ -10,7 +10,7 @@
             <icon iname="refresh" /> {{ $t('restart') }}
           </b-button>
           <b-button
-            variant="danger"
+            variant="danger" :disabled="critical"
             @click="action = 'stop'" v-b-modal.action-confirm-modal
           >
             <icon iname="warning" /> {{ $t('stop') }}
@@ -109,7 +109,8 @@ export default {
       start_on_boot: undefined,
       logs: undefined,
       // Modal action
-      action: undefined
+      action: undefined,
+      critical: undefined
     }
   },
 
@@ -123,6 +124,7 @@ export default {
         'services/' + this.name,
         `services/${this.name}/log?number=50`
       ]).then(([service, logs]) => {
+        this.critical = ['nginx', 'ssh', 'slapd', 'yunohost-api'].includes(this.name)
         if (service.last_state_change === 'unknown') {
           service.last_state_change = 0
         }
