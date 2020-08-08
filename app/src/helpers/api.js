@@ -42,7 +42,11 @@ export default {
       })
   },
 
-  post (uri, data) {
+  getAll (uris) {
+    return Promise.all(uris.map((uri) => this.get(uri)))
+  },
+
+  post (uri, data = {}) {
     return fetch('/api/' + uri, {
       ...this.options,
       method: 'POST',
@@ -50,7 +54,7 @@ export default {
     }).then(response => handleResponse(response))
   },
 
-  put (uri, data) {
+  put (uri, data = {}) {
     return fetch('/api/' + uri, {
       ...this.options,
       method: 'PUT',
@@ -58,7 +62,7 @@ export default {
     }).then(response => handleResponse(response))
   },
 
-  delete (uri, data) {
+  delete (uri, data = {}) {
     return fetch('/api/' + uri, {
       ...this.options,
       method: 'DELETE',
