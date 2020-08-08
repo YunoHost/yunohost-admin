@@ -20,6 +20,7 @@ export default {
   &.lg {
     width: 3rem;
     font-size: 1.5rem;
+    min-width: 3rem;
   }
 
   &.fs-sm {
