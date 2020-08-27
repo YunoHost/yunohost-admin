@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import api from './api'
+import api from '@/helpers/api'
 
 export default {
   state: () => ({
