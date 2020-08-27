@@ -204,8 +204,8 @@
             c.view('user/user_create', data, function(){
                 var usernameField = $('#username');
                 usernameField.on('input', function(){
-                    var emailField = $('#email');
-                    emailField.val(usernameField.val());
+                    var emailLeft = $('#email-left');
+                    emailLeft.html(usernameField.val());
                 });
             });
         });
