@@ -27,28 +27,26 @@
 </template>
 
 <script>
-import api from '@/helpers/api'
-
 export default {
   name: 'Login',
+
   data: () => {
     return {
       password: '',
       isValid: null
     }
   },
+
   methods: {
     async login () {
-      const connected = await api.login(this.password)
-      if (connected) {
-        this.$store.commit('CONNECTED', true)
+      this.$store.dispatch(
+        'LOGIN', this.password
+      ).then(() => {
+        this.$store.dispatch('GET_YUNOHOST_INFOS')
         this.$router.push(this.$route.query.redirect || '/')
-        const infos = await api.getVersion()
-        this.$store.commit('YUNOHOST_INFOS', infos.yunohost)
-      } else {
-        this.$store.commit('CONNECTED', false)
+      }).catch(() => {
         this.isValid = false
-      }
+      })
     }
   }
   // TODO checkInstall

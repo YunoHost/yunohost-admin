@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import routes from '../routes'
-import store from './store'
+import store from '@/store'
 
 Vue.use(VueRouter)
 
@@ -14,7 +14,7 @@ const router = new VueRouter({
 // Before each route request hook
 router.beforeEach((to, from, next) => {
   // Allow if connected or route is not protected
-  if (store.state.connected || to.meta.noAuth) {
+  if (store.getters.connected || to.meta.noAuth) {
     next()
   } else {
     next({ name: 'login', query: { redirect: to.path } })

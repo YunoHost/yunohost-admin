@@ -42,7 +42,7 @@
           <b-nav-item href="https://donate.yunohost.org/" target="_blank" link-classes="text-secondary">
             <icon iname="heart" /> Donate
           </b-nav-item>
-          <i18n v-if="yunohostInfos" path="footer_version" tag="b-nav-text"
+          <i18n v-if="yunohost" path="footer_version" tag="b-nav-text"
                 id="yunohost-version" class="ml-auto"
           >
             <template v-slot:ynh>
@@ -51,10 +51,10 @@
               </b-link>
             </template>
             <template v-slot:version>
-              {{ yunohostInfos.version }}
+              {{ yunohost.version }}
             </template>
             <template v-slot:repo>
-              {{ yunohostInfos.repo }}
+              {{ yunohost.repo }}
             </template>
           </i18n>
         </b-nav>
@@ -64,9 +64,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
-
-import api from '@/helpers/api'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'App',
@@ -78,38 +76,40 @@ export default {
     }
   },
   computed: {
-    ...mapState(['connected', 'yunohostInfos'])
+    ...mapGetters(['connected', 'yunohost'])
   },
   methods: {
     async logout () {
-      await api.logout()
-      this.$store.commit('CONNECTED', false)
-      this.$router.push('/login')
+      this.$store.dispatch('LOGOUT').then(() => {
+        this.$router.push({ name: 'login' })
+      })
     }
   },
   // This hook is only triggered at page reload so the value of state.connected
   // always come from the localStorage
   async created () {
-    if (!this.$store.state.connected) {
+    if (!this.connected) {
       // user is not connected: allow the login view to be rendered.
       this.isReady = true
       return
     }
     // localStorage 'connected' value may be true, but session may have expired.
     // Try to get the yunohost version.
-    try {
-      const data = await api.getVersion()
-      this.$store.commit('YUNOHOST_INFOS', data.yunohost)
-    } catch (err) {
+    this.$store.dispatch(
+      'GET_YUNOHOST_INFOS'
+    ).catch(() => {
       // Session expired, reset the 'connected' state and redirect with a query
       // FIXME is there a case where the error may not be a 401 therefor requires
       // better handling ?
-      this.$store.commit('CONNECTED', false)
-      this.$router.push({ name: 'login', query: { redirect: this.$route.path } })
-    } finally {
+      this.$store.dispatch('RESET_CONNECTED')
+      this.$router.push({
+        name: 'login',
+        query: { redirect: this.$route.path !== '/login' ? this.$route.path : '/' }
+      })
+    }).finally(() => {
       // in any case allow the router-view to be rendered
       this.isReady = true
-    }
+    })
   }
 }
 </script>
