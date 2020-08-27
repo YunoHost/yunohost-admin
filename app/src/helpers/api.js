@@ -6,8 +6,15 @@ function objectToParams (object) {
   return urlParams
 }
 
-function handleResponse (response, type = 'json') {
-  return response.ok ? response[type]() : handleErrors(response)
+async function handleResponse (response) {
+  if (!response.ok) return handleErrors(response)
+  // FIXME the api should always return json objects
+  const responseText = await response.text()
+  try {
+    return JSON.parse(responseText)
+  } catch {
+    return responseText
+  }
 }
 
 async function handleErrors (response) {
@@ -35,11 +42,9 @@ export default {
   },
 
   get (uri) {
-    return fetch('/api/' + uri, this.options)
-      .then(response => handleResponse(response))
-      .catch(err => {
-        console.log(err)
-      })
+    return fetch(
+      '/api/' + uri, this.options
+    ).then(handleResponse)
   },
 
   getAll (uris) {
@@ -51,7 +56,7 @@ export default {
       ...this.options,
       method: 'POST',
       body: objectToParams(data)
-    }).then(response => handleResponse(response))
+    }).then(handleResponse)
   },
 
   put (uri, data = {}) {
@@ -59,7 +64,7 @@ export default {
       ...this.options,
       method: 'PUT',
       body: objectToParams(data)
-    }).then(response => handleResponse(response))
+    }).then(handleResponse)
   },
 
   delete (uri, data = {}) {
@@ -68,21 +73,5 @@ export default {
       method: 'DELETE',
       body: objectToParams(data)
     }).then(response => response.ok ? 'ok' : handleErrors(response))
-  },
-
-  login (password) {
-    return fetch('/api/login', {
-      ...this.options,
-      method: 'POST',
-      body: objectToParams({ password })
-    }).then(response => (response.ok))
-  },
-
-  logout () {
-    return fetch('/api/logout', this.options).then(response => (response.ok))
-  },
-
-  getVersion () {
-    return fetch('/api/versions', this.options).then(response => handleResponse(response))
   }
 }
