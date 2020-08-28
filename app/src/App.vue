@@ -68,16 +68,19 @@ import { mapGetters } from 'vuex'
 
 export default {
   name: 'App',
-  data: () => {
+
+  data () {
     return {
       // isReady blocks the rendering of the rooter-view until we have a true info
       // about the connected state of the user.
       isReady: false
     }
   },
+
   computed: {
     ...mapGetters(['connected', 'yunohost'])
   },
+
   methods: {
     async logout () {
       this.$store.dispatch('LOGOUT').then(() => {
@@ -85,9 +88,14 @@ export default {
       })
     }
   },
-  // This hook is only triggered at page reload so the value of state.connected
-  // always come from the localStorage
+
+  // This hook is only triggered at page first load
   async created () {
+    // Save user locales in store
+    const { locale, fallbackLocale } = this.$i18n
+    this.$store.dispatch('INIT_LOCALES', { locale, fallbackLocale })
+
+    // From this hook the value of `connected` always come from the localStorage.
     if (!this.connected) {
       // user is not connected: allow the login view to be rendered.
       this.isReady = true
