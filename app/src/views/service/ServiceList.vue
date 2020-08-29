@@ -21,10 +21,10 @@
           <p class="mb-0">
             <span :class="status === 'running' ? 'text-success' : 'text-danger'">
               <icon :iname="status === 'running' ? 'check-circle' : 'times'" />
-              {{ status }}
+              {{ $t(status) }}
             </span>
             <!-- FIXME format date to: (now - date) as words -->
-            {{ $t('since') }} {{ last_state_change }}
+            {{ $t('since') }} {{ last_state_change | distanceToNow }}
           </p>
         </div>
         <icon iname="chevron-right" class="lg fs-sm ml-auto" />
@@ -35,6 +35,7 @@
 
 <script>
 import api from '@/helpers/api'
+import { distanceToNow } from '@/filters/date'
 
 export default {
   name: 'ServiceList',
@@ -54,6 +55,10 @@ export default {
         return name.toLowerCase().includes(search)
       })
     }
+  },
+
+  filters: {
+    distanceToNow
   },
 
   methods: {
