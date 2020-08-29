@@ -1,13 +1,17 @@
 import Vue from 'vue'
 import App from './App.vue'
-import './plugins/bootstrap-vue'
+import BootstrapVue from 'bootstrap-vue'
+
 import i18n from './i18n'
-import router from './plugins/router'
+import router from './router'
 import store from './store'
 
 import * as globalsComponents from './components/globals'
 
 Vue.config.productionTip = false
+
+// Styles are imported in `src/App.vue` <style>
+Vue.use(BootstrapVue)
 
 // Register global components
 for (const component of Object.values(globalsComponents)) {

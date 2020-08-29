@@ -1,10 +1,10 @@
-import Home from './views/Home'
-import Login from './views/Login'
-import { UserList, UserCreate, UserInfo, UserEdit } from './views/user'
-import { GroupList, GroupCreate } from './views/group'
-import { DomainList, DomainAdd, DomainInfo, DomainDns, DomainCert } from './views/domain'
-import { ServiceList, ServiceInfo } from './views/service'
-import { ToolList, ToolLogs } from './views/tool'
+import Home from '@/views/Home'
+import Login from '@/views/Login'
+import { UserList, UserCreate, UserInfo, UserEdit } from '@/views/user'
+import { GroupList, GroupCreate } from '@/views/group'
+import { DomainList, DomainAdd, DomainInfo, DomainDns, DomainCert } from '@/views/domain'
+import { ServiceList, ServiceInfo } from '@/views/service'
+import { ToolList, ToolLogs } from '@/views/tool'
 
 const routes = [
   { name: 'home', path: '/', component: Home },
