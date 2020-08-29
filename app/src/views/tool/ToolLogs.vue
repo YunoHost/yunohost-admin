@@ -14,13 +14,12 @@
         <h2><icon iname="wrench" /> {{ $t('logs_operation') }}</h2>
       </template>
       <b-list-group flush>
-        <!-- FIXME format title and span date as text and text'ago -->
         <b-list-group-item
           v-for="log in filteredOperations" :key="log.name"
           :to="{ name: 'tool-log', params: { name: log.name } }"
-          :title="log.started_at"
+          :title="log.started_at | readableDate"
         >
-          <small class="mr-3">{{ log.started_at }} </small>
+          <small class="mr-3">{{ log.started_at | distanceToNow }} </small>
           <icon :iname="log.icon" :class="'text-' + log.class" />
           {{ log.description }}
         </b-list-group-item>
@@ -31,6 +30,7 @@
 
 <script>
 import api from '@/helpers/api'
+import { distanceToNow, readableDate } from '@/filters/date'
 
 export default {
   name: 'ServiceList',
@@ -50,6 +50,11 @@ export default {
         return description.toLowerCase().includes(search)
       })
     }
+  },
+
+  filters: {
+    distanceToNow,
+    readableDate
   },
 
   methods: {
