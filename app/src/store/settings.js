@@ -4,12 +4,12 @@
  */
 
 import i18n from '@/i18n'
-import { loadLocaleMessages, updateDocumentLocale } from '@/i18n/helpers'
+import { loadLocaleMessages, updateDocumentLocale, loadDateFnsLocale } from '@/i18n/helpers'
 
 export default {
   state: {
-    locale: undefined,
-    fallbackLocale: undefined
+    locale: localStorage.getItem('locale'),
+    fallbackLocale: localStorage.getItem('fallbackLocale')
   },
 
   mutations: {
@@ -27,22 +27,19 @@ export default {
   actions: {
     'UPDATE_LOCALE' ({ commit }, locale) {
       loadLocaleMessages(locale).then(() => {
-        i18n.locale = locale
         updateDocumentLocale(locale)
         commit('SET_LOCALE', locale)
+        i18n.locale = locale
       })
+      // also query the date-fns locale object for filters
+      loadDateFnsLocale(locale)
     },
 
     'UPDATE_FALLBACK_LOCALE' ({ commit }, locale) {
       loadLocaleMessages(locale).then(() => {
-        i18n.fallbackLocale = [locale, 'en']
         commit('SET_FALLBACK_LOCALE', locale)
+        i18n.fallbackLocale = [locale, 'en']
       })
-    },
-
-    'INIT_LOCALES' ({ commit }, { locale, fallbackLocale }) {
-      commit('SET_LOCALE', locale)
-      commit('SET_FALLBACK_LOCALE', fallbackLocale[0])
     }
   },
 

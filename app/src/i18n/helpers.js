@@ -1,6 +1,8 @@
 import i18n from '@/i18n'
+import store from '@/store'
 import supportedLocales from './supportedLocales'
 
+let dateFnsLocale
 const loadedLanguages = []
 
 /**
@@ -10,9 +12,8 @@ const loadedLanguages = []
  * @return {string[]}
  */
 function getDefaultLocales () {
-  const locale = localStorage.getItem('locale')
-  const fallbackLocale = localStorage.getItem('fallbackLocale')
-
+  const locale = store.getters.locale
+  const fallbackLocale = store.getters.fallbackLocale
   if (locale && fallbackLocale) return [locale, fallbackLocale]
 
   const navigatorLocales = navigator.languages || [navigator.language]
@@ -49,7 +50,7 @@ function loadLocaleMessages (locale) {
     return Promise.resolve(locale)
   }
   return import(
-    /* webpackChunkName: "lang-[request]" */ `@/locales/${locale}.json`
+    /* webpackChunkName: "lc/lang-[request]" */ `@/locales/${locale}`
   ).then(messages => {
     i18n.setLocaleMessage(locale, messages.default)
     loadedLanguages.push(locale)
@@ -57,8 +58,35 @@ function loadLocaleMessages (locale) {
   })
 }
 
+/**
+ * Loads a date-fns locale object
+ */
+async function loadDateFnsLocale (locale) {
+  const dateFnsLocaleName = supportedLocales[locale].dateFnsLocale || locale
+  return import(
+    /* webpackChunkName: "lc/datefns-[request]" */
+    `date-fns/locale/${dateFnsLocaleName}/index.js`
+  ).then(locale => {
+    dateFnsLocale = locale.default
+  })
+}
+
+/**
+ * Initialize all locales
+ */
+function initDefaultLocales () {
+  // Get defined locales from `localStorage` or `navigator`
+  const [locale, fallbackLocale] = getDefaultLocales()
+
+  store.dispatch('UPDATE_LOCALE', locale)
+  store.dispatch('UPDATE_FALLBACK_LOCALE', fallbackLocale || 'en')
+  loadLocaleMessages('en')
+}
+
 export {
-  getDefaultLocales,
+  initDefaultLocales,
   updateDocumentLocale,
-  loadLocaleMessages
+  loadLocaleMessages,
+  loadDateFnsLocale,
+  dateFnsLocale
 }

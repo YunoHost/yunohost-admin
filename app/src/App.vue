@@ -91,10 +91,6 @@ export default {
 
   // This hook is only triggered at page first load
   async created () {
-    // Save user locales in store
-    const { locale, fallbackLocale } = this.$i18n
-    this.$store.dispatch('INIT_LOCALES', { locale, fallbackLocale })
-
     // From this hook the value of `connected` always come from the localStorage.
     if (!this.connected) {
       // user is not connected: allow the login view to be rendered.
