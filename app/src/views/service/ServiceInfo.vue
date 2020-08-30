@@ -46,8 +46,7 @@
             <icon :iname="status === 'running' ? 'check-circle' : 'times'" />
             {{ status }}
           </span>
-          <!-- FIXME format date to: (now - date) as words -->
-          {{ $t('since') }} {{ last_state_change }}
+          {{ $t('since') }} {{ last_state_change | distanceToNow }}
         </dd>
         <hr>
 
@@ -88,6 +87,7 @@
 
 <script>
 import api from '@/helpers/api'
+import { distanceToNow } from '@/filters/date'
 
 export default {
   name: 'ServiceInfo',
@@ -112,6 +112,10 @@ export default {
       action: undefined,
       critical: undefined
     }
+  },
+
+  filters: {
+    distanceToNow
   },
 
   computed: {

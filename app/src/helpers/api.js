@@ -1,5 +1,7 @@
+import store from '@/store'
+
 function objectToParams (object) {
-  const urlParams = new URLSearchParams()
+  const urlParams = new URLSearchParams('locale=' + store.getters.locale)
   for (const [key, value] of Object.entries(object)) {
     urlParams.append(key, value)
   }
@@ -41,9 +43,10 @@ export default {
     }
   },
 
-  get (uri) {
+  get (uri, urlParams = {}) {
     return fetch(
-      '/api/' + uri, this.options
+      `/api/${uri}?${objectToParams(urlParams)}`,
+      this.options
     ).then(handleResponse)
   },
 
