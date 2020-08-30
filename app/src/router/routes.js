@@ -1,10 +1,10 @@
 import Home from '@/views/Home'
 import Login from '@/views/Login'
+import ToolList from '@/views/tool/ToolList'
 import { UserList, UserCreate, UserInfo, UserEdit } from '@/views/user'
 import { GroupList, GroupCreate } from '@/views/group'
 import { DomainList, DomainAdd, DomainInfo, DomainDns, DomainCert } from '@/views/domain'
 import { ServiceList, ServiceInfo } from '@/views/service'
-import { ToolList, ToolLogs } from '@/views/tool'
 
 const routes = [
   { name: 'home', path: '/', component: Home },
@@ -188,11 +188,24 @@ const routes = [
   {
     name: 'tool-logs',
     path: '/tools/logs',
-    component: ToolLogs,
+    component: () => import(/* webpackChunkName: "views/tools" */ '@/views/tool/ToolLogs'),
     meta: {
       breadcrumb: [
         { name: 'tool-list', trad: 'tools' },
-        { name: 'tool-list', trad: 'logs' }
+        { name: 'tool-logs', trad: 'logs' }
+      ]
+    }
+  },
+  {
+    name: 'tool-log',
+    path: '/tools/:name',
+    component: () => import(/* webpackChunkName: "views/tools" */ '@/views/tool/ToolLog'),
+    props: true,
+    meta: {
+      breadcrumb: [
+        { name: 'tool-list', trad: 'tools' },
+        { name: 'tool-logs', trad: 'logs' },
+        { name: 'tool-log', param: 'name' }
       ]
     }
   }
