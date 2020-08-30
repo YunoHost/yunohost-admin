@@ -23,7 +23,6 @@
               <icon :iname="status === 'running' ? 'check-circle' : 'times'" />
               {{ $t(status) }}
             </span>
-            <!-- FIXME format date to: (now - date) as words -->
             {{ $t('since') }} {{ last_state_change | distanceToNow }}
           </p>
         </div>

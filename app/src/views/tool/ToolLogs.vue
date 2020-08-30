@@ -16,7 +16,7 @@
       <b-list-group flush>
         <b-list-group-item
           v-for="log in filteredOperations" :key="log.name"
-          :to="{ name: 'tool-log', params: { name: log.name } }"
+          :to="{ name: 'tool-log', params: { name: log.name || log.log_path } }"
           :title="log.started_at | readableDate"
         >
           <small class="mr-3">{{ log.started_at | distanceToNow }} </small>
@@ -59,9 +59,8 @@ export default {
 
   methods: {
     fetchData () {
-      // simply use the api helper since we will not store the request's result.
       // FIXME only prints operation for now (can't receive 'history', 'app', 'service', etc.)
-      api.get('logs?limit=25&with_details').then(({ operation }) => {
+      api.get('logs', { limit: 25, with_details: '' }).then(({ operation }) => {
         operation.forEach((log, index) => {
           if (log.success === '?') {
             operation[index].icon = 'question'

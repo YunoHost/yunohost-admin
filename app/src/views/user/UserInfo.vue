@@ -86,9 +86,9 @@
     >
       <b-form-group>
         <template v-slot:description>
-          <span class="bg-warning p-2 text-dark">
+          <b-alert variant="warning" show>
             <icon iname="exclamation-triangle" /> {{ $t('purge_user_data_warning') }}
-          </span>
+          </b-alert>
         </template>
         <b-form-checkbox v-model="purge" class="mb-3">
           {{ $t('purge_user_data_checkbox', {name: user.username}) }}
