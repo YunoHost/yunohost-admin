@@ -212,6 +212,7 @@
     "passwords_too_short": "Password is too short",
     "path": "Path",
     "logs": "Logs",
+    "log_suboperations": "Sub-operations",
     "logs_operation": "Operations made on system with YunoHost",
     "logs_history": "History of command run on system",
     "logs_package": "Debian packages management history",
