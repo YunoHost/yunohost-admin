@@ -27,11 +27,11 @@
     </div>
 </div>
 
-{{#if log.metadata.error}}
+{{#unless log.metadata.success}}
 <div class="alert alert-danger text-center">
 <p>{{t 'operation_failed_explanation'}}</p>
 </div>
-{{/if}}
+{{/unless}}
 
 <!--
 {{#if log.metadata.env}}
