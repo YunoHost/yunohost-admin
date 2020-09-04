@@ -318,7 +318,7 @@
     "certificate_authority": "Autorité de certification",
     "validity": "Validité",
     "domain_is_eligible_for_ACME": "Ce domaine semble correctement configuré pour installer un certificat Let’s Encrypt !",
-    "domain_not_eligible_for_ACME": "Ce domaine ne semble pas prêt pour installer un certificat Let’s Encrypt. Veuillez vérifier votre configuration DNS et l’accessibilité HTTP de votre serveur. Les sections 'enregistrement DNS' et 'Web' dans <a href='#/diagnosis'>la page de diagnostic</a> peuvent vous aider à comprendre ce qui est mal configurée.",
+    "domain_not_eligible_for_ACME": "Ce domaine ne semble pas prêt pour installer un certificat Let’s Encrypt. Veuillez vérifier votre configuration DNS et l’accessibilité HTTP de votre serveur. Les sections 'enregistrement DNS' et 'Web' dans <a href='#/diagnosis'>la page de diagnostic</a> peuvent vous aider à comprendre ce qui est mal configuré.",
     "install_letsencrypt_cert": "Installer un certificat Let’s Encrypt",
     "manually_renew_letsencrypt_message": "Le certificat sera renouvelé automatiquement durant les 15 derniers jours de sa validité. Vous pouvez le renouveler manuellement si vous le souhaitez (non recommandé).",
     "manually_renew_letsencrypt": "Renouveler manuellement maintenant",
