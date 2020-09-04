@@ -426,7 +426,7 @@
     "purge_user_data_warning": "La purge des données de l’utilisateur n’est pas réversible. Assurez-vous de savoir ce que vous faites !",
     "version": "Version",
     "confirm_update_system": "Voulez-vous vraiment mettre à jour tous les paquets système ?",
-    "app_state_inprogress_explanation": "Le/La responsable de cette application à déclaré(e) que l'application suivante n'est pas encore prête à être utilisée en production. SOYEZ VIGILANT(E)",
+    "app_state_inprogress_explanation": "Le mainteneur de cette application précise que cette application n'est pas encore prête à être utilisée en production. SOYEZ PRUDENTS !",
     "app_state_notworking_explanation": "Le responsable de cette application a déclaré celle-ci comme \"non fonctionnelle\". SON INSTALLATION POURRAIT CASSER VOTRE SYSTÈME !",
     "app_state_high-quality": "bonne qualité",
     "app_state_high-quality_explanation": "Cette application est bien intégrée à YunoHost. Elle a été (et est !) revue par l'équipe applicative de YunoHost. On peut s'attendre à ce qu'elle soit sûre et maintenue sur le long terme.",
