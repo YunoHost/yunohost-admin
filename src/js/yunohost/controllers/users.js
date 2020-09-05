@@ -223,7 +223,7 @@
                     c.params['mailbox_quota'] += "M";
                 }
                 else {c.params['mailbox_quota'] = 0;}
-		c.params['domain']=c.params['domain'].slice(1);
+                c.params['domain'] = c.params['domain'].slice(1);
 
                 c.api('POST', '/users', c.params.toHash(), function(data) {
                     c.redirect_to('#/users');
