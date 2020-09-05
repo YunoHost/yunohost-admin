@@ -269,6 +269,7 @@
     "system_upgrade_all_applications_btn": "Upgrade all applications",
     "system_upgrade_all_packages_btn": "Upgrade all packages",
     "tcp": "TCP",
+    "tip_about_user_email": "Users are created with an associated email address (and XMPP account) with the format username@domain.tld. Additional email aliases and email forwards can later be added by the admin and the user.",
     "tools": "Tools",
     "tools_adminpw": "Change administration password",
     "tools_adminpw_confirm_placeholder": "Confirm the new password",
