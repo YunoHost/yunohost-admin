@@ -91,38 +91,20 @@
 
     // Display journals list
     app.get('#/tools/logs', function (c) {
-        c.api('GET', "/logs?limit=25&with_details", {}, function(categories) {
-            data = [];
-            category_icons = {
-                'operation': 'wrench',
-                'history': 'history',
-                'package': 'puzzle-piece',
-                'system': 'cogs',
-                'access': 'ban',
-                'service': 'cog',
-                'app': 'cubes'
-            }
+        c.api('GET', "/logs?limit=40&with_details", {}, function(operations) {
+            operations = operations["operation"];
             success_icons = {
                 true: 'check text-success',
                 false: 'close text-danger',
                 '?': 'question text-warning'
             }
-            for (var category in categories) {
-                for (var log in categories[category])
-                {
-                    categories[category][log].success_icon = success_icons[categories[category][log].success]
-                }
-                if (categories.hasOwnProperty(category)) {
-                    data.push({
-                        key:category,
-                        icon:(category in category_icons)?category_icons[category]:'info-circle',
-                        value:categories[category]
-                    });
-                }
+            for (var log in operations)
+            {
+                operations[log].success_icon = success_icons[operations[log].success]
             }
 
             c.view('tools/tools_logs', {
-                "data": data,
+                "operations": operations,
                 "locale": y18n.locale
             });
         });
@@ -131,16 +113,10 @@
     // One journal
     app.get(/\#\/tools\/logs\/(.*)(\?number=(\d+))?/, function (c) {
         var params = "?path=" + c.params["splat"][0];
-        var number = (c.params["number"])?c.params["number"]:50;
-        params += "&filter_irrelevant&number=" + number;
+        var number = (c.params["number"])?c.params["number"]:25;
+        params += "&filter_irrelevant&with_suboperations&number=" + number;
 
         c.api('GET', "/logs/display" + params, {}, function(log) {
-            if ('metadata' in log) {
-                if (!'env' in log.metadata && 'args' in log.metadata) {
-                    log.metadata.env = log.metadata.args
-                }
-            }
-
             c.view('tools/tools_log', {
                 "log": log,
                 "next_number": log.logs.length == number ? number * 10:false,
