@@ -139,7 +139,7 @@
     "hook_data_home": "Données de l’utilisateur",
     "hook_data_home_desc": "Les données de l’utilisateur situées dans /home/USER",
     "hook_data_mail": "Courriel",
-    "hook_data_mail_desc": "Les courriels au format brut sont stockés sur le serveur",
+    "hook_data_mail_desc": "Courriels (au format brut) stockés sur le serveur",
     "hostname": "Nom d'hôte",
     "id": "ID",
     "inactive": "Inactif",
