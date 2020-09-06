@@ -102,17 +102,19 @@
             data.locale = y18n.locale;
             c.view('backup/backup_info', data, function() {
 
-                // Configure buttons "select all" and "select none"
-
-                // Remove active style from buttons
-                $(".select_all-none input").click(function(){ $(this).toggleClass("active"); });
                 // Select all checkbox in this panel
-                $(".select_all").click(function(){
+                $('button[data-action="select_all"]').on('click', function() {
                   $(this).parents(".panel").children(".list-group").find("input").prop("checked", true);
                 });
+
                 // Deselect all checkbox in this panel
-                $(".select_none").click(function(){
+                $('button[data-action="select_none"]').on('click', function() {
                   $(this).parents(".panel").children(".list-group").find("input").prop("checked", false);
+                });
+
+                $('button[data-action="download"]').on('click', function() {
+                    var archive = $(this).data('archive');
+                    window.open('https://' + store.get('url') +  '/backup/download/'+archive, '_blank');
                 });
 
                 // Delete button
