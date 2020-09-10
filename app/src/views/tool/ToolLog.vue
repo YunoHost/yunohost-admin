@@ -58,7 +58,7 @@
 </template>
 
 <script>
-import api from '@/helpers/api'
+import api, { objectToParams } from '@/helpers/api'
 import { readableDate } from '@/filters/date'
 
 export default {
@@ -90,13 +90,13 @@ export default {
 
   methods: {
     fetchData () {
-      const params = {
+      const queryString = objectToParams({
         path: this.name,
         filter_irrelevant: '',
         number: this.numberOfLines
-      }
+      })
 
-      api.get('logs/display', params).then(log => {
+      api.get('logs/display?' + queryString).then(log => {
         if (log.logs.length === this.numberOfLines) {
           this.moreLogsAvailable = true
           this.numberOfLines *= 10

@@ -40,7 +40,7 @@ module.exports = {
     i18n: {
       locale: 'en',
       fallbackLocale: 'en',
-      localeDir: 'locales',
+      localeDir: 'src/i18n/locales',
       enableInSFC: false
     }
   },
