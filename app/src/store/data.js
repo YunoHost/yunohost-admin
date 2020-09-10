@@ -102,14 +102,14 @@ export default {
         const currentState = param ? state[storeKey][param] : state[storeKey]
         // if data has already been queried, simply return the state as cached
         if (currentState !== undefined && !force) {
-          return { cached: true, responseData: currentState }
+          return { cached: currentState }
         }
         return api.get(param ? `${uri}/${param}` : uri).then(responseData => {
           return { storeKey, param, responseData }
         })
       })).then(responsesData => {
-        return responsesData.map(({ storeKey, param, responseData, cached = false }) => {
-          if (cached) return responseData
+        return responsesData.map(({ storeKey, param, responseData, cached = null }) => {
+          if (cached) return cached
           const data = responseData[storeKey] ? responseData[storeKey] : responseData
           commit('SET_' + storeKey.toUpperCase(), param ? [param, data] : data)
           return param ? state[storeKey][param] : state[storeKey]
@@ -135,7 +135,7 @@ export default {
       })
     },
 
-    'DELETE' ({ state, commit }, { uri, param, data = {}, storeKey = uri }) {
+    'DELETE' ({ commit }, { uri, param, data = {}, storeKey = uri }) {
       return api.delete(param ? `${uri}/${param}` : uri, data).then(() => {
         commit('DEL_' + storeKey.toUpperCase(), param)
       })

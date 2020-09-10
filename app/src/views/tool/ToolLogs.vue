@@ -60,7 +60,7 @@ export default {
   methods: {
     fetchData () {
       // FIXME only prints operation for now (can't receive 'history', 'app', 'service', etc.)
-      api.get('logs', { limit: 25, with_details: '' }).then(({ operation }) => {
+      api.get(`logs?limit=${25}&with_details`).then(({ operation }) => {
         operation.forEach((log, index) => {
           if (log.success === '?') {
             operation[index].icon = 'question'

@@ -151,9 +151,8 @@ export default {
         ? `services/${this.name}/restart`
         : 'services/' + this.name
 
-      api[method](uri).catch(() => {
-        // FIXME API doesn't return anything to the PUT so => json err
-      }).finally(() => {
+      // FIXME API doesn't return anything to the PUT so => json err
+      api.fetch(method, uri).then(() => {
         this.fetchData()
       })
     },
