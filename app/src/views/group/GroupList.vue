@@ -22,7 +22,7 @@
       >
         <b-card-header class="d-flex align-items-center">
           <h2>
-            <icon iname="group" />{{ group.isSpecial ? $t('group_' + name) : `${$t('group')} "${name}"` }}
+            <icon iname="group" /> {{ group.isSpecial ? $t('group_' + name) : `${$t('group')} "${name}"` }}
           </h2>
 
           <div class="ml-auto">
@@ -301,33 +301,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.card + .card {
-  margin-top: 2rem;
-}
-.card-header {
-  h2 .icon {
-    font-size: 1.5rem;
-    width: 1.5rem;
-    margin-right: 1.25rem;
-  }
-}
-
-// collapse icon
-.not-collapsed .icon {
-  transform: rotate(-90deg);
-}
-.collapsed .icon {
-  transform: rotate(90deg);
-  position: relative;
-  top: 2px;
-}
-
 .row > div:first-child {
   margin-bottom: 1rem;
-}
-
-// delete modal
-#delete-modal .modal-body {
-  display: none;
 }
 </style>
