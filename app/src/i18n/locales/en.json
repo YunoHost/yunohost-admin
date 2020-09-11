@@ -201,6 +201,8 @@
     "migrations_done": "Previous migrations",
     "migrations_no_pending": "No pending migrations",
     "migrations_no_done": "No previous migrations",
+    "migrations_disclaimer_check_message": "I read and understood this disclaimer",
+    "migrations_disclaimer_not_checked": "This migration require you to acknowledge its disclaimer before running it.",
     "multi_instance": "Multi instance",
     "myserver": "myserver",
     "myserver_org": "myserver.org",

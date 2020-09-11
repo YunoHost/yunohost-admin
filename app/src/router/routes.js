@@ -198,7 +198,7 @@ const routes = [
   },
   {
     name: 'tool-log',
-    path: '/tools/:name',
+    path: '/tools/logs/:name',
     component: () => import(/* webpackChunkName: "views/tools" */ '@/views/tool/ToolLog'),
     props: true,
     meta: {
@@ -206,6 +206,17 @@ const routes = [
         { name: 'tool-list', trad: 'tools' },
         { name: 'tool-logs', trad: 'logs' },
         { name: 'tool-log', param: 'name' }
+      ]
+    }
+  },
+  {
+    name: 'tool-migrations',
+    path: '/tools/migrations',
+    component: () => import(/* webpackChunkName: "views/tools" */ '@/views/tool/ToolMigrations'),
+    meta: {
+      breadcrumb: [
+        { name: 'tool-list', trad: 'tools' },
+        { name: 'tool-migrations', trad: 'migrations' }
       ]
     }
   }
