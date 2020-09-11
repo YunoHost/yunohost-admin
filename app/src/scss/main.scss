@@ -22,6 +22,20 @@ body {
   font-family: "Source Sans Pro", "Helvetica Neue", "Fira Sans", Helvetica, Arial, sans-serif;
 }
 
+.menu-list {
+  .list-group-item {
+      padding: 0.75rem 0;
+      display: flex;
+      align-items: center;
+  }
+
+  h2 {
+      font-size: 1.25rem;
+      font-weight: 400;
+      margin: 0;
+  }
+}
+
 
 .list-group-item {
   padding: 0.75rem 1rem;
@@ -53,9 +67,22 @@ body {
   }
 }
 
+.card + .card {
+  margin-top: 2rem;
+}
 .card-header h2 {
   margin: 0;
   font-size: 1.75rem;
+}
+
+// collapse icon
+.not-collapsed .icon {
+  transform: rotate(-90deg);
+}
+.collapsed .icon {
+  transform: rotate(90deg);
+  position: relative;
+  top: 2px;
 }
 
 

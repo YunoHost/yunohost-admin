@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <b-list-group>
+    <b-list-group class="menu-list">
       <b-list-group-item
         v-for="item in menu"
         :key="item.id"
@@ -36,18 +36,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.list-group-item {
-    padding: 0.75rem 0;
-    display: flex;
-    align-items: center;
-}
-
-h2 {
-    font-size: 1.25rem;
-    font-weight: 400;
-    margin: 0;
-}
-
 .home {
   margin-top: 2rem;
 }
