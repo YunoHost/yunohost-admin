@@ -230,6 +230,17 @@ const routes = [
         { name: 'tool-firewall', trad: 'firewall' }
       ]
     }
+  },
+  {
+    name: 'tool-adminpw',
+    path: '/tools/adminpw',
+    component: () => import(/* webpackChunkName: "views/tools" */ '@/views/tool/ToolAdminpw'),
+    meta: {
+      breadcrumb: [
+        { name: 'tool-list', trad: 'tools' },
+        { name: 'tool-adminpw', trad: 'tools_adminpw' }
+      ]
+    }
   }
 ]
 
