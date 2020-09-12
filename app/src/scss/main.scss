@@ -75,6 +75,10 @@ body {
   font-size: 1.75rem;
 }
 
+.card-body {
+  padding: 1rem;
+}
+
 // collapse icon
 .not-collapsed .icon {
   transform: rotate(-90deg);

@@ -219,6 +219,17 @@ const routes = [
         { name: 'tool-migrations', trad: 'migrations' }
       ]
     }
+  },
+  {
+    name: 'tool-firewall',
+    path: '/tools/firewall',
+    component: () => import(/* webpackChunkName: "views/tools" */ '@/views/tool/ToolFirewall'),
+    meta: {
+      breadcrumb: [
+        { name: 'tool-list', trad: 'tools' },
+        { name: 'tool-firewall', trad: 'firewall' }
+      ]
+    }
   }
 ]
 
