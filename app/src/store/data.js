@@ -85,23 +85,24 @@ export default {
   },
 
   actions: {
-    'FETCH' ({ state, commit }, { uri, param, storeKey = uri, force = false }) {
+    'FETCH' ({ state, commit, rootState }, { uri, param, storeKey = uri, cache = rootState.cache }) {
       const currentState = param ? state[storeKey][param] : state[storeKey]
       // if data has already been queried, simply return
-      if (currentState !== undefined && !force) return currentState
+      if (currentState !== undefined && cache) return currentState
 
       return api.get(param ? `${uri}/${param}` : uri).then(responseData => {
+        console.log('api')
         const data = responseData[storeKey] ? responseData[storeKey] : responseData
         commit('SET_' + storeKey.toUpperCase(), param ? [param, data] : data)
         return param ? state[storeKey][param] : state[storeKey]
       })
     },
 
-    'FETCH_ALL' ({ state, commit }, queries) {
-      return Promise.all(queries.map(({ uri, param, storeKey = uri, force = false }) => {
+    'FETCH_ALL' ({ state, commit, rootState }, queries) {
+      return Promise.all(queries.map(({ uri, param, storeKey = uri, cache = rootState.cache }) => {
         const currentState = param ? state[storeKey][param] : state[storeKey]
         // if data has already been queried, simply return the state as cached
-        if (currentState !== undefined && !force) {
+        if (currentState !== undefined && cache) {
           return { cached: currentState }
         }
         return api.get(param ? `${uri}/${param}` : uri).then(responseData => {

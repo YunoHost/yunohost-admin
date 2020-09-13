@@ -4,7 +4,7 @@
       <slot />
     </b-form>
 
-    <template v-slot:footer>
+    <template v-if="!noFooter" v-slot:footer>
       <slot name="buttons">
         <b-button type="submit" :form="id" variant="success">
           {{ submit ? submit : $t('save') }}
@@ -21,7 +21,8 @@ export default {
   props: {
     header: { type: String, required: true },
     id: { type: String, default: 'ynh-form' },
-    submit: { type: String, default: null }
+    submit: { type: String, default: null },
+    noFooter: { type: Boolean, default: false }
   }
 }
 </script>
