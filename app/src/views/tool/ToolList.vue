@@ -26,7 +26,7 @@ export default {
         { id: 1, routeName: 'tool-migrations', icon: 'share', translation: 'migrations' },
         { id: 2, routeName: 'tool-firewall', icon: 'shield', translation: 'firewall' },
         { id: 3, routeName: 'tool-adminpw', icon: 'key-modern', translation: 'tools_adminpw' },
-        { id: 4, routeName: 'tool-wabadmin', icon: 'cog', translation: 'tools_webadmin_settings' },
+        { id: 4, routeName: 'tool-webadmin', icon: 'cog', translation: 'tools_webadmin_settings' },
         { id: 5, routeName: 'tool-power', icon: 'power-off', translation: 'tools_shutdown_reboot' }
       ]
     }

@@ -5,11 +5,14 @@
 
 import i18n from '@/i18n'
 import { loadLocaleMessages, updateDocumentLocale, loadDateFnsLocale } from '@/i18n/helpers'
+import supportedLocales from '@/i18n/supportedLocales'
 
 export default {
   state: {
     locale: localStorage.getItem('locale'),
-    fallbackLocale: localStorage.getItem('fallbackLocale')
+    fallbackLocale: localStorage.getItem('fallbackLocale'),
+    cache: localStorage.getItem('cache') !== 'false',
+    supportedLocales: supportedLocales
   },
 
   mutations: {
@@ -21,6 +24,11 @@ export default {
     'SET_FALLBACK_LOCALE' (state, locale) {
       localStorage.setItem('fallbackLocale', locale)
       state.fallbackLocale = locale
+    },
+
+    'SET_CACHE' (state, enable) {
+      localStorage.setItem('cache', enable)
+      state.cache = enable
     }
   },
 
@@ -45,6 +53,13 @@ export default {
 
   getters: {
     locale: state => (state.locale),
-    fallbackLocale: state => (state.fallbackLocale)
+    fallbackLocale: state => (state.fallbackLocale),
+    cache: state => (state.cache),
+
+    availableLocales: state => {
+      return Object.entries(state.supportedLocales).map(([locale, { name }]) => {
+        return { value: locale, text: name }
+      })
+    }
   }
 }

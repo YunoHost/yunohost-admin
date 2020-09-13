@@ -8,9 +8,12 @@ import data from './data'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
+  state: settings.state,
+  mutations: settings.mutations,
+  actions: settings.actions,
+  getters: settings.getters,
   modules: {
     info,
-    settings,
     data
   }
 })

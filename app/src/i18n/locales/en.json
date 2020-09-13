@@ -323,6 +323,12 @@
     "tools_shutdown_done": "Shutting down...",
     "tools_shuttingdown": "Your server is powering off. As long as your server is off, you won't be able to use the web administration.",
     "tools_shutdown_reboot": "Shutdown/Reboot",
+    "tools_webadmin": {
+        "locale": "Locale",
+        "fallback_locale": "Fallback locale",
+        "cache": "Cache",
+        "cache_description": "Consider disabling the cache if you plan on working with the CLI while also navigating in this web-admin."
+    },
     "tools_webadmin_settings": "Web-admin settings",
     "udp": "UDP",
     "unauthorized": "Unauthorized",
