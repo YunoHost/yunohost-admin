@@ -252,6 +252,17 @@ const routes = [
         { name: 'tool-webadmin', trad: 'tools_webadmin_settings' }
       ]
     }
+  },
+  {
+    name: 'tool-power',
+    path: '/tools/power',
+    component: () => import(/* webpackChunkName: "views/tools" */ '@/views/tool/ToolPower'),
+    meta: {
+      breadcrumb: [
+        { name: 'tool-list', trad: 'tools' },
+        { name: 'tool-power', trad: 'tools_shutdown_reboot' }
+      ]
+    }
   }
 ]
 
