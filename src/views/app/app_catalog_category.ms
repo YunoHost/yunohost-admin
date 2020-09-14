@@ -83,7 +83,7 @@
 {{/apps}}
 </div>
 
-<div class="panel panel-default">
+<div id="install-custom-app" class="panel panel-default">
     <div class="panel-heading">
         <h2 class="panel-title"><span class="fa-fw fa-download"></span> {{t 'custom_app_install'}}</h2>
     </div>
@@ -92,7 +92,8 @@
             <span class="fa-fw fa-warning"></span>
             {{t 'confirm_install_custom_app'}}
         </p>
-        <form action="#/apps/install/custom" method="POST" class="form-horizontal">
+
+        <form class="form-horizontal">
             <div class="form-group has-feedback">
                 <label for="url" class="col-sm-12">{{t 'url'}}</label>
                 <div class="col-sm-12">
@@ -104,7 +105,7 @@
             </div>
             <div class="form-group">
                 <div class="text-center">
-                    <input type="submit" role="button" class="btn btn-success slide" value="{{t 'install'}}">
+                    <a role="button" class="btn btn-success slide">{{t 'install'}}</a>
                 </div>
             </div>
         </form>

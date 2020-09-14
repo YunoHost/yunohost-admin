@@ -457,5 +457,13 @@
     "app_state_low_quality": "malkvalita",
     "app_state_low_quality_explanation": "Ĉi tiu app eble funkcias, sed ankoraŭ enhavas problemojn, aŭ ne plene integras kun YunoHost, aŭ ĝi ne respektas la bonajn praktikojn.",
     "catalog": "Katalogo",
-    "others": "Aliaj"
+    "others": "Aliaj",
+    "confirm_service_restart": "Ĉu vi certas, ke vi volas rekomenci %s ?",
+    "diagnosis_first_run": "La diagnoza funkcio provos identigi oftajn problemojn pri la diversaj aspektoj de via servilo por certigi, ke ĉio funkcias glate. Bonvolu ne panikiĝi, se vi vidas amason da eraroj tuj post agordo de via servilo: ĝi ĝuste celas helpi vin identigi problemojn kaj gvidi vin ripari ilin. La diagnozo ankaŭ funkcios aŭtomate dufoje ĉiutage kaj retpoŝtu al la administranto se iuj problemoj ekestos.",
+    "group_explain_visitors_needed_for_external_client": "Atentu, ke vi bezonas konservi iujn aplikaĵojn permesitajn al vizitantoj se vi intencas uzi ilin kun eksteraj klientoj. Ekzemple, ĉi tiu estas la kazo de Nextcloud se vi volas intenci uzi sinkronigan klienton en via inteligenta telefono aŭ labortabla komputilo.",
+    "restart": "Rekomenci",
+    "unmaintained_details": "Ĉi tiu app ne estis ĝisdatigita antaŭ tre tempo kaj la antaŭa prizorganto foriĝis aŭ ne havas tempon por subteni ĉi tiun app. Bonvolu kontroli la app-deponejon por doni vian helpon",
+    "run_first_diagnosis": "Kuru komencan diagnozon",
+    "groups": "Grupoj",
+    "issues": "%s aferoj"
 }

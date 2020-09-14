@@ -7,7 +7,7 @@
 <div class="separator"></div>
 
 <div id="category-selector" class="list-group grid">
-  <a class="app-category-card" href="#/apps/catalog/all">
+  <a class="app-category-card panel panel-default" href="#/apps/catalog/all">
         <div class="panel-body">
             <h2 class="app-category-title" style="padding-top: 1em;"><span class="fa-fw fa-search"></span> {{t 'all_apps'}}</h2>
         </div>

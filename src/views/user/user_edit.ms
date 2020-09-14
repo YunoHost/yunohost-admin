@@ -28,6 +28,21 @@
                 <input type="text" name="lastname" class="form-control" value="{{lastname}}">
             </div>
         </div>
+        <hr>
+        <div class="form-group">
+            <label for="password" class="col-sm-3 control-label">{{t 'password'}}</label>
+            <div class="col-sm-9">
+                <input type="password" id="password" name="password" class="form-control" placeholder="••••••••••">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="confirmation" class="col-sm-3 control-label">{{t 'password_confirmation'}}</label>
+            <div class="col-sm-9">
+                <input type="password" id="confirmation" name="confirmation" class="form-control" placeholder="••••••••••">
+                <div class="help-block">{{t 'good_practices_about_user_password'}}</div>
+            </div>
+        </div>
+        <hr>
         <div class="form-group">
             <label for="email" class="col-sm-3 control-label">{{t 'user_email'}}</label>
             <div class="clearfix visible-xs"></div>
@@ -77,22 +92,6 @@
             <input id="mailforward" type="email" name="mailforward" class="mailforward-input form-control" placeholder="{{t 'user_new_forward'}}">
             </div>
         </div>
-
-        <hr>
-        <div class="form-group">
-            <label for="password" class="col-sm-3 control-label">{{t 'password'}}</label>
-            <div class="col-sm-9">
-                <input type="password" id="password" name="password" class="form-control" placeholder="•••••">
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="confirmation" class="col-sm-3 control-label">{{t 'password_confirmation'}}</label>
-            <div class="col-sm-9">
-                <input type="password" id="confirmation" name="confirmation" class="form-control" placeholder="•••••">
-                <div class="help-block">{{t 'good_practices_about_user_password'}}</div>
-            </div>
-        </div>
-
     </div>
 </div>
 

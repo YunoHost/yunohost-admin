@@ -1,4 +1,10 @@
 (function() {
+
+    // This is to fetch the "RANDOMID" after script.min.js?version= in
+    // index.html
+    // We later use the same ID as a hacky cache mechanism for the .ms files
+    var ynh_assets_version = document.getElementsByTagName('script')[0].src.split("=")[1];
+
     // Get application context
     var app = Sammy.apps['#main'];
     var store = app.store;
@@ -118,13 +124,13 @@
             $.ajax({
                 dataType: "json",
                 url: 'https://'+ baseUrl +'/installed',
-                timeout: 3000
-            })
-            .success(function(data) {
-                callback(data.installed);
-            })
-            .fail(function() {
-                callback(undefined);
+                timeout: 3000,
+                success: function(data) {
+                    callback(data.installed);
+                },
+                fail: function() {
+                    callback(undefined);
+                }
             });
         },
 
@@ -319,7 +325,7 @@
             $('#modal').modal('hide');
 
             // Render content
-            var rendered = this.render('views/'+ view +'.ms', data);
+            var rendered = this.render('dist/views/' + view + '.ms?version=' + ynh_assets_version, data);
 
             // Update content helper
             var leSwap = function() {
@@ -336,11 +342,11 @@
                         }
                     });
 
-                    // Run callback
-                    callback();
-
                     // Force scrollTop on page load
                     $('html, body').scrollTop(0);
+
+                    // Run callback
+                    callback();
                 });
             };
 

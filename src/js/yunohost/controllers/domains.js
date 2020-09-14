@@ -84,40 +84,37 @@
     // Get existing domain info
     app.get('#/domains/:domain', function (c) {
         c.api('PUT', '/domains/main', {}, function(dataMain) {
-            c.api('GET', '/apps?installed', {}, function(data) {
+            var domain = {
+                name: c.params['domain'],
+                main: (c.params['domain'] == dataMain.current_main_domain) ? true : false,
+                url: "https://"+c.params['domain']
+            };
+            c.view('domain/domain_info', domain, function() {
 
-                var domain = {
-                    name: c.params['domain'],
-                    main: (c.params['domain'] == dataMain.current_main_domain) ? true : false,
-                    url: "https://"+c.params['domain']
-                };
-                c.view('domain/domain_info', domain, function() {
+                // Configure "set default" button
+                $('button[data-action="set_default"]').on("click", function() {
+                    var domain = $(this).data("domain");
+                    c.confirm(
+                        y18n.t('domains'),
+                        y18n.t('confirm_change_maindomain'),
+                        function() {
+                            c.api('PUT', '/domains/main', {new_main_domain: domain}, function() { c.refresh() });
+                        }
+                    )
+                });
 
-                    // Configure "set default" button
-                    $('button[data-action="set_default"]').on("click", function() {
-                        var domain = $(this).data("domain");
-                        c.confirm(
-                            y18n.t('domains'),
-                            y18n.t('confirm_change_maindomain'),
-                            function() {
-                                c.api('PUT', '/domains/main', {new_main_domain: domain}, function() { c.refresh() });
-                            }
-                        )
-                    });
-
-                    // Configure delete button
-                    $('button[data-action="delete"]').on("click", function() {
-                        var domain = $(this).data("domain");
-                        c.confirm(
-                            y18n.t('domains'),
-                            y18n.t('confirm_delete', [domain]),
-                            function(){
-                                c.api('DELETE', '/domains/'+ domain, {}, function(data) {
-                                    c.redirect_to('#/domains');
-                                });
-                            }
-                        );
-                    });
+                // Configure delete button
+                $('button[data-action="delete"]').on("click", function() {
+                    var domain = $(this).data("domain");
+                    c.confirm(
+                        y18n.t('domains'),
+                        y18n.t('confirm_delete', [domain]),
+                        function(){
+                            c.api('DELETE', '/domains/'+ domain, {}, function() {
+                                c.redirect_to('#/domains');
+                            });
+                        }
+                    );
                 });
             });
         });

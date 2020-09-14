@@ -154,7 +154,7 @@
                 app.manifest.maintainer = extractMaintainer(app.manifest);
                 var isWorking = (app.state === 'working' || app.state === "high-quality") && app.level > 0;
 
-                app.installable = (!app.installed || app.manifest.supports_multi_instance)
+                app.installable = (!app.installed || app.manifest.multi_instance)
                 app.levelFormatted = isNaN(app.level) ? '?' : app.level;
 
                 app.levelColor = levelToColor(app.level);
@@ -234,6 +234,22 @@
 
                 jQuery("#filter-app-cards").on("keyup", function() {
                     cardGrid.isotope({ filter: filterApps });
+                });
+
+                $("#install-custom-app a[role='button']").on('click', function() {
+
+                    var url = $("#install-custom-app input[name='url']")[0].value;
+                    if (url.indexOf("github.com") < 0) {
+                        return;
+                    }
+
+                    c.confirm(
+                        y18n.t('applications'),
+                        y18n.t('confirm_install_custom_app'),
+                        function(){
+                            c.redirect_to('#/apps/install/custom/' + encodeURIComponent(url));
+                        }
+                    );
                 });
             };
 
@@ -376,13 +392,6 @@
         });
     })
 
-    // Special case for custom app installation.
-    app.get('#/apps/install/custom', function (c) {
-        // If we try to GET /apps/install/custom, it means that installation fail.
-        // Need to redirect to apps/install to get rid of pacamn and see the log.
-        c.redirect_to('#/apps/install');
-    });
-
     // Helper function that formats YunoHost style arguments for generating a form
     function formatYunoHostStyleArguments(args, params) {
         if (!args) {
@@ -403,10 +412,16 @@
             args[k].helpLink = "";
 
             // Multilingual label
-            args[k].label = (typeof args[k].ask[y18n.locale] !== 'undefined') ?
-                                args[k].ask[y18n.locale] :
-                                args[k].ask['en']
-                                ;
+            if (typeof args[k].ask === "string")
+            {
+                args[k].label = args[k].ask;
+            }
+            else if (typeof args[k].ask[y18n.locale] !== 'undefined') {
+                args[k].label = args[k].ask[y18n.locale];
+            }
+            else {
+                args[k].label = args[k].ask['en'];
+            }
 
             // Multilingual help text
             if (typeof args[k].help !== 'undefined') {
@@ -533,16 +548,24 @@
             displayLicense: (manifest['license'] !== undefined && manifest['license'] !== 'free')
         };
 
-        formatYunoHostStyleArguments(data.manifest.arguments.install, params);
+        formatYunoHostStyleArguments(manifest.arguments.install, params);
 
         // Multilingual description
-        data.description = (typeof data.manifest.description[y18n.locale] !== 'undefined') ?
-                                data.manifest.description[y18n.locale] :
-                                data.manifest.description['en']
-                                ;
+        if (typeof manifest.description === 'string')
+        {
+            data.description = manifest.description;
+        }
+        else if (typeof manifest.description[y18n.locale] !== 'undefined')
+        {
+            data.description = manifest.description[y18n.locale];
+        }
+        else
+        {
+            data.description = manifest.description['en'];
+        }
 
         // Multi Instance settings boolean to text
-        data.manifest.multi_instance = data.manifest.multi_instance ? y18n.t('yes') : y18n.t('no');
+        data.manifest.multi_instance = manifest.multi_instance ? y18n.t('yes') : y18n.t('no');
 
         // View app install form
         c.view('app/app_install', data);
@@ -573,13 +596,16 @@
                             app_infos.manifest,
                             c.params
                         );
+                    },
+                    function () {
+                        c.redirect_to('#/apps/catalog');
                     }
                 );
             }
             else
             {
                 c.appInstallForm(
-                    c.params['app'],
+                    app_name,
                     app_infos.manifest,
                     c.params
                 );
@@ -624,45 +650,31 @@
     });
 
     // Install custom app from github
-    app.post('#/apps/install/custom', function(c) {
+    app.get('#/apps/install/custom/:url', function(c) {
 
-        var params = {
-            label: c.params['label'],
-            app: c.params['url']
-        };
-        delete c.params['label'];
-        delete c.params['url'];
+        // Force trailing slash
+        url = c.params['url'];
+        url = url.replace(/\/?$/, '/');
+        raw_manifest_url = url.replace('github.com', 'raw.githubusercontent.com') + 'master/manifest.json'
 
-        c.confirm(
-            y18n.t('applications'),
-            y18n.t('confirm_install_custom_app'),
-            function(){
+        // Fetch manifest.json
+        jQuery.ajax({ url: raw_manifest_url, type: 'GET' })
+        .done(function(manifest) {
+            // raw.githubusercontent.com serve content as plain text
+            manifest = jQuery.parseJSON(manifest) || {};
 
-                // Force trailing slash
-                params.app = params.app.replace(/\/?$/, '/');
+            c.appInstallForm(
+                url,
+                manifest,
+                c.params
+            );
 
-                // Get manifest.json to get additional parameters
-                jQuery.ajax({
-                    url: params.app.replace('github.com', 'raw.githubusercontent.com') + 'master/manifest.json',
-                    type: 'GET',
-                })
-                .done(function(manifest) {
-                    // raw.githubusercontent.com serve content as plain text
-                    manifest = jQuery.parseJSON(manifest) || {};
+        })
+        .fail(function(xhr) {
+            c.flash('fail', y18n.t('app_install_custom_no_manifest'));
+            c.redirect("#/apps/catalog/");
+        });
 
-                    c.appInstallForm(
-                        params.app,
-                        manifest,
-                        c.params
-                    );
-
-                })
-                .fail(function(xhr) {
-                    c.flash('fail', y18n.t('app_install_custom_no_manifest'));
-                    c.refresh();
-                });
-            }
-        );
     });
 
     // A small utility to convert a string to title case

@@ -50,6 +50,8 @@
     // System update & upgrade
     app.get('#/update', function (c) {
         c.api('PUT', '/update', {}, function(data) {
+        c.api('GET', '/migrations?pending', {}, function(pending_migrations) {
+            data.pending_migrations = pending_migrations.migrations;
             c.view('tools/tools_update', data, function() {
                 // Configure buttons behaviors
                 $("button[data-upgrade]").on("click", function() {
@@ -58,7 +60,7 @@
 
                     // Upgrade all apps or the system
 
-                    if ((what == "system") || (what == "system"))
+                    if ((what == "system") || (what == "apps"))
                     {
                         var confirm_message = y18n.t('confirm_update_' + what);
                         var api_url = '/upgrade?'+what;
@@ -84,42 +86,25 @@
                 });
             });
         });
+        });
     });
 
     // Display journals list
     app.get('#/tools/logs', function (c) {
-        c.api('GET', "/logs?limit=25&with_details", {}, function(categories) {
-            data = [];
-            category_icons = {
-                'operation': 'wrench',
-                'history': 'history',
-                'package': 'puzzle-piece',
-                'system': 'cogs',
-                'access': 'ban',
-                'service': 'cog',
-                'app': 'cubes'
-            }
+        c.api('GET', "/logs?limit=40&with_details", {}, function(operations) {
+            operations = operations["operation"];
             success_icons = {
                 true: 'check text-success',
                 false: 'close text-danger',
                 '?': 'question text-warning'
             }
-            for (var category in categories) {
-                for (var log in categories[category])
-                {
-                    categories[category][log].success_icon = success_icons[categories[category][log].success]
-                }
-                if (categories.hasOwnProperty(category)) {
-                    data.push({
-                        key:category,
-                        icon:(category in category_icons)?category_icons[category]:'info-circle',
-                        value:categories[category]
-                    });
-                }
+            for (var log in operations)
+            {
+                operations[log].success_icon = success_icons[operations[log].success]
             }
 
             c.view('tools/tools_logs', {
-                "data": data,
+                "operations": operations,
                 "locale": y18n.locale
             });
         });
@@ -128,20 +113,22 @@
     // One journal
     app.get(/\#\/tools\/logs\/(.*)(\?number=(\d+))?/, function (c) {
         var params = "?path=" + c.params["splat"][0];
-        var number = (c.params["number"])?c.params["number"]:50;
-        params += "&number=" + number;
+        var number = (c.params["number"])?c.params["number"]:25;
+        params += "&filter_irrelevant&with_suboperations&number=" + number;
 
         c.api('GET', "/logs/display" + params, {}, function(log) {
-            if ('metadata' in log) {
-                if (!'env' in log.metadata && 'args' in log.metadata) {
-                    log.metadata.env = log.metadata.args
-                }
-            }
             c.view('tools/tools_log', {
                 "log": log,
                 "next_number": log.logs.length == number ? number * 10:false,
                 "locale": y18n.locale
             }, function() {
+                log = $("#main #log").html();
+                log = log.replace(/.*: ERROR - .*/g, function (match) { return '<span class="alert-danger">'+match+'</span>'});
+                log = log.replace(/.*: WARNING - .*/g, function (match) { return '<span class="alert-warning">'+match+'</span>'});
+                log = log.replace(/.*: SUCCESS - .*/g, function (match) { return '<span class="alert-success">'+match+'</span>'});
+                log = log.replace(/.*: INFO - .*/g, function (match) { return '<span class="alert-info">'+match+'</span>'});
+                $("#main #log").html(log);
+
                 // Configure behavior for the button to share log on Yunohost (it calls display --share)
                 $('button[data-action="share"]').on("click", function() {
                     c.api('GET', '/logs/display?path='+$(this).data('log-id')+'&share', {},

@@ -354,7 +354,7 @@
     "validity": "Validesa",
     "domain_is_eligible_for_ACME": "Aquest domini sembla estar configurat correctament per instal·lar el certificat Let's Encrypt!",
     "run": "Executar",
-    "domain_not_eligible_for_ACME": "Aquest domini sembla que no està configurat per a un certificat Let's Encrypt. Comprova la configuració DNS i la accessibilitat del servidor HTTP.",
+    "domain_not_eligible_for_ACME": "Aquest domini sembla que no està configurat per a un certificat Let's Encrypt. Comprova la configuració DNS i la accessibilitat del servidor HTTP. Les seccions «registres DNS» i «Web» de <a href='#/diagnosis'>la pàgina de diagnòstic</a> pot ajudar-vos a entendre el que està mal configurat.",
     "install_letsencrypt_cert": "Instal·la un certificat Let's Encrypt",
     "manually_renew_letsencrypt_message": "El certificat es renovarà automàticament durant els últims 15 dies de validesa. El podeu renovar manualment si ho desitgeu. (No recomanat).",
     "manually_renew_letsencrypt": "Renovar manualment ara",
@@ -471,11 +471,14 @@
     "app_state_low_quality": "baixa qualitat",
     "all": "Tot",
     "run_first_diagnosis": "Executa el diagnòstic inicial",
-    "diagnosis_first_run": "La funció de diagnòstic intentarà identificar problemes habituals de diferents aspectes del servidor per tal d'assegurar que tot funcioni de la millor manera possible. No tingueu por si veieu uns quants errors just després de configurar el servidor: està precisament fet per ajudar a identificar els problemes i oferir una guia de com arreglar-los. El diagnòstic també s'executarà dues vegades al dia i enviarà un correu a l'administrador si apareix algun error.",
+    "diagnosis_first_run": "La funció de diagnòstic intentarà identificar problemes habituals de diferents aspectes del servidor per tal d'assegurar que tot funcioni de la millor manera possible. No tingueu por si veieu uns quants errors just després de configurar el servidor: està precisament fet per ajudar a identificar els problemes i oferir una guia de com arreglar-los. El diagnòstic també s'executarà dues vegades al dia i s'enviarà un correu a l'administrador si es troben errors.",
     "confirm_service_restart": "Esteu segur de voler reiniciar %s?",
     "group_explain_visitors_needed_for_external_client": "Vigileu ja que s'ha de permetre els visitants en algunes aplicacions si voleu utilitzar-les amb clients externs. És el cas, per exemple, de Nextcloud si voleu utilitzar el client de sincronització en el telèfon mòbil o en l'ordinador.",
     "groups": "Grups",
     "restart": "Reiniciar",
     "unmaintained_details": "Fa temps que no es manté aquesta aplicació i la persona que la mantenia ja no ho fa o no té temps per fer-ho. Us convidem a mirar el repositori de l'aplicació per oferir la vostra ajuda",
-    "issues": "%s problemes"
+    "issues": "%s problemes",
+    "operation_failed_explanation": "Aquesta operació ha fallat! Ens sap molt greu :( Podeu intentar <a href='https://yunohost.org/help'>demanar ajuda</a>. Si us plau doneu *el registre complet* de l'operació a la gent que intenta ajudar-vos. Podeu fer-ho fent clic al botó verd \"Compartir amb Yunopaste\". Quan compartiu els registres, YunoHost intentarà anonimitzar automàticament dades privades com els noms de domini i les IPs.",
+    "diagnosis_explanation": "La funció de diagnòstic intentarà identificar els errors més comuns en diferents aspectes del servidor per verificar que tot funciona correctament. El diagnòstic s'executa automàticament dues vegades al dia i s'envia un correu electrònic a l'administrador si es troben errors. Tingueu en compte que no tots els tests seran rellevants si no s'utilitzen algunes funcions específiques (com per exemple XMPP) o pot ser que falli si teniu un sistema amb una configuració complexa. En aquests casos, i si sabeu el que feu, podeu ignorar els problemes o avisos corresponents.",
+    "pending_migrations": "Hi ha algunes migracions pendents esperant per ser executades. Aneu a <a href='#/tools/migrations'>Eines > Migracions</a>  per fer-les."
 }

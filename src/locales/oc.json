@@ -374,7 +374,7 @@
     "certificate_alert_about_to_expire": "Atencion : lo certificat actual es a man d’expirar ! Serà pas renovat automaticament !",
     "certificate_alert_great": "Perfièch ! Sètz a utilizar un certificat  Let’s Encrypt valid !",
     "certificate_old_letsencrypt_app_conflict": "L’aplicacion « letsencrypt » es actualament installada e es en conflicte amb aquesta foncionalitat. Mercés de la desinstallar per utilizar la novèla interfàcia de gestion dels certificats.",
-    "domain_not_eligible_for_ACME": "Aqueste domeni sembla pas prèst per un certificat Let’s Encrypt. Mercés de verificar la configuracion DNS e l’accessibilitat del servidor HTTP.",
+    "domain_not_eligible_for_ACME": "Aqueste domeni sembla pas prèst per un certificat Let’s Encrypt. Mercés de verificar la configuracion DNS e l’accessibilitat del servidor HTTP. Las seccions « enregistrament DNS » e « Web » de <a href='#/diagnosis'>la pagina de diagnostic</a> pòt vos ajudar a comprendre çò qu’es pas configurat coma cal.",
     "manually_renew_letsencrypt_message": "Lo certificat serà renovat automaticament pendent los 15 darrièrs jorns de validitat. Podètz lo renovar manualament se volètz. (Pas recomandat).",
     "meltdown": "Sètz vulnerable a la falha de seguretat critica <a target=\"_blank\" href=\"https://meltdownattack.com/\">meltdown</a>. Per dire de resòlvre aqueste problèma, vos cal <a href=\"#/update\">actualizar vòstre sistèma</a> puèi <a href=\"#/tools/reboot\"> lo tornar aviar</a> per cargar lo nòu nuclèu linux.",
     "revert_to_selfsigned_cert_message": "S’o volètz vertadièrament, podètz tornar installar lo certificat auto-signat. (Pas recomandat)",
@@ -443,7 +443,7 @@
     "last_ran": "Darrièra execucion :",
     "permissions": "Permissions",
     "details": "Detalhs",
-    "diagnosis_experimental_disclaimer": "Remembratz-vos que l’opcion de diagnostic es encara experimentala e se melhorar, e pòt pas èsser fisabla.",
+    "diagnosis_experimental_disclaimer": "Remembratz-vos que l’opcion de diagnostic es encara experimentala e a se melhorar, e pòt pas èsser fisabla.",
     "errors": "%s errors",
     "everything_good": "Tot es bon !",
     "group": "Grop",
@@ -471,5 +471,9 @@
     "app_state_low_quality": "qualitat bassa",
     "catalog": "Catalòg",
     "others": "Autras",
-    "run_first_diagnosis": "Executar lo diagnostic inicial"
+    "run_first_diagnosis": "Executar lo diagnostic inicial",
+    "confirm_service_restart": "Volètz vertadièrament reaviar %s ?",
+    "restart": "Reaviar",
+    "groups": "Grops",
+    "issues": "%s problèmas"
 }

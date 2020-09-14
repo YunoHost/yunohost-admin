@@ -1,3 +1,101 @@
+yunohost-admin (4.0.4) stable; urgency=low
+
+  - [fix] migrations link in french translation (#309)
+  - [fix] Stupid typo breaking yunopaste for service logs (7e03213)
+  - [fix] In log views, sometimes 'error' is empty despite success:false ... so rely on the value of success instead (7894c84)
+
+  Thanks to all contributors <3 ! (opi)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Fri, 04 Sep 2020 14:54:01 +0200
+
+yunohost-admin (4.0.3) stable; urgency=low
+
+  - Bump version number for stable release
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Wed, 29 Jul 2020 17:00:00 +0200
+
+yunohost-admin (4.0.2~beta) testing; urgency=low
+
+  - Bump version number for beta release
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Fri, 19 Jun 2020 15:41:15 +0200
+
+yunohost-admin (4.0.1~alpha) testing; urgency=low
+
+  - [mod] Update deb dependencies and build workflow (fd9949d, 01e452a, f6b8202, 8d35eac, 1a9b16c)
+  - [fix] Update npm dependencies and build workflow (#304)
+
+  Thanks to all contributors <3 ! (Arthur Lutz, Kay0u)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Fri, 05 Jun 2020 17:21:38 +0200
+
+yunohost-admin (3.8.3.5) stable; urgency=low
+
+  - [fix] Add a hack to have some sort of cache management as well for .ms files, to avoid stupid issue where people need to force the browser cache refresh after upgrades (7bb8a90)
+  - [i18n] Translations updated for Catalan, French, German, Italian
+
+  Thanks to all contributors <3 ! (Jibec, L. Noferini, ppr, V. Rubiolo, xaloc33, Yasss Gurl)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Mon, 27 Jul 2020 17:36:43 +0200
+
+yunohost-admin (3.8.3.4) stable; urgency=low
+
+  - [enh] Add a tip about pending migrations on update view (7bf9669)
+  - [i18n] Translations updated for Occitan
+
+  Thanks to all contributors <3 ! (Quentí)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Sat, 06 Jun 2020 02:23:20 +0200
+
+yunohost-admin (3.8.3.3) stable; urgency=low
+
+  - [i18n] Translations updated for Arabic, Italian
+
+  Thanks to all contributors <3 ! (ButterflyOfFire, L. Noferini)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Tue, 26 May 2020 03:45:09 +0200
+
+yunohost-admin (3.8.3.2) stable; urgency=low
+
+  - [fix] Install button in case of multi instance capability (#300)
+  - [fix] Enforce yunohost 3.8 requirement (3400a43)
+  - [i18n] Improve translations for Catalan, Chinese (Simplified), French, Occitan, Portuguese
+
+  Thanks to all contributors <3 ! (Aleks, amirale qt, clecle266, Kay0u, QuentÃ, Raphael Pessanha, xaloc33)
+
+ -- Kay0u <pierre@kayou.io>  Wed, 20 May 2020 19:12:27 +0000
+
+yunohost-admin (3.8.3.1) testing; urgency=low
+
+  - Add tip about the diagnosis page if domain seems not ready for ACME (e7a4df1)
+  - Support raw string in 'ask' fields from manifest (for upcoming thing in core about default strings for install questions) (ee20f55)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Sat, 09 May 2020 20:24:00 +0200
+
+yunohost-admin (3.8.3) testing; urgency=low
+
+  - [enh] Add a note and explanation about sharing the logs when viewing logs of shared operations
+  - [enh] Filter non-relevant line in operation log view
+  - [fix] Remove an unecessary call to app list on domain view
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Thu, 07 Apr 2020 04:15:00  +0000
+
+yunohost-admin (3.8.2) testing; urgency=low
+
+  - [enh] Highlight error/warnings/... in tools > logs (#294)
+  - [enh] Hide stop button for critical services ? (#295)
+  - [fix] Stupid typo in upgrade controller prevented upgrading all apps (a3a0d8f)
+  - [fix] Custom app install + misc detail in regular app install (1592ab4)
+  - [fix] Make the 'all apps' button look like the others (9694d8a)
+  - [mod] Simplify log view (4480836)
+  - [enh] Save/restore collapse states when refreshing diagnosis view (a110e56)
+  - [enh] Add an explanation text on top of the diagnosis view (ccefdd6)
+  - [i18n] Improve translations for Esperanto, Spanish, French, Occitan, Polish, Nepali
+
+  Thanks to all contributors <3 ! (QuentÃ­, Simon, amirale qt)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Wed, 29 Apr 2020 23:20:00  +0000
+
 yunohost-admin (3.8.1.1) testing; urgency=low
 
   - [hotfix] Pacman hanging forever after fetching version number..
@@ -42,6 +140,12 @@ yunohost-admin (3.8.0) testing; urgency=low
   Thanks to all contributors <3 ! (Abdulkadir F. Åž., Aeris One, Aleks, Armando F. Bram, Giovanni G. Gustavo M., Hem S., Jeroen F., Juan, Kay0u, Patrick B., QuentÃ­, Yifei D., advocatux, amirale qt, Elie G., frju365, ppr, Romain R., xaloc3)
 
  -- Kay0u <pierre@kayou.io>  Thu, 09 Apr 2020 20:18:35 +0000
+
+yunohost-admin (3.7.1.1) stable; urgency=low
+
+   - [fix] Aleks forgot to properly fix the conflicts in oc.json ~.~
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Thu, 9 Apr 2020 19:03:00  +0000
 
 yunohost-admin (3.7.1) stable; urgency=low
 

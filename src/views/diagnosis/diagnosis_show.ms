@@ -11,21 +11,23 @@
 
 <div class="separator"></div>
 
-{{#unless reports}}
 <div class="alert alert-info text-center">
+{{#if reports}}
+<p>{{t 'diagnosis_explanation'}}</p>
+{{else}}
 <p>{{t 'diagnosis_first_run'}}</p>
 <br>
 <button class="btn btn-info" data-action="run-full-diagnosis"><span class="fa-fw fa-stethoscope"></span> {{t 'run_first_diagnosis'}}</button>
+{{/if}}
 </div>
-{{/unless}}
 
 <div class="alert alert-warning text-center">{{t 'diagnosis_experimental_disclaimer'}}</div>
 
 {{#reports}}
-<div class="panel panel-default">
+<div class="panel panel-default panel-diagnosis" data-category="{{id}}">
     <div class="panel-heading">
         <h2 class="panel-title" style="display: inline-block; margin-right: 10px;">
-        <a data-toggle="collapse" href="#category-{{id}}">{{ description }}</a>
+        <a data-toggle="collapse" href="#diagnosis-body-{{id}}">{{ description }}</a>
         </h2>
         {{#if noIssues}}{{#if items}}<span class="label label-success">{{t 'everything_good'}}</span>{{/if}}{{/if}}
         {{#if errors}}<span class="label label-danger">{{t 'issues' errors }}</span>{{/if}}
@@ -33,7 +35,7 @@
         {{#if ignored}}<span class="label label-default">{{t 'ignored' ignored }}</span>{{/if}}
         <button class="btn btn-sm {{#if items}}btn-info{{else}}btn-success{{/if}} pull-right" data-action="rerun-diagnosis" data-category="{{ id }}"><span class="fa-fw fa-refresh"></span> {{t 'rerun_diagnosis'}}</button>
     </div>
-    <div class="panel-body collapse {{#if errors}}in{{/if}}" id="category-{{id}}">
+    <div class="panel-body collapse {{#if errors}}in{{/if}}" id="diagnosis-body-{{id}}">
     <ul class="list-group" style="margin-bottom: 0px">
         <p>{{t 'last_ran' }} {{formatRelative time day="numeric" month="long" year="numeric" hour="numeric" minute="numeric" }}</p>
         {{#items}}
