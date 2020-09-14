@@ -16,7 +16,7 @@
             <dt>{{t 'id'}}</dt>
             <dd>{{settings.id}}</dd>
             <dt>{{t 'label'}}</dt>
-            <dd>{{settings.label}}</dd>
+            <dd>{{label}}</dd>
             <dt>{{t 'description'}}</dt>
             <dd>{{description}}</dd>
             <dt>{{t 'version'}}</dt>

@@ -12,6 +12,11 @@
     app.get('#/apps', function (c) {
         c.api('GET', '/apps?full', {}, function(data) {
             var apps = data['apps'];
+            for (var a in apps)
+            {
+                var app = apps[a]
+                app['label'] = app['permissions'][app['id'] + ".main"]['label']
+            }
             c.arraySortById(apps);
             c.view('app/app_list', {apps: apps});
         });
@@ -262,10 +267,9 @@
     // Get app information
     app.get('#/apps/:app', function (c) {
         c.api('GET', '/apps/'+c.params['app']+'?full', {}, function(data) {
-        c.api('GET', '/users/permissions', {}, function(data_permissions) {
+            data.label = data.permissions[c.params['app']+".main"]['label']
 
-            // Permissions
-            data.permissions = data_permissions.permissions[c.params['app']+".main"]["allowed"];
+            data.permissions = data.permissions[c.params['app']+".main"]["allowed"];
 
             // Multilingual description
             data.description = (typeof data.manifest.description[y18n.locale] !== 'undefined') ?
@@ -303,7 +307,6 @@
                     );
                 });
             });
-        });
         });
     });
 
