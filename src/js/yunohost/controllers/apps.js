@@ -732,6 +732,8 @@
     app.post('#/apps/:app/changelabel', function (c) {
         c.api('GET', '/users/permissions?short', {}, function(data_permissions) {
             for (perm of data_permissions.permissions) {
+                if (perm.split('.')[0] == c.params['app'])
+                {
                     if ('show_tile_' + perm in c.params) {
                         show_tile = "True";
                     } else {
@@ -739,6 +741,7 @@
                     }
                     new_label = c.params["label_" + perm]
                     c.api('PUT', '/users/permissions/' + perm, {show_tile: show_tile, label: new_label}, function(data) {});
+                }
             }
             c.redirect_to('#/apps/'+ c.params['app']);
         });
