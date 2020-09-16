@@ -9,7 +9,13 @@
 
 <div class="panel panel-default">
     <div class="panel-heading">
-        <h2 class="panel-title"><span class="fa-fw fa-info-circle"></span> {{t 'infos'}}</h2>
+        <h2 class="panel-title" style="display: inline-block;"><span class="fa-fw fa-info-circle"></span> {{t 'infos'}}</h2>
+        <button class="btn btn-sm btn-success pull-right" data-action="download" data-storage="{{storage.id}}" data-archive="{{name}}">
+            <span class="fa-download"></span> {{t 'download'}}
+        </button>
+        <button class="btn btn-sm btn-danger slide pull-right" data-action="delete" data-storage="{{storage.id}}" data-archive="{{name}}">
+            <span class="fa-trash-o"></span> {{t 'delete'}}
+        </button>
     </div>
     <div class="panel-body">
         <dl class="dl-horizontal">
@@ -25,14 +31,12 @@
 <form action="#/backup/{{storage.id}}/{{name}}/restore" method="POST" class="form-horizontal">
 <div class="panel panel-default">
     <div class="panel-heading">
-        <h2 class="panel-title">
+        <h2 class="panel-title" style="display: inline-block;">
           <span class="fa-fw fa-archive"></span>
           {{t 'backup_content'}}
-          <span class="select_all-none pull-right">
-            <input type="button" role="select_all" class="btn btn-default slide back select_all" value="{{t 'select_all'}}" />
-            <input type="button" role="select_none" class="btn btn-default slide back select_none" value="{{t 'select_none'}}" />
-          </span>
         </h2>
+        <button type="button" data-action="select_all" class="btn btn-sm btn-default pull-right">{{t 'select_all'}}</button>
+        <button type="button" data-action="select_none" class="btn btn-sm btn-default pull-right">{{t 'select_none'}}</button>
     </div>
     {{#if items}}
     <div class="list-group">
@@ -73,21 +77,3 @@
     {{/if}}
 </div>
 </form>
-
-<div class="separator"></div>
-
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <h2 class="panel-title">
-            <span class="fa-fw fa-wrench"></span> {{t 'operations'}}
-        </h2>
-    </div>
-    <div class="panel-body">
-        <div class="container">
-            <p>{{t 'backup_archive_delete'}}</p>
-            <button class="btn btn-danger slide" data-action="delete" data-storage="{{storage.id}}" data-archive="{{name}}">
-                <span class="fa-trash-o"></span> {{t 'delete'}}
-            </button>
-        </div>
-    </div>
-</div>
