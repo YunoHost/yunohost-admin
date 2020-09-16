@@ -38,5 +38,10 @@
     "app_info_default_desc": "重定向域根到这个应用（%s）。",
     "app_info_changelabel_desc": "在门户中修改应用标签。",
     "unignore": "取消忽略",
-    "last_ran": "最近一次运行："
+    "last_ran": "最近一次运行：",
+    "app_info_change_url_disabled_tooltip": "此应用尚未实现该功能",
+    "archive_empty": "空存档",
+    "backup_archive_delete": "删除这个存档",
+    "app_state_low_quality": "低质量",
+    "app_state_inprogress": "暂不工作"
 }
