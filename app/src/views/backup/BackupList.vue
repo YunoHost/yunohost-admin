@@ -61,6 +61,7 @@ export default {
   methods: {
     fetchData () {
       api.get('backup/archives?with_info').then(({ archives }) => {
+        // FIXME use archives = null if no archives
         this.archives = Object.entries(archives).map(([name, data]) => {
           data.name = name
           return data
