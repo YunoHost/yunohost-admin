@@ -1,6 +1,6 @@
 <template>
   <div class="domain-cert" v-if="cert">
-    <b-card class="mb-3">
+    <b-card>
       <template v-slot:header>
         <h2><icon iname="lock" /> {{ $t('certificate_status') }}</h2>
       </template>

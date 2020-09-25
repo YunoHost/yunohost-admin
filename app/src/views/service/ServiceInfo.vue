@@ -30,7 +30,7 @@
       </div>
     </div>
 
-    <b-card class="mb-3">
+    <b-card>
       <template v-slot:header>
         <h2><icon iname="info-circle" /> {{ name }}</h2>
       </template>
