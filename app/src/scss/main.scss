@@ -80,10 +80,10 @@ body {
 }
 
 // collapse icon
-.not-collapsed .icon {
+.not-collapsed > .icon {
   transform: rotate(-90deg);
 }
-.collapsed .icon {
+.collapsed > .icon {
   transform: rotate(90deg);
   position: relative;
   top: 2px;

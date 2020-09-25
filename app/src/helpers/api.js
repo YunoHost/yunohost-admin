@@ -17,7 +17,11 @@ import store from '@/store'
 export function objectToParams (object, { addLocale = false } = {}) {
   const urlParams = new URLSearchParams()
   for (const [key, value] of Object.entries(object)) {
-    urlParams.append(key, value)
+    if (Array.isArray(value)) {
+      value.forEach(v => urlParams.append(key, v))
+    } else {
+      urlParams.append(key, value)
+    }
   }
   if (addLocale) {
     urlParams.append('locale', store.getters.locale)
