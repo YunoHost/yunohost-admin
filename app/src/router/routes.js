@@ -277,6 +277,20 @@ const routes = [
         { name: 'diagnosis', trad: 'diagnosis' }
       ]
     }
+  },
+
+  /* ─────────╮
+   │  BACKUP  │
+   ╰───────── */
+  {
+    name: 'backup',
+    path: '/backup',
+    component: () => import(/* webpackChunkName: "views/backup" */ '@/views/backup/Backup'),
+    meta: {
+      breadcrumb: [
+        { name: 'backup', trad: 'backup' }
+      ]
+    }
   }
 ]
 
