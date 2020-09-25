@@ -168,7 +168,7 @@
     "hook_data_mail_desc": "Raw emails stored on the server",
     "id": "ID",
     "ignore": "Ignore",
-    "ignored": "%s ignored",
+    "ignored": "{count} ignored",
     "inactive": "Inactive",
     "infos": "Info",
     "install": "Install",
@@ -179,7 +179,7 @@
     "internal_exception": "<strong>Yunohost encountered an internal error:/</strong><br><em>Really sorry about that.<br>You should look for help on <a href=\"https://forum.yunohost.org/\">the forum</a> or <a href=\"https://chat.yunohost.org/\">the chat</a> to fix the situation, or report the bug on <a href=\"https://github.com/YunoHost/issues\">the bugtracker</a>.</em><br>The following information might be useful for the person helping you:<h3>Action</h3><pre>%s%s</pre><h3>Traceback</h3><pre>%s</pre>",
     "ipv4": "IPv4",
     "ipv6": "IPv6",
-    "issues": "%s issues",
+    "issues": "{count} issues",
     "label": "Label",
     "label_for_manifestname": "Label for %s",
     "last_ran": "Last time ran:",
@@ -368,7 +368,7 @@
     "users_new": "New user",
     "users_no": "No users.",
     "version": "Version",
-    "warnings": "%s warnings",
+    "warnings": "{count} warnings",
     "warning_first_user": "You probably need to <a href='#/users/create' class='alert-link'>create a user</a> first.",
     "words": {
         "collapse": "Collapse"

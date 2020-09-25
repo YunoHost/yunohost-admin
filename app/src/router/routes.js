@@ -263,6 +263,20 @@ const routes = [
         { name: 'tool-power', trad: 'tools_shutdown_reboot' }
       ]
     }
+  },
+
+  /* ────────────╮
+   │  DIAGNOSIS  │
+   ╰──────────── */
+  {
+    name: 'diagnosis',
+    path: '/diagnosis',
+    component: () => import(/* webpackChunkName: "views/diagnosis" */ '@/views/diagnosis/Diagnosis'),
+    meta: {
+      breadcrumb: [
+        { name: 'diagnosis', trad: 'diagnosis' }
+      ]
+    }
   }
 ]
 
