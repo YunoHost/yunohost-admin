@@ -123,8 +123,8 @@ export default {
   methods: {
     fetchData () {
       api.getAll([
-        '/migrations?pending',
-        '/migrations?done'
+        'migrations?pending',
+        'migrations?done'
       ]).then(([{ migrations: pending }, { migrations: done }]) => {
         this.done = done.reverse()
         pending.forEach(migration => {
@@ -147,12 +147,12 @@ export default {
       }
       // Check that every migration's disclaimer has been checked.
       if (Object.values(this.checked).every(value => value === true)) {
-        api.post('/migrations/migrate?accept_disclaimer').then(this.fetchData)
+        api.post('migrations/migrate', { accept_disclaimer: true }).then(this.fetchData)
       }
     },
 
     skipMigration () {
-      api.post('/migrations/migrate?skip&targets=' + this.skipId).then(this.fetchData)
+      api.post('/migrations/migrate', { skip: true, targets: this.skipId }).then(this.fetchData)
     }
   },
 

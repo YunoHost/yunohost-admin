@@ -1,7 +1,7 @@
 <template>
   <div class="tool-log">
     <!-- INFO CARD -->
-    <b-card class="mb-3">
+    <b-card>
       <template v-slot:header>
         <h2><icon iname="info-circle" /> {{ description }}</h2>
       </template>
@@ -120,7 +120,7 @@ export default {
     },
 
     shareLogs () {
-      api.get('/logs/display', { path: this.name, share: '' }).then(({ url }) => {
+      api.get(`/logs/display?path=${this.name}&share`).then(({ url }) => {
         window.open(url, '_blank')
       })
     }
