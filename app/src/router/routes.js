@@ -306,7 +306,7 @@ const routes = [
   },
   {
     name: 'backup-info',
-    path: '/backup/:id/:name',
+    path: '/backup/:id/info/:name',
     component: () => import(/* webpackChunkName: "views/backup" */ '@/views/backup/BackupInfo'),
     props: true,
     meta: {
@@ -314,6 +314,19 @@ const routes = [
         { name: 'backup', trad: 'backup' },
         { name: 'backup-list', param: 'id' },
         { name: 'backup-info', param: 'name' }
+      ]
+    }
+  },
+  {
+    name: 'backup-create',
+    path: '/backup/:id/create',
+    component: () => import(/* webpackChunkName: "views/backup" */ '@/views/backup/BackupCreate'),
+    props: true,
+    meta: {
+      breadcrumb: [
+        { name: 'backup', trad: 'backup' },
+        { name: 'backup-list', param: 'id' },
+        { name: 'backup-create', trad: 'backup_create' }
       ]
     }
   }
