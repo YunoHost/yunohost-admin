@@ -291,6 +291,18 @@ const routes = [
         { name: 'backup', trad: 'backup' }
       ]
     }
+  },
+  {
+    name: 'backup-list',
+    path: '/backup/:id',
+    component: () => import(/* webpackChunkName: "views/backup" */ '@/views/backup/BackupList'),
+    props: true,
+    meta: {
+      breadcrumb: [
+        { name: 'backup', trad: 'backup' },
+        { name: 'backup-list', param: 'id' }
+      ]
+    }
   }
 ]
 
