@@ -146,6 +146,20 @@ const routes = [
     }
   },
 
+  /* ────────────────╮
+   │  SYSTEM UPDATE  │
+   ╰──────────────── */
+  {
+    name: 'update',
+    path: '/update',
+    component: () => import(/* webpackChunkName: "views/update" */ '@/views/update/SystemUpdate'),
+    meta: {
+      breadcrumb: [
+        { name: 'update', trad: 'system_update' }
+      ]
+    }
+  },
+
   /* ──────────╮
    │  SERVICE  │
    ╰────────── */

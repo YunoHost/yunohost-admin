@@ -72,7 +72,7 @@
     "confirm_uninstall": "Are you sure you want to uninstall %s?",
     "confirm_update_apps": "Are you sure you want to update all applications?",
     "confirm_update_system": "Are you sure you want to update all system packages?",
-    "confirm_update_specific_app": "Are you sure you want to update %s?",
+    "confirm_update_specific_app": "Are you sure you want to update {app}?",
     "confirm_upnp_enable": "Are you sure you want to enable UPnP?",
     "confirm_upnp_disable": "Are you sure you want to disable UPnP?",
     "confirm_reboot_action_reboot": "Are you sure you want to reboot your server?",
@@ -130,7 +130,7 @@
         "firewall_port_already": "Port {port} is already {state} (protocol: {protocol}; connection: {connection})"
     },
     "form_input_example": "Example: %s",
-    "from_to": "from %s to %s",
+    "from_to": "from {0} to {1}",
     "good_practices_about_admin_password": "You are now about to define a new admin password. The password should be at least 8 characters - though it is good practice to use longer password (i.e. a passphrase) and/or to use various kind of characters (uppercase, lowercase, digits and special characters).",
     "good_practices_about_user_password": "You are now about to define a new user password. The password should be at least 8 characters - though it is good practice to use longer password (i.e. a passphrase) and/or to use various kind of characters (uppercase, lowercase, digits and special characters).",
     "group": "Group",
