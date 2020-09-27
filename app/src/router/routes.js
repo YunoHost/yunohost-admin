@@ -156,6 +156,16 @@ const routes = [
     }
   },
 
+  /* ───────╮
+   │  APPS  │
+   ╰─────── */
+  {
+    name: 'app-list',
+    path: '/apps',
+    component: () => import(/* webpackChunkName: "views/apps" */ '@/views/app/AppList'),
+    meta: { breadcrumb: [{ name: 'app-list', trad: 'applications' }] }
+  },
+
   /* ────────────────╮
    │  SYSTEM UPDATE  │
    ╰──────────────── */
