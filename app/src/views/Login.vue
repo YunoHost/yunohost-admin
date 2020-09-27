@@ -58,7 +58,7 @@ export default {
       if (installed) {
         this.disabled = false
       } else {
-        this.$router.push({ name: 'postinstall' })
+        this.$router.push({ name: 'post-install' })
       }
     }).catch(err => {
       this.apiError = err.message
