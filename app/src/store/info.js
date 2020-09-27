@@ -37,8 +37,8 @@ export default {
     'DISCONNECT' ({ commit }, route) {
       commit('SET_CONNECTED', false)
       commit('SET_YUNOHOST_INFOS', null)
-      // Do not redirect if the current route is `login` so the view can display an error.
-      if (router.currentRoute.name === 'login') return
+      // Do not redirect if the current route needs to display an error.
+      if (['login', 'tool-adminpw'].includes(router.currentRoute.name)) return
       router.push({
         name: 'login',
         // Add a redirect query if next route is not unknown (like `logout`) or `login`
@@ -63,6 +63,7 @@ export default {
     'CHECK_INSTALL' ({ dispatch }, retry = 2) {
       // this action will try to query the `/installed` route 3 times every 5 s with
       // a timeout of the same delay.
+      // FIXME need testing with api not responding
       return timeout(api.get('installed'), 5000).then(({ installed }) => {
         return installed
       }).catch(err => {
