@@ -6,6 +6,22 @@
 import store from '@/store'
 
 /**
+ * Allow to set a timeout on a `Promise` expected response.
+ * The returned Promise will be rejected if the original Promise is not resolved or
+ * rejected before the delay.
+ *
+ * @param {Promise} promise - A promise (like a fetch call).
+ * @param {number} delay - delay after which the promise is rejected
+ * @return {Promise}
+ */
+export function timeout (promise, delay) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => (reject(new Error('api_not_responding'))), delay)
+    promise.then(resolve, reject)
+  })
+}
+
+/**
  * Converts an object literal into an `URLSearchParams` that can be turned into a
  * query string or used as a body in a `fetch` call.
  *
@@ -54,6 +70,7 @@ export async function handleResponse (response) {
  */
 export async function handleErrors (response) {
   if (response.status === 401) {
+    store.dispatch('DISCONNECT')
     throw new Error('Unauthorized')
   } else if (response.status === 400) {
     const message = await response.text()

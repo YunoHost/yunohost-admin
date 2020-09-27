@@ -119,7 +119,12 @@
     "everything_good": "Everything good!",
     "experimental_warning": "Warning: this feature is experimental and not consider stable, you shouldn't be using it except if you know what you are doing.",
     "firewall": "Firewall",
-    "footer_version": "Powered by {ynh} {version} ({repo}).",
+    "footer": {
+        "version": "Powered by {ynh} {version} ({repo}).",
+        "documentation": "Documentation",
+        "help": "Need help?",
+        "donate": "Donate"
+    },
     "form_errors": {
         "email_syntax": "Invalid email: Must be alphanumeric, underscore and dash characters only (e.g. someone@example.com, s0me-1@example.com)",
         "groupname_syntax": "Invalid group name: Must be alphanumeric, underscore and space characters only",

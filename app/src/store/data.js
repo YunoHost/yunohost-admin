@@ -91,7 +91,6 @@ export default {
       if (currentState !== undefined && cache) return currentState
 
       return api.get(param ? `${uri}/${param}` : uri).then(responseData => {
-        console.log('api')
         const data = responseData[storeKey] ? responseData[storeKey] : responseData
         commit('SET_' + storeKey.toUpperCase(), param ? [param, data] : data)
         return param ? state[storeKey][param] : state[storeKey]
