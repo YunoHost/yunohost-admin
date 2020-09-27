@@ -285,9 +285,13 @@
     "search": {
         "domain": "Search for domains...",
         "group": "Search for groups...",
+        "installed_app": "Search for installed apps...",
         "service": "Search for services",
         "user": "Search for users...",
-        "logs": "Search in logs..."
+        "logs": "Search in logs...",
+        "not_found": {
+            "installed_app": "There is no apps matching your search query."
+        }
     },
     "search_for_apps": "Search for apps...",
     "select_all": "Select all",
