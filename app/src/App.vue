@@ -2,7 +2,7 @@
   <div id="app" class="container">
     <header>
       <b-navbar>
-        <b-navbar-brand to="/" exact exact-active-class="active">
+        <b-navbar-brand :to="{ name: 'home' }" exact exact-active-class="active">
           <img alt="Yunohost logo" src="./assets/logo.png">
         </b-navbar-brand>
         <b-navbar-nav class="ml-auto">
@@ -27,23 +27,24 @@
     <breadcrumb v-if="$route.meta.breadcrumb" />
 
     <main id="main">
-      <router-view v-if="isReady" />
+      <router-view />
     </main>
 
     <footer>
       <nav>
-        <b-nav>
+        <b-nav class="justify-content-center">
           <b-nav-item href="https://yunohost.org/docs" target="_blank" link-classes="text-secondary">
-            <icon iname="book" /> Documentation
+            <icon iname="book" /> {{ $t('footer.documentation') }}
           </b-nav-item>
           <b-nav-item href="https://yunohost.org/help" target="_blank" link-classes="text-secondary">
-            <icon iname="life-ring" /> Need help?
+            <icon iname="life-ring" /> {{ $t('footer.help') }}
           </b-nav-item>
           <b-nav-item href="https://donate.yunohost.org/" target="_blank" link-classes="text-secondary">
-            <icon iname="heart" /> Donate
+            <icon iname="heart" /> {{ $t('footer.donate') }}
           </b-nav-item>
-          <i18n v-if="yunohost" path="footer_version" tag="b-nav-text"
-                id="yunohost-version" class="ml-auto"
+          <i18n
+            v-if="yunohost" path="footer.version" tag="b-nav-text"
+            id="yunohost-version" class="ml-md-auto text-center"
           >
             <template v-slot:ynh>
               <b-link href="https://yunohost.org">
@@ -69,51 +70,25 @@ import { mapGetters } from 'vuex'
 export default {
   name: 'App',
 
-  data () {
-    return {
-      // isReady blocks the rendering of the rooter-view until we have a true info
-      // about the connected state of the user.
-      isReady: false
-    }
-  },
-
   computed: {
     ...mapGetters(['connected', 'yunohost'])
   },
 
   methods: {
     async logout () {
-      this.$store.dispatch('LOGOUT').then(() => {
-        this.$router.push({ name: 'login' })
-      })
+      this.$store.dispatch('LOGOUT')
     }
   },
 
   // This hook is only triggered at page first load
   async created () {
     // From this hook the value of `connected` always come from the localStorage.
-    if (!this.connected) {
-      // user is not connected: allow the login view to be rendered.
-      this.isReady = true
-      return
+    // This state may be `true` but session may have expired, by querying
+    // yunohost infos, api may respond with `Unauthorized` in which case the `connected`
+    // state will be automaticly reseted and user will be prompt with the login view.
+    if (this.connected) {
+      this.$store.dispatch('GET_YUNOHOST_INFOS')
     }
-    // localStorage 'connected' value may be true, but session may have expired.
-    // Try to get the yunohost version.
-    this.$store.dispatch(
-      'GET_YUNOHOST_INFOS'
-    ).catch(() => {
-      // Session expired, reset the 'connected' state and redirect with a query
-      // FIXME is there a case where the error may not be a 401 therefor requires
-      // better handling ?
-      this.$store.dispatch('RESET_CONNECTED')
-      this.$router.push({
-        name: 'login',
-        query: { redirect: this.$route.path !== '/login' ? this.$route.path : '/' }
-      })
-    }).finally(() => {
-      // in any case allow the router-view to be rendered
-      this.isReady = true
-    })
   }
 }
 </script>
