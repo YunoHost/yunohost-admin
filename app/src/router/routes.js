@@ -10,6 +10,16 @@ const routes = [
   { name: 'home', path: '/', component: Home },
   { name: 'login', path: '/login', component: Login, meta: { noAuth: true } },
 
+  /* ───────────────╮
+   │  POST INSTALL  │
+   ╰─────────────── */
+  {
+    name: 'post-install',
+    path: '/postinstall',
+    component: () => import(/* webpackChunkName: "views/postinstall" */ '@/views/PostInstall'),
+    meta: { noAuth: true }
+  },
+
   /* ───────╮
    │  USER  │
    ╰─────── */
