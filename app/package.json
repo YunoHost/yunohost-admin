@@ -5,10 +5,10 @@
   "description": "YunoHost Admin web interface",
   "author": "Yunohost",
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint",
-    "i18n:report": "vue-cli-service i18n:report --src './src/**/*.?(js|vue)' --locales './src/locales/**/*.json'"
+    "serve": "./node_modules/@vue/cli-service/bin/vue-cli-service.js serve",
+    "build": "./node_modules/@vue/cli-service/bin/vue-cli-service.js build",
+    "lint": "./node_modules/@vue/cli-service/bin/vue-cli-service.js lint",
+    "i18n:report": "./node_modules/@vue/cli-service/bin/vue-cli-service.js i18n:report --src './src/**/*.?(js|vue)' --locales './src/locales/**/*.json'"
   },
   "dependencies": {
     "bootstrap-vue": "^2.16.0",

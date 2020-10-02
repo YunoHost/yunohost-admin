@@ -70,7 +70,7 @@
     "confirm_service_restart": "Are you sure you want to restart {name}?",
     "confirm_service_start": "Are you sure you want to start {name}?",
     "confirm_service_stop": "Are you sure you want to stop {name}?",
-    "confirm_uninstall": "Are you sure you want to uninstall %s?",
+    "confirm_uninstall": "Are you sure you want to uninstall {name}?",
     "confirm_update_apps": "Are you sure you want to update all applications?",
     "confirm_update_system": "Are you sure you want to update all system packages?",
     "confirm_update_specific_app": "Are you sure you want to update {app}?",

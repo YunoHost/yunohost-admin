@@ -165,6 +165,18 @@ const routes = [
     component: () => import(/* webpackChunkName: "views/apps" */ '@/views/app/AppList'),
     meta: { breadcrumb: [{ name: 'app-list', trad: 'applications' }] }
   },
+  {
+    name: 'app-info',
+    path: '/apps/:id',
+    component: () => import(/* webpackChunkName: "views/apps" */ '@/views/app/AppInfo'),
+    props: true,
+    meta: {
+      breadcrumb: [
+        { name: 'app-list', trad: 'applications' },
+        { name: 'app-info', param: 'id' }
+      ]
+    }
+  },
 
   /* ────────────────╮
    │  SYSTEM UPDATE  │
