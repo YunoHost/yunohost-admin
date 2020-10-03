@@ -12,7 +12,7 @@
         />
       </b-input-group>
       <div class="buttons">
-        <b-button variant="success" :to="{ name: 'app-catalog-home' }">
+        <b-button variant="success" :to="{ name: 'app-catalog' }">
           <icon iname="plus" /> {{ $t('install') }}
         </b-button>
       </div>

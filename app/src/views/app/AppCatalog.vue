@@ -20,10 +20,10 @@
       </b-input-group-prepend>
       <b-form-input
         id="search-input" :placeholder="$t('search_for_apps')"
-        v-model="search" @input="onSearchInput"
+        v-model="search" @input="setCategory"
       />
       <b-input-group-append>
-        <b-select v-model="quality" :options="qualityOptions" />
+        <b-select v-model="quality" :options="qualityOptions" @change="setCategory" />
       </b-input-group-append>
     </b-input-group>
 
@@ -43,7 +43,7 @@
     </b-card-group>
 
     <!-- APPS CARDS -->
-    <b-card-group v-else deck>
+    <b-card-group v-else-if="filteredApps.length > 0" deck>
       <b-card no-body v-for="app in filteredApps" :key="app.id">
         <b-card-body class="d-flex flex-column">
           <b-card-title class="d-flex">
@@ -77,7 +77,7 @@
             <icon iname="book" /> {{ $t('readme') }}
           </b-button>
 
-          <b-button v-if="app.isInstallable" :variant="app.color">
+          <b-button v-if="app.isInstallable" :variant="app.color" @click="onAppInstallClick(app)">
             <icon iname="plus" /> {{ $t('install') }} <icon v-if="app.color === 'danger'" class="ml-1" iname="warning" />
           </b-button>
           <b-button v-else :variant="app.color" disabled>
@@ -86,20 +86,81 @@
         </b-button-group>
       </b-card>
     </b-card-group>
+
+    <!-- NO APPS -->
+    <b-alert
+      v-else
+      variant="warning" show class="mt-4"
+    >
+      <icon iname="exclamation-triangle" /> {{ $t('app_not_found') }}
+    </b-alert>
+
+    <!-- INSTALL CUSTOM APP -->
+    <b-card class="basic-form mt-5">
+      <template v-slot:header>
+        <h2><icon iname="download" /> {{ $t('custom_app_install') }}</h2>
+      </template>
+
+      <b-form id="custom-app-form" @submit.prevent="onSubmit">
+        <b-alert variant="warning" show>
+          <icon iname="exclamation-triangle" /> {{ $t('confirm_install_custom_app') }}
+        </b-alert>
+
+        <!-- URL -->
+        <input-helper
+          id="url" :label="$t('url')"
+          v-model="form.url" placeholder="https://github.com/USER/REPOSITORY"
+          :state="form.isValid" :error="form.error" @input="validateUrl"
+        >
+          <template v-slot:description>
+            <icon iname="github" /> {{ $t('custom_app_url_only_github') }}
+          </template>
+        </input-helper>
+      </b-form>
+
+      <template v-slot:footer>
+        <b-button
+          variant="success"
+          :disabled="form.url === '' || form.isValid === false"
+          v-b-modal.custom-app-install-modal
+        >
+          {{ $t('install') }}
+        </b-button>
+      </template>
+    </b-card>
+
+    <!-- CONFIRM APP INSTALL MODAL -->
+    <b-modal
+      id="app-install-modal" centered ref="app-install-modal"
+      :ok-title="$t('install')" :title="$t('confirm_app_install')"
+      :header-bg-variant="selectedApp.color"
+      :header-text-variant="selectedApp.color === 'danger' ? 'light' : 'dark'"
+      @ok="goToAppInstallForm"
+    >
+      {{ $t('confirm_install_app_' + selectedApp.state) }}
+    </b-modal>
+
+    <!-- CONFIRM CUSTOM APP INSTALL MODAL -->
+    <b-modal
+      id="custom-app-install-modal" centered
+      :ok-title="$t('install')" :title="$t('confirm_app_install')"
+      header-bg-variant="danger" header-text-variant="light"
+      @ok="goToCustomAppInstallForm"
+    >
+      {{ $t('confirm_install_custom_app') }}
+    </b-modal>
   </div>
 </template>
 
 <script>
 import api from '@/helpers/api'
+import InputHelper from '@/components/InputHelper'
 
 export default {
   name: 'AppCatalog',
 
   data () {
     return {
-      category: null,
-      search: '',
-      quality: 'all',
       searchAppsKeys: ['id', 'state', 'manifest.name'],
       qualityOptions: [
         { value: 'isHighQuality', text: this.$i18n.t('only_highquality_apps') },
@@ -107,12 +168,26 @@ export default {
         { value: 'isWorking', text: this.$i18n.t('only_working_apps') },
         { value: 'all', text: this.$i18n.t('all_apps') }
       ],
-      // computed/filled from api data
+      // Computed/filled from api data
       categories: [
         { text: this.$i18n.t('app_choose_category'), value: null },
         { text: this.$i18n.t('all_apps'), value: 'all', icon: 'search' }
       ],
-      apps: undefined
+      apps: undefined,
+      // Set by user inputs
+      category: null,
+      search: '',
+      quality: 'all',
+      selectedApp: {
+        // Set some basic values to avoid modal errors
+        state: 'lowquality',
+        color: 'warning'
+      },
+      form: {
+        url: '',
+        isValid: null,
+        error: this.$i18n.t('form_errors.not_github_link')
+      }
     }
   },
 
@@ -199,16 +274,47 @@ export default {
       return 'danger'
     },
 
-    onSearchInput () {
+    setCategory () {
       // allow search without selecting a category
       if (this.category === null) {
         this.category = 'all'
       }
+    },
+
+    // INSTALL APP METHODS
+
+    onAppInstallClick (app) {
+      this.selectedApp = app
+      if (!app.isDecentQuality) {
+        // Ask for confirmation
+        this.$refs['app-install-modal'].show()
+      } else {
+        this.goToAppInstallForm()
+      }
+    },
+
+    goToAppInstallForm () {
+      this.$router.push({ name: 'app-install', params: { id: this.selectedApp.id } })
+    },
+
+    // INSTALL CUSTOM APP METHODS
+
+    validateUrl () {
+      const match = this.form.url.match(/^https:\/\/github.com\/[a-zA-Z0-9-_.]+\/[a-zA-Z0-9-_.]+[/]?$/)
+      this.form.isValid = match ? null : false
+    },
+
+    goToCustomAppInstallForm () {
+      this.$router.push({ name: 'app-install-custom', params: { id: this.form.url } })
     }
   },
 
   created () {
     this.fetchData()
+  },
+
+  components: {
+    InputHelper
   }
 }
 </script>
@@ -222,28 +328,35 @@ select {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
 }
-
-.card {
-  margin-top: 2rem;
-  flex-basis: 100%;
-  min-height: 12rem;
-  @include media-breakpoint-up(md) {
-    flex-basis: 50%;
-    max-width: calc(50% - 30px);
+.card-deck {
+  .card {
+    margin-top: 2rem;
+    flex-basis: 100%;
+    @include media-breakpoint-up(md) {
+      flex-basis: 50%;
+      max-width: calc(50% - 30px);
+    }
+    @include media-breakpoint-up(lg) {
+      flex-basis: 33%;
+      max-width: calc(33.3% - 30px);
+    }
   }
-  @include media-breakpoint-up(lg) {
-    flex-basis: 33%;
-    max-width: calc(33.3% - 30px);
+
+  .app-card {
+    min-height: 12rem;
   }
 
-}
-.category-card {
-  min-height: 10rem;
-  border: 0;
+  .category-card {
+    @include media-breakpoint-up(sm) {
+      min-height: 10rem;
+    }
+    border: 0;
 
-  .btn {
-    width: 100%;
-    height: 100%;
+    .btn {
+      padding: 1rem;
+      width: 100%;
+      height: 100%;
+    }
   }
 }
 
