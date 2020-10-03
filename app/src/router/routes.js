@@ -167,13 +167,24 @@ const routes = [
   },
   {
     name: 'app-info',
-    path: '/apps/:id',
+    path: '/apps/info/:id',
     component: () => import(/* webpackChunkName: "views/apps" */ '@/views/app/AppInfo'),
     props: true,
     meta: {
       breadcrumb: [
         { name: 'app-list', trad: 'applications' },
         { name: 'app-info', param: 'id' }
+      ]
+    }
+  },
+  {
+    name: 'app-catalog-home',
+    path: '/apps/catalog',
+    component: () => import(/* webpackChunkName: "views/apps-catalog" */ '@/views/app/AppCatalog'),
+    meta: {
+      breadcrumb: [
+        { name: 'app-list', trad: 'applications' },
+        { name: 'app-catalog-home', trad: 'catalog' }
       ]
     }
   },

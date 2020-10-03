@@ -60,16 +60,16 @@
         :label-cols-lg="app.supports_change_url ? 4 : 0"
       >
         <b-input-group v-if="app.supports_change_url">
-          <b-input-group-prepend>
-            <b-input-group-text>https://</b-input-group-text>
+          <b-input-group-prepend is-text>
+            https://
           </b-input-group-prepend>
 
           <b-input-group-prepend class="flex-grow-1">
             <b-select v-model="form.url.domain" :options="domains" />
           </b-input-group-prepend>
 
-          <b-input-group-prepend>
-            <b-input-group-text>/</b-input-group-text>
+          <b-input-group-prepend is-text>
+            /
           </b-input-group-prepend>
 
           <b-input id="input-url" v-model="form.url.path" class="flex-grow-3" />
