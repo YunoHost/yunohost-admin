@@ -8,7 +8,7 @@
     // *********
 
     app.get('#/diagnosis', function (c) {
-        c.api('POST', '/diagnosis/run?except-if-never-ran-yet', {}, function() {
+        c.api('POST', '/diagnosis/run?except_if_never_ran_yet', {}, function() {
             updateDiagnosisView();
         });
     });
