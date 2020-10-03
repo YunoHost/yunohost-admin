@@ -1,5 +1,8 @@
 <template>
-  <b-form-group label-cols="auto" :label="label" :label-for="'input-' + id">
+  <b-form-group
+    label-cols="auto" :label="label" :label-for="'input-' + id"
+    :description="description"
+  >
     <b-input
       v-model="content"
       @update="$emit('input', content)"
@@ -9,7 +12,11 @@
       :type="type"
       :state="state"
       :required="required"
+
     />
+    <template v-slot:description>
+      <slot name="description" />
+    </template>
     <b-form-invalid-feedback :id="id + '-feedback'" :state="state">
       {{ error }}
     </b-form-invalid-feedback>
@@ -28,7 +35,8 @@ export default {
     placeholder: { type: String, default: null },
     state: { type: null, default: null },
     error: { type: String, default: '' },
-    required: { type: Boolean, default: true }
+    required: { type: Boolean, default: true },
+    description: { type: String, default: null }
   },
 
   data () {
