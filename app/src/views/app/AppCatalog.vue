@@ -1,18 +1,5 @@
 <template>
   <div class="app-catalog" v-if="apps">
-    <!-- CATEGORY SELECT -->
-    <b-input-group class="mb-3">
-      <b-input-group-prepend is-text>
-        <icon iname="filter" />
-      </b-input-group-prepend>
-      <b-select v-model="category" :options="categories" />
-      <b-input-group-append>
-        <b-button variant="primary" :disabled="category === null" @click="category = null">
-          {{ $t('app_show_categories') }}
-        </b-button>
-      </b-input-group-append>
-    </b-input-group>
-
     <!-- APP SEARCH -->
     <b-input-group>
       <b-input-group-prepend is-text>
@@ -25,6 +12,32 @@
       <b-input-group-append>
         <b-select v-model="quality" :options="qualityOptions" @change="setCategory" />
       </b-input-group-append>
+    </b-input-group>
+
+    <!-- CATEGORY SELECT -->
+    <b-input-group class="mt-3">
+      <b-input-group-prepend is-text>
+        <icon iname="filter" />
+      </b-input-group-prepend>
+      <b-select v-model="category" :options="categories" />
+      <b-input-group-append>
+        <b-button variant="primary" :disabled="category === null" @click="category = null">
+          {{ $t('app_show_categories') }}
+        </b-button>
+      </b-input-group-append>
+    </b-input-group>
+
+    <!-- CATEGORIES SUBTAGS -->
+    <b-input-group v-if="subtags" class="mt-3 subtags">
+      <b-input-group-prepend is-text>
+        Subtags
+      </b-input-group-prepend>
+      <b-form-radio-group
+        id="subtags-radio" name="subtags"
+        v-model="subtag" :options="subtags"
+        buttons button-variant="outline-secondary"
+      />
+      <b-select id="subtags-select" v-model="subtag" :options="subtags" />
     </b-input-group>
 
     <!-- CATEGORIES CARDS -->
@@ -175,7 +188,8 @@ export default {
       ],
       apps: undefined,
       // Set by user inputs
-      category: null,
+      category: 'office',
+      subtag: 'all',
       search: '',
       quality: 'all',
       selectedApp: {
@@ -204,15 +218,41 @@ export default {
         return this.apps
       }
       return this.apps.filter(app => {
+        // app doesn't match quality filter
         if (this.quality !== 'all' && !app[this.quality]) return false
+        // app doesn't match category filter
         if (this.category !== 'all' && app.category !== this.category) return false
+        if (this.subtag !== 'all') {
+          const appMatchSubtag = this.subtag === 'others'
+            ? app.subtags.length === 0
+            : app.subtags.includes(this.subtag)
+          // app doesn't match subtag filter
+          if (!appMatchSubtag) return false
+        }
         if (search === '') return true
         const searchMatchSome = this.searchAppsKeys.some(searchKey => {
           return findValue(searchKey, app).toLowerCase().includes(search)
         })
+        // app match search string
         if (searchMatchSome) return true
         return false
       })
+    },
+
+    subtags () {
+      // build an options array for subtags v-model/options
+      if (this.category) {
+        const category = this.categories.find(cat => cat.value === this.category)
+        if (category.subtags) {
+          const subtags = [{ text: this.$i18n.t('all'), value: 'all' }]
+           category.subtags.forEach(subtag => {
+            subtags.push({ text: subtag.title, value: subtag.id })
+          })
+          subtags.push({ text: this.$i18n.t('others'), value: 'others' })
+          return subtags
+        }
+      }
+      return null
     }
   },
 
@@ -236,8 +276,8 @@ export default {
         this.apps = apps.sort((a, b) => a.id > b.id ? 1 : -1)
 
         // CATEGORIES
-        data.categories.forEach(({ title, id, icon, subTags, description }) => {
-          this.categories.push({ text: title, value: id, icon, subTags, description })
+        data.categories.forEach(({ title, id, icon, subtags, description }) => {
+          this.categories.push({ text: title, value: id, icon, subtags, description })
         })
       })
     },
@@ -331,7 +371,7 @@ select {
 .card-deck {
   .card {
     margin-top: 2rem;
-    flex-basis: 100%;
+    flex-basis: 90%;
     @include media-breakpoint-up(md) {
       flex-basis: 50%;
       max-width: calc(50% - 30px);
@@ -358,20 +398,35 @@ select {
       height: 100%;
     }
   }
+
+  .btn-group {
+    .btn {
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+      border-bottom: 0;
+      flex-basis: 0;
+    }
+    .btn:first-of-type {
+      border-left: 0
+    }
+    .btn:last-of-type {
+      border-right: 0
+    }
+  }
 }
 
-.btn-group {
-  .btn {
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-    border-bottom: 0;
-    flex-basis: 0;
+.subtags {
+  #subtags-radio {
+    display: none
   }
-  .btn:first-of-type {
-    border-left: 0
-  }
-  .btn:last-of-type {
-    border-right: 0
+  @include media-breakpoint-up(md) {
+    #subtags-radio {
+      display: inline-flex;
+    }
+    #subtags-select {
+      display: none;
+    }
   }
 }
+
 </style>
