@@ -49,21 +49,27 @@ body {
   display: block;
 }
 
-.col-form-label {
-  @include media-breakpoint-up(xs) {
-    width: 100%;
+// <b-row /> elems with <b-col> inside and eventually .sep inside
+.row-line {
+  &:hover > div :first-child {
+    background-color: rgba(0, 0, 0, 0.05);
+    border-radius: 0.2rem;
+    padding: 0 .5rem;
+    margin-right: -.5rem;
+    margin-left: -.5rem;
   }
-  @include media-breakpoint-up(sm) {
-    flex-basis: 40%;
-  }
-  @include media-breakpoint-up(md) {
-    flex-basis: 30%;
-  }
-  @include media-breakpoint-up(lg) {
-    flex-basis: 25%;
-  }
-  @include media-breakpoint-up(xl) {
-    flex-basis: 20%;
+
+  & > div {
+    align-self: flex-start;
+    display: flex;
+    align-items: center;
+    // display a dashed line between col items
+    .sep {
+      height: 0;
+      border-top: 1px dashed rgba(0, 0, 0, 0.25);
+      flex-grow: 1;
+      margin: 0 .75rem;
+    }
   }
 }
 
