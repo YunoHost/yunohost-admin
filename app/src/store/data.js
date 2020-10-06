@@ -143,6 +143,19 @@ export default {
   },
 
   getters: {
+    usersAsOptions: state => {
+      const choices = Object.values(state.users).map(({ username, fullname, mail }) => {
+          return { text: `${fullname} (${mail})`, value: username }
+      })
+      return { choices, value: choices[0].value }
+    },
 
+    domainsAsOptions: state => {
+      const mainDomain = state.main_domain
+      const choices = state.domains.map(domain => {
+        return { value: domain, text: domain === mainDomain ? domain + ' ★' : domain }
+      })
+      return { choices, value: mainDomain }
+    }
   }
 }
