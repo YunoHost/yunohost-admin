@@ -188,10 +188,10 @@ export default {
       ],
       apps: undefined,
       // Set by user inputs
-      category: 'office',
+      category: null,
       subtag: 'all',
       search: '',
-      quality: 'all',
+      quality: 'isDecentQuality',
       selectedApp: {
         // Set some basic values to avoid modal errors
         state: 'lowquality',
@@ -345,7 +345,11 @@ export default {
     },
 
     goToCustomAppInstallForm () {
-      this.$router.push({ name: 'app-install-custom', params: { id: this.form.url } })
+      const url = this.form.url
+      this.$router.push({
+        name: 'app-install-custom',
+        params: { id: url.endsWith('/') ? url : url + '/' }
+      })
     }
   },
 
