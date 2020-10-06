@@ -188,6 +188,32 @@ const routes = [
       ]
     }
   },
+  {
+    name: 'app-install',
+    path: '/apps/install/:id',
+    component: () => import(/* webpackChunkName: "views/apps" */ '@/views/app/AppInstall'),
+    props: true,
+    meta: {
+      breadcrumb: [
+        { name: 'app-list', trad: 'applications' },
+        { name: 'app-catalog', trad: 'catalog' },
+        { name: 'app-catalog', trad: 'install_name', param: 'id' }
+      ]
+    }
+  },
+  {
+    name: 'app-install-custom',
+    path: '/apps/install-custom/:id',
+    component: () => import(/* webpackChunkName: "views/apps" */ '@/views/app/AppInstall'),
+    props: true,
+    meta: {
+      breadcrumb: [
+        { name: 'app-list', trad: 'applications' },
+        { name: 'app-catalog', trad: 'catalog' },
+        { name: 'app-catalog', trad: 'install_name', param: 'id' }
+      ]
+    }
+  },
 
   /* ────────────────╮
    │  SYSTEM UPDATE  │
