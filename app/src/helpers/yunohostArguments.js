@@ -1,7 +1,7 @@
 import i18n from '@/i18n'
 import store from '@/store'
 
-function formatI18nField (field) {
+export function formatI18nField (field) {
   if (typeof field === 'string') return field
   const { locale, fallbackLocale } = store.state
   return field[locale] || field[fallbackLocale] || field.en

@@ -32,12 +32,13 @@
           <form-item-helper v-for="arg in form.args" :key="arg.name" v-bind="arg" />
 
           <b-form-invalid-feedback id="global-feedback" :state="server.isValid">
-            {{ this.server.error }}
+            {{ server.error }}
           </b-form-invalid-feedback>
         </b-form>
 
         <template v-slot:footer>
           <b-button
+            class="ml-auto"
             type="submit" form="install-form"
             variant="success" v-t="'install'"
           />
@@ -48,7 +49,7 @@
       <b-modal
         id="confirm-domain-root-modal" ref="confirm-domain-root-modal" centered
         body-bg-variant="danger" body-text-variant="light"
-        @ok="runInstall" hide-header
+        @ok="performInstall" hide-header
         :ok-title="$t('install')"
       >
         {{ $t('confirm_install_domain_root', { domain: confirmDomain }) }}
@@ -152,11 +153,11 @@ export default {
         this.confirmDomain = this.form.args.find(arg => arg.props.id === 'domain').props.value
         this.$refs['confirm-domain-root-modal'].show()
       } else {
-        this.runInstall()
+        this.performInstall()
       }
     },
 
-    runInstall () {
+    performInstall () {
       const args = {}
       for (const arg of this.form.args) {
         if (arg.component === 'CheckboxItem') {
