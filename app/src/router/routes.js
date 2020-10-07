@@ -166,18 +166,6 @@ const routes = [
     meta: { breadcrumb: [{ name: 'app-list', trad: 'applications' }] }
   },
   {
-    name: 'app-info',
-    path: '/apps/info/:id',
-    component: () => import(/* webpackChunkName: "views/apps" */ '@/views/app/AppInfo'),
-    props: true,
-    meta: {
-      breadcrumb: [
-        { name: 'app-list', trad: 'applications' },
-        { name: 'app-info', param: 'id' }
-      ]
-    }
-  },
-  {
     name: 'app-catalog',
     path: '/apps/catalog',
     component: () => import(/* webpackChunkName: "views/apps-catalog" */ '@/views/app/AppCatalog'),
@@ -211,6 +199,31 @@ const routes = [
         { name: 'app-list', trad: 'applications' },
         { name: 'app-catalog', trad: 'catalog' },
         { name: 'app-catalog', trad: 'install_name', param: 'id' }
+      ]
+    }
+  },
+  {
+    name: 'app-info',
+    path: '/apps/:id',
+    component: () => import(/* webpackChunkName: "views/apps" */ '@/views/app/AppInfo'),
+    props: true,
+    meta: {
+      breadcrumb: [
+        { name: 'app-list', trad: 'applications' },
+        { name: 'app-info', param: 'id' }
+      ]
+    }
+  },
+  {
+    name: 'app-actions',
+    path: '/apps/:id/actions',
+    component: () => import(/* webpackChunkName: "views/apps" */ '@/views/app/AppActions'),
+    props: true,
+    meta: {
+      breadcrumb: [
+        { name: 'app-list', trad: 'applications' },
+        { name: 'app-info', param: 'id' },
+        { name: 'app-actions', trad: 'action' }
       ]
     }
   },

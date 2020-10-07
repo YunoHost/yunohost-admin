@@ -76,13 +76,22 @@ body {
 .card + .card {
   margin-top: 2rem;
 }
-.card-header h2 {
-  margin: 0;
-  font-size: 1.75rem;
+.card-header {
+  h2, h4 {
+    margin: 0;
+  }
+
+  h2 {
+    font-size: 1.75rem;
+  }
 }
 
 .card-body {
   padding: 1rem;
+}
+
+.card-footer {
+  display: flex;
 }
 
 // collapse icon
