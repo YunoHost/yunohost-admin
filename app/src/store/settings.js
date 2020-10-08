@@ -12,6 +12,7 @@ export default {
     locale: localStorage.getItem('locale'),
     fallbackLocale: localStorage.getItem('fallbackLocale'),
     cache: localStorage.getItem('cache') !== 'false',
+    experimental: localStorage.getItem('experimental') === 'true',
     supportedLocales: supportedLocales
   },
 
@@ -26,9 +27,14 @@ export default {
       state.fallbackLocale = locale
     },
 
-    'SET_CACHE' (state, enable) {
-      localStorage.setItem('cache', enable)
-      state.cache = enable
+    'SET_CACHE' (state, boolean) {
+      localStorage.setItem('cache', boolean)
+      state.cache = boolean
+    },
+
+    'SET_EXPERIMENTAL' (state, boolean) {
+      localStorage.setItem('experimental', boolean)
+      state.experimental = boolean
     }
   },
 
@@ -55,6 +61,7 @@ export default {
     locale: state => (state.locale),
     fallbackLocale: state => (state.fallbackLocale),
     cache: state => (state.cache),
+    experimental: state => state.experimental,
 
     availableLocales: state => {
       return Object.entries(state.supportedLocales).map(([locale, { name }]) => {

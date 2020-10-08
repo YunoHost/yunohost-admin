@@ -125,6 +125,7 @@
     "error_server_unexpected": "Unexpected server error (%s)",
     "error_connection_interrupted": "The server closed the connection instead of answering it. Has nginx or the yunohost-api been restarted or stoppted for some reason? (Error code/message: %s)",
     "everything_good": "Everything good!",
+    "experimental": "Experimental",
     "experimental_warning": "Warning: this feature is experimental and not consider stable, you shouldn't be using it except if you know what you are doing.",
     "firewall": "Firewall",
     "footer": {
@@ -349,7 +350,9 @@
         "locale": "Locale",
         "fallback_locale": "Fallback locale",
         "cache": "Cache",
-        "cache_description": "Consider disabling the cache if you plan on working with the CLI while also navigating in this web-admin."
+        "cache_description": "Consider disabling the cache if you plan on working with the CLI while also navigating in this web-admin.",
+        "experimental": "Experimental mode",
+        "experimental_description": "Gives you access to experimental features. These are considered unstable and may break your system.<br> Enabled this only if you know what you are doing."
     },
     "tools_webadmin_settings": "Web-admin settings",
     "udp": "UDP",
