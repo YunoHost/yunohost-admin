@@ -113,6 +113,32 @@
       </b-form-group>
     </b-card>
 
+    <!-- EXPERIMENTAL (displayed if experimental feature has been enabled in web-admin options)-->
+    <b-card v-if="this.$store.getters.experimental">
+      <template v-slot:header>
+        <h2><icon iname="flask" /> {{ $t('experimental') }}</h2>
+      </template>
+
+      <!-- APP ACTIONS -->
+      <b-form-group label-cols-md="4" :label="$t('app_actions_label')" label-for="actions">
+        <b-input-group>
+          <b-button id="actions" variant="warning" :to="{ name: 'app-actions', params: { id } }">
+            <icon iname="flask" /> {{ $t('app_actions') }}
+          </b-button>
+        </b-input-group>
+      </b-form-group>
+      <hr>
+
+      <!-- APP CONFIG PANEL -->
+      <b-form-group label-cols-md="4" :label="$t('app_config_panel_label')" label-for="config">
+        <b-input-group>
+          <b-button id="config" variant="warning" :to="{ name: 'app-config-panel', params: { id } }">
+            <icon iname="flask" /> {{ $t('app_config_panel') }}
+          </b-button>
+        </b-input-group>
+      </b-form-group>
+    </b-card>
+
     <!-- MODAL -->
     <b-modal
       v-if="action"
