@@ -7,8 +7,20 @@ import { DomainList, DomainAdd, DomainInfo, DomainDns, DomainCert } from '@/view
 import { ServiceList, ServiceInfo } from '@/views/service'
 
 const routes = [
-  { name: 'home', path: '/', component: Home },
-  { name: 'login', path: '/login', component: Login, meta: { noAuth: true } },
+  {
+    name: 'home',
+    path: '/',
+    component: Home,
+    // Leave the empty breadcrumb as it is used by the animated transition to know which way to go
+    meta: { breadcrumb: [] }
+  },
+
+  {
+    name: 'login',
+    path: '/login',
+    component: Login,
+    meta: { noAuth: true, breadcrumb: [] }
+  },
 
   /* ───────────────╮
    │  POST INSTALL  │
@@ -17,6 +29,7 @@ const routes = [
     name: 'post-install',
     path: '/postinstall',
     component: () => import(/* webpackChunkName: "views/postinstall" */ '@/views/PostInstall'),
+    // Leave the breadcrumb
     meta: { noAuth: true }
   },
 

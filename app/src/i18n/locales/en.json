@@ -359,7 +359,8 @@
         "cache": "Cache",
         "cache_description": "Consider disabling the cache if you plan on working with the CLI while also navigating in this web-admin.",
         "experimental": "Experimental mode",
-        "experimental_description": "Gives you access to experimental features. These are considered unstable and may break your system.<br> Enabled this only if you know what you are doing."
+        "experimental_description": "Gives you access to experimental features. These are considered unstable and may break your system.<br> Enabled this only if you know what you are doing.",
+        "transitions": "Page transition animations"
     },
     "tools_webadmin_settings": "Web-admin settings",
     "udp": "UDP",

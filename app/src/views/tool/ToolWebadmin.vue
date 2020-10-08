@@ -39,11 +39,22 @@
         {{ $t('tools_webadmin.cache_description') }}
       </template>
     </b-form-group>
-
     <hr>
 
-    <!-- EXPERIMENTAL MODE -->
+    <!-- TRANSITIONS -->
     <b-form-group
+      label-cols="0" label-cols-lg="2"
+      :label="$t('tools_webadmin.transitions')" label-for="transitions" label-class="font-weight-bold"
+    >
+      <b-checkbox v-model="currentTransitions" id="transitions" switch>
+        {{ $t(currentTransitions ? 'enabled' : 'disabled') }}
+      </b-checkbox>
+    </b-form-group>
+    <hr>
+
+    <!-- EXPERIMENTAL MODE (dev environment only)-->
+    <b-form-group
+      v-if="isDev"
       label-cols="0" label-cols-lg="2" label-class="font-weight-bold"
       label-for="experimental"
     >
@@ -75,6 +86,7 @@ export default {
       'locale',
       'fallbackLocale',
       'cache',
+      'transitions',
       'experimental',
       'availableLocales'
     ]),
@@ -100,6 +112,19 @@ export default {
       }
     },
 
+    currentTransitions: {
+      get: function () { return this.transitions },
+      set: function (newValue) {
+        this.$store.commit('SET_TRANSITIONS', newValue)
+      }
+    },
+
+    // environment
+    isDev () {
+      return process.env.NODE_ENV === 'development'
+    },
+
+    // Only available in 'development' environment.
     currentExperimental: {
       get: function () { return this.experimental },
       set: function (newValue) {
