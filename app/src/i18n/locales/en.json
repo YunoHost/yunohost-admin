@@ -11,6 +11,7 @@
     "app_change_url": "Change URL",
     "app_choose_category": "Choose a category",
     "app_config_panel": "Config panel",
+    "app_config_panel_label": "Configure this app",
     "app_config_panel_no_panel": "This application doesn't have any configuration available",
     "app_info_access_desc": "Groups / users currently allowed to access this app:",
     "app_info_managelabel_desc": "Manage permissions labels in the portal.",
