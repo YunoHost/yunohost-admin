@@ -117,8 +117,8 @@ export default {
 
     performUpdate () {
       api.put('update').then(({ apps, system }) => {
-        this.apps = apps.length !== 0 ? apps : null
-        this.system = system.length !== 0 ? apps : null
+        this.apps = apps.length ? apps : null
+        this.system = system.length ? system : null
       })
     },
 

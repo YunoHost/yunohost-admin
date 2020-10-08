@@ -148,8 +148,8 @@ export default {
     },
 
     beforeInstall () {
-      const path = this.form.args.find(arg => arg.props.id === 'path').props.value
-      if (path === '/') {
+      const path = this.form.args.find(arg => arg.props.id === 'path')
+      if (path && path.props.value === '/') {
         this.confirmDomain = this.form.args.find(arg => arg.props.id === 'domain').props.value
         this.$refs['confirm-domain-root-modal'].show()
       } else {
