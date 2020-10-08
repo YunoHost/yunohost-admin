@@ -179,7 +179,7 @@ const routes = [
   {
     name: 'app-install',
     path: '/apps/install/:id',
-    component: () => import(/* webpackChunkName: "views/apps" */ '@/views/app/AppInstall'),
+    component: () => import(/* webpackChunkName: "views/apps-install" */ '@/views/app/AppInstall'),
     props: true,
     meta: {
       breadcrumb: [
@@ -192,7 +192,7 @@ const routes = [
   {
     name: 'app-install-custom',
     path: '/apps/install-custom/:id',
-    component: () => import(/* webpackChunkName: "views/apps" */ '@/views/app/AppInstall'),
+    component: () => import(/* webpackChunkName: "views/apps-install-custom" */ '@/views/app/AppInstall'),
     props: true,
     meta: {
       breadcrumb: [
@@ -217,13 +217,26 @@ const routes = [
   {
     name: 'app-actions',
     path: '/apps/:id/actions',
-    component: () => import(/* webpackChunkName: "views/apps" */ '@/views/app/AppActions'),
+    component: () => import(/* webpackChunkName: "views/apps-expe" */ '@/views/app/AppActions'),
     props: true,
     meta: {
       breadcrumb: [
         { name: 'app-list', trad: 'applications' },
         { name: 'app-info', param: 'id' },
-        { name: 'app-actions', trad: 'action' }
+        { name: 'app-actions', trad: 'app_actions' }
+      ]
+    }
+  },
+  {
+    name: 'app-config-panel',
+    path: '/apps/:id/config-panel',
+    component: () => import(/* webpackChunkName: "views/apps-expe" */ '@/views/app/AppConfigPanel'),
+    props: true,
+    meta: {
+      breadcrumb: [
+        { name: 'app-list', trad: 'applications' },
+        { name: 'app-info', param: 'id' },
+        { name: 'app-config-panel', trad: 'app_config_panel' }
       ]
     }
   },
