@@ -4,10 +4,7 @@
     :label="label" :label-for="'form-item-' + props.id"
   >
     <slot name="default">
-      <component
-        :is="component" v-bind="props"
-        v-model="props.value" @input="test"
-      />
+      <component :is="component" v-bind="props" v-model="props.value" />
     </slot>
 
     <template v-if="description || example || link" v-slot:description>
@@ -19,9 +16,7 @@
         </b-link>
       </div>
 
-      <template v-if="description">
-        {{ description }}
-      </template>
+      <span v-if="description" v-html="description" />
     </template>
 
     <b-form-invalid-feedback v-if="'isValid' in props" :id="props.id + '-feedback'" :state="props.value.isValid">
@@ -46,13 +41,6 @@ export default {
   data () {
     return {
       content: this.value
-    }
-  },
-
-  methods: {
-    test () {
-      console.log(this.props.value)
-      // this.props.isValid = false
     }
   }
 }

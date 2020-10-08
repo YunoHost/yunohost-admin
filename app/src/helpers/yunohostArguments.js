@@ -11,7 +11,7 @@ export function formatYunoHostArgument (_arg) {
   const arg = {
     component: undefined,
     label: formatI18nField(_arg.ask),
-    props: { id: _arg.name }
+    props: { id: _arg.name, value: null }
   }
 
   // Some apps has `string` as type but expect a select since it has `choices`
@@ -43,7 +43,9 @@ export function formatYunoHostArgument (_arg) {
   }
 
   // Required
-  arg.props.required = _arg.optional !== true
+  if (arg.component === 'InputItem') {
+    arg.props.required = _arg.optional !== true
+  }
   // Default value
   if (_arg.default) {
     arg.props.value = _arg.default
