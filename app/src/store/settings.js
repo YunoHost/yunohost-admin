@@ -12,6 +12,7 @@ export default {
     locale: localStorage.getItem('locale'),
     fallbackLocale: localStorage.getItem('fallbackLocale'),
     cache: localStorage.getItem('cache') !== 'false',
+    transitions: localStorage.getItem('transitions') !== 'false',
     experimental: localStorage.getItem('experimental') === 'true',
     supportedLocales: supportedLocales
   },
@@ -30,6 +31,11 @@ export default {
     'SET_CACHE' (state, boolean) {
       localStorage.setItem('cache', boolean)
       state.cache = boolean
+    },
+
+    'SET_TRANSITIONS' (state, boolean) {
+      localStorage.setItem('transitions', boolean)
+      state.transitions = boolean
     },
 
     'SET_EXPERIMENTAL' (state, boolean) {
@@ -61,6 +67,7 @@ export default {
     locale: state => (state.locale),
     fallbackLocale: state => (state.fallbackLocale),
     cache: state => (state.cache),
+    transitions: state => (state.transitions),
     experimental: state => state.experimental,
 
     availableLocales: state => {

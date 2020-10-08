@@ -1,21 +1,26 @@
 <template>
   <div id="app" class="container">
+    <!-- HEADER -->
     <header>
       <b-navbar>
         <b-navbar-brand :to="{ name: 'home' }" exact exact-active-class="active">
           <img alt="Yunohost logo" src="./assets/logo.png">
         </b-navbar-brand>
+
         <b-navbar-nav class="ml-auto">
           <li class="nav-item">
-            <b-button href="/yunohost/sso"
-                      variant="primary" size="sm" block
+            <b-button
+              href="/yunohost/sso"
+              variant="primary" size="sm" block
             >
               {{ $t('user_interface_link') }} <icon iname="user" />
             </b-button>
           </li>
+
           <li class="nav-item" v-show="connected">
-            <b-button @click.prevent="logout" to="/logout"
-                      variant="outline-dark" block size="sm"
+            <b-button
+              @click.prevent="logout"
+              variant="outline-dark" block size="sm"
             >
               {{ $t('logout') }} <icon iname="sign-out" />
             </b-button>
@@ -24,12 +29,17 @@
       </b-navbar>
     </header>
 
-    <breadcrumb v-if="$route.meta.breadcrumb" />
+    <!-- MAIN -->
+    <breadcrumb />
 
     <main id="main">
-      <router-view />
+      <transition v-if="transitions" :name="transitionName">
+        <router-view class="animated" />
+      </transition>
+      <router-view v-else class="static" />
     </main>
 
+    <!-- FOOTER -->
     <footer>
       <nav>
         <b-nav class="justify-content-center">
@@ -70,8 +80,25 @@ import { mapGetters } from 'vuex'
 export default {
   name: 'App',
 
+  data () {
+    return {
+      transitionName: null
+    }
+  },
+
   computed: {
-    ...mapGetters(['connected', 'yunohost'])
+    ...mapGetters(['connected', 'yunohost', 'transitions'])
+  },
+
+  watch: {
+    // Set the css class to animate the components transition
+    '$route' (to, from) {
+      if (!this.transitions) return
+      // Use the breadcrumb array length as a direction indicator
+      const toDepth = to.meta.breadcrumb.length
+      const fromDepth = from.meta.breadcrumb.length
+      this.transitionName = toDepth < fromDepth ? 'slide-right' : 'slide-left'
+    }
   },
 
   methods: {
@@ -137,6 +164,32 @@ export default {
     &:first-child {
       margin-left: -1rem;
     }
+  }
+}
+
+main {
+  position: relative;
+
+  // Routes transition
+  .animated {
+    transition: all .15s ease-in-out;
+  }
+  .slide-left-enter, .slide-right-leave-active {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    transform: translate(100vw, 0);
+  }
+  .slide-left-leave-active, .slide-right-enter {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    transform: translate(-100vw, 0);
+  }
+  // hack to hide last transition provoqued by the <router-view> element change
+  // while disabling the transitions in ToolWebAdmin
+  .static ~ .animated {
+    display: none;
   }
 }
 </style>
