@@ -104,6 +104,25 @@ export default {
   },
 
   /**
+   * Opens a WebSocket connection to the server in case it sends messages.
+   * Currently, the connection is closed by the server right after an API call so
+   * we have to open it for every calls.
+   * Messages are dispatch to the store so it can handle them.
+   *
+   * @return {Promise<Event>} Promise that resolve on websocket 'open' or 'error' event.
+   */
+  openWebSocket () {
+    return new Promise(resolve => {
+      const ws = new WebSocket(`wss://${store.getters.host}/yunohost/api/messages`)
+      ws.onmessage = ({ data }) => store.dispatch('DISPATCH_MESSAGE', JSON.parse(data))
+      // ws.onclose = (e) => {}
+      ws.onopen = resolve
+      // Resolve also on error so the actual fetch may be called.
+      ws.onerror = resolve
+    })
+  },
+
+  /**
    * Generic method to fetch the api without automatic response handling.
    *
    * @param {string} method - a method between 'GET', 'POST', 'PUT' and 'DELETE'.
@@ -111,12 +130,16 @@ export default {
    * @param {string} [data={}] - data to send as body for 'POST', 'PUT' and 'DELETE' methods.
    * @return {Promise<Response>} Promise that resolve a fetch `Response`.
    */
-  fetch (method, uri, data = {}) {
+  async fetch (method, uri, data = {}) {
+    // Open a websocket connection that will dispatch messages received.
+    // FIXME add ability to do not open it
+    await this.openWebSocket()
+
     if (method === 'GET') {
       const localeQs = `${uri.includes('?') ? '&' : '?'}locale=${store.getters.locale}`
-      return fetch('/api/' + uri + localeQs, this.options)
+      return fetch('/yunohost/api/' + uri + localeQs, this.options)
     }
-    return fetch('/api/' + uri, {
+    return fetch('/yunohost/api/' + uri, {
       ...this.options,
       method,
       body: objectToParams(data, { addLocale: true })

@@ -5,7 +5,8 @@ export default {
   state: {
     connected: localStorage.getItem('connected') === 'true',
     yunohost: null, // yunohost app infos: Object {version, repo}
-    waiting: false
+    waiting: false,
+    host: window.location.host
   },
 
   mutations: {
@@ -77,12 +78,17 @@ export default {
         }
         throw err
       })
+    },
+
+    'DISPATCH_MESSAGE' (store, message) {
+      console.log(message)
     }
   },
 
   getters: {
     connected: state => (state.connected),
     yunohost: state => (state.yunohost),
-    waiting: state => state.waiting
+    waiting: state => state.waiting,
+    host: state => state.host
   }
 }
