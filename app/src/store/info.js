@@ -4,7 +4,8 @@ import router from '@/router'
 export default {
   state: {
     connected: localStorage.getItem('connected') === 'true',
-    yunohost: null // yunohost app infos: Object {version, repo}
+    yunohost: null, // yunohost app infos: Object {version, repo}
+    waiting: false
   },
 
   mutations: {
@@ -15,6 +16,10 @@ export default {
 
     'SET_YUNOHOST_INFOS' (state, yunohost) {
       state.yunohost = yunohost
+    },
+
+    'UPDATE_WAITING' (state, boolean) {
+      state.waiting = boolean
     }
   },
 
@@ -77,6 +82,7 @@ export default {
 
   getters: {
     connected: state => (state.connected),
-    yunohost: state => (state.yunohost)
+    yunohost: state => (state.yunohost),
+    waiting: state => state.waiting
   }
 }
