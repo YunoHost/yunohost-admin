@@ -1,16 +1,15 @@
 <template>
-  <b-breadcrumb v-if="breadcrumb && breadcrumb.length">
+  <b-breadcrumb v-if="routesList">
     <b-breadcrumb-item to="/">
       <span class="sr-only">{{ $t('home') }}</span>
       <icon iname="home" />
     </b-breadcrumb-item>
 
     <b-breadcrumb-item
-      v-for="(route, index) in breadcrumb" :key="index"
-      :to="{name: route.name}"
-      :active="index === lastIndex"
+      v-for="{ name, text } in breadcrumb" :key="name"
+      :to="{ name }" :active="name === $route.name"
     >
-      {{ route.text }}
+      {{ text }}
     </b-breadcrumb-item>
   </b-breadcrumb>
 </template>
@@ -20,29 +19,36 @@ export default {
   name: 'Breadcrumb',
 
   computed: {
-    params: function () {
-      return this.$route.params
+    routesList () {
+      const routesList = this.$route.meta.breadcrumb
+      return routesList && routesList.length ? routesList : null
     },
 
-    breadcrumb: function () {
-      if (!this.$route.meta.breadcrumb) return null
-      return this.$route.meta.breadcrumb.map(({ name, trad, param }) => {
+    breadcrumb () {
+      if (!this.routesList) return
+      // Get current params to pass it to potential previous routes
+      const currentParams = this.$route.params
+      return this.routesList.map(name => {
+        const { trad, param } = this.getRouteArgs(name)
         let text = ''
         // if a traduction key string has been given and we also need to pass
         // the route param as a variable.
         if (trad && param) {
-          text = this.$i18n.t(trad, { [param]: this.params[param] })
+          text = this.$i18n.t(trad, { [param]: currentParams[param] })
         } else if (trad) {
           text = this.$i18n.t(trad)
         } else {
-          text = this.params[param]
+          text = currentParams[param]
         }
         return { name, text }
       })
-    },
+    }
+  },
 
-    lastIndex: function () {
-      return this.breadcrumb.length - 1
+  methods: {
+    getRouteArgs (routeName) {
+      const route = this.$router.options.routes.find(route => route.name === routeName)
+      return route ? route.meta.args : {}
     }
   }
 }
