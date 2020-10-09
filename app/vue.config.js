@@ -52,10 +52,16 @@ module.exports = {
     }
   },
   devServer: {
+    https: true,
     proxy: {
-      '^/api': {
-        target: `https://${process.env.VUE_APP_IP}/yunohost`
+      '^/yunohost': {
+        target: `https://${process.env.VUE_APP_IP}`,
+        ws: true,
+        logLevel: 'debug'
       }
+    },
+    watchOptions: {
+      ignored: /node_modules/
     }
   }
 }
