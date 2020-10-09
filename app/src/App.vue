@@ -30,15 +30,16 @@
     </header>
 
     <!-- MAIN -->
-    <breadcrumb />
+    <api-wait-overlay>
+      <breadcrumb />
 
-    <main id="main">
-      <transition v-if="transitions" :name="transitionName">
-        <router-view class="animated" />
-      </transition>
-      <router-view v-else class="static" />
-    </main>
-
+      <main id="main">
+        <transition v-if="transitions" :name="transitionName">
+          <router-view class="animated" />
+        </transition>
+        <router-view v-else class="static" />
+      </main>
+    </api-wait-overlay>
     <!-- FOOTER -->
     <footer>
       <nav>
@@ -77,14 +78,14 @@
 <script>
 import { mapGetters } from 'vuex'
 
+import ApiWaitOverlay from '@/components/ApiWaitOverlay'
+
 export default {
   name: 'App',
 
-  data () {
-    return {
-      transitionName: null
-    }
-  },
+  data: () => ({
+    transitionName: null
+  }),
 
   computed: {
     ...mapGetters(['connected', 'yunohost', 'transitions'])
@@ -105,6 +106,10 @@ export default {
     async logout () {
       this.$store.dispatch('LOGOUT')
     }
+  },
+
+  components: {
+    ApiWaitOverlay
   },
 
   // This hook is only triggered at page first load

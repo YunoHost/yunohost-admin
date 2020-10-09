@@ -52,6 +52,7 @@ export function objectToParams (object, { addLocale = false } = {}) {
  * @return {DigestedResponse} Parsed response's json, response's text or an error.
  */
 export async function handleResponse (response) {
+  store.commit('UPDATE_WAITING', false)
   if (!response.ok) return handleErrors(response)
   // FIXME the api should always return json objects
   const responseText = await response.text()
@@ -150,6 +151,7 @@ export default {
    * @return {Promise<module:api~DigestedResponse>} Promise that resolve the api responses as an array.
    */
   post (uri, data = {}) {
+    store.commit('UPDATE_WAITING', true)
     return this.fetch('POST', uri, data).then(handleResponse)
   },
 
@@ -161,6 +163,7 @@ export default {
    * @return {Promise<module:api~DigestedResponse>} Promise that resolve the api responses as an array.
    */
   put (uri, data = {}) {
+    store.commit('UPDATE_WAITING', true)
     return this.fetch('PUT', uri, data).then(handleResponse)
   },
 
@@ -172,7 +175,9 @@ export default {
    * @return {Promise<('ok'|Error)>} Promise that resolve the api responses as an array.
    */
   delete (uri, data = {}) {
+    store.commit('UPDATE_WAITING', true)
     return this.fetch('DELETE', uri, data).then(response => {
+      store.commit('UPDATE_WAITING', false)
       return response.ok ? 'ok' : handleErrors(response)
     })
   }
