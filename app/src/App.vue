@@ -3,7 +3,10 @@
     <!-- HEADER -->
     <header>
       <b-navbar>
-        <b-navbar-brand :to="{ name: 'home' }" exact exact-active-class="active">
+        <b-navbar-brand
+          :to="{ name: 'home' }" :disabled="waiting"
+          exact exact-active-class="active"
+        >
           <img alt="Yunohost logo" src="./assets/logo.png">
         </b-navbar-brand>
 
@@ -40,8 +43,12 @@
         <router-view v-else class="static" />
       </main>
     </api-wait-overlay>
+
+    <!-- CONSOLE/HISTORY -->
+    <ynh-console @height-changed="consoleHeight = $event" class="mt-auto" />
+
     <!-- FOOTER -->
-    <footer>
+    <footer :style="'padding-bottom: ' + consoleHeight + 'px;'">
       <nav>
         <b-nav class="justify-content-center">
           <b-nav-item href="https://yunohost.org/docs" target="_blank" link-classes="text-secondary">
@@ -79,22 +86,27 @@
 import { mapGetters } from 'vuex'
 
 import ApiWaitOverlay from '@/components/ApiWaitOverlay'
+import YnhConsole from '@/components/YnhConsole'
 
 export default {
   name: 'App',
 
-  data: () => ({
-    transitionName: null
-  }),
+  data () {
+    return {
+      transitionName: null,
+      // Value used to add padding to the footer so the opened console never hides content
+      consoleHeight: 0
+    }
+  },
 
   computed: {
-    ...mapGetters(['connected', 'yunohost', 'transitions'])
+    ...mapGetters(['connected', 'yunohost', 'transitions', 'waiting'])
   },
 
   watch: {
     // Set the css class to animate the components transition
     '$route' (to, from) {
-      if (!this.transitions) return
+      if (!this.transitions || from.name === null) return
       // Use the breadcrumb array length as a direction indicator
       const toDepth = to.meta.breadcrumb.length
       const fromDepth = from.meta.breadcrumb.length
@@ -109,7 +121,8 @@ export default {
   },
 
   components: {
-    ApiWaitOverlay
+    ApiWaitOverlay,
+    YnhConsole
   },
 
   // This hook is only triggered at page first load
@@ -126,9 +139,19 @@ export default {
 </script>
 
 <style lang="scss">
+// Global import of Bootstrap and custom styles
 @import '@/scss/main.scss';
+</style>
 
-#app > header {
+<style lang="scss" scoped>
+
+::v-deep#app {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+header {
   border-bottom: $thin-border;
   padding-top: 1rem;
   margin-bottom: 1rem;
@@ -146,28 +169,6 @@ export default {
       li {
           margin: .2rem 0;
       }
-      icon {
-          margin-left: .5rem;
-      }
-    }
-  }
-}
-
-#app > footer {
-  padding: 1rem 0;
-  border-top: 1px solid #eee;
-  font-size: 0.875rem;
-  margin-top: 2rem;
-
-  .nav-item {
-    & + .nav-item a::before {
-      content: "•";
-      width: 1rem;
-      display: inline-block;
-      margin-left: -1.15rem;
-    }
-    &:first-child {
-      margin-left: -1rem;
     }
   }
 }
@@ -195,6 +196,35 @@ main {
   // while disabling the transitions in ToolWebAdmin
   .static ~ .animated {
     display: none;
+  }
+}
+
+#console {
+  // Allows the console to be tabbed before the footer links while remaining visually
+  // the last element of the page
+  order: 3;
+}
+
+footer {
+  border-top: 1px solid #eee;
+  font-size: $font-size-sm;
+  margin-top: 2rem;
+  padding-bottom: 3rem;
+
+  .nav {
+    padding: 1rem 0 3rem 0;
+  }
+
+  .nav-item {
+    & + .nav-item a::before {
+      content: "•";
+      width: 1rem;
+      display: inline-block;
+      margin-left: -1.15rem;
+    }
+    &:first-child {
+      margin-left: -1rem;
+    }
   }
 }
 </style>

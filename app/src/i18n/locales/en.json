@@ -7,6 +7,7 @@
     "all": "All",
     "all_apps": "All apps",
     "api_not_responding": "The YunoHost API is not responding. Maybe 'yunohost-api' is down or got restarted?",
+    "api_waiting": "Waiting for the server's response...",
     "app_actions": "Actions",
     "app_actions_label": "Perform actions",
     "app_change_label": "Change Label",
@@ -166,6 +167,16 @@
     "groups_and_permissions": "Groups and permissions",
     "groups_and_permissions_manage": "Manage groups and permissions",
     "permissions": "Permissions",
+    "history": {
+        "title": "History",
+        "last_action": "Last action:",
+        "action": "Action:",
+        "methods": {
+            "POST": "create/execute",
+            "PUT": "modify",
+            "DELETE": "delete"
+        }
+    },
     "home": "Home",
     "hook_adminjs_group_configuration": "System configurations",
     "hook_conf_cron": "Automatic tasks",
@@ -245,6 +256,7 @@
     "passwords_dont_match": "Passwords don't match",
     "passwords_too_short": "Password is too short",
     "path": "Path",
+    "perform": "Perform",
     "placeholder": {
         "username": "johndoe",
         "firstname": "John",
@@ -294,6 +306,7 @@
     "restore": "Restore",
     "restart": "Restart",
     "run": "Run",
+    "running": "Running",
     "save": "Save",
     "search": {
         "domain": "Search for domains...",
