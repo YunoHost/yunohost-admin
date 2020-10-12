@@ -11,20 +11,20 @@
     "i18n:report": "./node_modules/@vue/cli-service/bin/vue-cli-service.js i18n:report --src './src/**/*.?(js|vue)' --locales './src/locales/**/*.json'"
   },
   "dependencies": {
-    "bootstrap-vue": "^2.16.0",
+    "bootstrap-vue": "^2.17.3",
     "core-js": "^3.6.5",
-    "date-fns": "^2.16.0",
+    "date-fns": "^2.16.1",
     "fork-awesome": "^1.1.7",
     "vue": "^2.6.12",
-    "vue-i18n": "^8.21.0",
-    "vue-router": "^3.4.3",
+    "vue-i18n": "^8.21.1",
+    "vue-router": "^3.4.5",
     "vuex": "^3.4.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.4.0",
     "@vue/cli-plugin-eslint": "~4.4.0",
-    "@vue/cli-plugin-router": "^4.5.4",
-    "@vue/cli-plugin-vuex": "^4.5.4",
+    "@vue/cli-plugin-router": "^4.5.6",
+    "@vue/cli-plugin-vuex": "^4.5.6",
     "@vue/cli-service": "~4.4.0",
     "babel-eslint": "^10.1.0",
     "bootstrap": "^4.5.2",
@@ -32,9 +32,9 @@
     "eslint-plugin-vue": "^6.2.2",
     "popper.js": "^1.16.0",
     "portal-vue": "^2.1.6",
-    "sass": "^1.26.10",
+    "sass": "^1.26.11",
     "sass-loader": "^8.0.0",
-    "sass-resources-loader": "^2.1.0",
+    "sass-resources-loader": "^2.1.1",
     "standard": "^14.3.4",
     "vue-cli-plugin-bootstrap-vue": "~0.6.0",
     "vue-cli-plugin-i18n": "~1.0.1",
@@ -65,7 +65,8 @@
         }
       ],
       "template-curly-spacing": "off",
-      "indent": "off"
+      "indent": "off",
+      "no-irregular-whitespace": "off"
     }
   },
   "browserslist": [
