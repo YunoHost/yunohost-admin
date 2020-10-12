@@ -1,12 +1,14 @@
+import Vue from 'vue'
 import api, { timeout } from '@/helpers/api'
 import router from '@/router'
 
 export default {
   state: {
+    host: window.location.host,
     connected: localStorage.getItem('connected') === 'true',
     yunohost: null, // yunohost app infos: Object {version, repo}
     waiting: false,
-    host: window.location.host
+    history: []
   },
 
   mutations: {
@@ -21,6 +23,18 @@ export default {
 
     'UPDATE_WAITING' (state, boolean) {
       state.waiting = boolean
+    },
+
+    'ADD_HISTORY_ENTRY' (state, [uri, method, date]) {
+      state.history.push({ uri, method, date, messages: [] })
+    },
+
+    'ADD_MESSAGE' (state, message) {
+      state.history[state.history.length - 1].messages.push(message)
+    },
+
+    'UPDATE_PROGRESS' (state, progress) {
+      Vue.set(state.history[state.history.length - 1], 'progress', progress)
     }
   },
 
@@ -80,15 +94,46 @@ export default {
       })
     },
 
-    'DISPATCH_MESSAGE' (store, message) {
-      console.log(message)
+    'WAITING_FOR_RESPONSE' ({ commit }, [uri, method]) {
+      commit('UPDATE_WAITING', true)
+      commit('ADD_HISTORY_ENTRY', [uri, method, Date.now()])
+    },
+
+    'SERVER_RESPONDED' ({ state, dispatch, commit }) {
+      if (!state.waiting) return
+      commit('UPDATE_WAITING', false)
+    },
+
+    'DISPATCH_MESSAGE' ({ commit }, messages) {
+      const typeToColor = { error: 'danger' }
+      for (const type in messages) {
+        const message = {
+          text: messages[type],
+          type: type in typeToColor ? typeToColor[type] : type
+        }
+        let progressBar = message.text.match(/^\[#*\+*\.*\] > /)
+        if (progressBar) {
+          progressBar = progressBar[0]
+          message.text = message.text.replace(progressBar, '')
+          const progress = { '#': 0, '+': 0, '.': 0 }
+          for (const char of progressBar) {
+            if (char in progress) progress[char] += 1
+          }
+          commit('UPDATE_PROGRESS', Object.values(progress))
+        }
+        if (message.text) {
+          commit('ADD_MESSAGE', message)
+        }
+      }
     }
   },
 
   getters: {
+    host: state => state.host,
     connected: state => (state.connected),
     yunohost: state => (state.yunohost),
     waiting: state => state.waiting,
-    host: state => state.host
+    history: state => state.history,
+    lastAction: state => state.history[state.history.length - 1]
   }
 }
