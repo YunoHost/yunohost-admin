@@ -1,93 +1,12 @@
 /**
- * api module.
+ * API module.
  * @module api
  */
 
 import store from '@/store'
+import { handleResponse, handleError } from './handlers'
+import { objectToParams } from '@/helpers/commons'
 
-/**
- * Allow to set a timeout on a `Promise` expected response.
- * The returned Promise will be rejected if the original Promise is not resolved or
- * rejected before the delay.
- *
- * @param {Promise} promise - A promise (like a fetch call).
- * @param {number} delay - delay after which the promise is rejected
- * @return {Promise}
- */
-export function timeout (promise, delay) {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => (reject(new Error('api_not_responding'))), delay)
-    promise.then(resolve, reject)
-  })
-}
-
-/**
- * Converts an object literal into an `URLSearchParams` that can be turned into a
- * query string or used as a body in a `fetch` call.
- *
- * @param {Object} object - An object literal to convert.
- * @param {Object} options
- * @param {boolean} [options.addLocale=false] - Option to append the locale to the query string.
- * @return {URLSearchParams}
- */
-export function objectToParams (object, { addLocale = false } = {}) {
-  const urlParams = new URLSearchParams()
-  for (const [key, value] of Object.entries(object)) {
-    if (Array.isArray(value)) {
-      value.forEach(v => urlParams.append(key, v))
-    } else {
-      urlParams.append(key, value)
-    }
-  }
-  if (addLocale) {
-    urlParams.append('locale', store.getters.locale)
-  }
-  return urlParams
-}
-
-/**
- * Handler for api responses.
- *
- * @param {Response} response - A fetch `Response` object.
- * @return {DigestedResponse} Parsed response's json, response's text or an error.
- */
-export async function handleResponse (response) {
-  store.dispatch('SERVER_RESPONDED')
-  if (!response.ok) return handleErrors(response)
-  // FIXME the api should always return json objects
-  const responseText = await response.text()
-  try {
-    return JSON.parse(responseText)
-  } catch {
-    return responseText
-  }
-}
-
-/**
- * Handler for API errors.
- *
- * @param {Response} response - A fetch `Response` object.
- * @throws Will throw an error with the API response text or custom message.
- */
-export async function handleErrors (response) {
-  if (response.status === 401) {
-    store.dispatch('DISCONNECT')
-    throw new Error('Unauthorized')
-  } else if (response.status === 400) {
-    const message = await response.text()
-    throw new Error(message)
-  }
-}
-
-/**
- * A digested fetch response as an object, a string or an error.
- * @typedef {(Object|string|Error)} DigestedResponse
- */
-
-/**
- * Actual api module.
- * @module api/default
- */
 export default {
   options: {
     credentials: 'include',
@@ -201,7 +120,7 @@ export default {
     store.dispatch('WAITING_FOR_RESPONSE', [uri, 'DELETE'])
     return this.fetch('DELETE', uri, data).then(response => {
       store.dispatch('SERVER_RESPONDED')
-      return response.ok ? 'ok' : handleErrors(response)
+      return response.ok ? 'ok' : handleError(response)
     })
   }
 }
