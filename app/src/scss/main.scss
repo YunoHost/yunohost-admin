@@ -17,6 +17,10 @@
 // Style overrides happens after dependencies imports
 
 // Bootstrap overrides
+html, body {
+  height: 100%;
+  overflow-x: hidden;
+}
 body {
   margin: 0;
   font-family: "Source Sans Pro", "Helvetica Neue", "Fira Sans", Helvetica, Arial, sans-serif;
@@ -103,7 +107,6 @@ body {
   position: relative;
   top: 2px;
 }
-
 
 // Fork-awesome overrides
 .fa-fw {
