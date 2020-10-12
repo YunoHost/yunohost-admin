@@ -61,7 +61,7 @@
 </template>
 
 <script>
-import api from '@/helpers/api'
+import api from '@/api'
 import { DomainForm, PasswordForm } from '@/components/reusableForms'
 import LoginView from '@/views/Login'
 

@@ -166,7 +166,7 @@
 </template>
 
 <script>
-import api from '@/helpers/api'
+import api from '@/api'
 import InputHelper from '@/components/InputHelper'
 
 export default {

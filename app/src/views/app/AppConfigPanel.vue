@@ -46,8 +46,9 @@
 
 <script>
 // FIXME needs test and rework
-import api, { objectToParams } from '@/helpers/api'
+import api from '@/api'
 import { formatI18nField, formatYunoHostArgument } from '@/helpers/yunohostArguments'
+import { objectToParams } from '@/helpers/commons'
 
 export default {
   name: 'AppConfigPanel',

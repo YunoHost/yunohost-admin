@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import api from '@/helpers/api'
+import api from '@/api'
 import { PasswordForm } from '@/components/reusableForms'
 import InputHelper from '@/components/InputHelper'
 

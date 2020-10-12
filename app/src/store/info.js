@@ -1,6 +1,7 @@
 import Vue from 'vue'
-import api, { timeout } from '@/helpers/api'
+import api from '@/api'
 import router from '@/router'
+import { timeout } from '@/helpers/commons'
 
 export default {
   state: {

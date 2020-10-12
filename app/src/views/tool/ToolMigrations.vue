@@ -101,7 +101,7 @@
 </template>
 
 <script>
-import api from '@/helpers/api'
+import api from '@/api'
 
 // FIXME not tested with pending migrations (disclaimer and stuff)
 

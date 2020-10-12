@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import api from '@/helpers/api'
+import api from '@/api'
 import { distanceToNow, readableDate } from '@/filters/date'
 import { humanSize } from '@/filters/size'
 
