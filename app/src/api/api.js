@@ -7,6 +7,11 @@ import store from '@/store'
 import { handleResponse, handleError } from './handlers'
 import { objectToParams } from '@/helpers/commons'
 
+/**
+ * A digested fetch response as an object, a string or an error.
+ * @typedef {(Object|string|Error)} DigestedResponse
+ */
+
 export default {
   options: {
     credentials: 'include',

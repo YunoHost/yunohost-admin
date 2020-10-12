@@ -4,9 +4,10 @@ import store from '@/store'
  * Handler for API responses.
  *
  * @param {Response} response - A fetch `Response` object.
- * @return {DigestedResponse} Parsed response's json, response's text or an error.
+ * @return {(Object|String)} Parsed response's json or response's text.
  */
 async function handleResponse (response) {
+  store.dispatch('SERVER_RESPONDED')
   if (!response.ok) return handleError(response)
   // FIXME the api should always return json objects
   const responseText = await response.text()

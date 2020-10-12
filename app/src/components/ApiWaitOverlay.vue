@@ -12,6 +12,7 @@
           <!-- <b-spinner /> -->
           <img class="pacman" src="@/assets/ajax-loader.gif">
         </div>
+
         <b-card-body class="pb-4">
           <b-card-title class="text-center m-0" v-t="'api_waiting'" />
 
@@ -27,7 +28,7 @@
         </b-card-body>
 
         <!-- MESSAGES -->
-        <b-list-group v-if="messages" flush>
+        <b-list-group v-if="messages" flush class="rounded-0">
           <b-list-group-item
             v-for="({ text, type }, i) in messages" :key="i"
             :variant="type"

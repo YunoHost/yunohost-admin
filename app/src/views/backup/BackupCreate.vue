@@ -90,7 +90,7 @@
 </template>
 
 <script>
-import api from '@/helpers/api'
+import api from '@/api'
 
 export default {
   name: 'BackupCreate',

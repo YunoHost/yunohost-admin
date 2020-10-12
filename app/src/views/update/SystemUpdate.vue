@@ -92,7 +92,7 @@
 </template>
 
 <script>
-import api from '@/helpers/api'
+import api from '@/api'
 
 export default {
   name: 'SystemUpdate',
@@ -135,9 +135,9 @@ export default {
   },
 
   created () {
-    this.fetchData()
     // FIXME Do not perform directly the update ?
     this.performUpdate()
+    this.fetchData()
   }
 }
 </script>

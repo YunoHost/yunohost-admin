@@ -107,7 +107,7 @@
 </template>
 
 <script>
-import api from '@/helpers/api'
+import api from '@/api'
 import { distanceToNow } from '@/filters/date'
 
 export default {

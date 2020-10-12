@@ -152,7 +152,7 @@
 </template>
 
 <script>
-import api from '@/helpers/api'
+import api from '@/api'
 import { readableDate } from '@/filters/date'
 
 export default {

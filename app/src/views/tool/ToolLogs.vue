@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import api from '@/helpers/api'
+import api from '@/api'
 import { distanceToNow, readableDate } from '@/filters/date'
 
 export default {
@@ -70,7 +70,7 @@ export default {
             operation[index].class = 'success'
           } else {
             operation[index].icon = 'close'
-            operation[index].class = 'success'
+            operation[index].class = 'danger'
           }
         })
         this.operations = operation

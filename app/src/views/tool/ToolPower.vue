@@ -51,7 +51,7 @@
 </template>
 
 <script>
-import api from '@/helpers/api'
+import api from '@/api'
 import LoginView from '@/views/Login'
 
 export default {

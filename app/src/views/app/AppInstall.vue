@@ -64,8 +64,9 @@
 </template>
 
 <script>
-import api, { objectToParams } from '@/helpers/api'
+import api from '@/api'
 import { formatYunoHostArgument } from '@/helpers/yunohostArguments'
+import { objectToParams } from '@/helpers/commons'
 
 export default {
   name: 'AppInstall',
