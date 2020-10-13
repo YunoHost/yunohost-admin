@@ -79,7 +79,7 @@ export default {
     },
 
     setupForm (data) {
-      if (!data.config_panel) {
+      if (!data.config_panel || data.config_panel.length === 0) {
         this.panels = null
         return
       }
@@ -114,6 +114,7 @@ export default {
         }
       }
 
+      // FIXME not tested at all, route is currently broken
       api.post(`apps/${this.id}/config`, { args: objectToParams(args) }).then(response => {
         console.log('SUCCESS', response)
       }).catch(err => {

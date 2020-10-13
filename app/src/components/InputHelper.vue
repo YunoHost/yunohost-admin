@@ -1,6 +1,7 @@
 <template>
   <b-form-group
-    label-cols="auto" :label="label" :label-for="'input-' + id"
+    label-cols-md="4" label-cols-lg="2"
+    :label="label" :label-for="'input-' + id"
     :description="description"
   >
     <b-input

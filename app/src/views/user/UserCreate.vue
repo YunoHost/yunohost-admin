@@ -1,7 +1,10 @@
 <template lang="html">
   <basic-form :header="$t('users_new')" @submit.prevent="onSubmit">
     <!-- USER NAME -->
-    <b-form-group label-cols="auto" :label="$t('user_username')" label-for="input-username">
+    <b-form-group
+      label-cols-md="4" label-cols-lg="2"
+      :label="$t('user_username')" label-for="input-username"
+    >
       <b-input
         id="input-username" :placeholder="$t('placeholder.username')"
         aria-describedby="username-feedback" required
@@ -14,7 +17,7 @@
     </b-form-group>
 
     <!-- USER FULLNAME -->
-    <b-form-group label-cols="auto">
+    <b-form-group label-cols-md="4" label-cols-lg="2">
       <template v-slot:label aria-hidden="true">
         {{ $t('user_fullname') }}
       </template>
@@ -51,7 +54,10 @@
     </b-form-group>
 
     <!-- USER EMAIL -->
-    <b-form-group label-cols="auto" :label="$t('user_email')" label-for="input-email">
+    <b-form-group
+      label-cols-md="4" label-cols-lg="2"
+      :label="$t('user_email')" label-for="input-email"
+    >
       <adress-input-select
         id="input-email" feedback-id="email-feedback"
         v-model="form.mail" :options="domains"
@@ -65,7 +71,8 @@
 
     <!-- MAILBOX QUOTA -->
     <b-form-group
-      label-cols="auto" :label="$t('user_mailbox_quota')" label-for="input-mailbox-quota"
+      label-cols-md="4" label-cols-lg="2"
+      :label="$t('user_mailbox_quota')" label-for="input-mailbox-quota"
       :description="$t('mailbox_quota_description')"
     >
       <b-input-group append="M">
@@ -77,7 +84,10 @@
     </b-form-group>
 
     <!-- USER PASSWORD -->
-    <b-form-group label-cols="auto" :label="$t('password')" label-for="input-password">
+    <b-form-group
+      label-cols-md="4" label-cols-lg="2"
+      :label="$t('password')" label-for="input-password"
+    >
       <b-input
         id="input-password" placeholder="••••••••"
         aria-describedby="password-feedback" required
@@ -91,7 +101,8 @@
 
     <!-- USER PASSWORD CONFIRMATION -->
     <b-form-group
-      label-cols="auto" :label="$t('password_confirmation')" label-for="input-confirmation"
+      label-cols-md="4" label-cols-lg="2"
+      :label="$t('password_confirmation')" label-for="input-confirmation"
       :description="$t('good_practices_about_user_password')"
     >
       <b-input

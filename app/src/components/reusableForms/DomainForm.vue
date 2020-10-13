@@ -21,7 +21,7 @@
         <small v-html="$t('domain_add_dns_doc')" />
 
         <b-form-group
-          label-cols="auto" class="mt-2"
+          label-cols-md="2" class="mt-2"
           :label="$t('domain_name')" label-for="input-domain" label-tag="strong"
         >
           <b-input
@@ -52,7 +52,7 @@
         <small>{{ $t('domain_add_dyndns_doc') }}</small>
 
         <b-form-group
-          label-cols="auto" class="mt-2"
+          label-cols-md="2" class="mt-2"
           :label="$t('domain_name')" label-for="input-dynDomain"
         >
           <adress-input-select

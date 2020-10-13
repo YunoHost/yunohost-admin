@@ -2,7 +2,7 @@
   <basic-form :header="$t('tools_webadmin_settings')" @submit.prevent="onSubmit" no-footer>
     <!-- LOCALE -->
     <b-form-group
-      label-cols="0" label-cols-lg="2" label-class="font-weight-bold"
+      label-cols-md="4" label-cols-lg="2" label-class="font-weight-bold"
       :label="$t('tools_webadmin.locale')" label-for="locale"
     >
       <b-select
@@ -15,7 +15,7 @@
 
     <!-- FALLBACK LOCALE -->
     <b-form-group
-      label-cols="0" label-cols-lg="2" label-class="font-weight-bold"
+      label-cols-md="4" label-cols-lg="2" label-class="font-weight-bold"
       :label="$t('tools_webadmin.fallback_locale')" label-for="fallback-locale"
     >
       <b-select
@@ -28,7 +28,7 @@
 
     <!-- CACHE -->
     <b-form-group
-      label-cols="0" label-cols-lg="2"
+      label-cols-md="4" label-cols-lg="2"
       :label="$t('tools_webadmin.cache')" label-for="cache" label-class="font-weight-bold"
     >
       <b-checkbox v-model="currentCache" id="cache" switch>
@@ -43,7 +43,7 @@
 
     <!-- TRANSITIONS -->
     <b-form-group
-      label-cols="0" label-cols-lg="2"
+      label-cols-md="4" label-cols-lg="2"
       :label="$t('tools_webadmin.transitions')" label-for="transitions" label-class="font-weight-bold"
     >
       <b-checkbox v-model="currentTransitions" id="transitions" switch>
@@ -55,7 +55,7 @@
     <!-- EXPERIMENTAL MODE (dev environment only)-->
     <b-form-group
       v-if="isDev"
-      label-cols="0" label-cols-lg="2" label-class="font-weight-bold"
+      label-cols-md="4" label-cols-lg="2" label-class="font-weight-bold"
       label-for="experimental"
     >
       <template v-slot:label>

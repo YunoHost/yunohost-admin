@@ -98,11 +98,8 @@ export default {
     setAsDefaultDomain () {
       this.$store.dispatch('PUT',
         { uri: 'domains/main', data: { new_main_domain: this.name }, storeKey: 'main_domain' }
-      ).then(data => {
-        console.log(data)
-      }).catch(() => {
-        // FIXME PUT /domains/main return empty text response instead of json
-        // commit from here for now
+      ).then(() => {
+        // FIXME have to commit here since the response's is empty
         this.$store.commit('UPDATE_MAIN_DOMAIN', this.name)
       })
     }
