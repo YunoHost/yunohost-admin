@@ -16,15 +16,23 @@
 
 // Style overrides happens after dependencies imports
 
-// Bootstrap overrides
-html, body {
-  height: 100%;
-  overflow-x: hidden;
+html {
+  min-height: 100vh;
 }
 body {
+  overflow-x: hidden;
+  min-height: 100vh;
   margin: 0;
   font-family: "Source Sans Pro", "Helvetica Neue", "Fira Sans", Helvetica, Arial, sans-serif;
 }
+
+#app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh
+}
+
+// Bootstrap overrides
 
 .menu-list {
   .list-group-item {

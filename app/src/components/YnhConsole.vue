@@ -68,34 +68,33 @@ export default {
   },
 
   watch: {
-    async open (value) {
+    open (value) {
       // In case it is needed.
       this.$emit('toggle', value)
-      if (!value) {
-        // Reset footer padding.
-        this.$emit('height-changed', 0)
-      } else {
-        // Wait for DOM update.
-        await this.$nextTick()
-        // Send history's elem height so the footer can update its padding.
-        this.$emit('height-changed', this.$refs.history.clientHeight)
-        // Scroll to the last action.
-        const lastActionItem = document.querySelector('#history > .list-group:last-of-type')
-        if (lastActionItem) {
-          lastActionItem.scrollIntoView()
-        }
+      if (value) {
+        // Wait for DOM update and scroll if needed.
+        this.$nextTick().then(this.scrollToLastAction)
       }
     },
 
-    'lastAction.messages' (a, b) {
+    'lastAction.messages' () {
       if (!this.open) return
-      this.$nextTick(() => {
-        document.querySelector('#history > .list-group:last-of-type').scrollIntoView()
-      })
+      this.$nextTick(this.scrollToLastAction)
     }
   },
 
   computed: mapGetters(['history', 'lastAction']),
+
+  methods: {
+    scrollToLastAction () {
+      const historyElem = this.$refs.history
+      const lastActionGroup = historyElem.lastElementChild
+      if (lastActionGroup) {
+        const lastItem = lastActionGroup.lastElementChild || lastActionGroup
+        historyElem.scrollTop = lastItem.offsetTop
+      }
+    }
+  },
 
   filters: {
     readableUri (uri) {

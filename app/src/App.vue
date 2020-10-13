@@ -45,10 +45,10 @@
     </api-wait-overlay>
 
     <!-- CONSOLE/HISTORY -->
-    <ynh-console @height-changed="consoleHeight = $event" class="mt-auto" />
+    <ynh-console />
 
     <!-- FOOTER -->
-    <footer :style="'padding-bottom: ' + consoleHeight + 'px;'">
+    <footer class="py-3 mt-auto">
       <nav>
         <b-nav class="justify-content-center">
           <b-nav-item href="https://yunohost.org/docs" target="_blank" link-classes="text-secondary">
@@ -93,9 +93,7 @@ export default {
 
   data () {
     return {
-      transitionName: null,
-      // Value used to add padding to the footer so the opened console never hides content
-      consoleHeight: 0
+      transitionName: null
     }
   },
 
@@ -144,13 +142,7 @@ export default {
 </style>
 
 <style lang="scss" scoped>
-
-::v-deep#app {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-
+// generic style for <html>, <body> and <#app> is in `scss/main.scss`
 header {
   border-bottom: $thin-border;
   padding-top: 1rem;
@@ -209,11 +201,6 @@ footer {
   border-top: 1px solid #eee;
   font-size: $font-size-sm;
   margin-top: 2rem;
-  padding-bottom: 3rem;
-
-  .nav {
-    padding: 1rem 0 3rem 0;
-  }
 
   .nav-item {
     & + .nav-item a::before {
