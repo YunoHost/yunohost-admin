@@ -5,6 +5,18 @@
     "advanced": "Advanced",
     "administration_password": "Administration password",
     "all": "All",
+    "api_error": {
+        "help": "You should look for help on <a href=\"https://forum.yunohost.org/\">the forum</a> or <a href=\"https://chat.yunohost.org/\">the chat</a> to fix the situation, or report the bug on <a href=\"https://github.com/YunoHost/issues\">the bugtracker</a>.",
+        "info": "The following information might be useful for the person helping you:",
+        "sorry": "Really sorry about that."
+    },
+    "api_errors_titles": {
+        "APIError": "Yunohost encountered an unexpected error",
+        "APIBadRequestError": "Yunohost encountered an error",
+        "APIInternalError": "Yunohost encountered an internal error",
+        "APINotRespondingError": "Yunohost API is not responding",
+        "APIConnexionError": "Yunohost encountered an connexion error"
+    },
     "all_apps": "All apps",
     "apply": "Apply",
     "api_not_responding": "The YunoHost API is not responding. Maybe 'yunohost-api' is down or got restarted?",
@@ -124,6 +136,7 @@
     "domains": "Domains",
     "enable": "Enable",
     "enabled": "Enabled",
+    "error": "Error",
     "error_modify_something": "You should modify something",
     "error_retrieve_feed": "Could not retrieve feed: %s. You might have a plugin prevent your browser from performing this request (or the website is down).",
     "error_select_domain": "You should indicate a domain",
@@ -379,6 +392,7 @@
         "transitions": "Page transition animations"
     },
     "tools_webadmin_settings": "Web-admin settings",
+    "traceback": "Traceback",
     "udp": "UDP",
     "unauthorized": "Unauthorized",
     "unignore": "Unignore",

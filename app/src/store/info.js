@@ -8,6 +8,7 @@ export default {
     host: window.location.host,
     connected: localStorage.getItem('connected') === 'true',
     yunohost: null, // yunohost app infos: Object {version, repo}
+    error: null,
     waiting: false,
     history: []
   },
@@ -36,6 +37,10 @@ export default {
 
     'UPDATE_PROGRESS' (state, progress) {
       Vue.set(state.history[state.history.length - 1], 'progress', progress)
+    },
+
+    'SET_ERROR' (state, error) {
+      state.error = error
     }
   },
 
@@ -55,11 +60,14 @@ export default {
       })
     },
 
-    'DISCONNECT' ({ commit }, route) {
+    'RESET_CONNECTED' ({ commit }) {
       commit('SET_CONNECTED', false)
       commit('SET_YUNOHOST_INFOS', null)
-      // Do not redirect if the current route needs to display an error.
-      if (['login', 'tool-adminpw'].includes(router.currentRoute.name)) return
+    },
+
+    'DISCONNECT' ({ dispatch }, route) {
+      dispatch('RESET_CONNECTED')
+      if (router.currentRoute.name === 'login') return
       router.push({
         name: 'login',
         // Add a redirect query if next route is not unknown (like `logout`) or `login`
@@ -100,9 +108,10 @@ export default {
       commit('ADD_HISTORY_ENTRY', [uri, method, Date.now()])
     },
 
-    'SERVER_RESPONDED' ({ state, dispatch, commit }) {
-      if (!state.waiting) return
-      commit('UPDATE_WAITING', false)
+    'SERVER_RESPONDED' ({ state, dispatch, commit }, responseIsOk) {
+      if (responseIsOk) {
+        commit('UPDATE_WAITING', false)
+      }
     },
 
     'DISPATCH_MESSAGE' ({ commit }, messages) {
@@ -126,6 +135,14 @@ export default {
           commit('ADD_MESSAGE', message)
         }
       }
+    },
+
+    'DISPATCH_ERROR' ({ state, commit }, error) {
+      commit('SET_ERROR', error)
+      if (error.method === 'GET') {
+        router.push({ name: 'error', params: { type: error.code } })
+      }
+      // else the waiting screen will display the error
     }
   },
 
@@ -133,6 +150,7 @@ export default {
     host: state => state.host,
     connected: state => (state.connected),
     yunohost: state => (state.yunohost),
+    error: state => state.error,
     waiting: state => state.waiting,
     history: state => state.history,
     lastAction: state => state.history[state.history.length - 1]

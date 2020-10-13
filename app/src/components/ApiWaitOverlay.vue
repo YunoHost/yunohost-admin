@@ -8,12 +8,16 @@
 
     <template v-slot:overlay>
       <b-card no-body>
-        <div class="d-flex justify-content-center">
+        <div v-if="!error" class="d-flex justify-content-center mt-3">
           <!-- <b-spinner /> -->
           <img class="pacman" src="@/assets/ajax-loader.gif">
         </div>
 
-        <b-card-body class="pb-4">
+        <b-card-body v-if="error">
+          <error-page />
+        </b-card-body>
+
+        <b-card-body v-else class="pb-4">
           <b-card-title class="text-center m-0" v-t="'api_waiting'" />
 
           <!-- PROGRESS BAR -->
@@ -36,6 +40,10 @@
             {{ text }}
           </b-list-group-item>
         </b-list-group>
+
+        <b-card-footer v-if="error">
+          <b-button variant="primary" v-t="'ok'" @click="$store.dispatch('SERVER_RESPONDED', true)" />
+        </b-card-footer>
       </b-card>
     </template>
   </b-overlay>
@@ -43,12 +51,13 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import ErrorPage from '@/views/ErrorPage'
 
 export default {
   name: 'ApiWaitOverlay',
 
   computed: {
-    ...mapGetters(['waiting', 'lastAction']),
+    ...mapGetters(['waiting', 'lastAction', 'error']),
 
     progress () {
       const progress = this.lastAction.progress
@@ -62,6 +71,10 @@ export default {
       const messages = this.lastAction.messages
       return messages.length > 0 ? this.lastAction.messages : null
     }
+  },
+
+  components: {
+    ErrorPage
   }
 }
 </script>
@@ -71,7 +84,6 @@ export default {
   position: sticky;
   top: 5vh;
   margin: 0 5%;
-  padding: 3rem 0;
 
   @include media-breakpoint-up(md) {
     margin: 0 10%;
@@ -83,6 +95,8 @@ export default {
 
 .card-body {
   padding-bottom: 2rem;
+  max-height: 50vh;
+  overflow-y: auto;
 }
 
 .progress {
