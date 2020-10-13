@@ -3,8 +3,14 @@
  * @module router/routes
  */
 
+// Simple views are normally imported and will be included into the main webpack entry.
+// Others will be chunked by webpack so they can be lazy loaded.
+// Webpack chunk syntax is:
+// `() => import(/* webpackChunkName: "views/:nameOfWantedFile" */ '@/views/:ViewComponent')`
+
 import Home from '@/views/Home'
 import Login from '@/views/Login'
+import ErrorPage from '@/views/ErrorPage'
 import ToolList from '@/views/tool/ToolList'
 
 const routes = [
@@ -20,6 +26,18 @@ const routes = [
     name: 'login',
     path: '/login',
     component: Login,
+    meta: { noAuth: true, breadcrumb: [] }
+  },
+
+  /* ────────╮
+   │  ERROR  │
+   ╰──────── */
+  {
+    name: 'error',
+    path: '/error/:type',
+    component: ErrorPage,
+    props: true,
+    // Leave the breadcrumb
     meta: { noAuth: true, breadcrumb: [] }
   },
 

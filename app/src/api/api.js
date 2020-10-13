@@ -4,7 +4,7 @@
  */
 
 import store from '@/store'
-import { handleResponse, handleError } from './handlers'
+import { handleResponse } from './handlers'
 import { objectToParams } from '@/helpers/commons'
 
 /**
@@ -63,6 +63,8 @@ export default {
       const localeQs = `${uri.includes('?') ? '&' : '?'}locale=${store.getters.locale}`
       return fetch('/yunohost/api/' + uri + localeQs, this.options)
     }
+
+    store.dispatch('WAITING_FOR_RESPONSE', [uri, method])
     return fetch('/yunohost/api/' + uri, {
       ...this.options,
       method,
@@ -77,7 +79,7 @@ export default {
    * @return {Promise<module:api~DigestedResponse>} Promise that resolve the api response as an object, a string or as an error.
    */
   get (uri) {
-    return this.fetch('GET', uri).then(handleResponse)
+    return this.fetch('GET', uri).then(response => handleResponse(response, 'GET'))
   },
 
   /**
@@ -98,8 +100,7 @@ export default {
    * @return {Promise<module:api~DigestedResponse>} Promise that resolve the api responses as an array.
    */
   post (uri, data = {}) {
-    store.dispatch('WAITING_FOR_RESPONSE', [uri, 'POST'])
-    return this.fetch('POST', uri, data).then(handleResponse)
+    return this.fetch('POST', uri, data).then(response => handleResponse(response, 'POST'))
   },
 
   /**
@@ -110,8 +111,7 @@ export default {
    * @return {Promise<module:api~DigestedResponse>} Promise that resolve the api responses as an array.
    */
   put (uri, data = {}) {
-    store.dispatch('WAITING_FOR_RESPONSE', [uri, 'PUT'])
-    return this.fetch('PUT', uri, data).then(handleResponse)
+    return this.fetch('PUT', uri, data).then(response => handleResponse(response, 'PUT'))
   },
 
   /**
@@ -122,10 +122,6 @@ export default {
    * @return {Promise<('ok'|Error)>} Promise that resolve the api responses as an array.
    */
   delete (uri, data = {}) {
-    store.dispatch('WAITING_FOR_RESPONSE', [uri, 'DELETE'])
-    return this.fetch('DELETE', uri, data).then(response => {
-      store.dispatch('SERVER_RESPONDED')
-      return response.ok ? 'ok' : handleError(response)
-    })
+    return this.fetch('DELETE', uri, data).then(response => handleResponse(response, 'DELETE'))
   }
 }
