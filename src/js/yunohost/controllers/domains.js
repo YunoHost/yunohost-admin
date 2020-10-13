@@ -14,7 +14,7 @@
             c.api('PUT', '/domains/main', {}, function(data2) {
                 var domains = [];
                 $.each(data.domains, function(k, domain) {
-                    domains.push({
+                    domains.unshift({
                         url: domain,
                         main: (domain == data2.current_main_domain) ? true : false
                     });
