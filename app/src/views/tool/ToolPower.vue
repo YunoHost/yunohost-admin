@@ -18,7 +18,10 @@
       </template>
 
       <!-- REBOOT -->
-      <b-form-group label-cols="auto" :label="$t('tools_reboot_btn')" label-for="reboot">
+      <b-form-group
+        label-cols="5" label-cols-sm="3" label-cols-md="2"
+        :label="$t('tools_reboot_btn')" label-for="reboot"
+      >
         <b-button
           variant="danger" id="reboot" v-b-modal.confirm-action
           @click="action = 'reboot'"
@@ -29,7 +32,10 @@
       <hr>
 
       <!-- SHUTDOWN -->
-      <b-form-group label-cols="auto" :label="$t('tools_shutdown_btn')" label-for="shutdown">
+      <b-form-group
+        label-cols="5" label-cols-sm="3" label-cols-md="2"
+        :label="$t('tools_shutdown_btn')" label-for="shutdown"
+      >
         <b-button
           variant="danger" id="shutdown" v-b-modal.confirm-action
           @click="action = 'shutdown'"
@@ -68,11 +74,10 @@ export default {
   methods: {
     triggerAction (action) {
       api.put(action + '?force').then(() => {
+        // Use 'RESET_CONNECTED' and not 'DISCONNECT' else user will be redirect to login
         this.$store.dispatch('RESET_CONNECTED')
         this.inProcess = true
         this.tryToReconnect()
-      }).catch(err => {
-        console.log('ERR', err)
       })
     },
 
@@ -80,7 +85,7 @@ export default {
       // FIXME need to be tested out of webpack-dev-server
       setTimeout(() => {
         // Try to get a response from the server after boot/reboot
-        // use `api.fetch` to not trigger base response helpers
+        // use `api.fetch` to not trigger base response handlers
         api.fetch('GET', 'logout').then(response => {
           // Server responds with `Unauthorized`, we can display the login input
           if (response.status === 401) {

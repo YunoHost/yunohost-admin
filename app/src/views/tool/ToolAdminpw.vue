@@ -48,7 +48,6 @@ export default {
       api.post('login', { password: this.currentPassword }).then(() => {
         api.put('adminpw', { new_password: password }).then(() => {
           this.$store.dispatch('DISCONNECT')
-          this.$router.push({ name: 'login' })
         }).catch(err => {
           this.error.password = err.message
           this.isValid.password = false

@@ -167,11 +167,7 @@ export default {
       else if (action === 'manual_renew_LE') uri += '?force'
       else if (action === 'revert_to_selfsigned') uri += '?self_signed&force'
 
-      api.post(uri, {}).then(response => {
-        this.fetchData()
-      }).catch(() => {
-        // FIXME api POST calls seems to always return null, error or not
-      })
+      api.post(uri, {}).then(() => this.fetchData())
     }
   },
 
