@@ -28,6 +28,10 @@
         </template>
 
         <b-form id="install-form" @submit.prevent="beforeInstall">
+          <b-alert
+            variant="info" show
+            v-if="form.disclaimer" v-html="form.disclaimer"
+          />
           <form-item-helper v-bind="form.label" />
           <form-item-helper v-for="arg in form.args" :key="arg.name" v-bind="arg" />
 
@@ -65,7 +69,7 @@
 
 <script>
 import api from '@/api'
-import { formatYunoHostArgument } from '@/helpers/yunohostArguments'
+import { formatYunoHostArgument, formatI18nField } from '@/helpers/yunohostArguments'
 import { objectToParams } from '@/helpers/commons'
 
 export default {
@@ -138,13 +142,25 @@ export default {
       this.infos = infos
       this.name = manifest.name
 
+      const args = []
+      let disclaimer
+      manifest.arguments.install.forEach(ynhArg => {
+        const arg = formatYunoHostArgument(ynhArg)
+        if (ynhArg.type === 'display_text') {
+          disclaimer = formatI18nField(ynhArg.ask)
+        } else {
+          args.push(arg)
+        }
+      })
+
       this.form = {
         label: formatYunoHostArgument({
           ask: this.$i18n.t('label_for_manifestname', { name: manifest.name }),
           default: manifest.name,
           name: 'label'
         }),
-        args: manifest.arguments.install.map(arg => formatYunoHostArgument(arg))
+        args,
+        disclaimer
       }
     },
 
