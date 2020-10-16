@@ -1,12 +1,26 @@
 import i18n from '@/i18n'
 import store from '@/store'
 
+/**
+ * Tries to find a translation corresponding to the user's locale/fallback locale in a
+ * Yunohost argument or simply return the string if it's not an object literal.
+ *
+ * @param {(Object|string)} field - A field value containing a translation object or string
+ * @return {string}
+ */
 export function formatI18nField (field) {
   if (typeof field === 'string') return field
   const { locale, fallbackLocale } = store.state
   return field[locale] || field[fallbackLocale] || field.en
 }
 
+/**
+ * Format app install, actions and config panel arguments into a data structure that
+ * will be automaticly transformed into components on screen.
+ *
+ * @param {Object} _arg - a yunohost arg options written by a packager.
+ * @return {Object} an formated argument that can be fed to the FormItemHelper component.
+ */
 export function formatYunoHostArgument (_arg) {
   const arg = {
     component: undefined,
@@ -14,7 +28,7 @@ export function formatYunoHostArgument (_arg) {
     props: { id: _arg.name, value: null }
   }
 
-  // Some apps has `string` as type but expect a select since it has `choices`
+  // Some apps has an argument type `string` as type but expect a select since it has `choices`
   if (_arg.choices !== undefined) {
     arg.component = 'SelectItem'
     arg.props.choices = _arg.choices
@@ -42,7 +56,7 @@ export function formatYunoHostArgument (_arg) {
     arg.component = 'InputItem'
   }
 
-  // Required
+  // Required for inputs (no need for checkbox and select, their values can't be null)
   if (arg.component === 'InputItem') {
     arg.props.required = _arg.optional !== true
   }
