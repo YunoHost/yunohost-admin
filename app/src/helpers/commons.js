@@ -40,3 +40,32 @@ export function objectToParams (object, { addLocale = false } = {}) {
   }
   return urlParams
 }
+
+/**
+ * Check if passed value is an object literal.
+ *
+ * @return {Boolean}
+ */
+export function isObjectLiteral (value) {
+  return value !== null && value !== undefined && Object.is(value.constructor, Object)
+}
+
+/**
+ * Returns an flattened object literal, with all keys at first level and removing nested ones.
+ *
+ * @return {Object}
+ */
+export function flattenObjectLiteral (obj_) {
+  const flattened = {}
+  function flatten (obj) {
+    for (const key in obj) {
+      if (isObjectLiteral(obj[key])) {
+        flatten(obj[key])
+      } else {
+        flattened[key] = obj[key]
+      }
+    }
+  }
+  flatten(obj_)
+  return flattened
+}

@@ -1,5 +1,7 @@
 import i18n from '@/i18n'
 import store from '@/store'
+import * as validators from '@/helpers/validators'
+import { flattenObjectLiteral } from '@/helpers/commons'
 
 /**
  * Tries to find a translation corresponding to the user's locale/fallback locale in a
@@ -15,66 +17,152 @@ export function formatI18nField (field) {
 }
 
 /**
- * Format app install, actions and config panel arguments into a data structure that
- * will be automaticly transformed into components on screen.
+ * Format app install, actions and config panel argument into a data structure that
+ * will be automaticly transformed into a component on screen.
  *
- * @param {Object} _arg - a yunohost arg options written by a packager.
- * @return {Object} an formated argument that can be fed to the FormItemHelper component.
+ * @param {Object} arg - a yunohost arg options written by a packager.
+ * @return {Object} an formated argument containing formItem props, validation and base value.
  */
-export function formatYunoHostArgument (_arg) {
-  const arg = {
+export function formatYunoHostArgument (arg) {
+  let value = null
+  const validation = {}
+  const field = {
     component: undefined,
-    label: formatI18nField(_arg.ask),
-    props: { id: _arg.name, value: null }
+    label: formatI18nField(arg.ask),
+    props: {
+
+    }
+  }
+
+  if (arg.type === 'boolean') {
+    field.id = arg.name
+  } else {
+    field.props.id = arg.name
   }
 
   // Some apps has an argument type `string` as type but expect a select since it has `choices`
-  if (_arg.choices !== undefined) {
-    arg.component = 'SelectItem'
-    arg.props.choices = _arg.choices
+  if (arg.choices !== undefined) {
+    field.component = 'SelectItem'
+    field.props.choices = arg.choices
   // Input
-  } else if ([undefined, 'string', 'number', 'password', 'email'].includes(_arg.type)) {
-    arg.component = 'InputItem'
-    if (![undefined, 'string'].includes(_arg.type)) {
-      arg.props.type = _arg.type
-      if (_arg.type === 'password') {
-        arg.description = i18n.t('good_practices_about_admin_password')
+  } else if ([undefined, 'string', 'number', 'password', 'email'].includes(arg.type)) {
+    field.component = 'InputItem'
+    if (![undefined, 'string'].includes(arg.type)) {
+      field.props.type = arg.type
+      if (arg.type === 'password') {
+        field.description = i18n.t('good_practices_about_admin_password')
+        field.placeholder = '••••••••'
+        validation.passwordLenght = validators.minLength(8)
       }
     }
   // Checkbox
-  } else if (_arg.type === 'boolean') {
-    arg.component = 'CheckboxItem'
-    arg.props.value = _arg.default || false
+  } else if (arg.type === 'boolean') {
+    field.component = 'CheckboxItem'
+    value = arg.default || false
+    console.log('check', value)
   // Special (store related)
-  } else if (['user', 'domain'].includes(_arg.type)) {
-    arg.component = 'SelectItem'
-    arg.link = { name: _arg.type + '-list', text: i18n.t(`manage_${_arg.type}s`) }
-    arg.props = { ...arg.props, ...store.getters[_arg.type + 'sAsOptions'] }
+  } else if (['user', 'domain'].includes(arg.type)) {
+    field.component = 'SelectItem'
+    field.link = { name: arg.type + '-list', text: i18n.t(`manage_${arg.type}s`) }
+    field.props.choices = store.getters[arg.type + 'sAsChoices']
+    value = arg.type === 'domain' ? store.getters.mainDomain : field.props.choices[0].value
+
   // Unknown from the specs, try to display it as an input[text]
   // FIXME throw an error instead ?
   } else {
-    arg.component = 'InputItem'
+    field.component = 'InputItem'
   }
 
-  // Required for inputs (no need for checkbox and select, their values can't be null)
-  if (arg.component === 'InputItem') {
-    arg.props.required = _arg.optional !== true
+  // Required (no need for checkbox its value can't be null)
+  if (field.component !== 'CheckboxItem' && arg.optional !== true) {
+    validation.required = validators.required
   }
   // Default value
-  if (_arg.default) {
-    arg.props.value = _arg.default
+  if (arg.default) {
+    value = arg.default
   }
   // Help message
-  if (_arg.help) {
-    arg.description = formatI18nField(_arg.help)
+  if (arg.help) {
+    field.description = formatI18nField(arg.help)
   }
   // Example
-  if (_arg.example) {
-    arg.example = _arg.example
-    if (arg.component === 'InputItem') {
-      arg.props.placeholder = arg.example
+  if (arg.example) {
+    field.example = arg.example
+    if (field.component === 'InputItem') {
+      field.props.placeholder = field.example
     }
   }
 
-  return arg
+  return {
+    value,
+    field,
+    // Return null instead of empty object if there's no validation
+    validation: Object.keys(validation).length === 0 ? null : validation
+  }
+}
+
+/**
+ * Format app install, actions and config panel manifest args into a form that can be used
+ * as v-model values, fields that can be passed to a FormField component and validations.
+ *
+ * @param {Array} args - a yunohost arg array written by a packager.
+ * @param {String} name - (temp) an app name to build a label field in case of manifest install args
+ * @return {Object} an object containing all parsed values to be used in vue views.
+ */
+export function formatYunoHostArguments (args, name = null) {
+  let disclaimer = null
+  const form = {}
+  const fields = {}
+  const validations = {}
+
+  // FIXME yunohost should add the label field by default
+  if (name) {
+    args.unshift({
+      ask: i18n.t('label_for_manifestname', { name }),
+      default: name,
+      name: 'label'
+    })
+  }
+
+  for (const arg of args) {
+    if (arg.type === 'display_text') {
+      disclaimer = formatI18nField(arg.ask)
+    } else {
+      const { value, field, validation } = formatYunoHostArgument(arg)
+      fields[arg.name] = field
+      form[arg.name] = value
+      if (validation) validations[arg.name] = validation
+    }
+  }
+
+  return { form, fields, validations, disclaimer }
+}
+
+/**
+ * Format a form produced by a vue view to be sent to the server.
+ *
+ * @param {Object} formData - a object literal containing form values.
+ * @param {Object} extraParams - optionnal params
+ * @param {Array} extraParams.extract - an array of keys that should be extracted from the form.
+ * @param {Boolean} extraParams.flatten - flattens or not the passed formData.
+ * @return {Object} the parsed data to be sent to the server, with extracted values if specified.
+ */
+export function formatFormData (formData, { extract = null, flatten = false } = {}) {
+  if (flatten) {
+    formData = flattenObjectLiteral(formData)
+  }
+  const data = {}
+  const extracted = {}
+  for (const [key, value] of Object.entries(formData)) {
+    if (extract && extract.includes(key)) {
+      extracted[key] = value
+    } else {
+      if (typeof value === 'boolean') {
+        data[key] = value ? 1 : 0
+      } else {
+        data[key] = value
+      }
+    }
+  }
+  return extract ? { data, ...extracted } : data
 }
