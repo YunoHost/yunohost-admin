@@ -8,7 +8,7 @@
         </template>
 
         <b-row
-          v-for="key in infosKeys" :key="key"
+          v-for="(info, key) in infos" :key="key"
           no-gutters class="row-line"
         >
           <b-col cols="5" md="3" xl="3">
@@ -16,38 +16,28 @@
             <span class="sep" />
           </b-col>
           <b-col>
-            <span>{{ infos[key] }}</span>
+            <span>{{ info }}</span>
           </b-col>
         </b-row>
       </b-card>
 
       <!-- INSTALL FORM -->
-      <b-card>
-        <template v-slot:header>
-          <h2><icon iname="wrench" /> {{ $t('operations') }}</h2>
+      <basic-form
+        :title="$t('operations')" icon="wrench"
+        :validation="$v" :server-error="serverError"
+        @submit.prevent="beforeInstall"
+      >
+        <template v-if="formDisclaimer" #disclaimer>
+          <b-alert show variant="info" v-html="formDisclaimer" />
         </template>
 
-        <b-form id="install-form" @submit.prevent="beforeInstall">
-          <b-alert
-            variant="info" show
-            v-if="form.disclaimer" v-html="form.disclaimer"
-          />
-          <form-item-helper v-bind="form.label" />
-          <form-item-helper v-for="arg in form.args" :key="arg.name" v-bind="arg" />
+        <form-field
+          v-for="(field, fname) in fields" :key="fname"
+          v-bind="field" v-model="form[fname]"
+          :validation="$v.form[fname]"
+        />
 
-          <b-form-invalid-feedback id="global-feedback" :state="server.isValid">
-            {{ server.error }}
-          </b-form-invalid-feedback>
-        </b-form>
-
-        <template v-slot:footer>
-          <b-button
-            class="ml-auto"
-            type="submit" form="install-form"
-            variant="success" v-t="'install'"
-          />
-        </template>
-      </b-card>
+      </basic-form>
 
       <!-- CONFIRM INSTALL DOMAIN ROOT MODAL -->
       <b-modal
@@ -56,7 +46,7 @@
         @ok="performInstall" hide-header
         :ok-title="$t('install')"
       >
-        {{ $t('confirm_install_domain_root', { domain: confirmDomain }) }}
+        {{ $t('confirm_install_domain_root', { domain: this.form.domain }) }}
       </b-modal>
     </div>
 
@@ -69,11 +59,14 @@
 
 <script>
 import api from '@/api'
-import { formatYunoHostArgument, formatI18nField } from '@/helpers/yunohostArguments'
+import { validationMixin } from 'vuelidate'
+import { formatYunoHostArguments, formatI18nField, formatFormData } from '@/helpers/yunohostArguments'
 import { objectToParams } from '@/helpers/commons'
 
 export default {
   name: 'AppInstall',
+
+  mixins: [validationMixin],
 
   props: {
     id: {
@@ -85,15 +78,17 @@ export default {
   data () {
     return {
       name: undefined,
-      infosKeys: ['id', 'description', 'license', 'version', 'multi_instance'],
       infos: undefined,
+      formDisclaimer: null,
       form: undefined,
-      server: {
-        isValid: null,
-        error: ''
-      },
-      confirmDomain: null
+      fields: undefined,
+      validations: null,
+      serverError: ''
     }
+  },
+
+  validations () {
+    return this.validations
   },
 
   methods: {
@@ -126,48 +121,28 @@ export default {
     },
 
     setupForm (manifest) {
-      if (manifest.license === undefined || manifest.license === 'free') {
-        this.infosKeys.splice(2, 1)
-      }
-      const desc = manifest.description
-      if (typeof desc !== 'string') {
-        manifest.description = desc[this.$i18n.locale] || desc.en
-      }
-      manifest.multi_instance = this.$i18n.t(manifest.multi_instance ? 'yes' : 'no')
-
-      const infos = {}
-      for (const key of this.infosKeys) {
-        infos[key] = manifest[key]
-      }
-      this.infos = infos
       this.name = manifest.name
-
-      const args = []
-      let disclaimer
-      manifest.arguments.install.forEach(ynhArg => {
-        const arg = formatYunoHostArgument(ynhArg)
-        if (ynhArg.type === 'display_text') {
-          disclaimer = formatI18nField(ynhArg.ask)
-        } else {
-          args.push(arg)
-        }
-      })
-
-      this.form = {
-        label: formatYunoHostArgument({
-          ask: this.$i18n.t('label_for_manifestname', { name: manifest.name }),
-          default: manifest.name,
-          name: 'label'
-        }),
-        args,
-        disclaimer
+      const infosKeys = ['id', 'description', 'license', 'version', 'multi_instance']
+      if (manifest.license === undefined || manifest.license === 'free') {
+        infosKeys.splice(2, 1)
       }
+      manifest.description = formatI18nField(manifest.description)
+      manifest.multi_instance = this.$i18n.t(manifest.multi_instance ? 'yes' : 'no')
+      this.infos = Object.fromEntries(infosKeys.map(key => [key, manifest[key]]))
+
+      const { form, fields, validations, disclaimer } = formatYunoHostArguments(
+        manifest.arguments.install,
+        manifest.name
+      )
+
+      this.formDisclaimer = disclaimer
+      this.fields = fields
+      this.form = form
+      this.validations = { form: validations }
     },
 
     beforeInstall () {
-      const path = this.form.args.find(arg => arg.props.id === 'path')
-      if (path && path.props.value === '/') {
-        this.confirmDomain = this.form.args.find(arg => arg.props.id === 'domain').props.value
+      if ('path' in this.form && this.form.path === '/') {
         this.$refs['confirm-domain-root-modal'].show()
       } else {
         this.performInstall()
@@ -175,25 +150,13 @@ export default {
     },
 
     performInstall () {
-      const args = {}
-      for (const arg of this.form.args) {
-        if (arg.component === 'CheckboxItem') {
-          args[arg.props.id] = arg.props.value ? 1 : 0
-        } else {
-          args[arg.props.id] = arg.props.value
-        }
-      }
-      const data = {
-        app: this.id,
-        label: this.form.label.props.value,
-        args: objectToParams(args)
-      }
+      const { data: args, label } = formatFormData(this.form, { extract: ['label'] })
+      const data = { app: this.id, label, args: objectToParams(args) }
 
       api.post('apps', data).then(response => {
         this.$router.push({ name: 'app-list' })
       }).catch(err => {
-        this.server.isValid = false
-        this.server.error = err.message
+        this.serverError = err.message
       })
     }
   },
@@ -203,7 +166,3 @@ export default {
   }
 }
 </script>
-
-<style>
-
-</style>
