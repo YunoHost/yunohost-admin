@@ -1,251 +1,227 @@
-<template lang="html">
-  <basic-form :header="$t('users_new')" @submit.prevent="onSubmit">
+<template>
+  <basic-form
+    :title="$t('users_new')" icon="user"
+    :validation="$v" :server-error="serverError"
+    @submit.prevent="onSubmit"
+  >
     <!-- USER NAME -->
-    <b-form-group
-      label-cols-md="4" label-cols-lg="2"
-      :label="$t('user_username')" label-for="input-username"
-    >
-      <b-input
-        id="input-username" :placeholder="$t('placeholder.username')"
-        aria-describedby="username-feedback" required
-        v-model="form.username" :state="isValid.username"
-        @input="validateUsername" @blur="populateEmail"
-      />
-      <b-form-invalid-feedback id="username-feedback" :state="isValid.username">
-        {{ this.error.username }}
-      </b-form-invalid-feedback>
-    </b-form-group>
+    <form-field v-bind="fields.username" v-model="form.username" :validation="$v.form.username" />
 
     <!-- USER FULLNAME -->
-    <b-form-group label-cols-md="4" label-cols-lg="2">
-      <template v-slot:label aria-hidden="true">
-        {{ $t('user_fullname') }}
+    <form-field
+      v-bind="fields.fullname" :validation="$v.form.fullname"
+    >
+      <template #default="{ self }">
+        <b-input-group>
+          <template v-for="fname in ['firstname', 'lastname']">
+            <b-input-group-prepend :key="fname + 'prepend'">
+              <b-input-group-text :id="fname + '-label'" tag="label">
+                {{ self[fname].label }}
+              </b-input-group-text>
+            </b-input-group-prepend>
+
+            <input-item
+              v-bind="self[fname]" v-model="form.fullname[fname]" :key="fname + 'input'"
+              :name="self[fname].id" :aria-labelledby="fname + '-label'"
+            />
+          </template>
+        </b-input-group>
       </template>
-
-      <div class="input-double">
-        <b-input-group>
-          <b-input-group-prepend
-            tag="label" class="ssr-only" is-text
-            for="input-firstname"
-          >
-            {{ $t('common.firstname') }}
-          </b-input-group-prepend>
-
-          <b-input
-            id="input-firstname" :placeholder="$t('placeholder.firstname')"
-            v-model="form.firstname" required
-          />
-        </b-input-group>
-
-        <b-input-group>
-          <b-input-group-prepend
-            tag="label" class="ssr-only" is-text
-            for="input-lastname"
-          >
-            {{ $t('common.lastname') }}
-          </b-input-group-prepend>
-
-          <b-input
-            id="input-firstname" :placeholder="$t('placeholder.lastname')"
-            v-model="form.lastname" required
-          />
-        </b-input-group>
-      </div>
-    </b-form-group>
+    </form-field>
+    <hr>
 
     <!-- USER EMAIL -->
-    <b-form-group
-      label-cols-md="4" label-cols-lg="2"
-      :label="$t('user_email')" label-for="input-email"
-    >
-      <adress-input-select
-        id="input-email" feedback-id="email-feedback"
-        v-model="form.mail" :options="domains"
-        :state="isValid.mail" @input="validateEmail"
-      />
+    <form-field v-bind="fields.domain" :validation="$v.form.domain">
+      <template #default="{ self }">
+        <b-input-group>
+          <b-input-group-append>
+            <b-input-group-text id="local-part" tag="label" class="border-right-0">
+              {{ form.username }}@
+            </b-input-group-text>
+          </b-input-group-append>
 
-      <b-form-invalid-feedback id="email-feedback" :state="isValid.mail">
-        {{ this.error.mail }}
-      </b-form-invalid-feedback>
-    </b-form-group>
+          <select-item
+            aria-labelledby="local-part" aria-describedby="mail__BV_description_"
+            v-model="form.domain" v-bind="self"
+          />
+        </b-input-group>
+      </template>
+    </form-field>
 
     <!-- MAILBOX QUOTA -->
-    <b-form-group
-      label-cols-md="4" label-cols-lg="2"
-      :label="$t('user_mailbox_quota')" label-for="input-mailbox-quota"
-      :description="$t('mailbox_quota_description')"
-    >
-      <b-input-group append="M">
-        <b-input
-          id="input-mailbox-quota" :placeholder="$t('mailbox_quota_placeholder')"
-          v-model="form.mailbox_quota" type="number" min="0"
-        />
-      </b-input-group>
-    </b-form-group>
+    <form-field v-bind="fields.mailbox_quota" :validation="$v.form.mailbox_quota">
+      <template #default="{ self }">
+        <b-input-group append="M">
+          <input-item v-bind="self" v-model="form.mailbox_quota" />
+        </b-input-group>
+      </template>
+    </form-field>
+    <hr>
 
     <!-- USER PASSWORD -->
-    <b-form-group
-      label-cols-md="4" label-cols-lg="2"
-      :label="$t('password')" label-for="input-password"
-    >
-      <b-input
-        id="input-password" placeholder="••••••••"
-        aria-describedby="password-feedback" required
-        v-model="form.password" type="password"
-        :state="isValid.password" @input="validatePassword"
-      />
-      <b-form-invalid-feedback id="password-feedback" :state="isValid.password">
-        {{ $t('passwords_too_short') }}
-      </b-form-invalid-feedback>
-    </b-form-group>
+    <form-field v-bind="fields.password" v-model="form.password" :validation="$v.form.password" />
 
     <!-- USER PASSWORD CONFIRMATION -->
-    <b-form-group
-      label-cols-md="4" label-cols-lg="2"
-      :label="$t('password_confirmation')" label-for="input-confirmation"
-      :description="$t('good_practices_about_user_password')"
-    >
-      <b-input
-        id="input-confirmation" placeholder="••••••••"
-        aria-describedby="confirmation-feedback" required
-        v-model="form.confirmation" type="password"
-        :state="isValid.confirmation" @input="validatePassword"
-      />
-      <b-form-invalid-feedback id="confirmation-feedback" :state="isValid.confirmation">
-        {{ $t('passwords_dont_match') }}
-      </b-form-invalid-feedback>
-    </b-form-group>
-
-    <b-form-invalid-feedback id="global-feedback" :state="server.isValid">
-      {{ this.server.error }}
-    </b-form-invalid-feedback>
+    <form-field v-bind="fields.confirmation" v-model="form.confirmation" :validation="$v.form.confirmation" />
   </basic-form>
 </template>
 
 <script>
-import BasicForm from '@/components/BasicForm'
-import AdressInputSelect from '@/components/AdressInputSelect'
+import { mapGetters } from 'vuex'
+import { formatFormData } from '@/helpers/yunohostArguments'
+import { validationMixin } from 'vuelidate'
+import {
+  alphalownum_, unique, required, minLength, alpha, sameAs, integer, minValue
+} from '@/helpers/validators'
 
 export default {
   name: 'UserCreate',
+
+  mixins: [validationMixin],
 
   data () {
     return {
       form: {
         username: '',
-        firstname: '',
-        lastname: '',
-        mail: ['', ''],
-        mailbox_quota: '',
+        fullname: {
+          firstname: '',
+          lastname: ''
+        },
+        domain: '',
+        mailbox_quota: 0,
         password: '',
         confirmation: ''
       },
-      isValid: {
-        username: null,
-        mail: null,
-        password: null,
-        confirmation: null
-      },
-      error: {
-        username: '',
-        mail: ''
-      },
-      server: {
-        isValid: null,
-        error: ''
+
+      serverError: '',
+
+      fields: {
+        username: {
+          label: this.$i18n.t('user_username'),
+          props: {
+            id: 'username',
+            placeholder: this.$i18n.t('placeholder.username')
+          }
+        },
+
+        fullname: {
+          label: this.$i18n.t('user_fullname'),
+          id: 'fullname',
+          props: {
+            firstname: {
+              id: 'firstname',
+              label: this.$i18n.t('common.firstname'),
+              placeholder: this.$i18n.t('placeholder.firstname')
+            },
+            lastname: {
+              id: 'lastname',
+              label: this.$i18n.t('common.lastname'),
+              placeholder: this.$i18n.t('placeholder.lastname')
+            }
+          }
+        },
+
+        domain: {
+          id: 'mail',
+          label: this.$i18n.t('user_email'),
+          description: this.$i18n.t('user_email_description'),
+          props: {
+            choices: []
+          }
+        },
+
+        mailbox_quota: {
+          label: this.$i18n.t('user_mailbox_quota'),
+          description: this.$i18n.t('mailbox_quota_description'),
+          example: this.$i18n.t('mailbox_quota_example'),
+          props: {
+            id: 'mailbox-quota',
+            placeholder: this.$i18n.t('mailbox_quota_placeholder'),
+            type: 'number'
+          }
+        },
+
+        password: {
+          label: this.$i18n.t('password'),
+          description: this.$i18n.t('good_practices_about_user_password'),
+          props: {
+            id: 'password',
+            placeholder: '••••••••',
+            type: 'password'
+          }
+        },
+
+        confirmation: {
+          label: this.$i18n.t('password_confirmation'),
+          props: {
+            id: 'confirmation',
+            placeholder: '••••••••',
+            type: 'password'
+          }
+        }
+      }
+    }
+  },
+
+  validations () {
+    return {
+      form: {
+        username: { required, alphalownum_, notInUser: unique(this.userNames) },
+        fullname: {
+          firstname: { required, alpha },
+          lastname: { required, alpha }
+        },
+        domain: { required },
+        mailbox_quota: { positiveIntegrer: required, integer, minValue: minValue(0) },
+        password: {
+          required,
+          passwordLenght: minLength(8)
+        },
+        confirmation: {
+          required,
+          passwordMatch: sameAs('password')
+        }
       }
     }
   },
 
   computed: {
-    domains () {
-      return this.$store.state.data.domains || []
-    }
+    ...mapGetters(['userNames', 'domainsAsChoices', 'mainDomain'])
   },
 
   methods: {
     onSubmit () {
-      for (const key in this.isValid) {
-        if (this.isValid[key] === false) return
+      const data = formatFormData(this.form, { flatten: true })
+      if (parseInt(data.mailbox_quota) !== 0) {
+        data.mailbox_quota += 'M'
       }
-
-      const data = JSON.parse(JSON.stringify(this.form))
-      data.mail = data.mail.join('@')
-      const quota = data.mailbox_quota
-      data.mailbox_quota = parseInt(quota) ? quota + 'M' : 0
-
       this.$store.dispatch(
         'POST', { uri: 'users', data }
       ).then(() => {
         this.$router.push({ name: 'user-list' })
       }).catch(error => {
-        this.server.error = error.message
-        this.server.isValid = false
+        this.serverError = error.message
       })
-    },
-
-    populateEmail () {
-      if (this.form.mail[0] === '') {
-        this.form.mail.splice(0, 1, this.form.username)
-      }
-    },
-
-    validateUsername () {
-      const username = this.form.username
-      let error = ''
-      if (!username.match('^[a-z0-9_]+$')) {
-        // FIXME check allowed characters
-        error = this.$i18n.t('form_errors.username_syntax')
-      } else if (Object.keys(this.$store.state.data.users).includes(username)) {
-        error = this.$i18n.t('form_errors.username_exists', { name: username })
-      }
-      this.error.username = error
-      this.isValid.username = error === '' ? null : false
-    },
-
-    validateEmail () {
-      // FIXME check allowed characters
-      const isValid = this.form.mail.text.match('^[A-Za-z0-9-_]+$')
-      this.error.mail = isValid ? '' : this.$i18n.t('form_errors.email_syntax')
-      this.isValid.mail = isValid ? null : false
-    },
-
-    validatePassword () {
-      const { password, confirmation } = this.form
-      this.isValid.password = password.length >= 8 ? null : false
-      this.isValid.confirmation = password === confirmation ? null : false
     }
   },
 
   created () {
     this.$store.dispatch('FETCH_ALL',
-      [{ uri: 'domains' }, { uri: 'users' }]
+      [{ uri: 'domains' }, { uri: 'users' }, { uri: 'domains/main', storeKey: 'main_domain' }]
     ).then(([domains]) => {
-      this.form.mail.splice(1, 1, domains[0])
+      this.fields.domain.props.choices = this.domainsAsChoices
+      this.form.domain = this.mainDomain
     })
-  },
-
-  components: {
-    AdressInputSelect,
-    BasicForm
   }
 }
 </script>
 
 <style lang="scss" scoped>
-@include media-breakpoint-down(xs) {
-   .form-group + .form-group {
-     padding-top: .5rem;
-     border-top: $thin-border;
-   }
+#lastname-label {
+  border-left: 0;
 }
 
-@include media-breakpoint-up(md) {
-  .input-double {
-    display: flex;
-    .input-group + .input-group {
-      margin-left: .5rem;
-    }
-  }
+.custom-select {
+  flex-basis: 40%;
 }
 </style>
