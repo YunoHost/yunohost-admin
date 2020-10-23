@@ -1,11 +1,11 @@
 <template>
   <b-select
-    v-model="selected"
-    :options="choices"
-    @input="$emit('input', selected)"
-    :required="required"
+    :value="value"
     :id="id"
-    :aria-describedby="id + '-feedback'"
+    :options="choices"
+    :required="required"
+    v-on="$listeners"
+    @blur="$parent.$emit('touch', name)"
   />
 </template>
 
@@ -15,15 +15,10 @@ export default {
 
   props: {
     value: { type: [String, null], default: null },
+    id: { type: String, default: null },
     choices: { type: [Array, Object], required: true },
-    required: { type: Boolean, default: true },
-    id: { type: String, required: true }
-  },
-
-  data () {
-    return {
-      selected: this.value
-    }
+    required: { type: Boolean, default: false },
+    name: { type: String, default: null }
   }
 }
 </script>
