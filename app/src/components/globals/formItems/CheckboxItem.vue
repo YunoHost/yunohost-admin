@@ -1,9 +1,9 @@
 <template>
   <b-checkbox
     v-model="checked"
-    @input="$emit('input', checked)"
+    v-on="$listeners"
     :id="id"
-    :aria-describedby="id + '-feedback'"
+    :aria-describedby="$parent.id + '__BV_description_'"
     switch
   >
     {{ $t(checked ? 'yes' : 'no') }}
@@ -16,7 +16,7 @@ export default {
 
   props: {
     value: { type: Boolean, required: true },
-    id: { type: String, required: true }
+    id: { type: String, default: null }
   },
 
   data () {

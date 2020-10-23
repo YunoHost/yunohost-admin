@@ -1,13 +1,13 @@
 <template>
   <b-input
-    v-model="input"
-    @input="$emit('input', input)"
+    :value="value"
     :id="id"
+    v-on="$listeners"
     :placeholder="placeholder"
-    :aria-describedby="id + '-feedback'"
     :type="type"
-    :state="isValid"
+    :state="state"
     :required="required"
+    @blur="$parent.$emit('touch', name)"
   />
 </template>
 
@@ -16,19 +16,13 @@ export default {
   name: 'InputItem',
 
   props: {
-    value: { type: [String, Number, null], default: null },
-    id: { type: String, required: true },
+    value: { type: [String, Number], default: null },
+    id: { type: String, default: null },
     placeholder: { type: String, default: null },
-    isValid: { type: [Boolean, null], default: null },
-    error: { type: String, default: '' },
     type: { type: String, default: 'text' },
-    required: { type: Boolean, default: true }
-  },
-
-  data () {
-    return {
-      input: this.value
-    }
+    required: { type: Boolean, default: false },
+    state: { type: Boolean, default: null },
+    name: { type: String, default: null }
   }
 }
 </script>
