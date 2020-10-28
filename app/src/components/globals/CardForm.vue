@@ -1,5 +1,5 @@
 <template>
-  <b-card class="basic-form">
+  <b-card class="card-form">
     <template v-slot:header>
       <h2><icon v-if="icon" :iname="icon" /> {{ title }}</h2>
     </template>
@@ -30,7 +30,7 @@
 <script>
 
 export default {
-  name: 'BasicForm',
+  name: 'CardForm',
 
   props: {
     id: { type: String, default: 'ynh-form' },
@@ -62,7 +62,7 @@ export default {
 </script>
 
 <style lang="scss">
-.basic-form .card-footer {
+.card-form .card-footer {
   display: flex;
   justify-content: flex-end;
 

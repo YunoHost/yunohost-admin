@@ -1,13 +1,11 @@
 <template>
-  <!-- v-bind="$attrs" allow to pass default attrs not specified in this component slots  -->
+  <!-- v-bind="$attrs" allow to pass default attrs not specified in this component slots -->
   <b-form-group
     v-bind="attrs"
-    :id="id || props.id + '_group'"
+    :id="_id"
     :label-for="props.id"
     :state="state"
-    :invalid-feedback="errorMessage"
     @touch="touch"
-    class="mb-4"
   >
     <!-- Make field props and state available as scoped slot data -->
     <slot v-bind="{ self: { ...props, state }, touch }">
@@ -22,9 +20,11 @@
       />
     </slot>
 
-    <!-- {{ validation }} -->
+    <template #invalid-feedback>
+      <span v-html="errorMessage" />
+    </template>
 
-    <template v-if="description || example || link" v-slot:description>
+    <template v-if="description || example || link" #description>
       <div class="d-flex">
         <span v-if="example">{{ $t('form_input_example', { example }) }}</span>
 
@@ -50,7 +50,7 @@ export default {
     description: { type: String, default: null },
     example: { type: String, default: null },
     link: { type: Object, default: null },
-    // rendered field component props
+    // Rendered field component props
     component: { type: String, default: 'InputItem' },
     value: { type: null, default: null },
     props: { type: Object, default: () => ({}) },
@@ -58,18 +58,23 @@ export default {
   },
 
   computed: {
+    _id () {
+      if (this.id) return this.id
+      return this.props.id ? this.props.id + '_group' : null
+    },
+
     attrs () {
       const attrs = { ...this.$attrs }
-      const defaultAttrs = {
-        'label-cols-md': 4,
-        'label-cols-lg': 2,
-        'label-class': 'font-weight-bold'
+      if ('label' in attrs) {
+        const defaultAttrs = {
+          'label-cols-md': 4,
+          'label-cols-lg': 2,
+          'label-class': 'font-weight-bold'
+        }
+        for (const attr in defaultAttrs) {
+          if (!(attr in attrs)) attrs[attr] = defaultAttrs[attr]
+        }
       }
-
-      for (const attr in defaultAttrs) {
-        if (!(attr in attrs)) attrs[attr] = defaultAttrs[attr]
-      }
-
       return attrs
     },
 
@@ -116,3 +121,9 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+::v-deep .invalid-feedback code {
+  background-color: $gray-200;
+}
+</style>
