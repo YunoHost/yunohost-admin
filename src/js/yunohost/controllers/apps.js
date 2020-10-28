@@ -683,8 +683,8 @@
     // A small utility to convert a string to title case
     // e.g. "hAvE a NicE dAy" --> "Have A Nice Day"
     // Savagely stolen from https://stackoverflow.com/a/196991
-    function toFriendrlyName(str) {
-        return str.split('.')[1].replace(
+    function toFriendlyName(str) {
+        return str.split('.')[1].replace(/_/g, " ").replace(
             /\w\S*/g,
             function(txt) {
                 return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
@@ -694,26 +694,25 @@
 
     // Get app change label page
     app.get('#/apps/:app/changelabel', function (c) {
-        c.api('GET', '/users/permissions?full', {}, function(data_permissions) {
-            var permissions_dict = data_permissions.permissions;
+        c.api('GET', '/apps/'+c.params['app']+'?full', {}, function(app_data) {
+            var permissions_dict = app_data.permissions;
             var permissions = [
                 permissions_dict[c.params['app'] + '.main']
             ];
             permissions[0].name = c.params['app'] + '.main';
-            permissions[0].title = y18n.t('main_permission');
+            permissions[0].title = y18n.t('permission_main');
             permissions[0].tile_available = permissions[0].url != null && ! permissions[0].url.startsWith('re:');
 
             var i = 1;
             for (var permission in permissions_dict) {
-                if (permission.startsWith(c.params['app'])) {
-                    if (! permission.endsWith('.main')) {
-                        permissions[i] = permissions_dict[permission];
-                        permissions[i].name = permission;
-                        permissions[i].title = toFriendrlyName(permission);
-                        permissions[i].tile_available = permissions_dict[permission].url != null && ! permissions_dict[permission].url.startsWith('re:');
-                    }
-                    i++;
+                if (! permission.endsWith('.main')) {
+                    permissions[i] = permissions_dict[permission];
+                    permissions[i].name = permission;
+                    permissions[i].label = permissions[i].sublabel;
+                    permissions[i].title = toFriendlyName(permission);
+                    permissions[i].tile_available = permissions_dict[permission].url != null && ! permissions_dict[permission].url.startsWith('re:');
                 }
+                i++;
             }
 
             data = {
@@ -730,21 +729,19 @@
 
     // Change app label
     app.post('#/apps/:app/changelabel', function (c) {
-        c.api('GET', '/users/permissions?short', {}, function(data_permissions) {
-            for (perm of data_permissions.permissions) {
-                if (perm.split('.')[0] == c.params['app'])
-                {
-                    if ('show_tile_' + perm in c.params) {
-                        show_tile = "True";
-                    } else {
-                        show_tile = "False";
-                    }
-                    new_label = c.params["label_" + perm]
-                    c.api('PUT', '/users/permissions/' + perm, {show_tile: show_tile, label: new_label}, function(data) {});
+
+        $.each($(".permission-row", c.target), function() {
+                var perm = $(this).data('permission');
+                if ('show_tile_' + perm in c.params) {
+                    show_tile = "True";
+                } else {
+                    show_tile = "False";
                 }
-            }
-            c.redirect_to('#/apps/'+ c.params['app']);
+                new_label = c.params["label_" + perm]
+                c.api('PUT', '/users/permissions/' + perm, {show_tile: show_tile, label: new_label}, function(data) {});
         });
+
+        c.redirect_to('#/apps/'+ c.params['app']);
     });
 
     // Get app change URL page

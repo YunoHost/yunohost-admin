@@ -43,7 +43,7 @@
         <div class="container">
             <p>{{t 'app_info_managelabel_desc' settings.label}}</p>
             <a role="button" href="#/apps/{{settings.id}}/changelabel" class="btn btn-info slide">
-                <span class="fa-tag"></span> {{t 'app_manage_label'}}
+                <span class="fa-tag"></span> {{t 'app_manage_label_and_tiles'}}
             </a>
         </div>
         <hr>
