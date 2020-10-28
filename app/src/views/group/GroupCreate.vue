@@ -1,77 +1,60 @@
 <template lang="html">
-  <basic-form :header="$t('group_new')" @submit.prevent="onSubmit">
+  <card-form
+    :title="$t('group_new')" icon="users"
+    :validation="$v" :server-error="serverError"
+    @submit.prevent="onSubmit"
+  >
     <!-- GROUP NAME -->
-    <b-form-group
-      label-cols="auto"
-      :label="$t('group_name')" label-for="input-groupname"
-      :description="$t('group_format_name_help')"
-    >
-      <b-input
-        id="input-groupname" :placeholder="$t('placeholder.groupname')"
-        aria-describedby="groupname-feedback" required
-        v-model="form.groupname" :state="isValid.groupname"
-        @input="validateGroupname"
-      />
-      <b-form-invalid-feedback id="groupname-feedback" :state="isValid.groupname">
-        {{ this.error.groupname }}
-      </b-form-invalid-feedback>
-    </b-form-group>
-  </basic-form>
+    <form-field v-bind="groupname" v-model="form.groupname" :validation="$v.form.groupname" />
+  </card-form>
 </template>
 
 <script>
-import BasicForm from '@/components/BasicForm'
+import { validationMixin } from 'vuelidate'
+import { required, alphalownum_ } from '@/helpers/validators'
+
 
 export default {
   name: 'GroupCreate',
+
+  mixins: [validationMixin],
 
   data () {
     return {
       form: {
         groupname: ''
       },
-      isValid: {
-        groupname: null
-      },
-      error: {
-        groupname: ''
+
+      serverError: '',
+
+      groupname: {
+        label: this.$i18n.t('group_name'),
+        description: this.$i18n.t('group_format_name_help'),
+        props: {
+          id: 'groupname',
+          placeholder: this.$i18n.t('placeholder.groupname')
+        }
       }
+    }
+  },
+
+  validations: {
+    form: {
+      groupname: { required, alphalownum_ }
     }
   },
 
   methods: {
     onSubmit () {
-      for (const key in this.isValid) {
-        if (this.isValid[key] === false) return
-      }
-      const data = { groupname: this.form.groupname.replaceAll(' ', '_').toLowerCase() }
-
       this.$store.dispatch(
-        'POST', { uri: 'users/groups', data, storeKey: 'groups' }
+        'POST', { uri: 'users/groups', data: this.form, storeKey: 'groups' }
       ).then(() => {
         this.$router.push({ name: 'group-list' })
       }).catch(error => {
         this.error.groupname = error.message
         this.isValid.groupname = false
       })
-    },
-
-    validateGroupname () {
-      const groupname = this.form.groupname
-      let error = ''
-      if (!groupname.match('^[A-Za-z0-9_ ]+$')) {
-        error = this.$i18n.t('form_errors.groupname_syntax')
-      }
-      this.error.groupname = error
-      this.isValid.groupname = error === '' ? null : false
     }
-  },
-
-  components: {
-    BasicForm
   }
 }
 </script>
-
-<style lang="scss" scoped>
-</style>
