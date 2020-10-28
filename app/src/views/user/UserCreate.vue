@@ -1,6 +1,6 @@
 <template>
-  <basic-form
-    :title="$t('users_new')" icon="user"
+  <card-form
+    :title="$t('users_new')" icon="user-plus"
     :validation="$v" :server-error="serverError"
     @submit.prevent="onSubmit"
   >
@@ -30,7 +30,7 @@
     </form-field>
     <hr>
 
-    <!-- USER EMAIL -->
+    <!-- USER MAIL DOMAIN -->
     <form-field v-bind="fields.domain" :validation="$v.form.domain">
       <template #default="{ self }">
         <b-input-group>
@@ -63,16 +63,18 @@
 
     <!-- USER PASSWORD CONFIRMATION -->
     <form-field v-bind="fields.confirmation" v-model="form.confirmation" :validation="$v.form.confirmation" />
-  </basic-form>
+  </card-form>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
-import { formatFormData } from '@/helpers/yunohostArguments'
 import { validationMixin } from 'vuelidate'
+
+import { formatFormData } from '@/helpers/yunohostArguments'
 import {
-  alphalownum_, unique, required, minLength, alpha, sameAs, integer, minValue
+  alphalownum_, unique, required, minLength, name, sameAs, integer, minValue
 } from '@/helpers/validators'
+
 
 export default {
   name: 'UserCreate',
@@ -124,10 +126,8 @@ export default {
         domain: {
           id: 'mail',
           label: this.$i18n.t('user_email'),
-          description: this.$i18n.t('user_email_description'),
-          props: {
-            choices: []
-          }
+          description: this.$i18n.t('user_mail_domain_description'),
+          props: { choices: [] }
         },
 
         mailbox_quota: {
@@ -163,30 +163,22 @@ export default {
     }
   },
 
+  computed: mapGetters(['userNames', 'domainsAsChoices', 'mainDomain']),
+
   validations () {
     return {
       form: {
-        username: { required, alphalownum_, notInUser: unique(this.userNames) },
+        username: { required, alphalownum_, notInUsers: unique(this.userNames) },
         fullname: {
-          firstname: { required, alpha },
-          lastname: { required, alpha }
+          firstname: { required, name },
+          lastname: { required, name }
         },
         domain: { required },
         mailbox_quota: { positiveIntegrer: required, integer, minValue: minValue(0) },
-        password: {
-          required,
-          passwordLenght: minLength(8)
-        },
-        confirmation: {
-          required,
-          passwordMatch: sameAs('password')
-        }
+        password: { required, passwordLenght: minLength(8) },
+        confirmation: { required, passwordMatch: sameAs('password') }
       }
     }
-  },
-
-  computed: {
-    ...mapGetters(['userNames', 'domainsAsChoices', 'mainDomain'])
   },
 
   methods: {
