@@ -1,12 +1,13 @@
 import store from '@/store'
 
+
 /**
  * Allow to set a timeout on a `Promise` expected response.
  * The returned Promise will be rejected if the original Promise is not resolved or
  * rejected before the delay.
  *
  * @param {Promise} promise - A promise (like a fetch call).
- * @param {number} delay - delay after which the promise is rejected
+ * @param {Number} delay - delay after which the promise is rejected
  * @return {Promise}
  */
 export function timeout (promise, delay) {
@@ -17,18 +18,19 @@ export function timeout (promise, delay) {
   })
 }
 
+
 /**
  * Converts an object literal into an `URLSearchParams` that can be turned into a
  * query string or used as a body in a `fetch` call.
  *
- * @param {Object} object - An object literal to convert.
+ * @param {Object} obj - An object literal to convert.
  * @param {Object} options
- * @param {boolean} [options.addLocale=false] - Option to append the locale to the query string.
+ * @param {Boolean} [options.addLocale=false] - Option to append the locale to the query string.
  * @return {URLSearchParams}
  */
-export function objectToParams (object, { addLocale = false } = {}) {
+export function objectToParams (obj, { addLocale = false } = {}) {
   const urlParams = new URLSearchParams()
-  for (const [key, value] of Object.entries(object)) {
+  for (const [key, value] of Object.entries(obj)) {
     if (Array.isArray(value)) {
       value.forEach(v => urlParams.append(key, v))
     } else {
@@ -41,31 +43,61 @@ export function objectToParams (object, { addLocale = false } = {}) {
   return urlParams
 }
 
+
 /**
  * Check if passed value is an object literal.
  *
+ * @param {*} value - Anything.
  * @return {Boolean}
  */
 export function isObjectLiteral (value) {
   return value !== null && value !== undefined && Object.is(value.constructor, Object)
 }
 
+
+/**
+ * Check if value is "empty" (`null`, `undefined`, `''`, `[]`, '{}').
+ * Note: `0` is not considered "empty" in that helper.
+ *
+ * @param {*} value - Anything.
+ * @return {Boolean}
+ */
+export function isEmptyValue (value) {
+  if (value === 0) return false
+  return !value || value.length === 0 || Object.keys(value).length === 0
+}
+
+
 /**
  * Returns an flattened object literal, with all keys at first level and removing nested ones.
  *
+ * @param {Object} obj - An object literal to flatten.
+ * @param {Object} [flattened={}] - An object literal to add passed obj keys/values.
  * @return {Object}
  */
-export function flattenObjectLiteral (obj_) {
-  const flattened = {}
-  function flatten (obj) {
-    for (const key in obj) {
-      if (isObjectLiteral(obj[key])) {
-        flatten(obj[key])
+export function flattenObjectLiteral (obj, flattened = {}) {
+  function flatten (objLit) {
+    for (const key in objLit) {
+      const value = objLit[key]
+      if (isObjectLiteral(value)) {
+        flatten(value)
       } else {
-        flattened[key] = obj[key]
+        flattened[key] = value
       }
     }
   }
-  flatten(obj_)
+  flatten(obj)
   return flattened
+}
+
+
+/**
+ * Returns an new array containing items that are in first array but not in the other.
+ *
+ * @param {Array} [arr1=[]]
+ * @param {Array} [arr2=[]]
+ * @return {Array}
+ */
+export function arrayDiff (arr1 = [], arr2 = []) {
+  return arr1.filter(item => !arr2.includes(item))
 }

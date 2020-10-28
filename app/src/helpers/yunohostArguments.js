@@ -1,20 +1,52 @@
 import i18n from '@/i18n'
 import store from '@/store'
 import * as validators from '@/helpers/validators'
-import { flattenObjectLiteral } from '@/helpers/commons'
+import { isObjectLiteral, isEmptyValue, flattenObjectLiteral } from '@/helpers/commons'
+
 
 /**
  * Tries to find a translation corresponding to the user's locale/fallback locale in a
  * Yunohost argument or simply return the string if it's not an object literal.
  *
- * @param {(Object|string)} field - A field value containing a translation object or string
- * @return {string}
+ * @param {(Object|String)} field - A field value containing a translation object or string
+ * @return {String}
  */
 export function formatI18nField (field) {
   if (typeof field === 'string') return field
   const { locale, fallbackLocale } = store.state
   return field[locale] || field[fallbackLocale] || field.en
 }
+
+
+/**
+ * Returns a string size declaration to a M value.
+ *
+ * @param {String} sizeStr - A size declared like '500M' or '56k'
+ * @return {Number}
+ */
+export function sizeToM (sizeStr) {
+  const unit = sizeStr.slice(-1)
+  const value = sizeStr.slice(0, -1)
+  if (unit === 'M') return parseInt(value)
+  if (unit === 'b') return Math.ceil(value / (1024 * 1024))
+  if (unit === 'k') return Math.ceil(value / 1024)
+  if (unit === 'G') return Math.ceil(value * 1024)
+  if (unit === 'T') return Math.ceil(value * 1024 * 1024)
+}
+
+
+/**
+ * Returns a formatted address element to be used by AdressInputSelect component.
+ *
+ * @param {String} address - A string representing an adress (subdomain or email)
+ * @return {Object} - `{ localPart, separator, domain }`.
+ */
+export function adressToFormValue (address) {
+  const separator = address.includes('@') ? '@' : '.'
+  const [localPart, domain] = address.split(separator)
+  return { localPart, separator, domain }
+}
+
 
 /**
  * Format app install, actions and config panel argument into a data structure that
@@ -29,9 +61,7 @@ export function formatYunoHostArgument (arg) {
   const field = {
     component: undefined,
     label: formatI18nField(arg.ask),
-    props: {
-
-    }
+    props: {}
   }
 
   if (arg.type === 'boolean') {
@@ -59,7 +89,6 @@ export function formatYunoHostArgument (arg) {
   } else if (arg.type === 'boolean') {
     field.component = 'CheckboxItem'
     value = arg.default || false
-    console.log('check', value)
   // Special (store related)
   } else if (['user', 'domain'].includes(arg.type)) {
     field.component = 'SelectItem'
@@ -101,6 +130,7 @@ export function formatYunoHostArgument (arg) {
   }
 }
 
+
 /**
  * Format app install, actions and config panel manifest args into a form that can be used
  * as v-model values, fields that can be passed to a FormField component and validations.
@@ -138,31 +168,56 @@ export function formatYunoHostArguments (args, name = null) {
   return { form, fields, validations, disclaimer }
 }
 
+
+/**
+ * Format helper for a form value.
+ * Convert Boolean to (1|0) and concatenate adresses.
+ *
+ * @param {*} value
+ * @return {*}
+ */
+function formatFormDataValue (value) {
+  if (typeof value === 'boolean') {
+    return value ? 1 : 0
+  } else if (isObjectLiteral(value) && 'separator' in value) {
+    return Object.values(value).join('')
+  }
+  return value
+}
+
+
 /**
  * Format a form produced by a vue view to be sent to the server.
  *
- * @param {Object} formData - a object literal containing form values.
- * @param {Object} extraParams - optionnal params
- * @param {Array} extraParams.extract - an array of keys that should be extracted from the form.
- * @param {Boolean} extraParams.flatten - flattens or not the passed formData.
+ * @param {Object} formData - An object literal containing form values.
+ * @param {Object} [extraParams] - Optionnal params
+ * @param {Array} [extraParams.extract] - An array of keys that should be extracted from the form.
+ * @param {Boolean} [extraParams.flatten=false] - Flattens or not the passed formData.
+ * @param {Boolean} [extraParams.removeEmpty=true] - Removes "empty" values from the object.
  * @return {Object} the parsed data to be sent to the server, with extracted values if specified.
  */
-export function formatFormData (formData, { extract = null, flatten = false } = {}) {
-  if (flatten) {
-    formData = flattenObjectLiteral(formData)
+export function formatFormData (
+  formData,
+  { extract = null, flatten = false, removeEmpty = true } = {}
+) {
+  const output = {
+    data: {},
+    extracted: {}
   }
-  const data = {}
-  const extracted = {}
-  for (const [key, value] of Object.entries(formData)) {
-    if (extract && extract.includes(key)) {
-      extracted[key] = value
+  for (const key in formData) {
+    const type = extract && extract.includes(key) ? 'extracted' : 'data'
+    const value = Array.isArray(formData[key])
+      ? formData[key].map(item => formatFormDataValue(item))
+      : formatFormDataValue(formData[key])
+
+    if (removeEmpty && isEmptyValue(value)) {
+      continue
+    } else if (flatten && isObjectLiteral(value)) {
+      flattenObjectLiteral(value, output[type])
     } else {
-      if (typeof value === 'boolean') {
-        data[key] = value ? 1 : 0
-      } else {
-        data[key] = value
-      }
+      output[type][key] = value
     }
   }
+  const { data, extracted } = output
   return extract ? { data, ...extracted } : data
 }
