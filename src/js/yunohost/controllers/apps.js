@@ -206,7 +206,7 @@
 
                   // Check text search
                   var input = jQuery("#filter-app-cards").val().toLowerCase();
-                  if (jQuery(this).find('.app-title').text().toLowerCase().indexOf(input) <= -1) return false;
+                  if (jQuery(this).find('.app-title, .app-card-desc').text().toLowerCase().indexOf(input) <= -1) return false;
 
                   // Check subtags
                   var subtag = $(".subtag-selector button.active").data("subtag");
