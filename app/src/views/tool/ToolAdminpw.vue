@@ -1,17 +1,13 @@
 <template>
   <password-form
-    :title="$t('postinstall_set_password')" :submit-text="$t('next')"
-    :error="error" :is-valid="isValid"
+    :title="$t('postinstall_set_password')"
+    :server-error="serverError"
     @submit="onSubmit"
+    :extra="extra"
   >
-    <template v-slot:input>
+    <template #extra-fields="{ v, fields, form }">
       <!-- CURRENT ADMIN PASSWORD -->
-      <input-helper
-        id="current-password" type="password" :label="$t('tools_adminpw_current')"
-        v-model="currentPassword" :placeholder="$t('tools_adminpw_current_placeholder')"
-        :state="isValid.currentPassword" :error="error.currentPassword"
-        @input="validateCurrentPassword"
-      />
+      <form-field v-bind="fields.currentPassword" v-model="form.currentPassword" :validation="v.form.currentPassword" />
       <hr>
     </template>
   </password-form>
@@ -19,53 +15,60 @@
 
 <script>
 import api from '@/api'
+import { validationMixin } from 'vuelidate'
+
 import { PasswordForm } from '@/components/reusableForms'
-import InputHelper from '@/components/InputHelper'
+import { required, minLength } from '@/helpers/validators'
+
 
 export default {
   name: 'ToolAdminpw',
 
   data () {
     return {
-      currentPassword: '',
-      isValid: {
-        currentPassword: null,
-        password: null,
-        confirmation: null
-      },
-      error: {
-        currentPassword: '',
-        password: '',
-        confirmation: ''
+      serverError: '',
+
+      extra: {
+        form: {
+          currentPassword: ''
+        },
+        fields: {
+          currentPassword: {
+            label: this.$i18n.t('tools_adminpw_current'),
+            description: this.$i18n.t('tools_adminpw_current_placeholder'),
+            props: { id: 'current-password', type: 'password', placeholder: '••••••••' }
+          }
+        },
+        validations: {
+          currentPassword: { required, passwordLenght: minLength(8) }
+        }
       }
     }
   },
 
   methods: {
-    onSubmit (password) {
-      if (this.isValid.currentPassword === false) return
-
-      api.post('login', { password: this.currentPassword }).then(() => {
-        api.put('adminpw', { new_password: password }).then(() => {
-          this.$store.dispatch('DISCONNECT')
-        }).catch(err => {
-          this.error.password = err.message
-          this.isValid.password = false
-        })
-      }).catch(() => {
-        this.error.currentPassword = this.$i18n.t('wrong_password')
-        this.isValid.currentPassword = false
+    onSubmit ({ password, currentPassword }) {
+      this.serverError = ''
+      // Use `api.fetch` to avoid automatic redirect on 401 (Unauthorized).
+      api.fetch('POST', 'login', { password: currentPassword }).then(response => {
+        if (response.status === 401) {
+          // Dispatch `SERVER_RESPONDED` to hide waiting overlay and display error.
+          this.$store.dispatch('SERVER_RESPONDED', true)
+          this.serverError = this.$i18n.t('wrong_password')
+        } else if (response.ok) {
+          api.put('adminpw', { new_password: password }).then(() => {
+            this.$store.dispatch('DISCONNECT')
+          }).catch(error => {
+            this.serverError = error.message
+          })
+        }
       })
-    },
-
-    validateCurrentPassword () {
-      this.error.currentPassword = this.$i18n.t('passwords_too_short')
-      this.isValid.currentPassword = this.currentPassword.length >= 8 ? null : false
     }
   },
 
+  mixins: [validationMixin],
+
   components: {
-    InputHelper,
     PasswordForm
   }
 }

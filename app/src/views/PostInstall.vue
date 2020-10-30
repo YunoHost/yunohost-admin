@@ -17,7 +17,7 @@
 
     <!-- DOMAIN SETUP STEP -->
     <template v-else-if="step === 'domain'">
-      <domain-form :title="$t('postinstall_set_domain')" :submit-text="$t('next')" @submit.prevent="setDomain">
+      <domain-form :title="$t('postinstall_set_domain')" :submit-text="$t('next')" @submit="setDomain">
         <template #disclaimer>
           <b-alert variant="warning" show v-t="'postinstall_domain'" />
         </template>
@@ -30,8 +30,8 @@
 
     <!-- PASSWORD SETUP STEP -->
     <template v-else-if="step === 'password'">
-      <password-form :title="$t('postinstall_set_password')" :submit-text="$t('next')" @submit.prevent="setPassword">
-        <template v-slot:message>
+      <password-form :title="$t('postinstall_set_password')" :submit-text="$t('next')" @submit="setPassword">
+        <template #disclaimer>
           <b-alert variant="warning" show v-t="'postinstall_password'" />
         </template>
       </password-form>
@@ -82,7 +82,7 @@ export default {
       this.step = 'password'
     },
 
-    setPassword (password) {
+    setPassword ({ password }) {
       this.password = password
       this.$refs['post-install-modal'].show()
     },

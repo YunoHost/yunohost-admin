@@ -1,119 +1,84 @@
 <template>
-  <b-card header-tag="h2" class="basic-form">
-    <template v-slot:header>
-      <h2><icon iname="key-modern" /> {{ title }}</h2>
-    </template>
-
-    <b-form id="password-form" @submit.prevent="onSubmit">
+  <card-form
+    :title="title" icon="key-modern" :submit-text="submitText"
+    :validation="$v" :server-error="serverError"
+    @submit.prevent="onSubmit"
+  >
+    <template #disclaimer>
       <b-alert variant="warning" show>
         {{ $t('good_practices_about_admin_password') }}
       </b-alert>
-
-      <slot name="message" />
-
+      <slot name="disclaimer" />
       <hr>
-
-      <slot name="input" />
-
-      <!-- PASSWORD -->
-      <input-helper
-        id="password" type="password" :label="$t('password_new')"
-        v-model="form.password" :placeholder="$t('tools_adminpw_new_placeholder')"
-        :state="isValid.password" :error="error.password"
-        @input="validateNewPassword"
-      />
-
-      <!-- PASSWORD CONFIRMATION -->
-      <input-helper
-        id="confirmation" type="password" :label="$t('password_confirmation')"
-        v-model="form.confirmation" :placeholder="$t('tools_adminpw_confirm_placeholder')"
-        :state="isValid.confirmation" :error="$t('passwords_dont_match')"
-        @input="validateNewPassword"
-      />
-    </b-form>
-
-    <template v-slot:footer>
-      <b-button
-        type="submit" form="password-form" variant="success"
-        :disabled="!everythingValid"
-      >
-        {{ submitText ? submitText : $t('save') }}
-      </b-button>
+      {{ $v.form.currentPassword }}
     </template>
-  </b-card>
+
+    <slot name="extra-fields" v-bind="{ v: $v, fields, form }" />
+
+    <!-- ADMIN PASSWORD -->
+    <form-field v-bind="fields.password" v-model="form.password" :validation="$v.form.password" />
+
+    <!-- ADMIN PASSWORD CONFIRMATION -->
+    <form-field v-bind="fields.confirmation" v-model="form.confirmation" :validation="$v.form.confirmation" />
+  </card-form>
 </template>
 
 <script>
-import InputHelper from '@/components/InputHelper'
+import { validationMixin } from 'vuelidate'
+
+import { required, minLength, sameAs } from '@/helpers/validators'
+
 
 export default {
   name: 'PasswordForm',
 
   props: {
-    title: {
-      type: String,
-      required: true
-    },
-    submitText: {
-      type: String,
-      default: null
-    },
-    isValid: {
-      type: Object,
-      default: () => ({
-        password: null,
-        confirmation: null
-      })
-    },
-    error: {
-      type: Object,
-      default: () => ({
-        password: '',
-        confirmation: ''
-      })
-    }
+    title: { type: String, required: true },
+    submitText: { type: String, default: null },
+    serverError: { type: String, default: '' },
+    extra: { type: Object, default: () => ({ form: {}, fields: {}, validations: {} }) }
   },
 
   data () {
     return {
       form: {
         password: '',
-        confirmation: ''
+        confirmation: '',
+        ...this.extra.form
+      },
+
+      fields: {
+        password: {
+          label: this.$i18n.t('password'),
+          props: { id: 'password', type: 'password', placeholder: '••••••••' }
+        },
+
+        confirmation: {
+          label: this.$i18n.t('password_confirmation'),
+          props: { id: 'confirmation', type: 'password', placeholder: '••••••••' }
+        },
+
+        ...this.extra.fields
       }
     }
   },
 
-  computed: {
-    everythingValid () {
-      for (const key in this.isValid) {
-        if (this.form[key] === '') return false
-        if (this.isValid[key] === false) return false
+  validations () {
+    return {
+      form: {
+        password: { required, passwordLenght: minLength(8) },
+        confirmation: { required, passwordMatch: sameAs('password') },
+        ...this.extra.validations
       }
-      return true
     }
   },
 
   methods: {
     onSubmit () {
-      if (this.everythingValid) {
-        this.$emit('submit', this.form.password)
-      }
-    },
-
-    isValidPassword (password) {
-      return password.length >= 8 ? null : false
-    },
-
-    validateNewPassword () {
-      const { password, confirmation } = this.form
-      this.error.password = this.$i18n.t('passwords_too_short')
-      this.isValid.password = this.isValidPassword(password)
-      this.isValid.confirmation = password === confirmation ? null : false
+      this.$emit('submit', this.form)
     }
   },
 
-  components: {
-    InputHelper
-  }
+  mixins: [validationMixin]
 }
 </script>
