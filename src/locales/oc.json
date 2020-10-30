@@ -375,7 +375,7 @@
     "certificate_alert_great": "Perfièch ! Sètz a utilizar un certificat  Let’s Encrypt valid !",
     "certificate_old_letsencrypt_app_conflict": "L’aplicacion « letsencrypt » es actualament installada e es en conflicte amb aquesta foncionalitat. Mercés de la desinstallar per utilizar la novèla interfàcia de gestion dels certificats.",
     "domain_not_eligible_for_ACME": "Aqueste domeni sembla pas prèst per un certificat Let’s Encrypt. Mercés de verificar la configuracion DNS e l’accessibilitat del servidor HTTP. Las seccions « enregistrament DNS » e « Web » de <a href='#/diagnosis'>la pagina de diagnostic</a> pòt vos ajudar a comprendre çò qu’es pas configurat coma cal.",
-    "manually_renew_letsencrypt_message": "Lo certificat serà renovat automaticament pendent los 15 darrièrs jorns de validitat. Podètz lo renovar manualament se volètz. (Pas recomandat).",
+    "manually_renew_letsencrypt_message": "Lo certificat serà renovat automaticament pendent los darrièrs 15 jorns de validitat. Podètz lo renovar manualament se volètz. (Pas recomandat).",
     "meltdown": "Sètz vulnerable a la falha de seguretat critica <a target=\"_blank\" href=\"https://meltdownattack.com/\">meltdown</a>. Per dire de resòlvre aqueste problèma, vos cal <a href=\"#/update\">actualizar vòstre sistèma</a> puèi <a href=\"#/tools/reboot\"> lo tornar aviar</a> per cargar lo nòu nuclèu linux.",
     "revert_to_selfsigned_cert_message": "S’o volètz vertadièrament, podètz tornar installar lo certificat auto-signat. (Pas recomandat)",
     "started_at": "Aviat a :",
@@ -475,5 +475,13 @@
     "confirm_service_restart": "Volètz vertadièrament reaviar %s ?",
     "restart": "Reaviar",
     "groups": "Grops",
-    "issues": "%s problèmas"
+    "issues": "%s problèmas",
+    "unmaintained_details": "Fa un moment qu’aquesta aplicacion es pas mai mantenguda e la persona que la manteniá es partida o a pas de temps per la mantenir. Esitetz pas a consultar lo repertòri de las aplicacions per aportar vòstra ajuda",
+    "tip_about_user_email": "Los utilizaires son creats amb una adreça e-mails ligada (e un compte XMPP) al format utilizaire@domeni.tld. Las adreças de transferiments suplementàrias pòdon èsser ajustadas ulteriorament per l’administrator e l’utilizaire.",
+    "operation_failed_explanation": "Aquesta operacion a pas capitat ! O planhèm :( Podètz ensajar de <a href='https://yunohost.org/help'>demandar d’ajuda</a>. Se vos plai donar lo *jornal complèt* de l’operacion qu’ensajan de vos ajudar. Podètz clicar sul boton verd « Partejar amb Yunopaste ». En partejant lo jornal d’audit, YunoHost provarà automaticament d’anonimizar las donadas coma los noms de domeni e adreças IP.",
+    "group_explain_visitors_needed_for_external_client": "Agachatz que certanas aplicacions sián autorizadas pels visitaires se volètz las utilizar amb de clients extèrns. Per exemple, es lo cas per Nextcloud s’avètz idèa d’emplegar un client de sincronizacion pel vòstre smartphone o ordenador de burèu.",
+    "diagnosis_explanation": "La foncionalitat de diagnostic provarà trobar problèmas comuns sus diferents aspèctes de vòstre servidor per s’assegurar que tot fonciona normalament. Lo diagnostic serà tanben realizat dos còps per jorn e enviarà un corrièl a l’administrator se d’errors son detectadas. De notar que d’unes ensages seràn pas mostrats s’utilizatz pas certanas foncions especificas (XMPP, per exemple) o se fracassan a causa d’una configuracion tròp complèxa. Dins aqueste cas, e se sabètz çò qu’avètz modificat, podètz ignorar los problèmas e avertiments correspondents.",
+    "pending_migrations": "I a unas migracions en espèra d’execucion. Anatz a <a href='#/tools/migrations'>Aisinas > Migracions</a> per las lançar.",
+    "log_suboperations": "Jos-operacions",
+    "diagnosis_first_run": "La foncionalitat de diagnostic ensajarà d’identificar los problèmas abituals de diferents aspèctes del servidor per dire d’assegurar que tot foncione de la melhora manièra possibla. Ajatz pas paur se vesètz mantunas error aprèp configurar lo servidor : es precisament fach per ajudar a identificar los problèmas e ofrir una guida per los reglar. Lo diagnostic s’executarà tanben dos còps per jorn e enviarà un corrièl a l’administrator se tròba unas error."
 }
