@@ -5,18 +5,6 @@
 
     var PASSWORD_MIN_LENGTH = 4;
 
-    // A small utility to convert a string to title case
-    // e.g. "hAvE a NicE dAy" --> "Have A Nice Day"
-    // Savagely stolen from https://stackoverflow.com/a/196991
-    function toTitleCase(str) {
-        return str.replace(
-            /\w\S*/g,
-            function(txt) {
-                return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-            }
-        );
-    }
-
     /**
      * Groups and permissions
      *
@@ -119,7 +107,7 @@
     app.get('#/groups', function (c) {
         c.api('GET', '/users/groups?full&include_primary_groups', {}, function(data_groups) {
         c.api('GET', '/users', {}, function(data_users) {
-        c.api('GET', '/users/permissions?short', {}, function(data_permissions) {
+        c.api('GET', '/users/permissions?full', {}, function(data_permissions) {
             //var perms = data_permissions.permissions;
             var specific_perms = {};
             var all_perms = data_permissions.permissions;
@@ -128,10 +116,11 @@
             // Enrich groups data with primary group indicator and inversed items list
             for (var group in data_groups.groups) {
                 data_groups.groups[group].primary = users.indexOf(group) !== -1;
-                data_groups.groups[group].permissionsInv = all_perms.filter(function(item) {
+                data_groups.groups[group].permissionsInv = Object.keys(all_perms).filter(function(item) {
                     return data_groups.groups[group].permissions.indexOf(item) === -1;
                 }).filter(function(item) {
-                    return group != "visitors" || (item != "mail.main" && item != "xmpp.main"); // Remove 'email' and 'xmpp' in visitors's permission choice list
+                    // Remove 'email', 'xmpp' and protected permission in visitors's permission choice list
+                    return group != "visitors" || (item != "mail.main" && item != "xmpp.main" && ! all_perms[item].protected == true);
                 });
                 data_groups.groups[group].membersInv = users.filter(function(item) {
                     return data_groups.groups[group].members.indexOf(item) === -1;
@@ -147,22 +136,17 @@
             data = {
                 'groups':data_groups.groups,
                 'displayPermission': function (text) {
-                    // Display a permission correctly for a human
-                    text = text.replace('.main', '');
-                    if (text.indexOf('.') > -1)
-                        text = text.replace('.', ' (') + ')';
-
-                    if (text == "mail")
-                        text = "E-mail";
-                    else if (text == "xmpp")
-                        text = "XMPP";
-                    else
-                        text = toTitleCase(text);
-
-                    return text;
+                    return all_perms[text].label;
                 },
                 'displayUser': function (text) {
                     return text;
+                },
+                'is_protected': function (item, type, group) {
+                    if (type == 'permission' && group == 'visitors') {
+                        return all_perms[item].protected;
+                    } else {
+                        return false
+                    }
                 },
             };
             updateView(data);

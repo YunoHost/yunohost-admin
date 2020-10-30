@@ -16,7 +16,7 @@
     <a href="#/apps/{{id}}" class="list-group-item slide" title="{{t 'infos'}}">
         <span class="fa-chevron-right pull-right"></span>
         <h2 class="list-group-item-heading">
-            {{settings.label}} <small>{{name}}</small>
+            {{label}} <small>{{name}}</small>
         </h2>
         <p class="list-group-item-text">{{description}}</p>
     </a>

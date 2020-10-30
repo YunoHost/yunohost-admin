@@ -16,7 +16,7 @@
             <dt>{{t 'id'}}</dt>
             <dd>{{settings.id}}</dd>
             <dt>{{t 'label'}}</dt>
-            <dd>{{settings.label}}</dd>
+            <dd>{{label}}</dd>
             <dt>{{t 'description'}}</dt>
             <dd>{{description}}</dd>
             <dt>{{t 'version'}}</dt>
@@ -41,9 +41,9 @@
     </div>
     <div class="panel-body">
         <div class="container">
-            <p>{{t 'app_info_changelabel_desc' settings.label}}</p>
+            <p>{{t 'app_info_managelabel_desc' settings.label}}</p>
             <a role="button" href="#/apps/{{settings.id}}/changelabel" class="btn btn-info slide">
-                <span class="fa-tag"></span> {{t 'app_change_label'}}
+                <span class="fa-tag"></span> {{t 'app_manage_label_and_tiles'}}
             </a>
         </div>
         <hr>
