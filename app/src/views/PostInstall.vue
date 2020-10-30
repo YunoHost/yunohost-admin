@@ -17,8 +17,8 @@
 
     <!-- DOMAIN SETUP STEP -->
     <template v-else-if="step === 'domain'">
-      <domain-form :title="$t('postinstall_set_domain')" :submit-text="$t('next')" @submit="setDomain">
-        <template v-slot:message>
+      <domain-form :title="$t('postinstall_set_domain')" :submit-text="$t('next')" @submit.prevent="setDomain">
+        <template #disclaimer>
           <b-alert variant="warning" show v-t="'postinstall_domain'" />
         </template>
       </domain-form>
@@ -30,7 +30,7 @@
 
     <!-- PASSWORD SETUP STEP -->
     <template v-else-if="step === 'password'">
-      <password-form :title="$t('postinstall_set_password')" :submit-text="$t('next')" @submit="setPassword">
+      <password-form :title="$t('postinstall_set_password')" :submit-text="$t('next')" @submit.prevent="setPassword">
         <template v-slot:message>
           <b-alert variant="warning" show v-t="'postinstall_password'" />
         </template>

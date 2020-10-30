@@ -156,6 +156,9 @@ export default {
       })
     },
 
+    // not cached
+    user: state => name => state.users_details[name],
+
     domains: state => state.domains,
 
     mainDomain: state => state.main_domain,
