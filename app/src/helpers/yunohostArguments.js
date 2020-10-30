@@ -176,7 +176,7 @@ export function formatYunoHostArguments (args, name = null) {
  * @param {*} value
  * @return {*}
  */
-function formatFormDataValue (value) {
+export function formatFormDataValue (value) {
   if (typeof value === 'boolean') {
     return value ? 1 : 0
   } else if (isObjectLiteral(value) && 'separator' in value) {

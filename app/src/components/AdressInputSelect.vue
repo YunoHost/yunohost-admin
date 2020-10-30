@@ -19,12 +19,8 @@
       />
     </b-input-group-append>
 
-    <span class="sr-only" :id="id + 'local-part-desc'">
-      {{ localPartDesc || $t('user_mail_local_part_description') }}
-    </span>
-    <span class="sr-only" :id="id + 'domain-desc'">
-      {{ domainDesc || $t('user_mail_domain_description') }}
-    </span>
+    <span class="sr-only" :id="id + 'local-part-desc'" v-t="'address.local_part_description.' + type" />
+    <span class="sr-only" :id="id + 'domain-desc'" v-t="'address.domain_description.' + type" />
   </b-input-group>
 </template>
 
@@ -41,8 +37,7 @@ export default {
     placeholder: { type: String, default: null },
     id: { type: String, default: null },
     state: { type: null, default: null },
-    localPartDesc: { type: String, default: null },
-    domainDesc: { type: String, default: null }
+    type: { type: String, default: 'email' }
   },
 
   computed: {
