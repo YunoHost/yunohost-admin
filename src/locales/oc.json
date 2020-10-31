@@ -483,5 +483,10 @@
     "diagnosis_explanation": "La foncionalitat de diagnostic provarà trobar problèmas comuns sus diferents aspèctes de vòstre servidor per s’assegurar que tot fonciona normalament. Lo diagnostic serà tanben realizat dos còps per jorn e enviarà un corrièl a l’administrator se d’errors son detectadas. De notar que d’unes ensages seràn pas mostrats s’utilizatz pas certanas foncions especificas (XMPP, per exemple) o se fracassan a causa d’una configuracion tròp complèxa. Dins aqueste cas, e se sabètz çò qu’avètz modificat, podètz ignorar los problèmas e avertiments correspondents.",
     "pending_migrations": "I a unas migracions en espèra d’execucion. Anatz a <a href='#/tools/migrations'>Aisinas > Migracions</a> per las lançar.",
     "log_suboperations": "Jos-operacions",
-    "diagnosis_first_run": "La foncionalitat de diagnostic ensajarà d’identificar los problèmas abituals de diferents aspèctes del servidor per dire d’assegurar que tot foncione de la melhora manièra possibla. Ajatz pas paur se vesètz mantunas error aprèp configurar lo servidor : es precisament fach per ajudar a identificar los problèmas e ofrir una guida per los reglar. Lo diagnostic s’executarà tanben dos còps per jorn e enviarà un corrièl a l’administrator se tròba unas error."
+    "diagnosis_first_run": "La foncionalitat de diagnostic ensajarà d’identificar los problèmas abituals de diferents aspèctes del servidor per dire d’assegurar que tot foncione de la melhora manièra possibla. Ajatz pas paur se vesètz mantunas error aprèp configurar lo servidor : es precisament fach per ajudar a identificar los problèmas e ofrir una guida per los reglar. Lo diagnostic s’executarà tanben dos còps per jorn e enviarà un corrièl a l’administrator se tròba unas error.",
+    "apply": "Aplicar",
+    "app_info_managelabel_desc": "Gerir las aplelacion de permission al portal.",
+    "app_manage_label_and_tiles": "Gestion de las apelacions e títols",
+    "permission_corresponding_url": "URL correspondenta",
+    "permission_main": "Permission principala"
 }
