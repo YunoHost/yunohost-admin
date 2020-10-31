@@ -5,33 +5,26 @@
         <icon iname="exclamation-triangle" /> {{ $t('experimental_warning') }}
       </b-alert>
 
-      <!-- BASIC INFOS -->
-      <b-card v-for="(action, i) in actions" :key="i">
-        <template v-slot:header>
-          <h4>{{ action.name }}</h4>
+      <!-- ACTIONS FORMS -->
+      <card-form
+        v-for="(action, i) in actions" :key="i"
+        :title="action.name" icon="wrench" title-tag="h4"
+        :validation="$v.actions[i]" :id="action.id + '-form'" :server-error="action.serverError"
+        @submit.prevent="performAction(action)" :submit-text="$t('perform')"
+      >
+        <template #disclaimer>
+          <b-alert
+            v-if="action.formDisclaimer"
+            show variant="info" v-html="action.formDisclaimer"
+          />
+          <b-card-text v-if="action.description" v-html="action.description" />
         </template>
 
-        <b-card-text v-if="action.description" v-html="action.description" />
-
-        <b-form v-if="action.args" :id="action.id + '-form'" @submit.prevent="performAction(action)">
-          <form-item-helper v-for="arg in action.args" :key="arg.name" v-bind="arg" />
-
-          <b-form-invalid-feedback :id="action.id + '-feedback'" :state="action.isValid">
-            {{ action.error }}
-          </b-form-invalid-feedback>
-        </b-form>
-
-        <template v-slot:footer>
-          <b-button
-            v-if="action.args" type="submit" :form="action.id + '-form'"
-            variant="success" class="ml-auto" v-t="'perform'"
-          />
-          <b-button
-            v-else @click="performAction(action)"
-            variant="success" class="ml-auto" v-t="'perform'"
-          />
-        </template>
-      </b-card>
+        <form-field
+          v-for="(field, fname) in action.fields" :key="fname" label-cols="0"
+          v-bind="field" v-model="action.form[fname]" :validation="$v.actions[i][fname]"
+        />
+      </card-form>
     </div>
 
     <!-- In case of a custom url with no manifest found -->
@@ -43,23 +36,33 @@
 
 <script>
 import api from '@/api'
-import { formatI18nField, formatYunoHostArgument } from '@/helpers/yunohostArguments'
+import { validationMixin } from 'vuelidate'
+
+import { formatI18nField, formatYunoHostArguments, formatFormData } from '@/helpers/yunohostArguments'
 import { objectToParams } from '@/helpers/commons'
+
 
 export default {
   name: 'AppActions',
 
   props: {
-    id: {
-      type: String,
-      required: true
-    }
+    id: { type: String, required: true }
   },
 
   data () {
     return {
       actions: undefined
     }
+  },
+
+  validations () {
+    const validations = {}
+    for (const [i, action] of this.actions.entries()) {
+      if (action.validations) {
+        validations[i] = { form: action.validations }
+      }
+    }
+    return { actions: validations }
   },
 
   methods: {
@@ -80,53 +83,36 @@ export default {
         return
       }
 
-      const actions = []
-      for (const { name, id, description, arguments: arguments_ } of data.actions) {
-        const action = { name, id, isValid: null, error: '' }
-        if (description) {
-          action.description = formatI18nField(description)
-        }
+      this.actions = data.actions.map(({ name, id, description, arguments: arguments_ }) => {
+        const action = { name, id, serverError: '' }
+        if (description) action.description = formatI18nField(description)
         if (arguments_ && arguments_.length) {
-          action.args = arguments_.map(arg => formatYunoHostArgument(arg))
+          const { form, fields, validations, disclaimer } = formatYunoHostArguments(arguments_)
+          action.form = form
+          action.fields = fields
+          if (validations) action.validations = validations
+          if (disclaimer) action.formDisclaimer = disclaimer
         }
-        actions.push(action)
-      }
-      this.actions = actions
+        return action
+      })
     },
 
     performAction (action) {
-      const data = {}
+      // FIXME api expects at least one argument ?! (fake one given with { wut } )
+      const args = objectToParams(action.form ? formatFormData(action.form) : { wut: undefined })
 
-      if (action.args) {
-        const args = {}
-        for (const arg of action.args) {
-          if (arg.component === 'CheckboxItem') {
-            args[arg.props.id] = arg.props.value ? 1 : 0
-          } else {
-            args[arg.props.id] = arg.props.value
-          }
-        }
-        data.args = objectToParams(args)
-      // FIXME api expect at least one argument ?!
-      } else {
-        data.args = objectToParams({ wut: undefined })
-      }
-
-      api.put(`apps/${this.id}/actions/${action.id}`, data).then(response => {
+      api.put(`apps/${this.id}/actions/${action.id}`, { args }).then(response => {
         this.fetchData()
-      }).catch(err => {
-        action.isValid = false
-        action.error = err.message
+      }).catch(error => {
+        action.serverError = error.message
       })
     }
   },
 
   created () {
     this.fetchData()
-  }
+  },
+
+  mixins: [validationMixin]
 }
 </script>
-
-<style>
-
-</style>
