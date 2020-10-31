@@ -24,6 +24,8 @@ const domainLocalPart = helpers.regex('domainLocalPart', new RegExp(`^(?:(?:xn--
 
 const mailLocalPart = helpers.regex('mail', /^[\w.-]+$/)
 
+const githubLink = helpers.regex('githubLink', /^https:\/\/github.com\/[a-zA-Z0-9-_.]+\/[a-zA-Z0-9-_.]+[/]?$/)
+
 export {
   alphalownum_,
   includes,
@@ -31,5 +33,6 @@ export {
   name,
   domain,
   domainLocalPart,
-  mailLocalPart
+  mailLocalPart,
+  githubLink
 }
