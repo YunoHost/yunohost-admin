@@ -82,11 +82,11 @@
 
         <!-- APP BUTTONS -->
         <b-button-group>
-          <b-button :href="app.git.url" :variant="'outline-' + app.color" target="_blank">
+          <b-button :href="app.git.url" variant="outline-dark" target="_blank">
             <icon iname="code" /> {{ $t('code') }}
           </b-button>
 
-          <b-button :href="app.git.url + '/blob/master/README.md'" :variant="'outline-' + app.color" target="_blank">
+          <b-button :href="app.git.url + '/blob/master/README.md'" variant="outline-dark" target="_blank">
             <icon iname="book" /> {{ $t('readme') }}
           </b-button>
 
@@ -109,38 +109,21 @@
     </b-alert>
 
     <!-- INSTALL CUSTOM APP -->
-    <b-card class="basic-form mt-5">
-      <template v-slot:header>
-        <h2><icon iname="download" /> {{ $t('custom_app_install') }}</h2>
-      </template>
-
-      <b-form id="custom-app-form" @submit.prevent="onSubmit">
+    <card-form
+      :title="$t('custom_app_install')" icon="download"
+      @submit.prevent="$refs['custom-app-install-modal'].show()" :submit-text="$t('install')"
+      :validation="$v" class="mt-5"
+    >
+      <template #disclaimer>
         <b-alert variant="warning" show>
           <icon iname="exclamation-triangle" /> {{ $t('confirm_install_custom_app') }}
         </b-alert>
 
         <!-- URL -->
-        <input-helper
-          id="url" :label="$t('url')"
-          v-model="form.url" placeholder="https://github.com/USER/REPOSITORY"
-          :state="form.isValid" :error="form.error" @input="validateUrl"
-        >
-          <template v-slot:description>
-            <icon iname="github" /> {{ $t('custom_app_url_only_github') }}
-          </template>
-        </input-helper>
-      </b-form>
-
-      <template v-slot:footer>
-        <b-button
-          variant="success"
-          :disabled="form.url === '' || form.isValid === false"
-          v-b-modal.custom-app-install-modal
-        >
-          {{ $t('install') }}
-        </b-button>
+        <form-field v-bind="customInstall.field" v-model="customInstall.url" :validation="$v.customInstall.url" />
       </template>
-    </b-card>
+    </card-form>
+
 
     <!-- CONFIRM APP INSTALL MODAL -->
     <b-modal
@@ -155,7 +138,7 @@
 
     <!-- CONFIRM CUSTOM APP INSTALL MODAL -->
     <b-modal
-      id="custom-app-install-modal" centered
+      id="custom-app-install-modal" :ref="'custom-app-install-modal'" centered
       :ok-title="$t('install')" :title="$t('confirm_app_install')"
       header-bg-variant="danger" header-text-variant="light"
       @ok="goToCustomAppInstallForm"
@@ -167,7 +150,10 @@
 
 <script>
 import api from '@/api'
-import InputHelper from '@/components/InputHelper'
+import { validationMixin } from 'vuelidate'
+
+import { required, githubLink } from '@/helpers/validators'
+
 
 export default {
   name: 'AppCatalog',
@@ -197,10 +183,17 @@ export default {
         state: 'lowquality',
         color: 'warning'
       },
-      form: {
-        url: '',
-        isValid: null,
-        error: this.$i18n.t('form_errors.not_github_link')
+      // Custom install form
+      customInstall: {
+        field: {
+          label: this.$i18n.t('url'),
+          description: this.$i18n.t('custom_app_url_only_github'),
+          props: {
+            id: 'custom-install',
+            placeholder: 'https://github.com/USER/REPOSITORY'
+          }
+        },
+        url: 'https://github.com/YunoHost-Apps/archivist_ynh'
       }
     }
   },
@@ -253,6 +246,12 @@ export default {
         }
       }
       return null
+    }
+  },
+
+  validations: {
+    customInstall: {
+      url: { required, githubLink }
     }
   },
 
@@ -338,14 +337,8 @@ export default {
     },
 
     // INSTALL CUSTOM APP METHODS
-
-    validateUrl () {
-      const match = this.form.url.match(/^https:\/\/github.com\/[a-zA-Z0-9-_.]+\/[a-zA-Z0-9-_.]+[/]?$/)
-      this.form.isValid = match ? null : false
-    },
-
     goToCustomAppInstallForm () {
-      const url = this.form.url
+      const url = this.customInstall.url
       this.$router.push({
         name: 'app-install-custom',
         params: { id: url.endsWith('/') ? url : url + '/' }
@@ -355,11 +348,10 @@ export default {
 
   created () {
     this.fetchData()
+    console.log(this.$refs)
   },
 
-  components: {
-    InputHelper
-  }
+  mixins: [validationMixin]
 }
 </script>
 
