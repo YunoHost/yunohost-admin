@@ -23,7 +23,7 @@ export default {
       state.locale = locale
     },
 
-    'SET_FALLBACK_LOCALE' (state, locale) {
+    'SET_FALLBACKLOCALE' (state, locale) {
       localStorage.setItem('fallbackLocale', locale)
       state.fallbackLocale = locale
     },
@@ -55,9 +55,9 @@ export default {
       loadDateFnsLocale(locale)
     },
 
-    'UPDATE_FALLBACK_LOCALE' ({ commit }, locale) {
+    'UPDATE_FALLBACKLOCALE' ({ commit }, locale) {
       loadLocaleMessages(locale).then(() => {
-        commit('SET_FALLBACK_LOCALE', locale)
+        commit('SET_FALLBACKLOCALE', locale)
         i18n.fallbackLocale = [locale, 'en']
       })
     }

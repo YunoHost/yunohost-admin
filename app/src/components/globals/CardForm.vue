@@ -1,10 +1,10 @@
 <template>
   <b-card class="card-form">
     <template v-slot:header>
-      <h2><icon v-if="icon" :iname="icon" /> {{ title }}</h2>
+      <component :is="titleTag"><icon v-if="icon" :iname="icon" /> {{ title }}</component>
     </template>
 
-    <slot name="disclaimer"></slot>
+    <slot name="disclaimer" />
 
     <b-form :id="id" @submit.prevent="onSubmit" novalidate>
       <slot name="default" />
@@ -35,6 +35,7 @@ export default {
   props: {
     id: { type: String, default: 'ynh-form' },
     title: { type: String, required: true },
+    titleTag: { type: String, default: 'h2' },
     icon: { type: String, default: null },
     submitText: { type: String, default: null },
     noFooter: { type: Boolean, default: false },

@@ -30,7 +30,9 @@ async function _getResponseContent (response) {
  * @return {(Object|String)} Parsed response's json, response's text or an error.
  */
 export function handleResponse (response, method) {
-  store.dispatch('SERVER_RESPONDED', response.ok)
+  if (method !== 'GET') {
+    store.dispatch('SERVER_RESPONDED', response.ok)
+  }
   if (!response.ok) return handleError(response, method)
   // FIXME the api should always return json objects
   return _getResponseContent(response)
@@ -43,7 +45,6 @@ export function handleResponse (response, method) {
  * @throws Will throw a custom error with response data.
  */
 export async function handleError (response, method) {
-  console.log(response.url)
   const message = await _getResponseContent(response)
   const errorCode = response.status in errors ? response.status : undefined
   const error = new errors[errorCode](method, response, message)

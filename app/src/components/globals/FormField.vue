@@ -71,8 +71,12 @@ export default {
           'label-cols-lg': 2,
           'label-class': 'font-weight-bold'
         }
-        for (const attr in defaultAttrs) {
-          if (!(attr in attrs)) attrs[attr] = defaultAttrs[attr]
+        if ('label-cols' in attrs) {
+          attrs['label-class'] = defaultAttrs['label-class']
+        } else {
+          for (const attr in defaultAttrs) {
+            if (!(attr in attrs)) attrs[attr] = defaultAttrs[attr]
+          }
         }
       }
       return attrs

@@ -63,7 +63,7 @@ export function isObjectLiteral (value) {
  * @return {Boolean}
  */
 export function isEmptyValue (value) {
-  if (value === 0) return false
+  if (typeof value === 'number') return false
   return !value || value.length === 0 || Object.keys(value).length === 0
 }
 

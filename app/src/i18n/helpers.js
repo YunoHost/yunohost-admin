@@ -79,7 +79,7 @@ function initDefaultLocales () {
   const [locale, fallbackLocale] = getDefaultLocales()
 
   store.dispatch('UPDATE_LOCALE', locale)
-  store.dispatch('UPDATE_FALLBACK_LOCALE', fallbackLocale || 'en')
+  store.dispatch('UPDATE_FALLBACKLOCALE', fallbackLocale || 'en')
   loadLocaleMessages('en')
 }
 
