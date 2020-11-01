@@ -1,140 +1,95 @@
 <template>
-  <basic-form :header="$t('tools_webadmin_settings')" @submit.prevent="onSubmit" no-footer>
-    <!-- LOCALE -->
-    <b-form-group
-      label-cols-md="4" label-cols-lg="2" label-class="font-weight-bold"
-      :label="$t('tools_webadmin.locale')" label-for="locale"
-    >
-      <b-select
-        id="locale"
-        :options="availableLocales"
-        v-model="currentLocale"
+  <card-form
+    :title="$t('tools_webadmin_settings')" icon="cog"
+    no-footer
+  >
+    <template v-for="(field, fname) in fields">
+      <form-field
+        v-bind="field" v-model="self[fname]" :key="fname"
       />
-    </b-form-group>
-    <hr>
-
-    <!-- FALLBACK LOCALE -->
-    <b-form-group
-      label-cols-md="4" label-cols-lg="2" label-class="font-weight-bold"
-      :label="$t('tools_webadmin.fallback_locale')" label-for="fallback-locale"
-    >
-      <b-select
-        id="fallback-locale"
-        :options="availableLocales"
-        v-model="currentFallbackLocale"
-      />
-    </b-form-group>
-    <hr>
-
-    <!-- CACHE -->
-    <b-form-group
-      label-cols-md="4" label-cols-lg="2"
-      :label="$t('tools_webadmin.cache')" label-for="cache" label-class="font-weight-bold"
-    >
-      <b-checkbox v-model="currentCache" id="cache" switch>
-        {{ $t(currentCache ? 'enabled' : 'disabled') }}
-      </b-checkbox>
-
-      <template v-slot:description>
-        {{ $t('tools_webadmin.cache_description') }}
-      </template>
-    </b-form-group>
-    <hr>
-
-    <!-- TRANSITIONS -->
-    <b-form-group
-      label-cols-md="4" label-cols-lg="2"
-      :label="$t('tools_webadmin.transitions')" label-for="transitions" label-class="font-weight-bold"
-    >
-      <b-checkbox v-model="currentTransitions" id="transitions" switch>
-        {{ $t(currentTransitions ? 'enabled' : 'disabled') }}
-      </b-checkbox>
-    </b-form-group>
-    <hr>
-
-    <!-- EXPERIMENTAL MODE (dev environment only)-->
-    <b-form-group
-      v-if="isDev"
-      label-cols-md="4" label-cols-lg="2" label-class="font-weight-bold"
-      label-for="experimental"
-    >
-      <template v-slot:label>
-        {{ $t('tools_webadmin.experimental') }}
-        <icon iname="flask" />
-      </template>
-
-      <b-checkbox v-model="currentExperimental" id="experimental" switch>
-        {{ $t(currentExperimental ? 'enabled' : 'disabled') }}
-      </b-checkbox>
-
-      <template v-slot:description>
-        <span v-html="$t('tools_webadmin.experimental_description')" />
-      </template>
-    </b-form-group>
-  </basic-form>
+      <hr :key="fname + 'hr'">
+    </template>
+  </card-form>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-import BasicForm from '@/components/BasicForm'
+// FIXME move into helpers ?
+// Dynamicly generate computed properties from store with get/set and automatic commit/dispatch
+function mapStoreGetSet (props = [], action = 'commit') {
+  return props.reduce((obj, prop) => {
+    obj[prop] = {
+      get () {
+        return this.$store.getters[prop]
+      },
+      set (value) {
+        const key = (action === 'commit' ? 'SET_' : 'UPDATE_') + prop.toUpperCase()
+        this.$store[action](key, value)
+      }
+    }
+    return obj
+  }, {})
+}
 
 export default {
   name: 'ToolWebadmin',
 
-  computed: {
-    ...mapGetters([
-      'locale',
-      'fallbackLocale',
-      'cache',
-      'transitions',
-      'experimental',
-      'availableLocales'
-    ]),
+  data () {
+    return {
+      // Hacky way to be able to dynamicly point to a computed property `self['computedProp']`
+      self: this,
 
-    currentLocale: {
-      get: function () { return this.locale },
-      set: function (newValue) {
-        this.$store.dispatch('UPDATE_LOCALE', newValue)
-      }
-    },
+      fields: {
+        locale: {
+          label: this.$i18n.t('tools_webadmin.locale'),
+          component: 'SelectItem',
+          props: { id: 'locale', choices: [] }
+        },
 
-    currentFallbackLocale: {
-      get: function () { return this.fallbackLocale },
-      set: function (newValue) {
-        this.$store.dispatch('UPDATE_FALLBACK_LOCALE', newValue)
-      }
-    },
+        fallbackLocale: {
+          label: this.$i18n.t('tools_webadmin.fallback_locale'),
+          component: 'SelectItem',
+          props: { id: 'fallback-locale', choices: [] }
+        },
 
-    currentCache: {
-      get: function () { return this.cache },
-      set: function (newValue) {
-        this.$store.commit('SET_CACHE', newValue)
-      }
-    },
+        cache: {
+          id: 'cache',
+          label: this.$i18n.t('tools_webadmin.cache'),
+          description: this.$i18n.t('tools_webadmin.cache_description'),
+          component: 'CheckboxItem',
+          props: { labels: { true: 'enabled', false: 'disabled' } }
+        },
 
-    currentTransitions: {
-      get: function () { return this.transitions },
-      set: function (newValue) {
-        this.$store.commit('SET_TRANSITIONS', newValue)
-      }
-    },
+        transitions: {
+          id: 'transitions',
+          label: this.$i18n.t('tools_webadmin.transitions'),
+          component: 'CheckboxItem',
+          props: { labels: { true: 'enabled', false: 'disabled' } }
+        }
 
-    // environment
-    isDev () {
-      return process.env.NODE_ENV === 'development'
-    },
-
-    // Only available in 'development' environment.
-    currentExperimental: {
-      get: function () { return this.experimental },
-      set: function (newValue) {
-        this.$store.commit('SET_EXPERIMENTAL', newValue)
+        // experimental: added in `created()`
       }
     }
   },
 
-  components: {
-    BasicForm
+  computed: {
+    // Those are set/get computed properties
+    ...mapStoreGetSet(['locale', 'fallbackLocale'], 'dispatch'),
+    ...mapStoreGetSet(['cache', 'transitions', 'experimental'])
+  },
+
+  created () {
+    const availableLocales = this.$store.getters.availableLocales
+    this.fields.locale.props.choices = availableLocales
+    this.fields.fallbackLocale.props.choices = availableLocales
+    if (process.env.NODE_ENV === 'development') {
+      this.fields.experimental = {
+        id: 'experimental',
+        label: this.$i18n.t('tools_webadmin.experimental'),
+        description: this.$i18n.t('tools_webadmin.experimental_description'),
+        component: 'CheckboxItem',
+        props: { labels: { true: 'enabled', false: 'disabled' } }
+      }
+    }
   }
 }
 </script>

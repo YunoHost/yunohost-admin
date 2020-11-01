@@ -22,8 +22,8 @@
       </b-card>
 
       <!-- INSTALL FORM -->
-      <basic-form
-        :title="$t('operations')" icon="wrench"
+      <card-form
+        :title="$t('operations')" icon="wrench" :submit-text="$t('install')"
         :validation="$v" :server-error="serverError"
         @submit.prevent="beforeInstall"
       >
@@ -32,12 +32,10 @@
         </template>
 
         <form-field
-          v-for="(field, fname) in fields" :key="fname"
-          v-bind="field" v-model="form[fname]"
-          :validation="$v.form[fname]"
+          v-for="(field, fname) in fields" :key="fname" label-cols="0"
+          v-bind="field" v-model="form[fname]" :validation="$v.form[fname]"
         />
-
-      </basic-form>
+      </card-form>
 
       <!-- CONFIRM INSTALL DOMAIN ROOT MODAL -->
       <b-modal
