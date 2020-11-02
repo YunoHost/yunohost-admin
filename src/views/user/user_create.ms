@@ -57,16 +57,6 @@
                </select>
             </div>
         </div>
-        <div class="form-group">
-            <label for="mailbox-quota" class="col-sm-3 control-label">{{t 'user_mailbox_quota'}}</label>
-            <div class="col-sm-4">
-                <div class="input-group">
-                    <input type="number" min="0" id="mailbox-quota" name="mailbox_quota" class="form-control" placeholder="{{t 'mailbox_quota_placeholder'}}">
-                    <div class="input-group-addon">M</div>
-                </div>
-                <div class="help-block quota-help-block">{{t 'mailbox_quota_description'}}</div>
-            </div>
-        </div>
 
     </div>
 </div>

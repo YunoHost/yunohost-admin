@@ -197,25 +197,20 @@
 
     // Create user (POST)
     app.post('#/users/create', function (c) {
-        if (c.params['password'] == c.params['confirmation']) {
-            if (c.params['password'].length < PASSWORD_MIN_LENGTH) {
-                c.flash('fail', y18n.t('passwords_too_short'));
-            }
-            else {
-                // Force unit or disable quota
-                if (c.params['mailbox_quota']) {
-                    c.params['mailbox_quota'] += "M";
-                }
-                else {c.params['mailbox_quota'] = 0;}
-                c.params['domain'] = c.params['domain'].slice(1);
-
-                c.api('POST', '/users', c.params.toHash(), function(data) {
-                    c.redirect_to('#/users');
-                });
-            }
-        } else {
+        if (c.params['password'] != c.params['confirmation']) {
             c.flash('fail', y18n.t('passwords_dont_match'));
+            return;
         }
+        if (c.params['password'].length < PASSWORD_MIN_LENGTH) {
+            c.flash('fail', y18n.t('passwords_too_short'));
+            return;
+        }
+
+        c.params['domain'] = c.params['domain'].slice(1);
+
+        c.api('POST', '/users', c.params.toHash(), function(data) {
+            c.redirect_to('#/users');
+        });
     });
 
     // Show user information
