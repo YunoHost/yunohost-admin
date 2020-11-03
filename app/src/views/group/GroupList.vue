@@ -15,9 +15,9 @@
     </div>
 
     <!-- PRIMARY GROUPS CARDS -->
-    <template v-if="primaryGroups">
+    <template v-if="normalGroups">
       <b-card
-        v-for="(group, name, index) in filteredPrimaryGroups" :key="name"
+        v-for="(group, name, index) in filteredGroups" :key="name"
         no-body
       >
         <b-card-header class="d-flex align-items-center">
@@ -76,7 +76,8 @@
                   :selected="group.permissions"
                   :aria-label="$t('group_add_permission')"
                   :format="formatPermission"
-                  @change="onPermissionChanged({ ...$event, name, groupType: 'primary' })"
+                  :removable="name === 'visitors' ? removable : null"
+                  @change="onPermissionChanged({ ...$event, name, groupType: 'normal' })"
                 />
               </b-col>
             </b-row>
@@ -155,14 +156,15 @@ export default {
 
   data: () => ({
     search: '',
-    primaryGroups: undefined,
+    permissions: undefined,
+    normalGroups: undefined,
     userGroups: undefined,
     groupToDelete: undefined
   }),
 
   computed: {
-    filteredPrimaryGroups () {
-      const groups = this.primaryGroups
+    filteredGroups () {
+      const groups = this.normalGroups
       if (!groups) return
       const search = this.search.toLowerCase()
       const filtered = {}
@@ -193,6 +195,7 @@ export default {
 
   methods: {
     onPermissionChanged ({ item, index, name, groupType, action }) {
+      console.log(groupType)
       const uri = 'users/permissions/' + item
       const data = { [action]: name }
       const from = action === 'add' ? 'availablePermissions' : 'permissions'
@@ -209,8 +212,8 @@ export default {
       const from = action === 'add' ? 'availableMembers' : 'members'
       const to = action === 'add' ? 'members' : 'availableMembers'
       this.$store.dispatch('PUT', { uri, data }).then(() => {
-        this.primaryGroups[name][from].splice(index, 1)
-        this.primaryGroups[name][to].push(item)
+        this.normalGroups[name][from].splice(index, 1)
+        this.normalGroups[name][to].push(item)
       })
     },
 
@@ -219,18 +222,12 @@ export default {
     },
 
     // FIXME Find a way to pass a filter to a component
-    formatPermission: text => {
-      let result = text.replace('.main', '')
-      if (result.includes('.')) {
-        result = result.replace('.', ' (') + ')'
-      }
-      if (result === 'mail') return 'E-mail'
-      else if (result === 'xmpp') return 'XMPP'
-      else {
-        return result.replace(/\w\S*/g, txt => {
-          return txt.charAt(0).toUpperCase() + txt.substring(1).toLowerCase()
-        })
-      }
+    formatPermission (name) {
+      return this.permissions[name].label
+    },
+
+    removable (name) {
+      return this.permissions[name].protected === false
     },
 
     deleteGroup () {
@@ -238,7 +235,7 @@ export default {
       this.$store.dispatch('DELETE',
         { uri: 'users/groups', param: groupname, storeKey: 'groups' }
       ).then(() => {
-        Vue.delete(this.primaryGroups, groupname)
+        Vue.delete(this.groups, groupname)
       })
       this.groupToDelete = undefined
     }
@@ -248,22 +245,20 @@ export default {
     this.$store.dispatch('FETCH_ALL', [
       { uri: 'users' },
       { uri: 'users/groups?full&include_primary_groups', storeKey: 'groups' },
-      { uri: 'users/permissions?short', storeKey: 'permissions' }
-    ]).then(([users, groups, permissions]) => {
+      { uri: 'users/permissions?full', storeKey: 'permissions' }
+    ]).then(([users, allGroups, permissions]) => {
       // Do not use computed properties to get values from the store here to avoid auto
       // updates while modifying values.
-
-      // pre-format the stored data for rendering
-      const primaryGroups = {}
+      const normalGroups = {}
       const userGroups = {}
-
       const userNames = Object.keys(users)
-      for (const groupName in groups) {
+
+      for (const groupName in allGroups) {
         // copy the group to unlink it from the store
-        const group = { ...groups[groupName] }
-        group.availablePermissions = permissions.filter(perm => {
-          // Remove 'email' and 'xmpp' in visitors's permission choice list
-          if (groupName === 'visitors' && ['mail.main', 'xmpp.main'].includes(perm)) {
+        const group = { ...allGroups[groupName] }
+        group.availablePermissions = Object.keys(permissions).filter(perm => {
+          // Remove 'email', 'xmpp' and protected permissions in visitors's permission choice list
+          if (groupName === 'visitors' && (['mail.main', 'xmpp.main'].includes(perm) || permissions[perm].protected)) {
             return false
           }
           return !group.permissions.includes(perm)
@@ -285,10 +280,11 @@ export default {
             return !group.members.includes(name)
           })
         }
-        primaryGroups[groupName] = group
+        normalGroups[groupName] = group
       }
 
-      this.primaryGroups = primaryGroups
+      this.permissions = permissions
+      this.normalGroups = normalGroups
       this.userGroups = userGroups
     })
   },

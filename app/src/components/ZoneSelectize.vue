@@ -9,6 +9,7 @@
           <icon :iname="itemIcon" /> {{ item | filter(format) }}
         </b-button>
         <b-button
+          v-if="!removable || removable(item)"
           class="remove-btn" variant="warning"
           @click="onRemove(item)"
           @blur="onItemDeleteBlur"
@@ -43,7 +44,8 @@ export default {
     choices: { type: Array, required: true },
     searchIcon: { type: String, default: 'search' },
     ariaLabel: { type: String, required: true },
-    format: { type: Function, default: null }
+    format: { type: Function, default: null },
+    removable: { type: Function, default: null }
   },
 
   data: () => ({

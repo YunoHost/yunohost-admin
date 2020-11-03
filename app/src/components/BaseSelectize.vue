@@ -6,14 +6,14 @@
         <icon :iname="searchIcon" v-if="searchIcon" />
       </b-input-group-prepend>
       <b-form-input
-        id="selectize" :class="visible ? null : 'collapsed'"
+        :class="visible ? null : 'collapsed'"
         aria-controls="collapse" :aria-expanded="visible ? 'true' : 'false'"
         @focus="onInputFocus" @blur="onInputBlur" @keydown="onInputKeydown"
         v-model="search" ref="input"
       />
     </b-input-group>
 
-    <b-collapse id="collapse" ref="collapse" v-model="visible">
+    <b-collapse ref="collapse" v-model="visible">
       <b-list-group tabindex="-1" @mouseover="onChoiceListOver" v-if="visible">
         <b-list-group-item
           v-for="(item, index) in filteredChoices" :key="item"
