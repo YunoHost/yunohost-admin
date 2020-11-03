@@ -92,6 +92,7 @@
 <script>
 import api from '@/api'
 
+
 export default {
   name: 'BackupCreate',
 
@@ -121,7 +122,7 @@ export default {
           obj[app.id] = app
           return obj
         }, {})
-
+        this.selected = [...Object.keys(this.hooks), ...Object.keys(this.apps)]
         this.isReady = true
       })
     },
