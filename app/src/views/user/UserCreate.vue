@@ -47,15 +47,6 @@
         </b-input-group>
       </template>
     </form-field>
-
-    <!-- MAILBOX QUOTA -->
-    <form-field v-bind="fields.mailbox_quota" :validation="$v.form.mailbox_quota">
-      <template #default="{ self }">
-        <b-input-group append="M">
-          <input-item v-bind="self" v-model="form.mailbox_quota" />
-        </b-input-group>
-      </template>
-    </form-field>
     <hr>
 
     <!-- USER PASSWORD -->
@@ -72,7 +63,7 @@ import { validationMixin } from 'vuelidate'
 
 import { formatFormData } from '@/helpers/yunohostArguments'
 import {
-  alphalownum_, unique, required, minLength, name, sameAs, integer, minValue
+  alphalownum_, unique, required, minLength, name, sameAs
 } from '@/helpers/validators'
 
 
@@ -90,7 +81,6 @@ export default {
           lastname: ''
         },
         domain: '',
-        mailbox_quota: 0,
         password: '',
         confirmation: ''
       },
@@ -126,19 +116,8 @@ export default {
         domain: {
           id: 'mail',
           label: this.$i18n.t('user_email'),
-          description: this.$i18n.t('user_mail_domain_description'),
+          description: this.$i18n.t('tip_about_user_email'),
           props: { choices: [] }
-        },
-
-        mailbox_quota: {
-          label: this.$i18n.t('user_mailbox_quota'),
-          description: this.$i18n.t('mailbox_quota_description'),
-          example: this.$i18n.t('mailbox_quota_example'),
-          props: {
-            id: 'mailbox-quota',
-            placeholder: this.$i18n.t('mailbox_quota_placeholder'),
-            type: 'number'
-          }
         },
 
         password: {
@@ -174,7 +153,6 @@ export default {
           lastname: { required, name }
         },
         domain: { required },
-        mailbox_quota: { positiveIntegrer: required, integer, minValue: minValue(0) },
         password: { required, passwordLenght: minLength(8) },
         confirmation: { required, passwordMatch: sameAs('password') }
       }
@@ -184,9 +162,6 @@ export default {
   methods: {
     onSubmit () {
       const data = formatFormData(this.form, { flatten: true })
-      if (parseInt(data.mailbox_quota) !== 0) {
-        data.mailbox_quota += 'M'
-      }
       this.$store.dispatch(
         'POST', { uri: 'users', data }
       ).then(() => {
