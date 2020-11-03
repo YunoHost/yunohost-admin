@@ -3,7 +3,7 @@
   <b-form-group
     v-bind="attrs"
     :id="_id"
-    :label-for="props.id"
+    :label-for="$attrs['label-for'] || props.id"
     :state="state"
     @touch="touch"
   >
@@ -24,16 +24,21 @@
       <span v-html="errorMessage" />
     </template>
 
-    <template v-if="description || example || link" #description>
-      <div class="d-flex">
-        <span v-if="example">{{ $t('form_input_example', { example }) }}</span>
+    <template #description>
+      <!-- Render description -->
+      <template v-if="description || example || link">
+        <div class="d-flex">
+          <span v-if="example">{{ $t('form_input_example', { example }) }}</span>
 
-        <b-link v-if="link" :to="link" class="ml-auto">
-          {{ link.text }}
-        </b-link>
-      </div>
+          <b-link v-if="link" :to="link" class="ml-auto">
+            {{ link.text }}
+          </b-link>
+        </div>
 
-      <span v-if="description" v-html="description" />
+        <span v-if="description" v-html="description" />
+      </template>
+      <!-- Slot available to overwrite the one above -->
+      <slot name="description" />
     </template>
   </b-form-group>
 </template>
@@ -60,7 +65,8 @@ export default {
   computed: {
     _id () {
       if (this.id) return this.id
-      return this.props.id ? this.props.id + '_group' : null
+      const childId = this.props.id || this.$attrs['label-for']
+      return childId ? childId + '_group' : null
     },
 
     attrs () {
@@ -71,12 +77,12 @@ export default {
           'label-cols-lg': 2,
           'label-class': 'font-weight-bold'
         }
-        if ('label-cols' in attrs) {
-          attrs['label-class'] = defaultAttrs['label-class']
-        } else {
+        if (!('label-cols' in attrs)) {
           for (const attr in defaultAttrs) {
             if (!(attr in attrs)) attrs[attr] = defaultAttrs[attr]
           }
+        } else if (!('label-class' in attrs)) {
+          attrs['label-class'] = defaultAttrs['label-class']
         }
       }
       return attrs

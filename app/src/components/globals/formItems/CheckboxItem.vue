@@ -6,7 +6,7 @@
     :aria-describedby="$parent.id + '__BV_description_'"
     switch
   >
-    {{ $t(labels[checked]) }}
+    {{ label || $t(labels[checked]) }}
   </b-checkbox>
 </template>
 
@@ -17,6 +17,7 @@ export default {
   props: {
     value: { type: Boolean, required: true },
     id: { type: String, default: null },
+    label: { type: String, default: null },
     labels: { type: Object, default: () => ({ true: 'yes', false: 'no' }) }
   },
 
