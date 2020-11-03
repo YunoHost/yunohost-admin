@@ -60,7 +60,7 @@
 <script>
 import api from '@/api'
 import { objectToParams } from '@/helpers/commons'
-import { readableDate } from '@/filters/date'
+import { readableDate } from '@/helpers/filters/date'
 
 export default {
   name: 'ToolLog',

@@ -30,7 +30,7 @@
 
 <script>
 import api from '@/api'
-import { distanceToNow, readableDate } from '@/filters/date'
+import { distanceToNow, readableDate } from '@/helpers/filters/date'
 
 export default {
   name: 'ServiceList',
