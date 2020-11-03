@@ -25,7 +25,7 @@
       <p class="mb-2">
         <strong>{{ $t('app_info_access_desc') }}</strong>
         <br>
-        {{ app.permissions.length > 0 ? app.permissions.join(', ') + '.' : $t('nobody') }}
+        {{ allowedGroups.length > 0 ? allowedGroups.join(', ') + '.' : $t('nobody') }}
       </p>
       <b-button size="sm" :to="{ name: 'group-list'}" variant="info">
         <icon iname="key-modern" /> {{ $t('groups_and_permissions_manage') }}
@@ -38,26 +38,46 @@
         <h2><icon iname="wrench" /> {{ $t('operations') }}</h2>
       </template>
 
-      <!-- CHANGE LABEL -->
-      <b-form-group
-        :label="$t('app_info_changelabel_desc')" label-for="input-label"
-        label-cols-md="4"
-      >
-        <b-input-group>
-          <b-input id="input-label" v-model="form.label" />
-          <template v-slot:append>
-            <b-button variant="info" @click="changeLabel">
-              <icon iname="tag" /> {{ $t('app_change_label') }}
-            </b-button>
+      <!-- CHANGE PERMISSIONS LABEL -->
+      <b-form-group :label="$t('app_manage_label_and_tiles')" label-class="font-weight-bold" :description="$t('app_info_managelabel_desc')">
+        <form-field
+          v-for="(perm, i) in app.permissions" :key="i"
+          :label="perm.title" :label-for="'perm-' + i"
+          label-cols="0" label-class=""
+          :validation="$v.form.labels.$each[i] "
+        >
+          <template #default="{ self }">
+            <b-input-group>
+              <input-item
+                :state="self.state" v-model="form.labels[i].label"
+                :id="'perm' + i" :aria-describedby="'perm-' + i + '_group__BV_description_'"
+              />
+              <b-input-group-append v-if="perm.tileAvailable" is-text>
+                <checkbox-item v-model="form.labels[i].show_tile" label="Visible as tile in user portal" />
+              </b-input-group-append>
+              <b-input-group-append>
+                <b-button
+                  variant="info" v-t="'save'"
+                  @click="changeLabel(perm.name, form.labels[i])"
+                />
+              </b-input-group-append>
+            </b-input-group>
           </template>
-        </b-input-group>
+
+          <template #description>
+            {{ $t('permission_corresponding_url') }}:
+            <b-link :href="'https:' + perm.url">
+              https://{{ perm.url }}
+            </b-link>
+          </template>
+        </form-field>
       </b-form-group>
       <hr>
 
       <!-- CHANGE URL -->
       <b-form-group
         :label="$t('app_info_changeurl_desc')" label-for="input-url"
-        :label-cols-lg="app.supports_change_url ? 4 : 0"
+        :label-cols-lg="app.supports_change_url ? 0 : 0" label-class="font-weight-bold"
       >
         <b-input-group v-if="app.supports_change_url">
           <b-input-group-prepend is-text>
@@ -75,9 +95,10 @@
           <b-input id="input-url" v-model="form.url.path" class="flex-grow-3" />
 
           <b-input-group-append>
-            <b-button variant="info" @click="action = 'changeUrl'" v-b-modal.modal>
-              <icon iname="exchange" /> {{ $t('app_change_url') }}
-            </b-button>
+            <b-button
+              variant="info" v-t="'save'"
+              @click="action = 'changeUrl'" v-b-modal.modal
+            />
           </b-input-group-append>
         </b-input-group>
 
@@ -88,7 +109,10 @@
       <hr>
 
       <!-- CHANGE DOMAIN -->
-      <b-form-group label-cols-md="4" :label="$t('app_info_default_desc', { domain: app.domain })" label-for="main-domain">
+      <b-form-group
+        :label="$t('app_info_default_desc', { domain: app.domain })" label-for="main-domain"
+        label-class="font-weight-bold" label-cols-md="4"
+      >
         <b-input-group>
           <b-button
             id="main-domain" variant="success" v-b-modal.modal
@@ -101,7 +125,10 @@
       <hr>
 
       <!-- UNINSTALL -->
-      <b-form-group label-cols-md="4" :label="$t('app_info_uninstall_desc')" label-for="uninstall">
+      <b-form-group
+        :label="$t('app_info_uninstall_desc')" label-for="uninstall"
+        label-class="font-weight-bold" label-cols-md="4"
+      >
         <b-input-group>
           <b-button
             id="uninstall" variant="danger" v-b-modal.modal
@@ -152,8 +179,12 @@
 </template>
 
 <script>
+import { validationMixin } from 'vuelidate'
+
 import api from '@/api'
-import { readableDate } from '@/filters/date'
+import { readableDate } from '@/helpers/filters/date'
+import { humanPermissionName } from '@/helpers/filters/human'
+import { required } from '@/helpers/validators'
 
 export default {
   name: 'AppInfo',
@@ -169,10 +200,7 @@ export default {
     return {
       info: undefined,
       app: undefined,
-      form: {
-        label: '',
-        url: ''
-      },
+      form: undefined,
       actions: {
         changeUrl: { method: this.changeUrl, text: 'confirm_app_change_url' },
         setAsDefaultDomain: { method: this.setAsDefaultDomain, text: 'confirm_app_default' },
@@ -189,47 +217,86 @@ export default {
   computed: {
     domains () {
       return this.$store.state.data.domains
+    },
+
+    allowedGroups () {
+      return this.app.permissions[0].allowed
+    }
+  },
+
+  validations () {
+    return {
+      form: {
+        labels: {
+          $each: { label: { required } }
+        },
+        url: { path: { required } }
+      }
     }
   },
 
   methods: {
     fetchData () {
-      api.getAll([
-        `apps/${this.id}?full`,
-        'users/permissions'
-      ]).then(([app, { permissions }]) => {
+      this.$store.dispatch('FETCH', { uri: 'users/permissions?full', storeKey: 'permissions' }).then(a => {
+        console.log(a)
+      })
+      api.get(`apps/${this.id}?full`).then((app) => {
+        const form = { labels: [] }
+
+        const mainPermission = app.permissions[this.id + '.main']
+        mainPermission.name = this.id + '.main'
+        mainPermission.title = this.$i18n.t('permission_main')
+        mainPermission.tileAvailable = mainPermission.url !== null && !mainPermission.url.startsWith('re:')
+        form.labels.push({ label: mainPermission.label, show_tile: mainPermission.show_tile })
+
+        const permissions = [mainPermission]
+        for (const [name, perm] of Object.entries(app.permissions)) {
+          if (!name.endsWith('.main')) {
+            permissions.push({
+              ...perm,
+              name,
+              label: perm.sublabel,
+              title: humanPermissionName(name),
+              tileAvailable: perm.url !== null && !perm.url.startsWith('re:')
+            })
+            form.labels.push({ label: perm.sublabel, show_tile: perm.show_tile })
+          }
+        }
+
+        console.log(app.permissions)
         this.info = {
           id: this.id,
-          label: app.settings.label,
+          // FIXME permission
+          label: mainPermission.label,
           description: app.description,
           version: app.version,
           multi_instance: this.$i18n.t(app.manifest.multi_instance ? 'yes' : 'no'),
           install_time: readableDate(app.settings.install_time, true, true)
         }
-        // FIXME is domain really optional ?
         if (app.settings.domain) {
           this.info.url = 'https://' + app.settings.domain + app.settings.path
-          this.form.url = {
+          form.url = {
             domain: app.settings.domain,
             path: app.settings.path.slice(1)
           }
         }
-        this.form.label = app.settings.label
+        // FIXME permission
+        this.form = form
         this.app = {
           domain: app.settings.domain,
           supports_change_url: app.supports_change_url,
-          permissions: permissions[this.id + '.main'].allowed
+          // FIXME permission
+          permissions
         }
       })
 
       this.$store.dispatch('FETCH', { uri: 'domains' })
     },
 
-    changeLabel () {
-      api.put(
-        `apps/${this.id}/label`,
-        { new_label: this.form.label }
-      ).then(this.fetchData)
+    changeLabel (permName, data) {
+      data.show_tile = data.show_tile ? 'True' : 'False'
+      console.log(permName, data)
+      api.put('users/permissions/' + permName, data).then(this.fetchData)
     },
 
     changeUrl () {
@@ -253,7 +320,9 @@ export default {
 
   created () {
     this.fetchData()
-  }
+  },
+
+  mixins: [validationMixin]
 }
 </script>
 

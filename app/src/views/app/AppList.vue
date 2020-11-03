@@ -24,12 +24,12 @@
 
     <b-list-group v-else-if="filteredApps && filteredApps.length">
       <b-list-group-item
-        v-for="{ id, name, description, settings } in filteredApps" :key="id"
+        v-for="{ id, name, description, label } in filteredApps" :key="id"
         :to="{ name: 'app-info', params: { id }}"
         class="d-flex justify-content-between align-items-center pr-0"
       >
         <div>
-          <h5>{{ settings.label }} <small>{{ name }}</small></h5>
+          <h5>{{ label }} <small>{{ name }}</small></h5>
           <p class="m-0">
             {{ description }}
           </p>
@@ -61,14 +61,9 @@ export default {
     filteredApps () {
       if (!this.apps) return
       const search = this.search.toLowerCase()
-      const keys = ['id', 'name', 'description']
       const match = (item) => item.toLowerCase().includes(search)
-      return this.apps.filter(app => {
-        if (match(app.settings.label)) return true
-        for (const key of keys) {
-          if (match(app[key])) return true
-        }
-      })
+      // Check if any value in apps (label, id, name, description) match the search query.
+      return this.apps.filter(app => Object.values(app).some(match))
     }
   },
 
@@ -76,7 +71,10 @@ export default {
     fetchData () {
       api.get('apps?full').then(({ apps }) => {
         if (apps.length === 0) this.apps = null
-        this.apps = apps.sort((prev, app) => {
+        this.apps = apps.map(({ id, name, description, permissions }) => {
+          // FIXME seems like some apps may no have a label (replace with id)
+          return { id, name, description, label: permissions[id + '.main'].label }
+        }).sort((prev, app) => {
           return prev.id > app.id ? 1 : -1
         })
       })
