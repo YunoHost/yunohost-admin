@@ -33,8 +33,8 @@
 
 <script>
 import api from '@/api'
-import { distanceToNow, readableDate } from '@/filters/date'
-import { humanSize } from '@/filters/size'
+import { distanceToNow, readableDate } from '@/helpers/filters/date'
+import { humanSize } from '@/helpers/filters/human'
 
 export default {
   name: 'BackupList',

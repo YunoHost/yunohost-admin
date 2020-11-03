@@ -87,7 +87,7 @@
 
 <script>
 import api from '@/api'
-import { distanceToNow } from '@/filters/date'
+import { distanceToNow } from '@/helpers/filters/date'
 
 export default {
   name: 'ServiceInfo',
