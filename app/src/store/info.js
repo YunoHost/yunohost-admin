@@ -111,6 +111,7 @@ export default {
     'SERVER_RESPONDED' ({ state, dispatch, commit }, responseIsOk) {
       if (responseIsOk) {
         commit('UPDATE_WAITING', false)
+        commit('SET_ERROR', '')
       }
     },
 

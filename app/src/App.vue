@@ -37,10 +37,12 @@
       <breadcrumb />
 
       <main id="main">
+        <!-- The `key` on router-view make sure that if a link points to a page that
+        use the same component as the previous one, it will be refreshed -->
         <transition v-if="transitions" :name="transitionName">
-          <router-view class="animated" />
+          <router-view class="animated" :key="$route.fullPath" />
         </transition>
-        <router-view v-else class="static" />
+        <router-view v-else class="static" :key="$route.fullPath" />
       </main>
     </api-wait-overlay>
 
