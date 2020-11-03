@@ -1,6 +1,6 @@
 <template>
   <div class="error mt-4" v-if="error">
-    <h2>{{ $t('api_errors_titles' + error.name) }} :/</h2>
+    <h2>{{ $t('api_errors_titles.' + error.name) }} :/</h2>
 
     <em v-t="'api_error.sorry'" />
 
