@@ -1,28 +1,44 @@
 <template>
   <div class="backup-info" v-if="isReady">
     <!-- BACKUP INFO -->
-    <b-card>
-      <template v-slot:header>
-        <h2><icon iname="info-circle" /> {{ $t('infos') }}</h2>
-      </template>
+    <b-card no-body>
+      <b-card-header class="d-flex align-items-md-center flex-column flex-md-row">
+        <div>
+          <h2><icon iname="info-circle" /> {{ $t('infos') }}</h2>
+        </div>
 
-      <dl>
-        <dt v-t="'id'" />
-        <dd>{{ name }}</dd>
-        <hr>
+        <div class="ml-md-auto mt-2 mt-md-0">
+          <!-- DOWNLOAD ARCHIVE -->
+          <b-button size="sm" variant="success" @click="downloadBackup">
+            <icon iname="download" /> {{ $t('download') }}
+          </b-button>
 
-        <dt v-t="'created_at'" />
-        <dd>{{ createdAt | readableDate }}</dd>
-        <hr>
+          <!-- DELETE ARCHIVE -->
+          <b-button
+            size="sm" variant="danger" id="delete-backup"
+            class="ml-2" v-b-modal.confirm-delete-backup
+          >
+            <icon iname="trash-o" /> {{ $t('delete') }}
+          </b-button>
+        </div>
+      </b-card-header>
 
-        <dt v-t="'size'" />
-        <dd>{{ size | humanSize }}</dd>
-        <hr>
-
-        <dt v-t="'path'" />
-        <dd>{{ path }}</dd>
-        <hr>
-      </dl>
+      <b-card-body>
+        <b-row
+          v-for="(value, prop) in info" :key="prop"
+          no-gutters class="row-line"
+        >
+          <b-col cols="5" md="3" xl="3">
+            <strong>{{ $t(prop === 'name' ? 'id' : prop) }}</strong>
+            <span class="sep" />
+          </b-col>
+          <b-col>
+            <span v-if="prop === 'created_at'">{{ value | readableDate }}</span>
+            <span v-else-if="prop === 'size'">{{ value | humanSize }}</span>
+            <span v-else>{{ value }}</span>
+          </b-col>
+        </b-row>
+      </b-card-body>
     </b-card>
 
     <!-- BACKUP CONTENT -->
@@ -60,7 +76,9 @@
           >
             <div class="mr-2">
               <h5>{{ item.name }} <small v-if="item.size">({{ item.size | humanSize }})</small></h5>
-              <p class="mb-0">{{ item.description }}</p>
+              <p class="mb-0">
+                {{ item.description }}
+              </p>
             </div>
 
             <b-form-checkbox :value="partName" :aria-label="$t('check')" />
@@ -73,7 +91,9 @@
           >
             <div class="mr-2">
               <h5>{{ item.name }} <small>{{ appName }} ({{ item.size | humanSize }})</small></h5>
-              <p class="mb-0">{{ $t('version') }} {{ item.version }}</p>
+              <p class="mb-0">
+                {{ $t('version') }} {{ item.version }}
+              </p>
             </div>
 
             <b-form-checkbox :value="appName" :aria-label="$t('check')" />
@@ -114,21 +134,6 @@
       {{ $t('confirm_restore', { name }) }}
     </b-modal>
 
-    <!-- DELETE ARCHIVE -->
-    <b-card>
-      <template v-slot:header>
-        <h2><icon iname="wrench" /> {{ $t('operations') }}</h2>
-      </template>
-
-      <b-form-group label-cols="auto" :label="$t('backup_archive_delete')" label-for="delete-backup">
-        <b-button
-          variant="danger" id="delete-backup" v-b-modal.confirm-delete-backup
-        >
-          <icon iname="trash-o" /> {{ $t('delete') }}
-        </b-button>
-      </b-form-group>
-    </b-card>
-
     <!-- DELETE BACKUP MODAL -->
     <b-modal
       id="confirm-delete-backup" centered
@@ -167,9 +172,12 @@ export default {
       error: '',
       isValid: null,
       // api data
-      createdAt: undefined,
-      size: undefined,
-      path: undefined,
+      info: {
+        name: this.name,
+        created_at: undefined,
+        size: undefined,
+        path: undefined
+      },
       apps: undefined,
       systemParts: undefined
     }
@@ -183,9 +191,9 @@ export default {
   methods: {
     fetchData () {
       api.get(`backup/archives/${this.name}?with_details`).then((data) => {
-        this.createdAt = data.created_at
-        this.size = data.size
-        this.path = data.path
+        this.info.created_at = data.created_at
+        this.info.size = data.size
+        this.info.path = data.path
         this.hasItems = Object.keys(data.system).length !== 0 || Object.keys(data.apps).length !== 0
         this.systemParts = this.formatHooks(data.system)
         this.apps = data.apps
@@ -235,6 +243,11 @@ export default {
       api.delete('backup/archives/' + this.name).then(() => {
         this.$router.push({ name: 'backup-list', params: { id: this.id } })
       })
+    },
+
+    downloadBackup () {
+      const host = this.$store.getters.host
+      window.open(`https://${host}/yunohost/api/backup/download/${this.name}`, '_blank')
     },
 
     formatHooks (hooks) {
