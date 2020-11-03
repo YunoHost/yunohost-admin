@@ -15,7 +15,7 @@
           </small>
 
           <b-button
-            v-b-toggle:collapse
+            v-b-toggle:console-collapse
             class="ml-2 px-1 py-0" size="sm" :variant="open ? 'light' : 'outline-dark'"
           >
             <icon iname="chevron-right" /><span class="sr-only">{{ $t('words.collapse') }}</span>
@@ -24,7 +24,7 @@
       </b-list-group-item>
 
       <!-- ACTION LIST -->
-      <b-collapse id="collapse" v-model="open">
+      <b-collapse id="console-collapse" v-model="open">
         <b-list-group-item class="p-0" id="history" ref="history">
           <!-- ACTION -->
           <b-list-group v-for="(action, i) in history" :key="i" flush>
@@ -111,7 +111,7 @@ export default {
 <style lang="scss" scoped>
 #console {
   position: sticky;
-  z-index: 10;
+  z-index: 5;
   bottom: 0;
 
   margin-left: -1.5rem;

@@ -60,6 +60,7 @@ export default {
     ...mapGetters(['waiting', 'lastAction', 'error']),
 
     progress () {
+      if (!this.lastAction) return null
       const progress = this.lastAction.progress
       if (!progress) return null
       return {
@@ -68,6 +69,7 @@ export default {
     },
 
     messages () {
+      if (!this.lastAction) return null
       const messages = this.lastAction.messages
       return messages.length > 0 ? this.lastAction.messages : null
     }

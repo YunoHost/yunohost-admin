@@ -194,7 +194,7 @@ export default {
   },
 
   created () {
-    api.post('diagnosis/run?except-if-never-ran-yet').then(this.fetchData)
+    api.post('diagnosis/run?except_if_never_ran_yet').then(this.fetchData)
   }
 }
 </script>
