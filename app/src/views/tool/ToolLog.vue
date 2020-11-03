@@ -6,40 +6,41 @@
         <h2><icon iname="info-circle" /> {{ description }}</h2>
       </template>
 
-      <dl>
-        <dt v-t="'logs_path'" />
-        <dd>{{ log_path }}</dd>
-        <hr>
-
-        <template v-if="metadata.started_at">
-          <dt v-t="'logs_started_at'" />
-          <dd>{{ metadata.started_at | readableDate }}</dd>
-          <hr>
-        </template>
-
-        <template v-if="metadata.ended_at">
-          <dt v-t="'logs_ended_at'" />
-          <dd>{{ metadata.ended_at | readableDate }}</dd>
-          <hr>
-        </template>
-
-        <template v-if="metadata.error">
-          <dt v-t="'logs_ended_at'" />
-          <dd>{{ metadata.error }}</dd>
-          <hr>
-        </template>
-      </dl>
+      <b-row
+        v-for="(value, prop) in info" :key="prop"
+        no-gutters class="row-line"
+      >
+        <b-col cols="5" md="3" xl="3">
+          <strong>{{ $t('logs_' + prop) }}</strong>
+          <span class="sep" />
+        </b-col>
+        <b-col>
+          <span v-if="prop.endsWith('_at')">{{ value | readableDate }}</span>
+          <div v-else-if="prop === 'suboperations'">
+            <div v-for="operation in value" :key="operation.name">
+              <icon v-if="!operation.success" iname="times" class="text-danger" />
+              <b-link :to="{ name: 'tool-log', params: { name: operation.name } }">
+                {{ operation.description }}
+              </b-link>
+            </div>
+          </div>
+          <span v-else>{{ value }}</span>
+        </b-col>
+      </b-row>
     </b-card>
 
-    <b-alert v-if="metadata.error" variant="danger" show>
-      <icon iname="exclamation-circle" /> {{ $t('operation_failed_explanation') }}
+    <b-alert
+      v-if="info.error" variant="danger" show
+      class="my-5"
+    >
+      <icon iname="exclamation-circle" /> <span v-html="$t('operation_failed_explanation')" />
     </b-alert>
 
     <!-- LOGS CARD -->
     <b-card class="log">
       <template v-slot:header>
         <div class="d-sm-flex justify-content-sm-between">
-          <h2><icon iname="file-text" /> {{ metadata ? $t('logs') : log_path }}</h2>
+          <h2><icon iname="file-text" /> {{ $t('logs') }}</h2>
           <b-button @click="shareLogs">
             <icon iname="cloud-upload" /> {{ $t('logs_share_with_yunopaste') }}
           </b-button>
@@ -76,11 +77,10 @@ export default {
     return {
       // Log data
       description: '',
-      log_path: '',
+      info: {},
       logs: '',
-      metadata: {},
       // Logs line display
-      numberOfLines: 50,
+      numberOfLines: 25,
       moreLogsAvailable: false
     }
   },
@@ -94,6 +94,7 @@ export default {
       const queryString = objectToParams({
         path: this.name,
         filter_irrelevant: '',
+        with_suboperations: '',
         number: this.numberOfLines
       })
 
@@ -105,18 +106,24 @@ export default {
           this.moreLogsAvailable = false
         }
         this.description = log.description
-        this.log_path = log.log_path
-        this.metadata = log.metadata
 
         const levels = ['ERROR', 'WARNING', 'SUCCESS', 'INFO']
         this.logs = log.logs.map(line => {
           for (const level of levels) {
             if (line.includes(level + ' -')) {
-              return `<span class="alert-${level === 'ERROR' ? 'danger' : level.toLowerCase()}">${line}</span>`
+              return `<span class="alert-${level === 'ERROR'
+                ? 'danger'
+                : level.toLowerCase()}">${line}</span>`
             }
           }
           return line
         }).join('\n')
+
+        const { started_at, ended_at, error, success, suboperations } = log.metadata
+        const info = { path: log.log_path, started_at, ended_at }
+        if (!success) info.error = error
+        if (suboperations) info.suboperations = suboperations
+        this.info = info
       })
     },
 

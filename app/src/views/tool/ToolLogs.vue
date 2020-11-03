@@ -32,6 +32,7 @@
 import api from '@/api'
 import { distanceToNow, readableDate } from '@/helpers/filters/date'
 
+
 export default {
   name: 'ServiceList',
 
@@ -59,7 +60,6 @@ export default {
 
   methods: {
     fetchData () {
-      // FIXME only prints operation for now (can't receive 'history', 'app', 'service', etc.)
       api.get(`logs?limit=${25}&with_details`).then(({ operation }) => {
         operation.forEach((log, index) => {
           if (log.success === '?') {
@@ -83,6 +83,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-</style>
