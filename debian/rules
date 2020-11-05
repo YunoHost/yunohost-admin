@@ -15,13 +15,11 @@ TMPDIR = $$(pwd)/debian/yunohost-admin
 	dh  $@
 
 override_dh_auto_build:
-	# Run npm/gulp
-	#cd src ; npm ci --progress false --loglevel warn --color false
-	cd src ; node_modules/gulp/bin/gulp.js build
-	rm -rf src/node_modules
+	# Run npm/bower/gulp
+	cd app ; npm --progress false --loglevel warn --color false install
+	cd app ; npm run build
 
 override_dh_clean:
 	dh_clean
-	#rm -rf src/node_modules
-	rm -rf src/dist
-
+	rm -rf app/node_modules
+	rm -rf app/dist
