@@ -62,7 +62,9 @@ export default {
   props: {
     title: { type: String, required: true },
     submitText: { type: String, default: null },
-    serverError: { type: String, default: '' }
+    serverError: { type: String, default: '' },
+    // Do not query the api (used by postinstall)
+    noStore: { type: Boolean, default: false }
   },
 
   data () {
@@ -100,7 +102,7 @@ export default {
     ...mapGetters(['domains']),
 
     dynDnsForbiden () {
-      if (!this.domains) return true
+      if (!this.domains) return false
       const dynDomains = this.fields.dynDomain.props.choices
       return this.domains.some(domain => {
         return dynDomains.some(dynDomain => domain.includes(dynDomain))
@@ -137,6 +139,7 @@ export default {
   },
 
   created () {
+    if (this.noStore) return
     this.$store.dispatch('FETCH', { uri: 'domains' }).then(() => {
       if (this.dynDnsForbiden) {
         this.selected = 'domain'
