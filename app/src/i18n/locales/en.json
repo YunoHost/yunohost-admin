@@ -2,6 +2,16 @@
     "action": "Action",
     "active": "Active",
     "add": "Add",
+    "address": {
+        "domain_description": {
+            "domain": "Choose a domain.",
+            "email": "Choose a domain for your email."
+        },
+        "local_part_description": {
+            "domain": "Choose a subdomain.",
+            "email": "Choose a local part for your email."
+        }
+    },
     "advanced": "Advanced",
     "administration_password": "Administration password",
     "all": "All",
@@ -153,14 +163,18 @@
         "donate": "Donate"
     },
     "form_errors": {
+        "alpha": "Must be alphabetical characters only.",
+        "alphalownum_": "Value must be lower-case alphanumeric and underscore characters only.",
         "email_syntax": "Invalid email: Must be alphanumeric, underscore and dash characters only (e.g. someone@example.com, s0me-1@example.com)",
-        "groupname_syntax": "Invalid group name: Must be alphanumeric, underscore and space characters only",
-        "username_exists": "The user '{name}' already exists",
-        "username_syntax": "Invalid username: Must be lower-case alphanumeric and underscore characters only",
         "domain_syntax": "Invalid domain name: Must be lower-case alphanumeric, dot and dash characters only",
         "dynDomain_syntax": "Invalid domain name: Must be lower-case alphanumeric and dash characters only",
         "firewall_port_already": "Port {port} is already {state} (protocol: {protocol}; connection: {connection})",
-        "not_github_link": "Url must be a valid Github link to a repository"
+        "name": "Names may not includes special characters except <code> ,.'-</code>",
+        "githubLink": "Url must be a valid Github link to a repository",
+        "notInUsers": "The user '{value}' already exists.",
+        "passwordLenght": "Password must be at least 8 characters long.",
+        "passwordMatch": "Passwords don't match.",
+        "required": "Field is required."
     },
     "form_input_example": "Example: {example}",
     "from_to": "from {0} to {1}",
@@ -170,7 +184,7 @@
     "group_name": "Group name",
     "group_all_users": "All users",
     "group_visitors": "Visitors",
-    "group_format_name_help": "You can use alpha-numeric chars and space",
+    "group_format_name_help": "You can use alpha-numeric chars and underscore",
     "group_add_member": "Add a user",
     "group_add_permission": "Add a permission",
     "group_new": "New group",
@@ -232,8 +246,9 @@
     "logged_out": "Logged out",
     "login": "Login",
     "logout": "Logout",
-    "mailbox_quota_description": "For example, 700M is a CD, 4700M is a DVD.",
-    "mailbox_quota_placeholder": "Leave empty or set to 0 to disable.",
+    "mailbox_quota_description": "Set a storage size limit for email content.<br>Set to 0 to disable.",
+    "mailbox_quota_example": "700M is a CD, 4700M is a DVD",
+    "mailbox_quota_placeholder": "Set to 0 to disable.",
     "maintained": "maintained",
     "maintained_details": "This app was maintained by its maintainer in the last few months.",
     "manage_apps": "Manage apps",
@@ -410,7 +425,9 @@
     "url": "URL",
     "user_email": "Email",
     "user_emailaliases": "Mail aliases",
+    "user_emailaliases_add": "Add a mail alias",
     "user_emailforward": "Mail forward",
+    "user_emailforward_add": "Add a mail forward",
     "user_fullname": "Full name",
     "user_interface_link": "User interface",
     "user_mailbox_quota": "Mailbox quota",
