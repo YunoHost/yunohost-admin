@@ -12,6 +12,11 @@
     app.get('#/apps', function (c) {
         c.api('GET', '/apps?full', {}, function(data) {
             var apps = data['apps'];
+            for (var a in apps)
+            {
+                var app = apps[a]
+                app['label'] = app['permissions'][app['id'] + ".main"]['label']
+            }
             c.arraySortById(apps);
             c.view('app/app_list', {apps: apps});
         });
@@ -206,7 +211,7 @@
 
                   // Check text search
                   var input = jQuery("#filter-app-cards").val().toLowerCase();
-                  if (jQuery(this).find('.app-title').text().toLowerCase().indexOf(input) <= -1) return false;
+                  if (jQuery(this).find('.app-title, .app-card-desc').text().toLowerCase().indexOf(input) <= -1) return false;
 
                   // Check subtags
                   var subtag = $(".subtag-selector button.active").data("subtag");
@@ -262,10 +267,9 @@
     // Get app information
     app.get('#/apps/:app', function (c) {
         c.api('GET', '/apps/'+c.params['app']+'?full', {}, function(data) {
-        c.api('GET', '/users/permissions', {}, function(data_permissions) {
+            data.label = data.permissions[c.params['app']+".main"]['label']
 
-            // Permissions
-            data.permissions = data_permissions.permissions[c.params['app']+".main"]["allowed"];
+            data.permissions = data.permissions[c.params['app']+".main"]["allowed"];
 
             // Multilingual description
             data.description = (typeof data.manifest.description[y18n.locale] !== 'undefined') ?
@@ -303,7 +307,6 @@
                     );
                 });
             });
-        });
         });
     });
 
@@ -677,12 +680,48 @@
 
     });
 
+    // A small utility to convert a string to title case
+    // e.g. "hAvE a NicE dAy" --> "Have A Nice Day"
+    // Savagely stolen from https://stackoverflow.com/a/196991
+    function toFriendlyName(str) {
+        return str.split('.')[1].replace(/_/g, " ").replace(
+            /\w\S*/g,
+            function(txt) {
+                return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+            }
+        );
+    }
+
     // Get app change label page
     app.get('#/apps/:app/changelabel', function (c) {
         c.api('GET', '/apps/'+c.params['app']+'?full', {}, function(app_data) {
+            var permissions_dict = app_data.permissions;
+            var permissions = [
+                permissions_dict[c.params['app'] + '.main']
+            ];
+            permissions[0].name = c.params['app'] + '.main';
+            permissions[0].title = y18n.t('permission_main');
+            permissions[0].tile_available = permissions[0].url != null && ! permissions[0].url.startsWith('re:');
+
+            var i = 1;
+            for (var permission in permissions_dict) {
+                if (! permission.endsWith('.main')) {
+                    permissions[i] = permissions_dict[permission];
+                    permissions[i].name = permission;
+                    permissions[i].label = permissions[i].sublabel;
+                    permissions[i].title = toFriendlyName(permission);
+                    permissions[i].tile_available = permissions_dict[permission].url != null && ! permissions_dict[permission].url.startsWith('re:');
+                }
+                i++;
+            }
+
             data = {
-                id: c.params['app'],
-                label: app_data.settings.label,
+                'id': c.params['app'],
+                'label': permissions[0].label,
+                'permissions': permissions,
+                'show_tile': function(permission_name) {
+                    return permissions_dict[permission_name].show_tile;
+                }
             };
             c.view('app/app_changelabel', data);
         });
@@ -690,10 +729,19 @@
 
     // Change app label
     app.post('#/apps/:app/changelabel', function (c) {
-        params = {'new_label': c.params['label']};
-        c.api('PUT', '/apps/' + c.params['app'] + '/label', params, function(data) {
-            c.redirect_to('#/apps/'+ c.params['app']);
+
+        $.each($(".permission-row", c.target), function() {
+                var perm = $(this).data('permission');
+                if ('show_tile_' + perm in c.params) {
+                    show_tile = "True";
+                } else {
+                    show_tile = "False";
+                }
+                new_label = c.params["label_" + perm]
+                c.api('PUT', '/users/permissions/' + perm, {show_tile: show_tile, label: new_label}, function(data) {});
         });
+
+        c.redirect_to('#/apps/'+ c.params['app']);
     });
 
     // Get app change URL page

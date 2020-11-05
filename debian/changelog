@@ -1,3 +1,52 @@
+yunohost-admin (4.0.4) stable; urgency=low
+
+  - [fix] migrations link in french translation (#309)
+  - [fix] Stupid typo breaking yunopaste for service logs (7e03213)
+  - [fix] In log views, sometimes 'error' is empty despite success:false ... so rely on the value of success instead (7894c84)
+
+  Thanks to all contributors <3 ! (opi)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Fri, 04 Sep 2020 14:54:01 +0200
+
+yunohost-admin (4.0.3) stable; urgency=low
+
+  - Bump version number for stable release
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Wed, 29 Jul 2020 17:00:00 +0200
+
+yunohost-admin (4.0.2~beta) testing; urgency=low
+
+  - Bump version number for beta release
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Fri, 19 Jun 2020 15:41:15 +0200
+
+yunohost-admin (4.0.1~alpha) testing; urgency=low
+
+  - [mod] Update deb dependencies and build workflow (fd9949d, 01e452a, f6b8202, 8d35eac, 1a9b16c)
+  - [fix] Update npm dependencies and build workflow (#304)
+
+  Thanks to all contributors <3 ! (Arthur Lutz, Kay0u)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Fri, 05 Jun 2020 17:21:38 +0200
+
+yunohost-admin (3.8.3.5) stable; urgency=low
+
+  - [fix] Add a hack to have some sort of cache management as well for .ms files, to avoid stupid issue where people need to force the browser cache refresh after upgrades (7bb8a90)
+  - [i18n] Translations updated for Catalan, French, German, Italian
+
+  Thanks to all contributors <3 ! (Jibec, L. Noferini, ppr, V. Rubiolo, xaloc33, Yasss Gurl)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Mon, 27 Jul 2020 17:36:43 +0200
+
+yunohost-admin (3.8.3.4) stable; urgency=low
+
+  - [enh] Add a tip about pending migrations on update view (7bf9669)
+  - [i18n] Translations updated for Occitan
+
+  Thanks to all contributors <3 ! (Quentí)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Sat, 06 Jun 2020 02:23:20 +0200
+
 yunohost-admin (3.8.3.3) stable; urgency=low
 
   - [i18n] Translations updated for Arabic, Italian

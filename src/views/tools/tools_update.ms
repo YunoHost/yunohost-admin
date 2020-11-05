@@ -5,6 +5,12 @@
 
 <div class="separator"></div>
 
+{{#if pending_migrations}}
+<div class="alert alert-warning">
+{{t 'pending_migrations' "#/tools/migrations"}}
+</div>
+{{/if}}
+
 <div class="panel panel-default">
     <div class="panel-heading">
         <h2 class="panel-title"><span class="fa-fw fa-server"></span> {{t 'system'}}</h2>

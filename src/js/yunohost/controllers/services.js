@@ -108,7 +108,7 @@
                         url: 'https://paste.yunohost.org/documents',
                         data: $("#logs").text(),
                     })
-                    .success(function(data, textStatus, jqXHR) {
+                    .done(function(data, textStatus, jqXHR) {
                         window.open('https://paste.yunohost.org/' + data.key, '_blank');
                     })
                     .fail(function() {

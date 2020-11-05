@@ -15,7 +15,7 @@ TMPDIR = $$(pwd)/debian/yunohost-admin
 	dh  $@
 
 override_dh_auto_build:
-	# Run npm/bower/gulp
+	# Run npm install and build
 	cd app ; npm --progress false --loglevel warn --color false install
 	cd app ; npm run build
 

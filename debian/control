@@ -2,17 +2,15 @@ Source: yunohost-admin
 Section: utils
 Priority: extra
 Maintainer: YunoHost Contributors <contrib@yunohost.org>
-Build-Depends: debhelper (>=9)
- , nodejs (>=4.4.0), git
+Build-Depends: debhelper (>=12)
+ , nodejs (>=10.15.2), npm (>=5.8.0), git
 Standards-Version: 3.9.6
 Homepage: https://yunohost.org/
 
 Package: yunohost-admin
 Architecture: all
-Conflicts: yunohost-apps-admin
-Replaces: yunohost-apps-admin
 Depends: ${misc:Depends}
- , yunohost (>= 3.8)
+ , yunohost (>= 4.0.0~alpha)
 Description: web administration interface for yunohost
  YunoHost aims to make self-hosting accessible to everyone. It configures
  an email, Web and IM server alongside a LDAP base. It also provides

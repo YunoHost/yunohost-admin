@@ -485,5 +485,8 @@
     "catalog": "Catalogo",
     "app_state_low_quality_explanation": "Questa applicazione può essere funzionale ma potrebbe presentare dei problemi oppure non essere pienamente integrata con YunoHost oppure non rispettare le pratiche consigliate.",
     "app_state_low_quality": "bassa qualità",
-    "all": "Tutti"
+    "all": "Tutti",
+    "pending_migrations": "Ci sono alcune migrazioni in sospeso in attesa di essere eseguite. Consulta <a href='#/tools/migrations'>Tools > Migrations</a> per visualizzarle.",
+    "tip_about_user_email": "Gli utenti sono creati associati ad un indirizzo email (e un account XMPP) del tipo utente@domain.tld. Indirizzi email addizionali e forward possono essere aggiunti successivamente dall'amministratore e dall'utente.",
+    "log_suboperations": "Sub-operazioni"
 }
