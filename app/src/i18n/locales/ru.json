@@ -94,7 +94,6 @@
     "cumulative_usage": "Общее потребление",
     "custom_app_install": "Установка пользовательских приложений",
     "custom_app_url_only_github": "В настоящее время только из GitHub",
-    "default": "По умолчанию",
     "delete": "Удалить",
     "description": "Описание",
     "backup_optional_password": "Пароль опционально",
@@ -296,6 +295,9 @@
     "versions": "Версия",
     "view_user_profile": "Смотрите профиль  %s's",
     "warning_first_user": "Сначала вы должны  <a href='#/users/create' class='alert-link'>создать пользователя</a> first.",
+    "words": {
+        "default": "По умолчанию"
+    },
     "write": "Писать",
     "wrong_password": "Неправильный пароль",
     "yes": "Да",
