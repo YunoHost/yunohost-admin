@@ -116,7 +116,6 @@
     "created_at": "Created at",
     "custom_app_install": "Install custom app",
     "custom_app_url_only_github": "Currently only from GitHub",
-    "default": "Default",
     "delete": "Delete",
     "description": "Description",
     "details": "Details",
@@ -156,8 +155,8 @@
     "experimental": "Experimental",
     "experimental_warning": "Warning: this feature is experimental and not consider stable, you shouldn't be using it except if you know what you are doing.",
     "firewall": "Firewall",
+    "footer_version": "Powered by <a href='https://yunohost.org'>YunoHost</a> {version} ({repo}).",
     "footer": {
-        "version": "Powered by {ynh} {version} ({repo}).",
         "documentation": "Documentation",
         "help": "Need help?",
         "donate": "Donate"
@@ -443,7 +442,8 @@
     "warnings": "{count} warnings",
     "warning_first_user": "You probably need to <a href='#/users/create' class='alert-link'>create a user</a> first.",
     "words": {
-        "collapse": "Collapse"
+        "collapse": "Collapse",
+        "default": "Default"
     },
     "wrong_password": "Wrong password",
     "yes": "Yes",

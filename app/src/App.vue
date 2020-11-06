@@ -62,22 +62,11 @@
           <b-nav-item href="https://donate.yunohost.org/" target="_blank" link-classes="text-secondary">
             <icon iname="heart" /> {{ $t('footer.donate') }}
           </b-nav-item>
-          <i18n
-            v-if="yunohost" path="footer.version" tag="b-nav-text"
-            id="yunohost-version" class="ml-md-auto text-center"
-          >
-            <template v-slot:ynh>
-              <b-link href="https://yunohost.org">
-                YunoHost
-              </b-link>
-            </template>
-            <template v-slot:version>
-              {{ yunohost.version }}
-            </template>
-            <template v-slot:repo>
-              {{ yunohost.repo }}
-            </template>
-          </i18n>
+
+          <b-nav-text
+            v-if="yunohost" id="yunohost-version" class="ml-md-auto text-center"
+            v-html="$t('footer_version', yunohost)"
+          />
         </b-nav>
       </nav>
     </footer>

@@ -24,8 +24,8 @@
           <h5>
             {{ domain }}
             <small v-if="domain === mainDomain">
-              <span class="sr-only">{{ $t('default') }}</span>
-              <icon iname="star" :title="$t('default')" />
+              <span class="sr-only">{{ $t('words.default') }}</span>
+              <icon iname="star" :title="$t('words.default')" />
             </small>
           </h5>
           <p>https://{{ domain }}</p>
