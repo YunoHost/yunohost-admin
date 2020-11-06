@@ -29,7 +29,7 @@
     "backup": "备份",
     "applications": "应用程序",
     "app_state_working": "工作",
-    "app_state_high-quality": "高质量",
+    "app_state_highquality": "高质量",
     "app_state_notworking": "不工作",
     "app_make_default": "设为默认",
     "app_install_custom_no_manifest": "manifest.json文件不存在",
@@ -42,6 +42,6 @@
     "app_info_change_url_disabled_tooltip": "此应用尚未实现该功能",
     "archive_empty": "空存档",
     "backup_archive_delete": "删除这个存档",
-    "app_state_low_quality": "低质量",
+    "app_state_lowquality": "低质量",
     "app_state_inprogress": "暂不工作"
 }

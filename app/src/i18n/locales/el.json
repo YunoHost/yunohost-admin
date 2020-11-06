@@ -2,7 +2,6 @@
     "add": "Προσθήκη",
     "administration_password": "Κωδικός Διαχείρισης",
     "confirm_delete": "Είστε σίγουροι ότι θέλετε να διαγράψετε το %s ;",
-    "default": "Προεπιλογή",
     "delete": "Διαγραφή",
     "description": "Περιγραφή",
     "disable": "Απενεργοποίηση",
@@ -52,6 +51,9 @@
     "upnp": "UPnP",
     "url": "Διεύθυνση URL",
     "warning_first_user": "Πιθανώς χρειάζεστε να <a href='#/users/create' class='alert-link'> δημιουργήσετε ένα χρήστη </a> πρώτα.",
+    "words": {
+        "default": "Προεπιλογή"
+    },
     "wrong_password": "Λανθασμένος κωδικός πρόσβασης",
     "cancel": "Ματαίωση",
     "ok": "Εντάξει"
