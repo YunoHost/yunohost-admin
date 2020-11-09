@@ -488,5 +488,6 @@
     "app_info_managelabel_desc": "Gerir las aplelacion de permission al portal.",
     "app_manage_label_and_tiles": "Gestion de las apelacions e títols",
     "permission_corresponding_url": "URL correspondenta",
-    "permission_main": "Permission principala"
+    "permission_main": "Permission principala",
+    "permission_show_tile_enabled": "Afichar lo teule al portal utilizaire"
 }
