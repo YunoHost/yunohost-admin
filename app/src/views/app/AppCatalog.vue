@@ -74,7 +74,7 @@
           <b-card-text>{{ app.manifest.description }}</b-card-text>
 
           <b-card-text v-if="app.maintained === 'orphaned'" class="align-self-end mt-auto">
-            <span v-if="app.maintained === 'orphaned'" class="alert-warning p-2" v-b-popover.hover.top="$t('orphaned_details')">
+            <span class="alert-warning p-1" v-b-popover.hover.top="$t('orphaned_details')">
               <icon iname="warning" /> {{ $t(app.maintained) }}
             </span>
           </b-card-text>
@@ -193,7 +193,7 @@ export default {
             placeholder: 'https://github.com/USER/REPOSITORY'
           }
         },
-        url: 'https://github.com/YunoHost-Apps/archivist_ynh'
+        url: ''
       }
     }
   },
@@ -293,7 +293,7 @@ export default {
         filters.state = 'working'
         filters.isWorking = true
       }
-      if (app.level <= 4) {
+      if (app.level <= 4 || app.level === '?') {
         filters.state = 'lowquality'
         return filters
       } else {
@@ -348,7 +348,6 @@ export default {
 
   created () {
     this.fetchData()
-    console.log(this.$refs)
   },
 
   mixins: [validationMixin]
@@ -366,6 +365,7 @@ select {
 }
 .card-deck {
   .card {
+    border-color: $gray-400;
     margin-top: 2rem;
     flex-basis: 90%;
     @include media-breakpoint-up(md) {
@@ -376,10 +376,11 @@ select {
       flex-basis: 33%;
       max-width: calc(33.3% - 30px);
     }
-  }
 
-  .app-card {
-    min-height: 12rem;
+    // not maintained info
+    .alert-warning {
+      font-size: .75em;
+    }
   }
 
   .category-card {
@@ -401,12 +402,22 @@ select {
       border-top-right-radius: 0;
       border-bottom: 0;
       flex-basis: 0;
+      padding-left: 0;
+      padding-right: 0;
     }
     .btn:first-of-type {
-      border-left: 0
+      border-left: 0;
     }
     .btn:last-of-type {
-      border-right: 0
+      border-right: 0;
+    }
+
+    .btn-outline-dark {
+      border-color: $gray-400;
+
+      &:hover {
+        border-color: $dark;
+      }
     }
   }
 }
