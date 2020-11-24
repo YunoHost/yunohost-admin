@@ -86,7 +86,7 @@
                 </b-button>
                 <b-button
                   v-if="details"
-                  size="sm" variant="light" class="ml-lg-2 mt-2 mt-lg-0"
+                  size="sm" variant="outline-dark" class="ml-lg-2 mt-2 mt-lg-0"
                   v-b-toggle="'collapse-' + id + '-item-' + i"
                 >
                   <icon iname="level-down" /> <span v-t="'details'" />
@@ -125,13 +125,14 @@ export default {
 
   methods: {
     fetchData () {
-      api.get('diagnosis/show?full').then(({ reports }) => {
-        if (!Array.isArray(reports)) {
+      api.get('diagnosis/show?full').then((data) => {
+        if (data === null) {
           this.reports = null
           return
         }
 
-        for (var report of reports) {
+        const reports = data.reports
+        for (const report of reports) {
           report.warnings = 0
           report.errors = 0
           report.ignoreds = 0
