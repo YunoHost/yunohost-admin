@@ -18,11 +18,22 @@
 
 $alert-padding-x: 1rem;
 
-$color-purple: #9932cc;
+$blue:   #2f7ed2;
+$purple: #9932cc;
+$yellow: #ffd452;
 
 $theme-colors: (
-  "best": $color-purple
+  "best": $purple
 );
+
+@import '~bootstrap/scss/functions.scss';
+@import '~bootstrap/scss/variables';
+@import '~bootstrap/scss/mixins.scss';
+
+// Overwrite list-group-item variants to lighter ones (used in diagnosis for example)
+@each $color, $value in $theme-colors {
+  @include list-group-item-variant($color, theme-color-level($color, -11), theme-color-level($color, 6));
+}
 
 /*
 
