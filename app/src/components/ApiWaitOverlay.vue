@@ -8,7 +8,7 @@
 
     <template v-slot:overlay>
       <b-card no-body>
-        <div v-if="!error" class="d-flex justify-content-center mt-3">
+        <div v-if="!error" class="mt-3 px-3">
           <!-- <b-spinner /> -->
           <img class="pacman" src="@/assets/ajax-loader.gif">
         </div>
@@ -116,13 +116,14 @@ export default {
 }
 
 .pacman {
+  width: 24px;
   animation: back-and-forth 4s linear infinite;
 
   @keyframes back-and-forth {
-    0%, 100% { transform: translateX(-50vw) scale(1); }
-    49% { transform: translateX(50vw) scale(1); }
-    50% { transform: translateX(50vw) scale(-1); }
-    99% { transform: translateX(-50vw) scale(-1); }
+    0%, 100% { transform: scale(1); margin-left: 0; }
+    49% { transform: scale(1); margin-left: calc(100% - 24px);}
+    50% { transform: scale(-1); margin-left: calc(100% - 24px);}
+    99% { transform: scale(-1); margin-left: 0;}
   }
 }
 </style>
