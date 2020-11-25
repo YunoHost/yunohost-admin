@@ -17,7 +17,7 @@
         class="d-flex justify-content-between align-items-center pr-0"
       >
         <div class="w-100">
-          <h5>{{ name }} <small>{{ description }}</small></h5>
+          <h5 class="font-weight-bold">{{ name }} <small class="text-secondary">{{ description }}</small></h5>
           <p class="mb-0">
             <span :class="status === 'running' ? 'text-success' : 'text-danger'">
               <icon :iname="status === 'running' ? 'check-circle' : 'times'" />

@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
   <div class="domain-list">
     <div class="actions">
       <b-input-group>
@@ -21,14 +21,14 @@
         class="d-flex justify-content-between align-items-center pr-0"
       >
         <div>
-          <h5>
+          <h5 class="font-weight-bold">
             {{ domain }}
             <small v-if="domain === mainDomain">
               <span class="sr-only">{{ $t('words.default') }}</span>
               <icon iname="star" :title="$t('words.default')" />
             </small>
           </h5>
-          <p>https://{{ domain }}</p>
+          <p class="font-italic">https://{{ domain }}</p>
         </div>
         <icon iname="chevron-right" class="lg fs-sm ml-auto" />
       </b-list-group-item>

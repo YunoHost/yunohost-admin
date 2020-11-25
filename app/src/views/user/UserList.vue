@@ -36,9 +36,9 @@
           class="d-flex justify-content-between align-items-center pr-0"
         >
           <div>
-            <h5 :class="{rounded: !users}">
+            <h5 :class="{rounded: !users}" class="font-weight-bold">
               {{ user.username }}
-              <small>({{ user.fullname }})</small>
+              <small class="text-secondary">({{ user.fullname }})</small>
             </h5>
             <p :class="{rounded: !users}">
               {{ user.mail }}

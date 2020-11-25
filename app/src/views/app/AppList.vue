@@ -18,29 +18,33 @@
       </div>
     </div>
 
-    <b-alert v-if="apps === null" variant="warning" show>
-      <icon iname="exclamation-triangle" /> {{ $t('no_installed_apps') }}
-    </b-alert>
+    <template v-if="apps !== undefined">
+      <b-alert v-if="apps === null" variant="warning" show>
+        <icon iname="exclamation-triangle" /> {{ $t('no_installed_apps') }}
+      </b-alert>
 
-    <b-list-group v-else-if="filteredApps && filteredApps.length">
-      <b-list-group-item
-        v-for="{ id, name, description, label } in filteredApps" :key="id"
-        :to="{ name: 'app-info', params: { id }}"
-        class="d-flex justify-content-between align-items-center pr-0"
-      >
-        <div>
-          <h5>{{ label }} <small>{{ name }}</small></h5>
-          <p class="m-0">
-            {{ description }}
-          </p>
-        </div>
+      <b-list-group v-else-if="filteredApps && filteredApps.length">
+        <b-list-group-item
+          v-for="{ id, name, description, label } in filteredApps" :key="id"
+          :to="{ name: 'app-info', params: { id }}"
+          class="d-flex justify-content-between align-items-center pr-0"
+        >
+          <div>
+            <h5 class="font-weight-bold">{{ label }}
+              <small v-if="name" class="text-secondary">{{ name }}</small>
+            </h5>
+            <p class="m-0">
+              {{ description }}
+            </p>
+          </div>
 
-        <icon iname="chevron-right" class="lg fs-sm ml-auto" />
-      </b-list-group-item>
-    </b-list-group>
-    <b-alert v-else-if="filteredApps" variant="warning" show>
-      <icon iname="exclamation-triangle" /> {{ $t('search.not_found.installed_app') }}
-    </b-alert>
+          <icon iname="chevron-right" class="lg fs-sm ml-auto" />
+        </b-list-group-item>
+      </b-list-group>
+      <b-alert v-else variant="warning" show>
+        <icon iname="exclamation-triangle" /> {{ $t('search.not_found.installed_app') }}
+      </b-alert>
+    </template>
   </div>
 </template>
 
@@ -70,12 +74,32 @@ export default {
   methods: {
     fetchData () {
       api.get('apps?full').then(({ apps }) => {
-        if (apps.length === 0) this.apps = null
-        this.apps = apps.map(({ id, name, description, permissions }) => {
+        if (apps.length === 0) {
+          this.apps = null
+          return
+        }
+
+        const multiInstances = {}
+        this.apps = apps.map(({ id, name, description, permissions, manifest }) => {
           // FIXME seems like some apps may no have a label (replace with id)
-          return { id, name, description, label: permissions[id + '.main'].label }
+          const label = permissions[id + '.main'].label
+          // Display the `id` of the instead of its `name` if multiple apps share the same name
+          if (manifest.multi_instance) {
+            if (!(name in multiInstances)) {
+              multiInstances[name] = []
+            }
+            const labels = multiInstances[name]
+            if (labels.includes(label)) {
+              name = id
+            }
+            labels.push(label)
+          }
+          if (label === name) {
+            name = null
+          }
+          return { id, name, description, label }
         }).sort((prev, app) => {
-          return prev.id > app.id ? 1 : -1
+          return prev.label > app.label ? 1 : -1
         })
       })
     }

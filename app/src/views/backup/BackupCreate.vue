@@ -12,7 +12,7 @@
       >
         <b-list-group flush>
           <!-- SYSTEM TITLE -->
-          <b-list-group-item class="d-flex align-items-md-center flex-column flex-md-row" variant="success">
+          <b-list-group-item class="d-flex align-items-md-center flex-column flex-md-row" variant="dark">
             <div>
               <h4 class="mb-0"><icon iname="cube" /> {{ $t('system') }}</h4>
             </div>
@@ -44,7 +44,7 @@
           </b-list-group-item>
 
           <!-- APPS TITLE -->
-          <b-list-group-item class="d-flex align-items-md-center flex-column flex-md-row" variant="success">
+          <b-list-group-item class="d-flex align-items-md-center flex-column flex-md-row" variant="dark">
             <div>
               <h4 class="mb-0"><icon iname="cubes" /> {{ $t('applications') }}</h4>
             </div>

@@ -159,7 +159,7 @@ export default {
 <style lang="scss" scoped>
 #console {
   position: sticky;
-  z-index: 5;
+  z-index: 15;
   bottom: 0;
 
   margin-left: -1.5rem;

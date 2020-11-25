@@ -40,13 +40,14 @@ export default {
 
       fields: {
         locale: {
-          label: this.$i18n.t('tools_webadmin.locale'),
+          label: this.$i18n.t('tools_webadmin.language'),
           component: 'SelectItem',
           props: { id: 'locale', choices: [] }
         },
 
         fallbackLocale: {
-          label: this.$i18n.t('tools_webadmin.fallback_locale'),
+          label: this.$i18n.t('tools_webadmin.fallback_language'),
+          description: this.$i18n.t('tools_webadmin.fallback_language_description'),
           component: 'SelectItem',
           props: { id: 'fallback-locale', choices: [] }
         },

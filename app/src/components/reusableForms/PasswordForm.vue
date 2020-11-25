@@ -10,7 +10,6 @@
       </b-alert>
       <slot name="disclaimer" />
       <hr>
-      {{ $v.form.currentPassword }}
     </template>
 
     <slot name="extra-fields" v-bind="{ v: $v, fields, form }" />

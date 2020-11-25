@@ -65,8 +65,9 @@ export default {
       commit('SET_YUNOHOST_INFOS', null)
     },
 
-    'DISCONNECT' ({ dispatch }, route) {
+    'DISCONNECT' ({ dispatch, commit }, route) {
       dispatch('RESET_CONNECTED')
+      commit('UPDATE_WAITING', false)
       if (router.currentRoute.name === 'login') return
       router.push({
         name: 'login',
