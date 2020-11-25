@@ -10,9 +10,8 @@
         v-for="(value, prop) in info" :key="prop"
         no-gutters class="row-line"
       >
-        <b-col cols="5" md="3" xl="3">
+        <b-col cols="auto" md="3">
           <strong>{{ $t('logs_' + prop) }}</strong>
-          <span class="sep" />
         </b-col>
         <b-col>
           <span v-if="prop.endsWith('_at')">{{ value | readableDate }}</span>
@@ -41,19 +40,25 @@
       <template v-slot:header>
         <div class="d-sm-flex justify-content-sm-between">
           <h2><icon iname="file-text" /> {{ $t('logs') }}</h2>
-          <b-button @click="shareLogs">
+          <b-button @click="shareLogs" variant="success">
             <icon iname="cloud-upload" /> {{ $t('logs_share_with_yunopaste') }}
           </b-button>
         </div>
       </template>
+
       <b-button
         v-if="moreLogsAvailable"
-        variant="info" class="w-100 rounded-0"
+        variant="white" class="w-100 rounded-0"
         @click="fetchData"
       >
         <icon iname="plus" /> {{ $t('logs_more') }}
       </b-button>
+
       <pre><code v-html="logs" /></pre>
+
+      <b-button @click="shareLogs" variant="success" class="w-100 rounded-0">
+        <icon iname="cloud-upload" /> {{ $t('logs_share_with_yunopaste') }}
+      </b-button>
     </b-card>
   </div>
 </template>

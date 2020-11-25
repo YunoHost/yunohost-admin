@@ -10,26 +10,29 @@
         v-for="(value, prop) in info" :key="prop"
         no-gutters class="row-line"
       >
-        <b-col cols="5" md="3" xl="3">
+        <b-col cols="auto" md="3">
           <strong>{{ $t(prop) }}</strong>
-          <span class="sep" />
         </b-col>
         <b-col>
           <a v-if="prop === 'url'" :href="value" target="_blank">{{ value }}</a>
           <span v-else>{{ value }}</span>
         </b-col>
       </b-row>
-      <hr>
-
-      <!-- MANAGE USER/GROUP -->
-      <p class="mb-2">
-        <strong>{{ $t('app_info_access_desc') }}</strong>
-        <br>
-        {{ allowedGroups.length > 0 ? allowedGroups.join(', ') + '.' : $t('nobody') }}
-      </p>
-      <b-button size="sm" :to="{ name: 'group-list'}" variant="info">
-        <icon iname="key-modern" /> {{ $t('groups_and_permissions_manage') }}
-      </b-button>
+      <b-row no-gutters class="row-line">
+        <b-col cols="auto" md="3">
+          <strong>{{ $t('app_info_access_desc') }}</strong>
+          <span class="sep" />
+        </b-col>
+        <b-col>
+          {{ allowedGroups.length > 0 ? allowedGroups.join(', ') + '.' : $t('nobody') }}
+          <b-button
+            size="sm" :to="{ name: 'group-list'}" variant="info"
+            class="ml-2"
+          >
+            <icon iname="key-modern" /> {{ $t('groups_and_permissions_manage') }}
+          </b-button>
+        </b-col>
+      </b-row>
     </b-card>
 
     <!-- OPERATIONS -->
@@ -39,11 +42,11 @@
       </template>
 
       <!-- CHANGE PERMISSIONS LABEL -->
-      <b-form-group :label="$t('app_manage_label_and_tiles')" label-class="font-weight-bold" :description="$t('app_info_managelabel_desc')">
+      <b-form-group :label="$t('app_manage_label_and_tiles')" label-class="font-weight-bold">
         <form-field
           v-for="(perm, i) in app.permissions" :key="i"
           :label="perm.title" :label-for="'perm-' + i"
-          label-cols="0" label-class=""
+          label-cols="0" label-class="" class="m-0"
           :validation="$v.form.labels.$each[i] "
         >
           <template #default="{ self }">
@@ -237,10 +240,13 @@ export default {
 
   methods: {
     fetchData () {
-      this.$store.dispatch('FETCH', { uri: 'users/permissions?full', storeKey: 'permissions' }).then(a => {
-        console.log(a)
-      })
-      api.get(`apps/${this.id}?full`).then((app) => {
+      Promise.all([
+          api.get(`apps/${this.id}?full`),
+          this.$store.dispatch('FETCH_ALL', [
+            { uri: 'users/permissions?full', storeKey: 'permissions' },
+            { uri: 'domains' }
+          ])
+      ]).then(([app]) => {
         const form = { labels: [] }
 
         const mainPermission = app.permissions[this.id + '.main']
@@ -263,10 +269,8 @@ export default {
           }
         }
 
-        console.log(app.permissions)
         this.info = {
           id: this.id,
-          // FIXME permission
           label: mainPermission.label,
           description: app.description,
           version: app.version,
@@ -280,22 +284,18 @@ export default {
             path: app.settings.path.slice(1)
           }
         }
-        // FIXME permission
+
         this.form = form
         this.app = {
           domain: app.settings.domain,
           supports_change_url: app.supports_change_url,
-          // FIXME permission
           permissions
         }
       })
-
-      this.$store.dispatch('FETCH', { uri: 'domains' })
     },
 
     changeLabel (permName, data) {
       data.show_tile = data.show_tile ? 'True' : 'False'
-      console.log(permName, data)
       api.put('users/permissions/' + permName, data).then(this.fetchData)
     },
 

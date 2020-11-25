@@ -1,72 +1,75 @@
 <template>
   <div class="service-info">
-    <div class="actions">
-      <div class="buttons ml-auto">
-        <template v-if="status === 'running'">
-          <b-button
-            variant="warning"
-            @click="action = 'restart'" v-b-modal.action-confirm-modal
-          >
-            <icon iname="refresh" /> {{ $t('restart') }}
-          </b-button>
-          <b-button
-            variant="danger" :disabled="critical"
-            @click="action = 'stop'" v-b-modal.action-confirm-modal
-          >
-            <icon iname="warning" /> {{ $t('stop') }}
-          </b-button>
-        </template>
-        <template v-else>
-          <b-button
-            variant="success"
-            @click="action = 'start'" v-b-modal.action-confirm-modal
-          >
-            <icon iname="play" /> {{ $t('start') }}
-          </b-button>
-        </template>
-        <b-button @click="shareLogs">
-          <icon iname="cloud-upload" /> {{ $t('logs_share_with_yunopaste') }}
-        </b-button>
-      </div>
-    </div>
-
+    <!-- INFO CARD -->
     <b-card>
       <template v-slot:header>
-        <h2><icon iname="info-circle" /> {{ name }}</h2>
+        <div class="d-sm-flex">
+          <h2><icon iname="info-circle" /> {{ name }}</h2>
+          <div class="ml-auto mt-2 mt-sm-0">
+            <template v-if="status === 'running'">
+              <b-button variant="warning" @click="action = 'restart'" v-b-modal.action-confirm-modal>
+                <icon iname="refresh" /> {{ $t('restart') }}
+              </b-button>
+              <b-button
+                v-if="!critical" variant="danger" class="ml-2"
+                @click="action = 'stop'" v-b-modal.action-confirm-modal
+              >
+                <icon iname="warning" /> {{ $t('stop') }}
+              </b-button>
+            </template>
+            <b-button
+              v-else
+              variant="success" @click="action = 'start'" v-b-modal.action-confirm-modal
+            >
+              <icon iname="play" /> {{ $t('start') }}
+            </b-button>
+          </div>
+        </div>
       </template>
 
-      <dl>
-        <dt v-t="'description'" />
-        <dd>{{ description }}</dd>
-        <hr>
-
-        <dt v-t="'status'" />
-        <dd>
+      <b-row no-gutters class="row-line">
+        <b-col cols="auto" md="3"><strong v-t="'description'" /></b-col>
+        <b-col>{{ description }}</b-col>
+      </b-row>
+      <b-row no-gutters class="row-line">
+        <b-col cols="auto" md="3"><strong v-t="'status'" /></b-col>
+        <b-col>
           <span :class="status === 'running' ? 'text-success' : 'text-danger'">
             <icon :iname="status === 'running' ? 'check-circle' : 'times'" />
             {{ status }}
           </span>
           {{ $t('since') }} {{ last_state_change | distanceToNow }}
-        </dd>
-        <hr>
-
-        <dt v-t="'service_start_on_boot'" />
-        <dd :class="start_on_boot === 'enabled' ? 'text-success' : 'text-danger'">
-          {{ $t(start_on_boot) }}
-        </dd>
-        <hr>
-
-        <dt v-t="'configuration'" />
-        <dd :class="{ 'text-success': configuration === 'valid', 'text-danger': configuration === 'broken' }">
-          {{ $t(configuration) }}
-        </dd>
-      </dl>
+        </b-col>
+      </b-row>
+      <b-row no-gutters class="row-line">
+        <b-col cols="auto" md="3"><strong v-t="'service_start_on_boot'" /></b-col>
+        <b-col>
+          <span :class="start_on_boot === 'enabled' ? 'text-success' : 'text-danger'">
+            {{ $t(start_on_boot) }}
+          </span>
+        </b-col>
+      </b-row>
+      <b-row no-gutters class="row-line">
+        <b-col cols="auto" md="3"><strong v-t="'configuration'" /></b-col>
+        <b-col>
+          <span :class="{ 'text-success': configuration === 'valid', 'text-danger': configuration === 'broken' }">
+            {{ $t(configuration) }}
+          </span>
+        </b-col>
+      </b-row>
     </b-card>
 
+    <!-- LOGS CARD -->
     <b-card>
       <template v-slot:header>
-        <h2><icon iname="book" /> {{ $t('logs') }}</h2>
+        <div class="d-sm-flex justify-content-sm-between">
+          <h2><icon iname="book" /> {{ $t('logs') }}</h2>
+          <b-button variant="success" @click="shareLogs" class="mt-2 mt-sm-0">
+            <icon iname="cloud-upload" /> {{ $t('logs_share_with_yunopaste') }}
+          </b-button>
+        </div>
       </template>
+
       <div class="w-100" v-for="{ filename, content} in logs" :key="filename">
         <h3>{{ filename }}</h3>
         <pre class="bg-light p-3"><code>{{ content }}</code></pre>
@@ -152,7 +155,7 @@ export default {
         : 'services/' + this.name
 
       // FIXME API doesn't return anything to the PUT so => json err
-      api.fetch(method, uri).then(() => {
+      api[method](uri).then(() => {
         this.fetchData()
       })
     },
