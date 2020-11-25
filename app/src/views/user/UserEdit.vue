@@ -198,6 +198,7 @@ export default {
         password: {
           label: this.$i18n.t('password'),
           description: this.$i18n.t('good_practices_about_user_password'),
+          descriptionVariant: 'warning',
           props: { id: 'password', type: 'password', placeholder: '••••••••' }
         },
 

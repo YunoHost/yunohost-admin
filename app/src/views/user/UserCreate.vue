@@ -117,12 +117,14 @@ export default {
           id: 'mail',
           label: this.$i18n.t('user_email'),
           description: this.$i18n.t('tip_about_user_email'),
+          descriptionVariant: 'info',
           props: { choices: [] }
         },
 
         password: {
           label: this.$i18n.t('password'),
           description: this.$i18n.t('good_practices_about_user_password'),
+          descriptionVariant: 'warning',
           props: {
             id: 'password',
             placeholder: '••••••••',

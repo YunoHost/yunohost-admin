@@ -35,7 +35,7 @@
           </b-link>
         </div>
 
-        <span v-if="description" v-html="description" />
+        <div v-if="description" v-html="description" :class="{ ['alert p-1 px-2 alert-' + descriptionVariant]: descriptionVariant }"/>
       </template>
       <!-- Slot available to overwrite the one above -->
       <slot name="description" />
@@ -53,6 +53,7 @@ export default {
     // Component props (other <form-group> related attrs are passed thanks to $attrs)
     id: { type: String, default: null },
     description: { type: String, default: null },
+    descriptionVariant: { type: String, default: null },
     example: { type: String, default: null },
     link: { type: Object, default: null },
     // Rendered field component props

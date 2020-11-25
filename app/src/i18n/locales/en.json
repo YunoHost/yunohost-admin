@@ -397,8 +397,9 @@
     "tools_shuttingdown": "Your server is powering off. As long as your server is off, you won't be able to use the web administration.",
     "tools_shutdown_reboot": "Shutdown/Reboot",
     "tools_webadmin": {
-        "locale": "Locale",
-        "fallback_locale": "Fallback locale",
+        "language": "Language",
+        "fallback_language": "Fallback language",
+        "fallback_language_description": "Language that will be used in case the translation is not available in the main language.",
         "cache": "Cache",
         "cache_description": "Consider disabling the cache if you plan on working with the CLI while also navigating in this web-admin.",
         "experimental": "Experimental mode",
