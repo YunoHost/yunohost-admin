@@ -1,5 +1,7 @@
 import Vue from 'vue'
+
 import api from '@/api'
+
 
 export default {
   state: () => ({
@@ -37,7 +39,7 @@ export default {
     },
 
     'ADD_USERS' (state, user) {
-      if (state.users === undefined) state.users = {}
+      if (!state.users) state.users = {}
       Vue.set(state.users, user.username, user)
     },
 
@@ -62,6 +64,9 @@ export default {
       Vue.delete(state.users_details, username)
       if (state.users) {
         Vue.delete(state.users, username)
+        if (Object.keys(state.users).length === 0) {
+          state.users = null
+        }
       }
     },
 
@@ -108,8 +113,8 @@ export default {
           return { storeKey, param, responseData }
         })
       })).then(responsesData => {
-        return responsesData.map(({ storeKey, param, responseData, cached = null }) => {
-          if (cached) return cached
+        return responsesData.map(({ storeKey, param, responseData, cached = undefined }) => {
+          if (cached !== undefined) return cached
           const data = responseData[storeKey] ? responseData[storeKey] : responseData
           commit('SET_' + storeKey.toUpperCase(), param ? [param, data] : data)
           return param ? state[storeKey][param] : state[storeKey]
@@ -146,8 +151,8 @@ export default {
     users: state => state.users,
 
     userNames: state => {
-      if (state.users !== undefined) return Object.keys(state.users)
-      return undefined
+      if (state.users) return Object.keys(state.users)
+      return []
     },
 
     usersAsChoices: state => {
