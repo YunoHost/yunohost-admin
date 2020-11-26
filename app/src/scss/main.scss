@@ -11,6 +11,8 @@
 @import '~bootstrap/scss/bootstrap.scss';
 @import '~bootstrap-vue/src/index.scss';
 
+// Import fonts
+@import 'font';
 @import '~fork-awesome/scss/fork-awesome.scss';
 
 
@@ -23,7 +25,6 @@ body {
   overflow-x: hidden;
   min-height: 100vh;
   margin: 0;
-  font-family: "Source Sans Pro", "Helvetica Neue", "Fira Sans", Helvetica, Arial, sans-serif;
 }
 
 #app {

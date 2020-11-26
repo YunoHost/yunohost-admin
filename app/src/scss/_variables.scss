@@ -23,8 +23,21 @@ $purple: #9932cc;
 $yellow: #ffd452;
 
 $theme-colors: (
-  "best": $purple
+  'best': $purple
 );
+
+// Replace font-weight 300 with 200
+$font-weight-light: 200;
+$display1-weight: 200;
+$display2-weight: 200;
+$display3-weight: 200;
+$display4-weight: 200;
+$lead-font-weight: 200;
+
+// Set fonts
+$font-family-sans-serif: 'FiraGO', 'Fira Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji' !default;
+$font-family-monospace: 'Fira Code', SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace !default;
+
 
 @import '~bootstrap/scss/functions.scss';
 @import '~bootstrap/scss/variables';

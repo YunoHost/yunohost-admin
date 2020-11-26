@@ -1,0 +1,114 @@
+/*
+  ╭─────────────────────────╮
+  │  ┌─╴╶┬╴┌─╮╭─┐   ╭─╮╭─╮  │
+  │  ├─╴ │ ├┬╯├─┤   │╶╮│ │  │
+  │  ╵  ╶┴╴╵ ╰╵ ╵   ╰─╯╰─╯  │
+  ╰─────────────────────────╯
+*/
+
+/* firago-all-300-italic*/
+@font-face {
+  font-family: 'FiraGO';
+  src:
+    local('FiraGO ExtraLight Italic'),
+    url('~fontsource-firago/files/firago-all-200-italic.woff2') format('woff2'),
+    url('~fontsource-firago/files/firago-all-200-italic.woff') format('woff');
+  font-weight: 200;
+  font-style: italic;
+  font-display: swap;
+}
+/* firago-all-300-normal*/
+@font-face {
+  font-family: 'FiraGO';
+  src:
+    local('FiraGO ExtraLight'),
+    url('~fontsource-firago/files/firago-all-200-normal.woff2') format('woff2'),
+    url('~fontsource-firago/files/firago-all-200-normal.woff') format('woff');
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+/* firago-all-400-italic*/
+@font-face {
+  font-family: 'FiraGO';
+  src:
+    local('FiraGO Italic'),
+    url('~fontsource-firago/files/firago-all-400-italic.woff2') format('woff2'),
+    url('~fontsource-firago/files/firago-all-400-italic.woff') format('woff');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+/* firago-all-400-normal*/
+@font-face {
+  font-family: 'FiraGO';
+  src:
+    local('FiraGO Regular'),
+    url('~fontsource-firago/files/firago-all-400-normal.woff2') format('woff2'),
+    url('~fontsource-firago/files/firago-all-400-normal.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+/* firago-all-500-italic*/
+@font-face {
+  font-family: 'FiraGO';
+  src:
+    local('FiraGO Medium Italic'),
+    url('~fontsource-firago/files/firago-all-500-italic.woff2') format('woff2'),
+    url('~fontsource-firago/files/firago-all-500-italic.woff') format('woff');
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+/* firago-all-500-normal*/
+@font-face {
+  font-family: 'FiraGO';
+  src:
+    local('FiraGO Medium'),
+    url('~fontsource-firago/files/firago-all-500-normal.woff2') format('woff2'),
+    url('~fontsource-firago/files/firago-all-500-normal.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+/* firago-all-700-italic*/
+@font-face {
+  font-family: 'FiraGO';
+  src:
+    local('FiraGO Bold Italic'),
+    url('~fontsource-firago/files/firago-all-700-italic.woff2') format('woff2'),
+    url('~fontsource-firago/files/firago-all-700-italic.woff') format('woff');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+/* firago-all-700-normal*/
+@font-face {
+  font-family: 'FiraGO';
+  src:
+    local('FiraGO Bold'),
+    url('~fontsource-firago/files/firago-all-700-normal.woff2') format('woff2'),
+    url('~fontsource-firago/files/firago-all-700-normal.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/*
+  ╭───────────────────────────────╮
+  │  ┌─╴╶┬╴┌─╮╭─┐   ╭─╴╭─╮┌─╮┌─╴  │
+  │  ├─╴ │ ├┬╯├─┤   │  │ ││ │├─╴  │
+  │  ╵  ╶┴╴╵ ╰╵ ╵   ╰─╴╰─╯└─╯╰─╴  │
+  ╰───────────────────────────────╯
+*/
+
+@font-face {
+  font-family: 'Fira Code';
+  src:
+    local('Fira Code Regular'),
+    url('~firacode/distr/woff2/FiraCode-Regular.woff2') format('woff2'),
+    url('~firacode/distr/woff/FiraCode-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
