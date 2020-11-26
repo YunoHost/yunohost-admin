@@ -53,7 +53,7 @@ import { validationMixin } from 'vuelidate'
 import AdressInputSelect from '@/components/AdressInputSelect'
 
 import { formatFormDataValue } from '@/helpers/yunohostArguments'
-import { required, domain, domainLocalPart } from '@/helpers/validators'
+import { required, domain, dynDomain } from '@/helpers/validators'
 
 
 export default {
@@ -123,7 +123,7 @@ export default {
       selected: { required },
       form: {
         domain: this.selected === 'domain' ? { required, domain } : {},
-        dynDomain: { localPart: this.selected === 'dynDomain' ? { required, domainLocalPart } : {} }
+        dynDomain: { localPart: this.selected === 'dynDomain' ? { required, dynDomain } : {} }
       }
     }
   },

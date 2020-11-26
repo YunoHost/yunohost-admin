@@ -112,7 +112,7 @@ import { validationMixin } from 'vuelidate'
 import { arrayDiff } from '@/helpers/commons'
 import { sizeToM, adressToFormValue, formatFormData } from '@/helpers/yunohostArguments'
 import {
-  name, required, minLength, mailLocalPart, sameAs, integer, minValue, email
+  name, required, minLength, emailLocalPart, sameAs, integer, minValue, emailForward
 } from '@/helpers/validators'
 
 import AdressInputSelect from '@/components/AdressInputSelect'
@@ -219,16 +219,16 @@ export default {
         lastname: { required, name }
       },
       mail: {
-        localPart: { required, mailLocalPart }
+        localPart: { required, email: emailLocalPart }
       },
-      mailbox_quota: { positiveIntegrer: required, integer, minValue: minValue(0) },
+      mailbox_quota: { number: required, integer, minValue: minValue(0) },
       mail_aliases: {
         $each: {
-          localPart: { required, mailLocalPart }
+          localPart: { required, email: emailLocalPart }
         }
       },
       mail_forward: {
-        $each: { required, email }
+        $each: { required, emailForward }
       },
       password: { passwordLenght: minLength(8) },
       confirmation: { passwordMatch: sameAs('password') }

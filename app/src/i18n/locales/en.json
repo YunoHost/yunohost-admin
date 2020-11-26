@@ -162,15 +162,17 @@
         "donate": "Donate"
     },
     "form_errors": {
-        "alpha": "Must be alphabetical characters only.",
+        "alpha": "Value must be alphabetical characters only.",
         "alphalownum_": "Value must be lower-case alphanumeric and underscore characters only.",
-        "email_syntax": "Invalid email: Must be alphanumeric, underscore and dash characters only (e.g. someone@example.com, s0me-1@example.com)",
-        "domain_syntax": "Invalid domain name: Must be lower-case alphanumeric, dot and dash characters only",
-        "dynDomain_syntax": "Invalid domain name: Must be lower-case alphanumeric and dash characters only",
-        "firewall_port_already": "Port {port} is already {state} (protocol: {protocol}; connection: {connection})",
-        "name": "Names may not includes special characters except <code> ,.'-</code>",
+        "domain": "Invalid domain name: Must be lower-case alphanumeric, dot and dash characters only",
+        "dynDomain": "Invalid domain name: Must be lower-case alphanumeric and dash characters only",
+        "email": "Invalid email: must be alphanumeric and <code>_.-</code> characters only (e.g. someone@example.com, s0me-1@example.com)",
+        "emailForward": "Invalid email forward: must be alphanumeric and <code>_.-+</code> characters only (e.g. someone+tag@example.com, s0me-1+tag@example.com)",
         "githubLink": "Url must be a valid Github link to a repository",
+        "name": "Names may not includes special characters except <code> ,.'-</code>",
+        "minValue": "Value must be a number equal or greater than {min}.",
         "notInUsers": "The user '{value}' already exists.",
+        "number": "Value must be a number.",
         "passwordLenght": "Password must be at least 8 characters long.",
         "passwordMatch": "Passwords don't match.",
         "required": "Field is required."

@@ -115,6 +115,12 @@ body {
   width: 1.25em !important;
 }
 
+// Do not display ligatures in invalid-feedback to avoid confusion.
+.invalid-feedback {
+  code {
+    font-variant-ligatures: none;
+  }
+}
 
 // custom css
 .actions {
