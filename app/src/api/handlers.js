@@ -5,6 +5,7 @@
 
 import store from '@/store'
 import errors from './errors'
+import router from '@/router'
 
 /**
  * Try to get response content as json and if it's not as text.
@@ -47,12 +48,14 @@ export function handleResponse (response, method) {
 export async function handleError (response, method) {
   const message = await _getResponseContent(response)
   const errorCode = response.status in errors ? response.status : undefined
-  const error = new errors[errorCode](method, response, message)
+  const error = new errors[errorCode](method, response, message.error || message)
 
   if (error.code === 401) {
     store.dispatch('DISCONNECT')
   } else if (error.code === 400) {
-    // FIXME for now while in form, the error is catched by the caller and displayed in the form
+    if (typeof message !== 'string' && 'log_ref' in message) {
+        router.push({ name: 'tool-log', params: { name: message.log_ref } })
+    }
     // Hide the waiting screen
     store.dispatch('SERVER_RESPONDED', true)
   } else {

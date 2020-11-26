@@ -1,5 +1,5 @@
 <template>
-  <div class="error mt-4" v-if="error">
+  <div class="error mt-4 mb-5" v-if="error">
     <h2>{{ $t('api_errors_titles.' + error.name) }} :/</h2>
 
     <em v-t="'api_error.sorry'" />
@@ -16,7 +16,7 @@
     <pre><code>"{{ error.method }}" {{ error.uri }}</code></pre>
 
     <h5>Message</h5>
-    <p>{{ error.message }}</p>
+    <p v-html="error.message" />
 
     <template v-if="error.traceback">
       <h5 v-t="'traceback'" />
