@@ -160,7 +160,6 @@ export default {
 
   data () {
     return {
-      searchAppsKeys: ['id', 'state', 'manifest.name'],
       qualityOptions: [
         { value: 'isHighQuality', text: this.$i18n.t('only_highquality_apps') },
         { value: 'isDecentQuality', text: this.$i18n.t('only_decent_quality_apps') },
@@ -201,11 +200,6 @@ export default {
   computed: {
     filteredApps () {
       const search = this.search.toLowerCase()
-      function findValue (key, obj) {
-        if (!key.includes('.')) return obj[key]
-        // deep search in nested keys
-        return key.split('.').reduce((obj, key) => obj[key], obj)
-      }
 
       if (this.quality === 'all' && this.category === 'all' && search === '') {
         return this.apps
@@ -223,11 +217,7 @@ export default {
           if (!appMatchSubtag) return false
         }
         if (search === '') return true
-        const searchMatchSome = this.searchAppsKeys.some(searchKey => {
-          return findValue(searchKey, app).toLowerCase().includes(search)
-        })
-        // app match search string
-        if (searchMatchSome) return true
+        if (app.searchValues.includes(search)) return true
         return false
       })
     },
@@ -270,6 +260,7 @@ export default {
             app.maintained = app.maintained ? 'maintained' : 'orphaned'
           }
           app.color = this.getColor(app)
+          app.searchValues = [app.id, app.state, app.manifest.name.toLowerCase(), app.manifest.description.toLowerCase()].join(' ')
           apps.push(app)
         }
         this.apps = apps.sort((a, b) => a.id > b.id ? 1 : -1)
