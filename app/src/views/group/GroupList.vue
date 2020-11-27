@@ -57,8 +57,8 @@
                 <template v-else>
                   <zone-selectize
                     :choices="group.availableMembers" :selected="group.members"
-                    item-icon="user" search-icon="user-plus" item-route="user-info"
-                    :aria-label="$t('group_add_member')"
+                    item-icon="user" item-route="user-info"
+                    :label="$t('group_add_member')"
                     @change="onUserChanged({ ...$event, name })"
                   />
                 </template>
@@ -71,10 +71,10 @@
               </b-col>
               <b-col>
                 <zone-selectize
-                  item-icon="key-modern" item-variant="info"
+                  item-icon="key-modern" item-variant="dark"
                   :choices="group.availablePermissions"
                   :selected="group.permissions"
-                  :aria-label="$t('group_add_permission')"
+                  :label="$t('group_add_permission')"
                   :format="formatPermission"
                   :removable="name === 'visitors' ? removable : null"
                   @change="onPermissionChanged({ ...$event, name, groupType: 'normal' })"
@@ -113,7 +113,7 @@
                   item-icon="key-modern" item-variant="info"
                   :choices="userGroups[name].availablePermissions"
                   :selected="userGroups[name].permissions"
-                  :aria-label="$t('group_add_permission')"
+                  :label="$t('group_add_permission')"
                   :format="formatPermission"
                   @change="onPermissionChanged({ ...$event, name, groupType: 'user' })"
                 />
@@ -123,8 +123,8 @@
           </div>
 
           <base-selectize
-            search-icon="user-plus"
-            :aria-label="$t('group_add_member')"
+            v-if="availableMembers.length"
+            :label="$t('group_add_member')"
             :choices="availableMembers"
             :selected="userGroupsNames"
             @selected="onSpecificUserAdded"
@@ -195,7 +195,6 @@ export default {
 
   methods: {
     onPermissionChanged ({ item, index, name, groupType, action }) {
-      console.log(groupType)
       const uri = 'users/permissions/' + item
       const data = { [action]: name }
       const from = action === 'add' ? 'availablePermissions' : 'permissions'

@@ -2,8 +2,8 @@
   <div class="selectize-base">
     <b-input-group>
       <b-input-group-prepend is-text>
-        <label class="sr-only" for="selectize">{{ ariaLabel }}</label>
-        <icon :iname="searchIcon" v-if="searchIcon" />
+        <icon iname="search-plus" />
+        <span class="ml-1">{{ label }}</span>
       </b-input-group-prepend>
       <b-form-input
         :class="visible ? null : 'collapsed'"
@@ -35,8 +35,7 @@ export default {
 
   props: {
     choices: { type: Array, required: true },
-    ariaLabel: { type: String, required: true },
-    searchIcon: { type: String, default: 'search' },
+    label: { type: String, default: null },
     // FIXME find a better way to pass filters
     format: { type: Function, default: null }
   },

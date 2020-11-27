@@ -2,17 +2,13 @@
   <div class="selectize-zone">
     <div id="selected-items" v-if="selected.length > 0">
       <b-button-group size="sm" v-for="item in filteredSelected" :key="item">
-        <b-button
-          :variant="itemVariant" :to="itemRoute ? {name: itemRoute, params: {name: item}} : null"
-          @blur="onItemButtonBlur" class="item-btn"
-        >
+        <b-button :variant="itemVariant" :to="itemRoute ? {name: itemRoute, params: {name: item}} : null" class="item-btn">
           <icon :iname="itemIcon" /> {{ item | filter(format) }}
         </b-button>
         <b-button
           v-if="!removable || removable(item)"
           class="remove-btn" variant="warning"
           @click="onRemove(item)"
-          @blur="onItemDeleteBlur"
         >
           <icon :title="$t('delete')" iname="minus" />
         </b-button>
@@ -20,10 +16,10 @@
     </div>
 
     <base-selectize
+      v-if="choices.length"
       :choices="choices"
       :format="format"
-      :aria-label="ariaLabel"
-      :search-icon="searchIcon"
+      :label="label"
       @selected="$emit('change', { ...$event, action: 'add' })"
     />
   </div>
@@ -42,8 +38,7 @@ export default {
     selected: { type: Array, required: true },
     // needed by SelectizeBase
     choices: { type: Array, required: true },
-    searchIcon: { type: String, default: 'search' },
-    ariaLabel: { type: String, required: true },
+    label: { type: String, default: null },
     format: { type: Function, default: null },
     removable: { type: Function, default: null }
   },
@@ -63,15 +58,6 @@ export default {
   methods: {
     onRemove (item) {
       this.$emit('change', { item, index: this.selected.indexOf(item), action: 'remove' })
-    },
-    onItemButtonBlur ({ target, relatedTarget }) {
-      if (target.nextElementSibling === relatedTarget) {
-        relatedTarget.classList.add('display')
-      }
-    },
-
-    onItemDeleteBlur ({ target }) {
-      target.classList.remove('display')
     }
   },
 
@@ -98,40 +84,9 @@ export default {
     margin-right: .5rem;
     margin-bottom: .5rem;
 
-    &:hover {
-      .remove-btn  {
-        display: inline-block;
-      }
-
-      .item-btn {
-        border-top-right-radius: 0;
-        border-bottom-right-radius: 0;
-      }
-    }
-
     .item-btn {
-      border-top-right-radius: $border-radius;
-      border-bottom-right-radius: $border-radius;
-
-      &:focus, &:hover {
-        border-top-right-radius: 0;
-        border-bottom-right-radius: 0;
-
-        & ~ .remove-btn {
-          display: inline-block;
-        }
-      }
-
       .icon {
         margin-right: .25rem;
-      }
-    }
-
-    .remove-btn {
-      display: none;
-
-      &.display {
-        display: inline-block;
       }
     }
   }
