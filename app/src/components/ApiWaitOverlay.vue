@@ -41,7 +41,7 @@
           </b-list-group-item>
         </b-list-group>
 
-        <b-card-footer v-if="error">
+        <b-card-footer v-if="error" class="justify-content-end">
           <b-button variant="primary" v-t="'ok'" @click="$store.dispatch('SERVER_RESPONDED', true)" />
         </b-card-footer>
       </b-card>

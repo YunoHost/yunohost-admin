@@ -57,7 +57,7 @@
                 <template v-else>
                   <zone-selectize
                     :choices="group.availableMembers" :selected="group.members"
-                    item-icon="user" item-route="user-info"
+                    item-icon="user"
                     :label="$t('group_add_member')"
                     @change="onUserChanged({ ...$event, name })"
                   />
@@ -110,7 +110,7 @@
 
               <b-col>
                 <zone-selectize
-                  item-icon="key-modern" item-variant="info"
+                  item-icon="key-modern" item-variant="dark"
                   :choices="userGroups[name].availablePermissions"
                   :selected="userGroups[name].permissions"
                   :label="$t('group_add_permission')"
@@ -146,11 +146,15 @@
 
 <script>
 import Vue from 'vue'
+
+import api from '@/api'
+
 import ZoneSelectize from '@/components/ZoneSelectize'
 import BaseSelectize from '@/components/BaseSelectize'
 
+
 // TODO add global search with type (search by: group, user, permission)
-// TODO add vuex store update on inputs
+// TODO add vuex store update on inputs ?
 export default {
   name: 'GroupList',
 
@@ -199,7 +203,7 @@ export default {
       const data = { [action]: name }
       const from = action === 'add' ? 'availablePermissions' : 'permissions'
       const to = action === 'add' ? 'permissions' : 'availablePermissions'
-      this.$store.dispatch('PUT', { uri, data }).then(() => {
+      api.put(uri, data).then(() => {
         this[groupType + 'Groups'][name][from].splice(index, 1)
         this[groupType + 'Groups'][name][to].push(item)
       })
@@ -210,7 +214,7 @@ export default {
       const data = { [action]: item }
       const from = action === 'add' ? 'availableMembers' : 'members'
       const to = action === 'add' ? 'members' : 'availableMembers'
-      this.$store.dispatch('PUT', { uri, data }).then(() => {
+      api.put(uri, data).then(() => {
         this.normalGroups[name][from].splice(index, 1)
         this.normalGroups[name][to].push(item)
       })
