@@ -487,5 +487,5 @@
     "diagnosis_explanation": "Die Diagnose Funktion wird versuchen, gängige Probleme in verschiedenen Teilen deines Servers zu finden,  damit alles reibungslos läuft. Die Diagnose wird auch automatisch zweimal täglich ausgeführt, falls Fehler gefunden werden, bekommt der Administrator ein E-Mail. Beachte, dass einige tests nicht relevant sind, wenn du einzelne Features (zum Beispiel XMPP) nicht benutzt oder du ein komplexes Setup hast. In diesem Fall und wenn du weisst was du tust ist es in Ordnung die dazugehoerigen Warnungen und Hinweise zu ignorieren.",
     "pending_migrations": "Es gibt einige ausstehende Migrationen, die darauf warten, ausgeführt zu werden. Bitte gehen Sie auf  <a href='#/tools/migrations'>Werkzeuge > Migrationen</a> um diese auszuführen.",
     "tip_about_user_email": "Benutzer*innen werden mit einer verknüpften eMail-Adresse (und XMPP Account) erstellt  im Format username@domain.tld. Zusätzliche eMail-Aliasse and eMail-Weiterleitungen können später durch den/die Admin und User*in hinzugefügt werden.",
-    "log_suboperations": "Unter-Operationen"
+    "logs_suboperations": "Unter-Operationen"
 }

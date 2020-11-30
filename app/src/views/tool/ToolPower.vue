@@ -19,8 +19,8 @@
 
       <!-- REBOOT -->
       <b-form-group
-        label-cols="5" label-cols-sm="3" label-cols-md="2"
-        :label="$t('tools_reboot_btn')" label-for="reboot"
+        label-cols="5" label-cols-md="4" label-cols-lg="3"
+        :label="$t('tools_reboot')" label-for="reboot"
       >
         <b-button
           variant="danger" id="reboot" v-b-modal.confirm-action
@@ -33,8 +33,8 @@
 
       <!-- SHUTDOWN -->
       <b-form-group
-        label-cols="5" label-cols-sm="3" label-cols-md="2"
-        :label="$t('tools_shutdown_btn')" label-for="shutdown"
+        label-cols="5" label-cols-md="4" label-cols-lg="3"
+        :label="$t('tools_shutdown')" label-for="shutdown"
       >
         <b-button
           variant="danger" id="shutdown" v-b-modal.confirm-action

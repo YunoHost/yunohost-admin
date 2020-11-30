@@ -116,6 +116,7 @@
     "created_at": "Created at",
     "custom_app_install": "Install custom app",
     "custom_app_url_only_github": "Currently only from GitHub",
+    "dead": "Inactive",
     "delete": "Delete",
     "description": "Description",
     "details": "Details",
@@ -143,6 +144,7 @@
     "domain_visit": "Visit",
     "domain_visit_url": "Visit {url}",
     "domains": "Domains",
+    "download": "Download",
     "enable": "Enable",
     "enabled": "Enabled",
     "error": "Error",
@@ -200,7 +202,6 @@
     "history": {
         "title": "History",
         "last_action": "Last action:",
-        "action": "Action:",
         "methods": {
             "POST": "create/execute",
             "PUT": "modify",
@@ -299,7 +300,7 @@
         "day_validity": " Expired | 1 day | {count} days"
     },
     "logs": "Logs",
-    "log_suboperations": "Sub-operations",
+    "logs_suboperations": "Sub-operations",
     "logs_operation": "Operations made on system with YunoHost",
     "logs_history": "History of command run on system",
     "logs_package": "Debian packages management history",
@@ -319,7 +320,7 @@
     "pending_migrations": "There are some pending migrations waiting to be ran. Please go to the <a href='#/tools/migrations'>Tools > Migrations</a> view to run them.",
     "permission_corresponding_url": "Corresponding URL",
     "permission_main": "Main permission",
-    "permission_show_tile_enabled": "Show the tile in the user portal",
+    "permission_show_tile_enabled": "Visible as tile in user portal",
     "port": "Port",
     "ports": "Ports",
     "postinstall": "Post-installation",

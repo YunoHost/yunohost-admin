@@ -489,7 +489,7 @@
     "permission_main": "Permiso principal",
     "permission_corresponding_url": "URL Correspondiente",
     "pending_migrations": "Hay algunas migraciones esperando ejecutar. Por favor vaya a <a href='#/tools/migrations'>Herramientas > Migraciones</a> para verlas.",
-    "log_suboperations": "Sub-operaciones",
+    "logs_suboperations": "Sub-operaciones",
     "operation_failed_explanation": "¡Esta operación falló! Lo sentimos mucho :( Puede intentar <a href='https://yunohost.org/help'>pedir ayuda</a>. Por favor comparta el *log completo* de la operación a la gente que ayude. Puede hacerlo haciendo click en el botón verde que dice 'Share with Yunopaste'. Cuando comparta los logs, YunoHost intentará automáticamente anonimizar datos privados como nombres de dominio y IPs.",
     "app_manage_label_and_tiles": "Administrar etiquetas y tiles",
     "app_info_managelabel_desc": "Administrar etiquetas de permisos en el portal.",

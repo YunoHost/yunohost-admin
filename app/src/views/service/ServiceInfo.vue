@@ -36,7 +36,7 @@
         <b-col>
           <span :class="status === 'running' ? 'text-success' : 'text-danger'">
             <icon :iname="status === 'running' ? 'check-circle' : 'times'" />
-            {{ status }}
+            {{ $t(status) }}
           </span>
           {{ $t('since') }} {{ last_state_change | distanceToNow }}
         </b-col>

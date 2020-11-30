@@ -105,7 +105,7 @@
           :variant="!upnpEnabled ? 'success' : 'danger'"
           v-b-modal.toggle-upnp-modal
         >
-          {{ $t(!upnpEnabled ? 'enabled' : 'disabled' ) }}
+          {{ $t(!upnpEnabled ? 'enable' : 'disable' ) }}
         </b-button>
       </template>
     </b-card>

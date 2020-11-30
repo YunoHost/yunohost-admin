@@ -56,7 +56,7 @@
                 :id="'perm' + i" :aria-describedby="'perm-' + i + '_group__BV_description_'"
               />
               <b-input-group-append v-if="perm.tileAvailable" is-text>
-                <checkbox-item v-model="form.labels[i].show_tile" label="Visible as tile in user portal" />
+                <checkbox-item v-model="form.labels[i].show_tile" :label="$t('permission_show_tile_enabled')" />
               </b-input-group-append>
               <b-input-group-append>
                 <b-button
