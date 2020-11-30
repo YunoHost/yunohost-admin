@@ -42,7 +42,7 @@
     "app_info_uninstall_desc": "यस अनुप्रयोग हटाउनुहोस्।",
     "app_info_change_url_disabled_tooltip": "यो सुविधा यस अनुप्रयोगमा अहिलेसम्म कार्यान्वयन भएको छैन",
     "app_info_changeurl_desc": "यस अनुप्रयोगको पहुँच यूआरएल परिवर्तन गर्नुहोस् (डोमेन र / वा मार्ग)।",
-    "app_info_default_desc": "यस (%s) अनुप्रयोगमा डोमेन रूटलाई पुनःनिर्देशित गर्नुहोस्।",
+    "app_info_default_desc": "यस ({domain}) अनुप्रयोगमा डोमेन रूटलाई पुनःनिर्देशित गर्नुहोस्।",
     "app_info_debug_desc": "यस अनुप्रयोगको लागि Debugging जानकारी प्रदर्शन गर्नुहोस्।",
     "app_info_changelabel_desc": "पोर्टलमा अनुप्रयोग लेबल बदल्नुहोस्।",
     "app_change_url": "URL परिवर्तन गर्नुहोस्",

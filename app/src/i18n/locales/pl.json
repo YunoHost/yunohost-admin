@@ -20,7 +20,7 @@
     "app_info_access_desc": "Zarządzaj dostępem użytkowników. Dozwoleni użytkownicy: %s",
     "app_info_changelabel_desc": "Zmień etykietę aplikacji w portalu.",
     "app_info_debug_desc": "Wyświetl informacje debugowania dla tej aplikacji.",
-    "app_info_default_desc": "Przekieruj główną domenę do tej aplikacji (%s).",
+    "app_info_default_desc": "Przekieruj główną domenę do tej aplikacji ({domain}).",
     "app_info_changeurl_desc": "Zmień adres URL tej aplikacji (domenę i/lub ścieżkę).",
     "app_info_change_url_disabled_tooltip": "Ta funkcjonalność nie została jeszcze zaimplementowana w tej aplikacji",
     "app_info_uninstall_desc": "Usuń tą aplikację.",

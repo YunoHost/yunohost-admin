@@ -35,7 +35,7 @@
     "app_install_custom_no_manifest": "manifest.json文件不存在",
     "app_install_cancel": "安装已取消。",
     "app_info_uninstall_desc": "删除此应用程序。",
-    "app_info_default_desc": "重定向域根到这个应用（%s）。",
+    "app_info_default_desc": "重定向域根到这个应用（{domain}）。",
     "app_info_changelabel_desc": "在门户中修改应用标签。",
     "unignore": "取消忽略",
     "last_ran": "最近一次运行：",
