@@ -1,9 +1,6 @@
 {
-    "cancel": "Avbryt",
     "login": "Logg inn",
     "ok": "OK",
     "logout": "Logg ut",
-    "logged_out": "Utlogget",
-    "logged_in": "Innlogget",
     "password": "Passord"
 }

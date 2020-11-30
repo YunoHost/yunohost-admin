@@ -1,20 +1,9 @@
 {
     "action": "কৃয়া",
-    "active": "সক্রিয়",
     "add": "যুক্ত করুন",
-    "remove": "অপসারণ করা",
     "administration_password": "পরিচালনাকারীর পাসওয়ার্ড",
-    "allowed_users": "অনুমোদিত ব্যবহারকারীদের",
     "all_apps": "সকল অ্যাপ্লিকেশান",
     "api_not_responding": "এপিআই সাড়া দিচ্ছে না",
-    "app_access": "প্রবেশ",
-    "app_access_addall_btn": "সকল সক্ষম প্রবেশ",
-    "app_access_addall_desc": "সকল তালিকাভূক্ত ব্যবহারীদের %ভাগ প্রবেশ",
-    "app_access_clearall_btn": "সকল প্রবেশ মুছুন",
-    "app_access_clearall_desc": "প্রত্যেক ব্যবহারীর %ভাগ প্রবেশ",
-    "app_access_removeall_btn": "সকল প্রবেশ অপসারন",
     "password": "পাসওয়ার্ড",
-    "cancel": "বাতিল",
-    "logged_out": "প্রস্থান",
     "ok": "ঠিক আছে"
 }
