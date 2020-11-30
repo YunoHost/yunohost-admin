@@ -68,7 +68,7 @@ export default {
     return fetch('/yunohost/api/' + uri, {
       ...this.options,
       method,
-      body: objectToParams(data, { addLocale: true })
+      body: objectToParams(data, { addLocale: true }, true)
     })
   },
 

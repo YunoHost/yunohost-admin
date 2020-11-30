@@ -291,7 +291,8 @@
         "firstname": "John",
         "lastname": "Doe",
         "groupname": "My group name",
-        "domain": "my-domain.com"
+        "domain": "my-domain.com",
+        "file": "Browse a file or drag and drop it"
     },
     "pluralized": {
         "day_validity": " Expired | 1 day | {count} days"
@@ -438,6 +439,15 @@
     "users": "Users",
     "users_new": "New user",
     "users_no": "No users.",
+    "users_import": "Import users",
+    "users_import_csv_file": "CSV File",
+    "users_import_update": "Update existing users",
+    "users_import_delete": "Delete non listed users",
+    "users_import_csv_file_desc": "The CSV file should be in UTF-8 and with columns username, password, groups, email and quota. See <a href=''>example import csv file</a>.",
+    "users_import_update_desc": "If checked, all existing users contained in the csv file will be updated with the ne new value",
+    "users_import_delete_desc": "If checked, all existing users that are not in the csv file will be deleted (and purged).",
+    "users_import_confirm_destructive": "Are you sure you want to delete users that are not present in this file?",
+    "users_import_delete_others": "Delete unlisted users",
     "version": "Version",
     "warnings": "{count} warnings",
     "warning_first_user": "You probably need to <a href='#/users/create' class='alert-link'>create a user</a> first.",

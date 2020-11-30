@@ -74,6 +74,16 @@ const routes = [
     }
   },
   {
+    name: 'user-import',
+    path: '/users/import',
+    component: () => import(/* webpackChunkName: "views/user/import" */ '@/views/user/UserImport'),
+    props: true,
+    meta: {
+      args: { param: 'name' },
+      breadcrumb: ['user-list', 'user-import']
+    }
+  },
+  {
     name: 'user-info',
     path: '/users/:name',
     component: () => import(/* webpackChunkName: "views/user/info" */ '@/views/user/UserInfo'),
