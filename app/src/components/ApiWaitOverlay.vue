@@ -31,16 +31,6 @@
           </b-progress>
         </b-card-body>
 
-        <!-- MESSAGES -->
-        <b-list-group v-if="messages" flush class="rounded-0">
-          <b-list-group-item
-            v-for="({ text, type }, i) in messages" :key="i"
-            :variant="type"
-          >
-            {{ text }}
-          </b-list-group-item>
-        </b-list-group>
-
         <b-card-footer v-if="error" class="justify-content-end">
           <b-button variant="primary" v-t="'ok'" @click="$store.dispatch('SERVER_RESPONDED', true)" />
         </b-card-footer>
@@ -66,12 +56,6 @@ export default {
       return {
         values: progress, max: progress.reduce((sum, value) => (sum + value), 0)
       }
-    },
-
-    messages () {
-      if (!this.lastAction) return null
-      const messages = this.lastAction.messages
-      return messages.length > 0 ? this.lastAction.messages : null
     }
   },
 
@@ -103,16 +87,6 @@ export default {
 
 .progress {
   margin-top: 2rem;
-}
-
-.list-group {
-  max-height: 50vh;
-  overflow-y: auto;
-
-  // Hide all message except the last one if the mouse isn't hovering the list group.
-  &:not(:hover) .list-group-item:not(:last-of-type) {
-    display: none;
-  }
 }
 
 .pacman {

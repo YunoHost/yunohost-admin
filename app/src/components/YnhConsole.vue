@@ -26,7 +26,10 @@
 
       <!-- ACTION LIST -->
       <b-collapse id="console-collapse" v-model="open">
-        <b-list-group-item class="p-0" id="history" ref="history">
+        <b-list-group-item
+          id="history" ref="history"
+          class="p-0" :class="{ 'show-last': openedByWaiting }"
+        >
           <!-- ACTION -->
           <b-list-group v-for="(action, i) in history" :key="i" flush>
             <!-- ACTION DESC -->
@@ -65,7 +68,8 @@ export default {
 
   data () {
     return {
-      open: false
+      open: false,
+      openedByWaiting: false
     }
   },
 
@@ -82,10 +86,28 @@ export default {
     'lastAction.messages' () {
       if (!this.open) return
       this.$nextTick(this.scrollToLastAction)
+    },
+
+    waiting (value) {
+      if (value && !this.open) {
+        // Open the history while waiting for the server's response to display WebSocket messages.
+        this.open = true
+        this.openedByWaiting = true
+        this.$nextTick().then(() => {
+          this.$refs.history.style.height = null
+          this.$refs.history.classList.add('with-max')
+        })
+      } else if (!value && this.openedByWaiting) {
+        // Automaticly close the history if it was not opened before the request
+        setTimeout(() => {
+          this.open = false
+          this.openedByWaiting = false
+        }, 500)
+      }
     }
   },
 
-  computed: mapGetters(['history', 'lastAction']),
+  computed: mapGetters(['history', 'lastAction', 'waiting']),
 
   methods: {
     scrollToLastAction () {
@@ -185,6 +207,17 @@ export default {
 
   &.with-max {
     max-height: 30vh;
+  }
+
+  // Used to display only the last message of the last action while an action is triggered
+  // and console was not opened.
+  &.show-last {
+    & > :not(:last-child) {
+      display: none;
+    }
+    & > :last-child > :not(:last-child) {
+      display: none;
+    }
   }
 }
 
