@@ -28,8 +28,8 @@ export function timeout (promise, delay) {
  * @param {Boolean} [options.addLocale=false] - Option to append the locale to the query string.
  * @return {URLSearchParams}
  */
-export function objectToParams (obj, { addLocale = false } = {}) {
-  const urlParams = new URLSearchParams()
+export function objectToParams (obj, { addLocale = false } = {}, formData = false) {
+  const urlParams = (formData) ? new FormData() : new URLSearchParams()
   for (const [key, value] of Object.entries(obj)) {
     if (Array.isArray(value)) {
       value.forEach(v => urlParams.append(key, v))
