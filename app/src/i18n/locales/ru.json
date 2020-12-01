@@ -74,7 +74,7 @@
     "download": "Загрузить",
     "enable": "Включить",
     "error_modify_something": "Вы должны что-то изменить",
-    "error_server_unexpected": "Неожиданная ошибка сервера (%s1)",
+    "error_server_unexpected": "Неожиданная ошибка сервера",
     "experimental_warning": "Внимание: это экспериментальное приложение работает нестабильно, вы можете использовать его, только если понимаете, что делаете.",
     "firewall": "Файрволл",
     "footer_version": "Создано<a href='https://yunohost.org'></a> {version} ({repo}).",
