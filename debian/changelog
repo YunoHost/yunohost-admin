@@ -1,3 +1,17 @@
+yunohost-admin (4.1.0) testing; urgency=low
+
+  - [enh] Extends permission feature (YunoHost-admin#297)
+  - [enh] Rework the user creation page (YunoHost-admin#298, YunoHost-admin/f0b1a0b YunoHost-admin#320)
+  - [enh] Handle suboperations in log views (YunoHost-admin#310)
+  - [enh] Display the size of an archive in the backup view (YunoHost-admin#312)
+  - [fix] User has to manually run the first diagnosis (YunoHost-admin/d3b3236)
+  - [enh] Allow search in the app description (YunoHost-admin#317)
+  - Update translations for French, German, Czech, Chinese (Simplified), Catalan, Occitan, Italian (YunoHost-admin#311, YunoHost-admin#313, YunoHost-admin#314, YunoHost-admin#315, YunoHost-admin#319, YunoHost-admin#321)
+
+  Thanks to all contributors <3 ! (Salamandar, Omnia89, tituspijean, miloskroulik, Aleks, Josué, Kay0u, ljf, ekhae, Xaloc, ericgaspar, ppr, cyxae, danielschmalhofer, Quentí, Leandro Noferini, KaeruCT, anmol, xaloc33)
+
+ -- Kay0u <pierre@kayou.io>  Thu, 03 Dec 2020 16:26:07 +0100
+
 yunohost-admin (4.0.4) stable; urgency=low
 
   - [fix] migrations link in french translation (#309)
