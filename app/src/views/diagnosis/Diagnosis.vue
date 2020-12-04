@@ -1,12 +1,12 @@
 <template>
   <div class="diagnosis">
-    <div class="actions">
-      <div class="buttons ml-auto">
-        <b-button @click="shareLogs">
+    <view-top-bar>
+      <template #group-right>
+        <b-button @click="shareLogs" variant="success">
           <icon iname="cloud-upload" /> {{ $t('logs_share_with_yunopaste') }}
         </b-button>
-      </div>
-    </div>
+      </template>
+    </view-top-bar>
 
     <b-alert variant="info" show>
       {{ $t(reports ? 'diagnosis_explanation' : 'diagnosis_first_run') }}
@@ -119,10 +119,6 @@ export default {
     }
   },
 
-  filters: {
-    distanceToNow
-  },
-
   methods: {
     fetchData () {
       api.get('diagnosis/show?full').then((data) => {
@@ -196,6 +192,10 @@ export default {
 
   created () {
     api.post('diagnosis/run?except_if_never_ran_yet').then(this.fetchData)
+  },
+
+  filters: {
+    distanceToNow
   }
 }
 </script>

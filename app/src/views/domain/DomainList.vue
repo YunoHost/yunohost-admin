@@ -1,20 +1,19 @@
 <template>
-  <div class="domain-list">
-    <div class="actions">
-      <b-input-group>
-        <b-input-group-prepend is-text>
-          <icon iname="search" />
-        </b-input-group-prepend>
-        <b-form-input id="search-domain" v-model="search" :placeholder="$t('search.domain')" />
-      </b-input-group>
-      <div class="buttons">
-        <b-button variant="success" :to="{name: 'domain-add'}">
-          <icon iname="plus" /> {{ $t('domain_add') }}
-        </b-button>
-      </div>
-    </div>
+  <search-view
+    id="domain-list"
+    :search.sync="search"
+    :items="domains"
+    :filtered-items="filteredDomains"
+    items-name="domains"
+  >
+    <template #top-bar-buttons>
+      <b-button variant="success" :to="{ name: 'domain-add' }">
+        <icon iname="plus" />
+        {{ $t('domain_add') }}
+      </b-button>
+    </template>
 
-    <b-list-group v-if="filteredDomains">
+    <b-list-group>
       <b-list-group-item
         v-for="domain in filteredDomains" :key="domain"
         :to="{ name: 'domain-info', params: { name: domain }}"
@@ -28,39 +27,42 @@
               <icon iname="star" :title="$t('words.default')" />
             </small>
           </h5>
-          <p class="font-italic">https://{{ domain }}</p>
+          <p class="font-italic m-0">
+            https://{{ domain }}
+          </p>
         </div>
         <icon iname="chevron-right" class="lg fs-sm ml-auto" />
       </b-list-group-item>
     </b-list-group>
-  </div>
+  </search-view>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
+import SearchView from '@/components/SearchView'
+
 export default {
   name: 'DomainList',
 
-  data: () => ({
-    search: ''
-  }),
-
-  computed: {
-    filteredDomains () {
-      const domains = this.$store.state.data.domains
-      const mainDomain = this.mainDomain
-      if (!domains || !mainDomain) return
-      const search = this.search.toLowerCase()
-      return domains
-        .filter(name => name.toLowerCase().includes(search))
-        .sort(prevDomain => prevDomain === mainDomain ? -1 : 1)
-    },
-
-    mainDomain () {
-      return this.$store.state.data.main_domain
+  data () {
+    return {
+      search: ''
     }
   },
 
-  methods: {
+  computed: {
+    ...mapGetters(['domains', 'mainDomain']),
+
+    filteredDomains () {
+      if (!this.domains || !this.mainDomain) return
+      const search = this.search.toLowerCase()
+      const mainDomain = this.mainDomain
+      const domains = this.domains
+        .filter(name => name.toLowerCase().includes(search))
+        .sort(prevDomain => prevDomain === mainDomain ? -1 : 1)
+      return domains.length > 0 ? domains : null
+    }
   },
 
   created () {
@@ -68,28 +70,8 @@ export default {
       { uri: 'domains/main', storeKey: 'main_domain' },
       { uri: 'domains' }
     ])
-  }
+  },
+
+  components: { SearchView }
 }
 </script>
-
-<style lang="scss" scoped>
-p {
-  margin: 0
-}
-
-.skeleton {
-  @each $i, $opacity in 1 .75, 2 .5, 3 .25 {
-    .list-group-item:nth-child(#{$i}) { opacity: $opacity; }
-  }
-
-  h5, p {
-    background-color: $skeleton-color;
-    height: 1.5rem;
-    width: 10rem;
-  }
-
-  small {
-    display: none;
-  }
-}
-</style>

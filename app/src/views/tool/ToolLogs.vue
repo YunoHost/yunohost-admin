@@ -1,15 +1,12 @@
 <template>
-  <div class="tool-logs">
-    <div class="actions">
-      <b-input-group>
-        <b-input-group-prepend is-text>
-          <icon iname="search" />
-        </b-input-group-prepend>
-        <b-form-input id="search-logs" v-model="search" :placeholder="$t('search.logs')" />
-      </b-input-group>
-    </div>
-
-    <b-card no-body v-if="operations">
+  <search-view
+    id="tool-logs"
+    :search.sync="search"
+    :items="operations"
+    :filtered-items="filteredOperations"
+    items-name="logs"
+  >
+    <b-card no-body>
       <template v-slot:header>
         <h2><icon iname="wrench" /> {{ $t('logs_operation') }}</h2>
       </template>
@@ -25,18 +22,18 @@
         </b-list-group-item>
       </b-list-group>
     </b-card>
-  </div>
+  </search-view>
 </template>
 
 <script>
 import api from '@/api'
 import { distanceToNow, readableDate } from '@/helpers/filters/date'
-
+import SearchView from '@/components/SearchView'
 
 export default {
   name: 'ServiceList',
 
-  data: function () {
+  data () {
     return {
       search: '',
       operations: undefined
@@ -47,9 +44,10 @@ export default {
     filteredOperations () {
       if (!this.operations) return
       const search = this.search.toLowerCase()
-      return this.operations.filter(({ description }) => {
+      const operations = this.operations.filter(({ description }) => {
         return description.toLowerCase().includes(search)
       })
+      return operations.length > 0 ? operations : null
     }
   },
 
@@ -80,6 +78,8 @@ export default {
 
   created () {
     this.fetchData()
-  }
+  },
+
+  components: { SearchView }
 }
 </script>

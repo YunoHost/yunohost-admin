@@ -1,14 +1,11 @@
 <template>
-  <div class="service-list">
-    <div class="actions">
-      <b-input-group>
-        <b-input-group-prepend is-text>
-          <icon iname="search" />
-        </b-input-group-prepend>
-        <b-form-input id="search-service" v-model="search" :placeholder="$t('search.service')" />
-      </b-input-group>
-    </div>
-
+  <search-view
+    id="service-list"
+    :search.sync="search"
+    :items="services"
+    :filtered-items="filteredServices"
+    items-name="services"
+  >
     <b-list-group v-if="filteredServices">
       <b-list-group-item
         v-for="{ name, description, status, last_state_change } in filteredServices"
@@ -17,7 +14,10 @@
         class="d-flex justify-content-between align-items-center pr-0"
       >
         <div class="w-100">
-          <h5 class="font-weight-bold">{{ name }} <small class="text-secondary">{{ description }}</small></h5>
+          <h5 class="font-weight-bold">
+            {{ name }}
+            <small class="text-secondary">{{ description }}</small>
+          </h5>
           <p class="mb-0">
             <span :class="status === 'running' ? 'text-success' : 'text-danger'">
               <icon :iname="status === 'running' ? 'check-circle' : 'times'" />
@@ -29,17 +29,18 @@
         <icon iname="chevron-right" class="lg fs-sm ml-auto" />
       </b-list-group-item>
     </b-list-group>
-  </div>
+  </search-view>
 </template>
 
 <script>
 import api from '@/api'
 import { distanceToNow } from '@/helpers/filters/date'
+import SearchView from '@/components/SearchView'
 
 export default {
   name: 'ServiceList',
 
-  data: function () {
+  data () {
     return {
       search: '',
       services: undefined
@@ -50,14 +51,11 @@ export default {
     filteredServices () {
       if (!this.services) return
       const search = this.search.toLowerCase()
-      return this.services.filter(({ name }) => {
+      const services = this.services.filter(({ name }) => {
         return name.toLowerCase().includes(search)
       })
+      return services.length > 0 ? services : null
     }
-  },
-
-  filters: {
-    distanceToNow
   },
 
   methods: {
@@ -77,6 +75,12 @@ export default {
 
   created () {
     this.fetchData()
+  },
+
+  components: { SearchView },
+
+  filters: {
+    distanceToNow
   }
 }
 </script>

@@ -103,6 +103,7 @@
     "created_at": "Created at",
     "custom_app_install": "Install custom app",
     "custom_app_url_only_github": "Currently only from GitHub",
+    "day_validity": " Expired | 1 day | {count} days",
     "dead": "Inactive",
     "delete": "Delete",
     "description": "Description",
@@ -217,6 +218,17 @@
     "ipv4": "IPv4",
     "ipv6": "IPv6",
     "issues": "{count} issues",
+    "items": {
+        "apps": "no apps | app | {c} apps",
+        "backups": "no backups | backup | {c} backups",
+        "domains": "no domains | domain | {c} domains",
+        "groups": "no groups | group | {c} groups",
+        "installed_apps": "no installed apps | installed app | {c} installed apps",
+        "logs": "no logs | log | {c} logs",
+        "services": "no services | service | {c} services",
+        "users": "no users | user | {c} users"
+    },
+    "items_verbose_count": "There is {items}.",
     "label": "Label",
     "label_for_manifestname": "Label for {name}",
     "last_ran": "Last time ran:",
@@ -264,9 +276,6 @@
         "groupname": "My group name",
         "domain": "my-domain.com"
     },
-    "pluralized": {
-        "day_validity": " Expired | 1 day | {count} days"
-    },
     "logs": "Logs",
     "logs_suboperations": "Sub-operations",
     "logs_operation": "Operations made on system with YunoHost",
@@ -307,15 +316,8 @@
     "running": "Running",
     "save": "Save",
     "search": {
-        "domain": "Search for domains...",
-        "group": "Search for groups...",
-        "installed_app": "Search for installed apps...",
-        "service": "Search for services",
-        "user": "Search for users...",
-        "logs": "Search in logs...",
-        "not_found": {
-            "installed_app": "There is no apps matching your search query."
-        }
+        "for": "Search for {items}...",
+        "not_found": "There is {items} matching your criteria."
     },
     "search_for_apps": "Search for apps...",
     "select_all": "Select all",

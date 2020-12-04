@@ -1,170 +1,171 @@
-<template lang="html">
-  <div class="group-list">
-    <div class="actions">
-      <b-input-group>
-        <b-input-group-prepend is-text>
-          <icon iname="search" />
-        </b-input-group-prepend>
-        <b-form-input id="search-group" v-model="search" :placeholder="$t('search.group')" />
-      </b-input-group>
-      <div class="buttons">
-        <b-button variant="success" :to="{name: 'group-create'}">
-          <icon iname="plus" /> {{ $t('group_new') }}
-        </b-button>
-      </div>
-    </div>
-
-    <!-- PRIMARY GROUPS CARDS -->
-    <template v-if="normalGroups">
-      <b-card
-        v-for="(group, name, index) in filteredGroups" :key="name"
-        no-body
-      >
-        <b-card-header class="d-flex align-items-center">
-          <h2>
-            <icon iname="group" /> {{ group.isSpecial ? $t('group_' + name) : `${$t('group')} "${name}"` }}
-          </h2>
-
-          <div class="ml-auto">
-            <b-button v-b-toggle="'collapse-' + index" size="sm" variant="outline-secondary">
-              <icon iname="chevron-right" class="rotate" /><span class="sr-only">{{ $t('words.collapse') }}</span>
-            </b-button>
-
-            <b-button
-              v-if="!group.isSpecial" v-b-modal.delete-modal
-              variant="danger" class="ml-2" size="sm"
-              @click="groupToDelete = name"
-            >
-              <icon :title="$t('delete')" iname="trash-o" /> <span class="sr-only">{{ $t('delete') }}</span>
-            </b-button>
-          </div>
-        </b-card-header>
-
-        <b-collapse :id="'collapse-' + index" visible>
-          <b-card-body>
-            <b-row>
-              <b-col md="3" lg="2">
-                <strong>{{ $t('users') }}</strong>
-              </b-col>
-
-              <b-col>
-                <template v-if="group.isSpecial">
-                  <p><icon iname="info-circle" /> {{ $t('group_explain_' + name) }}</p>
-                  <p v-if="name === 'visitors'">
-                    <em>{{ $t('group_explain_visitors_needed_for_external_client') }}</em>
-                  </p>
-                </template>
-                <template v-else>
-                  <zone-selectize
-                    :choices="group.availableMembers" :selected="group.members"
-                    item-icon="user"
-                    :label="$t('group_add_member')"
-                    @change="onUserChanged({ ...$event, name })"
-                  />
-                </template>
-              </b-col>
-            </b-row>
-            <hr>
-            <b-row>
-              <b-col md="3" lg="2">
-                <strong>{{ $t('permissions') }}</strong>
-              </b-col>
-              <b-col>
-                <zone-selectize
-                  item-icon="key-modern" item-variant="dark"
-                  :choices="group.availablePermissions"
-                  :selected="group.permissions"
-                  :label="$t('group_add_permission')"
-                  :format="formatPermission"
-                  :removable="name === 'visitors' ? removable : null"
-                  @change="onPermissionChanged({ ...$event, name, groupType: 'normal' })"
-                />
-              </b-col>
-            </b-row>
-          </b-card-body>
-        </b-collapse>
-      </b-card>
+<template>
+  <search-view
+    id="group-list"
+    :search.sync="search"
+    :items="normalGroups"
+    :filtered-items="filteredGroups"
+    items-name="groups"
+  >
+    <template #top-bar-buttons>
+      <b-button variant="success" :to="{ name: 'group-create' }">
+        <icon iname="plus" />
+        {{ $t('group_new') }}
+      </b-button>
     </template>
 
-    <!-- GROUP SPECIFIC CARD -->
-    <b-card no-body v-if="userGroups">
+    <!-- PRIMARY GROUPS CARDS -->
+    <b-card
+      v-for="(group, name, index) in filteredGroups" :key="name"
+      no-body
+    >
       <b-card-header class="d-flex align-items-center">
         <h2>
-          <icon iname="group" /> {{ $t('group_specific_permissions') }}
+          <icon iname="group" /> {{ group.isSpecial ? $t('group_' + name) : `${$t('group')} "${name}"` }}
         </h2>
 
         <div class="ml-auto">
-          <b-button v-b-toggle.collapse-specific size="sm" variant="outline-secondary">
+          <b-button v-b-toggle="'collapse-' + index" size="sm" variant="outline-secondary">
             <icon iname="chevron-right" class="rotate" /><span class="sr-only">{{ $t('words.collapse') }}</span>
+          </b-button>
+
+          <b-button
+            v-if="!group.isSpecial" v-b-modal.delete-modal
+            variant="danger" class="ml-2" size="sm"
+            @click="groupToDelete = name"
+          >
+            <icon :title="$t('delete')" iname="trash-o" /> <span class="sr-only">{{ $t('delete') }}</span>
           </b-button>
         </div>
       </b-card-header>
 
-      <b-collapse id="collapse-specific" visible>
+      <b-collapse :id="'collapse-' + index" visible>
         <b-card-body>
-          <div v-for="name in userGroupsNames" :key="name">
-            <b-row>
-              <b-col md="3" lg="2">
-                <icon iname="user" /> <strong>{{ name }}</strong>
-              </b-col>
+          <b-row>
+            <b-col md="3" lg="2">
+              <strong>{{ $t('users') }}</strong>
+            </b-col>
 
-              <b-col>
+            <b-col>
+              <template v-if="group.isSpecial">
+                <p><icon iname="info-circle" /> {{ $t('group_explain_' + name) }}</p>
+                <p v-if="name === 'visitors'">
+                  <em>{{ $t('group_explain_visitors_needed_for_external_client') }}</em>
+                </p>
+              </template>
+              <template v-else>
                 <zone-selectize
-                  item-icon="key-modern" item-variant="dark"
-                  :choices="userGroups[name].availablePermissions"
-                  :selected="userGroups[name].permissions"
-                  :label="$t('group_add_permission')"
-                  :format="formatPermission"
-                  @change="onPermissionChanged({ ...$event, name, groupType: 'user' })"
+                  :choices="group.availableMembers" :selected="group.members"
+                  item-icon="user"
+                  :label="$t('group_add_member')"
+                  @change="onUserChanged({ ...$event, name })"
                 />
-              </b-col>
-            </b-row>
-            <hr>
-          </div>
-
-          <base-selectize
-            v-if="availableMembers.length"
-            :label="$t('group_add_member')"
-            :choices="availableMembers"
-            :selected="userGroupsNames"
-            @selected="onSpecificUserAdded"
-          />
+              </template>
+            </b-col>
+          </b-row>
+          <hr>
+          <b-row>
+            <b-col md="3" lg="2">
+              <strong>{{ $t('permissions') }}</strong>
+            </b-col>
+            <b-col>
+              <zone-selectize
+                item-icon="key-modern" item-variant="dark"
+                :choices="group.availablePermissions"
+                :selected="group.permissions"
+                :label="$t('group_add_permission')"
+                :format="formatPermission"
+                :removable="name === 'visitors' ? removable : null"
+                @change="onPermissionChanged({ ...$event, name, groupType: 'normal' })"
+              />
+            </b-col>
+          </b-row>
         </b-card-body>
       </b-collapse>
     </b-card>
 
-    <!-- DELETE GROUP MODAL -->
-    <b-modal
-      v-if="groupToDelete" id="delete-modal" centered
-      body-bg-variant="danger" body-text-variant="light"
-      @ok="deleteGroup" hide-header
-    >
-      {{ $t('confirm_delete', {name: groupToDelete }) }}
-    </b-modal>
-  </div>
+    <!-- GROUP SPECIFIC CARD -->
+    <template #extra>
+      <b-card no-body v-if="userGroups">
+        <b-card-header class="d-flex align-items-center">
+          <h2>
+            <icon iname="group" /> {{ $t('group_specific_permissions') }}
+          </h2>
+
+          <div class="ml-auto">
+            <b-button v-b-toggle.collapse-specific size="sm" variant="outline-secondary">
+              <icon iname="chevron-right" class="rotate" /><span class="sr-only">{{ $t('words.collapse') }}</span>
+            </b-button>
+          </div>
+        </b-card-header>
+
+        <b-collapse id="collapse-specific" visible>
+          <b-card-body>
+            <div v-for="name in userGroupsNames" :key="name">
+              <b-row>
+                <b-col md="3" lg="2">
+                  <icon iname="user" /> <strong>{{ name }}</strong>
+                </b-col>
+
+                <b-col>
+                  <zone-selectize
+                    item-icon="key-modern" item-variant="dark"
+                    :choices="userGroups[name].availablePermissions"
+                    :selected="userGroups[name].permissions"
+                    :label="$t('group_add_permission')"
+                    :format="formatPermission"
+                    @change="onPermissionChanged({ ...$event, name, groupType: 'user' })"
+                  />
+                </b-col>
+              </b-row>
+              <hr>
+            </div>
+
+            <base-selectize
+              v-if="availableMembers.length"
+              :label="$t('group_add_member')"
+              :choices="availableMembers"
+              :selected="userGroupsNames"
+              @selected="onSpecificUserAdded"
+            />
+          </b-card-body>
+        </b-collapse>
+      </b-card>
+
+      <!-- DELETE GROUP MODAL -->
+      <b-modal
+        v-if="groupToDelete" id="delete-modal" centered
+        body-bg-variant="danger" body-text-variant="light"
+        @ok="deleteGroup" hide-header
+      >
+        {{ $t('confirm_delete', {name: groupToDelete }) }}
+      </b-modal>
+    </template>
+  </search-view>
 </template>
 
 <script>
 import Vue from 'vue'
 
 import api from '@/api'
-
+import { isEmptyValue } from '@/helpers/commons'
+import SearchView from '@/components/SearchView'
 import ZoneSelectize from '@/components/ZoneSelectize'
 import BaseSelectize from '@/components/BaseSelectize'
-
 
 // TODO add global search with type (search by: group, user, permission)
 // TODO add vuex store update on inputs ?
 export default {
   name: 'GroupList',
 
-  data: () => ({
-    search: '',
-    permissions: undefined,
-    normalGroups: undefined,
-    userGroups: undefined,
-    groupToDelete: undefined
-  }),
+  data () {
+    return {
+      search: '',
+      permissions: undefined,
+      normalGroups: undefined,
+      userGroups: undefined,
+      groupToDelete: undefined
+    }
+  },
 
   computed: {
     filteredGroups () {
@@ -177,7 +178,7 @@ export default {
           filtered[name] = groups[name]
         }
       }
-      return filtered
+      return isEmptyValue(filtered) ? null : filtered
     },
 
     userGroupsNames () {
@@ -254,7 +255,7 @@ export default {
       // updates while modifying values.
       const normalGroups = {}
       const userGroups = {}
-      const userNames = Object.keys(users)
+      const userNames = users ? Object.keys(users) : []
 
       for (const groupName in allGroups) {
         // copy the group to unlink it from the store
@@ -293,6 +294,7 @@ export default {
   },
 
   components: {
+    SearchView,
     ZoneSelectize,
     BaseSelectize
   }

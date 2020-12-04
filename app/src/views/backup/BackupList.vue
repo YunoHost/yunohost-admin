@@ -1,16 +1,12 @@
 <template>
   <div class="backup-list">
-    <div class="actions">
-      <div class="buttons ml-auto">
-        <b-button variant="success" :to="{ name: 'backup-create' }">
-          <icon iname="plus" /> {{ $t('backup_new') }}
-        </b-button>
-      </div>
-    </div>
+    <view-top-bar :button="{ text: $t('backup_new'), icon: 'plus', to: { name: 'backup-create' } }" />
 
     <b-alert v-if="!archives" variant="warning" show>
-      <icon iname="exclamation-triangle" /> {{ $t('backups_no') }}
+      <icon iname="exclamation-triangle" />
+      {{ $t('items_verbose_count', { items: $tc('items.backups', 0) }) }}
     </b-alert>
+
     <b-list-group v-else>
       <b-list-group-item
         v-for="{ name, created_at, path, size } in archives" :key="name"
@@ -23,7 +19,9 @@
             {{ created_at | distanceToNow }}
             <small>{{ name }} ({{ size | humanSize }})</small>
           </h5>
-          <p class="mb-0">{{ path }}</p>
+          <p class="mb-0">
+            {{ path }}
+          </p>
         </div>
         <icon iname="chevron-right" class="lg fs-sm ml-auto" />
       </b-list-group-item>
@@ -52,19 +50,14 @@ export default {
     }
   },
 
-  filters: {
-    distanceToNow,
-    readableDate,
-    humanSize
-  },
-
   methods: {
     fetchData () {
-      api.get('backup/archives?with_info').then(({ archives }) => {
+      api.get('backup/archives?with_info').then(data => {
         // FIXME use archives = null if no archives
-        this.archives = Object.entries(archives).map(([name, data]) => {
-          data.name = name
-          return data
+        const archives = Object.entries(data.archives)
+        this.archives = archives.length === 0 ? null : archives.map(([name, infos]) => {
+          infos.name = name
+          return infos
         }).reverse()
       })
     }
@@ -72,6 +65,12 @@ export default {
 
   created () {
     this.fetchData()
+  },
+
+  filters: {
+    distanceToNow,
+    readableDate,
+    humanSize
   }
 }
 </script>

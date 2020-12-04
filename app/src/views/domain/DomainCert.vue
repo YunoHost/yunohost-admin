@@ -14,7 +14,7 @@
         <dd>{{ cert.type }} ({{ name }})</dd>
         <hr>
         <dt v-t="'validity'" />
-        <dd>{{ $tc('pluralized.day_validity', cert.validity) }}</dd>
+        <dd>{{ $tc('day_validity', cert.validity) }}</dd>
       </dl>
     </b-card>
 
@@ -82,6 +82,7 @@ import api from '@/api'
 
 export default {
   name: 'DomainCert',
+
   props: {
     name: {
       type: String,
@@ -176,6 +177,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-</style>

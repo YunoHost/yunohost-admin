@@ -148,7 +148,10 @@ export default {
   },
 
   getters: {
-    users: state => state.users,
+    users: state => {
+      if (state.users) return Object.values(state.users)
+      return state.users
+    },
 
     userNames: state => {
       if (state.users) return Object.keys(state.users)
