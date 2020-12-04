@@ -122,49 +122,6 @@ body {
   }
 }
 
-// custom css
-.actions {
-  margin-bottom: 2rem;
-  display: flex;
-  justify-content: space-between;
-
-  @include media-breakpoint-down(xs) {
-    .buttons {
-      flex-direction: column;
-      justify-content: space-between;
-    }
-  }
-
-  @include media-breakpoint-down(sm) {
-    flex-direction: column-reverse;
-    margin-bottom: 2rem;
-
-    .buttons {
-      display: flex;
-      justify-content: space-between;
-
-      .btn {
-        margin-bottom: .5rem;
-      }
-    }
-  }
-
-  @include media-breakpoint-up(md) {
-    .btn ~ .btn {
-      margin-left: .5rem;
-    }
-  }
-
-  .input-group {
-    @include media-breakpoint-up(md) {
-      width: 25%;
-    }
-    @include media-breakpoint-up(lg) {
-      width: 35%;
-    }
-  }
-}
-
 .log {
   .card-body {
     padding: 0;
