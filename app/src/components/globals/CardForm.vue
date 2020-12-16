@@ -15,7 +15,7 @@
       </b-form>
     </template>
 
-    <slot name="buttons" slot="buttons">
+    <slot v-if="!noFooter" name="buttons" slot="buttons">
       <b-button
         type="submit" variant="success"
         :form="id" :disabled="disabled"
@@ -37,7 +37,8 @@ export default {
     validation: { type: Object, default: null },
     serverError: { type: String, default: '' },
     inline: { type: Boolean, default: false },
-    formClasses: { type: [Array, String, Object], default: null }
+    formClasses: { type: [Array, String, Object], default: null },
+    noFooter: { type: Boolean, default: false }
   },
 
   computed: {
