@@ -48,6 +48,17 @@ $font-family-monospace: 'Fira Code', SFMono-Regular, Menlo, Monaco, Consolas, 'L
   @include list-group-item-variant($color, theme-color-level($color, -11), theme-color-level($color, 6));
 }
 
+// Add breakpoints for w-*
+@each $breakpoint in map-keys($grid-breakpoints) {
+  @each $size, $length in $sizes {
+    @include media-breakpoint-up($breakpoint) {
+      .w-#{$breakpoint}-#{$size} {
+        width: $length !important;
+      }
+    }
+  }
+}
+
 /*
 
   ╭──────────────────────────────────────╮

@@ -33,22 +33,21 @@ body {
   min-height: 100vh
 }
 
-// Bootstrap overrides
-
 .menu-list {
   .list-group-item {
-      padding: 0.75rem 0;
-      display: flex;
-      align-items: center;
+    padding: 0.75rem 0;
+    display: flex;
+    align-items: center;
   }
 
   h2 {
-      font-size: 1.25rem;
-      font-weight: 400;
-      margin: 0;
+    font-size: 1.25rem;
+    font-weight: 400;
+    margin: 0;
   }
 }
 
+// Bootstrap overrides
 
 .list-group-item {
   padding: 0.75rem 1rem;
@@ -73,17 +72,24 @@ body {
 
   @include media-breakpoint-down(sm) {
       flex-direction: column;
-      margin-bottom: 0.5rem;
-      padding-bottom: 0.5rem;
-      border-bottom: $border-width solid $card-border-color;
+
+      &:not(:last-of-type) {
+        margin-bottom: 0.5rem;
+        padding-bottom: 0.5rem;
+        border-bottom: $border-width solid $card-border-color;
+      }
   }
 }
 
 .card + .card {
   margin-top: 2rem;
 }
+.card-deck .card + .card {
+  margin-top: 0;
+}
+
 .card-header {
-  h2, h4 {
+  h1, h2, h3, h4, h5, h6 {
     margin: 0;
   }
 
@@ -94,10 +100,6 @@ body {
 
 .card-body {
   padding: 1rem;
-}
-
-.card-footer {
-  display: flex;
 }
 
 // collapse icon
@@ -123,14 +125,7 @@ body {
 }
 
 .log {
-  .card-body {
-    padding: 0;
-
-    pre {
-      margin-bottom: 0;
-      padding: 1rem;
-      background-color: $light;
-    }
-
-  }
+  margin-bottom: 0;
+  padding: 1rem;
+  background-color: $light;
 }
