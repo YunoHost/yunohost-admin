@@ -101,3 +101,8 @@ export function flattenObjectLiteral (obj, flattened = {}) {
 export function arrayDiff (arr1 = [], arr2 = []) {
   return arr1.filter(item => !arr2.includes(item))
 }
+
+
+export function randint (min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min
+}
