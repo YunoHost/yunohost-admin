@@ -130,7 +130,6 @@ export default {
     const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a']
     let step = 0
     document.addEventListener('keydown', ({ key }) => {
-      console.log(key, step)
       if (key === konamiCode[step++]) {
         if (step === konamiCode.length) {
           this.$store.commit('SET_SPINNER', 'nyancat')
