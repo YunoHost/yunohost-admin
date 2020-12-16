@@ -3,8 +3,8 @@
     <b-list-group class="menu-list">
       <b-list-group-item
         v-for="item in menu"
-        :key="item.id"
-        :to="{name: item.routeName}"
+        :key="item.routeName"
+        :to="{ name: item.routeName }"
       >
         <icon :iname="item.icon" class="lg" />
         <h2>{{ $t(item.translation) }}</h2>
@@ -18,17 +18,17 @@
 export default {
   name: 'Home',
 
-  data: () => {
+  data () {
     return {
       menu: [
-        { id: 0, routeName: 'user-list', icon: 'users', translation: 'users' },
-        { id: 1, routeName: 'domain-list', icon: 'globe', translation: 'domains' },
-        { id: 2, routeName: 'app-list', icon: 'cubes', translation: 'applications' },
-        { id: 3, routeName: 'update', icon: 'refresh', translation: 'system_update' },
-        { id: 4, routeName: 'service-list', icon: 'cog', translation: 'services' },
-        { id: 5, routeName: 'tool-list', icon: 'wrench', translation: 'tools' },
-        { id: 6, routeName: 'diagnosis', icon: 'stethoscope', translation: 'diagnosis' },
-        { id: 7, routeName: 'backup', icon: 'archive', translation: 'backup' }
+        { routeName: 'user-list', icon: 'users', translation: 'users' },
+        { routeName: 'domain-list', icon: 'globe', translation: 'domains' },
+        { routeName: 'app-list', icon: 'cubes', translation: 'applications' },
+        { routeName: 'update', icon: 'refresh', translation: 'system_update' },
+        { routeName: 'service-list', icon: 'cog', translation: 'services' },
+        { routeName: 'tool-list', icon: 'wrench', translation: 'tools' },
+        { routeName: 'diagnosis', icon: 'stethoscope', translation: 'diagnosis' },
+        { routeName: 'backup', icon: 'archive', translation: 'backup' }
       ]
     }
   }

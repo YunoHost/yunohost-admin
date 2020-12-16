@@ -1,6 +1,6 @@
 <template>
   <div class="login">
-    <b-alert v-if="apiError" variant="danger" show>
+    <b-alert v-if="apiError" variant="danger">
       <icon iname="exclamation-triangle" /> {{ $t(apiError) }}
     </b-alert>
 
@@ -36,7 +36,7 @@
 export default {
   name: 'Login',
 
-  data: () => {
+  data () {
     return {
       disabled: false,
       password: '',
@@ -46,7 +46,7 @@ export default {
   },
 
   methods: {
-    async login () {
+    login () {
       this.$store.dispatch('LOGIN', this.password).catch(() => {
         this.isValid = false
       })
@@ -66,6 +66,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-</style>

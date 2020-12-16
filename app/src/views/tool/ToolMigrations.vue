@@ -1,37 +1,28 @@
 <template>
-  <div class="tool-log">
+  <view-base :queries="queries" @queries-response="formatMigrationsData" ref="view">
     <!-- PENDING MIGRATIONS -->
-    <b-card no-body>
-      <b-card-header class="d-flex align-items-center">
-        <h2>
-          <icon iname="cogs" /> {{ $t('migrations_pending') }}
-        </h2>
+    <card :title="$t('migrations_pending')" icon="cogs" no-body>
+      <template #header-buttons v-if="pending">
+        <b-button size="sm" variant="success" @click="runMigrations">
+          <icon iname="play" /> {{ $t('run') }}
+        </b-button>
+      </template>
 
-        <div class="ml-auto" v-if="pending && pending.length">
-          <b-button size="sm" variant="success" @click="runMigrations">
-            <icon iname="play" /> {{ $t('run') }}
-          </b-button>
-        </div>
-      </b-card-header>
-
-      <b-card-body v-if="pending && !pending.length">
+      <b-card-body v-if="pending === null">
         <span class="text-success">
           <icon iname="check-circle" /> {{ $t('migrations_no_pending') }}
         </span>
       </b-card-body>
 
-      <b-list-group flush v-else-if="pending">
+      <b-list-group v-else-if="pending" flush>
         <b-list-group-item
           v-for="{ number, description, id, disclaimer } in pending" :key="number"
         >
           <div class="d-flex align-items-center">
             {{ number }}. {{ description }}
 
-            <div class="ml-auto" v-if="pending && pending.length">
-              <b-button
-                @click="skipId = id" v-b-modal.skip-modal
-                size="sm" variant="warning"
-              >
+            <div class="ml-auto">
+              <b-button @click="skipMigration(id)" size="sm" variant="warning">
                 <icon iname="close" /> {{ $t('skip') }}
               </b-button>
             </div>
@@ -58,84 +49,67 @@
           </template>
         </b-list-group-item>
       </b-list-group>
-    </b-card>
+    </card>
 
     <!-- DONE MIGRATIONS -->
-    <b-card no-body>
-      <b-card-header class="d-flex align-items-center">
-        <h2><icon iname="cogs" /> {{ $t('migrations_done') }}</h2>
-
-        <div class="ml-auto">
-          <b-button v-b-toggle.collapse-done size="sm" variant="outline-secondary">
-            <icon iname="chevron-right" /><span class="sr-only">{{ $t('words.collapse') }}</span>
-          </b-button>
-        </div>
-      </b-card-header>
-
-      <b-collapse id="collapse-done">
-        <b-card-body v-if="done && !done.length">
-          <span class="text-success">
-            <icon iname="check-circle" /> {{ $t('migrations_no_done') }}
-          </span>
-        </b-card-body>
-
-        <b-list-group flush v-else-if="done">
-          <b-list-group-item
-            v-for="{ number, description } in done" :key="number"
-          >
-            {{ number }}. {{ description }}
-          </b-list-group-item>
-        </b-list-group>
-      </b-collapse>
-    </b-card>
-
-    <!-- SKIP MIGRATION CONFIRMATION MODAL -->
-    <b-modal
-      id="skip-modal" centered
-      body-bg-variant="warning"
-      @ok="skipMigration" hide-header
+    <card
+      :title="$t('migrations_done')" icon="cogs"
+      collapsable collapsed no-body
     >
-      {{ $t('confirm_migrations_skip') }}
-    </b-modal>
-  </div>
+      <b-card-body v-if="done === null">
+        <span class="text-success">
+          <icon iname="check-circle" /> {{ $t('migrations_no_done') }}
+        </span>
+      </b-card-body>
+
+      <b-list-group flush v-else-if="done">
+        <b-list-group-item v-for="{ number, description } in done" :key="number">
+          {{ number }}. {{ description }}
+        </b-list-group-item>
+      </b-list-group>
+    </card>
+
+    <template #skeleton>
+      <card-list-skeleton :item-count="3" />
+      <b-card no-body>
+        <template #header>
+          <b-skeleton width="30%" height="36px" class="m-0" />
+        </template>
+      </b-card>
+    </template>
+  </view-base>
 </template>
 
 <script>
 import api from '@/api'
 
 // FIXME not tested with pending migrations (disclaimer and stuff)
-
 export default {
   name: 'ToolMigrations',
 
-  props: {
-  },
-
   data () {
     return {
+      queries: [
+        'migrations?pending',
+        'migrations?done'
+      ],
       pending: undefined,
       done: undefined,
-      skipId: undefined,
       checked: {}
     }
   },
 
   methods: {
-    fetchData () {
-      api.getAll([
-        'migrations?pending',
-        'migrations?done'
-      ]).then(([{ migrations: pending }, { migrations: done }]) => {
-        this.done = done.reverse()
-        pending.forEach(migration => {
-          if (migration.disclaimer) {
-            migration.disclaimer = migration.disclaimer.replace('\n', '<br>')
-            this.$set(this.checked, migration.id, null)
-          }
-        })
-        // FIXME change to pending
-        this.pending = pending.reverse()
+    formatMigrationsData ({ migrations: pending }, { migrations: done }) {
+      this.done = done.length ? done.reverse() : null
+      pending.forEach(migration => {
+        if (migration.disclaimer) {
+          migration.disclaimer = migration.disclaimer.replace('\n', '<br>')
+          this.$set(this.checked, migration.id, null)
+        }
       })
+      // FIXME change to pending
+      this.pending = pending.length ? pending.reverse() : null
     },
 
     runMigrations () {
@@ -147,17 +121,20 @@ export default {
       }
       // Check that every migration's disclaimer has been checked.
       if (Object.values(this.checked).every(value => value === true)) {
-        api.post('migrations/migrate', { accept_disclaimer: true }).then(this.fetchData)
+        api.post('migrations/migrate', { accept_disclaimer: true }).then(() => {
+          this.$refs.view.fetchQueries()
+        })
       }
     },
 
-    skipMigration () {
-      api.post('/migrations/migrate', { skip: true, targets: this.skipId }).then(this.fetchData)
-    }
-  },
+    async skipMigration (id) {
+      const confirmed = await this.$askConfirmation(this.$i18n.t('confirm_migrations_skip'))
+      if (!confirmed) return
 
-  created () {
-    this.fetchData()
+      api.post('/migrations/migrate', { skip: true, targets: id }).then(() => {
+        this.$refs.view.fetchQueries()
+      })
+    }
   }
 }
 </script>

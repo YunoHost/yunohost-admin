@@ -4,10 +4,10 @@
 
     <em v-t="'api_error.sorry'" />
 
-    <b-alert variant="info" class="mt-4" show>
+    <div class="alert alert-info mt-4">
       <span v-html="$t('api_error.help')" />
       <br>{{ $t('api_error.info') }}
-    </b-alert>
+    </div>
 
     <h5 v-t="'error'" />
     <pre><code>"{{ error.code }}" {{ error.status }}</code></pre>
@@ -36,7 +36,3 @@ export default {
   // FIXME add redirect if they're no error (if reload or route entered by hand)
 }
 </script>
-
-<style lang="scss" scoped>
-
-</style>

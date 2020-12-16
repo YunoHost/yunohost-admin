@@ -1,31 +1,25 @@
 <template>
-  <div class="tool-power">
+  <div>
     <div v-if="inProcess">
-      <b-alert variant="info" show v-t="'tools_' + action + '_done'" />
+      <b-alert variant="info" v-t="'tools_' + action + '_done'" />
 
-      <b-alert variant="warning" show>
-        <icon :iname="action === 'reboot' ? 'refresh' : 'power-off'" /> {{ $t(action === 'reboot' ? 'tools_rebooting' : 'tools_shuttingdown') }}
+      <b-alert variant="warning">
+        <icon :iname="action === 'reboot' ? 'refresh' : 'power-off'" />
+        {{ $t(action === 'reboot' ? 'tools_rebooting' : 'tools_shuttingdown') }}
       </b-alert>
       <template v-if="canReconnect">
-        <b-alert variant="success" show v-t="'tools_power_up'" />
+        <b-alert variant="success" v-t="'tools_power_up'" />
         <login-view />
       </template>
     </div>
 
-    <b-card v-else>
-      <template v-slot:header>
-        <h2><icon iname="wrench" /> {{ $t('operations') }}</h2>
-      </template>
-
+    <card v-else :title="$t('operations')" icon="wrench">
       <!-- REBOOT -->
       <b-form-group
         label-cols="5" label-cols-md="4" label-cols-lg="3"
         :label="$t('tools_reboot')" label-for="reboot"
       >
-        <b-button
-          variant="danger" id="reboot" v-b-modal.confirm-action
-          @click="action = 'reboot'"
-        >
+        <b-button @click="triggerAction('reboot')" variant="danger" id="reboot">
           <icon iname="refresh" /> {{ $t('tools_reboot_btn') }}
         </b-button>
       </b-form-group>
@@ -36,23 +30,11 @@
         label-cols="5" label-cols-md="4" label-cols-lg="3"
         :label="$t('tools_shutdown')" label-for="shutdown"
       >
-        <b-button
-          variant="danger" id="shutdown" v-b-modal.confirm-action
-          @click="action = 'shutdown'"
-        >
+        <b-button @click="triggerAction('shutdown')" variant="danger" id="shutdown">
           <icon iname="power-off" /> {{ $t('tools_shutdown_btn') }}
         </b-button>
       </b-form-group>
-
-      <!-- REBOOT/SHUTDOWN CONFIRM MODAL -->
-      <b-modal
-        centered hide-header
-        id="confirm-action" body-bg-variant="danger" body-text-variant="light"
-        @ok="triggerAction(action)"
-      >
-        {{ $t('confirm_reboot_action_' + action) }}
-      </b-modal>
-    </b-card>
+    </card>
   </div>
 </template>
 
@@ -72,7 +54,13 @@ export default {
   },
 
   methods: {
-    triggerAction (action) {
+    async triggerAction (action) {
+      const confirmed = await this.$askConfirmation(
+        this.$i18n.t('confirm_reboot_action_' + action)
+      )
+      if (!confirmed) return
+
+      this.action = action
       api.put(action + '?force').then(() => {
         // Use 'RESET_CONNECTED' and not 'DISCONNECT' else user will be redirect to login
         this.$store.dispatch('RESET_CONNECTED')
@@ -100,8 +88,6 @@ export default {
     }
   },
 
-  components: {
-    LoginView
-  }
+  components: { LoginView }
  }
 </script>

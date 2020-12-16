@@ -1,30 +1,30 @@
 <template>
-  <div class="tool-log">
+  <view-base
+    :queries="queries" @queries-response="formatFirewallData"
+    ref="view" skeleton="card-form-skeleton"
+  >
     <!-- PORTS -->
-    <b-card>
-      <template v-slot:header>
-        <h2><icon iname="shield" /> {{ $t('ports') }}</h2>
-      </template>
-
+    <card :title="$t('ports')" icon="shield">
       <div v-for="(items, protocol) in protocols" :key="protocol">
         <h5>{{ $t(protocol) }}</h5>
+
         <b-table
           :fields="fields" :items="items"
-          small striped responsive="true"
+          small striped responsive
         >
           <!-- PORT CELL -->
-          <template v-slot:cell(port)="data">
+          <template #cell(port)="data">
             {{ data.value }}
           </template>
 
           <!-- CONNECTIONS CELL -->
-          <template v-slot:cell()="data">
+          <template #cell()="data">
             <b-checkbox
               v-if="data.field.key !== 'uPnP'"
               class="on-off-switch"
               v-model="data.value"
               switch
-              @change="onToggle(protocol, data.field.key, data.item.port, data.index, $event)"
+              @change="onTablePortToggling(data.item.port, protocol, data.field.key, data.index, $event)"
             >
               <span :class="'btn btn-sm py-0 btn-' + (data.value ? 'danger' : 'success')">
                 {{ $t(data.value ? 'close' : 'open') }}
@@ -39,108 +39,69 @@
           </template>
         </b-table>
       </div>
-    </b-card>
+    </card>
 
     <!-- OPERATIONS -->
-    <b-card>
-      <template v-slot:header>
-        <h2><icon iname="cogs" /> {{ $t('operations') }}</h2>
-      </template>
+    <card-form
+      :title="$t('operations')" icon="cogs"
+      :validation="$v" :server-error="serverError"
+      @submit.prevent="onFormPortToggling"
+      inline form-classes="d-flex justify-content-between align-items-start"
+    >
+      <b-input-group :prepend="$t('action')">
+        <b-select v-model="form.action" :options="actionChoices" />
+      </b-input-group>
 
-      <b-form
-        id="port-form" inline class="d-flex justify-content-between"
-        @submit.prevent="onFormSubmit"
-      >
-        <b-input-group :prepend="$t('action')">
-          <b-select
-            id="input-action"
-            v-model="form.action" :options="actionChoices"
-          />
-        </b-input-group>
-
+      <form-field :validation="$v.form.port">
         <b-input-group :prepend="$t('port')">
-          <b-input
-            id="input-port" placeholder="0"
-            type="number" min="0" max="65535"
-            v-model.number="form.port"
+          <input-item
+            id="input-port" placeholder="0" type="number"
+            v-model="form.port"
           />
         </b-input-group>
+      </form-field>
 
-        <b-input-group :prepend="$t('connection')">
-          <b-select
-            id="input-connection"
-            v-model="form.connection" :options="connectionChoices"
-          />
-        </b-input-group>
+      <b-input-group :prepend="$t('connection')">
+        <b-select v-model="form.connection" :options="connectionChoices" id="input-connection" />
+      </b-input-group>
 
-        <b-input-group :prepend="$t('protocol')">
-          <b-select
-            id="input-protocol"
-            v-model="form.protocol" :options="protocolChoices"
-          />
-        </b-input-group>
-      </b-form>
-
-      <template v-slot:footer>
-        <b-button type="submit" form="port-form" variant="success">
-          {{ $t('save') }}
-        </b-button>
-      </template>
-    </b-card>
+      <b-input-group :prepend="$t('protocol')">
+        <b-select v-model="form.protocol" :options="protocolChoices" id="input-protocol" />
+      </b-input-group>
+    </card-form>
 
     <!-- UPnP -->
-    <b-card :body-text-variant="upnpEnabled ? 'success' : 'danger'">
-      <template v-slot:header>
-        <h2><icon iname="exchange" /> {{ $t('upnp') }}</h2>
-      </template>
-
+    <card :title="$t('upnp')" icon="exchange" :body-text-variant="upnpEnabled ? 'success' : 'danger'">
       {{ $t(upnpEnabled ? 'upnp_enabled' : 'upnp_disabled' ) }}
 
       <b-form-invalid-feedback :state="upnpError !== '' ? false : null">
         {{ upnpError }}
       </b-form-invalid-feedback>
 
-      <template v-slot:footer>
-        <b-button
-          :variant="!upnpEnabled ? 'success' : 'danger'"
-          v-b-modal.toggle-upnp-modal
-        >
+      <template #buttons>
+        <b-button @click="toggleUpnp" :variant="!upnpEnabled ? 'success' : 'danger'">
           {{ $t(!upnpEnabled ? 'enable' : 'disable' ) }}
         </b-button>
       </template>
-    </b-card>
-
-    <!-- TOGGLE PORT CONFIRM MODAL -->
-    <b-modal
-      no-close-on-backdrop centered hide-header
-      body-bg-variant="danger" body-text-variant="light"
-      @ok="togglePort(portToToggle)" ref="modal"
-      @cancel="onCancel"
-    >
-      {{ portToToggle ? $t('confirm_firewall_' + portToToggle.action, portToToggle) : '' }}
-    </b-modal>
-
-    <!-- TOGGLE UPNP CONFIRM MODAL -->
-    <b-modal
-      id="toggle-upnp-modal"
-      no-close-on-backdrop centered hide-header
-      body-bg-variant="danger" body-text-variant="light"
-      @ok="toggleUpnp(!upnpEnabled)"
-    >
-      {{ $t('confirm_upnp_' + (upnpEnabled ? 'disable' : 'enable')) }}
-    </b-modal>
-  </div>
+    </card>
+  </view-base>
 </template>
 
 <script>
+import { validationMixin } from 'vuelidate'
+
 import api from '@/api'
+import { required, integer, between } from '@/helpers/validators'
 
 export default {
   name: 'ToolFirewall',
 
   data () {
     return {
-      // Tables data
+      queries: ['/firewall?raw'],
+      serverError: '',
+
+      // Ports tables data
       fields: [
         { key: 'port', label: this.$i18n.t('port') },
         { key: 'ipv4', label: this.$i18n.t('ipv4') },
@@ -150,7 +111,7 @@ export default {
       protocols: undefined,
       portToToggle: undefined,
 
-      // Form data
+      // Ports form data
       actionChoices: [
         { value: 'open', text: this.$i18n.t('open') },
         { value: 'close', text: this.$i18n.t('close') }
@@ -177,88 +138,93 @@ export default {
     }
   },
 
+  validations: {
+    form: {
+      port: { number: required, integer, between: between(0, 65535) }
+    }
+  },
+
   methods: {
-    fetchData () {
-      api.get('/firewall?raw').then(data => {
-        const ports = Object.values(data).reduce((ports, protocols) => {
-          for (const type of ['TCP', 'UDP']) {
-            for (const port of protocols[type]) {
-              ports[type].add(port)
-            }
+    formatFirewallData (data) {
+      const ports = Object.values(data).reduce((ports, protocols) => {
+        for (const type of ['TCP', 'UDP']) {
+          for (const port of protocols[type]) {
+            ports[type].add(port)
           }
-          return ports
-        }, { TCP: new Set(), UDP: new Set() })
-
-        const tables = {
-          TCP: [],
-          UDP: []
         }
-        for (const protocol of ['TCP', 'UDP']) {
-          for (const port of ports[protocol]) {
-            const row = { port }
-            for (const connection of ['ipv4', 'ipv6', 'uPnP']) {
-              row[connection] = data[connection][protocol].includes(port)
-            }
-            tables[protocol].push(row)
+        return ports
+      }, { TCP: new Set(), UDP: new Set() })
+
+      const tables = {
+        TCP: [],
+        UDP: []
+      }
+      for (const protocol of ['TCP', 'UDP']) {
+        for (const port of ports[protocol]) {
+          const row = { port }
+          for (const connection of ['ipv4', 'ipv6', 'uPnP']) {
+            row[connection] = data[connection][protocol].includes(port)
           }
-          tables[protocol].sort((a, b) => a.port < b.port ? -1 : 1)
+          tables[protocol].push(row)
         }
+        tables[protocol].sort((a, b) => a.port < b.port ? -1 : 1)
+      }
 
-        this.protocols = tables
-        this.upnpEnabled = data.uPnP.enabled
+      this.protocols = tables
+      this.upnpEnabled = data.uPnP.enabled
+    },
+
+    togglePort ({ action, port, protocol, connection }) {
+      return new Promise((resolve, reject) => {
+        this.$askConfirmation(
+          this.$i18n.t('confirm_firewall_' + action, { port, protocol, connection })
+        ).then(confirmed => {
+          if (confirmed) {
+            const method = action === 'open' ? 'post' : 'delete'
+            api[method](`/firewall/port?${connection}_only`, { port, protocol }).then(() => {
+              resolve(confirmed)
+            }).catch(error => {
+              reject(error)
+            })
+          } else {
+            resolve(confirmed)
+          }
+        })
       })
     },
 
-    togglePort ({ port, protocol, connection, action, index }) {
-      const method = action === 'open' ? 'post' : 'delete'
-      api[method](`/firewall/port?${connection}_only`, { port, protocol }).then(() => {
-        if (index === -1) this.fetchData()
-        this.portToToggle = undefined
-      }).catch((err) => {
-        console.log(err)
-      })
-    },
+    async toggleUpnp (value) {
+      const action = this.upnpEnabled ? 'disable' : 'enable'
+      const confirmed = await this.$askConfirmation(this.$i18n.t('confirm_upnp_' + action))
+      if (!confirmed) return
 
-    toggleUpnp (value) {
-      api.get('firewall/upnp?action=' + (value ? 'enable' : 'disable')).then(r => {
+      api.get('firewall/upnp?action=' + action).then(() => {
         // FIXME Couldn't test when it works.
-        this.fetchData()
+        this.$refs.view.fetchQueries()
       }).catch(err => {
         this.upnpError = err.message
       })
     },
 
-    onCancel () {
-      const { protocol, index, connection, value } = this.portToToggle
-      if (index > -1) {
-        this.$set(this.protocols[protocol][index], connection, !value)
-      }
-      this.portToToggle = undefined
-    },
-
-    onToggle (protocol, connection, port, index, value) {
+    onTablePortToggling (port, protocol, connection, index, value) {
       this.$set(this.protocols[protocol][index], connection, value)
-      this.portToToggle = {
-        protocol, connection, port, action: value ? 'open' : 'close', index, value
-      }
-      this.$refs.modal.show()
+      const action = value ? 'open' : 'close'
+      this.togglePort({ action, port, protocol, connection }).then(toggled => {
+        // Revert change on cancel
+        if (!toggled) {
+          this.$set(this.protocols[protocol][index], connection, !value)
+        }
+      })
     },
 
-    onFormSubmit (e) {
-      // IMPROVEMENT: could check if ports are already opened for known ports (tricky with protocol='Both')
-      this.portToToggle = {
-        ...this.form,
-        value: this.form.action === 'open',
-        // set index to -1 to trigger `this.fetchData` at modal `@ok`
-        index: -1
-      }
-      this.$refs.modal.show()
+    onFormPortToggling (e) {
+      this.togglePort(this.form).then(toggled => {
+        if (toggled) this.$refs.view.fetchQueries()
+      })
     }
   },
 
-  created () {
-    this.fetchData()
-  }
+  mixins: [validationMixin]
 }
 </script>
 
@@ -293,16 +259,17 @@ export default {
   }
 }
 
-form {
+::v-deep form {
   margin-bottom: -1rem;
 
-  .input-group {
-    margin-bottom: 1rem
+  & > * {
+    margin-bottom: 1rem;
   }
-}
 
-.card-footer {
-  display: flex;
-  justify-content: flex-end;
+  @include media-breakpoint-down(xs) {
+    fieldset {
+      width: 100%;
+    }
+  }
 }
 </style>

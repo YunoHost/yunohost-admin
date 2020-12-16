@@ -1,10 +1,11 @@
 <template>
-  <search-view
-    id="app-list"
+  <view-search
     :search.sync="search"
+    items-name="installed_apps"
     :items="apps"
     :filtered-items="filteredApps"
-    items-name="installed_apps"
+    :queries="queries"
+    @queries-response="formatAppData"
   >
     <template #top-bar-buttons>
       <b-button variant="success" :to="{ name: 'app-catalog' }">
@@ -32,18 +33,16 @@
         <icon iname="chevron-right" class="lg fs-sm ml-auto" />
       </b-list-group-item>
     </b-list-group>
-  </search-view>
+  </view-search>
 </template>
 
 <script>
-import api from '@/api'
-import SearchView from '@/components/SearchView'
-
 export default {
   name: 'AppList',
 
   data () {
     return {
+      queries: ['apps?full'],
       search: '',
       apps: undefined
     }
@@ -56,48 +55,40 @@ export default {
       const match = (item) => item && item.toLowerCase().includes(search)
       // Check if any value in apps (label, id, name, description) match the search query.
       const filtered = this.apps.filter(app => Object.values(app).some(match))
-      return filtered.length > 0 ? filtered : null
+      return filtered.length ? filtered : null
     }
   },
 
   methods: {
-    fetchData () {
-      api.get('apps?full').then(({ apps }) => {
-        if (apps.length === 0) {
-          this.apps = null
-          return
-        }
+    formatAppData ({ apps }) {
+      if (apps.length === 0) {
+        this.apps = null
+        return
+      }
 
-        const multiInstances = {}
-        this.apps = apps.map(({ id, name, description, permissions, manifest }) => {
-          // FIXME seems like some apps may no have a label (replace with id)
-          const label = permissions[id + '.main'].label
-          // Display the `id` of the instead of its `name` if multiple apps share the same name
-          if (manifest.multi_instance) {
-            if (!(name in multiInstances)) {
-              multiInstances[name] = []
-            }
-            const labels = multiInstances[name]
-            if (labels.includes(label)) {
-              name = id
-            }
-            labels.push(label)
+      const multiInstances = {}
+      this.apps = apps.map(({ id, name, description, permissions, manifest }) => {
+        // FIXME seems like some apps may no have a label (replace with id)
+        const label = permissions[id + '.main'].label
+        // Display the `id` of the instead of its `name` if multiple apps share the same name
+        if (manifest.multi_instance) {
+          if (!(name in multiInstances)) {
+            multiInstances[name] = []
           }
-          if (label === name) {
-            name = null
+          const labels = multiInstances[name]
+          if (labels.includes(label)) {
+            name = id
           }
-          return { id, name, description, label }
-        }).sort((prev, app) => {
-          return prev.label > app.label ? 1 : -1
-        })
+          labels.push(label)
+        }
+        if (label === name) {
+          name = null
+        }
+        return { id, name, description, label }
+      }).sort((prev, app) => {
+        return prev.label > app.label ? 1 : -1
       })
     }
-  },
-
-  created () {
-    this.fetchData()
-  },
-
-  components: { SearchView }
+  }
 }
 </script>

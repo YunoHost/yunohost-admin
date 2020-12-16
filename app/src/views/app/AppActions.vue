@@ -1,7 +1,10 @@
 <template>
-  <div class="app-actions">
-    <div v-if="actions">
-      <b-alert variant="warning" show class="mb-4">
+  <view-base
+    :queries="queries" @queries-response="formatAppActions"
+    ref="view" skeleton="card-form-skeleton"
+  >
+    <template v-if="actions" #default>
+      <b-alert variant="warning" class="mb-4">
         <icon iname="exclamation-triangle" /> {{ $t('experimental_warning') }}
       </b-alert>
 
@@ -13,9 +16,9 @@
         @submit.prevent="performAction(action)" :submit-text="$t('perform')"
       >
         <template #disclaimer>
-          <b-alert
+          <div
             v-if="action.formDisclaimer"
-            show variant="info" v-html="action.formDisclaimer"
+            class="alert alert-info" v-html="action.formDisclaimer"
           />
           <b-card-text v-if="action.description" v-html="action.description" />
         </template>
@@ -25,13 +28,13 @@
           v-bind="field" v-model="action.form[fname]" :validation="$v.actions[i][fname]"
         />
       </card-form>
-    </div>
+    </template>
 
     <!-- In case of a custom url with no manifest found -->
-    <b-alert v-else-if="actions === null" variant="warning" show>
+    <b-alert v-else-if="actions === null" variant="warning">
       <icon iname="exclamation-triangle" /> {{ $t('app_no_actions') }}
     </b-alert>
-  </div>
+  </view-base>
 </template>
 
 <script>
@@ -40,7 +43,6 @@ import { validationMixin } from 'vuelidate'
 
 import { formatI18nField, formatYunoHostArguments, formatFormData } from '@/helpers/yunohostArguments'
 import { objectToParams } from '@/helpers/commons'
-
 
 export default {
   name: 'AppActions',
@@ -51,6 +53,12 @@ export default {
 
   data () {
     return {
+      queries: [
+        `apps/${this.id}/actions`,
+        { uri: 'domains' },
+        { uri: 'domains/main', storeKey: 'main_domain' },
+        { uri: 'users' }
+      ],
       actions: undefined
     }
   },
@@ -66,18 +74,7 @@ export default {
   },
 
   methods: {
-    fetchData () {
-      Promise.all([
-        api.get(`apps/${this.id}/actions`),
-        this.$store.dispatch('FETCH_ALL', [
-          { uri: 'domains' },
-          { uri: 'domains/main', storeKey: 'main_domain' },
-          { uri: 'users' }
-        ])
-      ]).then((responses) => this.setupForm(responses[0]))
-    },
-
-    setupForm (data) {
+    formatAppActions (data) {
       if (!data.actions) {
         this.actions = null
         return
@@ -102,15 +99,11 @@ export default {
       const args = objectToParams(action.form ? formatFormData(action.form) : { wut: undefined })
 
       api.put(`apps/${this.id}/actions/${action.id}`, { args }).then(response => {
-        this.fetchData()
+        this.$refs.view.fetchQueries()
       }).catch(error => {
         action.serverError = error.message
       })
     }
-  },
-
-  created () {
-    this.fetchData()
   },
 
   mixins: [validationMixin]

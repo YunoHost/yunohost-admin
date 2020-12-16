@@ -4,13 +4,7 @@
     :server-error="serverError"
     @submit="onSubmit"
     :extra="extra"
-  >
-    <template #extra-fields="{ v, fields, form }">
-      <!-- CURRENT ADMIN PASSWORD -->
-      <form-field v-bind="fields.currentPassword" v-model="form.currentPassword" :validation="v.form.currentPassword" />
-      <hr>
-    </template>
-  </password-form>
+  />
 </template>
 
 <script>
@@ -19,7 +13,6 @@ import { validationMixin } from 'vuelidate'
 
 import { PasswordForm } from '@/components/reusableForms'
 import { required, minLength } from '@/helpers/validators'
-
 
 export default {
   name: 'ToolAdminpw',
@@ -67,9 +60,6 @@ export default {
   },
 
   mixins: [validationMixin],
-
-  components: {
-    PasswordForm
-  }
+  components: { PasswordForm }
 }
 </script>

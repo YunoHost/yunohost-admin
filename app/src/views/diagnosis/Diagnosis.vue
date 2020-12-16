@@ -1,109 +1,107 @@
 <template>
-  <div class="diagnosis">
-    <view-top-bar>
-      <template #group-right>
-        <b-button @click="shareLogs" variant="success">
-          <icon iname="cloud-upload" /> {{ $t('logs_share_with_yunopaste') }}
-        </b-button>
-      </template>
-    </view-top-bar>
-
-    <b-alert variant="info" show>
-      {{ $t(reports ? 'diagnosis_explanation' : 'diagnosis_first_run') }}
-      <b-button
-        v-if="reports === null" @click="runFullDiagnosis"
-        class="d-block mt-2" variant="info"
-      >
-        <icon iname="stethoscope" /> {{ $t('run_first_diagnosis') }}
+  <view-base
+    :loading="loading" ref="view"
+    :queries="queries" @queries-response="formatData"
+  >
+    <template #top-bar-group-right>
+      <b-button @click="shareLogs" variant="success">
+        <icon iname="cloud-upload" /> {{ $t('logs_share_with_yunopaste') }}
       </b-button>
-    </b-alert>
+    </template>
 
-    <b-alert
-      class="mb-5" variant="warning" show
-      v-t="'diagnosis_experimental_disclaimer'"
-    />
+    <template #top>
+      <div class="alert alert-info">
+        {{ $t(reports || loading ? 'diagnosis_explanation' : 'diagnosis_first_run') }}
+        <b-button
+          v-if="reports === null" class="d-block mt-2" variant="info"
+          @click="runDiagnosis"
+        >
+          <icon iname="stethoscope" /> {{ $t('run_first_diagnosis') }}
+        </b-button>
+      </div>
+
+      <div v-t="'diagnosis_experimental_disclaimer'" class="alert alert-warning mb-5" />
+    </template>
 
     <!-- REPORT CARD -->
-    <b-card no-body v-for="({ id, description, noIssues, errors, warnings, ignoreds, timestamp, items }, r) in reports" :key="id">
+    <card
+      v-for="report in reports" :key="report.id"
+      collapsable :collapsed="report.noIssues" button-unbreak="lg"
+    >
       <!-- REPORT HEADER -->
-      <b-card-header class="d-flex align-items-md-center flex-column flex-md-row">
-        <div class="d-flex align-items-center">
-          <h2>{{ description }}</h2>
+      <template #header>
+        <h2>{{ report.description }}</h2>
 
-          <b-badge
-            v-if="noIssues" pill variant="success"
-            v-t="'everything_good'"
-          />
-          <b-badge
-            v-if="errors" variant="danger" pill
-            v-t="{ path: 'issues', args: { count: errors } }"
-          />
-          <b-badge v-if="warnings" variant="warning" v-t="{ path: 'warnings', args: { count: warnings } }" />
-          <b-badge v-if="ignoreds" v-t="{ path: 'ignored', args: { count: ignoreds } }" />
+        <div class="">
+          <b-badge v-if="report.noIssues" variant="success" v-t="'everything_good'" />
+          <b-badge v-if="report.errors" variant="danger" v-t="{ path: 'issues', args: { count: report.errors } }" />
+          <b-badge v-if="report.warnings" variant="warning" v-t="{ path: 'warnings', args: { count: report.warnings } }" />
+          <b-badge v-if="report.ignoreds" v-t="{ path: 'ignored', args: { count: report.ignoreds } }" />
         </div>
+      </template>
 
-        <div class="d-flex ml-md-auto mt-2 mt-md-0">
-          <b-button size="sm" :variant="items ? 'info' : 'success'" @click="reRunDiagnosis(id)">
-            <icon iname="refresh" /> {{ $t('rerun_diagnosis') }}
-          </b-button>
-
-          <b-button
-            size="sm" variant="outline-secondary" class="ml-auto ml-md-2"
-            v-b-toggle="'collapse-' + id"
-          >
-            <icon iname="chevron-right" /><span class="sr-only">{{ $t('words.collapse') }}</span>
-          </b-button>
-        </div>
-      </b-card-header>
+      <template #header-buttons>
+        <b-button size="sm" :variant="report.items ? 'info' : 'success'" @click="runDiagnosis(report.id)">
+          <icon iname="refresh" /> {{ $t('rerun_diagnosis') }}
+        </b-button>
+      </template>
 
       <!-- REPORT BODY -->
-      <b-collapse :id="'collapse-' + id" :visible="!noIssues">
-        <p class="last-time-run">
-          {{ $t('last_ran') }} {{ timestamp | distanceToNow(true, true) }}
-        </p>
+      <p class="last-time-run">
+        {{ $t('last_ran') }} {{ report.timestamp | distanceToNow(true, true) }}
+      </p>
 
-        <b-list-group flush>
-          <!-- REPORT ITEM -->
-          <b-list-group-item
-            v-for="({ status, icon, summary, ignored, issue, details, filterArgs, meta }, i) in items"
-            :key="i" :variant="status"
-          >
-            <div class="item-button d-flex align-items-center">
-              <icon :iname="icon" class="mr-1" /> <p class="mb-0 mr-2" v-html="summary" />
+      <b-list-group flush>
+        <!-- REPORT ITEM -->
+        <b-list-group-item
+          v-for="(item, i) in report.items" :key="i"
+          :variant="item.variant"
+        >
+          <div class="item-button d-flex align-items-center">
+            <icon :iname="item.icon" class="mr-1" /> <p class="mb-0 mr-2" v-html="item.summary" />
 
-              <div class="d-flex flex-column flex-lg-row ml-auto">
-                <b-button
-                  v-if="ignored" size="sm"
-                  @click="toggleIgnoreIssue(false, filterArgs, r, i)"
-                >
-                  <icon iname="bell" /> <span v-t="'unignore'" />
-                </b-button>
-                <b-button
-                  v-else-if="issue"
-                  variant="warning" size="sm" @click="toggleIgnoreIssue(true, filterArgs, r, i)"
-                >
-                  <icon iname="bell-slash" /> <span v-t="'ignore'" />
-                </b-button>
-                <b-button
-                  v-if="details"
-                  size="sm" variant="outline-dark" class="ml-lg-2 mt-2 mt-lg-0"
-                  v-b-toggle="'collapse-' + id + '-item-' + i"
-                >
-                  <icon iname="level-down" /> <span v-t="'details'" />
-                </b-button>
-              </div>
+            <div class="d-flex flex-column flex-lg-row ml-auto">
+              <b-button
+                v-if="item.ignored" size="sm"
+                @click="toggleIgnoreIssue(false, report, item)"
+              >
+                <icon iname="bell" /> {{ $t('unignore') }}
+              </b-button>
+              <b-button
+                v-else-if="item.issue" variant="warning" size="sm"
+                @click="toggleIgnoreIssue(true, report, item)"
+              >
+                <icon iname="bell-slash" /> {{ $t('ignore') }}
+              </b-button>
+              <b-button
+                v-if="item.details"
+                size="sm" variant="outline-dark" class="ml-lg-2 mt-2 mt-lg-0"
+                v-b-toggle="`collapse-${report.id}-item-${i}`"
+              >
+                <icon iname="level-down" /> {{ $t('details') }}
+              </b-button>
             </div>
+          </div>
 
-            <b-collapse v-if="details" :id="'collapse-' + id + '-item-' + i">
-              <ul class="mt-2 pl-4">
-                <li v-for="(detail, index) in details" :key="index" v-html="detail" />
-              </ul>
-            </b-collapse>
-          </b-list-group-item>
-        </b-list-group>
-      </b-collapse>
-    </b-card>
-  </div>
+          <b-collapse v-if="item.details" :id="`collapse-${report.id}-item-${i}`">
+            <ul class="mt-2 pl-4">
+              <li v-for="(detail, index) in item.details" :key="index" v-html="detail" />
+            </ul>
+          </b-collapse>
+        </b-list-group-item>
+      </b-list-group>
+    </card>
+
+    <template #skeleton>
+      <card-list-skeleton />
+      <b-card no-body>
+        <template #header>
+          <b-skeleton width="30%" height="36px" class="m-0" />
+        </template>
+      </b-card>
+      <card-list-skeleton />
+    </template>
+  </view-base>
 </template>
 
 <script>
@@ -115,72 +113,85 @@ export default {
 
   data () {
     return {
+      queries: ['diagnosis/show?full'],
+      loading: true,
       reports: undefined
     }
   },
 
   methods: {
-    fetchData () {
-      api.get('diagnosis/show?full').then((data) => {
-        if (data === null) {
-          this.reports = null
-          return
+    formatReportItem (report, item) {
+      let issue = false
+      let icon = ''
+      const status = item.variant = item.status.toLowerCase()
+
+      if (status === 'success') {
+        icon = 'check-circle'
+      } else if (status === 'info') {
+        icon = 'info-circle'
+      } else if (item.ignored) {
+        icon = status !== 'error' ? status : 'times'
+        item.variant = 'light'
+        report.ignoreds++
+      } else if (status === 'warning') {
+        icon = status
+        issue = true
+        report.warnings++
+      } else if (status === 'error') {
+        item.variant = 'danger'
+        icon = 'times'
+        issue = true
+        report.errors++
+      }
+
+      item.issue = issue
+      item.icon = icon
+    },
+
+    formatData (data) {
+      if (data === null) {
+        this.reports = null
+        this.loading = false
+        return
+      }
+
+      const reports = data.reports
+      for (const report of reports) {
+        report.warnings = 0
+        report.errors = 0
+        report.ignoreds = 0
+
+        for (var item of report.items) {
+          this.formatReportItem(report, item)
         }
-
-        const reports = data.reports
-        for (const report of reports) {
-          report.warnings = 0
-          report.errors = 0
-          report.ignoreds = 0
-
-          for (var item of report.items) {
-            let issue = false
-            let icon = ''
-            const status = item.status = item.status.toLowerCase()
-
-            if (status === 'success') {
-              icon = 'check-circle'
-            } else if (status === 'info') {
-              icon = 'info-circle'
-            } else if (item.ignored) {
-              icon = status !== 'error' ? status : 'times'
-              item.status = 'ignored'
-              report.ignoreds++
-            } else if (status === 'warning') {
-              icon = status
-              issue = true
-              report.warnings++
-            } else if (status === 'error') {
-              item.status = 'danger'
-              icon = 'times'
-              issue = true
-              report.errors++
-            }
-
-            item.issue = issue
-            item.icon = icon
-            item.filterArgs = Object.entries(item.meta).reduce((filterArgs, entries) => {
-              filterArgs.push(entries.join('='))
-              return filterArgs
-            }, [report.id])
-          }
-          report.noIssues = report.warnings + report.errors === 0
-        }
-        this.reports = reports
-      })
+        report.noIssues = report.warnings + report.errors === 0
+      }
+      this.reports = reports
+      this.loading = false
     },
 
-    runFullDiagnosis () {
-      api.post('diagnosis/run').then(this.fetchData)
+    runDiagnosis (id = null) {
+      const param = id !== null ? '?force' : ''
+      const data = id !== null ? { categories: [id] } : {}
+      api.post('diagnosis/run' + param, data).then(this.$refs.view.fetchQueries)
     },
 
-    reRunDiagnosis (id) {
-      api.post('diagnosis/run?force', { categories: [id] }).then(this.fetchData)
-    },
-
-    toggleIgnoreIssue (ignore, filterArgs, reportIndex, itemIndex) {
+    toggleIgnoreIssue (ignore, report, item) {
       const key = (ignore ? 'add' : 'remove') + '_filter'
-      api.post('diagnosis/ignore', { [key]: filterArgs }).then(this.fetchData)
+      const filterArgs = Object.entries(item.meta).reduce((filterArgs, entries) => {
+        filterArgs.push(entries.join('='))
+        return filterArgs
+      }, [report.id])
+
+      api.post('diagnosis/ignore', { [key]: filterArgs }).then(() => {
+        item.ignored = ignore
+        if (ignore) {
+          report[item.status.toLowerCase() + 's']--
+        } else {
+          report.ignoreds--
+        }
+        this.formatReportItem(report, item)
+      })
     },
 
     shareLogs () {
@@ -191,17 +202,15 @@ export default {
   },
 
   created () {
-    api.post('diagnosis/run?except_if_never_ran_yet').then(this.fetchData)
+    api.post('diagnosis/run?except_if_never_ran_yet')
   },
 
-  filters: {
-    distanceToNow
-  }
+  filters: { distanceToNow }
 }
 </script>
 
 <style lang="scss" scoped>
-.badge {
+.badge + .badge {
   margin-left: .5rem
 }
 

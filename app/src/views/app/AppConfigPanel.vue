@@ -1,10 +1,11 @@
 <template>
-  <div class="app-config-panel">
-    <div v-if="panels">
-      <b-alert variant="warning" show class="mb-4">
+  <view-base :queries="queries" @queries-response="formatAppConfig" skeleton="card-form-skeleton">
+    <template v-if="panels" #default>
+      <b-alert variant="warning" class="mb-4">
         <icon iname="exclamation-triangle" /> {{ $t('experimental_warning') }}
       </b-alert>
 
+      <!-- FIXME Rework with components -->
       <b-form id="config-form" @submit.prevent="applyConfig">
         <b-card no-body v-for="panel in panels" :key="panel.id">
           <b-card-header class="d-flex align-items-center">
@@ -35,13 +36,13 @@
           </b-collapse>
         </b-card>
       </b-form>
-    </div>
+    </template>
 
     <!-- if no config panel -->
-    <b-alert v-else-if="panels === null" variant="warning" show>
+    <b-alert v-else-if="panels === null" variant="warning">
       <icon iname="exclamation-triangle" /> {{ $t('app_config_panel_no_panel') }}
     </b-alert>
-  </div>
+  </view-base>
 </template>
 
 <script>
@@ -54,31 +55,23 @@ export default {
   name: 'AppConfigPanel',
 
   props: {
-    id: {
-      type: String,
-      required: true
-    }
+    id: { type: String, required: true }
   },
 
   data () {
     return {
+      queries: [
+        `apps/${this.id}/config-panel`,
+        { uri: 'domains' },
+        { uri: 'domains/main', storeKey: 'main_domain' },
+        { uri: 'users' }
+      ],
       panels: undefined
     }
   },
 
   methods: {
-    fetchData () {
-      Promise.all([
-        api.get(`apps/${this.id}/config-panel`),
-        this.$store.dispatch('FETCH_ALL', [
-          { uri: 'domains' },
-          { uri: 'domains/main', storeKey: 'main_domain' },
-          { uri: 'users' }
-        ])
-      ]).then((responses) => this.setupForm(responses[0]))
-    },
-
-    setupForm (data) {
+    formatAppConfig (data) {
       if (!data.config_panel || data.config_panel.length === 0) {
         this.panels = null
         return
@@ -121,10 +114,6 @@ export default {
         console.log('ERROR', err)
       })
     }
-  },
-
-  created () {
-    this.fetchData()
   }
 }
 </script>

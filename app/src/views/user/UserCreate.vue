@@ -1,60 +1,62 @@
 <template>
-  <card-form
-    :title="$t('users_new')" icon="user-plus"
-    :validation="$v" :server-error="serverError"
-    @submit.prevent="onSubmit"
-  >
-    <!-- USER NAME -->
-    <form-field v-bind="fields.username" v-model="form.username" :validation="$v.form.username" />
-
-    <!-- USER FULLNAME -->
-    <form-field
-      v-bind="fields.fullname" :validation="$v.form.fullname"
+  <view-base :queries="queries" @queries-response="onQueriesResponse" skeleton="card-form-skeleton">
+    <card-form
+      :title="$t('users_new')" icon="user-plus"
+      :validation="$v" :server-error="serverError"
+      @submit.prevent="onSubmit"
     >
-      <template #default="{ self }">
-        <b-input-group>
-          <template v-for="fname in ['firstname', 'lastname']">
-            <b-input-group-prepend :key="fname + 'prepend'">
-              <b-input-group-text :id="fname + '-label'" tag="label">
-                {{ self[fname].label }}
+      <!-- USER NAME -->
+      <form-field v-bind="fields.username" v-model="form.username" :validation="$v.form.username" />
+
+      <!-- USER FULLNAME -->
+      <form-field
+        v-bind="fields.fullname" :validation="$v.form.fullname"
+      >
+        <template #default="{ self }">
+          <b-input-group>
+            <template v-for="fname in ['firstname', 'lastname']">
+              <b-input-group-prepend :key="fname + 'prepend'">
+                <b-input-group-text :id="fname + '-label'" tag="label">
+                  {{ self[fname].label }}
+                </b-input-group-text>
+              </b-input-group-prepend>
+
+              <input-item
+                v-bind="self[fname]" v-model="form.fullname[fname]" :key="fname + 'input'"
+                :name="self[fname].id" :aria-labelledby="fname + '-label'"
+              />
+            </template>
+          </b-input-group>
+        </template>
+      </form-field>
+      <hr>
+
+      <!-- USER MAIL DOMAIN -->
+      <form-field v-bind="fields.domain" :validation="$v.form.domain">
+        <template #default="{ self }">
+          <b-input-group>
+            <b-input-group-append>
+              <b-input-group-text id="local-part" tag="label" class="border-right-0">
+                {{ form.username }}@
               </b-input-group-text>
-            </b-input-group-prepend>
+            </b-input-group-append>
 
-            <input-item
-              v-bind="self[fname]" v-model="form.fullname[fname]" :key="fname + 'input'"
-              :name="self[fname].id" :aria-labelledby="fname + '-label'"
+            <select-item
+              aria-labelledby="local-part" aria-describedby="mail__BV_description_"
+              v-model="form.domain" v-bind="self"
             />
-          </template>
-        </b-input-group>
-      </template>
-    </form-field>
-    <hr>
+          </b-input-group>
+        </template>
+      </form-field>
+      <hr>
 
-    <!-- USER MAIL DOMAIN -->
-    <form-field v-bind="fields.domain" :validation="$v.form.domain">
-      <template #default="{ self }">
-        <b-input-group>
-          <b-input-group-append>
-            <b-input-group-text id="local-part" tag="label" class="border-right-0">
-              {{ form.username }}@
-            </b-input-group-text>
-          </b-input-group-append>
+      <!-- USER PASSWORD -->
+      <form-field v-bind="fields.password" v-model="form.password" :validation="$v.form.password" />
 
-          <select-item
-            aria-labelledby="local-part" aria-describedby="mail__BV_description_"
-            v-model="form.domain" v-bind="self"
-          />
-        </b-input-group>
-      </template>
-    </form-field>
-    <hr>
-
-    <!-- USER PASSWORD -->
-    <form-field v-bind="fields.password" v-model="form.password" :validation="$v.form.password" />
-
-    <!-- USER PASSWORD CONFIRMATION -->
-    <form-field v-bind="fields.confirmation" v-model="form.confirmation" :validation="$v.form.confirmation" />
-  </card-form>
+      <!-- USER PASSWORD CONFIRMATION -->
+      <form-field v-bind="fields.confirmation" v-model="form.confirmation" :validation="$v.form.confirmation" />
+    </card-form>
+  </view-base>
 </template>
 
 <script>
@@ -66,14 +68,17 @@ import {
   alphalownum_, unique, required, minLength, name, sameAs
 } from '@/helpers/validators'
 
-
 export default {
   name: 'UserCreate',
 
-  mixins: [validationMixin],
-
   data () {
     return {
+      queries: [
+        { uri: 'users' },
+        { uri: 'domains' },
+        { uri: 'domains/main', storeKey: 'main_domain' }
+      ],
+
       form: {
         username: '',
         fullname: {
@@ -162,6 +167,11 @@ export default {
   },
 
   methods: {
+    onQueriesResponse () {
+      this.fields.domain.props.choices = this.domainsAsChoices
+      this.form.domain = this.mainDomain
+    },
+
     onSubmit () {
       const data = formatFormData(this.form, { flatten: true })
       this.$store.dispatch(
@@ -174,14 +184,7 @@ export default {
     }
   },
 
-  created () {
-    this.$store.dispatch('FETCH_ALL',
-      [{ uri: 'domains' }, { uri: 'users' }, { uri: 'domains/main', storeKey: 'main_domain' }]
-    ).then(([domains]) => {
-      this.fields.domain.props.choices = this.domainsAsChoices
-      this.form.domain = this.mainDomain
-    })
-  }
+  mixins: [validationMixin]
 }
 </script>
 

@@ -1,20 +1,21 @@
 <template>
-  <div class="tool-log">
+  <view-base
+    :queries="queries" @queries-response="formatLogData"
+    ref="view" skeleton="card-info-skeleton"
+  >
     <!-- INFO CARD -->
-    <b-card>
-      <template v-slot:header>
-        <h2><icon iname="info-circle" /> {{ description }}</h2>
-      </template>
-
+    <card :title="description" icon="info-circle">
       <b-row
         v-for="(value, prop) in info" :key="prop"
         no-gutters class="row-line"
       >
-        <b-col cols="auto" md="3">
+        <b-col md="3" xl="2">
           <strong>{{ $t('logs_' + prop) }}</strong>
         </b-col>
+
         <b-col>
           <span v-if="prop.endsWith('_at')">{{ value | readableDate }}</span>
+
           <div v-else-if="prop === 'suboperations'">
             <div v-for="operation in value" :key="operation.name">
               <icon v-if="!operation.success" iname="times" class="text-danger" />
@@ -23,44 +24,39 @@
               </b-link>
             </div>
           </div>
+
           <span v-else>{{ value }}</span>
         </b-col>
       </b-row>
-    </b-card>
+    </card>
 
-    <b-alert
-      v-if="info.error" variant="danger" show
-      class="my-5"
-    >
-      <icon iname="exclamation-circle" /> <span v-html="$t('operation_failed_explanation')" />
-    </b-alert>
+    <div v-if="info.error" class="alert alert-danger my-5">
+      <icon iname="exclamation-circle" /> {{ $t('operation_failed_explanation') }}
+    </div>
 
     <!-- LOGS CARD -->
-    <b-card class="log">
-      <template v-slot:header>
-        <div class="d-sm-flex justify-content-sm-between">
-          <h2><icon iname="file-text" /> {{ $t('logs') }}</h2>
-          <b-button @click="shareLogs" variant="success">
-            <icon iname="cloud-upload" /> {{ $t('logs_share_with_yunopaste') }}
-          </b-button>
-        </div>
+    <card :title="$t('logs')" icon="file-text" no-body>
+      <template #header-buttons>
+        <b-button @click="shareLogs" variant="success">
+          <icon iname="cloud-upload" /> {{ $t('logs_share_with_yunopaste') }}
+        </b-button>
       </template>
 
       <b-button
         v-if="moreLogsAvailable"
         variant="white" class="w-100 rounded-0"
-        @click="fetchData"
+        @click="$ref.view.fetchQueries()"
       >
         <icon iname="plus" /> {{ $t('logs_more') }}
       </b-button>
 
-      <pre><code v-html="logs" /></pre>
+      <pre class="log"><code v-html="logs" /></pre>
 
       <b-button @click="shareLogs" variant="success" class="w-100 rounded-0">
         <icon iname="cloud-upload" /> {{ $t('logs_share_with_yunopaste') }}
       </b-button>
-    </b-card>
-  </div>
+    </card>
+  </view-base>
 </template>
 
 <script>
@@ -72,64 +68,60 @@ export default {
   name: 'ToolLog',
 
   props: {
-    name: {
-      type: String,
-      required: true
-    }
+    name: { type: String, required: true }
   },
 
   data () {
     return {
       // Log data
-      description: '',
+      description: undefined,
       info: {},
-      logs: '',
+      logs: undefined,
       // Logs line display
       numberOfLines: 25,
       moreLogsAvailable: false
     }
   },
 
-  filters: {
-    readableDate
-  },
-
-  methods: {
-    fetchData () {
+  computed: {
+    queries () {
       const queryString = objectToParams({
         path: this.name,
         filter_irrelevant: '',
         with_suboperations: '',
         number: this.numberOfLines
       })
+      return ['logs/display?' + queryString]
+    }
+  },
 
-      api.get('logs/display?' + queryString).then(log => {
-        if (log.logs.length === this.numberOfLines) {
-          this.moreLogsAvailable = true
-          this.numberOfLines *= 10
-        } else {
-          this.moreLogsAvailable = false
-        }
-        this.description = log.description
+  methods: {
+    formatLogData (log) {
+      if (log.logs.length === this.numberOfLines) {
+        this.moreLogsAvailable = true
+        this.numberOfLines *= 10
+      } else {
+        this.moreLogsAvailable = false
+      }
+      this.description = log.description
 
-        const levels = ['ERROR', 'WARNING', 'SUCCESS', 'INFO']
-        this.logs = log.logs.map(line => {
-          for (const level of levels) {
-            if (line.includes(level + ' -')) {
-              return `<span class="alert-${level === 'ERROR'
-                ? 'danger'
-                : level.toLowerCase()}">${line}</span>`
-            }
+      const levels = ['ERROR', 'WARNING', 'SUCCESS', 'INFO']
+      this.logs = log.logs.map(line => {
+        for (const level of levels) {
+          if (line.includes(level + ' -')) {
+            return `<span class="alert-${level === 'ERROR'
+              ? 'danger'
+              : level.toLowerCase()}">${line}</span>`
           }
-          return line
-        }).join('\n')
-
-        const { started_at, ended_at, error, success, suboperations } = log.metadata
-        const info = { path: log.log_path, started_at, ended_at }
-        if (!success) info.error = error
-        if (suboperations) info.suboperations = suboperations
-        this.info = info
-      })
+        }
+        return line
+      }).join('\n')
+      // eslint-disable-next-line
+      const { started_at, ended_at, error, success, suboperations } = log.metadata
+      const info = { path: log.log_path, started_at, ended_at }
+      if (!success) info.error = error
+      if (suboperations && suboperations.length) info.suboperations = suboperations
+      this.info = info
     },
 
     shareLogs () {
@@ -139,8 +131,6 @@ export default {
     }
   },
 
-  created () {
-    this.fetchData()
-  }
+  filters: { readableDate }
 }
 </script>

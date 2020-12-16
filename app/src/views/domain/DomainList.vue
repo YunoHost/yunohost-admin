@@ -1,10 +1,11 @@
 <template>
-  <search-view
+  <view-search
     id="domain-list"
     :search.sync="search"
     :items="domains"
     :filtered-items="filteredDomains"
     items-name="domains"
+    :queries="queries"
   >
     <template #top-bar-buttons>
       <b-button variant="success" :to="{ name: 'domain-add' }">
@@ -34,19 +35,21 @@
         <icon iname="chevron-right" class="lg fs-sm ml-auto" />
       </b-list-group-item>
     </b-list-group>
-  </search-view>
+  </view-search>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
-
-import SearchView from '@/components/SearchView'
 
 export default {
   name: 'DomainList',
 
   data () {
     return {
+      queries: [
+        { uri: 'domains/main', storeKey: 'main_domain' },
+        { uri: 'domains' }
+      ],
       search: ''
     }
   },
@@ -61,17 +64,8 @@ export default {
       const domains = this.domains
         .filter(name => name.toLowerCase().includes(search))
         .sort(prevDomain => prevDomain === mainDomain ? -1 : 1)
-      return domains.length > 0 ? domains : null
+      return domains.length ? domains : null
     }
-  },
-
-  created () {
-    this.$store.dispatch('FETCH_ALL', [
-      { uri: 'domains/main', storeKey: 'main_domain' },
-      { uri: 'domains' }
-    ])
-  },
-
-  components: { SearchView }
+  }
 }
 </script>

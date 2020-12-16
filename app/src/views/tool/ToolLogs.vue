@@ -1,15 +1,14 @@
 <template>
-  <search-view
-    id="tool-logs"
+  <view-search
     :search.sync="search"
     :items="operations"
     :filtered-items="filteredOperations"
     items-name="logs"
+    :queries="queries"
+    @queries-response="formatLogsData"
+    skeleton="card-list-skeleton"
   >
-    <b-card no-body>
-      <template v-slot:header>
-        <h2><icon iname="wrench" /> {{ $t('logs_operation') }}</h2>
-      </template>
+    <card :title="$t('logs_operation')" icon="wrench" no-body>
       <b-list-group flush>
         <b-list-group-item
           v-for="log in filteredOperations" :key="log.name"
@@ -21,20 +20,19 @@
           {{ log.description }}
         </b-list-group-item>
       </b-list-group>
-    </b-card>
-  </search-view>
+    </card>
+  </view-search>
 </template>
 
 <script>
-import api from '@/api'
 import { distanceToNow, readableDate } from '@/helpers/filters/date'
-import SearchView from '@/components/SearchView'
 
 export default {
-  name: 'ServiceList',
+  name: 'ToolLogs',
 
   data () {
     return {
+      queries: [`logs?limit=${25}&with_details`],
       search: '',
       operations: undefined
     }
@@ -47,39 +45,31 @@ export default {
       const operations = this.operations.filter(({ description }) => {
         return description.toLowerCase().includes(search)
       })
-      return operations.length > 0 ? operations : null
+      return operations.length ? operations : null
+    }
+  },
+
+  methods: {
+    formatLogsData ({ operation }) {
+      operation.forEach((log, index) => {
+        if (log.success === '?') {
+          operation[index].icon = 'question'
+          operation[index].class = 'warning'
+        } else if (log.success) {
+          operation[index].icon = 'check'
+          operation[index].class = 'success'
+        } else {
+          operation[index].icon = 'close'
+          operation[index].class = 'danger'
+        }
+      })
+      this.operations = operation
     }
   },
 
   filters: {
     distanceToNow,
     readableDate
-  },
-
-  methods: {
-    fetchData () {
-      api.get(`logs?limit=${25}&with_details`).then(({ operation }) => {
-        operation.forEach((log, index) => {
-          if (log.success === '?') {
-            operation[index].icon = 'question'
-            operation[index].class = 'warning'
-          } else if (log.success) {
-            operation[index].icon = 'check'
-            operation[index].class = 'success'
-          } else {
-            operation[index].icon = 'close'
-            operation[index].class = 'danger'
-          }
-        })
-        this.operations = operation
-      })
-    }
-  },
-
-  created () {
-    this.fetchData()
-  },
-
-  components: { SearchView }
+  }
 }
 </script>

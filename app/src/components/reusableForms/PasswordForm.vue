@@ -5,14 +5,19 @@
     @submit.prevent="onSubmit"
   >
     <template #disclaimer>
-      <b-alert variant="warning" show>
+      <p class="alert alert-warning">
         {{ $t('good_practices_about_admin_password') }}
-      </b-alert>
+      </p>
       <slot name="disclaimer" />
       <hr>
     </template>
 
-    <slot name="extra-fields" v-bind="{ v: $v, fields, form }" />
+    <slot name="extra" v-bind="{ v: $v, fields, form }">
+      <form-field
+        v-for="(value, key) in extra.fields" :key="key"
+        v-bind="value" v-model="$v.form.$model[key]" :validation="$v.form[key]"
+      />
+    </slot>
 
     <!-- ADMIN PASSWORD -->
     <form-field v-bind="fields.password" v-model="form.password" :validation="$v.form.password" />

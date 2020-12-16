@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
   <card-form
     :title="$t('group_new')" icon="users"
     :validation="$v" :server-error="serverError"
@@ -11,22 +11,18 @@
 
 <script>
 import { validationMixin } from 'vuelidate'
-import { required, alphalownum_ } from '@/helpers/validators'
 
+import { required, alphalownum_ } from '@/helpers/validators'
 
 export default {
   name: 'GroupCreate',
-
-  mixins: [validationMixin],
 
   data () {
     return {
       form: {
         groupname: ''
       },
-
       serverError: '',
-
       groupname: {
         label: this.$i18n.t('group_name'),
         description: this.$i18n.t('group_format_name_help'),
@@ -55,6 +51,8 @@ export default {
         this.isValid.groupname = false
       })
     }
-  }
+  },
+
+  mixins: [validationMixin]
 }
 </script>

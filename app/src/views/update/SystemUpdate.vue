@@ -1,30 +1,18 @@
 <template>
-  <div class="system-update">
-    <!-- FIXME add perform update button ? -->
-    <!-- <div class="actions">
-      <div class="buttons ml-auto">
-        <b-button variant="success" @click="performUpdate">
-          <icon iname="refresh" /> {{ $t('system_update') }}
-        </b-button>
-      </div>
-    </div> -->
-
+  <view-base :loading="loading" skeleton="card-list-skeleton">
     <!-- MIGRATIONS WARN -->
     <b-alert variant="warning" :show="migrationsNotDone">
       <icon iname="exclamation-triangle" /> <span v-html="$t('pending_migrations')" />
     </b-alert>
 
     <!-- SYSTEM UPGRADE -->
-    <b-card no-body>
-      <template v-slot:header>
-        <h2><icon iname="server" /> {{ $t('system') }}</h2>
-      </template>
-
+    <card :title="$t('system')" icon="server" no-body>
       <b-list-group v-if="system" flush>
-        <b-list-group-item
-          v-for="{ name, current_version, new_version } in system" :key="name"
-        >
-          <h5 class="m-0">{{ name }} <small>({{ $t('from_to', [current_version, new_version]) }})</small></h5>
+        <b-list-group-item v-for="{ name, current_version, new_version } in system" :key="name">
+          <h5 class="m-0">
+            {{ name }}
+            <small>({{ $t('from_to', [current_version, new_version]) }})</small>
+          </h5>
         </b-list-group-item>
       </b-list-group>
 
@@ -32,34 +20,29 @@
         <span class="text-success"><icon iname="check-circle" /> {{ $t('system_packages_nothing') }}</span>
       </b-card-body>
 
-      <template v-if="system" v-slot:footer>
-        <div class="d-flex justify-content-end">
-          <b-button
-            v-b-modal.confirm-upgrade variant="success"
-            v-t="'system_upgrade_all_packages_btn'"
-            @click="action = ['system']"
-          />
-        </div>
+      <template #buttons v-if="system">
+        <b-button
+          variant="success" v-t="'system_upgrade_all_packages_btn'"
+          @click="performUpgrade({ type: 'system' })"
+        />
       </template>
-    </b-card>
+    </card>
 
     <!-- APPS UPGRADE -->
-    <b-card no-body>
-      <template v-slot:header>
-        <h2><icon iname="cubes" /> {{ $t('applications') }}</h2>
-      </template>
-
+    <card :title="$t('applications')" icon="cubes" no-body>
       <b-list-group v-if="apps" flush>
         <b-list-group-item
           v-for="{ label, id, current_version, new_version } in apps" :key="id"
           class="d-flex justify-content-between align-items-center"
         >
-          <h5 class="m-0">{{ label }} <small>({{ id }}) {{ $t('from_to', [current_version, new_version]) }}</small></h5>
+          <h5 class="m-0">
+            {{ label }}
+            <small>({{ id }}) {{ $t('from_to', [current_version, new_version]) }}</small>
+          </h5>
 
           <b-button
-            v-b-modal.confirm-upgrade variant="success" size="sm"
-            v-t="'system_upgrade_btn'"
-            @click="action = ['specific_app', id]"
+            variant="success" size="sm" v-t="'system_upgrade_btn'"
+            @click="performUpgrade({ type: 'specific_app', id })"
           />
         </b-list-group-item>
       </b-list-group>
@@ -68,27 +51,14 @@
         <span class="text-success"><icon iname="check-circle" /> {{ $t('system_apps_nothing') }}</span>
       </b-card-body>
 
-      <template v-if="apps" v-slot:footer>
-        <div class="d-flex justify-content-end">
-          <b-button
-            v-b-modal.confirm-upgrade variant="success"
-            v-t="'system_upgrade_all_applications_btn'"
-            @click="action = ['apps']"
-          />
-        </div>
+      <template #buttons v-if="apps">
+        <b-button
+          variant="success" v-t="'system_upgrade_all_applications_btn'"
+          @click="performUpgrade({ type: 'apps' })"
+        />
       </template>
-    </b-card>
-
-    <!-- UPGRADE CONFIRM MODAL -->
-    <b-modal
-      v-if="action"
-      id="confirm-upgrade" centered
-      body-bg-variant="danger" body-text-variant="light"
-      @ok="performUpgrade" hide-header
-    >
-      {{ $t('confirm_update_' + action[0], action[1] ? { app: action[1] } : {}) }}
-    </b-modal>
-  </div>
+    </card>
+  </view-base>
 </template>
 
 <script>
@@ -99,9 +69,8 @@ export default {
 
   data () {
     return {
-      action: undefined,
-      app: undefined,
-      // api data
+      loading: true,
+      // API data
       migrationsNotDone: undefined,
       system: undefined,
       apps: undefined
@@ -109,21 +78,11 @@ export default {
   },
 
   methods: {
-    async fetchData () {
-      api.get('migrations?pending').then(({ migrations }) => {
-        this.migrationsNotDone = migrations.length !== 0
-      })
-    },
+    async performUpgrade ({ type, id = null }) {
+      const confirmMsg = this.$i18n.t('confirm_update_' + type, id ? { app: id } : {})
+      const confirmed = await this.$askConfirmation(confirmMsg)
+      if (!confirmed) return
 
-    performUpdate () {
-      api.put('update').then(({ apps, system }) => {
-        this.apps = apps.length ? apps : null
-        this.system = system.length ? system : null
-      })
-    },
-
-    performUpgrade () {
-      const [type, id] = this.action
       const uri = type === 'specific_app'
         ? 'upgrade/apps?app=' + id
         : 'upgrade?' + type
@@ -135,9 +94,17 @@ export default {
   },
 
   created () {
-    // FIXME Do not perform directly the update ?
-    this.performUpdate()
-    this.fetchData()
+    // Since we need to query a `PUT` method, we won't use ViewBase's `queries` prop and
+    // its automatic loading handling.
+    Promise.all([
+      api.get('migrations?pending'),
+      api.put('update')
+    ]).then(([{ migrations }, { apps, system }]) => {
+      this.migrationsNotDone = migrations.length !== 0
+      this.apps = apps.length ? apps : null
+      this.system = system.length ? system : null
+      this.loading = false
+    })
   }
 }
 </script>

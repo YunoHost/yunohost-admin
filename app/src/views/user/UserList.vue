@@ -1,10 +1,10 @@
 <template>
-  <search-view
-    id="user-list"
+  <view-search
     :search.sync="search"
     :items="users"
     :filtered-items="filteredUsers"
     items-name="users"
+    :queries="queries"
   >
     <template #top-bar-buttons>
       <b-button variant="info" :to="{ name: 'group-list' }">
@@ -36,19 +36,18 @@
         <icon iname="chevron-right" class="lg fs-sm ml-auto" />
       </b-list-group-item>
     </b-list-group>
-  </search-view>
+  </view-search>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
-
-import SearchView from '@/components/SearchView'
 
 export default {
   name: 'UserList',
 
   data () {
     return {
+      queries: [{ uri: 'users' }],
       search: ''
     }
   },
@@ -64,12 +63,6 @@ export default {
       })
       return filtered.length === 0 ? null : filtered
     }
-  },
-
-  created () {
-    this.$store.dispatch('FETCH', { uri: 'users' })
-  },
-
-  components: { SearchView }
+  }
 }
 </script>

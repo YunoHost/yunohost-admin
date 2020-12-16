@@ -1,108 +1,110 @@
-<template lang="html">
-  <card-form
-    :title="$t('user_username_edit', { name })" icon="user"
-    :validation="$v" :server-error="serverError"
-    @submit.prevent="onSubmit"
-  >
-    <!-- USERNAME (disabled) -->
-    <form-field v-bind="fields.username" />
+<template>
+  <view-base :queries="queries" @queries-response="onQueriesResponse" skeleton="card-form-skeleton">
+    <card-form
+      :title="$t('user_username_edit', { name })" icon="user"
+      :validation="$v" :server-error="serverError"
+      @submit.prevent="onSubmit"
+    >
+      <!-- USERNAME (disabled) -->
+      <form-field v-bind="fields.username" />
 
-    <!-- USER FULLNAME (FIXME quite a mess, but will be removed)-->
-    <form-field v-bind="fields.fullname" :validation="$v.form.fullname">
-      <template #default="{ self }">
-        <b-input-group>
-          <template v-for="name_ in ['firstname', 'lastname']">
-            <b-input-group-prepend :key="name_ + 'prepend'">
-              <b-input-group-text :id="name_ + '-label'" tag="label">
-                {{ self[name_].label }}
-              </b-input-group-text>
-            </b-input-group-prepend>
+      <!-- USER FULLNAME (FIXME quite a mess, but will be removed)-->
+      <form-field v-bind="fields.fullname" :validation="$v.form.fullname">
+        <template #default="{ self }">
+          <b-input-group>
+            <template v-for="name_ in ['firstname', 'lastname']">
+              <b-input-group-prepend :key="name_ + 'prepend'">
+                <b-input-group-text :id="name_ + '-label'" tag="label">
+                  {{ self[name_].label }}
+                </b-input-group-text>
+              </b-input-group-prepend>
 
-            <input-item
-              v-bind="self[name_]" v-model.trim="form.fullname[name_]" :key="name_ + 'input'"
-              :name="self[name_].id" :aria-labelledby="name_ + '-label'"
-              :state="$v.form.fullname[name_].$invalid && $v.form.fullname.$anyDirty ? false : null"
-            />
-          </template>
-        </b-input-group>
-      </template>
-    </form-field>
-    <hr>
+              <input-item
+                v-bind="self[name_]" v-model.trim="form.fullname[name_]" :key="name_ + 'input'"
+                :name="self[name_].id" :aria-labelledby="name_ + '-label'"
+                :state="$v.form.fullname[name_].$invalid && $v.form.fullname.$anyDirty ? false : null"
+              />
+            </template>
+          </b-input-group>
+        </template>
+      </form-field>
+      <hr>
 
-    <!-- USER EMAIL -->
-    <form-field v-bind="fields.mail" :validation="$v.form.mail">
-      <template #default="{ self }">
-        <adress-input-select v-bind="self" v-model="form.mail" />
-      </template>
-    </form-field>
+      <!-- USER EMAIL -->
+      <form-field v-bind="fields.mail" :validation="$v.form.mail">
+        <template #default="{ self }">
+          <adress-input-select v-bind="self" v-model="form.mail" />
+        </template>
+      </form-field>
 
-    <!-- MAILBOX QUOTA -->
-    <form-field v-bind="fields.mailbox_quota" :validation="$v.form.mailbox_quota">
-      <template #default="{ self }">
-        <b-input-group append="M">
-          <input-item v-bind="self" v-model="form.mailbox_quota" />
-        </b-input-group>
-      </template>
-    </form-field>
-    <hr>
+      <!-- MAILBOX QUOTA -->
+      <form-field v-bind="fields.mailbox_quota" :validation="$v.form.mailbox_quota">
+        <template #default="{ self }">
+          <b-input-group append="M">
+            <input-item v-bind="self" v-model="form.mailbox_quota" />
+          </b-input-group>
+        </template>
+      </form-field>
+      <hr>
 
-    <!-- MAIL ALIASES -->
-    <form-field :label="$t('user_emailaliases')" id="mail-aliases">
-      <div
-        v-for="(mail, i) in form.mail_aliases" :key="i"
-        class="mail-list"
-      >
-        <form-field
-          v-bind="fields.mail_aliases"
-          :id="'mail_aliases' + i"
-          :validation="$v.form.mail_aliases.$each[i]"
+      <!-- MAIL ALIASES -->
+      <form-field :label="$t('user_emailaliases')" id="mail-aliases">
+        <div
+          v-for="(mail, i) in form.mail_aliases" :key="i"
+          class="mail-list"
         >
-          <template #default="{ self }">
-            <adress-input-select v-bind="self" v-model="form.mail_aliases[i]" />
-          </template>
-        </form-field>
+          <form-field
+            v-bind="fields.mail_aliases"
+            :id="'mail_aliases' + i"
+            :validation="$v.form.mail_aliases.$each[i]"
+          >
+            <template #default="{ self }">
+              <adress-input-select v-bind="self" v-model="form.mail_aliases[i]" />
+            </template>
+          </form-field>
 
-        <b-button variant="danger" @click="removeEmailField('aliases', i)">
-          <icon :title="$t('delete')" iname="trash-o" />
-          <span class="sr-only">{{ $t('delete') }}</span>
+          <b-button variant="danger" @click="removeEmailField('aliases', i)">
+            <icon :title="$t('delete')" iname="trash-o" />
+            <span class="sr-only">{{ $t('delete') }}</span>
+          </b-button>
+        </div>
+
+        <b-button variant="success" @click="addEmailField('aliases')">
+          <icon iname="plus" /> {{ $t('user_emailaliases_add') }}
         </b-button>
-      </div>
+      </form-field>
 
-      <b-button variant="success" @click="addEmailField('aliases')">
-        <icon iname="plus" /> {{ $t('user_emailaliases_add') }}
-      </b-button>
-    </form-field>
+      <!-- MAIL FORWARD -->
+      <form-field :label="$t('user_emailforward')" id="mail-forward">
+        <div
+          v-for="(mail, i) in form.mail_forward" :key="i"
+          class="mail-list"
+        >
+          <form-field
+            v-bind="fields.mail_forward" v-model="form.mail_forward[i]"
+            :id="'mail-forward' + i"
+            :validation="$v.form.mail_forward.$each[i]"
+          />
 
-    <!-- MAIL FORWARD -->
-    <form-field :label="$t('user_emailforward')" id="mail-forward">
-      <div
-        v-for="(mail, i) in form.mail_forward" :key="i"
-        class="mail-list"
-      >
-        <form-field
-          v-bind="fields.mail_forward" v-model="form.mail_forward[i]"
-          :id="'mail-forward' + i"
-          :validation="$v.form.mail_forward.$each[i]"
-        />
+          <b-button variant="danger" @click="removeEmailField('forward', i)">
+            <icon :title="$t('delete')" iname="trash-o" />
+            <span class="sr-only">{{ $t('delete') }}</span>
+          </b-button>
+        </div>
 
-        <b-button variant="danger" @click="removeEmailField('forward', i)">
-          <icon :title="$t('delete')" iname="trash-o" />
-          <span class="sr-only">{{ $t('delete') }}</span>
+        <b-button variant="success" @click="addEmailField('forward')">
+          <icon iname="plus" /> {{ $t('user_emailforward_add') }}
         </b-button>
-      </div>
+      </form-field>
+      <hr>
 
-      <b-button variant="success" @click="addEmailField('forward')">
-        <icon iname="plus" /> {{ $t('user_emailforward_add') }}
-      </b-button>
-    </form-field>
-    <hr>
+      <!-- USER PASSWORD -->
+      <form-field v-bind="fields.password" v-model="form.password" :validation="$v.form.password" />
 
-    <!-- USER PASSWORD -->
-    <form-field v-bind="fields.password" v-model="form.password" :validation="$v.form.password" />
-
-    <!-- USER PASSWORD CONFIRMATION -->
-    <form-field v-bind="fields.confirmation" v-model="form.confirmation" :validation="$v.form.confirmation" />
-  </card-form>
+      <!-- USER PASSWORD CONFIRMATION -->
+      <form-field v-bind="fields.confirmation" v-model="form.confirmation" :validation="$v.form.confirmation" />
+    </card-form>
+  </view-base>
 </template>
 
 <script>
@@ -127,7 +129,11 @@ export default {
 
   data () {
     return {
-      ready: false,
+      queries: [
+        { uri: 'users', param: this.name, storeKey: 'users_details' },
+        { uri: 'domains/main', storeKey: 'main_domain' },
+        { uri: 'domains' }
+      ],
 
       form: {
         fullname: { firstname: '', lastname: '' },
@@ -236,6 +242,27 @@ export default {
   },
 
   methods: {
+    onQueriesResponse (user) {
+      this.fields.mail.props.choices = this.domainsAsChoices
+      this.fields.mail_aliases.props.choices = this.domainsAsChoices
+
+      this.form.fullname = {
+        // Copy value to avoid refering to the stored user data
+        firstname: user.firstname.valueOf(),
+        lastname: user.lastname.valueOf()
+      }
+      this.form.mail = adressToFormValue(user.mail)
+      if (user['mail-aliases']) {
+        this.form.mail_aliases = user['mail-aliases'].map(mail => adressToFormValue(mail))
+      }
+      if (user['mail-forward']) {
+        this.form.mail_forward = user['mail-forward'].slice() // Copy value
+      }
+      if (user['mailbox-quota'].limit !== 'No quota') {
+        this.form.mailbox_quota = sizeToM(user['mailbox-quota'].limit)
+      }
+    },
+
     onSubmit () {
       const formData = formatFormData(this.form, { flatten: true })
       const user = this.user(this.name)
@@ -280,8 +307,9 @@ export default {
         ? { localPart: '', separator: '@', domain: this.mainDomain }
         : ''
       )
+      // Focus last input after rendering update
       this.$nextTick(() => {
-        const inputs = document.querySelectorAll(`#mail-${type} input`)
+        const inputs = this.$el.querySelectorAll(`#mail-${type} input`)
         inputs[inputs.length - 1].focus()
       })
     },
@@ -291,39 +319,8 @@ export default {
     }
   },
 
-  created () {
-    this.$store.dispatch('FETCH_ALL', [
-      { uri: 'users', param: this.name, storeKey: 'users_details' },
-      { uri: 'domains/main', storeKey: 'main_domain' },
-      { uri: 'domains' }
-    ]).then(([user, mainDomain, domains]) => {
-      this.fields.mail.props.choices = this.domainsAsChoices
-      this.fields.mail_aliases.props.choices = this.domainsAsChoices
-
-      this.form.fullname = {
-        // Copy value to avoid refering to the stored user data
-        firstname: user.firstname.valueOf(),
-        lastname: user.lastname.valueOf()
-      }
-      this.form.mail = adressToFormValue(user.mail)
-      if (user['mail-aliases']) {
-        this.form.mail_aliases = user['mail-aliases'].map(mail => adressToFormValue(mail))
-      }
-      if (user['mail-forward']) {
-        this.form.mail_forward = user['mail-forward'].slice() // Copy value
-      }
-      if (user['mailbox-quota'].limit !== 'No quota') {
-        this.form.mailbox_quota = sizeToM(user['mailbox-quota'].limit)
-      }
-      this.ready = true
-    })
-  },
-
   mixins: [validationMixin],
-
-  components: {
-    AdressInputSelect
-  }
+  components: { AdressInputSelect }
 }
 </script>
 

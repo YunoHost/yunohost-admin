@@ -2,14 +2,16 @@
   <div class="post-install">
     <!-- START STEP -->
     <template v-if="step === 'start'">
-      <b-alert variant="success" show>
+      <p class="alert alert-success">
         <icon iname="thumbs-up" /> {{ $t('postinstall_intro_1') }}
-      </b-alert>
-      <b-alert variant="info" show>
+      </p>
+
+      <p class="alert alert-info">
         <span v-t="'postinstall_intro_2'" />
         <br>
         <span v-html="$t('postinstall_intro_3')" />
-      </b-alert>
+      </p>
+
       <b-button size="lg" variant="primary" @click="step = 'domain'">
         {{ $t('begin') }}
       </b-button>
@@ -17,12 +19,9 @@
 
     <!-- DOMAIN SETUP STEP -->
     <template v-else-if="step === 'domain'">
-      <domain-form
-        :title="$t('postinstall_set_domain')" :submit-text="$t('next')"
-        no-store @submit="setDomain"
-      >
+      <domain-form @submit="setDomain" :title="$t('postinstall_set_domain')" :submit-text="$t('next')">
         <template #disclaimer>
-          <b-alert variant="warning" show v-t="'postinstall_domain'" />
+          <p class="alert alert-warning" v-t="'postinstall_domain'" />
         </template>
       </domain-form>
 
@@ -35,7 +34,7 @@
     <template v-else-if="step === 'password'">
       <password-form :title="$t('postinstall_set_password')" :submit-text="$t('next')" @submit="setPassword">
         <template #disclaimer>
-          <b-alert variant="warning" show v-t="'postinstall_password'" />
+          <p class="alert alert-warning" v-t="'postinstall_password'" />
         </template>
       </password-form>
 
@@ -46,9 +45,9 @@
 
     <!-- POST-INSTALL SUCCESS STEP -->
     <template v-else-if="step === 'login'">
-      <b-alert variant="success" show>
+      <p class="alert alert-success">
         <icon iname="thumbs-up" /> {{ $t('installation_complete') }}
-      </b-alert>
+      </p>
       <login-view />
     </template>
 

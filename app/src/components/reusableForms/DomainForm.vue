@@ -51,10 +51,8 @@ import { mapGetters } from 'vuex'
 import { validationMixin } from 'vuelidate'
 
 import AdressInputSelect from '@/components/AdressInputSelect'
-
 import { formatFormDataValue } from '@/helpers/yunohostArguments'
 import { required, domain, dynDomain } from '@/helpers/validators'
-
 
 export default {
   name: 'DomainForm',
@@ -139,12 +137,9 @@ export default {
   },
 
   created () {
-    if (this.noStore) return
-    this.$store.dispatch('FETCH', { uri: 'domains' }).then(() => {
-      if (this.dynDnsForbiden) {
-        this.selected = 'domain'
-      }
-    })
+    if (this.dynDnsForbiden) {
+      this.selected = 'domain'
+    }
   },
 
   mixins: [validationMixin],

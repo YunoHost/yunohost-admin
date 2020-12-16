@@ -1,8 +1,10 @@
-<template lang="html">
-  <domain-form
-    :title="$t('domain_add')" :server-error="serverError"
-    @submit="onSubmit" :submit-text="$t('add')"
-  />
+<template>
+  <view-base :queries="queries" skeleton="card-form-skeleton">
+    <domain-form
+      :title="$t('domain_add')" :server-error="serverError"
+      @submit="onSubmit" :submit-text="$t('add')"
+    />
+  </view-base>
 </template>
 
 <script>
@@ -13,6 +15,7 @@ export default {
 
   data () {
     return {
+      queries: [{ uri: 'domains' }],
       serverError: ''
     }
   },
@@ -33,8 +36,6 @@ export default {
     }
   },
 
-  components: {
-    DomainForm
-  }
+  components: { DomainForm }
 }
 </script>

@@ -1,82 +1,68 @@
 <template>
-  <div class="backup-info" v-if="isReady">
+  <view-base :queries="queries" @queries-response="formatBackupData">
     <!-- BACKUP INFO -->
-    <b-card no-body>
-      <b-card-header class="d-flex align-items-md-center flex-column flex-md-row">
-        <div>
-          <h2><icon iname="info-circle" /> {{ $t('infos') }}</h2>
-        </div>
+    <card :title="$t('infos')" icon="info-circle" button-unbreak="sm">
+      <template #header-buttons>
+        <!-- DOWNLOAD ARCHIVE -->
+        <b-button @click="downloadBackup" size="sm" variant="success">
+          <icon iname="download" /> {{ $t('download') }}
+        </b-button>
 
-        <div class="ml-md-auto mt-2 mt-md-0">
-          <!-- DOWNLOAD ARCHIVE -->
-          <b-button size="sm" variant="success" @click="downloadBackup">
-            <icon iname="download" /> {{ $t('download') }}
-          </b-button>
+        <!-- DELETE ARCHIVE -->
+        <b-button @click="deleteBackup" size="sm" variant="danger">
+          <icon iname="trash-o" /> {{ $t('delete') }}
+        </b-button>
+      </template>
 
-          <!-- DELETE ARCHIVE -->
-          <b-button
-            size="sm" variant="danger" id="delete-backup"
-            class="ml-2" v-b-modal.confirm-delete-backup
-          >
-            <icon iname="trash-o" /> {{ $t('delete') }}
-          </b-button>
-        </div>
-      </b-card-header>
-
-      <b-card-body>
-        <b-row
-          v-for="(value, prop) in info" :key="prop"
-          no-gutters class="row-line"
-        >
-          <b-col cols="5" md="3" xl="3">
-            <strong>{{ $t(prop === 'name' ? 'id' : prop) }}</strong>
-            <span class="sep" />
-          </b-col>
-          <b-col>
-            <span v-if="prop === 'created_at'">{{ value | readableDate }}</span>
-            <span v-else-if="prop === 'size'">{{ value | humanSize }}</span>
-            <span v-else>{{ value }}</span>
-          </b-col>
-        </b-row>
-      </b-card-body>
-    </b-card>
+      <b-row
+        v-for="(value, prop) in infos" :key="prop"
+        no-gutters class="row-line"
+      >
+        <b-col md="3" xl="2">
+          <strong>{{ $t(prop === 'name' ? 'id' : prop) }}</strong>
+        </b-col>
+        <b-col>
+          <span v-if="prop === 'created_at'">{{ value | readableDate }}</span>
+          <span v-else-if="prop === 'size'">{{ value | humanSize }}</span>
+          <span v-else>{{ value }}</span>
+        </b-col>
+      </b-row>
+    </card>
 
     <!-- BACKUP CONTENT -->
-    <b-card no-body>
-      <b-card-header class="d-flex align-items-md-center flex-column flex-md-row">
-        <div>
-          <h2><icon iname="archive" /> {{ $t('backup_content') }}</h2>
-        </div>
+    <!-- FIXME switch to <card-form> ? -->
+    <card
+      :title="$t('backup_content')" icon="archive"
+      no-body button-unbreak="sm"
+    >
+      <template #header-buttons>
+        <b-button
+          size="sm" variant="outline-secondary"
+          @click="toggleSelected()" v-t="'select_all'"
+        />
 
-        <div class="ml-md-auto mt-2 mt-md-0">
-          <b-button
-            size="sm" variant="outline-secondary"
-            v-t="'select_all'"
-            @click="toggleSelected()"
-          />
-
-          <b-button
-            size="sm" variant="outline-secondary" class="ml-2"
-            v-t="'select_none'"
-            @click="toggleSelected(false)"
-          />
-        </div>
-      </b-card-header>
+        <b-button
+          size="sm" variant="outline-secondary"
+          @click="toggleSelected(false)" v-t="'select_none'"
+        />
+      </template>
 
       <b-form-checkbox-group
-        v-if="hasItems" v-model="selected"
+        v-if="hasBackupData" v-model="selected"
         id="backup-select" name="backup-select" size="lg"
         aria-describedby="backup-restore-feedback"
       >
         <b-list-group flush>
           <!-- SYSTEM PARTS -->
           <b-list-group-item
-            v-for="(item, partName) in systemParts" :key="partName"
+            v-for="(item, partName) in system" :key="partName"
             class="d-flex justify-content-between align-items-center pr-0"
           >
             <div class="mr-2">
-              <h5>{{ item.name }} <small v-if="item.size">({{ item.size | humanSize }})</small></h5>
-              <p class="mb-0">
+              <h5 class="font-weight-bold">
+                {{ item.name }} <small class="text-secondary" v-if="item.size">({{ item.size | humanSize }})</small>
+              </h5>
+              <p class="m-0">
                 {{ item.description }}
               </p>
             </div>
@@ -90,8 +76,10 @@
             class="d-flex justify-content-between align-items-center pr-0"
           >
             <div class="mr-2">
-              <h5>{{ item.name }} <small>{{ appName }} ({{ item.size | humanSize }})</small></h5>
-              <p class="mb-0">
+              <h5 class="font-weight-bold">
+                {{ item.name }} <small class="text-secondary">{{ appName }} ({{ item.size | humanSize }})</small>
+              </h5>
+              <p class="m-0">
                 {{ $t('version') }} {{ item.version }}
               </p>
             </div>
@@ -101,155 +89,66 @@
         </b-list-group>
 
         <b-form-invalid-feedback id="backup-restore-feedback" :state="isValid">
-          <b-alert variant="danger" show class="mb-0">
+          <b-alert variant="danger" class="mb-0">
             {{ error }}
           </b-alert>
         </b-form-invalid-feedback>
       </b-form-checkbox-group>
 
-      <b-alert
-        v-else
-        variant="warning" class="mb-0" show
-      >
+      <div v-else class="alert alert-warning mb-0">
         <icon iname="exclamation-triangle" /> {{ $t('archive_empty') }}
-      </b-alert>
+      </div>
 
       <!-- SUBMIT -->
-      <template v-if="hasItems" v-slot:footer>
-        <div class="d-flex justify-content-end">
-          <b-button
-            v-b-modal.confirm-restore-backup form="backup-restore" variant="success"
-            v-t="'restore'" :disabled="selected.length === 0"
-          />
-        </div>
+      <template v-if="hasBackupData" #buttons>
+        <b-button
+          @click="restoreBackup" form="backup-restore" variant="success"
+          v-t="'restore'" :disabled="selected.length === 0"
+        />
       </template>
-    </b-card>
+    </card>
 
-    <!-- RESTORE BACKUP MODAL -->
-    <b-modal
-      id="confirm-restore-backup" centered
-      body-bg-variant="danger" body-text-variant="light"
-      @ok="restoreBackup" hide-header
-    >
-      {{ $t('confirm_restore', { name }) }}
-    </b-modal>
-
-    <!-- DELETE BACKUP MODAL -->
-    <b-modal
-      id="confirm-delete-backup" centered
-      body-bg-variant="danger" body-text-variant="light"
-      @ok="deleteBackup" hide-header
-    >
-      {{ $t('confirm_delete', { name }) }}
-    </b-modal>
-  </div>
+    <template #skeleton>
+      <card-info-skeleton :item-count="4" />
+      <card-list-skeleton />
+    </template>
+  </view-base>
 </template>
 
 <script>
 import api from '@/api'
 import { readableDate } from '@/helpers/filters/date'
 import { humanSize } from '@/helpers/filters/human'
+import { isEmptyValue } from '@/helpers/commons'
 
 export default {
   name: 'BackupInfo',
 
   props: {
-    id: {
-      type: String,
-      required: true
-    },
-    name: {
-      type: String,
-      required: true
-    }
+    id: { type: String, required: true },
+    name: { type: String, required: true }
   },
 
   data () {
     return {
-      isReady: false,
-      restore: false,
+      queries: [`backup/archives/${this.name}?with_details`],
       selected: [],
       error: '',
       isValid: null,
       // api data
-      info: {
-        name: this.name,
-        created_at: undefined,
-        size: undefined,
-        path: undefined
-      },
+      infos: undefined,
       apps: undefined,
-      systemParts: undefined
+      system: undefined
     }
   },
 
-  filters: {
-    readableDate,
-    humanSize
+  computed: {
+    hasBackupData () {
+      return !isEmptyValue(this.system) || !isEmptyValue(this.apps)
+    }
   },
 
   methods: {
-    fetchData () {
-      api.get(`backup/archives/${this.name}?with_details`).then((data) => {
-        this.info.created_at = data.created_at
-        this.info.size = data.size
-        this.info.path = data.path
-        this.hasItems = Object.keys(data.system).length !== 0 || Object.keys(data.apps).length !== 0
-        this.systemParts = this.formatHooks(data.system)
-        this.apps = data.apps
-
-        this.toggleSelected()
-        this.isReady = true
-      })
-    },
-
-    toggleSelected (select = true) {
-      if (select) {
-        this.selected = [
-          ...Object.keys(this.apps),
-          ...Object.keys(this.systemParts)
-        ]
-      } else {
-        this.selected = []
-      }
-    },
-
-    restoreBackup () {
-      const data = {
-        apps: [],
-        system: [],
-        force: ''
-      }
-
-      for (const item of this.selected) {
-        if (item in this.systemParts) {
-          data.system = [...data.system, ...this.systemParts[item].value]
-        } else {
-          data.apps.push(item)
-        }
-      }
-
-      api.post('backup/restore/' + this.name, data).then(response => {
-        // FIXME display ws messages
-        this.isValid = null
-      }).catch(err => {
-        // FIXME some errors may be sent by the websocket (yunohost api error for exemple)
-        this.error = err.message
-        this.isValid = false
-      })
-    },
-
-    deleteBackup () {
-      api.delete('backup/archives/' + this.name).then(() => {
-        this.$router.push({ name: 'backup-list', params: { id: this.id } })
-      })
-    },
-
-    downloadBackup () {
-      const host = this.$store.getters.host
-      window.open(`https://${host}/yunohost/api/backup/download/${this.name}`, '_blank')
-    },
-
     formatHooks (hooks) {
       const data = {}
       Object.entries(hooks).forEach(([hook, { size }]) => {
@@ -268,11 +167,73 @@ export default {
         }
       })
       return data
+    },
+
+    formatBackupData (data) {
+      this.infos = {
+        name: this.name,
+        created_at: data.created_at,
+        size: data.size,
+        path: data.path
+      }
+      this.system = this.formatHooks(data.system)
+      this.apps = data.apps
+
+      this.toggleSelected()
+    },
+
+    toggleSelected (select = true) {
+      if (select) {
+        this.selected = [
+          ...Object.keys(this.apps),
+          ...Object.keys(this.system)
+        ]
+      } else {
+        this.selected = []
+      }
+    },
+
+    async restoreBackup () {
+      const confirmed = await this.$askConfirmation(
+        this.$i18n.t('confirm_restore', { name: this.name })
+      )
+      if (!confirmed) return
+
+      const data = { apps: [], system: [], force: '' }
+      for (const item of this.selected) {
+        if (item in this.system) {
+          data.system = [...data.system, ...this.system[item].value]
+        } else {
+          data.apps.push(item)
+        }
+      }
+
+      api.post('backup/restore/' + this.name, data).then(response => {
+        this.isValid = null
+      }).catch(err => {
+        this.error = err.message
+        this.isValid = false
+      })
+    },
+
+    async deleteBackup () {
+      const confirmed = await this.$askConfirmation(this.$i18n.t('confirm_delete', { name: this.name }))
+      if (!confirmed) return
+
+      api.delete('backup/archives/' + this.name).then(() => {
+        this.$router.push({ name: 'backup-list', params: { id: this.id } })
+      })
+    },
+
+    downloadBackup () {
+      const host = this.$store.getters.host
+      window.open(`https://${host}/yunohost/api/backup/download/${this.name}`, '_blank')
     }
   },
 
-  created () {
-    this.fetchData()
+  filters: {
+    readableDate,
+    humanSize
   }
 }
 </script>
