@@ -9,7 +9,16 @@ import store from './store'
 Vue.config.productionTip = false
 
 // Styles are imported in `src/App.vue` <style>
-Vue.use(BootstrapVue)
+Vue.use(BootstrapVue, {
+  BSkeleton: { animation: 'none' },
+  BAlert: { show: true },
+  BBadge: { pill: true },
+  BModal: {
+    bodyBgVariant: 'warning',
+    centered: true,
+    bodyClass: ['font-weight-bold', 'rounded-top']
+  }
+})
 
 // Register global components
 const requireComponent = require.context('@/components/globals', true, /\.(js|vue)$/i)
