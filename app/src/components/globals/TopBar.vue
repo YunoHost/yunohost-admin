@@ -1,5 +1,5 @@
 <template>
-  <b-button-toolbar :aria-label="label" id="view-top-bar">
+  <b-button-toolbar :aria-label="label" id="top-bar">
     <div id="top-bar-left" class="top-bar-group" v-if="hasLeftSlot">
       <slot name="group-left" />
     </div>
@@ -16,7 +16,7 @@
 
 <script>
 export default {
-  name: 'ViewTopBar',
+  name: 'TopBar',
 
   props: {
     label: { type: String, default: null },
@@ -24,7 +24,7 @@ export default {
       type: Object,
       default: null,
       validator (value) {
-        return ['text', 'to'].forEach(prop => (prop in value))
+        return ['text', 'to'].every(prop => (prop in value))
       }
     }
   },
@@ -46,7 +46,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#view-top-bar {
+#top-bar {
   margin-bottom: 2rem;
   flex-wrap: wrap-reverse;
 

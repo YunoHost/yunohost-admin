@@ -1,30 +1,29 @@
 <template>
-  <b-card class="card-form">
-    <template v-slot:header>
-      <component :is="titleTag"><icon v-if="icon" :iname="icon" /> {{ title }}</component>
+  <card v-bind="$attrs" class="card-form">
+    <template #default>
+      <slot name="disclaimer" />
+
+      <b-form
+        :id="id" :inline="inline" :class="formClasses"
+        @submit.prevent="onSubmit" novalidate
+      >
+        <slot name="default" />
+
+        <slot name="server-error">
+          <b-alert variant="danger" :show="serverError !== ''" v-html="serverError" />
+        </slot>
+      </b-form>
     </template>
 
-    <slot name="disclaimer" />
-
-    <b-form :id="id" @submit.prevent="onSubmit" novalidate>
-      <slot name="default" />
-
-      <slot name="server-error">
-        <b-alert variant="danger" :show="serverError !== ''" v-html="serverError" />
-      </slot>
-    </b-form>
-
-    <template v-if="!noFooter" v-slot:footer>
-      <slot name="buttons">
-        <b-button
-          type="submit" variant="success"
-          :form="id" :disabled="disabled"
-        >
-          {{ submitText ? submitText : $t('save') }}
-        </b-button>
-      </slot>
-    </template>
-  </b-card>
+    <slot name="buttons" slot="buttons">
+      <b-button
+        type="submit" variant="success"
+        :form="id" :disabled="disabled"
+      >
+        {{ submitText ? submitText : $t('save') }}
+      </b-button>
+    </slot>
+  </card>
 </template>
 
 <script>
@@ -34,13 +33,11 @@ export default {
 
   props: {
     id: { type: String, default: 'ynh-form' },
-    title: { type: String, required: true },
-    titleTag: { type: String, default: 'h2' },
-    icon: { type: String, default: null },
     submitText: { type: String, default: null },
-    noFooter: { type: Boolean, default: false },
     validation: { type: Object, default: null },
-    serverError: { type: String, default: '' }
+    serverError: { type: String, default: '' },
+    inline: { type: Boolean, default: false },
+    formClasses: { type: [Array, String, Object], default: null }
   },
 
   computed: {
@@ -63,12 +60,4 @@ export default {
 </script>
 
 <style lang="scss">
-.card-form .card-footer {
-  display: flex;
-  justify-content: flex-end;
-
-  & > *:not(:first-child) {
-    margin-left: .5rem;
-  }
-}
 </style>

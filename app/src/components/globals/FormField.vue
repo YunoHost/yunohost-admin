@@ -35,7 +35,10 @@
           </b-link>
         </div>
 
-        <div v-if="description" v-html="description" :class="{ ['alert p-1 px-2 alert-' + descriptionVariant]: descriptionVariant }"/>
+        <div
+          v-if="description" v-html="description"
+          :class="{ ['alert p-1 px-2 alert-' + descriptionVariant]: descriptionVariant }"
+        />
       </template>
       <!-- Slot available to overwrite the one above -->
       <slot name="description" />
