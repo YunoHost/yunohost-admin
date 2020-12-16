@@ -115,13 +115,36 @@ export default {
   },
 
   // This hook is only triggered at page first load
-  async created () {
+  created () {
     // From this hook the value of `connected` always come from the localStorage.
     // This state may be `true` but session may have expired, by querying
     // yunohost infos, api may respond with `Unauthorized` in which case the `connected`
     // state will be automaticly reseted and user will be prompt with the login view.
     if (this.connected) {
       this.$store.dispatch('GET_YUNOHOST_INFOS')
+    }
+  },
+
+  mounted () {
+    // Konamicode ;P
+    const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a']
+    let step = 0
+    document.addEventListener('keydown', ({ key }) => {
+      console.log(key, step)
+      if (key === konamiCode[step++]) {
+        if (step === konamiCode.length) {
+          this.$store.commit('SET_SPINNER', 'nyancat')
+          step = 0
+        }
+      } else {
+        step = 0
+      }
+    })
+
+    // April fools easter egg ;)
+    const today = new Date()
+    if (today.getDate() === 1 && today.getMonth() + 1 === 4) {
+      this.$store.commit('SET_SPINNER', 'magikarp')
     }
   }
 }

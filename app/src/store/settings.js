@@ -14,6 +14,7 @@ export default {
     cache: localStorage.getItem('cache') !== 'false',
     transitions: localStorage.getItem('transitions') !== 'false',
     experimental: localStorage.getItem('experimental') === 'true',
+    spinner: 'pacman',
     supportedLocales: supportedLocales
   },
 
@@ -41,6 +42,10 @@ export default {
     'SET_EXPERIMENTAL' (state, boolean) {
       localStorage.setItem('experimental', boolean)
       state.experimental = boolean
+    },
+
+    'SET_SPINNER' (state, spinner) {
+      state.spinner = spinner
     }
   },
 
@@ -69,6 +74,7 @@ export default {
     cache: state => (state.cache),
     transitions: state => (state.transitions),
     experimental: state => state.experimental,
+    spinner: state => state.spinner,
 
     availableLocales: state => {
       return Object.entries(state.supportedLocales).map(([locale, { name }]) => {
