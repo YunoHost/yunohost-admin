@@ -1,3 +1,11 @@
+yunohost-admin (4.1.1) testing; urgency=low
+
+  - Fix the creation of a backup ([#323](https://github.com/YunoHost/yunohost-admin/pull/323))
+
+  Thanks to all contributors <3 ! (Kayou)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Sat, 19 Dec 2020 02:07:37 +0100
+
 yunohost-admin (4.1.0) testing; urgency=low
 
   - [enh] Extends permission feature (YunoHost-admin#297)
