@@ -153,6 +153,9 @@ body {
     .btn ~ .btn {
       margin-left: .5rem;
     }
+    .btn ~ .dropdown-toggle-split {
+      margin-left: 0;
+    }
   }
 
   .input-group {

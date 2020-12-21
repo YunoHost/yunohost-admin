@@ -440,6 +440,7 @@
     "users_new": "New user",
     "users_no": "No users.",
     "users_import": "Import users",
+    "users_export": "Export users",
     "users_import_csv_file": "CSV File",
     "users_import_update": "Update existing users",
     "users_import_delete": "Delete non listed users",
