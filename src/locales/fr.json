@@ -431,12 +431,12 @@
     "app_state_high-quality": "bonne qualité",
     "app_state_high-quality_explanation": "Cette application est bien intégrée à YunoHost. Elle a été (et est !) revue par l'équipe applicative de YunoHost. On peut s'attendre à ce qu'elle soit sûre et maintenue sur le long terme.",
     "app_state_working_explanation": "Le responsable de cette application l'a déclarée comme 'fonctionnelle'. Cela signifie qu'elle doit fonctionner (voir son niveau d'intégration) mais n'est pas nécessairement revue, elle peut encore contenir des bugs ou bien n'est pas entièrement intégrée à YunoHost.",
-    "hook_conf_ynh_currenthost": "Domaine principal en vigueur",
+    "hook_conf_ynh_currenthost": "Domaine principal actuellement utilisé",
     "license": "Licence",
     "maintained": "Maintenue",
     "maintained_details": "Cette application a été maintenue par son responsable au cours des derniers mois.",
     "only_highquality_apps": "Seulement les applications de bonne qualité",
-    "only_decent_quality_apps": "Seulement des applications d'une qualité satisfaisante",
+    "only_decent_quality_apps": "Seulement les applications d'une qualité satisfaisante",
     "orphaned": "Non maintenue",
     "orphaned_details": "Cette application n'a pas été maintenue depuis un certain temps. Il peut encore fonctionner, mais ne recevra aucune mise à niveau jusqu'à ce que quelqu'un se porte volontaire pour s'en occuper. N'hésitez pas à contribuer à la faire revivre !",
     "request_adoption": "en attente d'adoption",
@@ -494,6 +494,6 @@
     "permission_main": "Permission principale",
     "permission_corresponding_url": "URL correspondante",
     "app_manage_label_and_tiles": "Gérer les étiquettes et les tuiles",
-    "app_info_managelabel_desc": "Gérer les étiquettes de permissions dans le portail.",
+    "app_info_managelabel_desc": "Gérer les étiquettes des permissions et autorisations dans le portail web.",
     "apply": "Appliquer"
 }
