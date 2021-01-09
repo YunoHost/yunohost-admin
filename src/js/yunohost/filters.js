@@ -14,6 +14,7 @@
         req.params.domains = [];
         req.api('GET', '/domains', {}, function(data) {
             req.params.domains = data.domains;
+            req.params.domains_main = data.main;
         });
     }
 

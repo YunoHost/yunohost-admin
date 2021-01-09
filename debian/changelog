@@ -1,3 +1,41 @@
+yunohost-admin (4.1.3) stable; urgency=low
+
+  - [fix] Partial revert #306 because code is broken... (cccb84b)
+  - Stable release
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Fri, 08 Jan 2021 03:28:28 +0100
+
+yunohost-admin (4.1.2) testing; urgency=low
+
+  - [enh] Select default domain in app install page ([#306](https://github.com/YunoHost/yunohost-admin/pull/306))
+  - [i18n] Translations updated for French
+
+  Thanks to all contributors <3 ! (F. Piédallu, ppr)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Thu, 07 Jan 2021 00:29:42 +0100
+
+yunohost-admin (4.1.1) testing; urgency=low
+
+  - Fix the creation of a backup ([#323](https://github.com/YunoHost/yunohost-admin/pull/323))
+
+  Thanks to all contributors <3 ! (Kayou)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Sat, 19 Dec 2020 02:07:37 +0100
+
+yunohost-admin (4.1.0) testing; urgency=low
+
+  - [enh] Extends permission feature (YunoHost-admin#297)
+  - [enh] Rework the user creation page (YunoHost-admin#298, YunoHost-admin/f0b1a0b YunoHost-admin#320)
+  - [enh] Handle suboperations in log views (YunoHost-admin#310)
+  - [enh] Display the size of an archive in the backup view (YunoHost-admin#312)
+  - [fix] User has to manually run the first diagnosis (YunoHost-admin/d3b3236)
+  - [enh] Allow search in the app description (YunoHost-admin#317)
+  - Update translations for French, German, Czech, Chinese (Simplified), Catalan, Occitan, Italian (YunoHost-admin#311, YunoHost-admin#313, YunoHost-admin#314, YunoHost-admin#315, YunoHost-admin#319, YunoHost-admin#321)
+
+  Thanks to all contributors <3 ! (Salamandar, Omnia89, tituspijean, miloskroulik, Aleks, Josué, Kay0u, ljf, ekhae, Xaloc, ericgaspar, ppr, cyxae, danielschmalhofer, Quentí, Leandro Noferini, KaeruCT, anmol, xaloc33)
+
+ -- Kay0u <pierre@kayou.io>  Thu, 03 Dec 2020 16:26:07 +0100
+
 yunohost-admin (4.0.4) stable; urgency=low
 
   - [fix] migrations link in french translation (#309)
@@ -43,7 +81,7 @@ yunohost-admin (3.8.3.4) stable; urgency=low
   - [enh] Add a tip about pending migrations on update view (7bf9669)
   - [i18n] Translations updated for Occitan
 
-  Thanks to all contributors <3 ! (Quent�)
+  Thanks to all contributors <3 ! (Quentí)
 
  -- Alexandre Aubin <alex.aubin@mailoo.org>  Sat, 06 Jun 2020 02:23:20 +0200
 
@@ -61,7 +99,7 @@ yunohost-admin (3.8.3.2) stable; urgency=low
   - [fix] Enforce yunohost 3.8 requirement (3400a43)
   - [i18n] Improve translations for Catalan, Chinese (Simplified), French, Occitan, Portuguese
 
-  Thanks to all contributors <3 ! (Aleks, amirale qt, clecle266, Kay0u, Quent�, Raphael Pessanha, xaloc33)
+  Thanks to all contributors <3 ! (Aleks, amirale qt, clecle266, Kay0u, Quentí, Raphael Pessanha, xaloc33)
 
  -- Kay0u <pierre@kayou.io>  Wed, 20 May 2020 19:12:27 +0000
 
