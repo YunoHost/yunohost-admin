@@ -161,7 +161,7 @@ export default {
         report.errors = 0
         report.ignoreds = 0
 
-        for (var item of report.items) {
+        for (const item of report.items) {
           this.formatReportItem(report, item)
         }
         report.noIssues = report.warnings + report.errors === 0

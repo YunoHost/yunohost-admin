@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
   <div class="selectize-base">
     <b-input-group>
       <b-input-group-prepend is-text>

@@ -52,10 +52,14 @@ export default {
   methods: {
     formatBackupList (data) {
       const archives = Object.entries(data.archives)
-      this.archives = archives.length === 0 ? null : archives.map(([name, infos]) => {
-        infos.name = name
-        return infos
-      }).reverse()
+      if (archives.length) {
+        this.archives = archives.map(([name, infos]) => {
+          infos.name = name
+          return infos
+        }).reverse()
+      } else {
+        this.archives = null
+      }
     }
   },
 

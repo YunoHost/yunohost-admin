@@ -54,15 +54,13 @@ export async function handleError (response, method) {
     store.dispatch('DISCONNECT')
   } else if (error.code === 400) {
     if (typeof message !== 'string' && 'log_ref' in message) {
-        router.push({ name: 'tool-log', params: { name: message.log_ref } })
+      router.push({ name: 'tool-log', params: { name: message.log_ref } })
     }
     // Hide the waiting screen
     store.dispatch('SERVER_RESPONDED', true)
   } else {
     store.dispatch('DISPATCH_ERROR', error)
   }
-
-  // error.print()
 
   throw error
 }

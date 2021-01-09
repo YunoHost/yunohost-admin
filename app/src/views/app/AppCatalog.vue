@@ -132,16 +132,16 @@
           v-for="i in 15" :key="i"
           no-body style="min-height: 10rem;"
         >
-        <div class="d-flex w-100 mt-auto">
-          <b-skeleton width="30px" height="30px" class="mr-2 ml-auto" />
-          <b-skeleton :width="randint(30, 70) + '%'" height="30px" class="mr-auto" />
-        </div>
-        <b-skeleton
-          v-if="randint(0, 1)"
-          :width="randint(30, 85) + '%'" height="24px" class="mx-auto"
-        />
-        <b-skeleton :width="randint(30, 85) + '%'" height="24px" class="mx-auto mb-auto" />
-      </b-card>
+          <div class="d-flex w-100 mt-auto">
+            <b-skeleton width="30px" height="30px" class="mr-2 ml-auto" />
+            <b-skeleton :width="randint(30, 70) + '%'" height="30px" class="mr-auto" />
+          </div>
+          <b-skeleton
+            v-if="randint(0, 1)"
+            :width="randint(30, 85) + '%'" height="24px" class="mx-auto"
+          />
+          <b-skeleton :width="randint(30, 85) + '%'" height="24px" class="mx-auto mb-auto" />
+        </b-card>
       </b-card-group>
     </template>
   </view-search>
@@ -150,7 +150,6 @@
 <script>
 import { validationMixin } from 'vuelidate'
 
-import api from '@/api'
 import { required, githubLink } from '@/helpers/validators'
 import { randint } from '@/helpers/commons'
 
