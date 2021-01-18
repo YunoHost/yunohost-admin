@@ -88,19 +88,23 @@ export default {
       this.$nextTick(this.scrollToLastAction)
     },
 
-    waiting (value) {
-      if (value && !this.open) {
+    waiting (waiting) {
+      if (waiting && !this.open) {
         // Open the history while waiting for the server's response to display WebSocket messages.
         this.open = true
         this.openedByWaiting = true
+        const history = this.$refs.history
         this.$nextTick().then(() => {
-          this.$refs.history.style.height = null
-          this.$refs.history.classList.add('with-max')
+          history.style.height = ''
+          history.classList.add('with-max')
         })
-      } else if (!value && this.openedByWaiting) {
+      } else if (!waiting && this.openedByWaiting) {
         // Automaticly close the history if it was not opened before the request
         setTimeout(() => {
-          this.open = false
+          // Do not close it if the history was enlarged during the action
+          if (!history.style || history.style.height === '') {
+            this.open = false
+          }
           this.openedByWaiting = false
         }, 500)
       }
@@ -129,14 +133,19 @@ export default {
           this.open = true
         }
         const currentHeight = history.offsetHeight
-        const nextSize = currentHeight + (mousePos - clientY)
+        const move = mousePos - clientY
+        const nextSize = currentHeight + move
         if (nextSize < 10 && nextSize < currentHeight) {
           // Close the console and reset its size if the user reduce it to less than 10px.
           mousePos = e.clientY
-          history.style.height = null
+          history.style.height = ''
           onMouseUp()
         } else {
           history.style.height = nextSize + 'px'
+          // Simulate scroll when reducing the box so the content doesn't move
+          if (nextSize < currentHeight) {
+            history.scrollBy(0, -move)
+          }
           mousePos = clientY
         }
       }
@@ -211,7 +220,7 @@ export default {
 
   // Used to display only the last message of the last action while an action is triggered
   // and console was not opened.
-  &.show-last {
+  &.with-max.show-last {
     & > :not(:last-child) {
       display: none;
     }
