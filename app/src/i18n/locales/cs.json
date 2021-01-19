@@ -1,0 +1,13 @@
+{
+    "password": "Heslo",
+    "app_info_access_desc": "Skupiny a uživatelé kterým je povolen přístup aplikace:",
+    "app_change_url": "Změnit adresu",
+    "api_not_responding": "API YunoHost neodpovídá. Je možné, že „yunohost-api“ spadlo nebo bylo restartováno.",
+    "apply": "Použít",
+    "all_apps": "Všechny aplikace",
+    "all": "Všechno",
+    "administration_password": "Heslo administrátora",
+    "add": "Přidat",
+    "active": "Aktivní",
+    "action": "Akce"
+}

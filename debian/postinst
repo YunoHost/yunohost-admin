@@ -3,10 +3,6 @@
 set -e
 
 do_configure() {
-  # make the CA available from the web interface
-  if [ ! -f  /usr/share/yunohost/admin/ca.crt ]; then
-      ln -s /etc/ssl/certs/ca-yunohost_crt.pem /usr/share/yunohost/admin/ca.crt
-  fi
 
   # Set document root permissions
   chown -R root:root /usr/share/yunohost/admin
