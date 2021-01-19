@@ -1,0 +1,82 @@
+/*
+
+  ╭─────────────────────────────╮
+  │ ┌─╮╭─╮╭─╮╶┬╴╭─╴╶┬╴┌─╮╭─┐┌─╮ │
+  │ │╶┤│ ││ │ │ ╰─╮ │ ├┬╯├─┤├─╯ │
+  │ └─╯╰─╯╰─╯ ╵ ╶─╯ ╵ ╵ ╰╵ ╵╵   │
+  ╰─────────────────────────────╯
+
+  Bootstrap and BootstrapVue overrides.
+  Bootstrap default: `app/node_modules/bootstrap/scss/_variables.scss`
+  BootstrapVue default: `app/node_modules/bootstrap-vue/src/_variables.scss`
+
+*/
+
+// TODO: add a feature so the user can set some css variables to change the global aspects ?
+// For exemple, turning rounding of elements off, the bases colors, etc.
+// $enable-rounded: false;
+
+$alert-padding-x: 1rem;
+
+$blue:   #2f7ed2;
+$purple: #9932cc;
+$yellow: #ffd452;
+
+$theme-colors: (
+  'best': $purple
+);
+
+// Replace font-weight 300 with 200
+$font-weight-light: 200;
+$display1-weight: 200;
+$display2-weight: 200;
+$display3-weight: 200;
+$display4-weight: 200;
+$lead-font-weight: 200;
+
+// Set fonts
+$font-family-sans-serif: 'FiraGO', 'Fira Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji' !default;
+$font-family-monospace: 'Fira Code', SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace !default;
+
+
+@import '~bootstrap/scss/functions.scss';
+@import '~bootstrap/scss/variables';
+@import '~bootstrap/scss/mixins.scss';
+
+// Overwrite list-group-item variants to lighter ones (used in diagnosis for example)
+@each $color, $value in $theme-colors {
+  @include list-group-item-variant($color, theme-color-level($color, -11), theme-color-level($color, 6));
+}
+
+// Add breakpoints for w-*
+@each $breakpoint in map-keys($grid-breakpoints) {
+  @each $size, $length in $sizes {
+    @include media-breakpoint-up($breakpoint) {
+      .w-#{$breakpoint}-#{$size} {
+        width: $length !important;
+      }
+    }
+  }
+}
+
+/*
+
+  ╭──────────────────────────────────────╮
+  │ ┌─╴╭─╮┌─╮╷ ╭   ╭─┐╷╷╷┌─╴╭─╴╭─╮╭╮╮┌─╴ │
+  │ ├─╴│ │├┬╯├┴╮╶─╴├─┤│││├─╴╰─╮│ ││││├─╴ │
+  │ ╵  ╰─╯╵ ╰╵ ╵   ╵ ╵╰╯╯╰─╴╶─╯╰─╯╵╵╵╰─╴ │
+  ╰──────────────────────────────────────╯
+
+  Fork-awesome variable overrides.
+  default: `app/node_modules/fork-awesome/scss/_variables.scss`
+
+*/
+
+$fa-font-path: '~fork-awesome/fonts';
+$fa-font-size-base: 1rem;
+
+
+
+$thin-border: 1px solid #eee;
+
+$skeleton-color: #eaeaea;

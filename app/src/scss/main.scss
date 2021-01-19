@@ -1,0 +1,131 @@
+// This is the default scss file, more specific styling is defined directly into components.
+// It it imported in `scr/App.vue` style tag.
+
+// Dependencies variables overrides and custom variables
+// Variables overrides are defined before actual SCSS imports
+@import 'variables';
+
+
+// Dependencies SCSS imports
+// `~` allow to import a node_modules folder (resolved by Webpack)
+@import '~bootstrap/scss/bootstrap.scss';
+@import '~bootstrap-vue/src/index.scss';
+
+// Import fonts
+@import 'font';
+@import '~fork-awesome/scss/fork-awesome.scss';
+
+
+// Style overrides happens after dependencies imports
+
+html {
+  min-height: 100vh;
+}
+body {
+  overflow-x: hidden;
+  min-height: 100vh;
+  margin: 0;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh
+}
+
+.menu-list {
+  .list-group-item {
+    padding: 0.75rem 0;
+    display: flex;
+    align-items: center;
+  }
+
+  h2 {
+    font-size: 1.25rem;
+    font-weight: 400;
+    margin: 0;
+  }
+}
+
+// Bootstrap overrides
+
+.list-group-item {
+  padding: 0.75rem 1rem;
+}
+.list-group-item-action {
+  color: #333;
+}
+
+// Allow state of input group to be displayed under the group
+.input-group .is-invalid ~ .invalid-feedback {
+  display: block;
+}
+
+// Descriptive list (<b-row /> elems with <b-col> inside)
+.row-line {
+  @include media-breakpoint-up(md) {
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.05);
+      border-radius: 0.2rem;
+    }
+  }
+
+  @include media-breakpoint-down(sm) {
+      flex-direction: column;
+
+      &:not(:last-of-type) {
+        margin-bottom: 0.5rem;
+        padding-bottom: 0.5rem;
+        border-bottom: $border-width solid $card-border-color;
+      }
+  }
+}
+
+.card + .card {
+  margin-top: 2rem;
+}
+.card-deck .card + .card {
+  margin-top: 0;
+}
+
+.card-header {
+  h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+  }
+
+  h2 {
+    font-size: 1.75rem;
+  }
+}
+
+.card-body {
+  padding: 1rem;
+}
+
+// collapse icon
+.not-collapsed > .icon {
+  transform: rotate(-90deg);
+}
+.collapsed > .icon {
+  transform: rotate(90deg);
+  position: relative;
+  top: 2px;
+}
+
+// Fork-awesome overrides
+.fa-fw {
+  width: 1.25em !important;
+}
+
+// Do not display ligatures in invalid-feedback to avoid confusion.
+.invalid-feedback {
+  code {
+    font-variant-ligatures: none;
+  }
+}
+
+.log {
+  margin-bottom: 0;
+  padding: 1rem;
+  background-color: $light;
+}

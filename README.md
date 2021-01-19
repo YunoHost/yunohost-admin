@@ -16,26 +16,27 @@ Please report issues on the [YunoHost bugtracker](https://github.com/YunoHost/is
 
 Feel free to improve the plugin and send a pull request.
 
-`gulp` is used to compile Less files and minify the JavaScript. Assuming [nodejs](http://nodejs.org/) is installed, you can install dependencies and run a build with:
+In order to contribute you will need to setup a development environment using [ynh-dev](https://github.com/YunoHost/ynh-dev) (see the README).
+Once you have a environment running and are attached to it (with `./ynh-dev start`) you will be able to run:
 
-```sh
-cd src
-npm install
-npm run build
+```
+$ ./ynh-dev use-git yunohost-admin
 ```
 
-Alternatively you can run `npm run build-dev`, which improves building speed by bypassing compression tasks.
+This command will install all dependencies and start a dev server (based on [webpack-dev-server](https://github.com/webpack/webpack-dev-server)) with Hot-Module-Replacement (live updates on code modification without reloading the page nor rebuilding the whole code). After the build step, click on the "Network:" link and you are good to go.
+
+You can also install [Vue Devtools](https://addons.mozilla.org/fr/firefox/addon/vue-js-devtools/) (module for Firefox but also exists for Chromium/Chrome) if you want component trees, performance views and so on.
 
 On a YunoHost instance, the web admin files are located at `/usr/share/yunohost/admin`.
 
-**Note:** The `.ms` - moustache - files are cached by the browser. You have to
-reach them manually, and sometimes you modify them. (e.g. go to
-https://example.com/yunohost/admin/views/domain/domain_list.ms)
-
 ## Dependencies
 
-* Bootstrap 3.3.6
-* Font-Awesome 4.5.0
-* Handlebars 1.3.0
-* Sammy 0.7.6
-* JS-cookie 2.1.0
+* [Vue.js](https://vuejs.org/v2/guide/)
+* [BootstrapVue](https://bootstrap-vue.org/docs)
+* [Vue i18n](https://kazupon.github.io/vue-i18n/started.html)
+* [Vue Router](https://router.vuejs.org/guide/)
+* [Vuex](https://vuex.vuejs.org/)
+* [Vuelidate](https://vuelidate.js.org/#getting-started)
+* [date-fns](https://date-fns.org/v2.16.1/docs/Getting-Started)
+* [Fork Awesome](https://forkaweso.me/Fork-Awesome/icons/) for icons
+* [FiraGO](https://bboxtype.com/typefaces/FiraGO/#!layout=specimen) and [Fira Code](https://github.com/tonsky/FiraCode) for fonts

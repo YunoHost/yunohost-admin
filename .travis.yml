@@ -2,8 +2,8 @@ language: node_js
 node_js:
   - "10"
 before_install:
-  - cd src
+  - cd app
 script:
   - npm ci
-  - gulp build --dev
-  - gulp lint --dev
+  - npm run lint
+  - npm run build
