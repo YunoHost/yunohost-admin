@@ -43,6 +43,7 @@
         </template>
       </form-field>
     </b-collapse>
+    <div v-if="dynDnsForbiden" class="alert alert-warning mt-2" v-html="$t('domain_add_dyndns_forbidden')" />
   </card-form>
 </template>
 

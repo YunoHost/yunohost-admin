@@ -26,7 +26,8 @@
     <!-- REPORT CARD -->
     <card
       v-for="report in reports" :key="report.id"
-      collapsable :collapsed="report.noIssues" button-unbreak="lg"
+      collapsable :collapsed="report.noIssues"
+      no-body button-unbreak="lg"
     >
       <!-- REPORT HEADER -->
       <template #header>

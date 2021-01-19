@@ -119,6 +119,7 @@
     "domain_add": "Add domain",
     "domain_add_dns_doc": "… and I have <a href='//yunohost.org/dns'>set my DNS correctly</a>.",
     "domain_add_dyndns_doc": "… and I want a dynamic DNS service.",
+    "domain_add_dyndns_forbidden": "You have already subscribed to a DynDNS domain, you can ask to remove your current DynDNS domain on the forum <a href='//forum.yunohost.org/t/nohost-domain-recovery-suppression-de-domaine-en-nohost-me-noho-st-et-ynh-fr/442'>in the dedicated thread</a>.",
     "domain_add_panel_with_domain": "I already have a domain name…",
     "domain_add_panel_without_domain": "I don't have a domain name…",
     "domain_default_desc": "The default domain is the connection domain where users log in.",
