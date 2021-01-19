@@ -103,6 +103,28 @@ export function arrayDiff (arr1 = [], arr2 = []) {
 }
 
 
+/**
+ * Returns a new string with escaped HTML (`&<>"'` replaced by entities).
+ *
+ * @param {String} unsafe
+ * @return {String}
+ */
+export function escapeHtml (unsafe) {
+  return unsafe
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;')
+}
+
+/**
+ * Returns a random integer between `min` and `max`.
+ *
+ * @param {Number} min
+ * @param {Number} max
+ * @return {Number}
+ */
 export function randint (min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min
 }

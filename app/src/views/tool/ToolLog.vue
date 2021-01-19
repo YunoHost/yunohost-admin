@@ -31,7 +31,7 @@
     </card>
 
     <div v-if="info.error" class="alert alert-danger my-5">
-      <icon iname="exclamation-circle" /> {{ $t('operation_failed_explanation') }}
+      <icon iname="exclamation-circle" /> <span v-html="$t('operation_failed_explanation')" />
     </div>
 
     <!-- LOGS CARD -->
@@ -45,7 +45,7 @@
       <b-button
         v-if="moreLogsAvailable"
         variant="white" class="w-100 rounded-0"
-        @click="$ref.view.fetchQueries()"
+        @click="$refs.view.fetchQueries()"
       >
         <icon iname="plus" /> {{ $t('logs_more') }}
       </b-button>
@@ -61,7 +61,7 @@
 
 <script>
 import api from '@/api'
-import { objectToParams } from '@/helpers/commons'
+import { objectToParams, escapeHtml } from '@/helpers/commons'
 import { readableDate } from '@/helpers/filters/date'
 
 export default {
@@ -107,14 +107,15 @@ export default {
 
       const levels = ['ERROR', 'WARNING', 'SUCCESS', 'INFO']
       this.logs = log.logs.map(line => {
+        const escaped = escapeHtml(line)
         for (const level of levels) {
           if (line.includes(level + ' -')) {
             return `<span class="alert-${level === 'ERROR'
               ? 'danger'
-              : level.toLowerCase()}">${line}</span>`
+              : level.toLowerCase()}">${escaped}</span>`
           }
         }
-        return line
+        return escaped
       }).join('\n')
       // eslint-disable-next-line
       const { started_at, ended_at, error, success, suboperations } = log.metadata
