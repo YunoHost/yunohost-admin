@@ -15,6 +15,9 @@ export default {
   ca: {
     name: 'Català'
   },
+  cs: {
+    name: 'Čeština'
+  },
   de: {
     name: 'Deutsch'
   },

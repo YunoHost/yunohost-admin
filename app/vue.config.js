@@ -4,6 +4,7 @@ const dateFnsLocales = [
   'ar',
   'bn', // for 'bn_BD'
   'ca', // for 'ca' & 'oc'
+  'cs',
   'de',
   'el',
   'en-GB', // for 'en' & 'ne'
