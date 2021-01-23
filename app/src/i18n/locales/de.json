@@ -23,7 +23,7 @@
     "confirm_change_maindomain": "Möchtest du wirklich die Hauptdomain ändern?",
     "confirm_delete": "Möchtest du wirklich {name} löschen?",
     "confirm_install_custom_app": "WARNUNG! Die Installation von Drittanbieter Apps könnte die Sicherheit und Integrität deines Systems gefährden. Du solltest sie nicht installieren außer du weißt was du tust. Willst du das Risiko eingehen?",
-    "confirm_install_domain_root": "Du wirst keine weiteren Apps auf {domain} installieren können. Dennoch fortfahren?",
+    "confirm_install_domain_root": "Bist du sicher das du die Anwendung '/'? installieren willst? Du kann keine andere App auf der Domäne {domain} installieren",
     "confirm_postinstall": "Du bist dabei, den Konfigurationsprozess für die Domain {domain} starten. Dies wird ein paar Minuten dauern, *die Ausführung nicht unterbrechen*.",
     "confirm_restore": "Möchtest du wirklich {name} wiederherstellen?",
     "confirm_uninstall": "Möchtest du wirklich {name} deinstallieren?",
@@ -231,7 +231,7 @@
     "logs_system": "Kernel-Logs und andere Ereignisse auf niederer Ebene",
     "select_none": "Wähle keine",
     "skip": "Überspringe",
-    "logs_share_with_yunopaste": "Teile mit YunoPaste",
+    "logs_share_with_yunopaste": "Logs teilen mit YunoPaste",
     "migrations_pending": "Ausstehende Migrationen",
     "logs_operation": "Operationen, die auf dem System mit YunoHost durchgeführt wurden",
     "logs_history": "Historie der Befehlsausführung auf dem System",
@@ -306,12 +306,15 @@
     "logs_suboperations": "Unter-Operationen",
     "api_errors_titles": {
         "APIBadRequestError": "Yunohost ist ein Fehler widerfahren",
-        "APIError": "Yunohost ist ein unerwarteter Fehler widerfahren"
+        "APIError": "Yunohost ist ein unerwarteter Fehler widerfahren",
+        "APIConnexionError": "Yunohost hat ein Verbindungsfehler festgestellt",
+        "APINotRespondingError": "Die Yunohost API antwortet nicht",
+        "APIInternalError": "Im Yunohost ist ein interner Fehler aufgetreten"
     },
     "api_error": {
         "sorry": "Tut uns wirklich leid.",
         "info": "Die folgenden Informationen könnten nützlich sein für die Person, die Ihnen hilft:",
-        "help": "Sie sollten für Hilfe <a href=\"https://forum.yunohost.org/\">im Forum</a> oder <a href=\"https://chat.yunohost.org/\">im Chat</a>  nachschauen, um das Problem zu beheben, oder einen Bug melden im <a href=\"https://github.com/YunoHost/issues\">Bugtracker>."
+        "help": "Sie sollten für Hilfe <a href=\"https://forum.yunohost.org/\">im Forum</a> oder <a href=\"https://chat.yunohost.org/\">im Chat</a> nachschauen, um das Problem zu beheben, oder einen Bug melden im <a href=\"https://github.com/YunoHost/issues\">Bugtracker</a>."
     },
     "address": {
         "local_part_description": {
@@ -322,5 +325,17 @@
             "email": "Wählen Sie eine Domäne für Ihre E-Mail.",
             "domain": "Wählen Sie eine Domäne."
         }
-    }
+    },
+    "permission_show_tile_enabled": "Sichtbar als Kachel im Benutzerportal",
+    "permission_main": "Hauptrechte",
+    "permission_corresponding_url": "Entsprechender URL",
+    "cancel": "Abbrechen",
+    "app_show_categories": "Kategorien anzeigen",
+    "app_manage_label_and_tiles": "Etiketten und Kacheln verwalten",
+    "app_config_panel_no_panel": "Für diese Anwendung ist keine Konfiguration verfügbar",
+    "app_config_panel_label": "Konfigurieren dieser App",
+    "app_config_panel": "Konfigurationsfenster",
+    "app_choose_category": "Kategorie auswählen",
+    "app_actions_label": "Aktionen ausführen",
+    "api_waiting": "Warten auf Server Antwort..."
 }
