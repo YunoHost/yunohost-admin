@@ -303,5 +303,24 @@
     "diagnosis_explanation": "Die Diagnose Funktion wird versuchen, gängige Probleme in verschiedenen Teilen deines Servers zu finden,  damit alles reibungslos läuft. Die Diagnose wird auch automatisch zweimal täglich ausgeführt, falls Fehler gefunden werden, bekommt der Administrator ein E-Mail. Beachte, dass einige tests nicht relevant sind, wenn du einzelne Features (zum Beispiel XMPP) nicht benutzt oder du ein komplexes Setup hast. In diesem Fall und wenn du weisst was du tust ist es in Ordnung die dazugehoerigen Warnungen und Hinweise zu ignorieren.",
     "pending_migrations": "Es gibt einige ausstehende Migrationen, die darauf warten, ausgeführt zu werden. Bitte gehen Sie auf  <a href='#/tools/migrations'>Werkzeuge > Migrationen</a> um diese auszuführen.",
     "tip_about_user_email": "Benutzer*innen werden mit einer verknüpften eMail-Adresse (und XMPP Account) erstellt  im Format username@domain.tld. Zusätzliche eMail-Aliasse and eMail-Weiterleitungen können später durch den/die Admin und User*in hinzugefügt werden.",
-    "logs_suboperations": "Unter-Operationen"
+    "logs_suboperations": "Unter-Operationen",
+    "api_errors_titles": {
+        "APIBadRequestError": "Yunohost ist ein Fehler widerfahren",
+        "APIError": "Yunohost ist ein unerwarteter Fehler widerfahren"
+    },
+    "api_error": {
+        "sorry": "Tut uns wirklich leid.",
+        "info": "Die folgenden Informationen könnten nützlich sein für die Person, die Ihnen hilft:",
+        "help": "Sie sollten für Hilfe <a href=\"https://forum.yunohost.org/\">im Forum</a> oder <a href=\"https://chat.yunohost.org/\">im Chat</a>  nachschauen, um das Problem zu beheben, oder einen Bug melden im <a href=\"https://github.com/YunoHost/issues\">Bugtracker>."
+    },
+    "address": {
+        "local_part_description": {
+            "email": "Wählen Sie einen lokalen Teil für Ihre E-Mail.",
+            "domain": "Wählen Sie eine Subdomain."
+        },
+        "domain_description": {
+            "email": "Wählen Sie eine Domäne für Ihre E-Mail.",
+            "domain": "Wählen Sie eine Domäne."
+        }
+    }
 }
