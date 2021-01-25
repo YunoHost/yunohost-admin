@@ -351,7 +351,8 @@
         "cache_description": "Deaktivieren Sie den Cache, wenn Sie mit der CLI arbeiten möchten, während Sie gleichzeitig in diesem Webadministrator navigieren.",
         "cache": "Zwischenspeicher",
         "fallback_language_description": "Sprache, die verwendet wird, falls die Übersetzung nicht in der Hauptsprache verfügbar ist.",
-        "language": "Sprache"
+        "language": "Sprache",
+        "fallback_language": "Fallback Sprache"
     },
     "tools_power_up": "Ihr Server scheint zugänglich zu sein. Sie können jetzt versuchen, sich anzumelden.",
     "search": {
