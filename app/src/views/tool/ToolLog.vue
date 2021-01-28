@@ -86,12 +86,11 @@ export default {
   computed: {
     queries () {
       const queryString = objectToParams({
-        path: this.name,
         filter_irrelevant: '',
         with_suboperations: '',
         number: this.numberOfLines
       })
-      return ['logs/display?' + queryString]
+      return [`logs/${this.name}?${queryString}`]
     }
   },
 
@@ -126,7 +125,7 @@ export default {
     },
 
     shareLogs () {
-      api.get(`/logs/display?path=${this.name}&share`).then(({ url }) => {
+      api.get(`/logs/${this.name}?share`).then(({ url }) => {
         window.open(url, '_blank')
       })
     }
