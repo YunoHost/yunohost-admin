@@ -5,19 +5,21 @@
     v-on="$listeners"
     :placeholder="placeholder"
     :drop-placeholder="dropPlaceholder"
-    :state="Boolean(file)"
+    :state="state"
     :required="required"
-    :accept="accept"
-    @blur="$parent.$emit('touch', name)"
+    :browse-text="$t('words.browse')"
+    @focusout.native="$parent.$emit('touch', name)"
   />
 </template>
 
 <script>
 export default {
   name: 'FileItem',
+
   data () {
     return { file: null }
   },
+
   props: {
     id: { type: String, default: null },
     placeholder: { type: String, default: null },
