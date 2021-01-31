@@ -8,34 +8,25 @@
   >
     <template #top-bar-buttons>
       <b-button variant="info" :to="{ name: 'group-list' }">
-        <icon iname="key-modern" />
-        {{ $t('groups_and_permissions_manage') }}
+        <icon iname="key-modern" /> {{ $t('groups_and_permissions_manage') }}
       </b-button>
 
-        <div class="btn-group">
-          <b-dropdown split class="m-2" variant="success"
-                      :split-to="{name: 'user-create'}">
-            <template #button-content>
-              <icon iname="plus" />
-              {{ $t('users_new') }}
-            </template>
-            <b-dropdown-item :to="{name: 'user-import'}">
-              <icon iname="plus" /> {{ $t('users_import') }}
-            </b-dropdown-item>
-            <b-dropdown-item @click="downloadExport">
-              <icon iname="download" /> {{ $t('users_export') }}
-            </b-dropdown-item>
-          </b-dropdown>
-        </div>
+      <b-dropdown
+        :split-to="{ name: 'user-create' }"
+        split variant="outline-success" right
+        split-variant="success"
+      >
+        <template #button-content>
+          <icon iname="plus" /> {{ $t('users_new') }}
+        </template>
+        <b-dropdown-item :to="{ name: 'user-import' }">
+          <icon iname="plus" /> {{ $t('users_import') }}
+        </b-dropdown-item>
+        <b-dropdown-item @click="downloadExport">
+          <icon iname="download" /> {{ $t('users_export') }}
+        </b-dropdown-item>
+      </b-dropdown>
 
-      </div>
-    </div>
-
-    <template v-if="users === null">
-      <b-alert variant="warning" show>
-        <icon iname="exclamation-triangle" class="fa-fw mr-1" />
-        {{ $t('users_no') }}
-      </b-alert>
     </template>
 
     <b-list-group>
