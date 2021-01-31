@@ -8,25 +8,24 @@
   >
     <template #top-bar-buttons>
       <b-button variant="info" :to="{ name: 'group-list' }">
-        <icon iname="key-modern" />
-        {{ $t('groups_and_permissions_manage') }}
+        <icon iname="key-modern" /> {{ $t('groups_and_permissions_manage') }}
       </b-button>
 
-      <div class="btn-group">
-        <b-dropdown split class="m-2" variant="success"
-                    :split-to="{name: 'user-create'}">
-          <template #button-content>
-            <span aria-hidden="true" class="icon fa fa-plus"></span>
-            {{ $t('users_new') }}
-          </template>
-          <b-dropdown-item :to="{name: 'user-import'}">
-            <icon iname="plus" /> {{ $t('users_import') }}
-          </b-dropdown-item>
-          <b-dropdown-item @click="downloadExport">
-            <icon iname="download" /> {{ $t('users_export') }}
-          </b-dropdown-item>
-        </b-dropdown>
-      </div>
+      <b-dropdown
+        :split-to="{ name: 'user-create' }"
+        split variant="outline-success" right
+        split-variant="success"
+      >
+        <template #button-content>
+          <icon iname="plus" /> {{ $t('users_new') }}
+        </template>
+        <b-dropdown-item :to="{ name: 'user-import' }">
+          <icon iname="plus" /> {{ $t('users_import') }}
+        </b-dropdown-item>
+        <b-dropdown-item @click="downloadExport">
+          <icon iname="download" /> {{ $t('users_export') }}
+        </b-dropdown-item>
+      </b-dropdown>
     </template>
 
     <b-list-group>
