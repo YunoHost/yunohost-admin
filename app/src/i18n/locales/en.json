@@ -172,6 +172,7 @@
         "dynDomain": "Invalid domain name: Must be lower-case alphanumeric and dash characters only",
         "email": "Invalid email: must be alphanumeric and <code>_.-</code> characters only (e.g. someone@example.com, s0me-1@example.com)",
         "emailForward": "Invalid email forward: must be alphanumeric and <code>_.-+</code> characters only (e.g. someone+tag@example.com, s0me-1+tag@example.com)",
+        "fileMediaTypeMatch": "Invalid file type: must be <code>{arg}</code>.",
         "githubLink": "Url must be a valid Github link to a repository",
         "name": "Names may not includes special characters except <code> ,.'-</code>",
         "minValue": "Value must be a number equal or greater than {min}.",
@@ -503,6 +504,7 @@
     "version": "Version",
     "warnings": "{count} warnings",
     "words": {
+        "browse": "Browse",
         "collapse": "Collapse",
         "default": "Default"
     },
