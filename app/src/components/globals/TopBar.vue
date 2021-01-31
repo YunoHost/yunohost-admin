@@ -1,5 +1,5 @@
 <template>
-  <b-button-toolbar :aria-label="label" id="top-bar">
+  <b-button-toolbar :aria-label="label" id="top-bar" :class="unbreak + '-unbreak'">
     <div id="top-bar-left" class="top-bar-group" v-if="hasLeftSlot">
       <slot name="group-left" />
     </div>
@@ -20,6 +20,7 @@ export default {
 
   props: {
     label: { type: String, default: null },
+    unbreak: { type: String, default: 'md' },
     button: {
       type: Object,
       default: null,
@@ -29,18 +30,14 @@ export default {
     }
   },
 
-  data () {
-    return {
-      hasLeftSlot: null,
-      hasRightSlot: null
-    }
-  },
+  computed: {
+    hasLeftSlot () {
+      return 'group-left' in this.$slots
+    },
 
-  created () {
-    this.$nextTick(() => {
-      this.hasLeftSlot = 'group-left' in this.$slots
-      this.hasRightSlot = 'group-right' in this.$slots
-    })
+    hasRightSlot () {
+      return 'group-right' in this.$slots
+    }
   }
 }
 </script>
@@ -49,46 +46,72 @@ export default {
 #top-bar {
   margin-bottom: 2rem;
   flex-wrap: wrap-reverse;
+  flex-direction: column-reverse;
 
   .top-bar-group {
     display: flex;
+    flex-direction: column-reverse;
+    flex-wrap: wrap;
   }
 
-  @include media-breakpoint-down(xs) {
-    .top-bar-group {
-      flex-direction: column-reverse;
-    }
-
-    ::v-deep .btn:not(:first-of-type) {
+  ::v-deep .top-bar-group > * {
+    &:not(:first-child) {
       margin-bottom: .25rem;
     }
   }
 
-  @include media-breakpoint-down(sm) {
-    flex-direction: column-reverse;
+  #top-bar-left ~ #top-bar-right {
+    margin-bottom: 1rem;
+  }
 
-    #top-bar-left ~ #top-bar-right {
-      margin-bottom: 1rem;
+  @include media-breakpoint-up(sm) {
+    .top-bar-group {
+      flex-direction: row;
+      justify-content: space-between;
     }
 
-    .top-bar-group {
-      justify-content: space-between;
-      flex-wrap: wrap;
+    ::v-deep .top-bar-group > * {
+      margin-bottom: .25rem;
+    }
+
+    #top-bar-left ~ #top-bar-right {
+      margin-bottom: 0.75rem;
     }
   }
 
-  @include media-breakpoint-up(md) {
+  @mixin unbreak {
+    flex-direction: row;
+
     #top-bar-left {
       flex-grow: 2;
-      max-width: 50%;
+      max-width: 75%;
+
+      & ~ #top-bar-right {
+        margin-bottom: 0;
+      }
     }
 
     #top-bar-right {
       margin-left: auto;
     }
 
-    ::v-deep .btn {
-      margin-left: .5rem;
+    ::v-deep {
+      .top-bar-group > * {
+        margin-bottom: 0;
+        margin-left: .5rem;
+      }
+
+      #top-bar-left > :first-child {
+        margin-left: 0;
+      }
+    }
+  }
+
+  @each $breakpoint in sm, md, lg, xl {
+    &.#{$breakpoint}-unbreak {
+      @include media-breakpoint-up(#{$breakpoint}) {
+        @include unbreak;
+      }
     }
   }
 }
