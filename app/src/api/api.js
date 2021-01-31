@@ -5,7 +5,7 @@
 
 import store from '@/store'
 import { openWebSocket, getResponseData, handleError } from './handlers'
-import { objectToParams } from '@/helpers/commons'
+import { objectToBody } from '@/helpers/commons'
 
 
 /**
@@ -67,7 +67,7 @@ export default {
     if (method === 'GET') {
       uri += `${uri.includes('?') ? '&' : '?'}locale=${store.getters.locale}`
     } else {
-      options = { ...options, method, body: objectToParams(data, { addLocale: true }) }
+      options = { ...options, method, body: objectToBody(data, { asFormData, addLocale: true }) }
     }
 
     const response = await fetch('/yunohost/api/' + uri, options)

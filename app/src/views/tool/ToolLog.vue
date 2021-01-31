@@ -61,7 +61,7 @@
 
 <script>
 import api from '@/api'
-import { objectToParams, escapeHtml } from '@/helpers/commons'
+import { objectToURLParams, escapeHtml } from '@/helpers/commons'
 import { readableDate } from '@/helpers/filters/date'
 
 export default {
@@ -85,7 +85,7 @@ export default {
 
   computed: {
     queries () {
-      const queryString = objectToParams({
+      const queryString = objectToURLParams({
         filter_irrelevant: '',
         with_suboperations: '',
         number: this.numberOfLines

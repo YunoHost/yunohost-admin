@@ -42,7 +42,7 @@ import api from '@/api'
 import { validationMixin } from 'vuelidate'
 
 import { formatI18nField, formatYunoHostArguments, formatFormData } from '@/helpers/yunohostArguments'
-import { objectToParams } from '@/helpers/commons'
+import { objectToURLParams } from '@/helpers/commons'
 
 export default {
   name: 'AppActions',
@@ -98,7 +98,7 @@ export default {
 
     performAction (action) {
       // FIXME api expects at least one argument ?! (fake one given with { dontmindthis } )
-      const args = objectToParams(action.form ? formatFormData(action.form) : { dontmindthis: undefined })
+      const args = objectToURLParams(action.form ? formatFormData(action.form) : { dontmindthis: undefined })
 
       api.put(`apps/${this.id}/actions/${action.id}`, { args }).then(response => {
         this.$refs.view.fetchQueries()

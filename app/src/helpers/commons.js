@@ -20,6 +20,32 @@ export function timeout (promise, delay) {
 
 
 /**
+ * Converts an object literal into an `URLSearchParams` or a `FormData` that can be sent as `body` in a `fetch` call.
+ *
+ * @param {Object} obj - An object literal to convert.
+ * @param {Object} options
+ * @param {Boolean} [options.asFormData=false] - Option to get a `FormData` instead of an `URLSearchParams` (to send files for example).
+ * @param {Boolean} [options.addLocale=false] - Option to append the locale to the form.
+ * @return {URLSearchParams|FormData}
+ */
+export function objectToBody (obj, { asFormData = false, addLocale = false } = {}) {
+  const body = asFormData ? new FormData() : new URLSearchParams()
+  for (const [key, value] of Object.entries(obj)) {
+    if (Array.isArray(value)) {
+      value.forEach(v => body.append(key, v))
+    } else {
+      body.append(key, value)
+    }
+  }
+  if (addLocale) {
+    body.append('locale', store.getters.locale)
+  }
+
+  return body
+}
+
+
+/**
  * Converts an object literal into an `URLSearchParams` that can be turned into a
  * query string or used as a body in a `fetch` call.
  *
@@ -28,19 +54,9 @@ export function timeout (promise, delay) {
  * @param {Boolean} [options.addLocale=false] - Option to append the locale to the query string.
  * @return {URLSearchParams}
  */
-export function objectToParams (obj, { addLocale = false } = {}, formData = false) {
-  const urlParams = (formData) ? new FormData() : new URLSearchParams()
-  for (const [key, value] of Object.entries(obj)) {
-    if (Array.isArray(value)) {
-      value.forEach(v => urlParams.append(key, v))
-    } else {
-      urlParams.append(key, value)
-    }
-  }
-  if (addLocale) {
-    urlParams.append('locale', store.getters.locale)
-  }
-  return urlParams
+export function objectToURLParams (obj, { addLocale = false } = {}) {
+  // This is a named wrapper for convenience.
+  return objectToBody(obj, { addLocale, asFormData: false })
 }
 
 

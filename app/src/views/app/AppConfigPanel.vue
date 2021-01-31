@@ -40,7 +40,7 @@ import { validationMixin } from 'vuelidate'
 // FIXME needs test and rework
 import api from '@/api'
 import { formatI18nField, formatYunoHostArguments, formatFormData } from '@/helpers/yunohostArguments'
-import { objectToParams } from '@/helpers/commons'
+import { objectToURLParams } from '@/helpers/commons'
 
 export default {
   name: 'AppConfigPanel',
@@ -101,7 +101,7 @@ export default {
     },
 
     applyConfig (id_) {
-      const args = objectToParams(formatFormData(this.forms[id_]))
+      const args = objectToURLParams(formatFormData(this.forms[id_]))
 
       api.post(`apps/${this.id}/config`, { args }).then(response => {
         console.log('SUCCESS', response)

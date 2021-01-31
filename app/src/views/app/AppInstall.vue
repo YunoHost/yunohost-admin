@@ -50,7 +50,7 @@
 import { validationMixin } from 'vuelidate'
 
 import api from '@/api'
-import { objectToParams } from '@/helpers/commons'
+import { objectToURLParams } from '@/helpers/commons'
 import { formatYunoHostArguments, formatI18nField, formatFormData } from '@/helpers/yunohostArguments'
 
 export default {
@@ -127,7 +127,7 @@ export default {
       }
 
       const { data: args, label } = formatFormData(this.form, { extract: ['label'] })
-      const data = { app: this.id, label, args: objectToParams(args) }
+      const data = { app: this.id, label, args: objectToURLParams(args) }
 
       api.post('apps', data).then(response => {
         this.$router.push({ name: 'app-list' })
