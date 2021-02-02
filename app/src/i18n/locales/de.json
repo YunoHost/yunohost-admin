@@ -60,7 +60,7 @@
     "hook_data_home": "Benutzerdaten",
     "hook_data_home_desc": "Die Daten des Benutzers werden gespeichert unter /home/USER",
     "hook_data_mail": "E-Mail",
-    "hook_data_mail_desc": "Roth-E-Mails auf dem Server gespeichert",
+    "hook_data_mail_desc": "Rohdaten-E-Mails auf dem Server gespeichert",
     "id": "ID",
     "infos": "Informationen",
     "install": "Installieren",
