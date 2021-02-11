@@ -22,10 +22,12 @@
         "APIError": "Yunohost encountered an unexpected error",
         "APIBadRequestError": "Yunohost encountered an error",
         "APIInternalError": "Yunohost encountered an internal error",
+        "APINotFoundError": "Yunohost API could not find a route",
         "APINotRespondingError": "Yunohost API is not responding",
-        "APIConnexionError": "Yunohost encountered an connexion error"
+        "APIConnexionError": "Yunohost encountered a connexion error"
     },
     "all_apps": "All apps",
+    "api_not_found": "Seems like the web-admin tryed to query something that doesn't exist.",
     "api_not_responding": "The YunoHost API is not responding. Maybe 'yunohost-api' is down or got restarted?",
     "api_waiting": "Waiting for the server's response...",
     "app_actions": "Actions",
@@ -189,9 +191,10 @@
         "title": "History",
         "last_action": "Last action:",
         "methods": {
+            "DELETE": "delete",
+            "GET": "read",
             "POST": "create/execute",
-            "PUT": "modify",
-            "DELETE": "delete"
+            "PUT": "modify"
         }
     },
     "home": "Home",

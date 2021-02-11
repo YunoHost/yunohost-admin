@@ -51,20 +51,23 @@ export default {
    *
    * @param {string} method - a method between 'GET', 'POST', 'PUT' and 'DELETE'.
    * @param {string} uri
-   * @param {string} [data={}] - data to send as body for 'POST', 'PUT' and 'DELETE' methods.
+   * @param {Object} [data={}] - data to send as body for 'POST', 'PUT' and 'DELETE' methods.
+   * @param {Object} [options={}]
+   * @param {Boolean} [options.websocket=true] - Open a websocket before this request.
    * @return {Promise<Response>} Promise that resolve a fetch `Response`.
    */
-  async fetch (method, uri, data = {}) {
+  async fetch (method, uri, data = {}, { websocket = true } = {}) {
     // Open a websocket connection that will dispatch messages received.
-    // FIXME add ability to do not open it
-    await this.openWebSocket()
+    if (websocket) {
+      await this.openWebSocket()
+      store.dispatch('WAITING_FOR_RESPONSE', [uri, method])
+    }
 
     if (method === 'GET') {
       const localeQs = `${uri.includes('?') ? '&' : '?'}locale=${store.getters.locale}`
       return fetch('/yunohost/api/' + uri + localeQs, this.options)
     }
 
-    store.dispatch('WAITING_FOR_RESPONSE', [uri, method])
     return fetch('/yunohost/api/' + uri, {
       ...this.options,
       method,
@@ -76,10 +79,12 @@ export default {
    * Api get helper function.
    *
    * @param {string} uri - the uri to call.
+   * @param {Object} [options={}]
+   * @param {Boolean} [options.websocket=false] - Open a websocket before this request.
    * @return {Promise<module:api~DigestedResponse>} Promise that resolve the api response as an object, a string or as an error.
    */
-  get (uri) {
-    return this.fetch('GET', uri).then(response => handleResponse(response, 'GET'))
+  get (uri, { websocket = false } = {}) {
+    return this.fetch('GET', uri, null, { websocket }).then(response => handleResponse(response, 'GET'))
   },
 
   /**

@@ -2,13 +2,13 @@
   <b-overlay
     variant="white" rounded="sm" opacity="0.5"
     no-center
-    :show="waiting"
+    :show="show"
   >
     <slot name="default" />
 
     <template v-slot:overlay>
       <b-card no-body>
-        <div v-if="!error" class="mt-3 px-3">
+        <div v-if="error === null" class="mt-3 px-3">
           <div class="custom-spinner" :class="spinner" />
         </div>
 
@@ -31,7 +31,7 @@
         </b-card-body>
 
         <b-card-footer v-if="error" class="justify-content-end">
-          <b-button variant="primary" v-t="'ok'" @click="$store.dispatch('SERVER_RESPONDED', true)" />
+          <b-button variant="primary" v-t="'ok'" @click="$store.dispatch('DELETE_ERROR')" />
         </b-card-footer>
       </b-card>
     </template>
@@ -47,6 +47,10 @@ export default {
 
   computed: {
     ...mapGetters(['waiting', 'lastAction', 'error', 'spinner']),
+
+    show () {
+      return this.waiting || this.error !== null
+    },
 
     progress () {
       if (!this.lastAction) return null

@@ -109,11 +109,8 @@ export default {
       commit('ADD_HISTORY_ENTRY', [uri, method, Date.now()])
     },
 
-    'SERVER_RESPONDED' ({ state, dispatch, commit }, responseIsOk) {
-      if (responseIsOk) {
-        commit('UPDATE_WAITING', false)
-        commit('SET_ERROR', '')
-      }
+    'SERVER_RESPONDED' ({ commit }) {
+      commit('UPDATE_WAITING', false)
     },
 
     'DISPATCH_MESSAGE' ({ commit }, messages) {
@@ -139,12 +136,21 @@ export default {
       }
     },
 
-    'DISPATCH_ERROR' ({ state, commit }, error) {
-      commit('SET_ERROR', error)
-      if (error.method === 'GET') {
-        router.push({ name: 'error', params: { type: error.code } })
+    'HANDLE_ERROR' ({ state, commit, dispatch }, error) {
+      if (error.code === 401) {
+        // Unauthorized
+        dispatch('DISCONNECT')
+      } else if (error.logRef) {
+        // Errors that have produced logs
+        router.push({ name: 'tool-log', params: { name: error.logRef } })
+      } else {
+        // Display the error in a modal on the current view.
+        commit('SET_ERROR', error)
       }
-      // else the waiting screen will display the error
+    },
+
+    'DELETE_ERROR' ({ commit }) {
+      commit('SET_ERROR', null)
     }
   },
 

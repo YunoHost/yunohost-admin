@@ -13,7 +13,7 @@
     <pre><code>"{{ error.code }}" {{ error.status }}</code></pre>
 
     <h5 v-t="'action'" />
-    <pre><code>"{{ error.method }}" {{ error.uri }}</code></pre>
+    <pre><code>"{{ error.method }}" {{ error.path }}</code></pre>
 
     <h5>Message</h5>
     <p v-html="error.message" />
