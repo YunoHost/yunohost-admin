@@ -64,7 +64,7 @@
 
 <script>
 import api from '@/api'
-import { DomainForm, PasswordForm } from '@/components/reusableForms'
+import { DomainForm, PasswordForm } from '@/views/_partials'
 import LoginView from '@/views/Login'
 
 export default {

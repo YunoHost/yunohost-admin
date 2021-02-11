@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import { DomainForm } from '@/components/reusableForms'
+import { DomainForm } from '@/views/_partials'
 
 export default {
   name: 'DomainAdd',

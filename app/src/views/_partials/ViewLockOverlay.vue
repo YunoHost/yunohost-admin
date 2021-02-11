@@ -13,7 +13,7 @@
         </div>
 
         <b-card-body v-if="error">
-          <error-page />
+          <error-display />
         </b-card-body>
 
         <b-card-body v-else class="pb-4">
@@ -40,10 +40,10 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import ErrorPage from '@/views/ErrorPage'
+import { ErrorDisplay } from '@/views/_partials'
 
 export default {
-  name: 'ApiWaitOverlay',
+  name: 'ViewLockOverlay',
 
   computed: {
     ...mapGetters(['waiting', 'lastAction', 'error', 'spinner']),
@@ -63,7 +63,7 @@ export default {
   },
 
   components: {
-    ErrorPage
+    ErrorDisplay
   }
 }
 </script>
@@ -99,7 +99,7 @@ export default {
   &.pacman {
     height: 24px;
     width: 24px;
-    background-image: url('../assets/spinners/pacman.gif');
+    background-image: url('../../assets/spinners/pacman.gif');
     animation-name: back-and-forth-pacman;
 
     @keyframes back-and-forth-pacman {
@@ -113,7 +113,7 @@ export default {
   &.magikarp {
     height: 32px;
     width: 32px;
-    background-image: url('../assets/spinners/magikarp.gif');
+    background-image: url('../../assets/spinners/magikarp.gif');
     animation-name: back-and-forth-magikarp;
 
     @keyframes back-and-forth-magikarp {
@@ -127,7 +127,7 @@ export default {
   &.nyancat {
     height: 40px;
     width: 100px;
-    background-image: url('../assets/spinners/nyancat.gif');
+    background-image: url('../../assets/spinners/nyancat.gif');
     animation-name: back-and-forth-nyancat;
 
     @keyframes back-and-forth-nyancat {

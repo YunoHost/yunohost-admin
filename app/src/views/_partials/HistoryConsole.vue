@@ -59,7 +59,7 @@
 import { mapGetters } from 'vuex'
 
 export default {
-  name: 'YnhConsole',
+  name: 'HistoryConsole',
 
   props: {
     value: { type: Boolean, default: false },

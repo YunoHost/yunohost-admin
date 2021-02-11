@@ -11,7 +11,7 @@
 import api from '@/api'
 import { validationMixin } from 'vuelidate'
 
-import { PasswordForm } from '@/components/reusableForms'
+import { PasswordForm } from '@/views/_partials'
 import { required, minLength } from '@/helpers/validators'
 
 export default {
