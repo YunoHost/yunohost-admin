@@ -28,7 +28,11 @@ export default {
     },
 
     'ADD_HISTORY_ENTRY' (state, [uri, method, date]) {
-      state.history.push({ uri, method, date, messages: [] })
+      state.history.push({ uri, method, date, status: 'pending', messages: [] })
+    },
+
+    'UPDATE_LAST_HISTORY_ENTRY' (state, [key, value]) {
+      Vue.set(state.history[state.history.length - 1], key, value)
     },
 
     'ADD_MESSAGE' (state, message) {
@@ -109,7 +113,15 @@ export default {
       commit('ADD_HISTORY_ENTRY', [uri, method, Date.now()])
     },
 
-    'SERVER_RESPONDED' ({ commit }) {
+    'SERVER_RESPONDED' ({ state, commit }, success) {
+      const action = state.history.length ? state.history[state.history.length - 1] : null
+      if (action) {
+        let status = success ? 'success' : 'error'
+        if (status === 'success' && action.messages.some(msg => msg.type === 'danger' || msg.type === 'warning')) {
+          status = 'warning'
+        }
+        commit('UPDATE_LAST_HISTORY_ENTRY', ['status', status])
+      }
       commit('UPDATE_WAITING', false)
     },
 

@@ -32,7 +32,7 @@ async function _getResponseData (response) {
  */
 export async function handleResponse (response, method) {
   const responseData = await _getResponseData(response)
-  store.dispatch('SERVER_RESPONDED')
+  store.dispatch('SERVER_RESPONDED', response.ok)
   return response.ok ? responseData : handleError(response, responseData, method)
 }
 
