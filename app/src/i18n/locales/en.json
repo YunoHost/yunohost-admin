@@ -13,10 +13,22 @@
     },
     "administration_password": "Administration password",
     "all": "All",
+    "api": {
+        "processing": "The server is processing the action...",
+        "query_status": {
+            "error": "Unsuccessful",
+            "pending": "In progress",
+            "success": "Successfully completed",
+            "warning": "Successfully completed with errors or alerts"
+        }
+    },
     "api_error": {
+        "error_message": "Error message:",
         "help": "You should look for help on <a href=\"https://forum.yunohost.org/\">the forum</a> or <a href=\"https://chat.yunohost.org/\">the chat</a> to fix the situation, or report the bug on <a href=\"https://github.com/YunoHost/issues\">the bugtracker</a>.",
         "info": "The following information might be useful for the person helping you:",
-        "sorry": "Really sorry about that."
+        "server_said": "While processing the action the server said:",
+        "sorry": "Really sorry about that.",
+        "view_error": "View error"
     },
     "api_errors_titles": {
         "APIError": "Yunohost encountered an unexpected error",
@@ -170,6 +182,7 @@
     },
     "form_input_example": "Example: {example}",
     "from_to": "from {0} to {1}",
+    "go_back": "Go back",
     "good_practices_about_admin_password": "You are now about to define a new admin password. The password should be at least 8 characters - though it is good practice to use longer password (i.e. a passphrase) and/or to use various kind of characters (uppercase, lowercase, digits and special characters).",
     "good_practices_about_user_password": "You are now about to define a new user password. The password should be at least 8 characters - though it is good practice to use longer password (i.e. a passphrase) and/or to use various kind of characters (uppercase, lowercase, digits and special characters).",
     "group": "Group",
@@ -190,6 +203,7 @@
     "history": {
         "title": "History",
         "last_action": "Last action:",
+        "current_action": "Current action:",
         "methods": {
             "DELETE": "delete",
             "GET": "read",
@@ -401,7 +415,8 @@
     "warnings": "{count} warnings",
     "words": {
         "collapse": "Collapse",
-        "default": "Default"
+        "default": "Default",
+        "dismiss": "Dismiss"
     },
     "wrong_password": "Wrong password",
     "yes": "Yes",
