@@ -27,7 +27,7 @@
       class="error-btn ml-auto py-0"
       variant="danger"
     >
-      <small>View error</small>
+      <small v-t="'api_error.view_error'" />
     </b-button>
 
     <!-- TIME DISPLAY -->

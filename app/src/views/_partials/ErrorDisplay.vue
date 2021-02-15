@@ -1,38 +1,90 @@
 <template>
-  <div class="error mt-4 mb-5" v-if="error">
-    <h2>{{ $t('api_errors_titles.' + error.name) }} :/</h2>
+  <!-- This card receives style from `ViewLockOverlay` if used inside it -->
+  <div>
+    <b-card-body>
+      <b-card-title v-t="'api_errors_titles.' + error.name" />
 
-    <em v-t="'api_error.sorry'" />
+      <em v-t="'api_error.sorry'" />
 
-    <div class="alert alert-info mt-4">
-      <span v-html="$t('api_error.help')" />
-      <br>{{ $t('api_error.info') }}
-    </div>
+      <div class="alert alert-info my-3">
+        <span v-html="$t('api_error.help')" />
+        <br>{{ $t('api_error.info') }}
+      </div>
 
-    <h5 v-t="'error'" />
-    <pre><code>"{{ error.code }}" {{ error.status }}</code></pre>
+      <!-- FIXME USE DD DL DT -->
+      <p class="m-0">
+        <strong v-t="'error'" />: <code>"{{ error.code }}" {{ error.status }}</code>
+      </p>
+      <p>
+        <strong v-t="'action'" />: <code>"{{ error.method }}" {{ error.path }}</code>
+      </p>
 
-    <h5 v-t="'action'" />
-    <pre><code>"{{ error.method }}" {{ error.path }}</code></pre>
+      <p>
+        <strong v-t="'api_error.error_message'" /> <span v-html="error.message" />
+      </p>
 
-    <h5>Message</h5>
-    <p v-html="error.message" />
+      <template v-if="error.traceback">
+        <p>
+          <strong v-t="'traceback'" />
+        </p>
+        <pre><code>{{ error.traceback }}</code></pre>
+      </template>
 
-    <template v-if="error.traceback">
-      <h5 v-t="'traceback'" />
-      <pre><code class="text-dark">{{ error.traceback }}</code></pre>
-    </template>
+      <template v-if="hasMessages">
+        <p class="my-2">
+          <strong v-t="'api_error.server_said'" />
+        </p>
+        <message-list-group :messages="action.messages" bordered />
+      </template>
+    </b-card-body>
+
+    <b-card-footer footer-bg-variant="danger">
+      <!-- TODO add copy error ? -->
+      <b-button
+        variant="light" size="sm"
+        v-t="'words.dismiss'" @click="dismiss"
+      />
+    </b-card-footer>
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
 
+import MessageListGroup from '@/components/MessageListGroup'
+
 export default {
   name: 'ErrorPage',
 
-  computed: mapGetters(['error'])
+  components: {
+    MessageListGroup
+  },
 
-  // FIXME add redirect if they're no error (if reload or route entered by hand)
+  props: {
+    action: { type: Object, required: true }
+  },
+
+  computed: {
+    ...mapGetters(['error']),
+
+    hasMessages () {
+        return this.action && this.action.messages.length > 0
+    }
+  },
+
+  methods: {
+    dismiss () {
+      if (this.error && this.error.method === 'GET') {
+        history.back()
+      }
+      this.$store.dispatch('DELETE_ERROR')
+    }
+  }
 }
 </script>
+
+<style lang="scss" scoped>
+code, pre code {
+  color: $black;
+}
+</style>

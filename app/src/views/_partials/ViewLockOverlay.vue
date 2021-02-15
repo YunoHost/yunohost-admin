@@ -1,38 +1,18 @@
 <template>
   <b-overlay
-    variant="white" rounded="sm" opacity="0.5"
+    variant="white" opacity="0.75"
     no-center
-    :show="show"
+    :show="waiting || error !== null"
   >
     <slot name="default" />
 
     <template v-slot:overlay>
-      <b-card no-body>
-        <div v-if="error === null" class="mt-3 px-3">
-          <div class="custom-spinner" :class="spinner" />
-        </div>
+      <b-card no-body class="card-overlay" v-if="lastAction">
+        <b-card-header header-bg-variant="white">
+          <query-header :action="lastAction" status-size="lg" />
+        </b-card-header>
 
-        <b-card-body v-if="error">
-          <error-display />
-        </b-card-body>
-
-        <b-card-body v-else class="pb-4">
-          <b-card-title class="text-center m-0" v-t="'api_waiting'" />
-
-          <!-- PROGRESS BAR -->
-          <b-progress
-            v-if="progress" class="mt-4"
-            :max="progress.max" height=".5rem"
-          >
-            <b-progress-bar variant="success" :value="progress.values[0]" />
-            <b-progress-bar variant="warning" :value="progress.values[1]" animated />
-            <b-progress-bar variant="secondary" :value="progress.values[2]" striped />
-          </b-progress>
-        </b-card-body>
-
-        <b-card-footer v-if="error" class="justify-content-end">
-          <b-button variant="primary" v-t="'ok'" @click="$store.dispatch('DELETE_ERROR')" />
-        </b-card-footer>
+        <component :is="error ? 'ErrorDisplay' : 'WaitingDisplay'" :action="lastAction" />
       </b-card>
     </template>
   </b-overlay>
@@ -40,102 +20,52 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { ErrorDisplay } from '@/views/_partials'
+import { ErrorDisplay, WaitingDisplay } from '@/views/_partials'
+import QueryHeader from '@/components/QueryHeader'
 
 export default {
   name: 'ViewLockOverlay',
 
-  computed: {
-    ...mapGetters(['waiting', 'lastAction', 'error', 'spinner']),
-
-    show () {
-      return this.waiting || this.error !== null
-    },
-
-    progress () {
-      if (!this.lastAction) return null
-      const progress = this.lastAction.progress
-      if (!progress) return null
-      return {
-        values: progress, max: progress.reduce((sum, value) => (sum + value), 0)
-      }
-    }
-  },
+  computed: mapGetters(['waiting', 'error', 'lastAction']),
 
   components: {
-    ErrorDisplay
+    ErrorDisplay,
+    WaitingDisplay,
+    QueryHeader
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.card {
+// Style for `ErrorDisplay` and `WaitingDisplay`'s cards
+.card-overlay {
   position: sticky;
-  top: 5vh;
+  top: 10vh;
   margin: 0 5%;
 
   @include media-breakpoint-up(md) {
     margin: 0 10%;
   }
   @include media-breakpoint-up(lg) {
-    margin: 0 20%;
+    margin: 0 15%;
   }
-}
 
-.card-body {
-  padding-bottom: 2rem;
-  max-height: 50vh;
-  overflow-y: auto;
-}
+  ::v-deep {
+    .card-body {
+      padding: 1.5rem;
+      max-height: 60vh;
+      overflow-y: auto;
+    }
 
-.progress {
-  margin-top: 2rem;
-}
-
-.custom-spinner {
-  animation: 4s linear infinite;
-  background-repeat: no-repeat;
-
-  &.pacman {
-    height: 24px;
-    width: 24px;
-    background-image: url('../../assets/spinners/pacman.gif');
-    animation-name: back-and-forth-pacman;
-
-    @keyframes back-and-forth-pacman {
-      0%, 100% { transform: scale(1); margin-left: 0; }
-      49% { transform: scale(1); margin-left: calc(100% - 24px);}
-      50% { transform: scale(-1); margin-left: calc(100% - 24px);}
-      99% { transform: scale(-1); margin-left: 0;}
+    .card-footer {
+      padding: .5rem .75rem;
+      display: flex;
+      justify-content: flex-end;
     }
   }
 
-  &.magikarp {
-    height: 32px;
-    width: 32px;
-    background-image: url('../../assets/spinners/magikarp.gif');
-    animation-name: back-and-forth-magikarp;
-
-    @keyframes back-and-forth-magikarp {
-      0%, 100% { transform: scale(1, 1); margin-left: 0; }
-      49% { transform: scale(1, 1); margin-left: calc(100% - 32px);}
-      50% { transform: scale(-1, 1); margin-left: calc(100% - 32px);}
-      99% { transform: scale(-1, 1); margin-left: 0;}
-    }
-  }
-
-  &.nyancat {
-    height: 40px;
-    width: 100px;
-    background-image: url('../../assets/spinners/nyancat.gif');
-    animation-name: back-and-forth-nyancat;
-
-    @keyframes back-and-forth-nyancat {
-      0%, 100% { transform: scale(1, 1); margin-left: 0; }
-      49% { transform: scale(1, 1); margin-left: calc(100% - 100px);}
-      50% { transform: scale(-1, 1); margin-left: calc(100% - 100px);}
-      99% { transform: scale(-1, 1); margin-left: 0;}
-    }
+  .card-header {
+    padding: .5rem .75rem;
   }
 }
 </style>
