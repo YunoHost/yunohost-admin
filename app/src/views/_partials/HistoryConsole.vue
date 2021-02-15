@@ -203,6 +203,10 @@ export default {
   border-bottom-left-radius: 0;
   font-size: $font-size-sm;
 
+  & > header {
+    cursor: ns-resize;
+  }
+
   .btn {
     height: 1.25rem;
     display: flex;
