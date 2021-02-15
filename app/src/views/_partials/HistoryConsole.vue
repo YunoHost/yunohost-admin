@@ -1,65 +1,81 @@
 <template>
-  <div id="console">
-    <b-list-group>
-      <!-- HISTORY BAR -->
-      <b-list-group-item
-        class="d-flex align-items-center"
-        :class="{ 'bg-best text-white': open }"
-        ref="history-button"
-        role="button" tabindex="0"
-        :aria-expanded="open ? 'true' : 'false'" aria-controls="console-collapse"
-        @mousedown.left.prevent="onHistoryBarClick"
-        @keyup.enter.space.prevent="open = !open"
+  <b-card no-body id="console">
+    <!-- HISTORY BAR -->
+    <b-card-header
+      role="button" tabindex="0"
+      :aria-expanded="open ? 'true' : 'false'" aria-controls="console-collapse"
+      header-tag="header" :header-bg-variant="open ? 'best' : 'white'"
+      :class="{ 'text-white': open }"
+      class="d-flex align-items-center"
+      @mousedown.left.prevent="onHistoryBarClick"
+      @keyup.space.enter.prevent="onHistoryBarKey"
+    >
+      <h6 class="m-0">
+        <icon iname="history" /> <span class="d-none d-sm-inline">{{ $t('history.title') }}</span>
+      </h6>
+
+      <!-- CURRENT/LAST ACTION -->
+      <b-button
+        v-if="lastAction"
+        size="sm" pill
+        class="ml-auto py-0"
+        :variant="open ? 'light' : 'best'"
+        @click.prevent="onLastActionClick"
+        @keyup.enter.space.prevent="onLastActionClick"
       >
-        <h6 class="m-0">
-          <icon iname="history" /> {{ $t('history.title') }}
-        </h6>
+        <small>{{ $t('history.' + (lastAction.status === 'pending' ? 'current_action' : 'last_action')) }}</small>
+      </b-button>
+      <query-header v-if="lastAction" :action="lastAction" class="w-auto ml-2 xs-hide" />
+    </b-card-header>
 
-        <div class="ml-auto">
-          <!-- LAST ACTION -->
-          <small v-if="lastAction">
-            <u v-t="'history.last_action'" />
-            {{ lastAction.uri | readableUri }} ({{ $t('history.methods.' + lastAction.method) }})
-          </small>
-        </div>
-      </b-list-group-item>
-
-      <!-- ACTION LIST -->
-      <b-collapse id="console-collapse" v-model="open">
-        <b-list-group-item
-          id="history" ref="history"
-          class="p-0" :class="{ 'show-last': openedByWaiting }"
+    <b-collapse id="console-collapse" v-model="open">
+      <div
+        class="accordion" role="tablist"
+        id="history" ref="history"
+      >
+        <!-- ACTION LIST -->
+        <b-card
+          v-for="(action, i) in history" :key="i"
+          no-body class="rounded-0 rounded-top border-left-0 border-right-0"
         >
           <!-- ACTION -->
-          <b-list-group v-for="(action, i) in history" :key="i" flush>
+          <b-card-header header-tag="header" header-bg-variant="white" class="sticky-top d-flex">
             <!-- ACTION DESC -->
-            <b-list-group-item class="sticky-top d-flex align-items-center">
-              <div>
-                <strong>{{ $t('action') }}:</strong>
-                {{ action.uri | readableUri }}
-                <small>({{ $t('history.methods.' + action.method) }})</small>
-              </div>
-
-              <time :datetime="action.date | hour" class="ml-auto">{{ action.date | hour }}</time>
-            </b-list-group-item>
-
-            <!-- ACTION MESSAGE -->
-            <b-list-group-item
-              v-for="({ type, text }, j) in action.messages" :key="j"
-              :variant="type" v-html="text"
+            <query-header
+              role="tab" v-b-toggle="action.messages.length ? 'messages-collapse-' + i : false"
+              :action="action" show-time show-error
             />
-          </b-list-group>
-        </b-list-group-item>
-      </b-collapse>
-    </b-list-group>
-  </div>
+          </b-card-header>
+
+          <!-- ACTION MESSAGES -->
+          <b-collapse
+            v-if="action.messages.length"
+            :id="'messages-collapse-' + i" accordion="my-accordion"
+            role="tabpanel"
+            @shown="scrollToAction(i)"
+            @hide="scrollToAction(i)"
+          >
+            <message-list-group :messages="action.messages" flush />
+          </b-collapse>
+        </b-card>
+      </div>
+    </b-collapse>
+  </b-card>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
 
+import QueryHeader from '@/components/QueryHeader'
+import MessageListGroup from '@/components/MessageListGroup'
+
 export default {
   name: 'HistoryConsole',
+
+  components: {
+    QueryHeader,
+    MessageListGroup
+  },
 
   props: {
     value: { type: Boolean, default: false },
@@ -68,83 +84,71 @@ export default {
 
   data () {
     return {
-      open: false,
-      openedByWaiting: false
+      open: false
     }
   },
 
-  watch: {
-    open (value) {
-      // In case it is needed.
-      this.$emit('toggle', value)
-      if (value) {
-        // Wait for DOM update and scroll if needed.
-        this.$nextTick().then(this.scrollToLastAction)
-      }
-    },
-
-    'lastAction.messages' () {
-      if (!this.open) return
-      this.$nextTick(this.scrollToLastAction)
-    },
-
-    waiting (waiting) {
-      if (waiting && !this.open) {
-        // Open the history while waiting for the server's response to display WebSocket messages.
-        this.open = true
-        this.openedByWaiting = true
-        const history = this.$refs.history
-        this.$nextTick().then(() => {
-          history.style.height = ''
-          history.classList.add('with-max')
-        })
-      } else if (!waiting && this.openedByWaiting) {
-        // Automaticly close the history if it was not opened before the request
-        setTimeout(() => {
-          // Do not close it if the history was enlarged during the action
-          if (!history.style || history.style.height === '') {
-            this.open = false
-          }
-          this.openedByWaiting = false
-        }, 500)
-      }
-    }
+  computed: {
+    ...mapGetters(['history', 'lastAction', 'waiting', 'error'])
   },
-
-  computed: mapGetters(['history', 'lastAction', 'waiting']),
 
   methods: {
-    scrollToLastAction () {
-      const historyElem = this.$refs.history
-      const lastActionGroup = historyElem.lastElementChild
-      if (lastActionGroup) {
-        const lastItem = lastActionGroup.lastElementChild || lastActionGroup
-        historyElem.scrollTop = lastItem.offsetTop
+    scrollToAction (actionIndex) {
+      const actionCard = this.$el.querySelector('#messages-collapse-' + actionIndex).parentElement
+      const headerOffset = actionCard.firstElementChild.offsetHeight
+      // Can't use `scrollIntoView()` here since it will also scroll in the main content.
+      this.$refs.history.scrollTop = actionCard.offsetTop - headerOffset
+    },
+
+    async onLastActionClick () {
+      if (!this.open) {
+        this.open = true
+        await this.$nextTick()
       }
+      const historyElem = this.$refs.history
+      const lastActionCard = historyElem.lastElementChild
+      const lastCollapsable = lastActionCard.querySelector('.collapse')
+
+      if (lastCollapsable && !lastCollapsable.classList.contains('show')) {
+        this.$root.$emit('bv::toggle::collapse', lastCollapsable.id)
+        // `scrollToAction` will be triggered and will handle the scrolling.
+      } else {
+        const headerOffset = lastActionCard.firstElementChild.offsetHeight
+        historyElem.scrollTop = lastActionCard.offsetTop - headerOffset
+      }
+    },
+
+    onHistoryBarKey (e) {
+      // FIXME interactive element in another is not valid, need to find another way.
+      if (e.target.nodeName === 'BUTTON' || e.target.parentElement.nodeName === 'BUTTON') return
+      this.open = !this.open
     },
 
     onHistoryBarClick (e) {
-      const history = this.$refs.history
+      // FIXME interactive element in another is not valid, need to find another way.
+      if (e.target.nodeName === 'BUTTON' || e.target.parentElement.nodeName === 'BUTTON') return
+
+      const historyElem = this.$refs.history
       let mousePos = e.clientY
 
       const onMouseMove = ({ clientY }) => {
         if (!this.open) {
-          history.style.height = '0px'
+          historyElem.style.height = '0px'
           this.open = true
         }
-        const currentHeight = history.offsetHeight
+        const currentHeight = historyElem.offsetHeight
         const move = mousePos - clientY
         const nextSize = currentHeight + move
         if (nextSize < 10 && nextSize < currentHeight) {
           // Close the console and reset its size if the user reduce it to less than 10px.
           mousePos = e.clientY
-          history.style.height = ''
+          historyElem.style.height = ''
           onMouseUp()
         } else {
-          history.style.height = nextSize + 'px'
-          // Simulate scroll when reducing the box so the content doesn't move
+          historyElem.style.height = nextSize + 'px'
+          // Simulate scroll when reducing the box so the content doesn't move.
           if (nextSize < currentHeight) {
-            history.scrollBy(0, -move)
+            historyElem.scrollBy(0, -move)
           }
           mousePos = clientY
         }
@@ -152,17 +156,17 @@ export default {
 
       // Delay the mouse move listener to distinguish a click from a drag.
       const listenToMouseMove = setTimeout(() => {
-        history.style.height = history.offsetHeight + 'px'
-        history.classList.remove('with-max')
+        historyElem.style.height = historyElem.offsetHeight + 'px'
+        historyElem.classList.add('no-max')
         window.addEventListener('mousemove', onMouseMove)
       }, 200)
 
       const onMouseUp = () => {
-        // Toggle opening if no mouse movement
+        // Toggle opening if no mouse movement.
         if (mousePos === e.clientY) {
-          // add a max-height class if the box's height is not custom
-          if (!history.style.height) {
-            history.classList.add('with-max')
+          // remove the free height class if the box's height is not custom
+          if (!historyElem.style.height) {
+            historyElem.classList.remove('no-max')
           }
           this.open = !this.open
         }
@@ -173,65 +177,76 @@ export default {
 
       window.addEventListener('mouseup', onMouseUp)
     }
-  },
-
-  filters: {
-    readableUri (uri) {
-      return uri.split('?')[0].replace('/', ' > ')
-    },
-
-    hour (date) {
-      return new Date(date).toLocaleTimeString()
-    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
+// reset default style
+.card + .card {
+  margin-top: 0;
+}
+
+.card-header {
+  padding: $tooltip-padding-y $tooltip-padding-x;
+}
+
 #console {
   position: sticky;
   z-index: 15;
   bottom: 0;
 
-  margin-left: -1.5rem;
   width: calc(100% + 3rem);
+  margin-left: -1.5rem;
+  border-bottom: 0;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  font-size: $font-size-sm;
+
+  .btn {
+    height: 1.25rem;
+    display: flex;
+    align-items: center;
+  }
 
   @include media-breakpoint-down(xs) {
     margin-left: -15px;
     width: calc(100% + 30px);
 
-    & > .list-group {
+    & > .card-header {
       border-radius: 0;
     }
   }
 }
 
-#console-collapse {
-  // disable collapse animation
+// Hacky disable of collapse animation
+.collapsing {
   transition: none !important;
+  height: auto !important;
+  display: block !important;
+  position: static !important;
 }
 
 #history {
   overflow-y: auto;
+  max-height: 20vh;
 
-  &.with-max {
-    max-height: 30vh;
+  &.no-max {
+    max-height: none;
   }
 
-  // Used to display only the last message of the last action while an action is triggered
-  // and console was not opened.
-  &.with-max.show-last {
-    & > :not(:last-child) {
-      display: none;
-    }
-    & > :last-child > :not(:last-child) {
-      display: none;
+  > .card {
+    // reset bootstrap's `overflow: hidden` that prevent sticky headers to work properly.
+    overflow: visible;
+
+    &:first-of-type {
+      // hide first top border that conflicts with the console header's bottom border.
+      margin-top: -1px;
     }
   }
-}
 
-.list-group-item {
-  font-size: $font-size-sm;
-  padding: $tooltip-padding-y $tooltip-padding-x;
+  [aria-controls] {
+    cursor: pointer;
+  }
 }
 </style>
