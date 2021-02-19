@@ -1,2 +1,2 @@
 export { default } from './api'
-export { handleResponse, handleError, registerGlobalErrorHandlers } from './handlers'
+export { handleError, registerGlobalErrorHandlers } from './handlers'

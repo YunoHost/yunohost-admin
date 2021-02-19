@@ -13,7 +13,7 @@ import errors, { APIError } from './errors'
  * @param {Response} response - A fetch `Response` object.
  * @return {(Object|String)} Parsed response's json or response's text.
  */
-async function _getResponseData (response) {
+export async function getResponseData (response) {
   // FIXME the api should always return json as response
   const responseText = await response.text()
   try {
@@ -25,36 +25,58 @@ async function _getResponseData (response) {
 
 
 /**
- * Handler for API responses.
+ * Opens a WebSocket connection to the server in case it sends messages.
+ * Currently, the connection is closed by the server right after an API call so
+ * we have to open it for every calls.
+ * Messages are dispatch to the store so it can handle them.
  *
- * @param {Response} response - A fetch `Response` object.
- * @return {(Object|String)} Parsed response's json, response's text or an error.
+ * @param {Object} request - Request info data.
+ * @return {Promise<Event>} Promise that resolve on websocket 'open' or 'error' event.
  */
-export async function handleResponse (response, method) {
-  const responseData = await _getResponseData(response)
-  store.dispatch('SERVER_RESPONDED', response.ok)
-  return response.ok ? responseData : handleError(response, responseData, method)
+export function openWebSocket (request) {
+  return new Promise(resolve => {
+    const ws = new WebSocket(`wss://${store.getters.host}/yunohost/api/messages`)
+    ws.onmessage = ({ data }) => {
+      store.dispatch('DISPATCH_MESSAGE', { request, messages: JSON.parse(data) })
+    }
+    // ws.onclose = (e) => {}
+    ws.onopen = resolve
+    // Resolve also on error so the actual fetch may be called.
+    ws.onerror = resolve
+  })
 }
 
 
 /**
  * Handler for API errors.
  *
- * @param {Response} response - A fetch `Response` object.
- * @throws Will throw a custom error with response data.
+ * @param {Object} request - Request info data.
+ * @param {Response} response - A consumed fetch `Response` object.
+ * @param {Object|String} errorData - The response parsed json/text.
+ * @throws Will throw a `APIError` with request and response data.
  */
-export async function handleError (response, errorData, method) {
-  const errorCode = response.status in errors ? response.status : undefined
-  // FIXME API: Patching errors that are plain text or html.
+export async function handleError (request, response, errorData) {
+  let errorCode = response.status in errors ? response.status : undefined
   if (typeof errorData === 'string') {
+    // FIXME API: Patching errors that are plain text or html.
     errorData = { error: errorData }
+  }
+  if ('log_ref' in errorData) {
+    // Define a special error so it won't get caught as a `APIBadRequestError`.
+    errorCode = 'log'
   }
 
   // This error can be catched by a view otherwise it will be catched by the `onUnhandledAPIError` handler.
-  throw new errors[errorCode](method, response, errorData)
+  throw new errors[errorCode](request, response, errorData)
 }
 
 
+/**
+ * If an APIError is not catched by a view it will be dispatched to the store so the
+ * error can be displayed in the error modal.
+ *
+ * @param {APIError} error
+ */
 export function onUnhandledAPIError (error) {
   // In 'development', Babel seems to also catch the error so there's no need to log it twice.
   if (process.env.NODE_ENV !== 'development') {
@@ -64,9 +86,12 @@ export function onUnhandledAPIError (error) {
 }
 
 
+/**
+ * Global catching of unhandled promise's rejections.
+ * Those errors (thrown or rejected from inside a promise) can't be catched by
+ * `window.onerror`.
+ */
 export function registerGlobalErrorHandlers () {
-  // Global catching of unhandled promise's rejections.
-  // Those errors (thrown or rejected from inside a promise) can't be catched by `window.onerror`.
   window.addEventListener('unhandledrejection', e => {
     const error = e.reason
     if (error instanceof APIError) {

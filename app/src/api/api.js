@@ -4,13 +4,32 @@
  */
 
 import store from '@/store'
-import { handleResponse } from './handlers'
+import { openWebSocket, getResponseData, handleError } from './handlers'
 import { objectToParams } from '@/helpers/commons'
 
+
 /**
- * A digested fetch response as an object, a string or an error.
- * @typedef {(Object|string|Error)} DigestedResponse
+ * Options available for an API call.
+ *
+ * @typedef {Object} Options
+ * @property {Boolean} wait - If `true`, will display the waiting modal.
+ * @property {Boolean} websocket - if `true`, will open a websocket connection.
+ * @property {Boolean} initial - if `true` and an error occurs, the dismiss button will trigger a go back in history.
+ * @property {Boolean} noCache - if `true`, will disable the cache mecanism for this call.
+ * @property {Boolean} asFormData - if `true`, will send the data with a body encoded as `"multipart/form-data"` instead of `"x-www-form-urlencoded"`).
  */
+
+
+/**
+ * Representation of an API call for `api.fetchAll`
+ *
+ * @typedef {Array} Query
+ * @property {String} 0 - "method"
+ * @property {String|Object} 1 - "uri", uri to call as string or as an object for cached uris.
+ * @property {Object|null} 2 - "data"
+ * @property {Options} 3 - "options"
+*/
+
 
 export default {
   options: {
@@ -22,111 +41,124 @@ export default {
       // Auto header is :
       // "Accept": "*/*",
 
-      // Also is this still important ? (needed by back-end)
       'X-Requested-With': 'XMLHttpRequest'
     }
   },
 
-  /**
-   * Opens a WebSocket connection to the server in case it sends messages.
-   * Currently, the connection is closed by the server right after an API call so
-   * we have to open it for every calls.
-   * Messages are dispatch to the store so it can handle them.
-   *
-   * @return {Promise<Event>} Promise that resolve on websocket 'open' or 'error' event.
-   */
-  openWebSocket () {
-    return new Promise(resolve => {
-      const ws = new WebSocket(`wss://${store.getters.host}/yunohost/api/messages`)
-      ws.onmessage = ({ data }) => store.dispatch('DISPATCH_MESSAGE', JSON.parse(data))
-      // ws.onclose = (e) => {}
-      ws.onopen = resolve
-      // Resolve also on error so the actual fetch may be called.
-      ws.onerror = resolve
-    })
-  },
 
   /**
    * Generic method to fetch the api without automatic response handling.
    *
-   * @param {string} method - a method between 'GET', 'POST', 'PUT' and 'DELETE'.
-   * @param {string} uri
-   * @param {Object} [data={}] - data to send as body for 'POST', 'PUT' and 'DELETE' methods.
-   * @param {Object} [options={}]
-   * @param {Boolean} [options.websocket=true] - Open a websocket before this request.
-   * @return {Promise<Response>} Promise that resolve a fetch `Response`.
+   * @param {String} method - a method between 'GET', 'POST', 'PUT' and 'DELETE'.
+   * @param {String} uri
+   * @param {Object} [data={}] - data to send as body.
+   * @param {Options} [options={ wait = true, websocket = true, initial = false, asFormData = false }]
+   * @return {Promise<Object|Error>} Promise that resolve the api response data or an error.
    */
-  async fetch (method, uri, data = {}, { websocket = true } = {}) {
-    // Open a websocket connection that will dispatch messages received.
+  async fetch (method, uri, data = {}, { wait = true, websocket = true, initial = false, asFormData = false } = {}) {
+    // `await` because Vuex actions returns promises by default.
+    const request = await store.dispatch('INIT_REQUEST', { method, uri, initial, wait, websocket })
+
     if (websocket) {
-      await this.openWebSocket()
-      store.dispatch('WAITING_FOR_RESPONSE', [uri, method])
+      await openWebSocket(request)
     }
 
+    let options = this.options
     if (method === 'GET') {
-      const localeQs = `${uri.includes('?') ? '&' : '?'}locale=${store.getters.locale}`
-      return fetch('/yunohost/api/' + uri + localeQs, this.options)
+      uri += `${uri.includes('?') ? '&' : '?'}locale=${store.getters.locale}`
+    } else {
+      options = { ...options, method, body: objectToParams(data, { addLocale: true }) }
     }
 
-    return fetch('/yunohost/api/' + uri, {
-      ...this.options,
-      method,
-      body: objectToParams(data, { addLocale: true })
-    })
+    const response = await fetch('/yunohost/api/' + uri, options)
+    const responseData = await getResponseData(response)
+    store.dispatch('END_REQUEST', { request, success: response.ok, wait })
+
+    return response.ok ? responseData : handleError(request, response, responseData)
   },
+
+
+  /**
+   * Api multiple queries helper.
+   * Those calls will act as one (declare optional waiting for one but still create history entries for each)
+   * Calls are synchronous since the API can't handle multiple calls.
+   *
+   * @param {Array<Query>} queries - An array of queries with special representation.
+   * @param {Object} [options={}]
+   * @param {Boolean}
+   * @return {Promise<Array|Error>} Promise that resolve the api responses data or an error.
+   */
+  async fetchAll (queries, { wait, initial } = {}) {
+    const results = []
+    if (wait) store.commit('SET_WAITING', true)
+    try {
+      for (const [method, uri, data, options = {}] of queries) {
+        if (wait) options.wait = false
+        if (initial) options.initial = true
+        results.push(await this[method.toLowerCase()](uri, data, options))
+      }
+    } finally {
+      // Stop waiting even if there is an error.
+      if (wait) store.commit('SET_WAITING', false)
+    }
+
+    return results
+  },
+
 
   /**
    * Api get helper function.
    *
-   * @param {string} uri - the uri to call.
-   * @param {Object} [options={}]
-   * @param {Boolean} [options.websocket=false] - Open a websocket before this request.
-   * @return {Promise<module:api~DigestedResponse>} Promise that resolve the api response as an object, a string or as an error.
+   * @param {String|Object} uri
+   * @param {null} [data=null] - for convenience in muliple calls, just pass null.
+   * @param {Options} [options={}] - options to apply to the call (default is `{ websocket: false, wait: false }`)
+   * @return {Promise<Object|Error>} Promise that resolve the api response data or an error.
    */
-  get (uri, { websocket = false } = {}) {
-    return this.fetch('GET', uri, null, { websocket }).then(response => handleResponse(response, 'GET'))
+  get (uri, data = null, options = {}) {
+    options = { websocket: false, wait: false, ...options }
+    if (typeof uri === 'string') return this.fetch('GET', uri, null, options)
+    return store.dispatch('GET', { ...uri, options })
   },
 
-  /**
-   * Api get helper function for multiple queries.
-   *
-   * @param {string} uri - the uri to call.
-   * @return {Promise<module:api~DigestedResponse[]>} Promise that resolve the api responses as an array.
-   */
-  getAll (uris) {
-    return Promise.all(uris.map(uri => this.get(uri)))
-  },
 
   /**
    * Api post helper function.
    *
-   * @param {string} uri - the uri to call.
-   * @param {string} [data={}] - data to send as body.
-   * @return {Promise<module:api~DigestedResponse>} Promise that resolve the api responses as an array.
+   * @param {String|Object} uri
+   * @param {String} [data={}] - data to send as body.
+   * @param {Options} [options={}] - options to apply to the call
+   * @return {Promise<Object|Error>} Promise that resolve the api response data or an error.
    */
-  post (uri, data = {}) {
-    return this.fetch('POST', uri, data).then(response => handleResponse(response, 'POST'))
+  post (uri, data = {}, options = {}) {
+    if (typeof uri === 'string') return this.fetch('POST', uri, data, options)
+    return store.dispatch('POST', { ...uri, data, options })
   },
+
 
   /**
    * Api put helper function.
    *
-   * @param {string} uri - the uri to call.
-   * @param {string} [data={}] - data to send as body.
-   * @return {Promise<module:api~DigestedResponse>} Promise that resolve the api responses as an array.
+   * @param {String|Object} uri
+   * @param {String} [data={}] - data to send as body.
+   * @param {Options} [options={}] - options to apply to the call
+   * @return {Promise<Object|Error>} Promise that resolve the api response data or an error.
    */
-  put (uri, data = {}) {
-    return this.fetch('PUT', uri, data).then(response => handleResponse(response, 'PUT'))
+  put (uri, data = {}, options = {}) {
+    if (typeof uri === 'string') return this.fetch('PUT', uri, data, options)
+    return store.dispatch('PUT', { ...uri, data, options })
   },
+
 
   /**
    * Api delete helper function.
    *
-   * @param {string} uri - the uri to call.
-   * @param {string} [data={}] - data to send as body.
-   * @return {Promise<('ok'|Error)>} Promise that resolve the api responses as an array.
+   * @param {String|Object} uri
+   * @param {String} [data={}] - data to send as body.
+   * @param {Options} [options={}] - options to apply to the call (default is `{ websocket: false, wait: false }`)
+   * @return {Promise<Object|Error>} Promise that resolve the api response data or an error.
    */
-  delete (uri, data = {}) {
-    return this.fetch('DELETE', uri, data).then(response => handleResponse(response, 'DELETE'))
+  delete (uri, data = {}, options = {}) {
+    if (typeof uri === 'string') return this.fetch('DELETE', uri, data, options)
+    return store.dispatch('DELETE', { ...uri, data, options })
   }
 }

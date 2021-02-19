@@ -7,19 +7,28 @@ import i18n from '@/i18n'
 
 
 class APIError extends Error {
-  constructor (method, { url, status, statusText }, errorData) {
+  constructor (request, { url, status, statusText }, errorData) {
     super(errorData.error || i18n.t('error_server_unexpected'))
     const urlObj = new URL(url)
     this.name = 'APIError'
     this.code = status
     this.status = statusText
-    this.method = method
+    this.method = request.method
+    this.request = request
     this.path = urlObj.pathname + urlObj.search
-    this.logRef = errorData.log_ref || null
   }
 
   log () {
     console.error(`${this.name} (${this.code}): ${this.uri}\n${this.message}`)
+  }
+}
+
+// Log (Special error to trigger a redirect to a log page)
+class APIErrorLog extends APIError {
+  constructor (method, response, errorData) {
+    super(method, response, errorData)
+    this.logRef = errorData.log_ref
+    this.name = 'APIErrorLog'
   }
 }
 
@@ -83,6 +92,7 @@ class APINotRespondingError extends APIError {
 // Temp factory
 const errors = {
   [undefined]: APIError,
+  log: APIErrorLog,
   0: APIConnexionError,
   400: APIBadRequestError,
   401: APIUnauthorizedError,
@@ -95,6 +105,7 @@ const errors = {
 export {
   errors as default,
   APIError,
+  APIErrorLog,
   APIBadRequestError,
   APIConnexionError,
   APIInternalError,
