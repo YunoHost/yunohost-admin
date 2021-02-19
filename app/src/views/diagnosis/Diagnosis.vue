@@ -1,7 +1,7 @@
 <template>
   <view-base
-    :loading="loading" ref="view"
-    :queries="queries" @queries-response="formatData"
+    :queries="queries" @queries-response="onQueriesResponse" queries-wait
+    ref="view"
   >
     <template #top-bar-group-right>
       <b-button @click="shareLogs" variant="success">
@@ -11,10 +11,10 @@
 
     <template #top>
       <div class="alert alert-info">
-        {{ $t(reports || loading ? 'diagnosis_explanation' : 'diagnosis_first_run') }}
+        {{ $t(reports ? 'diagnosis_explanation' : 'diagnosis_first_run') }}
         <b-button
           v-if="reports === null" class="d-block mt-2" variant="info"
-          @click="runDiagnosis"
+          @click="runDiagnosis()"
         >
           <icon iname="stethoscope" /> {{ $t('run_first_diagnosis') }}
         </b-button>
@@ -114,8 +114,10 @@ export default {
 
   data () {
     return {
-      queries: ['diagnosis/show?full'],
-      loading: true,
+      queries: [
+        ['POST', 'diagnosis/run?except_if_never_ran_yet'],
+        ['GET', 'diagnosis/show?full']
+      ],
       reports: undefined
     }
   },
@@ -149,14 +151,13 @@ export default {
       item.icon = icon
     },
 
-    formatData (data) {
-      if (data === null) {
+    onQueriesResponse (_, reportsData) {
+      if (reportsData === null) {
         this.reports = null
-        this.loading = false
         return
       }
 
-      const reports = data.reports
+      const reports = reportsData.reports
       for (const report of reports) {
         report.warnings = 0
         report.errors = 0
@@ -168,7 +169,6 @@ export default {
         report.noIssues = report.warnings + report.errors === 0
       }
       this.reports = reports
-      this.loading = false
     },
 
     runDiagnosis (id = null) {
@@ -200,10 +200,6 @@ export default {
         window.open(url, '_blank')
       })
     }
-  },
-
-  created () {
-    api.post('diagnosis/run?except_if_never_ran_yet')
   },
 
   filters: { distanceToNow }
