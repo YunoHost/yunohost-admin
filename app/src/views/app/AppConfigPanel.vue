@@ -1,5 +1,5 @@
 <template>
-  <view-base :queries="queries" @queries-response="formatAppConfig" skeleton="card-form-skeleton">
+  <view-base :queries="queries" @queries-response="onQueriesResponse" skeleton="card-form-skeleton">
     <template v-if="panels" #default>
       <b-alert variant="warning" class="mb-4">
         <icon iname="exclamation-triangle" /> {{ $t('experimental_warning') }}
@@ -61,17 +61,17 @@ export default {
   data () {
     return {
       queries: [
-        `apps/${this.id}/config-panel`,
-        { uri: 'domains' },
-        { uri: 'domains/main', storeKey: 'main_domain' },
-        { uri: 'users' }
+        ['GET', `apps/${this.id}/config-panel`],
+        ['GET', { uri: 'domains' }],
+        ['GET', { uri: 'domains/main', storeKey: 'main_domain' }],
+        ['GET', { uri: 'users' }]
       ],
       panels: undefined
     }
   },
 
   methods: {
-    formatAppConfig (data) {
+    onQueriesResponse (data) {
       if (!data.config_panel || data.config_panel.length === 0) {
         this.panels = null
         return

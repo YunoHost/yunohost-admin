@@ -1,7 +1,7 @@
 <template>
   <view-search
     :items="apps" :filtered-items="filteredApps" items-name="apps"
-    :queries="queries" @queries-response="formatAppData"
+    :queries="queries" @queries-response="onQueriesResponse"
   >
     <template #top-bar>
       <div id="view-top-bar">
@@ -158,7 +158,9 @@ export default {
 
   data () {
     return {
-      queries: ['appscatalog?full&with_categories'],
+      queries: [
+        ['GET', 'appscatalog?full&with_categories']
+      ],
 
       // Data
       apps: undefined,
@@ -280,7 +282,7 @@ export default {
       return 'danger'
     },
 
-    formatAppData (data) {
+    onQueriesResponse (data) {
       // APPS
       const apps = []
       for (const key in data.apps) {

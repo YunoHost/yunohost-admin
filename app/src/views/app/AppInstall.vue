@@ -132,6 +132,7 @@ export default {
       api.post('apps', data).then(response => {
         this.$router.push({ name: 'app-list' })
       }).catch(err => {
+        if (err.name !== 'APIBadRequestError') throw err
         this.serverError = err.message
       })
     }
@@ -141,10 +142,10 @@ export default {
     const isCustom = this.$route.name === 'app-install-custom'
     Promise.all([
       isCustom ? this.getExternalManifest() : this.getApiManifest(),
-      this.$store.dispatch('FETCH_ALL', [
-        { uri: 'domains' },
-        { uri: 'domains/main', storeKey: 'main_domain' },
-        { uri: 'users' }
+      api.fetchAll([
+        ['GET', { uri: 'domains' }],
+        ['GET', { uri: 'domains/main', storeKey: 'main_domain' }],
+        ['GET', { uri: 'users' }]
       ])
     ]).then((responses) => this.formatManifestData(responses[0]))
   }

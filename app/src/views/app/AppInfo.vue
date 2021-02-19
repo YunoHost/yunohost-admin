@@ -1,5 +1,5 @@
 <template>
-  <view-base :queries="queries" @queries-response="formatAppData" ref="view">
+  <view-base :queries="queries" @queries-response="onQueriesResponse" ref="view">
     <!-- BASIC INFOS -->
     <card v-if="infos" :title="`${$t('infos')} — ${infos.label}`" icon="info-circle">
       <b-row
@@ -172,9 +172,9 @@ export default {
   data () {
     return {
       queries: [
-        `apps/${this.id}?full`,
-        { uri: 'users/permissions?full', storeKey: 'permissions' },
-        { uri: 'domains' }
+        ['GET', `apps/${this.id}?full`],
+        ['GET', { uri: 'users/permissions?full', storeKey: 'permissions' }],
+        ['GET', { uri: 'domains' }]
       ],
       infos: undefined,
       app: undefined,
@@ -203,7 +203,7 @@ export default {
   },
 
   methods: {
-    formatAppData (app) {
+    onQueriesResponse (app) {
       const form = { labels: [] }
 
       const mainPermission = app.permissions[this.id + '.main']
@@ -263,7 +263,7 @@ export default {
       api.put(
         `apps/${this.id}/changeurl`,
         { domain, path: '/' + path }
-      ).then(this.fetchData)
+      ).then(this.$refs.view.fetchQueries)
     },
 
     async setAsDefaultDomain () {
