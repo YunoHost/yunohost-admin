@@ -88,7 +88,11 @@ export function formatYunoHostArgument (arg) {
   // Checkbox
   } else if (arg.type === 'boolean') {
     field.component = 'CheckboxItem'
-    value = arg.default || false
+    if (typeof arg.default === 'number') {
+      value = arg.default === 1
+    } else {
+      value = arg.default || false
+    }
   // Special (store related)
   } else if (['user', 'domain'].includes(arg.type)) {
     field.component = 'SelectItem'
@@ -106,8 +110,8 @@ export function formatYunoHostArgument (arg) {
   if (field.component !== 'CheckboxItem' && arg.optional !== true) {
     validation.required = validators.required
   }
-  // Default value
-  if (arg.default) {
+  // Default value if still `null`
+  if (value === null && arg.default) {
     value = arg.default
   }
   // Help message

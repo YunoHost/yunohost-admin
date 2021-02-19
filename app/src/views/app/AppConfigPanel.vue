@@ -5,37 +5,26 @@
         <icon iname="exclamation-triangle" /> {{ $t('experimental_warning') }}
       </b-alert>
 
-      <!-- FIXME Rework with components -->
-      <b-form id="config-form" @submit.prevent="applyConfig">
-        <b-card no-body v-for="panel in panels" :key="panel.id">
-          <b-card-header class="d-flex align-items-center">
-            <h2>{{ panel.name }} <small v-if="panel.help">{{ panel.help }}</small></h2>
+      <card-form
+        v-for="{ name, id: id_, sections, help, serverError } in panels" :key="id_"
+        :title="name" icon="wrench" title-tag="h4"
+        :validation="$v.forms[id_]" :id="id_ + '-form'" :server-error="serverError"
+        collapsable
+        @submit.prevent="applyConfig(id_)"
+      >
+        <template v-if="help" #disclaimer>
+          <div class="alert alert-info" v-html="help" />
+        </template>
 
-            <div class="ml-auto">
-              <b-button v-b-toggle="[panel.id + '-collapse', panel.id + '-collapse-footer']" size="sm" variant="outline-secondary">
-                <icon iname="chevron-right" /><span class="sr-only">{{ $t('words.collapse') }}</span>
-              </b-button>
-            </div>
-          </b-card-header>
+        <div v-for="section in sections" :key="section.id" class="mb-5">
+          <b-card-title>{{ section.name }} <small v-if="section.help">{{ section.help }}</small></b-card-title>
 
-          <b-collapse :id="panel.id + '-collapse'" visible>
-            <b-card-body v-for="section in panel.sections" :key="section.id">
-              <b-card-title>{{ section.name }} <small v-if="section.help">{{ section.help }}</small></b-card-title>
-
-              <form-item-helper v-for="arg in section.args" :key="arg.name" v-bind="arg" />
-            </b-card-body>
-          </b-collapse>
-
-          <b-collapse :id="panel.id + '-collapse-footer'" visible>
-            <b-card-footer>
-              <b-button
-                type="submit" form="config-form"
-                variant="success" class="ml-auto" v-t="'save'"
-              />
-            </b-card-footer>
-          </b-collapse>
-        </b-card>
-      </b-form>
+          <form-field
+            v-for="(field, fname) in section.fields" :key="fname" label-cols="0"
+            v-bind="field" v-model="forms[id_][fname]" :validation="$v.forms[id_][fname]"
+          />
+        </div>
+      </card-form>
     </template>
 
     <!-- if no config panel -->
@@ -46,13 +35,17 @@
 </template>
 
 <script>
+import { validationMixin } from 'vuelidate'
+
 // FIXME needs test and rework
 import api from '@/api'
-import { formatI18nField, formatYunoHostArgument } from '@/helpers/yunohostArguments'
+import { formatI18nField, formatYunoHostArguments, formatFormData } from '@/helpers/yunohostArguments'
 import { objectToParams } from '@/helpers/commons'
 
 export default {
   name: 'AppConfigPanel',
+
+  mixins: [validationMixin],
 
   props: {
     id: { type: String, required: true }
@@ -66,8 +59,14 @@ export default {
         ['GET', { uri: 'domains/main', storeKey: 'main_domain' }],
         ['GET', { uri: 'users' }]
       ],
-      panels: undefined
+      panels: undefined,
+      forms: undefined,
+      validations: null
     }
+  },
+
+  validations () {
+    return this.validations
   },
 
   methods: {
@@ -77,41 +76,39 @@ export default {
         return
       }
 
+      const forms = {}
+      const validations_ = {}
       const panels_ = []
       for (const { id, name, help, sections } of data.config_panel.panel) {
         const panel_ = { id, name, sections: [] }
         if (help) panel_.help = formatI18nField(help)
+        forms[id] = {}
+        validations_[id] = {}
         for (const { name, help, options } of sections) {
           const section_ = { name }
           if (help) section_.help = formatI18nField(help)
-          section_.args = options.map(option => formatYunoHostArgument(option))
-          panel_.sections.push(section_)
+          const { form, fields, validations } = formatYunoHostArguments(options)
+          Object.assign(forms[id], form)
+          Object.assign(validations_[id], validations)
+          panel_.sections.push({ name, fields })
         }
         panels_.push(panel_)
       }
+
+      this.forms = forms
+      this.validations = { forms: validations_ }
       this.panels = panels_
     },
 
-    applyConfig () {
-      // FIXME not tested
-      const args = {}
-      for (const panel of this.panels) {
-        for (const section of panel.sections) {
-          for (const arg of section.args) {
-            if (arg.component === 'CheckboxItem') {
-              args[arg.props.id] = arg.props.value ? 1 : 0
-            } else {
-              args[arg.props.id] = arg.props.value
-            }
-          }
-        }
-      }
+    applyConfig (id_) {
+      const args = objectToParams(formatFormData(this.forms[id_]))
 
-      // FIXME not tested at all, route is currently broken
-      api.post(`apps/${this.id}/config`, { args: objectToParams(args) }).then(response => {
+      api.post(`apps/${this.id}/config`, { args }).then(response => {
         console.log('SUCCESS', response)
       }).catch(err => {
-        console.log('ERROR', err)
+        if (err.name !== 'APIBadRequestError') throw err
+        const panel = this.panels.find(({ id }) => id_ === id)
+        this.$set(panel, 'serverError', err.message)
       })
     }
   }
