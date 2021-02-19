@@ -16,7 +16,7 @@
     <div v-else class="custom-spinner my-4" :class="spinner" />
 
     <message-list-group
-      v-if="hasMessages" :messages="action.messages"
+      v-if="hasMessages" :messages="request.messages"
       bordered fixed-height auto-scroll
     />
   </b-card-body>
@@ -35,27 +35,27 @@ export default {
   },
 
   props: {
-    action: { type: Object, required: true }
+    request: { type: Object, required: true }
   },
 
   computed: {
     ...mapGetters(['spinner']),
 
     hasMessages () {
-        return this.action && this.action.messages.length > 0
+      return this.request.messages && this.request.messages.length > 0
     },
 
     progress () {
-      const progress = this.action.progress
+      const progress = this.request.progress
       if (!progress) return null
       return {
-        values: progress, max: progress.reduce((sum, value) => (sum + value), 0)
+        values: progress,
+        max: progress.reduce((sum, value) => (sum + value), 0)
       }
     }
   }
 }
 </script>
-
 
 <style lang="scss" scoped>
 .custom-spinner {

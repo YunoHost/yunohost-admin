@@ -90,40 +90,21 @@ export default {
   },
 
   actions: {
-    'FETCH' ({ state, commit, rootState }, { uri, param, storeKey = uri, cache = rootState.cache }) {
+    'GET' ({ state, commit, rootState }, { uri, param, storeKey = uri, options = {} }) {
+      const noCache = !rootState.cache || options.noCache || false
       const currentState = param ? state[storeKey][param] : state[storeKey]
       // if data has already been queried, simply return
-      if (currentState !== undefined && cache) return currentState
+      if (currentState !== undefined && !noCache) return currentState
 
-      return api.get(param ? `${uri}/${param}` : uri).then(responseData => {
+      return api.fetch('GET', param ? `${uri}/${param}` : uri, null, options).then(responseData => {
         const data = responseData[storeKey] ? responseData[storeKey] : responseData
         commit('SET_' + storeKey.toUpperCase(), param ? [param, data] : data)
         return param ? state[storeKey][param] : state[storeKey]
       })
     },
 
-    'FETCH_ALL' ({ state, commit, rootState }, queries) {
-      return Promise.all(queries.map(({ uri, param, storeKey = uri, cache = rootState.cache }) => {
-        const currentState = param ? state[storeKey][param] : state[storeKey]
-        // if data has already been queried, simply return the state as cached
-        if (currentState !== undefined && cache) {
-          return { cached: currentState }
-        }
-        return api.get(param ? `${uri}/${param}` : uri).then(responseData => {
-          return { storeKey, param, responseData }
-        })
-      })).then(responsesData => {
-        return responsesData.map(({ storeKey, param, responseData, cached = undefined }) => {
-          if (cached !== undefined) return cached
-          const data = responseData[storeKey] ? responseData[storeKey] : responseData
-          commit('SET_' + storeKey.toUpperCase(), param ? [param, data] : data)
-          return param ? state[storeKey][param] : state[storeKey]
-        })
-      })
-    },
-
-    'POST' ({ state, commit }, { uri, data, storeKey = uri }) {
-      return api.post(uri, data).then(responseData => {
+    'POST' ({ state, commit }, { uri, storeKey = uri, data, options }) {
+      return api.fetch('POST', uri, data, options).then(responseData => {
         // FIXME api/domains returns null
         if (responseData === null) responseData = data
         responseData = responseData[storeKey] ? responseData[storeKey] : responseData
@@ -132,16 +113,16 @@ export default {
       })
     },
 
-    'PUT' ({ state, commit }, { uri, param, data, storeKey = uri }) {
-      return api.put(param ? `${uri}/${param}` : uri, data).then(responseData => {
+    'PUT' ({ state, commit }, { uri, param, storeKey = uri, data, options }) {
+      return api.fetch('PUT', param ? `${uri}/${param}` : uri, data, options).then(responseData => {
         const data = responseData[storeKey] ? responseData[storeKey] : responseData
         commit('UPDATE_' + storeKey.toUpperCase(), param ? [param, data] : data)
         return param ? state[storeKey][param] : state[storeKey]
       })
     },
 
-    'DELETE' ({ commit }, { uri, param, data = {}, storeKey = uri }) {
-      return api.delete(param ? `${uri}/${param}` : uri, data).then(() => {
+    'DELETE' ({ commit }, { uri, param, storeKey = uri, data, options }) {
+      return api.fetch('DELETE', param ? `${uri}/${param}` : uri, data, options).then(() => {
         commit('DEL_' + storeKey.toUpperCase(), param)
       })
     }
@@ -164,8 +145,7 @@ export default {
       })
     },
 
-    // not cached
-    user: state => name => state.users_details[name],
+    user: state => name => state.users_details[name], // not cached
 
     domains: state => state.domains,
 

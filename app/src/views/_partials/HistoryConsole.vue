@@ -23,9 +23,9 @@
         @click.prevent="onLastActionClick"
         @keyup.enter.space.prevent="onLastActionClick"
       >
-        <small>{{ $t('history.' + (lastAction.status === 'pending' ? 'current_action' : 'last_action')) }}</small>
+        <small>{{ $t('history.last_action') }}</small>
       </b-button>
-      <query-header v-if="lastAction" :action="lastAction" class="w-auto ml-2 xs-hide" />
+      <query-header v-if="lastAction" :request="lastAction" class="w-auto ml-2 xs-hide" />
     </b-card-header>
 
     <b-collapse id="console-collapse" v-model="open">
@@ -43,7 +43,7 @@
             <!-- ACTION DESC -->
             <query-header
               role="tab" v-b-toggle="action.messages.length ? 'messages-collapse-' + i : false"
-              :action="action" show-time show-error
+              :request="action" show-time show-error
             />
           </b-card-header>
 

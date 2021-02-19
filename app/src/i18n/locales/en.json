@@ -203,7 +203,6 @@
     "history": {
         "title": "History",
         "last_action": "Last action:",
-        "current_action": "Current action:",
         "methods": {
             "DELETE": "delete",
             "GET": "read",

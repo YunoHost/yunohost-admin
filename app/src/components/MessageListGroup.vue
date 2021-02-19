@@ -3,8 +3,8 @@
     v-bind="$attrs" ref="self"
     flush :class="{ 'fixed-height': fixedHeight, 'bordered': bordered }"
   >
-    <b-list-group-item v-for="({ type, text }, i) in messages" :key="i">
-      <span class="status" :class="'bg-' + type" />
+    <b-list-group-item v-for="({ color, text }, i) in messages" :key="i">
+      <span class="status" :class="'bg-' + color" />
       <span v-html="text" />
     </b-list-group-item>
   </b-list-group>

@@ -1,38 +1,39 @@
 <template>
   <div class="query-header w-100" v-on="$listeners" v-bind="$attrs">
     <!-- STATUS -->
-    <span class="status" :class="['bg-' + color, statusSize]" :aria-label="$t('api.query_status.' + action.status)" />
+    <span class="status" :class="['bg-' + color, statusSize]" :aria-label="$t('api.query_status.' + request.status)" />
 
-    <!-- ACTION DESCRIPTION -->
-    <strong class="action-desc">
-      {{ action.uri | readableUri }}
-      <small>({{ $t('history.methods.' + action.method) }})</small>
+    <!-- REQUEST DESCRIPTION -->
+    <strong class="request-desc">
+      {{ request.uri | readableUri }}
+      <small>({{ $t('history.methods.' + request.method) }})</small>
     </strong>
 
-    <div>
+    <div v-if="request.errors || request.warnings">
       <!-- WEBSOCKET ERRORS COUNT -->
-      <span class="count" v-if="errorsCount">
-        {{ errorsCount }}<icon iname="bug" class="text-danger ml-1" />
+      <span class="count" v-if="request.errors">
+        {{ request.errors }}<icon iname="bug" class="text-danger ml-1" />
       </span>
       <!-- WEBSOCKET WARNINGS COUNT -->
-      <span class="count" v-if="warningsCount">
-        {{ warningsCount }}<icon iname="warning" class="text-warning ml-1" />
+      <span class="count" v-if="request.warnings">
+        {{ request.warnings }}<icon iname="warning" class="text-warning ml-1" />
       </span>
     </div>
 
-    <!-- VIEW ERRO BUTTON -->
+    <!-- VIEW ERROR BUTTON -->
     <b-button
-      v-if="showError && action.status === 'error'"
+      v-if="showError && request.error"
       size="sm" pill
       class="error-btn ml-auto py-0"
       variant="danger"
+      @click="reviewError"
     >
       <small v-t="'api_error.view_error'" />
     </b-button>
 
     <!-- TIME DISPLAY -->
-    <time v-if="showTime" :datetime="action.date | hour" :class="!showError || action.status !== 'error' ? 'ml-auto' : 'ml-2'">
-      {{ action.date | hour }}
+    <time v-if="showTime" :datetime="request.date | hour" :class="request.error ? 'ml-2' : 'ml-auto'">
+      {{ request.date | hour }}
     </time>
   </div>
 </template>
@@ -42,11 +43,10 @@ export default {
   name: 'QueryHeader',
 
   props: {
-    action: { type: Object, required: true },
+    request: { type: Object, required: true },
     statusSize: { type: String, default: '' },
     showTime: { type: Boolean, default: false },
-    showError: { type: Boolean, default: false },
-    truncate: { type: Boolean, default: true }
+    showError: { type: Boolean, default: false }
   },
 
   computed: {
@@ -57,21 +57,27 @@ export default {
         warning: 'warning',
         error: 'danger'
       }
-      return statuses[this.action.status]
+      return statuses[this.request.status]
     },
 
     errorsCount () {
-      return this.action.messages.filter(({ type }) => type === 'danger').length
+      return this.request.messages.filter(({ type }) => type === 'danger').length
     },
 
     warningsCount () {
-      return this.action.messages.filter(({ type }) => type === 'warning').length
+      return this.request.messages.filter(({ type }) => type === 'warning').length
+    }
+  },
+
+  methods: {
+    reviewError () {
+      this.$store.dispatch('REVIEW_ERROR', this.request)
     }
   },
 
   filters: {
     readableUri (uri) {
-      return uri.split('?')[0].replace('/', ' > ')
+      return uri.split('?')[0].split('/').join(' > ') // replace('/', ' > ')
     },
 
     hour (date) {
@@ -110,6 +116,11 @@ div {
   }
 }
 
+time {
+  min-width: 3.5rem;
+  text-align: right;
+}
+
 .count {
   display: flex;
   align-items: center;
@@ -117,7 +128,7 @@ div {
 }
 
 @include media-breakpoint-down(xs) {
-  .xs-hide .action-desc {
+  .xs-hide .request-desc {
     display: none;
   }
 }

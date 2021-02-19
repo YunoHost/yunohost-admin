@@ -30,11 +30,11 @@
         <pre><code>{{ error.traceback }}</code></pre>
       </template>
 
-      <template v-if="hasMessages">
+      <template v-if="messages">
         <p class="my-2">
           <strong v-t="'api_error.server_said'" />
         </p>
-        <message-list-group :messages="action.messages" bordered />
+        <message-list-group :messages="messages" bordered />
       </template>
     </b-card-body>
 
@@ -49,35 +49,34 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-
 import MessageListGroup from '@/components/MessageListGroup'
 
 export default {
-  name: 'ErrorPage',
+  name: 'ErrorDisplay',
 
   components: {
     MessageListGroup
   },
 
   props: {
-    action: { type: Object, required: true }
+    request: { type: [Object, null], default: null }
   },
 
   computed: {
-    ...mapGetters(['error']),
+    error () {
+      return this.request.error
+    },
 
-    hasMessages () {
-        return this.action && this.action.messages.length > 0
+    messages () {
+      const messages = this.request.messages
+      if (messages && messages.length > 0) return messages
+      return null
     }
   },
 
   methods: {
     dismiss () {
-      if (this.error && this.error.method === 'GET') {
-        history.back()
-      }
-      this.$store.dispatch('DELETE_ERROR')
+      this.$store.dispatch('DISMISS_ERROR', this.request)
     }
   }
 }

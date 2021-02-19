@@ -7,12 +7,13 @@
     <slot name="default" />
 
     <template v-slot:overlay>
-      <b-card no-body class="card-overlay" v-if="lastAction">
+      <b-card no-body class="card-overlay">
         <b-card-header header-bg-variant="white">
-          <query-header :action="lastAction" status-size="lg" />
+          <query-header :request="error || currentRequest" status-size="lg" />
         </b-card-header>
 
-        <component :is="error ? 'ErrorDisplay' : 'WaitingDisplay'" :action="lastAction" />
+        <component v-if="error" :is="'ErrorDisplay'" :request="error" />
+        <component v-else :is="'WaitingDisplay'" :request="currentRequest" />
       </b-card>
     </template>
   </b-overlay>
@@ -26,13 +27,13 @@ import QueryHeader from '@/components/QueryHeader'
 export default {
   name: 'ViewLockOverlay',
 
-  computed: mapGetters(['waiting', 'error', 'lastAction']),
-
   components: {
     ErrorDisplay,
     WaitingDisplay,
     QueryHeader
-  }
+  },
+
+  computed: mapGetters(['waiting', 'error', 'currentRequest'])
 }
 </script>
 
@@ -53,8 +54,13 @@ export default {
   ::v-deep {
     .card-body {
       padding: 1.5rem;
+      padding-bottom: 0;
       max-height: 60vh;
       overflow-y: auto;
+
+      & > :last-child {
+        margin-bottom: 1.5rem;
+      }
     }
 
     .card-footer {
