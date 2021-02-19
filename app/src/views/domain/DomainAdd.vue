@@ -8,6 +8,7 @@
 </template>
 
 <script>
+import api from '@/api'
 import { DomainForm } from '@/views/_partials'
 
 export default {
@@ -15,23 +16,24 @@ export default {
 
   data () {
     return {
-      queries: [{ uri: 'domains' }],
+      queries: [
+        ['GET', { uri: 'domains' }]
+      ],
       serverError: ''
     }
   },
 
   methods: {
     onSubmit ({ domain, domainType }) {
-      const query = {
-        uri: 'domains' + (domainType === 'dynDomain' ? '?dyndns' : ''),
-        data: { domain },
-        storeKey: 'domains'
-      }
-
-      this.$store.dispatch('POST', query).then(() => {
+      const uri = 'domains' + (domainType === 'dynDomain' ? '?dyndns' : '')
+      api.post(
+        { uri, storeKey: 'domains' },
+        { domain }
+      ).then(() => {
         this.$router.push({ name: 'domain-list' })
-      }).catch(error => {
-        this.serverError = error.message
+      }).catch(err => {
+        if (err.name !== 'APIBadRequestError') throw err
+        this.serverError = err.message
       })
     }
   },
