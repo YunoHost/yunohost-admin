@@ -40,20 +40,24 @@ export default {
   },
 
   methods: {
-    onSubmit ({ password, currentPassword }) {
+    onSubmit ({ currentPassword, password }) {
       this.serverError = ''
-      // Use `api.fetch` to avoid automatic redirect on 401 (Unauthorized).
-      api.fetch('POST', 'login', { password: currentPassword }).then(response => {
-        if (response.status === 401) {
-          // Dispatch `SERVER_RESPONDED` to hide waiting overlay and display error.
-          this.$store.dispatch('SERVER_RESPONDED', true)
+
+      api.fetchAll(
+        [['POST', 'login', { password: currentPassword }, { websocket: false }],
+         ['PUT', 'admisnpw', { new_password: password }]],
+        { wait: true }
+      ).then(() => {
+        this.$store.dispatch('DISCONNECT')
+      }).catch(err => {
+        if (err.name === 'APIUnauthorizedError') {
+          // Prevent automatic disconnect if error in current password.
           this.serverError = this.$i18n.t('wrong_password')
-        } else if (response.ok) {
-          api.put('adminpw', { new_password: password }).then(() => {
-            this.$store.dispatch('DISCONNECT')
-          }).catch(error => {
-            this.serverError = error.message
-          })
+        } else if (err.name === 'APIBadRequestError') {
+          // Display form error
+          this.serverError = err.message
+        } else {
+          throw err
         }
       })
     }
