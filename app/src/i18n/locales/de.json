@@ -35,7 +35,7 @@
     "description": "Beschreibung",
     "disable": "Deaktivieren",
     "domain_add": "Domain hinzufügen",
-    "domain_add_dns_doc": "... und ich habe <a href='//yunohost.org/dns'>meine DNS Einstellung richtig hinterlegt</a>.",
+    "domain_add_dns_doc": "... und ich habe <a href='//yunohost.org/en/dns_config'>meine DNS Einstellung richtig hinterlegt</a>.",
     "domain_add_dyndns_doc": "... und ich möchte einen Dienst für dynamisches DNS nutzen.",
     "domain_add_panel_with_domain": "Ich habe schon eine Domain…",
     "domain_add_panel_without_domain": "Ich habe keine Domain…",
