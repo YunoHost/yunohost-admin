@@ -9,5 +9,7 @@
     "administration_password": "Heslo administrátora",
     "add": "Přidat",
     "active": "Aktivní",
-    "action": "Akce"
+    "action": "Akce",
+    "cancel": "Storno",
+    "ok": "OK"
 }
