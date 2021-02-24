@@ -33,6 +33,7 @@ export default {
 
   props: {
     queries: { type: Array, default: null },
+    queriesWait: { type: Boolean, default: false },
     skeleton: { type: [String, Array], default: null },
     // Optional prop to take control of the loading value
     loading: { type: Boolean, default: null }
@@ -61,16 +62,11 @@ export default {
         this.fallback_loading = true
       }
 
-      const [apiQueries, storeQueries] = this.queries.reduce((types, query) => {
-        types[typeof query === 'string' ? 0 : 1].push(query)
-        return types
-      }, [[], []])
-
-      Promise.all([
-        api.getAll(apiQueries),
-        this.$store.dispatch('FETCH_ALL', storeQueries)
-      ]).then(([apiResponses, storeResponses]) => {
-        this.$emit('queries-response', ...apiResponses, ...storeResponses)
+      api.fetchAll(
+        this.queries,
+        { wait: this.queriesWait, initial: true }
+      ).then(responses => {
+        this.$emit('queries-response', ...responses)
         this.fallback_loading = false
       })
     }

@@ -5,7 +5,7 @@
     :items="normalGroups"
     :filtered-items="filteredGroups"
     :queries="queries"
-    @queries-response="formatGroups"
+    @queries-response="onQueriesResponse"
     skeleton="card-form-skeleton"
   >
     <template #top-bar-buttons>
@@ -120,12 +120,17 @@ import BaseSelectize from '@/components/BaseSelectize'
 export default {
   name: 'GroupList',
 
+  components: {
+    ZoneSelectize,
+    BaseSelectize
+  },
+
   data () {
     return {
       queries: [
-        { uri: 'users' },
-        { uri: 'users/groups?full&include_primary_groups', storeKey: 'groups' },
-        { uri: 'users/permissions?full', storeKey: 'permissions' }
+        ['GET', { uri: 'users' }],
+        ['GET', { uri: 'users/groups?full&include_primary_groups', storeKey: 'groups' }],
+        ['GET', { uri: 'users/permissions?full', storeKey: 'permissions' }]
       ],
       search: '',
       permissions: undefined,
@@ -166,7 +171,7 @@ export default {
   },
 
   methods: {
-    formatGroups (users, allGroups, permissions) {
+    onQueriesResponse (users, allGroups, permissions) {
       // Do not use computed properties to get values from the store here to avoid auto
       // updates while modifying values.
       const normalGroups = {}
@@ -247,17 +252,12 @@ export default {
       const confirmed = await this.$askConfirmation(this.$i18n.t('confirm_delete', { name }))
       if (!confirmed) return
 
-      this.$store.dispatch('DELETE',
+      api.delete(
         { uri: 'users/groups', param: name, storeKey: 'groups' }
       ).then(() => {
         Vue.delete(this.normalGroups, name)
       })
     }
-  },
-
-  components: {
-    ZoneSelectize,
-    BaseSelectize
   }
 }
 </script>

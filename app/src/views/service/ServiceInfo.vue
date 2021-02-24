@@ -1,6 +1,6 @@
 <template>
   <view-base
-    :queries="queries" @queries-response="formatServiceData"
+    :queries="queries" @queries-response="onQueriesResponse"
     ref="view" skeleton="card-info-skeleton"
   >
     <!-- INFO CARD -->
@@ -82,8 +82,8 @@ export default {
   data () {
     return {
       queries: [
-        'services/' + this.name,
-        `services/${this.name}/log?number=50`
+        ['GET', 'services/' + this.name],
+        ['GET', `services/${this.name}/log?number=50`]
       ],
       // Service data
       infos: undefined,
@@ -96,7 +96,7 @@ export default {
   },
 
   methods: {
-    formatServiceData (
+    onQueriesResponse (
       // eslint-disable-next-line
       { status, description, start_on_boot, last_state_change, configuration },
       logs
@@ -126,7 +126,6 @@ export default {
         ? `services/${this.name}/restart`
         : 'services/' + this.name
 
-      // FIXME API doesn't return anything to the PUT so => json err
       api[method](uri).then(this.$refs.view.fetchQueries)
     },
 

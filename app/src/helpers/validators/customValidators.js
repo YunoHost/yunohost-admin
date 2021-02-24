@@ -41,7 +41,7 @@ const includes = items => item => helpers.withParams(
   item => !helpers.req(item) || (items ? items.includes(item) : false)
 )(item)
 
-const name = helpers.regex('name', new RegExp(`^(?:[A-Za-z${nonAsciiWordCharacters}]{2,30}[ ,.'-]{0,3})+$`))
+const name = helpers.regex('name', new RegExp(`^(?:[A-Za-z${nonAsciiWordCharacters}]{1,30}[ ,.'-]{0,3})+$`))
 
 const unique = items => item => helpers.withParams(
   { type: 'unique', arg: items, value: item },

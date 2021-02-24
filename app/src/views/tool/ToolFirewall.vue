@@ -1,6 +1,6 @@
 <template>
   <view-base
-    :queries="queries" @queries-response="formatFirewallData"
+    :queries="queries" @queries-response="onQueriesResponse"
     ref="view" skeleton="card-form-skeleton"
   >
     <!-- PORTS -->
@@ -98,7 +98,9 @@ export default {
 
   data () {
     return {
-      queries: ['/firewall?raw'],
+      queries: [
+        ['GET', '/firewall?raw']
+      ],
       serverError: '',
 
       // Ports tables data
@@ -145,7 +147,7 @@ export default {
   },
 
   methods: {
-    formatFirewallData (data) {
+    onQueriesResponse (data) {
       const ports = Object.values(data).reduce((ports, protocols) => {
         for (const type of ['TCP', 'UDP']) {
           for (const port of protocols[type]) {
@@ -181,7 +183,11 @@ export default {
         ).then(confirmed => {
           if (confirmed) {
             const method = action === 'open' ? 'post' : 'delete'
-            api[method](`/firewall/port?${connection}_only`, { port, protocol }).then(() => {
+            api[method](
+              `/firewall/port?${connection}_only`,
+              { port, protocol },
+              { wait: false }
+            ).then(() => {
               resolve(confirmed)
             }).catch(error => {
               reject(error)
@@ -198,10 +204,11 @@ export default {
       const confirmed = await this.$askConfirmation(this.$i18n.t('confirm_upnp_' + action))
       if (!confirmed) return
 
-      api.get('firewall/upnp?action=' + action).then(() => {
+      api.get('firewall/upnp?action=' + action, null, { websocket: true, wait: true }).then(() => {
         // FIXME Couldn't test when it works.
         this.$refs.view.fetchQueries()
       }).catch(err => {
+        if (err.name !== 'APIBadRequestError') throw err
         this.upnpError = err.message
       })
     },

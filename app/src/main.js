@@ -6,7 +6,11 @@ import i18n from './i18n'
 import router from './router'
 import store from './store'
 
+import { registerGlobalErrorHandlers } from './api'
+
+
 Vue.config.productionTip = false
+
 
 // Styles are imported in `src/App.vue` <style>
 Vue.use(BootstrapVue, {
@@ -20,6 +24,7 @@ Vue.use(BootstrapVue, {
   }
 })
 
+
 // Ugly wrapper for `$bvModal.msgBoxConfirm` to set default i18n button titles
 // FIXME find or wait for a better way
 Vue.prototype.$askConfirmation = function (message, props) {
@@ -30,6 +35,7 @@ Vue.prototype.$askConfirmation = function (message, props) {
   })
 }
 
+
 // Register global components
 const requireComponent = require.context('@/components/globals', true, /\.(js|vue)$/i)
 // For each matching file name...
@@ -39,6 +45,10 @@ requireComponent.keys().forEach((fileName) => {
   // Globally register the component
   Vue.component(component.name, component)
 })
+
+
+registerGlobalErrorHandlers()
+
 
 new Vue({
   i18n,

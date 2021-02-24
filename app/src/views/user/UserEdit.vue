@@ -111,6 +111,7 @@
 import { mapGetters } from 'vuex'
 import { validationMixin } from 'vuelidate'
 
+import api from '@/api'
 import { arrayDiff } from '@/helpers/commons'
 import { sizeToM, adressToFormValue, formatFormData } from '@/helpers/yunohostArguments'
 import {
@@ -130,9 +131,9 @@ export default {
   data () {
     return {
       queries: [
-        { uri: 'users', param: this.name, storeKey: 'users_details' },
-        { uri: 'domains/main', storeKey: 'main_domain' },
-        { uri: 'domains' }
+        ['GET', { uri: 'users', param: this.name, storeKey: 'users_details' }],
+        ['GET', { uri: 'domains/main', storeKey: 'main_domain' }],
+        ['GET', { uri: 'domains' }]
       ],
 
       form: {
@@ -293,12 +294,14 @@ export default {
         return
       }
 
-      this.$store.dispatch('PUT',
-        { uri: 'users', data, param: this.name, storeKey: 'users_details' }
+      api.put(
+        { uri: 'users', param: this.name, storeKey: 'users_details' },
+        data
       ).then(() => {
         this.$router.push({ name: 'user-info', param: { name: this.name } })
-      }).catch(error => {
-        this.serverError = error.message
+      }).catch(err => {
+        if (err.name !== 'APIBadRequestError') throw err
+        this.serverError = err.message
       })
     },
 

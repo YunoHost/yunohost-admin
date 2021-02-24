@@ -48,27 +48,24 @@
       <p class="alert alert-success">
         <icon iname="thumbs-up" /> {{ $t('installation_complete') }}
       </p>
-      <login-view />
+      <login />
     </template>
-
-    <!-- CONFIRM POST-INSTALL MODAL -->
-    <b-modal
-      ref="post-install-modal" id="post-install-modal" centered
-      body-bg-variant="danger" body-text-variant="light"
-      @ok="performPostInstall" hide-header
-    >
-      {{ $t('confirm_postinstall', { domain }) }}
-    </b-modal>
   </div>
 </template>
 
 <script>
 import api from '@/api'
-import { DomainForm, PasswordForm } from '@/components/reusableForms'
-import LoginView from '@/views/Login'
+import { DomainForm, PasswordForm } from '@/views/_partials'
+import Login from '@/views/Login'
 
 export default {
   name: 'PostInstall',
+
+  components: {
+    DomainForm,
+    PasswordForm,
+    Login
+  },
 
   data () {
     return {
@@ -84,9 +81,13 @@ export default {
       this.step = 'password'
     },
 
-    setPassword ({ password }) {
+    async setPassword ({ password }) {
       this.password = password
-      this.$refs['post-install-modal'].show()
+      const confirmed = await this.$askConfirmation(
+        this.$i18n.t('confirm_postinstall', { domain: this.domain })
+      )
+      if (!confirmed) return
+      this.performPostInstall()
     },
 
     performPostInstall () {
@@ -104,12 +105,6 @@ export default {
         this.$router.push({ name: 'home' })
       }
     })
-  },
-
-  components: {
-    DomainForm,
-    PasswordForm,
-    LoginView
   }
 }
 </script>
