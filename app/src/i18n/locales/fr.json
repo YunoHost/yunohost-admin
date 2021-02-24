@@ -284,7 +284,7 @@
     "warnings": "{count} avertissements",
     "words": {
         "default": "Défaut",
-        "collapse": "Effondrement/éboulement"
+        "collapse": "Replier"
     },
     "configuration": "Configuration",
     "since": "depuis",
