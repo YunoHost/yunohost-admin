@@ -263,7 +263,8 @@
     "warnings": "{count} Warnungen",
     "words": {
         "default": "Vorgabe",
-        "collapse": "Zusammenbruch"
+        "collapse": "Zusammenbruch",
+        "dismiss": "Zurückweisen"
     },
     "group": "Gruppe",
     "details": "Details",
@@ -308,14 +309,18 @@
     "api_errors_titles": {
         "APIBadRequestError": "Yunohost ist ein Fehler widerfahren",
         "APIError": "Yunohost ist ein unerwarteter Fehler widerfahren",
-        "APIConnexionError": "Yunohost hat ein Verbindungsfehler festgestellt",
+        "APIConnexionError": "Yunohost hat einen Verbindungsfehler festgestellt",
         "APINotRespondingError": "Die Yunohost API antwortet nicht",
-        "APIInternalError": "Im Yunohost ist ein interner Fehler aufgetreten"
+        "APIInternalError": "Im Yunohost ist ein interner Fehler aufgetreten",
+        "APINotFoundError": "YunoHost API konnte keine Route finden"
     },
     "api_error": {
         "sorry": "Tut uns wirklich leid.",
         "info": "Die folgenden Informationen könnten nützlich sein für die Person, die Ihnen hilft:",
-        "help": "Sie sollten für Hilfe <a href=\"https://forum.yunohost.org/\">im Forum</a> oder <a href=\"https://chat.yunohost.org/\">im Chat</a> nachschauen, um das Problem zu beheben, oder einen Bug melden im <a href=\"https://github.com/YunoHost/issues\">Bugtracker</a>."
+        "help": "Sie sollten für Hilfe <a href=\"https://forum.yunohost.org/\">im Forum</a> oder <a href=\"https://chat.yunohost.org/\">im Chat</a> nachschauen, um das Problem zu beheben, oder einen Bug melden im <a href=\"https://github.com/YunoHost/issues\">Bugtracker</a>.",
+        "view_error": "Fehler ansehen",
+        "server_said": "Während der Verarbeitung der Aktion hat der Server gemeldet:",
+        "error_message": "Fehlermeldung:"
     },
     "address": {
         "local_part_description": {
@@ -388,7 +393,8 @@
         "methods": {
             "DELETE": "entfernen",
             "PUT": "bearbeiten",
-            "POST": "erstellen/ausführen"
+            "POST": "erstellen/ausführen",
+            "GET": "lesen"
         },
         "last_action": "Letzte Aktion:",
         "title": "Historie"
@@ -429,5 +435,16 @@
         "firstname": "Vorname"
     },
     "code": "Code",
-    "app_actions": "Aktionen"
+    "app_actions": "Aktionen",
+    "go_back": "Gehe zurück",
+    "api_not_found": "Es scheint als ob das Web-Admin versucht hat etwas aufzulösen das nicht existiert.",
+    "api": {
+        "query_status": {
+            "warning": "Erfolgreich durchführt mit Fehlern oder Warnungen",
+            "success": "Vollständig durchgeführt",
+            "pending": "In Bearbeitung",
+            "error": "Nicht erfolgreich"
+        },
+        "processing": "Der Server verarbeitet gerade diese Aktion..."
+    }
 }
