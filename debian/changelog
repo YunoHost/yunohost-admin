@@ -1,3 +1,9 @@
+yunohost-admin (11.0.0~alpha) unstable; urgency=low
+
+  - Placeholder for 11.0
+
+ -- Kay0u <pierre@kayou.io>  Mon, 08 Mar 2021 18:04:43 +0100
+
 yunohost-admin (4.2.0) unstable; urgency=low
 
   - Placeholder for 4.2 to satisfy debian build during dev
