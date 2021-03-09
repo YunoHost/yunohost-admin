@@ -1,5 +1,5 @@
 <template>
-  <view-base :queries="queries" @queries-response="formatMigrationsData" ref="view">
+  <view-base :queries="queries" @queries-response="onQueriesResponse" ref="view">
     <!-- PENDING MIGRATIONS -->
     <card :title="$t('migrations_pending')" icon="cogs" no-body>
       <template #header-buttons v-if="pending">
@@ -90,8 +90,8 @@ export default {
   data () {
     return {
       queries: [
-        'migrations?pending',
-        'migrations?done'
+        ['GET', 'migrations?pending'],
+        ['GET', 'migrations?done']
       ],
       pending: undefined,
       done: undefined,
@@ -100,7 +100,7 @@ export default {
   },
 
   methods: {
-    formatMigrationsData ({ migrations: pending }, { migrations: done }) {
+    onQueriesResponse ({ migrations: pending }, { migrations: done }) {
       this.done = done.length ? done.reverse() : null
       pending.forEach(migration => {
         if (migration.disclaimer) {

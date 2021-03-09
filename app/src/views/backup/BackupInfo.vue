@@ -1,5 +1,5 @@
 <template>
-  <view-base :queries="queries" @queries-response="formatBackupData">
+  <view-base :queries="queries" @queries-response="onQueriesResponse">
     <!-- BACKUP INFO -->
     <card :title="$t('infos')" icon="info-circle" button-unbreak="sm">
       <template #header-buttons>
@@ -131,7 +131,9 @@ export default {
 
   data () {
     return {
-      queries: [`backup/archives/${this.name}?with_details`],
+      queries: [
+        ['GET', `backup/archives/${this.name}?with_details`]
+      ],
       selected: [],
       error: '',
       isValid: null,
@@ -169,7 +171,7 @@ export default {
       return data
     },
 
-    formatBackupData (data) {
+    onQueriesResponse (data) {
       this.infos = {
         name: this.name,
         created_at: data.created_at,
@@ -211,6 +213,7 @@ export default {
       api.post('backup/restore/' + this.name, data).then(response => {
         this.isValid = null
       }).catch(err => {
+        if (err.name !== 'APIBadRequestError') throw err
         this.error = err.message
         this.isValid = false
       })

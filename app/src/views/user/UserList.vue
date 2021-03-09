@@ -47,7 +47,9 @@ export default {
 
   data () {
     return {
-      queries: [{ uri: 'users' }],
+      queries: [
+        ['GET', { uri: 'users' }]
+      ],
       search: ''
     }
   },

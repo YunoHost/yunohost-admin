@@ -5,7 +5,7 @@
     :items="apps"
     :filtered-items="filteredApps"
     :queries="queries"
-    @queries-response="formatAppData"
+    @queries-response="onQueriesResponse"
   >
     <template #top-bar-buttons>
       <b-button variant="success" :to="{ name: 'app-catalog' }">
@@ -42,7 +42,9 @@ export default {
 
   data () {
     return {
-      queries: ['apps?full'],
+      queries: [
+        ['GET', 'apps?full']
+      ],
       search: '',
       apps: undefined
     }
@@ -60,7 +62,7 @@ export default {
   },
 
   methods: {
-    formatAppData ({ apps }) {
+    onQueriesResponse ({ apps }) {
       if (apps.length === 0) {
         this.apps = null
         return

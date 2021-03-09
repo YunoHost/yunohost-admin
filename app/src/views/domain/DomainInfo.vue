@@ -48,6 +48,8 @@
 <script>
 import { mapGetters } from 'vuex'
 
+import api from '@/api'
+
 export default {
   name: 'DomainInfo',
 
@@ -58,9 +60,11 @@ export default {
     }
   },
 
-  data () {
+  data: () => {
     return {
-      queries: [{ uri: 'domains/main', storeKey: 'main_domain' }]
+      queries: [
+        ['GET', { uri: 'domains/main', storeKey: 'main_domain' }]
+      ]
     }
   },
 
@@ -78,7 +82,7 @@ export default {
       const confirmed = await this.$askConfirmation(this.$i18n.t('confirm_delete', { name: this.name }))
       if (!confirmed) return
 
-      this.$store.dispatch('DELETE',
+      api.delete(
         { uri: 'domains', param: this.name }
       ).then(() => {
         this.$router.push({ name: 'domain-list' })
@@ -89,10 +93,11 @@ export default {
       const confirmed = await this.$askConfirmation(this.$i18n.t('confirm_change_maindomain'))
       if (!confirmed) return
 
-      this.$store.dispatch('PUT',
-        { uri: 'domains/main', data: { new_main_domain: this.name }, storeKey: 'main_domain' }
+      api.put(
+        { uri: 'domains/main', storeKey: 'main_domain' },
+        { new_main_domain: this.name }
       ).then(() => {
-        // Have to commit by hand here since the response is empty
+        // FIXME Have to commit by hand here since the response is empty (should return the given name)
         this.$store.commit('UPDATE_MAIN_DOMAIN', this.name)
       })
     }

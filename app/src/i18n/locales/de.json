@@ -23,7 +23,7 @@
     "confirm_change_maindomain": "Möchtest du wirklich die Hauptdomain ändern?",
     "confirm_delete": "Möchtest du wirklich {name} löschen?",
     "confirm_install_custom_app": "WARNUNG! Die Installation von Drittanbieter Apps könnte die Sicherheit und Integrität deines Systems gefährden. Du solltest sie nicht installieren außer du weißt was du tust. Willst du das Risiko eingehen?",
-    "confirm_install_domain_root": "Du wirst keine weiteren Apps auf {domain} installieren können. Dennoch fortfahren?",
+    "confirm_install_domain_root": "Bist du sicher das du die Anwendung '/'? installieren willst? Du kann keine andere App auf der Domäne {domain} installieren",
     "confirm_postinstall": "Du bist dabei, den Konfigurationsprozess für die Domain {domain} starten. Dies wird ein paar Minuten dauern, *die Ausführung nicht unterbrechen*.",
     "confirm_restore": "Möchtest du wirklich {name} wiederherstellen?",
     "confirm_uninstall": "Möchtest du wirklich {name} deinstallieren?",
@@ -60,7 +60,7 @@
     "hook_data_home": "Benutzerdaten",
     "hook_data_home_desc": "Die Daten des Benutzers werden gespeichert unter /home/USER",
     "hook_data_mail": "E-Mail",
-    "hook_data_mail_desc": "Roth-E-Mails auf dem Server gespeichert",
+    "hook_data_mail_desc": "Rohdaten-E-Mails auf dem Server gespeichert",
     "id": "ID",
     "infos": "Informationen",
     "install": "Installieren",
@@ -231,7 +231,7 @@
     "logs_system": "Kernel-Logs und andere Ereignisse auf niederer Ebene",
     "select_none": "Wähle keine",
     "skip": "Überspringe",
-    "logs_share_with_yunopaste": "Teile mit YunoPaste",
+    "logs_share_with_yunopaste": "Logs teilen mit YunoPaste",
     "migrations_pending": "Ausstehende Migrationen",
     "logs_operation": "Operationen, die auf dem System mit YunoHost durchgeführt wurden",
     "logs_history": "Historie der Befehlsausführung auf dem System",
@@ -262,7 +262,8 @@
     "unignore": "Unignorieren",
     "warnings": "{count} Warnungen",
     "words": {
-        "default": "Vorgabe"
+        "default": "Vorgabe",
+        "collapse": "Zusammenbruch"
     },
     "group": "Gruppe",
     "details": "Details",
@@ -294,7 +295,7 @@
     "all": "Alle",
     "confirm_service_restart": "Bist du sicher, dass du {name} neustarten möchtest?",
     "run_first_diagnosis": "Initiale Diagnose läuft",
-    "diagnosis_first_run": "Die Diagnosefunktion versucht, häufige Probleme in den verschiedenen Bereichen Ihres Servers zu identifizieren, um sicherzustellen, dass alles reibungslos läuft. Bitte geraten Sie nicht in Panik, wenn Sie direkt nach dem Einrichten Ihres Servers einen Haufen Fehler sehen: es soll Ihnen genau dabei helfen, Probleme zu identifizieren und Sie zur Behebung dieser Probleme anleiten. Die Diagnose läuft auch automatisch zweimal täglich, und wenn Probleme gefunden werden, wird eine E-Mail an den Administrator geschickt.",
+    "diagnosis_first_run": "Die Diagnose Funktion wird versuchen, gängige Probleme in verschiedenen Teilen deines Servers zu finden, damit alles reibungslos läuft. Hab keine Angst, wenn du ein paar Fehlermeldungen siehst nachdem du deinen Server aufgesetzt hast: es soll versuchen dir zu helfen, Probleme zu identifizieren und Tipps für Lösungen zu zeigen. Die Diagnose wird auch automatisch zweimal täglich ausgeführt, falls Fehler gefunden werden, bekommt der Administrator ein E-Mail.",
     "unmaintained_details": "Diese Anwendung wurde seit einiger Zeit nicht gewartet und der frühere Wart hat die Anwendung aufgegeben oder hat keine Zeit mehr für die Wartung. Du bist herzlich eingeladen dir die Quellen und Unterlagen anzusehen und Hilfe zu leisten",
     "group_explain_visitors_needed_for_external_client": "Sei vorsichtig und beachte, dass du manche Anwendungen für externe Besucher*innen freigeben musst, falls du beabsichtigst, diese mit externen Clients aufzurufen. Zum Beispiel trifft das auf Nextcloud zu, wenn du eine Synchronisation auf dem Smartphone oder Desktop PC haben möchtest.",
     "issues": "{count} Probleme",
@@ -303,5 +304,130 @@
     "diagnosis_explanation": "Die Diagnose Funktion wird versuchen, gängige Probleme in verschiedenen Teilen deines Servers zu finden,  damit alles reibungslos läuft. Die Diagnose wird auch automatisch zweimal täglich ausgeführt, falls Fehler gefunden werden, bekommt der Administrator ein E-Mail. Beachte, dass einige tests nicht relevant sind, wenn du einzelne Features (zum Beispiel XMPP) nicht benutzt oder du ein komplexes Setup hast. In diesem Fall und wenn du weisst was du tust ist es in Ordnung die dazugehoerigen Warnungen und Hinweise zu ignorieren.",
     "pending_migrations": "Es gibt einige ausstehende Migrationen, die darauf warten, ausgeführt zu werden. Bitte gehen Sie auf  <a href='#/tools/migrations'>Werkzeuge > Migrationen</a> um diese auszuführen.",
     "tip_about_user_email": "Benutzer*innen werden mit einer verknüpften eMail-Adresse (und XMPP Account) erstellt  im Format username@domain.tld. Zusätzliche eMail-Aliasse and eMail-Weiterleitungen können später durch den/die Admin und User*in hinzugefügt werden.",
-    "logs_suboperations": "Unter-Operationen"
+    "logs_suboperations": "Unter-Operationen",
+    "api_errors_titles": {
+        "APIBadRequestError": "Yunohost ist ein Fehler widerfahren",
+        "APIError": "Yunohost ist ein unerwarteter Fehler widerfahren",
+        "APIConnexionError": "Yunohost hat ein Verbindungsfehler festgestellt",
+        "APINotRespondingError": "Die Yunohost API antwortet nicht",
+        "APIInternalError": "Im Yunohost ist ein interner Fehler aufgetreten"
+    },
+    "api_error": {
+        "sorry": "Tut uns wirklich leid.",
+        "info": "Die folgenden Informationen könnten nützlich sein für die Person, die Ihnen hilft:",
+        "help": "Sie sollten für Hilfe <a href=\"https://forum.yunohost.org/\">im Forum</a> oder <a href=\"https://chat.yunohost.org/\">im Chat</a> nachschauen, um das Problem zu beheben, oder einen Bug melden im <a href=\"https://github.com/YunoHost/issues\">Bugtracker</a>."
+    },
+    "address": {
+        "local_part_description": {
+            "email": "Wählen Sie einen lokalen Teil für Ihre E-Mail.",
+            "domain": "Wählen Sie eine Subdomain."
+        },
+        "domain_description": {
+            "email": "Wählen Sie eine Domäne für Ihre E-Mail.",
+            "domain": "Wählen Sie eine Domäne."
+        }
+    },
+    "permission_show_tile_enabled": "Sichtbar als Kachel im Benutzerportal",
+    "permission_main": "Hauptrechte",
+    "permission_corresponding_url": "Entsprechender URL",
+    "cancel": "Abbrechen",
+    "app_show_categories": "Kategorien anzeigen",
+    "app_manage_label_and_tiles": "Etiketten und Kacheln verwalten",
+    "app_config_panel_no_panel": "Für diese Anwendung ist keine Konfiguration verfügbar",
+    "app_config_panel_label": "Konfigurieren dieser App",
+    "app_config_panel": "Konfigurationsfenster",
+    "app_choose_category": "Kategorie auswählen",
+    "app_actions_label": "Aktionen ausführen",
+    "api_waiting": "Warten auf Server Antwort...",
+    "user_emailforward_add": "Fügen Sie eine Mail-Weiterleitung hinzu",
+    "user_emailaliases_add": "Fügen Sie einen Mail-Alias hinzu",
+    "unknown": "Unbekannt",
+    "traceback": "Zurück verfolgen",
+    "tools_webadmin_settings": "Webadministratoreinstellungen",
+    "tools_webadmin": {
+        "transitions": "Seitenübergangsanimationen",
+        "experimental_description": "Ermöglicht den Zugriff auf experimentelle Funktionen. Diese gelten als instabil und können Ihr System beschädigen.<br>Nur aktivieren, wenn Sie wissen, was Sie tun.",
+        "experimental": "Experimenteller Modus",
+        "cache_description": "Deaktivieren Sie den Cache, wenn Sie mit der CLI arbeiten möchten, während Sie gleichzeitig in diesem Webadministrator navigieren.",
+        "cache": "Zwischenspeicher",
+        "fallback_language_description": "Sprache, die verwendet wird, falls die Übersetzung nicht in der Hauptsprache verfügbar ist.",
+        "language": "Sprache",
+        "fallback_language": "Fallback Sprache"
+    },
+    "tools_power_up": "Ihr Server scheint zugänglich zu sein. Sie können jetzt versuchen, sich anzumelden.",
+    "search": {
+        "not_found": "Es gibt {Elemente}, die Ihren Kriterien entsprechen.",
+        "for": "Suche nach {items} ..."
+    },
+    "readme": "Readme",
+    "postinstall_set_password": "Legen Sie das Administrationskennwort fest",
+    "postinstall_set_domain": "Hauptdomäne festlegen",
+    "placeholder": {
+        "domain": "my-domain.de",
+        "groupname": "Mein Gruppenname",
+        "lastname": "Mustermann",
+        "firstname": "Max",
+        "username": "maxmustermann"
+    },
+    "perform": "Ausführen",
+    "migrations_disclaimer_not_checked": "Für diese Migration müssen Sie den Haftungsausschluss bestätigen, bevor Sie sie ausführen.",
+    "migrations_disclaimer_check_message": "Ich habe diesen Haftungsausschluss gelesen und verstanden",
+    "mailbox_quota_example": "700M ist eine CD, 4700M ist eine DVD",
+    "items_verbose_count": "Es gibt {items}.",
+    "items": {
+        "users": "keine Benutzer | Benutzer | {c} Benutzer",
+        "services": "keine Dienste | Dienst | {c} Dienste",
+        "logs": "keine Protokolle | Protokoll | {c} Protokolle",
+        "installed_apps": "keine installierten Apps | installierte App | {c} installierte Apps",
+        "groups": "keine Gruppen | Gruppe | {c} Gruppen",
+        "domains": "keine Domains | Domain | {c} Domains",
+        "backups": "keine Backups | Backup | {c} Backups",
+        "apps": "keine Apps | App | {c} Apps"
+    },
+    "history": {
+        "methods": {
+            "DELETE": "entfernen",
+            "PUT": "bearbeiten",
+            "POST": "erstellen/ausführen"
+        },
+        "last_action": "Letzte Aktion:",
+        "title": "Historie"
+    },
+    "form_errors": {
+        "required": "Feld ist erforderlich.",
+        "passwordMatch": "Passwörter stimmen nicht überein.",
+        "passwordLenght": "Das Passwort muss mindestens 8 Zeichen lang sein.",
+        "number": "Wert muss eine Zahl sein.",
+        "notInUsers": "Der Benutzer '{value}' existiert bereits.",
+        "minValue": "Der Wert muss eine Zahl sein, die gleich oder größer als {min} ist.",
+        "name": "Namen dürfen keine Sonderzeichen außer <code>, .'- </code> enthalten",
+        "githubLink": "Die URL muss ein gültiger Github-Link zu einem Repository sein",
+        "emailForward": "Ungültige E-Mail-Weiterleitung: Sie darf nur aus alphanumerischen Zeichen und <code> _.-+</code> bestehen (z. B. jemand+tag@example.com, s0me-1+tag@example.com)",
+        "email": "Ungültige E-Mail: Sie darf nur aus alphanumerischen Zeichen und <code> _.-</code> bestehen (z. B. jemand@example.com, s0me-1@example.com)",
+        "dynDomain": "Ungültiger Domainname: Er darf nur aus alphanumerischen Kleinbuchstaben und Bindestrichen bestehen",
+        "domain": "Ungültiger Domainname: Er darf nur aus alphanumerischen Kleinbuchstaben, Punkt- und Strichzeichen bestehen",
+        "between": "Der Wert muss zwischen {min} und {max} liegen.",
+        "alphalownum_": "Der Wert darf nur aus alphanumerischen Kleinbuchstaben und Unterstrichen bestehen.",
+        "alpha": "Der Wert darf nur aus alphabetischen Zeichen bestehen."
+    },
+    "footer": {
+        "donate": "Spenden",
+        "help": "Brauchen Sie Hilfe?",
+        "documentation": "Dokumentation"
+    },
+    "experimental": "Experimentell",
+    "error": "Fehler",
+    "enabled": "Aktiviert",
+    "domain_delete_forbidden_desc": "Sie können '{domain}' nicht entfernen, da es sich um die Standarddomäne handelt. Sie müssen eine andere Domäne auswählen (oder <a href='#/domains/add'> eine neue hinzufügen </a>) und diese als Standarddomäne festlegen um die aktuelle entfernen zu können.",
+    "domain_add_dyndns_forbidden": "Sie haben bereits eine DynDNS-Domain abonniert. Sie können Ihre aktuelle DynDNS-Domain im Forum <a href = '// forum.yunohost.org/t/nohost-domain-recovery-suppression-de-domaine-en- entfernen nohost-me-noho-st-et-ynh-fr / 442 '> im dedizierten Thread </a>.",
+    "disabled": "Deaktiviert",
+    "dead": "Inaktiv",
+    "day_validity": " Abgelaufen seit | einem Tag | {count} Tage",
+    "confirm_app_install": "Möchtest du diese Anwendung wirklich installieren?",
+    "common": {
+        "lastname": "Nachname",
+        "firstname": "Vorname"
+    },
+    "code": "Code",
+    "app_actions": "Aktionen"
 }

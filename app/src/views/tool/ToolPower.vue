@@ -1,16 +1,17 @@
 <template>
   <div>
-    <div v-if="inProcess">
+    <template v-if="canReconnect">
+      <b-alert variant="success" v-t="'tools_power_up'" />
+      <login-view />
+    </template>
+
+    <div v-else-if="inProcess">
       <b-alert variant="info" v-t="'tools_' + action + '_done'" />
 
       <b-alert variant="warning">
         <icon :iname="action === 'reboot' ? 'refresh' : 'power-off'" />
         {{ $t(action === 'reboot' ? 'tools_rebooting' : 'tools_shuttingdown') }}
       </b-alert>
-      <template v-if="canReconnect">
-        <b-alert variant="success" v-t="'tools_power_up'" />
-        <login-view />
-      </template>
     </div>
 
     <card v-else :title="$t('operations')" icon="wrench">
@@ -45,6 +46,10 @@ import LoginView from '@/views/Login'
 export default {
   name: 'ToolPower',
 
+  components: {
+    LoginView
+  },
+
   data () {
     return {
       action: '',
@@ -65,29 +70,29 @@ export default {
         // Use 'RESET_CONNECTED' and not 'DISCONNECT' else user will be redirect to login
         this.$store.dispatch('RESET_CONNECTED')
         this.inProcess = true
-        this.tryToReconnect()
+        return this.tryToReconnect(4000)
+      }).then(() => {
+        this.canReconnect = true
       })
     },
 
-    tryToReconnect () {
+    tryToReconnect (delay = 2000) {
       // FIXME need to be tested out of webpack-dev-server
-      setTimeout(() => {
-        // Try to get a response from the server after boot/reboot
-        // use `api.fetch` to not trigger base response handlers
-        api.fetch('GET', 'logout').then(response => {
-          // Server responds with `Unauthorized`, we can display the login input
-          if (response.status === 401) {
-            this.canReconnect = true
-          } else {
-            this.tryToReconnect()
-          }
-        }).catch(() => {
-          this.tryToReconnect()
-        })
-      }, 1000)
+      return new Promise(resolve => {
+        setTimeout(() => {
+          // Try to get a response from the server after boot/reboot
+          api.get('logout').catch(err => {
+            if (err.name === 'APIUnauthorizedError') {
+              // Means the server is accessible
+              resolve()
+            } else {
+              // FIXME could be improved by checking error types since yunohost
+              resolve(this.tryToReconnect())
+            }
+          })
+        }, delay)
+      })
     }
-  },
-
-  components: { LoginView }
+  }
  }
 </script>

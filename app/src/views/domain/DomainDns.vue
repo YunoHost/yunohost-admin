@@ -22,7 +22,9 @@ export default {
 
   data () {
     return {
-      queries: [`domains/${this.name}/dns`],
+      queries: [
+        ['GET', `domains/${this.name}/dns`]
+      ],
       dnsConfig: ''
     }
   }

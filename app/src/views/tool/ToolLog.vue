@@ -1,6 +1,6 @@
 <template>
   <view-base
-    :queries="queries" @queries-response="formatLogData"
+    :queries="queries" @queries-response="onQueriesResponse"
     ref="view" skeleton="card-info-skeleton"
   >
     <!-- INFO CARD -->
@@ -90,12 +90,12 @@ export default {
         with_suboperations: '',
         number: this.numberOfLines
       })
-      return [`logs/${this.name}?${queryString}`]
+      return [['GET', `logs/${this.name}?${queryString}`]]
     }
   },
 
   methods: {
-    formatLogData (log) {
+    onQueriesResponse (log) {
       if (log.logs.length === this.numberOfLines) {
         this.moreLogsAvailable = true
         this.numberOfLines *= 10
@@ -125,7 +125,7 @@ export default {
     },
 
     shareLogs () {
-      api.get(`/logs/${this.name}?share`).then(({ url }) => {
+      api.get(`logs/${this.name}?share`, null, { websocket: true }).then(({ url }) => {
         window.open(url, '_blank')
       })
     }

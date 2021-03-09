@@ -307,5 +307,13 @@
     "app_manage_label_and_tiles": "Gestion de las apelacions e títols",
     "permission_corresponding_url": "URL correspondenta",
     "permission_main": "Permission principala",
-    "permission_show_tile_enabled": "Afichar lo teule al portal utilizaire"
+    "permission_show_tile_enabled": "Afichar lo teule al portal utilizaire",
+    "address": {
+        "local_part_description": {
+            "domain": "Causissètz un jos-domeni."
+        },
+        "domain_description": {
+            "domain": "Causissètz un domeni."
+        }
+    }
 }

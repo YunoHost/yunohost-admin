@@ -1,5 +1,5 @@
 <template>
-  <view-base :queries="queries" @queries-response="formatData" skeleton="card-list-skeleton">
+  <view-base :queries="queries" @queries-response="onQueriesResponse" skeleton="card-list-skeleton">
     <!-- FIXME switch to <card-form> ? -->
     <card :title="$t('backup_create')" icon="archive" no-body>
       <b-form-checkbox-group
@@ -104,7 +104,10 @@ export default {
 
   data () {
     return {
-      queries: ['hooks/backup', 'apps?with_backup'],
+      queries: [
+        ['GET', 'hooks/backup'],
+        ['GET', 'apps?with_backup']
+      ],
       selected: [],
       // api data
       system: undefined,
@@ -131,7 +134,7 @@ export default {
       return data
     },
 
-    formatData ({ hooks }, { apps }) {
+    onQueriesResponse ({ hooks }, { apps }) {
       this.system = this.formatHooks(hooks)
       // transform app array into literal object to match hooks data structure
       this.apps = apps.reduce((obj, app) => {
