@@ -138,7 +138,7 @@
     "manually_renew_letsencrypt_message": "Сертификат будет автоматически обновлён в последние 15 дней своего действия. Вы может вручную обновить его, если хотите. (Не рекомендуется).",
     "manually_renew_letsencrypt": "Теперь обновить вручную",
     "confirm_postinstall": "Вы начинаете процесс конфигурации домена {domain}. Это займёт несколько минут, *не прерывайте процесс*.",
-    "domain_add_dns_doc": "… я <a href='//yunohost.org/dns'>set my DNS установил мой DNS правильно</a>.",
+    "domain_add_dns_doc": "… я <a href='//yunohost.org/dns_config'>set my DNS установил мой DNS правильно</a>.",
     "tools": "Инструменты",
     "tools_adminpw": "Смените пароль администратора",
     "tools_adminpw_current": "Действующий пароль",

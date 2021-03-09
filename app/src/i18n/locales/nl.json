@@ -35,7 +35,7 @@
     "description": "Beschrijving",
     "disable": "Uitschakelen",
     "domain_add": "Domeinnaam toevoegen",
-    "domain_add_dns_doc": "... en ik heb <a href='//yunohost.org/dns'>mijn DNS correct ingesteld</a>.",
+    "domain_add_dns_doc": "... en ik heb <a href='//yunohost.org/dns_config'>mijn DNS correct ingesteld</a>.",
     "domain_add_dyndns_doc": "... en ik wil een dynamische DNS-dienst (Dynamic DNS).",
     "domain_add_panel_with_domain": "Ik heb al een domeinnaam…",
     "domain_add_panel_without_domain": "Ik heb nog geen domeinnaam…",
