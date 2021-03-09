@@ -54,7 +54,7 @@
     "disable": "Desactivar",
     "dns": "DNS",
     "domain_add": "Ajustar un domeni",
-    "domain_add_dns_doc": "… e ai <a href='//yunohost.org/dns'>>corrèctament configurat mos DNS</a>.",
+    "domain_add_dns_doc": "… e ai <a href='//yunohost.org/dns_config'>>corrèctament configurat mos DNS</a>.",
     "domain_add_dyndns_doc": "… e desiri un nom de domeni preconfigurat.",
     "domain_add_panel_with_domain": "Ai ja mon nom de domeni…",
     "domain_add_panel_without_domain": "Ai pas de nom de domeni…",

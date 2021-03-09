@@ -64,7 +64,7 @@
     "mailbox_quota_placeholder": "Lasu malplenan aŭ agordi al 0 por malaktivigi.",
     "domain_default_desc": "La defaŭlta domajno estas la konekta domajno, kie uzantoj ensalutas.",
     "domain_dns_longdesc": "Vidu DNS-agordon",
-    "domain_add_dns_doc": "... kaj mi <a href='//yunohost.org/dns'> agordis mian DNS ĝuste </a>.",
+    "domain_add_dns_doc": "... kaj mi <a href='//yunohost.org/dns_config'> agordis mian DNS ĝuste </a>.",
     "confirm_update_apps": "Ĉu vi certas, ke vi volas ĝisdatigi ĉiujn aplikojn ?",
     "confirm_install_custom_app": "AVERTO! Instali aplikojn de tria partio eble kompromitos la integrecon kaj sekurecon de via sistemo. Vi probable ne devas instali ĝin krom se vi scias kion vi faras. Ĉu vi pretas riski tion?",
     "add": "Aldoni",
