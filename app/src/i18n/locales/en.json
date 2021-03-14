@@ -321,7 +321,7 @@
     "postinstall_domain": "This is the first domain name linked to your YunoHost server, but also the one which will be used by your server's users to access the authentication portal. Accordingly, it will be visible by everyone, so choose it carefully.",
     "postinstall_intro_1": "Congratulations! YunoHost has been successfully installed.",
     "postinstall_intro_2": "Two more configuration steps are required to activate you server's services.",
-    "postinstall_intro_3": "You can obtain more information by visiting the <a href='//yunohost.org/postinstall' target='_blank'>appropriate documentation page</a>",
+    "postinstall_intro_3": "You can obtain more information by visiting the <a href='//yunohost.org/en/install/hardware:vps_debian#fa-cog-proceed-with-the-initial-configuration' target='_blank'>appropriate documentation page</a>",
     "postinstall_password": "This password will be used to manage everything on your server. Take the time to choose it wisely.",
     "postinstall_set_domain": "Set main domain",
     "postinstall_set_password": "Set administration password",
