@@ -21,7 +21,7 @@
     <template v-else-if="step === 'domain'">
       <domain-form @submit="setDomain" :title="$t('postinstall_set_domain')" :submit-text="$t('next')">
         <template #disclaimer>
-          <p class="alert alert-warning" v-t="'postinstall_domain'" />
+          <p class="alert alert-info" v-t="'postinstall_domain'" />
         </template>
       </domain-form>
 

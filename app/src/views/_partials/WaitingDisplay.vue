@@ -59,7 +59,7 @@ export default {
 
 <style lang="scss" scoped>
 .custom-spinner {
-  animation: 4s linear infinite;
+  animation: 8s linear infinite;
   background-repeat: no-repeat;
 
   &.pacman {

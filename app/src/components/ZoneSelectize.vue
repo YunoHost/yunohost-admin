@@ -2,12 +2,12 @@
   <div class="selectize-zone">
     <div id="selected-items" v-if="selected.length > 0">
       <b-button-group size="sm" v-for="item in filteredSelected" :key="item">
-        <b-button :variant="itemVariant" :to="itemRoute ? {name: itemRoute, params: {name: item}} : null" class="item-btn">
+        <b-button :to="itemRoute ? {name: itemRoute, params: {name: item}} : null" class="item-btn btn-light btn-outline-dark">
           <icon :iname="itemIcon" /> {{ item | filter(format) }}
         </b-button>
         <b-button
           v-if="!removable || removable(item)"
-          class="remove-btn" variant="warning"
+          class="remove-btn btn-outline-dark" variant="warning"
           @click="onRemove(item)"
         >
           <icon :title="$t('delete')" iname="minus" />
@@ -34,7 +34,6 @@ export default {
   props: {
     itemIcon: { type: String, default: null },
     itemRoute: { type: String, default: null },
-    itemVariant: { type: String, default: 'secondary' },
     selected: { type: Array, required: true },
     // needed by SelectizeBase
     choices: { type: Array, required: true },

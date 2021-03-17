@@ -20,14 +20,14 @@
 
       <!-- DNS CONFIG -->
       <p>{{ $t('domain_dns_longdesc') }}</p>
-      <b-button :to="{ name: 'domain-dns', param: { name } }">
+      <b-button variant="light" class="btn-outline-dark" :to="{ name: 'domain-dns', param: { name } }">
         <icon iname="globe" /> {{ $t('domain_dns_config') }}
       </b-button>
       <hr>
 
       <!-- SSL CERTIFICATE -->
       <p>{{ $t('certificate_manage') }}</p>
-      <b-button :to="{ name: 'domain-cert', param: { name } }">
+      <b-button variant="light" class="btn-outline-dark" :to="{ name: 'domain-cert', param: { name } }">
         <icon iname="lock" /> {{ $t('ssl_certificate') }}
       </b-button>
       <hr>
@@ -35,7 +35,7 @@
       <!-- DELETE -->
       <p>{{ $t('domain_delete_longdesc') }}</p>
       <p
-        v-if="isMainDomain" class="alert alert-danger"
+        v-if="isMainDomain" class="alert alert-info"
         v-html="$t('domain_delete_forbidden_desc', { domain: name })"
       />
       <b-button v-else variant="danger" @click="deleteDomain">

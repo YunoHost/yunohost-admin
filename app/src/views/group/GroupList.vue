@@ -36,8 +36,8 @@
 
         <b-col>
           <template v-if="group.isSpecial">
-            <p><icon iname="info-circle" /> {{ $t('group_explain_' + name) }}</p>
-            <p v-if="name === 'visitors'">
+            <p class="text-primary"><icon iname="info-circle" /> {{ $t('group_explain_' + name) }}</p>
+            <p class="text-primary" v-if="name === 'visitors'">
               <em>{{ $t('group_explain_visitors_needed_for_external_client') }}</em>
             </p>
           </template>
@@ -59,7 +59,7 @@
         </b-col>
         <b-col>
           <zone-selectize
-            item-icon="key-modern" item-variant="dark"
+            item-icon="key-modern"
             :choices="group.availablePermissions"
             :selected="group.permissions"
             :label="$t('group_add_permission')"

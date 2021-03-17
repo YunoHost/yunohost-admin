@@ -47,6 +47,10 @@ body {
   }
 }
 
+.font-weight-bold {
+    font-weight: 500 !important;
+}
+
 // Bootstrap overrides
 
 .list-group-item {
@@ -89,13 +93,31 @@ body {
 }
 
 .card-header {
+  padding: 0.6rem 1rem;
+}
+
+.card {
   h1, h2, h3, h4, h5, h6 {
     margin: 0;
   }
 
   h2 {
-    font-size: 1.75rem;
+    font-size: 1.5rem;
   }
+
+  h3 {
+    font-size: 1.4rem;
+  }
+
+  h4 {
+    font-size: 1.25rem;
+  }
+
+  h5 {
+    font-size: 1.1rem;
+  }
+
+
 }
 
 .card-body {
@@ -128,4 +150,8 @@ body {
   margin-bottom: 0;
   padding: 1rem;
   background-color: $light;
+}
+
+code {
+    background: ghostwhite;
 }

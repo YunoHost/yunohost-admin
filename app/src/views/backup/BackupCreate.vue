@@ -8,7 +8,7 @@
       >
         <b-list-group flush>
           <!-- SYSTEM HEADER -->
-          <b-list-group-item class="d-flex align-items-sm-center flex-column flex-sm-row" variant="light">
+          <b-list-group-item class="d-flex align-items-sm-center flex-column flex-sm-row text-primary">
             <h4 class="m-0">
               <icon iname="cube" /> {{ $t('system') }}
             </h4>
@@ -35,7 +35,7 @@
               <h5 class="font-weight-bold">
                 {{ item.name }}
               </h5>
-              <p class="m-0">
+              <p class="m-0 text-muted">
                 {{ item.description }}
               </p>
             </div>
@@ -44,7 +44,7 @@
           </b-list-group-item>
 
           <!-- APPS HEADER -->
-          <b-list-group-item class="d-flex align-items-sm-center flex-column flex-sm-row" variant="light">
+          <b-list-group-item class="d-flex align-items-sm-center flex-column flex-sm-row text-primary">
             <h4 class="m-0">
               <icon iname="cubes" /> {{ $t('applications') }}
             </h4>
