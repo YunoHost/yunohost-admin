@@ -2,7 +2,7 @@
     "action": "Actie",
     "add": "Toevoegen",
     "administration_password": "Beheerderswachtwoord",
-    "api_not_responding": "De YunoHost API reageert niet. De 'yunohost-api' is misschien stuk of werd herstart?",
+    "api_not_responding": "De YunoHost API reageert niet. Misschien is de 'yunohost-api' offline of wordt deze opnieuw opgestart?",
     "app_info_access_desc": "Groepen/gebruikers die op dit ogenblik toegang hebben tot deze applicatie:",
     "app_info_default_desc": "Domeinnaam wortel (root) doorverwijzen naar deze applicatie ({domain}).",
     "app_info_uninstall_desc": "Deze applicatie verwijderen.",
@@ -22,7 +22,7 @@
     "confirm_app_default": "Ben je zeker dat je dit de standaardapplicatie wil maken?",
     "confirm_change_maindomain": "Ben je zeker dat je de domeinnaam wil wijzigen?",
     "confirm_delete": "Ben je zeker dat je {name} wil verwijderen?",
-    "confirm_install_custom_app": "Applicaties van derden installeren kan de veiligheid van je systeem in gevaar brengen. Gebruik op eigen risico.",
+    "confirm_install_custom_app": "Waarschuwing: applicaties van derden installeren kan de veiligheid van je systeem in gevaar brengen. Gebruik op eigen risico.",
     "confirm_install_domain_root": "Het zal niet meer mogelijk zijn om een andere app te installeren op {domain}. Verdergaan?",
     "confirm_postinstall": "Je gaat zo het post-installatieproces starten op domein {domain}. Dit kan enkele minuten duren, *onderbreek het proces niet*.",
     "confirm_restore": "Weet je zeker dat je {name} wilt herstellen?",
@@ -144,7 +144,7 @@
     "app_info_changeurl_desc": "URL van deze applicatie veranderen (domein en/of locatie).",
     "app_info_change_url_disabled_tooltip": "Functie is nog niet geïmplementeerd voor deze applicatie",
     "app_state_inprogress": "functioneert nog niet",
-    "app_state_notworking": "Werkt niet",
+    "app_state_notworking": "werkt niet",
     "app_state_working": "Werkt",
     "ok": "OK",
     "app_state_highquality_explanation": "Deze applicatie is goed geïntegreerd met Yunohost. Ze werd en wordt beoordeel door de applicatie ploeg van Yunohost. Er kan gesteld worden dat ze veilig werkt en op lange termijn onderhouden zal worden.",
@@ -155,5 +155,36 @@
     "app_state_inprogress_explanation": "De persoon die deze applicatie onderhoudt, heeft verklaard dat ze nog niet klaar is voor een gebruik in productie. WEES VOORZICHTIG!",
     "app_no_actions": "Deze applicaties beschikt niet over acties",
     "all_apps": "Alle applicaties",
-    "all": "Alles"
+    "all": "Alles",
+    "app_manage_label_and_tiles": "Stel label en tegels in",
+    "app_choose_category": "Kies een categorie",
+    "api_waiting": "Aan het wachten op de reactie van de server...",
+    "api_errors_titles": {
+        "APINotRespondingError": "Yunohost API reageert niet",
+        "APIError": "Yunohost kwam een onverwachte fout tegen"
+    },
+    "api_error": {
+        "info": "De volgende informatie kan handig zijn voor de persoon die jou helpt:",
+        "help": "Je zou om hulp kunnen vragen op het <a href=\"https://forum.yunohost.org/\">forum</a> of <a href=\"https://chat.yunohost.org/\">in de chat</a> om dit op te lossen, of een bug melden op  <a href=\"https://github.com/YunoHost/issues\">de bugtracker</a>.",
+        "error_message": "Foutmelding:"
+    },
+    "api": {
+        "query_status": {
+            "warning": "Succesvol afgerond met fouten of waarschuwingen",
+            "success": "Succesvol afgerond",
+            "pending": "Bezig",
+            "error": "Niet geslaagd"
+        },
+        "processing": "De server is aan het verwerken..."
+    },
+    "address": {
+        "local_part_description": {
+            "domain": "Kies een subdomein."
+        },
+        "domain_description": {
+            "email": "Kies een domein voor je email.",
+            "domain": "Kies een domein."
+        }
+    },
+    "cancel": "Annuleer"
 }

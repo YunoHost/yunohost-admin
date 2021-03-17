@@ -418,7 +418,8 @@
     "api_error": {
         "sorry": "Vraiment désolé de cela.",
         "info": "Les informations suivantes peuvent être utiles à la personne qui vous aide :",
-        "help": "Vous devez chercher de l'aide sur <a href=\"https://forum.yunohost.org/\"> le forum</a> ou <a href=\"https://chat.yunohost.org/\">le chat</a> pour corriger la situation, ou signaler le bug sur <a href=\"https://github.com/YunoHost/issues\"> le bugtracker</a>."
+        "help": "Vous devez chercher de l'aide sur <a href=\"https://forum.yunohost.org/\"> le forum</a> ou <a href=\"https://chat.yunohost.org/\">le chat</a> pour corriger la situation, ou signaler le bug sur <a href=\"https://github.com/YunoHost/issues\"> le bugtracker</a>.",
+        "error_message": "Message d'erreur :"
     },
     "address": {
         "local_part_description": {
