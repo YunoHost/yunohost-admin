@@ -20,14 +20,14 @@
 
       <!-- DNS CONFIG -->
       <p>{{ $t('domain_dns_longdesc') }}</p>
-      <b-button variant="light" class="btn-outline-dark" :to="{ name: 'domain-dns', param: { name } }">
+      <b-button variant="outline-dark" :to="{ name: 'domain-dns', param: { name } }">
         <icon iname="globe" /> {{ $t('domain_dns_config') }}
       </b-button>
       <hr>
 
       <!-- SSL CERTIFICATE -->
       <p>{{ $t('certificate_manage') }}</p>
-      <b-button variant="light" class="btn-outline-dark" :to="{ name: 'domain-cert', param: { name } }">
+      <b-button variant="outline-dark" :to="{ name: 'domain-cert', param: { name } }">
         <icon iname="lock" /> {{ $t('ssl_certificate') }}
       </b-button>
       <hr>
