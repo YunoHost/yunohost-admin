@@ -1,10 +1,13 @@
-yunohost-admin (4.2.0) unstable; urgency=low
+yunohost-admin (4.2.0) testing; urgency=low
 
-  - Placeholder for 4.2 to satisfy debian build during dev
+  - [enh] Rework the webadmin with Vue.js ([#316](https://github.com/YunoHost/yunohost-admin/pull/316), 62b3f27, [#336](https://github.com/YunoHost/yunohost-admin/pull/336))
+  - [enh] Improve error handling ([#330](https://github.com/YunoHost/yunohost-admin/pull/330))
+  - [fix] Update some links, followup of new documentation ([#334](https://github.com/YunoHost/yunohost-admin/pull/334), b76838f)
+  - [i18n] Translations updated for Catalan, Chinese (Simplified), Czech, Dutch, French, German, Occitan, Russian
 
-  Thanks to all contributors <3 ! (Alexandre Aubin, axolotle, Axolotle)
+  Thanks to all contributors <3 ! (Axolotle, C. Wehrli, C. Mercier, Kay0u, ljf, Manu Bu, M. Massaviol, M. Kroulík, N. Van Zuijlen, panomaki, ppr, Quentí, Radek S, Tom_, T. Valiiev, xaloc33, Yasss Gurl, Y. Ding)
 
- -- Kay0u <pierre@kayou.io>  Thu, 21 Jan 2021 20:06:22 +0100
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Fri, 19 Mar 2021 19:12:29 +0100
 
 yunohost-admin (4.1.4) stable; urgency=low
 
