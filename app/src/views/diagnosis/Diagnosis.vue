@@ -64,13 +64,13 @@
             <div class="d-flex flex-column flex-lg-row ml-auto">
               <b-button
                 v-if="item.ignored" size="sm"
-                @click="toggleIgnoreIssue(false, report, item)"
+                @click="toggleIgnoreIssue('unignore', report, item)"
               >
                 <icon iname="bell" /> {{ $t('unignore') }}
               </b-button>
               <b-button
                 v-else-if="item.issue" variant="warning" size="sm"
-                @click="toggleIgnoreIssue(true, report, item)"
+                @click="toggleIgnoreIssue('ignore', report, item)"
               >
                 <icon iname="bell-slash" /> {{ $t('ignore') }}
               </b-button>
@@ -115,8 +115,8 @@ export default {
   data () {
     return {
       queries: [
-        ['POST', 'diagnosis/run?except_if_never_ran_yet'],
-        ['GET', 'diagnosis/show?full']
+        ['PUT', 'diagnosis/run?except_if_never_ran_yet'],
+        ['GET', 'diagnosis?full']
       ],
       reports: undefined
     }
@@ -177,16 +177,15 @@ export default {
       api.post('diagnosis/run' + param, data).then(this.$refs.view.fetchQueries)
     },
 
-    toggleIgnoreIssue (ignore, report, item) {
-      const key = (ignore ? 'add' : 'remove') + '_filter'
+    toggleIgnoreIssue (action, report, item) {
       const filterArgs = Object.entries(item.meta).reduce((filterArgs, entries) => {
         filterArgs.push(entries.join('='))
         return filterArgs
       }, [report.id])
 
-      api.post('diagnosis/ignore', { [key]: filterArgs }).then(() => {
-        item.ignored = ignore
-        if (ignore) {
+      api.put('diagnosis/' + action, { filter: filterArgs }).then(() => {
+        item.ignored = action === 'ignore'
+        if (item.ignored) {
           report[item.status.toLowerCase() + 's']--
         } else {
           report.ignoreds--
