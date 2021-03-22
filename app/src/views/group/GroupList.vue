@@ -227,11 +227,9 @@ export default {
     },
 
     onUserChanged ({ item, index, name, action }) {
-      const uri = 'users/groups/' + name
-      const data = { [action]: item }
       const from = action === 'add' ? 'availableMembers' : 'members'
       const to = action === 'add' ? 'members' : 'availableMembers'
-      api.put(uri, data).then(() => {
+      api.put(`users/groups/${name}/${action}/${item}`).then(() => {
         this.normalGroups[name][from].splice(index, 1)
         this.normalGroups[name][to].push(item)
       })
