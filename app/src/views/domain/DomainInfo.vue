@@ -94,8 +94,7 @@ export default {
       if (!confirmed) return
 
       api.put(
-        { uri: 'domains/main', storeKey: 'main_domain' },
-        { new_main_domain: this.name }
+        { uri: `domains/${this.name}/main`, storeKey: 'main_domain' }
       ).then(() => {
         // FIXME Have to commit by hand here since the response is empty (should return the given name)
         this.$store.commit('UPDATE_MAIN_DOMAIN', this.name)
