@@ -27,7 +27,7 @@
         <div>
           <h5 class="font-weight-bold">
             {{ user.username }}
-            <small class="text-secondary">({{ user.fullname }})</small>
+            <small class="text-secondary">{{ user.fullname }}</small>
           </h5>
           <p class="m-0">
             {{ user.mail }}

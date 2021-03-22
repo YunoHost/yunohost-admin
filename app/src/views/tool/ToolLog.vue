@@ -18,7 +18,7 @@
 
           <div v-else-if="prop === 'suboperations'">
             <div v-for="operation in value" :key="operation.name">
-              <icon v-if="!operation.success" iname="times" class="text-danger" />
+              <icon v-if="operation.success !== true" iname="times" class="text-danger" />
               <b-link :to="{ name: 'tool-log', params: { name: operation.name } }">
                 {{ operation.description }}
               </b-link>
@@ -121,6 +121,8 @@ export default {
       const info = { path: log.log_path, started_at, ended_at }
       if (!success) info.error = error
       if (suboperations && suboperations.length) info.suboperations = suboperations
+      // eslint-disable-next-line
+      if (!ended_at) delete info.ended_at
       this.info = info
     },
 

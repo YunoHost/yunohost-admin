@@ -36,7 +36,9 @@
 
         <b-col>
           <template v-if="group.isSpecial">
-            <p class="text-primary"><icon iname="info-circle" /> {{ $t('group_explain_' + name) }}</p>
+            <p class="text-primary">
+              <icon iname="info-circle" /> {{ $t('group_explain_' + name) }}
+            </p>
             <p class="text-primary" v-if="name === 'visitors'">
               <em>{{ $t('group_explain_visitors_needed_for_external_client') }}</em>
             </p>
