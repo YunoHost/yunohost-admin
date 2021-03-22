@@ -216,11 +216,11 @@ export default {
     },
 
     onPermissionChanged ({ item, index, name, groupType, action }) {
-      const uri = 'users/permissions/' + item
-      const data = { [action]: name }
+      // const uri = 'users/permissions/' + item
+      // const data = { [action]: name }
       const from = action === 'add' ? 'availablePermissions' : 'permissions'
       const to = action === 'add' ? 'permissions' : 'availablePermissions'
-      api.put(uri, data).then(() => {
+      api.put(`users/permissions/${item}/${action}/${name}`).then(() => {
         this[groupType + 'Groups'][name][from].splice(index, 1)
         this[groupType + 'Groups'][name][to].push(item)
       })
