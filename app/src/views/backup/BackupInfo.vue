@@ -132,7 +132,7 @@ export default {
   data () {
     return {
       queries: [
-        ['GET', `backup/archives/${this.name}?with_details`]
+        ['GET', `backups/${this.name}?with_details`]
       ],
       selected: [],
       error: '',
@@ -210,7 +210,7 @@ export default {
         }
       }
 
-      api.post('backup/restore/' + this.name, data).then(response => {
+      api.put(`backups/${this.name}/restore`, data).then(response => {
         this.isValid = null
       }).catch(err => {
         if (err.name !== 'APIBadRequestError') throw err
@@ -223,14 +223,14 @@ export default {
       const confirmed = await this.$askConfirmation(this.$i18n.t('confirm_delete', { name: this.name }))
       if (!confirmed) return
 
-      api.delete('backup/archives/' + this.name).then(() => {
+      api.delete('backups/' + this.name).then(() => {
         this.$router.push({ name: 'backup-list', params: { id: this.id } })
       })
     },
 
     downloadBackup () {
       const host = this.$store.getters.host
-      window.open(`https://${host}/yunohost/api/backup/download/${this.name}`, '_blank')
+      window.open(`https://${host}/yunohost/api/backups/${this.name}/download`, '_blank')
     }
   },
 
