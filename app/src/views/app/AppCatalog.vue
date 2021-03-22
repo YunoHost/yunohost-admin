@@ -164,7 +164,7 @@ export default {
   data () {
     return {
       queries: [
-        ['GET', 'appscatalog?full&with_categories']
+        ['GET', 'apps/catalog?full&with_categories']
       ],
 
       // Data
