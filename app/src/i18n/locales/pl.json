@@ -28,5 +28,65 @@
     "close": "Zamknij",
     "login": "Zaloguj",
     "logout": "Wyloguj",
-    "ok": "OK"
+    "ok": "OK",
+    "confirm_app_install": "Czy na pewno chcesz zainstalować tę aplikację?",
+    "confirm_firewall_close": "Czy na pewno chcesz zamknąć port {port} (protocol:{protocol}, connection: {connection})",
+    "confirm_firewall_open": "Czy na pewno chcesz otworzyć port {port} (protocol:{protocol}, connection: {connection})",
+    "confirm_delete": "Czy na pewno chcesz usunąć {name}?",
+    "confirm_change_maindomain": "Czy na pewno chcesz zmienić domenę podstawową?",
+    "confirm_app_default": "Czy na pewno chcesz ustawić tę aplikację jako domyślną?",
+    "confirm_app_change_url": "Czy na pewno chcesz zmienić adres URL do aplikacji?",
+    "configuration": "Konfiguracja",
+    "common": {
+        "lastname": "Nazwisko",
+        "firstname": "Imię"
+    },
+    "code": "Kod",
+    "catalog": "Katalog",
+    "cancel": "Anuluj",
+    "app_state_highquality": "wysoka jakość",
+    "app_state_lowquality": "niska jakość",
+    "app_state_notworking_explanation": "Opiekun tej aplikacji zadeklarował ją jako 'nie działająca' USZKODZI TWÓJ SYSTEM!",
+    "app_state_inprogress_explanation": "Opiekun tej aplikacji zadeklarował, że ta aplikacja nie jest jeszcze gotowa do użytku zewnętrznego. BĄDŹ OSTROŻNY!",
+    "app_show_categories": "Pokaż kategorie",
+    "app_config_panel_no_panel": "Konfiguracja dla tej aplikacji jest niedostępna",
+    "app_config_panel_label": "Skonfiguruj aplikację",
+    "app_config_panel": "Panel konfiguracji",
+    "app_choose_category": "Wybierz kategorię",
+    "api_waiting": "Czekam na odpowiedź serwera...",
+    "all_apps": "Wszystkie aplikacje",
+    "api_errors_titles": {
+        "APIConnexionError": "Yunohost napotkał błąd połączenia",
+        "APINotRespondingError": "Yunohost API nie odpowiada",
+        "APINotFoundError": "Yunohost API nie może znaleźć trasy",
+        "APIInternalError": "Yunohost napotkał błąd wewnętrzny",
+        "APIBadRequestError": "Yunohost napotkał błąd",
+        "APIError": "Yunohost napotkał nieoczekiwany błąd"
+    },
+    "api_error": {
+        "view_error": "Zobacz błąd",
+        "sorry": "Bardzo przepraszam za to.",
+        "server_said": "Podczas wykonywania zadania serwer odpowiedział:",
+        "info": "Ta informacja może być pomocna dla osoby pomagającej Tobie:",
+        "error_message": "Wiadomość błędu:"
+    },
+    "api": {
+        "query_status": {
+            "warning": "Zakończone pomyślnie z błędami lub ostrzeżeniami",
+            "success": "Zakończone pomyślnie",
+            "pending": "W trakcie",
+            "error": "Nieudane"
+        },
+        "processing": "Serwer w trakcie wykonywania zadania..."
+    },
+    "all": "Wszystko",
+    "address": {
+        "local_part_description": {
+            "domain": "Wybierz subdomenę."
+        },
+        "domain_description": {
+            "email": "Wybierz domenę dla poczty.",
+            "domain": "Wybierz domenę."
+        }
+    }
 }
