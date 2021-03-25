@@ -31,12 +31,12 @@
         "view_error": "View error"
     },
     "api_errors_titles": {
-        "APIError": "Yunohost encountered an unexpected error",
-        "APIBadRequestError": "Yunohost encountered an error",
-        "APIInternalError": "Yunohost encountered an internal error",
-        "APINotFoundError": "Yunohost API could not find a route",
-        "APINotRespondingError": "Yunohost API is not responding",
-        "APIConnexionError": "Yunohost encountered a connexion error"
+        "APIError": "YunoHost encountered an unexpected error",
+        "APIBadRequestError": "YunoHost encountered an error",
+        "APIInternalError": "YunoHost encountered an internal error",
+        "APINotFoundError": "YunoHost API could not find a route",
+        "APINotRespondingError": "YunoHost API is not responding",
+        "APIConnexionError": "YunoHost encountered a connexion error"
     },
     "all_apps": "All apps",
     "api_not_found": "Seems like the web-admin tryed to query something that doesn't exist.",
