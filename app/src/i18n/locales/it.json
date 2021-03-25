@@ -124,7 +124,7 @@
     "yes": "Si",
     "app_state_inprogress": "ancora non funzionante",
     "confirm_install_custom_app": "ATTENZIONE! L'installazione di applicazioni di terze parti può compromettere l'integrità e la sicurezza del tuo sistema. Probabilmente NON dovresti installarle a meno che tu non sappia cosa stai facendo. Sei sicuro di volerti prendere questo rischio?",
-    "confirm_install_domain_root": "Non sarai in grado di installare qualsiasi altra applicazione su {domain}. Continuare ?",
+    "confirm_install_domain_root": "Sei sicuro di voler installare l'applicazione su '/'? Non sarai in grado di installare qualsiasi altra applicazione su {domain}",
     "app_state_notworking": "non funzionante",
     "app_state_working": "funzionante",
     "begin": "Iniziamo",
@@ -150,7 +150,7 @@
     "mailbox_quota_placeholder": "Lascia vuoto o metti 0 per disattivare.",
     "postinstall_domain": "Questo è il primo nome di dominio collegato al tuo server Yunohost, ma anche quello che verrà usato dagli utenti del tuo server per accedere al portale di autenticazione. Di conseguenza sarà visibile da tutti, perciò sceglilo con attenzione.",
     "postinstall_intro_2": "Sono richiesti ancora due passi da configurare per attivare i servizi del tuo server.",
-    "postinstall_intro_3": "Puoi ottenere ulteriori informazioni visitando la <a href='//yunohost.org/postinstall' target='_blank'>pagina appropriata nella documentazione</a>",
+    "postinstall_intro_3": "Puoi ottenere ulteriori informazioni visitando la <a href='//yunohost.org/it/install/hardware:vps_debian#fa-cog-proceed-with-the-initial-configuration' target='_blank'>pagina appropriata nella documentazione</a>",
     "running": "In esecuzione",
     "system_update": "Aggiornamento del sistema",
     "user_mailbox_use": "Spazio utilizzato dalla casella di posta",
@@ -268,7 +268,9 @@
     "group_new": "Nuovo gruppo",
     "warnings": "{count} avvisi",
     "words": {
-        "default": "Predefinito"
+        "default": "Predefinito",
+        "dismiss": "Annulla",
+        "collapse": "Collassa"
     },
     "unmaintained_details": "Questa applicazione non è stata aggiornata da tempo e il mantainer precedente se n'è andato oppure non ha più tempo per manutenerla. Potresti controllare il repository per dare il tuo aiuto",
     "unignore": "Non ignorare più",
@@ -307,5 +309,142 @@
     "permission_show_tile_enabled": "Mostra il tile nel portale dell'utente",
     "permission_main": "Permesso principale",
     "permission_corresponding_url": "URL corrispondente",
-    "app_manage_label_and_tiles": "Gestisci etichette e tiles"
+    "app_manage_label_and_tiles": "Gestisci etichette e tiles",
+    "user_emailforward_add": "Aggiungi un reindirizzamento mail",
+    "user_emailaliases_add": "Aggiungi un alias mail",
+    "unknown": "Sconosciuto",
+    "traceback": "Traceback",
+    "tools_webadmin_settings": "Impostazioni Web-admin",
+    "tools_webadmin": {
+        "transitions": "Animazione di transizione di pagina",
+        "experimental_description": "Ti concede l'accesso alle funzionalità sperimentali. Sono considerate instabili e potrebbero rompere il tuo sistema.<br>Abilita solo se sai quello che stai facendo.",
+        "experimental": "Modalità sperimentale",
+        "cache_description": "Prendi in considerazione di disabilitare la cache se pianifichi di lavorare con la CLI nel mentre che navighi in questo web-admin.",
+        "cache": "Cache",
+        "fallback_language_description": "Lingua utilizzata nel caso che la traduzione non sia disponibile.",
+        "fallback_language": "Lingua di riserva",
+        "language": "Lingua"
+    },
+    "tools_power_up": "Il tuo server sembra accessibile, puoi provare a collegarti.",
+    "search": {
+        "not_found": "Ci sono {items} che corrispondono ai tuoi criteri.",
+        "for": "Cerca per {items}..."
+    },
+    "readme": "Leggimi",
+    "postinstall_set_password": "Imposta la password d'amministratore",
+    "postinstall_set_domain": "Imposta dominio principale",
+    "placeholder": {
+        "domain": "mio-dominio.it",
+        "groupname": "Nome del mio gruppo",
+        "lastname": "Rossi",
+        "firstname": "Mario",
+        "username": "mariorossi"
+    },
+    "perform": "Eseguire",
+    "migrations_disclaimer_not_checked": "Questa migrazione necessita della tua accettazione delle condizioni d'utilizzo prima di essere eseguita.",
+    "migrations_disclaimer_check_message": "Ho letto e compreso le condizioni d'utilizzo",
+    "mailbox_quota_example": "700MB è un CD, 4700M è un DVD",
+    "items_verbose_count": "Ci sono {items}.",
+    "items": {
+        "users": "nessun utente | utente | {c} utenti",
+        "services": "nessun servizio | servizio | {c} servizi",
+        "logs": "nessun log | log | {c} logs",
+        "installed_apps": "nessun app installata | app installata | {c} apps installate",
+        "groups": "nessun gruppo | gruppo | {c} gruppi",
+        "domains": "nessun dominio | dominio | {c} domini",
+        "backups": "nessun backup | backup | {c} backups",
+        "apps": "nessuna app | app | {c} apps"
+    },
+    "history": {
+        "methods": {
+            "PUT": "modifica",
+            "POST": "crea/esegui",
+            "GET": "leggi",
+            "DELETE": "elimina"
+        },
+        "last_action": "Ultima azione:",
+        "title": "Cronologia"
+    },
+    "go_back": "Torna indietro",
+    "form_errors": {
+        "required": "Campo richiesto.",
+        "passwordMatch": "Le password non coincidono.",
+        "passwordLenght": "La password dev'essere di almeno 8 caratteri.",
+        "number": "Il valore dev'essere un numero.",
+        "notInUsers": "L'utente '{value}' esiste già.",
+        "minValue": "Il valore dev'essere maggiore o uguale a {min}.",
+        "name": "I nomi non devono includere caratteri speciali, tolti <code> ,.'-</code>",
+        "githubLink": "L'url dev'essere un repository Github valido",
+        "emailForward": "Inoltro email non valido: dev'esser composta di soli caratteri alfanumerici e <code>_.-+</code> (es: prova+ricevute@esempio.com, m4r1-0@esempio.com)",
+        "email": "Email non valida: dev'esser composta di soli caratteri alfanumerici e <code>_.-</code> (es: prova@esempio.com, m4r1-0@esempio.com)",
+        "dynDomain": "Nome dominio non valido: Dev'esser composto di soli caratteri alfanumerici minuscoli e trattini",
+        "domain": "Nome dominio non valido: Dev'esser composto di soli caratteri alfanumerici minuscoli, punti e trattini",
+        "between": "Il valore dev'essere compreso tra {min} e {max}.",
+        "alphalownum_": "Il valore deve contenere solo caratteri alfanumerici minuscoli e underscore.",
+        "alpha": "Il valore deve comprendere solo caratteri alfanumerici."
+    },
+    "footer": {
+        "donate": "Dona",
+        "help": "Serve aiuto?",
+        "documentation": "Documentazione"
+    },
+    "experimental": "Sperimentale",
+    "error": "Errore",
+    "enabled": "Abilitato",
+    "domain_delete_forbidden_desc": "Non puoi rimuovere '{domain}' fintanto che è il tuo dominio principale, devi prima selezionare un altro dominio (o <a href='#/domains/add'>crearne un'altro</a>) e impostarlo come dominio principale.",
+    "domain_add_dyndns_forbidden": "Hai già sottoscritto un dominio DynDNS, puoi richiedere di rimuovere il tuo dominio DynDNS corrente sul forum <a href='//forum.yunohost.org/t/nohost-domain-recovery-suppression-de-domaine-en-nohost-me-noho-st-et-ynh-fr/442'>nel thread dedicato</a>.",
+    "disabled": "Disabilitato",
+    "dead": "Inattivo",
+    "day_validity": " Scaduto | 1 giorno | {count} giorni",
+    "confirm_app_install": "Sicuro di voler installare questa applicazione?",
+    "common": {
+        "lastname": "Cognome",
+        "firstname": "Nome"
+    },
+    "code": "Codice",
+    "app_show_categories": "Mostra categorie",
+    "app_config_panel_no_panel": "Questa applicazione non ha nessuna configurazione disponibile",
+    "app_config_panel_label": "Configura l'app",
+    "app_config_panel": "Pannello configurazioni",
+    "app_choose_category": "Scegli una categoria",
+    "app_actions_label": "Esegui azioni",
+    "app_actions": "Azioni",
+    "api_waiting": "Aspetto la risposta del server...",
+    "api_not_found": "Sembra che l'amministratore ha provato a richiedere qualcosa che non esiste.",
+    "api_errors_titles": {
+        "APIConnexionError": "Yunohost ha riscontrato un errore di connessione",
+        "APINotRespondingError": "La Yunohost API non risponde",
+        "APINotFoundError": "La Yunohost API non ha trovato un percorso",
+        "APIInternalError": "Yunohost ha riscontrato un errore interno",
+        "APIBadRequestError": "Yunohost ha incontrato un errore",
+        "APIError": "Yunohost ha incontrato un errore inaspettato"
+    },
+    "api_error": {
+        "view_error": "Visualizza errore",
+        "sorry": "Sono molto dispiaciuto per questo.",
+        "server_said": "Processando la richiesta, il server dice:",
+        "info": "La seguente informazione potrebbe essere utile alla persona che ti sta aiutando:",
+        "help": "Cerca supporto <a href=\"https://forum.yunohost.org/\">sul forum</a> o<a href=\"https://chat.yunohost.org/\">sulla chat</a> per risolvere la situazione, o segnala un bug <a href=\"https://github.com/YunoHost/issues\">sul bugtracker</a>.",
+        "error_message": "Messaggio d'errore:"
+    },
+    "api": {
+        "query_status": {
+            "warning": "Completato con errori o alert",
+            "success": "Completato con successo",
+            "pending": "In corso",
+            "error": "Fallito"
+        },
+        "processing": "Il server sta processando la richiesta..."
+    },
+    "address": {
+        "local_part_description": {
+            "email": "Scegli il nome dell'indirizzo mail.",
+            "domain": "Scegli un sottodominio."
+        },
+        "domain_description": {
+            "email": "Seleziona un dominio per la tua email.",
+            "domain": "Scegli un dominio."
+        }
+    },
+    "cancel": "Annulla"
 }
