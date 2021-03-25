@@ -284,7 +284,8 @@
     "warnings": "{count} avertissements",
     "words": {
         "default": "Défaut",
-        "collapse": "Replier"
+        "collapse": "Replier",
+        "dismiss": "Rejeter"
     },
     "configuration": "Configuration",
     "since": "depuis",
@@ -303,7 +304,7 @@
     "operation_failed_explanation": "L'opération a échoué ! Veuillez-nous excuser pour ça :( Vous pouvez essayer de <a href='https://yunohost.org/help'>demander de l'aide</a>. Merci de fournir *le log complet* de l'opération pour les personnes qui vont vous aider. Vous pouvez cliquer sur le bouton vert 'Partager avec Yunopaste'. Quand vous partagez les logs, YunoHost essaie automatiquement d'anonymiser les informations privées comme le nom de domaine et l'adresses IP.",
     "diagnosis_explanation": "La fonctionnalité de diagnostic va tenter de trouver certains problèmes communs sur différents aspects de votre serveur pour être sûr que tout fonctionne normalement. Le diagnostic sera également effectué deux fois par jour et enverra un courriel à l'administrateur si des erreurs sont détectées. À noter que certains tests ne seront pas montrés si vous n'utilisez pas certaines fonctions spécifiques (XMPP, par exemple) ou s'ils échouent à cause d'une configuration trop complexe. Dans ce cas, et si vous savez ce que vous avez modifié, vous pouvez ignorer les problèmes et les avertissements correspondantes.",
     "pending_migrations": "Il y a des migrations en suspens qui attentent d'être exécutées. Veuillez aller dans <a href='#/tools/migrations'>Outils > Migrations</a> pour les exécuter.",
-    "tip_about_user_email": "Les utilisateurs sont créés avec une adresse e-mail associée (et un compte XMPP) au format username@domain.tld. Des alias d'email et des transferts d'emails supplémentaires peuvent être ajoutés ultérieurement par l'administrateur et l'utilisateur.",
+    "tip_about_user_email": "Les utilisateurs sont créés avec une adresse email associée (et un compte XMPP) au format username@domain.tld. Des alias d'email et des transferts d'emails supplémentaires peuvent être ajoutés ultérieurement par l'administrateur et l'utilisateur.",
     "logs_suboperations": "Sous-opérations",
     "permission_show_tile_enabled": "Visible en tuile dans le portail utilisateur",
     "permission_main": "Permission principale",
@@ -358,7 +359,8 @@
         "methods": {
             "DELETE": "effacer",
             "PUT": "modifier",
-            "POST": "créer/exécuter"
+            "POST": "créer/exécuter",
+            "GET": "lire"
         },
         "last_action": "Dernière action :",
         "title": "Historique"
@@ -407,19 +409,20 @@
     "app_choose_category": "Choisissez une catégorie",
     "app_actions_label": "Exécuter les actions",
     "app_actions": "Actions",
-    "api_waiting": "Attente de la réponse du serveur ...",
+    "api_waiting": "Attente de la réponse du serveur...",
     "api_errors_titles": {
-        "APIConnexionError": "Yunohost a rencontré une erreur de connexion",
-        "APINotRespondingError": "L'API Yunohost ne répond pas",
-        "APIInternalError": "Yunohost a rencontré une erreur interne",
-        "APIBadRequestError": "Yunohost a rencontré une erreur",
-        "APIError": "Yunohost a rencontré une erreur inattendue"
+        "APIConnexionError": "YunoHost a rencontré une erreur de connexion",
+        "APINotRespondingError": "L'API YunoHost ne répond pas",
+        "APIInternalError": "YunoHost a rencontré une erreur interne",
+        "APIBadRequestError": "YunoHost a rencontré une erreur",
+        "APIError": "YunoHost a rencontré une erreur inattendue"
     },
     "api_error": {
         "sorry": "Vraiment désolé de cela.",
         "info": "Les informations suivantes peuvent être utiles à la personne qui vous aide :",
         "help": "Vous devez chercher de l'aide sur <a href=\"https://forum.yunohost.org/\"> le forum</a> ou <a href=\"https://chat.yunohost.org/\">le chat</a> pour corriger la situation, ou signaler le bug sur <a href=\"https://github.com/YunoHost/issues\"> le bugtracker</a>.",
-        "error_message": "Message d'erreur :"
+        "error_message": "Message d'erreur :",
+        "view_error": "Afficher l'erreur"
     },
     "address": {
         "local_part_description": {
@@ -430,5 +433,16 @@
             "email": "Choisissez un domaine pour votre courrier électronique.",
             "domain": "Choisissez un domaine."
         }
-    }
+    },
+    "api_not_found": "L'administrateur a essayé d'accéder à quelque chose qui n'existe pas.",
+    "api": {
+        "query_status": {
+            "error": "Échec",
+            "success": "Terminé avec succès",
+            "warning": "Terminé avec succès avec des erreurs ou des alertes",
+            "pending": "En cours"
+        },
+        "processing": "Le serveur traite l'action..."
+    },
+    "go_back": "Revenir"
 }
