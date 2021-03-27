@@ -357,7 +357,7 @@
     },
     "history": {
         "methods": {
-            "DELETE": "effacer",
+            "DELETE": "supprimer",
             "PUT": "modifier",
             "POST": "créer/exécuter",
             "GET": "lire"
@@ -415,14 +415,16 @@
         "APINotRespondingError": "L'API YunoHost ne répond pas",
         "APIInternalError": "YunoHost a rencontré une erreur interne",
         "APIBadRequestError": "YunoHost a rencontré une erreur",
-        "APIError": "YunoHost a rencontré une erreur inattendue"
+        "APIError": "YunoHost a rencontré une erreur inattendue",
+        "APINotFoundError": "L'API YunoHost n'a pas pu trouver de chemin"
     },
     "api_error": {
         "sorry": "Vraiment désolé de cela.",
         "info": "Les informations suivantes peuvent être utiles à la personne qui vous aide :",
         "help": "Vous devez chercher de l'aide sur <a href=\"https://forum.yunohost.org/\"> le forum</a> ou <a href=\"https://chat.yunohost.org/\">le chat</a> pour corriger la situation, ou signaler le bug sur <a href=\"https://github.com/YunoHost/issues\"> le bugtracker</a>.",
         "error_message": "Message d'erreur :",
-        "view_error": "Afficher l'erreur"
+        "view_error": "Afficher l'erreur",
+        "server_said": "Pendant le traitement de l'action, le serveur a dit :"
     },
     "address": {
         "local_part_description": {
