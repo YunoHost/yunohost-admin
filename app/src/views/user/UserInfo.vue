@@ -126,7 +126,7 @@ export default {
 
 .row {
   + .row {
-      border-top: 1px solid #eee;
+      border-top: $thin-border;
   }
 
   padding: .5rem;

@@ -60,6 +60,9 @@ $alert-padding-x: 1rem;
 $card-spacer-y: .6rem;
 $card-spacer-x: 1rem;
 
+$input-btn-padding-y: .45rem;
+
+$list-group-item-padding-x: 1rem;
 
 // Import default variables after the above setup to compute all other variables.
 @import '~bootstrap/scss/functions.scss';
@@ -68,8 +71,11 @@ $card-spacer-x: 1rem;
 @import '~bootstrap-vue/src/variables';
 
 
+$body-color: $gray-800;
 
+$hr-border-color: $gray-200;
 
+$list-group-action-color: $gray-800;
 
 //  ╭──────────────────────────────────────╮
 //  │ ┌─╴╭─╮┌─╮╷ ╭   ╭─┐╷╷╷┌─╴╭─╴╭─╮╭╮╮┌─╴ │
@@ -81,16 +87,15 @@ $card-spacer-x: 1rem;
 //  default: `app/node_modules/fork-awesome/scss/_variables.scss`
 
 $fa-font-path: '~fork-awesome/fonts';
-$fa-font-size-base: 1rem;
+$fa-font-size-base: $font-size-base;
 
 @import '~fork-awesome/scss/variables';
 
 
-$thin-border: 1px solid #eee;
 //  ╭────────────────────╮
 //  │ ╭─╴╷ ╷╭─╴╶┬╴╭─╮╭╮╮ │
 //  │ │  │ │╰─╮ │ │ ││││ │
 //  │ ╰─╴╰─╯╶─╯ ╵ ╰─╯╵╵╵ │
 //  ╰────────────────────╯
 
-$skeleton-color: #eaeaea;
+$thin-border: $hr-border-width solid $hr-border-color;

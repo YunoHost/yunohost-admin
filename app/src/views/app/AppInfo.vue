@@ -1,7 +1,7 @@
 <template>
   <view-base :queries="queries" @queries-response="onQueriesResponse" ref="view">
     <!-- BASIC INFOS -->
-    <card v-if="infos" :title="`${infos.label}`" icon="cube">
+    <card v-if="infos" :title="infos.label" icon="cube">
       <b-row
         v-for="(value, prop) in infos" :key="prop"
         no-gutters class="row-line"
