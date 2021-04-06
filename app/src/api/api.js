@@ -58,7 +58,7 @@ export default {
   async fetch (method, uri, data = {}, { wait = true, websocket = true, initial = false, asFormData = false } = {}) {
     // `await` because Vuex actions returns promises by default.
     const request = await store.dispatch('INIT_REQUEST', { method, uri, initial, wait, websocket })
-    console.log(JSON.parse(JSON.stringify(request)), data)
+
     if (websocket) {
       await openWebSocket(request)
     }
