@@ -40,7 +40,7 @@
     "disable": "Inhabilitar",
     "dns": "DNS",
     "domain_add": "Añadir dominio",
-    "domain_add_dns_doc": "... y tengo <a href='//yunohost.org/dns_config'>mi DNS correctamente configurado</a>.",
+    "domain_add_dns_doc": "... y tengo <a href='//yunohost.org/dns_config' target='_blank'>mi DNS correctamente configurado</a>.",
     "domain_add_dyndns_doc": "…y quiero un servicio de DNS dinámico.",
     "domain_add_panel_with_domain": "Ya tengo un nombre de dominio…",
     "domain_add_panel_without_domain": "No tengo un nombre de dominio…",

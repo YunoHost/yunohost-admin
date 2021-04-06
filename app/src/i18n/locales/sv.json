@@ -73,7 +73,7 @@
     "logs_path": "Sökväg",
     "add": "Lägg till",
     "install_name": "Installera {id}",
-    "domain_add_dns_doc": "… och jag har <a href='//yunohost.org/dns_config'>konfigurerat min DNS korrekt</a>.",
+    "domain_add_dns_doc": "… och jag har <a href='//yunohost.org/dns_config' target='_blank'>konfigurerat min DNS korrekt</a>.",
     "error_server_unexpected": "Oväntat serverfel",
     "previous": "Föregående",
     "save": "Spara",
