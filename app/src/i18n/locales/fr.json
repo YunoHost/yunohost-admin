@@ -284,8 +284,7 @@
     "warnings": "{count} avertissements",
     "words": {
         "default": "Défaut",
-        "collapse": "Replier",
-        "dismiss": "Rejeter"
+        "collapse": "Replier"
     },
     "configuration": "Configuration",
     "since": "depuis",
