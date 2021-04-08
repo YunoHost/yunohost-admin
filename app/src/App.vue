@@ -210,7 +210,7 @@ main {
 }
 
 footer {
-  border-top: 1px solid #eee;
+  border-top: $thin-border;
   font-size: $font-size-sm;
   margin-top: 2rem;
 

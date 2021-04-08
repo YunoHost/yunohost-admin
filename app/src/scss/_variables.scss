@@ -1,22 +1,33 @@
-/*
 
-  ╭─────────────────────────────╮
-  │ ┌─╮╭─╮╭─╮╶┬╴╭─╴╶┬╴┌─╮╭─┐┌─╮ │
-  │ │╶┤│ ││ │ │ ╰─╮ │ ├┬╯├─┤├─╯ │
-  │ └─╯╰─╯╰─╯ ╵ ╶─╯ ╵ ╵ ╰╵ ╵╵   │
-  ╰─────────────────────────────╯
+//   ╭─────────────────────────────────────────────────────────────────╮
+//   │                                                                 │
+//   │   /!\ DO NOT IMPORT OR DEFINE ACTUAL RULES INTO THIS FILE /!\   │
+//   │                                                                 │
+//   │  Only things that disappear after scss compilation is allowed.  │
+//   │                                                                 │
+//   ╰─────────────────────────────────────────────────────────────────╯
+//
+//   This file is magically imported into every components so that scss variables,
+//   functions and mixins can be accessed.
+//   But if some rules are defined here, they will be copied into the final build as many
+//   times as there are components…
 
-  Bootstrap and BootstrapVue overrides.
-  Bootstrap default: `app/node_modules/bootstrap/scss/_variables.scss`
-  BootstrapVue default: `app/node_modules/bootstrap-vue/src/_variables.scss`
 
-*/
+//  ╭─────────────────────────────╮
+//  │ ┌─╮╭─╮╭─╮╶┬╴╭─╴╶┬╴┌─╮╭─┐┌─╮ │
+//  │ │╶┤│ ││ │ │ ╰─╮ │ ├┬╯├─┤├─╯ │
+//  │ └─╯╰─╯╰─╯ ╵ ╶─╯ ╵ ╵ ╰╵ ╵╵   │
+//  ╰─────────────────────────────╯
+//
+//  Bootstrap and BootstrapVue overrides.
+//  Bootstrap default: `app/node_modules/bootstrap/scss/_variables.scss`
+//  BootstrapVue default: `app/node_modules/bootstrap-vue/src/_variables.scss`
 
 // TODO: add a feature so the user can set some css variables to change the global aspects ?
 // For exemple, turning rounding of elements off, the bases colors, etc.
 // $enable-rounded: false;
 
-$font-size-base: 1rem;
+$font-size-base: .9rem;
 $font-weight-bold: 500;
 
 $blue:   #2f7ed2;
@@ -49,44 +60,40 @@ $alert-padding-x: 1rem;
 $card-spacer-y: .6rem;
 $card-spacer-x: 1rem;
 
+$list-group-item-padding-x: 1rem;
+
+// Import default variables after the above setup to compute all other variables.
 @import '~bootstrap/scss/functions.scss';
 @import '~bootstrap/scss/variables';
 @import '~bootstrap/scss/mixins.scss';
+@import '~bootstrap-vue/src/variables';
 
-// Overwrite list-group-item variants to lighter ones (used in diagnosis for example)
-@each $color, $value in $theme-colors {
-  @include list-group-item-variant($color, theme-color-level($color, -11), theme-color-level($color, 6));
-}
 
-// Add breakpoints for w-*
-@each $breakpoint in map-keys($grid-breakpoints) {
-  @each $size, $length in $sizes {
-    @include media-breakpoint-up($breakpoint) {
-      .w-#{$breakpoint}-#{$size} {
-        width: $length !important;
-      }
-    }
-  }
-}
+$body-color: $gray-800;
 
-/*
+$hr-border-color: $gray-200;
 
-  ╭──────────────────────────────────────╮
-  │ ┌─╴╭─╮┌─╮╷ ╭   ╭─┐╷╷╷┌─╴╭─╴╭─╮╭╮╮┌─╴ │
-  │ ├─╴│ │├┬╯├┴╮╶─╴├─┤│││├─╴╰─╮│ ││││├─╴ │
-  │ ╵  ╰─╯╵ ╰╵ ╵   ╵ ╵╰╯╯╰─╴╶─╯╰─╯╵╵╵╰─╴ │
-  ╰──────────────────────────────────────╯
+$list-group-action-color: $gray-800;
 
-  Fork-awesome variable overrides.
-  default: `app/node_modules/fork-awesome/scss/_variables.scss`
-
-*/
+//  ╭──────────────────────────────────────╮
+//  │ ┌─╴╭─╮┌─╮╷ ╭   ╭─┐╷╷╷┌─╴╭─╴╭─╮╭╮╮┌─╴ │
+//  │ ├─╴│ │├┬╯├┴╮╶─╴├─┤│││├─╴╰─╮│ ││││├─╴ │
+//  │ ╵  ╰─╯╵ ╰╵ ╵   ╵ ╵╰╯╯╰─╴╶─╯╰─╯╵╵╵╰─╴ │
+//  ╰──────────────────────────────────────╯
+//
+//  Fork-awesome variable overrides.
+//  default: `app/node_modules/fork-awesome/scss/_variables.scss`
 
 $fa-font-path: '~fork-awesome/fonts';
-$fa-font-size-base: 1rem;
+$fa-font-size-base: $font-size-base;
+
+@import '~fork-awesome/scss/variables';
 
 
+//  ╭────────────────────╮
+//  │ ╭─╴╷ ╷╭─╴╶┬╴╭─╮╭╮╮ │
+//  │ │  │ │╰─╮ │ │ ││││ │
+//  │ ╰─╴╰─╯╶─╯ ╵ ╰─╯╵╵╵ │
+//  ╰────────────────────╯
 
-$thin-border: 1px solid #eee;
-
-$skeleton-color: #eaeaea;
+$thin-border: $hr-border-width solid $hr-border-color;

@@ -5,7 +5,7 @@
 
     <!-- PROGRESS BAR -->
     <b-progress
-      v-if="progress" class="mt-4"
+      v-if="progress" class="my-4"
       :max="progress.max" height=".5rem"
     >
       <b-progress-bar variant="success" :value="progress.values[0]" />

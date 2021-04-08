@@ -65,7 +65,7 @@
     "app_state_lowquality": "low quality",
     "app_state_lowquality_explanation": "This app may be functional, but may still contain issues, or is not fully integrated with YunoHost, or it does not respect the good practices.",
     "app_state_highquality": "high quality",
-    "app_state_highquality_explanation": "This app is well-integrated with YunoHost. It has been (and is!) peer-reviewed by the YunoHost app team. It can be expected to be safe and maintained on the long-term.",
+    "app_state_highquality_explanation": "This app is well-integrated with YunoHost since at least a year.",
     "app_state_working": "working",
     "app_state_working_explanation": "The maintainer of this app declared it as 'working'. It means that it should be functional (c.f. application level) but is not necessarily peer-reviewed, it may still contain issues or is not fully integrated with YunoHost.",
     "applications": "Applications",
@@ -131,7 +131,7 @@
     "disabled": "Disabled",
     "dns": "DNS",
     "domain_add": "Add domain",
-    "domain_add_dns_doc": "… and I have <a href='//yunohost.org/dns_config'>set my DNS correctly</a>.",
+    "domain_add_dns_doc": "… and I have <a href='//yunohost.org/dns_config' target='_blank'>set my DNS correctly</a>.",
     "domain_add_dyndns_doc": "… and I want a dynamic DNS service.",
     "domain_add_dyndns_forbidden": "You have already subscribed to a DynDNS domain, you can ask to remove your current DynDNS domain on the forum <a href='//forum.yunohost.org/t/nohost-domain-recovery-suppression-de-domaine-en-nohost-me-noho-st-et-ynh-fr/442'>in the dedicated thread</a>.",
     "domain_add_panel_with_domain": "I already have a domain name…",
@@ -314,7 +314,7 @@
     "logs_more": "Display more lines",
     "pending_migrations": "There are some pending migrations waiting to be ran. Please go to the <a href='#/tools/migrations'>Tools > Migrations</a> view to run them.",
     "permission_corresponding_url": "Corresponding URL",
-    "permission_main": "Main permission",
+    "permission_main": "Main label",
     "permission_show_tile_enabled": "Visible as tile in user portal",
     "port": "Port",
     "ports": "Ports",
@@ -414,8 +414,7 @@
     "warnings": "{count} warnings",
     "words": {
         "collapse": "Collapse",
-        "default": "Default",
-        "dismiss": "Dismiss"
+        "default": "Default"
     },
     "wrong_password": "Wrong password",
     "yes": "Yes",

@@ -98,6 +98,7 @@ div {
   height: 1.25rem;
   display: flex;
   align-items: center;
+  justify-content: center;
   min-width: 70px;
 }
 

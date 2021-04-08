@@ -20,7 +20,8 @@
       </p>
 
       <p>
-        <strong v-t="'api_error.error_message'" /> <span v-html="error.message" />
+        <strong v-t="'api_error.error_message'" />
+        <b-alert class="mt-2" variant="danger" v-html="error.message" />
       </p>
 
       <template v-if="error.traceback">
@@ -42,7 +43,7 @@
       <!-- TODO add copy error ? -->
       <b-button
         variant="light" size="sm"
-        v-t="'words.dismiss'" @click="dismiss"
+        v-t="'ok'" @click="dismiss"
       />
     </b-card-footer>
   </div>
