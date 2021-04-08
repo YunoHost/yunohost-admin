@@ -65,7 +65,7 @@
     "app_state_lowquality": "low quality",
     "app_state_lowquality_explanation": "This app may be functional, but may still contain issues, or is not fully integrated with YunoHost, or it does not respect the good practices.",
     "app_state_highquality": "high quality",
-    "app_state_highquality_explanation": "This app is well-integrated with YunoHost. It has been (and is!) peer-reviewed by the YunoHost app team. It can be expected to be safe and maintained on the long-term.",
+    "app_state_highquality_explanation": "This app is well-integrated with YunoHost since at least a year.",
     "app_state_working": "working",
     "app_state_working_explanation": "The maintainer of this app declared it as 'working'. It means that it should be functional (c.f. application level) but is not necessarily peer-reviewed, it may still contain issues or is not fully integrated with YunoHost.",
     "applications": "Applications",
