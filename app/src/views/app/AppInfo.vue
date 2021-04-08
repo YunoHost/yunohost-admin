@@ -59,7 +59,7 @@
             </b-input-group>
           </template>
 
-          <template #description>
+          <template v-if="perm.url" #description>
             {{ $t('permission_corresponding_url') }}:
             <b-link :href="'https:' + perm.url">
               https://{{ perm.url }}
@@ -234,7 +234,7 @@ export default {
         multi_instance: this.$i18n.t(app.manifest.multi_instance ? 'yes' : 'no'),
         install_time: readableDate(app.settings.install_time, true, true)
       }
-      if (app.settings.domain) {
+      if (app.settings.domain && app.settings.path) {
         this.infos.url = 'https://' + app.settings.domain + app.settings.path
         form.url = {
           domain: app.settings.domain,
