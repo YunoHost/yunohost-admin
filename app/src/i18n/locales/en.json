@@ -314,7 +314,7 @@
     "logs_more": "Display more lines",
     "pending_migrations": "There are some pending migrations waiting to be ran. Please go to the <a href='#/tools/migrations'>Tools > Migrations</a> view to run them.",
     "permission_corresponding_url": "Corresponding URL",
-    "permission_main": "Main permission",
+    "permission_main": "Main label",
     "permission_show_tile_enabled": "Visible as tile in user portal",
     "port": "Port",
     "ports": "Ports",
