@@ -220,7 +220,7 @@
     "app_no_actions": "Cette application ne possède aucune action",
     "confirm_install_app_lowquality": "Avertissement : cette application peut fonctionner mais n’est pas bien intégrée dans YunoHost. Certaines fonctionnalités telles que l’authentification unique et la sauvegarde/restauration pourraient ne pas être disponibles.",
     "confirm_install_app_inprogress": "AVERTISSEMENT ! Cette application est encore expérimentale et risque de casser votre système ! Vous ne devriez probablement PAS l’installer si vous ne savez pas ce que vous faites. Voulez-vous vraiment prendre ce risque ?",
-    "error_connection_interrupted": "Le serveur a fermé la connexion au lieu d’y répondre. Est-ce que nginx ou yunohost-api ont été redémarrés ou arrêtés pour une raison quelconque?",
+    "error_connection_interrupted": "Le serveur a fermé la connexion au lieu d’y répondre. Est-ce que NGINX ou yunohost-api ont été redémarrés ou arrêtés pour une raison quelconque ?",
     "experimental_warning": "Attention : cette fonctionnalité est expérimentale et ne doit pas être considérée comme stable, vous ne devriez pas l’utiliser à moins que vous ne sachiez ce que vous faites...",
     "good_practices_about_admin_password": "Vous êtes maintenant sur le point de définir un nouveau mot de passe administrateur. Le mot de passe doit comporter au moins 8 caractères — bien qu’il soit recommandé d’utiliser un mot de passe plus long (c’est-à-dire une phrase secrète) et/ou d’utiliser différents types de caractères (majuscules, minuscules, chiffres et caractères spéciaux).",
     "good_practices_about_user_password": "Vous êtes maintenant sur le point de définir un nouveau mot de passe pour l'utilisateur. Le mot de passe doit comporter au moins 8 caractères - bien qu’il soit recommandé d’utiliser un mot de passe plus long (c’est-à-dire une phrase secrète) et/ou d’utiliser différents types de caractères tels que : majuscules, minuscules, chiffres et caractères spéciaux.",
@@ -242,7 +242,7 @@
     "logs_share_with_yunopaste": "Partager les logs avec YunoPaste",
     "logs_more": "Afficher plus de lignes",
     "unmaintained": "Non maintenue",
-    "purge_user_data_checkbox": "Purger les données de {name}? (Cela supprimera toutes les données de son répertoire ainsi que ses courriels)",
+    "purge_user_data_checkbox": "Purger les données de {name} ? (Cela supprimera toutes les données de son répertoire ainsi que ses emails)",
     "purge_user_data_warning": "La purge des données de l’utilisateur n’est pas réversible. Assurez-vous de savoir ce que vous faites !",
     "version": "Version",
     "confirm_update_system": "Voulez-vous vraiment mettre à jour tous les paquets système ?",
@@ -303,7 +303,7 @@
     "operation_failed_explanation": "L'opération a échoué ! Veuillez-nous excuser pour ça :( Vous pouvez essayer de <a href='https://yunohost.org/help'>demander de l'aide</a>. Merci de fournir *le log complet* de l'opération pour les personnes qui vont vous aider. Vous pouvez cliquer sur le bouton vert 'Partager avec Yunopaste'. Quand vous partagez les logs, YunoHost essaie automatiquement d'anonymiser les informations privées comme le nom de domaine et l'adresses IP.",
     "diagnosis_explanation": "La fonctionnalité de diagnostic va tenter de trouver certains problèmes communs sur différents aspects de votre serveur pour être sûr que tout fonctionne normalement. Le diagnostic sera également effectué deux fois par jour et enverra un courriel à l'administrateur si des erreurs sont détectées. À noter que certains tests ne seront pas montrés si vous n'utilisez pas certaines fonctions spécifiques (XMPP, par exemple) ou s'ils échouent à cause d'une configuration trop complexe. Dans ce cas, et si vous savez ce que vous avez modifié, vous pouvez ignorer les problèmes et les avertissements correspondantes.",
     "pending_migrations": "Il y a des migrations en suspens qui attentent d'être exécutées. Veuillez aller dans <a href='#/tools/migrations'>Outils > Migrations</a> pour les exécuter.",
-    "tip_about_user_email": "Les utilisateurs sont créés avec une adresse e-mail associée (et un compte XMPP) au format username@domain.tld. Des alias d'email et des transferts d'emails supplémentaires peuvent être ajoutés ultérieurement par l'administrateur et l'utilisateur.",
+    "tip_about_user_email": "Les utilisateurs sont créés avec une adresse email associée (et un compte XMPP) au format username@domain.tld. Des alias d'email et des transferts d'emails supplémentaires peuvent être ajoutés ultérieurement par l'administrateur et l'utilisateur.",
     "logs_suboperations": "Sous-opérations",
     "permission_show_tile_enabled": "Visible en tuile dans le portail utilisateur",
     "permission_main": "Permission principale",
@@ -312,7 +312,7 @@
     "user_emailforward_add": "Ajouter une adresse mail de redirection",
     "user_emailaliases_add": "Ajouter un alias de courriel",
     "unknown": "Inconnu",
-    "traceback": "Trace",
+    "traceback": "Retraçage",
     "tools_webadmin_settings": "Paramètres de l'administration web",
     "tools_webadmin": {
         "transitions": "Animations de transition entre les pages",
@@ -356,9 +356,10 @@
     },
     "history": {
         "methods": {
-            "DELETE": "effacer",
+            "DELETE": "supprimer",
             "PUT": "modifier",
-            "POST": "créer/exécuter"
+            "POST": "créer/exécuter",
+            "GET": "lire"
         },
         "last_action": "Dernière action :",
         "title": "Historique"
@@ -407,19 +408,22 @@
     "app_choose_category": "Choisissez une catégorie",
     "app_actions_label": "Exécuter les actions",
     "app_actions": "Actions",
-    "api_waiting": "Attente de la réponse du serveur ...",
+    "api_waiting": "Attente de la réponse du serveur...",
     "api_errors_titles": {
-        "APIConnexionError": "Yunohost a rencontré une erreur de connexion",
-        "APINotRespondingError": "L'API Yunohost ne répond pas",
-        "APIInternalError": "Yunohost a rencontré une erreur interne",
-        "APIBadRequestError": "Yunohost a rencontré une erreur",
-        "APIError": "Yunohost a rencontré une erreur inattendue"
+        "APIConnexionError": "YunoHost a rencontré une erreur de connexion",
+        "APINotRespondingError": "L'API YunoHost ne répond pas",
+        "APIInternalError": "YunoHost a rencontré une erreur interne",
+        "APIBadRequestError": "YunoHost a rencontré une erreur",
+        "APIError": "YunoHost a rencontré une erreur inattendue",
+        "APINotFoundError": "L'API YunoHost n'a pas pu trouver de chemin"
     },
     "api_error": {
         "sorry": "Vraiment désolé de cela.",
         "info": "Les informations suivantes peuvent être utiles à la personne qui vous aide :",
         "help": "Vous devez chercher de l'aide sur <a href=\"https://forum.yunohost.org/\"> le forum</a> ou <a href=\"https://chat.yunohost.org/\">le chat</a> pour corriger la situation, ou signaler le bug sur <a href=\"https://github.com/YunoHost/issues\"> le bugtracker</a>.",
-        "error_message": "Message d'erreur :"
+        "error_message": "Message d'erreur :",
+        "view_error": "Afficher l'erreur",
+        "server_said": "Pendant le traitement de l'action, le serveur a dit :"
     },
     "address": {
         "local_part_description": {
@@ -430,5 +434,16 @@
             "email": "Choisissez un domaine pour votre courrier électronique.",
             "domain": "Choisissez un domaine."
         }
-    }
+    },
+    "api_not_found": "L'administrateur a essayé d'accéder à quelque chose qui n'existe pas.",
+    "api": {
+        "query_status": {
+            "error": "Échec",
+            "success": "Terminé avec succès",
+            "warning": "Terminé avec succès avec des erreurs ou des alertes",
+            "pending": "En cours"
+        },
+        "processing": "Le serveur traite l'action..."
+    },
+    "go_back": "Revenir"
 }

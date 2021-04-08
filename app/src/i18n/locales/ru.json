@@ -285,7 +285,8 @@
     "api_error": {
         "sorry": "Нам очень жаль.",
         "info": "Следующая информация может быть полезня для помогающего человека:",
-        "help": "Вы можете обратиться за помощью на <a href=\"https://forum.yunohost.org/\">форум</a> или в <a href=\"https://chat.yunohost.org/\">чат</a>, или сообщить о неполадке в <a href=\"https://github.com/YunoHost/issues\">багтрекер</a>."
+        "help": "Вы можете обратиться за помощью на <a href=\"https://forum.yunohost.org/\">форум</a> или в <a href=\"https://chat.yunohost.org/\">чат</a>, или сообщить о неполадке в <a href=\"https://github.com/YunoHost/issues\">багтрекер</a>.",
+        "error_message": "Сообщение об ошибке"
     },
     "all": "Все",
     "address": {
@@ -297,5 +298,14 @@
             "email": "Выберите домен для вашей почты.",
             "domain": "Выберите домен."
         }
+    },
+    "api": {
+        "query_status": {
+            "warning": "Успешно завершено с ошибками или предупреждениями",
+            "success": "Успешно завершено",
+            "pending": "В процессе",
+            "error": "Неудачно"
+        },
+        "processing": "Сервер обрабатывает действие…"
     }
 }
