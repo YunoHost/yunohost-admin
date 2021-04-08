@@ -414,8 +414,7 @@
     "warnings": "{count} warnings",
     "words": {
         "collapse": "Collapse",
-        "default": "Default",
-        "dismiss": "Dismiss"
+        "default": "Default"
     },
     "wrong_password": "Wrong password",
     "yes": "Yes",

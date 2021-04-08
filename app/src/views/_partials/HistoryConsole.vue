@@ -10,9 +10,9 @@
       @mousedown.left.prevent="onHistoryBarClick"
       @keyup.space.enter.prevent="onHistoryBarKey"
     >
-      <h6 class="m-0">
-        <icon iname="history" /> <span class="d-none d-sm-inline">{{ $t('history.title') }}</span>
-      </h6>
+      <h5 class="m-0">
+        <icon iname="history" /> <span class="d-none d-sm-inline font-weight-bold">{{ $t('history.title') }}</span>
+      </h5>
 
       <!-- CURRENT/LAST ACTION -->
       <b-button
