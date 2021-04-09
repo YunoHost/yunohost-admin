@@ -38,11 +38,10 @@
 </template>
 
 <script>
-import api from '@/api'
+import api, { objectToParams } from '@/api'
 import { validationMixin } from 'vuelidate'
 
 import { formatI18nField, formatYunoHostArguments, formatFormData } from '@/helpers/yunohostArguments'
-import { objectToParams } from '@/helpers/commons'
 
 export default {
   name: 'AppActions',

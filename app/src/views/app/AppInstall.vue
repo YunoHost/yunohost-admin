@@ -49,8 +49,7 @@
 <script>
 import { validationMixin } from 'vuelidate'
 
-import api from '@/api'
-import { objectToParams } from '@/helpers/commons'
+import api, { objectToParams } from '@/api'
 import { formatYunoHostArguments, formatI18nField, formatFormData } from '@/helpers/yunohostArguments'
 
 export default {

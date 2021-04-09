@@ -38,9 +38,8 @@
 import { validationMixin } from 'vuelidate'
 
 // FIXME needs test and rework
-import api from '@/api'
+import api, { objectToParams } from '@/api'
 import { formatI18nField, formatYunoHostArguments, formatFormData } from '@/helpers/yunohostArguments'
-import { objectToParams } from '@/helpers/commons'
 
 export default {
   name: 'AppConfigPanel',

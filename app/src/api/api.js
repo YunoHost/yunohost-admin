@@ -5,7 +5,6 @@
 
 import store from '@/store'
 import { openWebSocket, getResponseData, handleError } from './handlers'
-import { objectToParams } from '@/helpers/commons'
 
 
 /**
@@ -29,6 +28,31 @@ import { objectToParams } from '@/helpers/commons'
  * @property {Object|null} 2 - "data"
  * @property {Options} 3 - "options"
 */
+
+
+/**
+ * Converts an object literal into an `URLSearchParams` that can be turned into a
+ * query string or used as a body in a `fetch` call.
+ *
+ * @param {Object} obj - An object literal to convert.
+ * @param {Object} options
+ * @param {Boolean} [options.addLocale=false] - Option to append the locale to the query string.
+ * @return {URLSearchParams}
+ */
+export function objectToParams (obj, { addLocale = false } = {}) {
+  const urlParams = new URLSearchParams()
+  for (const [key, value] of Object.entries(obj)) {
+    if (Array.isArray(value)) {
+      value.forEach(v => urlParams.append(key, v))
+    } else {
+      urlParams.append(key, value)
+    }
+  }
+  if (addLocale) {
+    urlParams.append('locale', store.getters.locale)
+  }
+  return urlParams
+}
 
 
 export default {

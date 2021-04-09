@@ -60,8 +60,8 @@
 </template>
 
 <script>
-import api from '@/api'
-import { objectToParams, escapeHtml } from '@/helpers/commons'
+import api, { objectToParams } from '@/api'
+import { escapeHtml } from '@/helpers/commons'
 import { readableDate } from '@/helpers/filters/date'
 
 export default {
