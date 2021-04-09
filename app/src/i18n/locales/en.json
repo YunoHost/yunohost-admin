@@ -201,6 +201,7 @@
     "groups_and_permissions_manage": "Manage groups and permissions",
     "permissions": "Permissions",
     "history": {
+        "is_empty": "Nothing in history for now.",
         "title": "History",
         "last_action": "Last action:",
         "methods": {
