@@ -210,7 +210,9 @@ export default {
         }
       }
 
-      api.put(`backups/${this.name}/restore`, data).then(response => {
+      api.put(
+        `backups/${this.name}/restore`, data, { key: 'backups.restore', name: this.name }
+      ).then(() => {
         this.isValid = null
       }).catch(err => {
         if (err.name !== 'APIBadRequestError') throw err
@@ -223,7 +225,9 @@ export default {
       const confirmed = await this.$askConfirmation(this.$i18n.t('confirm_delete', { name: this.name }))
       if (!confirmed) return
 
-      api.delete('backups/' + this.name).then(() => {
+      api.delete(
+        'backups/' + this.name, {}, { key: 'backups.delete', name: this.name }
+      ).then(() => {
         this.$router.push({ name: 'backup-list', params: { id: this.id } })
       })
     },

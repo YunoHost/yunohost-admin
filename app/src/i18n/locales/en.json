@@ -327,6 +327,82 @@
     "rerun_diagnosis": "Rerun diagnosis",
     "restore": "Restore",
     "restart": "Restart",
+    "human_routes": {
+        "adminpw": "Change admin password",
+        "apps": {
+          "change_label": "Change label of '{prevName}' for '{nextName}'",
+          "change_url": "Change access url of '{name}'",
+          "install": "Install app '{name}'",
+          "set_default": "Redirect '{domain}' domain root to '{name}'",
+          "perform_action": "Perform action '{action}' of app '{name}'",
+          "uninstall": "Uninstall app '{name}'",
+          "update_config": "Update app '{name}' configuration"
+        },
+        "backups": {
+          "create": "Create a backup",
+          "delete": "Delete backup '{name}'",
+          "restore": "Restore backup '{name}'"
+        },
+        "diagnosis": {
+          "ignore": {
+              "error": "Ignore an error",
+              "warning": "Ignore a warning"
+          },
+          "run": "Run the diagnosis",
+          "run_specific": "Run '{description}' diagnosis",
+          "unignore": {
+            "error": "Unignore an error",
+            "warning": "Unignore a warning"
+          }
+        },
+        "domains": {
+          "add": "Add domain '{name}'",
+          "delete": "Delete domain '{name}'",
+          "install_LE": "Install certificate for '{name}'",
+          "manual_renew_LE": "Renew certificate for '{name}'",
+          "regen_selfsigned": "Renew self-signed certificate for '{name}'",
+          "revert_to_selfsigned": "Revert to self-signed certificate for '{name}'",
+          "set_default": "Set '{name}' as default domain"
+        },
+        "firewall": {
+            "ports": "{action} port {port} ({protocol}, {connection})",
+            "upnp": "{action} UPnP"
+        },
+        "groups": {
+          "create": "Create group '{name}'",
+          "delete": "Delete group '{name}'",
+          "add": "Add '{user}' to group '{name}'",
+          "remove": "Remove '{user}' from group '{name}'"
+        },
+        "migrations": {
+          "run": "Run migrations",
+          "skip": "Skip migrations"
+        },
+        "permissions": {
+          "add": "Allow '{name}' to access '{perm}'",
+          "remove": "Remove '{name}' access to '{perm}'"
+        },
+        "postinstall": "Run the post-install",
+        "reboot": "Reboot the server",
+        "services": {
+          "restart": "Restart the service '{name}'",
+          "start": "Start the service '{name}'",
+          "stop": "Stop the service '{name}'"
+        },
+        "share_logs": "Generate link for log '{name}'",
+        "shutdown": "Shutdown the server",
+        "update": "Check for updates",
+        "upgrade": {
+            "system": "Upgrade the system",
+            "apps": "Upgrade all apps",
+            "app": "Upgrade '{app}' app"
+        },
+        "users": {
+            "create": "Create user '{name}'",
+            "delete": "Delete user '{name}'",
+            "update": "Update user '{name}'"
+        }
+    },
     "run": "Run",
     "running": "Running",
     "save": "Save",

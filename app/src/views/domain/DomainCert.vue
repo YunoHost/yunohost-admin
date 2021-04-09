@@ -151,7 +151,9 @@ export default {
       if (action === 'regen_selfsigned') uri += '?self_signed'
       else if (action === 'manual_renew_LE') uri += '?force'
       else if (action === 'revert_to_selfsigned') uri += '?self_signed&force'
-      api.put(uri).then(this.$refs.view.fetchQueries)
+      api.put(
+        uri, {}, { key: 'domains.' + action, name: this.name }
+      ).then(this.$refs.view.fetchQueries)
     }
   }
 }

@@ -92,7 +92,8 @@ export default {
 
     performPostInstall () {
       // FIXME does the api will throw an error for bad passwords ?
-      api.post('postinstall', { domain: this.domain, password: this.password }).then(data => {
+      const { domain, password } = this
+      api.post('postinstall', { domain, password }, 'postinstall').then(() => {
         // Display success message and allow the user to login
         this.step = 'login'
       })

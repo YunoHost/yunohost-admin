@@ -108,7 +108,8 @@ export default {
       const data = this.purge ? { purge: '' } : {}
       api.delete(
         { uri: 'users', param: this.name, storeKey: 'users_details' },
-        data
+        data,
+        { key: 'users.delete', name: this.name }
       ).then(() => {
         this.$router.push({ name: 'user-list' })
       })

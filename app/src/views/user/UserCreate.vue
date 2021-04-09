@@ -175,7 +175,7 @@ export default {
 
     onSubmit () {
       const data = formatFormData(this.form, { flatten: true })
-      api.post({ uri: 'users' }, data).then(() => {
+      api.post({ uri: 'users' }, data, { key: 'users.create', name: this.form.username }).then(() => {
         this.$router.push({ name: 'user-list' })
       }).catch(err => {
         if (err.name !== 'APIBadRequestError') throw err

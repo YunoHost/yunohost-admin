@@ -42,7 +42,7 @@
       </template>
 
       <template #header-buttons>
-        <b-button size="sm" :variant="report.items ? 'info' : 'success'" @click="runDiagnosis(report.id)">
+        <b-button size="sm" :variant="report.items ? 'info' : 'success'" @click="runDiagnosis(report)">
           <icon iname="refresh" /> {{ $t('rerun_diagnosis') }}
         </b-button>
       </template>
@@ -115,7 +115,7 @@ export default {
   data () {
     return {
       queries: [
-        ['PUT', 'diagnosis/run?except_if_never_ran_yet'],
+        ['PUT', 'diagnosis/run?except_if_never_ran_yet', {}, 'diagnosis.run'],
         ['GET', 'diagnosis?full']
       ],
       reports: undefined
@@ -171,10 +171,15 @@ export default {
       this.reports = reports
     },
 
-    runDiagnosis (id = null) {
+    runDiagnosis ({ id = null, description } = {}) {
       const param = id !== null ? '?force' : ''
       const data = id !== null ? { categories: [id] } : {}
-      api.post('diagnosis/run' + param, data).then(this.$refs.view.fetchQueries)
+
+      api.put(
+        'diagnosis/run' + param,
+        data,
+        { key: 'diagnosis.run' + (id !== null ? '_specific' : ''), description }
+      ).then(this.$refs.view.fetchQueries)
     },
 
     toggleIgnoreIssue (action, report, item) {
@@ -183,7 +188,11 @@ export default {
         return filterArgs
       }, [report.id])
 
-      api.put('diagnosis/' + action, { filter: filterArgs }).then(() => {
+      api.put(
+        'diagnosis/' + action,
+        { filter: filterArgs },
+        `diagnosis.${action}.${item.status.toLowerCase()}`
+      ).then(() => {
         item.ignored = action === 'ignore'
         if (item.ignored) {
           report[item.status.toLowerCase() + 's']--

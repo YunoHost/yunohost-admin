@@ -164,7 +164,7 @@ export default {
         }
       }
 
-      api.post('backups', data).then(response => {
+      api.post('backups', data, 'backups.create').then(() => {
         this.$router.push({ name: 'backup-list', params: { id: this.id } })
       })
     }

@@ -252,7 +252,11 @@ export default {
 
     changeLabel (permName, data) {
       data.show_tile = data.show_tile ? 'True' : 'False'
-      api.put('users/permissions/' + permName, data).then(this.$refs.view.fetchQueries)
+      api.put(
+        'users/permissions/' + permName,
+        data,
+        { key: 'apps.change_label', prevName: this.infos.label, nextName: data.label }
+      ).then(this.$refs.view.fetchQueries)
     },
 
     async changeUrl () {
@@ -262,7 +266,8 @@ export default {
       const { domain, path } = this.form.url
       api.put(
         `apps/${this.id}/changeurl`,
-        { domain, path: '/' + path }
+        { domain, path: '/' + path },
+        { key: 'apps.change_url', name: this.infos.label }
       ).then(this.$refs.view.fetchQueries)
     },
 
@@ -270,7 +275,11 @@ export default {
       const confirmed = await this.$askConfirmation(this.$i18n.t('confirm_app_default'))
       if (!confirmed) return
 
-      api.put(`apps/${this.id}/default`).then(this.$refs.view.fetchQueries)
+      api.put(
+        `apps/${this.id}/default`,
+        {},
+        { key: 'apps.set_default', name: this.infos.label, domain: this.app.domain }
+      ).then(this.$refs.view.fetchQueries)
     },
 
     async uninstall () {
@@ -279,7 +288,7 @@ export default {
       )
       if (!confirmed) return
 
-      api.delete('apps/' + this.id).then(() => {
+      api.delete('apps/' + this.id, {}, { key: 'apps.uninstall', name: this.infos.label }).then(() => {
         this.$router.push({ name: 'app-list' })
       })
     }

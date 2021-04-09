@@ -102,7 +102,9 @@ export default {
     applyConfig (id_) {
       const args = objectToParams(formatFormData(this.forms[id_]))
 
-      api.put(`apps/${this.id}/config`, { args }).then(response => {
+      api.put(
+        `apps/${this.id}/config`, { args }, { key: 'apps.update_config', name: this.id }
+      ).then(response => {
         console.log('SUCCESS', response)
       }).catch(err => {
         if (err.name !== 'APIBadRequestError') throw err

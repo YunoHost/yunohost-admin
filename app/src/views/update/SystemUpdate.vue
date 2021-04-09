@@ -74,7 +74,7 @@ export default {
     return {
       queries: [
         ['GET', 'migrations?pending'],
-        ['PUT', 'update/all']
+        ['PUT', 'update/all', {}, 'update']
       ],
       // API data
       migrationsNotDone: undefined,
@@ -96,7 +96,7 @@ export default {
       if (!confirmed) return
 
       const uri = id !== null ? `apps/${id}/upgrade` : 'upgrade/' + type
-      api.put(uri).then(() => {
+      api.put(uri, {}, { key: 'upgrade.' + (id ? 'app' : type), app: id }).then(() => {
         this.$router.push({ name: 'tool-logs' })
       })
     }

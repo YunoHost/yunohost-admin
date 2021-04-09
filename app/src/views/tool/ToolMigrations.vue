@@ -121,7 +121,7 @@ export default {
       }
       // Check that every migration's disclaimer has been checked.
       if (Object.values(this.checked).every(value => value === true)) {
-        api.put('migrations', { accept_disclaimer: true }).then(() => {
+        api.put('migrations', { accept_disclaimer: true }, 'migrations.run').then(() => {
           this.$refs.view.fetchQueries()
         })
       }
@@ -131,7 +131,7 @@ export default {
       const confirmed = await this.$askConfirmation(this.$i18n.t('confirm_migrations_skip'))
       if (!confirmed) return
 
-      api.put('migrations/' + id, { skip: '' }).then(() => {
+      api.put('migrations/' + id, { skip: '' }, 'migration.skip').then(() => {
         this.$refs.view.fetchQueries()
       })
     }

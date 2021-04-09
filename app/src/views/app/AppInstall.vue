@@ -92,7 +92,7 @@ export default {
     },
 
     getApiManifest () {
-      return api.get('appscatalog?full').then(response => response.apps[this.id].manifest)
+      return api.get('apps/catalog?full').then(response => response.apps[this.id].manifest)
     },
 
     formatManifestData (manifest) {
@@ -128,7 +128,7 @@ export default {
       const { data: args, label } = formatFormData(this.form, { extract: ['label'] })
       const data = { app: this.id, label, args: objectToParams(args) }
 
-      api.post('apps', data).then(response => {
+      api.post('apps', data, { key: 'apps.install', name: this.name }).then(() => {
         this.$router.push({ name: 'app-list' })
       }).catch(err => {
         if (err.name !== 'APIBadRequestError') throw err

@@ -83,7 +83,7 @@ export default {
       if (!confirmed) return
 
       api.delete(
-        { uri: 'domains', param: this.name }
+        { uri: 'domains', param: this.name }, {}, { key: 'domains.delete', name: this.name }
       ).then(() => {
         this.$router.push({ name: 'domain-list' })
       })
@@ -94,7 +94,9 @@ export default {
       if (!confirmed) return
 
       api.put(
-        { uri: `domains/${this.name}/main`, storeKey: 'main_domain' }
+        { uri: `domains/${this.name}/main`, storeKey: 'main_domain' },
+        {},
+        { key: 'domains.set_default', name: this.name }
       ).then(() => {
         // FIXME Have to commit by hand here since the response is empty (should return the given name)
         this.$store.commit('UPDATE_MAIN_DOMAIN', this.name)

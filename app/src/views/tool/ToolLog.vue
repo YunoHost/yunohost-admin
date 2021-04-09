@@ -127,7 +127,12 @@ export default {
     },
 
     shareLogs () {
-      api.get(`logs/${this.name}/share`, null, { websocket: true }).then(({ url }) => {
+      api.get(
+        `logs/${this.name}/share`,
+        null,
+        { key: 'share_logs', name: this.name },
+        { websocket: true }
+      ).then(({ url }) => {
         window.open(url, '_blank')
       })
     }

@@ -183,8 +183,12 @@ export default {
       if (!confirmed) {
         return Promise.resolve(confirmed)
       }
+
+      const actionTrad = this.$i18n.t({ allow: 'open', disallow: 'close' }[action])
       return api.put(
         `firewall/${protocol}/${action}/${port}?${connection}_only`,
+        {},
+        { key: 'firewall.ports', protocol, action: actionTrad, port, connection },
         { wait: false }
       ).then(() => confirmed)
     },
@@ -194,7 +198,11 @@ export default {
       const confirmed = await this.$askConfirmation(this.$i18n.t('confirm_upnp_' + action))
       if (!confirmed) return
 
-      api.put('firewall/upnp/' + action).then(() => {
+      api.put(
+        'firewall/upnp/' + action,
+        {},
+        { key: 'firewall.upnp', action: this.$i18n.t(action) }
+      ).then(() => {
         // FIXME Couldn't test when it works.
         this.$refs.view.fetchQueries()
       }).catch(err => {

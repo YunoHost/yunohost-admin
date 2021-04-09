@@ -44,8 +44,8 @@ export default {
       this.serverError = ''
 
       api.fetchAll(
-        [['POST', 'login', { password: currentPassword }, { websocket: false }],
-         ['PUT', 'adminpw', { new_password: password }]],
+        [['POST', 'login', { password: currentPassword }, null, { websocket: false }],
+         ['PUT', 'adminpw', { new_password: password }, 'adminpw']],
         { wait: true }
       ).then(() => {
         this.$store.dispatch('DISCONNECT')
