@@ -59,7 +59,7 @@ export async function handleError (request, response, errorData) {
   let errorCode = response.status in errors ? response.status : undefined
   if (typeof errorData === 'string') {
     // FIXME API: Patching errors that are plain text or html.
-    errorData = { error: errorData }
+    errorData = { error: errorData.replace('\n', '<br>') }
   }
   if ('log_ref' in errorData) {
     // Define a special error so it won't get caught as a `APIBadRequestError`.
