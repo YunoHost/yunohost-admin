@@ -12,35 +12,55 @@
         <span v-html="$t('postinstall_intro_3')" />
       </p>
 
-      <b-button size="lg" variant="primary" @click="step = 'domain'">
+      <b-button size="lg" variant="primary" @click="goToStep('domain')">
         {{ $t('begin') }}
       </b-button>
     </template>
 
     <!-- DOMAIN SETUP STEP -->
     <template v-else-if="step === 'domain'">
-      <domain-form @submit="setDomain" :title="$t('postinstall_set_domain')" :submit-text="$t('next')">
+      <domain-form
+        :title="$t('postinstall_set_domain')" :submit-text="$t('next')" :server-error="serverError"
+        @submit="setDomain"
+      >
         <template #disclaimer>
           <p class="alert alert-info" v-t="'postinstall_domain'" />
         </template>
       </domain-form>
 
-      <b-button variant="primary" @click="step = 'start'" class="mt-3">
+      <b-button variant="primary" @click="goToStep('start')" class="mt-3">
         <icon iname="chevron-left" /> {{ $t('previous') }}
       </b-button>
     </template>
 
     <!-- PASSWORD SETUP STEP -->
     <template v-else-if="step === 'password'">
-      <password-form :title="$t('postinstall_set_password')" :submit-text="$t('next')" @submit="setPassword">
+      <password-form
+        :title="$t('postinstall_set_password')" :submit-text="$t('next')" :server-error="serverError"
+        @submit="setPassword"
+      >
         <template #disclaimer>
           <p class="alert alert-warning" v-t="'postinstall_password'" />
         </template>
       </password-form>
 
-      <b-button variant="primary" @click="step = 'domain'" class="mt-3">
+      <b-button variant="primary" @click="goToStep('domain')" class="mt-3">
         <icon iname="chevron-left" /> {{ $t('previous') }}
       </b-button>
+    </template>
+
+    <template v-else-if="step === 'rootfsspace-error'">
+      <card no-body header-class="d-none" footer-bg-variant="danger">
+        <b-card-body class="alert alert-danger m-0">
+          {{ serverError }}
+        </b-card-body>
+
+        <template #buttons>
+          <b-button variant="light" size="sm" @click="performPostInstall(true)">
+            <icon iname="warning" /> {{ $t('postinstall.force') }}
+          </b-button>
+        </template>
+      </card>
     </template>
 
     <!-- POST-INSTALL SUCCESS STEP -->
@@ -71,14 +91,20 @@ export default {
     return {
       step: 'start',
       domain: undefined,
-      password: undefined
+      password: undefined,
+      serverError: ''
     }
   },
 
   methods: {
+    goToStep (step) {
+      this.serverError = ''
+      this.step = step
+    },
+
     setDomain ({ domain }) {
       this.domain = domain
-      this.step = 'password'
+      this.goToStep('password')
     },
 
     async setPassword ({ password }) {
@@ -90,11 +116,23 @@ export default {
       this.performPostInstall()
     },
 
-    performPostInstall () {
+    performPostInstall (force = false) {
       // FIXME does the api will throw an error for bad passwords ?
-      api.post('postinstall', { domain: this.domain, password: this.password }).then(data => {
+      api.post('postinstall' + (force ? '?force_diskspace' : ''), { domain: this.domain, password: this.password }).then(data => {
         // Display success message and allow the user to login
-        this.step = 'login'
+        this.goToStep('login')
+      }).catch(err => {
+        if (err.name !== 'APIBadRequestError') throw err
+        if (err.key === 'postinstall_low_rootfsspace') {
+          this.step = 'rootfsspace-error'
+        } else if (err.key.includes('password')) {
+          this.step = 'password'
+        } else if (['domain', 'dyndns'].some(word => err.key.includes(word))) {
+          this.step = 'domain'
+        } else {
+          throw err
+        }
+        this.serverError = err.message
       })
     }
   },
