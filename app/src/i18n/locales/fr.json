@@ -443,5 +443,8 @@
         },
         "processing": "Le serveur traite l'action..."
     },
-    "go_back": "Revenir"
+    "go_back": "Revenir",
+    "postinstall": {
+        "force": "Forcer la post-installation"
+    }
 }
