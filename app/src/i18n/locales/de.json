@@ -49,7 +49,7 @@
     "home": "Home",
     "hook_adminjs_group_configuration": "Systemkonfigurationen",
     "hook_conf_cron": "Automatisierte Aufgaben",
-    "hook_conf_ldap": "LDAP Datenbank",
+    "hook_conf_ldap": "Benutzerdatenbank",
     "hook_conf_nginx": "Nginx",
     "hook_conf_ssh": "SSH",
     "hook_conf_ssowat": "SSOwat",
@@ -307,11 +307,11 @@
     "tip_about_user_email": "Benutzer*innen werden mit einer verknüpften eMail-Adresse (und XMPP Account) erstellt  im Format username@domain.tld. Zusätzliche eMail-Aliasse and eMail-Weiterleitungen können später durch den/die Admin und User*in hinzugefügt werden.",
     "logs_suboperations": "Unter-Operationen",
     "api_errors_titles": {
-        "APIBadRequestError": "Yunohost ist ein Fehler widerfahren",
-        "APIError": "Yunohost ist ein unerwarteter Fehler widerfahren",
-        "APIConnexionError": "Yunohost hat einen Verbindungsfehler festgestellt",
-        "APINotRespondingError": "Die Yunohost API antwortet nicht",
-        "APIInternalError": "Im Yunohost ist ein interner Fehler aufgetreten",
+        "APIBadRequestError": "YunoHost ist ein Fehler widerfahren",
+        "APIError": "YunoHost ist ein unerwarteter Fehler widerfahren",
+        "APIConnexionError": "YunoHost hat einen Verbindungsfehler festgestellt",
+        "APINotRespondingError": "Die YunoHost API antwortet nicht",
+        "APIInternalError": "Im YunoHost ist ein interner Fehler aufgetreten",
         "APINotFoundError": "YunoHost API konnte keine Route finden"
     },
     "api_error": {
@@ -446,5 +446,8 @@
             "error": "Nicht erfolgreich"
         },
         "processing": "Der Server verarbeitet gerade diese Aktion..."
-    }
+    },
+    "hook_data_xmpp": "XMPP Daten",
+    "hook_conf_manually_modified_files": "Manuell geänderte Konfigurationen",
+    "hook_conf_ynh_settings": "YunoHost Konfigurationen"
 }
