@@ -61,7 +61,7 @@
     "home": "Inicio",
     "hook_adminjs_group_configuration": "ajustes del sistema",
     "hook_conf_cron": "Tareas automáticas",
-    "hook_conf_ldap": "base de datos LDAP",
+    "hook_conf_ldap": "Base de datos de usuario",
     "hook_conf_nginx": "Nginx",
     "hook_conf_ssh": "SSH",
     "hook_conf_ssowat": "SSOwat",
@@ -307,5 +307,6 @@
     "pending_migrations": "Hay algunas migraciones esperando ejecutar. Por favor vaya a <a href='#/tools/migrations'>Herramientas > Migraciones</a> para verlas.",
     "logs_suboperations": "Sub-operaciones",
     "operation_failed_explanation": "¡Esta operación falló! Lo sentimos mucho :( Puede intentar <a href='https://yunohost.org/help'>pedir ayuda</a>. Por favor comparta el *log completo* de la operación a la gente que ayude. Puede hacerlo haciendo click en el botón verde que dice 'Share with Yunopaste'. Cuando comparta los logs, YunoHost intentará automáticamente anonimizar datos privados como nombres de dominio y IPs.",
-    "app_manage_label_and_tiles": "Administrar etiquetas y tiles"
+    "app_manage_label_and_tiles": "Administrar etiquetas y tiles",
+    "cancel": "Cancelar"
 }
