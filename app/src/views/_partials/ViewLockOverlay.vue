@@ -12,8 +12,7 @@
           <query-header :request="error || currentRequest" status-size="lg" />
         </b-card-header>
 
-        <component v-if="error" :is="'ErrorDisplay'" :request="error" />
-        <component v-else :is="'WaitingDisplay'" :request="currentRequest" />
+        <component :is="component.name" :request="component.request" />
       </b-card>
     </template>
   </b-overlay>
@@ -21,7 +20,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { ErrorDisplay, WaitingDisplay } from '@/views/_partials'
+import { ErrorDisplay, WarningDisplay, WaitingDisplay } from '@/views/_partials'
 import QueryHeader from '@/components/QueryHeader'
 
 export default {
@@ -29,16 +28,30 @@ export default {
 
   components: {
     ErrorDisplay,
+    WarningDisplay,
     WaitingDisplay,
     QueryHeader
   },
 
-  computed: mapGetters(['waiting', 'error', 'currentRequest'])
+  computed: {
+    ...mapGetters(['waiting', 'error', 'currentRequest']),
+
+    component () {
+      const { error, currentRequest: request } = this
+      if (error) {
+        return { name: 'ErrorDisplay', request: error }
+      } else if (request.showWarningMessage) {
+        return { name: 'WarningDisplay', request }
+      } else {
+        return { name: 'WaitingDisplay', request }
+      }
+    }
+  }
 }
 </script>
 
 <style lang="scss" scoped>
-// Style for `ErrorDisplay` and `WaitingDisplay`'s cards
+// Style for `*Display`'s cards
 .card-overlay {
   position: sticky;
   top: 10vh;

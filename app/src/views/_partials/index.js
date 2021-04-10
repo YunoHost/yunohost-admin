@@ -1,4 +1,5 @@
 export { default as ErrorDisplay } from './ErrorDisplay'
+export { default as WarningDisplay } from './WarningDisplay'
 export { default as WaitingDisplay } from './WaitingDisplay'
 
 export { default as HistoryConsole } from './HistoryConsole'
