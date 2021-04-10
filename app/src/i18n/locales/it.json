@@ -412,12 +412,12 @@
     "api_waiting": "Aspetto la risposta del server...",
     "api_not_found": "Sembra che l'amministratore ha provato a richiedere qualcosa che non esiste.",
     "api_errors_titles": {
-        "APIConnexionError": "Yunohost ha riscontrato un errore di connessione",
-        "APINotRespondingError": "La Yunohost API non risponde",
-        "APINotFoundError": "La Yunohost API non ha trovato un percorso",
-        "APIInternalError": "Yunohost ha riscontrato un errore interno",
-        "APIBadRequestError": "Yunohost ha incontrato un errore",
-        "APIError": "Yunohost ha incontrato un errore inaspettato"
+        "APIConnexionError": "YunoHost ha riscontrato un errore di connessione",
+        "APINotRespondingError": "La YunoHost API non risponde",
+        "APINotFoundError": "La YunoHost API non ha trovato un percorso",
+        "APIInternalError": "YunoHost ha riscontrato un errore interno",
+        "APIBadRequestError": "YunoHost ha incontrato un errore",
+        "APIError": "YunoHost ha incontrato un errore inaspettato"
     },
     "api_error": {
         "view_error": "Visualizza errore",
