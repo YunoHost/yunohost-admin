@@ -48,7 +48,7 @@
       <p class="alert alert-success">
         <icon iname="thumbs-up" /> {{ $t('installation_complete') }}
       </p>
-      <login />
+      <login skip-install-check />
     </template>
   </div>
 </template>

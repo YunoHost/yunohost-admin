@@ -32,9 +32,13 @@
 export default {
   name: 'Login',
 
+  props: {
+    skipInstallCheck: { type: Boolean, default: false }
+  },
+
   data () {
     return {
-      disabled: true,
+      disabled: !this.skipInstallCheck,
       password: '',
       isValid: null,
       apiError: undefined
@@ -51,6 +55,7 @@ export default {
   },
 
   created () {
+    if (this.skipInstallCheck) return
     this.$store.dispatch('CHECK_INSTALL').then(installed => {
       if (installed) {
         this.disabled = false
