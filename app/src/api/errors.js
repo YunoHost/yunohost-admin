@@ -7,8 +7,8 @@ import i18n from '@/i18n'
 
 
 class APIError extends Error {
-  constructor (request, { url, status, statusText }, errorData) {
-    super(errorData.error || i18n.t('error_server_unexpected'))
+  constructor (request, { url, status, statusText }, { error }) {
+    super(error ? error.replace('\n', '<br>') : i18n.t('error_server_unexpected'))
     const urlObj = new URL(url)
     this.name = 'APIError'
     this.code = status
