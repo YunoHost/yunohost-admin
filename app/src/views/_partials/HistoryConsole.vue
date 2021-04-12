@@ -33,6 +33,10 @@
         class="accordion" role="tablist"
         id="history" ref="history"
       >
+        <p v-if="history.length === 0" class="alert m-0 px-2 py-1">
+          {{ $t('history.is_empty') }}
+        </p>
+
         <!-- ACTION LIST -->
         <b-card
           v-for="(action, i) in history" :key="i"

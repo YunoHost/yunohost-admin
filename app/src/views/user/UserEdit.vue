@@ -296,7 +296,8 @@ export default {
 
       api.put(
         { uri: 'users', param: this.name, storeKey: 'users_details' },
-        data
+        data,
+        { key: 'users.update', name: this.name }
       ).then(() => {
         this.$router.push({ name: 'user-info', param: { name: this.name } })
       }).catch(err => {

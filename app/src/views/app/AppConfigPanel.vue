@@ -38,9 +38,8 @@
 import { validationMixin } from 'vuelidate'
 
 // FIXME needs test and rework
-import api from '@/api'
+import api, { objectToParams } from '@/api'
 import { formatI18nField, formatYunoHostArguments, formatFormData } from '@/helpers/yunohostArguments'
-import { objectToParams } from '@/helpers/commons'
 
 export default {
   name: 'AppConfigPanel',
@@ -103,7 +102,9 @@ export default {
     applyConfig (id_) {
       const args = objectToParams(formatFormData(this.forms[id_]))
 
-      api.post(`apps/${this.id}/config`, { args }).then(response => {
+      api.put(
+        `apps/${this.id}/config`, { args }, { key: 'apps.update_config', name: this.id }
+      ).then(response => {
         console.log('SUCCESS', response)
       }).catch(err => {
         if (err.name !== 'APIBadRequestError') throw err

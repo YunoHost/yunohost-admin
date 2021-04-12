@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import api from '@/api'
 import router from '@/router'
-import { timeout } from '@/helpers/commons'
+import i18n from '@/i18n'
+import { timeout, isObjectLiteral } from '@/helpers/commons'
 
 export default {
   state: {
@@ -107,7 +108,7 @@ export default {
     },
 
     'LOGIN' ({ dispatch }, password) {
-      return api.post('login', { password }, { websocket: false }).then(() => {
+      return api.post('login', { password }, null, { websocket: false }).then(() => {
         dispatch('CONNECT')
       })
     },
@@ -123,8 +124,12 @@ export default {
       })
     },
 
-    'INIT_REQUEST' ({ commit }, { method, uri, initial, wait, websocket }) {
-      let request = { method, uri, initial, status: 'pending' }
+    'INIT_REQUEST' ({ commit }, { method, uri, humanKey, initial, wait, websocket }) {
+      // Try to find a description for an API route to display in history and modals
+      const { key, ...args } = isObjectLiteral(humanKey) ? humanKey : { key: humanKey }
+      const humanRoute = key ? i18n.t('human_routes.' + key, args) : `[${method}] /${uri}`
+
+      let request = { method, uri, humanRoute, initial, status: 'pending' }
       if (websocket) {
         request = { ...request, messages: [], date: Date.now(), warnings: 0, errors: 0 }
         commit('ADD_HISTORY_ACTION', request)

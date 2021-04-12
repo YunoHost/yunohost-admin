@@ -216,22 +216,28 @@ export default {
     },
 
     onPermissionChanged ({ item, index, name, groupType, action }) {
-      const uri = 'users/permissions/' + item
-      const data = { [action]: name }
+      // const uri = 'users/permissions/' + item
+      // const data = { [action]: name }
       const from = action === 'add' ? 'availablePermissions' : 'permissions'
       const to = action === 'add' ? 'permissions' : 'availablePermissions'
-      api.put(uri, data).then(() => {
+      api.put(
+        `users/permissions/${item}/${action}/${name}`,
+        {},
+        { key: 'permissions.' + action, perm: item.replace('.main', ''), name }
+      ).then(() => {
         this[groupType + 'Groups'][name][from].splice(index, 1)
         this[groupType + 'Groups'][name][to].push(item)
       })
     },
 
     onUserChanged ({ item, index, name, action }) {
-      const uri = 'users/groups/' + name
-      const data = { [action]: item }
       const from = action === 'add' ? 'availableMembers' : 'members'
       const to = action === 'add' ? 'members' : 'availableMembers'
-      api.put(uri, data).then(() => {
+      api.put(
+        `users/groups/${name}/${action}/${item}`,
+        {},
+        { key: 'groups.' + action, user: item, name }
+      ).then(() => {
         this.normalGroups[name][from].splice(index, 1)
         this.normalGroups[name][to].push(item)
       })
@@ -255,7 +261,7 @@ export default {
       if (!confirmed) return
 
       api.delete(
-        { uri: 'users/groups', param: name, storeKey: 'groups' }
+        { uri: 'users/groups', param: name, storeKey: 'groups' }, {}, { key: 'groups.delete', name }
       ).then(() => {
         Vue.delete(this.normalGroups, name)
       })

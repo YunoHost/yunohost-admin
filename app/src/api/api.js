@@ -5,7 +5,6 @@
 
 import store from '@/store'
 import { openWebSocket, getResponseData, handleError } from './handlers'
-import { objectToParams } from '@/helpers/commons'
 
 
 /**
@@ -29,6 +28,31 @@ import { objectToParams } from '@/helpers/commons'
  * @property {Object|null} 2 - "data"
  * @property {Options} 3 - "options"
 */
+
+
+/**
+ * Converts an object literal into an `URLSearchParams` that can be turned into a
+ * query string or used as a body in a `fetch` call.
+ *
+ * @param {Object} obj - An object literal to convert.
+ * @param {Object} options
+ * @param {Boolean} [options.addLocale=false] - Option to append the locale to the query string.
+ * @return {URLSearchParams}
+ */
+export function objectToParams (obj, { addLocale = false } = {}) {
+  const urlParams = new URLSearchParams()
+  for (const [key, value] of Object.entries(obj)) {
+    if (Array.isArray(value)) {
+      value.forEach(v => urlParams.append(key, v))
+    } else {
+      urlParams.append(key, value)
+    }
+  }
+  if (addLocale) {
+    urlParams.append('locale', store.getters.locale)
+  }
+  return urlParams
+}
 
 
 export default {
@@ -55,9 +79,15 @@ export default {
    * @param {Options} [options={ wait = true, websocket = true, initial = false, asFormData = false }]
    * @return {Promise<Object|Error>} Promise that resolve the api response data or an error.
    */
-  async fetch (method, uri, data = {}, { wait = true, websocket = true, initial = false, asFormData = false } = {}) {
+  async fetch (
+    method,
+    uri,
+    data = {},
+    humanKey = null,
+    { wait = true, websocket = true, initial = false, asFormData = false } = {}
+  ) {
     // `await` because Vuex actions returns promises by default.
-    const request = await store.dispatch('INIT_REQUEST', { method, uri, initial, wait, websocket })
+    const request = await store.dispatch('INIT_REQUEST', { method, uri, humanKey, initial, wait, websocket })
 
     if (websocket) {
       await openWebSocket(request)
@@ -70,6 +100,10 @@ export default {
       options = { ...options, method, body: objectToParams(data, { addLocale: true }) }
     }
 
+    if (['upgrade', 'postinstall', 'reboot', 'shutdown', 'diagnsosis'].some(action => uri.includes(action))) {
+      store.dispatch('END_REQUEST', { request, success: true, wait })
+      return
+    }
     const response = await fetch('/yunohost/api/' + uri, options)
     const responseData = await getResponseData(response)
     store.dispatch('END_REQUEST', { request, success: response.ok, wait })
@@ -92,10 +126,10 @@ export default {
     const results = []
     if (wait) store.commit('SET_WAITING', true)
     try {
-      for (const [method, uri, data, options = {}] of queries) {
+      for (const [method, uri, data, humanKey, options = {}] of queries) {
         if (wait) options.wait = false
         if (initial) options.initial = true
-        results.push(await this[method.toLowerCase()](uri, data, options))
+        results.push(await this[method.toLowerCase()](uri, data, humanKey, options))
       }
     } finally {
       // Stop waiting even if there is an error.
@@ -114,10 +148,10 @@ export default {
    * @param {Options} [options={}] - options to apply to the call (default is `{ websocket: false, wait: false }`)
    * @return {Promise<Object|Error>} Promise that resolve the api response data or an error.
    */
-  get (uri, data = null, options = {}) {
+  get (uri, data = null, humanKey = null, options = {}) {
     options = { websocket: false, wait: false, ...options }
-    if (typeof uri === 'string') return this.fetch('GET', uri, null, options)
-    return store.dispatch('GET', { ...uri, options })
+    if (typeof uri === 'string') return this.fetch('GET', uri, null, humanKey, options)
+    return store.dispatch('GET', { ...uri, humanKey, options })
   },
 
 
@@ -129,9 +163,9 @@ export default {
    * @param {Options} [options={}] - options to apply to the call
    * @return {Promise<Object|Error>} Promise that resolve the api response data or an error.
    */
-  post (uri, data = {}, options = {}) {
-    if (typeof uri === 'string') return this.fetch('POST', uri, data, options)
-    return store.dispatch('POST', { ...uri, data, options })
+  post (uri, data = {}, humanKey = null, options = {}) {
+    if (typeof uri === 'string') return this.fetch('POST', uri, data, humanKey, options)
+    return store.dispatch('POST', { ...uri, data, humanKey, options })
   },
 
 
@@ -143,9 +177,9 @@ export default {
    * @param {Options} [options={}] - options to apply to the call
    * @return {Promise<Object|Error>} Promise that resolve the api response data or an error.
    */
-  put (uri, data = {}, options = {}) {
-    if (typeof uri === 'string') return this.fetch('PUT', uri, data, options)
-    return store.dispatch('PUT', { ...uri, data, options })
+  put (uri, data = {}, humanKey = null, options = {}) {
+    if (typeof uri === 'string') return this.fetch('PUT', uri, data, humanKey, options)
+    return store.dispatch('PUT', { ...uri, data, humanKey, options })
   },
 
 
@@ -157,8 +191,8 @@ export default {
    * @param {Options} [options={}] - options to apply to the call (default is `{ websocket: false, wait: false }`)
    * @return {Promise<Object|Error>} Promise that resolve the api response data or an error.
    */
-  delete (uri, data = {}, options = {}) {
-    if (typeof uri === 'string') return this.fetch('DELETE', uri, data, options)
-    return store.dispatch('DELETE', { ...uri, data, options })
+  delete (uri, data = {}, humanKey = null, options = {}) {
+    if (typeof uri === 'string') return this.fetch('DELETE', uri, data, humanKey, options)
+    return store.dispatch('DELETE', { ...uri, data, humanKey, options })
   }
 }

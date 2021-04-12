@@ -45,7 +45,7 @@ export default {
   data () {
     return {
       queries: [
-        ['GET', 'backup/archives?with_info']
+        ['GET', 'backups?with_info']
       ],
       archives: undefined
     }

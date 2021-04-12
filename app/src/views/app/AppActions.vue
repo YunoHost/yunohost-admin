@@ -38,11 +38,10 @@
 </template>
 
 <script>
-import api from '@/api'
+import api, { objectToParams } from '@/api'
 import { validationMixin } from 'vuelidate'
 
 import { formatI18nField, formatYunoHostArguments, formatFormData } from '@/helpers/yunohostArguments'
-import { objectToParams } from '@/helpers/commons'
 
 export default {
   name: 'AppActions',
@@ -100,7 +99,11 @@ export default {
       // FIXME api expects at least one argument ?! (fake one given with { dontmindthis } )
       const args = objectToParams(action.form ? formatFormData(action.form) : { dontmindthis: undefined })
 
-      api.put(`apps/${this.id}/actions/${action.id}`, { args }).then(response => {
+      api.put(
+        `apps/${this.id}/actions/${action.id}`,
+        { args },
+        { key: 'apps.perform_action', action: action.id, name: this.id }
+      ).then(() => {
         this.$refs.view.fetchQueries()
       }).catch(err => {
         if (err.name !== 'APIBadRequestError') throw err

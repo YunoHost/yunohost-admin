@@ -60,8 +60,8 @@
 </template>
 
 <script>
-import api from '@/api'
-import { objectToParams, escapeHtml } from '@/helpers/commons'
+import api, { objectToParams } from '@/api'
+import { escapeHtml } from '@/helpers/commons'
 import { readableDate } from '@/helpers/filters/date'
 
 export default {
@@ -127,7 +127,12 @@ export default {
     },
 
     shareLogs () {
-      api.get(`logs/${this.name}?share`, null, { websocket: true }).then(({ url }) => {
+      api.get(
+        `logs/${this.name}/share`,
+        null,
+        { key: 'share_logs', name: this.name },
+        { websocket: true }
+      ).then(({ url }) => {
         window.open(url, '_blank')
       })
     }

@@ -120,13 +120,11 @@ export default {
       )
       if (!confirmed) return
 
-      if (!['start', 'restart', 'stop'].includes(action)) return
-      const method = action === 'stop' ? 'delete' : 'put'
-      const uri = action === 'restart'
-        ? `services/${this.name}/restart`
-        : 'services/' + this.name
-
-      api[method](uri).then(this.$refs.view.fetchQueries)
+      api.put(
+        `services/${this.name}/${action}`,
+        {},
+        { key: 'services.' + action, name: this.name }
+      ).then(this.$refs.view.fetchQueries)
     },
 
     shareLogs () {

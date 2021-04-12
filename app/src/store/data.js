@@ -90,21 +90,21 @@ export default {
   },
 
   actions: {
-    'GET' ({ state, commit, rootState }, { uri, param, storeKey = uri, options = {} }) {
+    'GET' ({ state, commit, rootState }, { uri, param, humanKey, storeKey = uri, options = {} }) {
       const noCache = !rootState.cache || options.noCache || false
       const currentState = param ? state[storeKey][param] : state[storeKey]
       // if data has already been queried, simply return
       if (currentState !== undefined && !noCache) return currentState
 
-      return api.fetch('GET', param ? `${uri}/${param}` : uri, null, options).then(responseData => {
+      return api.fetch('GET', param ? `${uri}/${param}` : uri, null, humanKey, options).then(responseData => {
         const data = responseData[storeKey] ? responseData[storeKey] : responseData
         commit('SET_' + storeKey.toUpperCase(), param ? [param, data] : data)
         return param ? state[storeKey][param] : state[storeKey]
       })
     },
 
-    'POST' ({ state, commit }, { uri, storeKey = uri, data, options }) {
-      return api.fetch('POST', uri, data, options).then(responseData => {
+    'POST' ({ state, commit }, { uri, storeKey = uri, data, humanKey, options }) {
+      return api.fetch('POST', uri, data, humanKey, options).then(responseData => {
         // FIXME api/domains returns null
         if (responseData === null) responseData = data
         responseData = responseData[storeKey] ? responseData[storeKey] : responseData
@@ -113,16 +113,16 @@ export default {
       })
     },
 
-    'PUT' ({ state, commit }, { uri, param, storeKey = uri, data, options }) {
-      return api.fetch('PUT', param ? `${uri}/${param}` : uri, data, options).then(responseData => {
+    'PUT' ({ state, commit }, { uri, param, storeKey = uri, data, humanKey, options }) {
+      return api.fetch('PUT', param ? `${uri}/${param}` : uri, data, humanKey, options).then(responseData => {
         const data = responseData[storeKey] ? responseData[storeKey] : responseData
         commit('UPDATE_' + storeKey.toUpperCase(), param ? [param, data] : data)
         return param ? state[storeKey][param] : state[storeKey]
       })
     },
 
-    'DELETE' ({ commit }, { uri, param, storeKey = uri, data, options }) {
-      return api.fetch('DELETE', param ? `${uri}/${param}` : uri, data, options).then(() => {
+    'DELETE' ({ commit }, { uri, param, storeKey = uri, data, humanKey, options }) {
+      return api.fetch('DELETE', param ? `${uri}/${param}` : uri, data, humanKey, options).then(() => {
         commit('DEL_' + storeKey.toUpperCase(), param)
       })
     }
