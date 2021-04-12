@@ -397,7 +397,8 @@
             "GET": "lesen"
         },
         "last_action": "Letzte Aktion:",
-        "title": "Historie"
+        "title": "Historie",
+        "is_empty": "Momentan nichts in der History."
     },
     "form_errors": {
         "required": "Feld ist erforderlich.",
@@ -449,5 +450,26 @@
     },
     "hook_data_xmpp": "XMPP Daten",
     "hook_conf_manually_modified_files": "Manuell geänderte Konfigurationen",
-    "hook_conf_ynh_settings": "YunoHost Konfigurationen"
+    "hook_conf_ynh_settings": "YunoHost Konfigurationen",
+    "human_routes": {
+        "backups": {
+            "delete": "Das Backup '{name}' löschen",
+            "create": "Ein Backup erstellen"
+        },
+        "apps": {
+            "update_config": "Die Konfiguration der Applikation '{name}' aktualisieren",
+            "uninstall": "Die Applikation '{name}' deinstallieren",
+            "perform_action": "Die Aktion '{action}' durchführen für die Applikation '{name}'",
+            "install": "Die Applikation '{name}' installieren",
+            "change_url": "Die Zugriffs-URL für '{name}' ändern",
+            "change_label": "Das Label von '{prevName}' nach '{nextName}' ändern"
+        },
+        "adminpw": "Administratorpasswort ändern"
+    },
+    "postinstall": {
+        "force": "Forciere den Post-Install"
+    },
+    "hook_data_xmpp_desc": "Konfiguration für Räume und Benutzer, hochgeladene Dateien",
+    "confirm_firewall_disallow": "Sind Sie sicher, dass Sie den Port {port} (protocol: {protocol}, Verbindung {connection}) schliessen wollen",
+    "confirm_firewall_allow": "Sind Sie sicher, dass Sie den Port {port} (protocol: {protocol}, Verbindung: {connection}) öffnen wollen"
 }
