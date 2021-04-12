@@ -360,7 +360,8 @@
             "GET": "lire"
         },
         "last_action": "Dernière action :",
-        "title": "Historique"
+        "title": "Historique",
+        "is_empty": "Rien dans l'historique pour le moment."
     },
     "form_errors": {
         "required": "Ce champ est obligatoire.",
@@ -446,5 +447,83 @@
     "go_back": "Revenir",
     "postinstall": {
         "force": "Forcer la post-installation"
-    }
+    },
+    "human_routes": {
+        "users": {
+            "update": "Mettre à jour l'utilisateur '{name}'",
+            "delete": "Supprimer l'utilisateur '{name}'",
+            "create": "Créer l'utilisateur '{name}'"
+        },
+        "upgrade": {
+            "app": "Mettre à jour l'application '{app}'",
+            "apps": "Mettre à jour toutes les applications",
+            "system": "Mettre à jour le système"
+        },
+        "update": "Rechercher les mises à jour",
+        "shutdown": "Arrêtez le serveur",
+        "share_logs": "Générer le lien pour le journal '{name}'",
+        "services": {
+            "stop": "Arrêtez le service '{name}'",
+            "start": "Démarrez le service '{name}'",
+            "restart": "Redémarrez le service '{name}'"
+        },
+        "reboot": "Redémarrez le serveur",
+        "postinstall": "Exécutez la post-installation",
+        "permissions": {
+            "remove": "Supprimer l'accès '{name}' à '{perm}'",
+            "add": "Autoriser '{name}' à accéder à '{perm}'"
+        },
+        "migrations": {
+            "skip": "Ignorer les migrations",
+            "run": "Exécuter les migrations"
+        },
+        "groups": {
+            "remove": "Supprimer '{user}' du groupe '{name}'",
+            "add": "Ajouter '{user}' au groupe '{name}'",
+            "delete": "Supprimer le groupe '{name}'",
+            "create": "Créer le groupe '{name}'"
+        },
+        "firewall": {
+            "upnp": "{action} UPnP",
+            "ports": "{action} port {port} ({protocol}, {connection})"
+        },
+        "domains": {
+            "set_default": "Définir '{name}' comme domaine par défaut",
+            "revert_to_selfsigned": "Revenir au certificat auto-signé pour '{name}'",
+            "regen_selfsigned": "Renouveler le certificat auto-signé pour '{name}'",
+            "manual_renew_LE": "Renouveler le certificat pour '{name}'",
+            "install_LE": "Installer le certificat pour '{name}'",
+            "delete": "Supprimer le domaine '{name}'",
+            "add": "Ajouter le domaine '{name}'"
+        },
+        "diagnosis": {
+            "unignore": {
+                "warning": "Ne pas ignorer un avertissement",
+                "error": "Ne pas ignorer une erreur"
+            },
+            "run_specific": "Lancer le diagnostic '{description}'",
+            "run": "Exécutez le diagnostic",
+            "ignore": {
+                "warning": "Ignorer un avertissement",
+                "error": "Ignorer une erreur"
+            }
+        },
+        "backups": {
+            "restore": "Restaurer la sauvegarde '{name}'",
+            "delete": "Supprimer la sauvegarde '{name}'",
+            "create": "Créer une sauvegarde"
+        },
+        "apps": {
+            "update_config": "Mise à jour de la configuration de l'application '{name}'",
+            "uninstall": "Désinstallez l'application '{name}'",
+            "perform_action": "Exécuter l'action '{action}' de l'application '{name}'",
+            "set_default": "Rediriger la racine du domaine '{domain}' vers '{name}'",
+            "install": "Installez l'application '{name}'",
+            "change_url": "Modifier l'URL d'accès de '{name}'",
+            "change_label": "Changer le libellé de '{prevName}' par '{nextName}'"
+        },
+        "adminpw": "Changer le mot de passe administrateur"
+    },
+    "confirm_firewall_allow": "Êtes-vous sûr de vouloir ouvrir le port {port} (protocole : {protocol}, connexion : {connection})",
+    "confirm_firewall_disallow": "Êtes-vous sûr de vouloir fermer le port {port} (protocole : {protocol}, connexion : {connection})"
 }
