@@ -315,6 +315,9 @@
     "permission_show_tile_enabled": "Visible as tile in user portal",
     "port": "Port",
     "ports": "Ports",
+    "postinstall": {
+        "force": "Force the post-install"
+    },
     "postinstall_domain": "This is the first domain name linked to your YunoHost server, but also the one which will be used by your server's users to access the authentication portal. Accordingly, it will be visible by everyone, so choose it carefully.",
     "postinstall_intro_1": "Congratulations! YunoHost has been successfully installed.",
     "postinstall_intro_2": "Two more configuration steps are required to activate you server's services.",

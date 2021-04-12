@@ -61,9 +61,7 @@ export default {
   props: {
     title: { type: String, required: true },
     submitText: { type: String, default: null },
-    serverError: { type: String, default: '' },
-    // Do not query the api (used by postinstall)
-    noStore: { type: Boolean, default: false }
+    serverError: { type: String, default: '' }
   },
 
   data () {

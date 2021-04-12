@@ -150,11 +150,15 @@ export default {
     'END_REQUEST' ({ commit }, { request, success, wait }) {
       let status = success ? 'success' : 'error'
       if (success && (request.warnings || request.errors)) {
+        const messages = request.messages
+        if (messages.length && messages[messages.length - 1].color === 'warning') {
+          request.showWarningMessage = true
+        }
         status = 'warning'
       }
 
       commit('UPDATE_REQUEST', { request, key: 'status', value: status })
-      if (wait) {
+      if (wait && !request.showWarningMessage) {
         // Remove the overlay after a short delay to allow an error to display withtout flickering.
         setTimeout(() => {
           commit('SET_WAITING', false)
@@ -219,6 +223,11 @@ export default {
         }
       }
       commit('SET_ERROR', null)
+    },
+
+    'DISMISS_WARNING' ({ commit, state }, request) {
+      commit('SET_WAITING', false)
+      delete request.showWarningMessage
     }
   },
 
