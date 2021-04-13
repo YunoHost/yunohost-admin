@@ -56,19 +56,20 @@
     "api_waiting": "Czekam na odpowiedź serwera...",
     "all_apps": "Wszystkie aplikacje",
     "api_errors_titles": {
-        "APIConnexionError": "Yunohost napotkał błąd połączenia",
-        "APINotRespondingError": "Yunohost API nie odpowiada",
-        "APINotFoundError": "Yunohost API nie może znaleźć trasy",
-        "APIInternalError": "Yunohost napotkał błąd wewnętrzny",
-        "APIBadRequestError": "Yunohost napotkał błąd",
-        "APIError": "Yunohost napotkał nieoczekiwany błąd"
+        "APIConnexionError": "YunoHost napotkał błąd połączenia",
+        "APINotRespondingError": "YunoHost API nie odpowiada",
+        "APINotFoundError": "YunoHost API nie może znaleźć trasy",
+        "APIInternalError": "YunoHost napotkał błąd wewnętrzny",
+        "APIBadRequestError": "YunoHost napotkał błąd",
+        "APIError": "YunoHost napotkał nieoczekiwany błąd"
     },
     "api_error": {
         "view_error": "Zobacz błąd",
         "sorry": "Bardzo przepraszam za to.",
         "server_said": "Podczas wykonywania zadania serwer odpowiedział:",
         "info": "Ta informacja może być pomocna dla osoby pomagającej Tobie:",
-        "error_message": "Wiadomość błędu:"
+        "error_message": "Wiadomość błędu:",
+        "help": "Poszukaj pomocy na <a href=\"https://forum.yunohost.org/\">forum</a>lub na <a href=\"https://chat.yunohost.org/\">czacie</a> aby rozwiązać problem, albo zgłoś błąd na <a href=\"https://github.com/YunoHost/issues\">bugtrackerze\"</a>."
     },
     "api": {
         "query_status": {
@@ -88,5 +89,7 @@
             "email": "Wybierz domenę dla poczty.",
             "domain": "Wybierz domenę."
         }
-    }
+    },
+    "app_manage_label_and_tiles": "Zarządzaj etykietami",
+    "api_not_found": "Wygląda na to że web-admin zapytał o coś co nie istnieje."
 }
