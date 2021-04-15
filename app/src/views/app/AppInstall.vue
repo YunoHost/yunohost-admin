@@ -2,7 +2,7 @@
   <view-base :loading="loading">
     <template v-if="infos">
       <!-- BASIC INFOS -->
-      <card :title="`${$t('infos')} — ${name}`" icon="info-circle">
+      <card :title="`${name}`" icon="download">
         <b-row
           v-for="(info, key) in infos" :key="key"
           no-gutters class="row-line"
@@ -19,7 +19,7 @@
 
       <!-- INSTALL FORM -->
       <card-form
-        :title="$t('operations')" icon="wrench" :submit-text="$t('install')"
+        :title="$t('app_install_parameters')" icon="cog" :submit-text="$t('install')"
         :validation="$v" :server-error="serverError"
         @submit.prevent="performInstall"
       >
@@ -79,21 +79,6 @@ export default {
   },
 
   methods: {
-    getExternalManifest () {
-      const url = this.id.replace('github.com', 'raw.githubusercontent.com') + 'master/manifest.json'
-      return fetch(url).then(response => {
-        if (response.ok) return response.json()
-        else {
-          throw Error('No manifest found at ' + url)
-        }
-      }).catch(() => {
-        this.infos = null
-      })
-    },
-
-    getApiManifest () {
-      return api.get('apps/catalog?full').then(response => response.apps[this.id].manifest)
-    },
 
     formatManifestData (manifest) {
       this.name = manifest.name
@@ -138,9 +123,8 @@ export default {
   },
 
   created () {
-    const isCustom = this.$route.name === 'app-install-custom'
     Promise.all([
-      isCustom ? this.getExternalManifest() : this.getApiManifest(),
+      api.get('apps/manifest?app=' + this.id).then(response => response),
       api.fetchAll([
         ['GET', { uri: 'domains' }],
         ['GET', { uri: 'domains/main', storeKey: 'main_domain' }],

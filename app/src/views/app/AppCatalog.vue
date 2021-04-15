@@ -193,10 +193,9 @@ export default {
       customInstall: {
         field: {
           label: this.$i18n.t('url'),
-          description: this.$i18n.t('custom_app_url_only_github'),
           props: {
             id: 'custom-install',
-            placeholder: 'https://github.com/USER/REPOSITORY'
+            placeholder: 'https://some.git.forge.tld/USER/REPOSITORY'
           }
         },
         url: ''
