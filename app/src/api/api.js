@@ -14,7 +14,6 @@ import { openWebSocket, getResponseData, handleError } from './handlers'
  * @property {Boolean} wait - If `true`, will display the waiting modal.
  * @property {Boolean} websocket - if `true`, will open a websocket connection.
  * @property {Boolean} initial - if `true` and an error occurs, the dismiss button will trigger a go back in history.
- * @property {Boolean} noCache - if `true`, will disable the cache mecanism for this call.
  * @property {Boolean} asFormData - if `true`, will send the data with a body encoded as `"multipart/form-data"` instead of `"x-www-form-urlencoded"`).
  */
 
