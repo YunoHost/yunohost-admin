@@ -185,6 +185,7 @@ export default {
       }
 
       const actionTrad = this.$i18n.t({ allow: 'open', disallow: 'close' }[action])
+      console.log(action, actionTrad)
       return api.put(
         `firewall/${protocol}/${action}/${port}?${connection}_only`,
         {},

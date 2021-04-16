@@ -199,8 +199,14 @@ export default {
       })
     },
 
-    onPermissionChanged ({ option, groupName, action, applyMethod }) {
+    async onPermissionChanged ({ option, groupName, action, applyMethod }) {
       const permId = this.permissions.find(perm => perm.label === option).id
+      if (action === 'add' && ['sftp.main', 'ssh.main'].includes(permId)) {
+        const confirmed = await this.$askConfirmation(
+          this.$i18n.t('confirm_group_add_access_permission', { name: groupName, perm: option })
+        )
+        if (!confirmed) return
+      }
       api.put(
         // FIXME hacky way to update the store
         { uri: `users/permissions/${permId}/${action}/${groupName}`, storeKey: 'permissions', groupName, action, permId },
