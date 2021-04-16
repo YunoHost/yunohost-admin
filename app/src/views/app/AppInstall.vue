@@ -1,8 +1,8 @@
 <template>
-  <view-base :loading="loading">
+  <view-base :queries="queries" @queries-response="onQueriesResponse">
     <template v-if="infos">
       <!-- BASIC INFOS -->
-      <card :title="`${name}`" icon="download">
+      <card :title="name" icon="download">
         <b-row
           v-for="(info, key) in infos" :key="key"
           no-gutters class="row-line"
@@ -63,7 +63,12 @@ export default {
 
   data () {
     return {
-      loading: true,
+      queries: [
+        ['GET', 'apps/manifest?app=' + this.id],
+        ['GET', { uri: 'domains' }],
+        ['GET', { uri: 'domains/main', storeKey: 'main_domain' }],
+        ['GET', { uri: 'users' }]
+      ],
       name: undefined,
       infos: undefined,
       formDisclaimer: null,
@@ -79,8 +84,7 @@ export default {
   },
 
   methods: {
-
-    formatManifestData (manifest) {
+    onQueriesResponse (manifest) {
       this.name = manifest.name
       const infosKeys = ['id', 'description', 'license', 'version', 'multi_instance']
       if (manifest.license === undefined || manifest.license === 'free') {
@@ -99,7 +103,6 @@ export default {
       this.fields = fields
       this.form = form
       this.validations = { form: validations }
-      this.loading = false
     },
 
     async performInstall () {
@@ -120,17 +123,6 @@ export default {
         this.serverError = err.message
       })
     }
-  },
-
-  created () {
-    Promise.all([
-      api.get('apps/manifest?app=' + this.id).then(response => response),
-      api.fetchAll([
-        ['GET', { uri: 'domains' }],
-        ['GET', { uri: 'domains/main', storeKey: 'main_domain' }],
-        ['GET', { uri: 'users' }]
-      ])
-    ]).then((responses) => this.formatManifestData(responses[0]))
   }
 }
 </script>
