@@ -202,22 +202,19 @@ export default {
     onPermissionChanged ({ option, groupName, action, applyMethod }) {
       const permId = this.permissions.find(perm => perm.label === option).id
       api.put(
-        `users/permissions/${permId}/${action}/${groupName}`,
+        // FIXME hacky way to update the store
+        { uri: `users/permissions/${permId}/${action}/${groupName}`, storeKey: 'permissions', groupName, action, permId },
         {},
         { key: 'permissions.' + action, perm: option, name: groupName }
-      ).then(() => {
-        applyMethod(option)
-      })
+      ).then(() => applyMethod(option))
     },
 
     onUserChanged ({ option, groupName, action, applyMethod }) {
       api.put(
-        `users/groups/${groupName}/${action}/${option}`,
+        { uri: `users/groups/${groupName}/${action}/${option}`, storeKey: 'groups', groupName },
         {},
         { key: 'groups.' + action, user: option, name: groupName }
-      ).then(() => {
-        applyMethod(option)
-      })
+      ).then(() => applyMethod(option))
     },
 
     onSpecificUserAdded ({ option: userName, action, applyMethod }) {

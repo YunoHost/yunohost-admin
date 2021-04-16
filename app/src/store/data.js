@@ -81,12 +81,27 @@ export default {
       }
     },
 
+    'UPDATE_GROUPS' (state, [data, { groupName }]) {
+      Vue.set(state.groups, groupName, data)
+    },
+
     'DEL_GROUPS' (state, [groupname]) {
       Vue.delete(state.groups, groupname)
     },
 
     'SET_PERMISSIONS' (state, [permissions]) {
       state.permissions = permissions
+    },
+
+    'UPDATE_PERMISSIONS' (state, [_, { groupName, action, permId }]) {
+      // FIXME hacky way to update the store
+      const permissions = state.groups[groupName].permissions
+      if (action === 'add') {
+        permissions.push(permId)
+      } else if (action === 'remove') {
+        const index = permissions.indexOf(permId)
+        if (index > -1) permissions.splice(index, 1)
+      }
     }
   },
 
