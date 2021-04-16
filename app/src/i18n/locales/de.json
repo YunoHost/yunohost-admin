@@ -448,13 +448,14 @@
         },
         "processing": "Der Server verarbeitet gerade diese Aktion..."
     },
-    "hook_data_xmpp": "XMPP Daten",
-    "hook_conf_manually_modified_files": "Manuell geänderte Konfigurationen",
-    "hook_conf_ynh_settings": "YunoHost Konfigurationen",
+    "hook_data_xmpp": "XMPP-Daten",
+    "hook_conf_manually_modified_files": "Manuell geänderte Konfigurationsdateien",
+    "hook_conf_ynh_settings": "YunoHost-Konfigurationen",
     "human_routes": {
         "backups": {
             "delete": "Das Backup '{name}' löschen",
-            "create": "Ein Backup erstellen"
+            "create": "Ein Backup erstellen",
+            "restore": "Das Backup '{name}' wiederherstellen"
         },
         "apps": {
             "update_config": "Die Konfiguration der Applikation '{name}' aktualisieren",
@@ -462,9 +463,25 @@
             "perform_action": "Die Aktion '{action}' durchführen für die Applikation '{name}'",
             "install": "Die Applikation '{name}' installieren",
             "change_url": "Die Zugriffs-URL für '{name}' ändern",
-            "change_label": "Das Label von '{prevName}' nach '{nextName}' ändern"
+            "change_label": "Das Label von '{prevName}' nach '{nextName}' ändern",
+            "set_default": "Weiterleitung des Domänen-Rootverzeichnisses von '{domain}'  zu '{name}'"
         },
-        "adminpw": "Administratorpasswort ändern"
+        "adminpw": "Administratorpasswort ändern",
+        "domains": {
+            "add": "Die Domäne '{name}' hinzufügen"
+        },
+        "diagnosis": {
+            "unignore": {
+                "warning": "Eine Warnung nicht ignorieren",
+                "error": "Einen Fehler nicht ignorieren"
+            },
+            "run_specific": "Die Diagnose für '{description}' durchführen",
+            "run": "Die Diagnose durchführen",
+            "ignore": {
+                "warning": "Eine Warnung ignorieren",
+                "error": "Einen Fehler ignorieren"
+            }
+        }
     },
     "postinstall": {
         "force": "Forciere den Post-Install"
