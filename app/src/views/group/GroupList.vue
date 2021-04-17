@@ -182,6 +182,13 @@ export default {
           }).map(({ id }) => permsDict[id].label)
         }
 
+        if (groupName === 'all_users') {
+          // Forbid to add ssh and sftp permission on group `all_users`
+          group.disabledItems = permissions.filter(({ id }) => {
+            return ['ssh.main', 'sftp.main'].includes(id)
+          }).map(({ id }) => permsDict[id].label)
+        }
+
         primaryGroups[groupName] = group
       }
 
