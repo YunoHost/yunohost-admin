@@ -460,15 +460,15 @@
             "system": "Mettre à jour le système"
         },
         "update": "Rechercher les mises à jour",
-        "shutdown": "Arrêtez le serveur",
+        "shutdown": "Arrêter le serveur",
         "share_logs": "Générer le lien pour le journal '{name}'",
         "services": {
-            "stop": "Arrêtez le service '{name}'",
-            "start": "Démarrez le service '{name}'",
-            "restart": "Redémarrez le service '{name}'"
+            "stop": "Arrêter le service '{name}'",
+            "start": "Démarrer le service '{name}'",
+            "restart": "Redémarrer le service '{name}'"
         },
-        "reboot": "Redémarrez le serveur",
-        "postinstall": "Exécutez la post-installation",
+        "reboot": "Redémarrer le serveur",
+        "postinstall": "Exécuter la post-installation",
         "permissions": {
             "remove": "Supprimer l'accès '{name}' à '{perm}'",
             "add": "Autoriser '{name}' à accéder à '{perm}'"
@@ -502,7 +502,7 @@
                 "error": "Ne pas ignorer une erreur"
             },
             "run_specific": "Lancer le diagnostic '{description}'",
-            "run": "Exécutez le diagnostic",
+            "run": "Exécuter le diagnostic",
             "ignore": {
                 "warning": "Ignorer un avertissement",
                 "error": "Ignorer une erreur"
@@ -515,10 +515,10 @@
         },
         "apps": {
             "update_config": "Mise à jour de la configuration de l'application '{name}'",
-            "uninstall": "Désinstallez l'application '{name}'",
+            "uninstall": "Désinstaller l'application '{name}'",
             "perform_action": "Exécuter l'action '{action}' de l'application '{name}'",
             "set_default": "Rediriger la racine du domaine '{domain}' vers '{name}'",
-            "install": "Installez l'application '{name}'",
+            "install": "Installer l'application '{name}'",
             "change_url": "Modifier l'URL d'accès de '{name}'",
             "change_label": "Changer le libellé de '{prevName}' par '{nextName}'"
         },
