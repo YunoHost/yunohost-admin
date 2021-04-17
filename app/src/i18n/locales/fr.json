@@ -43,8 +43,8 @@
     "domain_add": "Ajouter un domaine",
     "domain_add_dns_doc": "… et j'ai <a href='//yunohost.org/dns_config' target='_blank'>configuré mes DNS correctement</a>.",
     "domain_add_dyndns_doc": "… et je souhaite ajouter un service DNS dynamique.",
-    "domain_add_panel_with_domain": "J'ai déjà un nom de domaine …",
-    "domain_add_panel_without_domain": "Je n'ai pas de nom de domaine …",
+    "domain_add_panel_with_domain": "J'ai déjà un nom de domaine…",
+    "domain_add_panel_without_domain": "Je n'ai pas de nom de domaine…",
     "domain_default_desc": "Les utilisateurs se connecteront au domaine par défaut.",
     "domain_default_longdesc": "Ceci est votre domaine par défaut.",
     "domain_delete_longdesc": "Supprimer ce domaine",
@@ -180,8 +180,8 @@
     "revert_to_selfsigned_cert_message": "Si vous le souhaitez vraiment, vous pouvez réinstaller un certificat auto-signé (non recommandé)",
     "revert_to_selfsigned_cert": "Retourner à un certificat auto-signé",
     "user_mailbox_use": "Espace utilisé de la boite aux lettres",
-    "confirm_firewall_allow": "Voulez-vous vraiment ouvrir le port {port} ? (protocole : {protocol}, connexion : {connection})",
-    "confirm_firewall_disallow": "Voulez-vous vraiment fermer le port {port} ? (protocole : {protocol}, connexion : {connection})",
+    "confirm_firewall_allow": "Êtes-vous sûr de vouloir ouvrir le port {port} (protocole : {protocol}, connexion : {connection})",
+    "confirm_firewall_disallow": "Êtes-vous sûr de vouloir fermer le port {port} (protocole : {protocol}, connexion : {connection})",
     "confirm_service_start": "Voulez-vous vraiment démarrer {name} ?",
     "confirm_service_stop": "Voulez-vous vraiment arrêter {name} ?",
     "confirm_update_apps": "Voulez-vous vraiment mettre à jour toutes les applications ?",
@@ -325,7 +325,7 @@
     "tools_power_up": "Votre serveur semble être accessible, vous pouvez maintenant essayer de vous connecter.",
     "search": {
         "not_found": "Il y a des {items} qui correspondent à vos critères.",
-        "for": "Rechercher {items} ..."
+        "for": "Rechercher {items}..."
     },
     "readme": "Lisez-moi",
     "postinstall_set_password": "Définir le mot de passe d'administration",
@@ -341,7 +341,7 @@
     "migrations_disclaimer_not_checked": "Cette migration nécessite que vous preniez connaissance de sa décharge de responsabilité avant de l'exécuter.",
     "migrations_disclaimer_check_message": "J'ai lu et compris cette décharge de responsabilité",
     "mailbox_quota_example": "700 M correspond à un CD, 4 700 M correspond à un DVD",
-    "items_verbose_count": "Il y a {items}.",
+    "items_verbose_count": "Il y a des {items}.",
     "items": {
         "users": "aucun utilisateur | utilisateur | {c} utilisateurs",
         "services": "aucun service | service | {c} services",
@@ -350,7 +350,8 @@
         "groups": "aucun groupe | groupe | {c} groupes",
         "domains": "aucun domaine | domaine | {c} domaines",
         "backups": "aucune sauvegarde | sauvegarde | {c} sauvegardes",
-        "apps": "aucune application | app | {c} apps"
+        "apps": "aucune application | app | {c} apps",
+        "permissions": "pas d'autorisations | permission | {c} autorisations"
     },
     "history": {
         "methods": {
@@ -524,6 +525,6 @@
         },
         "adminpw": "Changer le mot de passe administrateur"
     },
-    "confirm_firewall_allow": "Êtes-vous sûr de vouloir ouvrir le port {port} (protocole : {protocol}, connexion : {connection})",
-    "confirm_firewall_disallow": "Êtes-vous sûr de vouloir fermer le port {port} (protocole : {protocol}, connexion : {connection})"
+    "items_verbose_items_left": "Il reste des {items}.",
+    "confirm_group_add_access_permission": "Voulez-vous vraiment accorder l'accès à {perm} à {name} ? Un tel accès augmente considérablement la surface d'attaque si {name} se trouve être une personne malveillante. Vous ne devriez le faire que si vous FAITES CONFIANCE à cette personne/ ce groupe."
 }
