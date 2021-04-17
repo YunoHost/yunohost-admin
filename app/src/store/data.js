@@ -36,7 +36,7 @@ export default {
     },
 
     'SET_USERS' (state, [users]) {
-      state.users = Object.keys(users).length === 0 ? null : users
+      state.users = users || null
     },
 
     'ADD_USERS' (state, [user]) {
@@ -161,9 +161,12 @@ export default {
     },
 
     usersAsChoices: state => {
-      return Object.values(state.users).map(({ username, fullname, mail }) => {
-          return { text: `${fullname} (${mail})`, value: username }
-      })
+      if (state.users) {
+        return Object.values(state.users).map(({ username, fullname, mail }) => {
+            return { text: `${fullname} (${mail})`, value: username }
+        })
+      }
+      return []
     },
 
     user: state => name => state.users_details[name], // not cached
