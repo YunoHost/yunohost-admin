@@ -1,3 +1,12 @@
+yunohost-admin (4.2.1.1) testing; urgency=low
+
+  - fix forgotten debug code blocking actions like upgrade (4e8dad0)
+  - fix bugs when no users exists yet (40ef5b4)
+
+  Thanks to all contributors <3 ! (axolotle)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Sat, 17 Apr 2021 19:44:29 +0200
+
 yunohost-admin (4.2.1) testing; urgency=low
 
   - ui/ux: Misc fixes/enh, code quality ([#344](https://github.com/YunoHost/yunohost-admin/pull/344))
