@@ -99,10 +99,6 @@ export default {
       options = { ...options, method, body: objectToParams(data, { addLocale: true }) }
     }
 
-    if (['upgrade', 'postinstall', 'reboot', 'shutdown', 'diagnsosis'].some(action => uri.includes(action))) {
-      store.dispatch('END_REQUEST', { request, success: true, wait })
-      return
-    }
     const response = await fetch('/yunohost/api/' + uri, options)
     const responseData = await getResponseData(response)
     store.dispatch('END_REQUEST', { request, success: response.ok, wait })
