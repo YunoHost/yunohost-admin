@@ -33,7 +33,7 @@
     "enable": "Ativar",
     "error_modify_something": "Deve realizar alterações",
     "firewall": "Firewall",
-    "hook_conf_ldap": "Base de dados LDAP",
+    "hook_conf_ldap": "Base de dados",
     "hook_conf_nginx": "Nginx",
     "hook_conf_ssh": "SSH",
     "hook_conf_ssowat": "SSOwat",
@@ -69,7 +69,7 @@
     "postinstall_domain": "Este é o seu primeiro domínio ativo no seu servidor YunoHost, é este que será utilizado pelos utilizadores para acederem ao portal de autenticação. Terá que ficar visível a todos, escolha sabiamente.",
     "postinstall_intro_1": "Parabéns! YunoHost foi instalado com êxito.",
     "postinstall_intro_2": "São requeridos mais dois passos nas configurações para ativar os serviços no seu servidor.",
-    "postinstall_intro_3": "Pode obter mais informação ao visitar  <a href='//yunohost.org/postinstall' target='_blank'>pagina de documentação apropriada</a>",
+    "postinstall_intro_3": "Pode obter mais informação ao visitar  <a href='//yunohost.org/en/install/hardware:vps_debian#fa-cog-proceed-with-the-initial-configuration' target='_blank'>pagina de documentação apropriada</a>",
     "postinstall_password": "Esta senha será utilizada para gerir tudo no seu servidor. Escolha-a sabiamente e demore o tempo que precisar.",
     "previous": "Anterior",
     "protocol": "Protocolo",
@@ -127,7 +127,7 @@
     "app_state_notworking": "Não funcionando",
     "app_state_notworking_explanation": "O responsável desta aplicação afirmou que não está funcionando. INSTALANDO-A PODE QUEBRAR SEU SISTEMA!",
     "app_state_highquality": "Qualidade alta",
-    "app_state_highquality_explanation": "Esta aplicação está bem integrada em Yunohost. Foi (e continua sendo!) avaliada pelos pares do grupo responsável da parte aplicativa de Yunohost. Pode-se esperar que seja segura e mantida no longo prazo.",
+    "app_state_highquality_explanation": "Esta aplicação está bem integrada em YunoHost desde há pelo menos um ano.",
     "app_state_working": "Funcionando",
     "app_state_working_explanation": "O responsável desta aplicação afirmou que está funcionando. Significa que deveria estar funcionando (verifique o nível da aplicação) mais que não foi necessariamente avaliada pelos pares, poderia conter erros ou não estar completamente integrada em Yunohost.",
     "archive_empty": "O arquivo é vazio",
@@ -181,5 +181,6 @@
     "details": "Detalhes",
     "catalog": "Catálogo",
     "configuration": "Configuração",
-    "confirm_service_restart": "Tem certeza que deseja reiniciar {name}?"
+    "confirm_service_restart": "Tem certeza que deseja reiniciar {name}?",
+    "cancel": "Cancelar"
 }

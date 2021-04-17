@@ -177,7 +177,7 @@
     "manually_renew_letsencrypt": "Renouveler manuellement maintenant",
     "regenerate_selfsigned_cert_message": "Si vous le souhaitez, vous pouvez régénérer le certificat auto-signé.",
     "regenerate_selfsigned_cert": "Régénérer le certificat auto-signé",
-    "revert_to_selfsigned_cert_message": "Si vous le souhaitez vraiment, vous pouvez réinstaller un certificat auto-signé (non recommandé).",
+    "revert_to_selfsigned_cert_message": "Si vous le souhaitez vraiment, vous pouvez réinstaller un certificat auto-signé (non recommandé)",
     "revert_to_selfsigned_cert": "Retourner à un certificat auto-signé",
     "user_mailbox_use": "Espace utilisé de la boite aux lettres",
     "confirm_firewall_allow": "Voulez-vous vraiment ouvrir le port {port} ? (protocole : {protocol}, connexion : {connection})",
@@ -247,7 +247,7 @@
     "app_state_inprogress_explanation": "Le responsable de cette application a déclaré que cette application n'est pas encore prête pour une utilisation en production. ATTENTION !",
     "app_state_notworking_explanation": "Le responsable de cette application l'a décrite comme 'non fonctionnelle'. ATTENTION : SON INSTALLATION POURRAIT CASSER VOTRE SYSTÈME !",
     "app_state_highquality": "bonne qualité",
-    "app_state_highquality_explanation": "Cette application est bien intégrée à YunoHost. Elle a été (et est !) revue par l'équipe applicative de YunoHost. On peut s'attendre à ce qu'elle soit sûre et maintenue sur le long terme.",
+    "app_state_highquality_explanation": "Cette application est bien intégrée à YunoHost depuis au moins un an.",
     "app_state_working_explanation": "Le responsable de cette application l'a déclarée comme 'fonctionnelle'. Cela signifie qu'elle doit fonctionner (voir son niveau d'intégration) mais n'est pas nécessairement revue, elle peut encore contenir des bugs ou bien n'est pas entièrement intégrée à YunoHost.",
     "hook_conf_ynh_currenthost": "Domaine principal actuellement utilisé",
     "license": "Licence",
@@ -304,7 +304,7 @@
     "tip_about_user_email": "Les utilisateurs sont créés avec une adresse email associée (et un compte XMPP) au format username@domain.tld. Des alias d'email et des transferts d'emails supplémentaires peuvent être ajoutés ultérieurement par l'administrateur et l'utilisateur.",
     "logs_suboperations": "Sous-opérations",
     "permission_show_tile_enabled": "Visible en tuile dans le portail utilisateur",
-    "permission_main": "Permission principale",
+    "permission_main": "Label principal",
     "permission_corresponding_url": "URL correspondante",
     "app_manage_label_and_tiles": "Gérer les étiquettes et les tuiles",
     "user_emailforward_add": "Ajouter une adresse mail de redirection",
@@ -360,7 +360,8 @@
             "GET": "lire"
         },
         "last_action": "Dernière action :",
-        "title": "Historique"
+        "title": "Historique",
+        "is_empty": "Rien dans l'historique pour le moment."
     },
     "form_errors": {
         "required": "Ce champ est obligatoire.",
@@ -443,5 +444,86 @@
         },
         "processing": "Le serveur traite l'action..."
     },
-    "go_back": "Revenir"
+    "go_back": "Revenir",
+    "postinstall": {
+        "force": "Forcer la post-installation"
+    },
+    "human_routes": {
+        "users": {
+            "update": "Mettre à jour l'utilisateur '{name}'",
+            "delete": "Supprimer l'utilisateur '{name}'",
+            "create": "Créer l'utilisateur '{name}'"
+        },
+        "upgrade": {
+            "app": "Mettre à jour l'application '{app}'",
+            "apps": "Mettre à jour toutes les applications",
+            "system": "Mettre à jour le système"
+        },
+        "update": "Rechercher les mises à jour",
+        "shutdown": "Arrêter le serveur",
+        "share_logs": "Générer le lien pour le journal '{name}'",
+        "services": {
+            "stop": "Arrêter le service '{name}'",
+            "start": "Démarrer le service '{name}'",
+            "restart": "Redémarrer le service '{name}'"
+        },
+        "reboot": "Redémarrer le serveur",
+        "postinstall": "Exécuter la post-installation",
+        "permissions": {
+            "remove": "Supprimer l'accès '{name}' à '{perm}'",
+            "add": "Autoriser '{name}' à accéder à '{perm}'"
+        },
+        "migrations": {
+            "skip": "Ignorer les migrations",
+            "run": "Exécuter les migrations"
+        },
+        "groups": {
+            "remove": "Supprimer '{user}' du groupe '{name}'",
+            "add": "Ajouter '{user}' au groupe '{name}'",
+            "delete": "Supprimer le groupe '{name}'",
+            "create": "Créer le groupe '{name}'"
+        },
+        "firewall": {
+            "upnp": "{action} UPnP",
+            "ports": "{action} port {port} ({protocol}, {connection})"
+        },
+        "domains": {
+            "set_default": "Définir '{name}' comme domaine par défaut",
+            "revert_to_selfsigned": "Revenir au certificat auto-signé pour '{name}'",
+            "regen_selfsigned": "Renouveler le certificat auto-signé pour '{name}'",
+            "manual_renew_LE": "Renouveler le certificat pour '{name}'",
+            "install_LE": "Installer le certificat pour '{name}'",
+            "delete": "Supprimer le domaine '{name}'",
+            "add": "Ajouter le domaine '{name}'"
+        },
+        "diagnosis": {
+            "unignore": {
+                "warning": "Ne pas ignorer un avertissement",
+                "error": "Ne pas ignorer une erreur"
+            },
+            "run_specific": "Lancer le diagnostic '{description}'",
+            "run": "Exécuter le diagnostic",
+            "ignore": {
+                "warning": "Ignorer un avertissement",
+                "error": "Ignorer une erreur"
+            }
+        },
+        "backups": {
+            "restore": "Restaurer la sauvegarde '{name}'",
+            "delete": "Supprimer la sauvegarde '{name}'",
+            "create": "Créer une sauvegarde"
+        },
+        "apps": {
+            "update_config": "Mise à jour de la configuration de l'application '{name}'",
+            "uninstall": "Désinstaller l'application '{name}'",
+            "perform_action": "Exécuter l'action '{action}' de l'application '{name}'",
+            "set_default": "Rediriger la racine du domaine '{domain}' vers '{name}'",
+            "install": "Installer l'application '{name}'",
+            "change_url": "Modifier l'URL d'accès de '{name}'",
+            "change_label": "Changer le libellé de '{prevName}' par '{nextName}'"
+        },
+        "adminpw": "Changer le mot de passe administrateur"
+    },
+    "confirm_firewall_allow": "Êtes-vous sûr de vouloir ouvrir le port {port} (protocole : {protocol}, connexion : {connection})",
+    "confirm_firewall_disallow": "Êtes-vous sûr de vouloir fermer le port {port} (protocole : {protocol}, connexion : {connection})"
 }

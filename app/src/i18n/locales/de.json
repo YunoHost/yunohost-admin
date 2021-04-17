@@ -49,7 +49,7 @@
     "home": "Home",
     "hook_adminjs_group_configuration": "Systemkonfigurationen",
     "hook_conf_cron": "Automatisierte Aufgaben",
-    "hook_conf_ldap": "LDAP Datenbank",
+    "hook_conf_ldap": "Benutzerdatenbank",
     "hook_conf_nginx": "Nginx",
     "hook_conf_ssh": "SSH",
     "hook_conf_ssowat": "SSOwat",
@@ -307,11 +307,11 @@
     "tip_about_user_email": "Benutzer*innen werden mit einer verknüpften eMail-Adresse (und XMPP Account) erstellt  im Format username@domain.tld. Zusätzliche eMail-Aliasse and eMail-Weiterleitungen können später durch den/die Admin und User*in hinzugefügt werden.",
     "logs_suboperations": "Unter-Operationen",
     "api_errors_titles": {
-        "APIBadRequestError": "Yunohost ist ein Fehler widerfahren",
-        "APIError": "Yunohost ist ein unerwarteter Fehler widerfahren",
-        "APIConnexionError": "Yunohost hat einen Verbindungsfehler festgestellt",
-        "APINotRespondingError": "Die Yunohost API antwortet nicht",
-        "APIInternalError": "Im Yunohost ist ein interner Fehler aufgetreten",
+        "APIBadRequestError": "YunoHost ist ein Fehler widerfahren",
+        "APIError": "YunoHost ist ein unerwarteter Fehler widerfahren",
+        "APIConnexionError": "YunoHost hat einen Verbindungsfehler festgestellt",
+        "APINotRespondingError": "Die YunoHost API antwortet nicht",
+        "APIInternalError": "Im YunoHost ist ein interner Fehler aufgetreten",
         "APINotFoundError": "YunoHost API konnte keine Route finden"
     },
     "api_error": {
@@ -397,7 +397,8 @@
             "GET": "lesen"
         },
         "last_action": "Letzte Aktion:",
-        "title": "Historie"
+        "title": "Historie",
+        "is_empty": "Momentan nichts in der History."
     },
     "form_errors": {
         "required": "Feld ist erforderlich.",
@@ -446,5 +447,46 @@
             "error": "Nicht erfolgreich"
         },
         "processing": "Der Server verarbeitet gerade diese Aktion..."
-    }
+    },
+    "hook_data_xmpp": "XMPP-Daten",
+    "hook_conf_manually_modified_files": "Manuell geänderte Konfigurationsdateien",
+    "hook_conf_ynh_settings": "YunoHost-Konfigurationen",
+    "human_routes": {
+        "backups": {
+            "delete": "Das Backup '{name}' löschen",
+            "create": "Ein Backup erstellen",
+            "restore": "Das Backup '{name}' wiederherstellen"
+        },
+        "apps": {
+            "update_config": "Die Konfiguration der Applikation '{name}' aktualisieren",
+            "uninstall": "Die Applikation '{name}' deinstallieren",
+            "perform_action": "Die Aktion '{action}' durchführen für die Applikation '{name}'",
+            "install": "Die Applikation '{name}' installieren",
+            "change_url": "Die Zugriffs-URL für '{name}' ändern",
+            "change_label": "Das Label von '{prevName}' nach '{nextName}' ändern",
+            "set_default": "Weiterleitung des Domänen-Rootverzeichnisses von '{domain}'  zu '{name}'"
+        },
+        "adminpw": "Administratorpasswort ändern",
+        "domains": {
+            "add": "Die Domäne '{name}' hinzufügen"
+        },
+        "diagnosis": {
+            "unignore": {
+                "warning": "Eine Warnung nicht ignorieren",
+                "error": "Einen Fehler nicht ignorieren"
+            },
+            "run_specific": "Die Diagnose für '{description}' durchführen",
+            "run": "Die Diagnose durchführen",
+            "ignore": {
+                "warning": "Eine Warnung ignorieren",
+                "error": "Einen Fehler ignorieren"
+            }
+        }
+    },
+    "postinstall": {
+        "force": "Forciere den Post-Install"
+    },
+    "hook_data_xmpp_desc": "Konfiguration für Räume und Benutzer, hochgeladene Dateien",
+    "confirm_firewall_disallow": "Sind Sie sicher, dass Sie den Port {port} (protocol: {protocol}, Verbindung {connection}) schliessen wollen",
+    "confirm_firewall_allow": "Sind Sie sicher, dass Sie den Port {port} (protocol: {protocol}, Verbindung: {connection}) öffnen wollen"
 }
