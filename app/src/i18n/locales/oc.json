@@ -77,7 +77,7 @@
     "home": "Acuèlh",
     "hook_adminjs_group_configuration": "Configuracion del sistèma",
     "hook_conf_cron": "Tascas automaticas",
-    "hook_conf_ldap": "Basa de donadas LDAP",
+    "hook_conf_ldap": "Annuari dels utilizaires",
     "hook_conf_nginx": "Nginx",
     "hook_conf_ssh": "SSH",
     "hook_conf_ssowat": "SSOwat",
@@ -185,7 +185,8 @@
     "user_username_edit": "Modificar lo compte a {name}",
     "users_no": "Pas cap d’utilizaire.",
     "words": {
-        "default": "Defaut"
+        "default": "Defaut",
+        "collapse": "Plegar"
     },
     "wrong_password": "Senhal incorrècte",
     "yes": "Òc",
@@ -306,14 +307,16 @@
     "diagnosis_first_run": "La foncionalitat de diagnostic ensajarà d’identificar los problèmas abituals de diferents aspèctes del servidor per dire d’assegurar que tot foncione de la melhora manièra possibla. Ajatz pas paur se vesètz mantuna error aprèp configurar lo servidor : es precisament fach per ajudar a identificar los problèmas e ofrir una guida per los reglar. Lo diagnostic s’executarà tanben dos còps per jorn e enviarà un corrièl a l’administrator se tròba unas error.",
     "app_manage_label_and_tiles": "Gestion de las apelacions e títols",
     "permission_corresponding_url": "URL correspondenta",
-    "permission_main": "Permission principala",
+    "permission_main": "Etiqueta principala",
     "permission_show_tile_enabled": "Afichar lo teule al portal utilizaire",
     "address": {
         "local_part_description": {
-            "domain": "Causissètz un jos-domeni."
+            "domain": "Causissètz un jos-domeni.",
+            "email": "Causissètz una seccion locala pel corrièr electronic."
         },
         "domain_description": {
-            "domain": "Causissètz un domeni."
+            "domain": "Causissètz un domeni.",
+            "email": "Causissètz un domeni pel corrièr electronic."
         }
     },
     "cancel": "Anullar",
@@ -324,7 +327,11 @@
         "domains": {
             "install_LE": "Installar lo certificat per « {name} »",
             "delete": "Suprimir lo domeni « {name} »",
-            "add": "Apondre lo domeni « {name} »"
+            "add": "Apondre lo domeni « {name} »",
+            "set_default": "Definir « {name} » coma domeni principal",
+            "revert_to_selfsigned": "Tornar al certificat auto-signat per « {name} »",
+            "regen_selfsigned": "Renovar lo certificat auto-signat per « {name} »",
+            "manual_renew_LE": "Renovar lo certificat per « {name} »"
         },
         "migrations": {
             "skip": "Ignorar las migracions",
@@ -332,7 +339,9 @@
         },
         "groups": {
             "add": "Apondre « {user} » al grop « {name} »",
-            "delete": "Suprimir lo grop « {name} »"
+            "delete": "Suprimir lo grop « {name} »",
+            "remove": "Levar « {user} » d’al grop « {name} »",
+            "create": "Crear lo grop « {name} »"
         },
         "postinstall": "Executar la post-installacion",
         "services": {
@@ -344,8 +353,48 @@
         "shutdown": "Atudar lo servidor",
         "upgrade": {
             "apps": "Metre a jorn totas las aplicacions",
-            "system": "Metre a jorn lo sistèma"
-        }
+            "system": "Metre a jorn lo sistèma",
+            "app": "Metre a jorn l’aplicacion « {app} »"
+        },
+        "users": {
+            "update": "Metre a jorn l’utilizaire « {name} »",
+            "delete": "Suprimir l’utilizaire « {name} »",
+            "create": "Crear l’utilizaire « {name} »"
+        },
+        "update": "Recercar las mesas a jorn",
+        "share_logs": "Generar un ligam pel jornal « {name} »",
+        "permissions": {
+            "remove": "Levar l’accès « {name} » a « {perm} »",
+            "add": "Autorizar « {name} » a accedir a « {perm} »"
+        },
+        "firewall": {
+            "upnp": "{action} UPnP",
+            "ports": "{action} pòrt {port} ({protocol}, {connection})"
+        },
+        "diagnosis": {
+            "unignore": {
+                "warning": "Ignorar pas un avertiment",
+                "error": "Ignorar pas una error"
+            },
+            "run": "Executar lo diagnostic",
+            "ignore": {
+                "warning": "Ignorar un avertiment",
+                "error": "Ignorar una error"
+            }
+        },
+        "backups": {
+            "restore": "Restaurar la salvagarda « {name} »",
+            "delete": "Suprimir la salvagarda « {name} »",
+            "create": "Crear una salvagarda"
+        },
+        "apps": {
+            "update_config": "Mesa a jorn de la configuracion de l’aplicacion « {name} »",
+            "uninstall": "Desinstallar l’aplicacion « {name} »",
+            "perform_action": "Executar l’accion « {action} » de l’aplicacion « {name} »",
+            "install": "Installar l’aplicacion « {name} »",
+            "change_url": "Modificar l’URL d’accès de  « {name} »"
+        },
+        "adminpw": "Cambiar lo senhal administrator"
     },
     "search": {
         "for": "Recercar {items}..."
@@ -354,8 +403,102 @@
         "language": "Lenga",
         "fallback_language": "Lenga de secors",
         "cache": "Cache",
-        "experimental": "Mòde experimental"
+        "experimental": "Mòde experimental",
+        "transitions": "Animacion de transicion entre las paginas",
+        "fallback_language_description": "La lenga que serà utilizada se per cas la traduccion es pas disponibla dins la lenga principala."
     },
     "tools_webadmin_settings": "Paramètres de l'administracion web",
-    "unknown": "Desconegut"
+    "unknown": "Desconegut",
+    "user_emailforward_add": "Ajustar una adreça de transferiment",
+    "user_emailaliases_add": "Ajustar un alias d’adreça electronica",
+    "postinstall": {
+        "force": "Forçar la post-installacion"
+    },
+    "placeholder": {
+        "domain": "mon-domeni.fr",
+        "groupname": "Lo nom de mon grop",
+        "lastname": "Delbosc",
+        "firstname": "Joan",
+        "username": "joandelbosc"
+    },
+    "perform": "Executar",
+    "migrations_disclaimer_check_message": "Ai legida e compresa la descarga de responsabilitat",
+    "mailbox_quota_example": "700 Mo correspond a un CD, 4 700 Mo correspond a un DVD",
+    "items_verbose_items_left": "Demòran {items}.",
+    "items_verbose_count": "I a {items}.",
+    "items": {
+        "users": "cap d’utilizaire | utilizaire | {c} utilizaires",
+        "services": "cap de servici | servici | {c} servicis",
+        "installed_apps": "cap d’aplicacion pas installada | aplicacion installada | {c} aplicacions installadas",
+        "groups": "cap de grop | grop | {c} grops",
+        "domains": "cap de domeni | domeni | {c} domenis",
+        "backups": "cap de salvagarda | salvagarda | {c} salvagardas",
+        "apps": "cap d’aplicacion | app | {c} aplicacions"
+    },
+    "hook_data_xmpp": "Donadas XMPP",
+    "hook_conf_manually_modified_files": "Fichièr de configuracion modificat manualament",
+    "hook_conf_ynh_settings": "Configuracion de YunoHost",
+    "history": {
+        "methods": {
+            "PUT": "modificar",
+            "POST": "crear/executar",
+            "GET": "legir",
+            "DELETE": "suprimir"
+        },
+        "last_action": "Darrièra accion :",
+        "title": "Istoric",
+        "is_empty": "Pas res dins l’istoric pel moment."
+    },
+    "go_back": "Tornar",
+    "form_errors": {
+        "required": "Aqueste camp es obligatòri.",
+        "number": "La valor deu èsser un nombre.",
+        "notInUsers": "L’utilizaire « {value} » existís ja."
+    },
+    "footer": {
+        "donate": "Far un don",
+        "documentation": "Documentacion"
+    },
+    "experimental": "Experimental",
+    "error": "Error",
+    "enabled": "Activat",
+    "disabled": "Desactivat",
+    "dead": "Inactiu",
+    "day_validity": " Expirat | 1 jorn | {count} jorns",
+    "confirm_app_install": "Volètz vertadièrament installar aquesta aplicacion ?",
+    "common": {
+        "lastname": "Nom d’ostal",
+        "firstname": "Prenom"
+    },
+    "code": "Còdi",
+    "app_show_categories": "Mostrar las categorias",
+    "app_install_parameters": "Paramètres d’installacion",
+    "app_config_panel_label": "Configurar aquesta aplicacion",
+    "app_config_panel": "Panèl de configuracion",
+    "app_choose_category": "Causissètz una categoria",
+    "app_actions_label": "Executar las accions",
+    "app_actions": "Accions",
+    "api_waiting": "En espèra de la responsa del servidor...",
+    "api_errors_titles": {
+        "APIConnexionError": "YunoHost a rescontrat una error de connexion",
+        "APIInternalError": "YunoHost a rescontrat una error intèrna",
+        "APIBadRequestError": "YunoHost a rescontrat una error",
+        "APIError": "YunoHost a rescontrat una error inesperada"
+    },
+    "api_error": {
+        "view_error": "Veire l’error",
+        "sorry": "O planhèm plan.",
+        "server_said": "Pendent lo tractament de l’accion, lo servidor a dich :",
+        "info": "Las informacions seguentas pòdon èsser utilas a las persona que vos ajuda :",
+        "error_message": "Messatge d’error :"
+    },
+    "api": {
+        "query_status": {
+            "warning": "Acabat corrèctament amb d’error o d’alèrtas",
+            "success": "Acabat corrèctament",
+            "pending": "En cors",
+            "error": "Fracàs"
+        },
+        "processing": "Lo servidor es a tractar l’accion..."
+    }
 }
