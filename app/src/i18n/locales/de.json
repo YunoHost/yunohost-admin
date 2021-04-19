@@ -185,8 +185,8 @@
     "confirm_update_apps": "Möchtest du wirklich alle Anwendungen aktualisieren?",
     "confirm_upnp_enable": "Möchtest du wirklich UPnP aktivieren?",
     "confirm_upnp_disable": "Möchtest du wirklich UPnP deaktivieren?",
-    "confirm_firewall_allow": "Möchtest du wirklich Port {port}1 öffnen? (Protokoll: {protocol}2, Verbindung: {connection}3)",
-    "confirm_firewall_disallow": "Möchtest du wirklich Port {port}1 schließen? (Protokoll: {protocol}2, Verbindung: {connection}3)",
+    "confirm_firewall_allow": "Sind Sie sicher, dass Sie den Port {port} (protocol: {protocol}, Verbindung: {connection}) öffnen wollen",
+    "confirm_firewall_disallow": "Sind Sie sicher, dass Sie den Port {port} (protocol: {protocol}, Verbindung {connection}) schliessen wollen",
     "confirm_update_specific_app": "Möchtest du wirklich {app} aktualisieren?",
     "confirm_reboot_action_reboot": "Möchtest du wirklich den Server neustarten?",
     "confirm_reboot_action_shutdown": "Möchtest du wirklich den Server herunterfahren?",
@@ -387,7 +387,8 @@
         "groups": "keine Gruppen | Gruppe | {c} Gruppen",
         "domains": "keine Domains | Domain | {c} Domains",
         "backups": "keine Backups | Backup | {c} Backups",
-        "apps": "keine Apps | App | {c} Apps"
+        "apps": "keine Apps | App | {c} Apps",
+        "permissions": "keine Berechtigungen | Berechtigung | {c} Berechtigungen"
     },
     "history": {
         "methods": {
@@ -468,7 +469,13 @@
         },
         "adminpw": "Administratorpasswort ändern",
         "domains": {
-            "add": "Die Domäne '{name}' hinzufügen"
+            "add": "Die Domäne '{name}' hinzufügen",
+            "set_default": "Definiere '{name}' als Standarddomäne",
+            "revert_to_selfsigned": "Rückkehr zu selbstsigniertem Zertifikat für '{name}'",
+            "regen_selfsigned": "Erneuere das selbstsignierte Zertifikat für '{name}'",
+            "manual_renew_LE": "Erneuere das Zertifikat für '{name}'",
+            "install_LE": "Installiere das Zertifikat für '{name}'",
+            "delete": "Lösche die Domäne '{name}'"
         },
         "diagnosis": {
             "unignore": {
@@ -481,12 +488,20 @@
                 "warning": "Eine Warnung ignorieren",
                 "error": "Einen Fehler ignorieren"
             }
+        },
+        "groups": {
+            "create": "Erstelle die Gruppe '{name}'"
+        },
+        "firewall": {
+            "upnp": "{action} UPnP",
+            "ports": "{action} Port {port} ({protocol}, {connection})"
         }
     },
     "postinstall": {
         "force": "Forciere den Post-Install"
     },
     "hook_data_xmpp_desc": "Konfiguration für Räume und Benutzer, hochgeladene Dateien",
-    "confirm_firewall_disallow": "Sind Sie sicher, dass Sie den Port {port} (protocol: {protocol}, Verbindung {connection}) schliessen wollen",
-    "confirm_firewall_allow": "Sind Sie sicher, dass Sie den Port {port} (protocol: {protocol}, Verbindung: {connection}) öffnen wollen"
+    "items_verbose_items_left": "Es bleiben {items} übrig.",
+    "confirm_group_add_access_permission": "Sind Sie sicher, dass Sie Zugriff auf {perm} an {name} geben wollen? Ein derartiger Zugriff erhöht die Angriffsoberfläche signifikant, wenn {name} boshaft ist. Die sollten dies nur tun, wenn Sie dieser Person/Gruppe VERTRAUEN.",
+    "app_install_parameters": "Installationsparameter"
 }
