@@ -501,7 +501,8 @@
         },
         "services": {
             "start": "Den Dienst '{name}' starten",
-            "restart": "Den Dienst '{name}' neustarten"
+            "restart": "Den Dienst '{name}' neustarten",
+            "stop": "Den Dienst '{name}' stoppen"
         },
         "reboot": "Den Server neustarten",
         "postinstall": "Post-Installation ausführen",
@@ -512,7 +513,20 @@
         "migrations": {
             "skip": "Migrationen überspringen",
             "run": "Migrationen durchführen"
-        }
+        },
+        "users": {
+            "update": "Den Benutzer '{name}' aktualisieren",
+            "delete": "Den Benutzer '{name}' löschen",
+            "create": "Den Benutzer '{name}' erstellen"
+        },
+        "upgrade": {
+            "app": "Die Anwendung '{app}' aktualisieren",
+            "apps": "Alle Anwendungen aktualisieren",
+            "system": "Das System aktualisieren"
+        },
+        "update": "Nach Updates suchen",
+        "shutdown": "Den Server herunterfahren",
+        "share_logs": "Einen Link für den Log '{name}' erstellten"
     },
     "postinstall": {
         "force": "Forciere den Post-Install"
