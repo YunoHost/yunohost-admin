@@ -187,9 +187,9 @@
     "confirm_upnp_disable": "Möchtest du wirklich UPnP deaktivieren?",
     "confirm_firewall_allow": "Sind Sie sicher, dass Sie den Port {port} (protocol: {protocol}, Verbindung: {connection}) öffnen wollen",
     "confirm_firewall_disallow": "Sind Sie sicher, dass Sie den Port {port} (protocol: {protocol}, Verbindung {connection}) schliessen wollen",
-    "confirm_update_specific_app": "Möchtest du wirklich {app} aktualisieren?",
-    "confirm_reboot_action_reboot": "Möchtest du wirklich den Server neustarten?",
-    "confirm_reboot_action_shutdown": "Möchtest du wirklich den Server herunterfahren?",
+    "confirm_update_specific_app": "Möchten Sie wirklich {app} aktualisieren?",
+    "confirm_reboot_action_reboot": "Möchten Sie wirklich den Server neustarten?",
+    "confirm_reboot_action_shutdown": "Möchten Sie wirklich den Server herunterfahren?",
     "domain_dns_conf_is_just_a_recommendation": "Diese Seite zeigt dir die *empfohlene* Konfiguration. Sie konfiguriert *nicht* den DNS für dich. Es liegt in deiner Verantwortung, deine Zone bei deinem Registrar entsprechend dieser Empfehlung zu konfigurieren.",
     "ok": "OK",
     "system_upgrade_all_applications_btn": "Aktualisiere alle Applikationen",
@@ -490,11 +490,28 @@
             }
         },
         "groups": {
-            "create": "Erstelle die Gruppe '{name}'"
+            "create": "Erstelle die Gruppe '{name}'",
+            "remove": "'{user}' aus der Gruppe '{name}' entfernen",
+            "add": "'{user}' zur Gruppe '{name}' hinzufügen",
+            "delete": "Gruppe '{name}' löschen"
         },
         "firewall": {
             "upnp": "{action} UPnP",
             "ports": "{action} Port {port} ({protocol}, {connection})"
+        },
+        "services": {
+            "start": "Den Dienst '{name}' starten",
+            "restart": "Den Dienst '{name}' neustarten"
+        },
+        "reboot": "Den Server neustarten",
+        "postinstall": "Post-Installation ausführen",
+        "permissions": {
+            "remove": "'{name}' Autosierierung entziehen für Zugriff auf '{perm}'",
+            "add": "'{name}' autorisieren für Zugriff auf '{perm}'"
+        },
+        "migrations": {
+            "skip": "Migrationen überspringen",
+            "run": "Migrationen durchführen"
         }
     },
     "postinstall": {
