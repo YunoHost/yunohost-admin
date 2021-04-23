@@ -79,7 +79,7 @@
     "manage_apps": "Apps verwalten",
     "manage_domains": "Domains verwalten",
     "manage_users": "Benutzer*innen verwalten",
-    "multi_instance": "Mehrere Instanzen",
+    "multi_instance": "Kann mehrere Male installiert werden",
     "myserver": "meinserver",
     "next": "Weiter",
     "no": "Nein",
@@ -93,7 +93,7 @@
     "postinstall_domain": "Dies ist die primäre Domain für deinen YunoHost Server und auch die Domain, an der sich die Benutzer*innen anmelden werden. Sie wird für alle Benutzer*innen sichtbar sein, daher wähle die primäre Domain sorgfältig aus.",
     "postinstall_intro_1": "Gratuliere! YunoHost wurde erfolgreich installiert.",
     "postinstall_intro_2": "Zwei weitere Einstellungen sind notwendig, um den Dienst auf deinem Server zu aktivieren.",
-    "postinstall_intro_3": "Du kannst mehr Informationen in der <a href='//yunohost.org/postinstall' target='_blank'>Dokumentation</a> finden",
+    "postinstall_intro_3": "Sie können mehr Informationen erhalten, wenn Sie in der<a href='//yunohost.org/postinstall' target='_blank'>entsprechenden Dokumentationsseite</a> nachlesen",
     "postinstall_password": "Dieses Passwort wird zur Verwaltung deines Servers benötigt. Wähle es mit Bedacht.",
     "previous": "Zurück",
     "protocol": "Protokoll",
@@ -210,7 +210,7 @@
     "app_no_actions": "Diese Anwendung hat keine Aktionen",
     "all_apps": "Alle Apps",
     "app_info_changeurl_desc": "Ändern Sie die Zugriffs URL dieser Anwendung (Domain und/oder Pfad).",
-    "app_state_highquality_explanation": "Diese App ist gut in YunoHost integriert. Sie wurde (und wird!) vom YunoHost-App-Team begutachtet. Es kann erwartet werden, dass sie sicher ist und langfristig gewartet wird.",
+    "app_state_highquality_explanation": "Diese Anwendung ist seit mindestens einem Jahrgut gut in YunoHost integriert.",
     "app_info_change_url_disabled_tooltip": "Dieses Feature wurde noch nicht in der App implementiert",
     "confirm_app_change_url": "Sind Sie sicher, dass sie die App-Zugangs-URL ändern möchten?",
     "confirm_update_system": "Bist du sicher, dass du alle Systempakete aktualisieren möchtest?",
@@ -273,7 +273,7 @@
     "configuration": "Konfiguration",
     "group_explain_all_users": "Dies ist eine spezielle Gruppe, die alle Konten der Benutzer*innen auf diesem Server enthält",
     "ignored": "{count} wird ignoriert",
-    "last_ran": "Das letzte Mal lief es:",
+    "last_ran": "Letzte Ausführung:",
     "group_name": "Gruppenname",
     "group_all_users": "Alle Benutzer*innen",
     "group_visitors": "Besucher*innen",
@@ -333,7 +333,7 @@
         }
     },
     "permission_show_tile_enabled": "Sichtbar als Kachel im Benutzerportal",
-    "permission_main": "Hauptrechte",
+    "permission_main": "Haupt-Label",
     "permission_corresponding_url": "Entsprechender URL",
     "cancel": "Abbrechen",
     "app_show_categories": "Kategorien anzeigen",
@@ -361,7 +361,7 @@
     },
     "tools_power_up": "Ihr Server scheint zugänglich zu sein. Sie können jetzt versuchen, sich anzumelden.",
     "search": {
-        "not_found": "Es gibt {Elemente}, die Ihren Kriterien entsprechen.",
+        "not_found": "Es gibt {items}, die den von Ihnen gewählten Kriterien entsprechen.",
         "for": "Suche nach {items} ..."
     },
     "readme": "Readme",
@@ -465,7 +465,7 @@
             "install": "Die Applikation '{name}' installieren",
             "change_url": "Die Zugriffs-URL für '{name}' ändern",
             "change_label": "Das Label von '{prevName}' nach '{nextName}' ändern",
-            "set_default": "Weiterleitung des Domänen-Rootverzeichnisses von '{domain}'  zu '{name}'"
+            "set_default": "Weiterleitung des Domänen-Rootverzeichnisses von '{domain}' zu '{name}'"
         },
         "adminpw": "Administratorpasswort ändern",
         "domains": {
