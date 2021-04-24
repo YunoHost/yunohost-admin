@@ -227,6 +227,7 @@
     "logs_context": "Context",
     "logs_share_with_yunopaste": "Share with YunoPaste",
     "logs_more": "Display more lines",
+    "obsolete_version": "You are running an obsolete version of YunoHost. The YunoHost team highly recommend to run the migration to YunoHost 4.x / Buster available in Tools > Migrations. More information can be found on <a href='https://yunohost.org/stretch_buster_migration'>this page in the documentation</a>",
     "path_url": "Path",
     "pending_migrations": "There are some pending migrations waiting to be ran. Please go to the <a href='#/tools/migrations'>Tools > Migrations</a> view to run them.",
     "port": "Port",
