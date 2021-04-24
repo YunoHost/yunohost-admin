@@ -1,3 +1,9 @@
+yunohost-admin (3.8.3.6) stable; urgency=low
+
+  - Add obsolete disclaimer on home page ([#346](https://github.com/YunoHost/yunohost-admin/pull/346))
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Sat, 24 Apr 2021 17:35:59 +0200
+
 yunohost-admin (3.8.3.5) stable; urgency=low
 
   - [fix] Add a hack to have some sort of cache management as well for .ms files, to avoid stupid issue where people need to force the browser cache refresh after upgrades (7bb8a90)
