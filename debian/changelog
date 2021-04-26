@@ -1,3 +1,11 @@
+yunohost-admin (4.2.1.2) testing; urgency=low
+
+  - [i18n] Translations updated for French, German, Occitan, Spanish
+
+  Thanks to all contributors <3 ! (C. Wehrli, Deja la vida volar, É. Gaspar, Quentí)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Mon, 26 Apr 2021 16:36:53 +0200
+
 yunohost-admin (4.2.1.1) testing; urgency=low
 
   - fix forgotten debug code blocking actions like upgrade (4e8dad0)
