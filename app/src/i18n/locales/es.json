@@ -5,7 +5,7 @@
     "api_not_responding": "La API de YunoHost no responde. ¿Tal vez «yunohost-api» está inoperativa o ha sido reiniciada?",
     "app_info_access_desc": "Grupos / usuarios actualmente autorizados a acceder a esta aplicación:",
     "app_info_default_desc": "Redirigir la raíz del dominio para esta aplicación ({domain} 6).",
-    "app_info_uninstall_desc": "Eliminar a esta aplicación.",
+    "app_info_uninstall_desc": "Eliminar esta aplicación.",
     "app_install_custom_no_manifest": "Archivo manifest.json no encontrado",
     "app_make_default": "Establecer como predeterminado",
     "app_state_inprogress": "Todavía no trabajando",
@@ -308,5 +308,39 @@
     "logs_suboperations": "Sub-operaciones",
     "operation_failed_explanation": "¡Esta operación falló! Lo sentimos mucho :( Puede intentar <a href='https://yunohost.org/help'>pedir ayuda</a>. Por favor comparta el *log completo* de la operación a la gente que ayude. Puede hacerlo haciendo click en el botón verde que dice 'Share with Yunopaste'. Cuando comparta los logs, YunoHost intentará automáticamente anonimizar datos privados como nombres de dominio y IPs.",
     "app_manage_label_and_tiles": "Administrar etiquetas y tiles",
-    "cancel": "Cancelar"
+    "cancel": "Cancelar",
+    "api_errors_titles": {
+        "APIConnexionError": "YunoHost ha encontrado un error de conexión",
+        "APINotRespondingError": "La API de YunoHost no está respondiendo",
+        "APINotFoundError": "La API de YunoHost no pudo encontrar una ruta",
+        "APIInternalError": "YunoHost ha encontrado un error interno",
+        "APIBadRequestError": "Yunohost ha econtrado un error",
+        "APIError": "YunoHost encontró un error inesperado"
+    },
+    "api_error": {
+        "view_error": "Ver error",
+        "sorry": "Lo siento mucho por eso.",
+        "server_said": "Mientras se procesaba la acción, el servidor informó:",
+        "info": "La siguiente información puede ser útil para la persona que le esté ayudando:",
+        "help": "Debes buscar ayuda en <a href=\"https://forum.yunohost.org/\">el foro</a> o en <a href=\"https://chat.yunohost.org/\">el chat</a> para solucionar la situación. También puedes informar del fallo en <a href=\"https://github.com/YunoHost/issues\">el bugtracker</a>.",
+        "error_message": "Mensaje de error:"
+    },
+    "api": {
+        "query_status": {
+            "warning": "Completado pero con errores y/o alertas",
+            "success": "Completado correctamente",
+            "pending": "En progreso",
+            "error": "No se ha podido realizar"
+        },
+        "processing": "El servidor está procesando la acción..."
+    },
+    "address": {
+        "local_part_description": {
+            "domain": "Elige un subdominio."
+        },
+        "domain_description": {
+            "email": "Elige un dominio para tu email.",
+            "domain": "Elige un dominio."
+        }
+    }
 }

@@ -79,7 +79,7 @@
     "manage_apps": "Apps verwalten",
     "manage_domains": "Domains verwalten",
     "manage_users": "Benutzer*innen verwalten",
-    "multi_instance": "Mehrere Instanzen",
+    "multi_instance": "Kann mehrere Male installiert werden",
     "myserver": "meinserver",
     "next": "Weiter",
     "no": "Nein",
@@ -93,7 +93,7 @@
     "postinstall_domain": "Dies ist die primäre Domain für deinen YunoHost Server und auch die Domain, an der sich die Benutzer*innen anmelden werden. Sie wird für alle Benutzer*innen sichtbar sein, daher wähle die primäre Domain sorgfältig aus.",
     "postinstall_intro_1": "Gratuliere! YunoHost wurde erfolgreich installiert.",
     "postinstall_intro_2": "Zwei weitere Einstellungen sind notwendig, um den Dienst auf deinem Server zu aktivieren.",
-    "postinstall_intro_3": "Du kannst mehr Informationen in der <a href='//yunohost.org/postinstall' target='_blank'>Dokumentation</a> finden",
+    "postinstall_intro_3": "Sie können mehr Informationen erhalten, wenn Sie in der<a href='//yunohost.org/postinstall' target='_blank'>entsprechenden Dokumentationsseite</a> nachlesen",
     "postinstall_password": "Dieses Passwort wird zur Verwaltung deines Servers benötigt. Wähle es mit Bedacht.",
     "previous": "Zurück",
     "protocol": "Protokoll",
@@ -185,11 +185,11 @@
     "confirm_update_apps": "Möchtest du wirklich alle Anwendungen aktualisieren?",
     "confirm_upnp_enable": "Möchtest du wirklich UPnP aktivieren?",
     "confirm_upnp_disable": "Möchtest du wirklich UPnP deaktivieren?",
-    "confirm_firewall_allow": "Möchtest du wirklich Port {port}1 öffnen? (Protokoll: {protocol}2, Verbindung: {connection}3)",
-    "confirm_firewall_disallow": "Möchtest du wirklich Port {port}1 schließen? (Protokoll: {protocol}2, Verbindung: {connection}3)",
-    "confirm_update_specific_app": "Möchtest du wirklich {app} aktualisieren?",
-    "confirm_reboot_action_reboot": "Möchtest du wirklich den Server neustarten?",
-    "confirm_reboot_action_shutdown": "Möchtest du wirklich den Server herunterfahren?",
+    "confirm_firewall_allow": "Sind Sie sicher, dass Sie den Port {port} (protocol: {protocol}, Verbindung: {connection}) öffnen wollen",
+    "confirm_firewall_disallow": "Sind Sie sicher, dass Sie den Port {port} (protocol: {protocol}, Verbindung {connection}) schliessen wollen",
+    "confirm_update_specific_app": "Möchten Sie wirklich {app} aktualisieren?",
+    "confirm_reboot_action_reboot": "Möchten Sie wirklich den Server neustarten?",
+    "confirm_reboot_action_shutdown": "Möchten Sie wirklich den Server herunterfahren?",
     "domain_dns_conf_is_just_a_recommendation": "Diese Seite zeigt dir die *empfohlene* Konfiguration. Sie konfiguriert *nicht* den DNS für dich. Es liegt in deiner Verantwortung, deine Zone bei deinem Registrar entsprechend dieser Empfehlung zu konfigurieren.",
     "ok": "OK",
     "system_upgrade_all_applications_btn": "Aktualisiere alle Applikationen",
@@ -210,7 +210,7 @@
     "app_no_actions": "Diese Anwendung hat keine Aktionen",
     "all_apps": "Alle Apps",
     "app_info_changeurl_desc": "Ändern Sie die Zugriffs URL dieser Anwendung (Domain und/oder Pfad).",
-    "app_state_highquality_explanation": "Diese App ist gut in YunoHost integriert. Sie wurde (und wird!) vom YunoHost-App-Team begutachtet. Es kann erwartet werden, dass sie sicher ist und langfristig gewartet wird.",
+    "app_state_highquality_explanation": "Diese Anwendung ist seit mindestens einem Jahrgut gut in YunoHost integriert.",
     "app_info_change_url_disabled_tooltip": "Dieses Feature wurde noch nicht in der App implementiert",
     "confirm_app_change_url": "Sind Sie sicher, dass sie die App-Zugangs-URL ändern möchten?",
     "confirm_update_system": "Bist du sicher, dass du alle Systempakete aktualisieren möchtest?",
@@ -273,7 +273,7 @@
     "configuration": "Konfiguration",
     "group_explain_all_users": "Dies ist eine spezielle Gruppe, die alle Konten der Benutzer*innen auf diesem Server enthält",
     "ignored": "{count} wird ignoriert",
-    "last_ran": "Das letzte Mal lief es:",
+    "last_ran": "Letzte Ausführung:",
     "group_name": "Gruppenname",
     "group_all_users": "Alle Benutzer*innen",
     "group_visitors": "Besucher*innen",
@@ -333,7 +333,7 @@
         }
     },
     "permission_show_tile_enabled": "Sichtbar als Kachel im Benutzerportal",
-    "permission_main": "Hauptrechte",
+    "permission_main": "Haupt-Label",
     "permission_corresponding_url": "Entsprechender URL",
     "cancel": "Abbrechen",
     "app_show_categories": "Kategorien anzeigen",
@@ -361,7 +361,7 @@
     },
     "tools_power_up": "Ihr Server scheint zugänglich zu sein. Sie können jetzt versuchen, sich anzumelden.",
     "search": {
-        "not_found": "Es gibt {Elemente}, die Ihren Kriterien entsprechen.",
+        "not_found": "Es gibt {items}, die den von Ihnen gewählten Kriterien entsprechen.",
         "for": "Suche nach {items} ..."
     },
     "readme": "Readme",
@@ -387,7 +387,8 @@
         "groups": "keine Gruppen | Gruppe | {c} Gruppen",
         "domains": "keine Domains | Domain | {c} Domains",
         "backups": "keine Backups | Backup | {c} Backups",
-        "apps": "keine Apps | App | {c} Apps"
+        "apps": "keine Apps | App | {c} Apps",
+        "permissions": "keine Berechtigungen | Berechtigung | {c} Berechtigungen"
     },
     "history": {
         "methods": {
@@ -464,11 +465,17 @@
             "install": "Die Applikation '{name}' installieren",
             "change_url": "Die Zugriffs-URL für '{name}' ändern",
             "change_label": "Das Label von '{prevName}' nach '{nextName}' ändern",
-            "set_default": "Weiterleitung des Domänen-Rootverzeichnisses von '{domain}'  zu '{name}'"
+            "set_default": "Weiterleitung des Domänen-Rootverzeichnisses von '{domain}' zu '{name}'"
         },
         "adminpw": "Administratorpasswort ändern",
         "domains": {
-            "add": "Die Domäne '{name}' hinzufügen"
+            "add": "Die Domäne '{name}' hinzufügen",
+            "set_default": "Definiere '{name}' als Standarddomäne",
+            "revert_to_selfsigned": "Rückkehr zu selbstsigniertem Zertifikat für '{name}'",
+            "regen_selfsigned": "Erneuere das selbstsignierte Zertifikat für '{name}'",
+            "manual_renew_LE": "Erneuere das Zertifikat für '{name}'",
+            "install_LE": "Installiere das Zertifikat für '{name}'",
+            "delete": "Lösche die Domäne '{name}'"
         },
         "diagnosis": {
             "unignore": {
@@ -481,12 +488,51 @@
                 "warning": "Eine Warnung ignorieren",
                 "error": "Einen Fehler ignorieren"
             }
-        }
+        },
+        "groups": {
+            "create": "Erstelle die Gruppe '{name}'",
+            "remove": "'{user}' aus der Gruppe '{name}' entfernen",
+            "add": "'{user}' zur Gruppe '{name}' hinzufügen",
+            "delete": "Gruppe '{name}' löschen"
+        },
+        "firewall": {
+            "upnp": "{action} UPnP",
+            "ports": "{action} Port {port} ({protocol}, {connection})"
+        },
+        "services": {
+            "start": "Den Dienst '{name}' starten",
+            "restart": "Den Dienst '{name}' neustarten",
+            "stop": "Den Dienst '{name}' stoppen"
+        },
+        "reboot": "Den Server neustarten",
+        "postinstall": "Post-Installation ausführen",
+        "permissions": {
+            "remove": "'{name}' Autosierierung entziehen für Zugriff auf '{perm}'",
+            "add": "'{name}' autorisieren für Zugriff auf '{perm}'"
+        },
+        "migrations": {
+            "skip": "Migrationen überspringen",
+            "run": "Migrationen durchführen"
+        },
+        "users": {
+            "update": "Den Benutzer '{name}' aktualisieren",
+            "delete": "Den Benutzer '{name}' löschen",
+            "create": "Den Benutzer '{name}' erstellen"
+        },
+        "upgrade": {
+            "app": "Die Anwendung '{app}' aktualisieren",
+            "apps": "Alle Anwendungen aktualisieren",
+            "system": "Das System aktualisieren"
+        },
+        "update": "Nach Updates suchen",
+        "shutdown": "Den Server herunterfahren",
+        "share_logs": "Einen Link für den Log '{name}' erstellten"
     },
     "postinstall": {
         "force": "Forciere den Post-Install"
     },
     "hook_data_xmpp_desc": "Konfiguration für Räume und Benutzer, hochgeladene Dateien",
-    "confirm_firewall_disallow": "Sind Sie sicher, dass Sie den Port {port} (protocol: {protocol}, Verbindung {connection}) schliessen wollen",
-    "confirm_firewall_allow": "Sind Sie sicher, dass Sie den Port {port} (protocol: {protocol}, Verbindung: {connection}) öffnen wollen"
+    "items_verbose_items_left": "Es bleiben {items} übrig.",
+    "confirm_group_add_access_permission": "Sind Sie sicher, dass Sie Zugriff auf {perm} an {name} geben wollen? Ein derartiger Zugriff erhöht die Angriffsoberfläche signifikant, wenn {name} boshaft ist. Die sollten dies nur tun, wenn Sie dieser Person/Gruppe VERTRAUEN.",
+    "app_install_parameters": "Installationsparameter"
 }
