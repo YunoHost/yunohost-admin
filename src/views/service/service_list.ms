@@ -11,7 +11,7 @@
         <span class="fa-chevron-right pull-right"></span>
         <h2 class="list-group-item-heading">{{name}} <small>{{description}}</small></h2>
         <div class="list-group-item-text">
-            {{#if (eq status "running")}}
+            {{#if (or (eq status "running") (eq status "active"))}}
                 <span class="text-success">
                     <span class="fa-fw fa-check-circle"></span>
             {{else}}
