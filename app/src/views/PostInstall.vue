@@ -118,7 +118,11 @@ export default {
 
     performPostInstall (force = false) {
       // FIXME does the api will throw an error for bad passwords ?
-      api.post('postinstall' + (force ? '?force_diskspace' : ''), { domain: this.domain, password: this.password }).then(data => {
+      api.post(
+        'postinstall' + (force ? '?force_diskspace' : ''),
+        { domain: this.domain, password: this.password },
+        { key: 'postinstall' }
+      ).then(() => {
         // Display success message and allow the user to login
         this.goToStep('login')
       }).catch(err => {

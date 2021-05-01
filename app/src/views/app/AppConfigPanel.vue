@@ -105,6 +105,8 @@ export default {
       api.put(
         `apps/${this.id}/config`, { args }, { key: 'apps.update_config', name: this.id }
       ).then(response => {
+        // FIXME what should be done ?
+        /* eslint-disable-next-line */
         console.log('SUCCESS', response)
       }).catch(err => {
         if (err.name !== 'APIBadRequestError') throw err

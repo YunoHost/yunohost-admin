@@ -138,6 +138,7 @@ export default {
       }).then(response => {
         if (response.ok) return response.json()
         // FIXME flash error
+        /* eslint-disable-next-line */
         else console.log('error', response)
       }).then(({ key }) => {
         window.open('https://paste.yunohost.org/' + key, '_blank')
