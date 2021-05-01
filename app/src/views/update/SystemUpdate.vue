@@ -97,7 +97,13 @@ export default {
 
       const uri = id !== null ? `apps/${id}/upgrade` : 'upgrade/' + type
       api.put(uri, {}, { key: 'upgrade.' + (id ? 'app' : type), app: id }).then(() => {
-        this.$router.push({ name: 'tool-logs' })
+        if (id !== null) {
+          this.apps = this.apps.filter(app => id !== app.id)
+        } else if (type === 'apps') {
+          this.apps = null
+        } else {
+          this.system = null
+        }
       })
     }
   }
