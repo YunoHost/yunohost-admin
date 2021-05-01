@@ -19,6 +19,7 @@ class APIError extends Error {
   }
 
   log () {
+    /* eslint-disable-next-line */
     console.error(`${this.name} (${this.code}): ${this.uri}\n${this.message}`)
   }
 }

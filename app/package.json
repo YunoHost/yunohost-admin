@@ -68,6 +68,7 @@
           }
         }
       ],
+      "no-console": "warn",
       "template-curly-spacing": "off",
       "camelcase": "warn",
       "indent": "off",
