@@ -177,7 +177,7 @@
     "domain_dns_conf_is_just_a_recommendation": "Aquesta pagina mòstra la configuracion *recomandada*. Configura *pas* lo DNS per vos. Es vòstra responsabilitat la configuracion de la zòna DNS en çò vòstre registrar DNS amb aquesta recomandacion.",
     "postinstall_domain": "Aquò es lo primièr nom de domeni ligat al servidor YunoHost, mas tanben lo que servirà al portanèl d’identificacion. Serà doncas visible per totes los utilizaires, causissètz-lo amb suènh.",
     "postinstall_intro_2": "Doas etapas mai son necessàrias per activar lo servidor.",
-    "postinstall_intro_3": "Podètz trapar mai d’informacion en anar a <a href='//yunohost.org/postinstall' target='_blank'> la pagina de documentacion en question</a>",
+    "postinstall_intro_3": "Podètz trapar mai d’informacion en anar a <a href='//yunohost.org/en/install/hardware:vps_debian#fa-cog-proceed-with-the-initial-configuration' target='_blank'> la pagina de documentacion en question</a>",
     "postinstall_password": "Aqueste senhal vos permetrà d’accedir a l’interfàcia d’administracion e de contrarotlar lo servidor. Prenètz lo temps de ne causir un bon.",
     "tools_rebooting": "Lo servidor es a tornar aviar. Per tornar a l’interfàcia d’administracion devètz esperar que lo servidor siá aviat. Podètz o verificar en actualizant aquesta pagina (F5).",
     "tools_shuttingdown": "Lo servidor es atudat. Del temps que lo servidor es atudat podètz pas accedir a l’interfàcia d’administracion.",
@@ -394,7 +394,8 @@
             "perform_action": "Executar l’accion « {action} » de l’aplicacion « {name} »",
             "install": "Installar l’aplicacion « {name} »",
             "change_url": "Modificar l’URL d’accès de  « {name} »",
-            "change_label": "Cambiar l’etiqueta de « {prevName} » per « {nextName} »"
+            "change_label": "Cambiar l’etiqueta de « {prevName} » per « {nextName} »",
+            "set_default": "Desviar la raiç del domeni « {domain} » cap a « {name} »"
         },
         "adminpw": "Cambiar lo senhal administrator"
     },
@@ -469,7 +470,10 @@
         "alpha": "La cadena de caractèrs deu conténer sonque de letras.",
         "passwordMatch": "Los senhals correspondon pas.",
         "passwordLenght": "Lo senhal deu conténer almens 8 caractèrs.",
-        "githubLink": "L’URL deu èsser un ligam Github valid cap a un depaus"
+        "githubLink": "L’URL deu èsser un ligam Github valid cap a un depaus",
+        "emailForward": "Adreça de transferiment invalida : deu sonque conténer de caractèrs alfranumerics e los caractèrs <code>_.-+</code> (per exemple, quauqun@exemple.com, kal-k1+etiqueta@exemple.com)",
+        "email": "Adreça electronica invalida : deu sonque conténer de caractèrs alfanumerics e los caractèrs <code>_.-</code> (per exemple quauqun@exemple.com, k4l-k1@exemple.com)",
+        "dynDomain": "Nom de domeni invalid : deu conténer sonque de minusculas alfanumericas e de jonhents basses"
     },
     "footer": {
         "donate": "Far un don",
