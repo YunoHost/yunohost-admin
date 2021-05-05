@@ -42,7 +42,7 @@
     "firewall": "Firewall",
     "home": "Home",
     "hook_adminjs_group_configuration": "Configurazioni di sistema",
-    "hook_conf_ldap": "Database LDAP",
+    "hook_conf_ldap": "Database utenti",
     "hook_conf_nginx": "Nginx",
     "hook_conf_ssh": "SSH",
     "hook_conf_ssowat": "SSOwat",
@@ -68,7 +68,7 @@
     "manage_apps": "Gestisci app",
     "manage_domains": "Gestisci domini",
     "manage_users": "Gestisci utenti",
-    "multi_instance": "Istanze multiple",
+    "multi_instance": "Può essere installato più volte",
     "myserver": "mioserver",
     "next": "Successivo",
     "no": "No",
@@ -258,7 +258,7 @@
     "group_visitors": "Visitori",
     "group_format_name_help": "È possibile utilizzare caratteri alfanumerici e spazio",
     "group_add_member": "Aggiungere un utente",
-    "app_state_highquality_explanation": "Questa applicazione è ben integrata con YunoHost. È stata (ed è!) peer-reviewed dal team di YunoHost app. Ci si può aspettare che sia sicura e mantenuta a lungo termine.",
+    "app_state_highquality_explanation": "Questa applicazione è ben integrata con YunoHost da almeno un anno a questa parte.",
     "details": "Dettagli",
     "diagnosis_experimental_disclaimer": "Siate consapevoli che la funzione di diagnosi è ancora sperimentale e in fase di perfezionamento, e potrebbe non essere completamente affidabile.",
     "everything_good": "Tutto bene!",
@@ -307,7 +307,7 @@
     "tip_about_user_email": "Gli utenti sono creati associati ad un indirizzo email (e un account XMPP) del tipo utente@domain.tld. Indirizzi email addizionali e forward possono essere aggiunti successivamente dall'amministratore e dall'utente.",
     "logs_suboperations": "Sub-operazioni",
     "permission_show_tile_enabled": "Mostra il tile nel portale dell'utente",
-    "permission_main": "Permesso principale",
+    "permission_main": "Etichetta principale",
     "permission_corresponding_url": "URL corrispondente",
     "app_manage_label_and_tiles": "Gestisci etichette e tiles",
     "user_emailforward_add": "Aggiungi un reindirizzamento mail",
@@ -353,7 +353,8 @@
         "groups": "nessun gruppo | gruppo | {c} gruppi",
         "domains": "nessun dominio | dominio | {c} domini",
         "backups": "nessun backup | backup | {c} backups",
-        "apps": "nessuna app | app | {c} apps"
+        "apps": "nessuna app | app | {c} apps",
+        "permissions": "nessun permesso | permesso | {c} permessi"
     },
     "history": {
         "methods": {
@@ -363,7 +364,8 @@
             "DELETE": "elimina"
         },
         "last_action": "Ultima azione:",
-        "title": "Cronologia"
+        "title": "Cronologia",
+        "is_empty": "Nessuno storico per ora."
     },
     "go_back": "Torna indietro",
     "form_errors": {
@@ -446,5 +448,91 @@
             "domain": "Scegli un dominio."
         }
     },
-    "cancel": "Annulla"
+    "cancel": "Annulla",
+    "human_routes": {
+        "users": {
+            "update": "Aggiorna utente '{name}'",
+            "delete": "Elimina utente '{name}'",
+            "create": "Crea utente '{name}'"
+        },
+        "upgrade": {
+            "app": "Aggiorna l'app '{app}'",
+            "apps": "Aggiorna tutte le app",
+            "system": "Aggiorna il sistema"
+        },
+        "update": "Controlla aggiornamenti",
+        "shutdown": "Spegni il server",
+        "share_logs": "Genera link per il log '{name}'",
+        "services": {
+            "stop": "Ferma il servizio '{name}'",
+            "start": "Avvio il servizio '{name}'",
+            "restart": "Riavvia il servizio '{name}'"
+        },
+        "reboot": "Riavvia il server",
+        "postinstall": "Esegui il post-install",
+        "permissions": {
+            "remove": "Rimuovi l'accesso per '{perm}' a '{name}'",
+            "add": "Permetti a '{name}' di accedere a '{perm}'"
+        },
+        "migrations": {
+            "skip": "Salta migrazioni",
+            "run": "Esegui migrazioni"
+        },
+        "groups": {
+            "remove": "Rimuovi {'user'} dal gruppo '{name}'",
+            "add": "Aggiungi '{user}' al gruppo '{name}'",
+            "delete": "Elimina gruppo '{name}'",
+            "create": "Crea gruppo '{name}'"
+        },
+        "firewall": {
+            "upnp": "{action} UPnP",
+            "ports": "{action} porta {port} ({protocol}, {connection})"
+        },
+        "domains": {
+            "set_default": "Imposta '{name}' come dominio di default",
+            "revert_to_selfsigned": "Ripristina certificato auto-firmato per '{name}'",
+            "regen_selfsigned": "Rinnova certificato auto-firmato per '{name}'",
+            "manual_renew_LE": "Rinnova certificato per '{name}'",
+            "install_LE": "Installa certificato per '{name}'",
+            "delete": "Elimina dominio '{name}'",
+            "add": "Aggiungi dominio '{name}'"
+        },
+        "diagnosis": {
+            "unignore": {
+                "warning": "Non ignorare avviso",
+                "error": "Non ignorare errore"
+            },
+            "run_specific": "Esegui diagnosi '{description}'",
+            "run": "Esegui diagnosi",
+            "ignore": {
+                "warning": "Ignora avviso",
+                "error": "Ignora errore"
+            }
+        },
+        "backups": {
+            "restore": "Ripristina backup '{name}'",
+            "delete": "Elimina backup '{name}'",
+            "create": "Crea backup"
+        },
+        "apps": {
+            "update_config": "Aggiorna la configurazione dell'app '{name}'",
+            "uninstall": "Disinstalla l'app '{name}'",
+            "perform_action": "Esegui l'azione '{action}' dell'app '{name}'",
+            "set_default": "Reindirizza la domain root di '{domain}' a '{name}'",
+            "install": "Installa l'app '{name}'",
+            "change_url": "Cambia l'url d'accesso di '{name}'",
+            "change_label": "Cambia label da '{prevName}' a '{nextName}'"
+        },
+        "adminpw": "Cambia password d'amministratore"
+    },
+    "postinstall": {
+        "force": "Forza il post-install"
+    },
+    "items_verbose_items_left": "Ci sono {items} oggetti rimasti.",
+    "hook_data_xmpp_desc": "Configurazioni utenti e stanze, upload file",
+    "hook_data_xmpp": "Dati XMPP",
+    "hook_conf_manually_modified_files": "Configurazioni modificate manualmente",
+    "hook_conf_ynh_settings": "Configurazioni YunoHost",
+    "confirm_group_add_access_permission": "Sei sicuro di voler concedere l'accesso {perm} a {name}? Questo accesso aumenta significativamente la superficie di attacco nel caso {name} fosse una persona malevola. Dovresti effettuare quest'azione solo se hai FIDUCIA in questa persona/gruppo.",
+    "app_install_parameters": "Parametri installazione"
 }
