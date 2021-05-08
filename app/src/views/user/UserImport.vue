@@ -5,7 +5,7 @@
     @submit.prevent="onSubmit"
   >
     <!-- CSV FILE -->
-    <form-field v-bind="fields.csv" v-model="form.csv" :validation="$v.form.csv" />
+    <form-field v-bind="fields.csvfile" v-model="form.csvfile" :validation="$v.form.csvfile" />
 
     <!-- UPDATE -->
     <form-field v-bind="fields.update" v-model="form.update" />
@@ -28,7 +28,7 @@ export default {
   data () {
     return {
       form: {
-        csv: '',
+        csvfile: '',
         update: false,
         delete: false
       },
@@ -36,12 +36,12 @@ export default {
       serverError: '',
 
       fields: {
-        csv: {
+        csvfile: {
           label: this.$i18n.t('users_import_csv_file'),
           description: this.$i18n.t('users_import_csv_file_desc'),
           component: 'FileItem',
           props: {
-            id: 'csv',
+            id: 'csvfile',
             placeholder: this.$i18n.t('placeholder.file')
           }
         },
@@ -69,7 +69,7 @@ export default {
 
   validations: {
     form: {
-      csv: { required, fileMediaTypeMatch: fileMediaTypeMatch('text/csv') }
+      csvfile: { required, fileMediaTypeMatch: fileMediaTypeMatch('text/csv') }
     }
   },
 
