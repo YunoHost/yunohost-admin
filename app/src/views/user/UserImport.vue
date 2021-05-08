@@ -83,7 +83,11 @@ export default {
         if (!confirmed) return
       }
 
-      const data = formatFormData(this.form)
+      var requestArgs = {}
+      Object.assign(requestArgs, this.form)
+      if (!requestArgs.delete) delete requestArgs.delete
+      if (!requestArgs.update) delete requestArgs.update
+      const data = formatFormData(requestArgs)
       api.post('users/import', data, { asFormData: true }).then(() => {
         // Reset all cached data related to users.
         this.$store.dispatch('RESET_CACHE_DATA', ['users', 'users_details', 'groups', 'permissions'])
