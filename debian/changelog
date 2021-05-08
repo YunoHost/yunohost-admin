@@ -1,3 +1,12 @@
+yunohost-admin (4.2.2) stable; urgency=low
+
+  - [i18n] Translations updated for Italian, Occitan
+  - Release as stable
+
+  Thanks to all contributors <3 ! (Flavio Cristoforetti, Quentí)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Sat, 08 May 2021 15:07:16 +0200
+
 yunohost-admin (4.2.1.3) testing; urgency=low
 
   - Misc fixes : human-readable route name for postinstall, upgrade UX, replace '\n' with <br> ([#355](https://github.com/YunoHost/yunohost-admin/pull/355))
