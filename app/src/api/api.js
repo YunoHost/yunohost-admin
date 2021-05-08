@@ -99,6 +99,11 @@ export default {
       options = { ...options, method, body: objectToParams(data, { addLocale: true }, true) }
     }
 
+    const response = await fetch('/yunohost/api/' + uri, options)
+    const responseData = await getResponseData(response)
+    store.dispatch('END_REQUEST', { request, success: response.ok, wait })
+
+    return response.ok ? responseData : handleError(request, response, responseData)
   },
 
 
