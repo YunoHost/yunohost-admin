@@ -91,5 +91,11 @@
         }
     },
     "app_manage_label_and_tiles": "Zarządzaj etykietami",
-    "api_not_found": "Wygląda na to że web-admin zapytał o coś co nie istnieje."
+    "api_not_found": "Wygląda na to że web-admin zapytał o coś co nie istnieje.",
+    "confirm_migrations_skip": "Pomijanie migracji nie jest zalecane. Czy na pewno chcesz to zrobić?",
+    "confirm_install_app_inprogress": "OSTRZEŻENIE! Ta aplikacja jest nadal eksperymentalna (może wprost nie działa) i prawdopodobnie uszkodzi Twój system! Prawdopodobnie NIE powinieneś jej instalować, chyba że wiesz, co robisz. Czy chcesz podjąć to ryzyko?",
+    "confirm_install_app_lowquality": "Ostrzeżenie: ta aplikacja może działać, ale nie jest dobrze zintegrowana z YunoHost. Niektóre funkcje, takie jak logowanie jednokrotne i tworzenie kopii zapasowych / przywracanie, mogą być niedostępne.",
+    "confirm_install_domain_root": "Czy na pewno chcesz zainstalować tę aplikację na „/”? Nie będziesz mógł zainstalować żadnej innej aplikacji w domenie {domain}",
+    "app_state_highquality_explanation": "Ta aplikacja jest dobrze zintegrowana z YunoHost od ponad roku.",
+    "app_state_lowquality_explanation": "Ta aplikacja może działać, ale nadal może zawierać błędy, albo nie być w pełni zintegrowaną z YunoHost, lub nie przestrzega dobrych praktyk."
 }
