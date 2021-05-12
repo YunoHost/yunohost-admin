@@ -26,7 +26,7 @@
     "both": "Oba",
     "check": "Sprawdź",
     "close": "Zamknij",
-    "login": "Zaloguj",
+    "login": "Zaloguj się",
     "logout": "Wyloguj",
     "ok": "OK",
     "confirm_app_install": "Czy na pewno chcesz zainstalować tę aplikację?",
@@ -83,7 +83,8 @@
     "all": "Wszystko",
     "address": {
         "local_part_description": {
-            "domain": "Wybierz subdomenę."
+            "domain": "Wybierz subdomenę.",
+            "email": "Wybierz nazwę lokalną dla konta pocztowego."
         },
         "domain_description": {
             "email": "Wybierz domenę dla poczty.",
@@ -97,5 +98,36 @@
     "confirm_install_app_lowquality": "Ostrzeżenie: ta aplikacja może działać, ale nie jest dobrze zintegrowana z YunoHost. Niektóre funkcje, takie jak logowanie jednokrotne i tworzenie kopii zapasowych / przywracanie, mogą być niedostępne.",
     "confirm_install_domain_root": "Czy na pewno chcesz zainstalować tę aplikację na „/”? Nie będziesz mógł zainstalować żadnej innej aplikacji w domenie {domain}",
     "app_state_highquality_explanation": "Ta aplikacja jest dobrze zintegrowana z YunoHost od ponad roku.",
-    "app_state_lowquality_explanation": "Ta aplikacja może działać, ale nadal może zawierać błędy, albo nie być w pełni zintegrowaną z YunoHost, lub nie przestrzega dobrych praktyk."
+    "app_state_lowquality_explanation": "Ta aplikacja może działać, ale nadal może zawierać błędy, albo nie być w pełni zintegrowaną z YunoHost, lub nie przestrzega dobrych praktyk.",
+    "diagnosis_explanation": "Funkcja diagnostyki spróbuje zidentyfikować typowe problemy dotyczące różnych aspektów serwera, aby upewnić się, że wszystko działa sprawnie. Diagnoza przebiega automatycznie dwa razy dziennie, a w przypadku znalezienia problemów do administratora wysyłana jest wiadomość e-mail. Zwróć uwagę, że niektóre testy mogą nie być odpowiednie, jeśli nie chcesz używać określonych funkcji (na przykład XMPP) lub mogą się nie powieść, jeśli masz złożoną konfigurację. W takich przypadkach i jeśli wiesz, co robisz, możesz zignorować odpowiednie problemy lub ostrzeżenia.",
+    "diagnosis_first_run": "Funkcja diagnostyki spróbuje zidentyfikować typowe problemy dotyczące różnych aspektów serwera, aby upewnić się, że wszystko działa sprawnie. Nie panikuj, jeśli zaraz po skonfigurowaniu serwera zobaczysz kilka błędów: ma to dokładnie pomóc w zidentyfikowaniu problemów i ich naprawieniu. Diagnostyka będzie również uruchamiana automatycznie dwa razy dziennie, a w przypadku znalezienia problemów do administratora zostanie wysłana wiadomość e-mail.",
+    "diagnosis_experimental_disclaimer": "Należy pamiętać, że funkcja diagnostyki jest wciąż eksperymentalna i dopracowywana i może nie być w pełni wiarygodna.",
+    "diagnosis": "Diagnostyka",
+    "domain_dns_conf_is_just_a_recommendation": "Ta strona przedstawia *zalecaną* konfigurację. *Nie* konfiguruje DNS za Ciebie. Do Ciebie należy skonfigurowanie strefy DNS u rejestratora DNS zgodnie z tym zaleceniem.",
+    "details": "Szczegóły",
+    "description": "Opis",
+    "delete": "Usuń",
+    "dead": "Nieaktywne",
+    "custom_app_install": "Zainstaluj niestandardową aplikację",
+    "connection": "Połączenie",
+    "confirm_reboot_action_shutdown": "Czy na pewno chcesz wyłączyć swój serwer?",
+    "confirm_reboot_action_reboot": "Czy na pewno chcesz zrestartować swój serwer?",
+    "confirm_upnp_disable": "Czy na pewno chcesz wyłączyć UPnP?",
+    "confirm_upnp_enable": "Czy na pewno chcesz włączyć UPnP?",
+    "confirm_update_specific_app": "Czy na pewno chcesz zaktualizować {app}?",
+    "confirm_update_system": "Czy na pewno chcesz zaktualizować wszystkie pakiety systemowe?",
+    "confirm_update_apps": "Czy na pewno chcesz zaktualizować wszystkie aplikacje?",
+    "confirm_uninstall": "Czy na pewno chcesz odinstalować {name}?",
+    "confirm_service_stop": "Czy na pewno chcesz zatrzymać {name}?",
+    "confirm_service_start": "Czy na pewno chcesz uruchomić {name}?",
+    "confirm_service_restart": "Czy na pewno chcesz ponownie uruchomić {name}?",
+    "confirm_restore": "Czy na pewno chcesz przywrócić {name}?",
+    "confirm_postinstall": "Masz zamiar uruchomić proces poinstalacyjny w domenie {domena}. Może to zająć kilka minut, * nie przerywaj operacji *.",
+    "confirm_install_custom_app": "OSTRZEŻENIE! Instalowanie aplikacji innych firm może zagrozić integralności i bezpieczeństwu systemu. Prawdopodobnie NIE powinieneś jej instalować, chyba że wiesz, co robisz. Czy jesteś gotów podjąć to ryzyko?",
+    "confirm_group_add_access_permission": "Czy na pewno chcesz udzielić {perm} dostępu do: {name}? Taki dostęp znacznie zwiększa możliwość ataku, jeśli {name} jest niezaufaną osobą. Powinieneś to zrobić tylko wtedy, gdy UFASZ tej osobie / grupie.",
+    "app_install_parameters": "Ustawienia instalacji",
+    "good_practices_about_user_password": "Musisz teraz zdefiniować nowe hasło użytkownika. Hasło powinno mieć co najmniej 8 znaków - chociaż dobrym zwyczajem jest używanie dłuższego hasła (np. tekst szyfrujący) i / lub używanie różnego rodzaju znaków (duże, małe litery, cyfry i znaki specjalne).",
+    "error": "Błąd",
+    "app_actions_label": "Wykonaj działania",
+    "app_actions": "Działania"
 }
