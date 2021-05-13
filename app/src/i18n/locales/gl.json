@@ -1,5 +1,42 @@
 {
     "cancel": "Cancelar",
     "ok": "Ok",
-    "password": "Contrasinal"
+    "password": "Contrasinal",
+    "api_errors_titles": {
+        "APINotRespondingError": "A API de YunoHost non está a responder",
+        "APINotFoundError": "A API de YunoHost non puido atopar unha ruta",
+        "APIInternalError": "YunoHost atopou un erro interno",
+        "APIBadRequestError": "YunoHost atopou un erro",
+        "APIError": "YunoHost atopou un erro non agardado"
+    },
+    "api_error": {
+        "view_error": "Ver erro",
+        "sorry": "Sentimos gran pesar por isto.",
+        "server_said": "Ao procesar a acción o servidor respondeu:",
+        "info": "A seguinte información podería ser útil para a persoa que che axude:",
+        "help": "Podes buscar axuda no <a href=\"https://forum.yunohost.org/\">foro</a> ou <a href=\"https://chat.yunohost.org/\">no chat</a> para arranxar a situación, ou informar do fallo no <a href=\"https://github.com/YunoHost/issues\">seguimento de fallos</a>.",
+        "error_message": "Mensaxe do erro:"
+    },
+    "api": {
+        "query_status": {
+            "warning": "Completada correctamente con erros ou alertas",
+            "success": "Completada correctamente",
+            "pending": "En progreso",
+            "error": "Sen éxito"
+        },
+        "processing": "O servidor está procesando a acción..."
+    },
+    "all": "Todo",
+    "administration_password": "Contrasinal de administración",
+    "address": {
+        "local_part_description": {
+            "domain": "Elixe un subdominio."
+        },
+        "domain_description": {
+            "email": "Elixe un dominio para o teu email.",
+            "domain": "Elixe un dominio."
+        }
+    },
+    "add": "Engadir",
+    "action": "Acción"
 }
