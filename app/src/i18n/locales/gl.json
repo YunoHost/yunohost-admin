@@ -7,7 +7,8 @@
         "APINotFoundError": "A API de YunoHost non puido atopar unha ruta",
         "APIInternalError": "YunoHost atopou un erro interno",
         "APIBadRequestError": "YunoHost atopou un erro",
-        "APIError": "YunoHost atopou un erro non agardado"
+        "APIError": "YunoHost atopou un erro non agardado",
+        "APIConnexionError": "YunoHost atopou un fallo de conexión"
     },
     "api_error": {
         "view_error": "Ver erro",
@@ -30,7 +31,8 @@
     "administration_password": "Contrasinal de administración",
     "address": {
         "local_part_description": {
-            "domain": "Elixe un subdominio."
+            "domain": "Elixe un subdominio.",
+            "email": "Elixe a parte local para o teu email."
         },
         "domain_description": {
             "email": "Elixe un dominio para o teu email.",
@@ -38,5 +40,58 @@
         }
     },
     "add": "Engadir",
-    "action": "Acción"
+    "action": "Acción",
+    "confirm_firewall_disallow": "Tes a certeza de querer pechar o porto {port} (protocolo: {protocol}, conexión: {connection})",
+    "confirm_firewall_allow": "Tes a certeza de querer abrir o porto {port} (protocolo: {protocol}, conexión: {connection})",
+    "confirm_delete": "Tes a certeza de querer eliminar {name}?",
+    "confirm_change_maindomain": "Tes a certeza de querer cambiar o dominio principal?",
+    "confirm_app_default": "Tes a certeza de querer establecer esta como a app por defecto?",
+    "confirm_app_change_url": "Tes a certeza de querer cambiar o URL de acceso á app?",
+    "configuration": "Configuración",
+    "common": {
+        "lastname": "Apelido",
+        "firstname": "Nome"
+    },
+    "code": "Código",
+    "close": "Pechar",
+    "check": "Comprobar",
+    "catalog": "Catálogo",
+    "both": "Ambos",
+    "begin": "Comezar",
+    "backup_new": "Nova copia de apoio",
+    "backup_create": "Crear copia de apoio",
+    "backup_content": "Contido da copia de apoio",
+    "backup_action": "Copia de apoio",
+    "backup": "Copia de apoio",
+    "archive_empty": "Arquivo baleiro",
+    "applications": "Aplicacións",
+    "app_state_working_explanation": "As persoas encargadas desta app din que 'funciona'. Significa que debería ser funcional (a nivel aplicación) pero non necesariamente foi revisada por pares, e podería aínda ter algún problemiña ou non estar completamente integrada en YunoHost.",
+    "app_state_working": "a funcionar",
+    "app_state_highquality_explanation": "Esta app está ben integrada en YunoHost desde hai polo menos un ano.",
+    "app_state_highquality": "alta calidade",
+    "app_state_lowquality_explanation": "Esta app podería funcionar, pero con algún problema, ou non completamente integrada en YunoHost, ou non respectando as boas prácticas.",
+    "app_state_lowquality": "baixa calidade",
+    "app_state_notworking_explanation": "As persoas encargadas desta app din que 'non funciona'. PODERÍA ESTRAGAR O TEU SISTEMA!",
+    "app_state_notworking": "non funciona",
+    "app_state_inprogress": "aínda non funciona",
+    "app_show_categories": "Mostrar categorías",
+    "app_no_actions": "Esta aplicación non ten ningunha acción",
+    "app_make_default": "Establecer por defecto",
+    "app_install_parameters": "Axustes da instalación",
+    "app_install_custom_no_manifest": "Non hai ficheiro manifest.json",
+    "app_info_uninstall_desc": "Eliminar esta aplicación.",
+    "app_info_change_url_disabled_tooltip": "Aínda non se implementou esta función para a app",
+    "app_info_changeurl_desc": "Cambiar o URL de acceso a esta aplicación (domino e/ou ruta).",
+    "app_info_default_desc": "Redireccionar a raíz do dominio a esta aplicación ({domain}).",
+    "app_info_access_desc": "Gupos / usuarias que actualmente teñen acceso a esta app:",
+    "app_config_panel_no_panel": "Esta aplicación non ten ningunha configuración dispoñible",
+    "app_config_panel_label": "Configurar esta app",
+    "app_config_panel": "Configurar panel",
+    "app_choose_category": "Elixe unha categoría",
+    "app_actions_label": "Realizar accións",
+    "app_actions": "Accións",
+    "api_waiting": "Agardando pola resposta do servidor...",
+    "api_not_responding": "A API de YunoHost non responde. Pode que 'yunohost-api' esté caída ou esté reiniciando?",
+    "api_not_found": "Semella que o web-admin intentou solicitar algún recurso que non existe.",
+    "all_apps": "Tódalas apps"
 }
