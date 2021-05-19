@@ -139,7 +139,7 @@ export default {
       form: {
         fullname: { firstname: '', lastname: '' },
         mail: { localPart: '', separator: '@', domain: '' },
-        mailbox_quota: 0,
+        mailbox_quota: '',
         mail_aliases: [],
         mail_forward: [],
         password: '',
@@ -183,8 +183,7 @@ export default {
           example: this.$i18n.t('mailbox_quota_example'),
           props: {
             id: 'mailbox-quota',
-            placeholder: this.$i18n.t('mailbox_quota_placeholder'),
-            type: 'number'
+            placeholder: this.$i18n.t('mailbox_quota_placeholder')
           }
         },
 
@@ -228,7 +227,7 @@ export default {
       mail: {
         localPart: { required, email: emailLocalPart }
       },
-      mailbox_quota: { number: required, integer, minValue: minValue(0) },
+      mailbox_quota: { integer, minValue: minValue(0) },
       mail_aliases: {
         $each: {
           localPart: { required, email: emailLocalPart }
@@ -259,8 +258,11 @@ export default {
       if (user['mail-forward']) {
         this.form.mail_forward = user['mail-forward'].slice() // Copy value
       }
-      if (user['mailbox-quota'].limit !== 'No quota') {
+      // mailbox-quota could be 'No quota' or 'Pas de quota'...
+      if (parseInt(user['mailbox-quota'].limit) > 0) {
         this.form.mailbox_quota = sizeToM(user['mailbox-quota'].limit)
+      } else {
+        this.form.mailbox_quota = ''
       }
     },
 
@@ -268,7 +270,9 @@ export default {
       const formData = formatFormData(this.form, { flatten: true })
       const user = this.user(this.name)
       const data = {}
-
+      if (!Object.prototype.hasOwnProperty.call(formData, 'mailbox_quota')) {
+        formData.mailbox_quota = ''
+      }
       for (const key of ['mail_aliases', 'mail_forward']) {
         const dashedKey = key.replace('_', '-')
         const newKey = key.replace('_', '').replace('es', '')
@@ -280,9 +284,9 @@ export default {
 
       for (const key in formData) {
         if (key === 'mailbox_quota') {
-          const quota = parseInt(formData[key]) !== 0 ? formData[key] + 'M' : 'No quota'
-          if (quota !== user['mailbox-quota'].limit) {
-            data[key] = quota === 'No quota' ? 0 : quota
+          const quota = parseInt(formData[key]) > 0 ? formData[key] + 'M' : 'No quota'
+          if (parseInt(quota) !== parseInt(user['mailbox-quota'].limit)) {
+            data[key] = quota === 'No quota' ? '0' : quota
           }
         } else if (!key.includes('mail_') && formData[key] !== user[key]) {
           data[key] = formData[key]
