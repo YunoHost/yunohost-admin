@@ -104,8 +104,8 @@
         "githubLink": "网址必须是指向存储库的有效Github链接",
         "emailForward": "无效的电子邮件转发：只能为字母数字和<code> _.- +</code>（例如，someone + tag @ example.com，s0me-1 + tag @ example.com）",
         "email": "无效的电子邮件：只能为字母数字和<code>_.-</code>字符（例如，someone @ example.com，s0me-1 @ example.com）",
-        "domain": "",
-        "dynDomain": "",
+        "domain": "无效的域名：必须为小写字母数字，点和破折号",
+        "dynDomain": "无效的域名：只能为小写字母数字和破折号",
         "between": "值必须介于{min}和{max}之间。",
         "alphalownum_": "值必须为小写字母数字和下划线字符。",
         "alpha": "值必须是按字母顺序排列的字符。"
@@ -235,7 +235,8 @@
         "APINotRespondingError": "YunoHost API没有响应",
         "APIInternalError": "YunoHost遇到内部错误",
         "APIBadRequestError": "YunoHost遇到错误",
-        "APIError": "YunoHost遇到意外错误"
+        "APIError": "YunoHost遇到意外错误",
+        "APINotFoundError": "YunoHost API找不到路径"
     },
     "api_error": {
         "server_said": "在处理该行动时的服务器反馈:",
@@ -260,7 +261,11 @@
         "groups": "没有群组 | 群组 | {c} 群组",
         "domains": "没有网域 | 域名 | {c}个域",
         "backups": "没有备份 | 备份 | {c}备份",
-        "apps": "没有应用 | 应用 | {c}个应用"
+        "apps": "没有应用 | 应用 | {c}个应用",
+        "users": "没有用户 | 用户 | {c}个用户",
+        "services": "没有服务 | 服务 | {c}服务",
+        "permissions": "没有权限 | 权限 | {c}权限",
+        "logs": "没有日志 | 日志 | {c}个日志"
     },
     "issues": "{count}个问题",
     "label_for_manifestname": "{name}的标签",
@@ -514,5 +519,18 @@
     "confirm_update_specific_app": "您确定要更新{app}吗？",
     "confirm_update_system": "您确定要更新所有系统软件包吗？",
     "confirm_update_apps": "您确定要更新所有应用程序吗？",
-    "confirm_uninstall": "您确定要卸载{name}吗？"
+    "confirm_uninstall": "您确定要卸载{name}吗？",
+    "placeholder": {
+        "lastname": "张",
+        "firstname": "三",
+        "domain": "my-domain.com",
+        "groupname": "我的群组名称",
+        "username": "张三"
+    },
+    "perform": "执行",
+    "items_verbose_items_left": "剩下 {items}。",
+    "items_verbose_count": "有 {items}。",
+    "hook_data_xmpp_desc": "空间和用户配置，文件上传",
+    "confirm_group_add_access_permission": "您确定要授予{perm}对{name}的访问权限吗？ 如果{name}恰好是恶意者，则这种访问会大大增加攻击面。 仅当您信任此人/组时，才应这样做。",
+    "app_state_working_explanation": "此应用程序的维护者宣布它为“有效”。这意味着它应该是可用的（请参阅应用程序级别），但不一定经过同行审查，它可能仍然包含问题或未与YunoHost完全集成。"
 }
