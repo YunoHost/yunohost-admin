@@ -521,11 +521,11 @@
     "confirm_update_apps": "您确定要更新所有应用程序吗？",
     "confirm_uninstall": "您确定要卸载{name}吗？",
     "placeholder": {
-        "lastname": "张",
-        "firstname": "三",
+        "lastname": "Doe",
+        "firstname": "John",
         "domain": "my-domain.com",
         "groupname": "我的群组名称",
-        "username": "张三"
+        "username": "johndoe"
     },
     "perform": "执行",
     "items_verbose_items_left": "剩下 {items}。",
