@@ -311,5 +311,124 @@
     "password_confirmation": "Confirmación do contrasinal",
     "operation_failed_explanation": "A operación fallou! Lamentámolo :( Podes intentar <a href='https://yunohost.org/help'>pedir axuda</a>. Proporciona o *rexistro completo* da operación ás persoas que che axuden. Podes facelo premendo no botón verde 'Compartir con Yunopaste'. Ao compartir o rexistro, YunoHost intentará de xeito automático eliminar e anonimizar datos privados como nomes de dominio e IPs.",
     "others": "Outras",
-    "orphaned_details": "Esta app non ten mantemento desde hai tempo. Aínda podería funcionar, pero non recibirá melloras ata que algunha persoa voluntaria se ocupe dela. Anímate a colaborar e revivila!"
+    "orphaned_details": "Esta app non ten mantemento desde hai tempo. Aínda podería funcionar, pero non recibirá melloras ata que algunha persoa voluntaria se ocupe dela. Anímate a colaborar e revivila!",
+    "system_packages_nothing": "Tódolos paquetes do sistema están ao día!",
+    "system_apps_nothing": "Tódalas apps están ao día!",
+    "system": "Sistema",
+    "stop": "Deter",
+    "status": "Estado",
+    "start": "Iniciar",
+    "skip": "Omitir",
+    "since": "desde",
+    "size": "Tamaño",
+    "set_default": "Establecer por defecto",
+    "services": "Servizos",
+    "service_start_on_boot": "Executar no inicio",
+    "select_none": "Elexir ningún",
+    "select_all": "Elexir todo",
+    "search": {
+        "not_found": "Hai {items} que cumpren o teu criterio.",
+        "for": "Buscar {items}..."
+    },
+    "save": "Gardar",
+    "running": "Executando",
+    "run": "Executar",
+    "human_routes": {
+        "users": {
+            "update": "Actualizar usuaria '{name}'",
+            "delete": "Eliminar usuaria '{user}'",
+            "create": "Crear usuaria '{user}'"
+        },
+        "upgrade": {
+            "app": "Actualizar a app '{app}'",
+            "apps": "Actualizar tódalas apps",
+            "system": "Actualizar o sistema"
+        },
+        "update": "Comprobar actualizacións",
+        "shutdown": "Apagar o servidor",
+        "share_logs": "Crear ligazón para o rexistro '{name}'",
+        "services": {
+            "stop": "Deter o servizo '{name}'",
+            "start": "Iniciar o servizo '{name}'",
+            "restart": "Reiniciar o servizo '{name}'"
+        },
+        "reboot": "Reiniciar o servidor",
+        "postinstall": "Executar a post-instalación",
+        "permissions": {
+            "remove": "Retirarlle a '{name}' o acceso a '{perm}'",
+            "add": "Permitirlle a '{name}' acceso a '{perm}'"
+        },
+        "migrations": {
+            "skip": "Omitir migracións",
+            "run": "Realizar migracións"
+        },
+        "groups": {
+            "remove": "Eliminar a '{user]' do grupo '{name}'",
+            "add": "Engadir '{user}' ao grupo '{name}'",
+            "delete": "Eliminar grupo '{name}'",
+            "create": "Crear grupo '{name}'"
+        },
+        "firewall": {
+            "upnp": "{action} UPnP",
+            "ports": "{action} porto {port} ({protocol}, {connection})"
+        },
+        "domains": {
+            "set_default": "Establecer '{name}' como dominio por defecto",
+            "revert_to_selfsigned": "Volver a certificado auto-asinado anterior para '{name}'",
+            "regen_selfsigned": "Renovar certificado auto-asinado para '{name}'",
+            "manual_renew_LE": "Renovar certificado para '{name}'",
+            "install_LE": "Instalar certificado para '{name}'",
+            "delete": "Eliminar dominio '{name}'",
+            "add": "Engadir dominio '{name}'"
+        },
+        "diagnosis": {
+            "unignore": {
+                "warning": "Non ignorar aviso",
+                "error": "Non ignorar erro"
+            },
+            "run_specific": "Realizar diagnóstico '{description}'",
+            "run": "Realizar diagnóstico",
+            "ignore": {
+                "warning": "Ignorar un aviso",
+                "error": "Ignorar un erro"
+            }
+        },
+        "backups": {
+            "restore": "Restaurar copia de apoio '{name}'",
+            "delete": "Eliminar copia de apoio '{name}'",
+            "create": "Crear copia de apoio"
+        },
+        "apps": {
+            "update_config": "Actualizar configuración da app '{name}'",
+            "uninstall": "Desinstalar app '{name}'",
+            "perform_action": "Realizar acción '{action}' da app '{name}'",
+            "set_default": "Redirixir raiz do dominio '{domain}' a '{name}'",
+            "install": "Intalar app '{name}'",
+            "change_url": "Cambiar url de acceso a '{name}'",
+            "change_label": "Cambiar etiqueta de '{prevName}' a '{nextName}'"
+        },
+        "adminpw": "Cambiar contrasinal admin"
+    },
+    "restart": "Reiniciar",
+    "restore": "Restaurar",
+    "rerun_diagnosis": "Volver a executar diagnóstico",
+    "readme": "Información",
+    "protocol": "Protocolo",
+    "previous": "Anterior",
+    "postinstall_set_password": "Establecer contrasinal de administración",
+    "postinstall_set_domain": "Establecer nome de dominio principal",
+    "postinstall_password": "Este contrasinal utilizarase para xestionar todo no teu servidor. Pon coidado en elexir o axeitado.",
+    "postinstall_intro_3": "Podes ler máis información se visitas a <a href='//yunohost.org/en/install/hardware:vps_debian#fa-cog-proceed-with-the-initial-configuration' target='_blank'>páxina coa documentación relativa</a>",
+    "postinstall_intro_2": "Requírense un par de pasos máis para activar os servizos do teu servidor.",
+    "postinstall_intro_1": "Parabéns! YunoHost instalouse correctamente.",
+    "postinstall_domain": "Este é o primeiro nome de dominio ligado ao teu servidor YunoHost, pero tamén o que utilizarán as usuarias para acceder ao portal de autenticación. Por isto, será visible para todo o mundo, así que elíxeo con coidado.",
+    "postinstall": {
+        "force": "Forzar a post-instalación"
+    },
+    "ports": "Portos",
+    "port": "Porto",
+    "permission_main": "Etiqueta principal",
+    "permission_corresponding_url": "URL correspondente",
+    "pending_migrations": "Hai algunha migración pendente agardando a ser executada. Vai a <a href='#/tools/migrations'>Ferramentas > Migracións</a> para velas e executalas.",
+    "logs_more": "Mostrar máis liñas"
 }
