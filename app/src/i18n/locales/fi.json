@@ -1,0 +1,63 @@
+{
+    "app_state_inprogress": "ei vielä toimi",
+    "app_show_categories": "Näytä kategoriat",
+    "app_no_actions": "Tällä sovelluksella ei ole mitään toimintoja",
+    "app_make_default": "Laita oletusarvoksi",
+    "app_manage_label_and_tiles": "Hallitse lappuja ja ruutuja",
+    "app_install_parameters": "Asenna asetukset",
+    "app_install_custom_no_manifest": "manifest.json tiedostoa ei löytynyt",
+    "app_info_uninstall_desc": "Poista tämä sovellus.",
+    "app_info_change_url_disabled_tooltip": "Tätä ominaisuutta ei ole vielä toteutettu tässä sovelluksessa",
+    "app_info_changeurl_desc": "Muuta tämän sovelluksen käyttö-URL-osoitetta (verkkotunnus ja/tai polku).",
+    "app_info_default_desc": "Uudelleen ohjaa verkkotunnuksen juuri tähän sovellukseen ({domain}).",
+    "app_info_access_desc": "Ryhmät / käyttäjät jolla on oikeus tähän sovellukseen:",
+    "app_config_panel_no_panel": "Tällä sovelluksella ei ole mitään konfigurointia saatavilla",
+    "app_config_panel_label": "Konfiguroi tämä sovellus",
+    "app_config_panel": "Konfigurointi paneeli",
+    "app_choose_category": "Valitse kategoria",
+    "app_actions_label": "Suorita toimia",
+    "app_actions": "Toiminnot",
+    "api_waiting": "Odotetaan palvelimen vastausta...",
+    "api_not_responding": "YunoHost API ei vastaa. Ehkä 'yunohost-api' on kaatunut tai käynnsityi uudelleen?",
+    "api_not_found": "Näyttää siltä, että web-järjestelmänvalvoja yritti kysyä jotain, jota ei ole olemassa.",
+    "all_apps": "Kaikki sovellukset",
+    "api_errors_titles": {
+        "APIConnexionError": "YunoHost kohtasi yhteysvirheen",
+        "APINotRespondingError": "YunoHost API ei vastaa",
+        "APINotFoundError": "YunoHost API ei löytänyt reittiä",
+        "APIInternalError": "YunoHost kohtasi sisäisen virheen",
+        "APIBadRequestError": "YunoHost kohtasi virheen",
+        "APIError": "YunoHost kohtasi odottamattoman virheen"
+    },
+    "api_error": {
+        "view_error": "Näytä virhe",
+        "sorry": "Suokaa anteeksi.",
+        "server_said": "Toimenpiteen käsittelyn aikana palvelin sanoi:",
+        "info": "Nämä tiedot voivat olla hyödyllisiä sinua autavalle henkilölle:",
+        "help": "Sinun kannattaisi hakea apua <a href=\"https://forum.yunohost.org/\">foorumilla</a> or <a href=\"https://chat.yunohost.org/\">chätissä</a> tämän ongelman korjaamiseksi, tai raportoida bugi <a href=\"https://github.com/YunoHost/issues\">bugtrackerissa</a>.",
+        "error_message": "Virhe viesti:"
+    },
+    "api": {
+        "query_status": {
+            "warning": "Onnistui virheillä tai hälytyksillä",
+            "success": "Onnistuneesti suoritettu",
+            "pending": "Käynnissä",
+            "error": "Epäonnistui"
+        },
+        "processing": "Palvelin käsittelee toimintoa."
+    },
+    "all": "Kaikki",
+    "administration_password": "Järjestelmänvalvojan salasana",
+    "address": {
+        "local_part_description": {
+            "email": "Valitse sähköpostiosoitteesi paikallinen osa.",
+            "domain": "Valitse aliverkkotunnus."
+        },
+        "domain_description": {
+            "email": "Valitse verkkotunnus sähköpostillesi.",
+            "domain": "Valitse verkkotunnus."
+        }
+    },
+    "add": "Lisää",
+    "action": "Toiminta"
+}
