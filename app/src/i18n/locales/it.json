@@ -171,7 +171,7 @@
     "confirm_upnp_disable": "Sei sicuro di voler disabilitare UPnP?",
     "confirm_reboot_action_reboot": "Sei sicuro di voler riavviare il tuo server?",
     "confirm_reboot_action_shutdown": "Sei sicuro di voler spegnere il tuo server?",
-    "domain_dns_conf_is_just_a_recommendation": "Questa pagina ti mostra la configurazione *raccomandata*. *Non* configura il DNS per te. Configurare le tue zone DNS e il registrar DNS in accordo con queste raccomandazioni è compito tuo.",
+    "domain_dns_conf_is_just_a_recommendation": "Questa pagina ti mostra la configurazione *raccomandata*. *Non* configura il DNS per te. Configurare le tue zone DNS nel registrar DNS in accordo con queste raccomandazioni è compito tuo.",
     "migrations": "Migrazioni",
     "migrations_pending": "Migrazioni in attesa",
     "migrations_done": "Migrazioni precedenti",
