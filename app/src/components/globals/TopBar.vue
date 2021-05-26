@@ -89,6 +89,9 @@ export default {
 
     ::v-deep .btn {
       margin-left: .5rem;
+      &.dropdown-toggle-split {
+        margin-left: 0;
+      }
     }
   }
 }

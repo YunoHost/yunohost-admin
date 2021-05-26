@@ -38,8 +38,8 @@ import { openWebSocket, getResponseData, handleError } from './handlers'
  * @param {Boolean} [options.addLocale=false] - Option to append the locale to the query string.
  * @return {URLSearchParams}
  */
-export function objectToParams (obj, { addLocale = false } = {}) {
-  const urlParams = new URLSearchParams()
+export function objectToParams (obj, { addLocale = false } = {}, formData = false) {
+  const urlParams = (formData) ? new FormData() : new URLSearchParams()
   for (const [key, value] of Object.entries(obj)) {
     if (Array.isArray(value)) {
       value.forEach(v => urlParams.append(key, v))
@@ -96,7 +96,7 @@ export default {
     if (method === 'GET') {
       uri += `${uri.includes('?') ? '&' : '?'}locale=${store.getters.locale}`
     } else {
-      options = { ...options, method, body: objectToParams(data, { addLocale: true }) }
+      options = { ...options, method, body: objectToParams(data, { addLocale: true }, true) }
     }
 
     const response = await fetch('/yunohost/api/' + uri, options)

@@ -146,6 +146,16 @@ export default {
       return api.fetch('DELETE', param ? `${uri}/${param}` : uri, data, humanKey, options).then(() => {
         commit('DEL_' + storeKey.toUpperCase(), [param, extraParams].filter(item => !isEmptyValue(item)))
       })
+    },
+
+    'RESET_CACHE_DATA' ({ state }, keys = Object.keys(state)) {
+      for (const key of keys) {
+        if (key === 'users_details') {
+          state[key] = {}
+        } else {
+          state[key] = undefined
+        }
+      }
     }
   },
 
