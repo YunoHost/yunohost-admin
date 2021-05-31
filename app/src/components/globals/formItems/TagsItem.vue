@@ -1,32 +1,32 @@
 <template>
-  <b-input
-    :value="value"
+  <b-form-tags
+    v-model="tags"
     :id="id"
-    v-on="$listeners"
     :placeholder="placeholder"
-    :type="type"
-    :state="state"
     :required="required"
-    :min="min"
-    :max="max"
+    :state="state"
+    v-on="$listeners"
     @blur="$parent.$emit('touch', name)"
   />
 </template>
 
 <script>
 export default {
-  name: 'InputItem',
+  name: 'TagsItem',
 
+  data () {
+    return {
+      tags: null
+    }
+  },
   props: {
-    value: { type: [String, Number], default: null },
+    value: { type: Array, default: null },
     id: { type: String, default: null },
     placeholder: { type: String, default: null },
-    type: { type: String, default: 'text' },
     required: { type: Boolean, default: false },
     state: { type: Boolean, default: null },
-    min: { type: Number, default: null },
-    max: { type: Number, default: null },
     name: { type: String, default: null }
   }
 }
 </script>
+

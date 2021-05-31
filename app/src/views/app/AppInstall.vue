@@ -23,10 +23,6 @@
         :validation="$v" :server-error="serverError"
         @submit.prevent="performInstall"
       >
-        <template v-if="formDisclaimer" #disclaimer>
-          <div class="alert alert-info" v-html="formDisclaimer" />
-        </template>
-
         <form-field
           v-for="(field, fname) in fields" :key="fname" label-cols="0"
           v-bind="field" v-model="form[fname]" :validation="$v.form[fname]"
@@ -94,12 +90,11 @@ export default {
       manifest.multi_instance = this.$i18n.t(manifest.multi_instance ? 'yes' : 'no')
       this.infos = Object.fromEntries(infosKeys.map(key => [key, manifest[key]]))
 
-      const { form, fields, validations, disclaimer } = formatYunoHostArguments(
+      const { form, fields, validations } = formatYunoHostArguments(
         manifest.arguments.install,
         manifest.name
       )
 
-      this.formDisclaimer = disclaimer
       this.fields = fields
       this.form = form
       this.validations = { form: validations }
