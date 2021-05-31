@@ -54,7 +54,7 @@ module.exports = {
   },
   publicPath: '/yunohost/admin',
   devServer: {
-    https: true,
+    https: false,
     disableHostCheck: true,
     proxy: {
       '^/yunohost': {

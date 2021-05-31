@@ -26,11 +26,11 @@
 
     <template #description>
       <!-- Render description -->
-      <template v-if="description || example || link">
+      <template v-if="description || link">
         <div class="d-flex">
-          <span v-if="example">{{ $t('form_input_example', { example }) }}</span>
-
-          <b-link v-if="link" :to="link" class="ml-auto">
+          <b-link v-if="link" :to="link" :href="link.href"
+                  class="ml-auto"
+          >
             {{ link.text }}
           </b-link>
         </div>
@@ -57,7 +57,6 @@ export default {
     id: { type: String, default: null },
     description: { type: String, default: null },
     descriptionVariant: { type: String, default: null },
-    example: { type: String, default: null },
     link: { type: Object, default: null },
     // Rendered field component props
     component: { type: String, default: 'InputItem' },
