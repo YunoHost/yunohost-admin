@@ -201,12 +201,12 @@ export default {
       )
       if (!confirmed) return
 
-      const data = { apps: [], system: [], force: '' }
+      const data = { 'apps[]': [], 'system[]': [], force: '' }
       for (const item of this.selected) {
         if (item in this.system) {
-          data.system = [...data.system, ...this.system[item].value]
+          data['system[]'] = [...data['system[]'], ...this.system[item].value]
         } else {
-          data.apps.push(item)
+          data['apps[]'].push(item)
         }
       }
 
