@@ -155,7 +155,7 @@ export default {
     },
 
     createBackup () {
-      const data = { apps: [], system: [] }
+      const data = { 'apps[]': [], 'system[]': [] }
       for (const item of this.selected) {
         if (item in this.system) {
           data.system = [...data.system, ...this.system[item].value]
