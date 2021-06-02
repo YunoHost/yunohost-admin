@@ -273,13 +273,17 @@ export default {
       if (!Object.prototype.hasOwnProperty.call(formData, 'mailbox_quota')) {
         formData.mailbox_quota = ''
       }
+      if (Object.prototype.hasOwnProperty.call(formData, 'password')) {
+        formData['change-password'] = formData.password
+      }
+
       for (const key of ['mail_aliases', 'mail_forward']) {
         const dashedKey = key.replace('_', '-')
         const newKey = key.replace('_', '').replace('es', '')
         const addDiff = arrayDiff(formData[key], user[dashedKey])
         const rmDiff = arrayDiff(user[dashedKey], formData[key])
-        if (addDiff.length) data['add_' + newKey] = addDiff
-        if (rmDiff.length) data['remove_' + newKey] = rmDiff
+        if (addDiff.length) data['add_' + newKey + '[]'] = addDiff
+        if (rmDiff.length) data['remove_' + newKey + '[]'] = rmDiff
       }
 
       for (const key in formData) {
