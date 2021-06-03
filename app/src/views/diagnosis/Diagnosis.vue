@@ -183,14 +183,11 @@ export default {
     },
 
     toggleIgnoreIssue (action, report, item) {
-      const filterArgs = [report.id].concat(Object.entries(item.meta).reduce((filterArgs, entries) => {
-        filterArgs.push(entries.join('='))
-        return filterArgs
-      }))
+      const filterArgs = [report.id].concat(Object.entries(item.meta).map(entries => entries.join('=')))
 
       api.put(
         'diagnosis/' + action,
-        { 'filter[]': filterArgs },
+        { filter: filterArgs },
         `diagnosis.${action}.${item.status.toLowerCase()}`
       ).then(() => {
         item.ignored = action === 'ignore'
