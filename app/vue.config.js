@@ -54,11 +54,11 @@ module.exports = {
   },
   publicPath: '/yunohost/admin',
   devServer: {
-    https: true,
+    https: false,
     disableHostCheck: true,
     proxy: {
       '^/yunohost': {
-        target: `https://${process.env.VUE_APP_IP}`,
+        target: `http://${process.env.VUE_APP_IP}`,
         ws: true,
         logLevel: 'debug'
       }
