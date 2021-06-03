@@ -1,3 +1,12 @@
+yunohost-admin (4.2.3.2) stable; urgency=low
+
+  - [fix] Re-fix multiple stuff about diagnosis, user edit view, migration view, backup (e58bfae, 955c774, 37e58f5)
+  - [fix] Small issues during dev (522a8e6, 9e32ae4)
+
+  Thanks to all contributors <3 ! (ljf)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Thu, 03 Jun 2021 18:34:31 +0200
+
 yunohost-admin (4.2.3.1) stable; urgency=low
 
   - [fix] user: alias and password change not working ([#368](https://github.com/YunoHost/yunohost-admin/pull/368))
