@@ -480,5 +480,20 @@
     "logs_error": "Chyba",
     "logout": "Odhlásit se",
     "login": "Přihlásit se",
-    "good_practices_about_user_password": "Nyní zvolte nové heslo uživatele. Heslo by mělo být minimálně 8 znaků dlouhé, avšak je dobrou taktikou jej mít delší (např. použít více slov) a použít kombinaci znaků (velké, malé, čísla a speciální znaky)."
+    "good_practices_about_user_password": "Nyní zvolte nové heslo uživatele. Heslo by mělo být minimálně 8 znaků dlouhé, avšak je dobrou taktikou jej mít delší (např. použít více slov) a použít kombinaci znaků (velké, malé, čísla a speciální znaky).",
+    "user_username": "Uživatelské jméno",
+    "user_new_forward": "adresa-pro-presmerovani@jina-domena.cz",
+    "user_mailbox_use": "Zabrané místo emailové schránky",
+    "user_mailbox_quota": "Kvóta emailové schránky",
+    "user_interface_link": "Uživatelské rozhraní",
+    "user_fullname": "Celé jméno",
+    "user_emailforward_add": "Přidat email k přesměrování",
+    "user_emailforward": "Přesměrovaní emailu",
+    "user_emailaliases_add": "Přidat emailový alias",
+    "user_emailaliases": "Emailové aliasy",
+    "user_email": "Email",
+    "url": "URL",
+    "upnp_enabled": "UPnP je povoleno.",
+    "upnp_disabled": "UPnP je zákázáno.",
+    "upnp": "UPnP"
 }
