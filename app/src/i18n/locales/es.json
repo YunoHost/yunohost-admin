@@ -217,7 +217,7 @@
     "only_decent_quality_apps": "Solo aplicaciones de calidad aceptable",
     "orphaned": "No mantenido",
     "app_state_inprogress_explanation": "El mantenedor de esta aplicación declara que aún no está lista para su uso en producción. ¡TENGA CUIDADO!",
-    "app_state_highquality_explanation": "Esta aplicación está bien integrada en YunoHost. Ha sido (¡y continúa siendo!) revisada por especialistas del equipo de aplicaciones de YunoHost. Se puede esperar que sea segura y mantenida a largo plazo.",
+    "app_state_highquality_explanation": "Esta aplicación está bien integrada en YunoHost desde al menos un año.",
     "app_state_working_explanation": "El mantenedor de esta aplicación declara que «funciona». Significa que debería ser funcional (comparada a nivel de aplicación) pero no está revisada por especialistas necesariamente, puede tener aún problemas o no está totalmente integrada en YunoHost.",
     "orphaned_details": "Esta aplicación no se ha mantenido durante bastante tiempo. Todavía puede estar funcionando, pero no recibirá ninguna actualización hasta que alguien se ofrezca como voluntario para encargarse de ello. ¡Siéntase libre de contribuir para revivirlo!",
     "tools_rebooting": "Su servidor se está reiniciando. Para volver a la interfaz de administración web necesita esperar a que el servidor esté listo. Puede comprobarlo recargando esta página (F5).",
@@ -342,5 +342,37 @@
             "email": "Elige un dominio para tu email.",
             "domain": "Elige un dominio."
         }
-    }
+    },
+    "form_errors": {
+        "domain": "Nombre de dominio inválido: debe ser alfanumérico en minúsculas, solo caracteres de puntos y guiones",
+        "between": "El valor debe estar entre {min} y {max}.",
+        "alphalownum_": "El valor debe ser alfanumérico en minúsculas y solo caracteres subrayados.",
+        "alpha": "El valor debe ser solo caracteres alfabéticos."
+    },
+    "footer": {
+        "donate": "Donar",
+        "help": "¿Necesitas ayuda?",
+        "documentation": "Documentación"
+    },
+    "experimental": "Experimental",
+    "error": "Error",
+    "enabled": "Habilitado",
+    "disabled": "Deshabilitado",
+    "dead": "Inactivo",
+    "day_validity": " Expirado hace | 1 día | {count} días",
+    "confirm_app_install": "¿Estás seguro de que deseas instalar esta aplicación?",
+    "common": {
+        "lastname": "Apellido",
+        "firstname": "Nombre"
+    },
+    "code": "Código",
+    "app_show_categories": "Mostrar categorías",
+    "app_install_parameters": "Instalar la configuración",
+    "app_config_panel_no_panel": "Esta aplicación no tiene ninguna configuración disponible",
+    "app_config_panel_label": "Configura esta app",
+    "app_config_panel": "Panel de configuración",
+    "app_choose_category": "Elige una categoría",
+    "app_actions_label": "Realizar acciones",
+    "app_actions": "Acciones",
+    "api_waiting": "Esperando la respuesta del servidor..."
 }
