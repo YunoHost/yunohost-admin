@@ -61,7 +61,7 @@
 
           <template v-if="perm.url" #description>
             {{ $t('permission_corresponding_url') }}:
-            <b-link :href="'https:' + perm.url">
+            <b-link :href="'https://' + perm.url">
               https://{{ perm.url }}
             </b-link>
           </template>
