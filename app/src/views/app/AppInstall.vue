@@ -114,7 +114,7 @@ export default {
       }
 
       const { data: args, label } = formatFormData(this.form, { extract: ['label'] })
-      const data = { app: this.id, label, args: objectToParams(args) }
+      const data = { app: this.id, label, args: Object.entries(args).length ? objectToParams(args) : undefined }
 
       api.post('apps', data, { key: 'apps.install', name: this.name }).then(() => {
         this.$router.push({ name: 'app-list' })
