@@ -48,7 +48,7 @@ export default {
   data () {
     return {
       queries: [
-        ['GET', { uri: 'users' }]
+        ['GET', { uri: 'users?fields=username&fields=fullname&fields=mail&fields=mailbox-quota&fields=shell&fields=groups' }]
       ],
       search: ''
     }
@@ -61,7 +61,7 @@ export default {
       if (!this.users) return
       const search = this.search.toLowerCase()
       const filtered = this.users.filter(user => {
-        return user.username.toLowerCase().includes(search)
+        return user.username.toLowerCase().includes(search) || user.groups.includes(search)
       })
       return filtered.length === 0 ? null : filtered
     }
