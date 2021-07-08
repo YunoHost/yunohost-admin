@@ -55,7 +55,7 @@
     "manage_apps": "Gerenciar aplicações",
     "manage_domains": "Gerir domínios",
     "manage_users": "Gerir utilizadores",
-    "multi_instance": "Multi tarefas",
+    "multi_instance": "Pode ser instalado várias vezes",
     "myserver": "meuservidor",
     "next": "Seguinte",
     "no": "Não",
@@ -111,7 +111,8 @@
     "users_new": "Novo utilizador",
     "users_no": "Não existem utilizadores.",
     "words": {
-        "default": "Pré-definido"
+        "default": "Pré-definido",
+        "collapse": "Colapsar"
     },
     "wrong_password": "Senha errada",
     "yes": "Sim",
@@ -243,7 +244,7 @@
         "minValue": "Valor deve ser um número maior ou igual a {min}.",
         "name": "Nomes não podem incluir caracteres especiais exceto <code>,.'</code>",
         "githubLink": "A url deve ser um repositório Github válido",
-        "emailForward": "",
+        "emailForward": "Encaminhamento de email inválido: deve ser composto somente de caracteres alfanuméricos e <code>_.-+</code> (e.g. alguem@exemplo.com, 4algu-3m@exemplo.com)",
         "email": "Email inválido: deve ser composto somente por caracteres alfanuméricos e <code>_.</code> (e.g. alguem@exemplo.com, 4algu-3m@exemplo.com)",
         "dynDomain": "Nome de domínio inválido: Deve ser composto somente por caracteres alfanuméricos e traço",
         "domain": "Nome de domínio inválido: Deve ser composto somente por caracteres alfanuméricos minúsculos, ponto e traço",
@@ -323,5 +324,214 @@
             "email": "Escolha um domínio para seu email.",
             "domain": "Escolha um domínio."
         }
-    }
+    },
+    "purge_user_data_warning": "A eliminação dos dados do usuário não é reversível. Esteja certo de que você sabe o que está fazendo!",
+    "purge_user_data_checkbox": "Eliminar os dados de {name}? (Isso irá remover o conteúdo de seus diretórios home e email)",
+    "revert_to_selfsigned_cert": "Reverter a um certificado auto assinado",
+    "revert_to_selfsigned_cert_message": "Se você realmente desejar, você pode reinstalar um certificado auto assinado (Não recomendado)",
+    "regenerate_selfsigned_cert": "Regenerar certificado auto assinado",
+    "regenerate_selfsigned_cert_message": "Se quiser, você pode regenerar o certificado auto assinado.",
+    "manually_renew_letsencrypt": "Renovar manualmente agora",
+    "manually_renew_letsencrypt_message": "O certificado será automaticamente renovado durante os últimos 15 dias de validade. Você pode renová-lo manualmente se quiser. (Não recomendado).",
+    "install_letsencrypt_cert": "Instalar um certificado Let's Encrypt",
+    "domain_is_eligible_for_ACME": "Esse domínio parece estar corretamente configurado para instalar um certificado do Let's Encrypt!",
+    "domain_not_eligible_for_ACME": "Esse domínio não parece pronto para um certificado Let's Encrypt. Por favor cheque suas configurações de DNS e acessibilidade do servidor HTTP. A seção de 'Registros DNS' e 'Web' na <a href='#/diagnosis'>página de diagnósticos</a> pode te ajudar a entender o que está configurado errado.",
+    "validity": "Validade",
+    "certificate_authority": "Autoridade do certificado",
+    "certificate_status": "Status do certificado",
+    "certificate": "Certificado",
+    "confirm_cert_revert_to_selfsigned": "Tem certeza que quer reverter esse domínio para um certificado auto assinado?",
+    "confirm_cert_manual_renew_LE": "Tem certeza que você quer manualmente renovar um certificado Let's Encrypt para esse domínio agora?",
+    "confirm_cert_regen_selfsigned": "Tem certeza que quer regenerar um certificado auto assinado para esse domínio?",
+    "confirm_cert_install_LE": "Tem certeza que quer instalar um certificado Let's Encrypt para esse domínio?",
+    "ssl_certificate": "Certificado SSL",
+    "certificate_manage": "Gerenciar certificado SSL",
+    "certificate_alert_unknown": "Status desconhecido",
+    "certificate_alert_great": "Ótimo! Você está usando um certificado Let's Encrypt válido!",
+    "certificate_alert_good": "Ok, está tudo certo com o certificado atual!",
+    "certificate_alert_about_to_expire": "ATENÇÃO: O certificado atual está a ponto de expirar! Ele NÃO será renovado automaticamente!",
+    "certificate_alert_letsencrypt_about_to_expire": "O certificado atual está a ponto de expirar. Deve ser renovado automaticamente em breve.",
+    "certificate_alert_selfsigned": "ATENÇÃO: O certificado atual é auto assinado. Navegadores irão mostrar uma aviso de cautela à novos visitantes!",
+    "certificate_alert_not_valid": "CRÍTICO: O certificado atual não é válido! HTTPS não funcionará!",
+    "warnings": "{count} avisos",
+    "version": "Versão",
+    "user_mailbox_use": "Espaço utilizado",
+    "user_mailbox_quota": "Quota de armazenamento de email",
+    "user_interface_link": "Interface de usuário",
+    "tip_about_user_email": "Os usuários são criados com um endereço de email associado (uma conta XMPP) com o formato usuario@domain.tld. Endereços de emails adicionais e redirecionamentos de email podem ser adicionados mais tarde pelo usuário ou pelo administrador.",
+    "user_emailforward_add": "Adicionar um redirecionamento de email",
+    "user_emailaliases_add": "Adicionar uma alias de email",
+    "unmaintained_details": "Esse app não tem sido atualizado por bastante tempo e o último responsável por ele ou foi embora ou não tem mais tempo para manter esse app. Sinta-se livre para checar o repositório do app para oferecer sua ajuda",
+    "unmaintained": "Sem manutenção",
+    "unknown": "Desconhecido",
+    "unignore": "Não ignorar mais",
+    "traceback": "Traceback",
+    "tools_webadmin_settings": "Configurações do Web-admin",
+    "tools_webadmin": {
+        "transitions": "Animações de transição das páginas",
+        "experimental_description": "Te dá acesso a funcionalidades experimentais. São consideradas instáveis e podem quebrar seu sistema. <br> Habilite isso apenas se você souber o que estiver fazendo.",
+        "experimental": "Modo experimental",
+        "cache_description": "Considere desabilitar o cache se você pretende usar a CLI enquanto navega nessa interface de web-admin.",
+        "cache": "Cache",
+        "fallback_language_description": "Linguagem que será usado caso a tradução não esteja disponível para a linguagem principal.",
+        "fallback_language": "Linguagem substituta",
+        "language": "Língua"
+    },
+    "tools_shutdown_reboot": "Desligar/Reiniciar",
+    "tools_shuttingdown": "Seu servidor está sendo desligado. Enquanto ele estiver desligado, você não conseguirá usar a interface de administração.",
+    "tools_shutdown_done": "Desligando...",
+    "tools_shutdown_btn": "Desligar",
+    "tools_shutdown": "Desligar seu servidor",
+    "tools_rebooting": "Seu servidor está reiniciando. Para retornar à interface de administração você precisa esperar que seu serve fique disponível. Você pode esperar para que o formulário de login apareça ou checar se já está disponível atualizando essa página (F5).",
+    "tools_reboot_done": "Reiniciando...",
+    "tools_reboot_btn": "Reiniciar",
+    "tools_reboot": "Reiniciar o servidor",
+    "tools_power_up": "Seu servidor pare estar acessível, você pode tentar fazer login agora.",
+    "system_upgrade_all_packages_btn": "Atualizar todos os pacotes",
+    "system_upgrade_all_applications_btn": "Atualizar todas as aplicações",
+    "skip": "Pular",
+    "since": "desde",
+    "select_none": "Selecionar nada",
+    "select_all": "Selecionar tudo",
+    "search": {
+        "not_found": "Existem {items} que correspondem ao seu critério.",
+        "for": "Procurar por {items}..."
+    },
+    "run": "Executar",
+    "human_routes": {
+        "users": {
+            "update": "Atualizar o usuário '{name}'",
+            "delete": "Deletar usuário '{name}'",
+            "create": "Criar usuário '{name}'"
+        },
+        "upgrade": {
+            "app": "Atualizar o app '{app}'",
+            "apps": "Atualizar todos os apps",
+            "system": "Atualizar o sistema"
+        },
+        "update": "Checar por atualizações",
+        "shutdown": "Desligar o servidor",
+        "share_logs": "Gerar link para o log '{name}'",
+        "services": {
+            "stop": "Parar o serviço '{name}'",
+            "start": "Iniciar o serviço '{name}'",
+            "restart": "Reiniciar o serviço '{name}'"
+        },
+        "reboot": "Reiniciar o servidor",
+        "postinstall": "Executar o post-install",
+        "permissions": {
+            "remove": "Remover acesso a '{perm}' de '{name}'",
+            "add": "Permitir '{name}'acessar '{perm}'"
+        },
+        "migrations": {
+            "skip": "Pular migrações",
+            "run": "Executar migrações"
+        },
+        "groups": {
+            "remove": "Remover '{user}' do grupo '{name}'",
+            "add": "Adicionar '{user}' ao grupo '{name}'",
+            "delete": "Remover grupo '{name}'",
+            "create": "Criar grupo '{name}'"
+        },
+        "firewall": {
+            "upnp": "{action} UPnP",
+            "ports": "{action} porta {port} ({protocol}, {connection})"
+        },
+        "domains": {
+            "set_default": "Escolher '{name}' como domínio padrão",
+            "revert_to_selfsigned": "Reverter para certificado auto assinado para '{name}'",
+            "regen_selfsigned": "Renovar certificado auto assinado para '{name}'",
+            "manual_renew_LE": "Renovar certificado para '{name}'",
+            "install_LE": "Instalar certificado para '{name}'",
+            "delete": "Remover domínio '{name}'",
+            "add": "Adicionar domínio '{name}'"
+        },
+        "diagnosis": {
+            "unignore": {
+                "warning": "Não ignorar aviso",
+                "error": "Não ignorar erro"
+            },
+            "run_specific": "Executar diagnóstico '{description}'",
+            "run": "Executar diagnóstico",
+            "ignore": {
+                "warning": "Ignorar aviso",
+                "error": "Ignorar erro"
+            }
+        },
+        "backups": {
+            "restore": "Restaurar backup '{name}'",
+            "delete": "Deletar backup '{name]'",
+            "create": "Criar um backup"
+        },
+        "apps": {
+            "update_config": "Atualizar a configuração do app '{name}'",
+            "uninstall": "Desinstalar o app '{name}'",
+            "perform_action": "Executar ação '{action}' do app '{name}'",
+            "set_default": "Redirecionar domínio root de '{domain}' para '{name}'",
+            "install": "Instalar o app '{name}'",
+            "change_url": "Mudar url de acesso de '{name}'",
+            "change_label": "Mudar label de '{prevName}' para '{nextName}'"
+        },
+        "adminpw": "Mudar senha do administrador"
+    },
+    "restart": "Reiniciar",
+    "rerun_diagnosis": "Reexecutar o diagnóstico",
+    "readme": "Leia-me",
+    "postinstall_set_password": "Escolher a senha do administrador",
+    "postinstall_set_domain": "Escolher domínio principal",
+    "postinstall": {
+        "force": "Forçar o post-install"
+    },
+    "permission_show_tile_enabled": "Mostrar o título no portal do usuário",
+    "permission_main": "Etiqueta principal",
+    "permission_corresponding_url": "URL correspondente",
+    "pending_migrations": "Existem algumas migrações pendentes esperando serem executadas. Por favor vá para <a href='#/tools/migrations'>Ferramentas > Migrações</a> para visualizá-las.",
+    "logs_more": "Exibir mais linhas",
+    "logs_share_with_yunopaste": "Compartilhar com YunoPaste",
+    "logs_context": "Contexto",
+    "logs_path": "Caminho",
+    "logs_started_at": "Início",
+    "logs_ended_at": "Fim",
+    "logs_error": "Erro",
+    "logs_no_logs_registered": "Nenhum log associado a esta categoria",
+    "logs_app": "Logs de aplicações",
+    "logs_service": "Logs de serviço",
+    "logs_access": "Lista de acessos e bans",
+    "logs_system": "Logs do Kernel e outros eventos de baixo nível",
+    "logs_package": "Histórico de gerenciamento de pacotes Debian",
+    "logs_history": "Histórico de comandos executados no sistema",
+    "logs_operation": "Operações feitas no sistema com YunoHost",
+    "logs_suboperations": "Sub-operações",
+    "logs": "Logs",
+    "placeholder": {
+        "domain": "meu-dominio.com",
+        "groupname": "Nome do meu grupo",
+        "lastname": "Silva",
+        "firstname": "Pedro",
+        "username": "pedrosilva"
+    },
+    "perform": "Executar",
+    "operation_failed_explanation": "Essa operação falhou! Sinto muito :( Você pode tentar <a href='https://yunohost.org/help'>pedir por ajuda</a>. Por favor informe *o log completo* da operação para as pessoas que vão te ajudar. Você pode fazer isso clicando no botão verde \"Compartilhar com Yunopaste\". Quando compartilhar os logs, YunoHost irá automaticamente tentar anonimizar dados privados como nome de domínio e IPs.",
+    "others": "Outros",
+    "orphaned_details": "Essa aplicação não está sendo mantida já faz bastante tempo. Ela pode estar funcionando, mas não receberá nenhuma atualização enquanto nenhum voluntário se encarregar dela. Sinta-se livre em contribuir para revivê-la!",
+    "orphaned": "Não mantido",
+    "only_decent_quality_apps": "Somente aplicações de qualidade decente",
+    "only_working_apps": "Somente aplicações que funcionem",
+    "only_highquality_apps": "Somente aplicações de alta qualidade",
+    "nobody": "Ninguém",
+    "migrations_disclaimer_not_checked": "Essa migração requer que você aceite seus termos de uso antes de ser executada.",
+    "migrations_disclaimer_check_message": "Eu li e compreendo os termos de utilização",
+    "migrations_no_done": "Não há migrações anteriores",
+    "migrations_no_pending": "Nenhuma migração pendente",
+    "migrations_done": "Migrações anteriores",
+    "migrations_pending": "Migrações pendentes",
+    "migrations": "Migrações",
+    "mailbox_quota_placeholder": "Deixe como 0 para desabilitar.",
+    "mailbox_quota_example": "700M é um CD, 4700M é um DVD",
+    "mailbox_quota_description": "Escolha um limite de armazenamento para conteúdo de email. <br> Sete como 0 para desabilitar.",
+    "local_archives": "Arquivamentos locais",
+    "license": "Licença",
+    "last_ran": "Última vez executado:",
+    "good_practices_about_user_password": "Você está a ponto de definir uma nova senha de usuário. A senha deve ter ao menos 8 caracteres - embora seja uma boa prática usar senhas maiores (i.e. uma frase como senha) e/ou usar vários tipos de caracteres (maiúsculo, minúsculo, dígitos e caracteres especiais).",
+    "good_practices_about_admin_password": "Você está a ponto de definir uma nova senha de administrador. A senha deve ter ao menos 8 caracteres - embora seja uma boa prática usar senhas maiores (i.e. uma frase como senha) e/ou usar vários tipos de caracteres (maiúsculo, minúsculo, dígitos e caracteres especiais)."
 }

@@ -298,5 +298,28 @@
     "restart": "Rekomenci",
     "unmaintained_details": "Ĉi tiu app ne estis ĝisdatigita antaŭ tre tempo kaj la antaŭa prizorganto foriĝis aŭ ne havas tempon por subteni ĉi tiun app. Bonvolu kontroli la app-deponejon por doni vian helpon",
     "run_first_diagnosis": "Kuru komencan diagnozon",
-    "issues": "{count} aferoj"
+    "issues": "{count} aferoj",
+    "api_error": {
+        "error_message": "Erarmesaĝo:"
+    },
+    "api": {
+        "query_status": {
+            "warning": "Sukcese kompletigita kun eraroj aŭ atentigoj",
+            "success": "Sukcese kompletigita",
+            "pending": "En progreso",
+            "error": "Malsukcesa"
+        },
+        "processing": "La servilo prilaboras la agon..."
+    },
+    "address": {
+        "local_part_description": {
+            "email": "Elektu lokan parton por via retpoŝto.",
+            "domain": "Elektu subdomanon."
+        },
+        "domain_description": {
+            "email": "Elektu domajnon por via retpoŝto.",
+            "domain": "Elektu domajnon."
+        }
+    },
+    "cancel": "Nuligi"
 }
