@@ -206,7 +206,7 @@
     "app_state_working_explanation": "Der/die Entwickler:in dieser App deklariert sie als 'funktionierend'. Das heißt, sie sollte funktionieren (vgl. App Level). Sie ist jedoch nicht zwangsläufig überprüft, weshalb sie Probleme enthalten kann oder nicht vollständig in YunoHost integriert ist.",
     "app_state_highquality": "hohe Qualität",
     "app_state_notworking_explanation": "Der/die Entwickler:in dieser App deklariert sie als 'nicht funktionierend'. SIE WIRD IHR SYSTEM ZERSTÖREN!",
-    "app_state_inprogress_explanation": "Der/die Entwickler:in dieser App deklariert sie als nicht bereit für den produktiven Einsatz. SEIEN SIE VORSICHTIG!",
+    "app_state_inprogress_explanation": "Der Verantwortliche dieser Applikation hat angegeben, dass sie nicht für den produktiven Einsatz bereit ist. SEIEN SIE VORSICHTIG!",
     "app_no_actions": "Diese Anwendung hat keine Aktionen",
     "all_apps": "Alle Apps",
     "app_info_changeurl_desc": "Ändern Sie die Zugriffs URL dieser Anwendung (Domain und/oder Pfad).",
