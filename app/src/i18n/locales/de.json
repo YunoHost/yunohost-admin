@@ -190,7 +190,7 @@
     "confirm_update_specific_app": "Möchten Sie wirklich {app} aktualisieren?",
     "confirm_reboot_action_reboot": "Möchten Sie wirklich den Server neustarten?",
     "confirm_reboot_action_shutdown": "Möchten Sie wirklich den Server herunterfahren?",
-    "domain_dns_conf_is_just_a_recommendation": "Diese Seite zeigt dir die *empfohlene* Konfiguration. Sie konfiguriert *nicht* den DNS für dich. Es liegt in deiner Verantwortung, deine Zone bei deinem Registrar entsprechend dieser Empfehlung zu konfigurieren.",
+    "domain_dns_conf_is_just_a_recommendation": "Diese Seite zeigt Ihnen die *empfohlene* Konfiguration. Sie konfiguriert *nicht* das DNS für Sie. Es liegt in Ihrer Verantwortung, Ihre DNS-Zone in Ihrem DNS-Registrar nach dieser Empfehlung zu konfigurieren.",
     "ok": "OK",
     "system_upgrade_all_applications_btn": "Aktualisiere alle Applikationen",
     "system_upgrade_all_packages_btn": "Aktualisiere alle Pakete",
