@@ -98,7 +98,7 @@
     "previous": "Zurück",
     "protocol": "Protokoll",
     "restore": "Wiederherstellen",
-    "running": "Im Betrieb",
+    "running": "In Betrieb",
     "save": "Speichern",
     "service_start_on_boot": "Beim Hochfahren starten",
     "services": "Dienste",
@@ -194,14 +194,14 @@
     "ok": "OK",
     "system_upgrade_all_applications_btn": "Aktualisiere alle Applikationen",
     "system_upgrade_all_packages_btn": "Aktualisiere alle Pakete",
-    "tools_reboot": "Starte deine Server neu",
+    "tools_reboot": "Starten Sie Ihre Server neu",
     "tools_reboot_btn": "Neustart",
     "tools_reboot_done": "Starte neu...",
-    "tools_rebooting": "Dein Server startet neu. Um zur Verwaltungsoberfläche zurückzukehren, musst du warten bis der Server hochgefahren ist. Prüfen kannst du es, in dem du die Seite neu lädst (F5).",
-    "tools_shutdown": "Fahre deinen Server herunter",
+    "tools_rebooting": "Ihr Server startet neu. Um zur Verwaltungsoberfläche zurückzukehren, müssen Sie warten, bis der Server hochgefahren ist. Überprüfen können Sie es, indem Sie die Seite neu laden (F5).",
+    "tools_shutdown": "Fahren Sie Ihren Server herunter",
     "tools_shutdown_btn": "Herunterfahren",
     "tools_shutdown_done": "Fahre herunter...",
-    "tools_shuttingdown": "Dein Server wird heruntergefahren. Solange dein Server ausgeschaltet ist, kannst du die Verwaltungsoberfläche nicht benutzen.",
+    "tools_shuttingdown": "Ihr Server wird heruntergefahren. Solange Ihr Server ausgeschaltet ist, können Sie die Verwaltungsoberfläche nicht benutzen.",
     "tools_shutdown_reboot": "Herunterfahren/Neustarten",
     "app_state_working_explanation": "Der/die Entwickler:in dieser Applikation deklariert sie als 'funktionierend'. Das heißt, sie sollte funktionieren (vgl. Applikations-Level). Sie ist jedoch nicht zwangsläufig überprüft, weshalb sie Probleme enthalten kann oder nicht vollständig in YunoHost integriert ist.",
     "app_state_highquality": "hohe Qualität",
@@ -304,7 +304,7 @@
     "operation_failed_explanation": "Die Operation ist fehlgeschlagen! Das tut uns leid :( Sie können Sich <a href='https://yunohost.org/help'>hier Hilfe holen</a>. Bitte stellen Sie *die ganzen Logs* der Operation bereit, damit Ihnen besser geholfen werden kann. Dies tun Sie, indem Sie auf den grünen 'mit Yunopaste teilen' Knopf drücken. Wenn Sie die Logs teilen, wird Yunohost automatisch versuchen Ihre privaten Daten wie Domainnamen und IP's zu anonymisieren.",
     "diagnosis_explanation": "Die Diagnose Funktion wird versuchen, gängige Probleme in verschiedenen Teilen deines Servers zu finden,  damit alles reibungslos läuft. Die Diagnose wird auch automatisch zweimal täglich ausgeführt, falls Fehler gefunden werden, bekommt der Administrator ein E-Mail. Beachte, dass einige tests nicht relevant sind, wenn du einzelne Features (zum Beispiel XMPP) nicht benutzt oder du ein komplexes Setup hast. In diesem Fall und wenn du weisst was du tust ist es in Ordnung die dazugehoerigen Warnungen und Hinweise zu ignorieren.",
     "pending_migrations": "Es gibt einige ausstehende Migrationen, die darauf warten, ausgeführt zu werden. Bitte gehen Sie auf  <a href='#/tools/migrations'>Werkzeuge > Migrationen</a> um diese auszuführen.",
-    "tip_about_user_email": "Benutzer*innen werden mit einer verknüpften eMail-Adresse (und XMPP Account) erstellt  im Format username@domain.tld. Zusätzliche eMail-Aliasse and eMail-Weiterleitungen können später durch den/die Admin und User*in hinzugefügt werden.",
+    "tip_about_user_email": "Benutzer*innen werden mit einer verknüpften E-Mail-Adresse (und XMPP Account) erstellt im Format username@domain.tld. Zusätzliche E-Mail-Aliasse and E-Mail-Weiterleitungen können später durch den/die Admin und Benutzer*in hinzugefügt werden.",
     "logs_suboperations": "Unter-Operationen",
     "api_errors_titles": {
         "APIBadRequestError": "Es ist ein Fehler in Yunohost aufgetreten",
@@ -353,15 +353,15 @@
         "transitions": "Seitenübergangsanimationen",
         "experimental_description": "Ermöglicht den Zugriff auf experimentelle Funktionen. Diese gelten als instabil und können Ihr System beschädigen.<br>Nur aktivieren, wenn Sie wissen, was Sie tun.",
         "experimental": "Experimenteller Modus",
-        "cache_description": "Deaktivieren Sie den Cache, wenn Sie mit der CLI arbeiten möchten, während Sie gleichzeitig in diesem Webadministrator navigieren.",
+        "cache_description": "Deaktivieren Sie den Cache, wenn Sie mit der CLI arbeiten möchten, während Sie gleichzeitig in dieser Webadministration navigieren.",
         "cache": "Zwischenspeicher",
         "fallback_language_description": "Sprache, die verwendet wird, falls die Übersetzung nicht in der Hauptsprache verfügbar ist.",
         "language": "Sprache",
-        "fallback_language": "Sprache auf die Nofalls zurückgegriffen wird"
+        "fallback_language": "Sprache, auf die Nofalls zurückgegriffen wird"
     },
     "tools_power_up": "Ihr Server scheint zugänglich zu sein. Sie können jetzt versuchen, sich anzumelden.",
     "search": {
-        "not_found": "Es gibt {items}, die den von Ihnen gewählten Kriterien entsprechen.",
+        "not_found": "Es gibt {items}, die Ihren Auswahlkriterien entsprechen.",
         "for": "Suche nach {items} ..."
     },
     "readme": "Readme",
@@ -520,7 +520,7 @@
             "create": "Den Benutzer '{name}' erstellen"
         },
         "upgrade": {
-            "app": "Die Anwendung '{app}' aktualisieren",
+            "app": "Die Applikation '{app}' aktualisieren",
             "apps": "Alle Anwendungen aktualisieren",
             "system": "Das System aktualisieren"
         },
