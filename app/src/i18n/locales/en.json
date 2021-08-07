@@ -469,7 +469,7 @@
     "uninstall": "Uninstall",
     "unknown": "Unknown",
     "unmaintained": "Unmaintained",
-    "unmaintained_details": "This app has not been update for quite a while and the previous maintainer has gone away or does not have time to maintain this app. Feel free to check the app repository to provide your help",
+    "unmaintained_details": "This app has not been updated for quite a while and the previous maintainer has gone away or does not have time to maintain this app. Feel free to check the app repository to provide your help",
     "upnp": "UPnP",
     "upnp_disabled": "UPnP is disabled.",
     "upnp_enabled": "UPnP is enabled.",
