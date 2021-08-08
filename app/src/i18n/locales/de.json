@@ -297,7 +297,7 @@
     "confirm_service_restart": "Sind Sie sicher, dass Sie {name} neustarten möchten?",
     "run_first_diagnosis": "Initiale Diagnose läuft",
     "diagnosis_first_run": "Die Diagnose Funktion wird versuchen, gängige Probleme in verschiedenen Teilen deines Servers zu finden, damit alles reibungslos läuft. Hab keine Angst, wenn du ein paar Fehlermeldungen siehst nachdem du deinen Server aufgesetzt hast: es soll versuchen dir zu helfen, Probleme zu identifizieren und Tipps für Lösungen zu zeigen. Die Diagnose wird auch automatisch zweimal täglich ausgeführt, falls Fehler gefunden werden, bekommt der Administrator ein E-Mail.",
-    "unmaintained_details": "Diese Anwendung wurde seit einiger Zeit nicht gewartet und der frühere Wart hat die Anwendung aufgegeben oder hat keine Zeit mehr für die Wartung. Du bist herzlich eingeladen dir die Quellen und Unterlagen anzusehen und Hilfe zu leisten",
+    "unmaintained_details": "Diese Applikation wurde seit einiger Zeit nicht aktuallisiert und der frühere Entwickler hat die Applikation aufgegeben oder hat keine Zeit mehr für die Instandhaltung. Du bist herzlich eingeladen dir die Quellen und Repositorien anzusehen und Hilfe zu leisten",
     "group_explain_visitors_needed_for_external_client": "Sei vorsichtig und beachte, dass du manche Anwendungen für externe Besucher:innen freigeben musst, falls du beabsichtigst, diese mit externen Clients aufzurufen. Zum Beispiel trifft das auf Nextcloud zu, wenn du eine Synchronisation auf dem Smartphone oder Desktop PC haben möchtest.",
     "issues": "{count} Probleme",
     "restart": "Neustart",
