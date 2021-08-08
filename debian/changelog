@@ -1,3 +1,15 @@
+yunohost-admin (4.2.4) stable; urgency=low
+
+  - [fix] Handle edge case where there's no arg in manifest during app install ([#377](https://github.com/YunoHost/yunohost-admin/pull/377))
+  - [fix] Missing 'https://' in app view ([#376](https://github.com/YunoHost/yunohost-admin/pull/376))
+  - [fix] Update a bunch of npm dependencies ([#374](https://github.com/YunoHost/yunohost-admin/pull/374))
+  - [i18n] Typos in english strings ([#380](https://github.com/YunoHost/yunohost-admin/pull/380), [#381](https://github.com/YunoHost/yunohost-admin/pull/381))
+  - [i18n] Translations updated for Esperanto, Finnish, French, German, Portuguese, Spanish
+
+  Thanks to all contributors <3 ! (amirale qt, Anthony //, Bram, Christian Wehrli, Jorge Guerra, Kay0u, Luca, Meta Meta, Mico Hauataluoma, mifegui, opi)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Sun, 08 Aug 2021 22:11:12 +0200
+
 yunohost-admin (4.2.3.3) stable; urgency=low
 
   - [fix] Migrations api path ([#372](https://github.com/YunoHost/yunohost-admin/pull/372))
