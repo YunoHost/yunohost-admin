@@ -67,7 +67,7 @@ export function formatYunoHostArgument (arg) {
   const defaultProps = ['id:name', 'placeholder:example']
   const components = [
     {
-      types: [undefined, 'string'],
+      types: [undefined, 'string', 'path'],
       name: 'InputItem',
       props: defaultProps
     },
@@ -148,7 +148,7 @@ export function formatYunoHostArgument (arg) {
       }
     },
     {
-      types: ['succes', 'info', 'warning', 'error'],
+      types: ['success', 'info', 'warning', 'error'],
       name: 'ReadOnlyAlertItem',
       props: ['type', 'label:ask'],
       readonly: true
@@ -167,6 +167,7 @@ export function formatYunoHostArgument (arg) {
   }
   // Search the component bind to the type
   const component = components.find(element => element.types.includes(arg.type))
+  if (component === undefined) throw new TypeError('Unknown type: ' + arg.type)
   field.component = component.name
   // Callback use for specific behaviour
   if (component.callback) component.callback()

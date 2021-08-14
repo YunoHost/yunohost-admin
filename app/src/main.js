@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import BootstrapVue from 'bootstrap-vue'
-// import VueShowdown from 'vue-showdown'
+import VueShowdown from 'vue-showdown'
 
 import i18n from './i18n'
 import router from './router'
@@ -24,11 +24,11 @@ Vue.use(BootstrapVue, {
   }
 })
 
-// Vue.use(VueShowdown, {
-//   options: {
-//     emoji: true
-//   }
-// })
+Vue.use(VueShowdown, {
+  options: {
+    emoji: true
+  }
+})
 
 // Ugly wrapper for `$bvModal.msgBoxConfirm` to set default i18n button titles
 // FIXME find or wait for a better way
