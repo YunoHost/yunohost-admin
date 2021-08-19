@@ -36,7 +36,7 @@
         "APIInternalError": "YunoHost encountered an internal error",
         "APINotFoundError": "YunoHost API could not find a route",
         "APINotRespondingError": "YunoHost API is not responding",
-        "APIConnectionError": "YunoHost encountered a connection error"
+        "APIConnexionError": "YunoHost encountered a connection error"
     },
     "all_apps": "All apps",
     "api_not_found": "Seems like the web-admin tried to query something that doesn't exist.",
