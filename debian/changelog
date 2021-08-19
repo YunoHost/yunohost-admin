@@ -1,3 +1,13 @@
+yunohost-admin (4.2.5) stable; urgency=low
+
+  - [fix] user password change not working properly (c26c4c9)
+  - [fix] typos in english locale ([#385](https://github.com/YunoHost/yunohost-admin/pull/385))
+  - [i18n] Translations updated for German, Italian, Polish
+
+  Thanks to all contributors <3 ! (Christian Wehrli, Flavio Cristoforetti, Krzysztof Nowakowski, Luca)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Thu, 19 Aug 2021 19:23:00 +0200
+
 yunohost-admin (4.2.4) stable; urgency=low
 
   - [fix] Handle edge case where there's no arg in manifest during app install ([#377](https://github.com/YunoHost/yunohost-admin/pull/377))
