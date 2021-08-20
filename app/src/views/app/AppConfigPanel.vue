@@ -81,7 +81,7 @@ export default {
       return evaluate(context, expression)
     },
     onQueriesResponse (data) {
-      if (!data.config_panel || data.config_panel.length === 0) {
+      if (!data.panel || data.panel.length === 0) {
         this.panels = null
         return
       }
@@ -89,7 +89,7 @@ export default {
       const forms = {}
       const validations_ = {}
       const panels_ = []
-      for (const { id, name, help, sections } of data.config_panel.panel) {
+      for (const { id, name, help, sections } of data.panel) {
         const panel_ = { id, name, sections: [] }
         if (help) panel_.help = formatI18nField(help)
         forms[id] = {}
