@@ -219,7 +219,7 @@
     "confirm_install_app_lowquality": "Warnung: Diese Applikation könnte funktionieren, ist aber nicht gut in YunoHost integriert. Einige Funktionen wie Single-Sign-On und Backup/Restore sind möglicherweise nicht verfügbar.",
     "good_practices_about_admin_password": "Du bist nun dabei, ein neues Administratorpasswort zu definieren. Das Passwort sollte mindestens 8 Zeichen lang sein - es ist jedoch empfehlenswert, ein längeres Passwort (z.B. eine Passphrase) und/oder verschiedene Arten von Zeichen (Groß- und Kleinschreibung, Ziffern und Sonderzeichen) zu verwenden.",
     "from_to": "von {0} nach {1}",
-    "experimental_warning": "Achtung: Diese Funktion ist experimentell und gilt nicht als stabil, du solltest  sie nicht verwenden, außer du weißt, was du tust.",
+    "experimental_warning": "Achtung: Diese Funktion ist experimentell und gilt nicht als stabil, Sie sollten sie nicht verwenden, außer Sie wissen, was Sie tun.",
     "error_connection_interrupted": "Der Server hat die Verbindung geschlossen, anstatt sie zu beantworten. Wurde nginx oder die yunohost-api aus irgendeinem Grund neu gestartet oder gestoppt?",
     "hook_conf_ynh_currenthost": "Aktuelle Haupt-Domain",
     "good_practices_about_user_password": "Du bist nun dabei, ein neues Benutzerpasswort zu definieren. Das Passwort sollte mindestens 8 Zeichen lang sein - es ist jedoch empfehlenswert, ein längeres Passwort (z.B. eine Passphrase) und/oder verschiedene Arten von Zeichen (Groß- und Kleinschreibung, Ziffern und Sonderzeichen) zu verwenden.",
