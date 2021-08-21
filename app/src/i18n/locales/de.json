@@ -507,7 +507,7 @@
         "reboot": "Den Server neustarten",
         "postinstall": "Post-Installation ausführen",
         "permissions": {
-            "remove": "'{name}' Autosierierung entziehen für Zugriff auf '{perm}'",
+            "remove": "'{name}' Autorisierung entziehen für Zugriff auf '{perm}'",
             "add": "'{name}' autorisieren für Zugriff auf '{perm}'"
         },
         "migrations": {
