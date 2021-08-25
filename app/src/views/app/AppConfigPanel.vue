@@ -115,7 +115,7 @@ export default {
         const args = objectToParams(formatedData)
 
         api.put(
-          `apps/${this.id}/config`, { args }, { key: 'apps.update_config', name: this.id }
+          `apps/${this.id}/config`, { key: id_, args }, { key: 'apps.update_config', name: this.id }
         ).then(response => {
           // FIXME what should be done ?
           /* eslint-disable-next-line */
