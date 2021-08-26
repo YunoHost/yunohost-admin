@@ -19,7 +19,7 @@
           <template v-for="(field, fname) in section.fields">
             <form-field :key="fname" v-model="forms[id_][fname]"
                         :validation="$v.forms[id_][fname]"
-                        v-if="isVisible(field.visibleif)" v-bind="field"
+                        v-if="isVisible(field.visibleIf)" v-bind="field"
             />
           </template>
         </div>
@@ -73,9 +73,8 @@ export default {
       if (!expression) return true
       const context = {}
       for (const args of Object.values(this.forms)) {
-        for (const fname in args) {
-          const shortname = fname.split('_').slice(4).join('_').toLowerCase()
-          context[shortname] = args[fname]
+        for (const shortname in args) {
+          context[shortname] = args[shortname]
         }
       }
       return evaluate(context, expression)

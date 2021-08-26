@@ -69,17 +69,17 @@ export function formatYunoHostArgument (arg) {
     {
       types: [undefined, 'string', 'path'],
       name: 'InputItem',
-      props: defaultProps
+      props: defaultProps.concat(['autocomplete', 'trim'])
     },
     {
       types: ['email', 'url', 'date', 'time', 'color'],
       name: 'InputItem',
-      props: defaultProps.concat(['type'])
+      props: defaultProps.concat(['type', 'trim'])
     },
     {
       types: ['password'],
       name: 'InputItem',
-      props: defaultProps.concat(['type']),
+      props: defaultProps.concat(['type', 'autocomplete', 'trim']),
       callback: function () {
         if (!arg.help) {
           arg.help = 'good_practices_about_admin_password'
@@ -91,7 +91,7 @@ export function formatYunoHostArgument (arg) {
     {
       types: ['number', 'range'],
       name: 'InputItem',
-      props: defaultProps.concat(['type', 'min', 'max']),
+      props: defaultProps.concat(['type', 'min', 'max', 'step']),
       callback: function () {
         if (!isNaN(parseInt(arg.min))) {
           validation.minValue = validators.minValue(parseInt(arg.min))
@@ -123,7 +123,12 @@ export function formatYunoHostArgument (arg) {
     {
       types: ['file'],
       name: 'FileItem',
-      props: defaultProps.concat(['accept'])
+      props: defaultProps.concat(['accept']),
+      callback: function () {
+        if (value) {
+          value = new File([''], value.replace(/^.*[/]/, ''))
+        }
+      }
     },
     {
       types: ['text'],
@@ -202,8 +207,8 @@ export function formatYunoHostArgument (arg) {
     field.link = { href: arg.helpLink.href, text: i18n.t(arg.helpLink.text) }
   }
 
-  if (arg.visibleif) {
-    field.visibleif = arg.visibleif
+  if (arg.visibleIf) {
+    field.visibleIf = arg.visibleIf
   }
 
   return {
