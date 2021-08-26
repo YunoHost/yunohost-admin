@@ -150,7 +150,7 @@ export function formatYunoHostArgument (arg) {
     {
       types: ['success', 'info', 'warning', 'danger'],
       name: 'ReadOnlyAlertItem',
-      props: ['type', 'label:ask'],
+      props: ['type', 'label:ask', 'icon'],
       readonly: true
     },
     {

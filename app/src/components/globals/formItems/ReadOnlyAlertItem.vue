@@ -1,6 +1,6 @@
 <template>
   <b-alert :variant="type" show>
-    <icon :iname="type" />
+    <icon :iname="icon" />
     {{ label }}
   </b-alert>
 </template>
@@ -12,7 +12,8 @@ export default {
   props: {
     id: { type: String, default: null },
     label: { type: String, default: null },
-    type: { type: String, default: null }
+    type: { type: String, default: null },
+    icon: { type: String, default: null }
   }
 }
 </script>
