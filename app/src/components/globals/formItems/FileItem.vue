@@ -9,7 +9,7 @@
       :id="id"
       :required="required"
       v-on="$listeners"
-      :placeholder="placeholder"
+      :placeholder="placeholder_"
       :accept="accept"
       @blur="$parent.$emit('touch', name)"
     />
@@ -22,7 +22,8 @@ export default {
 
   data () {
     return {
-      file: null
+      file: this.value,
+      placeholder_: (this.value) ? this.value.name : this.placeholder
     }
   },
 
@@ -38,6 +39,8 @@ export default {
 
   methods: {
     clearFiles () {
+      this.file = null
+      this.placeholder_ = this.placeholder
       this.$refs['file-input'].reset()
     }
   }
