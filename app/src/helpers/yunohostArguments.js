@@ -84,7 +84,7 @@ export function formatYunoHostArgument (arg) {
         if (!arg.help) {
           arg.help = 'good_practices_about_admin_password'
         }
-        arg.example = '••••••••'
+        arg.example = '••••••••••••'
         validation.passwordLenght = validators.minLength(8)
       }
     },
@@ -99,6 +99,7 @@ export function formatYunoHostArgument (arg) {
         if (!isNaN(parseInt(arg.max))) {
           validation.maxValue = validators.maxValue(parseInt(arg.max))
         }
+        validation.numValue = validators.numeric
       }
     },
     {
@@ -192,6 +193,12 @@ export function formatYunoHostArgument (arg) {
   else if (field.component !== 'CheckboxItem' && arg.optional !== true) {
     validation.required = validators.required
   }
+  if (arg.pattern) {
+    // validation.pattern = validators.helpers.withMessage(arg.pattern.error,
+    validation.pattern = validators.helpers.regex(arg.pattern.error, new RegExp(arg.pattern.regexp))
+  }
+
+  // field.props['title'] = field.pattern.error
   // Default value if still `null`
   if (value === null && arg.default) {
     value = arg.default

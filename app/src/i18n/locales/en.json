@@ -175,11 +175,13 @@
         "githubLink": "Url must be a valid Github link to a repository",
         "name": "Names may not includes special characters except <code> ,.'-</code>",
         "minValue": "Value must be a number equal or greater than {min}.",
+        "maxValue": "Value must be a number equal or lesser than {min}.",
         "notInUsers": "The user '{value}' already exists.",
         "number": "Value must be a number.",
         "passwordLenght": "Password must be at least 8 characters long.",
         "passwordMatch": "Passwords don't match.",
-        "required": "Field is required."
+        "required": "Field is required.",
+        "pattern": "{type}"
     },
     "form_input_example": "Example: {example}",
     "from_to": "from {0} to {1}",

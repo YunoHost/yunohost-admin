@@ -103,6 +103,7 @@ export default {
       const validation = this.validation
       if (validation && validation.$anyError) {
         const [type, errData] = this.findError(validation.$params, validation)
+        console.log(type, errData)
         return this.$i18n.t('form_errors.' + type, errData)
       }
       return ''

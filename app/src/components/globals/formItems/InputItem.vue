@@ -17,6 +17,7 @@
 </template>
 
 <script>
+
 export default {
   name: 'InputItem',
 
@@ -25,7 +26,6 @@ export default {
       autocomplete_: (this.autocomplete) ? this.autocomplete : (this.type === 'password') ? 'new-password' : null
     }
   },
-
   props: {
     value: { type: [String, Number], default: null },
     id: { type: String, default: null },
@@ -38,6 +38,7 @@ export default {
     step: { type: Number, default: null },
     trim: { type: Boolean, default: true },
     autocomplete: { type: String, default: null },
+    pattern: { type: Object, default: null },
     name: { type: String, default: null }
   }
 }
