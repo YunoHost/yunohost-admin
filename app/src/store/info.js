@@ -108,7 +108,7 @@ export default {
     },
 
     'LOGIN' ({ dispatch }, password) {
-      return api.post('login', { password }, null, { websocket: false }).then(() => {
+      return api.post('login', { credentials: password }, null, { websocket: false }).then(() => {
         dispatch('CONNECT')
       })
     },
