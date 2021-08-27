@@ -1,3 +1,63 @@
+yunohost-admin (4.2.5) stable; urgency=low
+
+  - [fix] user password change not working properly (c26c4c9)
+  - [fix] typos in english locale ([#385](https://github.com/YunoHost/yunohost-admin/pull/385))
+  - [i18n] Translations updated for German, Italian, Polish
+
+  Thanks to all contributors <3 ! (Christian Wehrli, Flavio Cristoforetti, Krzysztof Nowakowski, Luca)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Thu, 19 Aug 2021 19:23:00 +0200
+
+yunohost-admin (4.2.4) stable; urgency=low
+
+  - [fix] Handle edge case where there's no arg in manifest during app install ([#377](https://github.com/YunoHost/yunohost-admin/pull/377))
+  - [fix] Missing 'https://' in app view ([#376](https://github.com/YunoHost/yunohost-admin/pull/376))
+  - [fix] Update a bunch of npm dependencies ([#374](https://github.com/YunoHost/yunohost-admin/pull/374))
+  - [i18n] Typos in english strings ([#380](https://github.com/YunoHost/yunohost-admin/pull/380), [#381](https://github.com/YunoHost/yunohost-admin/pull/381))
+  - [i18n] Translations updated for Esperanto, Finnish, French, German, Portuguese, Spanish
+
+  Thanks to all contributors <3 ! (amirale qt, Anthony //, Bram, Christian Wehrli, Jorge Guerra, Kay0u, Luca, Meta Meta, Mico Hauataluoma, mifegui, opi)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Sun, 08 Aug 2021 22:11:12 +0200
+
+yunohost-admin (4.2.3.3) stable; urgency=low
+
+  - [fix] Migrations api path ([#372](https://github.com/YunoHost/yunohost-admin/pull/372))
+  - [i18n] Translations updated for Czech, Spanish
+
+  Thanks to all contributors <3 ! (ljf, Matias Micheltorena, Radek S)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Fri, 11 Jun 2021 20:28:35 +0200
+
+yunohost-admin (4.2.3.2) stable; urgency=low
+
+  - [fix] Re-fix multiple stuff about diagnosis, user edit view, migration view, backup (e58bfae, 955c774, 37e58f5)
+  - [fix] Small issues during dev (522a8e6, 9e32ae4)
+
+  Thanks to all contributors <3 ! (ljf)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Thu, 03 Jun 2021 18:34:31 +0200
+
+yunohost-admin (4.2.3.1) stable; urgency=low
+
+  - [fix] user: alias and password change not working ([#368](https://github.com/YunoHost/yunohost-admin/pull/368))
+  - [fix] diagnsosis: Ignore button not working ([#367](https://github.com/YunoHost/yunohost-admin/pull/367))
+  - [fix] Request with array args ([#369](https://github.com/YunoHost/yunohost-admin/pull/369))
+  - [i18n] Translations updated for Chinese (Simplified), French, German, Italian, Portuguese
+
+  Thanks to all contributors <3 ! (Éric Gaspar, Flavio Cristoforetti, ljf, Meta Meta, mifegui, ppr, yahoo～～)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Thu, 03 Jun 2021 00:43:16 +0200
+
+yunohost-admin (4.2.3) stable; urgency=low
+
+  - [fix] User edit view submit button blocked because of empty quota ([#362](https://github.com/YunoHost/yunohost-admin/pull/362))
+  - [i18n] Translations updated for Chinese (Simplified), Czech, Finnish, French, Galician, Polish
+
+  Thanks to all contributors <3 ! (Éric Gaspar, José M, Krzysztof Nowakowski, ljf, Mico Hauataluoma, Radek S, yahoo～～)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Mon, 24 May 2021 17:36:03 +0200
+
 yunohost-admin (4.2.2) stable; urgency=low
 
   - [i18n] Translations updated for Italian, Occitan
