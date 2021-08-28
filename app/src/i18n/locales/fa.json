@@ -1,1 +1,28 @@
-{}
+{
+    "api_error": {
+        "error_message": "پیغام خطا :"
+    },
+    "api": {
+        "query_status": {
+            "warning": "با خطا یا هشدار با موفقیت انجام شد",
+            "success": "با موفقیت انجام شد",
+            "pending": "در حال پیش رفت",
+            "error": "ناموفّق"
+        },
+        "processing": "سرور در حال پردازش دستورات است..."
+    },
+    "all": "همه",
+    "administration_password": "رمز مدیریت",
+    "address": {
+        "local_part_description": {
+            "email": "یک بخش محلی برای ایمیل خود انتخاب کنید.",
+            "domain": "یک زیردامنه انتخاب کنید."
+        },
+        "domain_description": {
+            "email": "یک دامنه برای ایمیل خود انتخاب کنید.",
+            "domain": "یک دامنه انتخاب کنید."
+        }
+    },
+    "add": "اضافه کردن",
+    "action": "اجرا"
+}
