@@ -5,8 +5,7 @@
     :placeholder="placeholder"
     :required="required"
     :state="state"
-    rows="3"
-    max-rows="6"
+    rows="4"
     v-on="$listeners"
     @blur="$parent.$emit('touch', name)"
   />

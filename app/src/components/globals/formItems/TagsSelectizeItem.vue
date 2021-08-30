@@ -67,12 +67,15 @@
 
 <script>
 export default {
-  name: 'TagsSelectize',
+  name: 'TagsSelectizeItem',
 
   props: {
     value: { type: Array, required: true },
     options: { type: Array, required: true },
     id: { type: String, required: true },
+    placeholder: { type: String, default: null },
+    limit: { type: Number, default: null },
+    name: { type: String, default: null },
     itemsName: { type: String, required: true },
     disabledItems: { type: Array, default: () => ([]) },
     // By default `addTag` and `removeTag` have to be executed manually by listening to 'tag-update'.

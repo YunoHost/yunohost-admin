@@ -108,12 +108,15 @@ export function formatYunoHostArgument (arg) {
       props: ['id:name', 'choices']
     },
     {
-      types: ['select', 'user', 'domain'],
+      types: ['user', 'domain'],
       name: 'SelectItem',
       props: ['id:name', 'choices'],
       callback: function () {
         field.link = { name: arg.type + '-list', text: i18n.t(`manage_${arg.type}s`) }
         field.props.choices = store.getters[arg.type + 'sAsChoices']
+        if (value) {
+          return
+        }
         if (arg.type === 'domain') {
           value = store.getters.mainDomain
         } else {
@@ -139,24 +142,37 @@ export function formatYunoHostArgument (arg) {
     {
       types: ['tags'],
       name: 'TagsItem',
-      props: defaultProps
+      props: defaultProps.concat(['limit', 'placeholder', 'options:choices', 'tagIcon:icon']),
+      callback: function () {
+        if (arg.choices) {
+            this.name = 'TagsSelectizeItem'
+            field.props.auto = true
+            field.props.itemsName = ''
+            field.props.label = arg.placeholder
+        }
+        if (typeof value === 'string') {
+          value = value.split(',')
+        } else if (!value) {
+          value = []
+        }
+      }
     },
     {
       types: ['boolean'],
       name: 'CheckboxItem',
       props: ['id:name', 'choices'],
       callback: function () {
-        if (typeof arg.default === 'number') {
-          value = arg.default === 1
-        } else {
-          value = arg.default || false
+        if (value !== null && value !== undefined) {
+          value = ['1', 'yes', 'y', 'true'].includes(String(value).toLowerCase())
+        } else if (arg.default !== null && arg.default !== undefined) {
+          value = ['1', 'yes', 'y', 'true'].includes(String(arg.default).toLowerCase())
         }
       }
     },
     {
-      types: ['success', 'info', 'warning', 'danger'],
+      types: ['alert'],
       name: 'ReadOnlyAlertItem',
-      props: ['type', 'label:ask', 'icon'],
+      props: ['type:style', 'label:ask', 'icon'],
       readonly: true
     },
     {
@@ -174,9 +190,9 @@ export function formatYunoHostArgument (arg) {
   // Search the component bind to the type
   const component = components.find(element => element.types.includes(arg.type))
   if (component === undefined) throw new TypeError('Unknown type: ' + arg.type)
-  field.component = component.name
   // Callback use for specific behaviour
   if (component.callback) component.callback()
+  field.component = component.name
   // Affect properties to the field Item
   for (let prop of component.props) {
     prop = prop.split(':')
@@ -200,6 +216,9 @@ export function formatYunoHostArgument (arg) {
 
   // field.props['title'] = field.pattern.error
   // Default value if still `null`
+  if (value === null && arg.current_value) {
+    value = arg.current_value
+  }
   if (value === null && arg.default) {
     value = arg.default
   }
@@ -300,7 +319,7 @@ export function formatFormDataValue (value) {
  */
 export async function formatFormData (
   formData,
-  { extract = null, flatten = false, removeEmpty = true, promise = false } = {}
+  { extract = null, flatten = false, removeEmpty = true, removeNull = false, promise = false } = {}
 ) {
   const output = {
     data: {},
@@ -314,6 +333,8 @@ export async function formatFormData (
       : formatFormDataValue(formData[key])
 
     if (removeEmpty && isEmptyValue(value)) {
+      continue
+    } else if (removeNull && (value === null || value === undefined)) {
       continue
     } else if (value instanceof File) {
       promises.push(pFileReader(value, output[type], key))
