@@ -56,7 +56,7 @@ export function adressToFormValue (address) {
  * @return {Object} an formated argument containing formItem props, validation and base value.
  */
 export function formatYunoHostArgument (arg) {
-  let value = (arg.value !== undefined) ? arg.value : null
+  let value = (arg.value !== undefined) ? arg.value : (arg.current_value !== undefined) ? arg.current_value : null
   const validation = {}
   arg.ask = formatI18nField(arg.ask)
   const field = {

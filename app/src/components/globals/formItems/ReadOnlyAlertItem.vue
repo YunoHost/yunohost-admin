@@ -1,6 +1,6 @@
 <template>
   <b-alert :variant="type" show>
-    <icon :iname="icon" />
+    <icon :iname="icon_" />
     {{ label }}
   </b-alert>
 </template>
@@ -8,6 +8,18 @@
 <script>
 export default {
   name: 'ReadOnlyAlertItem',
+
+  data () {
+    let icons = {
+      success: 'thumbs-up',
+      info: 'info',
+      warning: 'warning',
+      danger: 'ban'
+      }
+    return {
+      icon_: (this.icon) ? this.icon : icons[this.type]
+    }
+  },
 
   props: {
     id: { type: String, default: null },
