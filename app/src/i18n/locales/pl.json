@@ -129,5 +129,8 @@
     "good_practices_about_user_password": "Musisz teraz zdefiniować nowe hasło użytkownika. Hasło powinno mieć co najmniej 8 znaków - chociaż dobrym zwyczajem jest używanie dłuższego hasła (np. tekst szyfrujący) i / lub używanie różnego rodzaju znaków (duże, małe litery, cyfry i znaki specjalne).",
     "error": "Błąd",
     "app_actions_label": "Wykonaj działania",
-    "app_actions": "Działania"
+    "app_actions": "Działania",
+    "day_validity": " Wygasł | 1 dzień | {count} dni",
+    "created_at": "Utworzony w",
+    "app_state_working_explanation": "Opiekun tej aplikacji uznał ją za „działającą”. Oznacza to, że powinna działać, ale nie została do końca oceniona, może nadal zawierać problemy lub nie jest w pełni zintegrowana z YunoHost."
 }

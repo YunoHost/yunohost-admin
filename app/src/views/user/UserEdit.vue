@@ -99,7 +99,7 @@
       <hr>
 
       <!-- USER PASSWORD -->
-      <form-field v-bind="fields.password" v-model="form.password" :validation="$v.form.password" />
+      <form-field v-bind="fields.change_password" v-model="form.change_password" :validation="$v.form.change_password" />
 
       <!-- USER PASSWORD CONFIRMATION -->
       <form-field v-bind="fields.confirmation" v-model="form.confirmation" :validation="$v.form.confirmation" />
@@ -142,7 +142,7 @@ export default {
         mailbox_quota: '',
         mail_aliases: [],
         mail_forward: [],
-        password: '',
+        change_password: '',
         confirmation: ''
       },
 
@@ -201,11 +201,11 @@ export default {
           }
         },
 
-        password: {
+        change_password: {
           label: this.$i18n.t('password'),
           description: this.$i18n.t('good_practices_about_user_password'),
           descriptionVariant: 'warning',
-          props: { id: 'password', type: 'password', placeholder: '••••••••' }
+          props: { id: 'change_password', type: 'password', placeholder: '••••••••' }
         },
 
         confirmation: {
@@ -236,8 +236,8 @@ export default {
       mail_forward: {
         $each: { required, emailForward }
       },
-      password: { passwordLenght: minLength(8) },
-      confirmation: { passwordMatch: sameAs('password') }
+      change_password: { passwordLenght: minLength(8) },
+      confirmation: { passwordMatch: sameAs('change_password') }
     }
   },
 
@@ -272,9 +272,6 @@ export default {
       const data = {}
       if (!Object.prototype.hasOwnProperty.call(formData, 'mailbox_quota')) {
         formData.mailbox_quota = ''
-      }
-      if (Object.prototype.hasOwnProperty.call(formData, 'password')) {
-        formData['change-password'] = formData.password
       }
 
       for (const key of ['mail_aliases', 'mail_forward']) {
