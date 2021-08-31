@@ -110,6 +110,7 @@ export default {
     },
 
     applyConfig (id_) {
+      console.debug(this.forms[id_])
       formatFormData(this.forms[id_], { promise: true, removeEmpty: false, removeNull: true }).then((formatedData) => {
       console.debug(formatedData)
         const args = objectToParams(formatedData)

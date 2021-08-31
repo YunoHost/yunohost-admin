@@ -10,7 +10,7 @@ export default {
   name: 'ReadOnlyAlertItem',
 
   data () {
-    let icons = {
+    const icons = {
       success: 'thumbs-up',
       info: 'info',
       warning: 'warning',

@@ -1,15 +1,15 @@
 <template>
   <b-button-group class="w-100">
-    <b-button @click="clearFiles" variant="danger" v-if="!required && file">
+    <b-button @click="clearFiles" variant="danger" v-if="!this.required && this.value !== null && !this.value._removed">
       <icon iname="trash" />
     </b-button>
     <b-form-file
       v-model="file"
-      ref="file-input"
+      ref="input-file"
       :id="id"
-      :required="required"
       v-on="$listeners"
-      :placeholder="placeholder_"
+      :required="required"
+      :placeholder="_placeholder"
       :accept="accept"
       @blur="$parent.$emit('touch', name)"
     />
@@ -22,8 +22,7 @@ export default {
 
   data () {
     return {
-      file: this.value,
-      placeholder_: (this.value) ? this.value.name : this.placeholder
+      file: this.value
     }
   },
 
@@ -36,12 +35,24 @@ export default {
     name: { type: String, default: null }
   },
 
+  computed: {
+    _placeholder: function () {
+        return (this.value === null) ? this.placeholder : this.value.name
+    }
+  },
 
   methods: {
     clearFiles () {
-      this.file = null
-      this.placeholder_ = this.placeholder
-      this.$refs['file-input'].reset()
+      const f = new File([''], this.placeholder)
+      f._removed = true
+      if (this.value && this.value.currentfile) {
+        this.$refs['input-file'].reset()
+        this.$emit('input', f)
+      } else {
+        this.$refs['input-file'].setFiles([f])
+        this.file = f
+        this.$emit('input', f)
+      }
     }
   }
 }

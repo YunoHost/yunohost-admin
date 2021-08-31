@@ -130,7 +130,8 @@ export function formatYunoHostArgument (arg) {
       props: defaultProps.concat(['accept']),
       callback: function () {
         if (value) {
-          value = new File([''], value.replace(/^.*[/]/, ''))
+          value = new File([''], value)
+          value.currentfile = true
         }
       }
     },
@@ -337,6 +338,12 @@ export async function formatFormData (
     } else if (removeNull && (value === null || value === undefined)) {
       continue
     } else if (value instanceof File) {
+      if (value.currentfile) {
+          continue
+      } else if (value._removed) {
+          output[type][key] = ''
+          continue
+      }
       promises.push(pFileReader(value, output[type], key))
     } else if (flatten && isObjectLiteral(value)) {
       flattenObjectLiteral(value, output[type])
