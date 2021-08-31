@@ -6,6 +6,9 @@
                :key="id_"
                :title="name"
         >
+          <template #title>
+            <icon iname="wrench" /> {{ name }}
+          </template>
           <card-form
             :key="id_"
             :title="name" icon="wrench" title-tag="h2"
@@ -16,17 +19,19 @@
               <div class="alert alert-info" v-html="help" />
             </template>
 
-            <div v-for="section in sections" :key="section.id" class="mb-5">
-              <b-card-title v-if="section.name" title-tag="h3">
-                {{ section.name }} <small v-if="section.help">{{ section.help }}</small>
-              </b-card-title>
-              <template v-for="(field, fname) in section.fields">
-                <form-field :key="fname" v-model="forms[id_][fname]"
-                            :validation="$v.forms[id_][fname]"
-                            v-if="isVisible(field.visibleIf)" v-bind="field"
-                />
-              </template>
-            </div>
+            <template v-for="section in sections">
+              <div :key="section.id" class="mb-5" v-if="isVisible(section.visibleIf)">
+                <b-card-title v-if="section.name" title-tag="h3">
+                  {{ section.name }} <small v-if="section.help">{{ section.help }}</small>
+                </b-card-title>
+                <template v-for="(field, fname) in section.fields">
+                  <form-field :key="fname" v-model="forms[id_][fname]"
+                              :validation="$v.forms[id_][fname]"
+                              v-if="isVisible(field.visibleIf)" v-bind="field"
+                  />
+                </template>
+              </div>
+            </template>
           </card-form>
         </b-tab>
       </b-tabs>
@@ -102,14 +107,15 @@ export default {
         forms[id] = {}
         validations_[id] = {}
         errors_[id] = {}
-        for (const { name, help, options } of sections) {
-          const section_ = { name }
+        for (const { name, help, visibleIf,  options } of sections) {
+          const section_ = { name, visibleIf }
           if (help) section_.help = formatI18nField(help)
           const { form, fields, validations, errors } = formatYunoHostArguments(options)
           Object.assign(forms[id], form)
           Object.assign(validations_[id], validations)
           Object.assign(errors_[id], errors)
-          panel_.sections.push({ name, fields })
+          section_.fields = fields
+          panel_.sections.push(section_)
         }
         panels_.push(panel_)
       }
