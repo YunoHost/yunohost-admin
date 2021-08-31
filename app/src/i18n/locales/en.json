@@ -181,6 +181,7 @@
         "passwordLenght": "Password must be at least 8 characters long.",
         "passwordMatch": "Passwords don't match.",
         "required": "Field is required.",
+        "remote": "{message}",
         "pattern": "{type}"
     },
     "form_input_example": "Example: {example}",

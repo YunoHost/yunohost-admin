@@ -49,6 +49,7 @@ class APIBadRequestError extends APIError {
     super(method, response, errorData)
     this.name = 'APIBadRequestError'
     this.key = errorData.error_key
+    this.data = errorData
   }
 }
 

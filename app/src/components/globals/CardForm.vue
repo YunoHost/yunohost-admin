@@ -11,8 +11,8 @@
 
         <slot name="server-error">
           <b-alert
-            variant="danger" class="my-3"
-            :show="serverError !== ''" v-html="serverError"
+            variant="danger" class="my-3" icon="ban"
+            :show="errorFeedback !== ''" v-html="errorFeedback"
           />
         </slot>
       </b-form>
@@ -47,6 +47,12 @@ export default {
   computed: {
     disabled () {
       return this.validation ? this.validation.$invalid : false
+    },
+    errorFeedback () {
+      if (this.serverError) return this.serverError
+      else if (this.validation && this.validation.$invalid) {
+        return this.$t('invalid_form')
+      } else return ''
     }
   },
 

@@ -58,6 +58,7 @@ export function adressToFormValue (address) {
 export function formatYunoHostArgument (arg) {
   let value = (arg.value !== undefined) ? arg.value : (arg.current_value !== undefined) ? arg.current_value : null
   const validation = {}
+  const error = { message: null }
   arg.ask = formatI18nField(arg.ask)
   const field = {
     component: undefined,
@@ -214,6 +215,12 @@ export function formatYunoHostArgument (arg) {
     // validation.pattern = validators.helpers.withMessage(arg.pattern.error,
     validation.pattern = validators.helpers.regex(arg.pattern.error, new RegExp(arg.pattern.regexp))
   }
+  validation.remote = validators.helpers.withParams(error, (v) => {
+    const result = !error.message
+    error.message = null
+    return result
+  })
+
 
   // field.props['title'] = field.pattern.error
   // Default value if still `null`
@@ -242,7 +249,8 @@ export function formatYunoHostArgument (arg) {
     value,
     field,
     // Return null instead of empty object if there's no validation
-    validation: Object.keys(validation).length === 0 ? null : validation
+    validation: Object.keys(validation).length === 0 ? null : validation,
+    error
   }
 }
 
@@ -259,6 +267,7 @@ export function formatYunoHostArguments (args, name = null) {
   const form = {}
   const fields = {}
   const validations = {}
+  const errors = {}
 
   // FIXME yunohost should add the label field by default
   if (name) {
@@ -270,13 +279,14 @@ export function formatYunoHostArguments (args, name = null) {
   }
 
   for (const arg of args) {
-    const { value, field, validation } = formatYunoHostArgument(arg)
+    const { value, field, validation, error } = formatYunoHostArgument(arg)
     fields[arg.name] = field
     form[arg.name] = value
     if (validation) validations[arg.name] = validation
+    errors[arg.name] = error
   }
 
-  return { form, fields, validations }
+  return { form, fields, validations, errors }
 }
 
 export function pFileReader (file, output, key) {

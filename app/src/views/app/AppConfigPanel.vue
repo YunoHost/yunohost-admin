@@ -23,7 +23,7 @@
             />
           </template>
         </div>
-      </card-form>
+      </card-form> {{ errors.main.str }}
     </template>
 
     <!-- if no config panel -->
@@ -60,6 +60,7 @@ export default {
       ],
       panels: undefined,
       forms: undefined,
+      errors: undefined,
       validations: null
     }
   },
@@ -87,18 +88,21 @@ export default {
 
       const forms = {}
       const validations_ = {}
+      const errors_ = {}
       const panels_ = []
       for (const { id, name, help, sections } of data.panel) {
         const panel_ = { id, name, sections: [] }
         if (help) panel_.help = formatI18nField(help)
         forms[id] = {}
         validations_[id] = {}
+        errors_[id] = {}
         for (const { name, help, options } of sections) {
           const section_ = { name }
           if (help) section_.help = formatI18nField(help)
-          const { form, fields, validations } = formatYunoHostArguments(options)
+          const { form, fields, validations, errors } = formatYunoHostArguments(options)
           Object.assign(forms[id], form)
           Object.assign(validations_[id], validations)
+          Object.assign(errors_[id], errors)
           panel_.sections.push({ name, fields })
         }
         panels_.push(panel_)
@@ -107,24 +111,22 @@ export default {
       this.forms = forms
       this.validations = { forms: validations_ }
       this.panels = panels_
+      this.errors = errors_
     },
 
     applyConfig (id_) {
-      console.debug(this.forms[id_])
       formatFormData(this.forms[id_], { promise: true, removeEmpty: false, removeNull: true }).then((formatedData) => {
-      console.debug(formatedData)
         const args = objectToParams(formatedData)
 
         api.put(
           `apps/${this.id}/config`, { key: id_, args }, { key: 'apps.update_config', name: this.id }
         ).then(response => {
-          // FIXME what should be done ?
-          /* eslint-disable-next-line */
-          console.log('SUCCESS', response)
         }).catch(err => {
           if (err.name !== 'APIBadRequestError') throw err
           const panel = this.panels.find(({ id }) => id_ === id)
-          this.$set(panel, 'serverError', err.message)
+          if (err.data.field) {
+            this.errors[id_][err.data.field].message = err.message
+          } else this.$set(panel, 'serverError', err.message)
         })
       })
     }
