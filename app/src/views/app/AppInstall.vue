@@ -71,6 +71,7 @@ export default {
       form: undefined,
       fields: undefined,
       validations: null,
+      errors: undefined,
       serverError: ''
     }
   },
@@ -90,7 +91,7 @@ export default {
       manifest.multi_instance = this.$i18n.t(manifest.multi_instance ? 'yes' : 'no')
       this.infos = Object.fromEntries(infosKeys.map(key => [key, manifest[key]]))
 
-      const { form, fields, validations } = formatYunoHostArguments(
+      const { form, fields, validations, errors } = formatYunoHostArguments(
         manifest.arguments.install,
         manifest.name
       )
@@ -98,6 +99,7 @@ export default {
       this.fields = fields
       this.form = form
       this.validations = { form: validations }
+      this.errors = errors
     },
 
     async performInstall () {
@@ -115,7 +117,9 @@ export default {
         this.$router.push({ name: 'app-list' })
       }).catch(err => {
         if (err.name !== 'APIBadRequestError') throw err
-        this.serverError = err.message
+        if (err.data.field) {
+          this.errors[err.data.field].message = err.message
+        } else this.serverError = err.message
       })
     }
   }

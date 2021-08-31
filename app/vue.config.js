@@ -60,7 +60,7 @@ module.exports = {
       '^/yunohost': {
         target: `http://${process.env.VUE_APP_IP}`,
         ws: true,
-        logLevel: 'debug'
+        logLevel: 'info'
       }
     },
     watchOptions: {
