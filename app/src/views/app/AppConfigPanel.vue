@@ -1,29 +1,35 @@
 <template>
   <view-base :queries="queries" @queries-response="onQueriesResponse" skeleton="card-form-skeleton">
     <template v-if="panels" #default>
-      <card-form
-        v-for="{ name, id: id_, sections, help, serverError } in panels" :key="id_"
-        :title="name" icon="wrench" title-tag="h2"
-        :validation="$v.forms[id_]" :id="id_ + '-form'" :server-error="serverError"
-        collapsable
-        @submit.prevent="applyConfig(id_)"
-      >
-        <template v-if="help" #disclaimer>
-          <div class="alert alert-info" v-html="help" />
-        </template>
+      <b-tabs pills card vertical>
+        <b-tab v-for="{ name, id: id_, sections, help, serverError } in panels"
+               :key="id_"
+               :title="name"
+        >
+          <card-form
+            :key="id_"
+            :title="name" icon="wrench" title-tag="h2"
+            :validation="$v.forms[id_]" :id="id_ + '-form'" :server-error="serverError"
+            @submit.prevent="applyConfig(id_)"
+          >
+            <template v-if="help" #disclaimer>
+              <div class="alert alert-info" v-html="help" />
+            </template>
 
-        <div v-for="section in sections" :key="section.id" class="mb-5">
-          <b-card-title v-if="section.name" title-tag="h3">
-            {{ section.name }} <small v-if="section.help">{{ section.help }}</small>
-          </b-card-title>
-          <template v-for="(field, fname) in section.fields">
-            <form-field :key="fname" v-model="forms[id_][fname]"
-                        :validation="$v.forms[id_][fname]"
-                        v-if="isVisible(field.visibleIf)" v-bind="field"
-            />
-          </template>
-        </div>
-      </card-form> {{ errors.main.str }}
+            <div v-for="section in sections" :key="section.id" class="mb-5">
+              <b-card-title v-if="section.name" title-tag="h3">
+                {{ section.name }} <small v-if="section.help">{{ section.help }}</small>
+              </b-card-title>
+              <template v-for="(field, fname) in section.fields">
+                <form-field :key="fname" v-model="forms[id_][fname]"
+                            :validation="$v.forms[id_][fname]"
+                            v-if="isVisible(field.visibleIf)" v-bind="field"
+                />
+              </template>
+            </div>
+          </card-form>
+        </b-tab>
+      </b-tabs>
     </template>
 
     <!-- if no config panel -->
