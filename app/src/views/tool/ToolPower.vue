@@ -66,7 +66,7 @@ export default {
       if (!confirmed) return
 
       this.action = action
-      api.put(action + '?force').then(() => {
+      api.put(action + '?force', {}, action).then(() => {
         // Use 'RESET_CONNECTED' and not 'DISCONNECT' else user will be redirect to login
         this.$store.dispatch('RESET_CONNECTED')
         this.inProcess = true

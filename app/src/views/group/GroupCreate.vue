@@ -45,7 +45,8 @@ export default {
     onSubmit () {
       api.post(
         { uri: 'users/groups', storeKey: 'groups' },
-        this.form
+        this.form,
+        { key: 'groups.create', name: this.form.groupname }
       ).then(() => {
         this.$router.push({ name: 'group-list' })
       }).catch(err => {

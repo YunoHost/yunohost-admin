@@ -2,7 +2,7 @@
   <view-search
     items-name="groups"
     :search.sync="search"
-    :items="normalGroups"
+    :items="primaryGroups"
     :filtered-items="filteredGroups"
     :queries="queries"
     @queries-response="onQueriesResponse"
@@ -16,13 +16,13 @@
 
     <!-- PRIMARY GROUPS CARDS -->
     <card
-      v-for="(group, name) in filteredGroups" :key="name" collapsable
-      :title="group.isSpecial ? $t('group_' + name) : `${$t('group')} '${name}'`" icon="group"
+      v-for="(group, groupName) in filteredGroups" :key="groupName" collapsable
+      :title="group.isSpecial ? $t('group_' + groupName) : `${$t('group')} '${groupName}'`" icon="group"
     >
       <template #header-buttons>
         <!-- DELETE GROUP -->
         <b-button
-          v-if="!group.isSpecial" @click="deleteGroup(name)"
+          v-if="!group.isSpecial" @click="deleteGroup(groupName)"
           size="sm" variant="danger"
         >
           <icon iname="trash-o" /> {{ $t('delete') }}
@@ -36,17 +36,19 @@
 
         <b-col>
           <template v-if="group.isSpecial">
-            <p><icon iname="info-circle" /> {{ $t('group_explain_' + name) }}</p>
-            <p v-if="name === 'visitors'">
+            <p class="text-primary">
+              <icon iname="info-circle" /> {{ $t('group_explain_' + groupName) }}
+            </p>
+            <p class="text-primary" v-if="groupName === 'visitors'">
               <em>{{ $t('group_explain_visitors_needed_for_external_client') }}</em>
             </p>
           </template>
           <template v-else>
-            <zone-selectize
-              :choices="group.availableMembers" :selected="group.members"
-              item-icon="user"
-              :label="$t('group_add_member')"
-              @change="onUserChanged({ ...$event, name })"
+            <tags-selectize
+              v-model="group.members" :options="usersOptions"
+              :id="groupName + '-users'" :label="$t('group_add_member')"
+              tag-icon="user" items-name="users"
+              @tag-update="onUserChanged({ ...$event, groupName })"
             />
           </template>
         </b-col>
@@ -58,50 +60,45 @@
           <strong>{{ $t('permissions') }}</strong>
         </b-col>
         <b-col>
-          <zone-selectize
-            item-icon="key-modern" item-variant="dark"
-            :choices="group.availablePermissions"
-            :selected="group.permissions"
-            :label="$t('group_add_permission')"
-            :format="formatPermission"
-            :removable="name === 'visitors' ? removable : null"
-            @change="onPermissionChanged({ ...$event, name, groupType: 'normal' })"
+          <tags-selectize
+            v-model="group.permissions" :options="permissionsOptions"
+            :id="groupName + '-perms'" :label="$t('group_add_permission')"
+            tag-icon="key-modern" items-name="permissions"
+            @tag-update="onPermissionChanged({ ...$event, groupName })"
+            :disabled-items="group.disabledItems"
           />
         </b-col>
       </b-row>
     </card>
 
-    <!-- GROUP SPECIFIC CARD -->
+    <!-- USER GROUPS CARD -->
     <card
       v-if="userGroups" collapsable
       :title="$t('group_specific_permissions')" icon="group"
     >
-      <template v-for="(name, index) in userGroupsNames">
-        <b-row :key="name">
+      <template v-for="(userName, index) in activeUserGroups">
+        <b-row :key="userName">
           <b-col md="3" lg="2">
-            <icon iname="user" /> <strong>{{ name }}</strong>
+            <icon iname="user" /> <strong>{{ userName }}</strong>
           </b-col>
 
           <b-col>
-            <zone-selectize
-              item-icon="key-modern" item-variant="dark"
-              :choices="userGroups[name].availablePermissions"
-              :selected="userGroups[name].permissions"
-              :label="$t('group_add_permission')"
-              :format="formatPermission"
-              @change="onPermissionChanged({ ...$event, name, groupType: 'user' })"
+            <tags-selectize
+              v-model="userGroups[userName].permissions" :options="permissionsOptions"
+              :id="userName + '-perms'" :label="$t('group_add_permission')"
+              tag-icon="key-modern" items-name="permissions"
+              @tag-update="onPermissionChanged({ ...$event, groupName: userName })"
             />
           </b-col>
         </b-row>
         <hr :key="index">
       </template>
 
-      <base-selectize
-        v-if="availableMembers.length"
-        :label="$t('group_add_member')"
-        :choices="availableMembers"
-        :selected="userGroupsNames"
-        @selected="onSpecificUserAdded"
+      <tags-selectize
+        v-model="activeUserGroups" :options="usersOptions"
+        id="user-groups" :label="$t('group_add_member')"
+        no-tags items-name="users"
+        @tag-update="onSpecificUserAdded"
       />
     </card>
   </view-search>
@@ -112,8 +109,7 @@ import Vue from 'vue'
 
 import api from '@/api'
 import { isEmptyValue } from '@/helpers/commons'
-import ZoneSelectize from '@/components/ZoneSelectize'
-import BaseSelectize from '@/components/BaseSelectize'
+import TagsSelectize from '@/components/TagsSelectize'
 
 // TODO add global search with type (search by: group, user, permission)
 // TODO add vuex store update on inputs ?
@@ -121,8 +117,7 @@ export default {
   name: 'GroupList',
 
   components: {
-    ZoneSelectize,
-    BaseSelectize
+    TagsSelectize
   },
 
   data () {
@@ -134,128 +129,124 @@ export default {
       ],
       search: '',
       permissions: undefined,
-      normalGroups: undefined,
-      userGroups: undefined
+      permissionsOptions: undefined,
+      primaryGroups: undefined,
+      userGroups: undefined,
+      usersOptions: undefined,
+      activeUserGroups: undefined
     }
   },
 
   computed: {
     filteredGroups () {
-      const groups = this.normalGroups
+      const groups = this.primaryGroups
       if (!groups) return
       const search = this.search.toLowerCase()
       const filtered = {}
-      for (const name in groups) {
-        if (name.toLowerCase().includes(search)) {
-          filtered[name] = groups[name]
+      for (const groupName in groups) {
+        if (groupName.toLowerCase().includes(search)) {
+          filtered[groupName] = groups[groupName]
         }
       }
       return isEmptyValue(filtered) ? null : filtered
-    },
-
-    userGroupsNames () {
-      const groups = this.userGroups
-      if (!groups) return
-      return Object.keys(groups).filter(name => {
-        return groups[name].permissions !== null
-      })
-    },
-
-    availableMembers () {
-      const groups = this.userGroups
-      if (!groups) return
-      return Object.keys(groups).filter(name => {
-        return groups[name].permissions === null
-      })
     }
   },
 
   methods: {
-    onQueriesResponse (users, allGroups, permissions) {
+    onQueriesResponse (users, allGroups, permsDict) {
       // Do not use computed properties to get values from the store here to avoid auto
       // updates while modifying values.
-      const normalGroups = {}
-      const userGroups = {}
+      const permissions = Object.entries(permsDict).map(([id, value]) => ({ id, ...value }))
       const userNames = users ? Object.keys(users) : []
+      const primaryGroups = {}
+      const userGroups = {}
 
       for (const groupName in allGroups) {
         // copy the group to unlink it from the store
         const group = { ...allGroups[groupName] }
-        group.availablePermissions = Object.keys(permissions).filter(perm => {
-          // Remove 'email', 'xmpp' and protected permissions in visitors's permission choice list
-          if (groupName === 'visitors' && (['mail.main', 'xmpp.main'].includes(perm) || permissions[perm].protected)) {
-            return false
-          }
-          return !group.permissions.includes(perm)
+        group.permissions = group.permissions.map((perm) => {
+          return permsDict[perm].label
         })
 
         if (userNames.includes(groupName)) {
-          if (group.permissions.length === 0) {
-            // This forbid the user to appear in the displayed user list
-            group.permissions = null
-          }
           userGroups[groupName] = group
           continue
         }
 
-        if (['visitors', 'all_users'].includes(groupName)) {
-          group.isSpecial = true
-        } else {
-          group.availableMembers = userNames.filter(name => {
-            return !group.members.includes(name)
-          })
+        group.isSpecial = ['visitors', 'all_users'].includes(groupName)
+
+        if (groupName === 'visitors') {
+          // Forbid to add or remove a protected permission on group `visitors`
+          group.disabledItems = permissions.filter(({ id }) => {
+            return ['mail.main', 'xmpp.main'].includes(id) || permsDict[id].protected
+          }).map(({ id }) => permsDict[id].label)
         }
-        normalGroups[groupName] = group
+
+        if (groupName === 'all_users') {
+          // Forbid to add ssh and sftp permission on group `all_users`
+          group.disabledItems = permissions.filter(({ id }) => {
+            return ['ssh.main', 'sftp.main'].includes(id)
+          }).map(({ id }) => permsDict[id].label)
+        }
+
+        primaryGroups[groupName] = group
       }
 
-      this.permissions = permissions
-      this.normalGroups = normalGroups
-      this.userGroups = isEmptyValue(userGroups) ? null : userGroups
-    },
+      const activeUserGroups = Object.entries(userGroups).filter(([_, group]) => {
+        return group.permissions.length > 0
+      }).map(([name]) => name)
 
-    onPermissionChanged ({ item, index, name, groupType, action }) {
-      const uri = 'users/permissions/' + item
-      const data = { [action]: name }
-      const from = action === 'add' ? 'availablePermissions' : 'permissions'
-      const to = action === 'add' ? 'permissions' : 'availablePermissions'
-      api.put(uri, data).then(() => {
-        this[groupType + 'Groups'][name][from].splice(index, 1)
-        this[groupType + 'Groups'][name][to].push(item)
+      Object.assign(this, {
+        permissions,
+        permissionsOptions: permissions.map(perm => perm.label),
+        primaryGroups,
+        userGroups: isEmptyValue(userGroups) ? null : userGroups,
+        usersOptions: userNames,
+        activeUserGroups
       })
     },
 
-    onUserChanged ({ item, index, name, action }) {
-      const uri = 'users/groups/' + name
-      const data = { [action]: item }
-      const from = action === 'add' ? 'availableMembers' : 'members'
-      const to = action === 'add' ? 'members' : 'availableMembers'
-      api.put(uri, data).then(() => {
-        this.normalGroups[name][from].splice(index, 1)
-        this.normalGroups[name][to].push(item)
-      })
+    async onPermissionChanged ({ option, groupName, action, applyMethod }) {
+      const permId = this.permissions.find(perm => perm.label === option).id
+      if (action === 'add' && ['sftp.main', 'ssh.main'].includes(permId)) {
+        const confirmed = await this.$askConfirmation(
+          this.$i18n.t('confirm_group_add_access_permission', { name: groupName, perm: option })
+        )
+        if (!confirmed) return
+      }
+      api.put(
+        // FIXME hacky way to update the store
+        { uri: `users/permissions/${permId}/${action}/${groupName}`, storeKey: 'permissions', groupName, action, permId },
+        {},
+        { key: 'permissions.' + action, perm: option, name: groupName }
+      ).then(() => applyMethod(option))
     },
 
-    onSpecificUserAdded ({ item }) {
-      this.userGroups[item].permissions = []
+    onUserChanged ({ option, groupName, action, applyMethod }) {
+      api.put(
+        { uri: `users/groups/${groupName}/${action}/${option}`, storeKey: 'groups', groupName },
+        {},
+        { key: 'groups.' + action, user: option, name: groupName }
+      ).then(() => applyMethod(option))
     },
 
-    // FIXME Find a way to pass a filter to a component
-    formatPermission (name) {
-      return this.permissions[name].label
+    onSpecificUserAdded ({ option: userName, action, applyMethod }) {
+      if (action === 'add') {
+        this.userGroups[userName].permissions = []
+        applyMethod(userName)
+      }
     },
 
-    removable (name) {
-      return this.permissions[name].protected === false
-    },
-
-    async deleteGroup (name) {
-      const confirmed = await this.$askConfirmation(this.$i18n.t('confirm_delete', { name }))
+    async deleteGroup (groupName) {
+      const confirmed = await this.$askConfirmation(this.$i18n.t('confirm_delete', { name: groupName }))
       if (!confirmed) return
 
       api.delete(
-        { uri: 'users/groups', param: name, storeKey: 'groups' }
+        { uri: 'users/groups', param: groupName, storeKey: 'groups' },
+        {},
+        { key: 'groups.delete', name: groupName }
       ).then(() => {
-        Vue.delete(this.normalGroups, name)
+        Vue.delete(this.primaryGroups, groupName)
       })
     }
   }

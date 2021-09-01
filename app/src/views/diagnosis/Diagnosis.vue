@@ -42,7 +42,7 @@
       </template>
 
       <template #header-buttons>
-        <b-button size="sm" :variant="report.items ? 'info' : 'success'" @click="runDiagnosis(report.id)">
+        <b-button size="sm" :variant="report.items ? 'info' : 'success'" @click="runDiagnosis(report)">
           <icon iname="refresh" /> {{ $t('rerun_diagnosis') }}
         </b-button>
       </template>
@@ -64,13 +64,13 @@
             <div class="d-flex flex-column flex-lg-row ml-auto">
               <b-button
                 v-if="item.ignored" size="sm"
-                @click="toggleIgnoreIssue(false, report, item)"
+                @click="toggleIgnoreIssue('unignore', report, item)"
               >
                 <icon iname="bell" /> {{ $t('unignore') }}
               </b-button>
               <b-button
                 v-else-if="item.issue" variant="warning" size="sm"
-                @click="toggleIgnoreIssue(true, report, item)"
+                @click="toggleIgnoreIssue('ignore', report, item)"
               >
                 <icon iname="bell-slash" /> {{ $t('ignore') }}
               </b-button>
@@ -115,8 +115,8 @@ export default {
   data () {
     return {
       queries: [
-        ['POST', 'diagnosis/run?except_if_never_ran_yet'],
-        ['GET', 'diagnosis/show?full']
+        ['PUT', 'diagnosis/run?except_if_never_ran_yet', {}, 'diagnosis.run'],
+        ['GET', 'diagnosis?full']
       ],
       reports: undefined
     }
@@ -171,22 +171,27 @@ export default {
       this.reports = reports
     },
 
-    runDiagnosis (id = null) {
+    runDiagnosis ({ id = null, description } = {}) {
       const param = id !== null ? '?force' : ''
       const data = id !== null ? { categories: [id] } : {}
-      api.post('diagnosis/run' + param, data).then(this.$refs.view.fetchQueries)
+
+      api.put(
+        'diagnosis/run' + param,
+        data,
+        { key: 'diagnosis.run' + (id !== null ? '_specific' : ''), description }
+      ).then(this.$refs.view.fetchQueries)
     },
 
-    toggleIgnoreIssue (ignore, report, item) {
-      const key = (ignore ? 'add' : 'remove') + '_filter'
-      const filterArgs = Object.entries(item.meta).reduce((filterArgs, entries) => {
-        filterArgs.push(entries.join('='))
-        return filterArgs
-      }, [report.id])
+    toggleIgnoreIssue (action, report, item) {
+      const filterArgs = [report.id].concat(Object.entries(item.meta).map(entries => entries.join('=')))
 
-      api.post('diagnosis/ignore', { [key]: filterArgs }).then(() => {
-        item.ignored = ignore
-        if (ignore) {
+      api.put(
+        'diagnosis/' + action,
+        { filter: filterArgs },
+        `diagnosis.${action}.${item.status.toLowerCase()}`
+      ).then(() => {
+        item.ignored = action === 'ignore'
+        if (item.ignored) {
           report[item.status.toLowerCase() + 's']--
         } else {
           report.ignoreds--

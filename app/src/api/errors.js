@@ -7,8 +7,8 @@ import i18n from '@/i18n'
 
 
 class APIError extends Error {
-  constructor (request, { url, status, statusText }, errorData) {
-    super(errorData.error || i18n.t('error_server_unexpected'))
+  constructor (request, { url, status, statusText }, { error }) {
+    super(error ? error.replace('\n', '<br>') : i18n.t('error_server_unexpected'))
     const urlObj = new URL(url)
     this.name = 'APIError'
     this.code = status
@@ -19,6 +19,7 @@ class APIError extends Error {
   }
 
   log () {
+    /* eslint-disable-next-line */
     console.error(`${this.name} (${this.code}): ${this.uri}\n${this.message}`)
   }
 }
@@ -47,6 +48,7 @@ class APIBadRequestError extends APIError {
   constructor (method, response, errorData) {
     super(method, response, errorData)
     this.name = 'APIBadRequestError'
+    this.key = errorData.error_key
   }
 }
 

@@ -74,7 +74,7 @@ export default {
     return {
       queries: [
         ['GET', 'migrations?pending'],
-        ['PUT', 'update']
+        ['PUT', 'update/all', {}, 'update']
       ],
       // API data
       migrationsNotDone: undefined,
@@ -95,12 +95,15 @@ export default {
       const confirmed = await this.$askConfirmation(confirmMsg)
       if (!confirmed) return
 
-      const uri = type === 'specific_app'
-        ? 'upgrade/apps?app=' + id
-        : 'upgrade?' + type
-
-      api.put(uri).then(() => {
-        this.$router.push({ name: 'tool-logs' })
+      const uri = id !== null ? `apps/${id}/upgrade` : 'upgrade/' + type
+      api.put(uri, {}, { key: 'upgrade.' + (id ? 'app' : type), app: id }).then(() => {
+        if (id !== null) {
+          this.apps = this.apps.filter(app => id !== app.id)
+        } else if (type === 'apps') {
+          this.apps = null
+        } else {
+          this.system = null
+        }
       })
     }
   }

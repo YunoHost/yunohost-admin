@@ -10,7 +10,10 @@
         <slot name="default" />
 
         <slot name="server-error">
-          <b-alert variant="danger" :show="serverError !== ''" v-html="serverError" />
+          <b-alert
+            variant="danger" class="my-3"
+            :show="serverError !== ''" v-html="serverError"
+          />
         </slot>
       </b-form>
     </template>

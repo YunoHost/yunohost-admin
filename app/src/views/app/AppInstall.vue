@@ -1,8 +1,8 @@
 <template>
-  <view-base :loading="loading">
+  <view-base :queries="queries" @queries-response="onQueriesResponse">
     <template v-if="infos">
       <!-- BASIC INFOS -->
-      <card :title="`${$t('infos')} — ${name}`" icon="info-circle">
+      <card :title="name" icon="download">
         <b-row
           v-for="(info, key) in infos" :key="key"
           no-gutters class="row-line"
@@ -19,7 +19,7 @@
 
       <!-- INSTALL FORM -->
       <card-form
-        :title="$t('operations')" icon="wrench" :submit-text="$t('install')"
+        :title="$t('app_install_parameters')" icon="cog" :submit-text="$t('install')"
         :validation="$v" :server-error="serverError"
         @submit.prevent="performInstall"
       >
@@ -49,8 +49,7 @@
 <script>
 import { validationMixin } from 'vuelidate'
 
-import api from '@/api'
-import { objectToParams } from '@/helpers/commons'
+import api, { objectToParams } from '@/api'
 import { formatYunoHostArguments, formatI18nField, formatFormData } from '@/helpers/yunohostArguments'
 
 export default {
@@ -64,7 +63,12 @@ export default {
 
   data () {
     return {
-      loading: true,
+      queries: [
+        ['GET', 'apps/manifest?app=' + this.id],
+        ['GET', { uri: 'domains' }],
+        ['GET', { uri: 'domains/main', storeKey: 'main_domain' }],
+        ['GET', { uri: 'users' }]
+      ],
       name: undefined,
       infos: undefined,
       formDisclaimer: null,
@@ -80,23 +84,7 @@ export default {
   },
 
   methods: {
-    getExternalManifest () {
-      const url = this.id.replace('github.com', 'raw.githubusercontent.com') + 'master/manifest.json'
-      return fetch(url).then(response => {
-        if (response.ok) return response.json()
-        else {
-          throw Error('No manifest found at ' + url)
-        }
-      }).catch(() => {
-        this.infos = null
-      })
-    },
-
-    getApiManifest () {
-      return api.get('appscatalog?full').then(response => response.apps[this.id].manifest)
-    },
-
-    formatManifestData (manifest) {
+    onQueriesResponse (manifest) {
       this.name = manifest.name
       const infosKeys = ['id', 'description', 'license', 'version', 'multi_instance']
       if (manifest.license === undefined || manifest.license === 'free') {
@@ -115,7 +103,6 @@ export default {
       this.fields = fields
       this.form = form
       this.validations = { form: validations }
-      this.loading = false
     },
 
     async performInstall () {
@@ -127,27 +114,15 @@ export default {
       }
 
       const { data: args, label } = formatFormData(this.form, { extract: ['label'] })
-      const data = { app: this.id, label, args: objectToParams(args) }
+      const data = { app: this.id, label, args: Object.entries(args).length ? objectToParams(args) : undefined }
 
-      api.post('apps', data).then(response => {
+      api.post('apps', data, { key: 'apps.install', name: this.name }).then(() => {
         this.$router.push({ name: 'app-list' })
       }).catch(err => {
         if (err.name !== 'APIBadRequestError') throw err
         this.serverError = err.message
       })
     }
-  },
-
-  created () {
-    const isCustom = this.$route.name === 'app-install-custom'
-    Promise.all([
-      isCustom ? this.getExternalManifest() : this.getApiManifest(),
-      api.fetchAll([
-        ['GET', { uri: 'domains' }],
-        ['GET', { uri: 'domains/main', storeKey: 'main_domain' }],
-        ['GET', { uri: 'users' }]
-      ])
-    ]).then((responses) => this.formatManifestData(responses[0]))
   }
 }
 </script>

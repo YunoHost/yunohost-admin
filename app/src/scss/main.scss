@@ -33,27 +33,29 @@ body {
   min-height: 100vh
 }
 
-.menu-list {
-  .list-group-item {
-    padding: 0.75rem 0;
-    display: flex;
-    align-items: center;
-  }
-
-  h2 {
-    font-size: 1.25rem;
-    font-weight: 400;
-    margin: 0;
-  }
+.menu-list .list-group-item {
+  padding: $list-group-item-padding-y 0;
+  display: flex;
+  align-items: center;
 }
+
 
 // Bootstrap overrides
 
-.list-group-item {
-  padding: 0.75rem 1rem;
+// Overwrite list-group-item variants to lighter ones (used in diagnosis for example)
+@each $color, $value in $theme-colors {
+  @include list-group-item-variant($color, theme-color-level($color, -11), theme-color-level($color, 6));
 }
-.list-group-item-action {
-  color: #333;
+
+// Add breakpoints for w-*
+@each $breakpoint in map-keys($grid-breakpoints) {
+  @each $size, $length in $sizes {
+    @include media-breakpoint-up($breakpoint) {
+      .w-#{$breakpoint}-#{$size} {
+        width: $length !important;
+      }
+    }
+  }
 }
 
 // Allow state of input group to be displayed under the group
@@ -88,18 +90,16 @@ body {
   margin-top: 0;
 }
 
-.card-header {
+.card, .list-group-item {
   h1, h2, h3, h4, h5, h6 {
     margin: 0;
   }
-
-  h2 {
-    font-size: 1.75rem;
-  }
 }
 
-.card-body {
-  padding: 1rem;
+.card-header, .list-group-item {
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: $font-weight-normal;
+  }
 }
 
 // collapse icon
@@ -122,6 +122,10 @@ body {
   code {
     font-variant-ligatures: none;
   }
+}
+
+code {
+  background: ghostwhite;
 }
 
 .log {

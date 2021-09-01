@@ -66,15 +66,20 @@
     <b-card-group v-else deck>
       <b-card no-body v-for="app in filteredApps" :key="app.id">
         <b-card-body class="d-flex flex-column">
-          <b-card-title class="d-flex">
+          <b-card-title class="d-flex mb-2">
             {{ app.manifest.name }}
-            <small v-if="app.state !== 'working'" class="ml-2">
+            <small v-if="app.state !== 'working'" class="d-flex align-items-center ml-2">
               <b-badge
+                v-if="app.state !== 'highquality'"
                 :variant="(app.color === 'danger' && app.state === 'lowquality') ? 'warning' : app.color"
                 v-b-popover.hover.bottom="$t(`app_state_${app.state}_explanation`)"
               >
                 {{ $t('app_state_' + app.state) }}
               </b-badge>
+              <icon
+                v-else iname="star" class="star"
+                v-b-popover.hover.bottom="$t(`app_state_${app.state}_explanation`)"
+              />
             </small>
           </b-card-title>
 
@@ -159,7 +164,7 @@ export default {
   data () {
     return {
       queries: [
-        ['GET', 'appscatalog?full&with_categories']
+        ['GET', 'apps/catalog?full&with_categories']
       ],
 
       // Data
@@ -188,10 +193,9 @@ export default {
       customInstall: {
         field: {
           label: this.$i18n.t('url'),
-          description: this.$i18n.t('custom_app_url_only_github'),
           props: {
             id: 'custom-install',
-            placeholder: 'https://github.com/USER/REPOSITORY'
+            placeholder: 'https://some.git.forge.tld/USER/REPOSITORY'
           }
         },
         url: ''
@@ -268,7 +272,7 @@ export default {
       } else {
         filters.isDecentQuality = true
       }
-      if (app.high_quality && app.level > 7) {
+      if (app.level >= 8) {
         filters.state = 'highquality'
         filters.isHighQuality = true
       }
@@ -276,8 +280,7 @@ export default {
     },
 
     formatColor (app) {
-      if (app.isHighQuality) return 'best'
-      if (app.isDecentQuality) return 'success'
+      if (app.isDecentQuality || app.isHighQuality) return 'success'
       if (app.isWorking) return 'warning'
       return 'danger'
     },
@@ -388,6 +391,10 @@ export default {
     // not maintained info
     .alert-warning {
       font-size: .75em;
+    }
+
+    .star {
+      color: goldenrod;
     }
   }
 

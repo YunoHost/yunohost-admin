@@ -29,7 +29,7 @@ Vue.use(BootstrapVue, {
 // FIXME find or wait for a better way
 Vue.prototype.$askConfirmation = function (message, props) {
   return this.$bvModal.msgBoxConfirm(message, {
-    okTitle: this.$i18n.t('yes'),
+    okTitle: this.$i18n.t('ok'),
     cancelTitle: this.$i18n.t('cancel'),
     ...props
   })

@@ -5,8 +5,7 @@
 
     <!-- REQUEST DESCRIPTION -->
     <strong class="request-desc">
-      {{ request.uri | readableUri }}
-      <small>({{ $t('history.methods.' + request.method) }})</small>
+      {{ request.humanRoute }}
     </strong>
 
     <div v-if="request.errors || request.warnings">
@@ -98,6 +97,7 @@ div {
   height: 1.25rem;
   display: flex;
   align-items: center;
+  justify-content: center;
   min-width: 70px;
 }
 

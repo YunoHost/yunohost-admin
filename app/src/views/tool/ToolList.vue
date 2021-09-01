@@ -6,8 +6,8 @@
       :key="item.routeName"
       :to="{name: item.routeName}"
     >
-      <icon :iname="item.icon" class="lg" />
-      <h2>{{ $t(item.translation) }}</h2>
+      <icon :iname="item.icon" class="lg ml-1" />
+      <h4>{{ $t(item.translation) }}</h4>
       <icon iname="chevron-right" class="lg fs-sm ml-auto" />
     </b-list-group-item>
   </b-list-group>

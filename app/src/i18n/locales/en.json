@@ -31,15 +31,15 @@
         "view_error": "View error"
     },
     "api_errors_titles": {
-        "APIError": "Yunohost encountered an unexpected error",
-        "APIBadRequestError": "Yunohost encountered an error",
-        "APIInternalError": "Yunohost encountered an internal error",
-        "APINotFoundError": "Yunohost API could not find a route",
-        "APINotRespondingError": "Yunohost API is not responding",
-        "APIConnexionError": "Yunohost encountered a connexion error"
+        "APIError": "YunoHost encountered an unexpected error",
+        "APIBadRequestError": "YunoHost encountered an error",
+        "APIInternalError": "YunoHost encountered an internal error",
+        "APINotFoundError": "YunoHost API could not find a route",
+        "APINotRespondingError": "YunoHost API is not responding",
+        "APIConnexionError": "YunoHost encountered a connection error"
     },
     "all_apps": "All apps",
-    "api_not_found": "Seems like the web-admin tryed to query something that doesn't exist.",
+    "api_not_found": "Seems like the web-admin tried to query something that doesn't exist.",
     "api_not_responding": "The YunoHost API is not responding. Maybe 'yunohost-api' is down or got restarted?",
     "api_waiting": "Waiting for the server's response...",
     "app_actions": "Actions",
@@ -54,6 +54,7 @@
     "app_info_change_url_disabled_tooltip": "This feature hasn't been implemented in this app yet",
     "app_info_uninstall_desc": "Remove this application.",
     "app_install_custom_no_manifest": "No manifest.json file",
+    "app_install_parameters": "Install settings",
     "app_manage_label_and_tiles": "Manage label and tiles",
     "app_make_default": "Make default",
     "app_no_actions": "This application doesn't have any actions",
@@ -65,7 +66,7 @@
     "app_state_lowquality": "low quality",
     "app_state_lowquality_explanation": "This app may be functional, but may still contain issues, or is not fully integrated with YunoHost, or it does not respect the good practices.",
     "app_state_highquality": "high quality",
-    "app_state_highquality_explanation": "This app is well-integrated with YunoHost. It has been (and is!) peer-reviewed by the YunoHost app team. It can be expected to be safe and maintained on the long-term.",
+    "app_state_highquality_explanation": "This app is well-integrated with YunoHost since at least a year.",
     "app_state_working": "working",
     "app_state_working_explanation": "The maintainer of this app declared it as 'working'. It means that it should be functional (c.f. application level) but is not necessarily peer-reviewed, it may still contain issues or is not fully integrated with YunoHost.",
     "applications": "Applications",
@@ -91,8 +92,9 @@
     "confirm_app_default": "Are you sure you want to make this app default?",
     "confirm_change_maindomain": "Are you sure you want to change the main domain?",
     "confirm_delete": "Are you sure you want to delete {name}?",
-    "confirm_firewall_open": "Are you sure you want to open port {port} (protocol: {protocol}, connection: {connection})",
-    "confirm_firewall_close": "Are you sure you want to close port {port} (protocol: {protocol}, connection: {connection})",
+    "confirm_firewall_allow": "Are you sure you want to open port {port} (protocol: {protocol}, connection: {connection})",
+    "confirm_firewall_disallow": "Are you sure you want to close port {port} (protocol: {protocol}, connection: {connection})",
+    "confirm_group_add_access_permission": "Are you sure you want to grant {perm} access to {name}? Such access significantly increases the attack surface if {name} happens to be a malicious person. You should only do so if you TRUST this person/group.",
     "confirm_install_custom_app": "WARNING! Installing 3rd party applications may compromise the integrity and security of your system. You should probably NOT install it unless you know what you are doing. Are you willing to take that risk?",
     "confirm_install_domain_root": "Are you sure you want to install this application on '/'? You will not be able to install any other app on {domain}",
     "confirm_app_install": "Are you sure you want to install this application?",
@@ -115,13 +117,12 @@
     "connection": "Connection",
     "created_at": "Created at",
     "custom_app_install": "Install custom app",
-    "custom_app_url_only_github": "Currently only from GitHub",
     "day_validity": " Expired | 1 day | {count} days",
     "dead": "Inactive",
     "delete": "Delete",
     "description": "Description",
     "details": "Details",
-    "domain_dns_conf_is_just_a_recommendation": "This page shows you the *recommended* configuration. It does *not* configure the DNS for you. It is your responsability to configure your DNS zone in your DNS registrar according to this recommendation.",
+    "domain_dns_conf_is_just_a_recommendation": "This page shows you the *recommended* configuration. It does *not* configure the DNS for you. It is your responsibility to configure your DNS zone in your DNS registrar according to this recommendation.",
     "diagnosis": "Diagnosis",
     "diagnosis_experimental_disclaimer": "Be aware that the diagnosis feature is still experimental and being polished, and it may not be fully reliable.",
     "diagnosis_first_run": "The diagnosis feature will attempt to identify common issues on the different aspects of your server to make sure everything runs smoothly. Please do not panic if you see a bunch of errors right after setting up your server: it is precisely meant to help you to identify issues and guide you to fix them. The diagnosis will also run automatically twice a day and an email is sent to the administrator if issues are found.",
@@ -131,7 +132,7 @@
     "disabled": "Disabled",
     "dns": "DNS",
     "domain_add": "Add domain",
-    "domain_add_dns_doc": "… and I have <a href='//yunohost.org/dns'>set my DNS correctly</a>.",
+    "domain_add_dns_doc": "… and I have <a href='//yunohost.org/dns_config' target='_blank'>set my DNS correctly</a>.",
     "domain_add_dyndns_doc": "… and I want a dynamic DNS service.",
     "domain_add_dyndns_forbidden": "You have already subscribed to a DynDNS domain, you can ask to remove your current DynDNS domain on the forum <a href='//forum.yunohost.org/t/nohost-domain-recovery-suppression-de-domaine-en-nohost-me-noho-st-et-ynh-fr/442'>in the dedicated thread</a>.",
     "domain_add_panel_with_domain": "I already have a domain name…",
@@ -155,7 +156,7 @@
     "error_connection_interrupted": "The server closed the connection instead of answering it. Has nginx or the yunohost-api been restarted or stopped for some reason?",
     "everything_good": "Everything good!",
     "experimental": "Experimental",
-    "experimental_warning": "Warning: this feature is experimental and not consider stable, you shouldn't be using it except if you know what you are doing.",
+    "experimental_warning": "Warning: this feature is experimental and not considered stable, you shouldn't be using it except if you know what you are doing.",
     "firewall": "Firewall",
     "footer_version": "Powered by <a href='https://yunohost.org'>YunoHost</a> {version} ({repo}).",
     "footer": {
@@ -172,7 +173,7 @@
         "email": "Invalid email: must be alphanumeric and <code>_.-</code> characters only (e.g. someone@example.com, s0me-1@example.com)",
         "emailForward": "Invalid email forward: must be alphanumeric and <code>_.-+</code> characters only (e.g. someone+tag@example.com, s0me-1+tag@example.com)",
         "githubLink": "Url must be a valid Github link to a repository",
-        "name": "Names may not includes special characters except <code> ,.'-</code>",
+        "name": "Names may not include special characters except <code> ,.'-</code>",
         "minValue": "Value must be a number equal or greater than {min}.",
         "notInUsers": "The user '{value}' already exists.",
         "number": "Value must be a number.",
@@ -195,12 +196,13 @@
     "group_new": "New group",
     "group_explain_all_users": "This is a special group containing all users accounts on the server",
     "group_explain_visitors": "This is a special group representing anonymous visitors",
-    "group_explain_visitors_needed_for_external_client": "Be careful that you need to keep some applications allowed to visitors if you intend to use them with external clients. For example, this is the case for Nextcloud if you want intend to use a synchronization client on your smartphone or desktop computer.",
+    "group_explain_visitors_needed_for_external_client": "Be careful that you need to keep some applications allowed to visitors if you intend to use them with external clients. For example, this is the case for Nextcloud if you intend to use a synchronization client on your smartphone or desktop computer.",
     "group_specific_permissions": "User specific permissions",
     "groups_and_permissions": "Groups and permissions",
     "groups_and_permissions_manage": "Manage groups and permissions",
     "permissions": "Permissions",
     "history": {
+        "is_empty": "Nothing in history for now.",
         "title": "History",
         "last_action": "Last action:",
         "methods": {
@@ -212,20 +214,16 @@
     },
     "home": "Home",
     "hook_adminjs_group_configuration": "System configurations",
-    "hook_conf_cron": "Automatic tasks",
-    "hook_conf_ynh_currenthost": "Current main domain",
-    "hook_conf_ldap": "LDAP database",
-    "hook_conf_nginx": "Nginx",
-    "hook_conf_ssh": "SSH",
-    "hook_conf_ssowat": "SSOwat",
-    "hook_conf_xmpp": "XMPP",
+    "hook_conf_ldap": "User database",
     "hook_conf_ynh_certs": "SSL certificates",
-    "hook_conf_ynh_firewall": "Firewall",
-    "hook_conf_ynh_mysql": "MySQL password",
+    "hook_conf_ynh_settings": "YunoHost configurations",
+    "hook_conf_manually_modified_files": "Manually modified configurations",
     "hook_data_home": "User data",
     "hook_data_home_desc": "User data located in /home/USER",
     "hook_data_mail": "Mail",
     "hook_data_mail_desc": "Raw emails stored on the server",
+    "hook_data_xmpp": "XMPP data",
+    "hook_data_xmpp_desc": "Room and user configurations, file uploads",
     "id": "ID",
     "ignore": "Ignore",
     "ignored": "{count} ignored",
@@ -245,10 +243,12 @@
         "groups": "no groups | group | {c} groups",
         "installed_apps": "no installed apps | installed app | {c} installed apps",
         "logs": "no logs | log | {c} logs",
+        "permissions": "no permissions | permission | {c} permissions",
         "services": "no services | service | {c} services",
         "users": "no users | user | {c} users"
     },
-    "items_verbose_count": "There is {items}.",
+    "items_verbose_count": "There are {items}.",
+    "items_verbose_items_left": "There are {items} left.",
     "label": "Label",
     "label_for_manifestname": "Label for {name}",
     "last_ran": "Last time ran:",
@@ -268,8 +268,8 @@
     "migrations_no_pending": "No pending migrations",
     "migrations_no_done": "No previous migrations",
     "migrations_disclaimer_check_message": "I read and understood this disclaimer",
-    "migrations_disclaimer_not_checked": "This migration require you to acknowledge its disclaimer before running it.",
-    "multi_instance": "Multi instance",
+    "migrations_disclaimer_not_checked": "This migration requires you to acknowledge its disclaimer before running it.",
+    "multi_instance": "Can be installed several times",
     "myserver": "myserver",
     "next": "Next",
     "no": "No",
@@ -314,14 +314,17 @@
     "logs_more": "Display more lines",
     "pending_migrations": "There are some pending migrations waiting to be ran. Please go to the <a href='#/tools/migrations'>Tools > Migrations</a> view to run them.",
     "permission_corresponding_url": "Corresponding URL",
-    "permission_main": "Main permission",
+    "permission_main": "Main label",
     "permission_show_tile_enabled": "Visible as tile in user portal",
     "port": "Port",
     "ports": "Ports",
+    "postinstall": {
+        "force": "Force the post-install"
+    },
     "postinstall_domain": "This is the first domain name linked to your YunoHost server, but also the one which will be used by your server's users to access the authentication portal. Accordingly, it will be visible by everyone, so choose it carefully.",
     "postinstall_intro_1": "Congratulations! YunoHost has been successfully installed.",
     "postinstall_intro_2": "Two more configuration steps are required to activate you server's services.",
-    "postinstall_intro_3": "You can obtain more information by visiting the <a href='//yunohost.org/postinstall' target='_blank'>appropriate documentation page</a>",
+    "postinstall_intro_3": "You can obtain more information by visiting the <a href='//yunohost.org/en/install/hardware:vps_debian#fa-cog-proceed-with-the-initial-configuration' target='_blank'>appropriate documentation page</a>",
     "postinstall_password": "This password will be used to manage everything on your server. Take the time to choose it wisely.",
     "postinstall_set_domain": "Set main domain",
     "postinstall_set_password": "Set administration password",
@@ -331,12 +334,88 @@
     "rerun_diagnosis": "Rerun diagnosis",
     "restore": "Restore",
     "restart": "Restart",
+    "human_routes": {
+        "adminpw": "Change admin password",
+        "apps": {
+          "change_label": "Change label of '{prevName}' for '{nextName}'",
+          "change_url": "Change access URL of '{name}'",
+          "install": "Install app '{name}'",
+          "set_default": "Redirect '{domain}' domain root to '{name}'",
+          "perform_action": "Perform action '{action}' of app '{name}'",
+          "uninstall": "Uninstall app '{name}'",
+          "update_config": "Update app '{name}' configuration"
+        },
+        "backups": {
+          "create": "Create a backup",
+          "delete": "Delete backup '{name}'",
+          "restore": "Restore backup '{name}'"
+        },
+        "diagnosis": {
+          "ignore": {
+              "error": "Ignore an error",
+              "warning": "Ignore a warning"
+          },
+          "run": "Run the diagnosis",
+          "run_specific": "Run '{description}' diagnosis",
+          "unignore": {
+            "error": "Unignore an error",
+            "warning": "Unignore a warning"
+          }
+        },
+        "domains": {
+          "add": "Add domain '{name}'",
+          "delete": "Delete domain '{name}'",
+          "install_LE": "Install certificate for '{name}'",
+          "manual_renew_LE": "Renew certificate for '{name}'",
+          "regen_selfsigned": "Renew self-signed certificate for '{name}'",
+          "revert_to_selfsigned": "Revert to self-signed certificate for '{name}'",
+          "set_default": "Set '{name}' as default domain"
+        },
+        "firewall": {
+            "ports": "{action} port {port} ({protocol}, {connection})",
+            "upnp": "{action} UPnP"
+        },
+        "groups": {
+          "create": "Create group '{name}'",
+          "delete": "Delete group '{name}'",
+          "add": "Add '{user}' to group '{name}'",
+          "remove": "Remove '{user}' from group '{name}'"
+        },
+        "migrations": {
+          "run": "Run migrations",
+          "skip": "Skip migrations"
+        },
+        "permissions": {
+          "add": "Allow '{name}' to access '{perm}'",
+          "remove": "Remove '{name}' access to '{perm}'"
+        },
+        "postinstall": "Run the post-install",
+        "reboot": "Reboot the server",
+        "services": {
+          "restart": "Restart the service '{name}'",
+          "start": "Start the service '{name}'",
+          "stop": "Stop the service '{name}'"
+        },
+        "share_logs": "Generate link for log '{name}'",
+        "shutdown": "Shutdown the server",
+        "update": "Check for updates",
+        "upgrade": {
+            "system": "Upgrade the system",
+            "apps": "Upgrade all apps",
+            "app": "Upgrade '{app}' app"
+        },
+        "users": {
+            "create": "Create user '{name}'",
+            "delete": "Delete user '{name}'",
+            "update": "Update user '{name}'"
+        }
+    },
     "run": "Run",
     "running": "Running",
     "save": "Save",
     "search": {
         "for": "Search for {items}...",
-        "not_found": "There is {items} matching your criteria."
+        "not_found": "There are {items} matching your criteria."
     },
     "select_all": "Select all",
     "select_none": "Select none",
@@ -379,7 +458,7 @@
         "cache": "Cache",
         "cache_description": "Consider disabling the cache if you plan on working with the CLI while also navigating in this web-admin.",
         "experimental": "Experimental mode",
-        "experimental_description": "Gives you access to experimental features. These are considered unstable and may break your system.<br> Enabled this only if you know what you are doing.",
+        "experimental_description": "Gives you access to experimental features. These are considered unstable and may break your system.<br> Enable this only if you know what you are doing.",
         "transitions": "Page transition animations"
     },
     "tools_webadmin_settings": "Web-admin settings",
@@ -390,7 +469,7 @@
     "uninstall": "Uninstall",
     "unknown": "Unknown",
     "unmaintained": "Unmaintained",
-    "unmaintained_details": "This app has not been update for quite a while and the previous maintainer has gone away or does not have time to maintain this app. Feel free to check the app repository to provide your help",
+    "unmaintained_details": "This app has not been updated for quite a while and the previous maintainer has gone away or does not have time to maintain this app. Feel free to check the app repository to provide your help",
     "upnp": "UPnP",
     "upnp_disabled": "UPnP is disabled.",
     "upnp_enabled": "UPnP is enabled.",
@@ -414,8 +493,7 @@
     "warnings": "{count} warnings",
     "words": {
         "collapse": "Collapse",
-        "default": "Default",
-        "dismiss": "Dismiss"
+        "default": "Default"
     },
     "wrong_password": "Wrong password",
     "yes": "Yes",

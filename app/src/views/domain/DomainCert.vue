@@ -84,7 +84,7 @@ export default {
   data () {
     return {
       queries: [
-        ['GET', `domains/cert-status/${this.name}?full`]
+        ['GET', `domains/${this.name}/cert?full`]
       ],
       cert: undefined,
       actionsEnabled: undefined
@@ -147,13 +147,13 @@ export default {
       const confirmed = await this.$askConfirmation(this.$i18n.t(`confirm_cert_${action}`))
       if (!confirmed) return
 
-      let uri = 'domains/cert-install/' + this.name
+      let uri = `domains/${this.name}/cert`
       if (action === 'regen_selfsigned') uri += '?self_signed'
       else if (action === 'manual_renew_LE') uri += '?force'
       else if (action === 'revert_to_selfsigned') uri += '?self_signed&force'
-      // FIXME trigger loading ? while posting ? while getting ?
-      // this.$refs.view.fallback_loading = true
-      api.post(uri).then(this.$refs.view.fetchQueries)
+      api.put(
+        uri, {}, { key: 'domains.' + action, name: this.name }
+      ).then(this.$refs.view.fetchQueries)
     }
   }
 }

@@ -98,7 +98,11 @@ export function formatYunoHostArgument (arg) {
     field.component = 'SelectItem'
     field.link = { name: arg.type + '-list', text: i18n.t(`manage_${arg.type}s`) }
     field.props.choices = store.getters[arg.type + 'sAsChoices']
-    value = arg.type === 'domain' ? store.getters.mainDomain : field.props.choices[0].value
+    if (arg.type === 'domain') {
+      value = store.getters.mainDomain
+    } else {
+      value = field.props.choices.length ? field.props.choices[0].value : null
+    }
 
   // Unknown from the specs, try to display it as an input[text]
   // FIXME throw an error instead ?

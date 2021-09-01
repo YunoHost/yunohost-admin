@@ -27,8 +27,7 @@ export default {
     onSubmit ({ domain, domainType }) {
       const uri = 'domains' + (domainType === 'dynDomain' ? '?dyndns' : '')
       api.post(
-        { uri, storeKey: 'domains' },
-        { domain }
+        { uri, storeKey: 'domains' }, { domain }, { key: 'domains.add', name: domain }
       ).then(() => {
         this.$router.push({ name: 'domain-list' })
       }).catch(err => {

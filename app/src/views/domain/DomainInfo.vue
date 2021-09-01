@@ -20,14 +20,14 @@
 
       <!-- DNS CONFIG -->
       <p>{{ $t('domain_dns_longdesc') }}</p>
-      <b-button :to="{ name: 'domain-dns', param: { name } }">
+      <b-button variant="outline-dark" :to="{ name: 'domain-dns', param: { name } }">
         <icon iname="globe" /> {{ $t('domain_dns_config') }}
       </b-button>
       <hr>
 
       <!-- SSL CERTIFICATE -->
       <p>{{ $t('certificate_manage') }}</p>
-      <b-button :to="{ name: 'domain-cert', param: { name } }">
+      <b-button variant="outline-dark" :to="{ name: 'domain-cert', param: { name } }">
         <icon iname="lock" /> {{ $t('ssl_certificate') }}
       </b-button>
       <hr>
@@ -35,7 +35,7 @@
       <!-- DELETE -->
       <p>{{ $t('domain_delete_longdesc') }}</p>
       <p
-        v-if="isMainDomain" class="alert alert-danger"
+        v-if="isMainDomain" class="alert alert-info"
         v-html="$t('domain_delete_forbidden_desc', { domain: name })"
       />
       <b-button v-else variant="danger" @click="deleteDomain">
@@ -83,7 +83,7 @@ export default {
       if (!confirmed) return
 
       api.delete(
-        { uri: 'domains', param: this.name }
+        { uri: 'domains', param: this.name }, {}, { key: 'domains.delete', name: this.name }
       ).then(() => {
         this.$router.push({ name: 'domain-list' })
       })
@@ -94,8 +94,9 @@ export default {
       if (!confirmed) return
 
       api.put(
-        { uri: 'domains/main', storeKey: 'main_domain' },
-        { new_main_domain: this.name }
+        { uri: `domains/${this.name}/main`, storeKey: 'main_domain' },
+        {},
+        { key: 'domains.set_default', name: this.name }
       ).then(() => {
         // FIXME Have to commit by hand here since the response is empty (should return the given name)
         this.$store.commit('UPDATE_MAIN_DOMAIN', this.name)

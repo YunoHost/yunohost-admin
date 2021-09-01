@@ -33,8 +33,8 @@
     "confirm_app_default": "Вы хотите сделать это приложение приложением по умолчанию?",
     "confirm_change_maindomain": "Вы хотите изменить главный домен?",
     "confirm_delete": "Вы хотите удалить {name}1 ?",
-    "confirm_firewall_open": "Вы хотите открыть порт {port}1 ? (протокол {protocol}2, соединение {connection}3)",
-    "confirm_firewall_close": "Вы хотите закрыть порт {port}1 ? (протокол {protocol}2, соединение {connection}3)",
+    "confirm_firewall_allow": "Вы хотите открыть порт {port}1 ? (протокол {protocol}2, соединение {connection}3)",
+    "confirm_firewall_disallow": "Вы хотите закрыть порт {port}1 ? (протокол {protocol}2, соединение {connection}3)",
     "confirm_install_custom_app": "Установка сторонних приложений может повредить безопасности вашей системы. Установка на вашу ответственность.",
     "confirm_install_domain_root": "Вы больше не сможете устанавливать приложения на {domain}1. Продолжить?",
     "confirm_restore": "Вы хотите восстановить {name}1 ?",
@@ -138,7 +138,7 @@
     "manually_renew_letsencrypt_message": "Сертификат будет автоматически обновлён в последние 15 дней своего действия. Вы может вручную обновить его, если хотите. (Не рекомендуется).",
     "manually_renew_letsencrypt": "Теперь обновить вручную",
     "confirm_postinstall": "Вы начинаете процесс конфигурации домена {domain}. Это займёт несколько минут, *не прерывайте процесс*.",
-    "domain_add_dns_doc": "… я <a href='//yunohost.org/dns'>set my DNS установил мой DNS правильно</a>.",
+    "domain_add_dns_doc": "… я <a href='//yunohost.org/dns_config' target='_blank'>set my DNS установил мой DNS правильно</a>.",
     "tools": "Инструменты",
     "tools_adminpw": "Смените пароль администратора",
     "tools_adminpw_current": "Действующий пароль",
@@ -195,7 +195,7 @@
     "postinstall_domain": "Это первое доменное имя, связанное с сервером YonoHost, то есть имя, которым будут пользоваться пользователи вашего сервера, чтобы попасть на портал аутентификации. Оно будет видно каждому, выбирайте его тщательно.",
     "postinstall_intro_1": "Поздравляем! YunoHost успешно установлен.",
     "postinstall_intro_2": "Осталось сделать две настройки конфигурации, чтобы активировать службы вашего сервера.",
-    "postinstall_intro_3": "Вы можете получить больше информации, <a href='//yunohost.org/postinstall' target='_blank'>посетив страницу документации</a>",
+    "postinstall_intro_3": "Вы можете получить больше информации, <a href='//yunohost.org/en/install/hardware:vps_debian#fa-cog-proceed-with-the-initial-configuration' target='_blank'>посетив страницу документации</a>",
     "postinstall_password": "Этот пароль нужен для того, чтобы управлять вашим сервером. Не торопитесь, проявите мудрость, создавая его.",
     "previous": "Предыдущий",
     "protocol": "Протокол",
@@ -277,15 +277,16 @@
     "all_apps": "Все приложения",
     "api_errors_titles": {
         "APIConnexionError": "Ошибка внутри пакета connexion",
-        "APINotRespondingError": "Апи Yunohost не отвечает",
-        "APIInternalError": "Внутренняя ошибка на сервере Yunohost",
-        "APIBadRequestError": "Ошибка на сервере Yunohost",
-        "APIError": "Неожиданная ошибка на сервере Yunohost"
+        "APINotRespondingError": "Апи YunoHost не отвечает",
+        "APIInternalError": "Внутренняя ошибка на сервере YunoHost",
+        "APIBadRequestError": "Ошибка на сервере YunoHost",
+        "APIError": "Неожиданная ошибка на сервере YunoHost"
     },
     "api_error": {
         "sorry": "Нам очень жаль.",
         "info": "Следующая информация может быть полезня для помогающего человека:",
-        "help": "Вы можете обратиться за помощью на <a href=\"https://forum.yunohost.org/\">форум</a> или в <a href=\"https://chat.yunohost.org/\">чат</a>, или сообщить о неполадке в <a href=\"https://github.com/YunoHost/issues\">багтрекер</a>."
+        "help": "Вы можете обратиться за помощью на <a href=\"https://forum.yunohost.org/\">форум</a> или в <a href=\"https://chat.yunohost.org/\">чат</a>, или сообщить о неполадке в <a href=\"https://github.com/YunoHost/issues\">багтрекер</a>.",
+        "error_message": "Сообщение об ошибке"
     },
     "all": "Все",
     "address": {
@@ -297,5 +298,14 @@
             "email": "Выберите домен для вашей почты.",
             "domain": "Выберите домен."
         }
+    },
+    "api": {
+        "query_status": {
+            "warning": "Успешно завершено с ошибками или предупреждениями",
+            "success": "Успешно завершено",
+            "pending": "В процессе",
+            "error": "Неудачно"
+        },
+        "processing": "Сервер обрабатывает действие…"
     }
 }

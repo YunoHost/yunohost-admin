@@ -10,9 +10,9 @@
       @mousedown.left.prevent="onHistoryBarClick"
       @keyup.space.enter.prevent="onHistoryBarKey"
     >
-      <h6 class="m-0">
-        <icon iname="history" /> <span class="d-none d-sm-inline">{{ $t('history.title') }}</span>
-      </h6>
+      <h5 class="m-0">
+        <icon iname="history" /> <span class="d-none d-sm-inline font-weight-bold">{{ $t('history.title') }}</span>
+      </h5>
 
       <!-- CURRENT/LAST ACTION -->
       <b-button
@@ -33,6 +33,10 @@
         class="accordion" role="tablist"
         id="history" ref="history"
       >
+        <p v-if="history.length === 0" class="alert m-0 px-2 py-1">
+          {{ $t('history.is_empty') }}
+        </p>
+
         <!-- ACTION LIST -->
         <b-card
           v-for="(action, i) in history" :key="i"

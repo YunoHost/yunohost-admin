@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import api from '@/api'
 import router from '@/router'
-import { timeout } from '@/helpers/commons'
+import i18n from '@/i18n'
+import { timeout, isObjectLiteral } from '@/helpers/commons'
 
 export default {
   state: {
@@ -107,7 +108,7 @@ export default {
     },
 
     'LOGIN' ({ dispatch }, password) {
-      return api.post('login', { password }, { websocket: false }).then(() => {
+      return api.post('login', { credentials: password }, null, { websocket: false }).then(() => {
         dispatch('CONNECT')
       })
     },
@@ -123,8 +124,12 @@ export default {
       })
     },
 
-    'INIT_REQUEST' ({ commit }, { method, uri, initial, wait, websocket }) {
-      let request = { method, uri, initial, status: 'pending' }
+    'INIT_REQUEST' ({ commit }, { method, uri, humanKey, initial, wait, websocket }) {
+      // Try to find a description for an API route to display in history and modals
+      const { key, ...args } = isObjectLiteral(humanKey) ? humanKey : { key: humanKey }
+      const humanRoute = key ? i18n.t('human_routes.' + key, args) : `[${method}] /${uri}`
+
+      let request = { method, uri, humanRoute, initial, status: 'pending' }
       if (websocket) {
         request = { ...request, messages: [], date: Date.now(), warnings: 0, errors: 0 }
         commit('ADD_HISTORY_ACTION', request)
@@ -145,11 +150,15 @@ export default {
     'END_REQUEST' ({ commit }, { request, success, wait }) {
       let status = success ? 'success' : 'error'
       if (success && (request.warnings || request.errors)) {
+        const messages = request.messages
+        if (messages.length && messages[messages.length - 1].color === 'warning') {
+          request.showWarningMessage = true
+        }
         status = 'warning'
       }
 
       commit('UPDATE_REQUEST', { request, key: 'status', value: status })
-      if (wait) {
+      if (wait && !request.showWarningMessage) {
         // Remove the overlay after a short delay to allow an error to display withtout flickering.
         setTimeout(() => {
           commit('SET_WAITING', false)
@@ -160,7 +169,7 @@ export default {
     'DISPATCH_MESSAGE' ({ commit }, { request, messages }) {
       for (const type in messages) {
         const message = {
-          text: messages[type],
+          text: messages[type].replace('\n', '<br>'),
           color: type === 'error' ? 'danger' : type
         }
         let progressBar = message.text.match(/^\[#*\+*\.*\] > /)
@@ -214,6 +223,11 @@ export default {
         }
       }
       commit('SET_ERROR', null)
+    },
+
+    'DISMISS_WARNING' ({ commit, state }, request) {
+      commit('SET_WAITING', false)
+      delete request.showWarningMessage
     }
   },
 
