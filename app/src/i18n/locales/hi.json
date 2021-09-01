@@ -3,5 +3,14 @@
     "action": "कार्रवाई",
     "add": "जोड़े।",
     "administration_password": "एडमिनिस्ट्रेटर का पासवर्ड।",
-    "ok": "ठीक है"
+    "ok": "ठीक है",
+    "address": {
+        "local_part_description": {
+            "domain": "एक उपडोमेन चुनें"
+        },
+        "domain_description": {
+            "email": "अपने ईमेल के लिए एक डोमेन चुनें।",
+            "domain": "एक डोमेन चुनें"
+        }
+    }
 }
