@@ -18,14 +18,14 @@ const routes = [
     path: '/',
     component: Home,
     // Leave the empty breadcrumb as it is used by the animated transition to know which way to go
-    meta: { breadcrumb: [] }
+    meta: { title: 'home', breadcrumb: [] }
   },
 
   {
     name: 'login',
     path: '/login',
     component: Login,
-    meta: { noAuth: true, breadcrumb: [] }
+    meta: { title: 'login', noAuth: true, breadcrumb: [] }
   },
 
   /* ───────────────╮
@@ -36,7 +36,7 @@ const routes = [
     path: '/postinstall',
     component: () => import(/* webpackChunkName: "views/post-install" */ '@/views/PostInstall'),
     // Leave the breadcrumb
-    meta: { noAuth: true, breadcrumb: [] }
+    meta: { title: 'post-install', noAuth: true, breadcrumb: [] }
   },
 
   /* ───────╮
@@ -47,6 +47,7 @@ const routes = [
     path: '/users',
     component: () => import(/* webpackChunkName: "views/user/list" */ '@/views/user/UserList'),
     meta: {
+      title: 'user-list',
       args: { trad: 'users' },
       breadcrumb: ['user-list']
     }
@@ -56,6 +57,7 @@ const routes = [
     path: '/users/create',
     component: () => import(/* webpackChunkName: "views/user/create" */ '@/views/user/UserCreate'),
     meta: {
+      title: 'user-create',
       args: { trad: 'users_new' },
       breadcrumb: ['user-list', 'user-create']
     }
@@ -66,6 +68,7 @@ const routes = [
     component: () => import(/* webpackChunkName: "views/user/info" */ '@/views/user/UserInfo'),
     props: true,
     meta: {
+      title: 'user-info',
       args: { param: 'name' },
       breadcrumb: ['user-list', 'user-info']
     }
@@ -76,6 +79,7 @@ const routes = [
     component: () => import(/* webpackChunkName: "views/user/edit" */ '@/views/user/UserEdit'),
     props: true,
     meta: {
+      title: 'user-edit',
       args: { param: 'name', trad: 'user_username_edit' },
       breadcrumb: ['user-list', 'user-info', 'user-edit']
     }
@@ -89,6 +93,7 @@ const routes = [
     path: '/groups',
     component: () => import(/* webpackChunkName: "views/group/list" */ '@/views/group/GroupList'),
     meta: {
+      title: 'group-list',
       args: { trad: 'groups_and_permissions' },
       breadcrumb: ['user-list', 'group-list']
     }
@@ -98,6 +103,7 @@ const routes = [
     path: '/groups/create',
     component: () => import(/* webpackChunkName: "views/group/create" */ '@/views/group/GroupCreate'),
     meta: {
+      title: 'group-create',
       args: { trad: 'group_new' },
       breadcrumb: ['user-list', 'group-list', 'group-create']
     }
@@ -111,6 +117,7 @@ const routes = [
     path: '/domains',
     component: () => import(/* webpackChunkName: "views/domain/list" */ '@/views/domain/DomainList'),
     meta: {
+      title: 'domain-list',
       args: { trad: 'domains' },
       breadcrumb: ['domain-list']
     }
@@ -120,6 +127,7 @@ const routes = [
     path: '/domains/add',
     component: () => import(/* webpackChunkName: "views/domain/add" */ '@/views/domain/DomainAdd'),
     meta: {
+      title: 'domain-add',
       args: { trad: 'domain_add' },
       breadcrumb: ['domain-list', 'domain-add']
     }
@@ -130,6 +138,7 @@ const routes = [
     component: () => import(/* webpackChunkName: "views/domain/info" */ '@/views/domain/DomainInfo'),
     props: true,
     meta: {
+      title: 'domain-info',
       args: { param: 'name' },
       breadcrumb: ['domain-list', 'domain-info']
     }
@@ -140,6 +149,7 @@ const routes = [
     component: () => import(/* webpackChunkName: "views/domain/dns" */ '@/views/domain/DomainDns'),
     props: true,
     meta: {
+      title: 'domain-dns',
       args: { trad: 'dns' },
       breadcrumb: ['domain-list', 'domain-info', 'domain-dns']
     }
@@ -150,6 +160,7 @@ const routes = [
     component: () => import(/* webpackChunkName: "views/domain/cert" */ '@/views/domain/DomainCert'),
     props: true,
     meta: {
+      title: 'domain-cert',
       args: { trad: 'certificate' },
       breadcrumb: ['domain-list', 'domain-info', 'domain-cert']
     }
@@ -163,6 +174,7 @@ const routes = [
     path: '/apps',
     component: () => import(/* webpackChunkName: "views/apps/list" */ '@/views/app/AppList'),
     meta: {
+      title: 'app-list',
       args: { trad: 'applications' },
       breadcrumb: ['app-list']
     }
@@ -172,6 +184,7 @@ const routes = [
     path: '/apps/catalog',
     component: () => import(/* webpackChunkName: "views/apps/catalog" */ '@/views/app/AppCatalog'),
     meta: {
+      title: 'app-catalog',
       args: { trad: 'catalog' },
       breadcrumb: ['app-list', 'app-catalog']
     }
@@ -182,6 +195,7 @@ const routes = [
     component: () => import(/* webpackChunkName: "views/apps/install" */ '@/views/app/AppInstall'),
     props: true,
     meta: {
+      title: 'app-install',
       args: { trad: 'install_name', param: 'id' },
       breadcrumb: ['app-list', 'app-catalog', 'app-install']
     }
@@ -192,6 +206,7 @@ const routes = [
     component: () => import(/* webpackChunkName: "views/apps/install" */ '@/views/app/AppInstall'),
     props: true,
     meta: {
+      title: 'app-install-custom',
       args: { trad: 'install_name', param: 'id' },
       breadcrumb: ['app-list', 'app-catalog', 'app-install-custom']
     }
@@ -202,6 +217,7 @@ const routes = [
     component: () => import(/* webpackChunkName: "views/apps/info" */ '@/views/app/AppInfo'),
     props: true,
     meta: {
+      title: 'app-info',
       args: { param: 'id' },
       breadcrumb: ['app-list', 'app-info']
     }
@@ -212,6 +228,7 @@ const routes = [
     component: () => import(/* webpackChunkName: "views/apps/actions" */ '@/views/app/AppActions'),
     props: true,
     meta: {
+      title: 'app-actions',
       args: { trad: 'app_actions' },
       breadcrumb: ['app-list', 'app-info', 'app-actions']
     }
@@ -222,6 +239,7 @@ const routes = [
     component: () => import(/* webpackChunkName: "views/apps/config" */ '@/views/app/AppConfigPanel'),
     props: true,
     meta: {
+      title: 'app-config-panel',
       args: { trad: 'app_config_panel' },
       breadcrumb: ['app-list', 'app-info', 'app-config-panel']
     }
@@ -235,6 +253,7 @@ const routes = [
     path: '/update',
     component: () => import(/* webpackChunkName: "views/update" */ '@/views/update/SystemUpdate'),
     meta: {
+      title: 'update',
       args: { trad: 'system_update' },
       breadcrumb: ['update']
     }
@@ -248,6 +267,7 @@ const routes = [
     path: '/services',
     component: () => import(/* webpackChunkName: "views/service/list" */ '@/views/service/ServiceList'),
     meta: {
+      title: 'service-list',
       args: { trad: 'services' },
       breadcrumb: ['service-list']
     }
@@ -258,6 +278,7 @@ const routes = [
     component: () => import(/* webpackChunkName: "views/service/info" */ '@/views/service/ServiceInfo'),
     props: true,
     meta: {
+      title: 'service-info',
       args: { param: 'name' },
       breadcrumb: ['service-list', 'service-info']
     }
@@ -271,6 +292,7 @@ const routes = [
     path: '/tools',
     component: ToolList,
     meta: {
+      title: 'tool-list',
       args: { trad: 'tools' },
       breadcrumb: ['tool-list']
     }
@@ -280,6 +302,7 @@ const routes = [
     path: '/tools/logs',
     component: () => import(/* webpackChunkName: "views/tools/logs" */ '@/views/tool/ToolLogs'),
     meta: {
+      title: 'tool-logs',
       args: { trad: 'logs' },
       breadcrumb: ['tool-list', 'tool-logs']
     }
@@ -290,6 +313,7 @@ const routes = [
     component: () => import(/* webpackChunkName: "views/tools/log" */ '@/views/tool/ToolLog'),
     props: true,
     meta: {
+      title: 'tool-log',
       args: { param: 'name' },
       breadcrumb: ['tool-list', 'tool-logs', 'tool-log']
     }
@@ -299,6 +323,7 @@ const routes = [
     path: '/tools/migrations',
     component: () => import(/* webpackChunkName: "views/tools/migrations" */ '@/views/tool/ToolMigrations'),
     meta: {
+      title: 'tool-migrations',
       args: { trad: 'migrations' },
       breadcrumb: ['tool-list', 'tool-migrations']
     }
@@ -308,6 +333,7 @@ const routes = [
     path: '/tools/firewall',
     component: () => import(/* webpackChunkName: "views/tools/firewall" */ '@/views/tool/ToolFirewall'),
     meta: {
+      title: 'tool-firewall',
       args: { trad: 'firewall' },
       breadcrumb: ['tool-list', 'tool-firewall']
     }
@@ -317,6 +343,7 @@ const routes = [
     path: '/tools/adminpw',
     component: () => import(/* webpackChunkName: "views/tools/adminpw" */ '@/views/tool/ToolAdminpw'),
     meta: {
+      title: 'tool-adminpw',
       args: { trad: 'tools_adminpw' },
       breadcrumb: ['tool-list', 'tool-adminpw']
     }
@@ -326,6 +353,7 @@ const routes = [
     path: '/tools/webadmin',
     component: () => import(/* webpackChunkName: "views/tools/webadmin" */ '@/views/tool/ToolWebadmin'),
     meta: {
+      title: 'tool-webadmin',
       args: { trad: 'tools_webadmin_settings' },
       breadcrumb: ['tool-list', 'tool-webadmin']
     }
@@ -335,6 +363,7 @@ const routes = [
     path: '/tools/power',
     component: () => import(/* webpackChunkName: "views/tools/power" */ '@/views/tool/ToolPower'),
     meta: {
+      title: 'tool-power',
       args: { trad: 'tools_shutdown_reboot' },
       breadcrumb: ['tool-list', 'tool-power']
     }
@@ -348,6 +377,7 @@ const routes = [
     path: '/diagnosis',
     component: () => import(/* webpackChunkName: "views/diagnosis" */ '@/views/diagnosis/Diagnosis'),
     meta: {
+      title: 'diagnosis',
       args: { trad: 'diagnosis' },
       breadcrumb: ['diagnosis']
     }
@@ -361,6 +391,7 @@ const routes = [
     path: '/backup',
     component: () => import(/* webpackChunkName: "views/backup/backup" */ '@/views/backup/Backup'),
     meta: {
+      title: 'backup',
       args: { trad: 'backup' },
       breadcrumb: ['backup']
     }
@@ -371,6 +402,7 @@ const routes = [
     component: () => import(/* webpackChunkName: "views/backup/list" */ '@/views/backup/BackupList'),
     props: true,
     meta: {
+      title: 'backup-list',
       args: { param: 'id' },
       breadcrumb: ['backup', 'backup-list']
     }
@@ -381,6 +413,7 @@ const routes = [
     component: () => import(/* webpackChunkName: "views/backup/info" */ '@/views/backup/BackupInfo'),
     props: true,
     meta: {
+      title: 'backup-info',
       args: { param: 'name' },
       breadcrumb: ['backup', 'backup-list', 'backup-info']
     }
@@ -391,6 +424,7 @@ const routes = [
     component: () => import(/* webpackChunkName: "views/backup/create" */ '@/views/backup/BackupCreate'),
     props: true,
     meta: {
+      title: 'backup-create',
       args: { trad: 'backup_create' },
       breadcrumb: ['backup', 'backup-list', 'backup-create']
     }
