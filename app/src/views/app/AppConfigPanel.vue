@@ -64,7 +64,7 @@ export default {
   data () {
     return {
       queries: [
-        ['GET', `apps/${this.id}/config-panel?full`],
+        ['GET', `apps/${this.id}/config-panel?mode=full`],
         ['GET', { uri: 'domains' }],
         ['GET', { uri: 'domains/main', storeKey: 'main_domain' }],
         ['GET', { uri: 'users' }]
@@ -92,7 +92,7 @@ export default {
       return evaluate(context, expression)
     },
     onQueriesResponse (data) {
-      if (!data.panel || data.panel.length === 0) {
+      if (!data.panels || data.panels.length === 0) {
         this.panels = null
         return
       }
@@ -101,15 +101,17 @@ export default {
       const validations_ = {}
       const errors_ = {}
       const panels_ = []
-      for (const { id, name, help, sections } of data.panel) {
-        const panel_ = { id, name, sections: [] }
+      for (const { id, name, help, sections } of data.panels) {
+        const panel_ = { id, sections: [] }
+        if (name) panel_.name = formatI18nField(name)
         if (help) panel_.help = formatI18nField(help)
         forms[id] = {}
         validations_[id] = {}
         errors_[id] = {}
-        for (const { name, help, visibleIf,  options } of sections) {
-          const section_ = { name, visibleIf }
+        for (const { id_, name, help, visibleIf,  options } of sections) {
+          const section_ = { id: id_, visibleIf }
           if (help) section_.help = formatI18nField(help)
+          if (name) section_.name = formatI18nField(name)
           const { form, fields, validations, errors } = formatYunoHostArguments(options)
           Object.assign(forms[id], form)
           Object.assign(validations_[id], validations)
