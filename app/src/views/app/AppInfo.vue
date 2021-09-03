@@ -1,7 +1,7 @@
 <template>
-  <view-base :queries="queries" @queries-response="formatAppData" ref="view">
+  <view-base :queries="queries" @queries-response="onQueriesResponse" ref="view">
     <!-- BASIC INFOS -->
-    <card v-if="infos" :title="`${$t('infos')} — ${infos.label}`" icon="info-circle">
+    <card v-if="infos" :title="infos.label" icon="cube">
       <b-row
         v-for="(value, prop) in infos" :key="prop"
         no-gutters class="row-line"
@@ -59,9 +59,9 @@
             </b-input-group>
           </template>
 
-          <template #description>
+          <template v-if="perm.url" #description>
             {{ $t('permission_corresponding_url') }}:
-            <b-link :href="'https:' + perm.url">
+            <b-link :href="'https://' + perm.url">
               https://{{ perm.url }}
             </b-link>
           </template>
@@ -172,9 +172,9 @@ export default {
   data () {
     return {
       queries: [
-        `apps/${this.id}?full`,
-        { uri: 'users/permissions?full', storeKey: 'permissions' },
-        { uri: 'domains' }
+        ['GET', `apps/${this.id}?full`],
+        ['GET', { uri: 'users/permissions?full', storeKey: 'permissions' }],
+        ['GET', { uri: 'domains' }]
       ],
       infos: undefined,
       app: undefined,
@@ -203,7 +203,7 @@ export default {
   },
 
   methods: {
-    formatAppData (app) {
+    onQueriesResponse (app) {
       const form = { labels: [] }
 
       const mainPermission = app.permissions[this.id + '.main']
@@ -234,7 +234,7 @@ export default {
         multi_instance: this.$i18n.t(app.manifest.multi_instance ? 'yes' : 'no'),
         install_time: readableDate(app.settings.install_time, true, true)
       }
-      if (app.settings.domain) {
+      if (app.settings.domain && app.settings.path) {
         this.infos.url = 'https://' + app.settings.domain + app.settings.path
         form.url = {
           domain: app.settings.domain,
@@ -252,7 +252,11 @@ export default {
 
     changeLabel (permName, data) {
       data.show_tile = data.show_tile ? 'True' : 'False'
-      api.put('users/permissions/' + permName, data).then(this.$refs.view.fetchQueries)
+      api.put(
+        'users/permissions/' + permName,
+        data,
+        { key: 'apps.change_label', prevName: this.infos.label, nextName: data.label }
+      ).then(this.$refs.view.fetchQueries)
     },
 
     async changeUrl () {
@@ -262,15 +266,20 @@ export default {
       const { domain, path } = this.form.url
       api.put(
         `apps/${this.id}/changeurl`,
-        { domain, path: '/' + path }
-      ).then(this.fetchData)
+        { domain, path: '/' + path },
+        { key: 'apps.change_url', name: this.infos.label }
+      ).then(this.$refs.view.fetchQueries)
     },
 
     async setAsDefaultDomain () {
       const confirmed = await this.$askConfirmation(this.$i18n.t('confirm_app_default'))
       if (!confirmed) return
 
-      api.put(`apps/${this.id}/default`).then(this.$refs.view.fetchQueries)
+      api.put(
+        `apps/${this.id}/default`,
+        {},
+        { key: 'apps.set_default', name: this.infos.label, domain: this.app.domain }
+      ).then(this.$refs.view.fetchQueries)
     },
 
     async uninstall () {
@@ -279,7 +288,7 @@ export default {
       )
       if (!confirmed) return
 
-      api.delete('apps/' + this.id).then(() => {
+      api.delete('apps/' + this.id, {}, { key: 'apps.uninstall', name: this.infos.label }).then(() => {
         this.$router.push({ name: 'app-list' })
       })
     }

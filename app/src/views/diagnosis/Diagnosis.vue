@@ -1,7 +1,7 @@
 <template>
   <view-base
-    :loading="loading" ref="view"
-    :queries="queries" @queries-response="formatData"
+    :queries="queries" @queries-response="onQueriesResponse" queries-wait
+    ref="view"
   >
     <template #top-bar-group-right>
       <b-button @click="shareLogs" variant="success">
@@ -11,10 +11,10 @@
 
     <template #top>
       <div class="alert alert-info">
-        {{ $t(reports || loading ? 'diagnosis_explanation' : 'diagnosis_first_run') }}
+        {{ $t(reports ? 'diagnosis_explanation' : 'diagnosis_first_run') }}
         <b-button
           v-if="reports === null" class="d-block mt-2" variant="info"
-          @click="runDiagnosis"
+          @click="runDiagnosis()"
         >
           <icon iname="stethoscope" /> {{ $t('run_first_diagnosis') }}
         </b-button>
@@ -42,7 +42,7 @@
       </template>
 
       <template #header-buttons>
-        <b-button size="sm" :variant="report.items ? 'info' : 'success'" @click="runDiagnosis(report.id)">
+        <b-button size="sm" :variant="report.items ? 'info' : 'success'" @click="runDiagnosis(report)">
           <icon iname="refresh" /> {{ $t('rerun_diagnosis') }}
         </b-button>
       </template>
@@ -64,13 +64,13 @@
             <div class="d-flex flex-column flex-lg-row ml-auto">
               <b-button
                 v-if="item.ignored" size="sm"
-                @click="toggleIgnoreIssue(false, report, item)"
+                @click="toggleIgnoreIssue('unignore', report, item)"
               >
                 <icon iname="bell" /> {{ $t('unignore') }}
               </b-button>
               <b-button
                 v-else-if="item.issue" variant="warning" size="sm"
-                @click="toggleIgnoreIssue(true, report, item)"
+                @click="toggleIgnoreIssue('ignore', report, item)"
               >
                 <icon iname="bell-slash" /> {{ $t('ignore') }}
               </b-button>
@@ -114,8 +114,10 @@ export default {
 
   data () {
     return {
-      queries: ['diagnosis/show?full'],
-      loading: true,
+      queries: [
+        ['PUT', 'diagnosis/run?except_if_never_ran_yet', {}, 'diagnosis.run'],
+        ['GET', 'diagnosis?full']
+      ],
       reports: undefined
     }
   },
@@ -149,14 +151,13 @@ export default {
       item.icon = icon
     },
 
-    formatData (data) {
-      if (data === null) {
+    onQueriesResponse (_, reportsData) {
+      if (reportsData === null) {
         this.reports = null
-        this.loading = false
         return
       }
 
-      const reports = data.reports
+      const reports = reportsData.reports
       for (const report of reports) {
         report.warnings = 0
         report.errors = 0
@@ -168,25 +169,29 @@ export default {
         report.noIssues = report.warnings + report.errors === 0
       }
       this.reports = reports
-      this.loading = false
     },
 
-    runDiagnosis (id = null) {
+    runDiagnosis ({ id = null, description } = {}) {
       const param = id !== null ? '?force' : ''
       const data = id !== null ? { categories: [id] } : {}
-      api.post('diagnosis/run' + param, data).then(this.$refs.view.fetchQueries)
+
+      api.put(
+        'diagnosis/run' + param,
+        data,
+        { key: 'diagnosis.run' + (id !== null ? '_specific' : ''), description }
+      ).then(this.$refs.view.fetchQueries)
     },
 
-    toggleIgnoreIssue (ignore, report, item) {
-      const key = (ignore ? 'add' : 'remove') + '_filter'
-      const filterArgs = Object.entries(item.meta).reduce((filterArgs, entries) => {
-        filterArgs.push(entries.join('='))
-        return filterArgs
-      }, [report.id])
+    toggleIgnoreIssue (action, report, item) {
+      const filterArgs = [report.id].concat(Object.entries(item.meta).map(entries => entries.join('=')))
 
-      api.post('diagnosis/ignore', { [key]: filterArgs }).then(() => {
-        item.ignored = ignore
-        if (ignore) {
+      api.put(
+        'diagnosis/' + action,
+        { filter: filterArgs },
+        `diagnosis.${action}.${item.status.toLowerCase()}`
+      ).then(() => {
+        item.ignored = action === 'ignore'
+        if (item.ignored) {
           report[item.status.toLowerCase() + 's']--
         } else {
           report.ignoreds--
@@ -200,10 +205,6 @@ export default {
         window.open(url, '_blank')
       })
     }
-  },
-
-  created () {
-    api.post('diagnosis/run?except_if_never_ran_yet')
   },
 
   filters: { distanceToNow }

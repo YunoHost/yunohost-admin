@@ -28,8 +28,8 @@
     "confirm_app_default": "Està segur de voler fer aquesta aplicació predeterminada?",
     "confirm_change_maindomain": "Està segur de voler canviar el domini principal?",
     "confirm_delete": "Està segur de voler eliminar {name}?",
-    "confirm_firewall_open": "Està segur de voler obrir el port {port}? (protocol: {protocol}, connexió: {connection})",
-    "confirm_firewall_close": "Està segur de voler tancar el port {port}? (protocol: {protocol}, connexió: {connection})",
+    "confirm_firewall_allow": "Està segur de voler obrir el port {port}? (protocol: {protocol}, connexió: {connection})",
+    "confirm_firewall_disallow": "Està segur de voler tancar el port {port}? (protocol: {protocol}, connexió: {connection})",
     "confirm_install_custom_app": "ATENCIÓ! La instal·lació d'aplicacions de terceres parts pot comprometre la integritat i seguretat del seu sistema. No hauríeu d'instal·lar-ne a no ser que sapigueu el que feu. Esteu segurs de voler córrer aquest risc?",
     "confirm_install_domain_root": "No podrà instal·lar cap altra aplicació {domain}. Vol continuar?",
     "confirm_migrations_skip": "Saltar-se les migracions no està recomanat. Està segur de voler continuar?",
@@ -55,7 +55,7 @@
     "disable": "Desactivar",
     "dns": "DNS",
     "domain_add": "Afegir domini",
-    "domain_add_dns_doc": "... i he <a href='//yunohost.org/dns'> configurat el meu DNS correctament</a>.",
+    "domain_add_dns_doc": "... i he <a href='//yunohost.org/dns_config' target='_blank'> configurat el meu DNS correctament</a>.",
     "domain_add_dyndns_doc": "... i vull uns servei de DNS dinàmic.",
     "domain_add_panel_with_domain": "Ja tinc un nom de domini…",
     "domain_add_panel_without_domain": "No tinc un nom de domini…",
@@ -307,5 +307,84 @@
     "permission_show_tile_enabled": "Mostrar la «tile» en el portal de l'usuari",
     "permission_main": "Permís principal",
     "permission_corresponding_url": "URL corresponent",
-    "app_manage_label_and_tiles": "Gestionar etiquetes i «tiles»"
+    "app_manage_label_and_tiles": "Gestionar etiquetes i «tiles»",
+    "items": {
+        "backups": "cap còpia de seguretat | còpia de seguretat | {c} còpies de seguretat",
+        "apps": "cap aplicació | app | {c} aplicacions"
+    },
+    "history": {
+        "methods": {
+            "DELETE": "eliminar",
+            "PUT": "modificar",
+            "POST": "crear/executar"
+        },
+        "last_action": "Última acció:",
+        "title": "Historial"
+    },
+    "form_errors": {
+        "required": "Aquest camp és obligatori.",
+        "passwordMatch": "Les contrasenyes no són iguals.",
+        "passwordLenght": "La contrasenya ha de tenir 8 caràcters com a mínim.",
+        "number": "El valor ha de ser un nombre.",
+        "notInUsers": "L'usuari «{value}» ja existeix.",
+        "minValue": "El valor ha de ser un nombre superior o igual a {min}.",
+        "name": "Els noms no poden incloure caràcters especials ha excepció de <code>,.'-</code>",
+        "githubLink": "L'URL ha de ser un enllaç vàlid a un repositori Github",
+        "email": "Correu electrònic no vàlid: ha de ser caràcters alfanumèrics i <code>_.</code> exclusivament (per exemple someone@example.com, s0me-1@example.com)",
+        "dynDomain": "Nom de domini no vàlid: Ha de contenir caràcters alfanumèrics en minúscules i guionets exclusivament",
+        "domain": "Nom de domini no vàlid: Ha de contenir caràcters alfanumèrics en minúscules, punts i guionets exclusivament",
+        "between": "El valor ha d'estar entre {min} i {max}.",
+        "alphalownum_": "Només pot contenir caràcters alfanumèrics en minúscules i la barra baixa.",
+        "alpha": "Només pot contenir caràcters alfanumèrics."
+    },
+    "footer": {
+        "donate": "Fer una donació",
+        "help": "Necessiteu ajuda?",
+        "documentation": "Documentació"
+    },
+    "experimental": "Experimental",
+    "error": "Error",
+    "enabled": "Activat",
+    "domain_delete_forbidden_desc": "No podeu eliminar «{domain}» ja que és el domini principal, heu d'escollir un altre domini (o <a href='#/domains/add'>afegir-ne un de nou</a>) i fer-lo el domini principal per a poder eliminar aquest.",
+    "domain_add_dyndns_forbidden": "Ja us heu subscrit a un domini DynDNS, podeu demanar que eliminin el domini DynDNS actual al fòrum <a href='//forum.yunohost.org/t/nohost-domain-recovery-suppression-de-domaine-en-nohost-me-noho-st-et-ynh-fr/442'>en el fil dedicat</a>.",
+    "disabled": "Desactivat",
+    "dead": "Inactiu",
+    "day_validity": " Expirat | 1 dia | {count} dies",
+    "confirm_app_install": "Esteu segurs de voler instal·lar aquesta aplicació?",
+    "common": {
+        "lastname": "Cognom",
+        "firstname": "Nom"
+    },
+    "code": "Codi",
+    "cancel": "Cancel·lar",
+    "app_show_categories": "Mostrar les categories",
+    "app_config_panel_no_panel": "Aquesta aplicació no té cap configuració diponible",
+    "app_config_panel_label": "Configurar aquesta aplicació",
+    "app_config_panel": "Panell de configuració",
+    "app_choose_category": "Escolliu una categoria",
+    "app_actions_label": "Executar les accions",
+    "app_actions": "Accions",
+    "api_waiting": "Esperant la resposta del servidor…",
+    "api_errors_titles": {
+        "APIConnexionError": "YunoHost ha tingut un error de connexió",
+        "APINotRespondingError": "L'API de YunoHost no respon",
+        "APIInternalError": "YunoHost ha trobat un error intern",
+        "APIBadRequestError": "YunoHost ha trobat un error",
+        "APIError": "YunoHost ha trobat un error inesperat"
+    },
+    "api_error": {
+        "sorry": "Ens sap molt greu això.",
+        "info": "La informació següent pot ser útil per a la persona que us ajudi:",
+        "help": "Podeu buscar ajuda <a href=\"https://forum.yunohost.org/\">al fòrum</a> o <a href=\"https://chat.yunohost.org/\">al chat</a> per arreglar la situació, o reportar l'error <a href=\"https://github.com/YunoHost/issues\">al bugtracker</a>."
+    },
+    "address": {
+        "local_part_description": {
+            "email": "Escolliu una part local per al vostre correu electrònic.",
+            "domain": "Escolliu un subdomini."
+        },
+        "domain_description": {
+            "email": "Escolliu un domini per al correu electrònic.",
+            "domain": "Escolliu un domini."
+        }
+    }
 }

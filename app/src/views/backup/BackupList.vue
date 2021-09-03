@@ -1,5 +1,5 @@
 <template>
-  <view-base :queries="queries" @queries-response="formatBackupList" skeleton="list-group-skeleton">
+  <view-base :queries="queries" @queries-response="onQueriesResponse" skeleton="list-group-skeleton">
     <template #top>
       <top-bar :button="{ text: $t('backup_new'), icon: 'plus', to: { name: 'backup-create' } }" />
     </template>
@@ -44,13 +44,15 @@ export default {
 
   data () {
     return {
-      queries: ['backup/archives?with_info'],
+      queries: [
+        ['GET', 'backups?with_info']
+      ],
       archives: undefined
     }
   },
 
   methods: {
-    formatBackupList (data) {
+    onQueriesResponse (data) {
       const archives = Object.entries(data.archives)
       if (archives.length) {
         this.archives = archives.map(([name, infos]) => {

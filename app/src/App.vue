@@ -33,7 +33,7 @@
     </header>
 
     <!-- MAIN -->
-    <api-wait-overlay>
+    <view-lock-overlay>
       <breadcrumb />
 
       <main id="main">
@@ -44,10 +44,10 @@
         </transition>
         <router-view v-else class="static" :key="$route.fullPath" />
       </main>
-    </api-wait-overlay>
+    </view-lock-overlay>
 
-    <!-- CONSOLE/HISTORY -->
-    <ynh-console />
+    <!-- HISTORY CONSOLE -->
+    <history-console />
 
     <!-- FOOTER -->
     <footer class="py-3 mt-auto">
@@ -76,11 +76,15 @@
 <script>
 import { mapGetters } from 'vuex'
 
-import ApiWaitOverlay from '@/components/ApiWaitOverlay'
-import YnhConsole from '@/components/YnhConsole'
+import { HistoryConsole, ViewLockOverlay } from '@/views/_partials'
 
 export default {
   name: 'App',
+
+  components: {
+    HistoryConsole,
+    ViewLockOverlay
+  },
 
   data () {
     return {
@@ -107,11 +111,6 @@ export default {
     async logout () {
       this.$store.dispatch('LOGOUT')
     }
-  },
-
-  components: {
-    ApiWaitOverlay,
-    YnhConsole
   },
 
   // This hook is only triggered at page first load
@@ -211,7 +210,7 @@ main {
 }
 
 footer {
-  border-top: 1px solid #eee;
+  border-top: $thin-border;
   font-size: $font-size-sm;
   margin-top: 2rem;
 

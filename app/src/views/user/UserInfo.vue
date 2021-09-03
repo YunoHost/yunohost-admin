@@ -79,6 +79,7 @@
 </template>
 
 <script>
+import api from '@/api'
 
 export default {
   name: 'UserInfo',
@@ -89,7 +90,9 @@ export default {
 
   data () {
     return {
-      queries: [{ uri: 'users', param: this.name, storeKey: 'users_details' }],
+      queries: [
+        ['GET', { uri: 'users', param: this.name, storeKey: 'users_details' }]
+      ],
       purge: false
     }
   },
@@ -103,8 +106,10 @@ export default {
   methods: {
     deleteUser () {
       const data = this.purge ? { purge: '' } : {}
-      this.$store.dispatch('DELETE',
-        { uri: 'users', param: this.name, data, storeKey: 'users_details' }
+      api.delete(
+        { uri: 'users', param: this.name, storeKey: 'users_details' },
+        data,
+        { key: 'users.delete', name: this.name }
       ).then(() => {
         this.$router.push({ name: 'user-list' })
       })
@@ -122,7 +127,7 @@ export default {
 
 .row {
   + .row {
-      border-top: 1px solid #eee;
+      border-top: $thin-border;
   }
 
   padding: .5rem;

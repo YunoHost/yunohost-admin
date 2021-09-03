@@ -1,6 +1,6 @@
 <template>
   <view-base
-    :queries="queries" @queries-response="formatFirewallData"
+    :queries="queries" @queries-response="onQueriesResponse"
     ref="view" skeleton="card-form-skeleton"
   >
     <!-- PORTS -->
@@ -98,7 +98,9 @@ export default {
 
   data () {
     return {
-      queries: ['/firewall?raw'],
+      queries: [
+        ['GET', '/firewall?raw']
+      ],
       serverError: '',
 
       // Ports tables data
@@ -113,8 +115,8 @@ export default {
 
       // Ports form data
       actionChoices: [
-        { value: 'open', text: this.$i18n.t('open') },
-        { value: 'close', text: this.$i18n.t('close') }
+        { value: 'allow', text: this.$i18n.t('open') },
+        { value: 'disallow', text: this.$i18n.t('close') }
       ],
       connectionChoices: [
         { value: 'ipv4', text: this.$i18n.t('ipv4') },
@@ -126,7 +128,7 @@ export default {
         { value: 'Both', text: this.$i18n.t('both') }
       ],
       form: {
-        action: 'open',
+        action: 'allow',
         port: undefined,
         connection: 'ipv4',
         protocol: 'TCP'
@@ -145,7 +147,7 @@ export default {
   },
 
   methods: {
-    formatFirewallData (data) {
+    onQueriesResponse (data) {
       const ports = Object.values(data).reduce((ports, protocols) => {
         for (const type of ['TCP', 'UDP']) {
           for (const port of protocols[type]) {
@@ -174,23 +176,21 @@ export default {
       this.upnpEnabled = data.uPnP.enabled
     },
 
-    togglePort ({ action, port, protocol, connection }) {
-      return new Promise((resolve, reject) => {
-        this.$askConfirmation(
-          this.$i18n.t('confirm_firewall_' + action, { port, protocol, connection })
-        ).then(confirmed => {
-          if (confirmed) {
-            const method = action === 'open' ? 'post' : 'delete'
-            api[method](`/firewall/port?${connection}_only`, { port, protocol }).then(() => {
-              resolve(confirmed)
-            }).catch(error => {
-              reject(error)
-            })
-          } else {
-            resolve(confirmed)
-          }
-        })
-      })
+    async togglePort ({ action, port, protocol, connection }) {
+      const confirmed = await this.$askConfirmation(
+        this.$i18n.t('confirm_firewall_' + action, { port, protocol, connection })
+      )
+      if (!confirmed) {
+        return Promise.resolve(confirmed)
+      }
+
+      const actionTrad = this.$i18n.t({ allow: 'open', disallow: 'close' }[action])
+      return api.put(
+        `firewall/${protocol}/${action}/${port}?${connection}_only`,
+        {},
+        { key: 'firewall.ports', protocol, action: actionTrad, port, connection },
+        { wait: false }
+      ).then(() => confirmed)
     },
 
     async toggleUpnp (value) {
@@ -198,17 +198,22 @@ export default {
       const confirmed = await this.$askConfirmation(this.$i18n.t('confirm_upnp_' + action))
       if (!confirmed) return
 
-      api.get('firewall/upnp?action=' + action).then(() => {
+      api.put(
+        'firewall/upnp/' + action,
+        {},
+        { key: 'firewall.upnp', action: this.$i18n.t(action) }
+      ).then(() => {
         // FIXME Couldn't test when it works.
         this.$refs.view.fetchQueries()
       }).catch(err => {
+        if (err.name !== 'APIBadRequestError') throw err
         this.upnpError = err.message
       })
     },
 
     onTablePortToggling (port, protocol, connection, index, value) {
       this.$set(this.protocols[protocol][index], connection, value)
-      const action = value ? 'open' : 'close'
+      const action = value ? 'allow' : 'disallow'
       this.togglePort({ action, port, protocol, connection }).then(toggled => {
         // Revert change on cancel
         if (!toggled) {

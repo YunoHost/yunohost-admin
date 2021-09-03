@@ -12,35 +12,55 @@
         <span v-html="$t('postinstall_intro_3')" />
       </p>
 
-      <b-button size="lg" variant="primary" @click="step = 'domain'">
+      <b-button size="lg" variant="primary" @click="goToStep('domain')">
         {{ $t('begin') }}
       </b-button>
     </template>
 
     <!-- DOMAIN SETUP STEP -->
     <template v-else-if="step === 'domain'">
-      <domain-form @submit="setDomain" :title="$t('postinstall_set_domain')" :submit-text="$t('next')">
+      <domain-form
+        :title="$t('postinstall_set_domain')" :submit-text="$t('next')" :server-error="serverError"
+        @submit="setDomain"
+      >
         <template #disclaimer>
-          <p class="alert alert-warning" v-t="'postinstall_domain'" />
+          <p class="alert alert-info" v-t="'postinstall_domain'" />
         </template>
       </domain-form>
 
-      <b-button variant="primary" @click="step = 'start'" class="mt-3">
+      <b-button variant="primary" @click="goToStep('start')" class="mt-3">
         <icon iname="chevron-left" /> {{ $t('previous') }}
       </b-button>
     </template>
 
     <!-- PASSWORD SETUP STEP -->
     <template v-else-if="step === 'password'">
-      <password-form :title="$t('postinstall_set_password')" :submit-text="$t('next')" @submit="setPassword">
+      <password-form
+        :title="$t('postinstall_set_password')" :submit-text="$t('next')" :server-error="serverError"
+        @submit="setPassword"
+      >
         <template #disclaimer>
           <p class="alert alert-warning" v-t="'postinstall_password'" />
         </template>
       </password-form>
 
-      <b-button variant="primary" @click="step = 'domain'" class="mt-3">
+      <b-button variant="primary" @click="goToStep('domain')" class="mt-3">
         <icon iname="chevron-left" /> {{ $t('previous') }}
       </b-button>
+    </template>
+
+    <template v-else-if="step === 'rootfsspace-error'">
+      <card no-body header-class="d-none" footer-bg-variant="danger">
+        <b-card-body class="alert alert-danger m-0">
+          {{ serverError }}
+        </b-card-body>
+
+        <template #buttons>
+          <b-button variant="light" size="sm" @click="performPostInstall(true)">
+            <icon iname="warning" /> {{ $t('postinstall.force') }}
+          </b-button>
+        </template>
+      </card>
     </template>
 
     <!-- POST-INSTALL SUCCESS STEP -->
@@ -48,52 +68,75 @@
       <p class="alert alert-success">
         <icon iname="thumbs-up" /> {{ $t('installation_complete') }}
       </p>
-      <login-view />
+      <login skip-install-check />
     </template>
-
-    <!-- CONFIRM POST-INSTALL MODAL -->
-    <b-modal
-      ref="post-install-modal" id="post-install-modal" centered
-      body-bg-variant="danger" body-text-variant="light"
-      @ok="performPostInstall" hide-header
-    >
-      {{ $t('confirm_postinstall', { domain }) }}
-    </b-modal>
   </div>
 </template>
 
 <script>
 import api from '@/api'
-import { DomainForm, PasswordForm } from '@/components/reusableForms'
-import LoginView from '@/views/Login'
+import { DomainForm, PasswordForm } from '@/views/_partials'
+import Login from '@/views/Login'
 
 export default {
   name: 'PostInstall',
+
+  components: {
+    DomainForm,
+    PasswordForm,
+    Login
+  },
 
   data () {
     return {
       step: 'start',
       domain: undefined,
-      password: undefined
+      password: undefined,
+      serverError: ''
     }
   },
 
   methods: {
+    goToStep (step) {
+      this.serverError = ''
+      this.step = step
+    },
+
     setDomain ({ domain }) {
       this.domain = domain
-      this.step = 'password'
+      this.goToStep('password')
     },
 
-    setPassword ({ password }) {
+    async setPassword ({ password }) {
       this.password = password
-      this.$refs['post-install-modal'].show()
+      const confirmed = await this.$askConfirmation(
+        this.$i18n.t('confirm_postinstall', { domain: this.domain })
+      )
+      if (!confirmed) return
+      this.performPostInstall()
     },
 
-    performPostInstall () {
+    performPostInstall (force = false) {
       // FIXME does the api will throw an error for bad passwords ?
-      api.post('postinstall', { domain: this.domain, password: this.password }).then(data => {
+      api.post(
+        'postinstall' + (force ? '?force_diskspace' : ''),
+        { domain: this.domain, password: this.password },
+        { key: 'postinstall' }
+      ).then(() => {
         // Display success message and allow the user to login
-        this.step = 'login'
+        this.goToStep('login')
+      }).catch(err => {
+        if (err.name !== 'APIBadRequestError') throw err
+        if (err.key === 'postinstall_low_rootfsspace') {
+          this.step = 'rootfsspace-error'
+        } else if (err.key.includes('password')) {
+          this.step = 'password'
+        } else if (['domain', 'dyndns'].some(word => err.key.includes(word))) {
+          this.step = 'domain'
+        } else {
+          throw err
+        }
+        this.serverError = err.message
       })
     }
   },
@@ -104,12 +147,6 @@ export default {
         this.$router.push({ name: 'home' })
       }
     })
-  },
-
-  components: {
-    DomainForm,
-    PasswordForm,
-    LoginView
   }
 }
 </script>

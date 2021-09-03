@@ -60,6 +60,7 @@
 </template>
 
 <script>
+import api from '@/api'
 import { mapGetters } from 'vuex'
 import { validationMixin } from 'vuelidate'
 
@@ -74,9 +75,9 @@ export default {
   data () {
     return {
       queries: [
-        { uri: 'users' },
-        { uri: 'domains' },
-        { uri: 'domains/main', storeKey: 'main_domain' }
+        ['GET', { uri: 'users' }],
+        ['GET', { uri: 'domains' }],
+        ['GET', { uri: 'domains/main', storeKey: 'main_domain' }]
       ],
 
       form: {
@@ -174,12 +175,11 @@ export default {
 
     onSubmit () {
       const data = formatFormData(this.form, { flatten: true })
-      this.$store.dispatch(
-        'POST', { uri: 'users', data }
-      ).then(() => {
+      api.post({ uri: 'users' }, data, { key: 'users.create', name: this.form.username }).then(() => {
         this.$router.push({ name: 'user-list' })
-      }).catch(error => {
-        this.serverError = error.message
+      }).catch(err => {
+        if (err.name !== 'APIBadRequestError') throw err
+        this.serverError = err.message
       })
     }
   },

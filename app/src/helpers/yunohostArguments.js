@@ -88,13 +88,21 @@ export function formatYunoHostArgument (arg) {
   // Checkbox
   } else if (arg.type === 'boolean') {
     field.component = 'CheckboxItem'
-    value = arg.default || false
+    if (typeof arg.default === 'number') {
+      value = arg.default === 1
+    } else {
+      value = arg.default || false
+    }
   // Special (store related)
   } else if (['user', 'domain'].includes(arg.type)) {
     field.component = 'SelectItem'
     field.link = { name: arg.type + '-list', text: i18n.t(`manage_${arg.type}s`) }
     field.props.choices = store.getters[arg.type + 'sAsChoices']
-    value = arg.type === 'domain' ? store.getters.mainDomain : field.props.choices[0].value
+    if (arg.type === 'domain') {
+      value = store.getters.mainDomain
+    } else {
+      value = field.props.choices.length ? field.props.choices[0].value : null
+    }
 
   // Unknown from the specs, try to display it as an input[text]
   // FIXME throw an error instead ?
@@ -106,8 +114,8 @@ export function formatYunoHostArgument (arg) {
   if (field.component !== 'CheckboxItem' && arg.optional !== true) {
     validation.required = validators.required
   }
-  // Default value
-  if (arg.default) {
+  // Default value if still `null`
+  if (value === null && arg.default) {
     value = arg.default
   }
   // Help message

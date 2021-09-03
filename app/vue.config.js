@@ -11,7 +11,10 @@ const dateFnsLocales = [
   'eo',
   'es',
   'eu',
+  'fa',
+  'fi',
   'fr', // for 'fr' & 'br'
+  'gl',
   'hi',
   'hu',
   'it',
@@ -23,6 +26,7 @@ const dateFnsLocales = [
   'ru',
   'sv',
   'tr',
+  'uk',
   'zh_CN' // for 'zh_Hans'
 ]
 
@@ -48,17 +52,17 @@ module.exports = {
   css: {
     loaderOptions: {
       sass: {
-        prependData: '@import "@/scss/globals.scss";'
+        prependData: '@import "@/scss/_variables.scss";'
       }
     }
   },
   publicPath: '/yunohost/admin',
   devServer: {
-    https: true,
+    https: false,
     disableHostCheck: true,
     proxy: {
       '^/yunohost': {
-        target: `https://${process.env.VUE_APP_IP}`,
+        target: `http://${process.env.VUE_APP_IP}`,
         ws: true,
         logLevel: 'debug'
       }

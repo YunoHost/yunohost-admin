@@ -1,6 +1,6 @@
 <template>
   <view-base
-    :queries="queries" @queries-response="formatLogData"
+    :queries="queries" @queries-response="onQueriesResponse"
     ref="view" skeleton="card-info-skeleton"
   >
     <!-- INFO CARD -->
@@ -18,7 +18,7 @@
 
           <div v-else-if="prop === 'suboperations'">
             <div v-for="operation in value" :key="operation.name">
-              <icon v-if="!operation.success" iname="times" class="text-danger" />
+              <icon v-if="operation.success !== true" iname="times" class="text-danger" />
               <b-link :to="{ name: 'tool-log', params: { name: operation.name } }">
                 {{ operation.description }}
               </b-link>
@@ -60,8 +60,8 @@
 </template>
 
 <script>
-import api from '@/api'
-import { objectToParams, escapeHtml } from '@/helpers/commons'
+import api, { objectToParams } from '@/api'
+import { escapeHtml } from '@/helpers/commons'
 import { readableDate } from '@/helpers/filters/date'
 
 export default {
@@ -90,12 +90,12 @@ export default {
         with_suboperations: '',
         number: this.numberOfLines
       })
-      return [`logs/${this.name}?${queryString}`]
+      return [['GET', `logs/${this.name}?${queryString}`]]
     }
   },
 
   methods: {
-    formatLogData (log) {
+    onQueriesResponse (log) {
       if (log.logs.length === this.numberOfLines) {
         this.moreLogsAvailable = true
         this.numberOfLines *= 10
@@ -121,11 +121,18 @@ export default {
       const info = { path: log.log_path, started_at, ended_at }
       if (!success) info.error = error
       if (suboperations && suboperations.length) info.suboperations = suboperations
+      // eslint-disable-next-line
+      if (!ended_at) delete info.ended_at
       this.info = info
     },
 
     shareLogs () {
-      api.get(`/logs/${this.name}?share`).then(({ url }) => {
+      api.get(
+        `logs/${this.name}/share`,
+        null,
+        { key: 'share_logs', name: this.name },
+        { websocket: true }
+      ).then(({ url }) => {
         window.open(url, '_blank')
       })
     }

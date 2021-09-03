@@ -1,6 +1,7 @@
 import Vue from 'vue'
 
 import api from '@/api'
+import { isEmptyValue } from '@/helpers/commons'
 
 
 export default {
@@ -14,31 +15,31 @@ export default {
   }),
 
   mutations: {
-    'SET_DOMAINS' (state, domains) {
+    'SET_DOMAINS' (state, [domains]) {
       state.domains = domains
     },
 
-    'ADD_DOMAINS' (state, { domain }) {
+    'ADD_DOMAINS' (state, [{ domain }]) {
       state.domains.push(domain)
     },
 
-    'DEL_DOMAINS' (state, domain) {
+    'DEL_DOMAINS' (state, [domain]) {
       state.domains.splice(state.domains.indexOf(domain), 1)
     },
 
-    'SET_MAIN_DOMAIN' (state, response) {
+    'SET_MAIN_DOMAIN' (state, [response]) {
       state.main_domain = response.current_main_domain
     },
 
-    'UPDATE_MAIN_DOMAIN' (state, domain) {
+    'UPDATE_MAIN_DOMAIN' (state, [domain]) {
       state.main_domain = domain
     },
 
-    'SET_USERS' (state, users) {
-      state.users = Object.keys(users).length === 0 ? null : users
+    'SET_USERS' (state, [users]) {
+      state.users = users || null
     },
 
-    'ADD_USERS' (state, user) {
+    'ADD_USERS' (state, [user]) {
       if (!state.users) state.users = {}
       Vue.set(state.users, user.username, user)
     },
@@ -60,7 +61,7 @@ export default {
       this.commit('SET_USERS_DETAILS', payload)
     },
 
-    'DEL_USERS_DETAILS' (state, username) {
+    'DEL_USERS_DETAILS' (state, [username]) {
       Vue.delete(state.users_details, username)
       if (state.users) {
         Vue.delete(state.users, username)
@@ -70,79 +71,80 @@ export default {
       }
     },
 
-    'SET_GROUPS' (state, groups) {
+    'SET_GROUPS' (state, [groups]) {
       state.groups = groups
     },
 
-    'ADD_GROUPS' (state, { name }) {
+    'ADD_GROUPS' (state, [{ name }]) {
       if (state.groups !== undefined) {
         Vue.set(state.groups, name, { members: [], permissions: [] })
       }
     },
 
-    'DEL_GROUPS' (state, groupname) {
+    'UPDATE_GROUPS' (state, [data, { groupName }]) {
+      Vue.set(state.groups, groupName, data)
+    },
+
+    'DEL_GROUPS' (state, [groupname]) {
       Vue.delete(state.groups, groupname)
     },
 
-    'SET_PERMISSIONS' (state, permissions) {
+    'SET_PERMISSIONS' (state, [permissions]) {
       state.permissions = permissions
+    },
+
+    'UPDATE_PERMISSIONS' (state, [_, { groupName, action, permId }]) {
+      // FIXME hacky way to update the store
+      const permissions = state.groups[groupName].permissions
+      if (action === 'add') {
+        permissions.push(permId)
+      } else if (action === 'remove') {
+        const index = permissions.indexOf(permId)
+        if (index > -1) permissions.splice(index, 1)
+      }
     }
   },
 
   actions: {
-    'FETCH' ({ state, commit, rootState }, { uri, param, storeKey = uri, cache = rootState.cache }) {
+    'GET' (
+      { state, commit, rootState },
+      { uri, param, storeKey = uri, humanKey, noCache, options, ...extraParams }
+    ) {
       const currentState = param ? state[storeKey][param] : state[storeKey]
       // if data has already been queried, simply return
-      if (currentState !== undefined && cache) return currentState
-
-      return api.get(param ? `${uri}/${param}` : uri).then(responseData => {
+      const ignoreCache = !rootState.cache || noCache || false
+      if (currentState !== undefined && !ignoreCache) return currentState
+      return api.fetch('GET', param ? `${uri}/${param}` : uri, null, humanKey, options).then(responseData => {
         const data = responseData[storeKey] ? responseData[storeKey] : responseData
-        commit('SET_' + storeKey.toUpperCase(), param ? [param, data] : data)
+        commit(
+          'SET_' + storeKey.toUpperCase(),
+          [param, data, extraParams].filter(item => !isEmptyValue(item))
+        )
         return param ? state[storeKey][param] : state[storeKey]
       })
     },
 
-    'FETCH_ALL' ({ state, commit, rootState }, queries) {
-      return Promise.all(queries.map(({ uri, param, storeKey = uri, cache = rootState.cache }) => {
-        const currentState = param ? state[storeKey][param] : state[storeKey]
-        // if data has already been queried, simply return the state as cached
-        if (currentState !== undefined && cache) {
-          return { cached: currentState }
-        }
-        return api.get(param ? `${uri}/${param}` : uri).then(responseData => {
-          return { storeKey, param, responseData }
-        })
-      })).then(responsesData => {
-        return responsesData.map(({ storeKey, param, responseData, cached = undefined }) => {
-          if (cached !== undefined) return cached
-          const data = responseData[storeKey] ? responseData[storeKey] : responseData
-          commit('SET_' + storeKey.toUpperCase(), param ? [param, data] : data)
-          return param ? state[storeKey][param] : state[storeKey]
-        })
-      })
-    },
-
-    'POST' ({ state, commit }, { uri, data, storeKey = uri }) {
-      return api.post(uri, data).then(responseData => {
+    'POST' ({ state, commit }, { uri, storeKey = uri, data, humanKey, options, ...extraParams }) {
+      return api.fetch('POST', uri, data, humanKey, options).then(responseData => {
         // FIXME api/domains returns null
         if (responseData === null) responseData = data
         responseData = responseData[storeKey] ? responseData[storeKey] : responseData
-        commit('ADD_' + storeKey.toUpperCase(), responseData)
+        commit('ADD_' + storeKey.toUpperCase(), [responseData, extraParams].filter(item => !isEmptyValue(item)))
         return state[storeKey]
       })
     },
 
-    'PUT' ({ state, commit }, { uri, param, data, storeKey = uri }) {
-      return api.put(param ? `${uri}/${param}` : uri, data).then(responseData => {
+    'PUT' ({ state, commit }, { uri, param, storeKey = uri, data, humanKey, options, ...extraParams }) {
+      return api.fetch('PUT', param ? `${uri}/${param}` : uri, data, humanKey, options).then(responseData => {
         const data = responseData[storeKey] ? responseData[storeKey] : responseData
-        commit('UPDATE_' + storeKey.toUpperCase(), param ? [param, data] : data)
+        commit('UPDATE_' + storeKey.toUpperCase(), [param, data, extraParams].filter(item => !isEmptyValue(item)))
         return param ? state[storeKey][param] : state[storeKey]
       })
     },
 
-    'DELETE' ({ commit }, { uri, param, data = {}, storeKey = uri }) {
-      return api.delete(param ? `${uri}/${param}` : uri, data).then(() => {
-        commit('DEL_' + storeKey.toUpperCase(), param)
+    'DELETE' ({ commit }, { uri, param, storeKey = uri, data, humanKey, options, ...extraParams }) {
+      return api.fetch('DELETE', param ? `${uri}/${param}` : uri, data, humanKey, options).then(() => {
+        commit('DEL_' + storeKey.toUpperCase(), [param, extraParams].filter(item => !isEmptyValue(item)))
       })
     }
   },
@@ -159,13 +161,15 @@ export default {
     },
 
     usersAsChoices: state => {
-      return Object.values(state.users).map(({ username, fullname, mail }) => {
-          return { text: `${fullname} (${mail})`, value: username }
-      })
+      if (state.users) {
+        return Object.values(state.users).map(({ username, fullname, mail }) => {
+            return { text: `${fullname} (${mail})`, value: username }
+        })
+      }
+      return []
     },
 
-    // not cached
-    user: state => name => state.users_details[name],
+    user: state => name => state.users_details[name], // not cached
 
     domains: state => state.domains,
 

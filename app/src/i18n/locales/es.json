@@ -5,7 +5,7 @@
     "api_not_responding": "La API de YunoHost no responde. ¿Tal vez «yunohost-api» está inoperativa o ha sido reiniciada?",
     "app_info_access_desc": "Grupos / usuarios actualmente autorizados a acceder a esta aplicación:",
     "app_info_default_desc": "Redirigir la raíz del dominio para esta aplicación ({domain} 6).",
-    "app_info_uninstall_desc": "Eliminar a esta aplicación.",
+    "app_info_uninstall_desc": "Eliminar esta aplicación.",
     "app_install_custom_no_manifest": "Archivo manifest.json no encontrado",
     "app_make_default": "Establecer como predeterminado",
     "app_state_inprogress": "Todavía no trabajando",
@@ -40,7 +40,7 @@
     "disable": "Inhabilitar",
     "dns": "DNS",
     "domain_add": "Añadir dominio",
-    "domain_add_dns_doc": "... y tengo <a href='//yunohost.org/dns'>mi DNS correctamente configurado</a>.",
+    "domain_add_dns_doc": "... y tengo <a href='//yunohost.org/dns_config' target='_blank'>mi DNS correctamente configurado</a>.",
     "domain_add_dyndns_doc": "…y quiero un servicio de DNS dinámico.",
     "domain_add_panel_with_domain": "Ya tengo un nombre de dominio…",
     "domain_add_panel_without_domain": "No tengo un nombre de dominio…",
@@ -61,7 +61,7 @@
     "home": "Inicio",
     "hook_adminjs_group_configuration": "ajustes del sistema",
     "hook_conf_cron": "Tareas automáticas",
-    "hook_conf_ldap": "base de datos LDAP",
+    "hook_conf_ldap": "Base de datos de usuario",
     "hook_conf_nginx": "Nginx",
     "hook_conf_ssh": "SSH",
     "hook_conf_ssowat": "SSOwat",
@@ -180,8 +180,8 @@
     "revert_to_selfsigned_cert_message": "Si realmente lo desea, puede reinstalar un certificado autofirmado. (No recomendado)",
     "revert_to_selfsigned_cert": "Volver a un certificado autofirmado",
     "user_mailbox_use": "Espacio utilizado",
-    "confirm_firewall_open": "¿Está seguro de que desea abrir el puerto {port}? (protocolo: {protocol}, conexión: {connection})",
-    "confirm_firewall_close": "¿Está seguro de que desea cerrar el puerto {port}? (protocolo: {protocol}, conexión: {connection})",
+    "confirm_firewall_allow": "¿Está seguro de que desea abrir el puerto {port}? (protocolo: {protocol}, conexión: {connection})",
+    "confirm_firewall_disallow": "¿Está seguro de que desea cerrar el puerto {port}? (protocolo: {protocol}, conexión: {connection})",
     "confirm_service_start": "¿Está seguro de que desea iniciar {name}?",
     "confirm_service_stop": "¿Está seguro de que desea parar {name}?",
     "confirm_update_apps": "¿Está seguro de que desea actualizar todas las aplicaciones?",
@@ -217,7 +217,7 @@
     "only_decent_quality_apps": "Solo aplicaciones de calidad aceptable",
     "orphaned": "No mantenido",
     "app_state_inprogress_explanation": "El mantenedor de esta aplicación declara que aún no está lista para su uso en producción. ¡TENGA CUIDADO!",
-    "app_state_highquality_explanation": "Esta aplicación está bien integrada en YunoHost. Ha sido (¡y continúa siendo!) revisada por especialistas del equipo de aplicaciones de YunoHost. Se puede esperar que sea segura y mantenida a largo plazo.",
+    "app_state_highquality_explanation": "Esta aplicación está bien integrada en YunoHost desde al menos un año.",
     "app_state_working_explanation": "El mantenedor de esta aplicación declara que «funciona». Significa que debería ser funcional (comparada a nivel de aplicación) pero no está revisada por especialistas necesariamente, puede tener aún problemas o no está totalmente integrada en YunoHost.",
     "orphaned_details": "Esta aplicación no se ha mantenido durante bastante tiempo. Todavía puede estar funcionando, pero no recibirá ninguna actualización hasta que alguien se ofrezca como voluntario para encargarse de ello. ¡Siéntase libre de contribuir para revivirlo!",
     "tools_rebooting": "Su servidor se está reiniciando. Para volver a la interfaz de administración web necesita esperar a que el servidor esté listo. Puede comprobarlo recargando esta página (F5).",
@@ -307,5 +307,74 @@
     "pending_migrations": "Hay algunas migraciones esperando ejecutar. Por favor vaya a <a href='#/tools/migrations'>Herramientas > Migraciones</a> para verlas.",
     "logs_suboperations": "Sub-operaciones",
     "operation_failed_explanation": "¡Esta operación falló! Lo sentimos mucho :( Puede intentar <a href='https://yunohost.org/help'>pedir ayuda</a>. Por favor comparta el *log completo* de la operación a la gente que ayude. Puede hacerlo haciendo click en el botón verde que dice 'Share with Yunopaste'. Cuando comparta los logs, YunoHost intentará automáticamente anonimizar datos privados como nombres de dominio y IPs.",
-    "app_manage_label_and_tiles": "Administrar etiquetas y tiles"
+    "app_manage_label_and_tiles": "Administrar etiquetas y tiles",
+    "cancel": "Cancelar",
+    "api_errors_titles": {
+        "APIConnexionError": "YunoHost ha encontrado un error de conexión",
+        "APINotRespondingError": "La API de YunoHost no está respondiendo",
+        "APINotFoundError": "La API de YunoHost no pudo encontrar una ruta",
+        "APIInternalError": "YunoHost ha encontrado un error interno",
+        "APIBadRequestError": "Yunohost ha econtrado un error",
+        "APIError": "YunoHost encontró un error inesperado"
+    },
+    "api_error": {
+        "view_error": "Ver error",
+        "sorry": "Lo siento mucho por eso.",
+        "server_said": "Mientras se procesaba la acción, el servidor informó:",
+        "info": "La siguiente información puede ser útil para la persona que le esté ayudando:",
+        "help": "Debes buscar ayuda en <a href=\"https://forum.yunohost.org/\">el foro</a> o en <a href=\"https://chat.yunohost.org/\">el chat</a> para solucionar la situación. También puedes informar del fallo en <a href=\"https://github.com/YunoHost/issues\">el bugtracker</a>.",
+        "error_message": "Mensaje de error:"
+    },
+    "api": {
+        "query_status": {
+            "warning": "Completado pero con errores y/o alertas",
+            "success": "Completado correctamente",
+            "pending": "En progreso",
+            "error": "No se ha podido realizar"
+        },
+        "processing": "El servidor está procesando la acción..."
+    },
+    "address": {
+        "local_part_description": {
+            "domain": "Elige un subdominio.",
+            "email": "Elija una parte local para su correo electrónico."
+        },
+        "domain_description": {
+            "email": "Elige un dominio para tu email.",
+            "domain": "Elige un dominio."
+        }
+    },
+    "form_errors": {
+        "domain": "Nombre de dominio inválido: debe ser alfanumérico en minúsculas, solo caracteres de puntos y guiones",
+        "between": "El valor debe estar entre {min} y {max}.",
+        "alphalownum_": "El valor debe ser alfanumérico en minúsculas y solo caracteres subrayados.",
+        "alpha": "El valor debe ser solo caracteres alfabéticos."
+    },
+    "footer": {
+        "donate": "Donar",
+        "help": "¿Necesitas ayuda?",
+        "documentation": "Documentación"
+    },
+    "experimental": "Experimental",
+    "error": "Error",
+    "enabled": "Habilitado",
+    "disabled": "Deshabilitado",
+    "dead": "Inactivo",
+    "day_validity": " Expirado hace | 1 día | {count} días",
+    "confirm_app_install": "¿Estás seguro de que deseas instalar esta aplicación?",
+    "common": {
+        "lastname": "Apellido",
+        "firstname": "Nombre"
+    },
+    "code": "Código",
+    "app_show_categories": "Mostrar categorías",
+    "app_install_parameters": "Instalar la configuración",
+    "app_config_panel_no_panel": "Esta aplicación no tiene ninguna configuración disponible",
+    "app_config_panel_label": "Configura esta app",
+    "app_config_panel": "Panel de configuración",
+    "app_choose_category": "Elige una categoría",
+    "app_actions_label": "Realizar acciones",
+    "app_actions": "Acciones",
+    "api_waiting": "Esperando la respuesta del servidor...",
+    "api_not_found": "Parece que el administrador de la web ha intentado consultar algo que no existe."
 }

@@ -6,7 +6,7 @@
     :filtered-items="filteredServices"
     items-name="services"
     :queries="queries"
-    @queries-response="formatServices"
+    @queries-response="onQueriesResponse"
   >
     <b-list-group>
       <b-list-group-item
@@ -42,7 +42,9 @@ export default {
 
   data () {
     return {
-      queries: ['services'],
+      queries: [
+        ['GET', 'services']
+      ],
       search: '',
       services: undefined
     }
@@ -60,7 +62,7 @@ export default {
   },
 
   methods: {
-    formatServices (services) {
+    onQueriesResponse (services) {
       this.services = Object.keys(services).sort().map(name => {
         const service = services[name]
         if (service.last_state_change === 'unknown') {

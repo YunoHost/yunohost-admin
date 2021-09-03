@@ -28,8 +28,8 @@
     "confirm_app_default": "Volètz vertadièrament definir aquesta aplicacion coma aplicacion per defaut ?",
     "confirm_change_maindomain": "Volètz vertadièrament cambiar lo domeni màger ?",
     "confirm_delete": "Volètz vertadièrament escafar {name} ?",
-    "confirm_firewall_open": "Volètz vertadièrament dobrir lo pòrt {port} ? (protocòl : {protocol}, connexion : {connection})",
-    "confirm_firewall_close": "Volètz vertadièrament tampar lo pòrt {port} ? (protocòl : {protocol}, connexion : {connection})",
+    "confirm_firewall_allow": "Volètz vertadièrament dobrir lo pòrt {port} ? (protocòl : {protocol}, connexion : {connection})",
+    "confirm_firewall_disallow": "Volètz vertadièrament tampar lo pòrt {port} ? (protocòl : {protocol}, connexion : {connection})",
     "confirm_install_custom_app": "Atencion ! L’installacion d’aplicacions tèrças pòt perilhar l’integritat e la seguretat del sistèma. Auriatz PAS de n’installar levat que saupèssetz çò que fasètz. Volètz vertadièrament córrer aqueste risc ?",
     "confirm_install_domain_root": "Poiretz pas installar mai aplicacions sus {domain}. Contunhar ?",
     "confirm_migrations_skip": "Passar las migracions es pas recomandat. Volètz vertadièrament o far ?",
@@ -54,7 +54,7 @@
     "disable": "Desactivar",
     "dns": "DNS",
     "domain_add": "Ajustar un domeni",
-    "domain_add_dns_doc": "… e ai <a href='//yunohost.org/dns'>>corrèctament configurat mos DNS</a>.",
+    "domain_add_dns_doc": "… e ai <a href='//yunohost.org/dns_config' target='_blank'>>corrèctament configurat mos DNS</a>.",
     "domain_add_dyndns_doc": "… e desiri un nom de domeni preconfigurat.",
     "domain_add_panel_with_domain": "Ai ja mon nom de domeni…",
     "domain_add_panel_without_domain": "Ai pas de nom de domeni…",
@@ -77,7 +77,7 @@
     "home": "Acuèlh",
     "hook_adminjs_group_configuration": "Configuracion del sistèma",
     "hook_conf_cron": "Tascas automaticas",
-    "hook_conf_ldap": "Basa de donadas LDAP",
+    "hook_conf_ldap": "Annuari dels utilizaires",
     "hook_conf_nginx": "Nginx",
     "hook_conf_ssh": "SSH",
     "hook_conf_ssowat": "SSOwat",
@@ -113,7 +113,7 @@
     "migrations_done": "Migracions precedentas",
     "migrations_no_pending": "Pas cap de migracion en espèra",
     "migrations_no_done": "Pas cap de migracion precedenta",
-    "multi_instance": "Instància multipla",
+    "multi_instance": "Pòt èsser installada mantun còp",
     "myserver": "monservidor",
     "next": "Seguent",
     "no": "Non",
@@ -177,7 +177,7 @@
     "domain_dns_conf_is_just_a_recommendation": "Aquesta pagina mòstra la configuracion *recomandada*. Configura *pas* lo DNS per vos. Es vòstra responsabilitat la configuracion de la zòna DNS en çò vòstre registrar DNS amb aquesta recomandacion.",
     "postinstall_domain": "Aquò es lo primièr nom de domeni ligat al servidor YunoHost, mas tanben lo que servirà al portanèl d’identificacion. Serà doncas visible per totes los utilizaires, causissètz-lo amb suènh.",
     "postinstall_intro_2": "Doas etapas mai son necessàrias per activar lo servidor.",
-    "postinstall_intro_3": "Podètz trapar mai d’informacion en anar a <a href='//yunohost.org/postinstall' target='_blank'> la pagina de documentacion en question</a>",
+    "postinstall_intro_3": "Podètz trapar mai d’informacion en anar a <a href='//yunohost.org/en/install/hardware:vps_debian#fa-cog-proceed-with-the-initial-configuration' target='_blank'> la pagina de documentacion en question</a>",
     "postinstall_password": "Aqueste senhal vos permetrà d’accedir a l’interfàcia d’administracion e de contrarotlar lo servidor. Prenètz lo temps de ne causir un bon.",
     "tools_rebooting": "Lo servidor es a tornar aviar. Per tornar a l’interfàcia d’administracion devètz esperar que lo servidor siá aviat. Podètz o verificar en actualizant aquesta pagina (F5).",
     "tools_shuttingdown": "Lo servidor es atudat. Del temps que lo servidor es atudat podètz pas accedir a l’interfàcia d’administracion.",
@@ -185,7 +185,8 @@
     "user_username_edit": "Modificar lo compte a {name}",
     "users_no": "Pas cap d’utilizaire.",
     "words": {
-        "default": "Defaut"
+        "default": "Defaut",
+        "collapse": "Plegar"
     },
     "wrong_password": "Senhal incorrècte",
     "yes": "Òc",
@@ -239,8 +240,8 @@
     "confirm_install_app_lowquality": "Atencion : aquesta aplicacion foncionarà mas es pas encara ben integrada a YunoHost. Unas foncionalitats coma l’identificacion unica e la salvagarda/restauracion pòdon èsser pas disponiblas.",
     "confirm_install_app_inprogress": "ATENCION ! Aquesta aplicacion es encara experimentala (o fonciona pas dirèctament) e es probable que còpe lo sistèma ! Deuriatz pas l’installar levat que saupèssetz çò que fasètz. Volètz vertadièrament córrer aqueste risc ?",
     "error_connection_interrupted": "Lo servidor a tampat la connexion allòc de respondre. Nginx o yunohost-api es estat relançat o arrestat per error ?",
-    "good_practices_about_admin_password": "Sètz a mand de definir un nòu senhal d’administrator. Lo nòu senhal deu conténer almens 8 caractèrs, es de bon far d’utilizar un senhal mai long (es a dire una frasa de senhal) e/o utilizar mantuns tipes de caractèrs (majusculas, minusculas, nombres e caractèrs especials).",
-    "good_practices_about_user_password": "Sètz a mand de definir un nòu senhal d’utilizaire. Lo nòu senhal deu conténer almens 8 caractèrs, es de bon far d’utilizar un senhal mai long (es a dire una frasa de senhal) e/o utilizar mantuns tipes de caractèrs (majusculas, minusculas, nombres e caractèrs especials).",
+    "good_practices_about_admin_password": "Sètz a mand de definir un nòu senhal d’administrator. Lo nòu senhal deu conténer almens 8 caractèrs, es de bon far d’utilizar un senhal mai long (es a dire una frasa de senhal) e/o utilizar mantun tipe de caractèrs (majusculas, minusculas, nombres e caractèrs especials).",
+    "good_practices_about_user_password": "Sètz a mand de definir un nòu senhal d’utilizaire. Lo nòu senhal deu conténer almens 8 caractèrs, es de bon far d’utilizar un senhal mai long (es a dire una frasa de senhal) e/o utilizar mantun tipe de caractèrs (majusculas, minusculas, nombres e caractèrs especials).",
     "only_working_apps": "Solament aplicacions que foncionan",
     "select_all": "O seleccionar tot",
     "select_none": "O deselecionnar tot",
@@ -251,7 +252,7 @@
     "app_state_inprogress_explanation": "Lo manteneire d’aquesta aplicacion declarèt qu’aquesta aplicacion es pas encara prèsta per un usatge en produccion. SIATZ PRUDENT !",
     "app_state_notworking_explanation": "Lo manteneire d’aquesta aplicacion declarèt que « fonciona pas ». COPARÀ VÒSTRE SISTÈMA !",
     "app_state_highquality": "nauta qualitat",
-    "app_state_highquality_explanation": "Aquesta aplicacion es plan integrada amb YunoHost. Es estada (e es) repassada per la còla d’aplicacion de YunoHost. Òm pòt esperar que siá segura e mantenguda per un long moment.",
+    "app_state_highquality_explanation": "Aquesta aplicacion es plan integrada amb YunoHost fa almens un an.",
     "app_state_working_explanation": "Lo manteneire de l’aplicacion declarèt que « foncion ». Significa que deu èsser foncionala (c.f. nivèls d’aplicacion) mas es pas forçadament repassada, e pòt totjorn contenir de problèmas o èsser pas complètament integrada a YunoHost.",
     "confirm_update_system": "Volètz vertadièrament actualizar totes los paquets del sistèma ?",
     "hook_conf_ynh_currenthost": "Domeni principal actual",
@@ -303,9 +304,234 @@
     "diagnosis_explanation": "La foncionalitat de diagnostic provarà trobar problèmas comuns sus diferents aspèctes de vòstre servidor per s’assegurar que tot fonciona normalament. Lo diagnostic serà tanben realizat dos còps per jorn e enviarà un corrièl a l’administrator se d’errors son detectadas. De notar que d’unes ensages seràn pas mostrats s’utilizatz pas certanas foncions especificas (XMPP, per exemple) o se fracassan a causa d’una configuracion tròp complèxa. Dins aqueste cas, e se sabètz çò qu’avètz modificat, podètz ignorar los problèmas e avertiments correspondents.",
     "pending_migrations": "I a unas migracions en espèra d’execucion. Anatz a <a href='#/tools/migrations'>Aisinas > Migracions</a> per las lançar.",
     "logs_suboperations": "Jos-operacions",
-    "diagnosis_first_run": "La foncionalitat de diagnostic ensajarà d’identificar los problèmas abituals de diferents aspèctes del servidor per dire d’assegurar que tot foncione de la melhora manièra possibla. Ajatz pas paur se vesètz mantunas error aprèp configurar lo servidor : es precisament fach per ajudar a identificar los problèmas e ofrir una guida per los reglar. Lo diagnostic s’executarà tanben dos còps per jorn e enviarà un corrièl a l’administrator se tròba unas error.",
+    "diagnosis_first_run": "La foncionalitat de diagnostic ensajarà d’identificar los problèmas abituals de diferents aspèctes del servidor per dire d’assegurar que tot foncione de la melhora manièra possibla. Ajatz pas paur se vesètz mantuna error aprèp configurar lo servidor : es precisament fach per ajudar a identificar los problèmas e ofrir una guida per los reglar. Lo diagnostic s’executarà tanben dos còps per jorn e enviarà un corrièl a l’administrator se tròba unas error.",
     "app_manage_label_and_tiles": "Gestion de las apelacions e títols",
     "permission_corresponding_url": "URL correspondenta",
-    "permission_main": "Permission principala",
-    "permission_show_tile_enabled": "Afichar lo teule al portal utilizaire"
+    "permission_main": "Etiqueta principala",
+    "permission_show_tile_enabled": "Afichar lo teule al portal utilizaire",
+    "address": {
+        "local_part_description": {
+            "domain": "Causissètz un jos-domeni.",
+            "email": "Causissètz una seccion locala pel corrièr electronic."
+        },
+        "domain_description": {
+            "domain": "Causissètz un domeni.",
+            "email": "Causissètz un domeni pel corrièr electronic."
+        }
+    },
+    "cancel": "Anullar",
+    "readme": "DeLegir",
+    "postinstall_set_password": "Definir lo senhal d’administracion",
+    "postinstall_set_domain": "Definir lo domeni principal",
+    "human_routes": {
+        "domains": {
+            "install_LE": "Installar lo certificat per « {name} »",
+            "delete": "Suprimir lo domeni « {name} »",
+            "add": "Apondre lo domeni « {name} »",
+            "set_default": "Definir « {name} » coma domeni principal",
+            "revert_to_selfsigned": "Tornar al certificat auto-signat per « {name} »",
+            "regen_selfsigned": "Renovar lo certificat auto-signat per « {name} »",
+            "manual_renew_LE": "Renovar lo certificat per « {name} »"
+        },
+        "migrations": {
+            "skip": "Ignorar las migracions",
+            "run": "Executar las migracions"
+        },
+        "groups": {
+            "add": "Apondre « {user} » al grop « {name} »",
+            "delete": "Suprimir lo grop « {name} »",
+            "remove": "Levar « {user} » d’al grop « {name} »",
+            "create": "Crear lo grop « {name} »"
+        },
+        "postinstall": "Executar la post-installacion",
+        "services": {
+            "stop": "Arrestar lo servici « {name} »",
+            "start": "Lançar lo servici « {name} »",
+            "restart": "Relançar lo servici « {name} »"
+        },
+        "reboot": "Reaviar lo servidor",
+        "shutdown": "Atudar lo servidor",
+        "upgrade": {
+            "apps": "Metre a jorn totas las aplicacions",
+            "system": "Metre a jorn lo sistèma",
+            "app": "Metre a jorn l’aplicacion « {app} »"
+        },
+        "users": {
+            "update": "Metre a jorn l’utilizaire « {name} »",
+            "delete": "Suprimir l’utilizaire « {name} »",
+            "create": "Crear l’utilizaire « {name} »"
+        },
+        "update": "Recercar las mesas a jorn",
+        "share_logs": "Generar un ligam pel jornal « {name} »",
+        "permissions": {
+            "remove": "Levar l’accès « {name} » a « {perm} »",
+            "add": "Autorizar « {name} » a accedir a « {perm} »"
+        },
+        "firewall": {
+            "upnp": "{action} UPnP",
+            "ports": "{action} pòrt {port} ({protocol}, {connection})"
+        },
+        "diagnosis": {
+            "unignore": {
+                "warning": "Ignorar pas un avertiment",
+                "error": "Ignorar pas una error"
+            },
+            "run": "Executar lo diagnostic",
+            "ignore": {
+                "warning": "Ignorar un avertiment",
+                "error": "Ignorar una error"
+            },
+            "run_specific": "Lançar lo diagnostic « {description} »"
+        },
+        "backups": {
+            "restore": "Restaurar la salvagarda « {name} »",
+            "delete": "Suprimir la salvagarda « {name} »",
+            "create": "Crear una salvagarda"
+        },
+        "apps": {
+            "update_config": "Mesa a jorn de la configuracion de l’aplicacion « {name} »",
+            "uninstall": "Desinstallar l’aplicacion « {name} »",
+            "perform_action": "Executar l’accion « {action} » de l’aplicacion « {name} »",
+            "install": "Installar l’aplicacion « {name} »",
+            "change_url": "Modificar l’URL d’accès de  « {name} »",
+            "change_label": "Cambiar l’etiqueta de « {prevName} » per « {nextName} »",
+            "set_default": "Desviar la raiç del domeni « {domain} » cap a « {name} »"
+        },
+        "adminpw": "Cambiar lo senhal administrator"
+    },
+    "search": {
+        "for": "Recercar {items}...",
+        "not_found": "I a {items} que correspondon a vòstres critèris."
+    },
+    "tools_webadmin": {
+        "language": "Lenga",
+        "fallback_language": "Lenga de secors",
+        "cache": "Cache",
+        "experimental": "Mòde experimental",
+        "transitions": "Animacion de transicion entre las paginas",
+        "fallback_language_description": "La lenga que serà utilizada se per cas la traduccion es pas disponibla dins la lenga principala.",
+        "experimental_description": "Aquò vos dòna accès a de foncionalitats experimentalas. Aquelas son consideradas coma instablas e pòdon copar vòstre sistèma. <br> Activatz-las sonque se sabètz çò que fasètz.",
+        "cache_description": "Pensatz de vos desactivar lo cache se prevesètz de trabalhar amb l’interfàcia en linha de comanda (CLI) tot en navigant dins l’administracion web (web-admin/panel web)."
+    },
+    "tools_webadmin_settings": "Paramètres de l'administracion web",
+    "unknown": "Desconegut",
+    "user_emailforward_add": "Ajustar una adreça de transferiment",
+    "user_emailaliases_add": "Ajustar un alias d’adreça electronica",
+    "postinstall": {
+        "force": "Forçar la post-installacion"
+    },
+    "placeholder": {
+        "domain": "mon-domeni.fr",
+        "groupname": "Lo nom de mon grop",
+        "lastname": "Delbosc",
+        "firstname": "Joan",
+        "username": "joandelbosc"
+    },
+    "perform": "Executar",
+    "migrations_disclaimer_check_message": "Ai legida e compresa la descarga de responsabilitat",
+    "mailbox_quota_example": "700 Mo correspond a un CD, 4 700 Mo correspond a un DVD",
+    "items_verbose_items_left": "Demòran {items}.",
+    "items_verbose_count": "I a {items}.",
+    "items": {
+        "users": "cap d’utilizaire | utilizaire | {c} utilizaires",
+        "services": "cap de servici | servici | {c} servicis",
+        "installed_apps": "cap d’aplicacion pas installada | aplicacion installada | {c} aplicacions installadas",
+        "groups": "cap de grop | grop | {c} grops",
+        "domains": "cap de domeni | domeni | {c} domenis",
+        "backups": "cap de salvagarda | salvagarda | {c} salvagardas",
+        "apps": "cap d’aplicacion | app | {c} aplicacions",
+        "permissions": "cap de permission | permission | {c} permissions",
+        "logs": "cap de jornal| jornal | {c} jornals"
+    },
+    "hook_data_xmpp": "Donadas XMPP",
+    "hook_conf_manually_modified_files": "Fichièr de configuracion modificat manualament",
+    "hook_conf_ynh_settings": "Configuracion de YunoHost",
+    "history": {
+        "methods": {
+            "PUT": "modificar",
+            "POST": "crear/executar",
+            "GET": "legir",
+            "DELETE": "suprimir"
+        },
+        "last_action": "Darrièra accion :",
+        "title": "Istoric",
+        "is_empty": "Pas res dins l’istoric pel moment."
+    },
+    "go_back": "Tornar",
+    "form_errors": {
+        "required": "Aqueste camp es obligatòri.",
+        "number": "La valor deu èsser un nombre.",
+        "notInUsers": "L’utilizaire « {value} » existís ja.",
+        "name": "Los noms devon pas conténer de caractèrs especials levats <code>,.'-</code>",
+        "domain": "Nom de domeni invalid : deu èsser compausat de minusculas alfranumericas, de punts e de jonhents bas",
+        "alphalownum_": "La valor deu sonque de caractèrs alfanumerics en minuscula e jonhent bas.",
+        "minValue": "La valor deu èsser un nombre egal o superiora a {min}.",
+        "between": "La valor deu èsser compresa entre {min} e {max}.",
+        "alpha": "La cadena de caractèrs deu conténer sonque de letras.",
+        "passwordMatch": "Los senhals correspondon pas.",
+        "passwordLenght": "Lo senhal deu conténer almens 8 caractèrs.",
+        "githubLink": "L’URL deu èsser un ligam Github valid cap a un depaus",
+        "emailForward": "Adreça de transferiment invalida : deu sonque conténer de caractèrs alfranumerics e los caractèrs <code>_.-+</code> (per exemple, quauqun@exemple.com, kal-k1+etiqueta@exemple.com)",
+        "email": "Adreça electronica invalida : deu sonque conténer de caractèrs alfanumerics e los caractèrs <code>_.-</code> (per exemple quauqun@exemple.com, k4l-k1@exemple.com)",
+        "dynDomain": "Nom de domeni invalid : deu conténer sonque de minusculas alfanumericas e de jonhents basses"
+    },
+    "footer": {
+        "donate": "Far un don",
+        "documentation": "Documentacion",
+        "help": "Besonh d’ajuda ?"
+    },
+    "experimental": "Experimental",
+    "error": "Error",
+    "enabled": "Activat",
+    "disabled": "Desactivat",
+    "dead": "Inactiu",
+    "day_validity": " Expirat | 1 jorn | {count} jorns",
+    "confirm_app_install": "Volètz vertadièrament installar aquesta aplicacion ?",
+    "common": {
+        "lastname": "Nom d’ostal",
+        "firstname": "Prenom"
+    },
+    "code": "Còdi",
+    "app_show_categories": "Mostrar las categorias",
+    "app_install_parameters": "Paramètres d’installacion",
+    "app_config_panel_label": "Configurar aquesta aplicacion",
+    "app_config_panel": "Panèl de configuracion",
+    "app_choose_category": "Causissètz una categoria",
+    "app_actions_label": "Executar las accions",
+    "app_actions": "Accions",
+    "api_waiting": "En espèra de la responsa del servidor...",
+    "api_errors_titles": {
+        "APIConnexionError": "YunoHost a rescontrat una error de connexion",
+        "APIInternalError": "YunoHost a rescontrat una error intèrna",
+        "APIBadRequestError": "YunoHost a rescontrat una error",
+        "APIError": "YunoHost a rescontrat una error inesperada",
+        "APINotRespondingError": "L’API YunoHost respond pas",
+        "APINotFoundError": "L’API YunoHost a pas pogut trobar de camin"
+    },
+    "api_error": {
+        "view_error": "Veire l’error",
+        "sorry": "O planhèm plan.",
+        "server_said": "Pendent lo tractament de l’accion, lo servidor a dich :",
+        "info": "Las informacions seguentas pòdon èsser utilas a las persona que vos ajuda :",
+        "error_message": "Messatge d’error :",
+        "help": "Podètz cercar d’ajuda <a href=\"https://forum.yunohost.org/\">al forum</a> o <a href=\"https://chat.yunohost.org/\">al chat</a> per corregir la situacion o senhalar l’error <a href=\"https://github.com/YunoHost/issues\">al bugtracker</a>."
+    },
+    "api": {
+        "query_status": {
+            "warning": "Acabat corrèctament amb d’error o d’alèrtas",
+            "success": "Acabat corrèctament",
+            "pending": "En cors",
+            "error": "Fracàs"
+        },
+        "processing": "Lo servidor es a tractar l’accion..."
+    },
+    "domain_delete_forbidden_desc": "Podètz pas suprimir « {domain} » perque es lo domeni per defaut, devètz causir un autre domeni (o <a href='#/domains/add'>ajustatz-ne un</a>) e lo definir coma lo demeni per defaut per poder suprimir aquel.",
+    "tools_power_up": "Vòstre servidor sembla accessible, podètz ara ensajar de vos connectar.",
+    "domain_add_dyndns_forbidden": "Se vos abonèretz a un domeni DynDNS, podètz demandar la supression de vòstre domeni DynDNS actual sul forum<a href='//forum.yunohost.org/t/nohost-domain-recovery-suppression-de-domaine-en-nohost-me-noho-st-et-ynh-fr/442'> al fial de discussion dedicat</a>.",
+    "confirm_group_add_access_permission": "Volètz vertadièrament donar l’accès a {perm} a {name} ? Un tal accès aumenta bravament la susfàcia d’ataca se {name} se tròba qu’es un mala persona. Deuriatz sonque o far se VOS FISATZ d’aquesta persona / aqueste grop.",
+    "traceback": "Traça",
+    "migrations_disclaimer_not_checked": "Aquesta migracion requerís que vos assabentetz de la descarga de responsabilitat abans de l’executar.",
+    "hook_data_xmpp_desc": "Configuracion de las salas e dels utilizaires, fichièrs enviats",
+    "app_config_panel_no_panel": "Aquesta aplicacion a pas cap de configuracion disponibla",
+    "api_not_found": "L’administrator a ensajat d'accedir a quicòm qu’existís pas."
 }

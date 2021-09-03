@@ -12,6 +12,7 @@
 <script>
 import { validationMixin } from 'vuelidate'
 
+import api from '@/api'
 import { required, alphalownum_ } from '@/helpers/validators'
 
 export default {
@@ -42,13 +43,15 @@ export default {
 
   methods: {
     onSubmit () {
-      this.$store.dispatch(
-        'POST', { uri: 'users/groups', data: this.form, storeKey: 'groups' }
+      api.post(
+        { uri: 'users/groups', storeKey: 'groups' },
+        this.form,
+        { key: 'groups.create', name: this.form.groupname }
       ).then(() => {
         this.$router.push({ name: 'group-list' })
-      }).catch(error => {
-        this.error.groupname = error.message
-        this.isValid.groupname = false
+      }).catch(err => {
+        if (err.name !== 'APIBadRequestError') throw err
+        this.serverError = err.message
       })
     }
   },

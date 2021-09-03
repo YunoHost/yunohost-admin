@@ -89,4 +89,7 @@ export default {
     margin-left: .5rem;
   }
 }
+.collapse:not(.show) + .card-footer {
+  display: none;
+}
 </style>

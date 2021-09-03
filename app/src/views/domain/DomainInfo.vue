@@ -20,14 +20,14 @@
 
       <!-- DNS CONFIG -->
       <p>{{ $t('domain_dns_longdesc') }}</p>
-      <b-button :to="{ name: 'domain-dns', param: { name } }">
+      <b-button variant="outline-dark" :to="{ name: 'domain-dns', param: { name } }">
         <icon iname="globe" /> {{ $t('domain_dns_config') }}
       </b-button>
       <hr>
 
       <!-- SSL CERTIFICATE -->
       <p>{{ $t('certificate_manage') }}</p>
-      <b-button :to="{ name: 'domain-cert', param: { name } }">
+      <b-button variant="outline-dark" :to="{ name: 'domain-cert', param: { name } }">
         <icon iname="lock" /> {{ $t('ssl_certificate') }}
       </b-button>
       <hr>
@@ -35,7 +35,7 @@
       <!-- DELETE -->
       <p>{{ $t('domain_delete_longdesc') }}</p>
       <p
-        v-if="isMainDomain" class="alert alert-danger"
+        v-if="isMainDomain" class="alert alert-info"
         v-html="$t('domain_delete_forbidden_desc', { domain: name })"
       />
       <b-button v-else variant="danger" @click="deleteDomain">
@@ -48,6 +48,8 @@
 <script>
 import { mapGetters } from 'vuex'
 
+import api from '@/api'
+
 export default {
   name: 'DomainInfo',
 
@@ -58,9 +60,11 @@ export default {
     }
   },
 
-  data () {
+  data: () => {
     return {
-      queries: [{ uri: 'domains/main', storeKey: 'main_domain' }]
+      queries: [
+        ['GET', { uri: 'domains/main', storeKey: 'main_domain' }]
+      ]
     }
   },
 
@@ -78,8 +82,8 @@ export default {
       const confirmed = await this.$askConfirmation(this.$i18n.t('confirm_delete', { name: this.name }))
       if (!confirmed) return
 
-      this.$store.dispatch('DELETE',
-        { uri: 'domains', param: this.name }
+      api.delete(
+        { uri: 'domains', param: this.name }, {}, { key: 'domains.delete', name: this.name }
       ).then(() => {
         this.$router.push({ name: 'domain-list' })
       })
@@ -89,10 +93,12 @@ export default {
       const confirmed = await this.$askConfirmation(this.$i18n.t('confirm_change_maindomain'))
       if (!confirmed) return
 
-      this.$store.dispatch('PUT',
-        { uri: 'domains/main', data: { new_main_domain: this.name }, storeKey: 'main_domain' }
+      api.put(
+        { uri: `domains/${this.name}/main`, storeKey: 'main_domain' },
+        {},
+        { key: 'domains.set_default', name: this.name }
       ).then(() => {
-        // Have to commit by hand here since the response is empty
+        // FIXME Have to commit by hand here since the response is empty (should return the given name)
         this.$store.commit('UPDATE_MAIN_DOMAIN', this.name)
       })
     }

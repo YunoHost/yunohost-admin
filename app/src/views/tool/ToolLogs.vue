@@ -5,7 +5,7 @@
     :filtered-items="filteredOperations"
     items-name="logs"
     :queries="queries"
-    @queries-response="formatLogsData"
+    @queries-response="onQueriesResponse"
     skeleton="card-list-skeleton"
   >
     <card :title="$t('logs_operation')" icon="wrench" no-body>
@@ -32,7 +32,9 @@ export default {
 
   data () {
     return {
-      queries: [`logs?limit=${25}&with_details`],
+      queries: [
+        ['GET', `logs?limit=${25}&with_details`]
+      ],
       search: '',
       operations: undefined
     }
@@ -50,7 +52,7 @@ export default {
   },
 
   methods: {
-    formatLogsData ({ operation }) {
+    onQueriesResponse ({ operation }) {
       operation.forEach((log, index) => {
         if (log.success === '?') {
           operation[index].icon = 'question'

@@ -1,6 +1,6 @@
 <template>
   <view-base
-    :queries="queries" @queries-response="formatAppActions"
+    :queries="queries" @queries-response="onQueriesResponse"
     ref="view" skeleton="card-form-skeleton"
   >
     <template v-if="actions" #default>
@@ -38,14 +38,15 @@
 </template>
 
 <script>
-import api from '@/api'
+import api, { objectToParams } from '@/api'
 import { validationMixin } from 'vuelidate'
 
 import { formatI18nField, formatYunoHostArguments, formatFormData } from '@/helpers/yunohostArguments'
-import { objectToParams } from '@/helpers/commons'
 
 export default {
   name: 'AppActions',
+
+  mixins: [validationMixin],
 
   props: {
     id: { type: String, required: true }
@@ -54,10 +55,10 @@ export default {
   data () {
     return {
       queries: [
-        `apps/${this.id}/actions`,
-        { uri: 'domains' },
-        { uri: 'domains/main', storeKey: 'main_domain' },
-        { uri: 'users' }
+        ['GET', `apps/${this.id}/actions`],
+        ['GET', { uri: 'domains' }],
+        ['GET', { uri: 'domains/main', storeKey: 'main_domain' }],
+        ['GET', { uri: 'users' }]
       ],
       actions: undefined
     }
@@ -74,7 +75,7 @@ export default {
   },
 
   methods: {
-    formatAppActions (data) {
+    onQueriesResponse (data) {
       if (!data.actions) {
         this.actions = null
         return
@@ -95,17 +96,20 @@ export default {
     },
 
     performAction (action) {
-      // FIXME api expects at least one argument ?! (fake one given with { wut } )
-      const args = objectToParams(action.form ? formatFormData(action.form) : { wut: undefined })
+      // FIXME api expects at least one argument ?! (fake one given with { dontmindthis } )
+      const args = objectToParams(action.form ? formatFormData(action.form) : { dontmindthis: undefined })
 
-      api.put(`apps/${this.id}/actions/${action.id}`, { args }).then(response => {
+      api.put(
+        `apps/${this.id}/actions/${action.id}`,
+        { args },
+        { key: 'apps.perform_action', action: action.id, name: this.id }
+      ).then(() => {
         this.$refs.view.fetchQueries()
-      }).catch(error => {
-        action.serverError = error.message
+      }).catch(err => {
+        if (err.name !== 'APIBadRequestError') throw err
+        action.serverError = err.message
       })
     }
-  },
-
-  mixins: [validationMixin]
+  }
 }
 </script>

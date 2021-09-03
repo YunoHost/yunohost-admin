@@ -1,5 +1,8 @@
 <template>
-  <view-base :loading="loading" skeleton="card-list-skeleton">
+  <view-base
+    :queries="queries" queries-wait @queries-response="onQueriesResponse"
+    skeleton="card-list-skeleton"
+  >
     <!-- MIGRATIONS WARN -->
     <b-alert variant="warning" :show="migrationsNotDone">
       <icon iname="exclamation-triangle" /> <span v-html="$t('pending_migrations')" />
@@ -69,7 +72,10 @@ export default {
 
   data () {
     return {
-      loading: true,
+      queries: [
+        ['GET', 'migrations?pending'],
+        ['PUT', 'update/all', {}, 'update']
+      ],
       // API data
       migrationsNotDone: undefined,
       system: undefined,
@@ -78,33 +84,28 @@ export default {
   },
 
   methods: {
+    onQueriesResponse ({ migrations }, { apps, system }) {
+      this.migrationsNotDone = migrations.length !== 0
+      this.apps = apps.length ? apps : null
+      this.system = system.length ? system : null
+    },
+
     async performUpgrade ({ type, id = null }) {
       const confirmMsg = this.$i18n.t('confirm_update_' + type, id ? { app: id } : {})
       const confirmed = await this.$askConfirmation(confirmMsg)
       if (!confirmed) return
 
-      const uri = type === 'specific_app'
-        ? 'upgrade/apps?app=' + id
-        : 'upgrade?' + type
-
-      api.put(uri).then(() => {
-        this.$router.push({ name: 'tool-logs' })
+      const uri = id !== null ? `apps/${id}/upgrade` : 'upgrade/' + type
+      api.put(uri, {}, { key: 'upgrade.' + (id ? 'app' : type), app: id }).then(() => {
+        if (id !== null) {
+          this.apps = this.apps.filter(app => id !== app.id)
+        } else if (type === 'apps') {
+          this.apps = null
+        } else {
+          this.system = null
+        }
       })
     }
-  },
-
-  created () {
-    // Since we need to query a `PUT` method, we won't use ViewBase's `queries` prop and
-    // its automatic loading handling.
-    Promise.all([
-      api.get('migrations?pending'),
-      api.put('update')
-    ]).then(([{ migrations }, { apps, system }]) => {
-      this.migrationsNotDone = migrations.length !== 0
-      this.apps = apps.length ? apps : null
-      this.system = system.length ? system : null
-      this.loading = false
-    })
   }
 }
 </script>
