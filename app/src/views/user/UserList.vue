@@ -48,7 +48,7 @@ export default {
   data () {
     return {
       queries: [
-        ['GET', { uri: 'users?fields=username&fields=fullname&fields=mail&fields=mailbox-quota&fields=shell&fields=groups' }]
+        ['GET', { uri: 'users?fields=username&fields=fullname&fields=mail&fields=mailbox-quota&fields=groups' }]
       ],
       search: ''
     }
