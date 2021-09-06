@@ -64,7 +64,7 @@ export default {
   data () {
     return {
       queries: [
-        ['GET', `apps/${this.id}/config-panel?mode=full`],
+        ['GET', `apps/${this.id}/config-panel?full`],
         ['GET', { uri: 'domains' }],
         ['GET', { uri: 'domains/main', storeKey: 'main_domain' }],
         ['GET', { uri: 'users' }]
@@ -108,7 +108,7 @@ export default {
         forms[id] = {}
         validations_[id] = {}
         errors_[id] = {}
-        for (const { id_, name, help, visibleIf,  options } of sections) {
+        for (const { id_, name, help, visibleIf, options } of sections) {
           const section_ = { id: id_, visibleIf }
           if (help) section_.help = formatI18nField(help)
           if (name) section_.name = formatI18nField(name)
