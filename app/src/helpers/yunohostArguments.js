@@ -241,8 +241,8 @@ export function formatYunoHostArgument (arg) {
     field.link = { href: arg.helpLink.href, text: i18n.t(arg.helpLink.text) }
   }
 
-  if (arg.visibleIf) {
-    field.visibleIf = arg.visibleIf
+  if (arg.visible) {
+    field.visible = arg.visible
   }
 
   return {

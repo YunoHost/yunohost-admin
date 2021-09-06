@@ -92,7 +92,7 @@ export default {
       try {
         return evaluate(context, expression)
       } catch (error) {
-        return false
+        return true
       }
     },
     onQueriesResponse (data) {
