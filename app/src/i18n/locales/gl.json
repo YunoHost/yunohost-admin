@@ -238,7 +238,7 @@
     "groups_and_permissions_manage": "Xestionar grupos e permisos",
     "groups_and_permissions": "Grupos e permisos",
     "group_specific_permissions": "Permisos específicos da usuaria",
-    "group_explain_visitors_needed_for_external_client": "Ten en conta que algunhas aplicacións precisan permitir o acceso a visitantes para poder utilizalas con clientes externos. É o caso de, por exemplo, Nextcloud se queres utilizar un cliente de sincronización no teléfono móbil ou computadora de escritorio.",
+    "group_explain_visitors_needed_for_external_client": "Ten en conta que algunhas aplicacións precisan permitir o acceso a visitantes para poder utilizalas con clientes externos. É o caso de, por exemplo, Nextcloud se vas a utilizar un cliente de sincronización no teléfono móbil ou computadora de escritorio.",
     "group_explain_visitors": "Este é un grupo especial que representa ás persoas visitantes anónimas",
     "group_explain_all_users": "Este é un grupo especial que contén tódalas contas de usuaria do servidor",
     "group_new": "Novo grupo",
@@ -404,7 +404,7 @@
             "perform_action": "Realizar acción '{action}' da app '{name}'",
             "set_default": "Redirixir raiz do dominio '{domain}' a '{name}'",
             "install": "Intalar app '{name}'",
-            "change_url": "Cambiar url de acceso a '{name}'",
+            "change_url": "Cambiar URL de acceso a '{name}'",
             "change_label": "Cambiar etiqueta de '{prevName}' a '{nextName}'"
         },
         "adminpw": "Cambiar contrasinal admin"
