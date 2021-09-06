@@ -64,7 +64,7 @@ export default {
   data () {
     return {
       queries: [
-        ['GET', `apps/${this.id}/config-panel?mode=full`],
+        ['GET', `apps/${this.id}/config-panel?full`],
         ['GET', { uri: 'domains' }],
         ['GET', { uri: 'domains/main', storeKey: 'main_domain' }],
         ['GET', { uri: 'users' }]

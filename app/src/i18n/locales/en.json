@@ -175,7 +175,7 @@
         "githubLink": "Url must be a valid Github link to a repository",
         "name": "Names may not include special characters except <code> ,.'-</code>",
         "minValue": "Value must be a number equal or greater than {min}.",
-        "maxValue": "Value must be a number equal or lesser than {min}.",
+        "maxValue": "Value must be a number equal or lesser than {max}.",
         "notInUsers": "The user '{value}' already exists.",
         "number": "Value must be a number.",
         "passwordLenght": "Password must be at least 8 characters long.",
