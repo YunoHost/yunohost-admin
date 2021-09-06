@@ -20,7 +20,7 @@
             </template>
 
             <template v-for="section in sections">
-              <div :key="section.id" class="mb-5" v-if="isVisible(section.visibleIf)">
+              <div :key="section.id" class="mb-5" v-if="isVisible(section.visible)">
                 <b-card-title v-if="section.name" title-tag="h3">
                   {{ section.name }} <small v-if="section.help">{{ section.help }}</small>
                 </b-card-title>
@@ -89,7 +89,11 @@ export default {
           context[shortname] = args[shortname]
         }
       }
-      return evaluate(context, expression)
+      try {
+        return evaluate(context, expression)
+      } catch (error) {
+        return false
+      }
     },
     onQueriesResponse (data) {
       if (!data.panels || data.panels.length === 0) {
