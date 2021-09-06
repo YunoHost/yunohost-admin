@@ -27,7 +27,7 @@
                 <template v-for="(field, fname) in section.fields">
                   <form-field :key="fname" v-model="forms[id_][fname]"
                               :validation="$v.forms[id_][fname]"
-                              v-if="isVisible(field.visibleIf)" v-bind="field"
+                              v-if="isVisible(field.visible)" v-bind="field"
                   />
                 </template>
               </div>
@@ -108,8 +108,8 @@ export default {
         forms[id] = {}
         validations_[id] = {}
         errors_[id] = {}
-        for (const { id_, name, help, visibleIf,  options } of sections) {
-          const section_ = { id: id_, visibleIf }
+        for (const { id_, name, help, visible, options } of sections) {
+          const section_ = { id: id_, visible }
           if (help) section_.help = formatI18nField(help)
           if (name) section_.name = formatI18nField(name)
           const { form, fields, validations, errors } = formatYunoHostArguments(options)
@@ -138,8 +138,8 @@ export default {
         }).catch(err => {
           if (err.name !== 'APIBadRequestError') throw err
           const panel = this.panels.find(({ id }) => id_ === id)
-          if (err.data.field) {
-            this.errors[id_][err.data.field].message = err.message
+          if (err.data.name) {
+            this.errors[id_][err.data.name].message = err.message
           } else this.$set(panel, 'serverError', err.message)
         })
       })

@@ -117,8 +117,8 @@ export default {
         this.$router.push({ name: 'app-list' })
       }).catch(err => {
         if (err.name !== 'APIBadRequestError') throw err
-        if (err.data.field) {
-          this.errors[err.data.field].message = err.message
+        if (err.data.name) {
+          this.errors[err.data.name].message = err.message
         } else this.serverError = err.message
       })
     }
