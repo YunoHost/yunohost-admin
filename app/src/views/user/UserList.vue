@@ -8,14 +8,25 @@
   >
     <template #top-bar-buttons>
       <b-button variant="info" :to="{ name: 'group-list' }">
-        <icon iname="key-modern" />
-        {{ $t('groups_and_permissions_manage') }}
+        <icon iname="key-modern" /> {{ $t('groups_and_permissions_manage') }}
       </b-button>
 
-      <b-button variant="success" :to="{ name: 'user-create' }">
-        <icon iname="plus" />
-        {{ $t('users_new') }}
-      </b-button>
+      <b-dropdown
+        :split-to="{ name: 'user-create' }"
+        split variant="outline-success" right
+        split-variant="success"
+      >
+        <template #button-content>
+          <icon iname="plus" /> {{ $t('users_new') }}
+        </template>
+        <b-dropdown-item :to="{ name: 'user-import' }">
+          <icon iname="plus" /> {{ $t('users_import') }}
+        </b-dropdown-item>
+        <b-dropdown-item @click="downloadExport">
+          <icon iname="download" /> {{ $t('users_export') }}
+        </b-dropdown-item>
+      </b-dropdown>
+
     </template>
 
     <b-list-group>
@@ -53,7 +64,12 @@ export default {
       search: ''
     }
   },
-
+  methods: {
+    downloadExport () {
+      const host = this.$store.getters.host
+      window.open(`https://${host}/yunohost/api/users/export`, '_blank')
+    }
+  },
   computed: {
     ...mapGetters(['users']),
 
