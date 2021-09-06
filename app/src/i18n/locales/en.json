@@ -496,7 +496,7 @@
     "users_import_csv_file": "CSV File",
     "users_import_update": "Update existing users",
     "users_import_delete": "Delete non listed users",
-    "users_import_csv_file_desc": "The CSV file should be in UTF-8 and with columns username, password, groups, email and quota. See <a href=''>example import csv file</a>.",
+    "users_import_csv_file_desc": "The CSV file should be in UTF-8 and with columns username, password, groups, email and quota. For an example import CSV file, you can <a href='/yunohost/api/users/export' target='_BLANK'>export your users in CSV file</a> and change the file.",
     "users_import_update_desc": "If checked, all existing users contained in the CSV file will be updated with the ne new value",
     "users_import_delete_desc": "If checked, all existing users that are not in the CSV file will be deleted (and purged).",
     "users_import_confirm_destructive": "Are you sure you want to delete users that are not present in this file?",
