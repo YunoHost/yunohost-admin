@@ -38,7 +38,8 @@ export default {
     name: 'Euskara'
   },
   fa: {
-    name: 'فارسی'
+    name: 'فارسی',
+    dateFnsLocale: 'fa-IR'
   },
   fi: {
     name: 'Suomi'
