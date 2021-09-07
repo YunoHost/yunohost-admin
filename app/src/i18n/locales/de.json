@@ -409,7 +409,7 @@
         "notInUsers": "Der/die Benutzer:in '{value}' existiert bereits.",
         "minValue": "Der Wert muss eine Zahl sein, die gleich oder größer als {min} ist.",
         "name": "Namen dürfen keine Sonderzeichen außer <code>, .'- </code> enthalten",
-        "githubLink": "Die URL muss ein gültiger Github-Link zu einem Repository sein",
+        "githubLink": "Die URL muss ein gültiger GitHub-Link zu einem Repository sein",
         "emailForward": "Ungültige E-Mail-Weiterleitung: Sie darf nur aus alphanumerischen Zeichen und <code> _.-+</code> bestehen (z. B. jemand+tag@example.com, s0me-1+tag@example.com)",
         "email": "Ungültige E-Mail: Sie darf nur aus alphanumerischen Zeichen und <code> _.-</code> bestehen (z. B. jemand@example.com, s0me-1@example.com)",
         "dynDomain": "Ungültiger Domainname: Er darf nur aus alphanumerischen Kleinbuchstaben und Bindestrichen bestehen",
