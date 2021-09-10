@@ -1,1 +1,32 @@
-{}
+{
+    "add": "Tambahkan",
+    "address": {
+        "domain_description": {
+            "email": "Pilih sebuah domain untuk surel Anda.",
+            "domain": "Pilih sebuah domain."
+        },
+        "local_part_description": {
+            "domain": "Pilih sebuah subdomain."
+        }
+    },
+    "administration_password": "Kata sandi administrasi",
+    "all": "Semua",
+    "api": {
+        "processing": "Server sedang memproses tindakan...",
+        "query_status": {
+            "error": "Gagal",
+            "pending": "Sedang berjalan",
+            "success": "Berhasil"
+        }
+    },
+    "api_error": {
+        "server_said": "Ketika memproses tindakan server mengatakan:",
+        "sorry": "Maaf tentang itu.",
+        "info": "Informasi berikut mungkin berguna untuk orang yang membantu Anda:"
+    },
+    "api_errors_titles": {
+        "APINotRespondingError": "API YunoHost tidak menjawab"
+    },
+    "all_apps": "Semua aplikasi",
+    "api_waiting": "Menunggu jawaban server..."
+}
