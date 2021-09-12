@@ -321,7 +321,8 @@
     "port": "Port",
     "ports": "Ports",
     "postinstall": {
-        "force": "Force the post-install"
+        "force": "Force the post-install",
+        "title": "Postinstall"
     },
     "postinstall_domain": "This is the first domain name linked to your YunoHost server, but also the one which will be used by your server's users to access the authentication portal. Accordingly, it will be visible by everyone, so choose it carefully.",
     "postinstall_intro_1": "Congratulations! YunoHost has been successfully installed.",
@@ -510,6 +511,7 @@
     },
     "wrong_password": "Wrong password",
     "yes": "Yes",
+    "yunohost_admin": "YunoHost Admin",
     "certificate_alert_not_valid": "CRITICAL: Current certificate is not valid! HTTPS won't work at all!",
     "certificate_alert_selfsigned": "WARNING: Current certificate is self-signed. Browsers will display a spooky warning to new visitors!",
     "certificate_alert_letsencrypt_about_to_expire": "Current certificate is about to expire. It should soon be renewed automatically.",

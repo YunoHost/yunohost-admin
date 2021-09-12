@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import i18n from '@/i18n'
 import routes from './routes'
 import store from '@/store'
 
@@ -37,6 +38,32 @@ router.beforeEach((to, from, next) => {
   } else {
     store.dispatch('DISCONNECT', to)
   }
+})
+
+router.afterEach((to, from) => {
+  // Display a simplified breadcrumb as the document title.
+  const routeParams = to.params
+  let breadcrumb = to.meta.breadcrumb
+  if (breadcrumb.length === 0) {
+    breadcrumb = [to.name]
+  } else if (breadcrumb.length > 2) {
+    breadcrumb = breadcrumb.slice(breadcrumb.length - 2)
+  }
+
+  const title = breadcrumb.map(name => {
+    const route = routes.find(route => route.name === name)
+    const { trad, param } = route ? route.meta.args : {}
+    // if a traduction key string has been given and we also need to pass
+    // the route param as a variable.
+    if (trad && param) {
+      return i18n.t(trad, { [param]: routeParams[param] })
+    } else if (trad) {
+      return i18n.t(trad)
+    }
+    return routeParams[param]
+  }).reverse().join(' / ')
+
+  document.title = `${title} | ${i18n.t('yunohost_admin')}`
 })
 
 export default router
