@@ -50,7 +50,7 @@ import evaluate from 'simple-evaluate'
 
 // FIXME needs test and rework
 import api, { objectToParams } from '@/api'
-import { formatI18nField, formatYunoHostArguments, formatFormData } from '@/helpers/yunohostArguments'
+import { formatI18nField, formatYunoHostArguments, formatFormData, pFileReader } from '@/helpers/yunohostArguments'
 
 export default {
   name: 'AppConfigPanel',
@@ -84,16 +84,40 @@ export default {
     isVisible (expression) {
       if (!expression) return true
       const context = {}
+
+      const promises = []
       for (const args of Object.values(this.forms)) {
         for (const shortname in args) {
-          context[shortname] = args[shortname]
+          if (args[shortname] instanceof File) {
+            if (expression.includes(shortname)) {
+              promises.push(pFileReader(args[shortname], context, shortname, false))
+            }
+          } else {
+            context[shortname] = args[shortname]
+          }
         }
       }
-      try {
-        return evaluate(context, expression)
-      } catch (error) {
-        return true
-      }
+      // Allow to use match(var,regexp) function
+      const matchRe = new RegExp('match\\(\\s*(\\w+)\\s*,\\s*"([^"]+)"\\s*\\)', 'g')
+      let i = 0
+      return new Promise((resolve, reject) => {
+        i = 2
+        resolve(false)
+        Promise.all(promises).then((value) => {
+          for (const matched of expression.matchAll(matchRe)) {
+              i++
+              const varName = matched[1] + '__re' + i.toString()
+              context[varName] = new RegExp(matched[2]).test(context[matched[1]])
+              expression = expression.replace(matched[0], varName)
+          }
+
+          try {
+              resolve(evaluate(context, expression))
+          } catch (error) {
+              resolve(false)
+          }
+        })
+      })
     },
     onQueriesResponse (data) {
       if (!data.panels || data.panels.length === 0) {

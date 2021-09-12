@@ -35,8 +35,7 @@
           </b-link>
         </div>
 
-        <div
-          v-if="description" v-html="description"
+        <vue-showdown :markdown="description" flavor="github" v-if="description"
           :class="{ ['alert p-1 px-2 alert-' + descriptionVariant]: descriptionVariant }"
         />
       </template>
