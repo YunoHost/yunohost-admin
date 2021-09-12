@@ -1,4 +1,5 @@
 const webpack = require('webpack')
+const fs = require('fs');
 
 const dateFnsLocales = [
   'ar',
@@ -58,6 +59,7 @@ module.exports = {
   },
   publicPath: '/yunohost/admin',
   devServer: {
+    public: fs.readFileSync('/etc/yunohost/current_host', 'utf8'),
     https: false,
     disableHostCheck: true,
     proxy: {
@@ -68,7 +70,9 @@ module.exports = {
       }
     },
     watchOptions: {
-      ignored: /node_modules/
-    }
+      ignored: /node_modules/,
+      aggregateTimeout: 300,
+      poll: 1000
+    },
   }
 }
