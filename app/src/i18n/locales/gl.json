@@ -155,14 +155,15 @@
         "notInUsers": "A usuaria '{value}' xa existe.",
         "minValue": "O valor debe ser un número igual ou superior a {min}.",
         "name": "Os nomes non inclúen caracteres especiais excepto <code> ,.'-</code>",
-        "githubLink": "A URL debe ser unha ligazón de Github a un repositorio",
+        "githubLink": "URL debe ser unha ligazón a un repositorio de GitHub",
         "emailForward": "Email de reenvío non válido: ten que ser alfanumérico e caracteres <code>_.-+</code> (ex. menganito+etiqueta@exemplo.com, m3ng4ni7-o+etiqueta@exemplo.com)",
         "email": "Email non válido: debe ser alfanumércio e caracteres <code>_.-</code> (ex. menganito@exemplo.com, p4c-0@exemplo.com)",
         "dynDomain": "Nome de dominio non válido: Só pode ter caracteres alfanuméricos en minúscula e barra",
         "domain": "Nome de dominio non válido: Só pode ser alfanumérico en minúsculas, punto e barra",
         "between": "O valor ten que estar entre {min} e {max}.",
         "alphalownum_": "O valor só pode ter caracteres alfanuméricos en minúscula e trazos baixos.",
-        "alpha": "O valor só pode ter caracteres alfanuméricos."
+        "alpha": "O valor só pode ter caracteres alfanuméricos.",
+        "fileMediaTypeMatch": "Tipo de ficheiro non válido: ten que ser <code>{arg}</code>."
     },
     "footer": {
         "donate": "Doa",
@@ -304,7 +305,8 @@
         "groupname": "Nome do grupo",
         "lastname": "Pérez",
         "firstname": "Josefa",
-        "username": "pepitaperez"
+        "username": "pepitaperez",
+        "file": "Navega ata o ficheiro ou arrastra e sóltao"
     },
     "perform": "Realizar",
     "path": "Ruta",
@@ -512,7 +514,8 @@
     "wrong_password": "Contrasinal incorrecto",
     "words": {
         "default": "Por defecto",
-        "collapse": "Pechar"
+        "collapse": "Pechar",
+        "browse": "Navegar"
     },
     "warnings": "{count} avisos",
     "version": "Versión",
@@ -524,5 +527,15 @@
     "user_new_forward": "novoreenvio@omeudominoexterno.org",
     "user_mailbox_use": "Espazo de correo utilizado",
     "user_mailbox_quota": "Cota de correo",
-    "user_interface_link": "Interface de usuaria"
+    "user_interface_link": "Interface de usuaria",
+    "users_import": "Importar usuarias",
+    "users_export": "Exportar usuarias",
+    "users_import_csv_file": "Ficheiro CSV",
+    "users_import_update": "Actualizar usuarias existentes",
+    "users_import_delete": "Eliminar usuarias fóra da lista",
+    "users_import_csv_file_desc": "O ficheiro CSV ten que usar UTF-8 coas columnas nome de usuaria, contrasinal, grupos, email e cota. A xeito de exemplo de importación CSV, podes <a href='/yunohost/api/users/export' target='_BLANK'>exportar as túas usuarias a un ficheiro CSV</a> e edita o ficheiro.",
+    "users_import_update_desc": "Se está marcado, tódalas usuarias existentes contidas no ficheiro CSV vanse actualizar co novo valor",
+    "users_import_delete_desc": "Se está marcado, tódalas usuarias existentes que non están no ficheiro CSV van ser borradas (e eliminadas).",
+    "users_import_confirm_destructive": "Tes a certeza de querer eliminar as usuarias que non están presentes neste ficheiro?",
+    "users_import_delete_others": "Eliminar usuarias de fóra da lista"
 }

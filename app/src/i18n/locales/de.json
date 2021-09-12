@@ -304,7 +304,7 @@
     "operation_failed_explanation": "Die Operation ist fehlgeschlagen! Das tut uns leid :( Sie können Sich <a href='https://yunohost.org/help'>hier Hilfe holen</a>. Bitte stellen Sie *die ganzen Logs* der Operation bereit, damit Ihnen besser geholfen werden kann. Dies tun Sie, indem Sie auf den grünen 'mit Yunopaste teilen' Knopf drücken. Wenn Sie die Logs teilen, wird Yunohost automatisch versuchen Ihre privaten Daten wie Domainnamen und IP's zu anonymisieren.",
     "diagnosis_explanation": "Die Diagnose Funktion wird versuchen, gängige Probleme in verschiedenen Teilen deines Servers zu finden,  damit alles reibungslos läuft. Die Diagnose wird auch automatisch zweimal täglich ausgeführt, falls Fehler gefunden werden, bekommt der Administrator ein E-Mail. Beachte, dass einige tests nicht relevant sind, wenn du einzelne Features (zum Beispiel XMPP) nicht benutzt oder du ein komplexes Setup hast. In diesem Fall und wenn du weisst was du tust ist es in Ordnung die dazugehoerigen Warnungen und Hinweise zu ignorieren.",
     "pending_migrations": "Es gibt einige ausstehende Migrationen, die darauf warten, ausgeführt zu werden. Bitte gehen Sie auf  <a href='#/tools/migrations'>Werkzeuge > Migrationen</a> um diese auszuführen.",
-    "tip_about_user_email": "Benutzer:innen werden mit einer verknüpften E-Mail-Adresse (und XMPP Account) erstellt im Format username@domain.tld. Zusätzliche E-Mail-Aliasse and E-Mail-Weiterleitungen können später durch den/die Admin und Benutzer*in hinzugefügt werden.",
+    "tip_about_user_email": "Benutzer:innen werden mit einer verknüpften E-Mail-Adresse (und XMPP Account) erstellt im Format username@domain.tld. Zusätzliche E-Mail-Aliasse and E-Mail-Weiterleitungen können später durch den/die Admin und Benutzer:in hinzugefügt werden.",
     "logs_suboperations": "Unter-Operationen",
     "api_errors_titles": {
         "APIBadRequestError": "Es ist ein Fehler in Yunohost aufgetreten",
@@ -409,7 +409,7 @@
         "notInUsers": "Der/die Benutzer:in '{value}' existiert bereits.",
         "minValue": "Der Wert muss eine Zahl sein, die gleich oder größer als {min} ist.",
         "name": "Namen dürfen keine Sonderzeichen außer <code>, .'- </code> enthalten",
-        "githubLink": "Die URL muss ein gültiger Github-Link zu einem Repository sein",
+        "githubLink": "Die URL muss ein gültiger GitHub-Link zu einem Repository sein",
         "emailForward": "Ungültige E-Mail-Weiterleitung: Sie darf nur aus alphanumerischen Zeichen und <code> _.-+</code> bestehen (z. B. jemand+tag@example.com, s0me-1+tag@example.com)",
         "email": "Ungültige E-Mail: Sie darf nur aus alphanumerischen Zeichen und <code> _.-</code> bestehen (z. B. jemand@example.com, s0me-1@example.com)",
         "dynDomain": "Ungültiger Domainname: Er darf nur aus alphanumerischen Kleinbuchstaben und Bindestrichen bestehen",

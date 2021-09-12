@@ -282,7 +282,8 @@
     "warnings": "{count} avertissements",
     "words": {
         "default": "Défaut",
-        "collapse": "Replier"
+        "collapse": "Replier",
+        "browse": "Parcourir"
     },
     "configuration": "Configuration",
     "since": "depuis",
@@ -335,7 +336,8 @@
         "groupname": "Le nom de mon groupe",
         "lastname": "Dupont",
         "firstname": "Jean",
-        "username": "jeandupont"
+        "username": "jeandupont",
+        "file": "Parcourir un fichier ou le faire glisser et déposer"
     },
     "perform": "Exécuter",
     "migrations_disclaimer_not_checked": "Cette migration nécessite que vous preniez connaissance de sa décharge de responsabilité avant de l'exécuter.",
@@ -372,14 +374,15 @@
         "notInUsers": "L'utilisateur '{value}' existe déjà.",
         "minValue": "La valeur doit être un nombre égal ou supérieur à {min}.",
         "name": "Les noms ne peuvent pas comporter de caractères spéciaux, sauf <code> ,.'-</code>",
-        "githubLink": "L'URL doit être un lien Github valide vers un dépôt",
+        "githubLink": "L'URL doit être un lien GitHub valide vers un dépôt",
         "emailForward": "Adresse de transfert de courrier électronique invalide : elle doit être composée de caractères alphanumérique et de <code>_.-+</code> seulement (par exemple, someone+tag@example.com, s0me-1+tag@example.com)",
         "email": "Adresse de courriel invalide : elle doit être composée de caractères alphanumérique et des caractères <code>_.-</code> seulement (par exemple someone@example.com, s0me-1@example.com)",
         "dynDomain": "Nom de domaine invalide : Il doit être composé de minuscules alphanumériques et de tirets uniquement",
         "domain": "Nom de domaine invalide : Il doit être composé de minuscules alphanumériques, de points et de tirets uniquement",
         "between": "La valeur doit être comprise entre {min} et {max}.",
         "alpha": "La chaîne de caractères ne doit contenir que des lettres.",
-        "alphalownum_": "La chaîne de caractères doit être composé uniquement de caractères alphanumériques minuscules et de tirets bas (aussi appelé tiret du 8 ou underscore)."
+        "alphalownum_": "La chaîne de caractères doit être composé uniquement de caractères alphanumériques minuscules et de tirets bas (aussi appelé tiret du 8 ou underscore).",
+        "fileMediaTypeMatch": "Type de fichier non valide : doit être <code>{arg}</code>."
     },
     "footer": {
         "donate": "Faire un don",
@@ -526,5 +529,15 @@
         "adminpw": "Changer le mot de passe administrateur"
     },
     "items_verbose_items_left": "Il reste des {items}.",
-    "confirm_group_add_access_permission": "Voulez-vous vraiment accorder l'accès à {perm} à {name} ? Un tel accès augmente considérablement la surface d'attaque si {name} se trouve être une personne malveillante. Vous ne devriez le faire que si vous FAITES CONFIANCE à cette personne/ ce groupe."
+    "confirm_group_add_access_permission": "Voulez-vous vraiment accorder l'accès à {perm} à {name} ? Un tel accès augmente considérablement la surface d'attaque si {name} se trouve être une personne malveillante. Vous ne devriez le faire que si vous FAITES CONFIANCE à cette personne/ ce groupe.",
+    "users_import": "Importer des utilisateurs",
+    "users_export": "Exporter les utilisateurs",
+    "users_import_csv_file": "Fichier CSV",
+    "users_import_update": "Mettre à jour les utilisateurs existants",
+    "users_import_delete": "Supprimer les utilisateurs non répertoriés",
+    "users_import_update_desc": "Si coché, tous les utilisateurs existants contenus dans le fichier CSV seront mis à jour avec les nouvelles valeurs",
+    "users_import_delete_desc": "Si coché, tous les utilisateurs existants qui ne sont pas dans le fichier CSV seront supprimés (et purgés).",
+    "users_import_confirm_destructive": "Êtes-vous sûr de vouloir supprimer les utilisateurs qui ne sont pas présents dans ce fichier ?",
+    "users_import_delete_others": "Supprimer les utilisateurs non répertoriés",
+    "users_import_csv_file_desc": "Le fichier CSV doit être au format UTF-8 et avec les colonnes nom d'utilisateur, mot de passe, groupes, email et quota. Pour un exemple d'importation de fichier CSV, vous pouvez <a href='/yunohost/api/users/export' target='_BLANK'>exporter vos utilisateurs dans un fichier CSV</a> et modifier le fichier."
 }
