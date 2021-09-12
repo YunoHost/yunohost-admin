@@ -12,7 +12,7 @@ const dateFnsLocales = [
   'eo',
   'es',
   'eu',
-  'fa',
+  'fa-IR',
   'fi',
   'fr', // for 'fr' & 'br'
   'gl',

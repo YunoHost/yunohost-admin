@@ -8,14 +8,25 @@
   >
     <template #top-bar-buttons>
       <b-button variant="info" :to="{ name: 'group-list' }">
-        <icon iname="key-modern" />
-        {{ $t('groups_and_permissions_manage') }}
+        <icon iname="key-modern" /> {{ $t('groups_and_permissions_manage') }}
       </b-button>
 
-      <b-button variant="success" :to="{ name: 'user-create' }">
-        <icon iname="plus" />
-        {{ $t('users_new') }}
-      </b-button>
+      <b-dropdown
+        :split-to="{ name: 'user-create' }"
+        split variant="outline-success" right
+        split-variant="success"
+      >
+        <template #button-content>
+          <icon iname="plus" /> {{ $t('users_new') }}
+        </template>
+        <b-dropdown-item :to="{ name: 'user-import' }">
+          <icon iname="plus" /> {{ $t('users_import') }}
+        </b-dropdown-item>
+        <b-dropdown-item @click="downloadExport">
+          <icon iname="download" /> {{ $t('users_export') }}
+        </b-dropdown-item>
+      </b-dropdown>
+
     </template>
 
     <b-list-group>
@@ -48,12 +59,17 @@ export default {
   data () {
     return {
       queries: [
-        ['GET', { uri: 'users' }]
+        ['GET', { uri: 'users?fields=username&fields=fullname&fields=mail&fields=mailbox-quota&fields=groups' }]
       ],
       search: ''
     }
   },
-
+  methods: {
+    downloadExport () {
+      const host = this.$store.getters.host
+      window.open(`https://${host}/yunohost/api/users/export`, '_blank')
+    }
+  },
   computed: {
     ...mapGetters(['users']),
 
@@ -61,7 +77,7 @@ export default {
       if (!this.users) return
       const search = this.search.toLowerCase()
       const filtered = this.users.filter(user => {
-        return user.username.toLowerCase().includes(search)
+        return user.username.toLowerCase().includes(search) || user.groups.includes(search)
       })
       return filtered.length === 0 ? null : filtered
     }

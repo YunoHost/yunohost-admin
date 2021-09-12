@@ -11,7 +11,11 @@
       :required="required"
       :placeholder="_placeholder"
       :accept="accept"
+      :drop-placeholder="dropPlaceholder"
+      :state="state"
+      :browse-text="$t('words.browse')"
       @blur="$parent.$emit('touch', name)"
+      @focusout.native="$parent.$emit('touch', name)"
     />
   </b-button-group>
 </template>
@@ -30,7 +34,9 @@ export default {
     id: { type: String, default: null },
     value: { type: [File, null], default: null },
     placeholder: { type: String, default: 'Choose a file or drop it here...' },
+    dropPlaceholder: { type: String, default: null },
     accept: { type: String, default: null },
+    state: { type: Boolean, default: null },
     required: { type: Boolean, default: false },
     name: { type: String, default: null }
   },
