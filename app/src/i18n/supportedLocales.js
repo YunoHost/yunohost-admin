@@ -37,8 +37,18 @@ export default {
   eu: {
     name: 'Euskara'
   },
+  fa: {
+    name: 'فارسی',
+    dateFnsLocale: 'fa-IR'
+  },
+  fi: {
+    name: 'Suomi'
+  },
   fr: {
     name: 'Français'
+  },
+  gl: {
+    name: 'Galego'
   },
   hi: {
     name: 'हिन्दी'
@@ -78,6 +88,9 @@ export default {
   },
   tr: {
     name: 'Türkçe'
+  },
+  uk: {
+    name: 'Українська'
   },
   zh_Hans: {
     name: '简化字',
