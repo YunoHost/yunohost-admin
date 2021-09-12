@@ -289,16 +289,23 @@ export function formatYunoHostArguments (args, name = null) {
   return { form, fields, validations, errors }
 }
 
-export function pFileReader (file, output, key) {
+export function pFileReader (file, output, key, base64 = true) {
     return new Promise((resolve, reject) => {
         const fr = new FileReader()
         fr.onerror = reject
         fr.onload = () => {
-          output[key] = fr.result.replace(/data:[^;]*;base64,/, '')
+          output[key] = fr.result
+          if (base64) {
+            output[key] = fr.result.replace(/data:[^;]*;base64,/, '')
+          }
           output[key + '[name]'] = file.name
           resolve()
         }
-        fr.readAsDataURL(file)
+        if (base64) {
+          fr.readAsDataURL(file)
+        } else {
+          fr.readAsText(file)
+        }
     })
 }
 /**
@@ -328,7 +335,7 @@ export function formatFormDataValue (value) {
  * @param {Boolean} [extraParams.removeEmpty=true] - Removes "empty" values from the object.
  * @return {Object} the parsed data to be sent to the server, with extracted values if specified.
  */
-export async function formatFormData (
+export function formatFormData (
   formData,
   { extract = null, flatten = false, removeEmpty = true, removeNull = false, promise = false } = {}
 ) {
