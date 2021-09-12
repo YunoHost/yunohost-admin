@@ -535,7 +535,7 @@
     "users_import_csv_file": "Fichier CSV",
     "users_import_update": "Mettre à jour les utilisateurs existants",
     "users_import_delete": "Supprimer les utilisateurs non répertoriés",
-    "users_import_update_desc": "Si coché, tous les utilisateurs existants contenus dans le fichier CSV seront mis à jour avec la nouvelle valeur",
+    "users_import_update_desc": "Si coché, tous les utilisateurs existants contenus dans le fichier CSV seront mis à jour avec les nouvelles valeurs",
     "users_import_delete_desc": "Si coché, tous les utilisateurs existants qui ne sont pas dans le fichier CSV seront supprimés (et purgés).",
     "users_import_confirm_destructive": "Êtes-vous sûr de vouloir supprimer les utilisateurs qui ne sont pas présents dans ce fichier ?",
     "users_import_delete_others": "Supprimer les utilisateurs non répertoriés",
