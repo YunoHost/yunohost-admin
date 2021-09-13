@@ -382,7 +382,11 @@
         "between": "La valeur doit être comprise entre {min} et {max}.",
         "alpha": "La chaîne de caractères ne doit contenir que des lettres.",
         "alphalownum_": "La chaîne de caractères doit être composé uniquement de caractères alphanumériques minuscules et de tirets bas (aussi appelé tiret du 8 ou underscore).",
-        "fileMediaTypeMatch": "Type de fichier non valide : doit être <code>{arg}</code>."
+        "fileMediaTypeMatch": "Type de fichier non valide : doit être <code>{arg}</code>.",
+        "maxValue": "La valeur doit être un nombre égal ou inférieur à {max}.",
+        "remote": "{message}",
+        "pattern": "{type}",
+        "invalid_form": "Le formulaire contient des erreurs."
     },
     "footer": {
         "donate": "Faire un don",
