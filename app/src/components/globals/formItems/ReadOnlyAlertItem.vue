@@ -2,7 +2,8 @@
   <b-alert :variant="type" show>
     <icon :iname="icon_" />
     <vue-showdown :markdown="label" flavor="github"
-                  tag="span" class="markdown" />
+                  tag="span" class="markdown"
+    />
   </b-alert>
 </template>
 

@@ -183,7 +183,8 @@
         "passwordMatch": "Passwords don't match.",
         "required": "Field is required.",
         "remote": "{message}",
-        "pattern": "{type}"
+        "pattern": "{type}",
+        "invalid_form": "The form contains some errors."
     },
     "form_input_example": "Example: {example}",
     "from_to": "from {0} to {1}",

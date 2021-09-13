@@ -100,7 +100,7 @@ export function formatYunoHostArgument (arg) {
         if (!isNaN(parseInt(arg.max))) {
           validation.maxValue = validators.maxValue(parseInt(arg.max))
         }
-        validation.numValue = validators.numeric
+        validation.numValue = validators.helpers.regex('Please provide an integer', new RegExp('^-?[0-9]+$'))
       }
     },
     {

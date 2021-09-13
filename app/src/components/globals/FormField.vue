@@ -36,7 +36,7 @@
         </div>
 
         <vue-showdown :markdown="description" flavor="github" v-if="description"
-          :class="{ ['alert p-1 px-2 alert-' + descriptionVariant]: descriptionVariant }"
+                      :class="{ ['alert p-1 px-2 alert-' + descriptionVariant]: descriptionVariant }"
         />
       </template>
       <!-- Slot available to overwrite the one above -->

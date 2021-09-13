@@ -46,12 +46,12 @@ export default {
 
   computed: {
     disabled () {
-      return this.validation ? this.validation.$invalid : false
+      return false // this.validation ? this.validation.$invalid : false
     },
     errorFeedback () {
       if (this.serverError) return this.serverError
-      else if (this.validation && this.validation.$invalid) {
-        return this.$t('invalid_form')
+      else if (this.validation && this.validation.$anyError) {
+        return this.$i18n.t('form_errors.invalid_form')
       } else return ''
     }
   },
