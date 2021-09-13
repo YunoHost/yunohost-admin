@@ -44,7 +44,7 @@
             </p>
           </template>
           <template v-else>
-            <tags-selectize
+            <tags-selectize-item
               v-model="group.members" :options="usersOptions"
               :id="groupName + '-users'" :label="$t('group_add_member')"
               tag-icon="user" items-name="users"
@@ -60,7 +60,7 @@
           <strong>{{ $t('permissions') }}</strong>
         </b-col>
         <b-col>
-          <tags-selectize
+          <tags-selectize-item
             v-model="group.permissions" :options="permissionsOptions"
             :id="groupName + '-perms'" :label="$t('group_add_permission')"
             tag-icon="key-modern" items-name="permissions"
@@ -83,7 +83,7 @@
           </b-col>
 
           <b-col>
-            <tags-selectize
+            <tags-selectize-item
               v-model="userGroups[userName].permissions" :options="permissionsOptions"
               :id="userName + '-perms'" :label="$t('group_add_permission')"
               tag-icon="key-modern" items-name="permissions"
@@ -94,7 +94,7 @@
         <hr :key="index">
       </template>
 
-      <tags-selectize
+      <tags-selectize-item
         v-model="activeUserGroups" :options="usersOptions"
         id="user-groups" :label="$t('group_add_member')"
         no-tags items-name="users"
@@ -109,7 +109,7 @@ import Vue from 'vue'
 
 import api from '@/api'
 import { isEmptyValue } from '@/helpers/commons'
-import TagsSelectize from '@/components/TagsSelectize'
+import TagsSelectizeItem from '@/components/globals/formItems/TagsSelectizeItem'
 
 // TODO add global search with type (search by: group, user, permission)
 // TODO add vuex store update on inputs ?
@@ -117,7 +117,7 @@ export default {
   name: 'GroupList',
 
   components: {
-    TagsSelectize
+    TagsSelectizeItem
   },
 
   data () {

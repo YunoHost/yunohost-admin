@@ -23,10 +23,6 @@
         :validation="$v" :server-error="serverError"
         @submit.prevent="performInstall"
       >
-        <template v-if="formDisclaimer" #disclaimer>
-          <div class="alert alert-info" v-html="formDisclaimer" />
-        </template>
-
         <form-field
           v-for="(field, fname) in fields" :key="fname" label-cols="0"
           v-bind="field" v-model="form[fname]" :validation="$v.form[fname]"
@@ -75,6 +71,7 @@ export default {
       form: undefined,
       fields: undefined,
       validations: null,
+      errors: undefined,
       serverError: ''
     }
   },
@@ -94,15 +91,15 @@ export default {
       manifest.multi_instance = this.$i18n.t(manifest.multi_instance ? 'yes' : 'no')
       this.infos = Object.fromEntries(infosKeys.map(key => [key, manifest[key]]))
 
-      const { form, fields, validations, disclaimer } = formatYunoHostArguments(
+      const { form, fields, validations, errors } = formatYunoHostArguments(
         manifest.arguments.install,
         manifest.name
       )
 
-      this.formDisclaimer = disclaimer
       this.fields = fields
       this.form = form
       this.validations = { form: validations }
+      this.errors = errors
     },
 
     async performInstall () {
@@ -120,7 +117,9 @@ export default {
         this.$router.push({ name: 'app-list' })
       }).catch(err => {
         if (err.name !== 'APIBadRequestError') throw err
-        this.serverError = err.message
+        if (err.data.name) {
+          this.errors[err.data.name].message = err.message
+        } else this.serverError = err.message
       })
     }
   }

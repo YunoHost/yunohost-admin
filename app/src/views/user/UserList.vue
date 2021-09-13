@@ -26,7 +26,6 @@
           <icon iname="download" /> {{ $t('users_export') }}
         </b-dropdown-item>
       </b-dropdown>
-
     </template>
 
     <b-list-group>
