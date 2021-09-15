@@ -20,14 +20,14 @@
             </template>
 
             <template v-for="section in sections">
-              <div :key="section.id" class="mb-5" v-if="isVisible(section.visible)">
+              <div :key="section.id" class="mb-5" v-if="isVisible(section.visible, section)">
                 <b-card-title v-if="section.name" title-tag="h3">
                   {{ section.name }} <small v-if="section.help">{{ section.help }}</small>
                 </b-card-title>
                 <template v-for="(field, fname) in section.fields">
                   <form-field :key="fname" v-model="forms[id_][fname]"
                               :validation="$v.forms[id_][fname]"
-                              v-if="isVisible(field.visible)" v-bind="field"
+                              v-if="isVisible(field.visible, field)" v-bind="field"
                   />
                 </template>
               </div>
@@ -81,8 +81,8 @@ export default {
   },
 
   methods: {
-    isVisible (expression) {
-      if (!expression) return true
+    isVisible (expression, field) {
+      if (!expression || !field) return true
       const context = {}
 
       const promises = []
@@ -100,24 +100,22 @@ export default {
       // Allow to use match(var,regexp) function
       const matchRe = new RegExp('match\\(\\s*(\\w+)\\s*,\\s*"([^"]+)"\\s*\\)', 'g')
       let i = 0
-      return new Promise((resolve, reject) => {
-        i = 2
-        resolve(false)
-        Promise.all(promises).then((value) => {
-          for (const matched of expression.matchAll(matchRe)) {
-              i++
-              const varName = matched[1] + '__re' + i.toString()
-              context[varName] = new RegExp(matched[2]).test(context[matched[1]])
-              expression = expression.replace(matched[0], varName)
-          }
+      Promise.all(promises).then((value) => {
+        for (const matched of expression.matchAll(matchRe)) {
+            i++
+            const varName = matched[1] + '__re' + i.toString()
+            context[varName] = new RegExp(matched[2], 'm').test(context[matched[1]])
+            expression = expression.replace(matched[0], varName)
+        }
 
-          try {
-              resolve(evaluate(context, expression))
-          } catch (error) {
-              resolve(false)
-          }
-        })
+        try {
+            field.isVisible = evaluate(context, expression)
+        } catch (error) {
+            field.isVisible = false
+        }
       })
+      // This value should be updated magically when vuejs will detect isVisible changed
+      return field.isVisible
     },
     onQueriesResponse (data) {
       if (!data.panels || data.panels.length === 0) {
@@ -137,7 +135,7 @@ export default {
         validations_[id] = {}
         errors_[id] = {}
         for (const { id_, name, help, visible, options } of sections) {
-          const section_ = { id: id_, visible }
+          const section_ = { id: id_, isVisible: true, visible }
           if (help) section_.help = formatI18nField(help)
           if (name) section_.name = formatI18nField(name)
           const { form, fields, validations, errors } = formatYunoHostArguments(options)

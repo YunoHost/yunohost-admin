@@ -243,6 +243,8 @@ export function formatYunoHostArgument (arg) {
 
   if (arg.visible) {
     field.visible = arg.visible
+    // Temporary value to wait visible expression to be evaluated
+    field.isVisible = true
   }
 
   return {
