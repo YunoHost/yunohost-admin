@@ -6,7 +6,7 @@
 
     <b-alert v-if="!archives" variant="warning">
       <icon iname="exclamation-triangle" />
-      {{ $t('items_verbose_count', { items: $tc('items.backups', 0) }) }}
+      {{ $tc('items_verbose_count', 0, { items: $tc('items.backups', 0) }) }}
     </b-alert>
 
     <b-list-group v-else>

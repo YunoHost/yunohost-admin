@@ -252,7 +252,7 @@
         "services": "no services | service | {c} services",
         "users": "no users | user | {c} users"
     },
-    "items_verbose_count": "There are {items}.",
+    "items_verbose_count": "There are {items}. | There is {items}. | There are {items}.",
     "items_verbose_items_left": "There are {items} left.",
     "label": "Label",
     "label_for_manifestname": "Label for {name}",
