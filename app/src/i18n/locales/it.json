@@ -376,7 +376,7 @@
         "notInUsers": "L'utente '{value}' esiste già.",
         "minValue": "Il valore dev'essere maggiore o uguale a {min}.",
         "name": "I nomi non devono includere caratteri speciali, tolti <code> ,.'-</code>",
-        "githubLink": "L'url dev'essere un repository Github valido",
+        "githubLink": "L'URL dev'essere un repository GitHub valido",
         "emailForward": "Inoltro email non valido: dev'esser composta di soli caratteri alfanumerici e <code>_.-+</code> (es: prova+ricevute@esempio.com, m4r1-0@esempio.com)",
         "email": "Email non valida: dev'esser composta di soli caratteri alfanumerici e <code>_.-</code> (es: prova@esempio.com, m4r1-0@esempio.com)",
         "dynDomain": "Nome dominio non valido: Dev'esser composto di soli caratteri alfanumerici minuscoli e trattini",
@@ -520,7 +520,7 @@
             "perform_action": "Esegui l'azione '{action}' dell'app '{name}'",
             "set_default": "Reindirizza la domain root di '{domain}' a '{name}'",
             "install": "Installa l'app '{name}'",
-            "change_url": "Cambia l'url d'accesso di '{name}'",
+            "change_url": "Cambia l'URL d'accesso di '{name}'",
             "change_label": "Cambia label da '{prevName}' a '{nextName}'"
         },
         "adminpw": "Cambia password d'amministratore"
