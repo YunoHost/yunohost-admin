@@ -163,7 +163,9 @@
         "between": "O valor ten que estar entre {min} e {max}.",
         "alphalownum_": "O valor só pode ter caracteres alfanuméricos en minúscula e trazos baixos.",
         "alpha": "O valor só pode ter caracteres alfanuméricos.",
-        "fileMediaTypeMatch": "Tipo de ficheiro non válido: ten que ser <code>{arg}</code>."
+        "fileMediaTypeMatch": "Tipo de ficheiro non válido: ten que ser <code>{arg}</code>.",
+        "remote": "{message}",
+        "pattern": "{type}"
     },
     "footer": {
         "donate": "Doa",
