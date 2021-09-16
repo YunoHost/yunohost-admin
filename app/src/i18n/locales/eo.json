@@ -7,7 +7,7 @@
     "app_state_inprogress_explanation": "Ĉi tiu subtenanto de ĉi tiu app deklaris, ke ĉi tiu aplikaĵo ankoraŭ ne estas preta por produktado. ESPERANTU!",
     "app_state_notworking_explanation": "Ĉi tiu prizorganto de ĉi tiu app deklaris ĝin \"ne funkcianta\". Ĝi BRAKOS vian sistemon!",
     "app_state_highquality": "alta kvalito",
-    "app_state_highquality_explanation": "Ĉi tiu app estas bone integrita kun YunoHost. Ĝi estis (kaj estas!) Reviziita de la teamo de YunoHost. Ĝi povas atendi esti sekura kaj konservi longtempe.",
+    "app_state_highquality_explanation": "Ĉi tiu programo estas bone integrita kun YunoHost ekde almenaŭ unu jaro.",
     "app_state_working_explanation": "La prizorganto de ĉi tiu app deklaris ĝin \"laboranta\". Ĝi signifas, ke ĝi devas esti funkcia (c.f. aplika nivelo) sed ne nepre estas reviziita de pereloj, tamen ĝi eble enhavas problemojn aŭ ne plene integriĝas kun YunoHost.",
     "good_practices_about_user_password": "Vi nun estas por difini novan uzantan pasvorton. La pasvorto devas esti almenaŭ 8 signoj - kvankam estas bone praktiki uzi pli longan pasvorton (t.e. pasfrazon) kaj / aŭ uzi diversajn specojn de signoj (majuskloj, minuskloj, ciferoj kaj specialaj signoj).",
     "from_to": "de {0} al {1}",
