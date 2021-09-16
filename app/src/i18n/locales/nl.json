@@ -49,7 +49,7 @@
     "home": "Thuis",
     "hook_adminjs_group_configuration": "Configuratie",
     "hook_conf_cron": "Reguliere taken",
-    "hook_conf_ldap": "LDAP",
+    "hook_conf_ldap": "Gebruikersdatabase",
     "hook_conf_nginx": "Nginx",
     "hook_conf_ssh": "SSH",
     "hook_conf_ssowat": "SSOwat",
@@ -93,7 +93,7 @@
     "postinstall_domain": "Dit is de eerst domeinnaam die aan je YunoHost server gelinkt is, maar ook hetgene gebruikt zal worden als portaal voor je gebruikers om je server te bezoeken. Het is dus zichtbaar door iedereen, kies het zorgvuldig.",
     "postinstall_intro_1": "Gefeliciteerd! YunoHost is met succes geïnstalleerd.",
     "postinstall_intro_2": "Er zijn nog twee configuratiestappen nodig om de diensten van je server te activeren.",
-    "postinstall_intro_3": "Je kan meer informatie verkrijgen door <a href='//yunohost.org/postinstall' target='_blank'>de gepaste documentatie</a> te bekijken",
+    "postinstall_intro_3": "Je kan meer informatie verkrijgen door <a href='//yunohost.org/en/install/hardware:vps_debian#fa-cog-proceed-with-the-initial-configuration' target='_blank'>de gepaste documentatie</a> te bekijken",
     "postinstall_password": "Dit wachtwoord zal gebruikt worden om alles binnen je server te beheren. Neem de tijd om het zorgvuldig te kiezen.",
     "previous": "Vorige",
     "protocol": "Protocol",
@@ -160,8 +160,8 @@
     "app_choose_category": "Kies een categorie",
     "api_waiting": "Aan het wachten op de reactie van de server...",
     "api_errors_titles": {
-        "APINotRespondingError": "Yunohost API reageert niet",
-        "APIError": "Yunohost kwam een onverwachte fout tegen"
+        "APINotRespondingError": "YunoHost API reageert niet",
+        "APIError": "YunoHost kwam een onverwachte fout tegen"
     },
     "api_error": {
         "info": "De volgende informatie kan handig zijn voor de persoon die jou helpt:",
