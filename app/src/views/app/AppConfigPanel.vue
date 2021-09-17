@@ -161,6 +161,15 @@ export default {
         api.put(
           `apps/${this.id}/config`, { key: id_, args }, { key: 'apps.update_config', name: this.id }
         ).then(response => {
+            api.get(
+              `apps/${this.id}/config-panel?full`, {}, { key: 'apps.get_config', name: this.id }
+            ).then(response => {
+              this.onQueriesResponse(response)
+            }).catch(err => {
+                if (err.name !== 'APIBadRequestError') throw err
+                const panel = this.panels.find(({ id }) => id_ === id)
+                this.$set(panel, 'serverError', err.message)
+            })
         }).catch(err => {
           if (err.name !== 'APIBadRequestError') throw err
           const panel = this.panels.find(({ id }) => id_ === id)
