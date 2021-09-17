@@ -243,14 +243,19 @@
         "notInUsers": "O usuário '{value}' já existe.",
         "minValue": "Valor deve ser um número maior ou igual a {min}.",
         "name": "Nomes não podem incluir caracteres especiais exceto <code>,.'</code>",
-        "githubLink": "A url deve ser um repositório Github válido",
+        "githubLink": "A URL deve ser um repositório GitHub válido",
         "emailForward": "Encaminhamento de email inválido: deve ser composto somente de caracteres alfanuméricos e <code>_.-+</code> (e.g. alguem@exemplo.com, 4algu-3m@exemplo.com)",
         "email": "Email inválido: deve ser composto somente por caracteres alfanuméricos e <code>_.</code> (e.g. alguem@exemplo.com, 4algu-3m@exemplo.com)",
         "dynDomain": "Nome de domínio inválido: Deve ser composto somente por caracteres alfanuméricos e traço",
         "domain": "Nome de domínio inválido: Deve ser composto somente por caracteres alfanuméricos minúsculos, ponto e traço",
         "between": "O valor deve ser entre {min} e {max}.",
         "alphalownum_": "O valor só deve conter caracteres alfanuméricos minúsculos e o underscore.",
-        "alpha": "O valor só pode ter caracteres alfanuméricos."
+        "alpha": "O valor só pode ter caracteres alfanuméricos.",
+        "maxValue": "O valor deve ser um número igual ou menor que {max}.",
+        "remote": "{message}",
+        "pattern": "{type}",
+        "invalid_form": "O formulário contém alguns erros.",
+        "fileMediaTypeMatch": "Tipo de arquivo inválido: deve ser <code>{arg}</code>."
     },
     "domain_delete_forbidden_desc": "Você não pode remover '{domínio}' por ele ser o domínio padrão, você precisa escolher outro domínio (ou <a href='#/domains/add'> criar um novo</a>) e setá-lo como domínio padrão.",
     "domain_add_dyndns_forbidden": "Você já esta inscrito a um domínio DynDNS, pode pedir para remover seu domínio DynDNS atual no forum <a href='//forum.yunohost.org/t/nohost-domain-recovery-suppression-de-domaine-en-nohost-me-noho-st-et-ynh-fr/442'> no thread dedicado</a>.",
@@ -469,7 +474,7 @@
             "perform_action": "Executar ação '{action}' do app '{name}'",
             "set_default": "Redirecionar domínio root de '{domain}' para '{name}'",
             "install": "Instalar o app '{name}'",
-            "change_url": "Mudar url de acesso de '{name}'",
+            "change_url": "Mudar URL de acesso de '{name}'",
             "change_label": "Mudar label de '{prevName}' para '{nextName}'"
         },
         "adminpw": "Mudar senha do administrador"
