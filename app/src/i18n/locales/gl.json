@@ -165,7 +165,9 @@
         "alpha": "O valor só pode ter caracteres alfanuméricos.",
         "fileMediaTypeMatch": "Tipo de ficheiro non válido: ten que ser <code>{arg}</code>.",
         "remote": "{message}",
-        "pattern": "{type}"
+        "pattern": "{type}",
+        "maxValue": "O valor ten que ser un número igual ou menor que {max}.",
+        "invalid_form": "O formulario contén erros."
     },
     "footer": {
         "donate": "Doa",
@@ -427,7 +429,8 @@
     "postinstall_intro_1": "Parabéns! YunoHost instalouse correctamente.",
     "postinstall_domain": "Este é o primeiro nome de dominio ligado ao teu servidor YunoHost, pero tamén o que utilizarán as usuarias para acceder ao portal de autenticación. Por isto, será visible para todo o mundo, así que elíxeo con coidado.",
     "postinstall": {
-        "force": "Forzar a post-instalación"
+        "force": "Forzar a post-instalación",
+        "title": "Postinstall"
     },
     "ports": "Portos",
     "port": "Porto",
@@ -539,5 +542,6 @@
     "users_import_update_desc": "Se está marcado, tódalas usuarias existentes contidas no ficheiro CSV vanse actualizar co novo valor",
     "users_import_delete_desc": "Se está marcado, tódalas usuarias existentes que non están no ficheiro CSV van ser borradas (e eliminadas).",
     "users_import_confirm_destructive": "Tes a certeza de querer eliminar as usuarias que non están presentes neste ficheiro?",
-    "users_import_delete_others": "Eliminar usuarias de fóra da lista"
+    "users_import_delete_others": "Eliminar usuarias de fóra da lista",
+    "yunohost_admin": "Admin YunoHost"
 }
