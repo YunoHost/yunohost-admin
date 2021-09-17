@@ -84,6 +84,7 @@ export default {
 .card-footer {
   display: flex;
   justify-content: flex-end;
+  align-items: center;
 
   & > *:not(:first-child) {
     margin-left: .5rem;
