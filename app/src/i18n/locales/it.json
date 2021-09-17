@@ -383,7 +383,9 @@
         "domain": "Nome dominio non valido: Dev'esser composto di soli caratteri alfanumerici minuscoli, punti e trattini",
         "between": "Il valore dev'essere compreso tra {min} e {max}.",
         "alphalownum_": "Il valore deve contenere solo caratteri alfanumerici minuscoli e underscore.",
-        "alpha": "Il valore deve comprendere solo caratteri alfanumerici."
+        "alpha": "Il valore deve comprendere solo caratteri alfanumerici.",
+        "remote": "{message}",
+        "pattern": "{type}"
     },
     "footer": {
         "donate": "Dona",
