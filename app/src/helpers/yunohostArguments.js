@@ -211,7 +211,7 @@ export function formatYunoHostArgument (arg) {
   else if (field.component !== 'CheckboxItem' && arg.optional !== true) {
     validation.required = validators.required
   }
-  if (arg.pattern) {
+  if (arg.pattern && arg.type !== 'tags') {
     // validation.pattern = validators.helpers.withMessage(arg.pattern.error,
     validation.pattern = validators.helpers.regex(arg.pattern.error, new RegExp(arg.pattern.regexp))
   }
