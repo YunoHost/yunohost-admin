@@ -335,7 +335,9 @@
         "domain": "Nom de domini no vàlid: Ha de contenir caràcters alfanumèrics en minúscules, punts i guionets exclusivament",
         "between": "El valor ha d'estar entre {min} i {max}.",
         "alphalownum_": "Només pot contenir caràcters alfanumèrics en minúscules i la barra baixa.",
-        "alpha": "Només pot contenir caràcters alfanumèrics."
+        "alpha": "Només pot contenir caràcters alfanumèrics.",
+        "remote": "{message}",
+        "pattern": "{type}"
     },
     "footer": {
         "donate": "Fer una donació",
