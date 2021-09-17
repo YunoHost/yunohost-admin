@@ -116,7 +116,9 @@
         "domain": "Nesprávný tvar doménového jména: musí obsahovat pouze malé alfanumerické znaky, tečku a pomlčku",
         "between": "Hodnota musí být mezi {min} a {max}.",
         "alphalownum_": "Hodnota musí obsahovat pouze alfanumerické znaky a podtržítko.",
-        "alpha": "Hodnota musí obsahovat pouze čísla."
+        "alpha": "Hodnota musí obsahovat pouze čísla.",
+        "remote": "{message}",
+        "pattern": "{type}"
     },
     "footer": {
         "donate": "Darovat",
