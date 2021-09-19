@@ -58,7 +58,7 @@ module.exports = {
     }
   },
   publicPath: '/yunohost/admin',
-  devServer: {
+  devServer: process.env.NODE_ENV === 'development' ? {
     public: fs.readFileSync('/etc/yunohost/current_host', 'utf8'),
     https: false,
     disableHostCheck: true,
@@ -74,5 +74,5 @@ module.exports = {
       aggregateTimeout: 300,
       poll: 1000
     },
-  }
+  } : {}
 }
