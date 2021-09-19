@@ -140,6 +140,7 @@
         "auto_config": "Automatic DNS records configuration",
         "auto_config_ignored": "ignored, won't be changed by Yunohost unless you check the overwrite option",
         "auto_config_ok": "Automatic configuration seems to be OK!",
+        "auto_config_zone": "Current DNS zone",
         "edit": "Edit DNS configuration",
         "info": "The automatic DNS records configuration is an experimental feature. <br>Consider saving your current DNS zone from your DNS registrar's interface before pushing records from here.",
         "manual_config": "Suggested DNS records for manual configuration",

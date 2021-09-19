@@ -63,6 +63,20 @@
       </template>
     </card>
 
+    <!-- CURRENT DNS ZONE -->
+    <card
+      v-if="showAutoConfigCard && dnsZone && dnsZone.length"
+      :title="$t('domain.dns.auto_config_zone')" icon="globe" no-body
+    >
+      <div class="log">
+        <div v-for="({ name: record, spaces, content, type }, i) in dnsZone" :key="'zone-' + i" class="records">
+          {{ record }}
+          <span class="bg-dark text-light px-1 rounded">{{ type }}</span>{{ spaces }}
+          <span>{{ content }}</span>
+        </div>
+      </div>
+    </card>
+
     <!-- MANUAL CONFIG CARD -->
     <card
       v-if="showManualConfigCard"
@@ -99,6 +113,7 @@ export default {
       dnsConfig: '',
       dnsChanges: undefined,
       dnsErrors: undefined,
+      dnsZone: undefined,
       force: null
     }
   },
@@ -139,6 +154,17 @@ export default {
             changes.push({ ...category, records })
           }
         })
+
+        const unchanged = dnsChanges.unchanged
+        if (unchanged) {
+          const longestName = getLongest(unchanged, 'name')
+          const longestType = getLongest(unchanged, 'type')
+          unchanged.forEach(record => {
+            record.name = record.name + ' '.repeat(longestName - record.name.length + 1)
+            record.spaces = ' '.repeat(longestType - record.type.length + 1)
+          })
+          this.dnsZone = unchanged
+        }
 
         this.dnsChanges = changes.length > 0 ? changes : null
         this.force = canForce ? false : null
