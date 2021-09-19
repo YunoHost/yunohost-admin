@@ -416,7 +416,9 @@
         "domain": "Ungültiger Domainname: Er darf nur aus alphanumerischen Kleinbuchstaben, Punkt- und Strichzeichen bestehen",
         "between": "Der Wert muss zwischen {min} und {max} liegen.",
         "alphalownum_": "Der Wert darf nur aus alphanumerischen Kleinbuchstaben und Unterstrichen bestehen.",
-        "alpha": "Der Wert darf nur aus alphabetischen Zeichen bestehen."
+        "alpha": "Der Wert darf nur aus alphabetischen Zeichen bestehen.",
+        "remote": "{message}",
+        "pattern": "{type}"
     },
     "footer": {
         "donate": "Spenden",

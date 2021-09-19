@@ -101,14 +101,16 @@
         "notInUsers": "用户'{value}'已经存在。",
         "minValue": "值必须是等于或大于{min}的数字。",
         "name": "名称中不能包含特殊字符，除了<code>,.'-</code>",
-        "githubLink": "网址必须是指向存储库的有效Github链接",
+        "githubLink": "网址必须是指向存储库的有效GitHub链接",
         "emailForward": "无效的电子邮件转发：只能为字母数字和<code> _.- +</code>（例如，someone + tag @ example.com，s0me-1 + tag @ example.com）",
         "email": "无效的电子邮件：只能为字母数字和<code>_.-</code>字符（例如，someone @ example.com，s0me-1 @ example.com）",
         "domain": "无效的域名：必须为小写字母数字，点和破折号",
         "dynDomain": "无效的域名：只能为小写字母数字和破折号",
         "between": "值必须介于{min}和{max}之间。",
         "alphalownum_": "值必须为小写字母数字和下划线字符。",
-        "alpha": "值必须是按字母顺序排列的字符。"
+        "alpha": "值必须是按字母顺序排列的字符。",
+        "remote": "{message}",
+        "pattern": "{type}"
     },
     "footer": {
         "donate": "赞助",

@@ -382,7 +382,11 @@
         "between": "La valeur doit être comprise entre {min} et {max}.",
         "alpha": "La chaîne de caractères ne doit contenir que des lettres.",
         "alphalownum_": "La chaîne de caractères doit être composé uniquement de caractères alphanumériques minuscules et de tirets bas (aussi appelé tiret du 8 ou underscore).",
-        "fileMediaTypeMatch": "Type de fichier non valide : doit être <code>{arg}</code>."
+        "fileMediaTypeMatch": "Type de fichier non valide : doit être <code>{arg}</code>.",
+        "maxValue": "La valeur doit être un nombre égal ou inférieur à {max}.",
+        "remote": "{message}",
+        "pattern": "{type}",
+        "invalid_form": "Le formulaire contient des erreurs."
     },
     "footer": {
         "donate": "Faire un don",
@@ -450,7 +454,8 @@
     },
     "go_back": "Revenir",
     "postinstall": {
-        "force": "Forcer la post-installation"
+        "force": "Forcer la post-installation",
+        "title": "Post-installation"
     },
     "human_routes": {
         "users": {
@@ -539,5 +544,6 @@
     "users_import_delete_desc": "Si coché, tous les utilisateurs existants qui ne sont pas dans le fichier CSV seront supprimés (et purgés).",
     "users_import_confirm_destructive": "Êtes-vous sûr de vouloir supprimer les utilisateurs qui ne sont pas présents dans ce fichier ?",
     "users_import_delete_others": "Supprimer les utilisateurs non répertoriés",
-    "users_import_csv_file_desc": "Le fichier CSV doit être au format UTF-8 et avec les colonnes nom d'utilisateur, mot de passe, groupes, email et quota. Pour un exemple d'importation de fichier CSV, vous pouvez <a href='/yunohost/api/users/export' target='_BLANK'>exporter vos utilisateurs dans un fichier CSV</a> et modifier le fichier."
+    "users_import_csv_file_desc": "Le fichier CSV doit être au format UTF-8 et avec les colonnes nom d'utilisateur, mot de passe, groupes, email et quota. Pour un exemple d'importation de fichier CSV, vous pouvez <a href='/yunohost/api/users/export' target='_BLANK'>exporter vos utilisateurs dans un fichier CSV</a> et modifier le fichier.",
+    "yunohost_admin": "YunoHost Admin"
 }

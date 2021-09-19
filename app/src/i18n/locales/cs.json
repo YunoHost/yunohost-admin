@@ -109,14 +109,16 @@
         "notInUsers": "Uživatel '{value}' již existuje.",
         "minValue": "Hodnota musí být číslo rovno nebo vyšší než {min}.",
         "name": "Jména nemohou obsahovat speciální znaky mimo <code> ,.'-</code>",
-        "githubLink": "Url musí být validní odkaz na Github repositář",
+        "githubLink": "URL musí být validní odkaz na GitHub repositář",
         "emailForward": "Nesprávný tvar email pro přesměrování: může obsahovat pouze alfanumerické znaky a <code>_.-+</code> (např. someone+tag@example.com, s0me-1+tag@example.com)",
         "email": "Nesprávný tvar emailu: může obsahovat alfanumerické znaky a <code>_.-</code> (např. someone@example.com, s0me-1@example.com)",
         "dynDomain": "Nesprávný tvar doménového jména: může obsahovat pouze malé alfanumerické znaky a pomlčku",
         "domain": "Nesprávný tvar doménového jména: musí obsahovat pouze malé alfanumerické znaky, tečku a pomlčku",
         "between": "Hodnota musí být mezi {min} a {max}.",
         "alphalownum_": "Hodnota musí obsahovat pouze alfanumerické znaky a podtržítko.",
-        "alpha": "Hodnota musí obsahovat pouze čísla."
+        "alpha": "Hodnota musí obsahovat pouze čísla.",
+        "remote": "{message}",
+        "pattern": "{type}"
     },
     "footer": {
         "donate": "Darovat",
@@ -332,7 +334,7 @@
             "perform_action": "Vykonat akci '{action}' aplikace '{name}'",
             "set_default": "Přesměrovat '{domain}' doménový kořen na '{name}'",
             "install": "Instalovat aplikaci '{name}'",
-            "change_url": "Změnit přístupové url '{name}'",
+            "change_url": "Změnit přístupové URL '{name}'",
             "change_label": "Změnit popis z '{prevName}' na '{nextName}'"
         },
         "adminpw": "Změnit administrační heslo"
