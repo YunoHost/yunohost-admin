@@ -545,5 +545,5 @@
     "users_import_confirm_destructive": "Êtes-vous sûr de vouloir supprimer les utilisateurs qui ne sont pas présents dans ce fichier ?",
     "users_import_delete_others": "Supprimer les utilisateurs non répertoriés",
     "users_import_csv_file_desc": "Le fichier CSV doit être au format UTF-8 et avec les colonnes nom d'utilisateur, mot de passe, groupes, email et quota. Pour un exemple d'importation de fichier CSV, vous pouvez <a href='/yunohost/api/users/export' target='_BLANK'>exporter vos utilisateurs dans un fichier CSV</a> et modifier le fichier.",
-    "yunohost_admin": "Administrateur YunoHost"
+    "yunohost_admin": "YunoHost Admin"
 }
