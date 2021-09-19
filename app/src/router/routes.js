@@ -156,6 +156,16 @@ const routes = [
     }
   },
   {
+    name: 'domain-config',
+    path: '/domains/:name/config',
+    component: () => import(/* webpackChunkName: "views/domain/dns" */ '@/views/domain/DomainConfig'),
+    props: true,
+    meta: {
+      args: { trad: 'config' },
+      breadcrumb: ['domain-list', 'domain-info', 'domain-config']
+    }
+  },
+  {
     name: 'domain-dns',
     path: '/domains/:name/dns',
     component: () => import(/* webpackChunkName: "views/domain/dns" */ '@/views/domain/DomainDns'),
