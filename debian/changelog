@@ -1,3 +1,9 @@
+yunohost-admin (4.3.0.1) testing; urgency=low
+
+  - Fix build (thanks axolotle <3) (0c4b7d1)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Mon, 20 Sep 2021 00:51:45 +0200
+
 yunohost-admin (4.3.0) testing; urgency=low
 
   - [fix] New auth mecanism require to pass credentials as arg instead of password (63524be)
