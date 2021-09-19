@@ -111,6 +111,19 @@
       </b-form-group>
       <hr>
 
+      <!-- APP CONFIG PANEL -->
+      <template v-if="hasConfigPanel">
+        <b-form-group
+          :label="$t('app_config_panel_label')" label-for="config"
+          label-cols-md="4" label-class="font-weight-bold"
+        >
+          <b-button id="config" variant="warning" :to="{ name: 'app-config-panel', params: { id } }">
+            <icon iname="flask" /> {{ $t('app_config_panel') }}
+          </b-button>
+        </b-form-group>
+        <hr>
+      </template>
+
       <!-- UNINSTALL -->
       <b-form-group
         :label="$t('app_info_uninstall_desc')" label-for="uninstall"
@@ -131,17 +144,6 @@
       >
         <b-button id="actions" variant="warning" :to="{ name: 'app-actions', params: { id } }">
           <icon iname="flask" /> {{ $t('app_actions') }}
-        </b-button>
-      </b-form-group>
-      <hr>
-
-      <!-- APP CONFIG PANEL -->
-      <b-form-group
-        :label="$t('app_config_panel_label')" label-for="config"
-        label-cols-md="4" label-class="font-weight-bold"
-      >
-        <b-button id="config" variant="warning" :to="{ name: 'app-config-panel', params: { id } }">
-          <icon iname="flask" /> {{ $t('app_config_panel') }}
         </b-button>
       </b-form-group>
     </card>
@@ -178,7 +180,8 @@ export default {
       ],
       infos: undefined,
       app: undefined,
-      form: undefined
+      form: undefined,
+      hasConfigPanel: undefined
     }
   },
 
@@ -248,6 +251,7 @@ export default {
         supports_change_url: app.supports_change_url,
         permissions
       }
+      this.hasConfigPanel = app.supports_config_panel
     },
 
     changeLabel (permName, data) {
