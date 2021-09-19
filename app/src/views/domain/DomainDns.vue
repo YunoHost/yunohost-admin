@@ -3,7 +3,7 @@
     :queries="queries" @queries-response="onQueriesResponse" :loading="loading"
     skeleton="card-info-skeleton"
   >
-    <card :title="$t('domain.dns.auto_config')" icon="wrench">
+    <card v-if="showAutoConfigCard" :title="$t('domain.dns.auto_config')" icon="wrench">
       <b-alert variant="warning">
         <icon iname="flask" /> <icon iname="warning" /> <span v-html="$t('domain.dns.info')" />
       </b-alert>
@@ -64,7 +64,10 @@
     </card>
 
     <!-- MANUAL CONFIG CARD -->
-    <card :title="$t('domain.dns.manual_config')" icon="globe" no-body>
+    <card
+      v-if="showManualConfigCard"
+      :title="$t('domain.dns.manual_config')" icon="globe" no-body
+    >
       <b-alert variant="warning" class="m-0">
         <icon iname="warning" /> {{ $t('domain_dns_conf_is_just_a_recommendation') }}
       </b-alert>
@@ -91,6 +94,8 @@ export default {
         ['GET', `domains/${this.name}/dns/suggest`]
       ],
       loading: true,
+      showAutoConfigCard: true,
+      showManualConfigCard: false,
       dnsConfig: '',
       dnsChanges: undefined,
       dnsErrors: undefined,
@@ -123,7 +128,7 @@ export default {
         ]
         categories.forEach(category => {
           const records = dnsChanges[category.action]
-          if (records.length > 0) {
+          if (records && records.length > 0) {
             const longestName = getLongest(records, 'name')
             const longestType = getLongest(records, 'type')
             records.forEach(record => {
@@ -140,9 +145,17 @@ export default {
         this.loading = false
       }).catch(err => {
         if (err.name !== 'APIBadRequestError') throw err
-        let message = this.$t(err.data.error_key, err.data)
-        message = message !== err.data.error_key ? message : err.message
-        this.dnsErrors = [{ icon: 'ban', variant: 'danger', message }]
+        const key = err.data.error_key
+        if (key === 'domain_dns_push_managed_in_parent_domain') {
+          const message = this.$t(key, err.data)
+          this.dnsErrors = [{ icon: 'info', variant: 'info', message }]
+        } else if (key === 'domain_dns_push_failed_to_authenticate') {
+          const message = this.$t(key, err.data)
+          this.dnsErrors = [{ icon: 'ban', variant: 'danger', message }]
+        } else {
+          this.showManualConfigCard = true
+          this.showAutoConfigCard = false
+        }
         this.loading = false
       })
     },
