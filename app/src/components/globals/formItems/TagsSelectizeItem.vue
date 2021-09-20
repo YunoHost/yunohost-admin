@@ -34,7 +34,7 @@
               <b-form-group
                 :label="$t('search.for', { items: itemsName })"
                 label-cols-md="auto" label-size="sm" :label-for="id + '-search-input'"
-                :invalid-feedback="$t('search.not_found', { items: $tc('items.' + itemsName, 0) })"
+                :invalid-feedback="$tc('search.not_found', 0, { items: $tc('items.' + itemsName, 0) })"
                 :state="searchState" :disabled="disabled"
                 class="mb-0"
               >
@@ -57,7 +57,7 @@
           </b-dropdown-item-button>
           <b-dropdown-text v-if="!criteria && availableOptions.length === 0">
             <icon iname="exclamation-triangle" />
-            {{ $t('items_verbose_items_left', { items: $tc('items.' + itemsName, 0) }) }}
+            {{ $tc('items_verbose_items_left', 0, { items: $tc('items.' + itemsName, 0) }) }}
           </b-dropdown-text>
         </b-dropdown>
       </template>

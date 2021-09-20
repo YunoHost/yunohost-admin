@@ -274,8 +274,8 @@
         "services": "no services | service | {c} services",
         "users": "no users | user | {c} users"
     },
-    "items_verbose_count": "There are {items}. | There is {items}. | There are {items}.",
-    "items_verbose_items_left": "There are {items} left.",
+    "items_verbose_count": "There are {items}. | There is 1 {items}. | There are {items}.",
+    "items_verbose_items_left": "There are {items} left. | There is 1 {items} left. | There are {items} left.",
     "label": "Label",
     "label_for_manifestname": "Label for {name}",
     "last_ran": "Last time ran:",
@@ -446,7 +446,7 @@
     "save": "Save",
     "search": {
         "for": "Search for {items}...",
-        "not_found": "There are {items} matching your criteria."
+        "not_found": "There are {items} matching your criteria. | There is 1 {items} matching your criteria. | There are {items} matching your criteria."
     },
     "select_all": "Select all",
     "select_none": "Select none",
