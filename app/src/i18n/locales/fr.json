@@ -325,7 +325,7 @@
     },
     "tools_power_up": "Votre serveur semble être accessible, vous pouvez maintenant essayer de vous connecter.",
     "search": {
-        "not_found": "Il y a des {items} qui correspondent à vos critères.",
+        "not_found": "Il y a des {items} qui correspondent à vos critères. | Il y a un {items} qui correspond à vos critères. | Il y a des {items} qui correspondent à vos critères.",
         "for": "Rechercher {items}..."
     },
     "readme": "Lisez-moi",
@@ -343,7 +343,7 @@
     "migrations_disclaimer_not_checked": "Cette migration nécessite que vous preniez connaissance de sa décharge de responsabilité avant de l'exécuter.",
     "migrations_disclaimer_check_message": "J'ai lu et compris cette décharge de responsabilité",
     "mailbox_quota_example": "700 M correspond à un CD, 4 700 M correspond à un DVD",
-    "items_verbose_count": "Il y a des {items}.",
+    "items_verbose_count": "Il y a des {items}. | Il y a un {items}. | Il y a des {items}.",
     "items": {
         "users": "aucun utilisateur | utilisateur | {c} utilisateurs",
         "services": "aucun service | service | {c} services",
@@ -504,7 +504,8 @@
             "install_LE": "Installer le certificat pour '{name}'",
             "delete": "Supprimer le domaine '{name}'",
             "add": "Ajouter le domaine '{name}'",
-            "update_config": "Mise à jour de la configuration '{name}'"
+            "update_config": "Mise à jour de la configuration '{name}'",
+            "push_dns_changes": "Envoyer les enregistrements DNS au registraire pour '{name}'"
         },
         "diagnosis": {
             "unignore": {
@@ -534,7 +535,7 @@
         },
         "adminpw": "Changer le mot de passe administrateur"
     },
-    "items_verbose_items_left": "Il reste des {items}.",
+    "items_verbose_items_left": "Il reste des {items}. | Il reste un {items}. | Il reste des {items}.",
     "confirm_group_add_access_permission": "Voulez-vous vraiment accorder l'accès à {perm} à {name} ? Un tel accès augmente considérablement la surface d'attaque si {name} se trouve être une personne malveillante. Vous ne devriez le faire que si vous FAITES CONFIANCE à cette personne/ ce groupe.",
     "users_import": "Importer des utilisateurs",
     "users_export": "Exporter les utilisateurs",
@@ -561,10 +562,12 @@
             "manual_config": "Enregistrements DNS suggérés pour la configuration manuelle",
             "push_force": "Écraser les enregistrements existants",
             "push_force_warning": "Il semble que certains enregistrements DNS que YunoHost aurait définis soient déjà dans la configuration du registrar. Vous pouvez utiliser l'option d'écrasement si vous savez ce que vous faites.",
-            "push_force_confirm": "Êtes-vous sûr de vouloir forcer tous les enregistrements DNS suggérés ? Sachez qu'il peut écraser manuellement ou des enregistrements par défaut importants définis par vous ou votre registrar."
+            "push_force_confirm": "Êtes-vous sûr de vouloir forcer tous les enregistrements DNS suggérés ? Sachez qu'il peut écraser manuellement ou des enregistrements par défaut importants définis par vous ou votre registrar.",
+            "auto_config_ignored": "ignoré, ne sera pas modifié par YunoHost sauf si vous cochez l'option d'écrasement",
+            "push": "Envoyer les enregistrements DNS vers le registrar"
         }
     },
-    "domain_dns_push_failed_to_authenticate": "Échec de l'authentification sur l'API du registraire. Très probablement les <a href='#/domains/{domain}/config'>informations d'identification</a> sont incorrectes ? (Erreur : {erreur})",
+    "domain_dns_push_failed_to_authenticate": "Échec de l'authentification sur l'API du registraire. Très probablement les <a href='#/domains/{domain}/config'>informations d'identification</a> sont incorrectes ? (Erreur : {error})",
     "domain_dns_push_managed_in_parent_domain": "La fonctionnalité d'enregistrement DNS automatique est gérée dans le domaine parent <a href='#/domains/{parent_domain}/dns'>{parent_domain}</a>.",
     "domain_dns_push_not_applicable": "La fonctionnalité d'enregistrements DNS automatiques n'est pas applicable au domaine {domain},<br> Vous devez configurer manuellement vos enregistrements DNS en suivant la <a href='https://yunohost.org/dns'>documentation</a> et les suggestions configuration ci-dessous."
 }
