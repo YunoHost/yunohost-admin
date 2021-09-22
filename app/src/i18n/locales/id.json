@@ -197,5 +197,49 @@
     "certificate_status": "Status sertifikat",
     "install_letsencrypt_cert": "Pasang sertifikat Let's Encrypt",
     "purge_user_data_checkbox": "Bersihkan data milik {name}? (Ini akan menghapus isi direktori home dan mail mereka)",
-    "purge_user_data_warning": "Membersihkan data pengguna tidak dapat dibatalkan. Pastikan Anda yakin dengan perbuatan Anda!"
+    "purge_user_data_warning": "Membersihkan data pengguna tidak dapat dibatalkan. Pastikan Anda yakin dengan perbuatan Anda!",
+    "domain_add_dns_doc": "… dan saya sudah <a href='//yunohost.org/dns_config' target='_blank'>mengatur DNS dengan benar</a>.",
+    "domain_dns_config": "Konfigurasi DNS",
+    "domain_dns_longdesc": "Lihat konfigurasi DNS",
+    "footer": {
+        "help": "Butuh bantuan?",
+        "donate": "Berdonasi",
+        "documentation": "Dokumentasi"
+    },
+    "form_errors": {
+        "notInUsers": "Pengguna '{value}' sudah ada.",
+        "passwordLenght": "Kata sandi harus memiliki sekurang-kurangnya 8 karakter."
+    },
+    "form_input_example": "Contoh: {example}",
+    "group": "Kelompok",
+    "group_name": "Nama kelompok",
+    "group_all_users": "Semua pengguna",
+    "group_visitors": "Pengunjung",
+    "group_add_member": "Tambahkan pengguna",
+    "history": {
+        "is_empty": "Tak ada apapun di riwayat saat ini.",
+        "last_action": "Tindakan terakhir:",
+        "methods": {
+            "DELETE": "hapus",
+            "GET": "baca",
+            "POST": "buat/eksekusi",
+            "PUT": "modifikasi"
+        },
+        "title": "Riwayat"
+    },
+    "domain": {
+        "config": {
+            "title": "Konfigurasi domain"
+        }
+    },
+    "error_server_unexpected": "Kesalahan server yang tak terduga",
+    "everything_good": "Semuanya bagus!",
+    "experimental": "Eksperimental",
+    "footer_version": "Didukung oleh <a href='https://yunohost.org'>YunoHost</a> {version} ({repo}).",
+    "go_back": "Kembali",
+    "group_explain_all_users": "Ini adalah kelompok istimewa yang mengandung semua akun pengguna di server ini",
+    "home": "Beranda",
+    "hook_adminjs_group_configuration": "Konfigurasi sistem",
+    "hook_conf_ldap": "Database pengguna",
+    "hook_conf_ynh_settings": "Konfigurasi YunoHost"
 }
