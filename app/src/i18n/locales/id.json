@@ -123,7 +123,14 @@
             "update": "Perbarui pengguna '{name}'"
         },
         "shutdown": "Matikan server",
-        "update": "Periksa pembaruan"
+        "update": "Periksa pembaruan",
+        "diagnosis": {
+            "run_specific": "Jalankan diagnosis '{description}'",
+            "run": "Jalankan diagnosis"
+        },
+        "apps": {
+            "install": "Pasang aplikasi '{name}'"
+        }
     },
     "save": "Simpan",
     "search": {
@@ -241,5 +248,9 @@
     "home": "Beranda",
     "hook_adminjs_group_configuration": "Konfigurasi sistem",
     "hook_conf_ldap": "Database pengguna",
-    "hook_conf_ynh_settings": "Konfigurasi YunoHost"
+    "hook_conf_ynh_settings": "Konfigurasi YunoHost",
+    "restart": "Mulai ulang",
+    "protocol": "Protokol",
+    "readme": "Readme",
+    "rerun_diagnosis": "Jalankan diagnosis lagi"
 }
