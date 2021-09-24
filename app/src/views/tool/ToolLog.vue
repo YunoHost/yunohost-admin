@@ -50,12 +50,19 @@
         <icon iname="plus" /> {{ $t('logs_more') }}
       </b-button>
 
-      <pre class="log"><code v-html="logs" /></pre>
-
+      <pre class="log unselectable"><code v-html="logs" /></pre>
       <b-button @click="shareLogs" variant="success" class="w-100 rounded-0">
         <icon iname="cloud-upload" /> {{ $t('logs_share_with_yunopaste') }}
       </b-button>
     </card>
+
+
+    <p class="w-100 px-5 py-2 mb-0">
+        Text selection is disabled. If you want to share this log, please share the *full* log with the 'Share with Yunopaste' button.
+        <br/>
+        <small>Or if you really really want to select text, press these keys: ↓↓↑↑.</small>
+    </p>
+
   </view-base>
 </template>
 
