@@ -70,7 +70,13 @@ export function formatYunoHostArgument (arg) {
     {
       types: [undefined, 'string', 'path'],
       name: 'InputItem',
-      props: defaultProps.concat(['autocomplete', 'trim'])
+      props: defaultProps.concat(['autocomplete', 'trim', 'choices']),
+      callback: function () {
+        if (arg.choices) {
+            arg.type = 'select'
+            this.name = 'SelectItem'
+        }
+      }
     },
     {
       types: ['email', 'url', 'date', 'time', 'color'],
