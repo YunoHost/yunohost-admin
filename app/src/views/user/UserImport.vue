@@ -20,7 +20,7 @@ import api from '@/api'
 import { validationMixin } from 'vuelidate'
 
 import { formatFormData } from '@/helpers/yunohostArguments'
-import { required, fileMediaTypeMatch } from '@/helpers/validators'
+import { required } from '@/helpers/validators'
 
 export default {
   name: 'UserImport',
@@ -28,7 +28,7 @@ export default {
   data () {
     return {
       form: {
-        csvfile: '',
+        csvfile: null,
         update: false,
         delete: false
       },
@@ -42,6 +42,7 @@ export default {
           component: 'FileItem',
           props: {
             id: 'csvfile',
+            accept: 'text/csv',
             placeholder: this.$i18n.t('placeholder.file')
           }
         },
@@ -69,7 +70,7 @@ export default {
 
   validations: {
     form: {
-      csvfile: { required, fileMediaTypeMatch: fileMediaTypeMatch('text/csv') }
+      csvfile: { required }
     }
   },
 
