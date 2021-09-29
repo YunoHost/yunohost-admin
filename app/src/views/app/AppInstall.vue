@@ -110,7 +110,10 @@ export default {
         if (!confirmed) return
       }
 
-      const { data: args, label } = formatFormData(this.form, { extract: ['label'] })
+      const { data: args, label } = await formatFormData(
+        this.form,
+        { extract: ['label'], removeEmpty: false, removeNull: true, multipart: false }
+      )
       const data = { app: this.id, label, args: Object.entries(args).length ? objectToParams(args) : undefined }
 
       api.post('apps', data, { key: 'apps.install', name: this.name }).then(() => {

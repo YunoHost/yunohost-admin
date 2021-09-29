@@ -343,9 +343,9 @@ export function formatFormDataValue (value) {
  * @param {Boolean} [extraParams.removeEmpty=true] - Removes "empty" values from the object.
  * @return {Object} the parsed data to be sent to the server, with extracted values if specified.
  */
-export function formatFormData (
+export async function formatFormData (
   formData,
-  { extract = null, flatten = false, removeEmpty = true, removeNull = false, promise = false, multipart = true } = {}
+  { extract = null, flatten = false, removeEmpty = true, removeNull = false, multipart = true } = {}
 ) {
   const output = {
     data: {},
@@ -376,14 +376,7 @@ export function formatFormData (
       output[type][key] = value
     }
   }
+  if (promises.length) await Promise.all(promises)
   const { data, extracted } = output
-  if (promises.length > 0 || promise) {
-    return new Promise((resolve, reject) => {
-      Promise.all(promises).then((value) => {
-        resolve(data)
-      })
-    })
-  } else {
-    return extract ? { data, ...extracted } : data
-  }
+  return extract ? { data, ...extracted } : data
 }

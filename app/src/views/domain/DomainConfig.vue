@@ -142,7 +142,7 @@ export default {
     },
 
     applyConfig (id_) {
-      formatFormData(this.forms[id_], { promise: true, removeEmpty: false, removeNull: true, multipart: false }).then((formatedData) => {
+      formatFormData(this.forms[id_], { removeEmpty: false, removeNull: true, multipart: false }).then((formatedData) => {
         const args = objectToParams(formatedData)
 
         api.put(
