@@ -8,13 +8,13 @@ import { isObjectLiteral, isEmptyValue, flattenObjectLiteral } from '@/helpers/c
  * Tries to find a translation corresponding to the user's locale/fallback locale in a
  * Yunohost argument or simply return the string if it's not an object literal.
  *
- * @param {(Object|String)} field - A field value containing a translation object or string
+ * @param {(Object|String|undefined)} field - A field value containing a translation object or string
  * @return {String}
  */
 export function formatI18nField (field) {
   if (typeof field === 'string') return field
   const { locale, fallbackLocale } = store.state
-  return field[locale] || field[fallbackLocale] || field.en
+  return field ? field[locale] || field[fallbackLocale] || field.en : ''
 }
 
 
