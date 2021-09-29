@@ -57,11 +57,7 @@
     </card>
 
 
-    <p class="w-100 px-5 py-2 mb-0">
-        Text selection is disabled. If you want to share this log, please share the *full* log with the 'Share with Yunopaste' button.
-        <br/>
-        <small>Or if you really really want to select text, press these keys: ↓↓↑↑.</small>
-    </p>
+    <p class="w-100 px-5 py-2 mb-0" v-html="$t('text_selection_is_disabled')" />
 
   </view-base>
 </template>
