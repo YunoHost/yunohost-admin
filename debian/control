@@ -10,7 +10,7 @@ Homepage: https://yunohost.org/
 Package: yunohost-admin
 Architecture: all
 Depends: ${misc:Depends}
- , yunohost (>= 4.0.0~alpha)
+ , yunohost (>= 4.3)
 Description: web administration interface for yunohost
  YunoHost aims to make self-hosting accessible to everyone. It configures
  an email, Web and IM server alongside a LDAP base. It also provides
