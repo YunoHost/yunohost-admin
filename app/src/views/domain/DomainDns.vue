@@ -124,7 +124,9 @@ export default {
     },
 
     getDnsChanges () {
-      api.post(
+      this.loading = true
+
+      return api.post(
         `domains/${this.name}/dns/push?dry_run`, {}, null, { wait: false, websocket: false }
       ).then(dnsChanges => {
         function getLongest (arr, key) {
@@ -196,12 +198,9 @@ export default {
         `domains/${this.name}/dns/push${this.force ? '?force' : ''}`,
         {},
         { key: 'domains.push_dns_changes', name: this.name }
-      ).then(responseData => {
-        if (isEmptyValue(responseData)) {
-          this.dnsChanges = null
-        } else {
-          this.loading = true
-          this.getDnsChanges()
+      ).then(async responseData => {
+        await this.getDnsChanges()
+        if (!isEmptyValue(responseData)) {
           this.dnsErrors = Object.keys(responseData).reduce((acc, key) => {
             const args = key === 'warnings'
               ? { icon: 'warning', variant: 'warning' }
