@@ -345,7 +345,7 @@ export function formatFormDataValue (value) {
  */
 export function formatFormData (
   formData,
-  { extract = null, flatten = false, removeEmpty = true, removeNull = false, promise = false } = {}
+  { extract = null, flatten = false, removeEmpty = true, removeNull = false, promise = false, multipart = true } = {}
 ) {
   const output = {
     data: {},
@@ -362,7 +362,7 @@ export function formatFormData (
       continue
     } else if (removeNull && (value === null || value === undefined)) {
       continue
-    } else if (value instanceof File) {
+    } else if (value instanceof File && !multipart) {
       if (value.currentfile) {
           continue
       } else if (value._removed) {
