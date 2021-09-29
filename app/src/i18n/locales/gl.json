@@ -286,8 +286,8 @@
     "last_ran": "Última execución:",
     "label_for_manifestname": "Etiqueta para {name}",
     "label": "Etiqueta",
-    "items_verbose_items_left": "Restan {items}.",
-    "items_verbose_count": "Hai {items}.",
+    "items_verbose_items_left": "Faltan {items}. | Falta 1 {items}. | Faltan {items}.",
+    "items_verbose_count": "Hai {items}. | Hai 1 {items}. | Hai {items}.",
     "logs_share_with_yunopaste": "Compartir rexistros con YunoPaste",
     "logs_context": "Contexto",
     "logs_path": "Ruta",
@@ -333,7 +333,7 @@
     "select_none": "Elexir ningún",
     "select_all": "Elexir todo",
     "search": {
-        "not_found": "Hai {items} que cumpren o teu criterio.",
+        "not_found": "Hai {items} que cumpren o teu criterio. | Hai 1 {items} que cumpre o teu criterio. | Hai {items} que cumpren o teu criterio.",
         "for": "Buscar {items}..."
     },
     "save": "Gardar",
@@ -385,7 +385,9 @@
             "manual_renew_LE": "Renovar certificado para '{name}'",
             "install_LE": "Instalar certificado para '{name}'",
             "delete": "Eliminar dominio '{name}'",
-            "add": "Engadir dominio '{name}'"
+            "add": "Engadir dominio '{name}'",
+            "push_dns_changes": "Subir rexistros DNS á rexistradora para '{name}'",
+            "update_config": "Actualizar configuración de '{name}'"
         },
         "diagnosis": {
             "unignore": {
@@ -543,5 +545,27 @@
     "users_import_delete_desc": "Se está marcado, tódalas usuarias existentes que non están no ficheiro CSV van ser borradas (e eliminadas).",
     "users_import_confirm_destructive": "Tes a certeza de querer eliminar as usuarias que non están presentes neste ficheiro?",
     "users_import_delete_others": "Eliminar usuarias de fóra da lista",
-    "yunohost_admin": "Admin YunoHost"
+    "yunohost_admin": "Admin YunoHost",
+    "domain": {
+        "config": {
+            "edit": "Editar configuración do dominio",
+            "title": "Configuración do dominio"
+        },
+        "dns": {
+            "auto_config": "Configuración automática dos rexistros DNS",
+            "auto_config_ignored": "ignorado, YunoHost non o cambiará a menos que marques a opción de sobrescritura",
+            "auto_config_ok": "A configuración automática semella correcta!",
+            "auto_config_zone": "Zona DNS actual",
+            "edit": "Editar configuración DNS",
+            "info": "A configuración automática dos rexistros DNS é unha ferramenta experimental. <br>Considera gardar a configuración actual na interface da empresa rexistradora antes de realizar cambios desde aquí.",
+            "manual_config": "Rexistros DNS suxeridos para configuración manual",
+            "push": "Enviar rexistros DNS á rexistradora",
+            "push_force": "Sobrescribir rexistros existentes",
+            "push_force_warning": "Semella que algúns rexistros DNS que YunoHost querería configurar xa están establecidos na configuración. Podes usar a sobrescritura se sabes o que estás a facer.",
+            "push_force_confirm": "Tes a certeza de que queres forzar a sobrescritura cos rexistros suxeridos? Ten en conta que poderías sobrescribir rexistros por defecto ou manuais establecidos na rexistradora."
+        }
+    },
+    "domain_dns_push_managed_in_parent_domain": "A ferramenta para os rexistros DNS automáticos están xestionados polo dominio nai <a href='#/domains/{parent_domain}/dns'>{parent_domain}</a>.",
+    "domain_dns_push_failed_to_authenticate": "Fallou a autenticación na API da empresa rexistradora. Serán incorrectas as <a href='#/domains/{domain}/config'>credenciais</a>? (Erro: {error})",
+    "domain_dns_push_not_applicable": "A ferramenta para rexistro automático DNS non é de aplicación ao dominio {domain}, <br> Deberías configurar manualmente os teus rexistros DNS seguindo a <a href='https://yunohost.org/dns'>documentación</a> e a configuración inferior suxerida."
 }
