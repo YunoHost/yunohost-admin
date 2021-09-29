@@ -1,3 +1,17 @@
+yunohost-admin (4.3.1) testing; urgency=low
+
+  - [fix] app install: choice questions broken (64ae24fa)
+  - [fix] dns push: simplify callback / fix ux message issue ([#403](https://github.com/YunoHost/yunohost-admin/pull/403))
+  - [fix] app install: broken when missing 'ask' property ([#402](https://github.com/YunoHost/yunohost-admin/pull/402))
+  - [fix] Unable to import user from csv anymore ([#401](https://github.com/YunoHost/yunohost-admin/pull/401))
+  - [mod] ui/ux: Make logs unselectable to force people clicking the damn share button >_> ([#400](https://github.com/YunoHost/yunohost-admin/pull/400))
+  - [enh] i18n: add 3 plural forms for now for some translation keys ([#397](https://github.com/YunoHost/yunohost-admin/pull/397))
+  - [i18n] Translations updated for French, Galician, Indonesian, Ukrainian
+
+  Thanks to all contributors <3 ! (axolotle, Eauchat, Éric Gaspar, José M, liimee, ljf, Tymofii-Lytvynenko)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Wed, 29 Sep 2021 22:31:28 +0200
+
 yunohost-admin (4.3.0.1) testing; urgency=low
 
   - Fix build (thanks axolotle <3) (0c4b7d1)
