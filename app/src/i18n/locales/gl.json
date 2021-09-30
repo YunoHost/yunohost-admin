@@ -567,5 +567,6 @@
     },
     "domain_dns_push_managed_in_parent_domain": "A ferramenta para os rexistros DNS automáticos están xestionados polo dominio nai <a href='#/domains/{parent_domain}/dns'>{parent_domain}</a>.",
     "domain_dns_push_failed_to_authenticate": "Fallou a autenticación na API da empresa rexistradora. Serán incorrectas as <a href='#/domains/{domain}/config'>credenciais</a>? (Erro: {error})",
-    "domain_dns_push_not_applicable": "A ferramenta para rexistro automático DNS non é de aplicación ao dominio {domain}, <br> Deberías configurar manualmente os teus rexistros DNS seguindo a <a href='https://yunohost.org/dns'>documentación</a> e a configuración inferior suxerida."
+    "domain_dns_push_not_applicable": "A ferramenta para rexistro automático DNS non é de aplicación ao dominio {domain}, <br> Deberías configurar manualmente os teus rexistros DNS seguindo a <a href='https://yunohost.org/dns'>documentación</a> e a configuración inferior suxerida.",
+    "text_selection_is_disabled": "A selección de texto está desactivada. Se queres compartir este rexistro, comparte o rexistro *completo* co botón 'Compartir con YunoHost'. <br/><small>Ou se realmente queres seleccionar un texto, preme estas teclas: ↓↓↑↑.</small>"
 }
