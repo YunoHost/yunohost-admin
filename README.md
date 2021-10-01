@@ -2,6 +2,7 @@
 
 <div align="center">
  
+![Version](https://img.shields.io/github/v/tag/yunohost/yunohost-admin?label=version&sort=semver)
 [![Tests status](https://github.com/YunoHost/yunohost-admin/actions/workflows/eslint.yml/badge.svg)](https://github.com/YunoHost/yunohost-admin/actions/workflows/eslint.yml)
 [![GitHub license](https://img.shields.io/github/license/YunoHost/yunohost-admin)](https://github.com/YunoHost/yunohost-admin/blob/dev/LICENSE)
 
