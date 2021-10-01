@@ -266,8 +266,8 @@ export default {
       }
     },
 
-    onSubmit () {
-      const formData = formatFormData(this.form, { flatten: true })
+    async onSubmit () {
+      const formData = await formatFormData(this.form, { flatten: true })
       const user = this.user(this.name)
       const data = {}
       if (!Object.prototype.hasOwnProperty.call(formData, 'mailbox_quota')) {

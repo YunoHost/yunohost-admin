@@ -23,10 +23,13 @@
         :validation="$v" :server-error="serverError"
         @submit.prevent="performInstall"
       >
-        <form-field
-          v-for="(field, fname) in fields" :key="fname" label-cols="0"
-          v-bind="field" v-model="form[fname]" :validation="$v.form[fname]"
-        />
+        <template v-for="(field, fname) in fields">
+          <form-field
+            v-if="isVisible(field.visible, field)"
+            :key="fname" label-cols="0"
+            v-bind="field" v-model="form[fname]" :validation="$v.form[fname]"
+          />
+        </template>
       </card-form>
     </template>
 
@@ -44,9 +47,10 @@
 
 <script>
 import { validationMixin } from 'vuelidate'
+import evaluate from 'simple-evaluate'
 
 import api, { objectToParams } from '@/api'
-import { formatYunoHostArguments, formatI18nField, formatFormData } from '@/helpers/yunohostArguments'
+import { formatYunoHostArguments, formatI18nField, formatFormData, pFileReader } from '@/helpers/yunohostArguments'
 
 export default {
   name: 'AppInstall',
@@ -102,6 +106,41 @@ export default {
       this.errors = errors
     },
 
+    isVisible (expression, field) {
+      if (!expression || !field) return true
+      const context = {}
+
+      const promises = []
+      for (const shortname in this.form) {
+        if (this.form[shortname] instanceof File) {
+          if (expression.includes(shortname)) {
+            promises.push(pFileReader(this.form[shortname], context, shortname, false))
+          }
+        } else {
+          context[shortname] = this.form[shortname]
+        }
+      }
+      // Allow to use match(var,regexp) function
+      const matchRe = new RegExp('match\\(\\s*(\\w+)\\s*,\\s*"([^"]+)"\\s*\\)', 'g')
+      let i = 0
+      Promise.all(promises).then(() => {
+        for (const matched of expression.matchAll(matchRe)) {
+          i++
+          const varName = matched[1] + '__re' + i.toString()
+          context[varName] = new RegExp(matched[2], 'm').test(context[matched[1]])
+          expression = expression.replace(matched[0], varName)
+        }
+
+        try {
+          field.isVisible = evaluate(context, expression)
+        } catch (error) {
+          field.isVisible = false
+        }
+      })
+      // This value should be updated magically when vuejs will detect isVisible changed
+      return field.isVisible
+    },
+
     async performInstall () {
       if ('path' in this.form && this.form.path === '/') {
         const confirmed = await this.$askConfirmation(
@@ -110,7 +149,10 @@ export default {
         if (!confirmed) return
       }
 
-      const { data: args, label } = formatFormData(this.form, { extract: ['label'] })
+      const { data: args, label } = await formatFormData(
+        this.form,
+        { extract: ['label'], removeEmpty: false, removeNull: true, multipart: false }
+      )
       const data = { app: this.id, label, args: Object.entries(args).length ? objectToParams(args) : undefined }
 
       api.post('apps', data, { key: 'apps.install', name: this.name }).then(() => {

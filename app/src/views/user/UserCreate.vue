@@ -173,8 +173,8 @@ export default {
       this.form.domain = this.mainDomain
     },
 
-    onSubmit () {
-      const data = formatFormData(this.form, { flatten: true })
+    async onSubmit () {
+      const data = await formatFormData(this.form, { flatten: true })
       api.post({ uri: 'users' }, data, { key: 'users.create', name: this.form.username }).then(() => {
         this.$router.push({ name: 'user-list' })
       }).catch(err => {
