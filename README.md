@@ -19,7 +19,7 @@ Issues
 Translation
 -----------
 
-You can help translate Moulinette on our [translation platform](https://translate.yunohost.org/engage/yunohost/?utm_source=widget)
+You can help translate Yunohost-Admin on our [translation platform](https://translate.yunohost.org/engage/yunohost/?utm_source=widget)
 
 <div align="center"><img src="https://translate.yunohost.org/widgets/yunohost/-/admin/horizontal-auto.svg" alt="Translation status" /></div>
 
