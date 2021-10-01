@@ -12,7 +12,9 @@ export default {
     waiting: false, // Boolean
     history: [], // Array of `request`
     requests: [], // Array of `request`
-    error: null // null || request
+    error: null, // null || request
+    historyTimer: null, // null || setTimeout id
+    tempMessages: [] // array of messages
   },
 
   mutations: {
@@ -52,12 +54,26 @@ export default {
       state.history.push(request)
     },
 
-    'ADD_MESSAGE' (state, { message, type }) {
-      const request = state.history[state.history.length - 1]
-      request.messages.push(message)
-      if (['error', 'warning'].includes(type)) {
-        request[type + 's']++
+    'ADD_TEMP_MESSAGE' (state, { request, message, type }) {
+      state.tempMessages.push([message, type])
+    },
+
+    'UPDATE_DISPLAYED_MESSAGES' (state, { request }) {
+      if (!state.tempMessages.length) {
+        state.historyTimer = null
+        return
       }
+
+      const { messages, warnings, errors } = state.tempMessages.reduce((acc, [message, type]) => {
+        acc.messages.push(message)
+        if (['error', 'warning'].includes(type)) acc[type + 's']++
+        return acc
+      }, { messages: [], warnings: 0, errors: 0 })
+      state.tempMessages = []
+      state.historyTimer = null
+      request.messages = request.messages.concat(messages)
+      request.warnings += warnings
+      request.errors += errors
     },
 
     'SET_ERROR' (state, request) {
@@ -147,7 +163,11 @@ export default {
       return request
     },
 
-    'END_REQUEST' ({ commit }, { request, success, wait }) {
+    'END_REQUEST' ({ state, commit }, { request, success, wait }) {
+      // Update last messages before finishing this request
+      clearTimeout(state.historyTimer)
+      commit('UPDATE_DISPLAYED_MESSAGES', { request })
+
       let status = success ? 'success' : 'error'
       if (success && (request.warnings || request.errors)) {
         const messages = request.messages
@@ -166,7 +186,7 @@ export default {
       }
     },
 
-    'DISPATCH_MESSAGE' ({ commit }, { request, messages }) {
+    'DISPATCH_MESSAGE' ({ state, commit, dispatch }, { request, messages }) {
       for (const type in messages) {
         const message = {
           text: messages[type].replace('\n', '<br>'),
@@ -183,7 +203,13 @@ export default {
           commit('UPDATE_REQUEST', { request, key: 'progress', value: Object.values(progress) })
         }
         if (message.text) {
-          commit('ADD_MESSAGE', { request, message, type })
+          // To avoid rendering lag issues, limit the flow of websocket messages to batches of 50ms.
+          if (state.historyTimer === null) {
+            state.historyTimer = setTimeout(() => {
+              commit('UPDATE_DISPLAYED_MESSAGES', { request })
+            }, 50)
+          }
+          commit('ADD_TEMP_MESSAGE', { request, message, type })
         }
       }
     },

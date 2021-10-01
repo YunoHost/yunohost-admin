@@ -64,52 +64,56 @@
 
     <!-- APPS CARDS -->
     <b-card-group v-else deck>
-      <b-card no-body v-for="app in filteredApps" :key="app.id">
-        <b-card-body class="d-flex flex-column">
-          <b-card-title class="d-flex mb-2">
-            {{ app.manifest.name }}
-            <small v-if="app.state !== 'working'" class="d-flex align-items-center ml-2">
-              <b-badge
-                v-if="app.state !== 'highquality'"
-                :variant="(app.color === 'danger' && app.state === 'lowquality') ? 'warning' : app.color"
-                v-b-popover.hover.bottom="$t(`app_state_${app.state}_explanation`)"
-              >
-                {{ $t('app_state_' + app.state) }}
-              </b-badge>
-              <icon
-                v-else iname="star" class="star"
-                v-b-popover.hover.bottom="$t(`app_state_${app.state}_explanation`)"
-              />
-            </small>
-          </b-card-title>
+      <lazy-renderer v-for="app in filteredApps" :key="app.id" :min-height="120">
+        <b-card no-body>
+          <b-card-body class="d-flex flex-column">
+            <b-card-title class="d-flex mb-2">
+              {{ app.manifest.name }}
 
-          <b-card-text>{{ app.manifest.description }}</b-card-text>
+              <small v-if="app.state !== 'working'" class="d-flex align-items-center ml-2">
+                <b-badge
+                  v-if="app.state !== 'highquality'"
+                  :variant="(app.color === 'danger' && app.state === 'lowquality') ? 'warning' : app.color"
+                  v-b-popover.hover.bottom="$t(`app_state_${app.state}_explanation`)"
+                >
+                  {{ $t('app_state_' + app.state) }}
+                </b-badge>
 
-          <b-card-text v-if="app.maintained === 'orphaned'" class="align-self-end mt-auto">
-            <span class="alert-warning p-1" v-b-popover.hover.top="$t('orphaned_details')">
-              <icon iname="warning" /> {{ $t(app.maintained) }}
-            </span>
-          </b-card-text>
-        </b-card-body>
+                <icon
+                  v-else iname="star" class="star"
+                  v-b-popover.hover.bottom="$t(`app_state_${app.state}_explanation`)"
+                />
+              </small>
+            </b-card-title>
 
-        <!-- APP BUTTONS -->
-        <b-button-group>
-          <b-button :href="app.git.url" variant="outline-dark" target="_blank">
-            <icon iname="code" /> {{ $t('code') }}
-          </b-button>
+            <b-card-text>{{ app.manifest.description }}</b-card-text>
 
-          <b-button :href="app.git.url + '/blob/master/README.md'" variant="outline-dark" target="_blank">
-            <icon iname="book" /> {{ $t('readme') }}
-          </b-button>
+            <b-card-text v-if="app.maintained === 'orphaned'" class="align-self-end mt-auto">
+              <span class="alert-warning p-1" v-b-popover.hover.top="$t('orphaned_details')">
+                <icon iname="warning" /> {{ $t(app.maintained) }}
+              </span>
+            </b-card-text>
+          </b-card-body>
 
-          <b-button v-if="app.isInstallable" :variant="app.color" @click="onInstallClick(app)">
-            <icon iname="plus" /> {{ $t('install') }} <icon v-if="app.color === 'danger'" class="ml-1" iname="warning" />
-          </b-button>
-          <b-button v-else :variant="app.color" disabled>
-            {{ $t('installed') }}
-          </b-button>
-        </b-button-group>
-      </b-card>
+          <!-- APP BUTTONS -->
+          <b-button-group>
+            <b-button :href="app.git.url" variant="outline-dark" target="_blank">
+              <icon iname="code" /> {{ $t('code') }}
+            </b-button>
+
+            <b-button :href="app.git.url + '/blob/master/README.md'" variant="outline-dark" target="_blank">
+              <icon iname="book" /> {{ $t('readme') }}
+            </b-button>
+
+            <b-button v-if="app.isInstallable" :variant="app.color" @click="onInstallClick(app)">
+              <icon iname="plus" /> {{ $t('install') }} <icon v-if="app.color === 'danger'" class="ml-1" iname="warning" />
+            </b-button>
+            <b-button v-else :variant="app.color" disabled>
+              {{ $t('installed') }}
+            </b-button>
+          </b-button-group>
+        </b-card>
+      </lazy-renderer>
     </b-card-group>
 
     <template #bot>
@@ -155,11 +159,17 @@
 <script>
 import { validationMixin } from 'vuelidate'
 
+import LazyRenderer from '@/components/LazyRenderer'
 import { required, appRepoUrl } from '@/helpers/validators'
+
 import { randint } from '@/helpers/commons'
 
 export default {
   name: 'AppCatalog',
+
+  components: {
+    LazyRenderer
+  },
 
   data () {
     return {
@@ -375,10 +385,11 @@ export default {
 }
 
 .card-deck {
-  .card {
-    border-color: $gray-400;
+  > * {
+    margin-left: 15px;
+    margin-right: 15px;
     margin-bottom: 2rem;
-    flex-basis: 90%;
+    flex-basis: 100%;
     @include media-breakpoint-up(md) {
       flex-basis: 50%;
       max-width: calc(50% - 30px);
@@ -387,6 +398,15 @@ export default {
       flex-basis: 33%;
       max-width: calc(33.3% - 30px);
     }
+
+    .card {
+      margin: 0;
+      height: 100%;
+    }
+  }
+
+  .card {
+    border-color: $gray-400;
 
     // not maintained info
     .alert-warning {
@@ -402,6 +422,8 @@ export default {
     @include media-breakpoint-up(sm) {
       min-height: 10rem;
     }
+
+    flex-basis: 90%;
     border: 0;
 
     .btn {
