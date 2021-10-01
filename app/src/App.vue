@@ -131,7 +131,7 @@ export default {
     document.addEventListener('keydown', ({ key }) => {
       if (key === copypastaCode[copypastastep++]) {
         if (copypastastep === copypastaCode.length) {
-          document.getElementsByClassName("unselectable").forEach((element) => element.classList.remove("unselectable"))
+          document.getElementsByClassName('unselectable').forEach((element) => element.classList.remove('unselectable'))
           copypastastep = 0
         }
       } else {

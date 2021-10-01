@@ -58,7 +58,6 @@
 
 
     <p class="w-100 px-5 py-2 mb-0" v-html="$t('text_selection_is_disabled')" />
-
   </view-base>
 </template>
 

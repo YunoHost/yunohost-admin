@@ -1,5 +1,5 @@
 const webpack = require('webpack')
-const fs = require('fs');
+const fs = require('fs')
 
 const dateFnsLocales = [
   'ar',
@@ -73,6 +73,6 @@ module.exports = {
       ignored: /node_modules/,
       aggregateTimeout: 300,
       poll: 1000
-    },
+    }
   } : {}
 }
