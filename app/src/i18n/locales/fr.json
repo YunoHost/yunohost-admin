@@ -374,7 +374,7 @@
         "notInUsers": "L'utilisateur '{value}' existe déjà.",
         "minValue": "La valeur doit être un nombre égal ou supérieur à {min}.",
         "name": "Les noms ne peuvent pas comporter de caractères spéciaux, sauf <code> ,.'-</code>",
-        "githubLink": "L'URL doit être un lien GitHub valide vers un dépôt",
+        "appRepoUrl": "Les URLs de dêpôt d'app YunoHost doivent ressembler à https://domain.tld/path/to/repo_ynh",
         "emailForward": "Adresse de transfert de courrier électronique invalide : elle doit être composée de caractères alphanumérique et de <code>_.-+</code> seulement (par exemple, someone+tag@example.com, s0me-1+tag@example.com)",
         "email": "Adresse de courriel invalide : elle doit être composée de caractères alphanumérique et des caractères <code>_.-</code> seulement (par exemple someone@example.com, s0me-1@example.com)",
         "dynDomain": "Nom de domaine invalide : Il doit être composé de minuscules alphanumériques et de tirets uniquement",

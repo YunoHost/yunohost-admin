@@ -194,7 +194,7 @@
         "dynDomain": "Invalid domain name: Must be lower-case alphanumeric and dash characters only",
         "email": "Invalid email: must be alphanumeric and <code>_.-</code> characters only (e.g. someone@example.com, s0me-1@example.com)",
         "emailForward": "Invalid email forward: must be alphanumeric and <code>_.-+</code> characters only (e.g. someone+tag@example.com, s0me-1+tag@example.com)",
-        "githubLink": "URL must be a valid GitHub link to a repository",
+        "appRepoUrl": "YunoHost app repository URLs are expected to look like https://domain.tld/path/to/repo_ynh",
         "name": "Names may not includes special characters except <code> ,.'-</code>",
         "minValue": "Value must be a number equal or greater than {min}.",
         "maxValue": "Value must be a number equal or lesser than {max}.",
