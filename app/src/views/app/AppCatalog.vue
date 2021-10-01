@@ -160,7 +160,8 @@
 import { validationMixin } from 'vuelidate'
 
 import LazyRenderer from '@/components/LazyRenderer'
-import { required, githubLink } from '@/helpers/validators'
+import { required, appRepoUrl } from '@/helpers/validators'
+
 import { randint } from '@/helpers/commons'
 
 export default {
@@ -258,7 +259,7 @@ export default {
 
   validations: {
     customInstall: {
-      url: { required, githubLink }
+      url: { required, appRepoUrl }
     }
   },
 
