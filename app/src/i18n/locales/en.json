@@ -14,6 +14,7 @@
     "administration_password": "Administration password",
     "all": "All",
     "api": {
+        "partial_logs": "[...] (check in history for full logs)",
         "processing": "The server is processing the action...",
         "query_status": {
             "error": "Unsuccessful",

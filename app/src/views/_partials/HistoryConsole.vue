@@ -59,7 +59,7 @@
             @shown="scrollToAction(i)"
             @hide="scrollToAction(i)"
           >
-            <message-list-group :messages="action.messages" flush />
+            <message-list-group :messages="action.messages" />
           </b-collapse>
         </b-card>
       </div>
