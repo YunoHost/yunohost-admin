@@ -1,3 +1,14 @@
+yunohost-admin (4.3.1.1) testing; urgency=low
+
+  - [enh] Handle 'visible' question property in app install forms ([#404](https://github.com/YunoHost/yunohost-admin/pull/404))
+  - [enh] Optimizations for waiting modal messages and AppCatalog cards rendering ([#406](https://github.com/YunoHost/yunohost-admin/pull/406))
+  - [enh] Support github-independent repo urls and/or pointing to specific branches ([#407](https://github.com/YunoHost/yunohost-admin/pull/407))
+  - [i18n] Translations updated for French, Galician, Ukrainian
+
+  Thanks to all contributors <3 ! (axolotle, José M, ppr, Tymofii-Lytvynenko)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Mon, 04 Oct 2021 01:31:10 +0200
+
 yunohost-admin (4.3.1) testing; urgency=low
 
   - [fix] app install: choice questions broken (64ae24fa)
