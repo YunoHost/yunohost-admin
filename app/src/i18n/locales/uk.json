@@ -101,7 +101,8 @@
             "pending": "Обробляється",
             "error": "Невдало"
         },
-        "processing": "Сервер обробляє цю дію..."
+        "processing": "Сервер обробляє цю дію...",
+        "partial_logs": "[...] (перевірте в історії повні журнали)"
     },
     "all": "Усе",
     "administration_password": "Пароль адміністрації",
@@ -176,7 +177,8 @@
         "remote": "{message}",
         "pattern": "{type}",
         "invalid_form": "Форма містить деякі помилки.",
-        "maxValue": "Значення має бути числом, рівним або меншим щодо {max}."
+        "maxValue": "Значення має бути числом, рівним або меншим щодо {max}.",
+        "appRepoUrl": "Очікується, що URL-адреси репозиторію застосунків YunoHost будуть виглядати як https: //domain.tld/path/to/repo_ynh"
     },
     "form_input_example": "Приклад: {example}",
     "from_to": "від {0} до {1}",
