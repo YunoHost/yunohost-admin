@@ -450,7 +450,8 @@
             "warning": "Terminé avec succès avec des erreurs ou des alertes",
             "pending": "En cours"
         },
-        "processing": "Le serveur traite l'action..."
+        "processing": "Le serveur traite l'action...",
+        "partial_logs": "[...] ( voir l'historique pour les logs complets)"
     },
     "go_back": "Revenir",
     "postinstall": {
@@ -569,5 +570,6 @@
     },
     "domain_dns_push_failed_to_authenticate": "Échec de l'authentification sur l'API du registraire. Très probablement les <a href='#/domains/{domain}/config'>informations d'identification</a> sont incorrectes ? (Erreur : {error})",
     "domain_dns_push_managed_in_parent_domain": "La fonctionnalité d'enregistrement DNS automatique est gérée dans le domaine parent <a href='#/domains/{parent_domain}/dns'>{parent_domain}</a>.",
-    "domain_dns_push_not_applicable": "La fonctionnalité d'enregistrements DNS automatiques n'est pas applicable au domaine {domain},<br> Vous devez configurer manuellement vos enregistrements DNS en suivant la <a href='https://yunohost.org/dns'>documentation</a> et les suggestions configuration ci-dessous."
+    "domain_dns_push_not_applicable": "La fonctionnalité d'enregistrements DNS automatiques n'est pas applicable au domaine {domain},<br> Vous devez configurer manuellement vos enregistrements DNS en suivant la <a href='https://yunohost.org/dns'>documentation</a> et les suggestions configuration ci-dessous.",
+    "text_selection_is_disabled": "La sélection du texte est désactivée. Si vous voulez partager ce log *complet*, vous pouvez le faire en cliquant sur le bouton 'Partager avec Yunopaste'.<br/><small>Ou, si vous voulez vraiment vraiment sélectionner du texte, appuyez sur ces touches : ↓↓↑↑.</small>"
 }
