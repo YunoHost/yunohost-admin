@@ -120,7 +120,7 @@
           label-cols-md="4" label-class="font-weight-bold"
         >
           <b-button id="config" variant="warning" :to="{ name: 'app-config-panel', params: { id } }">
-            <icon iname="flask" /> {{ $t('app_config_panel') }}
+            <icon iname="cog" /> {{ $t('app_config_panel') }}
           </b-button>
         </b-form-group>
         <hr>

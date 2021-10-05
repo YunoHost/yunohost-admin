@@ -21,14 +21,14 @@
       <!-- DOMAIN CONFIG -->
       <p>{{ $t('domain.config.edit') }}</p>
       <b-button variant="warning" :to="{ name: 'domain-config', param: { name } }">
-        <icon iname="flask" /> {{ $t('domain.config.title') }}
+        <icon iname="cog" /> {{ $t('domain.config.title') }}
       </b-button>
       <hr>
 
       <!-- DNS CONFIG -->
       <p>{{ $t('domain.dns.edit') }}</p>
       <b-button variant="warning" :to="{ name: 'domain-dns', param: { name } }">
-        <icon iname="flask" /> {{ $t('domain_dns_config') }}
+        <icon iname="globe" /> {{ $t('domain_dns_config') }}
       </b-button>
       <hr>
 
