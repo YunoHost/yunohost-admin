@@ -73,6 +73,7 @@
       <b-form-group
         :label="$t('app_info_changeurl_desc')" label-for="input-url"
         :label-cols-lg="app.supports_change_url ? 0 : 0" label-class="font-weight-bold"
+        v-if="app.is_webapp"
       >
         <b-input-group v-if="app.supports_change_url">
           <b-input-group-prepend is-text>
@@ -98,21 +99,22 @@
           <icon iname="exclamation" /> {{ $t('app_info_change_url_disabled_tooltip') }}
         </div>
       </b-form-group>
-      <hr>
+      <hr v-if="app.is_webapp">
 
       <!-- CHANGE DOMAIN -->
       <b-form-group
         :label="$t('app_info_default_desc', { domain: app.domain })" label-for="main-domain"
         label-class="font-weight-bold" label-cols-md="4"
+        v-if="app.is_webapp"
       >
         <b-button @click="setAsDefaultDomain" id="main-domain" variant="success">
           <icon iname="star" /> {{ $t('app_make_default') }}
         </b-button>
       </b-form-group>
-      <hr>
+      <hr v-if="app.is_webapp">
 
       <!-- APP CONFIG PANEL -->
-      <template v-if="hasConfigPanel">
+      <template v-if="app.supports_config_panel">
         <b-form-group
           :label="$t('app_config_panel_label')" label-for="config"
           label-cols-md="4" label-class="font-weight-bold"
@@ -180,8 +182,7 @@ export default {
       ],
       infos: undefined,
       app: undefined,
-      form: undefined,
-      hasConfigPanel: undefined
+      form: undefined
     }
   },
 
@@ -248,10 +249,11 @@ export default {
       this.form = form
       this.app = {
         domain: app.settings.domain,
+        is_webapp: app.is_webapp,
         supports_change_url: app.supports_change_url,
+        supports_config_panel: app.supports_config_panel,
         permissions
       }
-      this.hasConfigPanel = app.supports_config_panel
     },
 
     changeLabel (permName, data) {
