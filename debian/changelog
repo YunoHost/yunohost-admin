@@ -1,3 +1,13 @@
+yunohost-admin (4.3.1.2) testing; urgency=low
+
+  - [enh] appinfo: Don't diplay webapp-related stuff for non-webapps (f3775554)
+  - [enh] app/domain infos: Tweak icons for config panel buttons (791172ab)
+  - [i18n] Translations updated for Galician
+
+  Thanks to all contributors <3 ! (José M)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Thu, 07 Oct 2021 10:47:36 +0200
+
 yunohost-admin (4.3.1.1) testing; urgency=low
 
   - [enh] Handle 'visible' question property in app install forms ([#404](https://github.com/YunoHost/yunohost-admin/pull/404))
