@@ -25,7 +25,8 @@
             "pending": "En progreso",
             "error": "Sen éxito"
         },
-        "processing": "O servidor está procesando a acción..."
+        "processing": "O servidor está procesando a acción...",
+        "partial_logs": "[...] (mira o historial para ver o rexistro completo)"
     },
     "all": "Todo",
     "administration_password": "Contrasinal de administración",
@@ -167,7 +168,8 @@
         "remote": "{message}",
         "pattern": "{type}",
         "maxValue": "O valor ten que ser un número igual ou menor que {max}.",
-        "invalid_form": "O formulario contén erros."
+        "invalid_form": "O formulario contén erros.",
+        "appRepoUrl": "É de esperar que os URL dos repositorios YunoHost teñan este formato https://domain.tld/path/to/repo_ynh"
     },
     "footer": {
         "donate": "Doa",
