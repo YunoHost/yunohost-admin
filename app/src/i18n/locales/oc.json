@@ -523,7 +523,8 @@
             "pending": "En cors",
             "error": "Fracàs"
         },
-        "processing": "Lo servidor es a tractar l’accion..."
+        "processing": "Lo servidor es a tractar l’accion...",
+        "partial_logs": "[...] (veire l’istoric pels logs complèts)"
     },
     "domain_delete_forbidden_desc": "Podètz pas suprimir « {domain} » perque es lo domeni per defaut, devètz causir un autre domeni (o <a href='#/domains/add'>ajustatz-ne un</a>) e lo definir coma lo demeni per defaut per poder suprimir aquel.",
     "tools_power_up": "Vòstre servidor sembla accessible, podètz ara ensajar de vos connectar.",
@@ -533,5 +534,18 @@
     "migrations_disclaimer_not_checked": "Aquesta migracion requerís que vos assabentetz de la descarga de responsabilitat abans de l’executar.",
     "hook_data_xmpp_desc": "Configuracion de las salas e dels utilizaires, fichièrs enviats",
     "app_config_panel_no_panel": "Aquesta aplicacion a pas cap de configuracion disponibla",
-    "api_not_found": "L’administrator a ensajat d'accedir a quicòm qu’existís pas."
+    "api_not_found": "L’administrator a ensajat d'accedir a quicòm qu’existís pas.",
+    "domain": {
+        "config": {
+            "edit": "Modificar la configuracion del domeni",
+            "title": "Configuracion del domeni"
+        },
+        "dns": {
+            "auto_config": "Configuracion automatica dels enregistraments DNS",
+            "auto_config_ignored": "ignorat, YunoHost lo modificarà pas levat se marcatz l’opcion de subreescritura",
+            "auto_config_ok": "La configuracion automatica sembla èsser BONA !",
+            "auto_config_zone": "Zòna DNS actuala",
+            "edit": "Modificar la configuracion DNS"
+        }
+    }
 }
