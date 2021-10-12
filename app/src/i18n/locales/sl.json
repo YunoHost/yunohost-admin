@@ -1,1 +1,103 @@
-{}
+{
+    "add": "Dodaj",
+    "address": {
+        "domain_description": {
+            "domain": "Izberi domeno.",
+            "email": "Izberi domeno za e-pošto."
+        },
+        "local_part_description": {
+            "domain": "Izberi poddomeno.",
+            "email": "Izberi lokalni del za svoj e-poštni naslov."
+        }
+    },
+    "administration_password": "Upravljalno geslo",
+    "all": "Vse",
+    "api": {
+        "processing": "Strežnik obdeluje dejanje...",
+        "query_status": {
+            "error": "Neuspešno",
+            "pending": "V teku",
+            "success": "Uspešno končano",
+            "warning": "Uspešno končano z napakami ali opozorili"
+        },
+        "partial_logs": "[...] (preveri zgodovino za polne zapise"
+    },
+    "api_error": {
+        "error_message": "Sporočilo napake:",
+        "info": "Sledeče informacije morejo biti uporabne osebi, ki ti pomaga:",
+        "server_said": "Med obdelavo dejanja je strežnik sporočil:",
+        "sorry": "Res nam je žal.",
+        "view_error": "Preglej napako",
+        "help": "Pomoč pri reševanju napake lahko poiščeš na <a href=\"https://forum.yunohost.org/\">forumu</a> ali <a href=\"https://chat.yunohost.org/\">klepetalnici</a> ali pa objaviš poročilo o hrošču na <a href=\"https://github.com/YunoHost/issues\">sledilniku hroščev</a>."
+    },
+    "api_errors_titles": {
+        "APIError": "YunoHost je naletel na nepričakovano napako",
+        "APIBadRequestError": "YunoHost je naletel na napako",
+        "APIInternalError": "YunoHost je naletel na notranjo napako",
+        "APIConnexionError": "YunoHost je naletel na napako v povezavi",
+        "APINotFoundError": "YunoHost API ni našel poti",
+        "APINotRespondingError": "YunoHost API se ne odziva"
+    },
+    "all_apps": "Vse aplikacije",
+    "api_not_found": "Kaže da je spletni-admin poskusil poizvesti po nečem neobstoječem.",
+    "api_waiting": "Čakam na strežnikov odziv...",
+    "app_actions": "Dejanja",
+    "app_actions_label": "Izvedi dejanja",
+    "app_choose_category": "Izberi kategorijo",
+    "app_config_panel": "Nastavitvena plošča",
+    "app_config_panel_label": "Nastavi to aplikacijo",
+    "app_config_panel_no_panel": "Ta aplikacija ne ponuja nastavitev",
+    "app_info_access_desc": "Skupine / uporabniki, ki imajo dostop do te aplikacije:",
+    "app_info_default_desc": "Preusmeri korensko domeno na to aplikacijo ({domain}).",
+    "app_info_change_url_disabled_tooltip": "Ta funkcija še ni bila razvita v tej aplikaciji",
+    "app_info_uninstall_desc": "Odstrani to aplikacijo.",
+    "app_install_parameters": "Namesti nastavitve",
+    "app_manage_label_and_tiles": "Upravljaj oznake in plošče",
+    "app_make_default": "Naredi privzeto",
+    "app_show_categories": "Prikaži kategorije",
+    "app_state_inprogress": "še ne deluje",
+    "app_state_lowquality": "nizka kvaliteta",
+    "app_state_lowquality_explanation": "Aplikacija more biti delujoča, vendar vsebuje napake, ni polno združljiva z YunoHostom, ali pa ne upošteva priporočil.",
+    "app_state_highquality": "visoka kvaliteta",
+    "app_state_highquality_explanation": "Ta aplikacija je dobro združljiva z YunoHostom že vsaj eno leto.",
+    "app_state_working": "deluje",
+    "applications": "Aplikacije",
+    "backup": "Varnostna kopija",
+    "backup_action": "Varnostno kopiraj",
+    "backup_content": "Varnostno kopiraj vsebino",
+    "backup_create": "Ustvari varnostno kopijo",
+    "backup_new": "Nova varnostna kopija",
+    "begin": "Začni",
+    "both": "Oboje",
+    "catalog": "Imenik",
+    "check": "Preveri",
+    "close": "Zapri",
+    "code": "Koda",
+    "common": {
+        "firstname": "Ime",
+        "lastname": "Priimek"
+    },
+    "configuration": "Nastavitev",
+    "confirm_app_change_url": "Ste prepričani da želite spremeniti dostopni URL aplikacije?",
+    "confirm_app_default": "Ste prepričani da želite to aplikacijo napraviti privzeto?",
+    "confirm_change_maindomain": "Ste prepričani da želite spremeniti glavno domeno?",
+    "confirm_delete": "Ste prepričani da želite izbrisati {name}?",
+    "confirm_firewall_disallow": "Ste prepričani da želite zapreti vrata {port} (protokol: {protocol}, povezava: {connection})",
+    "confirm_install_domain_root": "Si prepričan_a, da želiš namestiti to aplikacijo na '/'? Potem ne bo več mogoče namestiti nobene druge aplikacije na {domain}",
+    "confirm_app_install": "Si prepričan_a, da želiš namestiti to aplikacijo?",
+    "action": "Dejanje",
+    "api_not_responding": "YunoHost API se ne odziva. Morda 'yunohost-api' ne teče ali pa se je ponovno zagnal?",
+    "app_info_changeurl_desc": "Spremeni dostopni URL za to aplikacijo (domena in/ali pot).",
+    "app_install_custom_no_manifest": "Ni manifest.json datoteke",
+    "app_no_actions": "Ta aplikacija nima nobenih dejanj",
+    "app_state_inprogress_explanation": "Vzdrževalec te aplikacije naznanja, da še ni pripravljena za produkcijsko rabo. PREVIDNO!",
+    "app_state_notworking": "ne deluje",
+    "app_state_notworking_explanation": "Vzdrževalec te aplikacije naznaja, da 'ne deluje'. POKVARILA BO TVOJ SISTEM!",
+    "app_state_working_explanation": "Vzdrževalec aplikacije jo je označil za 'delujočo'. To pomeni, da bi morala polno funkcionirati (tj. na aplikacijskem nivoju) vendar ni nujno recenzirana, vseeno lahko vsebuje težave ali pa ni polno združljiva z YunoHostom.",
+    "archive_empty": "Izprazni arhiv",
+    "cancel": "Prekliči",
+    "confirm_firewall_allow": "Ste prepričani da želite odpreti vrata {port} (protokol: {protocol}, povezava: {connection})",
+    "confirm_group_add_access_permission": "Ste prepričani da želi dodeliti {name} dostop do {perm}? Takšen dostop bistveno razširi napadalo polje, če se {name} izkaže za škodoželjo osebo. Stori to samo če res ZAUPAŠ tej osebi ali skupini.",
+    "confirm_install_custom_app": "POZOR! Namestitev neuradnih aplikacij lahko ogrozi celovitost in varnost vašega sistema. Verjetno NI dobro namestiti, razen če res veš kaj počneš. Si pripravljen_a sprejeti tveganje?",
+    "confirm_install_app_lowquality": "Pozor: aplikacija bi lahko delovala vendar ni dobro vključena v YunoHost. Nekatere funkcionalnosti, kot so poenoten vpis ter varnostno kopiranje/povrnitev, morda niso na voljo."
+}
