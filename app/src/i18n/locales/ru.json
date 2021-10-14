@@ -11,7 +11,7 @@
     "app_state_inprogress": "Выполняется",
     "app_state_working": "Работает",
     "password": "Пароль",
-    "login": "Логин",
+    "login": "Авторизоваться",
     "logout": "Выйти",
     "ok": "ОК",
     "app_info_changeurl_desc": "Изменить ссылку доступа к этому приложению (домен и/ли путь).",
