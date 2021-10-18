@@ -13,5 +13,46 @@
             "domain": "Aukeratu azpidomeinu bat.",
             "email": "Aukeratu zati lokal bat zure posta elektronikorako."
         }
-    }
+    },
+    "all_apps": "Aplikazio guztiak",
+    "api": {
+        "query_status": {
+            "error": "Ezinezkoa izan da",
+            "pending": "Martxan",
+            "warning": "Arrakastaz amaitu da, errore edo ohartarazpenekin",
+            "success": "Arrakastaz amaitu da"
+        },
+        "processing": "Zerbitzaria ekintza prozesatzen ari da…",
+        "partial_logs": "[...] (ikuskatu historia erregistro osoetarako)"
+    },
+    "api_error": {
+        "view_error": "Ikusi errorea",
+        "error_message": "Errore mezua:",
+        "server_said": "Eragiketa prozesatzean zera adierazi du zerbitzariak:",
+        "help": "Laguntza eskatu beharko zenuke <a href=\"https://forum.yunohost.org/\">foroan</a> edo <a href=\"https://chat.yunohost.org/\">txat gelan</a> egoera hau konpontzeko, edo errore honen berri eman <a href=\"https://github.com/YunoHost/issues\">bugtracker</a> delakoan.",
+        "info": "Ondorengo informazioa baliagarria izan dakioke laguntza ematen ari zaionari:",
+        "sorry": "Barkatu."
+    },
+    "api_waiting": "Zerbitzariaren zain…",
+    "app_actions": "Eragiketak",
+    "app_actions_label": "Burutu eragiketak",
+    "app_config_panel": "Konfigurazio-panela",
+    "app_config_panel_label": "Konfiguratu aplikazio hau",
+    "all": "Guztia",
+    "api_not_found": "Badirudi administrazio-webgunea existitzen ez den zerbait bilatzen saiatu dela.",
+    "api_not_responding": "YunoHosten APIak ez du erantzuten. Agian 'yunohost-api' ez dago martxan edo berrabiarazi da.",
+    "app_choose_category": "Aukeratu kategoria bat",
+    "app_config_panel_no_panel": "Aplikazio honek ez du inolako konfigurazio ezarpenik",
+    "api_errors_titles": {
+        "APINotFoundError": "YunoHosten APIak ezin izan du bidea aurkitu",
+        "APINotRespondingError": "YunoHosten APIak ez du erantzuten",
+        "APIConnexionError": "YunoHostek konexio-errore bat izan du",
+        "APIError": "YunoHostek ustekabeko errore batekin egin du topo",
+        "APIBadRequestError": "YunoHostek errore batekin egin du topo",
+        "APIInternalError": "YunoHostek barne-errore batekin egin du topo"
+    },
+    "app_info_access_desc": "Une honetan aplikazio hau erabil dezaketen taldeak / erabiltzaileak:",
+    "app_info_default_desc": "Birbideratu domeinu nagusia ({domain}) aplikazio honetara.",
+    "app_info_changeurl_desc": "Aldatu aplikazio honen URLa (domeinua edota bidea).",
+    "app_info_change_url_disabled_tooltip": "Aukera hau oraindik ez dago erabilgarri aplikazio honetan"
 }
