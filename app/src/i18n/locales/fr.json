@@ -81,7 +81,7 @@
     "ipv4": "IPv4",
     "ipv6": "IPv6",
     "label": "Libellé",
-    "label_for_manifestname": "Libellé pour {name}",
+    "label_for_manifestname": "Libellé pour {name} (nom affiché dans le portail utilisateur)",
     "local_archives": "Archives locales",
     "login": "Connexion",
     "logout": "Déconnexion",
