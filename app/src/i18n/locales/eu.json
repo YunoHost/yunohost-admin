@@ -1,4 +1,17 @@
 {
     "password": "Pasahitza",
-    "ok": "Ados"
+    "ok": "Ados",
+    "add": "Gehitu",
+    "administration_password": "Administrazio-pasahitza",
+    "action": "Ekintza",
+    "address": {
+        "domain_description": {
+            "domain": "Aukeratu domeinu bat.",
+            "email": "Aukeratu domeinu bat posta elektronikorako."
+        },
+        "local_part_description": {
+            "domain": "Aukeratu azpidomeinu bat.",
+            "email": "Aukeratu zati lokal bat zure posta elektronikorako."
+        }
+    }
 }
