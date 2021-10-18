@@ -277,7 +277,7 @@
     "items_verbose_count": "There are {items}. | There is 1 {items}. | There are {items}.",
     "items_verbose_items_left": "There are {items} left. | There is 1 {items} left. | There are {items} left.",
     "label": "Label",
-    "label_for_manifestname": "Label for {name}",
+    "label_for_manifestname": "Label for {name} (name displayed in the user portal)",
     "last_ran": "Last time ran:",
     "license": "License",
     "local_archives": "Local archives",
