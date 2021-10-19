@@ -1,3 +1,9 @@
+yunohost-admin (4.3.1.4) testing; urgency=low
+
+  - [fix] Route for diagnosis share was incorrect (804488ab)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Tue, 19 Oct 2021 14:56:23 +0200
+
 yunohost-admin (4.3.1.3) testing; urgency=low
 
   - [fix] app url regex: branch names may contain dots (5c883cc0)
