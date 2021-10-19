@@ -74,7 +74,6 @@ yunohost-admin (4.3.0) testing; urgency=low
   Thanks to all contributors <3 ! (axolotle, Christian Wehrli, Daniel, Éric Gaspar, JocelynDelalande, José M, liimee, ljf, Parviz Homayun, possy eater, ppr, saptrishi das biswas, Tymofii-Lytvynenko)
 
  -- Alexandre Aubin <alex.aubin@mailoo.org>  Sun, 19 Sep 2021 23:49:02 +0200
->>>>>>> dev
 
 yunohost-admin (4.2.5) stable; urgency=low
 
