@@ -244,7 +244,7 @@
     "items_verbose_count": "Наявно {items}. | Наявний 1 {items}. | Наявно {items}.",
     "items_verbose_items_left": "Лишилося {items}. | Лишився 1 {items}. | Лишилося {items}.",
     "label": "Заголовок",
-    "label_for_manifestname": "Заголовок для {name}",
+    "label_for_manifestname": "Заголовок для {name} (Ім'я, що показується на порталі користувача)",
     "last_ran": "Востаннє запущено:",
     "license": "Ліцензія",
     "local_archives": "Локальні архіви",
