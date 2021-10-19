@@ -123,7 +123,7 @@
     "postinstall_domain": "سوف يصبح هذا إسم النطاق الرئيسي المرتبط بخادوم واي يونوهوست YunoHost و الذي مِن خلاله يُمكن للمستخدمين النفاذ إلى بوابة المصادقة قصد تسجيل دخولهم. إسم النطاق هذا سيكون ظاهرا لكافة المستخدمين، لذا يتوجّب اختياره بعناية.",
     "postinstall_intro_1": "هنيئًا ! تمت عملية تنصيب YunoHost بنجاح.",
     "postinstall_intro_2": "لم يتبقى إلّا إكمال خطوتين لازمتين لتفعيل خدمات السيرفر.",
-    "postinstall_intro_3": "يمكنكم الحصول على مزيد مِن التفاصيل بزيارة <a href='//yunohost.org/postinstall' target='_blank'>صفحة التعليمات المخصصة لذلك</a>",
+    "postinstall_intro_3": "يمكنكم الحصول على مزيد مِن التفاصيل بزيارة <a href='//yunohost.org/en/install/hardware:vps_debian#fa-cog-proceed-with-the-initial-configuration' target='_blank'>صفحة التعليمات المخصصة لذلك</a>",
     "postinstall_password": "سوف يتم استخدام كلمة السر هذه في إدارة كافة خدمات السيرفر. يُرجى التأني و الحِكمة عند اختيارها.",
     "previous": "السابق",
     "protocol": "Protocol",

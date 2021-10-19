@@ -1,4 +1,5 @@
 const webpack = require('webpack')
+const fs = require('fs')
 
 const dateFnsLocales = [
   'ar',
@@ -11,7 +12,7 @@ const dateFnsLocales = [
   'eo',
   'es',
   'eu',
-  'fa',
+  'fa-IR',
   'fi',
   'fr', // for 'fr' & 'br'
   'gl',
@@ -57,18 +58,21 @@ module.exports = {
     }
   },
   publicPath: '/yunohost/admin',
-  devServer: {
+  devServer: process.env.NODE_ENV === 'development' ? {
+    public: fs.readFileSync('/etc/yunohost/current_host', 'utf8'),
     https: false,
     disableHostCheck: true,
     proxy: {
       '^/yunohost': {
         target: `http://${process.env.VUE_APP_IP}`,
         ws: true,
-        logLevel: 'debug'
+        logLevel: 'info'
       }
     },
     watchOptions: {
-      ignored: /node_modules/
+      ignored: /node_modules/,
+      aggregateTimeout: 300,
+      poll: 1000
     }
-  }
+  } : {}
 }

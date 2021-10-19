@@ -25,7 +25,8 @@
             "pending": "En progreso",
             "error": "Sen éxito"
         },
-        "processing": "O servidor está procesando a acción..."
+        "processing": "O servidor está procesando a acción...",
+        "partial_logs": "[...] (mira o historial para ver o rexistro completo)"
     },
     "all": "Todo",
     "administration_password": "Contrasinal de administración",
@@ -155,14 +156,20 @@
         "notInUsers": "A usuaria '{value}' xa existe.",
         "minValue": "O valor debe ser un número igual ou superior a {min}.",
         "name": "Os nomes non inclúen caracteres especiais excepto <code> ,.'-</code>",
-        "githubLink": "A URL debe ser unha ligazón de Github a un repositorio",
+        "githubLink": "URL debe ser unha ligazón a un repositorio de GitHub",
         "emailForward": "Email de reenvío non válido: ten que ser alfanumérico e caracteres <code>_.-+</code> (ex. menganito+etiqueta@exemplo.com, m3ng4ni7-o+etiqueta@exemplo.com)",
         "email": "Email non válido: debe ser alfanumércio e caracteres <code>_.-</code> (ex. menganito@exemplo.com, p4c-0@exemplo.com)",
         "dynDomain": "Nome de dominio non válido: Só pode ter caracteres alfanuméricos en minúscula e barra",
         "domain": "Nome de dominio non válido: Só pode ser alfanumérico en minúsculas, punto e barra",
         "between": "O valor ten que estar entre {min} e {max}.",
         "alphalownum_": "O valor só pode ter caracteres alfanuméricos en minúscula e trazos baixos.",
-        "alpha": "O valor só pode ter caracteres alfanuméricos."
+        "alpha": "O valor só pode ter caracteres alfanuméricos.",
+        "fileMediaTypeMatch": "Tipo de ficheiro non válido: ten que ser <code>{arg}</code>.",
+        "remote": "{message}",
+        "pattern": "{type}",
+        "maxValue": "O valor ten que ser un número igual ou menor que {max}.",
+        "invalid_form": "O formulario contén erros.",
+        "appRepoUrl": "É de esperar que os URL dos repositorios YunoHost teñan este formato https://domain.tld/path/to/repo_ynh"
     },
     "footer": {
         "donate": "Doa",
@@ -281,8 +288,8 @@
     "last_ran": "Última execución:",
     "label_for_manifestname": "Etiqueta para {name}",
     "label": "Etiqueta",
-    "items_verbose_items_left": "Restan {items}.",
-    "items_verbose_count": "Hai {items}.",
+    "items_verbose_items_left": "Faltan {items}. | Falta 1 {items}. | Faltan {items}.",
+    "items_verbose_count": "Hai {items}. | Hai 1 {items}. | Hai {items}.",
     "logs_share_with_yunopaste": "Compartir rexistros con YunoPaste",
     "logs_context": "Contexto",
     "logs_path": "Ruta",
@@ -304,7 +311,8 @@
         "groupname": "Nome do grupo",
         "lastname": "Pérez",
         "firstname": "Josefa",
-        "username": "pepitaperez"
+        "username": "pepitaperez",
+        "file": "Navega ata o ficheiro ou arrastra e sóltao"
     },
     "perform": "Realizar",
     "path": "Ruta",
@@ -327,7 +335,7 @@
     "select_none": "Elexir ningún",
     "select_all": "Elexir todo",
     "search": {
-        "not_found": "Hai {items} que cumpren o teu criterio.",
+        "not_found": "Hai {items} que cumpren o teu criterio. | Hai 1 {items} que cumpre o teu criterio. | Hai {items} que cumpren o teu criterio.",
         "for": "Buscar {items}..."
     },
     "save": "Gardar",
@@ -379,7 +387,9 @@
             "manual_renew_LE": "Renovar certificado para '{name}'",
             "install_LE": "Instalar certificado para '{name}'",
             "delete": "Eliminar dominio '{name}'",
-            "add": "Engadir dominio '{name}'"
+            "add": "Engadir dominio '{name}'",
+            "push_dns_changes": "Subir rexistros DNS á rexistradora para '{name}'",
+            "update_config": "Actualizar configuración de '{name}'"
         },
         "diagnosis": {
             "unignore": {
@@ -423,7 +433,8 @@
     "postinstall_intro_1": "Parabéns! YunoHost instalouse correctamente.",
     "postinstall_domain": "Este é o primeiro nome de dominio ligado ao teu servidor YunoHost, pero tamén o que utilizarán as usuarias para acceder ao portal de autenticación. Por isto, será visible para todo o mundo, así que elíxeo con coidado.",
     "postinstall": {
-        "force": "Forzar a post-instalación"
+        "force": "Forzar a post-instalación",
+        "title": "Postinstall"
     },
     "ports": "Portos",
     "port": "Porto",
@@ -512,7 +523,8 @@
     "wrong_password": "Contrasinal incorrecto",
     "words": {
         "default": "Por defecto",
-        "collapse": "Pechar"
+        "collapse": "Pechar",
+        "browse": "Navegar"
     },
     "warnings": "{count} avisos",
     "version": "Versión",
@@ -524,5 +536,39 @@
     "user_new_forward": "novoreenvio@omeudominoexterno.org",
     "user_mailbox_use": "Espazo de correo utilizado",
     "user_mailbox_quota": "Cota de correo",
-    "user_interface_link": "Interface de usuaria"
+    "user_interface_link": "Interface de usuaria",
+    "users_import": "Importar usuarias",
+    "users_export": "Exportar usuarias",
+    "users_import_csv_file": "Ficheiro CSV",
+    "users_import_update": "Actualizar usuarias existentes",
+    "users_import_delete": "Eliminar usuarias fóra da lista",
+    "users_import_csv_file_desc": "O ficheiro CSV ten que usar UTF-8 coas columnas nome de usuaria, contrasinal, grupos, email e cota. A xeito de exemplo de importación CSV, podes <a href='/yunohost/api/users/export' target='_BLANK'>exportar as túas usuarias a un ficheiro CSV</a> e edita o ficheiro.",
+    "users_import_update_desc": "Se está marcado, tódalas usuarias existentes contidas no ficheiro CSV vanse actualizar co novo valor",
+    "users_import_delete_desc": "Se está marcado, tódalas usuarias existentes que non están no ficheiro CSV van ser borradas (e eliminadas).",
+    "users_import_confirm_destructive": "Tes a certeza de querer eliminar as usuarias que non están presentes neste ficheiro?",
+    "users_import_delete_others": "Eliminar usuarias de fóra da lista",
+    "yunohost_admin": "Admin YunoHost",
+    "domain": {
+        "config": {
+            "edit": "Editar configuración do dominio",
+            "title": "Configuración do dominio"
+        },
+        "dns": {
+            "auto_config": "Configuración automática dos rexistros DNS",
+            "auto_config_ignored": "ignorado, YunoHost non o cambiará a menos que marques a opción de sobrescritura",
+            "auto_config_ok": "A configuración automática semella correcta!",
+            "auto_config_zone": "Zona DNS actual",
+            "edit": "Editar configuración DNS",
+            "info": "A configuración automática dos rexistros DNS é unha ferramenta experimental. <br>Considera gardar a configuración actual na interface da empresa rexistradora antes de realizar cambios desde aquí.",
+            "manual_config": "Rexistros DNS suxeridos para configuración manual",
+            "push": "Enviar rexistros DNS á rexistradora",
+            "push_force": "Sobrescribir rexistros existentes",
+            "push_force_warning": "Semella que algúns rexistros DNS que YunoHost querería configurar xa están establecidos na configuración. Podes usar a sobrescritura se sabes o que estás a facer.",
+            "push_force_confirm": "Tes a certeza de que queres forzar a sobrescritura cos rexistros suxeridos? Ten en conta que poderías sobrescribir rexistros por defecto ou manuais establecidos na rexistradora."
+        }
+    },
+    "domain_dns_push_managed_in_parent_domain": "A ferramenta para os rexistros DNS automáticos están xestionados polo dominio nai <a href='#/domains/{parent_domain}/dns'>{parent_domain}</a>.",
+    "domain_dns_push_failed_to_authenticate": "Fallou a autenticación na API da empresa rexistradora. Serán incorrectas as <a href='#/domains/{domain}/config'>credenciais</a>? (Erro: {error})",
+    "domain_dns_push_not_applicable": "A ferramenta para rexistro automático DNS non é de aplicación ao dominio {domain}, <br> Deberías configurar manualmente os teus rexistros DNS seguindo a <a href='https://yunohost.org/dns'>documentación</a> e a configuración inferior suxerida.",
+    "text_selection_is_disabled": "A selección de texto está desactivada. Se queres compartir este rexistro, comparte o rexistro *completo* co botón 'Compartir con YunoHost'. <br/><small>Ou se realmente queres seleccionar un texto, preme estas teclas: ↓↓↑↑.</small>"
 }

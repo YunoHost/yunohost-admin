@@ -1,0 +1,13 @@
+{
+    "action": "акција",
+    "add": "додади",
+    "address": {
+        "domain_description": {
+            "domain": "одбери домен",
+            "email": "одбери домен за вашиот емаил"
+        },
+        "local_part_description": {
+            "domain": "одбери под  домен"
+        }
+    }
+}

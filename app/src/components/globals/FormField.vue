@@ -26,18 +26,17 @@
 
     <template #description>
       <!-- Render description -->
-      <template v-if="description || example || link">
+      <template v-if="description || link">
         <div class="d-flex">
-          <span v-if="example">{{ $t('form_input_example', { example }) }}</span>
-
-          <b-link v-if="link" :to="link" class="ml-auto">
+          <b-link v-if="link" :to="link" :href="link.href"
+                  class="ml-auto"
+          >
             {{ link.text }}
           </b-link>
         </div>
 
-        <div
-          v-if="description" v-html="description"
-          :class="{ ['alert p-1 px-2 alert-' + descriptionVariant]: descriptionVariant }"
+        <vue-showdown :markdown="description" flavor="github" v-if="description"
+                      :class="{ ['alert p-1 px-2 alert-' + descriptionVariant]: descriptionVariant }"
         />
       </template>
       <!-- Slot available to overwrite the one above -->
@@ -57,7 +56,6 @@ export default {
     id: { type: String, default: null },
     description: { type: String, default: null },
     descriptionVariant: { type: String, default: null },
-    example: { type: String, default: null },
     link: { type: Object, default: null },
     // Rendered field component props
     component: { type: String, default: 'InputItem' },

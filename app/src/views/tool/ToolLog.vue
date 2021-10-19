@@ -50,12 +50,14 @@
         <icon iname="plus" /> {{ $t('logs_more') }}
       </b-button>
 
-      <pre class="log"><code v-html="logs" /></pre>
-
+      <pre class="log unselectable"><code v-html="logs" /></pre>
       <b-button @click="shareLogs" variant="success" class="w-100 rounded-0">
         <icon iname="cloud-upload" /> {{ $t('logs_share_with_yunopaste') }}
       </b-button>
     </card>
+
+
+    <p class="w-100 px-5 py-2 mb-0" v-html="$t('text_selection_is_disabled')" />
   </view-base>
 </template>
 

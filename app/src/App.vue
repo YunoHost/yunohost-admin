@@ -125,17 +125,31 @@ export default {
   },
 
   mounted () {
-    // Konamicode ;P
-    const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a']
-    let step = 0
+    // Unlock copypasta on log view
+    const copypastaCode = ['ArrowDown', 'ArrowDown', 'ArrowUp', 'ArrowUp']
+    let copypastastep = 0
     document.addEventListener('keydown', ({ key }) => {
-      if (key === konamiCode[step++]) {
-        if (step === konamiCode.length) {
-          this.$store.commit('SET_SPINNER', 'nyancat')
-          step = 0
+      if (key === copypastaCode[copypastastep++]) {
+        if (copypastastep === copypastaCode.length) {
+          document.getElementsByClassName('unselectable').forEach((element) => element.classList.remove('unselectable'))
+          copypastastep = 0
         }
       } else {
-        step = 0
+        copypastastep = 0
+      }
+    })
+
+    // Konamicode ;P
+    const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a']
+    let konamistep = 0
+    document.addEventListener('keydown', ({ key }) => {
+      if (key === konamiCode[konamistep++]) {
+        if (konamistep === konamiCode.length) {
+          this.$store.commit('SET_SPINNER', 'nyancat')
+          konamistep = 0
+        }
+      } else {
+        konamistep = 0
       }
     })
 

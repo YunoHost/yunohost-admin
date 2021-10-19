@@ -18,6 +18,7 @@
     <message-list-group
       v-if="hasMessages" :messages="request.messages"
       bordered fixed-height auto-scroll
+      :limit="100"
     />
   </b-card-body>
 </template>

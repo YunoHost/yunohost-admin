@@ -18,14 +18,21 @@ const routes = [
     path: '/',
     component: Home,
     // Leave the empty breadcrumb as it is used by the animated transition to know which way to go
-    meta: { breadcrumb: [] }
+    meta: {
+      args: { trad: 'home' },
+      breadcrumb: []
+    }
   },
 
   {
     name: 'login',
     path: '/login',
     component: Login,
-    meta: { noAuth: true, breadcrumb: [] }
+    meta: {
+      noAuth: true,
+      args: { trad: 'login' },
+      breadcrumb: []
+    }
   },
 
   /* ───────────────╮
@@ -36,7 +43,11 @@ const routes = [
     path: '/postinstall',
     component: () => import(/* webpackChunkName: "views/post-install" */ '@/views/PostInstall'),
     // Leave the breadcrumb
-    meta: { noAuth: true, breadcrumb: [] }
+    meta: {
+      noAuth: true,
+      args: { trad: 'postinstall.title' },
+      breadcrumb: []
+     }
   },
 
   /* ───────╮
@@ -58,6 +69,16 @@ const routes = [
     meta: {
       args: { trad: 'users_new' },
       breadcrumb: ['user-list', 'user-create']
+    }
+  },
+  {
+    name: 'user-import',
+    path: '/users/import',
+    component: () => import(/* webpackChunkName: "views/user/import" */ '@/views/user/UserImport'),
+    props: true,
+    meta: {
+      args: { param: 'name' },
+      breadcrumb: ['user-list', 'user-import']
     }
   },
   {
@@ -132,6 +153,16 @@ const routes = [
     meta: {
       args: { param: 'name' },
       breadcrumb: ['domain-list', 'domain-info']
+    }
+  },
+  {
+    name: 'domain-config',
+    path: '/domains/:name/config',
+    component: () => import(/* webpackChunkName: "views/domain/dns" */ '@/views/domain/DomainConfig'),
+    props: true,
+    meta: {
+      args: { trad: 'config' },
+      breadcrumb: ['domain-list', 'domain-info', 'domain-config']
     }
   },
   {

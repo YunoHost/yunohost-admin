@@ -15,14 +15,6 @@
         :validation="$v.actions[i]" :id="action.id + '-form'" :server-error="action.serverError"
         @submit.prevent="performAction(action)" :submit-text="$t('perform')"
       >
-        <template #disclaimer>
-          <div
-            v-if="action.formDisclaimer"
-            class="alert alert-info" v-html="action.formDisclaimer"
-          />
-          <b-card-text v-if="action.description" v-html="action.description" />
-        </template>
-
         <form-field
           v-for="(field, fname) in action.fields" :key="fname" label-cols="0"
           v-bind="field" v-model="action.form[fname]" :validation="$v.actions[i][fname]"
@@ -85,11 +77,10 @@ export default {
         const action = { name, id, serverError: '' }
         if (description) action.description = formatI18nField(description)
         if (arguments_ && arguments_.length) {
-          const { form, fields, validations, disclaimer } = formatYunoHostArguments(arguments_)
+          const { form, fields, validations } = formatYunoHostArguments(arguments_)
           action.form = form
           action.fields = fields
           if (validations) action.validations = validations
-          if (disclaimer) action.formDisclaimer = disclaimer
         }
         return action
       })

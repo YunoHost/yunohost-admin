@@ -92,7 +92,7 @@
     "manage_apps": "Gestión aplicaciones",
     "manage_domains": "Gestión de dominios",
     "manage_users": "Gestión de usuarios",
-    "multi_instance": "Instancias múltiples",
+    "multi_instance": "Puede instalarse varias veces",
     "myserver": "miservidor",
     "next": "Próximo",
     "no": "No",
@@ -106,7 +106,7 @@
     "postinstall_domain": "Este es el primer nombre de dominio vinculado a su servidor YunoHost, pero también el que será utilizado por los usuarios para acceder al portal de identificación. Será visible por todos, elegir con cuidado.",
     "postinstall_intro_1": "¡Felicitaciones! YunoHost se ha instalado correctamente.",
     "postinstall_intro_2": "Todavía faltan dos pasos más para activar los servicios de su servidor.",
-    "postinstall_intro_3": "Más información disponible en <a href='//yunohost.org/postinstall' target='_blank'></a>",
+    "postinstall_intro_3": "Más información disponible en <a href='//yunohost.org/en/install/hardware:vps_debian#fa-cog-proceed-with-the-initial-configuration' target='_blank'>página de documentación apropiada</a>",
     "postinstall_password": "Esta contraseña se utiliza para gestionar todo su servidor. Tómese su tiempo para elegirla sabiamente.",
     "previous": "Anterior",
     "protocol": "Protocolo",
@@ -348,7 +348,9 @@
         "domain": "Nombre de dominio inválido: debe ser alfanumérico en minúsculas, solo caracteres de puntos y guiones",
         "between": "El valor debe estar entre {min} y {max}.",
         "alphalownum_": "El valor debe ser alfanumérico en minúsculas y solo caracteres subrayados.",
-        "alpha": "El valor debe ser solo caracteres alfabéticos."
+        "alpha": "El valor debe ser solo caracteres alfabéticos.",
+        "remote": "{message}",
+        "pattern": "{type}"
     },
     "footer": {
         "donate": "Donar",
@@ -376,5 +378,14 @@
     "app_actions_label": "Realizar acciones",
     "app_actions": "Acciones",
     "api_waiting": "Esperando la respuesta del servidor...",
-    "api_not_found": "Parece que el administrador de la web ha intentado consultar algo que no existe."
+    "api_not_found": "Parece que el administrador de la web ha intentado consultar algo que no existe.",
+    "hook_conf_manually_modified_files": "Configuraciones modificadas manualmente",
+    "hook_data_xmpp": "Datos XMPP",
+    "items_verbose_count": "Hay {items}.",
+    "placeholder": {
+        "lastname": "Doe",
+        "username": "johndoe",
+        "firstname": "John"
+    },
+    "hook_conf_ynh_settings": "Configuraciones de YunoHost"
 }

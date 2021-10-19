@@ -8,13 +8,13 @@ import { isObjectLiteral, isEmptyValue, flattenObjectLiteral } from '@/helpers/c
  * Tries to find a translation corresponding to the user's locale/fallback locale in a
  * Yunohost argument or simply return the string if it's not an object literal.
  *
- * @param {(Object|String)} field - A field value containing a translation object or string
+ * @param {(Object|String|undefined)} field - A field value containing a translation object or string
  * @return {String}
  */
 export function formatI18nField (field) {
   if (typeof field === 'string') return field
   const { locale, fallbackLocale } = store.state
-  return field[locale] || field[fallbackLocale] || field.en
+  return field ? field[locale] || field[fallbackLocale] || field.en : ''
 }
 
 
@@ -56,85 +56,209 @@ export function adressToFormValue (address) {
  * @return {Object} an formated argument containing formItem props, validation and base value.
  */
 export function formatYunoHostArgument (arg) {
-  let value = null
+  let value = (arg.value !== undefined) ? arg.value : (arg.current_value !== undefined) ? arg.current_value : null
   const validation = {}
+  const error = { message: null }
+  arg.ask = formatI18nField(arg.ask)
   const field = {
     component: undefined,
-    label: formatI18nField(arg.ask),
+    label: arg.ask,
     props: {}
   }
-
-  if (arg.type === 'boolean') {
-    field.id = arg.name
-  } else {
-    field.props.id = arg.name
-  }
-
-  // Some apps has an argument type `string` as type but expect a select since it has `choices`
-  if (arg.choices !== undefined) {
-    field.component = 'SelectItem'
-    field.props.choices = arg.choices
-  // Input
-  } else if ([undefined, 'string', 'number', 'password', 'email'].includes(arg.type)) {
-    field.component = 'InputItem'
-    if (![undefined, 'string'].includes(arg.type)) {
-      field.props.type = arg.type
-      if (arg.type === 'password') {
-        field.description = i18n.t('good_practices_about_admin_password')
-        field.placeholder = '••••••••'
+  const defaultProps = ['id:name', 'placeholder:example']
+  const components = [
+    {
+      types: [undefined, 'string', 'path'],
+      name: 'InputItem',
+      props: defaultProps.concat(['autocomplete', 'trim', 'choices']),
+      callback: function () {
+        if (arg.choices) {
+            arg.type = 'select'
+            this.name = 'SelectItem'
+        }
+      }
+    },
+    {
+      types: ['email', 'url', 'date', 'time', 'color'],
+      name: 'InputItem',
+      props: defaultProps.concat(['type', 'trim'])
+    },
+    {
+      types: ['password'],
+      name: 'InputItem',
+      props: defaultProps.concat(['type', 'autocomplete', 'trim']),
+      callback: function () {
+        if (!arg.help) {
+          arg.help = 'good_practices_about_admin_password'
+        }
+        arg.example = '••••••••••••'
         validation.passwordLenght = validators.minLength(8)
       }
+    },
+    {
+      types: ['number', 'range'],
+      name: 'InputItem',
+      props: defaultProps.concat(['type', 'min', 'max', 'step']),
+      callback: function () {
+        if (!isNaN(parseInt(arg.min))) {
+          validation.minValue = validators.minValue(parseInt(arg.min))
+        }
+        if (!isNaN(parseInt(arg.max))) {
+          validation.maxValue = validators.maxValue(parseInt(arg.max))
+        }
+        validation.numValue = validators.helpers.regex('Please provide an integer', new RegExp('^-?[0-9]+$'))
+      }
+    },
+    {
+      types: ['select'],
+      name: 'SelectItem',
+      props: ['id:name', 'choices']
+    },
+    {
+      types: ['user', 'domain'],
+      name: 'SelectItem',
+      props: ['id:name', 'choices'],
+      callback: function () {
+        field.link = { name: arg.type + '-list', text: i18n.t(`manage_${arg.type}s`) }
+        field.props.choices = store.getters[arg.type + 'sAsChoices']
+        if (value) {
+          return
+        }
+        if (arg.type === 'domain') {
+          value = store.getters.mainDomain
+        } else {
+          value = field.props.choices.length ? field.props.choices[0].value : null
+        }
+      }
+    },
+    {
+      types: ['file'],
+      name: 'FileItem',
+      props: defaultProps.concat(['accept']),
+      callback: function () {
+        if (value) {
+          value = new File([''], value)
+          value.currentfile = true
+        }
+      }
+    },
+    {
+      types: ['text'],
+      name: 'TextAreaItem',
+      props: defaultProps
+    },
+    {
+      types: ['tags'],
+      name: 'TagsItem',
+      props: defaultProps.concat(['limit', 'placeholder', 'options:choices', 'tagIcon:icon']),
+      callback: function () {
+        if (arg.choices) {
+            this.name = 'TagsSelectizeItem'
+            field.props.auto = true
+            field.props.itemsName = ''
+            field.props.label = arg.placeholder
+        }
+        if (typeof value === 'string') {
+          value = value.split(',')
+        } else if (!value) {
+          value = []
+        }
+      }
+    },
+    {
+      types: ['boolean'],
+      name: 'CheckboxItem',
+      props: ['id:name', 'choices'],
+      callback: function () {
+        if (value !== null && value !== undefined) {
+          value = ['1', 'yes', 'y', 'true'].includes(String(value).toLowerCase())
+        } else if (arg.default !== null && arg.default !== undefined) {
+          value = ['1', 'yes', 'y', 'true'].includes(String(arg.default).toLowerCase())
+        }
+      }
+    },
+    {
+      types: ['alert'],
+      name: 'ReadOnlyAlertItem',
+      props: ['type:style', 'label:ask', 'icon'],
+      readonly: true
+    },
+    {
+      types: ['markdown', 'display_text'],
+      name: 'MarkdownItem',
+      props: ['label:ask'],
+      readonly: true
     }
-  // Checkbox
-  } else if (arg.type === 'boolean') {
-    field.component = 'CheckboxItem'
-    if (typeof arg.default === 'number') {
-      value = arg.default === 1
-    } else {
-      value = arg.default || false
-    }
-  // Special (store related)
-  } else if (['user', 'domain'].includes(arg.type)) {
-    field.component = 'SelectItem'
-    field.link = { name: arg.type + '-list', text: i18n.t(`manage_${arg.type}s`) }
-    field.props.choices = store.getters[arg.type + 'sAsChoices']
-    if (arg.type === 'domain') {
-      value = store.getters.mainDomain
-    } else {
-      value = field.props.choices.length ? field.props.choices[0].value : null
-    }
+  ]
 
-  // Unknown from the specs, try to display it as an input[text]
-  // FIXME throw an error instead ?
-  } else {
-    field.component = 'InputItem'
+  // Default type management if no one is filled
+  if (arg.type === undefined) {
+    arg.type = (arg.choices === undefined) ? 'string' : 'select'
   }
-
+  // Search the component bind to the type
+  const component = components.find(element => element.types.includes(arg.type))
+  if (component === undefined) throw new TypeError('Unknown type: ' + arg.type)
+  // Callback use for specific behaviour
+  if (component.callback) component.callback()
+  field.component = component.name
+  // Affect properties to the field Item
+  for (let prop of component.props) {
+    prop = prop.split(':')
+    const propName = prop[0]
+    const argName = prop.slice(-1)[0]
+    if (argName in arg) {
+      field.props[propName] = arg[argName]
+    }
+  }
+  // We don't want to display a label html item as this kind or field contains
+  // already the text to display
+  if (component.readonly) delete field.label
   // Required (no need for checkbox its value can't be null)
-  if (field.component !== 'CheckboxItem' && arg.optional !== true) {
+  else if (field.component !== 'CheckboxItem' && arg.optional !== true) {
     validation.required = validators.required
   }
+  if (arg.pattern && arg.type !== 'tags') {
+    // validation.pattern = validators.helpers.withMessage(arg.pattern.error,
+    validation.pattern = validators.helpers.regex(arg.pattern.error, new RegExp(arg.pattern.regexp))
+  }
+  validation.remote = validators.helpers.withParams(error, (v) => {
+    const result = !error.message
+    error.message = null
+    return result
+  })
+
+
+  // field.props['title'] = field.pattern.error
   // Default value if still `null`
+  if (value === null && arg.current_value) {
+    value = arg.current_value
+  }
   if (value === null && arg.default) {
     value = arg.default
   }
+
   // Help message
   if (arg.help) {
     field.description = formatI18nField(arg.help)
   }
-  // Example
-  if (arg.example) {
-    field.example = arg.example
-    if (field.component === 'InputItem') {
-      field.props.placeholder = field.example
-    }
+
+  // Help message
+  if (arg.helpLink) {
+    field.link = { href: arg.helpLink.href, text: i18n.t(arg.helpLink.text) }
+  }
+
+  if (arg.visible) {
+    field.visible = arg.visible
+    // Temporary value to wait visible expression to be evaluated
+    field.isVisible = true
   }
 
   return {
     value,
     field,
     // Return null instead of empty object if there's no validation
-    validation: Object.keys(validation).length === 0 ? null : validation
+    validation: Object.keys(validation).length === 0 ? null : validation,
+    error
   }
 }
 
@@ -148,10 +272,10 @@ export function formatYunoHostArgument (arg) {
  * @return {Object} an object containing all parsed values to be used in vue views.
  */
 export function formatYunoHostArguments (args, name = null) {
-  let disclaimer = null
   const form = {}
   const fields = {}
   const validations = {}
+  const errors = {}
 
   // FIXME yunohost should add the label field by default
   if (name) {
@@ -163,20 +287,35 @@ export function formatYunoHostArguments (args, name = null) {
   }
 
   for (const arg of args) {
-    if (arg.type === 'display_text') {
-      disclaimer = formatI18nField(arg.ask)
-    } else {
-      const { value, field, validation } = formatYunoHostArgument(arg)
-      fields[arg.name] = field
-      form[arg.name] = value
-      if (validation) validations[arg.name] = validation
-    }
+    const { value, field, validation, error } = formatYunoHostArgument(arg)
+    fields[arg.name] = field
+    form[arg.name] = value
+    if (validation) validations[arg.name] = validation
+    errors[arg.name] = error
   }
 
-  return { form, fields, validations, disclaimer }
+  return { form, fields, validations, errors }
 }
 
-
+export function pFileReader (file, output, key, base64 = true) {
+    return new Promise((resolve, reject) => {
+        const fr = new FileReader()
+        fr.onerror = reject
+        fr.onload = () => {
+          output[key] = fr.result
+          if (base64) {
+            output[key] = fr.result.replace(/data:[^;]*;base64,/, '')
+          }
+          output[key + '[name]'] = file.name
+          resolve()
+        }
+        if (base64) {
+          fr.readAsDataURL(file)
+        } else {
+          fr.readAsText(file)
+        }
+    })
+}
 /**
  * Format helper for a form value.
  * Convert Boolean to (1|0) and concatenate adresses.
@@ -204,14 +343,15 @@ export function formatFormDataValue (value) {
  * @param {Boolean} [extraParams.removeEmpty=true] - Removes "empty" values from the object.
  * @return {Object} the parsed data to be sent to the server, with extracted values if specified.
  */
-export function formatFormData (
+export async function formatFormData (
   formData,
-  { extract = null, flatten = false, removeEmpty = true } = {}
+  { extract = null, flatten = false, removeEmpty = true, removeNull = false, multipart = true } = {}
 ) {
   const output = {
     data: {},
     extracted: {}
   }
+  const promises = []
   for (const key in formData) {
     const type = extract && extract.includes(key) ? 'extracted' : 'data'
     const value = Array.isArray(formData[key])
@@ -220,12 +360,23 @@ export function formatFormData (
 
     if (removeEmpty && isEmptyValue(value)) {
       continue
+    } else if (removeNull && (value === null || value === undefined)) {
+      continue
+    } else if (value instanceof File && !multipart) {
+      if (value.currentfile) {
+          continue
+      } else if (value._removed) {
+          output[type][key] = ''
+          continue
+      }
+      promises.push(pFileReader(value, output[type], key))
     } else if (flatten && isObjectLiteral(value)) {
       flattenObjectLiteral(value, output[type])
     } else {
       output[type][key] = value
     }
   }
+  if (promises.length) await Promise.all(promises)
   const { data, extracted } = output
   return extract ? { data, ...extracted } : data
 }

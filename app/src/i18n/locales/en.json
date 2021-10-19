@@ -14,6 +14,7 @@
     "administration_password": "Administration password",
     "all": "All",
     "api": {
+        "partial_logs": "[...] (check in history for full logs)",
         "processing": "The server is processing the action...",
         "query_status": {
             "error": "Unsuccessful",
@@ -131,6 +132,25 @@
     "disable": "Disable",
     "disabled": "Disabled",
     "dns": "DNS",
+    "domain": {
+      "config": {
+        "edit": "Edit domain configuration",
+        "title": "Domain configuration"
+      },
+      "dns": {
+        "auto_config": "Automatic DNS records configuration",
+        "auto_config_ignored": "ignored, won't be changed by YunoHost unless you check the overwrite option",
+        "auto_config_ok": "Automatic configuration seems to be OK!",
+        "auto_config_zone": "Current DNS zone",
+        "edit": "Edit DNS configuration",
+        "info": "The automatic DNS records configuration is an experimental feature. <br>Consider saving your current DNS zone from your DNS registrar's interface before pushing records from here.",
+        "manual_config": "Suggested DNS records for manual configuration",
+        "push": "Push DNS records to registrar",
+        "push_force": "Overwrite existing records",
+        "push_force_confirm": "Are you sure you want to force push all suggested dns records? Be aware that it may overwrite manually or important default records set by you or your registrar.",
+        "push_force_warning": "It looks like some DNS records that YunoHost would have set are already in the registrar configuration. You can use the overwrite option if you know what you are doing."
+      }
+    },
     "domain_add": "Add domain",
     "domain_add_dns_doc": "… and I have <a href='//yunohost.org/dns_config' target='_blank'>set my DNS correctly</a>.",
     "domain_add_dyndns_doc": "… and I want a dynamic DNS service.",
@@ -143,6 +163,9 @@
     "domain_delete_forbidden_desc": "You cannot remove '{domain}' since it's the default domain, you need to choose another domain (or <a href='#/domains/add'>add a new one</a>) and set it as the default domain to be able to remove this one.",
     "domain_dns_config": "DNS configuration",
     "domain_dns_longdesc": "View DNS configuration",
+    "domain_dns_push_failed_to_authenticate": "Failed to authenticate on registrar's API. Most probably the <a href='#/domains/{domain}/config'>credentials</a> are incorrect? (Error: {error})",
+    "domain_dns_push_managed_in_parent_domain": "The automatic DNS records feature is managed in the parent domain <a href='#/domains/{parent_domain}/dns'>{parent_domain}</a>.",
+    "domain_dns_push_not_applicable": "The automatic DNS records feature is not applicable to domain {domain},<br> You should manually configure your DNS records following the <a href='https://yunohost.org/dns'>documentation</a> and the suggested configuration below.",
     "domain_name": "Domain name",
     "domain_visit": "Visit",
     "domain_visit_url": "Visit {url}",
@@ -172,14 +195,18 @@
         "dynDomain": "Invalid domain name: Must be lower-case alphanumeric and dash characters only",
         "email": "Invalid email: must be alphanumeric and <code>_.-</code> characters only (e.g. someone@example.com, s0me-1@example.com)",
         "emailForward": "Invalid email forward: must be alphanumeric and <code>_.-+</code> characters only (e.g. someone+tag@example.com, s0me-1+tag@example.com)",
-        "githubLink": "Url must be a valid Github link to a repository",
-        "name": "Names may not include special characters except <code> ,.'-</code>",
+        "appRepoUrl": "YunoHost app repository URLs are expected to look like https://domain.tld/path/to/repo_ynh",
+        "name": "Names may not includes special characters except <code> ,.'-</code>",
         "minValue": "Value must be a number equal or greater than {min}.",
+        "maxValue": "Value must be a number equal or lesser than {max}.",
         "notInUsers": "The user '{value}' already exists.",
         "number": "Value must be a number.",
         "passwordLenght": "Password must be at least 8 characters long.",
         "passwordMatch": "Passwords don't match.",
-        "required": "Field is required."
+        "required": "Field is required.",
+        "remote": "{message}",
+        "pattern": "{type}",
+        "invalid_form": "The form contains some errors."
     },
     "form_input_example": "Example: {example}",
     "from_to": "from {0} to {1}",
@@ -247,10 +274,10 @@
         "services": "no services | service | {c} services",
         "users": "no users | user | {c} users"
     },
-    "items_verbose_count": "There are {items}.",
-    "items_verbose_items_left": "There are {items} left.",
+    "items_verbose_count": "There are {items}. | There is 1 {items}. | There are {items}.",
+    "items_verbose_items_left": "There are {items} left. | There is 1 {items} left. | There are {items} left.",
     "label": "Label",
-    "label_for_manifestname": "Label for {name}",
+    "label_for_manifestname": "Label for {name} (name displayed in the user portal)",
     "last_ran": "Last time ran:",
     "license": "License",
     "local_archives": "Local archives",
@@ -293,7 +320,8 @@
         "firstname": "John",
         "lastname": "Doe",
         "groupname": "My group name",
-        "domain": "my-domain.com"
+        "domain": "my-domain.com",
+        "file": "Browse a file or drag and drop it"
     },
     "logs": "Logs",
     "logs_suboperations": "Sub-operations",
@@ -319,7 +347,8 @@
     "port": "Port",
     "ports": "Ports",
     "postinstall": {
-        "force": "Force the post-install"
+        "force": "Force the post-install",
+        "title": "Postinstall"
     },
     "postinstall_domain": "This is the first domain name linked to your YunoHost server, but also the one which will be used by your server's users to access the authentication portal. Accordingly, it will be visible by everyone, so choose it carefully.",
     "postinstall_intro_1": "Congratulations! YunoHost has been successfully installed.",
@@ -367,9 +396,11 @@
           "delete": "Delete domain '{name}'",
           "install_LE": "Install certificate for '{name}'",
           "manual_renew_LE": "Renew certificate for '{name}'",
+          "push_dns_changes": "Push DNS records to registrar for '{name}'",
           "regen_selfsigned": "Renew self-signed certificate for '{name}'",
           "revert_to_selfsigned": "Revert to self-signed certificate for '{name}'",
-          "set_default": "Set '{name}' as default domain"
+          "set_default": "Set '{name}' as default domain",
+          "update_config": "Update '{name}' configuration"
         },
         "firewall": {
             "ports": "{action} port {port} ({protocol}, {connection})",
@@ -415,7 +446,7 @@
     "save": "Save",
     "search": {
         "for": "Search for {items}...",
-        "not_found": "There are {items} matching your criteria."
+        "not_found": "There are {items} matching your criteria. | There is 1 {items} matching your criteria. | There are {items} matching your criteria."
     },
     "select_all": "Select all",
     "select_none": "Select none",
@@ -436,6 +467,7 @@
     "system_upgrade_all_applications_btn": "Upgrade all applications",
     "system_upgrade_all_packages_btn": "Upgrade all packages",
     "tcp": "TCP",
+    "text_selection_is_disabled": "Text selection is disabled. If you want to share this log, please share the *full* log with the 'Share with Yunopaste' button.<br/><small>Or if you really really want to select text, press these keys: ↓↓↑↑.</small>",
     "tip_about_user_email": "Users are created with an associated email address (and XMPP account) with the format username@domain.tld. Additional email aliases and email forwards can later be added by the admin and the user.",
     "tools": "Tools",
     "tools_adminpw": "Change administration password",
@@ -489,14 +521,26 @@
     "users": "Users",
     "users_new": "New user",
     "users_no": "No users.",
+    "users_import": "Import users",
+    "users_export": "Export users",
+    "users_import_csv_file": "CSV File",
+    "users_import_update": "Update existing users",
+    "users_import_delete": "Delete non listed users",
+    "users_import_csv_file_desc": "The CSV file should be in UTF-8 and with columns username, password, groups, email and quota. For an example import CSV file, you can <a href='/yunohost/api/users/export' target='_BLANK'>export your users in CSV file</a> and change the file.",
+    "users_import_update_desc": "If checked, all existing users contained in the CSV file will be updated with the new value",
+    "users_import_delete_desc": "If checked, all existing users that are not in the CSV file will be deleted (and purged).",
+    "users_import_confirm_destructive": "Are you sure you want to delete users that are not present in this file?",
+    "users_import_delete_others": "Delete unlisted users",
     "version": "Version",
     "warnings": "{count} warnings",
     "words": {
+        "browse": "Browse",
         "collapse": "Collapse",
         "default": "Default"
     },
     "wrong_password": "Wrong password",
     "yes": "Yes",
+    "yunohost_admin": "YunoHost Admin",
     "certificate_alert_not_valid": "CRITICAL: Current certificate is not valid! HTTPS won't work at all!",
     "certificate_alert_selfsigned": "WARNING: Current certificate is self-signed. Browsers will display a spooky warning to new visitors!",
     "certificate_alert_letsencrypt_about_to_expire": "Current certificate is about to expire. It should soon be renewed automatically.",

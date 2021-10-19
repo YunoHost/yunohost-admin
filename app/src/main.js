@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import BootstrapVue from 'bootstrap-vue'
+import VueShowdown from 'vue-showdown'
 
 import i18n from './i18n'
 import router from './router'
@@ -10,7 +11,6 @@ import { registerGlobalErrorHandlers } from './api'
 
 
 Vue.config.productionTip = false
-
 
 // Styles are imported in `src/App.vue` <style>
 Vue.use(BootstrapVue, {
@@ -24,6 +24,11 @@ Vue.use(BootstrapVue, {
   }
 })
 
+Vue.use(VueShowdown, {
+  options: {
+    emoji: true
+  }
+})
 
 // Ugly wrapper for `$bvModal.msgBoxConfirm` to set default i18n button titles
 // FIXME find or wait for a better way
@@ -46,13 +51,14 @@ requireComponent.keys().forEach((fileName) => {
   Vue.component(component.name, component)
 })
 
-
 registerGlobalErrorHandlers()
 
 
-new Vue({
+const app = new Vue({
   i18n,
   router,
   store,
   render: h => h(App)
-}).$mount('#app')
+})
+
+app.$mount('#app')

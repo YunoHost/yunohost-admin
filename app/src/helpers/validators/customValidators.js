@@ -34,7 +34,7 @@ const emailForward = value => helpers.withParams(
   }
 )(value)
 
-const githubLink = helpers.regex('githubLink', /^https:\/\/github.com\/[a-zA-Z0-9-_.]+\/[a-zA-Z0-9-_.]+[/]?$/)
+const appRepoUrl = helpers.regex('appRepoUrl', /^https:\/\/[a-zA-Z0-9-_.]+\/[a-zA-Z0-9-_./]+\/[a-zA-Z0-9-_.]+_ynh(\/?(-\/)?tree\/[a-zA-Z0-9-_.]+)?(\.git)?\/?$/)
 
 const includes = items => item => helpers.withParams(
   { type: 'includes', value: item },
@@ -48,7 +48,6 @@ const unique = items => item => helpers.withParams(
   item => items ? !helpers.req(item) || !items.includes(item) : true
 )(item)
 
-
 export {
   alphalownum_,
   domain,
@@ -57,7 +56,7 @@ export {
   emailForward,
   emailForwardLocalPart,
   emailLocalPart,
-  githubLink,
+  appRepoUrl,
   includes,
   name,
   unique

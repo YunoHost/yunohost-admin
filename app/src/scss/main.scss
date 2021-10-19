@@ -112,11 +112,52 @@ body {
   top: 2px;
 }
 
+// limit the size of toggle dropdown buttons to a square
+.dropdown-toggle-split {
+  max-width: 2.5rem;
+}
+
 // Fork-awesome overrides
 .fa-fw {
   width: 1.25em !important;
 }
 
+// custom css
+.actions {
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: space-between;
+
+  @include media-breakpoint-down(xs) {
+    .buttons {
+      flex-direction: column;
+      justify-content: space-between;
+    }
+  }
+
+  @include media-breakpoint-down(sm) {
+    flex-direction: column-reverse;
+    margin-bottom: 2rem;
+
+    .buttons {
+      display: flex;
+      justify-content: space-between;
+
+      .btn {
+        margin-bottom: .5rem;
+      }
+    }
+  }
+
+  @include media-breakpoint-up(md) {
+    .btn ~ .btn {
+      margin-left: .5rem;
+    }
+    .btn ~ .dropdown-toggle-split {
+      margin-left: 0;
+    }
+  }
+}
 // Do not display ligatures in invalid-feedback to avoid confusion.
 .invalid-feedback {
   code {
@@ -132,4 +173,13 @@ code {
   margin-bottom: 0;
   padding: 1rem;
   background-color: $light;
+  overflow: auto;
+}
+
+.unselectable {
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }

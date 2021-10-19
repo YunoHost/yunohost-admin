@@ -23,7 +23,7 @@
       <b-alert v-if="items === null || filteredItems === null" variant="warning">
         <slot name="alert-message">
           <icon iname="exclamation-triangle" />
-          {{ $t(items === null ? 'items_verbose_count' : 'search.not_found', { items: $tc('items.' + itemsName, 0) }) }}
+          {{ $tc(items === null ? 'items_verbose_count': 'search.not_found', 0, { items: $tc('items.' + itemsName, 0) }) }}
         </slot>
       </b-alert>
 

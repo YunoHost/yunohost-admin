@@ -205,12 +205,12 @@ export default {
           label: this.$i18n.t('password'),
           description: this.$i18n.t('good_practices_about_user_password'),
           descriptionVariant: 'warning',
-          props: { id: 'change_password', type: 'password', placeholder: '••••••••' }
+          props: { id: 'change_password', type: 'password', placeholder: '••••••••', autocomplete: 'new-password' }
         },
 
         confirmation: {
           label: this.$i18n.t('password_confirmation'),
-          props: { id: 'confirmation', type: 'password', placeholder: '••••••••' }
+          props: { id: 'confirmation', type: 'password', placeholder: '••••••••', autocomplete: 'new-password' }
         }
       }
     }
@@ -266,8 +266,8 @@ export default {
       }
     },
 
-    onSubmit () {
-      const formData = formatFormData(this.form, { flatten: true })
+    async onSubmit () {
+      const formData = await formatFormData(this.form, { flatten: true })
       const user = this.user(this.name)
       const data = {}
       if (!Object.prototype.hasOwnProperty.call(formData, 'mailbox_quota')) {

@@ -23,14 +23,13 @@
         :validation="$v" :server-error="serverError"
         @submit.prevent="performInstall"
       >
-        <template v-if="formDisclaimer" #disclaimer>
-          <div class="alert alert-info" v-html="formDisclaimer" />
+        <template v-for="(field, fname) in fields">
+          <form-field
+            v-if="isVisible(field.visible, field)"
+            :key="fname" label-cols="0"
+            v-bind="field" v-model="form[fname]" :validation="$v.form[fname]"
+          />
         </template>
-
-        <form-field
-          v-for="(field, fname) in fields" :key="fname" label-cols="0"
-          v-bind="field" v-model="form[fname]" :validation="$v.form[fname]"
-        />
       </card-form>
     </template>
 
@@ -48,9 +47,10 @@
 
 <script>
 import { validationMixin } from 'vuelidate'
+import evaluate from 'simple-evaluate'
 
 import api, { objectToParams } from '@/api'
-import { formatYunoHostArguments, formatI18nField, formatFormData } from '@/helpers/yunohostArguments'
+import { formatYunoHostArguments, formatI18nField, formatFormData, pFileReader } from '@/helpers/yunohostArguments'
 
 export default {
   name: 'AppInstall',
@@ -75,6 +75,7 @@ export default {
       form: undefined,
       fields: undefined,
       validations: null,
+      errors: undefined,
       serverError: ''
     }
   },
@@ -94,15 +95,50 @@ export default {
       manifest.multi_instance = this.$i18n.t(manifest.multi_instance ? 'yes' : 'no')
       this.infos = Object.fromEntries(infosKeys.map(key => [key, manifest[key]]))
 
-      const { form, fields, validations, disclaimer } = formatYunoHostArguments(
+      const { form, fields, validations, errors } = formatYunoHostArguments(
         manifest.arguments.install,
         manifest.name
       )
 
-      this.formDisclaimer = disclaimer
       this.fields = fields
       this.form = form
       this.validations = { form: validations }
+      this.errors = errors
+    },
+
+    isVisible (expression, field) {
+      if (!expression || !field) return true
+      const context = {}
+
+      const promises = []
+      for (const shortname in this.form) {
+        if (this.form[shortname] instanceof File) {
+          if (expression.includes(shortname)) {
+            promises.push(pFileReader(this.form[shortname], context, shortname, false))
+          }
+        } else {
+          context[shortname] = this.form[shortname]
+        }
+      }
+      // Allow to use match(var,regexp) function
+      const matchRe = new RegExp('match\\(\\s*(\\w+)\\s*,\\s*"([^"]+)"\\s*\\)', 'g')
+      let i = 0
+      Promise.all(promises).then(() => {
+        for (const matched of expression.matchAll(matchRe)) {
+          i++
+          const varName = matched[1] + '__re' + i.toString()
+          context[varName] = new RegExp(matched[2], 'm').test(context[matched[1]])
+          expression = expression.replace(matched[0], varName)
+        }
+
+        try {
+          field.isVisible = evaluate(context, expression)
+        } catch (error) {
+          field.isVisible = false
+        }
+      })
+      // This value should be updated magically when vuejs will detect isVisible changed
+      return field.isVisible
     },
 
     async performInstall () {
@@ -113,14 +149,19 @@ export default {
         if (!confirmed) return
       }
 
-      const { data: args, label } = formatFormData(this.form, { extract: ['label'] })
+      const { data: args, label } = await formatFormData(
+        this.form,
+        { extract: ['label'], removeEmpty: false, removeNull: true, multipart: false }
+      )
       const data = { app: this.id, label, args: Object.entries(args).length ? objectToParams(args) : undefined }
 
       api.post('apps', data, { key: 'apps.install', name: this.name }).then(() => {
         this.$router.push({ name: 'app-list' })
       }).catch(err => {
         if (err.name !== 'APIBadRequestError') throw err
-        this.serverError = err.message
+        if (err.data.name) {
+          this.errors[err.data.name].message = err.message
+        } else this.serverError = err.message
       })
     }
   }

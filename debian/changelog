@@ -4,6 +4,78 @@ yunohost-admin (11.0.0~alpha) unstable; urgency=low
 
  -- Kay0u <pierre@kayou.io>  Mon, 08 Mar 2021 18:04:43 +0100
 
+yunohost-admin (4.3.1.4) testing; urgency=low
+
+  - [fix] Route for diagnosis share was incorrect (804488ab)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Tue, 19 Oct 2021 14:56:23 +0200
+
+yunohost-admin (4.3.1.3) testing; urgency=low
+
+  - [fix] app url regex: branch names may contain dots (5c883cc0)
+  - [fix] app install: improve label question (0c0df14a)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Mon, 18 Oct 2021 19:04:52 +0200
+
+yunohost-admin (4.3.1.2) testing; urgency=low
+
+  - [enh] appinfo: Don't diplay webapp-related stuff for non-webapps (f3775554)
+  - [enh] app/domain infos: Tweak icons for config panel buttons (791172ab)
+  - [i18n] Translations updated for Galician
+
+  Thanks to all contributors <3 ! (José M)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Thu, 07 Oct 2021 10:47:36 +0200
+
+yunohost-admin (4.3.1.1) testing; urgency=low
+
+  - [enh] Handle 'visible' question property in app install forms ([#404](https://github.com/YunoHost/yunohost-admin/pull/404))
+  - [enh] Optimizations for waiting modal messages and AppCatalog cards rendering ([#406](https://github.com/YunoHost/yunohost-admin/pull/406))
+  - [enh] Support github-independent repo urls and/or pointing to specific branches ([#407](https://github.com/YunoHost/yunohost-admin/pull/407))
+  - [i18n] Translations updated for French, Galician, Ukrainian
+
+  Thanks to all contributors <3 ! (axolotle, José M, ppr, Tymofii-Lytvynenko)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Mon, 04 Oct 2021 01:31:10 +0200
+
+yunohost-admin (4.3.1) testing; urgency=low
+
+  - [fix] app install: choice questions broken (64ae24fa)
+  - [fix] dns push: simplify callback / fix ux message issue ([#403](https://github.com/YunoHost/yunohost-admin/pull/403))
+  - [fix] app install: broken when missing 'ask' property ([#402](https://github.com/YunoHost/yunohost-admin/pull/402))
+  - [fix] Unable to import user from csv anymore ([#401](https://github.com/YunoHost/yunohost-admin/pull/401))
+  - [mod] ui/ux: Make logs unselectable to force people clicking the damn share button >_> ([#400](https://github.com/YunoHost/yunohost-admin/pull/400))
+  - [enh] i18n: add 3 plural forms for now for some translation keys ([#397](https://github.com/YunoHost/yunohost-admin/pull/397))
+  - [i18n] Translations updated for French, Galician, Indonesian, Ukrainian
+
+  Thanks to all contributors <3 ! (axolotle, Eauchat, Éric Gaspar, José M, liimee, ljf, Tymofii-Lytvynenko)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Wed, 29 Sep 2021 22:31:28 +0200
+
+yunohost-admin (4.3.0.1) testing; urgency=low
+
+  - Fix build (thanks axolotle <3) (0c4b7d1)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Mon, 20 Sep 2021 00:51:45 +0200
+
+yunohost-admin (4.3.0) testing; urgency=low
+
+  - [fix] New auth mecanism require to pass credentials as arg instead of password (63524be)
+  - [fix] Prevent browser from suggesting saved password on user password change form ([#329](https://github.com/YunoHost/yunohost-admin/pull/329))
+  - [enh] Filter by groups ([#378](https://github.com/YunoHost/yunohost-admin/pull/378))
+  - [enh] Import users by CSV file + Upload file management ([#357](https://github.com/YunoHost/yunohost-admin/pull/357))
+  - [enh] Add simplified breadcrumb as document title ([#393](https://github.com/YunoHost/yunohost-admin/pull/393))
+  - [enh] New app config panel ([#366](https://github.com/YunoHost/yunohost-admin/pull/366))
+  - [enh] Add domain config panel + registrar and auto DNS configuration mecanism ([#396](https://github.com/YunoHost/yunohost-admin/pull/396))
+  - [i18n] pluralized strings ([#395](https://github.com/YunoHost/yunohost-admin/pull/395))
+  - [i18n] Update supported locales ([#389](https://github.com/YunoHost/yunohost-admin/pull/389))
+  - [i18n] Translations updated for Arabic, Catalan, Chinese (Simplified), Czech, Dutch, Esperanto, French, Galician, German, Hindi, Indonesian, Italian, Kurdish (Central), Macedonian, Persian, Portuguese, Spanish, Ukrainian
+
+  Thanks to all contributors <3 ! (axolotle, Christian Wehrli, Daniel, Éric Gaspar, JocelynDelalande, José M, liimee, ljf, Parviz Homayun, possy eater, ppr, saptrishi das biswas, Tymofii-Lytvynenko)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Sun, 19 Sep 2021 23:49:02 +0200
+>>>>>>> dev
+
 yunohost-admin (4.2.5) stable; urgency=low
 
   - [fix] user password change not working properly (c26c4c9)
