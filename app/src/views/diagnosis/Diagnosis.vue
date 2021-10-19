@@ -201,7 +201,7 @@ export default {
     },
 
     shareLogs () {
-      api.get('diagnosis/show?share').then(({ url }) => {
+      api.get('diagnosis?share').then(({ url }) => {
         window.open(url, '_blank')
       })
     }
