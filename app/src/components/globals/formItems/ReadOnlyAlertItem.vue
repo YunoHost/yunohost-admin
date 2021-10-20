@@ -1,6 +1,6 @@
 <template>
-  <b-alert :variant="type" show>
-    <icon :iname="icon_" />
+  <b-alert class="d-flex" :variant="type" show>
+    <icon :iname="icon_" class="mr-1 mt-1" />
     <vue-showdown :markdown="label" flavor="github"
                   tag="span" class="markdown"
     />
@@ -33,9 +33,6 @@ export default {
 </script>
 
 <style lang="scss">
-.icon + span.markdown > *:first-child {
-  display: inline-block;
-}
 .alert p:last-child {
   margin-bottom: 0;
 }
