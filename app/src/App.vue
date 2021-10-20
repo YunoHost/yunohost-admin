@@ -144,6 +144,11 @@ export default {
     if (today.getDate() === 1 && today.getMonth() + 1 === 4) {
       this.$store.commit('SET_SPINNER', 'magikarp')
     }
+
+    // Halloween easter egg ;)
+    if (today.getDate() === 31 && today.getMonth() + 1 === 10) {
+      this.$store.commit('SET_SPINNER', 'spookycat')
+    }
   }
 }
 </script>

@@ -103,5 +103,19 @@ export default {
       99% { transform: scale(-1, 1); margin-left: 0;}
     }
   }
+
+  &.spookycat {
+    height: 40px;
+    width: 65px;
+    background-image: url('../../assets/spinners/spookycat.gif');
+    animation-name: back-and-forth-spookycat;
+
+    @keyframes back-and-forth-spookycat {
+      0%, 100% { transform: scale(1, 1); margin-left: 0; }
+      49% { transform: scale(1, 1); margin-left: calc(100% - 100px);}
+      50% { transform: scale(-1, 1); margin-left: calc(100% - 100px);}
+      99% { transform: scale(-1, 1); margin-left: 0;}
+    }
+  }
 }
 </style>
