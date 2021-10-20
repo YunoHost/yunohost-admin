@@ -317,7 +317,10 @@
         "domains": {
             "add": "Gehitu '{name}' domeinua",
             "delete": "Ezabatu '{name}' domeinua",
-            "install_LE": "Instalatu '{name}'(r)entzako ziurtagiria"
+            "install_LE": "Instalatu '{name}'(r)entzako ziurtagiria",
+            "manual_renew_LE": "Berriztu '{name}'(r)entzako zirutagiria",
+            "push_dns_changes": "Bidali '{name}' DNS ezarpenak erregistro-enpresara",
+            "regen_selfsigned": "Berriztu norberak sinatutako ziurtagiria '{name}'(r)entzat"
         },
         "adminpw": "Aldatu administrazio pasahitza"
     },
