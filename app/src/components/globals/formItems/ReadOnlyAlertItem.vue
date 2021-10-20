@@ -14,9 +14,9 @@ export default {
   data () {
     const icons = {
       success: 'thumbs-up',
-      info: 'info',
+      info: 'info-circle',
       warning: 'warning',
-      danger: 'ban'
+      danger: 'times'
       }
     return {
       icon_: (this.icon) ? this.icon : icons[this.type]
