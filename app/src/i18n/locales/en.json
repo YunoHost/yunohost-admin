@@ -177,7 +177,7 @@
     "error_modify_something": "You should modify something",
     "error_server_unexpected": "Unexpected server error",
     "error_connection_interrupted": "The server closed the connection instead of answering it. Has nginx or the yunohost-api been restarted or stopped for some reason?",
-    "everything_good": "Everything good!",
+    "everything_good": "Everything okay!",
     "experimental": "Experimental",
     "experimental_warning": "Warning: this feature is experimental and not considered stable, you shouldn't be using it except if you know what you are doing.",
     "firewall": "Firewall",
