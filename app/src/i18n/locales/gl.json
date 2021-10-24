@@ -286,7 +286,7 @@
     "local_archives": "Arquivos locais",
     "license": "Licenza",
     "last_ran": "Última execución:",
-    "label_for_manifestname": "Etiqueta para {name}",
+    "label_for_manifestname": "Etiqueta para {name} (nome mostrado no portal da usuaria)",
     "label": "Etiqueta",
     "items_verbose_items_left": "Faltan {items}. | Falta 1 {items}. | Faltan {items}.",
     "items_verbose_count": "Hai {items}. | Hai 1 {items}. | Hai {items}.",
