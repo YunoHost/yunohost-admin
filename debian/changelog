@@ -1,3 +1,9 @@
+yunohost-admin (4.2.5.1) stable; urgency=low
+
+  - [enh] Spooky easter egg ;) (43611ede)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Sun, 24 Oct 2021 23:39:41 +0200
+
 yunohost-admin (4.2.5) stable; urgency=low
 
   - [fix] user password change not working properly (c26c4c9)
