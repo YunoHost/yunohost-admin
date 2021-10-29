@@ -145,8 +145,8 @@
     "dns": "DNS",
     "domain_default_longdesc": "Das ist Ihre Standard-Domain.",
     "domain_delete_longdesc": "Domain löschen",
-    "domain_dns_config": "DNS Konfiguration",
-    "domain_dns_longdesc": "DNS Konfiguration anzeigen",
+    "domain_dns_config": "DNS-Konfiguration",
+    "domain_dns_longdesc": "DNS-Konfiguration anzeigen",
     "domain_visit": "Besuchen",
     "domain_visit_url": "Besuche {url}",
     "error_server_unexpected": "Unerwarteter Serverfehler",
@@ -483,7 +483,8 @@
             "manual_renew_LE": "Erneuere das Zertifikat für '{name}'",
             "install_LE": "Installiere das Zertifikat für '{name}'",
             "delete": "Lösche die Domäne '{name}'",
-            "update_config": "Die Konfiguration '{name}' aktualisieren"
+            "update_config": "Die Konfiguration '{name}' aktualisieren",
+            "push_dns_changes": "Propagiere die DNS-Einträge zu Registrar für '{name}'"
         },
         "diagnosis": {
             "unignore": {
