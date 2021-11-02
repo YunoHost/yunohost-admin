@@ -255,7 +255,8 @@
             "pending": "正在进行中",
             "error": "失败"
         },
-        "processing": "服务器正在处理这个动作..."
+        "processing": "服务器正在处理这个动作...",
+        "partial_logs": "[...] (在历史信息中查看全部日志)"
     },
     "ignored": "{count}个被忽略",
     "items": {
@@ -506,7 +507,7 @@
     "manually_renew_letsencrypt_message": "证书将在有效期的最后15天自动更新。 您可以根据需要手动续订。（不建议）。",
     "install_letsencrypt_cert": "安装“Let's Encrypt”证书",
     "domain_not_eligible_for_ACME": "该域似乎尚未准备好安装“Let‘s Encrypt”证书。 请检查您的DNS配置和HTTP服务器可达性， 诊断页面<a href='#/diagnosis'> </a>中的“ DNS记录”和“ Web”部分可以帮助您了解配置错误的内容。",
-    "domain_is_eligible_for_ACME": "该域似乎已正确配置为“Let's Encrypt”证书！",
+    "domain_is_eligible_for_ACME": "该域似乎已经做好准备配置为“Let's Encrypt”证书！",
     "validity": "有效性",
     "certificate_authority": "认证机构",
     "certificate_status": "证书状态",
@@ -534,5 +535,26 @@
     "items_verbose_count": "有 {items}。",
     "hook_data_xmpp_desc": "空间和用户配置，文件上传",
     "confirm_group_add_access_permission": "您确定要授予{perm}对{name}的访问权限吗？ 如果{name}恰好是恶意者，则这种访问会大大增加攻击面。 仅当您信任此人/组时，才应这样做。",
-    "app_state_working_explanation": "此应用程序的维护者宣布它为“有效”。这意味着它应该是可用的（请参阅应用程序级别），但不一定经过同行审查，它可能仍然包含问题或未与YunoHost完全集成。"
+    "app_state_working_explanation": "此应用程序的维护者宣布它为“有效”。这意味着它应该是可用的（请参阅应用程序级别），但不一定经过同行审查，它可能仍然包含问题或未与YunoHost完全集成。",
+    "domain": {
+        "config": {
+            "edit": "编辑域配置",
+            "title": "域配置"
+        },
+        "dns": {
+            "push_force_confirm": "您确定要强制更改所有建议的dns记录吗？请注意，它可能会覆盖您或您的注册商设置的手动或重要的默认记录。",
+            "push_force_warning": "看起来 YunoHost 设置的一些 DNS 记录已经在注册商配置中。如果您知道自己在做什么，则可以使用覆盖选项。",
+            "auto_config": "自动DNS记录配置",
+            "auto_config_ignored": "忽略，除非您选中覆盖选项，否则不会被 YunoHost 更改",
+            "auto_config_ok": "自动配置好像没问题！",
+            "auto_config_zone": "当前DNS区域",
+            "edit": "编辑DNS配置",
+            "info": "自动配置DNS记录是一项实验性功能。<br>在从这里推送记录之前，请考虑从您的 DNS 注册商界面保存您当前的 DNS 区域。",
+            "manual_config": "手动配置的建议DNS记录",
+            "push": "更改注册商的DNS记录",
+            "push_force": "覆盖现有记录"
+        }
+    },
+    "domain_dns_push_managed_in_parent_domain": "自动DNS记录功能在父域 <a href='#/domains/{parent_domain}/dns'>{parent_domain}</a> 中管理。",
+    "domain_dns_push_failed_to_authenticate": "无法在注册商的 API 上进行身份验证。很可能<a href='#/domains/{domain}/config'>凭据</a>不正确？(Error: {error})"
 }
