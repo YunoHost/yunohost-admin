@@ -1,3 +1,13 @@
+yunohost-admin (4.3.1.5) testing; urgency=low
+
+  - [fix] Improve/fix display of icons in markdown alert boxes in config panels (6571b6a0, 5ceae3e1)
+  - [enh] Add spooky easter egg ;) ([#411](https://github.com/YunoHost/yunohost-admin/pull/411))
+  - [i18n] Translations updated for Basque, Chinese (Simplified), French, Galician, German, Occitan, Portuguese, Russian, Slovenian, Ukrainian
+
+  Thanks to all contributors <3 ! (Christian Wehrli, José M, Jurij Podgoršek, mifegui, ppr, punkrockgirl, Quentí, Semen Turchikhin, Tymofii-Lytvynenko, yahoo～～)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Wed, 03 Nov 2021 18:44:12 +0100
+
 yunohost-admin (4.3.1.4) testing; urgency=low
 
   - [fix] Route for diagnosis share was incorrect (804488ab)
