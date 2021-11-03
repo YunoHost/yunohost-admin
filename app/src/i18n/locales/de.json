@@ -145,8 +145,8 @@
     "dns": "DNS",
     "domain_default_longdesc": "Das ist Ihre Standard-Domain.",
     "domain_delete_longdesc": "Domain löschen",
-    "domain_dns_config": "DNS Konfiguration",
-    "domain_dns_longdesc": "DNS Konfiguration anzeigen",
+    "domain_dns_config": "DNS-Konfiguration",
+    "domain_dns_longdesc": "DNS-Konfiguration anzeigen",
     "domain_visit": "Besuchen",
     "domain_visit_url": "Besuche {url}",
     "error_server_unexpected": "Unerwarteter Serverfehler",
@@ -372,7 +372,8 @@
         "groupname": "Mein Gruppenname",
         "lastname": "Mustermann",
         "firstname": "Max",
-        "username": "maxmustermann"
+        "username": "maxmustermann",
+        "file": "Wählen Sie eine Datei aus oder fügen Sie sie per Drag and Drop ein"
     },
     "perform": "Ausführen",
     "migrations_disclaimer_not_checked": "Für diese Migration müssen Sie den Haftungsausschluss bestätigen, bevor Sie sie ausführen.",
@@ -418,7 +419,10 @@
         "alphalownum_": "Der Wert darf nur aus alphanumerischen Kleinbuchstaben und Unterstrichen bestehen.",
         "alpha": "Der Wert darf nur aus alphabetischen Zeichen bestehen.",
         "remote": "{message}",
-        "pattern": "{type}"
+        "pattern": "{type}",
+        "invalid_form": "Das Formular enthält Fehler.",
+        "maxValue": "Der Wert muss eine Zahl gleich oder kleiner als {max} sein.",
+        "appRepoUrl": "Die YunoHost-App-Repository-URLs müssen wie folgt geformt sein https://domain.tld/path/to/repo_ynh"
     },
     "footer": {
         "donate": "Spenden",
@@ -449,7 +453,8 @@
             "pending": "In Bearbeitung",
             "error": "Nicht erfolgreich"
         },
-        "processing": "Der Server verarbeitet die Aktion..."
+        "processing": "Der Server verarbeitet die Aktion...",
+        "partial_logs": "[...] (Schauen Sie für vollständige Logs bitte im Verlauf nach)"
     },
     "hook_data_xmpp": "XMPP-Daten",
     "hook_conf_manually_modified_files": "Manuell geänderte Konfigurationsdateien",
@@ -477,7 +482,9 @@
             "regen_selfsigned": "Erneuere das selbstsignierte Zertifikat für '{name}'",
             "manual_renew_LE": "Erneuere das Zertifikat für '{name}'",
             "install_LE": "Installiere das Zertifikat für '{name}'",
-            "delete": "Lösche die Domäne '{name}'"
+            "delete": "Lösche die Domäne '{name}'",
+            "update_config": "Die Konfiguration '{name}' aktualisieren",
+            "push_dns_changes": "Propagiere die DNS-Einträge zu Registrar für '{name}'"
         },
         "diagnosis": {
             "unignore": {
@@ -531,10 +538,33 @@
         "share_logs": "Einen Link für den Log '{name}' erstellten"
     },
     "postinstall": {
-        "force": "Forciere den Post-Install"
+        "force": "Forciere den Post-Install",
+        "title": "Post-Installation"
     },
     "hook_data_xmpp_desc": "Konfiguration für Räume und Benutzer, hochgeladene Dateien",
     "items_verbose_items_left": "Es bleiben {items} übrig.",
     "confirm_group_add_access_permission": "Sind Sie sicher, dass Sie Zugriff auf {perm} an {name} geben wollen? Ein derartiger Zugriff erhöht die Angriffsoberfläche signifikant, wenn {name} boshaft ist. Die sollten dies nur tun, wenn Sie dieser Person/Gruppe VERTRAUEN.",
-    "app_install_parameters": "Installationsparameter"
+    "app_install_parameters": "Installationsparameter",
+    "domain": {
+        "config": {
+            "title": "Domänen-Konfiguration",
+            "edit": "Domänen-Konfiguration bearbeiten"
+        },
+        "dns": {
+            "manual_config": "Empfohlene DNS-Einträge für die manuelle Konfiguration",
+            "push": "Die DNS-Einträge zum Registrar propagieren",
+            "push_force": "Bestehende Einträge überschreiben",
+            "auto_config": "Automatische DNS-Einträge-Konfiguration",
+            "push_force_warning": "Es scheint, als ob einige der von YunoHost vorgeschlagenen DNS-Einträge in der Konfiguration ihres Registrars bereits existieren würden. Sie können die Option zum Überschreiben wählen, wenn Sie wissen, was Sie tun.",
+            "auto_config_ignored": "ignoriert, wird von YunoHost nicht geändert, ausser wenn Sie die Option zum Überschreiben anwählen",
+            "auto_config_ok": "Automatische Konfiguration scheint OK zu sein!",
+            "auto_config_zone": "Aktuelle DNS-Zone",
+            "edit": "DNS-Konfiguration bearbeiten",
+            "info": "Die automatische DNS-Einträge-Konfiguration ist ein experimentelles Feature. <br> Erwägen Sie es, Ihre aktuelle DNS-Konfiguration im Webinterface bei ihrem DNS-Registrar zu sichern, bevor Sie die Einträge von hier aus propagieren.",
+            "push_force_confirm": "Sind Sie sicher, dass Sie die Propagierung aller vorgeschlagenen DNS-Einträge forcieren möchten? Seien Sie sich bewusst, dass dies dazu führen kann, dass es manuelle oder wichtige Default-Einträge, die ihr Registrar definiert hat, überschreiben könnte."
+        }
+    },
+    "domain_dns_push_failed_to_authenticate": "Authentifizierung bei der API des Registrars nicht erfolgreich. Am wahrscheinlichsten ist, dass die <a href='#/domains/{domain}/config'>Zugangsdaten</a> inkorrekt sind? (Fehler: {error})",
+    "domain_dns_push_managed_in_parent_domain": "Die automatische DNS-Einträge-Funktion wird durch die übergeordnete Domäne <a href='#/domains/{parent_domain}/dns'>{parent_domain}</a> verwaltet.",
+    "domain_dns_push_not_applicable": "Die automatische DNS-Einträge-Funktion kann nicht auf die Domäne {domain} angewandt werden, <br> Sie sollten Ihre DNS-Einträge gemäss folgender <a href='https://yunohost.org/dns'>Dokumentation<a href='https://yunohost.org/dns'> und der untenstehend vorgeschlagenen Konfiguration manuell konfigurieren."
 }
