@@ -566,5 +566,17 @@
     },
     "domain_dns_push_failed_to_authenticate": "Authentifizierung bei der API des Registrars nicht erfolgreich. Am wahrscheinlichsten ist, dass die <a href='#/domains/{domain}/config'>Zugangsdaten</a> inkorrekt sind? (Fehler: {error})",
     "domain_dns_push_managed_in_parent_domain": "Die automatische DNS-Einträge-Funktion wird durch die übergeordnete Domäne <a href='#/domains/{parent_domain}/dns'>{parent_domain}</a> verwaltet.",
-    "domain_dns_push_not_applicable": "Die automatische DNS-Einträge-Funktion kann nicht auf die Domäne {domain} angewandt werden, <br> Sie sollten Ihre DNS-Einträge gemäss folgender <a href='https://yunohost.org/dns'>Dokumentation<a href='https://yunohost.org/dns'> und der untenstehend vorgeschlagenen Konfiguration manuell konfigurieren."
+    "domain_dns_push_not_applicable": "Die automatische DNS-Einträge-Funktion kann nicht auf die Domäne {domain} angewandt werden, <br> Sie sollten Ihre DNS-Einträge gemäss folgender <a href='https://yunohost.org/dns'>Dokumentation<a href='https://yunohost.org/dns'> und der untenstehend vorgeschlagenen Konfiguration manuell konfigurieren.",
+    "users_import_delete_desc": "Wenn angewählt, werden alle Benutzer, die nicht in der CSV-Datei enthalten sind, gelöscht (und bereinigt).",
+    "users_import_csv_file_desc": "Die CSV-Datei muss im Format UTF-8 sein und die Spalten Benutzername, Passwort, Gruppen, E-Mail und Quota beinhalten. Für eine Beispiel-CSV-Datei können Sie <a href='/yunohost/api/users/export' target='_BLANK'>Benutzer als CSV-Datei exportieren</a> und die Datei ändern.",
+    "users_import": "Benutzer importieren",
+    "users_export": "Benutzer exportieren",
+    "users_import_csv_file": "CSV-Datei",
+    "users_import_delete": "Nicht gelistete Benutzer löschen",
+    "users_import_update_desc": "Wenn angewählt, werden alle Benutzer, die in der CSV-Datei enthalten sind, mit neuen den Werten aktualisiert",
+    "users_import_delete_others": "Alle nicht gelisteten Benutzer löschen",
+    "yunohost_admin": "YunoHost-Admin",
+    "text_selection_is_disabled": "Textauswahl ist deaktiviert. Wenn Sie diesen Log teilen möchten, teilen Sie bitte den *kompletten* Log, indem Sie den Button 'Logs teilen mit YunoPaste' anklicken. <br/><small>Oder falls Sie wirklich wirklich einen Text auswählen möchten, klicken Sie auf die Tasten:↓↓↑↑.</small>",
+    "users_import_update": "Vorhandene Benutzer aktualisieren",
+    "users_import_confirm_destructive": "Sind Sie sicher, dass Sie die Benutzer, die nicht in diesen Datei enthalten sind, löschen wollen?"
 }
