@@ -359,6 +359,7 @@
     "postinstall_set_password": "Set administration password",
     "previous": "Previous",
     "protocol": "Protocol",
+    "purge_app_data_checkbox": "Remove the data directory associated with the app (this is usually data you uploaded yourself using the app).",
     "readme": "Readme",
     "rerun_diagnosis": "Rerun diagnosis",
     "restore": "Restore",

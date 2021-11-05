@@ -131,7 +131,7 @@
         :label="$t('app_info_uninstall_desc')" label-for="uninstall"
         label-class="font-weight-bold" label-cols-md="4"
       >
-        <b-button @click="uninstall" id="uninstall" variant="danger">
+        <b-button v-b-modal.uninstall-modal id="uninstall" variant="danger">
           <icon iname="trash-o" /> {{ $t('uninstall') }}
         </b-button>
       </b-form-group>
@@ -149,6 +149,18 @@
         </b-button>
       </b-form-group>
     </card>
+
+    <b-modal
+      id="uninstall-modal" :title="$t('confirm_uninstall', { name: id })"
+      header-bg-variant="warning" :body-class="{ 'd-none': purge === null }" body-bg-variant=""
+      @ok="uninstall"
+    >
+      <b-form-group v-if="purge !== null">
+        <b-form-checkbox v-model="purge">
+          {{ $t('purge_app_data_checkbox', { name: id }) }}
+        </b-form-checkbox>
+      </b-form-group>
+    </b-modal>
 
     <template #skeleton>
       <card-info-skeleton :item-count="8" />
@@ -182,7 +194,8 @@ export default {
       ],
       infos: undefined,
       app: undefined,
-      form: undefined
+      form: undefined,
+      purge: null
     }
   },
 
@@ -254,6 +267,7 @@ export default {
         supports_config_panel: app.supports_config_panel,
         permissions
       }
+      this.purge = app.support_purge ? false : null
     },
 
     changeLabel (permName, data) {
@@ -289,12 +303,8 @@ export default {
     },
 
     async uninstall () {
-      const confirmed = await this.$askConfirmation(
-        this.$i18n.t('confirm_uninstall', { name: this.id })
-      )
-      if (!confirmed) return
-
-      api.delete('apps/' + this.id, {}, { key: 'apps.uninstall', name: this.infos.label }).then(() => {
+      const data = this.purge ? { purge: '' } : {}
+      api.delete('apps/' + this.id, data, { key: 'apps.uninstall', name: this.infos.label }).then(() => {
         this.$router.push({ name: 'app-list' })
       })
     }
