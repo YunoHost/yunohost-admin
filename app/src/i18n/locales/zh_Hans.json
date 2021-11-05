@@ -110,7 +110,10 @@
         "alphalownum_": "值必须为小写字母数字和下划线字符。",
         "alpha": "值必须是按字母顺序排列的字符。",
         "remote": "{message}",
-        "pattern": "{type}"
+        "pattern": "{type}",
+        "maxValue": "值必须是等于或小于 {max} 的数字。",
+        "invalid_form": "该表格存在一些错误。",
+        "appRepoUrl": "YunoHost应用程序存储库 URL 应类似于 https://domain.tld/ path /to/repo_ynh"
     },
     "footer": {
         "donate": "赞助",
@@ -317,7 +320,8 @@
     "postinstall_intro_1": "恭喜你！YunoHost已成功安装。",
     "postinstall_domain": "这是链接到YunoHost服务器的第一个域名，也是服务器用户用来访问身份验证门户的域名， 因此，每个人都可以看到它，所以请谨慎选择。",
     "postinstall": {
-        "force": "强制安装后"
+        "force": "强制安装后",
+        "title": "安装后"
     },
     "human_routes": {
         "backups": {
@@ -528,7 +532,8 @@
         "firstname": "John",
         "domain": "my-domain.com",
         "groupname": "我的群组名称",
-        "username": "johndoe"
+        "username": "johndoe",
+        "file": "浏览一个文件或将其拖放"
     },
     "perform": "执行",
     "items_verbose_items_left": "剩下 {items}。",
