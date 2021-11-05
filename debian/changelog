@@ -1,3 +1,12 @@
+yunohost-admin (4.3.2) stable; urgency=low
+
+  - [fix] ugly fix for LazyRenderer bug / weird results on app catalog search ([#413](https://github.com/YunoHost/yunohost-admin/pull/413))
+  - [i18n] Translations updated for Basque
+
+  Thanks to all contributors <3 ! (axolotle, punkrockgirl)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Fri, 05 Nov 2021 02:34:18 +0100
+
 yunohost-admin (4.3.1.5) testing; urgency=low
 
   - [fix] Improve/fix display of icons in markdown alert boxes in config panels (6571b6a0, 5ceae3e1)
