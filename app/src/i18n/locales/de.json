@@ -268,7 +268,7 @@
     },
     "group": "Gruppe",
     "details": "Details",
-    "everything_good": "Alles gut!",
+    "everything_good": "Alles O.K.!",
     "ignore": "Ignorieren",
     "configuration": "Konfiguration",
     "group_explain_all_users": "Dies ist eine spezielle Gruppe, die alle Konten der Benutzer:innen auf diesem Server enthält",
@@ -379,7 +379,7 @@
     "migrations_disclaimer_not_checked": "Für diese Migration müssen Sie den Haftungsausschluss bestätigen, bevor Sie sie ausführen.",
     "migrations_disclaimer_check_message": "Ich habe diesen Haftungsausschluss gelesen und verstanden",
     "mailbox_quota_example": "700M ist eine CD, 4700M ist eine DVD",
-    "items_verbose_count": "Es gibt {items}.",
+    "items_verbose_count": "Es gibt {items}. | Es gibt 1 {items}. | Es gibt {items}.",
     "items": {
         "users": "keine Benutzer:innen | Benutzer:in | {c} Benutzer:innen",
         "services": "keine Dienste | Dienst | {c} Dienste",
@@ -542,7 +542,7 @@
         "title": "Post-Installation"
     },
     "hook_data_xmpp_desc": "Konfiguration für Räume und Benutzer, hochgeladene Dateien",
-    "items_verbose_items_left": "Es bleiben {items} übrig.",
+    "items_verbose_items_left": "Es bleiben {items} übrig. | Es bleibt 1 {items} übrig. | Es bleiben {items} übrig.",
     "confirm_group_add_access_permission": "Sind Sie sicher, dass Sie Zugriff auf {perm} an {name} geben wollen? Ein derartiger Zugriff erhöht die Angriffsoberfläche signifikant, wenn {name} boshaft ist. Die sollten dies nur tun, wenn Sie dieser Person/Gruppe VERTRAUEN.",
     "app_install_parameters": "Installationsparameter",
     "domain": {
