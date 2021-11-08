@@ -438,7 +438,8 @@
             "pending": "In corso",
             "error": "Fallito"
         },
-        "processing": "Il server sta processando la richiesta..."
+        "processing": "Il server sta processando la richiesta...",
+        "partial_logs": "[...] (controlla i log completi nella cronologia)"
     },
     "address": {
         "local_part_description": {
@@ -536,5 +537,24 @@
     "hook_conf_manually_modified_files": "Configurazioni modificate manualmente",
     "hook_conf_ynh_settings": "Configurazioni YunoHost",
     "confirm_group_add_access_permission": "Sei sicuro di voler concedere l'accesso {perm} a {name}? Questo accesso aumenta significativamente la superficie di attacco nel caso {name} fosse una persona malevola. Dovresti effettuare quest'azione solo se hai FIDUCIA in questa persona/gruppo.",
-    "app_install_parameters": "Parametri installazione"
+    "app_install_parameters": "Parametri installazione",
+    "domain": {
+        "config": {
+            "edit": "Modifica la configurazione del dominio",
+            "title": "Configurazione del dominio"
+        },
+        "dns": {
+            "push": "Invia records DNS al registrar",
+            "push_force": "Sovrascivi records esistenti",
+            "push_force_confirm": "Sei sicuro di voler impostare tutti i records dns suggeriti? Sii consapevole che potresti sovrascrivere records predefiniti importanti o impostati manualmente da te o dal tuo registrar.",
+            "auto_config": "Configurazione automatica dei records DNS",
+            "auto_config_ignored": "ignorato, non verrà cambiato da YunoHost a meno che non selezioni l'opzione di sovrascrittura",
+            "auto_config_ok": "La configurazione automatica sembra essere apposto!",
+            "auto_config_zone": "Zona DNS corrente",
+            "edit": "Modifica la configurazione DNS",
+            "manual_config": "Records DNS suggeriti per la configurazione manuale",
+            "info": "La configurazione automatica dei records DNS e una funzione sperimentale. <br>Considera il salvataggio della tua zona DNS corrente dall'interfaccia del tuo registrar DNS prima di impostare records da qui.",
+            "push_force_warning": "Sembra che alcuni records DNS che YunoHost avrebbe impostato, sono già presenti nella configurazione del registrar. Puoi usare l'opzione sovrascrivi se sai ciò che stai facendo."
+        }
+    }
 }
