@@ -103,7 +103,6 @@ export default {
     'CONNECT' ({ commit, dispatch }) {
       commit('SET_CONNECTED', true)
       dispatch('GET_YUNOHOST_INFOS')
-      router.push(router.currentRoute.query.redirect || { name: 'home' })
     },
 
     'RESET_CONNECTED' ({ commit }) {

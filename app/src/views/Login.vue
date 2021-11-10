@@ -33,7 +33,8 @@ export default {
   name: 'Login',
 
   props: {
-    skipInstallCheck: { type: Boolean, default: false }
+    skipInstallCheck: { type: Boolean, default: false },
+    forceReload: { type: Boolean, default: false }
   },
 
   data () {
@@ -47,7 +48,13 @@ export default {
 
   methods: {
     login () {
-      this.$store.dispatch('LOGIN', this.password).catch(err => {
+      this.$store.dispatch('LOGIN', this.password).then(() => {
+        if (this.forceReload) {
+          window.location.href = '/yunohost/admin/'
+        } else {
+          this.$router.push(this.$router.currentRoute.query.redirect || { name: 'home' })
+        }
+      }).catch(err => {
         if (err.name !== 'APIUnauthorizedError') throw err
         this.isValid = false
       })
