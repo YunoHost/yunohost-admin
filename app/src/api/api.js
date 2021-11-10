@@ -199,7 +199,7 @@ export default {
    * @param {Number} initialDelay - delay before calling the API for the first time in ms.
    * @return {Promise<undefined|Error>}
    */
-  tryToReconnect ({ attemps = 1, delay = 2000, initialDelay = 0 } = {}) {
+  tryToReconnect ({ attemps = 5, delay = 2000, initialDelay = 0 } = {}) {
     return new Promise((resolve, reject) => {
       const api = this
 

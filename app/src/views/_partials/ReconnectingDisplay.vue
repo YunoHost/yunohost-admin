@@ -56,13 +56,13 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['currentRequest'])
+    ...mapGetters(['reconnecting'])
   },
 
   methods: {
-    tryToReconnect ({ initialDelay = 0 } = {}) {
+    tryToReconnect (initialDelay = 0) {
       this.status = 'reconnecting'
-      api.tryToReconnect({ initialDelay }).then(() => {
+      api.tryToReconnect({ ...this.reconnecting, initialDelay }).then(() => {
         this.status = 'success'
       }).catch(() => {
         this.status = 'failed'
@@ -71,9 +71,8 @@ export default {
   },
 
   created () {
-    const origin = this.currentRequest.humanRouteKey
-    this.origin = ['upgrade.system'].includes(origin) ? origin.replace('.', '_') : 'unknown'
-    this.tryToReconnect({ initialDelay: 2000 })
+    this.origin = this.reconnecting.origin || 'unknown'
+    this.tryToReconnect(this.reconnecting.initialDelay)
   }
 }
 </script>

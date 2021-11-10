@@ -10,7 +10,7 @@ export default {
     connected: localStorage.getItem('connected') === 'true', // Boolean
     yunohost: null, // Object { version, repo }
     waiting: false, // Boolean
-    reconnecting: false, // Boolean
+    reconnecting: null, // null|Object { attemps, delay, initialDelay }
     history: [], // Array of `request`
     requests: [], // Array of `request`
     error: null, // null || request
@@ -32,8 +32,8 @@ export default {
       state.waiting = boolean
     },
 
-    'SET_RECONNECTING' (state, boolean) {
-      state.reconnecting = boolean
+    'SET_RECONNECTING' (state, args) {
+      state.reconnecting = args
     },
 
     'ADD_REQUEST' (state, request) {
@@ -138,8 +138,9 @@ export default {
       return api.get('logout')
     },
 
-    'TRY_TO_RECONNECT' ({ commit, dispatch }) {
-      commit('SET_RECONNECTING', true)
+    'TRY_TO_RECONNECT' ({ commit, dispatch }, args = {}) {
+      // FIXME This is very ugly arguments forwarding, will use proper component way of doing this when switching to Vue 3 (teleport)
+      commit('SET_RECONNECTING', args)
       dispatch('RESET_CONNECTED')
     },
 
