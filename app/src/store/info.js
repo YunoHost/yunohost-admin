@@ -1,7 +1,7 @@
 import Vue from 'vue'
-import api from '@/api'
 import router from '@/router'
 import i18n from '@/i18n'
+import api from '@/api'
 import { timeout, isObjectLiteral } from '@/helpers/commons'
 
 export default {

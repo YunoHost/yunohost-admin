@@ -3,11 +3,12 @@ import App from './App.vue'
 import BootstrapVue from 'bootstrap-vue'
 import VueShowdown from 'vue-showdown'
 
-import i18n from './i18n'
-import router from './router'
 import store from './store'
+import router from './router'
+import i18n from './i18n'
 
 import { registerGlobalErrorHandlers } from './api'
+import { initDefaultLocales } from './i18n/helpers'
 
 
 Vue.config.productionTip = false
@@ -53,11 +54,13 @@ requireComponent.keys().forEach((fileName) => {
 
 registerGlobalErrorHandlers()
 
+// Load default locales translations files and setup store data
+initDefaultLocales()
 
 const app = new Vue({
-  i18n,
-  router,
   store,
+  router,
+  i18n,
   render: h => h(App)
 })
 
