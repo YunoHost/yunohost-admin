@@ -189,5 +189,34 @@ export default {
   delete (uri, data = {}, humanKey = null, options = {}) {
     if (typeof uri === 'string') return this.fetch('DELETE', uri, data, humanKey, options)
     return store.dispatch('DELETE', { ...uri, data, humanKey, options })
+  },
+
+  /**
+   * Api reconnection helper. Resolve when server is reachable or fail after n attemps
+   *
+   * @param {Number} attemps - number of attemps before rejecting
+   * @param {Number} delay - delay between calls to the API in ms.
+   * @param {Number} initialDelay - delay before calling the API for the first time in ms.
+   * @return {Promise<undefined|Error>}
+   */
+  tryToReconnect ({ attemps = 1, delay = 2000, initialDelay = 0 } = {}) {
+    return new Promise((resolve, reject) => {
+      const api = this
+
+      function reconnect (n) {
+        api.get('logout', {}, { key: 'reconnecting' }).then(resolve).catch(err => {
+          if (err.name === 'APIUnauthorizedError') {
+            resolve()
+          } else if (n < 1) {
+            reject(err)
+          } else {
+            setTimeout(() => reconnect(n - 1), delay)
+          }
+        })
+      }
+
+      if (initialDelay > 0) setTimeout(() => reconnect(attemps), initialDelay)
+      else reconnect(attemps)
+    })
   }
 }

@@ -21,6 +21,15 @@
             "pending": "In progress",
             "success": "Successfully completed",
             "warning": "Successfully completed with errors or alerts"
+        },
+        "reconnecting": {
+          "title": "Trying to communicate with the server...",
+          "failed": "Looks like the server is not responding. You can try to reconnect again or try to run `systemctl restart yunohost-api` thru ssh.",
+          "reason": {
+            "unknown": "Connection with the server has been closed for unknown reasons.",
+            "upgrade_system": "Connection with the server has been closed due to yunohost upgrade. Waiting for the server to be reachable again…"
+          },
+          "success": "The server is now reachable! You can try to login"
         }
     },
     "api_error": {
@@ -363,6 +372,7 @@
     "rerun_diagnosis": "Rerun diagnosis",
     "restore": "Restore",
     "restart": "Restart",
+    "retry": "Retry",
     "human_routes": {
         "adminpw": "Change admin password",
         "apps": {
@@ -422,6 +432,7 @@
         },
         "postinstall": "Run the post-install",
         "reboot": "Reboot the server",
+        "reconnecting": "Reconnecting",
         "services": {
           "restart": "Restart the service '{name}'",
           "start": "Start the service '{name}'",

@@ -10,6 +10,7 @@ export default {
     connected: localStorage.getItem('connected') === 'true', // Boolean
     yunohost: null, // Object { version, repo }
     waiting: false, // Boolean
+    reconnecting: false, // Boolean
     history: [], // Array of `request`
     requests: [], // Array of `request`
     error: null, // null || request
@@ -29,6 +30,10 @@ export default {
 
     'SET_WAITING' (state, boolean) {
       state.waiting = boolean
+    },
+
+    'SET_RECONNECTING' (state, boolean) {
+      state.reconnecting = boolean
     },
 
     'ADD_REQUEST' (state, request) {
@@ -133,6 +138,11 @@ export default {
       return api.get('logout')
     },
 
+    'TRY_TO_RECONNECT' ({ commit, dispatch }) {
+      commit('SET_RECONNECTING', true)
+      dispatch('RESET_CONNECTED')
+    },
+
     'GET_YUNOHOST_INFOS' ({ commit }) {
       return api.get('versions').then(versions => {
         commit('SET_YUNOHOST_INFOS', versions.yunohost)
@@ -144,7 +154,7 @@ export default {
       const { key, ...args } = isObjectLiteral(humanKey) ? humanKey : { key: humanKey }
       const humanRoute = key ? i18n.t('human_routes.' + key, args) : `[${method}] /${uri}`
 
-      let request = { method, uri, humanRoute, initial, status: 'pending' }
+      let request = { method, uri, humanRouteKey: key, humanRoute, initial, status: 'pending' }
       if (websocket) {
         request = { ...request, messages: [], date: Date.now(), warnings: 0, errors: 0 }
         commit('ADD_HISTORY_ACTION', request)
@@ -252,7 +262,7 @@ export default {
 
     'DISMISS_WARNING' ({ commit, state }, request) {
       commit('SET_WAITING', false)
-      delete request.showWarningMessage
+      Vue.delete(request, 'showWarningMessage')
     }
   },
 
@@ -262,6 +272,7 @@ export default {
     yunohost: state => state.yunohost,
     error: state => state.error,
     waiting: state => state.waiting,
+    reconnecting: state => state.reconnecting,
     history: state => state.history,
     lastAction: state => state.history[state.history.length - 1],
     currentRequest: state => {
