@@ -1,3 +1,11 @@
+yunohost-admin (4.3.2.1) stable; urgency=low
+
+  - [i18n] Translations updated for Basque, Chinese (Simplified), Galician, German, Italian
+
+  Thanks to all contributors <3 ! (Christian Wehrli, dagangtie, Flavio Cristoforetti, José M, punkrockgirl, Tommi)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Sun, 14 Nov 2021 23:02:03 +0100
+
 yunohost-admin (4.3.2) stable; urgency=low
 
   - [fix] ugly fix for LazyRenderer bug / weird results on app catalog search ([#413](https://github.com/YunoHost/yunohost-admin/pull/413))
