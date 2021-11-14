@@ -192,7 +192,7 @@
     "group_add_permission": "Додати дозвіл",
     "group_new": "Нова група",
     "group_explain_visitors": "Це спеціальна група, що представляє анонімних відвідувачів",
-    "group_specific_permissions": "Специфічні дозволи користувача",
+    "group_specific_permissions": "Специфічні дозволи користувачів",
     "groups_and_permissions": "Групи та дозволи",
     "groups_and_permissions_manage": "Управління групами та дозволами",
     "permissions": "Дозволи",
