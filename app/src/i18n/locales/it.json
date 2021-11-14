@@ -61,7 +61,7 @@
     "ipv4": "IPv4",
     "ipv6": "IPv6",
     "label": "Etichetta",
-    "label_for_manifestname": "Etichetta per {name}",
+    "label_for_manifestname": "Etichetta per {name} (nome mostrato nel portale utente)",
     "login": "Accedi",
     "logout": "Esci",
     "mailbox_quota_description": "Per esempio, 700M è un CD, 4700M è un DVD.",
@@ -261,7 +261,7 @@
     "app_state_highquality_explanation": "Questa applicazione è ben integrata con YunoHost da almeno un anno a questa parte.",
     "details": "Dettagli",
     "diagnosis_experimental_disclaimer": "Siate consapevoli che la funzione di diagnosi è ancora sperimentale e in fase di perfezionamento, e potrebbe non essere completamente affidabile.",
-    "everything_good": "Tutto bene!",
+    "everything_good": "Tutto ok!",
     "from_to": "da {0} a {1}",
     "configuration": "Configuratione",
     "app_state_working_explanation": "Il manutentore di questa applicazione lo ha dichiarato \"funzionante\". Significa che dovrebbe essere funzionale (c.f. livello di applicazione) ma non è necessariamente sottoposta a peer-reviewing, può ancora contenere problemi o non è pienamente integrata con YunoHost.",
@@ -270,7 +270,8 @@
     "words": {
         "default": "Predefinito",
         "dismiss": "Annulla",
-        "collapse": "Collassa"
+        "collapse": "Collassa",
+        "browse": "Naviga"
     },
     "unmaintained_details": "Questa applicazione non è stata aggiornata da tempo e il mantainer precedente se n'è andato oppure non ha più tempo per manutentarla. Potresti controllare il repository per dare il tuo aiuto",
     "unignore": "Non ignorare più",
@@ -327,7 +328,7 @@
     },
     "tools_power_up": "Il tuo server sembra accessibile, puoi provare a collegarti.",
     "search": {
-        "not_found": "Ci sono {items} che corrispondono ai tuoi criteri.",
+        "not_found": "Ci sono {items} che corrispondono ai tuoi criteri. | C’è un {items} che corrisponde ai tuoi criteri. | Ci sono {items} che corrispondono ai tuoi criteri.",
         "for": "Cerca per {items}..."
     },
     "readme": "Leggimi",
@@ -338,13 +339,14 @@
         "groupname": "Nome del mio gruppo",
         "lastname": "Rossi",
         "firstname": "Mario",
-        "username": "mariorossi"
+        "username": "mariorossi",
+        "file": "Scegli un file o trascinalo qui"
     },
     "perform": "Eseguire",
     "migrations_disclaimer_not_checked": "Questa migrazione necessita della tua accettazione delle condizioni d'utilizzo prima di essere eseguita.",
     "migrations_disclaimer_check_message": "Ho letto e compreso le condizioni d'utilizzo",
     "mailbox_quota_example": "700MB è un CD, 4700M è un DVD",
-    "items_verbose_count": "Ci sono {items}.",
+    "items_verbose_count": "Ci sono {items}. | C’è 1 {items}. | Ci sono {items}.",
     "items": {
         "users": "nessun utente | utente | {c} utenti",
         "services": "nessun servizio | servizio | {c} servizi",
@@ -385,7 +387,10 @@
         "alphalownum_": "Il valore deve contenere solo caratteri alfanumerici minuscoli e underscore.",
         "alpha": "Il valore deve comprendere solo caratteri alfanumerici.",
         "remote": "{message}",
-        "pattern": "{type}"
+        "pattern": "{type}",
+        "maxValue": "Il valore deve essere un numero uguale o minore di {max}.",
+        "invalid_form": "Il modulo contiene alcuni errori.",
+        "appRepoUrl": "Gli URL della repository delle app di YunoHost dovrebbero essere come https://dominio.tld/percorso/alla/repo_ynh"
     },
     "footer": {
         "donate": "Dona",
@@ -498,7 +503,9 @@
             "manual_renew_LE": "Rinnova certificato per '{name}'",
             "install_LE": "Installa certificato per '{name}'",
             "delete": "Elimina dominio '{name}'",
-            "add": "Aggiungi dominio '{name}'"
+            "add": "Aggiungi dominio '{name}'",
+            "push_dns_changes": "Sincronizza i record DNS al registrar per '{name}'",
+            "update_config": "Aggiorna la configurazione di '{name}'"
         },
         "diagnosis": {
             "unignore": {
@@ -529,9 +536,10 @@
         "adminpw": "Cambia password d'amministratore"
     },
     "postinstall": {
-        "force": "Forza il post-install"
+        "force": "Forza il post-install",
+        "title": "Post-installazione"
     },
-    "items_verbose_items_left": "Ci sono {items} oggetti rimasti.",
+    "items_verbose_items_left": "Ci sono {items} oggetti rimasti. | C’è un {items} rimasto | Ci sono {items} rimasti.",
     "hook_data_xmpp_desc": "Configurazioni utenti e stanze, upload file",
     "hook_data_xmpp": "Dati XMPP",
     "hook_conf_manually_modified_files": "Configurazioni modificate manualmente",
@@ -556,5 +564,20 @@
             "info": "La configurazione automatica dei records DNS e una funzione sperimentale. <br>Considera il salvataggio della tua zona DNS corrente dall'interfaccia del tuo registrar DNS prima di impostare records da qui.",
             "push_force_warning": "Sembra che alcuni records DNS che YunoHost avrebbe impostato, sono già presenti nella configurazione del registrar. Puoi usare l'opzione sovrascrivi se sai ciò che stai facendo."
         }
-    }
+    },
+    "users_import_csv_file_desc": "Il file CSV dovrebbe essere in UTF-8 e con le colonne username, password , gruppi, email e quota. Per avere un esempio di un file CSV da importare, puoi <a href='/yunohost/api/users/export' target='_blank'>esportare i tuoi attuali utenti in un file CSV</a> e modificarlo.",
+    "users_import_delete_others": "Elimina utenti non in lista",
+    "domain_dns_push_failed_to_authenticate": "L’autenticazione sull’API del registrar è fallita. Probabilmente, potrebbe essere che le <a href='#/domains/{domain}/config'>credenziali</a> non siano corrette. (Errore: {error})",
+    "domain_dns_push_managed_in_parent_domain": "Il settaggio automatico dei DNS record è gestita nel dominio genitore <a href='#/domains/{parent_domain}/dns'>{parent_domain}</a>.",
+    "users_import_confirm_destructive": "Sei sicurə di voler eliminare gli utenti che non sono presenti in questo file?",
+    "yunohost_admin": "Amministratore di YunoHost",
+    "users_import": "Importa utenti",
+    "users_export": "Esporta utenti",
+    "users_import_csv_file": "File CSV",
+    "users_import_update": "Aggiorna gli utenti esistenti",
+    "users_import_delete": "Elimina gli utenti non in lista",
+    "users_import_update_desc": "Se spuntato, tutti gli utenti contenuti nel file CSV saranno aggiornati con il nuovo valore",
+    "domain_dns_push_not_applicable": "Il settaggio automatico dei record DNS non è applicabile al dominio {domain},<br>Dovresti configurare i tuoi record DNS seguendo la <a href='https://yunohost.org/dns'>documentazione</a> e la configurazione suggerita qui sotto.",
+    "text_selection_is_disabled": "La selezione del testo è disabilitata. Se vuoi condividere questo log, sei pregato di condividere il log *interamente*, tramite il bottone 'condividi con Yunopaste'.<br/><small>Oppure, se vuoi proprio proprio selezionare il testo, premi i tasti: ↓↓↑↑.</small>",
+    "users_import_delete_desc": "Se spuntato, tutti gli utenti esistenti che non sono nel file CSV saranno eliminati (e espulsi)."
 }
