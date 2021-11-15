@@ -1,3 +1,9 @@
+yunohost-admin (4.3.2.3) stable; urgency=low
+
+  Aaaaaand typoed 'testing' instead of 'stable' in previous changelog
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Mon, 15 Nov 2021 18:45:26 +0100
+
 yunohost-admin (4.3.2.2) testing; urgency=low
 
   - [fix] admin password change form: forgot to change password->credentials here (bc6a0830)
