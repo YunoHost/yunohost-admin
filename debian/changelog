@@ -1,3 +1,12 @@
+yunohost-admin (4.3.2.2) testing; urgency=low
+
+  - [fix] admin password change form: forgot to change password->credentials here (bc6a0830)
+  - [i18n] Translations updated for Ukrainian
+
+  Thanks to all contributors <3 ! (Tymofii Lytvynenko)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Mon, 15 Nov 2021 18:45:26 +0100
+
 yunohost-admin (4.3.2.1) stable; urgency=low
 
   - [i18n] Translations updated for Basque, Chinese (Simplified), Galician, German, Italian
