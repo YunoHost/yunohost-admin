@@ -42,7 +42,8 @@
             "pending": "Ve zpracování",
             "error": "Neúspěšné"
         },
-        "processing": "Server zpracovává akci..."
+        "processing": "Server zpracovává akci...",
+        "partial_logs": "[...] (zkontrolujte historii v logách)"
     },
     "app_install_custom_no_manifest": "Soubor manifest.json nenalezen",
     "app_info_uninstall_desc": "Odstranit tuto aplikaci.",
@@ -258,7 +259,7 @@
     "select_none": "Nevybrat nic",
     "select_all": "Vybrat vše",
     "search": {
-        "not_found": "Nalezeny {items} odpovídající vašemu zadání.",
+        "not_found": "Nalezeny {items} odpovídající vašemu zadání. | Nalezena 1 {items} odpovídající vašemu zadání. | Nalezeny {items} odpovídající vašemu zadání.",
         "for": "Hledat {items}..."
     },
     "save": "Uložit",
@@ -389,7 +390,7 @@
     "local_archives": "Lokální zálohy",
     "license": "Licence",
     "last_ran": "Čas posledního spuštění:",
-    "label_for_manifestname": "Název pro {name}",
+    "label_for_manifestname": "Název pro {name} (zobrazuje se v uživatelském portále)",
     "label": "Název",
     "items_verbose_items_left": "Zbývá {items} položek.",
     "items_verbose_count": "Počet položek {items}.",
@@ -497,5 +498,15 @@
     "url": "URL",
     "upnp_enabled": "UPnP je povoleno.",
     "upnp_disabled": "UPnP je zákázáno.",
-    "upnp": "UPnP"
+    "upnp": "UPnP",
+    "domain": {
+        "config": {
+            "edit": "Upravte konfiguraci domény",
+            "title": "Nastavení domény"
+        },
+        "dns": {
+            "auto_config": "Automatické nastavení DNS záznamů",
+            "auto_config_ignored": "ignorováno, nebude upraveno dokud nevyberete položku přepsat"
+        }
+    }
 }
