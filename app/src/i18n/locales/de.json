@@ -264,7 +264,8 @@
     "words": {
         "default": "Vorgabe",
         "collapse": "Zusammenbruch",
-        "dismiss": "Zurückweisen"
+        "dismiss": "Zurückweisen",
+        "browse": "Durchsuchen"
     },
     "group": "Gruppe",
     "details": "Details",
