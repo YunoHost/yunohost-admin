@@ -71,7 +71,7 @@
     "ipv4": "IPv4",
     "ipv6": "IPv6",
     "label": "Label",
-    "label_for_manifestname": "Label für {name}",
+    "label_for_manifestname": "Label für {name} (Name der im Nutzerportal angezeigt wird)",
     "local_archives": "Lokale Archive",
     "login": "Anmelden",
     "logout": "Abmelden",
@@ -362,7 +362,7 @@
     },
     "tools_power_up": "Ihr Server scheint zugänglich zu sein. Sie können jetzt versuchen, sich anzumelden.",
     "search": {
-        "not_found": "Es gibt {items}, die Ihren Auswahlkriterien entsprechen.",
+        "not_found": "Es gibt {items}, die deinen Auswahlkriterien entsprechen. | Es gibt 1 {items}, das deinem Auswahlkriterium entspricht. | Es gibt {items}, die deinen Auswahlkriterien entsprechen.",
         "for": "Suche nach {items} ..."
     },
     "readme": "Readme",
@@ -422,7 +422,7 @@
         "remote": "{message}",
         "pattern": "{type}",
         "invalid_form": "Das Formular enthält Fehler.",
-        "maxValue": "Der Wert muss eine Zahl gleich oder kleiner als {max} sein.",
+        "maxValue": "Der Wert muss eine Zahl sein, die gleich oder kleiner als {max} ist.",
         "appRepoUrl": "Die YunoHost-App-Repository-URLs müssen wie folgt geformt sein https://domain.tld/path/to/repo_ynh"
     },
     "footer": {
@@ -565,9 +565,9 @@
             "push_force_confirm": "Sind Sie sicher, dass Sie die Propagierung aller vorgeschlagenen DNS-Einträge forcieren möchten? Seien Sie sich bewusst, dass dies dazu führen kann, dass es manuelle oder wichtige Default-Einträge, die ihr Registrar definiert hat, überschreiben könnte."
         }
     },
-    "domain_dns_push_failed_to_authenticate": "Authentifizierung bei der API des Registrars nicht erfolgreich. Am wahrscheinlichsten ist, dass die <a href='#/domains/{domain}/config'>Zugangsdaten</a> inkorrekt sind? (Fehler: {error})",
-    "domain_dns_push_managed_in_parent_domain": "Die automatische DNS-Einträge-Funktion wird durch die übergeordnete Domäne <a href='#/domains/{parent_domain}/dns'>{parent_domain}</a> verwaltet.",
-    "domain_dns_push_not_applicable": "Die automatische DNS-Einträge-Funktion kann nicht auf die Domäne {domain} angewandt werden, <br> Sie sollten Ihre DNS-Einträge gemäss folgender <a href='https://yunohost.org/dns'>Dokumentation<a href='https://yunohost.org/dns'> und der untenstehend vorgeschlagenen Konfiguration manuell konfigurieren.",
+    "domain_dns_push_failed_to_authenticate": "Authentifizierung bei der API des Registrars nicht erfolgreich. Höchstwahrscheinlich sind die <a href='#/domains/{domain}/config'>Zugangsdaten</a> inkorrekt. (Fehler: {error})",
+    "domain_dns_push_managed_in_parent_domain": "Die automatische DNS-Konfiguration wird von der übergeordneten Domäne <a href='#/domains/{parent_domain}/dns'>{parent_domain}</a> verwaltet.",
+    "domain_dns_push_not_applicable": "Die automatische DNS-Konfiguration ist nicht auf die Domäne {domain} anwendbar. <br>Konfiguriere die DNS-Einträge, wie in der <a href='https://yunohost.org/dns'>Dokumentation<a href='https://yunohost.org/dns'> beschrieben, mit Hilfe der folgenden vorgeschlagenen Konfiguration manuell.",
     "users_import_delete_desc": "Wenn angewählt, werden alle Benutzer, die nicht in der CSV-Datei enthalten sind, gelöscht (und bereinigt).",
     "users_import_csv_file_desc": "Die CSV-Datei muss im Format UTF-8 sein und die Spalten Benutzername, Passwort, Gruppen, E-Mail und Quota beinhalten. Für eine Beispiel-CSV-Datei können Sie <a href='/yunohost/api/users/export' target='_BLANK'>Benutzer als CSV-Datei exportieren</a> und die Datei ändern.",
     "users_import": "Benutzer importieren",
