@@ -21,6 +21,17 @@
             "pending": "In progress",
             "success": "Successfully completed",
             "warning": "Successfully completed with errors or alerts"
+        },
+        "reconnecting": {
+          "title": "Trying to communicate with the server...",
+          "failed": "Looks like the server is not responding. You can try to reconnect again or try to run `systemctl restart yunohost-api` thru ssh.",
+          "reason": {
+            "unknown": "Connection with the server has been closed for unknown reasons.",
+            "reboot": "Your server is rebooting and will not be reachable for some time. A login prompt will be available as soon as the server is reachable.",
+            "shutdown": "Your server is shutting down and is no longer reachable. Turn it back on and a login prompt will be available as soon as the server is reachable.",
+            "upgrade_system": "Connection with the server has been closed due to yunohost upgrade. Waiting for the server to be reachable again…"
+          },
+          "success": "The server is now reachable! You can try to login"
         }
     },
     "api_error": {
@@ -363,6 +374,7 @@
     "rerun_diagnosis": "Rerun diagnosis",
     "restore": "Restore",
     "restart": "Restart",
+    "retry": "Retry",
     "human_routes": {
         "adminpw": "Change admin password",
         "apps": {
@@ -422,6 +434,7 @@
         },
         "postinstall": "Run the post-install",
         "reboot": "Reboot the server",
+        "reconnecting": "Reconnecting",
         "services": {
           "restart": "Restart the service '{name}'",
           "start": "Start the service '{name}'",
@@ -473,15 +486,10 @@
     "tools_adminpw": "Change administration password",
     "tools_adminpw_current": "Current password",
     "tools_adminpw_current_placeholder": "Enter your current password",
-    "tools_power_up": "Your server seems to be accessible, you can now try to login.",
     "tools_reboot": "Reboot your server",
     "tools_reboot_btn": "Reboot",
-    "tools_reboot_done": "Rebooting...",
-    "tools_rebooting": "Your server is rebooting. To return to the web administration interface you need to wait for your server to be up. You can wait for the login form to show up or check by refreshing this page (F5).",
     "tools_shutdown": "Shutdown your server",
     "tools_shutdown_btn": "Shutdown",
-    "tools_shutdown_done": "Shutting down...",
-    "tools_shuttingdown": "Your server is powering off. As long as your server is off, you won't be able to use the web administration.",
     "tools_shutdown_reboot": "Shutdown/Reboot",
     "tools_webadmin": {
         "language": "Language",

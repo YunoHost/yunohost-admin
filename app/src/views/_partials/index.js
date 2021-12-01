@@ -1,6 +1,7 @@
 export { default as ErrorDisplay } from './ErrorDisplay'
 export { default as WarningDisplay } from './WarningDisplay'
 export { default as WaitingDisplay } from './WaitingDisplay'
+export { default as ReconnectingDisplay } from './ReconnectingDisplay'
 
 export { default as HistoryConsole } from './HistoryConsole'
 export { default as ViewLockOverlay } from './ViewLockOverlay'

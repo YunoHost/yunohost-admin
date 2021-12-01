@@ -13,7 +13,7 @@
       <b-progress-bar variant="secondary" :value="progress.values[2]" striped />
     </b-progress>
     <!-- OR SPINNER -->
-    <div v-else class="custom-spinner my-4" :class="spinner" />
+    <spinner v-else class="my-4" />
 
     <message-list-group
       v-if="hasMessages" :messages="request.messages"
@@ -24,8 +24,6 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-
 import MessageListGroup from '@/components/MessageListGroup'
 
 export default {
@@ -40,8 +38,6 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['spinner']),
-
     hasMessages () {
       return this.request.messages && this.request.messages.length > 0
     },
@@ -57,66 +53,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.custom-spinner {
-  animation: 8s linear infinite;
-  background-repeat: no-repeat;
-
-  &.pacman {
-    height: 24px;
-    width: 24px;
-    background-image: url('../../assets/spinners/pacman.gif');
-    animation-name: back-and-forth-pacman;
-
-    @keyframes back-and-forth-pacman {
-      0%, 100% { transform: scale(1); margin-left: 0; }
-      49% { transform: scale(1); margin-left: calc(100% - 24px);}
-      50% { transform: scale(-1); margin-left: calc(100% - 24px);}
-      99% { transform: scale(-1); margin-left: 0;}
-    }
-  }
-
-  &.magikarp {
-    height: 32px;
-    width: 32px;
-    background-image: url('../../assets/spinners/magikarp.gif');
-    animation-name: back-and-forth-magikarp;
-
-    @keyframes back-and-forth-magikarp {
-      0%, 100% { transform: scale(1, 1); margin-left: 0; }
-      49% { transform: scale(1, 1); margin-left: calc(100% - 32px);}
-      50% { transform: scale(-1, 1); margin-left: calc(100% - 32px);}
-      99% { transform: scale(-1, 1); margin-left: 0;}
-    }
-  }
-
-  &.nyancat {
-    height: 40px;
-    width: 100px;
-    background-image: url('../../assets/spinners/nyancat.gif');
-    animation-name: back-and-forth-nyancat;
-
-    @keyframes back-and-forth-nyancat {
-      0%, 100% { transform: scale(1, 1); margin-left: 0; }
-      49% { transform: scale(1, 1); margin-left: calc(100% - 100px);}
-      50% { transform: scale(-1, 1); margin-left: calc(100% - 100px);}
-      99% { transform: scale(-1, 1); margin-left: 0;}
-    }
-  }
-
-  &.spookycat {
-    height: 40px;
-    width: 65px;
-    background-image: url('../../assets/spinners/spookycat.gif');
-    animation-name: back-and-forth-spookycat;
-
-    @keyframes back-and-forth-spookycat {
-      0%, 100% { transform: scale(1, 1); margin-left: 0; }
-      49% { transform: scale(1, 1); margin-left: calc(100% - 100px);}
-      50% { transform: scale(-1, 1); margin-left: calc(100% - 100px);}
-      99% { transform: scale(-1, 1); margin-left: 0;}
-    }
-  }
-}
-</style>

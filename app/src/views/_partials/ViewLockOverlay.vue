@@ -2,7 +2,7 @@
   <b-overlay
     variant="white" opacity="0.75"
     no-center
-    :show="waiting || error !== null"
+    :show="waiting || reconnecting || error !== null"
   >
     <slot name="default" />
 
@@ -20,7 +20,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { ErrorDisplay, WarningDisplay, WaitingDisplay } from '@/views/_partials'
+import { ErrorDisplay, WarningDisplay, WaitingDisplay, ReconnectingDisplay } from '@/views/_partials'
 import QueryHeader from '@/components/QueryHeader'
 
 export default {
@@ -30,18 +30,22 @@ export default {
     ErrorDisplay,
     WarningDisplay,
     WaitingDisplay,
+    ReconnectingDisplay,
     QueryHeader
   },
 
   computed: {
-    ...mapGetters(['waiting', 'error', 'currentRequest']),
+    ...mapGetters(['waiting', 'reconnecting', 'error', 'currentRequest']),
 
     component () {
-      const { error, currentRequest: request } = this
+      const { error, reconnecting, currentRequest: request } = this
+
       if (error) {
         return { name: 'ErrorDisplay', request: error }
       } else if (request.showWarningMessage) {
         return { name: 'WarningDisplay', request }
+      } else if (reconnecting) {
+        return { name: 'ReconnectingDisplay' }
       } else {
         return { name: 'WaitingDisplay', request }
       }

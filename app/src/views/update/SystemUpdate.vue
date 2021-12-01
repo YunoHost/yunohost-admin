@@ -102,6 +102,9 @@ export default {
         } else if (type === 'apps') {
           this.apps = null
         } else {
+          if (this.system.some(({ name }) => name.includes('yunohost'))) {
+            this.$store.dispatch('TRY_TO_RECONNECT', { attemps: 1, origin: 'upgrade_system', initialDelay: 2000 })
+          }
           this.system = null
         }
       })
