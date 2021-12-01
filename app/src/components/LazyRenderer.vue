@@ -27,8 +27,19 @@ export default {
   mounted () {
     let unrenderTimer
     let renderTimer
+
     this.observer = new IntersectionObserver(entries => {
-      if (entries[0].isIntersecting) {
+      let intersecting = entries[0].isIntersecting
+
+      // Fix for weird bug when typing fast in app search or on slow client.
+      // Intersection is triggered but even if the element is indeed in the viewport,
+      // isIntersecting is `false`, so we have to manually check this…
+      // FIXME Would be great to find out why this is happening
+      if (!intersecting && this.$el.offsetTop < window.innerHeight) {
+        intersecting = true
+      }
+
+      if (intersecting) {
         clearTimeout(unrenderTimer)
         // Show the component after a delay (to avoid rendering while scrolling fast)
         renderTimer = setTimeout(() => {

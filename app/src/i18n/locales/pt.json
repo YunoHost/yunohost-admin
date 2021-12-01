@@ -185,7 +185,7 @@
     "confirm_service_restart": "Tem certeza que deseja reiniciar {name}?",
     "cancel": "Cancelar",
     "items_verbose_items_left": "Faltam {items}.",
-    "items_verbose_count": "Existem {items}.",
+    "items_verbose_count": "Não há {items}. | Existe 1 {item}. | Existem {items}.",
     "items": {
         "users": "nenhum usuário | usuário | {c} usuários",
         "services": "nenhum serviço | serviço | {c} serviços",

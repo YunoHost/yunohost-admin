@@ -4,6 +4,48 @@ yunohost-admin (11.0.0~alpha) unstable; urgency=low
 
  -- Kay0u <pierre@kayou.io>  Mon, 08 Mar 2021 18:04:43 +0100
 
+yunohost-admin (4.3.2.3) stable; urgency=low
+
+  Aaaaaand typoed 'testing' instead of 'stable' in previous changelog
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Mon, 15 Nov 2021 18:45:26 +0100
+
+yunohost-admin (4.3.2.2) testing; urgency=low
+
+  - [fix] admin password change form: forgot to change password->credentials here (bc6a0830)
+  - [i18n] Translations updated for Ukrainian
+
+  Thanks to all contributors <3 ! (Tymofii Lytvynenko)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Mon, 15 Nov 2021 18:45:26 +0100
+
+yunohost-admin (4.3.2.1) stable; urgency=low
+
+  - [i18n] Translations updated for Basque, Chinese (Simplified), Galician, German, Italian
+
+  Thanks to all contributors <3 ! (Christian Wehrli, dagangtie, Flavio Cristoforetti, José M, punkrockgirl, Tommi)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Sun, 14 Nov 2021 23:02:03 +0100
+
+yunohost-admin (4.3.2) stable; urgency=low
+
+  - [fix] ugly fix for LazyRenderer bug / weird results on app catalog search ([#413](https://github.com/YunoHost/yunohost-admin/pull/413))
+  - [i18n] Translations updated for Basque
+
+  Thanks to all contributors <3 ! (axolotle, punkrockgirl)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Fri, 05 Nov 2021 02:34:18 +0100
+
+yunohost-admin (4.3.1.5) testing; urgency=low
+
+  - [fix] Improve/fix display of icons in markdown alert boxes in config panels (6571b6a0, 5ceae3e1)
+  - [enh] Add spooky easter egg ;) ([#411](https://github.com/YunoHost/yunohost-admin/pull/411))
+  - [i18n] Translations updated for Basque, Chinese (Simplified), French, Galician, German, Occitan, Portuguese, Russian, Slovenian, Ukrainian
+
+  Thanks to all contributors <3 ! (Christian Wehrli, José M, Jurij Podgoršek, mifegui, ppr, punkrockgirl, Quentí, Semen Turchikhin, Tymofii-Lytvynenko, yahoo～～)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Wed, 03 Nov 2021 18:44:12 +0100
+
 yunohost-admin (4.3.1.4) testing; urgency=low
 
   - [fix] Route for diagnosis share was incorrect (804488ab)

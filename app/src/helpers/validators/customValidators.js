@@ -34,7 +34,7 @@ const emailForward = value => helpers.withParams(
   }
 )(value)
 
-const appRepoUrl = helpers.regex('appRepoUrl', /^https:\/\/[a-zA-Z0-9-_.]+\/[a-zA-Z0-9-_./]+\/[a-zA-Z0-9-_.]+_ynh(\/?(-\/)?tree\/[a-zA-Z0-9-_.]+)?(\.git)?\/?$/)
+const appRepoUrl = helpers.regex('appRepoUrl', /^https:\/\/[a-zA-Z0-9-_.]+\/[a-zA-Z0-9-_./~]+\/[a-zA-Z0-9-_.]+_ynh(\/?(-\/)?tree\/[a-zA-Z0-9-_.]+)?(\.git)?\/?$/)
 
 const includes = items => item => helpers.withParams(
   { type: 'includes', value: item },

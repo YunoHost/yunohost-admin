@@ -192,7 +192,7 @@
     "group_add_permission": "Додати дозвіл",
     "group_new": "Нова група",
     "group_explain_visitors": "Це спеціальна група, що представляє анонімних відвідувачів",
-    "group_specific_permissions": "Специфічні дозволи користувача",
+    "group_specific_permissions": "Специфічні дозволи користувачів",
     "groups_and_permissions": "Групи та дозволи",
     "groups_and_permissions_manage": "Управління групами та дозволами",
     "permissions": "Дозволи",
@@ -244,7 +244,7 @@
     "items_verbose_count": "Наявно {items}. | Наявний 1 {items}. | Наявно {items}.",
     "items_verbose_items_left": "Лишилося {items}. | Лишився 1 {items}. | Лишилося {items}.",
     "label": "Заголовок",
-    "label_for_manifestname": "Заголовок для {name}",
+    "label_for_manifestname": "Заголовок для {name} (Ім'я, що показується на порталі користувача)",
     "last_ran": "Востаннє запущено:",
     "license": "Ліцензія",
     "local_archives": "Локальні архіви",
@@ -394,7 +394,7 @@
     "running": "Виконується",
     "save": "Зберегти",
     "search": {
-        "for": "Пошук за {items}...",
+        "for": "Пошук {items}...",
         "not_found": "Наявно {items}, що відповідають критеріям. | Наявний {items}, що відповідає критеріям. | Наявно {items}, що відповідають критеріям."
     },
     "select_all": "Вибрати все",
