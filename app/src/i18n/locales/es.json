@@ -332,7 +332,8 @@
             "pending": "En progreso",
             "error": "No se ha podido realizar"
         },
-        "processing": "El servidor está procesando la acción..."
+        "processing": "El servidor está procesando la acción...",
+        "partial_logs": "[...] (comprueba el histórico para un log completo)"
     },
     "address": {
         "local_part_description": {
@@ -387,5 +388,6 @@
         "username": "johndoe",
         "firstname": "John"
     },
-    "hook_conf_ynh_settings": "Configuraciones de YunoHost"
+    "hook_conf_ynh_settings": "Configuraciones de YunoHost",
+    "confirm_group_add_access_permission": "¿Seguro que quieres conceder acceso {perm} a {name}? Este acceso incrementa significantemente la exposición a ataques al sistema si {name} resulta tener malas intenciones. Sólo deberías aprobarlo si CONFÍAS en esa persona/grupo."
 }
