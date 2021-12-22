@@ -509,7 +509,8 @@
         "language": "Idioma",
         "experimental": "Modo experimental",
         "fallback_language": "Idioma alternativo",
-        "cache": "Caché"
+        "cache": "Caché",
+        "experimental_description": "Te da acceso a las características experimentales. Están consideradas como inestables y pueden estropear tu sistema.<br> Actívalas solo si sabes lo que estás haciendo."
     },
     "go_back": "Retroceder",
     "users_import_update_desc": "Selecciona para actualizar todas las cuentas del fichero CSV con los nuevos valores",
@@ -561,7 +562,8 @@
     "postinstall_set_password": "Establece la contraseña de administración",
     "readme": "Léeme",
     "search": {
-        "for": "Busca {items}..."
+        "for": "Busca {items}...",
+        "not_found": "Hay {items} coincidencias con tus criterios. | Hay 1 {items} coincidencia con tus criterios. | Hay {items} coincidencias con tus criterios."
     },
     "tools_power_up": "Tu servidor parece accesible, ahora puedes intentar conectarte.",
     "unknown": "Desconocido",
@@ -573,5 +575,7 @@
     "user_emailforward_add": "Añade una redirección de correo",
     "domain_delete_forbidden_desc": "No puedes eliminar '{domain}' ya que es tu dominio por defecto. Necesitas elegir otro dominio(o <a href='#/domains/add'>añadir uno nuevo</a>) y configurarlo como dominio por defecto antes de poder eliminar este.",
     "domain_dns_push_managed_in_parent_domain": "La configuración automática de los registros DNS es administrada desde el dominio superior <a href='#/domains/{parent_domain}/dns'>{parent_domain}</a>.",
-    "domain_dns_push_not_applicable": "La configuración automática de los registros DNS no puede realizarse en el dominio {domain},<br> Debes configurar manualmente los registros DNS siguiendo la <a href='https://yunohost.org/dns'>documentación</a> y la configuración recomendada aquí debajo."
+    "domain_dns_push_not_applicable": "La configuración automática de los registros DNS no puede realizarse en el dominio {domain},<br> Debes configurar manualmente los registros DNS siguiendo la <a href='https://yunohost.org/dns'>documentación</a> y la configuración recomendada aquí debajo.",
+    "users_import_csv_file_desc": "El fichero CSV debe estar en formato UTF-8, con las columnas cuenta, contraseña, grupos, correo y cuota. Para un ejemplo de importación de fichero CSV, puedes <a href='/yunohost/api/users/export' target='_BLANK'>exportar las cuentas en un fichero CSV</a> y modificar el fichero.",
+    "text_selection_is_disabled": "La selección de texto esta desactivada. Si quieres compartir este registro, por favor comparte el registro completo mediante el botón 'Compartir con Yunopaste'.<br/><small>O si realmente quieres seleccionar el texto, presiona las teclas: ↓↓↑↑.</small>"
 }
