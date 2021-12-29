@@ -1,3 +1,12 @@
+yunohost-admin (4.3.3) stable; urgency=low
+
+  - [fix] Improve app repo url regex, may contain tildes (99ffd7ca)
+  - [i18n] Translations updated for Czech, German, Russian, Spanish, Ukrainian
+
+  Thanks to all contributors <3 ! (Christian Wehrli, Ilya, Juan Alberto González, Radek S, Tymofii Lytvynenko, Valentin von Guttenberg)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Wed, 29 Dec 2021 01:10:12 +0100
+
 yunohost-admin (4.3.2.3) stable; urgency=low
 
   Aaaaaand typoed 'testing' instead of 'stable' in previous changelog
