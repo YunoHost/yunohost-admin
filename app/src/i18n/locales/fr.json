@@ -26,7 +26,7 @@
     "confirm_app_default": "Voulez-vous vraiment définir cette application par défaut ?",
     "confirm_change_maindomain": "Voulez-vous vraiment changer le domaine principal ?",
     "confirm_delete": "Voulez-vous vraiment supprimer {name} ?",
-    "confirm_install_custom_app": "ATTENTION ! L’installation d’applications tierces peut compromettre l’intégrité et la sécurité de votre système. Vous ne devriez probablement PAS l’installer si vous ne savez pas ce que vous faites. Prenez-vous ce risque ?",
+    "confirm_install_custom_app": "AVERTISSEMENT ! L'installation d'applications tierces peut compromettre l'intégrité et la sécurité de votre système. Vous ne devriez probablement PAS l'installer si vous ne savez pas ce que vous faites. Êtes-vous prêt à prendre ce risque ?",
     "confirm_install_domain_root": "Êtes-vous sûr de vouloir installer cette application sur '/' ? Vous ne pourrez installer aucune autre application sur {domain}",
     "confirm_postinstall": "Vous êtes sur le point de lancer le processus de post-installation sur le domaine {domain}. Cela peut prendre du temps, *n'interrompez pas l'opération avant la fin*.",
     "confirm_restore": "Voulez-vous vraiment restaurer {name} ?",
