@@ -26,7 +26,7 @@
     "confirm_change_maindomain": "¿Está seguro de que desea cambiar el dominio principal?",
     "confirm_delete": "¿Está seguro que desea eliminar {name}?",
     "confirm_install_custom_app": "¡AVISO! La instalación de aplicaciones de terceros puede comprometer la seguridad e integridad de su sistema. Probablemente debería NO instalarla salvo que sepa lo que está haciendo. ¿Está dispuesto a correr el riesgo?",
-    "confirm_install_domain_root": "No podrá instalar otra aplicación en {domain}. ¿Desea continuar?",
+    "confirm_install_domain_root": "¿Seguro que quieres instalar esta aplicación en '/'? No podrás instalar otra aplicación en {domain}",
     "confirm_postinstall": "Está a punto de lanzar el proceso de post-instalación para el dominio {domain}. Puede tardar unos pocos minutos, *no interrumpa la operación*.",
     "confirm_restore": "¿Está seguro que desea restaurar {name}?",
     "confirm_uninstall": "¿Está seguro que desea desinstalar {name}?",
@@ -34,7 +34,7 @@
     "created_at": "Creado en",
     "custom_app_install": "Instalar aplicación personalizada",
     "custom_app_url_only_github": "Por ahora solo desde GitHub",
-    "delete": "Suprimir",
+    "delete": "Eliminar",
     "description": "Descripción",
     "diagnosis": "Diagnóstico",
     "disable": "Inhabilitar",
@@ -83,7 +83,7 @@
     "ipv4": "IPv4",
     "ipv6": "IPv6",
     "label": "Etiqueta",
-    "label_for_manifestname": "Etiqueta para {name}",
+    "label_for_manifestname": "Etiqueta para {name} (nombre mostrado en el portal de cuentas)",
     "local_archives": "Archivos locales",
     "login": "Iniciar sesión",
     "logout": "Cerrar sesión",
@@ -205,7 +205,7 @@
     "confirm_install_app_lowquality": "Aviso: esta aplicación puede funcionar pero no está bien integrada en YunoHost. Algunas características como inicio de sesión único y copia de seguridad/restauración podría no estar disponible.",
     "confirm_install_app_inprogress": "¡AVISO! ¡Esta aplicación es aún experimental (puede que ni funcione) y es probable que rompa su sistema! Seguramente debería NO instalarla salvo que sepa lo que está haciendo. ¿Está dispuesto a correr ese riesgo?",
     "error_connection_interrupted": "El servidor cerró la conexión en vez de responder. ¿Ha sido reiniciado o parado nginx o yunohost-api por cualquier motivo?",
-    "experimental_warning": "Aviso: esta característica es experimental y no se considera estable, no debería usarla salvo que sepa lo que está haciendo.",
+    "experimental_warning": "Aviso: esta característica es experimental y no se considera estable, no deberías usarla salvo que sepas lo que estás haciendo.",
     "good_practices_about_admin_password": "Está a punto de establecer una nueva contraseña de administrador. La contraseña debería de ser de al menos 8 caracteres, aunque es una buena práctica usar una contraseña más larga (es decir, una frase de paso) y/o usar varias clases de caracteres (mayúsculas, minúsculas, dígitos y caracteres especiales).",
     "good_practices_about_user_password": "Está a punto de establecer una nueva contraseña de usuario. La contraseña debería de ser de al menos 8 caracteres, aunque es una buena práctica usar una contraseña más larga (es decir, una frase de paso) y/o usar varias clases de caracteres (mayúsculas, minúsculas, dígitos y caracteres especiales).",
     "app_state_notworking_explanation": "El mantenedor de esta aplicación declaró que «no funciona». ¡ROMPERÁ SU SISTEMA!",
@@ -276,14 +276,16 @@
     "rerun_diagnosis": "Repetir diagnóstico",
     "details": "Detalles",
     "diagnosis_experimental_disclaimer": "Tenga en cuenta que la característica de diagnóstico es aún experimental y está siendo mejorada y puede no ser totalmente fiable.",
-    "everything_good": "¡Todo bien!",
+    "everything_good": "¡Todo está bien!",
     "ignore": "Ignorar",
     "ignored": "{count} ignorado",
     "last_ran": "Ejecutado por última vez:",
     "unignore": "Dejar de ignorar",
     "warnings": "{count} avisos",
     "words": {
-        "default": "Predeterminado"
+        "default": "Predeterminado",
+        "collapse": "Colapsar",
+        "browse": "Navegar"
     },
     "all": "Todo",
     "diagnosis_first_run": "El diagnóstico intentará identificar los errores comunes en diferentes aspectos del servidor para asegurar que todo funcione de la mejor manera. No se asuste si observa algunos errores justo después de la configuracion del servidor: estos le ayudarán a identificar los incidentes y le guiarán para corregirlos. El diagnostico correrá 2 veces al día y enviará un correo electrónico al administrador si encuentra incidentes.",
@@ -297,12 +299,12 @@
     "confirm_service_restart": "¿Estás seguro de que quieres reiniciar {name} ?",
     "group_explain_visitors_needed_for_external_client": "Tenga cuidado de que necesita mantener algunas aplicaciones permitidas a los visitantes si tiene la intención de usarlas con clientes externos. Por ejemplo, este es el caso de Nextcloud si desea utilizar un cliente de sincronización en su teléfono inteligente o computadora de escritorio.",
     "issues": "{count} problemas",
-    "unmaintained_details": "Esta aplicación no se ha actualizado durante bastante tiempo y el responsable anterior se ha ido o no tiene tiempo para mantenerla. No dude en consultar el repositorio de aplicaciones para brindar su ayuda",
+    "unmaintained_details": "Esta aplicación no ha sido actualizada durante mucho tiempo y la persona responsable se ha ido o no tiene tiempo para mantener la aplicación. Te invitamos a consultar el repositorio de la aplicación para ayudarnos",
     "restart": "Reiniciar",
     "diagnosis_explanation": "La funcionalidad de diagnóstico intentará identificar problemas comunes en varios aspectos del servidor para asegurarse de que todo vaya bien. El diagnóstico se ejecuta automáticamente dos veces al día y un correo electrónico se envía al administrador si se encuentra algún problema. Note que algunas pruebas pueden ser irrelevantes si no desea utilizar ciertas funcionalidades (por ejemplo XMPP) o podrían fallar si tiene una configuración compleja. En esos casos, si sabe lo que está haciendo, no hay problema con ignorar los errores o alertas correspondientes.",
     "tip_about_user_email": "Los usuarios son creados con una dirección de correo electrónico (y cuenta XMPP) con el formato username@domain.ltd. Aliases de correo y reenvíos de correo pueden ser agregados luego por el administrador o el usuario.",
     "permission_show_tile_enabled": "Mostrar el tile en el portal de usuario",
-    "permission_main": "Permiso principal",
+    "permission_main": "Etiqueta principal",
     "permission_corresponding_url": "URL Correspondiente",
     "pending_migrations": "Hay algunas migraciones esperando ejecutar. Por favor vaya a <a href='#/tools/migrations'>Herramientas > Migraciones</a> para verlas.",
     "logs_suboperations": "Sub-operaciones",
@@ -311,7 +313,7 @@
     "cancel": "Cancelar",
     "api_errors_titles": {
         "APIConnexionError": "YunoHost ha encontrado un error de conexión",
-        "APINotRespondingError": "La API de YunoHost no está respondiendo",
+        "APINotRespondingError": "La API de YunoHost no responde",
         "APINotFoundError": "La API de YunoHost no pudo encontrar una ruta",
         "APIInternalError": "YunoHost ha encontrado un error interno",
         "APIBadRequestError": "Yunohost ha econtrado un error",
@@ -319,7 +321,7 @@
     },
     "api_error": {
         "view_error": "Ver error",
-        "sorry": "Lo siento mucho por eso.",
+        "sorry": "Lo sentimos mucho.",
         "server_said": "Mientras se procesaba la acción, el servidor informó:",
         "info": "La siguiente información puede ser útil para la persona que le esté ayudando:",
         "help": "Debes buscar ayuda en <a href=\"https://forum.yunohost.org/\">el foro</a> o en <a href=\"https://chat.yunohost.org/\">el chat</a> para solucionar la situación. También puedes informar del fallo en <a href=\"https://github.com/YunoHost/issues\">el bugtracker</a>.",
@@ -332,7 +334,8 @@
             "pending": "En progreso",
             "error": "No se ha podido realizar"
         },
-        "processing": "El servidor está procesando la acción..."
+        "processing": "El servidor está procesando la acción...",
+        "partial_logs": "[...] (comprueba el histórico para un log completo)"
     },
     "address": {
         "local_part_description": {
@@ -350,7 +353,20 @@
         "alphalownum_": "El valor debe ser alfanumérico en minúsculas y solo caracteres subrayados.",
         "alpha": "El valor debe ser solo caracteres alfabéticos.",
         "remote": "{message}",
-        "pattern": "{type}"
+        "pattern": "{type}",
+        "maxValue": "El valor debe ser numérico e igual o menor que {max}.",
+        "invalid_form": "El formulario contiene errores.",
+        "name": "Los nombres no deben incluir ningún carácter especial salvo <code> ,.'-</code>",
+        "minValue": "El valor debe ser numérico e igual o mayor que {min}.",
+        "notInUsers": "El usuario '{value}' ya existe.",
+        "number": "El valor debe ser numérico.",
+        "passwordLenght": "La contraseña debe ser al menos de 8 caracteres de longitud.",
+        "passwordMatch": "Las contraseñas no coinciden.",
+        "required": "El campo es obligatorio.",
+        "dynDomain": "Nombre de dominio incorrecto. Solo debe contener caracteres alfanuméricos en minúsculas y guiones",
+        "appRepoUrl": "Las URL de repositorios de aplicaciones YunoHost deberían parecerse a https://domain.tld/path/to/repo_ynh",
+        "email": "Correo incorrecto: debe contener solo caracteres alfanuméricos y <code>_.-</code> (ej. alguien@ejemplo.com, 4l-guien@ejemplo.com)",
+        "emailForward": "Redirección de correo incorrecto: debe contener solo caracteres alfanuméricos y <code>_.-</code> (ej. alguien@ejemplo.com, 4l-guien@ejemplo.com)"
     },
     "footer": {
         "donate": "Donar",
@@ -359,13 +375,13 @@
     },
     "experimental": "Experimental",
     "error": "Error",
-    "enabled": "Habilitado",
-    "disabled": "Deshabilitado",
+    "enabled": "Activado",
+    "disabled": "Desactivado",
     "dead": "Inactivo",
     "day_validity": " Expirado hace | 1 día | {count} días",
     "confirm_app_install": "¿Estás seguro de que deseas instalar esta aplicación?",
     "common": {
-        "lastname": "Apellido",
+        "lastname": "Apellidos",
         "firstname": "Nombre"
     },
     "code": "Código",
@@ -375,17 +391,191 @@
     "app_config_panel_label": "Configura esta app",
     "app_config_panel": "Panel de configuración",
     "app_choose_category": "Elige una categoría",
-    "app_actions_label": "Realizar acciones",
+    "app_actions_label": "Ejecuta las acciones",
     "app_actions": "Acciones",
-    "api_waiting": "Esperando la respuesta del servidor...",
-    "api_not_found": "Parece que el administrador de la web ha intentado consultar algo que no existe.",
+    "api_waiting": "Esperando respuesta del servidor...",
+    "api_not_found": "La administración web ha intentado acceder a un recurso inexistente.",
     "hook_conf_manually_modified_files": "Configuraciones modificadas manualmente",
     "hook_data_xmpp": "Datos XMPP",
-    "items_verbose_count": "Hay {items}.",
+    "items_verbose_count": "Hay {items}. | Hay 1 {items}. | Hay {items}.",
     "placeholder": {
         "lastname": "Doe",
         "username": "johndoe",
-        "firstname": "John"
+        "firstname": "John",
+        "domain": "mi-dominio.es",
+        "groupname": "Nombre de mi grupo",
+        "file": "Selecciona un fichero o arrástralo y suéltalo"
     },
-    "hook_conf_ynh_settings": "Configuraciones de YunoHost"
+    "hook_conf_ynh_settings": "Configuraciones de YunoHost",
+    "confirm_group_add_access_permission": "¿Seguro que quieres conceder acceso {perm} a {name}? Este acceso incrementa significantemente la exposición a ataques al sistema si {name} resulta tener malas intenciones. Sólo deberías aprobarlo si CONFÍAS en esa persona/grupo.",
+    "items": {
+        "services": "sin servicios | servicio | {c} servicios",
+        "users": "sin cuentas | cuenta | {c} cuentas",
+        "domains": "sin dominios | dominio | {c} dominios",
+        "installed_apps": "sin aplicaciones instaladas | aplicación instalada | {c} aplicaciones instaladas",
+        "apps": "sin aplicaciones | aplicación | {c} aplicaciones",
+        "permissions": "sin permisos | permiso | {c} permisos",
+        "groups": "sin grupos | grupo | {c} grupos",
+        "backups": "sin copias de seguridad | copia de seguridad | {c} copias de seguridad",
+        "logs": "sin registros | registro | {c} registros"
+    },
+    "migrations_disclaimer_check_message": "He leído y comprendido esta limitación de responsabilidad",
+    "postinstall": {
+        "force": "Forzar la post-instalación",
+        "title": "Post-instalción"
+    },
+    "human_routes": {
+        "apps": {
+            "uninstall": "Desinstalar la aplicación '{name}'",
+            "update_config": "Actualizar la configuración de la aplicación '{name}'",
+            "change_label": "Cambiar la etiqueta '{prevName}' por '{nextName}'",
+            "change_url": "Cambiar la URL de acceso a '{name}'",
+            "install": "Instalar la aplicación '{name}'",
+            "set_default": "Redirecciona la raíz del dominio '{domain}' a '{name}'",
+            "perform_action": "Ejecutar la acción '{action}' de la aplicación '{name}'"
+        },
+        "backups": {
+            "create": "Crear copia de seguridad",
+            "delete": "Elimina la copia de seguridad '{name}'",
+            "restore": "Restaurar la copia de seguridad '{name}'"
+        },
+        "groups": {
+            "remove": "Elimina a '{user}' del grupo '{name}'",
+            "delete": "Elimina el grupo '{name}'",
+            "create": "Crea el grupo '{name}'",
+            "add": "Añade a '{user}' al grupo '{name}'"
+        },
+        "users": {
+            "update": "Actualiza la cuenta '{name}'",
+            "create": "Crea la cuenta '{name}'",
+            "delete": "Elimina la cuenta '{name}'"
+        },
+        "share_logs": "Genera un enlace para el registro '{name}'",
+        "domains": {
+            "push_dns_changes": "Publica los registros DNS de '{name}' al registrador",
+            "update_config": "Actualiza la configuración de '{name}'",
+            "add": "Añade el dominio '{name}'",
+            "delete": "Elimina el domino '{name}'",
+            "install_LE": "Instala el certificado para '{name}'",
+            "manual_renew_LE": "Renueva el certificado para '{name}'",
+            "regen_selfsigned": "Renueva el certificado auto-firmado de '{name}'",
+            "revert_to_selfsigned": "Revenir al certificado auto-firmado para '{name}'",
+            "set_default": "Configura '{name}' como dominio por defecto"
+        },
+        "diagnosis": {
+            "ignore": {
+                "error": "Ignorar un error",
+                "warning": "Ignorar una advertencia"
+            },
+            "unignore": {
+                "warning": "No ignorar una advertencia",
+                "error": "No ignorar un error"
+            },
+            "run": "Ejecuta el diagnóstico",
+            "run_specific": "Ejecuta el diagnóstico '{description}'"
+        },
+        "migrations": {
+            "skip": "Omite las migraciones",
+            "run": "Ejecuta las migraciones"
+        },
+        "permissions": {
+            "add": "Permite a '{name}' acceder a '{perm}'",
+            "remove": "Deniega a '{name}' acceder a '{perm}'"
+        },
+        "postinstall": "Ejecuta la post-instalación",
+        "reboot": "Reinicia el servidor",
+        "shutdown": "Apaga el servidor",
+        "update": "Comprueba actualizaciones",
+        "upgrade": {
+            "system": "Actualiza el sistema",
+            "apps": "Actualiza todas las aplicaciones",
+            "app": "Actualiza la aplicación '{app}'"
+        },
+        "adminpw": "Cambia la contraseña de administración",
+        "firewall": {
+            "ports": "{action} puerto {port} ({protocol}, {connection})",
+            "upnp": "{action} UPnP"
+        },
+        "services": {
+            "restart": "Reinicia el servicio '{name}'",
+            "start": "Inicia el servicio '{name}'",
+            "stop": "Para el servicio '{name}'"
+        }
+    },
+    "tools_webadmin": {
+        "fallback_language_description": "Idioma que será usado en caso de que la traducción al idioma primario no se encuentre disponible.",
+        "cache_description": "Puedes desactivar el caché si prevés trabajar con la línea de comandos (CLI) mientras navegas por la administración web.",
+        "transitions": "Animaciones de transición entre páginas",
+        "language": "Idioma",
+        "experimental": "Modo experimental",
+        "fallback_language": "Idioma alternativo",
+        "cache": "Caché",
+        "experimental_description": "Te da acceso a las características experimentales. Están consideradas como inestables y pueden estropear tu sistema.<br> Actívalas solo si sabes lo que estás haciendo."
+    },
+    "go_back": "Retroceder",
+    "users_import_update_desc": "Selecciona para actualizar todas las cuentas del fichero CSV con los nuevos valores",
+    "perform": "Ejecutar",
+    "postinstall_set_domain": "Configura el dominio principal",
+    "tools_webadmin_settings": "Parámetros de la administración web",
+    "traceback": "Rastrear",
+    "domain": {
+        "config": {
+            "edit": "Edita la configuración de dominio",
+            "title": "Configuración del dominio"
+        },
+        "dns": {
+            "auto_config": "Configuración automática de las entradas DNS",
+            "auto_config_ignored": "ignorado, no será modificado por YunoHost a menos que especifiques la opción sobrescribir",
+            "auto_config_ok": "¡La configuración automática parece correcta!",
+            "auto_config_zone": "Zona DNS actual",
+            "edit": "Editar configuración DNS",
+            "manual_config": "Registros DNS recomendados para la configuración manual.",
+            "push": "Publicar registros DNS al registrador",
+            "push_force": "Sobrescribir registros actuales",
+            "push_force_confirm": "¿Seguro que quieres forzar la publicación de los registros DNS recomendados? Ten en cuenta que puede sobreescribir registros por defecto o importantes configurados por tu registrador.",
+            "push_force_warning": "Parece que algunos registros DNS de YunoHost ya se encuentran en la configuración del registrador. Puedes usar la opción sobrescribir si sabes lo que haces.",
+            "info": "La configuración automática DNS es una función experimental.<br> Plantéate guardar tu zona DNS actual desde la interfaz DNS de tu registrador antes de publicar cambios desde aquí."
+        }
+    },
+    "domain_dns_push_failed_to_authenticate": "Error de autenticación con la API del registrador. ¿Puede que las <a href='#/domains/{domain}/config'>credenciales</a> no sean correctas? (Error: {error})",
+    "history": {
+        "methods": {
+            "DELETE": "eliminar",
+            "GET": "leer",
+            "POST": "crear/ejecutar",
+            "PUT": "modificar"
+        },
+        "is_empty": "El histórico se encuentra vacío.",
+        "title": "Histórico",
+        "last_action": "Última acción:"
+    },
+    "users_export": "Exportar cuentas",
+    "users_import_csv_file": "Fichero CSV",
+    "users_import_update": "Actualizar cuentas existentes",
+    "yunohost_admin": "Administración YunoHost",
+    "domain_add_dyndns_forbidden": "Ya has suscrito un dominio DynDNS, puedes solicitar eliminarlo desde el foro <a href='//forum.yunohost.org/t/nohost-domain-recovery-suppression-de-domaine-en-nohost-me-noho-st-et-ynh-fr/442'>en el hilo dedicado</a>.",
+    "hook_data_xmpp_desc": "Configuración de salas y cuentas, archivos subidos",
+    "items_verbose_items_left": "Quedan {items}. | Queda 1 {items}. | Quedan {items}.",
+    "mailbox_quota_example": "700M es un CD, 4700M es un DVD",
+    "users_import_delete_desc": "Selecciona para eliminar (y purgar) todas las cuentas que no se encuentren en el fichero CSV.",
+    "users_import_confirm_destructive": "¿Seguro que quieres eliminar las cuentas que no se encuentran en este archivo?",
+    "postinstall_set_password": "Establece la contraseña de administración",
+    "readme": "Léeme",
+    "search": {
+        "for": "Busca {items}...",
+        "not_found": "Hay {items} coincidencias con tus criterios. | Hay 1 {items} coincidencia con tus criterios. | Hay {items} coincidencias con tus criterios."
+    },
+    "tools_power_up": "Tu servidor parece accesible, ahora puedes intentar conectarte.",
+    "unknown": "Desconocido",
+    "users_import_delete": "Elimina los usuarios no listados",
+    "users_import_delete_others": "Eliminar cuentas no listadas",
+    "migrations_disclaimer_not_checked": "Esta migración requiere que reconozcas la limitación de responsabilidad antes de ejecutarla.",
+    "user_emailaliases_add": "Añade un alias de correo",
+    "users_import": "Importa cuentas",
+    "user_emailforward_add": "Añade una redirección de correo",
+    "domain_delete_forbidden_desc": "No puedes eliminar '{domain}' ya que es tu dominio por defecto. Necesitas elegir otro dominio(o <a href='#/domains/add'>añadir uno nuevo</a>) y configurarlo como dominio por defecto antes de poder eliminar este.",
+    "domain_dns_push_managed_in_parent_domain": "La configuración automática de los registros DNS es administrada desde el dominio superior <a href='#/domains/{parent_domain}/dns'>{parent_domain}</a>.",
+    "domain_dns_push_not_applicable": "La configuración automática de los registros DNS no puede realizarse en el dominio {domain},<br> Debes configurar manualmente los registros DNS siguiendo la <a href='https://yunohost.org/dns'>documentación</a> y la configuración recomendada aquí debajo.",
+    "users_import_csv_file_desc": "El fichero CSV debe estar en formato UTF-8, con las columnas cuenta, contraseña, grupos, correo y cuota. Para un ejemplo de importación de fichero CSV, puedes <a href='/yunohost/api/users/export' target='_BLANK'>exportar las cuentas en un fichero CSV</a> y modificar el fichero.",
+    "text_selection_is_disabled": "La selección de texto esta desactivada. Si quieres compartir este registro, por favor comparte el registro completo mediante el botón 'Compartir con Yunopaste'.<br/><small>O si realmente quieres seleccionar el texto, presiona las teclas: ↓↓↑↑.</small>"
 }

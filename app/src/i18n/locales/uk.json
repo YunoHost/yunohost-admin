@@ -63,9 +63,9 @@
     "app_manage_label_and_tiles": "Управління міткою і заголовками",
     "app_install_parameters": "Установити налаштування",
     "app_install_custom_no_manifest": "Немає файлу manifest.json",
-    "app_info_uninstall_desc": "Вилучити застосунок.",
+    "app_info_uninstall_desc": "Ця дія вилучить застосунок з системи.",
     "app_info_change_url_disabled_tooltip": "Ця можливість ще не реалізована в цьому застосунку",
-    "app_info_default_desc": "Перенаправити корінь (root) сайту в цей застосунок ({domain}).",
+    "app_info_default_desc": "Ця дія перенаправить корінь (root) сайту в цей застосунок ({domain}).",
     "app_info_changeurl_desc": "Змінити посилання доступу до цього застосунку (домен і/чи шлях).",
     "app_info_access_desc": "Групи / користувачі, у яких є доступ до цього застосунку:",
     "app_config_panel_no_panel": "Цей застосунок не має доступної конфігурації",
@@ -101,7 +101,7 @@
             "pending": "Обробляється",
             "error": "Невдало"
         },
-        "processing": "Сервер обробляє цю дію...",
+        "processing": "Оброблення дії сервером...",
         "partial_logs": "[...] (перевірте в історії повні журнали)"
     },
     "all": "Усе",
