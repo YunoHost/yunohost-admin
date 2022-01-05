@@ -218,8 +218,7 @@ export function formatYunoHostArgument (arg) {
     validation.required = validators.required
   }
   if (arg.pattern && arg.type !== 'tags') {
-    // validation.pattern = validators.helpers.withMessage(arg.pattern.error,
-    validation.pattern = validators.helpers.regex(arg.pattern.error, new RegExp(arg.pattern.regexp))
+    validation.pattern = validators.helpers.regex(formatI18nField(arg.pattern.error), new RegExp(arg.pattern.regexp))
   }
   validation.remote = validators.helpers.withParams(error, (v) => {
     const result = !error.message
