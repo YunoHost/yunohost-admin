@@ -19,10 +19,7 @@
     </template>
 
     <slot v-if="!noFooter" name="buttons" slot="buttons">
-      <b-button
-        type="submit" variant="success"
-        :form="id" :disabled="disabled"
-      >
+      <b-button type="submit" variant="success" :form="id">
         {{ submitText ? submitText : $t('save') }}
       </b-button>
     </slot>
@@ -45,9 +42,6 @@ export default {
   },
 
   computed: {
-    disabled () {
-      return false // this.validation ? this.validation.$invalid : false
-    },
     errorFeedback () {
       if (this.serverError) return this.serverError
       else if (this.validation && this.validation.$anyError) {
