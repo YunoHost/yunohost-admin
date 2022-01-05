@@ -1,7 +1,12 @@
 <template>
-  <card v-bind="$attrs" class="card-form">
-    <template #default>
+  <b-tab no-body>
+    <template #title>
+      <icon :iname="icon" /> {{ name }}
+    </template>
+
+    <b-card-body>
       <slot name="disclaimer" />
+
 
       <b-form
         :id="id" :inline="inline" :class="formClasses"
@@ -16,20 +21,20 @@
           />
         </slot>
       </b-form>
-    </template>
+    </b-card-body>
 
-    <slot v-if="!noFooter" name="buttons" slot="buttons">
+    <b-card-footer>
       <b-button type="submit" variant="success" :form="id">
         {{ submitText ? submitText : $t('save') }}
       </b-button>
-    </slot>
-  </card>
+    </b-card-footer>
+  </b-tab>
 </template>
 
 <script>
 
 export default {
-  name: 'CardForm',
+  name: 'TabForm',
 
   props: {
     id: { type: String, default: 'ynh-form' },
@@ -38,7 +43,8 @@ export default {
     serverError: { type: String, default: '' },
     inline: { type: Boolean, default: false },
     formClasses: { type: [Array, String, Object], default: null },
-    noFooter: { type: Boolean, default: false }
+    name: { type: String, required: true },
+    icon: { type: String, default: 'wrench' }
   },
 
   computed: {
@@ -63,5 +69,14 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+.card-footer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  & > *:not(:first-child) {
+    margin-left: .5rem;
+  }
+}
 </style>

@@ -63,3 +63,13 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+::v-deep .custom-file-label {
+  color: $input-placeholder-color;
+
+  .btn-danger + .b-form-file & {
+    color: $input-color;
+  }
+}
+</style>
