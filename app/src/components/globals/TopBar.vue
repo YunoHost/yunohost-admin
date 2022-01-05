@@ -47,28 +47,29 @@ export default {
 
 <style lang="scss" scoped>
 #top-bar {
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   flex-wrap: wrap-reverse;
 
   .top-bar-group {
     display: flex;
+    margin-bottom: 1rem;
   }
 
   @include media-breakpoint-down(xs) {
     .top-bar-group {
       flex-direction: column-reverse;
     }
-
-    ::v-deep .btn:not(:first-of-type) {
-      margin-bottom: .25rem;
-    }
   }
 
   @include media-breakpoint-down(sm) {
     flex-direction: column-reverse;
 
-    #top-bar-left ~ #top-bar-right {
-      margin-bottom: 1rem;
+    #top-bar-right {
+      margin-bottom: .75rem;
+
+      ::v-deep > * {
+        margin-bottom: .25rem;
+      }
     }
 
     .top-bar-group {
