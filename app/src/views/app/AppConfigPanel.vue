@@ -182,12 +182,9 @@ export default {
   }
 }
 </script>
-<style>
-h3.card-title {
+<style lang="scss" scoped>
+h3 {
   margin-bottom: 1em;
   border-bottom: solid 1px #aaa;
-}
-.form-control::placeholder, .form-file-text {
-  color: #6d7780;
 }
 </style>
