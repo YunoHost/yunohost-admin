@@ -1,41 +1,32 @@
 <template>
   <view-base :queries="queries" @queries-response="onQueriesResponse" skeleton="card-form-skeleton">
-    <template v-if="panels" #default>
-      <b-tabs pills card vertical>
-        <b-tab v-for="{ name, id: id_, sections, help, serverError } in panels"
-               :key="id_"
-               :title="name"
+    <b-card v-if="panels" no-body>
+      <b-tabs fill pills card>
+        <tab-form
+          v-for="{ name, id: id_, sections, help, serverError } in panels" :key="id_"
+          v-bind="{ name, id: id_ + '-form', validation: $v.forms[id_], serverError }"
         >
-          <template #title>
-            <icon iname="wrench" /> {{ name }}
+          <template v-if="help" #disclaimer>
+            <div class="alert alert-info" v-html="help" />
           </template>
-          <card-form
-            :key="id_"
-            :title="name" icon="wrench" title-tag="h2"
-            :validation="$v.forms[id_]" :id="id_ + '-form'" :server-error="serverError"
-            @submit.prevent="applyConfig(id_)"
-          >
-            <template v-if="help" #disclaimer>
-              <div class="alert alert-info" v-html="help" />
-            </template>
 
-            <template v-for="section in sections">
-              <div :key="section.id" class="mb-5" v-if="isVisible(section.visible, section)">
-                <b-card-title v-if="section.name" title-tag="h3">
-                  {{ section.name }} <small v-if="section.help">{{ section.help }}</small>
-                </b-card-title>
-                <template v-for="(field, fname) in section.fields">
-                  <form-field :key="fname" v-model="forms[id_][fname]"
-                              :validation="$v.forms[id_][fname]"
-                              v-if="isVisible(field.visible, field)" v-bind="field"
-                  />
-                </template>
-              </div>
-            </template>
-          </card-form>
-        </b-tab>
+          <template v-for="section in sections">
+            <div v-if="isVisible(section.visible, section)" :key="section.id" class="mb-5">
+              <b-card-title v-if="section.name" title-tag="h3">
+                {{ section.name }} <small v-if="section.help">{{ section.help }}</small>
+              </b-card-title>
+
+              <template v-for="(field, fname) in section.fields">
+                <form-field
+                  v-if="isVisible(field.visible, field)" :key="fname"
+                  v-model="forms[id_][fname]" v-bind="field" :validation="$v.forms[id_][fname]"
+                />
+              </template>
+            </div>
+          </template>
+        </tab-form>
       </b-tabs>
-    </template>
+    </b-card>
 
     <!-- if no config panel -->
     <b-alert v-else-if="panels === null" variant="warning">
@@ -117,6 +108,7 @@ export default {
       // This value should be updated magically when vuejs will detect isVisible changed
       return field.isVisible
     },
+
     onQueriesResponse (data) {
       if (!data.panels || data.panels.length === 0) {
         this.panels = null
@@ -182,6 +174,7 @@ export default {
   }
 }
 </script>
+
 <style lang="scss" scoped>
 h3 {
   margin-bottom: 1em;
