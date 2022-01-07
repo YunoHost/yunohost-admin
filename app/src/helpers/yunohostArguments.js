@@ -115,7 +115,7 @@ export function formatYunoHostArgument (arg) {
       props: ['id:name', 'choices']
     },
     {
-      types: ['user', 'domain'],
+      types: ['user', 'domain', 'app'],
       name: 'SelectItem',
       props: ['id:name', 'choices'],
       callback: function () {
