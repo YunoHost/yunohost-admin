@@ -101,15 +101,23 @@
       </b-form-group>
       <hr v-if="app.is_webapp">
 
-      <!-- CHANGE DOMAIN -->
+      <!-- MAKE DEFAULT -->
       <b-form-group
         :label="$t('app_info_default_desc', { domain: app.domain })" label-for="main-domain"
         label-class="font-weight-bold" label-cols-md="4"
         v-if="app.is_webapp"
       >
-        <b-button @click="setAsDefaultDomain" id="main-domain" variant="success">
-          <icon iname="star" /> {{ $t('app_make_default') }}
-        </b-button>
+        <template v-if="!app.is_default">
+          <b-button @click="setAsDefaultDomain($event, false)" id="main-domain" variant="success">
+            <icon iname="star" /> {{ $t('app_make_default') }}
+          </b-button>
+        </template>
+
+        <template v-else>
+          <b-button @click="setAsDefaultDomain($event, true)" id="main-domain" variant="warning">
+            <icon iname="star" /> {{ $t('app_make_not_default') }}
+          </b-button>
+        </template>
       </b-form-group>
       <hr v-if="app.is_webapp">
 
@@ -250,9 +258,13 @@ export default {
       this.app = {
         domain: app.settings.domain,
         is_webapp: app.is_webapp,
+        is_default: app.is_default,
         supports_change_url: app.supports_change_url,
         supports_config_panel: app.supports_config_panel,
         permissions
+      }
+      if (this.app.is_webapp) {
+        this.app.is_default = app.is_default
       }
     },
 
@@ -277,12 +289,12 @@ export default {
       ).then(this.$refs.view.fetchQueries)
     },
 
-    async setAsDefaultDomain () {
+    async setAsDefaultDomain (event, undo = false) {
       const confirmed = await this.$askConfirmation(this.$i18n.t('confirm_app_default'))
       if (!confirmed) return
 
       api.put(
-        `apps/${this.id}/default`,
+        `apps/${this.id}/default${undo ? '?undo' : ''}`,
         {},
         { key: 'apps.set_default', name: this.infos.label, domain: this.app.domain }
       ).then(this.$refs.view.fetchQueries)
