@@ -5,6 +5,7 @@
         <tab-form
           v-for="{ name, id: id_, sections, help, serverError } in panels" :key="id_"
           v-bind="{ name, id: id_ + '-form', validation: $v.forms[id_], serverError }"
+          @submit.prevent="applyConfig(id_)"
         >
           <template v-if="help" #disclaimer>
             <div class="alert alert-info" v-html="help" />
