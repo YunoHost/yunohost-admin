@@ -317,11 +317,11 @@
         "APINotFoundError": "La API de YunoHost no pudo encontrar una ruta",
         "APIInternalError": "YunoHost ha encontrado un error interno",
         "APIBadRequestError": "Yunohost ha econtrado un error",
-        "APIError": "YunoHost encontró un error inesperado"
+        "APIError": "YunoHost a encontrado un error inesperado"
     },
     "api_error": {
         "view_error": "Ver error",
-        "sorry": "Lo sentimos mucho.",
+        "sorry": "Lo siento mucho por eso.",
         "server_said": "Mientras se procesaba la acción, el servidor informó:",
         "info": "La siguiente información puede ser útil para la persona que le esté ayudando:",
         "help": "Debes buscar ayuda en <a href=\"https://forum.yunohost.org/\">el foro</a> o en <a href=\"https://chat.yunohost.org/\">el chat</a> para solucionar la situación. También puedes informar del fallo en <a href=\"https://github.com/YunoHost/issues\">el bugtracker</a>.",
@@ -393,8 +393,8 @@
     "app_choose_category": "Elige una categoría",
     "app_actions_label": "Ejecuta las acciones",
     "app_actions": "Acciones",
-    "api_waiting": "Esperando respuesta del servidor...",
-    "api_not_found": "La administración web ha intentado acceder a un recurso inexistente.",
+    "api_waiting": "Esperando a la respuesta del servidor...",
+    "api_not_found": "Parece que la administración web ha intentado buscar algo que no existe.",
     "hook_conf_manually_modified_files": "Configuraciones modificadas manualmente",
     "hook_data_xmpp": "Datos XMPP",
     "items_verbose_count": "Hay {items}. | Hay 1 {items}. | Hay {items}.",

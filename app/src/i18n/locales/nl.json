@@ -161,12 +161,19 @@
     "api_waiting": "Aan het wachten op de reactie van de server...",
     "api_errors_titles": {
         "APINotRespondingError": "YunoHost API reageert niet",
-        "APIError": "YunoHost kwam een onverwachte fout tegen"
+        "APIError": "YunoHost kwam een onverwachte fout tegen",
+        "APIBadRequestError": "Er is een fout opgetreden in Yunohost",
+        "APIInternalError": "Er is een interne fout opgetreden in Yunohost",
+        "APIConnexionError": "Er deed zich een verbindingsfout voor",
+        "APINotFoundError": "De Yunohost API kon geen route vinden"
     },
     "api_error": {
         "info": "De volgende informatie kan handig zijn voor de persoon die jou helpt:",
-        "help": "Je zou om hulp kunnen vragen op het <a href=\"https://forum.yunohost.org/\">forum</a> of <a href=\"https://chat.yunohost.org/\">in de chat</a> om dit op te lossen, of een bug melden op  <a href=\"https://github.com/YunoHost/issues\">de bugtracker</a>.",
-        "error_message": "Foutmelding:"
+        "help": "Je zou om hulp kunnen vragen op het <a href=\"https://forum.yunohost.org/\">forum</a> of <a href=\"https://chat.yunohost.org/\">in de chat</a> om dit op te lossen, of een bug melden op <a href=\"https://github.com/YunoHost/issues\">debugtracker</a>.",
+        "error_message": "Foutmelding:",
+        "server_said": "Tijdens de verwerking van de actie, zei de server:",
+        "view_error": "Bekijk de fout",
+        "sorry": "Het spijt ons echt."
     },
     "api": {
         "query_status": {
@@ -175,16 +182,83 @@
             "pending": "Bezig",
             "error": "Niet geslaagd"
         },
-        "processing": "De server is aan het verwerken..."
+        "processing": "De server is aan het verwerken...",
+        "partial_logs": "[...] (kijk in de geschiedenis voor het volledige log)"
     },
     "address": {
         "local_part_description": {
-            "domain": "Kies een subdomein."
+            "domain": "Kies een subdomein.",
+            "email": "Kies een lokaal pad voor je email."
         },
         "domain_description": {
             "email": "Kies een domein voor je email.",
             "domain": "Kies een domein."
         }
     },
-    "cancel": "Annuleer"
+    "cancel": "Annuleren",
+    "confirm_group_add_access_permission": "Weet je zeker dat je toegang tot {perm} wilt verlenen aan {name}? Een dergelijke toegang vergroot het aanvalsoppervlak aanzienlijk, als {name} kwade bedoelingen heeft. Doe het alleen als je deze persoon of groep VERTROUWD.",
+    "common": {
+        "lastname": "Achternaam",
+        "firstname": "Voornaam"
+    },
+    "configuration": "Configuratie",
+    "catalog": "Catalogus",
+    "confirm_service_restart": "Weet u zeker dat u {name} wilt herstarten?",
+    "run_first_diagnosis": "Laat de eerste diagnose stellen",
+    "confirm_upnp_disable": "Weet je zeker dat je UPnP wilt uitschakelen?",
+    "api_not_found": "Het lijkt erop dat web-admin iets probeerde op te vragen wat niet bestaat.",
+    "app_actions": "Acties",
+    "app_actions_label": "Acties uitvoeren",
+    "app_config_panel": "Configuratiescherm",
+    "app_config_panel_label": "Richt deze app in",
+    "app_config_panel_no_panel": "Voor deze applicatie is geen inrichting beschikbaar",
+    "app_show_categories": "Categorieën tonen",
+    "confirm_reboot_action_shutdown": "Weet je zeker dat je je server wilt uitschakelen?",
+    "code": "Code",
+    "confirm_app_install": "Weet je zeker dat je deze toepassing wilt installeren?",
+    "confirm_install_app_lowquality": "Waarschuwing: deze toepassing zou kunnen werken, maar is niet goed geïntegreerd in Yunohost. Sommige eigenschappen, zoals single-sign-on en backup/restore werken misschien niet.",
+    "confirm_service_stop": "Weet je zeker dat je {name} wilt stoppen?",
+    "day_validity": " Verlopen sinds | 1 dag | {count} dagen",
+    "dead": "Inactief",
+    "error": "Fout",
+    "domain": {
+        "config": {
+            "edit": "Domein-inrichting aanpassen",
+            "title": "Domein inrichten"
+        },
+        "dns": {
+            "auto_config": "Automatische DNS-record-inrichting",
+            "edit": "DNS-inrichting aanpassen",
+            "push_force_warning": "Het lijkt er op dat sommige van de door Yunohost voorgestelde DNS-records al beschikbaar zijn in de registrar-inrichting. Je kan de 'overschrijven'-optie gebruiken als je zeker bent van je zaak.",
+            "auto_config_ignored": "genegeerd, wordt niet veranderd door Yunohost behalve als je optie aanvinkt om het te overschrijven",
+            "auto_config_ok": "Automatische inrichting lijkt in orde!",
+            "auto_config_zone": "Huidige DNS-zone",
+            "manual_config": "Voorgestelde DNS-records voor handmatige inrichting",
+            "push": "Stuurd de DNS-records door naar de registrar",
+            "push_force": "Bestaande records overschrijven",
+            "push_force_confirm": "Weet je zeker dat je alle voorgestelde DNS-records geforceerd wilt doorsturen? Houd er rekening mee dat handmatig ingerichte records kan overschrijven, of belangrijke standaardrecords die door je registrar ingericht zijn.",
+            "info": "De automatische DNS-record-inrichting is een experimentele functie. <br>Overweeg je huidige DNS zone op te slaan in de omgeving van je DNS-registratie voor je de inrichting vanuit hier door laat sturen."
+        }
+    },
+    "disabled": "Uitgeschakeld",
+    "confirm_update_system": "Weet u zeker dat u alle systeempakketten wilt updaten?",
+    "app_state_working_explanation": "De beheerder van deze app heeft hem als 'werkend' bestempeld. Dat betekent dat hij het zou moeten doen (voor wat betreft de applicatie zelf). Het betekent niet dat er per definitie een peer-review plaatsgevonden heeft; er zouden problemen in kunnen zitten en het zou kunnen dat de app nog niet volledig in Yunohost geintegreerd is.",
+    "diagnosis_experimental_disclaimer": "Houdt er rekening mee, dat de diagnosefunctie nog experimenteel is en de puntjes op die 'i' gezet worden; misschien klopt het resultaat nog niet volledig.",
+    "confirm_app_change_url": "Weet u zeker dat u de toegangs-URL van de app wilt wijzigen?",
+    "confirm_service_start": "Weet je zeker dat je {name} wilt starten?",
+    "confirm_migrations_skip": "Het overslaan van migraties is niet aanbevolen. Weet u zeker dat u dit wilt doen?",
+    "confirm_update_apps": "Weet je zeker dat je alle toepassingen wilt bijwerken?",
+    "confirm_update_specific_app": "Weet je zeker dat je {app} wilt bijwerken?",
+    "confirm_upnp_enable": "Weet je zeker dat je UPnP wilt activeren?",
+    "confirm_reboot_action_reboot": "Weet je zeker dat je je server wilt herstarten?",
+    "diagnosis": "Diagnose",
+    "dns": "DNS",
+    "details": "Details",
+    "confirm_firewall_disallow": "Weet je zeker dat je poort {port} (protocol: {protocol}, verbinding: {connection}) wilt sluiten",
+    "domain_dns_conf_is_just_a_recommendation": "Deze pagina toont de *aanbevolen\" inrichting. De pagina richt DNS *niet* voor je in. Je moet zelf de DNS-zones bij je DNS-registratie inrichten volgens deze aanbeveling.",
+    "app_install_parameters": "Installatieparameters",
+    "confirm_firewall_allow": "Weet je zeker, dat je poort {port} (protocol: {protocol}, connectie: {connection}) wilt openen",
+    "confirm_install_app_inprogress": "WAARSCHUWING! Deze toepassing is nog experimenteel (als hij al niet volledig kapot is) en het kan maar zo zijn, dat hij je systeem om zeep helpt! Je kunt hem beter NIET installeren, behalve als je weet waar je mee bezig bent. Neem je het risico?",
+    "diagnosis_first_run": "De diagnosefunctie probeert veel voorkomende problemen in verschillende aspecten van je server in kaart te brengen, om er zeker van te zijn dat alles gladjes verloopt. Geen paniek als er iets mis is meteen nadat je je server geïnstalleerd hebt: de diagnose is precies bedoeld voor het opsporen van problemen en het bieden van hulp bij het oplossen ervan. De diagnose draait ook automatisch tweemaal per dag, en er wordt een email naar de beheerder gestuurd als er problemen gevonden worden.",
+    "diagnosis_explanation": "De diagnosefunctie probeert veel voorkomende problemen op verschillende aspecten van je server boven water te krijgen, zodat alles gladjes blijft lopen. De diagnose draait tweemaal per dag, er wordt een email naar de beheerder gestuurd als er problemen geconstateerd worden. Houdt er rekening mee dat niet alle controles per definitie relevant zijn als je specifieke functionaliteit niet gebruikt (XMPP, bijvoorbeeld) en dat er bij complexe opbouw van je server misschien vals alarm geslagen wordt. In die gevallen, en als je weet waar je mee bezig bent, is het geen probleem om de overeenkomstige waarschuwingen te negeren."
 }
