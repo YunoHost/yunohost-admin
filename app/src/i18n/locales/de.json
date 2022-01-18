@@ -22,7 +22,7 @@
     "confirm_app_default": "Möchten Sie diese Applikation als Standard setzen?",
     "confirm_change_maindomain": "Möchten Sie wirklich die Hauptdomäne ändern?",
     "confirm_delete": "Möchten Sie {name} wirklich löschen?",
-    "confirm_install_custom_app": "WARNUNG! Die Installation von Drittanbieterapplikation könnte die Sicherheit und Integrität Ihres Systems gefährden. Sie sollten sie nicht installieren, ausser Sie wissen, was Sie tun. Wollen Sie dieses Risiko eingehen?",
+    "confirm_install_custom_app": "WARNUNG! Die Installation von Drittanbieter-Applikationen könnte die Sicherheit und Integrität Ihres Systems gefährden. Sie sollten sie nicht installieren, außer Sie wissen, was Sie tun. Wollen Sie dieses Risiko eingehen?",
     "confirm_install_domain_root": "Sind Sie sicher, dass Sie diese Applikation auf '/'? installieren wollen? Sie können keine andere Applikation auf der Domäne {domain} installieren",
     "confirm_postinstall": "Sie sind dabei, den Konfigurationsprozess für die Domäne {domain} zu starten. Dies wird ein paar Minuten dauern, *unterbrechen Sie diese Operation nicht*.",
     "confirm_restore": "Möchten Sie {name} wirklich wiederherstellen?",
