@@ -16,8 +16,8 @@ TMPDIR = $$(pwd)/debian/yunohost-admin
 
 override_dh_auto_build:
 	/usr/bin/npm install -g npm@6
-	cd app ; PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin /usr/local/bin/npm ci --production --progress false
-	cd app ; PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin /usr/local/bin/npm run build --production
+	cd app ; PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin /usr/local/bin/npm --progress false ci
+	cd app ; PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin /usr/local/bin/npm run build
 
 
 override_dh_clean:
