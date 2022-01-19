@@ -1,3 +1,9 @@
+yunohost-admin (4.4.0) testing; urgency=low
+
+  - Bump version for 4.4 testing
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Wed, 19 Jan 2022 20:55:17 +0100
+
 yunohost-admin (4.3.4.1) testing; urgency=low
 
   - [i18n] Translations updated for Finnish, German
