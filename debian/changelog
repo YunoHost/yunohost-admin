@@ -1,8 +1,34 @@
-yunohost-admin (11.0.0~alpha) unstable; urgency=low
+yunohost-admin (11.0.2) testing; urgency=low
 
-  - Placeholder for 11.0
+  - [enh] Improve UX for upgrade and power utils with auto-reconnec mecanism ([#417](https://github.com/YunoHost/yunohost-admin/pull/417))
+  - [enh] Misc fixes ([#421](https://github.com/YunoHost/yunohost-admin/pull/421))
+  - [fix] Bug in apps config panel apply call ([#423](https://github.com/YunoHost/yunohost-admin/pull/423))
 
- -- Kay0u <pierre@kayou.io>  Mon, 08 Mar 2021 18:04:43 +0100
+  Thanks to all contributors <3 ! (axolotle, Kay0u)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Wed, 19 Jan 2022 21:04:10 +0100
+
+yunohost-admin (4.4.0) testing; urgency=low
+
+  - Bump version for 4.4 testing
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Wed, 19 Jan 2022 20:55:17 +0100
+
+yunohost-admin (4.3.4.1) testing; urgency=low
+
+  - [i18n] Translations updated for Finnish, German
+
+  Thanks to all contributors <3 ! (Christian Wehrli, Mico Hauataluoma)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Wed, 19 Jan 2022 20:55:17 +0100
+
+yunohost-admin (4.3.4) testing; urgency=low
+
+  - [i18n] Translations updated for Dutch, French, German, Spanish
+
+  Thanks to all contributors <3 ! (Boudewijn, Christian Wehrli, Germain Edy, ppr)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Fri, 14 Jan 2022 01:37:39 +0100
 
 yunohost-admin (4.3.3) stable; urgency=low
 
