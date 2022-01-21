@@ -451,7 +451,16 @@
             "pending": "En cours"
         },
         "processing": "Le serveur traite l'action...",
-        "partial_logs": "[...] ( voir l'historique pour les logs complets)"
+        "partial_logs": "[...] ( voir l'historique pour les logs complets)",
+        "reconnecting": {
+            "title": "Tentative de communication avec le serveur...",
+            "failed": "Le serveur ne répond pas. Vous pouvez essayer de vous reconnecter ou essayer d'exécuter `systemctl restart yunohost-api` via SSH.",
+            "reason": {
+                "unknown": "La connexion avec le serveur a été fermée pour des raisons inconnues.",
+                "reboot": "Votre serveur redémarre et ne sera pas joignable pendant un certain temps. Une invite de connexion sera disponible dès que le serveur sera accessible."
+            },
+            "success": "Le serveur est maintenant joignable ! Vous pouvez essayer de vous connecter"
+        }
     },
     "go_back": "Revenir",
     "postinstall": {
