@@ -110,25 +110,13 @@ export function formatYunoHostArgument (arg) {
       }
     },
     {
-      types: ['select'],
-      name: 'SelectItem',
-      props: ['id:name', 'choices']
-    },
-    {
-      types: ['user', 'domain', 'app'],
+      types: ['select', 'user', 'domain', 'app'],
       name: 'SelectItem',
       props: ['id:name', 'choices'],
       callback: function () {
-        field.link = { name: arg.type + '-list', text: i18n.t(`manage_${arg.type}s`) }
-        field.props.choices = store.getters[arg.type + 'sAsChoices']
-        if (value) {
-          return
-        }
-        if (arg.type === 'domain') {
-          value = store.getters.mainDomain
-        } else {
-          value = field.props.choices.length ? field.props.choices[0].value : null
-        }
+         if ((arg.type !== 'select')) {
+            field.link = { name: arg.type + '-list', text: i18n.t(`manage_${arg.type}s`) }
+         }
       }
     },
     {
