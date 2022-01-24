@@ -58,8 +58,7 @@ export default {
   data () {
     return {
       queries: [
-        ['GET', `domains/${this.name}/config?full`],
-        ['GET', { uri: 'apps', storeKey: 'apps' }]
+        ['GET', `domains/${this.name}/config?full`]
       ],
       panels: undefined,
       forms: undefined,
