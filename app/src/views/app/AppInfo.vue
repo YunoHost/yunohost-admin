@@ -238,13 +238,36 @@ export default {
         }
       }
 
-      this.infos = {
-        id: this.id,
-        label: mainPermission.label,
-        description: app.description,
-        version: app.version,
-        multi_instance: this.$i18n.t(app.manifest.multi_instance ? 'yes' : 'no'),
-        install_time: readableDate(app.settings.install_time, true, true)
+      if (app.manifest.upstream.website) {
+        this.infos = {
+          id: this.id,
+          label: mainPermission.label,
+          description: app.description,
+          version: app.version,
+          upstream: app.manifest.upstream.website,
+          multi_instance: this.$i18n.t(app.manifest.multi_instance ? 'yes' : 'no'),
+          install_time: readableDate(app.settings.install_time, true, true)
+        }
+      } else if (app.manifest.upstream.code) {
+        this.infos = {
+          id: this.id,
+          label: mainPermission.label,
+          description: app.description,
+          version: app.version,
+          upstream: app.manifest.upstream.code,
+          multi_instance: this.$i18n.t(app.manifest.multi_instance ? 'yes' : 'no'),
+          install_time: readableDate(app.settings.install_time, true, true)
+        }
+      } else {
+          this.infos = {
+          id: this.id,
+          label: mainPermission.label,
+          description: app.description,
+          version: app.version,
+          upstream: app.manifest.upstream.code,
+          multi_instance: this.$i18n.t(app.manifest.multi_instance ? 'yes' : 'no'),
+          install_time: readableDate(app.settings.install_time, true, true)
+        }
       }
       if (app.settings.domain && app.settings.path) {
         this.infos.url = 'https://' + app.settings.domain + app.settings.path
