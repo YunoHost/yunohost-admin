@@ -11,7 +11,6 @@ export default {
     users: undefined, // basic user data: Object {username: {data}}
     users_details: {}, // precise user data: Object {username: {data}}
     groups: undefined,
-    apps: undefined,
     permissions: undefined
   }),
 
@@ -43,15 +42,6 @@ export default {
     'ADD_USERS' (state, [user]) {
       if (!state.users) state.users = {}
       Vue.set(state.users, user.username, user)
-    },
-
-    'SET_APPS' (state, [apps]) {
-      state.apps = apps || null
-    },
-
-    'ADD_APPS' (state, [app]) {
-      if (!state.apps) state.apps = {}
-      Vue.set(state.apps, app.id, app)
     },
 
     'SET_USERS_DETAILS' (state, [username, userData]) {
@@ -185,16 +175,6 @@ export default {
     domains: state => state.domains,
 
     mainDomain: state => state.main_domain,
-
-    appsAsChoices: state => {
-      const choices = [{ value: "_none", text: "---" }]
-      if (state.apps) {
-        return choices.concat(Object.values(state.apps).map(({ id, name, domain_path }) => {
-          return { value: id, text: `${name} (${domain_path})` }
-        }))
-      }
-      return choices
-    },
 
     domainsAsChoices: state => {
       const mainDomain = state.main_domain
