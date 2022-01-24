@@ -110,11 +110,11 @@ export function formatYunoHostArgument (arg) {
       }
     },
     {
-      types: ['select', 'user', 'domain'],
+      types: ['select', 'user', 'domain', 'app'],
       name: 'SelectItem',
       props: ['id:name', 'choices'],
       callback: function () {
-         if ((arg.type === 'domain') || (arg.type === 'user')) {
+         if ((arg.type !== 'select')) {
             field.link = { name: arg.type + '-list', text: i18n.t(`manage_${arg.type}s`) }
          }
       }
