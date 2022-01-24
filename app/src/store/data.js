@@ -170,15 +170,6 @@ export default {
       return []
     },
 
-    usersAsChoices: state => {
-      if (state.users) {
-        return Object.values(state.users).map(({ username, fullname, mail }) => {
-            return { text: `${fullname} (${mail})`, value: username }
-        })
-      }
-      return []
-    },
-
     user: state => name => state.users_details[name], // not cached
 
     domains: state => state.domains,
