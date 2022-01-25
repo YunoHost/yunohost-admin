@@ -1,3 +1,13 @@
+yunohost-admin (11.0.3) testing; urgency=low
+
+  - [fix] configpanels: logic regarding dynamic-choices questions such as domain, user, should be handled by the core ([#426](https://github.com/YunoHost/yunohost-admin/pull/426))
+  - [enh] app/domain: Manage default application using DomainConfig ([#422](https://github.com/YunoHost/yunohost-admin/pull/422))
+  - [i18n] Translations updated for French, Galician
+
+  Thanks to all contributors <3 ! (Éric Gaspar, José M, Tagada)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Tue, 25 Jan 2022 13:10:16 +0100
+
 yunohost-admin (11.0.2) testing; urgency=low
 
   - [enh] Improve UX for upgrade and power utils with auto-reconnec mecanism ([#417](https://github.com/YunoHost/yunohost-admin/pull/417))
