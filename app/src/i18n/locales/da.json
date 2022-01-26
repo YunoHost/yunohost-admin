@@ -1,1 +1,11 @@
-{}
+{
+    "add": "Tilføj",
+    "address": {
+        "domain_description": {
+            "domain": "Vælg et domæne.",
+            "email": "Vælg et domæne til din e-mail."
+        }
+    },
+    "administration_password": "Administratorkodeord",
+    "all": "Alle"
+}
