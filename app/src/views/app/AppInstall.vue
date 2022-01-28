@@ -64,10 +64,7 @@ export default {
   data () {
     return {
       queries: [
-        ['GET', 'apps/manifest?app=' + this.id],
-        ['GET', { uri: 'domains' }],
-        ['GET', { uri: 'domains/main', storeKey: 'main_domain' }],
-        ['GET', { uri: 'users' }]
+        ['GET', 'apps/manifest?app=' + this.id]
       ],
       name: undefined,
       infos: undefined,
