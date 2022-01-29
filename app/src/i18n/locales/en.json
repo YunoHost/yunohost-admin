@@ -29,7 +29,7 @@
             "unknown": "Connection with the server has been closed for unknown reasons.",
             "reboot": "Your server is rebooting and will not be reachable for some time. A login prompt will be available as soon as the server is reachable.",
             "shutdown": "Your server is shutting down and is no longer reachable. Turn it back on and a login prompt will be available as soon as the server is reachable.",
-            "upgrade_system": "Connection with the server has been closed due to yunohost upgrade. Waiting for the server to be reachable again…"
+            "upgrade_system": "Connection with the server has been closed due to YunoHost upgrade. Waiting for the server to be reachable again…"
           },
           "success": "The server is now reachable! You can try to login"
         }
