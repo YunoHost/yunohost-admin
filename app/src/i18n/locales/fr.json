@@ -457,7 +457,9 @@
             "failed": "Le serveur ne répond pas. Vous pouvez essayer de vous reconnecter ou essayer d'exécuter `systemctl restart yunohost-api` via SSH.",
             "reason": {
                 "unknown": "La connexion avec le serveur a été fermée pour des raisons inconnues.",
-                "reboot": "Votre serveur redémarre et ne sera pas joignable pendant un certain temps. Une invite de connexion sera disponible dès que le serveur sera accessible."
+                "reboot": "Votre serveur redémarre et ne sera pas joignable pendant un certain temps. Une invite de connexion sera disponible dès que le serveur sera accessible.",
+                "shutdown": "Votre serveur est en cours de d'extinction et n'est plus joignable. Redémarrez-le et une invitation de connexion sera disponible dès que le serveur sera joignable.",
+                "upgrade_system": "La connexion avec le serveur a été fermée en raison de la mise à jour de YunoHost. Attendre que le serveur soit à nouveau joignable…"
             },
             "success": "Le serveur est maintenant joignable ! Vous pouvez essayer de vous connecter"
         }
@@ -543,7 +545,8 @@
             "change_url": "Modifier l'URL d'accès de '{name}'",
             "change_label": "Changer le libellé de '{prevName}' par '{nextName}'"
         },
-        "adminpw": "Changer le mot de passe administrateur"
+        "adminpw": "Changer le mot de passe administrateur",
+        "reconnecting": "Reconnexion"
     },
     "items_verbose_items_left": "Il reste des {items}. | Il reste un {items}. | Il reste des {items}.",
     "confirm_group_add_access_permission": "Voulez-vous vraiment accorder l'accès à {perm} à {name} ? Un tel accès augmente considérablement la surface d'attaque si {name} se trouve être une personne malveillante. Vous ne devriez le faire que si vous FAITES CONFIANCE à cette personne/ ce groupe.",
@@ -580,5 +583,6 @@
     "domain_dns_push_failed_to_authenticate": "Échec de l'authentification sur l'API du registraire. Très probablement les <a href='#/domains/{domain}/config'>informations d'identification</a> sont incorrectes ? (Erreur : {error})",
     "domain_dns_push_managed_in_parent_domain": "La fonctionnalité d'enregistrement DNS automatique est gérée dans le domaine parent <a href='#/domains/{parent_domain}/dns'>{parent_domain}</a>.",
     "domain_dns_push_not_applicable": "La fonctionnalité d'enregistrements DNS automatiques n'est pas applicable au domaine {domain},<br> Vous devez configurer manuellement vos enregistrements DNS en suivant la <a href='https://yunohost.org/dns'>documentation</a> et les suggestions configuration ci-dessous.",
-    "text_selection_is_disabled": "La sélection du texte est désactivée. Si vous voulez partager ce log *complet*, vous pouvez le faire en cliquant sur le bouton 'Partager avec Yunopaste'.<br/><small>Ou, si vous voulez vraiment vraiment sélectionner du texte, appuyez sur ces touches : ↓↓↑↑.</small>"
+    "text_selection_is_disabled": "La sélection du texte est désactivée. Si vous voulez partager ce log *complet*, vous pouvez le faire en cliquant sur le bouton 'Partager avec Yunopaste'.<br/><small>Ou, si vous voulez vraiment vraiment sélectionner du texte, appuyez sur ces touches : ↓↓↑↑.</small>",
+    "retry": "Retenter"
 }
