@@ -1,3 +1,12 @@
+yunohost-admin (11.0.4) testing; urgency=low
+
+  - Clean unused API calls ([#431](https://github.com/YunoHost/yunohost-admin/pull/431))
+  - [i18n] Translations updated for Danish, French, Ukrainian
+
+  Thanks to all contributors <3 ! (Andreas Gammelgaard Damsbo, Éric Gaspar, Tagadda, Tymofii-Lytvynenko)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Sat, 29 Jan 2022 19:23:45 +0100
+
 yunohost-admin (11.0.3) testing; urgency=low
 
   - [fix] configpanels: logic regarding dynamic-choices questions such as domain, user, should be handled by the core ([#426](https://github.com/YunoHost/yunohost-admin/pull/426))
