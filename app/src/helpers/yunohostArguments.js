@@ -1,5 +1,6 @@
 import i18n from '@/i18n'
 import store from '@/store'
+import evaluate from 'simple-evaluate'
 import * as validators from '@/helpers/validators'
 import { isObjectLiteral, isEmptyValue, flattenObjectLiteral } from '@/helpers/commons'
 
@@ -284,6 +285,83 @@ export function formatYunoHostArguments (args, name = null) {
   return { form, fields, validations, errors }
 }
 
+
+export function formatYunoHostConfigPanels (data) {
+  const result = {
+    panels: [],
+    forms: {},
+    validations: {},
+    errors: {}
+  }
+
+  for (const { id: panelId, name, help, sections } of data.panels) {
+    const panel = { id: panelId, sections: [] }
+    result.forms[panelId] = {}
+    result.validations[panelId] = {}
+    result.errors[panelId] = {}
+
+    if (name) panel.name = formatI18nField(name)
+    if (help) panel.help = formatI18nField(help)
+
+    for (const { id: sectionId, name, help, visible, options } of sections) {
+      const section = { id: sectionId, visible, isVisible: false }
+      if (help) section.help = formatI18nField(help)
+      if (name) section.name = formatI18nField(name)
+      const { form, fields, validations, errors } = formatYunoHostArguments(options)
+      // Merge all sections forms to the panel to get a unique form
+      Object.assign(result.forms[panelId], form)
+      Object.assign(result.validations[panelId], validations)
+      Object.assign(result.errors[panelId], errors)
+      section.fields = fields
+      panel.sections.push(section)
+    }
+
+    result.panels.push(panel)
+  }
+
+  return result
+}
+
+
+export function configPanelsFieldIsVisible (expression, field, forms) {
+  if (!expression || !field) return true
+  const context = {}
+
+  const promises = []
+  for (const args of Object.values(forms)) {
+    for (const shortname in args) {
+      if (args[shortname] instanceof File) {
+        if (expression.includes(shortname)) {
+          promises.push(pFileReader(args[shortname], context, shortname, false))
+        }
+      } else {
+        context[shortname] = args[shortname]
+      }
+    }
+  }
+
+  // Allow to use match(var,regexp) function
+  const matchRe = new RegExp('match\\(\\s*(\\w+)\\s*,\\s*"([^"]+)"\\s*\\)', 'g')
+  let i = 0
+  Promise.all(promises).then(() => {
+    for (const matched of expression.matchAll(matchRe)) {
+      i++
+      const varName = matched[1] + '__re' + i.toString()
+      context[varName] = new RegExp(matched[2], 'm').test(context[matched[1]])
+      expression = expression.replace(matched[0], varName)
+    }
+
+    try {
+      field.isVisible = evaluate(context, expression)
+    } catch {
+      field.isVisible = false
+    }
+  })
+
+  return field.isVisible
+}
+
+
 export function pFileReader (file, output, key, base64 = true) {
     return new Promise((resolve, reject) => {
         const fr = new FileReader()
@@ -303,6 +381,8 @@ export function pFileReader (file, output, key, base64 = true) {
         }
     })
 }
+
+
 /**
  * Format helper for a form value.
  * Convert Boolean to (1|0) and concatenate adresses.
