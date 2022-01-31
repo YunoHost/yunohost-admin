@@ -199,7 +199,7 @@ export default {
     'DISPATCH_MESSAGE' ({ state, commit, dispatch }, { request, messages }) {
       for (const type in messages) {
         const message = {
-          text: messages[type].replace('\n', '<br>'),
+          text: messages[type].replaceAll('\n', '<br>'),
           color: type === 'error' ? 'danger' : type
         }
         let progressBar = message.text.match(/^\[#*\+*\.*\] > /)
