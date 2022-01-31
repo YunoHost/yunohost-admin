@@ -104,7 +104,7 @@ export default {
       this.done = done.length ? done.reverse() : null
       pending.forEach(migration => {
         if (migration.disclaimer) {
-          migration.disclaimer = migration.disclaimer.replace('\n', '<br>')
+          migration.disclaimer = migration.disclaimer.replaceAll('\n', '<br>')
           this.$set(this.checked, migration.id, null)
         }
       })
