@@ -58,6 +58,11 @@ body {
   }
 }
 
+// Add xs sized btn
+.btn-xs {
+  @include button-size($btn-padding-y-xs, $btn-padding-x-xs, $btn-font-size-sm, $btn-line-height-xs, $btn-border-radius-sm);
+}
+
 // Allow state of input group to be displayed under the group
 .input-group .is-invalid ~ .invalid-feedback {
   display: block;
