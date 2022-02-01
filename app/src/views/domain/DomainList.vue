@@ -3,9 +3,10 @@
     id="domain-list"
     :search.sync="search"
     :items="domains"
-    :filtered-items="filteredDomains"
     items-name="domains"
     :queries="queries"
+    :filtered-items="hasFilteredItems"
+    @queries-response="onQueriesResponse"
   >
     <template #top-bar-buttons>
       <b-button variant="success" :to="{ name: 'domain-add' }">
@@ -14,57 +15,75 @@
       </b-button>
     </template>
 
-    <b-list-group>
-      <b-list-group-item
-        v-for="domain in filteredDomains" :key="domain"
-        :to="{ name: 'domain-info', params: { name: domain }}"
-        class="d-flex justify-content-between align-items-center pr-0"
-      >
-        <div>
-          <h5 class="font-weight-bold">
-            {{ domain }}
-            <small v-if="domain === mainDomain">
-              <span class="sr-only">{{ $t('words.default') }}</span>
-              <icon iname="star" :title="$t('words.default')" />
+    <recursive-list-group :tree="tree" :toggle-text="$t('domain.toggle_subdomains')" class="mb-5">
+      <template #default="{ data, parent }">
+        <div class="w-100 d-flex justify-content-between align-items-center">
+          <h5 class="mr-3">
+            <b-link :to="data.to" class="text-body text-decoration-none">
+              <span class="font-weight-bold">{{ data.name.replace(parent ? parent.data.name : null, '') }}</span>
+              <span v-if="parent" class="text-secondary font-weight-light">{{ parent.data.name }}</span>
+            </b-link>
+
+            <small
+              v-if="data.name === mainDomain"
+              :title="$t('domain.types.main_domain')" class="ml-1"
+              v-b-tooltip.hover
+            >
+              <icon iname="star" />
             </small>
           </h5>
-          <p class="font-italic m-0">
-            https://{{ domain }}
-          </p>
         </div>
-        <icon iname="chevron-right" class="lg fs-sm ml-auto" />
-      </b-list-group-item>
-    </b-list-group>
+      </template>
+    </recursive-list-group>
   </view-search>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
 
+import RecursiveListGroup from '@/components/RecursiveListGroup'
+
+
 export default {
   name: 'DomainList',
+
+  components: {
+    RecursiveListGroup
+  },
 
   data () {
     return {
       queries: [
         ['GET', { uri: 'domains/main', storeKey: 'main_domain' }],
-        ['GET', { uri: 'domains' }]
+        ['GET', { uri: 'domains', storeKey: 'domains' }]
       ],
-      search: ''
+      search: '',
+      domainsTree: undefined
     }
   },
 
   computed: {
     ...mapGetters(['domains', 'mainDomain']),
 
-    filteredDomains () {
-      if (!this.domains || !this.mainDomain) return
-      const search = this.search.toLowerCase()
-      const mainDomain = this.mainDomain
-      const domains = this.domains
-        .filter(name => name.toLowerCase().includes(search))
-        .sort(prevDomain => prevDomain === mainDomain ? -1 : 1)
-      return domains.length ? domains : null
+    tree () {
+      if (!this.domainsTree) return
+      if (this.search) {
+        const search = this.search.toLowerCase()
+        return this.domainsTree.filter(node => node.data.name.includes(search))
+      }
+      return this.domainsTree
+    },
+
+    hasFilteredItems () {
+      if (!this.tree) return
+      return this.tree.children || null
+    }
+  },
+
+  methods: {
+    onQueriesResponse () {
+      // Add the tree to `data` to make it reactive
+      this.domainsTree = this.$store.getters.domainsTree
     }
   }
 }

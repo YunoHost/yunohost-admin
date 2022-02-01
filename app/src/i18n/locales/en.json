@@ -160,7 +160,11 @@
         "push_force": "Overwrite existing records",
         "push_force_confirm": "Are you sure you want to force push all suggested dns records? Be aware that it may overwrite manually or important default records set by you or your registrar.",
         "push_force_warning": "It looks like some DNS records that YunoHost would have set are already in the registrar configuration. You can use the overwrite option if you know what you are doing."
-      }
+      },
+      "types": {
+        "main_domain": "Main domain"
+      },
+      "toggle_subdomains": "Toggle subdomains"
     },
     "domain_add": "Add domain",
     "domain_add_dns_doc": "… and I have <a href='//yunohost.org/dns_config' target='_blank'>set my DNS correctly</a>.",
