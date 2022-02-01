@@ -24,6 +24,7 @@ export default {
         { routeName: 'tool-migrations', icon: 'share', translation: 'migrations' },
         { routeName: 'tool-firewall', icon: 'shield', translation: 'firewall' },
         { routeName: 'tool-adminpw', icon: 'key-modern', translation: 'tools_adminpw' },
+        { routeName: 'tool-settings', icon: 'cog', translation: 'tools_yunohost_settings' },
         { routeName: 'tool-webadmin', icon: 'cog', translation: 'tools_webadmin_settings' },
         { routeName: 'tool-power', icon: 'power-off', translation: 'tools_shutdown_reboot' }
       ]

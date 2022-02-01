@@ -375,6 +375,15 @@ const routes = [
     }
   },
   {
+    name: 'tool-settings',
+    path: '/tools/settings',
+    component: () => import(/* webpackChunkName: "views/tools/settings" */ '@/views/tool/ToolSettings'),
+    meta: {
+      args: { trad: 'tools_yunohost_settings' },
+      breadcrumb: ['tool-list', 'tool-settings']
+    }
+  },
+  {
     name: 'tool-power',
     path: '/tools/power',
     component: () => import(/* webpackChunkName: "views/tools/power" */ '@/views/tool/ToolPower'),
