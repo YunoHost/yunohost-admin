@@ -41,7 +41,7 @@ export default {
 
   data () {
     return {
-      fallback_loading: this.loading === null && this.fetch !== null ? true : null
+      fallback_loading: this.loading === null && this.queries !== null ? true : null
     }
   },
 
@@ -57,7 +57,7 @@ export default {
   },
 
   methods: {
-    fetchQueries (triggerLoading = false) {
+    fetchQueries ({ triggerLoading = false } = {}) {
       if (triggerLoading) {
         this.fallback_loading = true
       }
