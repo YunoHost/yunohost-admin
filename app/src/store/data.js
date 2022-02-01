@@ -22,6 +22,7 @@ export default {
   state: () => ({
     main_domain: undefined,
     domains: undefined, // Array
+    domains_details: {},
     users: undefined, // basic user data: Object {username: {data}}
     users_details: {}, // precise user data: Object {username: {data}}
     groups: undefined,
@@ -31,6 +32,22 @@ export default {
   mutations: {
     'SET_DOMAINS' (state, [domains]) {
       state.domains = domains
+    },
+
+    'SET_DOMAINS_DETAILS' (state, [name, { domains }]) {
+      Vue.set(state.domains_details, name, domains[name])
+    },
+
+    'UPDATE_DOMAINS_DETAILS' (state, payload) {
+      // FIXME use a common function to execute the same code ?
+      this.commit('SET_DOMAINS_DETAILS', payload)
+    },
+
+    'DEL_DOMAINS_DETAILS' (state, [name]) {
+      Vue.delete(state.domains_details, name)
+      if (state.domains) {
+        Vue.delete(state.domains, name)
+      }
     },
 
     'ADD_DOMAINS' (state, [{ domain }]) {

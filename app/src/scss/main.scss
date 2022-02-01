@@ -68,7 +68,10 @@ body {
   display: block;
 }
 
+
+.tooltip { top: 0; }
 // Descriptive list (<b-row /> elems with <b-col> inside)
+// FIXME REMOVE when every infos switch to `DescriptionRow`
 .row-line {
   @include media-breakpoint-up(md) {
     &:hover {

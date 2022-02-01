@@ -144,6 +144,14 @@
     "disabled": "Disabled",
     "dns": "DNS",
     "domain": {
+      "cert": {
+        "types": {
+          "self-signed": "Self-signed",
+          "lets-encrypt": "Let's Encrypt",
+          "other-unknown": "Other/Unknown"
+        },
+        "valid_for": "valid for {days}"
+      },
       "config": {
         "edit": "Edit domain configuration",
         "title": "Domain configuration"
@@ -153,6 +161,19 @@
         "auto_config_ignored": "ignored, won't be changed by YunoHost unless you check the overwrite option",
         "auto_config_ok": "Automatic configuration seems to be OK!",
         "auto_config_zone": "Current DNS zone",
+        "semi_auto_status": {
+          "activable": "Activable",
+          "activated": "Activated",
+          "has_changes": "Has changes",
+          "unavailable": "Unavailable"
+        },
+        "methods": {
+          "auto": "Automatic",
+          "handled_in_parent": "Handled in parent domain",
+          "manual": "Manual",
+          "none": "None",
+          "semi_auto": "Semi-automatic"
+        },
         "edit": "Edit DNS configuration",
         "info": "The automatic DNS records configuration is an experimental feature. <br>Consider saving your current DNS zone from your DNS registrar's interface before pushing records from here.",
         "manual_config": "Suggested DNS records for manual configuration",
@@ -161,7 +182,20 @@
         "push_force_confirm": "Are you sure you want to force push all suggested dns records? Be aware that it may overwrite manually or important default records set by you or your registrar.",
         "push_force_warning": "It looks like some DNS records that YunoHost would have set are already in the registrar configuration. You can use the overwrite option if you know what you are doing."
       },
+      "explain": {
+        "main_domain": "The main domain is the domain from which users can connect to the portal (via \"{domain}/yunohost/sso\").<br>Therefore, it is not possible to delete it.<br>If you want to delete \"{domain}\", you will first have to choose or add another domain and set it as the main domain."
+      },
+      "info": {
+        "apps_on_domain": "Apps installed on domain",
+        "certificate_authority": "SSL Certification authority",
+        "dns_config_method": "DNS config method",
+        "dns_semi_auto_config_feature": "Semi-auto DNS configuration feature",
+        "domain_type": "Domain type",
+        "registrar": "Registrar"
+      },
       "types": {
+        "parent_domain": "Parent domain",
+        "subdomain": "Subdomain",
         "main_domain": "Main domain"
       },
       "toggle_subdomains": "Toggle subdomains"
@@ -554,8 +588,10 @@
         "browse": "Browse",
         "collapse": "Collapse",
         "default": "Default",
+        "link": "Link",
         "none": "None",
-        "separator": ", "
+        "separator": ", ",
+        "valid": "Valid"
     },
     "wrong_password_or_username": "Wrong password or username",
     "yes": "Yes",
