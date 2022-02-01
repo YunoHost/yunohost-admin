@@ -2,12 +2,26 @@ import Vue from 'vue'
 
 import api from '@/api'
 import { isEmptyValue } from '@/helpers/commons'
+import { stratify } from '@/helpers/data/tree'
+
+
+export function getParentDomain (domain, domains, highest = false) {
+  const method = highest ? 'lastIndexOf' : 'indexOf'
+  let i = domain[method]('.')
+  while (i !== -1) {
+    const dn = domain.slice(i + 1)
+    if (domains.includes(dn)) return dn
+    i = domain[method]('.', i + (highest ? -1 : 1))
+  }
+
+  return null
+}
 
 
 export default {
   state: () => ({
-    domains: undefined, // Array
     main_domain: undefined,
+    domains: undefined, // Array
     users: undefined, // basic user data: Object {username: {data}}
     users_details: {}, // precise user data: Object {username: {data}}
     groups: undefined,
@@ -173,6 +187,44 @@ export default {
     user: state => name => state.users_details[name], // not cached
 
     domains: state => state.domains,
+
+    orderedDomains: state => {
+      if (!state.domains) return
+
+      const splittedDomains = Object.fromEntries(state.domains.map(domain => {
+        // Keep the main part of the domain and the extension together
+        // eg: this.is.an.example.com -> ['example.com', 'an', 'is', 'this']
+        domain = domain.split('.')
+        domain.push(domain.pop() + domain.pop())
+        return [domain, domain.reverse()]
+      }))
+
+      return state.domains.sort((a, b) => splittedDomains[a] > splittedDomains[b])
+    },
+
+    domainsTree: (state, getters) => {
+      // This getter will not return any reactive data, make sure to assign its output
+      // to a component's `data`.
+      // FIXME manage to store the result in the store to allow reactive data (trigger an
+      // action when state.domain change)
+      const domains = getters.orderedDomains
+      if (!domains) return
+      const dataset = domains.map(name => ({
+        // data to build a hierarchy
+        name,
+        parent: getParentDomain(name, domains),
+        // utility data that will be used by `RecursiveListGroup` component
+        to: { name: 'domain-info', params: { name } },
+        opened: true
+      }))
+      return stratify(dataset)
+    },
+
+    domain: state => name => state.domains_details[name],
+
+    highestDomainParentName: (state, getters) => name => {
+      return getParentDomain(name, getters.orderedDomains, true)
+    },
 
     mainDomain: state => state.main_domain,
 
