@@ -77,7 +77,7 @@ const routes = [
     component: () => import(/* webpackChunkName: "views/user/import" */ '@/views/user/UserImport'),
     props: true,
     meta: {
-      args: { param: 'name' },
+      args: { trad: 'users_import' },
       breadcrumb: ['user-list', 'user-import']
     }
   },
@@ -156,14 +156,22 @@ const routes = [
     }
   },
   {
-    name: 'domain-config',
+    // no need for name here, only children are visited
     path: '/domains/:name/config',
-    component: () => import(/* webpackChunkName: "views/domain/dns" */ '@/views/domain/DomainConfig'),
+    component: () => import(/* webpackChunkName: "views/domain/config" */ '@/views/domain/DomainConfig'),
     props: true,
-    meta: {
-      args: { trad: 'config' },
-      breadcrumb: ['domain-list', 'domain-info', 'domain-config']
-    }
+    children: [
+      {
+        name: 'domain-config',
+        path: ':tabId?',
+        component: () => import(/* webpackChunkName: "components/configPanel" */ '@/components/ConfigPanel'),
+        props: true,
+        meta: {
+          args: { trad: 'config' },
+          breadcrumb: ['domain-list', 'domain-info', 'domain-config']
+        }
+      }
+    ]
   },
   {
     name: 'domain-dns',
@@ -248,14 +256,22 @@ const routes = [
     }
   },
   {
-    name: 'app-config-panel',
+    // no need for name here, only children are visited
     path: '/apps/:id/config-panel',
     component: () => import(/* webpackChunkName: "views/apps/config" */ '@/views/app/AppConfigPanel'),
     props: true,
-    meta: {
-      args: { trad: 'app_config_panel' },
-      breadcrumb: ['app-list', 'app-info', 'app-config-panel']
-    }
+    children: [
+      {
+        name: 'app-config-panel',
+        path: ':tabId?',
+        component: () => import(/* webpackChunkName: "components/configPanel" */ '@/components/ConfigPanel'),
+        props: true,
+        meta: {
+          args: { trad: 'app_config_panel' },
+          breadcrumb: ['app-list', 'app-info', 'app-config-panel']
+        }
+      }
+    ]
   },
 
   /* ────────────────╮
