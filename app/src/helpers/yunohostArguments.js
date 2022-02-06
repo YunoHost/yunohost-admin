@@ -295,7 +295,7 @@ export function formatYunoHostConfigPanels (data) {
   }
 
   for (const { id: panelId, name, help, sections } of data.panels) {
-    const panel = { id: panelId, sections: [] }
+    const panel = { id: panelId, sections: [], serverError: '' }
     result.forms[panelId] = {}
     result.validations[panelId] = {}
     result.errors[panelId] = {}
