@@ -2,7 +2,7 @@ import Vue from 'vue'
 import router from '@/router'
 import i18n from '@/i18n'
 import api from '@/api'
-import { timeout, isObjectLiteral } from '@/helpers/commons'
+import { timeout, isEmptyValue, isObjectLiteral } from '@/helpers/commons'
 
 export default {
   state: {
@@ -15,7 +15,8 @@ export default {
     requests: [], // Array of `request`
     error: null, // null || request
     historyTimer: null, // null || setTimeout id
-    tempMessages: [] // array of messages
+    tempMessages: [], // Array of messages
+    routerKey: undefined // String if current route has params
   },
 
   mutations: {
@@ -87,6 +88,10 @@ export default {
       } else {
         state.error = null
       }
+    },
+
+    'SET_ROUTER_KEY' (state, key) {
+      state.routerKey = key
     }
   },
 
@@ -264,6 +269,24 @@ export default {
     'DISMISS_WARNING' ({ commit, state }, request) {
       commit('SET_WAITING', false)
       Vue.delete(request, 'showWarningMessage')
+    },
+
+    'UPDATE_ROUTER_KEY' ({ commit }, { to, from }) {
+      if (isEmptyValue(to.params)) {
+        commit('SET_ROUTER_KEY', undefined)
+        return
+      }
+      // If the next route uses the same component as the previous one, Vue will not
+      // recreate an instance of that component, so hooks like `created()` will not be
+      // triggered and data will not be fetched.
+      // For routes with params, we create a unique key to force the recreation of a view.
+      // Params can be declared in route `meta` to stricly define which params should be
+      // taken into account.
+      const params = to.meta.routerParams
+        ? to.meta.routerParams.map(key => to.params[key])
+        : Object.values(to.params)
+
+      commit('SET_ROUTER_KEY', `${to.name}-${params.join('-')}`)
     }
   },
 
@@ -279,6 +302,7 @@ export default {
     currentRequest: state => {
       const request = state.requests.find(({ status }) => status === 'pending')
       return request || state.requests[state.requests.length - 1]
-    }
+    },
+    routerKey: state => state.routerKey
   }
 }

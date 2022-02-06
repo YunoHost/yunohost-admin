@@ -29,6 +29,7 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
+  store.dispatch('UPDATE_ROUTER_KEY', { to, from })
   if (store.getters.error) {
     store.dispatch('DISMISS_ERROR', true)
   }

@@ -167,6 +167,7 @@ const routes = [
         component: () => import(/* webpackChunkName: "components/configPanel" */ '@/components/ConfigPanel'),
         props: true,
         meta: {
+          routerParams: ['name'], // Override router key params to avoid view recreation at tab change.
           args: { trad: 'config' },
           breadcrumb: ['domain-list', 'domain-info', 'domain-config']
         }
@@ -267,6 +268,7 @@ const routes = [
         component: () => import(/* webpackChunkName: "components/configPanel" */ '@/components/ConfigPanel'),
         props: true,
         meta: {
+          routerParams: ['id'],
           args: { trad: 'app_config_panel' },
           breadcrumb: ['app-list', 'app-info', 'app-config-panel']
         }

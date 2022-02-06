@@ -40,9 +40,9 @@
         <!-- The `key` on router-view make sure that if a link points to a page that
         use the same component as the previous one, it will be refreshed -->
         <transition v-if="transitions" :name="transitionName">
-          <router-view class="animated" :key="$route.fullPath" />
+          <router-view class="animated" :key="routerKey" />
         </transition>
-        <router-view v-else class="static" :key="$route.fullPath" />
+        <router-view v-else class="static" :key="routerKey" />
       </main>
     </view-lock-overlay>
 
@@ -93,7 +93,13 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['connected', 'yunohost', 'transitions', 'waiting'])
+    ...mapGetters([
+      'connected',
+      'yunohost',
+      'routerKey',
+      'transitions',
+      'waiting'
+    ])
   },
 
   watch: {
