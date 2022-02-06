@@ -17,10 +17,8 @@ const routes = [
     name: 'home',
     path: '/',
     component: Home,
-    // Leave the empty breadcrumb as it is used by the animated transition to know which way to go
     meta: {
-      args: { trad: 'home' },
-      breadcrumb: []
+      args: { trad: 'home' }
     }
   },
 
@@ -30,8 +28,7 @@ const routes = [
     component: Login,
     meta: {
       noAuth: true,
-      args: { trad: 'login' },
-      breadcrumb: []
+      args: { trad: 'login' }
     }
   },
 
@@ -42,12 +39,10 @@ const routes = [
     name: 'post-install',
     path: '/postinstall',
     component: () => import(/* webpackChunkName: "views/post-install" */ '@/views/PostInstall'),
-    // Leave the breadcrumb
     meta: {
       noAuth: true,
-      args: { trad: 'postinstall.title' },
-      breadcrumb: []
-     }
+      args: { trad: 'postinstall.title' }
+    }
   },
 
   /* ───────╮

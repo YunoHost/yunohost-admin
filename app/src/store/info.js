@@ -16,7 +16,8 @@ export default {
     error: null, // null || request
     historyTimer: null, // null || setTimeout id
     tempMessages: [], // Array of messages
-    routerKey: undefined // String if current route has params
+    routerKey: undefined, // String if current route has params
+    breadcrumb: [] // Array of routes
   },
 
   mutations: {
@@ -92,6 +93,10 @@ export default {
 
     'SET_ROUTER_KEY' (state, key) {
       state.routerKey = key
+    },
+
+    'SET_BREADCRUMB' (state, breadcrumb) {
+      state.breadcrumb = breadcrumb
     }
   },
 
@@ -287,6 +292,47 @@ export default {
         : Object.values(to.params)
 
       commit('SET_ROUTER_KEY', `${to.name}-${params.join('-')}`)
+    },
+
+    'UPDATE_BREADCRUMB' ({ commit }, { to, from }) {
+      function getRouteNames (route) {
+        if (route.meta.breadcrumb) return route.meta.breadcrumb
+        const parentRoute = route.matched.slice().reverse().find(route => route.meta.breadcrumb)
+        if (parentRoute) return parentRoute.meta.breadcrumb
+        return []
+      }
+
+      function formatRoute (route) {
+        const { trad, param } = route.meta.args || {}
+        let text = ''
+        // if a traduction key string has been given and we also need to pass
+        // the route param as a variable.
+        if (trad && param) {
+          text = i18n.t(trad, { [param]: to.params[param] })
+        } else if (trad) {
+          text = i18n.t(trad)
+        } else {
+          text = to.params[param]
+        }
+        return { name: route.name, text }
+      }
+
+      const routeNames = getRouteNames(to)
+      const allRoutes = router.getRoutes()
+      const breadcrumb = routeNames.map(name => {
+        const route = allRoutes.find(route => route.name === name)
+        return formatRoute(route)
+      })
+
+      commit('SET_BREADCRUMB', breadcrumb)
+
+      function getTitle (breadcrumb) {
+        if (breadcrumb.length === 0) return formatRoute(to).text
+        return (breadcrumb.length > 2 ? breadcrumb.slice(-2) : breadcrumb).map(route => route.text).reverse().join(' / ')
+      }
+
+      // Display a simplified breadcrumb as the document title.
+      document.title = `${getTitle(breadcrumb)} | ${i18n.t('yunohost_admin')}`
     }
   },
 
@@ -303,6 +349,7 @@ export default {
       const request = state.requests.find(({ status }) => status === 'pending')
       return request || state.requests[state.requests.length - 1]
     },
-    routerKey: state => state.routerKey
+    routerKey: state => state.routerKey,
+    breadcrumb: state => state.breadcrumb
   }
 }
