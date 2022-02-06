@@ -17,7 +17,8 @@ export default {
     historyTimer: null, // null || setTimeout id
     tempMessages: [], // Array of messages
     routerKey: undefined, // String if current route has params
-    breadcrumb: [] // Array of routes
+    breadcrumb: [], // Array of routes
+    transitionName: null // String of CSS class if transitions are enabled
   },
 
   mutations: {
@@ -97,6 +98,10 @@ export default {
 
     'SET_BREADCRUMB' (state, breadcrumb) {
       state.breadcrumb = breadcrumb
+    },
+
+    'SET_TRANSITION_NAME' (state, transitionName) {
+      state.transitionName = transitionName
     }
   },
 
@@ -333,6 +338,13 @@ export default {
 
       // Display a simplified breadcrumb as the document title.
       document.title = `${getTitle(breadcrumb)} | ${i18n.t('yunohost_admin')}`
+    },
+
+    'UPDATE_TRANSITION_NAME' ({ state, commit }, { to, from }) {
+      // Use the breadcrumb array length as a direction indicator
+      const toDepth = (to.meta.breadcrumb || []).length
+      const fromDepth = (from.meta.breadcrumb || []).length
+      commit('SET_TRANSITION_NAME', toDepth < fromDepth ? 'slide-right' : 'slide-left')
     }
   },
 
@@ -350,6 +362,7 @@ export default {
       return request || state.requests[state.requests.length - 1]
     },
     routerKey: state => state.routerKey,
-    breadcrumb: state => state.breadcrumb
+    breadcrumb: state => state.breadcrumb,
+    transitionName: state => state.transitionName
   }
 }

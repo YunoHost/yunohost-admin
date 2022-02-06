@@ -30,6 +30,10 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   store.dispatch('UPDATE_ROUTER_KEY', { to, from })
   store.dispatch('UPDATE_BREADCRUMB', { to, from })
+  if (store.getters.transitions && from.name !== null) {
+    store.dispatch('UPDATE_TRANSITION_NAME', { to, from })
+  }
+
   if (store.getters.error) {
     store.dispatch('DISMISS_ERROR', true)
   }

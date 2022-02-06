@@ -86,31 +86,15 @@ export default {
     ViewLockOverlay
   },
 
-  data () {
-    return {
-      transitionName: null
-    }
-  },
-
   computed: {
     ...mapGetters([
       'connected',
       'yunohost',
       'routerKey',
       'transitions',
+      'transitionName',
       'waiting'
     ])
-  },
-
-  watch: {
-    // Set the css class to animate the components transition
-    '$route' (to, from) {
-      if (!this.transitions || from.name === null) return
-      // Use the breadcrumb array length as a direction indicator
-      const toDepth = to.meta.breadcrumb.length
-      const fromDepth = from.meta.breadcrumb.length
-      this.transitionName = toDepth < fromDepth ? 'slide-right' : 'slide-left'
-    }
   },
 
   methods: {
