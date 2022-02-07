@@ -1,67 +1,50 @@
 <template>
-  <b-card no-body>
-    <b-tabs fill pills card>
-      <slot name="before" />
-
-      <tab-form
-        v-for="{ name, id, sections, help, serverError } in panels" :key="id"
-        v-bind="{ name, id: id + '-form', validation: $v.forms[id], serverError }"
-        @submit.prevent.stop="$emit('submit', id)"
-      >
-        <template v-if="help" #disclaimer>
-          <div class="alert alert-info" v-html="help" />
-        </template>
-
-        <slot :name="id + '-tab-before'" />
-
-        <template v-for="section in sections">
-          <div v-if="isVisible(section.visible, section)" :key="section.id" class="mb-5">
-            <b-card-title v-if="section.name" title-tag="h3">
-              {{ section.name }} <small v-if="section.help">{{ section.help }}</small>
-            </b-card-title>
-
-            <template v-for="(field, fname) in section.fields">
-              <form-field
-                v-if="isVisible(field.visible, field)" :key="fname"
-                v-model="forms[id][fname]" v-bind="field" :validation="$v.forms[id][fname]"
-              />
-            </template>
-          </div>
-        </template>
-
-        <slot :name="id + '-tab-after'" />
-      </tab-form>
-
-      <slot name="default" />
-    </b-tabs>
-  </b-card>
+  <routable-tabs
+    :routes="routes_"
+    v-bind="{ panels, forms, v: $v }"
+    v-on="$listeners"
+  />
 </template>
 
 <script>
 import { validationMixin } from 'vuelidate'
 
-import { configPanelsFieldIsVisible } from '@/helpers/yunohostArguments'
-
-
 export default {
   name: 'ConfigPanels',
+
+  components: {
+    RoutableTabs: () => import('@/components/RoutableTabs.vue')
+  },
 
   mixins: [validationMixin],
 
   props: {
     panels: { type: Array, default: undefined },
     forms: { type: Object, default: undefined },
-    validations: { type: Object, default: undefined }
+    validations: { type: Object, default: undefined },
+    errors: { type: Object, default: undefined }, // never used
+    routes: { type: Array, default: null },
+    noRedirect: { type: Boolean, default: false }
+  },
+
+  computed: {
+    routes_ () {
+      if (this.routes) return this.routes
+      return this.panels.map(panel => ({
+        to: { params: { tabId: panel.id } },
+        text: panel.name,
+        icon: panel.icon || 'wrench'
+      }))
+    }
   },
 
   validations () {
-    const v = this.validations
-    return v ? { forms: v } : null
+    return { forms: this.validations }
   },
 
-  methods: {
-    isVisible (expression, field) {
-      return configPanelsFieldIsVisible(expression, field, this.forms)
+  created () {
+    if (!this.noRedirect && !this.$route.params.tabId) {
+      this.$router.replace({ params: { tabId: this.panels[0].id } })
     }
   }
 }

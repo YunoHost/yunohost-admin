@@ -1,5 +1,5 @@
 <template>
-  <div v-bind="$attr" :class="['custom-spinner', spinner]" />
+  <div :class="['custom-spinner', spinner]" />
 </template>
 
 <script>

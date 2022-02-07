@@ -1,12 +1,7 @@
 <template>
-  <b-tab no-body>
-    <template #title>
-      <icon :iname="icon" /> {{ name }}
-    </template>
-
+  <div>
     <b-card-body>
       <slot name="disclaimer" />
-
 
       <b-form
         :id="id" :inline="inline" :class="formClasses"
@@ -14,27 +9,29 @@
       >
         <slot name="default" />
 
-        <slot name="server-error">
+        <slot name="server-error" v-bind="{ errorFeedback }">
           <b-alert
+            v-if="errorFeedback"
             variant="danger" class="my-3" icon="ban"
-            :show="errorFeedback !== ''" v-html="errorFeedback"
+            v-html="errorFeedback"
           />
         </slot>
       </b-form>
     </b-card-body>
 
-    <b-card-footer>
-      <b-button type="submit" variant="success" :form="id">
-        {{ submitText ? submitText : $t('save') }}
-      </b-button>
+    <b-card-footer v-if="!noFooter">
+      <slot name="footer">
+        <b-button type="submit" variant="success" :form="id">
+          {{ submitText || $t('save') }}
+        </b-button>
+      </slot>
     </b-card-footer>
-  </b-tab>
+  </div>
 </template>
 
 <script>
-
 export default {
-  name: 'TabForm',
+  name: 'AbstractForm',
 
   props: {
     id: { type: String, default: 'ynh-form' },
@@ -43,8 +40,7 @@ export default {
     serverError: { type: String, default: '' },
     inline: { type: Boolean, default: false },
     formClasses: { type: [Array, String, Object], default: null },
-    name: { type: String, required: true },
-    icon: { type: String, default: 'wrench' }
+    noFooter: { type: Boolean, default: false }
   },
 
   computed: {

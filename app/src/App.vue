@@ -40,9 +40,9 @@
         <!-- The `key` on router-view make sure that if a link points to a page that
         use the same component as the previous one, it will be refreshed -->
         <transition v-if="transitions" :name="transitionName">
-          <router-view class="animated" :key="$route.fullPath" />
+          <router-view class="animated" :key="routerKey" />
         </transition>
-        <router-view v-else class="static" :key="$route.fullPath" />
+        <router-view v-else class="static" :key="routerKey" />
       </main>
     </view-lock-overlay>
 
@@ -86,25 +86,15 @@ export default {
     ViewLockOverlay
   },
 
-  data () {
-    return {
-      transitionName: null
-    }
-  },
-
   computed: {
-    ...mapGetters(['connected', 'yunohost', 'transitions', 'waiting'])
-  },
-
-  watch: {
-    // Set the css class to animate the components transition
-    '$route' (to, from) {
-      if (!this.transitions || from.name === null) return
-      // Use the breadcrumb array length as a direction indicator
-      const toDepth = to.meta.breadcrumb.length
-      const fromDepth = from.meta.breadcrumb.length
-      this.transitionName = toDepth < fromDepth ? 'slide-right' : 'slide-left'
-    }
+    ...mapGetters([
+      'connected',
+      'yunohost',
+      'routerKey',
+      'transitions',
+      'transitionName',
+      'waiting'
+    ])
   },
 
   methods: {
