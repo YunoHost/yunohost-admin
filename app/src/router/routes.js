@@ -375,13 +375,21 @@ const routes = [
     }
   },
   {
-    name: 'tool-settings',
     path: '/tools/settings',
     component: () => import(/* webpackChunkName: "views/tools/settings" */ '@/views/tool/ToolSettings'),
-    meta: {
-      args: { trad: 'tools_yunohost_settings' },
-      breadcrumb: ['tool-list', 'tool-settings']
-    }
+    children: [
+      {
+        name: 'tool-settings',
+        path: ':tabId?',
+        component: () => import(/* webpackChunkName: "components/configPanel" */ '@/components/ConfigPanel'),
+        props: true,
+        meta: {
+          routerParams: [],
+          args: { trad: 'tools_yunohost_settings' },
+          breadcrumb: ['tool-list', 'tool-settings']
+        }
+      }
+    ]
   },
   {
     name: 'tool-power',
