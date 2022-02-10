@@ -240,7 +240,7 @@
     "logs_share_with_yunopaste": "Partager les logs avec YunoPaste",
     "logs_more": "Afficher plus de lignes",
     "unmaintained": "Non maintenue",
-    "purge_user_data_checkbox": "Purger les données de {name} ? (Cela supprimera toutes les données de son répertoire ainsi que ses emails)",
+    "purge_user_data_checkbox": "Purger les données de l'utilisateur %s ? (Cela supprimera le contenu de son dossier personnel et ses e-mails)",
     "purge_user_data_warning": "La purge des données de l’utilisateur n’est pas réversible. Assurez-vous de savoir ce que vous faites !",
     "version": "Version",
     "confirm_update_system": "Voulez-vous vraiment mettre à jour tous les paquets système ?",
