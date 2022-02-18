@@ -36,7 +36,7 @@
                 "shutdown": "O servidor estase apagando e non está dispoñible. Acéndeo e o formulario de conexión estará dispoñible tan pronto o servidor sexa accesible.",
                 "upgrade_system": "Pechouse a conexión ao servidor debido á actualización de YunoHost. Agardando a que o servidor sexa accesible…"
             },
-            "success": "O servidor está accesible! Podes intentar conectar"
+            "success": "O servidor está accesible! Podes intentar acceder"
         }
     },
     "all": "Todo",
@@ -108,7 +108,7 @@
     "all_apps": "Tódalas apps",
     "domain_delete_longdesc": "Eliminar este domino",
     "domain_default_longdesc": "Este é o teu dominio por defecto.",
-    "domain_default_desc": "O dominio por defecto é o dominio de conexión onde se conectarán as usuarias.",
+    "domain_default_desc": "O dominio por defecto é o dominio de conexión onde accederán as usuarias.",
     "domain_add_panel_without_domain": "Non teño un nome de dominio…",
     "domain_add_panel_with_domain": "Xa teño un nome de dominio…",
     "domain_add_dyndns_forbidden": "Xa estás subscrita a un dominio DynDNS, podes pedir no foro que se elimine o teu dominio DynDNS <a href='//forum.yunohost.org/t/nohost-domain-recovery-suppression-de-domaine-en-nohost-me-noho-st-et-ynh-fr/442'>no tema dedicado</a>.",
@@ -293,7 +293,7 @@
     "mailbox_quota_example": "700M é un CD, 4700M é un DVD",
     "mailbox_quota_description": "Establece o tamaño máximo para almacenaxe de email. <br>0 para desactivar.",
     "logout": "Pechar sesión",
-    "login": "Conectar",
+    "login": "Acceder",
     "local_archives": "Arquivos locais",
     "license": "Licenza",
     "last_ran": "Última execución:",
