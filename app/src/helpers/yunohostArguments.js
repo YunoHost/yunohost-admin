@@ -259,20 +259,11 @@ export function formatYunoHostArgument (arg) {
  * @param {String} name - (temp) an app name to build a label field in case of manifest install args
  * @return {Object} an object containing all parsed values to be used in vue views.
  */
-export function formatYunoHostArguments (args, name = null) {
+export function formatYunoHostArguments (args) {
   const form = {}
   const fields = {}
   const validations = {}
   const errors = {}
-
-  // FIXME yunohost should add the label field by default
-  if (name) {
-    args.unshift({
-      ask: i18n.t('label_for_manifestname', { name }),
-      default: name,
-      name: 'label'
-    })
-  }
 
   for (const arg of args) {
     const { value, field, validation, error } = formatYunoHostArgument(arg)

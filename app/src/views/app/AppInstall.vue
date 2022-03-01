@@ -92,10 +92,19 @@ export default {
       manifest.multi_instance = this.$i18n.t(manifest.multi_instance ? 'yes' : 'no')
       this.infos = Object.fromEntries(infosKeys.map(key => [key, manifest[key]]))
 
-      const { form, fields, validations, errors } = formatYunoHostArguments(
-        manifest.arguments.install,
-        manifest.name
-      )
+      // FIXME yunohost should add the label field by default
+      manifest.arguments.install.unshift({
+        ask: this.$t('label_for_manifestname', { name: manifest.name }),
+        default: manifest.name,
+        name: 'label'
+      })
+
+      const {
+        form,
+        fields,
+        validations,
+        errors
+      } = formatYunoHostArguments(manifest.arguments.install)
 
       this.fields = fields
       this.form = form
