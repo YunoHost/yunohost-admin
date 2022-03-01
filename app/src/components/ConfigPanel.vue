@@ -12,18 +12,21 @@
     <slot name="tab-before" />
 
     <template v-for="section in panel.sections">
-      <div v-if="isVisible(section.visible, section)" :key="section.id" class="mb-5">
+      <component
+        v-if="section.visible" :is="section.name ? 'section' : 'div'"
+        :key="section.id" class="mb-5"
+      >
         <b-card-title v-if="section.name" title-tag="h3">
           {{ section.name }} <small v-if="section.help">{{ section.help }}</small>
         </b-card-title>
 
         <template v-for="(field, fname) in section.fields">
           <form-field
-            v-if="isVisible(field.visible, field)" :key="fname"
+            v-if="field.visible" :key="fname"
             v-model="forms[panel.id][fname]" v-bind="field" :validation="validation[fname]"
           />
         </template>
-      </div>
+      </component>
     </template>
 
     <slot name="tab-after" />
@@ -31,7 +34,6 @@
 </template>
 
 <script>
-import { configPanelsFieldIsVisible } from '@/helpers/yunohostArguments'
 
 
 export default {
@@ -55,9 +57,6 @@ export default {
   },
 
   methods: {
-    isVisible (expression, field) {
-      return configPanelsFieldIsVisible(expression, field, this.forms)
-    }
   }
 }
 </script>

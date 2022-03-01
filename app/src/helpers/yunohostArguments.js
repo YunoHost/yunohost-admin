@@ -55,6 +55,49 @@ export function adressToFormValue (address) {
 
 
 /**
+ * Evaluate config panel string expression that can contain regular expressions.
+ * Expression are evaluated with the config panel form as context.
+ *
+ * @param {String} expression - A String to evaluate.
+ * @param {Object} forms - A nested form used in config panels.
+ * @return {Boolean} - expression evaluation result.
+ */
+export function evaluateExpression (expression, forms) {
+  if (!expression) return true
+  if (expression === '"false"') return false
+
+  const context = Object.values(forms).reduce((ctx, args) => {
+    Object.entries(args).forEach(([name, value]) => {
+      ctx[name] = isObjectLiteral(value) && 'file' in value ? value.content : value
+    })
+    return ctx
+  }, {})
+
+  // Allow to use match(var,regexp) function
+  const matchRe = new RegExp('match\\(\\s*(\\w+)\\s*,\\s*"([^"]+)"\\s*\\)', 'g')
+  for (const matched of expression.matchAll(matchRe)) {
+    const [fullMatch, varMatch, regExpMatch] = matched
+    const varName = varMatch + '__re' + matched.index
+    context[varName] = new RegExp(regExpMatch, 'm').test(context[varMatch])
+    expression = expression.replace(fullMatch, varName)
+  }
+
+  try {
+    return !!evaluate(context, expression)
+  } catch {
+    return false
+  }
+}
+
+// Adds a property to an Object that will dynamically returns a expression evaluation result.
+function addEvaluationGetter (prop, obj, expr, ctx) {
+  Object.defineProperty(obj, prop, {
+    get: () => evaluateExpression(expr, ctx)
+  })
+}
+
+
+/**
  * Format app install, actions and config panel argument into a data structure that
  * will be automaticly transformed into a component on screen.
  *
@@ -243,12 +286,6 @@ export function formatYunoHostArgument (arg) {
     field.link = { href: arg.helpLink.href, text: i18n.t(arg.helpLink.text) }
   }
 
-  if (arg.visible) {
-    field.visible = arg.visible
-    // Temporary value to wait visible expression to be evaluated
-    field.isVisible = true
-  }
-
   return {
     value,
     field,
@@ -264,10 +301,10 @@ export function formatYunoHostArgument (arg) {
  * as v-model values, fields that can be passed to a FormField component and validations.
  *
  * @param {Array} args - a yunohost arg array written by a packager.
- * @param {String} name - (temp) an app name to build a label field in case of manifest install args
+ * @param {Object|null} forms - nested form used as the expression evualuations context.
  * @return {Object} an object containing all parsed values to be used in vue views.
  */
-export function formatYunoHostArguments (args) {
+export function formatYunoHostArguments (args, forms) {
   const form = {}
   const fields = {}
   const validations = {}
@@ -279,6 +316,12 @@ export function formatYunoHostArguments (args) {
     form[arg.name] = value
     if (validation) validations[arg.name] = validation
     errors[arg.name] = error
+
+    if ('visible' in arg) {
+      addEvaluationGetter('visible', field, arg.visible, forms)
+    } else {
+      field.visible = true
+    }
   }
 
   return { form, fields, validations, errors }
@@ -302,11 +345,20 @@ export function formatYunoHostConfigPanels (data) {
     if (name) panel.name = formatI18nField(name)
     if (help) panel.help = formatI18nField(help)
 
-    for (const { id: sectionId, name, help, visible, options } of sections) {
-      const section = { id: sectionId, visible, isVisible: false }
-      if (help) section.help = formatI18nField(help)
-      if (name) section.name = formatI18nField(name)
-      const { form, fields, validations, errors } = formatYunoHostArguments(options)
+    for (const _section of sections) {
+      const section = { id: _section.id, visible: true }
+      if (_section.help) section.help = formatI18nField(_section.help)
+      if (_section.name) section.name = formatI18nField(_section.name)
+      if (_section.visible) {
+        addEvaluationGetter('visible', section, _section.visible, result.forms)
+      }
+
+      const {
+        form,
+        fields,
+        validations,
+        errors
+      } = formatYunoHostArguments(_section.options, result.forms)
       // Merge all sections forms to the panel to get a unique form
       Object.assign(result.forms[panelId], form)
       Object.assign(result.validations[panelId], validations)
@@ -320,47 +372,6 @@ export function formatYunoHostConfigPanels (data) {
 
   return result
 }
-
-
-export function configPanelsFieldIsVisible (expression, field, forms) {
-  if (!expression || !field) return true
-  const context = {}
-
-  const promises = []
-  for (const args of Object.values(forms)) {
-    for (const shortname in args) {
-      if (args[shortname] instanceof File) {
-        if (expression.includes(shortname)) {
-          promises.push(pFileReader(args[shortname], context, shortname, false))
-        }
-      } else {
-        context[shortname] = args[shortname]
-      }
-    }
-  }
-
-  // Allow to use match(var,regexp) function
-  const matchRe = new RegExp('match\\(\\s*(\\w+)\\s*,\\s*"([^"]+)"\\s*\\)', 'g')
-  let i = 0
-  Promise.all(promises).then(() => {
-    for (const matched of expression.matchAll(matchRe)) {
-      i++
-      const varName = matched[1] + '__re' + i.toString()
-      context[varName] = new RegExp(matched[2], 'm').test(context[matched[1]])
-      expression = expression.replace(matched[0], varName)
-    }
-
-    try {
-      field.isVisible = evaluate(context, expression)
-    } catch {
-      field.isVisible = false
-    }
-  })
-
-  return field.isVisible
-}
-
-
 
 
 /**
