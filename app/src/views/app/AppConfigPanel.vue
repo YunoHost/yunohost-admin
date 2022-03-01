@@ -50,16 +50,16 @@ export default {
     },
 
     async applyConfig (id_) {
-      const formatedData = await formatFormData(
+      const args = await formatFormData(
         this.config.forms[id_],
-        { removeEmpty: false, removeNull: true, multipart: false }
+        { removeEmpty: false, removeNull: true }
       )
 
       api.put(
         `apps/${this.id}/config`,
-        { key: id_, args: objectToParams(formatedData) },
+        { key: id_, args: objectToParams(args) },
         { key: 'apps.update_config', name: this.id }
-      ).then(response => {
+      ).then(() => {
         this.$refs.view.fetchQueries({ triggerLoading: true })
       }).catch(err => {
         if (err.name !== 'APIBadRequestError') throw err

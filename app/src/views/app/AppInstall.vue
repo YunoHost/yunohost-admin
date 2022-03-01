@@ -124,7 +124,7 @@ export default {
 
       const { data: args, label } = await formatFormData(
         this.form,
-        { extract: ['label'], removeEmpty: false, removeNull: true, multipart: false }
+        { extract: ['label'], removeEmpty: false, removeNull: true }
       )
       const data = { app: this.id, label, args: Object.entries(args).length ? objectToParams(args) : undefined }
 

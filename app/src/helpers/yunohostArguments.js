@@ -375,19 +375,64 @@ export function formatYunoHostConfigPanels (data) {
 
 
 /**
- * Format helper for a form value.
- * Convert Boolean to (1|0) and concatenate adresses.
+ * Parse a front-end value to its API equivalent. This function returns a Promise or an
+ * Object `{ key: Promise }` if `key` is supplied. When parsing a form, all those
+ * objects must be merged to define the final sent form.
+ *
+ * Convert Boolean to '1' (true) or '0' (false),
+ * Concatenate two parts adresses (subdomain or email for example) into a single string,
+ * Convert File to its Base64 representation or set its value to '' to ask for a removal.
  *
  * @param {*} value
  * @return {*}
  */
-export function formatFormDataValue (value) {
-  if (typeof value === 'boolean') {
-    return value ? 1 : 0
-  } else if (isObjectLiteral(value) && 'separator' in value) {
-    return Object.values(value).join('')
+export function formatFormDataValue (value, key = null) {
+  if (Array.isArray(value)) {
+    return Promise.all(
+      value.map(value_ => formatFormDataValue(value_))
+    ).then(resolvedValues => ({ [key]: resolvedValues }))
   }
-  return value
+
+  let result = value
+  if (typeof value === 'boolean') result = value ? 1 : 0
+  if (isObjectLiteral(value) && 'file' in value) {
+    // File has to be deleted
+    if (value.removed) result = ''
+    // File has not changed (will not be sent)
+    else if (value.current_file || value.file === null) result = null
+    else {
+      return getFileContent(value.file, { base64: true }).then(content => {
+        return {
+          [key]: content.replace(/data:[^;]*;base64,/, ''),
+          [key + '[name]']: value.file.name
+        }
+      })
+    }
+  } else if (isObjectLiteral(value) && 'separator' in value) {
+    result = Object.values(value).join('')
+  }
+
+  // Returns a resolved Promise for non async values
+  return Promise.resolve(key ? { [key]: result } : result)
+}
+
+
+/**
+ * Convinient helper to properly parse a front-end form to its API equivalent.
+ * This parse each values asynchronously, allow to inject keys into the final form and
+ * make sure every async values resolves before resolving itself.
+ *
+ * @param {Object} formData
+ * @return {Object}
+ */
+function formatFormDataValues (formData) {
+  const promisedValues = Object.entries(formData).map(([key, value]) => {
+    return formatFormDataValue(value, key)
+  })
+
+  return Promise.all(promisedValues).then(resolvedValues => {
+    return resolvedValues.reduce((form, obj) => ({ ...form, ...obj }), {})
+  })
 }
 
 
@@ -403,38 +448,28 @@ export function formatFormDataValue (value) {
  */
 export async function formatFormData (
   formData,
-  { extract = null, flatten = false, removeEmpty = true, removeNull = false, multipart = true } = {}
+  { extract = null, flatten = false, removeEmpty = true, removeNull = false } = {}
 ) {
   const output = {
     data: {},
     extracted: {}
   }
-  const promises = []
-  for (const key in formData) {
-    const type = extract && extract.includes(key) ? 'extracted' : 'data'
-    const value = Array.isArray(formData[key])
-      ? formData[key].map(item => formatFormDataValue(item))
-      : formatFormDataValue(formData[key])
 
+  const values = await formatFormDataValues(formData)
+  for (const key in values) {
+    const type = extract && extract.includes(key) ? 'extracted' : 'data'
+    const value = values[key]
     if (removeEmpty && isEmptyValue(value)) {
       continue
-    } else if (removeNull && (value === null || value === undefined)) {
+    } else if (removeNull && [null, undefined].includes(value)) {
       continue
-    } else if (value instanceof File && !multipart) {
-      if (value.currentfile) {
-          continue
-      } else if (value._removed) {
-          output[type][key] = ''
-          continue
-      }
-      promises.push(pFileReader(value, output[type], key))
     } else if (flatten && isObjectLiteral(value)) {
       flattenObjectLiteral(value, output[type])
     } else {
       output[type][key] = value
     }
   }
-  if (promises.length) await Promise.all(promises)
+
   const { data, extracted } = output
   return extract ? { data, ...extracted } : data
 }
