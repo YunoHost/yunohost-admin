@@ -2,7 +2,12 @@ import i18n from '@/i18n'
 import store from '@/store'
 import evaluate from 'simple-evaluate'
 import * as validators from '@/helpers/validators'
-import { isObjectLiteral, isEmptyValue, flattenObjectLiteral } from '@/helpers/commons'
+import {
+  isObjectLiteral,
+  isEmptyValue,
+  flattenObjectLiteral,
+  getFileContent
+} from '@/helpers/commons'
 
 
 /**
@@ -125,9 +130,12 @@ export function formatYunoHostArgument (arg) {
       name: 'FileItem',
       props: defaultProps.concat(['accept']),
       callback: function () {
-        if (value) {
-          value = new File([''], value)
-          value.currentfile = true
+        value = {
+          // in case of already defined file, we receive only the file path (not the actual file)
+          file: value ? new File([''], value) : null,
+          content: '',
+          current_file: !!value,
+          removed: false
         }
       }
     },
@@ -353,25 +361,6 @@ export function configPanelsFieldIsVisible (expression, field, forms) {
 }
 
 
-export function pFileReader (file, output, key, base64 = true) {
-    return new Promise((resolve, reject) => {
-        const fr = new FileReader()
-        fr.onerror = reject
-        fr.onload = () => {
-          output[key] = fr.result
-          if (base64) {
-            output[key] = fr.result.replace(/data:[^;]*;base64,/, '')
-          }
-          output[key + '[name]'] = file.name
-          resolve()
-        }
-        if (base64) {
-          fr.readAsDataURL(file)
-        } else {
-          fr.readAsText(file)
-        }
-    })
-}
 
 
 /**

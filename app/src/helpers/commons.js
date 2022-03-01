@@ -100,3 +100,26 @@ export function escapeHtml (unsafe) {
 export function randint (min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min
 }
+
+
+/**
+ * Returns a File content.
+ *
+ * @param {File} file
+ * @param {Object} [extraParams] - Optionnal params
+ * @param {Boolean} [extraParams.base64] - returns a base64 representation of the file.
+ * @return {Promise<String>}
+ */
+export function getFileContent (file, { base64 = false } = {}) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader()
+    reader.onerror = reject
+    reader.onload = () => resolve(reader.result)
+
+    if (base64) {
+      reader.readAsDataURL(file)
+    } else {
+      reader.readAsText(file)
+    }
+  })
+}
