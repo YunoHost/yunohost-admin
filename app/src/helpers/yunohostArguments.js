@@ -177,7 +177,7 @@ export function formatYunoHostArgument (arg) {
           // in case of already defined file, we receive only the file path (not the actual file)
           file: value ? new File([''], value) : null,
           content: '',
-          current_file: !!value,
+          current: !!value,
           removed: false
         }
       }
@@ -399,7 +399,7 @@ export function formatFormDataValue (value, key = null) {
     // File has to be deleted
     if (value.removed) result = ''
     // File has not changed (will not be sent)
-    else if (value.current_file || value.file === null) result = null
+    else if (value.current || value.file === null) result = null
     else {
       return getFileContent(value.file, { base64: true }).then(content => {
         return {

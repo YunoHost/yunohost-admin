@@ -9,7 +9,7 @@
     </b-button>
 
     <b-form-file
-      v-model="file"
+      :value="value.file"
       ref="input-file"
       :id="id"
       :required="required"
@@ -33,19 +33,13 @@ export default {
 
   props: {
     id: { type: String, default: null },
-    value: { type: Object, default: () => ({}) },
+    value: { type: Object, default: () => ({ file: null }) },
     placeholder: { type: String, default: 'Choose a file or drop it here...' },
     dropPlaceholder: { type: String, default: null },
     accept: { type: String, default: null },
     state: { type: Boolean, default: null },
     required: { type: Boolean, default: false },
     name: { type: String, default: null }
-  },
-
-  data () {
-    return {
-      file: this.value.file
-    }
   },
 
   computed: {
@@ -59,7 +53,7 @@ export default {
       const value = {
         file,
         content: '',
-        currentfile: false,
+        current: false,
         removed: false
       }
       // Update the value with the new File and an empty content for now
@@ -76,7 +70,7 @@ export default {
       this.$emit('input', {
         file: null,
         content: '',
-        current_file: false,
+        current: false,
         removed: true
       })
     }
