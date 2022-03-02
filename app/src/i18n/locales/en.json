@@ -544,7 +544,9 @@
     "words": {
         "browse": "Browse",
         "collapse": "Collapse",
-        "default": "Default"
+        "default": "Default",
+        "none": "None",
+        "separator": ", "
     },
     "wrong_password": "Wrong password",
     "yes": "Yes",
