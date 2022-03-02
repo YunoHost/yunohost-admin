@@ -378,13 +378,14 @@
     "human_routes": {
         "adminpw": "Change admin password",
         "apps": {
+          "action_config": "Run action '{action}' of app '{name}' configuration",
           "change_label": "Change label of '{prevName}' for '{nextName}'",
           "change_url": "Change access URL of '{name}'",
           "install": "Install app '{name}'",
           "set_default": "Redirect '{domain}' domain root to '{name}'",
           "perform_action": "Perform action '{action}' of app '{name}'",
           "uninstall": "Uninstall app '{name}'",
-          "update_config": "Update app '{name}' configuration"
+          "update_config": "Update panel '{id}' of app '{name}' configuration"
         },
         "backups": {
           "create": "Create a backup",
@@ -406,13 +407,11 @@
         "domains": {
           "add": "Add domain '{name}'",
           "delete": "Delete domain '{name}'",
-          "install_LE": "Install certificate for '{name}'",
-          "manual_renew_LE": "Renew certificate for '{name}'",
+          "cert_install": "Install certificate for '{name}'",
+          "cert_renew": "Renew certificate for '{name}'",
           "push_dns_changes": "Push DNS records to registrar for '{name}'",
-          "regen_selfsigned": "Renew self-signed certificate for '{name}'",
-          "revert_to_selfsigned": "Revert to self-signed certificate for '{name}'",
           "set_default": "Set '{name}' as default domain",
-          "update_config": "Update '{name}' configuration"
+          "update_config": "Update panel '{id}' of domain '{name}' configuration"
         },
         "firewall": {
             "ports": "{action} port {port} ({protocol}, {connection})",

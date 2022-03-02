@@ -3,7 +3,10 @@
     :queries="queries" @queries-response="onQueriesResponse"
     ref="view" skeleton="card-form-skeleton"
   >
-    <config-panels v-if="config.panels" v-bind="config" @submit="applyConfig" />
+    <config-panels
+      v-if="config.panels" v-bind="config"
+      @submit="onConfigSubmit"
+    />
   </view-base>
 </template>
 
@@ -41,17 +44,21 @@ export default {
       this.config = formatYunoHostConfigPanels(config)
     },
 
-    async applyConfig (id) {
-      const args = await formatFormData(
-        this.config.forms[id],
-        { removeEmpty: false, removeNull: true }
-      )
+    async onConfigSubmit ({ id, form, action, name }) {
+      const args = await formatFormData(form, { removeEmpty: false, removeNull: true })
+      const call = action
+        ? api.put(
+          `domain/${this.name}/actions/${action}`,
+          { args: objectToParams(args) },
+          { key: 'domains.' + name, name: this.name }
+        )
+        : api.put(
+          `domains/${this.name}/config/${id}`,
+          { args: objectToParams(args) },
+          { key: 'domains.update_config', id, name: this.name }
+        )
 
-      api.put(
-        `domains/${this.name}/config`,
-        { key: id, args: objectToParams(args) },
-        { key: 'domains.update_config', name: this.name }
-      ).then(() => {
+      call.then(() => {
         this.$refs.view.fetchQueries({ triggerLoading: true })
       }).catch(err => {
         if (err.name !== 'APIBadRequestError') throw err

@@ -3,7 +3,10 @@
     :queries="queries" @queries-response="onQueriesResponse"
     ref="view" skeleton="card-form-skeleton"
   >
-    <config-panels v-if="config.panels" v-bind="config" @submit="applyConfig" />
+    <config-panels
+      v-if="config.panels" v-bind="config"
+      @submit="onConfigSubmit"
+    />
 
     <b-alert v-else-if="config.panels === null" variant="warning">
       <icon iname="exclamation-triangle" /> {{ $t('app_config_panel_no_panel') }}
@@ -34,7 +37,7 @@ export default {
   data () {
     return {
       queries: [
-        ['GET', `apps/${this.id}/config-panel?full`]
+        ['GET', `apps/${this.id}/config?full`]
       ],
       config: {}
     }
@@ -49,23 +52,22 @@ export default {
       }
     },
 
-    async applyConfig (id_) {
-      const args = await formatFormData(
-        this.config.forms[id_],
-        { removeEmpty: false, removeNull: true }
-      )
+    async onConfigSubmit ({ id, form, action, name }) {
+      const args = await formatFormData(form, { removeEmpty: false, removeNull: true })
 
       api.put(
-        `apps/${this.id}/config`,
-        { key: id_, args: objectToParams(args) },
-        { key: 'apps.update_config', name: this.id }
+        action
+          ? `apps/${this.id}/actions/${action}`
+          : `apps/${this.id}/config/${id}`,
+        { args: objectToParams(args) },
+        { key: `apps.${action ? 'action' : 'update'}_config`, id, name: this.id }
       ).then(() => {
         this.$refs.view.fetchQueries({ triggerLoading: true })
       }).catch(err => {
         if (err.name !== 'APIBadRequestError') throw err
-        const panel = this.config.panels.find(({ id }) => id_ === id)
+        const panel = this.config.panels.find(panel => panel.id === id)
         if (err.data.name) {
-          this.config.errors[id_][err.data.name].message = err.message
+          this.config.errors[id][err.data.name].message = err.message
         } else this.$set(panel, 'serverError', err.message)
       })
     }
