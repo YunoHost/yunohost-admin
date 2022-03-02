@@ -1,7 +1,7 @@
 <template>
   <abstract-form
     v-bind="{ id: panel.id + '-form', validation, serverError: panel.serverError }"
-    @submit.prevent.stop="$emit('submit', panel.id)"
+    @submit.prevent.stop="onApply"
   >
     <slot name="tab-top" />
 
@@ -35,6 +35,7 @@
 </template>
 
 <script>
+import { filterObject } from '@/helpers/commons'
 
 
 export default {
@@ -58,6 +59,30 @@ export default {
   },
 
   methods: {
+    onApply () {
+      const panelId = this.panel.id
+      const nonActionKeys = this.panel.sections.filter(section => {
+        return !section.isActionSection
+      }).reduce((keys, { fields }) => {
+        return keys.concat(Object.keys(fields))
+      }, [])
+
+      this.$emit('submit', {
+        id: this.panel.id,
+        form: filterObject(this.forms[panelId], ([key]) => nonActionKeys.includes(key))
+      })
+    },
+
+    onAction (sectionId, actionId, actionArgs) {
+      const panelId = this.panel.id
+
+      this.$emit('submit', {
+        id: panelId,
+        form: filterObject(this.forms[panelId], ([key]) => actionArgs.includes(key)),
+        action: [panelId, sectionId, actionId].join('.'),
+        name: actionId
+      })
+    }
   }
 }
 </script>

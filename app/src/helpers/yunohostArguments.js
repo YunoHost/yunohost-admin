@@ -229,6 +229,12 @@ export function formatYunoHostArgument (arg) {
       name: 'MarkdownItem',
       props: ['label:ask'],
       renderSelf: true
+    },
+    {
+      types: ['button'],
+      name: 'ButtonItem',
+      props: ['type:style', 'label:ask', 'icon', 'enabled', 'args'],
+      renderSelf: true
     }
   ]
 
@@ -328,6 +334,10 @@ export function formatYunoHostArguments (args, forms) {
     if ('visible' in arg && ![false, '"false"'].includes(arg.visible)) {
       addEvaluationGetter('visible', field, arg.visible, forms)
     }
+
+    if ('enabled' in arg) {
+      addEvaluationGetter('enabled', field.props, arg.enabled, forms)
+    }
   }
 
   return { form, fields, validations, errors }
@@ -354,6 +364,7 @@ export function formatYunoHostConfigPanels (data) {
     for (const _section of sections) {
       const section = {
         id: _section.id,
+        isActionSection: _section.is_action_section,
         visible: [undefined, true, '"true"'].includes(_section.visible)
       }
       if (_section.help) section.help = formatI18nField(_section.help)

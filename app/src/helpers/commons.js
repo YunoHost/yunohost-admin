@@ -64,6 +64,19 @@ export function flattenObjectLiteral (obj, flattened = {}) {
 
 
 /**
+ * Returns an new Object filtered with passed filter function.
+ * Each entry `[key, value]` will be forwarded to the `filter` function.
+ *
+ * @param {Object} obj - object to filter.
+ * @param {Function} filter - the filter function to call for each entry.
+ * @return {Object}
+ */
+export function filterObject (obj, filter) {
+  return Object.fromEntries(Object.entries(obj).filter((...args) => filter(...args)))
+}
+
+
+/**
  * Returns an new array containing items that are in first array but not in the other.
  *
  * @param {Array} [arr1=[]]
