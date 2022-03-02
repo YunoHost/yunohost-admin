@@ -110,22 +110,21 @@ export function formatYunoHostArgument (arg) {
   const error = { message: null }
   arg.ask = formatI18nField(arg.ask)
   const field = {
-    component: undefined,
-    label: arg.ask,
-    props: {}
+    is: arg.readonly ? 'ReadOnlyField' : 'FormField',
+    visible: [undefined, true, '"true"'].includes(arg.visible),
+    props: {
+      label: arg.ask,
+      component: undefined,
+      props: {}
+    }
   }
+
   const defaultProps = ['id:name', 'placeholder:example']
   const components = [
     {
-      types: [undefined, 'string', 'path'],
+      types: ['string', 'path'],
       name: 'InputItem',
-      props: defaultProps.concat(['autocomplete', 'trim', 'choices']),
-      callback: function () {
-        if (arg.choices && Object.keys(arg.choices).length) {
-            arg.type = 'select'
-            this.name = 'SelectItem'
-        }
-      }
+      props: defaultProps.concat(['autocomplete', 'trim', 'choices'])
     },
     {
       types: ['email', 'url', 'date', 'time', 'color'],
@@ -163,9 +162,9 @@ export function formatYunoHostArgument (arg) {
       name: 'SelectItem',
       props: ['id:name', 'choices'],
       callback: function () {
-         if ((arg.type !== 'select')) {
-            field.link = { name: arg.type + '-list', text: i18n.t(`manage_${arg.type}s`) }
-         }
+        if (arg.type !== 'select') {
+          field.props.link = { name: arg.type + '-list', text: i18n.t(`manage_${arg.type}s`) }
+        }
       }
     },
     {
@@ -192,11 +191,13 @@ export function formatYunoHostArgument (arg) {
       name: 'TagsItem',
       props: defaultProps.concat(['limit', 'placeholder', 'options:choices', 'tagIcon:icon']),
       callback: function () {
-        if (arg.choices) {
-            this.name = 'TagsSelectizeItem'
-            field.props.auto = true
-            field.props.itemsName = ''
-            field.props.label = arg.placeholder
+        if (arg.choices && arg.choices.length) {
+          this.name = 'TagsSelectizeItem'
+          Object.assign(field.props.props, {
+            auto: true,
+            itemsName: '',
+            label: arg.placeholder
+          })
         }
         if (typeof value === 'string') {
           value = value.split(',')
@@ -221,53 +222,55 @@ export function formatYunoHostArgument (arg) {
       types: ['alert'],
       name: 'ReadOnlyAlertItem',
       props: ['type:style', 'label:ask', 'icon'],
-      readonly: true
+      renderSelf: true
     },
     {
       types: ['markdown', 'display_text'],
       name: 'MarkdownItem',
       props: ['label:ask'],
-      readonly: true
+      renderSelf: true
     }
   ]
 
   // Default type management if no one is filled
   if (arg.type === undefined) {
-    arg.type = (arg.choices === undefined) ? 'string' : 'select'
+    arg.type = arg.choices && arg.choices.length ? 'select' : 'string'
   }
+
   // Search the component bind to the type
   const component = components.find(element => element.types.includes(arg.type))
   if (component === undefined) throw new TypeError('Unknown type: ' + arg.type)
+
   // Callback use for specific behaviour
   if (component.callback) component.callback()
-  field.component = component.name
+  field.props.component = component.name
   // Affect properties to the field Item
   for (let prop of component.props) {
     prop = prop.split(':')
     const propName = prop[0]
     const argName = prop.slice(-1)[0]
     if (argName in arg) {
-      field.props[propName] = arg[argName]
+      field.props.props[propName] = arg[argName]
     }
   }
-  // We don't want to display a label html item as this kind or field contains
-  // already the text to display
-  if (component.readonly) delete field.label
+
   // Required (no need for checkbox its value can't be null)
-  else if (field.component !== 'CheckboxItem' && arg.optional !== true) {
+  if (!component.renderSelf && arg.type !== 'boolean' && arg.optional !== true) {
     validation.required = validators.required
   }
   if (arg.pattern && arg.type !== 'tags') {
     validation.pattern = validators.helpers.regex(formatI18nField(arg.pattern.error), new RegExp(arg.pattern.regexp))
   }
-  validation.remote = validators.helpers.withParams(error, (v) => {
-    const result = !error.message
-    error.message = null
-    return result
-  })
 
+  if (!component.renderSelf && !arg.readonly) {
+    // Bind a validation with what the server may respond
+    validation.remote = validators.helpers.withParams(error, (v) => {
+      const result = !error.message
+      error.message = null
+      return result
+    })
+  }
 
-  // field.props['title'] = field.pattern.error
   // Default value if still `null`
   if (value === null && arg.current_value) {
     value = arg.current_value
@@ -278,12 +281,17 @@ export function formatYunoHostArgument (arg) {
 
   // Help message
   if (arg.help) {
-    field.description = formatI18nField(arg.help)
+    field.props.description = formatI18nField(arg.help)
   }
 
   // Help message
   if (arg.helpLink) {
-    field.link = { href: arg.helpLink.href, text: i18n.t(arg.helpLink.text) }
+    field.props.link = { href: arg.helpLink.href, text: i18n.t(arg.helpLink.text) }
+  }
+
+  if (component.renderSelf) {
+    field.is = field.props.component
+    field.props = field.props.props
   }
 
   return {
@@ -317,10 +325,8 @@ export function formatYunoHostArguments (args, forms) {
     if (validation) validations[arg.name] = validation
     errors[arg.name] = error
 
-    if ('visible' in arg) {
+    if ('visible' in arg && ![false, '"false"'].includes(arg.visible)) {
       addEvaluationGetter('visible', field, arg.visible, forms)
-    } else {
-      field.visible = true
     }
   }
 
@@ -346,10 +352,13 @@ export function formatYunoHostConfigPanels (data) {
     if (help) panel.help = formatI18nField(help)
 
     for (const _section of sections) {
-      const section = { id: _section.id, visible: true }
+      const section = {
+        id: _section.id,
+        visible: [undefined, true, '"true"'].includes(_section.visible)
+      }
       if (_section.help) section.help = formatI18nField(_section.help)
       if (_section.name) section.name = formatI18nField(_section.name)
-      if (_section.visible) {
+      if (_section.visible && ![false, '"false"'].includes(_section.visible)) {
         addEvaluationGetter('visible', section, _section.visible, result.forms)
       }
 

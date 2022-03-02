@@ -21,9 +21,10 @@
         </b-card-title>
 
         <template v-for="(field, fname) in section.fields">
-          <form-field
-            v-if="field.visible" :key="fname"
-            v-model="forms[panel.id][fname]" v-bind="field" :validation="validation[fname]"
+          <component
+            v-if="field.visible" :is="field.is" v-bind="field.props"
+            v-model="forms[panel.id][fname]" :validation="validation[fname]" :key="fname"
+            @action.stop="onAction(section.id, fname, field.props.args)"
           />
         </template>
       </component>
