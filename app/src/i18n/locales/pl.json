@@ -132,5 +132,10 @@
     "app_actions": "Działania",
     "day_validity": " Wygasł | 1 dzień | {count} dni",
     "created_at": "Utworzony w",
-    "app_state_working_explanation": "Opiekun tej aplikacji uznał ją za „działającą”. Oznacza to, że powinna działać, ale nie została do końca oceniona, może nadal zawierać problemy lub nie jest w pełni zintegrowana z YunoHost."
+    "app_state_working_explanation": "Opiekun tej aplikacji uznał ją za „działającą”. Oznacza to, że powinna działać, ale nie została do końca oceniona, może nadal zawierać problemy lub nie jest w pełni zintegrowana z YunoHost.",
+    "domain_add": "Dodaj domenę",
+    "run_first_diagnosis": "Uruchom początkową diagnostykę",
+    "disable": "Wyłącz",
+    "disabled": "Wyłączony",
+    "dns": "DNS"
 }
