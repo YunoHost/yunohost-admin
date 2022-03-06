@@ -78,7 +78,19 @@
             "pending": "W trakcie",
             "error": "Nieudane"
         },
-        "processing": "Serwer w trakcie wykonywania zadania..."
+        "processing": "Serwer w trakcie wykonywania zadania...",
+        "reconnecting": {
+            "failed": "Serwer prawdopodobnie nie odpowiada. Spróbuj połączyć się ponownie lub poprzez SSH uruchom komendę `systemctl restart yunohost-api`.",
+            "reason": {
+                "shutdown": "Serwer jest wyłączany i nie jest już dostępny. Uruchom serwer, aby uzyskać dostęp do panelu logowania po tym jak stanie się on dostępny w sieci.",
+                "unknown": "Połączenie z serwerem zostało przerwane z nieznanego powodu.",
+                "reboot": "Serwer jest uruchamiany ponownie i będzie nieosiągalny przez pewien czas. Logowanie stanie się możliwe, gdy serwer będzie ponownie dostępny.",
+                "upgrade_system": "Połączenie z serwerem zerwane z powodu aktualizacji YunoHost. Trwa oczekiwanie na połączenie…"
+            },
+            "title": "Trwa próba połączenia z serwerem...",
+            "success": "Serwer jest już dostępny! Możesz się zalogować"
+        },
+        "partial_logs": "[...] (sprawdź wszystkie wpisy w historii)"
     },
     "all": "Wszystko",
     "address": {
@@ -137,5 +149,18 @@
     "run_first_diagnosis": "Uruchom początkową diagnostykę",
     "disable": "Wyłącz",
     "disabled": "Wyłączony",
-    "dns": "DNS"
+    "dns": "DNS",
+    "domain": {
+        "config": {
+            "edit": "Edytuj konfiguracje domeny",
+            "title": "Konfiguracja domeny"
+        },
+        "dns": {
+            "auto_config": "Automatyczna konfiguracja wpisów DNS",
+            "auto_config_ok": "Automatyczna konfiguracja prawdopodobnie jest OK!",
+            "edit": "Edytuj konfiguracje DNS",
+            "auto_config_ignored": "pominięte, zmiany zostaną dokonane przy zaznaczeniu opcji nadpisywania",
+            "auto_config_zone": "Aktualna strefa DNS"
+        }
+    }
 }
