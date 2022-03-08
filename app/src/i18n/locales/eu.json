@@ -23,7 +23,18 @@
             "success": "Arrakastaz amaitu da"
         },
         "processing": "Zerbitzaria eragiketa exekutatzen ari da…",
-        "partial_logs": "[...] (ikuskatu historia erregistro osoetarako)"
+        "partial_logs": "[...] (ikuskatu historia erregistro osoetarako)",
+        "reconnecting": {
+            "title": "Zerbitzariarekin komunikatzeko ahaleginetan…",
+            "failed": "Badirudi zerbitzaria ez dela erantzuten ari. Berriro saia zaitezke konektatzen ssh bidez `systemctl restart yunohost-api` exekutatuz.",
+            "reason": {
+                "unknown": "Itxi da komunikazioa zerbitzariarekin, ez da zergatia ezagutzen.",
+                "reboot": "Zerbitzaria berrabiarazten ari da eta ez da erabilgarri egongo tarte batez. Saioa hasteko galdegingo zaizu zerbitzaria berriro ere erabilgarri dagoenean.",
+                "shutdown": "Zerbitzari itzaltzen ari da eta aurrerantzean ez da erabilgarri egongo. Piztu ezazu berriro eta saioa hasteko galdegingo zaizu zerbitzaria berriro erabilgarri dagoenean.",
+                "upgrade_system": "Zerbitzariarekin konexioa moztu da YunoHost eguneratzen ari delako. Zerbitzaria berriro erabilgarri egoteko zain…"
+            },
+            "success": "Zerbitzaria erabilgarri dago! Saioa hasten saia zaitezke"
+        }
     },
     "api_error": {
         "view_error": "Ikusi errorea",
@@ -194,7 +205,7 @@
     "installed": "Instalatuta",
     "from_to": "{0}tik {1}era",
     "good_practices_about_admin_password": "Administrazio-pasahitz berri bat ezartzear zaude. Pasahitzak zortzi karaktere izan behar ditu gutxienez, baina ondo legoke pasahitz luzeagoa erabiltzea (esaldi bat, esaterako) edota karaktere desberdinak gehitzea (hizki larriak, txikiak, zenbakiak eta karaktere bereziak).",
-    "good_practices_about_user_password": "Administrazio-pasahitz berri bat ezartzear zaude. Pasahitzak zortzi karaktere izan behar ditu gutxienez, baina ondo legoke pasahitz luzeagoa erabiltzea (esaldi bat, esaterako) edota karaktere desberdinak gehitzea (hizki larriak, txikiak, zenbakiak eta karaktere bereziak).",
+    "good_practices_about_user_password": "Erabiltzaile-pasahitz berri bat ezartzear zaude. Pasahitzak zortzi karaktere izan behar ditu gutxienez, baina ondo legoke pasahitz luzeagoa erabiltzea (esaldi bat, esaterako) edota karaktere desberdinak gehitzea (hizki larriak, txikiak, zenbakiak eta karaktere bereziak).",
     "hook_adminjs_group_configuration": "Sistemaren ezarpenak",
     "hook_conf_ynh_certs": "SSL ziurtagiriak",
     "close": "Itxi",
@@ -363,7 +374,8 @@
         "postinstall": "Abiarazi instalazio ondorengo prozesua",
         "share_logs": "Sortu '{name}' erregistroaren esteka",
         "shutdown": "Itzali zerbitzaria",
-        "reboot": "Berrabiarazi zerbitzaria"
+        "reboot": "Berrabiarazi zerbitzaria",
+        "reconnecting": "Berkonektatzen"
     },
     "only_highquality_apps": "Kalitate handiko aplikazioak soilik",
     "only_decent_quality_apps": "Kalitate onargarria duten aplikazioak soilik",
@@ -429,7 +441,7 @@
     "logs_ended_at": "Amaiera",
     "logs_more": "Erakutsi lerro gehiago",
     "postinstall_intro_1": "Bejon deizula! YunoHost arazorik gabe instalatu da.",
-    "postinstall_intro_3": "Argibide gehiago lor ditzakezu <a href='//yunohost.org/en/install/hardware:vps_debian#fa-cog-proceed-with-the-initial-configuration' target='_blank'>dokumentazio gunea</a> bisitatuz",
+    "postinstall_intro_3": "Argibide gehiago lor ditzakezu <a href='//yunohost.org/en/install/hardware:vps_debian#fa-cog-proceed-with-the-initial-configuration' target='_blank'>dokumentazio gunea</a> bisitatuz.",
     "postinstall_intro_2": "Bi urrats gehiago behar dira zerbitzariko zerbitzuak gaitzeko.",
     "mailbox_quota_example": "CD bat 700M dira, DVD bat 4700M",
     "mailbox_quota_placeholder": "0 ezarriz gero ez da mugarik egongo.",
@@ -528,7 +540,7 @@
     "users_import_update": "Eguneratu existitzen diren erabiltzaileak",
     "certificate_alert_about_to_expire": "ADI: Oraingo ziurtagiria iraungitzear dago! EZ da automatikoki berriztuko!",
     "certificate_alert_good": "Ados, oraingo ziurtagiriak itxura ona dauka!",
-    "tip_about_user_email": "Erabiltzaileak sortzerakoan posta elektroniko helbide bat (eta XMPP kontu bat) esleitzen zaie erabiltzailea@domeinua.eus itxurarekin. Administrari eta erabiltzaileek helbide elektroniko gehiago eta birbidalketak gehitu daitezke geroago.",
+    "tip_about_user_email": "Erabiltzaileak sortzerakoan postarako helbide elektroniko bat (eta XMPP kontu bat) esleitzen zaie erabiltzailea@domeinua.eus itxurarekin. Administrari eta erabiltzaileek helbide elektroniko gehiago eta birbidalketarako helbideak gehitu ditzakete geroago.",
     "tools_adminpw": "Aldatu administrazio-pasahitza",
     "tools_power_up": "Zerbitzaria erabilgarri dagoela dirudi; saioa hasten saia zaitezke.",
     "tools_webadmin_settings": "Administrazio-webgunearen ezarpenak",
@@ -568,5 +580,6 @@
     "certificate_status": "Ziurtagiriaren egoera",
     "certificate_authority": "Ziurtagiriaren jaulkitzailea",
     "revert_to_selfsigned_cert": "Bueltatu norberak sinatutako ziurtagirira",
-    "purge_user_data_checkbox": "{name}(r)en datuak purgatu? (Honek bere direktorioko eduki guztiak ezabatuko ditu, baita posta elektronikoa ere.)"
+    "purge_user_data_checkbox": "{name}(r)en datuak purgatu? (Honek bere direktorioko eduki guztiak ezabatuko ditu, baita posta elektronikoa ere.)",
+    "retry": "Saiatu berriro"
 }

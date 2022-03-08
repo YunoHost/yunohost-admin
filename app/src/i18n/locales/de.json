@@ -434,7 +434,7 @@
     "error": "Fehler",
     "enabled": "Aktiviert",
     "domain_delete_forbidden_desc": "Sie können '{domain}' nicht entfernen, da es sich um die Standarddomäne handelt. Sie müssen eine andere Domäne auswählen (oder <a href='#/domains/add'> eine neue hinzufügen </a>) und diese als Standarddomäne festlegen um die aktuelle entfernen zu können.",
-    "domain_add_dyndns_forbidden": "Sie haben bereits eine DynDNS-Domain abonniert. Sie können Ihre aktuelle DynDNS-Domain im Forum <a href = '// forum.yunohost.org/t/nohost-domain-recovery-suppression-de-domaine-en- entfernen nohost-me-noho-st-et-ynh-fr / 442 '> im dedizierten Thread </a>.",
+    "domain_add_dyndns_forbidden": "Sie haben bereits eine DynDNS-Domain abonniert. Sie können Ihre aktuelle DynDNS-Domain im Forum <a href='//forum.yunohost.org/t/nohost-domain-recovery-suppression-de-domaine-en-nohost-me-noho-st-et-ynh-fr/442'>im dedizierten Thread</a>.",
     "disabled": "Deaktiviert",
     "dead": "Inaktiv",
     "day_validity": " Abgelaufen seit | einem Tag | {count} Tage",
