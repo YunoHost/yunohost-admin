@@ -10,7 +10,7 @@
   >
     <b-list-group>
       <b-list-group-item
-        v-for="{ name, description, status, last_state_change } in filteredServices" :key="name"
+        v-for="{ name, description, status, last_state_change, is_ok } in filteredServices" :key="name"
         :to="{ name: 'service-info', params: { name }}"
         class="d-flex justify-content-between align-items-center pr-0"
       >
@@ -20,8 +20,8 @@
             <small class="text-secondary">{{ description }}</small>
           </h5>
           <p class="m-0">
-            <span :class="status === 'running' ? 'text-success' : 'text-danger'">
-              <icon :iname="status === 'running' ? 'check-circle' : 'times'" />
+            <span :class="is_ok ? 'text-success' : 'text-danger'">
+              <icon :iname="is_ok ? 'check-circle' : 'times'" />
               {{ $t(status) }}
             </span>
             {{ $t('since') }} {{ last_state_change | distanceToNow }}
@@ -68,7 +68,7 @@ export default {
         if (service.last_state_change === 'unknown') {
           service.last_state_change = 0
         }
-        return { ...service, name }
+        return { ...service, is_ok: service.status === 'running' || service.status === 'active', name }
       })
     }
   },

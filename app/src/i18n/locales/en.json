@@ -456,6 +456,7 @@
     },
     "run": "Run",
     "running": "Running",
+    "active": "Active",
     "save": "Save",
     "search": {
         "for": "Search for {items}...",

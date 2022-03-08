@@ -6,7 +6,7 @@
     <!-- INFO CARD -->
     <card :title="name" icon="info-circle" button-unbreak="sm">
       <template #header-buttons>
-        <template v-if="infos.status === 'running'">
+        <template v-if="is_ok">
           <!-- RESTART SERVICE -->
           <b-button @click="updateService('restart')" variant="warning">
             <icon iname="refresh" /> {{ $t('restart') }}
@@ -33,8 +33,8 @@
         </b-col>
         <b-col>
           <template v-if="key === 'status'">
-            <span :class="value === 'running' ? 'text-success' : 'text-danger'">
-              <icon :iname="value === 'running' ? 'check-circle' : 'times'" />
+            <span :class="is_ok ? 'text-success' : 'text-danger'">
+              <icon :iname="is_ok ? 'check-circle' : 'times'" />
               {{ $t(value) }}
             </span>
             {{ $t('since') }} {{ uptime | distanceToNow }}
@@ -105,6 +105,7 @@ export default {
       // eslint-disable-next-line
       this.uptime = last_state_change === 'unknown' ? 0 : last_state_change
       this.infos = { description, status, start_on_boot, configuration }
+      this.is_ok = status === 'running' || status === 'active'
 
       this.logs = Object.keys(logs).sort((prev, curr) => {
         if (prev === 'journalctl') return -1
