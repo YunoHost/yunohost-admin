@@ -207,5 +207,8 @@
     "footer_version": "Napędzane przez <a href='https://yunohost.org'>YunoHost</a> {version} ({repo}).",
     "domain_dns_push_failed_to_authenticate": "Nieudane uwierzytelnianie w API dostawcy. Czy <a href='#/domains/{domain}/config'>dane logowania</a> są poprawne? (Error: {error})",
     "domain_dns_push_managed_in_parent_domain": "Funkcja automatycznej strefy DNS jest zarządzana przez główną domenę <a href='#/domains/{parent_domain}/dns'>{parent_domain}</a>.",
-    "firewall": "Zapora sieciowa"
+    "firewall": "Zapora sieciowa",
+    "domain_delete_longdesc": "Usuń tę domenę",
+    "domain_dns_config": "Konfiguracja DNS",
+    "domain_delete_forbidden_desc": "Nie możesz usunąć '{domain}' ponieważ jest ona domeną domyślną, musisz wybrać inną domenę (albo <a href='#/domains/add'> dodać nową </a>) i ustawić ją jako domyślną domenę, aby usunąć tę."
 }
