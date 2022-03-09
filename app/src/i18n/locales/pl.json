@@ -173,5 +173,6 @@
     "domain_add_panel_without_domain": "Nie posiadam domeny…",
     "domain_add_dyndns_forbidden": "Już subskrybujesz domenę DynDNS. Możesz poprosić o usunięcie aktualnej domeny DynDNS w <a href='//forum.yunohost.org/t/nohost-domain-recovery-suppression-de-domaine-en-nohost-me-noho-st-et-ynh-fr/442'>odpowiednim wątki w forum</a>.",
     "domain_add_dyndns_doc": "… i chcę usługę dynamicznego DNS.",
-    "domain_add_panel_with_domain": "Posiadam swoją domenę…"
+    "domain_add_panel_with_domain": "Posiadam swoją domenę…",
+    "domain_default_longdesc": "To twoja domyślna  domena"
 }
