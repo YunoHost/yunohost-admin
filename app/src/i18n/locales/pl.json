@@ -160,9 +160,18 @@
             "auto_config_ok": "Automatyczna konfiguracja prawdopodobnie jest OK!",
             "edit": "Edytuj konfiguracje DNS",
             "auto_config_ignored": "pominięte, zmiany zostaną dokonane przy zaznaczeniu opcji nadpisywania",
-            "auto_config_zone": "Aktualna strefa DNS"
+            "auto_config_zone": "Aktualna strefa DNS",
+            "info": "Funkcja automatycznego ustawiania wpisów DNS jest na razie eksperymentalna. <br>Rozważ zapisanie aktualnej strefy DNS poprzez interfejs od Twojego dostawcy przed dokonywaniem zmian.",
+            "manual_config": "Proponowane wpisy DNS dla manualnej konfiguracji",
+            "push": "Przekaż wpisy DNS do dostawcy",
+            "push_force_confirm": "Na pewno chcesz wymusić przekazanie wszystkich sugerowanych wpisów DNS? Mogą one nadpisać zmiany już dokonane w strefie DNS (przez Ciebie lub Twojego dostawcę).",
+            "push_force_warning": "Wygląda na to, że część wpisów DNS, które YunoHost próbuje ustawić, już się znajdują w konfiguracji dostawcy. Użyj opcji nadpisywania jeśli jesteś pewien co robisz.",
+            "push_force": "Nadpisz aktualne wpisy"
         }
     },
     "domain_add_dns_doc": "...oraz mam <a href='//yunohost.org/dns_config' target='_blank'>poprawnie skonfigurowany DNS</a>.",
-    "domain_add_panel_without_domain": "Nie posiadam domeny…"
+    "domain_add_panel_without_domain": "Nie posiadam domeny…",
+    "domain_add_dyndns_forbidden": "Już subskrybujesz domenę DynDNS. Możesz poprosić o usunięcie aktualnej domeny DynDNS w <a href='//forum.yunohost.org/t/nohost-domain-recovery-suppression-de-domaine-en-nohost-me-noho-st-et-ynh-fr/442'>odpowiednim wątki w forum</a>.",
+    "domain_add_dyndns_doc": "… i chcę usługę dynamicznego DNS.",
+    "domain_add_panel_with_domain": "Posiadam swoją domenę…"
 }
