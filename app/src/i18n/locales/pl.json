@@ -174,6 +174,38 @@
     "domain_add_dyndns_forbidden": "Już subskrybujesz domenę DynDNS. Możesz poprosić o usunięcie aktualnej domeny DynDNS w <a href='//forum.yunohost.org/t/nohost-domain-recovery-suppression-de-domaine-en-nohost-me-noho-st-et-ynh-fr/442'>odpowiednim wątki w forum</a>.",
     "domain_add_dyndns_doc": "… i chcę usługę dynamicznego DNS.",
     "domain_add_panel_with_domain": "Posiadam swoją domenę…",
-    "domain_default_longdesc": "To twoja domyślna  domena",
-    "domain_default_desc": "Domyślna domena jest wykorzystywana do logowania użytkownika."
+    "domain_default_longdesc": "To twoja domyślna domena.",
+    "domain_default_desc": "Domyślna domena jest wykorzystywana do logowania użytkownika.",
+    "download": "Pobierz",
+    "enable": "Włącz",
+    "error_modify_something": "Zmodyfikuj coś",
+    "enabled": "Włączone",
+    "form_errors": {
+        "between": "Wartość musi mieścić się między {min} a {max}.",
+        "alpha": "Możesz podać tylko litery.",
+        "alphalownum_": "Możesz podać tylko małe litery oraz znak podkreślenia.",
+        "domain": "Niepoprawna domena: może składać się tylko z małych liter, cyfr, kropek i kresek",
+        "dynDomain": "Niepoprawna domena: musi składać się tylko z małych liter, cyfr i kresek",
+        "email": "Niepoprawny e-mail: musi składać się z liter, cyfr oraz znaków<code>_.</code> (np. someone@example.com, s0me-1@example.com)"
+    },
+    "everything_good": "Wszystko w porządku!",
+    "domains": "Domeny",
+    "domain_dns_push_not_applicable": "Automatyczne ustawianie DNS nie jest dostępne dla domeny {domain}.<br> Musisz ręcznie skonfigurować swoją strefę DNS posługując się <a href='https://yunohost.org/dns'>dokumentacją</a> oraz proponowanymi konfiguracjami poniżej.",
+    "domain_name": "Nazwa domeny",
+    "domain_visit": "Odwiedź",
+    "domain_visit_url": "Odwiedź {url}",
+    "domain_dns_longdesc": "Zobacz konfigurację DNS",
+    "error_server_unexpected": "Nieoczekiwany błąd serwera",
+    "error_connection_interrupted": "Serwer zamknął połączenie zamiast na nie odpowiadać. Czy nginx lub yunohost-api były restartowane lub zatrzymane z jakiegoś powodu?",
+    "experimental": "Eksperymentalne",
+    "experimental_warning": "Ostrzeżenie: ta funkcja jest eksperymentalna i nie jest uważana za stabilną, nie używaj jej jeśli nie wiesz co robisz.",
+    "footer": {
+        "documentation": "Dokumentacja",
+        "help": "Potrzebujesz pomocy?",
+        "donate": "Wesprzyj"
+    },
+    "footer_version": "Napędzane przez <a href='https://yunohost.org'>YunoHost</a> {version} ({repo}).",
+    "domain_dns_push_failed_to_authenticate": "Nieudane uwierzytelnianie w API dostawcy. Czy <a href='#/domains/{domain}/config'>dane logowania</a> są poprawne? (Error: {error})",
+    "domain_dns_push_managed_in_parent_domain": "Funkcja automatycznej strefy DNS jest zarządzana przez główną domenę <a href='#/domains/{parent_domain}/dns'>{parent_domain}</a>.",
+    "firewall": "Zapora sieciowa"
 }
