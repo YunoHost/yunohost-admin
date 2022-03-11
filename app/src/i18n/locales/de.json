@@ -455,7 +455,10 @@
             "error": "Nicht erfolgreich"
         },
         "processing": "Der Server verarbeitet die Aktion...",
-        "partial_logs": "[...] (Schauen Sie für vollständige Logs bitte im Verlauf nach)"
+        "partial_logs": "[...] (Schauen Sie für vollständige Logs bitte im Verlauf nach)",
+        "reconnecting": {
+            "title": "Versuche mit dem Server zu kommunizieren..."
+        }
     },
     "hook_data_xmpp": "XMPP-Daten",
     "hook_conf_manually_modified_files": "Manuell geänderte Konfigurationsdateien",
