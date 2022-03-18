@@ -358,5 +358,122 @@
     "text_selection_is_disabled": "Zaznaczanie tekstu jest wyłączone. Jeśli chcesz udostępnić ten log, udostępnij *cały* korzystając z przycisku \"Udostępnij z Yunopaste\". <br/><small>Jeśli naprawdę chcesz zaznaczyć tekst, naciśnij klawisze ↓↓↑↑.</small>",
     "logs_app": "Logi programów",
     "logs_context": "Kontekst",
-    "logs_more": "Pokaż więcej linii"
+    "logs_more": "Pokaż więcej linii",
+    "postinstall": {
+        "force": "Wymuś post-instalację.",
+        "title": "Postinstalacja"
+    },
+    "postinstall_set_password": "Ustaw hasło administracyjne",
+    "restore": "Przywróć",
+    "human_routes": {
+        "apps": {
+            "set_default": "",
+            "update_config": "Aktualizuj konfigurację dla '{name}'",
+            "change_label": "Zmień etykietę '{prevName}' na '{nextName}'",
+            "change_url": "Zmień adres URL dla '{name}'",
+            "install": "Instaluj '{name}'",
+            "perform_action": "Wykonaj działanie '{action}' z programu '{name}'",
+            "uninstall": "Usuń '{name}'"
+        },
+        "backups": {
+            "create": "Utwórz kopię zapasową",
+            "restore": "Przywróć kopię zapasową '{name}'",
+            "delete": "Usuń kopię zapasową '{name}'"
+        },
+        "diagnosis": {
+            "ignore": {
+                "error": "Ignoruj błąd",
+                "warning": "Ignoruj ostrzeżenie"
+            },
+            "run": "Uruchom diagnostykę",
+            "unignore": {
+                "error": "Cofnij ignorowanie błędu",
+                "warning": "Cofnij ignorowanie ostrzeżenia"
+            },
+            "run_specific": "Uruchom diagnostykę '{description}'"
+        },
+        "migrations": {
+            "run": "Uruchom migracje",
+            "skip": "Pomiń migracje"
+        },
+        "permissions": {
+            "remove": "Usuń '{name}' z dostępu do '{name}'",
+            "add": "Pozwól '{name}' na dostęp do '{perm}'"
+        },
+        "postinstall": "Uruchom post-instalację",
+        "services": {
+            "start": "Uruchom usługę '{name}'",
+            "stop": "Zatrzymaj usługę '{name}'",
+            "restart": "Uruchom usługę '{name}' ponownie"
+        },
+        "upgrade": {
+            "apps": "Aktualizuj wszystkie programy",
+            "app": "Aktualizuj '{app}'",
+            "system": "Aktualizuj system"
+        },
+        "shutdown": "Wyłącz serwer",
+        "share_logs": "Generuj link dla logu '{name}'",
+        "reboot": "Uruchom serwer ponownie",
+        "domains": {
+            "revert_to_selfsigned": "Przywróć samopodpisany certyfikat dla '{name}'",
+            "set_default": "Ustaw '{name}' jako główną domenę",
+            "add": "Dodaj domenę '{name}'",
+            "delete": "Usuń domenę '{name}'",
+            "install_LE": "Instaluj certyfikat dla '{name}'",
+            "manual_renew_LE": "Odnów certyfikat dla '{name}'",
+            "regen_selfsigned": "Odnów samopodpisany certyfikat dla '{name}'",
+            "push_dns_changes": "Przekaż wpisy DNS dla '{name}' do dostawcy",
+            "update_config": "Aktualizuj konfigurację dla '{name}'"
+        },
+        "firewall": {
+            "ports": "{action} port {port} ({protocol}, {connection})",
+            "upnp": "{action} UPnP"
+        },
+        "groups": {
+            "create": "Utwórz grupę '{name}'",
+            "delete": "Usuń grupę '{name}'",
+            "add": "Dodaj '{user}' do grupy '{name}'",
+            "remove": "Usuń '{user}' z grupy '{name}'"
+        },
+        "users": {
+            "create": "Utwórz użytkownika '{name}'",
+            "delete": "Usuń użytkownika '{name}'",
+            "update": "Aktualizuj użytkownika '{name}'"
+        },
+        "update": "Sprawdź aktualizacje",
+        "adminpw": "Zmień hasło administratora",
+        "reconnecting": "Ponawianie połączenia"
+    },
+    "size": "Rozmiar",
+    "run": "Uruchom",
+    "restart": "Uruchom ponownie",
+    "system_apps_nothing": "Wszystkie programy są aktualne!",
+    "rerun_diagnosis": "Powtórz diagnostykę",
+    "since": "od",
+    "postinstall_intro_2": "Jeszcze dwa kroki konfiguracyjne są konieczne do aktywowania usług na twoim serwerze.",
+    "set_default": "Ustaw domyślne",
+    "system": "System",
+    "select_all": "Zaznacz wszystko",
+    "service_start_on_boot": "Uruchom podczas startu systemu",
+    "skip": "Pomiń",
+    "start": "Uruchom",
+    "status": "Status",
+    "stop": "Zatrzymaj",
+    "system_packages_nothing": "Wszystkie pakiety systemowe są aktualne!",
+    "system_update": "Aktualizacja systemu",
+    "services": "Usługi",
+    "running": "W toku",
+    "search": {
+        "for": "Wyszukaj {items}...",
+        "not_found": "Znaleziono {items} pasujące do podanych kryteriów. | Jest 1 {items} pasujące do podanych kryteriów. | Znaleziono {items} pasujące do podanych kryteriów."
+    },
+    "save": "Zapisz",
+    "postinstall_domain": "To będzie pierwsza domena powiązana z twoim serwerem YunoHost. Wybierz ją ostrożnie, bo będzie ona wykorzystywana do logowania się przez użytkowników, a więc będzie ona widoczna dla wszystkich.",
+    "postinstall_intro_3": "Możesz uzyskać więcej informacji odwiedzając <a href='//yunohost.org/en/install/hardware:vps_debian#fa-cog-proceed-with-the-initial-configuration' target='_blank'>dokumentację</a>",
+    "postinstall_password": "Nie śpiesz się i wybierz hasło odpowiedzialnie, bo będzie ono wykorzystywane do zarządzania wszystkim na twoim serwerze.",
+    "previous": "Poprzednie",
+    "protocol": "Protokół",
+    "readme": "Readme",
+    "postinstall_set_domain": "Ustaw główną domenę",
+    "retry": "Ponów"
 }
