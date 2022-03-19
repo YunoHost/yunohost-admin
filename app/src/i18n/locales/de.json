@@ -457,7 +457,15 @@
         "processing": "Der Server verarbeitet die Aktion...",
         "partial_logs": "[...] (Schauen Sie für vollständige Logs bitte im Verlauf nach)",
         "reconnecting": {
-            "title": "Versuche mit dem Server zu kommunizieren..."
+            "title": "Versuche mit dem Server zu kommunizieren...",
+            "failed": "Der Server scheint nicht zu antworten. Du kannst versuchen dich neu zu verbinden oder `systemctl restart yunohost-api` über ssh auszuführen.",
+            "reason": {
+                "unknown": "Die Verbindung mit dem Server wurde aus unbekannten Gründen beendet.",
+                "reboot": "Dein Server startet neu an wird für einige Zeit nicht erreichbar sein. Eine Login-Aufforderung erscheint, sobald der Server wieder erreichbar ist.",
+                "shutdown": "Dein Server fährt herunter und ist nicht länger erreichbar. Starte ihn wieder, dann kannst du dich wieder einloggen, sobald der Server erreichbar ist.",
+                "upgrade_system": "Die Verbindung mit dem Server wurde auf Grund eines YunoHost-Upgrades beendet. Warte bis der Server wieder erreichbar ist …"
+            },
+            "success": "Der Server ist nun wieder erreichbar! Du kannst dich erneut einloggen"
         }
     },
     "hook_data_xmpp": "XMPP-Daten",
@@ -539,7 +547,8 @@
         },
         "update": "Nach Updates suchen",
         "shutdown": "Den Server herunterfahren",
-        "share_logs": "Einen Link für den Log '{name}' erstellten"
+        "share_logs": "Einen Link für den Log '{name}' erstellten",
+        "reconnecting": "Neu verbinden"
     },
     "postinstall": {
         "force": "Forciere den Post-Install",
@@ -582,5 +591,6 @@
     "yunohost_admin": "YunoHost-Admin",
     "text_selection_is_disabled": "Textauswahl ist deaktiviert. Wenn Sie diesen Log teilen möchten, teilen Sie bitte den *kompletten* Log, indem Sie den Button 'Logs teilen mit YunoPaste' anklicken. <br/><small>Oder falls Sie wirklich wirklich einen Text auswählen möchten, klicken Sie auf die Tasten:↓↓↑↑.</small>",
     "users_import_update": "Vorhandene Benutzer aktualisieren",
-    "users_import_confirm_destructive": "Sind Sie sicher, dass Sie die Benutzer, die nicht in diesen Datei enthalten sind, löschen wollen?"
+    "users_import_confirm_destructive": "Sind Sie sicher, dass Sie die Benutzer, die nicht in diesen Datei enthalten sind, löschen wollen?",
+    "retry": "Wiederholen"
 }
