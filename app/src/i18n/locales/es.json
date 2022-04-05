@@ -541,7 +541,7 @@
             "auto_config_ok": "¡La configuración automática parece correcta!",
             "auto_config_zone": "Zona DNS actual",
             "edit": "Editar configuración DNS",
-            "manual_config": "Registros DNS recomendados para la configuración manual.",
+            "manual_config": "Registros DNS recomendados para la configuración manual",
             "push": "Publicar registros DNS al registrador",
             "push_force": "Sobrescribir registros actuales",
             "push_force_confirm": "¿Seguro que quieres forzar la publicación de los registros DNS recomendados? Ten en cuenta que puede sobreescribir registros por defecto o importantes configurados por tu registrador.",
