@@ -388,5 +388,8 @@
             "email": "Escolliu un domini per al correu electrònic.",
             "domain": "Escolliu un domini."
         }
+    },
+    "api": {
+        "processing": "El servidor està processant l'acció..."
     }
 }
