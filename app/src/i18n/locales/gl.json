@@ -215,7 +215,7 @@
         "services": "sen servizos | servizo | {c} servizos",
         "permissions": "sen permisos | permiso | {c} permisos",
         "logs": "sen rexistros | rexistro | {c} rexistros",
-        "installed_apps": "sen apps instaladas | app instalada | {c} apps instaladas"
+        "installed_apps": "cero apps instaladas | app instalada | {c} apps instaladas"
     },
     "issues": "{count} asuntos",
     "ipv6": "IPv6",
