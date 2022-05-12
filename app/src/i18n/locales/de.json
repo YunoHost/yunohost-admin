@@ -449,7 +449,7 @@
     "api_not_found": "Es scheint, als ob das Web-Admin versucht hat etwas aufzulösen das nicht existiert.",
     "api": {
         "query_status": {
-            "warning": "Erfolgreich durchführt mit Fehlern oder Warnungen",
+            "warning": "Erfolgreich durchgeführt mit Fehlern oder Warnungen",
             "success": "Vollständig durchgeführt",
             "pending": "In Bearbeitung",
             "error": "Nicht erfolgreich"
@@ -458,10 +458,10 @@
         "partial_logs": "[...] (Schauen Sie für vollständige Logs bitte im Verlauf nach)",
         "reconnecting": {
             "title": "Versuche mit dem Server zu kommunizieren...",
-            "failed": "Der Server scheint nicht zu antworten. Du kannst versuchen dich neu zu verbinden oder `systemctl restart yunohost-api` über ssh auszuführen.",
+            "failed": "Der Server scheint nicht zu antworten. Sie können versuchen sich neu zu verbinden oder `systemctl restart yunohost-api` über ssh auszuführen.",
             "reason": {
                 "unknown": "Die Verbindung mit dem Server wurde aus unbekannten Gründen beendet.",
-                "reboot": "Dein Server startet neu an wird für einige Zeit nicht erreichbar sein. Eine Login-Aufforderung erscheint, sobald der Server wieder erreichbar ist.",
+                "reboot": "Ihr Server startet neu und wird für einige Zeit nicht erreichbar sein. Eine Login-Aufforderung wird erscheinen, sobald der Server wieder erreichbar ist.",
                 "shutdown": "Dein Server fährt herunter und ist nicht länger erreichbar. Starte ihn wieder, dann kannst du dich wieder einloggen, sobald der Server erreichbar ist.",
                 "upgrade_system": "Die Verbindung mit dem Server wurde auf Grund eines YunoHost-Upgrades beendet. Warte bis der Server wieder erreichbar ist …"
             },
