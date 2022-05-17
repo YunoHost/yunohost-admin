@@ -1,3 +1,11 @@
+yunohost-admin (11.0.7) testing; urgency=low
+
+  - [i18n] Translations updated for Spanish, Catalan, Galician, Russian, German, Basque and French
+
+  Thanks to all contributors <3 ! (JimScope, retiolus, Alexandre Aubin, ljf, xmgz, cheredin, chwonl, punkrockgirl)
+  
+ -- tituspijean <titus+yunohost@pijean.ovh>  Tue, 17 May 2022 23:49:00 +0200
+
 yunohost-admin (11.0.6) testing; urgency=low
 
   - [fix] The app's name in the update vue (002b3133)
