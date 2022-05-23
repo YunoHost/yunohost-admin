@@ -508,5 +508,8 @@
             "auto_config": "Automatické nastavení DNS záznamů",
             "auto_config_ignored": "ignorováno, nebude upraveno dokud nevyberete položku přepsat"
         }
-    }
+    },
+    "users": "Uživatelé",
+    "users_new": "Nový uživatel",
+    "users_no": "Žádní uživatelé."
 }
