@@ -1,1 +1,54 @@
-{}
+{
+    "add": "Pridať",
+    "address": {
+        "local_part_description": {
+            "email": "Vyberte doménu pre Váš e-mail.",
+            "domain": "Vyberte poddoménu."
+        },
+        "domain_description": {
+            "domain": "Vyberte doménu.",
+            "email": "Vyberte doménu pre Váš e-mail."
+        }
+    },
+    "administration_password": "Heslo správcu",
+    "all": "Všetko",
+    "api": {
+        "partial_logs": "[…] (všetky záznamy nájdete v histórii)",
+        "processing": "Server spracováva požiadavku…",
+        "query_status": {
+            "error": "Neúspech",
+            "pending": "Spracováva sa",
+            "success": "Úspešne dokončené",
+            "warning": "Úspešne dokončené s chybami alebo výstrahami"
+        },
+        "reconnecting": {
+            "failed": "Vyzerá, že server neodpovedá. Môžete sa pokúsiť znovu pripojiť alebo skúste spustiť `systemctl restart yunohost-api` pomocou ssh.",
+            "reason": {
+                "shutdown": "Váš server sa vypína a nebude viac dostupný. Znovu ho zapnite a okno s prihlásením sa zobrazí akonáhle bude možné so serverom komunikovať.",
+                "unknown": "Komunikácia so serverom bola z neznámeho dôvodu ukončená.",
+                "reboot": "Váš server sa reštartuje a nejaký čas nebude dostupný. Okno s prihlásením sa zobrazí akonáhle bude možné so serverom komunikovať.",
+                "upgrade_system": "Spojenie so serverom bolo ukončené kvôli aktualizácií YunoHost. Čakám, kým bude server opäť dostupný…"
+            },
+            "success": "Server už je dostupný! Môžete sa skúsiť prihlásiť",
+            "title": "Pokus o komunikáciu so serverom…"
+        }
+    },
+    "api_error": {
+        "error_message": "Chybová hláška:",
+        "info": "Nasledujúce informácie môžu byť užitočné pre človeka, ktorý sa Vám snaží pomôcť:",
+        "server_said": "Počas spracovávania server odpovedal:",
+        "sorry": "Naozaj nás to mrzí.",
+        "view_error": "Zobraziť chybu",
+        "help": "Ak hľadáte riešenie problému, skúste vyhľadať pomoc na <a href=\"https://forum.yunohost.org/\">fóre</a> alebo v  <a href=\"https://chat.yunohost.org/\">chate</a>. Chyby môžete hlásiť cez <a href=\"https://github.com/YunoHost/issues\"> bugtracker</a>."
+    },
+    "api_errors_titles": {
+        "APIError": "YunoHost narazil na neočakávanú chybu",
+        "APIBadRequestError": "YunoHost narazil na chybu",
+        "APIInternalError": "YunoHost narazil na internú chybu",
+        "APINotFoundError": "YunoHost API nedokázal nájsť cestu",
+        "APINotRespondingError": "YunoHost API nereaguje",
+        "APIConnexionError": "YunoHost narazil na chybu spojenia"
+    },
+    "all_apps": "Všetky aplikácie",
+    "action": "Akcia"
+}
