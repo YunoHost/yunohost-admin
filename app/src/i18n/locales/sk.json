@@ -138,5 +138,23 @@
     "confirm_install_app_inprogress": "UPOZORNENIE! Táto aplikácie je stále experimentálna (prípadne nemusí vôbec fungovať) a môže poškodiť Váš systém! Pravdepodobne by ste ju NEMALI inštalovať, ak neviete, čo tým môžete spôsobiť. Ste pripravený prevziať toto riziko?",
     "password": "Heslo",
     "ok": "OK",
-    "confirm_reboot_action_reboot": "Naozaj chcete reštartovať Váš server?"
+    "confirm_reboot_action_reboot": "Naozaj chcete reštartovať Váš server?",
+    "diagnosis_first_run": "Diagnostika sa pokúsi identifikovať bežné problémy na serveri, aby všetko fungovalo čo možno najlepšie. V prípade, že odhalí chyby hneď po prvom nastavení servera, nepanikárte: slúži presne na to, aby Vám pomohla ich nájsť a opraviť. Diagnostika je spúšťaná automaticky dvakrát za deň a v prípade problémov odošle administrátorovi e-mailom správu.",
+    "run_first_diagnosis": "Spustiť úvodnú diagnostiku",
+    "disable": "Vypnúť",
+    "disabled": "Vypnuté",
+    "dns": "DNS",
+    "domain": {
+        "config": {
+            "edit": "Upraviť nastavenie domény",
+            "title": "Nastavenie domény"
+        },
+        "dns": {
+            "auto_config": "Automatické nastavenie DNS záznamov",
+            "auto_config_ok": "Automatická konfigurácia vyzerá dobre!",
+            "auto_config_zone": "Aktuálna DNS zóna",
+            "edit": "Upraviť nastavenie DNS",
+            "auto_config_ignored": "ignorované, nebude upravené kým nevyberiete možnosť prepísať"
+        }
+    }
 }
