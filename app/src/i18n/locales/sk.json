@@ -310,5 +310,104 @@
     "installation_complete": "Inštalácia bola dokončená",
     "items_verbose_count": "Počet položiek: {items}.",
     "migrations_no_pending": "Žiadne čakajúce migrácie",
-    "migrations_disclaimer_check_message": "Prečítal(a) som si a rozumiem tomuto prehláseniu"
+    "migrations_disclaimer_check_message": "Prečítal(a) som si a rozumiem tomuto prehláseniu",
+    "next": "Ďalej",
+    "no": "Nie",
+    "nobody": "Nikomu",
+    "only_highquality_apps": "Iba aplikácie vysokej kvality",
+    "only_working_apps": "Iba fungujúce aplikácie",
+    "open": "Otvoriť",
+    "operations": "Operácie",
+    "orphaned": "Neudržované/opustené",
+    "orphaned_details": "Táto aplikácia už nejaký čas nie je spravovaná. Môže byť stále funkčná, no pokiaľ sa nenájde dobrovoľník, ktorý by jej správu prevzal, nebude aktualizovaná. Môžete sa ním stať i vy!",
+    "others": "Ostatné",
+    "password_confirmation": "Overenie hesla",
+    "path": "Cesta",
+    "placeholder": {
+        "username": "jankomrkvicka",
+        "firstname": "Janko",
+        "groupname": "Moja skupina",
+        "domain": "moja-domena.sk",
+        "file": "Vyhľadajte súbor alebo ho myšou presuňte sem",
+        "lastname": "Mrkvička"
+    },
+    "logs": "Záznamy",
+    "logs_suboperations": "Interná operácia",
+    "logs_operation": "Operácie, ktoré na systéme vykonal YunoHost",
+    "logs_history": "História spustených príkazov",
+    "logs_package": "História balíčkovacieho systému Debianu",
+    "logs_service": "Záznamy služieb",
+    "logs_app": "Záznamy aplikácií",
+    "logs_no_logs_registered": "V tejto kategórií nie je žiaden záznam",
+    "logs_error": "Chyba",
+    "logs_started_at": "Spustiť",
+    "logs_path": "Cesta",
+    "logs_context": "Kontext",
+    "logs_more": "Zobraziť viac riadkov",
+    "permission_corresponding_url": "Zodpovedajúca URL adresa",
+    "permission_main": "Hlavný nadpis",
+    "permission_show_tile_enabled": "Zobraziť ako dlaždicu v používateľskom portáli",
+    "port": "Port",
+    "postinstall": {
+        "force": "Vynútiť spustenie poinštalačného skriptu",
+        "title": "Poinštalačný skript"
+    },
+    "postinstall_intro_1": "Gratulujeme! YunoHost bol úspešne nainštalovaný.",
+    "postinstall_intro_2": "Na aktiváciu služieb na serveri sú vyžadované ďalšie dva konfiguračné kroky.",
+    "postinstall_password": "Toto heslo bude použité pre správu všetkých nastavení Vášho servera. Vyberte preto dostatočne silné heslo.",
+    "postinstall_set_domain": "Nastaviť hlavnú doménu",
+    "postinstall_set_password": "Nastaviť heslo na správu",
+    "previous": "Predchádzajúce",
+    "protocol": "Protokol",
+    "readme": "Prečítajte si",
+    "rerun_diagnosis": "Znovu spustiť diagnostiku",
+    "restore": "Obnoviť",
+    "restart": "Reštartovať",
+    "retry": "Znovu",
+    "human_routes": {
+        "adminpw": "Zmeniť heslo pre správu",
+        "apps": {
+            "change_label": "Zmeniť popis z '{prevName}' na '{nextName}'",
+            "change_url": "Zmeniť prístupovú adresu URL '{name}'",
+            "set_default": "Presmerovať koreň domény '{domain}' na '{name}'",
+            "perform_action": "Vykonať akciu '{action}' aplikácie '{name}'",
+            "uninstall": "Odinštalovať aplikáciu '{name}'",
+            "install": "Nainštalovať aplikáciu '{name}'",
+            "update_config": "Upraviť konfiguráciu aplikácie '{name}'"
+        },
+        "backups": {
+            "create": "Vytvoriť zálohu",
+            "delete": "Odstrániť zálohu '{name}'",
+            "restore": "Obnoviť zálohu '{name}'"
+        },
+        "diagnosis": {
+            "ignore": {
+                "error": "Ignorovať chybu/hlásenie",
+                "warning": "Ignorovať varovanie"
+            },
+            "run": "Spustiť diagnostiku",
+            "run_specific": "Spustiť diagnostiku '{description}'",
+            "unignore": {
+                "warning": "Zrušiť ignorovanie varovania",
+                "error": "Zrušiť ignorovanie chyby"
+            }
+        },
+        "domains": {
+            "add": "Pridať doménu '{name}'",
+            "delete": "Odstrániť doménu '{name}'",
+            "manual_renew_LE": "Obnoviť certifikát pre '{name}'",
+            "install_LE": "Nainštalovať certifikát pre '{name}'"
+        }
+    },
+    "only_decent_quality_apps": "Iba aplikácie prijateľnej kvality",
+    "operation_failed_explanation": "Táto akcia skončila s chybou! Je nám to ľúto :( Môžete skúsiť <a href='https://yunohost.org/help'>požiadať o pomoc</a>. Pomáhajúcim používateľom dodajte, prosím, *podrobný záznam* o spustenej akcii. Môžete tak urobiť kliknutím na zelené tlačidlo „Zdieľať s Yunopaste“. Pri zdieľaní záznamov sa Yunohost pokúsi automaticky anonymizovať súkromné údaje ako sú napr. doménové mená alebo IP adresy.",
+    "perform": "Vykonať",
+    "logs_system": "Záznamy jadra Linuxu a ďalšie udalosti z nižších úrovní",
+    "logs_access": "Zoznam povolených a zakázaných prístupov",
+    "logs_ended_at": "Koniec",
+    "logs_share_with_yunopaste": "Zdieľať záznamy pomocou YunoPaste",
+    "pending_migrations": "Migrácie čakajú na spustenie. Prosím, spustite ich v časti <a href='#/tools/migrations'>Nástroje > Migrácie</a> .",
+    "ports": "Porty",
+    "postinstall_domain": "Toto je prvá doména nastavená na Vašom serveri YunoHost, bude sa používať na prihlasovanie Vašich používateľov. Viditeľná bude pre všetkých a tak tento fakt pri výbere zvážte.",
+    "postinstall_intro_3": "Viac informácií nájdete na <a href='//yunohost.org/en/install/hardware:vps_debian#fa-cog-proceed-with-the-initial-configuration' target='_blank'>príslušnej stránke s dokumentáciou</a>"
 }
