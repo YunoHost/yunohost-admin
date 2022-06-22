@@ -396,8 +396,52 @@
             "add": "Pridať doménu '{name}'",
             "delete": "Odstrániť doménu '{name}'",
             "manual_renew_LE": "Obnoviť certifikát pre '{name}'",
-            "install_LE": "Nainštalovať certifikát pre '{name}'"
-        }
+            "install_LE": "Nainštalovať certifikát pre '{name}'",
+            "push_dns_changes": "Odoslať DNS pre '{name}' správcovi domény",
+            "regen_selfsigned": "Obnoviť sebou podpísaný certifikát pre '{name}'",
+            "set_default": "Nastaviť '{name}' ako predvolenú doménu",
+            "update_config": "Aktualizovať nastavenie '{name}'",
+            "revert_to_selfsigned": "Vrátiť sa naspäť k vlastnoručne podpísanému certifikátu pre '{name}'"
+        },
+        "firewall": {
+            "upnp": "{action} UPnP",
+            "ports": "{action} port {port} ({protocol}, {connection})"
+        },
+        "groups": {
+            "create": "Vytvoriť skupinu '{name}'",
+            "delete": "Odstrániť skupinu '{name}'",
+            "add": "Pridať používateľa '{user}' do skupiny '{name}'",
+            "remove": "Odstrániť používateľa '{user}' zo skupiny '{name}'"
+        },
+        "migrations": {
+            "run": "Spustiť migrácie",
+            "skip": "Preskočiť migrácie"
+        },
+        "postinstall": "Spustiť poinštalačný skript",
+        "reboot": "Reštartovať server",
+        "services": {
+            "start": "Spustiť službu '{name}'",
+            "stop": "Zastaviť službu '{name}'",
+            "restart": "Reštartovať službu '{name}'"
+        },
+        "share_logs": "Vygenerovať odkaz pre záznam '{name}'",
+        "update": "Skontrolovať aktualizácie",
+        "upgrade": {
+            "system": "Aktualizovať systém",
+            "apps": "Aktualizovať všetky aplikácie",
+            "app": "Aktualizovať aplikáciu '{app}'"
+        },
+        "users": {
+            "delete": "Odstrániť používateľa '{name}'",
+            "create": "Vytvoriť používateľa '{name}'",
+            "update": "Upraviť používateľa '{name}'"
+        },
+        "permissions": {
+            "add": "Povoliť '{name}' prístup k '{perm}'",
+            "remove": "Odobrať '{name}' prístup k '{perm}'"
+        },
+        "reconnecting": "Opätovný pokus o pripojenie",
+        "shutdown": "Vypnúť server"
     },
     "only_decent_quality_apps": "Iba aplikácie prijateľnej kvality",
     "operation_failed_explanation": "Táto akcia skončila s chybou! Je nám to ľúto :( Môžete skúsiť <a href='https://yunohost.org/help'>požiadať o pomoc</a>. Pomáhajúcim používateľom dodajte, prosím, *podrobný záznam* o spustenej akcii. Môžete tak urobiť kliknutím na zelené tlačidlo „Zdieľať s Yunopaste“. Pri zdieľaní záznamov sa Yunohost pokúsi automaticky anonymizovať súkromné údaje ako sú napr. doménové mená alebo IP adresy.",
@@ -409,5 +453,28 @@
     "pending_migrations": "Migrácie čakajú na spustenie. Prosím, spustite ich v časti <a href='#/tools/migrations'>Nástroje > Migrácie</a> .",
     "ports": "Porty",
     "postinstall_domain": "Toto je prvá doména nastavená na Vašom serveri YunoHost, bude sa používať na prihlasovanie Vašich používateľov. Viditeľná bude pre všetkých a tak tento fakt pri výbere zvážte.",
-    "postinstall_intro_3": "Viac informácií nájdete na <a href='//yunohost.org/en/install/hardware:vps_debian#fa-cog-proceed-with-the-initial-configuration' target='_blank'>príslušnej stránke s dokumentáciou</a>"
+    "postinstall_intro_3": "Viac informácií nájdete na <a href='//yunohost.org/en/install/hardware:vps_debian#fa-cog-proceed-with-the-initial-configuration' target='_blank'>príslušnej stránke s dokumentáciou</a>",
+    "run": "Spustiť",
+    "running": "Vykonáva sa",
+    "save": "Uložiť",
+    "search": {
+        "for": "Hľadať {items}…",
+        "not_found": "Nájdených {item} zodpovedajúcich Vášmu zadaniu. | Nájdená 1 {items} zodpovedajúca Vášmu zadaniu. | Nájdené {items} zodpovedajúce Vášmu zadaniu."
+    },
+    "select_all": "Vybrať všetko",
+    "select_none": "Nevybrať nič",
+    "service_start_on_boot": "Spustiť pri štarte",
+    "set_default": "Nastaviť predvolené",
+    "size": "Veľkosť",
+    "since": "od",
+    "skip": "Preskočiť",
+    "start": "Spustiť",
+    "system": "Systém",
+    "system_apps_nothing": "Všetky aplikácie sú aktuálne!",
+    "system_update": "Aktualizácia systému",
+    "services": "Služby",
+    "status": "Stav",
+    "stop": "Zastaviť",
+    "system_packages_nothing": "Všetky systémové balíky sú aktuálne!",
+    "system_upgrade_btn": "Aktualizácia"
 }
