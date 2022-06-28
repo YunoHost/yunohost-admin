@@ -244,7 +244,7 @@
     "purge_user_data_warning": "La purge des données de l’utilisateur n’est pas réversible. Assurez-vous de savoir ce que vous faites !",
     "version": "Version",
     "confirm_update_system": "Voulez-vous vraiment mettre à jour tous les paquets système ?",
-    "app_state_inprogress_explanation": "Le mainteneur de cette application déclare que celle-ci n'est pas prête pour un environnement de production. SOYEZ VIGILANT!",
+    "app_state_inprogress_explanation": "Le mainteneur de cette application déclare que celle-ci n'est pas prête pour un environnement de production. SOYEZ VIGILANT !",
     "app_state_notworking_explanation": "Le mainteneur de cette application a déclaré celle-ci comme \"non fonctionnelle\". ATTENTION : SON INSTALLATION POURRAIT CASSER VOTRE SYSTÈME !",
     "app_state_highquality": "bonne qualité",
     "app_state_highquality_explanation": "Cette application est bien intégrée à YunoHost depuis au moins un an.",
@@ -580,7 +580,7 @@
             "push": "Envoyer les enregistrements DNS vers le registrar"
         }
     },
-    "domain_dns_push_failed_to_authenticate": "Échec de l'authentification sur l'API du registraire. Très probablement les <a href='#/domains/{domain}/config'>informations d'identification</a> sont incorrectes ? (Erreur : {error})",
+    "domain_dns_push_failed_to_authenticate": "Échec de l'authentification sur l'API du registraire. Très probablement les <a href='#/domains/{domain}/config'>informations d'identification</a> sont incorrectes ? (Erreur : {error})",
     "domain_dns_push_managed_in_parent_domain": "La fonctionnalité d'enregistrement DNS automatique est gérée dans le domaine parent <a href='#/domains/{parent_domain}/dns'>{parent_domain}</a>.",
     "domain_dns_push_not_applicable": "La fonctionnalité d'enregistrements DNS automatiques n'est pas applicable au domaine {domain},<br> Vous devez configurer manuellement vos enregistrements DNS en suivant la <a href='https://yunohost.org/dns'>documentation</a> et les suggestions configuration ci-dessous.",
     "text_selection_is_disabled": "La sélection du texte est désactivée. Si vous voulez partager ce log *complet*, vous pouvez le faire en cliquant sur le bouton 'Partager avec Yunopaste'.<br/><small>Ou, si vous voulez vraiment vraiment sélectionner du texte, appuyez sur ces touches : ↓↓↑↑.</small>",
