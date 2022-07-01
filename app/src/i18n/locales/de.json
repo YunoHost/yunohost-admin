@@ -457,13 +457,13 @@
         "processing": "Der Server verarbeitet die Aktion...",
         "partial_logs": "[...] (Schauen Sie für vollständige Logs bitte im Verlauf nach)",
         "reconnecting": {
-            "title": "Versuche mit dem Server zu kommunizieren...",
-            "failed": "Der Server scheint nicht zu antworten. Sie können versuchen sich neu zu verbinden oder `systemctl restart yunohost-api` über ssh auszuführen.",
+            "title": "Kommunikation mit dem Server wird versucht...",
+            "failed": "Es scheint, als ob der Server nicht antworten würde. Sie können versuchen, erneut eine Verbindung aufzubauen oder `systemctl restart yunohost-api` via ssh auszuführen.",
             "reason": {
                 "unknown": "Die Verbindung mit dem Server wurde aus unbekannten Gründen beendet.",
                 "reboot": "Ihr Server startet neu und wird für einige Zeit nicht erreichbar sein. Eine Login-Aufforderung wird erscheinen, sobald der Server wieder erreichbar ist.",
-                "shutdown": "Dein Server fährt herunter und ist nicht länger erreichbar. Starte ihn wieder, dann kannst du dich wieder einloggen, sobald der Server erreichbar ist.",
-                "upgrade_system": "Die Verbindung mit dem Server wurde auf Grund eines YunoHost-Upgrades beendet. Warte bis der Server wieder erreichbar ist …"
+                "shutdown": "Ihr Server wird heruntergefahren und ist nicht mehr erreichbar. Starten ihn erneut und Sie werden ein Login-Fenster sehen, sobald der Server erreichbar ist.",
+                "upgrade_system": "Die Verbindung mit dem Server wurde wegen eines YunoHost-Upgrades geschlossen. Warten Sie bitte, bis der Server wieder erreichbar ist …"
             },
             "success": "Der Server ist nun wieder erreichbar! Du kannst dich erneut einloggen"
         }
