@@ -344,7 +344,7 @@
     "app_config_panel": "Konfigurationsfenster",
     "app_choose_category": "Kategorie auswählen",
     "app_actions_label": "Aktionen ausführen",
-    "api_waiting": "Warten auf Server Antwort...",
+    "api_waiting": "Warten auf Antwort des Servers...",
     "user_emailforward_add": "Fügen Sie eine Mail-Weiterleitung hinzu",
     "user_emailaliases_add": "Fügen Sie einen Mail-Alias hinzu",
     "unknown": "Unbekannt",
@@ -463,9 +463,9 @@
                 "unknown": "Die Verbindung mit dem Server wurde aus unbekannten Gründen beendet.",
                 "reboot": "Ihr Server startet neu und wird für einige Zeit nicht erreichbar sein. Eine Login-Aufforderung wird erscheinen, sobald der Server wieder erreichbar ist.",
                 "shutdown": "Ihr Server wird heruntergefahren und ist nicht mehr erreichbar. Starten ihn erneut und Sie werden ein Login-Fenster sehen, sobald der Server erreichbar ist.",
-                "upgrade_system": "Die Verbindung mit dem Server wurde wegen eines YunoHost-Upgrades geschlossen. Warten Sie bitte, bis der Server wieder erreichbar ist …"
+                "upgrade_system": "Die Verbindung mit dem Server wurde wegen eines YunoHost-Upgrades geschlossen. Bitte warten Sie, bis der Server wieder erreichbar ist …"
             },
-            "success": "Der Server ist nun wieder erreichbar! Du kannst dich erneut einloggen"
+            "success": "Der Server ist jetzt erreichbar! Sie können wieder versuchen sich einzuloggen"
         }
     },
     "hook_data_xmpp": "XMPP-Daten",
