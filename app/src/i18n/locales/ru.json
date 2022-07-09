@@ -68,7 +68,7 @@
     "domain_dns_longdesc": "Посмотреть конфигурацию DNS",
     "domain_name": "Имя домена",
     "domain_visit": "Посетить",
-    "domain_visit_url": "Посетить {url}1",
+    "domain_visit_url": "Посетить {url}",
     "domains": "Домены",
     "download": "Загрузить",
     "enable": "Включить",
