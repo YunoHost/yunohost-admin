@@ -138,7 +138,7 @@
     "confirm_install_custom_app": "OSTRZEŻENIE! Instalowanie aplikacji innych firm może zagrozić integralności i bezpieczeństwu systemu. Prawdopodobnie NIE powinieneś jej instalować, chyba że wiesz, co robisz. Czy jesteś gotów podjąć to ryzyko?",
     "confirm_group_add_access_permission": "Czy na pewno chcesz udzielić {perm} dostępu do: {name}? Taki dostęp znacznie zwiększa możliwość ataku, jeśli {name} jest niezaufaną osobą. Powinieneś to zrobić tylko wtedy, gdy UFASZ tej osobie / grupie.",
     "app_install_parameters": "Ustawienia instalacji",
-    "good_practices_about_user_password": "Musisz teraz zdefiniować nowe hasło użytkownika. Hasło powinno mieć co najmniej 8 znaków - chociaż dobrym zwyczajem jest używanie dłuższego hasła (np. tekst szyfrujący) i / lub używanie różnego rodzaju znaków (duże, małe litery, cyfry i znaki specjalne).",
+    "good_practices_about_user_password": "Musisz teraz zdefiniować nowe hasło użytkownika. Hasło powinno mieć co najmniej 8 znaków — chociaż dobrym zwyczajem jest używanie dłuższego hasła (np. hasła wyrazowego) i / lub używanie różnego rodzaju znaków (duże i małe litery, cyfry, oraz znaki specjalne).",
     "error": "Błąd",
     "app_actions_label": "Wykonaj działania",
     "app_actions": "Działania",
@@ -218,7 +218,7 @@
         "donate": "Wesprzyj"
     },
     "footer_version": "Napędzane przez <a href='https://yunohost.org'>YunoHost</a> {version} ({repo}).",
-    "domain_dns_push_failed_to_authenticate": "Nieudane uwierzytelnianie w API dostawcy. Czy <a href='#/domains/{domain}/config'>dane logowania</a> są poprawne? (Error: {error})",
+    "domain_dns_push_failed_to_authenticate": "Nieudane uwierzytelnianie w API dostawcy. Prawdopodobnie <a href='#/domains/{domain}/config'>dane logowania</a> są niepoprawne? (Error: {error})",
     "domain_dns_push_managed_in_parent_domain": "Funkcja automatycznej strefy DNS jest zarządzana przez główną domenę <a href='#/domains/{parent_domain}/dns'>{parent_domain}</a>.",
     "firewall": "Zapora sieciowa",
     "domain_delete_longdesc": "Usuń tę domenę",
@@ -284,7 +284,7 @@
     "migrations_no_pending": "Brak trwających migracji",
     "migrations_no_done": "Brak poprzednich migracji",
     "go_back": "Powrót",
-    "good_practices_about_admin_password": "Zamierzasz ustawić teraz nowe hasło administratora. Hasło musi mieć co najmniej 8 znaków - dobrą praktyką jest jednak używać dłuższego ciągu (np. hasła wyrazowego) i/albo używać różnych rodzajów znaków (duże i małe litery, cyfry, znaki specjalne).",
+    "good_practices_about_admin_password": "Zamierzasz teraz ustawić nowe hasło admina. Hasło musi mieć co najmniej 8 znaków — dobrą praktyką jest jednak używać dłuższego ciągu (np. hasła wyrazowego) i/albo używać różnych rodzajów znaków (duże i małe litery, cyfry, znaki specjalne).",
     "group_explain_all_users": "To jest specjalna grupa zawierająca wszystkich użytkowników serwera",
     "home": "Strona domowa",
     "history": {
@@ -360,14 +360,14 @@
     "logs_context": "Kontekst",
     "logs_more": "Pokaż więcej linii",
     "postinstall": {
-        "force": "Wymuś post-instalację.",
+        "force": "Wymuś post-instalację",
         "title": "Postinstalacja"
     },
     "postinstall_set_password": "Ustaw hasło administracyjne",
     "restore": "Przywróć",
     "human_routes": {
         "apps": {
-            "set_default": "",
+            "set_default": "Przekieruj '{domain}' źródło domeny do '{name}'",
             "update_config": "Aktualizuj konfigurację dla '{name}'",
             "change_label": "Zmień etykietę '{prevName}' na '{nextName}'",
             "change_url": "Zmień adres URL dla '{name}'",
