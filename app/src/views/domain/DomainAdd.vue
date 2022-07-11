@@ -24,10 +24,11 @@ export default {
   },
 
   methods: {
-    onSubmit ({ domain, domainType }) {
+    onSubmit ({ domain, domainType, password }) {
       const uri = 'domains' + (domainType === 'dynDomain' ? '?dyndns' : '')
+      const data = domainType === 'dynDomain' ? { domain, subscribe: password } : { domain }
       api.post(
-        { uri, storeKey: 'domains' }, { domain }, { key: 'domains.add', name: domain }
+        { uri, storeKey: 'domains' }, data, { key: 'domains.add', name: domain }
       ).then(() => {
         this.$router.push({ name: 'domain-list' })
       }).catch(err => {

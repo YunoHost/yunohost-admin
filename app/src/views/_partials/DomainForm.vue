@@ -42,6 +42,11 @@
           <adress-input-select v-bind="self" v-model="form.dynDomain" />
         </template>
       </form-field>
+      <!-- USER PASSWORD -->
+      <form-field v-bind="fields.dynPassword" v-model="form.subscribe" :validation="$v.form.subscribe" />
+
+      <!-- USER PASSWORD CONFIRMATION -->
+      <form-field v-bind="fields.dynPasswordRepeat" v-model="form.dynPasswordRepeat" :validation="$v.form.dynPasswordRepeat" />
     </b-collapse>
     <div v-if="dynDnsForbiden" class="alert alert-warning mt-2" v-html="$t('domain_add_dyndns_forbidden')" />
   </card-form>
@@ -53,7 +58,7 @@ import { validationMixin } from 'vuelidate'
 
 import AdressInputSelect from '@/components/AdressInputSelect'
 import { formatFormDataValue } from '@/helpers/yunohostArguments'
-import { required, domain, dynDomain } from '@/helpers/validators'
+import { required, sameAs, minLength, domain, dynDomain } from '@/helpers/validators'
 
 export default {
   name: 'DomainForm',
@@ -70,7 +75,9 @@ export default {
 
       form: {
         domain: '',
-        dynDomain: { localPart: '', separator: '.', domain: 'nohost.me' }
+        dynDomain: { localPart: '', separator: '.', domain: 'nohost.me' },
+        subscribe: '',
+        dynPasswordRepeat: ''
       },
 
       fields: {
@@ -89,6 +96,24 @@ export default {
             placeholder: this.$i18n.t('myserver'),
             type: 'domain',
             choices: ['nohost.me', 'noho.st', 'ynh.fr']
+          }
+        },
+
+        dynPassword: {
+          label: this.$i18n.t('domain_password'),
+          props: {
+            id: 'dyn-password',
+            placeholder: '••••••••••••',
+            type: 'password'
+          }
+        },
+
+        dynPasswordRepeat: {
+          label: this.$i18n.t('domain_password_repeat'),
+          props: {
+            id: 'dyn-password-repeat',
+            placeholder: '••••••••••••',
+            type: 'password'
           }
         }
       }
@@ -120,7 +145,9 @@ export default {
       selected: { required },
       form: {
         domain: this.selected === 'domain' ? { required, domain } : {},
-        dynDomain: { localPart: this.selected === 'dynDomain' ? { required, dynDomain } : {} }
+        dynDomain: { localPart: this.selected === 'dynDomain' ? { required, dynDomain } : {} },
+        subscribe: this.selected === 'dynDomain' ? { required, passwordLengthStrong: minLength(12) } : {},
+        dynPasswordRepeat: this.selected === 'dynDomain' ? { required, passwordMatch: sameAs('subscribe') } : {}
       }
     }
   },
@@ -130,7 +157,8 @@ export default {
       const domainType = this.selected
       this.$emit('submit', {
         domain: formatFormDataValue(this.form[domainType]),
-        domainType
+        domainType,
+        password: this.form.subscribe
       })
     }
   },
