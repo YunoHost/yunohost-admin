@@ -102,8 +102,9 @@ export default {
       this.step = step
     },
 
-    setDomain ({ domain }) {
+    setDomain ({ domain, password }) {
       this.domain = domain
+      this.domain_password = password
       this.goToStep('password')
     },
 
@@ -120,7 +121,7 @@ export default {
       // FIXME does the api will throw an error for bad passwords ?
       api.post(
         'postinstall' + (force ? '?force_diskspace' : ''),
-        { domain: this.domain, password: this.password },
+        { domain: this.domain, password: this.password, subscribe: this.domain_password },
         { key: 'postinstall' }
       ).then(() => {
         // Display success message and allow the user to login
