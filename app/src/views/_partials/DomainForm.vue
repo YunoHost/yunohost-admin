@@ -42,10 +42,8 @@
           <adress-input-select v-bind="self" v-model="form.dynDomain" />
         </template>
       </form-field>
-      <!-- USER PASSWORD -->
+      <!-- Domain password & confirmation -->
       <form-field v-bind="fields.dynPassword" v-model="form.subscribe" :validation="$v.form.subscribe" />
-
-      <!-- USER PASSWORD CONFIRMATION -->
       <form-field v-bind="fields.dynPasswordRepeat" v-model="form.dynPasswordRepeat" :validation="$v.form.dynPasswordRepeat" />
     </b-collapse>
     <div v-if="dynDnsForbiden" class="alert alert-warning mt-2" v-html="$t('domain_add_dyndns_forbidden')" />

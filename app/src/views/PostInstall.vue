@@ -102,9 +102,10 @@ export default {
       this.step = step
     },
 
-    setDomain ({ domain, password }) {
+    setDomain ({ domain, domainType, password }) {
       this.domain = domain
       this.domain_password = password
+      this.domainType = domainType
       this.goToStep('password')
     },
 
@@ -119,9 +120,13 @@ export default {
 
     performPostInstall (force = false) {
       // FIXME does the api will throw an error for bad passwords ?
+      const data = { domain: this.domain, password: this.password }
+      if (this.domainType === 'dynDomain') {
+        data.subscribe = this.domain_password
+      }
       api.post(
         'postinstall' + (force ? '?force_diskspace' : ''),
-        { domain: this.domain, password: this.password, subscribe: this.domain_password },
+        data,
         { key: 'postinstall' }
       ).then(() => {
         // Display success message and allow the user to login
