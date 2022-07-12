@@ -7,6 +7,7 @@ import { isEmptyValue } from '@/helpers/commons'
 export default {
   state: () => ({
     domains: undefined, // Array
+    full_domains: undefined, // Array
     main_domain: undefined,
     users: undefined, // basic user data: Object {username: {data}}
     users_details: {}, // precise user data: Object {username: {data}}
@@ -29,6 +30,10 @@ export default {
 
     'SET_MAIN_DOMAIN' (state, [response]) {
       state.main_domain = response.current_main_domain
+    },
+
+    'SET_FULLDOMAINS' (state, [response]) {
+      state.full_domains = response.domains
     },
 
     'UPDATE_MAIN_DOMAIN' (state, [domain]) {
@@ -173,6 +178,8 @@ export default {
     user: state => name => state.users_details[name], // not cached
 
     domains: state => state.domains,
+
+    fullDomains: state => state.full_domains,
 
     mainDomain: state => state.main_domain,
 
