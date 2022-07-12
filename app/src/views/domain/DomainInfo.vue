@@ -71,6 +71,7 @@
               >
                 <b-form-input
                   id="password-input"
+                  type="password"
                   v-model="domain_password"
                   :state="passwordState"
                   required
