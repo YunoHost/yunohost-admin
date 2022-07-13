@@ -66,7 +66,7 @@
               <b-form-group
                 :label="$t('domain_password')"
                 label-for="password-input"
-                :invalid-feedback="$t('password_required')"
+                :invalid-feedback="$t('form_errors.required')"
                 :state="passwordState"
               >
                 <b-form-input

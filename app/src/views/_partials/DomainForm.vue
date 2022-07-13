@@ -36,6 +36,10 @@
 
     <b-collapse id="collapse-dynDomain" :visible.sync="dynDomainIsVisible">
       <small>{{ $t('domain_add_dyndns_doc') }}</small>
+      <p
+        class="alert alert-info"
+        v-html="$t('dyndns_password_desc')"
+      />
 
       <form-field v-bind="fields.dynDomain" :validation="$v.form.dynDomain" class="mt-3">
         <template #default="{ self }">
