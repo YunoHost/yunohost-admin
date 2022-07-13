@@ -166,7 +166,7 @@
     "domain_add_dns_doc": "… and I have <a href='//yunohost.org/dns_config' target='_blank'>set my DNS correctly</a>.",
     "domain_add_dyndns_doc": "… and I want a dynamic DNS service.",
     "domain_add_dyndns_forbidden": "You have already subscribed to a DynDNS domain, you can ask to remove your current DynDNS domain on the forum <a href='//forum.yunohost.org/t/nohost-domain-recovery-suppression-de-domaine-en-nohost-me-noho-st-et-ynh-fr/442'>in the dedicated thread</a>.",
-	"dyndns_password_desc": "This kind of domain is freely provided by the YunoHost project. Please remember the password you enter, it will be used to keep control of the domain even if you loose control of your server.",
+	"dyndns_password_desc": "This kind of domain is freely provided by the YunoHost project. This domain will be automatically updated each time your IP changes. Please remember the password you enter, it will be used to keep control of the domain even if you loose control of your server (for safety, don't use the same password as your administration one).",
 	"delete_unsubscribe": "Delete & Unsubscribe",
 	"unsubscribe": "Unsubscribe from the DynDNS service",
 	"domain_unsubscribe_desc": "If you don't need this domain name anymore, you can free it for other people by using the 'Delete & Unsubscribe' button. If you just want to remove the domain from your list, while keeping the domain name reserved, simply use the 'Delete' button.",
