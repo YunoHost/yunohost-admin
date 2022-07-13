@@ -129,7 +129,7 @@ export default {
       if (!this.domains) return false
       const dynDomains = this.fields.dynDomain.props.choices
       return this.domains.some(domain => {
-        return dynDomains.some(dynDomain => domain.includes(dynDomain))
+        return dynDomains.some(dynDomain => domain.endsWith(dynDomain)) && domain.split('.').length === 3
       })
     },
 

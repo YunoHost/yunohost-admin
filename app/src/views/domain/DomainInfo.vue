@@ -51,6 +51,11 @@
             class="alert alert-info"
             v-html="$t('domain_unsubscribe_desc')"
           />
+          <p
+            class="alert alert-warning"
+            v-if="checkOrphans"
+            v-html="$t('domain_unsubscribe_orphans', { domains: checkOrphans.join(', ') })"
+          />
           <b-modal
             id="modal-unsubscribe"
             ref="modal"
@@ -133,7 +138,8 @@ export default {
     return {
       queries: [
         ['GET', { uri: 'domains/main', storeKey: 'main_domain' }],
-        ['GET', { uri: 'domains?full=1', storeKey: 'fullDomains' }]
+        ['GET', { uri: 'domains' }],
+        ['GET', { uri: 'domains?full=1', storeKey: 'fullDomains', noCache: true }]
       ],
       domain_password: '',
       passwordState: null
@@ -141,7 +147,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['mainDomain']),
+    ...mapGetters(['domains', 'mainDomain']),
 
     isMainDomain () {
       if (!this.mainDomain) return
@@ -151,6 +157,11 @@ export default {
     isDynDNS () {
       if (!this.$store.state.data.full_domains) return
       return this.$store.state.data.full_domains.find(item => item.name === this.name).isdyndns
+    },
+
+    checkOrphans () {
+      if (!this.domains) return
+      return this.domains.filter(domain => domain.endsWith(this.name) && !(domain === this.name))
     }
   },
 

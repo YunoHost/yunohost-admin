@@ -170,6 +170,7 @@
 	"delete_unsubscribe": "Delete & Unsubscribe",
 	"unsubscribe": "Unsubscribe from the DynDNS service",
 	"domain_unsubscribe_desc": "If you don't need this domain name anymore, you can free it for other people by using the 'Delete & Unsubscribe' button. If you just want to remove the domain from your list, while keeping the domain name reserved, simply use the 'Delete' button.",
+	"domain_unsubscribe_orphans": "The following sub-domains depend on this one : '{domains}'. They will stop being updated if you delete this one.",
 	"domain_add_panel_with_domain": "I already have a domain name…",
     "domain_add_panel_without_domain": "I don't have a domain name…",
 	"domain_password": "Domain password",
