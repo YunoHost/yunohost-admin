@@ -53,7 +53,7 @@
           />
           <p
             class="alert alert-warning"
-            v-if="checkOrphans"
+            v-if="checkOrphans.length>0"
             v-html="$t('domain_unsubscribe_orphans', { domains: checkOrphans.join(', ') })"
           />
           <b-modal
