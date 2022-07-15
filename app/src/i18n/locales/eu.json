@@ -274,7 +274,7 @@
     "hook_conf_ldap": "Erabiltzaile-datubasea",
     "hook_data_mail_desc": "Zerbitzarian gordetako posta elektronikoa",
     "id": "IDa",
-    "install_time": "Instalazio denbora",
+    "install_time": "Instalazio unea",
     "installation_complete": "Amaitu da instalazioa",
     "home": "Hasiera",
     "hook_data_xmpp_desc": "Gela- eta erabiltzaile-ezarpenak, fitxategien igoera",
@@ -488,7 +488,7 @@
     "tools": "Erramintak",
     "tools_rebooting": "Zerbitzaria berrabiarazten ari da. Administrazio-webgunera itzultzeko zerbitzaria erabilgarri egon arte itxaron behar duzu. Saioa hasteko leihoa agertu arte itxaron edo orri hau freskatu dezakezu (F5).",
     "uninstall": "Desinstalatu",
-    "url": "URL",
+    "url": "URLa",
     "users_no": "Ez dago erabiltzailerik.",
     "words": {
         "default": "Lehenetsia",
