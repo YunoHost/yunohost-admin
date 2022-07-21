@@ -46,7 +46,7 @@
     "enable": "Aktivieren",
     "error_modify_something": "Du solltest etwas verändern",
     "firewall": "Firewall",
-    "home": "Home",
+    "home": "Startseite",
     "hook_adminjs_group_configuration": "Systemkonfigurationen",
     "hook_conf_cron": "Automatisierte Aufgaben",
     "hook_conf_ldap": "Kontendatenbank",
@@ -58,7 +58,7 @@
     "hook_conf_ynh_firewall": "Firewall",
     "hook_conf_ynh_mysql": "MySQL Passwort",
     "hook_data_home": "Kontodaten",
-    "hook_data_home_desc": "Die Daten des Kontos werden gespeichert unter /home/USER",
+    "hook_data_home_desc": "Die Daten des Kontos werden gespeichert unter /home/Konto",
     "hook_data_mail": "E-Mail",
     "hook_data_mail_desc": "Rohdaten-E-Mails auf dem Server gespeichert",
     "id": "ID",
@@ -66,7 +66,7 @@
     "install": "Installieren",
     "install_name": "{id} installieren",
     "install_time": "Installiert am",
-    "installation_complete": "Installation vollständig",
+    "installation_complete": "Installation abgeschlossen",
     "installed": "Installiert",
     "ipv4": "IPv4",
     "ipv6": "IPv6",
@@ -75,9 +75,9 @@
     "local_archives": "Lokale Archive",
     "login": "Anmelden",
     "logout": "Abmelden",
-    "mailbox_quota_description": "Zum Beispiel, eine CD verfügt über 700M, eine über 4700M.",
+    "mailbox_quota_description": "Legen Sie eine Speichergrößenbegrenzung für E-Mail-Inhalte fest.<br>Setzen Sie den Wert auf 0, um ihn zu deaktivieren.",
     "manage_apps": "Apps verwalten",
-    "manage_domains": "Domains verwalten",
+    "manage_domains": "Domänen verwalten",
     "manage_users": "Konten verwalten",
     "multi_instance": "Kann mehrere Male installiert werden",
     "myserver": "meinserver",
@@ -222,7 +222,7 @@
     "experimental_warning": "Achtung: Diese Funktion ist experimentell und gilt nicht als stabil, Sie sollten sie nicht verwenden, außer Sie wissen, was Sie tun.",
     "error_connection_interrupted": "Der Server hat die Verbindung geschlossen, anstatt sie zu beantworten. Wurde nginx oder die yunohost-api aus irgendeinem Grund neu gestartet oder gestoppt?",
     "hook_conf_ynh_currenthost": "Aktuelle Haupt-Domain",
-    "good_practices_about_user_password": "Du bist nun dabei, ein neues Benutzerpasswort zu definieren. Das Passwort sollte mindestens 8 Zeichen lang sein - es ist jedoch empfehlenswert, ein längeres Passwort (z.B. eine Passphrase) und/oder verschiedene Arten von Zeichen (Groß- und Kleinschreibung, Ziffern und Sonderzeichen) zu verwenden.",
+    "good_practices_about_user_password": "Sie werden nun ein neues Kontopasswort festlegen. Das Passwort sollte mindestens 8 Zeichen lang sein. Es ist jedoch empfehlenswert, ein längeres Passwort (d.h. eine Passphrase) und/oder verschiedene Arten von Zeichen (Groß- und Kleinschreibung, Ziffern und Sonderzeichen) zu verwenden.",
     "license": "Lizenz",
     "only_highquality_apps": "Nur hochqualitative Apps",
     "only_decent_quality_apps": "Nur qualitativ hochwertige Apps",
@@ -280,7 +280,7 @@
     "group_visitors": "Gäste",
     "group_add_member": "Ein Konto hinzufügen",
     "group_add_permission": "Hinzufügen einer Berechtigung",
-    "group_specific_permissions": "Benutzerspezifische Berechtigungen",
+    "group_specific_permissions": "Kontospezifische Berechtigungen",
     "groups_and_permissions": "Gruppen und Berechtigungen",
     "since": "seit",
     "permissions": "Berechtigungen",
@@ -365,7 +365,7 @@
         "not_found": "Es gibt {items}, die deinen Auswahlkriterien entsprechen. | Es gibt 1 {items}, das deinem Auswahlkriterium entspricht. | Es gibt {items}, die deinen Auswahlkriterien entsprechen.",
         "for": "Suche nach {items} ..."
     },
-    "readme": "Readme",
+    "readme": "Lies mich",
     "postinstall_set_password": "Legen Sie das Administrationskennwort fest",
     "postinstall_set_domain": "Hauptdomäne festlegen",
     "placeholder": {
@@ -387,8 +387,8 @@
         "logs": "keine Protokolle | Protokoll | {c} Protokolle",
         "installed_apps": "keine installierten Apps | installierte App | {c} installierte Apps",
         "groups": "keine Gruppen | Gruppe | {c} Gruppen",
-        "domains": "keine Domains | Domain | {c} Domains",
-        "backups": "keine Backups | Backup | {c} Backups",
+        "domains": "keine Domänen | Domäne | {c} Domänen",
+        "backups": "keine Sicherungen | Sicherung| {c} Sicherungen",
         "apps": "keine Apps | App | {c} Apps",
         "permissions": "keine Berechtigungen | Berechtigung | {c} Berechtigungen"
     },
@@ -400,8 +400,8 @@
             "GET": "lesen"
         },
         "last_action": "Letzte Aktion:",
-        "title": "Historie",
-        "is_empty": "Momentan nichts in der History."
+        "title": "Verlauf",
+        "is_empty": "Der Verlauf ist leer."
     },
     "form_errors": {
         "required": "Feld ist erforderlich.",
@@ -457,19 +457,19 @@
         "processing": "Der Server verarbeitet die Aktion...",
         "partial_logs": "[...] (Schauen Sie für vollständige Logs bitte im Verlauf nach)",
         "reconnecting": {
-            "title": "Kommunikation mit dem Server wird versucht...",
-            "failed": "Es scheint, als ob der Server nicht antworten würde. Sie können versuchen, erneut eine Verbindung aufzubauen oder `systemctl restart yunohost-api` via ssh auszuführen.",
+            "title": "Versuche mit dem Server zu kommunizieren...",
+            "failed": "Server scheint nicht zu antworten. Du kannst versuchen dich neu zu verbinden oder probierst `systemctl restart yunohost-api` über ssh auszuführen.",
             "reason": {
                 "unknown": "Die Verbindung mit dem Server wurde aus unbekannten Gründen beendet.",
                 "reboot": "Ihr Server startet neu und wird für einige Zeit nicht erreichbar sein. Eine Login-Aufforderung wird erscheinen, sobald der Server wieder erreichbar ist.",
-                "shutdown": "Ihr Server wird heruntergefahren und ist nicht mehr erreichbar. Starten ihn erneut und Sie werden ein Login-Fenster sehen, sobald der Server erreichbar ist.",
-                "upgrade_system": "Die Verbindung mit dem Server wurde wegen eines YunoHost-Upgrades geschlossen. Bitte warten Sie, bis der Server wieder erreichbar ist …"
+                "shutdown": "Ihr Server wird heruntergefahren und ist nicht mehr erreichbar. Schalten Sie ihn wieder ein und eine Anmeldeaufforderung wird angezeigt, sobald der Server erreichbar ist.",
+                "upgrade_system": "Die Verbindung mit dem Server wurde auf Grund eines YunoHost Updates beendet. Warte bis der Server wieder erreichbar ist…"
             },
-            "success": "Der Server ist jetzt erreichbar! Sie können wieder versuchen sich einzuloggen"
+            "success": "Der Server ist jetzt erreichbar! Sie können versuchen, sich anzumelden"
         }
     },
     "hook_data_xmpp": "XMPP-Daten",
-    "hook_conf_manually_modified_files": "Manuell geänderte Konfigurationsdateien",
+    "hook_conf_manually_modified_files": "Manuell geänderte Konfigurationen",
     "hook_conf_ynh_settings": "YunoHost-Konfigurationen",
     "human_routes": {
         "backups": {
@@ -548,7 +548,7 @@
         "update": "Nach Updates suchen",
         "shutdown": "Den Server herunterfahren",
         "share_logs": "Einen Link für den Log '{name}' erstellten",
-        "reconnecting": "Neu verbinden"
+        "reconnecting": "Wiederverbinden"
     },
     "postinstall": {
         "force": "Forciere den Post-Install",
@@ -577,7 +577,7 @@
             "push_force_confirm": "Sind Sie sicher, dass Sie die Propagierung aller vorgeschlagenen DNS-Einträge forcieren möchten? Seien Sie sich bewusst, dass dies dazu führen kann, dass es manuelle oder wichtige Default-Einträge, die ihr Registrar definiert hat, überschreiben könnte."
         }
     },
-    "domain_dns_push_failed_to_authenticate": "Authentifizierung bei der API des Registrars nicht erfolgreich. Höchstwahrscheinlich sind die <a href='#/domains/{domain}/config'>Zugangsdaten</a> inkorrekt. (Fehler: {error})",
+    "domain_dns_push_failed_to_authenticate": "Authentifizierung bei der API des Registrars nicht erfolgreich. Höchstwahrscheinlich sind die <a href='#/Domäne/{Domäne}/config'>Zugangsdaten</a> inkorrekt. (Fehler: {error})",
     "domain_dns_push_managed_in_parent_domain": "Die automatische DNS-Konfiguration wird von der übergeordneten Domäne <a href='#/domains/{parent_domain}/dns'>{parent_domain}</a> verwaltet.",
     "domain_dns_push_not_applicable": "Die automatische DNS-Konfiguration ist nicht auf die Domäne {domain} anwendbar. <br>Konfiguriere die DNS-Einträge, wie in der <a href='https://yunohost.org/dns'>Dokumentation<a href='https://yunohost.org/dns'> beschrieben, mit Hilfe der folgenden vorgeschlagenen Konfiguration manuell.",
     "users_import_delete_desc": "Wenn angewählt, werden alle Konten, die nicht in der CSV-Datei enthalten sind, gelöscht (und bereinigt).",
@@ -592,5 +592,5 @@
     "text_selection_is_disabled": "Textauswahl ist deaktiviert. Wenn Sie diesen Log teilen möchten, teilen Sie bitte den *kompletten* Log, indem Sie den Button 'Logs teilen mit YunoPaste' anklicken. <br/><small>Oder falls Sie wirklich wirklich einen Text auswählen möchten, klicken Sie auf die Tasten:↓↓↑↑.</small>",
     "users_import_update": "Vorhandene Konten aktualisieren",
     "users_import_confirm_destructive": "Sind Sie sicher, dass Sie die Konten, die nicht in diesen Datei enthalten sind, löschen wollen?",
-    "retry": "Wiederholen"
+    "retry": "Wiederhole"
 }
