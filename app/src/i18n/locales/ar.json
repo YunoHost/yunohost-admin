@@ -77,7 +77,7 @@
     "home": "الرئيسية",
     "hook_adminjs_group_configuration": "إعدادات النظام",
     "hook_conf_cron": "المهام التلقائية",
-    "hook_conf_ldap": "قاعدة بيانات LDAP",
+    "hook_conf_ldap": "قاعدة بيانات المستخدمين",
     "hook_conf_nginx": "Nginx",
     "hook_conf_ssh": "SSH",
     "hook_conf_ssowat": "SSOwat",
@@ -108,7 +108,7 @@
     "manage_apps": "إدارة التطبيقات",
     "manage_domains": "إدراة أسماء النطاقات",
     "manage_users": "إدارة المستخدمين",
-    "multi_instance": "متعدد مثيلات الخوادم",
+    "multi_instance": "يمكن تنصيبه عدة مرات",
     "myserver": "خادمي",
     "next": "التالي",
     "no": "لا",
@@ -274,5 +274,143 @@
     "app_state_lowquality": "جودة ضعيفة",
     "all": "كلها",
     "group_explain_visitors": "هذا فريق خاص بالزوار المجهولين",
-    "group_visitors": "الزوار"
+    "group_visitors": "الزوار",
+    "postinstall": {
+        "force": "فرض ما بعد التنصيب",
+        "title": "ما بعد التنصيب"
+    },
+    "postinstall_set_domain": "اختيار اسم النطاق الرئيسي",
+    "words": {
+        "browse": "استكشف",
+        "default": "افتراضي"
+    },
+    "app_install_parameters": "إعدادات التنصيب",
+    "code": "الشفرة المصدرية",
+    "common": {
+        "firstname": "الاسم",
+        "lastname": "اللقب"
+    },
+    "domain": {
+        "config": {
+            "edit": "تعديل اعدادات اسم النطاق",
+            "title": "ضبط اسم النطاق"
+        },
+        "dns": {
+            "auto_config": "ضبط تلقائي لتسجيلات خدمة أسماء النطاقات"
+        }
+    },
+    "placeholder": {
+        "domain": "my-domain.com",
+        "groupname": "اسم فريقي"
+    },
+    "human_routes": {
+        "domains": {
+            "add": "إضافة اسم النطاق '{name}'",
+            "delete": "حذف اسم النطاق '{name}'",
+            "install_LE": "تنصيب الشهادة لـ '{name}'",
+            "manual_renew_LE": "تجديد الشهادة لـ '{name}'",
+            "set_default": "تعيين '{name}' كاسم نطاق افتراضي",
+            "update_config": "تحديث اعدادت '{name}'"
+        },
+        "services": {
+            "start": "تشغيل خدمة '{name}'",
+            "stop": "إيقاف خدمة '{name}'",
+            "restart": "إعادة تشغيل الخدمة '{name}'"
+        },
+        "groups": {
+            "create": "انشاء فريق '{name}'",
+            "delete": "حذف الفريق '{name}'"
+        },
+        "update": "البحث عن تحديثات",
+        "adminpw": "تعديل الكلمة السرية للمدير",
+        "apps": {
+            "install": "تنصيب التطبيق '{name}'"
+        },
+        "backups": {
+            "create": "إنشاء نسخة احتياطية"
+        },
+        "diagnosis": {
+            "ignore": {
+                "error": "تجاهل خطأ",
+                "warning": "تجاهل تحذير"
+            },
+            "run": "تنفيذ الفحص"
+        },
+        "postinstall": "تنفيذ ما بعد التنصيب",
+        "upgrade": {
+            "apps": "تحديث كافة التطبيقات",
+            "app": "تحديث التطبيق '{name}'",
+            "system": "تحديث النظام"
+        },
+        "users": {
+            "delete": "حذف المستخدم '{name}'",
+            "update": "تحديث المستخدم '{name}'",
+            "create": "إنشاء المستخدم '{name}'"
+        },
+        "reboot": "إعادة تشغيل الخادم",
+        "shutdown": "إطفاء الخادم",
+        "reconnecting": "محاولة إعادة الإتصال"
+    },
+    "confirm_app_install": "متأكد من أنك تريد تنصيب هذا التطبيق؟",
+    "footer": {
+        "help": "بحاجة إلى مساعدة؟",
+        "donate": "تبرّع",
+        "documentation": "المستندات"
+    },
+    "tools_webadmin": {
+        "experimental": "الوضع التجريبي",
+        "fallback_language": "اللغة المرجعية",
+        "language": "اللغة"
+    },
+    "api_error": {
+        "view_error": "أظهر الخطأ",
+        "error_message": "رسالة الخطأ:",
+        "sorry": "نعتذر عن ذلك."
+    },
+    "app_config_panel_label": "اضبط هذا التطبيق",
+    "app_show_categories": "اظهر كافة الفئات",
+    "cancel": "إلغاء",
+    "perform": "تنفيذ",
+    "readme": "اقرأني",
+    "tools_webadmin_settings": "إعدادات واجهة الويب الإدارية",
+    "search": {
+        "for": "البحث عن {items}…"
+    },
+    "users_import": "استيراد مستخدمين",
+    "users_export": "تصدير المستخدمين",
+    "users_import_csv_file": "ملف CSV",
+    "users_import_update": "تحديث المستخدمين الموجودين",
+    "yunohost_admin": "مدير YunoHost",
+    "api": {
+        "processing": "يقوم الخادم بتنفيذ الإجراء…",
+        "query_status": {
+            "error": "فشل",
+            "pending": "جارٍ",
+            "success": "انتهى بنجاح"
+        },
+        "reconnecting": {
+            "title": "محاولة الإتصال بالخادم…"
+        }
+    },
+    "dead": "غير نشط",
+    "postinstall_set_password": "الكلمة السرية الإدارية",
+    "unknown": "مجهول",
+    "address": {
+        "domain_description": {
+            "domain": "اختر اسم نطاق.",
+            "email": "اختر اسم نطاق لبريدك الإلكتروني."
+        }
+    },
+    "enabled": "مفعّل",
+    "error": "خطأ",
+    "experimental": "تجريبي",
+    "api_errors_titles": {
+        "APINotRespondingError": "إنّ واجهة برمجة التطبيقات لـ YunoHost لا تجيب"
+    },
+    "api_waiting": "في انتظار ردّ الخادم…",
+    "app_actions": "الإجراءات",
+    "app_actions_label": "نفّذ الإجراءات",
+    "app_choose_category": "اختر فئة",
+    "app_config_panel": "لوح الضبط",
+    "retry": "حاول مجددا"
 }
