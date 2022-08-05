@@ -64,6 +64,7 @@
     "app_info_default_desc": "Redirect domain root to this application ({domain}).",
     "app_info_changeurl_desc": "Change the access URL of this application (domain and/or path).",
     "app_info_change_url_disabled_tooltip": "This feature hasn't been implemented in this app yet",
+    "app_info_force_upgrade_desc": "Force upgrade this application.",
     "app_info_uninstall_desc": "Remove this application.",
     "app_install_custom_no_manifest": "No manifest.json file",
     "app_install_parameters": "Install settings",
@@ -118,6 +119,7 @@
     "confirm_service_restart": "Are you sure you want to restart {name}?",
     "confirm_service_start": "Are you sure you want to start {name}?",
     "confirm_service_stop": "Are you sure you want to stop {name}?",
+    "confirm_force_upgrade": "Are you sure you want to force upgrade {name}?",
     "confirm_uninstall": "Are you sure you want to uninstall {name}?",
     "confirm_update_apps": "Are you sure you want to update all applications?",
     "confirm_update_system": "Are you sure you want to update all system packages?",
@@ -384,6 +386,7 @@
           "set_default": "Redirect '{domain}' domain root to '{name}'",
           "perform_action": "Perform action '{action}' of app '{name}'",
           "uninstall": "Uninstall app '{name}'",
+          "force_upgrade": "Force upgrade app '{name}'",
           "update_config": "Update app '{name}' configuration"
         },
         "backups": {
@@ -507,6 +510,7 @@
     "unauthorized": "Unauthorized",
     "unignore": "Unignore",
     "uninstall": "Uninstall",
+    "force_upgrade": "Force upgrade",
     "unknown": "Unknown",
     "unmaintained": "Unmaintained",
     "unmaintained_details": "This app has not been updated for quite a while and the previous maintainer has gone away or does not have time to maintain this app. Feel free to check the app repository to provide your help",
