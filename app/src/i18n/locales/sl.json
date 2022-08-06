@@ -137,5 +137,25 @@
     "diagnosis_first_run": "Diagnostična funkcija si bo prizadevala identificirati pogoste probleme na različnih vidikih tvojega strežnika, da bi se prepričala, ali vse poteka gladko. Prosim, ne razburjaj se, če vidiš množico napak takoj po tem, ko nastaviš svoj strežnik: mišljena je natanko tako, da pomaga identificirati težave in te vodi, da jih popraviš. Diagnoza bo potekala samodejno dvakrat na dan in v primeru najdenih napak, bo administratorju poslano elektronsko sporočilo.",
     "confirm_update_apps": "Ali si prepričan_a, da želiš posodobiti vse aplikacije?",
     "confirm_update_system": "Ali si prepričan_a, da želiš posodobiti vse sistemske pakete?",
-    "diagnosis": "Diagnoza"
+    "diagnosis": "Diagnoza",
+    "run_first_diagnosis": "Zaženi začetno diagnozo",
+    "disable": "Onemogoči",
+    "disabled": "Onemogočeno",
+    "domain": {
+        "config": {
+            "edit": "Uredi domensko nastavitev",
+            "title": "Domenska nastavitev"
+        },
+        "dns": {
+            "auto_config": "Avtomatska DNS konfiguracija zapisov",
+            "auto_config_ignored": "ni upoštevano, YunoHost tega ne bo spremenil razen če pregledaš možnosti prepisa",
+            "manual_config": "Priporočen DNS zapisi za ročno konfiguracijo",
+            "auto_config_ok": "Samodejna konfiguracija se zdi OK!",
+            "auto_config_zone": "Trenutno DNS območje",
+            "edit": "Uredi DNS konfiguracijo",
+            "info": "Samodejna DNS konfiguracija zapisov je eksperimentalna.<br> Pomisli na shranjevanje svojega trenutnega DNS območja iz vmesnika svojega DNS registrarja, preden dodajaš zapise od tukaj."
+        }
+    },
+    "diagnosis_explanation": "Diagnostična funkcija si bo prizadevala identificirati pogoste probleme na različnih vidikih tvojega strežnika, da bi se prepričala, ali vse poteka gladko. Diagnoza bo potekala samodejno dvakrat na dan in v primeru najdenih napak, bo administratorju poslano elektronsko sporočilo. Nekateri testi zate morda ne bodo relevantni, če določenih funkcij nočeš uporabljati (na primer XMPP), ali pa ne bodo uspeli, če imaš zapleteno namestitev. V teh primerih, in če veš, kaj počneš, je v redu ignorirati pripadajoče napake ali opozorila.",
+    "dns": "Domenski sistem"
 }
