@@ -20,7 +20,18 @@
             "success": "Uspešno končano",
             "warning": "Uspešno končano z napakami ali opozorili"
         },
-        "partial_logs": "[...] (preveri zgodovino za polne zapise"
+        "partial_logs": "[...] (preveri zgodovino za polne zapise",
+        "reconnecting": {
+            "reason": {
+                "upgrade_system": "Povezava s strežnikom se je zaprla zaradi YunoHost nadgradnje. Čakanje na strežnik, da bo ponovno dosegljiv…",
+                "reboot": "Tvoj strežnik se ponovno zaganja in za nekaj časa ne bo dosegljiv. Poziv za prijavo bo na voljo takoj, ko bo strežnik dosegljiv.",
+                "unknown": "Povezava s strežnikom je bila prekinjena iz neznanih razlogov.",
+                "shutdown": "Tvoj strežnik se ugaša in ni več dosegljiv. Ponovno ga vklopi in poziv za prijavo bo na razpolago takoj, ko bo strežnik dosegljiv."
+            },
+            "title": "Poskušam se povezati s strežnikom...",
+            "failed": "Videti je, da se strežnik ne odziva. Lahko se poskusiš ponovno povezati ali poskusi zagnati `systemctl restart yunohost-api` thru ssh.",
+            "success": "Strežnik je zdaj dosegljiv! Lahko se poskusiš vpisati"
+        }
     },
     "api_error": {
         "error_message": "Sporočilo napake:",
@@ -99,5 +110,32 @@
     "confirm_firewall_allow": "Ste prepričani da želite odpreti vrata {port} (protokol: {protocol}, povezava: {connection})",
     "confirm_group_add_access_permission": "Ste prepričani da želi dodeliti {name} dostop do {perm}? Takšen dostop bistveno razširi napadalo polje, če se {name} izkaže za škodoželjo osebo. Stori to samo če res ZAUPAŠ tej osebi ali skupini.",
     "confirm_install_custom_app": "POZOR! Namestitev neuradnih aplikacij lahko ogrozi celovitost in varnost vašega sistema. Verjetno NI dobro namestiti, razen če res veš kaj počneš. Si pripravljen_a sprejeti tveganje?",
-    "confirm_install_app_lowquality": "Pozor: aplikacija bi lahko delovala vendar ni dobro vključena v YunoHost. Nekatere funkcionalnosti, kot so poenoten vpis ter varnostno kopiranje/povrnitev, morda niso na voljo."
+    "confirm_install_app_lowquality": "Pozor: aplikacija bi lahko delovala vendar ni dobro vključena v YunoHost. Nekatere funkcionalnosti, kot so poenoten vpis ter varnostno kopiranje/povrnitev, morda niso na voljo.",
+    "confirm_install_app_inprogress": "POZOR! Ta aplikacija je še vedno poskusna (če eksplicitno ne dela) in bo  verjetno poškodovala tvoj sistem! Verjetno ga ne bi smel_a naložiti, razen če veš, kaj počneš. Ali si pripravljen_a tvegati?",
+    "confirm_migrations_skip": "Ni priporočljivo preskočiti selitev podatkov. Ali si prepričan_a, da želiš to storiti?",
+    "confirm_postinstall": "Kmalu se bo začel post-namestitveni proces na domeni {domain}. Morda ti bo vzelo nekaj minut, *ne prekini operacije*.",
+    "confirm_restore": "Ali si prepričan_a, da želiš obnoviti {name}?",
+    "confirm_service_restart": "Ali si prepričan_a, da želiš ponovno zagnati {name}?",
+    "confirm_service_start": "Ali si prepričan_a, da želiš zagnati {name}?",
+    "confirm_service_stop": "Ali si prepričan_a, da želiš ustaviti {name}?",
+    "confirm_uninstall": "Ali si prepričan_a, da želiš odstraniti {name}?",
+    "confirm_update_specific_app": "Ali si prepričan_a, da želiš posodobiti {app}?",
+    "confirm_upnp_enable": "Ali si prepričana, da želiš omogočiti UPnP?",
+    "confirm_upnp_disable": "Ali si prepričana, da želiš onemogočiti UPnP?",
+    "confirm_reboot_action_reboot": "Ali si prepričana, da želiš ponovno zagnati svoj strežnik?",
+    "confirm_reboot_action_shutdown": "Ali si prepričana, da želiš zaustaviti svoj strežnik?",
+    "connection": "Povezava",
+    "created_at": "Ustvarjeno ob",
+    "custom_app_install": "Namesti aplikacijo po meri",
+    "day_validity": " Pretečeno | 1 dan | {count} dni",
+    "dead": "Nedejaven",
+    "delete": "Briši",
+    "description": "Opis",
+    "details": "Podrobnosti",
+    "domain_dns_conf_is_just_a_recommendation": "Ta stran ti pokaže *priporočeno* obliko. *Ne* oblikuje DNS zate. Oblikovanje tvojega DNS območja je tvoja odgovornost v tvojem DNS registrar-ju glede na to priporočilo.",
+    "diagnosis_experimental_disclaimer": "Bodi pozorna na to, da je funkcija diagnoze še vedno eksperimentalna, se izboljšuje, in ne more biti popolnoma zanesljiva.",
+    "diagnosis_first_run": "Diagnostična funkcija si bo prizadevala identificirati pogoste probleme na različnih vidikih tvojega strežnika, da bi se prepričala, ali vse poteka gladko. Prosim, ne razburjaj se, če vidiš množico napak takoj po tem, ko nastaviš svoj strežnik: mišljena je natanko tako, da pomaga identificirati težave in te vodi, da jih popraviš. Diagnoza bo potekala samodejno dvakrat na dan in v primeru najdenih napak, bo administratorju poslano elektronsko sporočilo.",
+    "confirm_update_apps": "Ali si prepričan_a, da želiš posodobiti vse aplikacije?",
+    "confirm_update_system": "Ali si prepričan_a, da želiš posodobiti vse sistemske pakete?",
+    "diagnosis": "Diagnoza"
 }
