@@ -48,7 +48,7 @@ export default {
       api.put(
         'settings',
         { key: id_, args: objectToParams(formatedData) },
-        { key: 'tools.update_settings', name: this.name }
+        { key: 'settings.update', name: this.name }
       ).then(() => {
         this.$refs.view.fetchQueries({ triggerLoading: true })
       }).catch(err => {
