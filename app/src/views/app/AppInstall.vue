@@ -12,7 +12,8 @@
             <span class="sep" />
           </b-col>
           <b-col>
-            <span>{{ info }}</span>
+            <a v-if="['url', 'upstream_demo', 'upstream_code', 'upstream_website', 'upstream_admindoc', 'upstream_userdoc'].indexOf(key) > -1" :href="info" target="_blank">{{ info }}</a>
+            <span v-else>{{ info }}</span>
           </b-col>
         </b-row>
       </card>
@@ -91,6 +92,13 @@ export default {
       manifest.description = formatI18nField(manifest.description)
       manifest.multi_instance = this.$i18n.t(manifest.multi_instance ? 'yes' : 'no')
       this.infos = Object.fromEntries(infosKeys.map(key => [key, manifest[key]]))
+
+      this.infos.upstream_license = manifest.upstream.license
+      this.infos.upstream_demo = manifest.upstream.demo
+      this.infos.upstream_website = manifest.upstream.website
+      this.infos.upstream_code = manifest.upstream.code
+      this.infos.upstream_admindoc = manifest.upstream.admindoc
+      this.infos.upstream_userdoc = manifest.upstream.userdoc
 
       const { form, fields, validations, errors } = formatYunoHostArguments(
         manifest.arguments.install,
