@@ -544,7 +544,7 @@
     "users_new": "Nova usuaria",
     "users": "Usuarias",
     "user_username_edit": "Editar a conta de {name}",
-    "user_username": "Nome de usuaria",
+    "user_username": "Identificador",
     "user_new_forward": "novoreenvio@omeudominoexterno.org",
     "user_mailbox_use": "Espazo de correo utilizado",
     "user_mailbox_quota": "Cota de correo",
