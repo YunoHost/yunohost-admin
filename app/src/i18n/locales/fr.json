@@ -220,8 +220,8 @@
     "confirm_install_app_inprogress": "AVERTISSEMENT ! Cette application est encore expérimentale et risque de casser votre système ! Vous ne devriez probablement PAS l’installer si vous ne savez pas ce que vous faites. Voulez-vous vraiment prendre ce risque ?",
     "error_connection_interrupted": "Le serveur a fermé la connexion au lieu d’y répondre. Est-ce que NGINX ou yunohost-api ont été redémarrés ou arrêtés pour une raison quelconque ?",
     "experimental_warning": "Attention : cette fonctionnalité est expérimentale et ne doit pas être considérée comme stable, vous ne devriez pas l’utiliser à moins que vous ne sachiez ce que vous faites...",
-    "good_practices_about_admin_password": "Vous êtes sur le point de définir un nouveau mot de passe administrateur. Le mot de passe doit comporter au moins 8 caractères - bien qu'il soit recommandé d'utiliser un mot de passe plus long (c'est-à-dire une phrase secrète) et/ou d'utiliser différents types de caractères (majuscules, minuscules, chiffres et caractères spéciaux).",
-    "good_practices_about_user_password": "Vous êtes maintenant sur le point de définir un nouveau mot de passe pour l'utilisateur. Le mot de passe doit comporter au moins 8 caractères - bien qu’il soit recommandé d’utiliser un mot de passe plus long (c’est-à-dire une phrase secrète) et/ou d’utiliser différents types de caractères tels que : majuscules, minuscules, chiffres et caractères spéciaux.",
+    "good_practices_about_admin_password": "Vous êtes sur le point de définir un nouveau mot de passe administrateur. Le mot de passe doit comporter au moins 8 caractères, bien qu'il soit recommandé d'utiliser un mot de passe plus long (c'est-à-dire une phrase secrète) et/ou d'utiliser une combinaison de caractères (majuscules, minuscules, chiffres et caractères spéciaux).",
+    "good_practices_about_user_password": "Vous êtes sur le point de définir un nouveau mot de passe utilisateur. Le mot de passe doit comporter au moins 8 caractères, bien qu'il soit recommandé d'utiliser un mot de passe plus long (c'est-à-dire une phrase secrète) et/ou une combinaison de caractères (majuscules, minuscules, chiffres et caractères spéciaux).",
     "only_working_apps": "Applications fonctionnelles uniquement",
     "logs": "Journaux",
     "logs_operation": "Opérations effectuées sur le système avec YunoHost",
@@ -240,15 +240,15 @@
     "logs_share_with_yunopaste": "Partager les logs avec YunoPaste",
     "logs_more": "Afficher plus de lignes",
     "unmaintained": "Non maintenue",
-    "purge_user_data_checkbox": "Purger les données de {name} ? (Cela supprimera toutes les données de son répertoire ainsi que ses emails)",
+    "purge_user_data_checkbox": "Purger les données de l'utilisateur {name} ? (Cela supprimera toutes les données de son répertoire ainsi que ses emails)",
     "purge_user_data_warning": "La purge des données de l’utilisateur n’est pas réversible. Assurez-vous de savoir ce que vous faites !",
     "version": "Version",
     "confirm_update_system": "Voulez-vous vraiment mettre à jour tous les paquets système ?",
-    "app_state_inprogress_explanation": "Le mainteneur de cette application précise qu'elle n'est pas encore prête à être utilisée en production. SOYEZ PRUDENTS !",
-    "app_state_notworking_explanation": "Le mainteneur de cette application l'a décrite comme \"non fonctionnelle\". ATTENTION : SON INSTALLATION POURRAIT CASSER VOTRE SYSTÈME !",
+    "app_state_inprogress_explanation": "Le mainteneur de cette application déclare que celle-ci n'est pas prête pour un environnement de production. SOYEZ VIGILANT !",
+    "app_state_notworking_explanation": "Le mainteneur de cette application a déclaré celle-ci comme \"non fonctionnelle\". ATTENTION : SON INSTALLATION POURRAIT CASSER VOTRE SYSTÈME !",
     "app_state_highquality": "bonne qualité",
     "app_state_highquality_explanation": "Cette application est bien intégrée à YunoHost depuis au moins un an.",
-    "app_state_working_explanation": "Le mainteneur a déclarée cette application comme \"fonctionnelle\". Cela signifie qu'elle doit fonctionner mais n'est pas nécessairement vérifiée (voir le niveau d'intégration des applications), elle peut encore contenir des bugs ou bien ne pas être entièrement intégrée à YunoHost.",
+    "app_state_working_explanation": "Le mainteneur cette application l'a déclaré comme \"fonctionnelle\". Cela signifie qu'elle doit fonctionner mais n'est pas nécessairement vérifiée (voir le niveau d'intégration des applications), elle peut encore contenir des bugs ou bien ne pas être entièrement intégrée à YunoHost.",
     "hook_conf_ynh_currenthost": "Domaine principal actuellement utilisé",
     "license": "Licence",
     "only_highquality_apps": "Seulement les applications de bonne qualité",
@@ -343,7 +343,7 @@
     "migrations_disclaimer_not_checked": "Cette migration nécessite que vous preniez connaissance de sa décharge de responsabilité avant de l'exécuter.",
     "migrations_disclaimer_check_message": "J'ai lu et compris cette décharge de responsabilité",
     "mailbox_quota_example": "700 M correspond à un CD, 4 700 M correspond à un DVD",
-    "items_verbose_count": "Il y a des {items}. | Il y a un {items}. | Il y a des {items}.",
+    "items_verbose_count": "Il n'y a {items}. | Il y a un {items}. | Il y a des {items}.",
     "items": {
         "users": "aucun utilisateur | utilisateur | {c} utilisateurs",
         "services": "aucun service | service | {c} services",
@@ -459,7 +459,7 @@
                 "unknown": "La connexion avec le serveur a été fermée pour des raisons inconnues.",
                 "reboot": "Votre serveur redémarre et ne sera pas joignable pendant un certain temps. Une invite de connexion sera disponible dès que le serveur sera accessible.",
                 "shutdown": "Votre serveur est en cours de d'extinction et n'est plus joignable. Redémarrez-le et une invitation de connexion sera disponible dès que le serveur sera joignable.",
-                "upgrade_system": "La connexion avec le serveur a été fermée en raison de la mise à jour de YunoHost. Attendre que le serveur soit à nouveau joignable…"
+                "upgrade_system": "La connexion avec le serveur a été fermée en raison de la mise à jour de YunoHost. Il vous faut patienter jusqu'à ce que le serveur soit à nouveau joignable …"
             },
             "success": "Le serveur est maintenant joignable ! Vous pouvez essayer de vous connecter"
         }
@@ -580,7 +580,7 @@
             "push": "Envoyer les enregistrements DNS vers le registrar"
         }
     },
-    "domain_dns_push_failed_to_authenticate": "Échec de l'authentification sur l'API du registraire. Très probablement les <a href='#/domains/{domain}/config'>informations d'identification</a> sont incorrectes ? (Erreur : {error})",
+    "domain_dns_push_failed_to_authenticate": "Échec de l'authentification sur l'API du registraire. Très probablement les <a href='#/domains/{domain}/config'>informations d'identification</a> sont incorrectes ? (Erreur : {error})",
     "domain_dns_push_managed_in_parent_domain": "La fonctionnalité d'enregistrement DNS automatique est gérée dans le domaine parent <a href='#/domains/{parent_domain}/dns'>{parent_domain}</a>.",
     "domain_dns_push_not_applicable": "La fonctionnalité d'enregistrements DNS automatiques n'est pas applicable au domaine {domain},<br> Vous devez configurer manuellement vos enregistrements DNS en suivant la <a href='https://yunohost.org/dns'>documentation</a> et les suggestions configuration ci-dessous.",
     "text_selection_is_disabled": "La sélection du texte est désactivée. Si vous voulez partager ce log *complet*, vous pouvez le faire en cliquant sur le bouton 'Partager avec Yunopaste'.<br/><small>Ou, si vous voulez vraiment vraiment sélectionner du texte, appuyez sur ces touches : ↓↓↑↑.</small>",

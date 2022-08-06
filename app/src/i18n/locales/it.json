@@ -444,7 +444,10 @@
             "error": "Fallito"
         },
         "processing": "Il server sta processando la richiesta...",
-        "partial_logs": "[...] (controlla i log completi nella cronologia)"
+        "partial_logs": "[...] (controlla i log completi nella cronologia)",
+        "reconnecting": {
+            "title": "Sto cercando di comunicare con il server..."
+        }
     },
     "address": {
         "local_part_description": {

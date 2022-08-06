@@ -65,5 +65,6 @@
     "app_state_inprogress": "Henüz çalışmıyor",
     "app_info_changeurl_desc": "Bu uygulamanın erişim URL'sini değiştirin (alan adı ve / veya yol).",
     "app_make_default": "Varsayılan yap",
-    "app_no_actions": "Bu uygulamanın herhangi bir eylemi yok"
+    "app_no_actions": "Bu uygulamanın herhangi bir eylemi yok",
+    "cancel": "İptal et"
 }

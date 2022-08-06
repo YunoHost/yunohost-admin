@@ -35,11 +35,11 @@
     <card :title="$t('applications')" icon="cubes" no-body>
       <b-list-group v-if="apps" flush>
         <b-list-group-item
-          v-for="{ label, id, current_version, new_version } in apps" :key="id"
+          v-for="{ name, id, current_version, new_version } in apps" :key="id"
           class="d-flex justify-content-between align-items-center"
         >
           <h5 class="m-0">
-            {{ label }}
+            {{ name }}
             <small>({{ id }}) {{ $t('from_to', [current_version, new_version]) }}</small>
           </h5>
 

@@ -83,8 +83,14 @@ export default {
   ru: {
     name: 'Русский'
   },
+  sk: {
+    name: 'Slovak'
+  },
   sv: {
     name: 'Svenska'
+  },
+  te: {
+    name: 'Telugu'
   },
   tr: {
     name: 'Türkçe'

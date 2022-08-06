@@ -45,7 +45,18 @@
             "error": "Epäonnistui"
         },
         "processing": "Palvelin käsittelee toimintoa.",
-        "partial_logs": "[...](Katso historiasta täydet logit)"
+        "partial_logs": "[...](Katso historiasta täydet logit)",
+        "reconnecting": {
+            "title": "Yritetään kommunikoida palvelimen kanssa...",
+            "failed": "Näyttää siltä, että palvelin ei vastaa. Voit yrittää muodostaa yhteyden uudelleen tai yrittää suorittaa `systemctl restart yunohost-api` ssh:n kautta.",
+            "reason": {
+                "unknown": "Yhteys palvelimeen on suljettu tuntemattomasta syystä.",
+                "reboot": "Palvelimesi käynnistyy uudelleen, eikä se ole tavoitettavissa vähään aikaan. Sisäänkirjautumiskehote tulee näkyviin heti, kun palvelin on tavoitettavissa.",
+                "shutdown": "Palvelimesi on sammumassa eikä ole enää tavoitettavissa. Kytke se takaisin päälle, ja kirjautumiskehote tulee näkyviin heti, kun palvelin on tavoitettavissa.",
+                "upgrade_system": "Yhteys palvelimeen on suljettu YunoHostin päivityksen vuoksi. Odotamme, että palvelin on jälleen tavoitettavissa…"
+            },
+            "success": "Palvelin on nyt tavoitettavissa! Voit yrittää kirjautua sisään"
+        }
     },
     "all": "Kaikki",
     "administration_password": "Järjestelmänvalvojan salasana",
@@ -82,7 +93,7 @@
     "backup_new": "Uusi varmuuskopio",
     "backup_create": "Luo varmuuskopio",
     "backup_content": "Varmuuskopion sisältö",
-    "backup_action": "Varmuuskopio",
+    "backup_action": "Aloita varmuuskopio",
     "backup": "Varmuuskopio",
     "archive_empty": "Tyhjä arkisto",
     "applications": "Sovellukset",
@@ -347,7 +358,8 @@
         "firewall": {
             "ports": "{action} portti {port} ({protocol}, {connection})",
             "upnp": "{action UPnP"
-        }
+        },
+        "reconnecting": "Yhdistetään uudelleen"
     },
     "run": "Suorita",
     "running": "Käynnissä",
@@ -568,5 +580,6 @@
     "postinstall_intro_3": "Saat lisätietoja vierailemalla <a href='//yunohost.org/en/install/hardware:vps_debian#fa-cog-proceed-with-the-initial-configuration' target='_blank'>asianmukaisella dokumentointisivulla</a>",
     "unmaintained_details": "Tätä sovellusta ei ole päivitetty pitkään aikaan, ja edellinen ylläpitäjä on lähtenyt pois tai hänellä ei ole aikaa ylläpitää tätä sovellusta. Voit vapaasti tarkistaa sovelluksen arkiston ja antaa apua",
     "users_import_csv_file_desc": "CSV-tiedoston on oltava UTF-8-muodossa, ja siinä on oltava sarakkeet käyttäjätunnukselle, salasanalle, ryhmille, sähköpostille ja kiintiölle. Esimerkki CSV-tuontitiedostosta löydät <a href='/yunohost/api/users/export' target='_BLANK'>täältä</a> ja voit muuttaa esimerkki-tiedostoon omat tiedot.",
-    "confirm_cert_regen_selfsigned": "Oletko varma että haluat uudelleenluoda itse allekirjoitetun sertifikaatin tähän domainiin?"
+    "confirm_cert_regen_selfsigned": "Oletko varma että haluat uudelleenluoda itse allekirjoitetun sertifikaatin tähän domainiin?",
+    "retry": "Yritä uudelleen"
 }

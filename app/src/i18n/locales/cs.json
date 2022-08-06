@@ -374,7 +374,7 @@
     "next": "Další",
     "myserver": "můj server",
     "multi_instance": "Může být instalováno ve více instancích",
-    "migrations_disclaimer_not_checked": "Před spuštěním této migrace je vyžadován souhas s prohlášením.",
+    "migrations_disclaimer_not_checked": "Před spuštěním této migrace je vyžadován souhlas s prohlášením.",
     "migrations_disclaimer_check_message": "Přečetl/a jsem si a rozumím tomuto prohlášení",
     "migrations_no_done": "Žádné předchozí migrace",
     "migrations_no_pending": "Žádné čekající migrace",
@@ -410,7 +410,7 @@
     "ipv4": "IPv4",
     "installed": "Instalováno",
     "installation_complete": "Instalace dokončena",
-    "install_time": "Délka instalace",
+    "install_time": "Čas instalace",
     "install_name": "Instalovat {id}",
     "install": "Instalovat",
     "infos": "Informace",
@@ -508,5 +508,8 @@
             "auto_config": "Automatické nastavení DNS záznamů",
             "auto_config_ignored": "ignorováno, nebude upraveno dokud nevyberete položku přepsat"
         }
-    }
+    },
+    "users": "Uživatelé",
+    "users_new": "Nový uživatel",
+    "users_no": "Žádní uživatelé."
 }
