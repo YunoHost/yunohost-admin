@@ -12,7 +12,7 @@
             <span class="sep" />
           </b-col>
           <b-col>
-            <a v-if="['url', 'upstream_demo', 'upstream_code', 'upstream_website', 'upstream_admindoc', 'upstream_userdoc'].indexOf(key) > -1" :href="info" target="_blank">{{ info }}</a>
+            <a v-if="urlKeys.indexOf(key) > -1" :href="info" target="_blank">{{ info }}</a>
             <span v-else>{{ info }}</span>
           </b-col>
         </b-row>
@@ -74,7 +74,21 @@ export default {
       fields: undefined,
       validations: null,
       errors: undefined,
-      serverError: ''
+      serverError: '',
+      upstreamManifestKeys: [
+        'license',
+        'demo',
+        'website',
+        'code',
+        'admindoc',
+        'userdoc'
+      ]
+    }
+  },
+
+  computed: {
+    urlKeys () {
+      return [...this.upstreamManifestKeys.map(k => `upstream_${k}`), 'url']
     }
   },
 
@@ -93,12 +107,13 @@ export default {
       manifest.multi_instance = this.$i18n.t(manifest.multi_instance ? 'yes' : 'no')
       this.infos = Object.fromEntries(infosKeys.map(key => [key, manifest[key]]))
 
-      this.infos.upstream_license = manifest.upstream.license
-      this.infos.upstream_demo = manifest.upstream.demo
-      this.infos.upstream_website = manifest.upstream.website
-      this.infos.upstream_code = manifest.upstream.code
-      this.infos.upstream_admindoc = manifest.upstream.admindoc
-      this.infos.upstream_userdoc = manifest.upstream.userdoc
+      if (manifest.upstream) {
+        this.upstreamManifestKeys.forEach(key => {
+          if (manifest.upstream[key]) {
+            this.infos[`upstream_${key}`] = manifest.upstream[key]
+          }
+        })
+      }
 
       const { form, fields, validations, errors } = formatYunoHostArguments(
         manifest.arguments.install,

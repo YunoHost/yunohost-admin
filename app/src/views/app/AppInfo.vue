@@ -10,7 +10,7 @@
           <strong>{{ $t(prop) }}</strong>
         </b-col>
         <b-col>
-          <a v-if="['url', 'upstream_demo', 'upstream_code', 'upstream_website', 'upstream_admindoc'].indexOf(prop) > -1" :href="value" target="_blank">{{ value }}</a>
+          <a v-if="urlKeys.indexOf(prop) > -1" :href="value" target="_blank">{{ value }}</a>
           <span v-else>{{ value }}</span>
         </b-col>
       </b-row>
@@ -190,7 +190,15 @@ export default {
       ],
       infos: undefined,
       app: undefined,
-      form: undefined
+      form: undefined,
+      upstreamManifestKeys: [
+        'license',
+        'demo',
+        'website',
+        'code',
+        'admindoc',
+        'userdoc'
+      ]
     }
   },
 
@@ -200,6 +208,11 @@ export default {
     allowedGroups () {
       if (!this.app) return
       return this.app.permissions[0].allowed
+    },
+
+    // Manifest keys to display as URLs
+    urlKeys () {
+      return [...this.upstreamManifestKeys.map(k => `upstream_${k}`), 'url']
     }
   },
 
@@ -244,13 +257,14 @@ export default {
         description: app.description,
         version: app.version,
         multi_instance: this.$i18n.t(app.manifest.multi_instance ? 'yes' : 'no'),
-        install_time: readableDate(app.settings.install_time, true, true),
-        upstream_license: app.manifest.upstream ? app.manifest.upstream.license : null,
-        upstream_demo: app.manifest.upstream ? app.manifest.upstream.demo : null,
-        upstream_code: app.manifest.upstream ? app.manifest.upstream.code : null,
-        upstream_website: app.manifest.upstream ? app.manifest.upstream.website : null,
-        upstream_admindoc: app.manifest.upstream ? app.manifest.upstream.admindoc : null,
-        upstream_userdoc: app.manifest.upstream ? app.manifest.upstream.userdoc : null
+        install_time: readableDate(app.settings.install_time, true, true)
+      }
+      if (app.manifest.upstream) {
+        this.upstreamManifestKeys.forEach(key => {
+          if (app.manifest.upstream[key]) {
+            this.infos[`upstream_${key}`] = app.manifest.upstream[key]
+          }
+        })
       }
       if (app.settings.domain && app.settings.path) {
         this.infos.url = 'https://' + app.settings.domain + app.settings.path
