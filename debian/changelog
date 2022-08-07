@@ -1,3 +1,11 @@
+yunohost-admin (11.0.8) testing; urgency=low
+
+  - [i18n] Translations updated for Arabic, Basque, Czech, French, Galician, German, Italian, Polish, Slovak, Telugu
+
+  Thanks to all contributors <3 ! (agdsign, Alice Kile, ButterflyOfFire, Christian Wehrli, Christophe-ldb, Éric Gaspar, Flavio Cristoforetti, Gregor, Grzegorz Cichocki, José M, Jose Riha, punkrockgirl, Radek Raczkowski)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Sun, 07 Aug 2022 12:22:50 +0200
+
 yunohost-admin (11.0.7) testing; urgency=low
 
   - [i18n] Translations updated for Spanish, Catalan, Galician, Russian, German, Basque and French
