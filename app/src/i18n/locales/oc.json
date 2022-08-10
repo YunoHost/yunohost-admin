@@ -267,7 +267,7 @@
     "permissions": "Permissions",
     "details": "Detalhs",
     "diagnosis_experimental_disclaimer": "Remembratz-vos que l’opcion de diagnostic es encara experimentala e a se melhorar, e pòt pas èsser fisabla.",
-    "everything_good": "Tot es bon !",
+    "everything_good": "Tot es bon !",
     "group": "Grop",
     "group_name": "Nom del grop",
     "group_all_users": "Totes los utilizaires",
@@ -331,7 +331,8 @@
             "set_default": "Definir « {name} » coma domeni principal",
             "revert_to_selfsigned": "Tornar al certificat auto-signat per « {name} »",
             "regen_selfsigned": "Renovar lo certificat auto-signat per « {name} »",
-            "manual_renew_LE": "Renovar lo certificat per « {name} »"
+            "manual_renew_LE": "Renovar lo certificat per « {name} »",
+            "update_config": "Actualizacion de la configuracion de « {name} »"
         },
         "migrations": {
             "skip": "Ignorar las migracions",
@@ -393,11 +394,12 @@
             "uninstall": "Desinstallar l’aplicacion « {name} »",
             "perform_action": "Executar l’accion « {action} » de l’aplicacion « {name} »",
             "install": "Installar l’aplicacion « {name} »",
-            "change_url": "Modificar l’URL d’accès de  « {name} »",
+            "change_url": "Modificar l’URL d’accès de « {name} »",
             "change_label": "Cambiar l’etiqueta de « {prevName} » per « {nextName} »",
             "set_default": "Desviar la raiç del domeni « {domain} » cap a « {name} »"
         },
-        "adminpw": "Cambiar lo senhal administrator"
+        "adminpw": "Cambiar lo senhal administrator",
+        "reconnecting": "Reconnexion"
     },
     "search": {
         "for": "Recercar {items}...",
@@ -418,20 +420,22 @@
     "user_emailforward_add": "Ajustar una adreça de transferiment",
     "user_emailaliases_add": "Ajustar un alias d’adreça electronica",
     "postinstall": {
-        "force": "Forçar la post-installacion"
+        "force": "Forçar la post-installacion",
+        "title": "Pòst-installacion"
     },
     "placeholder": {
         "domain": "mon-domeni.fr",
         "groupname": "Lo nom de mon grop",
         "lastname": "Delbosc",
         "firstname": "Joan",
-        "username": "joandelbosc"
+        "username": "joandelbosc",
+        "file": "Seleccionar un fichièr o lo lisar depausar"
     },
     "perform": "Executar",
     "migrations_disclaimer_check_message": "Ai legida e compresa la descarga de responsabilitat",
     "mailbox_quota_example": "700 Mo correspond a un CD, 4 700 Mo correspond a un DVD",
-    "items_verbose_items_left": "Demòran {items}.",
-    "items_verbose_count": "I a {items}.",
+    "items_verbose_items_left": "Demòran {items}. | Demòra {items}. | Demòran {items}.",
+    "items_verbose_count": "I a {items}. | I a {items}. |I a {items}.",
     "items": {
         "users": "cap d’utilizaire | utilizaire | {c} utilizaires",
         "services": "cap de servici | servici | {c} servicis",
@@ -474,7 +478,11 @@
         "emailForward": "Adreça de transferiment invalida : deu sonque conténer de caractèrs alfranumerics e los caractèrs <code>_.-+</code> (per exemple, quauqun@exemple.com, kal-k1+etiqueta@exemple.com)",
         "email": "Adreça electronica invalida : deu sonque conténer de caractèrs alfanumerics e los caractèrs <code>_.-</code> (per exemple quauqun@exemple.com, k4l-k1@exemple.com)",
         "dynDomain": "Nom de domeni invalid : deu conténer sonque de minusculas alfanumericas e de jonhents basses",
-        "appRepoUrl": "Las URL del depaus d’aplicacions YunoHost devon semblar a https://domain.tld/path/to/repo_ynh"
+        "appRepoUrl": "Las URL del depaus d’aplicacions YunoHost devon semblar a https://domain.tld/path/to/repo_ynh",
+        "maxValue": "La valor deu èsser un nombre egal o inferior a {max}.",
+        "remote": "{message}",
+        "pattern": "{type}",
+        "invalid_form": "Lo formulari conten d’errors."
     },
     "footer": {
         "donate": "Far un don",
@@ -525,7 +533,14 @@
             "error": "Fracàs"
         },
         "processing": "Lo servidor es a tractar l’accion...",
-        "partial_logs": "[...] (veire l’istoric pels logs complèts)"
+        "partial_logs": "[...] (veire l’istoric pels logs complèts)",
+        "reconnecting": {
+            "title": "Temptativa de comunicacion amb lo servidor...",
+            "reason": {
+                "unknown": "La connexion amb lo servidor es estada copada per una rason desconeguda."
+            },
+            "success": "Se pòt contactar lo servidor ! Podètz ensajar de vos connectar"
+        }
     },
     "domain_delete_forbidden_desc": "Podètz pas suprimir « {domain} » perque es lo domeni per defaut, devètz causir un autre domeni (o <a href='#/domains/add'>ajustatz-ne un</a>) e lo definir coma lo demeni per defaut per poder suprimir aquel.",
     "tools_power_up": "Vòstre servidor sembla accessible, podètz ara ensajar de vos connectar.",
@@ -551,5 +566,9 @@
             "push": "Enviar los enregistraments DNS cap al registrar",
             "push_force": "Espotir los enregistraments existents"
         }
-    }
+    },
+    "users_import": "Importar los utilizaires",
+    "users_export": "Exportar los utilizaires",
+    "users_import_csv_file": "Fichièr CSV",
+    "retry": "Tornar ensajar"
 }
