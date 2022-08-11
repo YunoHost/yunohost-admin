@@ -539,7 +539,8 @@
             "reason": {
                 "unknown": "La connexion amb lo servidor es estada copada per una rason desconeguda."
             },
-            "success": "Se pòt contactar lo servidor ! Podètz ensajar de vos connectar"
+            "success": "Se pòt contactar lo servidor ! Podètz ensajar de vos connectar",
+            "failed": "Lo servidor respond pas. Podètz ensajar de vos i tornar connectar o ensajar d’executar « systemctl restart yunohost-api » via SSH."
         }
     },
     "domain_delete_forbidden_desc": "Podètz pas suprimir « {domain} » perque es lo domeni per defaut, devètz causir un autre domeni (o <a href='#/domains/add'>ajustatz-ne un</a>) e lo definir coma lo demeni per defaut per poder suprimir aquel.",
