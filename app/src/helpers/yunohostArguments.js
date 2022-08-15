@@ -73,7 +73,7 @@ export function formatYunoHostArgument (arg) {
       name: 'InputItem',
       props: defaultProps.concat(['autocomplete', 'trim', 'choices']),
       callback: function () {
-        if (arg.choices && arg.choices.length) {
+        if (arg.choices && Object.keys(arg.choices).length) {
             arg.type = 'select'
             this.name = 'SelectItem'
         }
