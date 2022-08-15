@@ -99,7 +99,7 @@
     "ipv4": "IPv4",
     "ipv6": "IPv6",
     "label": "Apelacion",
-    "label_for_manifestname": "Apelacion per {name}",
+    "label_for_manifestname": "Apelacion per {name} (nom afichat sul portal utilizaire)",
     "local_archives": "Archius locals",
     "login": "Connexion",
     "logout": "Desconnexion",
@@ -186,7 +186,8 @@
     "users_no": "Pas cap d’utilizaire.",
     "words": {
         "default": "Defaut",
-        "collapse": "Plegar"
+        "collapse": "Plegar",
+        "browse": "Percórrer"
     },
     "wrong_password": "Senhal incorrècte",
     "yes": "Òc",
@@ -332,7 +333,8 @@
             "revert_to_selfsigned": "Tornar al certificat auto-signat per « {name} »",
             "regen_selfsigned": "Renovar lo certificat auto-signat per « {name} »",
             "manual_renew_LE": "Renovar lo certificat per « {name} »",
-            "update_config": "Actualizacion de la configuracion de « {name} »"
+            "update_config": "Actualizacion de la configuracion de « {name} »",
+            "push_dns_changes": "Enviar los enregistraments DNS al registrar per « {name} »"
         },
         "migrations": {
             "skip": "Ignorar las migracions",
@@ -403,7 +405,7 @@
     },
     "search": {
         "for": "Recercar {items}...",
-        "not_found": "I a {items} que correspondon a vòstres critèris."
+        "not_found": "I a {items} que correspondon a vòstres critèris. | I a 1 {items} que correspond a vòstres critèris. | I a {items} que correspondon a vòstres critèris."
     },
     "tools_webadmin": {
         "language": "Lenga",
@@ -537,7 +539,10 @@
         "reconnecting": {
             "title": "Temptativa de comunicacion amb lo servidor...",
             "reason": {
-                "unknown": "La connexion amb lo servidor es estada copada per una rason desconeguda."
+                "unknown": "La connexion amb lo servidor es estada copada per una rason desconeguda.",
+                "reboot": "Vòstre servidor tòrna aviar e serà pas contactable pendent un moment. Una fenèstra de connexion serà disponibla tre que lo servidor serà accessible.",
+                "shutdown": "Vòstre servidor es a s’aturar e serà pas mai contactable. Reaviatz-lo e una fenèstra de connexion serà disponibla tre que lo servidor serà contactable.",
+                "upgrade_system": "La connexion al servidor es estada tampada a causa de la mesa a nivèl de YunoHost. En espèra de poder contactar lo servidor de nòu…"
             },
             "success": "Se pòt contactar lo servidor ! Podètz ensajar de vos connectar",
             "failed": "Lo servidor respond pas. Podètz ensajar de vos i tornar connectar o ensajar d’executar « systemctl restart yunohost-api » via SSH."
@@ -566,7 +571,9 @@
             "manual_config": "Enregistrament DNS suggerits per la configuracion manuala",
             "push": "Enviar los enregistraments DNS cap al registrar",
             "push_force": "Espotir los enregistraments existents",
-            "push_force_warning": "Sembla que d’unes enregistrament DNS que YunoHost auriá definit sián ja dins la configuracion del registrar. Podètz utilizar l’opcion d’espotiment se sabètz çò que fasètz."
+            "push_force_warning": "Sembla que d’unes enregistrament DNS que YunoHost auriá definit sián ja dins la configuracion del registrar. Podètz utilizar l’opcion d’espotiment se sabètz çò que fasètz.",
+            "push_force_confirm": "Volètz vertadièrament forçar totes los enregistraments DNS sugerits ?Vos cal saber qu’aquò pòt espotir manualament los enregistraments importants per defaut per vos o vòstre registrar.",
+            "info": "La configuracion automatica dels enregistraments DNS es una foncionalitats experimentala. <br>Pensatz de salvagardar vòstra zòna DNS actuala a partir de l’interfàcia de vòstre registrar DNS abans de transferir los enregistraments a partir d’aquí."
         }
     },
     "users_import": "Importar los utilizaires",
@@ -574,5 +581,9 @@
     "users_import_csv_file": "Fichièr CSV",
     "retry": "Tornar ensajar",
     "domain_dns_push_failed_to_authenticate": "Fracàs de l’autentificacion sus l’API del registrar. Es fòrt propablament que las <a href='#/domains/{domain}/config'>informacions d’identificacion</a> son incorrèctas. (Error : {error})",
-    "domain_dns_push_managed_in_parent_domain": "La foncionalitat d’enregistrament automatica de DNS es gerida pel domeni parent <a href='#/domains/{parent_domain}/dns'>{parent_domain}</a>."
+    "domain_dns_push_managed_in_parent_domain": "La foncionalitat d’enregistrament automatica de DNS es gerida pel domeni parent <a href='#/domains/{parent_domain}/dns'>{parent_domain}</a>.",
+    "users_import_update": "Metre a jorn los utilizaires existents",
+    "users_import_delete": "Suprimir los utilizaires non listats",
+    "users_import_delete_others": "Suprimir los utilizaires non listats",
+    "yunohost_admin": "Admin YunoHost"
 }
