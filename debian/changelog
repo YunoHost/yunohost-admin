@@ -1,3 +1,12 @@
+yunohost-admin (11.0.10) stable; urgency=low
+
+  - [fix] App install was broken when there's choices and the type is string ([#460](https://github.com/YunoHost/yunohost-admin/pull/460))
+  - [i18n] Translations updated for Basque, French, German, Italian, Occitan, Polish, Slovenian, Swedish
+
+  Thanks to all contributors <3 ! (AnaLora, Bob, Christian Wehrli, Éric Gaspar, Grzegorz Cichocki, Leandro Noferini, punkrockgirl, Quentí, Tagada)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Mon, 22 Aug 2022 10:46:04 +0200
+
 yunohost-admin (11.0.9) stable; urgency=low
 
   - Bump version for stable release
