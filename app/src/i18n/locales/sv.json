@@ -18,7 +18,7 @@
     "firewall": "Brandvägg",
     "manage_users": "Hantera användare",
     "mailbox_quota_description": "Som jämförelse är 700 MB en CD-skiva och 4700 MB en DVD.",
-    "app_info_access_desc": "Hantera användaråtkomst. Tillåtna användare: %s",
+    "app_info_access_desc": "Grupper / användare som för närvarande har åtkomst till denna app:",
     "domain_add": "Lägg till domän",
     "logs_share_with_yunopaste": "Dela med YunoPaste",
     "logout": "Logga ut",
@@ -99,5 +99,72 @@
     "manage_domains": "Hantera domäner",
     "operations": "Handlingar",
     "form_input_example": "Exempel: {example}",
-    "dns": "DNS"
+    "dns": "DNS",
+    "address": {
+        "domain_description": {
+            "domain": "Välj en domän.",
+            "email": "Välj en domän för din mejl."
+        },
+        "local_part_description": {
+            "domain": "Välj en underdomän.",
+            "email": "Välj ett användarnamn för din mejl."
+        }
+    },
+    "api_error": {
+        "info": "Den följande informationen kan vara användbar för personen som hjälper dig:",
+        "sorry": "Verkligen ledsen för det.",
+        "error_message": "Felmeddelande:",
+        "server_said": "Under bearbetningen av åtgärden svarade servern:",
+        "view_error": "Se fel",
+        "help": "Du borde leta hjälp på <a href=\"https://forum.yunohost.org/\">forumet</a> eller <a href=\"https://chat.yunohost.org/\">chatten</a> för att lösa situationen, eller rapportera buggen i <a href=\"https://github.com/YunoHost/issues\">buggrapporteraren</a>."
+    },
+    "api_waiting": "Väntar på serverns svar...",
+    "app_actions_label": "Utför åtgärder",
+    "app_config_panel": "Konfigurationspanel",
+    "app_config_panel_label": "Konfigurera den här appen",
+    "app_config_panel_no_panel": "Den här appen har ingen konfiguration tillgänglig",
+    "app_install_parameters": "Installera inställningar",
+    "all": "Alla",
+    "api_not_responding": "YunoHost APIet svarar inte. Är \"yunohost-api\" nere eller är under omstart?",
+    "api": {
+        "reconnecting": {
+            "reason": {
+                "upgrade_system": "Anslutningen till servern har stängts på grund av en Yunohost uppgradering. Väntar på att servern ska bli åtkomlig igen…",
+                "shutdown": "Din server håller på att stängas av och är inte längre åtkomlig. Sätt på den igen och en inloggningsuppmaning kommer att finnas tillgänglig så snart servern är åtkomlig.",
+                "unknown": "Anslutningen till servern har stängts av okänd anledning.",
+                "reboot": "Din server håller på att starta om och kommer inte att kunna nås på ett tag. En inloggningsfråga kommer att finnas tillgänglig så snart servern är tillgänglig."
+            },
+            "failed": "Verkar som om servern inte svarar. Du kan försöka att återansluta eller försök köra `systemctl restart yunohost-api`genom ssh.",
+            "title": "Försöker kommunicera med servern...",
+            "success": "Servern är nu åtkomlig! Du kan försöka att logga in"
+        },
+        "query_status": {
+            "error": "Misslyckad",
+            "pending": "Pågående",
+            "success": "Framgångsrikt slutfört",
+            "warning": "Framgångsrikt slutfört med fel eller varningar"
+        },
+        "partial_logs": "[...](Kolla i historiken för hela loggar)",
+        "processing": "Servern processar åtgärden..."
+    },
+    "api_errors_titles": {
+        "APINotFoundError": "YunoHost API kunde inte hitta en rutt",
+        "APIInternalError": "YunoHost påträffade ett internt fel",
+        "APIBadRequestError": "Yunohost påträffade ett fel",
+        "APINotRespondingError": "YunoHost API svarar inte",
+        "APIConnexionError": "YunoHost påträffade ett anslutningsfel",
+        "APIError": "Yunohost påträffade ett oväntat fel"
+    },
+    "app_actions": "Åtgärder",
+    "app_info_change_url_disabled_tooltip": "Den här funktionen har inte blivit implementerad i den här appen ännu",
+    "app_info_uninstall_desc": "Ta bort den här applikationen.",
+    "app_make_default": "Gör standard",
+    "app_install_custom_no_manifest": "Ingen manifest.json fil",
+    "app_no_actions": "Den här appen har inga åtgärder",
+    "app_state_inprogress": "fungerar inte ännu",
+    "app_info_default_desc": "Omdirigera domänroten till denna applikation ({domain}).",
+    "app_info_changeurl_desc": "Ändra åtkomsturl:en av den här appen (domänen och/eller sökvägen).",
+    "api_not_found": "Det verkar som att web-admin försökte efterfråga något som inte existerar.",
+    "app_choose_category": "Välj en kategori",
+    "app_show_categories": "Visa kategorier"
 }

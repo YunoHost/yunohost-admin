@@ -446,7 +446,15 @@
         "processing": "Il server sta processando la richiesta...",
         "partial_logs": "[...] (controlla i log completi nella cronologia)",
         "reconnecting": {
-            "title": "Sto cercando di comunicare con il server..."
+            "title": "Sto cercando di comunicare con il server...",
+            "failed": "Sembra che il server non stia rispondendo. Puoi riprovare a collegarti oppure prova a dare il comando `systemctl restart yunohost-api` da ssh.",
+            "reason": {
+                "shutdown": "Il tuo server si sta spegnendo e non è più raggiungibile. Accendilo nuovamente e un prompt di login sarà visualizzato appena il server tornerà raggiungibile.",
+                "unknown": "La connessione al server è stata interrotta per ragioni sconosciute.",
+                "reboot": "Il tuo server si sta riavviando e non sarà raggiungibile per un po'. Il prompt per il login sarà disponibile non appena il server diventerà raggiungibile.",
+                "upgrade_system": "La connessione al server è stata chiusa per un aggiornamento di YunoHost. Attendi che il server sia nuovamente raggiungibile…"
+            },
+            "success": "Il server è nuovamente raggiungibile! Puoi provare a fare il login"
         }
     },
     "address": {
@@ -536,7 +544,8 @@
             "change_url": "Cambia l'URL d'accesso di '{name}'",
             "change_label": "Cambia label da '{prevName}' a '{nextName}'"
         },
-        "adminpw": "Cambia password d'amministratore"
+        "adminpw": "Cambia password d'amministratore",
+        "reconnecting": "Riconnessione"
     },
     "postinstall": {
         "force": "Forza il post-install",
@@ -570,7 +579,7 @@
     },
     "users_import_csv_file_desc": "Il file CSV dovrebbe essere in UTF-8 e con le colonne username, password , gruppi, email e quota. Per avere un esempio di un file CSV da importare, puoi <a href='/yunohost/api/users/export' target='_blank'>esportare i tuoi attuali utenti in un file CSV</a> e modificarlo.",
     "users_import_delete_others": "Elimina utenti non in lista",
-    "domain_dns_push_failed_to_authenticate": "L’autenticazione sull’API del registrar è fallita. Probabilmente, potrebbe essere che le <a href='#/domains/{domain}/config'>credenziali</a> non siano corrette. (Errore: {error})",
+    "domain_dns_push_failed_to_authenticate": "L’autenticazione sull’API del registrar è fallita. È probabile che le <a href='#/domains/{domain}/config'>credenziali</a> non siano corrette. (Errore: {error})",
     "domain_dns_push_managed_in_parent_domain": "Il settaggio automatico dei DNS record è gestita nel dominio genitore <a href='#/domains/{parent_domain}/dns'>{parent_domain}</a>.",
     "users_import_confirm_destructive": "Sei sicurə di voler eliminare gli utenti che non sono presenti in questo file?",
     "yunohost_admin": "Amministratore di YunoHost",
@@ -582,5 +591,6 @@
     "users_import_update_desc": "Se spuntato, tutti gli utenti contenuti nel file CSV saranno aggiornati con il nuovo valore",
     "domain_dns_push_not_applicable": "Il settaggio automatico dei record DNS non è applicabile al dominio {domain},<br>Dovresti configurare i tuoi record DNS seguendo la <a href='https://yunohost.org/dns'>documentazione</a> e la configurazione suggerita qui sotto.",
     "text_selection_is_disabled": "La selezione del testo è disabilitata. Se vuoi condividere questo log, sei pregato di condividere il log *interamente*, tramite il bottone 'condividi con Yunopaste'.<br/><small>Oppure, se vuoi proprio proprio selezionare il testo, premi i tasti: ↓↓↑↑.</small>",
-    "users_import_delete_desc": "Se spuntato, tutti gli utenti esistenti che non sono nel file CSV saranno eliminati (e espulsi)."
+    "users_import_delete_desc": "Se spuntato, tutti gli utenti esistenti che non sono nel file CSV saranno eliminati (e espulsi).",
+    "retry": "Riprova"
 }
