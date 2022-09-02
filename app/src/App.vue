@@ -153,6 +153,8 @@ export default {
     if (today.getDate() === 31 && today.getMonth() + 1 === 10) {
       this.$store.commit('SET_SPINNER', 'spookycat')
     }
+
+    document.documentElement.setAttribute('data-theme', localStorage.getItem('theme') === "true" ? 'darkMode' : '') // updates the data-theme attribute
   }
 }
 </script>

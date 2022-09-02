@@ -38,6 +38,17 @@ $theme-colors: (
   'best': $purple
 );
 
+:root {
+  --background-color: #fff;
+  --background-color-secondary: #fff;
+}
+
+[data-theme="darkMode"] {
+  /* Variables for dark mode */
+  --background-color: black;
+  --background-color-secondary: white;   
+}
+
 // Replace font-weight 300 with 200
 $font-weight-light: 200;
 $display1-weight: 200;
@@ -74,6 +85,10 @@ $body-color: $gray-800;
 $hr-border-color: $gray-200;
 
 $list-group-action-color: $gray-800;
+
+$background-color-primary: var(--background-color);
+
+$background-color-secondary: var(--background-color-secondary);
 
 //  ╭──────────────────────────────────────╮
 //  │ ┌─╴╭─╮┌─╮╷ ╭   ╭─┐╷╷╷┌─╴╭─╴╭─╮╭╮╮┌─╴ │

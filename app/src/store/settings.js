@@ -13,6 +13,7 @@ export default {
     fallbackLocale: localStorage.getItem('fallbackLocale'),
     cache: localStorage.getItem('cache') !== 'false',
     transitions: localStorage.getItem('transitions') !== 'false',
+    theme: localStorage.getItem('theme') !== 'false',
     experimental: localStorage.getItem('experimental') === 'true',
     spinner: 'pacman',
     supportedLocales: supportedLocales
@@ -46,6 +47,12 @@ export default {
 
     'SET_SPINNER' (state, spinner) {
       state.spinner = spinner
+    },
+
+    'SET_THEME' (state, boolean) {
+      localStorage.setItem('theme', boolean)
+      state.theme = boolean
+      document.documentElement.setAttribute('data-theme', boolean ? 'darkMode' : '')
     }
   },
 
@@ -65,6 +72,10 @@ export default {
         commit('SET_FALLBACKLOCALE', locale)
         i18n.fallbackLocale = [locale, 'en']
       })
+    },
+
+    'UPDATE_THEME' ({ commit }, theme) {
+      commit('SET_THEME', theme)
     }
   },
 
@@ -73,6 +84,7 @@ export default {
     fallbackLocale: state => (state.fallbackLocale),
     cache: state => (state.cache),
     transitions: state => (state.transitions),
+    theme: state => (state.theme),
     experimental: state => state.experimental,
     spinner: state => state.spinner,
 

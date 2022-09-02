@@ -193,6 +193,7 @@ export default {
 
 .card-header {
   padding: $tooltip-padding-y $tooltip-padding-x;
+  background-color: $background-color-primary !important;
 }
 
 #console {
@@ -206,6 +207,8 @@ export default {
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
   font-size: $font-size-sm;
+  background-color: $background-color-primary;
+
 
   & > header {
     cursor: ns-resize;
@@ -238,6 +241,7 @@ export default {
 #history {
   overflow-y: auto;
   max-height: 20vh;
+  background-color: $background-color-primary;
 
   &.no-max {
     max-height: none;
