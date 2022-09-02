@@ -275,7 +275,7 @@
         "domains": "žiadne domény | doména | {c} domén",
         "groups": "žiadna skupina | skupina | {c} skupín",
         "logs": "žiadne záznamy | záznam | {c} záznamov",
-        "services": "žiadne služby | služba | {c} služieb",
+        "services": "žiadne služby | služba | {c} služby",
         "users": "žiadni používatelia | používateľ | {c} používateľov",
         "apps": "žiadne aplikácie | aplikácia | {c} aplikácií",
         "installed_apps": "žiadne nainštalované aplikácie | nainštalovaná aplikácia | {c} nainštalovaných aplikácií",
