@@ -166,5 +166,19 @@
     "app_info_changeurl_desc": "Ändra åtkomsturl:en av den här appen (domänen och/eller sökvägen).",
     "api_not_found": "Det verkar som att web-admin försökte efterfråga något som inte existerar.",
     "app_choose_category": "Välj en kategori",
-    "app_show_categories": "Visa kategorier"
+    "app_show_categories": "Visa kategorier",
+    "app_state_lowquality": "låg kvalitet",
+    "app_state_notworking_explanation": "Den här appens underhållare informerar om att den 'inte fungerar'. DET KOMMER ATT BRUTA DITT SYSTEM!",
+    "app_state_notworking": "fungerar inte",
+    "app_state_working": "fungerar",
+    "applications": "Applikationer",
+    "archive_empty": "Arkivet är tomt",
+    "backup": "Säkerhetskopiering",
+    "app_state_highquality": "hög kvalitet",
+    "app_state_highquality_explanation": "Denna app är välintegrerad med YunoHost sedan minst ett år.",
+    "app_manage_label_and_tiles": "Hantera etiketter och \"tiles\"",
+    "backup_action": "säkerhetskopiering",
+    "app_state_inprogress_explanation": "Den här appens underhållare informerar om att den här applikationen ännu inte är redo för produktionsanvändning. VAR FÖRSIKTIG!",
+    "app_state_working_explanation": "Underhållaren av den här appen informerar om att den \"fungerar\". Det betyder att det ska vara funktionellt (jfr applikationsnivå) men är inte nödvändigtvis \"peer-granskad\", det kan fortfarande innehålla problem eller är inte helt integrerat med YunoHost.",
+    "app_state_lowquality_explanation": "Den här appen kan vara funktionell men kan fortfarande innehålla problem eller är inte helt integrerad med YunoHost, eller så respekterar den inte god praxis."
 }

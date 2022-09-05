@@ -31,7 +31,7 @@
     "confirm_firewall_allow": "متأكد مِن أنك تود فتح منفذ {port} ؟ (بروتوكول : {protocol}، إتصال : {connection})",
     "confirm_firewall_disallow": "متأكد مِن أنك تود إغلاق منفذ {port} ؟ (بروتوكول : {protocol}، إتصال : {connection})",
     "confirm_install_custom_app": "إنّ خيار تنصيب تطبيقات خارجية قد يؤثر على أمان نظامكم. ربما وجب عليكم ألا تقوموا بالتنصيب إلا إن كنتم حقا مدركون بما أنتم فاعلين. هل أنتم مستعدون للمخاطرة؟",
-    "confirm_install_domain_root": "لن يكون بإمكانك تنصيب أي برنامج آخر على {domain}. هل تريد المواصلة ؟",
+    "confirm_install_domain_root": "هل أنت متأكد أنك تريد تثبيت هذا التطبيق على \"/\"؟ لن يكون بامكانك تثبيت أي تطبيق آخر على {domain}",
     "confirm_postinstall": "إنك بصدد إطلاق خطوة ما بعد التنصيب على النطاق {domain}. سوف تستغرق العملية بضع دقائق، لذلك *يُرجى عدم إيقاف العملية*.",
     "confirm_restore": "متأكد مِن أنك تريد استعادة {name} ؟",
     "confirm_service_start": "متأكد مِن أنك تريد تشغيل {name} ؟",
@@ -54,7 +54,7 @@
     "disable": "تعطيل",
     "dns": "خدمة أسماء النطاقات",
     "domain_add": "إضافة نطاق",
-    "domain_add_dns_doc": "… و قد قُمتُ  <a href='//yunohost.org/dns_config' target='_blank'>بإعداد خدمة أسماء النطاقات بصورة صحيحة</a>.",
+    "domain_add_dns_doc": "… و قد قُمتُ <a href='//yunohost.org/dns_config' target='_blank'>بإعداد خدمة أسماء النطاقات بصورة صحيحة</a>.",
     "domain_add_dyndns_doc": "... و إني أريد الحصول على خدمة أسماء النطاقات الديناميكي.",
     "domain_add_panel_with_domain": "عندي إسم نطاق …",
     "domain_add_panel_without_domain": "لا أمتلك إسم نطاق …",
@@ -99,7 +99,7 @@
     "ipv4": "IPv4",
     "ipv6": "IPv6",
     "label": "التسمية",
-    "label_for_manifestname": "تسمية لـ {name}",
+    "label_for_manifestname": "تسمية لـ {name} (الاسم الذي يظهر على بوابة المستخدم)",
     "local_archives": "الأرشيف المحلي",
     "login": "تسجيل الدخول",
     "logout": "الخروج",
@@ -301,7 +301,9 @@
     },
     "placeholder": {
         "domain": "my-domain.com",
-        "groupname": "اسم فريقي"
+        "groupname": "اسم فريقي",
+        "firstname": "فلان",
+        "lastname": "الفلاني"
     },
     "human_routes": {
         "domains": {
@@ -365,7 +367,9 @@
     "api_error": {
         "view_error": "أظهر الخطأ",
         "error_message": "رسالة الخطأ:",
-        "sorry": "نعتذر عن ذلك."
+        "sorry": "نعتذر عن ذلك.",
+        "server_said": "أثناء تنفيذ الإجراء، أجاب الخادم كالتالي:",
+        "info": "المعلومات التالية قد تكون مفيدة للشخص الذي يساعدك:"
     },
     "app_config_panel_label": "اضبط هذا التطبيق",
     "app_show_categories": "اظهر كافة الفئات",
@@ -386,11 +390,16 @@
         "query_status": {
             "error": "فشل",
             "pending": "جارٍ",
-            "success": "انتهى بنجاح"
+            "success": "انتهى بنجاح",
+            "warning": "اكتمل بنجاح مع وجود أخطاء أو تنبيهات"
         },
         "reconnecting": {
-            "title": "محاولة الإتصال بالخادم…"
-        }
+            "title": "محاولة الإتصال بالخادم…",
+            "reason": {
+                "unknown": "تم اغلاق الاتصال بالخادم لأسباب مجهولة."
+            }
+        },
+        "partial_logs": "[...] (تحقق من السجل للحصول على السجلات الكاملة)"
     },
     "dead": "غير نشط",
     "postinstall_set_password": "الكلمة السرية الإدارية",
@@ -399,6 +408,10 @@
         "domain_description": {
             "domain": "اختر اسم نطاق.",
             "email": "اختر اسم نطاق لبريدك الإلكتروني."
+        },
+        "local_part_description": {
+            "domain": "اختر اسم نطاق فرعي.",
+            "email": "اختر جزءًا محليًا لبريدك الإلكتروني."
         }
     },
     "enabled": "مفعّل",
@@ -412,5 +425,6 @@
     "app_actions_label": "نفّذ الإجراءات",
     "app_choose_category": "اختر فئة",
     "app_config_panel": "لوح الضبط",
-    "retry": "حاول مجددا"
+    "retry": "حاول مجددا",
+    "permission_main": "التسمية الرئيسية"
 }
