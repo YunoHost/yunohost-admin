@@ -40,10 +40,12 @@ body {
   display: flex;
   align-items: center;
   background-color: $background-color-primary;
+  color: $list-group-action-color;
 }
 
 .list-group-item:hover {
   background-color: $background-color-secondary;
+  color: var(--font-color-secondary);
 }
 
 .form-control {
@@ -200,14 +202,15 @@ h3.card-title {
 }
 
 code {
-  background: ghostwhite;
+  background: var(--background-color-secondary);
 }
 
 .log {
   margin-bottom: 0;
   padding: 1rem;
-  background-color: $light;
+  background-color: var(--background-color-secondary);
   overflow: auto;
+  color: var(--font-color)
 }
 
 .unselectable {
@@ -217,3 +220,41 @@ code {
   -ms-user-select: none;
   user-select: none;
 }
+
+/*
+.badge-success, .alert-success {
+  background-color: var(--success);
+  border-color: var(--border-color);
+}
+
+.badge-info, .alert-info {
+  background-color: var(--info);
+  border-color: var(--border-color);
+}
+
+.badge-warning, .alert-warning  {
+  background-color: var(--warning);
+  border-color: var(--border-color);
+}
+
+.badge-danger, .alert-danger {
+  background-color: var(--error);
+  border-color: var(--border-color);
+}
+
+.list-group-item-success {
+  color: var(--success);
+}
+
+.list-group-item-info {
+  color: var(--info);
+}
+
+.list-group-item-warning {
+  color: var(--warning);
+}
+
+.list-group-item-danger {
+  color: var(--error);
+}
+*/
