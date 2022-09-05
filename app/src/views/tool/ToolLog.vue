@@ -44,7 +44,7 @@
 
       <b-button
         v-if="moreLogsAvailable"
-        variant="white" class="w-100 rounded-0"
+        class="w-100 rounded-0"
         @click="$refs.view.fetchQueries()"
       >
         <icon iname="plus" /> {{ $t('logs_more') }}
