@@ -4,7 +4,7 @@
     <b-card-header
       role="button" tabindex="0"
       :aria-expanded="open ? 'true' : 'false'" aria-controls="console-collapse"
-      header-tag="header" :header-bg-variant="open ? 'best' : 'white'"
+      header-tag="header" :header-bg-variant="open ? 'best' : ''"
       :class="{ 'text-white': open }"
       class="d-flex align-items-center"
       @mousedown.left.prevent="onHistoryBarClick"
@@ -43,7 +43,7 @@
           no-body class="rounded-0 rounded-top border-left-0 border-right-0"
         >
           <!-- ACTION -->
-          <b-card-header header-tag="header" header-bg-variant="white" class="sticky-top d-flex">
+          <b-card-header header-tag="header" class="sticky-top d-flex">
             <!-- ACTION DESC -->
             <query-header
               role="tab" v-b-toggle="action.messages.length ? 'messages-collapse-' + i : false"
@@ -193,7 +193,6 @@ export default {
 
 .card-header {
   padding: $tooltip-padding-y $tooltip-padding-x;
-  background-color: $background-color-primary !important;
 }
 
 #console {
@@ -207,7 +206,6 @@ export default {
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
   font-size: $font-size-sm;
-  background-color: $background-color-primary;
 
 
   & > header {
@@ -241,7 +239,6 @@ export default {
 #history {
   overflow-y: auto;
   max-height: 20vh;
-  background-color: $background-color-primary;
 
   &.no-max {
     max-height: none;
