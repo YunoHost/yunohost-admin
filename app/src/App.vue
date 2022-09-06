@@ -7,7 +7,7 @@
           :to="{ name: 'home' }" :disabled="waiting"
           exact exact-active-class="active"
         >
-          <span v-if="theme == true">
+          <span v-if="theme">
               <img alt="Yunohost logo" src="./assets/logo_light.png" width="40">
           </span>
           <span v-else>
@@ -160,7 +160,7 @@ export default {
       this.$store.commit('SET_SPINNER', 'spookycat')
     }
 
-    document.documentElement.setAttribute('data-theme', localStorage.getItem('theme')) // updates the data-theme attribute
+    document.documentElement.setAttribute('dark-theme', localStorage.getItem('theme')) // updates the data-theme attribute
   }
 }
 </script>

@@ -55,11 +55,9 @@ $font-weight-bold: 500;
   --info: #0079c4;
   --success: #81c926;
   --warning: #ffc107;
-
-  --logo-src: "./assets/logo_dark.png";
 }
 
-[data-theme="true"] {
+[dark-theme="true"] {
   /* Variables for dark mode */
   --background-color: #222c3c;
   --background-color-secondary: #273142;
@@ -85,8 +83,6 @@ $font-weight-bold: 500;
   --info: #0093ee;
   --success: #96bf47;
   --warning: #ffc02a;
-
-  --logo-src: "./assets/logo_light.png";
 }
 
 $purple: #9932cc;

@@ -52,7 +52,7 @@ export default {
     'SET_THEME' (state, boolean) {
       localStorage.setItem('theme', boolean)
       state.theme = boolean
-      document.documentElement.setAttribute('data-theme', boolean)
+      document.documentElement.setAttribute('dark-theme', boolean)
     }
   },
 
