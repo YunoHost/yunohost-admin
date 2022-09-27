@@ -259,7 +259,16 @@
             "error": "失败"
         },
         "processing": "服务器正在处理这个动作...",
-        "partial_logs": "[...] (在历史信息中查看全部日志)"
+        "partial_logs": "[...] (在历史信息中查看全部日志)",
+        "reconnecting": {
+            "failed": "服务器似乎没有响应。你可以尝试重新连接或通过 ssh 运行\"systemctl restart yunohost-api\"。",
+            "reason": {
+                "unknown": "与服务器的连接由于未知原因被关闭。",
+                "reboot": "服务器正在重启，短时间内将无法访问。当服务器可以被访问后，将出现登录提示。",
+                "upgrade_system": "YunoHost正在升级，与服务器的连接已被断开。正在等待服务器恢复访问…"
+            },
+            "success": "服务器现在可以被访问了！您可以尝试登录"
+        }
     },
     "ignored": "{count}个被忽略",
     "items": {
