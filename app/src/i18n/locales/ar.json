@@ -243,7 +243,7 @@
     "experimental_warning": "تحذير: هذه الميزة تجريبية ولا تعتبر مستقرة ، يجب ألا تستخدمها إلا إذا كنت تعرف ما تفعله.",
     "hook_conf_ynh_currenthost": "النطاق الرئيسي الحالي",
     "logs_package": "سِجلّ إدارة حزم ديبيان",
-    "error_connection_interrupted": "أغلق الخادم الاتصال بدلاً من الاستجابة. هل تم إعادة تشغيل Nginx أو تم إيقاف تشغيل واجهة برمجة تطبيقات YunoHost؟ (رمز/رسالة الخطأ: )",
+    "error_connection_interrupted": "أغلَق الخادم الاتصال بدلاً من الاستجابة. هل تم إعادة تشغيل NGINX أو تم إيقاف تشغيل واجهة برمجة تطبيقات yunohost-api لسبب ما؟",
     "warnings": "{count} تحذيرات",
     "unignore": "إلغاء التجاهل",
     "since": "منذ",
@@ -312,7 +312,9 @@
             "install_LE": "تنصيب الشهادة لـ '{name}'",
             "manual_renew_LE": "تجديد الشهادة لـ '{name}'",
             "set_default": "تعيين '{name}' كاسم نطاق افتراضي",
-            "update_config": "تحديث اعدادت '{name}'"
+            "update_config": "تحديث اعدادت '{name}'",
+            "revert_to_selfsigned": "العودة إلى الشهادة الموقعَة ذاتيا لـ '{name}'",
+            "regen_selfsigned": "تجديد الشهادة الموقعة ذاتيا لـ '{name}'"
         },
         "services": {
             "start": "تشغيل خدمة '{name}'",
@@ -321,12 +323,15 @@
         },
         "groups": {
             "create": "انشاء فريق '{name}'",
-            "delete": "حذف الفريق '{name}'"
+            "delete": "حذف الفريق '{name}'",
+            "remove": "حذف '{user}' مِن الفريق '{name}'",
+            "add": "إضافة '{user}' إلى الفريق '{name}'"
         },
         "update": "البحث عن تحديثات",
         "adminpw": "تعديل الكلمة السرية للمدير",
         "apps": {
-            "install": "تنصيب التطبيق '{name}'"
+            "install": "تنصيب التطبيق '{name}'",
+            "uninstall": "إلغاء تنصيب التطبيق '{name}'"
         },
         "backups": {
             "create": "إنشاء نسخة احتياطية"
@@ -336,7 +341,11 @@
                 "error": "تجاهل خطأ",
                 "warning": "تجاهل تحذير"
             },
-            "run": "تنفيذ الفحص"
+            "run": "تنفيذ الفحص",
+            "run_specific": "إطلاق الفحص '{description}'",
+            "unignore": {
+                "warning": "إلغاء تجاهل التحذير"
+            }
         },
         "postinstall": "تنفيذ ما بعد التنصيب",
         "upgrade": {
@@ -351,7 +360,16 @@
         },
         "reboot": "إعادة تشغيل الخادم",
         "shutdown": "إطفاء الخادم",
-        "reconnecting": "محاولة إعادة الإتصال"
+        "reconnecting": "محاولة إعادة الإتصال",
+        "firewall": {
+            "upnp": "{action} UPnP"
+        },
+        "permissions": {
+            "add": "السماح لـ '{name}' بالنفاذ إلى '{perm}'"
+        },
+        "migrations": {
+            "skip": "تجاهل التهجيرات"
+        }
     },
     "confirm_app_install": "متأكد من أنك تريد تنصيب هذا التطبيق؟",
     "footer": {
@@ -362,7 +380,8 @@
     "tools_webadmin": {
         "experimental": "الوضع التجريبي",
         "fallback_language": "اللغة المرجعية",
-        "language": "اللغة"
+        "language": "اللغة",
+        "fallback_language_description": "اللغة التي سيتم استخدامها إن كانت الترجمة غير متوفرة في اللغة الرئيسية."
     },
     "api_error": {
         "view_error": "أظهر الخطأ",
@@ -426,5 +445,7 @@
     "app_choose_category": "اختر فئة",
     "app_config_panel": "لوح الضبط",
     "retry": "حاول مجددا",
-    "permission_main": "التسمية الرئيسية"
+    "permission_main": "التسمية الرئيسية",
+    "user_emailforward_add": "إضافة عنوان بريد إلكتروني للتحويل",
+    "select_none": "الغاء اختيار الكل"
 }
