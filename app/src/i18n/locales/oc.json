@@ -585,5 +585,8 @@
     "users_import_update": "Metre a jorn los utilizaires existents",
     "users_import_delete": "Suprimir los utilizaires non listats",
     "users_import_delete_others": "Suprimir los utilizaires non listats",
-    "yunohost_admin": "Admin YunoHost"
+    "yunohost_admin": "Admin YunoHost",
+    "users_import_update_desc": "Se marcat, totes los utilizaires existents contenguts dins lo fichièr CSV seràn actualizats amb de valors novèlas",
+    "users_import_confirm_destructive": "Volètz vertadièrament suprimir los utilizaires que son pas presents dins aqueste fichièr ?",
+    "users_import_delete_desc": "Se marcat, totes los utilizaires existents que son pas presents dins lo fichièr CSV seràn suprimits (e purgats)."
 }
