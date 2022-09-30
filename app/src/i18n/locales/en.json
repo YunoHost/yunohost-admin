@@ -452,6 +452,9 @@
             "create": "Create user '{name}'",
             "delete": "Delete user '{name}'",
             "update": "Update user '{name}'"
+        },
+        "settings": {
+            "update": "Update global settings"
         }
     },
     "run": "Run",
@@ -501,6 +504,7 @@
         "experimental_description": "Gives you access to experimental features. These are considered unstable and may break your system.<br> Enable this only if you know what you are doing.",
         "transitions": "Page transition animations"
     },
+    "tools_yunohost_settings": "YunoHost settings",
     "tools_webadmin_settings": "Web-admin settings",
     "traceback": "Traceback",
     "udp": "UDP",
