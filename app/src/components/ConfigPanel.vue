@@ -24,7 +24,7 @@
           <component
             v-if="field.visible" :is="field.is" v-bind="field.props"
             v-model="forms[panel.id][fname]" :validation="validation[fname]" :key="fname"
-            @action.stop="onAction(section.id, fname, field.props.args)"
+            @action.stop="onAction(section.id, fname, section.fields)"
           />
         </template>
       </component>
@@ -61,24 +61,20 @@ export default {
   methods: {
     onApply () {
       const panelId = this.panel.id
-      const nonActionKeys = this.panel.sections.filter(section => {
-        return !section.isActionSection
-      }).reduce((keys, { fields }) => {
-        return keys.concat(Object.keys(fields))
-      }, [])
-
-      this.$emit('submit', {
-        id: this.panel.id,
-        form: filterObject(this.forms[panelId], ([key]) => nonActionKeys.includes(key))
-      })
-    },
-
-    onAction (sectionId, actionId, actionArgs) {
-      const panelId = this.panel.id
 
       this.$emit('submit', {
         id: panelId,
-        form: filterObject(this.forms[panelId], ([key]) => actionArgs.includes(key)),
+        form: this.forms[panelId]
+      })
+    },
+
+    onAction (sectionId, actionId, actionFields) {
+      const panelId = this.panel.id
+      const actionFieldsKeys = Object.keys(actionFields)
+
+      this.$emit('submit', {
+        id: panelId,
+        form: filterObject(this.forms[panelId], ([key]) => actionFieldsKeys.includes(key)),
         action: [panelId, sectionId, actionId].join('.'),
         name: actionId
       })

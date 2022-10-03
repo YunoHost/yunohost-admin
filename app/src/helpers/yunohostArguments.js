@@ -233,7 +233,7 @@ export function formatYunoHostArgument (arg) {
     {
       types: ['button'],
       name: 'ButtonItem',
-      props: ['type:style', 'label:ask', 'icon', 'enabled', 'args'],
+      props: ['type:style', 'label:ask', 'icon', 'enabled'],
       renderSelf: true
     }
   ]
