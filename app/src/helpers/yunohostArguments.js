@@ -225,8 +225,14 @@ export function formatYunoHostArgument (arg) {
       renderSelf: true
     },
     {
-      types: ['markdown', 'display_text'],
+      types: ['markdown'],
       name: 'MarkdownItem',
+      props: ['label:ask'],
+      renderSelf: true
+    },
+    {
+      types: ['display_text'],
+      name: 'DisplayTextItem',
       props: ['label:ask'],
       renderSelf: true
     },
