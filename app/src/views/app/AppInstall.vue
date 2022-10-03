@@ -24,9 +24,9 @@
         @submit.prevent="performInstall"
       >
         <template v-for="(field, fname) in fields">
-          <form-field
-            v-if="field.visible" :key="fname" label-cols="0"
-            v-bind="field" v-model="form[fname]" :validation="$v.form[fname]"
+          <component
+            v-if="field.visible" :is="field.is" v-bind="field.props"
+            v-model="form[fname]" :validation="$v.form[fname]" :key="fname"
           />
         </template>
       </card-form>
