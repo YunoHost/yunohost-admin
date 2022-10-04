@@ -303,7 +303,7 @@
     "operation_failed_explanation": "Aquesta operacion a pas capitat ! O planhèm :( Podètz ensajar de <a href='https://yunohost.org/help'>demandar d’ajuda</a>. Se vos plai donar lo *jornal complèt* de l’operacion qu’ensajan de vos ajudar. Podètz clicar sul boton verd « Partejar amb Yunopaste ». En partejant lo jornal d’audit, YunoHost provarà automaticament d’anonimizar las donadas coma los noms de domeni e adreças IP.",
     "group_explain_visitors_needed_for_external_client": "Agachatz que certanas aplicacions sián autorizadas pels visitaires se volètz las utilizar amb de clients extèrns. Per exemple, es lo cas per Nextcloud s’avètz idèa d’emplegar un client de sincronizacion pel vòstre smartphone o ordenador de burèu.",
     "diagnosis_explanation": "La foncionalitat de diagnostic provarà trobar problèmas comuns sus diferents aspèctes de vòstre servidor per s’assegurar que tot fonciona normalament. Lo diagnostic serà tanben realizat dos còps per jorn e enviarà un corrièl a l’administrator se d’errors son detectadas. De notar que d’unes ensages seràn pas mostrats s’utilizatz pas certanas foncions especificas (XMPP, per exemple) o se fracassan a causa d’una configuracion tròp complèxa. Dins aqueste cas, e se sabètz çò qu’avètz modificat, podètz ignorar los problèmas e avertiments correspondents.",
-    "pending_migrations": "I a unas migracions en espèra d’execucion. Anatz a <a href='#/tools/migrations'>Aisinas > Migracions</a> per las lançar.",
+    "pending_migrations": "I a migracions en espèra d’execucion. Mercés d’anar a <a href='#/tools/migrations'>Aisinas > Migracions</a> per las lançar.",
     "logs_suboperations": "Jos-operacions",
     "diagnosis_first_run": "La foncionalitat de diagnostic ensajarà d’identificar los problèmas abituals de diferents aspèctes del servidor per dire d’assegurar que tot foncione de la melhora manièra possibla. Ajatz pas paur se vesètz mantuna error aprèp configurar lo servidor : es precisament fach per ajudar a identificar los problèmas e ofrir una guida per los reglar. Lo diagnostic s’executarà tanben dos còps per jorn e enviarà un corrièl a l’administrator se tròba unas error.",
     "app_manage_label_and_tiles": "Gestion de las apelacions e títols",
@@ -585,5 +585,11 @@
     "users_import_update": "Metre a jorn los utilizaires existents",
     "users_import_delete": "Suprimir los utilizaires non listats",
     "users_import_delete_others": "Suprimir los utilizaires non listats",
-    "yunohost_admin": "Admin YunoHost"
+    "yunohost_admin": "Admin YunoHost",
+    "users_import_update_desc": "Se marcat, totes los utilizaires existents contenguts dins lo fichièr CSV seràn actualizats amb de valors novèlas",
+    "users_import_confirm_destructive": "Volètz vertadièrament suprimir los utilizaires que son pas presents dins aqueste fichièr ?",
+    "users_import_delete_desc": "Se marcat, totes los utilizaires existents que son pas presents dins lo fichièr CSV seràn suprimits (e purgats).",
+    "domain_dns_push_not_applicable": "La foncionalitat enregistrament DNS automatica es pas aplicablas al domeni {domain},<br>Podètz configurar manualament vòstres enregistraments DNS en seguissent <a href='https://yunohost.org/dns'>documentation</a> e las suggestions de configuracion çai-jos.",
+    "text_selection_is_disabled": "La seleccion del tèxt es desactivada. Se volètz partejar aqueste log *complet*, o podètz far en clicant lo boton « Partejar amb Yunopaste ».<br/><small>Autrament se volètz vertadièrament seleccionar de tèxt, quichatz aquestas tòcas : ↓↓↑↑.</small>",
+    "users_import_csv_file_desc": "Lo fichièr CSV deu èsser al format UTF-8 amb colomnas nom d’utilizaire, senhal, grops, email e quota. Per un exemple d’importacion de fichièr CSV, podètz <a href='/yunohost/api/users/export' target='_BLANK'>exportar vòstres utilizaires dins un fichièr CSV</a> e modificar lo fichièr."
 }
