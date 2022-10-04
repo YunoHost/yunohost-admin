@@ -179,16 +179,6 @@ const routes = [
       breadcrumb: ['domain-list', 'domain-info', 'domain-dns']
     }
   },
-  {
-    name: 'domain-cert',
-    path: '/domains/:name/cert-management',
-    component: () => import(/* webpackChunkName: "views/domain/cert" */ '@/views/domain/DomainCert'),
-    props: true,
-    meta: {
-      args: { trad: 'certificate' },
-      breadcrumb: ['domain-list', 'domain-info', 'domain-cert']
-    }
-  },
 
   /* ───────╮
    │  APPS  │
