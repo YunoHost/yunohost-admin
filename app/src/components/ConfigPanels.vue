@@ -1,7 +1,7 @@
 <template>
   <routable-tabs
     :routes="routes_"
-    v-bind="{ panels, forms, v: $v }"
+    v-bind="{ panels, forms, v: $v, ...$attrs }"
     v-on="$listeners"
   />
 </template>
@@ -49,10 +49,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.card-title {
-  margin-bottom: 1em;
-  border-bottom: solid 1px #aaa;
-}
-</style>

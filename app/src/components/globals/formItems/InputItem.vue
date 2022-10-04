@@ -2,7 +2,6 @@
   <b-input
     :value="value"
     :id="id"
-    v-on="$listeners"
     :placeholder="placeholder"
     :type="type"
     :state="state"
@@ -12,6 +11,7 @@
     :step="step"
     :trim="trim"
     :autocomplete="autocomplete_"
+    v-on="$listeners"
     @blur="$parent.$emit('touch', name)"
   />
 </template>
@@ -21,11 +21,6 @@
 export default {
   name: 'InputItem',
 
-  data () {
-    return {
-      autocomplete_: (this.autocomplete) ? this.autocomplete : (this.type === 'password') ? 'new-password' : null
-    }
-  },
   props: {
     value: { type: [String, Number], default: null },
     id: { type: String, default: null },
@@ -40,6 +35,12 @@ export default {
     autocomplete: { type: String, default: null },
     pattern: { type: Object, default: null },
     name: { type: String, default: null }
+  },
+
+  data () {
+    return {
+      autocomplete_: (this.autocomplete) ? this.autocomplete : (this.type === 'password') ? 'new-password' : null
+    }
   }
 }
 </script>

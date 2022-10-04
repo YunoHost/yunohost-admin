@@ -102,6 +102,11 @@ body {
   }
 }
 
+h3.card-title {
+  margin-bottom: 1em;
+  border-bottom: solid 1px #aaa;
+}
+
 // collapse icon
 .not-collapsed > .icon {
   transform: rotate(-90deg);
@@ -163,6 +168,10 @@ body {
   code {
     font-variant-ligatures: none;
   }
+}
+
+.alert p:last-child {
+  margin-bottom: 0;
 }
 
 code {

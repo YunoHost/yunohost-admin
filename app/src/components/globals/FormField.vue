@@ -28,15 +28,18 @@
       <!-- Render description -->
       <template v-if="description || link">
         <div class="d-flex">
-          <b-link v-if="link" :to="link" :href="link.href"
-                  class="ml-auto"
+          <b-link
+            v-if="link"
+            :to="link" :href="link.href" class="ml-auto"
           >
             {{ link.text }}
           </b-link>
         </div>
 
-        <vue-showdown :markdown="description" flavor="github" v-if="description"
-                      :class="{ ['alert p-1 px-2 alert-' + descriptionVariant]: descriptionVariant }"
+        <vue-showdown
+          v-if="description"
+          :markdown="description" flavor="github"
+          :class="{ ['alert p-1 px-2 alert-' + descriptionVariant]: descriptionVariant }"
         />
       </template>
       <!-- Slot available to overwrite the one above -->
@@ -76,8 +79,8 @@ export default {
       if ('label' in attrs) {
         const defaultAttrs = {
           'label-cols-md': 4,
-          'label-cols-lg': 2,
-          'label-class': 'font-weight-bold'
+          'label-cols-lg': 3,
+          'label-class': ['font-weight-bold', 'py-0']
         }
         if (!('label-cols' in attrs)) {
           for (const attr in defaultAttrs) {

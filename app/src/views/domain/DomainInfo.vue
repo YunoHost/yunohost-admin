@@ -32,13 +32,6 @@
       </b-button>
       <hr>
 
-      <!-- SSL CERTIFICATE -->
-      <p>{{ $t('certificate_manage') }}</p>
-      <b-button variant="outline-dark" :to="{ name: 'domain-cert', param: { name } }">
-        <icon iname="lock" /> {{ $t('ssl_certificate') }}
-      </b-button>
-      <hr>
-
       <!-- DELETE -->
       <p>{{ $t('domain_delete_longdesc') }}</p>
       <p

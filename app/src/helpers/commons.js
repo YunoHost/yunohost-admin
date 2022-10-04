@@ -64,6 +64,19 @@ export function flattenObjectLiteral (obj, flattened = {}) {
 
 
 /**
+ * Returns an new Object filtered with passed filter function.
+ * Each entry `[key, value]` will be forwarded to the `filter` function.
+ *
+ * @param {Object} obj - object to filter.
+ * @param {Function} filter - the filter function to call for each entry.
+ * @return {Object}
+ */
+export function filterObject (obj, filter) {
+  return Object.fromEntries(Object.entries(obj).filter((...args) => filter(...args)))
+}
+
+
+/**
  * Returns an new array containing items that are in first array but not in the other.
  *
  * @param {Array} [arr1=[]]
@@ -99,4 +112,27 @@ export function escapeHtml (unsafe) {
  */
 export function randint (min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min
+}
+
+
+/**
+ * Returns a File content.
+ *
+ * @param {File} file
+ * @param {Object} [extraParams] - Optionnal params
+ * @param {Boolean} [extraParams.base64] - returns a base64 representation of the file.
+ * @return {Promise<String>}
+ */
+export function getFileContent (file, { base64 = false } = {}) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader()
+    reader.onerror = reject
+    reader.onload = () => resolve(reader.result)
+
+    if (base64) {
+      reader.readAsDataURL(file)
+    } else {
+      reader.readAsText(file)
+    }
+  })
 }

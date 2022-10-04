@@ -1,7 +1,7 @@
 <template>
   <abstract-form
     v-bind="{ id: panel.id + '-form', validation, serverError: panel.serverError }"
-    @submit.prevent.stop="$emit('submit', panel.id)"
+    @submit.prevent.stop="onApply"
   >
     <slot name="tab-top" />
 
@@ -12,18 +12,22 @@
     <slot name="tab-before" />
 
     <template v-for="section in panel.sections">
-      <div v-if="isVisible(section.visible, section)" :key="section.id" class="mb-5">
+      <component
+        v-if="section.visible" :is="section.name ? 'section' : 'div'"
+        :key="section.id" class="mb-5"
+      >
         <b-card-title v-if="section.name" title-tag="h3">
           {{ section.name }} <small v-if="section.help">{{ section.help }}</small>
         </b-card-title>
 
         <template v-for="(field, fname) in section.fields">
-          <form-field
-            v-if="isVisible(field.visible, field)" :key="fname"
-            v-model="forms[panel.id][fname]" v-bind="field" :validation="validation[fname]"
+          <component
+            v-if="field.visible" :is="field.is" v-bind="field.props"
+            v-model="forms[panel.id][fname]" :validation="validation[fname]" :key="fname"
+            @action.stop="onAction(section.id, fname, section.fields)"
           />
         </template>
-      </div>
+      </component>
     </template>
 
     <slot name="tab-after" />
@@ -31,7 +35,7 @@
 </template>
 
 <script>
-import { configPanelsFieldIsVisible } from '@/helpers/yunohostArguments'
+import { filterObject } from '@/helpers/commons'
 
 
 export default {
@@ -55,8 +59,25 @@ export default {
   },
 
   methods: {
-    isVisible (expression, field) {
-      return configPanelsFieldIsVisible(expression, field, this.forms)
+    onApply () {
+      const panelId = this.panel.id
+
+      this.$emit('submit', {
+        id: panelId,
+        form: this.forms[panelId]
+      })
+    },
+
+    onAction (sectionId, actionId, actionFields) {
+      const panelId = this.panel.id
+      const actionFieldsKeys = Object.keys(actionFields)
+
+      this.$emit('submit', {
+        id: panelId,
+        form: filterObject(this.forms[panelId], ([key]) => actionFieldsKeys.includes(key)),
+        action: [panelId, sectionId, actionId].join('.'),
+        name: actionId
+      })
     }
   }
 }

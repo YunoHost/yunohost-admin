@@ -1,10 +1,12 @@
 <template>
-  <vue-showdown :markdown="label" flavor="github" />
+  <div>
+    <p v-text="label" />
+  </div>
 </template>
 
 <script>
 export default {
-  name: 'MarkdownItem',
+  name: 'DisplayTextItem',
 
   props: {
     id: { type: String, default: null },
