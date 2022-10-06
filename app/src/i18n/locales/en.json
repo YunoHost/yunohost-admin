@@ -146,9 +146,9 @@
     "domain": {
       "cert": {
         "types": {
-          "self-signed": "Self-signed",
-          "lets-encrypt": "Let's Encrypt",
-          "other-unknown": "Other/Unknown"
+          "selfsigned": "Self-signed",
+          "letsencrypt": "Let's Encrypt",
+          "other": "Other/Unknown"
         },
         "valid_for": "valid for {days}"
       },
@@ -188,8 +188,6 @@
       "info": {
         "apps_on_domain": "Apps installed on domain",
         "certificate_authority": "SSL Certification authority",
-        "dns_config_method": "DNS config method",
-        "dns_semi_auto_config_feature": "Semi-auto DNS configuration feature",
         "domain_type": "Domain type",
         "registrar": "Registrar"
       },

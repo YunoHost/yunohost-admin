@@ -141,14 +141,22 @@ const routes = [
     }
   },
   {
-    name: 'domain-info',
     path: '/domains/:name',
     component: () => import(/* webpackChunkName: "views/domain/info" */ '@/views/domain/DomainInfo'),
     props: true,
-    meta: {
-      args: { param: 'name' },
-      breadcrumb: ['domain-list', 'domain-info']
-    }
+    children: [
+      {
+        name: 'domain-info',
+        path: ':tabId?',
+        component: () => import(/* webpackChunkName: "components/configPanel" */ '@/components/ConfigPanel'),
+        props: true,
+        meta: {
+          routerParams: ['name'], // Override router key params to avoid view recreation at tab change.
+          args: { param: 'name' },
+          breadcrumb: ['domain-list', 'domain-info']
+        }
+      }
+    ]
   },
   {
     // no need for name here, only children are visited

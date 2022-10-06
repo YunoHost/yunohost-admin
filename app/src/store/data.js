@@ -34,8 +34,8 @@ export default {
       state.domains = domains
     },
 
-    'SET_DOMAINS_DETAILS' (state, [name, { domains }]) {
-      Vue.set(state.domains_details, name, domains[name])
+    'SET_DOMAINS_DETAILS' (state, [name, details]) {
+      Vue.set(state.domains_details, name, details)
     },
 
     'UPDATE_DOMAINS_DETAILS' (state, payload) {
