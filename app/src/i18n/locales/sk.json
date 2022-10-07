@@ -458,7 +458,7 @@
     "running": "Vykonáva sa",
     "save": "Uložiť",
     "search": {
-        "for": "Hľadať {items}…",
+        "for": "Hľadanie {items}…",
         "not_found": "Nájdených {item} zodpovedajúcich Vášmu zadaniu. | Nájdená 1 {items} zodpovedajúca Vášmu zadaniu. | Nájdené {items} zodpovedajúce Vášmu zadaniu."
     },
     "select_all": "Vybrať všetko",
