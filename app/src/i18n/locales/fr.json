@@ -267,7 +267,7 @@
     "group_new": "Nouveau groupe",
     "group_explain_all_users": "Ceci est un groupe spécial contenant tous les comptes d'utilisateurs sur le serveur",
     "group_explain_visitors": "Ceci est un groupe spécial représentant les visiteurs anonymes",
-    "group_specific_permissions": "Autorisations spécifiques à l'utilisateur",
+    "group_specific_permissions": "Autorisations pour des utilisateurs individuels",
     "groups_and_permissions": "Groupes et autorisations",
     "groups_and_permissions_manage": "Gérer les groupes et les autorisations",
     "permissions": "Permissions",
