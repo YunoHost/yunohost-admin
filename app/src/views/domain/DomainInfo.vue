@@ -71,7 +71,11 @@
       </description-row>
     </card>
 
-    <config-panels v-if="config.panels" v-bind="config" @submit="onConfigSubmit" />
+    <config-panels v-if="config.panels" v-bind="config" @submit="onConfigSubmit">
+      <template v-if="currentTab === 'dns'" #tab-after>
+        <domain-dns :name="name" />
+      </template>
+    </config-panels>
   </view-base>
 </template>
 
@@ -84,13 +88,15 @@ import {
   formatYunoHostConfigPanels
 } from '@/helpers/yunohostArguments'
 import ConfigPanels from '@/components/ConfigPanels'
+import DomainDns from './DomainDns.vue'
 
 
 export default {
   name: 'DomainInfo',
 
   components: {
-    ConfigPanels
+    ConfigPanels,
+    DomainDns
   },
 
   props: {
@@ -111,6 +117,10 @@ export default {
 
   computed: {
     ...mapGetters(['mainDomain']),
+
+    currentTab () {
+      return this.$route.params.tabId
+    },
 
     domain () {
       return this.$store.getters.domain(this.name)
