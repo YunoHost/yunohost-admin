@@ -551,7 +551,7 @@
         "none": "None",
         "separator": ", "
     },
-    "wrong_password": "Wrong password",
+    "wrong_password_or_username": "Wrong password or username",
     "yes": "Yes",
     "yunohost_admin": "YunoHost Admin",
     "certificate_manage": "Manage SSL certificate",

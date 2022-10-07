@@ -1,36 +1,34 @@
 <template>
-  <b-form @submit.prevent="login">
-    <b-input-group>
-      <template v-slot:prepend>
-        <b-input-group-text>
-          <label class="sr-only" for="input-password">{{ $t('password') }}</label>
-          <icon iname="lock" class="sm" />
-        </b-input-group-text>
-      </template>
+  <card-form
+    :title="$t('login')" icon="lock"
+    :validation="$v" :server-error="serverError"
+    @submit.prevent="login"
+  >
+    <!-- ADMIN USERNAME -->
+    <form-field v-bind="fields.username" v-model="form.username" :validation="$v.form.username" />
 
-      <b-form-input
-        id="input-password"
-        required type="password"
-        v-model="password"
-        :placeholder="$t('administration_password')" :state="isValid"
-      />
+    <!-- ADMIN PASSWORD -->
+    <form-field v-bind="fields.password" v-model="form.password" :validation="$v.form.password" />
 
-      <template v-slot:append>
-        <b-button type="submit" variant="success" :disabled="disabled">
-          {{ $t('login') }}
-        </b-button>
-      </template>
-    </b-input-group>
-
-    <b-form-invalid-feedback :state="isValid">
-      {{ $t('wrong_password') }}
-    </b-form-invalid-feedback>
-  </b-form>
+    <template #buttons>
+      <b-button
+        type="submit" variant="success"
+        :disabled="disabled" form="ynh-form"
+      >
+        {{ $t('login') }}
+      </b-button>
+    </template>
+  </card-form>
 </template>
 
 <script>
+import { validationMixin } from 'vuelidate'
+import { alphalownum_, required, minLength } from '@/helpers/validators'
+
 export default {
   name: 'Login',
+
+  mixins: [validationMixin],
 
   props: {
     skipInstallCheck: { type: Boolean, default: false },
@@ -40,15 +38,42 @@ export default {
   data () {
     return {
       disabled: !this.skipInstallCheck,
-      password: '',
-      isValid: null,
-      apiError: undefined
+      serverError: '',
+      form: {
+        username: '',
+        password: ''
+      },
+      fields: {
+        username: {
+          label: this.$i18n.t('user_username'),
+          props: {
+            id: 'username'
+          }
+        },
+        password: {
+          label: this.$i18n.t('password'),
+          props: {
+            id: 'password',
+            type: 'password'
+          }
+        }
+      }
+    }
+  },
+
+  validations () {
+    return {
+      form: {
+        username: { required, alphalownum_ },
+        password: { required, passwordLenght: minLength(8) }
+      }
     }
   },
 
   methods: {
     login () {
-      this.$store.dispatch('LOGIN', this.password).then(() => {
+      const credentials = [this.form.username, this.form.password].join(':')
+      this.$store.dispatch('LOGIN', credentials).then(() => {
         if (this.forceReload) {
           window.location.href = '/yunohost/admin/'
         } else {
@@ -56,7 +81,7 @@ export default {
         }
       }).catch(err => {
         if (err.name !== 'APIUnauthorizedError') throw err
-        this.isValid = false
+        this.serverError = this.$i18n.t('wrong_password_or_username')
       })
     }
   },
