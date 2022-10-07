@@ -283,7 +283,7 @@ const routes = [
     component: () => import(/* webpackChunkName: "views/service/list" */ '@/views/service/ServiceList'),
     meta: {
       args: { trad: 'services' },
-      breadcrumb: ['service-list']
+      breadcrumb: ['tool-list', 'service-list']
     }
   },
   {
@@ -293,7 +293,7 @@ const routes = [
     props: true,
     meta: {
       args: { param: 'name' },
-      breadcrumb: ['service-list', 'service-info']
+      breadcrumb: ['tool-list', 'service-list', 'service-info']
     }
   },
 

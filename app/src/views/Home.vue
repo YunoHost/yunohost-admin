@@ -25,7 +25,6 @@ export default {
         { routeName: 'domain-list', icon: 'globe', translation: 'domains' },
         { routeName: 'app-list', icon: 'cubes', translation: 'applications' },
         { routeName: 'update', icon: 'refresh', translation: 'system_update' },
-        { routeName: 'service-list', icon: 'cog', translation: 'services' },
         { routeName: 'tool-list', icon: 'wrench', translation: 'tools' },
         { routeName: 'diagnosis', icon: 'stethoscope', translation: 'diagnosis' },
         { routeName: 'backup', icon: 'archive', translation: 'backup' }
