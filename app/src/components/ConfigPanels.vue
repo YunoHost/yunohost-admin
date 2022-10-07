@@ -3,7 +3,11 @@
     :routes="routes_"
     v-bind="{ panels, forms, v: $v, ...$attrs }"
     v-on="$listeners"
-  />
+  >
+    <slot name="tab-top" slot="tab-top"></slot>
+    <slot name="tab-before" slot="tab-before"></slot>
+    <slot name="tab-after" slot="tab-after"></slot>
+  </routable-tabs>
 </template>
 
 <script>
