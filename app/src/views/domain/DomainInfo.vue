@@ -47,7 +47,16 @@
       </description-row>
 
       <!-- DOMAIN REGISTRAR -->
-      <description-row v-if="domain.registrar" :term="$t('domain.info.registrar')" :details="domain.registrar" />
+      <description-row v-if="domain.registrar" :term="$t('domain.info.registrar')">
+        <template v-if="domain.registrar === 'parent_domain'">
+          {{ $t('domain.see_parent_domain') }}&nbsp;<b-link :href="`#/domains/${domain.topest_parent}/dns`">
+            {{ domain.topest_parent }}
+          </b-link>
+        </template>
+        <template v-else>
+          {{ domain.registrar }}
+        </template>
+      </description-row>
 
       <!-- DOMAIN APPS -->
       <description-row :term="$t('domain.info.apps_on_domain')">

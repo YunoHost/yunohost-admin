@@ -191,6 +191,7 @@
         "domain_type": "Domain type",
         "registrar": "Registrar"
       },
+      "see_parent_domain": "See parent domain",
       "types": {
         "parent_domain": "Parent domain",
         "subdomain": "Subdomain",
