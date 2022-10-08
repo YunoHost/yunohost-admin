@@ -378,7 +378,6 @@
     "restart": "Restart",
     "retry": "Retry",
     "human_routes": {
-        "adminpw": "Change admin password",
         "apps": {
           "action_config": "Run action '{action}' of app '{name}' configuration",
           "change_label": "Change label of '{prevName}' for '{nextName}'",
@@ -487,9 +486,6 @@
     "text_selection_is_disabled": "Text selection is disabled. If you want to share this log, please share the *full* log with the 'Share with Yunopaste' button.<br/><small>Or if you really really want to select text, press these keys: ↓↓↑↑.</small>",
     "tip_about_user_email": "Users are created with an associated email address (and XMPP account) with the format username@domain.tld. Additional email aliases and email forwards can later be added by the admin and the user.",
     "tools": "Tools",
-    "tools_adminpw": "Change administration password",
-    "tools_adminpw_current": "Current password",
-    "tools_adminpw_current_placeholder": "Enter your current password",
     "tools_reboot": "Reboot your server",
     "tools_reboot_btn": "Reboot",
     "tools_shutdown": "Shutdown your server",
