@@ -43,9 +43,17 @@ body {
   color: $list-group-action-color;
 }
 
+.list-group-item {
+  border-color: var(--border-color);
+}
+
 .list-group-item:hover {
   background-color: $background-color-secondary;
   color: var(--font-color-secondary);
+}
+
+.text-secondary {
+  color: var(--font-color-secondary) !important;
 }
 
 .form-control {

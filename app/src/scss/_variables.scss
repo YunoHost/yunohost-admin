@@ -34,7 +34,7 @@ $font-weight-bold: 500;
   --background-color: #ffffff;
   --background-color-secondary: #fafbfc;
   --border-color: #c5d9e8;
-  --font-color: #2c405a;
+  --font-color: #333;
   --font-color-secondary: #3f536e;
 
   --black: #2c405a;
@@ -59,7 +59,7 @@ $font-weight-bold: 500;
 
 [dark-theme="true"] {
   /* Variables for dark mode */
-  --background-color: #222c3c;
+  --background-color: #202025;
   --background-color-secondary: #273142;
   --border-color: #313d4f;
   --font-color: #ffffff;
@@ -84,6 +84,43 @@ $font-weight-bold: 500;
   --success: #96bf47;
   --warning: #ffc02a;
 }
+
+//
+// FIXME : these five blocks are probably not well-written and are not just "variable declarations" ;/
+// probably to be refactored ...
+//
+[dark-theme="true"] .alert-success {
+    color: #4dd0af;
+    background-color: #005e46;
+    border: var(--border-color);
+}
+
+[dark-theme="true"] .alert-info {
+    color: #5dbecd;
+    background-color: #0c515c;
+    border: var(--border-color);
+}
+
+[dark-theme="true"] .alert-warning {
+    color: #f7ba59;
+    background-color: #7a4e09;
+    border: var(--border-color);
+}
+
+[dark-theme="true"] .alert-danger {
+    color: #ee8277;
+    background-color: #74261e;
+    border: var(--border-color);
+}
+
+[dark-theme="true"] .btn-outline-dark {
+    color: var(--font-color-secondary);
+    border-color: var(--border-color);
+}
+//
+// END FIXME
+//
+
 
 $purple: #9932cc;
 
@@ -132,6 +169,8 @@ $list-group-action-color-secondary: var(--font-color-secondary);
 $background-color-primary: var(--background-color);
 
 $background-color-secondary: var(--background-color-secondary);
+
+$card-border-color: var(--border-color);
 
 //  ╭──────────────────────────────────────╮
 //  │ ┌─╴╭─╮┌─╮╷ ╭   ╭─┐╷╷╷┌─╴╭─╴╭─╮╭╮╮┌─╴ │
