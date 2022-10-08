@@ -455,7 +455,7 @@
             "update": "Update user '{name}'"
         },
         "settings": {
-            "update": "Update '{panel}' global settings panel"
+            "update": "Update '{panel}' global settings"
         }
     },
     "run": "Run",
