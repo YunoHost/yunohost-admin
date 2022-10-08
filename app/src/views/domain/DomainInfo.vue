@@ -29,7 +29,7 @@
         :term="$t('domain.info.domain_type')"
       >
         <span v-if="isMainDomain">
-          <icon iname="star" />
+          <icon iname="star" class="mr-1" />
           <explain-what
             id="explain-main-domain"
             :title="$t('domain.types.main_domain')"
@@ -43,7 +43,7 @@
       <description-row :term="$t('domain.info.certificate_authority')">
         <icon :iname="cert.icon" :variant="cert.variant" class="mr-1" />
         {{ $t('domain.cert.types.' + cert.authority) }}
-        ({{ $t('domain.cert.valid_for', { days: $tc('day_validity', cert.validity) }) }})
+        <span class="text-secondary px-2">({{ $t('domain.cert.valid_for', { days: $tc('day_validity', cert.validity) }) }})</span>
       </description-row>
 
       <!-- DOMAIN REGISTRAR -->

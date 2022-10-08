@@ -21,7 +21,7 @@
           <h5 class="mr-3">
             <b-link :to="data.to" class="text-body text-decoration-none">
               <span class="font-weight-bold">{{ data.name.replace(parent ? parent.data.name : null, '') }}</span>
-              <span v-if="parent" class="text-secondary font-weight-light">{{ parent.data.name }}</span>
+              <span v-if="parent" class="text-secondary">{{ parent.data.name }}</span>
             </b-link>
 
             <small
