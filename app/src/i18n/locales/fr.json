@@ -335,8 +335,9 @@
         "domain": "mon-domaine.fr",
         "groupname": "Le nom de mon groupe",
         "lastname": "Dupont",
-        "firstname": "Jean",
-        "username": "jeandupont",
+        "firstname": "Camille",
+        "fullname": "Camille Dupont",
+        "username": "camilledupont",
         "file": "Parcourir un fichier ou le faire glisser et déposer"
     },
     "perform": "Exécuter",
