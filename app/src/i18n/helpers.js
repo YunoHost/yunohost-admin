@@ -80,7 +80,7 @@ function initDefaultLocales () {
 
   store.dispatch('UPDATE_LOCALE', locale)
   store.dispatch('UPDATE_FALLBACKLOCALE', fallbackLocale || 'en')
-  loadLocaleMessages('en')
+  return loadLocaleMessages('en')
 }
 
 export {
