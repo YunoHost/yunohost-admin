@@ -5,6 +5,18 @@
   >
     <!-- INFO CARD -->
     <card v-if="domain" :title="name" icon="globe">
+      <template v-if="isMainDomain" #header-next>
+        <b-badge variant="info" class="main-domain-badge">
+          <explain-what
+            id="explain-main-domain"
+            :title="$t('domain.types.main_domain')"
+            :content="$t('domain.explain.main_domain', { domain: name })"
+          >
+            <icon iname="star" /> {{ $t('domain.types.main_domain') }}
+          </explain-what>
+        </b-badge>
+      </template>
+
       <template #header-buttons>
         <!-- DEFAULT DOMAIN -->
         <b-button v-if="!isMainDomain" @click="setAsDefaultDomain" variant="info">
@@ -22,21 +34,6 @@
         <b-link :href="'https://' + name" target="_blank">
           https://{{ name }}
         </b-link>
-      </description-row>
-
-      <!-- DOMAIN TYPE -->
-      <description-row
-        :term="$t('domain.info.domain_type')"
-      >
-        <span v-if="isMainDomain">
-          <icon iname="star" class="mr-1" />
-          <explain-what
-            id="explain-main-domain"
-            :title="$t('domain.types.main_domain')"
-            :content="$t('domain.explain.main_domain', { domain: name })"
-          >{{ $t('domain.types.main_domain') }}</explain-what>,&nbsp;
-        </span>
-        {{ $t('domain.types.' + (parentName ? 'subdomain' : 'parent_domain' )) }}
       </description-row>
 
       <!-- DOMAIN CERT AUTHORITY -->
@@ -216,3 +213,10 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.main-domain-badge {
+  font-size: .75rem;
+  padding-right: .2em;
+}
+</style>

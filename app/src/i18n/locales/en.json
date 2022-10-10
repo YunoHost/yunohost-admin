@@ -134,6 +134,7 @@
     "delete": "Delete",
     "description": "Description",
     "details": "Details",
+    "details_about": "Show more details about {subject}",
     "domain_dns_conf_is_just_a_recommendation": "This page shows you the *recommended* configuration. It does *not* configure the DNS for you. It is your responsibility to configure your DNS zone in your DNS registrar according to this recommendation.",
     "diagnosis": "Diagnosis",
     "diagnosis_experimental_disclaimer": "Be aware that the diagnosis feature is still experimental and being polished, and it may not be fully reliable.",
@@ -161,12 +162,6 @@
         "auto_config_ignored": "ignored, won't be changed by YunoHost unless you check the overwrite option",
         "auto_config_ok": "Automatic configuration seems to be OK!",
         "auto_config_zone": "Current DNS zone",
-        "semi_auto_status": {
-          "activable": "Activable",
-          "activated": "Activated",
-          "has_changes": "Has changes",
-          "unavailable": "Unavailable"
-        },
         "methods": {
           "auto": "Automatic",
           "handled_in_parent": "Handled in parent domain",
@@ -188,13 +183,10 @@
       "info": {
         "apps_on_domain": "Apps installed on domain",
         "certificate_authority": "SSL Certification authority",
-        "domain_type": "Domain type",
         "registrar": "Registrar"
       },
       "see_parent_domain": "See parent domain",
       "types": {
-        "parent_domain": "Parent domain",
-        "subdomain": "Subdomain",
         "main_domain": "Main domain"
       },
       "toggle_subdomains": "Toggle subdomains"
@@ -215,8 +207,6 @@
     "domain_dns_push_managed_in_parent_domain": "The automatic DNS records feature is managed in the parent domain <a href='#/domains/{parent_domain}/dns'>{parent_domain}</a>.",
     "domain_dns_push_not_applicable": "The automatic DNS records feature is not applicable to domain {domain},<br> You should manually configure your DNS records following the <a href='https://yunohost.org/dns'>documentation</a> and the suggested configuration below.",
     "domain_name": "Domain name",
-    "domain_visit": "Visit",
-    "domain_visit_url": "Visit {url}",
     "domains": "Domains",
     "download": "Download",
     "enable": "Enable",

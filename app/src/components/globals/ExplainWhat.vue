@@ -4,7 +4,7 @@
     <span class="explain-what-popover-container">
       <b-button
         :id="id" href="#"
-        variant="dark"
+        variant="light"
       >
         <icon iname="question" />
         <span class="sr-only">{{ $t('details_about', { subject: title }) }}</span>
@@ -41,24 +41,14 @@ export default {
 
 <style lang="scss" scoped>
 .explain-what {
-  // cursor: help;
-
-  &-popover-container {
-    position: relative;
-    top: -5px;
-    left: -3px;
-    margin-right: -3px;
-  }
+  line-height: 1.2;
 
   .btn {
     padding: 0;
+    margin-left: .1rem;
     border-radius: 50rem;
-    width: 1rem;
-    height: 1rem;
-    background-color: transparent;
-    color: $dark;
-    line-height: 1.2;
-    border: none;
+    line-height: inherit;
+    font-size: inherit;
   }
 
   &-popover {
