@@ -158,35 +158,6 @@ const routes = [
       }
     ]
   },
-  {
-    // no need for name here, only children are visited
-    path: '/domains/:name/config',
-    component: () => import(/* webpackChunkName: "views/domain/config" */ '@/views/domain/DomainConfig'),
-    props: true,
-    children: [
-      {
-        name: 'domain-config',
-        path: ':tabId?',
-        component: () => import(/* webpackChunkName: "components/configPanel" */ '@/components/ConfigPanel'),
-        props: true,
-        meta: {
-          routerParams: ['name'], // Override router key params to avoid view recreation at tab change.
-          args: { trad: 'config' },
-          breadcrumb: ['domain-list', 'domain-info', 'domain-config']
-        }
-      }
-    ]
-  },
-  {
-    name: 'domain-dns',
-    path: '/domains/:name/dns',
-    component: () => import(/* webpackChunkName: "views/domain/dns" */ '@/views/domain/DomainDns'),
-    props: true,
-    meta: {
-      args: { trad: 'dns' },
-      breadcrumb: ['domain-list', 'domain-info', 'domain-dns']
-    }
-  },
 
   /* ───────╮
    │  APPS  │
