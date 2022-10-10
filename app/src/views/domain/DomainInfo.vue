@@ -1,75 +1,159 @@
 <template>
-  <view-base :queries="queries" skeleton="card-list-skeleton">
-    <card :title="name" icon="globe">
-      <!-- VISIT -->
-      <p>{{ $t('domain_visit_url', { url: 'https://' + name }) }}</p>
-      <b-button variant="success" :href="'https://' + name" target="_blank">
-        <icon iname="external-link" /> {{ $t('domain_visit') }}
-      </b-button>
-      <hr>
+  <view-base
+    :queries="queries" @queries-response="onQueriesResponse"
+    ref="view" skeleton="card-list-skeleton"
+  >
+    <!-- INFO CARD -->
+    <card v-if="domain" :title="name" icon="globe">
+      <template v-if="isMainDomain" #header-next>
+        <b-badge variant="info" class="main-domain-badge">
+          <explain-what
+            id="explain-main-domain"
+            :title="$t('domain.types.main_domain')"
+            :content="$t('domain.explain.main_domain', { domain: name })"
+          >
+            <icon iname="star" /> {{ $t('domain.types.main_domain') }}
+          </explain-what>
+        </b-badge>
+      </template>
 
-      <!-- DEFAULT DOMAIN -->
-      <p>{{ $t('domain_default_desc') }}</p>
-      <p v-if="isMainDomain" class="alert alert-info">
-        <icon iname="star" /> {{ $t('domain_default_longdesc') }}
-      </p>
-      <b-button v-else variant="info" @click="setAsDefaultDomain">
-        <icon iname="star" /> {{ $t('set_default') }}
-      </b-button>
-      <hr>
+      <template #header-buttons>
+        <!-- DEFAULT DOMAIN -->
+        <b-button v-if="!isMainDomain" @click="setAsDefaultDomain" variant="info">
+          <icon iname="star" /> {{ $t('set_default') }}
+        </b-button>
 
-      <!-- DOMAIN CONFIG -->
-      <p>{{ $t('domain.config.edit') }}</p>
-      <b-button variant="warning" :to="{ name: 'domain-config', param: { name } }">
-        <icon iname="cog" /> {{ $t('domain.config.title') }}
-      </b-button>
-      <hr>
+        <!-- DELETE DOMAIN -->
+        <b-button @click="deleteDomain" :disabled="isMainDomain" variant="danger">
+          <icon iname="trash-o" /> {{ $t('delete') }}
+        </b-button>
+      </template>
 
-      <!-- DNS CONFIG -->
-      <p>{{ $t('domain.dns.edit') }}</p>
-      <b-button variant="warning" :to="{ name: 'domain-dns', param: { name } }">
-        <icon iname="globe" /> {{ $t('domain_dns_config') }}
-      </b-button>
-      <hr>
+      <!-- DOMAIN LINK -->
+      <description-row :term="$t('words.link')">
+        <b-link :href="'https://' + name" target="_blank">
+          https://{{ name }}
+        </b-link>
+      </description-row>
 
-      <!-- DELETE -->
-      <p>{{ $t('domain_delete_longdesc') }}</p>
-      <p
-        v-if="isMainDomain" class="alert alert-info"
-        v-html="$t('domain_delete_forbidden_desc', { domain: name })"
-      />
-      <b-button v-else variant="danger" @click="deleteDomain">
-        <icon iname="trash-o" /> {{ $t('delete') }}
-      </b-button>
+      <!-- DOMAIN CERT AUTHORITY -->
+      <description-row :term="$t('domain.info.certificate_authority')">
+        <icon :iname="cert.icon" :variant="cert.variant" class="mr-1" />
+        {{ $t('domain.cert.types.' + cert.authority) }}
+        <span class="text-secondary px-2">({{ $t('domain.cert.valid_for', { days: $tc('day_validity', cert.validity) }) }})</span>
+      </description-row>
+
+      <!-- DOMAIN REGISTRAR -->
+      <description-row v-if="domain.registrar" :term="$t('domain.info.registrar')">
+        <template v-if="domain.registrar === 'parent_domain'">
+          {{ $t('domain.see_parent_domain') }}&nbsp;<b-link :href="`#/domains/${domain.topest_parent}/dns`">
+            {{ domain.topest_parent }}
+          </b-link>
+        </template>
+        <template v-else>
+          {{ domain.registrar }}
+        </template>
+      </description-row>
+
+      <!-- DOMAIN APPS -->
+      <description-row :term="$t('domain.info.apps_on_domain')">
+        <b-button-group
+          v-for="app in domain.apps" :key="app.id"
+          size="sm" class="mr-2"
+        >
+          <b-button class="py-0 font-weight-bold" variant="outline-dark" :to="{ name: 'app-info', params: { id: app.id }}">
+            {{ app.name }}
+          </b-button>
+          <b-button
+            variant="outline-dark" class="py-0 px-1"
+            :href="'https://' + name + app.path" target="_blank"
+          >
+            <span class="sr-only">{{ $t('app.visit_app') }}</span>
+            <icon iname="external-link" />
+          </b-button>
+        </b-button-group>
+
+        {{ domain.apps.length ? '' : $t('words.none') }}
+      </description-row>
     </card>
+
+    <config-panels v-if="config.panels" v-bind="config" @submit="onConfigSubmit">
+      <template v-if="currentTab === 'dns'" #tab-after>
+        <domain-dns :name="name" />
+      </template>
+    </config-panels>
   </view-base>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
 
-import api from '@/api'
+import api, { objectToParams } from '@/api'
+import {
+  formatFormData,
+  formatYunoHostConfigPanels
+} from '@/helpers/yunohostArguments'
+import ConfigPanels from '@/components/ConfigPanels'
+import DomainDns from './DomainDns.vue'
+
 
 export default {
   name: 'DomainInfo',
 
-  props: {
-    name: {
-      type: String,
-      required: true
-    }
+  components: {
+    ConfigPanels,
+    DomainDns
   },
 
-  data: () => {
+  props: {
+    name: { type: String, required: true }
+  },
+
+  data () {
     return {
       queries: [
-        ['GET', { uri: 'domains/main', storeKey: 'main_domain' }]
-      ]
+        ['GET', { uri: 'domains', storeKey: 'domains' }],
+        ['GET', { uri: 'domains/main', storeKey: 'main_domain' }],
+        ['GET', { uri: 'domains', storeKey: 'domains_details', param: this.name }],
+        ['GET', `domains/${this.name}/config?full`]
+      ],
+      config: {}
     }
   },
 
   computed: {
     ...mapGetters(['mainDomain']),
+
+    currentTab () {
+      return this.$route.params.tabId
+    },
+
+    domain () {
+      return this.$store.getters.domain(this.name)
+    },
+
+    parentName () {
+      return this.$store.getters.highestDomainParentName(this.name)
+    },
+
+    cert () {
+      const { CA_type: authority, validity } = this.domain.certificate
+      const baseInfos = { authority, validity }
+      if (validity <= 0) {
+        return { icon: 'times', variant: 'danger', ...baseInfos }
+      } else if (authority === 'other') {
+        return validity < 15
+          ? { icon: 'exclamation', variant: 'danger', ...baseInfos }
+          : { icon: 'check', variant: 'success', ...baseInfos }
+      } else if (authority === 'letsencrypt') {
+        return { icon: 'thumbs-up', variant: 'success', ...baseInfos }
+      }
+      return { icon: 'exclamation', variant: 'warning', ...baseInfos }
+    },
+
+    dns () {
+      return this.domain.dns
+    },
 
     isMainDomain () {
       if (!this.mainDomain) return
@@ -78,6 +162,30 @@ export default {
   },
 
   methods: {
+    onQueriesResponse (domains, mainDomain, domain, config) {
+      this.config = formatYunoHostConfigPanels(config)
+    },
+
+    async onConfigSubmit ({ id, form, action, name }) {
+      const args = await formatFormData(form, { removeEmpty: false, removeNull: true })
+
+      api.put(
+        action
+          ? `domain/${this.name}/actions/${action}`
+          : `domains/${this.name}/config/${id}`,
+        { args: objectToParams(args) },
+        { key: `domains.${action ? 'action' : 'update'}_config`, id, name: this.name }
+      ).then(() => {
+        this.$refs.view.fetchQueries({ triggerLoading: true })
+      }).catch(err => {
+        if (err.name !== 'APIBadRequestError') throw err
+        const panel = this.config.panels.find(panel => panel.id === id)
+        if (err.data.name) {
+          this.config.errors[id][err.data.name].message = err.message
+        } else this.$set(panel, 'serverError', err.message)
+      })
+    },
+
     async deleteDomain () {
       const confirmed = await this.$askConfirmation(this.$i18n.t('confirm_delete', { name: this.name }))
       if (!confirmed) return
@@ -105,3 +213,10 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.main-domain-badge {
+  font-size: .75rem;
+  padding-right: .2em;
+}
+</style>

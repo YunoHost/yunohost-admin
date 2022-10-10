@@ -3,10 +3,16 @@
     :queries="queries" @queries-response="onQueriesResponse" :loading="loading"
     skeleton="card-info-skeleton"
   >
-    <card v-if="showAutoConfigCard" :title="$t('domain.dns.auto_config')" icon="wrench">
-      <b-alert variant="warning">
-        <icon iname="flask" /> <icon iname="warning" /> <span v-html="$t('domain.dns.info')" />
-      </b-alert>
+    <section v-if="showAutoConfigCard" class="panel-section">
+      <b-card-title title-tag="h3">
+        {{ $t('domain.dns.auto_config') }}
+      </b-card-title>
+
+      <read-only-alert-item
+        :label="$t('domain.dns.info')"
+        type="warning"
+        icon="flask"
+      />
 
       <!-- AUTO CONFIG CHANGES -->
       <template v-if="dnsChanges">
@@ -32,27 +38,32 @@
       </template>
 
       <!-- CONFIG OK ALERT -->
-      <b-alert v-else-if="dnsChanges === null" variant="success" class="m-0">
-        <icon iname="thumbs-up" /> {{ $t('domain.dns.auto_config_ok') }}
-      </b-alert>
+      <read-only-alert-item
+        v-else-if="dnsChanges === null"
+        :label="$t('domain.dns.auto_config_ok')"
+        type="success"
+        icon="thumbs-up"
+      />
 
       <!-- CONFIG ERROR ALERT -->
       <template v-if="dnsErrors && dnsErrors.length">
-        <b-alert
+        <read-only-alert-item
           v-for="({ variant, icon, message }, i) in dnsErrors" :key="i"
-          :variant="variant" :class="dnsErrors.length === 1 ? 'm-0' : ''"
-        >
-          <icon :iname="icon" /> <span v-html="message" />
-        </b-alert>
+          :label="message"
+          :type="variant"
+          :icon="icon"
+        />
       </template>
 
       <!-- CONFIG OVERWRITE DISCLAIMER -->
-      <b-alert v-if="force !== null" variant="warning">
-        <icon iname="warning" /> <span v-html="$t('domain.dns.push_force_warning')" />
-      </b-alert>
+      <read-only-alert-item
+        v-if="force !== null"
+        :label="$t('domain.dns.push_force_warning')"
+        type="warning"
+      />
 
       <!-- CONFIG PUSH SUBMIT -->
-      <template v-if="dnsChanges" #buttons>
+      <template v-if="dnsChanges">
         <b-form-checkbox v-if="force !== null" v-model="force">
           {{ $t('domain.dns.push_force') }}
         </b-form-checkbox>
@@ -61,13 +72,14 @@
           {{ $t('domain.dns.push') }}
         </b-button>
       </template>
-    </card>
+    </section>
 
     <!-- CURRENT DNS ZONE -->
-    <card
-      v-if="showAutoConfigCard && dnsZone && dnsZone.length"
-      :title="$t('domain.dns.auto_config_zone')" icon="globe" no-body
-    >
+    <section v-if="showAutoConfigCard && dnsZone && dnsZone.length" class="panel-section">
+      <b-card-title title-tag="h3">
+        {{ $t('domain.dns.auto_config_zone') }}
+      </b-card-title>
+
       <div class="log">
         <div v-for="({ name: record, spaces, content, type }, i) in dnsZone" :key="'zone-' + i" class="records">
           {{ record }}
@@ -75,19 +87,21 @@
           <span>{{ content }}</span>
         </div>
       </div>
-    </card>
+    </section>
 
     <!-- MANUAL CONFIG CARD -->
-    <card
-      v-if="showManualConfigCard"
-      :title="$t('domain.dns.manual_config')" icon="globe" no-body
-    >
-      <b-alert variant="warning" class="m-0">
-        <icon iname="warning" /> {{ $t('domain_dns_conf_is_just_a_recommendation') }}
-      </b-alert>
+    <section v-if="showManualConfigCard" class="panel-section">
+      <b-card-title title-tag="h3">
+        {{ $t('domain.dns.manual_config') }}
+      </b-card-title>
+
+      <read-only-alert-item
+        :label="$t('domain_dns_conf_is_just_a_recommendation')"
+        type="warning"
+      />
 
       <pre class="log">{{ dnsConfig }}</pre>
-    </card>
+    </section>
   </view-base>
 </template>
 

@@ -2,6 +2,7 @@
   <abstract-form
     v-bind="{ id: panel.id + '-form', validation, serverError: panel.serverError }"
     @submit.prevent.stop="onApply"
+    :no-footer="!panel.hasApplyButton"
   >
     <slot name="tab-top" />
 
@@ -13,8 +14,10 @@
 
     <template v-for="section in panel.sections">
       <component
-        v-if="section.visible" :is="section.name ? 'section' : 'div'"
-        :key="section.id" class="mb-5"
+        v-if="section.visible"
+        :is="section.name ? 'section' : 'div'"
+        :key="section.id"
+        class="panel-section"
       >
         <b-card-title v-if="section.name" title-tag="h3">
           {{ section.name }} <small v-if="section.help">{{ section.help }}</small>
@@ -86,6 +89,9 @@ export default {
 <style lang="scss" scoped>
 .card-title {
   margin-bottom: 1em;
-  border-bottom: solid 1px #aaa;
+  border-bottom: solid $border-width $gray-500;
+}
+::v-deep .panel-section:not(:last-child) {
+  margin-bottom: 3rem;
 }
 </style>

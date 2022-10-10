@@ -6,6 +6,7 @@
           <component :is="titleTag" class="custom-header-title">
             <icon v-if="icon" :iname="icon" class="mr-2" />{{ title }}
           </component>
+          <slot name="header-next" />
         </slot>
 
         <div v-if="hasButtons" class="mt-2 w-100 custom-header-buttons" :class="{ [`ml-${buttonUnbreak}-auto mt-${buttonUnbreak}-0 w-${buttonUnbreak}-auto`]: buttonUnbreak }">

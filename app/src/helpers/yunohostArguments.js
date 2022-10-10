@@ -10,6 +10,14 @@ import {
 } from '@/helpers/commons'
 
 
+const NO_VALUE_FIELDS = [
+  'ReadOnlyField',
+  'ReadOnlyAlertItem',
+  'MarkdownItem',
+  'DisplayTextItem',
+  'ButtonItem'
+]
+
 /**
  * Tries to find a translation corresponding to the user's locale/fallback locale in a
  * Yunohost argument or simply return the string if it's not an object literal.
@@ -359,7 +367,7 @@ export function formatYunoHostConfigPanels (data) {
   }
 
   for (const { id: panelId, name, help, sections } of data.panels) {
-    const panel = { id: panelId, sections: [], serverError: '' }
+    const panel = { id: panelId, sections: [], serverError: '', hasApplyButton: false }
     result.forms[panelId] = {}
     result.validations[panelId] = {}
     result.errors[panelId] = {}
@@ -391,6 +399,10 @@ export function formatYunoHostConfigPanels (data) {
       Object.assign(result.errors[panelId], errors)
       section.fields = fields
       panel.sections.push(section)
+
+      if (!section.isActionSection && Object.values(fields).some((field) => !NO_VALUE_FIELDS.includes(field.is))) {
+        panel.hasApplyButton = true
+      }
     }
 
     result.panels.push(panel)
