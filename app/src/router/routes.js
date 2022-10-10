@@ -326,15 +326,6 @@ const routes = [
     }
   },
   {
-    name: 'tool-adminpw',
-    path: '/tools/adminpw',
-    component: () => import(/* webpackChunkName: "views/tools/adminpw" */ '@/views/tool/ToolAdminpw'),
-    meta: {
-      args: { trad: 'tools_adminpw' },
-      breadcrumb: ['tool-list', 'tool-adminpw']
-    }
-  },
-  {
     name: 'tool-webadmin',
     path: '/tools/webadmin',
     component: () => import(/* webpackChunkName: "views/tools/webadmin" */ '@/views/tool/ToolWebadmin'),

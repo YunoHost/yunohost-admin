@@ -145,7 +145,7 @@ export function formatYunoHostArgument (arg) {
       props: defaultProps.concat(['type', 'autocomplete', 'trim']),
       callback: function () {
         if (!arg.help) {
-          arg.help = 'good_practices_about_admin_password'
+          arg.help = i18n.t('good_practices_about_admin_password')
         }
         arg.example = '••••••••••••'
         validation.passwordLenght = validators.minLength(8)
