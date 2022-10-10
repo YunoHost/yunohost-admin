@@ -8,26 +8,9 @@
       <!-- USERNAME (disabled) -->
       <form-field v-bind="fields.username" />
 
-      <!-- USER FULLNAME (FIXME quite a mess, but will be removed)-->
-      <form-field v-bind="fields.fullname" :validation="$v.form.fullname">
-        <template #default="{ self }">
-          <b-input-group>
-            <template v-for="name_ in ['firstname', 'lastname']">
-              <b-input-group-prepend :key="name_ + 'prepend'">
-                <b-input-group-text :id="name_ + '-label'" tag="label">
-                  {{ self[name_].label }}
-                </b-input-group-text>
-              </b-input-group-prepend>
+      <!-- USER FULLNAME -->
+      <form-field v-bind="fields.fullname" v-model="form.fullname" :validation="$v.form.fullname" />
 
-              <input-item
-                v-bind="self[name_]" v-model.trim="form.fullname[name_]" :key="name_ + 'input'"
-                :name="self[name_].id" :aria-labelledby="name_ + '-label'"
-                :state="$v.form.fullname[name_].$invalid && $v.form.fullname.$anyDirty ? false : null"
-              />
-            </template>
-          </b-input-group>
-        </template>
-      </form-field>
       <hr>
 
       <!-- USER EMAIL -->
@@ -137,7 +120,7 @@ export default {
       ],
 
       form: {
-        fullname: { firstname: '', lastname: '' },
+        fullname: '',
         mail: { localPart: '', separator: '@', domain: '' },
         mailbox_quota: '',
         mail_aliases: [],
@@ -157,18 +140,9 @@ export default {
 
         fullname: {
           label: this.$i18n.t('user_fullname'),
-          id: 'fullname',
           props: {
-            firstname: {
-              id: 'firstname',
-              label: this.$i18n.t('common.firstname'),
-              placeholder: this.$i18n.t('placeholder.firstname')
-            },
-            lastname: {
-              id: 'lastname',
-              label: this.$i18n.t('common.lastname'),
-              placeholder: this.$i18n.t('placeholder.lastname')
-            }
+            id: 'fullname',
+            placeholder: this.$i18n.t('placeholder.fullname')
           }
         },
 
@@ -220,10 +194,7 @@ export default {
 
   validations: {
     form: {
-      fullname: {
-        firstname: { required, name },
-        lastname: { required, name }
-      },
+      fullname: { required, name },
       mail: {
         localPart: { required, email: emailLocalPart }
       },
@@ -246,11 +217,7 @@ export default {
       this.fields.mail.props.choices = this.domainsAsChoices
       this.fields.mail_aliases.props.choices = this.domainsAsChoices
 
-      this.form.fullname = {
-        // Copy value to avoid refering to the stored user data
-        firstname: user.firstname.valueOf(),
-        lastname: user.lastname.valueOf()
-      }
+      this.form.fullname = user.fullname
       this.form.mail = adressToFormValue(user.mail)
       if (user['mail-aliases']) {
         this.form.mail_aliases = user['mail-aliases'].map(mail => adressToFormValue(mail))
@@ -334,10 +301,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#lastname-label {
-  border-left: 0;
-}
-
 .mail-list {
   display: flex;
   justify-items: stretch;

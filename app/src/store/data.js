@@ -79,12 +79,11 @@ export default {
       Vue.set(state.users_details, username, userData)
       if (!state.users) return
       const user = state.users[username]
-      for (const key of ['firstname', 'lastname', 'mail']) {
+      for (const key of ['fullname', 'mail']) {
         if (user[key] !== userData[key]) {
           Vue.set(user, key, userData[key])
         }
       }
-      Vue.set(user, 'fullname', `${userData.firstname} ${userData.lastname}`)
     },
 
     'UPDATE_USERS_DETAILS' (state, payload) {

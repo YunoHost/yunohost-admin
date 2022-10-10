@@ -356,9 +356,10 @@
     "path": "Path",
     "perform": "Perform",
     "placeholder": {
-        "username": "johndoe",
-        "firstname": "John",
-        "lastname": "Doe",
+        "username": "samsmith",
+        "fullname": "Sam Smith",
+        "firstname": "Sam",
+        "lastname": "Smith",
         "groupname": "My group name",
         "domain": "my-domain.com",
         "file": "Browse a file or drag and drop it"
