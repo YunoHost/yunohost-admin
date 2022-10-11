@@ -70,27 +70,28 @@
             <b-card-title class="d-flex mb-2">
               {{ app.manifest.name }}
 
-              <small v-if="app.state !== 'working'" class="d-flex align-items-center ml-2">
+              <small v-if="app.state !== 'working' || app.high_quality" class="d-flex align-items-center ml-2">
                 <b-badge
-                  v-if="app.state !== 'highquality'"
-                  :variant="(app.color === 'danger' && app.state === 'lowquality') ? 'warning' : app.color"
+                  v-if="app.state !== 'working'"
+                  :variant="app.color"
                   v-b-popover.hover.bottom="$t(`app_state_${app.state}_explanation`)"
                 >
+                  <!-- app.state can be 'lowquality' or 'inprogress' -->
                   {{ $t('app_state_' + app.state) }}
                 </b-badge>
 
                 <icon
-                  v-else iname="star" class="star"
-                  v-b-popover.hover.bottom="$t(`app_state_${app.state}_explanation`)"
+                  v-if="app.high_quality" iname="star" class="star"
+                  v-b-popover.hover.bottom="$t(`app_state_highquality_explanation`)"
                 />
               </small>
             </b-card-title>
 
             <b-card-text>{{ app.manifest.description }}</b-card-text>
 
-            <b-card-text v-if="app.maintained === 'orphaned'" class="align-self-end mt-auto">
+            <b-card-text v-if="!app.maintained" class="align-self-end mt-auto">
               <span class="alert-warning p-1" v-b-popover.hover.top="$t('orphaned_details')">
-                <icon iname="warning" /> {{ $t(app.maintained) }}
+                <icon iname="warning" /> {{ $t('orphaned') }}
               </span>
             </b-card-text>
           </b-card-body>
@@ -182,9 +183,9 @@ export default {
 
       // Filtering options
       qualityOptions: [
-        { value: 'isHighQuality', text: this.$i18n.t('only_highquality_apps') },
-        { value: 'isDecentQuality', text: this.$i18n.t('only_decent_quality_apps') },
-        { value: 'isWorking', text: this.$i18n.t('only_working_apps') },
+        { value: 'high_quality', text: this.$i18n.t('only_highquality_apps') },
+        { value: 'decent_quality', text: this.$i18n.t('only_decent_quality_apps') },
+        { value: 'working', text: this.$i18n.t('only_working_apps') },
         { value: 'all', text: this.$i18n.t('all_apps') }
       ],
       categories: [
@@ -197,7 +198,7 @@ export default {
       search: '',
       category: null,
       subtag: 'all',
-      quality: 'isDecentQuality',
+      quality: 'decent_quality',
 
       // Custom install form
       customInstall: {
@@ -264,51 +265,26 @@ export default {
   },
 
   methods: {
-    formatQuality (app) {
-      const filters = {
-        isHighQuality: false,
-        isDecentQuality: false,
-        isWorking: false,
-        state: 'inprogress'
-      }
-      if (app.state === 'inprogress') return filters
-      if (app.state === 'working' && app.level > 0) {
-        filters.state = 'working'
-        filters.isWorking = true
-      }
-      if (app.level <= 4 || app.level === '?') {
-        filters.state = 'lowquality'
-        return filters
-      } else {
-        filters.isDecentQuality = true
-      }
-      if (app.level >= 8) {
-        filters.state = 'highquality'
-        filters.isHighQuality = true
-      }
-      return filters
-    },
-
-    formatColor (app) {
-      if (app.isDecentQuality || app.isHighQuality) return 'success'
-      if (app.isWorking) return 'warning'
-      return 'danger'
-    },
-
     onQueriesResponse (data) {
-      // APPS
       const apps = []
       for (const key in data.apps) {
         const app = data.apps[key]
-        if (app.state === 'notworking') continue
-
-        Object.assign(app, this.formatQuality(app))
-        app.isInstallable = !app.installed || app.manifest.multi_instance
-        if (app.maintained !== 'request_adoption') {
-          app.maintained = app.maintained ? 'maintained' : 'orphaned'
+        app.isInstallable = !app.installed || app.manifest.integration.multi_instance
+        app.working = app.state === 'working'
+        app.decent_quality = app.working && app.level > 4
+        app.color = app.high_quality || app.level > 4
+          ? 'success'
+          : app.working ? 'warning' : 'danger'
+        if (app.working && app.level <= 4) {
+          app.state = 'lowquality'
         }
-        app.color = this.formatColor(app)
-        app.searchValues = [app.id, app.state, app.manifest.name.toLowerCase(), app.manifest.description.toLowerCase()].join(' ')
+        app.searchValues = [
+          app.id,
+          app.state,
+          app.manifest.name,
+          app.manifest.description,
+          app.potential_alternative_to.join(' ')
+        ].join(' ').toLowerCase()
         apps.push(app)
       }
       this.apps = apps.sort((a, b) => a.id > b.id ? 1 : -1)
@@ -328,10 +304,8 @@ export default {
 
     // INSTALL APP
     async onInstallClick (app) {
-      if (!app.isDecentQuality) {
-        // Ask for confirmation
-        const state = app.color === 'danger' ? 'inprogress' : app.state
-        const confirmed = await this.$askConfirmation(this.$i18n.t('confirm_install_app_' + state))
+      if (!app.decent_quality) {
+        const confirmed = await this.$askConfirmation(this.$i18n.t('confirm_install_app_' + app.state))
         if (!confirmed) return
       }
       this.$router.push({ name: 'app-install', params: { id: app.id } })
