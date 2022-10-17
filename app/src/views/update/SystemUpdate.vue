@@ -4,8 +4,13 @@
     skeleton="card-list-skeleton"
   >
     <!-- MIGRATIONS WARN -->
-    <b-alert variant="warning" :show="migrationsNotDone">
+    <b-alert variant="warning" :show="pendingMigrations">
       <icon iname="exclamation-triangle" /> <span v-html="$t('pending_migrations')" />
+    </b-alert>
+
+    <!-- MAJOR YUNOHOST UPGRADE WARN -->
+    <b-alert variant="warning" :show="importantYunohostUpgrade">
+      <icon iname="exclamation-triangle" /> <span v-html="$t('important_yunohost_upgrade')" />
     </b-alert>
 
     <!-- SYSTEM UPGRADE -->
@@ -14,7 +19,7 @@
         <b-list-group-item v-for="{ name, current_version, new_version } in system" :key="name">
           <h5 class="m-0">
             {{ name }}
-            <small>({{ $t('from_to', [current_version, new_version]) }})</small>
+            <small class="text-secondary">({{ $t('from_to', [current_version, new_version]) }})</small>
           </h5>
         </b-list-group-item>
       </b-list-group>
@@ -73,21 +78,24 @@ export default {
   data () {
     return {
       queries: [
-        ['GET', 'migrations?pending'],
         ['PUT', 'update/all', {}, 'update']
       ],
       // API data
-      migrationsNotDone: undefined,
       system: undefined,
-      apps: undefined
+      apps: undefined,
+      importantYunohostUpgrade: undefined,
+      pendingMigrations: undefined
     }
   },
 
   methods: {
-    onQueriesResponse ({ migrations }, { apps, system }) {
-      this.migrationsNotDone = migrations.length !== 0
+    // eslint-disable-next-line camelcase
+    onQueriesResponse ({ apps, system, important_yunohost_upgrade, pending_migrations }) {
       this.apps = apps.length ? apps : null
       this.system = system.length ? system : null
+      // eslint-disable-next-line camelcase
+      this.importantYunohostUpgrade = important_yunohost_upgrade
+      this.pendingMigrations = pending_migrations.length !== 0
     },
 
     async performUpgrade ({ type, id = null }) {

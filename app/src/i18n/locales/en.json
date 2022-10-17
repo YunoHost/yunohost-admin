@@ -265,6 +265,7 @@
     "id": "ID",
     "ignore": "Ignore",
     "ignored": "{count} ignored",
+    "important_yunohost_upgrade": "A major YunoHost upgrade is available. It is heavily recommended to carefully read the release note(s) on the forum before upgrading : <a href='https://forum.yunohost.org/tag/ynh_release'>Browse the release notes on the forum</a>",
     "infos": "Info",
     "install": "Install",
     "install_name": "Install {id}",
