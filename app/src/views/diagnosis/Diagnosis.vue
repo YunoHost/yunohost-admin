@@ -19,8 +19,6 @@
           <icon iname="stethoscope" /> {{ $t('run_first_diagnosis') }}
         </b-button>
       </div>
-
-      <div v-t="'diagnosis_experimental_disclaimer'" class="alert alert-warning mb-5" />
     </template>
 
     <!-- REPORT CARD -->
