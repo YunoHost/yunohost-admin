@@ -1,3 +1,12 @@
+yunohost-admin (11.0.11) stable; urgency=low
+
+  - [upgrades] Add a note to encourage people to check the release note on the forum when there's a major yunohost upgrade before yoloupgrading (f7d7bcec)
+  - [i18n] Translations updated for Arabic, Basque, Chinese (Simplified), French, Occitan, Slovak, Swedish, Turkish
+
+  Thanks to all contributors <3 ! (ButterflyOfFire, Jose Riha, marty hiatt, ppr, Quentí, Sedat Albayrak, Tomas, tonyleelyy, xabirequejo)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Mon, 17 Oct 2022 16:51:48 +0200
+
 yunohost-admin (11.0.10) stable; urgency=low
 
   - [fix] App install was broken when there's choices and the type is string ([#460](https://github.com/YunoHost/yunohost-admin/pull/460))
