@@ -270,12 +270,18 @@ export default {
       for (const key in data.apps) {
         const app = data.apps[key]
         app.isInstallable = !app.installed || app.manifest.integration.multi_instance
-        app.working = app.state === 'working' && app.level > 0
+        app.working = app.state === 'working'
         app.decent_quality = app.working && app.level > 4
         app.high_quality = app.working && app.level >= 8
-        app.color = app.decent_quality ? 'success' : app.working ? 'warning' : 'danger'
-        if (app.working && app.level <= 4) {
+        app.color = 'danger'
+        if (app.working && app.level <= 0) {
+          app.state = 'broken'
+          app.color = 'danger'
+        } else if (app.working && app.level <= 4) {
           app.state = 'lowquality'
+          app.color = 'warning'
+        } else if (app.working) {
+          app.color = 'success'
         }
         app.searchValues = [
           app.id,
