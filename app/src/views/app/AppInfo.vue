@@ -134,6 +134,16 @@
         <hr>
       </template>
 
+      <!-- FORCE UPGRADE -->
+      <b-form-group
+        :label="$t('app_info_force_upgrade_desc')" label-for="force-upgrade"
+        label-class="font-weight-bold" label-cols-md="4"
+      >
+        <b-button @click="performForceUpgrade" id="force-upgrade" variant="warning">
+          <icon iname="refresh" /> {{ $t('force_upgrade') }}
+        </b-button>
+      </b-form-group>
+
       <!-- UNINSTALL -->
       <b-form-group
         :label="$t('app_info_uninstall_desc')" label-for="uninstall"
@@ -297,6 +307,16 @@ export default {
         `apps/${this.id}/default${undo ? '?undo' : ''}`,
         {},
         { key: 'apps.set_default', name: this.infos.label, domain: this.app.domain }
+      ).then(this.$refs.view.fetchQueries)
+    },
+
+    async performForceUpgrade () {
+      const confirmed = await this.$askConfirmation(
+        this.$i18n.t('confirm_force_upgrade', { name: this.id })
+      )
+      if (!confirmed) return
+
+      api.put('apps/' + this.id + '/upgrade', { key: 'upgrade.' + this.id, app: this.id, force: true }
       ).then(this.$refs.view.fetchQueries)
     },
 
