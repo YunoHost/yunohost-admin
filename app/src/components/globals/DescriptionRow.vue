@@ -35,7 +35,7 @@ export default {
 <style lang="scss" scoped>
 .description-row {
   @include media-breakpoint-up(md) {
-    margin: .5rem 0;
+    margin: .25rem 0;
     &:hover {
       background-color: rgba(0, 0, 0, 0.05);
       border-radius: 0.2rem;
