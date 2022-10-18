@@ -68,25 +68,8 @@ export default {
         return
       }
 
-      const multiInstances = {}
-      this.apps = apps.map(({ id, name, description, permissions, manifest }) => {
-        // FIXME seems like some apps may no have a label (replace with id)
-        const label = permissions[id + '.main'].label
-        // Display the `id` of the instead of its `name` if multiple apps share the same name
-        if (manifest.multi_instance) {
-          if (!(name in multiInstances)) {
-            multiInstances[name] = []
-          }
-          const labels = multiInstances[name]
-          if (labels.includes(label)) {
-            name = id
-          }
-          labels.push(label)
-        }
-        if (label === name) {
-          name = null
-        }
-        return { id, name, description, label }
+      this.apps = apps.map(({ id, name, description, manifest }) => {
+        return { id, name: manifest.name, label: name, description }
       }).sort((prev, app) => {
         return prev.label > app.label ? 1 : -1
       })
