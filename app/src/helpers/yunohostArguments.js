@@ -166,7 +166,7 @@ export function formatYunoHostArgument (arg) {
       }
     },
     {
-      types: ['select', 'user', 'domain', 'app'],
+      types: ['select', 'user', 'domain', 'app', 'group'],
       name: 'SelectItem',
       props: ['id:name', 'choices'],
       callback: function () {

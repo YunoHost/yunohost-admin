@@ -3,18 +3,10 @@
     <template v-if="infos">
       <!-- BASIC INFOS -->
       <card :title="name" icon="download">
-        <b-row
+        <description-row
           v-for="(info, key) in infos" :key="key"
-          no-gutters class="row-line"
-        >
-          <b-col cols="5" md="3" xl="3">
-            <strong>{{ $t(key) }}</strong>
-            <span class="sep" />
-          </b-col>
-          <b-col>
-            <span>{{ info }}</span>
-          </b-col>
-        </b-row>
+          :term="$t(key)" :details="info"
+        />
       </card>
 
       <!-- INSTALL FORM -->
@@ -70,7 +62,6 @@ export default {
       ],
       name: undefined,
       infos: undefined,
-      formDisclaimer: null,
       form: undefined,
       fields: undefined,
       validations: null,
@@ -87,18 +78,20 @@ export default {
     onQueriesResponse (manifest) {
       this.name = manifest.name
       const infosKeys = ['id', 'description', 'license', 'version', 'multi_instance']
+      manifest.license = manifest.upstream.license
       if (manifest.license === undefined || manifest.license === 'free') {
         infosKeys.splice(2, 1)
       }
       manifest.description = formatI18nField(manifest.description)
-      manifest.multi_instance = this.$i18n.t(manifest.multi_instance ? 'yes' : 'no')
+      manifest.multi_instance = this.$i18n.t(manifest.integration.multi_instance ? 'yes' : 'no')
       this.infos = Object.fromEntries(infosKeys.map(key => [key, manifest[key]]))
 
       // FIXME yunohost should add the label field by default
-      manifest.arguments.install.unshift({
+      manifest.install.unshift({
         ask: this.$t('label_for_manifestname', { name: manifest.name }),
         default: manifest.name,
-        name: 'label'
+        name: 'label',
+        help: this.$t('label_for_manifestname_help')
       })
 
       const {
@@ -106,7 +99,7 @@ export default {
         fields,
         validations,
         errors
-      } = formatYunoHostArguments(manifest.arguments.install)
+      } = formatYunoHostArguments(manifest.install)
 
       this.fields = fields
       this.form = form

@@ -211,16 +211,6 @@ const routes = [
     }
   },
   {
-    name: 'app-actions',
-    path: '/apps/:id/actions',
-    component: () => import(/* webpackChunkName: "views/apps/actions" */ '@/views/app/AppActions'),
-    props: true,
-    meta: {
-      args: { trad: 'app_actions' },
-      breadcrumb: ['app-list', 'app-info', 'app-actions']
-    }
-  },
-  {
     // no need for name here, only children are visited
     path: '/apps/:id/config-panel',
     component: () => import(/* webpackChunkName: "views/apps/config" */ '@/views/app/AppConfigPanel'),
