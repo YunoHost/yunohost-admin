@@ -134,19 +134,6 @@
       </b-form-group>
     </card>
 
-    <!-- EXPERIMENTAL (displayed if experimental feature has been enabled in web-admin options)-->
-    <card v-if="experimental" :title="$t('experimental')" icon="flask">
-      <!-- APP ACTIONS -->
-      <b-form-group
-        :label="$t('app_actions_label')" label-for="actions"
-        label-cols-md="4" label-class="font-weight-bold"
-      >
-        <b-button id="actions" variant="warning" :to="{ name: 'app-actions', params: { id } }">
-          <icon iname="flask" /> {{ $t('app_actions') }}
-        </b-button>
-      </b-form-group>
-    </card>
-
     <template #skeleton>
       <card-info-skeleton :item-count="8" />
       <card-form-skeleton />
@@ -184,7 +171,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['domains', 'experimental']),
+    ...mapGetters(['domains']),
 
     allowedGroups () {
       if (!this.app) return
