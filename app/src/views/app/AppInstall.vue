@@ -90,7 +90,8 @@ export default {
       manifest.install.unshift({
         ask: this.$t('label_for_manifestname', { name: manifest.name }),
         default: manifest.name,
-        name: 'label'
+        name: 'label',
+        help: this.$t('label_for_manifestname_help')
       })
 
       const {
