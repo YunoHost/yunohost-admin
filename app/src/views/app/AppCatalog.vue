@@ -270,11 +270,10 @@ export default {
       for (const key in data.apps) {
         const app = data.apps[key]
         app.isInstallable = !app.installed || app.manifest.integration.multi_instance
-        app.working = app.state === 'working'
+        app.working = app.state === 'working' && app.level > 0
         app.decent_quality = app.working && app.level > 4
-        app.color = app.high_quality || app.level > 4
-          ? 'success'
-          : app.working ? 'warning' : 'danger'
+        app.high_quality = app.working && app.level >= 8
+        app.color = app.decent_quality ? 'success' : app.working ? 'warning' : 'danger'
         if (app.working && app.level <= 4) {
           app.state = 'lowquality'
         }
