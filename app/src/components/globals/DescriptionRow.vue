@@ -54,6 +54,7 @@ export default {
 
   .col {
     display: flex;
+    align-self: start;
   }
 }
 </style>
