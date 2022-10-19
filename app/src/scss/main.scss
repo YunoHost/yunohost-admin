@@ -16,6 +16,97 @@
 @import '~fork-awesome/scss/fork-awesome.scss';
 
 
+:root {
+  --background-color: #ffffff;
+  --background-color-secondary: #fafbfc;
+  --border-color: #c5d9e8;
+  --font-color: #333;
+  --font-color-secondary: #3f536e;
+
+  --black: #2c405a;
+  --blue: #0079c4;
+  --green: #81c926;
+  --grey: #8eacc5;
+  --orange: #fd7b1f;
+  --purple: #ab7ef6;
+  --red: #e0102b;
+  --turquoise: #26c1c9;
+  --white: #ffffff;
+  --yellow: #faca00;
+
+  --active: #0079c4;
+  --description: #8eacc5;
+  --error: #e0102b;
+  --normal: #c5d9e8;
+  --info: #0079c4;
+  --success: #81c926;
+  --warning: #ffc107;
+}
+
+[dark-theme="true"] {
+  /* Variables for dark mode */
+  --background-color: #202025;
+  --background-color-secondary: #273142;
+  --border-color: #313d4f;
+  --font-color: #ffffff;
+  --font-color-secondary: #a9c7df;
+
+  --black: #25374f;
+  --blue: #0093ee;
+  --green: #96bf47;
+  --grey: #a9c7df;
+  --orange: #ffb610;
+  --purple: #ab7ef6;
+  --red: #e0102b;
+  --turquoise: #26c1c9;
+  --white: #ffffff;
+  --yellow: #ffc02a;
+
+  --active: #0093ee;
+  --description: #8eacc5;
+  --error: #e0102b;
+  --normal: #313d4f;
+  --info: #0093ee;
+  --success: #96bf47;
+  --warning: #ffc02a;
+}
+
+//
+// FIXME : these five blocks are probably not well-written and are not just "variable declarations" ;/
+// probably to be refactored ...
+//
+[dark-theme="true"] .alert-success {
+    color: #4dd0af;
+    background-color: #005e46;
+    border: var(--border-color);
+}
+
+[dark-theme="true"] .alert-info {
+    color: #5dbecd;
+    background-color: #0c515c;
+    border: var(--border-color);
+}
+
+[dark-theme="true"] .alert-warning {
+    color: #f7ba59;
+    background-color: #7a4e09;
+    border: var(--border-color);
+}
+
+[dark-theme="true"] .alert-danger {
+    color: #ee8277;
+    background-color: #74261e;
+    border: var(--border-color);
+}
+
+[dark-theme="true"] .btn-outline-dark {
+    color: var(--font-color-secondary);
+    border-color: var(--border-color);
+}
+//
+// END FIXME
+//
+
 // Style overrides happens after dependencies imports
 
 html {
