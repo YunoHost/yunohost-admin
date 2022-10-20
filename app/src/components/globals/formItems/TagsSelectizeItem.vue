@@ -150,7 +150,7 @@ export default {
     padding-top: .5rem;
     position: sticky;
     top: 0;
-    background-color: white;
+    background-color: $white;
   }
 }
 </style>

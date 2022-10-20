@@ -37,7 +37,7 @@ export default {
   @include media-breakpoint-up(md) {
     margin: .25rem 0;
     &:hover {
-      background-color: rgba(0, 0, 0, 0.05);
+      background-color: rgba($black, 0.05);
       border-radius: 0.2rem;
     }
   }

@@ -178,7 +178,7 @@ body {
 .row-line {
   @include media-breakpoint-up(md) {
     &:hover {
-      background-color: rgba(0, 0, 0, 0.05);
+      background-color: rgba($black, 0.05);
       border-radius: 0.2rem;
     }
   }

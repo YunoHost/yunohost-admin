@@ -39,12 +39,8 @@ export default {
     @each $color, $value in $theme-colors {
       &.#{$color} {
         background-color: $value;
-        color: $white;
+        color: color-yiq($value);
       }
-    }
-
-    &.warning {
-      color: $black;
     }
   }
 }
