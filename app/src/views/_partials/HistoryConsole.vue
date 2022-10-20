@@ -4,7 +4,7 @@
     <b-card-header
       role="button" tabindex="0"
       :aria-expanded="open ? 'true' : 'false'" aria-controls="console-collapse"
-      header-tag="header" :header-bg-variant="open ? 'best' : ''"
+      header-tag="header" :header-bg-variant="open ? 'best' : 'white'"
       :class="{ 'text-white': open }"
       class="d-flex align-items-center"
       @mousedown.left.prevent="onHistoryBarClick"
@@ -43,7 +43,7 @@
           no-body class="rounded-0 rounded-top border-left-0 border-right-0"
         >
           <!-- ACTION -->
-          <b-card-header header-tag="header" class="sticky-top d-flex">
+          <b-card-header header-tag="header" header-bg-variant="white" class="sticky-top d-flex">
             <!-- ACTION DESC -->
             <query-header
               role="tab" v-b-toggle="action.messages.length ? 'messages-collapse-' + i : false"

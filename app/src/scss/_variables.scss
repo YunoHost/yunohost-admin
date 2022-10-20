@@ -67,18 +67,11 @@ $list-group-item-padding-x: 1rem;
 @import '~bootstrap-vue/src/variables';
 
 
-$body-color: var(--font-color);
+$body-color: $gray-800;
 
-$hr-border-color: var(--border-color);
+$hr-border-color: $gray-200;
 
-$list-group-action-color: var(--font-color);
-$list-group-action-color-secondary: var(--font-color-secondary);
-
-$background-color-primary: var(--background-color);
-
-$background-color-secondary: var(--background-color-secondary);
-
-$card-border-color: var(--border-color);
+$list-group-action-color: $gray-800;
 
 //  ╭──────────────────────────────────────╮
 //  │ ┌─╴╭─╮┌─╮╷ ╭   ╭─┐╷╷╷┌─╴╭─╴╭─╮╭╮╮┌─╴ │

@@ -5,7 +5,7 @@
 
     <b-card-footer footer-bg-variant="warning">
       <b-button
-        size="sm"
+        variant="light" size="sm"
         v-t="'ok'" @click="dismiss"
       />
     </b-card-footer>

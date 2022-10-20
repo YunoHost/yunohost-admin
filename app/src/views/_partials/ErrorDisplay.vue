@@ -42,7 +42,7 @@
     <b-card-footer footer-bg-variant="danger">
       <!-- TODO add copy error ? -->
       <b-button
-        size="sm"
+        variant="light" size="sm"
         v-t="'ok'" @click="dismiss"
       />
     </b-card-footer>

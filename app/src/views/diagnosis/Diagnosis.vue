@@ -134,6 +134,7 @@ export default {
         icon = 'info-circle'
       } else if (item.ignored) {
         icon = status !== 'error' ? status : 'times'
+        item.variant = 'light'
         report.ignoreds++
       } else if (status === 'warning') {
         icon = status

@@ -63,7 +63,7 @@
         </b-card-body>
 
         <template #buttons>
-          <b-button size="sm" @click="performPostInstall(true)">
+          <b-button variant="light" size="sm" @click="performPostInstall(true)">
             <icon iname="warning" /> {{ $t('postinstall.force') }}
           </b-button>
         </template>

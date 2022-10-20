@@ -71,42 +71,6 @@
   --warning: #ffc02a;
 }
 
-//
-// FIXME : these five blocks are probably not well-written and are not just "variable declarations" ;/
-// probably to be refactored ...
-//
-[dark-theme="true"] .alert-success {
-    color: #4dd0af;
-    background-color: #005e46;
-    border: var(--border-color);
-}
-
-[dark-theme="true"] .alert-info {
-    color: #5dbecd;
-    background-color: #0c515c;
-    border: var(--border-color);
-}
-
-[dark-theme="true"] .alert-warning {
-    color: #f7ba59;
-    background-color: #7a4e09;
-    border: var(--border-color);
-}
-
-[dark-theme="true"] .alert-danger {
-    color: #ee8277;
-    background-color: #74261e;
-    border: var(--border-color);
-}
-
-[dark-theme="true"] .btn-outline-dark {
-    color: var(--font-color-secondary);
-    border-color: var(--border-color);
-}
-//
-// END FIXME
-//
-
 // Style overrides happens after dependencies imports
 
 html {
@@ -116,43 +80,18 @@ body {
   overflow-x: hidden;
   min-height: 100vh;
   margin: 0;
-  background-color: $background-color-primary;
 }
 
 #app {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background-color: $background-color-primary;
 }
 
 .menu-list .list-group-item {
   padding: $list-group-item-padding-y 0;
   display: flex;
   align-items: center;
-  background-color: $background-color-primary;
-  color: $list-group-action-color;
-}
-
-.list-group-item {
-  border-color: var(--border-color);
-}
-
-.list-group-item:hover {
-  background-color: $background-color-secondary;
-  color: var(--font-color-secondary);
-}
-
-.text-secondary {
-  color: var(--font-color-secondary) !important;
-}
-
-.form-control {
-  background-color: $background-color-secondary;
-}
-
-.form-control:focus {
-  background-color: $background-color-secondary;
 }
 
 
@@ -218,19 +157,17 @@ body {
   h1, h2, h3, h4, h5, h6 {
     margin: 0;
   }
-  background-color: $background-color-primary;
 }
 
 .card-header, .list-group-item {
   h1, h2, h3, h4, h5, h6 {
     font-weight: $font-weight-normal;
   }
-  background-color: $background-color-primary;
 }
 
 h3.card-title {
   margin-bottom: 1em;
-  border-bottom: solid 1px #aaa;
+  border-bottom: solid 1px $hr-border-color;
 }
 
 // collapse icon
@@ -301,15 +238,14 @@ h3.card-title {
 }
 
 code {
-  background: var(--background-color-secondary);
+  background: $light;
 }
 
 .log {
   margin-bottom: 0;
   padding: 1rem;
-  background-color: var(--background-color-secondary);
+  background-color: $light;
   overflow: auto;
-  color: var(--font-color)
 }
 
 .unselectable {
@@ -319,41 +255,3 @@ code {
   -ms-user-select: none;
   user-select: none;
 }
-
-/*
-.badge-success, .alert-success {
-  background-color: var(--success);
-  border-color: var(--border-color);
-}
-
-.badge-info, .alert-info {
-  background-color: var(--info);
-  border-color: var(--border-color);
-}
-
-.badge-warning, .alert-warning  {
-  background-color: var(--warning);
-  border-color: var(--border-color);
-}
-
-.badge-danger, .alert-danger {
-  background-color: var(--error);
-  border-color: var(--border-color);
-}
-
-.list-group-item-success {
-  color: var(--success);
-}
-
-.list-group-item-info {
-  color: var(--info);
-}
-
-.list-group-item-warning {
-  color: var(--warning);
-}
-
-.list-group-item-danger {
-  color: var(--error);
-}
-*/

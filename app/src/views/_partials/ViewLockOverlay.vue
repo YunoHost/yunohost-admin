@@ -1,6 +1,6 @@
 <template>
   <b-overlay
-    variant="" opacity="0.75"
+    variant="white" opacity="0.75"
     no-center
     :show="waiting || reconnecting || error !== null"
   >
@@ -8,7 +8,7 @@
 
     <template v-slot:overlay>
       <b-card no-body class="card-overlay">
-        <b-card-header>
+        <b-card-header header-bg-variant="white">
           <query-header :request="error || currentRequest" status-size="lg" />
         </b-card-header>
 

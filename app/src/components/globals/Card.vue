@@ -79,7 +79,6 @@ export default {
     .btn + .btn {
       margin-left: .5rem;
     }
-    background-color: $background-color-primary !important;
   }
 }
 
