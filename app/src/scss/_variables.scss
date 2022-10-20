@@ -62,6 +62,7 @@ $list-group-item-padding-x: 1rem;
 
 // Import default variables after the above setup to compute all other variables.
 @import '~bootstrap/scss/functions.scss';
+@import '_functions-override.scss';
 @import '~bootstrap/scss/variables';
 @import '~bootstrap/scss/mixins.scss';
 @import '~bootstrap-vue/src/variables';
