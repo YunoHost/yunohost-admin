@@ -90,6 +90,13 @@
   // Overwrite list-group-item variants to lighter ones (used in diagnosis for example)
   @each $color, $value in $theme-colors {
     @include list-group-item-variant($color, theme-color-level($color, $list-group-item-bg-level), theme-color-level($color, $list-group-item-color-level));
+
+    .btn-#{$color} {
+      &:focus,
+      &.focus {
+        box-shadow: 0 0 0 $btn-focus-width rgba($value, .3);
+      }
+    }
   }
 }
 
@@ -123,13 +130,6 @@
 
     .alert-#{$color} {
       @include alert-variant(theme-color-level($color, -6), theme-color-level($color, -5), theme-color-level($color, 2));
-    }
-
-    .btn-#{$color} {
-      &:focus,
-      &.focus {
-        box-shadow: 0 0 0 $btn-focus-width rgba($value, .3);
-      }
     }
   }
 }
