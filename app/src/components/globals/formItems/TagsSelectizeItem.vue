@@ -12,7 +12,6 @@
               @remove="onRemoveTag({ option: tag, removeTag })"
               :title="tag"
               :disabled="disabled || disabledItems.includes(tag)"
-              variant="light"
               class="border border-dark mb-2"
             >
               <icon v-if="tagIcon" :iname="tagIcon" /> {{ tag }}
@@ -151,7 +150,7 @@ export default {
     padding-top: .5rem;
     position: sticky;
     top: 0;
-    background-color: white;
+    background-color: $white;
   }
 }
 </style>
