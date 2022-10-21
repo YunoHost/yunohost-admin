@@ -106,26 +106,30 @@
   @include hsl-color('green', 134.3, 74.4%, 67.8%);
   @include hsl-color('cyan', 188.4, 91.4%, 72.5%);
 
-  @include hsl-color('gray-900', 210, 17%, 98%);
-  @include hsl-color('gray-800', 210, 16%, 93%);
-  @include hsl-color('gray-700', 210, 14%, 89%);
-  @include hsl-color('gray-600', 210, 14%, 83%);
-  @include hsl-color('gray-500', 210, 11%, 71%);
-  @include hsl-color('gray-400', 208, 7%, 46%);
-  @include hsl-color('gray-300', 210, 9%, 31%);
-  @include hsl-color('gray-200', 210, 10%, 23%);
-  @include hsl-color('gray-100', 210, 11%, 15%);
+  @include hsl-color('gray-900', 256, 0%, 98%);
+  @include hsl-color('gray-800', 256, 0%, 93%);
+  @include hsl-color('gray-700', 256, 0%, 89%);
+  @include hsl-color('gray-600', 256, 0%, 83%);
+  @include hsl-color('gray-500', 256, 0%, 71%);
+  @include hsl-color('gray-400', 256, 0%, 46%);
+  @include hsl-color('gray-300', 256, 0%, 31%);
+  @include hsl-color('gray-200', 256, 0%, 23%);
+  @include hsl-color('gray-100', 256, 0%, 15%);
 
   --code-color: var(--gray-800);
 
-  // Overwrite list-group-item variants to lighter ones (used in diagnosis for example)
   @each $color, $value in $theme-colors {
     @include list-group-item-variant($color, theme-color-level($color, -6), theme-color-level($color, 2));
-  }
 
-  @each $color, $value in $theme-colors {
     .alert-#{$color} {
       @include alert-variant(theme-color-level($color, -6), theme-color-level($color, -5), theme-color-level($color, 2));
+    }
+
+    .btn-#{$color} {
+      &:focus,
+      &.focus {
+        box-shadow: 0 0 0 $btn-focus-width rgba($value, .3);
+      }
     }
   }
 }
