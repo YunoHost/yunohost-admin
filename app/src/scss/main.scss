@@ -85,6 +85,8 @@
   @include hsl-color('gray-800', 210, 10%, 23%);
   @include hsl-color('gray-900', 210, 11%, 15%);
 
+  --code-color: var(--pink);
+
   // Overwrite list-group-item variants to lighter ones (used in diagnosis for example)
   @each $color, $value in $theme-colors {
     @include list-group-item-variant($color, theme-color-level($color, $list-group-item-bg-level), theme-color-level($color, $list-group-item-color-level));
@@ -113,6 +115,8 @@
   @include hsl-color('gray-300', 210, 9%, 31%);
   @include hsl-color('gray-200', 210, 10%, 23%);
   @include hsl-color('gray-100', 210, 11%, 15%);
+
+  --code-color: var(--gray-800);
 
   // Overwrite list-group-item variants to lighter ones (used in diagnosis for example)
   @each $color, $value in $theme-colors {
@@ -287,6 +291,12 @@ h3.card-title {
 
 code {
   background: $light;
+  padding: .15rem .25rem;
+  border-radius: $border-radius;
+}
+
+pre code {
+  padding: 0;
 }
 
 .log {
