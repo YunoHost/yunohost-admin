@@ -585,5 +585,6 @@
     "domain_dns_push_managed_in_parent_domain": "La fonctionnalité d'enregistrement DNS automatique est gérée dans le domaine parent <a href='#/domains/{parent_domain}/dns'>{parent_domain}</a>.",
     "domain_dns_push_not_applicable": "La fonctionnalité d'enregistrements DNS automatiques n'est pas applicable au domaine {domain},<br> Vous devez configurer manuellement vos enregistrements DNS en suivant la <a href='https://yunohost.org/dns'>documentation</a> et les suggestions configuration ci-dessous.",
     "text_selection_is_disabled": "La sélection du texte est désactivée. Si vous voulez partager ce log *complet*, vous pouvez le faire en cliquant sur le bouton 'Partager avec Yunopaste'.<br/><small>Ou, si vous voulez vraiment vraiment sélectionner du texte, appuyez sur ces touches : ↓↓↑↑.</small>",
-    "retry": "Retenter"
+    "retry": "Retenter",
+    "important_yunohost_upgrade": "Une mise à jour majeure de YunoHost est disponible. Il est fortement recommandé de lire attentivement les notes de mise à jour sur le forum avant de procéder à celle-ci : <a href='https://forum.yunohost.org/tag/ynh_release'>Consultez les notes de mise à jour sur le forum.</a>"
 }
