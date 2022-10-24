@@ -81,7 +81,7 @@
     "ipv4": "IPv4",
     "ipv6": "IPv6",
     "label": "Libellé",
-    "label_for_manifestname": "Libellé pour {name} (nom affiché dans le portail utilisateur)",
+    "label_for_manifestname": "Libellé/Étiquette pour {name}",
     "local_archives": "Archives locales",
     "login": "Connexion",
     "logout": "Déconnexion",
@@ -283,7 +283,11 @@
     "words": {
         "default": "Défaut",
         "collapse": "Replier",
-        "browse": "Parcourir"
+        "browse": "Parcourir",
+        "link": "Lien",
+        "none": "Aucun",
+        "separator": ", ",
+        "valid": "Valide"
     },
     "configuration": "Configuration",
     "since": "depuis",
@@ -321,7 +325,8 @@
         "cache": "Cache",
         "fallback_language_description": "Langue qui sera utilisée au cas où la traduction ne serait pas disponible dans la langue principale.",
         "fallback_language": "Langue de secours",
-        "language": "Langue"
+        "language": "Langue",
+        "theme": "Basculer en mode sombre"
     },
     "tools_power_up": "Votre serveur semble être accessible, vous pouvez maintenant essayer de vous connecter.",
     "search": {
@@ -468,7 +473,11 @@
     "go_back": "Revenir",
     "postinstall": {
         "force": "Forcer la post-installation",
-        "title": "Post-installation"
+        "title": "Post-installation",
+        "user": {
+            "title": "Création du premier utilisateur admin (administrateur)",
+            "first_user_help": "Cet utilisateur se verra accorder des privilèges d'administrateur et sera autorisé à se connecter à cette interface d'administration ainsi que directement au serveur via SSH.\nComme il s'agit d'un utilisateur normal, vous pourrez également vous connecter au portail utilisateur (SSO) avec ses informations d'identification.\nUne fois la post-installation terminée, vous pourrez créer d'autres utilisateurs administrateurs en les ajoutant au groupe 'admins'."
+        }
     },
     "human_routes": {
         "users": {
@@ -517,8 +526,10 @@
             "install_LE": "Installer le certificat pour '{name}'",
             "delete": "Supprimer le domaine '{name}'",
             "add": "Ajouter le domaine '{name}'",
-            "update_config": "Mise à jour de la configuration '{name}'",
-            "push_dns_changes": "Envoyer les enregistrements DNS au registraire pour '{name}'"
+            "update_config": "Mise à jour du panneau '{id}' de configuration du domaine '{name}'",
+            "push_dns_changes": "Envoyer les enregistrements DNS au registraire pour '{name}'",
+            "cert_install": "Installation d'un certificat pour '{name}'",
+            "cert_renew": "Renouvellement du certificat pour '{name}'"
         },
         "diagnosis": {
             "unignore": {
@@ -538,16 +549,20 @@
             "create": "Créer une sauvegarde"
         },
         "apps": {
-            "update_config": "Mise à jour de la configuration de l'application '{name}'",
+            "update_config": "Mise à jour du panneau '{id}' de configuration de l'application '{name}'",
             "uninstall": "Désinstaller l'application '{name}'",
             "perform_action": "Exécuter l'action '{action}' de l'application '{name}'",
             "set_default": "Rediriger la racine du domaine '{domain}' vers '{name}'",
             "install": "Installer l'application '{name}'",
             "change_url": "Modifier l'URL d'accès de '{name}'",
-            "change_label": "Changer le libellé de '{prevName}' par '{nextName}'"
+            "change_label": "Changer le libellé de '{prevName}' par '{nextName}'",
+            "action_config": "Exécuter l'action '{action}' de configuration de l'application '{name}'"
         },
         "adminpw": "Changer le mot de passe administrateur",
-        "reconnecting": "Reconnexion"
+        "reconnecting": "Reconnexion",
+        "settings": {
+            "update": "Mise à jour des paramètres globaux de '{panel}'"
+        }
     },
     "items_verbose_items_left": "Il reste des {items}. | Il reste un {items}. | Il reste des {items}.",
     "confirm_group_add_access_permission": "Voulez-vous vraiment accorder l'accès à {perm} à {name} ? Un tel accès augmente considérablement la surface d'attaque si {name} se trouve être une personne malveillante. Vous ne devriez le faire que si vous FAITES CONFIANCE à cette personne/ ce groupe.",
@@ -578,13 +593,51 @@
             "push_force_warning": "Il semble que certains enregistrements DNS que YunoHost aurait définis soient déjà dans la configuration du registrar. Vous pouvez utiliser l'option d'écrasement si vous savez ce que vous faites.",
             "push_force_confirm": "Êtes-vous sûr de vouloir forcer tous les enregistrements DNS suggérés ? Sachez qu'il peut écraser manuellement ou des enregistrements par défaut importants définis par vous ou votre registrar.",
             "auto_config_ignored": "ignoré, ne sera pas modifié par YunoHost sauf si vous cochez l'option d'écrasement",
-            "push": "Envoyer les enregistrements DNS vers le registrar"
-        }
+            "push": "Envoyer les enregistrements DNS vers le registrar",
+            "methods": {
+                "auto": "Automatique",
+                "handled_in_parent": "Géré dans le domaine parent",
+                "manual": "Manuelle",
+                "none": "Aucun",
+                "semi_auto": "Semi-automatique"
+            }
+        },
+        "cert": {
+            "types": {
+                "selfsigned": "Auto-signé",
+                "letsencrypt": "Let's Encrypt",
+                "other": "Autre/Inconnu"
+            },
+            "valid_for": "valable pendant {days}"
+        },
+        "explain": {
+            "main_domain": "Le domaine principal est le domaine à partir duquel les utilisateurs peuvent se connecter au portail (via \"{domain}/yunohost/sso\").<br>Il n'est donc pas possible de le supprimer.<br>Si vous voulez supprimer \"{domain}\", vous devrez d'abord choisir ou ajouter un autre domaine et le définir comme domaine principal."
+        },
+        "info": {
+            "apps_on_domain": "Applications installées sur le domaine",
+            "certificate_authority": "Autorité de certification SSL",
+            "registrar": "Registrar/Bureau d'enregistrement"
+        },
+        "see_parent_domain": "Voir le domaine parent",
+        "types": {
+            "main_domain": "Domaine principal"
+        },
+        "toggle_subdomains": "Afficher les sous-domaines"
     },
     "domain_dns_push_failed_to_authenticate": "Échec de l'authentification sur l'API du registraire. Très probablement les <a href='#/domains/{domain}/config'>informations d'identification</a> sont incorrectes ? (Erreur : {error})",
     "domain_dns_push_managed_in_parent_domain": "La fonctionnalité d'enregistrement DNS automatique est gérée dans le domaine parent <a href='#/domains/{parent_domain}/dns'>{parent_domain}</a>.",
     "domain_dns_push_not_applicable": "La fonctionnalité d'enregistrements DNS automatiques n'est pas applicable au domaine {domain},<br> Vous devez configurer manuellement vos enregistrements DNS en suivant la <a href='https://yunohost.org/dns'>documentation</a> et les suggestions configuration ci-dessous.",
     "text_selection_is_disabled": "La sélection du texte est désactivée. Si vous voulez partager ce log *complet*, vous pouvez le faire en cliquant sur le bouton 'Partager avec Yunopaste'.<br/><small>Ou, si vous voulez vraiment vraiment sélectionner du texte, appuyez sur ces touches : ↓↓↑↑.</small>",
     "retry": "Retenter",
-    "important_yunohost_upgrade": "Une mise à jour majeure de YunoHost est disponible. Il est fortement recommandé de lire attentivement les notes de mise à jour sur le forum avant de procéder à celle-ci : <a href='https://forum.yunohost.org/tag/ynh_release'>Consultez les notes de mise à jour sur le forum.</a>"
+    "important_yunohost_upgrade": "Une mise à jour majeure de YunoHost est disponible. Il est fortement recommandé de lire attentivement les notes de mise à jour sur le forum avant de procéder à celle-ci : <a href='https://forum.yunohost.org/tag/ynh_release'>Consultez les notes de mise à jour sur le forum.</a>",
+    "app_state_broken": "Cassé",
+    "app_state_broken_explanation": "Cette application est actuellement cassée et ne peut être installée selon les contrôles automatiques de YunoHost",
+    "details_about": "Afficher plus de détails sur {subject}",
+    "group_admins": "Administrateurs/Admins",
+    "group_explain_admins": "Il s'agit d'un groupe spécial correspondant aux utilisateurs admins(administrateurs). Les utilisateurs de ce groupe peuvent accéder à l'administration en ligne de YunoHost (panel web), se connecter au serveur avec SSH et utiliser la commande `sudo`. Vous ne devriez ajouter dans ce groupe que des personnes en qui vous avez absolument confiance !",
+    "label_for_manifestname_help": "Il s'agit du nom affiché dans le portail de l'utilisateur. Il peut être modifié ultérieurement.",
+    "manage_groups": "Gestion des groupes",
+    "tools_yunohost_settings": "Paramètres de YunoHost",
+    "wrong_password_or_username": "Mot de passe ou nom d'utilisateur erroné",
+    "confirm_install_app_broken": "AVERTISSEMENT ! Cette application est cassée selon les contrôles automatiques de YunoHost et elle est susceptible de casser votre système ! Vous ne devriez probablement PAS l'installer à moins de savoir ce que vous faites. Êtes-vous prêt à prendre ce risque ?"
 }
