@@ -22,9 +22,10 @@ export default {
       menu: [
         { routeName: 'tool-logs', icon: 'book', translation: 'logs' },
         { routeName: 'tool-migrations', icon: 'share', translation: 'migrations' },
+        { routeName: 'service-list', icon: 'gears', translation: 'services' },
         { routeName: 'tool-firewall', icon: 'shield', translation: 'firewall' },
-        { routeName: 'tool-adminpw', icon: 'key-modern', translation: 'tools_adminpw' },
-        { routeName: 'tool-webadmin', icon: 'cog', translation: 'tools_webadmin_settings' },
+        { routeName: 'tool-settings', icon: 'sliders', translation: 'tools_yunohost_settings' },
+        { routeName: 'tool-webadmin', icon: 'sliders', translation: 'tools_webadmin_settings' },
         { routeName: 'tool-power', icon: 'power-off', translation: 'tools_shutdown_reboot' }
       ]
     }

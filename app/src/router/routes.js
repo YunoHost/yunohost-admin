@@ -141,53 +141,22 @@ const routes = [
     }
   },
   {
-    name: 'domain-info',
     path: '/domains/:name',
     component: () => import(/* webpackChunkName: "views/domain/info" */ '@/views/domain/DomainInfo'),
     props: true,
-    meta: {
-      args: { param: 'name' },
-      breadcrumb: ['domain-list', 'domain-info']
-    }
-  },
-  {
-    // no need for name here, only children are visited
-    path: '/domains/:name/config',
-    component: () => import(/* webpackChunkName: "views/domain/config" */ '@/views/domain/DomainConfig'),
-    props: true,
     children: [
       {
-        name: 'domain-config',
+        name: 'domain-info',
         path: ':tabId?',
         component: () => import(/* webpackChunkName: "components/configPanel" */ '@/components/ConfigPanel'),
         props: true,
         meta: {
           routerParams: ['name'], // Override router key params to avoid view recreation at tab change.
-          args: { trad: 'config' },
-          breadcrumb: ['domain-list', 'domain-info', 'domain-config']
+          args: { param: 'name' },
+          breadcrumb: ['domain-list', 'domain-info']
         }
       }
     ]
-  },
-  {
-    name: 'domain-dns',
-    path: '/domains/:name/dns',
-    component: () => import(/* webpackChunkName: "views/domain/dns" */ '@/views/domain/DomainDns'),
-    props: true,
-    meta: {
-      args: { trad: 'dns' },
-      breadcrumb: ['domain-list', 'domain-info', 'domain-dns']
-    }
-  },
-  {
-    name: 'domain-cert',
-    path: '/domains/:name/cert-management',
-    component: () => import(/* webpackChunkName: "views/domain/cert" */ '@/views/domain/DomainCert'),
-    props: true,
-    meta: {
-      args: { trad: 'certificate' },
-      breadcrumb: ['domain-list', 'domain-info', 'domain-cert']
-    }
   },
 
   /* ───────╮
@@ -242,16 +211,6 @@ const routes = [
     }
   },
   {
-    name: 'app-actions',
-    path: '/apps/:id/actions',
-    component: () => import(/* webpackChunkName: "views/apps/actions" */ '@/views/app/AppActions'),
-    props: true,
-    meta: {
-      args: { trad: 'app_actions' },
-      breadcrumb: ['app-list', 'app-info', 'app-actions']
-    }
-  },
-  {
     // no need for name here, only children are visited
     path: '/apps/:id/config-panel',
     component: () => import(/* webpackChunkName: "views/apps/config" */ '@/views/app/AppConfigPanel'),
@@ -293,7 +252,7 @@ const routes = [
     component: () => import(/* webpackChunkName: "views/service/list" */ '@/views/service/ServiceList'),
     meta: {
       args: { trad: 'services' },
-      breadcrumb: ['service-list']
+      breadcrumb: ['tool-list', 'service-list']
     }
   },
   {
@@ -303,7 +262,7 @@ const routes = [
     props: true,
     meta: {
       args: { param: 'name' },
-      breadcrumb: ['service-list', 'service-info']
+      breadcrumb: ['tool-list', 'service-list', 'service-info']
     }
   },
 
@@ -357,15 +316,6 @@ const routes = [
     }
   },
   {
-    name: 'tool-adminpw',
-    path: '/tools/adminpw',
-    component: () => import(/* webpackChunkName: "views/tools/adminpw" */ '@/views/tool/ToolAdminpw'),
-    meta: {
-      args: { trad: 'tools_adminpw' },
-      breadcrumb: ['tool-list', 'tool-adminpw']
-    }
-  },
-  {
     name: 'tool-webadmin',
     path: '/tools/webadmin',
     component: () => import(/* webpackChunkName: "views/tools/webadmin" */ '@/views/tool/ToolWebadmin'),
@@ -373,6 +323,23 @@ const routes = [
       args: { trad: 'tools_webadmin_settings' },
       breadcrumb: ['tool-list', 'tool-webadmin']
     }
+  },
+  {
+    path: '/tools/settings',
+    component: () => import(/* webpackChunkName: "views/tools/settings" */ '@/views/tool/ToolSettings'),
+    children: [
+      {
+        name: 'tool-settings',
+        path: ':tabId?',
+        component: () => import(/* webpackChunkName: "components/configPanel" */ '@/components/ConfigPanel'),
+        props: true,
+        meta: {
+          routerParams: [],
+          args: { trad: 'tools_yunohost_settings' },
+          breadcrumb: ['tool-list', 'tool-settings']
+        }
+      }
+    ]
   },
   {
     name: 'tool-power',

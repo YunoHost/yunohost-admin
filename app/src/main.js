@@ -55,13 +55,13 @@ requireComponent.keys().forEach((fileName) => {
 registerGlobalErrorHandlers()
 
 // Load default locales translations files and setup store data
-initDefaultLocales()
+initDefaultLocales().then(() => {
+  const app = new Vue({
+    store,
+    router,
+    i18n,
+    render: h => h(App)
+  })
 
-const app = new Vue({
-  store,
-  router,
-  i18n,
-  render: h => h(App)
+  app.$mount('#app')
 })
-
-app.$mount('#app')

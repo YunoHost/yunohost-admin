@@ -74,7 +74,7 @@
               </b-button>
               <b-button
                 v-if="item.details"
-                size="sm" variant="outline-dark" class="ml-lg-2 mt-2 mt-lg-0"
+                size="sm" :variant="'outline-' + (theme ? 'light' : 'dark')" class="ml-lg-2 mt-2 mt-lg-0"
                 v-b-toggle="`collapse-${report.id}-item-${i}`"
               >
                 <icon iname="level-down" /> {{ $t('details') }}
@@ -104,6 +104,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 import api from '@/api'
 import { distanceToNow } from '@/helpers/filters/date'
 
@@ -118,6 +120,10 @@ export default {
       ],
       reports: undefined
     }
+  },
+
+  computed: {
+    ...mapGetters(['theme'])
   },
 
   methods: {

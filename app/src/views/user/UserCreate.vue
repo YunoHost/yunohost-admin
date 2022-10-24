@@ -9,26 +9,7 @@
       <form-field v-bind="fields.username" v-model="form.username" :validation="$v.form.username" />
 
       <!-- USER FULLNAME -->
-      <form-field
-        v-bind="fields.fullname" :validation="$v.form.fullname"
-      >
-        <template #default="{ self }">
-          <b-input-group>
-            <template v-for="fname in ['firstname', 'lastname']">
-              <b-input-group-prepend :key="fname + 'prepend'">
-                <b-input-group-text :id="fname + '-label'" tag="label">
-                  {{ self[fname].label }}
-                </b-input-group-text>
-              </b-input-group-prepend>
-
-              <input-item
-                v-bind="self[fname]" v-model="form.fullname[fname]" :key="fname + 'input'"
-                :name="self[fname].id" :aria-labelledby="fname + '-label'"
-              />
-            </template>
-          </b-input-group>
-        </template>
-      </form-field>
+      <form-field v-bind="fields.fullname" :validation="$v.form.fullname" v-model="form.fullname" />
       <hr>
 
       <!-- USER MAIL DOMAIN -->
@@ -82,10 +63,7 @@ export default {
 
       form: {
         username: '',
-        fullname: {
-          firstname: '',
-          lastname: ''
-        },
+        fullname: '',
         domain: '',
         password: '',
         confirmation: ''
@@ -104,18 +82,9 @@ export default {
 
         fullname: {
           label: this.$i18n.t('user_fullname'),
-          id: 'fullname',
           props: {
-            firstname: {
-              id: 'firstname',
-              label: this.$i18n.t('common.firstname'),
-              placeholder: this.$i18n.t('placeholder.firstname')
-            },
-            lastname: {
-              id: 'lastname',
-              label: this.$i18n.t('common.lastname'),
-              placeholder: this.$i18n.t('placeholder.lastname')
-            }
+            id: 'fullname',
+            placeholder: this.$i18n.t('placeholder.fullname')
           }
         },
 
@@ -156,10 +125,7 @@ export default {
     return {
       form: {
         username: { required, alphalownum_, notInUsers: unique(this.userNames) },
-        fullname: {
-          firstname: { required, name },
-          lastname: { required, name }
-        },
+        fullname: { required, name },
         domain: { required },
         password: { required, passwordLenght: minLength(8) },
         confirmation: { required, passwordMatch: sameAs('password') }
@@ -189,10 +155,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#lastname-label {
-  border-left: 0;
-}
-
 .custom-select {
   flex-basis: 40%;
 }

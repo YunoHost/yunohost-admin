@@ -1,8 +1,10 @@
 <template>
-  <b-alert class="d-flex" :variant="type" show>
-    <icon :iname="icon_" class="mr-1 mt-1" />
-    <vue-showdown :markdown="label" flavor="github"
-                  tag="span" class="markdown"
+  <b-alert class="d-flex flex-column flex-md-row align-items-center" :variant="type" show>
+    <icon :iname="icon_" class="mr-md-3 mb-md-0 mb-2" :variant="type" />
+
+    <vue-showdown
+      :markdown="label" flavor="github"
+      tag="span" class="markdown"
     />
   </b-alert>
 </template>
@@ -11,29 +13,23 @@
 export default {
   name: 'ReadOnlyAlertItem',
 
-  data () {
-    const icons = {
-      success: 'thumbs-up',
-      info: 'info-circle',
-      warning: 'warning',
-      danger: 'times'
-      }
-    return {
-      icon_: (this.icon) ? this.icon : icons[this.type]
-    }
-  },
-
   props: {
     id: { type: String, default: null },
     label: { type: String, default: null },
     type: { type: String, default: null },
     icon: { type: String, default: null }
+  },
+
+  computed: {
+    icon_ () {
+      const icons = {
+        success: 'thumbs-up',
+        info: 'info',
+        warning: 'exclamation',
+        danger: 'times'
+      }
+      return this.icon || icons[this.type]
+    }
   }
 }
 </script>
-
-<style lang="scss">
-.alert p:last-child {
-  margin-bottom: 0;
-}
-</style>

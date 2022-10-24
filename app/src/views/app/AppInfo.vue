@@ -2,33 +2,22 @@
   <view-base :queries="queries" @queries-response="onQueriesResponse" ref="view">
     <!-- BASIC INFOS -->
     <card v-if="infos" :title="infos.label" icon="cube">
-      <b-row
-        v-for="(value, prop) in infos" :key="prop"
-        no-gutters class="row-line"
+      <description-row
+        v-for="(value, key) in infos" :key="key"
+        :term="$t(key)"
       >
-        <b-col cols="auto" md="3">
-          <strong>{{ $t(prop) }}</strong>
-        </b-col>
-        <b-col>
-          <a v-if="prop === 'url'" :href="value" target="_blank">{{ value }}</a>
-          <span v-else>{{ value }}</span>
-        </b-col>
-      </b-row>
-      <b-row no-gutters class="row-line">
-        <b-col cols="auto" md="3">
-          <strong>{{ $t('app_info_access_desc') }}</strong>
-          <span class="sep" />
-        </b-col>
-        <b-col>
-          {{ allowedGroups.length > 0 ? allowedGroups.join(', ') + '.' : $t('nobody') }}
-          <b-button
-            size="sm" :to="{ name: 'group-list'}" variant="info"
-            class="ml-2"
-          >
-            <icon iname="key-modern" /> {{ $t('groups_and_permissions_manage') }}
-          </b-button>
-        </b-col>
-      </b-row>
+        <a v-if="key === 'url'" :href="value" target="_blank">{{ value }}</a>
+        <template v-else>{{ value }}</template>
+      </description-row>
+      <description-row :term="$t('app_info_access_desc')">
+        {{ allowedGroups.length > 0 ? allowedGroups.join(', ') + '.' : $t('nobody') }}
+        <b-button
+          size="sm" :to="{ name: 'group-list'}" variant="info"
+          class="ml-2"
+        >
+          <icon iname="key-modern" /> {{ $t('groups_and_permissions_manage') }}
+        </b-button>
+      </description-row>
     </card>
 
     <!-- OPERATIONS -->
@@ -145,19 +134,6 @@
       </b-form-group>
     </card>
 
-    <!-- EXPERIMENTAL (displayed if experimental feature has been enabled in web-admin options)-->
-    <card v-if="experimental" :title="$t('experimental')" icon="flask">
-      <!-- APP ACTIONS -->
-      <b-form-group
-        :label="$t('app_actions_label')" label-for="actions"
-        label-cols-md="4" label-class="font-weight-bold"
-      >
-        <b-button id="actions" variant="warning" :to="{ name: 'app-actions', params: { id } }">
-          <icon iname="flask" /> {{ $t('app_actions') }}
-        </b-button>
-      </b-form-group>
-    </card>
-
     <template #skeleton>
       <card-info-skeleton :item-count="8" />
       <card-form-skeleton />
@@ -195,7 +171,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['domains', 'experimental']),
+    ...mapGetters(['domains']),
 
     allowedGroups () {
       if (!this.app) return
@@ -243,7 +219,7 @@ export default {
         label: mainPermission.label,
         description: app.description,
         version: app.version,
-        multi_instance: this.$i18n.t(app.manifest.multi_instance ? 'yes' : 'no'),
+        multi_instance: this.$i18n.t(app.manifest.integration.multi_instance ? 'yes' : 'no'),
         install_time: readableDate(app.settings.install_time, true, true)
       }
       if (app.settings.domain && app.settings.path) {

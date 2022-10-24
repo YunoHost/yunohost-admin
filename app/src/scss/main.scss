@@ -8,13 +8,131 @@
 
 // Dependencies SCSS imports
 // `~` allow to import a node_modules folder (resolved by Webpack)
-@import '~bootstrap/scss/bootstrap.scss';
+// @import "~bootstrap/scss/root";
+@import "~bootstrap/scss/reboot";
+@import "~bootstrap/scss/type";
+@import "~bootstrap/scss/images";
+@import "~bootstrap/scss/code";
+@import "~bootstrap/scss/grid";
+@import "~bootstrap/scss/tables";
+@import "~bootstrap/scss/forms";
+@import "~bootstrap/scss/buttons";
+@import "~bootstrap/scss/transitions";
+@import "~bootstrap/scss/dropdown";
+@import "~bootstrap/scss/button-group";
+@import "~bootstrap/scss/input-group";
+@import "~bootstrap/scss/custom-forms";
+@import "~bootstrap/scss/nav";
+@import "~bootstrap/scss/navbar";
+@import "~bootstrap/scss/card";
+@import "~bootstrap/scss/breadcrumb";
+// @import "~bootstrap/scss/pagination";
+@import "~bootstrap/scss/badge";
+// @import "~bootstrap/scss/jumbotron";
+@import "~bootstrap/scss/alert";
+@import "~bootstrap/scss/progress";
+// @import "~bootstrap/scss/media";
+@import "~bootstrap/scss/list-group";
+@import "~bootstrap/scss/close";
+// @import "~bootstrap/scss/toasts";
+@import "~bootstrap/scss/modal";
+@import "~bootstrap/scss/tooltip";
+@import "~bootstrap/scss/popover";
+// @import "~bootstrap/scss/carousel";
+@import "~bootstrap/scss/spinners";
+@import "~bootstrap/scss/utilities";
+// @import "~bootstrap/scss/print";
+
 @import '~bootstrap-vue/src/index.scss';
 
 // Import fonts
 @import 'font';
 @import '~fork-awesome/scss/fork-awesome.scss';
 
+// helper to set the required 4 CSS variables per color to allow `calc` computation of variants and states
+@mixin hsl-color($name, $h, $s, $l) {
+  --#{$name}: hsl(#{$h}, #{$s}, #{$l});
+  --#{$name}-h: #{$h};
+  --#{$name}-s: #{$s};
+  --#{$name}-l: #{$l};
+}
+
+:root {
+  color-scheme: light;
+
+  --yiq-contrasted-threshold: 150;
+
+  @include hsl-color('white', 0, 0%, 100%);
+  @include hsl-color('black', 0, 0%, 0%);
+  @include hsl-color('blue', 211, 64%, 50%);
+  @include hsl-color('indigo', 263, 90%, 51%);
+  @include hsl-color('purple', 280, 61%, 50%);
+  @include hsl-color('pink', 332, 79%, 58%);
+  @include hsl-color('red', 354, 70%, 54%);
+  @include hsl-color('orange', 27, 98%, 54%);
+  @include hsl-color('yellow', 45, 100%, 66%);
+  @include hsl-color('green', 134, 61%, 41%);
+  @include hsl-color('teal', 162, 73%, 46%);
+  @include hsl-color('cyan', 188, 78%, 41%);
+
+  @include hsl-color('gray-100', 210, 17%, 98%);
+  @include hsl-color('gray-200', 210, 16%, 93%);
+  @include hsl-color('gray-300', 210, 14%, 89%);
+  @include hsl-color('gray-400', 210, 14%, 83%);
+  @include hsl-color('gray-500', 210, 11%, 71%);
+  @include hsl-color('gray-600', 208, 7%, 46%);
+  @include hsl-color('gray-700', 210, 9%, 31%);
+  @include hsl-color('gray-800', 210, 10%, 23%);
+  @include hsl-color('gray-900', 210, 11%, 15%);
+
+  --code-color: var(--pink);
+
+  // Overwrite list-group-item variants to lighter ones (used in diagnosis for example)
+  @each $color, $value in $theme-colors {
+    @include list-group-item-variant($color, theme-color-level($color, $list-group-item-bg-level), theme-color-level($color, $list-group-item-color-level));
+
+    .btn-#{$color} {
+      &:focus,
+      &.focus {
+        box-shadow: 0 0 0 $btn-focus-width rgba($value, .3);
+      }
+    }
+  }
+}
+
+[dark-theme="true"] {
+  color-scheme: dark; // Ask browser to use dark mode native styling
+
+  --yiq-contrasted-threshold: 120;
+
+  @include hsl-color('white', 256, 0%, 12.5%);
+  @include hsl-color('black', 256, 0%, 100%);
+  @include hsl-color('blue', 210.7, 95.5%, 65.5%);
+  @include hsl-color('purple', 280, 77.8%, 62.9%);
+  @include hsl-color('red', 0, 100%, 67.6%);
+  @include hsl-color('green', 134.3, 74.4%, 67.8%);
+  @include hsl-color('cyan', 188.4, 91.4%, 72.5%);
+
+  @include hsl-color('gray-900', 256, 0%, 98%);
+  @include hsl-color('gray-800', 256, 0%, 93%);
+  @include hsl-color('gray-700', 256, 0%, 89%);
+  @include hsl-color('gray-600', 256, 0%, 83%);
+  @include hsl-color('gray-500', 256, 0%, 71%);
+  @include hsl-color('gray-400', 256, 0%, 46%);
+  @include hsl-color('gray-300', 256, 0%, 31%);
+  @include hsl-color('gray-200', 256, 0%, 23%);
+  @include hsl-color('gray-100', 256, 0%, 15%);
+
+  --code-color: var(--gray-800);
+
+  @each $color, $value in $theme-colors {
+    @include list-group-item-variant($color, theme-color-level($color, -6), theme-color-level($color, 2));
+
+    .alert-#{$color} {
+      @include alert-variant(theme-color-level($color, -6), theme-color-level($color, -5), theme-color-level($color, 2));
+    }
+  }
+}
 
 // Style overrides happens after dependencies imports
 
@@ -30,7 +148,7 @@ body {
 #app {
   display: flex;
   flex-direction: column;
-  min-height: 100vh
+  min-height: 100vh;
 }
 
 .menu-list .list-group-item {
@@ -39,13 +157,6 @@ body {
   align-items: center;
 }
 
-
-// Bootstrap overrides
-
-// Overwrite list-group-item variants to lighter ones (used in diagnosis for example)
-@each $color, $value in $theme-colors {
-  @include list-group-item-variant($color, theme-color-level($color, -11), theme-color-level($color, 6));
-}
 
 // Add breakpoints for w-*
 @each $breakpoint in map-keys($grid-breakpoints) {
@@ -58,16 +169,24 @@ body {
   }
 }
 
+// Add xs sized btn
+.btn-xs {
+  @include button-size($btn-padding-y-xs, $btn-padding-x-xs, $btn-font-size-sm, $btn-line-height-xs, $btn-border-radius-sm);
+}
+
 // Allow state of input group to be displayed under the group
 .input-group .is-invalid ~ .invalid-feedback {
   display: block;
 }
 
+
+.tooltip { top: 0; }
 // Descriptive list (<b-row /> elems with <b-col> inside)
+// FIXME REMOVE when every infos switch to `DescriptionRow`
 .row-line {
   @include media-breakpoint-up(md) {
     &:hover {
-      background-color: rgba(0, 0, 0, 0.05);
+      background-color: rgba($black, 0.05);
       border-radius: 0.2rem;
     }
   }
@@ -100,6 +219,11 @@ body {
   h1, h2, h3, h4, h5, h6 {
     font-weight: $font-weight-normal;
   }
+}
+
+h3.card-title {
+  margin-bottom: 1em;
+  border-bottom: solid 1px $hr-border-color;
 }
 
 // collapse icon
@@ -165,8 +289,18 @@ body {
   }
 }
 
+.alert p:last-child {
+  margin-bottom: 0;
+}
+
 code {
-  background: ghostwhite;
+  background: $light;
+  padding: .15rem .25rem;
+  border-radius: $border-radius;
+}
+
+pre code {
+  padding: 0;
 }
 
 .log {

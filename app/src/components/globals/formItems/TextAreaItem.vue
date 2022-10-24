@@ -1,6 +1,6 @@
 <template>
   <b-form-textarea
-    v-model="value"
+    :value="value"
     :id="id"
     :placeholder="placeholder"
     :required="required"

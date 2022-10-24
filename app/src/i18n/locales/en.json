@@ -54,8 +54,6 @@
     "api_not_found": "Seems like the web-admin tried to query something that doesn't exist.",
     "api_not_responding": "The YunoHost API is not responding. Maybe 'yunohost-api' is down or got restarted?",
     "api_waiting": "Waiting for the server's response...",
-    "app_actions": "Actions",
-    "app_actions_label": "Perform actions",
     "app_choose_category": "Choose a category",
     "app_config_panel": "Config panel",
     "app_config_panel_label": "Configure this app",
@@ -69,18 +67,14 @@
     "app_install_parameters": "Install settings",
     "app_manage_label_and_tiles": "Manage label and tiles",
     "app_make_default": "Make default",
-    "app_no_actions": "This application doesn't have any actions",
     "app_show_categories": "Show categories",
+    "app_state_broken": "broken",
+    "app_state_broken_explanation": "This application is currently broken and not installable according to YunoHost's automatic tests",
     "app_state_inprogress": "not yet working",
     "app_state_inprogress_explanation": "This maintainer of this app declared that this application is not ready yet for production use. BE CAREFUL!",
-    "app_state_notworking": "not working",
-    "app_state_notworking_explanation": "This maintainer of this app declared it as 'not working'. IT WILL BREAK YOUR SYSTEM!",
     "app_state_lowquality": "low quality",
     "app_state_lowquality_explanation": "This app may be functional, but may still contain issues, or is not fully integrated with YunoHost, or it does not respect the good practices.",
-    "app_state_highquality": "high quality",
     "app_state_highquality_explanation": "This app is well-integrated with YunoHost since at least a year.",
-    "app_state_working": "working",
-    "app_state_working_explanation": "The maintainer of this app declared it as 'working'. It means that it should be functional (c.f. application level) but is not necessarily peer-reviewed, it may still contain issues or is not fully integrated with YunoHost.",
     "applications": "Applications",
     "archive_empty": "Empty archive",
     "backup": "Backup",
@@ -110,6 +104,7 @@
     "confirm_install_custom_app": "WARNING! Installing 3rd party applications may compromise the integrity and security of your system. You should probably NOT install it unless you know what you are doing. Are you willing to take that risk?",
     "confirm_install_domain_root": "Are you sure you want to install this application on '/'? You will not be able to install any other app on {domain}",
     "confirm_app_install": "Are you sure you want to install this application?",
+    "confirm_install_app_broken": "WARNING! This application is broken according to YunoHost's automatic tests and it is likely to break your system! You should probably NOT install it unless you know what you are doing. Are you willing to take that risk?",
     "confirm_install_app_lowquality": "Warning: this application may work but is not well-integrated in YunoHost. Some features such as single sign-on and backup/restore might not be available.",
     "confirm_install_app_inprogress": "WARNING! This application is still experimental (if not explicitly not working) and it is likely to break your system! You should probably NOT install it unless you know what you are doing. Are you willing to take that risk?",
     "confirm_migrations_skip": "Skipping migrations is not recommended. Are you sure you want to do that?",
@@ -134,6 +129,7 @@
     "delete": "Delete",
     "description": "Description",
     "details": "Details",
+    "details_about": "Show more details about {subject}",
     "domain_dns_conf_is_just_a_recommendation": "This page shows you the *recommended* configuration. It does *not* configure the DNS for you. It is your responsibility to configure your DNS zone in your DNS registrar according to this recommendation.",
     "diagnosis": "Diagnosis",
     "diagnosis_first_run": "The diagnosis feature will attempt to identify common issues on the different aspects of your server to make sure everything runs smoothly. Please do not panic if you see a bunch of errors right after setting up your server: it is precisely meant to help you to identify issues and guide you to fix them. The diagnosis will also run automatically twice a day and an email is sent to the administrator if issues are found.",
@@ -143,6 +139,14 @@
     "disabled": "Disabled",
     "dns": "DNS",
     "domain": {
+      "cert": {
+        "types": {
+          "selfsigned": "Self-signed",
+          "letsencrypt": "Let's Encrypt",
+          "other": "Other/Unknown"
+        },
+        "valid_for": "valid for {days}"
+      },
       "config": {
         "edit": "Edit domain configuration",
         "title": "Domain configuration"
@@ -152,6 +156,13 @@
         "auto_config_ignored": "ignored, won't be changed by YunoHost unless you check the overwrite option",
         "auto_config_ok": "Automatic configuration seems to be OK!",
         "auto_config_zone": "Current DNS zone",
+        "methods": {
+          "auto": "Automatic",
+          "handled_in_parent": "Handled in parent domain",
+          "manual": "Manual",
+          "none": "None",
+          "semi_auto": "Semi-automatic"
+        },
         "edit": "Edit DNS configuration",
         "info": "The automatic DNS records configuration is an experimental feature. <br>Consider saving your current DNS zone from your DNS registrar's interface before pushing records from here.",
         "manual_config": "Suggested DNS records for manual configuration",
@@ -159,7 +170,20 @@
         "push_force": "Overwrite existing records",
         "push_force_confirm": "Are you sure you want to force push all suggested dns records? Be aware that it may overwrite manually or important default records set by you or your registrar.",
         "push_force_warning": "It looks like some DNS records that YunoHost would have set are already in the registrar configuration. You can use the overwrite option if you know what you are doing."
-      }
+      },
+      "explain": {
+        "main_domain": "The main domain is the domain from which users can connect to the portal (via \"{domain}/yunohost/sso\").<br>Therefore, it is not possible to delete it.<br>If you want to delete \"{domain}\", you will first have to choose or add another domain and set it as the main domain."
+      },
+      "info": {
+        "apps_on_domain": "Apps installed on domain",
+        "certificate_authority": "SSL Certification authority",
+        "registrar": "Registrar"
+      },
+      "see_parent_domain": "See parent domain",
+      "types": {
+        "main_domain": "Main domain"
+      },
+      "toggle_subdomains": "Toggle subdomains"
     },
     "domain_add": "Add domain",
     "domain_add_dns_doc": "… and I have <a href='//yunohost.org/dns_config' target='_blank'>set my DNS correctly</a>.",
@@ -177,8 +201,6 @@
     "domain_dns_push_managed_in_parent_domain": "The automatic DNS records feature is managed in the parent domain <a href='#/domains/{parent_domain}/dns'>{parent_domain}</a>.",
     "domain_dns_push_not_applicable": "The automatic DNS records feature is not applicable to domain {domain},<br> You should manually configure your DNS records following the <a href='https://yunohost.org/dns'>documentation</a> and the suggested configuration below.",
     "domain_name": "Domain name",
-    "domain_visit": "Visit",
-    "domain_visit_url": "Visit {url}",
     "domains": "Domains",
     "download": "Download",
     "enable": "Enable",
@@ -227,14 +249,16 @@
     "group_name": "Group name",
     "group_all_users": "All users",
     "group_visitors": "Visitors",
+    "group_admins": "Admins",
     "group_format_name_help": "You can use alpha-numeric chars and underscore",
     "group_add_member": "Add a user",
     "group_add_permission": "Add a permission",
     "group_new": "New group",
+    "group_explain_admins": "This is a special group corresponding to admin users. Users in this group can access YunoHost's webadmin, connect to the server with SSH and use the `sudo` command. You should only add people you absolutely trust in this group!",
     "group_explain_all_users": "This is a special group containing all users accounts on the server",
     "group_explain_visitors": "This is a special group representing anonymous visitors",
     "group_explain_visitors_needed_for_external_client": "Be careful that you need to keep some applications allowed to visitors if you intend to use them with external clients. For example, this is the case for Nextcloud if you intend to use a synchronization client on your smartphone or desktop computer.",
-    "group_specific_permissions": "User specific permissions",
+    "group_specific_permissions": "Individual user permissions",
     "groups_and_permissions": "Groups and permissions",
     "groups_and_permissions_manage": "Manage groups and permissions",
     "permissions": "Permissions",
@@ -288,7 +312,8 @@
     "items_verbose_count": "There are {items}. | There is 1 {items}. | There are {items}.",
     "items_verbose_items_left": "There are {items} left. | There is 1 {items} left. | There are {items} left.",
     "label": "Label",
-    "label_for_manifestname": "Label for {name} (name displayed in the user portal)",
+    "label_for_manifestname": "Label for {name}",
+    "label_for_manifestname_help": "This is the name displayed in the user portal. This can be changed later.",
     "last_ran": "Last time ran:",
     "license": "License",
     "local_archives": "Local archives",
@@ -300,6 +325,7 @@
     "manage_apps": "Manage apps",
     "manage_domains": "Manage domains",
     "manage_users": "Manage users",
+    "manage_groups": "Manage groups",
     "migrations": "Migrations",
     "migrations_pending": "Pending migrations",
     "migrations_done": "Previous migrations",
@@ -327,9 +353,10 @@
     "path": "Path",
     "perform": "Perform",
     "placeholder": {
-        "username": "johndoe",
-        "firstname": "John",
-        "lastname": "Doe",
+        "username": "samsmith",
+        "fullname": "Sam Smith",
+        "firstname": "Sam",
+        "lastname": "Smith",
         "groupname": "My group name",
         "domain": "my-domain.com",
         "file": "Browse a file or drag and drop it"
@@ -359,15 +386,17 @@
     "ports": "Ports",
     "postinstall": {
         "force": "Force the post-install",
-        "title": "Postinstall"
+        "title": "Postinstall",
+        "user": {
+          "title": "Create first admin user",
+          "first_user_help": "This user will be granted admin privileges and will be allowed to connect to this administration interface as well as directly to the server via SSH.\nAs it is a regular user, you will also be able to connect to the user portal (SSO) with its credentials.\nOnce the post-installation is complete, you will be able to create other admin users by adding them into the 'admins' group."
+        }
     },
     "postinstall_domain": "This is the first domain name linked to your YunoHost server, but also the one which will be used by your server's users to access the authentication portal. Accordingly, it will be visible by everyone, so choose it carefully.",
     "postinstall_intro_1": "Congratulations! YunoHost has been successfully installed.",
     "postinstall_intro_2": "Two more configuration steps are required to activate you server's services.",
     "postinstall_intro_3": "You can obtain more information by visiting the <a href='//yunohost.org/en/install/hardware:vps_debian#fa-cog-proceed-with-the-initial-configuration' target='_blank'>appropriate documentation page</a>",
-    "postinstall_password": "This password will be used to manage everything on your server. Take the time to choose it wisely.",
     "postinstall_set_domain": "Set main domain",
-    "postinstall_set_password": "Set administration password",
     "previous": "Previous",
     "protocol": "Protocol",
     "readme": "Readme",
@@ -376,15 +405,14 @@
     "restart": "Restart",
     "retry": "Retry",
     "human_routes": {
-        "adminpw": "Change admin password",
         "apps": {
+          "action_config": "Run action '{action}' of app '{name}' configuration",
           "change_label": "Change label of '{prevName}' for '{nextName}'",
           "change_url": "Change access URL of '{name}'",
           "install": "Install app '{name}'",
           "set_default": "Redirect '{domain}' domain root to '{name}'",
-          "perform_action": "Perform action '{action}' of app '{name}'",
           "uninstall": "Uninstall app '{name}'",
-          "update_config": "Update app '{name}' configuration"
+          "update_config": "Update panel '{id}' of app '{name}' configuration"
         },
         "backups": {
           "create": "Create a backup",
@@ -406,13 +434,11 @@
         "domains": {
           "add": "Add domain '{name}'",
           "delete": "Delete domain '{name}'",
-          "install_LE": "Install certificate for '{name}'",
-          "manual_renew_LE": "Renew certificate for '{name}'",
+          "cert_install": "Install certificate for '{name}'",
+          "cert_renew": "Renew certificate for '{name}'",
           "push_dns_changes": "Push DNS records to registrar for '{name}'",
-          "regen_selfsigned": "Renew self-signed certificate for '{name}'",
-          "revert_to_selfsigned": "Revert to self-signed certificate for '{name}'",
           "set_default": "Set '{name}' as default domain",
-          "update_config": "Update '{name}' configuration"
+          "update_config": "Update panel '{id}' of domain '{name}' configuration"
         },
         "firewall": {
             "ports": "{action} port {port} ({protocol}, {connection})",
@@ -452,6 +478,9 @@
             "create": "Create user '{name}'",
             "delete": "Delete user '{name}'",
             "update": "Update user '{name}'"
+        },
+        "settings": {
+            "update": "Update '{panel}' global settings"
         }
     },
     "run": "Run",
@@ -483,9 +512,6 @@
     "text_selection_is_disabled": "Text selection is disabled. If you want to share this log, please share the *full* log with the 'Share with Yunopaste' button.<br/><small>Or if you really really want to select text, press these keys: ↓↓↑↑.</small>",
     "tip_about_user_email": "Users are created with an associated email address (and XMPP account) with the format username@domain.tld. Additional email aliases and email forwards can later be added by the admin and the user.",
     "tools": "Tools",
-    "tools_adminpw": "Change administration password",
-    "tools_adminpw_current": "Current password",
-    "tools_adminpw_current_placeholder": "Enter your current password",
     "tools_reboot": "Reboot your server",
     "tools_reboot_btn": "Reboot",
     "tools_shutdown": "Shutdown your server",
@@ -499,8 +525,10 @@
         "cache_description": "Consider disabling the cache if you plan on working with the CLI while also navigating in this web-admin.",
         "experimental": "Experimental mode",
         "experimental_description": "Gives you access to experimental features. These are considered unstable and may break your system.<br> Enable this only if you know what you are doing.",
-        "transitions": "Page transition animations"
+        "transitions": "Page transition animations",
+        "theme": "Toggle dark mode"
     },
+    "tools_yunohost_settings": "YunoHost settings",
     "tools_webadmin_settings": "Web-admin settings",
     "traceback": "Traceback",
     "udp": "UDP",
@@ -508,8 +536,6 @@
     "unignore": "Unignore",
     "uninstall": "Uninstall",
     "unknown": "Unknown",
-    "unmaintained": "Unmaintained",
-    "unmaintained_details": "This app has not been updated for quite a while and the previous maintainer has gone away or does not have time to maintain this app. Feel free to check the app repository to provide your help",
     "upnp": "UPnP",
     "upnp_disabled": "UPnP is disabled.",
     "upnp_enabled": "UPnP is enabled.",
@@ -544,37 +570,18 @@
     "words": {
         "browse": "Browse",
         "collapse": "Collapse",
-        "default": "Default"
+        "default": "Default",
+        "link": "Link",
+        "none": "None",
+        "separator": ", ",
+        "valid": "Valid"
     },
-    "wrong_password": "Wrong password",
+    "wrong_password_or_username": "Wrong password or username",
     "yes": "Yes",
     "yunohost_admin": "YunoHost Admin",
-    "certificate_alert_not_valid": "CRITICAL: Current certificate is not valid! HTTPS won't work at all!",
-    "certificate_alert_selfsigned": "WARNING: Current certificate is self-signed. Browsers will display a spooky warning to new visitors!",
-    "certificate_alert_letsencrypt_about_to_expire": "Current certificate is about to expire. It should soon be renewed automatically.",
-    "certificate_alert_about_to_expire": "WARNING: Current certificate is about to expire! It will NOT be renewed automatically!",
-    "certificate_alert_good": "Okay, current certificate looks good!",
-    "certificate_alert_great": "Great! You're using a valid Let's Encrypt certificate!",
-    "certificate_alert_unknown": "Unknown status",
     "certificate_manage": "Manage SSL certificate",
     "ssl_certificate": "SSL certificate",
-    "confirm_cert_install_LE": "Are you sure you want to install a Let's Encrypt certificate for this domain?",
-    "confirm_cert_regen_selfsigned": "Are you sure you want to regenerate a self-signed certificate for this domain?",
-    "confirm_cert_manual_renew_LE": "Are you sure you want to manually renew the Let's Encrypt certificate for this domain now?",
-    "confirm_cert_revert_to_selfsigned": "Are you sure you want to revert this domain to a self-signed certificate?",
     "certificate": "Certificate",
-    "certificate_status": "Certificate status",
-    "certificate_authority": "Certification authority",
-    "validity": "Validity",
-    "domain_is_eligible_for_ACME": "This domain seems correctly configured to install a Let's Encrypt certificate!",
-    "domain_not_eligible_for_ACME": "This domain doesn't seem ready for a Let's Encrypt certificate. Please check your DNS configuration and HTTP server reachability. The 'DNS records' and 'Web' section in <a href='#/diagnosis'>the diagnosis page</a> can help you understand what is misconfigured.",
-    "install_letsencrypt_cert": "Install a Let's Encrypt certificate",
-    "manually_renew_letsencrypt_message": "Certificate will be automatically renewed during the last 15 days of validity. You can manually renew it if you want to. (Not recommended).",
-    "manually_renew_letsencrypt": "Manually renew now",
-    "regenerate_selfsigned_cert_message": "If you want, you can regenerate the self-signed certificate.",
-    "regenerate_selfsigned_cert": "Regenerate self-signed certificate",
-    "revert_to_selfsigned_cert_message": "If you really want to, you can reinstall a self-signed certificate. (Not recommended)",
-    "revert_to_selfsigned_cert": "Revert to a self-signed certificate",
     "purge_user_data_checkbox": "Purge {name}'s data? (This will remove the content of its home and mail directories.)",
     "purge_user_data_warning": "Purging user's data is not reversible. Be sure you know what you're doing!"
 }

@@ -12,7 +12,7 @@
         <span v-html="$t('postinstall_intro_3')" />
       </p>
 
-      <b-button size="lg" variant="primary" @click="goToStep('domain')">
+      <b-button size="lg" variant="success" @click="goToStep('domain')">
         {{ $t('begin') }}
       </b-button>
     </template>
@@ -33,16 +33,23 @@
       </b-button>
     </template>
 
-    <!-- PASSWORD SETUP STEP -->
-    <template v-else-if="step === 'password'">
-      <password-form
-        :title="$t('postinstall_set_password')" :submit-text="$t('next')" :server-error="serverError"
-        @submit="setPassword"
+    <!-- FIRST USER SETUP STEP -->
+    <template v-else-if="step === 'user'">
+      <card-form
+        :title="$t('postinstall.user.title')" icon="user-plus"
+        :validation="$v" :server-error="serverError"
+        :submit-text="$t('next')" @submit.prevent="setUser"
       >
-        <template #disclaimer>
-          <p class="alert alert-warning" v-t="'postinstall_password'" />
-        </template>
-      </password-form>
+        <read-only-alert-item
+          :label="$t('postinstall.user.first_user_help')"
+          type="info"
+        />
+
+        <form-field
+          v-for="(field, name) in fields" :key="name"
+          v-bind="field" v-model="user[name]" :validation="$v.user[name]"
+        />
+      </card-form>
 
       <b-button variant="primary" @click="goToStep('domain')" class="mt-3">
         <icon iname="chevron-left" /> {{ $t('previous') }}
@@ -74,25 +81,58 @@
 </template>
 
 <script>
+import { validationMixin } from 'vuelidate'
+
 import api from '@/api'
-import { DomainForm, PasswordForm } from '@/views/_partials'
+import { DomainForm } from '@/views/_partials'
 import Login from '@/views/Login'
+import { alphalownum_, required, minLength, name, sameAs } from '@/helpers/validators'
 
 export default {
   name: 'PostInstall',
 
+  mixins: [validationMixin],
+
   components: {
     DomainForm,
-    PasswordForm,
     Login
   },
 
   data () {
     return {
       step: 'start',
+      serverError: '',
       domain: undefined,
-      password: undefined,
-      serverError: ''
+      user: {
+        username: '',
+        fullname: '',
+        password: '',
+        confirmation: ''
+      },
+
+      fields: {
+        username: {
+          label: this.$i18n.t('user_username'),
+          props: { id: 'username', placeholder: this.$i18n.t('placeholder.username') }
+        },
+
+        fullname: {
+          label: this.$i18n.t('user_fullname'),
+          props: { id: 'fullname', placeholder: this.$i18n.t('placeholder.fullname') }
+        },
+
+        password: {
+          label: this.$i18n.t('password'),
+          description: this.$i18n.t('good_practices_about_admin_password'),
+          descriptionVariant: 'warning',
+          props: { id: 'password', placeholder: '••••••••', type: 'password' }
+        },
+
+        confirmation: {
+          label: this.$i18n.t('password_confirmation'),
+          props: { id: 'confirmation', placeholder: '••••••••', type: 'password' }
+        }
+      }
     }
   },
 
@@ -104,11 +144,10 @@ export default {
 
     setDomain ({ domain }) {
       this.domain = domain
-      this.goToStep('password')
+      this.goToStep('user')
     },
 
-    async setPassword ({ password }) {
-      this.password = password
+    async setUser () {
       const confirmed = await this.$askConfirmation(
         this.$i18n.t('confirm_postinstall', { domain: this.domain })
       )
@@ -117,27 +156,45 @@ export default {
     },
 
     performPostInstall (force = false) {
+      const data = {
+        domain: this.domain,
+        username: this.user.username,
+        fullname: this.user.fullname,
+        password: this.user.password
+      }
       // FIXME does the api will throw an error for bad passwords ?
       api.post(
         'postinstall' + (force ? '?force_diskspace' : ''),
-        { domain: this.domain, password: this.password },
+        data,
         { key: 'postinstall' }
       ).then(() => {
         // Display success message and allow the user to login
         this.goToStep('login')
       }).catch(err => {
+        const hasWordsInError = (words) => words.some((word) => (err.key || err.message).includes(word))
         if (err.name !== 'APIBadRequestError') throw err
         if (err.key === 'postinstall_low_rootfsspace') {
           this.step = 'rootfsspace-error'
-        } else if (err.key.includes('password')) {
-          this.step = 'password'
-        } else if (['domain', 'dyndns'].some(word => err.key.includes(word))) {
+        } else if (hasWordsInError(['domain', 'dyndns'])) {
           this.step = 'domain'
+        } else if (hasWordsInError(['password', 'user'])) {
+          this.step = 'user'
         } else {
           throw err
         }
         this.serverError = err.message
       })
+    }
+  },
+
+  validations () {
+    return {
+      user: {
+        username: { required, alphalownum_ },
+        fullname: { required, name },
+        password: { required, passwordLenght: minLength(8) },
+        confirmation: { required, passwordMatch: sameAs('password') }
+      }
     }
   },
 

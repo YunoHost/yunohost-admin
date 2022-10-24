@@ -3,7 +3,7 @@
     :queries="queries" @queries-response="onQueriesResponse"
     ref="view" skeleton="card-form-skeleton"
   >
-    <config-panels v-if="config.panels" v-bind="config" @submit="applyConfig" />
+    <config-panels v-if="config.panels" v-bind="config" @submit="onConfigSubmit" />
   </view-base>
 </template>
 
@@ -17,20 +17,18 @@ import ConfigPanels from '@/components/ConfigPanels'
 
 
 export default {
-  name: 'DomainConfig',
+  name: 'ToolSettingsConfig',
 
   components: {
     ConfigPanels
   },
 
-  props: {
-    name: { type: String, required: true }
-  },
+  props: {},
 
   data () {
     return {
       queries: [
-        ['GET', `domains/${this.name}/config?full`]
+        ['GET', 'settings?full']
       ],
       config: {}
     }
@@ -41,23 +39,21 @@ export default {
       this.config = formatYunoHostConfigPanels(config)
     },
 
-    async applyConfig (id_) {
-      const formatedData = await formatFormData(
-        this.config.forms[id_],
-        { removeEmpty: false, removeNull: true, multipart: false }
-      )
+    async onConfigSubmit ({ id, form }) {
+      const args = await formatFormData(form, { removeEmpty: false, removeNull: true })
 
+      // FIXME no route for potential action
       api.put(
-        `domains/${this.name}/config`,
-        { key: id_, args: objectToParams(formatedData) },
-        { key: 'domains.update_config', name: this.name }
+        `settings/${id}`,
+        { args: objectToParams(args) },
+        { key: 'settings.update', panel: id }
       ).then(() => {
         this.$refs.view.fetchQueries({ triggerLoading: true })
       }).catch(err => {
         if (err.name !== 'APIBadRequestError') throw err
-        const panel = this.config.panels.find(({ id }) => id_ === id)
+        const panel = this.config.panels.find(panel => panel.id === id)
         if (err.data.name) {
-          this.config.errors[id_][err.data.name].message = err.message
+          this.config.errors[id][err.data.name].message = err.message
         } else this.$set(panel, 'serverError', err.message)
       })
     }

@@ -13,7 +13,11 @@
     </b-card-header>
 
     <!-- Bind extra props to the child view and forward child events to parent -->
-    <router-view v-bind="$attrs" v-on="$listeners" />
+    <router-view v-bind="$attrs" v-on="$listeners">
+      <slot name="tab-top" slot="tab-top"></slot>
+      <slot name="tab-before" slot="tab-before"></slot>
+      <slot name="tab-after" slot="tab-after"></slot>
+    </router-view>
   </b-card>
 </template>
 

@@ -60,6 +60,13 @@ export default {
           label: this.$i18n.t('tools_webadmin.transitions'),
           component: 'CheckboxItem',
           props: { labels: { true: 'enabled', false: 'disabled' } }
+        },
+
+        theme: {
+          id: 'theme',
+          label: this.$i18n.t('tools_webadmin.theme'),
+          component: 'CheckboxItem',
+          props: { labels: { true: '🌙', false: '☀️' } }
         }
 
         // experimental: added in `created()`
@@ -69,7 +76,7 @@ export default {
 
   computed: {
     // Those are set/get computed properties
-    ...mapStoreGetSet(['locale', 'fallbackLocale'], 'dispatch'),
+    ...mapStoreGetSet(['locale', 'fallbackLocale', 'theme'], 'dispatch'),
     ...mapStoreGetSet(['cache', 'transitions', 'experimental'])
   },
 
