@@ -1,3 +1,20 @@
+yunohost-admin (11.1.0) testing; urgency=low
+
+  - Rework login view to also ask for username input (cf new 'admins' group) ([#471](https://github.com/yunohost/yunohost-admin/pull/471))
+  - Rework postinstall with first admin user creation (cf new 'admins' group) ([#476](https://github.com/yunohost/yunohost-admin/pull/476))
+  - Integrate global settings using config panel ([#432](https://github.com/yunohost/yunohost-admin/pull/432))
+  - Drop 'change admin password' view, now part of the global setting panel ([#473](https://github.com/yunohost/yunohost-admin/pull/473))
+  - Move service view to 'Tools' section (+ tweak icons) ([#472](https://github.com/yunohost/yunohost-admin/pull/472))
+  - Rework domain list and domain info view (using tree-structure and new config panel with actions for domain) ([#436](https://github.com/yunohost/yunohost-admin/pull/436), [#438](https://github.com/yunohost/yunohost-admin/pull/438))
+  - In user views, have only a single 'full display name' field instead of firstname+lastname ([#474](https://github.com/yunohost/yunohost-admin/pull/474))
+  - Propagate changes related to app packaging v2 ([#477](https://github.com/yunohost/yunohost-admin/pull/477))
+  - Add dark theme setting ([#463](https://github.com/yunohost/yunohost-admin/pull/463))
+  - [i18n] Translations updated for French, Occitan, Slovak
+
+  Thanks to all contributors <3 ! (axolotle, Jose Riha, Kay0u, ppr, Quentí, Tagada)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Tue, 25 Oct 2022 22:23:42 +0200
+
 yunohost-admin (11.0.11) stable; urgency=low
 
   - [upgrades] Add a note to encourage people to check the release note on the forum when there's a major yunohost upgrade before yoloupgrading (f7d7bcec)
