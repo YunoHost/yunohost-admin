@@ -13,7 +13,7 @@ export default {
     fallbackLocale: localStorage.getItem('fallbackLocale'),
     cache: localStorage.getItem('cache') !== 'false',
     transitions: localStorage.getItem('transitions') !== 'false',
-    theme: localStorage.getItem('theme') !== 'false',
+    theme: localStorage.getItem('theme') === 'true',
     experimental: localStorage.getItem('experimental') === 'true',
     spinner: 'pacman',
     supportedLocales: supportedLocales
