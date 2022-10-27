@@ -255,7 +255,7 @@
     "permissions": "Permisos",
     "groups_and_permissions_manage": "Xestionar grupos e permisos",
     "groups_and_permissions": "Grupos e permisos",
-    "group_specific_permissions": "Permisos específicos da usuaria",
+    "group_specific_permissions": "Permisos individuais da usuaria",
     "group_explain_visitors_needed_for_external_client": "Ten en conta que algunhas aplicacións precisan permitir o acceso a visitantes para poder utilizalas con clientes externos. É o caso de, por exemplo, Nextcloud se vas a utilizar un cliente de sincronización no teléfono móbil ou computadora de escritorio.",
     "group_explain_visitors": "Este é un grupo especial que representa ás persoas visitantes anónimas",
     "group_explain_all_users": "Este é un grupo especial que contén tódalas contas de usuaria do servidor",
@@ -297,7 +297,7 @@
     "local_archives": "Arquivos locais",
     "license": "Licenza",
     "last_ran": "Última execución:",
-    "label_for_manifestname": "Etiqueta para {name} (nome mostrado no portal da usuaria)",
+    "label_for_manifestname": "Etiqueta para {name}",
     "label": "Etiqueta",
     "items_verbose_items_left": "Faltan {items}. | Falta 1 {items}. | Faltan {items}.",
     "items_verbose_count": "Hai {items}. | Hai 1 {items}. | Hai {items}.",
@@ -320,10 +320,11 @@
     "placeholder": {
         "domain": "o-meu-dominio.com",
         "groupname": "Nome do grupo",
-        "lastname": "Pérez",
-        "firstname": "Josefa",
-        "username": "pepitaperez",
-        "file": "Navega ata o ficheiro ou arrastra e sóltao"
+        "lastname": "Louro",
+        "firstname": "Pepa",
+        "username": "pepalouro",
+        "file": "Navega ata o ficheiro ou arrastra e sóltao",
+        "fullname": "Pepa Louro"
     },
     "perform": "Realizar",
     "path": "Ruta",
@@ -400,7 +401,9 @@
             "delete": "Eliminar dominio '{name}'",
             "add": "Engadir dominio '{name}'",
             "push_dns_changes": "Subir rexistros DNS á rexistradora para '{name}'",
-            "update_config": "Actualizar configuración de '{name}'"
+            "update_config": "Actualizar panel '{id}' da configuración de '{name}'",
+            "cert_install": "Instalar certificado para '{name}'",
+            "cert_renew": "Anovar certificado para '{name}'"
         },
         "diagnosis": {
             "unignore": {
@@ -420,16 +423,20 @@
             "create": "Crear copia de apoio"
         },
         "apps": {
-            "update_config": "Actualizar configuración da app '{name}'",
+            "update_config": "Actualizar panel '{id}' da configuración da app '{name}'",
             "uninstall": "Desinstalar app '{name}'",
             "perform_action": "Realizar acción '{action}' da app '{name}'",
             "set_default": "Redirixir raiz do dominio '{domain}' a '{name}'",
             "install": "Intalar app '{name}'",
             "change_url": "Cambiar URL de acceso a '{name}'",
-            "change_label": "Cambiar etiqueta de '{prevName}' a '{nextName}'"
+            "change_label": "Cambiar etiqueta de '{prevName}' a '{nextName}'",
+            "action_config": "Executar a acción '{action}' da configuración da app '{name}'"
         },
         "adminpw": "Cambiar contrasinal admin",
-        "reconnecting": "Reconectando"
+        "reconnecting": "Reconectando",
+        "settings": {
+            "update": "Actualizar axustes xerais '{panel}'"
+        }
     },
     "restart": "Reiniciar",
     "restore": "Restaurar",
@@ -446,13 +453,17 @@
     "postinstall_domain": "Este é o primeiro nome de dominio ligado ao teu servidor YunoHost, pero tamén o que utilizarán as usuarias para acceder ao portal de autenticación. Por isto, será visible para todo o mundo, así que elíxeo con coidado.",
     "postinstall": {
         "force": "Forzar a post-instalación",
-        "title": "Postinstall"
+        "title": "Postinstall",
+        "user": {
+            "title": "Crea a primeira usuaria administradora",
+            "first_user_help": "Esta usuaria vai ter privilexios de administración e poderá conectarse á interface de administración así como ter acceso directo ao servidor a través de SSH. \nComo é unha usuaria normal, poderá tamén acceder a través do portal de usuaria (SSO) coas súas credenciais. \nUnha vez a instalación esté completada, poderás crear outras usuarias administradoras engadíndoas ao grupo 'admins'."
+        }
     },
     "ports": "Portos",
     "port": "Porto",
     "permission_main": "Etiqueta principal",
     "permission_corresponding_url": "URL correspondente",
-    "pending_migrations": "Hai algunha migración pendente agardando a ser executada. Vai a <a href='#/tools/migrations'>Ferramentas > Migracións</a> para velas e executalas.",
+    "pending_migrations": "Hai algunha migración pendente agardando executarse. Vai a <a href='#/tools/migrations'>Ferramentas > Migracións</a> para realizalas.",
     "logs_more": "Mostrar máis liñas",
     "user_fullname": "Nome completo",
     "user_emailforward_add": "Engadir un reenvío de correo",
@@ -481,7 +492,8 @@
         "cache": "Caché",
         "fallback_language_description": "Idioma que se utilizará en caso de que a tradución non esté dispoñible no idioma principal.",
         "fallback_language": "Idioma de apoio",
-        "language": "Idioma"
+        "language": "Idioma",
+        "theme": "Activar modo escuro"
     },
     "tools_shutdown_reboot": "Apagar/Reiniciar",
     "tools_shuttingdown": "O servidor estase apagando. Cando esté apagado non poderás usar a web de administración.",
@@ -536,7 +548,11 @@
     "words": {
         "default": "Por defecto",
         "collapse": "Pechar",
-        "browse": "Navegar"
+        "browse": "Navegar",
+        "link": "Ligazón",
+        "none": "Ningún",
+        "separator": ", ",
+        "valid": "Válido"
     },
     "warnings": "{count} avisos",
     "version": "Versión",
@@ -576,12 +592,51 @@
             "push": "Enviar rexistros DNS á rexistradora",
             "push_force": "Sobrescribir rexistros existentes",
             "push_force_warning": "Semella que algúns rexistros DNS que YunoHost querería configurar xa están establecidos na configuración. Podes usar a sobrescritura se sabes o que estás a facer.",
-            "push_force_confirm": "Tes a certeza de que queres forzar a sobrescritura cos rexistros suxeridos? Ten en conta que poderías sobrescribir rexistros por defecto ou manuais establecidos na rexistradora."
+            "push_force_confirm": "Tes a certeza de que queres forzar a sobrescritura cos rexistros suxeridos? Ten en conta que poderías sobrescribir rexistros por defecto ou manuais establecidos na rexistradora.",
+            "methods": {
+                "auto": "Automático",
+                "handled_in_parent": "Xestionado polo dominio nai",
+                "manual": "Manual",
+                "none": "Ningún",
+                "semi_auto": "Semi-automático"
+            }
+        },
+        "cert": {
+            "types": {
+                "selfsigned": "Auto-asinado",
+                "letsencrypt": "Let's Encrypt",
+                "other": "Outro/Descoñecido"
+            },
+            "valid_for": "válido por {days}"
+        },
+        "info": {
+            "apps_on_domain": "Apps instaladas no dominio",
+            "certificate_authority": "Autoridade certificadora SSL",
+            "registrar": "Rexistradora"
+        },
+        "see_parent_domain": "Ver dominio nai",
+        "types": {
+            "main_domain": "Dominio principal"
+        },
+        "toggle_subdomains": "Activar subdominios",
+        "explain": {
+            "main_domain": "O dominio principal é o dominio onde está o portal de acceso para as usuarias (vía \"{domain}/yunohost/sso\"). <br>Por tanto, non é posible eliminalo.<br>Se queres eliminar \"{domain}\", primeiro tes que elexir ou engadir outro dominio e establecelo como dominio principal."
         }
     },
     "domain_dns_push_managed_in_parent_domain": "A ferramenta para os rexistros DNS automáticos están xestionados polo dominio nai <a href='#/domains/{parent_domain}/dns'>{parent_domain}</a>.",
     "domain_dns_push_failed_to_authenticate": "Fallou a autenticación na API da empresa rexistradora. Serán incorrectas as <a href='#/domains/{domain}/config'>credenciais</a>? (Erro: {error})",
     "domain_dns_push_not_applicable": "A ferramenta para rexistro automático DNS non é de aplicación ao dominio {domain}, <br> Deberías configurar manualmente os teus rexistros DNS seguindo a <a href='https://yunohost.org/dns'>documentación</a> e a configuración inferior suxerida.",
     "text_selection_is_disabled": "A selección de texto está desactivada. Se queres compartir este rexistro, comparte o rexistro *completo* co botón 'Compartir con YunoHost'. <br/><small>Ou se realmente queres seleccionar un texto, preme estas teclas: ↓↓↑↑.</small>",
-    "retry": "Reintentar"
+    "retry": "Reintentar",
+    "app_state_broken": "estragado",
+    "app_state_broken_explanation": "Actualmente esta aplicación está estragada e non é instalable según o test automático que fai YunoHost",
+    "details_about": "Mostrar máis detalles sobre {subject}",
+    "group_admins": "Admins",
+    "group_explain_admins": "Este é un grupo especial para as usuarias administradoras. As usuarias deste grupo poden accede á web de administración de YunoHost, conectarse ao servidor por SSH e usar o comando `sudo`. Só deberías engadir a persoas nas que confías totalmente!",
+    "label_for_manifestname_help": "Este é o nome mostrado no porta da usuaria. Pódese cambiar despois.",
+    "manage_groups": "Xestionar grupos",
+    "tools_yunohost_settings": "Axustes YunoHost",
+    "wrong_password_or_username": "Credenciais incorrectas",
+    "confirm_install_app_broken": "AVISO! Esta aplicación está estragada se atendemos ao test automático que fai YunoHost e pode estragar o teu sistema! Probablemente NON debas instalala a menos que saibas o que estás a facer. Queres asumir o risco?",
+    "important_yunohost_upgrade": "Está dispoñible unha actualización principal de YunoHost. É totalmente recomendable ler con atención no foro as notas de publicación antes de actualizar: <a href='https://forum.yunohost.org/tag/ynh_release'>Le as notas de publicación no foro</a>"
 }
