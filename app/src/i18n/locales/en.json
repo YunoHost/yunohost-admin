@@ -130,7 +130,7 @@
     "description": "Description",
     "details": "Details",
     "details_about": "Show more details about {subject}",
-    "domain_dns_conf_is_just_a_recommendation": "This page shows you the *recommended* configuration. It does *not* configure the DNS for you. It is your responsibility to configure your DNS zone in your DNS registrar according to this recommendation.",
+    "domain_dns_conf_is_just_a_recommendation": "This section shows you the *recommended* configuration. It does *not* configure the DNS for you. It is your responsibility to configure your DNS zone in your DNS registrar according to this recommendation.",
     "diagnosis": "Diagnosis",
     "diagnosis_first_run": "The diagnosis feature will attempt to identify common issues on the different aspects of your server to make sure everything runs smoothly. Please do not panic if you see a bunch of errors right after setting up your server: it is precisely meant to help you to identify issues and guide you to fix them. The diagnosis will also run automatically twice a day and an email is sent to the administrator if issues are found.",
     "diagnosis_explanation": "The diagnosis feature will attempt to identify common issues on the different aspects of your server to make sure everything runs smoothly. The diagnosis runs automatically twice a day and an email is sent to the administrator if issues are found. Note that some tests may not be relevant if you do not want to use some specific features (for example XMPP) or may fail if you have a complex setup. In such cases, and if you know what you are doing, it is alright to ignore the corresponding issues or warnings.",
