@@ -23,8 +23,12 @@ export default {
   &.pacman {
     height: 24px;
     width: 24px;
-    background-image: url('../../assets/spinners/pacman.gif');
+    background-image: url('../../assets/spinners/pacman_dark.gif');
     animation-name: back-and-forth-pacman;
+
+    [dark-theme="true"] & {
+      background-image: url('../../assets/spinners/pacman_light.gif');
+    }
 
     @keyframes back-and-forth-pacman {
       0%, 100% { transform: scale(1); margin-left: 0; }
