@@ -254,7 +254,7 @@
     "group_add_member": "Add a user",
     "group_add_permission": "Add a permission",
     "group_new": "New group",
-    "group_explain_admins": "This is a special group corresponding to admin users. Users in this group can access YunoHost's webadmin, connect to the server with SSH and use the `sudo` command. You should only add people you absolutely trust in this group!",
+    "group_explain_admins": "This is a special group corresponding to admin users. Users in this group can access YunoHost's webadmin, connect to the server with SSH and use the `sudo` command. They will also receive emails sent to root@, admin@ and admins@, such as the diagnosis notifications. You should only add people you absolutely trust in this group!",
     "group_explain_all_users": "This is a special group containing all users accounts on the server",
     "group_explain_visitors": "This is a special group representing anonymous visitors",
     "group_explain_visitors_needed_for_external_client": "Be careful that you need to keep some applications allowed to visitors if you intend to use them with external clients. For example, this is the case for Nextcloud if you intend to use a synchronization client on your smartphone or desktop computer.",
