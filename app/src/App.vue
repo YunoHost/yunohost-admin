@@ -160,7 +160,7 @@ export default {
       this.$store.commit('SET_SPINNER', 'spookycat')
     }
 
-    document.documentElement.setAttribute('dark-theme', localStorage.getItem('theme')) // updates the data-theme attribute
+    document.documentElement.setAttribute('dark-theme', this.theme) // updates the data-theme attribute
   }
 }
 </script>
