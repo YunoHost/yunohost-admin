@@ -1,3 +1,13 @@
+yunohost-admin (11.1.0.1) testing; urgency=low
+
+  - Improve admins group description (1156f870)
+  - Fix dark-mode initialization + add dark-mode pacman ([#479](https://github.com/yunohost/yunohost-admin/pull/479), [#480](https://github.com/yunohost/yunohost-admin/pull/480))
+  - [i18n] Translations updated for French, Galician
+
+  Thanks to all contributors <3 ! (axolotle, Éric Gaspar, José M, ppr)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Thu, 27 Oct 2022 16:42:04 +0200
+
 yunohost-admin (11.1.0) testing; urgency=low
 
   - Rework login view to also ask for username input (cf new 'admins' group) ([#471](https://github.com/yunohost/yunohost-admin/pull/471))
