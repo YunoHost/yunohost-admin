@@ -18,6 +18,15 @@ const NO_VALUE_FIELDS = [
   'ButtonItem'
 ]
 
+export const DEFAULT_STATUS_ICON = {
+  [null]: null,
+  danger: 'times',
+  error: 'times',
+  info: 'info',
+  success: 'check',
+  warning: 'warning'
+}
+
 /**
  * Tries to find a translation corresponding to the user's locale/fallback locale in a
  * Yunohost argument or simply return the string if it's not an object literal.
