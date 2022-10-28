@@ -115,7 +115,7 @@
     "diagnosis_first_run": "Funkcja diagnostyki spróbuje zidentyfikować typowe problemy dotyczące różnych aspektów serwera, aby upewnić się, że wszystko działa sprawnie. Nie panikuj, jeśli zaraz po skonfigurowaniu serwera zobaczysz kilka błędów: ma to dokładnie pomóc w zidentyfikowaniu problemów i ich naprawieniu. Diagnostyka będzie również uruchamiana automatycznie dwa razy dziennie, a w przypadku znalezienia problemów do administratora zostanie wysłana wiadomość e-mail.",
     "diagnosis_experimental_disclaimer": "Należy pamiętać, że funkcja diagnostyki jest wciąż eksperymentalna i dopracowywana i może nie być w pełni wiarygodna.",
     "diagnosis": "Diagnostyka",
-    "domain_dns_conf_is_just_a_recommendation": "Ta strona przedstawia *zalecaną* konfigurację. *Nie* konfiguruje DNS za Ciebie. Do Ciebie należy skonfigurowanie strefy DNS u rejestratora DNS zgodnie z tym zaleceniem.",
+    "domain_dns_conf_is_just_a_recommendation": "Ta sekcja przedstawia *zalecaną* konfigurację. *Nie* konfiguruje DNS za Ciebie. Do Ciebie należy skonfigurowanie strefy DNS u rejestratora DNS zgodnie z tym zaleceniem.",
     "details": "Szczegóły",
     "description": "Opis",
     "delete": "Usuń",
@@ -166,7 +166,30 @@
             "push": "Przekaż wpisy DNS do dostawcy",
             "push_force_confirm": "Na pewno chcesz wymusić przekazanie wszystkich sugerowanych wpisów DNS? Mogą one nadpisać zmiany już dokonane w strefie DNS (przez Ciebie lub Twojego dostawcę).",
             "push_force_warning": "Wygląda na to, że część wpisów DNS, które YunoHost próbuje ustawić, już się znajdują w konfiguracji dostawcy. Użyj opcji nadpisywania jeśli jesteś pewien co robisz.",
-            "push_force": "Nadpisz aktualne wpisy"
+            "push_force": "Nadpisz aktualne wpisy",
+            "methods": {
+                "auto": "Automatyczny",
+                "handled_in_parent": "Obsługiwane w domenie nadrzędnej",
+                "manual": "Ręczny",
+                "none": "Żaden",
+                "semi_auto": "Półautomatycznie"
+            }
+        },
+        "cert": {
+            "types": {
+                "selfsigned": "Samopodpisany",
+                "letsencrypt": "Let’s Encrypt",
+                "other": "Inne/Nieznane"
+            },
+            "valid_for": "Ważny przez {days}"
+        },
+        "info": {
+            "apps_on_domain": "Aplikacje zainstalowane w domenie",
+            "certificate_authority": "Urząd certyfikacji SSL"
+        },
+        "see_parent_domain": "Zobacz domenę nadrzędną",
+        "types": {
+            "main_domain": "Domena główna"
         }
     },
     "domain_add_dns_doc": "...oraz mam <a href='//yunohost.org/dns_config' target='_blank'>poprawnie skonfigurowany DNS</a>.",
@@ -225,7 +248,7 @@
     "domain_dns_config": "Konfiguracja DNS",
     "domain_delete_forbidden_desc": "Nie możesz usunąć '{domain}' ponieważ jest ona domeną domyślną, musisz wybrać inną domenę (albo <a href='#/domains/add'> dodać nową </a>) i ustawić ją jako domyślną domenę, aby usunąć tę.",
     "install": "Instaluj",
-    "label_for_manifestname": "Etykieta dla {name} (nazwa wyświetlana w portalu użytkownika)",
+    "label_for_manifestname": "Etykieta dla {name}",
     "local_archives": "Lokalne archiwa",
     "from_to": "od {0} do {1}",
     "group": "Grupa",
@@ -240,7 +263,7 @@
     "hook_conf_ynh_certs": "Certyfikaty SSL",
     "hook_data_home": "Dane użytkownika",
     "mailbox_quota_example": "700M to CD, 4700M to DVD",
-    "group_specific_permissions": "Uprawnienia dla konkretnych użytkowników",
+    "group_specific_permissions": "Indywidualne uprawnienia użytkownika",
     "installed": "Zainstalowano",
     "items": {
         "permissions": "brak uprawnień | uprawnienie | {c} uprawnień",
@@ -312,11 +335,12 @@
     "logs_path": "Położenie",
     "placeholder": {
         "domain": "moja-domena.com",
-        "lastname": "Kowalski",
-        "username": "jankowalski",
+        "lastname": "Nowak",
+        "username": "adamnowak",
         "groupname": "Moja nazwa grupy",
-        "firstname": "Jan",
-        "file": "Przeglądaj pliki lub upuść go tutaj"
+        "firstname": "Adam",
+        "file": "Przeglądaj pliki lub upuść go tutaj",
+        "fullname": "Adam Nowak"
     },
     "logs_suboperations": "Operacje wewnątrz",
     "logs_service": "Logi usług",
@@ -361,7 +385,10 @@
     "logs_more": "Pokaż więcej linii",
     "postinstall": {
         "force": "Wymuś post-instalację",
-        "title": "Postinstalacja"
+        "title": "Postinstalacja",
+        "user": {
+            "title": "Utwórz pierwsze konto administratora"
+        }
     },
     "postinstall_set_password": "Ustaw hasło administracyjne",
     "restore": "Przywróć",
@@ -423,7 +450,9 @@
             "manual_renew_LE": "Odnów certyfikat dla '{name}'",
             "regen_selfsigned": "Odnów samopodpisany certyfikat dla '{name}'",
             "push_dns_changes": "Przekaż wpisy DNS dla '{name}' do dostawcy",
-            "update_config": "Aktualizuj konfigurację dla '{name}'"
+            "update_config": "Aktualizuj konfigurację dla '{name}'",
+            "cert_install": "Zainstaluj certyfikat dla „{name}”",
+            "cert_renew": "Odnów certyfikat dla „{name}”"
         },
         "firewall": {
             "ports": "{action} port {port} ({protocol}, {connection})",
@@ -442,7 +471,10 @@
         },
         "update": "Sprawdź aktualizacje",
         "adminpw": "Zmień hasło administratora",
-        "reconnecting": "Ponawianie połączenia"
+        "reconnecting": "Ponawianie połączenia",
+        "settings": {
+            "update": "Uaktualnij ustawienia globalne dla „{panel}”"
+        }
     },
     "size": "Rozmiar",
     "run": "Uruchom",
@@ -494,7 +526,8 @@
         "experimental_description": "Daje Ci dostęp do funkcji eksperymentalnych. Są one uważane za niestabilne i mogą uszkodzić Twój system. <br> Włącz jeśli wiesz dokładnie co robisz.",
         "experimental": "Tryb eksperymentalny",
         "transitions": "Animacja przejść pomiędzy stronami",
-        "cache_description": "Zastanów się nad wyłączeniem pamięci podręcznej jeśli zamierzasz używać konsolę podczas korzystania z web-admin."
+        "cache_description": "Zastanów się nad wyłączeniem pamięci podręcznej jeśli zamierzasz używać konsolę podczas korzystania z web-admin.",
+        "theme": "Włącz ciemny motyw"
     },
     "tools_webadmin_settings": "Ustawienia web-admin",
     "upnp_disabled": "UPnP jest wyłączony.",
@@ -505,7 +538,11 @@
     "words": {
         "browse": "Przeglądaj",
         "default": "Domyślny",
-        "collapse": "Zwiń"
+        "collapse": "Zwiń",
+        "link": "Link",
+        "none": "Żaden",
+        "separator": ", ",
+        "valid": "Ważny"
     },
     "uninstall": "Odinstaluj",
     "upnp": "UPnP",
@@ -576,5 +613,14 @@
     "install_letsencrypt_cert": "Zainstaluj certyfikat Let's Encrypt",
     "regenerate_selfsigned_cert_message": "Jeśli chcesz, możesz wygenerować samopodpisany certyfikat.",
     "regenerate_selfsigned_cert": "Odnów samopodpisany certyfikat",
-    "tools": "Narzędzia"
+    "tools": "Narzędzia",
+    "app_state_broken": "Zepsute",
+    "app_state_broken_explanation": "Ta aplikacja aktualnie jest uszkodzona i według automatycznych testów YunoHost nie da się jej zainstalować",
+    "confirm_install_app_broken": "UWAGA! Według automatycznych testów YunoHost ta aplikacja jest uszkodzona i może uszkodzić Twój system! NIE powinieneś jej instalować, no chyba że wiesz co robisz. Czy jesteś gotowy podjąć takie ryzyko?",
+    "details_about": "Pokaż więcej szczegółów o {subject}",
+    "group_admins": "Administratorzy",
+    "label_for_manifestname_help": "To jest nazwa wyświetlana w portalu użytkownika. Można ją później zmienić.",
+    "manage_groups": "Zarządzaj grupami",
+    "tools_yunohost_settings": "Ustawienia YunoHost",
+    "wrong_password_or_username": "Błędne hasło lub nazwa użytkownika"
 }
