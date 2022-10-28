@@ -85,8 +85,6 @@
   @include hsl-color('gray-800', 210, 10%, 23%);
   @include hsl-color('gray-900', 210, 11%, 15%);
 
-  --code-color: var(--pink);
-
   // Overwrite list-group-item variants to lighter ones (used in diagnosis for example)
   @each $color, $value in $theme-colors {
     @include list-group-item-variant($color, theme-color-level($color, $list-group-item-bg-level), theme-color-level($color, $list-group-item-color-level));
@@ -97,6 +95,11 @@
         box-shadow: 0 0 0 $btn-focus-width rgba($value, .3);
       }
     }
+  }
+
+  // FIX svg fill not working with CSS variables
+  .custom-checkbox .custom-control-input:checked ~ .custom-control-label::after {
+    background-image: escape-svg(url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'><path fill='white' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26l2.974 2.99L8 2.193z'/></svg>"));
   }
 }
 
@@ -123,14 +126,17 @@
   @include hsl-color('gray-200', 256, 0%, 23%);
   @include hsl-color('gray-100', 256, 0%, 15%);
 
-  --code-color: var(--gray-800);
-
   @each $color, $value in $theme-colors {
     @include list-group-item-variant($color, theme-color-level($color, -6), theme-color-level($color, 2));
 
     .alert-#{$color} {
       @include alert-variant(theme-color-level($color, -6), theme-color-level($color, -5), theme-color-level($color, 2));
     }
+  }
+
+  // FIX svg fill not working with CSS variables
+  .custom-checkbox .custom-control-input:checked ~ .custom-control-label::after {
+    background-image: escape-svg(url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'><path fill='#202020' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26l2.974 2.99L8 2.193z'/></svg>"));
   }
 }
 
@@ -294,7 +300,7 @@ h3.card-title {
 }
 
 code {
-  background: $light;
+  background: $gray-300;
   padding: .15rem .25rem;
   border-radius: $border-radius;
 }
