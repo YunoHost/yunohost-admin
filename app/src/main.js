@@ -17,12 +17,7 @@ Vue.config.productionTip = false
 Vue.use(BootstrapVue, {
   BSkeleton: { animation: 'none' },
   BAlert: { show: true },
-  BBadge: { pill: true },
-  BModal: {
-    bodyBgVariant: 'warning',
-    centered: true,
-    bodyClass: ['font-weight-bold', 'rounded-top']
-  }
+  BBadge: { pill: true }
 })
 
 Vue.use(VueShowdown, {
@@ -37,6 +32,9 @@ Vue.prototype.$askConfirmation = function (message, props) {
   return this.$bvModal.msgBoxConfirm(message, {
     okTitle: this.$i18n.t('ok'),
     cancelTitle: this.$i18n.t('cancel'),
+    bodyBgVariant: 'warning',
+    centered: true,
+    bodyClass: ['font-weight-bold', 'rounded-top', store.state.theme ? 'text-white' : 'text-black'],
     ...props
   })
 }
