@@ -11,7 +11,7 @@
       </b-button>
       <b-popover
         placement="auto"
-        :target="id" triggers="click" custom-class="explain-what-popover"
+        :target="id" triggers="focus" custom-class="explain-what-popover"
         :variant="variant" :title="title"
       >
         <span v-html="content" />
