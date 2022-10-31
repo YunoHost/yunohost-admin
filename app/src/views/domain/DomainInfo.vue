@@ -57,23 +57,25 @@
 
       <!-- DOMAIN APPS -->
       <description-row :term="$t('domain.info.apps_on_domain')">
-        <b-button-group
-          v-for="app in domain.apps" :key="app.id"
-          size="sm" class="mr-2"
-        >
-          <b-button class="py-0 font-weight-bold" variant="outline-dark" :to="{ name: 'app-info', params: { id: app.id }}">
-            {{ app.name }}
-          </b-button>
-          <b-button
-            variant="outline-dark" class="py-0 px-1"
-            :href="'https://' + name + app.path" target="_blank"
+        <div>
+          <b-button-group
+            v-for="app in domain.apps" :key="app.id"
+            size="sm" class="mr-2 mb-2"
           >
-            <span class="sr-only">{{ $t('app.visit_app') }}</span>
-            <icon iname="external-link" />
-          </b-button>
-        </b-button-group>
+            <b-button class="py-0 font-weight-bold" variant="outline-dark" :to="{ name: 'app-info', params: { id: app.id }}">
+              {{ app.name }}
+            </b-button>
+            <b-button
+              variant="outline-dark" class="py-0 px-1"
+              :href="'https://' + name + app.path" target="_blank"
+            >
+              <span class="sr-only">{{ $t('app.visit_app') }}</span>
+              <icon iname="external-link" />
+            </b-button>
+          </b-button-group>
 
-        {{ domain.apps.length ? '' : $t('words.none') }}
+          {{ domain.apps.length ? '' : $t('words.none') }}
+        </div>
       </description-row>
     </card>
 
