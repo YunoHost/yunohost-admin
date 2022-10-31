@@ -4,15 +4,17 @@
     :class="{ 'fixed-height': fixedHeight, 'bordered': bordered }"
     @scroll="onScroll"
   >
-    <b-list-group-item
+    <yuno-list-group-item
       v-if="limit && messages.length > limit"
       variant="info" v-t="'api.partial_logs'"
     />
 
-    <b-list-group-item v-for="({ color, text }, i) in reducedMessages" :key="i">
-      <span class="status" :class="'bg-' + color" />
+    <yuno-list-group-item
+      v-for="({ color, text }, i) in reducedMessages" :key="i"
+      :variant="color" size="xs"
+    >
       <span v-html="text" />
-    </b-list-group-item>
+    </yuno-list-group-item>
   </b-list-group>
 </template>
 
@@ -74,19 +76,5 @@ export default {
 .bordered {
   border: $card-border-width solid $card-border-color;
   @include border-radius($card-border-radius);
-}
-
-.list-group-item {
-  font-size: $font-size-sm;
-  padding: $tooltip-padding-y $tooltip-padding-x;
-  padding-left: 1rem;
-}
-
-.status {
-  position: absolute;
-  width: .4rem;
-  height: 100%;
-  top: 0;
-  left: 0;
 }
 </style>

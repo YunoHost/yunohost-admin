@@ -52,12 +52,12 @@
 
       <b-list-group flush>
         <!-- REPORT ITEM -->
-        <b-list-group-item
+        <yuno-list-group-item
           v-for="(item, i) in report.items" :key="i"
-          :variant="item.variant"
+          :variant="item.variant" :icon="item.icon" :faded="item.ignored"
         >
           <div class="item-button d-flex align-items-center">
-            <icon :iname="item.icon" class="mr-1" /> <p class="mb-0 mr-2" v-html="item.summary" />
+            <p class="mb-0 mr-2" v-html="item.summary" />
 
             <div class="d-flex flex-column flex-lg-row ml-auto">
               <b-button
@@ -72,9 +72,10 @@
               >
                 <icon iname="bell-slash" /> {{ $t('ignore') }}
               </b-button>
+
               <b-button
                 v-if="item.details"
-                size="sm" :variant="'outline-' + (theme ? 'light' : 'dark')" class="ml-lg-2 mt-2 mt-lg-0"
+                size="sm" variant="outline-dark" class="ml-lg-2 mt-2 mt-lg-0"
                 v-b-toggle="`collapse-${report.id}-item-${i}`"
               >
                 <icon iname="level-down" /> {{ $t('details') }}
@@ -87,7 +88,7 @@
               <li v-for="(detail, index) in item.details" :key="index" v-html="detail" />
             </ul>
           </b-collapse>
-        </b-list-group-item>
+        </yuno-list-group-item>
       </b-list-group>
     </card>
 
@@ -108,6 +109,7 @@ import { mapGetters } from 'vuex'
 
 import api from '@/api'
 import { distanceToNow } from '@/helpers/filters/date'
+import { DEFAULT_STATUS_ICON } from '@/helpers/yunohostArguments'
 
 export default {
   name: 'Diagnosis',
@@ -127,34 +129,6 @@ export default {
   },
 
   methods: {
-    formatReportItem (report, item) {
-      let issue = false
-      let icon = ''
-      const status = item.variant = item.status.toLowerCase()
-
-      if (status === 'success') {
-        icon = 'check-circle'
-      } else if (status === 'info') {
-        icon = 'info-circle'
-      } else if (item.ignored) {
-        icon = status !== 'error' ? status : 'times'
-        item.variant = 'light'
-        report.ignoreds++
-      } else if (status === 'warning') {
-        icon = status
-        issue = true
-        report.warnings++
-      } else if (status === 'error') {
-        item.variant = 'danger'
-        icon = 'times'
-        issue = true
-        report.errors++
-      }
-
-      item.issue = issue
-      item.icon = icon
-    },
-
     onQueriesResponse (_, reportsData) {
       if (reportsData === null) {
         this.reports = null
@@ -168,8 +142,23 @@ export default {
         report.ignoreds = 0
 
         for (const item of report.items) {
-          this.formatReportItem(report, item)
+          const status = item.variant = item.status.toLowerCase()
+          item.icon = DEFAULT_STATUS_ICON[status]
+          item.issue = false
+
+          if (item.ignored) {
+            item.variant = 'light'
+            report.ignoreds++
+          } else if (status === 'warning') {
+            item.issue = true
+            report.warnings++
+          } else if (status === 'error') {
+            item.variant = 'danger'
+            item.issue = true
+            report.errors++
+          }
         }
+
         report.noIssues = report.warnings + report.errors === 0
       }
       this.reports = reports
@@ -222,6 +211,10 @@ export default {
 
 p.last-time-run {
   margin: .75rem 1rem;
+}
+
+.list-group {
+  border-top: $list-group-border-width solid $list-group-border-color;
 }
 
 .item-button {
