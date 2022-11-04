@@ -1,3 +1,14 @@
+yunohost-admin (11.1.0.2) testing; urgency=low
+
+  - Fix darkmode checkbox icons, code and warning modals ([#481](https://github.com/yunohost/yunohost/pull/481))
+  - New list-group-item styling for diagnosis ([#483](https://github.com/yunohost/yunohost/pull/483))
+  - [fix] domain apps styling and tooltip trigger method ([#484](https://github.com/yunohost/yunohost/pull/484))
+  - [i18n] Translations updated for French, Galician, Hebrew, Polish
+
+  Thanks to all contributors <3 ! (axolotle, eetsceeck cohen, Florian Masy, Grzegorz Cichocki, José M, ppr)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Fri, 04 Nov 2022 13:15:18 +0100
+
 yunohost-admin (11.1.0.1) testing; urgency=low
 
   - Improve admins group description (1156f870)
