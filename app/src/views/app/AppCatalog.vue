@@ -48,75 +48,68 @@
     </template>
 
     <!-- CATEGORIES CARDS -->
-    <b-card-group v-if="category === null" deck>
+    <b-card-group v-if="category === null" deck tag="ul">
       <b-card
         v-for="cat in categories.slice(1)" :key="cat.value"
-        class="category-card" no-body
+        tag="li" class="category-card"
       >
-        <b-button variant="outline-dark" @click="category = cat.value">
-          <b-card-title>
+        <b-card-title>
+          <b-link @click="category = cat.value" class="card-link">
             <icon :iname="cat.icon" /> {{ cat.text }}
-          </b-card-title>
-          <b-card-text>{{ cat.description }}</b-card-text>
-        </b-button>
+          </b-link>
+        </b-card-title>
+        <b-card-text>{{ cat.description }}</b-card-text>
       </b-card>
     </b-card-group>
 
     <!-- APPS CARDS -->
-    <b-card-group v-else deck>
-      <lazy-renderer v-for="app in filteredApps" :key="app.id" :min-height="120">
-        <b-card no-body>
-          <b-card-body class="d-flex flex-column">
-            <b-card-title class="d-flex mb-2">
+    <card-deck-feed v-else>
+      <b-card
+        v-for="(app, i) in filteredApps" :key="app.id"
+        tag="article" :aria-labelledby="`${app.id}-title`" :aria-describedby="`${app.id}-desc`"
+        tabindex="0" :aria-posinset="i + 1" :aria-setsize="filteredApps.length"
+        no-body class="app-card"
+      >
+        <b-card-body class="d-flex flex-column">
+          <b-card-title :id="`${app.id}-title`" class="d-flex mb-2">
+            <b-link v-b-modal.modal-app-info @click="selectedApp = app.id" class="card-link">
               {{ app.manifest.name }}
+            </b-link>
 
-              <small v-if="app.state !== 'working' || app.high_quality" class="d-flex align-items-center ml-2">
-                <b-badge
-                  v-if="app.state !== 'working'"
-                  :variant="app.color"
-                  v-b-popover.hover.bottom="$t(`app_state_${app.state}_explanation`)"
-                >
-                  <!-- app.state can be 'lowquality' or 'inprogress' -->
-                  {{ $t('app_state_' + app.state) }}
-                </b-badge>
+            <small v-if="app.state !== 'working' || app.high_quality" class="d-flex align-items-center ml-2 position-relative">
+              <b-badge
+                v-if="app.state !== 'working'"
+                :variant="app.color"
+                v-b-popover.hover.bottom="$t(`app_state_${app.state}_explanation`)"
+              >
+                <!-- app.state can be 'lowquality' or 'inprogress' -->
+                {{ $t('app_state_' + app.state) }}
+              </b-badge>
 
-                <icon
-                  v-if="app.high_quality" iname="star" class="star"
-                  v-b-popover.hover.bottom="$t(`app_state_highquality_explanation`)"
-                />
-              </small>
-            </b-card-title>
+              <icon
+                v-if="app.high_quality" iname="star" class="star"
+                v-b-popover.hover.bottom="$t(`app_state_highquality_explanation`)"
+              />
+            </small>
+          </b-card-title>
 
-            <b-card-text>{{ app.manifest.description }}</b-card-text>
+          <b-card-text :id="`${app.id}-desc`">
+            {{ app.manifest.description }}
+          </b-card-text>
 
-            <b-card-text v-if="!app.maintained" class="align-self-end mt-auto">
-              <span class="alert-warning p-1" v-b-popover.hover.top="$t('orphaned_details')">
-                <icon iname="warning" /> {{ $t('orphaned') }}
-              </span>
-            </b-card-text>
-          </b-card-body>
+          <b-card-text v-if="!app.maintained" class="align-self-end position-relative mt-auto">
+            <span class="alert-warning p-1" v-b-popover.hover.top="$t('orphaned_details')">
+              <icon iname="warning" /> {{ $t('orphaned') }}
+            </span>
+          </b-card-text>
+        </b-card-body>
+      </b-card>
+    </card-deck-feed>
 
-          <!-- APP BUTTONS -->
-          <b-button-group>
-            <b-button :href="app.git.url" variant="outline-dark" target="_blank">
-              <icon iname="code" /> {{ $t('code') }}
-            </b-button>
-
-            <b-button :href="app.git.url + '/blob/master/README.md'" variant="outline-dark" target="_blank">
-              <icon iname="book" /> {{ $t('readme') }}
-            </b-button>
-
-            <b-button v-if="app.isInstallable" :variant="app.color" @click="onInstallClick(app)">
-              <icon iname="plus" /> {{ $t('install') }} <icon v-if="app.color === 'danger'" class="ml-1" iname="warning" />
-            </b-button>
-            <b-button v-else :variant="app.color" disabled>
-              {{ $t('installed') }}
-            </b-button>
-          </b-button-group>
-        </b-card>
-      </lazy-renderer>
-    </b-card-group>
-
+    <b-modal
+      id="modal-app-info"
+      @hide="selectedApp = undefined"
+    />
     <template #bot>
       <!-- INSTALL CUSTOM APP -->
       <card-form
@@ -160,16 +153,15 @@
 <script>
 import { validationMixin } from 'vuelidate'
 
-import LazyRenderer from '@/components/LazyRenderer'
+import CardDeckFeed from '@/components/CardDeckFeed'
 import { required, appRepoUrl } from '@/helpers/validators'
-
 import { randint } from '@/helpers/commons'
 
 export default {
   name: 'AppCatalog',
 
   components: {
-    LazyRenderer
+    CardDeckFeed
   },
 
   data () {
@@ -180,6 +172,7 @@ export default {
 
       // Data
       apps: undefined,
+      selectedApp: undefined,
 
       // Filtering options
       qualityOptions: [
@@ -364,28 +357,43 @@ export default {
 }
 
 .card-deck {
+  padding: 0;
+  margin-bottom: 0;
+
   > * {
-    margin-left: 15px;
-    margin-right: 15px;
     margin-bottom: 2rem;
     flex-basis: 100%;
+
     @include media-breakpoint-up(md) {
       flex-basis: 50%;
       max-width: calc(50% - 30px);
     }
+
     @include media-breakpoint-up(lg) {
       flex-basis: 33%;
       max-width: calc(33.3% - 30px);
     }
-
-    .card {
-      margin: 0;
-      height: 100%;
-    }
   }
 
   .card {
-    border-color: $gray-400;
+    @include hover() {
+      color: color-yiq($dark);
+      background-color: $dark;
+      border-color: $dark;
+    }
+
+    .card-link {
+      color: inherit;
+
+      &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+      }
+    }
 
     // not maintained info
     .alert-warning {
@@ -403,38 +411,33 @@ export default {
     }
 
     flex-basis: 90%;
-    border: 0;
 
-    .btn {
-      padding: 1rem;
-      width: 100%;
-      height: 100%;
+    .card-body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .card-link {
+      outline: none;
+
+      &::after {
+        border: $btn-border-width solid transparent;
+        @include transition($btn-transition);
+        @include border-radius($btn-border-radius, 0);
+      }
+
+      &:focus::after {
+        box-shadow: 0 0 0 $btn-focus-width rgba($dark, .5);
+      }
     }
   }
 
-  .btn-group {
-    .btn {
-      border-top-left-radius: 0;
-      border-top-right-radius: 0;
-      border-bottom: 0;
-      flex-basis: 0;
-      padding-left: 0;
-      padding-right: 0;
-    }
-    .btn:first-of-type {
-      border-left: 0;
-    }
-    .btn:last-of-type {
-      border-right: 0;
-    }
-  }
+  .app-card {
+    min-height: 125px;
 
-  .btn-outline-dark {
-    border-color: $gray-400;
-
-    &:hover {
-      border-color: $dark;
-    }
+    text-align: start;
   }
 }
 </style>
