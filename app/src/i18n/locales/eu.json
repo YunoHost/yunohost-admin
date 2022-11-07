@@ -167,8 +167,36 @@
             "auto_config": "DNS erregistroen konfigurazio automatikoa",
             "auto_config_ok": "Konfigurazio automatikoa zuzena dela dirudi!",
             "push_force_confirm": "Ziur al zaude proposatutako DNS balioak bidali nahi dituzula? Kontuan izan honek erregistro-enpresak ezarritako balioak edota bestelako balioak ordezkatu ditzakeela.",
-            "auto_config_ignored": "Ez da kontuan hartu, YunoHostek ez du aldatuko gainean idazteko aukera sakatzen ez baduzu"
-        }
+            "auto_config_ignored": "Ez da kontuan hartu, YunoHostek ez du aldatuko gainean idazteko aukera sakatzen ez baduzu",
+            "methods": {
+                "auto": "Automatikoa",
+                "handled_in_parent": "Domeinu nagusiak kudeatzen du",
+                "manual": "Eskuzkoa",
+                "none": "Bat ere ez",
+                "semi_auto": "Erdiautomatikoa"
+            }
+        },
+        "cert": {
+            "types": {
+                "selfsigned": "Norberak sinatutakoa",
+                "letsencrypt": "Let's Encrypt",
+                "other": "Beste / Ezezaguna"
+            },
+            "valid_for": "{days} baliogarria"
+        },
+        "explain": {
+            "main_domain": "Domeinu nagusia erabiltzaileek atarira sartzeko erabiltzen dutena da (\"{domain}/yunohost/sso\" bidez). <br> Hori dela-eta, ezin da ezabatu. <br>\"{domain}\" ezabatu nahi baduzu, ezar ezazu beste bat domeinu nagusi bezala."
+        },
+        "info": {
+            "apps_on_domain": "Domeinuan instalatutako aplikazioak",
+            "certificate_authority": "SSL ziurtagiri jaulkitzailea",
+            "registrar": "Erregistro-enpresa"
+        },
+        "see_parent_domain": "Ikus domeinu nagusia",
+        "types": {
+            "main_domain": "Domeinu nagusia"
+        },
+        "toggle_subdomains": "Ikusi / Ezkutatu azpi-domeinuak"
     },
     "domain_add_dyndns_forbidden": "DynDNS domeinu batean eman duzu izena dagoeneko, oraingo DynDNS domeinua ezabatu nahi baduzu foroan adierazi dezakezu, <a href='//forum.yunohost.org/t/nohost-domain-recovery-suppression-de-domaine-en-nohost-me-noho-st-et-ynh-fr/442'>horretarako sortutako harian</a>.",
     "download": "Deskargatu",
@@ -254,7 +282,7 @@
     "confirm_reboot_action_reboot": "Ziur al zaude zerbitzaria berrabiarazi nahi duzula?",
     "created_at": "Sortze data:",
     "custom_app_install": "Instalatu norberaren aplikazioa",
-    "domain_dns_conf_is_just_a_recommendation": "Orri honetan *iradokitutako* ezarpenak agertzen dira. *Ez* du DNSa zure ordez konfiguratuko. Zure ardura da DNS guneak zure DNS erregistro-enpresaren gomendioen arabera ezartzea.",
+    "domain_dns_conf_is_just_a_recommendation": "Atal honetan *iradokitutako* ezarpenak agertzen dira. *Ez* du DNSa zure ordez konfiguratuko. Zure ardura da DNS guneak zure DNS erregistro-enpresaren gomendioen arabera ezartzea.",
     "disable": "Desgaitu",
     "domain_add_dyndns_doc": "…eta DNS dinamiko zerbitzua nahi dut.",
     "domain_add_panel_with_domain": "Badaukat domeinu bat dagoeneko…",
@@ -321,9 +349,10 @@
             "set_default": "'{domain} domeinuaren root-a '{name}'ra birbideratu",
             "perform_action": "'{name}' aplikazioaren '{action}' eragiketa exekutatu",
             "uninstall": "Desinstalatu '{name}' aplikazioa",
-            "update_config": "'{name}' aplikazioaren konfigurazioa eguneratu",
+            "update_config": "Eguneratu '{name}' aplikazioaren '{id}' konfigurazio-arbela",
             "change_url": "Aldatu '{name}'(r)en URLa",
-            "change_label": "'{prevName}' '{nextName}'(r)ekin aldatu"
+            "change_label": "'{prevName}' '{nextName}'(r)ekin aldatu",
+            "action_config": "Exekutatu '{name}' aplikazioaren '{action}' ekintza ezarpenetan"
         },
         "domains": {
             "add": "Gehitu '{name}' domeinua",
@@ -332,9 +361,11 @@
             "manual_renew_LE": "Berriztu '{name}'(r)entzako zirutagiria",
             "push_dns_changes": "Bidali '{name}' DNS ezarpenak erregistro-enpresara",
             "regen_selfsigned": "Berriztu norberak sinatutako ziurtagiria '{name}'(r)entzat",
-            "update_config": "Eguneratu '{name}' konfigurazioa",
+            "update_config": "Eguneratu '{name}' domeinuaren '{id}' konfigurazio-arbela",
             "revert_to_selfsigned": "Bueltatu norberak sinatutako ziurtagirira '{name}'(r)entzat",
-            "set_default": "Ezarri '{name}' domeinu nagusi bezala"
+            "set_default": "Ezarri '{name}' domeinu nagusi bezala",
+            "cert_install": "Instalatu ziurtagiria '{name}'(e)rako",
+            "cert_renew": "Berritu ziurtagiria '{name}'(e)rako"
         },
         "adminpw": "Aldatu administrazio-pasahitza",
         "migrations": {
@@ -375,7 +406,10 @@
         "share_logs": "Sortu '{name}' erregistroaren esteka",
         "shutdown": "Itzali zerbitzaria",
         "reboot": "Berrabiarazi zerbitzaria",
-        "reconnecting": "Berkonektatzen"
+        "reconnecting": "Berkonektatzen",
+        "settings": {
+            "update": "Eguneratu '{panel}' ezarpen orokorrak"
+        }
     },
     "only_highquality_apps": "Kalitate handiko aplikazioak soilik",
     "only_decent_quality_apps": "Kalitate onargarria duten aplikazioak soilik",
@@ -388,13 +422,14 @@
         "username": "izenabizena",
         "firstname": "Jon",
         "lastname": "Zaharra",
-        "groupname": "Nire taldearen izena"
+        "groupname": "Nire taldearen izena",
+        "fullname": "Jon Zaharra"
     },
     "logs_suboperations": "Azpi-eragiketak",
     "logs_access": "Baimendutakoen eta debekatutakoen zerrenda",
     "logs_path": "Bidea",
     "logs_share_with_yunopaste": "Partekatu YunoPastekin",
-    "label_for_manifestname": "{name}(r)entzat etiketa (erabiltzaile-atarian ageri den izena)",
+    "label_for_manifestname": "{name}(r)entzat etiketa",
     "last_ran": "Une honetan exekutatu zen azkenekoz:",
     "migrations_no_pending": "Ez dago egiteko migraziorik",
     "password_confirmation": "Berridatzi pasahitza",
@@ -403,7 +438,11 @@
     "ports": "Atakak",
     "postinstall": {
         "force": "Abiarazi instalazio ondorengo prozesua",
-        "title": "Instalazio ondorengo prozesua"
+        "title": "Instalazio ondorengo prozesua",
+        "user": {
+            "title": "Sortu lehenengo administratzaile erabiltzailea",
+            "first_user_help": "Erabiltzaile honi administrazio ahalmenak esleituko zaizkio eta administrazio webgunea eta SSH konexioa erabiltzeko aukera izango du.\nErabiltzaile arrunta denez, erabiltzaileen ataria (SSO) erabiltzeko aukera ere izango du.\nInstalazio ondorengo prozesuek amaitzen dutenean, administratzaile gehiago sor ditzakezu 'admins' taldera gehituz."
+        }
     },
     "postinstall_password": "Pasahitza zerbitzari guztia kudeatzeko erabiliko da. Har ezazu pasahitz seguru bat pentsatzeko behar beste denbora.",
     "postinstall_set_domain": "Aukeratu domeinu nagusia",
@@ -414,7 +453,7 @@
     "postinstall_set_password": "Aukeratu administrariaren pasahitza",
     "restart": "Berrabiarazi",
     "operation_failed_explanation": "Kale egin du! Sentitzen dugu :( <a href='https://yunohost.org/help'>Laguntza eskatzen saia zaitezke</a>. Mesedez, jarri laguntzaileen esku eragiketaren erregistroa *bere osotasunean*. 'Partekatu Yunopastekin' botoi berdea sakatu dezakezu horretarako. YunoHost automatikoki saiatuko da domeinuak edo IP helbideak bezalako datu pribatuak anonimo egiten erregistroak partekatzean.",
-    "pending_migrations": "Migrazio batzuk exekutatzeke daude. Mesedez, joan <a href='#/tools/migrations'>Erramintak > Migrazioak</a>-era abiarazteko.",
+    "pending_migrations": "Migrazio batzuk exekutatzeke daude. Mesedez, joan <a href='#/tools/migrations'>Tresnak > Migrazioak</a>-era abiarazteko.",
     "permission_corresponding_url": "Dagokion URLa",
     "orphaned_details": "Aplikazio honek ez du arduradunik izan denbora luzez. Litekeena da oraindik martxan jarri ahal izatea, baina ez du eguneraketarik jasoko bolondresen batek ardura hartu arte. Parte hartu eta biziberritu!",
     "permission_main": "Etiketa nagusia",
@@ -468,7 +507,8 @@
         "cache_description": "Agian cachea desgaitu beharko zenuke administrazio-webgunea erabiltzeaz gain terminalarekin jardungo baduzu.",
         "experimental": "Modu esperimentala",
         "experimental_description": "Funtzio esperimentalei atea irekitzen die. Ezegonkorrak dira eta sistema kaltetu dezake.<br>Zertan ari zaren badakizu soilik gaitu aukera hau.",
-        "transitions": "Orrialdeen transtsizioetarako animazioak"
+        "transitions": "Orrialdeen transtsizioetarako animazioak",
+        "theme": "Piztu / Itzali itzura iluna"
     },
     "users_import_delete_desc": "Aukeratuz gero, CSV fitxategian ageri ez diren erabiltzaile guztiak ezabatuko dira (baita sistematik ere).",
     "version": "Bertsioa",
@@ -493,7 +533,11 @@
     "words": {
         "default": "Lehenetsia",
         "browse": "Arakatu",
-        "collapse": "Ezkutatu"
+        "collapse": "Ezkutatu",
+        "link": "Esteka",
+        "none": "Bat ere ez",
+        "separator": ", ",
+        "valid": "Baliozkoa"
     },
     "certificate_alert_selfsigned": "ADI: Oraingo ziurtagiria norberak sinatutakoa da. Web-nabigatzaileek bisitariak izutuko dituen ohar bat erakutsiko dute webgunea bisitatzerakoan!",
     "unmaintained_details": "Aplikazio hau ez da denbora luzean eguneratu eta aurreko arduradunak alde egin du edo ez dauka aplikazioa mantentzeko denborarik. Eman aplikazioen biltegiari begirada bat eta lagun ezazu aukera baduzu",
@@ -581,5 +625,16 @@
     "certificate_authority": "Ziurtagiriaren jaulkitzailea",
     "revert_to_selfsigned_cert": "Bueltatu norberak sinatutako ziurtagirira",
     "purge_user_data_checkbox": "{name}(r)en datuak purgatu? (Honek bere direktorioko eduki guztiak ezabatuko ditu, baita posta elektronikoa ere.)",
-    "retry": "Saiatu berriro"
+    "retry": "Saiatu berriro",
+    "app_state_broken": "hondatuta",
+    "app_state_broken_explanation": "Aplikazio hau hondatuta dago une honetan eta ezin da instalatu YunoHost-en azterketa automatikoen arabera",
+    "confirm_install_app_broken": "ADI! Aplikazio hau hondatuta dago YunoHost-en azterketa automatikoen arabera eta litekeena da sistema hondatzea! EZ instalatu ez badakizu zertan ari zaren. Arriskatu nahi al duzu?",
+    "details_about": "Erakutsi xehetasun gehiago {subject}(r)i buruz",
+    "group_admins": "Administratzaileak",
+    "group_explain_admins": "Administratzeko ahalmena duten erabiltzaileen talde berezia da hau. Talde honetan dauden erabiltzaileek YunoHosten web-administrazioa, SSH konexioa eta 'sudo' komandoa erabil dezakete. root@, admin@ eta admins@ kontuei bidalitako mezu elektronikoak ere jasoko dituzte, diagnostikoen jakinarazpenez gain. Erabat fio zaren erabiltzaileak baino ez zenituzke gehitu beharko talde honetara!",
+    "label_for_manifestname_help": "Erabiltzaileen atarian ageri den izena da hau. Aldatzea dago.",
+    "manage_groups": "Kudeatu taldeak",
+    "tools_yunohost_settings": "YunoHosten ezarpenak",
+    "wrong_password_or_username": "Pasahitz edo erabiltzaile-izen okerra",
+    "important_yunohost_upgrade": "YunoHosten bertsio nagusi bat dago eskuragai. Zinez gomendagarria da eguneraketaren oharrak arretaz irakurtzea foroan bertsio-berritu baino lehen: <a href='https://forum.yunohost.org/tag/ynh_release'>Irakurri oharrak foroan</a>."
 }
