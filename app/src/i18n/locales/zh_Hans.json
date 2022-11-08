@@ -573,5 +573,8 @@
     },
     "domain_dns_push_managed_in_parent_domain": "自动DNS记录功能在父域 <a href='#/domains/{parent_domain}/dns'>{parent_domain}</a> 中管理。",
     "domain_dns_push_failed_to_authenticate": "无法在注册商的 API 上进行身份验证。很可能<a href='#/domains/{domain}/config'>凭据</a>不正确？(Error: {error})",
-    "domain_dns_push_not_applicable": "自动DNS记录功能不适用于域名{domain}，<br>你应该按照<a href='https://yunohost.org/dns'>文档</a>和下面的建议配置手动配置你的DNS记录。"
+    "domain_dns_push_not_applicable": "自动DNS记录功能不适用于域名{domain}，<br>你应该按照<a href='https://yunohost.org/dns'>文档</a>和下面的建议配置手动配置你的DNS记录。",
+    "app_state_broken": "损坏",
+    "app_state_broken_explanation": "根据YunoHost的自动测试，此应用程序当前已损坏，无法安装",
+    "confirm_install_app_broken": "警告！根据YunoHost的自动测试，此应用程序已被破坏，很可能会破坏您的系统！除非你知道自己在做什么，否则你可能不应该安装它。你是否愿意冒这个险？"
 }
