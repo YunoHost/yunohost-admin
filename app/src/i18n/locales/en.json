@@ -54,6 +54,43 @@
     "api_not_found": "Seems like the web-admin tried to query something that doesn't exist.",
     "api_not_responding": "The YunoHost API is not responding. Maybe 'yunohost-api' is down or got restarted?",
     "api_waiting": "Waiting for the server's response...",
+    "app": {
+      "antifeatures": "Antifeatures:",
+      "preview": {
+        "before_install": "Things to know before install",
+        "integration": {
+          "archs": "Supported architectures:",
+          "ldap": {
+            "false": "Does not use YunoHost accounts to login (LDAP)",
+            "null": "No information about LDAP integration",
+            "true": "Use YunoHost accounts to login (LDAP)"
+          },
+          "multi_instance": {
+            "false": "Can be installed only once",
+            "true": "Can be installed several times"
+          },
+          "resources": "Typical resource usage: {ram} RAM, {disk} disk",
+          "sso": {
+            "false": "Single sign-on is not available (SSO)",
+            "null": "No information about SSO integration",
+            "true": "Single sign-on is available (SSO)"
+          },
+          "title": "YunoHost integration"
+        },
+        "links": {
+          "admindoc": "Official documentation",
+          "code": "Upstream code repository",
+          "forum": "Topics about this app on YunoHost's forum",
+          "package": "YunoHost package repository",
+          "title": "Links",
+          "website": "Website"
+        },
+        "title": "App details",
+        "try_demo": "Try the demo",
+        "version": "Current version: {version}"
+      },
+      "potential_alternative_to": "Potential alternative to:"
+    },
     "app_choose_category": "Choose a category",
     "app_config_panel": "Config panel",
     "app_config_panel_label": "Configure this app",

@@ -106,10 +106,15 @@
       </b-card>
     </card-deck-feed>
 
-    <b-modal
+    <app-catalog-details
+      v-if="selectedApp"
       id="modal-app-info"
+      :app-id="selectedApp"
+      :antifeatures="antifeatures"
+      @ok="onInstallClick(selectedApp)"
       @hide="selectedApp = undefined"
     />
+
     <template #bot>
       <!-- INSTALL CUSTOM APP -->
       <card-form
@@ -154,6 +159,7 @@
 import { validationMixin } from 'vuelidate'
 
 import CardDeckFeed from '@/components/CardDeckFeed'
+import AppCatalogDetails from './AppCatalogDetails'
 import { required, appRepoUrl } from '@/helpers/validators'
 import { randint } from '@/helpers/commons'
 
@@ -161,18 +167,20 @@ export default {
   name: 'AppCatalog',
 
   components: {
-    CardDeckFeed
+    CardDeckFeed,
+    AppCatalogDetails
   },
 
   data () {
     return {
       queries: [
-        ['GET', 'apps/catalog?full&with_categories']
+        ['GET', 'apps/catalog?full&with_categories&with_antifeatures']
       ],
 
       // Data
       apps: undefined,
       selectedApp: undefined,
+      antifeatures: undefined,
 
       // Filtering options
       qualityOptions: [
@@ -291,6 +299,7 @@ export default {
       data.categories.forEach(({ title, id, icon, subtags, description }) => {
         this.categories.push({ text: title, value: id, icon, subtags, description })
       })
+      this.antifeatures = Object.fromEntries(data.antifeatures.map((af) => ([af.id, af])))
     },
 
     setCategory () {
@@ -301,7 +310,8 @@ export default {
     },
 
     // INSTALL APP
-    async onInstallClick (app) {
+    async onInstallClick (appId) {
+      const app = this.apps.find((app) => app.id === appId)
       if (!app.decent_quality) {
         const confirmed = await this.$askConfirmation(this.$i18n.t('confirm_install_app_' + app.state))
         if (!confirmed) return
