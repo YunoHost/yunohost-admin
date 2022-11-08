@@ -24,6 +24,12 @@ export default {
     min-width: 3rem;
   }
 
+  &.md {
+    width: 1.25rem;
+    font-size: 1.25rem;
+    min-width: 1.25rem;
+  }
+
   &.fs-sm {
     font-size: 1rem;
   }
