@@ -24,7 +24,7 @@ export default {
     id: { type: String, required: true },
     title: { type: String, required: true },
     variant: { type: String, default: 'white' },
-    visible: { type: Boolean, default: true },
+    visible: { type: Boolean, default: false },
     flush: { type: Boolean, default: false }
   },
 

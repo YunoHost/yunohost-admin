@@ -36,7 +36,7 @@
 
         <card-collapse
           id="app-warning" flush variant="warning"
-          :title="$t('app.preview.before_install')"
+          visible :title="$t('app.preview.before_install')"
         >
           <b-card-body>
             <strong v-t="'app.antifeatures'" class="d-block mb-1" />
@@ -115,7 +115,8 @@ export default {
   },
 
   async created () {
-    let { id, name, version, potential_alternative_to: alternatives, ...app } = await api.get('apps/manifest?app=' + this.appId)
+    const { id, name, version, potential_alternative_to: alternatives, ...app } = await api.get('apps/manifest?app=' + this.appId)
+
     const archs = app.integration.architectures
     const integration = {
       archs: Array.isArray(archs) ? archs.join(this.$i18n.t('words.separator')) : archs,
@@ -152,8 +153,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-::v-deep .modal-body .b-overlay-wrap {
-  min-height: 50vh;
+::v-deep .b-overlay-wrap {
+  min-height: 40vh;
 }
 
 .antifeatures {
