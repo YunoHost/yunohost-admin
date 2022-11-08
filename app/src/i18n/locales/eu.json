@@ -249,7 +249,7 @@
     "enable": "Gaitu",
     "enabled": "Gaituta",
     "error": "Errorea",
-    "group_specific_permissions": "Erabiltzaile-baimenak",
+    "group_specific_permissions": "Erabiltzaile bakoitzaren baimenak",
     "group_add_member": "Gehitu erabiltzailea",
     "group_explain_all_users": "Zerbitzari honetan dauden erabiltzaile guztiak barne dituen talde berezia da",
     "app_manage_label_and_tiles": "Kudeatu etiketak eta 'tile' delakoak",
