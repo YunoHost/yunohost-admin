@@ -10,9 +10,9 @@
         <section class="p-3">
           <h3>{{ app.name }}</h3>
 
-          <p v-if="app.alternatives" class="mt-3">
+          <p v-if="app.alternativeTo" class="mt-3">
             <strong v-t="'app.potential_alternative_to'" />
-            {{ app.alternatives }}
+            {{ app.alternativeTo }}
           </p>
 
           <vue-showdown :markdown="app.description" flavor="github" />
@@ -35,24 +35,27 @@
         </section>
 
         <card-collapse
+          v-if="app.hasWarning"
           id="app-warning" flush variant="warning"
           visible :title="$t('app.preview.before_install')"
         >
           <b-card-body>
-            <strong v-t="'app.antifeatures'" class="d-block mb-1" />
-            <ul class="antifeatures">
-              <li v-for="antifeature in app.antifeatures" :key="antifeature.id">
-                <icon :iname="antifeature.icon" class="md mr-1" />
-                {{ antifeature.title }}
-                <explain-what
-                  :id="antifeature.id"
-                  :title="antifeature.title"
-                  :content="antifeature.description"
-                />
-              </li>
-            </ul>
+            <template v-if="app.antifeatures.length">
+              <strong v-t="'app.antifeatures'" class="d-block mb-1" />
+              <ul class="antifeatures">
+                <li v-for="antifeature in app.antifeatures" :key="antifeature.id">
+                  <icon :iname="antifeature.icon" class="md mr-1" />
+                  {{ antifeature.title }}
+                  <explain-what
+                    :id="antifeature.id"
+                    :title="antifeature.title"
+                    :content="antifeature.description"
+                  />
+                </li>
+              </ul>
+            </template>
 
-            <vue-showdown :markdown="app.preInstall" flavor="github" />
+            <vue-showdown v-if="app.preInstall" :markdown="app.preInstall" flavor="github" />
           </b-card-body>
         </card-collapse>
 
@@ -61,10 +64,10 @@
             <yuno-list-group-item variant="info">
               {{ $t('app.preview.integration.archs') }} {{ app.integration.archs }}
             </yuno-list-group-item>
-            <yuno-list-group-item :variant="app.integration.ldap ? 'success' : 'warning'">
+            <yuno-list-group-item v-if="app.integration.ldap" :variant="app.integration.ldap ? 'success' : 'warning'">
               {{ $t(`app.preview.integration.ldap.${app.integration.ldap}`) }}
             </yuno-list-group-item>
-            <yuno-list-group-item :variant="app.integration.sso ? 'success' : 'warning'">
+            <yuno-list-group-item v-if="app.integration.sso" :variant="app.integration.sso ? 'success' : 'warning'">
               {{ $t(`app.preview.integration.sso.${app.integration.sso}`) }}
             </yuno-list-group-item>
             <yuno-list-group-item variant="info">
@@ -115,20 +118,21 @@ export default {
   },
 
   async created () {
-    const { id, name, version, potential_alternative_to: alternatives, ...app } = await api.get('apps/manifest?app=' + this.appId)
+    const { id, name, version, potential_alternative_to: alternativesTo, ...app } = await api.get('apps/manifest?app=' + this.appId)
 
     const archs = app.integration.architectures
     const integration = {
       archs: Array.isArray(archs) ? archs.join(this.$i18n.t('words.separator')) : archs,
-      ldap: app.integration.ldap === '?' ? null : app.integration.ldap,
-      sso: app.integration.sso === '?' ? null : app.integration.sso,
+      ldap: app.integration.ldap === 'not_relevant' ? null : app.integration.ldap,
+      sso: app.integration.sso === 'not_relevant' ? null : app.integration.sso,
       multi_instance: app.integration.multi_instance,
       resources: {
         ram: app.integration.ram.runtime,
         disk: app.integration.disk
       }
     }
-
+    const preInstall = formatI18nField(app.notifications.pre_install.main)
+    const antifeatures = app.antifeatures.length ? app.antifeatures.map((af) => this.antifeatures[af]) : null
     const links = [
       ...['website', 'admindoc', 'code'].map((key) => ([key, app.upstream[key]])),
       ['package', app.remote.url],
@@ -138,13 +142,16 @@ export default {
     this.app = {
       id,
       name,
-      alternatives: alternatives && alternatives.length ? alternatives.join(this.$i18n.t('words.separator')) : null,
+      alternativeTo: alternativesTo && alternativesTo.length
+        ? alternativesTo.join(this.$i18n.t('words.separator'))
+        : null,
       description: formatI18nField(app.doc.DESCRIPTION),
       image: app.image,
       demo: app.upstream.demo,
       version,
-      preInstall: formatI18nField(app.notifications.pre_install.main),
-      antifeatures: app.antifeatures?.map((af) => this.antifeatures[af]),
+      preInstall,
+      antifeatures,
+      hasWarning: !!(preInstall || antifeatures),
       integration,
       links
     }
