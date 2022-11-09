@@ -175,6 +175,7 @@ const routes = [
     name: 'app-catalog',
     path: '/apps/catalog',
     component: () => import(/* webpackChunkName: "views/apps/catalog" */ '@/views/app/AppCatalog'),
+    props: route => route.query,
     meta: {
       args: { trad: 'catalog' },
       breadcrumb: ['app-list', 'app-catalog']

@@ -12,10 +12,10 @@
           </b-input-group-prepend>
           <b-form-input
             id="search-input" :placeholder="$t('search.for', { items: $tc('items.apps', 2) })"
-            v-model="search" @input="setCategory"
+            :value="search" @input="updateQuery('search', $event)"
           />
           <b-input-group-append>
-            <b-select v-model="quality" :options="qualityOptions" @change="setCategory" />
+            <b-select :value="quality" :options="qualityOptions" @change="updateQuery('quality', $event)" />
           </b-input-group-append>
         </b-input-group>
 
@@ -24,9 +24,9 @@
           <b-input-group-prepend is-text>
             <icon iname="filter" />
           </b-input-group-prepend>
-          <b-select v-model="category" :options="categories" />
+          <b-select :value="category" :options="categories" @change="updateQuery('category', $event)" />
           <b-input-group-append>
-            <b-button variant="primary" :disabled="category === null" @click="category = null">
+            <b-button variant="primary" :disabled="category === null" @click="updateQuery('category', null)">
               {{ $t('app_show_categories') }}
             </b-button>
           </b-input-group-append>
@@ -39,10 +39,13 @@
           </b-input-group-prepend>
           <b-form-radio-group
             id="subtags-radio" name="subtags"
-            v-model="subtag" :options="subtags"
+            :checked="subtag" :options="subtags" @change="updateQuery('subtag', $event)"
             buttons button-variant="outline-secondary"
           />
-          <b-select id="subtags-select" v-model="subtag" :options="subtags" />
+          <b-select
+            id="subtags-select" :value="subtag" :options="subtags"
+            @change="updateQuery('subtag', $event)"
+          />
         </b-input-group>
       </div>
     </template>
@@ -54,7 +57,7 @@
         tag="li" class="category-card"
       >
         <b-card-title>
-          <b-link @click="category = cat.value" class="card-link">
+          <b-link @click="updateQuery('category', cat.value)" class="card-link">
             <icon :iname="cat.icon" /> {{ cat.text }}
           </b-link>
         </b-card-title>
@@ -171,6 +174,13 @@ export default {
     AppCatalogDetails
   },
 
+  props: {
+    search: { type: String, default: '' },
+    quality: { type: String, default: 'decent_quality' },
+    category: { type: String, default: null },
+    subtag: { type: String, default: 'all' }
+  },
+
   data () {
     return {
       queries: [
@@ -194,12 +204,6 @@ export default {
         { text: this.$i18n.t('all_apps'), value: 'all', icon: 'search' }
         // The rest is filled from api data
       ],
-
-      // Set by user inputs
-      search: '',
-      category: null,
-      subtag: 'all',
-      quality: 'decent_quality',
 
       // Custom install form
       customInstall: {
@@ -244,7 +248,7 @@ export default {
 
     subtags () {
       // build an options array for subtags v-model/options
-      if (this.category) {
+      if (this.category && this.categories.length > 2) {
         const category = this.categories.find(cat => cat.value === this.category)
         if (category.subtags) {
           const subtags = [{ text: this.$i18n.t('all'), value: 'all' }]
@@ -302,11 +306,16 @@ export default {
       this.antifeatures = Object.fromEntries(data.antifeatures.map((af) => ([af.id, af])))
     },
 
-    setCategory () {
-      // allow search without selecting a category
-      if (this.category === null) {
-        this.category = 'all'
-      }
+    updateQuery (key, value) {
+      // Update the query string without reloading the page
+      this.$router.replace({
+        query: {
+          ...this.$route.query,
+          // allow search without selecting a category
+          category: this.$route.query.category || 'all',
+          [key]: value
+        }
+      })
     },
 
     // INSTALL APP
