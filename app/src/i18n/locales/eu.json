@@ -185,7 +185,7 @@
             "valid_for": "{days} baliogarria"
         },
         "explain": {
-            "main_domain": "Domeinu nagusia erabiltzaileek atarira sartzeko erabiltzen dutena da (\"{domain}/yunohost/sso\" bidez). <br> Hori dela-eta, ezin da ezabatu. <br>\"{domain}\" ezabatu nahi baduzu, ezar ezazu beste bat domeinu nagusi bezala."
+            "main_domain": "Domeinu nagusia erabiltzaileek atarira sartzeko erabiltzen dutena da (\"{domain}/yunohost/sso\" bidez). <br> Hori dela-eta, ezin da ezabatu. <br>\"{domain}\" ezabatu nahi baduzu, ezarri beste bat domeinu nagusi bezala."
         },
         "info": {
             "apps_on_domain": "Domeinuan instalatutako aplikazioak",
@@ -419,9 +419,9 @@
     "placeholder": {
         "domain": "nire-domeinua.eus",
         "file": "Arakatu edo ekarri fitxategia leihora",
-        "username": "izenabizena",
-        "firstname": "Jon",
-        "lastname": "Zaharra",
+        "username": "luraxpe97",
+        "firstname": "Lur",
+        "lastname": "Axpe",
         "groupname": "Nire taldearen izena",
         "fullname": "Jon Zaharra"
     },
@@ -452,8 +452,8 @@
     "license": "Lizentzia",
     "postinstall_set_password": "Aukeratu administrariaren pasahitza",
     "restart": "Berrabiarazi",
-    "operation_failed_explanation": "Kale egin du! Sentitzen dugu :( <a href='https://yunohost.org/help'>Laguntza eskatzen saia zaitezke</a>. Mesedez, jarri laguntzaileen esku eragiketaren erregistroa *bere osotasunean*. 'Partekatu Yunopastekin' botoi berdea sakatu dezakezu horretarako. YunoHost automatikoki saiatuko da domeinuak edo IP helbideak bezalako datu pribatuak anonimo egiten erregistroak partekatzean.",
-    "pending_migrations": "Migrazio batzuk exekutatzeke daude. Mesedez, joan <a href='#/tools/migrations'>Tresnak > Migrazioak</a>-era abiarazteko.",
+    "operation_failed_explanation": "Kale egin du! Sentitzen dugu :( <a href='https://yunohost.org/help'>Laguntza eskatzen saia zaitezke</a>. Jarri laguntzaileen esku eragiketaren erregistroa *bere osotasunean*. 'Partekatu Yunopastekin' botoi berdea sakatu dezakezu horretarako. YunoHost automatikoki saiatuko da domeinuak edo IP helbideak bezalako datu pribatuak anonimo egiten erregistroak partekatzean.",
+    "pending_migrations": "Migrazio batzuk exekutatzeke daude. Joan <a href='#/tools/migrations'>Tresnak > Migrazioak</a>-era abiarazteko.",
     "permission_corresponding_url": "Dagokion URLa",
     "orphaned_details": "Aplikazio honek ez du arduradunik izan denbora luzez. Litekeena da oraindik martxan jarri ahal izatea, baina ez du eguneraketarik jasoko bolondresen batek ardura hartu arte. Parte hartu eta biziberritu!",
     "permission_main": "Etiketa nagusia",
@@ -520,8 +520,8 @@
     "system_apps_nothing": "Aplikazio guztiak egunean daude!",
     "system_packages_nothing": "Sistemaren pakete guztiak egunean daude!",
     "tools_reboot_btn": "Berrabiarazi",
-    "select_all": "Aukeratu guztia",
-    "select_none": "Ez aukeratu bat ere ez",
+    "select_all": "Hautatu guztia",
+    "select_none": "Ez hautatu bat ere ez",
     "service_start_on_boot": "Abiarazi zerbitzariarekin batera",
     "status": "Egoera",
     "system": "Sistema",
@@ -601,7 +601,7 @@
     "stop": "Geldiarazi",
     "user_interface_link": "Erabiltzaile-ataria",
     "user_username_edit": "Aldatu {name}(r)en kontua",
-    "text_selection_is_disabled": "Ezinezkoa da testua aukeratzea. Erregistroa partekatu nahi baduzu, mesedez, erregistro *osoa* partekatu 'Partekatu Yunopastekin' botoiaren bidez.<br/><small>Edo testua hautatu nahi baduzu, sakatu tekla hauek: ↓↓↑↑. </small>",
+    "text_selection_is_disabled": "Ezinezkoa da testua hautatzea. Erregistroa partekatu nahi baduzu, erregistro *osoa* partekatu 'Partekatu Yunopastekin' botoiaren bidez.<br/><small>Edo testua hautatu nahi baduzu, sakatu tekla hauek: ↓↓↑↑. </small>",
     "domain_is_eligible_for_ACME": "Domeinu hau Let's Encrypt ziurtagiria instalatzeko zuzen konfiguratuta dagoela dirudi!",
     "certificate_manage": "Kudeatu SSL ziurtagiria",
     "certificate": "Ziurtagiria",
