@@ -22,7 +22,7 @@ export default {
       return prev.parentElement === this.$refs.feed ? prev : this.getTopParent(prev.parentElement)
     },
 
-    onScroll (e) {
+    onScroll () {
       const elem = this.$refs.feed
       if (window.innerHeight > elem.clientHeight + elem.getBoundingClientRect().top - 200) {
         this.busy = true
@@ -50,6 +50,7 @@ export default {
   mounted () {
     window.addEventListener('scroll', this.onScroll)
     this.$refs.feed.addEventListener('keydown', this.onKeydown)
+    this.onScroll()
   },
 
   beforeUpdate () {
