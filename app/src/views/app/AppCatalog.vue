@@ -75,7 +75,7 @@
       >
         <b-card-body class="d-flex flex-column">
           <b-card-title :id="`${app.id}-title`" class="d-flex mb-2">
-            <b-link v-b-modal.modal-app-info @click="selectedApp = app.id" class="card-link">
+            <b-link :to="{ name: 'app-install', params: { id: app.id }}" class="card-link">
               {{ app.manifest.name }}
             </b-link>
 

@@ -56,38 +56,36 @@
     "api_waiting": "Waiting for the server's response...",
     "app": {
       "antifeatures": "Antifeatures:",
-      "preview": {
-        "before_install": "Things to know before install",
-        "integration": {
-          "archs": "Supported architectures:",
-          "ldap": {
-            "false": "Does not use YunoHost accounts to login (LDAP)",
-            "true": "Use YunoHost accounts to login (LDAP)",
-            "?": "No information about LDAP integration"
-          },
-          "multi_instance": {
-            "false": "Can be installed only once",
-            "true": "Can be installed several times"
-          },
-          "resources": "Typical resource usage: {ram} RAM, {disk} disk",
-          "sso": {
-            "false": "Single sign-on is not available (SSO)",
-            "true": "Single sign-on is available (SSO)",
-            "?": "No information about SSO integration"
-          },
-          "title": "YunoHost integration"
-        },
-        "links": {
-          "admindoc": "Official documentation",
-          "code": "Upstream code repository",
-          "forum": "Topics about this app on YunoHost's forum",
-          "package": "YunoHost package repository",
-          "title": "Links",
-          "website": "Website"
-        },
-        "title": "App details",
+      "install": {
         "try_demo": "Try the demo",
         "version": "Current version: {version}"
+      },
+      "integration": {
+        "archs": "Supported architectures:",
+        "ldap": {
+          "false": "Does not use YunoHost accounts to login (LDAP)",
+          "true": "Use YunoHost accounts to login (LDAP)",
+          "?": "No information about LDAP integration"
+        },
+        "multi_instance": {
+          "false": "Can be installed only once",
+          "true": "Can be installed several times"
+        },
+        "resources": "Typical resource usage: {ram} RAM, {disk} disk",
+        "sso": {
+          "false": "Single sign-on is not available (SSO)",
+          "true": "Single sign-on is available (SSO)",
+          "?": "No information about SSO integration"
+        },
+        "title": "YunoHost integration"
+      },
+      "links": {
+        "admindoc": "Official documentation",
+        "code": "Upstream code repository",
+        "forum": "Topics about this app on YunoHost's forum",
+        "package": "YunoHost package repository",
+        "title": "Links",
+        "website": "Website"
       },
       "potential_alternative_to": "Potential alternative to:"
     },

@@ -1,12 +1,61 @@
 <template>
   <view-base :queries="queries" @queries-response="onQueriesResponse">
-    <template v-if="infos">
-      <!-- BASIC INFOS -->
-      <card :title="name" icon="download">
-        <description-row
-          v-for="(info, key) in infos" :key="key"
-          :term="$t(key)" :details="info"
-        />
+    <template v-if="app">
+      <card :title="app.name" icon="download" body-class="p-0">
+        <section class="p-3">
+          <p v-if="app.alternativeTo" class="mt-3">
+            <strong v-t="'app.potential_alternative_to'" />
+            {{ app.alternativeTo }}
+          </p>
+
+          <vue-showdown :markdown="app.description" flavor="github" />
+
+          <b-img
+            v-if="app.image"
+            :src="app.image"
+            aria-hidden="true" class="d-block mb-3" fluid
+          />
+
+          <p>{{ $t('app.install.version', { version: app.version }) }}</p>
+
+          <b-button
+            v-if="app.demo"
+            :href="app.demo" variant="primary" target="_blank"
+          >
+            <icon iname="external-link" />
+            {{ $t('app.install.try_demo') }}
+          </b-button>
+        </section>
+
+        <card-collapse id="app-integration" :title="$t('app.integration.title')" flush>
+          <b-list-group flush tag="section">
+            <yuno-list-group-item variant="info">
+              {{ $t('app.integration.archs') }} {{ app.integration.archs }}
+            </yuno-list-group-item>
+            <yuno-list-group-item v-if="app.integration.ldap" :variant="app.integration.ldap === true ? 'success' : 'warning'">
+              {{ $t(`app.integration.ldap.${app.integration.ldap}`) }}
+            </yuno-list-group-item>
+            <yuno-list-group-item v-if="app.integration.sso" :variant="app.integration.sso === true ? 'success' : 'warning'">
+              {{ $t(`app.integration.sso.${app.integration.sso}`) }}
+            </yuno-list-group-item>
+            <yuno-list-group-item variant="info">
+              {{ $t(`app.integration.multi_instance.${app.integration.multi_instance}`) }}
+            </yuno-list-group-item>
+            <yuno-list-group-item variant="info">
+              {{ $t('app.integration.resources', app.integration.resources) }}
+            </yuno-list-group-item>
+          </b-list-group>
+        </card-collapse>
+
+        <card-collapse id="app-links" :title="$t('app.links.title')" flush>
+          <b-list-group flush tag="section">
+            <yuno-list-group-item v-for="[key, link] in app.links" :key="key" no-status>
+              <b-link :href="link" target="_blank">
+                {{ $t('app.links.' + key) }}
+              </b-link>
+            </yuno-list-group-item>
+          </b-list-group>
+        </card-collapse>
       </card>
 
       <!-- INSTALL FORM -->
@@ -25,7 +74,7 @@
     </template>
 
     <!-- In case of a custom url with no manifest found -->
-    <b-alert v-else-if="infos === null" variant="warning">
+    <b-alert v-else-if="app === null" variant="warning">
       <icon iname="exclamation-triangle" /> {{ $t('app_install_custom_no_manifest') }}
     </b-alert>
 
@@ -45,11 +94,16 @@ import {
   formatI18nField,
   formatFormData
 } from '@/helpers/yunohostArguments'
+import CardCollapse from '@/components/CardCollapse'
 
 export default {
   name: 'AppInstall',
 
   mixins: [validationMixin],
+
+  components: {
+    CardCollapse
+  },
 
   props: {
     id: { type: String, required: true }
@@ -60,8 +114,8 @@ export default {
       queries: [
         ['GET', 'apps/manifest?app=' + this.id]
       ],
+      app: undefined,
       name: undefined,
-      infos: undefined,
       form: undefined,
       fields: undefined,
       validations: null,
@@ -75,21 +129,38 @@ export default {
   },
 
   methods: {
-    onQueriesResponse (manifest) {
-      this.name = manifest.name
-      const infosKeys = ['id', 'description', 'license', 'version', 'multi_instance']
-      manifest.license = manifest.upstream.license
-      if (manifest.license === undefined || manifest.license === 'free') {
-        infosKeys.splice(2, 1)
+    onQueriesResponse (_app) {
+      const { id, name, version } = _app
+      const _archs = _app.integration.architectures
+
+      const app = {
+        id,
+        name,
+        alternativeTo: _app.potential_alternative_to && _app.potential_alternative_to.length
+          ? _app.potential_alternative_to.join(this.$i18n.t('words.separator'))
+          : null,
+        description: formatI18nField(_app.doc.DESCRIPTION || _app.description),
+        image: _app.image,
+        demo: _app.upstream.demo,
+        version,
+        integration: {
+          archs: Array.isArray(_archs) ? _archs.join(this.$i18n.t('words.separator')) : _archs,
+          ldap: _app.integration.ldap === 'not_relevant' ? null : _app.integration.ldap,
+          sso: _app.integration.sso === 'not_relevant' ? null : _app.integration.sso,
+          multi_instance: _app.integration.multi_instance,
+          resources: { ram: _app.integration.ram.runtime, disk: _app.integration.disk }
+        },
+        links: [
+          ...['website', 'admindoc', 'code'].map((key) => ([key, _app.upstream[key]])),
+          ['package', _app.remote.url],
+          ['forum', `https://forum.yunohost.org/tag/${id}`]
+        ].filter(([key, val]) => !!val)
       }
-      manifest.description = formatI18nField(manifest.description)
-      manifest.multi_instance = this.$i18n.t(manifest.integration.multi_instance ? 'yes' : 'no')
-      this.infos = Object.fromEntries(infosKeys.map(key => [key, manifest[key]]))
 
       // FIXME yunohost should add the label field by default
-      manifest.install.unshift({
-        ask: this.$t('label_for_manifestname', { name: manifest.name }),
-        default: manifest.name,
+      _app.install.unshift({
+        ask: this.$t('label_for_manifestname', { name }),
+        default: name,
         name: 'label',
         help: this.$t('label_for_manifestname_help')
       })
@@ -99,8 +170,9 @@ export default {
         fields,
         validations,
         errors
-      } = formatYunoHostArguments(manifest.install)
+      } = formatYunoHostArguments(_app.install)
 
+      this.app = app
       this.fields = fields
       this.form = form
       this.validations = { form: validations }
@@ -121,7 +193,7 @@ export default {
       )
       const data = { app: this.id, label, args: Object.entries(args).length ? objectToParams(args) : undefined }
 
-      api.post('apps', data, { key: 'apps.install', name: this.name }).then(() => {
+      api.post('apps', data, { key: 'apps.install', name: this.app.name }).then(() => {
         this.$router.push({ name: 'app-list' })
       }).catch(err => {
         if (err.name !== 'APIBadRequestError') throw err

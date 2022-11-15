@@ -1,13 +1,15 @@
 <template>
   <b-card
     v-bind="$attrs"
-    no-body header-tag="h3" :class="_class"
+    no-body :class="_class"
   >
     <slot name="header" slot="header">
-      <b-button v-b-toggle="id" :variant="variant" class="card-collapse-button">
-        {{ title }}
-        <icon class="ml-auto" iname="chevron-right" />
-      </b-button>
+      <h2>
+        <b-button v-b-toggle="id" :variant="variant" class="card-collapse-button">
+          {{ title }}
+          <icon class="ml-auto" iname="chevron-right" />
+        </b-button>
+      </h2>
     </slot>
 
     <b-collapse :id="id" :visible="visible" role="region">
