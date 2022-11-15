@@ -58,8 +58,60 @@
         </card-collapse>
       </card>
 
+      <yuno-alert v-if="app.hasWarning" variant="warning" class="my-4">
+        <h2>{{ $t('app.install.before_install.warning') }}</h2>
+
+        <template v-if="app.antifeatures">
+          <strong v-t="'app.antifeatures'" class="d-block mb-1" />
+          <ul class="antifeatures">
+            <li v-for="antifeature in app.antifeatures" :key="antifeature.id">
+              <icon :iname="antifeature.icon" class="md mr-1" />
+              {{ antifeature.title }}
+              <explain-what
+                :id="antifeature.id"
+                :title="antifeature.title"
+                :content="antifeature.description"
+              />
+            </li>
+          </ul>
+        </template>
+
+        <p v-if="app.quality.state === 'lowquality'" v-t="'app.install.problems.lowquality'" />
+
+        <vue-showdown v-if="app.preInstall" :markdown="app.preInstall" flavor="github" />
+      </yuno-alert>
+
+      <yuno-alert
+        v-if="!app.hasSupport"
+        variant="danger" icon="warning" class="my-4"
+      >
+        <h2>{{ $t('app.install.before_install.critical') }}</h2>
+
+        <p v-if="!app.requirements.arch">
+          {{ $t('app.install.problems.arch') }}
+        </p>
+        <p v-else-if="!app.requirements.install">
+          {{ $t('app.install.problems.install') }}
+        </p>
+        <p v-else-if="!app.requirements.version">
+          {{ $t('app.install.problems.version') }}
+        </p>
+      </yuno-alert>
+
+      <yuno-alert v-else-if="app.hasDanger" variant="danger" class="my-4">
+        <h2>{{ $t('app.install.before_install.danger') }}</h2>
+
+        <p v-if="['inprogress', 'broken', 'thirdparty'].includes(app.quality.state)" v-t="'app.install.problems.' + app.quality.state" />
+        <p v-if="!app.requirements.ram.pass">
+          {{ $t('app.install.problems.ram', app.requirements.ram.values) }}
+        </p>
+
+        <checkbox-item v-model="force" id="force-install" :label="$t('app.install.problems.ignore')" />
+      </yuno-alert>
+
       <!-- INSTALL FORM -->
       <card-form
+        v-if="app.canInstall || force"
         :title="$t('app_install_parameters')" icon="cog" :submit-text="$t('install')"
         :validation="$v" :server-error="serverError"
         @submit.prevent="performInstall"
@@ -112,6 +164,7 @@ export default {
   data () {
     return {
       queries: [
+        ['GET', 'apps/catalog?full&with_categories&with_antifeatures'],
         ['GET', 'apps/manifest?app=' + this.id]
       ],
       app: undefined,
@@ -120,7 +173,8 @@ export default {
       fields: undefined,
       validations: null,
       errors: undefined,
-      serverError: ''
+      serverError: '',
+      force: false
     }
   },
 
@@ -129,9 +183,34 @@ export default {
   },
 
   methods: {
-    onQueriesResponse (_app) {
-      const { id, name, version } = _app
+    onQueriesResponse (catalog, _app) {
+      const antifeaturesList = Object.fromEntries(catalog.antifeatures.map((af) => ([af.id, af])))
+
+      const { id, name, version, requirements } = _app
       const _archs = _app.integration.architectures
+
+      const quality = { state: _app.quality.state, variant: 'danger' }
+      if (quality.state === 'working') {
+        if (_app.quality.level <= 0) {
+          quality.state = 'broken'
+        } else if (_app.quality.level <= 4) {
+          quality.state = 'lowquality'
+          quality.variant = 'warning'
+        } else {
+          quality.variant = 'success'
+          quality.state = _app.quality.level >= 8 ? 'highquality' : 'goodquality'
+        }
+      }
+      const preInstall = formatI18nField(_app.notifications.pre_install.main)
+      const antifeatures = _app.antifeatures?.length
+        ? _app.antifeatures.map((af) => antifeaturesList[af])
+        : null
+
+      const hasDanger = quality.variant === 'danger' || !requirements.ram.pass
+      const hasSupport = Object.keys(requirements).every((key) => {
+        // ram support is non-blocking requirement and handled on its own.
+        return key === 'ram' || requirements[key].pass
+      })
 
       const app = {
         id,
@@ -154,7 +233,15 @@ export default {
           ...['website', 'admindoc', 'code'].map((key) => ([key, _app.upstream[key]])),
           ['package', _app.remote.url],
           ['forum', `https://forum.yunohost.org/tag/${id}`]
-        ].filter(([key, val]) => !!val)
+        ].filter(([key, val]) => !!val),
+        preInstall,
+        antifeatures,
+        quality,
+        requirements,
+        hasWarning: !!preInstall || antifeatures || quality.variant === 'warning',
+        hasDanger,
+        hasSupport,
+        canInstall: hasSupport && !hasDanger
       }
 
       // FIXME yunohost should add the label field by default
@@ -205,3 +292,13 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.antifeatures {
+  padding-left: 1rem;
+
+  li {
+    list-style: none;
+  }
+}
+</style>

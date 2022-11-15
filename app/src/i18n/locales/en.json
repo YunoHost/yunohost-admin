@@ -57,6 +57,22 @@
     "app": {
       "antifeatures": "Antifeatures:",
       "install": {
+        "before_install": {
+          "warning": "Things to know before installation",
+          "danger": "The installation of the application will most likely lead to issues",
+          "critical": "The application cannot be installed"
+        },
+        "problems": {
+          "arch": "It is incompatible with your system architecture",
+          "broken": "This application is broken according to YunoHost's automatic tests and it is likely to break your system! You should probably NOT install it unless you know what you are doing.",
+          "thirdparty": "This application is not part of the official YunoHost catalog, installing 3rd party applications may compromise the integrity and security of your system. You should probably NOT install it unless you know what you are doing.",
+          "ignore": "I understand that this installation may break my system but i still want to try.",
+          "inprogress": "This application is still experimental (if not explicitly not working) and it is likely to break your system! You should probably NOT install it unless you know what you are doing.",
+          "install": "It is already installed and can't be installed more than once.",
+          "lowquality": "This application may work but is not well-integrated in YunoHost. Some features such as single sign-on and backup/restore might not be available, or it does not respect the good practices.",
+          "ram": "This application requires {required} of RAM to install/upgrade but only {current} is available right now. Even if this app could run, its installation process requires a large amount of RAM so your server may freeze and fail miserably.",
+          "version": "It is not compatible with your current YunoHost version, consider first upgrading YunoHost."
+        },
         "try_demo": "Try the demo",
         "version": "Current version: {version}"
       },
