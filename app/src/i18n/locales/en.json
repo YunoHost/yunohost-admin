@@ -62,6 +62,7 @@
           "danger": "The installation of the application will most likely lead to issues",
           "critical": "The application cannot be installed"
         },
+        "license": "License: {license}",
         "problems": {
           "arch": "It is incompatible with your system architecture",
           "broken": "This application is broken according to YunoHost's automatic tests and it is likely to break your system! You should probably NOT install it unless you know what you are doing.",
@@ -96,11 +97,12 @@
         "title": "YunoHost integration"
       },
       "links": {
-        "admindoc": "Official documentation",
-        "code": "Upstream code repository",
+        "admindoc": "Official Admin documentation",
+        "code": "Official code repository",
         "forum": "Topics about this app on YunoHost's forum",
         "package": "YunoHost package repository",
         "title": "Links",
+        "userdoc": "Official User documentation",
         "website": "Website"
       },
       "potential_alternative_to": "Potential alternative to:"

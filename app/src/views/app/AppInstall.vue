@@ -16,7 +16,10 @@
             aria-hidden="true" class="d-block mb-3" fluid
           />
 
-          <p>{{ $t('app.install.version', { version: app.version }) }}</p>
+          <p>
+            {{ $t('app.install.version', { version: app.version }) }}<br>
+            {{ $t('app.install.license', { license: app.license }) }}
+          </p>
 
           <b-button
             v-if="app.demo"
@@ -211,7 +214,6 @@ export default {
         // ram support is non-blocking requirement and handled on its own.
         return key === 'ram' || requirements[key].pass
       })
-
       const app = {
         id,
         name,
@@ -222,6 +224,7 @@ export default {
         image: _app.image,
         demo: _app.upstream.demo,
         version,
+        license: _app.upstream.license,
         integration: {
           archs: Array.isArray(_archs) ? _archs.join(this.$i18n.t('words.separator')) : _archs,
           ldap: _app.integration.ldap === 'not_relevant' ? null : _app.integration.ldap,
@@ -230,7 +233,7 @@ export default {
           resources: { ram: _app.integration.ram.runtime, disk: _app.integration.disk }
         },
         links: [
-          ...['website', 'admindoc', 'code'].map((key) => ([key, _app.upstream[key]])),
+          ...['website', 'admindoc', 'userdoc', 'code'].map((key) => ([key, _app.upstream[key]])),
           ['package', _app.remote.url],
           ['forum', `https://forum.yunohost.org/tag/${id}`]
         ].filter(([key, val]) => !!val),
