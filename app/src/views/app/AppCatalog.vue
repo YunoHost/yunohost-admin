@@ -162,7 +162,6 @@
 import { validationMixin } from 'vuelidate'
 
 import CardDeckFeed from '@/components/CardDeckFeed'
-import AppCatalogDetails from './AppCatalogDetails'
 import { required, appRepoUrl } from '@/helpers/validators'
 import { randint } from '@/helpers/commons'
 
@@ -170,8 +169,7 @@ export default {
   name: 'AppCatalog',
 
   components: {
-    CardDeckFeed,
-    AppCatalogDetails
+    CardDeckFeed
   },
 
   props: {
