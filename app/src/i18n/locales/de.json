@@ -190,7 +190,7 @@
     "confirm_update_specific_app": "Möchten Sie {app} wirklich aktualisieren?",
     "confirm_reboot_action_reboot": "Möchten Sie den Server wirklich neustarten?",
     "confirm_reboot_action_shutdown": "Möchten Sie den Server wirklich herunterfahren?",
-    "domain_dns_conf_is_just_a_recommendation": "Diese Seite zeigt Ihnen die *empfohlene* Konfiguration. Sie konfiguriert *nicht* das DNS für Sie. Es liegt in Ihrer Verantwortung, die DNS-Zone bei Ihrem DNS-Registrar nach dieser Empfehlung zu konfigurieren.",
+    "domain_dns_conf_is_just_a_recommendation": "Dieser Abschnitt zeigt Ihnen die *empfohlene* Konfiguration. Sie konfiguriert *nicht* das DNS für Sie. Es liegt in Ihrer Verantwortung, die DNS-Zone bei Ihrem DNS-Registrar nach dieser Empfehlung zu konfigurieren.",
     "ok": "OK",
     "system_upgrade_all_applications_btn": "Aktualisiere alle Applikationen",
     "system_upgrade_all_packages_btn": "Aktualisiere alle Pakete",
@@ -575,6 +575,12 @@
             "edit": "DNS-Konfiguration bearbeiten",
             "info": "Die automatische DNS-Einträge-Konfiguration ist ein experimentelles Feature. <br> Erwägen Sie es, Ihre aktuelle DNS-Konfiguration im Webinterface bei ihrem DNS-Registrar zu sichern, bevor Sie die Einträge von hier aus propagieren.",
             "push_force_confirm": "Sind Sie sicher, dass Sie die Propagierung aller vorgeschlagenen DNS-Einträge forcieren möchten? Seien Sie sich bewusst, dass dies dazu führen kann, dass es manuelle oder wichtige Default-Einträge, die ihr Registrar definiert hat, überschreiben könnte."
+        },
+        "cert": {
+            "types": {
+                "letsencrypt": "Let's Encrypt",
+                "selfsigned": "Selbstsigniert"
+            }
         }
     },
     "domain_dns_push_failed_to_authenticate": "Authentifizierung bei der API des Registrars nicht erfolgreich. Höchstwahrscheinlich sind die <a href='#/Domäne/{Domäne}/config'>Zugangsdaten</a> inkorrekt. (Fehler: {error})",
@@ -592,5 +598,8 @@
     "text_selection_is_disabled": "Textauswahl ist deaktiviert. Wenn Sie diesen Log teilen möchten, teilen Sie bitte den *kompletten* Log, indem Sie den Button 'Logs teilen mit YunoPaste' anklicken. <br/><small>Oder falls Sie wirklich wirklich einen Text auswählen möchten, klicken Sie auf die Tasten:↓↓↑↑.</small>",
     "users_import_update": "Vorhandene Konten aktualisieren",
     "users_import_confirm_destructive": "Sind Sie sicher, dass Sie die Konten, die nicht in diesen Datei enthalten sind, löschen wollen?",
-    "retry": "Wiederhole"
+    "retry": "Wiederhole",
+    "app_state_broken": "fehlerhaft",
+    "app_state_broken_explanation": "Diese Applikation ist zur Zeit fehlerhaft und kann gemäss automatisierter Tests von YunoHost nicht installiert werden.",
+    "details_about": "Mehr Details über {subject} anzeigen"
 }
