@@ -90,14 +90,14 @@
       >
         <h2>{{ $t('app.install.before_install.critical') }}</h2>
 
-        <p v-if="!app.requirements.arch">
-          {{ $t('app.install.problems.arch') }}
+        <p v-if="!app.requirements.arch.pass">
+          {{ $t('app.install.problems.arch', app.requirements.arch.values) }}
         </p>
-        <p v-else-if="!app.requirements.install">
-          {{ $t('app.install.problems.install') }}
+        <p v-if="!app.requirements.install.pass">
+          {{ $t('app.install.problems.install', app.requirements.install.values) }}
         </p>
-        <p v-else-if="!app.requirements.version">
-          {{ $t('app.install.problems.version') }}
+        <p v-if="!app.requirements.version.pass">
+          {{ $t('app.install.problems.version', app.requirements.version.values) }}
         </p>
       </yuno-alert>
 
