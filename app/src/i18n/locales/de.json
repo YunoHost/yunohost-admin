@@ -574,13 +574,35 @@
             "auto_config_zone": "Aktuelle DNS-Zone",
             "edit": "DNS-Konfiguration bearbeiten",
             "info": "Die automatische DNS-Einträge-Konfiguration ist ein experimentelles Feature. <br> Erwägen Sie es, Ihre aktuelle DNS-Konfiguration im Webinterface bei ihrem DNS-Registrar zu sichern, bevor Sie die Einträge von hier aus propagieren.",
-            "push_force_confirm": "Sind Sie sicher, dass Sie die Propagierung aller vorgeschlagenen DNS-Einträge forcieren möchten? Seien Sie sich bewusst, dass dies dazu führen kann, dass es manuelle oder wichtige Default-Einträge, die ihr Registrar definiert hat, überschreiben könnte."
+            "push_force_confirm": "Sind Sie sicher, dass Sie die Propagierung aller vorgeschlagenen DNS-Einträge forcieren möchten? Seien Sie sich bewusst, dass dies dazu führen kann, dass es manuelle oder wichtige Default-Einträge, die ihr Registrar definiert hat, überschreiben könnte.",
+            "methods": {
+                "auto": "Automatisch",
+                "manual": "Manuell",
+                "none": "Keine",
+                "semi_auto": "Semi-automatisch",
+                "handled_in_parent": "In der übergeordneten Domäne verwaltet"
+            }
         },
         "cert": {
             "types": {
                 "letsencrypt": "Let's Encrypt",
-                "selfsigned": "Selbstsigniert"
-            }
+                "selfsigned": "Selbstsigniert",
+                "other": "Andere/Unbekannt"
+            },
+            "valid_for": "gültig für {days}"
+        },
+        "info": {
+            "apps_on_domain": "Auf der Domäne installierte Apps",
+            "certificate_authority": "SSL-Zeritifizierungsstelle",
+            "registrar": "Registrar"
+        },
+        "see_parent_domain": "Schauen Sie bitte bei der Hauptdomäne nach",
+        "types": {
+            "main_domain": "Hauptdomäne"
+        },
+        "toggle_subdomains": "Subdomänen wechseln",
+        "explain": {
+            "main_domain": "Die Hauptdomäne ist die Domäne, von welcher aus die Benutzer sich mit dem Portal verbinden können (via \"{domain}/yunohost/sso\"). <br>Darum ist es leider nicht möglich, sie zu entfernen.<br>Falls Sie \"{domain}\" entfernen möchten, werden sie vorher eine andere Domäne auswählen und als Hauptdomäne festlegen müssen."
         }
     },
     "domain_dns_push_failed_to_authenticate": "Authentifizierung bei der API des Registrars nicht erfolgreich. Höchstwahrscheinlich sind die <a href='#/Domäne/{Domäne}/config'>Zugangsdaten</a> inkorrekt. (Fehler: {error})",
@@ -601,5 +623,9 @@
     "retry": "Wiederhole",
     "app_state_broken": "fehlerhaft",
     "app_state_broken_explanation": "Diese Applikation ist zur Zeit fehlerhaft und kann gemäss automatisierter Tests von YunoHost nicht installiert werden.",
-    "details_about": "Mehr Details über {subject} anzeigen"
+    "details_about": "Mehr Details über {subject} anzeigen",
+    "confirm_install_app_broken": "ACHTUNG! Diese App ist gemäss YunoHost's automatischen Test beschädigt und vermutlich wird sie ihr System beschädigen! Sie sollten sie wahrscheinlich NICHT installieren, es sei denn, Sie wissen was Sie tun. Wollen Sie dieses Risiko wirklich eingehen?",
+    "group_admins": "Admins",
+    "group_explain_admins": "Dies ist eine spezielle Gruppe, welche zu den Admin-Benutzern gehört. Benutzer in dieser Gruppe besitzen, um es einfach zu halten, alle Berechtigungen auf dem Server (verändern, erstellen, hinzufügen und zurückhalten). Sie können demzufolge auf Admin-Oberfläche von YunoHost zugreifen, sich mit dem Server mit SSH verbinden und das Kommando `sudo` benutzen. Ausserdem erhalten sie die E-Mails, welche an root@, admin@, admins@, wie die Diagnose-Benachrichtigungen, gesendet wurden.",
+    "important_yunohost_upgrade": "Eine grössere YunoHost-Aktualisierung ist erhältlich. Es ist sehr empfehlenswert, die Release-Note(s) im Forum sorgfältig durchzulesen, bevor Sie aktualisieren : <a href='https://forum.yunohost.org/tag/ynh_release'>Die Release-Notes im Forum aufrufen.</a>"
 }
