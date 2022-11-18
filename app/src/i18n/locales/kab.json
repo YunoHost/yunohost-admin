@@ -4,6 +4,10 @@
         "domain_description": {
             "domain": "Fren taɣult.",
             "email": "Fren taɣult i imayl inek·inem."
+        },
+        "local_part_description": {
+            "email": "Fren aḥric adigan n imayl.",
+            "domain": "Fren taɣult ddaw."
         }
     },
     "action": "Tigawt",
@@ -145,5 +149,6 @@
     "user_username": "Nom d'utilisateur",
     "users": "Iseqdacen",
     "wrong_password": "Awal n uɛeddi d armeɣtu",
-    "validity": "Taneɣbalt"
+    "validity": "Taneɣbalt",
+    "administration_password": "Awal uffir n tedbelt"
 }
