@@ -75,7 +75,11 @@
     "words": {
         "browse": "Snirem",
         "collapse": "Ḍfes",
-        "default": "Prédéfini(e)"
+        "default": "Prédéfini(e)",
+        "link": "Aseɣwen",
+        "none": "Ula d yiwen",
+        "separator": ", ",
+        "valid": "Tettwaqbel"
     },
     "yes": "Ih",
     "api_error": {
@@ -150,5 +154,13 @@
     "users": "Iseqdacen",
     "wrong_password": "Awal n uɛeddi d armeɣtu",
     "validity": "Taneɣbalt",
-    "administration_password": "Awal uffir n tedbelt"
+    "administration_password": "Awal uffir n tedbelt",
+    "domain": {
+        "dns": {
+            "methods": {
+                "none": "Ula d yiwen"
+            }
+        }
+    },
+    "group_admins": "Inedbalen"
 }
