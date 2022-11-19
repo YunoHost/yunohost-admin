@@ -308,7 +308,7 @@
     "restart": "Neustart",
     "operation_failed_explanation": "Die Operation ist fehlgeschlagen! Das tut uns leid :( Sie können Sich <a href='https://yunohost.org/help'>hier Hilfe holen</a>. Bitte stellen Sie *die ganzen Logs* der Operation bereit, damit Ihnen besser geholfen werden kann. Dies tun Sie, indem Sie auf den grünen 'mit Yunopaste teilen' Knopf drücken. Wenn Sie die Logs teilen, wird Yunohost automatisch versuchen Ihre privaten Daten wie Domainnamen und IP's zu anonymisieren.",
     "diagnosis_explanation": "Die Diagnosefunktion wird versuchen, gängige Probleme in verschiedenen Teilen Ihres Servers zu finden, damit alles reibungslos läuft. Die Diagnose wird auch automatisch zweimal täglich ausgeführt und falls Fehler gefunden werden, bekommt der Administrator eine E-Mail. Beachten Sie, dass einige Tests nicht relevant sind, wenn Sie einzelne Features (zum Beispiel XMPP) nicht benutzten oder Sie ein komplexes Setup haben. In diesem Fall und wenn Sie wissen was Sie tun ist es in Ordnung die dazugehörigen Warnungen und Hinweise zu ignorieren.",
-    "pending_migrations": "Es gibt ausstehende Migrationen, die darauf warten, durchgeführt zu werden. Bitte gehen Sie zu  <a href='#/tools/migrations'>Werkzeuge > Migrationen</a> um diese durchzuführen.",
+    "pending_migrations": "Es gibt einige ausstehende Migrationen, die darauf warten, ausgeführt zu werden. Bitte gehen Sie auf <a href='#/tools/migrations'>Werkzeuge > Migrationen</a> um diese auszuführen.",
     "tip_about_user_email": "Konten werden mit einer verknüpften E-Mail-Adresse (und XMPP Account) erstellt im Format username@domain.tld. Zusätzliche E-Mail-Aliasse and E-Mail-Weiterleitungen können später durch Administratoren und Benutzer hinzugefügt werden.",
     "logs_suboperations": "Unter-Operationen",
     "api_errors_titles": {
@@ -491,7 +491,7 @@
             "change_url": "Die Zugriffs-URL für '{name}' ändern",
             "change_label": "Das Label von '{prevName}' nach '{nextName}' ändern",
             "set_default": "Weiterleitung des Domänen-Rootverzeichnisses von '{domain}' zu '{name}'",
-            "action_config": "Die Aktion '{action}' der Konfiguration der App '{name}' durchführen"
+            "action_config": "Führe Aktion '{action}' der Konfiguration der Applikation '{name}' durch"
         },
         "adminpw": "Administratorpasswort ändern",
         "domains": {
@@ -566,7 +566,7 @@
         "force": "Forciere den Post-Install",
         "title": "Post-Installation",
         "user": {
-            "title": "Erstellen des ersten Administratoren-Benutzers",
+            "title": "Erstes Administratorkonto erstellen",
             "first_user_help": "Diesem Benutzer werden Adminstratoren-Privilegien erteilt und es wird ihm erlaubt sein, sich mit dem Admin-Portal zu verbinden und auch sich direkt mit dem Server über SSH zu verbinden. \nWeil es ein regulärer Benutzer ist, werden Sie sich auch mit dem Benutzer-Portal (SSO) mit seinen Zugangsdaten verbinden können. Sobald die post-installation vollständig ist, werden Sie in der Lage sein, weitere Admin-Benutzer zu erstellen, indem Sie diese der 'admins'-Gruppe hinzufügen."
         }
     },
@@ -595,7 +595,7 @@
                 "auto": "Automatisch",
                 "manual": "Manuell",
                 "none": "Keine",
-                "semi_auto": "Semi-automatisch",
+                "semi_auto": "Halbautomatisch",
                 "handled_in_parent": "In der übergeordneten Domäne verwaltet"
             }
         },
@@ -608,7 +608,7 @@
             "valid_for": "gültig für {days}"
         },
         "info": {
-            "apps_on_domain": "Auf der Domäne installierte Apps",
+            "apps_on_domain": "Auf der Domäne installierte Applikationen",
             "certificate_authority": "SSL-Zeritifizierungsstelle",
             "registrar": "Registrar"
         },
@@ -621,7 +621,7 @@
             "main_domain": "Die Hauptdomäne ist die Domäne, von welcher aus die Benutzer sich mit dem Portal verbinden können (via \"{domain}/yunohost/sso\"). <br>Darum ist es leider nicht möglich, sie zu entfernen.<br>Falls Sie \"{domain}\" entfernen möchten, werden sie vorher eine andere Domäne auswählen und als Hauptdomäne festlegen müssen."
         }
     },
-    "domain_dns_push_failed_to_authenticate": "Authentifizierung bei der API des Registrars nicht erfolgreich. Höchstwahrscheinlich sind die <a href='#/Domäne/{Domäne}/config'>Zugangsdaten</a> inkorrekt. (Fehler: {error})",
+    "domain_dns_push_failed_to_authenticate": "Authentifizierung bei der API des Registrars nicht erfolgreich. Höchstwahrscheinlich sind die <a href='#/Domäne/{domain}/config'>Zugangsdaten</a> inkorrekt. (Fehler: {error})",
     "domain_dns_push_managed_in_parent_domain": "Die automatische DNS-Konfiguration wird von der übergeordneten Domäne <a href='#/domains/{parent_domain}/dns'>{parent_domain}</a> verwaltet.",
     "domain_dns_push_not_applicable": "Die automatische DNS-Konfiguration ist nicht auf die Domäne {domain} anwendbar. <br>Konfiguriere die DNS-Einträge, wie in der <a href='https://yunohost.org/dns'>Dokumentation<a href='https://yunohost.org/dns'> beschrieben, mit Hilfe der folgenden vorgeschlagenen Konfiguration manuell.",
     "users_import_delete_desc": "Wenn angewählt, werden alle Konten, die nicht in der CSV-Datei enthalten sind, gelöscht (und bereinigt).",
@@ -637,15 +637,15 @@
     "users_import_update": "Vorhandene Konten aktualisieren",
     "users_import_confirm_destructive": "Sind Sie sicher, dass Sie die Konten, die nicht in diesen Datei enthalten sind, löschen wollen?",
     "retry": "Wiederhole",
-    "app_state_broken": "fehlerhaft",
+    "app_state_broken": "beschädigt",
     "app_state_broken_explanation": "Diese Applikation ist zur Zeit fehlerhaft und kann gemäss automatisierter Tests von YunoHost nicht installiert werden.",
     "details_about": "Mehr Details über {subject} anzeigen",
-    "confirm_install_app_broken": "ACHTUNG! Diese App ist gemäss YunoHost's automatischen Test beschädigt und vermutlich wird sie ihr System beschädigen! Sie sollten sie wahrscheinlich NICHT installieren, es sei denn, Sie wissen was Sie tun. Wollen Sie dieses Risiko wirklich eingehen?",
+    "confirm_install_app_broken": "VORSICHT! Diese Applikation ist gemäss YunoHost's automatischen Test beschädigt und wird vermutlich ihr System beschädigen! Sie sollten sie vermutlich NICHT installieren, es sei denn, Sie wissen was Sie tun. Wollen Sie dieses Risiko wirklich eingehen?",
     "group_admins": "Administratoren",
     "group_explain_admins": "Dies ist eine spezielle Gruppe, welche zu den Administratoren-Benutzern gehört. Benutzer in dieser Gruppe besitzen, um es einfach zu halten, alle Berechtigungen auf dem Server (verändern, erstellen, hinzufügen und zurückhalten). Sie können demzufolge auf Admin-Oberfläche von YunoHost zugreifen, sich mit dem Server über SSH verbinden und das Kommando `sudo` benutzen. Ausserdem erhalten sie die E-Mails, welche an root@, admin@, admins@, wie die Diagnose-Benachrichtigungen, gesendet wurden.",
     "important_yunohost_upgrade": "Eine grössere YunoHost-Aktualisierung ist erhältlich. Es ist sehr empfehlenswert, die Release-Note(s) im Forum sorgfältig durchzulesen, bevor Sie aktualisieren : <a href='https://forum.yunohost.org/tag/ynh_release'>Die Release-Notes im Forum aufrufen.</a>",
     "label_for_manifestname_help": "Dies ist der Name, welcher im Benutzer-Portal angezeigt wird. Dies kann später nochmal geändert werden.",
-    "manage_groups": "Gruppenverwaltung",
+    "manage_groups": "Gruppenmanagement",
     "tools_yunohost_settings": "YunoHost-Einstellungen",
     "wrong_password_or_username": "Falsches Passwort für Benutzername"
 }
