@@ -580,7 +580,6 @@
     "yes": "Yes",
     "yunohost_admin": "YunoHost Admin",
     "certificate_manage": "Manage SSL certificate",
-    "ssl_certificate": "SSL certificate",
     "certificate": "Certificate",
     "purge_user_data_checkbox": "Purge {name}'s data? (This will remove the content of its home and mail directories.)",
     "purge_user_data_warning": "Purging user's data is not reversible. Be sure you know what you're doing!"
