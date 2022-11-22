@@ -569,7 +569,7 @@
             "push_force_confirm": "Sei sicuro di voler impostare tutti i records dns suggeriti? Sii consapevole che potresti sovrascrivere records predefiniti importanti o impostati manualmente da te o dal tuo registrar.",
             "auto_config": "Configurazione automatica dei records DNS",
             "auto_config_ignored": "ignorato, non verrà cambiato da YunoHost a meno che non selezioni l'opzione di sovrascrittura",
-            "auto_config_ok": "La configurazione automatica sembra essere apposto!",
+            "auto_config_ok": "La configurazione automatica sembra essere a posto!",
             "auto_config_zone": "Zona DNS corrente",
             "edit": "Modifica la configurazione DNS",
             "manual_config": "Records DNS suggeriti per la configurazione manuale",
