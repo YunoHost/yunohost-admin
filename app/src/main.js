@@ -39,6 +39,19 @@ Vue.prototype.$askConfirmation = function (message, props) {
   })
 }
 
+Vue.prototype.$askMdConfirmation = function (markdown, props, ok = false) {
+  const content = this.$createElement('vue-showdown', {
+    props: { markdown, flavor: 'github', options: { headerLevelStart: 4 } }
+  })
+  return this.$bvModal['msgBox' + (ok ? 'Ok' : 'Confirm')](content, {
+    okTitle: this.$i18n.t('yes'),
+    cancelTitle: this.$i18n.t('cancel'),
+    headerBgVariant: 'warning',
+    headerClass: store.state.theme ? 'text-white' : 'text-black',
+    centered: true,
+    ...props
+  })
+}
 
 // Register global components
 const requireComponent = require.context('@/components/globals', true, /\.(js|vue)$/i)
