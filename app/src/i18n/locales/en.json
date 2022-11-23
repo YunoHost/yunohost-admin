@@ -105,7 +105,25 @@
         "userdoc": "Official User documentation",
         "website": "Website"
       },
-      "potential_alternative_to": "Potential alternative to:"
+      "potential_alternative_to": "Potential alternative to:",
+      "upgrade": {
+        "confirm": {
+          "apps": "Apps that will be upgraded",
+          "title": "Confirm app upgrades"
+        },
+        "continue": "Continue to next app",
+        "notifs": {
+          "pre": {
+            "title": "Be warned!",
+            "alert": "You should check those notifications before upgrading, there might be important stuff to know."
+          },
+          "post": {
+            "title": "Post upgrade information for '{name}'",
+            "alert": "It seems that the upgrade went well!\n Here is some notifications that the packager considers important to know about this upgrade.\nYou can read it again in the app info page."
+          }
+        },
+        "stop": "Cancel next app upgrades"
+      }
     },
     "app_choose_category": "Choose a category",
     "app_config_panel": "Config panel",
@@ -167,9 +185,7 @@
     "confirm_service_start": "Are you sure you want to start {name}?",
     "confirm_service_stop": "Are you sure you want to stop {name}?",
     "confirm_uninstall": "Are you sure you want to uninstall {name}?",
-    "confirm_update_apps": "Are you sure you want to update all applications?",
     "confirm_update_system": "Are you sure you want to update all system packages?",
-    "confirm_update_specific_app": "Are you sure you want to update {app}?",
     "confirm_upnp_enable": "Are you sure you want to enable UPnP?",
     "confirm_upnp_disable": "Are you sure you want to disable UPnP?",
     "confirm_reboot_action_reboot": "Are you sure you want to reboot your server?",
