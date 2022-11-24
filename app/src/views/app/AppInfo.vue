@@ -111,19 +111,6 @@
         </b-form-group>
         <hr v-if="app.is_webapp">
 
-        <!-- APP CONFIG PANEL -->
-        <template v-if="app.supports_config_panel">
-          <b-form-group
-            :label="$t('app_config_panel_label')" label-for="config"
-            label-cols-md="4" label-class="font-weight-bold"
-          >
-            <b-button id="config" variant="warning" :to="{ name: 'app-config-panel', params: { id } }">
-              <icon iname="cog" /> {{ $t('app_config_panel') }}
-            </b-button>
-          </b-form-group>
-          <hr>
-        </template>
-
         <!-- UNINSTALL -->
         <b-form-group
           :label="$t('app_info_uninstall_desc')" label-for="uninstall"
