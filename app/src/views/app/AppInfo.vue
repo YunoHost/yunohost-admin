@@ -2,6 +2,12 @@
   <view-base :queries="queries" @queries-response="onQueriesResponse" ref="view">
     <!-- BASIC INFOS -->
     <card v-if="infos" :title="infos.label" icon="cube">
+      <template #header-buttons>
+        <b-button @click="uninstall" id="uninstall" variant="danger">
+          <icon iname="trash-o" /> {{ $t('uninstall') }}
+        </b-button>
+      </template>
+
       <description-row
         v-for="(value, key) in infos" :key="key"
         :term="$t(key)"
@@ -110,16 +116,6 @@
           </template>
         </b-form-group>
         <hr v-if="app.is_webapp">
-
-        <!-- UNINSTALL -->
-        <b-form-group
-          :label="$t('app_info_uninstall_desc')" label-for="uninstall"
-          label-class="font-weight-bold" label-cols-md="4"
-        >
-          <b-button @click="uninstall" id="uninstall" variant="danger">
-            <icon iname="trash-o" /> {{ $t('uninstall') }}
-          </b-button>
-        </b-form-group>
       </template>
     </config-panels>
 
