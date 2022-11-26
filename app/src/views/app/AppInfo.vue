@@ -124,9 +124,100 @@
             </b-button>
           </template>
         </b-form-group>
-        <hr v-if="app.is_webapp">
       </template>
     </config-panels>
+
+    <b-card v-if="doc" no-body>
+      <b-tabs card fill pills>
+        <b-tab :title="$t('app.doc.notifications.title')" active>
+          <section v-if="doc.notifications.postUpgrade.length">
+            <b-card-title title-tag="h3" v-t="'app.doc.notifications.post_upgrade'" />
+
+            <div
+              v-for="[name, notif] in doc.notifications.postUpgrade" :key="name"
+            >
+              <b-card-title v-if="name !== 'main'">
+                {{ name }}
+              </b-card-title>
+              <vue-showdown :markdown="notif" flavor="github" />
+            </div>
+          </section>
+
+          <section v-if="doc.notifications.postInstall.length">
+            <b-card-title title-tag="h3">
+              {{ $t('app.doc.notifications.post_install') }}
+            </b-card-title>
+
+            <div
+              v-for="[name, notif] in doc.notifications.postInstall" :key="name"
+            >
+              <b-card-title tag="h5" v-if="name !== 'main'">
+                {{ name }}
+              </b-card-title>
+              <vue-showdown :markdown="notif" flavor="github" />
+            </div>
+          </section>
+        </b-tab>
+
+        <b-tab :title="$t('app.doc.admin.title')">
+          {{ doc.admin.links }}
+          <vue-showdown :markdown="doc.admin.content" flavor="github" />
+        </b-tab>
+
+        <b-tab :title="$t('app.doc.about.title')" no-body>
+          <section class="p-3">
+            <b-card-title>{{ $t('app.doc.about.description') }}</b-card-title>
+
+            <p v-if="doc.about.alternativeTo">
+              <strong v-t="'app.potential_alternative_to'" />
+              {{ doc.about.alternativeTo }}
+            </p>
+
+            <vue-showdown :markdown="doc.about.description" flavor="github" />
+
+            <p>
+              {{ $t('app.install.license', { license: doc.about.license }) }}
+            </p>
+          </section>
+
+          <card-collapse
+            id="app-integration" :title="$t('app.integration.title')"
+            flush visible
+          >
+            <b-list-group flush tag="section">
+              <yuno-list-group-item variant="info">
+                {{ $t('app.integration.archs') }} {{ doc.about.integration.archs }}
+              </yuno-list-group-item>
+              <yuno-list-group-item v-if="doc.about.integration.ldap" :variant="doc.about.integration.ldap === true ? 'success' : 'warning'">
+                {{ $t(`app.integration.ldap.${doc.about.integration.ldap}`) }}
+              </yuno-list-group-item>
+              <yuno-list-group-item v-if="doc.about.integration.sso" :variant="doc.about.integration.sso === true ? 'success' : 'warning'">
+                {{ $t(`app.integration.sso.${doc.about.integration.sso}`) }}
+              </yuno-list-group-item>
+              <yuno-list-group-item variant="info">
+                {{ $t(`app.integration.multi_instance.${doc.about.integration.multi_instance}`) }}
+              </yuno-list-group-item>
+              <yuno-list-group-item variant="info">
+                {{ $t('app.integration.resources', doc.about.integration.resources) }}
+              </yuno-list-group-item>
+            </b-list-group>
+          </card-collapse>
+
+          <card-collapse
+            id="app-links" :title="$t('app.links.title')"
+            flush visible
+          >
+            <b-list-group flush tag="section">
+              <yuno-list-group-item v-for="[key, link] in doc.about.links" :key="key" no-status>
+                <b-link :href="link" target="_blank">
+                  {{ $t('app.links.' + key) }}
+                </b-link>
+              </yuno-list-group-item>
+            </b-list-group>
+          </card-collapse>
+        </b-tab>
+      </b-tabs>
+    </b-card>
 
     <template #skeleton>
       <card-info-skeleton :item-count="8" />
@@ -145,14 +236,17 @@ import { humanPermissionName } from '@/helpers/filters/human'
 import { required } from '@/helpers/validators'
 import {
   formatFormData,
+  formatI18nField,
   formatYunoHostConfigPanels
 } from '@/helpers/yunohostArguments'
 import ConfigPanels from '@/components/ConfigPanels'
+import CardCollapse from '@/components/CardCollapse'
 
 export default {
   name: 'AppInfo',
 
   components: {
+    CardCollapse,
     ConfigPanels
   },
 
@@ -181,7 +275,8 @@ export default {
           }
         ],
         validations: {}
-      }
+      },
+      doc: undefined
     }
   },
 
@@ -245,7 +340,6 @@ export default {
         label: mainPermission.label,
         description: app.description,
         version: app.version,
-        multi_instance: this.$i18n.t(app.manifest.integration.multi_instance ? 'yes' : 'no'),
         install_time: readableDate(app.settings.install_time, true, true)
       }
       if (app.settings.domain && app.settings.path) {
@@ -265,6 +359,43 @@ export default {
         supports_config_panel: app.supports_config_panel,
         permissions
       }
+
+      const notifs = app.manifest.notifications
+      const { DESCRIPTION, ADMIN, ...doc } = app.manifest.doc
+      const { ldap, sso, multi_instance, ram, disk, architectures: archs } = app.manifest.integration
+      this.doc = {
+        notifications: {
+          postInstall: [['main', formatI18nField(notifs.post_install.main)]],
+          postUpgrade: Object.entries(notifs.post_upgrade).map(([key, content]) => {
+            return [key, formatI18nField(content)]
+          })
+        },
+        admin: {
+          content: [
+            formatI18nField(ADMIN),
+            ...Object.keys(doc).sort().map((key) => formatI18nField(doc[key]))
+          ].join('\n\n')
+        },
+        about: {
+          alternativeTo: app.from_catalog.potential_alternative_to.length
+            ? app.from_catalog.potential_alternative_to.join(this.$i18n.t('words.separator'))
+            : null,
+          description: formatI18nField(DESCRIPTION),
+          license: app.manifest.upstream.license,
+          integration: {
+            archs: Array.isArray(archs) ? archs.join(this.$i18n.t('words.separator')) : archs,
+            ldap: ldap === 'not_relevant' ? null : ldap,
+            sso: sso === 'not_relevant' ? null : sso,
+            multi_instance,
+            resources: { ram: ram.runtime, disk }
+          },
+          links: [
+            ...['website', 'admindoc', 'userdoc', 'code'].map((key) => ([key, app.manifest.upstream[key]])),
+            ['forum', `https://forum.yunohost.org/tag/${this.id}`]
+          ].filter(([key, val]) => !!val)
+        }
+      }
+
       if (this.app.is_webapp) {
         this.app.is_default = app.is_default
       }
