@@ -24,6 +24,15 @@
           <icon iname="key-modern" /> {{ $t('groups_and_permissions_manage') }}
         </b-button>
       </description-row>
+
+      <template #footer>
+        <b-card-text class="text-warning">
+          {{ $t('app.info.problem') }}
+          <b-link :href="`https://forum.yunohost.org/tag/${id}`" target="_blank">
+            {{ $t('app.info.forum') }}
+          </b-link>
+        </b-card-text>
+      </template>
     </card>
 
     <config-panels v-bind="config" @submit="onConfigSubmit">

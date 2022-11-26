@@ -56,6 +56,10 @@
     "api_waiting": "Waiting for the server's response...",
     "app": {
       "antifeatures": "Antifeatures:",
+      "info": {
+        "forum": "Search or ask the forum!",
+        "problem": "A problem with this app?"
+      },
       "install": {
         "license": "License: {license}",
         "notifs": {
