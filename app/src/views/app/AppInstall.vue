@@ -3,7 +3,7 @@
     <template v-if="app">
       <card :title="app.name" icon="download" body-class="p-0">
         <section class="p-3">
-          <p v-if="app.alternativeTo" class="mt-3">
+          <p v-if="app.alternativeTo">
             <strong v-t="'app.potential_alternative_to'" />
             {{ app.alternativeTo }}
           </p>
@@ -62,7 +62,7 @@
       </card>
 
       <yuno-alert v-if="app.hasWarning" variant="warning" class="my-4">
-        <h2>{{ $t('app.install.before_install.warning') }}</h2>
+        <h2>{{ $t('app.install.notifs.pre.warning') }}</h2>
 
         <template v-if="app.antifeatures">
           <strong v-t="'app.antifeatures'" class="d-block mb-1" />
@@ -88,7 +88,7 @@
         v-if="!app.hasSupport"
         variant="danger" icon="warning" class="my-4"
       >
-        <h2>{{ $t('app.install.before_install.critical') }}</h2>
+        <h2>{{ $t('app.install.notifs.pre.critical') }}</h2>
 
         <p v-if="!app.requirements.arch.pass">
           {{ $t('app.install.problems.arch', app.requirements.arch.values) }}
@@ -102,7 +102,7 @@
       </yuno-alert>
 
       <yuno-alert v-else-if="app.hasDanger" variant="danger" class="my-4">
-        <h2>{{ $t('app.install.before_install.danger') }}</h2>
+        <h2>{{ $t('app.install.notifs.pre.danger') }}</h2>
 
         <p v-if="['inprogress', 'broken', 'thirdparty'].includes(app.quality.state)" v-t="'app.install.problems.' + app.quality.state" />
         <p v-if="!app.requirements.ram.pass">
@@ -269,6 +269,12 @@ export default {
       this.errors = errors
     },
 
+    formatAppNotifs (notifs) {
+      return Object.keys(notifs).reduce((acc, key) => {
+        return acc + '\n\n' + notifs[key]
+      }, '')
+    },
+
     async performInstall () {
       if ('path' in this.form && this.form.path === '/') {
         const confirmed = await this.$askConfirmation(
@@ -283,7 +289,15 @@ export default {
       )
       const data = { app: this.id, label, args: Object.entries(args).length ? objectToParams(args) : undefined }
 
-      api.post('apps', data, { key: 'apps.install', name: this.app.name }).then(() => {
+      api.post('apps', data, { key: 'apps.install', name: this.app.name }).then(async ({ notifications }) => {
+        const postInstall = this.formatAppNotifs(notifications)
+        if (postInstall) {
+          const message = this.$i18n.t('app.install.notifs.post.alert') + '\n\n' + postInstall
+          await this.$askMdConfirmation(message, {
+            title: this.$i18n.t('app.install.notifs.post.title', { name: this.app.name }),
+            okTitle: this.$i18n.t('ok')
+          }, true)
+        }
         this.$router.push({ name: 'app-list' })
       }).catch(err => {
         if (err.name !== 'APIBadRequestError') throw err

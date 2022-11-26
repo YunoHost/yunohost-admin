@@ -57,12 +57,18 @@
     "app": {
       "antifeatures": "Antifeatures:",
       "install": {
-        "before_install": {
-          "warning": "Things to know before installation",
-          "danger": "The installation of the application will most likely lead to issues",
-          "critical": "The application cannot be installed"
-        },
         "license": "License: {license}",
+        "notifs": {
+          "post": {
+            "title": "Post-install notifications for '{name}'",
+            "alert": "It seems that the installation went well!\n Here is some notifications that the packager considers important to know.\nYou can read it again in the app info page."
+          },
+          "pre": {
+            "warning": "Things to know before installation",
+            "danger": "The installation of the application will most likely lead to issues",
+            "critical": "The application cannot be installed"
+          }
+        },
         "problems": {
           "arch": "This app can only be installed on specific architectures ({required}) but your server architecture is {current}.",
           "broken": "This application is broken according to YunoHost's automatic tests and it is likely to break your system! You should probably NOT install it unless you know what you are doing.",
