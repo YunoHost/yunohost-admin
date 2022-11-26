@@ -114,12 +114,12 @@
         "continue": "Continue to next app",
         "notifs": {
           "pre": {
-            "title": "Be warned!",
-            "alert": "You should check those notifications before upgrading, there might be important stuff to know."
+            "alert": "You should check those notifications before upgrading, there might be important stuff to know.",
+            "title": "Be warned!"
           },
           "post": {
-            "title": "Post upgrade information for '{name}'",
-            "alert": "It seems that the upgrade went well!\n Here is some notifications that the packager considers important to know about this upgrade.\nYou can read it again in the app info page."
+            "alert": "It seems that the upgrade went well!\n Here is some notifications that the packager considers important to know about this upgrade.\nYou can read it again in the app info page.",
+            "title": "Post-upgrade notifications for '{name}'"
           }
         },
         "stop": "Cancel next app upgrades"

@@ -184,7 +184,7 @@ export default {
           this.apps = this.apps.filter((a) => app.id !== a.id)
 
           if (postMessage) {
-            const message = this.$i18n.t('app.upgrade.notifs.post.success') + '\n\n' + postMessage
+            const message = this.$i18n.t('app.upgrade.notifs.post.alert') + '\n\n' + postMessage
             return this.$askMdConfirmation(message, {
               title: this.$i18n.t('app.upgrade.notifs.post.title', { name: app.name }),
               okTitle: this.$i18n.t(isLast ? 'ok' : 'app.upgrade.continue'),
