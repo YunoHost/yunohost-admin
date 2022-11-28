@@ -13,11 +13,9 @@
             "pending": "Iteddu"
         }
     },
-    "app_actions": "Actions",
     "connection": "Tuqqna",
     "created_at": "Yettwarna di",
     "domain_name": "Isem n Taɣult",
-    "domain_visit": "Rzu",
     "domains": "Tiɣula",
     "download": "Sider",
     "enable": "Rmed",
@@ -54,7 +52,6 @@
     "service_start_on_boot": "Bdu seg usenker",
     "services": "Imeẓla",
     "tools": "Ifecka",
-    "tools_adminpw_current": "Awal n uɛeddi amiran",
     "tools_webadmin": {
         "cache": "Tuffirt",
         "language": "Tutlayt"
@@ -143,7 +140,5 @@
     "tools_reboot_btn": "Alles asekker",
     "tools_shutdown_btn": "Sexsi",
     "user_username": "Nom d'utilisateur",
-    "users": "Iseqdacen",
-    "wrong_password": "Awal n uɛeddi d armeɣtu",
-    "validity": "Taneɣbalt"
+    "users": "Iseqdacen"
 }
