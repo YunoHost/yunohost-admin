@@ -159,7 +159,6 @@
     "tools_shutdown_btn": "Herunterfahren",
     "tools_shutdown_reboot": "Herunterfahren/Neustarten",
     "app_state_inprogress_explanation": "Der Entwickler dieser Applikation hat angegeben, dass sie nicht bereit für den produktiven Einsatz bereit ist. BITTE SEI VORSICHTIG!",
-    "app_no_actions": "Diese Applikation hat keine Aktionen",
     "all_apps": "Alle Applikationen",
     "app_info_changeurl_desc": "Ändern Sie die Zugriffs-URL dieser Anwendung (Domäne und/oder Pfad).",
     "app_state_highquality_explanation": "Diese Applikation ist seit mindestens einem Jahr gut in YunoHost integriert.",
@@ -214,7 +213,6 @@
     "words": {
         "default": "Vorgabe",
         "collapse": "Zusammenbruch",
-        "dismiss": "Zurückweisen",
         "browse": "Durchsuchen",
         "link": "Link",
         "none": "Keine",

@@ -567,7 +567,6 @@
     "user_interface_link": "Erabiltzaile-ataria",
     "user_username_edit": "Aldatu {name}(r)en kontua",
     "text_selection_is_disabled": "Ezinezkoa da testua hautatzea. Erregistroa partekatu nahi baduzu, erregistro *osoa* partekatu 'Partekatu Yunopastekin' botoiaren bidez.<br/><small>Edo testua hautatu nahi baduzu, sakatu tekla hauek: ↓↓↑↑. </small>",
-    "domain_is_eligible_for_ACME": "Domeinu hau Let's Encrypt ziurtagiria instalatzeko zuzen konfiguratuta dagoela dirudi!",
     "certificate_manage": "Kudeatu SSL ziurtagiria",
     "certificate": "Ziurtagiria",
     "purge_user_data_warning": "Erabiltzailearen datuak purgatzea ezin da desegin. Ziurtatu hori den egin nahi duzuna!",
