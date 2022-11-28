@@ -17,7 +17,7 @@
     "backup_new": "Nuovo backup",
     "both": "Entrambi",
     "close": "Chiudi",
-    "confirm_app_default": "Sei sicuro di voler impostare questa app come predefinita ?",
+    "confirm_app_default": "Sei sicuro di voler impostare questa app come predefinita?",
     "confirm_change_maindomain": "Sei sicuro di voler cambiare il dominio principale?",
     "confirm_delete": "Sei sicuro di voler eliminare {name} ?",
     "confirm_uninstall": "Sei sicuro di voler disinstallare {name} ?",
@@ -504,7 +504,7 @@
             "push_force_confirm": "Sei sicuro di voler impostare tutti i records dns suggeriti? Sii consapevole che potresti sovrascrivere records predefiniti importanti o impostati manualmente da te o dal tuo registrar.",
             "auto_config": "Configurazione automatica dei records DNS",
             "auto_config_ignored": "ignorato, non verrà cambiato da YunoHost a meno che non selezioni l'opzione di sovrascrittura",
-            "auto_config_ok": "La configurazione automatica sembra essere apposto!",
+            "auto_config_ok": "La configurazione automatica sembra essere a posto!",
             "auto_config_zone": "Zona DNS corrente",
             "edit": "Modifica la configurazione DNS",
             "manual_config": "Records DNS suggeriti per la configurazione manuale",
@@ -527,5 +527,7 @@
     "domain_dns_push_not_applicable": "Il settaggio automatico dei record DNS non è applicabile al dominio {domain},<br>Dovresti configurare i tuoi record DNS seguendo la <a href='https://yunohost.org/dns'>documentazione</a> e la configurazione suggerita qui sotto.",
     "text_selection_is_disabled": "La selezione del testo è disabilitata. Se vuoi condividere questo log, sei pregato di condividere il log *interamente*, tramite il bottone 'condividi con Yunopaste'.<br/><small>Oppure, se vuoi proprio proprio selezionare il testo, premi i tasti: ↓↓↑↑.</small>",
     "users_import_delete_desc": "Se spuntato, tutti gli utenti esistenti che non sono nel file CSV saranno eliminati (e espulsi).",
-    "retry": "Riprova"
+    "retry": "Riprova",
+    "app_state_broken_explanation": "Questa applicazione è attualmente non funzionante e quindi non installabile secondo i controlli automatici di YunoHost",
+    "confirm_install_app_broken": "ATTENZIONE! Questa applicazione non è funzionante secondo i controlli automatici di YunoHost e quindi potrebbe rovinare il vostro sistema! Probabilmente NON dovreste installarla a meno che non sappiate cosa state facendo. Volete prendervi questo rischio?"
 }

@@ -527,5 +527,9 @@
     "domain_dns_push_not_applicable": "La configuración automática de los registros DNS no puede realizarse en el dominio {domain},<br> Debes configurar manualmente los registros DNS siguiendo la <a href='https://yunohost.org/dns'>documentación</a> y la configuración recomendada aquí debajo.",
     "users_import_csv_file_desc": "El fichero CSV debe estar en formato UTF-8, con las columnas cuenta, contraseña, grupos, correo y cuota. Para un ejemplo de importación de fichero CSV, puedes <a href='/yunohost/api/users/export' target='_BLANK'>exportar las cuentas en un fichero CSV</a> y modificar el fichero.",
     "text_selection_is_disabled": "La selección de texto esta desactivada. Si quieres compartir este registro, por favor comparte el registro completo mediante el botón 'Compartir con Yunopaste'.<br/><small>O si realmente quieres seleccionar el texto, presiona las teclas: ↓↓↑↑.</small>",
-    "retry": "Reintentar"
+    "retry": "Reintentar",
+    "details_about": "Mostrar más detalles sobre {subject}",
+    "app_state_broken": "roto",
+    "app_state_broken_explanation": "Esta aplicación está actualmente rota y no se puede instalar según las pruebas automáticas de YunoHost",
+    "confirm_install_app_broken": "¡ADVERTENCIA! ¡Esta aplicación está rota según las pruebas automáticas de YunoHost y es probable que rompa su sistema! Probablemente NO debería instalarla a menos que sepa lo que está haciendo. ¿Está dispuesto a correr ese riesgo?"
 }

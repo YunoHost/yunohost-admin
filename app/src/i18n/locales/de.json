@@ -1,7 +1,7 @@
 {
     "action": "Aktion",
     "add": "Hinzufügen",
-    "administration_password": "Verwaltungspasswort",
+    "administration_password": "Administratorenpasswort",
     "api_not_responding": "Die YunoHost-API antwortet nicht. Vielleicht ist 'yunohost-api' ausgefallen oder wurde neu gestartet?",
     "app_info_access_desc": "Gruppen / Konten, die auf diese Applikation zugreifen dürfen:",
     "app_info_default_desc": "Hauptdomäne auf diese Applikation ({domain}) weiterleiten.",
@@ -36,8 +36,8 @@
     "domain_add": "Domain hinzufügen",
     "domain_add_dns_doc": "... und ich habe <a href='//yunohost.org/dns_config' target='_blank'>meine DNS Einstellung richtig hinterlegt</a>.",
     "domain_add_dyndns_doc": "... und ich möchte einen Dienst für dynamisches DNS nutzen.",
-    "domain_add_panel_with_domain": "Ich habe schon eine Domain…",
-    "domain_add_panel_without_domain": "Ich habe keine Domain…",
+    "domain_add_panel_with_domain": "Ich habe schon eine Domäne (Domain)…",
+    "domain_add_panel_without_domain": "Ich habe noch keine Domäne (Domain)…",
     "domain_default_desc": "Die Standarddomäne ist die Domäne, an der sich die Kontoinhaber anmelden.",
     "domain_name": "Domainname",
     "domains": "Domänen",
@@ -63,7 +63,7 @@
     "ipv4": "IPv4",
     "ipv6": "IPv6",
     "label": "Label",
-    "label_for_manifestname": "Label für {name} (Name der im Nutzerportal angezeigt wird)",
+    "label_for_manifestname": "Label für {name}",
     "local_archives": "Lokale Archive",
     "login": "Anmelden",
     "logout": "Abmelden",
@@ -149,7 +149,7 @@
     "confirm_update_specific_app": "Möchten Sie {app} wirklich aktualisieren?",
     "confirm_reboot_action_reboot": "Möchten Sie den Server wirklich neustarten?",
     "confirm_reboot_action_shutdown": "Möchten Sie den Server wirklich herunterfahren?",
-    "domain_dns_conf_is_just_a_recommendation": "Diese Seite zeigt Ihnen die *empfohlene* Konfiguration. Sie konfiguriert *nicht* das DNS für Sie. Es liegt in Ihrer Verantwortung, die DNS-Zone bei Ihrem DNS-Registrar nach dieser Empfehlung zu konfigurieren.",
+    "domain_dns_conf_is_just_a_recommendation": "Dieser Abschnitt zeigt Ihnen die *empfohlene* Konfiguration. Sie konfiguriert *nicht* das DNS für Sie. Es liegt in Ihrer Verantwortung, die DNS-Zone bei Ihrem DNS-Registrar nach dieser Empfehlung zu konfigurieren.",
     "ok": "OK",
     "system_upgrade_all_applications_btn": "Aktualisiere alle Applikationen",
     "system_upgrade_all_packages_btn": "Aktualisiere alle Pakete",
@@ -159,7 +159,8 @@
     "tools_shutdown_btn": "Herunterfahren",
     "tools_shutdown_reboot": "Herunterfahren/Neustarten",
     "app_state_inprogress_explanation": "Der Entwickler dieser Applikation hat angegeben, dass sie nicht bereit für den produktiven Einsatz bereit ist. BITTE SEI VORSICHTIG!",
-    "all_apps": "Alle Apps",
+    "app_no_actions": "Diese Applikation hat keine Aktionen",
+    "all_apps": "Alle Applikationen",
     "app_info_changeurl_desc": "Ändern Sie die Zugriffs-URL dieser Anwendung (Domäne und/oder Pfad).",
     "app_state_highquality_explanation": "Diese Applikation ist seit mindestens einem Jahr gut in YunoHost integriert.",
     "app_info_change_url_disabled_tooltip": "Dieses Feature wurde in dieser Applikation noch nicht implementiert",
@@ -168,7 +169,7 @@
     "confirm_migrations_skip": "Migrationen zu überspringen wird nicht empfohlen. Sind Sie sicher, dass Sie das tun wollen?",
     "confirm_install_app_inprogress": "ACHTUNG! Diese Applikation ist noch experimentell (wenn nicht sogar nicht funktionsfähig) und es ist wahrscheinlich, dass sie Ihr System zerstört! Sie sollten sie besser NICHT installieren, es sei denn, Sie wissen, was Sie tun. Sind Sie bereit, dieses Risiko einzugehen?",
     "confirm_install_app_lowquality": "Warnung: Diese Applikation könnte funktionieren, ist aber nicht gut in YunoHost integriert. Einige Funktionen wie Single-Sign-On und Backup/Restore sind möglicherweise nicht verfügbar.",
-    "good_practices_about_admin_password": "Du bist nun dabei, ein neues Administratorpasswort zu definieren. Das Passwort sollte mindestens 8 Zeichen lang sein - es ist jedoch empfehlenswert, ein längeres Passwort (z.B. eine Passphrase) und/oder verschiedene Arten von Zeichen (Groß- und Kleinschreibung, Ziffern und Sonderzeichen) zu verwenden.",
+    "good_practices_about_admin_password": "Du bist nun dabei, ein neues Administratorenpasswort zu definieren. Das Passwort sollte mindestens 8 Zeichen lang sein - es ist jedoch empfehlenswert, ein längeres Passwort (z.B. eine Passphrase) und/oder verschiedene Arten von Zeichen (Groß- und Kleinschreibung, Ziffern und Sonderzeichen) zu verwenden.",
     "from_to": "von {0} nach {1}",
     "experimental_warning": "Achtung: Diese Funktion ist experimentell und gilt nicht als stabil, Sie sollten sie nicht verwenden, außer Sie wissen, was Sie tun.",
     "error_connection_interrupted": "Der Server hat die Verbindung geschlossen, anstatt sie zu beantworten. Wurde nginx oder die yunohost-api aus irgendeinem Grund neu gestartet oder gestoppt?",
@@ -213,7 +214,12 @@
     "words": {
         "default": "Vorgabe",
         "collapse": "Zusammenbruch",
-        "browse": "Durchsuchen"
+        "dismiss": "Zurückweisen",
+        "browse": "Durchsuchen",
+        "link": "Link",
+        "none": "Keine",
+        "separator": ", ",
+        "valid": "Gültig"
     },
     "group": "Gruppe",
     "details": "Details",
@@ -228,7 +234,7 @@
     "group_visitors": "Gäste",
     "group_add_member": "Ein Konto hinzufügen",
     "group_add_permission": "Hinzufügen einer Berechtigung",
-    "group_specific_permissions": "Kontospezifische Berechtigungen",
+    "group_specific_permissions": "Individuelle Berechtigungen pro Benutzer",
     "groups_and_permissions": "Gruppen und Berechtigungen",
     "since": "seit",
     "permissions": "Berechtigungen",
@@ -250,8 +256,8 @@
     "restart": "Neustart",
     "operation_failed_explanation": "Die Operation ist fehlgeschlagen! Das tut uns leid :( Sie können Sich <a href='https://yunohost.org/help'>hier Hilfe holen</a>. Bitte stellen Sie *die ganzen Logs* der Operation bereit, damit Ihnen besser geholfen werden kann. Dies tun Sie, indem Sie auf den grünen 'mit Yunopaste teilen' Knopf drücken. Wenn Sie die Logs teilen, wird Yunohost automatisch versuchen Ihre privaten Daten wie Domainnamen und IP's zu anonymisieren.",
     "diagnosis_explanation": "Die Diagnosefunktion wird versuchen, gängige Probleme in verschiedenen Teilen Ihres Servers zu finden, damit alles reibungslos läuft. Die Diagnose wird auch automatisch zweimal täglich ausgeführt und falls Fehler gefunden werden, bekommt der Administrator eine E-Mail. Beachten Sie, dass einige Tests nicht relevant sind, wenn Sie einzelne Features (zum Beispiel XMPP) nicht benutzten oder Sie ein komplexes Setup haben. In diesem Fall und wenn Sie wissen was Sie tun ist es in Ordnung die dazugehörigen Warnungen und Hinweise zu ignorieren.",
-    "pending_migrations": "Es gibt einige ausstehende Migrationen, die darauf warten, ausgeführt zu werden. Bitte gehen Sie auf  <a href='#/tools/migrations'>Werkzeuge > Migrationen</a> um diese auszuführen.",
-    "tip_about_user_email": "Konten werden mit einer verknüpften E-Mail-Adresse (und XMPP Account) erstellt im Format username@domain.tld. Zusätzliche E-Mail-Aliasse and E-Mail-Weiterleitungen können später durch Admin und Kontoinhaber hinzugefügt werden.",
+    "pending_migrations": "Es gibt einige ausstehende Migrationen, die darauf warten, ausgeführt zu werden. Bitte gehen Sie auf <a href='#/tools/migrations'>Werkzeuge > Migrationen</a> um diese auszuführen.",
+    "tip_about_user_email": "Konten werden mit einer verknüpften E-Mail-Adresse (und XMPP Account) erstellt im Format username@domain.tld. Zusätzliche E-Mail-Aliasse and E-Mail-Weiterleitungen können später durch Administratoren und Benutzer hinzugefügt werden.",
     "logs_suboperations": "Unter-Operationen",
     "api_errors_titles": {
         "APIBadRequestError": "Es ist ein Fehler in Yunohost aufgetreten",
@@ -286,8 +292,8 @@
     "app_show_categories": "Kategorien anzeigen",
     "app_manage_label_and_tiles": "Etiketten und Kacheln verwalten",
     "app_config_panel_no_panel": "Für diese Applikation ist keine Konfiguration verfügbar",
-    "app_config_panel_label": "Konfigurieren dieser App",
-    "app_config_panel": "Konfigurationsfenster",
+    "app_config_panel_label": "Diese Applikation konfigurieren",
+    "app_config_panel": "Konfigurations-Panel",
     "app_choose_category": "Kategorie auswählen",
     "api_waiting": "Warten auf Antwort des Servers...",
     "user_emailforward_add": "Fügen Sie eine Mail-Weiterleitung hinzu",
@@ -297,13 +303,14 @@
     "tools_webadmin_settings": "Webadministratoreinstellungen",
     "tools_webadmin": {
         "transitions": "Seitenübergangsanimationen",
-        "experimental_description": "Ermöglicht den Zugriff auf experimentelle Funktionen. Diese gelten als instabil und können Ihr System beschädigen.<br>Nur aktivieren, wenn Sie wissen, was Sie tun.",
+        "experimental_description": "Ermöglicht den Zugriff auf experimentelle Funktionen. Diese gelten als instabil und können Ihr System beschädigen.<br>Bitte nur aktivieren, wenn Sie wissen, was Sie tun.",
         "experimental": "Experimenteller Modus",
-        "cache_description": "Deaktivieren Sie den Cache, wenn Sie mit der CLI arbeiten möchten, während Sie gleichzeitig in dieser Webadministration navigieren.",
-        "cache": "Zwischenspeicher",
+        "cache_description": "Deaktivieren Sie den Cache, wenn Sie mit der CLI arbeiten möchten, während Sie gleichzeitig in diesem Web-Portal navigieren.",
+        "cache": "Cache",
         "fallback_language_description": "Sprache, die verwendet wird, falls die Übersetzung nicht in der Hauptsprache verfügbar ist.",
         "language": "Sprache",
-        "fallback_language": "Sprache, auf die Notfalls zurückgegriffen wird"
+        "fallback_language": "Fallback-Sprache",
+        "theme": "Umschalten zu Dunkel-Modus"
     },
     "search": {
         "not_found": "Es gibt {items}, die Ihren Auswahlkriterien entsprechen. | Es gibt 1 {items}, das Ihrem Auswahlkriterium entspricht. | Es gibt {items}, die Ihren Auswahlkriterien entsprechen.",
@@ -314,10 +321,11 @@
     "placeholder": {
         "domain": "my-domain.de",
         "groupname": "Mein Gruppenname",
-        "lastname": "Mustermann",
-        "firstname": "Max",
-        "username": "maxmustermann",
-        "file": "Wählen Sie eine Datei aus oder fügen Sie sie per Drag and Drop ein"
+        "lastname": "Muster",
+        "firstname": "Hans",
+        "username": "hansmuster",
+        "file": "Wählen Sie eine Datei aus oder fügen Sie sie per Drag and Drop ein",
+        "fullname": "Hans Muster"
     },
     "perform": "Ausführen",
     "migrations_disclaimer_not_checked": "Für diese Migration müssen Sie den Haftungsausschluss bestätigen, bevor Sie sie ausführen.",
@@ -387,7 +395,7 @@
     },
     "code": "Code",
     "go_back": "Gehe zurück",
-    "api_not_found": "Es scheint, als ob das Web-Admin versucht hat etwas aufzulösen das nicht existiert.",
+    "api_not_found": "Es scheint, als ob das Web-Administrator versucht hat etwas aufzulösen das nicht existiert.",
     "api": {
         "query_status": {
             "warning": "Erfolgreich durchgeführt mit Fehlern oder Warnungen",
@@ -419,19 +427,22 @@
             "restore": "Das Backup '{name}' wiederherstellen"
         },
         "apps": {
-            "update_config": "Die Konfiguration der Applikation '{name}' aktualisieren",
+            "update_config": "Das Panel '{id}' der Applikation '{name}' aktualisieren",
             "uninstall": "Die Applikation '{name}' deinstallieren",
             "install": "Die Applikation '{name}' installieren",
             "change_url": "Die Zugriffs-URL für '{name}' ändern",
             "change_label": "Das Label von '{prevName}' nach '{nextName}' ändern",
-            "set_default": "Weiterleitung des Domänen-Rootverzeichnisses von '{domain}' zu '{name}'"
+            "set_default": "Weiterleitung des Domänen-Rootverzeichnisses von '{domain}' zu '{name}'",
+            "action_config": "Führe Aktion '{action}' der Konfiguration der Applikation '{name}' durch"
         },
         "domains": {
             "add": "Die Domäne '{name}' hinzufügen",
             "set_default": "Definiere '{name}' als Standarddomäne",
             "delete": "Lösche die Domäne '{name}'",
-            "update_config": "Die Konfiguration '{name}' aktualisieren",
-            "push_dns_changes": "Propagiere die DNS-Einträge zu Registrar für '{name}'"
+            "update_config": "Das Panel '{id}' für die Konfiguration der Domäne '{name}' aktualisieren",
+            "push_dns_changes": "Propagiere die DNS-Einträge zu Registrar für '{name}'",
+            "cert_install": "Zertifikat für '{name}' installieren",
+            "cert_renew": "Zertifikat erneuern für '{name}'"
         },
         "diagnosis": {
             "unignore": {
@@ -483,11 +494,18 @@
         "update": "Nach Updates suchen",
         "shutdown": "Den Server herunterfahren",
         "share_logs": "Einen Link für den Log '{name}' erstellten",
-        "reconnecting": "Wiederverbinden"
+        "reconnecting": "Wiederverbinden",
+        "settings": {
+            "update": "Aktualisieren der globalen Einstellungen für '{panel}'"
+        }
     },
     "postinstall": {
         "force": "Forciere den Post-Install",
-        "title": "Post-Installation"
+        "title": "Post-Installation",
+        "user": {
+            "title": "Erstes Administratorkonto erstellen",
+            "first_user_help": "Diesem Benutzer werden Adminstratoren-Privilegien erteilt und es wird ihm erlaubt sein, sich mit dem Admin-Portal zu verbinden und auch sich direkt mit dem Server über SSH zu verbinden. \nWeil es ein regulärer Benutzer ist, werden Sie sich auch mit dem Benutzer-Portal (SSO) mit seinen Zugangsdaten verbinden können. Sobald die post-installation vollständig ist, werden Sie in der Lage sein, weitere Admin-Benutzer zu erstellen, indem Sie diese der 'admins'-Gruppe hinzufügen."
+        }
     },
     "hook_data_xmpp_desc": "Konfiguration für Räume und Konten, hochgeladene Dateien",
     "items_verbose_items_left": "Es bleiben {items} übrig. | Es bleibt 1 {items} übrig. | Es bleiben {items} übrig.",
@@ -509,10 +527,38 @@
             "auto_config_zone": "Aktuelle DNS-Zone",
             "edit": "DNS-Konfiguration bearbeiten",
             "info": "Die automatische DNS-Einträge-Konfiguration ist ein experimentelles Feature. <br> Erwägen Sie es, Ihre aktuelle DNS-Konfiguration im Webinterface bei ihrem DNS-Registrar zu sichern, bevor Sie die Einträge von hier aus propagieren.",
-            "push_force_confirm": "Sind Sie sicher, dass Sie die Propagierung aller vorgeschlagenen DNS-Einträge forcieren möchten? Seien Sie sich bewusst, dass dies dazu führen kann, dass es manuelle oder wichtige Default-Einträge, die ihr Registrar definiert hat, überschreiben könnte."
+            "push_force_confirm": "Sind Sie sicher, dass Sie die Propagierung aller vorgeschlagenen DNS-Einträge forcieren möchten? Seien Sie sich bewusst, dass dies dazu führen kann, dass es manuelle oder wichtige Default-Einträge, die ihr Registrar definiert hat, überschreiben könnte.",
+            "methods": {
+                "auto": "Automatisch",
+                "manual": "Manuell",
+                "none": "Keine",
+                "semi_auto": "Halbautomatisch",
+                "handled_in_parent": "In der übergeordneten Domäne verwaltet"
+            }
+        },
+        "cert": {
+            "types": {
+                "letsencrypt": "Let's Encrypt",
+                "selfsigned": "Selbstsigniert",
+                "other": "Andere/Unbekannt"
+            },
+            "valid_for": "gültig für {days}"
+        },
+        "info": {
+            "apps_on_domain": "Auf der Domäne installierte Applikationen",
+            "certificate_authority": "SSL-Zeritifizierungsstelle",
+            "registrar": "Registrar"
+        },
+        "see_parent_domain": "Schauen Sie bitte bei der Hauptdomäne nach",
+        "types": {
+            "main_domain": "Hauptdomäne"
+        },
+        "toggle_subdomains": "Subdomänen wechseln",
+        "explain": {
+            "main_domain": "Die Hauptdomäne ist die Domäne, von welcher aus die Benutzer sich mit dem Portal verbinden können (via \"{domain}/yunohost/sso\"). <br>Darum ist es leider nicht möglich, sie zu entfernen.<br>Falls Sie \"{domain}\" entfernen möchten, werden sie vorher eine andere Domäne auswählen und als Hauptdomäne festlegen müssen."
         }
     },
-    "domain_dns_push_failed_to_authenticate": "Authentifizierung bei der API des Registrars nicht erfolgreich. Höchstwahrscheinlich sind die <a href='#/Domäne/{Domäne}/config'>Zugangsdaten</a> inkorrekt. (Fehler: {error})",
+    "domain_dns_push_failed_to_authenticate": "Authentifizierung bei der API des Registrars nicht erfolgreich. Höchstwahrscheinlich sind die <a href='#/Domäne/{domain}/config'>Zugangsdaten</a> inkorrekt. (Fehler: {error})",
     "domain_dns_push_managed_in_parent_domain": "Die automatische DNS-Konfiguration wird von der übergeordneten Domäne <a href='#/domains/{parent_domain}/dns'>{parent_domain}</a> verwaltet.",
     "domain_dns_push_not_applicable": "Die automatische DNS-Konfiguration ist nicht auf die Domäne {domain} anwendbar. <br>Konfiguriere die DNS-Einträge, wie in der <a href='https://yunohost.org/dns'>Dokumentation<a href='https://yunohost.org/dns'> beschrieben, mit Hilfe der folgenden vorgeschlagenen Konfiguration manuell.",
     "users_import_delete_desc": "Wenn angewählt, werden alle Konten, die nicht in der CSV-Datei enthalten sind, gelöscht (und bereinigt).",
@@ -527,5 +573,16 @@
     "text_selection_is_disabled": "Textauswahl ist deaktiviert. Wenn Sie diesen Log teilen möchten, teilen Sie bitte den *kompletten* Log, indem Sie den Button 'Logs teilen mit YunoPaste' anklicken. <br/><small>Oder falls Sie wirklich wirklich einen Text auswählen möchten, klicken Sie auf die Tasten:↓↓↑↑.</small>",
     "users_import_update": "Vorhandene Konten aktualisieren",
     "users_import_confirm_destructive": "Sind Sie sicher, dass Sie die Konten, die nicht in diesen Datei enthalten sind, löschen wollen?",
-    "retry": "Wiederhole"
+    "retry": "Wiederhole",
+    "app_state_broken": "beschädigt",
+    "app_state_broken_explanation": "Diese Applikation ist zur Zeit fehlerhaft und kann gemäss automatisierter Tests von YunoHost nicht installiert werden.",
+    "details_about": "Mehr Details über {subject} anzeigen",
+    "confirm_install_app_broken": "VORSICHT! Diese Applikation ist gemäss YunoHost's automatischen Test beschädigt und wird vermutlich ihr System beschädigen! Sie sollten sie vermutlich NICHT installieren, es sei denn, Sie wissen was Sie tun. Wollen Sie dieses Risiko wirklich eingehen?",
+    "group_admins": "Administratoren",
+    "group_explain_admins": "Dies ist eine spezielle Gruppe, welche zu den Administratoren-Benutzern gehört. Benutzer in dieser Gruppe besitzen, um es einfach zu halten, alle Berechtigungen auf dem Server (verändern, erstellen, hinzufügen und zurückhalten). Sie können demzufolge auf Admin-Oberfläche von YunoHost zugreifen, sich mit dem Server über SSH verbinden und das Kommando `sudo` benutzen. Ausserdem erhalten sie die E-Mails, welche an root@, admin@, admins@, wie die Diagnose-Benachrichtigungen, gesendet wurden.",
+    "important_yunohost_upgrade": "Eine grössere YunoHost-Aktualisierung ist erhältlich. Es ist sehr empfehlenswert, die Release-Note(s) im Forum sorgfältig durchzulesen, bevor Sie aktualisieren : <a href='https://forum.yunohost.org/tag/ynh_release'>Die Release-Notes im Forum aufrufen.</a>",
+    "label_for_manifestname_help": "Dies ist der Name, welcher im Benutzer-Portal angezeigt wird. Dies kann später nochmal geändert werden.",
+    "manage_groups": "Gruppenmanagement",
+    "tools_yunohost_settings": "YunoHost-Einstellungen",
+    "wrong_password_or_username": "Falsches Passwort für Benutzername"
 }

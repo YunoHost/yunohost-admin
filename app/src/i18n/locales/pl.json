@@ -486,7 +486,7 @@
     "postinstall_intro_3": "Możesz uzyskać więcej informacji odwiedzając <a href='//yunohost.org/en/install/hardware:vps_debian#fa-cog-proceed-with-the-initial-configuration' target='_blank'>dokumentację</a>",
     "previous": "Poprzednie",
     "protocol": "Protokół",
-    "readme": "Przeczytaj to",
+    "readme": "Informacje",
     "postinstall_set_domain": "Ustaw główną domenę",
     "retry": "Ponów",
     "traceback": "Śledzenie",
