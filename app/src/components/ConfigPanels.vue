@@ -4,9 +4,15 @@
     v-bind="{ panels, forms, v: $v, ...$attrs }"
     v-on="$listeners"
   >
-    <slot name="tab-top" slot="tab-top"></slot>
-    <slot name="tab-before" slot="tab-before"></slot>
-    <slot name="tab-after" slot="tab-after"></slot>
+    <template #tab-top>
+      <slot name="tab-top" />
+    </template>
+    <template #tab-before>
+      <slot name="tab-before" />
+    </template>
+    <template #tab-after>
+      <slot name="tab-after" />
+    </template>
   </routable-tabs>
 </template>
 
