@@ -15,6 +15,7 @@ const app = createApp(App)
 
 app.use(store)
 app.use(router)
+app.use(i18n)
 
 // Styles are imported in `src/App.vue` <style>
 app.use(BootstrapVue, {

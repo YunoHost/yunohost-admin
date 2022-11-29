@@ -8,7 +8,7 @@ import i18n from '@/i18n'
 
 class APIError extends Error {
   constructor (request, { url, status, statusText }, { error }) {
-    super(error ? error.replaceAll('\n', '<br>') : i18n.t('error_server_unexpected'))
+    super(error ? error.replaceAll('\n', '<br>') : i18n.global.t('error_server_unexpected'))
     const urlObj = new URL(url)
     this.name = 'APIError'
     this.code = status
@@ -37,7 +37,7 @@ class APIErrorLog extends APIError {
 // 0 — (means "the connexion has been closed" apparently)
 class APIConnexionError extends APIError {
   constructor (method, response) {
-    super(method, response, { error: i18n.t('error_connection_interrupted') })
+    super(method, response, { error: i18n.global.t('error_connection_interrupted') })
     this.name = 'APIConnexionError'
   }
 }
@@ -57,7 +57,7 @@ class APIBadRequestError extends APIError {
 // 401 — Unauthorized
 class APIUnauthorizedError extends APIError {
   constructor (method, response, errorData) {
-    super(method, response, { error: i18n.t('unauthorized') })
+    super(method, response, { error: i18n.global.t('unauthorized') })
     this.name = 'APIUnauthorizedError'
   }
 }
@@ -66,7 +66,7 @@ class APIUnauthorizedError extends APIError {
 // 404 — Not Found
 class APINotFoundError extends APIError {
   constructor (method, response, errorData) {
-    errorData.error = i18n.t('api_not_found')
+    errorData.error = i18n.global.t('api_not_found')
     super(method, response, errorData)
     this.name = 'APINotFoundError'
   }
@@ -86,7 +86,7 @@ class APIInternalError extends APIError {
 // 502 — Bad gateway (means API is down)
 class APINotRespondingError extends APIError {
   constructor (method, response) {
-    super(method, response, { error: i18n.t('api_not_responding') })
+    super(method, response, { error: i18n.global.t('api_not_responding') })
     this.name = 'APINotRespondingError'
   }
 }

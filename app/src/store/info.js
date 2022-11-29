@@ -167,7 +167,7 @@ export default {
     'INIT_REQUEST' ({ commit }, { method, uri, humanKey, initial, wait, websocket }) {
       // Try to find a description for an API route to display in history and modals
       const { key, ...args } = isObjectLiteral(humanKey) ? humanKey : { key: humanKey }
-      const humanRoute = key ? i18n.t('human_routes.' + key, args) : `[${method}] /${uri}`
+      const humanRoute = key ? i18n.global.t('human_routes.' + key, args) : `[${method}] /${uri}`
 
       let request = { method, uri, humanRouteKey: key, humanRoute, initial, status: 'pending' }
       if (websocket) {
@@ -312,9 +312,9 @@ export default {
         // if a traduction key string has been given and we also need to pass
         // the route param as a variable.
         if (trad && param) {
-          text = i18n.t(trad, { [param]: to.params[param] })
+          text = i18n.global.t(trad, { [param]: to.params[param] })
         } else if (trad) {
-          text = i18n.t(trad)
+          text = i18n.global.t(trad)
         } else {
           text = to.params[param]
         }
@@ -336,7 +336,7 @@ export default {
       }
 
       // Display a simplified breadcrumb as the document title.
-      document.title = `${getTitle(breadcrumb)} | ${i18n.t('yunohost_admin')}`
+      document.title = `${getTitle(breadcrumb)} | ${i18n.global.t('yunohost_admin')}`
     },
 
     'UPDATE_TRANSITION_NAME' ({ state, commit }, { to, from }) {

@@ -154,7 +154,7 @@ export function formatYunoHostArgument (arg) {
       props: defaultProps.concat(['type', 'autocomplete', 'trim']),
       callback: function () {
         if (!arg.help) {
-          arg.help = i18n.t('good_practices_about_admin_password')
+          arg.help = i18n.global.t('good_practices_about_admin_password')
         }
         arg.example = '••••••••••••'
         validation.passwordLenght = validators.minLength(8)
@@ -180,7 +180,7 @@ export function formatYunoHostArgument (arg) {
       props: ['id:name', 'choices'],
       callback: function () {
         if (arg.type !== 'select') {
-          field.props.link = { name: arg.type + '-list', text: i18n.t(`manage_${arg.type}s`) }
+          field.props.link = { name: arg.type + '-list', text: i18n.global.t(`manage_${arg.type}s`) }
         }
       }
     },
@@ -315,7 +315,7 @@ export function formatYunoHostArgument (arg) {
 
   // Help message
   if (arg.helpLink) {
-    field.props.link = { href: arg.helpLink.href, text: i18n.t(arg.helpLink.text) }
+    field.props.link = { href: arg.helpLink.href, text: i18n.global.t(arg.helpLink.text) }
   }
 
   if (component.renderSelf) {

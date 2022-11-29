@@ -52,7 +52,7 @@ function loadLocaleMessages (locale) {
   return import(
     /* webpackChunkName: "lc/lang-[request]" */ `@/i18n/locales/${locale}`
   ).then(messages => {
-    i18n.setLocaleMessage(locale, messages.default)
+    i18n.global.setLocaleMessage(locale, messages.default)
     loadedLanguages.push(locale)
     return locale
   })

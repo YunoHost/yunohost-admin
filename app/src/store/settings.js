@@ -61,7 +61,7 @@ export default {
       loadLocaleMessages(locale).then(() => {
         updateDocumentLocale(locale)
         commit('SET_LOCALE', locale)
-        i18n.locale = locale
+        i18n.global.locale = locale
       })
       // also query the date-fns locale object for filters
       loadDateFnsLocale(locale)
@@ -70,7 +70,7 @@ export default {
     'UPDATE_FALLBACKLOCALE' ({ commit }, locale) {
       loadLocaleMessages(locale).then(() => {
         commit('SET_FALLBACKLOCALE', locale)
-        i18n.fallbackLocale = [locale, 'en']
+        i18n.global.fallbackLocale = [locale, 'en']
       })
     },
 
