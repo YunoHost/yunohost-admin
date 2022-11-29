@@ -14,6 +14,8 @@ import { initDefaultLocales } from './i18n/helpers'
 const app = createApp(App)
 
 app.use(store)
+app.use(router)
+
 // Styles are imported in `src/App.vue` <style>
 app.use(BootstrapVue, {
   BSkeleton: { animation: 'none' },

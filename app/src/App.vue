@@ -44,10 +44,16 @@
       <main id="main">
         <!-- The `key` on router-view make sure that if a link points to a page that
         use the same component as the previous one, it will be refreshed -->
-        <transition v-if="transitions" :name="transitionName">
-          <router-view class="animated" :key="routerKey" />
-        </transition>
-        <router-view v-else class="static" :key="routerKey" />
+        <router-view
+          v-slot="{ Component }"
+          :key="routerKey"
+          :class="transitions ? 'animated' : 'static'"
+        >
+          <transition v-if="transitions" :name="transitionName">
+            <component :is="Component" />
+          </transition>
+          <component v-else :is="Component" />
+        </router-view>
       </main>
     </view-lock-overlay>
 
@@ -201,13 +207,13 @@ main {
   .animated {
     transition: all .15s ease-in-out;
   }
-  .slide-left-enter, .slide-right-leave-active {
+  .slide-left-enter-from, .slide-right-leave-active {
     position: absolute;
     width: 100%;
     top: 0;
     transform: translate(100vw, 0);
   }
-  .slide-left-leave-active, .slide-right-enter {
+  .slide-left-leave-active, .slide-right-enter-from {
     position: absolute;
     width: 100%;
     top: 0;
