@@ -1,13 +1,10 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import { createStore } from 'vuex'
 
 import info from './info'
 import settings from './settings'
 import data from './data'
 
-Vue.use(Vuex)
-
-export default new Vuex.Store({
+export default createStore({
   state: settings.state,
   mutations: settings.mutations,
   actions: settings.actions,
