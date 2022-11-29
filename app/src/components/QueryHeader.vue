@@ -31,8 +31,8 @@
     </b-button>
 
     <!-- TIME DISPLAY -->
-    <time v-if="showTime" :datetime="request.date | hour" :class="request.error ? 'ml-2' : 'ml-auto'">
-      {{ request.date | hour }}
+    <time v-if="showTime" :datetime="hour(request.date)" :class="request.error ? 'ml-2' : 'ml-auto'">
+      {{ hour(request.date) }}
     </time>
   </div>
 </template>
@@ -71,12 +71,6 @@ export default {
   methods: {
     reviewError () {
       this.$store.dispatch('REVIEW_ERROR', this.request)
-    }
-  },
-
-  filters: {
-    readableUri (uri) {
-      return uri.split('?')[0].split('/').join(' > ') // replace('/', ' > ')
     },
 
     hour (date) {

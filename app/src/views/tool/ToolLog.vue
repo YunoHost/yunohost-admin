@@ -14,7 +14,7 @@
         </b-col>
 
         <b-col>
-          <span v-if="prop.endsWith('_at')">{{ value | readableDate }}</span>
+          <span v-if="prop.endsWith('_at')">{{ readableDate(value) }}</span>
 
           <div v-else-if="prop === 'suboperations'">
             <div v-for="operation in value" :key="operation.name">
@@ -137,9 +137,9 @@ export default {
       ).then(({ url }) => {
         window.open(url, '_blank')
       })
-    }
-  },
+    },
 
-  filters: { readableDate }
+    readableDate
+  }
 }
 </script>

@@ -13,13 +13,13 @@
       <b-list-group-item
         v-for="{ name, created_at, path, size } in archives" :key="name"
         :to="{ name: 'backup-info', params: { name, id }}"
-        :title="created_at | readableDate"
+        :title="readableDate(created_at)"
         class="d-flex justify-content-between align-items-center pr-0"
       >
         <div>
           <h5 class="font-weight-bold">
-            {{ created_at | distanceToNow }}
-            <small class="text-secondary">{{ name }} ({{ size | humanSize }})</small>
+            {{ distanceToNow(created_at) }}
+            <small class="text-secondary">{{ name }} ({{ humanSize(size) }})</small>
           </h5>
           <p class="mb-0">
             {{ path }}
@@ -62,10 +62,8 @@ export default {
       } else {
         this.archives = null
       }
-    }
-  },
+    },
 
-  filters: {
     distanceToNow,
     readableDate,
     humanSize
