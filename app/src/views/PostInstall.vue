@@ -46,8 +46,8 @@
         />
 
         <form-field
-          v-for="(field, name) in fields" :key="name"
-          v-bind="field" v-model="user[name]" :validation="$v.user[name]"
+          v-for="(field, name) in fields" v-bind="field"
+          :key="name" v-model="user[name]" :validation="$v.user[name]"
         />
       </card-form>
 

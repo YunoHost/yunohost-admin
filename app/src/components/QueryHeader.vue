@@ -1,5 +1,5 @@
 <template>
-  <div class="query-header w-100" v-on="$listeners" v-bind="$attrs">
+  <div v-bind="$attrs" class="query-header w-100" v-on="$listeners">
     <!-- STATUS -->
     <span class="status" :class="['bg-' + color, statusSize]" :aria-label="$t('api.query_status.' + request.status)" />
 

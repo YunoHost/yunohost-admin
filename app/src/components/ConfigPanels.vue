@@ -1,7 +1,7 @@
 <template>
   <routable-tabs
-    :routes="routes_"
     v-bind="{ panels, forms, v: $v, ...$attrs }"
+    :routes="routes_"
     v-on="$listeners"
   >
     <template #tab-top>

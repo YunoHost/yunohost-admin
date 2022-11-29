@@ -23,8 +23,8 @@
             </b-input-group-append>
 
             <select-item
+              v-bind="self" v-model="form.domain"
               aria-labelledby="local-part" aria-describedby="mail__BV_description_"
-              v-model="form.domain" v-bind="self"
             />
           </b-input-group>
         </template>
