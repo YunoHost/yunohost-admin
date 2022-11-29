@@ -76,8 +76,8 @@
       v-if="userGroups" collapsable
       :title="$t('group_specific_permissions')" icon="group"
     >
-      <template v-for="(userName, index) in activeUserGroups">
-        <b-row :key="userName">
+      <template v-for="userName in activeUserGroups" :key="userName">
+        <b-row>
           <b-col md="3" lg="2">
             <icon iname="user" /> <strong>{{ userName }}</strong>
           </b-col>
@@ -91,7 +91,7 @@
             />
           </b-col>
         </b-row>
-        <hr :key="index">
+        <hr>
       </template>
 
       <tags-selectize-item

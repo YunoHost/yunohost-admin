@@ -1,8 +1,8 @@
 <template>
   <card-form :title="$t('tools_webadmin_settings')" icon="cog" no-footer>
-    <template v-for="(field, fname) in fields">
-      <form-field v-bind="field" v-model="self[fname]" :key="fname" />
-      <hr :key="fname + 'hr'">
+    <template v-for="(field, fname) in fields" :key="fname">
+      <form-field v-bind="field" v-model="self[fname]" />
+      <hr>
     </template>
   </card-form>
 </template>

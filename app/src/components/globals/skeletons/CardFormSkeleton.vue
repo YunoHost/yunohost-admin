@@ -4,8 +4,8 @@
       <b-skeleton width="30%" height="36px" class="m-0" />
     </template>
 
-    <template v-for="count in itemCount">
-      <b-row :key="count" :class="{ 'd-block': cols === null }">
+    <template v-for="count in itemCount" :key="count">
+      <b-row :class="{ 'd-block': cols === null }">
         <b-col v-bind="cols">
           <div style="height: 38px" class="d-flex align-items-center">
             <b-skeleton class="m-0" :width="randint(45, 100) + '%'" height="24px" />
@@ -24,8 +24,7 @@
           <b-skeleton :width="randint(15, 35) + '%'" height="19px" />
         </b-col>
       </b-row>
-
-      <hr :key="count + '-hr'">
+      <hr>
     </template>
 
     <template #footer>

@@ -1,8 +1,7 @@
 <template>
   <b-list-group :flush="flush" :style="{ '--depth': tree.depth }">
-    <template v-for="(node, i) in tree.children">
+    <template v-for="(node, i) in tree.children" :key="node.id">
       <b-list-group-item
-        :key="node.id"
         class="list-group-item-action" :class="getClasses(node, i)"
         @click="$router.push(node.data.to)"
       >
@@ -21,7 +20,7 @@
       </b-list-group-item>
 
       <b-collapse
-        v-if="node.children" :key="'collapse-' + node.id"
+        v-if="node.children"
         v-model="node.data.opened" :id="'collapse-' + node.id"
       >
         <recursive-list-group
