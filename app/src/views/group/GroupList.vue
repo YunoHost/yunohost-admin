@@ -1,7 +1,7 @@
 <template>
   <view-search
     items-name="groups"
-    :search.sync="search"
+    v-model="search"
     :items="primaryGroups"
     :filtered-items="filteredGroups"
     :queries="queries"

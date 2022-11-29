@@ -17,7 +17,7 @@
       {{ $t('domain_add_panel_with_domain') }}
     </b-form-radio>
 
-    <b-collapse id="collapse-domain" :visible.sync="domainIsVisible">
+    <b-collapse id="collapse-domain" v-model="domainIsVisible">
       <small v-html="$t('domain_add_dns_doc')" />
 
       <form-field
@@ -36,7 +36,7 @@
       {{ $t('domain_add_panel_without_domain') }}
     </b-form-radio>
 
-    <b-collapse id="collapse-dynDomain" :visible.sync="dynDomainIsVisible">
+    <b-collapse id="collapse-dynDomain" v-model="dynDomainIsVisible">
       <small>{{ $t('domain_add_dyndns_doc') }}</small>
 
       <form-field v-bind="fields.dynDomain" :validation="$v.form.dynDomain" class="mt-3">

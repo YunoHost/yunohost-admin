@@ -1,6 +1,6 @@
 <template>
   <view-search
-    :search.sync="search"
+    v-model="search"
     :items="users"
     :filtered-items="filteredUsers"
     items-name="users"

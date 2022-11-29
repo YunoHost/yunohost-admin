@@ -1,7 +1,7 @@
 <template>
   <view-search
     id="service-list"
-    :search.sync="search"
+    v-model="search"
     :items="services"
     :filtered-items="filteredServices"
     items-name="services"

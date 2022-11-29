@@ -1,6 +1,6 @@
 <template>
   <view-search
-    :search.sync="search"
+    v-model="search"
     items-name="installed_apps"
     :items="apps"
     :filtered-items="filteredApps"

@@ -11,7 +11,7 @@
 
         <b-form-input
           id="top-bar-search"
-          :value="search" @input="$emit('update:search', $event)"
+          :value="value" @input="$emit('input', $event)"
           :placeholder="$t('search.for', { items: $tc('items.' + itemsName, 2) })"
           :disabled="!items"
         />
@@ -51,10 +51,10 @@ export default {
   name: 'ViewSearch',
 
   props: {
+    value: { type: String, default: null },
     items: { type: null, required: true },
     itemsName: { type: String, required: true },
     filteredItems: { type: null, required: true },
-    search: { type: String, default: null },
     skeleton: { type: String, default: 'list-group-skeleton' }
   },
 
