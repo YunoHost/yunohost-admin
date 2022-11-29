@@ -67,6 +67,7 @@
           "multiline": 3
         }
       ],
+      "vue/no-v-for-template-key": "off",
       "no-console": "warn",
       "template-curly-spacing": "off",
       "camelcase": "off",
