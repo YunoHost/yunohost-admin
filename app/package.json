@@ -54,8 +54,7 @@
     },
     "extends": [
       "plugin:vue/strongly-recommended",
-      "eslint:recommended",
-      "standard"
+      "eslint:recommended"
     ],
     "parserOptions": {
       "parser": "babel-eslint"
@@ -65,19 +64,19 @@
         "error",
         {
           "singleline": 3,
-          "multiline": {
-            "max": 3,
-            "allowFirstLine": true
-          }
+          "multiline": 3
         }
       ],
       "no-console": "warn",
       "template-curly-spacing": "off",
-      "camelcase": "warn",
+      "camelcase": "off",
       "indent": "off",
       "no-irregular-whitespace": "off",
       "no-unused-vars": "warn",
-      "quotes": "warn",
+      "quotes": [
+        "warn",
+        "single"
+      ],
       "no-multiple-empty-lines": [
         "error",
         {
