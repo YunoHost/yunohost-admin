@@ -1,4 +1,4 @@
-import Vue from 'vue'
+import Vue, { createApp } from 'vue'
 import App from './App.vue'
 import BootstrapVue from 'bootstrap-vue'
 import VueShowdown from 'vue-showdown'
@@ -11,16 +11,16 @@ import { registerGlobalErrorHandlers } from './api'
 import { initDefaultLocales } from './i18n/helpers'
 
 
-Vue.config.productionTip = false
+const app = createApp(App)
 
 // Styles are imported in `src/App.vue` <style>
-Vue.use(BootstrapVue, {
+app.use(BootstrapVue, {
   BSkeleton: { animation: 'none' },
   BAlert: { show: true },
   BBadge: { pill: true }
 })
 
-Vue.use(VueShowdown, {
+app.use(VueShowdown, {
   options: {
     emoji: true
   }
@@ -28,7 +28,7 @@ Vue.use(VueShowdown, {
 
 // Ugly wrapper for `$bvModal.msgBoxConfirm` to set default i18n button titles
 // FIXME find or wait for a better way
-Vue.prototype.$askConfirmation = function (message, props) {
+app.config.globalProperties.$askConfirmation = function (message, props) {
   return this.$bvModal.msgBoxConfirm(message, {
     okTitle: this.$i18n.t('ok'),
     cancelTitle: this.$i18n.t('cancel'),
@@ -47,19 +47,12 @@ requireComponent.keys().forEach((fileName) => {
   // Get the component
   const component = requireComponent(fileName).default
   // Globally register the component
-  Vue.component(component.name, component)
+  app.component(component.name, component)
 })
 
 registerGlobalErrorHandlers()
 
 // Load default locales translations files and setup store data
 initDefaultLocales().then(() => {
-  const app = new Vue({
-    store,
-    router,
-    i18n,
-    render: h => h(App)
-  })
-
-  app.$mount('#app')
+  app.mount('#app')
 })
