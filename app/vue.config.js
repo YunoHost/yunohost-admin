@@ -32,6 +32,23 @@ const dateFnsLocales = [
 ]
 
 module.exports = {
+  chainWebpack: (config) => {
+    config.resolve.alias.set('vue', '@vue/compat')
+
+    config.module
+      .rule('vue')
+      .use('vue-loader')
+      .tap((options) => {
+        return {
+          ...options,
+          compilerOptions: {
+            compatConfig: {
+              MODE: 2
+            }
+          }
+        }
+      })
+  },
   configureWebpack: {
     plugins: [
       // Will limit the available locales so webpack won't generate chunks for every
@@ -59,9 +76,9 @@ module.exports = {
   },
   publicPath: '/yunohost/admin',
   devServer: process.env.NODE_ENV === 'development' ? {
-    public: fs.readFileSync('/etc/yunohost/current_host', 'utf8'),
+    // public: fs.readFileSync('/etc/yunohost/current_host', 'utf8'),
     https: false,
-    disableHostCheck: true,
+    allowedHosts: 'all',
     proxy: {
       '^/yunohost': {
         target: `http://${process.env.VUE_APP_IP}`,
@@ -69,10 +86,10 @@ module.exports = {
         logLevel: 'info'
       }
     },
-    watchOptions: {
-      ignored: /node_modules/,
-      aggregateTimeout: 300,
-      poll: 1000
-    }
+    // watchOptions: {
+    //   ignored: /node_modules/,
+    //   aggregateTimeout: 300,
+    //   poll: 1000
+    // }
   } : {}
 }
