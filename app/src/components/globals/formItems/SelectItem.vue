@@ -5,7 +5,7 @@
     :options="choices"
     :required="required"
     v-on="$listeners"
-    @blur.native="$emit('blur', value)"
+    @blur="$emit('blur', value)"
   />
 </template>
 

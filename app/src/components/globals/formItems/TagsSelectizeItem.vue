@@ -22,7 +22,7 @@
         <b-dropdown
           ref="dropdown"
           variant="outline-dark" block menu-class="w-100"
-          @keydown.native="onDropdownKeydown"
+          @keydown="onDropdownKeydown"
         >
           <template #button-content>
             <icon iname="search-plus" /> {{ label }}

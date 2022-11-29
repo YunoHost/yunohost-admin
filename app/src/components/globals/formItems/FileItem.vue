@@ -20,7 +20,7 @@
       :browse-text="$t('words.browse')"
       @input="onInput"
       @blur="$parent.$emit('touch', name)"
-      @focusout.native="$parent.$emit('touch', name)"
+      @focusout="$parent.$emit('touch', name)"
     />
   </b-button-group>
 </template>
