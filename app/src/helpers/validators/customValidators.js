@@ -1,4 +1,4 @@
-import { helpers } from 'vuelidate/lib/validators'
+import { helpers } from '@vuelidate/validators'
 
 
 // Unicode ranges are taken from https://stackoverflow.com/a/37668315
