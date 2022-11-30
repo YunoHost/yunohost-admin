@@ -129,13 +129,14 @@ export default {
       commit('SET_YUNOHOST_INFOS', null)
     },
 
-    'DISCONNECT' ({ dispatch }, route = router.currentRoute) {
+    'DISCONNECT' ({ dispatch }, routeToRedirect) {
       dispatch('RESET_CONNECTED')
-      if (router.currentRoute.name === 'login') return
+      const route = routeToRedirect || router.currentRoute.value
+      if (route.name === 'login') return
       router.push({
         name: 'login',
         // Add a redirect query if next route is not unknown (like `logout`) or `login`
-        query: route && !['login', null].includes(route.name)
+        query: route.name !== null
           ? { redirect: route.path }
           : {}
       })

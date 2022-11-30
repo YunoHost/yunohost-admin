@@ -77,7 +77,8 @@ export default {
         if (this.forceReload) {
           window.location.href = '/yunohost/admin/'
         } else {
-          this.$router.push(this.$router.currentRoute.query.redirect || { name: 'home' })
+          const currentRoute = this.$router.currentRoute.value
+          this.$router.push(currentRoute.query.redirect || { name: 'home' })
         }
       }).catch(err => {
         if (err.name !== 'APIUnauthorizedError') throw err
