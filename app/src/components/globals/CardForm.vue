@@ -46,7 +46,7 @@ export default {
   computed: {
     errorFeedback () {
       if (this.serverError) return this.serverError
-      else if (this.validation && this.validation.$anyError) {
+      else if (this.validation && this.validation.$errors.length) {
         return this.$i18n.t('form_errors.invalid_form')
       } else return ''
     }
@@ -61,10 +61,6 @@ export default {
       }
       this.$emit('submit', e)
     }
-  },
-
-  created () {
-    console.log(this.$slots)
   }
 }
 </script>

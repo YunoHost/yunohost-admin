@@ -96,16 +96,19 @@ export default {
     state () {
       // Need to set state as null if no error, else component turn green
       if (this.validation) {
-        return this.validation.$anyError === true ? false : null
+        return this.validation.$errors.length ? false : null
       }
       return null
     },
 
     errorMessage () {
-      const validation = this.validation
-      if (validation && validation.$anyError) {
-        const [type, errData] = this.findError(validation.$params, validation)
-        return this.$i18n.t('form_errors.' + type, errData)
+      const v = this.validation
+      if (v && v.$errors.length) {
+        const error = v.$errors[0]
+        return this.$i18n.t(
+          'form_errors.' + error.$validator,
+          { ...error.$params, value: v.$model }
+        )
       }
       return ''
     }
@@ -119,17 +122,6 @@ export default {
           this.validation[name].$touch()
         } else {
           this.validation.$touch()
-        }
-      }
-    },
-
-    findError (params, obj, parent = obj) {
-      for (const key in params) {
-        if (!obj[key]) {
-          return [key, obj.$params[key]]
-        }
-        if (obj[key].$anyError) {
-          return this.findError(obj[key].$params, obj[key], parent)
         }
       }
     }
