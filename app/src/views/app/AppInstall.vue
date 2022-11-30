@@ -12,13 +12,13 @@
       <!-- INSTALL FORM -->
       <card-form
         :title="$t('app_install_parameters')" icon="cog" :submit-text="$t('install')"
-        :validation="$v" :server-error="serverError"
+        :validation="v" :server-error="serverError"
         @submit.prevent="performInstall"
       >
         <template v-for="(field, fname) in fields">
           <component
             v-if="field.visible" :is="field.is" v-bind="field.props"
-            v-model="form[fname]" :validation="$v.form[fname]" :key="fname"
+            v-model="form[fname]" :validation="v.form[fname]" :key="fname"
           />
         </template>
       </card-form>
@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import { validationMixin } from 'vuelidate'
+import { useVuelidate } from '@vuelidate/core'
 
 import api, { objectToParams } from '@/api'
 import {
@@ -49,8 +49,6 @@ import {
 export default {
   name: 'AppInstall',
 
-  mixins: [validationMixin],
-
   props: {
     id: { type: String, required: true }
   },
@@ -60,11 +58,12 @@ export default {
       queries: [
         ['GET', 'apps/manifest?app=' + this.id]
       ],
+      v: useVuelidate(),
       name: undefined,
       infos: undefined,
       form: undefined,
       fields: undefined,
-      validations: null,
+      validations: {},
       errors: undefined,
       serverError: ''
     }

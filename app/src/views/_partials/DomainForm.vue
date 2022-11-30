@@ -1,7 +1,7 @@
 <template>
   <card-form
     :title="title" icon="globe" :submit-text="submitText"
-    :validation="$v" :server-error="serverError"
+    :validation="v" :server-error="serverError"
     @submit.prevent="onSubmit"
   >
     <template #disclaimer>
@@ -22,7 +22,7 @@
 
       <form-field
         v-bind="fields.domain" v-model="form.domain"
-        :validation="$v.form.domain" class="mt-3"
+        :validation="v.form.domain" class="mt-3"
       />
     </b-collapse>
 
@@ -39,7 +39,7 @@
     <b-collapse id="collapse-dynDomain" v-model="dynDomainIsVisible">
       <small>{{ $t('domain_add_dyndns_doc') }}</small>
 
-      <form-field v-bind="fields.dynDomain" :validation="$v.form.dynDomain" class="mt-3">
+      <form-field v-bind="fields.dynDomain" :validation="v.form.dynDomain" class="mt-3">
         <template #default="{ self }">
           <adress-input-select v-bind="self" v-model="form.dynDomain" />
         </template>
@@ -51,7 +51,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { validationMixin } from 'vuelidate'
+import { useVuelidate } from '@vuelidate/core'
 
 import AdressInputSelect from '@/components/AdressInputSelect'
 import { formatFormDataValue } from '@/helpers/yunohostArguments'
@@ -68,6 +68,8 @@ export default {
 
   data () {
     return {
+      v: useVuelidate(),
+
       selected: '',
 
       form: {
@@ -140,8 +142,6 @@ export default {
       this.selected = 'domain'
     }
   },
-
-  mixins: [validationMixin],
 
   components: {
     AdressInputSelect

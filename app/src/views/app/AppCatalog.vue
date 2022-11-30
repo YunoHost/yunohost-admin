@@ -122,7 +122,7 @@
       <card-form
         :title="$t('custom_app_install')" icon="download"
         @submit.prevent="onCustomInstallClick" :submit-text="$t('install')"
-        :validation="$v" class="mt-5"
+        :validation="v" class="mt-5"
       >
         <template #disclaimer>
           <div class="alert alert-warning">
@@ -131,7 +131,7 @@
         </template>
 
         <!-- URL -->
-        <form-field v-bind="customInstall.field" v-model="customInstall.url" :validation="$v.customInstall.url" />
+        <form-field v-bind="customInstall.field" v-model="customInstall.url" :validation="v.customInstall.url" />
       </card-form>
     </template>
 
@@ -158,7 +158,7 @@
 </template>
 
 <script>
-import { validationMixin } from 'vuelidate'
+import { useVuelidate } from '@vuelidate/core'
 
 import LazyRenderer from '@/components/LazyRenderer'
 import { required, appRepoUrl } from '@/helpers/validators'
@@ -177,6 +177,7 @@ export default {
       queries: [
         ['GET', 'apps/catalog?full&with_categories']
       ],
+      v: useVuelidate(),
 
       // Data
       apps: undefined,
@@ -258,9 +259,11 @@ export default {
     }
   },
 
-  validations: {
-    customInstall: {
-      url: { required, appRepoUrl }
+  validations () {
+    return {
+      customInstall: {
+        url: { required, appRepoUrl }
+      }
     }
   },
 
@@ -329,9 +332,7 @@ export default {
     },
 
     randint
-  },
-
-  mixins: [validationMixin]
+  }
 }
 </script>
 

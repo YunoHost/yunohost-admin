@@ -44,7 +44,7 @@
     <!-- OPERATIONS -->
     <card-form
       :title="$t('operations')" icon="cogs"
-      :validation="$v" :server-error="serverError"
+      :validation="v" :server-error="serverError"
       @submit.prevent="onFormPortToggling"
       inline form-classes="d-flex justify-content-between align-items-start"
     >
@@ -52,7 +52,7 @@
         <b-select v-model="form.action" :options="actionChoices" />
       </b-input-group>
 
-      <form-field :validation="$v.form.port">
+      <form-field :validation="v.form.port">
         <b-input-group :prepend="$t('port')">
           <input-item
             id="input-port" placeholder="0" type="number"
@@ -88,7 +88,7 @@
 </template>
 
 <script>
-import { validationMixin } from 'vuelidate'
+import { useVuelidate } from '@vuelidate/core'
 
 import api from '@/api'
 import { required, integer, between } from '@/helpers/validators'
@@ -101,6 +101,7 @@ export default {
       queries: [
         ['GET', '/firewall?raw']
       ],
+      v: useVuelidate(),
       serverError: '',
 
       // Ports tables data
@@ -140,9 +141,11 @@ export default {
     }
   },
 
-  validations: {
-    form: {
-      port: { number: required, integer, between: between(0, 65535) }
+  validations () {
+    return {
+      form: {
+        port: { number: required, integer, between: between(0, 65535) }
+      }
     }
   },
 
@@ -227,9 +230,7 @@ export default {
         if (toggled) this.$refs.view.fetchQueries()
       })
     }
-  },
-
-  mixins: [validationMixin]
+  }
 }
 </script>
 

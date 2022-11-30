@@ -28,7 +28,7 @@
           v-for="(perm, i) in app.permissions" :key="i"
           :label="perm.title" :label-for="'perm-' + i"
           label-cols="0" label-class="" class="m-0"
-          :validation="$v.form.labels.$each[i] "
+          :validation="v.form.labels[i] "
         >
           <template #default="{ self }">
             <b-input-group>
@@ -143,7 +143,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { validationMixin } from 'vuelidate'
+import { useVuelidate } from '@vuelidate/core'
 
 import api from '@/api'
 import { readableDate } from '@/helpers/filters/date'
@@ -164,6 +164,7 @@ export default {
         ['GET', { uri: 'users/permissions?full', storeKey: 'permissions' }],
         ['GET', { uri: 'domains' }]
       ],
+      v: useVuelidate(),
       infos: undefined,
       app: undefined,
       form: undefined
@@ -182,9 +183,7 @@ export default {
   validations () {
     return {
       form: {
-        labels: {
-          $each: { label: { required } }
-        },
+        labels: [{ label: { required } }],
         url: { path: { required } }
       }
     }
@@ -286,10 +285,7 @@ export default {
         this.$router.push({ name: 'app-list' })
       })
     }
-  },
-
-  filters: { readableDate },
-  mixins: [validationMixin]
+  }
 }
 </script>
 

@@ -1,6 +1,6 @@
 <template>
   <routable-tabs
-    v-bind="{ panels, forms, v: $v, ...$attrs }"
+    v-bind="{ panels, forms, v, ...$attrs }"
     :routes="routes_"
     v-on="$listeners"
   >
@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import { validationMixin } from 'vuelidate'
+import { useVuelidate } from '@vuelidate/core'
 
 export default {
   name: 'ConfigPanels',
@@ -26,8 +26,6 @@ export default {
     RoutableTabs: () => import('@/components/RoutableTabs.vue')
   },
 
-  mixins: [validationMixin],
-
   props: {
     panels: { type: Array, default: undefined },
     forms: { type: Object, default: undefined },
@@ -35,6 +33,12 @@ export default {
     errors: { type: Object, default: undefined }, // never used
     routes: { type: Array, default: null },
     noRedirect: { type: Boolean, default: false }
+  },
+
+  data () {
+    return {
+      v: useVuelidate(),
+    }
   },
 
   computed: {

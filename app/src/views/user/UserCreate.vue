@@ -2,18 +2,18 @@
   <view-base :queries="queries" @queries-response="onQueriesResponse" skeleton="card-form-skeleton">
     <card-form
       :title="$t('users_new')" icon="user-plus"
-      :validation="$v" :server-error="serverError"
+      :validation="v" :server-error="serverError"
       @submit.prevent="onSubmit"
     >
       <!-- USER NAME -->
-      <form-field v-bind="fields.username" v-model="form.username" :validation="$v.form.username" />
+      <form-field v-bind="fields.username" v-model="form.username" :validation="v.form.username" />
 
       <!-- USER FULLNAME -->
-      <form-field v-bind="fields.fullname" :validation="$v.form.fullname" v-model="form.fullname" />
+      <form-field v-bind="fields.fullname" v-model="form.fullname" :validation="v.form.fullname" />
       <hr>
 
       <!-- USER MAIL DOMAIN -->
-      <form-field v-bind="fields.domain" :validation="$v.form.domain">
+      <form-field v-bind="fields.domain" :validation="v.form.domain">
         <template #default="{ self }">
           <b-input-group>
             <b-input-group-append>
@@ -32,10 +32,10 @@
       <hr>
 
       <!-- USER PASSWORD -->
-      <form-field v-bind="fields.password" v-model="form.password" :validation="$v.form.password" />
+      <form-field v-bind="fields.password" v-model="form.password" :validation="v.form.password" />
 
       <!-- USER PASSWORD CONFIRMATION -->
-      <form-field v-bind="fields.confirmation" v-model="form.confirmation" :validation="$v.form.confirmation" />
+      <form-field v-bind="fields.confirmation" v-model="form.confirmation" :validation="v.form.confirmation" />
     </card-form>
   </view-base>
 </template>
@@ -43,7 +43,7 @@
 <script>
 import api from '@/api'
 import { mapGetters } from 'vuex'
-import { validationMixin } from 'vuelidate'
+import { useVuelidate } from '@vuelidate/core'
 
 import { formatFormData } from '@/helpers/yunohostArguments'
 import {
@@ -60,6 +60,7 @@ export default {
         ['GET', { uri: 'domains' }],
         ['GET', { uri: 'domains/main', storeKey: 'main_domain' }]
       ],
+      v: useVuelidate(),
 
       form: {
         username: '',
@@ -148,9 +149,7 @@ export default {
         this.serverError = err.message
       })
     }
-  },
-
-  mixins: [validationMixin]
+  }
 }
 </script>
 

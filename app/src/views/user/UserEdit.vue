@@ -2,26 +2,26 @@
   <view-base :queries="queries" @queries-response="onQueriesResponse" skeleton="card-form-skeleton">
     <card-form
       :title="$t('user_username_edit', { name })" icon="user"
-      :validation="$v" :server-error="serverError"
+      :validation="v" :server-error="serverError"
       @submit.prevent="onSubmit"
     >
       <!-- USERNAME (disabled) -->
       <form-field v-bind="fields.username" />
 
       <!-- USER FULLNAME -->
-      <form-field v-bind="fields.fullname" v-model="form.fullname" :validation="$v.form.fullname" />
+      <form-field v-bind="fields.fullname" v-model="form.fullname" :validation="v.form.fullname" />
 
       <hr>
 
       <!-- USER EMAIL -->
-      <form-field v-bind="fields.mail" :validation="$v.form.mail">
+      <form-field v-bind="fields.mail" :validation="v.form.mail">
         <template #default="{ self }">
           <adress-input-select v-bind="self" v-model="form.mail" />
         </template>
       </form-field>
 
       <!-- MAILBOX QUOTA -->
-      <form-field v-bind="fields.mailbox_quota" :validation="$v.form.mailbox_quota">
+      <form-field v-bind="fields.mailbox_quota" :validation="v.form.mailbox_quota">
         <template #default="{ self }">
           <b-input-group append="M">
             <input-item v-bind="self" v-model="form.mailbox_quota" />
@@ -39,7 +39,7 @@
           <form-field
             v-bind="fields.mail_aliases"
             :id="'mail_aliases' + i"
-            :validation="$v.form.mail_aliases.$each[i]"
+            :validation="v.form.mail_aliases[i]"
           >
             <template #default="{ self }">
               <adress-input-select v-bind="self" v-model="form.mail_aliases[i]" />
@@ -66,7 +66,7 @@
           <form-field
             v-bind="fields.mail_forward" v-model="form.mail_forward[i]"
             :id="'mail-forward' + i"
-            :validation="$v.form.mail_forward.$each[i]"
+            :validation="v.form.mail_forward[i]"
           />
 
           <b-button variant="danger" @click="removeEmailField('forward', i)">
@@ -82,17 +82,17 @@
       <hr>
 
       <!-- USER PASSWORD -->
-      <form-field v-bind="fields.change_password" v-model="form.change_password" :validation="$v.form.change_password" />
+      <form-field v-bind="fields.change_password" v-model="form.change_password" :validation="v.form.change_password" />
 
       <!-- USER PASSWORD CONFIRMATION -->
-      <form-field v-bind="fields.confirmation" v-model="form.confirmation" :validation="$v.form.confirmation" />
+      <form-field v-bind="fields.confirmation" v-model="form.confirmation" :validation="v.form.confirmation" />
     </card-form>
   </view-base>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
-import { validationMixin } from 'vuelidate'
+import { useVuelidate } from '@vuelidate/core'
 
 import api from '@/api'
 import { arrayDiff } from '@/helpers/commons'
@@ -118,6 +118,7 @@ export default {
         ['GET', { uri: 'domains/main', storeKey: 'main_domain' }],
         ['GET', { uri: 'domains' }]
       ],
+      v: useVuelidate(),
 
       form: {
         fullname: '',
@@ -192,23 +193,21 @@ export default {
 
   computed: mapGetters(['user', 'domainsAsChoices', 'mainDomain']),
 
-  validations: {
-    form: {
-      fullname: { required, name },
-      mail: {
-        localPart: { required, email: emailLocalPart }
-      },
-      mailbox_quota: { integer, minValue: minValue(0) },
-      mail_aliases: {
-        $each: {
+  validations () {
+    return {
+      form: {
+        fullname: { required, name },
+        mail: {
           localPart: { required, email: emailLocalPart }
-        }
-      },
-      mail_forward: {
-        $each: { required, emailForward }
-      },
-      change_password: { passwordLenght: minLength(8) },
-      confirmation: { passwordMatch: sameAs('change_password') }
+        },
+        mailbox_quota: { integer, minValue: minValue(0) },
+        mail_aliases: [{
+          localPart: { required, email: emailLocalPart }
+        }],
+        mail_forward: [{ required, emailForward }],
+        change_password: { passwordLenght: minLength(8) },
+        confirmation: { passwordMatch: sameAs('change_password') }
+      }
     }
   },
 
@@ -295,7 +294,6 @@ export default {
     }
   },
 
-  mixins: [validationMixin],
   components: { AdressInputSelect }
 }
 </script>

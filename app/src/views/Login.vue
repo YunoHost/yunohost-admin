@@ -1,14 +1,14 @@
 <template>
   <card-form
     :title="$t('login')" icon="lock"
-    :validation="$v" :server-error="serverError"
+    :validation="v" :server-error="serverError"
     @submit.prevent="login"
   >
     <!-- ADMIN USERNAME -->
-    <form-field v-bind="fields.username" v-model="form.username" :validation="$v.form.username" />
+    <form-field v-bind="fields.username" v-model="form.username" :validation="v.form.username" />
 
     <!-- ADMIN PASSWORD -->
-    <form-field v-bind="fields.password" v-model="form.password" :validation="$v.form.password" />
+    <form-field v-bind="fields.password" v-model="form.password" :validation="v.form.password" />
 
     <template #buttons>
       <b-button
@@ -22,13 +22,11 @@
 </template>
 
 <script>
-import { validationMixin } from 'vuelidate'
+import { useVuelidate } from '@vuelidate/core'
 import { alphalownum_, required, minLength } from '@/helpers/validators'
 
 export default {
   name: 'Login',
-
-  mixins: [validationMixin],
 
   props: {
     skipInstallCheck: { type: Boolean, default: false },
@@ -37,6 +35,7 @@ export default {
 
   data () {
     return {
+      v: useVuelidate(),
       disabled: !this.skipInstallCheck,
       serverError: '',
       form: {

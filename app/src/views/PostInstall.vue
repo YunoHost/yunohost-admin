@@ -37,7 +37,7 @@
     <template v-else-if="step === 'user'">
       <card-form
         :title="$t('postinstall.user.title')" icon="user-plus"
-        :validation="$v" :server-error="serverError"
+        :validation="v" :server-error="serverError"
         :submit-text="$t('next')" @submit.prevent="setUser"
       >
         <read-only-alert-item
@@ -47,7 +47,7 @@
 
         <form-field
           v-for="(field, name) in fields" v-bind="field"
-          :key="name" v-model="user[name]" :validation="$v.user[name]"
+          :key="name" v-model="user[name]" :validation="v.user[name]"
         />
       </card-form>
 
@@ -81,7 +81,7 @@
 </template>
 
 <script>
-import { validationMixin } from 'vuelidate'
+import { useVuelidate } from '@vuelidate/core'
 
 import api from '@/api'
 import { DomainForm } from '@/views/_partials'
@@ -91,8 +91,6 @@ import { alphalownum_, required, minLength, name, sameAs } from '@/helpers/valid
 export default {
   name: 'PostInstall',
 
-  mixins: [validationMixin],
-
   components: {
     DomainForm,
     Login
@@ -100,6 +98,7 @@ export default {
 
   data () {
     return {
+      v: useVuelidate(),
       step: 'start',
       serverError: '',
       domain: undefined,

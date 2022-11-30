@@ -1,11 +1,11 @@
 <template>
   <card-form
     :title="$t('users_import')" icon="user-plus"
-    :validation="$v" :server-error="serverError"
+    :validation="v" :server-error="serverError"
     @submit.prevent="onSubmit"
   >
     <!-- CSV FILE -->
-    <form-field v-bind="fields.csvfile" v-model="form.csvfile" :validation="$v.form.csvfile" />
+    <form-field v-bind="fields.csvfile" v-model="form.csvfile" :validation="v.form.csvfile" />
 
     <!-- UPDATE -->
     <form-field v-bind="fields.update" v-model="form.update" />
@@ -17,7 +17,7 @@
 
 <script>
 import api from '@/api'
-import { validationMixin } from 'vuelidate'
+import { useVuelidate } from '@vuelidate/core'
 
 import { formatFormData } from '@/helpers/yunohostArguments'
 import { required } from '@/helpers/validators'
@@ -27,6 +27,7 @@ export default {
 
   data () {
     return {
+      v: useVuelidate(),
       form: {
         csvfile: null,
         update: false,
@@ -68,9 +69,11 @@ export default {
     }
   },
 
-  validations: {
-    form: {
-      csvfile: { required }
+  validations () {
+    return {
+      form: {
+        csvfile: { required }
+      }
     }
   },
 
@@ -97,8 +100,6 @@ export default {
         this.serverError = error.message
       })
     }
-  },
-
-  mixins: [validationMixin]
+  }
 }
 </script>
