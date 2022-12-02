@@ -1,7 +1,7 @@
 yunohost-admin (11.1.1) testing; urgency=low
 
-  - [style] fix checkbox svg icon colors ([#489](https://github.com/yunohost/yunohost/pull/489))
-  - [i18n] add stale translation removal script & remove stale strings ([#490](https://github.com/yunohost/yunohost/pull/490))
+  - [style] fix checkbox svg icon colors ([#489](https://github.com/yunohost/yunohost-admin/pull/489))
+  - [i18n] add stale translation removal script & remove stale strings ([#490](https://github.com/yunohost/yunohost-admin/pull/490))
   - [i18n] rm stale translations (1f91f0e1)
   - [i18n] Translations updated for Basque, Chinese (Simplified), Galician, German, Italian, Kabyle, Polish, Spanish, Ukrainian
 
