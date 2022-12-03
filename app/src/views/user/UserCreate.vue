@@ -129,7 +129,7 @@ export default {
         fullname: { required, name },
         domain: { required },
         password: { required, passwordLenght: minLength(8) },
-        confirmation: { required, passwordMatch: sameAs('password') }
+        confirmation: { required, passwordMatch: sameAs(this.form.password) }
       }
     }
   },

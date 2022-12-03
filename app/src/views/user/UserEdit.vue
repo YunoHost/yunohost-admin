@@ -201,12 +201,12 @@ export default {
           localPart: { required, email: emailLocalPart }
         },
         mailbox_quota: { integer, minValue: minValue(0) },
-        mail_aliases: [{
+        mail_aliases: this.form.mail_aliases.length ? [{
           localPart: { required, email: emailLocalPart }
-        }],
-        mail_forward: [{ required, emailForward }],
+        }] : [],
+        mail_forward: this.form.mail_forward.length ? [{ required, emailForward }] : [],
         change_password: { passwordLenght: minLength(8) },
-        confirmation: { passwordMatch: sameAs('change_password') }
+        confirmation: { passwordMatch: sameAs(this.form.change_password) }
       }
     }
   },

@@ -192,7 +192,7 @@ export default {
         username: { required, alphalownum_ },
         fullname: { required, name },
         password: { required, passwordLenght: minLength(8) },
-        confirmation: { required, passwordMatch: sameAs('password') }
+        confirmation: { required, passwordMatch: sameAs(this.user.password) }
       }
     }
   },
