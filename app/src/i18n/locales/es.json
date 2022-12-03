@@ -71,7 +71,7 @@
     "ipv4": "IPv4",
     "ipv6": "IPv6",
     "label": "Etiqueta",
-    "label_for_manifestname": "Etiqueta para {name} (nombre mostrado en el portal de cuentas)",
+    "label_for_manifestname": "Etiqueta para {name}",
     "local_archives": "Archivos locales",
     "login": "Iniciar sesión",
     "logout": "Cerrar sesión",
@@ -154,7 +154,7 @@
     "confirm_update_specific_app": "¿Está seguro de que desea actualizar {app} ?",
     "confirm_reboot_action_reboot": "¿Está seguro de que desea reiniciar su servidor?",
     "confirm_reboot_action_shutdown": "¿Está seguro de que desea apagar su servidor?",
-    "domain_dns_conf_is_just_a_recommendation": "Esta página muestra la configuración *recomendada*. *No* configura el DNS para usted. Es su responsabilidad configurar su zona DNS en su registrador DNS de acuerdo con esta recomendación.",
+    "domain_dns_conf_is_just_a_recommendation": "Esta sección muestra la configuración *recomendada*. *No* configura el DNS para usted. Es su responsabilidad configurar su zona DNS en su registrador DNS de acuerdo con esta recomendación.",
     "migrations": "Migraciones",
     "migrations_pending": "Migraciones pendientes",
     "migrations_done": "Migraciones anteriores",
@@ -217,7 +217,7 @@
     "group_add_permission": "Añadir permiso",
     "group_new": "Nuevo grupo",
     "group_explain_visitors": "Este es un grupo especial que representa a los visitantes anónimos",
-    "group_specific_permissions": "Permisos específicos de usuario",
+    "group_specific_permissions": "Permisos individuales de usuario",
     "groups_and_permissions": "Grupos y permisos",
     "groups_and_permissions_manage": "Gestionar grupos y permisos",
     "permissions": "Permisos",
@@ -233,7 +233,11 @@
     "words": {
         "default": "Predeterminado",
         "collapse": "Colapsar",
-        "browse": "Navegar"
+        "browse": "Navegar",
+        "link": "Enlace",
+        "none": "Ninguno",
+        "separator": ", ",
+        "valid": "Válido"
     },
     "all": "Todo",
     "diagnosis_first_run": "El diagnóstico intentará identificar los errores comunes en diferentes aspectos del servidor para asegurar que todo funcione de la mejor manera. No se asuste si observa algunos errores justo después de la configuracion del servidor: estos le ayudarán a identificar los incidentes y le guiarán para corregirlos. El diagnostico correrá 2 veces al día y enviará un correo electrónico al administrador si encuentra incidentes.",
@@ -253,7 +257,7 @@
     "permission_show_tile_enabled": "Mostrar el tile en el portal de usuario",
     "permission_main": "Etiqueta principal",
     "permission_corresponding_url": "URL Correspondiente",
-    "pending_migrations": "Hay algunas migraciones esperando ejecutar. Por favor vaya a <a href='#/tools/migrations'>Herramientas > Migraciones</a> para verlas.",
+    "pending_migrations": "Hay algunas migraciones esperando a ser ejecutadas. Por favor vaya a <a href='#/tools/migrations'>Herramientas > Migraciones</a> para ejecutarlas.",
     "logs_suboperations": "Sub-operaciones",
     "operation_failed_explanation": "¡Esta operación falló! Lo sentimos mucho :( Puede intentar <a href='https://yunohost.org/help'>pedir ayuda</a>. Por favor comparta el *log completo* de la operación a la gente que ayude. Puede hacerlo haciendo click en el botón verde que dice 'Share with Yunopaste'. Cuando comparta los logs, YunoHost intentará automáticamente anonimizar datos privados como nombres de dominio y IPs.",
     "app_manage_label_and_tiles": "Administrar etiquetas y tiles",
@@ -355,12 +359,13 @@
     "hook_data_xmpp": "Datos XMPP",
     "items_verbose_count": "Hay {items}. | Hay 1 {items}. | Hay {items}.",
     "placeholder": {
-        "lastname": "Doe",
-        "username": "johndoe",
-        "firstname": "John",
+        "lastname": "Sánchez",
+        "username": "samuelsanchez",
+        "firstname": "Samuel",
         "domain": "mi-dominio.es",
         "groupname": "Nombre de mi grupo",
-        "file": "Selecciona un fichero o arrástralo y suéltalo"
+        "file": "Selecciona un fichero o arrástralo y suéltalo",
+        "fullname": "Samuel Sánchez"
     },
     "hook_conf_ynh_settings": "Configuraciones de YunoHost",
     "confirm_group_add_access_permission": "¿Seguro que quieres conceder acceso {perm} a {name}? Este acceso incrementa significantemente la exposición a ataques al sistema si {name} resulta tener malas intenciones. Sólo deberías aprobarlo si CONFÍAS en esa persona/grupo.",
@@ -378,16 +383,21 @@
     "migrations_disclaimer_check_message": "He leído y comprendido esta limitación de responsabilidad",
     "postinstall": {
         "force": "Forzar la post-instalación",
-        "title": "Post-instalción"
+        "title": "Post-instalción",
+        "user": {
+            "first_user_help": "Estx usuarix tendrá privilegios de administración del sistema y podrá contectarse a esta interfaz de administración así como directamente al servidor vía SSH.\nComo es un usuario normal, también podrá conectarse al portal de usuarix (SSO) con sus credenciales.\nUna vez que la post-instalación está completada, podrás crear más usuarixs administradorxs añadiéndolxs al grupo 'admins'.",
+            "title": "Crear primera usuaria administradora"
+        }
     },
     "human_routes": {
         "apps": {
             "uninstall": "Desinstalar la aplicación '{name}'",
-            "update_config": "Actualizar la configuración de la aplicación '{name}'",
+            "update_config": "Actualizar la configuración de la aplicación '{name}' del panel '{id}'",
             "change_label": "Cambiar la etiqueta '{prevName}' por '{nextName}'",
             "change_url": "Cambiar la URL de acceso a '{name}'",
             "install": "Instalar la aplicación '{name}'",
-            "set_default": "Redirecciona la raíz del dominio '{domain}' a '{name}'"
+            "set_default": "Redirecciona la raíz del dominio '{domain}' a '{name}'",
+            "action_config": "Ejecutar acción '{action}' de la configuración de la app '{name}'"
         },
         "backups": {
             "create": "Crear copia de seguridad",
@@ -408,10 +418,12 @@
         "share_logs": "Genera un enlace para el registro '{name}'",
         "domains": {
             "push_dns_changes": "Publica los registros DNS de '{name}' al registrador",
-            "update_config": "Actualiza la configuración de '{name}'",
+            "update_config": "Actualiza el panel '{id}' de la configuración del dominio '{name}'",
             "add": "Añade el dominio '{name}'",
             "delete": "Elimina el domino '{name}'",
-            "set_default": "Configura '{name}' como dominio por defecto"
+            "set_default": "Configura '{name}' como dominio por defecto",
+            "cert_install": "Instalar certificado para '{name}'",
+            "cert_renew": "Renovar certificado de '{name}'"
         },
         "diagnosis": {
             "ignore": {
@@ -451,7 +463,10 @@
             "start": "Inicia el servicio '{name}'",
             "stop": "Para el servicio '{name}'"
         },
-        "reconnecting": "Reconectando"
+        "reconnecting": "Reconectando",
+        "settings": {
+            "update": "Actualizar la configuración global de '{panel}'"
+        }
     },
     "tools_webadmin": {
         "fallback_language_description": "Idioma que será usado en caso de que la traducción al idioma primario no se encuentre disponible.",
@@ -461,7 +476,8 @@
         "experimental": "Modo experimental",
         "fallback_language": "Idioma alternativo",
         "cache": "Caché",
-        "experimental_description": "Te da acceso a las características experimentales. Están consideradas como inestables y pueden estropear tu sistema.<br> Actívalas solo si sabes lo que estás haciendo."
+        "experimental_description": "Te da acceso a las características experimentales. Están consideradas como inestables y pueden estropear tu sistema.<br> Actívalas solo si sabes lo que estás haciendo.",
+        "theme": "Cambiar a modo oscuro"
     },
     "go_back": "Retroceder",
     "users_import_update_desc": "Selecciona para actualizar todas las cuentas del fichero CSV con los nuevos valores",
@@ -485,8 +501,36 @@
             "push_force": "Sobrescribir registros actuales",
             "push_force_confirm": "¿Seguro que quieres forzar la publicación de los registros DNS recomendados? Ten en cuenta que puede sobreescribir registros por defecto o importantes configurados por tu registrador.",
             "push_force_warning": "Parece que algunos registros DNS de YunoHost ya se encuentran en la configuración del registrador. Puedes usar la opción sobrescribir si sabes lo que haces.",
-            "info": "La configuración automática DNS es una función experimental.<br> Plantéate guardar tu zona DNS actual desde la interfaz DNS de tu registrador antes de publicar cambios desde aquí."
-        }
+            "info": "La configuración automática DNS es una función experimental.<br> Plantéate guardar tu zona DNS actual desde la interfaz DNS de tu registrador antes de publicar cambios desde aquí.",
+            "methods": {
+                "auto": "Automático",
+                "handled_in_parent": "Gestionado en el dominio padre",
+                "manual": "Manual",
+                "none": "Ninguno",
+                "semi_auto": "Semi-automático"
+            }
+        },
+        "cert": {
+            "types": {
+                "letsencrypt": "Let's Encrypt",
+                "other": "Otros/Desconocido",
+                "selfsigned": "autofirmado"
+            },
+            "valid_for": "válido durante [días]"
+        },
+        "explain": {
+            "main_domain": "El dominio principal es el dominio desde el cual lxs usuarixs pueden conectarse al portal (via \"{dominio}/yunohost/sso\"). <br> Por tanto, no es posible borrarlo. <br> Si quieres borrar \"{dominio}\", primero tienes que elegir o añadir otro dominio y configurarlo como dominio principal."
+        },
+        "info": {
+            "apps_on_domain": "Aplicaciones instaladas en el dominio",
+            "certificate_authority": "Autoridad certificadora SSL",
+            "registrar": "Registrador"
+        },
+        "see_parent_domain": "Ver dominio padre",
+        "types": {
+            "main_domain": "Dominio principal"
+        },
+        "toggle_subdomains": "Colapsar subdominios"
     },
     "domain_dns_push_failed_to_authenticate": "Error de autenticación con la API del registrador. ¿Puede que las <a href='#/domains/{domain}/config'>credenciales</a> no sean correctas? (Error: {error})",
     "history": {
@@ -531,5 +575,12 @@
     "details_about": "Mostrar más detalles sobre {subject}",
     "app_state_broken": "roto",
     "app_state_broken_explanation": "Esta aplicación está actualmente rota y no se puede instalar según las pruebas automáticas de YunoHost",
-    "confirm_install_app_broken": "¡ADVERTENCIA! ¡Esta aplicación está rota según las pruebas automáticas de YunoHost y es probable que rompa su sistema! Probablemente NO debería instalarla a menos que sepa lo que está haciendo. ¿Está dispuesto a correr ese riesgo?"
+    "confirm_install_app_broken": "¡ADVERTENCIA! ¡Esta aplicación está rota según las pruebas automáticas de YunoHost y es probable que rompa su sistema! Probablemente NO debería instalarla a menos que sepa lo que está haciendo. ¿Está dispuesto a correr ese riesgo?",
+    "group_admins": "Administradores",
+    "label_for_manifestname_help": "Este es el nombre que se mostrará en el portal de usuarix. Puedes cambiarlo más tarde.",
+    "manage_groups": "Gestionar grupos",
+    "tools_yunohost_settings": "Ajustes YunoHost",
+    "group_explain_admins": "Este es un grupo asociado a los usuarixs administradorxs. Lxs usuarixs de este grupo tienen acceso al panel de control web de YunoHost, conexión al servidor por SSH y pueden utilizar el comando `sudo`. También reciben correos enviados a root@, admin@ y admins@, como las notificaciones de diagnóstico. ¡Añade únicamente a gente del grupo en la que confíes plenamente!",
+    "wrong_password_or_username": "Contraseña o usuario incorrecto",
+    "important_yunohost_upgrade": "Una actualización de categoría 'major' está disponible. Se recomienda leer detenidamente las notas de lanzamiento en el foro antes de actualizar: <a href='https://forum.yunohost.org/tag/ynh_release'>Busca las notas de lanzamiento en el foro</a>"
 }
