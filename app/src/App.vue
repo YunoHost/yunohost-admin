@@ -4,8 +4,8 @@
     <header>
       <b-navbar>
         <b-navbar-brand
-          :to="{ name: 'home' }" :disabled="waiting"
-          exact exact-active-class="active"
+          :to="{ name: 'home' }" :disabled="waiting || null"
+          exact-active-class="active"
         >
           <span v-if="theme">
             <img alt="YunoHost logo" src="./assets/logo_light.png" width="40">

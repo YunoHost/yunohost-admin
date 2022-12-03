@@ -3,8 +3,7 @@ import routes from './routes'
 import store from '@/store'
 
 const router = createRouter({
-  history: createWebHashHistory(),
-  base: process.env.BASE_URL,
+  history: createWebHashHistory(process.env.BASE_URL),
   routes,
 
   scrollBehavior (to, from, savedPosition) {
@@ -19,7 +18,7 @@ const router = createRouter({
         setTimeout(() => resolve(savedPosition), 0)
       })
     } else {
-      return savedPosition || { x: 0, y: 0 }
+      return savedPosition || { left: 0, top: 0 }
     }
   }
 })

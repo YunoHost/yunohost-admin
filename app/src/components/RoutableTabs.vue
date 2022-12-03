@@ -4,7 +4,7 @@
       <b-nav card-header fill pills>
         <b-nav-item
           v-for="route in routes" :key="route.text"
-          :to="route.to" exact exact-active-class="active"
+          :to="route.to" exact-active-class="active"
         >
           <icon v-if="route.icon" :iname="route.icon" />
           {{ route.text }}
@@ -13,16 +13,18 @@
     </b-card-header>
 
     <!-- Bind extra props to the child view and forward child events to parent -->
-    <router-view v-bind="$attrs" v-on="$listeners">
-      <template #tab-top>
-        <slot name="tab-top" />
-      </template>
-      <template #tab-before>
-        <slot name="tab-before" />
-      </template>
-      <template #tab-after>
-        <slot name="tab-after" />
-      </template>
+    <router-view v-bind="$attrs" v-on="$listeners" v-slot="{ Component }">
+      <component :is="Component">
+        <template #tab-top>
+          <slot name="tab-top" />
+        </template>
+        <template #tab-before>
+          <slot name="tab-before" />
+        </template>
+        <template #tab-after>
+          <slot name="tab-after" />
+        </template>
+      </component>
     </router-view>
   </b-card>
 </template>
