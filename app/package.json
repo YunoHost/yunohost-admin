@@ -57,6 +57,7 @@
       "parser": "@babel/eslint-parser"
     },
     "rules": {
+      "vue/multi-word-component-names": "off",
       "vue/max-attributes-per-line": [
         "error",
         {
@@ -70,7 +71,10 @@
       "camelcase": "off",
       "indent": "off",
       "no-irregular-whitespace": "off",
-      "no-unused-vars": "warn",
+      "no-unused-vars": [
+        "warn",
+        { "varsIgnorePattern": "^_", "destructuredArrayIgnorePattern": "^_" }
+      ],
       "quotes": [
         "warn",
         "single"

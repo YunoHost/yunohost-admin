@@ -1,4 +1,4 @@
-import Vue, { createApp } from 'vue'
+import { createApp } from 'vue'
 import App from './App.vue'
 import BootstrapVue from 'bootstrap-vue'
 import VueShowdown from 'vue-showdown'

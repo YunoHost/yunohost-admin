@@ -70,7 +70,8 @@ export default {
         state.historyTimer = null
         return
       }
-
+      // FIXME `request` is not reactive, needs to be rewritten with composition API
+      const r = state.requests.find(({ status }) => status === 'pending')
       const { messages, warnings, errors } = state.tempMessages.reduce((acc, [message, type]) => {
         acc.messages.push(message)
         if (['error', 'warning'].includes(type)) acc[type + 's']++
@@ -78,9 +79,9 @@ export default {
       }, { messages: [], warnings: 0, errors: 0 })
       state.tempMessages = []
       state.historyTimer = null
-      request.messages = request.messages.concat(messages)
-      request.warnings += warnings
-      request.errors += errors
+      r.messages = (r.messages || []).concat(messages)
+      r.warnings += warnings
+      r.errors += errors
     },
 
     'SET_ERROR' (state, request) {
