@@ -7,7 +7,9 @@
         :term="$t(key)"
       >
         <a v-if="key === 'url'" :href="value" target="_blank">{{ value }}</a>
-        <template v-else>{{ value }}</template>
+        <template v-else>
+          {{ value }}
+        </template>
       </description-row>
       <description-row :term="$t('app_info_access_desc')">
         {{ allowedGroups.length > 0 ? allowedGroups.join(', ') + '.' : $t('nobody') }}

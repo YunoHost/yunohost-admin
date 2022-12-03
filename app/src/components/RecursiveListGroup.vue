@@ -28,7 +28,7 @@
           :last="last !== undefined ? last : i === tree.children.length - 1" flush
         >
           <!-- PASS THE DEFAULT SLOT WITH SCOPE TO NEXT NESTED COMPONENT -->
-          <template v-for="(_, slot) of $scopedSlots" v-slot:[slot]="scope">
+          <template v-for="(_, slot) of $scopedSlots" #[slot]="scope">
             <slot :name="slot" v-bind="scope" />
           </template>
         </recursive-list-group>

@@ -1,12 +1,12 @@
 <template>
   <b-checkbox
-    v-model="checked"
-    v-on="$listeners"
+    :checked="value"
+    @input="$emit('input', $event)"
     :id="id"
     :aria-describedby="$parent.id + '__BV_description_'"
     switch
   >
-    {{ label || $t(labels[checked]) }}
+    {{ label || $t(labels[value]) }}
   </b-checkbox>
 </template>
 
@@ -19,12 +19,6 @@ export default {
     id: { type: String, default: null },
     label: { type: String, default: null },
     labels: { type: Object, default: () => ({ true: 'yes', false: 'no' }) }
-  },
-
-  data () {
-    return {
-      checked: this.value
-    }
   }
 }
 </script>
