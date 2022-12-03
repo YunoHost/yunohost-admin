@@ -96,11 +96,6 @@
       }
     }
   }
-
-  // FIX svg fill not working with CSS variables
-  .custom-checkbox .custom-control-input:checked ~ .custom-control-label::after {
-    background-image: escape-svg(url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'><path fill='white' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26l2.974 2.99L8 2.193z'/></svg>"));
-  }
 }
 
 [dark-theme="true"] {
@@ -135,8 +130,14 @@
   }
 
   // FIX svg fill not working with CSS variables
-  .custom-checkbox .custom-control-input:checked ~ .custom-control-label::after {
-    background-image: escape-svg(url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'><path fill='#202020' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26l2.974 2.99L8 2.193z'/></svg>"));
+  .custom-checkbox .custom-control-input {
+    &:checked ~ .custom-control-label::after {
+      background-image: escape-svg(get-checkbox-icon-checked('#202020'));
+    }
+
+    &:indeterminate ~ .custom-control-label::after {
+      background-image: escape-svg(get-checkbox-icon-indeterminate('#202020'));
+    }
   }
 }
 

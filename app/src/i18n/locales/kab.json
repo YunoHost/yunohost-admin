@@ -4,6 +4,10 @@
         "domain_description": {
             "domain": "Fren taɣult.",
             "email": "Fren taɣult i imayl inek·inem."
+        },
+        "local_part_description": {
+            "email": "Fren aḥric adigan n imayl.",
+            "domain": "Fren taɣult ddaw."
         }
     },
     "action": "Tigawt",
@@ -13,11 +17,9 @@
             "pending": "Iteddu"
         }
     },
-    "app_actions": "Actions",
     "connection": "Tuqqna",
     "created_at": "Yettwarna di",
     "domain_name": "Isem n Taɣult",
-    "domain_visit": "Rzu",
     "domains": "Tiɣula",
     "download": "Sider",
     "enable": "Rmed",
@@ -54,7 +56,6 @@
     "service_start_on_boot": "Bdu seg usenker",
     "services": "Imeẓla",
     "tools": "Ifecka",
-    "tools_adminpw_current": "Awal n uɛeddi amiran",
     "tools_webadmin": {
         "cache": "Tuffirt",
         "language": "Tutlayt"
@@ -71,7 +72,11 @@
     "words": {
         "browse": "Snirem",
         "collapse": "Ḍfes",
-        "default": "Prédéfini(e)"
+        "default": "Prédéfini(e)",
+        "link": "Aseɣwen",
+        "none": "Ula d yiwen",
+        "separator": ", ",
+        "valid": "Tettwaqbel"
     },
     "yes": "Ih",
     "api_error": {
@@ -144,6 +149,13 @@
     "tools_shutdown_btn": "Sexsi",
     "user_username": "Nom d'utilisateur",
     "users": "Iseqdacen",
-    "wrong_password": "Awal n uɛeddi d armeɣtu",
-    "validity": "Taneɣbalt"
+    "administration_password": "Awal uffir n tedbelt",
+    "domain": {
+        "dns": {
+            "methods": {
+                "none": "Ula d yiwen"
+            }
+        }
+    },
+    "group_admins": "Inedbalen"
 }
