@@ -8,10 +8,10 @@
           exact exact-active-class="active"
         >
           <span v-if="theme">
-              <img alt="YunoHost logo" src="./assets/logo_light.png" width="40">
+            <img alt="YunoHost logo" src="./assets/logo_light.png" width="40">
           </span>
           <span v-else>
-              <img alt="YunoHost logo" src="./assets/logo_dark.png" width="40">
+            <img alt="YunoHost logo" src="./assets/logo_dark.png" width="40">
           </span>
         </b-navbar-brand>
 
@@ -75,9 +75,11 @@
           </b-nav-item>
 
           <b-nav-text
-            v-if="yunohost" id="yunohost-version" class="ml-md-auto text-center"
-            v-html="$t('footer_version', yunohost)"
-          />
+            v-if="yunohost" id="yunohost-version"
+            class="ml-md-auto text-center"
+          >
+            <span v-html="$t('footer_version', yunohost)" />
+          </b-nav-text>
         </b-nav>
       </nav>
     </footer>

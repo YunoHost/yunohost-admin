@@ -1,7 +1,9 @@
 <template>
   <!-- This card receives style from `ViewLockOverlay` if used inside it -->
   <div>
-    <b-card-body body-class="alert alert-warning" v-html="warning.text" />
+    <b-card-body body-class="alert alert-warning">
+      <div v-html="warning.text" />
+    </b-card-body>
 
     <b-card-footer footer-bg-variant="warning">
       <b-button

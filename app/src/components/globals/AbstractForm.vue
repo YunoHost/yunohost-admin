@@ -13,8 +13,9 @@
           <b-alert
             v-if="errorFeedback"
             variant="danger" class="my-3" icon="ban"
-            v-html="errorFeedback"
-          />
+          >
+            <div v-html="errorFeedback" />
+          </b-alert>
         </slot>
       </b-form>
     </b-card-body>
