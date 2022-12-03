@@ -171,7 +171,7 @@ export function formatYunoHostArgument (arg) {
         if (!isNaN(parseInt(arg.max))) {
           validation.maxValue = validators.maxValue(parseInt(arg.max))
         }
-        validation.numValue = validators.helpers.regex('Please provide an integer', new RegExp('^-?[0-9]+$'))
+        validation.numValue = validators.integer
       }
     },
     {
@@ -288,16 +288,16 @@ export function formatYunoHostArgument (arg) {
     validation.required = validators.required
   }
   if (arg.pattern && arg.type !== 'tags') {
-    validation.pattern = validators.helpers.regex(formatI18nField(arg.pattern.error), new RegExp(arg.pattern.regexp))
+    validation.pattern = validators.helpers.withMessage(
+      formatI18nField(arg.pattern.error),
+      validators.helpers.regex(new RegExp(arg.pattern.regexp))
+    )
   }
 
   if (!component.renderSelf && !arg.readonly) {
-    // Bind a validation with what the server may respond
-    validation.remote = validators.helpers.withParams(error, (v) => {
-      const result = !error.message
-      error.message = null
-      return result
-    })
+    // Bind a dummy validation to allow use of vuelidate `$externalResults`
+    // used for server side validation response (see ConfigPanels.vue for example)
+    validation.remote = () => true
   }
 
   // Default value if still `null`
@@ -323,13 +323,7 @@ export function formatYunoHostArgument (arg) {
     field.props = field.props.props
   }
 
-  return {
-    value,
-    field,
-    // Return null instead of empty object if there's no validation
-    validation: Object.keys(validation).length === 0 ? null : validation,
-    error
-  }
+  return { value, field, validation, error }
 }
 
 
@@ -405,7 +399,10 @@ export function formatYunoHostConfigPanels (data) {
       // Merge all sections forms to the panel to get a unique form
       Object.assign(result.forms[panelId], form)
       Object.assign(result.validations[panelId], validations)
-      Object.assign(result.errors[panelId], errors)
+      Object.assign(
+        result.errors[panelId],
+        Object.fromEntries(Object.keys(form).map(key => [key, '']))
+      )
       section.fields = fields
       panel.sections.push(section)
 

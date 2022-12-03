@@ -95,20 +95,23 @@ export default {
 
     state () {
       // Need to set state as null if no error, else component turn green
-      if (this.validation) {
-        return this.validation.$errors.length ? false : null
+      if (this.validation && this.validation.$dirty) {
+        return this.validation.$invalid ? false : null
       }
       return null
     },
 
     errorMessage () {
       const v = this.validation
-      if (v && v.$errors.length) {
-        const error = v.$errors[0]
-        return this.$i18n.t(
-          'form_errors.' + error.$validator,
-          { ...error.$params, value: v.$model }
-        )
+      if (v && v.$invalid) {
+        if (v.$errors.length) {
+          const error = v.$errors[0]
+          if (['pattern', '$externalResults'].includes(error.$validator)) return error.$message
+          return this.$i18n.t(
+            'form_errors.' + error.$validator,
+            { ...error.$params, value: v.$model }
+          )
+        }
       }
       return ''
     }

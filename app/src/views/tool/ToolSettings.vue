@@ -3,7 +3,10 @@
     :queries="queries" @queries-response="onQueriesResponse"
     ref="view" skeleton="card-form-skeleton"
   >
-    <config-panels v-if="config.panels" v-bind="config" @submit="onConfigSubmit" />
+    <config-panels
+      v-if="config.panels" v-bind="config"
+      ref="panels" @submit="onConfigSubmit"
+    />
   </view-base>
 </template>
 
@@ -50,11 +53,7 @@ export default {
       ).then(() => {
         this.$refs.view.fetchQueries({ triggerLoading: true })
       }).catch(err => {
-        if (err.name !== 'APIBadRequestError') throw err
-        const panel = this.config.panels.find(panel => panel.id === id)
-        if (err.data.name) {
-          this.config.errors[id][err.data.name].message = err.message
-        } else this.$set(panel, 'serverError', err.message)
+        this.$refs.panels.onError(err, id)
       })
     }
   }

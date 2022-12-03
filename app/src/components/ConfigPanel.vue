@@ -26,7 +26,7 @@
         <template v-for="(field, fname) in section.fields">
           <component
             v-if="field.visible" :is="field.is" v-bind="field.props"
-            v-model="forms[panel.id][fname]" :validation="validation[fname]" :key="fname"
+            v-model="validation[fname].$model" :validation="validation[fname]" :key="fname"
             @action.stop="onAction(section.id, fname, section.fields)"
           />
         </template>

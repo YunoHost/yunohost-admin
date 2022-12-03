@@ -58,6 +58,8 @@ export default {
       queries: [
         ['GET', 'apps/manifest?app=' + this.id]
       ],
+      // This is used internally by vuelidate to display server side validation errors
+      vuelidateExternalResults: {},
       v: useVuelidate(),
       name: undefined,
       infos: undefined,
@@ -125,7 +127,8 @@ export default {
       }).catch(err => {
         if (err.name !== 'APIBadRequestError') throw err
         if (err.data.name) {
-          this.errors[err.data.name].message = err.message
+          // Update field's $externalResults to trigger invalid state and error message
+          this.vuelidateExternalResults.form[err.data.name] = err.message
         } else this.serverError = err.message
       })
     }

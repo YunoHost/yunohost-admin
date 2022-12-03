@@ -30,14 +30,16 @@ export default {
     panels: { type: Array, default: undefined },
     forms: { type: Object, default: undefined },
     validations: { type: Object, default: undefined },
-    errors: { type: Object, default: undefined }, // never used
+    errors: { type: Object, default: undefined },
     routes: { type: Array, default: null },
     noRedirect: { type: Boolean, default: false }
   },
 
   data () {
     return {
-      v: useVuelidate(),
+      // This is used internally by vuelidate to display server side validation errors
+      vuelidateExternalResults: { forms: this.errors },
+      v: useVuelidate()
     }
   },
 
@@ -54,6 +56,19 @@ export default {
 
   validations () {
     return { forms: this.validations }
+  },
+
+  methods: {
+    onError (err, panelId) {
+      if (err.name !== 'APIBadRequestError') throw err
+      const panel = this.panels.find(panel => panel.id === panelId)
+      if (err.data.name) {
+        // Update field's $externalResults to trigger invalid state and error message
+        this.vuelidateExternalResults.forms[panelId][err.data.name] = err.message
+      } else {
+        this.$set(panel, 'serverError', err.message)
+      }
+    }
   },
 
   created () {
