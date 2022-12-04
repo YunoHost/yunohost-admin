@@ -165,7 +165,9 @@ export default {
       const apps = appList.map((app) => ({
         id: app.id,
         name: app.name,
-        notif: this.formatAppNotifs(app.notifications.pre_upgrade)
+        notif: app.notifications.pre_upgrade
+          ? this.formatAppNotifs(app.notifications.pre_upgrade)
+          : ''
       }))
       this.preUpgrade = { apps, hasNotifs: apps.some((app) => app.notif) }
       this.$bvModal.show('apps-pre-upgrade')
