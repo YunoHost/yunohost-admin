@@ -11,8 +11,8 @@
           <vue-showdown :markdown="app.description" flavor="github" />
 
           <b-img
-            v-if="app.image"
-            :src="app.image"
+            v-if="app.screenshot"
+            :src="app.screenshot"
             aria-hidden="true" class="d-block mb-3" fluid
           />
 
@@ -168,7 +168,7 @@ export default {
     return {
       queries: [
         ['GET', 'apps/catalog?full&with_categories&with_antifeatures'],
-        ['GET', 'apps/manifest?app=' + this.id]
+        ['GET', `apps/manifest?app=${this.id}&with_screenshot`]
       ],
       app: undefined,
       name: undefined,
@@ -221,7 +221,7 @@ export default {
           ? _app.potential_alternative_to.join(this.$i18n.t('words.separator'))
           : null,
         description: formatI18nField(_app.doc.DESCRIPTION || _app.description),
-        image: _app.image,
+        screenshot: _app.screenshot,
         demo: _app.upstream.demo,
         version,
         license: _app.upstream.license,
