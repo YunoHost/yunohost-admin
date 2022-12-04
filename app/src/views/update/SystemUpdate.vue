@@ -178,10 +178,10 @@ export default {
       const lastAppId = apps[apps.length - 1].id
 
       for (const app of apps) {
-        const postMessage = this.formatAppNotifs(app.notifications.post_upgrade)
         const continue_ = await api.put(
           `apps/${app.id}/upgrade`, {}, { key: 'upgrade.app', app: app.name }
-        ).then(() => {
+        ).then((response) => {
+          const postMessage = this.formatAppNotifs(response.notifications.post_upgrade)
           const isLast = app.id === lastAppId
           this.apps = this.apps.filter((a) => app.id !== a.id)
 
