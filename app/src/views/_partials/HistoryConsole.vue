@@ -70,8 +70,8 @@
 <script>
 import { mapGetters } from 'vuex'
 
-import QueryHeader from '@/components/QueryHeader'
-import MessageListGroup from '@/components/MessageListGroup'
+import QueryHeader from '@/components/QueryHeader.vue'
+import MessageListGroup from '@/components/MessageListGroup.vue'
 
 export default {
   name: 'HistoryConsole',

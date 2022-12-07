@@ -85,7 +85,7 @@ import { useVuelidate } from '@vuelidate/core'
 
 import api from '@/api'
 import { DomainForm } from '@/views/_partials'
-import Login from '@/views/Login'
+import Login from '@/views/Login.vue'
 import { alphalownum_, required, minLength, name, sameAs } from '@/helpers/validators'
 
 export default {

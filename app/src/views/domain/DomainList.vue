@@ -41,7 +41,7 @@
 <script>
 import { mapGetters } from 'vuex'
 
-import RecursiveListGroup from '@/components/RecursiveListGroup'
+import RecursiveListGroup from '@/components/RecursiveListGroup.vue'
 
 
 export default {

@@ -38,7 +38,7 @@
 import { mapGetters } from 'vuex'
 
 import api from '@/api'
-import LoginView from '@/views/Login'
+import LoginView from '@/views/Login.vue'
 
 
 export default {

@@ -160,7 +160,7 @@
 <script>
 import { useVuelidate } from '@vuelidate/core'
 
-import LazyRenderer from '@/components/LazyRenderer'
+import LazyRenderer from '@/components/LazyRenderer.vue'
 import { required, appRepoUrl } from '@/helpers/validators'
 
 import { randint } from '@/helpers/commons'
