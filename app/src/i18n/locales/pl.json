@@ -128,7 +128,7 @@
     "confirm_service_start": "Czy na pewno chcesz uruchomić {name}?",
     "confirm_service_restart": "Czy na pewno chcesz ponownie uruchomić {name}?",
     "confirm_restore": "Czy na pewno chcesz przywrócić {name}?",
-    "confirm_postinstall": "Masz zamiar uruchomić proces poinstalacyjny w domenie {domena}. Może to zająć kilka minut, * nie przerywaj operacji *.",
+    "confirm_postinstall": "Masz zamiar uruchomić proces poinstalacyjny w domenie {domain}. Może to zająć kilka minut, * nie przerywaj operacji *.",
     "confirm_install_custom_app": "OSTRZEŻENIE! Instalowanie aplikacji innych firm może zagrozić integralności i bezpieczeństwu systemu. Prawdopodobnie NIE powinieneś jej instalować, chyba że wiesz, co robisz. Czy jesteś gotów podjąć to ryzyko?",
     "confirm_group_add_access_permission": "Czy na pewno chcesz udzielić {perm} dostępu do: {name}? Taki dostęp znacznie zwiększa możliwość ataku, jeśli {name} jest niezaufaną osobą. Powinieneś to zrobić tylko wtedy, gdy UFASZ tej osobie / grupie.",
     "app_install_parameters": "Ustawienia instalacji",
@@ -176,11 +176,16 @@
         },
         "info": {
             "apps_on_domain": "Aplikacje zainstalowane w domenie",
-            "certificate_authority": "Urząd certyfikacji SSL"
+            "certificate_authority": "Urząd certyfikacji SSL",
+            "registrar": "Rejestrator"
         },
         "see_parent_domain": "Zobacz domenę nadrzędną",
         "types": {
             "main_domain": "Domena główna"
+        },
+        "toggle_subdomains": "Przełącz subdomeny",
+        "explain": {
+            "main_domain": "Główna domena to taka domena, z której użytkownicy mogą łączyć się z portalem (przez \"{domain}/yunohost/sso\").<br> W związku z tym nie ma możliwości jej usunięcia. <br> Jeśli chcesz usunąć \"{domain}\", najpierw musisz zmienić lub dodać nową domenę i ustawić ją jako domenę główną."
         }
     },
     "domain_add_dns_doc": "...oraz mam <a href='//yunohost.org/dns_config' target='_blank'>poprawnie skonfigurowany DNS</a>.",
@@ -364,7 +369,7 @@
     "logs_share_with_yunopaste": "Udostępnij log z YunoPaste",
     "path": "Położenie",
     "logs_system": "Logi jądra oraz pozostałe niskopoziomowe wydarzenia",
-    "pending_migrations": "Istnieją migracje oczekujące na uruchomienie. Przejdź do <a href='#/tools/migrations'>widoku migracji</a>, aby je uruchomić.",
+    "pending_migrations": "Istnieją migracje oczekujące na uruchomienie. Przejdź do <a href='#/tools/migrations'>Narzędzia > Migracje</a>, aby je uruchomić.",
     "postinstall_intro_1": "Gratulacje! YunoHost został poprawnie zainstalowany.",
     "password_confirmation": "Potwierdzenie hasła",
     "perform": "Wykonaj",
@@ -376,18 +381,20 @@
         "force": "Wymuś post-instalację",
         "title": "Postinstalacja",
         "user": {
-            "title": "Utwórz pierwsze konto administratora"
+            "title": "Utwórz pierwsze konto administratora",
+            "first_user_help": "Ten użytkownik otrzyma prawa admina i tym samym będzie w stanie połączyć się z panelem administratora, jak i połączyć się bezpośrednio z serwerem poprzez SSH.\nPonieważ jest to zwykły użytkownik, nadal będziesz mógł połączyć się z portalem użytkownika (SSO) za pomocą odpowiednich danych logowania. \nPo zakończeniu post-instalacji, będziesz mógł utworzyć inne konta administratorów dodając ich do grupy 'admins'."
         }
     },
     "restore": "Przywróć",
     "human_routes": {
         "apps": {
             "set_default": "Przekieruj '{domain}' źródło domeny do '{name}'",
-            "update_config": "Aktualizuj konfigurację dla '{name}'",
+            "update_config": "Aktualizuj konfigurację panelu '{id}' aplikacji '{name}'",
             "change_label": "Zmień etykietę '{prevName}' na '{nextName}'",
             "change_url": "Zmień adres URL dla '{name}'",
             "install": "Instaluj '{name}'",
-            "uninstall": "Usuń '{name}'"
+            "uninstall": "Usuń '{name}'",
+            "action_config": "Uruchom akcję '{action}' w konfiguracji aplikacji '{name}'"
         },
         "backups": {
             "create": "Utwórz kopię zapasową",
@@ -433,7 +440,7 @@
             "add": "Dodaj domenę '{name}'",
             "delete": "Usuń domenę '{name}'",
             "push_dns_changes": "Przekaż wpisy DNS dla '{name}' do dostawcy",
-            "update_config": "Aktualizuj konfigurację dla '{name}'",
+            "update_config": "Aktualizuj konfigurację panelu '{id}' w domenie '{name}'",
             "cert_install": "Zainstaluj certyfikat dla „{name}”",
             "cert_renew": "Odnów certyfikat dla „{name}”"
         },
@@ -573,5 +580,7 @@
     "label_for_manifestname_help": "To jest nazwa wyświetlana w portalu użytkownika. Można ją później zmienić.",
     "manage_groups": "Zarządzaj grupami",
     "tools_yunohost_settings": "Ustawienia YunoHost",
-    "wrong_password_or_username": "Błędne hasło lub nazwa użytkownika"
+    "wrong_password_or_username": "Błędne hasło lub nazwa użytkownika",
+    "group_explain_admins": "Jest to specjalna grupa użytkowników odpowiadająca administratorom. Użytkownicy należący do tej grupy mogą dostać się do portalu YunoHost webadmin, połączyć się z serwerem poprzez SSH i wykonywać polecenia `sudo`. Będą także otrzymywać maile wysłane do root@, admin@ oraz admins@, a także powiadomienia dotyczące diagnostyki. Dlatego też powinieneś do tej grupy dodawać tylko te osoby, którym ufasz w 100%!",
+    "important_yunohost_upgrade": "Dostępna jest spora aktualizacja dla YunoHost. Przed aktualizacją zaleca się uważnie przeczytać listę zmian dostępną na forum: <a href='https://forum.yunohost.org/tag/ynh_release'>Przejrzyj listę zmian na forum</a>"
 }
