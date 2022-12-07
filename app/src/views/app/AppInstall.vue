@@ -2,11 +2,18 @@
   <view-base :queries="queries" @queries-response="onQueriesResponse">
     <template v-if="app">
       <card :title="app.name" icon="download" body-class="p-0">
+
+        <template #header-buttons>
+          <b-button
+            v-if="app.demo"
+            :href="app.demo" variant="primary" target="_blank"
+          >
+            <icon iname="external-link" />
+            {{ $t('app.install.try_demo') }}
+          </b-button>
+        </template>
+
         <section class="p-3">
-          <p v-if="app.alternativeTo">
-            <strong v-t="'app.potential_alternative_to'" />
-            {{ app.alternativeTo }}
-          </p>
 
           <vue-showdown :markdown="app.description" flavor="github" />
 
@@ -16,21 +23,21 @@
             aria-hidden="true" class="d-block mb-3" fluid
           />
 
+          <p v-if="app.alternativeTo">
+            {{ $t('app.potential_alternative_to') }} {{ app.alternativeTo }}
+          </p>
           <p>
             {{ $t('app.install.version', { version: app.version }) }}<br>
             {{ $t('app.install.license', { license: app.license }) }}
           </p>
 
-          <b-button
-            v-if="app.demo"
-            :href="app.demo" variant="primary" target="_blank"
-          >
-            <icon iname="external-link" />
-            {{ $t('app.install.try_demo') }}
-          </b-button>
         </section>
 
-        <card-collapse id="app-integration" :title="$t('app.integration.title')" flush>
+        <card-collapse
+          id="app-integration"
+          :title="$t('app.integration.title')"
+          v-if="packaging_format >= 2"
+          flush>
           <b-list-group flush tag="section">
             <yuno-list-group-item variant="info">
               {{ $t('app.integration.archs') }} {{ app.integration.archs }}
@@ -96,8 +103,8 @@
         <p v-if="!app.requirements.install.pass">
           {{ $t('app.install.problems.install', app.requirements.install.values) }}
         </p>
-        <p v-if="!app.requirements.version.pass">
-          {{ $t('app.install.problems.version', app.requirements.version.values) }}
+        <p v-if="!app.requirements.required_yunohost_version.pass">
+          {{ $t('app.install.problems.version', app.requirements.required_yunohost_version.values) }}
         </p>
       </yuno-alert>
 
@@ -177,7 +184,8 @@ export default {
       validations: null,
       errors: undefined,
       serverError: '',
-      force: false
+      force: false,
+      packaging_format: undefined
     }
   },
 
@@ -267,6 +275,7 @@ export default {
       this.form = form
       this.validations = { form: validations }
       this.errors = errors
+      this.packaging_format = _app.packaging_format
     },
 
     formatAppNotifs (notifs) {

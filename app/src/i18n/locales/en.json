@@ -55,7 +55,7 @@
     "api_not_responding": "The YunoHost API is not responding. Maybe 'yunohost-api' is down or got restarted?",
     "api_waiting": "Waiting for the server's response...",
     "app": {
-      "antifeatures": "Antifeatures:",
+      "antifeatures": "This app has features you may not like:",
       "doc": {
         "about": {
           "title": "About",

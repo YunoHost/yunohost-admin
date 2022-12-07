@@ -1,7 +1,10 @@
 <template>
   <view-base :queries="queries" @queries-response="onQueriesResponse" ref="view">
     <!-- BASIC INFOS -->
-    <card v-if="infos" :title="infos.label" icon="cube">
+    <card v-if="infos" :title="app.label" icon="cube">
+      <template #header-next>
+        <small class="text-secondary">{{ app.id }}</small>
+      </template>
       <template #header-buttons>
         <b-button @click="uninstall" id="uninstall" variant="danger">
           <icon iname="trash-o" /> {{ $t('uninstall') }}
@@ -14,15 +17,6 @@
       >
         <a v-if="key === 'url'" :href="value" target="_blank">{{ value }}</a>
         <template v-else>{{ value }}</template>
-      </description-row>
-      <description-row :term="$t('app_info_access_desc')">
-        {{ allowedGroups.length > 0 ? allowedGroups.join(', ') + '.' : $t('nobody') }}
-        <b-button
-          size="sm" :to="{ name: 'group-list'}" variant="info"
-          class="ml-2"
-        >
-          <icon iname="key-modern" /> {{ $t('groups_and_permissions_manage') }}
-        </b-button>
       </description-row>
 
       <template #footer>
@@ -71,6 +65,21 @@
               </b-link>
             </template>
           </form-field>
+        </b-form-group>
+        <hr>
+
+        <!-- PERMISSIONS -->
+        <b-form-group
+          :label="$t('app_info_access_desc')" label-for="permissions"
+          label-class="font-weight-bold" label-cols-lg="0"
+        >
+          {{ allowedGroups.length > 0 ? allowedGroups.join(', ') : $t('nobody') }}
+          <b-button
+            size="sm" :to="{ name: 'group-list'}" variant="info"
+            class="ml-2"
+          >
+            <icon iname="key-modern" /> {{ $t('groups_and_permissions_manage') }}
+          </b-button>
         </b-form-group>
         <hr>
 
@@ -183,6 +192,7 @@
           <card-collapse
             id="app-integration" :title="$t('app.integration.title')"
             flush visible
+            v-if="packaging_format >= 2"
           >
             <b-list-group flush tag="section">
               <yuno-list-group-item variant="info">
@@ -262,6 +272,7 @@ export default {
         ['GET', { uri: 'domains' }],
         ['GET', `apps/${this.id}/config?full`]
       ],
+      packaging_format: undefined,
       infos: undefined,
       app: undefined,
       form: undefined,
@@ -335,12 +346,10 @@ export default {
         }
       }
 
+      this.packaging_format = app.packaging_format
       this.infos = {
-        id: this.id,
-        label: mainPermission.label,
         description: app.description,
-        version: app.version,
-        install_time: readableDate(app.settings.install_time, true, true)
+        version: app.version
       }
       if (app.settings.domain && app.settings.path) {
         this.infos.url = 'https://' + app.settings.domain + app.settings.path
@@ -352,6 +361,8 @@ export default {
 
       this.form = form
       this.app = {
+        id: this.id,
+        label: mainPermission.label,
         domain: app.settings.domain,
         is_webapp: app.is_webapp,
         is_default: app.is_default,
@@ -380,7 +391,8 @@ export default {
           alternativeTo: app.from_catalog.potential_alternative_to.length
             ? app.from_catalog.potential_alternative_to.join(this.$i18n.t('words.separator'))
             : null,
-          description: formatI18nField(DESCRIPTION),
+          install_time: readableDate(app.settings.install_time, true, true),
+          description: DESCRIPTION ? formatI18nField(DESCRIPTION) : app.description,
           license: app.manifest.upstream.license,
           integration: {
             archs: Array.isArray(archs) ? archs.join(this.$i18n.t('words.separator')) : archs,
