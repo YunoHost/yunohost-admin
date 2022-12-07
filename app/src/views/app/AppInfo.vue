@@ -185,6 +185,7 @@
             <vue-showdown :markdown="doc.about.description" flavor="github" />
 
             <p>
+              {{ $t('install_time') }} : {{ doc.about.install_time }}<br/>
               {{ $t('app.install.license', { license: doc.about.license }) }}
             </p>
           </section>
