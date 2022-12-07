@@ -1,1 +1,21 @@
-{}
+{
+    "action": "Ação",
+    "add": "Adicionar",
+    "address": {
+        "domain_description": {
+            "domain": "Escolha um domínio.",
+            "email": "Escolha um domínio para seu e-mail."
+        },
+        "local_part_description": {
+            "domain": "Escolha um subdomínio.",
+            "email": "Escolha a parte local para seu e-mail."
+        }
+    },
+    "administration_password": "Senha de administração",
+    "all": "Todos",
+    "api": {
+        "partial_logs": "[...] (confira no histórico para logs completos)",
+        "processing": "O servidor está processando a ação..."
+    },
+    "all_apps": "Todas as aplicações"
+}
