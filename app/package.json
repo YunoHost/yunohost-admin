@@ -29,20 +29,13 @@
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.19.1",
-    "@vue/cli-plugin-babel": "^5.0.8",
-    "@vue/cli-plugin-eslint": "^5.0.8",
-    "@vue/cli-plugin-router": "^5.0.8",
-    "@vue/cli-plugin-vuex": "^5.0.8",
-    "@vue/cli-service": "^5.0.8",
+    "@vitejs/plugin-vue": "^3.2.0",
     "@vue/compiler-sfc": "^3.2.45",
     "eslint": "^8.28.0",
     "eslint-plugin-vue": "^9.8.0",
     "sass": "^1.56.1",
-    "sass-loader": "^13.2.0",
-    "sass-resources-loader": "^2.2.5",
     "standard": "^17.0.0",
-    "vue-cli-plugin-bootstrap-vue": "^0.8.2",
-    "vue-cli-plugin-i18n": "^2.3.1"
+    "vite": "^3.2.5"
   },
   "eslintConfig": {
     "root": true,
