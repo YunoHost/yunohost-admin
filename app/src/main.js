@@ -45,12 +45,12 @@ app.config.globalProperties.$askConfirmation = function (message, props) {
 
 
 // Register global components
-const requireComponent = require.context('@/components/globals', true, /\.(js|vue)$/i)
-// For each matching file name...
-requireComponent.keys().forEach((fileName) => {
-  // Get the component
-  const component = requireComponent(fileName).default
-  // Globally register the component
+const globalComponentsModules = import.meta.glob([
+  '@/components/globals/*.vue',
+  '@/components/globals/*/*.vue',
+], { eager: true })
+Object.values(globalComponentsModules).forEach((module) => {
+  const component = module.default
   app.component(component.name, component)
 })
 
