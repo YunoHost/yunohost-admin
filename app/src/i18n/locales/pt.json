@@ -291,15 +291,27 @@
             "pending": "Em progresso",
             "error": "Falhou"
         },
-        "processing": "O servidor está processando a ação..."
+        "processing": "O servidor está processando a ação...",
+        "partial_logs": "[...] (verifique no histórico para logs completos)",
+        "reconnecting": {
+            "failed": "Parece que o servidor não está respondendo. Você pode tentar se reconectar novamente ou tentar executar `systemctl restart yunohost-api` através do ssh.",
+            "success": "O servidor agora está acessível! Você pode tentar fazer o login",
+            "reason": {
+                "upgrade_system": "A conexão com o servidor foi encerrada devido à atualização do YunoHost. Esperando que o servidor esteja acessível novamente…",
+                "reboot": "Seu servidor está reiniciando e não estará acessível por algum tempo. Um prompt de login estará disponível assim que o servidor estiver acessível.",
+                "shutdown": "Seu servidor está sendo desligado e não está mais acessível. Ligue-o novamente e um prompt de login estará disponível assim que o servidor estiver acessível.",
+                "unknown": "A conexão com o servidor foi encerrada por motivos desconhecidos."
+            },
+            "title": "Tentando se comunicar com o servidor..."
+        }
     },
     "address": {
         "local_part_description": {
-            "email": "Escolha a parte local para seu email.",
+            "email": "Escolha a parte local para seu e-mail.",
             "domain": "Escolha um subdomínio."
         },
         "domain_description": {
-            "email": "Escolha um domínio para seu email.",
+            "email": "Escolha um domínio para seu e-mail.",
             "domain": "Escolha um domínio."
         }
     },
@@ -473,5 +485,29 @@
     "license": "Licença",
     "last_ran": "Última vez executado:",
     "good_practices_about_user_password": "Você está a ponto de definir uma nova senha de usuário. A senha deve ter ao menos 8 caracteres - embora seja uma boa prática usar senhas maiores (i.e. uma frase como senha) e/ou usar vários tipos de caracteres (maiúsculo, minúsculo, dígitos e caracteres especiais).",
-    "good_practices_about_admin_password": "Você está a ponto de definir uma nova senha de administrador. A senha deve ter ao menos 8 caracteres - embora seja uma boa prática usar senhas maiores (i.e. uma frase como senha) e/ou usar vários tipos de caracteres (maiúsculo, minúsculo, dígitos e caracteres especiais)."
+    "good_practices_about_admin_password": "Você está a ponto de definir uma nova senha de administrador. A senha deve ter ao menos 8 caracteres - embora seja uma boa prática usar senhas maiores (i.e. uma frase como senha) e/ou usar vários tipos de caracteres (maiúsculo, minúsculo, dígitos e caracteres especiais).",
+    "domain": {
+        "dns": {
+            "auto_config_zone": "Zona DNS atual",
+            "auto_config": "Configuração automática de registros DNS",
+            "auto_config_ignored": "ignorada, não será alterado pelo YunoHost a menos que você marque a opção de sobrescrever",
+            "auto_config_ok": "A configuração automática parece estar OK!"
+        },
+        "cert": {
+            "types": {
+                "selfsigned": "autoassinado",
+                "letsencrypt": "Let's Encrypt",
+                "other": "Outro/Desconhecido"
+            },
+            "valid_for": "válido por {days}"
+        },
+        "config": {
+            "edit": "Edita a configuração de domínio",
+            "title": "Configuração do domínio"
+        }
+    },
+    "app_state_broken": "quebrada",
+    "app_state_broken_explanation": "Esta aplicação está quebrada e não pode ser instalada de acordo com os testes automáticos do YunoHost",
+    "confirm_install_app_broken": "CUIDADO! Esta aplicação está quebrada de acordo com os testes automáticos do YunoHost e é provável que quebre seu sistema! Você provavelmente NÃO deve instalá-la, a menos que saiba o que está fazendo. Você está disposto a correr esse risco?",
+    "details_about": "Mostrar ais detalhes sobre {subject}"
 }
