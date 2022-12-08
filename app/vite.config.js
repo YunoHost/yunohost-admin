@@ -8,23 +8,7 @@ export default defineConfig(({ command, mode }) => {
   // Set the third parameter to '' to load all env regardless of the `VITE_` prefix.
   const env = loadEnv(mode, process.cwd())
 
-  return {
-    server: {
-      port: 8080,
-      host: env.VITE_IP,
-      https: {
-        key: fs.readFileSync('/etc/yunohost/certs/yunohost.org/key.pem'),
-        cert: fs.readFileSync('/etc/yunohost/certs/yunohost.org/crt.pem'),
-      },
-      proxy: {
-        '/yunohost': {
-          target: `https://${env.VITE_IP}`,
-          ws: true,
-          logLevel: 'info',
-          secure: false,
-        },
-      },
-    },
+  const config = {
     define: {
       'process.env': {}
     },
@@ -56,5 +40,32 @@ export default defineConfig(({ command, mode }) => {
         }
       })
     ],
+  }
+
+  if (mode === 'production') {
+    return {
+      ...config,
+      base: '/yunohost/admin',
+    }
+  } else if (mode === 'development') {
+    return {
+      ...config,
+      server: {
+        port: 8080,
+        host: env.VITE_IP,
+        https: {
+          key: fs.readFileSync('/etc/yunohost/certs/yunohost.org/key.pem'),
+          cert: fs.readFileSync('/etc/yunohost/certs/yunohost.org/crt.pem'),
+        },
+        proxy: {
+          '/yunohost': {
+            target: `https://${env.VITE_IP}`,
+            ws: true,
+            logLevel: 'info',
+            secure: false,
+          },
+        },
+      }
+    }
   }
 })
