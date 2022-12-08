@@ -114,7 +114,7 @@
     "delete": "Odstrániť",
     "description": "Popis",
     "details": "Podrobnosti",
-    "domain_dns_conf_is_just_a_recommendation": "Táto stránka zobrazuje *odporúčané* nastavenia. *Nenastavuje* DNS za Vás. Nastavenie DNS je potrebné urobiť u správcu Vašej DNS zóny podľa týchto odporúčaní.",
+    "domain_dns_conf_is_just_a_recommendation": "Táto sekcia zobrazuje *odporúčané* nastavenia. *Nenastavuje* DNS za Vás. Nastavenie DNS je potrebné urobiť u správcu Vašej DNS zóny podľa týchto odporúčaní.",
     "diagnosis": "Diagnostika",
     "app_config_panel": "Konfiguračný panel",
     "app_config_panel_label": "Nastaviť túto aplikáciu",
@@ -151,8 +151,32 @@
             "push": "Odoslať DNS záznamy registrátorovi",
             "push_force": "Prepísať aktuálne záznamy",
             "push_force_warning": "Vyzerá, že niektoré DNS záznamy, ktoré by nastavil YunoHost sa už nachádzajú v konfigurácii registrátora. Môžete si vybrať ich prepísania, ak viete, čo robíte.",
-            "push_force_confirm": "Naozaj chcete vynútiť odoslanie navrhovaných DNS záznamov? Dovoľujeme si Vás upozorniť, že môže dôjsť k prepísaniu manuálne pridaných alebo dôležitých záznamov, ktoré nastavil Váš registrátor."
-        }
+            "push_force_confirm": "Naozaj chcete vynútiť odoslanie navrhovaných DNS záznamov? Dovoľujeme si Vás upozorniť, že môže dôjsť k prepísaniu manuálne pridaných alebo dôležitých záznamov, ktoré nastavil Váš registrátor.",
+            "methods": {
+                "auto": "Automatický",
+                "handled_in_parent": "Spravované v nadriadenej doméne",
+                "manual": "Ručný",
+                "none": "Žiadny",
+                "semi_auto": "Poloautomaticky"
+            }
+        },
+        "cert": {
+            "types": {
+                "letsencrypt": "Let's Encrypt",
+                "other": "Iné/Neznáme"
+            },
+            "valid_for": "platný počas {days}"
+        },
+        "info": {
+            "apps_on_domain": "Aplikácie nainštalované v doméne",
+            "certificate_authority": "Certifikačná autorita SSL",
+            "registrar": "Registrátor"
+        },
+        "see_parent_domain": "Viď nadradená doména",
+        "types": {
+            "main_domain": "Hlavná doména"
+        },
+        "toggle_subdomains": "Prepnúť subdomény"
     },
     "domain_add": "Pridať doménu",
     "domain_add_dns_doc": "...vykonaná <a href='//yunohost.org/dns_config' target='_blank'>konfigurácia DNS</a>.",
@@ -221,7 +245,7 @@
     "group_add_permission": "Pridať oprávnenie",
     "group_new": "Nová skupina",
     "group_explain_visitors": "Toto je špeciálna skupina obsahujúca neprihlásených (anonymných) používateľov",
-    "group_specific_permissions": "Oprávnenia pre konkrétnych používateľov",
+    "group_specific_permissions": "Oprávnenia pre jednotlivých používateľov",
     "go_back": "Prejsť naspäť",
     "good_practices_about_admin_password": "Teraz nastavujete nové heslo pre administráciu. Heslo by malo obsahovať aspoň 8 znakov, odporúča sa však použiť dlhšie (napr. v tvare niekoľkých slov) a použiť v ňom viacero znakov (veľké, malé, čísla a špeciálne znaky).",
     "good_practices_about_user_password": "Teraz nastavujete nové heslo pre používateľa. Heslo by malo obsahovať aspoň 8 znakov, odporúča sa však použiť dlhšie (napr. v tvare niekoľkých slov) a použiť v ňom viacero znakov (veľké, malé, čísla a špeciálne znaky).",
@@ -382,7 +406,9 @@
             "delete": "Odstrániť doménu '{name}'",
             "push_dns_changes": "Odoslať DNS pre '{name}' správcovi domény",
             "set_default": "Nastaviť '{name}' ako predvolenú doménu",
-            "update_config": "Aktualizovať nastavenie '{name}'"
+            "update_config": "Aktualizovať nastavenie '{name}'",
+            "cert_install": "Nainštalovať certifikáte pre '{name}'",
+            "cert_renew": "Obnoviť certifikát pre '{name}'"
         },
         "firewall": {
             "upnp": "{action} UPnP",
@@ -527,5 +553,10 @@
     "users_import_csv_file_desc": "Súbor CSV by mal byť v kódovaní UTF-8 s nasledovnými názvami stĺpcov: meno používateľa, heslo, skupiny, e-mailová adresa a kvóta. Ak chcete príklad takého CSV súboru, môžete <a href='/yunohost/api/users/export' target='_BLANK'>exportovať Vašich používateľov do súboru CSV</a> a následne tento súbor upraviť.",
     "users_import_update_desc": "Ak zaškrtnete, pre všetkých už existujúcich používateľov nachádzajúcich sa v súbore CSV sa použije nová hodnota",
     "users_import_confirm_destructive": "Naozaj chcete odstrániť používateľov, ktorí sa v tomto súbor nenachádzajú?",
-    "purge_user_data_warning": "Odstránenie dát používateľa sa nedá vrátiť. Buďte si vedomý toho, čo robíte!"
+    "purge_user_data_warning": "Odstránenie dát používateľa sa nedá vrátiť. Buďte si vedomý toho, čo robíte!",
+    "app_state_broken": "pokazené",
+    "app_state_broken_explanation": "Táto aplikácie je aktuálne pokazená a podľa automatizovaných testov YunoHostu ju nie je možné nainštalovať",
+    "confirm_install_app_broken": "VAROVANIE! Táto aplikácia je na základe automatizovaných testov YunoHostu pokazená a môže poškodiť váš systém! Pravdepodobne by ste ju NEMALI inštalovať, ak neviete, čo presne to môže spôsobiť. Ste ochotný podstúpiť toto riziko?",
+    "details_about": "Zobraziť viac podrobností o {subject}",
+    "group_admins": "Správcovia"
 }
