@@ -1,71 +1,83 @@
 <template>
   <view-base :queries="queries" @queries-response="onQueriesResponse">
     <template v-if="app">
-      <card :title="app.name" icon="download" body-class="p-0">
 
-        <template #header-buttons>
-          <b-button
-            v-if="app.demo"
-            :href="app.demo" variant="primary" target="_blank"
-          >
-            <icon iname="external-link" />
-            {{ $t('app.install.try_demo') }}
-          </b-button>
+      <h1>
+        {{ app.name}}
+
+        <b-button
+          class="ml-3 float-right"
+          v-if="app.demo"
+          :href="app.demo" variant="primary" target="_blank"
+        >
+          <icon iname="external-link" />
+          {{ $t('app.install.try_demo') }}
+        </b-button>
+      </h1>
+
+      <section>
+        <p class="text-secondary small mb-0">
+          {{ $t('app.install.version', { version: app.version }) }}<br>
+        </p>
+        <p class="text-secondary small mb-0" v-if="app.alternativeTo">
+          {{ $t('app.potential_alternative_to') }} {{ app.alternativeTo }}
+        </p>
+
+        <vue-showdown class="mt-3" :markdown="app.description" flavor="github" />
+
+        <b-img
+          v-if="app.screenshot"
+          :src="app.screenshot"
+          aria-hidden="true" class="d-block mb-3" fluid
+        />
+      </section>
+
+      <card
+        id="app-integration"
+        collapsable :collapsed="1"
+        no-body button-unbreak="lg"
+        v-if="packaging_format >= 2"
+      >
+        <template #header>
+          <h2>{{ $t('app.integration.title') }}</h2>
         </template>
 
-        <section class="p-3">
+        <b-list-group flush tag="section">
+          <yuno-list-group-item variant="info">
+            {{ $t('app.integration.archs') }} {{ app.integration.archs }}
+          </yuno-list-group-item>
+          <yuno-list-group-item v-if="app.integration.ldap" :variant="app.integration.ldap === true ? 'success' : 'warning'">
+            {{ $t(`app.integration.ldap.${app.integration.ldap}`) }}
+          </yuno-list-group-item>
+          <yuno-list-group-item v-if="app.integration.sso" :variant="app.integration.sso === true ? 'success' : 'warning'">
+            {{ $t(`app.integration.sso.${app.integration.sso}`) }}
+          </yuno-list-group-item>
+          <yuno-list-group-item variant="info">
+            {{ $t(`app.integration.multi_instance.${app.integration.multi_instance}`) }}
+          </yuno-list-group-item>
+          <yuno-list-group-item variant="info">
+            {{ $t('app.integration.resources', app.integration.resources) }}
+          </yuno-list-group-item>
+        </b-list-group>
+      </card>
 
-          <vue-showdown :markdown="app.description" flavor="github" />
+      <card
+        id="app-links"
+        collapsable :collapsed="1"
+        no-body button-unbreak="lg"
+      >
+        <template #header>
+          <h2><icon iname="link" /> {{ $t('app.links.title') }}</h2>
+        </template>
 
-          <b-img
-            v-if="app.screenshot"
-            :src="app.screenshot"
-            aria-hidden="true" class="d-block mb-3" fluid
-          />
-
-          <p v-if="app.alternativeTo">
-            {{ $t('app.potential_alternative_to') }} {{ app.alternativeTo }}
-          </p>
-          <p>
-            {{ $t('app.install.version', { version: app.version }) }}<br>
-            {{ $t('app.install.license', { license: app.license }) }}
-          </p>
-
-        </section>
-
-        <card-collapse
-          id="app-integration"
-          :title="$t('app.integration.title')"
-          v-if="packaging_format >= 2"
-          flush>
-          <b-list-group flush tag="section">
-            <yuno-list-group-item variant="info">
-              {{ $t('app.integration.archs') }} {{ app.integration.archs }}
-            </yuno-list-group-item>
-            <yuno-list-group-item v-if="app.integration.ldap" :variant="app.integration.ldap === true ? 'success' : 'warning'">
-              {{ $t(`app.integration.ldap.${app.integration.ldap}`) }}
-            </yuno-list-group-item>
-            <yuno-list-group-item v-if="app.integration.sso" :variant="app.integration.sso === true ? 'success' : 'warning'">
-              {{ $t(`app.integration.sso.${app.integration.sso}`) }}
-            </yuno-list-group-item>
-            <yuno-list-group-item variant="info">
-              {{ $t(`app.integration.multi_instance.${app.integration.multi_instance}`) }}
-            </yuno-list-group-item>
-            <yuno-list-group-item variant="info">
-              {{ $t('app.integration.resources', app.integration.resources) }}
-            </yuno-list-group-item>
-          </b-list-group>
-        </card-collapse>
-
-        <card-collapse id="app-links" :title="$t('app.links.title')" flush>
-          <b-list-group flush tag="section">
-            <yuno-list-group-item v-for="[key, link] in app.links" :key="key" no-status>
-              <b-link :href="link" target="_blank">
-                {{ $t('app.links.' + key) }}
-              </b-link>
-            </yuno-list-group-item>
-          </b-list-group>
-        </card-collapse>
+        <b-list-group flush tag="section">
+          <yuno-list-group-item v-for="[key, link] in app.links" :key="key" no-status>
+            <b-link :href="link" target="_blank">
+              <icon :iname="appLinksIcons(key)" />
+              {{ $t('app.links.' + key) }}
+            </b-link>
+          </yuno-list-group-item>
+        </b-list-group>
       </card>
 
       <yuno-alert v-if="app.hasWarning" variant="warning" class="my-4">
@@ -194,6 +206,18 @@ export default {
   },
 
   methods: {
+    appLinksIcons (link_type) {
+        const links_icons = {
+          license: "institution",
+          website: "globe",
+          admindoc: "book",
+          userdoc: "book",
+          code: "code",
+          package: "code",
+          forum: "comments"
+        }
+        return links_icons[link_type]
+    },
     onQueriesResponse (catalog, _app) {
       const antifeaturesList = Object.fromEntries(catalog.antifeatures.map((af) => ([af.id, af])))
 
@@ -222,6 +246,7 @@ export default {
         // ram support is non-blocking requirement and handled on its own.
         return key === 'ram' || requirements[key].pass
       })
+
       const app = {
         id,
         name,
@@ -241,6 +266,7 @@ export default {
           resources: { ram: _app.integration.ram.runtime, disk: _app.integration.disk }
         },
         links: [
+          ['license', `https://spdx.org/licenses/${_app.upstream.license}`],
           ...['website', 'admindoc', 'userdoc', 'code'].map((key) => ([key, _app.upstream[key]])),
           ['package', _app.remote.url],
           ['forum', `https://forum.yunohost.org/tag/${id}`]
@@ -326,5 +352,9 @@ export default {
   li {
     list-style: none;
   }
+}
+
+.float-right {
+  float: right;
 }
 </style>
