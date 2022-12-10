@@ -1,4 +1,4 @@
-import { createApp } from 'vue'
+import Vue, { createApp } from 'vue'
 import App from './App.vue'
 import BootstrapVue from 'bootstrap-vue'
 import VueShowdown from 'vue-showdown'
@@ -18,7 +18,7 @@ app.use(router)
 app.use(i18n)
 
 // Styles are imported in `src/App.vue` <style>
-app.use(BootstrapVue, {
+Vue.use(BootstrapVue, {
   BSkeleton: { animation: 'none' },
   BAlert: { show: true },
   BBadge: { pill: true }
