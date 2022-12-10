@@ -141,7 +141,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-::v-deep .dropdown-menu {
+:deep(.dropdown-menu) {
   max-height: 300px;
   overflow-y: auto;
   padding-top: 0;

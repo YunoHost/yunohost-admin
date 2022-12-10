@@ -68,23 +68,21 @@ export default {
     margin: 0 15%;
   }
 
-  ::v-deep {
-    .card-body {
-      padding: 1.5rem;
-      padding-bottom: 0;
-      max-height: 60vh;
-      overflow-y: auto;
+  :deep(.card-body) {
+    padding: 1.5rem;
+    padding-bottom: 0;
+    max-height: 60vh;
+    overflow-y: auto;
 
-      & > :last-child {
-        margin-bottom: 1.5rem;
-      }
+    & > :last-child {
+      margin-bottom: 1.5rem;
     }
+  }
 
-    .card-footer {
-      padding: .5rem .75rem;
-      display: flex;
-      justify-content: flex-end;
-    }
+  :deep(.card-footer) {
+    padding: .5rem .75rem;
+    display: flex;
+    justify-content: flex-end;
   }
 
   .card-header {

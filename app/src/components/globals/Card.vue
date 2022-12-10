@@ -70,7 +70,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.card-header {
+:deep(.card-header) {
   display: flex;
 
   .custom-header {
@@ -84,7 +84,7 @@ export default {
   }
 }
 
-.card-footer {
+:deep(.card-footer) {
   display: flex;
   justify-content: flex-end;
   align-items: center;
