@@ -35,7 +35,7 @@
     },
     "api_error": {
         "error_message": "Chybová hláška:",
-        "info": "Nasledujúce informácie môžu byť užitočné pre človeka, ktorý sa Vám snaží pomôcť:",
+        "info": "Nasledujúce informácie môžu byť užitočné pre človeka, ktorý vám bude pomáhať:",
         "server_said": "Počas spracovávania server odpovedal:",
         "sorry": "Naozaj nás to mrzí.",
         "view_error": "Zobraziť chybu",
