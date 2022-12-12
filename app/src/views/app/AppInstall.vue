@@ -1,48 +1,45 @@
 <template>
   <view-base :queries="queries" @queries-response="onQueriesResponse">
     <template v-if="app">
+      <section class="mb-5">
+        <div class="d-md-flex align-items-center mb-4">
+          <h1 class="mb-3 mb-md-0">
+            {{ app.name }}
+          </h1>
 
-      <h1>
-        {{ app.name}}
+          <b-button
+            v-if="app.demo"
+            :href="app.demo" target="_blank"
+            variant="primary" class="ml-auto"
+          >
+            <icon iname="external-link" />
+            {{ $t('app.install.try_demo') }}
+          </b-button>
+        </div>
 
-        <b-button
-          class="ml-3 float-right"
-          v-if="app.demo"
-          :href="app.demo" variant="primary" target="_blank"
-        >
-          <icon iname="external-link" />
-          {{ $t('app.install.try_demo') }}
-        </b-button>
-      </h1>
-
-      <section>
-        <p class="text-secondary small mb-0">
+        <p class="text-secondary">
           {{ $t('app.install.version', { version: app.version }) }}<br>
-        </p>
-        <p class="text-secondary small mb-0" v-if="app.alternativeTo">
-          {{ $t('app.potential_alternative_to') }} {{ app.alternativeTo }}
+
+          <template v-if="app.alternativeTo">
+            {{ $t('app.potential_alternative_to') }} {{ app.alternativeTo }}
+          </template>
         </p>
 
-        <vue-showdown class="mt-3" :markdown="app.description" flavor="github" />
+        <vue-showdown :markdown="app.description" flavor="github" />
 
         <b-img
           v-if="app.screenshot"
           :src="app.screenshot"
-          aria-hidden="true" class="d-block mb-3" fluid
+          aria-hidden="true" class="d-block" fluid
         />
       </section>
 
       <card
-        id="app-integration"
-        collapsable :collapsed="1"
-        no-body button-unbreak="lg"
-        v-if="packaging_format >= 2"
+        v-if="app.integration"
+        id="app-integration" :title="$t('app.integration.title')"
+        collapsable collapsed no-body
       >
-        <template #header>
-          <h2>{{ $t('app.integration.title') }}</h2>
-        </template>
-
-        <b-list-group flush tag="section">
+        <b-list-group flush>
           <yuno-list-group-item variant="info">
             {{ $t('app.integration.archs') }} {{ app.integration.archs }}
           </yuno-list-group-item>
@@ -62,15 +59,14 @@
       </card>
 
       <card
-        id="app-links"
-        collapsable :collapsed="1"
-        no-body button-unbreak="lg"
+        id="app-links" icon="link" :title="$t('app.links.title')"
+        collapsable collapsed no-body
       >
         <template #header>
           <h2><icon iname="link" /> {{ $t('app.links.title') }}</h2>
         </template>
 
-        <b-list-group flush tag="section">
+        <b-list-group flush>
           <yuno-list-group-item v-for="[key, link] in app.links" :key="key" no-status>
             <b-link :href="link" target="_blank">
               <icon :iname="appLinksIcons(key)" />
@@ -196,8 +192,7 @@ export default {
       validations: null,
       errors: undefined,
       serverError: '',
-      force: false,
-      packaging_format: undefined
+      force: false
     }
   },
 
@@ -206,23 +201,24 @@ export default {
   },
 
   methods: {
-    appLinksIcons (link_type) {
-        const links_icons = {
-          license: "institution",
-          website: "globe",
-          admindoc: "book",
-          userdoc: "book",
-          code: "code",
-          package: "code",
-          forum: "comments"
-        }
-        return links_icons[link_type]
+    appLinksIcons (linkType) {
+      const linksIcons = {
+        license: 'institution',
+        website: 'globe',
+        admindoc: 'book',
+        userdoc: 'book',
+        code: 'code',
+        package: 'code',
+        forum: 'comments'
+      }
+      return linksIcons[linkType]
     },
+
     onQueriesResponse (catalog, _app) {
       const antifeaturesList = Object.fromEntries(catalog.antifeatures.map((af) => ([af.id, af])))
 
       const { id, name, version, requirements } = _app
-      const _archs = _app.integration.architectures
+      const { ldap, sso, multi_instance, ram, disk, architectures: archs } = _app.integration
 
       const quality = { state: _app.quality.state, variant: 'danger' }
       if (quality.state === 'working') {
@@ -258,13 +254,13 @@ export default {
         demo: _app.upstream.demo,
         version,
         license: _app.upstream.license,
-        integration: {
-          archs: Array.isArray(_archs) ? _archs.join(this.$i18n.t('words.separator')) : _archs,
-          ldap: _app.integration.ldap === 'not_relevant' ? null : _app.integration.ldap,
-          sso: _app.integration.sso === 'not_relevant' ? null : _app.integration.sso,
-          multi_instance: _app.integration.multi_instance,
-          resources: { ram: _app.integration.ram.runtime, disk: _app.integration.disk }
-        },
+        integration: _app.packaging_format >= 2 ? {
+          archs: Array.isArray(archs) ? archs.join(this.$i18n.t('words.separator')) : archs,
+          ldap: ldap === 'not_relevant' ? null : ldap,
+          sso: sso === 'not_relevant' ? null : sso,
+          multi_instance,
+          resources: { ram: ram.runtime, disk }
+        } : null,
         links: [
           ['license', `https://spdx.org/licenses/${_app.upstream.license}`],
           ...['website', 'admindoc', 'userdoc', 'code'].map((key) => ([key, _app.upstream[key]])),
@@ -301,7 +297,6 @@ export default {
       this.form = form
       this.validations = { form: validations }
       this.errors = errors
-      this.packaging_format = _app.packaging_format
     },
 
     formatAppNotifs (notifs) {
@@ -352,9 +347,5 @@ export default {
   li {
     list-style: none;
   }
-}
-
-.float-right {
-  float: right;
 }
 </style>

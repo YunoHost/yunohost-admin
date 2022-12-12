@@ -1,48 +1,52 @@
 <template>
   <view-base :queries="queries" @queries-response="onQueriesResponse" ref="view">
+    <section v-if="app" class="mb-5">
+      <div class="d-md-flex align-items-center mb-4">
+        <h1 class="mb-3 mb-md-0">
+          <icon iname="cube" />
+          {{ app.label }}
 
-    <template v-if="app">
-    <h1>
-      <icon iname="cube" />
-      {{ app.label }}
+          <span class="text-secondary tiny">
+            {{ app.id }}
+          </span>
+        </h1>
 
-      <span class="text-secondary tiny">
-          {{ app.id }}
-      </span>
+        <b-button
+          v-if="app.url"
+          :href="app.url" target="_blank"
+          variant="success" class="ml-auto mr-2"
+        >
+          <icon iname="external-link" />
+          {{ $t('app.open_this_app') }}
+        </b-button>
 
-      <b-button
-        class="mx-3"
-        v-if="app.url"
-        size="xs"
-        :href="app.url" variant="success" target="_blank"
-      >
-        <icon iname="external-link" />
-        {{ $t('app.open_this_app') }}
-      </b-button>
+        <b-button
+          @click="uninstall"
+          id="uninstall"
+          variant="danger"
+        >
+          <icon iname="trash-o" />
+          {{ $t('uninstall') }}
+        </b-button>
+      </div>
 
-      <b-button
-        class="float-right"
-        @click="uninstall"
-        id="uninstall"
-        variant="danger"
-      >
-        <icon iname="trash-o" /> {{ $t('uninstall') }}
-      </b-button>
-    </h1>
+      <p class="text-secondary">
+        {{ $t('app.installed_version', { version: app.version }) }}<br>
 
-    <section>
-      <p>
-        <span class="text-secondary">{{ $t('app.installed_version', { version: app.version }) }}</span><br/>
-        <icon iname="comments" /> {{ $t('app.info.problem') }}
-        <a :href="`https://forum.yunohost.org/tag/${id}`" target="_blank"
-            >{{ $t('app.info.forum') }}
-        </a>
-        {{ app.alternativeTo }}
+        <template v-if="app.alternativeTo">
+          {{ $t('app.potential_alternative_to') }} {{ app.alternativeTo }}
+        </template>
       </p>
 
-      <vue-showdown :markdown="doc.about.description" flavor="github" />
+      <p>
+        <icon iname="comments" /> {{ $t('app.info.problem') }}
+        <a :href="`https://forum.yunohost.org/tag/${id}`" target="_blank">
+          {{ $t('app.info.forum') }}
+        </a>
+      </p>
+
+      <vue-showdown :markdown="app.description" flavor="github" />
     </section>
-    </template>
 
     <!-- BASIC INFOS -->
     <config-panels v-bind="config" @submit="onConfigSubmit">
@@ -152,14 +156,14 @@
       </template>
     </config-panels>
 
-    <b-card v-if="doc" no-body>
+    <b-card v-if="app && (app.doc.notifications || app.doc.admin)" no-body>
       <b-tabs card fill pills>
-        <b-tab :title="$t('app.doc.notifications.title')" active>
-          <section v-if="doc.notifications.postUpgrade.length">
+        <b-tab v-if="app.doc.notifications" :title="$t('app.doc.notifications.title')" active>
+          <section v-if="app.doc.notifications.postUpgrade.length">
             <b-card-title title-tag="h3" v-t="'app.doc.notifications.post_upgrade'" />
 
             <div
-              v-for="[name, notif] in doc.notifications.postUpgrade" :key="name"
+              v-for="[name, notif] in app.doc.notifications.postUpgrade" :key="name"
             >
               <b-card-title v-if="name !== 'main'">
                 {{ name }}
@@ -168,13 +172,13 @@
             </div>
           </section>
 
-          <section v-if="doc.notifications.postInstall.length">
+          <section v-if="app.doc.notifications.postInstall.length">
             <b-card-title title-tag="h3">
               {{ $t('app.doc.notifications.post_install') }}
             </b-card-title>
 
             <div
-              v-for="[name, notif] in doc.notifications.postInstall" :key="name"
+              v-for="[name, notif] in app.doc.notifications.postInstall" :key="name"
             >
               <b-card-title tag="h5" v-if="name !== 'main'">
                 {{ name }}
@@ -184,55 +188,43 @@
           </section>
         </b-tab>
 
-        <b-tab :title="$t('app.doc.admin.title')" no-body>
-          {{ doc.admin.links }}
-          <vue-showdown :markdown="doc.admin.content" flavor="github" />
-
+        <b-tab :title="$t('app.doc.admin.title')">
+          <vue-showdown :markdown="app.doc.admin" flavor="github" />
         </b-tab>
       </b-tabs>
     </b-card>
 
     <card
-      id="app-integration"
-      collapsable :collapsed="1"
-      flush visible
-      v-if="packaging_format >= 2 && doc"
+      v-if="app && app.integration"
+      id="app-integration" :title="$t('app.integration.title')"
+      collapsable collapsed no-body
     >
-      <template #header>
-        <h2>{{ $t('app.integration.title') }}</h2>
-      </template>
-
-      <b-list-group flush tag="section">
+      <b-list-group flush>
         <yuno-list-group-item variant="info">
-          {{ $t('app.integration.archs') }} {{ doc.about.integration.archs }}
+          {{ $t('app.integration.archs') }} {{ app.integration.archs }}
         </yuno-list-group-item>
-        <yuno-list-group-item v-if="doc.about.integration.ldap" :variant="doc.about.integration.ldap === true ? 'success' : 'warning'">
-          {{ $t(`app.integration.ldap.${doc.about.integration.ldap}`) }}
+        <yuno-list-group-item v-if="app.integration.ldap" :variant="app.integration.ldap === true ? 'success' : 'warning'">
+          {{ $t(`app.integration.ldap.${app.integration.ldap}`) }}
         </yuno-list-group-item>
-        <yuno-list-group-item v-if="doc.about.integration.sso" :variant="doc.about.integration.sso === true ? 'success' : 'warning'">
-          {{ $t(`app.integration.sso.${doc.about.integration.sso}`) }}
+        <yuno-list-group-item v-if="app.integration.sso" :variant="app.integration.sso === true ? 'success' : 'warning'">
+          {{ $t(`app.integration.sso.${app.integration.sso}`) }}
         </yuno-list-group-item>
         <yuno-list-group-item variant="info">
-          {{ $t(`app.integration.multi_instance.${doc.about.integration.multi_instance}`) }}
+          {{ $t(`app.integration.multi_instance.${app.integration.multi_instance}`) }}
         </yuno-list-group-item>
         <yuno-list-group-item variant="info">
-          {{ $t('app.integration.resources', doc.about.integration.resources) }}
+          {{ $t('app.integration.resources', app.integration.resources) }}
         </yuno-list-group-item>
       </b-list-group>
     </card>
 
     <card
-      id="app-links"
-      collapsable :collapsed="1"
-      no-body button-unbreak="lg"
-      flush visible
-      v-if="doc"
+      v-if="app"
+      id="app-links" icon="link" :title="$t('app.links.title')"
+      collapsable collapsed no-body
     >
-      <template #header>
-        <h2><icon iname="link" /> {{ $t('app.links.title') }}</h2>
-      </template>
-      <b-list-group flush tag="section">
-        <yuno-list-group-item v-for="[key, link] in doc.about.links" :key="key" no-status>
+      <b-list-group flush>
+        <yuno-list-group-item v-for="[key, link] in app.links" :key="key" no-status>
           <b-link :href="link" target="_blank">
             <icon :iname="appLinksIcons(key)" />
             {{ $t('app.links.' + key) }}
@@ -282,7 +274,6 @@ export default {
         ['GET', { uri: 'domains' }],
         ['GET', `apps/${this.id}/config?full`]
       ],
-      packaging_format: undefined,
       app: undefined,
       form: undefined,
       config: {
@@ -325,17 +316,17 @@ export default {
   },
 
   methods: {
-    appLinksIcons (link_type) {
-        const links_icons = {
-          license: "institution",
-          website: "globe",
-          admindoc: "book",
-          userdoc: "book",
-          code: "code",
-          package: "code",
-          forum: "comments"
+    appLinksIcons (linkType) {
+        const linksIcons = {
+          license: 'institution',
+          website: 'globe',
+          admindoc: 'book',
+          userdoc: 'book',
+          code: 'code',
+          package: 'code',
+          forum: 'comments'
         }
-        return links_icons[link_type]
+        return linksIcons[linkType]
     },
     onQueriesResponse (app, _, __, config) {
       if (app.supports_config_panel) {
@@ -366,14 +357,44 @@ export default {
           form.labels.push({ label: perm.sublabel, show_tile: perm.show_tile })
         }
       }
-
-      this.packaging_format = app.packaging_format
       this.form = form
+
+      const { DESCRIPTION, ADMIN, ...doc } = app.manifest.doc
+      const notifs = app.manifest.notifications
+      const { ldap, sso, multi_instance, ram, disk, architectures: archs } = app.manifest.integration
       this.app = {
         id: this.id,
         version: app.version,
         label: mainPermission.label,
         domain: app.settings.domain,
+        alternativeTo: app.from_catalog.potential_alternative_to?.length
+          ? app.from_catalog.potential_alternative_to.join(this.$i18n.t('words.separator'))
+          : null,
+        description: DESCRIPTION ? formatI18nField(DESCRIPTION) : app.description,
+        integration: app.manifest.packaging_format >= 2 ? {
+          archs: Array.isArray(archs) ? archs.join(this.$i18n.t('words.separator')) : archs,
+          ldap: ldap === 'not_relevant' ? null : ldap,
+          sso: sso === 'not_relevant' ? null : sso,
+          multi_instance,
+          resources: { ram: ram.runtime, disk }
+        } : null,
+        links: [
+          ['license', `https://spdx.org/licenses/${app.manifest.upstream.license}`],
+          ...['website', 'admindoc', 'userdoc', 'code'].map((key) => ([key, app.manifest.upstream[key]])),
+          ['forum', `https://forum.yunohost.org/tag/${this.id}`]
+        ].filter(([key, val]) => !!val),
+        doc: {
+          notifications: {
+            postInstall: notifs.post_install.main ? [['main', formatI18nField(notifs.post_install.main)]] : [],
+            postUpgrade: Object.entries(notifs.post_upgrade).map(([key, content]) => {
+              return [key, formatI18nField(content)]
+            })
+          },
+          admin: [
+            formatI18nField(ADMIN),
+            ...Object.keys(doc).sort().map((key) => formatI18nField(doc[key]))
+          ].join('\n\n')
+        },
         is_webapp: app.is_webapp,
         is_default: app.is_default,
         supports_change_url: app.supports_change_url,
@@ -388,45 +409,8 @@ export default {
         }
       }
 
-      const notifs = app.manifest.notifications
-      const { DESCRIPTION, ADMIN, ...doc } = app.manifest.doc
-      const { ldap, sso, multi_instance, ram, disk, architectures: archs } = app.manifest.integration
-      this.doc = {
-        notifications: {
-          postInstall: [['main', formatI18nField(notifs.post_install.main)]],
-          postUpgrade: Object.entries(notifs.post_upgrade).map(([key, content]) => {
-            return [key, formatI18nField(content)]
-          })
-        },
-        admin: {
-          content: [
-            formatI18nField(ADMIN),
-            ...Object.keys(doc).sort().map((key) => formatI18nField(doc[key]))
-          ].join('\n\n')
-        },
-        about: {
-          alternativeTo: app.from_catalog.potential_alternative_to.length
-            ? app.from_catalog.potential_alternative_to.join(this.$i18n.t('words.separator'))
-            : null,
-          description: DESCRIPTION ? formatI18nField(DESCRIPTION) : app.description,
-          license: app.manifest.upstream.license,
-          integration: {
-            archs: Array.isArray(archs) ? archs.join(this.$i18n.t('words.separator')) : archs,
-            ldap: ldap === 'not_relevant' ? null : ldap,
-            sso: sso === 'not_relevant' ? null : sso,
-            multi_instance,
-            resources: { ram: ram.runtime, disk }
-          },
-          links: [
-            ['license', `https://spdx.org/licenses/${app.manifest.upstream.license}`],
-            ...['website', 'admindoc', 'userdoc', 'code'].map((key) => ([key, app.manifest.upstream[key]])),
-            ['forum', `https://forum.yunohost.org/tag/${this.id}`]
-          ].filter(([key, val]) => !!val)
-        }
-      }
-
-      if (this.app.is_webapp) {
-        this.app.is_default = app.is_default
+      if (!Object.values(this.app.doc.notifications).some((notif) => notif.length)) {
+        this.app.doc.notifications = null
       }
     },
 
@@ -512,9 +496,5 @@ select {
 .tiny {
   font-size: 50%;
   font-weight: normal;
-}
-
-.float-right {
-  float: right;
 }
 </style>
