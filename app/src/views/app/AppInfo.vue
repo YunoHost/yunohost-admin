@@ -1,6 +1,6 @@
 <template>
   <view-base :queries="queries" @queries-response="onQueriesResponse" ref="view">
-    <section v-if="app" class="mb-5">
+    <section v-if="app" class="border rounded p-3 mb-4">
       <div class="d-md-flex align-items-center mb-4">
         <h1 class="mb-3 mb-md-0">
           <icon iname="cube" />

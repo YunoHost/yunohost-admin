@@ -1,7 +1,7 @@
 <template>
   <view-base :queries="queries" @queries-response="onQueriesResponse">
     <template v-if="app">
-      <section class="mb-5">
+      <section class="border rounded p-3 mb-4">
         <div class="d-md-flex align-items-center mb-4">
           <h1 class="mb-3 mb-md-0">
             {{ app.name }}
