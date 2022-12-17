@@ -105,6 +105,8 @@ import AdressInputSelect from '@/components/AdressInputSelect.vue'
 
 
 export default {
+  compatConfig: { MODE: 3, COMPONENT_FUNCTIONAL: true },
+
   name: 'UserEdit',
 
   props: {

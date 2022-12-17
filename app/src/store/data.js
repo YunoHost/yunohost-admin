@@ -228,7 +228,7 @@ export default {
         name,
         parent: getParentDomain(name, domains),
         // utility data that will be used by `RecursiveListGroup` component
-        to: { name: 'domain-info', params: { name } },
+        to: { name: 'domain-info', params: { name, tabId: 'feature' } },
         opened: true
       }))
       return stratify(dataset)

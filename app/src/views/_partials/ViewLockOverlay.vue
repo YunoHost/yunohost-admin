@@ -24,6 +24,8 @@ import { ErrorDisplay, WarningDisplay, WaitingDisplay, ReconnectingDisplay } fro
 import QueryHeader from '@/components/QueryHeader.vue'
 
 export default {
+  compatConfig: { MODE: 3, COMPONENT_FUNCTIONAL: true },
+
   name: 'ViewLockOverlay',
 
   components: {

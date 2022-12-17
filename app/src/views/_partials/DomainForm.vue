@@ -58,6 +58,8 @@ import { formatFormDataValue } from '@/helpers/yunohostArguments'
 import { required, domain, dynDomain } from '@/helpers/validators'
 
 export default {
+  compatConfig: { MODE: 3 },
+
   name: 'DomainForm',
 
   props: {
@@ -65,6 +67,8 @@ export default {
     submitText: { type: String, default: null },
     serverError: { type: String, default: '' }
   },
+
+  emits: ['submit'],
 
   data () {
     return {

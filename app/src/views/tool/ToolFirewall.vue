@@ -94,6 +94,8 @@ import api from '@/api'
 import { required, integer, between } from '@/helpers/validators'
 
 export default {
+  compatConfig: { MODE: 3, COMPONENT_FUNCTIONAL: true, INSTANCE_EVENT_EMITTER: true },
+
   name: 'ToolFirewall',
 
   data () {
@@ -215,12 +217,12 @@ export default {
     },
 
     onTablePortToggling (port, protocol, connection, index, value) {
-      this.$set(this.protocols[protocol][index], connection, value)
+      this.protocols[protocol][index][connection] = value
       const action = value ? 'allow' : 'disallow'
       this.togglePort({ action, port, protocol, connection }).then(toggled => {
         // Revert change on cancel
         if (!toggled) {
-          this.$set(this.protocols[protocol][index], connection, !value)
+          this.protocols[protocol][index][connection] = !value
         }
       })
     },

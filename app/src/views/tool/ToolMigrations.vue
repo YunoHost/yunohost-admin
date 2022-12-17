@@ -85,6 +85,8 @@ import api from '@/api'
 
 // FIXME not tested with pending migrations (disclaimer and stuff)
 export default {
+  compatConfig: { MODE: 3, COMPONENT_FUNCTIONAL: true, INSTANCE_EVENT_EMITTER: true },
+
   name: 'ToolMigrations',
 
   data () {
@@ -105,7 +107,7 @@ export default {
       pending.forEach(migration => {
         if (migration.disclaimer) {
           migration.disclaimer = migration.disclaimer.replaceAll('\n', '<br>')
-          this.$set(this.checked, migration.id, null)
+          this.checked[migration.id] = null
         }
       })
       // FIXME change to pending

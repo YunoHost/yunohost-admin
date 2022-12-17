@@ -20,6 +20,8 @@ import ConfigPanels from '@/components/ConfigPanels.vue'
 
 
 export default {
+  compatConfig: { MODE: 3, COMPONENT_FUNCTIONAL: true },
+
   name: 'ToolSettingsConfig',
 
   components: {

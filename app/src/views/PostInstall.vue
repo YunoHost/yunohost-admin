@@ -89,6 +89,8 @@ import Login from '@/views/Login.vue'
 import { alphalownum_, required, minLength, name, sameAs } from '@/helpers/validators'
 
 export default {
+  compatConfig: { MODE: 3, COMPONENT_FUNCTIONAL: true },
+
   name: 'PostInstall',
 
   components: {

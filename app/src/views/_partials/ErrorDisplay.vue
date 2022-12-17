@@ -55,6 +55,8 @@
 import MessageListGroup from '@/components/MessageListGroup.vue'
 
 export default {
+  compatConfig: { MODE: 3, COMPONENT_FUNCTIONAL: true },
+
   name: 'ErrorDisplay',
 
   components: {

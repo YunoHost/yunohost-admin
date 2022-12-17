@@ -23,13 +23,15 @@ import { formatFormData } from '@/helpers/yunohostArguments'
 import { required } from '@/helpers/validators'
 
 export default {
+  compatConfig: { MODE: 3, COMPONENT_FUNCTIONAL: true },
+
   name: 'UserImport',
 
   data () {
     return {
       v: useVuelidate(),
       form: {
-        csvfile: null,
+        csvfile: { file: null },
         update: false,
         delete: false
       },

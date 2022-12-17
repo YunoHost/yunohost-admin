@@ -42,6 +42,8 @@ import LoginView from '@/views/Login.vue'
 
 
 export default {
+  compatConfig: { MODE: 3, COMPONENT_FUNCTIONAL: true },
+
   name: 'ReconnectingDisplay',
 
   components: {

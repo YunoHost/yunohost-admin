@@ -26,6 +26,8 @@ import { useVuelidate } from '@vuelidate/core'
 import { alphalownum_, required, minLength } from '@/helpers/validators'
 
 export default {
+  compatConfig: { MODE: 3, COMPONENT_FUNCTIONAL: true },
+
   name: 'Login',
 
   props: {

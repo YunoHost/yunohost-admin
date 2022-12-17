@@ -28,6 +28,8 @@
 import { distanceToNow, readableDate } from '@/helpers/filters/date'
 
 export default {
+  compatConfig: { MODE: 3, COMPONENT_FUNCTIONAL: true },
+
   name: 'ToolLogs',
 
   data () {

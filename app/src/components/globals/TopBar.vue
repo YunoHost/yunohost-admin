@@ -16,7 +16,7 @@
 
 <script>
 export default {
-  compatConfig: { MODE: 3 },
+  compatConfig: { MODE: 3, COMPONENT_FUNCTIONAL: true },
 
   name: 'TopBar',
 

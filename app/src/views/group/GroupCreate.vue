@@ -16,6 +16,8 @@ import api from '@/api'
 import { required, alphalownum_ } from '@/helpers/validators'
 
 export default {
+  compatConfig: { MODE: 3, COMPONENT_FUNCTIONAL: true },
+
   name: 'GroupCreate',
 
   data () {

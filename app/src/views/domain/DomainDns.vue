@@ -110,6 +110,8 @@ import api from '@/api'
 import { isEmptyValue } from '@/helpers/commons'
 
 export default {
+  compatConfig: { MODE: 3, COMPONENT_FUNCTIONAL: true, INSTANCE_EVENT_EMITTER: true },
+
   name: 'DomainDns',
 
   props: {

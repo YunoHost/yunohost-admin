@@ -28,6 +28,8 @@ import api from '@/api'
 
 
 export default {
+  compatConfig: { MODE: 3, COMPONENT_FUNCTIONAL: true, INSTANCE_EVENT_EMITTER: true },
+
   name: 'ToolPower',
 
   methods: {

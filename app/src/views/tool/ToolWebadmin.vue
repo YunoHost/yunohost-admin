@@ -26,6 +26,8 @@ function mapStoreGetSet (props = [], action = 'commit') {
 }
 
 export default {
+  compatConfig: { MODE: 3, COMPONENT_FUNCTIONAL: true },
+
   name: 'ToolWebadmin',
 
   data () {

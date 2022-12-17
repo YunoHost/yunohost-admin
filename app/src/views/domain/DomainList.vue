@@ -45,6 +45,8 @@ import RecursiveListGroup from '@/components/RecursiveListGroup.vue'
 
 
 export default {
+  compatConfig: { MODE: 3, COMPONENT_FUNCTIONAL: true, INSTANCE_EVENT_EMITTER: true },
+
   name: 'DomainList',
 
   components: {

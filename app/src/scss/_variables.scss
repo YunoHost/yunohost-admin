@@ -112,6 +112,9 @@ $custom-checkbox-indicator-icon-indeterminate: get-checkbox-icon-indeterminate('
 @import '_functions-override.scss';
 @import '~bootstrap/scss/variables';
 @import '~bootstrap/scss/mixins.scss';
+
+$b-skeleton-background-color: $gray-300;
+
 @import '~bootstrap-vue/src/variables';
 
 

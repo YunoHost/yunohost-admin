@@ -67,6 +67,8 @@ import { escapeHtml } from '@/helpers/commons'
 import { readableDate } from '@/helpers/filters/date'
 
 export default {
+  compatConfig: { MODE: 3, COMPONENT_FUNCTIONAL: true },
+
   name: 'ToolLog',
 
   props: {

@@ -53,6 +53,8 @@
 import { mapGetters } from 'vuex'
 
 export default {
+  compatConfig: { MODE: 3, COMPONENT_FUNCTIONAL: true },
+
   name: 'UserList',
 
   data () {

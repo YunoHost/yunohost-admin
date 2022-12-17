@@ -36,6 +36,8 @@ import { distanceToNow, readableDate } from '@/helpers/filters/date'
 import { humanSize } from '@/helpers/filters/human'
 
 export default {
+  compatConfig: { MODE: 3, COMPONENT_FUNCTIONAL: true },
+
   name: 'BackupList',
 
   props: {
