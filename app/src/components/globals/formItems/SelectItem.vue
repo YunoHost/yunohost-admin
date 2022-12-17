@@ -1,24 +1,27 @@
 <template>
   <b-select
-    :value="value"
     :id="id"
+    :value="modelValue"
     :options="choices"
     :required="required"
-    v-on="$listeners"
-    @blur="$emit('blur', value)"
+    @input="$emit('update:modelValue', $event)"
   />
 </template>
 
 <script>
 export default {
+  compatConfig: { MODE: 3 },
+
   name: 'SelectItem',
 
   props: {
-    value: { type: [String, null], default: null },
+    modelValue: { type: [String, null], default: null },
     id: { type: String, default: null },
     choices: { type: [Array, Object], required: true },
     required: { type: Boolean, default: false },
     name: { type: String, default: null }
-  }
+  },
+
+  emits: ['update:modelValue']
 }
 </script>

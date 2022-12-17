@@ -1,18 +1,20 @@
 <template>
   <div class="tags-selectize">
     <b-form-tags
-      v-bind="$attrs" v-on="$listeners"
-      :value="value" :id="id"
+      :id="id"
+      v-bind="$attrs"
+      :value="modelValue"
       size="lg" class="p-0 border-0" no-outer-focus
+      @input="$emit('update:modelValue', $event)"
     >
       <template #default="{ tags, disabled, addTag, removeTag }">
         <ul v-if="!noTags && tags.length > 0" class="list-inline d-inline-block mb-2">
           <li v-for="tag in tags" :key="id + '-' + tag" class="list-inline-item">
             <b-form-tag
-              @remove="onRemoveTag({ option: tag, removeTag })"
               :title="tag"
               :disabled="disabled || disabledItems.includes(tag)"
               class="border border-dark mb-2"
+              @remove="onRemoveTag({ option: tag, removeTag })"
             >
               <icon v-if="tagIcon" :iname="tagIcon" /> {{ tag }}
             </b-form-tag>
@@ -38,8 +40,9 @@
                 class="mb-0"
               >
                 <b-form-input
-                  ref="search-input" v-model="search"
                   :id="id + '-search-input'"
+                  ref="search-input" v-model="search"
+                  :state="searchState"
                   type="search" size="sm" autocomplete="off"
                 />
               </b-form-group>
@@ -66,10 +69,12 @@
 
 <script>
 export default {
+  compatConfig: { MODE: 3, COMPONENT_FUNCTIONAL: true, RENDER_FUNCTION: true, INSTANCE_EVENT_EMITTER: true },
+
   name: 'TagsSelectizeItem',
 
   props: {
-    value: { type: Array, required: true },
+    modelValue: { type: Array, required: true },
     options: { type: Array, required: true },
     id: { type: String, required: true },
     placeholder: { type: String, default: null },
@@ -83,6 +88,8 @@ export default {
     label: { type: String, default: null },
     tagIcon: { type: String, default: null }
   },
+
+  emits: ['update:modelValue', 'tag-update'],
 
   data () {
     return {
@@ -98,7 +105,7 @@ export default {
     availableOptions () {
       const criteria = this.criteria
       const options = this.options.filter(opt => {
-        return this.value.indexOf(opt) === -1 && !this.disabledItems.includes(opt)
+        return this.modelValue.indexOf(opt) === -1 && !this.disabledItems.includes(opt)
       })
       if (criteria) {
         return options.filter(opt => opt.toLowerCase().indexOf(criteria) > -1)

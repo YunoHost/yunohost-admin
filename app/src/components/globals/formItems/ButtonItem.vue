@@ -1,19 +1,21 @@
 <template>
   <b-button
     :id="id"
+    v-bind="$attrs"
+    :disabled="!enabled || null"
     :variant="type"
     @click="$emit('action', $event)"
-    :disabled="!enabled"
-    class="d-block mb-3"
   >
-    <icon :iname="icon_" class="mr-2" />
-    <span v-html="label" />
+    <icon :iname="icon_" />
+    {{ label }}
   </b-button>
 </template>
 
 <script>
 
 export default {
+  compatConfig: { MODE: 3, COMPONENT_FUNCTIONAL: true },
+
   name: 'ButtonItem',
 
   props: {
@@ -23,6 +25,8 @@ export default {
     icon: { type: String, default: null },
     enabled: { type: [Boolean, String], default: true }
   },
+
+  emits: ['action'],
 
   computed: {
     icon_ () {

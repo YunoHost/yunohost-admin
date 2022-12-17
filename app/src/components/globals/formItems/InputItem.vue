@@ -1,7 +1,7 @@
 <template>
   <b-input
-    :value="value"
     :id="id"
+    :value="modelValue"
     :placeholder="placeholder"
     :type="type"
     :state="state"
@@ -11,7 +11,7 @@
     :step="step"
     :trim="trim"
     :autocomplete="autocomplete_"
-    v-on="$listeners"
+    @update="$emit('update:modelValue', $event)"
     @blur="$parent.$emit('touch', name)"
   />
 </template>
@@ -19,10 +19,12 @@
 <script>
 
 export default {
+  compatConfig: { MODE: 3 },
+
   name: 'InputItem',
 
   props: {
-    value: { type: [String, Number], default: null },
+    modelValue: { type: [String, Number], default: null },
     id: { type: String, default: null },
     placeholder: { type: String, default: null },
     type: { type: String, default: 'text' },
@@ -36,6 +38,8 @@ export default {
     pattern: { type: Object, default: null },
     name: { type: String, default: null }
   },
+
+  emits: ['update:modelValue'],
 
   data () {
     return {

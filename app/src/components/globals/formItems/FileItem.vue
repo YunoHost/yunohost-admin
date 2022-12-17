@@ -1,19 +1,20 @@
 <template>
   <b-button-group class="w-100">
     <b-button
-      v-if="!this.required && this.value.file !== null"
-      @click="clearFiles" variant="danger"
+      v-if="!required && modelValue.file !== null"
+      variant="danger"
+      @click="clearFiles"
     >
       <span class="sr-only">{{ $t('delete') }}</span>
       <icon iname="trash" />
     </b-button>
 
     <b-form-file
-      :value="value.file"
-      ref="input-file"
       :id="id"
+      ref="input-file"
+      :value="modelValue.file"
       :required="required"
-      :placeholder="_placeholder"
+      :placeholder="placeholder_"
       :accept="accept"
       :drop-placeholder="dropPlaceholder"
       :state="state"
@@ -29,11 +30,13 @@
 import { getFileContent } from '@/helpers/commons'
 
 export default {
+  compatConfig: { MODE: 3, COMPONENT_FUNCTIONAL: true },
+
   name: 'FileItem',
 
   props: {
     id: { type: String, default: null },
-    value: { type: Object, default: () => ({ file: null }) },
+    modelValue: { type: Object, default: () => ({ file: null }) },
     placeholder: { type: String, default: 'Choose a file or drop it here...' },
     dropPlaceholder: { type: String, default: null },
     accept: { type: String, default: null },
@@ -42,9 +45,12 @@ export default {
     name: { type: String, default: null }
   },
 
+  emits: ['update:modelValue'],
+
   computed: {
-    _placeholder: function () {
-      return this.value.file === null ? this.placeholder : this.value.file.name
+    placeholder_: function () {
+      const { file } = this.modelValue
+      return file === null ? this.placeholder : file.name
     }
   },
 
@@ -54,25 +60,21 @@ export default {
         file,
         content: '',
         current: false,
-        removed: false
+        removed: file === null
       }
       // Update the value with the new File and an empty content for now
-      this.$emit('input', value)
+      this.$emit('update:modelValue', value)
 
       // Asynchronously load the File content and update the value again
-      getFileContent(file).then(content => {
-        this.$emit('input', { ...value, content })
-      })
+      if (file) {
+        getFileContent(file).then(content => {
+          this.$emit('update:modelValue', { ...value, content })
+        })
+      }
     },
 
     clearFiles () {
       this.$refs['input-file'].reset()
-      this.$emit('input', {
-        file: null,
-        content: '',
-        current: false,
-        removed: true
-      })
     }
   }
 }

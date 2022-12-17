@@ -1,24 +1,28 @@
 <template>
   <b-checkbox
-    :checked="value"
-    @input="$emit('input', $event)"
     :id="id"
+    :checked="modelValue"
     :aria-describedby="$parent.id + '__BV_description_'"
     switch
+    @input="$emit('update:modelValue', $event)"
   >
-    {{ label || $t(labels[value]) }}
+    {{ label || $t(labels[modelValue]) }}
   </b-checkbox>
 </template>
 
 <script>
 export default {
+  compatConfig: { MODE: 3 },
+
   name: 'CheckboxItem',
 
   props: {
-    value: { type: Boolean, required: true },
+    modelValue: { type: Boolean, required: true },
     id: { type: String, default: null },
     label: { type: String, default: null },
     labels: { type: Object, default: () => ({ true: 'yes', false: 'no' }) }
-  }
+  },
+
+  emits: ['update:modelValue']
 }
 </script>

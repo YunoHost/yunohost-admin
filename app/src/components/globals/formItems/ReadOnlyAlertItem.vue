@@ -11,6 +11,8 @@
 
 <script>
 export default {
+  compatConfig: { MODE: 3 },
+
   name: 'ReadOnlyAlertItem',
 
   props: {
