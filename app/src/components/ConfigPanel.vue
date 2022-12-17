@@ -42,6 +42,8 @@ import { filterObject } from '@/helpers/commons'
 
 
 export default {
+  compatConfig: { MODE: 3, COMPONENT_FUNCTIONAL: true },
+
   name: 'ConfigPanel',
 
   props: {
@@ -50,6 +52,8 @@ export default {
     forms: { type: Object, default: undefined },
     v: { type: Object, default: undefined }
   },
+
+  emits: ['submit'],
 
   computed: {
     panel () {

@@ -4,6 +4,7 @@
     v-bind="$attrs"
     :disabled="!enabled || null"
     :variant="type"
+    class="d-block mb-3"
     @click="$emit('action', $event)"
   >
     <icon :iname="icon_" />

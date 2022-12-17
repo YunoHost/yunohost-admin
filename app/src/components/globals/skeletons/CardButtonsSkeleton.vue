@@ -18,6 +18,7 @@
 </template>
 
 <script>
+// FIXME: component no longer used?
 import { randint } from '@/helpers/commons'
 
 export default {

@@ -2,7 +2,6 @@
   <routable-tabs
     v-bind="{ panels, forms, v, ...$attrs }"
     :routes="routes_"
-    v-on="$listeners"
   >
     <template #tab-top>
       <slot name="tab-top" />
@@ -17,13 +16,18 @@
 </template>
 
 <script>
+import { defineAsyncComponent } from 'vue'
 import { useVuelidate } from '@vuelidate/core'
 
 export default {
+  compatConfig: { MODE: 3 },
+
   name: 'ConfigPanels',
 
   components: {
-    RoutableTabs: () => import('@/components/RoutableTabs.vue')
+    RoutableTabs: defineAsyncComponent(() =>
+      import('@/components/RoutableTabs.vue')
+    )
   },
 
   props: {
@@ -66,7 +70,7 @@ export default {
         // Update field's $externalResults to trigger invalid state and error message
         this.vuelidateExternalResults.forms[panelId][err.data.name] = err.message
       } else {
-        this.$set(panel, 'serverError', err.message)
+        panel.serverError = err.message
       }
     }
   },

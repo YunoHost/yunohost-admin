@@ -13,7 +13,7 @@
     </b-card-header>
 
     <!-- Bind extra props to the child view and forward child events to parent -->
-    <router-view v-bind="$attrs" v-on="$listeners" v-slot="{ Component }">
+    <router-view v-slot="{ Component }" v-bind="$attrs">
       <component :is="Component">
         <template #tab-top>
           <slot name="tab-top" />
@@ -31,6 +31,8 @@
 
 <script>
 export default {
+  compatConfig: { MODE: 3, COMPONENT_FUNCTIONAL: true },
+
   name: 'RoutableTabs',
 
   // Thanks to `v-bind="$attrs"` and `inheritAttrs: false`, this component can forward

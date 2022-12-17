@@ -13,10 +13,10 @@
       <component
         :is="component"
         v-bind="props"
-        v-on="$listeners"
-        :value="value"
+        :model-value="modelValue"
         :state="state"
         :required="validation ? 'required' in validation : false"
+        @update:model-value="$emit('update:modelValue', $event)"
       />
     </slot>
 
@@ -50,6 +50,8 @@
 
 <script>
 export default {
+  compatConfig: { MODE: 3 },
+
   name: 'FormField',
 
   inheritAttrs: false,
@@ -62,10 +64,12 @@ export default {
     link: { type: Object, default: null },
     // Rendered field component props
     component: { type: String, default: 'InputItem' },
-    value: { type: null, default: null },
+    modelValue: { type: null, default: null },
     props: { type: Object, default: () => ({}) },
     validation: { type: Object, default: null }
   },
+
+  emits: ['update:modelValue'],
 
   computed: {
     _id () {

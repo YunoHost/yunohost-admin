@@ -13,14 +13,16 @@
 
 <script>
 export default {
+  compatConfig: { MODE: 3, COMPONENT_FUNCTIONAL: true },
+
   name: 'ReadOnlyField',
 
   inheritAttrs: false,
 
   props: {
+    modelValue: { type: null, default: null },
     label: { type: String, required: true },
     component: { type: String, default: 'InputItem' },
-    value: { type: null, default: null },
     cols: { type: Object, default: () => ({ md: 4, lg: 3 }) }
   },
 
@@ -30,7 +32,7 @@ export default {
     },
 
     text () {
-      return this.parseValue(this.value)
+      return this.parseValue(this.modelValue)
     }
   },
 
@@ -43,7 +45,9 @@ export default {
       if (Array.isArray(value)) {
         value = value.length ? value.join(this.$i18n.t('words.separator')) : null
       }
-      if ([null, undefined, ''].includes(this.value)) value = this.$i18n.t('words.none')
+      if ([null, undefined, ''].includes(value)) {
+        value = this.$i18n.t('words.none')
+      }
       return value
     }
   }

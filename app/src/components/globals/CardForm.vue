@@ -31,8 +31,9 @@
 </template>
 
 <script>
-
 export default {
+  compatConfig: { MODE: 3, COMPONENT_FUNCTIONAL: true },
+
   name: 'CardForm',
 
   props: {
@@ -44,6 +45,8 @@ export default {
     formClasses: { type: [Array, String, Object], default: null },
     noFooter: { type: Boolean, default: false }
   },
+
+  emits: ['submit'],
 
   computed: {
     errorFeedback () {

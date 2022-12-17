@@ -1,5 +1,5 @@
 <template>
-  <view-base v-bind="$attrs" v-on="$listeners" :skeleton="skeleton">
+  <view-base v-bind="$attrs" :skeleton="skeleton">
     <template v-if="hasCustomTopBar" #top-bar>
       <slot name="top-bar" />
     </template>
@@ -11,9 +11,10 @@
 
         <b-form-input
           id="top-bar-search"
-          :value="value" @input="$emit('input', $event)"
+          :value="modelValue"
           :placeholder="$t('search.for', { items: $tc('items.' + itemsName, 2) })"
           :disabled="!items"
+          @update="$emit('update:modelValue', $event)"
         />
       </b-input-group>
     </template>
@@ -48,15 +49,19 @@
 
 <script>
 export default {
+  compatConfig: { MODE: 3, COMPONENT_FUNCTIONAL: true },
+
   name: 'ViewSearch',
 
   props: {
-    value: { type: String, default: null },
+    modelValue: { type: String, default: null },
     items: { type: null, required: true },
     itemsName: { type: String, required: true },
     filteredItems: { type: null, required: true },
     skeleton: { type: String, default: 'list-group-skeleton' }
   },
+
+  emits: ['update:modelValue'],
 
   computed: {
     hasCustomTopBar () {

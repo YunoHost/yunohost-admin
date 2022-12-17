@@ -1,21 +1,25 @@
 <template>
   <b-input-group v-bind="$attrs">
     <input-item
-      :id="id" :placeholder="placeholder"
-      :state="state" :aria-describedby="id + 'local-part-desc'"
-      :value="value.localPart" @input="onInput('localPart', $event)"
+      :id="id"
+      :model-value="modelValue.localPart"
+      :placeholder="placeholder"
+      :state="state"
+      :aria-describedby="id + 'local-part-desc'"
+      @update:model-value="onInput('localPart', $event)"
       @blur="$parent.$emit('touch')"
     />
 
     <b-input-group-append>
-      <b-input-group-text>{{ value.separator }}</b-input-group-text>
+      <b-input-group-text>{{ modelValue.separator }}</b-input-group-text>
     </b-input-group-append>
 
     <b-input-group-append>
       <select-item
-        :value="value.domain" @input="onInput('domain', $event)"
+        :model-value="modelValue.domain"
         :choices="choices"
         :aria-describedby="id + 'domain-desc'"
+        @update:model-value="onInput('domain', $event)"
         @blur="$parent.$emit('touch')"
       />
     </b-input-group-append>
@@ -27,13 +31,14 @@
 
 <script>
 export default {
+  compatConfig: { MODE: 3, COMPONENT_FUNCTIONAL: true },
+
   name: 'AdressInputSelect',
 
   inheritAttrs: false,
 
   props: {
-    // `value` is actually passed thru the `v-model` directive
-    value: { type: Object, required: true },
+    modelValue: { type: Object, required: true },
     choices: { type: Array, required: true },
     placeholder: { type: String, default: null },
     id: { type: String, default: null },
@@ -41,10 +46,12 @@ export default {
     type: { type: String, default: 'email' }
   },
 
+  emits: ['update:modelValue'],
+
   methods: {
     onInput (key, value) {
-      this.$emit('input', {
-        ...this.value,
+      this.$emit('update:modelValue', {
+        ...this.modelValue,
         [key]: value
       })
     }

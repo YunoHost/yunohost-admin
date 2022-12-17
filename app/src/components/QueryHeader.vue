@@ -1,5 +1,5 @@
 <template>
-  <div v-bind="$attrs" class="query-header w-100" v-on="$listeners">
+  <div v-bind="$attrs" class="query-header w-100">
     <!-- STATUS -->
     <span class="status" :class="['bg-' + color, statusSize]" :aria-label="$t('api.query_status.' + request.status)" />
 
@@ -39,6 +39,8 @@
 
 <script>
 export default {
+  compatConfig: { MODE: 3, COMPONENT_FUNCTIONAL: true },
+
   name: 'QueryHeader',
 
   props: {

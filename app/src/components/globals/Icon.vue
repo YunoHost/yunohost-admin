@@ -4,7 +4,10 @@
 
 <script>
 export default {
+  compatConfig: { MODE: 3 },
+
   name: 'Icon',
+
   props: {
     iname: { type: String, required: true },
     variant: { type: String, default: null }

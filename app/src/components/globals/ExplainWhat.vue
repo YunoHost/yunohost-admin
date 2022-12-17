@@ -22,6 +22,8 @@
 
 <script>
 export default {
+  compatConfig: { MODE: 3, COMPONENT_FUNCTIONAL: true },
+
   name: 'ExplainWhat',
 
   props: {
@@ -45,7 +47,7 @@ export default {
 
   .btn {
     padding: 0;
-    margin-left: .1rem;
+    margin-left: .5em;
     border-radius: 50rem;
     line-height: inherit;
     font-size: inherit;

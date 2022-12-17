@@ -33,6 +33,8 @@
 import api from '@/api'
 
 export default {
+  compatConfig: { MODE: 3, COMPONENT_FUNCTIONAL: true },
+
   name: 'ViewBase',
 
   props: {
@@ -42,6 +44,8 @@ export default {
     // Optional prop to take control of the loading value
     loading: { type: Boolean, default: null }
   },
+
+  emits: ['queries-response'],
 
   data () {
     return {
