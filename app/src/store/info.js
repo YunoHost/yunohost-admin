@@ -71,7 +71,6 @@ export default {
         return
       }
       // FIXME `request` is not reactive, needs to be rewritten with composition API
-      const r = state.requests.find(({ status }) => status === 'pending')
       const { messages, warnings, errors } = state.tempMessages.reduce((acc, [message, type]) => {
         acc.messages.push(message)
         if (['error', 'warning'].includes(type)) acc[type + 's']++
@@ -79,9 +78,9 @@ export default {
       }, { messages: [], warnings: 0, errors: 0 })
       state.tempMessages = []
       state.historyTimer = null
-      r.messages = (r.messages || []).concat(messages)
-      r.warnings += warnings
-      r.errors += errors
+      request.messages = (request.messages || []).concat(messages)
+      request.warnings += warnings
+      request.errors += errors
     },
 
     'SET_ERROR' (state, request) {
@@ -166,14 +165,14 @@ export default {
       })
     },
 
-    'INIT_REQUEST' ({ commit }, { method, uri, humanKey, initial, wait, websocket }) {
+    'INIT_REQUEST' ({ state, commit }, { method, uri, humanKey, initial, wait, websocket }) {
       // Try to find a description for an API route to display in history and modals
       const { key, ...args } = isObjectLiteral(humanKey) ? humanKey : { key: humanKey }
       const humanRoute = key ? i18n.global.t('human_routes.' + key, args) : `[${method}] /${uri}`
 
-      let request = { method, uri, humanRouteKey: key, humanRoute, initial, status: 'pending' }
+      let request = { method, uri, humanRouteKey: key, humanRoute, initial, status: 'pending', date: Date.now() }
       if (websocket) {
-        request = { ...request, messages: [], date: Date.now(), warnings: 0, errors: 0 }
+        request = { ...request, messages: [], warnings: 0, errors: 0 }
         commit('ADD_HISTORY_ACTION', request)
       }
       commit('ADD_REQUEST', request)
@@ -186,7 +185,7 @@ export default {
         }, 400)
       }
 
-      return request
+      return state.requests.find(({ date }) => date === request.date)
     },
 
     'END_REQUEST' ({ state, commit }, { request, success, wait }) {
