@@ -11,7 +11,7 @@
     "begin": "Iniciar",
     "both": "Ambos",
     "close": "Fechar",
-    "confirm_app_default": "Confirma esta aplicação como pré-definida?",
+    "confirm_app_default": "Confirma esta aplicação como padrão?",
     "confirm_change_maindomain": "Confirma a alteração do domínio principal?",
     "confirm_delete": "Confirma a eliminação de {name} ?",
     "confirm_postinstall": "Está prestes a iniciar o processo de pós-instalação no servidor {domain}. Poderá demorar alguns minutos. *não interrompa a operação*.",
@@ -232,7 +232,7 @@
         "pattern": "{type}",
         "invalid_form": "O formulário contém alguns erros."
     },
-    "domain_delete_forbidden_desc": "Você não pode remover '{domínio}' por ele ser o domínio padrão, você precisa escolher outro domínio (ou <a href='#/domains/add'> criar um novo</a>) e setá-lo como domínio padrão.",
+    "domain_delete_forbidden_desc": "Você não pode remover '{domain}' por ele ser o domínio padrão, você precisa escolher outro domínio (ou <a href='#/domains/add'>criar um novo</a>) e setá-lo como domínio padrão.",
     "domain_add_dyndns_forbidden": "Você já esta inscrito a um domínio DynDNS, pode pedir para remover seu domínio DynDNS atual no forum <a href='//forum.yunohost.org/t/nohost-domain-recovery-suppression-de-domaine-en-nohost-me-noho-st-et-ynh-fr/442'> no thread dedicado</a>.",
     "api_not_found": "Parece que o administrador web tentou consultar algo que não existe.",
     "footer": {
