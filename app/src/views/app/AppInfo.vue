@@ -1,5 +1,51 @@
 <template>
   <view-base :queries="queries" @queries-response="onQueriesResponse" ref="view">
+
+    <yuno-alert v-if="app && app.doc && app.doc.notifications && app.doc.notifications.postInstall.length" variant="info" class="my-4">
+
+        <div class="d-md-flex align-items-center">
+            <h2 v-t="'app.doc.notifications.post_install'" />
+            <b-button
+              variant="primary"
+              size="sm"
+              class="ml-auto mr-2"
+              @click="dismiss"
+            >
+              <icon iname="check" />
+              {{ $t('app.doc.notifications.dismiss') }}
+            </b-button>
+        </div>
+
+        <div
+          v-for="[name, notif] in app.doc.notifications.postInstall" :key="name"
+        >
+          <vue-showdown :markdown="notif" flavor="github" />
+        </div>
+
+    </yuno-alert>
+
+    <yuno-alert v-if="app && app.doc && app.doc.notifications && app.doc.notifications.postUpgrade.length" variant="info" class="my-4">
+        <div class="d-md-flex align-items-center">
+            <h2 v-t="'app.doc.notifications.post_upgrade'" />
+            <b-button
+              variant="primary"
+              size="sm"
+              class="ml-auto mr-2"
+              @click="dismiss"
+            >
+              <icon iname="check" />
+              {{ $t('app.doc.notifications.dismiss') }}
+            </b-button>
+        </div>
+
+        <div
+          v-for="[name, notif] in app.doc.notifications.postUpgrade" :key="name"
+        >
+          <vue-showdown :markdown="notif" flavor="github" />
+        </div>
+
+    </yuno-alert>
+
     <section v-if="app" class="border rounded p-3 mb-4">
       <div class="d-md-flex align-items-center mb-4">
         <h1 class="mb-3 mb-md-0">
@@ -156,38 +202,8 @@
       </template>
     </config-panels>
 
-    <b-card v-if="app && (app.doc.notifications || app.doc.admin)" no-body>
+    <b-card v-if="app && app.doc.admin" no-body>
       <b-tabs card fill pills>
-        <b-tab v-if="app.doc.notifications" :title="$t('app.doc.notifications.title')" active>
-          <section v-if="app.doc.notifications.postUpgrade.length">
-            <b-card-title title-tag="h3" v-t="'app.doc.notifications.POST_UPGRADE'" />
-
-            <div
-              v-for="[name, notif] in app.doc.notifications.postUpgrade" :key="name"
-            >
-              <b-card-title v-if="name !== 'main'">
-                {{ name }}
-              </b-card-title>
-              <vue-showdown :markdown="notif" flavor="github" />
-            </div>
-          </section>
-
-          <section v-if="app.doc.notifications.postInstall.length">
-            <b-card-title title-tag="h3">
-              {{ $t('app.doc.notifications.POST_INSTALL') }}
-            </b-card-title>
-
-            <div
-              v-for="[name, notif] in app.doc.notifications.postInstall" :key="name"
-            >
-              <b-card-title tag="h5" v-if="name !== 'main'">
-                {{ name }}
-              </b-card-title>
-              <vue-showdown :markdown="notif" flavor="github" />
-            </div>
-          </section>
-        </b-tab>
-
         <b-tab :title="$t('app.doc.admin.title')">
           <vue-showdown :markdown="app.doc.admin" flavor="github" />
         </b-tab>

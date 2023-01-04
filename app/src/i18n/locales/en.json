@@ -67,9 +67,10 @@
           "title": "Admin doc"
         },
         "notifications": {
+          "dismiss": "Dismiss",
           "title": "Notifications",
-          "POST_UPGRADE": "Post-upgrade notifications",
-          "POST_INSTALL": "Post-install notifications"
+          "post_upgrade": "Post-upgrade notes",
+          "post_install": "Post-install notes"
         }
       },
       "info": {
