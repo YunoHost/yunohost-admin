@@ -165,8 +165,8 @@ export default {
       const apps = appList.map((app) => ({
         id: app.id,
         name: app.name,
-        notif: app.notifications.pre_upgrade
-          ? this.formatAppNotifs(app.notifications.pre_upgrade)
+        notif: app.notifications.PRE_UPGRADE
+          ? this.formatAppNotifs(app.notifications.PRE_UPGRADE)
           : ''
       }))
       this.preUpgrade = { apps, hasNotifs: apps.some((app) => app.notif) }
@@ -181,7 +181,7 @@ export default {
         const continue_ = await api.put(
           `apps/${app.id}/upgrade`, {}, { key: 'upgrade.app', app: app.name }
         ).then((response) => {
-          const postMessage = this.formatAppNotifs(response.notifications.post_upgrade)
+          const postMessage = this.formatAppNotifs(response.notifications.POST_UPGRADE)
           const isLast = app.id === lastAppId
           this.apps = this.apps.filter((a) => app.id !== a.id)
 

@@ -160,7 +160,7 @@
       <b-tabs card fill pills>
         <b-tab v-if="app.doc.notifications" :title="$t('app.doc.notifications.title')" active>
           <section v-if="app.doc.notifications.postUpgrade.length">
-            <b-card-title title-tag="h3" v-t="'app.doc.notifications.post_upgrade'" />
+            <b-card-title title-tag="h3" v-t="'app.doc.notifications.POST_UPGRADE'" />
 
             <div
               v-for="[name, notif] in app.doc.notifications.postUpgrade" :key="name"
@@ -174,7 +174,7 @@
 
           <section v-if="app.doc.notifications.postInstall.length">
             <b-card-title title-tag="h3">
-              {{ $t('app.doc.notifications.post_install') }}
+              {{ $t('app.doc.notifications.POST_INSTALL') }}
             </b-card-title>
 
             <div
@@ -385,8 +385,8 @@ export default {
         ].filter(([key, val]) => !!val),
         doc: {
           notifications: {
-            postInstall: notifs.post_install.main ? [['main', formatI18nField(notifs.post_install.main)]] : [],
-            postUpgrade: Object.entries(notifs.post_upgrade).map(([key, content]) => {
+            postInstall: notifs.POST_INSTALL.main ? [['main', formatI18nField(notifs.POST_INSTALL.main)]] : [],
+            postUpgrade: Object.entries(notifs.POST_UPGRADE).map(([key, content]) => {
               return [key, formatI18nField(content)]
             })
           },

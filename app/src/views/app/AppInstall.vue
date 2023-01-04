@@ -232,7 +232,7 @@ export default {
           quality.state = _app.quality.level >= 8 ? 'highquality' : 'goodquality'
         }
       }
-      const preInstall = formatI18nField(_app.notifications.pre_install.main)
+      const preInstall = formatI18nField(_app.notifications.PRE_INSTALL.main)
       const antifeatures = _app.antifeatures?.length
         ? _app.antifeatures.map((af) => antifeaturesList[af])
         : null

@@ -68,8 +68,8 @@
         },
         "notifications": {
           "title": "Notifications",
-          "post_upgrade": "Post-upgrade notifications",
-          "post_install": "Post-install notifications"
+          "POST_UPGRADE": "Post-upgrade notifications",
+          "POST_INSTALL": "Post-install notifications"
         }
       },
       "info": {
