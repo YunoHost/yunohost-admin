@@ -9,7 +9,7 @@
               variant="primary"
               size="sm"
               class="ml-auto mr-2"
-              @click="dismiss"
+              @click="dismissNotification($event, 'post_install')"
             >
               <icon iname="check" />
               {{ $t('app.doc.notifications.dismiss') }}
@@ -31,7 +31,7 @@
               variant="primary"
               size="sm"
               class="ml-auto mr-2"
-              @click="dismiss"
+              @click="dismissNotification($event, 'post_upgrade')"
             >
               <icon iname="check" />
               {{ $t('app.doc.notifications.dismiss') }}
@@ -404,10 +404,10 @@ export default {
         ].filter(([key, val]) => !!val),
         doc: {
           notifications: {
-            postInstall: notifs.POST_INSTALL.main ? [['main', formatI18nField(notifs.POST_INSTALL.main)]] : [],
-            postUpgrade: Object.entries(notifs.POST_UPGRADE).map(([key, content]) => {
+            postInstall: notifs.POST_INSTALL && notifs.POST_INSTALL.main ? [['main', formatI18nField(notifs.POST_INSTALL.main)]] : [],
+            postUpgrade: notifs.POST_UPGRADE ? Object.entries(notifs.POST_UPGRADE).map(([key, content]) => {
               return [key, formatI18nField(content)]
-            })
+            }) : []
           },
           admin: [
             formatI18nField(ADMIN),
@@ -482,6 +482,14 @@ export default {
         `apps/${this.id}/default${undo ? '?undo' : ''}`,
         {},
         { key: 'apps.set_default', name: this.app.label, domain: this.app.domain }
+      ).then(this.$refs.view.fetchQueries)
+    },
+
+    async dismissNotification (event, name = false) {
+      api.put(
+        `apps/${this.id}/dismiss_notification/${name}`,
+        {},
+        { key: 'apps.dismiss_notification', name: this.app.label }
       ).then(this.$refs.view.fetchQueries)
     },
 

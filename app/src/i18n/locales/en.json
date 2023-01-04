@@ -390,6 +390,7 @@
             "change_url": "Change access URL of '{name}'",
             "install": "Install app '{name}'",
             "set_default": "Redirect '{domain}' domain root to '{name}'",
+            "dismiss_notification": "Dismiss notification for '{name}'",
             "uninstall": "Uninstall app '{name}'",
             "update_config": "Update panel '{id}' of app '{name}' configuration"
         },
