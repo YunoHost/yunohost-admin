@@ -204,8 +204,11 @@
 
     <b-card v-if="app && app.doc.admin" no-body>
       <b-tabs card fill pills>
-        <b-tab :title="$t('app.doc.admin.title')">
-          <vue-showdown :markdown="app.doc.admin" flavor="github" />
+        <b-tab>
+            <template #title>
+                <icon iname="book" class="mr-2" />{{ $t('app.doc.admin.title') }}
+            </template>
+            <vue-showdown :markdown="app.doc.admin" flavor="github" />
         </b-tab>
       </b-tabs>
     </b-card>
