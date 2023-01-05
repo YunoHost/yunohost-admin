@@ -1,49 +1,43 @@
 <template>
   <view-base :queries="queries" @queries-response="onQueriesResponse" ref="view">
-
     <yuno-alert v-if="app && app.doc && app.doc.notifications && app.doc.notifications.postInstall.length" variant="info" class="my-4">
-
-        <div class="d-md-flex align-items-center">
-            <h2 v-t="'app.doc.notifications.post_install'" />
-            <b-button
-              variant="primary"
-              size="sm"
-              class="ml-auto mr-2"
-              @click="dismissNotification($event, 'post_install')"
-            >
-              <icon iname="check" />
-              {{ $t('app.doc.notifications.dismiss') }}
-            </b-button>
-        </div>
-
-        <div
-          v-for="[name, notif] in app.doc.notifications.postInstall" :key="name"
+      <div class="d-md-flex align-items-center mb-3">
+        <h2 v-t="'app.doc.notifications.post_install'" class="md-m-0" />
+        <b-button
+          variant="primary"
+          size="sm"
+          class="ml-auto mr-2"
+          @click="dismissNotification('post_install')"
         >
-          <vue-showdown :markdown="notif" flavor="github" />
-        </div>
+          <icon iname="check" />
+          {{ $t('app.doc.notifications.dismiss') }}
+        </b-button>
+      </div>
 
+      <vue-showdown
+        v-for="[name, notif] in app.doc.notifications.postUpgrade" :key="name"
+        :markdown="notif" flavor="github" :options="{ headerLevelStart: 4 }"
+      />
     </yuno-alert>
 
     <yuno-alert v-if="app && app.doc && app.doc.notifications && app.doc.notifications.postUpgrade.length" variant="info" class="my-4">
-        <div class="d-md-flex align-items-center">
-            <h2 v-t="'app.doc.notifications.post_upgrade'" />
-            <b-button
-              variant="primary"
-              size="sm"
-              class="ml-auto mr-2"
-              @click="dismissNotification($event, 'post_upgrade')"
-            >
-              <icon iname="check" />
-              {{ $t('app.doc.notifications.dismiss') }}
-            </b-button>
-        </div>
-
-        <div
-          v-for="[name, notif] in app.doc.notifications.postUpgrade" :key="name"
+      <div class="d-md-flex align-items-center mb-3">
+        <h2 v-t="'app.doc.notifications.post_upgrade'" class="md-m-0" />
+        <b-button
+          variant="primary"
+          size="sm"
+          class="ml-auto mr-2"
+          @click="dismissNotification('post_upgrade')"
         >
-          <vue-showdown :markdown="notif" flavor="github" />
-        </div>
+          <icon iname="check" />
+          {{ $t('app.doc.notifications.dismiss') }}
+        </b-button>
+      </div>
 
+      <vue-showdown
+        v-for="[name, notif] in app.doc.notifications.postUpgrade" :key="name"
+        :markdown="notif" flavor="github" :options="{ headerLevelStart: 4 }"
+      />
     </yuno-alert>
 
     <section v-if="app" class="border rounded p-3 mb-4">
@@ -188,13 +182,13 @@
           v-if="app.is_webapp"
         >
           <template v-if="!app.is_default">
-            <b-button @click="setAsDefaultDomain($event, false)" id="main-domain" variant="success">
+            <b-button @click="setAsDefaultDomain(false)" id="main-domain" variant="success">
               <icon iname="star" /> {{ $t('app_make_default') }}
             </b-button>
           </template>
 
           <template v-else>
-            <b-button @click="setAsDefaultDomain($event, true)" id="main-domain" variant="warning">
+            <b-button @click="setAsDefaultDomain(true)" id="main-domain" variant="warning">
               <icon iname="star" /> {{ $t('app_make_not_default') }}
             </b-button>
           </template>
@@ -202,13 +196,16 @@
       </template>
     </config-panels>
 
-    <b-card v-if="app && app.doc.admin" no-body>
+    <b-card v-if="app && app.doc.admin.length" no-body>
       <b-tabs card fill pills>
-        <b-tab>
-            <template #title>
-                <icon iname="book" class="mr-2" />{{ $t('app.doc.admin.title') }}
-            </template>
-            <vue-showdown :markdown="app.doc.admin" flavor="github" />
+        <b-tab
+          v-for="[name, content] in app.doc.admin" :key="name"
+        >
+          <template #title>
+            <icon iname="book" class="mr-2" />
+            {{ name === "admin" ? $t('app.doc.admin.title') : name }}
+          </template>
+          <vue-showdown :markdown="content" flavor="github" />
         </b-tab>
       </b-tabs>
     </b-card>
@@ -410,9 +407,9 @@ export default {
             }) : []
           },
           admin: [
-            formatI18nField(ADMIN),
-            ...Object.keys(doc).sort().map((key) => formatI18nField(doc[key]))
-          ].join('\n\n')
+            ['admin', formatI18nField(ADMIN)],
+            ...Object.keys(doc).sort().map((key) => [key.charAt(0) + key.slice(1).toLowerCase(), formatI18nField(doc[key])])
+          ].filter((doc) => doc[1])
         },
         is_webapp: app.is_webapp,
         is_default: app.is_default,
@@ -474,7 +471,7 @@ export default {
       ).then(this.$refs.view.fetchQueries)
     },
 
-    async setAsDefaultDomain (event, undo = false) {
+    async setAsDefaultDomain (undo = false) {
       const confirmed = await this.$askConfirmation(this.$i18n.t('confirm_app_default'))
       if (!confirmed) return
 
@@ -485,7 +482,7 @@ export default {
       ).then(this.$refs.view.fetchQueries)
     },
 
-    async dismissNotification (event, name = false) {
+    async dismissNotification (name) {
       api.put(
         `apps/${this.id}/dismiss_notification/${name}`,
         {},
@@ -523,5 +520,9 @@ select {
 .tiny {
   font-size: 50%;
   font-weight: normal;
+}
+
+.yuno-alert div div:not(:last-child) {
+  margin-bottom: 1rem;
 }
 </style>
