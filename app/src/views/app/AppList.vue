@@ -23,7 +23,7 @@
         <div>
           <h5 class="font-weight-bold">
             {{ label }}
-            <small v-if="name" class="text-secondary">{{ name }}</small>
+            <small class="text-secondary">{{ id }}</small>
           </h5>
           <p class="m-0">
             {{ description }}

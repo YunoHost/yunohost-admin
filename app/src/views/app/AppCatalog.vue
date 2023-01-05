@@ -12,10 +12,10 @@
           </b-input-group-prepend>
           <b-form-input
             id="search-input" :placeholder="$t('search.for', { items: $tc('items.apps', 2) })"
-            v-model="search" @input="setCategory"
+            :value="search" @input="updateQuery('search', $event)"
           />
           <b-input-group-append>
-            <b-select v-model="quality" :options="qualityOptions" @change="setCategory" />
+            <b-select :value="quality" :options="qualityOptions" @change="updateQuery('quality', $event)" />
           </b-input-group-append>
         </b-input-group>
 
@@ -24,9 +24,9 @@
           <b-input-group-prepend is-text>
             <icon iname="filter" />
           </b-input-group-prepend>
-          <b-select v-model="category" :options="categories" />
+          <b-select :value="category" :options="categories" @change="updateQuery('category', $event)" />
           <b-input-group-append>
-            <b-button variant="primary" :disabled="category === null" @click="category = null">
+            <b-button variant="primary" :disabled="category === null" @click="updateQuery('category', null)">
               {{ $t('app_show_categories') }}
             </b-button>
           </b-input-group-append>
@@ -39,83 +39,86 @@
           </b-input-group-prepend>
           <b-form-radio-group
             id="subtags-radio" name="subtags"
-            v-model="subtag" :options="subtags"
+            :checked="subtag" :options="subtags" @change="updateQuery('subtag', $event)"
             buttons button-variant="outline-secondary"
           />
-          <b-select id="subtags-select" v-model="subtag" :options="subtags" />
+          <b-select
+            id="subtags-select" :value="subtag" :options="subtags"
+            @change="updateQuery('subtag', $event)"
+          />
         </b-input-group>
       </div>
     </template>
 
     <!-- CATEGORIES CARDS -->
-    <b-card-group v-if="category === null" deck>
+    <b-card-group v-if="category === null" deck tag="ul">
       <b-card
         v-for="cat in categories.slice(1)" :key="cat.value"
-        class="category-card" no-body
+        tag="li" class="category-card"
       >
-        <b-button variant="outline-dark" @click="category = cat.value">
-          <b-card-title>
+        <b-card-title>
+          <b-link @click="updateQuery('category', cat.value)" class="card-link">
             <icon :iname="cat.icon" /> {{ cat.text }}
-          </b-card-title>
-          <b-card-text>{{ cat.description }}</b-card-text>
-        </b-button>
+          </b-link>
+        </b-card-title>
+        <b-card-text>{{ cat.description }}</b-card-text>
       </b-card>
     </b-card-group>
 
     <!-- APPS CARDS -->
-    <b-card-group v-else deck>
-      <lazy-renderer v-for="app in filteredApps" :key="app.id" :min-height="120">
-        <b-card no-body>
-          <b-card-body class="d-flex flex-column">
-            <b-card-title class="d-flex mb-2">
+    <card-deck-feed v-else>
+      <b-card
+        v-for="(app, i) in filteredApps" :key="app.id"
+        tag="article" :aria-labelledby="`${app.id}-title`" :aria-describedby="`${app.id}-desc`"
+        tabindex="0" :aria-posinset="i + 1" :aria-setsize="filteredApps.length"
+        no-body class="app-card"
+      >
+        <b-card-body>
+          <b-img v-if="app.logo_hash" class="app-logo rounded" :src="`./applogos/${app.logo_hash}.png`" />
+
+          <b-card-title :id="`${app.id}-title`" class="d-flex mb-2">
+            <b-link :to="{ name: 'app-install', params: { id: app.id }}" class="card-link">
               {{ app.manifest.name }}
+            </b-link>
 
-              <small v-if="app.state !== 'working' || app.high_quality" class="d-flex align-items-center ml-2">
-                <b-badge
-                  v-if="app.state !== 'working'"
-                  :variant="app.color"
-                  v-b-popover.hover.bottom="$t(`app_state_${app.state}_explanation`)"
-                >
-                  <!-- app.state can be 'lowquality' or 'inprogress' -->
-                  {{ $t('app_state_' + app.state) }}
-                </b-badge>
+            <small v-if="app.state !== 'working' || app.high_quality" class="d-flex align-items-center ml-2 position-relative">
+              <b-badge
+                v-if="app.state !== 'working'"
+                :variant="app.color"
+                v-b-popover.hover.bottom="$t(`app_state_${app.state}_explanation`)"
+              >
+                <!-- app.state can be 'lowquality' or 'inprogress' -->
+                {{ $t('app_state_' + app.state) }}
+              </b-badge>
 
-                <icon
-                  v-if="app.high_quality" iname="star" class="star"
-                  v-b-popover.hover.bottom="$t(`app_state_highquality_explanation`)"
-                />
-              </small>
-            </b-card-title>
+              <icon
+                v-if="app.high_quality" iname="star" class="star"
+                v-b-popover.hover.bottom="$t(`app_state_highquality_explanation`)"
+              />
+            </small>
+          </b-card-title>
 
-            <b-card-text>{{ app.manifest.description }}</b-card-text>
+          <b-card-text :id="`${app.id}-desc`">
+            {{ app.manifest.description }}
+          </b-card-text>
 
-            <b-card-text v-if="!app.maintained" class="align-self-end mt-auto">
-              <span class="alert-warning p-1" v-b-popover.hover.top="$t('orphaned_details')">
-                <icon iname="warning" /> {{ $t('orphaned') }}
-              </span>
-            </b-card-text>
-          </b-card-body>
+          <b-card-text v-if="!app.maintained" class="align-self-end position-relative mt-auto">
+            <span class="alert-warning p-1" v-b-popover.hover.top="$t('orphaned_details')">
+              <icon iname="warning" /> {{ $t('orphaned') }}
+            </span>
+          </b-card-text>
+        </b-card-body>
+      </b-card>
+    </card-deck-feed>
 
-          <!-- APP BUTTONS -->
-          <b-button-group>
-            <b-button :href="app.git.url" variant="outline-dark" target="_blank">
-              <icon iname="code" /> {{ $t('code') }}
-            </b-button>
-
-            <b-button :href="app.git.url + '/blob/master/README.md'" variant="outline-dark" target="_blank">
-              <icon iname="book" /> {{ $t('readme') }}
-            </b-button>
-
-            <b-button v-if="app.isInstallable" :variant="app.color" @click="onInstallClick(app)">
-              <icon iname="plus" /> {{ $t('install') }} <icon v-if="app.color === 'danger'" class="ml-1" iname="warning" />
-            </b-button>
-            <b-button v-else :variant="app.color" disabled>
-              {{ $t('installed') }}
-            </b-button>
-          </b-button-group>
-        </b-card>
-      </lazy-renderer>
-    </b-card-group>
+    <app-catalog-details
+      v-if="selectedApp"
+      id="modal-app-info"
+      :app-id="selectedApp"
+      :antifeatures="antifeatures"
+      @ok="onInstallClick(selectedApp)"
+      @hide="selectedApp = undefined"
+    />
 
     <template #bot>
       <!-- INSTALL CUSTOM APP -->
@@ -160,26 +163,34 @@
 <script>
 import { validationMixin } from 'vuelidate'
 
-import LazyRenderer from '@/components/LazyRenderer'
+import CardDeckFeed from '@/components/CardDeckFeed'
 import { required, appRepoUrl } from '@/helpers/validators'
-
 import { randint } from '@/helpers/commons'
 
 export default {
   name: 'AppCatalog',
 
   components: {
-    LazyRenderer
+    CardDeckFeed
+  },
+
+  props: {
+    search: { type: String, default: '' },
+    quality: { type: String, default: 'decent_quality' },
+    category: { type: String, default: null },
+    subtag: { type: String, default: 'all' }
   },
 
   data () {
     return {
       queries: [
-        ['GET', 'apps/catalog?full&with_categories']
+        ['GET', 'apps/catalog?full&with_categories&with_antifeatures']
       ],
 
       // Data
       apps: undefined,
+      selectedApp: undefined,
+      antifeatures: undefined,
 
       // Filtering options
       qualityOptions: [
@@ -193,12 +204,6 @@ export default {
         { text: this.$i18n.t('all_apps'), value: 'all', icon: 'search' }
         // The rest is filled from api data
       ],
-
-      // Set by user inputs
-      search: '',
-      category: null,
-      subtag: 'all',
-      quality: 'decent_quality',
 
       // Custom install form
       customInstall: {
@@ -243,7 +248,7 @@ export default {
 
     subtags () {
       // build an options array for subtags v-model/options
-      if (this.category) {
+      if (this.category && this.categories.length > 2) {
         const category = this.categories.find(cat => cat.value === this.category)
         if (category.subtags) {
           const subtags = [{ text: this.$i18n.t('all'), value: 'all' }]
@@ -298,17 +303,24 @@ export default {
       data.categories.forEach(({ title, id, icon, subtags, description }) => {
         this.categories.push({ text: title, value: id, icon, subtags, description })
       })
+      this.antifeatures = Object.fromEntries(data.antifeatures.map((af) => ([af.id, af])))
     },
 
-    setCategory () {
-      // allow search without selecting a category
-      if (this.category === null) {
-        this.category = 'all'
-      }
+    updateQuery (key, value) {
+      // Update the query string without reloading the page
+      this.$router.replace({
+        query: {
+          ...this.$route.query,
+          // allow search without selecting a category
+          category: this.$route.query.category || 'all',
+          [key]: value
+        }
+      })
     },
 
     // INSTALL APP
-    async onInstallClick (app) {
+    async onInstallClick (appId) {
+      const app = this.apps.find((app) => app.id === appId)
       if (!app.decent_quality) {
         const confirmed = await this.$askConfirmation(this.$i18n.t('confirm_install_app_' + app.state))
         if (!confirmed) return
@@ -364,28 +376,43 @@ export default {
 }
 
 .card-deck {
+  padding: 0;
+  margin-bottom: 0;
+
   > * {
-    margin-left: 15px;
-    margin-right: 15px;
     margin-bottom: 2rem;
     flex-basis: 100%;
+
     @include media-breakpoint-up(md) {
       flex-basis: 50%;
       max-width: calc(50% - 30px);
     }
+
     @include media-breakpoint-up(lg) {
       flex-basis: 33%;
       max-width: calc(33.3% - 30px);
     }
-
-    .card {
-      margin: 0;
-      height: 100%;
-    }
   }
 
   .card {
-    border-color: $gray-400;
+    @include hover() {
+      color: color-yiq($dark);
+      background-color: $dark;
+      border-color: $dark;
+    }
+
+    .card-link {
+      color: inherit;
+
+      &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+      }
+    }
 
     // not maintained info
     .alert-warning {
@@ -403,37 +430,39 @@ export default {
     }
 
     flex-basis: 90%;
-    border: 0;
 
-    .btn {
-      padding: 1rem;
-      width: 100%;
-      height: 100%;
+    .card-body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .card-link {
+      outline: none;
+
+      &::after {
+        border: $btn-border-width solid transparent;
+        @include transition($btn-transition);
+        @include border-radius($btn-border-radius, 0);
+      }
+
+      &:focus::after {
+        box-shadow: 0 0 0 $btn-focus-width rgba($dark, .5);
+      }
     }
   }
 
-  .btn-group {
-    .btn {
-      border-top-left-radius: 0;
-      border-top-right-radius: 0;
-      border-bottom: 0;
-      flex-basis: 0;
-      padding-left: 0;
-      padding-right: 0;
-    }
-    .btn:first-of-type {
-      border-left: 0;
-    }
-    .btn:last-of-type {
-      border-right: 0;
-    }
-  }
+  .app-card {
+    min-height: 125px;
+    text-align: start;
+    background-color: $gray-200;
 
-  .btn-outline-dark {
-    border-color: $gray-400;
-
-    &:hover {
-      border-color: $dark;
+    .app-logo {
+      float: left;
+      background-color: white;
+      max-width: 91px;
+      margin-right: 1rem;
     }
   }
 }

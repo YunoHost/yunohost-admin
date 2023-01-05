@@ -175,6 +175,7 @@ const routes = [
     name: 'app-catalog',
     path: '/apps/catalog',
     component: () => import(/* webpackChunkName: "views/apps/catalog" */ '@/views/app/AppCatalog'),
+    props: route => route.query,
     meta: {
       args: { trad: 'catalog' },
       breadcrumb: ['app-list', 'app-catalog']
@@ -201,30 +202,19 @@ const routes = [
     }
   },
   {
-    name: 'app-info',
     path: '/apps/:id',
     component: () => import(/* webpackChunkName: "views/apps/info" */ '@/views/app/AppInfo'),
     props: true,
-    meta: {
-      args: { param: 'id' },
-      breadcrumb: ['app-list', 'app-info']
-    }
-  },
-  {
-    // no need for name here, only children are visited
-    path: '/apps/:id/config-panel',
-    component: () => import(/* webpackChunkName: "views/apps/config" */ '@/views/app/AppConfigPanel'),
-    props: true,
     children: [
       {
-        name: 'app-config-panel',
+        name: 'app-info',
         path: ':tabId?',
         component: () => import(/* webpackChunkName: "components/configPanel" */ '@/components/ConfigPanel'),
         props: true,
         meta: {
-          routerParams: ['id'],
-          args: { trad: 'app_config_panel' },
-          breadcrumb: ['app-list', 'app-info', 'app-config-panel']
+          routerParams: ['id'], // Override router key params to avoid view recreation at tab change.
+          args: { param: 'id' },
+          breadcrumb: ['app-list', 'app-info']
         }
       }
     ]
