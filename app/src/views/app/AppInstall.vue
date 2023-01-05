@@ -80,18 +80,18 @@
         <h2>{{ $t('app.install.notifs.pre.warning') }}</h2>
 
         <template v-if="app.antifeatures">
-          <strong v-t="'app.antifeatures'" class="d-block mb-1" />
-          <ul class="antifeatures">
-            <li v-for="antifeature in app.antifeatures" :key="antifeature.id">
-              <icon :iname="antifeature.icon" class="md mr-1" />
-              {{ antifeature.title }}
-              <explain-what
-                :id="antifeature.id"
-                :title="antifeature.title"
-                :content="antifeature.description"
-              />
-            </li>
-          </ul>
+          <strong v-t="'app.antifeatures'" class="d-block mb-2" />
+          <dl class="antifeatures">
+            <div v-for="antifeature in app.antifeatures" :key="antifeature.id">
+              <dt class="d-inline">
+                <icon :iname="antifeature.icon" class="md mr-1" />
+                {{ antifeature.title }}:
+              </dt>
+              <dd class="d-inline">
+                {{ antifeature.description }}
+              </dd>
+            </div>
+          </dl>
         </template>
 
         <p v-if="app.quality.state === 'lowquality'" v-t="'app.install.problems.lowquality'" />
@@ -342,10 +342,8 @@ export default {
 
 <style lang="scss" scoped>
 .antifeatures {
-  padding-left: 1rem;
-
-  li {
-    list-style: none;
+  dt::before {
+    content: "• ";
   }
 }
 </style>
