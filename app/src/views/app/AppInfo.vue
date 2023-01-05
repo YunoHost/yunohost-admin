@@ -64,6 +64,7 @@
           @click="uninstall"
           id="uninstall"
           variant="danger"
+          :class="{ 'ml-auto': !app.url }"
         >
           <icon iname="trash-o" />
           {{ $t('uninstall') }}
