@@ -73,7 +73,9 @@
         tabindex="0" :aria-posinset="i + 1" :aria-setsize="filteredApps.length"
         no-body class="app-card"
       >
-        <b-card-body class="d-flex flex-column">
+        <b-card-body>
+          <b-img v-if="app.logo_hash" class="app-logo rounded" :src="`./applogos/${app.logo_hash}.png`" />
+
           <b-card-title :id="`${app.id}-title`" class="d-flex mb-2">
             <b-link :to="{ name: 'app-install', params: { id: app.id }}" class="card-link">
               {{ app.manifest.name }}
@@ -453,8 +455,15 @@ export default {
 
   .app-card {
     min-height: 125px;
-
     text-align: start;
+    background-color: $gray-200;
+
+    .app-logo {
+      float: left;
+      background-color: white;
+      max-width: 91px;
+      margin-right: 1rem;
+    }
   }
 }
 </style>
