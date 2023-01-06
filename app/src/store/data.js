@@ -30,8 +30,9 @@ export default {
   }),
 
   mutations: {
-    'SET_DOMAINS' (state, [domains]) {
+    'SET_DOMAINS' (state, [{ domains, main }]) {
       state.domains = domains
+      state.main_domain = main
     },
 
     'SET_DOMAINS_DETAILS' (state, [name, details]) {
@@ -58,9 +59,10 @@ export default {
       state.domains.splice(state.domains.indexOf(domain), 1)
     },
 
-    'SET_MAIN_DOMAIN' (state, [response]) {
-      state.main_domain = response.current_main_domain
-    },
+    // Now applied thru 'SET_DOMAINS'
+    // 'SET_MAIN_DOMAIN' (state, [response]) {
+    //   state.main_domain = response.current_main_domain
+    // },
 
     'UPDATE_MAIN_DOMAIN' (state, [domain]) {
       state.main_domain = domain
@@ -145,7 +147,10 @@ export default {
       const ignoreCache = !rootState.cache || noCache || false
       if (currentState !== undefined && !ignoreCache) return currentState
       return api.fetch('GET', param ? `${uri}/${param}` : uri, null, humanKey, options).then(responseData => {
-        const data = responseData[storeKey] ? responseData[storeKey] : responseData
+        // FIXME here's an ugly fix to be able to also cache the main domain when querying domains
+        const data = storeKey === 'domains'
+          ? responseData
+          : responseData[storeKey] ? responseData[storeKey] : responseData
         commit(
           'SET_' + storeKey.toUpperCase(),
           [param, data, extraParams].filter(item => !isEmptyValue(item))

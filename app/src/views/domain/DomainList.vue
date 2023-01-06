@@ -54,7 +54,6 @@ export default {
   data () {
     return {
       queries: [
-        ['GET', { uri: 'domains/main', storeKey: 'main_domain' }],
         ['GET', { uri: 'domains', storeKey: 'domains' }]
       ],
       search: '',
