@@ -115,7 +115,6 @@ export default {
     return {
       queries: [
         ['GET', { uri: 'users', param: this.name, storeKey: 'users_details' }],
-        ['GET', { uri: 'domains/main', storeKey: 'main_domain' }],
         ['GET', { uri: 'domains' }]
       ],
 

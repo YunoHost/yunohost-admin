@@ -57,8 +57,7 @@ export default {
     return {
       queries: [
         ['GET', { uri: 'users' }],
-        ['GET', { uri: 'domains' }],
-        ['GET', { uri: 'domains/main', storeKey: 'main_domain' }]
+        ['GET', { uri: 'domains' }]
       ],
 
       form: {
