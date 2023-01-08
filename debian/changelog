@@ -1,3 +1,11 @@
+yunohost-admin (11.1.2.1) testing; urgency=low
+
+  - fix main_domain api call with ugly cache override from domain list ([#500](https://github.com/yunohost/yunohost-admin/pull/500))
+
+  Thanks to all contributors <3 ! (axolotle)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Sun, 08 Jan 2023 15:14:46 +0100
+
 yunohost-admin (11.1.2) testing; urgency=low
 
   - appsv2: Rework AppCatalog, AppInstall, AppInfo and SystemUpdate to integrate appv2 and other changes ([#486](https://github.com/yunohost/yunohost-admin/pull/486))
