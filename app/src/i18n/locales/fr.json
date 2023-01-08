@@ -500,7 +500,8 @@
             "install": "Installer l'application '{name}'",
             "change_url": "Modifier l'URL d'accès de '{name}'",
             "change_label": "Changer le libellé de '{prevName}' par '{nextName}'",
-            "action_config": "Exécuter l'action '{action}' de configuration de l'application '{name}'"
+            "action_config": "Exécuter l'action '{action}' de configuration de l'application '{name}'",
+            "dismiss_notification": "Notification de rejet pour '{name}'"
         },
         "reconnecting": "Reconnexion",
         "settings": {
@@ -582,5 +583,104 @@
     "manage_groups": "Gestion des groupes",
     "tools_yunohost_settings": "Paramètres de YunoHost",
     "wrong_password_or_username": "Mot de passe ou nom d'utilisateur erroné",
-    "confirm_install_app_broken": "AVERTISSEMENT ! Cette application est cassée selon les contrôles automatiques de YunoHost et elle est susceptible de casser votre système ! Vous ne devriez probablement PAS l'installer à moins de savoir ce que vous faites. Êtes-vous prêt à prendre ce risque ?"
+    "confirm_install_app_broken": "AVERTISSEMENT ! Cette application est cassée selon les contrôles automatiques de YunoHost et elle est susceptible de casser votre système ! Vous ne devriez probablement PAS l'installer à moins de savoir ce que vous faites. Êtes-vous prêt à prendre ce risque ?",
+    "app": {
+        "links": {
+            "code": "Dépôt officiel de code",
+            "admindoc": "Documentation officielle de l'administrateur",
+            "forum": "Sujets concernant cette application sur le forum de YunoHost",
+            "package": "Dépôt des paquets de YunoHost",
+            "title": "Liens",
+            "userdoc": "Documentation officielle de l'utilisateur",
+            "website": "Site officiel",
+            "license": "Licence"
+        },
+        "potential_alternative_to": "Alternative potentielle à :",
+        "upgrade": {
+            "notifs": {
+                "pre": {
+                    "alert": "Vous devriez vérifier ces notifications avant de procéder à la mise à niveau, il pourrait y avoir des éléments d'information importants à connaître.",
+                    "title": "Soyez averti !"
+                },
+                "post": {
+                    "alert": "Il semble que la mise à jour se soit bien passée !\nVoici quelques informations que le responsable du paquet juge important de connaître à propos de cette mise à niveau.\nVous pouvez les retrouver dans la page d'information de l'application.",
+                    "title": "Notifications post-mise à niveau pour '{name}'"
+                }
+            },
+            "confirm": {
+                "apps": "Applications qui seront mises à niveau",
+                "title": "Confirmez les mises à niveau des applications"
+            },
+            "continue": "Passer à l'application suivante",
+            "stop": "Annuler les prochaines mises à niveau d'applications"
+        },
+        "installed_version": "Version installée : {version}",
+        "open_this_app": "Ouvrez l'application",
+        "antifeatures": "Cette application a des fonctionnalités que vous n'aimerez peut-être pas :",
+        "doc": {
+            "about": {
+                "title": "À propos",
+                "description": "Description"
+            },
+            "admin": {
+                "title": "Documentation de l'administrateur"
+            },
+            "notifications": {
+                "dismiss": "Rejeter",
+                "title": "Notifications",
+                "post_upgrade": "Remarques suite à la mise à niveau",
+                "post_install": "Remarques suite à l'installation"
+            }
+        },
+        "info": {
+            "forum": "Cherchez ou demandez sur le forum !",
+            "problem": "Un problème avec cette application ?"
+        },
+        "install": {
+            "license": "Licence : {license}",
+            "notifs": {
+                "post": {
+                    "title": "Notifications de post-installation pour '{name}'",
+                    "alert": "Il semble que l'installation se soit bien passée !\nVoici quelques notifications que le responsable du paquet considère comme importantes à connaître.\nVous pouvez les retrouver dans la page d'information de l'application."
+                },
+                "pre": {
+                    "warning": "Ce qu'il faut savoir avant l'installation",
+                    "danger": "L'installation de l'application entraînera très probablement des problèmes",
+                    "critical": "L'application ne peut pas être installée"
+                }
+            },
+            "problems": {
+                "arch": "Cette application ne peut être installée que sur des architectures spécifiques ({required}). L'architecture de votre serveur est {current}.",
+                "broken": "Cette application est cassée selon les tests automatiques de YunoHost et elle est susceptible de casser votre système ! Vous ne devriez probablement PAS l'installer sauf si vous savez ce que vous faites.",
+                "thirdparty": "Cette application ne fait pas partie du catalogue officiel de YunoHost, l'installation d'applications tierces peut compromettre l'intégrité et la sécurité de votre système. Vous ne devriez probablement PAS l'installer à moins de savoir ce que vous faites.",
+                "ignore": "Je comprends que cette installation peut casser mon système mais je veux quand même essayer.",
+                "inprogress": "Cette application est encore expérimentale (pour être plus clair elle ne fonctionne pas super bien et n'est pas encore bien intégrée dans YunoHost). En conséquence, elle est susceptible de casser votre système ! Vous ne devriez probablement PAS l'installer si vous ne savez pas ce que vous faites.",
+                "install": "Cette application est déjà installée et ne peut être installée plus d'une fois.",
+                "lowquality": "Cette application peut fonctionner mais n'est pas bien intégrée dans YunoHost. Certaines fonctionnalités telles que l'authentification unique (sso) et la sauvegarde/restauration peuvent ne pas être disponibles, ou ne pas respecter les bonnes pratiques.",
+                "ram": "Cette application nécessite {required} de RAM pour être installée/mise à niveau mais seul {current} est disponible actuellement. Même si cette application pouvait fonctionner, son processus d'installation nécessite une grande quantité de RAM. Votre serveur risque donc de geler (freezer) et de planter lamentablement.",
+                "version": "Cette application nécessite une version de YunoHost >= {required} et votre version installée est {current}, vous devriez envisager en premier lieu de mettre à niveau YunoHost."
+            },
+            "try_demo": "Essayer la démonstration",
+            "version": "Version actuelle : {version}"
+        },
+        "integration": {
+            "archs": "Architectures prises en charge :",
+            "ldap": {
+                "false": "Ne permet pas d'utiliser les comptes YunoHost pour se connecter (LDAP)",
+                "true": "Utilise les comptes YunoHost pour se connecter (LDAP)",
+                "?": "Aucune information sur l'intégration LDAP"
+            },
+            "multi_instance": {
+                "false": "Ne peut être installé qu'une seule fois",
+                "true": "Peut être installée plusieurs fois"
+            },
+            "resources": "Utilisation classique des ressources : {ram} RAM, {disk} disque",
+            "sso": {
+                "false": "Le système d'identification unique n'est pas disponible (SSO)",
+                "true": "Le système d'identification unique est disponible (SSO)",
+                "?": "Aucune information sur l'intégration du SSO"
+            },
+            "title": "Intégration avec YunoHost"
+        }
+    }
 }
