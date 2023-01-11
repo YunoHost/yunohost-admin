@@ -255,7 +255,9 @@
         },
         "dns": {
             "auto_config": "ضبط تلقائي لتسجيلات خدمة أسماء النطاقات",
-            "push": "إرسال التسجيلات إلى سِجِلّ أسماء النطاقات"
+            "push": "إرسال التسجيلات إلى سِجِلّ أسماء النطاقات",
+            "auto_config_ok": "يبدو أن الضبط التلقائي على ما يرام!",
+            "edit": "تعديل إعدادات نظام أسماء النطاقات"
         },
         "info": {
             "apps_on_domain": "التطبيقات المُنصّبة على اسم النطاق",
@@ -481,8 +483,14 @@
     "logs_suboperations": "الإجراءات الفرعية",
     "permission_show_tile_enabled": "مرئي كلوحة على بوابة المستخدم",
     "tools_yunohost_settings": "إعدادات YuNoHost",
-    "permission_corresponding_url": "الرابط التشعبي المطابق",
+    "permission_corresponding_url": "العنوان التشعبي URL المقابل",
     "manage_groups": "إدارة الفِرَق",
     "user_emailaliases_add": "إضافة عنوان بريد إلكتروني مستعار",
-    "wrong_password_or_username": "اسم المستخدم أو كلمة المرور خاطئة"
+    "wrong_password_or_username": "اسم المستخدم أو كلمة المرور خاطئة",
+    "app_manage_label_and_tiles": "إدارة الملصقات واللوحات",
+    "items": {
+        "installed_apps": "لا توجد تطبيقات مثبّة | تطبيق مُنصّب | {c} تطبيقات مُنصّبة"
+    },
+    "domain_dns_push_managed_in_parent_domain": "تتم إدارة ميزة سجلات DNS التلقائية في النطاق الرئيسي <a href='#/domains/{parent_domain}/dns'> {parent_domain} </a>.",
+    "tip_about_user_email": "يتم إنشاء المستخدمين باستخدام عنوان بريد إلكتروني مرتبط (وحساب XMPP) بالشكل التالي username@domain.tld. يمكن لاحقا للمدير أو المستخدم إضافة أسماء مستعارة إضافية للبريد الإلكتروني وإعادة توجيهات للبريد الإلكتروني."
 }
