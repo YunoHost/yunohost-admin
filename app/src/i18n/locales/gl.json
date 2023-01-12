@@ -621,7 +621,12 @@
             },
             "problems": {
                 "arch": "Esta app só se pode instalar en determinadas architecturas ({required}) pero a do teu servidor é {current}.",
-                "broken": "Esta aplicación está estragada segundo os test automáticos de YunoHost e probablemente estrague o teu sistema! Probablemente NON deberías instalala a menos saibas o que estás a facer."
+                "broken": "Esta aplicación está estragada segundo os test automáticos de YunoHost e probablemente estrague o teu sistema! Probablemente NON deberías instalala a menos saibas o que estás a facer.",
+                "thirdparty": "Esta aplicación non forma parte do catálogo oficial de YunoHost, ao instalar aplicacións de terceiras partes poderías estar comprometendo a integridade e seguridade do teu sistema. Non deberías facelo a menos que saibas o que estás facendo.",
+                "ignore": "Entendo que esta instalación podería estragar o meu sistema, pero quero facela igualmente.",
+                "inprogress": "Esta aplicación é aínda experimental (e pode que nin funcione) e é probable que estrague o teu sistema! Probablemente NON deberías instalala a menos que saibas o que estás a facer.",
+                "install": "Xa está instalada e non pode instalarse máis dunha vez.",
+                "lowquality": "Esta aplicación podería funcionar pero non ten integración completa en YunoHost. Algunhas características como o acceso unificado e copias de apoio poderían non estar dispoñibles, ou pode que non respecte as boas prácticas de empaquetamento."
             }
         }
     }
