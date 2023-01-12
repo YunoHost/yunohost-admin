@@ -394,7 +394,8 @@
             "title": "محاولة الإتصال بالخادم…",
             "reason": {
                 "unknown": "تم اغلاق الاتصال بالخادم لأسباب مجهولة."
-            }
+            },
+            "failed": "يبدو أن الخادم لا يستجيب. يمكنك محاولة إعادة الاتصال مرة أخرى أو محاولة تشغيل`systemctl restart yunohost-api` من خلال ssh."
         },
         "partial_logs": "[...] (تحقق من السجل للحصول على السجلات الكاملة)"
     },
@@ -414,7 +415,11 @@
     "error": "خطأ",
     "experimental": "تجريبي",
     "api_errors_titles": {
-        "APINotRespondingError": "إنّ واجهة برمجة التطبيقات لـ YunoHost لا تجيب"
+        "APINotRespondingError": "إنّ واجهة برمجة التطبيقات لـ YunoHost لا تجيب",
+        "APIError": "صادف YunoHost خطأ غير متوقع",
+        "APIBadRequestError": "واجه YunoHost خطأ",
+        "APIInternalError": "صادف YunoHost خطأ محليا",
+        "APIConnexionError": "صادف YunoHost خطأ في الإتصال"
     },
     "api_waiting": "في انتظار ردّ الخادم…",
     "app_choose_category": "اختر فئة",
@@ -451,7 +456,11 @@
     "hook_data_xmpp": "بيانات XMPP",
     "app": {
         "integration": {
-            "title": "إدماج YunoHost"
+            "title": "إدماج YunoHost",
+            "multi_instance": {
+                "false": "لا يمكن تنصيبه إلا مرة واحدة",
+                "true": "يمكن تنصيبه عدة مرات"
+            }
         },
         "links": {
             "admindoc": "الدليل الرسمي للمدير",
@@ -476,6 +485,37 @@
                 }
             },
             "stop": "إلغاء تحديث التطبيقات التالية"
+        },
+        "installed_version": "الإصدار المثبت: {version}",
+        "open_this_app": "إفتح هذا التطبيق",
+        "doc": {
+            "about": {
+                "title": "عن",
+                "description": "الوصف"
+            },
+            "admin": {
+                "title": "دليل المدير"
+            },
+            "notifications": {
+                "dismiss": "تجاهل",
+                "title": "الإشعارات",
+                "post_upgrade": "ملاحظات ما بعد التحديث",
+                "post_install": "ملاحظات ما بعد التنصيب"
+            }
+        },
+        "info": {
+            "forum": "ابحث أو إطرح سؤالك في المنتدى!",
+            "problem": "مشكلة مع هذا التطبيق؟"
+        },
+        "install": {
+            "license": "الرخصة: {license}",
+            "notifs": {
+                "pre": {
+                    "warning": "ما عليك معرفته قبل التنصيب",
+                    "critical": "لا يمكن تنصيب التطبيق"
+                }
+            },
+            "version": "الإصدار الحالي: {version}"
         }
     },
     "hook_conf_manually_modified_files": "ملفات ضبط تم تعديلها يدويا",
@@ -492,5 +532,6 @@
         "installed_apps": "لا توجد تطبيقات مثبّة | تطبيق مُنصّب | {c} تطبيقات مُنصّبة"
     },
     "domain_dns_push_managed_in_parent_domain": "تتم إدارة ميزة سجلات DNS التلقائية في النطاق الرئيسي <a href='#/domains/{parent_domain}/dns'> {parent_domain} </a>.",
-    "tip_about_user_email": "يتم إنشاء المستخدمين باستخدام عنوان بريد إلكتروني مرتبط (وحساب XMPP) بالشكل التالي username@domain.tld. يمكن لاحقا للمدير أو المستخدم إضافة أسماء مستعارة إضافية للبريد الإلكتروني وإعادة توجيهات للبريد الإلكتروني."
+    "tip_about_user_email": "يتم إنشاء المستخدمين باستخدام عنوان بريد إلكتروني مرتبط (وحساب XMPP) بالشكل التالي username@domain.tld. يمكن لاحقا للمدير أو المستخدم إضافة أسماء مستعارة إضافية للبريد الإلكتروني وإعادة توجيهات للبريد الإلكتروني.",
+    "app_state_broken": "مُكسَّر"
 }
