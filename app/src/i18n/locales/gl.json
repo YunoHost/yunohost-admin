@@ -412,7 +412,8 @@
             "install": "Intalar app '{name}'",
             "change_url": "Cambiar URL de acceso a '{name}'",
             "change_label": "Cambiar etiqueta de '{prevName}' a '{nextName}'",
-            "action_config": "Executar a acción '{action}' da configuración da app '{name}'"
+            "action_config": "Executar a acción '{action}' da configuración da app '{name}'",
+            "dismiss_notification": "Desbotar a notificación de '{name}'"
         },
         "reconnecting": "Reconectando",
         "settings": {
@@ -626,8 +627,60 @@
                 "ignore": "Entendo que esta instalación podería estragar o meu sistema, pero quero facela igualmente.",
                 "inprogress": "Esta aplicación é aínda experimental (e pode que nin funcione) e é probable que estrague o teu sistema! Probablemente NON deberías instalala a menos que saibas o que estás a facer.",
                 "install": "Xa está instalada e non pode instalarse máis dunha vez.",
-                "lowquality": "Esta aplicación podería funcionar pero non ten integración completa en YunoHost. Algunhas características como o acceso unificado e copias de apoio poderían non estar dispoñibles, ou pode que non respecte as boas prácticas de empaquetamento."
-            }
+                "lowquality": "Esta aplicación podería funcionar pero non ten integración completa en YunoHost. Algunhas características como o acceso unificado e copias de apoio poderían non estar dispoñibles, ou pode que non respecte as boas prácticas de empaquetamento.",
+                "ram": "Esta aplicación precisa {required} de RAM para instalar/actualizar pero só hai dispoñibles {current}. Incluso se a app funcionase, o proceso de instalación require moita RAM e o servidor podería fallar.",
+                "version": "Esta aplicación require YunoHost >= {required} pero a versión actual instalada é {current}, considera actualizar primeiro YunoHost."
+            },
+            "try_demo": "Proba a demo",
+            "version": "Versión actual: {version}"
+        },
+        "integration": {
+            "archs": "Arquitecturas soportadas:",
+            "ldap": {
+                "false": "Non usa as contas de YunoHost para o acceso (LDAP)",
+                "true": "Usa as contas de YunoHost para o acceso (LDAP)",
+                "?": "Non hai información sobre a integración LDAP"
+            },
+            "multi_instance": {
+                "false": "Só permite unha única instalación",
+                "true": "Permite varias instalacións"
+            },
+            "resources": "Uso de recursos habitual: {ram] RAM, {disk} disco",
+            "sso": {
+                "false": "Non dispoñible o acceso unificado (SSO)",
+                "true": "Dispoñible o acceso unificado (SSO)",
+                "?": "Non hai información sobre a integración SSO"
+            },
+            "title": "Integración con YunoHost"
+        },
+        "links": {
+            "admindoc": "Documentación oficial de Admin",
+            "code": "Repositorio oficial do código",
+            "forum": "Temas acerca desta app no foro YunoHost",
+            "package": "Repositorio do paquete YunoHost",
+            "title": "Ligazóns",
+            "userdoc": "Documentación oficial para usuarias",
+            "website": "Sitio Web Oficial",
+            "license": "Licenza"
+        },
+        "potential_alternative_to": "Alternativa potencial para:",
+        "upgrade": {
+            "confirm": {
+                "apps": "Apps que van ser actualizadas",
+                "title": "Confirmar actualización das apps"
+            },
+            "continue": "Continuar coa seguinte app",
+            "notifs": {
+                "pre": {
+                    "alert": "Deberías ler as notificacións antes de actualiar, podería haber información que debas coñecer.",
+                    "title": "Ten coidado!"
+                },
+                "post": {
+                    "alert": "Semella que todo foi ben!\n Estas son algunha información acerca da actualización que as desenvolvedoras cren que debes coñecer.\nPodes lelas cando queiras na páxina de información da app.",
+                    "title": "Notificacións post-actualización para '{name}'"
+                }
+            },
+            "stop": "Cancelar as actualizacións da app seguinte"
         }
     }
 }
