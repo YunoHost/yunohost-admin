@@ -1,1 +1,119 @@
-{}
+{
+    "address": {
+        "domain_description": {
+            "domain": "Pasirinkite domeną.",
+            "email": "Pasirinkite domeną savo el. paštui."
+        },
+        "local_part_description": {
+            "domain": "Pasirinkite subdomeną.",
+            "email": "Pasirinkite vietinę el. pašto dalį."
+        }
+    },
+    "api": {
+        "partial_logs": "[...] (visas išvestis rasite istorijoje)",
+        "reconnecting": {
+            "failed": "Atrodo, kad serveris neatsako. Galite pabandyti dar kartą prisijungti arba per ssh paleisti `systemctl restart yunohost-api`.",
+            "reason": {
+                "shutdown": "Jūsų serveris išjungiamas ir nebėra pasiekiamas. Įjunkite jį iš naujo ir prisijungimo užklausa bus rodoma, kai tik serveris taps pasiekiamas.",
+                "reboot": "Jūsų serveris perkraunamas ir kurį laiką nebus pasiekiamas. Kai tik serveris taps pasiekiamas, bus pateikta prisijungimo užklausa.",
+                "unknown": "Ryšys su serveriu nutrauktas dėl nežinomų priežasčių.",
+                "upgrade_system": "Ryšys su serveriu nutrauktas dėl YunoHost atnaujinimo. Laukiama, kol serveris vėl bus pasiekiamas…"
+            },
+            "success": "Dabar serveris pasiekiamas! Galite pabandyti prisijungti",
+            "title": "Bandoma susisiekti su serveriu..."
+        },
+        "processing": "Serveris apdoroja veiksmą...",
+        "query_status": {
+            "error": "Nesėkminga",
+            "pending": "Vykdoma",
+            "success": "Sėkmingai užbaigta",
+            "warning": "Sėkminga užbaiga su klaidom arba įspėjimais"
+        }
+    },
+    "api_error": {
+        "help": "Turėtumėte ieškoti pagalbos <a href=\"https://forum.yunohost.org/\">Forume</a> arba <a href=\"https://chat.yunohost.org/\">Pokalbiuose</a> , kad ištaisyti padėtį arba praneškite apie klaidą <a href=\"https://github.com/YunoHost/issues\"> klaidų stebėjimo sistemoje</a>.",
+        "error_message": "Pranešimas apie klaidą:",
+        "info": "Toliau pateikta informacija gali būti naudinga jums padedančiam asmeniui:",
+        "server_said": "Apdorojant veiksmą serveris pranešė:",
+        "sorry": "Labai atsiprašau apie tai.",
+        "view_error": "Peržiūros klaida"
+    },
+    "api_not_found": "Atrodo, kad žiniatinklio administratorius bandė pateikti užklausą apie tai, ko nėra.",
+    "api_not_responding": "\"YunoHost\" API neatsako. Galbūt 'yunohost-api' neveikia arba buvo paleista iš naujo?",
+    "api_waiting": "Laukiama serverio atsakymo...",
+    "app": {
+        "open_this_app": "Atidarykite šią programėlę",
+        "doc": {
+            "notifications": {
+                "post_upgrade": "Pastabos po atnaujinimo",
+                "dismiss": "Atmesti",
+                "title": "Pranešimai",
+                "post_install": "Pastabos po diegimo"
+            },
+            "about": {
+                "title": "Apie",
+                "description": "Aprašymas"
+            },
+            "admin": {
+                "title": "Admin dokumentacija"
+            }
+        },
+        "install": {
+            "notifs": {
+                "post": {
+                    "alert": "Atrodo, kad diegimas pavyko gerai!\n Štai keletas pranešimų, kuriuos, pakuotojo nuomone, svarbu žinoti.\nJuos dar kartą galite perskaityti programėlės informacijos puslapyje.",
+                    "title": "Pranešimai po įdiegimo '{name}'"
+                },
+                "pre": {
+                    "warning": "Ką reikia žinoti prieš diegimą",
+                    "danger": "Įdiegus programą greičiausiai kils problemų",
+                    "critical": "Programos neįmanoma įdiegti"
+                }
+            },
+            "problems": {
+                "arch": "Šią programą galima įdiegti tik tam tikrose architektūrose ({required}), tačiau jūsų serverio architektūra yra {current}.",
+                "thirdparty": "Ši programa nepriklauso oficialiam \"YunoHost\" katalogui, todėl įdiegus trečiųjų šalių programas gali būti pažeistas jūsų sistemos vientisumas ir saugumas. Neturėtumėte jos diegti, nebent žinote, ką darote.",
+                "lowquality": "Ši programa gali veikti, tačiau ji nėra gerai integruota į \"YunoHost\". Kai kurios funkcijos, pavyzdžiui, vieno prisijungimo ir atsarginių kopijų darymo / atkūrimo, gali būti nepasiekiamos arba neatitinka standartų.",
+                "broken": "Pagal \"YunoHost\" automatinius testus ši programa yra sugedusi ir gali sugadinti jūsų sistemą! Neturėtumėte jos diegti, nebent žinote, ką darote.",
+                "ignore": "Suprantu, kad šis diegimas gali sugadinti mano sistemą, bet vis tiek noriu pabandyti.",
+                "inprogress": "Ši programa vis dar yra eksperimentinė (jei ne neveikianti) ir gali sugadinti jūsų sistemą! Neturėtumėte jos diegti, jei nežinote, ką darote.",
+                "install": "Tai jau įdiegta ir negali būti įdiegta daugiau nei vieną kartą.",
+                "ram": "Šiai programai įdiegti / atnaujinti reikia {required} operatyviosios atminties, tačiau dabar galima naudoti tik {current}. Net jei ši programa galėtų veikti, jos diegimo procesui reikia daug operatyviosios atminties, todėl jūsų serveris gali užšalti ir žlugti.",
+                "version": "Šiai programai reikia \"YunoHost\" >= {required}, bet jūsų dabartinė įdiegta versija yra {current}, pirmiausia atnaujinkite \"YunoHost\"."
+            },
+            "license": "Licencija: {license}",
+            "try_demo": "Išbandykite demonstracinę versiją",
+            "version": "Dabartinė versija: {version}"
+        },
+        "integration": {
+            "ldap": {
+                "?": "Nėra informacijos apie LDAP integraciją",
+                "false": "Nenaudoja \"YunoHost\" paskyrų prisijungimui (LDAP)",
+                "true": "Naudokite \"YunoHost\" paskyras prisijungimui (LDAP)"
+            },
+            "archs": "Palaikomos architektūros:",
+            "multi_instance": {
+                "false": "Galima įdiegti tik vieną kartą"
+            }
+        },
+        "installed_version": "Įdiegta versija: {version}",
+        "antifeatures": "Ši programėlė turi funkcijų, kurios jums gali nepatikti:",
+        "info": {
+            "forum": "Ieškokite arba klauskite forume!",
+            "problem": "Problema su šia programėle?"
+        }
+    },
+    "action": "Veiksmas",
+    "add": "Pridėti",
+    "administration_password": "Administracijos slaptažodis",
+    "all": "Visi",
+    "all_apps": "Visos programėlės",
+    "api_errors_titles": {
+        "APIBadRequestError": "\"YunoHost\" susidūrė su klaida",
+        "APIConnexionError": "\"YunoHost\" susidūrė su ryšio klaida",
+        "APIError": "\"YunoHost\" susidūrė su netikėta klaida",
+        "APIInternalError": "\"YunoHost\" susidūrė su vidine klaida",
+        "APINotFoundError": "YunoHost API nepavyko rasti maršruto",
+        "APINotRespondingError": "\"YunoHost\" API neatsako"
+    }
+}
