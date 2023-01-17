@@ -582,5 +582,44 @@
     "label_for_manifestname_help": "Dies ist der Name, welcher im Benutzer-Portal angezeigt wird. Dies kann später nochmal geändert werden.",
     "manage_groups": "Gruppenmanagement",
     "tools_yunohost_settings": "YunoHost-Einstellungen",
-    "wrong_password_or_username": "Falsches Passwort für Benutzername"
+    "wrong_password_or_username": "Falsches Passwort für Benutzername",
+    "app": {
+        "install": {
+            "problems": {
+                "broken": "Diese Anwendung ist laut automatischer Tests von YunoHost defekt und wird wahrscheinlich dein System ruinieren! Du solltest sie NICHT installieren, ohne zu wissen, was du machst.",
+                "arch": "Diese App kann nur auf bestimmten Architekturen ({required}) installiert werden, aber die Architektur deines Servers ist {current}."
+            },
+            "license": "Lizenz: {license}",
+            "notifs": {
+                "post": {
+                    "title": "Post-Installations-Benachrichtigungen für „{name}“",
+                    "alert": "Die Installation scheint erfolgreich gewesen zu sein!\n Hier sind einige Benachrichtigungen, die von den App-Betreuenden als wichtig eingestuft wurden.\nDu kannst sie erneut auf der App-Infoseite lesen."
+                },
+                "pre": {
+                    "warning": "Wichtige Informationen vor der Installation",
+                    "danger": "Die Installation der Anwendung wird höchstwahrscheinlich zu Problemen führen",
+                    "critical": "Die Anwendung kann nicht installiert werden"
+                }
+            }
+        },
+        "installed_version": "Installierte Version: {version}",
+        "open_this_app": "Öffne diese App",
+        "antifeatures": "Diese App hat Funktionen, die du womöglich nicht magst:",
+        "doc": {
+            "about": {
+                "title": "Über",
+                "description": "Beschreibung"
+            },
+            "notifications": {
+                "dismiss": "Ausblenden",
+                "title": "Benachrichtigungen",
+                "post_upgrade": "Post-Aktualisierungs-Anmerkungen",
+                "post_install": "Post-Installations-Anmerkungen"
+            }
+        },
+        "info": {
+            "forum": "Suche oder Frage im Forum!",
+            "problem": "Ein Problem mit dieser App?"
+        }
+    }
 }
