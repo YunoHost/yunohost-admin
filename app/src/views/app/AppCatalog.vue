@@ -458,7 +458,6 @@ export default {
   .app-card {
     min-height: 125px;
     text-align: start;
-    background-color: $gray-200;
 
     .app-logo {
       align-self: flex-start;
