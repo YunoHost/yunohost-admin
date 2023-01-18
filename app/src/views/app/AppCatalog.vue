@@ -73,40 +73,42 @@
         tabindex="0" :aria-posinset="i + 1" :aria-setsize="filteredApps.length"
         no-body class="app-card"
       >
-        <b-card-body>
+        <b-card-body class="d-flex">
           <b-img v-if="app.logo_hash" class="app-logo rounded" :src="`./applogos/${app.logo_hash}.png`" />
 
-          <b-card-title :id="`${app.id}-title`" class="d-flex mb-2">
-            <b-link :to="{ name: 'app-install', params: { id: app.id }}" class="card-link">
-              {{ app.manifest.name }}
-            </b-link>
+          <div>
+            <b-card-title :id="`${app.id}-title`" class="d-flex mb-2">
+              <b-link :to="{ name: 'app-install', params: { id: app.id }}" class="card-link">
+                {{ app.manifest.name }}
+              </b-link>
 
-            <small v-if="app.state !== 'working' || app.high_quality" class="d-flex align-items-center ml-2 position-relative">
-              <b-badge
-                v-if="app.state !== 'working'"
-                :variant="app.color"
-                v-b-popover.hover.bottom="$t(`app_state_${app.state}_explanation`)"
-              >
-                <!-- app.state can be 'lowquality' or 'inprogress' -->
-                {{ $t('app_state_' + app.state) }}
-              </b-badge>
+              <small v-if="app.state !== 'working' || app.high_quality" class="d-flex align-items-center ml-2 position-relative">
+                <b-badge
+                  v-if="app.state !== 'working'"
+                  :variant="app.color"
+                  v-b-popover.hover.bottom="$t(`app_state_${app.state}_explanation`)"
+                >
+                  <!-- app.state can be 'lowquality' or 'inprogress' -->
+                  {{ $t('app_state_' + app.state) }}
+                </b-badge>
 
-              <icon
-                v-if="app.high_quality" iname="star" class="star"
-                v-b-popover.hover.bottom="$t(`app_state_highquality_explanation`)"
-              />
-            </small>
-          </b-card-title>
+                <icon
+                  v-if="app.high_quality" iname="star" class="star"
+                  v-b-popover.hover.bottom="$t(`app_state_highquality_explanation`)"
+                />
+              </small>
+            </b-card-title>
 
-          <b-card-text :id="`${app.id}-desc`">
-            {{ app.manifest.description }}
-          </b-card-text>
+            <b-card-text :id="`${app.id}-desc`">
+              {{ app.manifest.description }}
+            </b-card-text>
 
-          <b-card-text v-if="!app.maintained" class="align-self-end position-relative mt-auto">
-            <span class="alert-warning p-1" v-b-popover.hover.top="$t('orphaned_details')">
-              <icon iname="warning" /> {{ $t('orphaned') }}
-            </span>
-          </b-card-text>
+            <b-card-text v-if="!app.maintained" class="align-self-end position-relative mt-auto">
+              <span class="alert-warning p-1" v-b-popover.hover.top="$t('orphaned_details')">
+                <icon iname="warning" /> {{ $t('orphaned') }}
+              </span>
+            </b-card-text>
+          </div>
         </b-card-body>
       </b-card>
     </card-deck-feed>
@@ -459,7 +461,7 @@ export default {
     background-color: $gray-200;
 
     .app-logo {
-      float: left;
+      align-self: flex-start;
       background-color: white;
       max-width: 91px;
       margin-right: 1rem;
