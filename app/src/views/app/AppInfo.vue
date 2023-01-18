@@ -526,4 +526,8 @@ select {
 .yuno-alert div div:not(:last-child) {
   margin-bottom: 1rem;
 }
+
+.config-panel {
+  margin-bottom: 2rem;
+}
 </style>
