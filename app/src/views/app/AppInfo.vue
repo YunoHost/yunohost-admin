@@ -72,10 +72,10 @@
       </div>
 
       <p class="text-secondary">
-        {{ $t('app.installed_version', { version: app.version }) }}<br>
+        <strong v-t="'app.installed_version'" /> {{ app.version }}<br>
 
         <template v-if="app.alternativeTo">
-          {{ $t('app.potential_alternative_to') }} {{ app.alternativeTo }}
+          <strong v-t="'app.potential_alternative_to'" /> {{ app.alternativeTo }}
         </template>
       </p>
 

@@ -209,7 +209,7 @@ body {
   }
 }
 
-.card + .card {
+.card + .card, .card + .config-panel, .config-panel + .card {
   margin-top: 2rem;
 }
 .card-deck .card + .card {

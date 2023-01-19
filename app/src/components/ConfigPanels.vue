@@ -1,13 +1,22 @@
 <template>
-  <routable-tabs
-    :routes="routes_"
-    v-bind="{ panels, forms, v: $v, ...$attrs }"
-    v-on="$listeners"
-  >
-    <slot name="tab-top" slot="tab-top"></slot>
-    <slot name="tab-before" slot="tab-before"></slot>
-    <slot name="tab-after" slot="tab-after"></slot>
-  </routable-tabs>
+  <div class="config-panel">
+    <routable-tabs
+      v-if="routes_.length > 1"
+      :routes="routes_"
+      v-bind="{ panels, forms, v: $v, ...$attrs }"
+      v-on="$listeners"
+    >
+      <slot name="tab-top" slot="tab-top" />
+      <slot name="tab-before" slot="tab-before" />
+      <slot name="tab-after" slot="tab-after" />
+    </routable-tabs>
+
+    <card v-else :title="routes_[0].text" :icon="routes_[0].icon">
+      <slot name="tab-top" />
+      <slot name="tab-before" />
+      <slot name="tab-after" />
+    </card>
+  </div>
 </template>
 
 <script>

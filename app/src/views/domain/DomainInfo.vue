@@ -163,7 +163,7 @@ export default {
   },
 
   methods: {
-    onQueriesResponse (domains, mainDomain, domain, config) {
+    onQueriesResponse (domains, domain, config) {
       this.config = formatYunoHostConfigPanels(config)
     },
 
