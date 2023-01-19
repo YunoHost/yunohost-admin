@@ -46,7 +46,7 @@
     "custom_app_install": "تنصيب برنامج خاص",
     "delete": "حذف",
     "description": "الوصف",
-    "domain_dns_conf_is_just_a_recommendation": "تُظهر هذه الصفحة الإعدادات *المستحسَنة*. فهي *لا* تقوم بتهيئة نظام أسماء النطاقات مكانكم. فالمسؤولية هي على عاتقكم لتهيئة منطقة نظام أسماء النطاقات عند المصدر أي عند مزودكم وذلك باتباع الخطوات التي ينصحكم بها.",
+    "domain_dns_conf_is_just_a_recommendation": "يُظهر هذا القِسم الإعدادات *المستحسَنة*. فهي *لا* تقوم بتهيئة نظام أسماء النطاقات مكانكم. فالمسؤولية هي على عاتقكم لتهيئة منطقة نظام أسماء النطاقات عند المصدر أي عند مكتب التسجيل الخاص بكم وفقا لهذه التوصية.",
     "diagnosis": "التشخيص",
     "disable": "تعطيل",
     "dns": "خدمة أسماء النطاقات",
@@ -87,7 +87,7 @@
     "ipv4": "IPv4",
     "ipv6": "IPv6",
     "label": "التسمية",
-    "label_for_manifestname": "تسمية لـ {name} (الاسم الذي يظهر على بوابة المستخدم)",
+    "label_for_manifestname": "تسمية لـ {name}",
     "local_archives": "الأرشيف المحلي",
     "login": "تسجيل الدخول",
     "logout": "الخروج",
@@ -228,12 +228,19 @@
     "group_visitors": "الزوار",
     "postinstall": {
         "force": "فرض ما بعد التنصيب",
-        "title": "ما بعد التنصيب"
+        "title": "ما بعد التنصيب",
+        "user": {
+            "title": "إنشاء أول مستخدم (مدير)"
+        }
     },
     "postinstall_set_domain": "اختيار اسم النطاق الرئيسي",
     "words": {
         "browse": "استكشف",
-        "default": "افتراضي"
+        "default": "افتراضي",
+        "link": "الرابط",
+        "none": "لا شيء",
+        "separator": "، ",
+        "collapse": "طيّ"
     },
     "app_install_parameters": "إعدادات التنصيب",
     "code": "الشفرة المصدرية",
@@ -247,21 +254,37 @@
             "title": "ضبط اسم النطاق"
         },
         "dns": {
-            "auto_config": "ضبط تلقائي لتسجيلات خدمة أسماء النطاقات"
+            "auto_config": "ضبط تلقائي لتسجيلات خدمة أسماء النطاقات",
+            "push": "إرسال التسجيلات إلى سِجِلّ أسماء النطاقات",
+            "auto_config_ok": "يبدو أن الضبط التلقائي على ما يرام!",
+            "edit": "تعديل إعدادات نظام أسماء النطاقات"
+        },
+        "info": {
+            "apps_on_domain": "التطبيقات المُنصّبة على اسم النطاق",
+            "certificate_authority": "الهيئة الموثِّقة لشهادة SSL",
+            "registrar": "مكتب التسجيل"
+        },
+        "toggle_subdomains": "عرض أسماء النطاقات الفرعية",
+        "types": {
+            "main_domain": "اسم النطاق الرئيسي"
         }
     },
     "placeholder": {
         "domain": "my-domain.com",
         "groupname": "اسم فريقي",
         "firstname": "فلان",
-        "lastname": "الفلاني"
+        "lastname": "الفلاني",
+        "username": "foulanealallani",
+        "fullname": "فلان علان"
     },
     "human_routes": {
         "domains": {
             "add": "إضافة اسم النطاق '{name}'",
             "delete": "حذف اسم النطاق '{name}'",
             "set_default": "تعيين '{name}' كاسم نطاق افتراضي",
-            "update_config": "تحديث اعدادت '{name}'"
+            "update_config": "تحديث اعدادت '{name}'",
+            "cert_install": "تنصيب شهادة لـ '{name}'",
+            "cert_renew": "تجديد شهادة '{name}'"
         },
         "services": {
             "start": "تشغيل خدمة '{name}'",
@@ -277,10 +300,14 @@
         "update": "البحث عن تحديثات",
         "apps": {
             "install": "تنصيب التطبيق '{name}'",
-            "uninstall": "إلغاء تنصيب التطبيق '{name}'"
+            "uninstall": "إلغاء تنصيب التطبيق '{name}'",
+            "change_url": "تعديل الرابط الشبكي للوصول إلى '{name}'",
+            "set_default": "تحويل جذر النطاق '{domain}' إلى '{name}'",
+            "dismiss_notification": "تجاهل إشعارات '{name}'"
         },
         "backups": {
-            "create": "إنشاء نسخة احتياطية"
+            "create": "إنشاء نسخة احتياطية",
+            "delete": "احذف النسخة الإحتياطية '{name}'"
         },
         "diagnosis": {
             "ignore": {
@@ -308,13 +335,15 @@
         "shutdown": "إطفاء الخادم",
         "reconnecting": "محاولة إعادة الإتصال",
         "firewall": {
-            "upnp": "{action} UPnP"
+            "upnp": "{action} UPnP",
+            "ports": "{action} منفذ {port} ({protocol}, {connection})"
         },
         "permissions": {
             "add": "السماح لـ '{name}' بالنفاذ إلى '{perm}'"
         },
         "migrations": {
-            "skip": "تجاهل التهجيرات"
+            "skip": "تجاهل التهجيرات",
+            "run": "إطلاق الهجرات"
         }
     },
     "confirm_app_install": "متأكد من أنك تريد تنصيب هذا التطبيق؟",
@@ -327,7 +356,10 @@
         "experimental": "الوضع التجريبي",
         "fallback_language": "اللغة المرجعية",
         "language": "اللغة",
-        "fallback_language_description": "اللغة التي سيتم استخدامها إن كانت الترجمة غير متوفرة في اللغة الرئيسية."
+        "fallback_language_description": "اللغة التي سيتم استخدامها إن كانت الترجمة غير متوفرة في اللغة الرئيسية.",
+        "theme": "الإنتقال إلى الوضع المظلم",
+        "transitions": "تمكين الحركة عند الإنتقال بين الصفحات",
+        "cache": "التخزين المؤقت"
     },
     "api_error": {
         "view_error": "أظهر الخطأ",
@@ -362,7 +394,8 @@
             "title": "محاولة الإتصال بالخادم…",
             "reason": {
                 "unknown": "تم اغلاق الاتصال بالخادم لأسباب مجهولة."
-            }
+            },
+            "failed": "يبدو أن الخادم لا يستجيب. يمكنك محاولة إعادة الاتصال مرة أخرى أو محاولة تشغيل`systemctl restart yunohost-api` من خلال ssh."
         },
         "partial_logs": "[...] (تحقق من السجل للحصول على السجلات الكاملة)"
     },
@@ -382,7 +415,11 @@
     "error": "خطأ",
     "experimental": "تجريبي",
     "api_errors_titles": {
-        "APINotRespondingError": "إنّ واجهة برمجة التطبيقات لـ YunoHost لا تجيب"
+        "APINotRespondingError": "إنّ واجهة برمجة التطبيقات لـ YunoHost لا تجيب",
+        "APIError": "صادف YunoHost خطأ غير متوقع",
+        "APIBadRequestError": "واجه YunoHost خطأ",
+        "APIInternalError": "صادف YunoHost خطأ محليا",
+        "APIConnexionError": "صادف YunoHost خطأ في الإتصال"
     },
     "api_waiting": "في انتظار ردّ الخادم…",
     "app_choose_category": "اختر فئة",
@@ -390,5 +427,111 @@
     "retry": "حاول مجددا",
     "permission_main": "التسمية الرئيسية",
     "user_emailforward_add": "إضافة عنوان بريد إلكتروني للتحويل",
-    "select_none": "الغاء اختيار الكل"
+    "select_none": "الغاء اختيار الكل",
+    "go_back": "العودة",
+    "form_errors": {
+        "pattern": "{type}",
+        "remote": "{message}",
+        "invalid_form": "تحتوي الإستمارة على بعض الأخطاء.",
+        "passwordMatch": "كلمات السر لا تتطابق.",
+        "required": "هذا الحقل مطلوب.",
+        "appRepoUrl": "يُتوقع أن تبدو الروابط الشبكية لمستودعات تطبيقات YuNoHost على الشكل التالي: https://domain.tld/path/to/repo_ynh",
+        "alpha": "يجب أن تحتوي السلسلة على حروف فقط.",
+        "notInUsers": "المستخدم '{value}' موجود مِن قَبل.",
+        "number": "يجب أن تكون القيمة رقمًا."
+    },
+    "history": {
+        "methods": {
+            "POST": "تشغيل/إنشاء",
+            "PUT": "تعديل",
+            "GET": "قراءة",
+            "DELETE": "حذف"
+        },
+        "title": "التاريخ",
+        "last_action": "آخر إجراء:"
+    },
+    "users_import_delete": "حذف المستخدمين غير المُدرَجين",
+    "group_admins": "المُدراء",
+    "users_import_delete_others": "حذف المستخدمين غير المُدرَجين",
+    "hook_data_xmpp": "بيانات XMPP",
+    "app": {
+        "integration": {
+            "title": "إدماج YunoHost",
+            "multi_instance": {
+                "false": "لا يمكن تنصيبه إلا مرة واحدة",
+                "true": "يمكن تنصيبه عدة مرات"
+            }
+        },
+        "links": {
+            "admindoc": "الدليل الرسمي للمدير",
+            "code": "المستودع الرسمي الشفرة المصدرية",
+            "forum": "المواضيع المتعلقة بهذا التطبيق على منتدى YunoHost",
+            "package": "مستودع حزمة YunoHost",
+            "title": "الروابط",
+            "userdoc": "الدليل الرسمي للمستخدم",
+            "website": "الموقع الرسمي",
+            "license": "الرخصة"
+        },
+        "potential_alternative_to": "بديل محتمل لـ:",
+        "upgrade": {
+            "confirm": {
+                "apps": "التطبيقات التي سيتم تحديثها",
+                "title": "تأكيد تحديث التطبيقات"
+            },
+            "continue": "الاستمرار إلى التطبيق التالي",
+            "notifs": {
+                "pre": {
+                    "title": "كن حذرا!"
+                }
+            },
+            "stop": "إلغاء تحديث التطبيقات التالية"
+        },
+        "installed_version": "الإصدار المثبت: {version}",
+        "open_this_app": "إفتح هذا التطبيق",
+        "doc": {
+            "about": {
+                "title": "عن",
+                "description": "الوصف"
+            },
+            "admin": {
+                "title": "دليل المدير"
+            },
+            "notifications": {
+                "dismiss": "تجاهل",
+                "title": "الإشعارات",
+                "post_upgrade": "ملاحظات ما بعد التحديث",
+                "post_install": "ملاحظات ما بعد التنصيب"
+            }
+        },
+        "info": {
+            "forum": "ابحث أو إطرح سؤالك في المنتدى!",
+            "problem": "مشكلة مع هذا التطبيق؟"
+        },
+        "install": {
+            "license": "الرخصة: {license}",
+            "notifs": {
+                "pre": {
+                    "warning": "ما عليك معرفته قبل التنصيب",
+                    "critical": "لا يمكن تنصيب التطبيق"
+                }
+            },
+            "version": "الإصدار الحالي: {version}"
+        }
+    },
+    "hook_conf_manually_modified_files": "ملفات ضبط تم تعديلها يدويا",
+    "hook_conf_ynh_settings": "إعدادات YunoHost",
+    "logs_suboperations": "الإجراءات الفرعية",
+    "permission_show_tile_enabled": "مرئي كلوحة على بوابة المستخدم",
+    "tools_yunohost_settings": "إعدادات YuNoHost",
+    "permission_corresponding_url": "العنوان التشعبي URL المقابل",
+    "manage_groups": "إدارة الفِرَق",
+    "user_emailaliases_add": "إضافة عنوان بريد إلكتروني مستعار",
+    "wrong_password_or_username": "اسم المستخدم أو كلمة المرور خاطئة",
+    "app_manage_label_and_tiles": "إدارة الملصقات واللوحات",
+    "items": {
+        "installed_apps": "لا توجد تطبيقات مثبّة | تطبيق مُنصّب | {c} تطبيقات مُنصّبة"
+    },
+    "domain_dns_push_managed_in_parent_domain": "تتم إدارة ميزة سجلات DNS التلقائية في النطاق الرئيسي <a href='#/domains/{parent_domain}/dns'> {parent_domain} </a>.",
+    "tip_about_user_email": "يتم إنشاء المستخدمين باستخدام عنوان بريد إلكتروني مرتبط (وحساب XMPP) بالشكل التالي username@domain.tld. يمكن لاحقا للمدير أو المستخدم إضافة أسماء مستعارة إضافية للبريد الإلكتروني وإعادة توجيهات للبريد الإلكتروني.",
+    "app_state_broken": "مُكسَّر"
 }

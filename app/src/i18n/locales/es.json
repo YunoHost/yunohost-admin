@@ -582,5 +582,37 @@
     "tools_yunohost_settings": "Ajustes YunoHost",
     "group_explain_admins": "Este es un grupo asociado a los usuarixs administradorxs. Lxs usuarixs de este grupo tienen acceso al panel de control web de YunoHost, conexión al servidor por SSH y pueden utilizar el comando `sudo`. También reciben correos enviados a root@, admin@ y admins@, como las notificaciones de diagnóstico. ¡Añade únicamente a gente del grupo en la que confíes plenamente!",
     "wrong_password_or_username": "Contraseña o usuario incorrecto",
-    "important_yunohost_upgrade": "Una actualización de categoría 'major' está disponible. Se recomienda leer detenidamente las notas de lanzamiento en el foro antes de actualizar: <a href='https://forum.yunohost.org/tag/ynh_release'>Busca las notas de lanzamiento en el foro</a>"
+    "important_yunohost_upgrade": "Una actualización de categoría 'major' está disponible. Se recomienda leer detenidamente las notas de lanzamiento en el foro antes de actualizar: <a href='https://forum.yunohost.org/tag/ynh_release'>Busca las notas de lanzamiento en el foro</a>",
+    "app": {
+        "installed_version": "Versión instalada: {versión}",
+        "open_this_app": "Abrir esta aplicación",
+        "antifeatures": "Esta aplicación tiene características que pueden no gustarte:",
+        "doc": {
+            "about": {
+                "title": "Acerca de",
+                "description": "Descripción"
+            },
+            "notifications": {
+                "title": "Notificaciones",
+                "post_upgrade": "Notas tras la actualización",
+                "post_install": "Notas post-instalación"
+            }
+        },
+        "info": {
+            "forum": "¡Busca o pregunta en el foro!",
+            "problem": "¿Algún problema con esta aplicación?"
+        },
+        "install": {
+            "license": "Licencia: {license}",
+            "notifs": {
+                "post": {
+                    "title": "Notificaciones posteriores a la instalación de '{name}'",
+                    "alert": "Parece que la instalación ha ido bien.\n Aquí tienes algunas notificaciones que el empaquetador considera importante conocer.\nPuedes volver a leerlas en la página de información de la aplicación."
+                },
+                "pre": {
+                    "warning": "Lo que hay que saber antes de la instalación"
+                }
+            }
+        }
+    }
 }

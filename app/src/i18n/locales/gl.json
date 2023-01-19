@@ -412,7 +412,8 @@
             "install": "Intalar app '{name}'",
             "change_url": "Cambiar URL de acceso a '{name}'",
             "change_label": "Cambiar etiqueta de '{prevName}' a '{nextName}'",
-            "action_config": "Executar a acción '{action}' da configuración da app '{name}'"
+            "action_config": "Executar a acción '{action}' da configuración da app '{name}'",
+            "dismiss_notification": "Desbotar a notificación de '{name}'"
         },
         "reconnecting": "Reconectando",
         "settings": {
@@ -582,5 +583,104 @@
     "tools_yunohost_settings": "Axustes YunoHost",
     "wrong_password_or_username": "Credenciais incorrectas",
     "confirm_install_app_broken": "AVISO! Esta aplicación está estragada se atendemos ao test automático que fai YunoHost e pode estragar o teu sistema! Probablemente NON debas instalala a menos que saibas o que estás a facer. Queres asumir o risco?",
-    "important_yunohost_upgrade": "Está dispoñible unha actualización principal de YunoHost. É totalmente recomendable ler con atención no foro as notas de publicación antes de actualizar: <a href='https://forum.yunohost.org/tag/ynh_release'>Le as notas de publicación no foro</a>"
+    "important_yunohost_upgrade": "Está dispoñible unha actualización principal de YunoHost. É totalmente recomendable ler con atención no foro as notas de publicación antes de actualizar: <a href='https://forum.yunohost.org/tag/ynh_release'>Le as notas de publicación no foro</a>",
+    "app": {
+        "installed_version": "Versión instalada: {version}",
+        "open_this_app": "Abrir esta app",
+        "antifeatures": "Esta app ten características que poderían non gustarche:",
+        "doc": {
+            "about": {
+                "title": "Acerca de",
+                "description": "Descrición"
+            },
+            "admin": {
+                "title": "Doc Admin"
+            },
+            "notifications": {
+                "dismiss": "Desbotar",
+                "title": "Notificacións",
+                "post_upgrade": "Notas post actualización",
+                "post_install": "Notas post instalación"
+            }
+        },
+        "info": {
+            "forum": "Busca ou pregunta no foro!",
+            "problem": "Tes un problema con esta app?"
+        },
+        "install": {
+            "license": "Licenza: {license}",
+            "notifs": {
+                "post": {
+                    "title": "Notificacións post instalación para '{name}'",
+                    "alert": "Semella que a instalación foi correcta!\n Aquí tes información que as desenvolvedoras consideran debes coñecer.\nPodes lela cando queiras na páxina de info da app."
+                },
+                "pre": {
+                    "warning": "Debes saber antes de instalar",
+                    "danger": "A instalación da aplicación probablemente produza problemas",
+                    "critical": "A aplicación non pode ser instalada"
+                }
+            },
+            "problems": {
+                "arch": "Esta app só se pode instalar en determinadas architecturas ({required}) pero a do teu servidor é {current}.",
+                "broken": "Esta aplicación está estragada segundo os test automáticos de YunoHost e probablemente estrague o teu sistema! Probablemente NON deberías instalala a menos saibas o que estás a facer.",
+                "thirdparty": "Esta aplicación non forma parte do catálogo oficial de YunoHost, ao instalar aplicacións de terceiras partes poderías estar comprometendo a integridade e seguridade do teu sistema. Non deberías facelo a menos que saibas o que estás facendo.",
+                "ignore": "Entendo que esta instalación podería estragar o meu sistema, pero quero facela igualmente.",
+                "inprogress": "Esta aplicación é aínda experimental (e pode que nin funcione) e é probable que estrague o teu sistema! Probablemente NON deberías instalala a menos que saibas o que estás a facer.",
+                "install": "Xa está instalada e non pode instalarse máis dunha vez.",
+                "lowquality": "Esta aplicación podería funcionar pero non ten integración completa en YunoHost. Algunhas características como o acceso unificado e copias de apoio poderían non estar dispoñibles, ou pode que non respecte as boas prácticas de empaquetamento.",
+                "ram": "Esta aplicación precisa {required} de RAM para instalar/actualizar pero só hai dispoñibles {current}. Incluso se a app funcionase, o proceso de instalación require moita RAM e o servidor podería fallar.",
+                "version": "Esta aplicación require YunoHost >= {required} pero a versión actual instalada é {current}, considera actualizar primeiro YunoHost."
+            },
+            "try_demo": "Proba a demo",
+            "version": "Versión actual: {version}"
+        },
+        "integration": {
+            "archs": "Arquitecturas soportadas:",
+            "ldap": {
+                "false": "Non usa as contas de YunoHost para o acceso (LDAP)",
+                "true": "Usa as contas de YunoHost para o acceso (LDAP)",
+                "?": "Non hai información sobre a integración LDAP"
+            },
+            "multi_instance": {
+                "false": "Só permite unha única instalación",
+                "true": "Permite varias instalacións"
+            },
+            "resources": "Uso de recursos habitual: {ram] RAM, {disk} disco",
+            "sso": {
+                "false": "Non dispoñible o acceso unificado (SSO)",
+                "true": "Dispoñible o acceso unificado (SSO)",
+                "?": "Non hai información sobre a integración SSO"
+            },
+            "title": "Integración con YunoHost"
+        },
+        "links": {
+            "admindoc": "Documentación oficial de Admin",
+            "code": "Repositorio oficial do código",
+            "forum": "Temas acerca desta app no foro YunoHost",
+            "package": "Repositorio do paquete YunoHost",
+            "title": "Ligazóns",
+            "userdoc": "Documentación oficial para usuarias",
+            "website": "Sitio Web Oficial",
+            "license": "Licenza"
+        },
+        "potential_alternative_to": "Alternativa potencial para:",
+        "upgrade": {
+            "confirm": {
+                "apps": "Apps que van ser actualizadas",
+                "title": "Confirmar actualización das apps"
+            },
+            "continue": "Continuar coa seguinte app",
+            "notifs": {
+                "pre": {
+                    "alert": "Deberías ler as notificacións antes de actualiar, podería haber información que debas coñecer.",
+                    "title": "Ten coidado!"
+                },
+                "post": {
+                    "alert": "Semella que todo foi ben!\n Estas son algunha información acerca da actualización que as desenvolvedoras cren que debes coñecer.\nPodes lelas cando queiras na páxina de información da app.",
+                    "title": "Notificacións post-actualización para '{name}'"
+                }
+            },
+            "stop": "Cancelar as actualizacións da app seguinte"
+        }
+    }
 }
