@@ -1,3 +1,12 @@
+yunohost-admin (11.1.3) testing; urgency=low
+
+  - Various fixes in domain/app views ([#502](https://github.com/yunohost/yunohost-admin/pull/502))
+  - [i18n] Translations updated for Arabic, French, Galician, German, Lithuanian, Spanish
+
+  Thanks to all contributors <3 ! (axolotle, ButterflyOfFire, cristian amoyao, José M, marius, ppr, Vri)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Thu, 19 Jan 2023 23:04:59 +0100
+
 yunohost-admin (11.1.2.1) testing; urgency=low
 
   - fix main_domain api call with ugly cache override from domain list ([#500](https://github.com/yunohost/yunohost-admin/pull/500))
