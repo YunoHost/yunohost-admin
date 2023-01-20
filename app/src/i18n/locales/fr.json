@@ -595,7 +595,7 @@
             "website": "Site officiel",
             "license": "Licence"
         },
-        "potential_alternative_to": "Alternative potentielle à :",
+        "potential_alternative_to": "Alternative potentielle :",
         "upgrade": {
             "notifs": {
                 "pre": {
