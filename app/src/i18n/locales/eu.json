@@ -582,5 +582,50 @@
     "manage_groups": "Kudeatu taldeak",
     "tools_yunohost_settings": "YunoHosten ezarpenak",
     "wrong_password_or_username": "Pasahitz edo erabiltzaile-izen okerra",
-    "important_yunohost_upgrade": "YunoHosten bertsio nagusi bat dago eskuragai. Zinez gomendagarria da eguneraketaren oharrak arretaz irakurtzea foroan bertsio-berritu baino lehen: <a href='https://forum.yunohost.org/tag/ynh_release'>Irakurri oharrak foroan</a>."
+    "important_yunohost_upgrade": "YunoHosten bertsio nagusi bat dago eskuragai. Zinez gomendagarria da eguneraketaren oharrak arretaz irakurtzea foroan bertsio-berritu baino lehen: <a href='https://forum.yunohost.org/tag/ynh_release'>Irakurri oharrak foroan</a>.",
+    "app": {
+        "installed_version": "Instalatutako bertsioa:",
+        "open_this_app": "Ireki aplikazio hau",
+        "antifeatures": "Aplikazio honek gogoko izan ez ditzakezun ezaugarriak ditu:",
+        "doc": {
+            "about": {
+                "title": "Honi buruz",
+                "description": "Deskribapena"
+            },
+            "admin": {
+                "title": "Dokumentazioa"
+            },
+            "notifications": {
+                "dismiss": "Baztertu",
+                "title": "Jakinarazpenak",
+                "post_upgrade": "Berritu ondorengo oharrak",
+                "post_install": "Instalatu ondorengo oharrak"
+            }
+        },
+        "info": {
+            "forum": "Bilatu edo galdetu foroan!",
+            "problem": "Arazoren bat aplikazio honekin?"
+        },
+        "install": {
+            "license": "Lizentzia: {license}",
+            "notifs": {
+                "post": {
+                    "title": "Instalatu ondorengo jakinarazpenak '{name}'(r)entzat",
+                    "alert": "Badirudi instalazioa behar bezala joan dela!\nPaketearen arduradunak ondorengo jakinarazpenak garrantzitsuak direla deritzo.\nAplikazioaren informazio-orrialdean irakur dezakezu berriro."
+                },
+                "pre": {
+                    "warning": "Instalatu baino lehen jakin beharrekoak",
+                    "danger": "Aplikazioa instalatzeak arazoak sortuko ditu ziurrenik",
+                    "critical": "Ezin da aplikazioa instalatu"
+                }
+            },
+            "problems": {
+                "arch": "Aplikazio hau ({required}) arkitekturatan bakarrik instalatu daiteke, baina zure zerbitzariaren arkitektura {current} da.",
+                "broken": "Aplikazio hau hondatuta dago YunoHosten azterketa automatikoen arabera eta zure sistema apur lezake! Ez zenuke instalatu beharko zertan ari zaren ez badakizu.",
+                "thirdparty": "Aplikazio hau ez da YunoHosten katalogokoa, hirugarrenen aplikazioak instalatzeak sistemaren integritatea ezbaian jar dezake. Ez zenuke instalatu beharko zertan ari zaren ez badakizu.",
+                "ignore": "Ulertzen dut aplikazio honek nire sistema apur lezakeela baina hala ere probatu nahi dut.",
+                "inprogress": "Aplikazio hau esperimentala da oraindik (edo ez dabil) eta litekeena da zure sistema apurtzea! Ez zenuke instalatu beharko zertan ari zaren ez badakizu."
+            }
+        }
+    }
 }
