@@ -397,7 +397,8 @@
             "change_url": "Cambiar la URL de acceso a '{name}'",
             "install": "Instalar la aplicación '{name}'",
             "set_default": "Redirecciona la raíz del dominio '{domain}' a '{name}'",
-            "action_config": "Ejecutar acción '{action}' de la configuración de la app '{name}'"
+            "action_config": "Ejecutar acción '{action}' de la configuración de la app '{name}'",
+            "dismiss_notification": "Descartar notificación para '{name}'"
         },
         "backups": {
             "create": "Crear copia de seguridad",
@@ -584,7 +585,7 @@
     "wrong_password_or_username": "Contraseña o usuario incorrecto",
     "important_yunohost_upgrade": "Una actualización de categoría 'major' está disponible. Se recomienda leer detenidamente las notas de lanzamiento en el foro antes de actualizar: <a href='https://forum.yunohost.org/tag/ynh_release'>Busca las notas de lanzamiento en el foro</a>",
     "app": {
-        "installed_version": "Versión instalada: {versión}",
+        "installed_version": "Versión instalada:",
         "open_this_app": "Abrir esta aplicación",
         "antifeatures": "Esta aplicación tiene características que pueden no gustarte:",
         "doc": {
@@ -595,7 +596,11 @@
             "notifications": {
                 "title": "Notificaciones",
                 "post_upgrade": "Notas tras la actualización",
-                "post_install": "Notas post-instalación"
+                "post_install": "Notas post-instalación",
+                "dismiss": "Descartar"
+            },
+            "admin": {
+                "title": "Documentación de administración"
             }
         },
         "info": {
@@ -610,9 +615,72 @@
                     "alert": "Parece que la instalación ha ido bien.\n Aquí tienes algunas notificaciones que el empaquetador considera importante conocer.\nPuedes volver a leerlas en la página de información de la aplicación."
                 },
                 "pre": {
-                    "warning": "Lo que hay que saber antes de la instalación"
+                    "warning": "Lo que hay que saber antes de la instalación",
+                    "danger": "Lo más probable es que la instalación de la aplicación genere problemas",
+                    "critical": "No se puede instalar la aplicación"
                 }
-            }
+            },
+            "problems": {
+                "ram": "Esta aplicación requiere {required} de RAM para instalarse/actualizarse pero sólo {current} está disponible en este momento. Incluso si esta aplicación pudiera ejecutarse, su proceso de instalación requiere una gran cantidad de RAM, por lo que su servidor podría congelarse y fallar miserablemente.",
+                "arch": "Esta aplicación sólo puede instalarse en arquitecturas específicas ({required}), pero la arquitectura de su servidor es {current}.",
+                "broken": "¡Esta aplicación está rota según las pruebas automáticas de YunoHost y es probable que rompa su sistema! Probablemente NO deberías instalarla a menos que sepas lo que estás haciendo.",
+                "thirdparty": "Esta aplicación no forma parte del catálogo oficial de YunoHost, la instalación de aplicaciones de terceros puede comprometer la integridad y seguridad de su sistema. Probablemente NO deberías instalarla a menos que sepas lo que estás haciendo.",
+                "ignore": "Entiendo que esta instalación puede romper mi sistema, pero todavía quiero probar.",
+                "inprogress": "¡Esta aplicación es todavía experimental (si no es que explícitamente no funciona) y es probable que rompa su sistema! Probablemente NO deberías instalarla a menos que sepas lo que estás haciendo.",
+                "install": "Ya está instalado y no se puede instalar más de una vez.",
+                "lowquality": "Esta aplicación puede funcionar pero no está bien integrada en YunoHost. Algunas funciones como el inicio de sesión único y la copia de seguridad/restauración podrían no estar disponibles, o no respetan las buenas prácticas.",
+                "version": "Esta aplicación requiere YunoHost >= {required} pero su versión actual instalada es {current}, considere primero actualizar YunoHost."
+            },
+            "try_demo": "Pruebe la demo",
+            "version": "Versión actual: {version}"
+        },
+        "integration": {
+            "archs": "Arquitecturas compatibles:",
+            "ldap": {
+                "false": "No utiliza cuentas de YunoHost para conectarse (LDAP)",
+                "true": "Utilizar cuentas de YunoHost para conectarse (LDAP)",
+                "?": "No hay información sobre la integración LDAP"
+            },
+            "multi_instance": {
+                "false": "Sólo se puede instalar una vez",
+                "true": "Puede instalarse varias veces"
+            },
+            "resources": "Uso típico de recursos: {ram} RAM, {disk} disco",
+            "sso": {
+                "false": "El inicio de sesión único no está disponible (SSO)",
+                "true": "Inicio de sesión único disponible (SSO)",
+                "?": "No hay información sobre la integración SSO"
+            },
+            "title": "Integración con YunoHost"
+        },
+        "links": {
+            "admindoc": "Documentación oficial de administración",
+            "code": "Repositorio oficial de código",
+            "forum": "Temas sobre esta aplicación en el foro de YunoHost",
+            "package": "Repositorio de paquetes YunoHost",
+            "title": "Enlaces",
+            "userdoc": "Documentación oficial del usuario",
+            "website": "Página web oficial",
+            "license": "Licencia"
+        },
+        "potential_alternative_to": "Alternativa potencial a:",
+        "upgrade": {
+            "confirm": {
+                "apps": "Aplicaciones que se actualizarán",
+                "title": "Confirmar actualizaciones de la aplicación"
+            },
+            "continue": "Continuar con la siguiente aplicación",
+            "notifs": {
+                "pre": {
+                    "alert": "Debería comprobar esas notificaciones antes de actualizar, podría haber cosas importantes que saber.",
+                    "title": "¡Atención!"
+                },
+                "post": {
+                    "alert": "Parece que la actualización ha ido bien.\n Aquí hay algunas notificaciones que el empaquetador considera importante saber sobre esta actualización.\nPuede volver a leerlas en la página de información de la aplicación.",
+                    "title": "Notificaciones posteriores a la actualización de \"{name}\""
+                }
+            },
+            "stop": "Cancelar las próximas actualizaciones de la aplicación"
         }
     }
 }
