@@ -317,7 +317,8 @@
             "run": "تنفيذ الفحص",
             "run_specific": "إطلاق الفحص '{description}'",
             "unignore": {
-                "warning": "إلغاء تجاهل التحذير"
+                "warning": "إلغاء تجاهل التحذير",
+                "error": "إلغاء تجاهل خطأ"
             }
         },
         "postinstall": "تنفيذ ما بعد التنصيب",
@@ -486,7 +487,7 @@
             },
             "stop": "إلغاء تحديث التطبيقات التالية"
         },
-        "installed_version": "الإصدار المثبت: {version}",
+        "installed_version": "النسخة المُنصَّبة:",
         "open_this_app": "إفتح هذا التطبيق",
         "doc": {
             "about": {

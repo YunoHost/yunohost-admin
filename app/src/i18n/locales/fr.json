@@ -595,7 +595,7 @@
             "website": "Site officiel",
             "license": "Licence"
         },
-        "potential_alternative_to": "Alternative potentielle à :",
+        "potential_alternative_to": "Alternative potentielle à",
         "upgrade": {
             "notifs": {
                 "pre": {
@@ -614,7 +614,7 @@
             "continue": "Passer à l'application suivante",
             "stop": "Annuler les prochaines mises à niveau d'applications"
         },
-        "installed_version": "Version installée : {version}",
+        "installed_version": "Version installée :",
         "open_this_app": "Ouvrez l'application",
         "antifeatures": "Cette application a des fonctionnalités que vous n'aimerez peut-être pas :",
         "doc": {
