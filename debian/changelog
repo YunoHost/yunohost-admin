@@ -1,3 +1,11 @@
+yunohost-admin (11.1.3.1) testing; urgency=low
+
+  - [i18n] Translations updated for Arabic, Basque, French, Spanish
+
+  Thanks to all contributors <3 ! (ButterflyOfFire, Éric Gaspar, quiwy, xabirequejo)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Mon, 30 Jan 2023 16:32:11 +0100
+
 yunohost-admin (11.1.3) testing; urgency=low
 
   - Various fixes in domain/app views ([#502](https://github.com/yunohost/yunohost-admin/pull/502))
