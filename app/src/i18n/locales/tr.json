@@ -136,9 +136,9 @@
     "placeholder": {
         "file": "Bir dosyaya göz atın veya sürükleyip bırakın",
         "groupname": "Grup adım",
-        "username": "kullanıcıadı",
-        "firstname": "Ad",
-        "lastname": "Soyad",
+        "username": "ahmetatici",
+        "firstname": "Ahmet",
+        "lastname": "Atıcı",
         "domain": "domain.com"
     },
     "from_to": "{0} ile {1} arasında",
@@ -154,7 +154,7 @@
             "change_label": "'{prevName}' etiketini '{nextName}' ile değiştirin",
             "change_url": "'{name}' erişim URL'sini değiştir",
             "set_default": "'{domain}' alan kökünü '{name}' olarak yönlendirin",
-            "update_config": "'{name}' uygulamasının yapılandırmasını güncelleyin"
+            "update_config": "{id}. paneldeki '{name}' uygulamasının yapılandırmasını güncelleyin"
         },
         "diagnosis": {
             "run_specific": "'{description}' tanılamasını çalıştır",
@@ -171,7 +171,7 @@
         "domains": {
             "push_dns_changes": "'{name}' için DNS kayıtlarını kayıt kuruluşuna gönder",
             "add": "'{name}' alan adını ekle",
-            "update_config": "'{name}' yapılandırmasını güncelle",
+            "update_config": "{id}. paneldeki '{name}' yapılandırmasını güncelleyin",
             "delete": "'{name}' alan adını sil",
             "set_default": "'{name}' alan adını varsayılan yap"
         },
@@ -326,7 +326,7 @@
     "mailbox_quota_example": "Bir CD 700 MB, bir DVD 4.7GB'dir",
     "postinstall": {
         "force": "Post-install işlemini zorla yap",
-        "title": "Postinstall"
+        "title": "Kurulum sonrası"
     },
     "retry": "Tekrar dene",
     "backup": "Yedek",
@@ -365,7 +365,7 @@
     "confirm_update_specific_app": "{app}'i güncellemek istediğinizden emin misiniz?",
     "confirm_reboot_action_reboot": "Sunucunuzu yeniden başlatmak istediğinizden emin misiniz?",
     "confirm_reboot_action_shutdown": "Sunucunuzu kapatmak istediğinizden emin misiniz?",
-    "good_practices_about_user_password": "Şimdi yeni bir kullanıcı şifresi tanımlamak üzeresiniz. Parola en az 8 karakter olmalıdır - ancak daha uzun parola (yani bir parola) kullanmak ve/veya çeşitli türde karakterler (büyük harf, küçük harf, rakamlar ve özel karakterler) kullanmak daha iyidir.",
+    "good_practices_about_user_password": "Şimdi yeni bir kullanıcı şifresi tanımlıyorsunuz. Parola en az 8 karakter olmalıdır - ancak daha uzun parola (yani bir parola) kullanmak ve/veya çeşitli türde karakterler (büyük harf, küçük harf, rakamlar ve özel karakterler) kullanmak daha iyidir.",
     "configuration": "Yapılandırma",
     "connection": "Bağlantı",
     "details": "Detaylar",
@@ -394,7 +394,7 @@
     "everything_good": "Her şey yolunda!",
     "experimental": "Deneysel",
     "footer_version": "<a href='https://yunohost.org'>YunoHost</a> {version} ({repo}) ile oluşturuldu.",
-    "good_practices_about_admin_password": "Şimdi yeni bir yönetici şifresi tanımlamak üzeresiniz. Parola en az 8 karakter olmalıdır - ancak daha uzun parola (yani bir parola) kullanmak ve/veya çeşitli türde karakterler (büyük harf, küçük harf, rakamlar ve özel karakterler) daha iyidir.",
+    "good_practices_about_admin_password": "Şimdi yeni bir yönetici şifresi tanımlıyorsunz. Parola en az 8 karakter olmalıdır - ancak daha uzun parola (yani bir parola) kullanmak ve/veya çeşitli türde karakterler (büyük harf, küçük harf, rakamlar ve özel karakterler) daha iyidir.",
     "group_all_users": "Tüm kullanıcılar",
     "group_format_name_help": "Alfasayısal karakterler ve alt çizgi kullanabilirsiniz",
     "group_add_member": "Kullanıcı ekle",
@@ -416,7 +416,7 @@
     "install_name": "Yükle {id}",
     "install_time": "Yükleme zamanı",
     "issues": "{count} sorun",
-    "label_for_manifestname": "{name} için etiket (kullanıcı portalında görüntülenen ad)",
+    "label_for_manifestname": "{name} için etiket",
     "local_archives": "Yerel arşivler",
     "mailbox_quota_description": "E-posta içeriği için bir depolama boyutu sınırı belirleyin.<br>Sınırlamamak için 0 olarak ayarlayın.",
     "manage_apps": "Uygulamaları yönet",
@@ -525,5 +525,73 @@
     "yunohost_admin": "YunoHost Yönetici",
     "certificate_manage": "SSL sertifikasını yönet",
     "purge_user_data_warning": "Kullanıcı verilerinin temizlenmesi geri alınamaz. Ne yaptığınızı bildiğinizden emin olun!",
-    "items_verbose_count": "{items} öğe var. | {items} öğe var. | {items} öğe var."
+    "items_verbose_count": "{items} öğe var. | {items} öğe var. | {items} öğe var.",
+    "app": {
+        "install": {
+            "problems": {
+                "arch": "Bu uygulama yalnızca belirli işlemci mimarileri üzerine kurulabilir ({required}) fakat sunucunuzun işlemci mimarisi {current}.",
+                "thirdparty": "Bu uygulama YunoHost'un resmi kataloğunun bir parçası değildir. 3. taraf uygulamaları kurmak sisteminizin bütünlüğünü ve güvenliğini tehlikeye atabilir. Muhtemelen ne yaptığınızı bilmediğiniz sürece bu uygulamayı KURMAMALISINIZ.",
+                "lowquality": "Bu uygulama işlevsel olabilir fakat YunoHost'a tam olarak entegre edilmemiştir. Bazı özellikler (mesela tek seferlik giriş ve yedekleme/geri yükleme) olmayabilir, ya da diğer uygulamalarla uyumlu olmayabilir.",
+                "version": "Bu uygulama YunoHost >= {required} gerektiriyor fakat kurulu sürüm {current}, bu yüzden önce YunoHost'u güncelleyin.",
+                "broken": "YunoHost'un otomatik testlerine göre bu uygulama bozuk ve sisteminizi bozabilir! Muhtemelen ne yaptığınızı bilmediğiniz sürece bu uygulamayı KURMAMALISINIZ.",
+                "ignore": "Bu kurulumun sistemimi bozabileceğini anlıyorum, yine de denemek istiyorum.",
+                "inprogress": "Bu uygulama hala deneysel (açıkça çalışmıyorsa) ve sisteminizi bozabilir! Eğer ne yaptığınız hakkında bir bilginiz yoksa muhtemelen bu uygulamayı KURMAMALISINIZ.",
+                "install": "Bu zaten kuruldu ve bir defadan fazla kurulamaz.",
+                "ram": "Bu uygulamayı kurmak/yükseltmek için {required} RAM gerektiriyor fakat yalnızca {current} kullanılabilir. Bu uygulama çalışabilse bile, yükleme işlemi büyük miktarda RAM gerektirir, bu nedenle sunucunuz donabilir ve başarısız olabilir."
+            },
+            "license": "Lisans: {license}",
+            "notifs": {
+                "post": {
+                    "title": "{name} için kurulum sonrası bildirimleri",
+                    "alert": "Kurulum iyi geçmiş gibi duruyor!\nİşte paketleyicinin bilmenin önemli olduğunu düşündüğü bazı bildirimler.\nBunu tekrardan uygulama bilgisi sayfasından okuyabilirsiniz."
+                },
+                "pre": {
+                    "warning": "Kurulumdan önce bilinmesi gerekenler",
+                    "danger": "Bu uygulamayı kurmak bazı sorunlara yol açabilir",
+                    "critical": "Bu uygulama kurulamaz"
+                }
+            },
+            "try_demo": "Demoyu dene",
+            "version": "Şu anki sürüm: {version}"
+        },
+        "installed_version": "Kurulan sürüm:",
+        "open_this_app": "Bu uygulamayı başlat",
+        "antifeatures": "Bu uygulama sevemeyeceğiniz bazı özellikler içerir:",
+        "doc": {
+            "about": {
+                "title": "Hakkında",
+                "description": "Açıklama"
+            },
+            "admin": {
+                "title": "Yönetici belgelendirmesi"
+            },
+            "notifications": {
+                "dismiss": "Göz ardı et",
+                "title": "Bildirimler",
+                "post_upgrade": "Yükseltme sonrası notları",
+                "post_install": "Kurulum sonrası notları"
+            }
+        },
+        "info": {
+            "forum": "Ara veya foruma sor!",
+            "problem": "Uygulamayla ilgili bir sorun mu var?"
+        },
+        "integration": {
+            "archs": "Desteklenen işlemci mimarileri:",
+            "ldap": {
+                "false": "YunoHost hesapları giriş yapmak için kullanılamaz (LDAP)",
+                "true": "YunoHost hesapları giriş yapmak için kullanılabilir (LDAP)",
+                "?": "LDAP bütünleşmesi hakkında bilgi yok"
+            },
+            "multi_instance": {
+                "false": "Yalnızca bir defa kurulabilir",
+                "true": "Birçok kez kurulabilir"
+            },
+            "resources": "Olağan kaynak kullanımı: {ram} RAM, {disk} disk",
+            "sso": {
+                "false": "Çoklu oturum açma kullanılabilir değil (SSO)",
+                "true": "Çoklu oturum açma kullanılabilir (SSO)"
+            }
+        }
+    }
 }
