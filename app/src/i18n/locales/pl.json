@@ -582,5 +582,48 @@
     "tools_yunohost_settings": "Ustawienia YunoHost",
     "wrong_password_or_username": "Błędne hasło lub nazwa użytkownika",
     "group_explain_admins": "Jest to specjalna grupa użytkowników odpowiadająca administratorom. Użytkownicy należący do tej grupy mogą dostać się do portalu YunoHost webadmin, połączyć się z serwerem poprzez SSH i wykonywać polecenia `sudo`. Będą także otrzymywać maile wysłane do root@, admin@ oraz admins@, a także powiadomienia dotyczące diagnostyki. Dlatego też powinieneś do tej grupy dodawać tylko te osoby, którym ufasz w 100%!",
-    "important_yunohost_upgrade": "Dostępna jest spora aktualizacja dla YunoHost. Przed aktualizacją zaleca się uważnie przeczytać listę zmian dostępną na forum: <a href='https://forum.yunohost.org/tag/ynh_release'>Przejrzyj listę zmian na forum</a>"
+    "important_yunohost_upgrade": "Dostępna jest spora aktualizacja dla YunoHost. Przed aktualizacją zaleca się uważnie przeczytać listę zmian dostępną na forum: <a href='https://forum.yunohost.org/tag/ynh_release'>Przejrzyj listę zmian na forum</a>",
+    "app": {
+        "install": {
+            "problems": {
+                "broken": "UWAGA! Według automatycznych testów YunoHost ta aplikacja jest uszkodzona i może uszkodzić Twój system! NIE powinieneś jej instalować, no chyba że wiesz co robisz.",
+                "ignore": "Rozumiem, że instalacja tej aplikacji może zespuć mój system, ale mimo to chcę to zrobić.",
+                "install": "Aplikacja jest już zainstalowana i nie można jej zainstalować drugi raz."
+            },
+            "license": "Licencja: {license}",
+            "notifs": {
+                "post": {
+                    "title": "Powiadomienie po instalacji dla '{name}'",
+                    "alert": "Wygląda na to, że instalacja się powiodła! \n Oto kilka powiadomień, które osoby pakujące uważają za ważne. \nMożesz przeczytać go ponownie na stronie informacji o aplikacji."
+                },
+                "pre": {
+                    "warning": "Rzeczy, o których warto wiedzieć przed instalacją",
+                    "danger": "Instalacja aplikacji najprawdopodobniej doprowadzi do problemów",
+                    "critical": "Aplikacja nie może zostać zainstalowana"
+                }
+            }
+        },
+        "installed_version": "Zainstalowane wersje:",
+        "open_this_app": "Otwórz tę aplikację",
+        "antifeatures": "Ta aplikacja zawiera funkcje, których możesz nie lubić:",
+        "doc": {
+            "about": {
+                "title": "Informacje",
+                "description": "Opis"
+            },
+            "admin": {
+                "title": "Dokumentacja administratora"
+            },
+            "notifications": {
+                "dismiss": "Odrzuć",
+                "title": "Powiadomienia",
+                "post_upgrade": "Uwagi po aktualizacji",
+                "post_install": "Uwagi po instalacji"
+            }
+        },
+        "info": {
+            "forum": "Szukaj lub zapytaj na forum!",
+            "problem": "Wystąpił problem z aplikacją?"
+        }
+    }
 }
