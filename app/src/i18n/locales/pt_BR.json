@@ -15,7 +15,28 @@
     "all": "Todos",
     "api": {
         "partial_logs": "[...] (confira no histórico para logs completos)",
-        "processing": "O servidor está processando a ação..."
+        "processing": "O servidor está processando a ação...",
+        "query_status": {
+            "pending": "Em progresso",
+            "success": "Finalizado com sucesso"
+        },
+        "reconnecting": {
+            "failed": "Parece que o servidor não está respondendo. Você pode tentar se reconectar ou tentar executar `systemctl restart yunohost-api` usando SSH.",
+            "reason": {
+                "shutdown": "Seu servidor está desligando e não está mais disponível. Ligue-o novamente e a tela de login estará disponível assim que o servidor estiver online.",
+                "unknown": "A conexão com o servidor foi encerrada por razões desconhecidas.",
+                "upgrade_system": "A conexão com o servidor foi encerrada devido a atualização do YunoHost. Aguardando a disponibilidade do servidor…",
+                "reboot": "Seu servidor está reiniciando e não poderá funcionar por algum tempo. A tela de login estará disponível assim que o servidor estiver online."
+            },
+            "title": "Tentando se comunicar com o servidor...",
+            "success": "O servidor agora está online! Tente fazer login novamente"
+        }
     },
-    "all_apps": "Todas as aplicações"
+    "all_apps": "Todas as aplicações",
+    "api_error": {
+        "error_message": "Mensagem de erro:",
+        "info": "A informação a seguir pode ser útil para a pessoa que for te ajudar:",
+        "server_said": "Durante o processamento da ação, o servidor disse:",
+        "help": "Você deveria procurar por ajuda no <a href=\"https://forum.yunohost.org/\">fórum</a> ou o <a href=\"https://chat.yunohost.org/\">chat</a> para consertar este problema, ou reportar o bug no <a href=\"https://github.com/YunoHost/issues\">bugtracker</a>."
+    }
 }
