@@ -3,8 +3,8 @@
     "action": "Akcja",
     "add": "Dodaj",
     "administration_password": "Hasło Administratora",
-    "api_not_responding": "API nie odpowiada",
-    "app_info_access_desc": "Zarządzaj dostępem użytkowników. Dozwoleni użytkownicy: %s",
+    "api_not_responding": "API nie odpowiada. Może 'yunohost-api' jest wyłączone lub zostało zrestartowane?",
+    "app_info_access_desc": "Grupy / użytkownicy mający dostęp do tej aplikacji:",
     "app_info_default_desc": "Przekieruj główną domenę do tej aplikacji ({domain}).",
     "app_info_changeurl_desc": "Zmień adres URL tej aplikacji (domenę i/lub ścieżkę).",
     "app_info_change_url_disabled_tooltip": "Ta funkcjonalność nie została jeszcze zaimplementowana w tej aplikacji",
@@ -394,7 +394,8 @@
             "change_url": "Zmień adres URL dla '{name}'",
             "install": "Instaluj '{name}'",
             "uninstall": "Usuń '{name}'",
-            "action_config": "Uruchom akcję '{action}' w konfiguracji aplikacji '{name}'"
+            "action_config": "Uruchom akcję '{action}' w konfiguracji aplikacji '{name}'",
+            "dismiss_notification": "Odrzuć powiadomienie dla '{name}'"
         },
         "backups": {
             "create": "Utwórz kopię zapasową",
@@ -548,7 +549,7 @@
     "udp": "UDP",
     "user_email": "Email",
     "user_fullname": "Imię i nazwisko",
-    "user_mailbox_quota": "Limit skrzynki pocztowej",
+    "user_mailbox_quota": "Limit skrzynek pocztowych",
     "user_username": "nazwa użytkownika",
     "users": "Użytkownicy",
     "yes": "Tak",
@@ -582,5 +583,104 @@
     "tools_yunohost_settings": "Ustawienia YunoHost",
     "wrong_password_or_username": "Błędne hasło lub nazwa użytkownika",
     "group_explain_admins": "Jest to specjalna grupa użytkowników odpowiadająca administratorom. Użytkownicy należący do tej grupy mogą dostać się do portalu YunoHost webadmin, połączyć się z serwerem poprzez SSH i wykonywać polecenia `sudo`. Będą także otrzymywać maile wysłane do root@, admin@ oraz admins@, a także powiadomienia dotyczące diagnostyki. Dlatego też powinieneś do tej grupy dodawać tylko te osoby, którym ufasz w 100%!",
-    "important_yunohost_upgrade": "Dostępna jest spora aktualizacja dla YunoHost. Przed aktualizacją zaleca się uważnie przeczytać listę zmian dostępną na forum: <a href='https://forum.yunohost.org/tag/ynh_release'>Przejrzyj listę zmian na forum</a>"
+    "important_yunohost_upgrade": "Dostępna jest spora aktualizacja dla YunoHost. Przed aktualizacją zaleca się uważnie przeczytać listę zmian dostępną na forum: <a href='https://forum.yunohost.org/tag/ynh_release'>Przejrzyj listę zmian na forum</a>",
+    "app": {
+        "install": {
+            "problems": {
+                "broken": "UWAGA! Według automatycznych testów YunoHost ta aplikacja jest uszkodzona i może uszkodzić Twój system! NIE powinieneś jej instalować, no chyba że wiesz co robisz.",
+                "ignore": "Rozumiem, że instalacja tej aplikacji może zespuć mój system, ale mimo to chcę to zrobić.",
+                "install": "Aplikacja jest już zainstalowana i nie można jej zainstalować drugi raz.",
+                "ram": "Ta aplikacja wymaga {required} RAM-u do zainstalowania/aktualizacji, a aktualnie masz tylko {current}. Nawet jeśli ta aplikacja zadziała, to i tak proces instalacji wymaga sporych ilości RAM-u i Twój serwer może się zawiesić.",
+                "arch": "Ta aplikacja może być zainstalowana tylko na wybranych architekturach ({required}), a architektura Twojego serwera to {current}.",
+                "inprogress": "Ta aplikacja wciąż jest eksperymentalna (albo po prostu nie działa) i prawdopodobnie może uszkodzić Twój system! Prawdopodobnie NIE powinieneś jej instalować, chyba że wiesz, co robisz.",
+                "lowquality": "Ta aplikacja może nie być dobrze zintegrowana z YunoHost. Niektóre funkcje, takie jak single sing-on oraz kopia zapasowa/przywracanie mogą nie być dostępne lub nie będą respektować dobrych praktyk.",
+                "version": "Ta aplikacja wymaga YunoHost w wersji >= {required}, a wersja Twojej instalacji to {current}. Powinieneś najpierw wykonać aktualizację YunoHost.",
+                "thirdparty": "Ta aplikacja nie należy do oficjalnego katalogu programów dla YunoHost. Instalacja aplikacji dostawców trzecich może uszkodzić integralność i bezpieczeństwo Twojego serwera. Prawdopodobnie NIE powinieneś jej instalować, chyba że wiesz co robisz."
+            },
+            "license": "Licencja: {license}",
+            "notifs": {
+                "post": {
+                    "title": "Powiadomienie po instalacji dla '{name}'",
+                    "alert": "Wygląda na to, że instalacja się powiodła! \n Oto kilka powiadomień, które osoby pakujące uważają za ważne. \nMożesz przeczytać go ponownie na stronie informacji o aplikacji."
+                },
+                "pre": {
+                    "warning": "Rzeczy, o których warto wiedzieć przed instalacją",
+                    "danger": "Instalacja aplikacji najprawdopodobniej doprowadzi do problemów",
+                    "critical": "Aplikacja nie może zostać zainstalowana"
+                }
+            },
+            "try_demo": "Wypróbuj demo",
+            "version": "Aktualna wersja: {version}"
+        },
+        "installed_version": "Zainstalowane wersje:",
+        "open_this_app": "Otwórz tę aplikację",
+        "antifeatures": "Ta aplikacja zawiera funkcje, których możesz nie lubić:",
+        "doc": {
+            "about": {
+                "title": "Informacje",
+                "description": "Opis"
+            },
+            "admin": {
+                "title": "Dokumentacja administratora"
+            },
+            "notifications": {
+                "dismiss": "Odrzuć",
+                "title": "Powiadomienia",
+                "post_upgrade": "Uwagi po aktualizacji",
+                "post_install": "Uwagi po instalacji"
+            }
+        },
+        "info": {
+            "forum": "Szukaj lub zapytaj na forum!",
+            "problem": "Wystąpił problem z aplikacją?"
+        },
+        "integration": {
+            "sso": {
+                "?": "Brak informacji o integracji z SSO",
+                "false": "Single sing-on nie jest dostępne (SSO)",
+                "true": "Single sing-on jest dostępne (SSO)"
+            },
+            "archs": "Wspierane architektury:",
+            "ldap": {
+                "false": "Nie wykorzystuje kont YunoHost do zalogowania się (LDAP)",
+                "true": "Wykorzystuje konta YunoHost do zalogowania się (LDAP)",
+                "?": "Brak informacji o integracji z LDAP"
+            },
+            "multi_instance": {
+                "false": "Może być zainstalowana tylko jeden raz",
+                "true": "Może być zainstalowana wiele razy"
+            },
+            "resources": "Typowe użycie zasobów: {ram} RAM-u, {disk} dysku",
+            "title": "Integracja YunoHost"
+        },
+        "links": {
+            "userdoc": "Oficjalna dokumentacja użytkownika",
+            "admindoc": "Oficjalna dokumentacja admina",
+            "code": "Oficjalne repozytorium z kodem",
+            "forum": "Tematy związane z tą aplikacją na forum YunoHost",
+            "package": "Repozytorium pakietów YunoHost",
+            "title": "Odnośniki",
+            "website": "Oficjalna witryna internetowa",
+            "license": "Licencja"
+        },
+        "upgrade": {
+            "confirm": {
+                "title": "Potwierdź aktualizacje aplikacji",
+                "apps": "Aplikacje, które zostaną zaktualizowane"
+            },
+            "notifs": {
+                "pre": {
+                    "alert": "Powinieneś sprawdzić te notki przed wykonaniem aktualizacji. Mogą tam być ważne dla Ciebie informacje.",
+                    "title": "Ostrzegam!"
+                },
+                "post": {
+                    "alert": "Wygląda na to, że aktualizacja przebiegła pomyślnie!\n Oto kilka ważnych powiadomień, które packager uznał za ważne, aby więcej wiedzieć o tej aktualizacji.\nMożesz przeczytać je ponownie w widoku informacji o aplikacji.",
+                    "title": "Powiadomienia po wykonaniu aktualizacji dla '{name}'"
+                }
+            },
+            "continue": "Kontynuuj do następnej aplikacji",
+            "stop": "Anuluj kolejne aktualizacje aplikacji"
+        },
+        "potential_alternative_to": "Potencjalna alternatywa dla:"
+    }
 }

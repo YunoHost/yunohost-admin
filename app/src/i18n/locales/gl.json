@@ -585,7 +585,7 @@
     "confirm_install_app_broken": "AVISO! Esta aplicación está estragada se atendemos ao test automático que fai YunoHost e pode estragar o teu sistema! Probablemente NON debas instalala a menos que saibas o que estás a facer. Queres asumir o risco?",
     "important_yunohost_upgrade": "Está dispoñible unha actualización principal de YunoHost. É totalmente recomendable ler con atención no foro as notas de publicación antes de actualizar: <a href='https://forum.yunohost.org/tag/ynh_release'>Le as notas de publicación no foro</a>",
     "app": {
-        "installed_version": "Versión instalada: {version}",
+        "installed_version": "Versión instalada:",
         "open_this_app": "Abrir esta app",
         "antifeatures": "Esta app ten características que poderían non gustarche:",
         "doc": {
