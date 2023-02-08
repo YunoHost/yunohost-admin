@@ -340,7 +340,8 @@
             "update_config": "Eguneratu '{name}' aplikazioaren '{id}' konfigurazio-arbela",
             "change_url": "Aldatu '{name}'(r)en URLa",
             "change_label": "'{prevName}' '{nextName}'(r)ekin aldatu",
-            "action_config": "Exekutatu '{name}' aplikazioaren '{action}' ekintza ezarpenetan"
+            "action_config": "Exekutatu '{name}' aplikazioaren '{action}' ekintza ezarpenetan",
+            "dismiss_notification": "Baztertu '{name}' aplikazioaren jakinarazpenak"
         },
         "domains": {
             "add": "Gehitu '{name}' domeinua",
@@ -611,7 +612,7 @@
             "notifs": {
                 "post": {
                     "title": "Instalatu ondorengo jakinarazpenak '{name}'(r)entzat",
-                    "alert": "Badirudi instalazioa behar bezala joan dela!\nPaketearen arduradunak ondorengo jakinarazpenak garrantzitsuak direla deritzo.\nAplikazioaren informazio-orrialdean irakur dezakezu berriro."
+                    "alert": "Badirudi instalazioa behar bezala joan dela! \n Paketearen arduradunak ondorengo jakinarazpenak garrantzitsuak direla deritzo. \nAplikazioaren informazio-orrialdean irakur dezakezu berriro."
                 },
                 "pre": {
                     "warning": "Instalatu baino lehen jakin beharrekoak",
@@ -624,8 +625,61 @@
                 "broken": "Aplikazio hau hondatuta dago YunoHosten azterketa automatikoen arabera eta zure sistema apur lezake! Ez zenuke instalatu beharko zertan ari zaren ez badakizu.",
                 "thirdparty": "Aplikazio hau ez da YunoHosten katalogokoa, hirugarrenen aplikazioak instalatzeak sistemaren integritatea ezbaian jar dezake. Ez zenuke instalatu beharko zertan ari zaren ez badakizu.",
                 "ignore": "Ulertzen dut aplikazio honek nire sistema apur lezakeela baina hala ere probatu nahi dut.",
-                "inprogress": "Aplikazio hau esperimentala da oraindik (edo ez dabil) eta litekeena da zure sistema apurtzea! Ez zenuke instalatu beharko zertan ari zaren ez badakizu."
-            }
+                "inprogress": "Aplikazio hau esperimentala da oraindik (edo ez dabil) eta litekeena da zure sistema apurtzea! Ez zenuke instalatu beharko zertan ari zaren ez badakizu.",
+                "install": "Badago lehendik ere instalatuta eta ezin da behin baino gehiagotan instalatu.",
+                "lowquality": "Litekeena da aplikazioa ibiltzea baina ez dago YunoHosten ondo integratuta. Baliteke Saio Bakarra (SSO) edota babeskopia / lehengoratzea bezalako ezaugarri batzuk erabilgarri ez egotea, edo gidalerroak ez errespetatzea.",
+                "version": "Aplikazio honek YunoHost {required} edo bertsio berriagoa behar du, baina unean instalatuta daukazuna {current} da; aztertu YunoHost eguneratzea."
+            },
+            "try_demo": "Probatu demo hau",
+            "version": "Uneko bertsioa: {version}"
+        },
+        "integration": {
+            "archs": "Arkitektura bateragarriak:",
+            "ldap": {
+                "false": "Ez du YunoHosten kontua erabiltzen saioa hasteko (LDAP); kontu bat sortu beharko da aplikazioan bertan",
+                "true": "YunoHosten kontuarekin hasi daiteke saioa (LDAP)",
+                "?": "Ez dago LDAP integrazioari buruzko informaziorik"
+            },
+            "multi_instance": {
+                "false": "Behin bakarrik instala daiteke",
+                "true": "Behin baino gehiagotan instala daiteke"
+            },
+            "resources": "Baliabideen ohiko erabilera: {ram} RAM, {disk} memoria diskoan",
+            "sso": {
+                "true": "Saio Bakarra (SSO) erabilgarri dago",
+                "?": "Ez dago SSO-i buruzko informaziorik",
+                "false": "Saio Bakarra (SSO) ez dago erabilgarri"
+            },
+            "title": "YunoHosten integrazioa"
+        },
+        "links": {
+            "admindoc": "Administraritzaren dokumentazio ofiziala",
+            "code": "Kode gordailu (repository) ofiziala",
+            "package": "Yunohosten paketearen gordailua (repository)",
+            "title": "Estekak",
+            "userdoc": "Erabiltzaileen dokumentazio ofiziala",
+            "website": "Webgune ofiziala",
+            "license": "Lizentzia",
+            "forum": "Aplikazio honi buruzko eztabaidak YunoHosten foroan"
+        },
+        "potential_alternative_to": "Honen baliokide izan daiteke:",
+        "upgrade": {
+            "confirm": {
+                "title": "Baieztatu aplikazioen bertsio-berritzeak",
+                "apps": "Bertsio-berrituko diren aplikazioak"
+            },
+            "continue": "Jarraitu hurrengo aplikaziora",
+            "notifs": {
+                "pre": {
+                    "title": "Kontuz!",
+                    "alert": "Jakinarazpen horiek aztertu beharko zenituzke bertsio-berritu baino lehen, agian jakin beharreko zerbait diote."
+                },
+                "post": {
+                    "alert": "Badirudi bertsio-berritzea behar bezala joan dela! \n Paketearen arduradunak bertsio-berritze honi buruzko ondorengo jakinarazpenak garrantzitsuak direla deritzo. \nAplikazioaren informazio-orrialdean irakur dezakezu berriro.",
+                    "title": "'{name}' bertsio-berritu ondorengo jakinarazpenak"
+                }
+            },
+            "stop": "Utzi hurrengo aplikazioaren bertsio-berritzea"
         }
     }
 }

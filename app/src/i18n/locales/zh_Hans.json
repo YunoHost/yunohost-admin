@@ -21,7 +21,7 @@
     "app_make_default": "设为默认",
     "app_install_custom_no_manifest": "没有 manifest.json 文件",
     "app_info_uninstall_desc": "删除此应用。",
-    "app_info_default_desc": "将域名根目录重定向到此应用 ({domain})。",
+    "app_info_default_desc": "将域根目录重定向到此应用 ({domain})。",
     "unignore": "取消忽略",
     "last_ran": "上次运行：",
     "app_info_change_url_disabled_tooltip": "此应用尚未实现此功能",
@@ -43,7 +43,7 @@
     "migrations_pending": "待处理的迁移",
     "migrations": "迁移",
     "manage_users": "管理用户",
-    "manage_domains": "管理域名",
+    "manage_domains": "管理域",
     "manage_apps": "管理应用",
     "logout": "登出",
     "login": "登录",
@@ -115,14 +115,14 @@
     "enabled": "已启用",
     "enable": "启用",
     "download": "下载",
-    "domains": "域名",
+    "domains": "域",
     "domain_name": "域名",
     "domain_dns_longdesc": "查看 DNS 配置",
     "domain_dns_config": "DNS 配置",
-    "domain_delete_longdesc": "删除此域名",
-    "domain_add_panel_without_domain": "我没有域名…",
-    "domain_default_longdesc": "这是您的默认域名。",
-    "domain_add": "添加域名",
+    "domain_delete_longdesc": "删除此域",
+    "domain_add_panel_without_domain": "我没有域…",
+    "domain_default_longdesc": "这是您的默认域。",
+    "domain_add": "添加域",
     "dns": "DNS",
     "disabled": "已禁用",
     "disable": "禁用",
@@ -142,11 +142,11 @@
     "api_waiting": "正在等待服务器的响应...",
     "address": {
         "domain_description": {
-            "email": "为您的邮箱选择一个域名。",
-            "domain": "选择一个域名。"
+            "email": "为您的邮箱选择一个域。",
+            "domain": "选择一个域。"
         },
         "local_part_description": {
-            "domain": "选择一个子域名。",
+            "domain": "选择一个子域。",
             "email": "为您的邮箱选择本地部分。"
         }
     },
@@ -155,7 +155,7 @@
     "confirm_service_start": "您确定要开始 {name} 吗？",
     "confirm_service_restart": "您确定要重启 {name} 吗？",
     "confirm_restore": "您确定要恢复 {name} 吗？",
-    "confirm_postinstall": "您即将在域名 {domain} 上启动安装后流程。这可能需要几分钟，*不要中断操作*。",
+    "confirm_postinstall": "您即将在域 {domain} 上启动安装后流程。这可能需要几分钟，*不要中断操作*。",
     "confirm_migrations_skip": "不建议跳过迁移。您确定要这样做吗？",
     "confirm_install_app_inprogress": "警告！此应用仍处于试验阶段（如果没有明确表示无法运行），它可能会破坏您的系统！除非您知道自己在做什么，否则您最好不要安装它。您愿意冒这个风险吗？",
     "confirm_install_app_lowquality": "警告：此应用可能可用，但未很好地集成在 YunoHost 中。某些功能（如单点登录和备份/恢复）可能不可用。",
@@ -169,7 +169,7 @@
     "group_specific_permissions": "个人用户权限",
     "group_explain_visitors_needed_for_external_client": "请注意，如果您打算在外部客户端使用一些应用，您需要将这些应用设置为允许访客访问。例如，如果您打算在您的智能手机或台式电脑上使用同步客户端，那么 Nextcloud 就是这种情况。",
     "group_explain_visitors": "这是一个代表匿名访客的特殊群组",
-    "group_explain_all_users": "这是一个包含服务器上所有用户帐户的特殊群组",
+    "group_explain_all_users": "这是一个包含服务器上所有用户账号的特殊群组",
     "group_add_permission": "添加权限",
     "group_format_name_help": "您可以使用字母数字字符和下划线",
     "group_name": "群组名称",
@@ -184,22 +184,22 @@
     "everything_good": "一切正常！",
     "error_connection_interrupted": "服务器关闭了连接而不是回应它。 nginx 或 yunohost-api 是否因某种原因重启或停止？",
     "error_modify_something": "您应该修改一些东西",
-    "domain_delete_forbidden_desc": "您无法删除 '{domain}'，因为它是默认域名，您需要选择另一个域名（或<a href='#/domains/add'>添加一个新域名</a>）并将其设置为默认域名能够删除它。",
-    "domain_default_desc": "默认域名是用户登录的连接域名。",
-    "domain_add_dyndns_forbidden": "您已经订阅了一个 DynDNS 域名，您可以在论坛上要求删除您当前的 DynDNS 域名 <a href='//forum.yunohost.org/t/nohost-domain-recovery-suppression-de-domaine-en-nohost-me-noho-st-et-ynh-fr/442'>在独立的帖子中</a>。",
+    "domain_delete_forbidden_desc": "您无法删除 '{domain}'，因为它是默认域，您需要选择另一个域（或<a href='#/domains/add'>添加一个新域</a>）并将其设置为默认域能够删除它。",
+    "domain_default_desc": "默认域是用户登录的连接域。",
+    "domain_add_dyndns_forbidden": "您已经订阅了一个 DynDNS 域，您可以在论坛上要求删除您当前的 DynDNS 域 <a href='//forum.yunohost.org/t/nohost-domain-recovery-suppression-de-domaine-en-nohost-me-noho-st-et-ynh-fr/442'>在独立的帖子中</a>。",
     "domain_add_dyndns_doc": "…并且我想要一个动态 DNS 服务。",
     "domain_add_dns_doc": "…并且我已经<a href='//yunohost.org/dns_config' target='_blank'>正确设置了我的 DNS</a>。",
     "diagnosis_explanation": "诊断功能将尝试识别服务器不同方面的常见问题，以确保一切顺利运行。诊断每天自动运行两次，如果发现问题，会向管理员发送电子邮件。请注意，如果您不想使用某些特定功能（例如 XMPP），则某些测试可能不相关，或者如果您有复杂的设置，则可能会失败。在这种情况下，如果您知道自己在做什么，则可以忽略相应的问题或警告。",
     "diagnosis_first_run": "诊断功能将尝试识别服务器不同方面的常见问题，以确保一切顺利运行。如果您在设置服务器后立即看到一堆错误，请不要惊慌：它正是为了帮助您识别问题并指导您修复它们。诊断还将每天自动运行两次，如果发现问题，则会向管理员发送电子邮件。",
     "domain_dns_conf_is_just_a_recommendation": "本节向您展示*推荐*配置。它*不会*为您配置 DNS。您有责任根据此建议在您的 DNS 注册商中配置您的 DNS 区域。",
-    "domain_add_panel_with_domain": "我已经有一个域名…",
+    "domain_add_panel_with_domain": "我已经有一个域…",
     "confirm_app_install": "您确定要安装此应用吗？",
     "confirm_install_domain_root": "您确定要在 '/' 上安装此应用吗？您将无法在 {domain} 上安装任何其它应用",
     "confirm_install_custom_app": "警告！安装第三方应用可能会损害系统的完整性和安全性。除非您知道自己在做什么，否则您最好不要安装它。您愿意冒这个风险吗？",
     "confirm_firewall_disallow": "您确定要关闭端口 {port}（协议：{protocol}，连接：{connection}）",
     "confirm_firewall_allow": "您确定要打开端口 {port}（协议：{protocol}，连接：{connection}）",
     "confirm_delete": "您确定要删除 {name} 吗？",
-    "confirm_change_maindomain": "您确定要更改主域名吗？",
+    "confirm_change_maindomain": "您确定要更改主域吗？",
     "confirm_app_default": "您确定要将此应用设置为默认应用吗？",
     "code": "代码",
     "app_state_highquality_explanation": "此应用与 YunoHost 集成良好至少一年。",
@@ -208,7 +208,7 @@
     "app_show_categories": "显示类别",
     "app_manage_label_and_tiles": "管理标签和磁贴",
     "app_install_parameters": "安装设置",
-    "app_info_changeurl_desc": "更改此应用的访问网址（域名和/或路径）。",
+    "app_info_changeurl_desc": "更改此应用的访问网址（域和/或路径）。",
     "app_info_access_desc": "当前允许访问此应用的群组/用户：",
     "app_config_panel_no_panel": "此应用程序没有任何可用的配置",
     "app_config_panel_label": "配置此应用",
@@ -257,8 +257,8 @@
     "items": {
         "installed_apps": "没有已安装应用 | 已安装应用 | {c} 个已安装应用",
         "groups": "没有群组 | 群组 | {c} 个群组",
-        "domains": "没有域名 | 域名 | {c} 个域名",
-        "backups": "备份 | 备份 | {c} 份备份",
+        "domains": "没有域 | 域 | {c} 个域",
+        "backups": "没有备份 | 备份 | {c} 份备份",
         "apps": "没有应用 | 应用 | {c} 个应用",
         "users": "没有用户 | 用户 | {c} 个用户",
         "services": "没有服务 | 服务 | {c} 个服务",
@@ -304,7 +304,7 @@
     "pending_migrations": "有一些待处理的迁移正在等待运行。请转到<a href='#/tools/migrations'>工具 > 迁移</a> 以运行它们。",
     "protocol": "协议",
     "previous": "往前",
-    "postinstall_set_domain": "设置主域名",
+    "postinstall_set_domain": "设置主域",
     "postinstall_intro_3": "您可以通过访问<a href='//yunohost.org/en/install/hardware:vps_debian#fa-cog-proceed-with-the-initial-configuration' target='_blank'>相应的文档页面</a>获取更多信息",
     "postinstall_intro_2": "还需要两个配置步骤来激活您服务器的服务。",
     "postinstall_intro_1": "恭喜！YunoHost 已成功安装。",
@@ -326,7 +326,7 @@
         "apps": {
             "update_config": "更新应用 '{name}' 配置的面板 '{id}'",
             "uninstall": "卸载应用 '{name}'",
-            "set_default": "将 '{domain}' 域名根目录重定向到 '{name}'",
+            "set_default": "将 '{domain}' 域根目录重定向到 '{name}'",
             "install": "安装应用 '{name}'",
             "change_url": "更改 '{name}' 的访问网址",
             "change_label": "为 '{nextName}' 更改 '{prevName}' 的标签",
@@ -338,13 +338,13 @@
             "ports": "{action} 端口 {port} ({protocol}, {connection})"
         },
         "domains": {
-            "set_default": "将 '{name}' 设置为默认域名",
-            "delete": "删除域名 '{name}'",
-            "add": "添加域名'{description}'",
+            "set_default": "将 '{name}' 设置为默认域",
+            "delete": "删除域 '{name}'",
+            "add": "添加域 '{name}'",
             "cert_install": "为 '{name}' 安装证书",
             "cert_renew": "续订 '{name}' 的证书",
             "push_dns_changes": "将 '{name}' 的 DNS 记录推送到注册商",
-            "update_config": "更新域名 '{name}' 配置的面板 '{id}'"
+            "update_config": "更新域 '{name}' 配置的面板 '{id}'"
         },
         "diagnosis": {
             "unignore": {
@@ -414,7 +414,7 @@
     "system_upgrade_all_applications_btn": "升级所有应用",
     "system_upgrade_btn": "升级",
     "system_update": "系统更新",
-    "system_packages_nothing": "所有系统包都是最新的！",
+    "system_packages_nothing": "所有系统软件包都是最新的！",
     "system_apps_nothing": "所有应用都是最新的！",
     "system": "系统",
     "stop": "停止",
@@ -431,7 +431,7 @@
     "tools_reboot_btn": "重启",
     "tools_reboot": "重启您的服务器",
     "tools": "工具",
-    "tip_about_user_email": "用户创建时带有一个关连的电子邮件地址（和XMPP账户），格式为username@domain.tld。额外的电子邮件别名和电子邮件转发可稍后由管理员和用户添加。",
+    "tip_about_user_email": "用户创建时带有一个关连的电子邮件地址（和XMPP账号），格式为username@domain.tld。额外的电子邮件别名和电子邮件转发可稍后由管理员和用户添加。",
     "tcp": "TCP",
     "tools_webadmin_settings": "网站管理设置",
     "tools_webadmin": {
@@ -463,7 +463,7 @@
         "default": "默认",
         "link": "链接",
         "none": "无",
-        "separator": "， ",
+        "separator": ", ",
         "valid": "有效",
         "browse": "浏览"
     },
@@ -472,7 +472,7 @@
     "users_no": "没有用户。",
     "users_new": "新用户",
     "users": "用户",
-    "user_username_edit": "编辑 {name} 的账户",
+    "user_username_edit": "编辑 {name} 的账号",
     "user_username": "用户名",
     "user_new_forward": "newforward@myforeigndomain.org",
     "user_mailbox_use": "邮箱已用空间",
@@ -512,8 +512,8 @@
     "confirm_group_add_access_permission": "您确定要授予 {name} 对 {perm} 的访问权限吗？如果 {name} 碰巧是一个恶意的人，此类访问权限会显著增加攻击面。只有当您信任此人/群组时，您才应该这样做。",
     "domain": {
         "config": {
-            "edit": "编辑域名配置",
-            "title": "域名配置"
+            "edit": "编辑域配置",
+            "title": "域配置"
         },
         "dns": {
             "push_force_confirm": "您确定要强制推送所有推荐的 DNS 记录吗？请注意，它可能会手动覆盖您或您的注册商设置的重要默认记录。",
@@ -529,7 +529,7 @@
             "push_force": "覆盖现有记录",
             "methods": {
                 "auto": "自动",
-                "handled_in_parent": "在父域名中处理",
+                "handled_in_parent": "在父域中处理",
                 "manual": "手动",
                 "none": "无",
                 "semi_auto": "半自动"
@@ -544,22 +544,22 @@
             "valid_for": "有效期为 {days}"
         },
         "info": {
-            "apps_on_domain": "安装在域名上的应用",
+            "apps_on_domain": "安装在域上的应用",
             "certificate_authority": "SSL 证书颁发机构",
             "registrar": "注册商"
         },
         "explain": {
-            "main_domain": "主域名是用户可以连接到门户的域名（通过 \"{domain}/yunohost/sso\"）。<br>因此，无法删除它。<br>如果想要删除\"{domain}\"，您首先必须选择或添加另一个域名并将其设置为主域名。"
+            "main_domain": "主域是用户可以连接到门户的域（通过 \"{domain}/yunohost/sso\"）。<br>因此，无法删除它。<br>如果想要删除\"{domain}\"，您首先必须选择或添加另一个域并将其设置为主域。"
         },
-        "see_parent_domain": "查看父域名",
-        "toggle_subdomains": "切换子域名",
+        "see_parent_domain": "查看父域",
+        "toggle_subdomains": "切换子域",
         "types": {
-            "main_domain": "主域名"
+            "main_domain": "主域"
         }
     },
-    "domain_dns_push_managed_in_parent_domain": "自动 DNS 记录功能在父域名 <a href='#/domains/{parent_domain}/dns'>{parent_domain}</a> 中管理。",
+    "domain_dns_push_managed_in_parent_domain": "自动 DNS 记录功能在父域 <a href='#/domains/{parent_domain}/dns'>{parent_domain}</a> 中管理。",
     "domain_dns_push_failed_to_authenticate": "无法在注册商的 API 上进行身份验证。很可能是<a href='#/domains/{domain}/config'>凭证</a> 不正确？（错误：{error}）",
-    "domain_dns_push_not_applicable": "自动 DNS 记录功能不适用于域名 {domain}，<br>您应该按照<a href='https://yunohost.org/dns'>文档</a>和下方推荐的配置手动配置您的 DNS 记录。",
+    "domain_dns_push_not_applicable": "自动 DNS 记录功能不适用于域 {domain}，<br>您应该按照<a href='https://yunohost.org/dns'>文档</a>和下方推荐的配置手动配置您的 DNS 记录。",
     "app_state_broken": "损坏",
     "app_state_broken_explanation": "根据 YunoHost 的自动测试，此应用目前已损坏且无法安装",
     "confirm_install_app_broken": "警告！根据 YunoHost 的自动测试，此应用已损坏，很可能会损坏您的系统！除非您知道自己在做什么，否则您最好不要安装它。您愿意冒这个风险吗？",

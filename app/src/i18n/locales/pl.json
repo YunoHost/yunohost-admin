@@ -541,7 +541,7 @@
     "upnp_enabled": "UPnP jest włączony.",
     "user_emailaliases_add": "Dodaj alias adresu Email",
     "user_emailforward_add": "Dodaj przekierowanie poczty",
-    "select_none": "Wybierz żaden",
+    "select_none": "Wybierz brak",
     "system_upgrade_btn": "Uaktualnij",
     "unignore": "Nie ignoruj",
     "tcp": "TCP",
