@@ -28,7 +28,7 @@ export default {
   data () {
     return {
       form: {
-        csvfile: null,
+        csvfile: { file: null },
         update: false,
         delete: false
       },
