@@ -47,14 +47,16 @@ export default {
         username: {
           label: this.$i18n.t('user_username'),
           props: {
-            id: 'username'
+            id: 'username',
+            autocomplete: 'username'
           }
         },
         password: {
           label: this.$i18n.t('password'),
           props: {
             id: 'password',
-            type: 'password'
+            type: 'password',
+            autocomplete: 'current-password'
           }
         }
       }
