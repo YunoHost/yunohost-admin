@@ -602,8 +602,8 @@
                 }
             }
         },
-        "installed_version": "Installierte Version: {version}",
-        "open_this_app": "Öffne diese App",
+        "installed_version": "Installierte Version:",
+        "open_this_app": "Diese App öffnen",
         "antifeatures": "Diese App hat Funktionen, die du womöglich nicht magst:",
         "doc": {
             "about": {
