@@ -628,7 +628,8 @@
                 "inprogress": "Aplikazio hau esperimentala da oraindik (edo ez dabil) eta litekeena da zure sistema apurtzea! Ez zenuke instalatu beharko zertan ari zaren ez badakizu.",
                 "install": "Badago lehendik ere instalatuta eta ezin da behin baino gehiagotan instalatu.",
                 "lowquality": "Litekeena da aplikazioa ibiltzea baina ez dago YunoHosten ondo integratuta. Baliteke Saio Bakarra (SSO) edota babeskopia / lehengoratzea bezalako ezaugarri batzuk erabilgarri ez egotea, edo gidalerroak ez errespetatzea.",
-                "version": "Aplikazio honek YunoHost {required} edo bertsio berriagoa behar du, baina unean instalatuta daukazuna {current} da; aztertu YunoHost eguneratzea."
+                "version": "Aplikazio honek YunoHost {required} edo bertsio berriagoa behar du, baina unean instalatuta daukazuna {current} da; aztertu YunoHost eguneratzea.",
+                "ram": "Aplikazio honek {required} RAM behar ditu instalatu edo bertsio-berritzeko baina unean soilik {current} daude erabilgarri. Aplikazioa ibiliko balitz ere, instalazio prozesuak RAM kopuru handia behar du eta zure zerbitzariak erantzuteari utzi eta huts egin lezake."
             },
             "try_demo": "Probatu demo hau",
             "version": "Uneko bertsioa: {version}"
