@@ -1,3 +1,13 @@
+yunohost-admin (11.1.6) stable; urgency=low
+
+  - users: fix UserImport missing file input ([#507](https://github.com/yunohost/yunohost-admin/pull/507))
+  - login: correctly set autocomplet attribute on login form inputs ([#509](https://github.com/yunohost/yunohost-admin/pull/509))
+  - [i18n] Translations updated for Arabic, Basque, Chinese (Simplified), German, Polish, Telugu
+
+  Thanks to all contributors <3 ! (Alice Kile, axolotle, ButterflyOfFire, Christian Wehrli, Grzegorz Cichocki, Laurent Peuch, Poesty Li, xabirequejo)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Mon, 20 Feb 2023 20:34:55 +0100
+
 yunohost-admin (11.1.5) stable; urgency=low
 
   - Bump yunohost requirement to 11.1 (fd46d793)
