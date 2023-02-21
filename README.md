@@ -4,8 +4,7 @@
  
 ![Version](https://img.shields.io/github/v/tag/yunohost/yunohost-admin?label=version&sort=semver)
 [![Tests status](https://github.com/YunoHost/yunohost-admin/actions/workflows/eslint.yml/badge.svg)](https://github.com/YunoHost/yunohost-admin/actions/workflows/eslint.yml)
-[![Language grade: Javascript](https://img.shields.io/lgtm/grade/javascript/g/YunoHost/yunohost-admin.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/YunoHost/yunohost-admin/context:javascript)
-[![GitHub license](https://img.shields.io/github/license/YunoHost/yunohost-admin)](https://github.com/YunoHost/yunohost-admin/blob/dev/LICENSE)
+[![Project license](https://img.shields.io/gitlab/license/yunohost/yunohost)](https://github.com/YunoHost/yunohost/blob/dev/LICENSE)
 
 [YunoHost](https://yunohost.org) administration web interface (VueJS client for the API).
 
