@@ -1,52 +1,68 @@
 {
-    "add": "Tambahkan",
+    "add": "Tambah",
     "address": {
         "domain_description": {
-            "email": "Pilih sebuah domain untuk surel Anda.",
-            "domain": "Pilih sebuah domain."
+            "email": "Pilih domain untuk surel Anda.",
+            "domain": "Pilih domain."
         },
         "local_part_description": {
-            "domain": "Pilih sebuah subdomain."
+            "domain": "Pilih subdomain.",
+            "email": "Pilih bagian lokal untuk surel Anda"
         }
     },
     "administration_password": "Kata sandi administrasi",
     "all": "Semua",
     "api": {
-        "processing": "Server sedang memproses tindakan...",
+        "processing": "Peladen sedang memproses tindakan...",
         "query_status": {
             "error": "Gagal",
             "pending": "Sedang berjalan",
-            "success": "Berhasil"
-        }
+            "success": "Berhasil",
+            "warning": "Selesai dengan galat atau peringatan"
+        },
+        "reconnecting": {
+            "reason": {
+                "reboot": "Peladen Anda sedang dimulai ulang dan tidak akan bisa dicapai selama beberapa saat. Layar masuk akan tersedia setelah peladen Anda bisa dicapai.",
+                "shutdown": "Peladen Anda telah dimatikan tidak dapat dicapai. Nyalakan kembali dan layar masuk akan tersedia setelah peladen Anda bisa dicapai.",
+                "upgrade_system": "Tidak dapat terhubung ke peladen dikarenakan YunoHost sedang pembaruan. Menunggu peladen bisa terhubung kembali…",
+                "unknown": "Tidak dapat terhubung ke peladen karena alasan yang tidak diketahui."
+            },
+            "title": "Mencoba menghubungi peladen...",
+            "failed": "Sepertinya peladen tidak merespons. Anda bisa coba memuat ulang atau coba jalankan `systemctl restart yunohost-api` via SSH.",
+            "success": "Peladen bisa dicapai! Anda bisa mencoba masuk kembali"
+        },
+        "partial_logs": "[...] (periksa di riwayat untuk log penuhnya)"
     },
     "api_error": {
-        "server_said": "Ketika memproses tindakan server mengatakan:",
+        "server_said": "Ketika memproses tindakan, peladen mengatakan:",
         "sorry": "Maaf tentang itu.",
         "info": "Informasi berikut mungkin berguna untuk orang yang membantu Anda:",
-        "error_message": "Pesan kesalahan:",
+        "error_message": "Pesan galat:",
         "help": "Anda dapat mencari bantuan di <a href=\"https://forum.yunohost.org/\">forum</a> atau <a href=\"https://chat.yunohost.org/\">di obrolan</a> untuk menangani situasinya, atau laporkan bug di <a href=\"https://github.com/YunoHost/issues\">bugtracker</a>.",
-        "view_error": "Lihat kesalahan"
+        "view_error": "Lihat galat"
     },
     "api_errors_titles": {
-        "APINotRespondingError": "API YunoHost tidak menjawab",
-        "APIError": "YunoHost mengalami kesalahan yang tak terduga",
-        "APIBadRequestError": "YunoHost mengalami sebuah kesalahan",
-        "APIInternalError": "YunoHost mengalami sebuah kesalahan internal"
+        "APINotRespondingError": "API YunoHost tidak merespons",
+        "APIError": "YunoHost mengalami galat tak terduga",
+        "APIBadRequestError": "YunoHost mengalami sebuah galat",
+        "APIInternalError": "YunoHost mengalami sebuah galat internal",
+        "APIConnexionError": "YunoHost mengalami galat hubungan",
+        "APINotFoundError": "API YunoHost tidak dapat menemukan rutenya"
     },
     "all_apps": "Semua aplikasi",
-    "api_waiting": "Menunggu jawaban server...",
+    "api_waiting": "Menunggu respons peladen...",
     "app_choose_category": "Pilih sebuah kategori",
     "app_config_panel": "Panel konfigurasi",
     "app_config_panel_label": "Konfigurasi aplikasi ini",
     "app_config_panel_no_panel": "Aplikasi ini tidak dapat dikonfigurasi",
-    "app_info_access_desc": "Kelompok / pengguna yang diizinkan mengakses aplikasi ini:",
+    "app_info_access_desc": "Kelompok/pengguna yang diizinkan mengakses aplikasi ini:",
     "app_info_change_url_disabled_tooltip": "Fitur ini belum diimplementasikan pada aplikasi ini",
     "app_info_uninstall_desc": "Hapus aplikasi ini.",
     "app_install_custom_no_manifest": "Tidak ada berkas manifest.json",
     "app_install_parameters": "Pengaturan pemasangan",
     "app_show_categories": "Tampilkan kategori",
     "app_state_lowquality": "kualitas rendah",
-    "app_state_highquality_explanation": "Aplikasi ini berintegrasi dengan YunoHost dengan baik selama sekurang-kurangnya satu tahun.",
+    "app_state_highquality_explanation": "Aplikasi ini terintegrasi dengan YunoHost dengan baik selama sekurang-kurangnya satu tahun.",
     "applications": "Aplikasi",
     "backup": "Pencadangan",
     "backup_action": "Cadangkan",
@@ -64,7 +80,7 @@
     "configuration": "Konfigurasi",
     "confirm_change_maindomain": "Apakah Anda yakin ingin mengubah domain utama?",
     "confirm_delete": "Apakah Anda yakin ingin menghapus {name}?",
-    "confirm_install_custom_app": "PERINGATAN! Memasang aplikasi pihak ketiga dapat membahayakan integritas serta keamanan sistem Anda. Anda sebaiknya TIDAK memasangnya kecuali Anda yakin dengan apa yang Anda lakukan. Apakah Anda ingin menerima resiko tersebut?",
+    "confirm_install_custom_app": "PERINGATAN! Memasang aplikasi pihak ketiga dapat membahayakan integritas serta keamanan sistem Anda. Anda sebaiknya TIDAK memasangnya kecuali Anda yakin dengan apa yang Anda lakukan. Apakah Anda ingin menerima risiko tersebut?",
     "confirm_app_install": "Apakah Anda yakin ingin memasang aplikasi ini?",
     "confirm_service_restart": "Apakah Anda yakin ingin memulai-ulang {name}?",
     "confirm_service_start": "Apakah Anda yakin ingin memulai {name}?",
@@ -73,13 +89,13 @@
     "confirm_update_specific_app": "Apakah Anda yakin ingin memperbarui {app}?",
     "confirm_upnp_enable": "Apakah Anda yakin ingin mengaktifkan UPnP?",
     "confirm_upnp_disable": "Apakah Anda yakin ingin menonaktifkan UPnP?",
-    "confirm_reboot_action_reboot": "Apakah Anda yakin ingin memulai-ulang server Anda?",
-    "confirm_reboot_action_shutdown": "Apakah Anda yakin ingin mematikan server Anda?",
+    "confirm_reboot_action_reboot": "Apakah Anda yakin ingin memulai ulang peladen Anda?",
+    "confirm_reboot_action_shutdown": "Apakah Anda yakin ingin mematikan peladen Anda?",
     "created_at": "Dibuat pada",
     "day_validity": " Kedaluwarsa | 1 hari | {count} hari",
     "dead": "Nonaktif",
     "delete": "Hapus",
-    "description": "Keterangan",
+    "description": "Deskripsi",
     "details": "Keterangan",
     "diagnosis": "Diagnosis",
     "disable": "Nonaktifkan",
@@ -87,12 +103,12 @@
     "dns": "DNS",
     "domain_add": "Tambahkan domain",
     "domain_add_panel_with_domain": "Saya sudah memiliki domain…",
-    "domain_add_panel_without_domain": "Saya belum punya sebuah domain…",
+    "domain_add_panel_without_domain": "Saya belum punya domain…",
     "domain_delete_longdesc": "Hapus domain ini",
     "download": "Unduh",
     "enable": "Aktifkan",
     "enabled": "Diaktifkan",
-    "error": "Kesalahan",
+    "error": "Galat",
     "since": "sejak",
     "skip": "Lewati",
     "start": "Mulai",
@@ -104,7 +120,7 @@
             "apps": "Perbarui semua aplikasi",
             "app": "Perbarui aplikasi '{app}'"
         },
-        "reboot": "Mulai ulang server",
+        "reboot": "Mulai ulang peladen",
         "services": {
             "restart": "Mulai ulang layanan '{name}'",
             "start": "Jalankan layanan '{name}'",
@@ -115,26 +131,67 @@
             "delete": "Hapus pengguna '{name}'",
             "update": "Perbarui pengguna '{name}'"
         },
-        "shutdown": "Matikan server",
+        "shutdown": "Matikan peladen",
         "update": "Periksa pembaruan",
         "diagnosis": {
             "run_specific": "Jalankan diagnosis '{description}'",
             "run": "Jalankan diagnosis",
             "ignore": {
-                "warning": "Abaikan peringatan"
+                "warning": "Abaikan peringatan",
+                "error": "Abaikan galat"
+            },
+            "unignore": {
+                "error": "Batal abaikan galat",
+                "warning": "Batal abaikan peringatan"
             }
         },
         "apps": {
-            "install": "Pasang aplikasi '{name}'"
+            "install": "Pasang aplikasi '{name}'",
+            "uninstall": "Lepas aplikasi '{name}'",
+            "change_url": "Ubah URL akses dari '{name}'",
+            "set_default": "Mengalihkan pangkal domain '{domain}' ke '{name}'",
+            "change_label": "Ubah label '{prevName}' menjadi '{nextName}'",
+            "dismiss_notification": "Abaikan pemberitahuan untuk '{name}'"
         },
         "domains": {
             "add": "Tambahkan domain '{name}'",
-            "delete": "Hapus domain '{name}'"
+            "delete": "Hapus domain '{name}'",
+            "cert_install": "Pasang sertifikat untuk '{name}'",
+            "cert_renew": "Perbarui sertifikat untuk '{name}'",
+            "set_default": "Atur '{name}' sebagai domain utama",
+            "push_dns_changes": "Kirim rekaman DNS ke registrar untuk '{name}'"
+        },
+        "backups": {
+            "delete": "Hapus cadangan '{name}'",
+            "restore": "Pulihkan cadangan '{name}'",
+            "create": "Buat cadangan"
+        },
+        "groups": {
+            "create": "Buat kelompok '{name}'",
+            "delete": "Hapus kelompok '{name}'",
+            "add": "Tambahkan pengguna '{user}' ke kelompok '{name}'",
+            "remove": "Hapus pengguna '{user}' dari kelompok '{name}'"
+        },
+        "share_logs": "Buat tautan untuk log '{name}'",
+        "firewall": {
+            "upnp": "{action} UPnP",
+            "ports": "{action} porta {port} ({protocol}, {connection})"
+        },
+        "reconnecting": "Menyambungkan ulang",
+        "permissions": {
+            "remove": "Hapus izin '{name}' untuk mengakses '{perm}'",
+            "add": "Izinkan '{name}' untuk mengakses '{perm}'"
+        },
+        "postinstall": "Jalankan langkah setelah pemasangan",
+        "migrations": {
+            "run": "Jalankan migrasi",
+            "skip": "Lewati migrasi"
         }
     },
     "save": "Simpan",
     "search": {
-        "not_found": "Ada {item} yang cocok dengan kriteria Anda."
+        "not_found": "Ada {item} yang cocok dengan kriteria Anda.",
+        "for": "Cari {items}..."
     },
     "select_all": "Pilih semua",
     "stop": "Berhenti",
@@ -143,15 +200,18 @@
     "system_upgrade_all_applications_btn": "Perbarui semua aplikasi",
     "system_upgrade_all_packages_btn": "Perbarui semua paket (package)",
     "tcp": "TCP",
-    "tools_shutdown": "Matikan server Anda",
+    "tools_shutdown": "Matikan peladen Anda",
     "tools_shutdown_btn": "Matikan",
     "tools_shutdown_reboot": "Matikan/Mulai Ulang",
     "tools_webadmin": {
         "language": "Bahasa",
         "fallback_language_description": "Bahasa yang akan digunakan jika terjemahan tidak tersedia di bahasa utama.",
-        "cache": "Cache",
-        "cache_description": "Pertimbangkan menonaktifkan cache jika Anda ingin menggunakan CLI sambil menggunakan administrasi web.",
-        "experimental": "Mode eksperimental"
+        "cache": "Tembolok",
+        "cache_description": "Pertimbangkan menonaktifkan tembolok jika Anda ingin menggunakan CLI sembari menggunakan administrasi web.",
+        "experimental": "Mode eksperimental",
+        "theme": "Beralih mode gelap",
+        "fallback_language": "Bahasa alternatif",
+        "transitions": "Animasi transisi halaman"
     },
     "user_fullname": "Nama lengkap",
     "users_import_csv_file": "Berkas CSV",
@@ -162,7 +222,7 @@
     "system_update": "Pembaruan sistem",
     "system_upgrade_btn": "Perbarui",
     "tools": "Alat",
-    "tools_reboot": "Mulai ulang server Anda",
+    "tools_reboot": "Mulai ulang peladen Anda",
     "tools_reboot_btn": "Mulai ulang",
     "upnp": "UPnP",
     "upnp_disabled": "UPnP tidak aktif.",
@@ -175,7 +235,7 @@
     "yes": "Ya",
     "yunohost_admin": "Admin YunoHost",
     "running": "Berjalan",
-    "service_start_on_boot": "Mulai saat boot",
+    "service_start_on_boot": "Mulai saat sistem dimulai",
     "services": "Layanan",
     "size": "Ukuran",
     "tools_webadmin_settings": "Pengaturan administrasi web",
@@ -186,7 +246,7 @@
     "user_username_edit": "Sunting akun milik {name}",
     "users": "Pengguna",
     "users_new": "Pengguna baru",
-    "users_no": "Tak ada pengguna.",
+    "users_no": "Tidak ada pengguna.",
     "certificate": "Sertifikat",
     "purge_user_data_checkbox": "Bersihkan data milik {name}? (Ini akan menghapus isi direktori home dan mail mereka)",
     "purge_user_data_warning": "Membersihkan data pengguna tidak dapat dibatalkan. Pastikan Anda yakin dengan perbuatan Anda!",
@@ -200,7 +260,19 @@
     },
     "form_errors": {
         "notInUsers": "Pengguna '{value}' sudah ada.",
-        "passwordLenght": "Kata sandi harus memiliki sekurang-kurangnya 8 karakter."
+        "passwordLenght": "Kata sandi harus memiliki sekurang-kurangnya 8 karakter.",
+        "pattern": "{type}",
+        "remote": "{message}",
+        "passwordMatch": "Kata sandi tidak sama.",
+        "required": "Bidang ini diperlukan.",
+        "appRepoUrl": "URL repositori aplikasi YunoHost seharusnya seperti https://domain.tld/jalur/ke/repo_ynh",
+        "invalid_form": "Ada galat di formulir ini.",
+        "maxValue": "Harus sama atau lebih kecil dari {max}.",
+        "alpha": "Harus berupa huruf alfabet saja.",
+        "minValue": "Harus sama atau lebih besar dari {min}.",
+        "name": "Nama tidak diperbolehkan mengandung karakter spesial lain kecuali <code> ,.'-</code>",
+        "number": "Harus berupa angka.",
+        "between": "Harus di antara {min} dan {max}."
     },
     "form_input_example": "Contoh: {example}",
     "group": "Kelompok",
@@ -209,7 +281,7 @@
     "group_visitors": "Pengunjung",
     "group_add_member": "Tambahkan pengguna",
     "history": {
-        "is_empty": "Tak ada apapun di riwayat saat ini.",
+        "is_empty": "Tidak ada apapun di riwayat saat ini.",
         "last_action": "Tindakan terakhir:",
         "methods": {
             "DELETE": "hapus",
@@ -221,18 +293,59 @@
     },
     "domain": {
         "config": {
-            "title": "Konfigurasi domain"
+            "title": "Konfigurasi domain",
+            "edit": "Sunting konfigurasi domain"
+        },
+        "cert": {
+            "types": {
+                "selfsigned": "Disertifikasi sendiri",
+                "letsencrypt": "Let's Encrypt",
+                "other": "Lainnya/Tidak diketahui"
+            },
+            "valid_for": "berlaku untuk {days}"
+        },
+        "toggle_subdomains": "Alih subdomain",
+        "types": {
+            "main_domain": "Domain utama"
+        },
+        "dns": {
+            "auto_config_ok": "Konfigurasi otomatis sepertinya oke!",
+            "push_force": "Timpa rekaman yang telah ada",
+            "auto_config": "Konfigurasi rekaman DNS otomatis",
+            "auto_config_ignored": "diabaikan, tidak akan diubah oleh YunoHost kecuali Anda mencentang opsi timpa",
+            "auto_config_zone": "Zona DNS saat ini",
+            "methods": {
+                "auto": "Otomatis",
+                "handled_in_parent": "Dikelola di domain induk",
+                "manual": "Manual",
+                "none": "Tidak ada",
+                "semi_auto": "Semi-otomatis"
+            },
+            "edit": "Sunting konfigurasi DNS",
+            "manual_config": "DNS yang disarankan untuk konfigurasi manual",
+            "push_force_confirm": "Apakah Anda yakin ingin mengirim paksa semua rekaman DNS ini? Perlu diketahui bahwa itu bisa menimpa rekaman manual atau baku yang diatur oleh Anda atau registrar Anda.",
+            "info": "Konfigurasi rekaman DNS otomatis merupakan fitur eksperimental. <br>Disarankan untuk menyimpan zona DNS Anda saat ini dari registrar DNS Anda sebelum mengirim rekaman dari sini.",
+            "push": "Kirim rekaman DNS ke registrar"
+        },
+        "info": {
+            "apps_on_domain": "Aplikasi yang dipasang di domain",
+            "registrar": "Registrar",
+            "certificate_authority": "Otoritas Sertifikat SSL"
+        },
+        "see_parent_domain": "Lihat domain induk",
+        "explain": {
+            "main_domain": "Domain utama adalah domain di mana pengguna terhubung ke portal (via \"{domain}/yunohost/sso\").<br>Karena itu, domain tersebut tidak bisa dihapus.<br>Jika Anda ingin menghapus \"{domain}\", Anda harus mengatur atau menambah domain lain dan menunjuknya menjadi domain utama."
         }
     },
-    "error_server_unexpected": "Kesalahan server yang tak terduga",
+    "error_server_unexpected": "Galat peladen tak terduga",
     "everything_good": "Semuanya bagus!",
     "experimental": "Eksperimental",
-    "footer_version": "Didukung oleh <a href='https://yunohost.org'>YunoHost</a> {version} ({repo}).",
+    "footer_version": "Ditenegai oleh <a href='https://yunohost.org'>YunoHost</a> {version} ({repo}).",
     "go_back": "Kembali",
-    "group_explain_all_users": "Ini adalah kelompok istimewa yang mengandung semua akun pengguna di server ini",
+    "group_explain_all_users": "Ini adalah kelompok istimewa yang mengandung semua akun pengguna di peladen ini",
     "home": "Beranda",
     "hook_adminjs_group_configuration": "Konfigurasi sistem",
-    "hook_conf_ldap": "Database pengguna",
+    "hook_conf_ldap": "Basis data pengguna",
     "hook_conf_ynh_settings": "Konfigurasi YunoHost",
     "restart": "Mulai ulang",
     "protocol": "Protokol",
@@ -265,8 +378,273 @@
         "username": "johndoe",
         "firstname": "John",
         "lastname": "Doe",
-        "domain": "domainku.com"
+        "domain": "domainku.com",
+        "groupname": "Nama kelompok saya",
+        "fullname": "John Doe",
+        "file": "Jelajahi berkas atau seret dan jatuhkan di sini"
     },
     "postinstall_intro_1": "Selamat! YunoHost berhasil dipasang.",
-    "postinstall_intro_3": "Anda dapat mendapatkan lebih banyak informasi dengan mengunjungi <a href='//yunohost.org/en/install/hardware:vps_debian#fa-cog-proceed-with-the-initial-configuration' target='_blank'>halaman dokumentasinya</a>"
+    "postinstall_intro_3": "Anda dapat mendapatkan lebih banyak informasi dengan mengunjungi <a href='//yunohost.org/en/install/hardware:vps_debian#fa-cog-proceed-with-the-initial-configuration' target='_blank'>halaman dokumentasinya</a>",
+    "app": {
+        "install": {
+            "notifs": {
+                "post": {
+                    "title": "Catatan setelah pemasangan untuk '{name}'",
+                    "alert": "Sepertinya pemasangannya lancar!\n Berikut beberapa catatan yang pengelola paket rasa cukup penting untuk diketahui.\nAnda bisa membacanya kembali di halaman informasi aplikasi."
+                },
+                "pre": {
+                    "warning": "Hal-hal yang perlu diketahui sebelum pemasangan",
+                    "danger": "Pemasangan aplikasi ini sepertinya akan membuat masalah",
+                    "critical": "Aplikasi tidak dapat dipasang"
+                }
+            },
+            "problems": {
+                "arch": "Aplikasi ini hanya bisa dipasang pada arsitektur tertentu ({required}) tapi arsitektur peladen Anda adalah {current}.",
+                "broken": "Aplikasi ini rusak menurut uji coba otomatis YunoHost dan mungkin akan merusak sistem Anda! Anda sebaiknya TIDAK memasangnya kecuali Anda yakin dengan apa yang Anda lakukan.",
+                "thirdparty": "Aplikasi ini bukan bagian dari katalog resmi YunoHost, memasang aplikasi pihak ketiga dapat membahayakan integritas serta keamanan sistem Anda. Anda sebaiknya TIDAK memasangnya kecuali Anda yakin dengan apa yang Anda lakukan.",
+                "ignore": "Saya mengerti bahwa pemasangan ini mungkin akan merusak sistem saya tapi saya tetap ingin mencobanya.",
+                "inprogress": "Aplikasi ini masih eksperimental dan mungkin akan merusak sistem Anda! Anda sebaiknya TIDAK memasangnya kecuali Anda yakin dengan apa yang Anda lakukan.",
+                "install": "Telah dipasang dan tidak dapat dipasang lebih dari sekali.",
+                "lowquality": "Aplikasi ini mungkin bisa bekerja tapi tidak terintegrasi dengan baik di YunoHost. Beberapa fitur seperti SSO dan pencadangan mungkin tidak tersedia.",
+                "ram": "Aplikasi ini memerlukan RAM sebanyak {required} untuk pemasangan/pembaruan tapi hanya {current} yang tersedia sekarang. Meski aplikasi ini bisa bekerja, proses pemasangannya memerlukan RAM yang banyak sehingga peladen Anda bisa rusak atau prosesnya gagal total.",
+                "version": "Aplikasi ini memerlukan YunoHost >= {required} tapi versi yang terpasang adalah {current}, silakan YunoHost-nya diperbarui terlebih dahulu."
+            },
+            "license": "Lisensi: {license}",
+            "try_demo": "Coba demonstrasi",
+            "version": "Versi saat ini: {version}"
+        },
+        "integration": {
+            "multi_instance": {
+                "false": "Hanya bisa dipasang sekali",
+                "true": "Bisa dipasang berkali-kali"
+            },
+            "sso": {
+                "?": "Tidak ada informasi tentang integrasi SSO",
+                "false": "SSO tidak tersedia",
+                "true": "SSO tersedia"
+            },
+            "title": "Integrasi YunoHost",
+            "archs": "Arsitektur yang didukung:",
+            "ldap": {
+                "false": "Tidak menggunakan akun YunoHost untuk masuk (LDAP)",
+                "true": "Menggunakan akun YunoHost untuk masuk (LDAP)",
+                "?": "Tidak ada informasi tentang integrasi LDAP"
+            },
+            "resources": "Penggunaan sumber daya: {ram} RAM, {disk} diska"
+        },
+        "links": {
+            "admindoc": "Dokumentasi Admin Resmi",
+            "code": "Repositori Kode Resmi",
+            "forum": "Topik tentang aplikasi ini di forum YunoHost",
+            "package": "Repositori Paket YunoHost",
+            "title": "Tautan",
+            "userdoc": "Dokumentasi Pengguna Resmi",
+            "website": "Situs Resmi",
+            "license": "Lisensi"
+        },
+        "potential_alternative_to": "Alternatif dari:",
+        "upgrade": {
+            "confirm": {
+                "apps": "Aplikasi yang akan diperbarui",
+                "title": "Konfirmasi pembaruan aplikasi"
+            },
+            "continue": "Ke aplikasi selanjutnya",
+            "notifs": {
+                "pre": {
+                    "alert": "Anda sebaiknya periksa catatan tersebut sebelum pembaruan, mungkin ada informasi penting yang perlu diketahui.",
+                    "title": "Peringatan!"
+                },
+                "post": {
+                    "alert": "Sepertinya pemasangannya lancar!\n Berikut beberapa catatan yang pengelola paket rasa cukup penting untuk diketahui tentang pembaruan ini.\nAnda bisa membacanya kembali di halaman informasi aplikasi.",
+                    "title": "Catatan setelah pembaruan untuk '{name}'"
+                }
+            },
+            "stop": "Batalkan pembaruan aplikasi berikutnya"
+        },
+        "installed_version": "Versi terpasang:",
+        "open_this_app": "Buka aplikasi ini",
+        "antifeatures": "Aplikasi ini memiliki fitur yang mungkin Anda tidak suka:",
+        "doc": {
+            "about": {
+                "title": "Tentang",
+                "description": "Deskripsi"
+            },
+            "admin": {
+                "title": "Dokumentasi admin"
+            },
+            "notifications": {
+                "title": "Pemberitahuan",
+                "post_upgrade": "Catatan setelah pembaruan",
+                "post_install": "Catatan setelah pemasangan",
+                "dismiss": "Abaikan"
+            }
+        },
+        "info": {
+            "forum": "Cari atau tanyakan di forum!",
+            "problem": "Masalah dengan aplikasi ini?"
+        }
+    },
+    "app_state_inprogress_explanation": "Pengelola aplikasi ini menyatakan bahwa aplikasi ini belum siap untuk penggunaan umum. HATI-HATI!",
+    "group_explain_visitors": "Ini adalah kelompok khusus yang mewakili pengunjung awanama",
+    "group_explain_visitors_needed_for_external_client": "Perlu diingat bahwa Anda memerlukan beberapa aplikasi untuk dibuka ke pengunjung (visitors) jika Anda ingin menggunakan mereka dengan aplikasi eksternal. Sebagai contoh, Nextcloud perlu dibuka jika Anda ingin menggunakan aplikasi sinkronisasi di ponsel atau komputer Anda.",
+    "port": "Porta",
+    "restore": "Pulihkan",
+    "tools_yunohost_settings": "Pengaturan YunoHost",
+    "action": "Tindakan",
+    "api_not_found": "Sepertinya web administrasi mencoba mengkueri sesuatu yang tidak ada.",
+    "api_not_responding": "API YunoHost tidak merespons. Mungkin 'yunohost-api' mati atau sedang dimulai ulang?",
+    "app_make_default": "Jadikan aplikasi utama",
+    "app_state_inprogress": "belum selesai",
+    "app_state_lowquality_explanation": "Aplikasi ini mungkin bisa bekerja, tapi masih memiliki masalah atau belum sepenuhnya terintegrasi dengan YunoHost atau tidak mengikuti panduan umum.",
+    "backup_content": "Konten cadangan",
+    "backup_create": "Buat cadangan",
+    "archive_empty": "Arsip kosong",
+    "check": "Periksa",
+    "confirm_app_change_url": "Apakah Anda yakin ingin mengubah URL akses aplikasi ini?",
+    "confirm_update_system": "Apakah Anda yakin ingin memperbarui semua paket sistem?",
+    "custom_app_install": "Pasang aplikasi lain",
+    "connection": "Koneksi",
+    "domain_default_longdesc": "Ini adalah domain utama Anda.",
+    "domains": "Domain",
+    "hook_data_mail": "Surel",
+    "group_new": "Kelompok baru",
+    "groups_and_permissions": "Kelompok dan izin",
+    "groups_and_permissions_manage": "Kelola kelompok dan izin",
+    "permissions": "Izin",
+    "ports": "Porta",
+    "postinstall_set_domain": "Atur domain utama",
+    "users_export": "Ekspor pengguna",
+    "words": {
+        "browse": "Jelajah",
+        "default": "Baku",
+        "link": "Tautan",
+        "none": "Tidak ada",
+        "separator": ", ",
+        "valid": "Valid",
+        "collapse": "Perkecil"
+    },
+    "domain_name": "Nama domain",
+    "hook_conf_manually_modified_files": "Konfigurasi yang diubah secara manual",
+    "hook_conf_ynh_certs": "Sertifikat SSL",
+    "app_state_broken": "rusak",
+    "app_state_broken_explanation": "Saat ini, aplikasi ini rusak dan tidak dapat dipasang menurut uji coba otomatis YunoHost",
+    "group_admins": "Admin",
+    "group_explain_admins": "Ini adalah kelompok khusus yang memuat pengguna administrator. Pengguna di kelompok ini bisa mengakses web administrasi YunoHost, terhubung ke peladen dengan SSH, dan menggunakan perintah `sudo`. Yang di kelompok tersebut juga akan menerima surel yang dikirim ke root@, admin@, dan admins@ seperti pemberitahuan diagnosis. Anda sebaiknya menambahkan orang-orang yang Anda sangat percaya ke kelompok ini!",
+    "password_confirmation": "Konfirmasi kata sandi",
+    "app_info_changeurl_desc": "Ubah URL akses aplikasi ini (domain dan/atau jalur).",
+    "confirm_uninstall": "Apakah Anda yakin ingin melepas {name}?",
+    "domain_add_dyndns_doc": "...dan saya ingin layanan DNS dinamis.",
+    "from_to": "dari {0} ke {1}",
+    "group_add_permission": "Tambahkan izin",
+    "group_specific_permissions": "Izin pengguna",
+    "multi_instance": "Bisa dipasang berkali-kali",
+    "previous": "Sebelumnya",
+    "set_default": "Atur yang baku",
+    "confirm_restore": "Apakah Anda yakin ingin memulihkan {name}?",
+    "confirm_install_domain_root": "Apakah Anda yakin ingin memasang aplikasi ini di '/'? Anda tidak akan dapat memasang aplikasi lain di {domain}",
+    "details_about": "Tampilkan lebih banyak detail tentang {subject}",
+    "wrong_password_or_username": "Nama pengguna atau kata sandi salah",
+    "firewall": "Tembok Api",
+    "user_new_forward": "terusanbaru@domainlainku.org",
+    "myserver": "peladensaya",
+    "experimental_warning": "Peringatan: fitur ini bersifat eksperimental dan belum bisa diputuskan sebagai stabil, Anda jangan menggunakannya kecuali jika Anda mengetahui apa yang Anda lakukan.",
+    "users_import": "Impor pengguna",
+    "app_info_default_desc": "Alihkan pangkal domain ke aplikasi ini ({domain}).",
+    "diagnosis_explanation": "Fitur diagnosis akan berusaha mencari masalah umum di setiap aspek peladen Anda untuk memastikan semuanya berjalan dengan baik. Diagnosis akan berjalan secara otomatis dua kali sehari dan sebuah surel akan dikirim ke administrator jika ada masalah yang ditemukan. Perlu dicatat bahwa beberapa uji coba mungkin tidak akan relevan jika Anda tidak ingin beberapa fitur (seperti XMPP) atau mungkin gagal jika Anda memiliki pengaturan yang kompleks. Jika begitu dan jika Anda mengetahui apa yang Anda lakukan, dipersilakan untuk mengabaikan masalah atau peringatan tersebut.",
+    "diagnosis_first_run": "Fitur diagnosis akan berusaha mencari masalah umum di setiap aspek peladen Anda untuk memastikan semuanya berjalan dengan baik. Mohon jangan panik jika Anda melihat banyak galat setelah Anda mengatur peladen Anda, itu ditujukan untuk membantu Anda menemukan masalahnya dan membantu Anda memperbaikinya. Diagnosis juga akan berjalan secara otomatis dua kali sehari dan sebuah surel akan dikirim ke administrator jika ada masalah yang ditemukan.",
+    "domain_add_dyndns_forbidden": "Anda telah berlangganan ke domain DynDNS, Anda bisa meminta untuk menghapus domain DynDNS Anda saat ini di <a href='//forum.yunohost.org/t/nohost-domain-recovery-suppression-de-domaine-en-nohost-me-noho-st-et-ynh-fr/442'>bagian khusus</a> di forum.",
+    "domain_default_desc": "Domain utama adalah domain di mana pengguna masuk ke SSO.",
+    "error_connection_interrupted": "Peladen menutup koneksi alih-alih menjawabnya. Apakah nginx atau yunohost-api dimulai ulang atau terhenti?",
+    "good_practices_about_admin_password": "Anda akan mengatur kata sandi administrator baru. Kata sandi tersebut sebaiknya sekurang-kurangnya 8 karakter, meskipun memang adalah hal yang baik jika menggunakan yang lebih panjang (cth. parafrasa) dan/atau menggunakan berbagai macam karakter (kapital, huruf kecil, angka, dan karakter lainnya).",
+    "good_practices_about_user_password": "Anda akan mengatur kata sandi pengguna baru. Kata sandi tersebut sebaiknya sekurang-kurangnya 8 karakter, meskipun memang adalah hal yang baik jika menggunakan yang lebih panjang (cth. parafrasa) dan/atau menggunakan berbagai macam karakter (kapital, huruf kecil, angka, dan karakter lainnya).",
+    "label_for_manifestname_help": "Ini adalah nama yang ditampilkan di portal pengguna. Bisa diubah lagi nanti.",
+    "manage_apps": "Kelola aplikasi",
+    "postinstall": {
+        "user": {
+            "first_user_help": "Pengguna ini akan diberikan hak administrator dan akan diperbolehkan untuk terhubung ke antarmuka administrasi atau lewat SSH.\nSeperti layaknya pengguna biasa, Anda juga bisa terhubung ke SSO dengan kredensialnya.\nSetelah pemasangan selesai, Anda bisa membuat pengguna administrator lain dengan menambahkan mereka ke kelompok 'admins'.",
+            "title": "Buat pengguna administrator pertama"
+        }
+    },
+    "postinstall_domain": "Ini adalah domain pertama yang ditautkan ke peladen YunoHost Anda dan yang akan digunakan oleh pengguna peladen Anda untuk mengakses SSO. Ini akan terlihat ke semua orang, jadi pilih dengan bijak.",
+    "retry": "Ulang",
+    "system_packages_nothing": "Semua paket sistem sudah mutakhir!",
+    "text_selection_is_disabled": "Pemilihan teks dinonaktifkan. Jika Anda ingin membagikan log ini, silakan bagikan log dengan tombol 'Bagikan dengan Yunopaste'.<br/><small>Atau jika Anda benar-benar ingin pemilihan teks, tekan tombol ini: ↓↓↑↑.</small>",
+    "confirm_group_add_access_permission": "Apakah Anda yakin ingin memberi akses {perm} ke {name}? Akses tersebut bisa meningkatkan ancaman jika {name} merupakan orang jahat. Anda sebaiknya lakukan ini jika Anda PERCAYA kepada orang tersebut.",
+    "confirm_migrations_skip": "Melewati migrasi tidak direkomendasikan. Apakah Anda yakin ingin melewatinya?",
+    "confirm_install_app_inprogress": "PERINGATAN! Aplikasi ini masih eksperimental dan mungkin akan merusak sistem Anda! Anda sebaiknya TIDAK memasangnya kecuali Anda yakin dengan apa yang Anda lakukan. Apakah Anda yakin ingin memasangnya?",
+    "run_first_diagnosis": "Jalankan diagnosis pertama",
+    "domain_delete_forbidden_desc": "Anda tidak bisa menghapus '{domain}' dikarenakan itu adalah domain utama, Anda harus memilih domain lain (atau <a href='#/domains/add'>tambahkan yang baru</a>) dan atur itu menjadi domain utama supaya bisa menghapus domain ini.",
+    "hook_data_xmpp_desc": "Konfigurasi pengguna dan ruangan, berkas unggahan",
+    "hook_data_mail_desc": "Mentahan surel yang tersimpan di peladen",
+    "id": "ID",
+    "items": {
+        "services": "tidak ada layanan | layanan | {c} layanan",
+        "users": "tidak ada pengguna | pengguna | {c} pengguna",
+        "backups": "tidak ada cadangan | cadangan | {c} cadangan",
+        "logs": "tidak ada log | log | {c} log",
+        "permissions": "tidak ada perizinan | perizinan | {c} perizinan",
+        "apps": "tidak ada aplikasi | aplikasi | {c} aplikasi",
+        "domains": "tidak ada domain | domain | {c} domain",
+        "groups": "tidak ada kelompok | kelompok | {c} kelompok",
+        "installed_apps": "tidak ada aplikasi yang terpasang | aplikasi yang terpasang | {c} aplikasi yang terpasang"
+    },
+    "migrations_no_pending": "Tidak ada migrasi yang tertunda",
+    "orphaned_details": "Aplikasi ini sudah tidak dikelola beberapa lama. Mungkin masih bekerja, tapi tidak akan menerima pembaruan sampai orang lain mengelolanya. Silakan jika Anda mau untuk berkontribusi mengelolanya!",
+    "others": "Lain-lain",
+    "logs_service": "Log layanan",
+    "path": "Jalur",
+    "logs_app": "Log aplikasi",
+    "logs_share_with_yunopaste": "Bagikan log dengan YunoPaste",
+    "tip_about_user_email": "Pengguna dibuat dengan alamat surelnya (dan akun XMPP) tersendiri dengan format namapengguna@domain.tld. Surel tambahan seperti alias surel dan surel terusan bisa ditambahkan oleh administrator dan pengguna itu sendiri.",
+    "user_emailforward": "Surel terusan",
+    "user_emailforward_add": "Tambah surel terusan",
+    "user_emailaliases_add": "Tambah alias surel",
+    "mailbox_quota_description": "Atur batas ukuran penyimpanan untuk konten surel.<br>Atur ke 0 untuk menonaktifkannya.",
+    "logs": "Log",
+    "logs_suboperations": "Sub-tindakan",
+    "logs_context": "Konteks",
+    "logs_history": "Riwayat perintah yang dijalankan di sistem",
+    "logs_more": "Tampilkan lebih banyak",
+    "logs_package": "Riwayat pengelolaan paket Debian",
+    "mailbox_quota_example": "700M adalah CD, 4700M adalah DVD",
+    "mailbox_quota_placeholder": "Atur ke 0 untuk menonaktifkan.",
+    "manage_groups": "Kelola kelompok",
+    "logs_error": "Galat",
+    "logs_no_logs_registered": "Tidak ada log yang tersedia di kategori ini",
+    "logs_operation": "Tindakan yang dilakukan di sistem dengan YunoHost",
+    "user_emailaliases": "Alias surel",
+    "users_import_delete_others": "Hapus pengguna yang tidak ada di daftar",
+    "app_manage_label_and_tiles": "Kelola label dan kisi",
+    "confirm_app_default": "Apakah Anda yakin ingin membuat aplikasi ini yang diarahkan dari pangkal domain?",
+    "unauthorized": "Tidak terotoriasasi",
+    "logs_ended_at": "Terakhir",
+    "permission_main": "Label utama",
+    "uninstall": "Lepas",
+    "users_import_update": "Perbarui pengguna yang telah ada",
+    "migrations_done": "Migrasi sebelumnya",
+    "migrations_no_done": "Belum ada migrasi",
+    "migrations_disclaimer_check_message": "Saya membaca dan mengerti peringatan ini",
+    "migrations_disclaimer_not_checked": "Migrasi ini memerlukan Anda mengetahui peringatannya sebelum bisa dijalankan.",
+    "logs_path": "Jalur",
+    "permission_show_tile_enabled": "Terlihat sebagai kisi di portal pengguna",
+    "confirm_firewall_allow": "Apakah Anda yakin ingin membuka porta {port} (protokol: {protocol}, koneksi: {connection})",
+    "confirm_firewall_disallow": "Apakah Anda yakin ingin menutup porta {port} (protokol: {protocol}, koneksi: {connection})",
+    "manage_domains": "Kelola domain",
+    "migrations_pending": "Migrasi yang tertunda",
+    "operations": "Tindakan",
+    "orphaned": "Tidak dikelola",
+    "postinstall_intro_2": "Dua langkah konfigurasi lagi diperlukan untuk mengaktifkan layanan peladen Anda.",
+    "confirm_install_app_broken": "PERINGATAN! Aplikasi ini rusak menurut uji coba otomatis YunoHost dan mungkin akan merusak sistem Anda! Anda sebaiknya TIDAK memasangnya kecuali Anda yakin dengan apa yang Anda lakukan. Apakah Anda yakin ingin memasangnya?",
+    "domain_dns_conf_is_just_a_recommendation": "Bagian ini hanya menampilkan kepada Anda konfigurasi *yang direkomendasikan*. Ini *tidak* mengonfigurasi DNS untuk Anda. Merupakan tugas Anda untuk mengonfigurasi zona DNS Anda di registrar DNS Anda menurut rekomendasi ini.",
+    "domain_dns_push_failed_to_authenticate": "Tidak dapat mengautentikasi API registrar. Sepertinya <a href='#/domains/{domain}/config'>kredensialnya</a> salah? (Galat: {error})",
+    "ignore": "Abaikan",
+    "label_for_manifestname": "Label untuk {name}",
+    "local_archives": "Arsip lokal",
+    "user_mailbox_quota": "Kuota penyimpanan surel",
+    "user_mailbox_use": "Penyimpanan surel yang digunakan",
+    "important_yunohost_upgrade": "Pembaruan besar YunoHost tersedia. Sangat direkomendasikan untuk membaca catatan rilis di forum sebelum pembaruan: <a href='https://forum.yunohost.org/tag/ynh_release'>Baca catatan rilis di forum</a>",
+    "logs_started_at": "Awal",
+    "manage_users": "Kelola pengguna",
+    "migrations": "Migrasi",
+    "next": "Selanjutnya"
 }
