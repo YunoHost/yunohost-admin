@@ -15,7 +15,7 @@
       </div>
 
       <vue-showdown
-        v-for="[name, notif] in app.doc.notifications.postUpgrade" :key="name"
+        v-for="[name, notif] in app.doc.notifications.postInstall" :key="name"
         :markdown="notif" flavor="github" :options="{ headerLevelStart: 4 }"
       />
     </yuno-alert>
