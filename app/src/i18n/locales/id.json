@@ -113,7 +113,7 @@
     "skip": "Lewati",
     "start": "Mulai",
     "status": "Status",
-    "password": "Kata sandi",
+    "password": "Kata Sandi",
     "human_routes": {
         "upgrade": {
             "system": "Perbarui sistem",

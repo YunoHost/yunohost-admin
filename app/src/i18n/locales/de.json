@@ -158,7 +158,7 @@
     "tools_shutdown": "Fahren Sie Ihren Server herunter",
     "tools_shutdown_btn": "Herunterfahren",
     "tools_shutdown_reboot": "Herunterfahren/Neustarten",
-    "app_state_inprogress_explanation": "Der Entwickler dieser Applikation hat angegeben, dass sie nicht bereit für den produktiven Einsatz bereit ist. BITTE SEI VORSICHTIG!",
+    "app_state_inprogress_explanation": "Der Entwickler dieser Applikation hat angegeben, dass sie nicht bereit für den produktiven Einsatz bereit ist. BITTE SEIEN SIE VORSICHTIG!",
     "all_apps": "Alle Applikationen",
     "app_info_changeurl_desc": "Ändern Sie die Zugriffs-URL dieser Anwendung (Domäne und/oder Pfad).",
     "app_state_highquality_explanation": "Diese Applikation ist seit mindestens einem Jahr gut in YunoHost integriert.",
@@ -168,7 +168,7 @@
     "confirm_migrations_skip": "Migrationen zu überspringen wird nicht empfohlen. Sind Sie sicher, dass Sie das tun wollen?",
     "confirm_install_app_inprogress": "ACHTUNG! Diese Applikation ist noch experimentell (wenn nicht sogar nicht funktionsfähig) und es ist wahrscheinlich, dass sie Ihr System zerstört! Sie sollten sie besser NICHT installieren, es sei denn, Sie wissen, was Sie tun. Sind Sie bereit, dieses Risiko einzugehen?",
     "confirm_install_app_lowquality": "Warnung: Diese Applikation könnte funktionieren, ist aber nicht gut in YunoHost integriert. Einige Funktionen wie Single-Sign-On und Backup/Restore sind möglicherweise nicht verfügbar.",
-    "good_practices_about_admin_password": "Du bist nun dabei, ein neues Administratorenpasswort zu definieren. Das Passwort sollte mindestens 8 Zeichen lang sein - es ist jedoch empfehlenswert, ein längeres Passwort (z.B. eine Passphrase) und/oder verschiedene Arten von Zeichen (Groß- und Kleinschreibung, Ziffern und Sonderzeichen) zu verwenden.",
+    "good_practices_about_admin_password": "Sie sind gerade dabei, ein neues Administratorenpasswort zu setzen. Das Passwort sollte mindestens 8 Zeichen lang sein - es ist jedoch empfehlenswert, ein längeres Passwort (z.B. eine Passphrase) und/oder verschiedene Arten von Zeichen (Groß- und Kleinschreibung, Ziffern und Sonderzeichen) zu verwenden.",
     "from_to": "von {0} nach {1}",
     "experimental_warning": "Achtung: Diese Funktion ist experimentell und gilt nicht als stabil, Sie sollten sie nicht verwenden, außer Sie wissen, was Sie tun.",
     "error_connection_interrupted": "Der Server hat die Verbindung geschlossen, anstatt sie zu beantworten. Wurde nginx oder die yunohost-api aus irgendeinem Grund neu gestartet oder gestoppt?",
@@ -248,7 +248,7 @@
     "all": "Alle",
     "confirm_service_restart": "Sind Sie sicher, dass Sie {name} neustarten möchten?",
     "run_first_diagnosis": "Initiale Diagnose starten",
-    "diagnosis_first_run": "Die Diagnosefunktion wird versuchen, gängige Probleme in verschiedenen Teilen Ihres Servers zu finden, damit alles reibungslos läuft. Haben Sie keine Angst, wenn Sie ein paar Fehlermeldungen sehen, nachdem Sie ihren Server aufgesetzt haben: es soll versuchen Ihnen zu helfen, Probleme zu identifizieren und Tipps für Lösungen zu zeigen. Die Diagnose wird auch automatisch zweimal täglich ausgeführt, falls Fehler gefunden werden, bekommt der Administrator eine E-Mail.",
+    "diagnosis_first_run": "Die Diagnosefunktion wird versuchen, gängige Probleme in verschiedenen Teilen Ihres Servers zu finden, damit alles reibungslos läuft. Haben Sie keine Angst, wenn Sie ein paar Fehlermeldungen sehen, nachdem Sie ihren Server aufgesetzt haben: Es soll versuchen Ihnen zu helfen, Probleme zu identifizieren und Tipps für Lösungen zu zeigen. Die Diagnose wird auch automatisch zweimal täglich ausgeführt, falls Fehler gefunden werden, bekommt der Administrator eine E-Mail.",
     "group_explain_visitors_needed_for_external_client": "Sei vorsichtig und beachte, dass du manche Anwendungen für Gäste freigeben musst, falls du beabsichtigst, diese mit externen Clients aufzurufen. Zum Beispiel trifft das auf Nextcloud zu, wenn du eine Synchronisation auf dem Smartphone oder Desktop PC haben möchtest.",
     "issues": "{count} Probleme",
     "restart": "Neustart",
@@ -410,7 +410,7 @@
                 "unknown": "Die Verbindung mit dem Server wurde aus unbekannten Gründen beendet.",
                 "reboot": "Ihr Server startet neu und wird für einige Zeit nicht erreichbar sein. Eine Login-Aufforderung wird erscheinen, sobald der Server wieder erreichbar ist.",
                 "shutdown": "Ihr Server wird heruntergefahren und ist nicht mehr erreichbar. Schalten Sie ihn wieder ein und eine Anmeldeaufforderung wird angezeigt, sobald der Server erreichbar ist.",
-                "upgrade_system": "Die Verbindung mit dem Server wurde auf Grund eines YunoHost Updates beendet. Warte bis der Server wieder erreichbar ist…"
+                "upgrade_system": "Die Verbindung mit dem Server wurde aufgrund einer YunoHost-Aktualisierung beendet. Warten Sie bis der Server wieder erreichbar ist…"
             },
             "success": "Der Server ist jetzt erreichbar! Sie können versuchen, sich anzumelden"
         }
@@ -431,7 +431,8 @@
             "change_url": "Die Zugriffs-URL für '{name}' ändern",
             "change_label": "Das Label von '{prevName}' nach '{nextName}' ändern",
             "set_default": "Weiterleitung des Domänen-Rootverzeichnisses von '{domain}' zu '{name}'",
-            "action_config": "Führe Aktion '{action}' der Konfiguration der Applikation '{name}' durch"
+            "action_config": "Führe Aktion '{action}' der Konfiguration der Applikation '{name}' durch",
+            "dismiss_notification": "Ablehnungs-Benachrichtigung für '{name}'"
         },
         "domains": {
             "add": "Die Domäne '{name}' hinzufügen",
@@ -586,40 +587,100 @@
     "app": {
         "install": {
             "problems": {
-                "broken": "Diese Anwendung ist laut automatischer Tests von YunoHost defekt und wird wahrscheinlich dein System ruinieren! Du solltest sie NICHT installieren, ohne zu wissen, was du machst.",
-                "arch": "Diese App kann nur auf bestimmten Architekturen ({required}) installiert werden, aber die Architektur deines Servers ist {current}."
+                "broken": "Diese Anwendung ist laut automatischer Tests von YunoHost beschädigt und wird wahrscheinlich Ihr System ruinieren! Sie sollten sie NICHT installieren, wenn Sie nicht wissen, was Sie tun.",
+                "arch": "Diese App kann nur auf spezifischen Architekturen ({required}) installiert werden, aber die Architektur Ihres Servers ist {current}.",
+                "ram": "Diese App benötigt {required} RAM für Installation/Upgrade aber es sind aktuell nur {current} verfügbar. Auch wenn diese App funktionieren würde, würde der Installationsprozess viel RAM benötigen. Es würde die Gefahr bestehen, dass Ihr Server einfrieren (freezen) und völlig abschmieren würde.",
+                "thirdparty": "Diese App ist nicht Bestandteil des offiziellen YunoHost-Katalogs. Die Installation von Drittanbieter-Apps kann die Integrität und Sicherheit Ihres Systems kompromittieren. Sie sollten sie wahrscheinlich NICHT installieren, wenn Sie nicht genau wissen, was Sie tun.",
+                "ignore": "Ich habe verstanden, dass diese Installation mein System ruinieren könnte, aber ich möchte es trotzdem versuchen.",
+                "inprogress": "Diese App ist noch experimentell (beziehungsweise noch nicht gut in YunoHost integriert oder ausdrücklich nicht funktionsfähig). Folglich ist sie anfällig dafür, ihr System zu ruinieren! Sie sollten sie wahrscheinlich NICHT installieren, wenn Sie nicht genau wissen, was Sie tun.",
+                "install": "Diese App ist bereits installiert und kann nicht noch einmal installiert werden.",
+                "lowquality": "Diese App funktioniert wahrscheinlich, ist aber noch nicht gut in YunoHost integriert. Einige Funktionen wie zum Beispiel Single-Sign-On und Sicherung/Wiederherstellen könnten nicht verfügbar sein oder die Best-Practices nicht berücksichtigen.",
+                "version": "Diese App benötigt YunoHost >={required} aber Ihre aktuell installierte Version ist {current}. Sie sollten vorher YunoHost aktualisieren."
             },
             "license": "Lizenz: {license}",
             "notifs": {
                 "post": {
                     "title": "Post-Installations-Benachrichtigungen für „{name}“",
-                    "alert": "Die Installation scheint erfolgreich gewesen zu sein!\n Hier sind einige Benachrichtigungen, die von den App-Betreuenden als wichtig eingestuft wurden.\nDu kannst sie erneut auf der App-Infoseite lesen."
+                    "alert": "Die Aktualisierung scheint gut gelaufen zu sein!\nHier ein paar Informationen, die der/die Paketierer betreffend dieser Aktualisierung als wichtig erachtet hat. \nSie können sie auch auf der Informationsseite dieser App nochmal nachlesen."
                 },
                 "pre": {
                     "warning": "Wichtige Informationen vor der Installation",
                     "danger": "Die Installation der Anwendung wird höchstwahrscheinlich zu Problemen führen",
                     "critical": "Die Anwendung kann nicht installiert werden"
                 }
-            }
+            },
+            "try_demo": "Probieren Sie die Demo aus",
+            "version": "Aktuelle Version: {version}"
         },
         "installed_version": "Installierte Version:",
         "open_this_app": "Diese App öffnen",
-        "antifeatures": "Diese App hat Funktionen, die du womöglich nicht magst:",
+        "antifeatures": "Diese App hat Funktionen, die Sie womöglich nicht mögen:",
         "doc": {
             "about": {
                 "title": "Über",
                 "description": "Beschreibung"
             },
             "notifications": {
-                "dismiss": "Ausblenden",
+                "dismiss": "Verwerfen",
                 "title": "Benachrichtigungen",
                 "post_upgrade": "Post-Aktualisierungs-Anmerkungen",
                 "post_install": "Post-Installations-Anmerkungen"
+            },
+            "admin": {
+                "title": "Dokumentation für Administratoren"
             }
         },
         "info": {
             "forum": "Suche oder Frage im Forum!",
             "problem": "Ein Problem mit dieser App?"
+        },
+        "integration": {
+            "archs": "Unterstützte Architekturen:",
+            "ldap": {
+                "false": "Keine Unterstützung des Einloggens mittels YunoHost-Konten (LDAP)",
+                "true": "Unterstützt das Einloggen mittels YunoHost-Konten (LDAP)",
+                "?": "Keine Informationen betreffend LDAP-Integration"
+            },
+            "multi_instance": {
+                "false": "Kann nur einmal installiert werden",
+                "true": "Kann mehrfach installiert werden"
+            },
+            "resources": "Typischer Ressourcen-Bedarf: {ram} RAM, {disk} Disk",
+            "sso": {
+                "false": "Single-Sign-On ist nicht verfügbar (SSO)",
+                "true": "Single-Sign-On ist verfügbar (SSO)",
+                "?": "Keine Informationen betreffend SSO-Integration"
+            },
+            "title": "Integration mit YunoHost"
+        },
+        "links": {
+            "admindoc": "Offizielle Dokumentation für Administratoren",
+            "code": "Offizielles Code-Repository",
+            "forum": "Themen zu dieser App im YunoHost-Forum",
+            "package": "YunoHost Pakete-Repository",
+            "title": "Links",
+            "userdoc": "Offizielle Dokumentation für Benutzer",
+            "website": "Offizielle Website",
+            "license": "Lizenz"
+        },
+        "potential_alternative_to": "Potenzielle Alternative für:",
+        "upgrade": {
+            "confirm": {
+                "apps": "Apps, welche aktualisiert werden",
+                "title": "Bestätigen Sie die Aktualisierungen"
+            },
+            "continue": "Fortfahren zur nächsten App",
+            "notifs": {
+                "pre": {
+                    "alert": "Sie sollten sich die Benachrichtigungen genau anschauen, befor sie mit der Aktualisierung fortfahren. Sie könnten wichtige Informationen enthalten, die Sie kennen sollten.",
+                    "title": "Seien Sie Vorgewarnt!"
+                },
+                "post": {
+                    "alert": "Die Aktualisierung scheint gut gelaufen zu sein!\nHier ein paar Informationen, die der/die Paketierer betreffend dieser Aktualisierung als wichtig erachtet hat. \nSie können sie auch auf der Informationsseite dieser App nochmal nachlesen.",
+                    "title": "Benachrichtigungen zum Post-Aktualisierungs-Prozess für '{name}'"
+                }
+            },
+            "stop": "Die nächsten Aktualisierungen stornieren"
         }
     }
 }

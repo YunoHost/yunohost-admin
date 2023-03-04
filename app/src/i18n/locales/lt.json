@@ -96,7 +96,7 @@
                 "false": "Galima įdiegti tik vieną kartą"
             }
         },
-        "installed_version": "Įdiegta versija: {version}",
+        "installed_version": "Įdiegta versija:",
         "antifeatures": "Ši programėlė turi funkcijų, kurios jums gali nepatikti:",
         "info": {
             "forum": "Ieškokite arba klauskite forume!",
