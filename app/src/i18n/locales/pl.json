@@ -235,7 +235,7 @@
         "donate": "Wesprzyj"
     },
     "footer_version": "Napędzane przez <a href='https://yunohost.org'>YunoHost</a> {version} ({repo}).",
-    "domain_dns_push_failed_to_authenticate": "Nie udało się uwierzytelnić w API rejestru domen. Najprawdopodobniej <a href='#/domains/{domain}/config'>dane uwierzytelniające</a> są nieprawidłowe? (Błąd: {error})",
+    "domain_dns_push_failed_to_authenticate": "Nie udało się uwierzytelnić w API dostawcy rejestru domen. Najprawdopodobniej <a href='#/domains/{domain}/config'>dane uwierzytelniające</a> są nieprawidłowe? (Błąd: {error})",
     "domain_dns_push_managed_in_parent_domain": "Funkcja automatycznej strefy DNS jest zarządzana przez główną domenę <a href='#/domains/{parent_domain}/dns'>{parent_domain}</a>.",
     "firewall": "Zapora sieciowa",
     "domain_delete_longdesc": "Usuń tę domenę",
@@ -301,7 +301,7 @@
     "migrations_no_pending": "Brak oczekujących migracji",
     "migrations_no_done": "Brak poprzednich migracji",
     "go_back": "Powrót",
-    "good_practices_about_admin_password": "Masz teraz zdefiniować nowe hasło administratora. Hasło powinno składać się przynajmniej z 8 znaków - choć dobrą praktyką jest stosowanie dłuższych haseł (np. frazowej) i/lub używanie różnych rodzajów znaków (duże i małe litery, cyfry oraz znaki specjalne).",
+    "good_practices_about_admin_password": "Masz teraz zdefiniować nowe hasło administratora. Hasło powinno składać się przynajmniej z 8 znaków - choć dobrą praktyką jest stosowanie dłuższych haseł (np. frazowych) i/lub używanie różnych rodzajów znaków (duże i małe litery, cyfry oraz znaki specjalne).",
     "group_explain_all_users": "To jest specjalna grupa zawierająca wszystkich użytkowników serwera",
     "home": "Strona domowa",
     "history": {
@@ -601,7 +601,7 @@
             "notifs": {
                 "post": {
                     "title": "Powiadomienia po instalacji dla '{name}'",
-                    "alert": "Wydaje się, że instalacja przebiegła pomyślnie!\nOto niektóre powiadomienia, które pakowacz uważa za ważne do wiedzenia.\nMożesz przeczytać to ponownie na stronie informacyjnej aplikacji."
+                    "alert": "Wydaje się, że instalacja przebiegła pomyślnie!\nOto niektóre powiadomienia, które pakowacz uważa za ważne do poznania.\nMożesz przeczytać to ponownie na stronie informacyjnej aplikacji."
                 },
                 "pre": {
                     "warning": "Rzeczy, o których warto wiedzieć przed instalacją",
