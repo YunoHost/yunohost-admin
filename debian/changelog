@@ -1,3 +1,12 @@
+yunohost-admin (11.1.7) stable; urgency=low
+
+  - fix: apps postinstall messages were not displayed (fa580fb3)
+  - [i18n] Translations updated for Arabic, German, Indonesian, Lithuanian, Polish
+
+  Thanks to all contributors <3 ! (axolotle, ButterflyOfFire, Christian Wehrli, Kuba Bazan, Neko Nekowazarashi)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Sat, 04 Mar 2023 13:03:56 +0100
+
 yunohost-admin (11.1.6) stable; urgency=low
 
   - users: fix UserImport missing file input ([#507](https://github.com/yunohost/yunohost-admin/pull/507))
