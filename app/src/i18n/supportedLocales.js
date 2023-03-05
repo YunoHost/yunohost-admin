@@ -56,6 +56,9 @@ export default {
   hu: {
     name: 'Magyar'
   },
+  id: {
+    name: 'Indonesian'
+  },
   it: {
     name: 'Italiano'
   },
