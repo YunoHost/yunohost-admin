@@ -3,9 +3,11 @@ const fs = require('fs')
 
 const dateFnsLocales = [
   'ar',
+  'ar-DZ', // for `kab`
   'bn', // for 'bn_BD'
   'ca', // for 'ca' & 'oc'
   'cs',
+  'da',
   'de',
   'el',
   'en-GB', // for 'en' & 'ne'
@@ -16,15 +18,21 @@ const dateFnsLocales = [
   'fi',
   'fr', // for 'fr' & 'br'
   'gl',
+  'he',
   'hi',
   'hu',
+  'id',
   'it',
+  'lt',
+  'mk',
   'nb', // for 'nb_NO'
   'nl',
   'oc',
   'pl',
   'pt',
+  'pt-BR',
   'ru',
+  'sl',
   'sv',
   'tr',
   'uk',

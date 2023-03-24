@@ -1,4 +1,8 @@
+// When adding a new locale, check in date-fns (time/date i18n) if this locale
+// is available or if an appropriate fallback is available.
 // date-fns locales can be found here : https://github.com/date-fns/date-fns/tree/master/src/locale
+// If a new locale or a new date-fns locale is added, add it to the supported
+// locales list in `app/vue.config.js`
 
 export default {
   ar: {
@@ -15,8 +19,16 @@ export default {
   ca: {
     name: 'Català'
   },
+  ckb: {
+    name: 'کوردی',
+    dateFnsLocale: 'fa-IR'
+    // FIXME fallback to Farsi (`fa-IR`) is arbitrary, some would probably prefer Arabic (`ar`)...
+  },
   cs: {
     name: 'Čeština'
+  },
+  da: {
+    name: 'Dansk'
   },
   de: {
     name: 'Deutsch'
@@ -50,14 +62,30 @@ export default {
   gl: {
     name: 'Galego'
   },
+  he: {
+    name: 'עברית'
+  },
   hi: {
     name: 'हिन्दी'
   },
   hu: {
     name: 'Magyar'
   },
+  id: {
+    name: 'Bahasa Indonesia'
+  },
   it: {
     name: 'Italiano'
+  },
+  kab: {
+    name: 'Taqbaylit',
+    dateFnsLocale: 'ar-DZ'
+  },
+  lt: {
+    name: 'Lietuvių'
+  },
+  mk: {
+    name: 'македонски'
   },
   nb_NO: {
     name: 'Norsk bokmål',
@@ -80,11 +108,18 @@ export default {
   pt: {
     name: 'Português'
   },
+  pt_BR: {
+    name: 'Português brasileiro',
+    dateFnsLocale: 'pt-BR'
+  },
   ru: {
     name: 'Русский'
   },
   sk: {
     name: 'Slovak'
+  },
+  sl: {
+    name: 'Slovenščina'
   },
   sv: {
     name: 'Svenska'
