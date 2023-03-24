@@ -12,11 +12,11 @@
     "i18n:en": "./node_modules/@vue/cli-service/bin/vue-cli-service.js i18n:report --src './src/**/*.?(js|vue)' --locales './src/i18n/locales/en.json'"
   },
   "dependencies": {
+    "@fontsource/fira-code": "^4.5.13",
+    "@fontsource/firago": "^4.5.3",
     "bootstrap-vue": "^2.22.0",
     "core-js": "^3.29.1",
     "date-fns": "^2.29.3",
-    "firacode": "^5.2.0",
-    "fontsource-firago": "^3.1.5",
     "fork-awesome": "^1.2.0",
     "simple-evaluate": "^1.4.6",
     "vue": "^2.7.14",
