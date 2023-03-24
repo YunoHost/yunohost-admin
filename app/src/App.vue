@@ -70,8 +70,9 @@
 
           <b-nav-text
             v-if="yunohost" id="yunohost-version" class="ml-md-auto text-center"
-            v-html="$t('footer_version', yunohost)"
-          />
+          >
+            <span v-html="$t('footer_version', yunohost)" />
+          </b-nav-text>
         </b-nav>
       </nav>
     </footer>

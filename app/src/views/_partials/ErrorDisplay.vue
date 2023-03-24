@@ -21,7 +21,9 @@
 
       <p>
         <strong v-t="'api_error.error_message'" />
-        <b-alert class="mt-2" variant="danger" v-html="error.message" />
+        <b-alert class="mt-2" variant="danger">
+          <div v-html="error.message" />
+        </b-alert>
       </p>
 
       <template v-if="error.traceback">

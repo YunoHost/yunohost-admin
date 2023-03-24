@@ -4,8 +4,10 @@
       {{ label }}
     </b-col>
 
-    <!-- FIXME not sure about rendering html -->
-    <b-col v-html="text" />
+    <b-col>
+      <!-- FIXME not sure about rendering html -->
+      <div v-html="text" />
+    </b-col>
   </b-row>
 </template>
 
