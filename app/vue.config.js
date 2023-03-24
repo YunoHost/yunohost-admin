@@ -61,7 +61,7 @@ module.exports = {
   css: {
     loaderOptions: {
       sass: {
-        prependData: '@import "@/scss/_variables.scss";'
+        additionalData: '@import "@/scss/_variables.scss";'
       }
     }
   },
@@ -69,7 +69,7 @@ module.exports = {
   devServer: process.env.NODE_ENV === 'development' ? {
     public: fs.readFileSync('/etc/yunohost/current_host', 'utf8'),
     https: false,
-    disableHostCheck: true,
+    allowedHosts: 'all',
     proxy: {
       '^/yunohost': {
         target: `http://${process.env.VUE_APP_IP}`,
@@ -77,10 +77,12 @@ module.exports = {
         logLevel: 'info'
       }
     },
-    watchOptions: {
-      ignored: /node_modules/,
-      aggregateTimeout: 300,
-      poll: 1000
+    static: {
+      watch: {
+        ignored: /node_modules/,
+        aggregateTimeout: 300,
+        poll: 1000
+      }
     }
   } : {}
 }

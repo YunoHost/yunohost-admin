@@ -19,6 +19,7 @@ module.exports = {
         multiline: 3,
       },
     ],
+    'vue/multi-word-component-names': 'off', // FIXME this should be adressed at some point
     'no-console': 'warn',
     'template-curly-spacing': 'off',
     camelcase: 'warn',
