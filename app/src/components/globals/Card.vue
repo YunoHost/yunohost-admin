@@ -30,11 +30,13 @@
         <slot name="default" />
       </b-card-body>
     </b-collapse>
-    <slot v-else name="default" slot="default" />
+    <template v-else>
+      <slot name="default" />
+    </template>
 
-    <slot name="footer" slot="footer">
+    <template #footer v-if="'buttons' in $slots">
       <slot name="buttons" />
-    </slot>
+    </template>
   </b-card>
 </template>
 

@@ -6,9 +6,15 @@
       v-bind="{ panels, forms, v: $v, ...$attrs }"
       v-on="$listeners"
     >
-      <slot name="tab-top" slot="tab-top" />
-      <slot name="tab-before" slot="tab-before" />
-      <slot name="tab-after" slot="tab-after" />
+      <template #tab-top>
+        <slot name="tab-top" />
+      </template>
+      <template #tab-before>
+        <slot name="tab-before" />
+      </template>
+      <template #tab-after>
+        <slot name="tab-after" />
+      </template>
     </routable-tabs>
 
     <card v-else :title="routes_[0].text" :icon="routes_[0].icon">
