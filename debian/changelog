@@ -1,3 +1,12 @@
+yunohost-admin (11.1.8) stable; urgency=low
+
+  - locales: add ckb da he id kab lt mk pt_BR sl ([#514](https://github.com/yunohost/yunohost-admin/pull/514))
+  - apps: fix config panel apply with empty `args` + fix config panel init error preventing AppInfo from being displayed ([#515](https://github.com/yunohost/yunohost-admin/pull/515))
+
+  Thanks to all contributors <3 ! (axolotle)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Fri, 24 Mar 2023 14:12:37 +0100
+
 yunohost-admin (11.1.7) stable; urgency=low
 
   - fix: apps postinstall messages were not displayed (fa580fb3)
