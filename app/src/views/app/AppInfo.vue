@@ -265,6 +265,7 @@ import api, { objectToParams } from '@/api'
 import { readableDate } from '@/helpers/filters/date'
 import { humanPermissionName } from '@/helpers/filters/human'
 import { required } from '@/helpers/validators'
+import { isEmptyValue } from '@/helpers/commons'
 import {
   formatFormData,
   formatI18nField,
@@ -438,7 +439,7 @@ export default {
         action
           ? `apps/${this.id}/actions/${action}`
           : `apps/${this.id}/config/${id}`,
-        { args: objectToParams(args) },
+        isEmptyValue(args) ? {} : { args: objectToParams(args) },
         { key: `apps.${action ? 'action' : 'update'}_config`, id, name: this.id }
       ).then(() => {
         this.$refs.view.fetchQueries({ triggerLoading: true })
