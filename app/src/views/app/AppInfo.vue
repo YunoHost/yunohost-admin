@@ -98,6 +98,7 @@
     >
       <p>{{ $t('app.info.config_panel_error') }}</p>
       <p>{{ config_panel_err }}</p>
+      <p>{{ $t('app.info.config_panel_error_please_report') }}</p>
     </yuno-alert>
 
     <!-- BASIC INFOS -->
