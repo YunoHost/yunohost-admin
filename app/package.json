@@ -46,45 +46,6 @@
     "vue-cli-plugin-i18n": "~1.0.1",
     "vue-template-compiler": "^2.6.12"
   },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true
-    },
-    "extends": [
-      "plugin:vue/strongly-recommended",
-      "eslint:recommended",
-      "standard"
-    ],
-    "parserOptions": {
-      "parser": "babel-eslint"
-    },
-    "rules": {
-      "vue/max-attributes-per-line": [
-        "error",
-        {
-          "singleline": 3,
-          "multiline": {
-            "max": 3,
-            "allowFirstLine": true
-          }
-        }
-      ],
-      "no-console": "warn",
-      "template-curly-spacing": "off",
-      "camelcase": "warn",
-      "indent": "off",
-      "no-irregular-whitespace": "off",
-      "no-unused-vars": "warn",
-      "quotes": "warn",
-      "no-multiple-empty-lines": [
-        "error",
-        {
-          "max": 2
-        }
-      ]
-    }
-  },
   "browserslist": [
     "> 1%",
     "last 2 versions",
