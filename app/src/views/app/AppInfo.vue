@@ -396,13 +396,15 @@ export default {
           ? app.from_catalog.potential_alternative_to.join(this.$i18n.t('words.separator'))
           : null,
         description: DESCRIPTION ? formatI18nField(DESCRIPTION) : app.description,
-        integration: app.manifest.packaging_format >= 2 ? {
-          archs: Array.isArray(archs) ? archs.join(this.$i18n.t('words.separator')) : archs,
-          ldap: ldap === 'not_relevant' ? null : ldap,
-          sso: sso === 'not_relevant' ? null : sso,
-          multi_instance,
-          resources: { ram: ram.runtime, disk }
-        } : null,
+        integration: app.manifest.packaging_format >= 2
+          ? {
+            archs: Array.isArray(archs) ? archs.join(this.$i18n.t('words.separator')) : archs,
+            ldap: ldap === 'not_relevant' ? null : ldap,
+            sso: sso === 'not_relevant' ? null : sso,
+            multi_instance,
+            resources: { ram: ram.runtime, disk }
+          }
+          : null,
         links: [
           ['license', `https://spdx.org/licenses/${app.manifest.upstream.license}`],
           ...['website', 'admindoc', 'userdoc', 'code'].map((key) => ([key, app.manifest.upstream[key]])),
@@ -411,9 +413,11 @@ export default {
         doc: {
           notifications: {
             postInstall: notifs.POST_INSTALL && notifs.POST_INSTALL.main ? [['main', formatI18nField(notifs.POST_INSTALL.main)]] : [],
-            postUpgrade: notifs.POST_UPGRADE ? Object.entries(notifs.POST_UPGRADE).map(([key, content]) => {
-              return [key, formatI18nField(content)]
-            }) : []
+            postUpgrade: notifs.POST_UPGRADE
+              ? Object.entries(notifs.POST_UPGRADE).map(([key, content]) => {
+                return [key, formatI18nField(content)]
+              })
+              : []
           },
           admin: [
             ['admin', formatI18nField(ADMIN)],

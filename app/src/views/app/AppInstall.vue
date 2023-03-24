@@ -254,13 +254,15 @@ export default {
         demo: _app.upstream.demo,
         version,
         license: _app.upstream.license,
-        integration: _app.packaging_format >= 2 ? {
-          archs: Array.isArray(archs) ? archs.join(this.$i18n.t('words.separator')) : archs,
-          ldap: ldap === 'not_relevant' ? null : ldap,
-          sso: sso === 'not_relevant' ? null : sso,
-          multi_instance,
-          resources: { ram: ram.runtime, disk }
-        } : null,
+        integration: _app.packaging_format >= 2
+          ? {
+            archs: Array.isArray(archs) ? archs.join(this.$i18n.t('words.separator')) : archs,
+            ldap: ldap === 'not_relevant' ? null : ldap,
+            sso: sso === 'not_relevant' ? null : sso,
+            multi_instance,
+            resources: { ram: ram.runtime, disk }
+          }
+          : null,
         links: [
           ['license', `https://spdx.org/licenses/${_app.upstream.license}`],
           ...['website', 'admindoc', 'userdoc', 'code'].map((key) => ([key, _app.upstream[key]])),

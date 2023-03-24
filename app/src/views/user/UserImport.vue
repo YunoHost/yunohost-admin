@@ -84,7 +84,7 @@ export default {
         if (!confirmed) return
       }
 
-      var requestArgs = {}
+      const requestArgs = {}
       Object.assign(requestArgs, this.form)
       if (!requestArgs.delete) delete requestArgs.delete
       if (!requestArgs.update) delete requestArgs.update

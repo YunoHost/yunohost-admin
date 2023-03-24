@@ -1,10 +1,13 @@
 <template>
   <b-input-group v-bind="$attrs">
     <input-item
-      :id="id" :placeholder="placeholder"
-      :state="state" :aria-describedby="id + 'local-part-desc'"
-      v-model="value.localPart"
-      v-on="listeners"
+      :id="id"
+      :value="value.localPart"
+      :placeholder="placeholder"
+      :state="state"
+      :aria-describedby="id + 'local-part-desc'"
+      @input="onInput('localPart', $event)"
+      @blur="$parent.$emit('touch')"
     />
 
     <b-input-group-append>
@@ -13,9 +16,11 @@
 
     <b-input-group-append>
       <select-item
-        v-model="value.domain"
+        :value="value.domain"
         :choices="choices"
         :aria-describedby="id + 'domain-desc'"
+        @input="onInput('domain', $event)"
+        @blur="$parent.$emit('touch')"
       />
     </b-input-group-append>
 
@@ -40,24 +45,12 @@ export default {
     type: { type: String, default: 'email' }
   },
 
-  computed: {
-    listeners: function () {
-      return Object.assign({},
-        // Forwards all parent events listeners
-        this.$listeners,
-        // Overwrite input behavior so this component can work with v-model
-        {
-          input: (event) => {
-            this.$parent.$emit('touch')
-            this.$emit('input', this.value)
-          },
-
-          blur: event => {
-            this.$parent.$emit('touch')
-            this.$emit('blur', this.value)
-          }
-        }
-      )
+  methods: {
+    onInput (key, value) {
+      this.$emit('input', {
+        ...this.value,
+        [key]: value
+      })
     }
   }
 }

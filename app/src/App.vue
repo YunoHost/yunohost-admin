@@ -8,10 +8,10 @@
           exact exact-active-class="active"
         >
           <span v-if="theme">
-              <img alt="YunoHost logo" src="./assets/logo_light.png" width="40">
+            <img alt="YunoHost logo" src="./assets/logo_light.png" width="40">
           </span>
           <span v-else>
-              <img alt="YunoHost logo" src="./assets/logo_dark.png" width="40">
+            <img alt="YunoHost logo" src="./assets/logo_dark.png" width="40">
           </span>
         </b-navbar-brand>
 

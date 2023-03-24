@@ -25,7 +25,10 @@ module.exports = {
     camelcase: 'warn',
     indent: 'off',
     'no-irregular-whitespace': 'off',
-    'no-unused-vars': 'warn',
+    'no-unused-vars': [
+      'warn',
+      { varsIgnorePattern: '^_', destructuredArrayIgnorePattern: '^_' }
+    ],
     quotes: 'warn',
     'no-multiple-empty-lines': [
       'error',
