@@ -28,6 +28,7 @@ export default {
 
   computed: {
     _icon () {
+      if (this.icon) return this.icon
       return DEFAULT_STATUS_ICON[this.variant]
     }
   }

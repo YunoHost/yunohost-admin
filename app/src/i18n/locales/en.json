@@ -75,7 +75,9 @@
       },
       "info": {
         "forum": "Search or ask the forum!",
-        "problem": "A problem with this app?"
+        "problem": "A problem with this app?",
+        "config_panel_error": "An error prevents the configuration panel from being displayed:",
+        "config_panel_error_please_report": "Please report this error to the YunoHost team to get it fixed!"
       },
       "install": {
         "license": "License: {license}",

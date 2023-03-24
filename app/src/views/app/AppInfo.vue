@@ -1,5 +1,8 @@
 <template>
-  <view-base :queries="queries" @queries-response="onQueriesResponse" ref="view">
+  <view-base
+    :queries="queries" @queries-response="onQueriesResponse" :loading="loading"
+    ref="view"
+  >
     <yuno-alert v-if="app && app.doc && app.doc.notifications && app.doc.notifications.postInstall.length" variant="info" class="my-4">
       <div class="d-md-flex align-items-center mb-3">
         <h2 v-t="'app.doc.notifications.post_install'" class="md-m-0" />
@@ -88,6 +91,15 @@
 
       <vue-showdown :markdown="app.description" flavor="github" />
     </section>
+
+    <yuno-alert
+      v-if="config_panel_err"
+      class="mb-4" variant="danger" icon="bug"
+    >
+      <p>{{ $t('app.info.config_panel_error') }}</p>
+      <p>{{ config_panel_err }}</p>
+      <p>{{ $t('app.info.config_panel_error_please_report') }}</p>
+    </yuno-alert>
 
     <!-- BASIC INFOS -->
     <config-panels v-bind="config" @submit="onConfigSubmit">
@@ -265,6 +277,7 @@ import api, { objectToParams } from '@/api'
 import { readableDate } from '@/helpers/filters/date'
 import { humanPermissionName } from '@/helpers/filters/human'
 import { required } from '@/helpers/validators'
+import { isEmptyValue } from '@/helpers/commons'
 import {
   formatFormData,
   formatI18nField,
@@ -288,11 +301,12 @@ export default {
       queries: [
         ['GET', `apps/${this.id}?full`],
         ['GET', { uri: 'users/permissions?full', storeKey: 'permissions' }],
-        ['GET', { uri: 'domains' }],
-        ['GET', `apps/${this.id}/config?full`]
+        ['GET', { uri: 'domains' }]
       ],
+      loading: true,
       app: undefined,
       form: undefined,
+      config_panel_err: null,
       config: {
         panels: [
           // Fake integration of operations in config panels
@@ -345,14 +359,8 @@ export default {
         }
         return linksIcons[linkType]
     },
-    onQueriesResponse (app, _, __, config) {
-      if (app.supports_config_panel) {
-        const config_ = formatYunoHostConfigPanels(config)
-        // reinject 'operations' fake config tab
-        config_.panels.unshift(this.config.panels[0])
-        this.config = config_
-      }
 
+    async onQueriesResponse (app) {
       const form = { labels: [] }
 
       const mainPermission = app.permissions[this.id + '.main']
@@ -429,6 +437,18 @@ export default {
       if (!Object.values(this.app.doc.notifications).some((notif) => notif.length)) {
         this.app.doc.notifications = null
       }
+
+      if (app.supports_config_panel) {
+        await api.get(`apps/${this.id}/config?full`).then((config) => {
+          const config_ = formatYunoHostConfigPanels(config)
+          // reinject 'operations' fake config tab
+          config_.panels.unshift(this.config.panels[0])
+          this.config = config_
+        }).catch((err) => {
+          this.config_panel_err = err.message
+        })
+      }
+      this.loading = false
     },
 
     async onConfigSubmit ({ id, form, action, name }) {
@@ -438,10 +458,11 @@ export default {
         action
           ? `apps/${this.id}/actions/${action}`
           : `apps/${this.id}/config/${id}`,
-        { args: objectToParams(args) },
+        isEmptyValue(args) ? {} : { args: objectToParams(args) },
         { key: `apps.${action ? 'action' : 'update'}_config`, id, name: this.id }
       ).then(() => {
-        this.$refs.view.fetchQueries({ triggerLoading: true })
+        this.loading = true
+        this.$refs.view.fetchQueries()
       }).catch(err => {
         if (err.name !== 'APIBadRequestError') throw err
         const panel = this.config.panels.find(panel => panel.id === id)
