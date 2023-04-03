@@ -84,7 +84,7 @@ export default {
     const availableLocales = this.$store.getters.availableLocales
     this.fields.locale.props.choices = availableLocales
     this.fields.fallbackLocale.props.choices = availableLocales
-    if (process.env.NODE_ENV === 'development') {
+    if (import.meta.env.DEV) {
       this.fields.experimental = {
         id: 'experimental',
         label: this.$i18n.t('tools_webadmin.experimental'),

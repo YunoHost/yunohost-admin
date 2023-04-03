@@ -61,11 +61,9 @@ function loadLocaleMessages (locale) {
  */
 async function loadDateFnsLocale (locale) {
   const dateFnsLocaleName = supportedLocales[locale].dateFnsLocale || locale
-  return import(
-    `date-fns/locale/${dateFnsLocaleName}/index.js`
-  ).then(locale => {
-    dateFnsLocale = locale.default
-  })
+  dateFnsLocale = (await import(
+    `../../node_modules/date-fns/esm/locale/${dateFnsLocaleName}/index.js`
+  )).default
 }
 
 /**
