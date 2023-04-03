@@ -66,23 +66,25 @@ module.exports = {
     }
   },
   publicPath: '/yunohost/admin',
-  devServer: process.env.NODE_ENV === 'development' ? {
-    public: fs.readFileSync('/etc/yunohost/current_host', 'utf8'),
-    https: false,
-    allowedHosts: 'all',
-    proxy: {
-      '^/yunohost': {
-        target: `http://${process.env.VUE_APP_IP}`,
-        ws: true,
-        logLevel: 'info'
-      }
-    },
-    static: {
-      watch: {
-        ignored: /node_modules/,
-        aggregateTimeout: 300,
-        poll: 1000
+  devServer: process.env.NODE_ENV === 'development'
+    ? {
+      public: fs.readFileSync('/etc/yunohost/current_host', 'utf8'),
+      https: false,
+      allowedHosts: 'all',
+      proxy: {
+        '^/yunohost': {
+          target: `http://${process.env.VUE_APP_IP}`,
+          ws: true,
+          logLevel: 'info'
+        }
+      },
+      static: {
+        watch: {
+          ignored: /node_modules/,
+          aggregateTimeout: 300,
+          poll: 1000
+        }
       }
     }
-  } : {}
+    : {}
 }
