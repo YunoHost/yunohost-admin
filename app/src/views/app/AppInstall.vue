@@ -164,7 +164,7 @@ import {
   formatI18nField,
   formatFormData
 } from '@/helpers/yunohostArguments'
-import CardCollapse from '@/components/CardCollapse'
+import CardCollapse from '@/components/CardCollapse.vue'
 
 export default {
   name: 'AppInstall',

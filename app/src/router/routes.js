@@ -6,11 +6,11 @@
 // Simple views are normally imported and will be included into the main webpack entry.
 // Others will be chunked by webpack so they can be lazy loaded.
 // Webpack chunk syntax is:
-// `() => import(/* webpackChunkName: "views/:nameOfWantedFile" */ '@/views/:ViewComponent')`
+// `() => import(/* webpackChunkName: "views/:nameOfWantedFile" */ '@/views/:ViewComponent.vue')`
 
-import Home from '@/views/Home'
-import Login from '@/views/Login'
-import ToolList from '@/views/tool/ToolList'
+import Home from '@/views/Home.vue'
+import Login from '@/views/Login.vue'
+import ToolList from '@/views/tool/ToolList.vue'
 
 const routes = [
   {
@@ -38,7 +38,7 @@ const routes = [
   {
     name: 'post-install',
     path: '/postinstall',
-    component: () => import(/* webpackChunkName: "views/post-install" */ '@/views/PostInstall'),
+    component: () => import(/* webpackChunkName: "views/post-install" */ '@/views/PostInstall.vue'),
     meta: {
       noAuth: true,
       args: { trad: 'postinstall.title' }
@@ -51,7 +51,7 @@ const routes = [
   {
     name: 'user-list',
     path: '/users',
-    component: () => import(/* webpackChunkName: "views/user/list" */ '@/views/user/UserList'),
+    component: () => import(/* webpackChunkName: "views/user/list" */ '@/views/user/UserList.vue'),
     meta: {
       args: { trad: 'users' },
       breadcrumb: ['user-list']
@@ -60,7 +60,7 @@ const routes = [
   {
     name: 'user-create',
     path: '/users/create',
-    component: () => import(/* webpackChunkName: "views/user/create" */ '@/views/user/UserCreate'),
+    component: () => import(/* webpackChunkName: "views/user/create" */ '@/views/user/UserCreate.vue'),
     meta: {
       args: { trad: 'users_new' },
       breadcrumb: ['user-list', 'user-create']
@@ -69,7 +69,7 @@ const routes = [
   {
     name: 'user-import',
     path: '/users/import',
-    component: () => import(/* webpackChunkName: "views/user/import" */ '@/views/user/UserImport'),
+    component: () => import(/* webpackChunkName: "views/user/import" */ '@/views/user/UserImport.vue'),
     props: true,
     meta: {
       args: { trad: 'users_import' },
@@ -79,7 +79,7 @@ const routes = [
   {
     name: 'user-info',
     path: '/users/:name',
-    component: () => import(/* webpackChunkName: "views/user/info" */ '@/views/user/UserInfo'),
+    component: () => import(/* webpackChunkName: "views/user/info" */ '@/views/user/UserInfo.vue'),
     props: true,
     meta: {
       args: { param: 'name' },
@@ -89,7 +89,7 @@ const routes = [
   {
     name: 'user-edit',
     path: '/users/:name/edit',
-    component: () => import(/* webpackChunkName: "views/user/edit" */ '@/views/user/UserEdit'),
+    component: () => import(/* webpackChunkName: "views/user/edit" */ '@/views/user/UserEdit.vue'),
     props: true,
     meta: {
       args: { param: 'name', trad: 'user_username_edit' },
@@ -103,7 +103,7 @@ const routes = [
   {
     name: 'group-list',
     path: '/groups',
-    component: () => import(/* webpackChunkName: "views/group/list" */ '@/views/group/GroupList'),
+    component: () => import(/* webpackChunkName: "views/group/list" */ '@/views/group/GroupList.vue'),
     meta: {
       args: { trad: 'groups_and_permissions' },
       breadcrumb: ['user-list', 'group-list']
@@ -112,7 +112,7 @@ const routes = [
   {
     name: 'group-create',
     path: '/groups/create',
-    component: () => import(/* webpackChunkName: "views/group/create" */ '@/views/group/GroupCreate'),
+    component: () => import(/* webpackChunkName: "views/group/create" */ '@/views/group/GroupCreate.vue'),
     meta: {
       args: { trad: 'group_new' },
       breadcrumb: ['user-list', 'group-list', 'group-create']
@@ -125,7 +125,7 @@ const routes = [
   {
     name: 'domain-list',
     path: '/domains',
-    component: () => import(/* webpackChunkName: "views/domain/list" */ '@/views/domain/DomainList'),
+    component: () => import(/* webpackChunkName: "views/domain/list" */ '@/views/domain/DomainList.vue'),
     meta: {
       args: { trad: 'domains' },
       breadcrumb: ['domain-list']
@@ -134,7 +134,7 @@ const routes = [
   {
     name: 'domain-add',
     path: '/domains/add',
-    component: () => import(/* webpackChunkName: "views/domain/add" */ '@/views/domain/DomainAdd'),
+    component: () => import(/* webpackChunkName: "views/domain/add" */ '@/views/domain/DomainAdd.vue'),
     meta: {
       args: { trad: 'domain_add' },
       breadcrumb: ['domain-list', 'domain-add']
@@ -142,13 +142,13 @@ const routes = [
   },
   {
     path: '/domains/:name',
-    component: () => import(/* webpackChunkName: "views/domain/info" */ '@/views/domain/DomainInfo'),
+    component: () => import(/* webpackChunkName: "views/domain/info" */ '@/views/domain/DomainInfo.vue'),
     props: true,
     children: [
       {
         name: 'domain-info',
         path: ':tabId?',
-        component: () => import(/* webpackChunkName: "components/configPanel" */ '@/components/ConfigPanel'),
+        component: () => import(/* webpackChunkName: "components/configPanel" */ '@/components/ConfigPanel.vue'),
         props: true,
         meta: {
           routerParams: ['name'], // Override router key params to avoid view recreation at tab change.
@@ -165,7 +165,7 @@ const routes = [
   {
     name: 'app-list',
     path: '/apps',
-    component: () => import(/* webpackChunkName: "views/apps/list" */ '@/views/app/AppList'),
+    component: () => import(/* webpackChunkName: "views/apps/list" */ '@/views/app/AppList.vue'),
     meta: {
       args: { trad: 'applications' },
       breadcrumb: ['app-list']
@@ -174,7 +174,7 @@ const routes = [
   {
     name: 'app-catalog',
     path: '/apps/catalog',
-    component: () => import(/* webpackChunkName: "views/apps/catalog" */ '@/views/app/AppCatalog'),
+    component: () => import(/* webpackChunkName: "views/apps/catalog" */ '@/views/app/AppCatalog.vue'),
     props: route => route.query,
     meta: {
       args: { trad: 'catalog' },
@@ -184,7 +184,7 @@ const routes = [
   {
     name: 'app-install',
     path: '/apps/install/:id',
-    component: () => import(/* webpackChunkName: "views/apps/install" */ '@/views/app/AppInstall'),
+    component: () => import(/* webpackChunkName: "views/apps/install" */ '@/views/app/AppInstall.vue'),
     props: true,
     meta: {
       args: { trad: 'install_name', param: 'id' },
@@ -194,7 +194,7 @@ const routes = [
   {
     name: 'app-install-custom',
     path: '/apps/install-custom/:id',
-    component: () => import(/* webpackChunkName: "views/apps/install" */ '@/views/app/AppInstall'),
+    component: () => import(/* webpackChunkName: "views/apps/install" */ '@/views/app/AppInstall.vue'),
     props: true,
     meta: {
       args: { trad: 'install_name', param: 'id' },
@@ -203,13 +203,13 @@ const routes = [
   },
   {
     path: '/apps/:id',
-    component: () => import(/* webpackChunkName: "views/apps/info" */ '@/views/app/AppInfo'),
+    component: () => import(/* webpackChunkName: "views/apps/info" */ '@/views/app/AppInfo.vue'),
     props: true,
     children: [
       {
         name: 'app-info',
         path: ':tabId?',
-        component: () => import(/* webpackChunkName: "components/configPanel" */ '@/components/ConfigPanel'),
+        component: () => import(/* webpackChunkName: "components/configPanel" */ '@/components/ConfigPanel.vue'),
         props: true,
         meta: {
           routerParams: ['id'], // Override router key params to avoid view recreation at tab change.
@@ -226,7 +226,7 @@ const routes = [
   {
     name: 'update',
     path: '/update',
-    component: () => import(/* webpackChunkName: "views/update" */ '@/views/update/SystemUpdate'),
+    component: () => import(/* webpackChunkName: "views/update" */ '@/views/update/SystemUpdate.vue'),
     meta: {
       args: { trad: 'system_update' },
       breadcrumb: ['update']
@@ -239,7 +239,7 @@ const routes = [
   {
     name: 'service-list',
     path: '/services',
-    component: () => import(/* webpackChunkName: "views/service/list" */ '@/views/service/ServiceList'),
+    component: () => import(/* webpackChunkName: "views/service/list" */ '@/views/service/ServiceList.vue'),
     meta: {
       args: { trad: 'services' },
       breadcrumb: ['tool-list', 'service-list']
@@ -248,7 +248,7 @@ const routes = [
   {
     name: 'service-info',
     path: '/services/:name',
-    component: () => import(/* webpackChunkName: "views/service/info" */ '@/views/service/ServiceInfo'),
+    component: () => import(/* webpackChunkName: "views/service/info" */ '@/views/service/ServiceInfo.vue'),
     props: true,
     meta: {
       args: { param: 'name' },
@@ -271,7 +271,7 @@ const routes = [
   {
     name: 'tool-logs',
     path: '/tools/logs',
-    component: () => import(/* webpackChunkName: "views/tools/logs" */ '@/views/tool/ToolLogs'),
+    component: () => import(/* webpackChunkName: "views/tools/logs" */ '@/views/tool/ToolLogs.vue'),
     meta: {
       args: { trad: 'logs' },
       breadcrumb: ['tool-list', 'tool-logs']
@@ -280,7 +280,7 @@ const routes = [
   {
     name: 'tool-log',
     path: '/tools/logs/:name',
-    component: () => import(/* webpackChunkName: "views/tools/log" */ '@/views/tool/ToolLog'),
+    component: () => import(/* webpackChunkName: "views/tools/log" */ '@/views/tool/ToolLog.vue'),
     props: true,
     meta: {
       args: { param: 'name' },
@@ -290,7 +290,7 @@ const routes = [
   {
     name: 'tool-migrations',
     path: '/tools/migrations',
-    component: () => import(/* webpackChunkName: "views/tools/migrations" */ '@/views/tool/ToolMigrations'),
+    component: () => import(/* webpackChunkName: "views/tools/migrations" */ '@/views/tool/ToolMigrations.vue'),
     meta: {
       args: { trad: 'migrations' },
       breadcrumb: ['tool-list', 'tool-migrations']
@@ -299,7 +299,7 @@ const routes = [
   {
     name: 'tool-firewall',
     path: '/tools/firewall',
-    component: () => import(/* webpackChunkName: "views/tools/firewall" */ '@/views/tool/ToolFirewall'),
+    component: () => import(/* webpackChunkName: "views/tools/firewall" */ '@/views/tool/ToolFirewall.vue'),
     meta: {
       args: { trad: 'firewall' },
       breadcrumb: ['tool-list', 'tool-firewall']
@@ -308,7 +308,7 @@ const routes = [
   {
     name: 'tool-webadmin',
     path: '/tools/webadmin',
-    component: () => import(/* webpackChunkName: "views/tools/webadmin" */ '@/views/tool/ToolWebadmin'),
+    component: () => import(/* webpackChunkName: "views/tools/webadmin" */ '@/views/tool/ToolWebadmin.vue'),
     meta: {
       args: { trad: 'tools_webadmin_settings' },
       breadcrumb: ['tool-list', 'tool-webadmin']
@@ -316,12 +316,12 @@ const routes = [
   },
   {
     path: '/tools/settings',
-    component: () => import(/* webpackChunkName: "views/tools/settings" */ '@/views/tool/ToolSettings'),
+    component: () => import(/* webpackChunkName: "views/tools/settings" */ '@/views/tool/ToolSettings.vue'),
     children: [
       {
         name: 'tool-settings',
         path: ':tabId?',
-        component: () => import(/* webpackChunkName: "components/configPanel" */ '@/components/ConfigPanel'),
+        component: () => import(/* webpackChunkName: "components/configPanel" */ '@/components/ConfigPanel.vue'),
         props: true,
         meta: {
           routerParams: [],
@@ -334,7 +334,7 @@ const routes = [
   {
     name: 'tool-power',
     path: '/tools/power',
-    component: () => import(/* webpackChunkName: "views/tools/power" */ '@/views/tool/ToolPower'),
+    component: () => import(/* webpackChunkName: "views/tools/power" */ '@/views/tool/ToolPower.vue'),
     meta: {
       args: { trad: 'tools_shutdown_reboot' },
       breadcrumb: ['tool-list', 'tool-power']
@@ -347,7 +347,7 @@ const routes = [
   {
     name: 'diagnosis',
     path: '/diagnosis',
-    component: () => import(/* webpackChunkName: "views/diagnosis" */ '@/views/diagnosis/Diagnosis'),
+    component: () => import(/* webpackChunkName: "views/diagnosis" */ '@/views/diagnosis/Diagnosis.vue'),
     meta: {
       args: { trad: 'diagnosis' },
       breadcrumb: ['diagnosis']
@@ -360,7 +360,7 @@ const routes = [
   {
     name: 'backup',
     path: '/backup',
-    component: () => import(/* webpackChunkName: "views/backup/backup" */ '@/views/backup/Backup'),
+    component: () => import(/* webpackChunkName: "views/backup/backup" */ '@/views/backup/Backup.vue'),
     meta: {
       args: { trad: 'backup' },
       breadcrumb: ['backup']
@@ -369,7 +369,7 @@ const routes = [
   {
     name: 'backup-list',
     path: '/backup/:id',
-    component: () => import(/* webpackChunkName: "views/backup/list" */ '@/views/backup/BackupList'),
+    component: () => import(/* webpackChunkName: "views/backup/list" */ '@/views/backup/BackupList.vue'),
     props: true,
     meta: {
       args: { param: 'id' },
@@ -379,7 +379,7 @@ const routes = [
   {
     name: 'backup-info',
     path: '/backup/:id/info/:name',
-    component: () => import(/* webpackChunkName: "views/backup/info" */ '@/views/backup/BackupInfo'),
+    component: () => import(/* webpackChunkName: "views/backup/info" */ '@/views/backup/BackupInfo.vue'),
     props: true,
     meta: {
       args: { param: 'name' },
@@ -389,7 +389,7 @@ const routes = [
   {
     name: 'backup-create',
     path: '/backup/:id/create',
-    component: () => import(/* webpackChunkName: "views/backup/create" */ '@/views/backup/BackupCreate'),
+    component: () => import(/* webpackChunkName: "views/backup/create" */ '@/views/backup/BackupCreate.vue'),
     props: true,
     meta: {
       args: { trad: 'backup_create' },

@@ -53,7 +53,7 @@
 import { mapGetters } from 'vuex'
 import { validationMixin } from 'vuelidate'
 
-import AdressInputSelect from '@/components/AdressInputSelect'
+import AdressInputSelect from '@/components/AdressInputSelect.vue'
 import { formatFormDataValue } from '@/helpers/yunohostArguments'
 import { required, domain, dynDomain } from '@/helpers/validators'
 

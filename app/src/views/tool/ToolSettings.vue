@@ -13,7 +13,7 @@ import {
   formatFormData,
   formatYunoHostConfigPanels
 } from '@/helpers/yunohostArguments'
-import ConfigPanels from '@/components/ConfigPanels'
+import ConfigPanels from '@/components/ConfigPanels.vue'
 
 
 export default {
