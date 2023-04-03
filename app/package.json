@@ -28,11 +28,7 @@
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.21.3",
-    "@vue/cli-plugin-babel": "^5.0.8",
-    "@vue/cli-plugin-eslint": "^5.0.8",
-    "@vue/cli-plugin-router": "^5.0.8",
-    "@vue/cli-plugin-vuex": "^5.0.8",
-    "@vue/cli-service": "^5.0.8",
+    "@vitejs/plugin-vue2": "^2.2.0",
     "bootstrap": "^4.6.0",
     "eslint": "^8.36.0",
     "eslint-plugin-vue": "^9.10.0",
@@ -42,8 +38,7 @@
     "sass-loader": "^13.2.1",
     "sass-resources-loader": "^2.2.5",
     "standard": "^17.0.0",
-    "vue-cli-plugin-bootstrap-vue": "^0.8.2",
-    "vue-cli-plugin-i18n": "^2.3.1"
+    "vite": "^4.2.1"
   },
   "browserslist": [
     "> 1%",
