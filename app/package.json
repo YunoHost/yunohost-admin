@@ -15,7 +15,6 @@
     "@fontsource/fira-code": "^4.5.13",
     "@fontsource/firago": "^4.5.3",
     "bootstrap-vue": "^2.22.0",
-    "core-js": "^3.29.1",
     "date-fns": "^2.29.3",
     "fork-awesome": "^1.2.0",
     "simple-evaluate": "^1.4.6",
@@ -27,7 +26,6 @@
     "vuex": "^3.6.2"
   },
   "devDependencies": {
-    "@babel/eslint-parser": "^7.21.3",
     "@vitejs/plugin-vue2": "^2.2.0",
     "bootstrap": "^4.6.0",
     "eslint": "^8.36.0",

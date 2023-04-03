@@ -8,9 +8,6 @@ module.exports = {
     'eslint:recommended',
     'standard'
   ],
-  parserOptions: {
-    parser: '@babel/eslint-parser'
-  },
   rules: {
     'vue/max-attributes-per-line': [
       'error',
