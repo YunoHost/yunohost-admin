@@ -19,9 +19,8 @@ override_dh_auto_build:
 	echo 'deb [signed-by=/usr/share/keyrings/nodesource.gpg] https://deb.nodesource.com/node_14.x bullseye main' > /etc/apt/sources.list.d/nodesource.list
 	/usr/bin/apt update
 	/usr/bin/apt install nodejs -y
-	/usr/bin/npm install -g npm@6
-	cd app ; PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin /usr/local/bin/npm --progress false ci
-	cd app ; PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin /usr/local/bin/npm run build
+	cd app ; /usr/bin/npm --progress false ci
+	cd app ; /usr/bin/npm run build
 
 
 override_dh_clean:
