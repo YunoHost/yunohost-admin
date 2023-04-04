@@ -3,7 +3,7 @@ Section: utils
 Priority: extra
 Maintainer: YunoHost Contributors <contrib@yunohost.org>
 Build-Depends: debhelper (>=12), debhelper-compat (= 13)
- , nodejs (>=10.15.2), npm (>=5.8.0), git
+ , nodejs (>=10.15.2), npm (>=5.8.0), git, curl
 Standards-Version: 3.9.6
 Homepage: https://yunohost.org/
 
