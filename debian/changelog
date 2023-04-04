@@ -1,3 +1,9 @@
+yunohost-admin (11.1.9.3) stable; urgency=low
+
+  - debian: use npm from nodesource, not from local/bin, during build (bf1fbf6f)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Tue, 04 Apr 2023 14:22:56 +0200
+
 yunohost-admin (11.1.9.2) stable; urgency=low
 
   - debian: add curl in build-depends (f66a2ae2)
