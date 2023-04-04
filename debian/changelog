@@ -1,3 +1,9 @@
+yunohost-admin (11.1.9.1) stable; urgency=low
+
+  - debian: Try to fix nodejs version, force install of nodejs 14 (df507799)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Tue, 04 Apr 2023 13:54:46 +0200
+
 yunohost-admin (11.1.9) stable; urgency=low
 
   - Update to Vue 2.7 ([#516](https://github.com/yunohost/yunohost-admin/pull/516))
