@@ -205,7 +205,7 @@
     "group": "Gruppo",
     "group_name": "Nome del gruppo",
     "group_all_users": "Tutti gli utenti",
-    "group_visitors": "Visitori",
+    "group_visitors": "Visitatori",
     "group_format_name_help": "È possibile utilizzare caratteri alfanumerici e spazio",
     "group_add_member": "Aggiungere un utente",
     "app_state_highquality_explanation": "Questa applicazione è ben integrata con YunoHost da almeno un anno a questa parte.",

@@ -634,7 +634,9 @@
         },
         "info": {
             "forum": "Cherchez ou demandez sur le forum !",
-            "problem": "Un problème avec cette application ?"
+            "problem": "Un problème avec cette application ?",
+            "config_panel_error": "Une erreur empêche l'affichage du panneau de configuration :",
+            "config_panel_error_please_report": "Merci de signaler cette erreur à l'équipe de YunoHost pour qu'elle soit corrigée !"
         },
         "install": {
             "license": "Licence : {license}",

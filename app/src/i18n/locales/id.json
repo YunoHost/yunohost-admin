@@ -7,7 +7,7 @@
         },
         "local_part_description": {
             "domain": "Pilih subdomain.",
-            "email": "Pilih bagian lokal untuk surel Anda"
+            "email": "Pilih bagian lokal untuk surel Anda."
         }
     },
     "administration_password": "Kata sandi administrasi",
@@ -190,7 +190,7 @@
     },
     "save": "Simpan",
     "search": {
-        "not_found": "Ada {item} yang cocok dengan kriteria Anda.",
+        "not_found": "Ada {items} yang cocok dengan kriteria Anda.",
         "for": "Cari {items}..."
     },
     "select_all": "Pilih semua",
@@ -211,7 +211,8 @@
         "experimental": "Mode eksperimental",
         "theme": "Beralih mode gelap",
         "fallback_language": "Bahasa alternatif",
-        "transitions": "Animasi transisi halaman"
+        "transitions": "Animasi transisi halaman",
+        "experimental_description": "Memberikan Anda akses ke fitur eksperimental. Ini ditimbang sebagai tidak stabil dan mungkin akan merusak sistem Anda.<br> Aktifkan ini jika Anda tahu apa yang Anda lakukan."
     },
     "user_fullname": "Nama lengkap",
     "users_import_csv_file": "Berkas CSV",
@@ -272,7 +273,10 @@
         "minValue": "Harus sama atau lebih besar dari {min}.",
         "name": "Nama tidak diperbolehkan mengandung karakter spesial lain kecuali <code> ,.'-</code>",
         "number": "Harus berupa angka.",
-        "between": "Harus di antara {min} dan {max}."
+        "between": "Harus di antara {min} dan {max}.",
+        "dynDomain": "Nama domain tidak valid: Huruf kecil, angka, dan tanda hubung saja",
+        "domain": "Nama domain tidak valid: Huruf kecil, angka, titik dan tanda hubung saja",
+        "email": "Surel tidak valid: Huruf, angka, dan <code>_.-</code> saja (cth. blabla@contoh.com, b1la-2@contoh.com)"
     },
     "form_input_example": "Contoh: {example}",
     "group": "Kelompok",
@@ -325,7 +329,8 @@
             "manual_config": "DNS yang disarankan untuk konfigurasi manual",
             "push_force_confirm": "Apakah Anda yakin ingin mengirim paksa semua rekaman DNS ini? Perlu diketahui bahwa itu bisa menimpa rekaman manual atau baku yang diatur oleh Anda atau registrar Anda.",
             "info": "Konfigurasi rekaman DNS otomatis merupakan fitur eksperimental. <br>Disarankan untuk menyimpan zona DNS Anda saat ini dari registrar DNS Anda sebelum mengirim rekaman dari sini.",
-            "push": "Kirim rekaman DNS ke registrar"
+            "push": "Kirim rekaman DNS ke registrar",
+            "push_force_warning": "Sepertinya ada beberapa rekaman DNS yang direkomendasikan YunoHost telah ada di konfigurasi registrar. Anda bisa menggunakan opsi untuk menimpa mereka jika Anda tahu apa yang Anda lakukan."
         },
         "info": {
             "apps_on_domain": "Aplikasi yang dipasang di domain",
@@ -375,9 +380,9 @@
     "only_working_apps": "Hanya aplikasi yang dapat bekerja",
     "only_decent_quality_apps": "Hanya aplikasi yang lumayan berkualitas",
     "placeholder": {
-        "username": "johndoe",
-        "firstname": "John",
-        "lastname": "Doe",
+        "username": "samsmith",
+        "firstname": "Sam",
+        "lastname": "Smith",
         "domain": "domainku.com",
         "groupname": "Nama kelompok saya",
         "fullname": "John Doe",
@@ -563,7 +568,9 @@
         "user": {
             "first_user_help": "Pengguna ini akan diberikan hak administrator dan akan diperbolehkan untuk terhubung ke antarmuka administrasi atau lewat SSH.\nSeperti layaknya pengguna biasa, Anda juga bisa terhubung ke SSO dengan kredensialnya.\nSetelah pemasangan selesai, Anda bisa membuat pengguna administrator lain dengan menambahkan mereka ke kelompok 'admins'.",
             "title": "Buat pengguna administrator pertama"
-        }
+        },
+        "force": "Paksakan langkah setelah pemasangan",
+        "title": "Langkah Setelah Pemasangan"
     },
     "postinstall_domain": "Ini adalah domain pertama yang ditautkan ke peladen YunoHost Anda dan yang akan digunakan oleh pengguna peladen Anda untuk mengakses SSO. Ini akan terlihat ke semua orang, jadi pilih dengan bijak.",
     "retry": "Ulang",
@@ -646,5 +653,20 @@
     "logs_started_at": "Awal",
     "manage_users": "Kelola pengguna",
     "migrations": "Migrasi",
-    "next": "Selanjutnya"
+    "next": "Selanjutnya",
+    "domain_dns_push_not_applicable": "Fitur rekaman DNS otomatis tidak tersedia untuk domain {domain},<br> Anda harus secara manual mengonfigurasi rekaman DNS Anda dengan mengikuti <a href='https://yunohost.org/dns'>dokumentasi</a> dan konfigurasi yang disarankan di bawah ini.",
+    "logs_system": "Log kernel dan operasi sistem tingkat dasar lainnya",
+    "operation_failed_explanation": "Tindakan ini gagal! Sangat maaf sekali :( Anda bisa mencoba <a href='https://yunohost.org/help'>tanya-tanya</a>. Mohon sediakan *log penuh* dari tindakan tersebut kepada yang membantu Anda. Anda bisa melakukan tersebut dengan tombol 'Bagikan dengan Yunopaste'. Ketika membagikan log tersebut, YunoHost akan secara otomatis mencoba menyembunyikan data pribadi seperti nama domain dan IP.",
+    "items_verbose_count": "Ada {items}. | Ada 1 {items}. | Ada {items}.",
+    "perform": "Lakukan",
+    "domain_dns_push_managed_in_parent_domain": "Fitur rekaman DNS otomatis dikelola di domain induk <a href='#/domains/{parent_domain}/dns'>{parent_domain}</a>.",
+    "confirm_install_app_lowquality": "Peringatan: aplikasi ini mungkin bisa bekerja tapi tidak terintegrasi dengan baik di YunoHost. Beberapa fitur seperti SSO dan pencadangan mungkin tidak tersedia.",
+    "logs_access": "Daftar akses dan blokiran",
+    "permission_corresponding_url": "URL Aplikasi",
+    "users_import_delete_desc": "Jika dipilih, semua pengguna yang telah ada yang tidak ada di berkas CSV akan dihapus (dan dibersihkan).",
+    "users_import_update_desc": "Jika dipilih, semua pengguna yang telah ada yang ada di berkas CSV akan diperbarui",
+    "users_import_delete": "Hapus pengguna yang tidak ada di daftar",
+    "users_import_csv_file_desc": "Berkas CSV harus dalam UTF-8 dan dengan kolom nama pengguna, kata sandi, kelompok, surel, dan kuota surel. Sebagai contoh berkas CSV impornya, Anda bisa <a href='/yunohost/api/users/export' target='_BLANK'>mengekspor daftar pengguna Anda ke berkas CSV</a> dan mengubah berkas tersebut.",
+    "pending_migrations": "Terdapat migrasi tertunda yang menunggu untuk dijalankan. Silakan ke <a href='#/tools/migrations'>Alat > Migrasi</a> untuk memulai mereka.",
+    "error_modify_something": "Anda harus mengubah sesuatu"
 }

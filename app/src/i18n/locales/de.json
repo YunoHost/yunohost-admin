@@ -393,7 +393,7 @@
     },
     "code": "Code",
     "go_back": "Gehe zurück",
-    "api_not_found": "Es scheint, als ob das Web-Administrator versucht hat etwas aufzulösen das nicht existiert.",
+    "api_not_found": "Es scheint, als ob der Web-Administrator versucht hat etwas aufzulösen das nicht existiert.",
     "api": {
         "query_status": {
             "warning": "Erfolgreich durchgeführt mit Fehlern oder Warnungen",

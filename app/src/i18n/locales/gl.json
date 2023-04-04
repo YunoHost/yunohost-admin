@@ -605,7 +605,9 @@
         },
         "info": {
             "forum": "Busca ou pregunta no foro!",
-            "problem": "Tes un problema con esta app?"
+            "problem": "Tes un problema con esta app?",
+            "config_panel_error_please_report": "Por favor informa a YunoHost acerca deste erro para poder solucionalo!",
+            "config_panel_error": "Un erro fai que non se poida mostrar o panel de configuración:"
         },
         "install": {
             "license": "Licenza: {license}",
