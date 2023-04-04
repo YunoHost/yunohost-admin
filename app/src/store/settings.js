@@ -16,7 +16,7 @@ export default {
     theme: localStorage.getItem('theme') === 'true',
     experimental: localStorage.getItem('experimental') === 'true',
     spinner: 'pacman',
-    supportedLocales: supportedLocales
+    supportedLocales
   },
 
   mutations: {

@@ -16,7 +16,7 @@
 
     <b-list-group>
       <b-list-group-item
-        v-for="{ id, name, description, label } in filteredApps" :key="id"
+        v-for="{ id, description, label } in filteredApps" :key="id"
         :to="{ name: 'app-info', params: { id }}"
         class="d-flex justify-content-between align-items-center pr-0"
       >

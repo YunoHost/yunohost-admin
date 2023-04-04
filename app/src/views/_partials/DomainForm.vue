@@ -4,7 +4,9 @@
     :validation="$v" :server-error="serverError"
     @submit.prevent="onSubmit"
   >
-    <slot name="disclaimer" slot="disclaimer" />
+    <template #disclaimer>
+      <slot name="disclaimer" />
+    </template>
 
     <b-form-radio
       v-model="selected" name="domain-type" value="domain"

@@ -1,8 +1,12 @@
 <template>
   <div>
     <top-bar v-if="hasTopBar">
-      <slot name="top-bar-group-left" slot="group-left" />
-      <slot name="top-bar-group-right" slot="group-right" />
+      <template #group-left>
+        <slot name="top-bar-group-left" />
+      </template>
+      <template #group-right>
+        <slot name="top-bar-group-right" />
+      </template>
     </top-bar>
     <slot v-else name="top-bar" />
 

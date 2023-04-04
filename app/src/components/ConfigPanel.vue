@@ -24,11 +24,14 @@
         </b-card-title>
 
         <template v-for="(field, fname) in section.fields">
+          <!-- FIXME rework the whole component chain to avoid direct mutation of the `forms` props -->
+          <!-- eslint-disable -->
           <component
             v-if="field.visible" :is="field.is" v-bind="field.props"
             v-model="forms[panel.id][fname]" :validation="validation[fname]" :key="fname"
             @action.stop="onAction(section.id, fname, section.fields)"
           />
+          <!-- eslint-enable -->
         </template>
       </component>
     </template>

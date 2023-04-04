@@ -12,22 +12,25 @@
         <slot name="server-error">
           <b-alert
             variant="danger" class="my-3" icon="ban"
-            :show="errorFeedback !== ''" v-html="errorFeedback"
-          />
+            :show="errorFeedback !== ''"
+          >
+            <div v-html="errorFeedback" />
+          </b-alert>
         </slot>
       </b-form>
     </template>
 
-    <slot v-if="!noFooter" name="buttons" slot="buttons">
-      <b-button type="submit" variant="success" :form="id">
-        {{ submitText ? submitText : $t('save') }}
-      </b-button>
-    </slot>
+    <template v-if="!noFooter" #buttons>
+      <slot name="buttons">
+        <b-button type="submit" variant="success" :form="id">
+          {{ submitText ? submitText : $t('save') }}
+        </b-button>
+      </slot>
+    </template>
   </card>
 </template>
 
 <script>
-
 export default {
   name: 'CardForm',
 

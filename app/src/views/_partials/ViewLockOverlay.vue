@@ -6,7 +6,7 @@
   >
     <slot name="default" />
 
-    <template v-slot:overlay>
+    <template #overlay>
       <b-card no-body class="card-overlay">
         <b-card-header header-bg-variant="white">
           <query-header :request="error || currentRequest" status-size="lg" />

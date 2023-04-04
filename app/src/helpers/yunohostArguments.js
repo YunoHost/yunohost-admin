@@ -91,7 +91,7 @@ export function evaluateExpression (expression, forms) {
   }, {})
 
   // Allow to use match(var,regexp) function
-  const matchRe = new RegExp('match\\(\\s*(\\w+)\\s*,\\s*"([^"]+)"\\s*\\)', 'g')
+  const matchRe = /match(\s*(\w+)\s*,\s*"([^"]+)"\s*)/g
   for (const matched of expression.matchAll(matchRe)) {
     const [fullMatch, varMatch, regExpMatch] = matched
     const varName = varMatch + '__re' + matched.index
@@ -171,7 +171,7 @@ export function formatYunoHostArgument (arg) {
         if (!isNaN(parseInt(arg.max))) {
           validation.maxValue = validators.maxValue(parseInt(arg.max))
         }
-        validation.numValue = validators.helpers.regex('Please provide an integer', new RegExp('^-?[0-9]+$'))
+        validation.numValue = validators.integer
       }
     },
     {

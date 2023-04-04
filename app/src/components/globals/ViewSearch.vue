@@ -1,6 +1,8 @@
 <template>
   <view-base v-bind="$attrs" v-on="$listeners" :skeleton="skeleton">
-    <slot v-if="hasCustomTopBar" name="top-bar" slot="top-bar" />
+    <template v-if="hasCustomTopBar" #top-bar>
+      <slot name="top-bar" />
+    </template>
     <template v-if="!hasCustomTopBar" #top-bar-group-left>
       <b-input-group class="w-100">
         <b-input-group-prepend is-text>
@@ -15,9 +17,13 @@
         />
       </b-input-group>
     </template>
-    <slot v-if="!hasCustomTopBar" name="top-bar-buttons" slot="top-bar-group-right" />
+    <template v-if="!hasCustomTopBar" #top-bar-group-right>
+      <slot name="top-bar-buttons" />
+    </template>
 
-    <slot name="top" slot="top" />
+    <template #top>
+      <slot name="top" />
+    </template>
 
     <template #default>
       <b-alert v-if="items === null || filteredItems === null" variant="warning">
@@ -30,9 +36,13 @@
       <slot v-else name="default" />
     </template>
 
-    <slot name="bot" slot="bot" />
+    <template #bot>
+      <slot name="bot" />
+    </template>
 
-    <slot name="skeleton" slot="skeleton" />
+    <template #skeleton>
+      <slot name="skeleton" />
+    </template>
   </view-base>
 </template>
 

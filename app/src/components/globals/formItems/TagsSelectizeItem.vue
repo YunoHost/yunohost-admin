@@ -5,7 +5,7 @@
       :value="value" :id="id"
       size="lg" class="p-0 border-0" no-outer-focus
     >
-      <template v-slot="{ tags, disabled, addTag, removeTag }">
+      <template #default="{ tags, disabled, addTag, removeTag }">
         <ul v-if="!noTags && tags.length > 0" class="list-inline d-inline-block mb-2">
           <li v-for="tag in tags" :key="id + '-' + tag" class="list-inline-item">
             <b-form-tag

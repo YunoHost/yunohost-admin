@@ -12,78 +12,38 @@
     "i18n:en": "./node_modules/@vue/cli-service/bin/vue-cli-service.js i18n:report --src './src/**/*.?(js|vue)' --locales './src/i18n/locales/en.json'"
   },
   "dependencies": {
-    "bootstrap-vue": "^2.21.2",
-    "core-js": "^3.9.1",
-    "date-fns": "^2.19.0",
-    "firacode": "^5.2.0",
-    "fontsource-firago": "^3.1.5",
-    "fork-awesome": "^1.1.7",
-    "simple-evaluate": "^1.4.3",
-    "vue": "^2.6.12",
-    "vue-i18n": "^8.24.1",
-    "vue-router": "^3.5.1",
-    "vuelidate": "^0.7.6",
+    "@fontsource/fira-code": "^4.5.13",
+    "@fontsource/firago": "^4.5.3",
+    "bootstrap-vue": "^2.22.0",
+    "core-js": "^3.29.1",
+    "date-fns": "^2.29.3",
+    "fork-awesome": "^1.2.0",
+    "simple-evaluate": "^1.4.6",
+    "vue": "^2.7.14",
+    "vue-i18n": "^8.28.2",
+    "vue-router": "^3.6.5",
     "vue-showdown": "^2.4.1",
+    "vuelidate": "^0.7.7",
     "vuex": "^3.6.2"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "~4.5.13",
-    "@vue/cli-plugin-eslint": "^4.5.13",
-    "@vue/cli-plugin-router": "^4.5.13",
-    "@vue/cli-plugin-vuex": "^4.5.13",
-    "@vue/cli-service": "^4.5.13",
-    "babel-eslint": "^10.1.0",
+    "@babel/eslint-parser": "^7.21.3",
+    "@vue/cli-plugin-babel": "^5.0.8",
+    "@vue/cli-plugin-eslint": "^5.0.8",
+    "@vue/cli-plugin-router": "^5.0.8",
+    "@vue/cli-plugin-vuex": "^5.0.8",
+    "@vue/cli-service": "^5.0.8",
     "bootstrap": "^4.6.0",
-    "eslint": "^6.7.2",
-    "eslint-plugin-vue": "^6.2.2",
+    "eslint": "^8.36.0",
+    "eslint-plugin-vue": "^9.10.0",
     "popper.js": "^1.16.0",
-    "portal-vue": "^2.1.6",
-    "sass": "^1.32.8",
-    "sass-loader": "^8.0.0",
-    "sass-resources-loader": "^2.1.1",
-    "standard": "^14.3.4",
-    "vue-cli-plugin-bootstrap-vue": "~0.6.0",
-    "vue-cli-plugin-i18n": "~1.0.1",
-    "vue-template-compiler": "^2.6.12"
-  },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true
-    },
-    "extends": [
-      "plugin:vue/strongly-recommended",
-      "eslint:recommended",
-      "standard"
-    ],
-    "parserOptions": {
-      "parser": "babel-eslint"
-    },
-    "rules": {
-      "vue/max-attributes-per-line": [
-        "error",
-        {
-          "singleline": 3,
-          "multiline": {
-            "max": 3,
-            "allowFirstLine": true
-          }
-        }
-      ],
-      "no-console": "warn",
-      "template-curly-spacing": "off",
-      "camelcase": "warn",
-      "indent": "off",
-      "no-irregular-whitespace": "off",
-      "no-unused-vars": "warn",
-      "quotes": "warn",
-      "no-multiple-empty-lines": [
-        "error",
-        {
-          "max": 2
-        }
-      ]
-    }
+    "portal-vue": "^2.1.7",
+    "sass": "^1.60.0",
+    "sass-loader": "^13.2.1",
+    "sass-resources-loader": "^2.2.5",
+    "standard": "^17.0.0",
+    "vue-cli-plugin-bootstrap-vue": "^0.8.2",
+    "vue-cli-plugin-i18n": "^2.3.1"
   },
   "browserslist": [
     "> 1%",

@@ -1,3 +1,5 @@
+@use 'sass:math';
+
 // Taken from https://gist.github.com/johanlef/518a511b2b2f6b96c4f429b3af2f169a
 // Those functions overrides built-in bootstrap's computation color functions (that
 // generate flat variants and its darken/lighten alterations) to allow `var(--color)` CSS
@@ -116,7 +118,9 @@
 }
 
 @function render-hsla($h, $s, $l, $a: 1) {
-  @return hsla($h, $s, $l, $a);
+  // @return hsla($h, #{$s}, #{$l}, $a);
+  // Error when using sass `hsla` with css variables, fallback to browser native `hsla`
+  @return unquote('hsla(#{$h}, #{$s}, #{$l}, #{$a})');
 }
 
 @function lighten($color, $amount) {
@@ -208,7 +212,7 @@
     $c: to-hsl($color);
     $l: map-get($c, l);
 
-    $th: $yiq-contrasted-threshold / 2.56; // convert hex to dec
+    $th: calc($yiq-contrasted-threshold / 2.56); // convert hex to dec
     $lightness: calc(-100 * calc(#{$l} - calc(#{$th} * 1%)));
 
     // ignoring hue and saturation, just a light or dark gray
@@ -224,7 +228,7 @@
     @return $color;
   }
 
-  $amount: $theme-color-interval * abs($level) / 100%;
+  $amount: math.div($theme-color-interval * abs($level) , 100%);
   $c: to-hsl($color);
   $h: map-get($c, h);
   $s: map-get($c, s);
