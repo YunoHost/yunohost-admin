@@ -5,17 +5,15 @@
   "description": "YunoHost Admin web interface",
   "author": "Yunohost",
   "scripts": {
-    "serve": "./node_modules/@vue/cli-service/bin/vue-cli-service.js serve",
-    "build": "./node_modules/@vue/cli-service/bin/vue-cli-service.js build",
-    "lint": "./node_modules/@vue/cli-service/bin/vue-cli-service.js lint --no-fix",
-    "i18n": "./node_modules/@vue/cli-service/bin/vue-cli-service.js i18n:report --src './src/**/*.?(js|vue)' --locales './src/i18n/locales/*.json'",
-    "i18n:en": "./node_modules/@vue/cli-service/bin/vue-cli-service.js i18n:report --src './src/**/*.?(js|vue)' --locales './src/i18n/locales/en.json'"
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint --ext .js,.vue src",
+    "lint-fix": "lint --fix"
   },
   "dependencies": {
     "@fontsource/fira-code": "^4.5.13",
     "@fontsource/firago": "^4.5.3",
     "bootstrap-vue": "^2.22.0",
-    "core-js": "^3.29.1",
     "date-fns": "^2.29.3",
     "fork-awesome": "^1.2.0",
     "simple-evaluate": "^1.4.6",
@@ -27,23 +25,15 @@
     "vuex": "^3.6.2"
   },
   "devDependencies": {
-    "@babel/eslint-parser": "^7.21.3",
-    "@vue/cli-plugin-babel": "^5.0.8",
-    "@vue/cli-plugin-eslint": "^5.0.8",
-    "@vue/cli-plugin-router": "^5.0.8",
-    "@vue/cli-plugin-vuex": "^5.0.8",
-    "@vue/cli-service": "^5.0.8",
+    "@vitejs/plugin-vue2": "^2.2.0",
     "bootstrap": "^4.6.0",
     "eslint": "^8.36.0",
     "eslint-plugin-vue": "^9.10.0",
     "popper.js": "^1.16.0",
     "portal-vue": "^2.1.7",
     "sass": "^1.60.0",
-    "sass-loader": "^13.2.1",
-    "sass-resources-loader": "^2.2.5",
     "standard": "^17.0.0",
-    "vue-cli-plugin-bootstrap-vue": "^0.8.2",
-    "vue-cli-plugin-i18n": "^2.3.1"
+    "vite": "^4.2.1"
   },
   "browserslist": [
     "> 1%",

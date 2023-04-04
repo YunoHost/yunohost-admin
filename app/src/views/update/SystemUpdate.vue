@@ -114,7 +114,7 @@
 import api from '@/api'
 import { mapGetters } from 'vuex'
 
-import CardCollapse from '@/components/CardCollapse'
+import CardCollapse from '@/components/CardCollapse.vue'
 
 export default {
   name: 'SystemUpdate',

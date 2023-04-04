@@ -165,7 +165,7 @@
 <script>
 import { validationMixin } from 'vuelidate'
 
-import CardDeckFeed from '@/components/CardDeckFeed'
+import CardDeckFeed from '@/components/CardDeckFeed.vue'
 import { required, appRepoUrl } from '@/helpers/validators'
 import { randint } from '@/helpers/commons'
 

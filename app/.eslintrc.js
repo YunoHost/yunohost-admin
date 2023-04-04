@@ -1,6 +1,7 @@
 module.exports = {
   root: true,
   env: {
+    es2021: true,
     node: true
   },
   extends: [
@@ -8,9 +9,6 @@ module.exports = {
     'eslint:recommended',
     'standard'
   ],
-  parserOptions: {
-    parser: '@babel/eslint-parser'
-  },
   rules: {
     'vue/max-attributes-per-line': [
       'error',

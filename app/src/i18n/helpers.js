@@ -49,9 +49,7 @@ function loadLocaleMessages (locale) {
   if (loadedLanguages.includes(locale)) {
     return Promise.resolve(locale)
   }
-  return import(
-    /* webpackChunkName: "lc/lang-[request]" */ `@/i18n/locales/${locale}`
-  ).then(messages => {
+  return import(`@/i18n/locales/${locale}.json`).then(messages => {
     i18n.setLocaleMessage(locale, messages.default)
     loadedLanguages.push(locale)
     return locale
@@ -63,12 +61,9 @@ function loadLocaleMessages (locale) {
  */
 async function loadDateFnsLocale (locale) {
   const dateFnsLocaleName = supportedLocales[locale].dateFnsLocale || locale
-  return import(
-    /* webpackChunkName: "lc/datefns-[request]" */
-    `date-fns/locale/${dateFnsLocaleName}/index.js`
-  ).then(locale => {
-    dateFnsLocale = locale.default
-  })
+  dateFnsLocale = (await import(
+    `../../node_modules/date-fns/esm/locale/${dateFnsLocaleName}/index.js`
+  )).default
 }
 
 /**

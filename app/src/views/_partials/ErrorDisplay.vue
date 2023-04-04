@@ -52,7 +52,7 @@
 </template>
 
 <script>
-import MessageListGroup from '@/components/MessageListGroup'
+import MessageListGroup from '@/components/MessageListGroup.vue'
 
 export default {
   name: 'ErrorDisplay',

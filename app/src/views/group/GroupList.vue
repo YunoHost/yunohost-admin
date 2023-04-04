@@ -109,7 +109,7 @@ import Vue from 'vue'
 
 import api from '@/api'
 import { isEmptyValue } from '@/helpers/commons'
-import TagsSelectizeItem from '@/components/globals/formItems/TagsSelectizeItem'
+import TagsSelectizeItem from '@/components/globals/formItems/TagsSelectizeItem.vue'
 
 // TODO add global search with type (search by: group, user, permission)
 // TODO add vuex store update on inputs ?

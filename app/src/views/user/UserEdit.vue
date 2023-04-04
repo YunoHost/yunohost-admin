@@ -101,7 +101,7 @@ import {
   name, required, minLength, emailLocalPart, sameAs, integer, minValue, emailForward
 } from '@/helpers/validators'
 
-import AdressInputSelect from '@/components/AdressInputSelect'
+import AdressInputSelect from '@/components/AdressInputSelect.vue'
 
 
 export default {

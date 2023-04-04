@@ -78,10 +78,7 @@ export async function handleError (request, response, errorData) {
  * @param {APIError} error
  */
 export function onUnhandledAPIError (error) {
-  // In 'development', Babel seems to also catch the error so there's no need to log it twice.
-  if (process.env.NODE_ENV !== 'development') {
-    error.log()
-  }
+  error.log()
   store.dispatch('HANDLE_ERROR', error)
 }
 
