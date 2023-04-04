@@ -1,3 +1,13 @@
+yunohost-admin (11.1.9) stable; urgency=low
+
+  - Update to Vue 2.7 ([#516](https://github.com/yunohost/yunohost-admin/pull/516))
+  - Switch from vue-cli to vite ([#517](https://github.com/yunohost/yunohost-admin/pull/517))
+  - [i18n] Translations updated for Arabic, French, Galician, German, Indonesian, Italian, Polish, Telugu, Ukrainian
+
+  Thanks to all contributors <3 ! (Alice Kile, axolotle, ButterflyOfFire, Christian Wehrli, Grzegorz Cichocki, José M, Leandro Noferini, Neko Nekowazarashi, ppr, Tymofii-Lytvynenko)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Tue, 04 Apr 2023 13:25:35 +0200
+
 yunohost-admin (11.1.8) stable; urgency=low
 
   - locales: add ckb da he id kab lt mk pt_BR sl ([#514](https://github.com/yunohost/yunohost-admin/pull/514))
