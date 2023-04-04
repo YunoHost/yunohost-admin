@@ -1,3 +1,9 @@
+yunohost-admin (11.1.9.2) stable; urgency=low
+
+  - debian: add curl in build-depends (f66a2ae2)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Tue, 04 Apr 2023 13:59:02 +0200
+
 yunohost-admin (11.1.9.1) stable; urgency=low
 
   - debian: Try to fix nodejs version, force install of nodejs 14 (df507799)
