@@ -594,7 +594,7 @@
                 "description": "Deskribapena"
             },
             "admin": {
-                "title": "Dokumentazioa"
+                "title": "Administratzaile dokumentazioa"
             },
             "notifications": {
                 "dismiss": "Baztertu",
@@ -605,7 +605,9 @@
         },
         "info": {
             "forum": "Bilatu edo galdetu foroan!",
-            "problem": "Arazoren bat aplikazio honekin?"
+            "problem": "Arazoren bat aplikazio honekin?",
+            "config_panel_error": "Errore batek ezarpen arbela erakustea galarazten du:",
+            "config_panel_error_please_report": "Eman errore honen berri YunoHost taldeari zuzen dezaten!"
         },
         "install": {
             "license": "Lizentzia: {license}",
@@ -623,9 +625,9 @@
             "problems": {
                 "arch": "Aplikazio hau ({required}) arkitekturatan bakarrik instalatu daiteke, baina zure zerbitzariaren arkitektura {current} da.",
                 "broken": "Aplikazio hau hondatuta dago YunoHosten azterketa automatikoen arabera eta zure sistema apur lezake! Ez zenuke instalatu beharko zertan ari zaren ez badakizu.",
-                "thirdparty": "Aplikazio hau ez da YunoHosten katalogokoa, hirugarrenen aplikazioak instalatzeak sistemaren integritatea ezbaian jar dezake. Ez zenuke instalatu beharko zertan ari zaren ez badakizu.",
+                "thirdparty": "Aplikazio hau ez da YunoHosten liburutegikoa; hirugarrenen aplikazioak instalatzeak sistemaren integritatea ezbaian jar dezake. EZ zenuke instalatu beharko zertan ari zaren ez badakizu.",
                 "ignore": "Ulertzen dut aplikazio honek nire sistema apur lezakeela baina hala ere probatu nahi dut.",
-                "inprogress": "Aplikazio hau esperimentala da oraindik (edo ez dabil) eta litekeena da zure sistema apurtzea! Ez zenuke instalatu beharko zertan ari zaren ez badakizu.",
+                "inprogress": "Aplikazio hau esperimentala da oraindik (edo ez dabil) eta litekeena da zure sistema apurtzea! EZ zenuke instalatu beharko zertan ari zaren ez badakizu.",
                 "install": "Badago lehendik ere instalatuta eta ezin da behin baino gehiagotan instalatu.",
                 "lowquality": "Litekeena da aplikazioa ibiltzea baina ez dago YunoHosten ondo integratuta. Baliteke Saio Bakarra (SSO) edota babeskopia / lehengoratzea bezalako ezaugarri batzuk erabilgarri ez egotea, edo gidalerroak ez errespetatzea.",
                 "version": "Aplikazio honek YunoHost {required} edo bertsio berriagoa behar du, baina unean instalatuta daukazuna {current} da; aztertu YunoHost eguneratzea.",
@@ -654,7 +656,7 @@
             "title": "YunoHosten integrazioa"
         },
         "links": {
-            "admindoc": "Administraritzaren dokumentazio ofiziala",
+            "admindoc": "Administrazioaren dokumentazio ofiziala",
             "code": "Kode gordailu (repository) ofiziala",
             "package": "Yunohosten paketearen gordailua (repository)",
             "title": "Estekak",
