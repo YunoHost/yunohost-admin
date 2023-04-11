@@ -490,7 +490,7 @@
         "experimental": "Modu esperimentala",
         "experimental_description": "Funtzio esperimentalei atea irekitzen die. Ezegonkorrak dira eta sistema kaltetu dezake.<br>Zertan ari zaren badakizu soilik gaitu aukera hau.",
         "transitions": "Orrialdeen transtsizioetarako animazioak",
-        "theme": "Piztu / Itzali itzura iluna"
+        "theme": "Piztu / Itzali itxura iluna"
     },
     "users_import_delete_desc": "Aukeratuz gero, CSV fitxategian ageri ez diren erabiltzaile guztiak ezabatuko dira (baita sistematik ere).",
     "version": "Bertsioa",
