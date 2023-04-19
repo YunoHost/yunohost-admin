@@ -578,7 +578,7 @@
     "details_about": "Mostrar máis detalles sobre {subject}",
     "group_admins": "Admins",
     "group_explain_admins": "Este é un grupo especial para as usuarias administradoras. As usuarias deste grupo poden acceder á web de administración de YunoHost, conectarse ao servidor por SSH e usar o comando `sudo`. Tamén recibirán os emails enviados a root@, admin@ e admins@, por exemplo as notificacións do diagnóstico. Só deberías engadir a persoas nas que confías totalmente!",
-    "label_for_manifestname_help": "Este é o nome mostrado no porta da usuaria. Pódese cambiar despois.",
+    "label_for_manifestname_help": "Este é o nome mostrado no portal da usuaria. Pódese cambiar despois.",
     "manage_groups": "Xestionar grupos",
     "tools_yunohost_settings": "Axustes YunoHost",
     "wrong_password_or_username": "Credenciais incorrectas",
