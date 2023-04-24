@@ -120,12 +120,7 @@ function addEvaluationGetter(prop, obj, expr, ctx, nested) {
  * @return {Object} an formated argument containing formItem props, validation and base value.
  */
 export function formatYunoHostArgument(arg) {
-  let value =
-    arg.value !== undefined
-      ? arg.value
-      : arg.current_value !== undefined
-        ? arg.current_value
-        : null
+  let value = arg.value !== undefined ? arg.value : null
   const validation = {}
   const error = { message: null }
   arg.ask = formatI18nField(arg.ask)
@@ -168,11 +163,11 @@ export function formatYunoHostArgument(arg) {
       name: 'InputItem',
       props: defaultProps.concat(['type', 'min', 'max', 'step']),
       callback: function () {
-        if (!isNaN(parseInt(arg.min))) {
-          validation.minValue = validators.minValue(parseInt(arg.min))
+        if (arg.min !== undefined) {
+          validation.minValue = validators.minValue(arg.min)
         }
-        if (!isNaN(parseInt(arg.max))) {
-          validation.maxValue = validators.maxValue(parseInt(arg.max))
+        if (arg.max !== undefined) {
+          validation.maxValue = validators.maxValue(arg.max)
         }
         validation.numValue = validators.integer
       },
@@ -277,11 +272,12 @@ export function formatYunoHostArgument(arg) {
   ]
 
   // Default type management if no one is filled
-  if (arg.choices && arg.choices.length) {
-    arg.type = 'select'
-  }
   if (arg.type === undefined) {
-    arg.type = 'string'
+    if (arg.choices && arg.choices.length) {
+      arg.type = 'select'
+    } else {
+      arg.type = 'string'
+    }
   }
 
   // Search the component bind to the type
@@ -328,9 +324,6 @@ export function formatYunoHostArgument(arg) {
   }
 
   // Default value if still `null`
-  if (value === null && arg.current_value) {
-    value = arg.current_value
-  }
   if (value === null && arg.default) {
     value = arg.default
   }
