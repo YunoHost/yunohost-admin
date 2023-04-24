@@ -84,8 +84,8 @@ export function evaluateExpression (expression, forms) {
   if (expression === '"false"') return false
 
   const context = Object.values(forms).reduce((ctx, args) => {
-    Object.entries(args).forEach(([name, value]) => {
-      ctx[name] = isObjectLiteral(value) && 'file' in value ? value.content : value
+    Object.entries(args).forEach(([id, value]) => {
+      ctx[id] = isObjectLiteral(value) && 'file' in value ? value.content : value
     })
     return ctx
   }, {})
@@ -136,7 +136,7 @@ export function formatYunoHostArgument (arg) {
     }
   }
 
-  const defaultProps = ['id:name', 'placeholder:example']
+  const defaultProps = ['id', 'placeholder:example']
   const components = [
     {
       types: ['string', 'path'],
@@ -177,7 +177,7 @@ export function formatYunoHostArgument (arg) {
     {
       types: ['select', 'user', 'domain', 'app', 'group'],
       name: 'SelectItem',
-      props: ['id:name', 'choices'],
+      props: ['id', 'choices'],
       callback: function () {
         if (arg.type !== 'select') {
           field.props.link = { name: arg.type + '-list', text: i18n.t(`manage_${arg.type}s`) }
@@ -226,7 +226,7 @@ export function formatYunoHostArgument (arg) {
     {
       types: ['boolean'],
       name: 'CheckboxItem',
-      props: ['id:name', 'choices'],
+      props: ['id', 'choices'],
       callback: function () {
         if (value !== null && value !== undefined) {
           value = ['1', 'yes', 'y', 'true'].includes(String(value).toLowerCase())
@@ -352,10 +352,10 @@ export function formatYunoHostArguments (args, forms) {
 
   for (const arg of args) {
     const { value, field, validation, error } = formatYunoHostArgument(arg)
-    fields[arg.name] = field
-    form[arg.name] = value
-    if (validation) validations[arg.name] = validation
-    errors[arg.name] = error
+    fields[arg.id] = field
+    form[arg.id] = value
+    if (validation) validations[arg.id] = validation
+    errors[arg.id] = error
 
     if ('visible' in arg && ![false, '"false"'].includes(arg.visible)) {
       addEvaluationGetter('visible', field, arg.visible, forms)
