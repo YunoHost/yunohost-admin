@@ -276,7 +276,8 @@
         "between": "Harus di antara {min} dan {max}.",
         "dynDomain": "Nama domain tidak valid: Huruf kecil, angka, dan tanda hubung saja",
         "domain": "Nama domain tidak valid: Huruf kecil, angka, titik dan tanda hubung saja",
-        "email": "Surel tidak valid: Huruf, angka, dan <code>_.-</code> saja (cth. blabla@contoh.com, b1la-2@contoh.com)"
+        "email": "Surel tidak valid: Huruf, angka, dan <code>_.-</code> saja (cth. blabla@contoh.com, b1la-2@contoh.com)",
+        "alphalownum_": "Harus hanya berupa karakter alfanumerik kecil dan garis bawah."
     },
     "form_input_example": "Contoh: {example}",
     "group": "Kelompok",
@@ -668,5 +669,6 @@
     "users_import_delete": "Hapus pengguna yang tidak ada di daftar",
     "users_import_csv_file_desc": "Berkas CSV harus dalam UTF-8 dan dengan kolom nama pengguna, kata sandi, kelompok, surel, dan kuota surel. Sebagai contoh berkas CSV impornya, Anda bisa <a href='/yunohost/api/users/export' target='_BLANK'>mengekspor daftar pengguna Anda ke berkas CSV</a> dan mengubah berkas tersebut.",
     "pending_migrations": "Terdapat migrasi tertunda yang menunggu untuk dijalankan. Silakan ke <a href='#/tools/migrations'>Alat > Migrasi</a> untuk memulai mereka.",
-    "error_modify_something": "Anda harus mengubah sesuatu"
+    "error_modify_something": "Anda harus mengubah sesuatu",
+    "group_format_name_help": "Anda bisa menggunakan karakter alfanumerik dan garis bawah"
 }
