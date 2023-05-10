@@ -558,5 +558,42 @@
     "app_state_broken_explanation": "Táto aplikácie je aktuálne pokazená a podľa automatizovaných testov YunoHostu ju nie je možné nainštalovať",
     "confirm_install_app_broken": "VAROVANIE! Táto aplikácia je na základe automatizovaných testov YunoHostu pokazená a môže poškodiť váš systém! Pravdepodobne by ste ju NEMALI inštalovať, ak neviete, čo presne to môže spôsobiť. Ste ochotný podstúpiť toto riziko?",
     "details_about": "Zobraziť viac podrobností o {subject}",
-    "group_admins": "Správcovia"
+    "group_admins": "Správcovia",
+    "app": {
+        "info": {
+            "config_panel_error_please_report": "Prosím, nahláste túto chybu tímu YunoHost, aby ju mohli opraviť!",
+            "forum": "Hľadajte alebo sa opýtajte na fóre!",
+            "problem": "Máte problém s aplikáciou?"
+        },
+        "installed_version": "Nainštalovaná verzia:",
+        "open_this_app": "Otvoriť túto aplikáciu",
+        "antifeatures": "Táto aplikácia obsahuje funkcie, ktoré sa vám nemusia páčiť:",
+        "doc": {
+            "about": {
+                "title": "Informácie",
+                "description": "Popis"
+            },
+            "admin": {
+                "title": "Dokumentácia pre správcov"
+            },
+            "notifications": {
+                "dismiss": "Zahodiť",
+                "title": "Upozornenia",
+                "post_upgrade": "Upozornenia o aktualizácii",
+                "post_install": "Upozornenia o inštalácii"
+            }
+        },
+        "install": {
+            "license": "Licencia: {license}",
+            "notifs": {
+                "pre": {
+                    "warning": "Veci, o ktorých by ste pred inštaláciou mali vedieť",
+                    "danger": "Po nainštalovaní tejto aplikácie sa môžu vyskytnúť problémy"
+                }
+            },
+            "problems": {
+                "ignore": "Beriem na zreteľ, že inštalovaním tejto aplikácie si môžem rozbiť systém, no i napriek tomu to chcem urobiť."
+            }
+        }
+    }
 }
