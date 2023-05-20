@@ -527,5 +527,81 @@
     "users_import_delete_desc": "Se marcat, totes los utilizaires existents que son pas presents dins lo fichièr CSV seràn suprimits (e purgats).",
     "domain_dns_push_not_applicable": "La foncionalitat enregistrament DNS automatica es pas aplicablas al domeni {domain},<br>Podètz configurar manualament vòstres enregistraments DNS en seguissent <a href='https://yunohost.org/dns'>documentation</a> e las suggestions de configuracion çai-jos.",
     "text_selection_is_disabled": "La seleccion del tèxt es desactivada. Se volètz partejar aqueste log *complet*, o podètz far en clicant lo boton « Partejar amb Yunopaste ».<br/><small>Autrament se volètz vertadièrament seleccionar de tèxt, quichatz aquestas tòcas : ↓↓↑↑.</small>",
-    "users_import_csv_file_desc": "Lo fichièr CSV deu èsser al format UTF-8 amb colomnas nom d’utilizaire, senhal, grops, email e quota. Per un exemple d’importacion de fichièr CSV, podètz <a href='/yunohost/api/users/export' target='_BLANK'>exportar vòstres utilizaires dins un fichièr CSV</a> e modificar lo fichièr."
+    "users_import_csv_file_desc": "Lo fichièr CSV deu èsser al format UTF-8 amb colomnas nom d’utilizaire, senhal, grops, email e quota. Per un exemple d’importacion de fichièr CSV, podètz <a href='/yunohost/api/users/export' target='_BLANK'>exportar vòstres utilizaires dins un fichièr CSV</a> e modificar lo fichièr.",
+    "app": {
+        "info": {
+            "config_panel_error": "Una error empacha l’afichatge del panèl de configuracion :",
+            "config_panel_error_please_report": "Mercés de senhalar aquesta error a la còla de YunoHost per que siá corregida !",
+            "forum": "Cercatz o demandatz sul forum !",
+            "problem": "Un problèma amb aquesta aplicacion ?"
+        },
+        "install": {
+            "notifs": {
+                "pre": {
+                    "critical": "Se pòt installar l’aplicacion",
+                    "warning": "Çò que cal saber abans l’installacion"
+                }
+            },
+            "problems": {
+                "ignore": "Compreni qu’aquesta installacion pòt copar mon sistèma mas vòli ensajar ça que la.",
+                "install": "Aquesta aplicacion es ja installada e se pòt pas installar mai d’un còp."
+            },
+            "try_demo": "Ensajar la demonstracion",
+            "version": "Version actuala : {version}",
+            "license": "Licéncia : {license}"
+        },
+        "integration": {
+            "archs": "Arquitectura presa en carga :",
+            "multi_instance": {
+                "false": "Se pòt installar qu’un còp",
+                "true": "Se pòt installar mai d’un còp"
+            },
+            "sso": {
+                "false": "L’autentificacion unica (SSO) es pas disponibla",
+                "true": "L’autentificacion unica (SSO) es disponibla",
+                "?": "Cap d’informacion tocant l’autentificacion unica (SSO)"
+            },
+            "title": "Integracion amb YunoHost"
+        },
+        "links": {
+            "website": "Site oficial",
+            "license": "Licéncia",
+            "admindoc": "Documentacion d’administracion oficiala",
+            "code": "Depaus oficial del còdi",
+            "package": "Depaus dels paquets de YunoHost",
+            "title": "Ligams"
+        },
+        "installed_version": "Version installada :",
+        "open_this_app": "Dobrir l’aplicacion",
+        "antifeatures": "Aquesta aplicacion a de foncionalitats que vos agradaràn benlèu pas :",
+        "doc": {
+            "about": {
+                "title": "A prepaus",
+                "description": "Descripcion"
+            },
+            "admin": {
+                "title": "Documentacion admin"
+            },
+            "notifications": {
+                "dismiss": "Ignorar",
+                "title": "Notificacions",
+                "post_upgrade": "Nòtas post mesa a nivèl",
+                "post_install": "Nòtas post installacion"
+            }
+        },
+        "upgrade": {
+            "confirm": {
+                "title": "Confirmatz las mesas a novèl de las aplicacions"
+            },
+            "continue": "Passar a l’aplicacion seguenta",
+            "notifs": {
+                "pre": {
+                    "title": "Siatz avisat !"
+                }
+            },
+            "stop": "Anullar las mesas a jorn d’aplicacion venentas"
+        }
+    },
+    "app_state_broken_explanation": "Aquesta aplicacion es actualament copada e se pòt pas installar segon los contraròtles automatic de YunoHost",
+    "app_state_broken": "copada"
 }

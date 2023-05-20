@@ -632,7 +632,9 @@
         },
         "info": {
             "forum": "Szukaj lub zapytaj na forum!",
-            "problem": "Wystąpił problem z aplikacją?"
+            "problem": "Wystąpił problem z aplikacją?",
+            "config_panel_error_please_report": "Proszę zgłoś ten błąd do zespołu YunoHost, aby mogli go naprawić!",
+            "config_panel_error": "Błąd uniemożliwia wyświetlenie panelu konfiguracyjnego:"
         },
         "integration": {
             "sso": {
