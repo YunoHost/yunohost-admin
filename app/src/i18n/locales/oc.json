@@ -588,6 +588,20 @@
                 "post_upgrade": "Nòtas post mesa a nivèl",
                 "post_install": "Nòtas post installacion"
             }
+        },
+        "upgrade": {
+            "confirm": {
+                "title": "Confirmatz las mesas a novèl de las aplicacions"
+            },
+            "continue": "Passar a l’aplicacion seguenta",
+            "notifs": {
+                "pre": {
+                    "title": "Siatz avisat !"
+                }
+            },
+            "stop": "Anullar las mesas a jorn d’aplicacion venentas"
         }
-    }
+    },
+    "app_state_broken_explanation": "Aquesta aplicacion es actualament copada e se pòt pas installar segon los contraròtles automatic de YunoHost",
+    "app_state_broken": "copada"
 }
