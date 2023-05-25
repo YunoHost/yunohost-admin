@@ -626,7 +626,7 @@
                 "title": "Documentation de l'administrateur"
             },
             "notifications": {
-                "dismiss": "Rejeter/Annuler",
+                "dismiss": "Fermer ce message d'information",
                 "title": "Notifications",
                 "post_upgrade": "Remarques suite à la mise à niveau",
                 "post_install": "Remarques suite à l'installation"
