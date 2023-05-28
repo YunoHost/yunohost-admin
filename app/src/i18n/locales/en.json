@@ -67,7 +67,7 @@
           "title": "Admin doc"
         },
         "notifications": {
-          "dismiss": "Dismiss",
+          "understood": "Understood",
           "title": "Notifications",
           "post_upgrade": "Post-upgrade notes",
           "post_install": "Post-install notes"

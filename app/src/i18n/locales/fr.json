@@ -501,7 +501,7 @@
             "change_url": "Modifier l'URL d'accès de '{name}'",
             "change_label": "Changer le libellé de '{prevName}' par '{nextName}'",
             "action_config": "Exécuter l'action '{action}' de configuration de l'application '{name}'",
-            "dismiss_notification": "Notification de rejet pour '{name}'"
+            "dismiss_notification": "Congédier la notification pour '{name}'"
         },
         "reconnecting": "Reconnexion",
         "settings": {
@@ -626,7 +626,7 @@
                 "title": "Documentation de l'administrateur"
             },
             "notifications": {
-                "dismiss": "Rejeter/Annuler",
+                "understood": "Compris",
                 "title": "Notifications",
                 "post_upgrade": "Remarques suite à la mise à niveau",
                 "post_install": "Remarques suite à l'installation"

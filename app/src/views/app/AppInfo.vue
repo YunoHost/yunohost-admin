@@ -13,7 +13,7 @@
           @click="dismissNotification('post_install')"
         >
           <icon iname="check" />
-          {{ $t('app.doc.notifications.dismiss') }}
+          {{ $t('app.doc.notifications.understood') }}
         </b-button>
       </div>
 
@@ -33,7 +33,7 @@
           @click="dismissNotification('post_upgrade')"
         >
           <icon iname="check" />
-          {{ $t('app.doc.notifications.dismiss') }}
+          {{ $t('app.doc.notifications.understood') }}
         </b-button>
       </div>
 
