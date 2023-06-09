@@ -3,6 +3,8 @@
   <b-card-body>
     <b-card-title class="text-center mt-4" v-t="hasMessages ? 'api.processing' : 'api_waiting'" />
 
+    <p v-if="request.external" v-t="'api.external_action'" />
+
     <!-- PROGRESS BAR -->
     <b-progress
       v-if="progress" class="my-4"

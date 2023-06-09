@@ -85,12 +85,9 @@ export default {
     humanKey = null,
     { wait = true, websocket = true, initial = false, asFormData = false } = {}
   ) {
+    // FIXME remove websocket mentions
     // `await` because Vuex actions returns promises by default.
     const request = await store.dispatch('INIT_REQUEST', { method, uri, humanKey, initial, wait, websocket })
-
-    if (websocket) {
-      await openWebSocket(request)
-    }
 
     let options = this.options
     if (method === 'GET') {

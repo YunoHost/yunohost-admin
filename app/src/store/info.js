@@ -2,6 +2,7 @@ import Vue from 'vue'
 import router from '@/router'
 import i18n from '@/i18n'
 import api from '@/api'
+import { connectSSE } from '@/api/handlers'
 import { timeout, isEmptyValue, isObjectLiteral } from '@/helpers/commons'
 
 export default {
@@ -122,6 +123,7 @@ export default {
 
     'CONNECT' ({ commit, dispatch }) {
       commit('SET_CONNECTED', true)
+      connectSSE()
       dispatch('GET_YUNOHOST_INFOS')
     },
 
@@ -170,9 +172,21 @@ export default {
       const { key, ...args } = isObjectLiteral(humanKey) ? humanKey : { key: humanKey }
       const humanRoute = key ? i18n.t('human_routes.' + key, args) : `[${method}] /${uri}`
 
-      let request = { method, uri, humanRouteKey: key, humanRoute, initial, status: 'pending' }
+      let request = {
+        method,
+        uri,
+        humanRouteKey: key,
+        humanRoute,
+        initial,
+        status: 'pending',
+        messages: [],
+        date: Date.now(),
+        operation_id: null, // will be given on sse start if request is an action
+        warnings: 0,
+        errors: 0,
+        external: false
+      }
       if (websocket) {
-        request = { ...request, messages: [], date: Date.now(), warnings: 0, errors: 0 }
         commit('ADD_HISTORY_ACTION', request)
       }
       commit('ADD_REQUEST', request)
@@ -197,6 +211,7 @@ export default {
       if (success && (request.warnings || request.errors)) {
         const messages = request.messages
         if (messages.length && messages[messages.length - 1].color === 'warning') {
+          // request ends up with a warning, display it as a modal
           request.showWarningMessage = true
         }
         status = 'warning'
@@ -211,10 +226,47 @@ export default {
       }
     },
 
-    'DISPATCH_MESSAGE' ({ state, commit, dispatch }, { request, messages }) {
-      for (const type in messages) {
+    'START_EXTERNAL_ACTION' ({ state, commit, dispatch }, { timestamp, operationId }) {
+      // Action triggered by another client/cli
+      const action = {
+        status: 'pending',
+        messages: [],
+        date: timestamp,
+        operationId,
+        warnings: 0,
+        errors: 0,
+        external: true
+      }
+      commit('ADD_HISTORY_ACTION', action)
+      setTimeout(() => {
+        // Display the waiting modal only if the request takes some time.
+        if (action.status === 'pending') {
+          commit('SET_WAITING', true)
+        }
+      }, 400)
+
+      return action
+    },
+
+    async 'ON_SSE_MESSAGE' ({ state, commit, dispatch }, data) {
+      let action = state.history.findLast((action) => action.operationId === data.operation_id)
+      if (!action) {
+        action = await dispatch('START_EXTERNAL_ACTION', { operationId: data.operation_id, timestamp: data.timestamp })
+      }
+
+      if (data.type === 'start') {
+        if (!action.external) {
+          commit('UPDATE_REQUEST', { request: action, key: 'operationId', value: data.operation_id })
+        }
+      } else if (data.type === 'end') {
+        // End request on this last message if the action was external (else default http response will end it)
+        if (action.external) {
+          dispatch('END_REQUEST', { request: action, success: data.success, wait: true })
+        }
+      } else {
+        const type = data.level.toLowerCase()
         const message = {
-          text: messages[type].replaceAll('\n', '<br>'),
+          text: data.msg.replaceAll('\n', '<br>'),
           color: type === 'error' ? 'danger' : type
         }
         let progressBar = message.text.match(/^\[#*\+*\.*\] > /)
@@ -225,17 +277,18 @@ export default {
           for (const char of progressBar) {
             if (char in progress) progress[char] += 1
           }
-          commit('UPDATE_REQUEST', { request, key: 'progress', value: Object.values(progress) })
+          Vue.set(action, 'progress', Object.values(progress))
         }
         if (message.text) {
           // To avoid rendering lag issues, limit the flow of websocket messages to batches of 50ms.
           if (state.historyTimer === null) {
             state.historyTimer = setTimeout(() => {
-              commit('UPDATE_DISPLAYED_MESSAGES', { request })
+              commit('UPDATE_DISPLAYED_MESSAGES', { request: action })
             }, 50)
           }
-          commit('ADD_TEMP_MESSAGE', { request, message, type })
+          commit('ADD_TEMP_MESSAGE', { request: action, message, type })
         }
+        action.messages.push(message)
       }
     },
 
@@ -358,8 +411,7 @@ export default {
     history: state => state.history,
     lastAction: state => state.history[state.history.length - 1],
     currentRequest: state => {
-      const request = state.requests.find(({ status }) => status === 'pending')
-      return request || state.requests[state.requests.length - 1]
+      return state.history.findLast(({ status }) => status === 'pending')
     },
     routerKey: state => state.routerKey,
     breadcrumb: state => state.breadcrumb,

@@ -46,6 +46,17 @@ export function openWebSocket (request) {
   })
 }
 
+export function connectSSE () {
+  const host = store.getters.host.split(':')[0]
+  const evtSource = new EventSource(`https://${host}/yunohost/api/sse`)
+
+  evtSource.onmessage = (event) => {
+    store.dispatch('ON_SSE_MESSAGE', JSON.parse(atob(event.data)))
+  }
+
+  // FIXME handle 'onerror' hook
+}
+
 
 /**
  * Handler for API errors.
