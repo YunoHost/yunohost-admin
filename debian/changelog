@@ -1,3 +1,12 @@
+yunohost-admin (11.1.10) stable; urgency=low
+
+  - apps: Funky 'dismiss' button for app notification ... let's go for 'understood' instead ... (a3558f54)
+  - i18n: Translations updated for Basque, French, Galician, Indonesian, Occitan, Polish, Russian, Slovak, Ukrainian
+
+  Thanks to all contributors <3 ! (Grzegorz Cichocki, Ilya, José M, Jose Riha, Neko Nekowazarashi, ppr, Quentí, Tymofii-Lytvynenko, xabirequejo)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Sun, 11 Jun 2023 19:43:52 +0200
+
 yunohost-admin (11.1.9.4) stable; urgency=low
 
   - debian: remove npm from build-depends because it's part of nodejs installed from nodesource... (b619cc5a)
