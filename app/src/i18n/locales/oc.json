@@ -157,7 +157,7 @@
     "user_username": "Nom d’utilizaire",
     "users": "Utilizaires",
     "users_new": "Nòu utilizaire",
-    "domain_dns_conf_is_just_a_recommendation": "Aquesta pagina mòstra la configuracion *recomandada*. Configura *pas* lo DNS per vos. Es vòstra responsabilitat la configuracion de la zòna DNS en çò vòstre registrar DNS amb aquesta recomandacion.",
+    "domain_dns_conf_is_just_a_recommendation": "Aquesta seccion mòstra la configuracion *recomandada*. Configura *pas* lo DNS per vos. Es vòstra responsabilitat la configuracion de la zòna DNS en çò vòstre registrar DNS amb aquesta recomandacion.",
     "postinstall_domain": "Aquò es lo primièr nom de domeni ligat al servidor YunoHost, mas tanben lo que servirà al portanèl d’identificacion. Serà doncas visible per totes los utilizaires, causissètz-lo amb suènh.",
     "postinstall_intro_2": "Doas etapas mai son necessàrias per activar lo servidor.",
     "postinstall_intro_3": "Podètz trapar mai d’informacion en anar a <a href='//yunohost.org/en/install/hardware:vps_debian#fa-cog-proceed-with-the-initial-configuration' target='_blank'> la pagina de documentacion en question</a>",
@@ -228,7 +228,7 @@
     "group_new": "Nòu grop",
     "group_explain_all_users": "Aquò es un grop especial que conten totes los comptes d’utilizaires del servidor",
     "group_explain_visitors": "Aquò es un grop especial que representa los visitaires anonims",
-    "group_specific_permissions": "Permissions especificas de l’utilizaire",
+    "group_specific_permissions": "Permissions per utilizaires individuals",
     "groups_and_permissions": "Grops e permissions",
     "groups_and_permissions_manage": "Gerir los grops e las permissions",
     "ignore": "Ignorar",
@@ -509,7 +509,31 @@
             "push_force": "Espotir los enregistraments existents",
             "push_force_warning": "Sembla que d’unes enregistrament DNS que YunoHost auriá definit sián ja dins la configuracion del registrar. Podètz utilizar l’opcion d’espotiment se sabètz çò que fasètz.",
             "push_force_confirm": "Volètz vertadièrament forçar totes los enregistraments DNS sugerits ?Vos cal saber qu’aquò pòt espotir manualament los enregistraments importants per defaut per vos o vòstre registrar.",
-            "info": "La configuracion automatica dels enregistraments DNS es una foncionalitats experimentala. <br>Pensatz de salvagardar vòstra zòna DNS actuala a partir de l’interfàcia de vòstre registrar DNS abans de transferir los enregistraments a partir d’aquí."
+            "info": "La configuracion automatica dels enregistraments DNS es una foncionalitats experimentala. <br>Pensatz de salvagardar vòstra zòna DNS actuala a partir de l’interfàcia de vòstre registrar DNS abans de transferir los enregistraments a partir d’aquí.",
+            "methods": {
+                "manual": "Manual",
+                "none": "Cap",
+                "semi_auto": "Semiautomatic",
+                "auto": "Automatic",
+                "handled_in_parent": "Gerit dins lo domeni parent"
+            }
+        },
+        "info": {
+            "certificate_authority": "Autoritat de certificacion SSL",
+            "apps_on_domain": "Aplicacions installada sul domeni"
+        },
+        "see_parent_domain": "Veire lo domeni parent",
+        "toggle_subdomains": "Veire los jos domenis",
+        "cert": {
+            "types": {
+                "letsencrypt": "Let's Encrypt",
+                "other": "Autre/Desconegut",
+                "selfsigned": "Auto-signat"
+            },
+            "valid_for": "valable pendent {days}"
+        },
+        "types": {
+            "main_domain": "Domeni màger"
         }
     },
     "users_import": "Importar los utilizaires",
@@ -539,12 +563,20 @@
             "notifs": {
                 "pre": {
                     "critical": "Se pòt installar l’aplicacion",
-                    "warning": "Çò que cal saber abans l’installacion"
+                    "warning": "Çò que cal saber abans l’installacion",
+                    "danger": "L’installacion de l’aplicacion menarà plan probablament a de problèmas"
+                },
+                "post": {
+                    "title": "Notificacion de post-installacion per « {name} »",
+                    "alert": "Sembla que l’installacion se siá plan passada !\n Vaquí d’unas notificacion que lo responsable del paquet considèra coma importantas de saber.\nLas podètz tornar trapar dins la pagina d’informacions de l’aplicacion."
                 }
             },
             "problems": {
                 "ignore": "Compreni qu’aquesta installacion pòt copar mon sistèma mas vòli ensajar ça que la.",
-                "install": "Aquesta aplicacion es ja installada e se pòt pas installar mai d’un còp."
+                "install": "Aquesta aplicacion es ja installada e se pòt pas installar mai d’un còp.",
+                "arch": "Se pòt sonque installar aquesta aplicacion sus d’arquitectura especificas ({required}). L’arquitectura de vòstre servidor es {current}.",
+                "broken": "Aquesta aplicacion es copada segon los tests automatics de YunoHost e es susceptibla de copar vòstre sistèma ! Deuriatz probablament PAS l’installar levat se sabètz çò que fasètz.",
+                "thirdparty": "Aquesta aplicacion fa pas part del catalòg oficial de YunoHost, l’installacion d’aplicacions tèrças pòt comprometre l’integritat e la seguretat de vòstre sistèma. Deuriatz probablament PAS l’installar levar se sabètz çò que fasètz."
             },
             "try_demo": "Ensajar la demonstracion",
             "version": "Version actuala : {version}",
@@ -561,7 +593,13 @@
                 "true": "L’autentificacion unica (SSO) es disponibla",
                 "?": "Cap d’informacion tocant l’autentificacion unica (SSO)"
             },
-            "title": "Integracion amb YunoHost"
+            "title": "Integracion amb YunoHost",
+            "ldap": {
+                "false": "Permet pas d’utilizar los compte YunoHost per se connectar (LDAP)",
+                "true": "Utilizar los comptes YunoHost per se connectar (LDAP)",
+                "?": "Cap d’informacion tocant l’integracion LDAP"
+            },
+            "resources": "Utilizacion classica de las ressorsas : {ram} RAM, {disk} disc"
         },
         "links": {
             "website": "Site oficial",
@@ -569,7 +607,9 @@
             "admindoc": "Documentacion d’administracion oficiala",
             "code": "Depaus oficial del còdi",
             "package": "Depaus dels paquets de YunoHost",
-            "title": "Ligams"
+            "title": "Ligams",
+            "userdoc": "Documentacion utilizaire oficiala",
+            "forum": "Subjèctes tocant aquesta aplicacion sul forum de YunoHost"
         },
         "installed_version": "Version installada :",
         "open_this_app": "Dobrir l’aplicacion",
@@ -591,17 +631,24 @@
         },
         "upgrade": {
             "confirm": {
-                "title": "Confirmatz las mesas a novèl de las aplicacions"
+                "title": "Confirmatz las mesas a novèl de las aplicacions",
+                "apps": "Aplicacions que seràn mesas a nivèl"
             },
             "continue": "Passar a l’aplicacion seguenta",
             "notifs": {
                 "pre": {
                     "title": "Siatz avisat !"
+                },
+                "post": {
+                    "title": "Notificacion de post mesa a nivèl per « {name} »"
                 }
             },
             "stop": "Anullar las mesas a jorn d’aplicacion venentas"
-        }
+        },
+        "potential_alternative_to": "Alternativa potenciala a :"
     },
     "app_state_broken_explanation": "Aquesta aplicacion es actualament copada e se pòt pas installar segon los contraròtles automatic de YunoHost",
-    "app_state_broken": "copada"
+    "app_state_broken": "copada",
+    "details_about": "Mostrar mai de detalhs tocant {subject}",
+    "group_admins": "Admins"
 }

@@ -26,7 +26,7 @@
         "partial_logs": "[...] (ikuskatu historia erregistro osoetarako)",
         "reconnecting": {
             "title": "Zerbitzariarekin komunikatzeko ahaleginetan…",
-            "failed": "Badirudi zerbitzaria ez dela erantzuten ari. Berriro saia zaitezke konektatzen ssh bidez `systemctl restart yunohost-api` exekutatuz.",
+            "failed": "Badirudi zerbitzaria ez dela erantzuten ari. SSH bidez berriro konektatzen saia zaitezke `systemctl restart yunohost-api` exekutatuz.",
             "reason": {
                 "unknown": "Itxi da komunikazioa zerbitzariarekin, ez da zergatia ezagutzen.",
                 "reboot": "Zerbitzaria berrabiarazten ari da eta ez da erabilgarri egongo tarte batez. Saioa hasteko galdegingo zaizu zerbitzaria berriro ere erabilgarri dagoenean.",

@@ -626,6 +626,7 @@
                 "title": "Documentation de l'administrateur"
             },
             "notifications": {
+                "dismiss": "Fermer ce message d'information",
                 "understood": "Compris",
                 "title": "Notifications",
                 "post_upgrade": "Remarques suite à la mise à niveau",
