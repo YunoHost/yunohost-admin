@@ -4,7 +4,7 @@
  */
 
 import store from '@/store'
-import { openWebSocket, getResponseData, handleError } from './handlers'
+import { getResponseData, handleError } from './handlers'
 
 
 /**

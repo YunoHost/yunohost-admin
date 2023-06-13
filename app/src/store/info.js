@@ -2,13 +2,13 @@ import Vue from 'vue'
 import router from '@/router'
 import i18n from '@/i18n'
 import api from '@/api'
-import { connectSSE } from '@/api/handlers'
 import { timeout, isEmptyValue, isObjectLiteral } from '@/helpers/commons'
 
 export default {
   state: {
     host: window.location.host, // String
     connected: localStorage.getItem('connected') === 'true', // Boolean
+    sse: null, // EventSource
     yunohost: null, // Object { version, repo }
     waiting: false, // Boolean
     reconnecting: null, // null|Object { attemps, delay, initialDelay }
@@ -26,6 +26,17 @@ export default {
     'SET_CONNECTED' (state, boolean) {
       localStorage.setItem('connected', boolean)
       state.connected = boolean
+    },
+
+    'SET_SSE_SOURCE' (state, sse) {
+      state.sse = sse
+    },
+
+    'CLOSE_SSE_SOURCE' (state) {
+      if (state.sse) {
+        state.sse.close()
+        state.sse = null
+      }
     },
 
     'SET_YUNOHOST_INFOS' (state, yunohost) {
@@ -123,13 +134,30 @@ export default {
 
     'CONNECT' ({ commit, dispatch }) {
       commit('SET_CONNECTED', true)
-      connectSSE()
       dispatch('GET_YUNOHOST_INFOS')
+      dispatch('SSE_CONNECT')
+    },
+
+    'SSE_CONNECT' ({ commit, dispatch }) {
+      const sse = new EventSource(`/yunohost/api/sse`, { withCredentials: true })
+
+      sse.onopen = () => {
+        commit('SET_SSE_SOURCE', sse)
+        console.log('connected')
+      };
+
+      sse.onmessage = (event) => {
+        dispatch('ON_SSE_MESSAGE', JSON.parse(atob(event.data)))
+      }
+
+      // sse.onerror = (event) => {
+      // }
     },
 
     'RESET_CONNECTED' ({ commit }) {
       commit('SET_CONNECTED', false)
       commit('SET_YUNOHOST_INFOS', null)
+      commit('CLOSE_SSE_SOURCE')
     },
 
     'DISCONNECT' ({ dispatch }, route = router.currentRoute) {
@@ -249,7 +277,13 @@ export default {
     },
 
     async 'ON_SSE_MESSAGE' ({ state, commit, dispatch }, data) {
-      let action = state.history.findLast((action) => action.operationId === data.operation_id)
+      let action
+      if (data.type === 'start') {
+        action = state.requests.findLast((request) => request.status === 'pending')
+      } else {
+        action = state.history.findLast((action) => action.operationId === data.operation_id)
+      }
+
       if (!action) {
         action = await dispatch('START_EXTERNAL_ACTION', { operationId: data.operation_id, timestamp: data.timestamp })
       }
@@ -288,7 +322,6 @@ export default {
           }
           commit('ADD_TEMP_MESSAGE', { request: action, message, type })
         }
-        action.messages.push(message)
       }
     },
 

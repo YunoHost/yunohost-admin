@@ -25,40 +25,6 @@ export async function getResponseData (response) {
 
 
 /**
- * Opens a WebSocket connection to the server in case it sends messages.
- * Currently, the connection is closed by the server right after an API call so
- * we have to open it for every calls.
- * Messages are dispatch to the store so it can handle them.
- *
- * @param {Object} request - Request info data.
- * @return {Promise<Event>} Promise that resolve on websocket 'open' or 'error' event.
- */
-export function openWebSocket (request) {
-  return new Promise(resolve => {
-    const ws = new WebSocket(`wss://${store.getters.host}/yunohost/api/messages`)
-    ws.onmessage = ({ data }) => {
-      store.dispatch('DISPATCH_MESSAGE', { request, messages: JSON.parse(data) })
-    }
-    // ws.onclose = (e) => {}
-    ws.onopen = resolve
-    // Resolve also on error so the actual fetch may be called.
-    ws.onerror = resolve
-  })
-}
-
-export function connectSSE () {
-  const host = store.getters.host.split(':')[0]
-  const evtSource = new EventSource(`https://${host}/yunohost/api/sse`)
-
-  evtSource.onmessage = (event) => {
-    store.dispatch('ON_SSE_MESSAGE', JSON.parse(atob(event.data)))
-  }
-
-  // FIXME handle 'onerror' hook
-}
-
-
-/**
  * Handler for API errors.
  *
  * @param {Object} request - Request info data.
