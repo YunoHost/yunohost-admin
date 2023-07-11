@@ -307,7 +307,13 @@
         "emailForward": "不正な電子メール転送: 小文字の英数字、<code>_.-</code> である必要があります (例: someone+tag@example.com, s0me-1+tag@example.com)",
         "pattern": "{type}",
         "remote": "{mesage}",
-        "required": "フィールドは必要です。"
+        "required": "フィールドは必要です。",
+        "appRepoUrl": "YunoHostアプリリポジトリのURLは次のようになります https://domain.tld/path/to/repo_ynh",
+        "name": "名前に次の特殊文字を含めることはできません。 <code> ,.'-</code>",
+        "notInUsers": "ユーザー '{value}' は既に存在します。",
+        "passwordLenght": "パスワードは最低8文字必要です。",
+        "passwordMatch": "パスワードが一致しません。",
+        "number": "値は数値でなければなりません。"
     },
     "group": "グループ",
     "group_admins": "管理者",
@@ -338,7 +344,8 @@
             "delete": "ドメイン ‘{name}’ を削除する",
             "push_dns_changes": "‘{name}’ DNSレコードを登録する",
             "set_default": "‘{name}’ をデフォルトドメインに設定",
-            "add": "ドメイン ‘{name}’ を追加する"
+            "add": "ドメイン ‘{name}’ を追加する",
+            "update_config": "ドメイン ’{name}’ の設定パネル ’{id}’ を更新"
         },
         "migrations": {
             "run": "移行を実行する",
@@ -389,7 +396,20 @@
             "create": "ユーザー ‘{name}’ を作成する",
             "delete": "ユーザー ‘{name}’ を削除する",
             "update": "ユーザー ‘{name}’ を更新する"
-        }
+        },
+        "firewall": {
+            "ports": "{action} ポート {port} ({protocol}, {connection})",
+            "upnp": "{action} UPnP"
+        },
+        "permissions": {
+            "add": "'{name}' に '{perm}' アクセスを許可する",
+            "remove": "'{name}' の '{perm}' アクセス許可を剥奪する"
+        },
+        "postinstall": "ポストインストールを実行する",
+        "settings": {
+            "update": "'{panel}' のグローバル設定を更新する"
+        },
+        "share_logs": "ログ '{name}' へのリンクを生成する"
     },
     "ignore": "無視",
     "infos": "情報",
@@ -411,7 +431,7 @@
     "myserver": "マイサーバー",
     "next": "次",
     "no": "No",
-    "nobody": "Nobody",
+    "nobody": "無人",
     "ok": "OK",
     "open": "開く",
     "operations": "操作",
@@ -456,7 +476,9 @@
         "fallback_language": "フォールバック言語",
         "fallback_language_description": "主言語が利用できない際に使用される言語です。",
         "theme": "ダークモード切り替え",
-        "transitions": "ページ推移アニメーション"
+        "transitions": "ページ推移アニメーション",
+        "cache_description": "この Web 管理画面を使いながら CLI 操作をする場合は、キャッシュを無効にすることを検討してください。",
+        "experimental_description": "実験的な機能にアクセスできます。これらは不安定であると見なされ、システムを壊す可能性があります。<br> 自分が何をしているかがわかっている場合にのみ有効にしてください。"
     },
     "traceback": "トレースバック",
     "udp": "UDP",
@@ -476,7 +498,7 @@
         "valid": "有効",
         "browse": "参照"
     },
-    "yes": "Yes",
+    "yes": "はい",
     "api_not_found": "Web管理者が存在しない何かを検索したようです。",
     "app_choose_category": "カテゴリーを選択する",
     "app_info_access_desc": "現在このアプリへアクセスが許可されている グループ / ユーザー:",
@@ -601,5 +623,63 @@
     "users_import_update": "既存のユーザーを更新する",
     "users_import_update_desc": "チェックを入れた場合、CSVファイルに入っている全てのユーザー情報が新しい値に更新されます",
     "users_new": "新しいユーザー",
-    "users_no": "ユーザーがいません。"
+    "users_no": "ユーザーがいません。",
+    "domain_dns_push_managed_in_parent_domain": "自動 DNS レコード機能は、親ドメイン <a href='#/domains/{parent_domain}/dns'>{parent_domain}</a>で管理されます。",
+    "domain_dns_push_not_applicable": "自動DNSレコード機能はドメイン {domain}には適用されません。<br> 以下の <a href='https://yunohost.org/dns'>ドキュメント</a> と推奨される構成に従って、DNS レコードを手動で構成する必要があります。",
+    "error_connection_interrupted": "サーバーは接続に応答する代わりに接続を閉じました。nginxまたはyunohost-apiが何らかの理由で再起動または停止されていませんか?",
+    "hook_data_xmpp_desc": "ルームとユーザーの設定、ファイルのアップロード",
+    "important_yunohost_upgrade": "YunoHostのメジャーアップグレードが利用可能です。アップグレードする前に、フォーラムのリリースノートを注意深く読むことを強くお勧めします: フォーラムの<a href='https://forum.yunohost.org/tag/ynh_release'>リリースノートを閲覧</a>",
+    "items": {
+        "apps": "アプリなし | アプリ | {c} 個のアプリ",
+        "backups": "バックアップなし | バックアップ | {c} 個のバックアップ",
+        "domains": "ドメインなし | ドメイン | {c} 個のドメイン",
+        "groups": "グループなし | グループ | {c} 個のグループ",
+        "installed_apps": "インストール済アプリなし | インストール済アプリ | {c} 個のインストール済アプリ",
+        "logs": "ログなし | ログ | {c} 個のログ",
+        "permissions": "権限なし | 権限 | {c} 個の権限",
+        "services": "サービスなし | サービス | {c} 個のサービス",
+        "users": "ユーザーなし | ユーザー | {c} 人のユーザー"
+    },
+    "mailbox_quota_description": "メールのストレージサイズ制限を設定します。<br>無効にするには 0 を設定します。",
+    "perform": "実行する",
+    "permission_corresponding_url": "対応する URL",
+    "postinstall": {
+        "force": "インストール後処理の強制",
+        "title": "インストール後処理",
+        "user": {
+            "first_user_help": "このユーザーには管理者権限が付与され、この管理インターフェイスへの接続と、SSH 経由でサーバーへの直接接続が許可されます。\n通常のユーザーであるため、資格情報を使用してユーザーポータル(SSO)に接続することもできます。\nインストール後処理が完了すると、他のユーザーを「admins」グループに追加することで管理者ユーザーを作成できるようになります。",
+            "title": "最初の管理者ユーザーを作成する"
+        }
+    },
+    "postinstall_intro_1": "やりました！YunoHostは正常にインストールされました。",
+    "postinstall_intro_2": "サーバーのサービスを有効化するには、さらに 2 つの設定手順が必要です。",
+    "search": {
+        "for": "{items}について検索...",
+        "not_found": "条件に合致する {items} が存在する。 | 条件に合致する1つの {items} が存在する。 | 条件に合致する {items} が存在する。"
+    },
+    "since": "から",
+    "text_selection_is_disabled": "テキスト選択は無効です。このログを共有したい場合は、[Yunopasteで共有]ボタンで *フル*ログ を共有してください。<br/><small>または、本当にテキストを選択したい場合は、次のキーを押します:↓↓↑↑。</small>",
+    "tip_about_user_email": "ユーザーは、username@domain.tld 形式の関連付けられた電子メール アドレス (および XMPP アカウント) を使用して作成されます。追加のメール エイリアスとメール転送については、管理者とユーザーの両方が後から追加できます。",
+    "unauthorized": "許可されていないアクセス",
+    "users_import_confirm_destructive": "このファイルに存在しないユーザーを削除してもよろしいですか?",
+    "users_import_csv_file_desc": "CSV ファイルは UTF-8 でエンコードされており、username, password, groups, email, quota の列が含まれている必要があります。よくわからない場合、一旦 <a href='/yunohost/api/users/export' target='_BLANK'>ユーザーを CSV ファイルにエクスポート</a> し、そのファイルを変更してください。",
+    "experimental_warning": "警告:この機能は実験的なものであり、安定しているとは見なされないため、自分が何をしているのかを知っている場合を除いて、使用しないでください。",
+    "good_practices_about_admin_password": "新しい管理者パスワードを設定しようとしています。パスワードは少なくとも8文字である必要がありますが、より長いパスワード(パスフレーズなど)を使用したり、さまざまな種類の文字(大文字、小文字、数字、特殊文字)を使用したりすることをお勧めします。",
+    "good_practices_about_user_password": "新しいユーザー・パスワードを定義しようとしています。パスワードは少なくとも8文字である必要がありますが、より長いパスワード(パスフレーズなど)を使用したり、さまざまな種類の文字(大文字、小文字、数字、特殊文字)を使用したりすることをお勧めします。",
+    "group_explain_all_users": "これは、サーバー上のすべてのユーザー アカウントを含む特別なグループです",
+    "group_explain_visitors": "これは匿名の訪問者を代表する特別なグループです",
+    "group_explain_visitors_needed_for_external_client": "一部のアプリケーションを外部クライアントで使用する場合は、訪問者に許可しておく必要があることに注意してください。たとえば、スマートフォンまたはデスクトップコンピューターで同期クライアントを使用する場合、Nextcloudの場合がこれに当てはまります。",
+    "group_format_name_help": "英数字の文字とアンダースコアを使用できます",
+    "items_verbose_count": "存在する {items}. | 存在する 1つの {items}. | 存在する {items}.",
+    "items_verbose_items_left": "{items} 個残っている。 | 1個の {items} が残っている。 | {items} が残っている。",
+    "label_for_manifestname_help": "これはユーザーポータルに表示される名前です。後で変更できます。",
+    "operation_failed_explanation": "この操作は失敗しました。本当に申し訳ありません :( あなたは <a href='https://yunohost.org/help'>ヘルプ</a>を試すことができます。あなたを助けてくれる人々に、操作の*完全なログ*を提供してください。これを行うには、[Yunopasteで共有] と書かれた緑色のボタンをクリックします。ログを共有する場合、YunoHostは自動的にドメイン名やIPなどの個人データの匿名化を試みます。",
+    "orphaned_details": "このアプリはかなり長い間メンテナンスされていません。まだ機能しているかもしれませんが、誰かがそれをメンテナンスと言い始めるまで、アップグレードを受け取りません。このアプリを復活させるために力を貸してください!",
+    "pending_migrations": "実行を待機している保留中の移行がいくつかあります。<a href='#/tools/migrations'>ツール > 移行</a> に移動して、移行を実行してください。",
+    "postinstall_domain": "これは、YunoHostサーバーにリンクされた最初のドメイン名ですが、サーバーのユーザーが認証ポータルにアクセスするために使用するドメイン名でもあります。したがって、誰にでも見えるものになりますので、慎重に選択してください。",
+    "postinstall_set_domain": "メインドメインの設定",
+    "purge_user_data_checkbox": "{name}のデータをパージ(削除)しますか?(これにより、ホームディレクトリとメールディレクトリの内容が削除されます)",
+    "purge_user_data_warning": "ユーザーのデータのパージ(削除)は一度行うと元に戻せません。自分が何をしようとしているのか、十分に理解してくださいね!",
+    "group_explain_admins": "これは管理者ユーザーに対応する特別なグループです。このグループのユーザーは、YunoHostのウェブ管理者にアクセスし、SSHでサーバーに接続し、「sudo」コマンドを使用できます。また、root@、admin@、admins@に送信された診断通知などの電子メールも受信します。このグループには、絶対に信頼できる人だけを追加する必要があります！",
+    "postinstall_intro_3": "詳細については、<a href='//yunohost.org/en/install/hardware:vps_debian#fa-cog-proceed-with-the-initial-configuration' target='_blank'>適切なドキュメントページ</a>を参照してください"
 }
