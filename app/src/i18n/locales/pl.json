@@ -151,7 +151,7 @@
             "auto_config_ok": "Automatyczna konfiguracja prawdopodobnie jest OK!",
             "edit": "Edytuj konfiguracje DNS",
             "auto_config_ignored": "pominięte, zmiany zostaną dokonane przy zaznaczeniu opcji nadpisywania",
-            "auto_config_zone": "Aktualna strefa DNS",
+            "auto_config_zone": "Aktualnie ustawione rekordy DNS",
             "info": "Funkcja automatycznego ustawiania wpisów DNS jest na razie eksperymentalna. <br>Rozważ zapisanie aktualnej strefy DNS poprzez interfejs od Twojego dostawcy przed dokonywaniem zmian.",
             "manual_config": "Proponowane wpisy DNS dla manualnej konfiguracji",
             "push": "Przekaż wpisy DNS do dostawcy",

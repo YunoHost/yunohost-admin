@@ -168,11 +168,11 @@
     "confirm_migrations_skip": "Migrationen zu überspringen wird nicht empfohlen. Sind Sie sicher, dass Sie das tun wollen?",
     "confirm_install_app_inprogress": "ACHTUNG! Diese Applikation ist noch experimentell (wenn nicht sogar nicht funktionsfähig) und es ist wahrscheinlich, dass sie Ihr System zerstört! Sie sollten sie besser NICHT installieren, es sei denn, Sie wissen, was Sie tun. Sind Sie bereit, dieses Risiko einzugehen?",
     "confirm_install_app_lowquality": "Warnung: Diese Applikation könnte funktionieren, ist aber nicht gut in YunoHost integriert. Einige Funktionen wie Single-Sign-On und Backup/Restore sind möglicherweise nicht verfügbar.",
-    "good_practices_about_admin_password": "Sie sind gerade dabei, ein neues Administratorenpasswort zu setzen. Das Passwort sollte mindestens 8 Zeichen lang sein - es ist jedoch empfehlenswert, ein längeres Passwort (z.B. eine Passphrase) und/oder verschiedene Arten von Zeichen (Groß- und Kleinschreibung, Ziffern und Sonderzeichen) zu verwenden.",
+    "good_practices_about_admin_password": "Sie sind gerade dabei, ein neues Administratorenpasswort zu setzen. Das Passwort sollte mindestens 8 Zeichen lang sein. Es ist jedoch empfehlenswert, ein längeres Passwort (z.B. eine Passphrase) und/oder verschiedene Arten von Zeichen (Groß- und Kleinschreibung, Ziffern und Sonderzeichen) zu verwenden.",
     "from_to": "von {0} nach {1}",
     "experimental_warning": "Achtung: Diese Funktion ist experimentell und gilt nicht als stabil, Sie sollten sie nicht verwenden, außer Sie wissen, was Sie tun.",
     "error_connection_interrupted": "Der Server hat die Verbindung geschlossen, anstatt sie zu beantworten. Wurde nginx oder die yunohost-api aus irgendeinem Grund neu gestartet oder gestoppt?",
-    "good_practices_about_user_password": "Sie werden nun ein neues Kontopasswort festlegen. Das Passwort sollte mindestens 8 Zeichen lang sein. Es ist jedoch empfehlenswert, ein längeres Passwort (d.h. eine Passphrase) und/oder verschiedene Arten von Zeichen (Groß- und Kleinschreibung, Ziffern und Sonderzeichen) zu verwenden.",
+    "good_practices_about_user_password": "Sie werden nun ein neues Konto- bzw. Benutzerpasswort festlegen. Das Passwort sollte mindestens 8 Zeichen lang sein. Es ist jedoch empfehlenswert, ein längeres Passwort (d.h. eine Passphrase) und/oder verschiedene Arten von Zeichen (Groß- und Kleinschreibung, Ziffern und Sonderzeichen) zu verwenden.",
     "license": "Lizenz",
     "only_highquality_apps": "Nur hochqualitative Apps",
     "only_decent_quality_apps": "Nur qualitativ hochwertige Apps",
@@ -503,7 +503,7 @@
         "title": "Post-Installation",
         "user": {
             "title": "Erstes Administratorkonto erstellen",
-            "first_user_help": "Diesem Benutzer werden Adminstratoren-Privilegien erteilt und es wird ihm erlaubt sein, sich mit dem Admin-Portal zu verbinden und auch sich direkt mit dem Server über SSH zu verbinden. \nWeil es ein regulärer Benutzer ist, werden Sie sich auch mit dem Benutzer-Portal (SSO) mit seinen Zugangsdaten verbinden können. Sobald die post-installation vollständig ist, werden Sie in der Lage sein, weitere Admin-Benutzer zu erstellen, indem Sie diese der 'admins'-Gruppe hinzufügen."
+            "first_user_help": "Diesem Benutzer werden Adminstratoren-Privilegien erteilt und es wird ihm erlaubt sein, sich mit dem Admin-Portal zu verbinden und auch sich direkt mit dem Server über SSH zu verbinden.\nWeil es ein regulärer Benutzer ist, werden Sie sich auch mit dem Benutzer-Portal (SSO) mit seinen Zugangsdaten verbinden können. \nSobald die post-installation vollständig ist, werden Sie in der Lage sein, weitere Admin-Benutzer zu erstellen, indem Sie diese der 'admins'-Gruppe hinzufügen."
         }
     },
     "hook_data_xmpp_desc": "Konfiguration für Räume und Konten, hochgeladene Dateien",
@@ -557,7 +557,7 @@
             "main_domain": "Die Hauptdomäne ist die Domäne, von welcher aus die Benutzer sich mit dem Portal verbinden können (via \"{domain}/yunohost/sso\"). <br>Darum ist es leider nicht möglich, sie zu entfernen.<br>Falls Sie \"{domain}\" entfernen möchten, werden sie vorher eine andere Domäne auswählen und als Hauptdomäne festlegen müssen."
         }
     },
-    "domain_dns_push_failed_to_authenticate": "Authentifizierung bei der API des Registrars nicht erfolgreich. Höchstwahrscheinlich sind die <a href='#/Domäne/{domain}/config'>Zugangsdaten</a> inkorrekt. (Fehler: {error})",
+    "domain_dns_push_failed_to_authenticate": "Die Authentifizierung an der API des Registrars war nicht erfolgreich. Höchstwahrscheinlich sind die <a href='#/domains/{domain}/config'>Zugangsdaten</a> falsch? (Fehler: {error})",
     "domain_dns_push_managed_in_parent_domain": "Die automatische DNS-Konfiguration wird von der übergeordneten Domäne <a href='#/domains/{parent_domain}/dns'>{parent_domain}</a> verwaltet.",
     "domain_dns_push_not_applicable": "Die automatische DNS-Konfiguration ist nicht auf die Domäne {domain} anwendbar. <br>Konfiguriere die DNS-Einträge, wie in der <a href='https://yunohost.org/dns'>Dokumentation<a href='https://yunohost.org/dns'> beschrieben, mit Hilfe der folgenden vorgeschlagenen Konfiguration manuell.",
     "users_import_delete_desc": "Wenn angewählt, werden alle Konten, die nicht in der CSV-Datei enthalten sind, gelöscht (und bereinigt).",
@@ -574,11 +574,11 @@
     "users_import_confirm_destructive": "Sind Sie sicher, dass Sie die Konten, die nicht in diesen Datei enthalten sind, löschen wollen?",
     "retry": "Wiederhole",
     "app_state_broken": "beschädigt",
-    "app_state_broken_explanation": "Diese Applikation ist zur Zeit fehlerhaft und kann gemäss automatisierter Tests von YunoHost nicht installiert werden.",
+    "app_state_broken_explanation": "Diese Applikation ist zur Zeit fehlerhaft und kann gemäss automatisierter Tests durch YunoHost nicht installiert werden",
     "details_about": "Mehr Details über {subject} anzeigen",
     "confirm_install_app_broken": "VORSICHT! Diese Applikation ist gemäss YunoHost's automatischen Test beschädigt und wird vermutlich ihr System beschädigen! Sie sollten sie vermutlich NICHT installieren, es sei denn, Sie wissen was Sie tun. Wollen Sie dieses Risiko wirklich eingehen?",
     "group_admins": "Administratoren",
-    "group_explain_admins": "Dies ist eine spezielle Gruppe, welche zu den Administratoren-Benutzern gehört. Benutzer in dieser Gruppe besitzen, um es einfach zu halten, alle Berechtigungen auf dem Server (verändern, erstellen, hinzufügen und zurückhalten). Sie können demzufolge auf Admin-Oberfläche von YunoHost zugreifen, sich mit dem Server über SSH verbinden und das Kommando `sudo` benutzen. Ausserdem erhalten sie die E-Mails, welche an root@, admin@, admins@, wie die Diagnose-Benachrichtigungen, gesendet wurden.",
+    "group_explain_admins": "Dies ist eine spezielle Gruppe, welche zu den Administratoren-Benutzern gehört. Benutzer in dieser Gruppe besitzen, einfach ausgedrückt, alle Berechtigungen auf dem Server (verändern, erstellen, hinzufügen und zurückhalten). Sie können folglich auf die Admin-Oberfläche von YunoHost zugreifen, sich via SSH mit dem Server verbinden und ausserdem das Kommando `sudo` verwenden. Zusätzlich erhalten sie alle E-Mails, welche an root@, admin@, admins@, wie z.B. die Diagnose-Benachrichtigungen, gesendet wurden. Sie sollten wirklich nur Personen zu dieser Gruppe hinzufügen, denen Sie absolut vertrauen!",
     "important_yunohost_upgrade": "Eine grössere YunoHost-Aktualisierung ist erhältlich. Es ist sehr empfehlenswert, die Release-Note(s) im Forum sorgfältig durchzulesen, bevor Sie aktualisieren : <a href='https://forum.yunohost.org/tag/ynh_release'>Die Release-Notes im Forum aufrufen.</a>",
     "label_for_manifestname_help": "Dies ist der Name, welcher im Benutzer-Portal angezeigt wird. Dies kann später nochmal geändert werden.",
     "manage_groups": "Gruppenmanagement",
@@ -589,7 +589,7 @@
             "problems": {
                 "broken": "Diese Anwendung ist laut automatischer Tests von YunoHost beschädigt und wird wahrscheinlich Ihr System ruinieren! Sie sollten sie NICHT installieren, wenn Sie nicht wissen, was Sie tun.",
                 "arch": "Diese App kann nur auf spezifischen Architekturen ({required}) installiert werden, aber die Architektur Ihres Servers ist {current}.",
-                "ram": "Diese App benötigt {required} RAM für Installation/Upgrade aber es sind aktuell nur {current} verfügbar. Auch wenn diese App funktionieren würde, würde der Installationsprozess viel RAM benötigen. Es würde die Gefahr bestehen, dass Ihr Server einfrieren (freezen) und völlig abschmieren würde.",
+                "ram": "Diese App benötigt {required} RAM für Installation/Upgrade aber es sind aktuell nur {current} verfügbar. Auch wenn diese App funktionierte, würde der Installationsprozess viel RAM benötigen. Es würde die Gefahr bestehen, dass Ihr Server einfrieren (freezen) und völlig abschmieren würde.",
                 "thirdparty": "Diese App ist nicht Bestandteil des offiziellen YunoHost-Katalogs. Die Installation von Drittanbieter-Apps kann die Integrität und Sicherheit Ihres Systems kompromittieren. Sie sollten sie wahrscheinlich NICHT installieren, wenn Sie nicht genau wissen, was Sie tun.",
                 "ignore": "Ich habe verstanden, dass diese Installation mein System ruinieren könnte, aber ich möchte es trotzdem versuchen.",
                 "inprogress": "Diese App ist noch experimentell (beziehungsweise noch nicht gut in YunoHost integriert oder ausdrücklich nicht funktionsfähig). Folglich ist sie anfällig dafür, ihr System zu ruinieren! Sie sollten sie wahrscheinlich NICHT installieren, wenn Sie nicht genau wissen, was Sie tun.",
@@ -624,7 +624,8 @@
                 "dismiss": "Verwerfen",
                 "title": "Benachrichtigungen",
                 "post_upgrade": "Post-Aktualisierungs-Anmerkungen",
-                "post_install": "Post-Installations-Anmerkungen"
+                "post_install": "Post-Installations-Anmerkungen",
+                "understood": "Verstanden"
             },
             "admin": {
                 "title": "Dokumentation für Administratoren"
@@ -632,7 +633,9 @@
         },
         "info": {
             "forum": "Suche oder Frage im Forum!",
-            "problem": "Ein Problem mit dieser App?"
+            "problem": "Ein Problem mit dieser App?",
+            "config_panel_error": "Ein Fehler verhindert die Anzeige des Konfigurationsfensters:",
+            "config_panel_error_please_report": "Bitte leiten Sie diesen Fehler an das YunoHost-Team zu dessen Behebung weiter!"
         },
         "integration": {
             "archs": "Unterstützte Architekturen:",

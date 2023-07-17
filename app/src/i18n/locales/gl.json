@@ -600,7 +600,8 @@
                 "dismiss": "Desbotar",
                 "title": "Notificacións",
                 "post_upgrade": "Notas post actualización",
-                "post_install": "Notas post instalación"
+                "post_install": "Notas post instalación",
+                "understood": "Entendo"
             }
         },
         "info": {
