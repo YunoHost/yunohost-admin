@@ -67,7 +67,7 @@ export default {
     return {
       form: {
         username: { required, alphalownum_ },
-        password: { required, passwordLenght: minLength(8) }
+        password: { required, passwordLenght: minLength(4) }
       }
     }
   },
