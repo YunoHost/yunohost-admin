@@ -1,3 +1,12 @@
+yunohost-admin (11.2) stable; urgency=low
+
+  - login: set password min length to 4 to try to fix the demo admin not being accessible .. (946c3e61)
+  - i18n: Translations updated for Basque, Galician, German, Japanese, Polish
+
+  Thanks to all contributors <3 ! (Christian Wehrli, Grzegorz Cichocki, José M, motcha, xabirequejo)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Mon, 17 Jul 2023 16:29:38 +0200
+
 yunohost-admin (11.1.10) stable; urgency=low
 
   - apps: Funky 'dismiss' button for app notification ... let's go for 'understood' instead ... (a3558f54)
