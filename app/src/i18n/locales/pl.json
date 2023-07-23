@@ -627,7 +627,8 @@
                 "dismiss": "Odrzuć",
                 "title": "Powiadomienia",
                 "post_upgrade": "Uwagi po aktualizacji",
-                "post_install": "Uwagi po instalacji"
+                "post_install": "Uwagi po instalacji",
+                "understood": "Domyślny"
             }
         },
         "info": {
