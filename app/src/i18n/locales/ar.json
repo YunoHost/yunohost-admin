@@ -558,12 +558,14 @@
                 "dismiss": "تجاهل",
                 "title": "الإشعارات",
                 "post_upgrade": "ملاحظات ما بعد التحديث",
-                "post_install": "ملاحظات ما بعد التنصيب"
+                "post_install": "ملاحظات ما بعد التنصيب",
+                "understood": "فهمت"
             }
         },
         "info": {
             "forum": "ابحث أو إطرح سؤالك في المنتدى!",
-            "problem": "مشكلة مع هذا التطبيق؟"
+            "problem": "مشكلة مع هذا التطبيق؟",
+            "config_panel_error_please_report": "الرجاء إبلاغ فريق YunoHost عن هذا الخطأ قصد تصحيحه!"
         },
         "install": {
             "license": "الرخصة: {license}",
