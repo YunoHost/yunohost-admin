@@ -597,7 +597,8 @@
                 "title": "Notificaciones",
                 "post_upgrade": "Notas tras la actualización",
                 "post_install": "Notas post-instalación",
-                "dismiss": "Descartar"
+                "dismiss": "Descartar",
+                "understood": "Entendido"
             },
             "admin": {
                 "title": "Documentación de administración"
@@ -605,7 +606,9 @@
         },
         "info": {
             "forum": "¡Busca o pregunta en el foro!",
-            "problem": "¿Algún problema con esta aplicación?"
+            "problem": "¿Algún problema con esta aplicación?",
+            "config_panel_error": "Un error impide mostrar el panel de configuración:",
+            "config_panel_error_please_report": "Por favor, ¡informa al equipo de YunoHost de este error para que ellos puedan arreglarlo!"
         },
         "install": {
             "license": "Licencia: {license}",
