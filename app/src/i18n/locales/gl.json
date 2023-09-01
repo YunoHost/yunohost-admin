@@ -196,7 +196,7 @@
     "items": {
         "groups": "sen grupos | grupo | {c} grupos",
         "domains": "sen dominios | dominio | {c} dominios",
-        "backups": "sen copia | copia | {c} copias de apoio",
+        "backups": "0 copias | copia de apoio | {c} copias de apoio",
         "apps": "sen apps | app | {c} apps",
         "users": "sen usuarias | usuaria | {c} usuarias",
         "services": "sen servizos | servizo | {c} servizos",
