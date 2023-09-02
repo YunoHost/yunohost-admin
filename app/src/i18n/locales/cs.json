@@ -37,7 +37,18 @@
             "error": "Neúspěšné"
         },
         "processing": "Server zpracovává akci...",
-        "partial_logs": "[...] (zkontrolujte historii v logách)"
+        "partial_logs": "[...] (zkontrolujte historii v logách)",
+        "reconnecting": {
+            "reason": {
+                "upgrade_system": "Spojení se serverem bylo ukončeno kvůli povýšení YunoHostu na novou verzi. Čekám, až bude opět dostupný…",
+                "unknown": "Spojení se serverem bylo z neznámých důvodů přerušeno.",
+                "reboot": "Váš server se restartuje a po nějakou dobu nebude dostupný. Jakmile se spojení naváže, zobrazí se přihlašovací okno.",
+                "shutdown": "Váš server se ukončuje a nebude dostupný. Když ho znovu zapnete, jakmile bude zase dosažitelný, zobrazí se přihlašovací okno."
+            },
+            "title": "Snažím se navázat spojení se serverem...",
+            "success": "Server už odpovídá! Nyní se můžete přihlásit",
+            "failed": "Zdá se, že server neodpovídá. Zkuste se znovu připojit nebo na něm pustit `systemctl restart yunohost-api`přes ssh."
+        }
     },
     "app_install_custom_no_manifest": "Soubor manifest.json nenalezen",
     "app_info_uninstall_desc": "Odstranit tuto aplikaci.",
@@ -470,5 +481,32 @@
     },
     "users": "Uživatelé",
     "users_new": "Nový uživatel",
-    "users_no": "Žádní uživatelé."
+    "users_no": "Žádní uživatelé.",
+    "app": {
+        "open_this_app": "Otevřít tuto aplikaci",
+        "info": {
+            "forum": "Hledejte nebo se ptejte na fóru!",
+            "problem": "Máte s aplikací problém?",
+            "config_panel_error_please_report": "Nahlaste prosím tuto chybu týmu YunoHost, aby ji mohl opravit!",
+            "config_panel_error": "Zobrazení konfiguračního panelu brání chyba:"
+        },
+        "install": {
+            "license": "Licence: {license}",
+            "notifs": {
+                "post": {
+                    "title": "Poinstalační upozornení pro '{name}'"
+                },
+                "pre": {
+                    "warning": "O čem byste měli před instalací vědět",
+                    "danger": "Instalace aplikace pravděpodobně způsobí problémy",
+                    "critical": "Aplikaci nelze nainstalovat"
+                }
+            },
+            "problems": {
+                "arch": "Tato aplikace může být nainstalována jen na konkrétních architekturách ({required}), avšak vaše architektura je {current}."
+            }
+        },
+        "antifeatures": "Tato aplikace má funkce, které by se vám nemusely líbit:",
+        "installed_version": "Nainstalovaná verze:"
+    }
 }
