@@ -151,7 +151,9 @@
             "change_url": "Ubah URL akses dari '{name}'",
             "set_default": "Mengalihkan pangkal domain '{domain}' ke '{name}'",
             "change_label": "Ubah label '{prevName}' menjadi '{nextName}'",
-            "dismiss_notification": "Abaikan pemberitahuan untuk '{name}'"
+            "dismiss_notification": "Abaikan pemberitahuan untuk '{name}'",
+            "action_config": "Jalankan tindakan '{action}' dari konfigurasi aplikasi '{name}'",
+            "update_config": "Perbarui panel '{id}' dari konfigurasi aplikasi '{name}'"
         },
         "domains": {
             "add": "Tambahkan domain '{name}'",
@@ -159,7 +161,8 @@
             "cert_install": "Pasang sertifikat untuk '{name}'",
             "cert_renew": "Perbarui sertifikat untuk '{name}'",
             "set_default": "Atur '{name}' sebagai domain utama",
-            "push_dns_changes": "Kirim rekaman DNS ke registrar untuk '{name}'"
+            "push_dns_changes": "Kirim rekaman DNS ke registrar untuk '{name}'",
+            "update_config": "Perbarui panel '{id}' dari konfigurasi domain '{name}'"
         },
         "backups": {
             "delete": "Hapus cadangan '{name}'",
@@ -186,6 +189,9 @@
         "migrations": {
             "run": "Jalankan migrasi",
             "skip": "Lewati migrasi"
+        },
+        "settings": {
+            "update": "Perbarui pengaturan '{panel}' global"
         }
     },
     "save": "Simpan",
@@ -670,5 +676,6 @@
     "users_import_csv_file_desc": "Berkas CSV harus dalam UTF-8 dan dengan kolom nama pengguna, kata sandi, kelompok, surel, dan kuota surel. Sebagai contoh berkas CSV impornya, Anda bisa <a href='/yunohost/api/users/export' target='_BLANK'>mengekspor daftar pengguna Anda ke berkas CSV</a> dan mengubah berkas tersebut.",
     "pending_migrations": "Terdapat migrasi tertunda yang menunggu untuk dijalankan. Silakan ke <a href='#/tools/migrations'>Alat > Migrasi</a> untuk memulai mereka.",
     "error_modify_something": "Anda harus mengubah sesuatu",
-    "group_format_name_help": "Anda bisa menggunakan karakter alfanumerik dan garis bawah"
+    "group_format_name_help": "Anda bisa menggunakan karakter alfanumerik dan garis bawah",
+    "items_verbose_items_left": "Ada {items} yang tersisa."
 }
