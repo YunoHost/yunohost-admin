@@ -24,11 +24,11 @@ export default {
   },
 
   methods: {
-    onSubmit ({ domain, domainType }) {
-      const uri = 'domains' + (domainType === 'dynDomain' ? '?dyndns' : '')
+    onSubmit (data) {
       api.post(
-        { uri, storeKey: 'domains' }, { domain }, { key: 'domains.add', name: domain }
+        'domains', data, { key: 'domains.add', name: data.domain }
       ).then(() => {
+        this.$store.dispatch('RESET_CACHE_DATA', ['domains'])
         this.$router.push({ name: 'domain-list' })
       }).catch(err => {
         if (err.name !== 'APIBadRequestError') throw err
