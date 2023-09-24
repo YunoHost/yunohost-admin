@@ -288,7 +288,8 @@
         "info": {
             "apps_on_domain": "Apps installed on domain",
             "certificate_authority": "SSL Certification authority",
-            "registrar": "Registrar"
+            "registrar": "Registrar",
+            "dyn_dns_remove_and_unsubscribe": "Also unregister the domain to free that domain for other to use"
         },
         "see_parent_domain": "See parent domain",
         "toggle_subdomains": "Toggle subdomains",

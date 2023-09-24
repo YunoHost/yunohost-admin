@@ -24,7 +24,7 @@
         </b-button>
 
         <!-- DELETE DOMAIN -->
-        <b-button @click="deleteDomain" :disabled="isMainDomain" variant="danger">
+        <b-button v-b-modal.delete-modal :disabled="isMainDomain" variant="danger">
           <icon iname="trash-o" /> {{ $t('delete') }}
         </b-button>
       </template>
@@ -84,6 +84,18 @@
         <domain-dns :name="name" />
       </template>
     </config-panels>
+
+    <b-modal
+      v-if="domain"
+      id="delete-modal" :title="$t('confirm_delete', { name: this.name })" @ok="deleteDomain"
+      header-bg-variant="warning" body-class="" body-bg-variant=""
+    >
+      <b-form-group v-if="isMainDynDomain">
+        <b-form-checkbox v-model="unregisterDomain">
+          {{ $t('domain.info.dyn_dns_remove_and_unsubscribe') }}
+        </b-form-checkbox>
+      </b-form-group>
+    </b-modal>
   </view-base>
 </template>
 
@@ -118,7 +130,8 @@ export default {
         ['GET', { uri: 'domains', storeKey: 'domains_details', param: this.name }],
         ['GET', `domains/${this.name}/config?full`]
       ],
-      config: {}
+      config: {},
+      unregisterDomain: false
     }
   },
 
@@ -159,6 +172,10 @@ export default {
     isMainDomain () {
       if (!this.mainDomain) return
       return this.name === this.mainDomain
+    },
+
+    isMainDynDomain () {
+      return this.domain.registrar === 'yunohost' && this.name.split('.').length === 3
     }
   },
 
@@ -188,11 +205,12 @@ export default {
     },
 
     async deleteDomain () {
-      const confirmed = await this.$askConfirmation(this.$i18n.t('confirm_delete', { name: this.name }))
-      if (!confirmed) return
+      const data = this.isMainDynDomain && !this.unregisterDomain
+        ? { ignore_dyndns: 1 }
+        : {}
 
       api.delete(
-        { uri: 'domains', param: this.name }, {}, { key: 'domains.delete', name: this.name }
+        { uri: 'domains', param: this.name }, data, { key: 'domains.delete', name: this.name }
       ).then(() => {
         this.$router.push({ name: 'domain-list' })
       })
