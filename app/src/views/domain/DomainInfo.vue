@@ -91,7 +91,7 @@
       header-bg-variant="warning" body-class="" body-bg-variant=""
     >
       <b-form-group v-if="isMainDynDomain">
-        <b-form-checkbox v-model="unregisterDomain">
+        <b-form-checkbox v-model="unsubscribeDomainFromDyndns">
           {{ $t('domain.info.dyn_dns_remove_and_unsubscribe') }}
         </b-form-checkbox>
       </b-form-group>
@@ -131,7 +131,7 @@ export default {
         ['GET', `domains/${this.name}/config?full`]
       ],
       config: {},
-      unregisterDomain: false
+      unsubscribeDomainFromDyndns: false
     }
   },
 
@@ -205,7 +205,7 @@ export default {
     },
 
     async deleteDomain () {
-      const data = this.isMainDynDomain && !this.unregisterDomain
+      const data = this.isMainDynDomain && !this.unsubscribeDomainFromDyndns
         ? { ignore_dyndns: 1 }
         : {}
 
