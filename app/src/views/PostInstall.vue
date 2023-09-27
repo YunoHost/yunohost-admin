@@ -164,7 +164,7 @@ export default {
         dyndns_recovery_password: this.dyndns_recovery_password,
         username: this.user.username,
         fullname: this.user.fullname,
-        password: this.user.password,
+        password: this.user.password
       })
 
       // FIXME does the api will throw an error for bad passwords ?
