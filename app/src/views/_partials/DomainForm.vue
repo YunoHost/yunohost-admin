@@ -21,7 +21,7 @@
     <b-collapse id="collapse-domain" :visible.sync="domainIsVisible">
       <p class="mt-2 alert alert-info">
         <icon iname='info-circle' />
-        {{ $t('domain.add.from_registrar_desc') }}
+        <span class='pl-1' v-html="$t('domain.add.from_registrar_desc')" />
       </p>
 
       <form-field
@@ -44,7 +44,7 @@
     <b-collapse id="collapse-dynDomain" :visible.sync="dynDomainIsVisible">
       <p class="mt-2 alert alert-info">
         <icon iname="info-circle" />
-        {{ $t('domain.add.from_yunohost_desc') }}
+        <span class='pl-1' v-html="$t('domain.add.from_yunohost_desc')" />
       </p>
 
       <form-field v-bind="fields.dynDomain" :validation="$v.form.dynDomain" class="mt-3">
@@ -79,7 +79,7 @@
     <b-collapse id="collapse-localDomain" :visible.sync="localDomainIsVisible">
       <p class="mt-2 alert alert-info">
         <icon iname='info-circle' />
-        <span v-html="$t('domain.add.from_local_desc')" />
+        <span class='pl-1' v-html="$t('domain.add.from_local_desc')" />
       </p>
 
       <form-field v-bind="fields.localDomain" :validation="$v.form.localDomain" class="mt-3">
