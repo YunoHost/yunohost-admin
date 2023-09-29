@@ -675,6 +675,9 @@
                 "?": "Aucune information sur l'intégration du SSO"
             },
             "title": "Intégration avec YunoHost"
+        },
+        "uninstall": {
+            "purge_desc": "Supprimez le répertoire de données associé à l'application (il s'agit généralement de données que vous avez téléchargées vous-même à l'aide de l'application)."
         }
     }
 }
