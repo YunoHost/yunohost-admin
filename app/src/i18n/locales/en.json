@@ -243,12 +243,12 @@
     "dns": "DNS",
     "domain": {
         "add": {
-            "from_registrar": "I want to add a domain I own",
-            "from_registrar_desc": "Depending on your registrar, you'll have different ways of <a href='//yunohost.org/dns_config' target='_blank'>setting up the DNS configuration</a>. YunoHost's diagnosis will guide you about what DNS records to configure",
-            "from_yunohost": "I want to add or register a YunoHost's free service domain",
-            "from_yunohost_desc": "YunoHost domain service will automatically handle the DNS configuration for you.",
+            "from_registrar": "I want to add a domain I own, or a subdomain",
+            "from_registrar_desc": "You will need to manually configure DNS records on your registrar to finalize this domain's configuration. YunoHost's diagnosis will guide you about what DNS records to configure exactly.",
+            "from_yunohost": "I don't own a domain, I want to register/use a free DynDNS domain provided by the YunoHost project",
+            "from_yunohost_desc": "The YunoHost project maintains a free 'DynDNS' service. It is limited to one such domain per server (though you can also add sub-domains later using the other 'Add a domain I own, or a subdomain' option above). The DNS configuration will be automatically handled by YunoHost. This is ideal when starting up with self-hosting in general and you don't want to invest in a domain name yet. However, on the medium/long-term, we recommend buying your very own domain name to some registrar to have full ownership of your domain.",
             "dyn_dns_password": "Domain recovery password",
-            "dyn_dns_password_desc": "This password will allow you to later recover control of the domain if you reinstall your system. If you already registered this domain, use your password here to reclaim it."
+            "dyn_dns_password_desc": "This password will allow you to later recover control of the domain if you reinstall your system. If you already registered this domain previously, use your recovery password here to reclaim it."
         },
         "cert": {
             "types": {
@@ -289,7 +289,7 @@
             "apps_on_domain": "Apps installed on domain",
             "certificate_authority": "SSL Certification authority",
             "registrar": "Registrar",
-            "dyn_dns_remove_and_unsubscribe": "Also unregister the domain to free that domain for other to use"
+            "dyn_dns_remove_and_unsubscribe": "Also unregister the domain from YunoHost's dyndns service"
         },
         "see_parent_domain": "See parent domain",
         "toggle_subdomains": "Toggle subdomains",

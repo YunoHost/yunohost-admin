@@ -18,7 +18,10 @@
     </b-form-radio>
 
     <b-collapse id="collapse-domain" :visible.sync="domainIsVisible">
-      <small v-html="$t('domain.add.from_registrar_desc')" />
+      <p class="mt-2 alert alert-info">
+        <icon iname='info-circle' />
+        {{ $t('domain.add.from_registrar_desc') }}
+      </p>
 
       <form-field
         v-bind="fields.domain" v-model="form.domain"
@@ -37,7 +40,10 @@
     </b-form-radio>
 
     <b-collapse id="collapse-dynDomain" :visible.sync="dynDomainIsVisible">
-      <small>{{ $t('domain.add.from_yunohost_desc') }}</small>
+      <p class="mt-2 alert alert-info">
+        <icon iname='info-circle' />
+        {{ $t('domain.add.from_yunohost_desc') }}
+      </p>
 
       <form-field v-bind="fields.dynDomain" :validation="$v.form.dynDomain" class="mt-3">
         <template #default="{ self }">
