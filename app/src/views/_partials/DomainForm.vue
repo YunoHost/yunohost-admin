@@ -117,7 +117,7 @@ export default {
         dynDomain: { localPart: '', separator: '.', domain: 'nohost.me' },
         dynDomainPassword: '',
         dynDomainPasswordConfirmation: '',
-        localDomain: { localPart: '', separator: '.', domain: 'local' },
+        localDomain: { localPart: '', separator: '.', domain: 'local' }
       },
 
       fields: {
