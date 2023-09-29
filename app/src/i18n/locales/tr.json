@@ -23,7 +23,6 @@
     "ipv6": "IPv6",
     "login": "Giriş",
     "logout": "Çıkış",
-    "myserver": "sunucum",
     "no": "Hayır",
     "open": "Aç",
     "operations": "İşlemler",
@@ -295,8 +294,6 @@
     "license": "Lisans",
     "path": "Yol",
     "app_choose_category": "Kategori seç",
-    "app_config_panel": "Ayar paneli",
-    "app_config_panel_label": "Bu uygulamayı ayarla",
     "logs": "Günlükler",
     "perform": "Yap",
     "only_decent_quality_apps": "Yalnızca kaliteli uygulamalar",
@@ -317,7 +314,6 @@
         "APIBadRequestError": "YunoHost bir hatayla karşılaştı",
         "APIInternalError": "YunoHost \"internal\" bir hata ile karşılaştı"
     },
-    "app_config_panel_no_panel": "Bu uygulamada herhangi bir yapılandırma mevcut değil",
     "app_show_categories": "Kategorileri göster",
     "confirm_firewall_allow": "{port} bağlantı noktasını açmak istediğinizden emin misiniz? (protokol: {protokol}, bağlantı: {connection})",
     "domain_add_dyndns_forbidden": "Zaten bir DynDNS etki alanına abone oldunuz, mevcut DynDNS etki alanınızı <a href='//forum.yunohost.org/t/nohost-domain-recovery-suppression-de-domaine-en-nohost-me-noho-st-et-ynh-fr/442'>bu linkteki forumundan kaldırmayı isteyebilirsiniz. </a>.",
@@ -374,10 +370,6 @@
     "diagnosis_first_run": "Tanılama özelliği, her şeyin sorunsuz çalıştığından emin olmak için sunucunuzun farklı yönlerindeki ortak sorunları belirlemeye çalışacaktır. Sunucunuzu kurduktan hemen sonra bir sürü hata görürseniz lütfen panik yapmayın: tam olarak sorunları belirlemenize ve düzeltmeniz için size rehberlik etmeye yöneliktir. Teşhis ayrıca günde iki kez otomatik olarak çalışır ve sorun bulunursa yöneticiye bir e-posta gönderilir.",
     "diagnosis_explanation": "Tanılama özelliği, her şeyin sorunsuz çalıştığından emin olmak için sunucunuzun farklı yönlerindeki ortak sorunları belirlemeye çalışacaktır. Tanılama günde iki kez otomatik olarak çalışır ve sorun bulunursa yöneticiye bir e-posta gönderilir. Bazı belirli özellikleri (örneğin XMPP) kullanmak istemiyorsanız bazı testlerin uygun olmayabileceğini veya karmaşık bir kurulumunuz varsa başarısız olabileceğini unutmayın. Bu gibi durumlarda ve ne yaptığınızı biliyorsanız, ilgili sorunları veya uyarıları göz ardı etmenizde bir sakınca yoktur.",
     "domain_add": "Alan adı ekle",
-    "domain_add_dns_doc": "… ve <a href='//yunohost.org/dns_config' target='_blank'>DNS'imi doğru ayarladım</a>.",
-    "domain_add_dyndns_doc": "… ve dinamik DNS hizmeti istiyorum.",
-    "domain_add_panel_with_domain": "Zaten bir alan adım var…",
-    "domain_add_panel_without_domain": "Bir alan adına sahip değilim…",
     "domain_default_desc": "Varsayılan alan adı, kullanıcıların oturum açtığı alan adıdır.",
     "domain_delete_longdesc": "Bu alan adını sil",
     "domain_delete_forbidden_desc": "'{domain}' varsayılan alan adı olduğundan kaldıramazsınız, bu alan adını kaldırabilmek için başka bir alan seçmeniz (veya <a href='#/domains/add'>yeni bir alan eklemeniz</a>) ve varsayılan alan olarak ayarlamanız gerekir.",
@@ -566,7 +558,6 @@
                 "title": "Yönetici belgelendirmesi"
             },
             "notifications": {
-                "dismiss": "Göz ardı et",
                 "title": "Bildirimler",
                 "post_upgrade": "Yükseltme sonrası notları",
                 "post_install": "Kurulum sonrası notları"

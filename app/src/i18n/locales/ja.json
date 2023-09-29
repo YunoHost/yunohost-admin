@@ -267,10 +267,6 @@
         }
     },
     "domain_add": "ドメインを追加する",
-    "domain_add_dns_doc": "… そして <a href='//yunohost.org/dns_config' target='_blank'>DNSを正しく設定</a>します。",
-    "domain_add_dyndns_doc": "… そして動的DNS(DDNS)サービスが欲しいです。",
-    "domain_add_panel_with_domain": "既にドメインを持っています…",
-    "domain_add_panel_without_domain": "ドメインを持っていません…",
     "domain_default_desc": "デフォルトドメインとは、ユーザーがログインするために接続するドメインです。",
     "domain_default_longdesc": "それはあなたのデフォルトドメインです。",
     "domain_delete_longdesc": "このドメインを削除する",
@@ -428,7 +424,6 @@
     "logs_path": "パス",
     "logs_started_at": "開始",
     "logs_suboperations": "サブ・オペレーション",
-    "myserver": "マイサーバー",
     "next": "次",
     "no": "No",
     "nobody": "無人",

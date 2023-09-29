@@ -86,6 +86,7 @@ import { validationMixin } from 'vuelidate'
 import api from '@/api'
 import { DomainForm } from '@/views/_partials'
 import Login from '@/views/Login.vue'
+import { formatFormData } from '@/helpers/yunohostArguments'
 import { alphalownum_, required, minLength, name, sameAs } from '@/helpers/validators'
 
 export default {
@@ -103,6 +104,7 @@ export default {
       step: 'start',
       serverError: '',
       domain: undefined,
+      dyndns_recovery_password: '',
       user: {
         username: '',
         fullname: '',
@@ -142,8 +144,9 @@ export default {
       this.step = step
     },
 
-    setDomain ({ domain }) {
+    setDomain ({ domain, dyndns_recovery_password }) {
       this.domain = domain
+      this.dyndns_recovery_password = dyndns_recovery_password
       this.goToStep('user')
     },
 
@@ -155,13 +158,15 @@ export default {
       this.performPostInstall()
     },
 
-    performPostInstall (force = false) {
-      const data = {
+    async performPostInstall (force = false) {
+      const data = await formatFormData({
         domain: this.domain,
+        dyndns_recovery_password: this.dyndns_recovery_password,
         username: this.user.username,
         fullname: this.user.fullname,
         password: this.user.password
-      }
+      })
+
       // FIXME does the api will throw an error for bad passwords ?
       api.post(
         'postinstall' + (force ? '?force_diskspace' : ''),

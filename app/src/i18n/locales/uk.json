@@ -62,9 +62,6 @@
     "app_info_default_desc": "Ця дія перенаправить корінь (root) сайту в цей застосунок ({domain}).",
     "app_info_changeurl_desc": "Змінити посилання доступу до цього застосунку (домен і/чи шлях).",
     "app_info_access_desc": "Групи / користувачі, у яких є доступ до цього застосунку:",
-    "app_config_panel_no_panel": "Цей застосунок не має доступної конфігурації",
-    "app_config_panel_label": "Конфігурувати цей застосунок",
-    "app_config_panel": "Панель конфігурації",
     "app_choose_category": "Оберіть категорію",
     "api_waiting": "Очікування відповіді сервера...",
     "api_not_responding": "API YunoHost не відповідає. Може 'yunohost-api' не працює або щойно перезапускався?",
@@ -132,10 +129,6 @@
     "disabled": "Вимкнено",
     "dns": "DNS",
     "domain_add": "Додати домен",
-    "domain_add_dns_doc": "… я <a href='//yunohost.org/dns_config' target='_blank'>встановив мій DNS правильно</a>.",
-    "domain_add_dyndns_doc": "... і я хочу використовувати службу для динамічного DNS.",
-    "domain_add_panel_with_domain": "У мене вже є доменне ім'я…",
-    "domain_add_panel_without_domain": "У мене немає доменного імені…",
     "domain_default_desc": "Типовий домен — це домен, де користувачі вводять логін і пароль.",
     "domain_default_longdesc": "Це ваш типовий домен.",
     "domain_delete_longdesc": "Видалити цей домен",
@@ -256,7 +249,6 @@
     "migrations": "Міграція",
     "migrations_done": "Попередні міграції",
     "migrations_no_done": "Попередніх міграцій немає",
-    "myserver": "мій сервер",
     "next": "Далі",
     "no": "Ні",
     "nobody": "Ніхто",
@@ -642,7 +634,6 @@
                 "title": "Адмін документації"
             },
             "notifications": {
-                "dismiss": "Відхилити",
                 "title": "Сповіщення",
                 "post_upgrade": "Примітки після оновлення",
                 "post_install": "Примітки після встановлення"

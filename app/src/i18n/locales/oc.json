@@ -51,10 +51,6 @@
     "disable": "Desactivar",
     "dns": "DNS",
     "domain_add": "Ajustar un domeni",
-    "domain_add_dns_doc": "… e ai <a href='//yunohost.org/dns_config' target='_blank'>>corrèctament configurat mos DNS</a>.",
-    "domain_add_dyndns_doc": "… e desiri un nom de domeni preconfigurat.",
-    "domain_add_panel_with_domain": "Ai ja mon nom de domeni…",
-    "domain_add_panel_without_domain": "Ai pas de nom de domeni…",
     "domain_default_desc": "Los utilizaires se connectaràn al domeni per defaut.",
     "domain_default_longdesc": "Aquò es vòstre domeni per defaut.",
     "domain_delete_longdesc": "Suprimir aqueste domeni",
@@ -102,7 +98,6 @@
     "migrations_no_pending": "Pas cap de migracion en espèra",
     "migrations_no_done": "Pas cap de migracion precedenta",
     "multi_instance": "Pòt èsser installada mantun còp",
-    "myserver": "monservidor",
     "next": "Seguent",
     "no": "Non",
     "ok": "OK",
@@ -444,8 +439,6 @@
     "code": "Còdi",
     "app_show_categories": "Mostrar las categorias",
     "app_install_parameters": "Paramètres d’installacion",
-    "app_config_panel_label": "Configurar aquesta aplicacion",
-    "app_config_panel": "Panèl de configuracion",
     "app_choose_category": "Causissètz una categoria",
     "api_waiting": "En espèra de la responsa del servidor...",
     "api_errors_titles": {
@@ -491,7 +484,6 @@
     "traceback": "Traça",
     "migrations_disclaimer_not_checked": "Aquesta migracion requerís que vos assabentetz de la descarga de responsabilitat abans de l’executar.",
     "hook_data_xmpp_desc": "Configuracion de las salas e dels utilizaires, fichièrs enviats",
-    "app_config_panel_no_panel": "Aquesta aplicacion a pas cap de configuracion disponibla",
     "api_not_found": "L’administrator a ensajat d'accedir a quicòm qu’existís pas.",
     "domain": {
         "config": {
@@ -623,7 +615,6 @@
                 "title": "Documentacion admin"
             },
             "notifications": {
-                "dismiss": "Ignorar",
                 "title": "Notificacions",
                 "post_upgrade": "Nòtas post mesa a nivèl",
                 "post_install": "Nòtas post installacion"

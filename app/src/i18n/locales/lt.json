@@ -46,7 +46,6 @@
         "doc": {
             "notifications": {
                 "post_upgrade": "Pastabos po atnaujinimo",
-                "dismiss": "Atmesti",
                 "title": "Pranešimai",
                 "post_install": "Pastabos po diegimo"
             },

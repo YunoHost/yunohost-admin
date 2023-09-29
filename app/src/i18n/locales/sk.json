@@ -55,7 +55,6 @@
     "api_not_responding": "YunoHost API nereaguje. Možno 'yunohost-api' nebeží alebo bolo reštartované?",
     "api_waiting": "Čaká sa na odpoveď servera…",
     "app_choose_category": "Vyberte kategóriu",
-    "app_config_panel_no_panel": "Táto aplikácia nemá dostupné žiadne nastavenia",
     "app_info_access_desc": "Skupiny a používatelia, ktorí majú prístup k aplikácii:",
     "app_info_change_url_disabled_tooltip": "Táto funkcia do tejto aplikácie zatiaľ nebola pridaná",
     "app_info_uninstall_desc": "Odstrániť túto aplikáciu.",
@@ -116,8 +115,6 @@
     "details": "Podrobnosti",
     "domain_dns_conf_is_just_a_recommendation": "Táto sekcia zobrazuje *odporúčané* nastavenia. *Nenastavuje* DNS za Vás. Nastavenie DNS je potrebné urobiť u správcu Vašej DNS zóny podľa týchto odporúčaní.",
     "diagnosis": "Diagnostika",
-    "app_config_panel": "Konfiguračný panel",
-    "app_config_panel_label": "Nastaviť túto aplikáciu",
     "app_info_default_desc": "Presmerovať koreň domény na túto aplikáciu ({domain}).",
     "app_info_changeurl_desc": "Zmeniť prístupovú URL adresu tejto aplikácie (doména a/alebo cesta).",
     "app_show_categories": "Zobraziť kategórie",
@@ -179,11 +176,7 @@
         "toggle_subdomains": "Prepnúť subdomény"
     },
     "domain_add": "Pridať doménu",
-    "domain_add_dns_doc": "...vykonaná <a href='//yunohost.org/dns_config' target='_blank'>konfigurácia DNS</a>.",
-    "domain_add_dyndns_doc": "... chcem využiť službu dynamického DNS.",
     "domain_add_dyndns_forbidden": "Svoju doménu ste už na DynDNS zaregistrovali. V diskusnom fóre môžete požiadať o odobratie Vašej súčasnej DynDNS domény v <a href='//forum.yunohost.org/t/nohost-domain-recovery-suppression-de-domaine-en-nohost-me-noho-st-et-ynh-fr/442'>samostatnom príspevku</a>.",
-    "domain_add_panel_with_domain": "Už mám meno domény…",
-    "domain_add_panel_without_domain": "Nemám meno domény…",
     "domain_default_desc": "Používatelia sa prihlasujú ku predvolenej doméne.",
     "domain_default_longdesc": "Toto je predvolená doména.",
     "domain_delete_longdesc": "Odstrániť túto doménu",
@@ -314,7 +307,6 @@
     "migrations_no_done": "Žiadne predchádzajúce migrácie",
     "migrations_disclaimer_not_checked": "Pred spustením tejto migrácie je vyžadovaný súhlas s prehlásením.",
     "multi_instance": "Môže byť nainštalovaná viackrát",
-    "myserver": "môj server",
     "groups_and_permissions_manage": "Správa skupín a oprávnení",
     "hook_data_home_desc": "Údaje používateľov sa nachádzajú v /home/USER",
     "hook_data_xmpp_desc": "Konfigurácie používateľov, miestností a nahrané súbory",
@@ -577,7 +569,6 @@
                 "title": "Dokumentácia pre správcov"
             },
             "notifications": {
-                "dismiss": "Zahodiť",
                 "title": "Upozornenia",
                 "post_upgrade": "Upozornenia o aktualizácii",
                 "post_install": "Upozornenia o inštalácii"

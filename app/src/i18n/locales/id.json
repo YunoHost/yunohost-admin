@@ -52,9 +52,6 @@
     "all_apps": "Semua aplikasi",
     "api_waiting": "Menunggu respons peladen...",
     "app_choose_category": "Pilih sebuah kategori",
-    "app_config_panel": "Panel konfigurasi",
-    "app_config_panel_label": "Konfigurasi aplikasi ini",
-    "app_config_panel_no_panel": "Aplikasi ini tidak dapat dikonfigurasi",
     "app_info_access_desc": "Kelompok/pengguna yang diizinkan mengakses aplikasi ini:",
     "app_info_change_url_disabled_tooltip": "Fitur ini belum diimplementasikan pada aplikasi ini",
     "app_info_uninstall_desc": "Hapus aplikasi ini.",
@@ -102,8 +99,6 @@
     "disabled": "Dinonaktifkan",
     "dns": "DNS",
     "domain_add": "Tambahkan domain",
-    "domain_add_panel_with_domain": "Saya sudah memiliki domain…",
-    "domain_add_panel_without_domain": "Saya belum punya domain…",
     "domain_delete_longdesc": "Hapus domain ini",
     "download": "Unduh",
     "enable": "Aktifkan",
@@ -257,7 +252,6 @@
     "certificate": "Sertifikat",
     "purge_user_data_checkbox": "Bersihkan data milik {name}? (Ini akan menghapus isi direktori home dan mail mereka)",
     "purge_user_data_warning": "Membersihkan data pengguna tidak dapat dibatalkan. Pastikan Anda yakin dengan perbuatan Anda!",
-    "domain_add_dns_doc": "… dan saya sudah <a href='//yunohost.org/dns_config' target='_blank'>mengatur DNS dengan benar</a>.",
     "domain_dns_config": "Konfigurasi DNS",
     "domain_dns_longdesc": "Lihat konfigurasi DNS",
     "footer": {
@@ -487,8 +481,7 @@
             "notifications": {
                 "title": "Pemberitahuan",
                 "post_upgrade": "Catatan setelah pembaruan",
-                "post_install": "Catatan setelah pemasangan",
-                "dismiss": "Abaikan"
+                "post_install": "Catatan setelah pemasangan"
             }
         },
         "info": {
@@ -545,7 +538,6 @@
     "password_confirmation": "Konfirmasi kata sandi",
     "app_info_changeurl_desc": "Ubah URL akses aplikasi ini (domain dan/atau jalur).",
     "confirm_uninstall": "Apakah Anda yakin ingin melepas {name}?",
-    "domain_add_dyndns_doc": "...dan saya ingin layanan DNS dinamis.",
     "from_to": "dari {0} ke {1}",
     "group_add_permission": "Tambahkan izin",
     "group_specific_permissions": "Izin pengguna",
@@ -558,7 +550,6 @@
     "wrong_password_or_username": "Nama pengguna atau kata sandi salah",
     "firewall": "Tembok Api",
     "user_new_forward": "terusanbaru@domainlainku.org",
-    "myserver": "peladensaya",
     "experimental_warning": "Peringatan: fitur ini bersifat eksperimental dan belum bisa diputuskan sebagai stabil, Anda jangan menggunakannya kecuali jika Anda mengetahui apa yang Anda lakukan.",
     "users_import": "Impor pengguna",
     "app_info_default_desc": "Alihkan pangkal domain ke aplikasi ini ({domain}).",

@@ -51,10 +51,6 @@
     "disable": "تعطيل",
     "dns": "خدمة أسماء النطاقات",
     "domain_add": "إضافة نطاق",
-    "domain_add_dns_doc": "… و قد قُمتُ <a href='//yunohost.org/dns_config' target='_blank'>بإعداد خدمة أسماء النطاقات بصورة صحيحة</a>.",
-    "domain_add_dyndns_doc": "... و إني أريد الحصول على خدمة أسماء النطاقات الديناميكي.",
-    "domain_add_panel_with_domain": "عندي إسم نطاق …",
-    "domain_add_panel_without_domain": "لا أمتلك إسم نطاق …",
     "domain_default_desc": "إسم النطاق الإفتراضي هو النطاق الذي مِن خلاله يقوم المستخدِمون بتسجيل دخولهم.",
     "domain_default_longdesc": "هذا هو إسم نطاقك الإفتراضي.",
     "domain_delete_longdesc": "حذف هذا النطاق",
@@ -97,7 +93,6 @@
     "manage_domains": "إدراة أسماء النطاقات",
     "manage_users": "إدارة المستخدمين",
     "multi_instance": "يمكن تنصيبه عدة مرات",
-    "myserver": "خادمي",
     "next": "التالي",
     "no": "لا",
     "ok": "موافق",
@@ -397,7 +392,6 @@
         "server_said": "أثناء تنفيذ الإجراء، أجاب الخادم كالتالي:",
         "info": "المعلومات التالية قد تكون مفيدة للشخص الذي يساعدك:"
     },
-    "app_config_panel_label": "اضبط هذا التطبيق",
     "app_show_categories": "اظهر كافة الفئات",
     "cancel": "إلغاء",
     "perform": "تنفيذ",
@@ -457,7 +451,6 @@
     },
     "api_waiting": "في انتظار ردّ الخادم…",
     "app_choose_category": "اختر فئة",
-    "app_config_panel": "لوح الضبط",
     "retry": "حاول مجددا",
     "permission_main": "التسمية الرئيسية",
     "user_emailforward_add": "إضافة عنوان بريد إلكتروني للتحويل",
@@ -555,7 +548,6 @@
                 "title": "دليل المدير"
             },
             "notifications": {
-                "dismiss": "تجاهل",
                 "title": "الإشعارات",
                 "post_upgrade": "ملاحظات ما بعد التحديث",
                 "post_install": "ملاحظات ما بعد التنصيب",

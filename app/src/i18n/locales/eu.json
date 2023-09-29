@@ -45,13 +45,10 @@
         "sorry": "Barkatu."
     },
     "api_waiting": "Zerbitzariaren zain…",
-    "app_config_panel": "Ezarpenak",
-    "app_config_panel_label": "Konfiguratu aplikazioa",
     "all": "Guztia",
     "api_not_found": "Badirudi administrazio-webgunea existitzen ez den zerbait bilatzen saiatu dela.",
     "api_not_responding": "YunoHosten APIa ez da erantzuten ari. Agian 'yunohost-api' ez dago martxan edo berrabiarazi da.",
     "app_choose_category": "Aukeratu kategoria",
-    "app_config_panel_no_panel": "Aplikazio honek ez du inolako konfigurazio ezarpenik",
     "api_errors_titles": {
         "APINotFoundError": "YunoHosten APIak ezin izan du bidea aurkitu",
         "APINotRespondingError": "YunoHosten APIa ez da erantzuten ari",
@@ -214,7 +211,6 @@
     "diagnosis_first_run": "Diagnostikoa ohiko arazoak identifikatzen saiatuko da zerbitzaria ahalik eta hoberen ibili dadin. Ez larritu erroreak ikusten badituzu zerbitzaria konfiguratu eta berehala: horretarako dago pentsatuta zehazki, arazoak identifikatu eta konpontzen laguntzeko. Zerbitzariak egunean birritan egingo du diagnostikoa automatikoki eta administratzaileak aurkitutako arazoekin posta elektroniko bat jasoko du.",
     "domain_dns_config": "DNS ezarpenak",
     "diagnosis_explanation": "Diagnostikoa ohiko arazoak identifikatzen saiatuko da zerbitzaria ahalik eta hoberen ibili dadin. Egunean birritan egingo du zerbitzariak eginkizun hau eta posta elektronikoa bidaliko dio administrariari arazoren bat ikusiz gero. Litekeena da emaitza batzuek garrantzirik ez izatea ezaugarri batzuk erabili nahi ez badira (XMPP adibidez) edo kale egin dezake zerbitzariaren konfigurazioa konplexua bada. Horrelako kasuetan, eta zertan ari zaren baldin badakizu, ez dago arazorik abisu edo jakinarazpenei muzin egiteko.",
-    "domain_add_dns_doc": "…eta ezarritako <a href='//yunohost.org/dns_config' target='_blank'>DNS balioak zuzenak</a> dira.",
     "domain_default_desc": "Erabiltzaileek lehenetsitako domeinua erabiliko dute saioa hasteko.",
     "domain_delete_forbidden_desc": "Ezinezkoa da '{domain}' ezabatzea lehenetsitako domeinua delako. Aukeratu beste domeinu bat (edo <a href='#/domains/add'>gehitu berri bat</a>) eta lehenetsi oraingo domeinua kendu ahal izateko.",
     "domain_dns_push_managed_in_parent_domain": "DNS ezarpen automatikoen funtzioa <a href='#/domains/{parent_domain}/dns'>{parent_domain}</a> domeinu nagusiak kudeatzen du.",
@@ -275,9 +271,6 @@
     "custom_app_install": "Instalatu norberaren aplikazioa",
     "domain_dns_conf_is_just_a_recommendation": "Atal honetan *iradokitutako* ezarpenak agertzen dira. *Ez* du DNSa zure ordez konfiguratuko. Zure ardura da DNS guneak zure DNS erregistro-enpresaren gomendioen arabera ezartzea.",
     "disable": "Desgaitu",
-    "domain_add_dyndns_doc": "…eta DNS dinamiko zerbitzua nahi dut.",
-    "domain_add_panel_with_domain": "Badaukat domeinu bat dagoeneko…",
-    "domain_add_panel_without_domain": "Ez daukat domeinurik…",
     "domain_default_longdesc": "Hau da lehenetsitako domeinua.",
     "domain_delete_longdesc": "Ezabatu domeinua",
     "domain_dns_longdesc": "Aztertu DNS ezarpenak",
@@ -447,7 +440,6 @@
     "migrations_pending": "Migratzeke",
     "migrations_done": "Lehenagoko migrazioak",
     "multi_instance": "Behin baino gehiagotan instala daiteke",
-    "myserver": "nirezerbitzaria",
     "next": "Hurrengoa",
     "only_working_apps": "Erdipurdi dabiltzan aplikazioak soilik",
     "open": "Ireki",
@@ -597,7 +589,6 @@
                 "title": "Administratzaile dokumentazioa"
             },
             "notifications": {
-                "dismiss": "Baztertu",
                 "title": "Jakinarazpenak",
                 "post_upgrade": "Berritu ondorengo oharrak",
                 "post_install": "Instalatu ondorengo oharrak",
