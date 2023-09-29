@@ -64,7 +64,7 @@
         </b-button>
 
         <b-button
-          @click="uninstall"
+          v-b-modal.uninstall-modal
           id="uninstall"
           variant="danger"
           :class="{ 'ml-auto': !app.url }"
@@ -262,6 +262,19 @@
       </b-list-group>
     </card>
 
+    <b-modal
+      v-if="app"
+      id="uninstall-modal" :title="$t('confirm_uninstall', { name: id })"
+      header-bg-variant="warning" :body-class="{ 'd-none': !app.supports_purge }" body-bg-variant=""
+      @ok="uninstall"
+    >
+      <b-form-group v-if="app.supports_purge">
+        <b-form-checkbox v-model="purge">
+          {{ $t('app.uninstall.purge_desc', { name: id }) }}
+        </b-form-checkbox>
+      </b-form-group>
+    </b-modal>
+
     <template #skeleton>
       <card-info-skeleton :item-count="8" />
       <card-form-skeleton />
@@ -306,6 +319,7 @@ export default {
       loading: true,
       app: undefined,
       form: undefined,
+      purge: false,
       config_panel_err: null,
       config: {
         panels: [
@@ -429,6 +443,7 @@ export default {
         is_default: app.is_default,
         supports_change_url: app.supports_change_url,
         supports_config_panel: app.supports_config_panel,
+        supports_purge: app.supports_purge,
         permissions
       }
       if (app.settings.domain && app.settings.path) {
@@ -518,12 +533,8 @@ export default {
     },
 
     async uninstall () {
-      const confirmed = await this.$askConfirmation(
-        this.$i18n.t('confirm_uninstall', { name: this.id })
-      )
-      if (!confirmed) return
-
-      api.delete('apps/' + this.id, {}, { key: 'apps.uninstall', name: this.app.label }).then(() => {
+      const data = this.purge === true ? {purge: 1} : {}
+      api.delete('apps/' + this.id, data, { key: 'apps.uninstall', name: this.app.label }).then(() => {
         this.$router.push({ name: 'app-list' })
       })
     }

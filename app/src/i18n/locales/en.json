@@ -136,6 +136,9 @@
         "license": "License"
       },
       "potential_alternative_to": "Potential alternative to:",
+      "uninstall": {
+        "purge_desc": "Remove the data directory associated with the app (this is usually data you uploaded yourself using the app)."
+      },
       "upgrade": {
         "confirm": {
           "apps": "Apps that will be upgraded",
