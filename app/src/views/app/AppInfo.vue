@@ -422,7 +422,7 @@ export default {
         links: [
           ['license', `https://spdx.org/licenses/${app.manifest.upstream.license}`],
           ...['website', 'admindoc', 'userdoc', 'code'].map((key) => ([key, app.manifest.upstream[key]])),
-          ['package', app.from_catalog.git.url],
+          ['package', app.from_catalog.git?.url],
           ['forum', `https://forum.yunohost.org/tag/${app.manifest.id}`]
         ].filter(([key, val]) => !!val),
         doc: {
