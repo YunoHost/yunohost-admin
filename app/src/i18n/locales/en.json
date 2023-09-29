@@ -55,108 +55,108 @@
     "api_not_responding": "The YunoHost API is not responding. Maybe 'yunohost-api' is down or got restarted?",
     "api_waiting": "Waiting for the server's response...",
     "app": {
-      "installed_version": "Installed version:",
-      "open_this_app": "Open this app",
-      "antifeatures": "This app has features you may not like:",
-      "doc": {
-        "about": {
-          "title": "About",
-          "description": "Description"
+        "antifeatures": "This app has features you may not like:",
+        "doc": {
+            "about": {
+                "description": "Description",
+                "title": "About"
+            },
+            "admin": {
+                "title": "Admin doc"
+            },
+            "notifications": {
+                "post_install": "Post-install notes",
+                "post_upgrade": "Post-upgrade notes",
+                "title": "Notifications",
+                "understood": "Understood"
+            }
         },
-        "admin": {
-          "title": "Admin doc"
+        "info": {
+            "config_panel_error": "An error prevents the configuration panel from being displayed:",
+            "config_panel_error_please_report": "Please report this error to the YunoHost team to get it fixed!",
+            "forum": "Search or ask the forum!",
+            "problem": "A problem with this app?"
         },
-        "notifications": {
-          "understood": "Understood",
-          "title": "Notifications",
-          "post_upgrade": "Post-upgrade notes",
-          "post_install": "Post-install notes"
+        "install": {
+            "license": "License: {license}",
+            "notifs": {
+                "post": {
+                    "alert": "It seems that the installation went well!\n Here is some notifications that the packager considers important to know.\nYou can read it again in the app info page.",
+                    "title": "Post-install notifications for '{name}'"
+                },
+                "pre": {
+                    "critical": "The application cannot be installed",
+                    "danger": "The installation of the application will most likely lead to issues",
+                    "warning": "Things to know before installation"
+                }
+            },
+            "problems": {
+                "arch": "This app can only be installed on specific architectures ({required}) but your server architecture is {current}.",
+                "broken": "This application is broken according to YunoHost's automatic tests and it is likely to break your system! You should probably NOT install it unless you know what you are doing.",
+                "ignore": "I understand that this installation may break my system but i still want to try.",
+                "inprogress": "This application is still experimental (if not explicitly not working) and it is likely to break your system! You should probably NOT install it unless you know what you are doing.",
+                "install": "It is already installed and can't be installed more than once.",
+                "lowquality": "This application may work but is not well-integrated in YunoHost. Some features such as single sign-on and backup/restore might not be available, or it does not respect the good practices.",
+                "ram": "This application requires {required} of RAM to install/upgrade but only {current} is available right now. Even if this app could run, its installation process requires a large amount of RAM so your server may freeze and fail miserably.",
+                "thirdparty": "This application is not part of the official YunoHost catalog, installing 3rd party applications may compromise the integrity and security of your system. You should probably NOT install it unless you know what you are doing.",
+                "version": "This application requires YunoHost >= {required} but your current installed version is {current}, consider first upgrading YunoHost."
+            },
+            "try_demo": "Try the demo",
+            "version": "Current version: {version}"
+        },
+        "installed_version": "Installed version:",
+        "integration": {
+            "archs": "Supported architectures:",
+            "ldap": {
+                "?": "No information about LDAP integration",
+                "false": "Does not use YunoHost accounts to login (LDAP)",
+                "true": "Use YunoHost accounts to login (LDAP)"
+            },
+            "multi_instance": {
+                "false": "Can be installed only once",
+                "true": "Can be installed several times"
+            },
+            "resources": "Typical resource usage: {ram} RAM, {disk} disk",
+            "sso": {
+                "?": "No information about SSO integration",
+                "false": "Single sign-on is not available (SSO)",
+                "true": "Single sign-on is available (SSO)"
+            },
+            "title": "YunoHost integration"
+        },
+        "links": {
+            "admindoc": "Official Admin documentation",
+            "code": "Official code repository",
+            "forum": "Topics about this app on YunoHost's forum",
+            "license": "License",
+            "package": "YunoHost package repository",
+            "title": "Links",
+            "userdoc": "Official User documentation",
+            "website": "Official Website"
+        },
+        "open_this_app": "Open this app",
+        "potential_alternative_to": "Potential alternative to:",
+        "uninstall": {
+            "purge_desc": "Remove the data directory associated with the app (this is usually data you uploaded yourself using the app)."
+        },
+        "upgrade": {
+            "confirm": {
+                "apps": "Apps that will be upgraded",
+                "title": "Confirm app upgrades"
+            },
+            "continue": "Continue to next app",
+            "notifs": {
+                "post": {
+                    "alert": "It seems that the upgrade went well!\n Here is some notifications that the packager considers important to know about this upgrade.\nYou can read it again in the app info page.",
+                    "title": "Post-upgrade notifications for '{name}'"
+                },
+                "pre": {
+                    "alert": "You should check those notifications before upgrading, there might be important stuff to know.",
+                    "title": "Be warned!"
+                }
+            },
+            "stop": "Cancel next app upgrades"
         }
-      },
-      "info": {
-        "forum": "Search or ask the forum!",
-        "problem": "A problem with this app?",
-        "config_panel_error": "An error prevents the configuration panel from being displayed:",
-        "config_panel_error_please_report": "Please report this error to the YunoHost team to get it fixed!"
-      },
-      "install": {
-        "license": "License: {license}",
-        "notifs": {
-          "post": {
-            "title": "Post-install notifications for '{name}'",
-            "alert": "It seems that the installation went well!\n Here is some notifications that the packager considers important to know.\nYou can read it again in the app info page."
-          },
-          "pre": {
-            "warning": "Things to know before installation",
-            "danger": "The installation of the application will most likely lead to issues",
-            "critical": "The application cannot be installed"
-          }
-        },
-        "problems": {
-          "arch": "This app can only be installed on specific architectures ({required}) but your server architecture is {current}.",
-          "broken": "This application is broken according to YunoHost's automatic tests and it is likely to break your system! You should probably NOT install it unless you know what you are doing.",
-          "thirdparty": "This application is not part of the official YunoHost catalog, installing 3rd party applications may compromise the integrity and security of your system. You should probably NOT install it unless you know what you are doing.",
-          "ignore": "I understand that this installation may break my system but i still want to try.",
-          "inprogress": "This application is still experimental (if not explicitly not working) and it is likely to break your system! You should probably NOT install it unless you know what you are doing.",
-          "install": "It is already installed and can't be installed more than once.",
-          "lowquality": "This application may work but is not well-integrated in YunoHost. Some features such as single sign-on and backup/restore might not be available, or it does not respect the good practices.",
-          "ram": "This application requires {required} of RAM to install/upgrade but only {current} is available right now. Even if this app could run, its installation process requires a large amount of RAM so your server may freeze and fail miserably.",
-          "version": "This application requires YunoHost >= {required} but your current installed version is {current}, consider first upgrading YunoHost."
-        },
-        "try_demo": "Try the demo",
-        "version": "Current version: {version}"
-      },
-      "integration": {
-        "archs": "Supported architectures:",
-        "ldap": {
-          "false": "Does not use YunoHost accounts to login (LDAP)",
-          "true": "Use YunoHost accounts to login (LDAP)",
-          "?": "No information about LDAP integration"
-        },
-        "multi_instance": {
-          "false": "Can be installed only once",
-          "true": "Can be installed several times"
-        },
-        "resources": "Typical resource usage: {ram} RAM, {disk} disk",
-        "sso": {
-          "false": "Single sign-on is not available (SSO)",
-          "true": "Single sign-on is available (SSO)",
-          "?": "No information about SSO integration"
-        },
-        "title": "YunoHost integration"
-      },
-      "links": {
-        "admindoc": "Official Admin documentation",
-        "code": "Official code repository",
-        "forum": "Topics about this app on YunoHost's forum",
-        "package": "YunoHost package repository",
-        "title": "Links",
-        "userdoc": "Official User documentation",
-        "website": "Official Website",
-        "license": "License"
-      },
-      "potential_alternative_to": "Potential alternative to:",
-      "uninstall": {
-        "purge_desc": "Remove the data directory associated with the app (this is usually data you uploaded yourself using the app)."
-      },
-      "upgrade": {
-        "confirm": {
-          "apps": "Apps that will be upgraded",
-          "title": "Confirm app upgrades"
-        },
-        "continue": "Continue to next app",
-        "notifs": {
-          "pre": {
-            "alert": "You should check those notifications before upgrading, there might be important stuff to know.",
-            "title": "Be warned!"
-          },
-          "post": {
-            "alert": "It seems that the upgrade went well!\n Here is some notifications that the packager considers important to know about this upgrade.\nYou can read it again in the app info page.",
-            "title": "Post-upgrade notifications for '{name}'"
-          }
-        },
-        "stop": "Cancel next app upgrades"
-      }
     },
     "app_choose_category": "Choose a category",
     "app_info_access_desc": "Groups / users currently allowed to access this app:",
@@ -219,8 +219,6 @@
     "confirm_service_start": "Are you sure you want to start {name}?",
     "confirm_service_stop": "Are you sure you want to stop {name}?",
     "confirm_uninstall": "Are you sure you want to uninstall {name}?",
-    "confirm_update_system": "Are you sure you want to update all system packages?",
-    "confirm_upnp_enable": "Are you sure you want to enable UPnP?",
     "confirm_update_apps": "Are you sure you want to update all applications?",
     "confirm_update_specific_app": "Are you sure you want to update {app}?",
     "confirm_update_system": "Are you sure you want to update all system packages?",
@@ -243,14 +241,14 @@
     "dns": "DNS",
     "domain": {
         "add": {
+            "dyn_dns_password": "Domain recovery password",
+            "dyn_dns_password_desc": "This password will allow you to later recover control of the domain if you reinstall your system. If you already registered this domain previously, use your recovery password here to reclaim it.",
+            "from_local": "I want a domain for local usage / test only",
+            "from_local_desc": "if you don't want an \"actual\" public domain name, you can use anything ending in <code>.local</code> or <code>.test</code>. Domain names ending in <code>.local</code> are special in the sense that they may automatically be resolved on the local network, assuming the clients support the Bonjour protocol. Alternatively, you may need to tweak the <code>/etc/hosts</code> file (or equivalent on Windows) on every client that you want to use this domain from, or to configure local DNS entries on your internet router.",
             "from_registrar": "I want to add a domain I own, or a subdomain",
             "from_registrar_desc": "You will need to manually configure DNS records on your registrar to finalize this domain's configuration. YunoHost's diagnosis will guide you about what DNS records to configure exactly.",
             "from_yunohost": "I don't own a domain, I want to register/use a free DynDNS domain provided by the YunoHost project",
-            "from_yunohost_desc": "The YunoHost project maintains a free 'DynDNS' service. It is limited to one such domain per server (though you can also add sub-domains later using the other 'Add a domain I own, or a subdomain' option above). The DNS configuration will be automatically handled by YunoHost. This is ideal when starting up with self-hosting in general and you don't want to invest in a domain name yet. However, on the medium/long-term, we recommend buying your very own domain name to some registrar to have full ownership of your domain.",
-            "from_local": "I want a domain for local usage / test only",
-            "from_local_desc": "if you don't want an \"actual\" public domain name, you can use anything ending in <code>.local</code> or <code>.test</code>. Domain names ending in <code>.local</code> are special in the sense that they may automatically be resolved on the local network, assuming the clients support the Bonjour protocol. Alternatively, you may need to tweak the <code>/etc/hosts</code> file (or equivalent on Windows) on every client that you want to use this domain from, or to configure local DNS entries on your internet router.",
-            "dyn_dns_password": "Domain recovery password",
-            "dyn_dns_password_desc": "This password will allow you to later recover control of the domain if you reinstall your system. If you already registered this domain previously, use your recovery password here to reclaim it."
+            "from_yunohost_desc": "The YunoHost project maintains a free 'DynDNS' service. It is limited to one such domain per server (though you can also add sub-domains later using the other 'Add a domain I own, or a subdomain' option above). The DNS configuration will be automatically handled by YunoHost. This is ideal when starting up with self-hosting in general and you don't want to invest in a domain name yet. However, on the medium/long-term, we recommend buying your very own domain name to some registrar to have full ownership of your domain."
         },
         "cert": {
             "types": {
@@ -290,8 +288,8 @@
         "info": {
             "apps_on_domain": "Apps installed on domain",
             "certificate_authority": "SSL Certification authority",
-            "registrar": "Registrar",
-            "dyn_dns_remove_and_unsubscribe": "Also unregister the domain from YunoHost's dyndns service"
+            "dyn_dns_remove_and_unsubscribe": "Also unregister the domain from YunoHost's dyndns service",
+            "registrar": "Registrar"
         },
         "see_parent_domain": "See parent domain",
         "toggle_subdomains": "Toggle subdomains",
@@ -400,9 +398,9 @@
             "action_config": "Run action '{action}' of app '{name}' configuration",
             "change_label": "Change label of '{prevName}' for '{nextName}'",
             "change_url": "Change access URL of '{name}'",
+            "dismiss_notification": "Dismiss notification for '{name}'",
             "install": "Install app '{name}'",
             "set_default": "Redirect '{domain}' domain root to '{name}'",
-            "dismiss_notification": "Dismiss notification for '{name}'",
             "uninstall": "Uninstall app '{name}'",
             "update_config": "Update panel '{id}' of app '{name}' configuration"
         },
@@ -541,7 +539,6 @@
     "migrations_no_pending": "No pending migrations",
     "migrations_pending": "Pending migrations",
     "multi_instance": "Can be installed several times",
-    "myserver": "myserver",
     "next": "Next",
     "no": "No",
     "nobody": "Nobody",

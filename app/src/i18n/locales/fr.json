@@ -38,10 +38,6 @@
     "disable": "Désactiver",
     "dns": "DNS",
     "domain_add": "Ajouter un domaine",
-    "domain_add_dns_doc": "… et j'ai <a href='//yunohost.org/dns_config' target='_blank'>configuré mes DNS correctement</a>.",
-    "domain_add_dyndns_doc": "… et je souhaite ajouter un service DNS dynamique.",
-    "domain_add_panel_with_domain": "J'ai déjà un nom de domaine…",
-    "domain_add_panel_without_domain": "Je n'ai pas de nom de domaine…",
     "domain_default_desc": "Les utilisateurs se connecteront au domaine par défaut.",
     "domain_default_longdesc": "Ceci est votre domaine par défaut.",
     "domain_delete_longdesc": "Supprimer ce domaine",
@@ -86,7 +82,6 @@
     "manage_domains": "Gérer les domaines",
     "manage_users": "Gérer les utilisateurs",
     "multi_instance": "Peut être installée plusieurs fois",
-    "myserver": "monserveur",
     "next": "Suivant",
     "no": "Non",
     "open": "Ouvrir",
@@ -366,9 +361,6 @@
     "code": "Code",
     "cancel": "Annuler",
     "app_show_categories": "Afficher les catégories",
-    "app_config_panel_no_panel": "Cette application n'a aucune configuration disponible",
-    "app_config_panel_label": "Configurez cette application",
-    "app_config_panel": "Panneau de configuration",
     "app_choose_category": "Choisissez une catégorie",
     "api_waiting": "Attente de la réponse du serveur...",
     "api_errors_titles": {
@@ -626,7 +618,6 @@
                 "title": "Documentation de l'administrateur"
             },
             "notifications": {
-                "dismiss": "Fermer ce message d'information",
                 "understood": "Compris",
                 "title": "Notifications",
                 "post_upgrade": "Remarques suite à la mise à niveau",
