@@ -533,7 +533,7 @@ export default {
     },
 
     async uninstall () {
-      const data = this.purge === true ? {purge: 1} : {}
+      const data = this.purge === true ? { purge: 1 } : {}
       api.delete('apps/' + this.id, data, { key: 'apps.uninstall', name: this.app.label }).then(() => {
         this.$router.push({ name: 'app-list' })
       })
