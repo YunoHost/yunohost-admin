@@ -1,3 +1,14 @@
+yunohost-admin (11.2.3) stable; urgency=low
+
+  - apps: Add link to the package repository in the info page ([#531](https://github.com/yunohost/yunohost-admin/pull/531))
+  - apps: add --purge option in app uninstall modal ([#532](https://github.com/yunohost/yunohost-admin/pull/532))
+  - dyndns/domain: Handle dyndns recovery password, rework a bit the domain add page ([#529](https://github.com/yunohost/yunohost-admin/pull/529))
+  - i18n: Translations updated for Arabic, Czech, French, Galician, Indonesian, Occitan, Slovak
+
+  Thanks to all contributors <3 ! (Albion Severin, axolotle, ButterflyOfFire, José M, Jose Riha, Neko Nekowazarashi, ppr, Quentí, Tagada)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Mon, 09 Oct 2023 23:20:32 +0200
+
 yunohost-admin (11.2.2) stable; urgency=low
 
   - [i18n] Translations updated for Arabic, Polish, Spanish
