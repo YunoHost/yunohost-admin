@@ -585,6 +585,7 @@
             "problems": {
                 "ignore": "Beriem na zreteľ, že inštalovaním tejto aplikácie si môžem rozbiť systém, no i napriek tomu to chcem urobiť."
             }
-        }
+        },
+        "potential_alternative_to": "Prípadná alternatíva k:"
     }
 }

@@ -526,6 +526,10 @@
         },
         "types": {
             "main_domain": "Domeni màger"
+        },
+        "add": {
+            "dyn_dns_password": "Senhal de recuperacion del domeni",
+            "from_local": "Vòli un domeni per un usatge local / de provar sonque"
         }
     },
     "users_import": "Importar los utilizaires",
@@ -617,7 +621,8 @@
             "notifications": {
                 "title": "Notificacions",
                 "post_upgrade": "Nòtas post mesa a nivèl",
-                "post_install": "Nòtas post installacion"
+                "post_install": "Nòtas post installacion",
+                "understood": "Comprés"
             }
         },
         "upgrade": {
