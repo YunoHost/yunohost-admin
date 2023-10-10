@@ -549,7 +549,8 @@
         "info": {
             "apps_on_domain": "Apps instaladas no dominio",
             "certificate_authority": "Autoridade certificadora SSL",
-            "registrar": "Rexistradora"
+            "registrar": "Rexistradora",
+            "dyn_dns_remove_and_unsubscribe": "Tamén cancelar o rexistro do dominio no servizo dyndns de YunoHost"
         },
         "see_parent_domain": "Ver dominio nai",
         "types": {
@@ -558,6 +559,16 @@
         "toggle_subdomains": "Activar subdominios",
         "explain": {
             "main_domain": "O dominio principal é o dominio onde está o portal de acceso para as usuarias (vía \"{domain}/yunohost/sso\"). <br>Por tanto, non é posible eliminalo.<br>Se queres eliminar \"{domain}\", primeiro tes que elexir ou engadir outro dominio e establecelo como dominio principal."
+        },
+        "add": {
+            "from_registrar_desc": "Deberás configurar manualmente os rexistros DNS na empresa rexistradora para finalizar a configuración do dominio. O sistema de diagnóstico de YNH dirache exactamente os rexistros DNS que debes configurar.",
+            "from_yunohost_desc": "O proxecto YunoHost mantén un servizo gratuíto 'DynDNS'. Está limitado a un dominio por servidor (mais podes engadir subdominios usando a opción 'Engadir un dominio que posúo, ou un subdominio'). A configuración DNS vai ser xestionada automáticamente por YunoHost. Normalmente isto é o ideal para comezar a usar a auto-hospedaxe se aínda non queres mercar un dominio propio. Porén, a medio/longo prazo, recomendámosche usar o teu propio dominio para ter completo control sobre o dominio utilizado.",
+            "dyn_dns_password": "Contrasinal de recuperación do dominio",
+            "dyn_dns_password_desc": "Este contrasinal permitirache recuperar o control sobre o dominio se reinstalas o sistema. Se xa rexistraches con anterioridade o dominio, usa aquí o contrasinal de recuperación para reclamalo.",
+            "from_local": "Quero un dominio só para uso local ou probas",
+            "from_local_desc": "Se non precisas un nome de dominio público \"real\", podes usar calquera dominio que remate en <code>.local</code> ou <code>.test</code>. Os nomes de dominio <code>.local</code> son especiais no senso de que se resolven de xeito automático na rede local, se asumimos que os clientes teñen soporte para o protocolo Bonjour. Alternativamente, poderías precisar editar o ficheiro <code>/etc/hosts</code> (ou o equivalente en windows) en cada cliente que queira conectarse ao dominio, ou configurar as entradas do DNS local no teu rúter de internet.",
+            "from_registrar": "Quero engadir un dominio propio, ou un subdominio",
+            "from_yunohost": "Non teño un dominio, quero rexistrar/usar un dominio DynDNS de balde proporcionado por YunoHost"
         }
     },
     "domain_dns_push_managed_in_parent_domain": "A ferramenta para os rexistros DNS automáticos están xestionados polo dominio nai <a href='#/domains/{parent_domain}/dns'>{parent_domain}</a>.",
@@ -675,6 +686,9 @@
                 }
             },
             "stop": "Cancelar as actualizacións da app seguinte"
+        },
+        "uninstall": {
+            "purge_desc": "Eliminar o directorio de datos asociados a esta app (normalmente son datos que ti subiches ao usar a app)."
         }
     }
 }
