@@ -299,7 +299,7 @@
     "mailbox_quota_example": "700M zodpovedá disku CD, 4700M zodpovedá disku DVD",
     "mailbox_quota_placeholder": "Pre vypnutie nastavte na 0.",
     "manage_apps": "Správa aplikácií",
-    "manage_domains": "Správa domén",
+    "manage_domains": "Spravovať domény",
     "manage_users": "Správa používateľov",
     "migrations": "Migrácie",
     "migrations_pending": "Čakajúce migrácie",
@@ -307,7 +307,7 @@
     "migrations_no_done": "Žiadne predchádzajúce migrácie",
     "migrations_disclaimer_not_checked": "Pred spustením tejto migrácie je vyžadovaný súhlas s prehlásením.",
     "multi_instance": "Môže byť nainštalovaná viackrát",
-    "groups_and_permissions_manage": "Správa skupín a oprávnení",
+    "groups_and_permissions_manage": "Spravovať skupiny a oprávnenia",
     "hook_data_home_desc": "Údaje používateľov sa nachádzajú v /home/USER",
     "hook_data_xmpp_desc": "Konfigurácie používateľov, miestností a nahrané súbory",
     "install": "Inštalovať",
@@ -355,7 +355,10 @@
     "port": "Port",
     "postinstall": {
         "force": "Vynútiť spustenie poinštalačného skriptu",
-        "title": "Poinštalačný skript"
+        "title": "Poinštalačný skript",
+        "user": {
+            "title": "Vytvoriť prvý účet administrátora"
+        }
     },
     "postinstall_intro_1": "Gratulujeme! YunoHost bol úspešne nainštalovaný.",
     "postinstall_intro_2": "Na aktiváciu služieb na serveri sú vyžadované ďalšie dva konfiguračné kroky.",
@@ -588,8 +591,12 @@
                 }
             },
             "problems": {
-                "ignore": "Beriem na zreteľ, že inštalovaním tejto aplikácie si môžem rozbiť systém, no i napriek tomu to chcem urobiť."
-            }
+                "ignore": "Beriem na zreteľ, že inštalovaním tejto aplikácie si môžem rozbiť systém, no i napriek tomu to chcem urobiť.",
+                "install": "Aplikácia je už nainštalovaná a nie je možné ju nainštalovať viac ako jedenkrát.",
+                "arch": "Túto aplikáciu je možné nainštalovať iba na konkrétnych architektúrach ({required}), no vaša architektúra je {current}."
+            },
+            "version": "Aktuálna verzia: {version}",
+            "try_demo": "Vyskúšať demo"
         },
         "potential_alternative_to": "Prípadná alternatíva k:",
         "integration": {
@@ -598,7 +605,11 @@
                 "true": "Používa na prihlasovanie účty YunoHost (LDAP)"
             },
             "title": "Integrácia s YunoHost",
-            "archs": "Podporované architektúry:"
+            "archs": "Podporované architektúry:",
+            "multi_instance": {
+                "false": "Môže byť nainštalovaná iba raz",
+                "true": "Môže byť nainštalovaná niekoľkokrát"
+            }
         },
         "links": {
             "code": "Oficiálny repozitár s kódom",
@@ -608,5 +619,6 @@
             "website": "Oficiálna webová stránka",
             "license": "Licencia"
         }
-    }
+    },
+    "manage_groups": "Spravovať skupiny"
 }
