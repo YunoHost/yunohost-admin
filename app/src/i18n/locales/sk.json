@@ -555,7 +555,8 @@
         "info": {
             "config_panel_error_please_report": "Prosím, nahláste túto chybu tímu YunoHost, aby ju mohli opraviť!",
             "forum": "Hľadajte alebo sa opýtajte na fóre!",
-            "problem": "Máte problém s aplikáciou?"
+            "problem": "Máte problém s aplikáciou?",
+            "config_panel_error": "Konfiguračný panel sa nezobrazuje kvôli chybe:"
         },
         "installed_version": "Nainštalovaná verzia:",
         "open_this_app": "Otvoriť túto aplikáciu",
@@ -579,13 +580,33 @@
             "notifs": {
                 "pre": {
                     "warning": "Veci, o ktorých by ste pred inštaláciou mali vedieť",
-                    "danger": "Po nainštalovaní tejto aplikácie sa môžu vyskytnúť problémy"
+                    "danger": "Po nainštalovaní tejto aplikácie sa môžu vyskytnúť problémy",
+                    "critical": "Aplikáciu nie je možné nainštalovať"
+                },
+                "post": {
+                    "title": "Poinštalačné upozornenie pre '{name}'"
                 }
             },
             "problems": {
                 "ignore": "Beriem na zreteľ, že inštalovaním tejto aplikácie si môžem rozbiť systém, no i napriek tomu to chcem urobiť."
             }
         },
-        "potential_alternative_to": "Prípadná alternatíva k:"
+        "potential_alternative_to": "Prípadná alternatíva k:",
+        "integration": {
+            "ldap": {
+                "false": "Nepoužíva na prihlasovanie účty YunoHost (LDAP)",
+                "true": "Používa na prihlasovanie účty YunoHost (LDAP)"
+            },
+            "title": "Integrácia s YunoHost",
+            "archs": "Podporované architektúry:"
+        },
+        "links": {
+            "code": "Oficiálny repozitár s kódom",
+            "forum": "Témy týkajúce sa tejto aplikácie na fóre YunoHost",
+            "title": "Odkazy",
+            "userdoc": "Oficiálna príručka používateľa",
+            "website": "Oficiálna webová stránka",
+            "license": "Licencia"
+        }
     }
 }
