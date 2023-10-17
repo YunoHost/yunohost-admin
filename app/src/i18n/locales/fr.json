@@ -349,7 +349,7 @@
     "error": "Erreur",
     "enabled": "Activé",
     "domain_delete_forbidden_desc": "Vous ne pouvez pas supprimer '{domain}' car c'est le domaine par défaut, vous devez choisir un autre domaine (ou <a href='#/domains/add'> ajoutez en un nouveau</a>) et le définir comme le domaine par défaut pour pouvoir supprimer celui-ci.",
-    "domain_add_dyndns_forbidden": "Vous avez déjà souscrit à un domaine DynDNS, vous pouvez demander la suppression de votre domaine DynDNS actuel sur le forum <a href='//forum.yunohost.org/t/nohost-domain-recovery-suppression-de-domaine-en-nohost-me-noho-st-et-ynh-fr/442'> dans le fil de discussion dédié</a>.",
+    "domain_add_dyndns_forbidden": "Vous avez déjà enregistré/souscrit à un domaine DynDNS du projet YunoHost. Par conception, cette fonctionnalité est limitée à un seul domaine de ce type par serveur. Si vous souhaitez utiliser un sous-domaine de votre domaine déjà souscrit, veuillez utiliser l'option 'Ajouter un domaine que je possède, ou un sous-domaine' ci-dessus. Si vous souhaitez utiliser un domaine complètement différent, vous devez d'abord supprimer votre domaine DynDNS existant. Les domaines DynDNS sont utiles pour débuter avec l'auto-hébergement, mais à moyen/long terme, nous recommandons d'acheter votre propre nom de domaine auprès d'un registrar/prestataire afin d'avoir la pleine propriété de votre domaine.",
     "disabled": "Désactivé",
     "dead": "Inactif",
     "day_validity": " Expiré | 1 jour | {count} jours",
