@@ -618,6 +618,11 @@
             "userdoc": "Oficiálna príručka používateľa",
             "website": "Oficiálna webová stránka",
             "license": "Licencia"
+        },
+        "upgrade": {
+            "confirm": {
+                "apps": "Aplikácie, ktoré budú aktualizované"
+            }
         }
     },
     "manage_groups": "Spravovať skupiny"
