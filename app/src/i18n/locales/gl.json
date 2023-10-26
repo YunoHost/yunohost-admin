@@ -144,7 +144,7 @@
     "from_to": "de {0} a {1}",
     "form_input_example": "Exemplo: {example}",
     "form_errors": {
-        "required": "O campo é requerido.",
+        "required": "Completa este campo.",
         "passwordMatch": "Os contrasinais non concordan.",
         "passwordLenght": "O contrasinal debe ter polo menos 8 caracteres.",
         "number": "Ten que ser un número.",
