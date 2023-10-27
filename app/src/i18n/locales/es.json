@@ -517,13 +517,24 @@
         "info": {
             "apps_on_domain": "Aplicaciones instaladas en el dominio",
             "certificate_authority": "Autoridad certificadora SSL",
-            "registrar": "Registrador"
+            "registrar": "Registrador",
+            "dyn_dns_remove_and_unsubscribe": "También eliminar el dominnio del servicio DynDNS de YunoHost"
         },
         "see_parent_domain": "Ver dominio padre",
         "types": {
             "main_domain": "Dominio principal"
         },
-        "toggle_subdomains": "Colapsar subdominios"
+        "toggle_subdomains": "Colapsar subdominios",
+        "add": {
+            "from_local_desc": "Si no quieres un nombre de dominio público \"real\", puedes usar cualquiera que termine en <code>.local</code> o <code>.test</code>. Los nombres de dominio que terminan en <code>.local</code> son especiales, en el sentido que podrían ser resueltos automáticamente en una red local, si los clientes soportan del protocolo Bonjour. Otro método es modificar el fichero <code>/etc/hosts</code> (o el equivalente de Windows) en cada cliente desde el que desees acceder a este dominio, o también puedes configurar las entradas DNS locales en tu router de internet.",
+            "from_yunohost_desc": "El proyecto YunoHost mantiene un servicio 'DynDNS'. Está limitado a un dominio de este tipo por servidor (aunque puedes añadir subdominios más adelante mediante la opción mostrada más arriba 'Añadir un dominio que ya poseo, o un subdominio'). La configuración de DNS será gestionada de manera automática por YunoHost. Esta opción es ideal cuando te estés inciando en \"auto alojar\" un servidor y no quieras invertir en un nombre de dominio por el momento. Sinembargo, a medio/largo plazo, recomendamos que compres tu propio dominio en algún registrador para que tengas un control completo de tu dominio.",
+            "dyn_dns_password": "Password de recuperación del dominio",
+            "dyn_dns_password_desc": "Esta password te permitirá más adelante recuperar el control del dominio si reinstalas el sistema. Si ya registraste este dominio anteriormente, utiliza la password de recuperación de dominio para reclamarlo.",
+            "from_local": "Quiero un dominio para uso local / únicamente de prueba",
+            "from_registrar": "Quiero añadir un dominio que ya poseo, o un subdominio",
+            "from_registrar_desc": "Tendrás que configurar manualmente los registros DNS en tu registrador para finalizar la configuración de este dominio. Los diagnósticos de YunoHost te guiarán de manera exácta para configurar los registros DNS.",
+            "from_yunohost": "No dispongo de un dominio, quiero registrar/usar un dominio gratuito de DynDNS ofrecido por el proyecto YunoHost"
+        }
     },
     "domain_dns_push_failed_to_authenticate": "Error de autenticación con la API del registrador. ¿Puede que las <a href='#/domains/{domain}/config'>credenciales</a> no sean correctas? (Error: {error})",
     "history": {
@@ -675,6 +686,9 @@
                 }
             },
             "stop": "Cancelar las próximas actualizaciones de la aplicación"
+        },
+        "uninstall": {
+            "purge_desc": "Borrar el directorio de información asociada con la app (normalmente se trata de la información subida al utilizar la app)."
         }
     }
 }
