@@ -232,7 +232,7 @@
     },
     "hook_data_home_desc": "Erabiltzaile-datuak /home/ERABILTZAILEA katalogoan daude",
     "installed": "Instalatuta",
-    "from_to": "{0}tik {1}era",
+    "from_to": "{0}(e)tik {1}(e)ra",
     "good_practices_about_admin_password": "Administrazio-pasahitz berri bat ezartzear zaude. Pasahitzak 8 karaktere izan beharko lituzke gutxienez, baina ondo legoke pasahitz luzeagoa erabiltzea (esaldi bat, esaterako) edota karaktere desberdinak gehitzea (hizki larriak, txikiak, zenbakiak eta karaktere bereziak).",
     "good_practices_about_user_password": "Erabiltzaile-pasahitz berri bat ezartzear zaude. Pasahitzak 8 karaktere izan beharko lituzke gutxienez, baina ondo legoke pasahitz luzeagoa erabiltzea (esaldi bat, esaterako) edota karaktere desberdinak gehitzea (hizki larriak, txikiak, zenbakiak eta karaktere bereziak).",
     "hook_adminjs_group_configuration": "Sistemaren ezarpenak",
