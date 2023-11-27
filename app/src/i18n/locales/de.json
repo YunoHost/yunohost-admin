@@ -547,6 +547,15 @@
         "toggle_subdomains": "Subdomänen wechseln",
         "explain": {
             "main_domain": "Die Hauptdomäne ist die Domäne, von welcher aus die Benutzer sich mit dem Portal verbinden können (via \"{domain}/yunohost/sso\"). <br>Darum ist es leider nicht möglich, sie zu entfernen.<br>Falls Sie \"{domain}\" entfernen möchten, werden sie vorher eine andere Domäne auswählen und als Hauptdomäne festlegen müssen."
+        },
+        "add": {
+            "dyn_dns_password_desc": "Dieses Passwort erlaubt Ihnen zu einem späteren Zeitpunkt die Widerherstellung der Domäne wenn Sie Ihr System neu installieren. Wenn Sie diese Domäne vorher schon registriert haben, verwenden Sie hier dieses Wiederherstellungspasswort für die Wiederherstellung der Domäne.",
+            "from_local_desc": "Wenn Sie keinen \"echten\" öffentlichen Domänennamen wünschen, können Sie hier alles verwenden, was in <code>.local</code> oder <code>.test</code> endet. Domänennamen welche in <code>.local</code> enden, sind in dem Sinne speziell, als dass sie in Ihrem lokalen Netzwerk automatisch aufgelöst werden können, angenommen Ihre Clients unterstützen das Bonjour-Protokoll. Als Alternative dazu können Sie Ihre <code>/etc/hosts</code> -Datei ( oder äquivalent für Windows ) auf jedem Ihrer Clients so einstellen, von welchen aus Sie diese Domäne benützen wollen, oder indem Sie die lokalen DNS-Einträge in Ihrem Internet-Router entsprechend konfigurieren.",
+            "dyn_dns_password": "Passwort für die Wiederherstellung der Domäne",
+            "from_local": "Ich hätte gerne eine Domäne ausschliesslich für die lokale / testweise Verwerwendung",
+            "from_registrar": "Ich will eine Domäne, die in meinem Besitz ist, hinzufügen, oder eine Subdomain",
+            "from_registrar_desc": "Sie müssen gegebenenfalls die DNS-Konfiguration bei ihrem Registrar vervollständigen. Die Diagnose von Yunohost zeigt ihnen an, welche Einträge Sie noch konfigurieren müssen.",
+            "from_yunohost": "Ich bin nicht im Besitz einer Domäne, ich will eine kostenlose DynDNS-Domäne registrieren/benützen, welche vom YunoHost-Projekt bereitgestellt wird"
         }
     },
     "domain_dns_push_failed_to_authenticate": "Die Authentifizierung an der API des Registrars war nicht erfolgreich. Höchstwahrscheinlich sind die <a href='#/domains/{domain}/config'>Zugangsdaten</a> falsch? (Fehler: {error})",
@@ -675,6 +684,9 @@
                 }
             },
             "stop": "Die nächsten Aktualisierungen stornieren"
+        },
+        "uninstall": {
+            "purge_desc": "Entferne das Datenverzeichnis, das mit dieser Applikation assoziiert ist (hier handelt es sich üblicherweise um Daten, die Sie bei der Benutzung der Applikation selbst hochgeladen haben)."
         }
     }
 }
