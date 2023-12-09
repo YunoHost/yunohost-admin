@@ -23,7 +23,7 @@
 
 <script>
 import { validationMixin } from 'vuelidate'
-import { alphalownum_, required, minLength } from '@/helpers/validators'
+import { alphalownumdot_, required, minLength } from '@/helpers/validators'
 
 export default {
   name: 'Login',
@@ -66,7 +66,7 @@ export default {
   validations () {
     return {
       form: {
-        username: { required, alphalownum_ },
+        username: { required, alphalownumdot_ },
         password: { required, passwordLenght: minLength(4) }
       }
     }

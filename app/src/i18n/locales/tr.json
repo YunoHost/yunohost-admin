@@ -114,7 +114,7 @@
         "passwordMatch": "Şifreler eşleşmiyor.",
         "remote": "{message}",
         "pattern": "{type}",
-        "alphalownum_": "Değer, yalnızca küçük harfler, alfasayısal ve alt çizgi karakterlerinden oluşmalıdır.",
+        "alphalownumdot_": "Değer, yalnızca küçük harfler, alfasayısal ve alt çizgi karakterlerinden oluşmalıdır.",
         "between": "Değer {min} ile {max} arasında olmalıdır.",
         "alpha": "Değer yalnızca alfabetik karakterler olmalıdır.",
         "domain": "Geçersiz alan adı: Yalnızca küçük harfli, alfasayısal, nokta ve tire karakterlerinden oluşmalıdır",

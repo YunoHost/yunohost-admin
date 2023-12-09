@@ -87,7 +87,7 @@ import api from '@/api'
 import { DomainForm } from '@/views/_partials'
 import Login from '@/views/Login.vue'
 import { formatFormData } from '@/helpers/yunohostArguments'
-import { alphalownum_, required, minLength, name, sameAs } from '@/helpers/validators'
+import { alphalownumdot_, required, minLength, name, sameAs } from '@/helpers/validators'
 
 export default {
   name: 'PostInstall',
@@ -195,7 +195,7 @@ export default {
   validations () {
     return {
       user: {
-        username: { required, alphalownum_ },
+        username: { required, alphalownumdot_ },
         fullname: { required, name },
         password: { required, passwordLenght: minLength(8) },
         confirmation: { required, passwordMatch: sameAs('password') }

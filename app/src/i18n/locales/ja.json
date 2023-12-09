@@ -292,7 +292,7 @@
     "footer_version": "Powered by <a href='https://yunohost.org'>YunoHost</a> {version} ({repo}).",
     "form_errors": {
         "alpha": "値はアルファベットである必要があります。",
-        "alphalownum_": "値は小文字の英数字である必要があります。",
+        "alphalownumdot_": "値は小文字の英数字である必要があります。",
         "between": "値は{min}から{max}の間である必要があります。",
         "domain": "不正なドメイン名: 小文字の英数字、.(ドット)、-(ダッシュ)である必要があります",
         "dynDomain": "不正なドメイン名: 小文字の英数字、-(ダッシュ)である必要があります",

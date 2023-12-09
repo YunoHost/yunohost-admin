@@ -95,7 +95,7 @@
         "domain": "域名无效：仅可包含小写字母数字、点和短划线字符",
         "dynDomain": "域名无效：仅可包含小写字母数字和短划线字符",
         "between": "值必须介于 {min} 和 {max} 之间。",
-        "alphalownum_": "值仅可包含小写字母数字和下划线字符。",
+        "alphalownumdot_": "值仅可包含小写字母数字和下划线字符。",
         "alpha": "值仅可包含字母字符。",
         "remote": "{message}",
         "pattern": "{type}",

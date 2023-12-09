@@ -330,7 +330,7 @@
     "footer_version": "Powered by <a href='https://yunohost.org'>YunoHost</a> {version} ({repo}).",
     "form_errors": {
         "alpha": "Value must be alphabetical characters only.",
-        "alphalownum_": "Value must be lower-case alphanumeric and underscore characters only.",
+        "alphalownumdot_": "Value must be lower-case alphanumeric, dots and underscore characters only.",
         "appRepoUrl": "YunoHost app repository URLs are expected to look like https://domain.tld/path/to/repo_ynh",
         "between": "Value must be between {min} and {max}.",
         "domain": "Invalid domain name: Must be lower-case alphanumeric, dot and dash characters only",

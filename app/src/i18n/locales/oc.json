@@ -405,7 +405,7 @@
         "notInUsers": "L’utilizaire « {value} » existís ja.",
         "name": "Los noms devon pas conténer de caractèrs especials levats <code>,.'-</code>",
         "domain": "Nom de domeni invalid : deu èsser compausat de minusculas alfranumericas, de punts e de jonhents bas",
-        "alphalownum_": "La valor deu sonque de caractèrs alfanumerics en minuscula e jonhent bas.",
+        "alphalownumdot_": "La valor deu sonque de caractèrs alfanumerics en minuscula e jonhent bas.",
         "minValue": "La valor deu èsser un nombre egal o superiora a {min}.",
         "between": "La valor deu èsser compresa entre {min} e {max}.",
         "alpha": "La cadena de caractèrs deu conténer sonque de letras.",
