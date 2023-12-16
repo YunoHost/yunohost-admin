@@ -677,7 +677,7 @@
             "continue": "Continuar coa seguinte app",
             "notifs": {
                 "pre": {
-                    "alert": "Deberías ler as notificacións antes de actualiar, podería haber información que debas coñecer.",
+                    "alert": "Deberías ler as notificacións antes de actualizar, podería haber información que debas coñecer.",
                     "title": "Ten coidado!"
                 },
                 "post": {
