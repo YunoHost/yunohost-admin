@@ -220,7 +220,7 @@
         "dynDomain": "Nome de domínio inválido: Deve ser composto somente por caracteres alfanuméricos e traço",
         "domain": "Nome de domínio inválido: Deve ser composto somente por caracteres alfanuméricos minúsculos, ponto e traço",
         "between": "O valor deve ser entre {min} e {max}.",
-        "alphalownum_": "O valor só deve conter caracteres alfanuméricos minúsculos e o underscore.",
+        "alphalownumdot_": "O valor só deve conter caracteres alfanuméricos minúsculos e o underscore.",
         "alpha": "O valor só pode ter caracteres alfanuméricos.",
         "maxValue": "O valor deve ser um número igual ou menor que {max}.",
         "remote": "{message}",

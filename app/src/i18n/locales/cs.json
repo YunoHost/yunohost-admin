@@ -112,7 +112,7 @@
         "dynDomain": "Nesprávný tvar doménového jména: může obsahovat pouze malé alfanumerické znaky a pomlčku",
         "domain": "Nesprávný tvar doménového jména: musí obsahovat pouze malé alfanumerické znaky, tečku a pomlčku",
         "between": "Hodnota musí být mezi {min} a {max}.",
-        "alphalownum_": "Hodnota musí obsahovat pouze alfanumerické znaky a podtržítko.",
+        "alphalownumdot_": "Hodnota musí obsahovat pouze alfanumerické znaky a podtržítko.",
         "alpha": "Hodnota musí obsahovat pouze čísla.",
         "remote": "{message}",
         "pattern": "{type}"

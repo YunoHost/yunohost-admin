@@ -334,7 +334,7 @@
         "domain": "Nom de domaine invalide : Il doit être composé de minuscules alphanumériques, de points et de tirets uniquement",
         "between": "La valeur doit être comprise entre {min} et {max}.",
         "alpha": "La chaîne de caractères ne doit contenir que des lettres.",
-        "alphalownum_": "La chaîne de caractères doit être composé uniquement de caractères alphanumériques minuscules et de tirets bas (aussi appelé tiret du 8 ou underscore).",
+        "alphalownumdot_": "La chaîne de caractères doit être composé uniquement de caractères alphanumériques minuscules, de points et de tirets bas (aussi appelé tiret du 8 ou underscore).",
         "maxValue": "La valeur doit être un nombre égal ou inférieur à {max}.",
         "remote": "{message}",
         "pattern": "{type}",

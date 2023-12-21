@@ -84,7 +84,7 @@
         "notInUsers": "Badago '{value}' izena duen erabiltzailea dagoeneko.",
         "number": "Balioa zenbaki bat izan behar da.",
         "alpha": "Hizkiak bakarrik izan daitezke.",
-        "alphalownum_": "Zenbakiak, hizki txikiak eta azpiko marra bakarrik erabili daitezke.",
+        "alphalownumdot_": "Zenbakiak, hizki txikiak eta azpiko marra bakarrik erabili daitezke.",
         "name": "Izenek ezin dituzte <code> ,.'-</code> ez diren karaktere bereziak eduki",
         "appRepoUrl": "YunoHosten aplikazio-errepositorioko URLek honako itxura daukate: https://domain.tld/path/to/repo_ynh"
     },

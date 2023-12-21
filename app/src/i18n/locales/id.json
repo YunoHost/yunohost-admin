@@ -277,7 +277,7 @@
         "dynDomain": "Nama domain tidak valid: Huruf kecil, angka, dan tanda hubung saja",
         "domain": "Nama domain tidak valid: Huruf kecil, angka, titik dan tanda hubung saja",
         "email": "Surel tidak valid: Huruf, angka, dan <code>_.-</code> saja (cth. blabla@contoh.com, b1la-2@contoh.com)",
-        "alphalownum_": "Harus hanya berupa karakter alfanumerik kecil dan garis bawah."
+        "alphalownumdot_": "Harus hanya berupa karakter alfanumerik kecil dan garis bawah."
     },
     "form_input_example": "Contoh: {example}",
     "group": "Kelompok",

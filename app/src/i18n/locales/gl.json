@@ -156,7 +156,7 @@
         "dynDomain": "Nome de dominio non válido: Só pode ter caracteres alfanuméricos en minúscula e barra",
         "domain": "Nome de dominio non válido: Só pode ser alfanumérico en minúsculas, punto e barra",
         "between": "O valor ten que estar entre {min} e {max}.",
-        "alphalownum_": "O valor só pode ter caracteres alfanuméricos en minúscula e trazos baixos.",
+        "alphalownumdot_": "O valor só pode ter caracteres alfanuméricos en minúscula e trazos baixos.",
         "alpha": "O valor só pode ter caracteres alfanuméricos.",
         "remote": "{message}",
         "pattern": "{type}",

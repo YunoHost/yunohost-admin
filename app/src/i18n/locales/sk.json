@@ -204,7 +204,7 @@
     },
     "form_errors": {
         "alpha": "Hodnota môže obsahovať iba čísla.",
-        "alphalownum_": "Hodnota môže obsahovať iba alfanumerické znaky a podčiarkovník.",
+        "alphalownumdot_": "Hodnota môže obsahovať iba alfanumerické znaky a podčiarkovník.",
         "domain": "Nesprávny tvar mena domény: môže obsahovať iba malé alfanumerické znaky, bodku a pomlčku",
         "dynDomain": "Nesprávny tvar mena domény: môže obsahovať iba malé alfanumerické znaky a pomlčku",
         "email": "Neplatný e-mail: môže obsahovať iba alfanumerické znaky a <code>_.-</code> (napr. niekto@priklad.com, ni3kt0-1@priklad.com)",

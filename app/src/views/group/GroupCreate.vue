@@ -13,7 +13,7 @@
 import { validationMixin } from 'vuelidate'
 
 import api from '@/api'
-import { required, alphalownum_ } from '@/helpers/validators'
+import { required, alphalownumdot_ } from '@/helpers/validators'
 
 export default {
   name: 'GroupCreate',
@@ -37,7 +37,7 @@ export default {
 
   validations: {
     form: {
-      groupname: { required, alphalownum_ }
+      groupname: { required, alphalownumdot_ }
     }
   },
 

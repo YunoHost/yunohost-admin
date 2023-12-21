@@ -307,7 +307,7 @@
     "form_errors": {
         "domain": "Nombre de dominio inválido: debe ser alfanumérico en minúsculas, solo caracteres de puntos y guiones",
         "between": "El valor debe estar entre {min} y {max}.",
-        "alphalownum_": "El valor debe ser alfanumérico en minúsculas y solo caracteres subrayados.",
+        "alphalownumdot_": "El valor debe ser alfanumérico en minúsculas y solo caracteres subrayados.",
         "alpha": "El valor debe ser solo caracteres alfabéticos.",
         "remote": "{message}",
         "pattern": "{type}",

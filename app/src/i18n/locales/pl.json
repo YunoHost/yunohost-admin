@@ -195,7 +195,7 @@
     "form_errors": {
         "between": "Wartość musi mieścić się między {min} a {max}.",
         "alpha": "Dozwolone są tylko litery.",
-        "alphalownum_": "Dozwolone są tylko małe litery oraz znak podkreślenia.",
+        "alphalownumdot_": "Dozwolone są tylko małe litery oraz znak podkreślenia.",
         "domain": "Niepoprawna domena: może składać się tylko z małych liter, cyfr, kropek i kresek",
         "dynDomain": "Niepoprawna domena: musi składać się tylko z małych liter, cyfr i kresek",
         "email": "Niepoprawny e-mail: musi składać się z liter, cyfr oraz znaków<code>_.</code> (np. someone@example.com, s0me-1@example.com)",

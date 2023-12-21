@@ -47,7 +47,7 @@ import { validationMixin } from 'vuelidate'
 
 import { formatFormData } from '@/helpers/yunohostArguments'
 import {
-  alphalownum_, unique, required, minLength, name, sameAs
+  alphalownumdot_, unique, required, minLength, name, sameAs
 } from '@/helpers/validators'
 
 export default {
@@ -123,7 +123,7 @@ export default {
   validations () {
     return {
       form: {
-        username: { required, alphalownum_, notInUsers: unique(this.userNames) },
+        username: { required, alphalownumdot_, notInUsers: unique(this.userNames) },
         fullname: { required, name },
         domain: { required },
         password: { required, passwordLenght: minLength(8) },

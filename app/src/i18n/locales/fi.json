@@ -127,7 +127,7 @@
     "diagnosis": "Diagnoosi",
     "form_errors": {
         "remote": "{message}",
-        "alphalownum_": "Arvo saa olla vain pieniä aakkosnumeerisia ja alleviivattuja merkkejä.",
+        "alphalownumdot_": "Arvo saa olla vain pieniä aakkosnumeerisia ja alleviivattuja merkkejä.",
         "between": "Arvon on oltava {min} ja {max} välillä.",
         "domain": "Virheellinen domain nimi: Ainoastaan pienaakkoset aakkosnumeeriset merkit sekä piste- ja viivamerkit",
         "notInUsers": "Käyttäjä '{value}' on jo olemassa.",
