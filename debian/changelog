@@ -1,3 +1,15 @@
+yunohost-admin (11.2.4) stable; urgency=low
+
+  - users: Allow dots in usernames ([#539](https://github.com/yunohost/yunohost-admin/pull/539))
+  - dyndns/domainadd : fix message still pointing to the old thread when a dyndns domain is registered, provide a more comprehensive explanation about the situation (71ea6c43)
+  - chore: update actions version to use node 16 version ([#536](https://github.com/yunohost/yunohost-admin/pull/536))
+  - Disable safari automatic zoom on input field ([#537](https://github.com/yunohost/yunohost-admin/pull/537))
+  - i18n: Translations updated for Basque, French, Galician, German, Polish, Slovak, Spanish
+
+  Thanks to all contributors <3 ! (Christian Wehrli, Jorge-vitrubio.net, José M, Jose Riha, Kuba Bazan, Metin Bektas, OniriCorpe, ppr, xabirequejo)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Wed, 27 Dec 2023 19:15:37 +0100
+
 yunohost-admin (11.2.3) stable; urgency=low
 
   - apps: Add link to the package repository in the info page ([#531](https://github.com/yunohost/yunohost-admin/pull/531))
