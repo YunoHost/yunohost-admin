@@ -675,6 +675,9 @@
             "continue": "Kontynuuj do następnej aplikacji",
             "stop": "Anuluj kolejne aktualizacje aplikacji"
         },
-        "potential_alternative_to": "Potencjalna alternatywa dla:"
+        "potential_alternative_to": "Potencjalna alternatywa dla:",
+        "uninstall": {
+            "purge_desc": "Usuń katalog danych powiązany z aplikacją (zazwyczaj są to dane, które sam przesłałeś za pomocą aplikacji)."
+        }
     }
 }
