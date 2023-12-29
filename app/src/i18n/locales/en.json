@@ -31,7 +31,7 @@
                 "unknown": "Connection with the server has been closed for unknown reasons.",
                 "upgrade_system": "Connection with the server has been closed due to YunoHost upgrade. Waiting for the server to be reachable again…"
             },
-            "success": "The server is now reachable! You can try to login",
+            "session_expired": "The server is now reachable! But it looks like your session expired, please login.",
             "title": "Trying to communicate with the server..."
         }
     },
