@@ -79,16 +79,19 @@ export function adressToFormValue (address) {
  * @param {Object} forms - A nested form used in config panels.
  * @return {Boolean} - expression evaluation result.
  */
-export function evaluateExpression (expression, forms) {
+export function evaluateExpression (expression, form, nested = true) {
   if (!expression) return true
   if (expression === '"false"') return false
 
-  const context = Object.values(forms).reduce((ctx, args) => {
-    Object.entries(args).forEach(([id, value]) => {
-      ctx[id] = isObjectLiteral(value) && 'file' in value ? value.content : value
-    })
-    return ctx
-  }, {})
+  const context = nested
+    ? Object.values(form).reduce((merged, next) => ({ ...merged, ...next }))
+    : form
+
+  for (const key in context) {
+    if (isObjectLiteral(context[key]) && 'file' in context[key]) {
+      context[key] = context[key].content
+    }
+  }
 
   // Allow to use match(var,regexp) function
   const matchRe = /match(\s*(\w+)\s*,\s*"([^"]+)"\s*)/g
@@ -107,9 +110,9 @@ export function evaluateExpression (expression, forms) {
 }
 
 // Adds a property to an Object that will dynamically returns a expression evaluation result.
-function addEvaluationGetter (prop, obj, expr, ctx) {
+function addEvaluationGetter (prop, obj, expr, ctx, nested) {
   Object.defineProperty(obj, prop, {
-    get: () => evaluateExpression(expr, ctx)
+    get: () => evaluateExpression(expr, ctx, nested)
   })
 }
 
@@ -357,12 +360,12 @@ export function formatYunoHostArguments (args, forms) {
     if (validation) validations[arg.id] = validation
     errors[arg.id] = error
 
-    if ('visible' in arg && ![false, '"false"'].includes(arg.visible)) {
-      addEvaluationGetter('visible', field, arg.visible, forms)
+    if ('visible' in arg && typeof arg.visible === 'string') {
+      addEvaluationGetter('visible', field, arg.visible, forms || form, forms !== undefined)
     }
 
-    if ('enabled' in arg) {
-      addEvaluationGetter('enabled', field.props, arg.enabled, forms)
+    if ('enabled' in arg && typeof arg.enabled === 'string') {
+      addEvaluationGetter('enabled', field.props, arg.enabled, forms || form, forms !== undefined)
     }
   }
 
