@@ -179,10 +179,9 @@ export default {
       return api.get('logout')
     },
 
-    TRY_TO_RECONNECT({ commit, dispatch }, args = {}) {
+    TRY_TO_RECONNECT({ commit }, args = {}) {
       // FIXME This is very ugly arguments forwarding, will use proper component way of doing this when switching to Vue 3 (teleport)
       commit('SET_RECONNECTING', args)
-      dispatch('RESET_CONNECTED')
     },
 
     GET_YUNOHOST_INFOS({ commit }) {
