@@ -678,7 +678,7 @@
             "notifs": {
                 "pre": {
                     "title": "Kontuz!",
-                    "alert": "Jakinarazpen horiek aztertu beharko zenituzke bertsio-berritu baino lehen, agian jakin beharreko zerbait diote."
+                    "alert": "Ondorengo oharrak aztertu beharko zenituzke bertsio-berritu baino lehen, litekeena da jakin beharreko zerbait azaltzea."
                 },
                 "post": {
                     "alert": "Badirudi bertsio-berritzea behar bezala joan dela! \n Paketearen arduradunak bertsio-berritze honi buruzko ondorengo jakinarazpenak garrantzitsuak direla deritzo. \nAplikazioaren informazio-orrialdean irakur dezakezu berriro.",
