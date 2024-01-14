@@ -521,5 +521,49 @@
     "users_import_delete_desc": "Se spuntato, tutti gli utenti esistenti che non sono nel file CSV saranno eliminati (e espulsi).",
     "retry": "Riprova",
     "app_state_broken_explanation": "Questa applicazione è attualmente non funzionante e quindi non installabile secondo i controlli automatici di YunoHost",
-    "confirm_install_app_broken": "ATTENZIONE! Questa applicazione non è funzionante secondo i controlli automatici di YunoHost e quindi potrebbe rovinare il vostro sistema! Probabilmente NON dovreste installarla a meno che non sappiate cosa state facendo. Volete prendervi questo rischio?"
+    "confirm_install_app_broken": "ATTENZIONE! Questa applicazione non è funzionante secondo i controlli automatici di YunoHost e quindi potrebbe rovinare il vostro sistema! Probabilmente NON dovreste installarla a meno che non sappiate cosa state facendo. Volete prendervi questo rischio?",
+    "app": {
+        "doc": {
+            "notifications": {
+                "understood": "Ho capito",
+                "title": "Notifiche",
+                "post_upgrade": "Note post-aggiornamento",
+                "post_install": "Note post-installazione"
+            },
+            "about": {
+                "title": "Altro su",
+                "description": "Descrizione"
+            },
+            "admin": {
+                "title": "Documentazione admin"
+            }
+        },
+        "antifeatures": "Questa app ha funzionalità che potrebbero non piacerti:",
+        "info": {
+            "forum": "Cerca o domanda sul forum!",
+            "problem": "Un problema con quest'app?",
+            "config_panel_error_please_report": "Per favore, segnala questo errore al team di YunoHost, perché sia risolto!",
+            "config_panel_error": "Un errore impedisce di mostrare il pannello di configurazione:"
+        },
+        "install": {
+            "license": "Licenza: {license}",
+            "notifs": {
+                "post": {
+                    "title": "Notifiche successive all'installazione di '{name}'",
+                    "alert": "Sembra che l'installazione abbia funzionato!\nEcco alcune notifiche che l'impacchettatore considera importante conoscere.\nPuoi leggerle di nuovo nella pagina di informazione dell'applicazione."
+                },
+                "pre": {
+                    "warning": "Ciò che occorre sapere prima dell'installazione",
+                    "danger": "L'installazione dell'applicazione determinerà molto probabilmente dei problemi",
+                    "critical": "L'applicazione non può essere installata"
+                }
+            },
+            "problems": {
+                "arch": "Questa applicazione può essere installata solo su architetture specifiche ({required}), ma l'architettura del tuo server è {current}.",
+                "broken": "Questa applicazione è guasta secondo le verifiche automatiche di YunoHost ed è probabile che guasti il tuo sistema! Probabilmente NON dovresti installarla a meno che sappia ciò che stai facendo.",
+                "ignore": "Capisco che questa installazione può guastare il mio sistema, ma voglio provare comunque.",
+                "inprogress": "Questa applicazione è ancora sperimentale (non funziona ancora alla perfezione) ed è probabile che guasti il tuo sistema! Probabilmente NON dovresti installarla a meno che tu non sappia cosa stai facendo."
+            }
+        }
+    }
 }
