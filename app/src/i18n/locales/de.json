@@ -592,10 +592,10 @@
             "problems": {
                 "broken": "Diese Anwendung ist laut automatischer Tests von YunoHost beschädigt und wird wahrscheinlich Ihr System ruinieren! Sie sollten sie NICHT installieren, wenn Sie nicht wissen, was Sie tun.",
                 "arch": "Diese App kann nur auf spezifischen Architekturen ({required}) installiert werden, aber die Architektur Ihres Servers ist {current}.",
-                "ram": "Diese App benötigt {required} RAM für Installation/Upgrade aber es sind aktuell nur {current} verfügbar. Auch wenn diese App funktionierte, würde der Installationsprozess viel RAM benötigen. Es würde die Gefahr bestehen, dass Ihr Server einfrieren (freezen) und völlig abschmieren würde.",
+                "ram": "Diese App benötigt {required} RAM für Installation/Upgrade aber es sind aktuell nur {current} verfügbar. Auch wenn diese App funktioniern würde, würde der Installationsprozess viel RAM benötigen. Es würde die Gefahr bestehen, dass Ihr Server einfrieren (freezen) und völlig abschmieren würde.",
                 "thirdparty": "Diese App ist nicht Bestandteil des offiziellen YunoHost-Katalogs. Die Installation von Drittanbieter-Apps kann die Integrität und Sicherheit Ihres Systems kompromittieren. Sie sollten sie wahrscheinlich NICHT installieren, wenn Sie nicht genau wissen, was Sie tun.",
                 "ignore": "Ich habe verstanden, dass diese Installation mein System ruinieren könnte, aber ich möchte es trotzdem versuchen.",
-                "inprogress": "Diese App ist noch experimentell (beziehungsweise noch nicht gut in YunoHost integriert oder ausdrücklich nicht funktionsfähig). Folglich ist sie anfällig dafür, ihr System zu ruinieren! Sie sollten sie wahrscheinlich NICHT installieren, wenn Sie nicht genau wissen, was Sie tun.",
+                "inprogress": "Diese App ist noch experimentell (beziehungsweise noch nicht gut in YunoHost integriert oder ausdrücklich nicht funktionsfähig). Folglich neigt sie dazu, Ihr System zu ruinieren! Sie sollten sie wahrscheinlich NICHT installieren, wenn Sie nicht genau wissen, was Sie tun.",
                 "install": "Diese App ist bereits installiert und kann nicht noch einmal installiert werden.",
                 "lowquality": "Diese App funktioniert wahrscheinlich, ist aber noch nicht gut in YunoHost integriert. Einige Funktionen wie zum Beispiel Single-Sign-On und Sicherung/Wiederherstellen könnten nicht verfügbar sein oder die Best-Practices nicht berücksichtigen.",
                 "version": "Diese App benötigt YunoHost >={required} aber Ihre aktuell installierte Version ist {current}. Sie sollten vorher YunoHost aktualisieren."
@@ -634,7 +634,7 @@
             }
         },
         "info": {
-            "forum": "Suche oder Frage im Forum!",
+            "forum": "Suchen oder fragen Sie im Forum!",
             "problem": "Ein Problem mit dieser App?",
             "config_panel_error": "Ein Fehler verhindert die Anzeige des Konfigurationsfensters:",
             "config_panel_error_please_report": "Bitte leiten Sie diesen Fehler an das YunoHost-Team zu dessen Behebung weiter!"
@@ -678,7 +678,7 @@
             "notifs": {
                 "pre": {
                     "alert": "Sie sollten sich die Benachrichtigungen genau anschauen, befor sie mit der Aktualisierung fortfahren. Sie könnten wichtige Informationen enthalten, die Sie kennen sollten.",
-                    "title": "Seien Sie Vorgewarnt!"
+                    "title": "Seien Sie vorgewarnt!"
                 },
                 "post": {
                     "alert": "Die Aktualisierung scheint gut gelaufen zu sein!\nHier ein paar Informationen, die der/die Paketierer betreffend dieser Aktualisierung als wichtig erachtet hat. \nSie können sie auch auf der Informationsseite dieser App nochmal nachlesen.",
