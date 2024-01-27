@@ -45,7 +45,7 @@
     "nobody": "Ula yiwen",
     "ok": "Ih",
     "open": "Ldi",
-    "operations": "timhalin",
+    "operations": "Timhalin",
     "logs": "Aɣmis",
     "logs_error": "Tuccḍa",
     "logs_ended_at": "Fin",
@@ -84,7 +84,7 @@
     },
     "app_make_default": "Err-it d amezwer",
     "applications": "Isnasen",
-    "backup": "Sekles",
+    "backup": "Asekles",
     "backup_action": "Sekles",
     "begin": "Bdu",
     "cancel": "Sefsex",
@@ -147,7 +147,7 @@
     "tcp": "TCP",
     "tools_reboot_btn": "Alles asekker",
     "tools_shutdown_btn": "Sexsi",
-    "user_username": "Nom d'utilisateur",
+    "user_username": "Isem n useqdac",
     "users": "Iseqdacen",
     "administration_password": "Awal uffir n tedbelt",
     "domain": {
@@ -157,5 +157,14 @@
             }
         }
     },
-    "group_admins": "Inedbalen"
+    "group_admins": "Inedbalen",
+    "footer_version": "Yezreɛ-it <a href='https://yunohost.org'>YunoHost</a> {version} ({repo}).",
+    "users_new": "Aseqdac amaynut",
+    "human_routes": {
+        "upgrade": {
+            "system": "Aleqqem n unagraw"
+        }
+    },
+    "tools_yunohost_settings": "Iɣewwaṛen n YunoHost",
+    "user_username_edit": "Ẓreg amaɣnu n {name}"
 }
