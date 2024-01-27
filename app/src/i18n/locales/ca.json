@@ -308,12 +308,16 @@
         "APINotRespondingError": "L'API de YunoHost no respon",
         "APIInternalError": "YunoHost ha trobat un error intern",
         "APIBadRequestError": "YunoHost ha trobat un error",
-        "APIError": "YunoHost ha trobat un error inesperat"
+        "APIError": "YunoHost ha trobat un error inesperat",
+        "APINotFoundError": "L'API de YunoHost no ha pogut trobar una ruta"
     },
     "api_error": {
         "sorry": "Ens sap molt greu això.",
         "info": "La informació següent pot ser útil per a la persona que us ajudi:",
-        "help": "Podeu buscar ajuda <a href=\"https://forum.yunohost.org/\">al fòrum</a> o <a href=\"https://chat.yunohost.org/\">al chat</a> per arreglar la situació, o reportar l'error <a href=\"https://github.com/YunoHost/issues\">al bugtracker</a>."
+        "help": "Podeu buscar ajuda <a href=\"https://forum.yunohost.org/\">al fòrum</a> o <a href=\"https://chat.yunohost.org/\">al chat</a> per arreglar la situació, o reportar l'error <a href=\"https://github.com/YunoHost/issues\">al bugtracker</a>.",
+        "error_message": "Missatge d'error:",
+        "server_said": "Mentre processava l'acció, el servidor ha dit:",
+        "view_error": "Mostra l'error"
     },
     "address": {
         "local_part_description": {
@@ -326,6 +330,141 @@
         }
     },
     "api": {
-        "processing": "El servidor està processant l'acció..."
+        "processing": "El servidor està processant l'acció...",
+        "partial_logs": "[...] (consulteu l'historial per obtenir els registres complets)",
+        "query_status": {
+            "error": "Sense èxit",
+            "pending": "En progrés",
+            "success": "Completat correctament",
+            "warning": "Completat correctament amb errors o alertes"
+        },
+        "reconnecting": {
+            "reason": {
+                "reboot": "El vostre servidor s'està reiniciant i no s'hi podrà accedir durant algun temps. Tan bon punt se n'hi pugui apareixerà un missatge d'inici de sessió.",
+                "shutdown": "El vostre servidor s'està tancant i ja no és accessible. Torneu-lo a activar i tan bon punt s'hi pugui accedir apareixerà un missatge d'inici de sessió.",
+                "unknown": "La connexió amb el servidor s'ha tancat per motius desconeguts.",
+                "upgrade_system": "La connexió amb el servidor s'ha tancat a causa de l'actualització de YunoHost. S'està esperant que el servidor torni a ser accessible…"
+            },
+            "title": "S'està intentant comunicar amb el servidor...",
+            "failed": "Sembla que el servidor no respon. Podeu provar de tornar a connectar-vos o provar d'executar `systemctl restart yunohost-api` mitjançant ssh.",
+            "success": "Ja es pot accedir al servidor! Podeu provar d'iniciar sessió"
+        }
+    },
+    "app_install_parameters": "Paràmetres de la instal·lació",
+    "app_state_broken": "trencada",
+    "app": {
+        "installed_version": "Versió instal·lada:",
+        "open_this_app": "Obre aquesta aplicació",
+        "antifeatures": "Aquesta aplicació té funcions que potser no us agraden:",
+        "doc": {
+            "about": {
+                "title": "Sobre",
+                "description": "Descripció"
+            },
+            "admin": {
+                "title": "Document d'administració"
+            },
+            "notifications": {
+                "title": "Notificacions",
+                "post_upgrade": "Notes post-actualització",
+                "post_install": "Notes post-instal·lació",
+                "understood": "Entés"
+            }
+        },
+        "info": {
+            "forum": "Busca o pregunta al fòrum!",
+            "problem": "Hi ha algun problema amb aquesta aplicació?",
+            "config_panel_error": "Un error impedeix que es mostri el panell de configuració:",
+            "config_panel_error_please_report": "Informeu d'aquest error a l'equip de YunoHost per solucionar-lo!"
+        },
+        "install": {
+            "license": "Llicència: {license}",
+            "notifs": {
+                "post": {
+                    "title": "Notificacions post-instal·lació per a '{name}'",
+                    "alert": "Sembla que la instal·lació ha anat bé!\n Aquí hi ha algunes notificacions que l'empaquetador considera important conèixer.\n Podeu tornar a llegir-lo a la pàgina d'informació de l'aplicació."
+                },
+                "pre": {
+                    "warning": "Coses a saber abans de la instal·lació",
+                    "danger": "La instal·lació de l'aplicació probablement comportarà problemes",
+                    "critical": "L'aplicació no es pot instal·lar"
+                }
+            },
+            "problems": {
+                "arch": "Aquesta aplicació només es pot instal·lar en arquitectures específiques ({required}), però l'arquitectura del vostre servidor és {current}.",
+                "broken": "Aquesta aplicació està trencada segons les proves automàtiques de YunoHost i és probable que trenqui el sistema! Probablement NO hauries d'instal·lar-la tret que sàpigues què estàs fent.",
+                "ignore": "Entenc que aquesta instal·lació pot trencar el meu sistema però vull provar.",
+                "inprogress": "Aquesta aplicació encara és experimental (o explícitament no funcional) i és probable que trenqui el vostre sistema! Probablement NO hauries d'instal·lar-la tret que sàpigues què estàs fent.",
+                "install": "Ja està instal·lada i no es pot instal·lar més d'una vegada.",
+                "lowquality": "Aquesta aplicació pot funcionar, però no està ben integrada a YunoHost. És possible que algunes funcions, com ara l'inici de sessió únic i la còpia de seguretat/restauració, no estiguin disponibles o no respectin les bones pràctiques.",
+                "version": "Aquesta aplicació requereix YunoHost >= {required} però la vostra versió instal·lada actual és {current}, considereu primer actualitzar YunoHost.",
+                "ram": "Aquesta aplicació requereix {required} de RAM per instal·lar/actualitzar, però només hi ha {current} disponibles ara mateix. Fins i tot si aquesta aplicació es pot executar, el seu procés d'instal·lació requereix una gran quantitat de memòria RAM, de manera que el servidor es pot congelar i fallar miserablement.",
+                "thirdparty": "Aquesta aplicació no forma part del catàleg oficial de YunoHost, la instal·lació d'aplicacions de tercers pot comprometre la integritat i la seguretat del vostre sistema. Probablement NO hauries d'instal·lar-la tret que sàpigues què estàs fent."
+            },
+            "try_demo": "Prova la demostració",
+            "version": "Versió actual: {version}"
+        },
+        "integration": {
+            "archs": "Arquitectures suportades:",
+            "ldap": {
+                "false": "No utilitza comptes de YunoHost per iniciar sessió (LDAP)",
+                "true": "Utilitza comptes de YunoHost per iniciar sessió (LDAP)",
+                "?": "No hi ha informació sobre la integració LDAP"
+            },
+            "resources": "Ús de recursos típic: {ram} RAM, {disk} disc",
+            "sso": {
+                "false": "L'inici de sessió únic (SSO) no està disponible",
+                "true": "L'inici de sessió únic (SSO) està disponible",
+                "?": "No hi ha informació sobre la integració SSO"
+            },
+            "title": "Integració YunoHost",
+            "multi_instance": {
+                "false": "Només es pot instal·lar una vegada",
+                "true": "Es pot instal·lar diverses vegades"
+            }
+        },
+        "links": {
+            "admindoc": "Documentació oficial d'administració",
+            "code": "Repositori oficial de codi",
+            "forum": "Temes sobre aquesta aplicació al fòrum de YunoHost",
+            "package": "Repositori de paquets YunoHost",
+            "title": "Vincles",
+            "userdoc": "Documentació oficial d'usuari",
+            "website": "Pàgina web oficial",
+            "license": "Llicència"
+        },
+        "potential_alternative_to": "Alternativa potencial a:",
+        "upgrade": {
+            "confirm": {
+                "apps": "Aplicacions que s'actualitzaran",
+                "title": "Confirmeu les actualitzacions d'aplicacions"
+            },
+            "notifs": {
+                "pre": {
+                    "alert": "Hauríeu de comprovar aquestes notificacions abans d'actualitzar, és possible que hi hagi coses importants a saber.",
+                    "title": "Estàs avisat/da!"
+                },
+                "post": {
+                    "alert": "Sembla que l'actualització ha anat bé!\n Aquí hi ha algunes notificacions que l'empaquetador considera important conèixer sobre aquesta actualització.\n Podeu tornar a llegir-ho a la pàgina d'informació de l'aplicació.",
+                    "title": "Notificacions post-actualització per a '{name}'"
+                }
+            },
+            "continue": "Continueu amb l'aplicació següent",
+            "stop": "Cancel·la les properes actualitzacions de l'aplicació"
+        },
+        "uninstall": {
+            "purge_desc": "Elimina el directori de dades associat a l'aplicació (normalment són dades que heu penjat amb l'aplicació)."
+        }
+    },
+    "api_not_found": "Sembla que l'administrador web ha intentat consultar alguna cosa que no existeix.",
+    "details_about": "Mostra més detalls sobre {subject}",
+    "app_state_broken_explanation": "Aquesta aplicació actualment està trencada i no es pot instal·lar segons les proves automàtiques de YunoHost",
+    "confirm_group_add_access_permission": "Esteu segur que voleu concedir accés a {perm} a {name}? Aquest accés augmenta significativament la superfície d'atac si {name} és una persona malintencionada. Només ho hauríeu de fer si CONFIEU en aquesta persona/grup.",
+    "confirm_install_app_broken": "ADVERTIMENT! Aquesta aplicació està trencada segons les proves automàtiques de YunoHost i és probable que trenqui el vostre sistema! Probablement NO hauries d'instal·lar-la tret que sàpigues què estàs fent. Estàs disposat/da a córrer aquest risc?",
+    "domain": {
+        "add": {
+            "dyn_dns_password_desc": "Aquesta contrasenya us permetrà recuperar més tard el control del domini si torneu a instal·lar el vostre sistema. Si ja heu registrat aquest domini anteriorment, feu servir la vostra contrasenya de recuperació aquí per recuperar-lo.",
+            "dyn_dns_password": "Contrasenya de recuperació del domini"
+        }
     }
 }
