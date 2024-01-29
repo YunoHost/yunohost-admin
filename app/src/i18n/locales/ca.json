@@ -47,7 +47,7 @@
     "custom_app_install": "Instal·lar una aplicació personalitzada",
     "delete": "Suprimir",
     "description": "Descripció",
-    "domain_dns_conf_is_just_a_recommendation": "Aquesta pàgina mostra la configuració *recomanada*. Aquesta pàgina *no* configura el DNS. És la seva responsabilitat configurar la zona DNS al seu registrar DNS en acord amb aquesta recomanació.",
+    "domain_dns_conf_is_just_a_recommendation": "Aquesta secció mostra la configuració *recomanada*. Aquesta pàgina *no* configura el DNS. És la vostra responsabilitat configurar la zona DNS al vostre registrador DNS en acord amb aquesta recomanació.",
     "diagnosis": "Diagnòstic",
     "disable": "Desactivar",
     "dns": "DNS",
@@ -117,7 +117,7 @@
     "protocol": "Protocol",
     "restore": "Restaurar",
     "running": "En execució",
-    "save": "Guardar",
+    "save": "Desar",
     "service_start_on_boot": "Iniciar a l'engegada",
     "services": "Serveis",
     "set_default": "Establir com a predeterminat",
@@ -212,7 +212,7 @@
     "group_add_permission": "Afegir permís",
     "group_new": "Nou grup",
     "group_explain_visitors": "Aquest és un grup especial que representa els visitants anònims",
-    "group_specific_permissions": "Permisos específics de l'usuari",
+    "group_specific_permissions": "Permisos d'usuari individual",
     "groups_and_permissions": "Grups i permisos",
     "groups_and_permissions_manage": "Gestionar grups i usuaris",
     "permissions": "Permisos",
@@ -258,10 +258,12 @@
         "methods": {
             "DELETE": "eliminar",
             "PUT": "modificar",
-            "POST": "crear/executar"
+            "POST": "crear/executar",
+            "GET": "llegir"
         },
         "last_action": "Última acció:",
-        "title": "Historial"
+        "title": "Historial",
+        "is_empty": "De moment res a l'historial."
     },
     "form_errors": {
         "required": "Aquest camp és obligatori.",
@@ -278,7 +280,11 @@
         "alphalownumdot_": "Només pot contenir caràcters alfanumèrics en minúscules i la barra baixa.",
         "alpha": "Només pot contenir caràcters alfanumèrics.",
         "remote": "{message}",
-        "pattern": "{type}"
+        "pattern": "{type}",
+        "invalid_form": "El formulari conté alguns errors.",
+        "emailForward": "Reenviament de correu electrònic no vàlid: només ha de ser caràcters alfanumèrics i <code>_.-+</code> (p. ex., nom+etiqueta@example.com, _n.0-m+etiqueta@example.com)",
+        "appRepoUrl": "S'espera que els URL del dipòsit d'aplicacions de YunoHost siguin com https://domini.tld/cami/al/diposit_ynh",
+        "maxValue": "El valor ha de ser un nombre igual o inferior a {max}."
     },
     "footer": {
         "donate": "Fer una donació",
@@ -289,7 +295,7 @@
     "error": "Error",
     "enabled": "Activat",
     "domain_delete_forbidden_desc": "No podeu eliminar «{domain}» ja que és el domini principal, heu d'escollir un altre domini (o <a href='#/domains/add'>afegir-ne un de nou</a>) i fer-lo el domini principal per a poder eliminar aquest.",
-    "domain_add_dyndns_forbidden": "Ja us heu subscrit a un domini DynDNS, podeu demanar que eliminin el domini DynDNS actual al fòrum <a href='//forum.yunohost.org/t/nohost-domain-recovery-suppression-de-domaine-en-nohost-me-noho-st-et-ynh-fr/442'>en el fil dedicat</a>.",
+    "domain_add_dyndns_forbidden": "Ja us heu registrat o subscrit a un domini DynDNS del projecte YunoHost. Per disseny, aquesta funció està limitada a un d'aquests dominis per servidor.  Si voleu un subdomini del vostre domini ja subscrit, utilitzeu l'opció \"Afegeix un domini que tinc o un subdomini\" anterior. Si voleu utilitzar un domini completament diferent, primer heu d'eliminar el vostre domini DynDNS existent. Els dominis DynDNS són bons quan comenceu amb l'allotjament automàtic, però a mitjà/llarg termini, us recomanem comprar el vostre propi nom de domini a algun registrador per tenir la propietat total del vostre domini.",
     "disabled": "Desactivat",
     "dead": "Inactiu",
     "day_validity": " Expirat | 1 dia | {count} dies",
@@ -446,7 +452,7 @@
                 },
                 "post": {
                     "alert": "Sembla que l'actualització ha anat bé!\n Aquí hi ha algunes notificacions que l'empaquetador considera important conèixer sobre aquesta actualització.\n Podeu tornar a llegir-ho a la pàgina d'informació de l'aplicació.",
-                    "title": "Notificacions post-actualització per a '{name}'"
+                    "title": "Notificacions post-actualització per a \"{name}\""
                 }
             },
             "continue": "Continueu amb l'aplicació següent",
@@ -464,7 +470,127 @@
     "domain": {
         "add": {
             "dyn_dns_password_desc": "Aquesta contrasenya us permetrà recuperar més tard el control del domini si torneu a instal·lar el vostre sistema. Si ja heu registrat aquest domini anteriorment, feu servir la vostra contrasenya de recuperació aquí per recuperar-lo.",
-            "dyn_dns_password": "Contrasenya de recuperació del domini"
+            "dyn_dns_password": "Contrasenya de recuperació del domini",
+            "from_registrar": "Vull afegir un domini que tinc o un subdomini",
+            "from_yunohost": "No tinc cap domini, vull registrar/utilitzar un domini DynDNS gratuït proporcionat pel projecte YunoHost",
+            "from_local": "Vull un domini per a ús local / només de prova",
+            "from_local_desc": "Si no voleu un nom de domini públic \"real\", podeu utilitzar qualsevol cosa que acabi en <code>.local</code> o <code>.test</code>.  Els noms de domini que acaben en <code>.local</code> són especials en el sentit que es poden resoldre automàticament a la xarxa local, suposant que els clients admeten el protocol Bonjour. Alternativament, és possible que hàgiu de modificar el fitxer <code>/etc/hosts</code> (o l'equivalent a Windows) a cada client des del qual vulgueu utilitzar aquest domini, o bé configurar les entrades de DNS locals al vostre encaminador d'Internet.",
+            "from_registrar_desc": "Haureu de configurar manualment els registres DNS al vostre registrador per finalitzar la configuració d'aquest domini. El diagnòstic de YunoHost us guiarà sobre quins registres DNS heu de configurar exactament.",
+            "from_yunohost_desc": "El projecte YunoHost manté un servei gratuït 'DynDNS'.  Està limitat a un d'aquests dominis per servidor (tot i que també podeu afegir subdominis més tard utilitzant l'altra opció \"Afegeix un domini que tinc o un subdomini\" anterior). La configuració de DNS serà gestionada automàticament per YunoHost.  Això és ideal quan comenceu amb l'allotjament automàtic en general i encara no voleu invertir en un nom de domini.  Tanmateix, a mitjà/llarg termini, us recomanem que compreu el vostre propi nom de domini a algun registrador per tenir la propietat total del vostre domini."
+        },
+        "cert": {
+            "types": {
+                "other": "Altre/Desconegut",
+                "letsencrypt": "Let's Encrypt",
+                "selfsigned": "Autosignat"
+            },
+            "valid_for": "vàlid durant {days}"
+        },
+        "info": {
+            "registrar": "Registrador",
+            "certificate_authority": "Autoritat de certificació SSL",
+            "apps_on_domain": "Aplicacions instal·lades al domini",
+            "dyn_dns_remove_and_unsubscribe": "També cancel·leu el registre del domini del servei dyndns de YunoHost"
+        },
+        "config": {
+            "edit": "Edita la configuració del domini",
+            "title": "Configuració del domini"
+        },
+        "dns": {
+            "auto_config": "Configuració automàtica d'entrades DNS",
+            "push_force_warning": "Sembla que algunes entrades DNS que YunoHost hauria establert ja es troben a la configuració del registrador. Podeu utilitzar l'opció de sobreescriure si sabeu el que esteu fent.",
+            "auto_config_ignored": "ignorat, no serà modificat per YunoHost tret que marqueu l'opció de sobreescriure",
+            "auto_config_zone": "Zona DNS actual",
+            "methods": {
+                "handled_in_parent": "Gestionat al domini principal",
+                "manual": "Manual",
+                "none": "Cap",
+                "auto": "Automàtic",
+                "semi_auto": "Semiautomàtic"
+            },
+            "push_force_confirm": "Esteu segur que voleu forçar l'impuls de totes les entrades DNS suggerides? Tingueu en compte que pot sobreescriure entrades predeterminades importants o establertes manualment per vosaltres o el vostre registrador.",
+            "push_force": "Sobreescriu les entrades existents",
+            "manual_config": "Entrades DNS suggerides per a la configuració manual",
+            "auto_config_ok": "La configuració automàtica sembla estar bé!",
+            "edit": "Editeu la configuració del DNS",
+            "info": "La configuració automàtica d'entrades DNS és una característica experimental. <br>Penseu en desar la vostra zona DNS actual des de la interfície del vostre registrador de DNS abans d'enviar les entrades des d'aquí.",
+            "push": "Envieu les entrades DNS al registrador"
+        },
+        "explain": {
+            "main_domain": "El domini principal és el domini des del qual els usuaris es poden connectar al portal (mitjançant \"{domain}/yunohost/sso\").<br>Per tant, no és possible suprimir-lo.<br>Si voleu suprimir \"{domain}\", primer hauràs de triar o afegir un altre domini i configurar-lo com a domini principal."
+        },
+        "see_parent_domain": "Vegeu el domini principal",
+        "toggle_subdomains": "Commuta els subdominis",
+        "types": {
+            "main_domain": "Domini principal"
         }
-    }
+    },
+    "hook_conf_ynh_settings": "Configuracions de YunoHost",
+    "group_admins": "Administradors",
+    "human_routes": {
+        "apps": {
+            "action_config": "Executeu l'acció \"{action}\" de la configuració de l'aplicació \"{name}\"",
+            "install": "Instal·la l'aplicació \"{name}\"",
+            "change_url": "Canvia l'URL d'accés de \"{name}\"",
+            "dismiss_notification": "Ignora la notificació per a \"{name}\"",
+            "update_config": "Actualitza el tauler \"{id}\" de la configuració de l'aplicació \"{name}\"",
+            "change_label": "Canvia l'etiqueta de \"{prevName}\" per a \"{nextName}\"",
+            "set_default": "Redirigeix l'arrel del domini \"{domain}\" a \"{name}\"",
+            "uninstall": "Desinstal·la l'aplicació \"{name}\""
+        },
+        "domains": {
+            "push_dns_changes": "Envieu les entrades DNS al registrador de \"{name}\"",
+            "update_config": "Actualitza el tauler \"{id}\" de la configuració del domini \"{name}\"",
+            "add": "Afegeix el domini \"{name}\"",
+            "delete": "Suprimeix el domini \"{name}\"",
+            "cert_install": "Instal·leu el certificat per a \"{name}\"",
+            "cert_renew": "Renova el certificat per a \"{name}\"",
+            "set_default": "Estableix \"{name}\" com a domini predeterminat"
+        },
+        "permissions": {
+            "add": "Permet que \"{name}\" accedeixi a \"{perm}\"",
+            "remove": "Suprimeix l'accés \"{name}\" a \"{perm}\""
+        },
+        "migrations": {
+            "skip": "Omet les migracions",
+            "run": "Executar migracions"
+        },
+        "groups": {
+            "remove": "Elimina \"{user}\" del grup \"{name}\"",
+            "add": "Afegeix \"{user}\" al grup \"{name}\"",
+            "create": "Crea el grup \"{name}\"",
+            "delete": "Suprimeix el grup \"{name}\""
+        },
+        "firewall": {
+            "upnp": "{action} UPnP",
+            "ports": "{action} port {port} ({protocol}, {connection})"
+        },
+        "diagnosis": {
+            "run_specific": "Executeu el diagnòstic \"{description}\"",
+            "ignore": {
+                "error": "Ignora un error",
+                "warning": "Ignora un avís"
+            },
+            "unignore": {
+                "error": "Deixeu d'ignorar un error",
+                "warning": "Deixeu d'ignorar un avís"
+            },
+            "run": "Executeu el diagnòstic"
+        },
+        "postinstall": "Executa la postinstal·lació",
+        "reboot": "Reinicia el servidor",
+        "backups": {
+            "create": "Creeu una còpia de seguretat",
+            "delete": "Suprimeix la còpia de seguretat \"{name}\"",
+            "restore": "Restaura la còpia de seguretat \"{name}\""
+        }
+    },
+    "go_back": "Torna",
+    "domain_dns_push_failed_to_authenticate": "No s'ha pogut autenticar a l'API del registrador. El més probable és que les <a href='#/domains/{domain}/config'>credencials</a> siguin incorrectes. (Error: {error})",
+    "hook_data_xmpp_desc": "Configuracions d'habitacions i d'usuaris, càrregues de fitxers",
+    "hook_conf_manually_modified_files": "Configuracions modificades manualment",
+    "domain_dns_push_managed_in_parent_domain": "La funció d'entrades DNS automàtiques es gestiona al domini principal <a href='#/domains/{parent_domain}/dns'>{parent_domain}</a>.",
+    "domain_dns_push_not_applicable": "La funció d'entrades DNS automàtiques no és aplicable al domini {domain}.<br> Hauríeu de configurar manualment les vostres entrades DNS seguint la <a href='https://yunohost.org/dns'>documentació</a> i la configuració suggerida a continuació.",
+    "hook_data_xmpp": "Dades de XMPP",
+    "group_explain_admins": "Aquest és un grup especial corresponent als usuaris administradors. Els usuaris d'aquest grup poden accedir al webadmin de YunoHost, connectar-se al servidor amb SSH i utilitzar l'ordre `sudo`. També rebran correus electrònics enviats a root@, admin@ i admins@, com ara les notificacions de diagnòstic. Només heu d'afegir a aquest grup persones en qui confieu absolutament!"
 }
