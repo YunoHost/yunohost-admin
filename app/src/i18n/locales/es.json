@@ -159,7 +159,7 @@
     "confirm_install_app_inprogress": "¡AVISO! ¡Esta aplicación es aún experimental (puede que ni funcione) y es probable que rompa su sistema! Seguramente debería NO instalarla salvo que sepa lo que está haciendo. ¿Está dispuesto a correr ese riesgo?",
     "error_connection_interrupted": "El servidor cerró la conexión en vez de responder. ¿Ha sido reiniciado o parado nginx o yunohost-api por cualquier motivo?",
     "experimental_warning": "Aviso: esta característica es experimental y no se considera estable, no deberías usarla salvo que sepas lo que estás haciendo.",
-    "good_practices_about_admin_password": "Está a punto de establecer una nueva contraseña de administrador. La contraseña debería de ser de al menos 8 caracteres, aunque es una buena práctica usar una contraseña más larga (es decir, una frase de paso) y/o usar varias clases de caracteres (mayúsculas, minúsculas, dígitos y caracteres especiales).",
+    "good_practices_about_admin_password": "Ahora está a punto de definir una nueva contraseña de usuario. La contraseña debe tener al menos 8 caracteres, aunque es una buena práctica usar una contraseña más larga (es decir, una frase como contraseña) y/o una variación de caracteres (mayúsculas, minúsculas, dígitos y caracteres especiales).",
     "good_practices_about_user_password": "Está a punto de establecer una nueva contraseña de usuario. La contraseña debería de ser de al menos 8 caracteres, aunque es una buena práctica usar una contraseña más larga (es decir, una frase de paso) y/o usar varias clases de caracteres (mayúsculas, minúsculas, dígitos y caracteres especiales).",
     "license": "Licencia",
     "confirm_update_system": "¿Seguro que quiere actualizar todos los paquetes del sistema?",
@@ -509,10 +509,10 @@
                 "other": "Otros/Desconocido",
                 "selfsigned": "autofirmado"
             },
-            "valid_for": "válido durante [días]"
+            "valid_for": "válido durante {days}"
         },
         "explain": {
-            "main_domain": "El dominio principal es el dominio desde el cual lxs usuarixs pueden conectarse al portal (via \"{dominio}/yunohost/sso\"). <br> Por tanto, no es posible borrarlo. <br> Si quieres borrar \"{dominio}\", primero tienes que elegir o añadir otro dominio y configurarlo como dominio principal."
+            "main_domain": "El dominio principal es el dominio desde el cual lxs usuarixs pueden conectarse al portal (via \"{domain}/yunohost/sso\"). <br> Por tanto, no es posible borrarlo. <br> Si quieres borrar \"{domain}\", primero tienes que elegir o añadir otro dominio y configurarlo como dominio principal."
         },
         "info": {
             "apps_on_domain": "Aplicaciones instaladas en el dominio",
@@ -536,7 +536,7 @@
             "from_yunohost": "No dispongo de un dominio, quiero registrar/usar un dominio gratuito de DynDNS ofrecido por el proyecto YunoHost"
         }
     },
-    "domain_dns_push_failed_to_authenticate": "Error de autenticación con la API del registrador. ¿Puede que las <a href='#/domains/{domain}/config'>credenciales</a> no sean correctas? (Error: {error})",
+    "domain_dns_push_failed_to_authenticate": "No se pudo autenticar en la API del registrador. ¿Es probable que las <a href='#/domains/{domain}/config'>credenciales</a> sean incorrectas? (Error: {error})",
     "history": {
         "methods": {
             "DELETE": "eliminar",
@@ -552,7 +552,7 @@
     "users_import_csv_file": "Fichero CSV",
     "users_import_update": "Actualizar cuentas existentes",
     "yunohost_admin": "Administración YunoHost",
-    "domain_add_dyndns_forbidden": "Ya has suscrito un dominio DynDNS, puedes solicitar eliminarlo desde el foro <a href='//forum.yunohost.org/t/nohost-domain-recovery-suppression-de-domaine-en-nohost-me-noho-st-et-ynh-fr/442'>en el hilo dedicado</a>.",
+    "domain_add_dyndns_forbidden": "Ya has registrado/suscrito un dominio DynDNS desde el proyecto YunoHost. Por diseño, esta característica se limita a solamente un dominio por servidor. Si desea un subdominio de su dominio ya suscrito, por favor use la opción 'Quiero añadir un dominio que ya poseo, o un subdominio' de arriba. Si desea usar un dominio totalmente distinto, primero debe de remover su dominio DynDNS existente. Los dominios DynDNS son útiles para empezar a autohospedarse, pero al mediano y largo plazo, recomendamos comprar su propio nombre de dominio en un registro para tener plena posesión de su dominio.",
     "hook_data_xmpp_desc": "Configuración de salas y cuentas, archivos subidos",
     "items_verbose_items_left": "Quedan {items}. | Queda 1 {items}. | Quedan {items}.",
     "mailbox_quota_example": "700M es un CD, 4700M es un DVD",
