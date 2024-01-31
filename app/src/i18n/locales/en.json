@@ -81,7 +81,7 @@
             "license": "License: {license}",
             "notifs": {
                 "post": {
-                    "alert": "It seems that the installation went well!\n Here is some notifications that the packager considers important to know.\nYou can read it again in the app info page.",
+                    "alert": "It seems that the installation went well!\nHere are some notifications that the packager considers important to know.\nYou can read it again in the app info page.",
                     "title": "Post-install notifications for '{name}'"
                 },
                 "pre": {
