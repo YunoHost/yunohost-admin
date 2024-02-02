@@ -335,8 +335,8 @@
     "human_routes": {
         "users": {
             "update": "Actualizar usuaria '{name}'",
-            "delete": "Eliminar usuaria '{user}'",
-            "create": "Crear usuaria '{user}'"
+            "delete": "Eliminar usuaria '{name}'",
+            "create": "Crear usuaria '{name}'"
         },
         "upgrade": {
             "app": "Actualizar a app '{app}'",
@@ -362,7 +362,7 @@
             "run": "Realizar migracións"
         },
         "groups": {
-            "remove": "Eliminar a '{user]' do grupo '{name}'",
+            "remove": "Retirar a '{user}' do grupo '{name}'",
             "add": "Engadir '{user}' ao grupo '{name}'",
             "delete": "Eliminar grupo '{name}'",
             "create": "Crear grupo '{name}'"
@@ -650,7 +650,7 @@
                 "false": "Só permite unha única instalación",
                 "true": "Permite varias instalacións"
             },
-            "resources": "Uso de recursos habitual: {ram] RAM, {disk} disco",
+            "resources": "Uso de recursos habitual: {ram} RAM, {disk} disco",
             "sso": {
                 "false": "Non dispoñible o acceso unificado (SSO)",
                 "true": "Dispoñible o acceso unificado (SSO)",
@@ -681,7 +681,7 @@
                     "title": "Ten coidado!"
                 },
                 "post": {
-                    "alert": "Semella que todo foi ben!\n Estas son algunha información acerca da actualización que as desenvolvedoras cren que debes coñecer.\nPodes lelas cando queiras na páxina de información da app.",
+                    "alert": "Semella que todo foi ben!\n  Esta é unha información acerca da actualización que as desenvolvedoras cren que debes coñecer.\nPodes lela cando queiras na páxina de información da app.",
                     "title": "Notificacións post-actualización para '{name}'"
                 }
             },

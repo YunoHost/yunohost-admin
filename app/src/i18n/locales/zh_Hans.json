@@ -185,7 +185,7 @@
     "error_modify_something": "您应该修改一些东西",
     "domain_delete_forbidden_desc": "您无法删除 '{domain}'，因为它是默认域，您需要选择另一个域（或<a href='#/domains/add'>添加一个新域</a>）并将其设置为默认域能够删除它。",
     "domain_default_desc": "默认域是用户登录的连接域。",
-    "domain_add_dyndns_forbidden": "您已经订阅了一个 DynDNS 域，您可以在论坛上要求删除您当前的 DynDNS 域 <a href='//forum.yunohost.org/t/nohost-domain-recovery-suppression-de-domaine-en-nohost-me-noho-st-et-ynh-fr/442'>在独立的帖子中</a>。",
+    "domain_add_dyndns_forbidden": "您已经在 YunoHost 项目中注册/订阅了一个 DynDNS 域。根据设计，每个服务器只能使用一个这样的域。如果您想使用已订阅域的子域，请使用上面的“添加一个我拥有的域或子域”选项。如果您想使用一个完全不同的域，应首先删除现有的 DynDNS 域名。DynDNS 域在开始使用自托管时是个不错的选择，但从中长期来看，我们建议您向某些注册商购买自己的域名，以拥有域的完全所有权。",
     "diagnosis_explanation": "诊断功能将尝试识别服务器不同方面的常见问题，以确保一切顺利运行。诊断每天自动运行两次，如果发现问题，会向管理员发送电子邮件。请注意，如果您不想使用某些特定功能（例如 XMPP），则某些测试可能不相关，或者如果您有复杂的设置，则可能会失败。在这种情况下，如果您知道自己在做什么，则可以忽略相应的问题或警告。",
     "diagnosis_first_run": "诊断功能将尝试识别服务器不同方面的常见问题，以确保一切顺利运行。如果您在设置服务器后立即看到一堆错误，请不要惊慌：它正是为了帮助您识别问题并指导您修复它们。诊断还将每天自动运行两次，如果发现问题，则会向管理员发送电子邮件。",
     "domain_dns_conf_is_just_a_recommendation": "本节向您展示*推荐*配置。它*不会*为您配置 DNS。您有责任根据此建议在您的 DNS 注册商中配置您的 DNS 区域。",
@@ -538,7 +538,8 @@
         "info": {
             "apps_on_domain": "安装在域上的应用",
             "certificate_authority": "SSL 证书颁发机构",
-            "registrar": "注册商"
+            "registrar": "注册商",
+            "dyn_dns_remove_and_unsubscribe": "同时从 YunoHost 的 dyndns 服务中取消注册此域"
         },
         "explain": {
             "main_domain": "主域是用户可以连接到门户的域（通过 \"{domain}/yunohost/sso\"）。<br>因此，无法删除它。<br>如果想要删除\"{domain}\"，您首先必须选择或添加另一个域并将其设置为主域。"
@@ -547,6 +548,16 @@
         "toggle_subdomains": "切换子域",
         "types": {
             "main_domain": "主域"
+        },
+        "add": {
+            "dyn_dns_password": "域恢复密码",
+            "dyn_dns_password_desc": "此密码将允许您在重新安装系统后恢复对此域的控制。如果您之前已经注册了此域，请在此处使用您的恢复密码来重新获取控制权。",
+            "from_local": "我想要一个仅供本地使用/测试的域",
+            "from_registrar": "我想添加一个我拥有的域或子域",
+            "from_registrar_desc": "您需要在注册商处手动配置 DNS 记录，以最终完成此域名的配置。YunoHost 的诊断将指导您具体配置哪些 DNS 记录。",
+            "from_yunohost": "我没有域，我想注册/使用 YunoHost 项目提供的免费 DynDNS 域",
+            "from_yunohost_desc": "YunoHost 项目提供免费的 'DynDNS' 服务。每台服务器仅限使用一个这样的域（不过您也可以稍后使用上述“添加一个我拥有的域或子域”选项以添加子域）。DNS 配置将由 YunoHost 自动处理。当您刚开始使用自托管服务并且还不想投资购买域名时，这是理想的选择。不过，从中长期来看，我们建议您向某些注册商购买自己的域名，以拥有域的完全所有权。",
+            "from_local_desc": "如果您不想要一个“真实的”公共域名，您可以使用以 <code>.local</code> 或 <code>.test</code> 结尾的任何域名。以 <code>.local</code> 结尾的域名在某种意义上是特殊的，因为在本地网络中可以自动解析，前提是客户端支持 Bonjour 协议。或者，您可能需要在每个要从中使用该域名的客户端上调整 <code>/etc/hosts</code> 文件（或 Windows 上的等效文件），或者在您的互联网路由器上配置本地 DNS 条目。"
         }
     },
     "domain_dns_push_managed_in_parent_domain": "自动 DNS 记录功能在父域 <a href='#/domains/{parent_domain}/dns'>{parent_domain}</a> 中管理。",
@@ -567,7 +578,8 @@
             "notifications": {
                 "title": "通知",
                 "post_upgrade": "升级后注意事项",
-                "post_install": "安装后注意事项"
+                "post_install": "安装后注意事项",
+                "understood": "了解"
             }
         },
         "install": {
@@ -649,9 +661,14 @@
         "antifeatures": "此应用可能有您不喜欢的功能：",
         "info": {
             "forum": "搜索或询问论坛！",
-            "problem": "有相关此应用的问题？"
+            "problem": "有相关此应用的问题？",
+            "config_panel_error": "无法显示配置面板，发生错误：",
+            "config_panel_error_please_report": "请向 YunoHost 团队报告此错误，以便修复！"
         },
-        "installed_version": "已安装版本："
+        "installed_version": "已安装版本：",
+        "uninstall": {
+            "purge_desc": "移除与应用相关的数据目录（这通常是您自己使用该应用上传的数据）。"
+        }
     },
     "users_import_update_desc": "如果选中，CSV 文件中包含的所有现有用户都将更新为新值",
     "group_admins": "管理员",
