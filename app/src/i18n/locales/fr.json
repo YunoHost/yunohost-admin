@@ -646,7 +646,7 @@
             "notifs": {
                 "post": {
                     "title": "Notifications de post-installation pour '{name}'",
-                    "alert": "Il semble que l'installation se soit bien passée !\n Voici quelques notifications que le responsable du paquet considère comme importantes à connaître.\nVous pouvez les retrouver dans la page d'information de l'application."
+                    "alert": "Il semble que l'installation se soit bien passée !\nVoici quelques notifications que le responsable du paquet considère comme importantes à connaître.\nVous pouvez les retrouver dans la page d'information de l'application."
                 },
                 "pre": {
                     "warning": "Ce qu'il faut savoir avant l'installation",
