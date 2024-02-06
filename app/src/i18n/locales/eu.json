@@ -617,7 +617,7 @@
             "notifs": {
                 "post": {
                     "title": "'{name}' instalatu ondorengo jakinarazpenak",
-                    "alert": "Badirudi instalazioa behar bezala joan dela! \n Paketearen arduradunak ondorengo jakinarazpenak garrantzitsuak direla deritzo. \nAplikazioaren informazio-orrialdean irakur dezakezu berriro."
+                    "alert": "Badirudi instalazioa behar bezala gauzatu dela!\nPaketearen arduradunak ondorengo jakinarazpenak garrantzitsuak direla deritzo.\nAplikazioaren informazio-orrialdean irakur dezakezu berriro."
                 },
                 "pre": {
                     "warning": "Instalatu baino lehen jakin beharrekoak",
