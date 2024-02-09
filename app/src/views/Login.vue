@@ -13,7 +13,7 @@
     <template #buttons>
       <b-button
         type="submit" variant="success"
-        :disabled="disabled" form="ynh-form"
+        :disabled="!installed" form="ynh-form"
       >
         {{ $t('login') }}
       </b-button>
@@ -22,6 +22,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import { validationMixin } from 'vuelidate'
 import { alphalownumdot_, required, minLength } from '@/helpers/validators'
 
@@ -31,13 +32,11 @@ export default {
   mixins: [validationMixin],
 
   props: {
-    skipInstallCheck: { type: Boolean, default: false },
     forceReload: { type: Boolean, default: false }
   },
 
   data () {
     return {
-      disabled: !this.skipInstallCheck,
       serverError: '',
       form: {
         username: '',
@@ -63,6 +62,10 @@ export default {
     }
   },
 
+  computed: {
+    ...mapGetters(['installed'])
+  },
+
   validations () {
     return {
       form: {
@@ -86,17 +89,6 @@ export default {
         this.serverError = this.$i18n.t('wrong_password_or_username')
       })
     }
-  },
-
-  created () {
-    if (this.skipInstallCheck) return
-    this.$store.dispatch('CHECK_INSTALL').then(installed => {
-      if (installed) {
-        this.disabled = false
-      } else {
-        this.$router.push({ name: 'post-install' })
-      }
-    })
   }
 }
 </script>

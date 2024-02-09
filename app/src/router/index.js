@@ -35,6 +35,10 @@ router.beforeEach((to, from, next) => {
   if (store.getters.error) {
     store.dispatch('DISMISS_ERROR', true)
   }
+
+  if (to.name === 'post-install' && store.getters.installed) {
+    return next('/')
+  }
   // Allow if connected or route is not protected
   if (store.getters.connected || to.meta.noAuth) {
     next()

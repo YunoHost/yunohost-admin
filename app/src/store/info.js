@@ -7,6 +7,7 @@ import { timeout, isEmptyValue, isObjectLiteral } from '@/helpers/commons'
 export default {
   state: {
     host: window.location.host, // String
+    installed: null,
     connected: localStorage.getItem('connected') === 'true', // Boolean
     yunohost: null, // Object { version, repo }
     waiting: false, // Boolean
@@ -22,6 +23,10 @@ export default {
   },
 
   mutations: {
+    'SET_INSTALLED' (state, boolean) {
+      state.installed = boolean
+    },
+
     'SET_CONNECTED' (state, boolean) {
       localStorage.setItem('connected', boolean)
       state.connected = boolean
@@ -106,23 +111,37 @@ export default {
   },
 
   actions: {
-    'CHECK_INSTALL' ({ dispatch }, retry = 2) {
+    async 'ON_APP_CREATED' ({ dispatch, state }) {
+      await dispatch('CHECK_INSTALL')
+
+      if (!state.installed) {
+        router.push({ name: 'post-install' })
+      } else {
+        dispatch('CONNECT')
+      }
+    },
+
+    async 'CHECK_INSTALL' ({ dispatch, commit }, retry = 2) {
       // this action will try to query the `/installed` route 3 times every 5 s with
       // a timeout of the same delay.
       // FIXME need testing with api not responding
-      return timeout(api.get('installed'), 5000).then(({ installed }) => {
+      try {
+        const { installed } = await timeout(api.get('installed'), 5000)
+        commit('SET_INSTALLED', installed)
         return installed
-      }).catch(err => {
+      } catch (err) {
         if (retry > 0) {
           return dispatch('CHECK_INSTALL', --retry)
         }
         throw err
-      })
+      }
     },
 
-    'CONNECT' ({ commit, dispatch }) {
+    async 'CONNECT' ({ commit, dispatch }) {
+      // If the user is not connected, the first action will throw
+      // and login prompt will be shown automaticly
+      await dispatch('GET_YUNOHOST_INFOS')
       commit('SET_CONNECTED', true)
-      dispatch('GET_YUNOHOST_INFOS')
     },
 
     'RESET_CONNECTED' ({ commit }) {
@@ -350,6 +369,7 @@ export default {
 
   getters: {
     host: state => state.host,
+    installed: state => state.installed,
     connected: state => state.connected,
     yunohost: state => state.yunohost,
     error: state => state.error,

@@ -75,7 +75,7 @@
       <p class="alert alert-success">
         <icon iname="thumbs-up" /> {{ $t('installation_complete') }}
       </p>
-      <login skip-install-check />
+      <login />
     </template>
   </div>
 </template>
@@ -201,14 +201,6 @@ export default {
         confirmation: { required, passwordMatch: sameAs('password') }
       }
     }
-  },
-
-  created () {
-    this.$store.dispatch('CHECK_INSTALL').then(installed => {
-      if (installed) {
-        this.$router.push({ name: 'home' })
-      }
-    })
   }
 }
 </script>

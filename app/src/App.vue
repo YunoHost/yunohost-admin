@@ -112,13 +112,7 @@ export default {
 
   // This hook is only triggered at page first load
   created () {
-    // From this hook the value of `connected` always come from the localStorage.
-    // This state may be `true` but session may have expired, by querying
-    // yunohost infos, api may respond with `Unauthorized` in which case the `connected`
-    // state will be automaticly reseted and user will be prompt with the login view.
-    if (this.connected) {
-      this.$store.dispatch('GET_YUNOHOST_INFOS')
-    }
+    this.$store.dispatch('ON_APP_CREATED')
   },
 
   mounted () {
