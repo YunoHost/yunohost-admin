@@ -142,6 +142,7 @@ export default {
       // and login prompt will be shown automaticly
       await dispatch('GET_YUNOHOST_INFOS')
       commit('SET_CONNECTED', true)
+      await dispatch('GET', { uri: 'domains', storeKey: 'domains' })
     },
 
     'RESET_CONNECTED' ({ commit }) {
@@ -383,6 +384,9 @@ export default {
     },
     routerKey: state => state.routerKey,
     breadcrumb: state => state.breadcrumb,
-    transitionName: state => state.transitionName
+    transitionName: state => state.transitionName,
+    ssoLink: (state, getters) => {
+      return `//${getters.mainDomain ?? state.host}/yunohost/sso`
+    }
   }
 }

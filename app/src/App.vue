@@ -18,7 +18,7 @@
         <b-navbar-nav class="ml-auto">
           <li class="nav-item">
             <b-button
-              href="/yunohost/sso"
+              :href="ssoLink"
               variant="primary" size="sm" block
             >
               {{ $t('user_interface_link') }} <icon iname="user" />
@@ -100,7 +100,8 @@ export default {
       'transitions',
       'transitionName',
       'waiting',
-      'theme'
+      'theme',
+      'ssoLink'
     ])
   },
 
