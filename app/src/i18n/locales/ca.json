@@ -98,7 +98,7 @@
     "migrations_done": "Migracions anteriors",
     "migrations_no_pending": "No hi ha migracions en espera",
     "migrations_no_done": "No hi ha migracions anteriors",
-    "multi_instance": "Instàncies múltiples",
+    "multi_instance": "Es pot instal·lar diverses vegades",
     "next": "Següent",
     "no": "No",
     "ok": "OK",
@@ -225,7 +225,13 @@
     "last_ran": "Executat per última vegada:",
     "warnings": "{count} avisos",
     "words": {
-        "default": "Predeterminat"
+        "default": "Predeterminat",
+        "link": "Vincle",
+        "collapse": "Col·lapsar",
+        "separator": ", ",
+        "valid": "Vàlid",
+        "none": "Cap",
+        "browse": "Explora"
     },
     "unignore": "No ignorar",
     "configuration": "Configuració",
@@ -243,16 +249,23 @@
     "issues": "{count} problemes",
     "operation_failed_explanation": "Aquesta operació ha fallat! Ens sap molt greu :( Podeu intentar <a href='https://yunohost.org/help'>demanar ajuda</a>. Si us plau doneu *el registre complet* de l'operació a la gent que intenta ajudar-vos. Podeu fer-ho fent clic al botó verd \"Compartir amb Yunopaste\". Quan compartiu els registres, YunoHost intentarà anonimitzar automàticament dades privades com els noms de domini i les IPs.",
     "diagnosis_explanation": "La funció de diagnòstic intentarà identificar els errors més comuns en diferents aspectes del servidor per verificar que tot funciona correctament. El diagnòstic s'executa automàticament dues vegades al dia i s'envia un correu electrònic a l'administrador si es troben errors. Tingueu en compte que no tots els tests seran rellevants si no s'utilitzen algunes funcions específiques (com per exemple XMPP) o pot ser que falli si teniu un sistema amb una configuració complexa. En aquests casos, i si sabeu el que feu, podeu ignorar els problemes o avisos corresponents.",
-    "pending_migrations": "Hi ha algunes migracions pendents esperant per ser executades. Aneu a <a href='#/tools/migrations'>Eines > Migracions</a>  per fer-les.",
+    "pending_migrations": "Hi ha algunes migracions pendents esperant per ser executades. Aneu a <a href='#/tools/migrations'>Eines > Migracions</a> per fer-les.",
     "logs_suboperations": "Sub-operacions",
     "tip_about_user_email": "Els usuaris es creen amb una adreça de correu electrònic associada (i compte de XMPP) amb el format usari@domini.tld. L'administrador i l'usuari poden afegir a posteriori adreces de correu addicionals i reenviament de correus.",
     "permission_show_tile_enabled": "Mostrar la «tile» en el portal de l'usuari",
-    "permission_main": "Permís principal",
+    "permission_main": "Etiqueta principal",
     "permission_corresponding_url": "URL corresponent",
     "app_manage_label_and_tiles": "Gestionar etiquetes i «tiles»",
     "items": {
         "backups": "cap còpia de seguretat | còpia de seguretat | {c} còpies de seguretat",
-        "apps": "cap aplicació | app | {c} aplicacions"
+        "apps": "cap aplicació | app | {c} aplicacions",
+        "installed_apps": "cap aplicació instal·lada | aplicació instal·lada | {c} aplicacions instal·lades",
+        "services": "cap servei | servei | {c} serveis",
+        "logs": "cap registre | registre | {c} registres",
+        "groups": "cap grup | grup | {c} grups",
+        "domains": "cap domini | domini | {c} dominis",
+        "users": "cap usuari | usuari | {c} usuaris",
+        "permissions": "cap permís | permís | {c} permisos"
     },
     "history": {
         "methods": {
@@ -583,7 +596,29 @@
             "create": "Creeu una còpia de seguretat",
             "delete": "Suprimeix la còpia de seguretat \"{name}\"",
             "restore": "Restaura la còpia de seguretat \"{name}\""
-        }
+        },
+        "upgrade": {
+            "system": "Actualitzar el sistema",
+            "app": "Actualitzar l'aplicació«\"{app}»",
+            "apps": "Actualitzar totes les aplicacions"
+        },
+        "settings": {
+            "update": "Actualitzar la configuració global de «{panel}»"
+        },
+        "users": {
+            "delete": "Eliminar usuari «{name}»",
+            "create": "Crear usuari «{name}»",
+            "update": "Actualitzar usuari «{name}»"
+        },
+        "services": {
+            "restart": "Reiniciar el servei «{name}»",
+            "start": "Iniciar el servei «{name}»",
+            "stop": "Aturar el servei «{name}»"
+        },
+        "update": "Buscar actualitzacions",
+        "reconnecting": "Tornant a connectar",
+        "share_logs": "Generar un enllaç per al registre «{name}»",
+        "shutdown": "Apagar el servidor"
     },
     "go_back": "Torna",
     "domain_dns_push_failed_to_authenticate": "No s'ha pogut autenticar a l'API del registrador. El més probable és que les <a href='#/domains/{domain}/config'>credencials</a> siguin incorrectes. (Error: {error})",
@@ -592,5 +627,68 @@
     "domain_dns_push_managed_in_parent_domain": "La funció d'entrades DNS automàtiques es gestiona al domini principal <a href='#/domains/{parent_domain}/dns'>{parent_domain}</a>.",
     "domain_dns_push_not_applicable": "La funció d'entrades DNS automàtiques no és aplicable al domini {domain}.<br> Hauríeu de configurar manualment les vostres entrades DNS seguint la <a href='https://yunohost.org/dns'>documentació</a> i la configuració suggerida a continuació.",
     "hook_data_xmpp": "Dades de XMPP",
-    "group_explain_admins": "Aquest és un grup especial corresponent als usuaris administradors. Els usuaris d'aquest grup poden accedir al webadmin de YunoHost, connectar-se al servidor amb SSH i utilitzar l'ordre `sudo`. També rebran correus electrònics enviats a root@, admin@ i admins@, com ara les notificacions de diagnòstic. Només heu d'afegir a aquest grup persones en qui confieu absolutament!"
+    "group_explain_admins": "Aquest és un grup especial corresponent als usuaris administradors. Els usuaris d'aquest grup poden accedir al webadmin de YunoHost, connectar-se al servidor amb SSH i utilitzar l'ordre `sudo`. També rebran correus electrònics enviats a root@, admin@ i admins@, com ara les notificacions de diagnòstic. Només heu d'afegir a aquest grup persones en qui confieu absolutament!",
+    "items_verbose_items_left": "Queden {items}. | Queda 1 {items}. | Queden {items}.",
+    "postinstall": {
+        "user": {
+            "title": "Crea el primer usuari administrador",
+            "first_user_help": "Aquest usuari tindrà privilegis d'administrador i se li permetrà connectar-se a aquesta interfície d'administració i directament al servidor mitjançant SSH.\nCom que és un usuari normal, també us podreu connectar al portal d'usuaris (SSO) amb les seves credencials.\nUn cop finalitzada la postinstal·lació, podreu crear altres usuaris administradors afegint-los al grup «admins»."
+        },
+        "force": "Força la post-instal·lació",
+        "title": "Post-instal·lació"
+    },
+    "placeholder": {
+        "lastname": "Petit",
+        "groupname": "Nom del meu grup",
+        "username": "joanpetit",
+        "domain": "el-meu-domini.cat",
+        "fullname": "Joan Petit",
+        "file": "Exploreu un fitxer o arrossegueu-lo i deixeu-lo anar",
+        "firstname": "Joan"
+    },
+    "tools_webadmin": {
+        "language": "Idioma",
+        "experimental": "Modalitat experimental",
+        "fallback_language": "Idioma alternatiu",
+        "fallback_language_description": "Idioma que s'utilitzarà en cas que la traducció no estigui disponible a l'idioma principal.",
+        "cache": "Memòria cau",
+        "cache_description": "Penseu en desactivar la memòria cau si teniu previst treballar amb la CLI mentre navegueu per aquest Webadmin.",
+        "theme": "Canvia al mode fosc",
+        "transitions": "Animacions de transició de pàgina",
+        "experimental_description": "Et dóna accés a funcions experimentals. Es consideren inestables i poden trencar el vostre sistema.<br> Activeu-ho només si sabeu el que esteu fent."
+    },
+    "migrations_disclaimer_not_checked": "Aquesta migració requereix que accepteu la seva exempció de responsabilitat abans d'executar-la.",
+    "retry": "Torna-ho a provar",
+    "search": {
+        "not_found": "Hi ha {items} que coincideixen amb els vostres criteris. | Hi ha 1 {items} que coincideix amb els vostres criteris. | Hi ha {items} que coincideixen amb els vostres criteris.",
+        "for": "Cerca {items}..."
+    },
+    "tools_webadmin_settings": "Configuració de Webadmin",
+    "user_emailaliases_add": "Afegiu un àlies de correu",
+    "users_export": "Exportar usuaris",
+    "users_import": "Importar usuaris",
+    "users_import_csv_file_desc": "El fitxer CSV ha d'estar en UTF-8 i amb columnes nom d'usuari, contrasenya, grups, correu electrònic i quota. Per a un exemple d'importació d'un fitxer CSV, podeu <a href='/yunohost/api/users/export' target='_BLANK'>exportar els vostres usuaris al fitxer CSV</a> i canviar el fitxer.",
+    "users_import_confirm_destructive": "Esteu segur que voleu suprimir els usuaris que no estan presents en aquest fitxer?",
+    "important_yunohost_upgrade": "Hi ha disponible una actualització important de YunoHost. És molt recomanable llegir atentament les notes de la versió al fòrum abans d'actualitzar: <a href='https://forum.yunohost.org/tag/ynh_release'>Exploreu les notes de la versió al fòrum</a>",
+    "items_verbose_count": "Hi ha {items}. | Hi ha 1 {items}. | Hi ha {items}.",
+    "label_for_manifestname_help": "Aquest és el nom que es mostra al portal de l'usuari. Això es pot canviar més tard.",
+    "manage_groups": "Gestionar grups",
+    "users_import_delete_others": "Suprimir els usuaris no llistats",
+    "readme": "Llegiu-me",
+    "users_import_delete": "Suprimir els usuaris que no figuren a la llista",
+    "mailbox_quota_example": "700M és un CD, 4700M és un DVD",
+    "migrations_disclaimer_check_message": "He llegit i he entès aquesta exempció de responsabilitat",
+    "perform": "Realitzar",
+    "postinstall_set_domain": "Estableix el domini principal",
+    "text_selection_is_disabled": "La selecció de text està desactivada. Si voleu compartir aquest registre, compartiu el registre *complet* amb el botó «Comparteix amb Yunopaste».<br/><small>O si realment voleu seleccionar text, premeu aquestes tecles: ↓↓↑↑.</small>",
+    "tools_yunohost_settings": "Configuració de YunoHost",
+    "traceback": "Rastrejar",
+    "unknown": "Desconegut",
+    "user_emailforward_add": "Afegeix un reenviament de correu",
+    "users_import_csv_file": "Fitxer CSV",
+    "users_import_delete_desc": "Si està marcat, tots els usuaris existents que no es trobin al fitxer CSV se suprimiran (i es purgaran).",
+    "users_import_update": "Actualitzar els usuaris existents",
+    "users_import_update_desc": "Si està marcat, tots els usuaris existents continguts al fitxer CSV s'actualitzaran amb el nou valor",
+    "wrong_password_or_username": "Contrasenya o nom d'usuari incorrecte",
+    "yunohost_admin": "Administrador de Yunohost"
 }
