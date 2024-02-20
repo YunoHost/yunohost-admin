@@ -1,3 +1,12 @@
+yunohost-admin (11.2.4.1) stable; urgency=low
+
+  - form: add new options as Tags (8c4ccfbc)
+  - [i18n] Translations updated for Basque, French, Galician, German, Polish, Slovak, Spanish
+
+  Thanks to all contributors <3 ! (Alexandre Aubin, Christian Wehrli, Jorge-vitrubio.net, José M, Jose Riha, Kuba Bazan, Metin Bektas, OniriCorpe, ppr, xabirequejo)
+
+ -- Tagada <36127788+Tagadda@users.noreply.github.com>  Wed, 21 Feb 2024
+
 yunohost-admin (11.2.3) stable; urgency=low
 
   - apps: Add link to the package repository in the info page ([#531](https://github.com/yunohost/yunohost-admin/pull/531))
