@@ -1,3 +1,11 @@
+yunohost-admin (11.2.4.1) stable; urgency=low
+
+  - [i18n] Translations updated for Arabic, Basque, Catalan, Chinese (Simplified), English, French, Galician, German, Italian, Kabyle, Korean, Occitan, Spanish, Ukrainian
+
+  Thanks to all contributors <3 ! (Alexandre Aubin, ButterflyOfFire, Carlos Solís, Christian Wehrli, cube, Emanuele Gissi, Éric Gaspar, Francescc, José M, Lasse Gismo, Mine_My, OniriCorpe, Poesty Li, Quentí, Tommi, xabirequejo)
+
+ -- Tagada <36127788+Tagadda@users.noreply.github.com>  Wed, 21 Feb 2024 00:12:32 +0100
+
 yunohost-admin (11.2.4) stable; urgency=low
 
   - users: Allow dots in usernames ([#539](https://github.com/yunohost/yunohost-admin/pull/539))
