@@ -617,7 +617,7 @@
             "notifs": {
                 "post": {
                     "title": "Notificaciones posteriores a la instalación de '{name}'",
-                    "alert": "Parece que la instalación ha ido bien.\n Aquí tienes algunas notificaciones que el empaquetador considera importante conocer.\nPuedes volver a leerlas en la página de información de la aplicación."
+                    "alert": "Parece que la instalación ha ido bien.\nAquí tienes algunas notificaciones que el empaquetador considera importante conocer.\nPuedes volver a leerlas en la página de información de la aplicación."
                 },
                 "pre": {
                     "warning": "Lo que hay que saber antes de la instalación",
