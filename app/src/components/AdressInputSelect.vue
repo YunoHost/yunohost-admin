@@ -24,8 +24,16 @@
       />
     </BInputGroupAppend>
 
-    <span class="sr-only" :id="id + 'local-part-desc'" v-t="'address.local_part_description.' + type" />
-    <span class="sr-only" :id="id + 'domain-desc'" v-t="'address.domain_description.' + type" />
+    <span
+      class="sr-only"
+      :id="id + 'local-part-desc'"
+      v-t="'address.local_part_description.' + type"
+    />
+    <span
+      class="sr-only"
+      :id="id + 'domain-desc'"
+      v-t="'address.domain_description.' + type"
+    />
   </BInputGroup>
 </template>
 
@@ -42,17 +50,17 @@ export default {
     placeholder: { type: String, default: null },
     id: { type: String, default: null },
     state: { type: null, default: null },
-    type: { type: String, default: 'email' }
+    type: { type: String, default: 'email' },
   },
 
   methods: {
-    onInput (key, value) {
+    onInput(key, value) {
       this.$emit('input', {
         ...this.value,
-        [key]: value
+        [key]: value,
       })
-    }
-  }
+    },
+  },
 }
 </script>
 

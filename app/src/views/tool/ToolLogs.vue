@@ -11,7 +11,8 @@
     <YCard :title="$t('logs_operation')" icon="wrench" no-body>
       <BListGroup flush>
         <BListGroupItem
-          v-for="log in filteredOperations" :key="log.name"
+          v-for="log in filteredOperations"
+          :key="log.name"
           :to="{ name: 'tool-log', params: { name: log.name || log.log_path } }"
           :title="readableDate(log.started_at)"
         >
@@ -30,29 +31,27 @@ import { distanceToNow, readableDate } from '@/helpers/filters/date'
 export default {
   name: 'ToolLogs',
 
-  data () {
+  data() {
     return {
-      queries: [
-        ['GET', `logs?limit=${25}&with_details`]
-      ],
+      queries: [['GET', `logs?limit=${25}&with_details`]],
       search: '',
-      operations: undefined
+      operations: undefined,
     }
   },
 
   computed: {
-    filteredOperations () {
+    filteredOperations() {
       if (!this.operations) return
       const search = this.search.toLowerCase()
       const operations = this.operations.filter(({ description }) => {
         return description.toLowerCase().includes(search)
       })
       return operations.length ? operations : null
-    }
+    },
   },
 
   methods: {
-    onQueriesResponse ({ operation }) {
+    onQueriesResponse({ operation }) {
       operation.forEach((log, index) => {
         if (log.success === '?') {
           operation[index].icon = 'question'
@@ -69,7 +68,7 @@ export default {
     },
 
     distanceToNow,
-    readableDate
-  }
+    readableDate,
+  },
 }
 </script>

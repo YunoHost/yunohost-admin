@@ -13,7 +13,9 @@
 
       <BDropdown
         :split-to="{ name: 'user-create' }"
-        split variant="outline-success" right
+        split
+        variant="outline-success"
+        right
         split-variant="success"
       >
         <template #button-content>
@@ -30,8 +32,9 @@
 
     <BListGroup>
       <BListGroupItem
-        v-for="user in filteredUsers" :key="user.username"
-        :to="{ name: 'user-info', params: { name: user.username }}"
+        v-for="user in filteredUsers"
+        :key="user.username"
+        :to="{ name: 'user-info', params: { name: user.username } }"
         class="d-flex justify-content-between align-items-center pr-0"
       >
         <div>
@@ -55,31 +58,40 @@ import { mapGetters } from 'vuex'
 export default {
   name: 'UserList',
 
-  data () {
+  data() {
     return {
       queries: [
-        ['GET', { uri: 'users?fields=username&fields=fullname&fields=mail&fields=mailbox-quota&fields=groups', storeKey: 'users' }]
+        [
+          'GET',
+          {
+            uri: 'users?fields=username&fields=fullname&fields=mail&fields=mailbox-quota&fields=groups',
+            storeKey: 'users',
+          },
+        ],
       ],
-      search: ''
+      search: '',
     }
   },
   methods: {
-    downloadExport () {
+    downloadExport() {
       const host = this.$store.getters.host
       window.open(`https://${host}/yunohost/api/users/export`, '_blank')
-    }
+    },
   },
   computed: {
     ...mapGetters(['users']),
 
-    filteredUsers () {
+    filteredUsers() {
       if (!this.users) return
       const search = this.search.toLowerCase()
-      const filtered = this.users.filter(user => {
-        return user.username.toLowerCase().includes(search) || user.groups.includes(search)
+      const filtered = this.users.filter((user) => {
+        return (
+          user.username.toLowerCase().includes(search) ||
+          user.groups.includes(search)
+        )
       })
       return filtered.length === 0 ? null : filtered
-    }
-  }
+    },
+  },
 }
 </script>

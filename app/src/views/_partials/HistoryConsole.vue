@@ -2,22 +2,29 @@
   <BCard no-body id="console">
     <!-- HISTORY BAR -->
     <BCardHeader
-      role="button" tabindex="0"
-      :aria-expanded="open ? 'true' : 'false'" aria-controls="console-collapse"
-      header-tag="header" :header-bg-variant="open ? 'best' : 'white'"
+      role="button"
+      tabindex="0"
+      :aria-expanded="open ? 'true' : 'false'"
+      aria-controls="console-collapse"
+      header-tag="header"
+      :header-bg-variant="open ? 'best' : 'white'"
       :class="{ 'text-white': open }"
       class="d-flex align-items-center"
       @mousedown.left.prevent="onHistoryBarClick"
       @keyup.space.enter.prevent="onHistoryBarKey"
     >
       <h5 class="m-0">
-        <YIcon iname="history" /> <span class="d-none d-sm-inline font-weight-bold">{{ $t('history.title') }}</span>
+        <YIcon iname="history" />
+        <span class="d-none d-sm-inline font-weight-bold">
+          {{ $t('history.title') }}
+        </span>
       </h5>
 
       <!-- CURRENT/LAST ACTION -->
       <BButton
         v-if="lastAction"
-        size="sm" pill
+        size="sm"
+        pill
         class="ml-auto py-0"
         :variant="open ? 'light' : 'best'"
         @click.prevent="onLastActionClick"
@@ -25,36 +32,49 @@
       >
         <small>{{ $t('history.last_action') }}</small>
       </BButton>
-      <QueryHeader v-if="lastAction" :request="lastAction" class="w-auto ml-2 xs-hide" />
+      <QueryHeader
+        v-if="lastAction"
+        :request="lastAction"
+        class="w-auto ml-2 xs-hide"
+      />
     </BCardHeader>
 
     <BCollapse id="console-collapse" v-model="open">
-      <div
-        class="accordion" role="tablist"
-        id="history" ref="history"
-      >
+      <div class="accordion" role="tablist" id="history" ref="history">
         <p v-if="history.length === 0" class="alert m-0 px-2 py-1">
           {{ $t('history.is_empty') }}
         </p>
 
         <!-- ACTION LIST -->
         <BCard
-          v-for="(action, i) in history" :key="i"
-          no-body class="rounded-0 rounded-top border-left-0 border-right-0"
+          v-for="(action, i) in history"
+          :key="i"
+          no-body
+          class="rounded-0 rounded-top border-left-0 border-right-0"
         >
           <!-- ACTION -->
-          <BCardHeader header-tag="header" header-bg-variant="white" class="sticky-top d-flex">
+          <BCardHeader
+            header-tag="header"
+            header-bg-variant="white"
+            class="sticky-top d-flex"
+          >
             <!-- ACTION DESC -->
             <QueryHeader
-              role="tab" v-b-toggle="action.messages.length ? 'messages-collapse-' + i : false"
-              :request="action" show-time show-error
+              role="tab"
+              v-b-toggle="
+                action.messages.length ? 'messages-collapse-' + i : false
+              "
+              :request="action"
+              show-time
+              show-error
             />
           </BCardHeader>
 
           <!-- ACTION MESSAGES -->
           <BCollapse
             v-if="action.messages.length"
-            :id="'messages-collapse-' + i" accordion="my-accordion"
+            :id="'messages-collapse-' + i"
+            accordion="my-accordion"
             role="tabpanel"
             @shown="scrollToAction(i)"
             @hide="scrollToAction(i)"
@@ -78,33 +98,35 @@ export default {
 
   components: {
     QueryHeader,
-    MessageListGroup
+    MessageListGroup,
   },
 
   props: {
     value: { type: Boolean, default: false },
-    height: { type: [Number, String], default: 30 }
+    height: { type: [Number, String], default: 30 },
   },
 
-  data () {
+  data() {
     return {
-      open: false
+      open: false,
     }
   },
 
   computed: {
-    ...mapGetters(['history', 'lastAction', 'waiting', 'error'])
+    ...mapGetters(['history', 'lastAction', 'waiting', 'error']),
   },
 
   methods: {
-    scrollToAction (actionIndex) {
-      const actionCard = this.$el.querySelector('#messages-collapse-' + actionIndex).parentElement
+    scrollToAction(actionIndex) {
+      const actionCard = this.$el.querySelector(
+        '#messages-collapse-' + actionIndex,
+      ).parentElement
       const headerOffset = actionCard.firstElementChild.offsetHeight
       // Can't use `scrollIntoView()` here since it will also scroll in the main content.
       this.$refs.history.scrollTop = actionCard.offsetTop - headerOffset
     },
 
-    async onLastActionClick () {
+    async onLastActionClick() {
       if (!this.open) {
         this.open = true
         await this.$nextTick()
@@ -122,15 +144,23 @@ export default {
       }
     },
 
-    onHistoryBarKey (e) {
+    onHistoryBarKey(e) {
       // FIXME interactive element in another is not valid, need to find another way.
-      if (e.target.nodeName === 'BUTTON' || e.target.parentElement.nodeName === 'BUTTON') return
+      if (
+        e.target.nodeName === 'BUTTON' ||
+        e.target.parentElement.nodeName === 'BUTTON'
+      )
+        return
       this.open = !this.open
     },
 
-    onHistoryBarClick (e) {
+    onHistoryBarClick(e) {
       // FIXME interactive element in another is not valid, need to find another way.
-      if (e.target.nodeName === 'BUTTON' || e.target.parentElement.nodeName === 'BUTTON') return
+      if (
+        e.target.nodeName === 'BUTTON' ||
+        e.target.parentElement.nodeName === 'BUTTON'
+      )
+        return
 
       const historyElem = this.$refs.history
       let mousePos = e.clientY
@@ -180,8 +210,8 @@ export default {
       }
 
       window.addEventListener('mouseup', onMouseUp)
-    }
-  }
+    },
+  },
 }
 </script>
 
@@ -206,7 +236,6 @@ export default {
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
   font-size: $font-size-sm;
-
 
   & > header {
     cursor: ns-resize;

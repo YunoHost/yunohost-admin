@@ -1,13 +1,24 @@
 <template>
   <div class="tags-selectize">
     <BFormTags
-      v-bind="$attrs" v-on="$listeners"
-      :value="value" :id="id"
-      size="lg" class="p-0 border-0" no-outer-focus
+      v-bind="$attrs"
+      v-on="$listeners"
+      :value="value"
+      :id="id"
+      size="lg"
+      class="p-0 border-0"
+      no-outer-focus
     >
       <template #default="{ tags, disabled, addTag, removeTag }">
-        <ul v-if="!noTags && tags.length > 0" class="list-inline d-inline-block mb-2">
-          <li v-for="tag in tags" :key="id + '-' + tag" class="list-inline-item">
+        <ul
+          v-if="!noTags && tags.length > 0"
+          class="list-inline d-inline-block mb-2"
+        >
+          <li
+            v-for="tag in tags"
+            :key="id + '-' + tag"
+            class="list-inline-item"
+          >
             <BFormTag
               @remove="onRemoveTag({ option: tag, removeTag })"
               :title="tag"
@@ -21,7 +32,9 @@
 
         <BDropdown
           ref="dropdown"
-          variant="outline-dark" block menu-class="w-100"
+          variant="outline-dark"
+          block
+          menu-class="w-100"
           @keydown.native="onDropdownKeydown"
         >
           <template #button-content>
@@ -32,15 +45,25 @@
             <BDropdownForm @submit.stop.prevent="() => {}">
               <BFormGroup
                 :label="$t('search.for', { items: itemsName })"
-                label-cols-md="auto" label-size="sm" :label-for="id + '-search-input'"
-                :invalid-feedback="$tc('search.not_found', 0, { items: $tc('items.' + itemsName, 0) })"
-                :state="searchState" :disabled="disabled"
+                label-cols-md="auto"
+                label-size="sm"
+                :label-for="id + '-search-input'"
+                :invalid-feedback="
+                  $tc('search.not_found', 0, {
+                    items: $tc('items.' + itemsName, 0),
+                  })
+                "
+                :state="searchState"
+                :disabled="disabled"
                 class="mb-0"
               >
                 <BFormInput
-                  ref="search-input" v-model="search"
+                  ref="search-input"
+                  v-model="search"
                   :id="id + '-search-input'"
-                  type="search" size="sm" autocomplete="off"
+                  type="search"
+                  size="sm"
+                  autocomplete="off"
                 />
               </BFormGroup>
             </BDropdownForm>
@@ -56,7 +79,11 @@
           </BDropdownItemButton>
           <BDropdownText v-if="!criteria && availableOptions.length === 0">
             <YIcon iname="exclamation-triangle" />
-            {{ $tc('items_verbose_items_left', 0, { items: $tc('items.' + itemsName, 0) }) }}
+            {{
+              $tc('items_verbose_items_left', 0, {
+                items: $tc('items.' + itemsName, 0),
+              })
+            }}
           </BDropdownText>
         </BDropdown>
       </template>
@@ -76,43 +103,45 @@ export default {
     limit: { type: Number, default: null },
     name: { type: String, default: null },
     itemsName: { type: String, required: true },
-    disabledItems: { type: Array, default: () => ([]) },
+    disabledItems: { type: Array, default: () => [] },
     // By default `addTag` and `removeTag` have to be executed manually by listening to 'tag-update'.
     auto: { type: Boolean, default: false },
     noTags: { type: Boolean, default: false },
     label: { type: String, default: null },
-    tagIcon: { type: String, default: null }
+    tagIcon: { type: String, default: null },
   },
 
-  data () {
+  data() {
     return {
-      search: ''
+      search: '',
     }
   },
 
   computed: {
-    criteria () {
+    criteria() {
       return this.search.trim().toLowerCase()
     },
 
-    availableOptions () {
+    availableOptions() {
       const criteria = this.criteria
-      const options = this.options.filter(opt => {
-        return this.value.indexOf(opt) === -1 && !this.disabledItems.includes(opt)
+      const options = this.options.filter((opt) => {
+        return (
+          this.value.indexOf(opt) === -1 && !this.disabledItems.includes(opt)
+        )
       })
       if (criteria) {
-        return options.filter(opt => opt.toLowerCase().indexOf(criteria) > -1)
+        return options.filter((opt) => opt.toLowerCase().indexOf(criteria) > -1)
       }
       return options
     },
 
-    searchState () {
+    searchState() {
       return this.criteria && this.availableOptions.length === 0 ? false : null
-    }
+    },
   },
 
   methods: {
-    onAddTag ({ option, addTag }) {
+    onAddTag({ option, addTag }) {
       this.$emit('tag-update', { action: 'add', option, applyMethod: addTag })
       this.search = ''
       if (this.auto) {
@@ -120,14 +149,18 @@ export default {
       }
     },
 
-    onRemoveTag ({ option, removeTag }) {
-      this.$emit('tag-update', { action: 'remove', option, applyMethod: removeTag })
+    onRemoveTag({ option, removeTag }) {
+      this.$emit('tag-update', {
+        action: 'remove',
+        option,
+        applyMethod: removeTag,
+      })
       if (this.auto) {
         removeTag(option)
       }
     },
 
-    onDropdownKeydown (e) {
+    onDropdownKeydown(e) {
       // Allow to start searching after dropdown opening
       if (
         !['Tab', 'Space'].includes(e.code) &&
@@ -135,8 +168,8 @@ export default {
       ) {
         this.$refs['search-input'].focus()
       }
-    }
-  }
+    },
+  },
 }
 </script>
 
@@ -147,7 +180,7 @@ export default {
   padding-top: 0;
 
   .search-group {
-    padding-top: .5rem;
+    padding-top: 0.5rem;
     position: sticky;
     top: 0;
     background-color: $white;

@@ -2,7 +2,7 @@
  * A Node that can have a parent and children.
  */
 export class Node {
-  constructor (data) {
+  constructor(data) {
     this.data = data
     this.depth = 0
     this.height = 0
@@ -22,7 +22,7 @@ export class Node {
    * @param {function} callback
    * @return {Object}
    */
-  eachBefore (callback) {
+  eachBefore(callback) {
     const nodes = []
     let index = -1
     let node = this
@@ -49,7 +49,7 @@ export class Node {
    * @param {function} callback
    * @return {Object}
    */
-  eachAfter (callback) {
+  eachAfter(callback) {
     const nodes = []
     const next = []
     let node = this
@@ -81,7 +81,7 @@ export class Node {
    * @param {String} [args.parentIdKey='name'] - the key name where we can find the parent identity.
    * @return {Node}
    */
-  filter (callback) {
+  filter(callback) {
     // Duplicates this tree and iter on nodes from leaves to root (post-order traversal)
     return hierarchy(this).eachAfter((node, i) => {
       // Since we create a new hierarchy from another, nodes's `data` contains the
@@ -90,7 +90,7 @@ export class Node {
 
       if (node.children) {
         // Removed flagged children
-        node.children = node.children.filter(child => !child.remove)
+        node.children = node.children.filter((child) => !child.remove)
         if (!node.children.length) delete node.children
       }
 
@@ -104,7 +104,6 @@ export class Node {
   }
 }
 
-
 /**
  * Generates a new hierarchy from the specified tabular `dataset`.
  * The specified `dataset` must be an array of objects that contains at least a
@@ -117,13 +116,16 @@ export class Node {
  * @param {String} [args.parentIdKey='name'] - the key name where we can find the parent identity.
  * @return {Node}
  */
-export function stratify (dataset, { idKey = 'name', parentIdKey = 'parent' } = {}) {
+export function stratify(
+  dataset,
+  { idKey = 'name', parentIdKey = 'parent' } = {},
+) {
   const root = new Node(null, true)
   root.children = []
   const nodesMap = new Map()
 
   // Creates all nodes that will be arranged in a hierarchy
-  const nodes = dataset.map(d => {
+  const nodes = dataset.map((d) => {
     const node = new Node(d)
     node.id = d[idKey]
     nodesMap.set(node.id, node)
@@ -148,7 +150,7 @@ export function stratify (dataset, { idKey = 'name', parentIdKey = 'parent' } = 
     }
   })
 
-  root.eachBefore(node => {
+  root.eachBefore((node) => {
     // Compute node depth
     if (node.parent) {
       node.depth = node.parent.depth + 1
@@ -160,7 +162,6 @@ export function stratify (dataset, { idKey = 'name', parentIdKey = 'parent' } = 
   return root
 }
 
-
 /**
  * Constructs a root node from the specified hierarchical `data`.
  * The specified `data` must be an object representing the root node and its children.
@@ -170,14 +171,14 @@ export function stratify (dataset, { idKey = 'name', parentIdKey = 'parent' } = 
  * @param {Node|Object} data - object representing a root node (a simple { id, children } object or a `Node`)
  * @return {Node}
  */
-export function hierarchy (data) {
+export function hierarchy(data) {
   const root = new Node(data)
   const nodes = []
   let node = root
 
   while (node) {
     if (node.data.children) {
-      node.children = node.data.children.map(child_ => {
+      node.children = node.data.children.map((child_) => {
         const child = new Node(child_)
         child.id = child_.id
         child.parent = node === root ? null : node
@@ -193,14 +194,13 @@ export function hierarchy (data) {
   return root
 }
 
-
 /**
  * Compute the node height by iterating on parents
  * Code taken from d3.js https://github.com/d3/d3-hierarchy/blob/main/src/hierarchy/index.js#L62.
  *
  * @param {Node} node
  */
-function computeNodeHeight (node) {
+function computeNodeHeight(node) {
   let height = 0
   do {
     node.height = height

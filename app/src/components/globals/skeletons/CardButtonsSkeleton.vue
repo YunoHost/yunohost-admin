@@ -12,7 +12,7 @@
       <BSkeleton v-else :width="randint(45, 100) + '%'" height="24px" />
 
       <BSkeleton :width="randint(20, 30) + '%'" height="38px" class="mt-3" />
-      <hr>
+      <hr />
     </div>
   </BCard>
 </template>
@@ -24,9 +24,9 @@ export default {
   name: 'CardButtonsSkeleton',
 
   props: {
-    itemCount: { type: Number, default: 5 }
+    itemCount: { type: Number, default: 5 },
   },
 
-  methods: { randint }
+  methods: { randint },
 }
 </script>

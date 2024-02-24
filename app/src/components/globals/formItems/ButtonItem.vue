@@ -12,7 +12,6 @@
 </template>
 
 <script>
-
 export default {
   name: 'ButtonItem',
 
@@ -21,20 +20,20 @@ export default {
     id: { type: String, default: null },
     type: { type: String, default: 'success' },
     icon: { type: String, default: null },
-    enabled: { type: [Boolean, String], default: true }
+    enabled: { type: [Boolean, String], default: true },
   },
 
   computed: {
-    icon_ () {
+    icon_() {
       const icons = {
         success: 'thumbs-up',
         info: 'info',
         warning: 'exclamation',
-        danger: 'times'
+        danger: 'times',
       }
 
       return this.icon || icons[this.type]
-    }
-  }
+    },
+  },
 }
 </script>

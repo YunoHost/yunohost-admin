@@ -8,5 +8,5 @@ export {
   minLength,
   minValue,
   required,
-  sameAs
+  sameAs,
 } from 'vuelidate/lib/validators'

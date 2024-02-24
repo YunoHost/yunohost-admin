@@ -40,44 +40,46 @@ export default {
     queriesWait: { type: Boolean, default: false },
     skeleton: { type: [String, Array], default: null },
     // Optional prop to take control of the loading value
-    loading: { type: Boolean, default: null }
+    loading: { type: Boolean, default: null },
   },
 
-  data () {
+  data() {
     return {
-      fallback_loading: this.loading === null && this.queries !== null ? true : null
+      fallback_loading:
+        this.loading === null && this.queries !== null ? true : null,
     }
   },
 
   computed: {
-    isLoading () {
+    isLoading() {
       if (this.loading !== null) return this.loading
       return this.fallback_loading
     },
 
-    hasTopBar () {
-      return ['top-bar-group-left', 'top-bar-group-right'].some(slotName => (slotName in this.$slots))
-    }
+    hasTopBar() {
+      return ['top-bar-group-left', 'top-bar-group-right'].some(
+        (slotName) => slotName in this.$slots,
+      )
+    },
   },
 
   methods: {
-    fetchQueries ({ triggerLoading = false } = {}) {
+    fetchQueries({ triggerLoading = false } = {}) {
       if (triggerLoading) {
         this.fallback_loading = true
       }
 
-      api.fetchAll(
-        this.queries,
-        { wait: this.queriesWait, initial: true }
-      ).then(responses => {
-        this.$emit('queries-response', ...responses)
-        this.fallback_loading = false
-      })
-    }
+      api
+        .fetchAll(this.queries, { wait: this.queriesWait, initial: true })
+        .then((responses) => {
+          this.$emit('queries-response', ...responses)
+          this.fallback_loading = false
+        })
+    },
   },
 
-  created () {
+  created() {
     if (this.queries) this.fetchQueries()
-  }
+  },
 }
 </script>

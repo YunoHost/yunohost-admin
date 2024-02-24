@@ -18,13 +18,13 @@ export default {
     value: { type: Boolean, required: true },
     id: { type: String, default: null },
     label: { type: String, default: null },
-    labels: { type: Object, default: () => ({ true: 'yes', false: 'no' }) }
+    labels: { type: Object, default: () => ({ true: 'yes', false: 'no' }) },
   },
 
-  data () {
+  data() {
     return {
-      checked: this.value
+      checked: this.value,
     }
-  }
+  },
 }
 </script>

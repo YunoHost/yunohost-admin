@@ -4,14 +4,19 @@
       <slot name="disclaimer" />
 
       <BForm
-        :id="id" :inline="inline" :class="formClasses"
-        @submit.prevent="onSubmit" novalidate
+        :id="id"
+        :inline="inline"
+        :class="formClasses"
+        @submit.prevent="onSubmit"
+        novalidate
       >
         <slot name="default" />
 
         <slot name="server-error">
           <BAlert
-            variant="danger" class="my-3" icon="ban"
+            variant="danger"
+            class="my-3"
+            icon="ban"
             :show="errorFeedback !== ''"
           >
             <div v-html="errorFeedback" />
@@ -41,30 +46,29 @@ export default {
     serverError: { type: String, default: '' },
     inline: { type: Boolean, default: false },
     formClasses: { type: [Array, String, Object], default: null },
-    noFooter: { type: Boolean, default: false }
+    noFooter: { type: Boolean, default: false },
   },
 
   computed: {
-    errorFeedback () {
+    errorFeedback() {
       if (this.serverError) return this.serverError
       else if (this.validation && this.validation.$anyError) {
         return this.$i18n.t('form_errors.invalid_form')
       } else return ''
-    }
+    },
   },
 
   methods: {
-    onSubmit (e) {
+    onSubmit(e) {
       const v = this.validation
       if (v) {
         v.$touch()
         if (v.$pending || v.$invalid) return
       }
       this.$emit('submit', e)
-    }
-  }
+    },
+  },
 }
 </script>
 
-<style lang="scss">
-</style>
+<style lang="scss"></style>

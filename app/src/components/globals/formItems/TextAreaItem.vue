@@ -22,7 +22,7 @@ export default {
     type: { type: String, default: 'text' },
     required: { type: Boolean, default: false },
     state: { type: Boolean, default: null },
-    name: { type: String, default: null }
-  }
+    name: { type: String, default: null },
+  },
 }
 </script>

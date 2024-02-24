@@ -2,8 +2,9 @@
   <div>
     <BListGroup>
       <BListGroupItem
-        v-for="{ id, name, uri } in storages" :key="id"
-        :to="{ name: 'backup-list', params: { id }}"
+        v-for="{ id, name, uri } in storages"
+        :key="id"
+        :to="{ name: 'backup-list', params: { id } }"
         class="d-flex justify-content-between align-items-center pr-0"
       >
         <div>
@@ -25,16 +26,16 @@
 export default {
   name: 'BackupView',
 
-  data () {
+  data() {
     return {
       storages: [
         {
           id: 'local',
           name: this.$i18n.t('local_archives'),
-          uri: '/home/yunohost.backup/'
-        }
-      ]
+          uri: '/home/yunohost.backup/',
+        },
+      ],
     }
-  }
+  },
 }
 </script>

@@ -6,16 +6,15 @@ import {
   isObjectLiteral,
   isEmptyValue,
   flattenObjectLiteral,
-  getFileContent
+  getFileContent,
 } from '@/helpers/commons'
-
 
 const NO_VALUE_FIELDS = [
   'ReadOnlyField',
   'ReadOnlyAlertItem',
   'MarkdownItem',
   'DisplayTextItem',
-  'ButtonItem'
+  'ButtonItem',
 ]
 
 export const DEFAULT_STATUS_ICON = {
@@ -24,7 +23,7 @@ export const DEFAULT_STATUS_ICON = {
   error: 'times',
   info: 'info',
   success: 'check',
-  warning: 'warning'
+  warning: 'warning',
 }
 
 /**
@@ -34,12 +33,11 @@ export const DEFAULT_STATUS_ICON = {
  * @param {(Object|String|undefined)} field - A field value containing a translation object or string
  * @return {String}
  */
-export function formatI18nField (field) {
+export function formatI18nField(field) {
   if (typeof field === 'string') return field
   const { locale, fallbackLocale } = store.state
   return field ? field[locale] || field[fallbackLocale] || field.en : ''
 }
-
 
 /**
  * Returns a string size declaration to a M value.
@@ -47,7 +45,7 @@ export function formatI18nField (field) {
  * @param {String} sizeStr - A size declared like '500M' or '56k'
  * @return {Number}
  */
-export function sizeToM (sizeStr) {
+export function sizeToM(sizeStr) {
   const unit = sizeStr.slice(-1)
   const value = sizeStr.slice(0, -1)
   if (unit === 'M') return parseInt(value)
@@ -57,19 +55,17 @@ export function sizeToM (sizeStr) {
   if (unit === 'T') return Math.ceil(value * 1024 * 1024)
 }
 
-
 /**
  * Returns a formatted address element to be used by AdressInputSelect component.
  *
  * @param {String} address - A string representing an adress (subdomain or email)
  * @return {Object} - `{ localPart, separator, domain }`.
  */
-export function adressToFormValue (address) {
+export function adressToFormValue(address) {
   const separator = address.includes('@') ? '@' : '.'
   const [localPart, domain] = address.split(separator)
   return { localPart, separator, domain }
 }
-
 
 /**
  * Evaluate config panel string expression that can contain regular expressions.
@@ -79,7 +75,7 @@ export function adressToFormValue (address) {
  * @param {Object} forms - A nested form used in config panels.
  * @return {Boolean} - expression evaluation result.
  */
-export function evaluateExpression (expression, form, nested = true) {
+export function evaluateExpression(expression, form, nested = true) {
   if (!expression) return true
   if (expression === '"false"') return false
 
@@ -110,12 +106,11 @@ export function evaluateExpression (expression, form, nested = true) {
 }
 
 // Adds a property to an Object that will dynamically returns a expression evaluation result.
-function addEvaluationGetter (prop, obj, expr, ctx, nested) {
+function addEvaluationGetter(prop, obj, expr, ctx, nested) {
   Object.defineProperty(obj, prop, {
-    get: () => evaluateExpression(expr, ctx, nested)
+    get: () => evaluateExpression(expr, ctx, nested),
   })
 }
-
 
 /**
  * Format app install, actions and config panel argument into a data structure that
@@ -124,8 +119,13 @@ function addEvaluationGetter (prop, obj, expr, ctx, nested) {
  * @param {Object} arg - a yunohost arg options written by a packager.
  * @return {Object} an formated argument containing formItem props, validation and base value.
  */
-export function formatYunoHostArgument (arg) {
-  let value = (arg.value !== undefined) ? arg.value : (arg.current_value !== undefined) ? arg.current_value : null
+export function formatYunoHostArgument(arg) {
+  let value =
+    arg.value !== undefined
+      ? arg.value
+      : arg.current_value !== undefined
+        ? arg.current_value
+        : null
   const validation = {}
   const error = { message: null }
   arg.ask = formatI18nField(arg.ask)
@@ -135,8 +135,8 @@ export function formatYunoHostArgument (arg) {
     props: {
       label: arg.ask,
       component: undefined,
-      props: {}
-    }
+      props: {},
+    },
   }
 
   const defaultProps = ['id', 'placeholder:example']
@@ -144,12 +144,12 @@ export function formatYunoHostArgument (arg) {
     {
       types: ['string', 'path'],
       name: 'InputItem',
-      props: defaultProps.concat(['autocomplete', 'trim', 'choices'])
+      props: defaultProps.concat(['autocomplete', 'trim', 'choices']),
     },
     {
       types: ['email', 'url', 'date', 'time', 'color'],
       name: 'InputItem',
-      props: defaultProps.concat(['type', 'trim'])
+      props: defaultProps.concat(['type', 'trim']),
     },
     {
       types: ['password'],
@@ -161,7 +161,7 @@ export function formatYunoHostArgument (arg) {
         }
         arg.example = '••••••••••••'
         validation.passwordLenght = validators.minLength(8)
-      }
+      },
     },
     {
       types: ['number', 'range'],
@@ -175,7 +175,7 @@ export function formatYunoHostArgument (arg) {
           validation.maxValue = validators.maxValue(parseInt(arg.max))
         }
         validation.numValue = validators.integer
-      }
+      },
     },
     {
       types: ['select', 'user', 'domain', 'app', 'group'],
@@ -183,9 +183,12 @@ export function formatYunoHostArgument (arg) {
       props: ['id', 'choices'],
       callback: function () {
         if (arg.type !== 'select') {
-          field.props.link = { name: arg.type + '-list', text: i18n.t(`manage_${arg.type}s`) }
+          field.props.link = {
+            name: arg.type + '-list',
+            text: i18n.t(`manage_${arg.type}s`),
+          }
         }
-      }
+      },
     },
     {
       types: ['file'],
@@ -197,26 +200,31 @@ export function formatYunoHostArgument (arg) {
           file: value ? new File([''], value) : null,
           content: '',
           current: !!value,
-          removed: false
+          removed: false,
         }
-      }
+      },
     },
     {
       types: ['text'],
       name: 'TextAreaItem',
-      props: defaultProps
+      props: defaultProps,
     },
     {
       types: ['tags'],
       name: 'TagsItem',
-      props: defaultProps.concat(['limit', 'placeholder', 'options:choices', 'tagIcon:icon']),
+      props: defaultProps.concat([
+        'limit',
+        'placeholder',
+        'options:choices',
+        'tagIcon:icon',
+      ]),
       callback: function () {
         if (arg.choices && arg.choices.length) {
           this.name = 'TagsSelectizeItem'
           Object.assign(field.props.props, {
             auto: true,
             itemsName: '',
-            label: arg.placeholder
+            label: arg.placeholder,
           })
         }
         if (typeof value === 'string') {
@@ -224,7 +232,7 @@ export function formatYunoHostArgument (arg) {
         } else if (!value) {
           value = []
         }
-      }
+      },
     },
     {
       types: ['boolean'],
@@ -232,36 +240,40 @@ export function formatYunoHostArgument (arg) {
       props: ['id', 'choices'],
       callback: function () {
         if (value !== null && value !== undefined) {
-          value = ['1', 'yes', 'y', 'true'].includes(String(value).toLowerCase())
+          value = ['1', 'yes', 'y', 'true'].includes(
+            String(value).toLowerCase(),
+          )
         } else if (arg.default !== null && arg.default !== undefined) {
-          value = ['1', 'yes', 'y', 'true'].includes(String(arg.default).toLowerCase())
+          value = ['1', 'yes', 'y', 'true'].includes(
+            String(arg.default).toLowerCase(),
+          )
         }
-      }
+      },
     },
     {
       types: ['alert'],
       name: 'ReadOnlyAlertItem',
       props: ['type:style', 'label:ask', 'icon'],
-      renderSelf: true
+      renderSelf: true,
     },
     {
       types: ['markdown'],
       name: 'MarkdownItem',
       props: ['label:ask'],
-      renderSelf: true
+      renderSelf: true,
     },
     {
       types: ['display_text'],
       name: 'DisplayTextItem',
       props: ['label:ask'],
-      renderSelf: true
+      renderSelf: true,
     },
     {
       types: ['button'],
       name: 'ButtonItem',
       props: ['type:style', 'label:ask', 'icon', 'enabled'],
-      renderSelf: true
-    }
+      renderSelf: true,
+    },
   ]
 
   // Default type management if no one is filled
@@ -273,7 +285,9 @@ export function formatYunoHostArgument (arg) {
   }
 
   // Search the component bind to the type
-  const component = components.find(element => element.types.includes(arg.type))
+  const component = components.find((element) =>
+    element.types.includes(arg.type),
+  )
   if (component === undefined) throw new TypeError('Unknown type: ' + arg.type)
 
   // Callback use for specific behaviour
@@ -290,11 +304,18 @@ export function formatYunoHostArgument (arg) {
   }
 
   // Required (no need for checkbox its value can't be null)
-  if (!component.renderSelf && arg.type !== 'boolean' && arg.optional !== true) {
+  if (
+    !component.renderSelf &&
+    arg.type !== 'boolean' &&
+    arg.optional !== true
+  ) {
     validation.required = validators.required
   }
   if (arg.pattern && arg.type !== 'tags') {
-    validation.pattern = validators.helpers.regex(formatI18nField(arg.pattern.error), new RegExp(arg.pattern.regexp))
+    validation.pattern = validators.helpers.regex(
+      formatI18nField(arg.pattern.error),
+      new RegExp(arg.pattern.regexp),
+    )
   }
 
   if (!component.renderSelf && !arg.readonly) {
@@ -321,7 +342,10 @@ export function formatYunoHostArgument (arg) {
 
   // Help message
   if (arg.helpLink) {
-    field.props.link = { href: arg.helpLink.href, text: i18n.t(arg.helpLink.text) }
+    field.props.link = {
+      href: arg.helpLink.href,
+      text: i18n.t(arg.helpLink.text),
+    }
   }
 
   if (component.renderSelf) {
@@ -334,10 +358,9 @@ export function formatYunoHostArgument (arg) {
     field,
     // Return null instead of empty object if there's no validation
     validation: Object.keys(validation).length === 0 ? null : validation,
-    error
+    error,
   }
 }
-
 
 /**
  * Format app install, actions and config panel manifest args into a form that can be used
@@ -347,7 +370,7 @@ export function formatYunoHostArgument (arg) {
  * @param {Object|null} forms - nested form used as the expression evualuations context.
  * @return {Object} an object containing all parsed values to be used in vue views.
  */
-export function formatYunoHostArguments (args, forms) {
+export function formatYunoHostArguments(args, forms) {
   const form = {}
   const fields = {}
   const validations = {}
@@ -361,28 +384,44 @@ export function formatYunoHostArguments (args, forms) {
     errors[arg.id] = error
 
     if ('visible' in arg && typeof arg.visible === 'string') {
-      addEvaluationGetter('visible', field, arg.visible, forms || form, forms !== undefined)
+      addEvaluationGetter(
+        'visible',
+        field,
+        arg.visible,
+        forms || form,
+        forms !== undefined,
+      )
     }
 
     if ('enabled' in arg && typeof arg.enabled === 'string') {
-      addEvaluationGetter('enabled', field.props, arg.enabled, forms || form, forms !== undefined)
+      addEvaluationGetter(
+        'enabled',
+        field.props,
+        arg.enabled,
+        forms || form,
+        forms !== undefined,
+      )
     }
   }
 
   return { form, fields, validations, errors }
 }
 
-
-export function formatYunoHostConfigPanels (data) {
+export function formatYunoHostConfigPanels(data) {
   const result = {
     panels: [],
     forms: {},
     validations: {},
-    errors: {}
+    errors: {},
   }
 
   for (const { id: panelId, name, help, sections } of data.panels) {
-    const panel = { id: panelId, sections: [], serverError: '', hasApplyButton: false }
+    const panel = {
+      id: panelId,
+      sections: [],
+      serverError: '',
+      hasApplyButton: false,
+    }
     result.forms[panelId] = {}
     result.validations[panelId] = {}
     result.errors[panelId] = {}
@@ -394,7 +433,7 @@ export function formatYunoHostConfigPanels (data) {
       const section = {
         id: _section.id,
         isActionSection: _section.is_action_section,
-        visible: [undefined, true, '"true"'].includes(_section.visible)
+        visible: [undefined, true, '"true"'].includes(_section.visible),
       }
       if (_section.help) section.help = formatI18nField(_section.help)
       if (_section.name) section.name = formatI18nField(_section.name)
@@ -402,12 +441,10 @@ export function formatYunoHostConfigPanels (data) {
         addEvaluationGetter('visible', section, _section.visible, result.forms)
       }
 
-      const {
-        form,
-        fields,
-        validations,
-        errors
-      } = formatYunoHostArguments(_section.options, result.forms)
+      const { form, fields, validations, errors } = formatYunoHostArguments(
+        _section.options,
+        result.forms,
+      )
       // Merge all sections forms to the panel to get a unique form
       Object.assign(result.forms[panelId], form)
       Object.assign(result.validations[panelId], validations)
@@ -415,7 +452,12 @@ export function formatYunoHostConfigPanels (data) {
       section.fields = fields
       panel.sections.push(section)
 
-      if (!section.isActionSection && Object.values(fields).some((field) => !NO_VALUE_FIELDS.includes(field.is))) {
+      if (
+        !section.isActionSection &&
+        Object.values(fields).some(
+          (field) => !NO_VALUE_FIELDS.includes(field.is),
+        )
+      ) {
         panel.hasApplyButton = true
       }
     }
@@ -425,7 +467,6 @@ export function formatYunoHostConfigPanels (data) {
 
   return result
 }
-
 
 /**
  * Parse a front-end value to its API equivalent. This function returns a Promise or an
@@ -439,11 +480,11 @@ export function formatYunoHostConfigPanels (data) {
  * @param {*} value
  * @return {*}
  */
-export function formatFormDataValue (value, key = null) {
+export function formatFormDataValue(value, key = null) {
   if (Array.isArray(value)) {
-    return Promise.all(
-      value.map(value_ => formatFormDataValue(value_))
-    ).then(resolvedValues => ({ [key]: resolvedValues }))
+    return Promise.all(value.map((value_) => formatFormDataValue(value_))).then(
+      (resolvedValues) => ({ [key]: resolvedValues }),
+    )
   }
 
   let result = value
@@ -454,10 +495,10 @@ export function formatFormDataValue (value, key = null) {
     // File has not changed (will not be sent)
     else if (value.current || value.file === null) result = null
     else {
-      return getFileContent(value.file, { base64: true }).then(content => {
+      return getFileContent(value.file, { base64: true }).then((content) => {
         return {
           [key]: content.replace(/data:[^;]*;base64,/, ''),
-          [key + '[name]']: value.file.name
+          [key + '[name]']: value.file.name,
         }
       })
     }
@@ -469,7 +510,6 @@ export function formatFormDataValue (value, key = null) {
   return Promise.resolve(key ? { [key]: result } : result)
 }
 
-
 /**
  * Convinient helper to properly parse a front-end form to its API equivalent.
  * This parse each values asynchronously, allow to inject keys into the final form and
@@ -478,16 +518,15 @@ export function formatFormDataValue (value, key = null) {
  * @param {Object} formData
  * @return {Object}
  */
-function formatFormDataValues (formData) {
+function formatFormDataValues(formData) {
   const promisedValues = Object.entries(formData).map(([key, value]) => {
     return formatFormDataValue(value, key)
   })
 
-  return Promise.all(promisedValues).then(resolvedValues => {
+  return Promise.all(promisedValues).then((resolvedValues) => {
     return resolvedValues.reduce((form, obj) => ({ ...form, ...obj }), {})
   })
 }
-
 
 /**
  * Format a form produced by a vue view to be sent to the server.
@@ -499,13 +538,18 @@ function formatFormDataValues (formData) {
  * @param {Boolean} [extraParams.removeEmpty=true] - Removes "empty" values from the object.
  * @return {Object} the parsed data to be sent to the server, with extracted values if specified.
  */
-export async function formatFormData (
+export async function formatFormData(
   formData,
-  { extract = null, flatten = false, removeEmpty = true, removeNull = false } = {}
+  {
+    extract = null,
+    flatten = false,
+    removeEmpty = true,
+    removeNull = false,
+  } = {},
 ) {
   const output = {
     data: {},
-    extracted: {}
+    extracted: {},
   }
 
   const values = await formatFormDataValues(formData)

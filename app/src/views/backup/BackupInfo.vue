@@ -15,8 +15,10 @@
       </template>
 
       <BRow
-        v-for="(value, prop) in infos" :key="prop"
-        no-gutters class="row-line"
+        v-for="(value, prop) in infos"
+        :key="prop"
+        no-gutters
+        class="row-line"
       >
         <BCol md="3" xl="2">
           <strong>{{ $t(prop === 'name' ? 'id' : prop) }}</strong>
@@ -32,35 +34,48 @@
     <!-- BACKUP CONTENT -->
     <!-- FIXME switch to <CardForm> ? -->
     <YCard
-      :title="$t('backup_content')" icon="archive"
-      no-body button-unbreak="sm"
+      :title="$t('backup_content')"
+      icon="archive"
+      no-body
+      button-unbreak="sm"
     >
       <template #header-buttons>
         <BButton
-          size="sm" variant="outline-secondary"
-          @click="toggleSelected()" v-t="'select_all'"
+          size="sm"
+          variant="outline-secondary"
+          @click="toggleSelected()"
+          v-t="'select_all'"
         />
 
         <BButton
-          size="sm" variant="outline-secondary"
-          @click="toggleSelected(false)" v-t="'select_none'"
+          size="sm"
+          variant="outline-secondary"
+          @click="toggleSelected(false)"
+          v-t="'select_none'"
         />
       </template>
 
       <BFormCheckboxGroup
-        v-if="hasBackupData" v-model="selected"
-        id="backup-select" name="backup-select" size="lg"
+        v-if="hasBackupData"
+        v-model="selected"
+        id="backup-select"
+        name="backup-select"
+        size="lg"
         aria-describedby="backup-restore-feedback"
       >
         <BListGroup flush>
           <!-- SYSTEM PARTS -->
           <BListGroupItem
-            v-for="(item, partName) in system" :key="partName"
+            v-for="(item, partName) in system"
+            :key="partName"
             class="d-flex justify-content-between align-items-center pr-0"
           >
             <div class="mr-2">
               <h5 class="font-weight-bold">
-                {{ item.name }} <small class="text-secondary" v-if="item.size">({{ humanSize(item.size) }})</small>
+                {{ item.name }}
+                <small class="text-secondary" v-if="item.size">
+                  ({{ humanSize(item.size) }})
+                </small>
               </h5>
               <p class="m-0">
                 {{ item.description }}
@@ -72,16 +87,18 @@
 
           <!-- APPS -->
           <BListGroupItem
-            v-for="(item, appName) in apps" :key="appName"
+            v-for="(item, appName) in apps"
+            :key="appName"
             class="d-flex justify-content-between align-items-center pr-0"
           >
             <div class="mr-2">
               <h5 class="font-weight-bold">
-                {{ item.name }} <small class="text-secondary">{{ appName }} ({{ humanSize(item.size) }})</small>
+                {{ item.name }}
+                <small class="text-secondary">
+                  {{ appName }} ({{ humanSize(item.size) }})
+                </small>
               </h5>
-              <p class="m-0">
-                {{ $t('version') }} {{ item.version }}
-              </p>
+              <p class="m-0">{{ $t('version') }} {{ item.version }}</p>
             </div>
 
             <BFormCheckbox :value="appName" :aria-label="$t('check')" />
@@ -102,8 +119,11 @@
       <!-- SUBMIT -->
       <template v-if="hasBackupData" #buttons>
         <BButton
-          @click="restoreBackup" form="backup-restore" variant="success"
-          v-t="'restore'" :disabled="selected.length === 0"
+          @click="restoreBackup"
+          form="backup-restore"
+          variant="success"
+          v-t="'restore'"
+          :disabled="selected.length === 0"
         />
       </template>
     </YCard>
@@ -126,35 +146,35 @@ export default {
 
   props: {
     id: { type: String, required: true },
-    name: { type: String, required: true }
+    name: { type: String, required: true },
   },
 
-  data () {
+  data() {
     return {
-      queries: [
-        ['GET', `backups/${this.name}?with_details`]
-      ],
+      queries: [['GET', `backups/${this.name}?with_details`]],
       selected: [],
       error: '',
       isValid: null,
       // api data
       infos: undefined,
       apps: undefined,
-      system: undefined
+      system: undefined,
     }
   },
 
   computed: {
-    hasBackupData () {
+    hasBackupData() {
       return !isEmptyValue(this.system) || !isEmptyValue(this.apps)
-    }
+    },
   },
 
   methods: {
-    formatHooks (hooks) {
+    formatHooks(hooks) {
       const data = {}
       Object.entries(hooks).forEach(([hook, { size }]) => {
-        const groupId = hook.startsWith('conf_') ? 'adminjs_group_configuration' : hook
+        const groupId = hook.startsWith('conf_')
+          ? 'adminjs_group_configuration'
+          : hook
         if (groupId in data) {
           data[groupId].value.push(hook)
           data[groupId].description += ', ' + this.$i18n.t('hook_' + hook)
@@ -163,20 +183,22 @@ export default {
           data[groupId] = {
             name: this.$i18n.t('hook_' + groupId),
             value: [hook],
-            description: this.$i18n.t(groupId === hook ? `hook_${hook}_desc` : 'hook_' + hook),
-            size
+            description: this.$i18n.t(
+              groupId === hook ? `hook_${hook}_desc` : 'hook_' + hook,
+            ),
+            size,
           }
         }
       })
       return data
     },
 
-    onQueriesResponse (data) {
+    onQueriesResponse(data) {
       this.infos = {
         name: this.name,
         created_at: data.created_at,
         size: data.size,
-        path: data.path
+        path: data.path,
       }
       this.system = this.formatHooks(data.system)
       this.apps = data.apps
@@ -184,20 +206,17 @@ export default {
       this.toggleSelected()
     },
 
-    toggleSelected (select = true) {
+    toggleSelected(select = true) {
       if (select) {
-        this.selected = [
-          ...Object.keys(this.apps),
-          ...Object.keys(this.system)
-        ]
+        this.selected = [...Object.keys(this.apps), ...Object.keys(this.system)]
       } else {
         this.selected = []
       }
     },
 
-    async restoreBackup () {
+    async restoreBackup() {
       const confirmed = await this.$askConfirmation(
-        this.$i18n.t('confirm_restore', { name: this.name })
+        this.$i18n.t('confirm_restore', { name: this.name }),
       )
       if (!confirmed) return
 
@@ -210,35 +229,48 @@ export default {
         }
       }
 
-      api.put(
-        `backups/${this.name}/restore`, data, { key: 'backups.restore', name: this.name }
-      ).then(() => {
-        this.isValid = null
-      }).catch(err => {
-        if (err.name !== 'APIBadRequestError') throw err
-        this.error = err.message
-        this.isValid = false
-      })
+      api
+        .put(`backups/${this.name}/restore`, data, {
+          key: 'backups.restore',
+          name: this.name,
+        })
+        .then(() => {
+          this.isValid = null
+        })
+        .catch((err) => {
+          if (err.name !== 'APIBadRequestError') throw err
+          this.error = err.message
+          this.isValid = false
+        })
     },
 
-    async deleteBackup () {
-      const confirmed = await this.$askConfirmation(this.$i18n.t('confirm_delete', { name: this.name }))
+    async deleteBackup() {
+      const confirmed = await this.$askConfirmation(
+        this.$i18n.t('confirm_delete', { name: this.name }),
+      )
       if (!confirmed) return
 
-      api.delete(
-        'backups/' + this.name, {}, { key: 'backups.delete', name: this.name }
-      ).then(() => {
-        this.$router.push({ name: 'backup-list', params: { id: this.id } })
-      })
+      api
+        .delete(
+          'backups/' + this.name,
+          {},
+          { key: 'backups.delete', name: this.name },
+        )
+        .then(() => {
+          this.$router.push({ name: 'backup-list', params: { id: this.id } })
+        })
     },
 
-    downloadBackup () {
+    downloadBackup() {
       const host = this.$store.getters.host
-      window.open(`https://${host}/yunohost/api/backups/${this.name}/download`, '_blank')
+      window.open(
+        `https://${host}/yunohost/api/backups/${this.name}/download`,
+        '_blank',
+      )
     },
 
     readableDate,
-    humanSize
-  }
+    humanSize,
+  },
 }
 </script>

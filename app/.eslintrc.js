@@ -2,7 +2,7 @@ module.exports = {
   root: true,
   env: {
     es2021: true,
-    node: true
+    node: true,
   },
   extends: [
     'plugin:vue/strongly-recommended',

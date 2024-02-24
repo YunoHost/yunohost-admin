@@ -3,8 +3,11 @@
     <BCardHeader header-tag="nav">
       <BNav card-header fill pills>
         <BNavItem
-          v-for="route in routes" :key="route.text"
-          :to="route.to" exact exact-active-class="active"
+          v-for="route in routes"
+          :key="route.text"
+          :to="route.to"
+          exact
+          exact-active-class="active"
         >
           <YIcon v-if="route.icon" :iname="route.icon" />
           {{ route.text }}
@@ -36,7 +39,7 @@ export default {
   inheritAttrs: false,
 
   props: {
-    routes: { type: Array, required: true }
-  }
+    routes: { type: Array, required: true },
+  },
 }
 </script>

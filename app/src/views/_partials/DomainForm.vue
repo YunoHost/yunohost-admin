@@ -1,7 +1,10 @@
 <template>
   <CardForm
-    :title="title" icon="globe" :submit-text="submitText"
-    :validation="$v" :server-error="serverError"
+    :title="title"
+    icon="globe"
+    :submit-text="submitText"
+    :validation="$v"
+    :server-error="serverError"
     @submit.prevent="onSubmit"
   >
     <template #disclaimer>
@@ -9,7 +12,9 @@
     </template>
 
     <BFormRadio
-      v-model="selected" name="domain-type" value="domain"
+      v-model="selected"
+      name="domain-type"
+      value="domain"
       :class="domainIsVisible ? null : 'collapsed'"
       :aria-expanded="domainIsVisible ? 'true' : 'false'"
       aria-controls="collapse-domain"
@@ -25,13 +30,17 @@
       </p>
 
       <FormField
-        v-bind="fields.domain" v-model="form.domain"
-        :validation="$v.form.domain" class="mt-3"
+        v-bind="fields.domain"
+        v-model="form.domain"
+        :validation="$v.form.domain"
+        class="mt-3"
       />
     </BCollapse>
 
     <BFormRadio
-      v-model="selected" name="domain-type" value="dynDomain"
+      v-model="selected"
+      name="domain-type"
+      value="dynDomain"
       :disabled="dynDnsForbiden"
       :class="dynDomainIsVisible ? null : 'collapsed'"
       :aria-expanded="dynDomainIsVisible ? 'true' : 'false'"
@@ -47,7 +56,11 @@
         <span class="pl-1" v-html="$t('domain.add.from_yunohost_desc')" />
       </p>
 
-      <FormField v-bind="fields.dynDomain" :validation="$v.form.dynDomain" class="mt-3">
+      <FormField
+        v-bind="fields.dynDomain"
+        :validation="$v.form.dynDomain"
+        class="mt-3"
+      >
         <template #default="{ self }">
           <AdressInputSelect v-bind="self" v-model="form.dynDomain" />
         </template>
@@ -65,10 +78,16 @@
         v-model="form.dynDomainPasswordConfirmation"
       />
     </BCollapse>
-    <div v-if="dynDnsForbiden" class="alert alert-warning mt-2" v-html="$t('domain_add_dyndns_forbidden')" />
+    <div
+      v-if="dynDnsForbiden"
+      class="alert alert-warning mt-2"
+      v-html="$t('domain_add_dyndns_forbidden')"
+    />
 
     <BFormRadio
-      v-model="selected" name="domain-type" value="localDomain"
+      v-model="selected"
+      name="domain-type"
+      value="localDomain"
       :class="localDomainIsVisible ? null : 'collapsed'"
       :aria-expanded="localDomainIsVisible ? 'true' : 'false'"
       aria-controls="collapse-localDomain"
@@ -82,7 +101,11 @@
         <span class="pl-1" v-html="$t('domain.add.from_local_desc')" />
       </p>
 
-      <FormField v-bind="fields.localDomain" :validation="$v.form.localDomain" class="mt-3">
+      <FormField
+        v-bind="fields.localDomain"
+        :validation="$v.form.localDomain"
+        class="mt-3"
+      >
         <template #default="{ self }">
           <AdressInputSelect v-bind="self" v-model="form.localDomain" />
         </template>
@@ -97,7 +120,13 @@ import { validationMixin } from 'vuelidate'
 
 import AdressInputSelect from '@/components/AdressInputSelect.vue'
 import { formatFormData } from '@/helpers/yunohostArguments'
-import { required, domain, dynDomain, minLength, sameAs } from '@/helpers/validators'
+import {
+  required,
+  domain,
+  dynDomain,
+  minLength,
+  sameAs,
+} from '@/helpers/validators'
 
 export default {
   name: 'DomainForm',
@@ -105,10 +134,10 @@ export default {
   props: {
     title: { type: String, required: true },
     submitText: { type: String, default: null },
-    serverError: { type: String, default: '' }
+    serverError: { type: String, default: '' },
   },
 
-  data () {
+  data() {
     return {
       selected: '',
 
@@ -117,7 +146,7 @@ export default {
         dynDomain: { localPart: '', separator: '.', domain: 'nohost.me' },
         dynDomainPassword: '',
         dynDomainPasswordConfirmation: '',
-        localDomain: { localPart: '', separator: '.', domain: 'local' }
+        localDomain: { localPart: '', separator: '.', domain: 'local' },
       },
 
       fields: {
@@ -125,8 +154,8 @@ export default {
           label: this.$i18n.t('domain_name'),
           props: {
             id: 'domain',
-            placeholder: this.$i18n.t('placeholder.domain')
-          }
+            placeholder: this.$i18n.t('placeholder.domain'),
+          },
         },
 
         dynDomain: {
@@ -135,8 +164,8 @@ export default {
             id: 'dyn-domain',
             placeholder: this.$i18n.t('placeholder.domain').split('.')[0],
             type: 'domain',
-            choices: ['nohost.me', 'noho.st', 'ynh.fr']
-          }
+            choices: ['nohost.me', 'noho.st', 'ynh.fr'],
+          },
         },
 
         dynDomainPassword: {
@@ -145,8 +174,8 @@ export default {
           props: {
             id: 'dyn-dns-password',
             placeholder: '••••••••',
-            type: 'password'
-          }
+            type: 'password',
+          },
         },
 
         dynDomainPasswordConfirmation: {
@@ -154,8 +183,8 @@ export default {
           props: {
             id: 'dyn-dns-password-confirmation',
             placeholder: '••••••••',
-            type: 'password'
-          }
+            type: 'password',
+          },
         },
 
         localDomain: {
@@ -164,68 +193,70 @@ export default {
             id: 'dyn-domain',
             placeholder: this.$i18n.t('placeholder.domain').split('.')[0],
             type: 'domain',
-            choices: ['local', 'test']
-          }
-        }
-      }
+            choices: ['local', 'test'],
+          },
+        },
+      },
     }
   },
 
   computed: {
     ...mapGetters(['domains']),
 
-    dynDnsForbiden () {
+    dynDnsForbiden() {
       if (!this.domains) return false
       const dynDomains = this.fields.dynDomain.props.choices
-      return this.domains.some(domain => {
-        return dynDomains.some(dynDomain => domain.includes(dynDomain))
+      return this.domains.some((domain) => {
+        return dynDomains.some((dynDomain) => domain.includes(dynDomain))
       })
     },
 
-    domainIsVisible () {
+    domainIsVisible() {
       return this.selected === 'domain'
     },
 
-    dynDomainIsVisible () {
+    dynDomainIsVisible() {
       return this.selected === 'dynDomain'
     },
 
-    localDomainIsVisible () {
+    localDomainIsVisible() {
       return this.selected === 'localDomain'
-    }
+    },
   },
 
-  validations () {
+  validations() {
     return {
       selected: { required },
       form: ['domain', 'localDomain'].includes(this.selected)
         ? {
-          [this.selected]: this.selected === 'domain'
-            ? { required, domain }
-            : { localPart: { required, dynDomain } }
-        }
+            [this.selected]:
+              this.selected === 'domain'
+                ? { required, domain }
+                : { localPart: { required, dynDomain } },
+          }
         : {
-          dynDomain: { localPart: { required, dynDomain } },
-          dynDomainPassword: { passwordLenght: minLength(8) },
-          dynDomainPasswordConfirmation: { passwordMatch: sameAs('dynDomainPassword') }
-        }
+            dynDomain: { localPart: { required, dynDomain } },
+            dynDomainPassword: { passwordLenght: minLength(8) },
+            dynDomainPasswordConfirmation: {
+              passwordMatch: sameAs('dynDomainPassword'),
+            },
+          },
     }
   },
 
   methods: {
-    async onSubmit () {
+    async onSubmit() {
       const domainType = this.selected
       const form = await formatFormData({
         domain: this.form[domainType],
-        dyndns_recovery_password: domainType === 'dynDomain'
-          ? this.form.dynDomainPassword
-          : ''
+        dyndns_recovery_password:
+          domainType === 'dynDomain' ? this.form.dynDomainPassword : '',
       })
       this.$emit('submit', form)
-    }
+    },
   },
 
-  created () {
+  created() {
     if (this.dynDnsForbiden) {
       this.selected = 'domain'
     }
@@ -234,7 +265,7 @@ export default {
   mixins: [validationMixin],
 
   components: {
-    AdressInputSelect
-  }
+    AdressInputSelect,
+  },
 }
 </script>

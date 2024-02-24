@@ -21,32 +21,35 @@ export default {
     label: { type: String, required: true },
     component: { type: String, default: 'InputItem' },
     value: { type: null, default: null },
-    cols: { type: Object, default: () => ({ md: 4, lg: 3 }) }
+    cols: { type: Object, default: () => ({ md: 4, lg: 3 }) },
   },
 
   computed: {
-    cols_ () {
+    cols_() {
       return Object.assign({ md: 4, lg: 3 }, this.cols)
     },
 
-    text () {
+    text() {
       return this.parseValue(this.value)
-    }
+    },
   },
 
   methods: {
-    parseValue (value) {
+    parseValue(value) {
       const item = this.component
       if (item === 'FileItem') value = value.file ? value.file.name : null
       if (item === 'CheckboxItem') value = this.$i18n.t(value ? 'yes' : 'no')
       if (item === 'TextAreaItem') value = value.replaceAll('\n', '<br>')
       if (Array.isArray(value)) {
-        value = value.length ? value.join(this.$i18n.t('words.separator')) : null
+        value = value.length
+          ? value.join(this.$i18n.t('words.separator'))
+          : null
       }
-      if ([null, undefined, ''].includes(this.value)) value = this.$i18n.t('words.none')
+      if ([null, undefined, ''].includes(this.value))
+        value = this.$i18n.t('words.none')
       return value
-    }
-  }
+    },
+  },
 }
 </script>
 

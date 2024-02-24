@@ -1,11 +1,17 @@
 <template>
   <CardForm
-    :title="$t('users_import')" icon="user-plus"
-    :validation="$v" :server-error="serverError"
+    :title="$t('users_import')"
+    icon="user-plus"
+    :validation="$v"
+    :server-error="serverError"
     @submit.prevent="onSubmit"
   >
     <!-- CSV FILE -->
-    <FormField v-bind="fields.csvfile" v-model="form.csvfile" :validation="$v.form.csvfile" />
+    <FormField
+      v-bind="fields.csvfile"
+      v-model="form.csvfile"
+      :validation="$v.form.csvfile"
+    />
 
     <!-- UPDATE -->
     <FormField v-bind="fields.update" v-model="form.update" />
@@ -25,12 +31,12 @@ import { required } from '@/helpers/validators'
 export default {
   name: 'UserImport',
 
-  data () {
+  data() {
     return {
       form: {
         csvfile: { file: null },
         update: false,
-        delete: false
+        delete: false,
       },
 
       serverError: '',
@@ -43,8 +49,8 @@ export default {
           props: {
             id: 'csvfile',
             accept: 'text/csv',
-            placeholder: this.$i18n.t('placeholder.file')
-          }
+            placeholder: this.$i18n.t('placeholder.file'),
+          },
         },
 
         update: {
@@ -52,8 +58,8 @@ export default {
           description: this.$i18n.t('users_import_update_desc'),
           component: 'CheckboxItem',
           props: {
-            id: 'update'
-          }
+            id: 'update',
+          },
         },
 
         delete: {
@@ -61,25 +67,25 @@ export default {
           description: this.$i18n.t('users_import_delete_desc'),
           component: 'CheckboxItem',
           props: {
-            id: 'delete'
-          }
-        }
-      }
+            id: 'delete',
+          },
+        },
+      },
     }
   },
 
   validations: {
     form: {
-      csvfile: { required }
-    }
+      csvfile: { required },
+    },
   },
 
   methods: {
-    async onSubmit () {
+    async onSubmit() {
       if (this.form.delete) {
         const confirmed = await this.$askConfirmation(
           this.$i18n.t('users_import_confirm_destructive'),
-          { okTitle: this.$i18n.t('users_import_delete_others') }
+          { okTitle: this.$i18n.t('users_import_delete_others') },
         )
         if (!confirmed) return
       }
@@ -89,16 +95,24 @@ export default {
       if (!requestArgs.delete) delete requestArgs.delete
       if (!requestArgs.update) delete requestArgs.update
       const data = await formatFormData(requestArgs)
-      api.post('users/import', data, { asFormData: true }).then(() => {
-        // Reset all cached data related to users.
-        this.$store.dispatch('RESET_CACHE_DATA', ['users', 'users_details', 'groups', 'permissions'])
-        this.$router.push({ name: 'user-list' })
-      }).catch(error => {
-        this.serverError = error.message
-      })
-    }
+      api
+        .post('users/import', data, { asFormData: true })
+        .then(() => {
+          // Reset all cached data related to users.
+          this.$store.dispatch('RESET_CACHE_DATA', [
+            'users',
+            'users_details',
+            'groups',
+            'permissions',
+          ])
+          this.$router.push({ name: 'user-list' })
+        })
+        .catch((error) => {
+          this.serverError = error.message
+        })
+    },
   },
 
-  mixins: [validationMixin]
+  mixins: [validationMixin],
 }
 </script>

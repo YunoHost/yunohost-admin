@@ -1,6 +1,8 @@
 <template>
   <ViewBase
-    :queries="queries" @queries-response="onQueriesResponse" queries-wait
+    :queries="queries"
+    @queries-response="onQueriesResponse"
+    queries-wait
     ref="view"
   >
     <template #top-bar-group-right>
@@ -13,7 +15,9 @@
       <div class="alert alert-info">
         {{ $t(reports ? 'diagnosis_explanation' : 'diagnosis_first_run') }}
         <BButton
-          v-if="reports === null" class="d-block mt-2" variant="info"
+          v-if="reports === null"
+          class="d-block mt-2"
+          variant="info"
           @click="runDiagnosis()"
         >
           <YIcon iname="stethoscope" /> {{ $t('run_first_diagnosis') }}
@@ -23,24 +27,46 @@
 
     <!-- REPORT CARD -->
     <YCard
-      v-for="report in reports" :key="report.id"
-      collapsable :collapsed="report.noIssues"
-      no-body button-unbreak="lg"
+      v-for="report in reports"
+      :key="report.id"
+      collapsable
+      :collapsed="report.noIssues"
+      no-body
+      button-unbreak="lg"
     >
       <!-- REPORT HEADER -->
       <template #header>
         <h2>{{ report.description }}</h2>
 
         <div class="">
-          <BBadge v-if="report.noIssues" variant="success" v-t="'everything_good'" />
-          <BBadge v-if="report.errors" variant="danger" v-t="{ path: 'issues', args: { count: report.errors } }" />
-          <BBadge v-if="report.warnings" variant="warning" v-t="{ path: 'warnings', args: { count: report.warnings } }" />
-          <BBadge v-if="report.ignoreds" v-t="{ path: 'ignored', args: { count: report.ignoreds } }" />
+          <BBadge
+            v-if="report.noIssues"
+            variant="success"
+            v-t="'everything_good'"
+          />
+          <BBadge
+            v-if="report.errors"
+            variant="danger"
+            v-t="{ path: 'issues', args: { count: report.errors } }"
+          />
+          <BBadge
+            v-if="report.warnings"
+            variant="warning"
+            v-t="{ path: 'warnings', args: { count: report.warnings } }"
+          />
+          <BBadge
+            v-if="report.ignoreds"
+            v-t="{ path: 'ignored', args: { count: report.ignoreds } }"
+          />
         </div>
       </template>
 
       <template #header-buttons>
-        <BButton size="sm" :variant="report.items ? 'info' : 'success'" @click="runDiagnosis(report)">
+        <BButton
+          size="sm"
+          :variant="report.items ? 'info' : 'success'"
+          @click="runDiagnosis(report)"
+        >
           <YIcon iname="refresh" /> {{ $t('rerun_diagnosis') }}
         </BButton>
       </template>
@@ -53,21 +79,27 @@
       <BListGroup flush>
         <!-- REPORT ITEM -->
         <YListGroupItem
-          v-for="(item, i) in report.items" :key="i"
-          :variant="item.variant" :icon="item.Icon" :faded="item.ignored"
+          v-for="(item, i) in report.items"
+          :key="i"
+          :variant="item.variant"
+          :icon="item.Icon"
+          :faded="item.ignored"
         >
           <div class="item-button d-flex align-items-center">
             <p class="mb-0 mr-2" v-html="item.summary" />
 
             <div class="d-flex flex-column flex-lg-row ml-auto">
               <BButton
-                v-if="item.ignored" size="sm"
+                v-if="item.ignored"
+                size="sm"
                 @click="toggleIgnoreIssue('unignore', report, item)"
               >
                 <YIcon iname="bell" /> {{ $t('unignore') }}
               </BButton>
               <BButton
-                v-else-if="item.issue" variant="warning" size="sm"
+                v-else-if="item.issue"
+                variant="warning"
+                size="sm"
                 @click="toggleIgnoreIssue('ignore', report, item)"
               >
                 <YIcon iname="bell-slash" /> {{ $t('ignore') }}
@@ -75,7 +107,9 @@
 
               <BButton
                 v-if="item.details"
-                size="sm" variant="outline-dark" class="ml-lg-2 mt-2 mt-lg-0"
+                size="sm"
+                variant="outline-dark"
+                class="ml-lg-2 mt-2 mt-lg-0"
                 v-b-toggle="`collapse-${report.id}-item-${i}`"
               >
                 <YIcon iname="level-down" /> {{ $t('details') }}
@@ -83,9 +117,16 @@
             </div>
           </div>
 
-          <BCollapse v-if="item.details" :id="`collapse-${report.id}-item-${i}`">
+          <BCollapse
+            v-if="item.details"
+            :id="`collapse-${report.id}-item-${i}`"
+          >
             <ul class="mt-2 pl-4">
-              <li v-for="(detail, index) in item.details" :key="index" v-html="detail" />
+              <li
+                v-for="(detail, index) in item.details"
+                :key="index"
+                v-html="detail"
+              />
             </ul>
           </BCollapse>
         </YListGroupItem>
@@ -114,22 +155,22 @@ import { DEFAULT_STATUS_ICON } from '@/helpers/yunohostArguments'
 export default {
   name: 'DiagnosisView',
 
-  data () {
+  data() {
     return {
       queries: [
         ['PUT', 'diagnosis/run?except_if_never_ran_yet', {}, 'diagnosis.run'],
-        ['GET', 'diagnosis?full']
+        ['GET', 'diagnosis?full'],
       ],
-      reports: undefined
+      reports: undefined,
     }
   },
 
   computed: {
-    ...mapGetters(['theme'])
+    ...mapGetters(['theme']),
   },
 
   methods: {
-    onQueriesResponse (_, reportsData) {
+    onQueriesResponse(_, reportsData) {
       if (reportsData === null) {
         this.reports = null
         return
@@ -142,7 +183,7 @@ export default {
         report.ignoreds = 0
 
         for (const item of report.items) {
-          const status = item.variant = item.status.toLowerCase()
+          const status = (item.variant = item.status.toLowerCase())
           item.icon = DEFAULT_STATUS_ICON[status]
           item.issue = false
 
@@ -164,53 +205,58 @@ export default {
       this.reports = reports
     },
 
-    runDiagnosis ({ id = null, description } = {}) {
+    runDiagnosis({ id = null, description } = {}) {
       const param = id !== null ? '?force' : ''
       const data = id !== null ? { categories: [id] } : {}
 
-      api.put(
-        'diagnosis/run' + param,
-        data,
-        { key: 'diagnosis.run' + (id !== null ? '_specific' : ''), description }
-      ).then(this.$refs.view.fetchQueries)
+      api
+        .put('diagnosis/run' + param, data, {
+          key: 'diagnosis.run' + (id !== null ? '_specific' : ''),
+          description,
+        })
+        .then(this.$refs.view.fetchQueries)
     },
 
-    toggleIgnoreIssue (action, report, item) {
-      const filterArgs = [report.id].concat(Object.entries(item.meta).map(entries => entries.join('=')))
+    toggleIgnoreIssue(action, report, item) {
+      const filterArgs = [report.id].concat(
+        Object.entries(item.meta).map((entries) => entries.join('=')),
+      )
 
-      api.put(
-        'diagnosis/' + action,
-        { filter: filterArgs },
-        `diagnosis.${action}.${item.status.toLowerCase()}`
-      ).then(() => {
-        item.ignored = action === 'ignore'
-        if (item.ignored) {
-          report[item.status.toLowerCase() + 's']--
-        } else {
-          report.ignoreds--
-        }
-        this.formatReportItem(report, item)
-      })
+      api
+        .put(
+          'diagnosis/' + action,
+          { filter: filterArgs },
+          `diagnosis.${action}.${item.status.toLowerCase()}`,
+        )
+        .then(() => {
+          item.ignored = action === 'ignore'
+          if (item.ignored) {
+            report[item.status.toLowerCase() + 's']--
+          } else {
+            report.ignoreds--
+          }
+          this.formatReportItem(report, item)
+        })
     },
 
-    shareLogs () {
+    shareLogs() {
       api.get('diagnosis?share').then(({ url }) => {
         window.open(url, '_blank')
       })
     },
 
-    distanceToNow
-  }
+    distanceToNow,
+  },
 }
 </script>
 
 <style lang="scss" scoped>
 .badge + .badge {
-  margin-left: .5rem
+  margin-left: 0.5rem;
 }
 
 p.last-time-run {
-  margin: .75rem 1rem;
+  margin: 0.75rem 1rem;
 }
 
 .list-group {

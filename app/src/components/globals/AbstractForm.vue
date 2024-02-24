@@ -4,16 +4,16 @@
       <slot name="disclaimer" />
 
       <BForm
-        :id="id" :inline="inline" :class="formClasses"
-        @submit.prevent="onSubmit" novalidate
+        :id="id"
+        :inline="inline"
+        :class="formClasses"
+        @submit.prevent="onSubmit"
+        novalidate
       >
         <slot name="default" />
 
         <slot name="server-error" v-bind="{ errorFeedback }">
-          <BAlert
-            v-if="errorFeedback"
-            variant="danger" class="my-3" icon="ban"
-          >
+          <BAlert v-if="errorFeedback" variant="danger" class="my-3" icon="ban">
             <div v-html="errorFeedback" />
           </BAlert>
         </slot>
@@ -41,28 +41,28 @@ export default {
     serverError: { type: String, default: '' },
     inline: { type: Boolean, default: false },
     formClasses: { type: [Array, String, Object], default: null },
-    noFooter: { type: Boolean, default: false }
+    noFooter: { type: Boolean, default: false },
   },
 
   computed: {
-    errorFeedback () {
+    errorFeedback() {
       if (this.serverError) return this.serverError
       else if (this.validation && this.validation.$anyError) {
         return this.$i18n.t('form_errors.invalid_form')
       } else return ''
-    }
+    },
   },
 
   methods: {
-    onSubmit (e) {
+    onSubmit(e) {
       const v = this.validation
       if (v) {
         v.$touch()
         if (v.$pending || v.$invalid) return
       }
       this.$emit('submit', e)
-    }
-  }
+    },
+  },
 }
 </script>
 
@@ -73,7 +73,7 @@ export default {
   align-items: center;
 
   & > *:not(:first-child) {
-    margin-left: .5rem;
+    margin-left: 0.5rem;
   }
 }
 </style>

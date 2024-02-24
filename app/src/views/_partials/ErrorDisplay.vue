@@ -8,15 +8,17 @@
 
       <div class="alert alert-info my-3">
         <span v-html="$t('api_error.help')" />
-        <br>{{ $t('api_error.info') }}
+        <br />{{ $t('api_error.info') }}
       </div>
 
       <!-- FIXME USE DD DL DT -->
       <p class="m-0">
-        <strong v-t="'error'" />: <code>"{{ error.code }}" {{ error.status }}</code>
+        <strong v-t="'error'" />:
+        <code>"{{ error.code }}" {{ error.status }}</code>
       </p>
       <p>
-        <strong v-t="'action'" />: <code>"{{ error.method }}" {{ error.path }}</code>
+        <strong v-t="'action'" />:
+        <code>"{{ error.method }}" {{ error.path }}</code>
       </p>
 
       <p>
@@ -43,10 +45,7 @@
 
     <BCardFooter footer-bg-variant="danger">
       <!-- TODO add copy error ? -->
-      <BButton
-        variant="light" size="sm"
-        v-t="'ok'" @click="dismiss"
-      />
+      <BButton variant="light" size="sm" v-t="'ok'" @click="dismiss" />
     </BCardFooter>
   </div>
 </template>
@@ -58,35 +57,36 @@ export default {
   name: 'ErrorDisplay',
 
   components: {
-    MessageListGroup
+    MessageListGroup,
   },
 
   props: {
-    request: { type: [Object, null], default: null }
+    request: { type: [Object, null], default: null },
   },
 
   computed: {
-    error () {
+    error() {
       return this.request.error
     },
 
-    messages () {
+    messages() {
       const messages = this.request.messages
       if (messages && messages.length > 0) return messages
       return null
-    }
+    },
   },
 
   methods: {
-    dismiss () {
+    dismiss() {
       this.$store.dispatch('DISMISS_ERROR', this.request)
-    }
-  }
+    },
+  },
 }
 </script>
 
 <style lang="scss" scoped>
-code, pre code {
+code,
+pre code {
   color: $black;
 }
 </style>

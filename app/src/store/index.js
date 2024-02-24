@@ -14,6 +14,6 @@ export default new Vuex.Store({
   getters: settings.getters,
   modules: {
     info,
-    data
-  }
+    data,
+  },
 })

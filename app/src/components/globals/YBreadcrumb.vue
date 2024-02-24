@@ -6,8 +6,10 @@
     </BBreadcrumbItem>
 
     <BBreadcrumbItem
-      v-for="({ name, text }, i) in breadcrumb" :key="name"
-      :to="{ name }" :active="i === breadcrumb.length - 1"
+      v-for="({ name, text }, i) in breadcrumb"
+      :key="name"
+      :to="{ name }"
+      :active="i === breadcrumb.length - 1"
     >
       {{ text }}
     </BBreadcrumbItem>
@@ -21,8 +23,8 @@ export default {
   name: 'YBreadcrumb',
 
   computed: {
-    ...mapGetters(['breadcrumb'])
-  }
+    ...mapGetters(['breadcrumb']),
+  },
 }
 </script>
 

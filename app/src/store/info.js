@@ -19,32 +19,32 @@ export default {
     tempMessages: [], // Array of messages
     routerKey: undefined, // String if current route has params
     breadcrumb: [], // Array of routes
-    transitionName: null // String of CSS class if transitions are enabled
+    transitionName: null, // String of CSS class if transitions are enabled
   },
 
   mutations: {
-    'SET_INSTALLED' (state, boolean) {
+    SET_INSTALLED(state, boolean) {
       state.installed = boolean
     },
 
-    'SET_CONNECTED' (state, boolean) {
+    SET_CONNECTED(state, boolean) {
       localStorage.setItem('connected', boolean)
       state.connected = boolean
     },
 
-    'SET_YUNOHOST_INFOS' (state, yunohost) {
+    SET_YUNOHOST_INFOS(state, yunohost) {
       state.yunohost = yunohost
     },
 
-    'SET_WAITING' (state, boolean) {
+    SET_WAITING(state, boolean) {
       state.waiting = boolean
     },
 
-    'SET_RECONNECTING' (state, args) {
+    SET_RECONNECTING(state, args) {
       state.reconnecting = args
     },
 
-    'ADD_REQUEST' (state, request) {
+    ADD_REQUEST(state, request) {
       if (state.requests.length > 10) {
         // We do not remove requests right after it resolves since an error might bring
         // one back to life but we can safely remove some here.
@@ -53,35 +53,38 @@ export default {
       state.requests.push(request)
     },
 
-    'UPDATE_REQUEST' (state, { request, key, value }) {
+    UPDATE_REQUEST(state, { request, key, value }) {
       // This rely on data persistance and reactivity.
       Vue.set(request, key, value)
     },
 
-    'REMOVE_REQUEST' (state, request) {
+    REMOVE_REQUEST(state, request) {
       const index = state.requests.lastIndexOf(request)
       state.requests.splice(index, 1)
     },
 
-    'ADD_HISTORY_ACTION' (state, request) {
+    ADD_HISTORY_ACTION(state, request) {
       state.history.push(request)
     },
 
-    'ADD_TEMP_MESSAGE' (state, { request, message, type }) {
+    ADD_TEMP_MESSAGE(state, { request, message, type }) {
       state.tempMessages.push([message, type])
     },
 
-    'UPDATE_DISPLAYED_MESSAGES' (state, { request }) {
+    UPDATE_DISPLAYED_MESSAGES(state, { request }) {
       if (!state.tempMessages.length) {
         state.historyTimer = null
         return
       }
 
-      const { messages, warnings, errors } = state.tempMessages.reduce((acc, [message, type]) => {
-        acc.messages.push(message)
-        if (['error', 'warning'].includes(type)) acc[type + 's']++
-        return acc
-      }, { messages: [], warnings: 0, errors: 0 })
+      const { messages, warnings, errors } = state.tempMessages.reduce(
+        (acc, [message, type]) => {
+          acc.messages.push(message)
+          if (['error', 'warning'].includes(type)) acc[type + 's']++
+          return acc
+        },
+        { messages: [], warnings: 0, errors: 0 },
+      )
       state.tempMessages = []
       state.historyTimer = null
       request.messages = request.messages.concat(messages)
@@ -89,7 +92,7 @@ export default {
       request.errors += errors
     },
 
-    'SET_ERROR' (state, request) {
+    SET_ERROR(state, request) {
       if (request) {
         state.error = request
       } else {
@@ -97,21 +100,21 @@ export default {
       }
     },
 
-    'SET_ROUTER_KEY' (state, key) {
+    SET_ROUTER_KEY(state, key) {
       state.routerKey = key
     },
 
-    'SET_BREADCRUMB' (state, breadcrumb) {
+    SET_BREADCRUMB(state, breadcrumb) {
       state.breadcrumb = breadcrumb
     },
 
-    'SET_TRANSITION_NAME' (state, transitionName) {
+    SET_TRANSITION_NAME(state, transitionName) {
       state.transitionName = transitionName
-    }
+    },
   },
 
   actions: {
-    async 'ON_APP_CREATED' ({ dispatch, state }) {
+    async ON_APP_CREATED({ dispatch, state }) {
       await dispatch('CHECK_INSTALL')
 
       if (!state.installed) {
@@ -121,7 +124,7 @@ export default {
       }
     },
 
-    async 'CHECK_INSTALL' ({ dispatch, commit }, retry = 2) {
+    async CHECK_INSTALL({ dispatch, commit }, retry = 2) {
       // this action will try to query the `/installed` route 3 times every 5 s with
       // a timeout of the same delay.
       // FIXME need testing with api not responding
@@ -137,7 +140,7 @@ export default {
       }
     },
 
-    async 'CONNECT' ({ commit, dispatch }) {
+    async CONNECT({ commit, dispatch }) {
       // If the user is not connected, the first action will throw
       // and login prompt will be shown automaticly
       await dispatch('GET_YUNOHOST_INFOS')
@@ -145,54 +148,77 @@ export default {
       await dispatch('GET', { uri: 'domains', storeKey: 'domains' })
     },
 
-    'RESET_CONNECTED' ({ commit }) {
+    RESET_CONNECTED({ commit }) {
       commit('SET_CONNECTED', false)
       commit('SET_YUNOHOST_INFOS', null)
     },
 
-    'DISCONNECT' ({ dispatch }, route = router.currentRoute) {
+    DISCONNECT({ dispatch }, route = router.currentRoute) {
       dispatch('RESET_CONNECTED')
       if (router.currentRoute.name === 'login') return
       router.push({
         name: 'login',
         // Add a redirect query if next route is not unknown (like `logout`) or `login`
-        query: route && !['login', null].includes(route.name)
-          ? { redirect: route.path }
-          : {}
+        query:
+          route && !['login', null].includes(route.name)
+            ? { redirect: route.path }
+            : {},
       })
     },
 
-    'LOGIN' ({ dispatch }, credentials) {
-      return api.post('login', { credentials }, null, { websocket: false }).then(() => {
-        dispatch('CONNECT')
-      })
+    LOGIN({ dispatch }, credentials) {
+      return api
+        .post('login', { credentials }, null, { websocket: false })
+        .then(() => {
+          dispatch('CONNECT')
+        })
     },
 
-    'LOGOUT' ({ dispatch }) {
+    LOGOUT({ dispatch }) {
       dispatch('DISCONNECT')
       return api.get('logout')
     },
 
-    'TRY_TO_RECONNECT' ({ commit, dispatch }, args = {}) {
+    TRY_TO_RECONNECT({ commit, dispatch }, args = {}) {
       // FIXME This is very ugly arguments forwarding, will use proper component way of doing this when switching to Vue 3 (teleport)
       commit('SET_RECONNECTING', args)
       dispatch('RESET_CONNECTED')
     },
 
-    'GET_YUNOHOST_INFOS' ({ commit }) {
-      return api.get('versions').then(versions => {
+    GET_YUNOHOST_INFOS({ commit }) {
+      return api.get('versions').then((versions) => {
         commit('SET_YUNOHOST_INFOS', versions.yunohost)
       })
     },
 
-    'INIT_REQUEST' ({ commit }, { method, uri, humanKey, initial, wait, websocket }) {
+    INIT_REQUEST(
+      { commit },
+      { method, uri, humanKey, initial, wait, websocket },
+    ) {
       // Try to find a description for an API route to display in history and modals
-      const { key, ...args } = isObjectLiteral(humanKey) ? humanKey : { key: humanKey }
-      const humanRoute = key ? i18n.t('human_routes.' + key, args) : `[${method}] /${uri}`
+      const { key, ...args } = isObjectLiteral(humanKey)
+        ? humanKey
+        : { key: humanKey }
+      const humanRoute = key
+        ? i18n.t('human_routes.' + key, args)
+        : `[${method}] /${uri}`
 
-      let request = { method, uri, humanRouteKey: key, humanRoute, initial, status: 'pending' }
+      let request = {
+        method,
+        uri,
+        humanRouteKey: key,
+        humanRoute,
+        initial,
+        status: 'pending',
+      }
       if (websocket) {
-        request = { ...request, messages: [], date: Date.now(), warnings: 0, errors: 0 }
+        request = {
+          ...request,
+          messages: [],
+          date: Date.now(),
+          warnings: 0,
+          errors: 0,
+        }
         commit('ADD_HISTORY_ACTION', request)
       }
       commit('ADD_REQUEST', request)
@@ -208,7 +234,7 @@ export default {
       return request
     },
 
-    'END_REQUEST' ({ state, commit }, { request, success, wait }) {
+    END_REQUEST({ state, commit }, { request, success, wait }) {
       // Update last messages before finishing this request
       clearTimeout(state.historyTimer)
       commit('UPDATE_DISPLAYED_MESSAGES', { request })
@@ -216,7 +242,10 @@ export default {
       let status = success ? 'success' : 'error'
       if (success && (request.warnings || request.errors)) {
         const messages = request.messages
-        if (messages.length && messages[messages.length - 1].color === 'warning') {
+        if (
+          messages.length &&
+          messages[messages.length - 1].color === 'warning'
+        ) {
           request.showWarningMessage = true
         }
         status = 'warning'
@@ -231,11 +260,11 @@ export default {
       }
     },
 
-    'DISPATCH_MESSAGE' ({ state, commit, dispatch }, { request, messages }) {
+    DISPATCH_MESSAGE({ state, commit, dispatch }, { request, messages }) {
       for (const type in messages) {
         const message = {
           text: messages[type].replaceAll('\n', '<br>'),
-          color: type === 'error' ? 'danger' : type
+          color: type === 'error' ? 'danger' : type,
         }
         let progressBar = message.text.match(/^\[#*\+*\.*\] > /)
         if (progressBar) {
@@ -245,7 +274,11 @@ export default {
           for (const char of progressBar) {
             if (char in progress) progress[char] += 1
           }
-          commit('UPDATE_REQUEST', { request, key: 'progress', value: Object.values(progress) })
+          commit('UPDATE_REQUEST', {
+            request,
+            key: 'progress',
+            value: Object.values(progress),
+          })
         }
         if (message.text) {
           // To avoid rendering lag issues, limit the flow of websocket messages to batches of 50ms.
@@ -259,7 +292,7 @@ export default {
       }
     },
 
-    'HANDLE_ERROR' ({ commit, dispatch }, error) {
+    HANDLE_ERROR({ commit, dispatch }, error) {
       if (error.code === 401) {
         // Unauthorized
         dispatch('DISCONNECT')
@@ -277,12 +310,12 @@ export default {
       }
     },
 
-    'REVIEW_ERROR' ({ commit }, request) {
+    REVIEW_ERROR({ commit }, request) {
       request.review = true
       commit('SET_ERROR', request)
     },
 
-    'DISMISS_ERROR' ({ commit, state }, { initial, review = false }) {
+    DISMISS_ERROR({ commit, state }, { initial, review = false }) {
       if (initial && !review) {
         // In case of an initial request (data that is needed by a view to render itself),
         // try to go back so the user doesn't get stuck at a never ending skeleton view.
@@ -296,12 +329,12 @@ export default {
       commit('SET_ERROR', null)
     },
 
-    'DISMISS_WARNING' ({ commit, state }, request) {
+    DISMISS_WARNING({ commit, state }, request) {
       commit('SET_WAITING', false)
       Vue.delete(request, 'showWarningMessage')
     },
 
-    'UPDATE_ROUTER_KEY' ({ commit }, { to, from }) {
+    UPDATE_ROUTER_KEY({ commit }, { to, from }) {
       if (isEmptyValue(to.params)) {
         commit('SET_ROUTER_KEY', undefined)
         return
@@ -313,21 +346,24 @@ export default {
       // Params can be declared in route `meta` to stricly define which params should be
       // taken into account.
       const params = to.meta.routerParams
-        ? to.meta.routerParams.map(key => to.params[key])
+        ? to.meta.routerParams.map((key) => to.params[key])
         : Object.values(to.params)
 
       commit('SET_ROUTER_KEY', `${to.name}-${params.join('-')}`)
     },
 
-    'UPDATE_BREADCRUMB' ({ commit }, { to, from }) {
-      function getRouteNames (route) {
+    UPDATE_BREADCRUMB({ commit }, { to, from }) {
+      function getRouteNames(route) {
         if (route.meta.breadcrumb) return route.meta.breadcrumb
-        const parentRoute = route.matched.slice().reverse().find(route => route.meta.breadcrumb)
+        const parentRoute = route.matched
+          .slice()
+          .reverse()
+          .find((route) => route.meta.breadcrumb)
         if (parentRoute) return parentRoute.meta.breadcrumb
         return []
       }
 
-      function formatRoute (route) {
+      function formatRoute(route) {
         const { trad, param } = route.meta.args || {}
         let text = ''
         // if a traduction key string has been given and we also need to pass
@@ -344,49 +380,55 @@ export default {
 
       const routeNames = getRouteNames(to)
       const allRoutes = router.getRoutes()
-      const breadcrumb = routeNames.map(name => {
-        const route = allRoutes.find(route => route.name === name)
+      const breadcrumb = routeNames.map((name) => {
+        const route = allRoutes.find((route) => route.name === name)
         return formatRoute(route)
       })
 
       commit('SET_BREADCRUMB', breadcrumb)
 
-      function getTitle (breadcrumb) {
+      function getTitle(breadcrumb) {
         if (breadcrumb.length === 0) return formatRoute(to).text
-        return (breadcrumb.length > 2 ? breadcrumb.slice(-2) : breadcrumb).map(route => route.text).reverse().join(' / ')
+        return (breadcrumb.length > 2 ? breadcrumb.slice(-2) : breadcrumb)
+          .map((route) => route.text)
+          .reverse()
+          .join(' / ')
       }
 
       // Display a simplified breadcrumb as the document title.
       document.title = `${getTitle(breadcrumb)} | ${i18n.t('yunohost_admin')}`
     },
 
-    'UPDATE_TRANSITION_NAME' ({ state, commit }, { to, from }) {
+    UPDATE_TRANSITION_NAME({ state, commit }, { to, from }) {
       // Use the breadcrumb array length as a direction indicator
       const toDepth = (to.meta.breadcrumb || []).length
       const fromDepth = (from.meta.breadcrumb || []).length
-      commit('SET_TRANSITION_NAME', toDepth < fromDepth ? 'slide-right' : 'slide-left')
-    }
+      commit(
+        'SET_TRANSITION_NAME',
+        toDepth < fromDepth ? 'slide-right' : 'slide-left',
+      )
+    },
   },
 
   getters: {
-    host: state => state.host,
-    installed: state => state.installed,
-    connected: state => state.connected,
-    yunohost: state => state.yunohost,
-    error: state => state.error,
-    waiting: state => state.waiting,
-    reconnecting: state => state.reconnecting,
-    history: state => state.history,
-    lastAction: state => state.history[state.history.length - 1],
-    currentRequest: state => {
+    host: (state) => state.host,
+    installed: (state) => state.installed,
+    connected: (state) => state.connected,
+    yunohost: (state) => state.yunohost,
+    error: (state) => state.error,
+    waiting: (state) => state.waiting,
+    reconnecting: (state) => state.reconnecting,
+    history: (state) => state.history,
+    lastAction: (state) => state.history[state.history.length - 1],
+    currentRequest: (state) => {
       const request = state.requests.find(({ status }) => status === 'pending')
       return request || state.requests[state.requests.length - 1]
     },
-    routerKey: state => state.routerKey,
-    breadcrumb: state => state.breadcrumb,
-    transitionName: state => state.transitionName,
+    routerKey: (state) => state.routerKey,
+    breadcrumb: (state) => state.breadcrumb,
+    transitionName: (state) => state.transitionName,
     ssoLink: (state, getters) => {
       return `//${getters.mainDomain ?? state.host}/yunohost/sso`
-    }
-  }
+    },
+  },
 }

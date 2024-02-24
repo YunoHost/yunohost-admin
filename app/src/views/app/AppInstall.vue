@@ -9,8 +9,10 @@
 
           <BButton
             v-if="app.demo"
-            :href="app.demo" target="_blank"
-            variant="primary" class="ml-auto"
+            :href="app.demo"
+            target="_blank"
+            variant="primary"
+            class="ml-auto"
           >
             <YIcon iname="external-link" />
             {{ $t('app.install.try_demo') }}
@@ -18,7 +20,7 @@
         </div>
 
         <p class="text-secondary">
-          {{ $t('app.install.version', { version: app.version }) }}<br>
+          {{ $t('app.install.version', { version: app.version }) }}<br />
 
           <template v-if="app.alternativeTo">
             {{ $t('app.potential_alternative_to') }} {{ app.alternativeTo }}
@@ -30,27 +32,42 @@
         <BImg
           v-if="app.screenshot"
           :src="app.screenshot"
-          aria-hidden="true" class="d-block" fluid
+          aria-hidden="true"
+          class="d-block"
+          fluid
         />
       </section>
 
       <YCard
         v-if="app.integration"
-        id="app-integration" :title="$t('app.integration.title')"
-        collapsable collapsed no-body
+        id="app-integration"
+        :title="$t('app.integration.title')"
+        collapsable
+        collapsed
+        no-body
       >
         <BListGroup flush>
           <YListGroupItem variant="info">
             {{ $t('app.integration.archs') }} {{ app.integration.archs }}
           </YListGroupItem>
-          <YListGroupItem v-if="app.integration.ldap" :variant="app.integration.ldap === true ? 'success' : 'warning'">
+          <YListGroupItem
+            v-if="app.integration.ldap"
+            :variant="app.integration.ldap === true ? 'success' : 'warning'"
+          >
             {{ $t(`app.integration.ldap.${app.integration.ldap}`) }}
           </YListGroupItem>
-          <YListGroupItem v-if="app.integration.sso" :variant="app.integration.sso === true ? 'success' : 'warning'">
+          <YListGroupItem
+            v-if="app.integration.sso"
+            :variant="app.integration.sso === true ? 'success' : 'warning'"
+          >
             {{ $t(`app.integration.sso.${app.integration.sso}`) }}
           </YListGroupItem>
           <YListGroupItem variant="info">
-            {{ $t(`app.integration.multi_instance.${app.integration.multi_instance}`) }}
+            {{
+              $t(
+                `app.integration.multi_instance.${app.integration.multi_instance}`,
+              )
+            }}
           </YListGroupItem>
           <YListGroupItem variant="info">
             {{ $t('app.integration.resources', app.integration.resources) }}
@@ -59,8 +76,12 @@
       </YCard>
 
       <YCard
-        id="app-links" icon="link" :title="$t('app.links.title')"
-        collapsable collapsed no-body
+        id="app-links"
+        icon="link"
+        :title="$t('app.links.title')"
+        collapsable
+        collapsed
+        no-body
       >
         <template #header>
           <h2><YIcon iname="link" /> {{ $t('app.links.title') }}</h2>
@@ -94,14 +115,23 @@
           </dl>
         </template>
 
-        <p v-if="app.quality.state === 'lowquality'" v-t="'app.install.problems.lowquality'" />
+        <p
+          v-if="app.quality.state === 'lowquality'"
+          v-t="'app.install.problems.lowquality'"
+        />
 
-        <VueShowdown v-if="app.preInstall" :markdown="app.preInstall" flavor="github" />
+        <VueShowdown
+          v-if="app.preInstall"
+          :markdown="app.preInstall"
+          flavor="github"
+        />
       </YAlert>
 
       <YAlert
         v-if="!app.hasSupport"
-        variant="danger" icon="warning" class="my-4"
+        variant="danger"
+        icon="warning"
+        class="my-4"
       >
         <h2>{{ $t('app.install.notifs.pre.critical') }}</h2>
 
@@ -109,35 +139,58 @@
           {{ $t('app.install.problems.arch', app.requirements.arch.values) }}
         </p>
         <p v-if="!app.requirements.install.pass">
-          {{ $t('app.install.problems.install', app.requirements.install.values) }}
+          {{
+            $t('app.install.problems.install', app.requirements.install.values)
+          }}
         </p>
         <p v-if="!app.requirements.required_yunohost_version.pass">
-          {{ $t('app.install.problems.version', app.requirements.required_yunohost_version.values) }}
+          {{
+            $t(
+              'app.install.problems.version',
+              app.requirements.required_yunohost_version.values,
+            )
+          }}
         </p>
       </YAlert>
 
       <YAlert v-else-if="app.hasDanger" variant="danger" class="my-4">
         <h2>{{ $t('app.install.notifs.pre.danger') }}</h2>
 
-        <p v-if="['inprogress', 'broken', 'thirdparty'].includes(app.quality.state)" v-t="'app.install.problems.' + app.quality.state" />
+        <p
+          v-if="
+            ['inprogress', 'broken', 'thirdparty'].includes(app.quality.state)
+          "
+          v-t="'app.install.problems.' + app.quality.state"
+        />
         <p v-if="!app.requirements.ram.pass">
           {{ $t('app.install.problems.ram', app.requirements.ram.values) }}
         </p>
 
-        <CheckboxItem v-model="force" id="force-install" :label="$t('app.install.problems.ignore')" />
+        <CheckboxItem
+          v-model="force"
+          id="force-install"
+          :label="$t('app.install.problems.ignore')"
+        />
       </YAlert>
 
       <!-- INSTALL FORM -->
       <CardForm
         v-if="app.canInstall || force"
-        :title="$t('app_install_parameters')" icon="cog" :submit-text="$t('install')"
-        :validation="$v" :server-error="serverError"
+        :title="$t('app_install_parameters')"
+        icon="cog"
+        :submit-text="$t('install')"
+        :validation="$v"
+        :server-error="serverError"
         @submit.prevent="performInstall"
       >
         <template v-for="(field, fname) in fields">
           <Component
-            v-if="field.visible" :is="field.is" v-bind="field.props"
-            v-model="form[fname]" :validation="$v.form[fname]" :key="fname"
+            v-if="field.visible"
+            :is="field.is"
+            v-bind="field.props"
+            v-model="form[fname]"
+            :validation="$v.form[fname]"
+            :key="fname"
           />
         </template>
       </CardForm>
@@ -145,7 +198,8 @@
 
     <!-- In case of a custom url with no manifest found -->
     <BAlert v-else-if="app === null" variant="warning">
-      <YIcon iname="exclamation-triangle" /> {{ $t('app_install_custom_no_manifest') }}
+      <YIcon iname="exclamation-triangle" />
+      {{ $t('app_install_custom_no_manifest') }}
     </BAlert>
 
     <template #skeleton>
@@ -162,7 +216,7 @@ import api, { objectToParams } from '@/api'
 import {
   formatYunoHostArguments,
   formatI18nField,
-  formatFormData
+  formatFormData,
 } from '@/helpers/yunohostArguments'
 import CardCollapse from '@/components/CardCollapse.vue'
 
@@ -172,18 +226,18 @@ export default {
   mixins: [validationMixin],
 
   components: {
-    CardCollapse
+    CardCollapse,
   },
 
   props: {
-    id: { type: String, required: true }
+    id: { type: String, required: true },
   },
 
-  data () {
+  data() {
     return {
       queries: [
         ['GET', 'apps/catalog?full&with_categories&with_antifeatures'],
-        ['GET', `apps/manifest?app=${this.id}&with_screenshot`]
+        ['GET', `apps/manifest?app=${this.id}&with_screenshot`],
       ],
       app: undefined,
       name: undefined,
@@ -192,16 +246,16 @@ export default {
       validations: null,
       errors: undefined,
       serverError: '',
-      force: false
+      force: false,
     }
   },
 
-  validations () {
+  validations() {
     return this.validations
   },
 
   methods: {
-    appLinksIcons (linkType) {
+    appLinksIcons(linkType) {
       const linksIcons = {
         license: 'institution',
         website: 'globe',
@@ -210,16 +264,25 @@ export default {
         code: 'code',
         package: 'code',
         package_license: 'institution',
-        forum: 'comments'
+        forum: 'comments',
       }
       return linksIcons[linkType]
     },
 
-    onQueriesResponse (catalog, _app) {
-      const antifeaturesList = Object.fromEntries(catalog.antifeatures.map((af) => ([af.id, af])))
+    onQueriesResponse(catalog, _app) {
+      const antifeaturesList = Object.fromEntries(
+        catalog.antifeatures.map((af) => [af.id, af]),
+      )
 
       const { id, name, version, requirements } = _app
-      const { ldap, sso, multi_instance, ram, disk, architectures: archs } = _app.integration
+      const {
+        ldap,
+        sso,
+        multi_instance,
+        ram,
+        disk,
+        architectures: archs,
+      } = _app.integration
 
       const quality = { state: _app.quality.state, variant: 'danger' }
       if (quality.state === 'working') {
@@ -230,7 +293,8 @@ export default {
           quality.variant = 'warning'
         } else {
           quality.variant = 'success'
-          quality.state = _app.quality.level >= 8 ? 'highquality' : 'goodquality'
+          quality.state =
+            _app.quality.level >= 8 ? 'highquality' : 'goodquality'
         }
       }
       const preInstall = formatI18nField(_app.notifications.PRE_INSTALL.main)
@@ -247,38 +311,47 @@ export default {
       const app = {
         id,
         name,
-        alternativeTo: _app.potential_alternative_to && _app.potential_alternative_to.length
-          ? _app.potential_alternative_to.join(this.$i18n.t('words.separator'))
-          : null,
+        alternativeTo:
+          _app.potential_alternative_to && _app.potential_alternative_to.length
+            ? _app.potential_alternative_to.join(
+                this.$i18n.t('words.separator'),
+              )
+            : null,
         description: formatI18nField(_app.doc.DESCRIPTION || _app.description),
         screenshot: _app.screenshot,
         demo: _app.upstream.demo,
         version,
         license: _app.upstream.license,
-        integration: _app.packaging_format >= 2
-          ? {
-            archs: Array.isArray(archs) ? archs.join(this.$i18n.t('words.separator')) : archs,
-            ldap: ldap === 'not_relevant' ? null : ldap,
-            sso: sso === 'not_relevant' ? null : sso,
-            multi_instance,
-            resources: { ram: ram.runtime, disk }
-          }
-          : null,
+        integration:
+          _app.packaging_format >= 2
+            ? {
+                archs: Array.isArray(archs)
+                  ? archs.join(this.$i18n.t('words.separator'))
+                  : archs,
+                ldap: ldap === 'not_relevant' ? null : ldap,
+                sso: sso === 'not_relevant' ? null : sso,
+                multi_instance,
+                resources: { ram: ram.runtime, disk },
+              }
+            : null,
         links: [
           ['license', `https://spdx.org/licenses/${_app.upstream.license}`],
-          ...['website', 'admindoc', 'userdoc', 'code'].map((key) => ([key, _app.upstream[key]])),
+          ...['website', 'admindoc', 'userdoc', 'code'].map((key) => {
+            return [key, _app.upstream[key]]
+          }),
           ['package', _app.remote.url],
           ['package_license', _app.remote.url + '/blob/master/LICENSE'],
-          ['forum', `https://forum.yunohost.org/tag/${id}`]
+          ['forum', `https://forum.yunohost.org/tag/${id}`],
         ].filter(([key, val]) => !!val),
         preInstall,
         antifeatures,
         quality,
         requirements,
-        hasWarning: !!preInstall || antifeatures || quality.variant === 'warning',
+        hasWarning:
+          !!preInstall || antifeatures || quality.variant === 'warning',
         hasDanger,
         hasSupport,
-        canInstall: hasSupport && !hasDanger
+        canInstall: hasSupport && !hasDanger,
       }
 
       // FIXME yunohost should add the label field by default
@@ -286,15 +359,12 @@ export default {
         ask: this.$t('label_for_manifestname', { name }),
         default: name,
         name: 'label',
-        help: this.$t('label_for_manifestname_help')
+        help: this.$t('label_for_manifestname_help'),
       })
 
-      const {
-        form,
-        fields,
-        validations,
-        errors
-      } = formatYunoHostArguments(_app.install)
+      const { form, fields, validations, errors } = formatYunoHostArguments(
+        _app.install,
+      )
 
       this.app = app
       this.fields = fields
@@ -303,51 +373,70 @@ export default {
       this.errors = errors
     },
 
-    formatAppNotifs (notifs) {
+    formatAppNotifs(notifs) {
       return Object.keys(notifs).reduce((acc, key) => {
         return acc + '\n\n' + notifs[key]
       }, '')
     },
 
-    async performInstall () {
+    async performInstall() {
       if ('path' in this.form && this.form.path === '/') {
         const confirmed = await this.$askConfirmation(
-          this.$i18n.t('confirm_install_domain_root', { domain: this.form.domain })
+          this.$i18n.t('confirm_install_domain_root', {
+            domain: this.form.domain,
+          }),
         )
         if (!confirmed) return
       }
 
-      const { data: args, label } = await formatFormData(
-        this.form,
-        { extract: ['label'], removeEmpty: false, removeNull: true }
-      )
-      const data = { app: this.id, label, args: Object.entries(args).length ? objectToParams(args) : undefined }
-
-      api.post('apps', data, { key: 'apps.install', name: this.app.name }).then(async ({ notifications }) => {
-        const postInstall = this.formatAppNotifs(notifications)
-        if (postInstall) {
-          const message = this.$i18n.t('app.install.notifs.post.alert') + '\n\n' + postInstall
-          await this.$askMdConfirmation(message, {
-            title: this.$i18n.t('app.install.notifs.post.title', { name: this.app.name }),
-            okTitle: this.$i18n.t('ok')
-          }, true)
-        }
-        this.$router.push({ name: 'app-list' })
-      }).catch(err => {
-        if (err.name !== 'APIBadRequestError') throw err
-        if (err.data.name) {
-          this.errors[err.data.name].message = err.message
-        } else this.serverError = err.message
+      const { data: args, label } = await formatFormData(this.form, {
+        extract: ['label'],
+        removeEmpty: false,
+        removeNull: true,
       })
-    }
-  }
+      const data = {
+        app: this.id,
+        label,
+        args: Object.entries(args).length ? objectToParams(args) : undefined,
+      }
+
+      api
+        .post('apps', data, { key: 'apps.install', name: this.app.name })
+        .then(async ({ notifications }) => {
+          const postInstall = this.formatAppNotifs(notifications)
+          if (postInstall) {
+            const message =
+              this.$i18n.t('app.install.notifs.post.alert') +
+              '\n\n' +
+              postInstall
+            await this.$askMdConfirmation(
+              message,
+              {
+                title: this.$i18n.t('app.install.notifs.post.title', {
+                  name: this.app.name,
+                }),
+                okTitle: this.$i18n.t('ok'),
+              },
+              true,
+            )
+          }
+          this.$router.push({ name: 'app-list' })
+        })
+        .catch((err) => {
+          if (err.name !== 'APIBadRequestError') throw err
+          if (err.data.name) {
+            this.errors[err.data.name].message = err.message
+          } else this.serverError = err.message
+        })
+    },
+  },
 }
 </script>
 
 <style lang="scss" scoped>
 .antifeatures {
   dt::before {
-    content: "• ";
+    content: '• ';
   }
 }
 </style>

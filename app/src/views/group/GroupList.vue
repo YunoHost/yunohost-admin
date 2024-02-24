@@ -16,14 +16,23 @@
 
     <!-- PRIMARY GROUPS CARDS -->
     <YCard
-      v-for="(group, groupName) in filteredGroups" :key="groupName" collapsable
-      :title="group.isSpecial ? $t('group_' + groupName) : `${$t('group')} '${groupName}'`" icon="group"
+      v-for="(group, groupName) in filteredGroups"
+      :key="groupName"
+      collapsable
+      :title="
+        group.isSpecial
+          ? $t('group_' + groupName)
+          : `${$t('group')} '${groupName}'`
+      "
+      icon="group"
     >
       <template #header-buttons>
         <!-- DELETE GROUP -->
         <BButton
-          v-if="!group.isSpecial" @click="deleteGroup(groupName)"
-          size="sm" variant="danger"
+          v-if="!group.isSpecial"
+          @click="deleteGroup(groupName)"
+          size="sm"
+          variant="danger"
         >
           <YIcon iname="trash-o" /> {{ $t('delete') }}
         </BButton>
@@ -37,23 +46,29 @@
         <BCol>
           <template v-if="group.isSpecial">
             <p class="text-primary">
-              <YIcon iname="info-circle" /> {{ $t('group_explain_' + groupName) }}
+              <YIcon iname="info-circle" />
+              {{ $t('group_explain_' + groupName) }}
             </p>
             <p class="text-primary" v-if="groupName === 'visitors'">
-              <em>{{ $t('group_explain_visitors_needed_for_external_client') }}</em>
+              <em>{{
+                $t('group_explain_visitors_needed_for_external_client')
+              }}</em>
             </p>
           </template>
           <template v-if="groupName == 'admins' || !group.isSpecial">
             <TagsSelectizeItem
-              v-model="group.members" :options="usersOptions"
-              :id="groupName + '-users'" :label="$t('group_add_member')"
-              tag-icon="user" items-name="users"
+              v-model="group.members"
+              :options="usersOptions"
+              :id="groupName + '-users'"
+              :label="$t('group_add_member')"
+              tag-icon="user"
+              items-name="users"
               @tag-update="onUserChanged({ ...$event, groupName })"
             />
           </template>
         </BCol>
       </BRow>
-      <hr>
+      <hr />
 
       <BRow>
         <BCol md="3" lg="2">
@@ -61,9 +76,12 @@
         </BCol>
         <BCol>
           <TagsSelectizeItem
-            v-model="group.permissions" :options="permissionsOptions"
-            :id="groupName + '-perms'" :label="$t('group_add_permission')"
-            tag-icon="key-modern" items-name="permissions"
+            v-model="group.permissions"
+            :options="permissionsOptions"
+            :id="groupName + '-perms'"
+            :label="$t('group_add_permission')"
+            tag-icon="key-modern"
+            items-name="permissions"
             @tag-update="onPermissionChanged({ ...$event, groupName })"
             :disabled-items="group.disabledItems"
           />
@@ -73,8 +91,10 @@
 
     <!-- USER GROUPS CARD -->
     <YCard
-      v-if="userGroups" collapsable
-      :title="$t('group_specific_permissions')" icon="group"
+      v-if="userGroups"
+      collapsable
+      :title="$t('group_specific_permissions')"
+      icon="group"
     >
       <template v-for="(userName, index) in activeUserGroups">
         <BRow :key="userName">
@@ -84,20 +104,28 @@
 
           <BCol>
             <TagsSelectizeItem
-              v-model="userGroups[userName].permissions" :options="permissionsOptions"
-              :id="userName + '-perms'" :label="$t('group_add_permission')"
-              tag-icon="key-modern" items-name="permissions"
-              @tag-update="onPermissionChanged({ ...$event, groupName: userName })"
+              v-model="userGroups[userName].permissions"
+              :options="permissionsOptions"
+              :id="userName + '-perms'"
+              :label="$t('group_add_permission')"
+              tag-icon="key-modern"
+              items-name="permissions"
+              @tag-update="
+                onPermissionChanged({ ...$event, groupName: userName })
+              "
             />
           </BCol>
         </BRow>
-        <hr :key="index">
+        <hr :key="index" />
       </template>
 
       <TagsSelectizeItem
-        v-model="activeUserGroups" :options="usersOptions"
-        id="user-groups" :label="$t('group_add_member')"
-        no-tags items-name="users"
+        v-model="activeUserGroups"
+        :options="usersOptions"
+        id="user-groups"
+        :label="$t('group_add_member')"
+        no-tags
+        items-name="users"
         @tag-update="onSpecificUserAdded"
       />
     </YCard>
@@ -117,15 +145,21 @@ export default {
   name: 'GroupList',
 
   components: {
-    TagsSelectizeItem
+    TagsSelectizeItem,
   },
 
-  data () {
+  data() {
     return {
       queries: [
         ['GET', { uri: 'users' }],
-        ['GET', { uri: 'users/groups?full&include_primary_groups', storeKey: 'groups' }],
-        ['GET', { uri: 'users/permissions?full', storeKey: 'permissions' }]
+        [
+          'GET',
+          {
+            uri: 'users/groups?full&include_primary_groups',
+            storeKey: 'groups',
+          },
+        ],
+        ['GET', { uri: 'users/permissions?full', storeKey: 'permissions' }],
       ],
       search: '',
       permissions: undefined,
@@ -133,12 +167,12 @@ export default {
       primaryGroups: undefined,
       userGroups: undefined,
       usersOptions: undefined,
-      activeUserGroups: undefined
+      activeUserGroups: undefined,
     }
   },
 
   computed: {
-    filteredGroups () {
+    filteredGroups() {
       const groups = this.primaryGroups
       if (!groups) return
       const search = this.search.toLowerCase()
@@ -149,14 +183,17 @@ export default {
         }
       }
       return isEmptyValue(filtered) ? null : filtered
-    }
+    },
   },
 
   methods: {
-    onQueriesResponse (users, allGroups, permsDict) {
+    onQueriesResponse(users, allGroups, permsDict) {
       // Do not use computed properties to get values from the store here to avoid auto
       // updates while modifying values.
-      const permissions = Object.entries(permsDict).map(([id, value]) => ({ id, ...value }))
+      const permissions = Object.entries(permsDict).map(([id, value]) => ({
+        id,
+        ...value,
+      }))
       const userNames = users ? Object.keys(users) : []
       const primaryGroups = {}
       const userGroups = {}
@@ -173,90 +210,124 @@ export default {
           continue
         }
 
-        group.isSpecial = ['visitors', 'all_users', 'admins'].includes(groupName)
+        group.isSpecial = ['visitors', 'all_users', 'admins'].includes(
+          groupName,
+        )
 
         if (groupName === 'visitors') {
           // Forbid to add or remove a protected permission on group `visitors`
-          group.disabledItems = permissions.filter(({ id }) => {
-            return ['mail.main', 'xmpp.main'].includes(id) || permsDict[id].protected
-          }).map(({ id }) => permsDict[id].label)
+          group.disabledItems = permissions
+            .filter(({ id }) => {
+              return (
+                ['mail.main', 'xmpp.main'].includes(id) ||
+                permsDict[id].protected
+              )
+            })
+            .map(({ id }) => permsDict[id].label)
         }
 
         if (groupName === 'all_users') {
           // Forbid to add ssh and sftp permission on group `all_users`
-          group.disabledItems = permissions.filter(({ id }) => {
-            return ['ssh.main', 'sftp.main'].includes(id)
-          }).map(({ id }) => permsDict[id].label)
+          group.disabledItems = permissions
+            .filter(({ id }) => {
+              return ['ssh.main', 'sftp.main'].includes(id)
+            })
+            .map(({ id }) => permsDict[id].label)
         }
 
         if (groupName === 'admins') {
           // Forbid to add ssh and sftp permission on group `admins`
-          group.disabledItems = permissions.filter(({ id }) => {
-            return ['ssh.main', 'sftp.main'].includes(id)
-          }).map(({ id }) => permsDict[id].label)
+          group.disabledItems = permissions
+            .filter(({ id }) => {
+              return ['ssh.main', 'sftp.main'].includes(id)
+            })
+            .map(({ id }) => permsDict[id].label)
         }
 
         primaryGroups[groupName] = group
       }
 
-      const activeUserGroups = Object.entries(userGroups).filter(([_, group]) => {
-        return group.permissions.length > 0
-      }).map(([name]) => name)
+      const activeUserGroups = Object.entries(userGroups)
+        .filter(([_, group]) => {
+          return group.permissions.length > 0
+        })
+        .map(([name]) => name)
 
       Object.assign(this, {
         permissions,
-        permissionsOptions: permissions.map(perm => perm.label),
+        permissionsOptions: permissions.map((perm) => perm.label),
         primaryGroups,
         userGroups: isEmptyValue(userGroups) ? null : userGroups,
         usersOptions: userNames,
-        activeUserGroups
+        activeUserGroups,
       })
     },
 
-    async onPermissionChanged ({ option, groupName, action, applyMethod }) {
-      const permId = this.permissions.find(perm => perm.label === option).id
+    async onPermissionChanged({ option, groupName, action, applyMethod }) {
+      const permId = this.permissions.find((perm) => perm.label === option).id
       if (action === 'add' && ['sftp.main', 'ssh.main'].includes(permId)) {
         const confirmed = await this.$askConfirmation(
-          this.$i18n.t('confirm_group_add_access_permission', { name: groupName, perm: option })
+          this.$i18n.t('confirm_group_add_access_permission', {
+            name: groupName,
+            perm: option,
+          }),
         )
         if (!confirmed) return
       }
-      api.put(
-        // FIXME hacky way to update the store
-        { uri: `users/permissions/${permId}/${action}/${groupName}`, storeKey: 'permissions', groupName, action, permId },
-        {},
-        { key: 'permissions.' + action, perm: option, name: groupName }
-      ).then(() => applyMethod(option))
+      api
+        .put(
+          // FIXME hacky way to update the store
+          {
+            uri: `users/permissions/${permId}/${action}/${groupName}`,
+            storeKey: 'permissions',
+            groupName,
+            action,
+            permId,
+          },
+          {},
+          { key: 'permissions.' + action, perm: option, name: groupName },
+        )
+        .then(() => applyMethod(option))
     },
 
-    onUserChanged ({ option, groupName, action, applyMethod }) {
-      api.put(
-        { uri: `users/groups/${groupName}/${action}/${option}`, storeKey: 'groups', groupName },
-        {},
-        { key: 'groups.' + action, user: option, name: groupName }
-      ).then(() => applyMethod(option))
+    onUserChanged({ option, groupName, action, applyMethod }) {
+      api
+        .put(
+          {
+            uri: `users/groups/${groupName}/${action}/${option}`,
+            storeKey: 'groups',
+            groupName,
+          },
+          {},
+          { key: 'groups.' + action, user: option, name: groupName },
+        )
+        .then(() => applyMethod(option))
     },
 
-    onSpecificUserAdded ({ option: userName, action, applyMethod }) {
+    onSpecificUserAdded({ option: userName, action, applyMethod }) {
       if (action === 'add') {
         this.userGroups[userName].permissions = []
         applyMethod(userName)
       }
     },
 
-    async deleteGroup (groupName) {
-      const confirmed = await this.$askConfirmation(this.$i18n.t('confirm_delete', { name: groupName }))
+    async deleteGroup(groupName) {
+      const confirmed = await this.$askConfirmation(
+        this.$i18n.t('confirm_delete', { name: groupName }),
+      )
       if (!confirmed) return
 
-      api.delete(
-        { uri: 'users/groups', param: groupName, storeKey: 'groups' },
-        {},
-        { key: 'groups.delete', name: groupName }
-      ).then(() => {
-        Vue.delete(this.primaryGroups, groupName)
-      })
-    }
-  }
+      api
+        .delete(
+          { uri: 'users/groups', param: groupName, storeKey: 'groups' },
+          {},
+          { key: 'groups.delete', name: groupName },
+        )
+        .then(() => {
+          Vue.delete(this.primaryGroups, groupName)
+        })
+    },
+  },
 }
 </script>
 

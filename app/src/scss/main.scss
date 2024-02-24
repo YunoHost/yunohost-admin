@@ -5,42 +5,41 @@
 // Variables overrides are defined before actual SCSS imports
 @import 'variables';
 
-
 // Dependencies SCSS imports
 // `~` allow to import a node_modules folder (resolved by Webpack)
 // @import "~bootstrap/scss/root";
-@import "~bootstrap/scss/reboot";
-@import "~bootstrap/scss/type";
-@import "~bootstrap/scss/images";
-@import "~bootstrap/scss/code";
-@import "~bootstrap/scss/grid";
-@import "~bootstrap/scss/tables";
-@import "~bootstrap/scss/forms";
-@import "~bootstrap/scss/buttons";
-@import "~bootstrap/scss/transitions";
-@import "~bootstrap/scss/dropdown";
-@import "~bootstrap/scss/button-group";
-@import "~bootstrap/scss/input-group";
-@import "~bootstrap/scss/custom-forms";
-@import "~bootstrap/scss/nav";
-@import "~bootstrap/scss/navbar";
-@import "~bootstrap/scss/card";
-@import "~bootstrap/scss/breadcrumb";
+@import '~bootstrap/scss/reboot';
+@import '~bootstrap/scss/type';
+@import '~bootstrap/scss/images';
+@import '~bootstrap/scss/code';
+@import '~bootstrap/scss/grid';
+@import '~bootstrap/scss/tables';
+@import '~bootstrap/scss/forms';
+@import '~bootstrap/scss/buttons';
+@import '~bootstrap/scss/transitions';
+@import '~bootstrap/scss/dropdown';
+@import '~bootstrap/scss/button-group';
+@import '~bootstrap/scss/input-group';
+@import '~bootstrap/scss/custom-forms';
+@import '~bootstrap/scss/nav';
+@import '~bootstrap/scss/navbar';
+@import '~bootstrap/scss/card';
+@import '~bootstrap/scss/breadcrumb';
 // @import "~bootstrap/scss/pagination";
-@import "~bootstrap/scss/badge";
+@import '~bootstrap/scss/badge';
 // @import "~bootstrap/scss/jumbotron";
-@import "~bootstrap/scss/alert";
-@import "~bootstrap/scss/progress";
+@import '~bootstrap/scss/alert';
+@import '~bootstrap/scss/progress';
 // @import "~bootstrap/scss/media";
-@import "~bootstrap/scss/list-group";
-@import "~bootstrap/scss/close";
+@import '~bootstrap/scss/list-group';
+@import '~bootstrap/scss/close';
 // @import "~bootstrap/scss/toasts";
-@import "~bootstrap/scss/modal";
-@import "~bootstrap/scss/tooltip";
-@import "~bootstrap/scss/popover";
+@import '~bootstrap/scss/modal';
+@import '~bootstrap/scss/tooltip';
+@import '~bootstrap/scss/popover';
 // @import "~bootstrap/scss/carousel";
-@import "~bootstrap/scss/spinners";
-@import "~bootstrap/scss/utilities";
+@import '~bootstrap/scss/spinners';
+@import '~bootstrap/scss/utilities';
 // @import "~bootstrap/scss/print";
 
 @import '~bootstrap-vue/src/index.scss';
@@ -87,18 +86,22 @@
 
   // Overwrite list-group-item variants to lighter ones (used in diagnosis for example)
   @each $color, $value in $theme-colors {
-    @include list-group-item-variant($color, theme-color-level($color, $list-group-item-bg-level), theme-color-level($color, $list-group-item-color-level));
+    @include list-group-item-variant(
+      $color,
+      theme-color-level($color, $list-group-item-bg-level),
+      theme-color-level($color, $list-group-item-color-level)
+    );
 
     .btn-#{$color} {
       &:focus,
       &.focus {
-        box-shadow: 0 0 0 $btn-focus-width rgba($value, .3);
+        box-shadow: 0 0 0 $btn-focus-width rgba($value, 0.3);
       }
     }
   }
 }
 
-[dark-theme="true"] {
+[dark-theme='true'] {
   color-scheme: dark; // Ask browser to use dark mode native styling
 
   --yiq-contrasted-threshold: 120;
@@ -122,10 +125,18 @@
   @include hsl-color('gray-100', 256, 0%, 15%);
 
   @each $color, $value in $theme-colors {
-    @include list-group-item-variant($color, theme-color-level($color, -6), theme-color-level($color, 2));
+    @include list-group-item-variant(
+      $color,
+      theme-color-level($color, -6),
+      theme-color-level($color, 2)
+    );
 
     .alert-#{$color} {
-      @include alert-variant(theme-color-level($color, -6), theme-color-level($color, -5), theme-color-level($color, 2));
+      @include alert-variant(
+        theme-color-level($color, -6),
+        theme-color-level($color, -5),
+        theme-color-level($color, 2)
+      );
     }
   }
 
@@ -164,7 +175,6 @@ body {
   align-items: center;
 }
 
-
 // Add breakpoints for w-*
 @each $breakpoint in map-keys($grid-breakpoints) {
   @each $size, $length in $sizes {
@@ -178,7 +188,13 @@ body {
 
 // Add xs sized btn
 .btn-xs {
-  @include button-size($btn-padding-y-xs, $btn-padding-x-xs, $btn-font-size-sm, $btn-line-height-xs, $btn-border-radius-sm);
+  @include button-size(
+    $btn-padding-y-xs,
+    $btn-padding-x-xs,
+    $btn-font-size-sm,
+    $btn-line-height-xs,
+    $btn-border-radius-sm
+  );
 }
 
 // Allow state of input group to be displayed under the group
@@ -186,8 +202,9 @@ body {
   display: block;
 }
 
-
-.tooltip { top: 0; }
+.tooltip {
+  top: 0;
+}
 // Descriptive list (<b-row /> elems with <b-col> inside)
 // FIXME REMOVE when every infos switch to `DescriptionRow`
 .row-line {
@@ -199,31 +216,45 @@ body {
   }
 
   @include media-breakpoint-down(sm) {
-      flex-direction: column;
+    flex-direction: column;
 
-      &:not(:last-of-type) {
-        margin-bottom: 0.5rem;
-        padding-bottom: 0.5rem;
-        border-bottom: $border-width solid $card-border-color;
-      }
+    &:not(:last-of-type) {
+      margin-bottom: 0.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: $border-width solid $card-border-color;
+    }
   }
 }
 
-.card + .card, .card + .config-panel, .config-panel + .card {
+.card + .card,
+.card + .config-panel,
+.config-panel + .card {
   margin-top: 2rem;
 }
 .card-deck .card + .card {
   margin-top: 0;
 }
 
-.card-header, .list-group-item {
-  h1, h2, h3, h4, h5, h6 {
+.card-header,
+.list-group-item {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     margin: 0;
   }
 }
 
-.card-header, .list-group-item {
-  h1, h2, h3, h4, h5, h6 {
+.card-header,
+.list-group-item {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-weight: $font-weight-normal;
   }
 }
@@ -275,14 +306,14 @@ h3.card-title {
       justify-content: space-between;
 
       .btn {
-        margin-bottom: .5rem;
+        margin-bottom: 0.5rem;
       }
     }
   }
 
   @include media-breakpoint-up(md) {
     .btn ~ .btn {
-      margin-left: .5rem;
+      margin-left: 0.5rem;
     }
     .btn ~ .dropdown-toggle-split {
       margin-left: 0;
@@ -302,7 +333,7 @@ h3.card-title {
 
 code {
   background: $gray-300;
-  padding: .15rem .25rem;
+  padding: 0.15rem 0.25rem;
   border-radius: $border-radius;
 }
 

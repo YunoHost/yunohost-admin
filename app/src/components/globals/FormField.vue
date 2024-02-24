@@ -28,18 +28,18 @@
       <!-- Render description -->
       <template v-if="description || link">
         <div class="d-flex">
-          <BLink
-            v-if="link"
-            :to="link" :href="link.href" class="ml-auto"
-          >
+          <BLink v-if="link" :to="link" :href="link.href" class="ml-auto">
             {{ link.text }}
           </BLink>
         </div>
 
         <VueShowdown
           v-if="description"
-          :markdown="description" flavor="github"
-          :class="{ ['alert p-1 px-2 alert-' + descriptionVariant]: descriptionVariant }"
+          :markdown="description"
+          flavor="github"
+          :class="{
+            ['alert p-1 px-2 alert-' + descriptionVariant]: descriptionVariant,
+          }"
         />
       </template>
       <!-- Slot available to overwrite the one above -->
@@ -64,23 +64,23 @@ export default {
     component: { type: String, default: 'InputItem' },
     value: { type: null, default: null },
     props: { type: Object, default: () => ({}) },
-    validation: { type: Object, default: null }
+    validation: { type: Object, default: null },
   },
 
   computed: {
-    _id () {
+    _id() {
       if (this.id) return this.id
       const childId = this.props.id || this.$attrs['label-for']
       return childId ? childId + '_group' : null
     },
 
-    attrs () {
+    attrs() {
       const attrs = { ...this.$attrs }
       if ('label' in attrs) {
         const defaultAttrs = {
           'label-cols-md': 4,
           'label-cols-lg': 3,
-          'label-class': ['font-weight-bold', 'py-0']
+          'label-class': ['font-weight-bold', 'py-0'],
         }
         if (!('label-cols' in attrs)) {
           for (const attr in defaultAttrs) {
@@ -93,7 +93,7 @@ export default {
       return attrs
     },
 
-    state () {
+    state() {
       // Need to set state as null if no error, else component turn green
       if (this.validation) {
         return this.validation.$anyError === true ? false : null
@@ -101,18 +101,18 @@ export default {
       return null
     },
 
-    errorMessage () {
+    errorMessage() {
       const validation = this.validation
       if (validation && validation.$anyError) {
         const [type, errData] = this.findError(validation.$params, validation)
         return this.$i18n.t('form_errors.' + type, errData)
       }
       return ''
-    }
+    },
   },
 
   methods: {
-    touch (name) {
+    touch(name) {
       if (this.validation) {
         // For fields that have multiple elements
         if (name) {
@@ -123,7 +123,7 @@ export default {
       }
     },
 
-    findError (params, obj, parent = obj) {
+    findError(params, obj, parent = obj) {
       for (const key in params) {
         if (!obj[key]) {
           return [key, obj.$params[key]]
@@ -132,8 +132,8 @@ export default {
           return this.findError(obj[key].$params, obj[key], parent)
         }
       }
-    }
-  }
+    },
+  },
 }
 </script>
 

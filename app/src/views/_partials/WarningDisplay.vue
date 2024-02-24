@@ -6,10 +6,7 @@
     </BCardBody>
 
     <BCardFooter footer-bg-variant="warning">
-      <BButton
-        variant="light" size="sm"
-        v-t="'ok'" @click="dismiss"
-      />
+      <BButton variant="light" size="sm" v-t="'ok'" @click="dismiss" />
     </BCardFooter>
   </div>
 </template>
@@ -19,27 +16,27 @@ export default {
   name: 'WarningDisplay',
 
   props: {
-    request: { type: Object, required: true }
+    request: { type: Object, required: true },
   },
 
   computed: {
-    warning () {
+    warning() {
       const messages = this.request.messages
       return messages[messages.length - 1]
-    }
+    },
   },
 
   methods: {
-    dismiss () {
+    dismiss() {
       this.$store.dispatch('DISMISS_WARNING', this.request)
-    }
-  }
+    },
+  },
 }
 </script>
 
 <style lang="scss" scoped>
-  .card-body {
-    padding-bottom: 1.5rem !important;
-    margin-bottom: 0;
-  }
+.card-body {
+  padding-bottom: 1.5rem !important;
+  margin-bottom: 0;
+}
 </style>

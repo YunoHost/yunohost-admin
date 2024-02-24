@@ -21,21 +21,21 @@ export default {
   props: {
     term: { type: String, default: null },
     details: { type: String, default: null },
-    cols: { type: Object, default: () => ({ md: 4, xl: 3 }) }
+    cols: { type: Object, default: () => ({ md: 4, xl: 3 }) },
   },
 
   computed: {
-    cols_ () {
+    cols_() {
       return Object.assign({ md: 4, xl: 3 }, this.cols)
-    }
-  }
+    },
+  },
 }
 </script>
 
 <style lang="scss" scoped>
 .description-row {
   @include media-breakpoint-up(md) {
-    margin: .25rem 0;
+    margin: 0.25rem 0;
     &:hover {
       background-color: rgba($black, 0.05);
       border-radius: 0.2rem;

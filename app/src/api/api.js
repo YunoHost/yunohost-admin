@@ -6,7 +6,6 @@
 import store from '@/store'
 import { openWebSocket, getResponseData, handleError } from './handlers'
 
-
 /**
  * Options available for an API call.
  *
@@ -17,7 +16,6 @@ import { openWebSocket, getResponseData, handleError } from './handlers'
  * @property {Boolean} asFormData - if `true`, will send the data with a body encoded as `"multipart/form-data"` instead of `"x-www-form-urlencoded"`).
  */
 
-
 /**
  * Representation of an API call for `api.fetchAll`
  *
@@ -26,8 +24,7 @@ import { openWebSocket, getResponseData, handleError } from './handlers'
  * @property {String|Object} 1 - "uri", uri to call as string or as an object for cached uris.
  * @property {Object|null} 2 - "data"
  * @property {Options} 3 - "options"
-*/
-
+ */
 
 /**
  * Converts an object literal into an `URLSearchParams` that can be turned into a
@@ -38,11 +35,15 @@ import { openWebSocket, getResponseData, handleError } from './handlers'
  * @param {Boolean} [options.addLocale=false] - Option to append the locale to the query string.
  * @return {URLSearchParams}
  */
-export function objectToParams (obj, { addLocale = false } = {}, formData = false) {
-  const urlParams = (formData) ? new FormData() : new URLSearchParams()
+export function objectToParams(
+  obj,
+  { addLocale = false } = {},
+  formData = false,
+) {
+  const urlParams = formData ? new FormData() : new URLSearchParams()
   for (const [key, value] of Object.entries(obj)) {
     if (Array.isArray(value)) {
-      value.forEach(v => urlParams.append(key, v))
+      value.forEach((v) => urlParams.append(key, v))
     } else {
       urlParams.append(key, value)
     }
@@ -52,7 +53,6 @@ export function objectToParams (obj, { addLocale = false } = {}, formData = fals
   }
   return urlParams
 }
-
 
 export default {
   options: {
@@ -64,10 +64,9 @@ export default {
       // Auto header is :
       // "Accept": "*/*",
 
-      'X-Requested-With': 'XMLHttpRequest'
-    }
+      'X-Requested-With': 'XMLHttpRequest',
+    },
   },
-
 
   /**
    * Generic method to fetch the api without automatic response handling.
@@ -78,15 +77,22 @@ export default {
    * @param {Options} [options={ wait = true, websocket = true, initial = false, asFormData = false }]
    * @return {Promise<Object|Error>} Promise that resolve the api response data or an error.
    */
-  async fetch (
+  async fetch(
     method,
     uri,
     data = {},
     humanKey = null,
-    { wait = true, websocket = true, initial = false, asFormData = false } = {}
+    { wait = true, websocket = true, initial = false, asFormData = false } = {},
   ) {
     // `await` because Vuex actions returns promises by default.
-    const request = await store.dispatch('INIT_REQUEST', { method, uri, humanKey, initial, wait, websocket })
+    const request = await store.dispatch('INIT_REQUEST', {
+      method,
+      uri,
+      humanKey,
+      initial,
+      wait,
+      websocket,
+    })
 
     if (websocket) {
       await openWebSocket(request)
@@ -96,16 +102,21 @@ export default {
     if (method === 'GET') {
       uri += `${uri.includes('?') ? '&' : '?'}locale=${store.getters.locale}`
     } else {
-      options = { ...options, method, body: objectToParams(data, { addLocale: true }, true) }
+      options = {
+        ...options,
+        method,
+        body: objectToParams(data, { addLocale: true }, true),
+      }
     }
 
     const response = await fetch('/yunohost/api/' + uri, options)
     const responseData = await getResponseData(response)
     store.dispatch('END_REQUEST', { request, success: response.ok, wait })
 
-    return response.ok ? responseData : handleError(request, response, responseData)
+    return response.ok
+      ? responseData
+      : handleError(request, response, responseData)
   },
-
 
   /**
    * Api multiple queries helper.
@@ -117,14 +128,16 @@ export default {
    * @param {Boolean}
    * @return {Promise<Array|Error>} Promise that resolve the api responses data or an error.
    */
-  async fetchAll (queries, { wait, initial } = {}) {
+  async fetchAll(queries, { wait, initial } = {}) {
     const results = []
     if (wait) store.commit('SET_WAITING', true)
     try {
       for (const [method, uri, data, humanKey, options = {}] of queries) {
         if (wait) options.wait = false
         if (initial) options.initial = true
-        results.push(await this[method.toLowerCase()](uri, data, humanKey, options))
+        results.push(
+          await this[method.toLowerCase()](uri, data, humanKey, options),
+        )
       }
     } finally {
       // Stop waiting even if there is an error.
@@ -134,7 +147,6 @@ export default {
     return results
   },
 
-
   /**
    * Api get helper function.
    *
@@ -143,12 +155,12 @@ export default {
    * @param {Options} [options={}] - options to apply to the call (default is `{ websocket: false, wait: false }`)
    * @return {Promise<Object|Error>} Promise that resolve the api response data or an error.
    */
-  get (uri, data = null, humanKey = null, options = {}) {
+  get(uri, data = null, humanKey = null, options = {}) {
     options = { websocket: false, wait: false, ...options }
-    if (typeof uri === 'string') return this.fetch('GET', uri, null, humanKey, options)
+    if (typeof uri === 'string')
+      return this.fetch('GET', uri, null, humanKey, options)
     return store.dispatch('GET', { ...uri, humanKey, options })
   },
-
 
   /**
    * Api post helper function.
@@ -158,11 +170,11 @@ export default {
    * @param {Options} [options={}] - options to apply to the call
    * @return {Promise<Object|Error>} Promise that resolve the api response data or an error.
    */
-  post (uri, data = {}, humanKey = null, options = {}) {
-    if (typeof uri === 'string') return this.fetch('POST', uri, data, humanKey, options)
+  post(uri, data = {}, humanKey = null, options = {}) {
+    if (typeof uri === 'string')
+      return this.fetch('POST', uri, data, humanKey, options)
     return store.dispatch('POST', { ...uri, data, humanKey, options })
   },
-
 
   /**
    * Api put helper function.
@@ -172,11 +184,11 @@ export default {
    * @param {Options} [options={}] - options to apply to the call
    * @return {Promise<Object|Error>} Promise that resolve the api response data or an error.
    */
-  put (uri, data = {}, humanKey = null, options = {}) {
-    if (typeof uri === 'string') return this.fetch('PUT', uri, data, humanKey, options)
+  put(uri, data = {}, humanKey = null, options = {}) {
+    if (typeof uri === 'string')
+      return this.fetch('PUT', uri, data, humanKey, options)
     return store.dispatch('PUT', { ...uri, data, humanKey, options })
   },
-
 
   /**
    * Api delete helper function.
@@ -186,8 +198,9 @@ export default {
    * @param {Options} [options={}] - options to apply to the call (default is `{ websocket: false, wait: false }`)
    * @return {Promise<Object|Error>} Promise that resolve the api response data or an error.
    */
-  delete (uri, data = {}, humanKey = null, options = {}) {
-    if (typeof uri === 'string') return this.fetch('DELETE', uri, data, humanKey, options)
+  delete(uri, data = {}, humanKey = null, options = {}) {
+    if (typeof uri === 'string')
+      return this.fetch('DELETE', uri, data, humanKey, options)
     return store.dispatch('DELETE', { ...uri, data, humanKey, options })
   },
 
@@ -199,24 +212,27 @@ export default {
    * @param {Number} initialDelay - delay before calling the API for the first time in ms.
    * @return {Promise<undefined|Error>}
    */
-  tryToReconnect ({ attemps = 5, delay = 2000, initialDelay = 0 } = {}) {
+  tryToReconnect({ attemps = 5, delay = 2000, initialDelay = 0 } = {}) {
     return new Promise((resolve, reject) => {
       const api = this
 
-      function reconnect (n) {
-        api.get('logout', {}, { key: 'reconnecting' }).then(resolve).catch(err => {
-          if (err.name === 'APIUnauthorizedError') {
-            resolve()
-          } else if (n < 1) {
-            reject(err)
-          } else {
-            setTimeout(() => reconnect(n - 1), delay)
-          }
-        })
+      function reconnect(n) {
+        api
+          .get('logout', {}, { key: 'reconnecting' })
+          .then(resolve)
+          .catch((err) => {
+            if (err.name === 'APIUnauthorizedError') {
+              resolve()
+            } else if (n < 1) {
+              reject(err)
+            } else {
+              setTimeout(() => reconnect(n - 1), delay)
+            }
+          })
       }
 
       if (initialDelay > 0) setTimeout(() => reconnect(attemps), initialDelay)
       else reconnect(attemps)
     })
-  }
+  },
 }

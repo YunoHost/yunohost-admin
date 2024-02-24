@@ -16,7 +16,8 @@
 
       <BListGroup v-else-if="pending" flush>
         <BListGroupItem
-          v-for="{ number, description, id, disclaimer } in pending" :key="number"
+          v-for="{ number, description, id, disclaimer } in pending"
+          :key="number"
         >
           <div class="d-flex align-items-center">
             {{ number }}. {{ description }}
@@ -29,11 +30,12 @@
           </div>
 
           <template v-if="disclaimer">
-            <hr>
+            <hr />
             <p v-html="disclaimer" />
 
             <BFormCheckbox
-              :id="'checkbox-' + number" :name="'checkbox-' + number"
+              :id="'checkbox-' + number"
+              :name="'checkbox-' + number"
               :aria-describedby="'checkbox-feedback-' + number"
               v-model="checked[id]"
             >
@@ -41,7 +43,8 @@
             </BFormCheckbox>
 
             <BFormInvalidFeedback
-              v-if="checked[id] === false" :state="false"
+              v-if="checked[id] === false"
+              :state="false"
               :id="'checkbox-feedback-' + number"
             >
               {{ $t('migrations_disclaimer_not_checked') }}
@@ -53,8 +56,11 @@
 
     <!-- DONE MIGRATIONS -->
     <YCard
-      :title="$t('migrations_done')" icon="cogs"
-      collapsable collapsed no-body
+      :title="$t('migrations_done')"
+      icon="cogs"
+      collapsable
+      collapsed
+      no-body
     >
       <BCardBody v-if="done === null">
         <span class="text-success">
@@ -87,22 +93,22 @@ import api from '@/api'
 export default {
   name: 'ToolMigrations',
 
-  data () {
+  data() {
     return {
       queries: [
         ['GET', 'migrations?pending'],
-        ['GET', 'migrations?done']
+        ['GET', 'migrations?done'],
       ],
       pending: undefined,
       done: undefined,
-      checked: {}
+      checked: {},
     }
   },
 
   methods: {
-    onQueriesResponse ({ migrations: pending }, { migrations: done }) {
+    onQueriesResponse({ migrations: pending }, { migrations: done }) {
       this.done = done.length ? done.reverse() : null
-      pending.forEach(migration => {
+      pending.forEach((migration) => {
         if (migration.disclaimer) {
           migration.disclaimer = migration.disclaimer.replaceAll('\n', '<br>')
           this.$set(this.checked, migration.id, null)
@@ -112,7 +118,7 @@ export default {
       this.pending = pending.length ? pending.reverse() : null
     },
 
-    runMigrations () {
+    runMigrations() {
       // Display an error on migration's disclaimer that aren't checked.
       for (const [id, value] of Object.entries(this.checked)) {
         if (value !== true) {
@@ -120,20 +126,26 @@ export default {
         }
       }
       // Check that every migration's disclaimer has been checked.
-      if (Object.values(this.checked).every(value => value === true)) {
-        api.put('migrations?accept_disclaimer', {}, 'migrations.run').then(() => {
-          this.$refs.view.fetchQueries()
-        })
+      if (Object.values(this.checked).every((value) => value === true)) {
+        api
+          .put('migrations?accept_disclaimer', {}, 'migrations.run')
+          .then(() => {
+            this.$refs.view.fetchQueries()
+          })
       }
     },
 
-    async skipMigration (id) {
-      const confirmed = await this.$askConfirmation(this.$i18n.t('confirm_migrations_skip'))
+    async skipMigration(id) {
+      const confirmed = await this.$askConfirmation(
+        this.$i18n.t('confirm_migrations_skip'),
+      )
       if (!confirmed) return
-      api.put('/migrations/' + id, { skip: '', targets: id }, 'migration.skip').then(() => {
-        this.$refs.view.fetchQueries()
-      })
-    }
-  }
+      api
+        .put('/migrations/' + id, { skip: '', targets: id }, 'migration.skip')
+        .then(() => {
+          this.$refs.view.fetchQueries()
+        })
+    },
+  },
 }
 </script>

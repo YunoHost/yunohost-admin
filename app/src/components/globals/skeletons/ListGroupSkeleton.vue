@@ -14,9 +14,9 @@ export default {
   name: 'ListGroupSkeleton',
 
   props: {
-    itemCount: { type: Number, default: 5 }
+    itemCount: { type: Number, default: 5 },
   },
 
-  methods: { randint }
+  methods: { randint },
 }
 </script>

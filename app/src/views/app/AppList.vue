@@ -16,8 +16,9 @@
 
     <BListGroup>
       <BListGroupItem
-        v-for="{ id, description, label } in filteredApps" :key="id"
-        :to="{ name: 'app-info', params: { id }}"
+        v-for="{ id, description, label } in filteredApps"
+        :key="id"
+        :to="{ name: 'app-info', params: { id } }"
         class="d-flex justify-content-between align-items-center pr-0"
       >
         <div>
@@ -40,40 +41,40 @@
 export default {
   name: 'AppList',
 
-  data () {
+  data() {
     return {
-      queries: [
-        ['GET', 'apps?full']
-      ],
+      queries: [['GET', 'apps?full']],
       search: '',
-      apps: undefined
+      apps: undefined,
     }
   },
 
   computed: {
-    filteredApps () {
+    filteredApps() {
       if (!this.apps) return
       const search = this.search.toLowerCase()
       const match = (item) => item && item.toLowerCase().includes(search)
       // Check if any value in apps (label, id, name, description) match the search query.
-      const filtered = this.apps.filter(app => Object.values(app).some(match))
+      const filtered = this.apps.filter((app) => Object.values(app).some(match))
       return filtered.length ? filtered : null
-    }
+    },
   },
 
   methods: {
-    onQueriesResponse ({ apps }) {
+    onQueriesResponse({ apps }) {
       if (apps.length === 0) {
         this.apps = null
         return
       }
 
-      this.apps = apps.map(({ id, name, description, manifest }) => {
-        return { id, name: manifest.name, label: name, description }
-      }).sort((prev, app) => {
-        return prev.label > app.label ? 1 : -1
-      })
-    }
-  }
+      this.apps = apps
+        .map(({ id, name, description, manifest }) => {
+          return { id, name: manifest.name, label: name, description }
+        })
+        .sort((prev, app) => {
+          return prev.label > app.label ? 1 : -1
+        })
+    },
+  },
 }
 </script>

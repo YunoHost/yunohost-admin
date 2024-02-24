@@ -7,7 +7,7 @@
  * @param {Number} delay - delay after which the promise is rejected
  * @return {Promise}
  */
-export function timeout (promise, delay) {
+export function timeout(promise, delay) {
   return new Promise((resolve, reject) => {
     // FIXME reject(new Error('api_not_responding')) for post-install
     setTimeout(() => reject, delay)
@@ -15,17 +15,19 @@ export function timeout (promise, delay) {
   })
 }
 
-
 /**
  * Check if passed value is an object literal.
  *
  * @param {*} value - Anything.
  * @return {Boolean}
  */
-export function isObjectLiteral (value) {
-  return value !== null && value !== undefined && Object.is(value.constructor, Object)
+export function isObjectLiteral(value) {
+  return (
+    value !== null &&
+    value !== undefined &&
+    Object.is(value.constructor, Object)
+  )
 }
-
 
 /**
  * Check if value is "empty" (`null`, `undefined`, `''`, `[]`, '{}').
@@ -34,11 +36,10 @@ export function isObjectLiteral (value) {
  * @param {*} value - Anything.
  * @return {Boolean}
  */
-export function isEmptyValue (value) {
+export function isEmptyValue(value) {
   if (typeof value === 'number') return false
   return !value || value.length === 0 || Object.keys(value).length === 0
 }
-
 
 /**
  * Returns an flattened object literal, with all keys at first level and removing nested ones.
@@ -47,8 +48,8 @@ export function isEmptyValue (value) {
  * @param {Object} [flattened={}] - An object literal to add passed obj keys/values.
  * @return {Object}
  */
-export function flattenObjectLiteral (obj, flattened = {}) {
-  function flatten (objLit) {
+export function flattenObjectLiteral(obj, flattened = {}) {
+  function flatten(objLit) {
     for (const key in objLit) {
       const value = objLit[key]
       if (isObjectLiteral(value)) {
@@ -62,7 +63,6 @@ export function flattenObjectLiteral (obj, flattened = {}) {
   return flattened
 }
 
-
 /**
  * Returns an new Object filtered with passed filter function.
  * Each entry `[key, value]` will be forwarded to the `filter` function.
@@ -71,10 +71,11 @@ export function flattenObjectLiteral (obj, flattened = {}) {
  * @param {Function} filter - the filter function to call for each entry.
  * @return {Object}
  */
-export function filterObject (obj, filter) {
-  return Object.fromEntries(Object.entries(obj).filter((...args) => filter(...args)))
+export function filterObject(obj, filter) {
+  return Object.fromEntries(
+    Object.entries(obj).filter((...args) => filter(...args)),
+  )
 }
-
 
 /**
  * Returns an new array containing items that are in first array but not in the other.
@@ -83,10 +84,9 @@ export function filterObject (obj, filter) {
  * @param {Array} [arr2=[]]
  * @return {Array}
  */
-export function arrayDiff (arr1 = [], arr2 = []) {
-  return arr1.filter(item => !arr2.includes(item))
+export function arrayDiff(arr1 = [], arr2 = []) {
+  return arr1.filter((item) => !arr2.includes(item))
 }
-
 
 /**
  * Returns a new string with escaped HTML (`&<>"'` replaced by entities).
@@ -94,7 +94,7 @@ export function arrayDiff (arr1 = [], arr2 = []) {
  * @param {String} unsafe
  * @return {String}
  */
-export function escapeHtml (unsafe) {
+export function escapeHtml(unsafe) {
   return unsafe
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
@@ -110,10 +110,9 @@ export function escapeHtml (unsafe) {
  * @param {Number} max
  * @return {Number}
  */
-export function randint (min, max) {
+export function randint(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min
 }
-
 
 /**
  * Returns a File content.
@@ -123,7 +122,7 @@ export function randint (min, max) {
  * @param {Boolean} [extraParams.base64] - returns a base64 representation of the file.
  * @return {Promise<String>}
  */
-export function getFileContent (file, { base64 = false } = {}) {
+export function getFileContent(file, { base64 = false } = {}) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader()
     reader.onerror = reject

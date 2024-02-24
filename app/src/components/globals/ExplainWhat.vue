@@ -2,17 +2,19 @@
   <span class="explain-what">
     <slot name="default" />
     <span class="explain-what-popover-container">
-      <BButton
-        :id="id" href="#"
-        variant="light"
-      >
+      <BButton :id="id" href="#" variant="light">
         <YIcon iname="question" />
-        <span class="sr-only">{{ $t('details_about', { subject: title }) }}</span>
+        <span class="sr-only">
+          {{ $t('details_about', { subject: title }) }}
+        </span>
       </BButton>
       <BPopover
         placement="auto"
-        :target="id" triggers="focus" custom-class="explain-what-popover"
-        :variant="variant" :title="title"
+        :target="id"
+        triggers="focus"
+        custom-class="explain-what-popover"
+        :variant="variant"
+        :title="title"
       >
         <span v-html="content" />
       </BPopover>
@@ -28,14 +30,14 @@ export default {
     id: { type: String, required: true },
     title: { type: String, required: true },
     content: { type: String, required: true },
-    variant: { type: String, default: 'info' }
+    variant: { type: String, default: 'info' },
   },
 
   computed: {
-    cols_ () {
+    cols_() {
       return Object.assign({ md: 4, xl: 3 }, this.cols)
-    }
-  }
+    },
+  },
 }
 </script>
 
@@ -45,7 +47,7 @@ export default {
 
   .btn {
     padding: 0;
-    margin-left: .1rem;
+    margin-left: 0.1rem;
     border-radius: 50rem;
     line-height: inherit;
     font-size: inherit;

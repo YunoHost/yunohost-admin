@@ -23,25 +23,25 @@ export default {
     button: {
       type: Object,
       default: null,
-      validator (value) {
-        return ['text', 'to'].every(prop => (prop in value))
-      }
-    }
+      validator(value) {
+        return ['text', 'to'].every((prop) => prop in value)
+      },
+    },
   },
 
-  data () {
+  data() {
     return {
       hasLeftSlot: null,
-      hasRightSlot: null
+      hasRightSlot: null,
     }
   },
 
-  created () {
+  created() {
     this.$nextTick(() => {
       this.hasLeftSlot = 'group-left' in this.$slots
       this.hasRightSlot = 'group-right' in this.$slots
     })
-  }
+  },
 }
 </script>
 
@@ -65,10 +65,10 @@ export default {
     flex-direction: column-reverse;
 
     #top-bar-right {
-      margin-bottom: .75rem;
+      margin-bottom: 0.75rem;
 
       ::v-deep > * {
-        margin-bottom: .25rem;
+        margin-bottom: 0.25rem;
       }
     }
 
@@ -89,7 +89,7 @@ export default {
     }
 
     ::v-deep .btn {
-      margin-left: .5rem;
+      margin-left: 0.5rem;
       &.dropdown-toggle-split {
         margin-left: 0;
       }

@@ -11,7 +11,7 @@ const loadedLanguages = []
  *
  * @return {string[]}
  */
-function getDefaultLocales () {
+function getDefaultLocales() {
   const locale = store.getters.locale
   const fallbackLocale = store.getters.fallbackLocale
   if (locale && fallbackLocale) return [locale, fallbackLocale]
@@ -34,7 +34,7 @@ function getDefaultLocales () {
   return defaultLocales
 }
 
-function updateDocumentLocale (locale) {
+function updateDocumentLocale(locale) {
   document.documentElement.lang = locale
   // FIXME can't currently change document direction easily since bootstrap still doesn't handle rtl.
   // document.dir = locale === 'ar' ? 'rtl' : 'ltr'
@@ -45,11 +45,11 @@ function updateDocumentLocale (locale) {
  *
  * @return {Promise<string>} Promise that resolve the given locale string
  */
-function loadLocaleMessages (locale) {
+function loadLocaleMessages(locale) {
   if (loadedLanguages.includes(locale)) {
     return Promise.resolve(locale)
   }
-  return import(`@/i18n/locales/${locale}.json`).then(messages => {
+  return import(`@/i18n/locales/${locale}.json`).then((messages) => {
     i18n.setLocaleMessage(locale, messages.default)
     loadedLanguages.push(locale)
     return locale
@@ -59,17 +59,19 @@ function loadLocaleMessages (locale) {
 /**
  * Loads a date-fns locale object
  */
-async function loadDateFnsLocale (locale) {
+async function loadDateFnsLocale(locale) {
   const dateFnsLocaleName = supportedLocales[locale].dateFnsLocale || locale
-  dateFnsLocale = (await import(
-    `../../node_modules/date-fns/esm/locale/${dateFnsLocaleName}/index.js`
-  )).default
+  dateFnsLocale = (
+    await import(
+      `../../node_modules/date-fns/esm/locale/${dateFnsLocaleName}/index.js`
+    )
+  ).default
 }
 
 /**
  * Initialize all locales
  */
-function initDefaultLocales () {
+function initDefaultLocales() {
   // Get defined locales from `localStorage` or `navigator`
   const [locale, fallbackLocale] = getDefaultLocales()
 
@@ -83,5 +85,5 @@ export {
   updateDocumentLocale,
   loadLocaleMessages,
   loadDateFnsLocale,
-  dateFnsLocale
+  dateFnsLocale,
 }

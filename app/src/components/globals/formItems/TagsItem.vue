@@ -17,9 +17,9 @@
 export default {
   name: 'TagsItem',
 
-  data () {
+  data() {
     return {
-      tags: this.value
+      tags: this.value,
     }
   },
   props: {
@@ -29,8 +29,7 @@ export default {
     limit: { type: Number, default: null },
     required: { type: Boolean, default: false },
     state: { type: Boolean, default: null },
-    name: { type: String, default: null }
-  }
+    name: { type: String, default: null },
+  },
 }
 </script>
-

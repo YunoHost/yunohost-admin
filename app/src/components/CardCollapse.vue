@@ -1,12 +1,13 @@
 <template>
-  <BCard
-    v-bind="$attrs"
-    no-body :class="_class"
-  >
+  <BCard v-bind="$attrs" no-body :class="_class">
     <template #header>
       <slot name="header">
         <h2>
-          <BButton v-b-toggle="id" :variant="variant" class="card-collapse-button">
+          <BButton
+            v-b-toggle="id"
+            :variant="variant"
+            class="card-collapse-button"
+          >
             {{ title }}
             <YIcon class="ml-auto" iname="chevron-right" />
           </BButton>
@@ -29,21 +30,21 @@ export default {
     title: { type: String, required: true },
     variant: { type: String, default: 'white' },
     visible: { type: Boolean, default: false },
-    flush: { type: Boolean, default: false }
+    flush: { type: Boolean, default: false },
   },
 
   computed: {
-    _class () {
+    _class() {
       const baseClass = 'card-collapse'
       return [
         baseClass,
         {
           [`${baseClass}-flush`]: this.flush,
-          [`${baseClass}-${this.variant}`]: this.variant
-        }
+          [`${baseClass}-${this.variant}`]: this.variant,
+        },
       ]
-    }
-  }
+    },
+  },
 }
 </script>
 
@@ -57,10 +58,10 @@ export default {
     display: flex;
     width: 100%;
     text-align: left;
-    padding-top: $spacer * .5;
-    padding-bottom: $spacer * .5;
+    padding-top: $spacer * 0.5;
+    padding-bottom: $spacer * 0.5;
     border-radius: 0;
-    font: inherit
+    font: inherit;
   }
 
   &-flush {

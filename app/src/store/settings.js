@@ -4,7 +4,11 @@
  */
 
 import i18n from '@/i18n'
-import { loadLocaleMessages, updateDocumentLocale, loadDateFnsLocale } from '@/i18n/helpers'
+import {
+  loadLocaleMessages,
+  updateDocumentLocale,
+  loadDateFnsLocale,
+} from '@/i18n/helpers'
 import supportedLocales from '@/i18n/supportedLocales'
 
 export default {
@@ -16,48 +20,48 @@ export default {
     theme: localStorage.getItem('theme') === 'true',
     experimental: localStorage.getItem('experimental') === 'true',
     spinner: 'pacman',
-    supportedLocales
+    supportedLocales,
   },
 
   mutations: {
-    'SET_LOCALE' (state, locale) {
+    SET_LOCALE(state, locale) {
       localStorage.setItem('locale', locale)
       state.locale = locale
     },
 
-    'SET_FALLBACKLOCALE' (state, locale) {
+    SET_FALLBACKLOCALE(state, locale) {
       localStorage.setItem('fallbackLocale', locale)
       state.fallbackLocale = locale
     },
 
-    'SET_CACHE' (state, boolean) {
+    SET_CACHE(state, boolean) {
       localStorage.setItem('cache', boolean)
       state.cache = boolean
     },
 
-    'SET_TRANSITIONS' (state, boolean) {
+    SET_TRANSITIONS(state, boolean) {
       localStorage.setItem('transitions', boolean)
       state.transitions = boolean
     },
 
-    'SET_EXPERIMENTAL' (state, boolean) {
+    SET_EXPERIMENTAL(state, boolean) {
       localStorage.setItem('experimental', boolean)
       state.experimental = boolean
     },
 
-    'SET_SPINNER' (state, spinner) {
+    SET_SPINNER(state, spinner) {
       state.spinner = spinner
     },
 
-    'SET_THEME' (state, boolean) {
+    SET_THEME(state, boolean) {
       localStorage.setItem('theme', boolean)
       state.theme = boolean
       document.documentElement.setAttribute('dark-theme', boolean)
-    }
+    },
   },
 
   actions: {
-    'UPDATE_LOCALE' ({ commit }, locale) {
+    UPDATE_LOCALE({ commit }, locale) {
       loadLocaleMessages(locale).then(() => {
         updateDocumentLocale(locale)
         commit('SET_LOCALE', locale)
@@ -67,31 +71,33 @@ export default {
       loadDateFnsLocale(locale)
     },
 
-    'UPDATE_FALLBACKLOCALE' ({ commit }, locale) {
+    UPDATE_FALLBACKLOCALE({ commit }, locale) {
       loadLocaleMessages(locale).then(() => {
         commit('SET_FALLBACKLOCALE', locale)
         i18n.fallbackLocale = [locale, 'en']
       })
     },
 
-    'UPDATE_THEME' ({ commit }, theme) {
+    UPDATE_THEME({ commit }, theme) {
       commit('SET_THEME', theme)
-    }
+    },
   },
 
   getters: {
-    locale: state => (state.locale),
-    fallbackLocale: state => (state.fallbackLocale),
-    cache: state => (state.cache),
-    transitions: state => (state.transitions),
-    theme: state => (state.theme),
-    experimental: state => state.experimental,
-    spinner: state => state.spinner,
+    locale: (state) => state.locale,
+    fallbackLocale: (state) => state.fallbackLocale,
+    cache: (state) => state.cache,
+    transitions: (state) => state.transitions,
+    theme: (state) => state.theme,
+    experimental: (state) => state.experimental,
+    spinner: (state) => state.spinner,
 
-    availableLocales: state => {
-      return Object.entries(state.supportedLocales).map(([locale, { name }]) => {
-        return { value: locale, text: name }
-      })
-    }
-  }
+    availableLocales: (state) => {
+      return Object.entries(state.supportedLocales).map(
+        ([locale, { name }]) => {
+          return { value: locale, text: name }
+        },
+      )
+    },
+  },
 }

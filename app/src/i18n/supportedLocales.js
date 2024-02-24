@@ -6,135 +6,135 @@
 
 export default {
   ar: {
-    name: 'عربي'
+    name: 'عربي',
   },
   bn_BD: {
     name: 'বাংলা',
-    dateFnsLocale: 'bn'
+    dateFnsLocale: 'bn',
   },
   br: {
     name: 'Brezhoneg',
-    dateFnsLocale: 'fr'
+    dateFnsLocale: 'fr',
   },
   ca: {
-    name: 'Català'
+    name: 'Català',
   },
   ckb: {
     name: 'کوردی',
-    dateFnsLocale: 'fa-IR'
+    dateFnsLocale: 'fa-IR',
     // FIXME fallback to Farsi (`fa-IR`) is arbitrary, some would probably prefer Arabic (`ar`)...
   },
   cs: {
-    name: 'Čeština'
+    name: 'Čeština',
   },
   da: {
-    name: 'Dansk'
+    name: 'Dansk',
   },
   de: {
-    name: 'Deutsch'
+    name: 'Deutsch',
   },
   el: {
-    name: 'Eλληνικά'
+    name: 'Eλληνικά',
   },
   en: {
     name: 'English',
-    dateFnsLocale: 'en-GB'
+    dateFnsLocale: 'en-GB',
   },
   eo: {
-    name: 'Esperanto'
+    name: 'Esperanto',
   },
   es: {
-    name: 'Español'
+    name: 'Español',
   },
   eu: {
-    name: 'Euskara'
+    name: 'Euskara',
   },
   fa: {
     name: 'فارسی',
-    dateFnsLocale: 'fa-IR'
+    dateFnsLocale: 'fa-IR',
   },
   fi: {
-    name: 'Suomi'
+    name: 'Suomi',
   },
   fr: {
-    name: 'Français'
+    name: 'Français',
   },
   gl: {
-    name: 'Galego'
+    name: 'Galego',
   },
   he: {
-    name: 'עברית'
+    name: 'עברית',
   },
   hi: {
-    name: 'हिन्दी'
+    name: 'हिन्दी',
   },
   hu: {
-    name: 'Magyar'
+    name: 'Magyar',
   },
   id: {
-    name: 'Bahasa Indonesia'
+    name: 'Bahasa Indonesia',
   },
   it: {
-    name: 'Italiano'
+    name: 'Italiano',
   },
   kab: {
     name: 'Taqbaylit',
-    dateFnsLocale: 'ar-DZ'
+    dateFnsLocale: 'ar-DZ',
   },
   lt: {
-    name: 'Lietuvių'
+    name: 'Lietuvių',
   },
   mk: {
-    name: 'македонски'
+    name: 'македонски',
   },
   nb_NO: {
     name: 'Norsk bokmål',
-    dateFnsLocale: 'nb'
+    dateFnsLocale: 'nb',
   },
   ne: {
     name: 'नेपाली',
-    dateFnsLocale: 'en-GB'
+    dateFnsLocale: 'en-GB',
   },
   nl: {
-    name: 'Nederlands'
+    name: 'Nederlands',
   },
   oc: {
     name: 'Occitan',
-    dateFnsLocale: 'ca'
+    dateFnsLocale: 'ca',
   },
   pl: {
-    name: 'Polski'
+    name: 'Polski',
   },
   pt: {
-    name: 'Português'
+    name: 'Português',
   },
   pt_BR: {
     name: 'Português brasileiro',
-    dateFnsLocale: 'pt-BR'
+    dateFnsLocale: 'pt-BR',
   },
   ru: {
-    name: 'Русский'
+    name: 'Русский',
   },
   sk: {
-    name: 'Slovak'
+    name: 'Slovak',
   },
   sl: {
-    name: 'Slovenščina'
+    name: 'Slovenščina',
   },
   sv: {
-    name: 'Svenska'
+    name: 'Svenska',
   },
   te: {
-    name: 'Telugu'
+    name: 'Telugu',
   },
   tr: {
-    name: 'Türkçe'
+    name: 'Türkçe',
   },
   uk: {
-    name: 'Українська'
+    name: 'Українська',
   },
   zh_Hans: {
     name: '简化字',
-    dateFnsLocale: 'zh-CN'
-  }
+    dateFnsLocale: 'zh-CN',
+  },
 }

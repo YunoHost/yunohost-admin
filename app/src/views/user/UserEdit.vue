@@ -1,17 +1,27 @@
 <template>
-  <ViewBase :queries="queries" @queries-response="onQueriesResponse" skeleton="CardFormSkeleton">
+  <ViewBase
+    :queries="queries"
+    @queries-response="onQueriesResponse"
+    skeleton="CardFormSkeleton"
+  >
     <CardForm
-      :title="$t('user_username_edit', { name })" icon="user"
-      :validation="$v" :server-error="serverError"
+      :title="$t('user_username_edit', { name })"
+      icon="user"
+      :validation="$v"
+      :server-error="serverError"
       @submit.prevent="onSubmit"
     >
       <!-- USERNAME (disabled) -->
       <FormField v-bind="fields.username" />
 
       <!-- USER FULLNAME -->
-      <FormField v-bind="fields.fullname" v-model="form.fullname" :validation="$v.form.fullname" />
+      <FormField
+        v-bind="fields.fullname"
+        v-model="form.fullname"
+        :validation="$v.form.fullname"
+      />
 
-      <hr>
+      <hr />
 
       <!-- USER EMAIL -->
       <FormField v-bind="fields.mail" :validation="$v.form.mail">
@@ -21,21 +31,21 @@
       </FormField>
 
       <!-- MAILBOX QUOTA -->
-      <FormField v-bind="fields.mailbox_quota" :validation="$v.form.mailbox_quota">
+      <FormField
+        v-bind="fields.mailbox_quota"
+        :validation="$v.form.mailbox_quota"
+      >
         <template #default="{ self }">
           <BInputGroup append="M">
             <InputItem v-bind="self" v-model="form.mailbox_quota" />
           </BInputGroup>
         </template>
       </FormField>
-      <hr>
+      <hr />
 
       <!-- MAIL ALIASES -->
       <FormField :label="$t('user_emailaliases')" id="mail-aliases">
-        <div
-          v-for="(mail, i) in form.mail_aliases" :key="i"
-          class="mail-list"
-        >
+        <div v-for="(mail, i) in form.mail_aliases" :key="i" class="mail-list">
           <FormField
             v-bind="fields.mail_aliases"
             :id="'mail_aliases' + i"
@@ -59,12 +69,10 @@
 
       <!-- MAIL FORWARD -->
       <FormField :label="$t('user_emailforward')" id="mail-forward">
-        <div
-          v-for="(mail, i) in form.mail_forward" :key="i"
-          class="mail-list"
-        >
+        <div v-for="(mail, i) in form.mail_forward" :key="i" class="mail-list">
           <FormField
-            v-bind="fields.mail_forward" v-model="form.mail_forward[i]"
+            v-bind="fields.mail_forward"
+            v-model="form.mail_forward[i]"
             :id="'mail-forward' + i"
             :validation="$v.form.mail_forward.$each[i]"
           />
@@ -79,13 +87,21 @@
           <YIcon iname="plus" /> {{ $t('user_emailforward_add') }}
         </BButton>
       </FormField>
-      <hr>
+      <hr />
 
       <!-- USER PASSWORD -->
-      <FormField v-bind="fields.change_password" v-model="form.change_password" :validation="$v.form.change_password" />
+      <FormField
+        v-bind="fields.change_password"
+        v-model="form.change_password"
+        :validation="$v.form.change_password"
+      />
 
       <!-- USER PASSWORD CONFIRMATION -->
-      <FormField v-bind="fields.confirmation" v-model="form.confirmation" :validation="$v.form.confirmation" />
+      <FormField
+        v-bind="fields.confirmation"
+        v-model="form.confirmation"
+        :validation="$v.form.confirmation"
+      />
     </CardForm>
   </ViewBase>
 </template>
@@ -96,26 +112,36 @@ import { validationMixin } from 'vuelidate'
 
 import api from '@/api'
 import { arrayDiff } from '@/helpers/commons'
-import { sizeToM, adressToFormValue, formatFormData } from '@/helpers/yunohostArguments'
 import {
-  name, required, minLength, emailLocalPart, sameAs, integer, minValue, emailForward
+  sizeToM,
+  adressToFormValue,
+  formatFormData,
+} from '@/helpers/yunohostArguments'
+import {
+  name,
+  required,
+  minLength,
+  emailLocalPart,
+  sameAs,
+  integer,
+  minValue,
+  emailForward,
 } from '@/helpers/validators'
 
 import AdressInputSelect from '@/components/AdressInputSelect.vue'
-
 
 export default {
   name: 'UserEdit',
 
   props: {
-    name: { type: String, required: true }
+    name: { type: String, required: true },
   },
 
-  data () {
+  data() {
     return {
       queries: [
         ['GET', { uri: 'users', param: this.name, storeKey: 'users_details' }],
-        ['GET', { uri: 'domains' }]
+        ['GET', { uri: 'domains' }],
       ],
 
       form: {
@@ -125,7 +151,7 @@ export default {
         mail_aliases: [],
         mail_forward: [],
         change_password: '',
-        confirmation: ''
+        confirmation: '',
       },
 
       serverError: '',
@@ -134,20 +160,20 @@ export default {
         username: {
           label: this.$i18n.t('user_username'),
           value: this.name,
-          props: { id: 'username', disabled: true }
+          props: { id: 'username', disabled: true },
         },
 
         fullname: {
           label: this.$i18n.t('user_fullname'),
           props: {
             id: 'fullname',
-            placeholder: this.$i18n.t('placeholder.fullname')
-          }
+            placeholder: this.$i18n.t('placeholder.fullname'),
+          },
         },
 
         mail: {
           label: this.$i18n.t('user_email'),
-          props: { id: 'mail', choices: [] }
+          props: { id: 'mail', choices: [] },
         },
 
         mailbox_quota: {
@@ -156,36 +182,46 @@ export default {
           example: this.$i18n.t('mailbox_quota_example'),
           props: {
             id: 'mailbox-quota',
-            placeholder: this.$i18n.t('mailbox_quota_placeholder')
-          }
+            placeholder: this.$i18n.t('mailbox_quota_placeholder'),
+          },
         },
 
         mail_aliases: {
           props: {
             placeholder: this.$i18n.t('placeholder.username'),
-            choices: []
-          }
+            choices: [],
+          },
         },
 
         mail_forward: {
           props: {
             placeholder: this.$i18n.t('user_new_forward'),
-            type: 'email'
-          }
+            type: 'email',
+          },
         },
 
         change_password: {
           label: this.$i18n.t('password'),
           description: this.$i18n.t('good_practices_about_user_password'),
           descriptionVariant: 'warning',
-          props: { id: 'change_password', type: 'password', placeholder: '••••••••', autocomplete: 'new-password' }
+          props: {
+            id: 'change_password',
+            type: 'password',
+            placeholder: '••••••••',
+            autocomplete: 'new-password',
+          },
         },
 
         confirmation: {
           label: this.$i18n.t('password_confirmation'),
-          props: { id: 'confirmation', type: 'password', placeholder: '••••••••', autocomplete: 'new-password' }
-        }
-      }
+          props: {
+            id: 'confirmation',
+            type: 'password',
+            placeholder: '••••••••',
+            autocomplete: 'new-password',
+          },
+        },
+      },
     }
   },
 
@@ -195,31 +231,33 @@ export default {
     form: {
       fullname: { required, name },
       mail: {
-        localPart: { required, email: emailLocalPart }
+        localPart: { required, email: emailLocalPart },
       },
       mailbox_quota: { integer, minValue: minValue(0) },
       mail_aliases: {
         $each: {
-          localPart: { required, email: emailLocalPart }
-        }
+          localPart: { required, email: emailLocalPart },
+        },
       },
       mail_forward: {
-        $each: { required, emailForward }
+        $each: { required, emailForward },
       },
       change_password: { passwordLenght: minLength(8) },
-      confirmation: { passwordMatch: sameAs('change_password') }
-    }
+      confirmation: { passwordMatch: sameAs('change_password') },
+    },
   },
 
   methods: {
-    onQueriesResponse (user) {
+    onQueriesResponse(user) {
       this.fields.mail.props.choices = this.domainsAsChoices
       this.fields.mail_aliases.props.choices = this.domainsAsChoices
 
       this.form.fullname = user.fullname
       this.form.mail = adressToFormValue(user.mail)
       if (user['mail-aliases']) {
-        this.form.mail_aliases = user['mail-aliases'].map(mail => adressToFormValue(mail))
+        this.form.mail_aliases = user['mail-aliases'].map((mail) =>
+          adressToFormValue(mail),
+        )
       }
       if (user['mail-forward']) {
         this.form.mail_forward = user['mail-forward'].slice() // Copy value
@@ -232,7 +270,7 @@ export default {
       }
     },
 
-    async onSubmit () {
+    async onSubmit() {
       const formData = await formatFormData(this.form, { flatten: true })
       const user = this.user(this.name)
       const data = {}
@@ -251,7 +289,8 @@ export default {
 
       for (const key in formData) {
         if (key === 'mailbox_quota') {
-          const quota = parseInt(formData[key]) > 0 ? formData[key] + 'M' : 'No quota'
+          const quota =
+            parseInt(formData[key]) > 0 ? formData[key] + 'M' : 'No quota'
           if (parseInt(quota) !== parseInt(user['mailbox-quota'].limit)) {
             data[key] = quota === 'No quota' ? '0' : quota
           }
@@ -265,22 +304,26 @@ export default {
         return
       }
 
-      api.put(
-        { uri: 'users', param: this.name, storeKey: 'users_details' },
-        data,
-        { key: 'users.update', name: this.name }
-      ).then(() => {
-        this.$router.push({ name: 'user-info', param: { name: this.name } })
-      }).catch(err => {
-        if (err.name !== 'APIBadRequestError') throw err
-        this.serverError = err.message
-      })
+      api
+        .put(
+          { uri: 'users', param: this.name, storeKey: 'users_details' },
+          data,
+          { key: 'users.update', name: this.name },
+        )
+        .then(() => {
+          this.$router.push({ name: 'user-info', param: { name: this.name } })
+        })
+        .catch((err) => {
+          if (err.name !== 'APIBadRequestError') throw err
+          this.serverError = err.message
+        })
     },
 
-    addEmailField (type) {
-      this.form['mail_' + type].push(type === 'aliases'
-        ? { localPart: '', separator: '@', domain: this.mainDomain }
-        : ''
+    addEmailField(type) {
+      this.form['mail_' + type].push(
+        type === 'aliases'
+          ? { localPart: '', separator: '@', domain: this.mainDomain }
+          : '',
       )
       // Focus last input after rendering update
       this.$nextTick(() => {
@@ -289,13 +332,13 @@ export default {
       })
     },
 
-    removeEmailField (type, index) {
+    removeEmailField(type, index) {
       this.form['mail_' + type].splice(index, 1)
-    }
+    },
   },
 
   mixins: [validationMixin],
-  components: { AdressInputSelect }
+  components: { AdressInputSelect },
 }
 </script>
 
@@ -305,13 +348,13 @@ export default {
   justify-items: stretch;
 
   .form-group {
-    margin-bottom: .5rem;
+    margin-bottom: 0.5rem;
     width: 100%;
   }
 
   .btn-danger {
     align-self: flex-start;
-    margin-left: .5rem;
+    margin-left: 0.5rem;
   }
 }
 </style>
