@@ -1,117 +1,117 @@
 <template>
-  <view-search
+  <ViewSearch
     :items="apps" :filtered-items="filteredApps" items-name="apps"
     :queries="queries" @queries-response="onQueriesResponse"
   >
     <template #top-bar>
       <div id="view-top-bar">
         <!-- APP SEARCH -->
-        <b-input-group>
-          <b-input-group-prepend is-text>
-            <icon iname="search" />
-          </b-input-group-prepend>
-          <b-form-input
+        <BInputGroup>
+          <BInputGroupPrepend is-text>
+            <Icon iname="search" />
+          </BInputGroupPrepend>
+          <BFormInput
             id="search-input" :placeholder="$t('search.for', { items: $tc('items.apps', 2) })"
             :value="search" @input="updateQuery('search', $event)"
           />
-          <b-input-group-append>
-            <b-select :value="quality" :options="qualityOptions" @change="updateQuery('quality', $event)" />
-          </b-input-group-append>
-        </b-input-group>
+          <BInputGroupAppend>
+            <BFormSelect :value="quality" :options="qualityOptions" @change="updateQuery('quality', $event)" />
+          </BInputGroupAppend>
+        </BInputGroup>
 
         <!-- CATEGORY SELECT -->
-        <b-input-group class="mt-3">
-          <b-input-group-prepend is-text>
-            <icon iname="filter" />
-          </b-input-group-prepend>
-          <b-select :value="category" :options="categories" @change="updateQuery('category', $event)" />
-          <b-input-group-append>
-            <b-button variant="primary" :disabled="category === null" @click="updateQuery('category', null)">
+        <BInputGroup class="mt-3">
+          <BInputGroupPrepend is-text>
+            <Icon iname="filter" />
+          </BInputGroupPrepend>
+          <BFormSelect :value="category" :options="categories" @change="updateQuery('category', $event)" />
+          <BInputGroupAppend>
+            <BButton variant="primary" :disabled="category === null" @click="updateQuery('category', null)">
               {{ $t('app_show_categories') }}
-            </b-button>
-          </b-input-group-append>
-        </b-input-group>
+            </BButton>
+          </BInputGroupAppend>
+        </BInputGroup>
 
         <!-- CATEGORIES SUBTAGS -->
-        <b-input-group v-if="subtags" class="mt-3 subtags">
-          <b-input-group-prepend is-text>
+        <BInputGroup v-if="subtags" class="mt-3 subtags">
+          <BInputGroupPrepend is-text>
             Subtags
-          </b-input-group-prepend>
-          <b-form-radio-group
+          </BInputGroupPrepend>
+          <BFormRadioGroup
             id="subtags-radio" name="subtags"
             :checked="subtag" :options="subtags" @change="updateQuery('subtag', $event)"
             buttons button-variant="outline-secondary"
           />
-          <b-select
+          <BFormSelect
             id="subtags-select" :value="subtag" :options="subtags"
             @change="updateQuery('subtag', $event)"
           />
-        </b-input-group>
+        </BInputGroup>
       </div>
     </template>
 
     <!-- CATEGORIES CARDS -->
-    <b-card-group v-if="category === null" deck tag="ul">
-      <b-card
+    <BCardGroup v-if="category === null" deck tag="ul">
+      <BCard
         v-for="cat in categories.slice(1)" :key="cat.value"
         tag="li" class="category-card"
       >
-        <b-card-title>
-          <b-link @click="updateQuery('category', cat.value)" class="card-link">
-            <icon :iname="cat.icon" /> {{ cat.text }}
-          </b-link>
-        </b-card-title>
-        <b-card-text>{{ cat.description }}</b-card-text>
-      </b-card>
-    </b-card-group>
+        <BCardTitle>
+          <BLink @click="updateQuery('category', cat.value)" class="card-link">
+            <Icon :iname="cat.icon" /> {{ cat.text }}
+          </BLink>
+        </BCardTitle>
+        <BCardText>{{ cat.description }}</BCardText>
+      </BCard>
+    </BCardGroup>
 
     <!-- APPS CARDS -->
-    <card-deck-feed v-else>
-      <b-card
+    <CardDeckFeed v-else>
+      <BCard
         v-for="(app, i) in filteredApps" :key="app.id"
         tag="article" :aria-labelledby="`${app.id}-title`" :aria-describedby="`${app.id}-desc`"
         tabindex="0" :aria-posinset="i + 1" :aria-setsize="filteredApps.length"
         no-body class="app-card"
       >
-        <b-card-body class="d-flex">
-          <b-img v-if="app.logo_hash" class="app-logo rounded" :src="`./applogos/${app.logo_hash}.png`" />
+        <BCardBody class="d-flex">
+          <BImg v-if="app.logo_hash" class="app-logo rounded" :src="`./applogos/${app.logo_hash}.png`" />
 
           <div>
-            <b-card-title :id="`${app.id}-title`" class="d-flex mb-2">
-              <b-link :to="{ name: 'app-install', params: { id: app.id }}" class="card-link">
+            <BCardTitle :id="`${app.id}-title`" class="d-flex mb-2">
+              <BLink :to="{ name: 'app-install', params: { id: app.id }}" class="card-link">
                 {{ app.manifest.name }}
-              </b-link>
+              </BLink>
 
               <small v-if="app.state !== 'working' || app.high_quality" class="d-flex align-items-center ml-2 position-relative">
-                <b-badge
+                <BBadge
                   v-if="app.state !== 'working'"
                   :variant="app.color"
                   v-b-popover.hover.bottom="$t(`app_state_${app.state}_explanation`)"
                 >
                   <!-- app.state can be 'lowquality' or 'inprogress' -->
                   {{ $t('app_state_' + app.state) }}
-                </b-badge>
+                </BBadge>
 
-                <icon
+                <Icon
                   v-if="app.high_quality" iname="star" class="star"
                   v-b-popover.hover.bottom="$t(`app_state_highquality_explanation`)"
                 />
               </small>
-            </b-card-title>
+            </BCardTitle>
 
-            <b-card-text :id="`${app.id}-desc`">
+            <BCardText :id="`${app.id}-desc`">
               {{ app.manifest.description }}
-            </b-card-text>
+            </BCardText>
 
-            <b-card-text v-if="!app.maintained" class="align-self-end position-relative mt-auto">
+            <BCardText v-if="!app.maintained" class="align-self-end position-relative mt-auto">
               <span class="alert-warning p-1" v-b-popover.hover.top="$t('orphaned_details')">
-                <icon iname="warning" /> {{ $t('orphaned') }}
+                <Icon iname="warning" /> {{ $t('orphaned') }}
               </span>
-            </b-card-text>
+            </BCardText>
           </div>
-        </b-card-body>
-      </b-card>
-    </card-deck-feed>
+        </BCardBody>
+      </BCard>
+    </CardDeckFeed>
 
     <app-catalog-details
       v-if="selectedApp"
@@ -124,42 +124,42 @@
 
     <template #bot>
       <!-- INSTALL CUSTOM APP -->
-      <card-form
+      <CardForm
         :title="$t('custom_app_install')" icon="download"
         @submit.prevent="onCustomInstallClick" :submit-text="$t('install')"
         :validation="$v" class="mt-5"
       >
         <template #disclaimer>
           <div class="alert alert-warning">
-            <icon iname="exclamation-triangle" /> {{ $t('confirm_install_custom_app') }}
+            <Icon iname="exclamation-triangle" /> {{ $t('confirm_install_custom_app') }}
           </div>
         </template>
 
         <!-- URL -->
-        <form-field v-bind="customInstall.field" v-model="customInstall.url" :validation="$v.customInstall.url" />
-      </card-form>
+        <FormField v-bind="customInstall.field" v-model="customInstall.url" :validation="$v.customInstall.url" />
+      </CardForm>
     </template>
 
     <!-- CUSTOM SKELETON -->
     <template #skeleton>
-      <b-card-group deck>
-        <b-card
+      <BCardGroup deck>
+        <BCard
           v-for="i in 15" :key="i"
           no-body style="min-height: 10rem;"
         >
           <div class="d-flex w-100 mt-auto">
-            <b-skeleton width="30px" height="30px" class="mr-2 ml-auto" />
-            <b-skeleton :width="randint(30, 70) + '%'" height="30px" class="mr-auto" />
+            <BSkeleton width="30px" height="30px" class="mr-2 ml-auto" />
+            <BSkeleton :width="randint(30, 70) + '%'" height="30px" class="mr-auto" />
           </div>
-          <b-skeleton
+          <BSkeleton
             v-if="randint(0, 1)"
             :width="randint(30, 85) + '%'" height="24px" class="mx-auto"
           />
-          <b-skeleton :width="randint(30, 85) + '%'" height="24px" class="mx-auto mb-auto" />
-        </b-card>
-      </b-card-group>
+          <BSkeleton :width="randint(30, 85) + '%'" height="24px" class="mx-auto mb-auto" />
+        </BCard>
+      </BCardGroup>
     </template>
-  </view-search>
+  </ViewSearch>
 </template>
 
 <script>
@@ -397,8 +397,8 @@ export default {
   }
 
   .card {
-    @include hover() {
-      color: color-yiq($dark);
+    &:hover {
+      color: color-contrast($dark);
       background-color: $dark;
       border-color: $dark;
     }

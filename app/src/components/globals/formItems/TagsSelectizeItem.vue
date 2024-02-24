@@ -1,6 +1,6 @@
 <template>
   <div class="tags-selectize">
-    <b-form-tags
+    <BFormTags
       v-bind="$attrs" v-on="$listeners"
       :value="value" :id="id"
       size="lg" class="p-0 border-0" no-outer-focus
@@ -8,59 +8,59 @@
       <template #default="{ tags, disabled, addTag, removeTag }">
         <ul v-if="!noTags && tags.length > 0" class="list-inline d-inline-block mb-2">
           <li v-for="tag in tags" :key="id + '-' + tag" class="list-inline-item">
-            <b-form-tag
+            <BFormTag
               @remove="onRemoveTag({ option: tag, removeTag })"
               :title="tag"
               :disabled="disabled || disabledItems.includes(tag)"
               class="border border-dark mb-2"
             >
-              <icon v-if="tagIcon" :iname="tagIcon" /> {{ tag }}
-            </b-form-tag>
+              <Icon v-if="tagIcon" :iname="tagIcon" /> {{ tag }}
+            </BFormTag>
           </li>
         </ul>
 
-        <b-dropdown
+        <BDropdown
           ref="dropdown"
           variant="outline-dark" block menu-class="w-100"
           @keydown.native="onDropdownKeydown"
         >
           <template #button-content>
-            <icon iname="search-plus" /> {{ label }}
+            <Icon iname="search-plus" /> {{ label }}
           </template>
 
-          <b-dropdown-group class="search-group">
-            <b-dropdown-form @submit.stop.prevent="() => {}">
-              <b-form-group
+          <BDropdownGroup class="search-group">
+            <BDropdownForm @submit.stop.prevent="() => {}">
+              <BFormGroup
                 :label="$t('search.for', { items: itemsName })"
                 label-cols-md="auto" label-size="sm" :label-for="id + '-search-input'"
                 :invalid-feedback="$tc('search.not_found', 0, { items: $tc('items.' + itemsName, 0) })"
                 :state="searchState" :disabled="disabled"
                 class="mb-0"
               >
-                <b-form-input
+                <BFormInput
                   ref="search-input" v-model="search"
                   :id="id + '-search-input'"
                   type="search" size="sm" autocomplete="off"
                 />
-              </b-form-group>
-            </b-dropdown-form>
-            <b-dropdown-divider />
-          </b-dropdown-group>
+              </BFormGroup>
+            </BDropdownForm>
+            <BDropdownDivider />
+          </BDropdownGroup>
 
-          <b-dropdown-item-button
+          <BDropdownItemButton
             v-for="option in availableOptions"
             :key="option"
             @click="onAddTag({ option, addTag })"
           >
             {{ option }}
-          </b-dropdown-item-button>
-          <b-dropdown-text v-if="!criteria && availableOptions.length === 0">
-            <icon iname="exclamation-triangle" />
+          </BDropdownItemButton>
+          <BDropdownText v-if="!criteria && availableOptions.length === 0">
+            <Icon iname="exclamation-triangle" />
             {{ $tc('items_verbose_items_left', 0, { items: $tc('items.' + itemsName, 0) }) }}
-          </b-dropdown-text>
-        </b-dropdown>
+          </BDropdownText>
+        </BDropdown>
       </template>
-    </b-form-tags>
+    </BFormTags>
   </div>
 </template>
 

@@ -1,28 +1,28 @@
 <template>
-  <view-base
+  <ViewBase
     :queries="queries" @queries-response="onQueriesResponse" queries-wait
     ref="view"
   >
     <template #top-bar-group-right>
-      <b-button @click="shareLogs" variant="success">
-        <icon iname="cloud-upload" /> {{ $t('logs_share_with_yunopaste') }}
-      </b-button>
+      <BButton @click="shareLogs" variant="success">
+        <Icon iname="cloud-upload" /> {{ $t('logs_share_with_yunopaste') }}
+      </BButton>
     </template>
 
     <template #top>
       <div class="alert alert-info">
         {{ $t(reports ? 'diagnosis_explanation' : 'diagnosis_first_run') }}
-        <b-button
+        <BButton
           v-if="reports === null" class="d-block mt-2" variant="info"
           @click="runDiagnosis()"
         >
-          <icon iname="stethoscope" /> {{ $t('run_first_diagnosis') }}
-        </b-button>
+          <Icon iname="stethoscope" /> {{ $t('run_first_diagnosis') }}
+        </BButton>
       </div>
     </template>
 
     <!-- REPORT CARD -->
-    <card
+    <Card
       v-for="report in reports" :key="report.id"
       collapsable :collapsed="report.noIssues"
       no-body button-unbreak="lg"
@@ -32,17 +32,17 @@
         <h2>{{ report.description }}</h2>
 
         <div class="">
-          <b-badge v-if="report.noIssues" variant="success" v-t="'everything_good'" />
-          <b-badge v-if="report.errors" variant="danger" v-t="{ path: 'issues', args: { count: report.errors } }" />
-          <b-badge v-if="report.warnings" variant="warning" v-t="{ path: 'warnings', args: { count: report.warnings } }" />
-          <b-badge v-if="report.ignoreds" v-t="{ path: 'ignored', args: { count: report.ignoreds } }" />
+          <BBadge v-if="report.noIssues" variant="success" v-t="'everything_good'" />
+          <BBadge v-if="report.errors" variant="danger" v-t="{ path: 'issues', args: { count: report.errors } }" />
+          <BBadge v-if="report.warnings" variant="warning" v-t="{ path: 'warnings', args: { count: report.warnings } }" />
+          <BBadge v-if="report.ignoreds" v-t="{ path: 'ignored', args: { count: report.ignoreds } }" />
         </div>
       </template>
 
       <template #header-buttons>
-        <b-button size="sm" :variant="report.items ? 'info' : 'success'" @click="runDiagnosis(report)">
-          <icon iname="refresh" /> {{ $t('rerun_diagnosis') }}
-        </b-button>
+        <BButton size="sm" :variant="report.items ? 'info' : 'success'" @click="runDiagnosis(report)">
+          <Icon iname="refresh" /> {{ $t('rerun_diagnosis') }}
+        </BButton>
       </template>
 
       <!-- REPORT BODY -->
@@ -50,58 +50,58 @@
         {{ $t('last_ran') }} {{ report.timestamp | distanceToNow(true, true) }}
       </p>
 
-      <b-list-group flush>
+      <BListGroup flush>
         <!-- REPORT ITEM -->
-        <yuno-list-group-item
+        <YunoListGroupItem
           v-for="(item, i) in report.items" :key="i"
-          :variant="item.variant" :icon="item.icon" :faded="item.ignored"
+          :variant="item.variant" :Icon="item.Icon" :faded="item.ignored"
         >
           <div class="item-button d-flex align-items-center">
             <p class="mb-0 mr-2" v-html="item.summary" />
 
             <div class="d-flex flex-column flex-lg-row ml-auto">
-              <b-button
+              <BButton
                 v-if="item.ignored" size="sm"
                 @click="toggleIgnoreIssue('unignore', report, item)"
               >
-                <icon iname="bell" /> {{ $t('unignore') }}
-              </b-button>
-              <b-button
+                <Icon iname="bell" /> {{ $t('unignore') }}
+              </BButton>
+              <BButton
                 v-else-if="item.issue" variant="warning" size="sm"
                 @click="toggleIgnoreIssue('ignore', report, item)"
               >
-                <icon iname="bell-slash" /> {{ $t('ignore') }}
-              </b-button>
+                <Icon iname="bell-slash" /> {{ $t('ignore') }}
+              </BButton>
 
-              <b-button
+              <BButton
                 v-if="item.details"
                 size="sm" variant="outline-dark" class="ml-lg-2 mt-2 mt-lg-0"
                 v-b-toggle="`collapse-${report.id}-item-${i}`"
               >
-                <icon iname="level-down" /> {{ $t('details') }}
-              </b-button>
+                <Icon iname="level-down" /> {{ $t('details') }}
+              </BButton>
             </div>
           </div>
 
-          <b-collapse v-if="item.details" :id="`collapse-${report.id}-item-${i}`">
+          <BCollapse v-if="item.details" :id="`collapse-${report.id}-item-${i}`">
             <ul class="mt-2 pl-4">
               <li v-for="(detail, index) in item.details" :key="index" v-html="detail" />
             </ul>
-          </b-collapse>
-        </yuno-list-group-item>
-      </b-list-group>
-    </card>
+          </BCollapse>
+        </YunoListGroupItem>
+      </BListGroup>
+    </Card>
 
     <template #skeleton>
-      <card-list-skeleton />
-      <b-card no-body>
+      <CardListSkeleton />
+      <BCard no-body>
         <template #header>
-          <b-skeleton width="30%" height="36px" class="m-0" />
+          <BSkeleton width="30%" height="36px" class="m-0" />
         </template>
-      </b-card>
-      <card-list-skeleton />
+      </BCard>
+      <CardListSkeleton />
     </template>
-  </view-base>
+  </ViewBase>
 </template>
 
 <script>

@@ -1,5 +1,5 @@
 <template>
-  <b-input
+  <BFormInput
     :value="value"
     :id="id"
     :placeholder="placeholder"

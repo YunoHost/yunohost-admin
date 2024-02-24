@@ -1,12 +1,12 @@
 <template>
-  <b-alert class="d-flex flex-column flex-md-row align-items-center" :variant="type" show>
-    <icon :iname="icon_" class="mr-md-3 mb-md-0 mb-2" :variant="type" />
+  <BAlert class="d-flex flex-column flex-md-row align-items-center" :variant="type" show>
+    <Icon :iname="icon_" class="mr-md-3 mb-md-0 mb-2" :variant="type" />
 
-    <vue-showdown
+    <VueShowdown
       :markdown="label" flavor="github"
       tag="span" class="markdown"
     />
-  </b-alert>
+  </BAlert>
 </template>
 
 <script>

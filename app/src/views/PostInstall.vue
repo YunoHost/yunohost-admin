@@ -3,7 +3,7 @@
     <!-- START STEP -->
     <template v-if="step === 'start'">
       <p class="alert alert-success">
-        <icon iname="thumbs-up" /> {{ $t('postinstall_intro_1') }}
+        <Icon iname="thumbs-up" /> {{ $t('postinstall_intro_1') }}
       </p>
 
       <p class="alert alert-info">
@@ -12,70 +12,70 @@
         <span v-html="$t('postinstall_intro_3')" />
       </p>
 
-      <b-button size="lg" variant="success" @click="goToStep('domain')">
+      <BButton size="lg" variant="success" @click="goToStep('domain')">
         {{ $t('begin') }}
-      </b-button>
+      </BButton>
     </template>
 
     <!-- DOMAIN SETUP STEP -->
     <template v-else-if="step === 'domain'">
-      <domain-form
+      <DomainForm
         :title="$t('postinstall_set_domain')" :submit-text="$t('next')" :server-error="serverError"
         @submit="setDomain"
       >
         <template #disclaimer>
           <p class="alert alert-info" v-t="'postinstall_domain'" />
         </template>
-      </domain-form>
+      </DomainForm>
 
-      <b-button variant="primary" @click="goToStep('start')" class="mt-3">
-        <icon iname="chevron-left" /> {{ $t('previous') }}
-      </b-button>
+      <BButton variant="primary" @click="goToStep('start')" class="mt-3">
+        <Icon iname="chevron-left" /> {{ $t('previous') }}
+      </BButton>
     </template>
 
     <!-- FIRST USER SETUP STEP -->
     <template v-else-if="step === 'user'">
-      <card-form
+      <CardForm
         :title="$t('postinstall.user.title')" icon="user-plus"
         :validation="$v" :server-error="serverError"
         :submit-text="$t('next')" @submit.prevent="setUser"
       >
-        <read-only-alert-item
+        <ReadOnlyAlertItem
           :label="$t('postinstall.user.first_user_help')"
           type="info"
         />
 
-        <form-field
+        <FormField
           v-for="(field, name) in fields" :key="name"
           v-bind="field" v-model="user[name]" :validation="$v.user[name]"
         />
-      </card-form>
+      </CardForm>
 
-      <b-button variant="primary" @click="goToStep('domain')" class="mt-3">
-        <icon iname="chevron-left" /> {{ $t('previous') }}
-      </b-button>
+      <BButton variant="primary" @click="goToStep('domain')" class="mt-3">
+        <Icon iname="chevron-left" /> {{ $t('previous') }}
+      </BButton>
     </template>
 
     <template v-else-if="step === 'rootfsspace-error'">
-      <card no-body header-class="d-none" footer-bg-variant="danger">
-        <b-card-body class="alert alert-danger m-0">
+      <Card no-body header-class="d-none" footer-bg-variant="danger">
+        <BCardBody class="alert alert-danger m-0">
           {{ serverError }}
-        </b-card-body>
+        </BCardBody>
 
         <template #buttons>
-          <b-button variant="light" size="sm" @click="performPostInstall(true)">
-            <icon iname="warning" /> {{ $t('postinstall.force') }}
-          </b-button>
+          <BButton variant="light" size="sm" @click="performPostInstall(true)">
+            <Icon iname="warning" /> {{ $t('postinstall.force') }}
+          </BButton>
         </template>
-      </card>
+      </Card>
     </template>
 
     <!-- POST-INSTALL SUCCESS STEP -->
     <template v-else-if="step === 'login'">
       <p class="alert alert-success">
-        <icon iname="thumbs-up" /> {{ $t('installation_complete') }}
+        <Icon iname="thumbs-up" /> {{ $t('installation_complete') }}
       </p>
-      <login />
+      <Login />
     </template>
   </div>
 </template>

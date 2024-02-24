@@ -1,26 +1,26 @@
 <template>
-  <b-card
+  <BCard
     v-bind="$attrs"
     no-body :class="_class"
   >
     <slot name="header" slot="header">
       <h2>
-        <b-button v-b-toggle="id" :variant="variant" class="card-collapse-button">
+        <BButton v-b-toggle="id" :variant="variant" class="card-collapse-button">
           {{ title }}
-          <icon class="ml-auto" iname="chevron-right" />
-        </b-button>
+          <Icon class="ml-auto" iname="chevron-right" />
+        </BButton>
       </h2>
     </slot>
 
-    <b-collapse :id="id" :visible="visible" role="region">
+    <BCollapse :id="id" :visible="visible" role="region">
       <slot name="default" />
-    </b-collapse>
-  </b-card>
+    </BCollapse>
+  </BCard>
 </template>
 
 <script>
 export default {
-  name: 'CollapseCard',
+  name: 'CardCollapse',
 
   props: {
     id: { type: String, required: true },

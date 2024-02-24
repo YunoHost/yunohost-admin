@@ -1,19 +1,19 @@
 <template>
-  <b-card no-body>
-    <b-card-header header-tag="nav">
-      <b-nav card-header fill pills>
-        <b-nav-item
+  <BCard no-body>
+    <BCardHeader header-tag="nav">
+      <BNav card-header fill pills>
+        <BNavItem
           v-for="route in routes" :key="route.text"
           :to="route.to" exact exact-active-class="active"
         >
-          <icon v-if="route.icon" :iname="route.icon" />
+          <Icon v-if="route.icon" :iname="route.icon" />
           {{ route.text }}
-        </b-nav-item>
-      </b-nav>
-    </b-card-header>
+        </BNavItem>
+      </BNav>
+    </BCardHeader>
 
     <!-- Bind extra props to the child view and forward child events to parent -->
-    <router-view v-bind="$attrs" v-on="$listeners">
+    <RouterView v-bind="$attrs" v-on="$listeners">
       <template #tab-top>
         <slot name="tab-top" />
       </template>
@@ -23,8 +23,8 @@
       <template #tab-after>
         <slot name="tab-after" />
       </template>
-    </router-view>
-  </b-card>
+    </RouterView>
+  </BCard>
 </template>
 
 <script>

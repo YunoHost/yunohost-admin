@@ -1,5 +1,5 @@
 <template>
-  <abstract-form
+  <AbstractForm
     v-bind="{ id: panel.id + '-form', validation, serverError: panel.serverError }"
     @submit.prevent.stop="onApply"
     :no-footer="!panel.hasApplyButton"
@@ -13,31 +13,31 @@
     <slot name="tab-before" />
 
     <template v-for="section in panel.sections">
-      <component
+      <Component
         v-if="section.visible"
         :is="section.name ? 'section' : 'div'"
         :key="section.id"
         class="panel-section"
       >
-        <b-card-title v-if="section.name" title-tag="h3">
+        <BCardTitle v-if="section.name" title-tag="h3">
           {{ section.name }} <small v-if="section.help">{{ section.help }}</small>
-        </b-card-title>
+        </BCardTitle>
 
         <template v-for="(field, fname) in section.fields">
           <!-- FIXME rework the whole component chain to avoid direct mutation of the `forms` props -->
           <!-- eslint-disable -->
-          <component
+          <Component
             v-if="field.visible" :is="field.is" v-bind="field.props"
             v-model="forms[panel.id][fname]" :validation="validation[fname]" :key="fname"
             @action.stop="onAction(section.id, fname, section.fields)"
           />
           <!-- eslint-enable -->
         </template>
-      </component>
+      </Component>
     </template>
 
     <slot name="tab-after" />
-  </abstract-form>
+  </AbstractForm>
 </template>
 
 <script>

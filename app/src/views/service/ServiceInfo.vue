@@ -1,40 +1,40 @@
 <template>
-  <view-base
+  <ViewBase
     :queries="queries" @queries-response="onQueriesResponse"
-    ref="view" skeleton="card-info-skeleton"
+    ref="view" skeleton="CardInfoSkeleton"
   >
     <!-- INFO CARD -->
-    <card :title="name" icon="info-circle" button-unbreak="sm">
+    <Card :title="name" icon="info-circle" button-unbreak="sm">
       <template #header-buttons>
         <template v-if="infos.status === 'running'">
           <!-- RESTART SERVICE -->
-          <b-button @click="updateService('restart')" variant="warning">
-            <icon iname="refresh" /> {{ $t('restart') }}
-          </b-button>
+          <BButton @click="updateService('restart')" variant="warning">
+            <Icon iname="refresh" /> {{ $t('restart') }}
+          </BButton>
 
           <!-- STOP SERVICE -->
-          <b-button v-if="!isCritical" @click="updateService('stop')" variant="danger">
-            <icon iname="warning" /> {{ $t('stop') }}
-          </b-button>
+          <BButton v-if="!isCritical" @click="updateService('stop')" variant="danger">
+            <Icon iname="warning" /> {{ $t('stop') }}
+          </BButton>
         </template>
 
         <!-- START SERVICE -->
-        <b-button v-else @click="updateService('start')" variant="success">
-          <icon iname="play" /> {{ $t('start') }}
-        </b-button>
+        <BButton v-else @click="updateService('start')" variant="success">
+          <Icon iname="play" /> {{ $t('start') }}
+        </BButton>
       </template>
 
-      <b-row
+      <BRow
         v-for="(value, key) in infos" :key="key"
         no-gutters class="row-line"
       >
-        <b-col md="3" xl="2">
+        <BCol md="3" xl="2">
           <strong>{{ $t(key === 'start_on_boot' ? 'service_' + key : key) }}</strong>
-        </b-col>
-        <b-col>
+        </BCol>
+        <BCol>
           <template v-if="key === 'status'">
             <span :class="value === 'running' ? 'text-success' : 'text-danger'">
-              <icon :iname="value === 'running' ? 'check-circle' : 'times'" />
+              <Icon :iname="value === 'running' ? 'check-circle' : 'times'" />
               {{ $t(value) }}
             </span>
             {{ $t('since') }} {{ uptime | distanceToNow }}
@@ -45,16 +45,16 @@
           </span>
 
           <span v-else v-t="value" />
-        </b-col>
-      </b-row>
-    </card>
+        </BCol>
+      </BRow>
+    </Card>
 
     <!-- LOGS CARD -->
-    <card :title="$t('logs')" icon="book" button-unbreak="sm">
+    <Card :title="$t('logs')" icon="book" button-unbreak="sm">
       <template #header-buttons>
-        <b-button variant="success" @click="shareLogs">
-          <icon iname="cloud-upload" /> {{ $t('logs_share_with_yunopaste') }}
-        </b-button>
+        <BButton variant="success" @click="shareLogs">
+          <Icon iname="cloud-upload" /> {{ $t('logs_share_with_yunopaste') }}
+        </BButton>
       </template>
 
       <template v-for="({ filename, content }, i) in logs">
@@ -64,8 +64,8 @@
 
         <pre :key="i + '-content'" class="log"><code>{{ content }}</code></pre>
       </template>
-    </card>
-  </view-base>
+    </Card>
+  </ViewBase>
 </template>
 
 <script>

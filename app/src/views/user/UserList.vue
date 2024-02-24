@@ -1,5 +1,5 @@
 <template>
-  <view-search
+  <ViewSearch
     :search.sync="search"
     :items="users"
     :filtered-items="filteredUsers"
@@ -7,29 +7,29 @@
     :queries="queries"
   >
     <template #top-bar-buttons>
-      <b-button variant="info" :to="{ name: 'group-list' }">
-        <icon iname="key-modern" /> {{ $t('groups_and_permissions_manage') }}
-      </b-button>
+      <BButton variant="info" :to="{ name: 'group-list' }">
+        <Icon iname="key-modern" /> {{ $t('groups_and_permissions_manage') }}
+      </BButton>
 
-      <b-dropdown
+      <BDropdown
         :split-to="{ name: 'user-create' }"
         split variant="outline-success" right
         split-variant="success"
       >
         <template #button-content>
-          <icon iname="plus" /> {{ $t('users_new') }}
+          <Icon iname="plus" /> {{ $t('users_new') }}
         </template>
-        <b-dropdown-item :to="{ name: 'user-import' }">
-          <icon iname="plus" /> {{ $t('users_import') }}
-        </b-dropdown-item>
-        <b-dropdown-item @click="downloadExport">
-          <icon iname="download" /> {{ $t('users_export') }}
-        </b-dropdown-item>
-      </b-dropdown>
+        <BDropdownItem :to="{ name: 'user-import' }">
+          <Icon iname="plus" /> {{ $t('users_import') }}
+        </BDropdownItem>
+        <BDropdownItem @click="downloadExport">
+          <Icon iname="download" /> {{ $t('users_export') }}
+        </BDropdownItem>
+      </BDropdown>
     </template>
 
-    <b-list-group>
-      <b-list-group-item
+    <BListGroup>
+      <BListGroupItem
         v-for="user in filteredUsers" :key="user.username"
         :to="{ name: 'user-info', params: { name: user.username }}"
         class="d-flex justify-content-between align-items-center pr-0"
@@ -43,10 +43,10 @@
             {{ user.mail }}
           </p>
         </div>
-        <icon iname="chevron-right" class="lg fs-sm ml-auto" />
-      </b-list-group-item>
-    </b-list-group>
-  </view-search>
+        <Icon iname="chevron-right" class="lg fs-sm ml-auto" />
+      </BListGroupItem>
+    </BListGroup>
+  </ViewSearch>
 </template>
 
 <script>

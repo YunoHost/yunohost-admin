@@ -1,6 +1,6 @@
 <template>
   <div class="config-panel">
-    <routable-tabs
+    <RoutableTabs
       v-if="routes_.length > 1"
       :routes="routes_"
       v-bind="{ panels, forms, v: $v, ...$attrs }"
@@ -15,13 +15,13 @@
       <template #tab-after>
         <slot name="tab-after" />
       </template>
-    </routable-tabs>
+    </RoutableTabs>
 
-    <card v-else :title="routes_[0].text" :icon="routes_[0].icon">
+    <Card v-else :title="routes_[0].text" :icon="routes_[0].icon">
       <slot name="tab-top" />
       <slot name="tab-before" />
       <slot name="tab-after" />
-    </card>
+    </Card>
   </div>
 </template>
 

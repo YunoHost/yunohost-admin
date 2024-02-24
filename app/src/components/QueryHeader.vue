@@ -11,16 +11,16 @@
     <div v-if="request.errors || request.warnings">
       <!-- WEBSOCKET ERRORS COUNT -->
       <span class="count" v-if="request.errors">
-        {{ request.errors }}<icon iname="bug" class="text-danger ml-1" />
+        {{ request.errors }}<Icon iname="bug" class="text-danger ml-1" />
       </span>
       <!-- WEBSOCKET WARNINGS COUNT -->
       <span class="count" v-if="request.warnings">
-        {{ request.warnings }}<icon iname="warning" class="text-warning ml-1" />
+        {{ request.warnings }}<Icon iname="warning" class="text-warning ml-1" />
       </span>
     </div>
 
     <!-- VIEW ERROR BUTTON -->
-    <b-button
+    <BButton
       v-if="showError && request.error"
       size="sm" pill
       class="error-btn ml-auto py-0"
@@ -28,7 +28,7 @@
       @click="reviewError"
     >
       <small v-t="'api_error.view_error'" />
-    </b-button>
+    </BButton>
 
     <!-- TIME DISPLAY -->
     <time v-if="showTime" :datetime="request.date | hour" :class="request.error ? 'ml-2' : 'ml-auto'">

@@ -1,16 +1,16 @@
 <template>
-  <view-base :queries="queries" @queries-response="onQueriesResponse" skeleton="list-group-skeleton">
+  <ViewBase :queries="queries" @queries-response="onQueriesResponse" skeleton="ListGroupSkeleton">
     <template #top>
-      <top-bar :button="{ text: $t('backup_new'), icon: 'plus', to: { name: 'backup-create' } }" />
+      <TopBar :button="{ text: $t('backup_new'), icon: 'plus', to: { name: 'backup-create' } }" />
     </template>
 
-    <b-alert v-if="!archives" variant="warning">
-      <icon iname="exclamation-triangle" />
+    <BAlert v-if="!archives" variant="warning">
+      <Icon iname="exclamation-triangle" />
       {{ $tc('items_verbose_count', 0, { items: $tc('items.backups', 0) }) }}
-    </b-alert>
+    </BAlert>
 
-    <b-list-group v-else>
-      <b-list-group-item
+    <BListGroup v-else>
+      <BListGroupItem
         v-for="{ name, created_at, path, size } in archives" :key="name"
         :to="{ name: 'backup-info', params: { name, id }}"
         :title="created_at | readableDate"
@@ -25,10 +25,10 @@
             {{ path }}
           </p>
         </div>
-        <icon iname="chevron-right" class="lg fs-sm ml-auto" />
-      </b-list-group-item>
-    </b-list-group>
-  </view-base>
+        <Icon iname="chevron-right" class="lg fs-sm ml-auto" />
+      </BListGroupItem>
+    </BListGroup>
+  </ViewBase>
 </template>
 
 <script>

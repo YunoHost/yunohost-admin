@@ -1,14 +1,14 @@
 <template>
-  <b-list-group :flush="flush" :style="{ '--depth': tree.depth }">
+  <BListGroup :flush="flush" :style="{ '--depth': tree.depth }">
     <template v-for="(node, i) in tree.children">
-      <b-list-group-item
+      <BListGroupItem
         :key="node.id"
         class="list-group-item-action" :class="getClasses(node, i)"
         @click="$router.push(node.data.to)"
       >
         <slot name="default" v-bind="node" />
 
-        <b-button
+        <BButton
           v-if="node.children"
           size="xs" variant="outline-secondary"
           :aria-expanded="node.data.opened ? 'true' : 'false'" :aria-controls="'collapse-' + node.id"
@@ -16,15 +16,15 @@
           @click.stop="node.data.opened = !node.data.opened"
         >
           <span class="sr-only">{{ toggleText }}</span>
-          <icon iname="chevron-right" />
-        </b-button>
-      </b-list-group-item>
+          <Icon iname="chevron-right" />
+        </BButton>
+      </BListGroupItem>
 
-      <b-collapse
+      <BCollapse
         v-if="node.children" :key="'collapse-' + node.id"
         v-model="node.data.opened" :id="'collapse-' + node.id"
       >
-        <recursive-list-group
+        <RecursiveListGroup
           :tree="node"
           :last="last !== undefined ? last : i === tree.children.length - 1" flush
         >
@@ -32,10 +32,10 @@
           <template slot="default" slot-scope="scope">
             <slot name="default" v-bind="scope" />
           </template>
-        </recursive-list-group>
-      </b-collapse>
+        </RecursiveListGroup>
+      </BCollapse>
     </template>
-  </b-list-group>
+  </BListGroup>
 </template>
 
 <script>

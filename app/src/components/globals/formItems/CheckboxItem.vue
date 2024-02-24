@@ -1,5 +1,5 @@
 <template>
-  <b-checkbox
+  <BFormCheckbox
     v-model="checked"
     v-on="$listeners"
     :id="id"
@@ -7,7 +7,7 @@
     switch
   >
     {{ label || $t(labels[checked]) }}
-  </b-checkbox>
+  </BFormCheckbox>
 </template>
 
 <script>

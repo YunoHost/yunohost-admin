@@ -1,17 +1,17 @@
 <template>
-  <b-breadcrumb v-if="breadcrumb.length">
-    <b-breadcrumb-item to="/">
+  <BBreadcrumb v-if="breadcrumb.length">
+    <BBreadcrumbItem to="/">
       <span class="sr-only">{{ $t('home') }}</span>
-      <icon iname="home" />
-    </b-breadcrumb-item>
+      <Icon iname="home" />
+    </BBreadcrumbItem>
 
-    <b-breadcrumb-item
+    <BBreadcrumbItem
       v-for="({ name, text }, i) in breadcrumb" :key="name"
       :to="{ name }" :active="i === breadcrumb.length - 1"
     >
       {{ text }}
-    </b-breadcrumb-item>
-  </b-breadcrumb>
+    </BBreadcrumbItem>
+  </BBreadcrumb>
 </template>
 
 <script>

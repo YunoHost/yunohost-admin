@@ -1,27 +1,27 @@
 <template>
-  <view-search
+  <ViewSearch
     :search.sync="search"
     :items="operations"
     :filtered-items="filteredOperations"
     items-name="logs"
     :queries="queries"
     @queries-response="onQueriesResponse"
-    skeleton="card-list-skeleton"
+    skeleton="CardListSkeleton"
   >
-    <card :title="$t('logs_operation')" icon="wrench" no-body>
-      <b-list-group flush>
-        <b-list-group-item
+    <Card :title="$t('logs_operation')" icon="wrench" no-body>
+      <BListGroup flush>
+        <BListGroupItem
           v-for="log in filteredOperations" :key="log.name"
           :to="{ name: 'tool-log', params: { name: log.name || log.log_path } }"
           :title="log.started_at | readableDate"
         >
           <small class="mr-3">{{ log.started_at | distanceToNow }} </small>
-          <icon :iname="log.icon" :class="'text-' + log.class" />
+          <Icon :iname="log.icon" :class="'text-' + log.class" />
           {{ log.description }}
-        </b-list-group-item>
-      </b-list-group>
-    </card>
-  </view-search>
+        </BListGroupItem>
+      </BListGroup>
+    </Card>
+  </ViewSearch>
 </template>
 
 <script>

@@ -1,11 +1,11 @@
 <template>
-  <b-card v-bind="$attrs" :no-body="collapsable ? true : $attrs['no-body']">
+  <BCard v-bind="$attrs" :no-body="collapsable ? true : $attrs['no-body']">
     <template #header>
       <div class="w-100 d-flex align-items-center flex-wrap custom-header">
         <slot name="header">
-          <component :is="titleTag" class="custom-header-title">
-            <icon v-if="icon" :iname="icon" class="mr-2" />{{ title }}
-          </component>
+          <Component :is="titleTag" class="custom-header-title">
+            <Icon v-if="icon" :iname="icon" class="mr-2" />{{ title }}
+          </Component>
           <slot name="header-next" />
         </slot>
 
@@ -14,22 +14,22 @@
         </div>
       </div>
 
-      <b-button
+      <BButton
         v-if="collapsable" @click="visible = !visible"
         size="sm" variant="outline-secondary"
         class="align-self-center ml-auto" :class="{ 'not-collapsed': visible, 'collapsed': !visible, [`ml-${buttonUnbreak}-2`]: buttonUnbreak }"
       >
-        <icon iname="chevron-right" />
+        <Icon iname="chevron-right" />
         <span class="sr-only">{{ $t('words.collapse') }}</span>
-      </b-button>
+      </BButton>
     </template>
 
-    <b-collapse v-if="collapsable" :visible="visible">
+    <BCollapse v-if="collapsable" :visible="visible">
       <slot v-if="('no-body' in $attrs)" name="default" />
-      <b-card-body v-else>
+      <BCardBody v-else>
         <slot name="default" />
-      </b-card-body>
-    </b-collapse>
+      </BCardBody>
+    </BCollapse>
     <template v-else>
       <slot name="default" />
     </template>
@@ -37,7 +37,7 @@
     <template #footer v-if="'buttons' in $slots">
       <slot name="buttons" />
     </template>
-  </b-card>
+  </BCard>
 </template>
 
 <script>

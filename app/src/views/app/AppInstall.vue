@@ -1,5 +1,5 @@
 <template>
-  <view-base :queries="queries" @queries-response="onQueriesResponse">
+  <ViewBase :queries="queries" @queries-response="onQueriesResponse">
     <template v-if="app">
       <section class="border rounded p-3 mb-4">
         <div class="d-md-flex align-items-center mb-4">
@@ -7,14 +7,14 @@
             {{ app.name }}
           </h1>
 
-          <b-button
+          <BButton
             v-if="app.demo"
             :href="app.demo" target="_blank"
             variant="primary" class="ml-auto"
           >
-            <icon iname="external-link" />
+            <Icon iname="external-link" />
             {{ $t('app.install.try_demo') }}
-          </b-button>
+          </BButton>
         </div>
 
         <p class="text-secondary">
@@ -25,58 +25,58 @@
           </template>
         </p>
 
-        <vue-showdown :markdown="app.description" flavor="github" />
+        <VueShowdown :markdown="app.description" flavor="github" />
 
-        <b-img
+        <BImg
           v-if="app.screenshot"
           :src="app.screenshot"
           aria-hidden="true" class="d-block" fluid
         />
       </section>
 
-      <card
+      <Card
         v-if="app.integration"
         id="app-integration" :title="$t('app.integration.title')"
         collapsable collapsed no-body
       >
-        <b-list-group flush>
-          <yuno-list-group-item variant="info">
+        <BListGroup flush>
+          <YunoListGroupItem variant="info">
             {{ $t('app.integration.archs') }} {{ app.integration.archs }}
-          </yuno-list-group-item>
-          <yuno-list-group-item v-if="app.integration.ldap" :variant="app.integration.ldap === true ? 'success' : 'warning'">
+          </YunoListGroupItem>
+          <YunoListGroupItem v-if="app.integration.ldap" :variant="app.integration.ldap === true ? 'success' : 'warning'">
             {{ $t(`app.integration.ldap.${app.integration.ldap}`) }}
-          </yuno-list-group-item>
-          <yuno-list-group-item v-if="app.integration.sso" :variant="app.integration.sso === true ? 'success' : 'warning'">
+          </YunoListGroupItem>
+          <YunoListGroupItem v-if="app.integration.sso" :variant="app.integration.sso === true ? 'success' : 'warning'">
             {{ $t(`app.integration.sso.${app.integration.sso}`) }}
-          </yuno-list-group-item>
-          <yuno-list-group-item variant="info">
+          </YunoListGroupItem>
+          <YunoListGroupItem variant="info">
             {{ $t(`app.integration.multi_instance.${app.integration.multi_instance}`) }}
-          </yuno-list-group-item>
-          <yuno-list-group-item variant="info">
+          </YunoListGroupItem>
+          <YunoListGroupItem variant="info">
             {{ $t('app.integration.resources', app.integration.resources) }}
-          </yuno-list-group-item>
-        </b-list-group>
-      </card>
+          </YunoListGroupItem>
+        </BListGroup>
+      </Card>
 
-      <card
+      <Card
         id="app-links" icon="link" :title="$t('app.links.title')"
         collapsable collapsed no-body
       >
         <template #header>
-          <h2><icon iname="link" /> {{ $t('app.links.title') }}</h2>
+          <h2><Icon iname="link" /> {{ $t('app.links.title') }}</h2>
         </template>
 
-        <b-list-group flush>
-          <yuno-list-group-item v-for="[key, link] in app.links" :key="key" no-status>
-            <b-link :href="link" target="_blank">
-              <icon :iname="appLinksIcons(key)" class="mr-1" />
+        <BListGroup flush>
+          <YunoListGroupItem v-for="[key, link] in app.links" :key="key" no-status>
+            <BLink :href="link" target="_blank">
+              <Icon :iname="appLinksIcons(key)" class="mr-1" />
               {{ $t('app.links.' + key) }}
-            </b-link>
-          </yuno-list-group-item>
-        </b-list-group>
-      </card>
+            </BLink>
+          </YunoListGroupItem>
+        </BListGroup>
+      </Card>
 
-      <yuno-alert v-if="app.hasWarning" variant="warning" class="my-4">
+      <YunoAlert v-if="app.hasWarning" variant="warning" class="my-4">
         <h2>{{ $t('app.install.notifs.pre.warning') }}</h2>
 
         <template v-if="app.antifeatures">
@@ -84,7 +84,7 @@
           <dl class="antifeatures">
             <div v-for="antifeature in app.antifeatures" :key="antifeature.id">
               <dt class="d-inline">
-                <icon :iname="antifeature.icon" class="md mr-1" />
+                <Icon :iname="antifeature.icon" class="md mr-1" />
                 {{ antifeature.title }}:
               </dt>
               <dd class="d-inline">
@@ -96,10 +96,10 @@
 
         <p v-if="app.quality.state === 'lowquality'" v-t="'app.install.problems.lowquality'" />
 
-        <vue-showdown v-if="app.preInstall" :markdown="app.preInstall" flavor="github" />
-      </yuno-alert>
+        <VueShowdown v-if="app.preInstall" :markdown="app.preInstall" flavor="github" />
+      </YunoAlert>
 
-      <yuno-alert
+      <YunoAlert
         v-if="!app.hasSupport"
         variant="danger" icon="warning" class="my-4"
       >
@@ -114,9 +114,9 @@
         <p v-if="!app.requirements.required_yunohost_version.pass">
           {{ $t('app.install.problems.version', app.requirements.required_yunohost_version.values) }}
         </p>
-      </yuno-alert>
+      </YunoAlert>
 
-      <yuno-alert v-else-if="app.hasDanger" variant="danger" class="my-4">
+      <YunoAlert v-else-if="app.hasDanger" variant="danger" class="my-4">
         <h2>{{ $t('app.install.notifs.pre.danger') }}</h2>
 
         <p v-if="['inprogress', 'broken', 'thirdparty'].includes(app.quality.state)" v-t="'app.install.problems.' + app.quality.state" />
@@ -124,35 +124,35 @@
           {{ $t('app.install.problems.ram', app.requirements.ram.values) }}
         </p>
 
-        <checkbox-item v-model="force" id="force-install" :label="$t('app.install.problems.ignore')" />
-      </yuno-alert>
+        <CheckboxItem v-model="force" id="force-install" :label="$t('app.install.problems.ignore')" />
+      </YunoAlert>
 
       <!-- INSTALL FORM -->
-      <card-form
+      <CardForm
         v-if="app.canInstall || force"
         :title="$t('app_install_parameters')" icon="cog" :submit-text="$t('install')"
         :validation="$v" :server-error="serverError"
         @submit.prevent="performInstall"
       >
         <template v-for="(field, fname) in fields">
-          <component
+          <Component
             v-if="field.visible" :is="field.is" v-bind="field.props"
             v-model="form[fname]" :validation="$v.form[fname]" :key="fname"
           />
         </template>
-      </card-form>
+      </CardForm>
     </template>
 
     <!-- In case of a custom url with no manifest found -->
-    <b-alert v-else-if="app === null" variant="warning">
-      <icon iname="exclamation-triangle" /> {{ $t('app_install_custom_no_manifest') }}
-    </b-alert>
+    <BAlert v-else-if="app === null" variant="warning">
+      <Icon iname="exclamation-triangle" /> {{ $t('app_install_custom_no_manifest') }}
+    </BAlert>
 
     <template #skeleton>
-      <card-info-skeleton />
-      <card-form-skeleton :cols="null" />
+      <CardInfoSkeleton />
+      <CardFormSkeleton :cols="null" />
     </template>
-  </view-base>
+  </ViewBase>
 </template>
 
 <script>

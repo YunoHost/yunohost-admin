@@ -1,26 +1,26 @@
 <template>
   <!-- This card receives style from `ViewLockOverlay` if used inside it -->
-  <b-card-body>
-    <b-card-title class="text-center mt-4" v-t="hasMessages ? 'api.processing' : 'api_waiting'" />
+  <BCardBody>
+    <BCardTitle class="text-center mt-4" v-t="hasMessages ? 'api.processing' : 'api_waiting'" />
 
     <!-- PROGRESS BAR -->
-    <b-progress
+    <BProgress
       v-if="progress" class="my-4"
       :max="progress.max" height=".5rem"
     >
-      <b-progress-bar variant="success" :value="progress.values[0]" />
-      <b-progress-bar variant="warning" :value="progress.values[1]" animated />
-      <b-progress-bar variant="secondary" :value="progress.values[2]" striped />
-    </b-progress>
+      <BProgressBar variant="success" :value="progress.values[0]" />
+      <BProgressBar variant="warning" :value="progress.values[1]" animated />
+      <BProgressBar variant="secondary" :value="progress.values[2]" striped />
+    </BProgress>
     <!-- OR SPINNER -->
-    <spinner v-else class="my-4" />
+    <Spinner v-else class="my-4" />
 
-    <message-list-group
+    <MessageListGroup
       v-if="hasMessages" :messages="request.messages"
       bordered fixed-height auto-scroll
       :limit="100"
     />
-  </b-card-body>
+  </BCardBody>
 </template>
 
 <script>

@@ -1,93 +1,93 @@
 <template>
-  <view-base :queries="queries" @queries-response="onQueriesResponse" skeleton="card-form-skeleton">
-    <card-form
+  <ViewBase :queries="queries" @queries-response="onQueriesResponse" skeleton="CardFormSkeleton">
+    <CardForm
       :title="$t('user_username_edit', { name })" icon="user"
       :validation="$v" :server-error="serverError"
       @submit.prevent="onSubmit"
     >
       <!-- USERNAME (disabled) -->
-      <form-field v-bind="fields.username" />
+      <FormField v-bind="fields.username" />
 
       <!-- USER FULLNAME -->
-      <form-field v-bind="fields.fullname" v-model="form.fullname" :validation="$v.form.fullname" />
+      <FormField v-bind="fields.fullname" v-model="form.fullname" :validation="$v.form.fullname" />
 
       <hr>
 
       <!-- USER EMAIL -->
-      <form-field v-bind="fields.mail" :validation="$v.form.mail">
+      <FormField v-bind="fields.mail" :validation="$v.form.mail">
         <template #default="{ self }">
-          <adress-input-select v-bind="self" v-model="form.mail" />
+          <AdressInputSelect v-bind="self" v-model="form.mail" />
         </template>
-      </form-field>
+      </FormField>
 
       <!-- MAILBOX QUOTA -->
-      <form-field v-bind="fields.mailbox_quota" :validation="$v.form.mailbox_quota">
+      <FormField v-bind="fields.mailbox_quota" :validation="$v.form.mailbox_quota">
         <template #default="{ self }">
-          <b-input-group append="M">
-            <input-item v-bind="self" v-model="form.mailbox_quota" />
-          </b-input-group>
+          <BInputGroup append="M">
+            <InputItem v-bind="self" v-model="form.mailbox_quota" />
+          </BInputGroup>
         </template>
-      </form-field>
+      </FormField>
       <hr>
 
       <!-- MAIL ALIASES -->
-      <form-field :label="$t('user_emailaliases')" id="mail-aliases">
+      <FormField :label="$t('user_emailaliases')" id="mail-aliases">
         <div
           v-for="(mail, i) in form.mail_aliases" :key="i"
           class="mail-list"
         >
-          <form-field
+          <FormField
             v-bind="fields.mail_aliases"
             :id="'mail_aliases' + i"
             :validation="$v.form.mail_aliases.$each[i]"
           >
             <template #default="{ self }">
-              <adress-input-select v-bind="self" v-model="form.mail_aliases[i]" />
+              <AdressInputSelect v-bind="self" v-model="form.mail_aliases[i]" />
             </template>
-          </form-field>
+          </FormField>
 
-          <b-button variant="danger" @click="removeEmailField('aliases', i)">
-            <icon :title="$t('delete')" iname="trash-o" />
+          <BButton variant="danger" @click="removeEmailField('aliases', i)">
+            <Icon :title="$t('delete')" iname="trash-o" />
             <span class="sr-only">{{ $t('delete') }}</span>
-          </b-button>
+          </BButton>
         </div>
 
-        <b-button variant="success" @click="addEmailField('aliases')">
-          <icon iname="plus" /> {{ $t('user_emailaliases_add') }}
-        </b-button>
-      </form-field>
+        <BButton variant="success" @click="addEmailField('aliases')">
+          <Icon iname="plus" /> {{ $t('user_emailaliases_add') }}
+        </BButton>
+      </FormField>
 
       <!-- MAIL FORWARD -->
-      <form-field :label="$t('user_emailforward')" id="mail-forward">
+      <FormField :label="$t('user_emailforward')" id="mail-forward">
         <div
           v-for="(mail, i) in form.mail_forward" :key="i"
           class="mail-list"
         >
-          <form-field
+          <FormField
             v-bind="fields.mail_forward" v-model="form.mail_forward[i]"
             :id="'mail-forward' + i"
             :validation="$v.form.mail_forward.$each[i]"
           />
 
-          <b-button variant="danger" @click="removeEmailField('forward', i)">
-            <icon :title="$t('delete')" iname="trash-o" />
+          <BButton variant="danger" @click="removeEmailField('forward', i)">
+            <Icon :title="$t('delete')" iname="trash-o" />
             <span class="sr-only">{{ $t('delete') }}</span>
-          </b-button>
+          </BButton>
         </div>
 
-        <b-button variant="success" @click="addEmailField('forward')">
-          <icon iname="plus" /> {{ $t('user_emailforward_add') }}
-        </b-button>
-      </form-field>
+        <BButton variant="success" @click="addEmailField('forward')">
+          <Icon iname="plus" /> {{ $t('user_emailforward_add') }}
+        </BButton>
+      </FormField>
       <hr>
 
       <!-- USER PASSWORD -->
-      <form-field v-bind="fields.change_password" v-model="form.change_password" :validation="$v.form.change_password" />
+      <FormField v-bind="fields.change_password" v-model="form.change_password" :validation="$v.form.change_password" />
 
       <!-- USER PASSWORD CONFIRMATION -->
-      <form-field v-bind="fields.confirmation" v-model="form.confirmation" :validation="$v.form.confirmation" />
-    </card-form>
-  </view-base>
+      <FormField v-bind="fields.confirmation" v-model="form.confirmation" :validation="$v.form.confirmation" />
+    </CardForm>
+  </ViewBase>
 </template>
 
 <script>

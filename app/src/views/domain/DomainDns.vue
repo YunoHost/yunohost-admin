@@ -1,14 +1,14 @@
 <template>
-  <view-base
+  <ViewBase
     :queries="queries" @queries-response="onQueriesResponse" :loading="loading"
-    skeleton="card-info-skeleton"
+    skeleton="CardInfoSkeleton"
   >
     <section v-if="showAutoConfigCard" class="panel-section">
-      <b-card-title title-tag="h3">
+      <BCardTitle title-tag="h3">
         {{ $t('domain.dns.auto_config') }}
-      </b-card-title>
+      </BCardTitle>
 
-      <read-only-alert-item
+      <ReadOnlyAlertItem
         :label="$t('domain.dns.info')"
         type="warning"
         icon="flask"
@@ -27,7 +27,7 @@
               class="records px-2" :class="{ 'ignored': managed_by_yunohost === false && force !== true }"
               :title="managed_by_yunohost === false && force !== true ? $t('domain.dns.auto_config_ignored') : null"
             >
-              <icon :iname="icon" :class="'text-' + variant" />
+              <Icon :iname="icon" :class="'text-' + variant" />
               {{ record }}
               <span class="bg-dark text-light px-1 rounded">{{ type }}</span>{{ spaces }}
               <span v-if="old_content"><span class="text-danger">{{ old_content }}</span> --> </span>
@@ -38,7 +38,7 @@
       </template>
 
       <!-- CONFIG OK ALERT -->
-      <read-only-alert-item
+      <ReadOnlyAlertItem
         v-else-if="dnsChanges === null"
         :label="$t('domain.dns.auto_config_ok')"
         type="success"
@@ -47,7 +47,7 @@
 
       <!-- CONFIG ERROR ALERT -->
       <template v-if="dnsErrors && dnsErrors.length">
-        <read-only-alert-item
+        <ReadOnlyAlertItem
           v-for="({ variant, icon, message }, i) in dnsErrors" :key="i"
           :label="message"
           :type="variant"
@@ -56,7 +56,7 @@
       </template>
 
       <!-- CONFIG OVERWRITE DISCLAIMER -->
-      <read-only-alert-item
+      <ReadOnlyAlertItem
         v-if="force !== null"
         :label="$t('domain.dns.push_force_warning')"
         type="warning"
@@ -64,21 +64,21 @@
 
       <!-- CONFIG PUSH SUBMIT -->
       <template v-if="dnsChanges">
-        <b-form-checkbox v-if="force !== null" v-model="force">
+        <BFormCheckbox v-if="force !== null" v-model="force">
           {{ $t('domain.dns.push_force') }}
-        </b-form-checkbox>
+        </BFormCheckbox>
 
-        <b-button variant="success" @click="pushDnsChanges">
+        <BButton variant="success" @click="pushDnsChanges">
           {{ $t('domain.dns.push') }}
-        </b-button>
+        </BButton>
       </template>
     </section>
 
     <!-- CURRENT DNS ZONE -->
     <section v-if="showAutoConfigCard && dnsZone && dnsZone.length" class="panel-section">
-      <b-card-title title-tag="h3">
+      <BCardTitle title-tag="h3">
         {{ $t('domain.dns.auto_config_zone') }}
-      </b-card-title>
+      </BCardTitle>
 
       <div class="log">
         <div v-for="({ name: record, spaces, content, type }, i) in dnsZone" :key="'zone-' + i" class="records">
@@ -91,18 +91,18 @@
 
     <!-- MANUAL CONFIG CARD -->
     <section v-if="showManualConfigCard" class="panel-section">
-      <b-card-title title-tag="h3">
+      <BCardTitle title-tag="h3">
         {{ $t('domain.dns.manual_config') }}
-      </b-card-title>
+      </BCardTitle>
 
-      <read-only-alert-item
+      <ReadOnlyAlertItem
         :label="$t('domain_dns_conf_is_just_a_recommendation')"
         type="warning"
       />
 
       <pre class="log">{{ dnsConfig }}</pre>
     </section>
-  </view-base>
+  </ViewBase>
 </template>
 
 <script>
