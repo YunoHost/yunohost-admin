@@ -18,7 +18,7 @@
 import { mapGetters } from 'vuex'
 
 export default {
-  name: 'Breadcrumb',
+  name: 'YBreadcrumb',
 
   computed: {
     ...mapGetters(['breadcrumb'])

@@ -39,7 +39,7 @@
 
     <!-- MAIN -->
     <ViewLockOverlay>
-      <Breadcrumb />
+      <YBreadcrumb />
 
       <main id="main">
         <!-- The `key` on RouterView make sure that if a link points to a page that
