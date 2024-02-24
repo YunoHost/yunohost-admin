@@ -54,7 +54,7 @@
         <!-- REPORT ITEM -->
         <YListGroupItem
           v-for="(item, i) in report.items" :key="i"
-          :variant="item.variant" :Icon="item.Icon" :faded="item.ignored"
+          :variant="item.variant" :icon="item.Icon" :faded="item.ignored"
         >
           <div class="item-button d-flex align-items-center">
             <p class="mb-0 mr-2" v-html="item.summary" />

@@ -20,8 +20,8 @@
 
     <BCollapse id="collapse-domain" :visible.sync="domainIsVisible">
       <p class="mt-2 alert alert-info">
-        <YIcon iname='info-circle' />
-        <span class='pl-1' v-html="$t('domain.add.from_registrar_desc')" />
+        <YIcon iname="info-circle" />
+        <span class="pl-1" v-html="$t('domain.add.from_registrar_desc')" />
       </p>
 
       <FormField
@@ -44,7 +44,7 @@
     <BCollapse id="collapse-dynDomain" :visible.sync="dynDomainIsVisible">
       <p class="mt-2 alert alert-info">
         <YIcon iname="info-circle" />
-        <span class='pl-1' v-html="$t('domain.add.from_yunohost_desc')" />
+        <span class="pl-1" v-html="$t('domain.add.from_yunohost_desc')" />
       </p>
 
       <FormField v-bind="fields.dynDomain" :validation="$v.form.dynDomain" class="mt-3">
@@ -78,8 +78,8 @@
 
     <BCollapse id="collapse-localDomain" :visible.sync="localDomainIsVisible">
       <p class="mt-2 alert alert-info">
-        <YIcon iname='info-circle' />
-        <span class='pl-1' v-html="$t('domain.add.from_local_desc')" />
+        <YIcon iname="info-circle" />
+        <span class="pl-1" v-html="$t('domain.add.from_local_desc')" />
       </p>
 
       <FormField v-bind="fields.localDomain" :validation="$v.form.localDomain" class="mt-3">
@@ -133,7 +133,7 @@ export default {
           label: this.$i18n.t('domain_name'),
           props: {
             id: 'dyn-domain',
-            placeholder: this.$i18n.t('placeholder.domain').split(".")[0],
+            placeholder: this.$i18n.t('placeholder.domain').split('.')[0],
             type: 'domain',
             choices: ['nohost.me', 'noho.st', 'ynh.fr']
           }
@@ -162,7 +162,7 @@ export default {
           label: this.$i18n.t('domain_name'),
           props: {
             id: 'dyn-domain',
-            placeholder: this.$i18n.t('placeholder.domain').split(".")[0],
+            placeholder: this.$i18n.t('placeholder.domain').split('.')[0],
             type: 'domain',
             choices: ['local', 'test']
           }
