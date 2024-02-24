@@ -3,14 +3,16 @@
     v-bind="$attrs"
     no-body :class="_class"
   >
-    <slot name="header" slot="header">
-      <h2>
-        <BButton v-b-toggle="id" :variant="variant" class="card-collapse-button">
-          {{ title }}
-          <YIcon class="ml-auto" iname="chevron-right" />
-        </BButton>
-      </h2>
-    </slot>
+    <template #header>
+      <slot name="header">
+        <h2>
+          <BButton v-b-toggle="id" :variant="variant" class="card-collapse-button">
+            {{ title }}
+            <YIcon class="ml-auto" iname="chevron-right" />
+          </BButton>
+        </h2>
+      </slot>
+    </template>
 
     <BCollapse :id="id" :visible="visible" role="region">
       <slot name="default" />
