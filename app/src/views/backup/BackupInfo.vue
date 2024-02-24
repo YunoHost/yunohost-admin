@@ -22,8 +22,8 @@
           <strong>{{ $t(prop === 'name' ? 'id' : prop) }}</strong>
         </BCol>
         <BCol>
-          <span v-if="prop === 'created_at'">{{ value | readableDate }}</span>
-          <span v-else-if="prop === 'size'">{{ value | humanSize }}</span>
+          <span v-if="prop === 'created_at'">{{ readableDate(value) }}</span>
+          <span v-else-if="prop === 'size'">{{ humanSize(value) }}</span>
           <span v-else>{{ value }}</span>
         </BCol>
       </BRow>
@@ -60,7 +60,7 @@
           >
             <div class="mr-2">
               <h5 class="font-weight-bold">
-                {{ item.name }} <small class="text-secondary" v-if="item.size">({{ item.size | humanSize }})</small>
+                {{ item.name }} <small class="text-secondary" v-if="item.size">({{ humanSize(item.size) }})</small>
               </h5>
               <p class="m-0">
                 {{ item.description }}
@@ -77,7 +77,7 @@
           >
             <div class="mr-2">
               <h5 class="font-weight-bold">
-                {{ item.name }} <small class="text-secondary">{{ appName }} ({{ item.size | humanSize }})</small>
+                {{ item.name }} <small class="text-secondary">{{ appName }} ({{ humanSize(item.size) }})</small>
               </h5>
               <p class="m-0">
                 {{ $t('version') }} {{ item.version }}
@@ -235,10 +235,8 @@ export default {
     downloadBackup () {
       const host = this.$store.getters.host
       window.open(`https://${host}/yunohost/api/backups/${this.name}/download`, '_blank')
-    }
-  },
+    },
 
-  filters: {
     readableDate,
     humanSize
   }

@@ -287,7 +287,6 @@ import { mapGetters } from 'vuex'
 import { validationMixin } from 'vuelidate'
 
 import api, { objectToParams } from '@/api'
-import { readableDate } from '@/helpers/filters/date'
 import { humanPermissionName } from '@/helpers/filters/human'
 import { required } from '@/helpers/validators'
 import { isEmptyValue } from '@/helpers/commons'
@@ -542,7 +541,6 @@ export default {
     }
   },
 
-  filters: { readableDate },
   mixins: [validationMixin]
 }
 </script>

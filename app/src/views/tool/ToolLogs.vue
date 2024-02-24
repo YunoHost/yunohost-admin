@@ -13,9 +13,9 @@
         <BListGroupItem
           v-for="log in filteredOperations" :key="log.name"
           :to="{ name: 'tool-log', params: { name: log.name || log.log_path } }"
-          :title="log.started_at | readableDate"
+          :title="readableDate(log.started_at)"
         >
-          <small class="mr-3">{{ log.started_at | distanceToNow }} </small>
+          <small class="mr-3">{{ distanceToNow(log.started_at) }} </small>
           <YIcon :iname="log.icon" :class="'text-' + log.class" />
           {{ log.description }}
         </BListGroupItem>
@@ -66,10 +66,8 @@ export default {
         }
       })
       this.operations = operation
-    }
-  },
+    },
 
-  filters: {
     distanceToNow,
     readableDate
   }

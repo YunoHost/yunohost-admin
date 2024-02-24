@@ -37,7 +37,7 @@
               <YIcon :iname="value === 'running' ? 'check-circle' : 'times'" />
               {{ $t(value) }}
             </span>
-            {{ $t('since') }} {{ uptime | distanceToNow }}
+            {{ $t('since') }} {{ distanceToNow(uptime ) }}
           </template>
 
           <span v-else-if="key === 'start_on_boot'" :class="value === 'enabled' ? 'text-success' : 'text-danger'">
@@ -143,10 +143,10 @@ export default {
       }).then(({ key }) => {
         window.open('https://paste.yunohost.org/' + key, '_blank')
       })
-    }
-  },
+    },
 
-  filters: { distanceToNow }
+    distanceToNow
+  }
 }
 </script>
 

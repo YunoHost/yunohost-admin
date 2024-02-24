@@ -24,7 +24,7 @@
               <YIcon :iname="status === 'running' ? 'check-circle' : 'times'" />
               {{ $t(status) }}
             </span>
-            {{ $t('since') }} {{ last_state_change | distanceToNow }}
+            {{ $t('since') }} {{ distanceToNow(last_state_change) }}
           </p>
         </div>
 
@@ -70,10 +70,10 @@ export default {
         }
         return { ...service, name }
       })
-    }
-  },
+    },
 
-  filters: { distanceToNow }
+    distanceToNow
+  }
 }
 </script>
 

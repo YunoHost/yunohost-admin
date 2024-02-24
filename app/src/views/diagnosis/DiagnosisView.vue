@@ -47,7 +47,7 @@
 
       <!-- REPORT BODY -->
       <p class="last-time-run">
-        {{ $t('last_ran') }} {{ report.timestamp | distanceToNow(true, true) }}
+        {{ $t('last_ran') }} {{ distanceToNow(report.timestamp, true, true) }}
       </p>
 
       <BListGroup flush>
@@ -197,10 +197,10 @@ export default {
       api.get('diagnosis?share').then(({ url }) => {
         window.open(url, '_blank')
       })
-    }
-  },
+    },
 
-  filters: { distanceToNow }
+    distanceToNow
+  }
 }
 </script>
 
