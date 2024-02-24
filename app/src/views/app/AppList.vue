@@ -9,7 +9,7 @@
   >
     <template #top-bar-buttons>
       <BButton variant="success" :to="{ name: 'app-catalog' }">
-        <Icon iname="plus" />
+        <YIcon iname="plus" />
         {{ $t('install') }}
       </BButton>
     </template>
@@ -30,7 +30,7 @@
           </p>
         </div>
 
-        <Icon iname="chevron-right" class="lg fs-sm ml-auto" />
+        <YIcon iname="chevron-right" class="lg fs-sm ml-auto" />
       </BListGroupItem>
     </BListGroup>
   </ViewSearch>

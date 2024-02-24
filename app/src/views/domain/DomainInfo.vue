@@ -4,7 +4,7 @@
     ref="view" skeleton="CardListSkeleton"
   >
     <!-- INFO CARD -->
-    <Card v-if="domain" :title="name" icon="globe">
+    <YCard v-if="domain" :title="name" icon="globe">
       <template v-if="isMainDomain" #header-next>
         <BBadge variant="info" class="main-domain-badge">
           <ExplainWhat
@@ -12,7 +12,7 @@
             :title="$t('domain.types.main_domain')"
             :content="$t('domain.explain.main_domain', { domain: name })"
           >
-            <Icon iname="star" /> {{ $t('domain.types.main_domain') }}
+            <YIcon iname="star" /> {{ $t('domain.types.main_domain') }}
           </ExplainWhat>
         </BBadge>
       </template>
@@ -20,12 +20,12 @@
       <template #header-buttons>
         <!-- DEFAULT DOMAIN -->
         <BButton v-if="!isMainDomain" @click="setAsDefaultDomain" variant="info">
-          <Icon iname="star" /> {{ $t('set_default') }}
+          <YIcon iname="star" /> {{ $t('set_default') }}
         </BButton>
 
         <!-- DELETE DOMAIN -->
         <BButton v-b-modal.delete-modal :disabled="isMainDomain" variant="danger">
-          <Icon iname="trash-o" /> {{ $t('delete') }}
+          <YIcon iname="trash-o" /> {{ $t('delete') }}
         </BButton>
       </template>
 
@@ -38,7 +38,7 @@
 
       <!-- DOMAIN CERT AUTHORITY -->
       <DescriptionRow :term="$t('domain.info.certificate_authority')">
-        <Icon :iname="cert.icon" :variant="cert.variant" class="mr-1" />
+        <YIcon :iname="cert.icon" :variant="cert.variant" class="mr-1" />
         {{ $t('domain.cert.types.' + cert.authority) }}
         <span class="text-secondary px-2">({{ $t('domain.cert.valid_for', { days: $tc('day_validity', cert.validity) }) }})</span>
       </DescriptionRow>
@@ -70,14 +70,14 @@
               :href="'https://' + name + app.path" target="_blank"
             >
               <span class="sr-only">{{ $t('app.visit_app') }}</span>
-              <Icon iname="external-link" />
+              <YIcon iname="external-link" />
             </BButton>
           </BButton-group>
 
           {{ domain.apps.length ? '' : $t('words.none') }}
         </div>
       </DescriptionRow>
-    </Card>
+    </YCard>
 
     <ConfigPanels v-if="config.panels" v-bind="config" @submit="onConfigSubmit">
       <template v-if="currentTab === 'dns'" #tab-after>

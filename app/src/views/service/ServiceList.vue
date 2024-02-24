@@ -21,14 +21,14 @@
           </h5>
           <p class="m-0">
             <span :class="status === 'running' ? 'text-success' : 'text-danger'">
-              <Icon :iname="status === 'running' ? 'check-circle' : 'times'" />
+              <YIcon :iname="status === 'running' ? 'check-circle' : 'times'" />
               {{ $t(status) }}
             </span>
             {{ $t('since') }} {{ last_state_change | distanceToNow }}
           </p>
         </div>
 
-        <Icon iname="chevron-right" class="lg fs-sm ml-auto" />
+        <YIcon iname="chevron-right" class="lg fs-sm ml-auto" />
       </BListGroupItem>
     </BListGroup>
   </ViewSearch>

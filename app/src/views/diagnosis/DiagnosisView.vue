@@ -5,7 +5,7 @@
   >
     <template #top-bar-group-right>
       <BButton @click="shareLogs" variant="success">
-        <Icon iname="cloud-upload" /> {{ $t('logs_share_with_yunopaste') }}
+        <YIcon iname="cloud-upload" /> {{ $t('logs_share_with_yunopaste') }}
       </BButton>
     </template>
 
@@ -16,13 +16,13 @@
           v-if="reports === null" class="d-block mt-2" variant="info"
           @click="runDiagnosis()"
         >
-          <Icon iname="stethoscope" /> {{ $t('run_first_diagnosis') }}
+          <YIcon iname="stethoscope" /> {{ $t('run_first_diagnosis') }}
         </BButton>
       </div>
     </template>
 
     <!-- REPORT CARD -->
-    <Card
+    <YCard
       v-for="report in reports" :key="report.id"
       collapsable :collapsed="report.noIssues"
       no-body button-unbreak="lg"
@@ -41,7 +41,7 @@
 
       <template #header-buttons>
         <BButton size="sm" :variant="report.items ? 'info' : 'success'" @click="runDiagnosis(report)">
-          <Icon iname="refresh" /> {{ $t('rerun_diagnosis') }}
+          <YIcon iname="refresh" /> {{ $t('rerun_diagnosis') }}
         </BButton>
       </template>
 
@@ -52,7 +52,7 @@
 
       <BListGroup flush>
         <!-- REPORT ITEM -->
-        <YunoListGroupItem
+        <YListGroupItem
           v-for="(item, i) in report.items" :key="i"
           :variant="item.variant" :Icon="item.Icon" :faded="item.ignored"
         >
@@ -64,13 +64,13 @@
                 v-if="item.ignored" size="sm"
                 @click="toggleIgnoreIssue('unignore', report, item)"
               >
-                <Icon iname="bell" /> {{ $t('unignore') }}
+                <YIcon iname="bell" /> {{ $t('unignore') }}
               </BButton>
               <BButton
                 v-else-if="item.issue" variant="warning" size="sm"
                 @click="toggleIgnoreIssue('ignore', report, item)"
               >
-                <Icon iname="bell-slash" /> {{ $t('ignore') }}
+                <YIcon iname="bell-slash" /> {{ $t('ignore') }}
               </BButton>
 
               <BButton
@@ -78,7 +78,7 @@
                 size="sm" variant="outline-dark" class="ml-lg-2 mt-2 mt-lg-0"
                 v-b-toggle="`collapse-${report.id}-item-${i}`"
               >
-                <Icon iname="level-down" /> {{ $t('details') }}
+                <YIcon iname="level-down" /> {{ $t('details') }}
               </BButton>
             </div>
           </div>
@@ -88,9 +88,9 @@
               <li v-for="(detail, index) in item.details" :key="index" v-html="detail" />
             </ul>
           </BCollapse>
-        </YunoListGroupItem>
+        </YListGroupItem>
       </BListGroup>
-    </Card>
+    </YCard>
 
     <template #skeleton>
       <CardListSkeleton />
@@ -112,7 +112,7 @@ import { distanceToNow } from '@/helpers/filters/date'
 import { DEFAULT_STATUS_ICON } from '@/helpers/yunohostArguments'
 
 export default {
-  name: 'Diagnosis',
+  name: 'DiagnosisView',
 
   data () {
     return {

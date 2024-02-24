@@ -10,7 +10,7 @@
   >
     <template #top-bar-buttons>
       <BButton variant="success" :to="{ name: 'domain-add' }">
-        <Icon iname="plus" />
+        <YIcon iname="plus" />
         {{ $t('domain_add') }}
       </BButton>
     </template>
@@ -29,7 +29,7 @@
               :title="$t('domain.types.main_domain')" class="ml-1"
               v-b-tooltip.hover
             >
-              <Icon iname="star" />
+              <YIcon iname="star" />
             </small>
           </h5>
         </div>

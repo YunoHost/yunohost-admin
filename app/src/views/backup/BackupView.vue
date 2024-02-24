@@ -15,7 +15,7 @@
             {{ uri }}
           </p>
         </div>
-        <Icon iname="chevron-right" class="lg fs-sm ml-auto" />
+        <YIcon iname="chevron-right" class="lg fs-sm ml-auto" />
       </BListGroupItem>
     </BListGroup>
   </div>
@@ -23,7 +23,7 @@
 
 <script>
 export default {
-  name: 'Backup',
+  name: 'BackupView',
 
   data () {
     return {

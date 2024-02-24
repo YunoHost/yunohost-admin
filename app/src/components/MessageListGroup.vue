@@ -4,17 +4,17 @@
     :class="{ 'fixed-height': fixedHeight, 'bordered': bordered }"
     @scroll="onScroll"
   >
-    <YunoListGroupItem
+    <YListGroupItem
       v-if="limit && messages.length > limit"
       variant="info" v-t="'api.partial_logs'"
     />
 
-    <YunoListGroupItem
+    <YListGroupItem
       v-for="({ color, text }, i) in reducedMessages" :key="i"
       :variant="color" size="xs"
     >
       <span v-html="text" />
-    </YunoListGroupItem>
+    </YListGroupItem>
   </BListGroup>
 </template>
 

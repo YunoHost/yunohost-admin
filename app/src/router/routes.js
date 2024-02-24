@@ -8,15 +8,15 @@
 // Webpack chunk syntax is:
 // `() => import('@/views/:ViewComponent.vue')`
 
-import Home from '@/views/Home.vue'
-import Login from '@/views/Login.vue'
+import HomeView from '@/views/HomeView.vue'
+import LoginView from '@/views/LoginView.vue'
 import ToolList from '@/views/tool/ToolList.vue'
 
 const routes = [
   {
     name: 'home',
     path: '/',
-    component: Home,
+    component: HomeView,
     meta: {
       args: { trad: 'home' }
     }
@@ -25,7 +25,7 @@ const routes = [
   {
     name: 'login',
     path: '/login',
-    component: Login,
+    component: LoginView,
     meta: {
       noAuth: true,
       args: { trad: 'login' }
@@ -347,7 +347,7 @@ const routes = [
   {
     name: 'diagnosis',
     path: '/diagnosis',
-    component: () => import('@/views/diagnosis/Diagnosis.vue'),
+    component: () => import('@/views/diagnosis/DiagnosisView.vue'),
     meta: {
       args: { trad: 'diagnosis' },
       breadcrumb: ['diagnosis']
@@ -360,7 +360,7 @@ const routes = [
   {
     name: 'backup',
     path: '/backup',
-    component: () => import('@/views/backup/Backup.vue'),
+    component: () => import('@/views/backup/BackupView.vue'),
     meta: {
       args: { trad: 'backup' },
       breadcrumb: ['backup']

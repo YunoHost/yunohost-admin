@@ -11,11 +11,11 @@
     <div v-if="request.errors || request.warnings">
       <!-- WEBSOCKET ERRORS COUNT -->
       <span class="count" v-if="request.errors">
-        {{ request.errors }}<Icon iname="bug" class="text-danger ml-1" />
+        {{ request.errors }}<YIcon iname="bug" class="text-danger ml-1" />
       </span>
       <!-- WEBSOCKET WARNINGS COUNT -->
       <span class="count" v-if="request.warnings">
-        {{ request.warnings }}<Icon iname="warning" class="text-warning ml-1" />
+        {{ request.warnings }}<YIcon iname="warning" class="text-warning ml-1" />
       </span>
     </div>
 

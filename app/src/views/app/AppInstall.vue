@@ -12,7 +12,7 @@
             :href="app.demo" target="_blank"
             variant="primary" class="ml-auto"
           >
-            <Icon iname="external-link" />
+            <YIcon iname="external-link" />
             {{ $t('app.install.try_demo') }}
           </BButton>
         </div>
@@ -34,49 +34,49 @@
         />
       </section>
 
-      <Card
+      <YCard
         v-if="app.integration"
         id="app-integration" :title="$t('app.integration.title')"
         collapsable collapsed no-body
       >
         <BListGroup flush>
-          <YunoListGroupItem variant="info">
+          <YListGroupItem variant="info">
             {{ $t('app.integration.archs') }} {{ app.integration.archs }}
-          </YunoListGroupItem>
-          <YunoListGroupItem v-if="app.integration.ldap" :variant="app.integration.ldap === true ? 'success' : 'warning'">
+          </YListGroupItem>
+          <YListGroupItem v-if="app.integration.ldap" :variant="app.integration.ldap === true ? 'success' : 'warning'">
             {{ $t(`app.integration.ldap.${app.integration.ldap}`) }}
-          </YunoListGroupItem>
-          <YunoListGroupItem v-if="app.integration.sso" :variant="app.integration.sso === true ? 'success' : 'warning'">
+          </YListGroupItem>
+          <YListGroupItem v-if="app.integration.sso" :variant="app.integration.sso === true ? 'success' : 'warning'">
             {{ $t(`app.integration.sso.${app.integration.sso}`) }}
-          </YunoListGroupItem>
-          <YunoListGroupItem variant="info">
+          </YListGroupItem>
+          <YListGroupItem variant="info">
             {{ $t(`app.integration.multi_instance.${app.integration.multi_instance}`) }}
-          </YunoListGroupItem>
-          <YunoListGroupItem variant="info">
+          </YListGroupItem>
+          <YListGroupItem variant="info">
             {{ $t('app.integration.resources', app.integration.resources) }}
-          </YunoListGroupItem>
+          </YListGroupItem>
         </BListGroup>
-      </Card>
+      </YCard>
 
-      <Card
+      <YCard
         id="app-links" icon="link" :title="$t('app.links.title')"
         collapsable collapsed no-body
       >
         <template #header>
-          <h2><Icon iname="link" /> {{ $t('app.links.title') }}</h2>
+          <h2><YIcon iname="link" /> {{ $t('app.links.title') }}</h2>
         </template>
 
         <BListGroup flush>
-          <YunoListGroupItem v-for="[key, link] in app.links" :key="key" no-status>
+          <YListGroupItem v-for="[key, link] in app.links" :key="key" no-status>
             <BLink :href="link" target="_blank">
-              <Icon :iname="appLinksIcons(key)" class="mr-1" />
+              <YIcon :iname="appLinksIcons(key)" class="mr-1" />
               {{ $t('app.links.' + key) }}
             </BLink>
-          </YunoListGroupItem>
+          </YListGroupItem>
         </BListGroup>
-      </Card>
+      </YCard>
 
-      <YunoAlert v-if="app.hasWarning" variant="warning" class="my-4">
+      <YAlert v-if="app.hasWarning" variant="warning" class="my-4">
         <h2>{{ $t('app.install.notifs.pre.warning') }}</h2>
 
         <template v-if="app.antifeatures">
@@ -84,7 +84,7 @@
           <dl class="antifeatures">
             <div v-for="antifeature in app.antifeatures" :key="antifeature.id">
               <dt class="d-inline">
-                <Icon :iname="antifeature.icon" class="md mr-1" />
+                <YIcon :iname="antifeature.icon" class="md mr-1" />
                 {{ antifeature.title }}:
               </dt>
               <dd class="d-inline">
@@ -97,9 +97,9 @@
         <p v-if="app.quality.state === 'lowquality'" v-t="'app.install.problems.lowquality'" />
 
         <VueShowdown v-if="app.preInstall" :markdown="app.preInstall" flavor="github" />
-      </YunoAlert>
+      </YAlert>
 
-      <YunoAlert
+      <YAlert
         v-if="!app.hasSupport"
         variant="danger" icon="warning" class="my-4"
       >
@@ -114,9 +114,9 @@
         <p v-if="!app.requirements.required_yunohost_version.pass">
           {{ $t('app.install.problems.version', app.requirements.required_yunohost_version.values) }}
         </p>
-      </YunoAlert>
+      </YAlert>
 
-      <YunoAlert v-else-if="app.hasDanger" variant="danger" class="my-4">
+      <YAlert v-else-if="app.hasDanger" variant="danger" class="my-4">
         <h2>{{ $t('app.install.notifs.pre.danger') }}</h2>
 
         <p v-if="['inprogress', 'broken', 'thirdparty'].includes(app.quality.state)" v-t="'app.install.problems.' + app.quality.state" />
@@ -125,7 +125,7 @@
         </p>
 
         <CheckboxItem v-model="force" id="force-install" :label="$t('app.install.problems.ignore')" />
-      </YunoAlert>
+      </YAlert>
 
       <!-- INSTALL FORM -->
       <CardForm
@@ -145,7 +145,7 @@
 
     <!-- In case of a custom url with no manifest found -->
     <BAlert v-else-if="app === null" variant="warning">
-      <Icon iname="exclamation-triangle" /> {{ $t('app_install_custom_no_manifest') }}
+      <YIcon iname="exclamation-triangle" /> {{ $t('app_install_custom_no_manifest') }}
     </BAlert>
 
     <template #skeleton>

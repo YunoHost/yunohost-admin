@@ -3,7 +3,7 @@
     <!-- START STEP -->
     <template v-if="step === 'start'">
       <p class="alert alert-success">
-        <Icon iname="thumbs-up" /> {{ $t('postinstall_intro_1') }}
+        <YIcon iname="thumbs-up" /> {{ $t('postinstall_intro_1') }}
       </p>
 
       <p class="alert alert-info">
@@ -29,7 +29,7 @@
       </DomainForm>
 
       <BButton variant="primary" @click="goToStep('start')" class="mt-3">
-        <Icon iname="chevron-left" /> {{ $t('previous') }}
+        <YIcon iname="chevron-left" /> {{ $t('previous') }}
       </BButton>
     </template>
 
@@ -52,30 +52,30 @@
       </CardForm>
 
       <BButton variant="primary" @click="goToStep('domain')" class="mt-3">
-        <Icon iname="chevron-left" /> {{ $t('previous') }}
+        <YIcon iname="chevron-left" /> {{ $t('previous') }}
       </BButton>
     </template>
 
     <template v-else-if="step === 'rootfsspace-error'">
-      <Card no-body header-class="d-none" footer-bg-variant="danger">
+      <YCard no-body header-class="d-none" footer-bg-variant="danger">
         <BCardBody class="alert alert-danger m-0">
           {{ serverError }}
         </BCardBody>
 
         <template #buttons>
           <BButton variant="light" size="sm" @click="performPostInstall(true)">
-            <Icon iname="warning" /> {{ $t('postinstall.force') }}
+            <YIcon iname="warning" /> {{ $t('postinstall.force') }}
           </BButton>
         </template>
-      </Card>
+      </YCard>
     </template>
 
     <!-- POST-INSTALL SUCCESS STEP -->
     <template v-else-if="step === 'login'">
       <p class="alert alert-success">
-        <Icon iname="thumbs-up" /> {{ $t('installation_complete') }}
+        <YIcon iname="thumbs-up" /> {{ $t('installation_complete') }}
       </p>
-      <Login />
+      <LoginView />
     </template>
   </div>
 </template>
@@ -85,7 +85,7 @@ import { validationMixin } from 'vuelidate'
 
 import api from '@/api'
 import { DomainForm } from '@/views/_partials'
-import Login from '@/views/Login.vue'
+import LoginView from '@/views/LoginView.vue'
 import { formatFormData } from '@/helpers/yunohostArguments'
 import { alphalownumdot_, required, minLength, name, sameAs } from '@/helpers/validators'
 
@@ -96,7 +96,7 @@ export default {
 
   components: {
     DomainForm,
-    Login
+    LoginView
   },
 
   data () {

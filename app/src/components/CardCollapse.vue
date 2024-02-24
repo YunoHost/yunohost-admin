@@ -7,7 +7,7 @@
       <h2>
         <BButton v-b-toggle="id" :variant="variant" class="card-collapse-button">
           {{ title }}
-          <Icon class="ml-auto" iname="chevron-right" />
+          <YIcon class="ml-auto" iname="chevron-right" />
         </BButton>
       </h2>
     </slot>

@@ -17,11 +17,11 @@
       </template>
     </RoutableTabs>
 
-    <Card v-else :title="routes_[0].text" :icon="routes_[0].icon">
+    <YCard v-else :title="routes_[0].text" :icon="routes_[0].icon">
       <slot name="tab-top" />
       <slot name="tab-before" />
       <slot name="tab-after" />
-    </Card>
+    </YCard>
   </div>
 </template>
 

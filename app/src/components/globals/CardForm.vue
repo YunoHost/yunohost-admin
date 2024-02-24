@@ -1,5 +1,5 @@
 <template>
-  <Card v-bind="$attrs" class="card-form">
+  <YCard v-bind="$attrs" class="card-form">
     <template #default>
       <slot name="disclaimer" />
 
@@ -27,7 +27,7 @@
         </BButton>
       </slot>
     </template>
-  </Card>
+  </YCard>
 </template>
 
 <script>

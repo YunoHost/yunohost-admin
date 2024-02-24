@@ -21,7 +21,7 @@
               :href="ssoLink"
               variant="primary" size="sm" block
             >
-              {{ $t('user_interface_link') }} <Icon iname="user" />
+              {{ $t('user_interface_link') }} <YIcon iname="user" />
             </BButton>
           </li>
 
@@ -30,7 +30,7 @@
               @click.prevent="logout"
               variant="outline-dark" block size="sm"
             >
-              {{ $t('logout') }} <Icon iname="sign-out" />
+              {{ $t('logout') }} <YIcon iname="sign-out" />
             </BButton>
           </li>
         </BNavbarNav>
@@ -59,13 +59,13 @@
       <nav>
         <BNav class="justify-content-center">
           <BNavItem href="https://yunohost.org/docs" target="_blank" link-classes="text-secondary">
-            <Icon iname="book" /> {{ $t('footer.documentation') }}
+            <YIcon iname="book" /> {{ $t('footer.documentation') }}
           </BNavItem>
           <BNavItem href="https://yunohost.org/help" target="_blank" link-classes="text-secondary">
-            <Icon iname="life-ring" /> {{ $t('footer.help') }}
+            <YIcon iname="life-ring" /> {{ $t('footer.help') }}
           </BNavItem>
           <BNavItem href="https://donate.yunohost.org/" target="_blank" link-classes="text-secondary">
-            <Icon iname="heart" /> {{ $t('footer.donate') }}
+            <YIcon iname="heart" /> {{ $t('footer.donate') }}
           </BNavItem>
 
           <BNavText

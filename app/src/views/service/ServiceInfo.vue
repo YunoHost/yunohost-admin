@@ -4,23 +4,23 @@
     ref="view" skeleton="CardInfoSkeleton"
   >
     <!-- INFO CARD -->
-    <Card :title="name" icon="info-circle" button-unbreak="sm">
+    <YCard :title="name" icon="info-circle" button-unbreak="sm">
       <template #header-buttons>
         <template v-if="infos.status === 'running'">
           <!-- RESTART SERVICE -->
           <BButton @click="updateService('restart')" variant="warning">
-            <Icon iname="refresh" /> {{ $t('restart') }}
+            <YIcon iname="refresh" /> {{ $t('restart') }}
           </BButton>
 
           <!-- STOP SERVICE -->
           <BButton v-if="!isCritical" @click="updateService('stop')" variant="danger">
-            <Icon iname="warning" /> {{ $t('stop') }}
+            <YIcon iname="warning" /> {{ $t('stop') }}
           </BButton>
         </template>
 
         <!-- START SERVICE -->
         <BButton v-else @click="updateService('start')" variant="success">
-          <Icon iname="play" /> {{ $t('start') }}
+          <YIcon iname="play" /> {{ $t('start') }}
         </BButton>
       </template>
 
@@ -34,7 +34,7 @@
         <BCol>
           <template v-if="key === 'status'">
             <span :class="value === 'running' ? 'text-success' : 'text-danger'">
-              <Icon :iname="value === 'running' ? 'check-circle' : 'times'" />
+              <YIcon :iname="value === 'running' ? 'check-circle' : 'times'" />
               {{ $t(value) }}
             </span>
             {{ $t('since') }} {{ uptime | distanceToNow }}
@@ -47,13 +47,13 @@
           <span v-else v-t="value" />
         </BCol>
       </BRow>
-    </Card>
+    </YCard>
 
     <!-- LOGS CARD -->
-    <Card :title="$t('logs')" icon="book" button-unbreak="sm">
+    <YCard :title="$t('logs')" icon="book" button-unbreak="sm">
       <template #header-buttons>
         <BButton variant="success" @click="shareLogs">
-          <Icon iname="cloud-upload" /> {{ $t('logs_share_with_yunopaste') }}
+          <YIcon iname="cloud-upload" /> {{ $t('logs_share_with_yunopaste') }}
         </BButton>
       </template>
 
@@ -64,7 +64,7 @@
 
         <pre :key="i + '-content'" class="log"><code>{{ content }}</code></pre>
       </template>
-    </Card>
+    </YCard>
   </ViewBase>
 </template>
 

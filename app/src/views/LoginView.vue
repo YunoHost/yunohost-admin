@@ -27,7 +27,7 @@ import { validationMixin } from 'vuelidate'
 import { alphalownumdot_, required, minLength } from '@/helpers/validators'
 
 export default {
-  name: 'Login',
+  name: 'LoginView',
 
   mixins: [validationMixin],
 

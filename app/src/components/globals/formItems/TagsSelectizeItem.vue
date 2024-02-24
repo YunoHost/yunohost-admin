@@ -14,7 +14,7 @@
               :disabled="disabled || disabledItems.includes(tag)"
               class="border border-dark mb-2"
             >
-              <Icon v-if="tagIcon" :iname="tagIcon" /> {{ tag }}
+              <YIcon v-if="tagIcon" :iname="tagIcon" /> {{ tag }}
             </BFormTag>
           </li>
         </ul>
@@ -25,7 +25,7 @@
           @keydown.native="onDropdownKeydown"
         >
           <template #button-content>
-            <Icon iname="search-plus" /> {{ label }}
+            <YIcon iname="search-plus" /> {{ label }}
           </template>
 
           <BDropdownGroup class="search-group">
@@ -55,7 +55,7 @@
             {{ option }}
           </BDropdownItemButton>
           <BDropdownText v-if="!criteria && availableOptions.length === 0">
-            <Icon iname="exclamation-triangle" />
+            <YIcon iname="exclamation-triangle" />
             {{ $tc('items_verbose_items_left', 0, { items: $tc('items.' + itemsName, 0) }) }}
           </BDropdownText>
         </BDropdown>

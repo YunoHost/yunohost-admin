@@ -20,7 +20,7 @@
 
     <BCollapse id="collapse-domain" :visible.sync="domainIsVisible">
       <p class="mt-2 alert alert-info">
-        <Icon iname='info-circle' />
+        <YIcon iname='info-circle' />
         <span class='pl-1' v-html="$t('domain.add.from_registrar_desc')" />
       </p>
 
@@ -43,7 +43,7 @@
 
     <BCollapse id="collapse-dynDomain" :visible.sync="dynDomainIsVisible">
       <p class="mt-2 alert alert-info">
-        <Icon iname="info-circle" />
+        <YIcon iname="info-circle" />
         <span class='pl-1' v-html="$t('domain.add.from_yunohost_desc')" />
       </p>
 
@@ -78,7 +78,7 @@
 
     <BCollapse id="collapse-localDomain" :visible.sync="localDomainIsVisible">
       <p class="mt-2 alert alert-info">
-        <Icon iname='info-circle' />
+        <YIcon iname='info-circle' />
         <span class='pl-1' v-html="$t('domain.add.from_local_desc')" />
       </p>
 

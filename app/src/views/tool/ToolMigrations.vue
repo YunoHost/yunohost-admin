@@ -1,16 +1,16 @@
 <template>
   <ViewBase :queries="queries" @queries-response="onQueriesResponse" ref="view">
     <!-- PENDING MIGRATIONS -->
-    <Card :title="$t('migrations_pending')" icon="cogs" no-body>
+    <YCard :title="$t('migrations_pending')" icon="cogs" no-body>
       <template #header-buttons v-if="pending">
         <BButton size="sm" variant="success" @click="runMigrations">
-          <Icon iname="play" /> {{ $t('run') }}
+          <YIcon iname="play" /> {{ $t('run') }}
         </BButton>
       </template>
 
       <BCardBody v-if="pending === null">
         <span class="text-success">
-          <Icon iname="check-circle" /> {{ $t('migrations_no_pending') }}
+          <YIcon iname="check-circle" /> {{ $t('migrations_no_pending') }}
         </span>
       </BCardBody>
 
@@ -23,7 +23,7 @@
 
             <div class="ml-auto">
               <BButton @click="skipMigration(id)" size="sm" variant="warning">
-                <Icon iname="close" /> {{ $t('skip') }}
+                <YIcon iname="close" /> {{ $t('skip') }}
               </BButton>
             </div>
           </div>
@@ -49,16 +49,16 @@
           </template>
         </BListGroupItem>
       </BListGroup>
-    </Card>
+    </YCard>
 
     <!-- DONE MIGRATIONS -->
-    <Card
+    <YCard
       :title="$t('migrations_done')" icon="cogs"
       collapsable collapsed no-body
     >
       <BCardBody v-if="done === null">
         <span class="text-success">
-          <Icon iname="check-circle" /> {{ $t('migrations_no_done') }}
+          <YIcon iname="check-circle" /> {{ $t('migrations_no_done') }}
         </span>
       </BCardBody>
 
@@ -67,7 +67,7 @@
           {{ number }}. {{ description }}
         </BListGroupItem>
       </BListGroup>
-    </Card>
+    </YCard>
 
     <template #skeleton>
       <CardListSkeleton :item-count="3" />

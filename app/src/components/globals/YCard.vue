@@ -4,7 +4,7 @@
       <div class="w-100 d-flex align-items-center flex-wrap custom-header">
         <slot name="header">
           <Component :is="titleTag" class="custom-header-title">
-            <Icon v-if="icon" :iname="icon" class="mr-2" />{{ title }}
+            <YIcon v-if="icon" :iname="icon" class="mr-2" />{{ title }}
           </Component>
           <slot name="header-next" />
         </slot>
@@ -19,7 +19,7 @@
         size="sm" variant="outline-secondary"
         class="align-self-center ml-auto" :class="{ 'not-collapsed': visible, 'collapsed': !visible, [`ml-${buttonUnbreak}-2`]: buttonUnbreak }"
       >
-        <Icon iname="chevron-right" />
+        <YIcon iname="chevron-right" />
         <span class="sr-only">{{ $t('words.collapse') }}</span>
       </BButton>
     </template>
@@ -43,7 +43,7 @@
 <script>
 
 export default {
-  name: 'Card',
+  name: 'YCard',
 
   props: {
     id: { type: String, default: 'ynh-form' },

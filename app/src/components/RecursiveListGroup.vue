@@ -16,7 +16,7 @@
           @click.stop="node.data.opened = !node.data.opened"
         >
           <span class="sr-only">{{ toggleText }}</span>
-          <Icon iname="chevron-right" />
+          <YIcon iname="chevron-right" />
         </BButton>
       </BListGroupItem>
 

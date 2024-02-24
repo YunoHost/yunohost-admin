@@ -6,7 +6,7 @@
           v-for="route in routes" :key="route.text"
           :to="route.to" exact exact-active-class="active"
         >
-          <Icon v-if="route.icon" :iname="route.icon" />
+          <YIcon v-if="route.icon" :iname="route.icon" />
           {{ route.text }}
         </BNavItem>
       </BNav>

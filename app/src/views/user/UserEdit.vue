@@ -47,13 +47,13 @@
           </FormField>
 
           <BButton variant="danger" @click="removeEmailField('aliases', i)">
-            <Icon :title="$t('delete')" iname="trash-o" />
+            <YIcon :title="$t('delete')" iname="trash-o" />
             <span class="sr-only">{{ $t('delete') }}</span>
           </BButton>
         </div>
 
         <BButton variant="success" @click="addEmailField('aliases')">
-          <Icon iname="plus" /> {{ $t('user_emailaliases_add') }}
+          <YIcon iname="plus" /> {{ $t('user_emailaliases_add') }}
         </BButton>
       </FormField>
 
@@ -70,13 +70,13 @@
           />
 
           <BButton variant="danger" @click="removeEmailField('forward', i)">
-            <Icon :title="$t('delete')" iname="trash-o" />
+            <YIcon :title="$t('delete')" iname="trash-o" />
             <span class="sr-only">{{ $t('delete') }}</span>
           </BButton>
         </div>
 
         <BButton variant="success" @click="addEmailField('forward')">
-          <Icon iname="plus" /> {{ $t('user_emailforward_add') }}
+          <YIcon iname="plus" /> {{ $t('user_emailforward_add') }}
         </BButton>
       </FormField>
       <hr>

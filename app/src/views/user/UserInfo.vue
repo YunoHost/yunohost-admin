@@ -1,8 +1,8 @@
 <template>
   <ViewBase :queries="queries" skeleton="CardInfoSkeleton">
-    <Card v-if="user" :title="user.fullname" icon="user">
+    <YCard v-if="user" :title="user.fullname" icon="user">
       <div class="d-flex align-items-center flex-column flex-md-row">
-        <Icon iname="user" class="fa-fw" />
+        <YIcon iname="user" class="fa-fw" />
 
         <div class="w-100">
           <BRow>
@@ -47,16 +47,16 @@
 
       <template #buttons>
         <BButton :to="{ name: 'user-edit', params: { user } }" :variant="user ? 'info' : 'dark'">
-          <Icon iname="edit" />
+          <YIcon iname="edit" />
           {{ user ? $t('user_username_edit', {name: user.username}) : '' }}
         </BButton>
 
         <BButton v-b-modal.delete-modal :variant="user ? 'danger' : 'dark'">
-          <Icon iname="trash-o" />
+          <YIcon iname="trash-o" />
           {{ user ? $t('delete') : '' }}
         </BButton>
       </template>
-    </Card>
+    </YCard>
 
     <BModal
       v-if="user"
@@ -70,7 +70,7 @@
 
         <template #description>
           <div class="alert alert-warning">
-            <Icon iname="exclamation-triangle" /> {{ $t('purge_user_data_warning') }}
+            <YIcon iname="exclamation-triangle" /> {{ $t('purge_user_data_warning') }}
           </div>
         </template>
       </BFormGroup>

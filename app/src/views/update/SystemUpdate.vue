@@ -4,17 +4,17 @@
     skeleton="CardListSkeleton"
   >
     <!-- MIGRATIONS WARN -->
-    <YunoAlert v-if="pendingMigrations" variant="warning" alert>
+    <YAlert v-if="pendingMigrations" variant="warning" alert>
       <span v-html="$t('pending_migrations')" />
-    </YunoAlert>
+    </YAlert>
 
     <!-- MAJOR YUNOHOST UPGRADE WARN -->
-    <YunoAlert v-if="importantYunohostUpgrade" variant="warning" alert>
+    <YAlert v-if="importantYunohostUpgrade" variant="warning" alert>
       <span v-html="$t('important_yunohost_upgrade')" />
-    </YunoAlert>
+    </YAlert>
 
     <!-- SYSTEM UPGRADE -->
-    <Card :title="$t('system')" icon="server" no-body>
+    <YCard :title="$t('system')" icon="server" no-body>
       <BListGroup v-if="system" flush>
         <BListGroupItem v-for="{ name, current_version, new_version } in system" :key="name">
           <h5 class="m-0">
@@ -25,7 +25,7 @@
       </BListGroup>
 
       <BCardBody v-else-if="system === null">
-        <span class="text-success"><Icon iname="check-circle" /> {{ $t('system_packages_nothing') }}</span>
+        <span class="text-success"><YIcon iname="check-circle" /> {{ $t('system_packages_nothing') }}</span>
       </BCardBody>
 
       <template #buttons v-if="system">
@@ -34,10 +34,10 @@
           @click="performSystemUpgrade()"
         />
       </template>
-    </Card>
+    </YCard>
 
     <!-- APPS UPGRADE -->
-    <Card :title="$t('applications')" icon="cubes" no-body>
+    <YCard :title="$t('applications')" icon="cubes" no-body>
       <BListGroup v-if="apps" flush>
         <BListGroupItem
           v-for="{ name, id, current_version, new_version } in apps" :key="id"
@@ -56,7 +56,7 @@
       </BListGroup>
 
       <BCardBody v-else-if="apps === null">
-        <span class="text-success"><Icon iname="check-circle" /> {{ $t('system_apps_nothing') }}</span>
+        <span class="text-success"><YIcon iname="check-circle" /> {{ $t('system_apps_nothing') }}</span>
       </BCardBody>
 
       <template #buttons v-if="apps">
@@ -65,7 +65,7 @@
           @click="confirmAppsUpgrade()"
         />
       </template>
-    </Card>
+    </YCard>
 
     <BModal
       id="apps-pre-upgrade"
@@ -90,9 +90,9 @@
           {{ $t('app.upgrade.notifs.pre.title') }}
         </h3>
 
-        <YunoAlert variant="warning">
+        <YAlert variant="warning">
           {{ $t('app.upgrade.notifs.pre.alert' ) }}
-        </YunoAlert>
+        </YAlert>
 
         <div class="card-collapse-wrapper">
           <CardCollapse

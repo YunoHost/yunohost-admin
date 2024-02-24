@@ -1,4 +1,4 @@
-<!-- FIXME make a component shared with Home.vue ? -->
+<!-- FIXME make a component shared with HomeView.vue ? -->
 <template>
   <BListGroup class="menu-list">
     <BListGroupItem
@@ -6,9 +6,9 @@
       :key="item.routeName"
       :to="{name: item.routeName}"
     >
-      <Icon :iname="item.icon" class="lg ml-1" />
+      <YIcon :iname="item.icon" class="lg ml-1" />
       <h4>{{ $t(item.translation) }}</h4>
-      <Icon iname="chevron-right" class="lg fs-sm ml-auto" />
+      <YIcon iname="chevron-right" class="lg fs-sm ml-auto" />
     </BListGroupItem>
   </BListGroup>
 </template>

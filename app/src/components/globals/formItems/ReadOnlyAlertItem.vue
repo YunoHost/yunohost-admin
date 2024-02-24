@@ -1,6 +1,6 @@
 <template>
   <BAlert class="d-flex flex-column flex-md-row align-items-center" :variant="type" show>
-    <Icon :iname="icon_" class="mr-md-3 mb-md-0 mb-2" :variant="type" />
+    <YIcon :iname="icon_" class="mr-md-3 mb-md-0 mb-2" :variant="type" />
 
     <VueShowdown
       :markdown="label" flavor="github"

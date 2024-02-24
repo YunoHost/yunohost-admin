@@ -1,7 +1,7 @@
 <template>
   <ViewBase :queries="queries" @queries-response="onQueriesResponse" skeleton="CardListSkeleton">
     <!-- FIXME switch to <CardForm> ? -->
-    <Card :title="$t('backup_create')" icon="archive" no-body>
+    <YCard :title="$t('backup_create')" icon="archive" no-body>
       <BFormCheckboxGroup
         v-model="selected"
         id="backup-select" name="backup-select" size="lg"
@@ -10,7 +10,7 @@
           <!-- SYSTEM HEADER -->
           <BListGroupItem class="d-flex align-items-sm-center flex-column flex-sm-row text-primary">
             <h4 class="m-0">
-              <Icon iname="cube" /> {{ $t('system') }}
+              <YIcon iname="cube" /> {{ $t('system') }}
             </h4>
 
             <div class="ml-sm-auto mt-2 mt-sm-0">
@@ -46,7 +46,7 @@
           <!-- APPS HEADER -->
           <BListGroupItem class="d-flex align-items-sm-center flex-column flex-sm-row text-primary">
             <h4 class="m-0">
-              <Icon iname="cubes" /> {{ $t('applications') }}
+              <YIcon iname="cubes" /> {{ $t('applications') }}
             </h4>
 
             <div class="ml-sm-auto mt-2 mt-sm-0">
@@ -88,7 +88,7 @@
           variant="success" :disabled="selected.length === 0"
         />
       </template>
-    </Card>
+    </YCard>
   </ViewBase>
 </template>
 

@@ -1,12 +1,12 @@
 <template>
-  <Card :title="$t('operations')" icon="wrench">
+  <YCard :title="$t('operations')" icon="wrench">
     <!-- REBOOT -->
     <BFormGroup
       label-cols="5" label-cols-md="4" label-cols-lg="3"
       :label="$t('tools_reboot')" label-for="reboot"
     >
       <BButton @click="triggerAction('reboot')" variant="danger" id="reboot">
-        <Icon iname="refresh" /> {{ $t('tools_reboot_btn') }}
+        <YIcon iname="refresh" /> {{ $t('tools_reboot_btn') }}
       </BButton>
     </BFormGroup>
     <hr>
@@ -17,10 +17,10 @@
       :label="$t('tools_shutdown')" label-for="shutdown"
     >
       <BButton @click="triggerAction('shutdown')" variant="danger" id="shutdown">
-        <Icon iname="power-off" /> {{ $t('tools_shutdown_btn') }}
+        <YIcon iname="power-off" /> {{ $t('tools_shutdown_btn') }}
       </BButton>
     </BFormGroup>
-  </Card>
+  </YCard>
 </template>
 
 <script>

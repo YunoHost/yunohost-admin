@@ -8,7 +8,7 @@
         <!-- APP SEARCH -->
         <BInputGroup>
           <BInputGroupPrepend is-text>
-            <Icon iname="search" />
+            <YIcon iname="search" />
           </BInputGroupPrepend>
           <BFormInput
             id="search-input" :placeholder="$t('search.for', { items: $tc('items.apps', 2) })"
@@ -22,7 +22,7 @@
         <!-- CATEGORY SELECT -->
         <BInputGroup class="mt-3">
           <BInputGroupPrepend is-text>
-            <Icon iname="filter" />
+            <YIcon iname="filter" />
           </BInputGroupPrepend>
           <BFormSelect :value="category" :options="categories" @change="updateQuery('category', $event)" />
           <BInputGroupAppend>
@@ -58,7 +58,7 @@
       >
         <BCardTitle>
           <BLink @click="updateQuery('category', cat.value)" class="card-link">
-            <Icon :iname="cat.icon" /> {{ cat.text }}
+            <YIcon :iname="cat.icon" /> {{ cat.text }}
           </BLink>
         </BCardTitle>
         <BCardText>{{ cat.description }}</BCardText>
@@ -92,7 +92,7 @@
                   {{ $t('app_state_' + app.state) }}
                 </BBadge>
 
-                <Icon
+                <YIcon
                   v-if="app.high_quality" iname="star" class="star"
                   v-b-popover.hover.bottom="$t(`app_state_highquality_explanation`)"
                 />
@@ -105,7 +105,7 @@
 
             <BCardText v-if="!app.maintained" class="align-self-end position-relative mt-auto">
               <span class="alert-warning p-1" v-b-popover.hover.top="$t('orphaned_details')">
-                <Icon iname="warning" /> {{ $t('orphaned') }}
+                <YIcon iname="warning" /> {{ $t('orphaned') }}
               </span>
             </BCardText>
           </div>
@@ -131,7 +131,7 @@
       >
         <template #disclaimer>
           <div class="alert alert-warning">
-            <Icon iname="exclamation-triangle" /> {{ $t('confirm_install_custom_app') }}
+            <YIcon iname="exclamation-triangle" /> {{ $t('confirm_install_custom_app') }}
           </div>
         </template>
 

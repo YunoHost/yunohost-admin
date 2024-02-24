@@ -5,7 +5,7 @@
       @click="clearFiles" variant="danger"
     >
       <span class="sr-only">{{ $t('delete') }}</span>
-      <Icon iname="trash" />
+      <YIcon iname="trash" />
     </BButton>
 
     <BFormFile

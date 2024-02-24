@@ -13,7 +13,7 @@
       <BProgressBar variant="secondary" :value="progress.values[2]" striped />
     </BProgress>
     <!-- OR SPINNER -->
-    <Spinner v-else class="my-4" />
+    <YSpinner v-else class="my-4" />
 
     <MessageListGroup
       v-if="hasMessages" :messages="request.messages"

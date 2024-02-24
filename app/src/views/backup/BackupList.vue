@@ -5,7 +5,7 @@
     </template>
 
     <BAlert v-if="!archives" variant="warning">
-      <Icon iname="exclamation-triangle" />
+      <YIcon iname="exclamation-triangle" />
       {{ $tc('items_verbose_count', 0, { items: $tc('items.backups', 0) }) }}
     </BAlert>
 
@@ -25,7 +25,7 @@
             {{ path }}
           </p>
         </div>
-        <Icon iname="chevron-right" class="lg fs-sm ml-auto" />
+        <YIcon iname="chevron-right" class="lg fs-sm ml-auto" />
       </BListGroupItem>
     </BListGroup>
   </ViewBase>

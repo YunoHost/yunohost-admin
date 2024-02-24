@@ -1,16 +1,16 @@
 <template>
   <ViewBase :queries="queries" @queries-response="onQueriesResponse">
     <!-- BACKUP INFO -->
-    <Card :title="$t('infos')" icon="info-circle" button-unbreak="sm">
+    <YCard :title="$t('infos')" icon="info-circle" button-unbreak="sm">
       <template #header-buttons>
         <!-- DOWNLOAD ARCHIVE -->
         <BButton @click="downloadBackup" size="sm" variant="success">
-          <Icon iname="download" /> {{ $t('download') }}
+          <YIcon iname="download" /> {{ $t('download') }}
         </BButton>
 
         <!-- DELETE ARCHIVE -->
         <BButton @click="deleteBackup" size="sm" variant="danger">
-          <Icon iname="trash-o" /> {{ $t('delete') }}
+          <YIcon iname="trash-o" /> {{ $t('delete') }}
         </BButton>
       </template>
 
@@ -27,11 +27,11 @@
           <span v-else>{{ value }}</span>
         </BCol>
       </BRow>
-    </Card>
+    </YCard>
 
     <!-- BACKUP CONTENT -->
     <!-- FIXME switch to <CardForm> ? -->
-    <Card
+    <YCard
       :title="$t('backup_content')" icon="archive"
       no-body button-unbreak="sm"
     >
@@ -96,7 +96,7 @@
       </BFormCheckboxGroup>
 
       <div v-else class="alert alert-warning mb-0">
-        <Icon iname="exclamation-triangle" /> {{ $t('archive_empty') }}
+        <YIcon iname="exclamation-triangle" /> {{ $t('archive_empty') }}
       </div>
 
       <!-- SUBMIT -->
@@ -106,7 +106,7 @@
           v-t="'restore'" :disabled="selected.length === 0"
         />
       </template>
-    </Card>
+    </YCard>
 
     <template #skeleton>
       <CardInfoSkeleton :item-count="4" />

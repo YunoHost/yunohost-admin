@@ -6,7 +6,7 @@
     <template v-if="!hasCustomTopBar" #top-bar-group-left>
       <BInputGroup class="w-100">
         <BInputGroupPrepend is-text>
-          <Icon iname="search" />
+          <YIcon iname="search" />
         </BInputGroupPrepend>
 
         <BFormInput
@@ -28,7 +28,7 @@
     <template #default>
       <BAlert v-if="items === null || filteredItems === null" variant="warning">
         <slot name="alert-message">
-          <Icon iname="exclamation-triangle" />
+          <YIcon iname="exclamation-triangle" />
           {{ $tc(items === null ? 'items_verbose_count': 'search.not_found', 0, { items: $tc('items.' + itemsName, 0) }) }}
         </slot>
       </BAlert>

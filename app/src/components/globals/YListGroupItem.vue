@@ -4,7 +4,7 @@
     v-bind="$attrs"
   >
     <div v-if="!noStatus" class="yuno-list-group-item-status">
-      <Icon
+      <YIcon
         v-if="_icon" :iname="_icon"
         :class="['icon-' + variant]"
       />
@@ -20,7 +20,7 @@
 import { DEFAULT_STATUS_ICON } from '@/helpers/yunohostArguments'
 
 export default {
-  name: 'YunoListGroupItem',
+  name: 'YListGroupItem',
 
   props: {
     variant: { type: String, default: 'white' },

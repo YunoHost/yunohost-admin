@@ -4,7 +4,7 @@
     ref="view" skeleton="CardInfoSkeleton"
   >
     <!-- INFO CARD -->
-    <Card :title="description" icon="info-circle">
+    <YCard :title="description" icon="info-circle">
       <BRow
         v-for="(value, prop) in info" :key="prop"
         no-gutters class="row-line"
@@ -18,7 +18,7 @@
 
           <div v-else-if="prop === 'suboperations'">
             <div v-for="operation in value" :key="operation.name">
-              <Icon v-if="operation.success !== true" iname="times" class="text-danger" />
+              <YIcon v-if="operation.success !== true" iname="times" class="text-danger" />
               <BLink :to="{ name: 'tool-log', params: { name: operation.name } }">
                 {{ operation.description }}
               </BLink>
@@ -28,17 +28,17 @@
           <span v-else>{{ value }}</span>
         </BCol>
       </BRow>
-    </Card>
+    </YCard>
 
     <div v-if="info.error" class="alert alert-danger my-5">
-      <Icon iname="exclamation-circle" /> <span v-html="$t('operation_failed_explanation')" />
+      <YIcon iname="exclamation-circle" /> <span v-html="$t('operation_failed_explanation')" />
     </div>
 
     <!-- LOGS CARD -->
-    <Card :title="$t('logs')" icon="file-text" no-body>
+    <YCard :title="$t('logs')" icon="file-text" no-body>
       <template #header-buttons>
         <BButton @click="shareLogs" variant="success">
-          <Icon iname="cloud-upload" /> {{ $t('logs_share_with_yunopaste') }}
+          <YIcon iname="cloud-upload" /> {{ $t('logs_share_with_yunopaste') }}
         </BButton>
       </template>
 
@@ -47,14 +47,14 @@
         variant="white" class="w-100 rounded-0"
         @click="$refs.view.fetchQueries()"
       >
-        <Icon iname="plus" /> {{ $t('logs_more') }}
+        <YIcon iname="plus" /> {{ $t('logs_more') }}
       </BButton>
 
       <pre class="log unselectable"><code v-html="logs" /></pre>
       <BButton @click="shareLogs" variant="success" class="w-100 rounded-0">
-        <Icon iname="cloud-upload" /> {{ $t('logs_share_with_yunopaste') }}
+        <YIcon iname="cloud-upload" /> {{ $t('logs_share_with_yunopaste') }}
       </BButton>
-    </Card>
+    </YCard>
 
 
     <p class="w-100 px-5 py-2 mb-0" v-html="$t('text_selection_is_disabled')" />

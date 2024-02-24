@@ -4,7 +4,7 @@
     <BCardTitle class="text-center my-4" v-t="'api.reconnecting.title'" />
 
     <template v-if="status === 'reconnecting'">
-      <Spinner class="mb-4" />
+      <YSpinner class="mb-4" />
 
       <BAlert
         v-if="origin"
@@ -38,7 +38,7 @@
 import { mapGetters } from 'vuex'
 
 import api from '@/api'
-import LoginView from '@/views/Login.vue'
+import LoginView from '@/views/LoginView.vue'
 
 
 export default {

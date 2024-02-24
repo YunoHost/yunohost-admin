@@ -3,7 +3,7 @@
     :queries="queries" @queries-response="onQueriesResponse" :loading="loading"
     ref="view"
   >
-    <YunoAlert v-if="app && app.doc && app.doc.notifications && app.doc.notifications.postInstall.length" variant="info" class="my-4">
+    <YAlert v-if="app && app.doc && app.doc.notifications && app.doc.notifications.postInstall.length" variant="info" class="my-4">
       <div class="d-md-flex align-items-center mb-3">
         <h2 v-t="'app.doc.notifications.post_install'" class="md-m-0" />
         <BButton
@@ -12,7 +12,7 @@
           class="ml-auto mr-2"
           @click="dismissNotification('post_install')"
         >
-          <Icon iname="check" />
+          <YIcon iname="check" />
           {{ $t('app.doc.notifications.understood') }}
         </BButton>
       </div>
@@ -21,9 +21,9 @@
         v-for="[name, notif] in app.doc.notifications.postInstall" :key="name"
         :markdown="notif" flavor="github" :options="{ headerLevelStart: 4 }"
       />
-    </YunoAlert>
+    </YAlert>
 
-    <YunoAlert v-if="app && app.doc && app.doc.notifications && app.doc.notifications.postUpgrade.length" variant="info" class="my-4">
+    <YAlert v-if="app && app.doc && app.doc.notifications && app.doc.notifications.postUpgrade.length" variant="info" class="my-4">
       <div class="d-md-flex align-items-center mb-3">
         <h2 v-t="'app.doc.notifications.post_upgrade'" class="md-m-0" />
         <BButton
@@ -32,7 +32,7 @@
           class="ml-auto mr-2"
           @click="dismissNotification('post_upgrade')"
         >
-          <Icon iname="check" />
+          <YIcon iname="check" />
           {{ $t('app.doc.notifications.understood') }}
         </BButton>
       </div>
@@ -41,12 +41,12 @@
         v-for="[name, notif] in app.doc.notifications.postUpgrade" :key="name"
         :markdown="notif" flavor="github" :options="{ headerLevelStart: 4 }"
       />
-    </YunoAlert>
+    </YAlert>
 
     <section v-if="app" class="border rounded p-3 mb-4">
       <div class="d-md-flex align-items-center mb-4">
         <h1 class="mb-3 mb-md-0">
-          <Icon iname="cube" />
+          <YIcon iname="cube" />
           {{ app.label }}
 
           <span class="text-secondary tiny">
@@ -59,7 +59,7 @@
           :href="app.url" target="_blank"
           variant="success" class="ml-auto mr-2"
         >
-          <Icon iname="external-link" />
+          <YIcon iname="external-link" />
           {{ $t('app.open_this_app') }}
         </BButton>
 
@@ -69,7 +69,7 @@
           variant="danger"
           :class="{ 'ml-auto': !app.url }"
         >
-          <Icon iname="trash-o" />
+          <YIcon iname="trash-o" />
           {{ $t('uninstall') }}
         </BButton>
       </div>
@@ -83,7 +83,7 @@
       </p>
 
       <p>
-        <Icon iname="comments" /> {{ $t('app.info.problem') }}
+        <YIcon iname="comments" /> {{ $t('app.info.problem') }}
         <a :href="`https://forum.yunohost.org/tag/${id}`" target="_blank">
           {{ $t('app.info.forum') }}
         </a>
@@ -92,14 +92,14 @@
       <VueShowdown :markdown="app.description" flavor="github" />
     </section>
 
-    <YunoAlert
+    <YAlert
       v-if="config_panel_err"
       class="mb-4" variant="danger" icon="bug"
     >
       <p>{{ $t('app.info.config_panel_error') }}</p>
       <p>{{ config_panel_err }}</p>
       <p>{{ $t('app.info.config_panel_error_please_report') }}</p>
-    </YunoAlert>
+    </YAlert>
 
     <!-- BASIC INFOS -->
     <ConfigPanels v-bind="config" @submit="onConfigSubmit">
@@ -151,7 +151,7 @@
             size="sm" :to="{ name: 'group-list'}" variant="info"
             class="ml-2"
           >
-            <Icon iname="key-modern" /> {{ $t('groups_and_permissions_manage') }}
+            <YIcon iname="key-modern" /> {{ $t('groups_and_permissions_manage') }}
           </BButton>
         </BFormGroup>
         <hr>
@@ -183,7 +183,7 @@
           </BInputGroup>
 
           <div v-else class="alert alert-warning">
-            <Icon iname="exclamation" /> {{ $t('app_info_change_url_disabled_tooltip') }}
+            <YIcon iname="exclamation" /> {{ $t('app_info_change_url_disabled_tooltip') }}
           </div>
         </BFormGroup>
         <hr v-if="app.is_webapp">
@@ -196,13 +196,13 @@
         >
           <template v-if="!app.is_default">
             <BButton @click="setAsDefaultDomain(false)" id="main-domain" variant="success">
-              <Icon iname="star" /> {{ $t('app_make_default') }}
+              <YIcon iname="star" /> {{ $t('app_make_default') }}
             </BButton>
           </template>
 
           <template v-else>
             <BButton @click="setAsDefaultDomain(true)" id="main-domain" variant="warning">
-              <Icon iname="star" /> {{ $t('app_make_not_default') }}
+              <YIcon iname="star" /> {{ $t('app_make_not_default') }}
             </BButton>
           </template>
         </BFormGroup>
@@ -215,7 +215,7 @@
           v-for="[name, content] in app.doc.admin" :key="name"
         >
           <template #title>
-            <Icon iname="book" class="mr-2" />
+            <YIcon iname="book" class="mr-2" />
             {{ name === "admin" ? $t('app.doc.admin.title') : name }}
           </template>
           <VueShowdown :markdown="content" flavor="github" />
@@ -223,44 +223,44 @@
       </BTabs>
     </BCard>
 
-    <Card
+    <YCard
       v-if="app && app.integration"
       id="app-integration" :title="$t('app.integration.title')"
       collapsable collapsed no-body
     >
       <BListGroup flush>
-        <YunoListGroupItem variant="info">
+        <YListGroupItem variant="info">
           {{ $t('app.integration.archs') }} {{ app.integration.archs }}
-        </YunoListGroupItem>
-        <YunoListGroupItem v-if="app.integration.ldap" :variant="app.integration.ldap === true ? 'success' : 'warning'">
+        </YListGroupItem>
+        <YListGroupItem v-if="app.integration.ldap" :variant="app.integration.ldap === true ? 'success' : 'warning'">
           {{ $t(`app.integration.ldap.${app.integration.ldap}`) }}
-        </YunoListGroupItem>
-        <YunoListGroupItem v-if="app.integration.sso" :variant="app.integration.sso === true ? 'success' : 'warning'">
+        </YListGroupItem>
+        <YListGroupItem v-if="app.integration.sso" :variant="app.integration.sso === true ? 'success' : 'warning'">
           {{ $t(`app.integration.sso.${app.integration.sso}`) }}
-        </YunoListGroupItem>
-        <YunoListGroupItem variant="info">
+        </YListGroupItem>
+        <YListGroupItem variant="info">
           {{ $t(`app.integration.multi_instance.${app.integration.multi_instance}`) }}
-        </YunoListGroupItem>
-        <YunoListGroupItem variant="info">
+        </YListGroupItem>
+        <YListGroupItem variant="info">
           {{ $t('app.integration.resources', app.integration.resources) }}
-        </YunoListGroupItem>
+        </YListGroupItem>
       </BListGroup>
-    </Card>
+    </YCard>
 
-    <Card
+    <YCard
       v-if="app"
       id="app-links" icon="link" :title="$t('app.links.title')"
       collapsable collapsed no-body
     >
       <BListGroup flush>
-        <YunoListGroupItem v-for="[key, link] in app.links" :key="key" no-status>
+        <YListGroupItem v-for="[key, link] in app.links" :key="key" no-status>
           <BLink :href="link" target="_blank">
-            <Icon :iname="appLinksIcons(key)" class="mr-1" />
+            <YIcon :iname="appLinksIcons(key)" class="mr-1" />
             {{ $t('app.links.' + key) }}
           </BLink>
-        </YunoListGroupItem>
+        </YListGroupItem>
       </BListGroup>
-    </Card>
+    </YCard>
 
     <BModal
       v-if="app"

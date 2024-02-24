@@ -8,7 +8,7 @@
       <slot v-if="hasRightSlot" name="group-right" />
 
       <BButton v-else variant="success" :to="button.to">
-        <Icon v-if="button.icon" :iname="button.icon" /> {{ button.text }}
+        <YIcon v-if="button.icon" :iname="button.icon" /> {{ button.text }}
       </BButton>
     </div>
   </BButtonToolbar>

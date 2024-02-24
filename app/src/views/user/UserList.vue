@@ -8,7 +8,7 @@
   >
     <template #top-bar-buttons>
       <BButton variant="info" :to="{ name: 'group-list' }">
-        <Icon iname="key-modern" /> {{ $t('groups_and_permissions_manage') }}
+        <YIcon iname="key-modern" /> {{ $t('groups_and_permissions_manage') }}
       </BButton>
 
       <BDropdown
@@ -17,13 +17,13 @@
         split-variant="success"
       >
         <template #button-content>
-          <Icon iname="plus" /> {{ $t('users_new') }}
+          <YIcon iname="plus" /> {{ $t('users_new') }}
         </template>
         <BDropdownItem :to="{ name: 'user-import' }">
-          <Icon iname="plus" /> {{ $t('users_import') }}
+          <YIcon iname="plus" /> {{ $t('users_import') }}
         </BDropdownItem>
         <BDropdownItem @click="downloadExport">
-          <Icon iname="download" /> {{ $t('users_export') }}
+          <YIcon iname="download" /> {{ $t('users_export') }}
         </BDropdownItem>
       </BDropdown>
     </template>
@@ -43,7 +43,7 @@
             {{ user.mail }}
           </p>
         </div>
-        <Icon iname="chevron-right" class="lg fs-sm ml-auto" />
+        <YIcon iname="chevron-right" class="lg fs-sm ml-auto" />
       </BListGroupItem>
     </BListGroup>
   </ViewSearch>

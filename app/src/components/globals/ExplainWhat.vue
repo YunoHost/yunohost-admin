@@ -6,7 +6,7 @@
         :id="id" href="#"
         variant="light"
       >
-        <Icon iname="question" />
+        <YIcon iname="question" />
         <span class="sr-only">{{ $t('details_about', { subject: title }) }}</span>
       </BButton>
       <BPopover

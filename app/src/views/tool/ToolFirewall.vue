@@ -4,7 +4,7 @@
     ref="view" skeleton="CardFormSkeleton"
   >
     <!-- PORTS -->
-    <Card :title="$t('ports')" icon="shield">
+    <YCard :title="$t('ports')" icon="shield">
       <div v-for="(items, protocol) in protocols" :key="protocol">
         <h5>{{ $t(protocol) }}</h5>
 
@@ -31,7 +31,7 @@
               </span>
             </BFormCheckbox>
 
-            <Icon
+            <YIcon
               v-else
               :iname="data.value ? 'check' : 'times'"
               :class="data.value ? 'text-success' : 'text-danger'"
@@ -39,7 +39,7 @@
           </template>
         </BTable>
       </div>
-    </Card>
+    </YCard>
 
     <!-- OPERATIONS -->
     <CardForm
@@ -71,7 +71,7 @@
     </CardForm>
 
     <!-- UPnP -->
-    <Card :title="$t('upnp')" icon="exchange" :body-text-variant="upnpEnabled ? 'success' : 'danger'">
+    <YCard :title="$t('upnp')" icon="exchange" :body-text-variant="upnpEnabled ? 'success' : 'danger'">
       {{ $t(upnpEnabled ? 'upnp_enabled' : 'upnp_disabled' ) }}
 
       <BFormInvalidFeedback :state="upnpError !== '' ? false : null">
@@ -83,7 +83,7 @@
           {{ $t(!upnpEnabled ? 'enable' : 'disable' ) }}
         </BButton>
       </template>
-    </Card>
+    </YCard>
   </ViewBase>
 </template>
 

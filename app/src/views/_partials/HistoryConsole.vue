@@ -11,7 +11,7 @@
       @keyup.space.enter.prevent="onHistoryBarKey"
     >
       <h5 class="m-0">
-        <Icon iname="history" /> <span class="d-none d-sm-inline font-weight-bold">{{ $t('history.title') }}</span>
+        <YIcon iname="history" /> <span class="d-none d-sm-inline font-weight-bold">{{ $t('history.title') }}</span>
       </h5>
 
       <!-- CURRENT/LAST ACTION -->

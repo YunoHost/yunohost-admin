@@ -8,7 +8,7 @@
     @queries-response="onQueriesResponse"
     skeleton="CardListSkeleton"
   >
-    <Card :title="$t('logs_operation')" icon="wrench" no-body>
+    <YCard :title="$t('logs_operation')" icon="wrench" no-body>
       <BListGroup flush>
         <BListGroupItem
           v-for="log in filteredOperations" :key="log.name"
@@ -16,11 +16,11 @@
           :title="log.started_at | readableDate"
         >
           <small class="mr-3">{{ log.started_at | distanceToNow }} </small>
-          <Icon :iname="log.icon" :class="'text-' + log.class" />
+          <YIcon :iname="log.icon" :class="'text-' + log.class" />
           {{ log.description }}
         </BListGroupItem>
       </BListGroup>
-    </Card>
+    </YCard>
   </ViewSearch>
 </template>
 

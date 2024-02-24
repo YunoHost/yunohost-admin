@@ -27,7 +27,7 @@
               class="records px-2" :class="{ 'ignored': managed_by_yunohost === false && force !== true }"
               :title="managed_by_yunohost === false && force !== true ? $t('domain.dns.auto_config_ignored') : null"
             >
-              <Icon :iname="icon" :class="'text-' + variant" />
+              <YIcon :iname="icon" :class="'text-' + variant" />
               {{ record }}
               <span class="bg-dark text-light px-1 rounded">{{ type }}</span>{{ spaces }}
               <span v-if="old_content"><span class="text-danger">{{ old_content }}</span> --> </span>

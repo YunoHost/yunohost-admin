@@ -10,12 +10,12 @@
   >
     <template #top-bar-buttons>
       <BButton variant="success" :to="{ name: 'group-create' }">
-        <Icon iname="plus" /> {{ $t('group_new') }}
+        <YIcon iname="plus" /> {{ $t('group_new') }}
       </BButton>
     </template>
 
     <!-- PRIMARY GROUPS CARDS -->
-    <Card
+    <YCard
       v-for="(group, groupName) in filteredGroups" :key="groupName" collapsable
       :title="group.isSpecial ? $t('group_' + groupName) : `${$t('group')} '${groupName}'`" icon="group"
     >
@@ -25,7 +25,7 @@
           v-if="!group.isSpecial" @click="deleteGroup(groupName)"
           size="sm" variant="danger"
         >
-          <Icon iname="trash-o" /> {{ $t('delete') }}
+          <YIcon iname="trash-o" /> {{ $t('delete') }}
         </BButton>
       </template>
 
@@ -37,7 +37,7 @@
         <BCol>
           <template v-if="group.isSpecial">
             <p class="text-primary">
-              <Icon iname="info-circle" /> {{ $t('group_explain_' + groupName) }}
+              <YIcon iname="info-circle" /> {{ $t('group_explain_' + groupName) }}
             </p>
             <p class="text-primary" v-if="groupName === 'visitors'">
               <em>{{ $t('group_explain_visitors_needed_for_external_client') }}</em>
@@ -69,10 +69,10 @@
           />
         </BCol>
       </BRow>
-    </Card>
+    </YCard>
 
     <!-- USER GROUPS CARD -->
-    <Card
+    <YCard
       v-if="userGroups" collapsable
       :title="$t('group_specific_permissions')" icon="group"
     >
@@ -100,7 +100,7 @@
         no-tags items-name="users"
         @tag-update="onSpecificUserAdded"
       />
-    </Card>
+    </YCard>
   </ViewSearch>
 </template>
 
