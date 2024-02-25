@@ -604,7 +604,7 @@
             "notifs": {
                 "post": {
                     "title": "Post-Installations-Benachrichtigungen für „{name}“",
-                    "alert": "Die Aktualisierung scheint gut gelaufen zu sein!\nHier ein paar Informationen, die der/die Paketierer betreffend dieser Aktualisierung als wichtig erachtet hat. \nSie können sie auch auf der Informationsseite dieser App nochmal nachlesen."
+                    "alert": "Die Aktualisierung scheint gut gelaufen zu sein!\nHier sind ein einige Informationen, die der Paketierer als wichtig zu wissen erachtet hat. \nSie können sie auch auf der Informationsseite dieser App noch einmal nachlesen."
                 },
                 "pre": {
                     "warning": "Wichtige Informationen vor der Installation",
