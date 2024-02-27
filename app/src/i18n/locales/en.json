@@ -128,7 +128,7 @@
             "admindoc": "Official Admin documentation",
             "code": "Official code repository",
             "forum": "Topics about this app on YunoHost's forum",
-            "license": "License",
+            "license": "App license",
             "package": "YunoHost package repository",
             "title": "Links",
             "userdoc": "Official User documentation",
