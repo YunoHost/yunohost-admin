@@ -176,7 +176,7 @@ export default {
       this.upnpEnabled = data.uPnP.enabled
     },
 
-    async togglePort ({ action, port, protocol, connection }) {
+    async togglePort ({ action, port, protocol, connection, only }) {
       const confirmed = await this.$askConfirmation(
         this.$i18n.t('confirm_firewall_' + action, { port, protocol, connection })
       )
@@ -186,11 +186,12 @@ export default {
 
       const actionTrad = this.$i18n.t({ allow: 'open', disallow: 'close' }[action])
       return api.put(
-        `firewall/${protocol}/${action}/${port}?${connection}_only`,
+        (only ? `firewall/${protocol}/${action}/${port}?${connection}_only` : `firewall/${protocol}/${action}/${port}`),
         {},
         { key: 'firewall.ports', protocol, action: actionTrad, port, connection },
         { wait: false }
-      ).then(() => confirmed)
+      ).then(() => 
+        this.$refs.view.fetchQueries())
     },
 
     async toggleUpnp (value) {
@@ -213,8 +214,14 @@ export default {
 
     onTablePortToggling (port, protocol, connection, index, value) {
       this.$set(this.protocols[protocol][index], connection, value)
+
+      const bothConnectionClosed = this.protocols[protocol].some(row => row.port === port && !row[(connection === 'ipv4' ? 'ipv6' : 'ipv4')])
+
       const action = value ? 'allow' : 'disallow'
-      this.togglePort({ action, port, protocol, connection }).then(toggled => {
+
+      const only = (action === 'disallow' && bothConnectionClosed) ? false : true
+
+      this.togglePort({ action, port, protocol, connection, only }).then(toggled => {
         // Revert change on cancel
         if (!toggled) {
           this.$set(this.protocols[protocol][index], connection, !value)
