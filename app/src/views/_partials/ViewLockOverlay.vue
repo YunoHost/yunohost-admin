@@ -2,7 +2,7 @@
   <b-overlay
     variant="white" opacity="0.75"
     no-center
-    :show="waiting || reconnecting || error !== null"
+    :show="(currentRequest && waiting) || reconnecting || error !== null"
   >
     <slot name="default" />
 
@@ -42,11 +42,12 @@ export default {
 
       if (error) {
         return { name: 'ErrorDisplay', request: error }
-      } else if (request.showWarningMessage) {
-        return { name: 'WarningDisplay', request }
       } else if (reconnecting) {
         return { name: 'ReconnectingDisplay' }
-      } else {
+      } else if (request) {
+        if (request.showWarningMessage) {
+          return { name: 'WarningDisplay', request }
+        }
         return { name: 'WaitingDisplay', request }
       }
     }

@@ -5,7 +5,7 @@
 
     <!-- REQUEST DESCRIPTION -->
     <strong class="request-desc">
-      {{ request.humanRoute }}
+      {{ request.humanRoute || request.operationId }}
     </strong>
 
     <div v-if="request.errors || request.warnings">

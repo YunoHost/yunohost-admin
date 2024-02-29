@@ -17,6 +17,7 @@
     "api": {
         "partial_logs": "[...] (check in history for full logs)",
         "processing": "The server is processing the action...",
+        "external_action": "This action has been ran from another tab or from the cli",
         "query_status": {
             "error": "Unsuccessful",
             "pending": "In progress",

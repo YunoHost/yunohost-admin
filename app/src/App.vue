@@ -81,7 +81,6 @@
 
 <script>
 import { mapGetters } from 'vuex'
-
 import { HistoryConsole, ViewLockOverlay } from '@/views/_partials'
 
 export default {
@@ -118,6 +117,7 @@ export default {
     // state will be automaticly reseted and user will be prompt with the login view.
     if (this.connected) {
       this.$store.dispatch('GET_YUNOHOST_INFOS')
+      this.$store.dispatch('SSE_CONNECT')
     }
   },
 
