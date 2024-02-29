@@ -326,7 +326,7 @@
     "select_none": "Elexir ningún",
     "select_all": "Elexir todo",
     "search": {
-        "not_found": "Non hai elementos que cumpran o criterio. | Hai 1 {items} que cumpre o teu criterio. | Hai {items} que cumpren o teu criterio.",
+        "not_found": "Hai {items} que cumpren o criterio. | Hai 1 {items} que cumpre o teu criterio. | Hai {items} que cumpren o teu criterio.",
         "for": "Buscar {items}..."
     },
     "save": "Gardar",
@@ -666,7 +666,7 @@
             "title": "Ligazóns",
             "userdoc": "Documentación oficial para usuarias",
             "website": "Sitio Web Oficial",
-            "license": "Licenza"
+            "license": "Licenza da app"
         },
         "potential_alternative_to": "Alternativa potencial para:",
         "upgrade": {
