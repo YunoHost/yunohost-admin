@@ -326,7 +326,7 @@
     "select_none": "Elexir ningún",
     "select_all": "Elexir todo",
     "search": {
-        "not_found": "Non hai elementos que cumpran o criterio. | Hai 1 {items} que cumpre o teu criterio. | Hai {items} que cumpren o teu criterio.",
+        "not_found": "Hai {items} que cumpren o criterio. | Hai 1 {items} que cumpre o teu criterio. | Hai {items} que cumpren o teu criterio.",
         "for": "Buscar {items}..."
     },
     "save": "Gardar",
