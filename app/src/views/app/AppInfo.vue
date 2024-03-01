@@ -255,7 +255,7 @@
       <b-list-group flush>
         <yuno-list-group-item v-for="[key, link] in app.links" :key="key" no-status>
           <b-link :href="link" target="_blank">
-            <icon :iname="appLinksIcons(key)" />
+            <icon :iname="appLinksIcons(key)" class="mr-1" />
             {{ $t('app.links.' + key) }}
           </b-link>
         </yuno-list-group-item>
@@ -369,6 +369,7 @@ export default {
           userdoc: 'book',
           code: 'code',
           package: 'code',
+          package_license: 'institution',
           forum: 'comments'
         }
         return linksIcons[linkType]
@@ -423,6 +424,7 @@ export default {
           ['license', `https://spdx.org/licenses/${app.manifest.upstream.license}`],
           ...['website', 'admindoc', 'userdoc', 'code'].map((key) => ([key, app.manifest.upstream[key]])),
           ['package', app.from_catalog.git?.url],
+          ['package_license', app.from_catalog.git?.url + '/blob/master/LICENSE'],
           ['forum', `https://forum.yunohost.org/tag/${app.manifest.id}`]
         ].filter(([key, val]) => !!val),
         doc: {

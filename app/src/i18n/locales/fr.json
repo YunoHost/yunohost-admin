@@ -593,6 +593,7 @@
             "admindoc": "Documentation officielle de l'administrateur",
             "forum": "Sujets concernant cette application sur le forum de YunoHost",
             "package": "Dépôt du paquet YunoHost",
+            "package_license": "Licence du paquet YunoHost",
             "title": "Liens",
             "userdoc": "Documentation officielle de l'utilisateur",
             "website": "Site officiel",
