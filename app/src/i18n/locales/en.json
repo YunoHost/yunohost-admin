@@ -130,6 +130,7 @@
             "forum": "Topics about this app on YunoHost's forum",
             "license": "App license",
             "package": "YunoHost package repository",
+            "package_license": "YunoHost package license",
             "title": "Links",
             "userdoc": "Official User documentation",
             "website": "Official Website"
