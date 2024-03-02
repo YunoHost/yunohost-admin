@@ -29,7 +29,7 @@
     <template v-if="status === 'success'">
       <b-alert variant="success" v-t="'api.reconnecting.success'" />
 
-      <login-view skip-install-check force-reload />
+      <login-view force-reload />
     </template>
   </b-card-body>
 </template>
