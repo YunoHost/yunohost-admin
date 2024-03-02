@@ -2,8 +2,8 @@
   <div id="app" class="container">
     <!-- HEADER -->
     <header>
-      <b-navbar>
-        <b-navbar-brand
+      <BNavbar>
+        <BNavbarBrand
           :to="{ name: 'home' }" :disabled="waiting"
           exact exact-active-class="active"
         >
@@ -13,67 +13,67 @@
           <span v-else>
             <img alt="YunoHost logo" src="./assets/logo_dark.png" width="40">
           </span>
-        </b-navbar-brand>
+        </BNavbarBrand>
 
-        <b-navbar-nav class="ml-auto">
+        <BNavbarNav class="ml-auto">
           <li class="nav-item">
-            <b-button
+            <BButton
               :href="ssoLink"
               variant="primary" size="sm" block
             >
-              {{ $t('user_interface_link') }} <icon iname="user" />
-            </b-button>
+              {{ $t('user_interface_link') }} <YIcon iname="user" />
+            </BButton>
           </li>
 
           <li class="nav-item" v-show="connected">
-            <b-button
+            <BButton
               @click.prevent="logout"
               variant="outline-dark" block size="sm"
             >
-              {{ $t('logout') }} <icon iname="sign-out" />
-            </b-button>
+              {{ $t('logout') }} <YIcon iname="sign-out" />
+            </BButton>
           </li>
-        </b-navbar-nav>
-      </b-navbar>
+        </BNavbarNav>
+      </BNavbar>
     </header>
 
     <!-- MAIN -->
-    <view-lock-overlay>
-      <breadcrumb />
+    <ViewLockOverlay>
+      <YBreadcrumb />
 
       <main id="main">
-        <!-- The `key` on router-view make sure that if a link points to a page that
+        <!-- The `key` on RouterView make sure that if a link points to a page that
         use the same component as the previous one, it will be refreshed -->
-        <transition v-if="transitions" :name="transitionName">
-          <router-view class="animated" :key="routerKey" />
-        </transition>
-        <router-view v-else class="static" :key="routerKey" />
+        <Transition v-if="transitions" :name="transitionName">
+          <RouterView class="animated" :key="routerKey" />
+        </Transition>
+        <RouterView v-else class="static" :key="routerKey" />
       </main>
-    </view-lock-overlay>
+    </ViewLockOverlay>
 
     <!-- HISTORY CONSOLE -->
-    <history-console />
+    <HistoryConsole />
 
     <!-- FOOTER -->
     <footer class="py-3 mt-auto">
       <nav>
-        <b-nav class="justify-content-center">
-          <b-nav-item href="https://yunohost.org/docs" target="_blank" link-classes="text-secondary">
-            <icon iname="book" /> {{ $t('footer.documentation') }}
-          </b-nav-item>
-          <b-nav-item href="https://yunohost.org/help" target="_blank" link-classes="text-secondary">
-            <icon iname="life-ring" /> {{ $t('footer.help') }}
-          </b-nav-item>
-          <b-nav-item href="https://donate.yunohost.org/" target="_blank" link-classes="text-secondary">
-            <icon iname="heart" /> {{ $t('footer.donate') }}
-          </b-nav-item>
+        <BNav class="justify-content-center">
+          <BNavItem href="https://yunohost.org/docs" target="_blank" link-classes="text-secondary">
+            <YIcon iname="book" /> {{ $t('footer.documentation') }}
+          </BNavItem>
+          <BNavItem href="https://yunohost.org/help" target="_blank" link-classes="text-secondary">
+            <YIcon iname="life-ring" /> {{ $t('footer.help') }}
+          </BNavItem>
+          <BNavItem href="https://donate.yunohost.org/" target="_blank" link-classes="text-secondary">
+            <YIcon iname="heart" /> {{ $t('footer.donate') }}
+          </BNavItem>
 
-          <b-nav-text
+          <BNavText
             v-if="yunohost" id="yunohost-version" class="ml-md-auto text-center"
           >
             <span v-html="$t('footer_version', yunohost)" />
-          </b-nav-text>
-        </b-nav>
+          </BNavText>
+        </BNav>
       </nav>
     </footer>
   </div>
@@ -209,7 +209,7 @@ main {
     top: 0;
     transform: translate(-100vw, 0);
   }
-  // hack to hide last transition provoqued by the <router-view> element change
+  // hack to hide last transition provoqued by the <RouterView> element change
   // while disabling the transitions in ToolWebAdmin
   .static ~ .animated {
     display: none;

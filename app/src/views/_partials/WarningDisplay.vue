@@ -1,16 +1,16 @@
 <template>
   <!-- This card receives style from `ViewLockOverlay` if used inside it -->
   <div>
-    <b-card-body body-class="alert alert-warning">
+    <BCardBody body-class="alert alert-warning">
       <div v-html="warning.text" />
-    </b-card-body>
+    </BCardBody>
 
-    <b-card-footer footer-bg-variant="warning">
-      <b-button
+    <BCardFooter footer-bg-variant="warning">
+      <BButton
         variant="light" size="sm"
         v-t="'ok'" @click="dismiss"
       />
-    </b-card-footer>
+    </BCardFooter>
   </div>
 </template>
 

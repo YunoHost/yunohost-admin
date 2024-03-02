@@ -1,33 +1,33 @@
 <template>
-  <card v-bind="$attrs" class="card-form">
+  <YCard v-bind="$attrs" class="card-form">
     <template #default>
       <slot name="disclaimer" />
 
-      <b-form
+      <BForm
         :id="id" :inline="inline" :class="formClasses"
         @submit.prevent="onSubmit" novalidate
       >
         <slot name="default" />
 
         <slot name="server-error">
-          <b-alert
+          <BAlert
             variant="danger" class="my-3" icon="ban"
             :show="errorFeedback !== ''"
           >
             <div v-html="errorFeedback" />
-          </b-alert>
+          </BAlert>
         </slot>
-      </b-form>
+      </BForm>
     </template>
 
     <template v-if="!noFooter" #buttons>
       <slot name="buttons">
-        <b-button type="submit" variant="success" :form="id">
+        <BButton type="submit" variant="success" :form="id">
           {{ submitText ? submitText : $t('save') }}
-        </b-button>
+        </BButton>
       </slot>
     </template>
-  </card>
+  </YCard>
 </template>
 
 <script>

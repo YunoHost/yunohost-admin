@@ -1,14 +1,14 @@
 <template>
-  <b-button-group class="w-100">
-    <b-button
+  <BButtonGroup class="w-100">
+    <BButton
       v-if="!this.required && this.value.file !== null"
       @click="clearFiles" variant="danger"
     >
       <span class="sr-only">{{ $t('delete') }}</span>
-      <icon iname="trash" />
-    </b-button>
+      <YIcon iname="trash" />
+    </BButton>
 
-    <b-form-file
+    <BFormFile
       :value="value.file"
       ref="input-file"
       :id="id"
@@ -22,7 +22,7 @@
       @blur="$parent.$emit('touch', name)"
       @focusout.native="$parent.$emit('touch', name)"
     />
-  </b-button-group>
+  </BButtonGroup>
 </template>
 
 <script>

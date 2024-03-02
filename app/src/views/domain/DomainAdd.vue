@@ -1,10 +1,10 @@
 <template>
-  <view-base :queries="queries" skeleton="card-form-skeleton">
-    <domain-form
+  <ViewBase :queries="queries" skeleton="CardFormSkeleton">
+    <DomainForm
       :title="$t('domain_add')" :server-error="serverError"
       @submit="onSubmit" :submit-text="$t('add')"
     />
-  </view-base>
+  </ViewBase>
 </template>
 
 <script>

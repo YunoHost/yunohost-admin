@@ -1,5 +1,5 @@
 <template>
-  <view-search
+  <ViewSearch
     :search.sync="search"
     items-name="installed_apps"
     :items="apps"
@@ -8,14 +8,14 @@
     @queries-response="onQueriesResponse"
   >
     <template #top-bar-buttons>
-      <b-button variant="success" :to="{ name: 'app-catalog' }">
-        <icon iname="plus" />
+      <BButton variant="success" :to="{ name: 'app-catalog' }">
+        <YIcon iname="plus" />
         {{ $t('install') }}
-      </b-button>
+      </BButton>
     </template>
 
-    <b-list-group>
-      <b-list-group-item
+    <BListGroup>
+      <BListGroupItem
         v-for="{ id, description, label } in filteredApps" :key="id"
         :to="{ name: 'app-info', params: { id }}"
         class="d-flex justify-content-between align-items-center pr-0"
@@ -30,10 +30,10 @@
           </p>
         </div>
 
-        <icon iname="chevron-right" class="lg fs-sm ml-auto" />
-      </b-list-group-item>
-    </b-list-group>
-  </view-search>
+        <YIcon iname="chevron-right" class="lg fs-sm ml-auto" />
+      </BListGroupItem>
+    </BListGroup>
+  </ViewSearch>
 </template>
 
 <script>

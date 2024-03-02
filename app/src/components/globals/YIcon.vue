@@ -4,7 +4,7 @@
 
 <script>
 export default {
-  name: 'Icon',
+  name: 'YIcon',
   props: {
     iname: { type: String, required: true },
     variant: { type: String, default: null }

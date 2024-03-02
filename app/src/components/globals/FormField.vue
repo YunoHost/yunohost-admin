@@ -1,6 +1,6 @@
 <template>
   <!-- v-bind="$attrs" allow to pass default attrs not specified in this component slots -->
-  <b-form-group
+  <BFormGroup
     v-bind="attrs"
     :id="_id"
     :label-for="$attrs['label-for'] || props.id"
@@ -10,7 +10,7 @@
     <!-- Make field props and state available as scoped slot data -->
     <slot v-bind="{ self: { ...props, state }, touch }">
       <!-- if no component was passed as slot, render a component from the props -->
-      <component
+      <Component
         :is="component"
         v-bind="props"
         v-on="$listeners"
@@ -28,15 +28,15 @@
       <!-- Render description -->
       <template v-if="description || link">
         <div class="d-flex">
-          <b-link
+          <BLink
             v-if="link"
             :to="link" :href="link.href" class="ml-auto"
           >
             {{ link.text }}
-          </b-link>
+          </BLink>
         </div>
 
-        <vue-showdown
+        <VueShowdown
           v-if="description"
           :markdown="description" flavor="github"
           :class="{ ['alert p-1 px-2 alert-' + descriptionVariant]: descriptionVariant }"
@@ -45,7 +45,7 @@
       <!-- Slot available to overwrite the one above -->
       <slot name="description" />
     </template>
-  </b-form-group>
+  </BFormGroup>
 </template>
 
 <script>

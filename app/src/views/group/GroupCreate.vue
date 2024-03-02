@@ -1,12 +1,12 @@
 <template>
-  <card-form
+  <CardForm
     :title="$t('group_new')" icon="users"
     :validation="$v" :server-error="serverError"
     @submit.prevent="onSubmit"
   >
     <!-- GROUP NAME -->
-    <form-field v-bind="groupname" v-model="form.groupname" :validation="$v.form.groupname" />
-  </card-form>
+    <FormField v-bind="groupname" v-model="form.groupname" :validation="$v.form.groupname" />
+  </CardForm>
 </template>
 
 <script>

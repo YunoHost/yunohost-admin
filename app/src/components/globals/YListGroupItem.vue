@@ -1,10 +1,10 @@
 <template>
-  <b-list-group-item
+  <BListGroupItem
     class="yuno-list-group-item" :class="_class"
     v-bind="$attrs"
   >
     <div v-if="!noStatus" class="yuno-list-group-item-status">
-      <icon
+      <YIcon
         v-if="_icon" :iname="_icon"
         :class="['icon-' + variant]"
       />
@@ -13,14 +13,14 @@
     <div class="yuno-list-group-item-content">
       <slot name="default" />
     </div>
-  </b-list-group-item>
+  </BListGroupItem>
 </template>
 
 <script>
 import { DEFAULT_STATUS_ICON } from '@/helpers/yunohostArguments'
 
 export default {
-  name: 'YunoListGroupItem',
+  name: 'YListGroupItem',
 
   props: {
     variant: { type: String, default: 'white' },

@@ -1,52 +1,52 @@
 <template>
-  <view-base
+  <ViewBase
     :queries="queries" @queries-response="onQueriesResponse" :loading="loading"
     ref="view"
   >
-    <yuno-alert v-if="app && app.doc && app.doc.notifications && app.doc.notifications.postInstall.length" variant="info" class="my-4">
+    <YAlert v-if="app && app.doc && app.doc.notifications && app.doc.notifications.postInstall.length" variant="info" class="my-4">
       <div class="d-md-flex align-items-center mb-3">
         <h2 v-t="'app.doc.notifications.post_install'" class="md-m-0" />
-        <b-button
+        <BButton
           variant="primary"
           size="sm"
           class="ml-auto mr-2"
           @click="dismissNotification('post_install')"
         >
-          <icon iname="check" />
+          <YIcon iname="check" />
           {{ $t('app.doc.notifications.understood') }}
-        </b-button>
+        </BButton>
       </div>
 
-      <vue-showdown
+      <VueShowdown
         v-for="[name, notif] in app.doc.notifications.postInstall" :key="name"
         :markdown="notif" flavor="github" :options="{ headerLevelStart: 4 }"
       />
-    </yuno-alert>
+    </YAlert>
 
-    <yuno-alert v-if="app && app.doc && app.doc.notifications && app.doc.notifications.postUpgrade.length" variant="info" class="my-4">
+    <YAlert v-if="app && app.doc && app.doc.notifications && app.doc.notifications.postUpgrade.length" variant="info" class="my-4">
       <div class="d-md-flex align-items-center mb-3">
         <h2 v-t="'app.doc.notifications.post_upgrade'" class="md-m-0" />
-        <b-button
+        <BButton
           variant="primary"
           size="sm"
           class="ml-auto mr-2"
           @click="dismissNotification('post_upgrade')"
         >
-          <icon iname="check" />
+          <YIcon iname="check" />
           {{ $t('app.doc.notifications.understood') }}
-        </b-button>
+        </BButton>
       </div>
 
-      <vue-showdown
+      <VueShowdown
         v-for="[name, notif] in app.doc.notifications.postUpgrade" :key="name"
         :markdown="notif" flavor="github" :options="{ headerLevelStart: 4 }"
       />
-    </yuno-alert>
+    </YAlert>
 
     <section v-if="app" class="border rounded p-3 mb-4">
       <div class="d-md-flex align-items-center mb-4">
         <h1 class="mb-3 mb-md-0">
-          <icon iname="cube" />
+          <YIcon iname="cube" />
           {{ app.label }}
 
           <span class="text-secondary tiny">
@@ -54,24 +54,24 @@
           </span>
         </h1>
 
-        <b-button
+        <BButton
           v-if="app.url"
           :href="app.url" target="_blank"
           variant="success" class="ml-auto mr-2"
         >
-          <icon iname="external-link" />
+          <YIcon iname="external-link" />
           {{ $t('app.open_this_app') }}
-        </b-button>
+        </BButton>
 
-        <b-button
+        <BButton
           v-b-modal.uninstall-modal
           id="uninstall"
           variant="danger"
           :class="{ 'ml-auto': !app.url }"
         >
-          <icon iname="trash-o" />
+          <YIcon iname="trash-o" />
           {{ $t('uninstall') }}
-        </b-button>
+        </BButton>
       </div>
 
       <p class="text-secondary">
@@ -83,203 +83,203 @@
       </p>
 
       <p>
-        <icon iname="comments" /> {{ $t('app.info.problem') }}
+        <YIcon iname="comments" /> {{ $t('app.info.problem') }}
         <a :href="`https://forum.yunohost.org/tag/${id}`" target="_blank">
           {{ $t('app.info.forum') }}
         </a>
       </p>
 
-      <vue-showdown :markdown="app.description" flavor="github" />
+      <VueShowdown :markdown="app.description" flavor="github" />
     </section>
 
-    <yuno-alert
+    <YAlert
       v-if="config_panel_err"
       class="mb-4" variant="danger" icon="bug"
     >
       <p>{{ $t('app.info.config_panel_error') }}</p>
       <p>{{ config_panel_err }}</p>
       <p>{{ $t('app.info.config_panel_error_please_report') }}</p>
-    </yuno-alert>
+    </YAlert>
 
     <!-- BASIC INFOS -->
-    <config-panels v-bind="config" @submit="onConfigSubmit">
+    <ConfigPanels v-bind="config" @submit="onConfigSubmit">
       <!-- OPERATIONS TAB -->
       <template v-if="currentTab === 'operations'" #tab-top>
         <!-- CHANGE PERMISSIONS LABEL -->
-        <b-form-group :label="$t('app_manage_label_and_tiles')" label-class="font-weight-bold">
-          <form-field
+        <BFormGroup :label="$t('app_manage_label_and_tiles')" label-class="font-weight-bold">
+          <FormField
             v-for="(perm, i) in app.permissions" :key="i"
             :label="perm.title" :label-for="'perm-' + i"
             label-cols="0" label-class="" class="m-0"
             :validation="$v.form.labels.$each[i] "
           >
             <template #default="{ self }">
-              <b-input-group>
-                <input-item
+              <BInputGroup>
+                <InputItem
                   :state="self.state" v-model="form.labels[i].label"
                   :id="'perm' + i" :aria-describedby="'perm-' + i + '_group__BV_description_'"
                 />
-                <b-input-group-append v-if="perm.tileAvailable" is-text>
-                  <checkbox-item v-model="form.labels[i].show_tile" :label="$t('permission_show_tile_enabled')" />
-                </b-input-group-append>
-                <b-input-group-append>
-                  <b-button
+                <BInputGroupAppend v-if="perm.tileAvailable" is-text>
+                  <CheckboxItem v-model="form.labels[i].show_tile" :label="$t('permission_show_tile_enabled')" />
+                </BInputGroupAppend>
+                <BInputGroupAppend>
+                  <BButton
                     variant="info" v-t="'save'"
                     @click="changeLabel(perm.name, form.labels[i])"
                   />
-                </b-input-group-append>
-              </b-input-group>
+                </BInputGroupAppend>
+              </BInputGroup>
             </template>
 
             <template v-if="perm.url" #description>
               {{ $t('permission_corresponding_url') }}:
-              <b-link :href="'https://' + perm.url">
+              <BLink :href="'https://' + perm.url">
                 https://{{ perm.url }}
-              </b-link>
+              </BLink>
             </template>
-          </form-field>
-        </b-form-group>
+          </FormField>
+        </BFormGroup>
         <hr>
 
         <!-- PERMISSIONS -->
-        <b-form-group
+        <BFormGroup
           :label="$t('app_info_access_desc')" label-for="permissions"
           label-class="font-weight-bold" label-cols-lg="0"
         >
           {{ allowedGroups.length > 0 ? allowedGroups.join(', ') : $t('nobody') }}
-          <b-button
+          <BButton
             size="sm" :to="{ name: 'group-list'}" variant="info"
             class="ml-2"
           >
-            <icon iname="key-modern" /> {{ $t('groups_and_permissions_manage') }}
-          </b-button>
-        </b-form-group>
+            <YIcon iname="key-modern" /> {{ $t('groups_and_permissions_manage') }}
+          </BButton>
+        </BFormGroup>
         <hr>
 
         <!-- CHANGE URL -->
-        <b-form-group
+        <BFormGroup
           :label="$t('app_info_changeurl_desc')" label-for="input-url"
           :label-cols-lg="app.supports_change_url ? 0 : 0" label-class="font-weight-bold"
           v-if="app.is_webapp"
         >
-          <b-input-group v-if="app.supports_change_url">
-            <b-input-group-prepend is-text>
+          <BInputGroup v-if="app.supports_change_url">
+            <BInputGroupPrepend is-text>
               https://
-            </b-input-group-prepend>
+            </BInputGroupPrepend>
 
-            <b-input-group-prepend class="flex-grow-1">
-              <b-select v-model="form.url.domain" :options="domains" />
-            </b-input-group-prepend>
+            <BInputGroupPrepend class="flex-grow-1">
+              <BFormSelect v-model="form.url.domain" :options="domains" />
+            </BInputGroupPrepend>
 
-            <b-input-group-prepend is-text>
+            <BInputGroupPrepend is-text>
               /
-            </b-input-group-prepend>
+            </BInputGroupPrepend>
 
-            <b-input id="input-url" v-model="form.url.path" class="flex-grow-3" />
+            <BFormInput id="input-url" v-model="form.url.path" class="flex-grow-3" />
 
-            <b-input-group-append>
-              <b-button @click="changeUrl" variant="info" v-t="'save'" />
-            </b-input-group-append>
-          </b-input-group>
+            <BInputGroupAppend>
+              <BButton @click="changeUrl" variant="info" v-t="'save'" />
+            </BInputGroupAppend>
+          </BInputGroup>
 
           <div v-else class="alert alert-warning">
-            <icon iname="exclamation" /> {{ $t('app_info_change_url_disabled_tooltip') }}
+            <YIcon iname="exclamation" /> {{ $t('app_info_change_url_disabled_tooltip') }}
           </div>
-        </b-form-group>
+        </BFormGroup>
         <hr v-if="app.is_webapp">
 
         <!-- MAKE DEFAULT -->
-        <b-form-group
+        <BFormGroup
           :label="$t('app_info_default_desc', { domain: app.domain })" label-for="main-domain"
           label-class="font-weight-bold" label-cols-md="4"
           v-if="app.is_webapp"
         >
           <template v-if="!app.is_default">
-            <b-button @click="setAsDefaultDomain(false)" id="main-domain" variant="success">
-              <icon iname="star" /> {{ $t('app_make_default') }}
-            </b-button>
+            <BButton @click="setAsDefaultDomain(false)" id="main-domain" variant="success">
+              <YIcon iname="star" /> {{ $t('app_make_default') }}
+            </BButton>
           </template>
 
           <template v-else>
-            <b-button @click="setAsDefaultDomain(true)" id="main-domain" variant="warning">
-              <icon iname="star" /> {{ $t('app_make_not_default') }}
-            </b-button>
+            <BButton @click="setAsDefaultDomain(true)" id="main-domain" variant="warning">
+              <YIcon iname="star" /> {{ $t('app_make_not_default') }}
+            </BButton>
           </template>
-        </b-form-group>
+        </BFormGroup>
       </template>
-    </config-panels>
+    </ConfigPanels>
 
-    <b-card v-if="app && app.doc.admin.length" no-body>
-      <b-tabs card fill pills>
-        <b-tab
+    <BCard v-if="app && app.doc.admin.length" no-body>
+      <BTabs card fill pills>
+        <BTab
           v-for="[name, content] in app.doc.admin" :key="name"
         >
           <template #title>
-            <icon iname="book" class="mr-2" />
+            <YIcon iname="book" class="mr-2" />
             {{ name === "admin" ? $t('app.doc.admin.title') : name }}
           </template>
-          <vue-showdown :markdown="content" flavor="github" />
-        </b-tab>
-      </b-tabs>
-    </b-card>
+          <VueShowdown :markdown="content" flavor="github" />
+        </BTab>
+      </BTabs>
+    </BCard>
 
-    <card
+    <YCard
       v-if="app && app.integration"
       id="app-integration" :title="$t('app.integration.title')"
       collapsable collapsed no-body
     >
-      <b-list-group flush>
-        <yuno-list-group-item variant="info">
+      <BListGroup flush>
+        <YListGroupItem variant="info">
           {{ $t('app.integration.archs') }} {{ app.integration.archs }}
-        </yuno-list-group-item>
-        <yuno-list-group-item v-if="app.integration.ldap" :variant="app.integration.ldap === true ? 'success' : 'warning'">
+        </YListGroupItem>
+        <YListGroupItem v-if="app.integration.ldap" :variant="app.integration.ldap === true ? 'success' : 'warning'">
           {{ $t(`app.integration.ldap.${app.integration.ldap}`) }}
-        </yuno-list-group-item>
-        <yuno-list-group-item v-if="app.integration.sso" :variant="app.integration.sso === true ? 'success' : 'warning'">
+        </YListGroupItem>
+        <YListGroupItem v-if="app.integration.sso" :variant="app.integration.sso === true ? 'success' : 'warning'">
           {{ $t(`app.integration.sso.${app.integration.sso}`) }}
-        </yuno-list-group-item>
-        <yuno-list-group-item variant="info">
+        </YListGroupItem>
+        <YListGroupItem variant="info">
           {{ $t(`app.integration.multi_instance.${app.integration.multi_instance}`) }}
-        </yuno-list-group-item>
-        <yuno-list-group-item variant="info">
+        </YListGroupItem>
+        <YListGroupItem variant="info">
           {{ $t('app.integration.resources', app.integration.resources) }}
-        </yuno-list-group-item>
-      </b-list-group>
-    </card>
+        </YListGroupItem>
+      </BListGroup>
+    </YCard>
 
-    <card
+    <YCard
       v-if="app"
       id="app-links" icon="link" :title="$t('app.links.title')"
       collapsable collapsed no-body
     >
-      <b-list-group flush>
-        <yuno-list-group-item v-for="[key, link] in app.links" :key="key" no-status>
-          <b-link :href="link" target="_blank">
-            <icon :iname="appLinksIcons(key)" class="mr-1" />
+      <BListGroup flush>
+        <YListGroupItem v-for="[key, link] in app.links" :key="key" no-status>
+          <BLink :href="link" target="_blank">
+            <YIcon :iname="appLinksIcons(key)" class="mr-1" />
             {{ $t('app.links.' + key) }}
-          </b-link>
-        </yuno-list-group-item>
-      </b-list-group>
-    </card>
+          </BLink>
+        </YListGroupItem>
+      </BListGroup>
+    </YCard>
 
-    <b-modal
+    <BModal
       v-if="app"
       id="uninstall-modal" :title="$t('confirm_uninstall', { name: id })"
       header-bg-variant="warning" :body-class="{ 'd-none': !app.supports_purge }" body-bg-variant=""
       @ok="uninstall"
     >
-      <b-form-group v-if="app.supports_purge">
-        <b-form-checkbox v-model="purge">
+      <BFormGroup v-if="app.supports_purge">
+        <BFormCheckbox v-model="purge">
           {{ $t('app.uninstall.purge_desc', { name: id }) }}
-        </b-form-checkbox>
-      </b-form-group>
-    </b-modal>
+        </BFormCheckbox>
+      </BFormGroup>
+    </BModal>
 
     <template #skeleton>
-      <card-info-skeleton :item-count="8" />
-      <card-form-skeleton />
+      <CardInfoSkeleton :item-count="8" />
+      <CardFormSkeleton />
     </template>
-  </view-base>
+  </ViewBase>
 </template>
 
 <script>
@@ -287,7 +287,6 @@ import { mapGetters } from 'vuex'
 import { validationMixin } from 'vuelidate'
 
 import api, { objectToParams } from '@/api'
-import { readableDate } from '@/helpers/filters/date'
 import { humanPermissionName } from '@/helpers/filters/human'
 import { required } from '@/helpers/validators'
 import { isEmptyValue } from '@/helpers/commons'
@@ -542,7 +541,6 @@ export default {
     }
   },
 
-  filters: { readableDate },
   mixins: [validationMixin]
 }
 </script>

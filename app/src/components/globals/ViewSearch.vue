@@ -1,21 +1,21 @@
 <template>
-  <view-base v-bind="$attrs" v-on="$listeners" :skeleton="skeleton">
+  <ViewBase v-bind="$attrs" v-on="$listeners" :skeleton="skeleton">
     <template v-if="hasCustomTopBar" #top-bar>
       <slot name="top-bar" />
     </template>
     <template v-if="!hasCustomTopBar" #top-bar-group-left>
-      <b-input-group class="w-100">
-        <b-input-group-prepend is-text>
-          <icon iname="search" />
-        </b-input-group-prepend>
+      <BInputGroup class="w-100">
+        <BInputGroupPrepend is-text>
+          <YIcon iname="search" />
+        </BInputGroupPrepend>
 
-        <b-form-input
+        <BFormInput
           id="top-bar-search"
           :value="search" @input="$emit('update:search', $event)"
           :placeholder="$t('search.for', { items: $tc('items.' + itemsName, 2) })"
           :disabled="!items"
         />
-      </b-input-group>
+      </BInputGroup>
     </template>
     <template v-if="!hasCustomTopBar" #top-bar-group-right>
       <slot name="top-bar-buttons" />
@@ -26,12 +26,12 @@
     </template>
 
     <template #default>
-      <b-alert v-if="items === null || filteredItems === null" variant="warning">
+      <BAlert v-if="items === null || filteredItems === null" variant="warning">
         <slot name="alert-message">
-          <icon iname="exclamation-triangle" />
+          <YIcon iname="exclamation-triangle" />
           {{ $tc(items === null ? 'items_verbose_count': 'search.not_found', 0, { items: $tc('items.' + itemsName, 0) }) }}
         </slot>
-      </b-alert>
+      </BAlert>
 
       <slot v-else name="default" />
     </template>
@@ -43,7 +43,7 @@
     <template #skeleton>
       <slot name="skeleton" />
     </template>
-  </view-base>
+  </ViewBase>
 </template>
 
 <script>
@@ -55,7 +55,7 @@ export default {
     itemsName: { type: String, required: true },
     filteredItems: { type: null, required: true },
     search: { type: String, default: null },
-    skeleton: { type: String, default: 'list-group-skeleton' }
+    skeleton: { type: String, default: 'ListGroupSkeleton' }
   },
 
   computed: {

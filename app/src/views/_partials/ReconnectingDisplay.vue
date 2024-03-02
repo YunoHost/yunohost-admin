@@ -1,12 +1,12 @@
 <template>
   <!-- This card receives style from `ViewLockOverlay` if used inside it -->
-  <b-card-body>
-    <b-card-title class="text-center my-4" v-t="'api.reconnecting.title'" />
+  <BCardBody>
+    <BCardTitle class="text-center my-4" v-t="'api.reconnecting.title'" />
 
     <template v-if="status === 'reconnecting'">
-      <spinner class="mb-4" />
+      <YSpinner class="mb-4" />
 
-      <b-alert
+      <BAlert
         v-if="origin"
         v-t="'api.reconnecting.reason.' + origin"
         :variant="origin === 'unknow' ? 'warning' : 'info'"
@@ -14,12 +14,12 @@
     </template>
 
     <template v-if="status === 'failed'">
-      <b-alert variant="danger">
-        <markdown-item :label="$t('api.reconnecting.failed')" />
-      </b-alert>
+      <BAlert variant="danger">
+        <MarkdownItem :label="$t('api.reconnecting.failed')" />
+      </BAlert>
 
       <div class="d-flex justify-content-end">
-        <b-button
+        <BButton
           variant="success" v-t="'retry'" class="ml-auto"
           @click="tryToReconnect()"
         />
@@ -27,18 +27,18 @@
     </template>
 
     <template v-if="status === 'success'">
-      <b-alert variant="success" v-t="'api.reconnecting.success'" />
+      <BAlert variant="success" v-t="'api.reconnecting.success'" />
 
-      <login-view force-reload />
+      <LoginView force-reload />
     </template>
-  </b-card-body>
+  </BCardBody>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
 
 import api from '@/api'
-import LoginView from '@/views/Login.vue'
+import LoginView from '@/views/LoginView.vue'
 
 
 export default {

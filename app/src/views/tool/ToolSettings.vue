@@ -1,10 +1,10 @@
 <template>
-  <view-base
+  <ViewBase
     :queries="queries" @queries-response="onQueriesResponse"
-    ref="view" skeleton="card-form-skeleton"
+    ref="view" skeleton="CardFormSkeleton"
   >
-    <config-panels v-if="config.panels" v-bind="config" @submit="onConfigSubmit" />
-  </view-base>
+    <ConfigPanels v-if="config.panels" v-bind="config" @submit="onConfigSubmit" />
+  </ViewBase>
 </template>
 
 <script>

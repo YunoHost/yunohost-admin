@@ -1,14 +1,14 @@
 <template>
-  <b-button
+  <BButton
     :id="id"
     :variant="type"
     @click="$emit('action', $event)"
     :disabled="!enabled"
     class="d-block mb-3"
   >
-    <icon :iname="icon_" class="mr-2" />
+    <YIcon :iname="icon_" class="mr-2" />
     <span v-html="label" />
-  </b-button>
+  </BButton>
 </template>
 
 <script>

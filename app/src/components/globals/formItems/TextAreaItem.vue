@@ -1,5 +1,5 @@
 <template>
-  <b-form-textarea
+  <BFormTextarea
     :value="value"
     :id="id"
     :placeholder="placeholder"

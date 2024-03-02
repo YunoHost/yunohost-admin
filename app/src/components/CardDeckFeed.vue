@@ -63,7 +63,7 @@ export default {
 
   render (h) {
     return h(
-      'b-card-group',
+      'BCardGroup',
       {
         attrs: { role: 'feed', 'aria-busy': this.busy.toString() },
         props: { deck: true },

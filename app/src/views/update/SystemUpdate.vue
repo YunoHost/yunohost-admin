@@ -1,45 +1,45 @@
 <template>
-  <view-base
+  <ViewBase
     :queries="queries" queries-wait @queries-response="onQueriesResponse"
-    skeleton="card-list-skeleton"
+    skeleton="CardListSkeleton"
   >
     <!-- MIGRATIONS WARN -->
-    <yuno-alert v-if="pendingMigrations" variant="warning" alert>
+    <YAlert v-if="pendingMigrations" variant="warning" alert>
       <span v-html="$t('pending_migrations')" />
-    </yuno-alert>
+    </YAlert>
 
     <!-- MAJOR YUNOHOST UPGRADE WARN -->
-    <yuno-alert v-if="importantYunohostUpgrade" variant="warning" alert>
+    <YAlert v-if="importantYunohostUpgrade" variant="warning" alert>
       <span v-html="$t('important_yunohost_upgrade')" />
-    </yuno-alert>
+    </YAlert>
 
     <!-- SYSTEM UPGRADE -->
-    <card :title="$t('system')" icon="server" no-body>
-      <b-list-group v-if="system" flush>
-        <b-list-group-item v-for="{ name, current_version, new_version } in system" :key="name">
+    <YCard :title="$t('system')" icon="server" no-body>
+      <BListGroup v-if="system" flush>
+        <BListGroupItem v-for="{ name, current_version, new_version } in system" :key="name">
           <h5 class="m-0">
             {{ name }}
             <small class="text-secondary">({{ $t('from_to', [current_version, new_version]) }})</small>
           </h5>
-        </b-list-group-item>
-      </b-list-group>
+        </BListGroupItem>
+      </BListGroup>
 
-      <b-card-body v-else-if="system === null">
-        <span class="text-success"><icon iname="check-circle" /> {{ $t('system_packages_nothing') }}</span>
-      </b-card-body>
+      <BCardBody v-else-if="system === null">
+        <span class="text-success"><YIcon iname="check-circle" /> {{ $t('system_packages_nothing') }}</span>
+      </BCardBody>
 
       <template #buttons v-if="system">
-        <b-button
+        <BButton
           variant="success" v-t="'system_upgrade_all_packages_btn'"
           @click="performSystemUpgrade()"
         />
       </template>
-    </card>
+    </YCard>
 
     <!-- APPS UPGRADE -->
-    <card :title="$t('applications')" icon="cubes" no-body>
-      <b-list-group v-if="apps" flush>
-        <b-list-group-item
+    <YCard :title="$t('applications')" icon="cubes" no-body>
+      <BListGroup v-if="apps" flush>
+        <BListGroupItem
           v-for="{ name, id, current_version, new_version } in apps" :key="id"
           class="d-flex justify-content-between align-items-center"
         >
@@ -48,26 +48,26 @@
             <small>({{ id }}) {{ $t('from_to', [current_version, new_version]) }}</small>
           </h5>
 
-          <b-button
+          <BButton
             variant="success" size="sm" v-t="'system_upgrade_btn'"
             @click="confirmAppsUpgrade(id)"
           />
-        </b-list-group-item>
-      </b-list-group>
+        </BListGroupItem>
+      </BListGroup>
 
-      <b-card-body v-else-if="apps === null">
-        <span class="text-success"><icon iname="check-circle" /> {{ $t('system_apps_nothing') }}</span>
-      </b-card-body>
+      <BCardBody v-else-if="apps === null">
+        <span class="text-success"><YIcon iname="check-circle" /> {{ $t('system_apps_nothing') }}</span>
+      </BCardBody>
 
       <template #buttons v-if="apps">
-        <b-button
+        <BButton
           variant="success" v-t="'system_upgrade_all_applications_btn'"
           @click="confirmAppsUpgrade()"
         />
       </template>
-    </card>
+    </YCard>
 
-    <b-modal
+    <BModal
       id="apps-pre-upgrade"
       :title="$t('app.upgrade.confirm.title')"
       header-bg-variant="warning"
@@ -90,24 +90,24 @@
           {{ $t('app.upgrade.notifs.pre.title') }}
         </h3>
 
-        <yuno-alert variant="warning">
+        <YAlert variant="warning">
           {{ $t('app.upgrade.notifs.pre.alert' ) }}
-        </yuno-alert>
+        </YAlert>
 
         <div class="card-collapse-wrapper">
-          <card-collapse
+          <CardCollapse
             v-for="{ id, name, notif } in preUpgrade.apps" :key="`${id}-notifs`"
             :title="name" :id="`${id}-notifs`"
             visible flush
           >
-            <b-card-body>
-              <vue-showdown :markdown="notif" flavor="github" :options="{ headerLevelStart: 6 }" />
-            </b-card-body>
-          </card-collapse>
+            <BCardBody>
+              <VueShowdown :markdown="notif" flavor="github" :options="{ headerLevelStart: 6 }" />
+            </BCardBody>
+          </CardCollapse>
         </div>
       </div>
-    </b-modal>
-  </view-base>
+    </BModal>
+  </ViewBase>
 </template>
 
 <script>

@@ -1,17 +1,17 @@
 <template>
-  <b-row no-gutters class="description-row">
-    <b-col v-bind="cols_">
+  <BRow no-gutters class="description-row">
+    <BCol v-bind="cols_">
       <slot name="term">
         <strong>{{ term }}</strong>
       </slot>
-    </b-col>
+    </BCol>
 
-    <b-col>
+    <BCol>
       <slot name="default">
         {{ details }}
       </slot>
-    </b-col>
-  </b-row>
+    </BCol>
+  </BRow>
 </template>
 
 <script>

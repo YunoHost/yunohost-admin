@@ -1,5 +1,5 @@
 <template>
-  <b-select
+  <BFormSelect
     :value="value"
     :id="id"
     :options="choices"

@@ -1,5 +1,5 @@
 <template>
-  <view-search
+  <ViewSearch
     id="service-list"
     :search.sync="search"
     :items="services"
@@ -8,8 +8,8 @@
     :queries="queries"
     @queries-response="onQueriesResponse"
   >
-    <b-list-group>
-      <b-list-group-item
+    <BListGroup>
+      <BListGroupItem
         v-for="{ name, description, status, last_state_change } in filteredServices" :key="name"
         :to="{ name: 'service-info', params: { name }}"
         class="d-flex justify-content-between align-items-center pr-0"
@@ -21,17 +21,17 @@
           </h5>
           <p class="m-0">
             <span :class="status === 'running' ? 'text-success' : 'text-danger'">
-              <icon :iname="status === 'running' ? 'check-circle' : 'times'" />
+              <YIcon :iname="status === 'running' ? 'check-circle' : 'times'" />
               {{ $t(status) }}
             </span>
-            {{ $t('since') }} {{ last_state_change | distanceToNow }}
+            {{ $t('since') }} {{ distanceToNow(last_state_change) }}
           </p>
         </div>
 
-        <icon iname="chevron-right" class="lg fs-sm ml-auto" />
-      </b-list-group-item>
-    </b-list-group>
-  </view-search>
+        <YIcon iname="chevron-right" class="lg fs-sm ml-auto" />
+      </BListGroupItem>
+    </BListGroup>
+  </ViewSearch>
 </template>
 
 <script>
@@ -70,10 +70,10 @@ export default {
         }
         return { ...service, name }
       })
-    }
-  },
+    },
 
-  filters: { distanceToNow }
+    distanceToNow
+  }
 }
 </script>
 

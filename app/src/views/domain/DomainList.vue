@@ -1,5 +1,5 @@
 <template>
-  <view-search
+  <ViewSearch
     id="domain-list"
     :search.sync="search"
     :items="domains"
@@ -9,33 +9,33 @@
     @queries-response="onQueriesResponse"
   >
     <template #top-bar-buttons>
-      <b-button variant="success" :to="{ name: 'domain-add' }">
-        <icon iname="plus" />
+      <BButton variant="success" :to="{ name: 'domain-add' }">
+        <YIcon iname="plus" />
         {{ $t('domain_add') }}
-      </b-button>
+      </BButton>
     </template>
 
-    <recursive-list-group :tree="tree" :toggle-text="$t('domain.toggle_subdomains')" class="mb-5">
+    <RecursiveListGroup :tree="tree" :toggle-text="$t('domain.toggle_subdomains')" class="mb-5">
       <template #default="{ data, parent }">
         <div class="w-100 d-flex justify-content-between align-items-center">
           <h5 class="mr-3">
-            <b-link :to="data.to" class="text-body text-decoration-none">
+            <BLink :to="data.to" class="text-body text-decoration-none">
               <span class="font-weight-bold">{{ data.name.replace(parent ? parent.data.name : null, '') }}</span>
               <span v-if="parent" class="text-secondary">{{ parent.data.name }}</span>
-            </b-link>
+            </BLink>
 
             <small
               v-if="data.name === mainDomain"
               :title="$t('domain.types.main_domain')" class="ml-1"
               v-b-tooltip.hover
             >
-              <icon iname="star" />
+              <YIcon iname="star" />
             </small>
           </h5>
         </div>
       </template>
-    </recursive-list-group>
-  </view-search>
+    </RecursiveListGroup>
+  </ViewSearch>
 </template>
 
 <script>

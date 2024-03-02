@@ -1,18 +1,18 @@
 <template>
-  <card-form
+  <CardForm
     :title="$t('users_import')" icon="user-plus"
     :validation="$v" :server-error="serverError"
     @submit.prevent="onSubmit"
   >
     <!-- CSV FILE -->
-    <form-field v-bind="fields.csvfile" v-model="form.csvfile" :validation="$v.form.csvfile" />
+    <FormField v-bind="fields.csvfile" v-model="form.csvfile" :validation="$v.form.csvfile" />
 
     <!-- UPDATE -->
-    <form-field v-bind="fields.update" v-model="form.update" />
+    <FormField v-bind="fields.update" v-model="form.update" />
 
     <!-- DELETE -->
-    <form-field v-bind="fields.delete" v-model="form.delete" />
-  </card-form>
+    <FormField v-bind="fields.delete" v-model="form.delete" />
+  </CardForm>
 </template>
 
 <script>

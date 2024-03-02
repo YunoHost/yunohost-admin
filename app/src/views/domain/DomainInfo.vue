@@ -1,102 +1,102 @@
 <template>
-  <view-base
+  <ViewBase
     :queries="queries" @queries-response="onQueriesResponse"
-    ref="view" skeleton="card-list-skeleton"
+    ref="view" skeleton="CardListSkeleton"
   >
     <!-- INFO CARD -->
-    <card v-if="domain" :title="name" icon="globe">
+    <YCard v-if="domain" :title="name" icon="globe">
       <template v-if="isMainDomain" #header-next>
-        <b-badge variant="info" class="main-domain-badge">
-          <explain-what
+        <BBadge variant="info" class="main-domain-badge">
+          <ExplainWhat
             id="explain-main-domain"
             :title="$t('domain.types.main_domain')"
             :content="$t('domain.explain.main_domain', { domain: name })"
           >
-            <icon iname="star" /> {{ $t('domain.types.main_domain') }}
-          </explain-what>
-        </b-badge>
+            <YIcon iname="star" /> {{ $t('domain.types.main_domain') }}
+          </ExplainWhat>
+        </BBadge>
       </template>
 
       <template #header-buttons>
         <!-- DEFAULT DOMAIN -->
-        <b-button v-if="!isMainDomain" @click="setAsDefaultDomain" variant="info">
-          <icon iname="star" /> {{ $t('set_default') }}
-        </b-button>
+        <BButton v-if="!isMainDomain" @click="setAsDefaultDomain" variant="info">
+          <YIcon iname="star" /> {{ $t('set_default') }}
+        </BButton>
 
         <!-- DELETE DOMAIN -->
-        <b-button v-b-modal.delete-modal :disabled="isMainDomain" variant="danger">
-          <icon iname="trash-o" /> {{ $t('delete') }}
-        </b-button>
+        <BButton v-b-modal.delete-modal :disabled="isMainDomain" variant="danger">
+          <YIcon iname="trash-o" /> {{ $t('delete') }}
+        </BButton>
       </template>
 
       <!-- DOMAIN LINK -->
-      <description-row :term="$t('words.link')">
-        <b-link :href="'https://' + name" target="_blank">
+      <DescriptionRow :term="$t('words.link')">
+        <BLink :href="'https://' + name" target="_blank">
           https://{{ name }}
-        </b-link>
-      </description-row>
+        </BLink>
+      </DescriptionRow>
 
       <!-- DOMAIN CERT AUTHORITY -->
-      <description-row :term="$t('domain.info.certificate_authority')">
-        <icon :iname="cert.icon" :variant="cert.variant" class="mr-1" />
+      <DescriptionRow :term="$t('domain.info.certificate_authority')">
+        <YIcon :iname="cert.icon" :variant="cert.variant" class="mr-1" />
         {{ $t('domain.cert.types.' + cert.authority) }}
         <span class="text-secondary px-2">({{ $t('domain.cert.valid_for', { days: $tc('day_validity', cert.validity) }) }})</span>
-      </description-row>
+      </DescriptionRow>
 
       <!-- DOMAIN REGISTRAR -->
-      <description-row v-if="domain.registrar" :term="$t('domain.info.registrar')">
+      <DescriptionRow v-if="domain.registrar" :term="$t('domain.info.registrar')">
         <template v-if="domain.registrar === 'parent_domain'">
-          {{ $t('domain.see_parent_domain') }}&nbsp;<b-link :href="`#/domains/${domain.topest_parent}/dns`">
+          {{ $t('domain.see_parent_domain') }}&nbsp;<BLink :href="`#/domains/${domain.topest_parent}/dns`">
             {{ domain.topest_parent }}
-          </b-link>
+          </BLink>
         </template>
         <template v-else>
           {{ domain.registrar }}
         </template>
-      </description-row>
+      </DescriptionRow>
 
       <!-- DOMAIN APPS -->
-      <description-row :term="$t('domain.info.apps_on_domain')">
+      <DescriptionRow :term="$t('domain.info.apps_on_domain')">
         <div>
-          <b-button-group
+          <BButton-group
             v-for="app in domain.apps" :key="app.id"
             size="sm" class="mr-2 mb-2"
           >
-            <b-button class="py-0 font-weight-bold" variant="outline-dark" :to="{ name: 'app-info', params: { id: app.id }}">
+            <BButton class="py-0 font-weight-bold" variant="outline-dark" :to="{ name: 'app-info', params: { id: app.id }}">
               {{ app.name }}
-            </b-button>
-            <b-button
+            </BButton>
+            <BButton
               variant="outline-dark" class="py-0 px-1"
               :href="'https://' + name + app.path" target="_blank"
             >
               <span class="sr-only">{{ $t('app.visit_app') }}</span>
-              <icon iname="external-link" />
-            </b-button>
-          </b-button-group>
+              <YIcon iname="external-link" />
+            </BButton>
+          </BButton-group>
 
           {{ domain.apps.length ? '' : $t('words.none') }}
         </div>
-      </description-row>
-    </card>
+      </DescriptionRow>
+    </YCard>
 
-    <config-panels v-if="config.panels" v-bind="config" @submit="onConfigSubmit">
+    <ConfigPanels v-if="config.panels" v-bind="config" @submit="onConfigSubmit">
       <template v-if="currentTab === 'dns'" #tab-after>
-        <domain-dns :name="name" />
+        <DomainDns :name="name" />
       </template>
-    </config-panels>
+    </ConfigPanels>
 
-    <b-modal
+    <BModal
       v-if="domain"
       id="delete-modal" :title="$t('confirm_delete', { name: this.name })" @ok="deleteDomain"
       header-bg-variant="warning" body-class="" body-bg-variant=""
     >
-      <b-form-group v-if="isMainDynDomain">
-        <b-form-checkbox v-model="unsubscribeDomainFromDyndns">
+      <BFormGroup v-if="isMainDynDomain">
+        <BFormCheckbox v-model="unsubscribeDomainFromDyndns">
           {{ $t('domain.info.dyn_dns_remove_and_unsubscribe') }}
-        </b-form-checkbox>
-      </b-form-group>
-    </b-modal>
-  </view-base>
+        </BFormCheckbox>
+      </BFormGroup>
+    </BModal>
+  </ViewBase>
 </template>
 
 <script>

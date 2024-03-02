@@ -7,7 +7,7 @@ import { mapGetters } from 'vuex'
 
 
 export default {
-  name: 'Spinner',
+  name: 'YSpinner',
 
   computed: {
     ...mapGetters(['spinner'])
