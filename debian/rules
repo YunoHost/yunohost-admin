@@ -16,11 +16,13 @@ TMPDIR = $$(pwd)/debian/yunohost-admin
 
 override_dh_auto_build:
 	/usr/bin/curl -s https://deb.nodesource.com/gpgkey/nodesource.gpg.key | gpg --dearmor | tee /usr/share/keyrings/nodesource.gpg >/dev/null
+	/usr/bin/curl -s https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor | tee /etc/apt/trusted.gpg.d/yarn.gpg >/dev/null
 	echo 'deb [signed-by=/usr/share/keyrings/nodesource.gpg] https://deb.nodesource.com/node_14.x bullseye main' > /etc/apt/sources.list.d/nodesource.list
+	echo "deb [signed-by=/etc/apt/trusted.gpg.d/yarn.gpg] https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list
 	/usr/bin/apt update
-	/usr/bin/apt install nodejs -y
-	cd app ; /usr/bin/npm --progress false ci
-	cd app ; /usr/bin/npm run build
+	/usr/bin/apt install nodejs yarn -y
+	cd app ; /usr/bin/yarn install --frozen-lockfile --non-interactive
+	cd app ; /usr/bin/yarn build
 
 
 override_dh_clean:
