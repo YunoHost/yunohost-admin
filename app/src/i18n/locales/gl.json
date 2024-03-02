@@ -666,7 +666,8 @@
             "title": "Ligazóns",
             "userdoc": "Documentación oficial para usuarias",
             "website": "Sitio Web Oficial",
-            "license": "Licenza da app"
+            "license": "Licenza da app",
+            "package_license": "Licenza do paquete YunoHost"
         },
         "potential_alternative_to": "Alternativa potencial para:",
         "upgrade": {
