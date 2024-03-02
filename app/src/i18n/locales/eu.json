@@ -665,8 +665,9 @@
             "title": "Estekak",
             "userdoc": "Erabiltzaileen dokumentazio ofiziala",
             "website": "Webgune ofiziala",
-            "license": "Lizentzia",
-            "forum": "Aplikazio honi buruzko eztabaidak YunoHosten foroan"
+            "license": "Aplikazioaren lizentzia",
+            "forum": "Aplikazio honi buruzko eztabaidak YunoHosten foroan",
+            "package_license": "YunoHost paketearen lizentzia"
         },
         "potential_alternative_to": "Honen baliokide izan daiteke:",
         "upgrade": {
