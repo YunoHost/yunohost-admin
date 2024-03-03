@@ -1,7 +1,7 @@
 import { fileURLToPath, URL } from 'url'
 import { defineConfig, loadEnv } from 'vite'
 import fs from 'fs'
-import vue from '@vitejs/plugin-vue2'
+import createVuePlugin from '@vitejs/plugin-vue'
 
 export default defineConfig(({ command, mode }) => {
   // Load env file based on `mode` in the current working directory.
@@ -15,6 +15,7 @@ export default defineConfig(({ command, mode }) => {
     },
     resolve: {
       alias: [
+        { find: 'vue', replacement: '@vue/compat' },
         // this is required for the SCSS modules imports with `~` (node_modules)
         { find: /^~(.*)$/, replacement: '$1' },
         {
@@ -33,7 +34,17 @@ export default defineConfig(({ command, mode }) => {
         },
       },
     },
-    plugins: [vue()],
+    plugins: [
+      createVuePlugin({
+        template: {
+          compilerOptions: {
+            compatConfig: {
+              MODE: 2,
+            },
+          },
+        },
+      }),
+    ],
     build: {
       rollupOptions: {
         output: {

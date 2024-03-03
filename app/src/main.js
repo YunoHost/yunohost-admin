@@ -1,4 +1,4 @@
-import Vue from 'vue'
+import { createApp, configureCompat } from 'vue'
 import App from './App.vue'
 import BootstrapVue from 'bootstrap-vue'
 import VueShowdown from 'vue-showdown'
@@ -10,16 +10,26 @@ import i18n from './i18n'
 import { registerGlobalErrorHandlers } from './api'
 import { initDefaultLocales } from './i18n/helpers'
 
-Vue.config.productionTip = false
+const app = createApp({
+  ...App,
+})
+
+app.use(store)
+app.use(router)
+app.use(i18n)
+
+configureCompat({
+  MODE: 2,
+})
 
 // Styles are imported in `src/App.vue` <style>
-Vue.use(BootstrapVue, {
+app.use(BootstrapVue, {
   BSkeleton: { animation: 'none' },
   BAlert: { show: true },
   BBadge: { pill: true },
 })
 
-Vue.use(VueShowdown, {
+app.use(VueShowdown, {
   options: {
     emoji: true,
   },
@@ -27,7 +37,7 @@ Vue.use(VueShowdown, {
 
 // Ugly wrapper for `$bvModal.msgBoxConfirm` to set default i18n button titles
 // FIXME find or wait for a better way
-Vue.prototype.$askConfirmation = function (message, props) {
+app.config.globalProperties.$askConfirmation = function (message, props) {
   return this.$bvModal.msgBoxConfirm(message, {
     okTitle: this.$i18n.t('ok'),
     cancelTitle: this.$i18n.t('cancel'),
@@ -42,7 +52,11 @@ Vue.prototype.$askConfirmation = function (message, props) {
   })
 }
 
-Vue.prototype.$askMdConfirmation = function (markdown, props, ok = false) {
+app.config.globalProperties.$askMdConfirmation = function (
+  markdown,
+  props,
+  ok = false,
+) {
   const content = this.$createElement('vue-showdown', {
     props: { markdown, flavor: 'github', options: { headerLevelStart: 4 } },
   })
@@ -63,19 +77,12 @@ const globalComponentsModules = import.meta.glob(
 )
 Object.values(globalComponentsModules).forEach((module) => {
   const component = module.default
-  Vue.component(component.name, component)
+  app.component(component.name, component)
 })
 
 registerGlobalErrorHandlers()
 
 // Load default locales translations files and setup store data
 initDefaultLocales().then(() => {
-  const app = new Vue({
-    store,
-    router,
-    i18n,
-    render: (h) => h(App),
-  })
-
-  app.$mount('#app')
+  app.mount('#app')
 })
