@@ -1,5 +1,5 @@
 <template>
-  <card-form
+  <CardForm
     :title="title" icon="globe" :submit-text="submitText"
     :validation="$v" :server-error="serverError"
     @submit.prevent="onSubmit"
@@ -8,7 +8,7 @@
       <slot name="disclaimer" />
     </template>
 
-    <b-form-radio
+    <BFormRadio
       v-model="selected" name="domain-type" value="domain"
       :class="domainIsVisible ? null : 'collapsed'"
       :aria-expanded="domainIsVisible ? 'true' : 'false'"
@@ -16,21 +16,21 @@
       class="mb-2"
     >
       {{ $t('domain.add.from_registrar') }}
-    </b-form-radio>
+    </BFormRadio>
 
-    <b-collapse id="collapse-domain" :visible.sync="domainIsVisible">
+    <BCollapse id="collapse-domain" :visible.sync="domainIsVisible">
       <p class="mt-2 alert alert-info">
-        <icon iname='info-circle' />
-        <span class='pl-1' v-html="$t('domain.add.from_registrar_desc')" />
+        <YIcon iname="info-circle" />
+        <span class="pl-1" v-html="$t('domain.add.from_registrar_desc')" />
       </p>
 
-      <form-field
+      <FormField
         v-bind="fields.domain" v-model="form.domain"
         :validation="$v.form.domain" class="mt-3"
       />
-    </b-collapse>
+    </BCollapse>
 
-    <b-form-radio
+    <BFormRadio
       v-model="selected" name="domain-type" value="dynDomain"
       :disabled="dynDnsForbiden"
       :class="dynDomainIsVisible ? null : 'collapsed'"
@@ -39,56 +39,56 @@
       class="mb-2"
     >
       {{ $t('domain.add.from_yunohost') }}
-    </b-form-radio>
+    </BFormRadio>
 
-    <b-collapse id="collapse-dynDomain" :visible.sync="dynDomainIsVisible">
+    <BCollapse id="collapse-dynDomain" :visible.sync="dynDomainIsVisible">
       <p class="mt-2 alert alert-info">
-        <icon iname="info-circle" />
-        <span class='pl-1' v-html="$t('domain.add.from_yunohost_desc')" />
+        <YIcon iname="info-circle" />
+        <span class="pl-1" v-html="$t('domain.add.from_yunohost_desc')" />
       </p>
 
-      <form-field v-bind="fields.dynDomain" :validation="$v.form.dynDomain" class="mt-3">
+      <FormField v-bind="fields.dynDomain" :validation="$v.form.dynDomain" class="mt-3">
         <template #default="{ self }">
-          <adress-input-select v-bind="self" v-model="form.dynDomain" />
+          <AdressInputSelect v-bind="self" v-model="form.dynDomain" />
         </template>
-      </form-field>
+      </FormField>
 
-      <form-field
+      <FormField
         v-bind="fields.dynDomainPassword"
         :validation="$v.form.dynDomainPassword"
         v-model="form.dynDomainPassword"
       />
 
-      <form-field
+      <FormField
         v-bind="fields.dynDomainPasswordConfirmation"
         :validation="$v.form.dynDomainPasswordConfirmation"
         v-model="form.dynDomainPasswordConfirmation"
       />
-    </b-collapse>
+    </BCollapse>
     <div v-if="dynDnsForbiden" class="alert alert-warning mt-2" v-html="$t('domain_add_dyndns_forbidden')" />
 
-    <b-form-radio
+    <BFormRadio
       v-model="selected" name="domain-type" value="localDomain"
       :class="localDomainIsVisible ? null : 'collapsed'"
       :aria-expanded="localDomainIsVisible ? 'true' : 'false'"
       aria-controls="collapse-localDomain"
     >
       {{ $t('domain.add.from_local') }}
-    </b-form-radio>
+    </BFormRadio>
 
-    <b-collapse id="collapse-localDomain" :visible.sync="localDomainIsVisible">
+    <BCollapse id="collapse-localDomain" :visible.sync="localDomainIsVisible">
       <p class="mt-2 alert alert-info">
-        <icon iname='info-circle' />
-        <span class='pl-1' v-html="$t('domain.add.from_local_desc')" />
+        <YIcon iname="info-circle" />
+        <span class="pl-1" v-html="$t('domain.add.from_local_desc')" />
       </p>
 
-      <form-field v-bind="fields.localDomain" :validation="$v.form.localDomain" class="mt-3">
+      <FormField v-bind="fields.localDomain" :validation="$v.form.localDomain" class="mt-3">
         <template #default="{ self }">
-          <adress-input-select v-bind="self" v-model="form.localDomain" />
+          <AdressInputSelect v-bind="self" v-model="form.localDomain" />
         </template>
-      </form-field>
-    </b-collapse>
-  </card-form>
+      </FormField>
+    </BCollapse>
+  </CardForm>
 </template>
 
 <script>
@@ -133,7 +133,7 @@ export default {
           label: this.$i18n.t('domain_name'),
           props: {
             id: 'dyn-domain',
-            placeholder: this.$i18n.t('placeholder.domain').split(".")[0],
+            placeholder: this.$i18n.t('placeholder.domain').split('.')[0],
             type: 'domain',
             choices: ['nohost.me', 'noho.st', 'ynh.fr']
           }
@@ -162,7 +162,7 @@ export default {
           label: this.$i18n.t('domain_name'),
           props: {
             id: 'dyn-domain',
-            placeholder: this.$i18n.t('placeholder.domain').split(".")[0],
+            placeholder: this.$i18n.t('placeholder.domain').split('.')[0],
             type: 'domain',
             choices: ['local', 'test']
           }

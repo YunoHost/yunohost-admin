@@ -1,43 +1,43 @@
 <template>
-  <view-base :queries="queries" @queries-response="onQueriesResponse" skeleton="card-form-skeleton">
-    <card-form
+  <ViewBase :queries="queries" @queries-response="onQueriesResponse" skeleton="CardFormSkeleton">
+    <CardForm
       :title="$t('users_new')" icon="user-plus"
       :validation="$v" :server-error="serverError"
       @submit.prevent="onSubmit"
     >
       <!-- USER NAME -->
-      <form-field v-bind="fields.username" v-model="form.username" :validation="$v.form.username" />
+      <FormField v-bind="fields.username" v-model="form.username" :validation="$v.form.username" />
 
       <!-- USER FULLNAME -->
-      <form-field v-bind="fields.fullname" :validation="$v.form.fullname" v-model="form.fullname" />
+      <FormField v-bind="fields.fullname" :validation="$v.form.fullname" v-model="form.fullname" />
       <hr>
 
       <!-- USER MAIL DOMAIN -->
-      <form-field v-bind="fields.domain" :validation="$v.form.domain">
+      <FormField v-bind="fields.domain" :validation="$v.form.domain">
         <template #default="{ self }">
-          <b-input-group>
-            <b-input-group-append>
-              <b-input-group-text id="local-part" tag="label" class="border-right-0">
+          <BInputGroup>
+            <BInputGroupAppend>
+              <BInputGroupText id="local-part" tag="label" class="border-right-0">
                 {{ form.username }}@
-              </b-input-group-text>
-            </b-input-group-append>
+              </BInputGroupText>
+            </BInputGroupAppend>
 
-            <select-item
+            <SelectItem
               aria-labelledby="local-part" aria-describedby="mail__BV_description_"
               v-model="form.domain" v-bind="self"
             />
-          </b-input-group>
+          </BInputGroup>
         </template>
-      </form-field>
+      </FormField>
       <hr>
 
       <!-- USER PASSWORD -->
-      <form-field v-bind="fields.password" v-model="form.password" :validation="$v.form.password" />
+      <FormField v-bind="fields.password" v-model="form.password" :validation="$v.form.password" />
 
       <!-- USER PASSWORD CONFIRMATION -->
-      <form-field v-bind="fields.confirmation" v-model="form.confirmation" :validation="$v.form.confirmation" />
-    </card-form>
-  </view-base>
+      <FormField v-bind="fields.confirmation" v-model="form.confirmation" :validation="$v.form.confirmation" />
+    </CardForm>
+  </ViewBase>
 </template>
 
 <script>

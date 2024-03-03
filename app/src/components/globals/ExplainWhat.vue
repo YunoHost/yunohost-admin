@@ -2,20 +2,20 @@
   <span class="explain-what">
     <slot name="default" />
     <span class="explain-what-popover-container">
-      <b-button
+      <BButton
         :id="id" href="#"
         variant="light"
       >
-        <icon iname="question" />
+        <YIcon iname="question" />
         <span class="sr-only">{{ $t('details_about', { subject: title }) }}</span>
-      </b-button>
-      <b-popover
+      </BButton>
+      <BPopover
         placement="auto"
         :target="id" triggers="focus" custom-class="explain-what-popover"
         :variant="variant" :title="title"
       >
         <span v-html="content" />
-      </b-popover>
+      </BPopover>
     </span>
   </span>
 </template>

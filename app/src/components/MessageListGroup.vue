@@ -1,21 +1,21 @@
 <template>
-  <b-list-group
+  <BListGroup
     v-bind="$attrs" flush
     :class="{ 'fixed-height': fixedHeight, 'bordered': bordered }"
     @scroll="onScroll"
   >
-    <yuno-list-group-item
+    <YListGroupItem
       v-if="limit && messages.length > limit"
       variant="info" v-t="'api.partial_logs'"
     />
 
-    <yuno-list-group-item
+    <YListGroupItem
       v-for="({ color, text }, i) in reducedMessages" :key="i"
       :variant="color" size="xs"
     >
       <span v-html="text" />
-    </yuno-list-group-item>
-  </b-list-group>
+    </YListGroupItem>
+  </BListGroup>
 </template>
 
 <script>

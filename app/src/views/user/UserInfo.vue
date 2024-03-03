@@ -1,36 +1,36 @@
 <template>
-  <view-base :queries="queries" skeleton="card-info-skeleton">
-    <card v-if="user" :title="user.fullname" icon="user">
+  <ViewBase :queries="queries" skeleton="CardInfoSkeleton">
+    <YCard v-if="user" :title="user.fullname" icon="user">
       <div class="d-flex align-items-center flex-column flex-md-row">
-        <icon iname="user" class="fa-fw" />
+        <YIcon iname="user" class="fa-fw" />
 
         <div class="w-100">
-          <b-row>
-            <b-col><strong>{{ $t('user_username') }}</strong></b-col>
-            <b-col>{{ user.username }}</b-col>
-          </b-row>
+          <BRow>
+            <BCol><strong>{{ $t('user_username') }}</strong></BCol>
+            <BCol>{{ user.username }}</BCol>
+          </BRow>
 
-          <b-row>
-            <b-col><strong>{{ $t('user_email') }}</strong></b-col>
-            <b-col class="font-italic">
+          <BRow>
+            <BCol><strong>{{ $t('user_email') }}</strong></BCol>
+            <BCol class="font-italic">
               {{ user.mail }}
-            </b-col>
-          </b-row>
+            </BCol>
+          </BRow>
 
-          <b-row>
-            <b-col><strong>{{ $t('user_mailbox_quota') }}</strong></b-col>
-            <b-col>{{ user['mailbox-quota'].limit }}</b-col>
-          </b-row>
+          <BRow>
+            <BCol><strong>{{ $t('user_mailbox_quota') }}</strong></BCol>
+            <BCol>{{ user['mailbox-quota'].limit }}</BCol>
+          </BRow>
 
-          <b-row>
-            <b-col><strong>{{ $t('user_mailbox_use') }}</strong></b-col>
-            <b-col>{{ user['mailbox-quota'].use }}</b-col>
-          </b-row>
+          <BRow>
+            <BCol><strong>{{ $t('user_mailbox_use') }}</strong></BCol>
+            <BCol>{{ user['mailbox-quota'].use }}</BCol>
+          </BRow>
 
-          <b-row v-for="(trad, mailType) in {'mail-aliases': 'user_emailaliases', 'mail-forward': 'user_emailforward'}" :key="mailType">
-            <b-col><strong>{{ $t(trad) }}</strong></b-col>
+          <BRow v-for="(trad, mailType) in {'mail-aliases': 'user_emailaliases', 'mail-forward': 'user_emailforward'}" :key="mailType">
+            <BCol><strong>{{ $t(trad) }}</strong></BCol>
 
-            <b-col v-if="user[mailType]">
+            <BCol v-if="user[mailType]">
               <ul v-if="user[mailType].length > 1">
                 <li v-for="(alias, index) in user[mailType]" :key="index">
                   {{ alias }}
@@ -40,42 +40,42 @@
               <template v-else-if="user[mailType][0]">
                 {{ user[mailType][0] }}
               </template>
-            </b-col>
-          </b-row>
+            </BCol>
+          </BRow>
         </div>
       </div>
 
       <template #buttons>
-        <b-button :to="{ name: 'user-edit', params: { user } }" :variant="user ? 'info' : 'dark'">
-          <icon iname="edit" />
+        <BButton :to="{ name: 'user-edit', params: { user } }" :variant="user ? 'info' : 'dark'">
+          <YIcon iname="edit" />
           {{ user ? $t('user_username_edit', {name: user.username}) : '' }}
-        </b-button>
+        </BButton>
 
-        <b-button v-b-modal.delete-modal :variant="user ? 'danger' : 'dark'">
-          <icon iname="trash-o" />
+        <BButton v-b-modal.delete-modal :variant="user ? 'danger' : 'dark'">
+          <YIcon iname="trash-o" />
           {{ user ? $t('delete') : '' }}
-        </b-button>
+        </BButton>
       </template>
-    </card>
+    </YCard>
 
-    <b-modal
+    <BModal
       v-if="user"
       id="delete-modal" :title="$t('confirm_delete', { name: user.username })" @ok="deleteUser"
       header-bg-variant="warning" body-class="" body-bg-variant=""
     >
-      <b-form-group>
-        <b-form-checkbox v-model="purge">
+      <BFormGroup>
+        <BFormCheckbox v-model="purge">
           {{ $t('purge_user_data_checkbox', { name: user.username }) }}
-        </b-form-checkbox>
+        </BFormCheckbox>
 
         <template #description>
           <div class="alert alert-warning">
-            <icon iname="exclamation-triangle" /> {{ $t('purge_user_data_warning') }}
+            <YIcon iname="exclamation-triangle" /> {{ $t('purge_user_data_warning') }}
           </div>
         </template>
-      </b-form-group>
-    </b-modal>
-  </view-base>
+      </BFormGroup>
+    </BModal>
+  </ViewBase>
 </template>
 
 <script>

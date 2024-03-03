@@ -1,64 +1,64 @@
 <template>
-  <view-base
+  <ViewBase
     :queries="queries" @queries-response="onQueriesResponse"
-    ref="view" skeleton="card-info-skeleton"
+    ref="view" skeleton="CardInfoSkeleton"
   >
     <!-- INFO CARD -->
-    <card :title="description" icon="info-circle">
-      <b-row
+    <YCard :title="description" icon="info-circle">
+      <BRow
         v-for="(value, prop) in info" :key="prop"
         no-gutters class="row-line"
       >
-        <b-col md="3" xl="2">
+        <BCol md="3" xl="2">
           <strong>{{ $t('logs_' + prop) }}</strong>
-        </b-col>
+        </BCol>
 
-        <b-col>
-          <span v-if="prop.endsWith('_at')">{{ value | readableDate }}</span>
+        <BCol>
+          <span v-if="prop.endsWith('_at')">{{ readableDate(value) }}</span>
 
           <div v-else-if="prop === 'suboperations'">
             <div v-for="operation in value" :key="operation.name">
-              <icon v-if="operation.success !== true" iname="times" class="text-danger" />
-              <b-link :to="{ name: 'tool-log', params: { name: operation.name } }">
+              <YIcon v-if="operation.success !== true" iname="times" class="text-danger" />
+              <BLink :to="{ name: 'tool-log', params: { name: operation.name } }">
                 {{ operation.description }}
-              </b-link>
+              </BLink>
             </div>
           </div>
 
           <span v-else>{{ value }}</span>
-        </b-col>
-      </b-row>
-    </card>
+        </BCol>
+      </BRow>
+    </YCard>
 
     <div v-if="info.error" class="alert alert-danger my-5">
-      <icon iname="exclamation-circle" /> <span v-html="$t('operation_failed_explanation')" />
+      <YIcon iname="exclamation-circle" /> <span v-html="$t('operation_failed_explanation')" />
     </div>
 
     <!-- LOGS CARD -->
-    <card :title="$t('logs')" icon="file-text" no-body>
+    <YCard :title="$t('logs')" icon="file-text" no-body>
       <template #header-buttons>
-        <b-button @click="shareLogs" variant="success">
-          <icon iname="cloud-upload" /> {{ $t('logs_share_with_yunopaste') }}
-        </b-button>
+        <BButton @click="shareLogs" variant="success">
+          <YIcon iname="cloud-upload" /> {{ $t('logs_share_with_yunopaste') }}
+        </BButton>
       </template>
 
-      <b-button
+      <BButton
         v-if="moreLogsAvailable"
         variant="white" class="w-100 rounded-0"
         @click="$refs.view.fetchQueries()"
       >
-        <icon iname="plus" /> {{ $t('logs_more') }}
-      </b-button>
+        <YIcon iname="plus" /> {{ $t('logs_more') }}
+      </BButton>
 
       <pre class="log unselectable"><code v-html="logs" /></pre>
-      <b-button @click="shareLogs" variant="success" class="w-100 rounded-0">
-        <icon iname="cloud-upload" /> {{ $t('logs_share_with_yunopaste') }}
-      </b-button>
-    </card>
+      <BButton @click="shareLogs" variant="success" class="w-100 rounded-0">
+        <YIcon iname="cloud-upload" /> {{ $t('logs_share_with_yunopaste') }}
+      </BButton>
+    </YCard>
 
 
     <p class="w-100 px-5 py-2 mb-0" v-html="$t('text_selection_is_disabled')" />
-  </view-base>
+  </ViewBase>
 </template>
 
 <script>
@@ -137,9 +137,9 @@ export default {
       ).then(({ url }) => {
         window.open(url, '_blank')
       })
-    }
-  },
+    },
 
-  filters: { readableDate }
+    readableDate
+  }
 }
 </script>

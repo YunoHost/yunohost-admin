@@ -1,21 +1,21 @@
 <template>
   <div>
-    <top-bar v-if="hasTopBar">
+    <TopBar v-if="hasTopBar">
       <template #group-left>
         <slot name="top-bar-group-left" />
       </template>
       <template #group-right>
         <slot name="top-bar-group-right" />
       </template>
-    </top-bar>
+    </TopBar>
     <slot v-else name="top-bar" />
 
     <slot name="top" v-bind="{ loading: isLoading }" />
 
-    <b-skeleton-wrapper :loading="isLoading">
+    <BSkeletonWrapper :loading="isLoading">
       <template #loading>
         <slot name="skeleton">
-          <component :is="skeleton" />
+          <Component :is="skeleton" />
         </slot>
       </template>
 
@@ -23,7 +23,7 @@
       <div>
         <slot name="default" v-bind="{ loading: isLoading }" />
       </div>
-    </b-skeleton-wrapper>
+    </BSkeletonWrapper>
 
     <slot name="bot" v-bind="{ loading: isLoading }" />
   </div>

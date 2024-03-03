@@ -1,5 +1,5 @@
 <template>
-  <b-overlay
+  <BOverlay
     variant="white" opacity="0.75"
     no-center
     :show="waiting || reconnecting || error !== null"
@@ -7,15 +7,15 @@
     <slot name="default" />
 
     <template #overlay>
-      <b-card no-body class="card-overlay">
-        <b-card-header header-bg-variant="white">
-          <query-header :request="error || currentRequest" status-size="lg" />
-        </b-card-header>
+      <BCard no-body class="card-overlay">
+        <BCardHeader header-bg-variant="white">
+          <QueryHeader :request="error || currentRequest" status-size="lg" />
+        </BCardHeader>
 
-        <component :is="component.name" :request="component.request" />
-      </b-card>
+        <Component :is="component.name" :request="component.request" />
+      </BCard>
     </template>
-  </b-overlay>
+  </BOverlay>
 </template>
 
 <script>

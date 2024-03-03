@@ -1,5 +1,5 @@
 <template>
-  <b-button-toolbar :aria-label="label" id="top-bar">
+  <BButtonToolbar :aria-label="label" id="top-bar">
     <div id="top-bar-left" class="top-bar-group" v-if="hasLeftSlot">
       <slot name="group-left" />
     </div>
@@ -7,11 +7,11 @@
     <div id="top-bar-right" class="top-bar-group" v-if="hasRightSlot || button">
       <slot v-if="hasRightSlot" name="group-right" />
 
-      <b-button v-else variant="success" :to="button.to">
-        <icon v-if="button.icon" :iname="button.icon" /> {{ button.text }}
-      </b-button>
+      <BButton v-else variant="success" :to="button.to">
+        <YIcon v-if="button.icon" :iname="button.icon" /> {{ button.text }}
+      </BButton>
     </div>
-  </b-button-toolbar>
+  </BButtonToolbar>
 </template>
 
 <script>

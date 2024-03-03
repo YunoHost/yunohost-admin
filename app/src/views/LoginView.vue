@@ -1,24 +1,24 @@
 <template>
-  <card-form
+  <CardForm
     :title="$t('login')" icon="lock"
     :validation="$v" :server-error="serverError"
     @submit.prevent="login"
   >
     <!-- ADMIN USERNAME -->
-    <form-field v-bind="fields.username" v-model="form.username" :validation="$v.form.username" />
+    <FormField v-bind="fields.username" v-model="form.username" :validation="$v.form.username" />
 
     <!-- ADMIN PASSWORD -->
-    <form-field v-bind="fields.password" v-model="form.password" :validation="$v.form.password" />
+    <FormField v-bind="fields.password" v-model="form.password" :validation="$v.form.password" />
 
     <template #buttons>
-      <b-button
+      <BButton
         type="submit" variant="success"
         :disabled="!installed" form="ynh-form"
       >
         {{ $t('login') }}
-      </b-button>
+      </BButton>
     </template>
-  </card-form>
+  </CardForm>
 </template>
 
 <script>
@@ -27,7 +27,7 @@ import { validationMixin } from 'vuelidate'
 import { alphalownumdot_, required, minLength } from '@/helpers/validators'
 
 export default {
-  name: 'Login',
+  name: 'LoginView',
 
   mixins: [validationMixin],
 

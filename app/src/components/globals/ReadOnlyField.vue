@@ -1,14 +1,14 @@
 <template>
-  <b-row no-gutters class="description-row">
-    <b-col v-bind="cols_" class="font-weight-bold">
+  <BRow no-gutters class="description-row">
+    <BCol v-bind="cols_" class="font-weight-bold">
       {{ label }}
-    </b-col>
+    </BCol>
 
-    <b-col>
+    <BCol>
       <!-- FIXME not sure about rendering html -->
       <div v-html="text" />
-    </b-col>
-  </b-row>
+    </BCol>
+  </BRow>
 </template>
 
 <script>

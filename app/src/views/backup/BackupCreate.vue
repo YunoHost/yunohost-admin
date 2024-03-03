@@ -1,33 +1,33 @@
 <template>
-  <view-base :queries="queries" @queries-response="onQueriesResponse" skeleton="card-list-skeleton">
-    <!-- FIXME switch to <card-form> ? -->
-    <card :title="$t('backup_create')" icon="archive" no-body>
-      <b-form-checkbox-group
+  <ViewBase :queries="queries" @queries-response="onQueriesResponse" skeleton="CardListSkeleton">
+    <!-- FIXME switch to <CardForm> ? -->
+    <YCard :title="$t('backup_create')" icon="archive" no-body>
+      <BFormCheckboxGroup
         v-model="selected"
         id="backup-select" name="backup-select" size="lg"
       >
-        <b-list-group flush>
+        <BListGroup flush>
           <!-- SYSTEM HEADER -->
-          <b-list-group-item class="d-flex align-items-sm-center flex-column flex-sm-row text-primary">
+          <BListGroupItem class="d-flex align-items-sm-center flex-column flex-sm-row text-primary">
             <h4 class="m-0">
-              <icon iname="cube" /> {{ $t('system') }}
+              <YIcon iname="cube" /> {{ $t('system') }}
             </h4>
 
             <div class="ml-sm-auto mt-2 mt-sm-0">
-              <b-button
+              <BButton
                 @click="toggleSelected(true, 'system')" v-t="'select_all'"
                 size="sm" variant="outline-dark"
               />
 
-              <b-button
+              <BButton
                 @click="toggleSelected(false, 'system')" v-t="'select_none'"
                 size="sm" variant="outline-dark" class="ml-2"
               />
             </div>
-          </b-list-group-item>
+          </BListGroupItem>
 
           <!-- SYSTEM ITEMS -->
-          <b-list-group-item
+          <BListGroupItem
             v-for="(item, partName) in system" :key="partName"
             class="d-flex justify-content-between align-items-center pr-0"
           >
@@ -40,30 +40,30 @@
               </p>
             </div>
 
-            <b-form-checkbox :value="partName" :aria-label="$t('check')" class="d-inline" />
-          </b-list-group-item>
+            <BFormCheckbox :value="partName" :aria-label="$t('check')" class="d-inline" />
+          </BListGroupItem>
 
           <!-- APPS HEADER -->
-          <b-list-group-item class="d-flex align-items-sm-center flex-column flex-sm-row text-primary">
+          <BListGroupItem class="d-flex align-items-sm-center flex-column flex-sm-row text-primary">
             <h4 class="m-0">
-              <icon iname="cubes" /> {{ $t('applications') }}
+              <YIcon iname="cubes" /> {{ $t('applications') }}
             </h4>
 
             <div class="ml-sm-auto mt-2 mt-sm-0">
-              <b-button
+              <BButton
                 @click="toggleSelected(true, 'apps')" v-t="'select_all'"
                 size="sm" variant="outline-dark"
               />
 
-              <b-button
+              <BButton
                 @click="toggleSelected(false, 'apps')" v-t="'select_none'"
                 size="sm" variant="outline-dark" class="ml-2"
               />
             </div>
-          </b-list-group-item>
+          </BListGroupItem>
 
           <!-- APPS ITEMS -->
-          <b-list-group-item
+          <BListGroupItem
             v-for="(item, appName) in apps" :key="appName"
             class="d-flex justify-content-between align-items-center pr-0"
           >
@@ -76,20 +76,20 @@
               </p>
             </div>
 
-            <b-form-checkbox :value="appName" :aria-label="$t('check')" class="d-inline" />
-          </b-list-group-item>
-        </b-list-group>
-      </b-form-checkbox-group>
+            <BFormCheckbox :value="appName" :aria-label="$t('check')" class="d-inline" />
+          </BListGroupItem>
+        </BListGroup>
+      </BFormCheckboxGroup>
 
       <!-- SUBMIT -->
       <template #buttons>
-        <b-button
+        <BButton
           @click="createBackup" v-t="'backup_action'"
           variant="success" :disabled="selected.length === 0"
         />
       </template>
-    </card>
-  </view-base>
+    </YCard>
+  </ViewBase>
 </template>
 
 <script>

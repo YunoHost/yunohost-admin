@@ -1,7 +1,7 @@
 <template>
-  <b-card no-body id="console">
+  <BCard no-body id="console">
     <!-- HISTORY BAR -->
-    <b-card-header
+    <BCardHeader
       role="button" tabindex="0"
       :aria-expanded="open ? 'true' : 'false'" aria-controls="console-collapse"
       header-tag="header" :header-bg-variant="open ? 'best' : 'white'"
@@ -11,11 +11,11 @@
       @keyup.space.enter.prevent="onHistoryBarKey"
     >
       <h5 class="m-0">
-        <icon iname="history" /> <span class="d-none d-sm-inline font-weight-bold">{{ $t('history.title') }}</span>
+        <YIcon iname="history" /> <span class="d-none d-sm-inline font-weight-bold">{{ $t('history.title') }}</span>
       </h5>
 
       <!-- CURRENT/LAST ACTION -->
-      <b-button
+      <BButton
         v-if="lastAction"
         size="sm" pill
         class="ml-auto py-0"
@@ -24,11 +24,11 @@
         @keyup.enter.space.prevent="onLastActionClick"
       >
         <small>{{ $t('history.last_action') }}</small>
-      </b-button>
-      <query-header v-if="lastAction" :request="lastAction" class="w-auto ml-2 xs-hide" />
-    </b-card-header>
+      </BButton>
+      <QueryHeader v-if="lastAction" :request="lastAction" class="w-auto ml-2 xs-hide" />
+    </BCardHeader>
 
-    <b-collapse id="console-collapse" v-model="open">
+    <BCollapse id="console-collapse" v-model="open">
       <div
         class="accordion" role="tablist"
         id="history" ref="history"
@@ -38,33 +38,33 @@
         </p>
 
         <!-- ACTION LIST -->
-        <b-card
+        <BCard
           v-for="(action, i) in history" :key="i"
           no-body class="rounded-0 rounded-top border-left-0 border-right-0"
         >
           <!-- ACTION -->
-          <b-card-header header-tag="header" header-bg-variant="white" class="sticky-top d-flex">
+          <BCardHeader header-tag="header" header-bg-variant="white" class="sticky-top d-flex">
             <!-- ACTION DESC -->
-            <query-header
+            <QueryHeader
               role="tab" v-b-toggle="action.messages.length ? 'messages-collapse-' + i : false"
               :request="action" show-time show-error
             />
-          </b-card-header>
+          </BCardHeader>
 
           <!-- ACTION MESSAGES -->
-          <b-collapse
+          <BCollapse
             v-if="action.messages.length"
             :id="'messages-collapse-' + i" accordion="my-accordion"
             role="tabpanel"
             @shown="scrollToAction(i)"
             @hide="scrollToAction(i)"
           >
-            <message-list-group :messages="action.messages" />
-          </b-collapse>
-        </b-card>
+            <MessageListGroup :messages="action.messages" />
+          </BCollapse>
+        </BCard>
       </div>
-    </b-collapse>
-  </b-card>
+    </BCollapse>
+  </BCard>
 </template>
 
 <script>

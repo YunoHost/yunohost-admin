@@ -1,5 +1,5 @@
 <template>
-  <b-form-tags
+  <BFormTags
     v-model="tags"
     :id="id"
     :placeholder="placeholder"

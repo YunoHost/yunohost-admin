@@ -1,7 +1,7 @@
 <template>
   <div>
-    <b-list-group>
-      <b-list-group-item
+    <BListGroup>
+      <BListGroupItem
         v-for="{ id, name, uri } in storages" :key="id"
         :to="{ name: 'backup-list', params: { id }}"
         class="d-flex justify-content-between align-items-center pr-0"
@@ -15,15 +15,15 @@
             {{ uri }}
           </p>
         </div>
-        <icon iname="chevron-right" class="lg fs-sm ml-auto" />
-      </b-list-group-item>
-    </b-list-group>
+        <YIcon iname="chevron-right" class="lg fs-sm ml-auto" />
+      </BListGroupItem>
+    </BListGroup>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Backup',
+  name: 'BackupView',
 
   data () {
     return {

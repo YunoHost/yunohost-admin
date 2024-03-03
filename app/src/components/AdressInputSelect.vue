@@ -1,6 +1,6 @@
 <template>
-  <b-input-group v-bind="$attrs">
-    <input-item
+  <BInputGroup v-bind="$attrs">
+    <InputItem
       :id="id"
       :value="value.localPart"
       :placeholder="placeholder"
@@ -10,23 +10,23 @@
       @blur="$parent.$emit('touch')"
     />
 
-    <b-input-group-append>
-      <b-input-group-text>{{ value.separator }}</b-input-group-text>
-    </b-input-group-append>
+    <BInputGroupAppend>
+      <BInputGroupText>{{ value.separator }}</BInputGroupText>
+    </BInputGroupAppend>
 
-    <b-input-group-append>
-      <select-item
+    <BInputGroupAppend>
+      <SelectItem
         :value="value.domain"
         :choices="choices"
         :aria-describedby="id + 'domain-desc'"
         @input="onInput('domain', $event)"
         @blur="$parent.$emit('touch')"
       />
-    </b-input-group-append>
+    </BInputGroupAppend>
 
     <span class="sr-only" :id="id + 'local-part-desc'" v-t="'address.local_part_description.' + type" />
     <span class="sr-only" :id="id + 'domain-desc'" v-t="'address.domain_description.' + type" />
-  </b-input-group>
+  </BInputGroup>
 </template>
 
 <script>

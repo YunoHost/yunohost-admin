@@ -1,118 +1,118 @@
 <template>
-  <view-base :queries="queries" @queries-response="onQueriesResponse">
+  <ViewBase :queries="queries" @queries-response="onQueriesResponse">
     <!-- BACKUP INFO -->
-    <card :title="$t('infos')" icon="info-circle" button-unbreak="sm">
+    <YCard :title="$t('infos')" icon="info-circle" button-unbreak="sm">
       <template #header-buttons>
         <!-- DOWNLOAD ARCHIVE -->
-        <b-button @click="downloadBackup" size="sm" variant="success">
-          <icon iname="download" /> {{ $t('download') }}
-        </b-button>
+        <BButton @click="downloadBackup" size="sm" variant="success">
+          <YIcon iname="download" /> {{ $t('download') }}
+        </BButton>
 
         <!-- DELETE ARCHIVE -->
-        <b-button @click="deleteBackup" size="sm" variant="danger">
-          <icon iname="trash-o" /> {{ $t('delete') }}
-        </b-button>
+        <BButton @click="deleteBackup" size="sm" variant="danger">
+          <YIcon iname="trash-o" /> {{ $t('delete') }}
+        </BButton>
       </template>
 
-      <b-row
+      <BRow
         v-for="(value, prop) in infos" :key="prop"
         no-gutters class="row-line"
       >
-        <b-col md="3" xl="2">
+        <BCol md="3" xl="2">
           <strong>{{ $t(prop === 'name' ? 'id' : prop) }}</strong>
-        </b-col>
-        <b-col>
-          <span v-if="prop === 'created_at'">{{ value | readableDate }}</span>
-          <span v-else-if="prop === 'size'">{{ value | humanSize }}</span>
+        </BCol>
+        <BCol>
+          <span v-if="prop === 'created_at'">{{ readableDate(value) }}</span>
+          <span v-else-if="prop === 'size'">{{ humanSize(value) }}</span>
           <span v-else>{{ value }}</span>
-        </b-col>
-      </b-row>
-    </card>
+        </BCol>
+      </BRow>
+    </YCard>
 
     <!-- BACKUP CONTENT -->
-    <!-- FIXME switch to <card-form> ? -->
-    <card
+    <!-- FIXME switch to <CardForm> ? -->
+    <YCard
       :title="$t('backup_content')" icon="archive"
       no-body button-unbreak="sm"
     >
       <template #header-buttons>
-        <b-button
+        <BButton
           size="sm" variant="outline-secondary"
           @click="toggleSelected()" v-t="'select_all'"
         />
 
-        <b-button
+        <BButton
           size="sm" variant="outline-secondary"
           @click="toggleSelected(false)" v-t="'select_none'"
         />
       </template>
 
-      <b-form-checkbox-group
+      <BFormCheckboxGroup
         v-if="hasBackupData" v-model="selected"
         id="backup-select" name="backup-select" size="lg"
         aria-describedby="backup-restore-feedback"
       >
-        <b-list-group flush>
+        <BListGroup flush>
           <!-- SYSTEM PARTS -->
-          <b-list-group-item
+          <BListGroupItem
             v-for="(item, partName) in system" :key="partName"
             class="d-flex justify-content-between align-items-center pr-0"
           >
             <div class="mr-2">
               <h5 class="font-weight-bold">
-                {{ item.name }} <small class="text-secondary" v-if="item.size">({{ item.size | humanSize }})</small>
+                {{ item.name }} <small class="text-secondary" v-if="item.size">({{ humanSize(item.size) }})</small>
               </h5>
               <p class="m-0">
                 {{ item.description }}
               </p>
             </div>
 
-            <b-form-checkbox :value="partName" :aria-label="$t('check')" />
-          </b-list-group-item>
+            <BFormCheckbox :value="partName" :aria-label="$t('check')" />
+          </BListGroupItem>
 
           <!-- APPS -->
-          <b-list-group-item
+          <BListGroupItem
             v-for="(item, appName) in apps" :key="appName"
             class="d-flex justify-content-between align-items-center pr-0"
           >
             <div class="mr-2">
               <h5 class="font-weight-bold">
-                {{ item.name }} <small class="text-secondary">{{ appName }} ({{ item.size | humanSize }})</small>
+                {{ item.name }} <small class="text-secondary">{{ appName }} ({{ humanSize(item.size) }})</small>
               </h5>
               <p class="m-0">
                 {{ $t('version') }} {{ item.version }}
               </p>
             </div>
 
-            <b-form-checkbox :value="appName" :aria-label="$t('check')" />
-          </b-list-group-item>
-        </b-list-group>
+            <BFormCheckbox :value="appName" :aria-label="$t('check')" />
+          </BListGroupItem>
+        </BListGroup>
 
-        <b-form-invalid-feedback id="backup-restore-feedback" :state="isValid">
-          <b-alert variant="danger" class="mb-0">
+        <BFormInvalidFeedback id="backup-restore-feedback" :state="isValid">
+          <BAlert variant="danger" class="mb-0">
             {{ error }}
-          </b-alert>
-        </b-form-invalid-feedback>
-      </b-form-checkbox-group>
+          </BAlert>
+        </BFormInvalidFeedback>
+      </BFormCheckboxGroup>
 
       <div v-else class="alert alert-warning mb-0">
-        <icon iname="exclamation-triangle" /> {{ $t('archive_empty') }}
+        <YIcon iname="exclamation-triangle" /> {{ $t('archive_empty') }}
       </div>
 
       <!-- SUBMIT -->
       <template v-if="hasBackupData" #buttons>
-        <b-button
+        <BButton
           @click="restoreBackup" form="backup-restore" variant="success"
           v-t="'restore'" :disabled="selected.length === 0"
         />
       </template>
-    </card>
+    </YCard>
 
     <template #skeleton>
-      <card-info-skeleton :item-count="4" />
-      <card-list-skeleton />
+      <CardInfoSkeleton :item-count="4" />
+      <CardListSkeleton />
     </template>
-  </view-base>
+  </ViewBase>
 </template>
 
 <script>
@@ -235,10 +235,8 @@ export default {
     downloadBackup () {
       const host = this.$store.getters.host
       window.open(`https://${host}/yunohost/api/backups/${this.name}/download`, '_blank')
-    }
-  },
+    },
 
-  filters: {
     readableDate,
     humanSize
   }

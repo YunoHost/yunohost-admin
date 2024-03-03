@@ -1,14 +1,14 @@
 <template>
-  <view-base
+  <ViewBase
     :queries="queries" @queries-response="onQueriesResponse"
-    ref="view" skeleton="card-form-skeleton"
+    ref="view" skeleton="CardFormSkeleton"
   >
     <!-- PORTS -->
-    <card :title="$t('ports')" icon="shield">
+    <YCard :title="$t('ports')" icon="shield">
       <div v-for="(items, protocol) in protocols" :key="protocol">
         <h5>{{ $t(protocol) }}</h5>
 
-        <b-table
+        <BTable
           :fields="fields" :items="items"
           small striped responsive
         >
@@ -19,7 +19,7 @@
 
           <!-- CONNECTIONS CELL -->
           <template #cell()="data">
-            <b-checkbox
+            <BFormCheckbox
               v-if="data.field.key !== 'uPnP'"
               class="on-off-switch"
               v-model="data.value"
@@ -29,62 +29,62 @@
               <span :class="'btn btn-sm py-0 btn-' + (data.value ? 'danger' : 'success')">
                 {{ $t(data.value ? 'close' : 'open') }}
               </span>
-            </b-checkbox>
+            </BFormCheckbox>
 
-            <icon
+            <YIcon
               v-else
               :iname="data.value ? 'check' : 'times'"
               :class="data.value ? 'text-success' : 'text-danger'"
             />
           </template>
-        </b-table>
+        </BTable>
       </div>
-    </card>
+    </YCard>
 
     <!-- OPERATIONS -->
-    <card-form
+    <CardForm
       :title="$t('operations')" icon="cogs"
       :validation="$v" :server-error="serverError"
       @submit.prevent="onFormPortToggling"
       inline form-classes="d-flex justify-content-between align-items-start"
     >
-      <b-input-group :prepend="$t('action')">
-        <b-select v-model="form.action" :options="actionChoices" />
-      </b-input-group>
+      <BInputGroup :prepend="$t('action')">
+        <BFormSelect v-model="form.action" :options="actionChoices" />
+      </BInputGroup>
 
-      <form-field :validation="$v.form.port">
-        <b-input-group :prepend="$t('port')">
-          <input-item
+      <FormField :validation="$v.form.port">
+        <BInputGroup :prepend="$t('port')">
+          <InputItem
             id="input-port" placeholder="0" type="number"
             v-model="form.port"
           />
-        </b-input-group>
-      </form-field>
+        </BInputGroup>
+      </FormField>
 
-      <b-input-group :prepend="$t('connection')">
-        <b-select v-model="form.connection" :options="connectionChoices" id="input-connection" />
-      </b-input-group>
+      <BInputGroup :prepend="$t('connection')">
+        <BFormSelect v-model="form.connection" :options="connectionChoices" id="input-connection" />
+      </BInputGroup>
 
-      <b-input-group :prepend="$t('protocol')">
-        <b-select v-model="form.protocol" :options="protocolChoices" id="input-protocol" />
-      </b-input-group>
-    </card-form>
+      <BInputGroup :prepend="$t('protocol')">
+        <BFormSelect v-model="form.protocol" :options="protocolChoices" id="input-protocol" />
+      </BInputGroup>
+    </CardForm>
 
     <!-- UPnP -->
-    <card :title="$t('upnp')" icon="exchange" :body-text-variant="upnpEnabled ? 'success' : 'danger'">
+    <YCard :title="$t('upnp')" icon="exchange" :body-text-variant="upnpEnabled ? 'success' : 'danger'">
       {{ $t(upnpEnabled ? 'upnp_enabled' : 'upnp_disabled' ) }}
 
-      <b-form-invalid-feedback :state="upnpError !== '' ? false : null">
+      <BFormInvalidFeedback :state="upnpError !== '' ? false : null">
         {{ upnpError }}
-      </b-form-invalid-feedback>
+      </BFormInvalidFeedback>
 
       <template #buttons>
-        <b-button @click="toggleUpnp" :variant="!upnpEnabled ? 'success' : 'danger'">
+        <BButton @click="toggleUpnp" :variant="!upnpEnabled ? 'success' : 'danger'">
           {{ $t(!upnpEnabled ? 'enable' : 'disable' ) }}
-        </b-button>
+        </BButton>
       </template>
-    </card>
-  </view-base>
+    </YCard>
+  </ViewBase>
 </template>
 
 <script>

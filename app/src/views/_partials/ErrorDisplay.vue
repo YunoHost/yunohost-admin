@@ -1,8 +1,8 @@
 <template>
   <!-- This card receives style from `ViewLockOverlay` if used inside it -->
   <div>
-    <b-card-body>
-      <b-card-title v-t="'api_errors_titles.' + error.name" />
+    <BCardBody>
+      <BCardTitle v-t="'api_errors_titles.' + error.name" />
 
       <em v-t="'api_error.sorry'" />
 
@@ -21,9 +21,9 @@
 
       <p>
         <strong v-t="'api_error.error_message'" />
-        <b-alert class="mt-2" variant="danger">
+        <BAlert class="mt-2" variant="danger">
           <div v-html="error.message" />
-        </b-alert>
+        </BAlert>
       </p>
 
       <template v-if="error.traceback">
@@ -37,17 +37,17 @@
         <p class="my-2">
           <strong v-t="'api_error.server_said'" />
         </p>
-        <message-list-group :messages="messages" bordered />
+        <MessageListGroup :messages="messages" bordered />
       </template>
-    </b-card-body>
+    </BCardBody>
 
-    <b-card-footer footer-bg-variant="danger">
+    <BCardFooter footer-bg-variant="danger">
       <!-- TODO add copy error ? -->
-      <b-button
+      <BButton
         variant="light" size="sm"
         v-t="'ok'" @click="dismiss"
       />
-    </b-card-footer>
+    </BCardFooter>
   </div>
 </template>
 

@@ -1,107 +1,107 @@
 <template>
-  <view-search
+  <ViewSearch
     items-name="groups"
     :search.sync="search"
     :items="primaryGroups"
     :filtered-items="filteredGroups"
     :queries="queries"
     @queries-response="onQueriesResponse"
-    skeleton="card-form-skeleton"
+    skeleton="CardFormSkeleton"
   >
     <template #top-bar-buttons>
-      <b-button variant="success" :to="{ name: 'group-create' }">
-        <icon iname="plus" /> {{ $t('group_new') }}
-      </b-button>
+      <BButton variant="success" :to="{ name: 'group-create' }">
+        <YIcon iname="plus" /> {{ $t('group_new') }}
+      </BButton>
     </template>
 
     <!-- PRIMARY GROUPS CARDS -->
-    <card
+    <YCard
       v-for="(group, groupName) in filteredGroups" :key="groupName" collapsable
       :title="group.isSpecial ? $t('group_' + groupName) : `${$t('group')} '${groupName}'`" icon="group"
     >
       <template #header-buttons>
         <!-- DELETE GROUP -->
-        <b-button
+        <BButton
           v-if="!group.isSpecial" @click="deleteGroup(groupName)"
           size="sm" variant="danger"
         >
-          <icon iname="trash-o" /> {{ $t('delete') }}
-        </b-button>
+          <YIcon iname="trash-o" /> {{ $t('delete') }}
+        </BButton>
       </template>
 
-      <b-row>
-        <b-col md="3" lg="2">
+      <BRow>
+        <BCol md="3" lg="2">
           <strong>{{ $t('users') }}</strong>
-        </b-col>
+        </BCol>
 
-        <b-col>
+        <BCol>
           <template v-if="group.isSpecial">
             <p class="text-primary">
-              <icon iname="info-circle" /> {{ $t('group_explain_' + groupName) }}
+              <YIcon iname="info-circle" /> {{ $t('group_explain_' + groupName) }}
             </p>
             <p class="text-primary" v-if="groupName === 'visitors'">
               <em>{{ $t('group_explain_visitors_needed_for_external_client') }}</em>
             </p>
           </template>
           <template v-if="groupName == 'admins' || !group.isSpecial">
-            <tags-selectize-item
+            <TagsSelectizeItem
               v-model="group.members" :options="usersOptions"
               :id="groupName + '-users'" :label="$t('group_add_member')"
               tag-icon="user" items-name="users"
               @tag-update="onUserChanged({ ...$event, groupName })"
             />
           </template>
-        </b-col>
-      </b-row>
+        </BCol>
+      </BRow>
       <hr>
 
-      <b-row>
-        <b-col md="3" lg="2">
+      <BRow>
+        <BCol md="3" lg="2">
           <strong>{{ $t('permissions') }}</strong>
-        </b-col>
-        <b-col>
-          <tags-selectize-item
+        </BCol>
+        <BCol>
+          <TagsSelectizeItem
             v-model="group.permissions" :options="permissionsOptions"
             :id="groupName + '-perms'" :label="$t('group_add_permission')"
             tag-icon="key-modern" items-name="permissions"
             @tag-update="onPermissionChanged({ ...$event, groupName })"
             :disabled-items="group.disabledItems"
           />
-        </b-col>
-      </b-row>
-    </card>
+        </BCol>
+      </BRow>
+    </YCard>
 
     <!-- USER GROUPS CARD -->
-    <card
+    <YCard
       v-if="userGroups" collapsable
       :title="$t('group_specific_permissions')" icon="group"
     >
       <template v-for="(userName, index) in activeUserGroups">
-        <b-row :key="userName">
-          <b-col md="3" lg="2">
+        <BRow :key="userName">
+          <BCol md="3" lg="2">
             <icon iname="user" /> <strong>{{ userName }}</strong>
-          </b-col>
+          </BCol>
 
-          <b-col>
-            <tags-selectize-item
+          <BCol>
+            <TagsSelectizeItem
               v-model="userGroups[userName].permissions" :options="permissionsOptions"
               :id="userName + '-perms'" :label="$t('group_add_permission')"
               tag-icon="key-modern" items-name="permissions"
               @tag-update="onPermissionChanged({ ...$event, groupName: userName })"
             />
-          </b-col>
-        </b-row>
+          </BCol>
+        </BRow>
         <hr :key="index">
       </template>
 
-      <tags-selectize-item
+      <TagsSelectizeItem
         v-model="activeUserGroups" :options="usersOptions"
         id="user-groups" :label="$t('group_add_member')"
         no-tags items-name="users"
         @tag-update="onSpecificUserAdded"
       />
-    </card>
-  </view-search>
+    </YCard>
+  </ViewSearch>
 </template>
 
 <script>

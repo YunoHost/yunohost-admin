@@ -1,26 +1,26 @@
 <template>
-  <card :title="$t('operations')" icon="wrench">
+  <YCard :title="$t('operations')" icon="wrench">
     <!-- REBOOT -->
-    <b-form-group
+    <BFormGroup
       label-cols="5" label-cols-md="4" label-cols-lg="3"
       :label="$t('tools_reboot')" label-for="reboot"
     >
-      <b-button @click="triggerAction('reboot')" variant="danger" id="reboot">
-        <icon iname="refresh" /> {{ $t('tools_reboot_btn') }}
-      </b-button>
-    </b-form-group>
+      <BButton @click="triggerAction('reboot')" variant="danger" id="reboot">
+        <YIcon iname="refresh" /> {{ $t('tools_reboot_btn') }}
+      </BButton>
+    </BFormGroup>
     <hr>
 
     <!-- SHUTDOWN -->
-    <b-form-group
+    <BFormGroup
       label-cols="5" label-cols-md="4" label-cols-lg="3"
       :label="$t('tools_shutdown')" label-for="shutdown"
     >
-      <b-button @click="triggerAction('shutdown')" variant="danger" id="shutdown">
-        <icon iname="power-off" /> {{ $t('tools_shutdown_btn') }}
-      </b-button>
-    </b-form-group>
-  </card>
+      <BButton @click="triggerAction('shutdown')" variant="danger" id="shutdown">
+        <YIcon iname="power-off" /> {{ $t('tools_shutdown_btn') }}
+      </BButton>
+    </BFormGroup>
+  </YCard>
 </template>
 
 <script>
