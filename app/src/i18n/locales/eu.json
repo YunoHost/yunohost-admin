@@ -86,7 +86,7 @@
         "alpha": "Hizkiak bakarrik izan daitezke.",
         "alphalownumdot_": "Zenbakiak, hizki txikiak eta azpiko marra bakarrik erabili daitezke.",
         "name": "Izenek ezin dituzte <code> ,.'-</code> ez diren karaktere bereziak eduki",
-        "appRepoUrl": "YunoHosten aplikazio-errepositorioko URLek honako itxura daukate: https://domain.tld/path/to/repo_ynh"
+        "appRepoUrl": "YunoHosten aplikazio-gordailuko URLek honako itxura daukate: https://domain.tld/path/to/repo_ynh"
     },
     "items": {
         "backups": "babeskopia bat ere ez | babeskopia | {c} babeskopia",
@@ -660,8 +660,8 @@
         },
         "links": {
             "admindoc": "Administrazioaren dokumentazio ofiziala",
-            "code": "Errepositorio ofiziala",
-            "package": "YunoHosten pakete-errepositorioa",
+            "code": "Kode-gordailu ofiziala",
+            "package": "YunoHosten pakete-gordailua",
             "title": "Estekak",
             "userdoc": "Erabiltzaileen dokumentazio ofiziala",
             "website": "Webgune ofiziala",
