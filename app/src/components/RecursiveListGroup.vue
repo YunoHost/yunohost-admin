@@ -1,8 +1,7 @@
 <template>
   <BListGroup :flush="flush" :style="{ '--depth': tree.depth }">
-    <template v-for="(node, i) in tree.children">
+    <template v-for="(node, i) in tree.children" :key="node.id">
       <BListGroupItem
-        :key="node.id"
         class="list-group-item-action"
         :class="getClasses(node, i)"
         @click="$router.push(node.data.to)"
@@ -26,7 +25,6 @@
 
       <BCollapse
         v-if="node.children"
-        :key="'collapse-' + node.id"
         v-model="node.data.opened"
         :id="'collapse-' + node.id"
       >

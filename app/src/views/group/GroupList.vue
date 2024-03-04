@@ -96,8 +96,8 @@
       :title="$t('group_specific_permissions')"
       icon="group"
     >
-      <template v-for="(userName, index) in activeUserGroups">
-        <BRow :key="userName">
+      <template v-for="userName in activeUserGroups" :key="userName">
+        <BRow>
           <BCol md="3" lg="2">
             <YIcon iname="user" /> <strong>{{ userName }}</strong>
           </BCol>
@@ -116,7 +116,7 @@
             />
           </BCol>
         </BRow>
-        <hr :key="index" />
+        <hr />
       </template>
 
       <TagsSelectizeItem
