@@ -179,7 +179,7 @@
         :title="$t('app_install_parameters')"
         icon="cog"
         :submit-text="$t('install')"
-        :validation="$v"
+        :validation="v$"
         :server-error="serverError"
         @submit.prevent="performInstall"
       >
@@ -189,7 +189,7 @@
             :is="field.is"
             v-bind="field.props"
             v-model="form[fname]"
-            :validation="$v.form[fname]"
+            :validation="v$.form[fname]"
             :key="fname"
           />
         </template>
@@ -210,7 +210,7 @@
 </template>
 
 <script>
-import { validationMixin } from 'vuelidate'
+import { useVuelidate } from '@vuelidate/core'
 
 import api, { objectToParams } from '@/api'
 import {
@@ -223,14 +223,18 @@ import CardCollapse from '@/components/CardCollapse.vue'
 export default {
   name: 'AppInstall',
 
-  mixins: [validationMixin],
-
   components: {
     CardCollapse,
   },
 
   props: {
     id: { type: String, required: true },
+  },
+
+  setup() {
+    return {
+      v$: useVuelidate(),
+    }
   },
 
   data() {

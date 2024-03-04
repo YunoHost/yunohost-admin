@@ -2,7 +2,7 @@
   <CardForm
     :title="$t('group_new')"
     icon="users"
-    :validation="$v"
+    :validation="v$"
     :server-error="serverError"
     @submit.prevent="onSubmit"
   >
@@ -10,19 +10,25 @@
     <FormField
       v-bind="groupname"
       v-model="form.groupname"
-      :validation="$v.form.groupname"
+      :validation="v$.form.groupname"
     />
   </CardForm>
 </template>
 
 <script>
-import { validationMixin } from 'vuelidate'
+import { useVuelidate } from '@vuelidate/core'
 
 import api from '@/api'
 import { required, alphalownumdot_ } from '@/helpers/validators'
 
 export default {
   name: 'GroupCreate',
+
+  setup() {
+    return {
+      v$: useVuelidate(),
+    }
+  },
 
   data() {
     return {
@@ -63,7 +69,5 @@ export default {
         })
     },
   },
-
-  mixins: [validationMixin],
 }
 </script>

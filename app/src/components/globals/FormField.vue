@@ -65,6 +65,7 @@ export default {
     value: { type: null, default: null },
     props: { type: Object, default: () => ({}) },
     validation: { type: Object, default: null },
+    validationIndex: { type: Number, default: null },
   },
 
   computed: {
@@ -93,19 +94,36 @@ export default {
       return attrs
     },
 
-    state() {
-      // Need to set state as null if no error, else component turn green
+    error() {
       if (this.validation) {
-        return this.validation.$anyError === true ? false : null
+        if (this.validationIndex !== null) {
+          const errors =
+            this.validation.$each.$response.$errors[this.validationIndex]
+          const err = Object.values(errors).find((part) => {
+            return part.length
+          })
+          return err?.length ? err[0] : null
+        }
+        return this.validation.$errors.length
+          ? { ...this.validation.$errors[0], $model: this.validation.$model }
+          : null
       }
       return null
     },
 
+    state() {
+      // Need to set state as null if no error, else component turn green
+      return this.error ? false : null
+    },
+
     errorMessage() {
-      const validation = this.validation
-      if (validation && validation.$anyError) {
-        const [type, errData] = this.findError(validation.$params, validation)
-        return this.$i18n.t('form_errors.' + type, errData)
+      const err = this.error
+      if (err) {
+        if (err.$message) return err.$message
+        return this.$i18n.t('form_errors.' + err.$validator, {
+          value: err.$model,
+          ...err.$params,
+        })
       }
       return ''
     },
@@ -119,17 +137,6 @@ export default {
           this.validation[name].$touch()
         } else {
           this.validation.$touch()
-        }
-      }
-    },
-
-    findError(params, obj, parent = obj) {
-      for (const key in params) {
-        if (!obj[key]) {
-          return [key, obj.$params[key]]
-        }
-        if (obj[key].$anyError) {
-          return this.findError(obj[key].$params, obj[key], parent)
         }
       }
     },

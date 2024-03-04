@@ -56,7 +56,7 @@
     <CardForm
       :title="$t('operations')"
       icon="cogs"
-      :validation="$v"
+      :validation="v$"
       :server-error="serverError"
       @submit.prevent="onFormPortToggling"
       inline
@@ -66,7 +66,7 @@
         <BFormSelect v-model="form.action" :options="actionChoices" />
       </BInputGroup>
 
-      <FormField :validation="$v.form.port">
+      <FormField :validation="v$.form.port">
         <BInputGroup :prepend="$t('port')">
           <InputItem
             id="input-port"
@@ -119,13 +119,19 @@
 </template>
 
 <script>
-import { validationMixin } from 'vuelidate'
+import { useVuelidate } from '@vuelidate/core'
 
 import api from '@/api'
 import { required, integer, between } from '@/helpers/validators'
 
 export default {
   name: 'ToolFirewall',
+
+  setup() {
+    return {
+      v$: useVuelidate(),
+    }
+  },
 
   data() {
     return {
@@ -281,8 +287,6 @@ export default {
       })
     },
   },
-
-  mixins: [validationMixin],
 }
 </script>
 

@@ -9,4 +9,4 @@ export {
   minValue,
   required,
   sameAs,
-} from 'vuelidate/lib/validators'
+} from '@vuelidate/validators'

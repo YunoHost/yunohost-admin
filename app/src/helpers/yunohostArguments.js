@@ -121,8 +121,7 @@ function addEvaluationGetter(prop, obj, expr, ctx, nested) {
  */
 export function formatYunoHostArgument(arg) {
   let value = arg.value !== undefined ? arg.value : null
-  const validation = {}
-  const error = { message: null }
+  let validation = {}
   arg.ask = formatI18nField(arg.ask)
   const field = {
     is: arg.readonly ? 'ReadOnlyField' : 'FormField',
@@ -272,6 +271,9 @@ export function formatYunoHostArgument(arg) {
   ]
 
   // Default type management if no one is filled
+  if (arg.type !== 'tags' && arg.choices && arg.choices.length) {
+    arg.type = 'select'
+  }
   if (arg.type === undefined) {
     if (arg.choices && arg.choices.length) {
       arg.type = 'select'
@@ -308,19 +310,10 @@ export function formatYunoHostArgument(arg) {
     validation.required = validators.required
   }
   if (arg.pattern && arg.type !== 'tags') {
-    validation.pattern = validators.helpers.regex(
+    validation.pattern = validators.helpers.withMessage(
       formatI18nField(arg.pattern.error),
-      new RegExp(arg.pattern.regexp),
+      validators.helpers.regex(new RegExp(arg.pattern.regexp)),
     )
-  }
-
-  if (!component.renderSelf && !arg.readonly) {
-    // Bind a validation with what the server may respond
-    validation.remote = validators.helpers.withParams(error, (v) => {
-      const result = !error.message
-      error.message = null
-      return result
-    })
   }
 
   // Default value if still `null`
@@ -351,7 +344,6 @@ export function formatYunoHostArgument(arg) {
     field,
     // Return null instead of empty object if there's no validation
     validation: Object.keys(validation).length === 0 ? null : validation,
-    error,
   }
 }
 
@@ -367,14 +359,12 @@ export function formatYunoHostArguments(args, forms) {
   const form = {}
   const fields = {}
   const validations = {}
-  const errors = {}
 
   for (const arg of args) {
-    const { value, field, validation, error } = formatYunoHostArgument(arg)
+    const { value, field, validation } = formatYunoHostArgument(arg)
     fields[arg.id] = field
     form[arg.id] = value
     if (validation) validations[arg.id] = validation
-    errors[arg.id] = error
 
     if ('visible' in arg && typeof arg.visible === 'string') {
       addEvaluationGetter(
@@ -397,7 +387,7 @@ export function formatYunoHostArguments(args, forms) {
     }
   }
 
-  return { form, fields, validations, errors }
+  return { form, fields, validations }
 }
 
 export function formatYunoHostConfigPanels(data) {
@@ -405,7 +395,6 @@ export function formatYunoHostConfigPanels(data) {
     panels: [],
     forms: {},
     validations: {},
-    errors: {},
   }
 
   for (const { id: panelId, name, help, sections } of data.panels) {
@@ -417,7 +406,6 @@ export function formatYunoHostConfigPanels(data) {
     }
     result.forms[panelId] = {}
     result.validations[panelId] = {}
-    result.errors[panelId] = {}
 
     if (name) panel.name = formatI18nField(name)
     if (help) panel.help = formatI18nField(help)
@@ -434,14 +422,13 @@ export function formatYunoHostConfigPanels(data) {
         addEvaluationGetter('visible', section, section.visible, result.forms)
       }
 
-      const { form, fields, validations, errors } = formatYunoHostArguments(
+      const { form, fields, validations } = formatYunoHostArguments(
         _section.options,
         result.forms,
       )
       // Merge all sections forms to the panel to get a unique form
       Object.assign(result.forms[panelId], form)
       Object.assign(result.validations[panelId], validations)
-      Object.assign(result.errors[panelId], errors)
       section.fields = fields
       panel.sections.push(section)
 

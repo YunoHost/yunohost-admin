@@ -2,7 +2,7 @@
   <CardForm
     :title="$t('login')"
     icon="lock"
-    :validation="$v"
+    :validation="v$"
     :server-error="serverError"
     @submit.prevent="login"
   >
@@ -10,14 +10,14 @@
     <FormField
       v-bind="fields.username"
       v-model="form.username"
-      :validation="$v.form.username"
+      :validation="v$.form.username"
     />
 
     <!-- ADMIN PASSWORD -->
     <FormField
       v-bind="fields.password"
       v-model="form.password"
-      :validation="$v.form.password"
+      :validation="v$.form.password"
     />
 
     <template #buttons>
@@ -35,16 +35,20 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { validationMixin } from 'vuelidate'
+import { useVuelidate } from '@vuelidate/core'
 import { alphalownumdot_, required, minLength } from '@/helpers/validators'
 
 export default {
   name: 'LoginView',
 
-  mixins: [validationMixin],
-
   props: {
     forceReload: { type: Boolean, default: false },
+  },
+
+  setup() {
+    return {
+      v$: useVuelidate(),
+    }
   },
 
   data() {

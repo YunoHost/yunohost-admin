@@ -3,7 +3,7 @@
     :title="title"
     icon="globe"
     :submit-text="submitText"
-    :validation="$v"
+    :validation="v$"
     :server-error="serverError"
     @submit.prevent="onSubmit"
   >
@@ -32,7 +32,7 @@
       <FormField
         v-bind="fields.domain"
         v-model="form.domain"
-        :validation="$v.form.domain"
+        :validation="v$.form.domain"
         class="mt-3"
       />
     </BCollapse>
@@ -58,7 +58,7 @@
 
       <FormField
         v-bind="fields.dynDomain"
-        :validation="$v.form.dynDomain"
+        :validation="v$.form.dynDomain"
         class="mt-3"
       >
         <template #default="{ self }">
@@ -68,13 +68,13 @@
 
       <FormField
         v-bind="fields.dynDomainPassword"
-        :validation="$v.form.dynDomainPassword"
+        :validation="v$.form.dynDomainPassword"
         v-model="form.dynDomainPassword"
       />
 
       <FormField
         v-bind="fields.dynDomainPasswordConfirmation"
-        :validation="$v.form.dynDomainPasswordConfirmation"
+        :validation="v$.form.dynDomainPasswordConfirmation"
         v-model="form.dynDomainPasswordConfirmation"
       />
     </BCollapse>
@@ -103,7 +103,7 @@
 
       <FormField
         v-bind="fields.localDomain"
-        :validation="$v.form.localDomain"
+        :validation="v$.form.localDomain"
         class="mt-3"
       >
         <template #default="{ self }">
@@ -116,7 +116,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { validationMixin } from 'vuelidate'
+import { useVuelidate } from '@vuelidate/core'
 
 import AdressInputSelect from '@/components/AdressInputSelect.vue'
 import { formatFormData } from '@/helpers/yunohostArguments'
@@ -135,6 +135,12 @@ export default {
     title: { type: String, required: true },
     submitText: { type: String, default: null },
     serverError: { type: String, default: '' },
+  },
+
+  setup() {
+    return {
+      v$: useVuelidate(),
+    }
   },
 
   data() {
@@ -261,8 +267,6 @@ export default {
       this.selected = 'domain'
     }
   },
-
-  mixins: [validationMixin],
 
   components: {
     AdressInputSelect,

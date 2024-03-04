@@ -40,7 +40,7 @@
       <CardForm
         :title="$t('postinstall.user.title')"
         icon="user-plus"
-        :validation="$v"
+        :validation="v$"
         :server-error="serverError"
         :submit-text="$t('next')"
         @submit.prevent="setUser"
@@ -55,7 +55,7 @@
           :key="name"
           v-bind="field"
           v-model="user[name]"
-          :validation="$v.user[name]"
+          :validation="v$.user[name]"
         />
       </CardForm>
 
@@ -89,7 +89,7 @@
 </template>
 
 <script>
-import { validationMixin } from 'vuelidate'
+import { useVuelidate } from '@vuelidate/core'
 
 import api from '@/api'
 import { DomainForm } from '@/views/_partials'
@@ -106,11 +106,15 @@ import {
 export default {
   name: 'PostInstall',
 
-  mixins: [validationMixin],
-
   components: {
     DomainForm,
     LoginView,
+  },
+
+  setup() {
+    return {
+      v$: useVuelidate(),
+    }
   },
 
   data() {
@@ -224,7 +228,7 @@ export default {
         username: { required, alphalownumdot_ },
         fullname: { required, name },
         password: { required, passwordLenght: minLength(8) },
-        confirmation: { required, passwordMatch: sameAs('password') },
+        confirmation: { required, passwordMatch: sameAs(this.user.password) },
       },
     }
   },

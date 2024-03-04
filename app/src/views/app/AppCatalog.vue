@@ -171,7 +171,7 @@
         icon="download"
         @submit.prevent="onCustomInstallClick"
         :submit-text="$t('install')"
-        :validation="$v"
+        :validation="v$"
         class="mt-5"
       >
         <template #disclaimer>
@@ -185,7 +185,7 @@
         <FormField
           v-bind="customInstall.field"
           v-model="customInstall.url"
-          :validation="$v.customInstall.url"
+          :validation="v$.customInstall.url"
         />
       </CardForm>
     </template>
@@ -220,7 +220,7 @@
 </template>
 
 <script>
-import { validationMixin } from 'vuelidate'
+import { useVuelidate } from '@vuelidate/core'
 
 import CardDeckFeed from '@/components/CardDeckFeed.vue'
 import { required, appRepoUrl } from '@/helpers/validators'
@@ -238,6 +238,12 @@ export default {
     quality: { type: String, default: 'decent_quality' },
     category: { type: String, default: null },
     subtag: { type: String, default: 'all' },
+  },
+
+  setup() {
+    return {
+      v$: useVuelidate(),
+    }
   },
 
   data() {
@@ -421,8 +427,6 @@ export default {
 
     randint,
   },
-
-  mixins: [validationMixin],
 }
 </script>
 

@@ -108,7 +108,12 @@
       </DescriptionRow>
     </YCard>
 
-    <ConfigPanels v-if="config.panels" v-bind="config" @submit="onConfigSubmit">
+    <ConfigPanels
+      v-if="config.panels"
+      v-bind="config"
+      :external-results="externalResults"
+      @submit="onConfigSubmit"
+    >
       <template v-if="currentTab === 'dns'" #tab-after>
         <DomainDns :name="name" />
       </template>
@@ -166,6 +171,7 @@ export default {
         ['GET', `domains/${this.name}/config?full`],
       ],
       config: {},
+      externalResults: {},
       unsubscribeDomainFromDyndns: false,
     }
   },
@@ -247,7 +253,9 @@ export default {
           if (err.name !== 'APIBadRequestError') throw err
           const panel = this.config.panels.find((panel) => panel.id === id)
           if (err.data.name) {
-            this.config.errors[id][err.data.name].message = err.message
+            Object.assign(this.externalResults, {
+              forms: { [panel.id]: { [err.data.name]: [err.data.error] } },
+            })
           } else this.$set(panel, 'serverError', err.message)
         })
     },

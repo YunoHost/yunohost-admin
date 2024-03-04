@@ -7,7 +7,7 @@
     <CardForm
       :title="$t('users_new')"
       icon="user-plus"
-      :validation="$v"
+      :validation="v$"
       :server-error="serverError"
       @submit.prevent="onSubmit"
     >
@@ -15,19 +15,19 @@
       <FormField
         v-bind="fields.username"
         v-model="form.username"
-        :validation="$v.form.username"
+        :validation="v$.form.username"
       />
 
       <!-- USER FULLNAME -->
       <FormField
         v-bind="fields.fullname"
-        :validation="$v.form.fullname"
+        :validation="v$.form.fullname"
         v-model="form.fullname"
       />
       <hr />
 
       <!-- USER MAIL DOMAIN -->
-      <FormField v-bind="fields.domain" :validation="$v.form.domain">
+      <FormField v-bind="fields.domain" :validation="v$.form.domain">
         <template #default="{ self }">
           <BInputGroup>
             <BInputGroupAppend>
@@ -55,14 +55,14 @@
       <FormField
         v-bind="fields.password"
         v-model="form.password"
-        :validation="$v.form.password"
+        :validation="v$.form.password"
       />
 
       <!-- USER PASSWORD CONFIRMATION -->
       <FormField
         v-bind="fields.confirmation"
         v-model="form.confirmation"
-        :validation="$v.form.confirmation"
+        :validation="v$.form.confirmation"
       />
     </CardForm>
   </ViewBase>
@@ -71,7 +71,7 @@
 <script>
 import api from '@/api'
 import { mapGetters } from 'vuex'
-import { validationMixin } from 'vuelidate'
+import { useVuelidate } from '@vuelidate/core'
 
 import { formatFormData } from '@/helpers/yunohostArguments'
 import {
@@ -85,6 +85,12 @@ import {
 
 export default {
   name: 'UserCreate',
+
+  setup() {
+    return {
+      v$: useVuelidate(),
+    }
+  },
 
   data() {
     return {
@@ -164,7 +170,7 @@ export default {
         fullname: { required, name },
         domain: { required },
         password: { required, passwordLenght: minLength(8) },
-        confirmation: { required, passwordMatch: sameAs('password') },
+        confirmation: { required, passwordMatch: sameAs(this.form.password) },
       },
     }
   },
@@ -191,8 +197,6 @@ export default {
         })
     },
   },
-
-  mixins: [validationMixin],
 }
 </script>
 

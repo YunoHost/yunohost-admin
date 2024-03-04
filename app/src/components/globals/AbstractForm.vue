@@ -47,7 +47,7 @@ export default {
   computed: {
     errorFeedback() {
       if (this.serverError) return this.serverError
-      else if (this.validation && this.validation.$anyError) {
+      else if (this.validation && this.validation.$errors.length) {
         return this.$i18n.t('form_errors.invalid_form')
       } else return ''
     },
@@ -58,7 +58,7 @@ export default {
       const v = this.validation
       if (v) {
         v.$touch()
-        if (v.$pending || v.$invalid) return
+        if (v.$pending || v.$errors.length) return
       }
       this.$emit('submit', e)
     },
