@@ -99,7 +99,7 @@
       <template v-for="(userName, index) in activeUserGroups">
         <BRow :key="userName">
           <BCol md="3" lg="2">
-            <icon iname="user" /> <strong>{{ userName }}</strong>
+            <YIcon iname="user" /> <strong>{{ userName }}</strong>
           </BCol>
 
           <BCol>

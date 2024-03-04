@@ -243,7 +243,7 @@ export default {
       name: undefined,
       form: undefined,
       fields: undefined,
-      validations: null,
+      validations: {},
       errors: undefined,
       serverError: '',
       force: false,

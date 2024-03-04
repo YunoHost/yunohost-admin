@@ -31,6 +31,8 @@ import { validationMixin } from 'vuelidate'
 export default {
   name: 'ConfigPanels',
 
+  inheritAttrs: false,
+
   components: {
     RoutableTabs: () => import('@/components/RoutableTabs.vue'),
   },

@@ -8,6 +8,7 @@
     :limit="limit"
     remove-on-delete
     :state="state"
+    :options="options"
     v-on="$listeners"
     @blur="$parent.$emit('touch', name)"
   />
@@ -30,6 +31,7 @@ export default {
     required: { type: Boolean, default: false },
     state: { type: Boolean, default: null },
     name: { type: String, default: null },
+    options: { type: Array, default: null },
   },
 }
 </script>

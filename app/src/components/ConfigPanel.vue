@@ -1,5 +1,6 @@
 <template>
   <AbstractForm
+    v-if="panel"
     v-bind="{
       id: panel.id + '-form',
       validation,

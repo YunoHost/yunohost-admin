@@ -95,6 +95,8 @@
 export default {
   name: 'TagsSelectizeItem',
 
+  inheritAttrs: false,
+
   props: {
     value: { type: Array, required: true },
     options: { type: Array, required: true },

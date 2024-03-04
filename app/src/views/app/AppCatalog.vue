@@ -164,15 +164,6 @@
       </BCard>
     </CardDeckFeed>
 
-    <app-catalog-details
-      v-if="selectedApp"
-      id="modal-app-info"
-      :app-id="selectedApp"
-      :antifeatures="antifeatures"
-      @ok="onInstallClick(selectedApp)"
-      @hide="selectedApp = undefined"
-    />
-
     <template #bot>
       <!-- INSTALL CUSTOM APP -->
       <CardForm
@@ -484,7 +475,7 @@ export default {
 
   .card {
     &:hover {
-      color: color-contrast($dark);
+      color: $white;
       background-color: $dark;
       border-color: $dark;
     }
