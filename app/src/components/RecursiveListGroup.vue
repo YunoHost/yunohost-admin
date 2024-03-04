@@ -34,7 +34,7 @@
           flush
         >
           <!-- PASS THE DEFAULT SLOT WITH SCOPE TO NEXT NESTED COMPONENT -->
-          <template slot="default" slot-scope="scope">
+          <template #default="scope">
             <slot name="default" v-bind="scope" />
           </template>
         </RecursiveListGroup>
