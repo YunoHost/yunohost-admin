@@ -25,7 +25,12 @@ export default defineConfig(({ command, mode }) => {
       alias: [
         { find: 'vue', replacement: '@vue/compat' },
         // this is required for the SCSS modules imports with `~` (node_modules)
-        { find: /^~(.*)$/, replacement: '$1' },
+        {
+          find: /^~(.*)$/,
+          replacement: fileURLToPath(
+            new URL('./node_modules/$1', import.meta.url),
+          ),
+        },
         {
           find: '@',
           replacement: fileURLToPath(new URL('./src', import.meta.url)),
