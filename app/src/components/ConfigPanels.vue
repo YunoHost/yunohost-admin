@@ -2,8 +2,8 @@
   <div class="config-panel">
     <RoutableTabs
       v-if="routes_.length > 1"
-      :routes="routes_"
       v-bind="{ panels, forms, v: v$, ...$attrs }"
+      :routes="routes_"
       v-on="$listeners"
     >
       <template #tab-top>

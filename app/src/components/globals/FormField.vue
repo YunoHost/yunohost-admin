@@ -11,8 +11,8 @@
     <slot v-bind="{ self: { ...props, state }, touch }">
       <!-- if no component was passed as slot, render a component from the props -->
       <Component
-        :is="component"
         v-bind="props"
+        :is="component"
         v-on="$listeners"
         :value="value"
         :state="state"

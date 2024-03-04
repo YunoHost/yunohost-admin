@@ -186,8 +186,8 @@
         <template v-for="(field, fname) in fields">
           <Component
             v-if="field.visible"
-            :is="field.is"
             v-bind="field.props"
+            :is="field.is"
             v-model="form[fname]"
             :validation="v$.form[fname]"
             :key="fname"
