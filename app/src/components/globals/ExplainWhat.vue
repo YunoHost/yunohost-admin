@@ -57,7 +57,7 @@ export default {
     background-color: $white;
     border-width: 2px;
 
-    ::v-deep .popover-body {
+    :deep(.popover-body) {
       color: $dark;
     }
   }

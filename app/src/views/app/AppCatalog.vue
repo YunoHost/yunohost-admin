@@ -514,7 +514,7 @@ export default {
 
     flex-basis: 90%;
 
-    .card-body {
+    :deep(.card-body) {
       display: flex;
       flex-direction: column;
       justify-content: center;

@@ -67,7 +67,7 @@ export default {
     #top-bar-right {
       margin-bottom: 0.75rem;
 
-      ::v-deep > * {
+      :deep(> *) {
         margin-bottom: 0.25rem;
       }
     }
@@ -88,7 +88,7 @@ export default {
       margin-left: auto;
     }
 
-    ::v-deep .btn {
+    :deep(.btn) {
       margin-left: 0.5rem;
       &.dropdown-toggle-split {
         margin-left: 0;

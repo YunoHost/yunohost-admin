@@ -145,7 +145,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-::v-deep .invalid-feedback code {
+:deep(.invalid-feedback code) {
   background-color: $gray-200;
 }
 </style>

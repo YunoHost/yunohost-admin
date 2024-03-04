@@ -291,7 +291,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-::v-deep .on-off-switch {
+:deep(.on-off-switch) {
   .custom-control-input {
     &:checked ~ .custom-control-label::before {
       border-color: $success;
@@ -322,7 +322,7 @@ export default {
   }
 }
 
-::v-deep form {
+:deep(form) {
   margin-bottom: -1rem;
 
   & > * {

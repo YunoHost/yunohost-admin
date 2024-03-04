@@ -105,7 +105,7 @@ export default {
   margin-bottom: 1em;
   border-bottom: solid $border-width $gray-500;
 }
-::v-deep .panel-section:not(:last-child) {
+:deep(.panel-section:not(:last-child)) {
   margin-bottom: 3rem;
 }
 </style>
