@@ -1,13 +1,9 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
+import { createRouter, createWebHashHistory } from 'vue-router'
 import routes from './routes'
 import store from '@/store'
 
-Vue.use(VueRouter)
-
-const router = new VueRouter({
-  // mode: 'history', // this allow all routes to be real ones (without '#')
-  base: import.meta.env.BASE_URL,
+const router = createRouter({
+  history: createWebHashHistory(import.meta.env.BASE_URL),
   routes,
 
   scrollBehavior(to, from, savedPosition) {
@@ -22,7 +18,7 @@ const router = new VueRouter({
         setTimeout(() => resolve(savedPosition), 0)
       })
     } else {
-      return savedPosition || { x: 0, y: 0 }
+      return savedPosition || { left: 0, top: 0 }
     }
   },
 })

@@ -6,7 +6,6 @@
         <BNavbarBrand
           :to="{ name: 'home' }"
           :disabled="waiting"
-          exact
           exact-active-class="active"
         >
           <span v-if="theme">
@@ -45,10 +44,12 @@
       <main id="main">
         <!-- The `key` on RouterView make sure that if a link points to a page that
         use the same component as the previous one, it will be refreshed -->
-        <Transition v-if="transitions" :name="transitionName">
-          <RouterView class="animated" :key="routerKey" />
-        </Transition>
-        <RouterView v-else class="static" :key="routerKey" />
+        <RouterView v-slot="{ Component }" :key="routerKey">
+          <Transition v-if="transitions" :name="transitionName">
+            <Component :is="Component" class="animated" />
+          </Transition>
+          <Component v-else :is="Component" class="static" />
+        </RouterView>
       </main>
     </ViewLockOverlay>
 
