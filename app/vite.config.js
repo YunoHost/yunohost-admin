@@ -3,6 +3,14 @@ import { defineConfig, loadEnv } from 'vite'
 import fs from 'fs'
 import createVuePlugin from '@vitejs/plugin-vue'
 
+import supportedLocales from './src/i18n/supportedLocales'
+
+const supportedDatefnsLocales = Object.entries(supportedLocales).map(
+  ([locale, { dateFnsLocale }]) => {
+    return dateFnsLocale || locale
+  },
+)
+
 export default defineConfig(({ command, mode }) => {
   // Load env file based on `mode` in the current working directory.
   // Set the third parameter to '' to load all env regardless of the `VITE_` prefix.
@@ -52,6 +60,28 @@ export default defineConfig(({ command, mode }) => {
             // Circular import problems, this will merge vue/vuex/etc. and api together
             if (!id.includes('node_modules') && id.includes('api/')) {
               return 'core'
+            }
+            // Translations
+            if (id.includes('locales')) {
+              const match = /.*\/i18n\/locales\/([\w-]+)\.json/.exec(id)
+              return `locales/${match[1]}/translations`
+            }
+            // Split date-fns locales
+            if (id.includes('date-fns')) {
+              const match = /.*\/date-fns\/esm\/locale\/([\w-]+)\/.*\.js/.exec(
+                id,
+              )
+              if (match) {
+                if (supportedDatefnsLocales.includes(match[1])) {
+                  return `locales/${match[1]}/date-fns`
+                } else {
+                  // FIXME: currently difficult to cherry pick only needed locales,
+                  // hopefully this chunk should not be fetched.
+                  return 'locales/not-used'
+                }
+              } else {
+                return 'date-fns'
+              }
             }
           },
         },

@@ -21,7 +21,7 @@
     "fork-awesome": "^1.2.0",
     "simple-evaluate": "^1.4.6",
     "vue": "3.3.4",
-    "vue-i18n": "^8.28.2",
+    "vue-i18n": "^9.10.1",
     "vue-router": "^4.3.0",
     "vue-showdown": "^2.4.1",
     "vuex": "^4.1.0"

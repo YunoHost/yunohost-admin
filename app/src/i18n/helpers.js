@@ -1,9 +1,9 @@
+import { nextTick } from 'vue'
 import store from '@/store'
 import i18n from '@/i18n'
 import supportedLocales from './supportedLocales'
 
-let dateFnsLocale
-const loadedLanguages = []
+export let dateFnsLocale
 
 /**
  * Returns the first two supported locales that can be found in the `localStorage` or
@@ -34,10 +34,39 @@ function getDefaultLocales() {
   return defaultLocales
 }
 
-function updateDocumentLocale(locale) {
-  document.documentElement.lang = locale
+export async function setI18nLocale(locale) {
+  if (!i18n.global.availableLocales.includes(locale)) {
+    await loadLocaleMessages(locale)
+    // also query/set the date-fns locale object for time translation
+    await loadDateFnsLocale(locale)
+  }
+
+  // Preload 'en' locales as it is the hard fallback
+  if (locale !== 'en' && !i18n.global.availableLocales.includes('en')) {
+    loadLocaleMessages('en')
+  }
+
+  if (i18n.mode === 'legacy') {
+    i18n.global.locale = locale
+  } else {
+    i18n.global.locale.value = locale
+  }
+
+  document.querySelector('html').setAttribute('lang', locale)
   // FIXME can't currently change document direction easily since bootstrap still doesn't handle rtl.
   // document.dir = locale === 'ar' ? 'rtl' : 'ltr'
+}
+
+export async function setI18nFallbackLocale(locale) {
+  if (!i18n.global.availableLocales.includes(locale)) {
+    await loadLocaleMessages(locale)
+  }
+
+  if (i18n.mode === 'legacy') {
+    i18n.global.fallbackLocale = [locale, 'en']
+  } else {
+    i18n.global.fallbackLocale.value = [locale, 'en']
+  }
 }
 
 /**
@@ -45,15 +74,14 @@ function updateDocumentLocale(locale) {
  *
  * @return {Promise<string>} Promise that resolve the given locale string
  */
-function loadLocaleMessages(locale) {
-  if (loadedLanguages.includes(locale)) {
-    return Promise.resolve(locale)
-  }
-  return import(`@/i18n/locales/${locale}.json`).then((messages) => {
-    i18n.setLocaleMessage(locale, messages.default)
-    loadedLanguages.push(locale)
-    return locale
-  })
+export async function loadLocaleMessages(locale) {
+  // load locale messages with dynamic import
+  const messages = await import(`./locales/${locale}.json`)
+
+  // set locale and locale message
+  i18n.global.setLocaleMessage(locale, messages)
+
+  return nextTick()
 }
 
 /**
@@ -71,19 +99,10 @@ async function loadDateFnsLocale(locale) {
 /**
  * Initialize all locales
  */
-function initDefaultLocales() {
+export async function initDefaultLocales() {
   // Get defined locales from `localStorage` or `navigator`
   const [locale, fallbackLocale] = getDefaultLocales()
 
-  store.dispatch('UPDATE_LOCALE', locale)
-  store.dispatch('UPDATE_FALLBACKLOCALE', fallbackLocale || 'en')
-  return loadLocaleMessages('en')
-}
-
-export {
-  initDefaultLocales,
-  updateDocumentLocale,
-  loadLocaleMessages,
-  loadDateFnsLocale,
-  dateFnsLocale,
+  await store.dispatch('UPDATE_LOCALE', locale)
+  await store.dispatch('UPDATE_FALLBACKLOCALE', fallbackLocale || 'en')
 }
