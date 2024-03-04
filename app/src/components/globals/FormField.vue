@@ -36,7 +36,6 @@
         <VueShowdown
           v-if="description"
           :markdown="description"
-          flavor="github"
           :class="{
             ['alert p-1 px-2 alert-' + descriptionVariant]: descriptionVariant,
           }"

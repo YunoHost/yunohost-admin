@@ -1,5 +1,5 @@
 <template>
-  <VueShowdown :markdown="label" flavor="github" />
+  <VueShowdown :markdown="label" />
 </template>
 
 <script>

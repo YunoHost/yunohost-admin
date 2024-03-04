@@ -32,7 +32,6 @@
         v-for="[name, notif] in app.doc.notifications.postInstall"
         :key="name"
         :markdown="notif"
-        flavor="github"
         :options="{ headerLevelStart: 4 }"
       />
     </YAlert>
@@ -64,7 +63,6 @@
         v-for="[name, notif] in app.doc.notifications.postUpgrade"
         :key="name"
         :markdown="notif"
-        flavor="github"
         :options="{ headerLevelStart: 4 }"
       />
     </YAlert>
@@ -118,7 +116,7 @@
         </a>
       </p>
 
-      <VueShowdown :markdown="app.description" flavor="github" />
+      <VueShowdown :markdown="app.description" />
     </section>
 
     <YAlert v-if="config_panel_err" class="mb-4" variant="danger" icon="bug">
@@ -279,7 +277,7 @@
             <YIcon iname="book" class="mr-2" />
             {{ name === 'admin' ? $t('app.doc.admin.title') : name }}
           </template>
-          <VueShowdown :markdown="content" flavor="github" />
+          <VueShowdown :markdown="content" />
         </BTab>
       </BTabs>
     </BCard>

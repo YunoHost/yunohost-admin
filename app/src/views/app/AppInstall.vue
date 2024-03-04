@@ -27,7 +27,7 @@
           </template>
         </p>
 
-        <VueShowdown :markdown="app.description" flavor="github" />
+        <VueShowdown :markdown="app.description" />
 
         <BImg
           v-if="app.screenshot"
@@ -120,11 +120,7 @@
           v-t="'app.install.problems.lowquality'"
         />
 
-        <VueShowdown
-          v-if="app.preInstall"
-          :markdown="app.preInstall"
-          flavor="github"
-        />
+        <VueShowdown v-if="app.preInstall" :markdown="app.preInstall" />
       </YAlert>
 
       <YAlert

@@ -25,7 +25,7 @@
     "vue": "3.3.4",
     "vue-i18n": "^9.10.1",
     "vue-router": "^4.3.0",
-    "vue-showdown": "^2.4.1",
+    "vue-showdown": "^4.2.0",
     "vuex": "^4.1.0"
   },
   "devDependencies": {

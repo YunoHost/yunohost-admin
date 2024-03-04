@@ -127,7 +127,6 @@
             <BCardBody>
               <VueShowdown
                 :markdown="notif"
-                flavor="github"
                 :options="{ headerLevelStart: 6 }"
               />
             </BCardBody>

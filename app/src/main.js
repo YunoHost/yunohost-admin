@@ -1,7 +1,7 @@
 import { createApp, configureCompat } from 'vue'
 import App from './App.vue'
 import BootstrapVue from 'bootstrap-vue'
-import VueShowdown from 'vue-showdown'
+import { VueShowdownPlugin } from 'vue-showdown'
 
 import store from './store'
 import router from './router'
@@ -29,7 +29,8 @@ app.use(BootstrapVue, {
   BBadge: { pill: true },
 })
 
-app.use(VueShowdown, {
+app.use(VueShowdownPlugin, {
+  flavor: 'github',
   options: {
     emoji: true,
   },
