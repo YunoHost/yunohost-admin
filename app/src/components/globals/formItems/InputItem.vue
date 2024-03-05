@@ -17,7 +17,6 @@
 </template>
 
 <script>
-
 export default {
   name: 'InputItem',
 
@@ -34,13 +33,17 @@ export default {
     trim: { type: Boolean, default: true },
     autocomplete: { type: String, default: null },
     pattern: { type: Object, default: null },
-    name: { type: String, default: null }
+    name: { type: String, default: null },
   },
 
-  data () {
+  data() {
     return {
-      autocomplete_: (this.autocomplete) ? this.autocomplete : (this.type === 'password') ? 'new-password' : null
+      autocomplete_: this.autocomplete
+        ? this.autocomplete
+        : this.type === 'password'
+          ? 'new-password'
+          : null,
     }
-  }
+  },
 }
 </script>

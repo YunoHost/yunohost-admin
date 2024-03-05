@@ -1,5 +1,8 @@
 <template>
-  <span :class="['icon fa fa-' + iname, variant ? 'variant ' + variant : '']" aria-hidden="true" />
+  <span
+    :class="['icon fa fa-' + iname, variant ? 'variant ' + variant : '']"
+    aria-hidden="true"
+  />
 </template>
 
 <script>
@@ -7,8 +10,8 @@ export default {
   name: 'YIcon',
   props: {
     iname: { type: String, required: true },
-    variant: { type: String, default: null }
-  }
+    variant: { type: String, default: null },
+  },
 }
 </script>
 
@@ -35,7 +38,7 @@ export default {
   }
 
   &.variant {
-    font-size: .8rem;
+    font-size: 0.8rem;
     width: 1.35rem;
     min-width: 1.35rem;
     height: 1.35rem;

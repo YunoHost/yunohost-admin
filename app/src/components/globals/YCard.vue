@@ -9,15 +9,29 @@
           <slot name="header-next" />
         </slot>
 
-        <div v-if="hasButtons" class="mt-2 w-100 custom-header-buttons" :class="{ [`ml-${buttonUnbreak}-auto mt-${buttonUnbreak}-0 w-${buttonUnbreak}-auto`]: buttonUnbreak }">
+        <div
+          v-if="hasButtons"
+          class="mt-2 w-100 custom-header-buttons"
+          :class="{
+            [`ml-${buttonUnbreak}-auto mt-${buttonUnbreak}-0 w-${buttonUnbreak}-auto`]:
+              buttonUnbreak,
+          }"
+        >
           <slot name="header-buttons" />
         </div>
       </div>
 
       <BButton
-        v-if="collapsable" @click="visible = !visible"
-        size="sm" variant="outline-secondary"
-        class="align-self-center ml-auto" :class="{ 'not-collapsed': visible, 'collapsed': !visible, [`ml-${buttonUnbreak}-2`]: buttonUnbreak }"
+        v-if="collapsable"
+        @click="visible = !visible"
+        size="sm"
+        variant="outline-secondary"
+        class="align-self-center ml-auto"
+        :class="{
+          'not-collapsed': visible,
+          collapsed: !visible,
+          [`ml-${buttonUnbreak}-2`]: buttonUnbreak,
+        }"
       >
         <YIcon iname="chevron-right" />
         <span class="sr-only">{{ $t('words.collapse') }}</span>
@@ -25,7 +39,7 @@
     </template>
 
     <BCollapse v-if="collapsable" :visible="visible">
-      <slot v-if="('no-body' in $attrs)" name="default" />
+      <slot v-if="'no-body' in $attrs" name="default" />
       <BCardBody v-else>
         <slot name="default" />
       </BCardBody>
@@ -41,7 +55,6 @@
 </template>
 
 <script>
-
 export default {
   name: 'YCard',
 
@@ -52,20 +65,20 @@ export default {
     icon: { type: String, default: null },
     collapsable: { type: Boolean, default: false },
     collapsed: { type: Boolean, default: false },
-    buttonUnbreak: { type: String, default: 'md' }
+    buttonUnbreak: { type: String, default: 'md' },
   },
 
-  data () {
+  data() {
     return {
-      visible: !this.collapsed
+      visible: !this.collapsed,
     }
   },
 
   computed: {
-    hasButtons () {
+    hasButtons() {
       return 'header-buttons' in this.$slots
-    }
-  }
+    },
+  },
 }
 </script>
 
@@ -79,7 +92,7 @@ export default {
     }
 
     .btn + .btn {
-      margin-left: .5rem;
+      margin-left: 0.5rem;
     }
   }
 }
@@ -90,7 +103,7 @@ export default {
   align-items: center;
 
   & > *:not(:first-child) {
-    margin-left: .5rem;
+    margin-left: 0.5rem;
   }
 }
 .collapse:not(.show) + .card-footer {

@@ -6,29 +6,45 @@
 
         <div class="w-100">
           <BRow>
-            <BCol><strong>{{ $t('user_username') }}</strong></BCol>
+            <BCol>
+              <strong>{{ $t('user_username') }}</strong>
+            </BCol>
             <BCol>{{ user.username }}</BCol>
           </BRow>
 
           <BRow>
-            <BCol><strong>{{ $t('user_email') }}</strong></BCol>
+            <BCol>
+              <strong>{{ $t('user_email') }}</strong>
+            </BCol>
             <BCol class="font-italic">
               {{ user.mail }}
             </BCol>
           </BRow>
 
           <BRow>
-            <BCol><strong>{{ $t('user_mailbox_quota') }}</strong></BCol>
+            <BCol>
+              <strong>{{ $t('user_mailbox_quota') }}</strong>
+            </BCol>
             <BCol>{{ user['mailbox-quota'].limit }}</BCol>
           </BRow>
 
           <BRow>
-            <BCol><strong>{{ $t('user_mailbox_use') }}</strong></BCol>
+            <BCol>
+              <strong>{{ $t('user_mailbox_use') }}</strong>
+            </BCol>
             <BCol>{{ user['mailbox-quota'].use }}</BCol>
           </BRow>
 
-          <BRow v-for="(trad, mailType) in {'mail-aliases': 'user_emailaliases', 'mail-forward': 'user_emailforward'}" :key="mailType">
-            <BCol><strong>{{ $t(trad) }}</strong></BCol>
+          <BRow
+            v-for="(trad, mailType) in {
+              'mail-aliases': 'user_emailaliases',
+              'mail-forward': 'user_emailforward',
+            }"
+            :key="mailType"
+          >
+            <BCol>
+              <strong>{{ $t(trad) }}</strong>
+            </BCol>
 
             <BCol v-if="user[mailType]">
               <ul v-if="user[mailType].length > 1">
@@ -46,9 +62,12 @@
       </div>
 
       <template #buttons>
-        <BButton :to="{ name: 'user-edit', params: { user } }" :variant="user ? 'info' : 'dark'">
+        <BButton
+          :to="{ name: 'user-edit', params: { user } }"
+          :variant="user ? 'info' : 'dark'"
+        >
           <YIcon iname="edit" />
-          {{ user ? $t('user_username_edit', {name: user.username}) : '' }}
+          {{ user ? $t('user_username_edit', { name: user.username }) : '' }}
         </BButton>
 
         <BButton v-b-modal.delete-modal :variant="user ? 'danger' : 'dark'">
@@ -60,8 +79,12 @@
 
     <BModal
       v-if="user"
-      id="delete-modal" :title="$t('confirm_delete', { name: user.username })" @ok="deleteUser"
-      header-bg-variant="warning" body-class="" body-bg-variant=""
+      id="delete-modal"
+      :title="$t('confirm_delete', { name: user.username })"
+      @ok="deleteUser"
+      header-bg-variant="warning"
+      body-class=""
+      body-bg-variant=""
     >
       <BFormGroup>
         <BFormCheckbox v-model="purge">
@@ -70,7 +93,8 @@
 
         <template #description>
           <div class="alert alert-warning">
-            <YIcon iname="exclamation-triangle" /> {{ $t('purge_user_data_warning') }}
+            <YIcon iname="exclamation-triangle" />
+            {{ $t('purge_user_data_warning') }}
           </div>
         </template>
       </BFormGroup>
@@ -85,36 +109,38 @@ export default {
   name: 'UserInfo',
 
   props: {
-    name: { type: String, required: true }
+    name: { type: String, required: true },
   },
 
-  data () {
+  data() {
     return {
       queries: [
-        ['GET', { uri: 'users', param: this.name, storeKey: 'users_details' }]
+        ['GET', { uri: 'users', param: this.name, storeKey: 'users_details' }],
       ],
-      purge: false
+      purge: false,
     }
   },
 
   computed: {
-    user () {
+    user() {
       return this.$store.getters.user(this.name)
-    }
+    },
   },
 
   methods: {
-    deleteUser () {
+    deleteUser() {
       const data = this.purge ? { purge: '' } : {}
-      api.delete(
-        { uri: 'users', param: this.name, storeKey: 'users_details' },
-        data,
-        { key: 'users.delete', name: this.name }
-      ).then(() => {
-        this.$router.push({ name: 'user-list' })
-      })
-    }
-  }
+      api
+        .delete(
+          { uri: 'users', param: this.name, storeKey: 'users_details' },
+          data,
+          { key: 'users.delete', name: this.name },
+        )
+        .then(() => {
+          this.$router.push({ name: 'user-list' })
+        })
+    },
+  },
 }
 </script>
 
@@ -127,10 +153,10 @@ export default {
 
 .row {
   + .row {
-      border-top: $thin-border;
+    border-top: $thin-border;
   }
 
-  padding: .5rem;
+  padding: 0.5rem;
 }
 
 .col {

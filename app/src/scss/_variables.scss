@@ -1,4 +1,3 @@
-
 //   ╭─────────────────────────────────────────────────────────────────╮
 //   │                                                                 │
 //   │   /!\ DO NOT IMPORT OR DEFINE ACTUAL RULES INTO THIS FILE /!\   │
@@ -11,7 +10,6 @@
 //   functions and mixins can be accessed.
 //   But if some rules are defined here, they will be copied into the final build as many
 //   times as there are components…
-
 
 //  ╭─────────────────────────────╮
 //  │ ┌─╮╭─╮╭─╮╶┬╴╭─╴╶┬╴┌─╮╭─┐┌─╮ │
@@ -27,10 +25,10 @@
 // For exemple, turning rounding of elements off, the bases colors, etc.
 // $enable-rounded: false;
 
-$font-size-base: .9rem;
+$font-size-base: 0.9rem;
 $font-weight-bold: 500;
 
-$white:    var(--white);
+$white: var(--white);
 $gray-100: var(--gray-100);
 $gray-200: var(--gray-200);
 $gray-300: var(--gray-300);
@@ -40,18 +38,18 @@ $gray-600: var(--gray-600);
 $gray-700: var(--gray-700);
 $gray-800: var(--gray-800);
 $gray-900: var(--gray-900);
-$black:    var(--black);
+$black: var(--black);
 
-$blue:    var(--blue);
-$indigo:  var(--indigo);
-$purple:  var(--purple);
-$pink:    var(--pink);
-$red:     var(--red);
-$orange:  var(--orange);
-$yellow:  var(--yellow);
-$green:   var(--green);
-$teal:    var(--teal);
-$cyan:    var(--cyan);
+$blue: var(--blue);
+$indigo: var(--indigo);
+$purple: var(--purple);
+$pink: var(--pink);
+$red: var(--red);
+$orange: var(--orange);
+$yellow: var(--yellow);
+$green: var(--green);
+$teal: var(--teal);
+$cyan: var(--cyan);
 
 $theme-colors: (
   'best': $purple,
@@ -59,12 +57,12 @@ $theme-colors: (
 
 $yiq-contrasted-threshold: var(--yiq-contrasted-threshold);
 
-$alert-bg-level:     -10;
+$alert-bg-level: -10;
 $alert-border-level: -9;
-$alert-color-level:  5;
+$alert-color-level: 5;
 
-$list-group-item-bg-level:     -11;
-$list-group-item-color-level:  6;
+$list-group-item-bg-level: -11;
+$list-group-item-color-level: 6;
 
 $code-color: $black;
 
@@ -77,8 +75,23 @@ $display4-weight: 200;
 $lead-font-weight: 200;
 
 // Set fonts
-$font-family-sans-serif: 'FiraGO', 'Fira Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji' !default;
-$font-family-monospace: 'Fira Code', SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace !default;
+$font-family-sans-serif:
+  'FiraGO',
+  'Fira Sans',
+  -apple-system,
+  BlinkMacSystemFont,
+  'Segoe UI',
+  Roboto,
+  'Helvetica Neue',
+  Arial,
+  'Noto Sans',
+  sans-serif,
+  'Apple Color Emoji',
+  'Segoe UI Emoji',
+  'Segoe UI Symbol',
+  'Noto Color Emoji' !default;
+$font-family-monospace: 'Fira Code', SFMono-Regular, Menlo, Monaco, Consolas,
+  'Liberation Mono', 'Courier New', monospace !default;
 
 $h2-font-size: $font-size-base * 1.5;
 $h3-font-size: $font-size-base * 1.4;
@@ -87,7 +100,7 @@ $h5-font-size: $font-size-base * 1.1;
 
 $alert-padding-x: 1rem;
 
-$card-spacer-y: .6rem;
+$card-spacer-y: 0.6rem;
 $card-spacer-x: 1rem;
 
 $list-group-item-padding-x: 1rem;
@@ -105,7 +118,9 @@ $b-toast-background-opacity: 100%;
 }
 
 $custom-checkbox-indicator-icon-checked: get-checkbox-icon-checked('%23fff');
-$custom-checkbox-indicator-icon-indeterminate: get-checkbox-icon-indeterminate('%23fff');
+$custom-checkbox-indicator-icon-indeterminate: get-checkbox-icon-indeterminate(
+  '%23fff'
+);
 
 // Import default variables after the above setup to compute all other variables.
 @import '~bootstrap/scss/functions.scss';
@@ -113,7 +128,6 @@ $custom-checkbox-indicator-icon-indeterminate: get-checkbox-icon-indeterminate('
 @import '~bootstrap/scss/variables';
 @import '~bootstrap/scss/mixins.scss';
 @import '~bootstrap-vue/src/variables';
-
 
 $hr-border-color: $gray-200;
 
@@ -133,7 +147,6 @@ $fa-font-size-base: $font-size-base;
 
 @import '~fork-awesome/scss/variables';
 
-
 //  ╭────────────────────╮
 //  │ ╭─╴╷ ╷╭─╴╶┬╴╭─╮╭╮╮ │
 //  │ │  │ │╰─╮ │ │ ││││ │
@@ -142,6 +155,6 @@ $fa-font-size-base: $font-size-base;
 
 $thin-border: $hr-border-width solid $hr-border-color;
 
-$btn-padding-y-xs: .25rem;
-$btn-padding-x-xs: .35rem;
+$btn-padding-y-xs: 0.25rem;
+$btn-padding-x-xs: 0.35rem;
 $btn-line-height-xs: 1.5;

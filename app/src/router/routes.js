@@ -18,8 +18,8 @@ const routes = [
     path: '/',
     component: HomeView,
     meta: {
-      args: { trad: 'home' }
-    }
+      args: { trad: 'home' },
+    },
   },
 
   {
@@ -28,8 +28,8 @@ const routes = [
     component: LoginView,
     meta: {
       noAuth: true,
-      args: { trad: 'login' }
-    }
+      args: { trad: 'login' },
+    },
   },
 
   /* ───────────────╮
@@ -41,8 +41,8 @@ const routes = [
     component: () => import('@/views/PostInstall.vue'),
     meta: {
       noAuth: true,
-      args: { trad: 'postinstall.title' }
-    }
+      args: { trad: 'postinstall.title' },
+    },
   },
 
   /* ───────╮
@@ -54,8 +54,8 @@ const routes = [
     component: () => import('@/views/user/UserList.vue'),
     meta: {
       args: { trad: 'users' },
-      breadcrumb: ['user-list']
-    }
+      breadcrumb: ['user-list'],
+    },
   },
   {
     name: 'user-create',
@@ -63,8 +63,8 @@ const routes = [
     component: () => import('@/views/user/UserCreate.vue'),
     meta: {
       args: { trad: 'users_new' },
-      breadcrumb: ['user-list', 'user-create']
-    }
+      breadcrumb: ['user-list', 'user-create'],
+    },
   },
   {
     name: 'user-import',
@@ -73,8 +73,8 @@ const routes = [
     props: true,
     meta: {
       args: { trad: 'users_import' },
-      breadcrumb: ['user-list', 'user-import']
-    }
+      breadcrumb: ['user-list', 'user-import'],
+    },
   },
   {
     name: 'user-info',
@@ -83,8 +83,8 @@ const routes = [
     props: true,
     meta: {
       args: { param: 'name' },
-      breadcrumb: ['user-list', 'user-info']
-    }
+      breadcrumb: ['user-list', 'user-info'],
+    },
   },
   {
     name: 'user-edit',
@@ -93,8 +93,8 @@ const routes = [
     props: true,
     meta: {
       args: { param: 'name', trad: 'user_username_edit' },
-      breadcrumb: ['user-list', 'user-info', 'user-edit']
-    }
+      breadcrumb: ['user-list', 'user-info', 'user-edit'],
+    },
   },
 
   /* ────────╮
@@ -106,8 +106,8 @@ const routes = [
     component: () => import('@/views/group/GroupList.vue'),
     meta: {
       args: { trad: 'groups_and_permissions' },
-      breadcrumb: ['user-list', 'group-list']
-    }
+      breadcrumb: ['user-list', 'group-list'],
+    },
   },
   {
     name: 'group-create',
@@ -115,8 +115,8 @@ const routes = [
     component: () => import('@/views/group/GroupCreate.vue'),
     meta: {
       args: { trad: 'group_new' },
-      breadcrumb: ['user-list', 'group-list', 'group-create']
-    }
+      breadcrumb: ['user-list', 'group-list', 'group-create'],
+    },
   },
 
   /* ─────────╮
@@ -128,8 +128,8 @@ const routes = [
     component: () => import('@/views/domain/DomainList.vue'),
     meta: {
       args: { trad: 'domains' },
-      breadcrumb: ['domain-list']
-    }
+      breadcrumb: ['domain-list'],
+    },
   },
   {
     name: 'domain-add',
@@ -137,8 +137,8 @@ const routes = [
     component: () => import('@/views/domain/DomainAdd.vue'),
     meta: {
       args: { trad: 'domain_add' },
-      breadcrumb: ['domain-list', 'domain-add']
-    }
+      breadcrumb: ['domain-list', 'domain-add'],
+    },
   },
   {
     path: '/domains/:name',
@@ -153,10 +153,10 @@ const routes = [
         meta: {
           routerParams: ['name'], // Override router key params to avoid view recreation at tab change.
           args: { param: 'name' },
-          breadcrumb: ['domain-list', 'domain-info']
-        }
-      }
-    ]
+          breadcrumb: ['domain-list', 'domain-info'],
+        },
+      },
+    ],
   },
 
   /* ───────╮
@@ -168,18 +168,18 @@ const routes = [
     component: () => import('@/views/app/AppList.vue'),
     meta: {
       args: { trad: 'applications' },
-      breadcrumb: ['app-list']
-    }
+      breadcrumb: ['app-list'],
+    },
   },
   {
     name: 'app-catalog',
     path: '/apps/catalog',
     component: () => import('@/views/app/AppCatalog.vue'),
-    props: route => route.query,
+    props: (route) => route.query,
     meta: {
       args: { trad: 'catalog' },
-      breadcrumb: ['app-list', 'app-catalog']
-    }
+      breadcrumb: ['app-list', 'app-catalog'],
+    },
   },
   {
     name: 'app-install',
@@ -188,8 +188,8 @@ const routes = [
     props: true,
     meta: {
       args: { trad: 'install_name', param: 'id' },
-      breadcrumb: ['app-list', 'app-catalog', 'app-install']
-    }
+      breadcrumb: ['app-list', 'app-catalog', 'app-install'],
+    },
   },
   {
     name: 'app-install-custom',
@@ -198,8 +198,8 @@ const routes = [
     props: true,
     meta: {
       args: { trad: 'install_name', param: 'id' },
-      breadcrumb: ['app-list', 'app-catalog', 'app-install-custom']
-    }
+      breadcrumb: ['app-list', 'app-catalog', 'app-install-custom'],
+    },
   },
   {
     path: '/apps/:id',
@@ -214,10 +214,10 @@ const routes = [
         meta: {
           routerParams: ['id'], // Override router key params to avoid view recreation at tab change.
           args: { param: 'id' },
-          breadcrumb: ['app-list', 'app-info']
-        }
-      }
-    ]
+          breadcrumb: ['app-list', 'app-info'],
+        },
+      },
+    ],
   },
 
   /* ────────────────╮
@@ -229,8 +229,8 @@ const routes = [
     component: () => import('@/views/update/SystemUpdate.vue'),
     meta: {
       args: { trad: 'system_update' },
-      breadcrumb: ['update']
-    }
+      breadcrumb: ['update'],
+    },
   },
 
   /* ──────────╮
@@ -242,8 +242,8 @@ const routes = [
     component: () => import('@/views/service/ServiceList.vue'),
     meta: {
       args: { trad: 'services' },
-      breadcrumb: ['tool-list', 'service-list']
-    }
+      breadcrumb: ['tool-list', 'service-list'],
+    },
   },
   {
     name: 'service-info',
@@ -252,8 +252,8 @@ const routes = [
     props: true,
     meta: {
       args: { param: 'name' },
-      breadcrumb: ['tool-list', 'service-list', 'service-info']
-    }
+      breadcrumb: ['tool-list', 'service-list', 'service-info'],
+    },
   },
 
   /* ────────╮
@@ -265,8 +265,8 @@ const routes = [
     component: ToolList,
     meta: {
       args: { trad: 'tools' },
-      breadcrumb: ['tool-list']
-    }
+      breadcrumb: ['tool-list'],
+    },
   },
   {
     name: 'tool-logs',
@@ -274,8 +274,8 @@ const routes = [
     component: () => import('@/views/tool/ToolLogs.vue'),
     meta: {
       args: { trad: 'logs' },
-      breadcrumb: ['tool-list', 'tool-logs']
-    }
+      breadcrumb: ['tool-list', 'tool-logs'],
+    },
   },
   {
     name: 'tool-log',
@@ -284,8 +284,8 @@ const routes = [
     props: true,
     meta: {
       args: { param: 'name' },
-      breadcrumb: ['tool-list', 'tool-logs', 'tool-log']
-    }
+      breadcrumb: ['tool-list', 'tool-logs', 'tool-log'],
+    },
   },
   {
     name: 'tool-migrations',
@@ -293,8 +293,8 @@ const routes = [
     component: () => import('@/views/tool/ToolMigrations.vue'),
     meta: {
       args: { trad: 'migrations' },
-      breadcrumb: ['tool-list', 'tool-migrations']
-    }
+      breadcrumb: ['tool-list', 'tool-migrations'],
+    },
   },
   {
     name: 'tool-firewall',
@@ -302,8 +302,8 @@ const routes = [
     component: () => import('@/views/tool/ToolFirewall.vue'),
     meta: {
       args: { trad: 'firewall' },
-      breadcrumb: ['tool-list', 'tool-firewall']
-    }
+      breadcrumb: ['tool-list', 'tool-firewall'],
+    },
   },
   {
     name: 'tool-webadmin',
@@ -311,8 +311,8 @@ const routes = [
     component: () => import('@/views/tool/ToolWebadmin.vue'),
     meta: {
       args: { trad: 'tools_webadmin_settings' },
-      breadcrumb: ['tool-list', 'tool-webadmin']
-    }
+      breadcrumb: ['tool-list', 'tool-webadmin'],
+    },
   },
   {
     path: '/tools/settings',
@@ -326,10 +326,10 @@ const routes = [
         meta: {
           routerParams: [],
           args: { trad: 'tools_yunohost_settings' },
-          breadcrumb: ['tool-list', 'tool-settings']
-        }
-      }
-    ]
+          breadcrumb: ['tool-list', 'tool-settings'],
+        },
+      },
+    ],
   },
   {
     name: 'tool-power',
@@ -337,8 +337,8 @@ const routes = [
     component: () => import('@/views/tool/ToolPower.vue'),
     meta: {
       args: { trad: 'tools_shutdown_reboot' },
-      breadcrumb: ['tool-list', 'tool-power']
-    }
+      breadcrumb: ['tool-list', 'tool-power'],
+    },
   },
 
   /* ────────────╮
@@ -350,8 +350,8 @@ const routes = [
     component: () => import('@/views/diagnosis/DiagnosisView.vue'),
     meta: {
       args: { trad: 'diagnosis' },
-      breadcrumb: ['diagnosis']
-    }
+      breadcrumb: ['diagnosis'],
+    },
   },
 
   /* ─────────╮
@@ -363,8 +363,8 @@ const routes = [
     component: () => import('@/views/backup/BackupView.vue'),
     meta: {
       args: { trad: 'backup' },
-      breadcrumb: ['backup']
-    }
+      breadcrumb: ['backup'],
+    },
   },
   {
     name: 'backup-list',
@@ -373,8 +373,8 @@ const routes = [
     props: true,
     meta: {
       args: { param: 'id' },
-      breadcrumb: ['backup', 'backup-list']
-    }
+      breadcrumb: ['backup', 'backup-list'],
+    },
   },
   {
     name: 'backup-info',
@@ -383,8 +383,8 @@ const routes = [
     props: true,
     meta: {
       args: { param: 'name' },
-      breadcrumb: ['backup', 'backup-list', 'backup-info']
-    }
+      breadcrumb: ['backup', 'backup-list', 'backup-info'],
+    },
   },
   {
     name: 'backup-create',
@@ -393,9 +393,9 @@ const routes = [
     props: true,
     meta: {
       args: { trad: 'backup_create' },
-      breadcrumb: ['backup', 'backup-list', 'backup-create']
-    }
-  }
+      breadcrumb: ['backup', 'backup-list', 'backup-create'],
+    },
+  },
 ]
 
 export default routes

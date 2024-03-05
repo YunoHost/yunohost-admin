@@ -23,14 +23,14 @@ export default {
   props: {
     alert: { type: Boolean, default: false },
     variant: { type: String, default: 'info' },
-    icon: { type: String, default: null }
+    icon: { type: String, default: null },
   },
 
   computed: {
-    _icon () {
+    _icon() {
       if (this.icon) return this.icon
       return DEFAULT_STATUS_ICON[this.variant]
-    }
-  }
+    },
+  },
 }
 </script>

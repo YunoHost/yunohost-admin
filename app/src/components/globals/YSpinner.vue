@@ -5,13 +5,12 @@
 <script>
 import { mapGetters } from 'vuex'
 
-
 export default {
   name: 'YSpinner',
 
   computed: {
-    ...mapGetters(['spinner'])
-  }
+    ...mapGetters(['spinner']),
+  },
 }
 </script>
 
@@ -26,15 +25,28 @@ export default {
     background-image: url('../../assets/spinners/pacman_dark.gif');
     animation-name: back-and-forth-pacman;
 
-    [dark-theme="true"] & {
+    [dark-theme='true'] & {
       background-image: url('../../assets/spinners/pacman_light.gif');
     }
 
     @keyframes back-and-forth-pacman {
-      0%, 100% { transform: scale(1); margin-left: 0; }
-      49% { transform: scale(1); margin-left: calc(100% - 24px);}
-      50% { transform: scale(-1); margin-left: calc(100% - 24px);}
-      99% { transform: scale(-1); margin-left: 0;}
+      0%,
+      100% {
+        transform: scale(1);
+        margin-left: 0;
+      }
+      49% {
+        transform: scale(1);
+        margin-left: calc(100% - 24px);
+      }
+      50% {
+        transform: scale(-1);
+        margin-left: calc(100% - 24px);
+      }
+      99% {
+        transform: scale(-1);
+        margin-left: 0;
+      }
     }
   }
 
@@ -45,10 +57,23 @@ export default {
     animation-name: back-and-forth-magikarp;
 
     @keyframes back-and-forth-magikarp {
-      0%, 100% { transform: scale(1, 1); margin-left: 0; }
-      49% { transform: scale(1, 1); margin-left: calc(100% - 32px);}
-      50% { transform: scale(-1, 1); margin-left: calc(100% - 32px);}
-      99% { transform: scale(-1, 1); margin-left: 0;}
+      0%,
+      100% {
+        transform: scale(1, 1);
+        margin-left: 0;
+      }
+      49% {
+        transform: scale(1, 1);
+        margin-left: calc(100% - 32px);
+      }
+      50% {
+        transform: scale(-1, 1);
+        margin-left: calc(100% - 32px);
+      }
+      99% {
+        transform: scale(-1, 1);
+        margin-left: 0;
+      }
     }
   }
 
@@ -59,10 +84,23 @@ export default {
     animation-name: back-and-forth-nyancat;
 
     @keyframes back-and-forth-nyancat {
-      0%, 100% { transform: scale(1, 1); margin-left: 0; }
-      49% { transform: scale(1, 1); margin-left: calc(100% - 100px);}
-      50% { transform: scale(-1, 1); margin-left: calc(100% - 100px);}
-      99% { transform: scale(-1, 1); margin-left: 0;}
+      0%,
+      100% {
+        transform: scale(1, 1);
+        margin-left: 0;
+      }
+      49% {
+        transform: scale(1, 1);
+        margin-left: calc(100% - 100px);
+      }
+      50% {
+        transform: scale(-1, 1);
+        margin-left: calc(100% - 100px);
+      }
+      99% {
+        transform: scale(-1, 1);
+        margin-left: 0;
+      }
     }
   }
 
@@ -73,10 +111,23 @@ export default {
     animation-name: back-and-forth-spookycat;
 
     @keyframes back-and-forth-spookycat {
-      0%, 100% { transform: scale(1, 1); margin-left: 0; }
-      49% { transform: scale(1, 1); margin-left: calc(100% - 100px);}
-      50% { transform: scale(-1, 1); margin-left: calc(100% - 100px);}
-      99% { transform: scale(-1, 1); margin-left: 0;}
+      0%,
+      100% {
+        transform: scale(1, 1);
+        margin-left: 0;
+      }
+      49% {
+        transform: scale(1, 1);
+        margin-left: calc(100% - 100px);
+      }
+      50% {
+        transform: scale(-1, 1);
+        margin-left: calc(100% - 100px);
+      }
+      99% {
+        transform: scale(-1, 1);
+        margin-left: 0;
+      }
     }
   }
 }

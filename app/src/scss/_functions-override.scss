@@ -34,11 +34,13 @@
     0: h,
     1: s,
     2: l,
-    3: a
+    3: a,
   );
   // find end of part
   $end: str-index($color, ',');
-  @while ($end and not str-is-between(str-slice($color, 0, $end - 1), '(', ')')) {
+  @while (
+    $end and not str-is-between(str-slice($color, 0, $end - 1), '(', ')')
+  ) {
     $newEnd: str-index(str-slice($color, $end + 1), ',');
     @if (not $newEnd) {
       $newEnd: 0;
@@ -49,7 +51,7 @@
     $part: str-slice($color, 0, $end - 1);
     $value: map-merge(
       (
-        map-get($indices, $index): $part
+        map-get($indices, $index): $part,
       ),
       recursive-color(str-slice($color, $end + 1), $index + 1)
     );
@@ -220,15 +222,14 @@
   }
 }
 
-
 // Taken from https://gist.github.com/johanlef/518a511b2b2f6b96c4f429b3af2f169a?permalink_comment_id=4053335#gistcomment-4053335
-@function theme-color-level($color-name: "primary", $level: 0) {
+@function theme-color-level($color-name: 'primary', $level: 0) {
   $color: theme-color($color-name);
   @if ($level == 0) {
     @return $color;
   }
 
-  $amount: math.div($theme-color-interval * abs($level) , 100%);
+  $amount: math.div($theme-color-interval * abs($level), 100%);
   $c: to-hsl($color);
   $h: map-get($c, h);
   $s: map-get($c, s);

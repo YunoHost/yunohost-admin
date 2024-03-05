@@ -18,7 +18,7 @@ export default {
     id: { type: String, default: null },
     choices: { type: [Array, Object], required: true },
     required: { type: Boolean, default: false },
-    name: { type: String, default: null }
-  }
+    name: { type: String, default: null },
+  },
 }
 </script>

@@ -2,7 +2,8 @@
   <BButtonGroup class="w-100">
     <BButton
       v-if="!this.required && this.value.file !== null"
-      @click="clearFiles" variant="danger"
+      @click="clearFiles"
+      variant="danger"
     >
       <span class="sr-only">{{ $t('delete') }}</span>
       <YIcon iname="trash" />
@@ -39,42 +40,42 @@ export default {
     accept: { type: String, default: null },
     state: { type: Boolean, default: null },
     required: { type: Boolean, default: false },
-    name: { type: String, default: null }
+    name: { type: String, default: null },
   },
 
   computed: {
     _placeholder: function () {
       return this.value.file === null ? this.placeholder : this.value.file.name
-    }
+    },
   },
 
   methods: {
-    onInput (file) {
+    onInput(file) {
       const value = {
         file,
         content: '',
         current: false,
-        removed: false
+        removed: false,
       }
       // Update the value with the new File and an empty content for now
       this.$emit('input', value)
 
       // Asynchronously load the File content and update the value again
-      getFileContent(file).then(content => {
+      getFileContent(file).then((content) => {
         this.$emit('input', { ...value, content })
       })
     },
 
-    clearFiles () {
+    clearFiles() {
       this.$refs['input-file'].reset()
       this.$emit('input', {
         file: null,
         content: '',
         current: false,
-        removed: true
+        removed: true,
       })
-    }
-  }
+    },
+  },
 }
 </script>
 

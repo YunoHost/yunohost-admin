@@ -1,13 +1,7 @@
 <template>
-  <BListGroupItem
-    class="yuno-list-group-item" :class="_class"
-    v-bind="$attrs"
-  >
+  <BListGroupItem class="yuno-list-group-item" :class="_class" v-bind="$attrs">
     <div v-if="!noStatus" class="yuno-list-group-item-status">
-      <YIcon
-        v-if="_icon" :iname="_icon"
-        :class="['icon-' + variant]"
-      />
+      <YIcon v-if="_icon" :iname="_icon" :class="['icon-' + variant]" />
     </div>
 
     <div class="yuno-list-group-item-content">
@@ -28,28 +22,27 @@ export default {
     noIcon: { type: Boolean, default: false },
     noStatus: { type: Boolean, default: false },
     size: { type: String, default: 'md' },
-    faded: { type: Boolean, default: false }
+    faded: { type: Boolean, default: false },
   },
 
   computed: {
-    _icon () {
+    _icon() {
       return this.noIcon ? null : this.icon || DEFAULT_STATUS_ICON[this.variant]
     },
 
-    _class () {
+    _class() {
       const baseClass = 'yuno-list-group-item-'
       return [
-         baseClass + this.size,
-         baseClass + this.variant,
-        { [baseClass + 'faded']: this.faded }
+        baseClass + this.size,
+        baseClass + this.variant,
+        { [baseClass + 'faded']: this.faded },
       ]
-    }
-  }
+    },
+  },
 }
 </script>
 
 <style lang="scss" scoped>
-
 .yuno-list-group-item {
   display: flex;
   padding: 0;
@@ -70,7 +63,7 @@ export default {
     &-#{$color} {
       color: theme-color-level($color, 6);
 
-      [dark-theme="true"] & {
+      [dark-theme='true'] & {
         color: theme-color-level($color, -6);
       }
 
@@ -96,7 +89,7 @@ export default {
 
   &-xs {
     .yuno-list-group-item-status {
-      width: .4rem;
+      width: 0.4rem;
 
       .icon {
         display: none;
@@ -109,7 +102,7 @@ export default {
   }
 
   &-faded > * {
-    opacity: .5;
+    opacity: 0.5;
   }
 }
 </style>

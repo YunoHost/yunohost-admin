@@ -6,14 +6,13 @@
 import store from '@/store'
 import errors, { APIError } from './errors'
 
-
 /**
  * Try to get response content as json and if it's not as text.
  *
  * @param {Response} response - A fetch `Response` object.
  * @return {(Object|String)} Parsed response's json or response's text.
  */
-export async function getResponseData (response) {
+export async function getResponseData(response) {
   // FIXME the api should always return json as response
   const responseText = await response.text()
   try {
@@ -22,7 +21,6 @@ export async function getResponseData (response) {
     return responseText
   }
 }
-
 
 /**
  * Opens a WebSocket connection to the server in case it sends messages.
@@ -33,11 +31,16 @@ export async function getResponseData (response) {
  * @param {Object} request - Request info data.
  * @return {Promise<Event>} Promise that resolve on websocket 'open' or 'error' event.
  */
-export function openWebSocket (request) {
-  return new Promise(resolve => {
-    const ws = new WebSocket(`wss://${store.getters.host}/yunohost/api/messages`)
+export function openWebSocket(request) {
+  return new Promise((resolve) => {
+    const ws = new WebSocket(
+      `wss://${store.getters.host}/yunohost/api/messages`,
+    )
     ws.onmessage = ({ data }) => {
-      store.dispatch('DISPATCH_MESSAGE', { request, messages: JSON.parse(data) })
+      store.dispatch('DISPATCH_MESSAGE', {
+        request,
+        messages: JSON.parse(data),
+      })
     }
     // ws.onclose = (e) => {}
     ws.onopen = resolve
@@ -45,7 +48,6 @@ export function openWebSocket (request) {
     ws.onerror = resolve
   })
 }
-
 
 /**
  * Handler for API errors.
@@ -55,7 +57,7 @@ export function openWebSocket (request) {
  * @param {Object|String} errorData - The response parsed json/text.
  * @throws Will throw a `APIError` with request and response data.
  */
-export async function handleError (request, response, errorData) {
+export async function handleError(request, response, errorData) {
   let errorCode = response.status in errors ? response.status : undefined
   if (typeof errorData === 'string') {
     // FIXME API: Patching errors that are plain text or html.
@@ -70,26 +72,24 @@ export async function handleError (request, response, errorData) {
   throw new errors[errorCode](request, response, errorData)
 }
 
-
 /**
  * If an APIError is not catched by a view it will be dispatched to the store so the
  * error can be displayed in the error modal.
  *
  * @param {APIError} error
  */
-export function onUnhandledAPIError (error) {
+export function onUnhandledAPIError(error) {
   error.log()
   store.dispatch('HANDLE_ERROR', error)
 }
-
 
 /**
  * Global catching of unhandled promise's rejections.
  * Those errors (thrown or rejected from inside a promise) can't be catched by
  * `window.onerror`.
  */
-export function registerGlobalErrorHandlers () {
-  window.addEventListener('unhandledrejection', e => {
+export function registerGlobalErrorHandlers() {
+  window.addEventListener('unhandledrejection', (e) => {
     const error = e.reason
     if (error instanceof APIError) {
       onUnhandledAPIError(error)

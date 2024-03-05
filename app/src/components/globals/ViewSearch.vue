@@ -11,8 +11,11 @@
 
         <BFormInput
           id="top-bar-search"
-          :value="search" @input="$emit('update:search', $event)"
-          :placeholder="$t('search.for', { items: $tc('items.' + itemsName, 2) })"
+          :value="search"
+          @input="$emit('update:search', $event)"
+          :placeholder="
+            $t('search.for', { items: $tc('items.' + itemsName, 2) })
+          "
           :disabled="!items"
         />
       </BInputGroup>
@@ -29,7 +32,13 @@
       <BAlert v-if="items === null || filteredItems === null" variant="warning">
         <slot name="alert-message">
           <YIcon iname="exclamation-triangle" />
-          {{ $tc(items === null ? 'items_verbose_count': 'search.not_found', 0, { items: $tc('items.' + itemsName, 0) }) }}
+          {{
+            $tc(
+              items === null ? 'items_verbose_count' : 'search.not_found',
+              0,
+              { items: $tc('items.' + itemsName, 0) },
+            )
+          }}
         </slot>
       </BAlert>
 
@@ -55,13 +64,13 @@ export default {
     itemsName: { type: String, required: true },
     filteredItems: { type: null, required: true },
     search: { type: String, default: null },
-    skeleton: { type: String, default: 'ListGroupSkeleton' }
+    skeleton: { type: String, default: 'ListGroupSkeleton' },
   },
 
   computed: {
-    hasCustomTopBar () {
+    hasCustomTopBar() {
       return 'top-bar' in this.$slots
-    }
-  }
+    },
+  },
 }
 </script>

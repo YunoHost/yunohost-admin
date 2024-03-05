@@ -1,6 +1,10 @@
 <template>
   <AbstractForm
-    v-bind="{ id: panel.id + '-form', validation, serverError: panel.serverError }"
+    v-bind="{
+      id: panel.id + '-form',
+      validation,
+      serverError: panel.serverError,
+    }"
     @submit.prevent.stop="onApply"
     :no-footer="!panel.hasApplyButton"
   >
@@ -20,15 +24,20 @@
         class="panel-section"
       >
         <BCardTitle v-if="section.name" title-tag="h3">
-          {{ section.name }} <small v-if="section.help">{{ section.help }}</small>
+          {{ section.name }}
+          <small v-if="section.help">{{ section.help }}</small>
         </BCardTitle>
 
         <template v-for="(field, fname) in section.fields">
           <!-- FIXME rework the whole component chain to avoid direct mutation of the `forms` props -->
           <!-- eslint-disable -->
           <Component
-            v-if="field.visible" :is="field.is" v-bind="field.props"
-            v-model="forms[panel.id][fname]" :validation="validation[fname]" :key="fname"
+            v-if="field.visible"
+            :is="field.is"
+            v-bind="field.props"
+            v-model="forms[panel.id][fname]"
+            :validation="validation[fname]"
+            :key="fname"
             @action.stop="onAction(section.id, fname, section.fields)"
           />
           <!-- eslint-enable -->
@@ -43,7 +52,6 @@
 <script>
 import { filterObject } from '@/helpers/commons'
 
-
 export default {
   name: 'ConfigPanel',
 
@@ -51,41 +59,43 @@ export default {
     tabId: { type: String, required: true },
     panels: { type: Array, default: undefined },
     forms: { type: Object, default: undefined },
-    v: { type: Object, default: undefined }
+    v: { type: Object, default: undefined },
   },
 
   computed: {
-    panel () {
-      return this.panels.find(panel => panel.id === this.tabId)
+    panel() {
+      return this.panels.find((panel) => panel.id === this.tabId)
     },
 
-    validation () {
+    validation() {
       return this.v.forms[this.panel.id]
-    }
+    },
   },
 
   methods: {
-    onApply () {
+    onApply() {
       const panelId = this.panel.id
 
       this.$emit('submit', {
         id: panelId,
-        form: this.forms[panelId]
+        form: this.forms[panelId],
       })
     },
 
-    onAction (sectionId, actionId, actionFields) {
+    onAction(sectionId, actionId, actionFields) {
       const panelId = this.panel.id
       const actionFieldsKeys = Object.keys(actionFields)
 
       this.$emit('submit', {
         id: panelId,
-        form: filterObject(this.forms[panelId], ([key]) => actionFieldsKeys.includes(key)),
+        form: filterObject(this.forms[panelId], ([key]) =>
+          actionFieldsKeys.includes(key),
+        ),
         action: [panelId, sectionId, actionId].join('.'),
-        name: actionId
+        name: actionId,
       })
-    }
-  }
+    },
+  },
 }
 </script>
 

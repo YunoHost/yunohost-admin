@@ -20,7 +20,9 @@
 
       <div class="d-flex justify-content-end">
         <BButton
-          variant="success" v-t="'retry'" class="ml-auto"
+          variant="success"
+          v-t="'retry'"
+          class="ml-auto"
           @click="tryToReconnect()"
         />
       </div>
@@ -40,39 +42,41 @@ import { mapGetters } from 'vuex'
 import api from '@/api'
 import LoginView from '@/views/LoginView.vue'
 
-
 export default {
   name: 'ReconnectingDisplay',
 
   components: {
-    LoginView
+    LoginView,
   },
 
-  data () {
+  data() {
     return {
       status: 'reconnecting',
-      origin: undefined
+      origin: undefined,
     }
   },
 
   computed: {
-    ...mapGetters(['reconnecting'])
+    ...mapGetters(['reconnecting']),
   },
 
   methods: {
-    tryToReconnect (initialDelay = 0) {
+    tryToReconnect(initialDelay = 0) {
       this.status = 'reconnecting'
-      api.tryToReconnect({ ...this.reconnecting, initialDelay }).then(() => {
-        this.status = 'success'
-      }).catch(() => {
-        this.status = 'failed'
-      })
-    }
+      api
+        .tryToReconnect({ ...this.reconnecting, initialDelay })
+        .then(() => {
+          this.status = 'success'
+        })
+        .catch(() => {
+          this.status = 'failed'
+        })
+    },
   },
 
-  created () {
+  created() {
     this.origin = this.reconnecting.origin || 'unknown'
     this.tryToReconnect(this.reconnecting.initialDelay)
-  }
+  },
 }
 </script>

@@ -1,6 +1,8 @@
 <template>
   <ViewBase
-    :queries="queries" @queries-response="onQueriesResponse" :loading="loading"
+    :queries="queries"
+    @queries-response="onQueriesResponse"
+    :loading="loading"
     skeleton="CardInfoSkeleton"
   >
     <section v-if="showAutoConfigCard" class="panel-section">
@@ -16,22 +18,49 @@
 
       <!-- AUTO CONFIG CHANGES -->
       <template v-if="dnsChanges">
-        <div class="mb-3" v-for="{ action, records, icon, variant} in dnsChanges" :key="icon">
+        <div
+          class="mb-3"
+          v-for="{ action, records, icon, variant } in dnsChanges"
+          :key="icon"
+        >
           <h4 class="mt-4 mb-2">
             {{ action }}
           </h4>
 
           <div class="log">
             <div
-              v-for="({ name: record, spaces, old_content, content, type, managed_by_yunohost }, i) in records" :key="i"
-              class="records px-2" :class="{ 'ignored': managed_by_yunohost === false && force !== true }"
-              :title="managed_by_yunohost === false && force !== true ? $t('domain.dns.auto_config_ignored') : null"
+              v-for="(
+                {
+                  name: record,
+                  spaces,
+                  old_content,
+                  content,
+                  type,
+                  managed_by_yunohost,
+                },
+                i
+              ) in records"
+              :key="i"
+              class="records px-2"
+              :class="{
+                ignored: managed_by_yunohost === false && force !== true,
+              }"
+              :title="
+                managed_by_yunohost === false && force !== true
+                  ? $t('domain.dns.auto_config_ignored')
+                  : null
+              "
             >
               <YIcon :iname="icon" :class="'text-' + variant" />
               {{ record }}
-              <span class="bg-dark text-light px-1 rounded">{{ type }}</span>{{ spaces }}
-              <span v-if="old_content"><span class="text-danger">{{ old_content }}</span> --> </span>
-              <span :class="{ 'text-success': old_content }">{{ content }}</span>
+              <span class="bg-dark text-light px-1 rounded">{{ type }}</span
+              >{{ spaces }}
+              <span v-if="old_content"
+                ><span class="text-danger">{{ old_content }}</span> -->
+              </span>
+              <span :class="{ 'text-success': old_content }">{{
+                content
+              }}</span>
             </div>
           </div>
         </div>
@@ -48,7 +77,8 @@
       <!-- CONFIG ERROR ALERT -->
       <template v-if="dnsErrors && dnsErrors.length">
         <ReadOnlyAlertItem
-          v-for="({ variant, icon, message }, i) in dnsErrors" :key="i"
+          v-for="({ variant, icon, message }, i) in dnsErrors"
+          :key="i"
           :label="message"
           :type="variant"
           :icon="icon"
@@ -75,15 +105,23 @@
     </section>
 
     <!-- CURRENT DNS ZONE -->
-    <section v-if="showAutoConfigCard && dnsZone && dnsZone.length" class="panel-section">
+    <section
+      v-if="showAutoConfigCard && dnsZone && dnsZone.length"
+      class="panel-section"
+    >
       <BCardTitle title-tag="h3">
         {{ $t('domain.dns.auto_config_zone') }}
       </BCardTitle>
 
       <div class="log">
-        <div v-for="({ name: record, spaces, content, type }, i) in dnsZone" :key="'zone-' + i" class="records">
+        <div
+          v-for="({ name: record, spaces, content, type }, i) in dnsZone"
+          :key="'zone-' + i"
+          class="records"
+        >
           {{ record }}
-          <span class="bg-dark text-light px-1 rounded">{{ type }}</span>{{ spaces }}
+          <span class="bg-dark text-light px-1 rounded">{{ type }}</span
+          >{{ spaces }}
           <span>{{ content }}</span>
         </div>
       </div>
@@ -113,14 +151,12 @@ export default {
   name: 'DomainDns',
 
   props: {
-    name: { type: String, required: true }
+    name: { type: String, required: true },
   },
 
-  data () {
+  data() {
     return {
-      queries: [
-        ['GET', `domains/${this.name}/dns/suggest`]
-      ],
+      queries: [['GET', `domains/${this.name}/dns/suggest`]],
       loading: true,
       showAutoConfigCard: true,
       showManualConfigCard: false,
@@ -128,108 +164,121 @@ export default {
       dnsChanges: undefined,
       dnsErrors: undefined,
       dnsZone: undefined,
-      force: null
+      force: null,
     }
   },
 
   methods: {
-    onQueriesResponse (suggestedConfig) {
+    onQueriesResponse(suggestedConfig) {
       this.dnsConfig = suggestedConfig
     },
 
-    getDnsChanges () {
+    getDnsChanges() {
       this.loading = true
 
-      return api.post(
-        `domains/${this.name}/dns/push?dry_run`, {}, null, { wait: false, websocket: false }
-      ).then(dnsChanges => {
-        function getLongest (arr, key) {
-          return arr.reduce((acc, obj) => {
-            if (obj[key].length > acc) return obj[key].length
-            return acc
-          }, 0)
-        }
-
-        const changes = []
-        let canForce = false
-        const categories = [
-          { action: 'create', icon: 'plus', variant: 'success' },
-          { action: 'update', icon: 'exchange', variant: 'warning' },
-          { action: 'delete', icon: 'minus', variant: 'danger' }
-        ]
-        categories.forEach(category => {
-          const records = dnsChanges[category.action]
-          if (records && records.length > 0) {
-            const longestName = getLongest(records, 'name')
-            const longestType = getLongest(records, 'type')
-            records.forEach(record => {
-              record.name = record.name + ' '.repeat(longestName - record.name.length + 1)
-              record.spaces = ' '.repeat(longestType - record.type.length + 1)
-              if (record.managed_by_yunohost === false) canForce = true
-            })
-            changes.push({ ...category, records })
-          }
+      return api
+        .post(`domains/${this.name}/dns/push?dry_run`, {}, null, {
+          wait: false,
+          websocket: false,
         })
+        .then((dnsChanges) => {
+          function getLongest(arr, key) {
+            return arr.reduce((acc, obj) => {
+              if (obj[key].length > acc) return obj[key].length
+              return acc
+            }, 0)
+          }
 
-        const unchanged = dnsChanges.unchanged
-        if (unchanged) {
-          const longestName = getLongest(unchanged, 'name')
-          const longestType = getLongest(unchanged, 'type')
-          unchanged.forEach(record => {
-            record.name = record.name + ' '.repeat(longestName - record.name.length + 1)
-            record.spaces = ' '.repeat(longestType - record.type.length + 1)
+          const changes = []
+          let canForce = false
+          const categories = [
+            { action: 'create', icon: 'plus', variant: 'success' },
+            { action: 'update', icon: 'exchange', variant: 'warning' },
+            { action: 'delete', icon: 'minus', variant: 'danger' },
+          ]
+          categories.forEach((category) => {
+            const records = dnsChanges[category.action]
+            if (records && records.length > 0) {
+              const longestName = getLongest(records, 'name')
+              const longestType = getLongest(records, 'type')
+              records.forEach((record) => {
+                record.name =
+                  record.name + ' '.repeat(longestName - record.name.length + 1)
+                record.spaces = ' '.repeat(longestType - record.type.length + 1)
+                if (record.managed_by_yunohost === false) canForce = true
+              })
+              changes.push({ ...category, records })
+            }
           })
-          this.dnsZone = unchanged
-        }
 
-        this.dnsChanges = changes.length > 0 ? changes : null
-        this.force = canForce ? false : null
-        this.loading = false
-      }).catch(err => {
-        if (err.name !== 'APIBadRequestError') throw err
-        const key = err.data.error_key
-        if (key === 'domain_dns_push_managed_in_parent_domain') {
-          const message = this.$t(key, err.data)
-          this.dnsErrors = [{ icon: 'info', variant: 'info', message }]
-        } else if (key === 'domain_dns_push_failed_to_authenticate') {
-          const message = this.$t(key, err.data)
-          this.dnsErrors = [{ icon: 'ban', variant: 'danger', message }]
-        } else {
-          this.showManualConfigCard = true
-          this.showAutoConfigCard = false
-        }
-        this.loading = false
-      })
+          const unchanged = dnsChanges.unchanged
+          if (unchanged) {
+            const longestName = getLongest(unchanged, 'name')
+            const longestType = getLongest(unchanged, 'type')
+            unchanged.forEach((record) => {
+              record.name =
+                record.name + ' '.repeat(longestName - record.name.length + 1)
+              record.spaces = ' '.repeat(longestType - record.type.length + 1)
+            })
+            this.dnsZone = unchanged
+          }
+
+          this.dnsChanges = changes.length > 0 ? changes : null
+          this.force = canForce ? false : null
+          this.loading = false
+        })
+        .catch((err) => {
+          if (err.name !== 'APIBadRequestError') throw err
+          const key = err.data.error_key
+          if (key === 'domain_dns_push_managed_in_parent_domain') {
+            const message = this.$t(key, err.data)
+            this.dnsErrors = [{ icon: 'info', variant: 'info', message }]
+          } else if (key === 'domain_dns_push_failed_to_authenticate') {
+            const message = this.$t(key, err.data)
+            this.dnsErrors = [{ icon: 'ban', variant: 'danger', message }]
+          } else {
+            this.showManualConfigCard = true
+            this.showAutoConfigCard = false
+          }
+          this.loading = false
+        })
     },
 
-    async pushDnsChanges () {
+    async pushDnsChanges() {
       if (this.force) {
-        const confirmed = await this.$askConfirmation(this.$i18n.t('domain.dns.push_force_confirm'))
+        const confirmed = await this.$askConfirmation(
+          this.$i18n.t('domain.dns.push_force_confirm'),
+        )
         if (!confirmed) return
       }
 
-      api.post(
-        `domains/${this.name}/dns/push${this.force ? '?force' : ''}`,
-        {},
-        { key: 'domains.push_dns_changes', name: this.name }
-      ).then(async responseData => {
-        await this.getDnsChanges()
-        if (!isEmptyValue(responseData)) {
-          this.dnsErrors = Object.keys(responseData).reduce((acc, key) => {
-            const args = key === 'warnings'
-              ? { icon: 'warning', variant: 'warning' }
-              : { icon: 'ban', variant: 'danger' }
-            responseData[key].forEach(message => acc.push({ ...args, message }))
-            return acc
-          }, [])
-        }
-      })
-    }
+      api
+        .post(
+          `domains/${this.name}/dns/push${this.force ? '?force' : ''}`,
+          {},
+          { key: 'domains.push_dns_changes', name: this.name },
+        )
+        .then(async (responseData) => {
+          await this.getDnsChanges()
+          if (!isEmptyValue(responseData)) {
+            this.dnsErrors = Object.keys(responseData).reduce((acc, key) => {
+              const args =
+                key === 'warnings'
+                  ? { icon: 'warning', variant: 'warning' }
+                  : { icon: 'ban', variant: 'danger' }
+              responseData[key].forEach((message) =>
+                acc.push({ ...args, message }),
+              )
+              return acc
+            }, [])
+          }
+        })
+    },
   },
 
-  created () {
+  created() {
     this.getDnsChanges()
-  }
+  },
 }
 </script>
 

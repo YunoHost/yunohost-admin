@@ -4,7 +4,7 @@
     <BListGroupItem
       v-for="item in menu"
       :key="item.routeName"
-      :to="{name: item.routeName}"
+      :to="{ name: item.routeName }"
     >
       <YIcon :iname="item.icon" class="lg ml-1" />
       <h4>{{ $t(item.translation) }}</h4>
@@ -17,18 +17,34 @@
 export default {
   name: 'ToolList',
 
-  data () {
+  data() {
     return {
       menu: [
         { routeName: 'tool-logs', icon: 'book', translation: 'logs' },
-        { routeName: 'tool-migrations', icon: 'share', translation: 'migrations' },
+        {
+          routeName: 'tool-migrations',
+          icon: 'share',
+          translation: 'migrations',
+        },
         { routeName: 'service-list', icon: 'gears', translation: 'services' },
         { routeName: 'tool-firewall', icon: 'shield', translation: 'firewall' },
-        { routeName: 'tool-settings', icon: 'sliders', translation: 'tools_yunohost_settings' },
-        { routeName: 'tool-webadmin', icon: 'sliders', translation: 'tools_webadmin_settings' },
-        { routeName: 'tool-power', icon: 'power-off', translation: 'tools_shutdown_reboot' }
-      ]
+        {
+          routeName: 'tool-settings',
+          icon: 'sliders',
+          translation: 'tools_yunohost_settings',
+        },
+        {
+          routeName: 'tool-webadmin',
+          icon: 'sliders',
+          translation: 'tools_webadmin_settings',
+        },
+        {
+          routeName: 'tool-power',
+          icon: 'power-off',
+          translation: 'tools_shutdown_reboot',
+        },
+      ],
     }
-  }
+  },
 }
 </script>

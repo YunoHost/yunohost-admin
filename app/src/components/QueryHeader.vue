@@ -1,7 +1,11 @@
 <template>
   <div class="query-header w-100" v-on="$listeners" v-bind="$attrs">
     <!-- STATUS -->
-    <span class="status" :class="['bg-' + color, statusSize]" :aria-label="$t('api.query_status.' + request.status)" />
+    <span
+      class="status"
+      :class="['bg-' + color, statusSize]"
+      :aria-label="$t('api.query_status.' + request.status)"
+    />
 
     <!-- REQUEST DESCRIPTION -->
     <strong class="request-desc">
@@ -15,14 +19,16 @@
       </span>
       <!-- WEBSOCKET WARNINGS COUNT -->
       <span class="count" v-if="request.warnings">
-        {{ request.warnings }}<YIcon iname="warning" class="text-warning ml-1" />
+        {{ request.warnings
+        }}<YIcon iname="warning" class="text-warning ml-1" />
       </span>
     </div>
 
     <!-- VIEW ERROR BUTTON -->
     <BButton
       v-if="showError && request.error"
-      size="sm" pill
+      size="sm"
+      pill
       class="error-btn ml-auto py-0"
       variant="danger"
       @click="reviewError"
@@ -31,7 +37,11 @@
     </BButton>
 
     <!-- TIME DISPLAY -->
-    <time v-if="showTime" :datetime="hour(request.date)" :class="request.error ? 'ml-2' : 'ml-auto'">
+    <time
+      v-if="showTime"
+      :datetime="hour(request.date)"
+      :class="request.error ? 'ml-2' : 'ml-auto'"
+    >
       {{ hour(request.date) }}
     </time>
   </div>
@@ -45,38 +55,40 @@ export default {
     request: { type: Object, required: true },
     statusSize: { type: String, default: '' },
     showTime: { type: Boolean, default: false },
-    showError: { type: Boolean, default: false }
+    showError: { type: Boolean, default: false },
   },
 
   computed: {
-    color () {
+    color() {
       const statuses = {
         pending: 'primary',
         success: 'success',
         warning: 'warning',
-        error: 'danger'
+        error: 'danger',
       }
       return statuses[this.request.status]
     },
 
-    errorsCount () {
-      return this.request.messages.filter(({ type }) => type === 'danger').length
+    errorsCount() {
+      return this.request.messages.filter(({ type }) => type === 'danger')
+        .length
     },
 
-    warningsCount () {
-      return this.request.messages.filter(({ type }) => type === 'warning').length
-    }
+    warningsCount() {
+      return this.request.messages.filter(({ type }) => type === 'warning')
+        .length
+    },
   },
 
   methods: {
-    reviewError () {
+    reviewError() {
       this.$store.dispatch('REVIEW_ERROR', this.request)
     },
 
-    hour (date) {
+    hour(date) {
       return new Date(date).toLocaleTimeString()
-    }
-  }
+    },
+  },
 }
 </script>
 
@@ -98,15 +110,15 @@ div {
 .status {
   display: inline-block;
   border-radius: 50%;
-  width: .75rem;
-  min-width: .75rem;
-  height: .75rem;
-  margin-right: .25rem;
+  width: 0.75rem;
+  min-width: 0.75rem;
+  height: 0.75rem;
+  margin-right: 0.25rem;
 
   &.lg {
     width: 1rem;
     height: 1rem;
-    margin-right: .5rem;
+    margin-right: 0.5rem;
   }
 }
 
@@ -118,7 +130,7 @@ time {
 .count {
   display: flex;
   align-items: center;
-  margin-left: .5rem;
+  margin-left: 0.5rem;
 }
 
 @include media-breakpoint-down(xs) {
@@ -126,5 +138,4 @@ time {
     display: none;
   }
 }
-
 </style>

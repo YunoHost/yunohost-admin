@@ -2,7 +2,7 @@
   <CardForm :title="$t('tools_webadmin_settings')" icon="cog" no-footer>
     <template v-for="(field, fname) in fields">
       <FormField v-bind="field" v-model="self[fname]" :key="fname" />
-      <hr :key="fname + 'hr'">
+      <hr :key="fname + 'hr'" />
     </template>
   </CardForm>
 </template>
@@ -10,16 +10,17 @@
 <script>
 // FIXME move into helpers ?
 // Dynamicly generate computed properties from store with get/set and automatic commit/dispatch
-function mapStoreGetSet (props = [], action = 'commit') {
+function mapStoreGetSet(props = [], action = 'commit') {
   return props.reduce((obj, prop) => {
     obj[prop] = {
-      get () {
+      get() {
         return this.$store.getters[prop]
       },
-      set (value) {
-        const key = (action === 'commit' ? 'SET_' : 'UPDATE_') + prop.toUpperCase()
+      set(value) {
+        const key =
+          (action === 'commit' ? 'SET_' : 'UPDATE_') + prop.toUpperCase()
         this.$store[action](key, value)
-      }
+      },
     }
     return obj
   }, {})
@@ -28,7 +29,7 @@ function mapStoreGetSet (props = [], action = 'commit') {
 export default {
   name: 'ToolWebadmin',
 
-  data () {
+  data() {
     return {
       // Hacky way to be able to dynamicly point to a computed property `self['computedProp']`
       self: this,
@@ -37,14 +38,16 @@ export default {
         locale: {
           label: this.$i18n.t('tools_webadmin.language'),
           component: 'SelectItem',
-          props: { id: 'locale', choices: [] }
+          props: { id: 'locale', choices: [] },
         },
 
         fallbackLocale: {
           label: this.$i18n.t('tools_webadmin.fallback_language'),
-          description: this.$i18n.t('tools_webadmin.fallback_language_description'),
+          description: this.$i18n.t(
+            'tools_webadmin.fallback_language_description',
+          ),
           component: 'SelectItem',
-          props: { id: 'fallback-locale', choices: [] }
+          props: { id: 'fallback-locale', choices: [] },
         },
 
         cache: {
@@ -52,35 +55,35 @@ export default {
           label: this.$i18n.t('tools_webadmin.cache'),
           description: this.$i18n.t('tools_webadmin.cache_description'),
           component: 'CheckboxItem',
-          props: { labels: { true: 'enabled', false: 'disabled' } }
+          props: { labels: { true: 'enabled', false: 'disabled' } },
         },
 
         transitions: {
           id: 'transitions',
           label: this.$i18n.t('tools_webadmin.transitions'),
           component: 'CheckboxItem',
-          props: { labels: { true: 'enabled', false: 'disabled' } }
+          props: { labels: { true: 'enabled', false: 'disabled' } },
         },
 
         theme: {
           id: 'theme',
           label: this.$i18n.t('tools_webadmin.theme'),
           component: 'CheckboxItem',
-          props: { labels: { true: '🌙', false: '☀️' } }
-        }
+          props: { labels: { true: '🌙', false: '☀️' } },
+        },
 
         // experimental: added in `created()`
-      }
+      },
     }
   },
 
   computed: {
     // Those are set/get computed properties
     ...mapStoreGetSet(['locale', 'fallbackLocale', 'theme'], 'dispatch'),
-    ...mapStoreGetSet(['cache', 'transitions', 'experimental'])
+    ...mapStoreGetSet(['cache', 'transitions', 'experimental']),
   },
 
-  created () {
+  created() {
     const availableLocales = this.$store.getters.availableLocales
     this.fields.locale.props.choices = availableLocales
     this.fields.fallbackLocale.props.choices = availableLocales
@@ -90,9 +93,9 @@ export default {
         label: this.$i18n.t('tools_webadmin.experimental'),
         description: this.$i18n.t('tools_webadmin.experimental_description'),
         component: 'CheckboxItem',
-        props: { labels: { true: 'enabled', false: 'disabled' } }
+        props: { labels: { true: 'enabled', false: 'disabled' } },
       }
     }
-  }
+  },
 }
 </script>

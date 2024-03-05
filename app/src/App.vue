@@ -4,23 +4,22 @@
     <header>
       <BNavbar>
         <BNavbarBrand
-          :to="{ name: 'home' }" :disabled="waiting"
-          exact exact-active-class="active"
+          :to="{ name: 'home' }"
+          :disabled="waiting"
+          exact
+          exact-active-class="active"
         >
           <span v-if="theme">
-            <img alt="YunoHost logo" src="./assets/logo_light.png" width="40">
+            <img alt="YunoHost logo" src="./assets/logo_light.png" width="40" />
           </span>
           <span v-else>
-            <img alt="YunoHost logo" src="./assets/logo_dark.png" width="40">
+            <img alt="YunoHost logo" src="./assets/logo_dark.png" width="40" />
           </span>
         </BNavbarBrand>
 
         <BNavbarNav class="ml-auto">
           <li class="nav-item">
-            <BButton
-              :href="ssoLink"
-              variant="primary" size="sm" block
-            >
+            <BButton :href="ssoLink" variant="primary" size="sm" block>
               {{ $t('user_interface_link') }} <YIcon iname="user" />
             </BButton>
           </li>
@@ -28,7 +27,9 @@
           <li class="nav-item" v-show="connected">
             <BButton
               @click.prevent="logout"
-              variant="outline-dark" block size="sm"
+              variant="outline-dark"
+              block
+              size="sm"
             >
               {{ $t('logout') }} <YIcon iname="sign-out" />
             </BButton>
@@ -58,18 +59,32 @@
     <footer class="py-3 mt-auto">
       <nav>
         <BNav class="justify-content-center">
-          <BNavItem href="https://yunohost.org/docs" target="_blank" link-classes="text-secondary">
+          <BNavItem
+            href="https://yunohost.org/docs"
+            target="_blank"
+            link-classes="text-secondary"
+          >
             <YIcon iname="book" /> {{ $t('footer.documentation') }}
           </BNavItem>
-          <BNavItem href="https://yunohost.org/help" target="_blank" link-classes="text-secondary">
+          <BNavItem
+            href="https://yunohost.org/help"
+            target="_blank"
+            link-classes="text-secondary"
+          >
             <YIcon iname="life-ring" /> {{ $t('footer.help') }}
           </BNavItem>
-          <BNavItem href="https://donate.yunohost.org/" target="_blank" link-classes="text-secondary">
+          <BNavItem
+            href="https://donate.yunohost.org/"
+            target="_blank"
+            link-classes="text-secondary"
+          >
             <YIcon iname="heart" /> {{ $t('footer.donate') }}
           </BNavItem>
 
           <BNavText
-            v-if="yunohost" id="yunohost-version" class="ml-md-auto text-center"
+            v-if="yunohost"
+            id="yunohost-version"
+            class="ml-md-auto text-center"
           >
             <span v-html="$t('footer_version', yunohost)" />
           </BNavText>
@@ -89,7 +104,7 @@ export default {
 
   components: {
     HistoryConsole,
-    ViewLockOverlay
+    ViewLockOverlay,
   },
 
   computed: {
@@ -101,29 +116,31 @@ export default {
       'transitionName',
       'waiting',
       'theme',
-      'ssoLink'
-    ])
+      'ssoLink',
+    ]),
   },
 
   methods: {
-    async logout () {
+    async logout() {
       this.$store.dispatch('LOGOUT')
-    }
+    },
   },
 
   // This hook is only triggered at page first load
-  created () {
+  created() {
     this.$store.dispatch('ON_APP_CREATED')
   },
 
-  mounted () {
+  mounted() {
     // Unlock copypasta on log view
     const copypastaCode = ['ArrowDown', 'ArrowDown', 'ArrowUp', 'ArrowUp']
     let copypastastep = 0
     document.addEventListener('keydown', ({ key }) => {
       if (key === copypastaCode[copypastastep++]) {
         if (copypastastep === copypastaCode.length) {
-          document.getElementsByClassName('unselectable').forEach((element) => element.classList.remove('unselectable'))
+          document
+            .getElementsByClassName('unselectable')
+            .forEach((element) => element.classList.remove('unselectable'))
           copypastastep = 0
         }
       } else {
@@ -132,7 +149,18 @@ export default {
     })
 
     // Konamicode ;P
-    const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a']
+    const konamiCode = [
+      'ArrowUp',
+      'ArrowUp',
+      'ArrowDown',
+      'ArrowDown',
+      'ArrowLeft',
+      'ArrowRight',
+      'ArrowLeft',
+      'ArrowRight',
+      'b',
+      'a',
+    ]
     let konamistep = 0
     document.addEventListener('keydown', ({ key }) => {
       if (key === konamiCode[konamistep++]) {
@@ -157,7 +185,7 @@ export default {
     }
 
     document.documentElement.setAttribute('dark-theme', this.theme) // updates the data-theme attribute
-  }
+  },
 }
 </script>
 
@@ -177,14 +205,14 @@ header {
     padding: 1rem 0;
 
     img {
-        width: 70px;
+      width: 70px;
     }
 
     .navbar-nav {
       flex-direction: column;
 
       li {
-          margin: .2rem 0;
+        margin: 0.2rem 0;
       }
     }
   }
@@ -195,15 +223,17 @@ main {
 
   // Routes transition
   .animated {
-    transition: all .15s ease-in-out;
+    transition: all 0.15s ease-in-out;
   }
-  .slide-left-enter, .slide-right-leave-active {
+  .slide-left-enter,
+  .slide-right-leave-active {
     position: absolute;
     width: 100%;
     top: 0;
     transform: translate(100vw, 0);
   }
-  .slide-left-leave-active, .slide-right-enter {
+  .slide-left-leave-active,
+  .slide-right-enter {
     position: absolute;
     width: 100%;
     top: 0;
@@ -229,7 +259,7 @@ footer {
 
   .nav-item {
     & + .nav-item a::before {
-      content: "•";
+      content: '•';
       width: 1rem;
       display: inline-block;
       margin-left: -1.15rem;

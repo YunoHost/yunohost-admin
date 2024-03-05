@@ -1,9 +1,15 @@
 <template>
   <ViewBase
-    :queries="queries" @queries-response="onQueriesResponse"
-    ref="view" skeleton="CardFormSkeleton"
+    :queries="queries"
+    @queries-response="onQueriesResponse"
+    ref="view"
+    skeleton="CardFormSkeleton"
   >
-    <ConfigPanels v-if="config.panels" v-bind="config" @submit="onConfigSubmit" />
+    <ConfigPanels
+      v-if="config.panels"
+      v-bind="config"
+      @submit="onConfigSubmit"
+    />
   </ViewBase>
 </template>
 
@@ -11,52 +17,55 @@
 import api, { objectToParams } from '@/api'
 import {
   formatFormData,
-  formatYunoHostConfigPanels
+  formatYunoHostConfigPanels,
 } from '@/helpers/yunohostArguments'
 import ConfigPanels from '@/components/ConfigPanels.vue'
-
 
 export default {
   name: 'ToolSettingsConfig',
 
   components: {
-    ConfigPanels
+    ConfigPanels,
   },
 
   props: {},
 
-  data () {
+  data() {
     return {
-      queries: [
-        ['GET', 'settings?full']
-      ],
-      config: {}
+      queries: [['GET', 'settings?full']],
+      config: {},
     }
   },
 
   methods: {
-    onQueriesResponse (config) {
+    onQueriesResponse(config) {
       this.config = formatYunoHostConfigPanels(config)
     },
 
-    async onConfigSubmit ({ id, form }) {
-      const args = await formatFormData(form, { removeEmpty: false, removeNull: true })
+    async onConfigSubmit({ id, form }) {
+      const args = await formatFormData(form, {
+        removeEmpty: false,
+        removeNull: true,
+      })
 
       // FIXME no route for potential action
-      api.put(
-        `settings/${id}`,
-        { args: objectToParams(args) },
-        { key: 'settings.update', panel: id }
-      ).then(() => {
-        this.$refs.view.fetchQueries({ triggerLoading: true })
-      }).catch(err => {
-        if (err.name !== 'APIBadRequestError') throw err
-        const panel = this.config.panels.find(panel => panel.id === id)
-        if (err.data.name) {
-          this.config.errors[id][err.data.name].message = err.message
-        } else this.$set(panel, 'serverError', err.message)
-      })
-    }
-  }
+      api
+        .put(
+          `settings/${id}`,
+          { args: objectToParams(args) },
+          { key: 'settings.update', panel: id },
+        )
+        .then(() => {
+          this.$refs.view.fetchQueries({ triggerLoading: true })
+        })
+        .catch((err) => {
+          if (err.name !== 'APIBadRequestError') throw err
+          const panel = this.config.panels.find((panel) => panel.id === id)
+          if (err.data.name) {
+            this.config.errors[id][err.data.name].message = err.message
+          } else this.$set(panel, 'serverError', err.message)
+        })
+    },
+  },
 }
 </script>

@@ -1,41 +1,69 @@
 <template>
-  <ViewBase :queries="queries" @queries-response="onQueriesResponse" skeleton="CardFormSkeleton">
+  <ViewBase
+    :queries="queries"
+    @queries-response="onQueriesResponse"
+    skeleton="CardFormSkeleton"
+  >
     <CardForm
-      :title="$t('users_new')" icon="user-plus"
-      :validation="$v" :server-error="serverError"
+      :title="$t('users_new')"
+      icon="user-plus"
+      :validation="$v"
+      :server-error="serverError"
       @submit.prevent="onSubmit"
     >
       <!-- USER NAME -->
-      <FormField v-bind="fields.username" v-model="form.username" :validation="$v.form.username" />
+      <FormField
+        v-bind="fields.username"
+        v-model="form.username"
+        :validation="$v.form.username"
+      />
 
       <!-- USER FULLNAME -->
-      <FormField v-bind="fields.fullname" :validation="$v.form.fullname" v-model="form.fullname" />
-      <hr>
+      <FormField
+        v-bind="fields.fullname"
+        :validation="$v.form.fullname"
+        v-model="form.fullname"
+      />
+      <hr />
 
       <!-- USER MAIL DOMAIN -->
       <FormField v-bind="fields.domain" :validation="$v.form.domain">
         <template #default="{ self }">
           <BInputGroup>
             <BInputGroupAppend>
-              <BInputGroupText id="local-part" tag="label" class="border-right-0">
+              <BInputGroupText
+                id="local-part"
+                tag="label"
+                class="border-right-0"
+              >
                 {{ form.username }}@
               </BInputGroupText>
             </BInputGroupAppend>
 
             <SelectItem
-              aria-labelledby="local-part" aria-describedby="mail__BV_description_"
-              v-model="form.domain" v-bind="self"
+              aria-labelledby="local-part"
+              aria-describedby="mail__BV_description_"
+              v-model="form.domain"
+              v-bind="self"
             />
           </BInputGroup>
         </template>
       </FormField>
-      <hr>
+      <hr />
 
       <!-- USER PASSWORD -->
-      <FormField v-bind="fields.password" v-model="form.password" :validation="$v.form.password" />
+      <FormField
+        v-bind="fields.password"
+        v-model="form.password"
+        :validation="$v.form.password"
+      />
 
       <!-- USER PASSWORD CONFIRMATION -->
-      <FormField v-bind="fields.confirmation" v-model="form.confirmation" :validation="$v.form.confirmation" />
+      <FormField
+        v-bind="fields.confirmation"
+        v-model="form.confirmation"
+        :validation="$v.form.confirmation"
+      />
     </CardForm>
   </ViewBase>
 </template>
@@ -47,17 +75,22 @@ import { validationMixin } from 'vuelidate'
 
 import { formatFormData } from '@/helpers/yunohostArguments'
 import {
-  alphalownumdot_, unique, required, minLength, name, sameAs
+  alphalownumdot_,
+  unique,
+  required,
+  minLength,
+  name,
+  sameAs,
 } from '@/helpers/validators'
 
 export default {
   name: 'UserCreate',
 
-  data () {
+  data() {
     return {
       queries: [
         ['GET', { uri: 'users' }],
-        ['GET', { uri: 'domains' }]
+        ['GET', { uri: 'domains' }],
       ],
 
       form: {
@@ -65,7 +98,7 @@ export default {
         fullname: '',
         domain: '',
         password: '',
-        confirmation: ''
+        confirmation: '',
       },
 
       serverError: '',
@@ -75,16 +108,16 @@ export default {
           label: this.$i18n.t('user_username'),
           props: {
             id: 'username',
-            placeholder: this.$i18n.t('placeholder.username')
-          }
+            placeholder: this.$i18n.t('placeholder.username'),
+          },
         },
 
         fullname: {
           label: this.$i18n.t('user_fullname'),
           props: {
             id: 'fullname',
-            placeholder: this.$i18n.t('placeholder.fullname')
-          }
+            placeholder: this.$i18n.t('placeholder.fullname'),
+          },
         },
 
         domain: {
@@ -92,7 +125,7 @@ export default {
           label: this.$i18n.t('user_email'),
           description: this.$i18n.t('tip_about_user_email'),
           descriptionVariant: 'info',
-          props: { choices: [] }
+          props: { choices: [] },
         },
 
         password: {
@@ -102,8 +135,8 @@ export default {
           props: {
             id: 'password',
             placeholder: '••••••••',
-            type: 'password'
-          }
+            type: 'password',
+          },
         },
 
         confirmation: {
@@ -111,45 +144,55 @@ export default {
           props: {
             id: 'confirmation',
             placeholder: '••••••••',
-            type: 'password'
-          }
-        }
-      }
+            type: 'password',
+          },
+        },
+      },
     }
   },
 
   computed: mapGetters(['userNames', 'domainsAsChoices', 'mainDomain']),
 
-  validations () {
+  validations() {
     return {
       form: {
-        username: { required, alphalownumdot_, notInUsers: unique(this.userNames) },
+        username: {
+          required,
+          alphalownumdot_,
+          notInUsers: unique(this.userNames),
+        },
         fullname: { required, name },
         domain: { required },
         password: { required, passwordLenght: minLength(8) },
-        confirmation: { required, passwordMatch: sameAs('password') }
-      }
+        confirmation: { required, passwordMatch: sameAs('password') },
+      },
     }
   },
 
   methods: {
-    onQueriesResponse () {
+    onQueriesResponse() {
       this.fields.domain.props.choices = this.domainsAsChoices
       this.form.domain = this.mainDomain
     },
 
-    async onSubmit () {
+    async onSubmit() {
       const data = await formatFormData(this.form, { flatten: true })
-      api.post({ uri: 'users' }, data, { key: 'users.create', name: this.form.username }).then(() => {
-        this.$router.push({ name: 'user-list' })
-      }).catch(err => {
-        if (err.name !== 'APIBadRequestError') throw err
-        this.serverError = err.message
-      })
-    }
+      api
+        .post({ uri: 'users' }, data, {
+          key: 'users.create',
+          name: this.form.username,
+        })
+        .then(() => {
+          this.$router.push({ name: 'user-list' })
+        })
+        .catch((err) => {
+          if (err.name !== 'APIBadRequestError') throw err
+          this.serverError = err.message
+        })
+    },
   },
 
-  mixins: [validationMixin]
+  mixins: [validationMixin],
 }
 </script>
 

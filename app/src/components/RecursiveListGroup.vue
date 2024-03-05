@@ -3,16 +3,20 @@
     <template v-for="(node, i) in tree.children">
       <BListGroupItem
         :key="node.id"
-        class="list-group-item-action" :class="getClasses(node, i)"
+        class="list-group-item-action"
+        :class="getClasses(node, i)"
         @click="$router.push(node.data.to)"
       >
         <slot name="default" v-bind="node" />
 
         <BButton
           v-if="node.children"
-          size="xs" variant="outline-secondary"
-          :aria-expanded="node.data.opened ? 'true' : 'false'" :aria-controls="'collapse-' + node.id"
-          :class="node.data.opened ? 'not-collapsed' : 'collapsed'" class="ml-2"
+          size="xs"
+          variant="outline-secondary"
+          :aria-expanded="node.data.opened ? 'true' : 'false'"
+          :aria-controls="'collapse-' + node.id"
+          :class="node.data.opened ? 'not-collapsed' : 'collapsed'"
+          class="ml-2"
           @click.stop="node.data.opened = !node.data.opened"
         >
           <span class="sr-only">{{ toggleText }}</span>
@@ -21,12 +25,15 @@
       </BListGroupItem>
 
       <BCollapse
-        v-if="node.children" :key="'collapse-' + node.id"
-        v-model="node.data.opened" :id="'collapse-' + node.id"
+        v-if="node.children"
+        :key="'collapse-' + node.id"
+        v-model="node.data.opened"
+        :id="'collapse-' + node.id"
       >
         <RecursiveListGroup
           :tree="node"
-          :last="last !== undefined ? last : i === tree.children.length - 1" flush
+          :last="last !== undefined ? last : i === tree.children.length - 1"
+          flush
         >
           <!-- PASS THE DEFAULT SLOT WITH SCOPE TO NEXT NESTED COMPONENT -->
           <template slot="default" slot-scope="scope">
@@ -46,17 +53,20 @@ export default {
     tree: { type: Object, required: true },
     flush: { type: Boolean, default: false },
     last: { type: Boolean, default: undefined },
-    toggleText: { type: String, default: null }
+    toggleText: { type: String, default: null },
   },
 
   methods: {
-    getClasses (node, i) {
+    getClasses(node, i) {
       const children = node.height > 0
       const opened = children && node.data.opened
-      const last = this.last !== false && (!children || !opened) && i === this.tree.children.length - 1
+      const last =
+        this.last !== false &&
+        (!children || !opened) &&
+        i === this.tree.children.length - 1
       return { collapsible: children, uncollapsible: !children, opened, last }
-    }
-  }
+    },
+  },
 }
 </script>
 

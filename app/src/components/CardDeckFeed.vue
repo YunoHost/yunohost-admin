@@ -6,25 +6,30 @@ export default {
   name: 'CardDeckFeed',
 
   props: {
-    stacks: { type: Number, default: 21 }
+    stacks: { type: Number, default: 21 },
   },
 
-  data () {
+  data() {
     return {
       busy: false,
       range: this.stacks,
-      childrenCount: this.$slots.default.length
+      childrenCount: this.$slots.default.length,
     }
   },
 
   methods: {
-    getTopParent (prev) {
-      return prev.parentElement === this.$refs.feed ? prev : this.getTopParent(prev.parentElement)
+    getTopParent(prev) {
+      return prev.parentElement === this.$refs.feed
+        ? prev
+        : this.getTopParent(prev.parentElement)
     },
 
-    onScroll () {
+    onScroll() {
       const elem = this.$refs.feed
-      if (window.innerHeight > elem.clientHeight + elem.getBoundingClientRect().top - 200) {
+      if (
+        window.innerHeight >
+        elem.clientHeight + elem.getBoundingClientRect().top - 200
+      ) {
         this.busy = true
         this.range = Math.min(this.range + this.stacks, this.childrenCount)
         this.$nextTick().then(() => {
@@ -33,7 +38,7 @@ export default {
       }
     },
 
-    onKeydown (e) {
+    onKeydown(e) {
       if (['PageUp', 'PageDown'].includes(e.code)) {
         e.preventDefault()
         const key = e.code === 'PageUp' ? 'previous' : 'next'
@@ -44,16 +49,16 @@ export default {
         }
       }
       // FIXME Add `Home` and `End` shorcuts
-    }
+    },
   },
 
-  mounted () {
+  mounted() {
     window.addEventListener('scroll', this.onScroll)
     this.$refs.feed.addEventListener('keydown', this.onKeydown)
     this.onScroll()
   },
 
-  beforeUpdate () {
+  beforeUpdate() {
     const slots = this.$slots.default
     if (this.childrenCount !== slots.length) {
       this.range = this.stacks
@@ -61,21 +66,21 @@ export default {
     }
   },
 
-  render (h) {
+  render(h) {
     return h(
       'BCardGroup',
       {
         attrs: { role: 'feed', 'aria-busy': this.busy.toString() },
         props: { deck: true },
-        ref: 'feed'
+        ref: 'feed',
       },
-      this.$slots.default.slice(0, this.range)
+      this.$slots.default.slice(0, this.range),
     )
   },
 
-  beforeDestroy () {
+  beforeDestroy() {
     window.removeEventListener('scroll', this.onScroll)
     this.$refs.feed.removeEventListener('keydown', this.onKeydown)
-  }
+  },
 }
 </script>

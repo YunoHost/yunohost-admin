@@ -18,7 +18,7 @@
 export default {
   name: 'HomeView',
 
-  data () {
+  data() {
     return {
       menu: [
         { routeName: 'user-list', icon: 'users', translation: 'users' },
@@ -26,11 +26,15 @@ export default {
         { routeName: 'app-list', icon: 'cubes', translation: 'applications' },
         { routeName: 'update', icon: 'refresh', translation: 'system_update' },
         { routeName: 'tool-list', icon: 'wrench', translation: 'tools' },
-        { routeName: 'diagnosis', icon: 'stethoscope', translation: 'diagnosis' },
-        { routeName: 'backup', icon: 'archive', translation: 'backup' }
-      ]
+        {
+          routeName: 'diagnosis',
+          icon: 'stethoscope',
+          translation: 'diagnosis',
+        },
+        { routeName: 'backup', icon: 'archive', translation: 'backup' },
+      ],
     }
-  }
+  },
 }
 </script>
 

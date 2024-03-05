@@ -1,6 +1,7 @@
 <template>
   <BOverlay
-    variant="white" opacity="0.75"
+    variant="white"
+    opacity="0.75"
     no-center
     :show="waiting || reconnecting || error !== null"
   >
@@ -20,7 +21,12 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { ErrorDisplay, WarningDisplay, WaitingDisplay, ReconnectingDisplay } from '@/views/_partials'
+import {
+  ErrorDisplay,
+  WarningDisplay,
+  WaitingDisplay,
+  ReconnectingDisplay,
+} from '@/views/_partials'
 import QueryHeader from '@/components/QueryHeader.vue'
 
 export default {
@@ -31,13 +37,13 @@ export default {
     WarningDisplay,
     WaitingDisplay,
     ReconnectingDisplay,
-    QueryHeader
+    QueryHeader,
   },
 
   computed: {
     ...mapGetters(['waiting', 'reconnecting', 'error', 'currentRequest']),
 
-    component () {
+    component() {
       const { error, reconnecting, currentRequest: request } = this
 
       if (error) {
@@ -49,8 +55,8 @@ export default {
       } else {
         return { name: 'WaitingDisplay', request }
       }
-    }
-  }
+    },
+  },
 }
 </script>
 
@@ -81,14 +87,14 @@ export default {
     }
 
     .card-footer {
-      padding: .5rem .75rem;
+      padding: 0.5rem 0.75rem;
       display: flex;
       justify-content: flex-end;
     }
   }
 
   .card-header {
-    padding: .5rem .75rem;
+    padding: 0.5rem 0.75rem;
   }
 }
 </style>

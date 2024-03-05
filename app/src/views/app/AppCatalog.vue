@@ -1,7 +1,10 @@
 <template>
   <ViewSearch
-    :items="apps" :filtered-items="filteredApps" items-name="apps"
-    :queries="queries" @queries-response="onQueriesResponse"
+    :items="apps"
+    :filtered-items="filteredApps"
+    items-name="apps"
+    :queries="queries"
+    @queries-response="onQueriesResponse"
   >
     <template #top-bar>
       <div id="view-top-bar">
@@ -11,11 +14,17 @@
             <YIcon iname="search" />
           </BInputGroupPrepend>
           <BFormInput
-            id="search-input" :placeholder="$t('search.for', { items: $tc('items.apps', 2) })"
-            :value="search" @input="updateQuery('search', $event)"
+            id="search-input"
+            :placeholder="$t('search.for', { items: $tc('items.apps', 2) })"
+            :value="search"
+            @input="updateQuery('search', $event)"
           />
           <BInputGroupAppend>
-            <BFormSelect :value="quality" :options="qualityOptions" @change="updateQuery('quality', $event)" />
+            <BFormSelect
+              :value="quality"
+              :options="qualityOptions"
+              @change="updateQuery('quality', $event)"
+            />
           </BInputGroupAppend>
         </BInputGroup>
 
@@ -24,9 +33,17 @@
           <BInputGroupPrepend is-text>
             <YIcon iname="filter" />
           </BInputGroupPrepend>
-          <BFormSelect :value="category" :options="categories" @change="updateQuery('category', $event)" />
+          <BFormSelect
+            :value="category"
+            :options="categories"
+            @change="updateQuery('category', $event)"
+          />
           <BInputGroupAppend>
-            <BButton variant="primary" :disabled="category === null" @click="updateQuery('category', null)">
+            <BButton
+              variant="primary"
+              :disabled="category === null"
+              @click="updateQuery('category', null)"
+            >
               {{ $t('app_show_categories') }}
             </BButton>
           </BInputGroupAppend>
@@ -34,16 +51,20 @@
 
         <!-- CATEGORIES SUBTAGS -->
         <BInputGroup v-if="subtags" class="mt-3 subtags">
-          <BInputGroupPrepend is-text>
-            Subtags
-          </BInputGroupPrepend>
+          <BInputGroupPrepend is-text> Subtags </BInputGroupPrepend>
           <BFormRadioGroup
-            id="subtags-radio" name="subtags"
-            :checked="subtag" :options="subtags" @change="updateQuery('subtag', $event)"
-            buttons button-variant="outline-secondary"
+            id="subtags-radio"
+            name="subtags"
+            :checked="subtag"
+            :options="subtags"
+            @change="updateQuery('subtag', $event)"
+            buttons
+            button-variant="outline-secondary"
           />
           <BFormSelect
-            id="subtags-select" :value="subtag" :options="subtags"
+            id="subtags-select"
+            :value="subtag"
+            :options="subtags"
             @change="updateQuery('subtag', $event)"
           />
         </BInputGroup>
@@ -53,8 +74,10 @@
     <!-- CATEGORIES CARDS -->
     <BCardGroup v-if="category === null" deck tag="ul">
       <BCard
-        v-for="cat in categories.slice(1)" :key="cat.value"
-        tag="li" class="category-card"
+        v-for="cat in categories.slice(1)"
+        :key="cat.value"
+        tag="li"
+        class="category-card"
       >
         <BCardTitle>
           <BLink @click="updateQuery('category', cat.value)" class="card-link">
@@ -68,33 +91,55 @@
     <!-- APPS CARDS -->
     <CardDeckFeed v-else>
       <BCard
-        v-for="(app, i) in filteredApps" :key="app.id"
-        tag="article" :aria-labelledby="`${app.id}-title`" :aria-describedby="`${app.id}-desc`"
-        tabindex="0" :aria-posinset="i + 1" :aria-setsize="filteredApps.length"
-        no-body class="app-card"
+        v-for="(app, i) in filteredApps"
+        :key="app.id"
+        tag="article"
+        :aria-labelledby="`${app.id}-title`"
+        :aria-describedby="`${app.id}-desc`"
+        tabindex="0"
+        :aria-posinset="i + 1"
+        :aria-setsize="filteredApps.length"
+        no-body
+        class="app-card"
       >
         <BCardBody class="d-flex">
-          <BImg v-if="app.logo_hash" class="app-logo rounded" :src="`./applogos/${app.logo_hash}.png`" />
+          <BImg
+            v-if="app.logo_hash"
+            class="app-logo rounded"
+            :src="`./applogos/${app.logo_hash}.png`"
+          />
 
           <div>
             <BCardTitle :id="`${app.id}-title`" class="d-flex mb-2">
-              <BLink :to="{ name: 'app-install', params: { id: app.id }}" class="card-link">
+              <BLink
+                :to="{ name: 'app-install', params: { id: app.id } }"
+                class="card-link"
+              >
                 {{ app.manifest.name }}
               </BLink>
 
-              <small v-if="app.state !== 'working' || app.high_quality" class="d-flex align-items-center ml-2 position-relative">
+              <small
+                v-if="app.state !== 'working' || app.high_quality"
+                class="d-flex align-items-center ml-2 position-relative"
+              >
                 <BBadge
                   v-if="app.state !== 'working'"
                   :variant="app.color"
-                  v-b-popover.hover.bottom="$t(`app_state_${app.state}_explanation`)"
+                  v-b-popover.hover.bottom="
+                    $t(`app_state_${app.state}_explanation`)
+                  "
                 >
                   <!-- app.state can be 'lowquality' or 'inprogress' -->
                   {{ $t('app_state_' + app.state) }}
                 </BBadge>
 
                 <YIcon
-                  v-if="app.high_quality" iname="star" class="star"
-                  v-b-popover.hover.bottom="$t(`app_state_highquality_explanation`)"
+                  v-if="app.high_quality"
+                  iname="star"
+                  class="star"
+                  v-b-popover.hover.bottom="
+                    $t(`app_state_highquality_explanation`)
+                  "
                 />
               </small>
             </BCardTitle>
@@ -103,8 +148,14 @@
               {{ app.manifest.description }}
             </BCardText>
 
-            <BCardText v-if="!app.maintained" class="align-self-end position-relative mt-auto">
-              <span class="alert-warning p-1" v-b-popover.hover.top="$t('orphaned_details')">
+            <BCardText
+              v-if="!app.maintained"
+              class="align-self-end position-relative mt-auto"
+            >
+              <span
+                class="alert-warning p-1"
+                v-b-popover.hover.top="$t('orphaned_details')"
+              >
                 <YIcon iname="warning" /> {{ $t('orphaned') }}
               </span>
             </BCardText>
@@ -125,37 +176,52 @@
     <template #bot>
       <!-- INSTALL CUSTOM APP -->
       <CardForm
-        :title="$t('custom_app_install')" icon="download"
-        @submit.prevent="onCustomInstallClick" :submit-text="$t('install')"
-        :validation="$v" class="mt-5"
+        :title="$t('custom_app_install')"
+        icon="download"
+        @submit.prevent="onCustomInstallClick"
+        :submit-text="$t('install')"
+        :validation="$v"
+        class="mt-5"
       >
         <template #disclaimer>
           <div class="alert alert-warning">
-            <YIcon iname="exclamation-triangle" /> {{ $t('confirm_install_custom_app') }}
+            <YIcon iname="exclamation-triangle" />
+            {{ $t('confirm_install_custom_app') }}
           </div>
         </template>
 
         <!-- URL -->
-        <FormField v-bind="customInstall.field" v-model="customInstall.url" :validation="$v.customInstall.url" />
+        <FormField
+          v-bind="customInstall.field"
+          v-model="customInstall.url"
+          :validation="$v.customInstall.url"
+        />
       </CardForm>
     </template>
 
     <!-- CUSTOM SKELETON -->
     <template #skeleton>
       <BCardGroup deck>
-        <BCard
-          v-for="i in 15" :key="i"
-          no-body style="min-height: 10rem;"
-        >
+        <BCard v-for="i in 15" :key="i" no-body style="min-height: 10rem">
           <div class="d-flex w-100 mt-auto">
             <BSkeleton width="30px" height="30px" class="mr-2 ml-auto" />
-            <BSkeleton :width="randint(30, 70) + '%'" height="30px" class="mr-auto" />
+            <BSkeleton
+              :width="randint(30, 70) + '%'"
+              height="30px"
+              class="mr-auto"
+            />
           </div>
           <BSkeleton
             v-if="randint(0, 1)"
-            :width="randint(30, 85) + '%'" height="24px" class="mx-auto"
+            :width="randint(30, 85) + '%'"
+            height="24px"
+            class="mx-auto"
           />
-          <BSkeleton :width="randint(30, 85) + '%'" height="24px" class="mx-auto mb-auto" />
+          <BSkeleton
+            :width="randint(30, 85) + '%'"
+            height="24px"
+            class="mx-auto mb-auto"
+          />
         </BCard>
       </BCardGroup>
     </template>
@@ -173,21 +239,19 @@ export default {
   name: 'AppCatalog',
 
   components: {
-    CardDeckFeed
+    CardDeckFeed,
   },
 
   props: {
     search: { type: String, default: '' },
     quality: { type: String, default: 'decent_quality' },
     category: { type: String, default: null },
-    subtag: { type: String, default: 'all' }
+    subtag: { type: String, default: 'all' },
   },
 
-  data () {
+  data() {
     return {
-      queries: [
-        ['GET', 'apps/catalog?full&with_categories&with_antifeatures']
-      ],
+      queries: [['GET', 'apps/catalog?full&with_categories&with_antifeatures']],
 
       // Data
       apps: undefined,
@@ -197,13 +261,16 @@ export default {
       // Filtering options
       qualityOptions: [
         { value: 'high_quality', text: this.$i18n.t('only_highquality_apps') },
-        { value: 'decent_quality', text: this.$i18n.t('only_decent_quality_apps') },
+        {
+          value: 'decent_quality',
+          text: this.$i18n.t('only_decent_quality_apps'),
+        },
         { value: 'working', text: this.$i18n.t('only_working_apps') },
-        { value: 'all', text: this.$i18n.t('all_apps') }
+        { value: 'all', text: this.$i18n.t('all_apps') },
       ],
       categories: [
         { text: this.$i18n.t('app_choose_category'), value: null },
-        { text: this.$i18n.t('all_apps'), value: 'all', icon: 'search' }
+        { text: this.$i18n.t('all_apps'), value: 'all', icon: 'search' },
         // The rest is filled from api data
       ],
 
@@ -213,31 +280,33 @@ export default {
           label: this.$i18n.t('url'),
           props: {
             id: 'custom-install',
-            placeholder: 'https://some.git.forge.tld/USER/REPOSITORY'
-          }
+            placeholder: 'https://some.git.forge.tld/USER/REPOSITORY',
+          },
         },
-        url: ''
-      }
+        url: '',
+      },
     }
   },
 
   computed: {
-    filteredApps () {
+    filteredApps() {
       if (!this.apps || this.category === null) return
       const search = this.search.toLowerCase()
 
       if (this.quality === 'all' && this.category === 'all' && search === '') {
         return this.apps
       }
-      const filtered = this.apps.filter(app => {
+      const filtered = this.apps.filter((app) => {
         // app doesn't match quality filter
         if (this.quality !== 'all' && !app[this.quality]) return false
         // app doesn't match category filter
-        if (this.category !== 'all' && app.category !== this.category) return false
+        if (this.category !== 'all' && app.category !== this.category)
+          return false
         if (this.subtag !== 'all') {
-          const appMatchSubtag = this.subtag === 'others'
-            ? app.subtags.length === 0
-            : app.subtags.includes(this.subtag)
+          const appMatchSubtag =
+            this.subtag === 'others'
+              ? app.subtags.length === 0
+              : app.subtags.includes(this.subtag)
           // app doesn't match subtag filter
           if (!appMatchSubtag) return false
         }
@@ -248,13 +317,15 @@ export default {
       return filtered.length ? filtered : null
     },
 
-    subtags () {
+    subtags() {
       // build an options array for subtags v-model/options
       if (this.category && this.categories.length > 2) {
-        const category = this.categories.find(cat => cat.value === this.category)
+        const category = this.categories.find(
+          (cat) => cat.value === this.category,
+        )
         if (category.subtags) {
           const subtags = [{ text: this.$i18n.t('all'), value: 'all' }]
-           category.subtags.forEach(subtag => {
+          category.subtags.forEach((subtag) => {
             subtags.push({ text: subtag.title, value: subtag.id })
           })
           subtags.push({ text: this.$i18n.t('others'), value: 'others' })
@@ -262,21 +333,22 @@ export default {
         }
       }
       return null
-    }
+    },
   },
 
   validations: {
     customInstall: {
-      url: { required, appRepoUrl }
-    }
+      url: { required, appRepoUrl },
+    },
   },
 
   methods: {
-    onQueriesResponse (data) {
+    onQueriesResponse(data) {
       const apps = []
       for (const key in data.apps) {
         const app = data.apps[key]
-        app.isInstallable = !app.installed || app.manifest.integration.multi_instance
+        app.isInstallable =
+          !app.installed || app.manifest.integration.multi_instance
         app.working = app.state === 'working'
         app.decent_quality = app.working && app.level > 4
         app.high_quality = app.working && app.level >= 8
@@ -295,57 +367,71 @@ export default {
           app.state,
           app.manifest.name,
           app.manifest.description,
-          app.potential_alternative_to.join(' ')
-        ].join(' ').toLowerCase()
+          app.potential_alternative_to.join(' '),
+        ]
+          .join(' ')
+          .toLowerCase()
         apps.push(app)
       }
-      this.apps = apps.sort((a, b) => a.id > b.id ? 1 : -1)
+      this.apps = apps.sort((a, b) => (a.id > b.id ? 1 : -1))
 
       // CATEGORIES
       data.categories.forEach(({ title, id, icon, subtags, description }) => {
-        this.categories.push({ text: title, value: id, icon, subtags, description })
+        this.categories.push({
+          text: title,
+          value: id,
+          icon,
+          subtags,
+          description,
+        })
       })
-      this.antifeatures = Object.fromEntries(data.antifeatures.map((af) => ([af.id, af])))
+      this.antifeatures = Object.fromEntries(
+        data.antifeatures.map((af) => [af.id, af]),
+      )
     },
 
-    updateQuery (key, value) {
+    updateQuery(key, value) {
       // Update the query string without reloading the page
       this.$router.replace({
         query: {
           ...this.$route.query,
           // allow search without selecting a category
           category: this.$route.query.category || 'all',
-          [key]: value
-        }
+          [key]: value,
+        },
       })
     },
 
     // INSTALL APP
-    async onInstallClick (appId) {
+    async onInstallClick(appId) {
       const app = this.apps.find((app) => app.id === appId)
       if (!app.decent_quality) {
-        const confirmed = await this.$askConfirmation(this.$i18n.t('confirm_install_app_' + app.state))
+        const confirmed = await this.$askConfirmation(
+          this.$i18n.t('confirm_install_app_' + app.state),
+        )
         if (!confirmed) return
       }
       this.$router.push({ name: 'app-install', params: { id: app.id } })
     },
 
     // INSTALL CUSTOM APP
-    async onCustomInstallClick () {
-      const confirmed = await this.$askConfirmation(this.$i18n.t('confirm_install_custom_app'))
+    async onCustomInstallClick() {
+      const confirmed = await this.$askConfirmation(
+        this.$i18n.t('confirm_install_custom_app'),
+      )
       if (!confirmed) return
 
       const url = this.customInstall.url
       this.$router.push({
         name: 'app-install-custom',
-        params: { id: url.endsWith('/') ? url : url + '/' }
+        params: { id: url.endsWith('/') ? url : url + '/' },
       })
     },
 
-    randint
+    randint,
   },
 
-  mixins: [validationMixin]
+  mixins: [validationMixin],
 }
 </script>
 
@@ -364,7 +450,7 @@ export default {
 
   .subtags {
     #subtags-radio {
-      display: none
+      display: none;
     }
     @include media-breakpoint-up(md) {
       #subtags-radio {
@@ -418,7 +504,7 @@ export default {
 
     // not maintained info
     .alert-warning {
-      font-size: .75em;
+      font-size: 0.75em;
     }
 
     .star {
@@ -450,7 +536,7 @@ export default {
       }
 
       &:focus::after {
-        box-shadow: 0 0 0 $btn-focus-width rgba($dark, .5);
+        box-shadow: 0 0 0 $btn-focus-width rgba($dark, 0.5);
       }
     }
   }

@@ -8,7 +8,7 @@
 
       <p class="alert alert-info">
         <span v-t="'postinstall_intro_2'" />
-        <br>
+        <br />
         <span v-html="$t('postinstall_intro_3')" />
       </p>
 
@@ -20,7 +20,9 @@
     <!-- DOMAIN SETUP STEP -->
     <template v-else-if="step === 'domain'">
       <DomainForm
-        :title="$t('postinstall_set_domain')" :submit-text="$t('next')" :server-error="serverError"
+        :title="$t('postinstall_set_domain')"
+        :submit-text="$t('next')"
+        :server-error="serverError"
         @submit="setDomain"
       >
         <template #disclaimer>
@@ -36,9 +38,12 @@
     <!-- FIRST USER SETUP STEP -->
     <template v-else-if="step === 'user'">
       <CardForm
-        :title="$t('postinstall.user.title')" icon="user-plus"
-        :validation="$v" :server-error="serverError"
-        :submit-text="$t('next')" @submit.prevent="setUser"
+        :title="$t('postinstall.user.title')"
+        icon="user-plus"
+        :validation="$v"
+        :server-error="serverError"
+        :submit-text="$t('next')"
+        @submit.prevent="setUser"
       >
         <ReadOnlyAlertItem
           :label="$t('postinstall.user.first_user_help')"
@@ -46,8 +51,11 @@
         />
 
         <FormField
-          v-for="(field, name) in fields" :key="name"
-          v-bind="field" v-model="user[name]" :validation="$v.user[name]"
+          v-for="(field, name) in fields"
+          :key="name"
+          v-bind="field"
+          v-model="user[name]"
+          :validation="$v.user[name]"
         />
       </CardForm>
 
@@ -87,7 +95,13 @@ import api from '@/api'
 import { DomainForm } from '@/views/_partials'
 import LoginView from '@/views/LoginView.vue'
 import { formatFormData } from '@/helpers/yunohostArguments'
-import { alphalownumdot_, required, minLength, name, sameAs } from '@/helpers/validators'
+import {
+  alphalownumdot_,
+  required,
+  minLength,
+  name,
+  sameAs,
+} from '@/helpers/validators'
 
 export default {
   name: 'PostInstall',
@@ -96,10 +110,10 @@ export default {
 
   components: {
     DomainForm,
-    LoginView
+    LoginView,
   },
 
-  data () {
+  data() {
     return {
       step: 'start',
       serverError: '',
@@ -109,98 +123,110 @@ export default {
         username: '',
         fullname: '',
         password: '',
-        confirmation: ''
+        confirmation: '',
       },
 
       fields: {
         username: {
           label: this.$i18n.t('user_username'),
-          props: { id: 'username', placeholder: this.$i18n.t('placeholder.username') }
+          props: {
+            id: 'username',
+            placeholder: this.$i18n.t('placeholder.username'),
+          },
         },
 
         fullname: {
           label: this.$i18n.t('user_fullname'),
-          props: { id: 'fullname', placeholder: this.$i18n.t('placeholder.fullname') }
+          props: {
+            id: 'fullname',
+            placeholder: this.$i18n.t('placeholder.fullname'),
+          },
         },
 
         password: {
           label: this.$i18n.t('password'),
           description: this.$i18n.t('good_practices_about_admin_password'),
           descriptionVariant: 'warning',
-          props: { id: 'password', placeholder: '••••••••', type: 'password' }
+          props: { id: 'password', placeholder: '••••••••', type: 'password' },
         },
 
         confirmation: {
           label: this.$i18n.t('password_confirmation'),
-          props: { id: 'confirmation', placeholder: '••••••••', type: 'password' }
-        }
-      }
+          props: {
+            id: 'confirmation',
+            placeholder: '••••••••',
+            type: 'password',
+          },
+        },
+      },
     }
   },
 
   methods: {
-    goToStep (step) {
+    goToStep(step) {
       this.serverError = ''
       this.step = step
     },
 
-    setDomain ({ domain, dyndns_recovery_password }) {
+    setDomain({ domain, dyndns_recovery_password }) {
       this.domain = domain
       this.dyndns_recovery_password = dyndns_recovery_password
       this.goToStep('user')
     },
 
-    async setUser () {
+    async setUser() {
       const confirmed = await this.$askConfirmation(
-        this.$i18n.t('confirm_postinstall', { domain: this.domain })
+        this.$i18n.t('confirm_postinstall', { domain: this.domain }),
       )
       if (!confirmed) return
       this.performPostInstall()
     },
 
-    async performPostInstall (force = false) {
+    async performPostInstall(force = false) {
       const data = await formatFormData({
         domain: this.domain,
         dyndns_recovery_password: this.dyndns_recovery_password,
         username: this.user.username,
         fullname: this.user.fullname,
-        password: this.user.password
+        password: this.user.password,
       })
 
       // FIXME does the api will throw an error for bad passwords ?
-      api.post(
-        'postinstall' + (force ? '?force_diskspace' : ''),
-        data,
-        { key: 'postinstall' }
-      ).then(() => {
-        // Display success message and allow the user to login
-        this.goToStep('login')
-      }).catch(err => {
-        const hasWordsInError = (words) => words.some((word) => (err.key || err.message).includes(word))
-        if (err.name !== 'APIBadRequestError') throw err
-        if (err.key === 'postinstall_low_rootfsspace') {
-          this.step = 'rootfsspace-error'
-        } else if (hasWordsInError(['domain', 'dyndns'])) {
-          this.step = 'domain'
-        } else if (hasWordsInError(['password', 'user'])) {
-          this.step = 'user'
-        } else {
-          throw err
-        }
-        this.serverError = err.message
-      })
-    }
+      api
+        .post('postinstall' + (force ? '?force_diskspace' : ''), data, {
+          key: 'postinstall',
+        })
+        .then(() => {
+          // Display success message and allow the user to login
+          this.goToStep('login')
+        })
+        .catch((err) => {
+          const hasWordsInError = (words) =>
+            words.some((word) => (err.key || err.message).includes(word))
+          if (err.name !== 'APIBadRequestError') throw err
+          if (err.key === 'postinstall_low_rootfsspace') {
+            this.step = 'rootfsspace-error'
+          } else if (hasWordsInError(['domain', 'dyndns'])) {
+            this.step = 'domain'
+          } else if (hasWordsInError(['password', 'user'])) {
+            this.step = 'user'
+          } else {
+            throw err
+          }
+          this.serverError = err.message
+        })
+    },
   },
 
-  validations () {
+  validations() {
     return {
       user: {
         username: { required, alphalownumdot_ },
         fullname: { required, name },
         password: { required, passwordLenght: minLength(8) },
-        confirmation: { required, passwordMatch: sameAs('password') }
-      }
+        confirmation: { required, passwordMatch: sameAs('password') },
+      },
     }
-  }
+  },
 }
 </script>

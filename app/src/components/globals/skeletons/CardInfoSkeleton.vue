@@ -22,9 +22,9 @@ export default {
   name: 'CardInfoSkeleton',
 
   props: {
-    itemCount: { type: Number, default: 5 }
+    itemCount: { type: Number, default: 5 },
   },
 
-  methods: { randint }
+  methods: { randint },
 }
 </script>

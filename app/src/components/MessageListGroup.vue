@@ -1,17 +1,21 @@
 <template>
   <BListGroup
-    v-bind="$attrs" flush
-    :class="{ 'fixed-height': fixedHeight, 'bordered': bordered }"
+    v-bind="$attrs"
+    flush
+    :class="{ 'fixed-height': fixedHeight, bordered: bordered }"
     @scroll="onScroll"
   >
     <YListGroupItem
       v-if="limit && messages.length > limit"
-      variant="info" v-t="'api.partial_logs'"
+      variant="info"
+      v-t="'api.partial_logs'"
     />
 
     <YListGroupItem
-      v-for="({ color, text }, i) in reducedMessages" :key="i"
-      :variant="color" size="xs"
+      v-for="({ color, text }, i) in reducedMessages"
+      :key="i"
+      :variant="color"
+      size="xs"
     >
       <span v-html="text" />
     </YListGroupItem>
@@ -27,43 +31,43 @@ export default {
     fixedHeight: { type: Boolean, default: false },
     bordered: { type: Boolean, default: false },
     autoScroll: { type: Boolean, default: false },
-    limit: { type: Number, default: null }
+    limit: { type: Number, default: null },
   },
 
-  data () {
+  data() {
     return {
-      auto: true
+      auto: true,
     }
   },
 
   computed: {
-    reducedMessages () {
+    reducedMessages() {
       const len = this.messages.length
       if (!this.limit || len <= this.limit) {
         return this.messages
       }
       return this.messages.slice(len - this.limit)
-    }
+    },
   },
 
   methods: {
-    scrollToEnd () {
+    scrollToEnd() {
       if (!this.auto) return
       this.$nextTick(() => {
         this.$el.scrollTo(0, this.$el.lastElementChild.offsetTop)
       })
     },
 
-    onScroll ({ target }) {
+    onScroll({ target }) {
       this.auto = target.scrollHeight === target.scrollTop + target.clientHeight
-    }
+    },
   },
 
-  created () {
+  created() {
     if (this.autoScroll) {
       this.$watch('messages', this.scrollToEnd)
     }
-  }
+  },
 }
 </script>
 
