@@ -299,7 +299,7 @@
         }
     },
     "domain_add": "Add domain",
-    "domain_add_dyndns_forbidden": "You have already registered/subscribed to a DynDNS domain from the YunoHost project. By design, this feature is limited to one such domain per server. If you want to a subdomain of your already subscribed domain, please use the 'Add a domain I own, or a subdomain' option above. If you want to use a completely different domain, you should first remove your existing DynDNS domain. DynDNS domains are good when starting with self-hosting, but on the medium/long term, we recommend buying your very own domain name to some registrar to have full ownership of your domain.",
+    "domain_add_dyndns_forbidden": "You have already registered/subscribed to a DynDNS domain from the YunoHost project. By design, this feature is limited to one such domain per server. If you want to add a subdomain of your already subscribed domain, please use the 'Add a domain I own, or a subdomain' option above. If you want to use a completely different domain, you should first remove your existing DynDNS domain. DynDNS domains are good when starting with self-hosting, but on the medium/long term, we recommend buying your very own domain name to some registrar to have full ownership of your domain.",
     "domain_default_desc": "The default domain is the connection domain where users log in.",
     "domain_default_longdesc": "This is your default domain.",
     "domain_delete_forbidden_desc": "You cannot remove '{domain}' since it's the default domain, you need to choose another domain (or <a href='#/domains/add'>add a new one</a>) and set it as the default domain to be able to remove this one.",
