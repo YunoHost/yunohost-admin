@@ -98,7 +98,7 @@
     "domain_delete_longdesc": "Eliminar este domino",
     "domain_default_longdesc": "Este é o teu dominio por defecto.",
     "domain_default_desc": "O dominio por defecto é o dominio de conexión onde accederán as usuarias.",
-    "domain_add_dyndns_forbidden": "Xa tes unha subscrición/rexistro dun dominio DynDNS do proxecto YunoHost. Por decisión propia, esta característica está limitada a un dominio por servidor. Se queres un subdominio pertencente ao dominio que xa tes utiliza a opción superior 'Engadir un dominio, ou subdominio, que xa posúo'. Se queres usar un dominio totalmente diferente, primeiro tes que eliminar o dominio DynDNS existente. Os dominios DynDNS son moi axeitados para aprender ao comezo dun proxecto de autohospedaxe, pero a medio/longo prazo recomendámosche mercar o teu propio nome de dominio nalgunha empresa rexistradora para ter a propiedade completa sobre o teu dominio.",
+    "domain_add_dyndns_forbidden": "Xa tes unha subscrición/rexistro dun dominio DynDNS do proxecto YunoHost. Por decisión propia, esta característica está limitada a un dominio por servidor. Se queres engadir un subdominio pertencente ao dominio que xa tes utiliza a opción superior 'Engadir un dominio, ou subdominio, que xa posúo'. Se queres usar un dominio totalmente diferente, primeiro tes que eliminar o dominio DynDNS existente. Os dominios DynDNS son moi axeitados para aprender ao comezo dun proxecto de autohospedaxe, pero a medio/longo prazo recomendámosche mercar o teu propio nome de dominio nalgunha empresa rexistradora para ter a propiedade completa sobre o teu dominio.",
     "domain_add": "Engadir dominio",
     "dns": "DNS",
     "disabled": "Desactivado",
