@@ -112,7 +112,7 @@
     "system": "Système",
     "system_apps_nothing": "Toutes les applications sont à jour !",
     "system_packages_nothing": "Tous les packages système sont à jour !",
-    "system_update": "Mettre à jour le système",
+    "system_update": "Mise à jour du système",
     "system_upgrade_btn": "Mettre à jour",
     "tcp": "TCP",
     "tools": "Outils",
@@ -566,12 +566,12 @@
             "dyn_dns_password": "Mot de passe de récupération du domaine",
             "dyn_dns_password_desc": "Ce mot de passe vous permettra de récupérer ultérieurement le contrôle du domaine si vous réinstallez votre système. Si vous avez déjà enregistré ce domaine auparavant, utilisez votre mot de passe de récupération ici pour le récupérer.",
             "from_local": "Je veux un domaine pour un usage local / test uniquement",
-            "from_local_desc": "Si vous ne souhaitez pas un nom de domaine public \"réel\", vous pouvez utiliser n'importe quel nom se terminant par <code>.local</code> or <code>.test</code>.\nLes noms de domaine se terminant par <code>.local</code> sont particuliers en ce sens qu'ils peuvent être automatiquement résolus sur le réseau local, en supposant que les clients prennent en charge le protocole Bonjour. Il est également possible que vous deviez modifier le paramètre du fichier <code>/etc/hosts</code> (ou équivalent sous Windows) sur chaque client à partir duquel vous souhaitez utiliser ce domaine, ou de configurer des entrées DNS locales sur votre routeur internet.",
+            "from_local_desc": "Si vous ne souhaitez pas un nom de domaine public \"réel\", vous pouvez utiliser n'importe quel nom se terminant par <code>.local</code> or <code>.test</code>. Les noms de domaine se terminant par <code>.local</code> sont particuliers en ce sens qu'ils peuvent être automatiquement résolus sur le réseau local, en supposant que les clients prennent en charge le protocole Bonjour. Il est également possible que vous deviez modifier le paramètre du fichier <code>/etc/hosts</code> (ou équivalent sous Windows) sur chaque client à partir duquel vous souhaitez utiliser ce domaine, ou de configurer des entrées DNS locales sur votre routeur internet.",
             "from_registrar": "Je veux ajouter un domaine que je possède, ou un sous-domaine",
             "from_yunohost": "Je ne possède pas de domaine, je veux enregistrer/utiliser un domaine DynDNS gratuit fourni par le projet YunoHost"
         }
     },
-    "domain_dns_push_failed_to_authenticate": "Échec de l'authentification sur l'API du registraire. Très probablement les <a href='#/domains/{domain}/config'>informations d'identification</a> sont incorrectes ? (Erreur : {error})",
+    "domain_dns_push_failed_to_authenticate": "Échec de l'authentification sur l'API du registraire. Très probablement les <a href='#/domains/{domain}/config'>informations d'identification</a> sont incorrectes ? (Erreur : {error})",
     "domain_dns_push_managed_in_parent_domain": "La fonctionnalité d'enregistrement DNS automatique est gérée dans le domaine parent <a href='#/domains/{parent_domain}/dns'>{parent_domain}</a>.",
     "domain_dns_push_not_applicable": "La fonctionnalité d'enregistrements DNS automatiques n'est pas applicable au domaine {domain},<br> Vous devez configurer manuellement vos enregistrements DNS en suivant la <a href='https://yunohost.org/dns'>documentation</a> et les suggestions configuration ci-dessous.",
     "text_selection_is_disabled": "La sélection du texte est désactivée. Si vous voulez partager ce log *complet*, vous pouvez le faire en cliquant sur le bouton 'Partager avec Yunopaste'.<br/><small>Ou, si vous voulez vraiment vraiment sélectionner du texte, appuyez sur ces touches : ↓↓↑↑.</small>",
