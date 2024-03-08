@@ -217,6 +217,7 @@ import {
 import CardCollapse from '@/components/CardCollapse.vue'
 
 export default {
+  compatConfig: { MODE: 3 },
   name: 'AppInstall',
 
   components: {

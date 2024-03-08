@@ -3,6 +3,7 @@
 // https://www.w3.org/WAI/ARIA/apg/patterns/feed/
 
 export default {
+  compatConfig: { MODE: 3 },
   name: 'CardDeckFeed',
 
   props: {

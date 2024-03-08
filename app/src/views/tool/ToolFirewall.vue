@@ -125,6 +125,7 @@ import api from '@/api'
 import { required, integer, between } from '@/helpers/validators'
 
 export default {
+  compatConfig: { MODE: 3 },
   name: 'ToolFirewall',
 
   setup() {

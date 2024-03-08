@@ -14,6 +14,7 @@
 import { DEFAULT_STATUS_ICON } from '@/helpers/yunohostArguments'
 
 export default {
+  compatConfig: { MODE: 3 },
   name: 'YListGroupItem',
 
   props: {

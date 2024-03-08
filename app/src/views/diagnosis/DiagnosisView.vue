@@ -153,6 +153,7 @@ import { distanceToNow } from '@/helpers/filters/date'
 import { DEFAULT_STATUS_ICON } from '@/helpers/yunohostArguments'
 
 export default {
+  compatConfig: { MODE: 3 },
   name: 'DiagnosisView',
 
   data() {

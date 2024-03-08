@@ -30,6 +30,7 @@ import {
 import QueryHeader from '@/components/QueryHeader.vue'
 
 export default {
+  compatConfig: { MODE: 3 },
   name: 'ViewLockOverlay',
 
   components: {

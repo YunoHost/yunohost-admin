@@ -30,6 +30,7 @@ import { toRef } from 'vue'
 import { useVuelidate } from '@vuelidate/core'
 
 export default {
+  compatConfig: { MODE: 3 },
   name: 'ConfigPanels',
 
   inheritAttrs: false,

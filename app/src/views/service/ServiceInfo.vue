@@ -86,6 +86,7 @@ import api from '@/api'
 import { distanceToNow } from '@/helpers/filters/date'
 
 export default {
+  compatConfig: { MODE: 3 },
   name: 'ServiceInfo',
 
   props: {

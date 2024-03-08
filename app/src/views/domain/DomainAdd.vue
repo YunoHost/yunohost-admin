@@ -14,6 +14,7 @@ import api from '@/api'
 import { DomainForm } from '@/views/_partials'
 
 export default {
+  compatConfig: { MODE: 3 },
   name: 'DomainAdd',
 
   data() {

@@ -142,6 +142,7 @@ import TagsSelectizeItem from '@/components/globals/formItems/TagsSelectizeItem.
 // TODO add global search with type (search by: group, user, permission)
 // TODO add vuex store update on inputs ?
 export default {
+  compatConfig: { MODE: 3 },
   name: 'GroupList',
 
   components: {

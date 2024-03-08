@@ -101,6 +101,7 @@ import { mapGetters } from 'vuex'
 import { HistoryConsole, ViewLockOverlay } from '@/views/_partials'
 
 export default {
+  compatConfig: { MODE: 3 },
   name: 'App',
 
   components: {

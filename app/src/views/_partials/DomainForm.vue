@@ -129,6 +129,7 @@ import {
 } from '@/helpers/validators'
 
 export default {
+  compatConfig: { MODE: 3 },
   name: 'DomainForm',
 
   props: {

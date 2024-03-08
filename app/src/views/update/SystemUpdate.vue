@@ -144,6 +144,7 @@ import { mapGetters } from 'vuex'
 import CardCollapse from '@/components/CardCollapse.vue'
 
 export default {
+  compatConfig: { MODE: 3 },
   name: 'SystemUpdate',
 
   components: {

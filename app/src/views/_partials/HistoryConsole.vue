@@ -94,6 +94,7 @@ import QueryHeader from '@/components/QueryHeader.vue'
 import MessageListGroup from '@/components/MessageListGroup.vue'
 
 export default {
+  compatConfig: { MODE: 3 },
   name: 'HistoryConsole',
 
   components: {

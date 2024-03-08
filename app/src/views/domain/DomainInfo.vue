@@ -149,6 +149,7 @@ import ConfigPanels from '@/components/ConfigPanels.vue'
 import DomainDns from './DomainDns.vue'
 
 export default {
+  compatConfig: { MODE: 3 },
   name: 'DomainInfo',
 
   components: {
