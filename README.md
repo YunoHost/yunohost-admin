@@ -1,41 +1,37 @@
 <h1 align="center">YunoHost Admin</h1>
 
 <div align="center">
- 
 ![Version](https://img.shields.io/github/v/tag/yunohost/yunohost-admin?label=version&sort=semver)
 [![Tests status](https://github.com/YunoHost/yunohost-admin/actions/workflows/eslint.yml/badge.svg)](https://github.com/YunoHost/yunohost-admin/actions/workflows/eslint.yml)
 [![Project license](https://img.shields.io/gitlab/license/yunohost/yunohost)](https://github.com/YunoHost/yunohost/blob/dev/LICENSE)
 
-[YunoHost](https://yunohost.org) administration web interface (VueJS client for the API).
+[YunoHost logo](https://yunohost.org) administration web interface (VueJS client for the API).
 
-This client is a part of the YunoHost project, and can not be installed directly. Please visit the YunoHost website for [installation instructions](https://yunohost.org/install).
+This client is a part of the YunoHost project, and can not be installed directly.  
+Please visit the YunoHost website for [installation instructions](https://yunohost.org/install).
 
-![](./doc/home.png)
-
+![Web admin insterface screenshot](./doc/home.png)
 </div>
 
-Issues
-------
+## Issues
 
 - [Please report issues on YunoHost bugtracker](https://github.com/YunoHost/issues).
 
-Translation
------------
+## Translation
 
 You can help translate Yunohost-Admin on our [translation platform](https://translate.yunohost.org/engage/yunohost/?utm_source=widget)
 
-<div align="center"><img src="https://translate.yunohost.org/widgets/yunohost/-/admin/horizontal-auto.svg" alt="Translation status" /></div>
+<div align="center"><img alt="View of the translation rate for the different languages available in YunoHost" src="https://translate.yunohost.org/widgets/yunohost/-/admin/horizontal-auto.svg" alt="Translation status" /></div>
 
-Developpers
--------------
+## Developpers
 
 Contributions are welcome!
 
-In order to contribute you will need to setup a development environment using [ynh-dev](https://github.com/YunoHost/ynh-dev) (see the README).
+In order to contribute you will need to setup a development environment using [ynh-dev](https://github.com/YunoHost/ynh-dev) (see the README).  
 Once you have a environment running and are attached to it (with `./ynh-dev start`) you will be able to run:
 
-```
-$ ./ynh-dev use-git yunohost-admin
+```bash
+./ynh-dev use-git yunohost-admin
 ```
 
 This command will install all dependencies and start a dev server (based on [webpack-dev-server](https://github.com/webpack/webpack-dev-server)) with Hot-Module-Replacement (live updates on code modification without reloading the page nor rebuilding the whole code). After the build step, click on the "Network:" link and you are good to go.
