@@ -227,7 +227,7 @@ main {
   .animated {
     transition: all 0.15s ease-in-out;
   }
-  .slide-left-enter,
+  .slide-left-enter-from,
   .slide-right-leave-active {
     position: absolute;
     width: 100%;
@@ -235,7 +235,7 @@ main {
     transform: translate(100vw, 0);
   }
   .slide-left-leave-active,
-  .slide-right-enter {
+  .slide-right-enter-from {
     position: absolute;
     width: 100%;
     top: 0;
