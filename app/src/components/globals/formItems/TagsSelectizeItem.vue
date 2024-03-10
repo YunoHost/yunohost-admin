@@ -3,7 +3,8 @@
     <BFormTags
       v-bind="$attrs"
       v-on="$listeners"
-      :value="value"
+      :modelValue="modelValue"
+      @update:modelValue="$emit('update:modelValue', $event)"
       :id="id"
       size="lg"
       class="p-0 border-0"
@@ -99,7 +100,7 @@ export default {
   inheritAttrs: false,
 
   props: {
-    value: { type: Array, required: true },
+    modelValue: { type: Array, required: true },
     options: { type: Array, required: true },
     id: { type: String, required: true },
     placeholder: { type: String, default: null },
@@ -129,7 +130,8 @@ export default {
       const criteria = this.criteria
       const options = this.options.filter((opt) => {
         return (
-          this.value.indexOf(opt) === -1 && !this.disabledItems.includes(opt)
+          this.modelValue.indexOf(opt) === -1 &&
+          !this.disabledItems.includes(opt)
         )
       })
       if (criteria) {

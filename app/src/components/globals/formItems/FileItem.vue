@@ -1,7 +1,7 @@
 <template>
   <BButtonGroup class="w-100">
     <BButton
-      v-if="!this.required && this.value.file !== null"
+      v-if="!this.required && this.modelValue.file !== null"
       @click="clearFiles"
       variant="danger"
     >
@@ -10,7 +10,7 @@
     </BButton>
 
     <BFormFile
-      :value="value.file"
+      :modelValue="modelValue.file"
       ref="input-file"
       :id="id"
       :required="required"
@@ -35,7 +35,7 @@ export default {
 
   props: {
     id: { type: String, default: null },
-    value: { type: Object, default: () => ({ file: null }) },
+    modelValue: { type: Object, default: () => ({ file: null }) },
     placeholder: { type: String, default: 'Choose a file or drop it here...' },
     dropPlaceholder: { type: String, default: null },
     accept: { type: String, default: null },
@@ -46,7 +46,9 @@ export default {
 
   computed: {
     _placeholder: function () {
-      return this.value.file === null ? this.placeholder : this.value.file.name
+      return this.modelValue.file === null
+        ? this.placeholder
+        : this.modelValue.file.name
     },
   },
 
@@ -59,17 +61,17 @@ export default {
         removed: false,
       }
       // Update the value with the new File and an empty content for now
-      this.$emit('input', value)
+      this.$emit('update:modelValue', value)
 
       // Asynchronously load the File content and update the value again
       getFileContent(file).then((content) => {
-        this.$emit('input', { ...value, content })
+        this.$emit('update:modelValue', { ...value, content })
       })
     },
 
     clearFiles() {
       this.$refs['input-file'].reset()
-      this.$emit('input', {
+      this.$emit('update:modelValue', {
         file: null,
         content: '',
         current: false,

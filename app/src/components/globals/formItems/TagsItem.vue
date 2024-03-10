@@ -1,6 +1,7 @@
 <template>
   <BFormTags
-    v-model="tags"
+    :value="modelValue"
+    @input="$emit('update:modelValue', $event)"
     :id="id"
     :placeholder="placeholder"
     :required="required"
@@ -19,13 +20,8 @@ export default {
   compatConfig: { MODE: 3 },
   name: 'TagsItem',
 
-  data() {
-    return {
-      tags: this.value,
-    }
-  },
   props: {
-    value: { type: Array, default: null },
+    modelValue: { type: Array, default: null },
     id: { type: String, default: null },
     placeholder: { type: String, default: null },
     limit: { type: Number, default: null },

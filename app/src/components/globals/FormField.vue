@@ -14,7 +14,8 @@
         v-bind="props"
         :is="component"
         v-on="$listeners"
-        :value="value"
+        :modelValue="modelValue"
+        @update:modelValue="$emit('update:modelValue', $event)"
         :state="state"
         :required="validation ? 'required' in validation : false"
       />
@@ -62,7 +63,7 @@ export default {
     link: { type: Object, default: null },
     // Rendered field component props
     component: { type: String, default: 'InputItem' },
-    value: { type: null, default: null },
+    modelValue: { type: null, default: null },
     props: { type: Object, default: () => ({}) },
     validation: { type: Object, default: null },
     validationIndex: { type: Number, default: null },

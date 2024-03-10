@@ -1,6 +1,7 @@
 <template>
   <BFormTextarea
-    :value="value"
+    :modelValue="modelValue"
+    @update:modelValue="$emit('update:modelValue', $event)"
     :id="id"
     :placeholder="placeholder"
     :required="required"
@@ -17,7 +18,7 @@ export default {
   name: 'TextAreaItem',
 
   props: {
-    value: { type: String, default: null },
+    modelValue: { type: String, default: null },
     id: { type: String, default: null },
     placeholder: { type: String, default: null },
     type: { type: String, default: 'text' },
