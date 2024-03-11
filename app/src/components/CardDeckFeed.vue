@@ -14,7 +14,7 @@ export default {
     return {
       busy: false,
       range: this.stacks,
-      childrenCount: this.$slots.default.length,
+      childrenCount: this.$slots.default().length,
     }
   },
 
@@ -60,7 +60,7 @@ export default {
   },
 
   beforeUpdate() {
-    const slots = this.$slots.default
+    const slots = this.$slots.default()
     if (this.childrenCount !== slots.length) {
       this.range = this.stacks
       this.childrenCount = slots.length
@@ -75,7 +75,7 @@ export default {
         props: { deck: true },
         ref: 'feed',
       },
-      this.$slots.default.slice(0, this.range),
+      this.$slots.default().slice(0, this.range),
     )
   },
 
