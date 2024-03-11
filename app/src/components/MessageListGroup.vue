@@ -66,7 +66,7 @@ export default {
 
   created() {
     if (this.autoScroll) {
-      this.$watch('messages', this.scrollToEnd)
+      this.$watch('messages', this.scrollToEnd, { deep: true })
     }
   },
 }
