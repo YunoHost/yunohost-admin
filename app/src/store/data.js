@@ -1,5 +1,3 @@
-import Vue from 'vue'
-
 import api from '@/api'
 import { isEmptyValue } from '@/helpers/commons'
 import { stratify } from '@/helpers/data/tree'
@@ -34,7 +32,7 @@ export default {
     },
 
     SET_DOMAINS_DETAILS(state, [name, details]) {
-      Vue.set(state.domains_details, name, details)
+      state.domains_details[name] = details
     },
 
     UPDATE_DOMAINS_DETAILS(state, payload) {
@@ -43,9 +41,9 @@ export default {
     },
 
     DEL_DOMAINS_DETAILS(state, [name]) {
-      Vue.delete(state.domains_details, name)
+      delete state.domains_details[name]
       if (state.domains) {
-        Vue.delete(state.domains, name)
+        delete state.domains[name]
       }
     },
 
@@ -72,16 +70,16 @@ export default {
 
     ADD_USERS(state, [user]) {
       if (!state.users) state.users = {}
-      Vue.set(state.users, user.username, user)
+      state.users[user.username] = user
     },
 
     SET_USERS_DETAILS(state, [username, userData]) {
-      Vue.set(state.users_details, username, userData)
+      state.users_details[username] = userData
       if (!state.users) return
       const user = state.users[username]
       for (const key of ['fullname', 'mail']) {
         if (user[key] !== userData[key]) {
-          Vue.set(user, key, userData[key])
+          user[key] = userData[key]
         }
       }
     },
@@ -92,9 +90,9 @@ export default {
     },
 
     DEL_USERS_DETAILS(state, [username]) {
-      Vue.delete(state.users_details, username)
+      delete state.users_details[username]
       if (state.users) {
-        Vue.delete(state.users, username)
+        delete state.users[username]
         if (Object.keys(state.users).length === 0) {
           state.users = null
         }
@@ -107,16 +105,16 @@ export default {
 
     ADD_GROUPS(state, [{ name }]) {
       if (state.groups !== undefined) {
-        Vue.set(state.groups, name, { members: [], permissions: [] })
+        state.groups[name] = { members: [], permissions: [] }
       }
     },
 
     UPDATE_GROUPS(state, [data, { groupName }]) {
-      Vue.set(state.groups, groupName, data)
+      state.groups[groupName] = data
     },
 
     DEL_GROUPS(state, [groupname]) {
-      Vue.delete(state.groups, groupname)
+      delete state.groups[groupname]
     },
 
     SET_PERMISSIONS(state, [permissions]) {

@@ -629,7 +629,9 @@ export default {
             Object.assign(this.externalResults, {
               forms: { [panel.id]: { [err.data.name]: [err.data.error] } },
             })
-          } else this.$set(panel, 'serverError', err.message)
+          } else {
+            panel.serverError = err.message
+          }
         })
     },
 

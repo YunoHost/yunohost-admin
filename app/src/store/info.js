@@ -1,4 +1,3 @@
-import Vue from 'vue'
 import router from '@/router'
 import i18n from '@/i18n'
 import api from '@/api'
@@ -55,7 +54,7 @@ export default {
 
     UPDATE_REQUEST(state, { request, key, value }) {
       // This rely on data persistance and reactivity.
-      Vue.set(request, key, value)
+      request[key] = value
     },
 
     REMOVE_REQUEST(state, request) {
@@ -303,7 +302,7 @@ export default {
         // the ownership to stay generic.
         const request = error.request
         delete error.request
-        Vue.set(request, 'error', error)
+        request.error = error
         // Display the error in a modal on the current view.
         commit('SET_ERROR', request)
       }
@@ -330,7 +329,7 @@ export default {
 
     DISMISS_WARNING({ commit, state }, request) {
       commit('SET_WAITING', false)
-      Vue.delete(request, 'showWarningMessage')
+      delete request.showWarningMessage
     },
 
     UPDATE_ROUTER_KEY({ commit }, { to, from }) {

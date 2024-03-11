@@ -133,8 +133,6 @@
 </template>
 
 <script>
-import Vue from 'vue'
-
 import api from '@/api'
 import { isEmptyValue } from '@/helpers/commons'
 import TagsSelectizeItem from '@/components/globals/formItems/TagsSelectizeItem.vue'
@@ -325,7 +323,7 @@ export default {
           { key: 'groups.delete', name: groupName },
         )
         .then(() => {
-          Vue.delete(this.primaryGroups, groupName)
+          delete this.primaryGroups[groupName]
         })
     },
   },
