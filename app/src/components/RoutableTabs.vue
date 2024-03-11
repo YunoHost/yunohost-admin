@@ -19,7 +19,6 @@
       <Component
         v-bind="$attrs"
         :is="Component"
-        v-on="$listeners"
         @apply="$emit('apply', $event)"
       >
         <template #tab-top>

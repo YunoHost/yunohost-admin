@@ -13,7 +13,6 @@
       <Component
         v-bind="props"
         :is="component"
-        v-on="$listeners"
         :modelValue="modelValue"
         @update:modelValue="$emit('update:modelValue', $event)"
         :state="state"

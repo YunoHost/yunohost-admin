@@ -7,7 +7,6 @@
     :required="required"
     :state="state"
     rows="4"
-    v-on="$listeners"
     @blur="$parent.$emit('touch', name)"
   />
 </template>

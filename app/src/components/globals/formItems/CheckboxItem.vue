@@ -3,7 +3,6 @@
   <BFormCheckbox
     :checked="modelValue"
     @input="$emit('update:modelValue', $event)"
-    v-on="$listeners"
     :id="id"
     :aria-describedby="$parent.id + '__BV_description_'"
     switch

@@ -12,7 +12,6 @@
     :step="step"
     :trim="trim"
     :autocomplete="autocomplete_"
-    v-on="$listeners"
     @blur="$parent.$emit('touch', name)"
   />
 </template>

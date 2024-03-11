@@ -10,7 +10,6 @@
     remove-on-delete
     :state="state"
     :options="options"
-    v-on="$listeners"
     @blur="$parent.$emit('touch', name)"
   />
 </template>

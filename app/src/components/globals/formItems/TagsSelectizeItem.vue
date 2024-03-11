@@ -2,7 +2,6 @@
   <div class="tags-selectize">
     <BFormTags
       v-bind="$attrs"
-      v-on="$listeners"
       :modelValue="modelValue"
       @update:modelValue="$emit('update:modelValue', $event)"
       :id="id"

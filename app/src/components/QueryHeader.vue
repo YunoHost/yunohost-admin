@@ -1,5 +1,5 @@
 <template>
-  <div v-bind="$attrs" class="query-header w-100" v-on="$listeners">
+  <div v-bind="$attrs" class="query-header w-100">
     <!-- STATUS -->
     <span
       class="status"

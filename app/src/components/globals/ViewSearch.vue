@@ -1,5 +1,5 @@
 <template>
-  <ViewBase v-bind="$attrs" v-on="$listeners" :skeleton="skeleton">
+  <ViewBase v-bind="$attrs" :skeleton="skeleton">
     <template v-if="hasCustomTopBar" #top-bar>
       <slot name="top-bar" />
     </template>
