@@ -112,7 +112,7 @@
       v-if="config.panels"
       v-bind="config"
       :external-results="externalResults"
-      @submit="onConfigSubmit"
+      @apply="onConfigSubmit"
     >
       <template v-if="currentTab === 'dns'" #tab-after>
         <DomainDns :name="name" />

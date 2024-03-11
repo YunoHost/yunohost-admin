@@ -129,7 +129,7 @@
     <ConfigPanels
       v-bind="config"
       :external-results="externalResults"
-      @submit="onConfigSubmit"
+      @apply="onConfigSubmit"
     >
       <!-- OPERATIONS TAB -->
       <template v-if="currentTab === 'operations'" #tab-top>

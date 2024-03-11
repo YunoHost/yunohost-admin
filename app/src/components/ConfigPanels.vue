@@ -1,10 +1,11 @@
 <template>
   <div class="config-panel">
+    <!-- FIXME vue3 - weird stuff with event binding, need to propagate by hand for now -->
     <RoutableTabs
       v-if="routes_.length > 1"
       v-bind="{ panels, forms, v: v$, ...$attrs }"
       :routes="routes_"
-      v-on="$listeners"
+      @apply="$emit('apply', $event)"
     >
       <template #tab-top>
         <slot name="tab-top" />

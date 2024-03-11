@@ -7,8 +7,8 @@
         :id="id"
         :inline="inline"
         :class="formClasses"
-        @submit.prevent="onSubmit"
         novalidate
+        @submit.prevent.stop="onSubmit"
       >
         <slot name="default" />
 
@@ -61,7 +61,8 @@ export default {
         v.$touch()
         if (v.$pending || v.$errors.length) return
       }
-      this.$emit('submit', e)
+      // Weird bug with `INSTANCE_LISTENERS: true` with 'submit' event (double exec before of conflict with native submit event?)
+      this.$emit('apply')
     },
   },
 }

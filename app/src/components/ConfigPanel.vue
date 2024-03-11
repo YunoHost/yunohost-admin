@@ -6,7 +6,7 @@
       validation,
       serverError: panel.serverError,
     }"
-    @submit.prevent.stop="onApply"
+    @apply="onApply"
     :no-footer="!panel.hasApplyButton"
   >
     <slot name="tab-top" />
@@ -78,7 +78,7 @@ export default {
     onApply() {
       const panelId = this.panel.id
 
-      this.$emit('submit', {
+      this.$emit('apply', {
         id: panelId,
         form: this.forms[panelId],
       })
@@ -88,7 +88,7 @@ export default {
       const panelId = this.panel.id
       const actionFieldsKeys = Object.keys(actionFields)
 
-      this.$emit('submit', {
+      this.$emit('apply', {
         id: panelId,
         form: filterObject(this.forms[panelId], ([key]) =>
           actionFieldsKeys.includes(key),

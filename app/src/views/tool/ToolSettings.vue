@@ -9,7 +9,7 @@
       v-if="config.panels"
       v-bind="config"
       :external-results="externalResults"
-      @submit="onConfigSubmit"
+      @apply="onConfigSubmit"
     />
   </ViewBase>
 </template>

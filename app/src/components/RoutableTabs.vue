@@ -16,7 +16,12 @@
 
     <!-- Bind extra props to the child view and forward child events to parent -->
     <RouterView v-slot="{ Component }">
-      <Component v-bind="$attrs" v-on="$listeners" :is="Component">
+      <Component
+        v-bind="$attrs"
+        :is="Component"
+        v-on="$listeners"
+        @apply="$emit('apply', $event)"
+      >
         <template #tab-top>
           <slot name="tab-top" />
         </template>
