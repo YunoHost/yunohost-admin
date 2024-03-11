@@ -79,7 +79,7 @@ export default {
     )
   },
 
-  beforeDestroy() {
+  beforeUnmount() {
     window.removeEventListener('scroll', this.onScroll)
     this.$refs.feed.removeEventListener('keydown', this.onKeydown)
   },

@@ -70,7 +70,7 @@ export default {
     this.observer.observe(this.$el)
   },
 
-  beforeDestroy() {
+  beforeUnmount() {
     this.observer.disconnect()
   },
 }
