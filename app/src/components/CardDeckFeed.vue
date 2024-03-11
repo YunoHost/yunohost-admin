@@ -1,6 +1,8 @@
 <script>
 // Implementation of the feed pattern
 // https://www.w3.org/WAI/ARIA/apg/patterns/feed/
+import { h } from 'vue'
+import { BCardGroup } from 'bootstrap-vue'
 
 export default {
   compatConfig: { MODE: 3 },
@@ -67,12 +69,13 @@ export default {
     }
   },
 
-  render(h) {
+  render() {
     return h(
-      'BCardGroup',
+      BCardGroup,
       {
-        attrs: { role: 'feed', 'aria-busy': this.busy.toString() },
-        props: { deck: true },
+        deck: true,
+        role: 'feed',
+        'aria-busy': this.busy.toString(),
         ref: 'feed',
       },
       this.$slots.default().slice(0, this.range),
