@@ -1,7 +1,7 @@
 <template>
   <ViewSearch
     id="domain-list"
-    :search.sync="search"
+    v-model:search="search"
     :items="domains"
     items-name="domains"
     :queries="queries"

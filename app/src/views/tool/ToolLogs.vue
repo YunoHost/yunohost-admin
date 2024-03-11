@@ -1,6 +1,6 @@
 <template>
   <ViewSearch
-    :search.sync="search"
+    v-model:search="search"
     :items="operations"
     :filtered-items="filteredOperations"
     items-name="logs"

@@ -23,7 +23,7 @@
       {{ $t('domain.add.from_registrar') }}
     </BFormRadio>
 
-    <BCollapse id="collapse-domain" :visible.sync="domainIsVisible">
+    <BCollapse id="collapse-domain" v-model:visible="domainIsVisible">
       <p class="mt-2 alert alert-info">
         <YIcon iname="info-circle" />
         <span class="pl-1" v-html="$t('domain.add.from_registrar_desc')" />
@@ -50,7 +50,7 @@
       {{ $t('domain.add.from_yunohost') }}
     </BFormRadio>
 
-    <BCollapse id="collapse-dynDomain" :visible.sync="dynDomainIsVisible">
+    <BCollapse id="collapse-dynDomain" v-model:visible="dynDomainIsVisible">
       <p class="mt-2 alert alert-info">
         <YIcon iname="info-circle" />
         <span class="pl-1" v-html="$t('domain.add.from_yunohost_desc')" />
@@ -95,7 +95,7 @@
       {{ $t('domain.add.from_local') }}
     </BFormRadio>
 
-    <BCollapse id="collapse-localDomain" :visible.sync="localDomainIsVisible">
+    <BCollapse id="collapse-localDomain" v-model:visible="localDomainIsVisible">
       <p class="mt-2 alert alert-info">
         <YIcon iname="info-circle" />
         <span class="pl-1" v-html="$t('domain.add.from_local_desc')" />
