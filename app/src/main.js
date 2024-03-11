@@ -20,6 +20,27 @@ app.use(i18n)
 
 configureCompat({
   MODE: 2,
+  // warnings we can do something about should be fixed
+  // next warnings are suppressed because those come from bootstrap-vue (vue2)
+  INSTANCE_EVENT_EMITTER: 'suppress-warning',
+  COMPONENT_FUNCTIONAL: 'suppress-warning',
+  RENDER_FUNCTION: 'suppress-warning',
+  GLOBAL_EXTEND: 'suppress-warning',
+  GLOBAL_MOUNT: 'suppress-warning',
+  WATCH_ARRAY: 'suppress-warning',
+  GLOBAL_PROTOTYPE: 'suppress-warning',
+  INSTANCE_SCOPED_SLOTS: 'suppress-warning',
+  INSTANCE_LISTENERS: 'suppress-warning',
+  OPTIONS_DATA_MERGE: 'suppress-warning',
+  OPTIONS_BEFORE_DESTROY: 'suppress-warning',
+  INSTANCE_ATTRS_CLASS_STYLE: 'suppress-warning',
+  CUSTOM_DIR: 'suppress-warning',
+  // TODO
+  // ATTR_FALSE_VALUE: 'suppress-warning',
+  // ATTR_ENUMERATED_COERCION
+  // ATTR_FALSE_VALUE
+  // COMPONENT_V_MODEL: 'suppress-warning',
+  // COMPILER_V_BIND_SYNC
 })
 
 // Styles are imported in `src/App.vue` <style>
