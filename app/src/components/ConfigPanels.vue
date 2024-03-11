@@ -28,6 +28,7 @@
 
 <script>
 import { toRef } from 'vue'
+import { defineAsyncComponent } from 'vue'
 import { useVuelidate } from '@vuelidate/core'
 
 export default {
@@ -37,7 +38,9 @@ export default {
   inheritAttrs: false,
 
   components: {
-    RoutableTabs: () => import('@/components/RoutableTabs.vue'),
+    RoutableTabs: defineAsyncComponent(
+      () => import('@/components/RoutableTabs.vue'),
+    ),
   },
 
   props: {
