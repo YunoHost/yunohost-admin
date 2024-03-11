@@ -153,6 +153,7 @@ export default {
     },
 
     DISCONNECT({ dispatch }, route = router.currentRoute) {
+      // FIXME vue3 currentRoute is now a ref (currentRoute.value)
       dispatch('RESET_CONNECTED')
       if (router.currentRoute.name === 'login') return
       router.push({

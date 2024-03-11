@@ -102,7 +102,9 @@ export default {
             window.location.href = '/yunohost/admin/'
           } else {
             this.$router.push(
-              this.$router.currentRoute.query.redirect || { name: 'home' },
+              this.$router.currentRoute.value.query.redirect || {
+                name: 'home',
+              },
             )
           }
         })
