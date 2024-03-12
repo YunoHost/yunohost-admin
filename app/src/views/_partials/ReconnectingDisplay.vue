@@ -43,7 +43,6 @@ import api from '@/api'
 import LoginView from '@/views/LoginView.vue'
 
 export default {
-  compatConfig: { MODE: 3 },
   name: 'ReconnectingDisplay',
 
   components: {

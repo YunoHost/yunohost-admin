@@ -39,7 +39,6 @@
 
 <script>
 export default {
-  compatConfig: { MODE: 3 },
   name: 'AdressInputSelect',
 
   inheritAttrs: false,

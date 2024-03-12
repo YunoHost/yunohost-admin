@@ -30,7 +30,6 @@
 import { getFileContent } from '@/helpers/commons'
 
 export default {
-  compatConfig: { MODE: 3 },
   name: 'FileItem',
 
   props: {

@@ -57,7 +57,6 @@
 
 <script>
 export default {
-  compatConfig: { MODE: 3, INSTANCE_LISTENERS: false },
   name: 'ViewSearch',
 
   props: {

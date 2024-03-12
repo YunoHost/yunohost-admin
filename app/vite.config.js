@@ -23,7 +23,6 @@ export default defineConfig(({ command, mode }) => {
     },
     resolve: {
       alias: [
-        { find: 'vue', replacement: '@vue/compat' },
         // this is required for the SCSS modules imports with `~` (node_modules)
         {
           find: /^~(.*)$/,
@@ -47,17 +46,7 @@ export default defineConfig(({ command, mode }) => {
         },
       },
     },
-    plugins: [
-      createVuePlugin({
-        template: {
-          compilerOptions: {
-            compatConfig: {
-              MODE: 2,
-            },
-          },
-        },
-      }),
-    ],
+    plugins: [createVuePlugin()],
     build: {
       rollupOptions: {
         output: {

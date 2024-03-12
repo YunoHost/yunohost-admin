@@ -227,7 +227,6 @@ import { required, appRepoUrl } from '@/helpers/validators'
 import { randint } from '@/helpers/commons'
 
 export default {
-  compatConfig: { MODE: 3 },
   name: 'AppCatalog',
 
   components: {

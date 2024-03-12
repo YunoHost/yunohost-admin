@@ -377,7 +377,6 @@ import {
 import ConfigPanels from '@/components/ConfigPanels.vue'
 
 export default {
-  compatConfig: { MODE: 3 },
   name: 'AppInfo',
 
   components: {

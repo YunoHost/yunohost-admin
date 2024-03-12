@@ -22,7 +22,6 @@ import api from '@/api'
 import { required, alphalownumdot_ } from '@/helpers/validators'
 
 export default {
-  compatConfig: { MODE: 3 },
   name: 'GroupCreate',
 
   setup() {

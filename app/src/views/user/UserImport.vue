@@ -29,7 +29,6 @@ import { formatFormData } from '@/helpers/yunohostArguments'
 import { required } from '@/helpers/validators'
 
 export default {
-  compatConfig: { MODE: 3 },
   name: 'UserImport',
 
   setup() {

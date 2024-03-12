@@ -37,7 +37,6 @@
 
 <script>
 export default {
-  compatConfig: { MODE: 3 },
   name: 'RoutableTabs',
 
   // Thanks to `v-bind="$attrs"` and `inheritAttrs: false`, this component can forward

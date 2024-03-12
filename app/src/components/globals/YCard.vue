@@ -56,7 +56,6 @@
 
 <script>
 export default {
-  compatConfig: { MODE: 3 },
   name: 'YCard',
 
   props: {

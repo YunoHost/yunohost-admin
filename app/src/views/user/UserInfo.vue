@@ -106,7 +106,6 @@
 import api from '@/api'
 
 export default {
-  compatConfig: { MODE: 3 },
   name: 'UserInfo',
 
   props: {

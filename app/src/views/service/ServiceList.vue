@@ -46,7 +46,6 @@
 import { distanceToNow } from '@/helpers/filters/date'
 
 export default {
-  compatConfig: { MODE: 3 },
   name: 'ServiceList',
 
   data() {

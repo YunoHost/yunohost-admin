@@ -39,7 +39,6 @@ import { useVuelidate } from '@vuelidate/core'
 import { alphalownumdot_, required, minLength } from '@/helpers/validators'
 
 export default {
-  compatConfig: { MODE: 3 },
   name: 'LoginView',
 
   props: {

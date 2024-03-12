@@ -5,7 +5,6 @@ import { h } from 'vue'
 import { BCardGroup } from 'bootstrap-vue'
 
 export default {
-  compatConfig: { MODE: 3 },
   name: 'CardDeckFeed',
 
   props: {

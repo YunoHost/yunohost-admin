@@ -54,7 +54,6 @@
 import { filterObject } from '@/helpers/commons'
 
 export default {
-  compatConfig: { MODE: 3 },
   name: 'ConfigPanel',
 
   props: {
