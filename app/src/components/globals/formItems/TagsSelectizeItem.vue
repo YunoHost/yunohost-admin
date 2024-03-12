@@ -35,7 +35,7 @@
           variant="outline-dark"
           block
           menu-class="w-100"
-          @keydown.native="onDropdownKeydown"
+          @keydown="onDropdownKeydown"
         >
           <template #button-content>
             <YIcon iname="search-plus" /> {{ label }}

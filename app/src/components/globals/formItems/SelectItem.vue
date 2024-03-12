@@ -5,7 +5,7 @@
     :id="id"
     :options="choices"
     :required="required"
-    @blur.native="$emit('blur', modelValue)"
+    @blur="$emit('blur', modelValue)"
   />
 </template>
 
