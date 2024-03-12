@@ -60,14 +60,14 @@ export default {
       },
       fields: {
         username: {
-          label: this.$i18n.t('user_username'),
+          label: this.$t('user_username'),
           props: {
             id: 'username',
             autocomplete: 'username',
           },
         },
         password: {
-          label: this.$i18n.t('password'),
+          label: this.$t('password'),
           props: {
             id: 'password',
             type: 'password',
@@ -109,7 +109,7 @@ export default {
         })
         .catch((err) => {
           if (err.name !== 'APIUnauthorizedError') throw err
-          this.serverError = this.$i18n.t('wrong_password_or_username')
+          this.serverError = this.$t('wrong_password_or_username')
         })
     },
   },

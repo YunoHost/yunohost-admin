@@ -31,7 +31,7 @@ export default {
       storages: [
         {
           id: 'local',
-          name: this.$i18n.t('local_archives'),
+          name: this.$t('local_archives'),
           uri: '/home/yunohost.backup/',
         },
       ],

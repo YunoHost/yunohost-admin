@@ -313,9 +313,7 @@ export default {
         name,
         alternativeTo:
           _app.potential_alternative_to && _app.potential_alternative_to.length
-            ? _app.potential_alternative_to.join(
-                this.$i18n.t('words.separator'),
-              )
+            ? _app.potential_alternative_to.join(this.$t('words.separator'))
             : null,
         description: formatI18nField(_app.doc.DESCRIPTION || _app.description),
         screenshot: _app.screenshot,
@@ -326,7 +324,7 @@ export default {
           _app.packaging_format >= 2
             ? {
                 archs: Array.isArray(archs)
-                  ? archs.join(this.$i18n.t('words.separator'))
+                  ? archs.join(this.$t('words.separator'))
                   : archs,
                 ldap: ldap === 'not_relevant' ? null : ldap,
                 sso: sso === 'not_relevant' ? null : sso,
@@ -382,7 +380,7 @@ export default {
     async performInstall() {
       if ('path' in this.form && this.form.path === '/') {
         const confirmed = await this.$askConfirmation(
-          this.$i18n.t('confirm_install_domain_root', {
+          this.$t('confirm_install_domain_root', {
             domain: this.form.domain,
           }),
         )
@@ -406,16 +404,14 @@ export default {
           const postInstall = this.formatAppNotifs(notifications)
           if (postInstall) {
             const message =
-              this.$i18n.t('app.install.notifs.post.alert') +
-              '\n\n' +
-              postInstall
+              this.$t('app.install.notifs.post.alert') + '\n\n' + postInstall
             await this.$askMdConfirmation(
               message,
               {
-                title: this.$i18n.t('app.install.notifs.post.title', {
+                title: this.$t('app.install.notifs.post.title', {
                   name: this.app.name,
                 }),
-                okTitle: this.$i18n.t('ok'),
+                okTitle: this.$t('ok'),
               },
               true,
             )

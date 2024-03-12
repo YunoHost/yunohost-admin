@@ -37,11 +37,11 @@ export default {
       },
       serverError: '',
       groupname: {
-        label: this.$i18n.t('group_name'),
-        description: this.$i18n.t('group_format_name_help'),
+        label: this.$t('group_name'),
+        description: this.$t('group_format_name_help'),
         props: {
           id: 'groupname',
-          placeholder: this.$i18n.t('placeholder.groupname'),
+          placeholder: this.$t('placeholder.groupname'),
         },
       },
     }

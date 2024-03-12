@@ -155,12 +155,12 @@ export default {
           : hook
         if (groupId in data) {
           data[groupId].value.push(hook)
-          data[groupId].description += ', ' + this.$i18n.t('hook_' + hook)
+          data[groupId].description += ', ' + this.$t('hook_' + hook)
         } else {
           data[groupId] = {
-            name: this.$i18n.t('hook_' + groupId),
+            name: this.$t('hook_' + groupId),
             value: [hook],
-            description: this.$i18n.t(
+            description: this.$t(
               groupId === hook ? `hook_${hook}_desc` : 'hook_' + hook,
             ),
           }

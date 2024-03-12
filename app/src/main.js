@@ -36,8 +36,8 @@ app.use(VueShowdownPlugin, {
 // FIXME find or wait for a better way
 app.config.globalProperties.$askConfirmation = function (message, props) {
   return this.$bvModal.msgBoxConfirm(message, {
-    okTitle: this.$i18n.t('ok'),
-    cancelTitle: this.$i18n.t('cancel'),
+    okTitle: this.$t('ok'),
+    cancelTitle: this.$t('cancel'),
     bodyBgVariant: 'warning',
     centered: true,
     bodyClass: [
@@ -58,8 +58,8 @@ app.config.globalProperties.$askMdConfirmation = function (
     props: { markdown, flavor: 'github', options: { headerLevelStart: 4 } },
   })
   return this.$bvModal['msgBox' + (ok ? 'Ok' : 'Confirm')](content, {
-    okTitle: this.$i18n.t('yes'),
-    cancelTitle: this.$i18n.t('cancel'),
+    okTitle: this.$t('yes'),
+    cancelTitle: this.$t('cancel'),
     headerBgVariant: 'warning',
     headerClass: store.state.theme ? 'text-white' : 'text-black',
     centered: true,

@@ -177,13 +177,13 @@ export default {
           : hook
         if (groupId in data) {
           data[groupId].value.push(hook)
-          data[groupId].description += ', ' + this.$i18n.t('hook_' + hook)
+          data[groupId].description += ', ' + this.$t('hook_' + hook)
           data[groupId].size += size
         } else {
           data[groupId] = {
-            name: this.$i18n.t('hook_' + groupId),
+            name: this.$t('hook_' + groupId),
             value: [hook],
-            description: this.$i18n.t(
+            description: this.$t(
               groupId === hook ? `hook_${hook}_desc` : 'hook_' + hook,
             ),
             size,
@@ -216,7 +216,7 @@ export default {
 
     async restoreBackup() {
       const confirmed = await this.$askConfirmation(
-        this.$i18n.t('confirm_restore', { name: this.name }),
+        this.$t('confirm_restore', { name: this.name }),
       )
       if (!confirmed) return
 
@@ -246,7 +246,7 @@ export default {
 
     async deleteBackup() {
       const confirmed = await this.$askConfirmation(
-        this.$i18n.t('confirm_delete', { name: this.name }),
+        this.$t('confirm_delete', { name: this.name }),
       )
       if (!confirmed) return
 

@@ -247,7 +247,7 @@ export default {
     async pushDnsChanges() {
       if (this.force) {
         const confirmed = await this.$askConfirmation(
-          this.$i18n.t('domain.dns.push_force_confirm'),
+          this.$t('domain.dns.push_force_confirm'),
         )
         if (!confirmed) return
       }

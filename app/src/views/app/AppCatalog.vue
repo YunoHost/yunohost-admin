@@ -15,7 +15,7 @@
           </BInputGroupPrepend>
           <BFormInput
             id="search-input"
-            :placeholder="$t('search.for', { items: $tc('items.apps', 2) })"
+            :placeholder="$t('search.for', { items: $t('items.apps', 2) })"
             :value="search"
             @input="updateQuery('search', $event)"
           />
@@ -257,24 +257,24 @@ export default {
 
       // Filtering options
       qualityOptions: [
-        { value: 'high_quality', text: this.$i18n.t('only_highquality_apps') },
+        { value: 'high_quality', text: this.$t('only_highquality_apps') },
         {
           value: 'decent_quality',
-          text: this.$i18n.t('only_decent_quality_apps'),
+          text: this.$t('only_decent_quality_apps'),
         },
-        { value: 'working', text: this.$i18n.t('only_working_apps') },
-        { value: 'all', text: this.$i18n.t('all_apps') },
+        { value: 'working', text: this.$t('only_working_apps') },
+        { value: 'all', text: this.$t('all_apps') },
       ],
       categories: [
-        { text: this.$i18n.t('app_choose_category'), value: null },
-        { text: this.$i18n.t('all_apps'), value: 'all', icon: 'search' },
+        { text: this.$t('app_choose_category'), value: null },
+        { text: this.$t('all_apps'), value: 'all', icon: 'search' },
         // The rest is filled from api data
       ],
 
       // Custom install form
       customInstall: {
         field: {
-          label: this.$i18n.t('url'),
+          label: this.$t('url'),
           props: {
             id: 'custom-install',
             placeholder: 'https://some.git.forge.tld/USER/REPOSITORY',
@@ -321,11 +321,11 @@ export default {
           (cat) => cat.value === this.category,
         )
         if (category.subtags) {
-          const subtags = [{ text: this.$i18n.t('all'), value: 'all' }]
+          const subtags = [{ text: this.$t('all'), value: 'all' }]
           category.subtags.forEach((subtag) => {
             subtags.push({ text: subtag.title, value: subtag.id })
           })
-          subtags.push({ text: this.$i18n.t('others'), value: 'others' })
+          subtags.push({ text: this.$t('others'), value: 'others' })
           return subtags
         }
       }
@@ -404,7 +404,7 @@ export default {
       const app = this.apps.find((app) => app.id === appId)
       if (!app.decent_quality) {
         const confirmed = await this.$askConfirmation(
-          this.$i18n.t('confirm_install_app_' + app.state),
+          this.$t('confirm_install_app_' + app.state),
         )
         if (!confirmed) return
       }
@@ -414,7 +414,7 @@ export default {
     // INSTALL CUSTOM APP
     async onCustomInstallClick() {
       const confirmed = await this.$askConfirmation(
-        this.$i18n.t('confirm_install_custom_app'),
+        this.$t('confirm_install_custom_app'),
       )
       if (!confirmed) return
 

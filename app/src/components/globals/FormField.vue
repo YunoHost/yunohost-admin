@@ -119,7 +119,7 @@ export default {
       const err = this.error
       if (err) {
         if (err.$message) return err.$message
-        return this.$i18n.t('form_errors.' + err.$validator, {
+        return this.$t('form_errors.' + err.$validator, {
           value: err.$model,
           ...err.$params,
         })

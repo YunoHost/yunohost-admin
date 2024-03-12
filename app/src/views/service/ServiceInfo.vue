@@ -133,7 +133,7 @@ export default {
 
     async updateService(action) {
       const confirmed = await this.$askConfirmation(
-        this.$i18n.t('confirm_service_' + action, { name: this.name }),
+        this.$t('confirm_service_' + action, { name: this.name }),
       )
       if (!confirmed) return
 

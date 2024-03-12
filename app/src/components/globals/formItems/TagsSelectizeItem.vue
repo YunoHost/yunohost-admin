@@ -49,9 +49,13 @@
                 label-size="sm"
                 :label-for="id + '-search-input'"
                 :invalid-feedback="
-                  $tc('search.not_found', 0, {
-                    items: $tc('items.' + itemsName, 0),
-                  })
+                  $t(
+                    'search.not_found',
+                    {
+                      items: $t('items.' + itemsName, 0),
+                    },
+                    0,
+                  )
                 "
                 :state="searchState"
                 :disabled="disabled"
@@ -80,9 +84,13 @@
           <BDropdownText v-if="!criteria && availableOptions.length === 0">
             <YIcon iname="exclamation-triangle" />
             {{
-              $tc('items_verbose_items_left', 0, {
-                items: $tc('items.' + itemsName, 0),
-              })
+              $t(
+                'items_verbose_items_left',
+                {
+                  items: $t('items.' + itemsName, 0),
+                },
+                0,
+              )
             }}
           </BDropdownText>
         </BDropdown>

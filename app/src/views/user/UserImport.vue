@@ -49,19 +49,19 @@ export default {
 
       fields: {
         csvfile: {
-          label: this.$i18n.t('users_import_csv_file'),
-          description: this.$i18n.t('users_import_csv_file_desc'),
+          label: this.$t('users_import_csv_file'),
+          description: this.$t('users_import_csv_file_desc'),
           component: 'FileItem',
           props: {
             id: 'csvfile',
             accept: 'text/csv',
-            placeholder: this.$i18n.t('placeholder.file'),
+            placeholder: this.$t('placeholder.file'),
           },
         },
 
         update: {
-          label: this.$i18n.t('users_import_update'),
-          description: this.$i18n.t('users_import_update_desc'),
+          label: this.$t('users_import_update'),
+          description: this.$t('users_import_update_desc'),
           component: 'CheckboxItem',
           props: {
             id: 'update',
@@ -69,8 +69,8 @@ export default {
         },
 
         delete: {
-          label: this.$i18n.t('users_import_delete'),
-          description: this.$i18n.t('users_import_delete_desc'),
+          label: this.$t('users_import_delete'),
+          description: this.$t('users_import_delete_desc'),
           component: 'CheckboxItem',
           props: {
             id: 'delete',
@@ -90,8 +90,8 @@ export default {
     async onSubmit() {
       if (this.form.delete) {
         const confirmed = await this.$askConfirmation(
-          this.$i18n.t('users_import_confirm_destructive'),
-          { okTitle: this.$i18n.t('users_import_delete_others') },
+          this.$t('users_import_confirm_destructive'),
+          { okTitle: this.$t('users_import_delete_others') },
         )
         if (!confirmed) return
       }

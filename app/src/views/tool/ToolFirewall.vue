@@ -140,27 +140,27 @@ export default {
 
       // Ports tables data
       fields: [
-        { key: 'port', label: this.$i18n.t('port') },
-        { key: 'ipv4', label: this.$i18n.t('ipv4') },
-        { key: 'ipv6', label: this.$i18n.t('ipv6') },
-        { key: 'uPnP', label: this.$i18n.t('upnp') },
+        { key: 'port', label: this.$t('port') },
+        { key: 'ipv4', label: this.$t('ipv4') },
+        { key: 'ipv6', label: this.$t('ipv6') },
+        { key: 'uPnP', label: this.$t('upnp') },
       ],
       protocols: undefined,
       portToToggle: undefined,
 
       // Ports form data
       actionChoices: [
-        { value: 'allow', text: this.$i18n.t('open') },
-        { value: 'disallow', text: this.$i18n.t('close') },
+        { value: 'allow', text: this.$t('open') },
+        { value: 'disallow', text: this.$t('close') },
       ],
       connectionChoices: [
-        { value: 'ipv4', text: this.$i18n.t('ipv4') },
-        { value: 'ipv6', text: this.$i18n.t('ipv6') },
+        { value: 'ipv4', text: this.$t('ipv4') },
+        { value: 'ipv6', text: this.$t('ipv6') },
       ],
       protocolChoices: [
-        { value: 'TCP', text: this.$i18n.t('tcp') },
-        { value: 'UDP', text: this.$i18n.t('udp') },
-        { value: 'Both', text: this.$i18n.t('both') },
+        { value: 'TCP', text: this.$t('tcp') },
+        { value: 'UDP', text: this.$t('udp') },
+        { value: 'Both', text: this.$t('both') },
       ],
       form: {
         action: 'allow',
@@ -216,7 +216,7 @@ export default {
 
     async togglePort({ action, port, protocol, connection }) {
       const confirmed = await this.$askConfirmation(
-        this.$i18n.t('confirm_firewall_' + action, {
+        this.$t('confirm_firewall_' + action, {
           port,
           protocol,
           connection,
@@ -226,9 +226,7 @@ export default {
         return Promise.resolve(confirmed)
       }
 
-      const actionTrad = this.$i18n.t(
-        { allow: 'open', disallow: 'close' }[action],
-      )
+      const actionTrad = this.$t({ allow: 'open', disallow: 'close' }[action])
       return api
         .put(
           `firewall/${protocol}/${action}/${port}?${connection}_only`,
@@ -248,7 +246,7 @@ export default {
     async toggleUpnp(value) {
       const action = this.upnpEnabled ? 'disable' : 'enable'
       const confirmed = await this.$askConfirmation(
-        this.$i18n.t('confirm_upnp_' + action),
+        this.$t('confirm_upnp_' + action),
       )
       if (!confirmed) return
 
@@ -256,7 +254,7 @@ export default {
         .put(
           'firewall/upnp/' + action,
           {},
-          { key: 'firewall.upnp', action: this.$i18n.t(action) },
+          { key: 'firewall.upnp', action: this.$t(action) },
         )
         .then(() => {
           // FIXME Couldn't test when it works.

@@ -111,32 +111,32 @@ export default {
 
       fields: {
         username: {
-          label: this.$i18n.t('user_username'),
+          label: this.$t('user_username'),
           props: {
             id: 'username',
-            placeholder: this.$i18n.t('placeholder.username'),
+            placeholder: this.$t('placeholder.username'),
           },
         },
 
         fullname: {
-          label: this.$i18n.t('user_fullname'),
+          label: this.$t('user_fullname'),
           props: {
             id: 'fullname',
-            placeholder: this.$i18n.t('placeholder.fullname'),
+            placeholder: this.$t('placeholder.fullname'),
           },
         },
 
         domain: {
           id: 'mail',
-          label: this.$i18n.t('user_email'),
-          description: this.$i18n.t('tip_about_user_email'),
+          label: this.$t('user_email'),
+          description: this.$t('tip_about_user_email'),
           descriptionVariant: 'info',
           props: { choices: [] },
         },
 
         password: {
-          label: this.$i18n.t('password'),
-          description: this.$i18n.t('good_practices_about_user_password'),
+          label: this.$t('password'),
+          description: this.$t('good_practices_about_user_password'),
           descriptionVariant: 'warning',
           props: {
             id: 'password',
@@ -146,7 +146,7 @@ export default {
         },
 
         confirmation: {
-          label: this.$i18n.t('password_confirmation'),
+          label: this.$t('password_confirmation'),
           props: {
             id: 'confirmation',
             placeholder: '••••••••',

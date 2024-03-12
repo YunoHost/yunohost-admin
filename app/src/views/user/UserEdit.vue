@@ -167,51 +167,51 @@ export default {
 
       fields: {
         username: {
-          label: this.$i18n.t('user_username'),
+          label: this.$t('user_username'),
           value: this.name,
           props: { id: 'username', disabled: true },
         },
 
         fullname: {
-          label: this.$i18n.t('user_fullname'),
+          label: this.$t('user_fullname'),
           props: {
             id: 'fullname',
-            placeholder: this.$i18n.t('placeholder.fullname'),
+            placeholder: this.$t('placeholder.fullname'),
           },
         },
 
         mail: {
-          label: this.$i18n.t('user_email'),
+          label: this.$t('user_email'),
           props: { id: 'mail', choices: [] },
         },
 
         mailbox_quota: {
-          label: this.$i18n.t('user_mailbox_quota'),
-          description: this.$i18n.t('mailbox_quota_description'),
-          example: this.$i18n.t('mailbox_quota_example'),
+          label: this.$t('user_mailbox_quota'),
+          description: this.$t('mailbox_quota_description'),
+          example: this.$t('mailbox_quota_example'),
           props: {
             id: 'mailbox-quota',
-            placeholder: this.$i18n.t('mailbox_quota_placeholder'),
+            placeholder: this.$t('mailbox_quota_placeholder'),
           },
         },
 
         mail_aliases: {
           props: {
-            placeholder: this.$i18n.t('placeholder.username'),
+            placeholder: this.$t('placeholder.username'),
             choices: [],
           },
         },
 
         mail_forward: {
           props: {
-            placeholder: this.$i18n.t('user_new_forward'),
+            placeholder: this.$t('user_new_forward'),
             type: 'email',
           },
         },
 
         change_password: {
-          label: this.$i18n.t('password'),
-          description: this.$i18n.t('good_practices_about_user_password'),
+          label: this.$t('password'),
+          description: this.$t('good_practices_about_user_password'),
           descriptionVariant: 'warning',
           props: {
             id: 'change_password',
@@ -222,7 +222,7 @@ export default {
         },
 
         confirmation: {
-          label: this.$i18n.t('password_confirmation'),
+          label: this.$t('password_confirmation'),
           props: {
             id: 'confirmation',
             type: 'password',
@@ -315,7 +315,7 @@ export default {
       }
 
       if (Object.keys(data).length === 0) {
-        this.serverError = this.$i18n.t('error_modify_something')
+        this.serverError = this.$t('error_modify_something')
         return
       }
 

@@ -14,7 +14,7 @@
           :value="search"
           @input="$emit('update:search', $event)"
           :placeholder="
-            $t('search.for', { items: $tc('items.' + itemsName, 2) })
+            $t('search.for', { items: $t('items.' + itemsName, 2) })
           "
           :disabled="!items"
         />
@@ -33,10 +33,12 @@
         <slot name="alert-message">
           <YIcon iname="exclamation-triangle" />
           {{
-            $tc(
+            $t(
               items === null ? 'items_verbose_count' : 'search.not_found',
+              {
+                items: $t('items.' + itemsName, 0),
+              },
               0,
-              { items: $tc('items.' + itemsName, 0) },
             )
           }}
         </slot>

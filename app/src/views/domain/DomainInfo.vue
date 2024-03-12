@@ -53,7 +53,7 @@
         <span class="text-secondary px-2">
           ({{
             $t('domain.cert.valid_for', {
-              days: $tc('day_validity', cert.validity),
+              days: $t('day_validity', cert.validity),
             })
           }})
         </span>
@@ -280,7 +280,7 @@ export default {
 
     async setAsDefaultDomain() {
       const confirmed = await this.$askConfirmation(
-        this.$i18n.t('confirm_change_maindomain'),
+        this.$t('confirm_change_maindomain'),
       )
       if (!confirmed) return
 

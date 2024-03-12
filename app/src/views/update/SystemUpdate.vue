@@ -223,17 +223,15 @@ export default {
 
             if (postMessage) {
               const message =
-                this.$i18n.t('app.upgrade.notifs.post.alert') +
-                '\n\n' +
-                postMessage
+                this.$t('app.upgrade.notifs.post.alert') + '\n\n' + postMessage
               return this.$askMdConfirmation(
                 message,
                 {
-                  title: this.$i18n.t('app.upgrade.notifs.post.title', {
+                  title: this.$t('app.upgrade.notifs.post.title', {
                     name: app.name,
                   }),
-                  okTitle: this.$i18n.t(isLast ? 'ok' : 'app.upgrade.continue'),
-                  cancelTitle: this.$i18n.t('app.upgrade.stop'),
+                  okTitle: this.$t(isLast ? 'ok' : 'app.upgrade.continue'),
+                  cancelTitle: this.$t('app.upgrade.stop'),
                 },
                 isLast,
               )
@@ -251,7 +249,7 @@ export default {
 
     async performSystemUpgrade() {
       const confirmed = await this.$askConfirmation(
-        this.$i18n.t('confirm_update_system'),
+        this.$t('confirm_update_system'),
       )
       if (!confirmed) return
 

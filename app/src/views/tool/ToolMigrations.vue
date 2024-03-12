@@ -137,7 +137,7 @@ export default {
 
     async skipMigration(id) {
       const confirmed = await this.$askConfirmation(
-        this.$i18n.t('confirm_migrations_skip'),
+        this.$t('confirm_migrations_skip'),
       )
       if (!confirmed) return
       api

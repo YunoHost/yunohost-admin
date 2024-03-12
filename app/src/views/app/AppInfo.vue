@@ -411,7 +411,7 @@ export default {
           {
             hasApplyButton: false,
             id: 'operations',
-            name: this.$i18n.t('operations'),
+            name: this.$t('operations'),
           },
         ],
         validations: {},
@@ -467,7 +467,7 @@ export default {
 
       const mainPermission = app.permissions[this.id + '.main']
       mainPermission.name = this.id + '.main'
-      mainPermission.title = this.$i18n.t('permission_main')
+      mainPermission.title = this.$t('permission_main')
       mainPermission.tileAvailable =
         mainPermission.url !== null && !mainPermission.url.startsWith('re:')
       form.labels.push({
@@ -507,7 +507,7 @@ export default {
         domain: app.settings.domain,
         alternativeTo: app.from_catalog.potential_alternative_to?.length
           ? app.from_catalog.potential_alternative_to.join(
-              this.$i18n.t('words.separator'),
+              this.$t('words.separator'),
             )
           : null,
         description: DESCRIPTION
@@ -517,7 +517,7 @@ export default {
           app.manifest.packaging_format >= 2
             ? {
                 archs: Array.isArray(archs)
-                  ? archs.join(this.$i18n.t('words.separator'))
+                  ? archs.join(this.$t('words.separator'))
                   : archs,
                 ldap: ldap === 'not_relevant' ? null : ldap,
                 sso: sso === 'not_relevant' ? null : sso,
@@ -647,7 +647,7 @@ export default {
 
     async changeUrl() {
       const confirmed = await this.$askConfirmation(
-        this.$i18n.t('confirm_app_change_url'),
+        this.$t('confirm_app_change_url'),
       )
       if (!confirmed) return
 
@@ -663,7 +663,7 @@ export default {
 
     async setAsDefaultDomain(undo = false) {
       const confirmed = await this.$askConfirmation(
-        this.$i18n.t('confirm_app_default'),
+        this.$t('confirm_app_default'),
       )
       if (!confirmed) return
 

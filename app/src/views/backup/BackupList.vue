@@ -16,7 +16,7 @@
 
     <BAlert v-if="!archives" variant="warning">
       <YIcon iname="exclamation-triangle" />
-      {{ $tc('items_verbose_count', 0, { items: $tc('items.backups', 0) }) }}
+      {{ $t('items_verbose_count', { items: $t('items.backups', 0) }, 0) }}
     </BAlert>
 
     <BListGroup v-else>

@@ -265,7 +265,7 @@ export default {
       const permId = this.permissions.find((perm) => perm.label === option).id
       if (action === 'add' && ['sftp.main', 'ssh.main'].includes(permId)) {
         const confirmed = await this.$askConfirmation(
-          this.$i18n.t('confirm_group_add_access_permission', {
+          this.$t('confirm_group_add_access_permission', {
             name: groupName,
             perm: option,
           }),
@@ -311,7 +311,7 @@ export default {
 
     async deleteGroup(groupName) {
       const confirmed = await this.$askConfirmation(
-        this.$i18n.t('confirm_delete', { name: groupName }),
+        this.$t('confirm_delete', { name: groupName }),
       )
       if (!confirmed) return
 

@@ -42,7 +42,7 @@ export default {
   methods: {
     async triggerAction(action) {
       const confirmed = await this.$askConfirmation(
-        this.$i18n.t('confirm_reboot_action_' + action),
+        this.$t('confirm_reboot_action_' + action),
       )
       if (!confirmed) return
 

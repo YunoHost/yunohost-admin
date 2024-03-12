@@ -36,38 +36,36 @@ export default {
 
       fields: {
         locale: {
-          label: this.$i18n.t('tools_webadmin.language'),
+          label: this.$t('tools_webadmin.language'),
           component: 'SelectItem',
           props: { id: 'locale', choices: [] },
         },
 
         fallbackLocale: {
-          label: this.$i18n.t('tools_webadmin.fallback_language'),
-          description: this.$i18n.t(
-            'tools_webadmin.fallback_language_description',
-          ),
+          label: this.$t('tools_webadmin.fallback_language'),
+          description: this.$t('tools_webadmin.fallback_language_description'),
           component: 'SelectItem',
           props: { id: 'fallback-locale', choices: [] },
         },
 
         cache: {
           id: 'cache',
-          label: this.$i18n.t('tools_webadmin.cache'),
-          description: this.$i18n.t('tools_webadmin.cache_description'),
+          label: this.$t('tools_webadmin.cache'),
+          description: this.$t('tools_webadmin.cache_description'),
           component: 'CheckboxItem',
           props: { labels: { true: 'enabled', false: 'disabled' } },
         },
 
         transitions: {
           id: 'transitions',
-          label: this.$i18n.t('tools_webadmin.transitions'),
+          label: this.$t('tools_webadmin.transitions'),
           component: 'CheckboxItem',
           props: { labels: { true: 'enabled', false: 'disabled' } },
         },
 
         theme: {
           id: 'theme',
-          label: this.$i18n.t('tools_webadmin.theme'),
+          label: this.$t('tools_webadmin.theme'),
           component: 'CheckboxItem',
           props: { labels: { true: '🌙', false: '☀️' } },
         },
@@ -90,8 +88,8 @@ export default {
     if (import.meta.env.DEV) {
       this.fields.experimental = {
         id: 'experimental',
-        label: this.$i18n.t('tools_webadmin.experimental'),
-        description: this.$i18n.t('tools_webadmin.experimental_description'),
+        label: this.$t('tools_webadmin.experimental'),
+        description: this.$t('tools_webadmin.experimental_description'),
         component: 'CheckboxItem',
         props: { labels: { true: 'enabled', false: 'disabled' } },
       }
