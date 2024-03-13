@@ -1,6 +1,6 @@
 import { createApp } from 'vue'
 import App from './App.vue'
-import BootstrapVue from 'bootstrap-vue'
+import { createBootstrap } from 'bootstrap-vue-next'
 import { VueShowdownPlugin } from 'vue-showdown'
 
 import store from './store'
@@ -10,6 +10,8 @@ import i18n from './i18n'
 import { registerGlobalErrorHandlers } from './api'
 import { initDefaultLocales } from './i18n/helpers'
 
+import '@/scss/main.scss'
+
 const app = createApp({
   ...App,
 })
@@ -18,12 +20,7 @@ app.use(store)
 app.use(router)
 app.use(i18n)
 
-// Styles are imported in `src/App.vue` <style>
-app.use(BootstrapVue, {
-  BSkeleton: { animation: 'none' },
-  BAlert: { show: true },
-  BBadge: { pill: true },
-})
+app.use(createBootstrap())
 
 app.use(VueShowdownPlugin, {
   flavor: 'github',

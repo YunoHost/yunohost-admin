@@ -2,7 +2,7 @@
 // Implementation of the feed pattern
 // https://www.w3.org/WAI/ARIA/apg/patterns/feed/
 import { h } from 'vue'
-import { BCardGroup } from 'bootstrap-vue'
+import { BCardGroup } from 'bootstrap-vue-next'
 
 export default {
   name: 'CardDeckFeed',

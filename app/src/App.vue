@@ -190,11 +190,6 @@ export default {
 }
 </script>
 
-<style lang="scss">
-// Global import of Bootstrap and custom styles
-@import '@/scss/main.scss';
-</style>
-
 <style lang="scss" scoped>
 // generic style for <html>, <body> and <#app> is in `scss/main.scss`
 header {

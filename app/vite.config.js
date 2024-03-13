@@ -2,6 +2,8 @@ import { fileURLToPath, URL } from 'url'
 import { defineConfig, loadEnv } from 'vite'
 import fs from 'fs'
 import createVuePlugin from '@vitejs/plugin-vue'
+import Components from 'unplugin-vue-components/vite'
+import { BootstrapVueNextResolver } from 'unplugin-vue-components/resolvers'
 
 import supportedLocales from './src/i18n/supportedLocales'
 
@@ -46,7 +48,12 @@ export default defineConfig(({ command, mode }) => {
         },
       },
     },
-    plugins: [createVuePlugin()],
+    plugins: [
+      createVuePlugin(),
+      Components({
+        resolvers: [BootstrapVueNextResolver()],
+      }),
+    ],
     build: {
       rollupOptions: {
         output: {

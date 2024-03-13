@@ -25,6 +25,8 @@
 // For exemple, turning rounding of elements off, the bases colors, etc.
 // $enable-rounded: false;
 
+@import '~bootstrap/scss/functions.scss';
+
 $font-size-base: 0.9rem;
 $font-weight-bold: 500;
 
@@ -123,11 +125,12 @@ $custom-checkbox-indicator-icon-indeterminate: get-checkbox-icon-indeterminate(
 );
 
 // Import default variables after the above setup to compute all other variables.
-@import '~bootstrap/scss/functions.scss';
 @import '_functions-override.scss';
 @import '~bootstrap/scss/variables';
-@import '~bootstrap/scss/mixins.scss';
-@import '~bootstrap-vue/src/variables';
+@import '~bootstrap/scss/variables-dark';
+@import '~bootstrap/scss/maps';
+@import '~bootstrap/scss/mixins';
+@import '~bootstrap/scss/utilities';
 
 $hr-border-color: $gray-200;
 
