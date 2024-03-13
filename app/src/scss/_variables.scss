@@ -57,15 +57,6 @@ $theme-colors: (
   'best': $purple,
 );
 
-$yiq-contrasted-threshold: var(--yiq-contrasted-threshold);
-
-$alert-bg-level: -10;
-$alert-border-level: -9;
-$alert-color-level: 5;
-
-$list-group-item-bg-level: -11;
-$list-group-item-color-level: 6;
-
 $code-color: $black;
 
 // Replace font-weight 300 with 200
@@ -107,25 +98,7 @@ $card-spacer-x: 1rem;
 
 $list-group-item-padding-x: 1rem;
 
-// Hard coded for scss compilation to pass
-$b-toast-background-opacity: 100%;
-
-// fixes for svg icon color not working with css variables
-@function get-checkbox-icon-checked($color) {
-  @return url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'><path fill='#{$color}' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26l2.974 2.99L8 2.193z'/></svg>");
-}
-
-@function get-checkbox-icon-indeterminate($color) {
-  @return url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'><path stroke='#{$color}' d='M0 2h4'/></svg>");
-}
-
-$custom-checkbox-indicator-icon-checked: get-checkbox-icon-checked('%23fff');
-$custom-checkbox-indicator-icon-indeterminate: get-checkbox-icon-indeterminate(
-  '%23fff'
-);
-
 // Import default variables after the above setup to compute all other variables.
-@import '_functions-override.scss';
 @import '~bootstrap/scss/variables';
 @import '~bootstrap/scss/variables-dark';
 @import '~bootstrap/scss/maps';
