@@ -35,7 +35,7 @@
         v-for="user in filteredUsers"
         :key="user.username"
         :to="{ name: 'user-info', params: { name: user.username } }"
-        class="d-flex justify-content-between align-items-center pr-0"
+        class="d-flex justify-content-between align-items-center pe-0"
       >
         <div>
           <h5 class="font-weight-bold">
@@ -46,7 +46,7 @@
             {{ user.mail }}
           </p>
         </div>
-        <YIcon iname="chevron-right" class="lg fs-sm ml-auto" />
+        <YIcon iname="chevron-right" class="lg fs-sm ms-auto" />
       </BListGroupItem>
     </BListGroup>
   </ViewSearch>

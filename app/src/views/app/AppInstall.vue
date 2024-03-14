@@ -12,7 +12,7 @@
             :href="app.demo"
             target="_blank"
             variant="primary"
-            class="ml-auto"
+            class="ms-auto"
           >
             <YIcon iname="external-link" />
             {{ $t('app.install.try_demo') }}
@@ -90,7 +90,7 @@
         <BListGroup flush>
           <YListGroupItem v-for="[key, link] in app.links" :key="key" no-status>
             <BLink :href="link" target="_blank">
-              <YIcon :iname="appLinksIcons(key)" class="mr-1" />
+              <YIcon :iname="appLinksIcons(key)" class="me-1" />
               {{ $t('app.links.' + key) }}
             </BLink>
           </YListGroupItem>
@@ -105,7 +105,7 @@
           <dl class="antifeatures">
             <div v-for="antifeature in app.antifeatures" :key="antifeature.id">
               <dt class="d-inline">
-                <YIcon :iname="antifeature.icon" class="md mr-1" />
+                <YIcon :iname="antifeature.icon" class="md me-1" />
                 {{ antifeature.title }}:
               </dt>
               <dd class="d-inline">

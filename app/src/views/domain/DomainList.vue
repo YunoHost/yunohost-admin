@@ -22,7 +22,7 @@
     >
       <template #default="{ data, parent }">
         <div class="w-100 d-flex justify-content-between align-items-center">
-          <h5 class="mr-3">
+          <h5 class="me-3">
             <BLink :to="data.to" class="text-body text-decoration-none">
               <span class="font-weight-bold">
                 {{ data.name.replace(parent ? parent.data.name : null, '') }}
@@ -35,7 +35,7 @@
             <small
               v-if="data.name === mainDomain"
               :title="$t('domain.types.main_domain')"
-              class="ml-1"
+              class="ms-1"
               v-b-tooltip.hover
             >
               <YIcon iname="star" />

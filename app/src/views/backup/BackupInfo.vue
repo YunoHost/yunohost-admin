@@ -68,9 +68,9 @@
           <BListGroupItem
             v-for="(item, partName) in system"
             :key="partName"
-            class="d-flex justify-content-between align-items-center pr-0"
+            class="d-flex justify-content-between align-items-center pe-0"
           >
-            <div class="mr-2">
+            <div class="me-2">
               <h5 class="font-weight-bold">
                 {{ item.name }}
                 <small class="text-secondary" v-if="item.size">
@@ -89,9 +89,9 @@
           <BListGroupItem
             v-for="(item, appName) in apps"
             :key="appName"
-            class="d-flex justify-content-between align-items-center pr-0"
+            class="d-flex justify-content-between align-items-center pe-0"
           >
-            <div class="mr-2">
+            <div class="me-2">
               <h5 class="font-weight-bold">
                 {{ item.name }}
                 <small class="text-secondary">

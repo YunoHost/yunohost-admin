@@ -19,7 +19,7 @@
           >
             <h4 class="m-0"><YIcon iname="cube" /> {{ $t('system') }}</h4>
 
-            <div class="ml-sm-auto mt-2 mt-sm-0">
+            <div class="ms-sm-auto mt-2 mt-sm-0">
               <BButton
                 @click="toggleSelected(true, 'system')"
                 v-t="'select_all'"
@@ -32,7 +32,7 @@
                 v-t="'select_none'"
                 size="sm"
                 variant="outline-dark"
-                class="ml-2"
+                class="ms-2"
               />
             </div>
           </BListGroupItem>
@@ -41,9 +41,9 @@
           <BListGroupItem
             v-for="(item, partName) in system"
             :key="partName"
-            class="d-flex justify-content-between align-items-center pr-0"
+            class="d-flex justify-content-between align-items-center pe-0"
           >
-            <div class="mr-2">
+            <div class="me-2">
               <h5 class="font-weight-bold">
                 {{ item.name }}
               </h5>
@@ -67,7 +67,7 @@
               <YIcon iname="cubes" /> {{ $t('applications') }}
             </h4>
 
-            <div class="ml-sm-auto mt-2 mt-sm-0">
+            <div class="ms-sm-auto mt-2 mt-sm-0">
               <BButton
                 @click="toggleSelected(true, 'apps')"
                 v-t="'select_all'"
@@ -80,7 +80,7 @@
                 v-t="'select_none'"
                 size="sm"
                 variant="outline-dark"
-                class="ml-2"
+                class="ms-2"
               />
             </div>
           </BListGroupItem>
@@ -89,9 +89,9 @@
           <BListGroupItem
             v-for="(item, appName) in apps"
             :key="appName"
-            class="d-flex justify-content-between align-items-center pr-0"
+            class="d-flex justify-content-between align-items-center pe-0"
           >
-            <div class="mr-2">
+            <div class="me-2">
               <h5 class="font-weight-bold">
                 {{ item.name }}
                 <small class="text-secondary">{{ item.id }}</small>

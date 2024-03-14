@@ -26,7 +26,7 @@
     <BCollapse id="collapse-domain" v-model:visible="domainIsVisible">
       <p class="mt-2 alert alert-info">
         <YIcon iname="info-circle" />
-        <span class="pl-1" v-html="$t('domain.add.from_registrar_desc')" />
+        <span class="ps-1" v-html="$t('domain.add.from_registrar_desc')" />
       </p>
 
       <FormField
@@ -53,7 +53,7 @@
     <BCollapse id="collapse-dynDomain" v-model:visible="dynDomainIsVisible">
       <p class="mt-2 alert alert-info">
         <YIcon iname="info-circle" />
-        <span class="pl-1" v-html="$t('domain.add.from_yunohost_desc')" />
+        <span class="ps-1" v-html="$t('domain.add.from_yunohost_desc')" />
       </p>
 
       <FormField
@@ -98,7 +98,7 @@
     <BCollapse id="collapse-localDomain" v-model:visible="localDomainIsVisible">
       <p class="mt-2 alert alert-info">
         <YIcon iname="info-circle" />
-        <span class="pl-1" v-html="$t('domain.add.from_local_desc')" />
+        <span class="ps-1" v-html="$t('domain.add.from_local_desc')" />
       </p>
 
       <FormField

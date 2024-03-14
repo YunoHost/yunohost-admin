@@ -9,7 +9,7 @@
             class="card-collapse-button"
           >
             {{ title }}
-            <YIcon class="ml-auto" iname="chevron-right" />
+            <YIcon class="ms-auto" iname="chevron-right" />
           </BButton>
         </h2>
       </slot>

@@ -23,7 +23,7 @@
           >
             <BSkeleton width="100%" height="38px" />
 
-            <BSkeleton width="38px" height="38px" class="ml-2" />
+            <BSkeleton width="38px" height="38px" class="ms-2" />
           </div>
 
           <BSkeleton v-else width="100%" height="38px" />

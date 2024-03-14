@@ -16,7 +16,7 @@
           </span>
         </BNavbarBrand>
 
-        <BNavbarNav class="ml-auto">
+        <BNavbarNav class="ms-auto">
           <li class="nav-item">
             <BButton :href="ssoLink" variant="primary" size="sm" block>
               {{ $t('user_interface_link') }} <YIcon iname="user" />
@@ -85,7 +85,7 @@
           <BNavText
             v-if="yunohost"
             id="yunohost-version"
-            class="ml-md-auto text-center"
+            class="ms-md-auto text-center"
           >
             <span v-html="$t('footer_version', yunohost)" />
           </BNavText>

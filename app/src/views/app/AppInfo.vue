@@ -20,7 +20,7 @@
         <BButton
           variant="primary"
           size="sm"
-          class="ml-auto mr-2"
+          class="ms-auto me-2"
           @click="dismissNotification('post_install')"
         >
           <YIcon iname="check" />
@@ -51,7 +51,7 @@
         <BButton
           variant="primary"
           size="sm"
-          class="ml-auto mr-2"
+          class="ms-auto me-2"
           @click="dismissNotification('post_upgrade')"
         >
           <YIcon iname="check" />
@@ -83,7 +83,7 @@
           :href="app.url"
           target="_blank"
           variant="success"
-          class="ml-auto mr-2"
+          class="ms-auto me-2"
         >
           <YIcon iname="external-link" />
           {{ $t('app.open_this_app') }}
@@ -93,7 +93,7 @@
           v-b-modal.uninstall-modal
           id="uninstall"
           variant="danger"
-          :class="{ 'ml-auto': !app.url }"
+          :class="{ 'ms-auto': !app.url }"
         >
           <YIcon iname="trash-o" />
           {{ $t('uninstall') }}
@@ -196,7 +196,7 @@
             size="sm"
             :to="{ name: 'group-list' }"
             variant="info"
-            class="ml-2"
+            class="ms-2"
           >
             <YIcon iname="key-modern" />
             {{ $t('groups_and_permissions_manage') }}
@@ -274,7 +274,7 @@
       <BTabs card fill pills>
         <BTab v-for="[name, content] in app.doc.admin" :key="name">
           <template #title>
-            <YIcon iname="book" class="mr-2" />
+            <YIcon iname="book" class="me-2" />
             {{ name === 'admin' ? $t('app.doc.admin.title') : name }}
           </template>
           <VueShowdown :markdown="content" />
@@ -331,7 +331,7 @@
       <BListGroup flush>
         <YListGroupItem v-for="[key, link] in app.links" :key="key" no-status>
           <BLink :href="link" target="_blank">
-            <YIcon :iname="appLinksIcons(key)" class="mr-1" />
+            <YIcon :iname="appLinksIcons(key)" class="me-1" />
             {{ $t('app.links.' + key) }}
           </BLink>
         </YListGroupItem>

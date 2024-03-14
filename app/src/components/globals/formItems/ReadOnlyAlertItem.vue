@@ -4,7 +4,7 @@
     :variant="type"
     show
   >
-    <YIcon :iname="icon_" class="mr-md-3 mb-md-0 mb-2" :variant="type" />
+    <YIcon :iname="icon_" class="me-md-3 mb-md-0 mb-2" :variant="type" />
 
     <VueShowdown :markdown="label" tag="span" class="markdown" />
   </BAlert>

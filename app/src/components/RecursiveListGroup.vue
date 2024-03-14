@@ -15,7 +15,7 @@
           :aria-expanded="node.data.opened ? 'true' : 'false'"
           :aria-controls="'collapse-' + node.id"
           :class="node.data.opened ? 'not-collapsed' : 'collapsed'"
-          class="ml-2"
+          class="ms-2"
           @click.stop="node.data.opened = !node.data.opened"
         >
           <span class="sr-only">{{ toggleText }}</span>

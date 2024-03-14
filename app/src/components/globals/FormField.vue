@@ -28,7 +28,7 @@
       <!-- Render description -->
       <template v-if="description || link">
         <div class="d-flex">
-          <BLink v-if="link" :to="link" :href="link.href" class="ml-auto">
+          <BLink v-if="link" :to="link" :href="link.href" class="ms-auto">
             {{ link.text }}
           </BLink>
         </div>

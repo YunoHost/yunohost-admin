@@ -48,7 +48,7 @@
 
       <!-- DOMAIN CERT AUTHORITY -->
       <DescriptionRow :term="$t('domain.info.certificate_authority')">
-        <YIcon :iname="cert.icon" :variant="cert.variant" class="mr-1" />
+        <YIcon :iname="cert.icon" :variant="cert.variant" class="me-1" />
         {{ $t('domain.cert.types.' + cert.authority) }}
         <span class="text-secondary px-2">
           ({{
@@ -83,7 +83,7 @@
             v-for="app in domain.apps"
             :key="app.id"
             size="sm"
-            class="mr-2 mb-2"
+            class="me-2 mb-2"
           >
             <BButton
               class="py-0 font-weight-bold"

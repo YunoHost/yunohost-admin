@@ -22,7 +22,7 @@
         <BButton
           variant="success"
           v-t="'retry'"
-          class="ml-auto"
+          class="ms-auto"
           @click="tryToReconnect()"
         />
       </div>

@@ -86,9 +86,9 @@
           :faded="item.ignored"
         >
           <div class="item-button d-flex align-items-center">
-            <p class="mb-0 mr-2" v-html="item.summary" />
+            <p class="mb-0 me-2" v-html="item.summary" />
 
-            <div class="d-flex flex-column flex-lg-row ml-auto">
+            <div class="d-flex flex-column flex-lg-row ms-auto">
               <BButton
                 v-if="item.ignored"
                 size="sm"
@@ -109,7 +109,7 @@
                 v-if="item.details"
                 size="sm"
                 variant="outline-dark"
-                class="ml-lg-2 mt-2 mt-lg-0"
+                class="ms-lg-2 mt-2 mt-lg-0"
                 v-b-toggle="`collapse-${report.id}-item-${i}`"
               >
                 <YIcon iname="level-down" /> {{ $t('details') }}
@@ -121,7 +121,7 @@
             v-if="item.details"
             :id="`collapse-${report.id}-item-${i}`"
           >
-            <ul class="mt-2 pl-4">
+            <ul class="mt-2 ps-4">
               <li
                 v-for="(detail, index) in item.details"
                 :key="index"

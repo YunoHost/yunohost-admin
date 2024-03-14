@@ -4,7 +4,7 @@
       <div class="w-100 d-flex align-items-center flex-wrap custom-header">
         <slot name="header">
           <Component :is="titleTag" class="custom-header-title">
-            <YIcon v-if="icon" :iname="icon" class="mr-2" />{{ title }}
+            <YIcon v-if="icon" :iname="icon" class="me-2" />{{ title }}
           </Component>
           <slot name="header-next" />
         </slot>
@@ -13,7 +13,7 @@
           v-if="hasButtons"
           class="mt-2 w-100 custom-header-buttons"
           :class="{
-            [`ml-${buttonUnbreak}-auto mt-${buttonUnbreak}-0 w-${buttonUnbreak}-auto`]:
+            [`ms-${buttonUnbreak}-auto mt-${buttonUnbreak}-0 w-${buttonUnbreak}-auto`]:
               buttonUnbreak,
           }"
         >
@@ -26,11 +26,11 @@
         @click="visible = !visible"
         size="sm"
         variant="outline-secondary"
-        class="align-self-center ml-auto"
+        class="align-self-center ms-auto"
         :class="{
           'not-collapsed': visible,
           collapsed: !visible,
-          [`ml-${buttonUnbreak}-2`]: buttonUnbreak,
+          [`ms-${buttonUnbreak}-2`]: buttonUnbreak,
         }"
       >
         <YIcon iname="chevron-right" />

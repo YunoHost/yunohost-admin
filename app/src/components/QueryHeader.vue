@@ -15,12 +15,12 @@
     <div v-if="request.errors || request.warnings">
       <!-- WEBSOCKET ERRORS COUNT -->
       <span class="count" v-if="request.errors">
-        {{ request.errors }}<YIcon iname="bug" class="text-danger ml-1" />
+        {{ request.errors }}<YIcon iname="bug" class="text-danger ms-1" />
       </span>
       <!-- WEBSOCKET WARNINGS COUNT -->
       <span class="count" v-if="request.warnings">
         {{ request.warnings
-        }}<YIcon iname="warning" class="text-warning ml-1" />
+        }}<YIcon iname="warning" class="text-warning ms-1" />
       </span>
     </div>
 
@@ -29,7 +29,7 @@
       v-if="showError && request.error"
       size="sm"
       pill
-      class="error-btn ml-auto py-0"
+      class="error-btn ms-auto py-0"
       variant="danger"
       @click="reviewError"
     >
@@ -40,7 +40,7 @@
     <time
       v-if="showTime"
       :datetime="hour(request.date)"
-      :class="request.error ? 'ml-2' : 'ml-auto'"
+      :class="request.error ? 'ms-2' : 'ms-auto'"
     >
       {{ hour(request.date) }}
     </time>

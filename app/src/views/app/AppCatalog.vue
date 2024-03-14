@@ -120,7 +120,7 @@
 
               <small
                 v-if="app.state !== 'working' || app.high_quality"
-                class="d-flex align-items-center ml-2 position-relative"
+                class="d-flex align-items-center ms-2 position-relative"
               >
                 <BBadge
                   v-if="app.state !== 'working'"
@@ -195,11 +195,11 @@
       <BCardGroup deck>
         <BCard v-for="i in 15" :key="i" no-body style="min-height: 10rem">
           <div class="d-flex w-100 mt-auto">
-            <BSkeleton width="30px" height="30px" class="mr-2 ml-auto" />
+            <BSkeleton width="30px" height="30px" class="me-2 ms-auto" />
             <BSkeleton
               :width="randint(30, 70) + '%'"
               height="30px"
-              class="mr-auto"
+              class="me-auto"
             />
           </div>
           <BSkeleton

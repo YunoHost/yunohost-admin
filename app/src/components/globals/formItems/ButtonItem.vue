@@ -6,7 +6,7 @@
     :disabled="!enabled"
     class="d-block mb-3"
   >
-    <YIcon :iname="icon_" class="mr-2" />
+    <YIcon :iname="icon_" class="me-2" />
     <span v-html="label" />
   </BButton>
 </template>

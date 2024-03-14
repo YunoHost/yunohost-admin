@@ -5,7 +5,7 @@
         v-for="{ id, name, uri } in storages"
         :key="id"
         :to="{ name: 'backup-list', params: { id } }"
-        class="d-flex justify-content-between align-items-center pr-0"
+        class="d-flex justify-content-between align-items-center pe-0"
       >
         <div>
           <h5 class="font-weight-bold">
@@ -16,7 +16,7 @@
             {{ uri }}
           </p>
         </div>
-        <YIcon iname="chevron-right" class="lg fs-sm ml-auto" />
+        <YIcon iname="chevron-right" class="lg fs-sm ms-auto" />
       </BListGroupItem>
     </BListGroup>
   </div>

@@ -22,7 +22,7 @@
           <div class="d-flex align-items-center">
             {{ number }}. {{ description }}
 
-            <div class="ml-auto">
+            <div class="ms-auto">
               <BButton @click="skipMigration(id)" size="sm" variant="warning">
                 <YIcon iname="close" /> {{ $t('skip') }}
               </BButton>
