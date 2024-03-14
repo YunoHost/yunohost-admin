@@ -20,10 +20,9 @@
           <template #cell()="data">
             <BFormCheckbox
               v-if="data.field.key !== 'uPnP'"
-              class="on-off-switch"
-              v-model="data.value"
+              :modelValue="data.value"
               switch
-              @change="
+              @update:modelValue="
                 onTablePortToggling(
                   data.item.port,
                   protocol,

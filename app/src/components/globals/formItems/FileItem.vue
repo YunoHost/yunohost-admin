@@ -19,7 +19,7 @@
       :drop-placeholder="dropPlaceholder"
       :state="state"
       :browse-text="$t('words.browse')"
-      @input="onInput"
+      @update:modelValue="onInput"
       @blur="$parent.$emit('touch', name)"
       @focusout="$parent.$emit('touch', name)"
     />

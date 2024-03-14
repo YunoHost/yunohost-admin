@@ -168,7 +168,7 @@ export default {
       fields: {
         username: {
           label: this.$t('user_username'),
-          value: this.name,
+          modelValue: this.name,
           props: { id: 'username', disabled: true },
         },
 

@@ -1,7 +1,7 @@
 <template>
   <BFormTags
-    :value="modelValue"
-    @input="$emit('update:modelValue', $event)"
+    :modelValue="modelValue"
+    @update:modelValue="$emit('update:modelValue', $event)"
     :id="id"
     :placeholder="placeholder"
     :required="required"

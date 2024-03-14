@@ -16,14 +16,14 @@
           <BFormInput
             id="search-input"
             :placeholder="$t('search.for', { items: $t('items.apps', 2) })"
-            :value="search"
-            @input="updateQuery('search', $event)"
+            :modelValue="search"
+            @update:modelValue="updateQuery('search', $event)"
           />
           <BInputGroupAppend>
             <BFormSelect
-              :value="quality"
+              :modelValue="quality"
               :options="qualityOptions"
-              @change="updateQuery('quality', $event)"
+              @update:modelValue="updateQuery('quality', $event)"
             />
           </BInputGroupAppend>
         </BInputGroup>
@@ -34,9 +34,9 @@
             <YIcon iname="filter" />
           </BInputGroupPrepend>
           <BFormSelect
-            :value="category"
+            :modelValue="category"
             :options="categories"
-            @change="updateQuery('category', $event)"
+            @update:modelValue="updateQuery('category', $event)"
           />
           <BInputGroupAppend>
             <BButton
@@ -63,9 +63,9 @@
           />
           <BFormSelect
             id="subtags-select"
-            :value="subtag"
+            :modelValue="subtag"
             :options="subtags"
-            @change="updateQuery('subtag', $event)"
+            @update:modelValue="updateQuery('subtag', $event)"
           />
         </BInputGroup>
       </div>

@@ -11,8 +11,8 @@
 
         <BFormInput
           id="top-bar-search"
-          :value="search"
-          @input="$emit('update:search', $event)"
+          :modelValue="search"
+          @update:modelValue="$emit('update:search', $event)"
           :placeholder="
             $t('search.for', { items: $t('items.' + itemsName, 2) })
           "

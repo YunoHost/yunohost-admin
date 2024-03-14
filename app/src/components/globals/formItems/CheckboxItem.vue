@@ -1,8 +1,7 @@
 <template>
-  <!-- FIXME vue3 - `modelValue`+`@update:model` doesn't work here, probably to the prop's name not being `value`. Sticking for now to `checked`+`@input` -->
   <BFormCheckbox
-    :checked="modelValue"
-    @input="$emit('update:modelValue', $event)"
+    :modelValue="modelValue"
+    @update:modelValue="$emit('update:modelValue', $event)"
     :id="id"
     :aria-describedby="$parent.id + '__BV_description_'"
     switch
