@@ -56,7 +56,7 @@ export default {
   @include media-breakpoint-up(md) {
     margin: 1rem 0;
   }
-  @include media-breakpoint-down(sm) {
+  @include media-breakpoint-down(md) {
     flex-direction: column;
     &:not(:last-of-type) {
       margin-bottom: 0.5rem;

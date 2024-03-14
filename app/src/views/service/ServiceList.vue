@@ -86,7 +86,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@include media-breakpoint-down(md) {
+@include media-breakpoint-down(lg) {
   h5 small {
     display: block;
     margin-top: 0.25rem;

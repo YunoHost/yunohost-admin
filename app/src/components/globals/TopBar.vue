@@ -55,13 +55,13 @@ export default {
     margin-bottom: 1rem;
   }
 
-  @include media-breakpoint-down(xs) {
+  @include media-breakpoint-down(sm) {
     .top-bar-group {
       flex-direction: column-reverse;
     }
   }
 
-  @include media-breakpoint-down(sm) {
+  @include media-breakpoint-down(md) {
     flex-direction: column-reverse;
 
     #top-bar-right {

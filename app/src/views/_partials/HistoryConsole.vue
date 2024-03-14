@@ -247,7 +247,7 @@ export default {
     align-items: center;
   }
 
-  @include media-breakpoint-down(xs) {
+  @include media-breakpoint-down(sm) {
     margin-left: -15px;
     width: calc(100% + 30px);
 

@@ -313,7 +313,7 @@ export default {
   }
   span {
     visibility: hidden;
-    @include media-breakpoint-down(xs) {
+    @include media-breakpoint-down(sm) {
       display: none;
     }
   }
@@ -326,7 +326,7 @@ export default {
     margin-bottom: 1rem;
   }
 
-  @include media-breakpoint-down(xs) {
+  @include media-breakpoint-down(sm) {
     fieldset {
       width: 100%;
     }

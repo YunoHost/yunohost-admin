@@ -133,7 +133,7 @@ time {
   margin-left: 0.5rem;
 }
 
-@include media-breakpoint-down(xs) {
+@include media-breakpoint-down(sm) {
   .xs-hide .request-desc {
     display: none;
   }

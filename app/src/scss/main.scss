@@ -115,7 +115,7 @@ body {
     }
   }
 
-  @include media-breakpoint-down(sm) {
+  @include media-breakpoint-down(md) {
     flex-direction: column;
 
     &:not(:last-of-type) {
@@ -190,14 +190,14 @@ h3.card-title {
   display: flex;
   justify-content: space-between;
 
-  @include media-breakpoint-down(xs) {
+  @include media-breakpoint-down(sm) {
     .buttons {
       flex-direction: column;
       justify-content: space-between;
     }
   }
 
-  @include media-breakpoint-down(sm) {
+  @include media-breakpoint-down(md) {
     flex-direction: column-reverse;
     margin-bottom: 2rem;
 
