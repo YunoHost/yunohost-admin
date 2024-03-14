@@ -166,7 +166,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['theme']),
+    ...mapGetters(['dark']),
   },
 
   methods: {

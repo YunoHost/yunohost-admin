@@ -63,7 +63,7 @@ export default {
     &-#{$color} {
       color: theme-color-level($color, 6);
 
-      [dark-theme='true'] & {
+      [data-bs-theme='light'] & {
         color: theme-color-level($color, -6);
       }
 

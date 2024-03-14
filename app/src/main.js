@@ -40,7 +40,7 @@ app.config.globalProperties.$askConfirmation = function (message, props) {
     bodyClass: [
       'font-weight-bold',
       'rounded-top',
-      store.state.theme ? 'text-white' : 'text-black',
+      store.state.dark ? 'text-white' : 'text-black',
     ],
     ...props,
   })
@@ -58,7 +58,7 @@ app.config.globalProperties.$askMdConfirmation = function (
     okTitle: this.$t('yes'),
     cancelTitle: this.$t('cancel'),
     headerBgVariant: 'warning',
-    headerClass: store.state.theme ? 'text-white' : 'text-black',
+    headerClass: store.state.dark ? 'text-white' : 'text-black',
     centered: true,
     ...props,
   })

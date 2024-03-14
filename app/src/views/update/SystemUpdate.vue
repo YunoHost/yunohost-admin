@@ -91,7 +91,7 @@
       id="apps-pre-upgrade"
       :title="$t('app.upgrade.confirm.title')"
       header-bg-variant="warning"
-      :header-class="theme ? 'text-white' : 'text-black'"
+      :header-class="dark ? 'text-white' : 'text-black'"
       :ok-title="$t('system_upgrade_btn')"
       ok-variant="success"
       :cancel-title="$t('cancel')"
@@ -166,7 +166,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['theme']),
+    ...mapGetters(['dark']),
   },
 
   methods: {

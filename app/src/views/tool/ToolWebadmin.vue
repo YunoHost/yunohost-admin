@@ -63,7 +63,7 @@ export default {
           props: { labels: { true: 'enabled', false: 'disabled' } },
         },
 
-        theme: {
+        dark: {
           id: 'theme',
           label: this.$t('tools_webadmin.theme'),
           component: 'CheckboxItem',
@@ -77,7 +77,7 @@ export default {
 
   computed: {
     // Those are set/get computed properties
-    ...mapStoreGetSet(['locale', 'fallbackLocale', 'theme'], 'dispatch'),
+    ...mapStoreGetSet(['locale', 'fallbackLocale', 'dark'], 'dispatch'),
     ...mapStoreGetSet(['cache', 'transitions', 'experimental']),
   },
 

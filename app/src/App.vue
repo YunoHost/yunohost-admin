@@ -8,7 +8,7 @@
           :disabled="waiting"
           exact-active-class="active"
         >
-          <span v-if="theme">
+          <span v-if="dark">
             <img alt="YunoHost logo" src="./assets/logo_light.png" width="40" />
           </span>
           <span v-else>
@@ -116,7 +116,7 @@ export default {
       'transitions',
       'transitionName',
       'waiting',
-      'theme',
+      'dark',
       'ssoLink',
     ]),
   },
@@ -184,8 +184,11 @@ export default {
     if (today.getDate() === 31 && today.getMonth() + 1 === 10) {
       this.$store.commit('SET_SPINNER', 'spookycat')
     }
-
-    document.documentElement.setAttribute('dark-theme', this.theme) // updates the data-theme attribute
+    // updates the data-bs-theme attribute
+    document.documentElement.setAttribute(
+      'data-bs-theme',
+      this.dark ? 'dark' : 'light',
+    )
   },
 }
 </script>

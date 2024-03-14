@@ -25,7 +25,7 @@ export default {
     background-image: url('../../assets/spinners/pacman_dark.gif');
     animation-name: back-and-forth-pacman;
 
-    [dark-theme='true'] & {
+    [data-bs-theme='dark'] & {
       background-image: url('../../assets/spinners/pacman_light.gif');
     }
 
