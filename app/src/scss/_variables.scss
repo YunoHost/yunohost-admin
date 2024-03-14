@@ -27,45 +27,77 @@
 
 @import '~bootstrap/scss/functions.scss';
 
-$font-size-base: 0.9rem;
-$font-weight-bold: 500;
+$prefix: bs-;
 
-$white: var(--white);
-$gray-100: var(--gray-100);
-$gray-200: var(--gray-200);
-$gray-300: var(--gray-300);
-$gray-400: var(--gray-400);
-$gray-500: var(--gray-500);
-$gray-600: var(--gray-600);
-$gray-700: var(--gray-700);
-$gray-800: var(--gray-800);
-$gray-900: var(--gray-900);
-$black: var(--black);
+$white: #fff;
+$gray-100: #fafafa;
+$gray-200: #ededed;
+$gray-300: #e3e3e3;
+$gray-400: #d4d4d4;
+$gray-500:  	#b5b5b5;
+$gray-600: #757575;
+$gray-700:  	#4f4f4f;
+$gray-800: #3b3b3b;
+$gray-900: #262626;
+$black: #202020;
 
-$blue: var(--blue);
-$indigo: var(--indigo);
-$purple: var(--purple);
-$pink: var(--pink);
-$red: var(--red);
-$orange: var(--orange);
-$yellow: var(--yellow);
-$green: var(--green);
-$teal: var(--teal);
-$cyan: var(--cyan);
+$blue: #60a5fa;
+$indigo: #6812f3;
+$purple: #b957ea;
+$pink: #e93f8e;
+$red: #ff5a5a;
+$orange: #fd7e17;
+$yellow: #ffd452;
+$green: #70ea8d;
+$teal: #20cb98;
+$cyan: #7dd3fc;
+
+$primary: $blue;
+$secondary: $gray-600;
+$success: $green;
+$info: $cyan;
+$warning: $yellow;
+$danger: $red;
+$light: $gray-100;
+$dark: $gray-900;
 
 $theme-colors: (
+  'primary': $primary,
+  'secondary': $secondary,
+  'success': $success,
+  'info': $info,
+  'warning': $warning,
+  'danger': $danger,
+  'light': $light,
+  'dark': $dark,
   'best': $purple,
 );
 
-$code-color: $black;
+$min-contrast-ratio: 7;
 
-// Replace font-weight 300 with 200
+$spacer: 1rem;
+
+$body-bg-dark: $black;
+
+$border-color: $gray-400;
+$border-color-dark: $gray-800;
+$hr-border-color: var(--#{$prefix}border-color);
+
+$link-color: shift-color($primary, 40%);
+$code-color: $black;
+$code-color-dark: $black;
+$component-active-color: $black;
+
+// Adapt font-weight based on fira
 $font-weight-light: 200;
-$display1-weight: 200;
-$display2-weight: 200;
-$display3-weight: 200;
-$display4-weight: 200;
-$lead-font-weight: 200;
+$font-weight-normal: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 500;
+$font-weight-bold: 700;
+
+$headings-font-weight: 500;
+
+$font-size-base: 0.9rem;
 
 // Set fonts
 $font-family-sans-serif:
@@ -91,12 +123,7 @@ $h3-font-size: $font-size-base * 1.4;
 $h4-font-size: $font-size-base * 1.25;
 $h5-font-size: $font-size-base * 1.1;
 
-$alert-padding-x: 1rem;
-
-$card-spacer-y: 0.6rem;
-$card-spacer-x: 1rem;
-
-$list-group-item-padding-x: 1rem;
+$list-group-item-padding-y: $spacer * 0.75;
 
 // Import default variables after the above setup to compute all other variables.
 @import '~bootstrap/scss/variables';
@@ -131,6 +158,5 @@ $fa-font-size-base: $font-size-base;
 
 $thin-border: $hr-border-width solid $hr-border-color;
 
-$btn-padding-y-xs: 0.25rem;
+$btn-padding-y-xs: 0rem;
 $btn-padding-x-xs: 0.35rem;
-$btn-line-height-xs: 1.5;

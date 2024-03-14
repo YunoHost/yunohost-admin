@@ -75,13 +75,18 @@ body {
   align-items: center;
 }
 
+// BOOSTRAP OVERIDES/ADDITIONS
+
 // Add breakpoints for w-*
 @each $breakpoint in map-keys($grid-breakpoints) {
-  @each $size, $length in $sizes {
-    @include media-breakpoint-up($breakpoint) {
+  @include media-breakpoint-up($breakpoint) {
+    @each $size, $length in $position-values {
       .w-#{$breakpoint}-#{$size} {
         width: $length !important;
       }
+    }
+    .w-#{$breakpoint}-auto {
+      width: auto !important;
     }
   }
 }
@@ -92,9 +97,14 @@ body {
     $btn-padding-y-xs,
     $btn-padding-x-xs,
     $btn-font-size-sm,
-    $btn-line-height-xs,
     $btn-border-radius-sm
   );
+}
+
+.btn-outline-dark {
+  [data-bs-theme='dark'] & {
+    @include button-outline-variant($light);
+  }
 }
 
 // Allow state of input group to be displayed under the group
