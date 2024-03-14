@@ -78,7 +78,7 @@ export default {
   @each $color, $value in $theme-colors {
     &-#{$color} {
       background-color: $value;
-      color: color-yiq($value);
+      color: color-contrast($value);
     }
   }
 }

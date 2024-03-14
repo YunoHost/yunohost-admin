@@ -61,15 +61,15 @@ export default {
 
   @each $color, $value in $theme-colors {
     &-#{$color} {
-      color: theme-color-level($color, 6);
+      color: tint-color($value, 50%);
 
       [data-bs-theme='light'] & {
-        color: theme-color-level($color, -6);
+        color: shade-color($value, 60%);
       }
 
       .yuno-list-group-item-status {
         background-color: $value;
-        color: color-yiq($value);
+        color: color-contrast($value);
       }
     }
   }

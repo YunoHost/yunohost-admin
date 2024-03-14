@@ -112,8 +112,9 @@ export default {
     text-decoration: none;
     background-color: $list-group-hover-bg;
 
-    @include hover-focus() {
-      background-color: darken($list-group-hover-bg, 3%);
+    &:hover,
+    &:focus {
+      background-color: shade-color($gray-100, 3%);
     }
   }
 }
