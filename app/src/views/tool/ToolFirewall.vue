@@ -121,6 +121,7 @@
 import { useVuelidate } from '@vuelidate/core'
 
 import api from '@/api'
+import { useAutoModal } from '@/composables/useAutoModal'
 import { required, integer, between } from '@/helpers/validators'
 
 export default {
@@ -129,6 +130,7 @@ export default {
   setup() {
     return {
       v$: useVuelidate(),
+      modalConfirm: useAutoModal(),
     }
   },
 
@@ -214,7 +216,7 @@ export default {
     },
 
     async togglePort({ action, port, protocol, connection }) {
-      const confirmed = await this.$askConfirmation(
+      const confirmed = await this.modalConfirm(
         this.$t('confirm_firewall_' + action, {
           port,
           protocol,
@@ -244,7 +246,7 @@ export default {
 
     async toggleUpnp(value) {
       const action = this.upnpEnabled ? 'disable' : 'enable'
-      const confirmed = await this.$askConfirmation(
+      const confirmed = await this.modalConfirm(
         this.$t('confirm_upnp_' + action),
       )
       if (!confirmed) return

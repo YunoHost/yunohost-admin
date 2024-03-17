@@ -53,6 +53,8 @@
       </main>
     </ViewLockOverlay>
 
+    <BModalOrchestrator />
+
     <!-- HISTORY CONSOLE -->
     <HistoryConsole />
 

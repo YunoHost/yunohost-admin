@@ -88,10 +88,17 @@
 
 <script>
 import api from '@/api'
+import { useAutoModal } from '@/composables/useAutoModal'
 
 // FIXME not tested with pending migrations (disclaimer and stuff)
 export default {
   name: 'ToolMigrations',
+
+  setup() {
+    return {
+      modalConfirm: useAutoModal(),
+    }
+  },
 
   data() {
     return {
@@ -136,7 +143,7 @@ export default {
     },
 
     async skipMigration(id) {
-      const confirmed = await this.$askConfirmation(
+      const confirmed = await this.modalConfirm(
         this.$t('confirm_migrations_skip'),
       )
       if (!confirmed) return

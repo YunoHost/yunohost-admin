@@ -134,6 +134,7 @@
 
 <script>
 import api from '@/api'
+import { useAutoModal } from '@/composables/useAutoModal'
 import { isEmptyValue } from '@/helpers/commons'
 import TagsSelectizeItem from '@/components/globals/formItems/TagsSelectizeItem.vue'
 
@@ -144,6 +145,12 @@ export default {
 
   components: {
     TagsSelectizeItem,
+  },
+
+  setup() {
+    return {
+      modalConfirm: useAutoModal(),
+    }
   },
 
   data() {
@@ -264,7 +271,7 @@ export default {
     async onPermissionChanged({ option, groupName, action, applyMethod }) {
       const permId = this.permissions.find((perm) => perm.label === option).id
       if (action === 'add' && ['sftp.main', 'ssh.main'].includes(permId)) {
-        const confirmed = await this.$askConfirmation(
+        const confirmed = await this.modalConfirm(
           this.$t('confirm_group_add_access_permission', {
             name: groupName,
             perm: option,
@@ -310,7 +317,7 @@ export default {
     },
 
     async deleteGroup(groupName) {
-      const confirmed = await this.$askConfirmation(
+      const confirmed = await this.modalConfirm(
         this.$t('confirm_delete', { name: groupName }),
       )
       if (!confirmed) return

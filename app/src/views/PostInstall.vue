@@ -92,6 +92,7 @@
 import { useVuelidate } from '@vuelidate/core'
 
 import api from '@/api'
+import { useAutoModal } from '@/composables/useAutoModal'
 import { DomainForm } from '@/views/_partials'
 import LoginView from '@/views/LoginView.vue'
 import { formatFormData } from '@/helpers/yunohostArguments'
@@ -114,6 +115,7 @@ export default {
   setup() {
     return {
       v$: useVuelidate(),
+      modalConfirm: useAutoModal(),
     }
   },
 
@@ -179,7 +181,7 @@ export default {
     },
 
     async setUser() {
-      const confirmed = await this.$askConfirmation(
+      const confirmed = await this.modalConfirm(
         this.$t('confirm_postinstall', { domain: this.domain }),
       )
       if (!confirmed) return

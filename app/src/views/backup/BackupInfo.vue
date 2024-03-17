@@ -137,6 +137,7 @@
 
 <script>
 import api from '@/api'
+import { useAutoModal } from '@/composables/useAutoModal'
 import { readableDate } from '@/helpers/filters/date'
 import { humanSize } from '@/helpers/filters/human'
 import { isEmptyValue } from '@/helpers/commons'
@@ -147,6 +148,12 @@ export default {
   props: {
     id: { type: String, required: true },
     name: { type: String, required: true },
+  },
+
+  setup() {
+    return {
+      modalConfirm: useAutoModal(),
+    }
   },
 
   data() {
@@ -215,7 +222,7 @@ export default {
     },
 
     async restoreBackup() {
-      const confirmed = await this.$askConfirmation(
+      const confirmed = await this.modalConfirm(
         this.$t('confirm_restore', { name: this.name }),
       )
       if (!confirmed) return
@@ -245,7 +252,7 @@ export default {
     },
 
     async deleteBackup() {
-      const confirmed = await this.$askConfirmation(
+      const confirmed = await this.modalConfirm(
         this.$t('confirm_delete', { name: this.name }),
       )
       if (!confirmed) return

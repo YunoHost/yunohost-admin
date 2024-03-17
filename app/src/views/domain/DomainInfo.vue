@@ -125,8 +125,8 @@
       :title="$t('confirm_delete', { name: this.name })"
       @ok="deleteDomain"
       header-bg-variant="warning"
-      body-class=""
-      body-bg-variant=""
+      header-class="text-black"
+      :body-class="{ 'd-none': !isMainDynDomain }"
     >
       <BFormGroup v-if="isMainDynDomain">
         <BFormCheckbox v-model="unsubscribeDomainFromDyndns">
@@ -141,6 +141,7 @@
 import { mapGetters } from 'vuex'
 
 import api, { objectToParams } from '@/api'
+import { useAutoModal } from '@/composables/useAutoModal'
 import {
   formatFormData,
   formatYunoHostConfigPanels,
@@ -158,6 +159,12 @@ export default {
 
   props: {
     name: { type: String, required: true },
+  },
+
+  setup() {
+    return {
+      modalConfirm: useAutoModal(),
+    }
   },
 
   data() {
@@ -279,7 +286,7 @@ export default {
     },
 
     async setAsDefaultDomain() {
-      const confirmed = await this.$askConfirmation(
+      const confirmed = await this.modalConfirm(
         this.$t('confirm_change_maindomain'),
       )
       if (!confirmed) return

@@ -45,7 +45,9 @@
 // Utilities
 @import '~bootstrap/scss/utilities/api';
 
-@import '~bootstrap-vue-next/src/styles/styles.scss';
+// @import '~bootstrap-vue-next/src/styles/styles.scss';
+// FIXME modals doesn't appears if we import the scss
+@import 'bootstrap-vue-next/dist/bootstrap-vue-next.css';
 
 // Import fonts
 @import 'font';

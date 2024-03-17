@@ -83,8 +83,7 @@
       :title="$t('confirm_delete', { name: user.username })"
       @ok="deleteUser"
       header-bg-variant="warning"
-      body-class=""
-      body-bg-variant=""
+      header-class="text-black"
     >
       <BFormGroup>
         <BFormCheckbox v-model="purge">

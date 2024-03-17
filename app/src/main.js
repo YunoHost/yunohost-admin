@@ -29,41 +29,6 @@ app.use(VueShowdownPlugin, {
   },
 })
 
-// Ugly wrapper for `$bvModal.msgBoxConfirm` to set default i18n button titles
-// FIXME find or wait for a better way
-app.config.globalProperties.$askConfirmation = function (message, props) {
-  return this.$bvModal.msgBoxConfirm(message, {
-    okTitle: this.$t('ok'),
-    cancelTitle: this.$t('cancel'),
-    bodyBgVariant: 'warning',
-    centered: true,
-    bodyClass: [
-      'font-weight-bold',
-      'rounded-top',
-      store.state.dark ? 'text-white' : 'text-black',
-    ],
-    ...props,
-  })
-}
-
-app.config.globalProperties.$askMdConfirmation = function (
-  markdown,
-  props,
-  ok = false,
-) {
-  const content = this.$createElement('vue-showdown', {
-    props: { markdown, flavor: 'github', options: { headerLevelStart: 4 } },
-  })
-  return this.$bvModal['msgBox' + (ok ? 'Ok' : 'Confirm')](content, {
-    okTitle: this.$t('yes'),
-    cancelTitle: this.$t('cancel'),
-    headerBgVariant: 'warning',
-    headerClass: store.state.dark ? 'text-white' : 'text-black',
-    centered: true,
-    ...props,
-  })
-}
-
 // Register global components
 const globalComponentsModules = import.meta.glob(
   ['@/components/globals/*.vue', '@/components/globals/*/*.vue'],

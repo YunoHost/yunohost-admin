@@ -343,8 +343,8 @@
       id="uninstall-modal"
       :title="$t('confirm_uninstall', { name: id })"
       header-bg-variant="warning"
+      header-class="text-black"
       :body-class="{ 'd-none': !app.supports_purge }"
-      body-bg-variant=""
       @ok="uninstall"
     >
       <BFormGroup v-if="app.supports_purge">
@@ -366,6 +366,7 @@ import { mapGetters } from 'vuex'
 import { useVuelidate } from '@vuelidate/core'
 
 import api, { objectToParams } from '@/api'
+import { useAutoModal } from '@/composables/useAutoModal'
 import { humanPermissionName } from '@/helpers/filters/human'
 import { helpers, required } from '@/helpers/validators'
 import { isEmptyValue } from '@/helpers/commons'
@@ -390,6 +391,7 @@ export default {
   setup() {
     return {
       v$: useVuelidate(),
+      modalConfirm: useAutoModal(),
     }
   },
 
@@ -646,7 +648,7 @@ export default {
     },
 
     async changeUrl() {
-      const confirmed = await this.$askConfirmation(
+      const confirmed = await this.modalConfirm(
         this.$t('confirm_app_change_url'),
       )
       if (!confirmed) return
@@ -662,9 +664,7 @@ export default {
     },
 
     async setAsDefaultDomain(undo = false) {
-      const confirmed = await this.$askConfirmation(
-        this.$t('confirm_app_default'),
-      )
+      const confirmed = await this.modalConfirm(this.$t('confirm_app_default'))
       if (!confirmed) return
 
       api

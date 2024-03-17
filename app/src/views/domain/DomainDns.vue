@@ -145,6 +145,7 @@
 
 <script>
 import api from '@/api'
+import { useAutoModal } from '@/composables/useAutoModal'
 import { isEmptyValue } from '@/helpers/commons'
 
 export default {
@@ -152,6 +153,12 @@ export default {
 
   props: {
     name: { type: String, required: true },
+  },
+
+  setup() {
+    return {
+      modalConfirm: useAutoModal(),
+    }
   },
 
   data() {
@@ -246,7 +253,7 @@ export default {
 
     async pushDnsChanges() {
       if (this.force) {
-        const confirmed = await this.$askConfirmation(
+        const confirmed = await this.modalConfirm(
           this.$t('domain.dns.push_force_confirm'),
         )
         if (!confirmed) return

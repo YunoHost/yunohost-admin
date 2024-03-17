@@ -83,6 +83,7 @@
 
 <script>
 import api from '@/api'
+import { useAutoModal } from '@/composables/useAutoModal'
 import { distanceToNow } from '@/helpers/filters/date'
 
 export default {
@@ -90,6 +91,12 @@ export default {
 
   props: {
     name: { type: String, required: true },
+  },
+
+  setup() {
+    return {
+      modalConfirm: useAutoModal(),
+    }
   },
 
   data() {
@@ -132,7 +139,7 @@ export default {
     },
 
     async updateService(action) {
-      const confirmed = await this.$askConfirmation(
+      const confirmed = await this.modalConfirm(
         this.$t('confirm_service_' + action, { name: this.name }),
       )
       if (!confirmed) return

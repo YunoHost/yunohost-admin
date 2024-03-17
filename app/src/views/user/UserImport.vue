@@ -23,6 +23,7 @@
 
 <script>
 import api from '@/api'
+import { useAutoModal } from '@/composables/useAutoModal'
 import { useVuelidate } from '@vuelidate/core'
 
 import { formatFormData } from '@/helpers/yunohostArguments'
@@ -34,6 +35,7 @@ export default {
   setup() {
     return {
       v$: useVuelidate(),
+      modalConfirm: useAutoModal(),
     }
   },
 
@@ -89,7 +91,7 @@ export default {
   methods: {
     async onSubmit() {
       if (this.form.delete) {
-        const confirmed = await this.$askConfirmation(
+        const confirmed = await this.modalConfirm(
           this.$t('users_import_confirm_destructive'),
           { okTitle: this.$t('users_import_delete_others') },
         )

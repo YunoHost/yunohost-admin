@@ -223,6 +223,7 @@
 import { useVuelidate } from '@vuelidate/core'
 
 import CardDeckFeed from '@/components/CardDeckFeed.vue'
+import { useAutoModal } from '@/composables/useAutoModal'
 import { required, appRepoUrl } from '@/helpers/validators'
 import { randint } from '@/helpers/commons'
 
@@ -243,6 +244,7 @@ export default {
   setup() {
     return {
       v$: useVuelidate(),
+      modalConfirm: useAutoModal(),
     }
   },
 
@@ -403,7 +405,7 @@ export default {
     async onInstallClick(appId) {
       const app = this.apps.find((app) => app.id === appId)
       if (!app.decent_quality) {
-        const confirmed = await this.$askConfirmation(
+        const confirmed = await this.modalConfirm(
           this.$t('confirm_install_app_' + app.state),
         )
         if (!confirmed) return
@@ -413,7 +415,7 @@ export default {
 
     // INSTALL CUSTOM APP
     async onCustomInstallClick() {
-      const confirmed = await this.$askConfirmation(
+      const confirmed = await this.modalConfirm(
         this.$t('confirm_install_custom_app'),
       )
       if (!confirmed) return

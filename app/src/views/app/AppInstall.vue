@@ -209,6 +209,7 @@
 import { useVuelidate } from '@vuelidate/core'
 
 import api, { objectToParams } from '@/api'
+import { useAutoModal } from '@/composables/useAutoModal'
 import {
   formatYunoHostArguments,
   formatI18nField,
@@ -230,6 +231,7 @@ export default {
   setup() {
     return {
       v$: useVuelidate(),
+      modalConfirm: useAutoModal(),
     }
   },
 
@@ -379,7 +381,7 @@ export default {
 
     async performInstall() {
       if ('path' in this.form && this.form.path === '/') {
-        const confirmed = await this.$askConfirmation(
+        const confirmed = await this.modalConfirm(
           this.$t('confirm_install_domain_root', {
             domain: this.form.domain,
           }),
@@ -405,15 +407,14 @@ export default {
           if (postInstall) {
             const message =
               this.$t('app.install.notifs.post.alert') + '\n\n' + postInstall
-            await this.$askMdConfirmation(
+            await this.modalConfirm(
               message,
               {
                 title: this.$t('app.install.notifs.post.title', {
                   name: this.app.name,
                 }),
-                okTitle: this.$t('ok'),
               },
-              true,
+              { markdown: true, cancelable: false },
             )
           }
           this.$router.push({ name: 'app-list' })
