@@ -7,11 +7,13 @@
     :required="required"
     :state="state"
     rows="4"
-    @blur="$parent.$emit('touch', name)"
+    @blur="touch(name)"
   />
 </template>
 
 <script>
+import { inject } from 'vue'
+
 export default {
   name: 'TextAreaItem',
 
@@ -23,6 +25,12 @@ export default {
     required: { type: Boolean, default: false },
     state: { type: Boolean, default: null },
     name: { type: String, default: null },
+  },
+
+  setup() {
+    return {
+      touch: inject('touch'),
+    }
   },
 }
 </script>

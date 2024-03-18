@@ -55,7 +55,7 @@ export default {
   setup(props) {
     const externalResults = toRef(props, 'externalResults')
     return {
-      v$: useVuelidate({ $externalResults: externalResults, $autoDirty: true }),
+      v$: useVuelidate({ $externalResults: externalResults }),
     }
   },
 

@@ -7,7 +7,6 @@
       :state="state"
       :aria-describedby="id + 'local-part-desc'"
       @update:modelValue="onInput('localPart', $event)"
-      @blur="$parent.$emit('touch')"
     />
 
     <BInputGroupAppend>
@@ -20,7 +19,6 @@
         :choices="choices"
         :aria-describedby="id + 'domain-desc'"
         @update:modelValue="onInput('domain', $event)"
-        @blur="$parent.$emit('touch')"
       />
     </BInputGroupAppend>
 

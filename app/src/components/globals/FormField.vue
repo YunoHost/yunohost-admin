@@ -48,6 +48,8 @@
 </template>
 
 <script>
+import { provide } from 'vue'
+
 export default {
   name: 'FormField',
 
@@ -65,6 +67,22 @@ export default {
     props: { type: Object, default: () => ({}) },
     validation: { type: Object, default: null },
     validationIndex: { type: Number, default: null },
+  },
+
+  setup(props) {
+    function touch(name) {
+      if (props.validation) {
+        // For fields that have multiple elements
+        if (name) {
+          props.validation[name].$touch()
+        } else {
+          props.validation.$touch()
+        }
+      }
+    }
+    provide('touch', touch)
+
+    return { touch }
   },
 
   computed: {
@@ -125,19 +143,6 @@ export default {
         })
       }
       return ''
-    },
-  },
-
-  methods: {
-    touch(name) {
-      if (this.validation) {
-        // For fields that have multiple elements
-        if (name) {
-          this.validation[name].$touch()
-        } else {
-          this.validation.$touch()
-        }
-      }
     },
   },
 }

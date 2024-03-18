@@ -20,13 +20,14 @@
       :state="state"
       :browse-text="$t('words.browse')"
       @update:modelValue="onInput"
-      @blur="$parent.$emit('touch', name)"
-      @focusout="$parent.$emit('touch', name)"
+      @blur="touch(name)"
+      @focusout="touch(name)"
     />
   </BButtonGroup>
 </template>
 
 <script>
+import { inject } from 'vue'
 import { getFileContent } from '@/helpers/commons'
 
 export default {
@@ -41,6 +42,12 @@ export default {
     state: { type: Boolean, default: null },
     required: { type: Boolean, default: false },
     name: { type: String, default: null },
+  },
+
+  setup() {
+    return {
+      touch: inject('touch'),
+    }
   },
 
   computed: {

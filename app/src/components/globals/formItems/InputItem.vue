@@ -12,11 +12,13 @@
     :step="step"
     :trim="trim"
     :autocomplete="autocomplete_"
-    @blur="$parent.$emit('touch', name)"
+    @blur="touch(name)"
   />
 </template>
 
 <script>
+import { inject } from 'vue'
+
 export default {
   name: 'InputItem',
 
@@ -34,6 +36,12 @@ export default {
     autocomplete: { type: String, default: null },
     pattern: { type: Object, default: null },
     name: { type: String, default: null },
+  },
+
+  setup() {
+    return {
+      touch: inject('touch'),
+    }
   },
 
   data() {

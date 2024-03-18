@@ -10,11 +10,13 @@
     remove-on-delete
     :state="state"
     :options="options"
-    @blur="$parent.$emit('touch', name)"
+    @blur="touch(name)"
   />
 </template>
 
 <script>
+import { inject } from 'vue'
+
 export default {
   name: 'TagsItem',
 
@@ -27,6 +29,12 @@ export default {
     state: { type: Boolean, default: null },
     name: { type: String, default: null },
     options: { type: Array, default: null },
+  },
+
+  setup() {
+    return {
+      touch: inject('touch'),
+    }
   },
 }
 </script>
