@@ -34,6 +34,8 @@
 export default {
   name: 'AbstractForm',
 
+  inheritAttrs: false,
+
   props: {
     id: { type: String, default: 'ynh-form' },
     submitText: { type: String, default: null },
@@ -60,8 +62,7 @@ export default {
         v.$touch()
         if (v.$pending || v.$errors.length) return
       }
-      // Weird bug with `INSTANCE_LISTENERS: true` with 'submit' event (double exec before of conflict with native submit event?)
-      this.$emit('apply')
+      this.$emit('submit')
     },
   },
 }

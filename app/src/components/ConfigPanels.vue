@@ -5,7 +5,6 @@
       v-if="routes_.length > 1"
       v-bind="{ panels, forms, v: v$, ...$attrs }"
       :routes="routes_"
-      @apply="$emit('apply', $event)"
     >
       <template #tab-top>
         <slot name="tab-top" />

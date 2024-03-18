@@ -6,7 +6,7 @@
       validation,
       serverError: panel.serverError,
     }"
-    @apply="onApply"
+    @submit="onApply"
     :no-footer="!panel.hasApplyButton"
   >
     <slot name="tab-top" />
