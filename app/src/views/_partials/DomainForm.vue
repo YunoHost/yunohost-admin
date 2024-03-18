@@ -131,6 +131,8 @@ import {
 export default {
   name: 'DomainForm',
 
+  inheritAttrs: false,
+
   props: {
     title: { type: String, required: true },
     submitText: { type: String, default: null },

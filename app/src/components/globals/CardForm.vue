@@ -7,7 +7,7 @@
         :id="id"
         :inline="inline"
         :class="formClasses"
-        @submit.prevent="onSubmit"
+        @submit.prevent.stop="onSubmit"
         novalidate
       >
         <slot name="default" />
