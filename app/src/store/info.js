@@ -158,16 +158,17 @@ export default {
       commit('SET_YUNOHOST_INFOS', null)
     },
 
-    DISCONNECT({ dispatch }, route = router.currentRoute) {
+    DISCONNECT({ dispatch }, route) {
       // FIXME vue3 currentRoute is now a ref (currentRoute.value)
       dispatch('RESET_CONNECTED')
-      if (router.currentRoute.name === 'login') return
+      if (router.currentRoute.value.name === 'login') return
+      const previousRoute = route ?? router.currentRoute.value
       router.push({
         name: 'login',
         // Add a redirect query if next route is not unknown (like `logout`) or `login`
         query:
-          route && !['login', null].includes(route.name)
-            ? { redirect: route.path }
+          previousRoute && !['login', null].includes(previousRoute.name)
+            ? { redirect: previousRoute.path }
             : {},
       })
     },
