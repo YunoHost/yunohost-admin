@@ -23,7 +23,7 @@
         <div class="w-100 d-flex justify-content-between align-items-center">
           <h5 class="me-3">
             <BLink :to="data.to" class="text-body text-decoration-none">
-              <span class="font-weight-bold">
+              <span class="fw-bold">
                 {{ data.name.replace(parent ? parent.data.name : null, '') }}
               </span>
               <span v-if="parent" class="text-secondary">

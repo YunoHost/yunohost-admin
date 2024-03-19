@@ -86,7 +86,7 @@
             class="me-2 mb-2"
           >
             <BButton
-              class="py-0 font-weight-bold"
+              class="py-0 fw-bold"
               variant="outline-dark"
               :to="{ name: 'app-info', params: { id: app.id } }"
             >

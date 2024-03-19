@@ -71,7 +71,7 @@
             class="d-flex justify-content-between align-items-center pe-0"
           >
             <div class="me-2">
-              <h5 class="font-weight-bold">
+              <h5 class="fw-bold">
                 {{ item.name }}
                 <small class="text-secondary" v-if="item.size">
                   ({{ humanSize(item.size) }})
@@ -92,7 +92,7 @@
             class="d-flex justify-content-between align-items-center pe-0"
           >
             <div class="me-2">
-              <h5 class="font-weight-bold">
+              <h5 class="fw-bold">
                 {{ item.name }}
                 <small class="text-secondary">
                   {{ appName }} ({{ humanSize(item.size) }})

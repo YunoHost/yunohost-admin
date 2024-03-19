@@ -44,7 +44,7 @@
             class="d-flex justify-content-between align-items-center pe-0"
           >
             <div class="me-2">
-              <h5 class="font-weight-bold">
+              <h5 class="fw-bold">
                 {{ item.name }}
               </h5>
               <p class="m-0 text-muted">
@@ -92,7 +92,7 @@
             class="d-flex justify-content-between align-items-center pe-0"
           >
             <div class="me-2">
-              <h5 class="font-weight-bold">
+              <h5 class="fw-bold">
                 {{ item.name }}
                 <small class="text-secondary">{{ item.id }}</small>
               </h5>

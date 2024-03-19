@@ -8,7 +8,7 @@
         class="d-flex justify-content-between align-items-center pe-0"
       >
         <div>
-          <h5 class="font-weight-bold">
+          <h5 class="fw-bold">
             {{ name }}
             <small class="text-secondary">{{ id }}</small>
           </h5>

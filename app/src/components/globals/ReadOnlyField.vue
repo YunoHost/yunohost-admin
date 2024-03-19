@@ -1,6 +1,6 @@
 <template>
   <BRow no-gutters class="description-row">
-    <BCol v-bind="cols_" class="font-weight-bold">
+    <BCol v-bind="cols_" class="fw-bold">
       {{ label }}
     </BCol>
 

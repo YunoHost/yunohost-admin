@@ -28,7 +28,7 @@
         class="d-flex justify-content-between align-items-center pe-0"
       >
         <div>
-          <h5 class="font-weight-bold">
+          <h5 class="fw-bold">
             {{ distanceToNow(created_at) }}
             <small class="text-secondary"
               >{{ name }} ({{ humanSize(size) }})</small

@@ -136,7 +136,7 @@
         <!-- CHANGE PERMISSIONS LABEL -->
         <BFormGroup
           :label="$t('app_manage_label_and_tiles')"
-          label-class="font-weight-bold"
+          label-class="fw-bold"
         >
           <FormField
             v-for="(perm, i) in app.permissions"
@@ -186,7 +186,7 @@
         <BFormGroup
           :label="$t('app_info_access_desc')"
           label-for="permissions"
-          label-class="font-weight-bold"
+          label-class="fw-bold"
           label-cols-lg="0"
         >
           {{
@@ -209,7 +209,7 @@
           :label="$t('app_info_changeurl_desc')"
           label-for="input-url"
           :label-cols-lg="app.supports_change_url ? 0 : 0"
-          label-class="font-weight-bold"
+          label-class="fw-bold"
           v-if="app.is_webapp"
         >
           <BInputGroup v-if="app.supports_change_url">
@@ -243,7 +243,7 @@
         <BFormGroup
           :label="$t('app_info_default_desc', { domain: app.domain })"
           label-for="main-domain"
-          label-class="font-weight-bold"
+          label-class="fw-bold"
           label-cols-md="4"
           v-if="app.is_webapp"
         >

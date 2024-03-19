@@ -98,7 +98,7 @@ export default {
         const defaultAttrs = {
           'label-cols-md': 4,
           'label-cols-lg': 3,
-          'label-class': ['font-weight-bold', 'py-0'],
+          'label-class': ['fw-bold', 'py-0'],
         }
         if (!('label-cols' in attrs)) {
           for (const attr in defaultAttrs) {

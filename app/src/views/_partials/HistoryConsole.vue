@@ -15,7 +15,7 @@
     >
       <h5 class="m-0">
         <YIcon iname="history" />
-        <span class="d-none d-sm-inline font-weight-bold">
+        <span class="d-none d-sm-inline fw-bold">
           {{ $t('history.title') }}
         </span>
       </h5>
