@@ -114,7 +114,11 @@ export default {
 
     &:hover,
     &:focus {
-      background-color: shade-color($gray-100, 3%);
+      background-color: shade-color($body-tertiary-bg, 3%);
+
+      [data-bs-theme='dark'] & {
+        background-color: tint-color($body-tertiary-bg-dark, 3%);
+      }
     }
   }
 }

@@ -58,18 +58,30 @@ export default {
 
   .btn {
     padding: 0;
-    margin-left: 0.1rem;
+    margin-left: 0.25rem;
     border-radius: 50rem;
     line-height: inherit;
     font-size: inherit;
   }
 
-  &-popover {
-    background-color: $white;
-    border-width: 2px;
+  :deep() {
+    .popover {
+      background-color: $gray-800;
+      color: $black;
+      border-width: 2px;
 
-    :deep(.popover-body) {
-      color: $dark;
+      [data-bs-theme='dark'] & {
+        background-color: $white;
+        color: $white;
+      }
+
+      .popover-body {
+        color: $white;
+
+        [data-bs-theme='dark'] & {
+          color: $black;
+        }
+      }
     }
   }
 }

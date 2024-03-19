@@ -45,11 +45,11 @@
 
         <BCol>
           <template v-if="group.isSpecial">
-            <p class="text-primary">
+            <p class="text-primary-emphasis">
               <YIcon iname="info-circle" />
               {{ $t('group_explain_' + groupName) }}
             </p>
-            <p class="text-primary" v-if="groupName === 'visitors'">
+            <p class="text-primary-emphasis" v-if="groupName === 'visitors'">
               <em>{{
                 $t('group_explain_visitors_needed_for_external_client')
               }}</em>

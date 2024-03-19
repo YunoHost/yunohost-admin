@@ -1,6 +1,6 @@
 <template>
   <BOverlay
-    variant="white"
+    :variant="dark ? 'dark' : 'light'"
     opacity="0.75"
     no-center
     :show="waiting || reconnecting || error !== null"
@@ -41,7 +41,13 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['waiting', 'reconnecting', 'error', 'currentRequest']),
+    ...mapGetters([
+      'waiting',
+      'reconnecting',
+      'error',
+      'currentRequest',
+      'dark',
+    ]),
 
     component() {
       const { error, reconnecting, currentRequest: request } = this

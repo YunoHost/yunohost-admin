@@ -16,7 +16,7 @@
             <BCol>
               <strong>{{ $t('user_email') }}</strong>
             </BCol>
-            <BCol class="font-italic">
+            <BCol class="fst-italic">
               {{ user.mail }}
             </BCol>
           </BRow>

@@ -194,7 +194,14 @@ export default {
     padding-top: 0.5rem;
     position: sticky;
     top: 0;
-    background-color: $white;
+  }
+}
+
+// FIXME bvn fix (should be fixed in lib)
+:deep(.btn-group) {
+  display: block;
+  .btn {
+    width: 100%;
   }
 }
 </style>

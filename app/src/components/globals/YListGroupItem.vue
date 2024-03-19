@@ -49,6 +49,7 @@ export default {
 
   &-status {
     width: 2rem;
+    min-width: 2rem;
     display: flex;
     align-items: center;
     justify-content: center;

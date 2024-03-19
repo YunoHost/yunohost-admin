@@ -361,11 +361,6 @@ export default {
   display: flex;
   justify-items: stretch;
 
-  .form-group {
-    margin-bottom: 0.5rem;
-    width: 100%;
-  }
-
   .btn-danger {
     align-self: flex-start;
     margin-left: 0.5rem;

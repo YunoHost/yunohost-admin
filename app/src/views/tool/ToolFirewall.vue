@@ -33,9 +33,7 @@
               "
             >
               <span
-                :class="
-                  'btn btn-sm py-0 btn-' + (data.value ? 'danger' : 'success')
-                "
+                :class="'btn btn-xs btn-' + (data.value ? 'danger' : 'success')"
               >
                 {{ $t(data.value ? 'close' : 'open') }}
               </span>
@@ -59,13 +57,13 @@
       :server-error="serverError"
       @submit.prevent="onFormPortToggling"
       inline
-      form-classes="d-flex justify-content-between align-items-start"
+      form-classes="d-flex flex-column flex-lg-row gap-3 justify-content-between align-items-start"
     >
       <BInputGroup :prepend="$t('action')">
         <BFormSelect v-model="form.action" :options="actionChoices" />
       </BInputGroup>
 
-      <FormField :validation="v$.form.port">
+      <FormField :validation="v$.form.port" class="mb-0">
         <BInputGroup :prepend="$t('port')">
           <InputItem
             id="input-port"
@@ -290,47 +288,34 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-:deep(.on-off-switch) {
-  .custom-control-input {
-    &:checked ~ .custom-control-label::before {
-      border-color: $success;
-      background-color: $success;
-    }
-    &:not(:checked) ~ .custom-control-label {
-      &::before {
+:deep() {
+  .form-switch {
+    .form-check-input {
+      --bs-form-switch-bg: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'><circle r='3' fill='rgb(255, 255, 255)'/></svg>") !important;
+      [data-bs-theme='dark'] * & {
+        --bs-form-switch-bg: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'><circle r='3' fill='rgb(34, 38, 42)'/></svg>") !important;
+      }
+      &:checked {
+        border-color: $success;
+        background-color: $success;
+      }
+      &:not(:checked) {
         border-color: $danger;
         background-color: $danger;
       }
-      &::after {
-        background-color: $white;
+    }
+
+    input:focus ~ .custom-control-label,
+    &:hover {
+      span {
+        visibility: visible;
       }
     }
-  }
-
-  input:focus ~ .custom-control-label,
-  &:hover {
     span {
-      visibility: visible;
-    }
-  }
-  span {
-    visibility: hidden;
-    @include media-breakpoint-down(sm) {
-      display: none;
-    }
-  }
-}
-
-:deep(form) {
-  margin-bottom: -1rem;
-
-  & > * {
-    margin-bottom: 1rem;
-  }
-
-  @include media-breakpoint-down(sm) {
-    fieldset {
-      width: 100%;
+      visibility: hidden;
+      @include media-breakpoint-down(sm) {
+        display: none;
+      }
     }
   }
 }

@@ -199,9 +199,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss" scoped>
-.custom-select {
-  flex-basis: 40%;
-}
-</style>

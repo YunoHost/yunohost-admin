@@ -117,6 +117,29 @@ body {
 .tooltip {
   top: 0;
 }
+
+// BVN fixes
+// FIXME move to CardForm ?
+form {
+  .row {
+    margin-bottom: $spacer;
+  }
+  fieldset {
+    margin-bottom: $spacer;
+    width: 100%;
+    .row {
+      margin-bottom: 0;
+    }
+  }
+  .form-text {
+    display: block;
+
+    .alert {
+      margin-bottom: 0;
+    }
+  }
+}
+
 // Descriptive list (<b-row /> elems with <b-col> inside)
 // FIXME REMOVE when every infos switch to `DescriptionRow`
 .row-line {
@@ -247,6 +270,10 @@ code {
   background: $gray-300;
   padding: 0.15rem 0.25rem;
   border-radius: $border-radius;
+
+  [data-bs-theme='dark'] & {
+    background-color: $gray-800;
+  }
 }
 
 pre code {
@@ -258,6 +285,10 @@ pre code {
   padding: 1rem;
   background-color: $light;
   overflow: auto;
+
+  [data-bs-theme='dark'] & {
+    background-color: $dark;
+  }
 }
 
 .unselectable {

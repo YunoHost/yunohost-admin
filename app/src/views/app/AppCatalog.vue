@@ -466,19 +466,20 @@ export default {
 .card-deck {
   padding: 0;
   margin-bottom: 0;
+  display: flex;
+  flex-flow: row wrap;
 
   > * {
-    margin-bottom: 2rem;
     flex-basis: 100%;
 
     @include media-breakpoint-up(md) {
       flex-basis: 50%;
-      max-width: calc(50% - 30px);
+      max-width: calc(50% - 0.75rem);
     }
 
     @include media-breakpoint-up(lg) {
       flex-basis: 33%;
-      max-width: calc(33.3% - 30px);
+      max-width: calc(33.3% - 1rem);
     }
   }
 
@@ -489,8 +490,9 @@ export default {
       border-color: $dark;
     }
 
-    .card-link {
+    :deep(.card-link) {
       color: inherit;
+      text-decoration: none;
 
       &::after {
         content: '';
