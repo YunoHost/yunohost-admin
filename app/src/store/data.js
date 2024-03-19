@@ -1,6 +1,7 @@
 import api from '@/api'
 import { isEmptyValue } from '@/helpers/commons'
 import { stratify } from '@/helpers/data/tree'
+import { reactive } from 'vue'
 
 export function getParentDomain(domain, domains, highest = false) {
   const method = highest ? 'lastIndexOf' : 'indexOf'
@@ -277,14 +278,16 @@ export default {
       // action when state.domain change)
       const domains = getters.orderedDomains
       if (!domains) return
-      const dataset = domains.map((name) => ({
-        // data to build a hierarchy
-        name,
-        parent: getParentDomain(name, domains),
-        // utility data that will be used by `RecursiveListGroup` component
-        to: { name: 'domain-info', params: { name } },
-        opened: true,
-      }))
+      const dataset = reactive(
+        domains.map((name) => ({
+          // data to build a hierarchy
+          name,
+          parent: getParentDomain(name, domains),
+          // utility data that will be used by `RecursiveListGroup` component
+          to: { name: 'domain-info', params: { name } },
+          opened: true,
+        })),
+      )
       return stratify(dataset)
     },
 

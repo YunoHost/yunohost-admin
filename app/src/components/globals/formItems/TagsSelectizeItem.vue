@@ -175,7 +175,7 @@ export default {
       // Allow to start searching after dropdown opening
       if (
         !['Tab', 'Space'].includes(e.code) &&
-        e.target === this.$refs.dropdown.$el.lastElementChild
+        e.target === this.$refs.dropdown.$el.firstElementChild
       ) {
         this.$refs['search-input'].focus()
       }

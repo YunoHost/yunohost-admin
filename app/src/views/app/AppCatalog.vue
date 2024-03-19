@@ -80,7 +80,10 @@
         class="category-card"
       >
         <BCardTitle>
-          <BLink @click="updateQuery('category', cat.value)" class="card-link">
+          <BLink
+            @click.prevent="updateQuery('category', cat.value)"
+            class="card-link"
+          >
             <YIcon :iname="cat.icon" /> {{ cat.text }}
           </BLink>
         </BCardTitle>

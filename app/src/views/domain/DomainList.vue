@@ -6,7 +6,6 @@
     items-name="domains"
     :queries="queries"
     :filtered-items="hasFilteredItems"
-    @queries-response="onQueriesResponse"
   >
     <template #top-bar-buttons>
       <BButton variant="success" :to="{ name: 'domain-add' }">
@@ -63,12 +62,11 @@ export default {
     return {
       queries: [['GET', { uri: 'domains', storeKey: 'domains' }]],
       search: '',
-      domainsTree: undefined,
     }
   },
 
   computed: {
-    ...mapGetters(['domains', 'mainDomain']),
+    ...mapGetters(['domains', 'mainDomain', 'domainsTree']),
 
     tree() {
       if (!this.domainsTree) return
@@ -84,13 +82,6 @@ export default {
     hasFilteredItems() {
       if (!this.tree) return
       return this.tree.children || null
-    },
-  },
-
-  methods: {
-    onQueriesResponse() {
-      // Add the tree to `data` to make it reactive
-      this.domainsTree = this.$store.getters.domainsTree
     },
   },
 }

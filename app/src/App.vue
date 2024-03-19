@@ -142,7 +142,7 @@ export default {
       if (key === copypastaCode[copypastastep++]) {
         if (copypastastep === copypastaCode.length) {
           document
-            .getElementsByClassName('unselectable')
+            .querySelectorAll('.unselectable')
             .forEach((element) => element.classList.remove('unselectable'))
           copypastastep = 0
         }
