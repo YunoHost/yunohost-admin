@@ -221,7 +221,7 @@ export function formatYunoHostArgument(arg) {
             label: arg.placeholder,
           })
         }
-        if (typeof value === 'string') {
+        if (typeof value === 'string' && value) {
           value = value.split(',')
         } else if (!value) {
           value = []
@@ -296,8 +296,15 @@ export function formatYunoHostArgument(arg) {
     prop = prop.split(':')
     const propName = prop[0]
     const argName = prop.slice(-1)[0]
+
     if (argName in arg) {
-      field.props.props[propName] = arg[argName]
+      if (propName === 'choices') {
+        field.props.props[propName] = Object.entries(arg[argName]).map(
+          ([value, text]) => ({ value, text }),
+        )
+      } else {
+        field.props.props[propName] = arg[argName]
+      }
     }
   }
 
