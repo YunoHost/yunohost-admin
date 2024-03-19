@@ -2,16 +2,21 @@
   <span class="explain-what">
     <slot name="default" />
     <span class="explain-what-popover-container">
-      <BButton :id="id" href="#" variant="light">
+      <BButton
+        variant="light"
+        @focus="open = true"
+        @blur="open = false"
+        @click="open = !open"
+      >
         <YIcon iname="question" />
         <span class="sr-only">
           {{ $t('details_about', { subject: title }) }}
         </span>
       </BButton>
+      <!-- FIXME missing prop `trigger` in bvn https://github.com/bootstrap-vue-next/bootstrap-vue-next/issues/1275 and looks like `placement` doesn't work -->
       <BPopover
-        placement="auto"
-        :target="id"
-        triggers="focus"
+        v-model="open"
+        placement="top"
         custom-class="explain-what-popover"
         :variant="variant"
         :title="title"
@@ -37,6 +42,12 @@ export default {
     cols_() {
       return Object.assign({ md: 4, xl: 3 }, this.cols)
     },
+  },
+
+  data() {
+    return {
+      open: false,
+    }
   },
 }
 </script>
