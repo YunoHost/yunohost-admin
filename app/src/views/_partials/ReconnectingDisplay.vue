@@ -7,14 +7,14 @@
       <YSpinner class="mb-4" />
 
       <BAlert
-        v-if="origin"
+        :modelValue="!!origin"
         v-t="'api.reconnecting.reason.' + origin"
         :variant="origin === 'unknow' ? 'warning' : 'info'"
       />
     </template>
 
     <template v-if="status === 'failed'">
-      <BAlert variant="danger">
+      <BAlert :modelValue="true" variant="danger">
         <MarkdownItem :label="$t('api.reconnecting.failed')" />
       </BAlert>
 
@@ -29,7 +29,11 @@
     </template>
 
     <template v-if="status === 'expired'">
-      <BAlert variant="success" v-t="'api.reconnecting.session_expired'" />
+      <BAlert
+        :modelValue="true"
+        variant="success"
+        v-t="'api.reconnecting.session_expired'"
+      />
 
       <LoginView force-reload />
     </template>

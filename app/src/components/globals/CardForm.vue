@@ -17,7 +17,7 @@
             variant="danger"
             class="my-3"
             icon="ban"
-            :show="errorFeedback !== ''"
+            :modelValue="errorFeedback !== ''"
           >
             <div v-html="errorFeedback" />
           </BAlert>

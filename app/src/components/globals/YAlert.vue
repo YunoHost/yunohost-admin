@@ -2,6 +2,7 @@
   <Component
     v-bind="$attrs"
     :is="alert ? 'BAlert' : 'div'"
+    :modelValue="alert ? true : null"
     :variant="alert ? variant : null"
     :class="{ ['alert alert-' + variant]: !alert }"
     class="yuno-alert d-flex flex-column flex-md-row align-items-center"

@@ -29,7 +29,11 @@
     </template>
 
     <template #default>
-      <BAlert v-if="items === null || filteredItems === null" variant="warning">
+      <BAlert
+        v-if="items === null || filteredItems === null"
+        :modelValue="true"
+        variant="warning"
+      >
         <slot name="alert-message">
           <YIcon iname="exclamation-triangle" />
           {{

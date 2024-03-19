@@ -193,7 +193,7 @@
     </template>
 
     <!-- In case of a custom url with no manifest found -->
-    <BAlert v-else-if="app === null" variant="warning">
+    <BAlert :modelValue="app === null" variant="warning">
       <YIcon iname="exclamation-triangle" />
       {{ $t('app_install_custom_no_manifest') }}
     </BAlert>

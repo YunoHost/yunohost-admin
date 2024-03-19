@@ -2,7 +2,7 @@
   <BAlert
     class="d-flex flex-column flex-md-row align-items-center"
     :variant="type"
-    show
+    :modelValue="true"
   >
     <YIcon :iname="icon_" class="me-md-3 mb-md-0 mb-2" :variant="type" />
 

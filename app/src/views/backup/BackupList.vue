@@ -14,7 +14,7 @@
       />
     </template>
 
-    <BAlert v-if="!archives" variant="warning">
+    <BAlert v-if="!archives" :modelValue="!archives" variant="warning">
       <YIcon iname="exclamation-triangle" />
       {{ $t('items_verbose_count', { items: $t('items.backups', 0) }, 0) }}
     </BAlert>

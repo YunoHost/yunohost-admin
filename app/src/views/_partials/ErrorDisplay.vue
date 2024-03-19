@@ -23,7 +23,7 @@
 
       <p>
         <strong v-t="'api_error.error_message'" />
-        <BAlert class="mt-2" variant="danger">
+        <BAlert :modelValue="true" class="mt-2" variant="danger">
           <div v-html="error.message" />
         </BAlert>
       </p>

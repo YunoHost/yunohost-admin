@@ -13,7 +13,12 @@
         <slot name="default" />
 
         <slot name="server-error" v-bind="{ errorFeedback }">
-          <BAlert v-if="errorFeedback" variant="danger" class="my-3" icon="ban">
+          <BAlert
+            :modelValue="!!errorFeedback"
+            variant="danger"
+            class="my-3"
+            icon="ban"
+          >
             <div v-html="errorFeedback" />
           </BAlert>
         </slot>
