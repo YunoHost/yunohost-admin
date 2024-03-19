@@ -1,13 +1,15 @@
 <template>
-  <BButtonGroup class="w-100">
-    <BButton
-      v-if="!this.required && this.modelValue.file !== null"
-      @click="clearFiles"
-      variant="danger"
-    >
-      <span class="sr-only">{{ $t('delete') }}</span>
-      <YIcon iname="trash" />
-    </BButton>
+  <BInputGroup class="w-100">
+    <template #append>
+      <BButton
+        v-if="!this.required && this.modelValue.file !== null"
+        @click="clearFiles"
+        variant="danger"
+      >
+        <span class="sr-only">{{ $t('delete') }}</span>
+        <YIcon iname="trash" />
+      </BButton>
+    </template>
 
     <BFormFile
       :modelValue="modelValue.file"
@@ -23,7 +25,7 @@
       @blur="touch(name)"
       @focusout="touch(name)"
     />
-  </BButtonGroup>
+  </BInputGroup>
 </template>
 
 <script>
@@ -38,7 +40,7 @@ export default {
     modelValue: { type: Object, default: () => ({ file: null }) },
     placeholder: { type: String, default: 'Choose a file or drop it here...' },
     dropPlaceholder: { type: String, default: null },
-    accept: { type: String, default: null },
+    accept: { type: String, default: '' },
     state: { type: Boolean, default: null },
     required: { type: Boolean, default: false },
     name: { type: String, default: null },
@@ -89,6 +91,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+// fix https://getbootstrap.com/docs/5.2/migration/#forms
 :deep(.custom-file-label) {
   color: $input-placeholder-color;
 
