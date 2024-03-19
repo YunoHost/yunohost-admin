@@ -15,19 +15,19 @@ export default {
     return {
       busy: false,
       range: this.stacks,
-      childrenCount: this.$slots.default().length,
+      childrenCount: this.$slots.default()[0].children,
     }
   },
 
   methods: {
     getTopParent(prev) {
-      return prev.parentElement === this.$refs.feed
+      return prev.parentElement === this.$refs.feed.$el
         ? prev
         : this.getTopParent(prev.parentElement)
     },
 
     onScroll() {
-      const elem = this.$refs.feed
+      const elem = this.$refs.feed.$el
       if (
         window.innerHeight >
         elem.clientHeight + elem.getBoundingClientRect().top - 200
@@ -56,12 +56,12 @@ export default {
 
   mounted() {
     window.addEventListener('scroll', this.onScroll)
-    this.$refs.feed.addEventListener('keydown', this.onKeydown)
+    this.$refs.feed.$el.addEventListener('keydown', this.onKeydown)
     this.onScroll()
   },
 
   beforeUpdate() {
-    const slots = this.$slots.default()
+    const slots = this.$slots.default()[0].children
     if (this.childrenCount !== slots.length) {
       this.range = this.stacks
       this.childrenCount = slots.length
@@ -77,13 +77,15 @@ export default {
         'aria-busy': this.busy.toString(),
         ref: 'feed',
       },
-      this.$slots.default().slice(0, this.range),
+      {
+        default: () => this.$slots.default()[0].children.slice(0, this.range),
+      },
     )
   },
 
   beforeUnmount() {
     window.removeEventListener('scroll', this.onScroll)
-    this.$refs.feed.removeEventListener('keydown', this.onKeydown)
+    this.$refs.feed.$el.removeEventListener('keydown', this.onKeydown)
   },
 }
 </script>
