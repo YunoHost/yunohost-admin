@@ -9,18 +9,14 @@
       @update:modelValue="onInput('localPart', $event)"
     />
 
-    <BInputGroupAppend>
-      <BInputGroupText>{{ modelValue.separator }}</BInputGroupText>
-    </BInputGroupAppend>
+    <BInputGroupText>{{ modelValue.separator }}</BInputGroupText>
 
-    <BInputGroupAppend>
-      <SelectItem
-        :modelValue="modelValue.domain"
-        :choices="choices"
-        :aria-describedby="id + 'domain-desc'"
-        @update:modelValue="onInput('domain', $event)"
-      />
-    </BInputGroupAppend>
+    <SelectItem
+      :modelValue="modelValue.domain"
+      :choices="choices"
+      :aria-describedby="id + 'domain-desc'"
+      @update:modelValue="onInput('domain', $event)"
+    />
 
     <span
       class="sr-only"
@@ -60,13 +56,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss" scoped>
-.input-group-append ~ .input-group-append {
-  flex-basis: 40%;
-}
-select {
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
-}
-</style>

@@ -5,9 +5,9 @@
     </template>
     <template v-if="!hasCustomTopBar" #top-bar-group-left>
       <BInputGroup class="w-100">
-        <BInputGroupPrepend is-text>
+        <BInputGroupText>
           <YIcon iname="search" />
-        </BInputGroupPrepend>
+        </BInputGroupText>
 
         <BFormInput
           id="top-bar-search"

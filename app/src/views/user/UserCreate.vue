@@ -30,15 +30,9 @@
       <FormField v-bind="fields.domain" :validation="v$.form.domain">
         <template #default="{ self }">
           <BInputGroup>
-            <BInputGroupAppend>
-              <BInputGroupText
-                id="local-part"
-                tag="label"
-                class="border-right-0"
-              >
-                {{ form.username }}@
-              </BInputGroupText>
-            </BInputGroupAppend>
+            <BInputGroupText id="local-part" tag="label" class="border-right-0">
+              {{ form.username }}@
+            </BInputGroupText>
 
             <SelectItem
               aria-labelledby="local-part"

@@ -10,48 +10,49 @@
       <div id="view-top-bar">
         <!-- APP SEARCH -->
         <BInputGroup>
-          <BInputGroupPrepend is-text>
+          <BInputGroupText>
             <YIcon iname="search" />
-          </BInputGroupPrepend>
+          </BInputGroupText>
+
           <BFormInput
             id="search-input"
             :placeholder="$t('search.for', { items: $t('items.apps', 2) })"
             :modelValue="search"
             @update:modelValue="updateQuery('search', $event)"
           />
-          <BInputGroupAppend>
-            <BFormSelect
-              :modelValue="quality"
-              :options="qualityOptions"
-              @update:modelValue="updateQuery('quality', $event)"
-            />
-          </BInputGroupAppend>
+
+          <BFormSelect
+            :modelValue="quality"
+            :options="qualityOptions"
+            @update:modelValue="updateQuery('quality', $event)"
+          />
         </BInputGroup>
 
         <!-- CATEGORY SELECT -->
         <BInputGroup class="mt-3">
-          <BInputGroupPrepend is-text>
+          <BInputGroupText>
             <YIcon iname="filter" />
-          </BInputGroupPrepend>
+          </BInputGroupText>
+
           <BFormSelect
             :modelValue="category"
             :options="categories"
             @update:modelValue="updateQuery('category', $event)"
           />
-          <BInputGroupAppend>
-            <BButton
-              variant="primary"
-              :disabled="category === null"
-              @click="updateQuery('category', null)"
-            >
-              {{ $t('app_show_categories') }}
-            </BButton>
-          </BInputGroupAppend>
+
+          <BButton
+            variant="primary"
+            :disabled="category === null"
+            @click="updateQuery('category', null)"
+          >
+            {{ $t('app_show_categories') }}
+          </BButton>
         </BInputGroup>
 
         <!-- CATEGORIES SUBTAGS -->
         <BInputGroup v-if="subtags" class="mt-3 subtags">
-          <BInputGroupPrepend is-text> Subtags </BInputGroupPrepend>
+          <BInputGroupText>Subtags</BInputGroupText>
+
           <BFormRadioGroup
             id="subtags-radio"
             name="subtags"
@@ -61,6 +62,7 @@
             buttons
             button-variant="outline-secondary"
           />
+
           <BFormSelect
             id="subtags-select"
             :modelValue="subtag"

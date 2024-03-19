@@ -156,19 +156,19 @@
                   :id="'perm' + i"
                   :aria-describedby="'perm-' + i + '_group__BV_description_'"
                 />
-                <BInputGroupAppend v-if="perm.tileAvailable" is-text>
+
+                <BInputGroupText v-if="perm.tileAvailable">
                   <CheckboxItem
                     v-model="form.labels[i].show_tile"
                     :label="$t('permission_show_tile_enabled')"
                   />
-                </BInputGroupAppend>
-                <BInputGroupAppend>
-                  <BButton
-                    variant="info"
-                    v-t="'save'"
-                    @click="changeLabel(perm.name, form.labels[i])"
-                  />
-                </BInputGroupAppend>
+                </BInputGroupText>
+
+                <BButton
+                  variant="info"
+                  v-t="'save'"
+                  @click="changeLabel(perm.name, form.labels[i])"
+                />
               </BInputGroup>
             </template>
 
@@ -213,13 +213,11 @@
           v-if="app.is_webapp"
         >
           <BInputGroup v-if="app.supports_change_url">
-            <BInputGroupPrepend is-text> https:// </BInputGroupPrepend>
+            <BInputGroupText>https://</BInputGroupText>
 
-            <BInputGroupPrepend class="flex-grow-1">
-              <BFormSelect v-model="form.url.domain" :options="domains" />
-            </BInputGroupPrepend>
+            <BFormSelect v-model="form.url.domain" :options="domains" />
 
-            <BInputGroupPrepend is-text> / </BInputGroupPrepend>
+            <BInputGroupText>/</BInputGroupText>
 
             <BFormInput
               id="input-url"
@@ -227,9 +225,7 @@
               class="flex-grow-3"
             />
 
-            <BInputGroupAppend>
-              <BButton @click="changeUrl" variant="info" v-t="'save'" />
-            </BInputGroupAppend>
+            <BButton @click="changeUrl" variant="info" v-t="'save'" />
           </BInputGroup>
 
           <div v-else class="alert alert-warning">
