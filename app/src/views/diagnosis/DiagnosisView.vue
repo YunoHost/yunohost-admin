@@ -188,15 +188,19 @@ export default {
           item.issue = false
 
           if (item.ignored) {
-            item.variant = 'light'
             report.ignoreds++
-          } else if (status === 'warning') {
+          }
+          if (status === 'warning') {
             item.issue = true
-            report.warnings++
+            if (!item.ignored) {
+              report.warnings++
+            }
           } else if (status === 'error') {
             item.variant = 'danger'
             item.issue = true
-            report.errors++
+            if (!item.ignored) {
+              report.errors++
+            }
           }
         }
 
@@ -232,10 +236,11 @@ export default {
           item.ignored = action === 'ignore'
           if (item.ignored) {
             report[item.status.toLowerCase() + 's']--
+            report.ignoreds++
           } else {
+            report[item.status.toLowerCase() + 's']++
             report.ignoreds--
           }
-          this.formatReportItem(report, item)
         })
     },
 
