@@ -6,8 +6,10 @@
           v-for="route in routes"
           :key="route.text"
           :to="route.to"
-          exact-active-class="active"
+          :active="$route.params.tabId === route.to.params.tabId"
         >
+          <!-- FIXME added :active="" because `exact-active-class` not working https://github.com/bootstrap-vue-next/bootstrap-vue-next/issues/1754 -->
+          <!-- exact-active-class="active" -->
           <YIcon v-if="route.icon" :iname="route.icon" />
           {{ route.text }}
         </BNavItem>
