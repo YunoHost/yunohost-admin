@@ -59,7 +59,7 @@
 
           <BButton variant="danger" @click="removeEmailField('aliases', i)">
             <YIcon :title="$t('delete')" iname="trash-o" />
-            <span class="sr-only">{{ $t('delete') }}</span>
+            <span class="visually-hidden">{{ $t('delete') }}</span>
           </BButton>
         </div>
 
@@ -81,7 +81,7 @@
 
           <BButton variant="danger" @click="removeEmailField('forward', i)">
             <YIcon :title="$t('delete')" iname="trash-o" />
-            <span class="sr-only">{{ $t('delete') }}</span>
+            <span class="visually-hidden">{{ $t('delete') }}</span>
           </BButton>
         </div>
 

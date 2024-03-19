@@ -98,7 +98,7 @@
               :href="'https://' + name + app.path"
               target="_blank"
             >
-              <span class="sr-only">{{ $t('app.visit_app') }}</span>
+              <span class="visually-hidden">{{ $t('app.visit_app') }}</span>
               <YIcon iname="external-link" />
             </BButton>
           </BButton-group>

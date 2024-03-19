@@ -19,12 +19,12 @@
     />
 
     <span
-      class="sr-only"
+      class="visually-hidden"
       :id="id + 'local-part-desc'"
       v-t="'address.local_part_description.' + type"
     />
     <span
-      class="sr-only"
+      class="visually-hidden"
       :id="id + 'domain-desc'"
       v-t="'address.domain_description.' + type"
     />

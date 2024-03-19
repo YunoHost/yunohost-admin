@@ -34,7 +34,7 @@
         }"
       >
         <YIcon iname="chevron-right" />
-        <span class="sr-only">{{ $t('words.collapse') }}</span>
+        <span class="visually-hidden">{{ $t('words.collapse') }}</span>
       </BButton>
     </template>
 

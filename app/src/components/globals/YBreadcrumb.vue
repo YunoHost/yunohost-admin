@@ -1,7 +1,7 @@
 <template>
   <BBreadcrumb v-if="breadcrumb.length">
     <BBreadcrumbItem to="/">
-      <span class="sr-only">{{ $t('home') }}</span>
+      <span class="visually-hidden">{{ $t('home') }}</span>
       <YIcon iname="home" />
     </BBreadcrumbItem>
 

@@ -9,7 +9,7 @@
         @click="open = !open"
       >
         <YIcon iname="question" />
-        <span class="sr-only">
+        <span class="visually-hidden">
           {{ $t('details_about', { subject: title }) }}
         </span>
       </BButton>
