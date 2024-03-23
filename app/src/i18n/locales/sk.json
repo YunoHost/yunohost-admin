@@ -461,7 +461,7 @@
     "save": "Uložiť",
     "search": {
         "for": "Hľadanie {items}…",
-        "not_found": "Nájdených {item} zodpovedajúcich Vášmu zadaniu. | Nájdená 1 {items} zodpovedajúca Vášmu zadaniu. | Nájdené {items} zodpovedajúce Vášmu zadaniu."
+        "not_found": "Nájdených {items} zodpovedajúcich Vášmu zadaniu. | Nájdená 1 {items} zodpovedajúca Vášmu zadaniu. | Nájdené {items} zodpovedajúce Vášmu zadaniu."
     },
     "select_all": "Vybrať všetko",
     "select_none": "Nevybrať nič",
