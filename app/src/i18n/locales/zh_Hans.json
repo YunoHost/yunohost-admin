@@ -138,7 +138,7 @@
         "lastname": "姓",
         "firstname": "名"
     },
-    "api_waiting": "正在等待服务器的响应...",
+    "api_waiting": "正在等待服务器的响应…",
     "address": {
         "domain_description": {
             "email": "为您的邮箱选择一个域。",
@@ -232,8 +232,8 @@
             "pending": "进行中",
             "error": "未成功"
         },
-        "processing": "服务器正在处理操作...",
-        "partial_logs": "[...]（查看完整日志的历史记录）",
+        "processing": "服务器正在处理操作…",
+        "partial_logs": "[…]（查看完整日志的历史记录）",
         "reconnecting": {
             "failed": "看起来服务器没有响应。您可以尝试重新连接或尝试通过 ssh 运行 `systemctl restart yunohost-api`。",
             "reason": {
@@ -243,7 +243,7 @@
                 "shutdown": "您的服务器正在关闭并且无法再访问。请重新启机，当服务器可以访问时，登录提示将会出现。"
             },
             "success": "服务器现在可以访问了！您可以尝试登录",
-            "title": "正在尝试与服务器通信..."
+            "title": "正在尝试与服务器通信…"
         }
     },
     "ignored": "{count} 已忽略",
@@ -397,7 +397,7 @@
     "select_all": "全选",
     "search": {
         "not_found": "{items}符合您的条件。 | 有 1 个{items}符合您的条件。 | 共有{items}符合您的条件。",
-        "for": "搜索{items}..."
+        "for": "搜索{items}…"
     },
     "save": "保存",
     "running": "正在运行",
