@@ -29,7 +29,7 @@
     "confirm_firewall_allow": "Està segur de voler obrir el port {port}? (protocol: {protocol}, connexió: {connection})",
     "confirm_firewall_disallow": "Està segur de voler tancar el port {port}? (protocol: {protocol}, connexió: {connection})",
     "confirm_install_custom_app": "ATENCIÓ! La instal·lació d'aplicacions de terceres parts pot comprometre la integritat i seguretat del seu sistema. No hauríeu d'instal·lar-ne a no ser que sapigueu el que feu. Esteu segurs de voler córrer aquest risc?",
-    "confirm_install_domain_root": "No podrà instal·lar cap altra aplicació {domain}. Vol continuar?",
+    "confirm_install_domain_root": "Segur voleu instal·lar aquesta aplicació a «/»? No podreu instal·lar cap altra aplicació a {domain}",
     "confirm_migrations_skip": "Saltar-se les migracions no està recomanat. Està segur de voler continuar?",
     "confirm_postinstall": "Està a punt de començar el procés de post-instal·lació en el domini {domain}. Pot tardar uns minuts, *no interrompi la operació*.",
     "confirm_restore": "Està segur de voler restaurar {name}?",
@@ -349,7 +349,7 @@
         }
     },
     "api": {
-        "processing": "El servidor està processant l'acció...",
+        "processing": "El servidor està processant l'acció…",
         "partial_logs": "[...] (consulteu l'historial per obtenir els registres complets)",
         "query_status": {
             "error": "Sense èxit",
@@ -364,7 +364,7 @@
                 "unknown": "La connexió amb el servidor s'ha tancat per motius desconeguts.",
                 "upgrade_system": "La connexió amb el servidor s'ha tancat a causa de l'actualització de YunoHost. S'està esperant que el servidor torni a ser accessible…"
             },
-            "title": "S'està intentant comunicar amb el servidor...",
+            "title": "S'està intentant comunicar amb el servidor…",
             "failed": "Sembla que el servidor no respon. Podeu provar de tornar a connectar-vos o provar d'executar `systemctl restart yunohost-api` mitjançant ssh.",
             "success": "Ja es pot accedir al servidor! Podeu provar d'iniciar sessió"
         }
@@ -662,7 +662,7 @@
     "retry": "Torna-ho a provar",
     "search": {
         "not_found": "Hi ha {items} que coincideixen amb els vostres criteris. | Hi ha 1 {items} que coincideix amb els vostres criteris. | Hi ha {items} que coincideixen amb els vostres criteris.",
-        "for": "Cerca {items}..."
+        "for": "Cerca {items}…"
     },
     "tools_webadmin_settings": "Configuració de Webadmin",
     "user_emailaliases_add": "Afegiu un àlies de correu",
