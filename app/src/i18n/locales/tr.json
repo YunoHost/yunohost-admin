@@ -58,7 +58,7 @@
     "app_state_lowquality_explanation": "Bu uygulama işlevsel olabilir, ancak yine de sorunlar içerebilir veya YunoHost ile tamamen entegre değildir veya iyi uygulamalara uymaz.",
     "purge_user_data_checkbox": "{name} verileri temizlensin mi? (Bu işlem ana ve posta dizinlerinin içeriğini silecektir.)",
     "app_info_change_url_disabled_tooltip": "Bu özellik bu uygulamada henüz uygulanmadı",
-    "app_info_default_desc": "Alan adı kökünü bu uygulamaya yönlendirin (% s).",
+    "app_info_default_desc": "Alan adı kökünü bu uygulamaya yönlendirin ({domain}).",
     "app_state_inprogress": "Henüz çalışmıyor",
     "app_info_changeurl_desc": "Bu uygulamanın erişim URL'sini değiştirin (alan adı ve / veya yol).",
     "app_make_default": "Varsayılan yap",
@@ -282,11 +282,11 @@
                 "reboot": "Sunucunuz yeniden başlatılıyor ve bir süreliğine erişilemeyecek. Sunucu tekrar erişilebilir olduğunda bir oturum açma ekranı sunulacaktır."
             },
             "success": "Sunucu artık erişilebilir durumda! Giriş yapabilirsiniz",
-            "title": "Sunucuyla iletişim kurulmaya çalışılıyor...",
+            "title": "Sunucuyla iletişim kurulmaya çalışılıyor…",
             "failed": "Sunucu yanıt vermiyor gibi görünüyor. Yeniden bağlanmayı deneyebilir veya ssh aracılığıyla `systemctl restart yunohost-api` çalıştırmayı deneyebilirsiniz."
         },
-        "partial_logs": "[...] (tam günlükler için geçmişe bakın)",
-        "processing": "Sunucu eylemi işliyor..."
+        "partial_logs": "[…] (tam günlükler için geçmişe bakın)",
+        "processing": "Sunucu eylemi işliyor…"
     },
     "install": "Yükle",
     "readme": "Beni oku",
@@ -315,7 +315,7 @@
         "APIInternalError": "YunoHost \"internal\" bir hata ile karşılaştı"
     },
     "app_show_categories": "Kategorileri göster",
-    "confirm_firewall_allow": "{port} bağlantı noktasını açmak istediğinizden emin misiniz? (protokol: {protokol}, bağlantı: {connection})",
+    "confirm_firewall_allow": "{port} bağlantı noktasını açmak istediğinizden emin misiniz? (protokol: {protocol}, bağlantı: {connection})",
     "domain_add_dyndns_forbidden": "Zaten bir DynDNS etki alanına abone oldunuz, mevcut DynDNS etki alanınızı <a href='//forum.yunohost.org/t/nohost-domain-recovery-suppression-de-domaine-en-nohost-me-noho-st-et-ynh-fr/442'>bu linkteki forumundan kaldırmayı isteyebilirsiniz. </a>.",
     "domain_dns_push_failed_to_authenticate": "Kayıt şirketinin API'sinde kimlik doğrulanamadı. <a href='#/domains/{domain}/config'>kimlik bilgileri</a> yanlış olabilir mi? (Hata: {error})",
     "experimental_warning": "Uyarı: Bu özellik deneyseldir ve istikrarlı olarak kabul edilmez, ne yaptığınızı bilmiyorsanız kullanmamalısınız.",
@@ -338,14 +338,14 @@
         }
     },
     "api_not_found": "Görünüşe göre web yöneticisi var olmayan bir şeyi sorgulamaya çalıştı.",
-    "api_waiting": "Sunucunun yanıtı bekleniyor...",
+    "api_waiting": "Sunucunun yanıtı bekleniyor…",
     "app_install_parameters": "Kurulum ayarları",
     "backup_content": "Yedek içeriği",
     "backup_create": "Yedek oluştur",
     "backup_new": "Yeni yedek",
     "confirm_app_change_url": "Uygulama erişim URL'sini değiştirmek istediğinizden emin misiniz?",
     "confirm_app_default": "Bu uygulamayı varsayılan yapmak istediğinizden emin misiniz?",
-    "confirm_firewall_disallow": "{port} bağlantı noktasını kapatmak istediğinizden emin misiniz? (protokol: {protokol}, bağlantı: {connection})",
+    "confirm_firewall_disallow": "{port} bağlantı noktasını kapatmak istediğinizden emin misiniz? (protokol: {protocol}, bağlantı: {connection})",
     "confirm_group_add_access_permission": "{name} için {perm} erişimi vermek istediğinizden emin misiniz? {name} kötü niyetli bir kişi olursa, bu tür erişim saldırı yüzeyini önemli ölçüde artırır. Bunu yalnızca bu kişiye/gruba GÜVENİYORSANIZ yapmalısınız.",
     "confirm_install_custom_app": "UYARI! 3. taraf uygulamaları yüklemek, sisteminizin bütünlüğünü ve güvenliğini tehlikeye atabilir. Ne yaptığınızı bilmiyorsanız muhtemelen KURMAMALISINIZ. Bu riski almaya hazır mısınız?",
     "confirm_install_domain_root": "Bu uygulamayı kök dizin '/' üzerine kurmak istediğinizden emin misiniz? {domain} alan adına başka bir uygulama yükleyemeyeceksiniz",
@@ -472,8 +472,8 @@
     "user_username_edit": "{name} adlı kullanıcının hesabını düzenleyin",
     "tools_shutdown": "Sunucuyu kapat",
     "search": {
-        "for": "{items} öğelerini ara...",
-        "not_found": "Kriterlerinizle eşleşen {items} öğe var. | Kriterlerinize uyan 1 {item} öğe var. | Kriterlerinizle eşleşen {items} öğe var."
+        "for": "{items} öğelerini ara…",
+        "not_found": "Kriterlerinizle eşleşen {items} öğe var. | Kriterlerinize uyan 1 {items} öğe var. | Kriterlerinizle eşleşen {items} öğe var."
     },
     "users_import": "Kullanıcıları içe aktar",
     "users_export": "Kullanıcıları dışa aktar",
