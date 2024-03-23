@@ -11,7 +11,7 @@
     "app_info_default_desc": "Uudelleen ohjaa verkkotunnuksen juuri tähän sovellukseen ({domain}).",
     "app_info_access_desc": "Ryhmät / käyttäjät jolla on oikeus tähän sovellukseen:",
     "app_choose_category": "Valitse kategoria",
-    "api_waiting": "Odotetaan palvelimen vastausta...",
+    "api_waiting": "Odotetaan palvelimen vastausta…",
     "api_not_responding": "YunoHost API ei vastaa. Ehkä 'yunohost-api' on kaatunut tai käynnsityi uudelleen?",
     "api_not_found": "Näyttää siltä, että web-järjestelmänvalvoja yritti kysyä jotain, jota ei ole olemassa.",
     "all_apps": "Kaikki sovellukset",
@@ -38,10 +38,10 @@
             "pending": "Käynnissä",
             "error": "Epäonnistui"
         },
-        "processing": "Palvelin käsittelee toimintoa.",
-        "partial_logs": "[...](Katso historiasta täydet logit)",
+        "processing": "Palvelin käsittelee toimintoa…",
+        "partial_logs": "[…](Katso historiasta täydet logit)",
         "reconnecting": {
-            "title": "Yritetään kommunikoida palvelimen kanssa...",
+            "title": "Yritetään kommunikoida palvelimen kanssa…",
             "failed": "Näyttää siltä, että palvelin ei vastaa. Voit yrittää muodostaa yhteyden uudelleen tai yrittää suorittaa `systemctl restart yunohost-api` ssh:n kautta.",
             "reason": {
                 "unknown": "Yhteys palvelimeen on suljettu tuntemattomasta syystä.",
@@ -270,7 +270,7 @@
     "human_routes": {
         "apps": {
             "change_label": "Vaihda label '{prevName}' labeliksi '{nextName}'",
-            "change_url": "Vaihda '{nimi}' URL-osoite",
+            "change_url": "Vaihda '{name}' URL-osoite",
             "uninstall": "Poista sovellus '{name}'",
             "update_config": "Päivitä sovelluksen '{name}' konfiguraatio",
             "install": "Asenna sovellus '{name}'",
@@ -336,7 +336,7 @@
         "reboot": "Käynnistä palvelin uudelleen",
         "firewall": {
             "ports": "{action} portti {port} ({protocol}, {connection})",
-            "upnp": "{action UPnP"
+            "upnp": "{action} UPnP"
         },
         "reconnecting": "Yhdistetään uudelleen"
     },
@@ -453,7 +453,7 @@
     "restart": "Käynnistä uudelleen",
     "search": {
         "not_found": "Kriteerejäsi vastaavia {items} löytyy. | On 1 {items}, joka vastaa kriteerejäsi. | On {items}, jotka vastaavat kriteerejäsi.",
-        "for": "Etsi {items}..."
+        "for": "Etsi {items}…"
     },
     "skip": "Ohita",
     "users_export": "Vie käyttäjiä",
@@ -471,7 +471,7 @@
     "group_format_name_help": "Voit käyttää aakkosnumeerisia merkkejä ja alleviivausmerkkejä",
     "hook_data_xmpp": "XMPP-data",
     "hook_data_xmpp_desc": "Huone- ja käyttäjäkonfiguraatiot, ladatut tiedostot",
-    "ignored": "{count] ignoorattu",
+    "ignored": "{count} ignoorattu",
     "install_time": "Asennusaika",
     "ipv4": "IPv4",
     "users_no": "Ei käyttäjiä.",
