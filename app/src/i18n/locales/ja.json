@@ -15,8 +15,8 @@
     "all": "すべて",
     "all_apps": "すべてのアプリ",
     "api": {
-        "partial_logs": "[...] (詳細ログで履歴を確認)",
-        "processing": "サーバーはアクションを実行中です...",
+        "partial_logs": "[…] (詳細ログで履歴を確認)",
+        "processing": "サーバーはアクションを実行中です…",
         "query_status": {
             "error": "失敗",
             "pending": "実行中",
@@ -31,7 +31,7 @@
                 "reboot": "サーバーが再起動中のため、接続が途切れることがあります。再起動後、すぐにログイン画面が利用可能になります。"
             },
             "success": "サーバーが利用可能になりました！ログインが可能です",
-            "title": "サーバーと通信中...",
+            "title": "サーバーと通信中…",
             "failed": "サーバーが応答していないようです。再接続するか、SSH経由で`systemctl restart yunohost-api`を実行してみてください。"
         }
     },
@@ -52,7 +52,7 @@
         "APINotRespondingError": "YunoHost APIが応答していません"
     },
     "api_not_responding": "YunoHost APIは応答していません。'yunohost-api'が停止しているか、再起動中ではありませんか？",
-    "api_waiting": "サーバーの応答を待っています...",
+    "api_waiting": "サーバーの応答を待っています…",
     "app": {
         "installed_version": "インストール済バージョン:",
         "open_this_app": "このアプリを開く",
@@ -226,7 +226,7 @@
                 "other": "その他/不明",
                 "selfsigned": "自己署名"
             },
-            "valid_for": "あと {days) 日有効"
+            "valid_for": "あと {days} 日有効"
         },
         "config": {
             "edit": "ドメイン設定を編集する",
@@ -302,7 +302,7 @@
         "email": "不正な電子メール: 小文字の英数字、<code>_.-</code> である必要があります (例: someone@example.com, s0me-1@example.com)",
         "emailForward": "不正な電子メール転送: 小文字の英数字、<code>_.-</code> である必要があります (例: someone+tag@example.com, s0me-1+tag@example.com)",
         "pattern": "{type}",
-        "remote": "{mesage}",
+        "remote": "{message}",
         "required": "フィールドは必要です。",
         "appRepoUrl": "YunoHostアプリリポジトリのURLは次のようになります https://domain.tld/path/to/repo_ynh",
         "name": "名前に次の特殊文字を含めることはできません。 <code> ,.'-</code>",
@@ -649,7 +649,7 @@
     "postinstall_intro_1": "やりました！YunoHostは正常にインストールされました。",
     "postinstall_intro_2": "サーバーのサービスを有効化するには、さらに 2 つの設定手順が必要です。",
     "search": {
-        "for": "{items}について検索...",
+        "for": "{items}について検索…",
         "not_found": "条件に合致する {items} が存在する。 | 条件に合致する1つの {items} が存在する。 | 条件に合致する {items} が存在する。"
     },
     "since": "から",
