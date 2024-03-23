@@ -69,7 +69,7 @@
     "hook_data_mail": "Poŝto",
     "backup_create": "Krei sekurkopion",
     "confirm_uninstall": "Ĉu vi certas, ke vi volas malinstali {name} ?",
-    "confirm_firewall_disallow": "Ĉu vi certas, ke vi volas fermi havenon {port} ?  (protokolo: {protocol}, rilato: {connection})",
+    "confirm_firewall_disallow": "Ĉu vi certas, ke vi volas fermi havenon {port} ? (protokolo: {protocol}, rilato: {connection})",
     "created_at": "Kreita ĉe",
     "confirm_app_change_url": "Ĉu vi certas, ke vi volas ŝanĝi la URL-aliron de la aplikaĵo?",
     "ipv6": "IPv6",
