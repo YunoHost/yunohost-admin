@@ -23,7 +23,7 @@
             "success": "Arrakastaz amaitu da"
         },
         "processing": "Zerbitzaria eragiketa exekutatzen ari da…",
-        "partial_logs": "[...] (ikuskatu historia erregistro osoetarako)",
+        "partial_logs": "[…] (ikuskatu historia erregistro osoetarako)",
         "reconnecting": {
             "title": "Zerbitzariarekin komunikatzeko ahaleginetan…",
             "failed": "Badirudi zerbitzaria ez dela erantzuten ari. SSH bidez berriro konektatzen saia zaitezke `systemctl restart yunohost-api` exekutatuz.",
@@ -44,7 +44,7 @@
         "info": "Ondorengo informazioa baliagarria izan dakioke laguntza ematen ari zaionari:",
         "sorry": "Barkatu."
     },
-    "api_waiting": "Zerbitzariaren zain…",
+    "api_waiting": "Zerbitzariaren erantzunaren zain…",
     "all": "Guztia",
     "api_not_found": "Badirudi administrazio-webgunea existitzen ez den zerbait bilatzen saiatu dela.",
     "api_not_responding": "YunoHosten APIa ez da erantzuten ari. Agian 'yunohost-api' ez dago martxan edo berrabiarazi da.",
@@ -546,7 +546,7 @@
     "yes": "Bai",
     "running": "Exekutatzen",
     "search": {
-        "for": "Bilatu {items}",
+        "for": "Bilatu {items}…",
         "not_found": "Zuk zehaztutako baldintzak betetzen dituzten {items} aurkitu dira. | Zuk zehaztutako baldintzak betetzen dituen {items} bat aurkitu da. | Zuk zehaztutako baldintzak betetzen dituzten {items} aurkitu dira."
     },
     "traceback": "Atzera egin (traceback)",
