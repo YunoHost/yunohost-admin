@@ -398,7 +398,7 @@
             "pending": "En cours"
         },
         "processing": "Le serveur traite l'action…",
-        "partial_logs": "[...] ( voir l'historique pour les logs complets)",
+        "partial_logs": "[…] (voir l'historique pour avoir les logs complets)",
         "reconnecting": {
             "title": "Tentative de communication avec le serveur…",
             "failed": "Le serveur ne répond pas. Vous pouvez essayer de vous reconnecter ou essayer d'exécuter `systemctl restart yunohost-api` via SSH.",
