@@ -104,7 +104,7 @@
         "view_error": "Se fel",
         "help": "Du borde leta hjälp på <a href=\"https://forum.yunohost.org/\">forumet</a> eller <a href=\"https://chat.yunohost.org/\">chatten</a> för att lösa situationen, eller rapportera buggen i <a href=\"https://github.com/YunoHost/issues\">buggrapporteraren</a>."
     },
-    "api_waiting": "Väntar på serverns svar...",
+    "api_waiting": "Väntar på serverns svar…",
     "app_install_parameters": "Installera inställningar",
     "all": "Alla",
     "api_not_responding": "YunoHost APIet svarar inte. Är \"yunohost-api\" nere eller är under omstart?",
@@ -117,7 +117,7 @@
                 "reboot": "Din server håller på att starta om och kommer inte att kunna nås på ett tag. En inloggningsfråga kommer att finnas tillgänglig så snart servern är tillgänglig."
             },
             "failed": "Verkar som om servern inte svarar. Du kan försöka att återansluta eller försök köra `systemctl restart yunohost-api`genom ssh.",
-            "title": "Försöker kommunicera med servern...",
+            "title": "Försöker kommunicera med servern…",
             "success": "Servern är nu åtkomlig! Du kan försöka att logga in"
         },
         "query_status": {
@@ -126,8 +126,8 @@
             "success": "Framgångsrikt slutfört",
             "warning": "Framgångsrikt slutfört med fel eller varningar"
         },
-        "partial_logs": "[...](Kolla i historiken för hela loggar)",
-        "processing": "Servern processar åtgärden..."
+        "partial_logs": "[…](Kolla i historiken för hela loggar)",
+        "processing": "Servern processar åtgärden…"
     },
     "api_errors_titles": {
         "APINotFoundError": "YunoHost API kunde inte hitta en rutt",
