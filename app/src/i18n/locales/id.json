@@ -13,7 +13,7 @@
     "administration_password": "Kata sandi administrasi",
     "all": "Semua",
     "api": {
-        "processing": "Peladen sedang memproses tindakan...",
+        "processing": "Peladen sedang memproses tindakan…",
         "query_status": {
             "error": "Gagal",
             "pending": "Sedang berjalan",
@@ -27,11 +27,11 @@
                 "upgrade_system": "Tidak dapat terhubung ke peladen dikarenakan YunoHost sedang pembaruan. Menunggu peladen bisa terhubung kembali…",
                 "unknown": "Tidak dapat terhubung ke peladen karena alasan yang tidak diketahui."
             },
-            "title": "Mencoba menghubungi peladen...",
+            "title": "Mencoba menghubungi peladen…",
             "failed": "Sepertinya peladen tidak merespons. Anda bisa coba memuat ulang atau coba jalankan `systemctl restart yunohost-api` via SSH.",
             "success": "Peladen bisa dicapai! Anda bisa mencoba masuk kembali"
         },
-        "partial_logs": "[...] (periksa di riwayat untuk log penuhnya)"
+        "partial_logs": "[…] (periksa di riwayat untuk log penuhnya)"
     },
     "api_error": {
         "server_said": "Ketika memproses tindakan, peladen mengatakan:",
@@ -50,7 +50,7 @@
         "APINotFoundError": "API YunoHost tidak dapat menemukan rutenya"
     },
     "all_apps": "Semua aplikasi",
-    "api_waiting": "Menunggu respons peladen...",
+    "api_waiting": "Menunggu respons peladen…",
     "app_choose_category": "Pilih sebuah kategori",
     "app_info_access_desc": "Kelompok/pengguna yang diizinkan mengakses aplikasi ini:",
     "app_info_change_url_disabled_tooltip": "Fitur ini belum diimplementasikan pada aplikasi ini",
@@ -192,7 +192,7 @@
     "save": "Simpan",
     "search": {
         "not_found": "Ada {items} yang cocok dengan kriteria Anda.",
-        "for": "Cari {items}..."
+        "for": "Cari {items}…"
     },
     "select_all": "Pilih semua",
     "stop": "Berhenti",
