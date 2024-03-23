@@ -15,8 +15,8 @@
     "all": "All",
     "all_apps": "All apps",
     "api": {
-        "partial_logs": "[...] (check in history for full logs)",
-        "processing": "The server is processing the action...",
+        "partial_logs": "[…] (check in history for full logs)",
+        "processing": "The server is processing the action…",
         "query_status": {
             "error": "Unsuccessful",
             "pending": "In progress",
@@ -32,7 +32,7 @@
                 "upgrade_system": "Connection with the server has been closed due to YunoHost upgrade. Waiting for the server to be reachable again…"
             },
             "success": "The server is now reachable! You can try to login",
-            "title": "Trying to communicate with the server..."
+            "title": "Trying to communicate with the server…"
         }
     },
     "api_error": {
@@ -53,7 +53,7 @@
     },
     "api_not_found": "Seems like the web-admin tried to query something that doesn't exist.",
     "api_not_responding": "The YunoHost API is not responding. Maybe 'yunohost-api' is down or got restarted?",
-    "api_waiting": "Waiting for the server's response...",
+    "api_waiting": "Waiting for the server's response…",
     "app": {
         "antifeatures": "This app has features you may not like:",
         "doc": {
@@ -600,7 +600,7 @@
     "running": "Running",
     "save": "Save",
     "search": {
-        "for": "Search for {items}...",
+        "for": "Search for {items}…",
         "not_found": "There are {items} matching your criteria. | There is 1 {items} matching your criteria. | There are {items} matching your criteria."
     },
     "select_all": "Select all",
