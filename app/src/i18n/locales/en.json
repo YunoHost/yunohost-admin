@@ -289,7 +289,7 @@
         "info": {
             "apps_on_domain": "Apps installed on domain",
             "certificate_authority": "SSL Certification authority",
-            "dyn_dns_remove_and_unsubscribe": "Also unregister the domain from YunoHost's dyndns service",
+            "dyn_dns_remove_and_unsubscribe": "Also unregister the domain from YunoHost's DynDNS service",
             "registrar": "Registrar"
         },
         "see_parent_domain": "See parent domain",
