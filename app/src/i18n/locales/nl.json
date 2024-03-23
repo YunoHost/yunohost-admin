@@ -134,7 +134,7 @@
     "all": "Alles",
     "app_manage_label_and_tiles": "Naam en tegels beheren",
     "app_choose_category": "Kies een categorie",
-    "api_waiting": "Aan het wachten op de reactie van de server...",
+    "api_waiting": "Aan het wachten op de reactie van de server…",
     "api_errors_titles": {
         "APINotRespondingError": "YunoHost API reageert niet",
         "APIError": "YunoHost kwam een onverwachte fout tegen",
@@ -158,8 +158,8 @@
             "pending": "Bezig",
             "error": "Niet geslaagd"
         },
-        "processing": "De server is aan het verwerken...",
-        "partial_logs": "[...] (kijk in de geschiedenis voor het volledige log)"
+        "processing": "De server is aan het verwerken…",
+        "partial_logs": "[…] (kijk in de geschiedenis voor het volledige log)"
     },
     "address": {
         "local_part_description": {
