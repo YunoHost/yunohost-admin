@@ -54,7 +54,7 @@
     "download": "Ladda ner",
     "open": "Öppen",
     "hook_data_home_desc": "Användardata i /home/ANVÄNDARE",
-    "service_start_on_boot": "Kör vid uppstart: ",
+    "service_start_on_boot": "Kör vid uppstart",
     "migrations_no_pending": "Inga kommande förflyttningar",
     "domain_default_desc": "Standarddomänen är den domän du vill att användare loggar in på.",
     "logs_context": "Sammanhang",
