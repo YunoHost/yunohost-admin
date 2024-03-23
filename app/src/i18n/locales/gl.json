@@ -682,7 +682,7 @@
                     "title": "Ten coidado!"
                 },
                 "post": {
-                    "alert": "Semella que todo foi ben!\n  Esta é unha información acerca da actualización que as desenvolvedoras cren que debes coñecer.\nPodes lela cando queiras na páxina de información da app.",
+                    "alert": "Semella que todo foi ben!\n Esta é unha información acerca da actualización que as desenvolvedoras cren que debes coñecer.\nPodes lela cando queiras na páxina de información da app.",
                     "title": "Notificacións post-actualización para '{name}'"
                 }
             },
