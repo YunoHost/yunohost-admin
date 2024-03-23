@@ -11,7 +11,7 @@
     "ok": "OK",
     "postinstall_intro_3": "Pro více informací navštivte <a href='//yunohost.org/en/install/hardware:vps_debian#fa-cog-proceed-with-the-initial-configuration' target='_blank'>příslušnou stránku dokumentace</a>",
     "app_choose_category": "Vybrat kategorii",
-    "api_waiting": "Čekáme na odpověď serveru...",
+    "api_waiting": "Čekáme na odpověď serveru…",
     "api_not_found": "Zdá se, že web-admin zkusil dotazovat něco, co neexistuje.",
     "api_errors_titles": {
         "APIConnexionError": "YunoHost zaznamenal chybu spojení",
@@ -36,8 +36,8 @@
             "pending": "Ve zpracování",
             "error": "Neúspěšné"
         },
-        "processing": "Server zpracovává akci...",
-        "partial_logs": "[...] (zkontrolujte historii v logách)",
+        "processing": "Server zpracovává akci…",
+        "partial_logs": "[…] (zkontrolujte historii v logách)",
         "reconnecting": {
             "reason": {
                 "upgrade_system": "Spojení se serverem bylo ukončeno kvůli povýšení YunoHostu na novou verzi. Čekám, až bude opět dostupný…",
@@ -45,7 +45,7 @@
                 "reboot": "Váš server se restartuje a po nějakou dobu nebude dostupný. Jakmile se spojení naváže, zobrazí se přihlašovací okno.",
                 "shutdown": "Váš server se ukončuje a nebude dostupný. Když ho znovu zapnete, jakmile bude zase dosažitelný, zobrazí se přihlašovací okno."
             },
-            "title": "Snažím se navázat spojení se serverem...",
+            "title": "Snažím se navázat spojení se serverem…",
             "success": "Server už odpovídá! Nyní se můžete přihlásit",
             "failed": "Zdá se, že server neodpovídá. Zkuste se znovu připojit nebo na něm pustit `systemctl restart yunohost-api`přes ssh."
         }
@@ -232,7 +232,7 @@
     "select_all": "Vybrat vše",
     "search": {
         "not_found": "Nalezeny {items} odpovídající vašemu zadání. | Nalezena 1 {items} odpovídající vašemu zadání. | Nalezeny {items} odpovídající vašemu zadání.",
-        "for": "Hledat {items}..."
+        "for": "Hledat {items}…"
     },
     "save": "Uložit",
     "running": "Provádí se",
