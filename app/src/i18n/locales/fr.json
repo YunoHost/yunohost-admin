@@ -17,7 +17,7 @@
     "backup_content": "Contenu de la sauvegarde",
     "backup_create": "Créer une sauvegarde",
     "backup_new": "Nouvelle sauvegarde",
-    "begin": "C'est parti !",
+    "begin": "C'est parti !",
     "both": "Les deux",
     "check": "Vérification",
     "close": "Fermer",
@@ -279,7 +279,7 @@
     },
     "search": {
         "not_found": "Il y a des {items} qui correspondent à vos critères. | Il y a un {items} qui correspond à vos critères. | Il y a des {items} qui correspondent à vos critères.",
-        "for": "Rechercher {items}..."
+        "for": "Rechercher {items}…"
     },
     "readme": "Lisez-moi",
     "postinstall_set_domain": "Définir le domaine principal",
@@ -362,7 +362,7 @@
     "cancel": "Annuler",
     "app_show_categories": "Afficher les catégories",
     "app_choose_category": "Choisissez une catégorie",
-    "api_waiting": "Attente de la réponse du serveur...",
+    "api_waiting": "Attente de la réponse du serveur…",
     "api_errors_titles": {
         "APIConnexionError": "YunoHost a rencontré une erreur de connexion",
         "APINotRespondingError": "L'API YunoHost ne répond pas",
@@ -397,10 +397,10 @@
             "warning": "Terminé avec succès avec des erreurs ou des alertes",
             "pending": "En cours"
         },
-        "processing": "Le serveur traite l'action...",
+        "processing": "Le serveur traite l'action…",
         "partial_logs": "[...] ( voir l'historique pour les logs complets)",
         "reconnecting": {
-            "title": "Tentative de communication avec le serveur...",
+            "title": "Tentative de communication avec le serveur…",
             "failed": "Le serveur ne répond pas. Vous pouvez essayer de vous reconnecter ou essayer d'exécuter `systemctl restart yunohost-api` via SSH.",
             "reason": {
                 "unknown": "La connexion avec le serveur a été fermée pour des raisons inconnues.",
