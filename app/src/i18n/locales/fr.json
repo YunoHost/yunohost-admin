@@ -175,7 +175,7 @@
     "confirm_install_app_lowquality": "Avertissement : cette application peut fonctionner mais n’est pas bien intégrée dans YunoHost. Certaines fonctionnalités telles que l’authentification unique et la sauvegarde/restauration pourraient ne pas être disponibles.",
     "confirm_install_app_inprogress": "AVERTISSEMENT ! Cette application est encore expérimentale et risque de casser votre système ! Vous ne devriez probablement PAS l’installer si vous ne savez pas ce que vous faites. Voulez-vous vraiment prendre ce risque ?",
     "error_connection_interrupted": "Le serveur a fermé la connexion au lieu d’y répondre. Est-ce que NGINX ou yunohost-api ont été redémarrés ou arrêtés pour une raison quelconque ?",
-    "experimental_warning": "Attention : cette fonctionnalité est expérimentale et ne doit pas être considérée comme stable, vous ne devriez pas l’utiliser à moins que vous ne sachiez ce que vous faites...",
+    "experimental_warning": "Attention : cette fonctionnalité est expérimentale et ne doit pas être considérée comme stable, vous ne devriez pas l’utiliser à moins que vous ne sachiez ce que vous faites.",
     "good_practices_about_admin_password": "Vous êtes sur le point de définir un nouveau mot de passe de compte d'administration. Le mot de passe doit comporter au moins 8 caractères, bien qu'il soit recommandé d'utiliser un mot de passe plus long (c'est-à-dire une phrase secrète) et/ou d'utiliser une combinaison de caractères (majuscules, minuscules, chiffres et caractères spéciaux).",
     "good_practices_about_user_password": "Vous êtes sur le point de définir un nouveau mot de passe. Le mot de passe doit comporter au moins 8 caractères, bien qu'il soit recommandé d'utiliser un mot de passe plus long (c'est-à-dire une phrase secrète) et/ou une combinaison de caractères (majuscules, minuscules, chiffres et caractères spéciaux).",
     "only_working_apps": "Applications fonctionnelles uniquement",
@@ -398,7 +398,7 @@
             "pending": "En cours"
         },
         "processing": "Le serveur traite l'action…",
-        "partial_logs": "[…] (voir l'historique pour avoir les logs complets)",
+        "partial_logs": "[…] (voir l'historique pour consulter les logs complets)",
         "reconnecting": {
             "title": "Tentative de communication avec le serveur…",
             "failed": "Le serveur ne répond pas. Vous pouvez essayer de vous reconnecter ou essayer d'exécuter `systemctl restart yunohost-api` via SSH.",
@@ -406,7 +406,7 @@
                 "unknown": "La connexion avec le serveur a été fermée pour des raisons inconnues.",
                 "reboot": "Votre serveur redémarre et ne sera pas joignable pendant un certain temps. Une invite de connexion sera disponible dès que le serveur sera accessible.",
                 "shutdown": "Votre serveur est en cours d'extinction et n'est plus joignable. Redémarrez-le et une invitation de connexion sera disponible dès que le serveur sera joignable.",
-                "upgrade_system": "La connexion avec le serveur a été fermée en raison de la mise à jour de YunoHost. Il vous faut patienter jusqu'à ce que le serveur soit à nouveau joignable …"
+                "upgrade_system": "La connexion avec le serveur a été fermée en raison de la mise à jour de YunoHost. Il vous faut patienter jusqu'à ce que le serveur soit à nouveau joignable…"
             },
             "success": "Le serveur est maintenant joignable ! Vous pouvez essayer de vous connecter"
         }
