@@ -350,7 +350,7 @@
     },
     "api": {
         "processing": "El servidor està processant l'acció…",
-        "partial_logs": "[...] (consulteu l'historial per obtenir els registres complets)",
+        "partial_logs": "[…] (consulteu l'historial per obtenir els registres complets)",
         "query_status": {
             "error": "Sense èxit",
             "pending": "En progrés",
