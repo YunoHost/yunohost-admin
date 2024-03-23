@@ -308,7 +308,7 @@
     "error": "Error",
     "enabled": "Activat",
     "domain_delete_forbidden_desc": "No podeu eliminar «{domain}» ja que és el domini principal, heu d'escollir un altre domini (o <a href='#/domains/add'>afegir-ne un de nou</a>) i fer-lo el domini principal per a poder eliminar aquest.",
-    "domain_add_dyndns_forbidden": "Ja us heu registrat o subscrit a un domini DynDNS del projecte YunoHost. Per disseny, aquesta funció està limitada a un d'aquests dominis per servidor.  Si voleu un subdomini del vostre domini ja subscrit, utilitzeu l'opció \"Afegeix un domini que tinc o un subdomini\" anterior. Si voleu utilitzar un domini completament diferent, primer heu d'eliminar el vostre domini DynDNS existent. Els dominis DynDNS són bons quan comenceu amb l'allotjament automàtic, però a mitjà/llarg termini, us recomanem comprar el vostre propi nom de domini a algun registrador per tenir la propietat total del vostre domini.",
+    "domain_add_dyndns_forbidden": "Ja us heu registrat o subscrit a un domini DynDNS del projecte YunoHost. Per disseny, aquesta funció està limitada a un d'aquests dominis per servidor. Si voleu afegir un subdomini del vostre domini ja subscrit, utilitzeu l'opció «Afegir un domini que tinc o un subdomini» anterior. Si voleu utilitzar un domini completament diferent, primer heu d'eliminar el vostre domini DynDNS existent. Els dominis DynDNS són bons quan comenceu amb l'allotjament automàtic, però a mitjà/llarg termini, us recomanem comprar el vostre propi nom de domini a algun registrador per tenir la propietat total del vostre domini.",
     "disabled": "Desactivat",
     "dead": "Inactiu",
     "day_validity": " Expirat | 1 dia | {count} dies",
