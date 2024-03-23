@@ -450,7 +450,8 @@
             "title": "Vincles",
             "userdoc": "Documentació oficial d'usuari",
             "website": "Pàgina web oficial",
-            "license": "Llicència"
+            "license": "Llicència de l'aplicació",
+            "package_license": "Llicència del paquet de YunoHost"
         },
         "potential_alternative_to": "Alternativa potencial a:",
         "upgrade": {
