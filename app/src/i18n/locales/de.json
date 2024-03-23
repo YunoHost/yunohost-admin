@@ -285,7 +285,7 @@
     "app_show_categories": "Kategorien anzeigen",
     "app_manage_label_and_tiles": "Etiketten und Kacheln verwalten",
     "app_choose_category": "Kategorie auswählen",
-    "api_waiting": "Warten auf Antwort des Servers...",
+    "api_waiting": "Warten auf Antwort des Servers…",
     "user_emailforward_add": "Fügen Sie eine Mail-Weiterleitung hinzu",
     "user_emailaliases_add": "Fügen Sie einen Mail-Alias hinzu",
     "unknown": "Unbekannt",
@@ -304,7 +304,7 @@
     },
     "search": {
         "not_found": "Es gibt {items}, die Ihren Auswahlkriterien entsprechen. | Es gibt 1 {items}, das Ihrem Auswahlkriterium entspricht. | Es gibt {items}, die Ihren Auswahlkriterien entsprechen.",
-        "for": "Suche nach {items} ..."
+        "for": "Suche nach {items}…"
     },
     "readme": "Lies mich",
     "postinstall_set_domain": "Hauptdomäne festlegen",
@@ -393,10 +393,10 @@
             "pending": "In Bearbeitung",
             "error": "Nicht erfolgreich"
         },
-        "processing": "Der Server verarbeitet die Aktion...",
-        "partial_logs": "[...] (Schauen Sie für vollständige Logs bitte im Verlauf nach)",
+        "processing": "Der Server verarbeitet die Aktion…",
+        "partial_logs": "[…] (Schauen Sie für vollständige Logs bitte im Verlauf nach)",
         "reconnecting": {
-            "title": "Versuche mit dem Server zu kommunizieren...",
+            "title": "Versuche mit dem Server zu kommunizieren…",
             "failed": "Der Server scheint nicht zu antworten. Sie können versuchen, sich neu zu verbinden oder probieren `systemctl restart yunohost-api` über ssh auszuführen.",
             "reason": {
                 "unknown": "Die Verbindung mit dem Server wurde aus unbekannten Gründen beendet.",
