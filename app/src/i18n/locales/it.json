@@ -274,7 +274,7 @@
     },
     "search": {
         "not_found": "Ci sono {items} che corrispondono ai tuoi criteri. | C’è un {items} che corrisponde ai tuoi criteri. | Ci sono {items} che corrispondono ai tuoi criteri.",
-        "for": "Cerca per {items}..."
+        "for": "Cerca per {items}…"
     },
     "readme": "Leggimi",
     "postinstall_set_domain": "Imposta dominio principale",
@@ -357,7 +357,7 @@
     "code": "Codice",
     "app_show_categories": "Mostra categorie",
     "app_choose_category": "Scegli una categoria",
-    "api_waiting": "Aspetto la risposta del server...",
+    "api_waiting": "Aspetto la risposta del server…",
     "api_not_found": "Sembra che l'amministratore ha provato a richiedere qualcosa che non esiste.",
     "api_errors_titles": {
         "APIConnexionError": "YunoHost ha riscontrato un errore di connessione",
@@ -382,10 +382,10 @@
             "pending": "In corso",
             "error": "Fallito"
         },
-        "processing": "Il server sta processando la richiesta...",
-        "partial_logs": "[...] (controlla i log completi nella cronologia)",
+        "processing": "Il server sta processando la richiesta…",
+        "partial_logs": "[…] (controlla i log completi nella cronologia)",
         "reconnecting": {
-            "title": "Sto cercando di comunicare con il server...",
+            "title": "Sto cercando di comunicare con il server…",
             "failed": "Sembra che il server non stia rispondendo. Puoi riprovare a collegarti oppure prova a dare il comando `systemctl restart yunohost-api` da ssh.",
             "reason": {
                 "shutdown": "Il tuo server si sta spegnendo e non è più raggiungibile. Accendilo nuovamente e un prompt di login sarà visualizzato appena il server tornerà raggiungibile.",
@@ -437,7 +437,7 @@
             "run": "Esegui migrazioni"
         },
         "groups": {
-            "remove": "Rimuovi {'user'} dal gruppo '{name}'",
+            "remove": "Rimuovi '{user}' dal gruppo '{name}'",
             "add": "Aggiungi '{user}' al gruppo '{name}'",
             "delete": "Elimina gruppo '{name}'",
             "create": "Crea gruppo '{name}'"
