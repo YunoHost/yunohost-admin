@@ -100,7 +100,7 @@
     "confirm_group_add_access_permission": "Ste prepričani da želi dodeliti {name} dostop do {perm}? Takšen dostop bistveno razširi napadalo polje, če se {name} izkaže za škodoželjo osebo. Stori to samo če res ZAUPAŠ tej osebi ali skupini.",
     "confirm_install_custom_app": "POZOR! Namestitev neuradnih aplikacij lahko ogrozi celovitost in varnost vašega sistema. Verjetno NI dobro namestiti, razen če res veš kaj počneš. Si pripravljen_a sprejeti tveganje?",
     "confirm_install_app_lowquality": "Pozor: aplikacija bi lahko delovala vendar ni dobro vključena v YunoHost. Nekatere funkcionalnosti, kot so poenoten vpis ter varnostno kopiranje/povrnitev, morda niso na voljo.",
-    "confirm_install_app_inprogress": "POZOR! Ta aplikacija je še vedno poskusna (če eksplicitno ne dela) in bo  verjetno poškodovala tvoj sistem! Verjetno ga ne bi smel_a naložiti, razen če veš, kaj počneš. Ali si pripravljen_a tvegati?",
+    "confirm_install_app_inprogress": "POZOR! Ta aplikacija je še vedno poskusna (če eksplicitno ne dela) in bo verjetno poškodovala tvoj sistem! Verjetno ga ne bi smel_a naložiti, razen če veš, kaj počneš. Ali si pripravljen_a tvegati?",
     "confirm_migrations_skip": "Ni priporočljivo preskočiti selitev podatkov. Ali si prepričan_a, da želiš to storiti?",
     "confirm_postinstall": "Kmalu se bo začel post-namestitveni proces na domeni {domain}. Morda ti bo vzelo nekaj minut, *ne prekini operacije*.",
     "confirm_restore": "Ali si prepričan_a, da želiš obnoviti {name}?",
