@@ -246,7 +246,7 @@
     "groups_and_permissions_manage": "Gruplar ve izinleri yönet",
     "confirm_restore": "{name}'yi geri yüklemek istediğinizden emin misiniz?",
     "confirm_upnp_enable": "UPnP'yi etkinleştirmek istediğinizden emin misiniz?",
-    "created_at": "Oluşturuldu:",
+    "created_at": "Oluşturuldu",
     "domain_default_longdesc": "Bu, varsayılan alan adınızdır.",
     "domain_dns_config": "DNS yapılandırması",
     "firewall": "Güvenlik Duvarı",
