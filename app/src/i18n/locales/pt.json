@@ -157,7 +157,7 @@
     "confirm_service_restart": "Tem certeza que deseja reiniciar {name}?",
     "cancel": "Cancelar",
     "items_verbose_items_left": "Faltam {items}.",
-    "items_verbose_count": "Não há {items}. | Existe 1 {item}. | Existem {items}.",
+    "items_verbose_count": "Não há {items}. | Existe 1 {items}. | Existem {items}.",
     "items": {
         "users": "nenhum usuário | usuário | {c} usuários",
         "services": "nenhum serviço | serviço | {c} serviços",
@@ -206,7 +206,7 @@
     "group": "Grupo",
     "go_back": "Voltar",
     "from_to": "de {0} a {1}",
-    "form_input_example": "Exemplo: {exemple}",
+    "form_input_example": "Exemplo: {example}",
     "form_errors": {
         "required": "Campo obrigatório.",
         "passwordMatch": "As senhas não são iguais.",
@@ -259,7 +259,7 @@
     "app_manage_label_and_tiles": "Gerir etiquetas e tiles",
     "app_install_parameters": "Configurações de instalação",
     "app_choose_category": "Escolha uma categoria",
-    "api_waiting": "Esperando a resposta do servidor...",
+    "api_waiting": "Esperando a resposta do servidor…",
     "api_errors_titles": {
         "APIConnexionError": "YunoHost encontrou um erro de conexão",
         "APINotRespondingError": "A YunoHost API não está respondendo",
@@ -283,8 +283,8 @@
             "pending": "Em progresso",
             "error": "Falhou"
         },
-        "processing": "O servidor está processando a ação...",
-        "partial_logs": "[...] (verifique no histórico para logs completos)",
+        "processing": "O servidor está processando a ação…",
+        "partial_logs": "[…] (verifique no histórico para logs completos)",
         "reconnecting": {
             "failed": "Parece que o servidor não está respondendo. Você pode tentar se reconectar novamente ou tentar executar `systemctl restart yunohost-api` através do ssh.",
             "success": "O servidor agora está acessível! Você pode tentar fazer o login",
@@ -294,7 +294,7 @@
                 "shutdown": "Seu servidor está sendo desligado e não está mais acessível. Ligue-o novamente e um prompt de login estará disponível assim que o servidor estiver acessível.",
                 "unknown": "A conexão com o servidor foi encerrada por motivos desconhecidos."
             },
-            "title": "Tentando se comunicar com o servidor..."
+            "title": "Tentando se comunicar com o servidor…"
         }
     },
     "address": {
@@ -346,7 +346,7 @@
     "select_all": "Selecionar tudo",
     "search": {
         "not_found": "Existem {items} que correspondem ao seu critério.",
-        "for": "Procurar por {items}..."
+        "for": "Procurar por {items}…"
     },
     "run": "Executar",
     "human_routes": {
@@ -407,7 +407,7 @@
         },
         "backups": {
             "restore": "Restaurar backup '{name}'",
-            "delete": "Deletar backup '{name]'",
+            "delete": "Deletar backup '{name}'",
             "create": "Criar um backup"
         },
         "apps": {
