@@ -45,7 +45,7 @@
     "app_state_inprogress_explanation": "Opiekun tej aplikacji zadeklarował, że ta aplikacja nie jest jeszcze gotowa do użytku zewnętrznego. BĄDŹ OSTROŻNY!",
     "app_show_categories": "Pokaż kategorie",
     "app_choose_category": "Wybierz kategorię",
-    "api_waiting": "Czekam na odpowiedź serwera...",
+    "api_waiting": "Czekam na odpowiedź serwera…",
     "all_apps": "Wszystkie aplikacje",
     "api_errors_titles": {
         "APIConnexionError": "YunoHost napotkał błąd połączenia",
@@ -70,7 +70,7 @@
             "pending": "W trakcie",
             "error": "Nieudane"
         },
-        "processing": "Serwer w trakcie wykonywania zadania...",
+        "processing": "Serwer w trakcie wykonywania zadania…",
         "reconnecting": {
             "failed": "Wygląda na to, że serwer nie odpowiada. Spróbuj połączyć się ponownie lub poprzez SSH uruchom komendę `systemctl restart yunohost-api`.",
             "reason": {
@@ -79,10 +79,10 @@
                 "reboot": "Serwer jest uruchamiany ponownie i będzie nieosiągalny przez pewien czas. Logowanie stanie się możliwe, gdy serwer będzie ponownie dostępny.",
                 "upgrade_system": "Połączenie z serwerem przerwane z powodu aktualizacji YunoHost. Trwa oczekiwanie na połączenie…"
             },
-            "title": "Trwa próba połączenia z serwerem...",
+            "title": "Trwa próba połączenia z serwerem…",
             "success": "Serwer jest już dostępny! Możesz się zalogować"
         },
-        "partial_logs": "[...] sprawdź w historii pełne logi"
+        "partial_logs": "[…] sprawdź w historii pełne logi"
     },
     "all": "Wszystko",
     "address": {
@@ -411,7 +411,7 @@
             "skip": "Pomiń migracje"
         },
         "permissions": {
-            "remove": "Usuń '{name}' z dostępu do '{name}'",
+            "remove": "Usuń '{name}' z dostępu do '{perm}'",
             "add": "Pozwól '{name}' na dostęp do '{perm}'"
         },
         "postinstall": "Uruchom post-instalację",
@@ -478,7 +478,7 @@
     "services": "Usługi",
     "running": "W toku",
     "search": {
-        "for": "Wyszukaj {items}...",
+        "for": "Wyszukaj {items}…",
         "not_found": "Znaleziono {items} pasujące do podanych kryteriów. | Jest 1 {items} pasujące do podanych kryteriów. | Znaleziono {items} pasujące do podanych kryteriów."
     },
     "save": "Zapisz",
