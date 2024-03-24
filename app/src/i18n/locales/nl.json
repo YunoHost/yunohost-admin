@@ -161,7 +161,15 @@
         "processing": "De server is aan het verwerken…",
         "partial_logs": "[…] (kijk in de geschiedenis voor het volledige log)",
         "reconnecting": {
-            "failed": "De server lijkt niet te reageren. Je kunt proberen opnieuw verbinding te maken of je kunt de opdracht  ‘systemctl restart yunohost-api`uitvoeren via ssh."
+            "failed": "De server lijkt niet te reageren. Je kunt proberen opnieuw verbinding te maken of je kunt de opdracht ‘systemctl restart yunohost-api`uitvoeren via ssh.",
+            "reason": {
+                "shutdown": "Je server wordt afgesloten en is niet langer bereikbaar. Zet 'm weer aan en er verschijnt een login-prompt zodra de server bereikt kan worden.",
+                "unknown": "De verbinding met de server werd om onbekende reden gesloten.",
+                "reboot": "Je server is aan het herstarten en zal enige tijd niet bereikbaar zijn. Een login-prompt komt beschikbaar zodra de server terug is.",
+                "upgrade_system": "De verbinding met de server is gesloten vanwege een YunoHost upgrade. Wacht tot de server weer bereikbaar is…"
+            },
+            "success": "De server is nu bereikbaar! Je kan proberen in te loggen",
+            "title": "Poging met de server te communiceren…"
         }
     },
     "address": {
@@ -235,5 +243,75 @@
     "diagnosis_explanation": "De diagnosefunctie probeert veel voorkomende problemen op verschillende aspecten van je server boven water te krijgen, zodat alles gladjes blijft lopen. De diagnose draait tweemaal per dag, er wordt een email naar de beheerder gestuurd als er problemen geconstateerd worden. Houdt er rekening mee dat niet alle controles per definitie relevant zijn als je specifieke functionaliteit niet gebruikt (XMPP, bijvoorbeeld) en dat er bij complexe opbouw van je server misschien vals alarm geslagen wordt. In die gevallen, en als je weet waar je mee bezig bent, is het geen probleem om de overeenkomstige waarschuwingen te negeren.",
     "good_practices_about_user_password": "Je gaat nu een nieuw wachtwoord opgeven. Het wachtwoord moet minimaal 8 tekens lang zijn - hoewel het een goede gewoonte is om een langer wachtwoord te gebruiken (d.w.z. een wachtwoordzin) en/of verschillende soorten tekens te gebruiken (hoofdletters, kleine letters, cijfers en speciale tekens).",
     "certificate_manage": "SSL-certificaat beheren",
-    "certificate": "Certificaat"
+    "certificate": "Certificaat",
+    "app": {
+        "info": {
+            "config_panel_error": "Een fout zorgt ervoor dat het configuratiepaneel niet getoond kan worden:",
+            "config_panel_error_please_report": "Rapporteer deze fout alsjeblieft aan het YunoHost-team om hem verholpen te krijgen!",
+            "forum": "Zoek of vraag op het forum!",
+            "problem": "Een probleem met deze app?"
+        },
+        "install": {
+            "license": "Licentie:{license}",
+            "notifs": {
+                "post": {
+                    "title": "Post-install opmerkingen voor '{name}'",
+                    "alert": "De installatie lijkt goed verlopen te zijn!\nHier zijn wat opmerkingen waarvan de packager denkt dat ze van belang zijn.\nJe kan het teruglezen op de informatiepagina van de app."
+                },
+                "pre": {
+                    "critical": "De applicatie kan niet geinstalleerd worden",
+                    "danger": "De installatie van de applicatie zal hoogstwaarschijnlijk tot problemen leiden",
+                    "warning": "Belangrijk om te weten voorafgaand aan de installatie"
+                }
+            },
+            "problems": {
+                "arch": "Deze app kan enkel op specifieke architecturen ({required}) geinstalleerd worden, maar de architectuur van je YunoHost is {current}.",
+                "install": "Deze app is reeds geinstalleerd en kan niet meermaals geinstaleerd worden.",
+                "version": "Deze app heeft Yunohost >={required} nodig, maar de actieve versie is {current}. Overweeg om eerst YunoHost te upgraden.",
+                "broken": "Deze applicatie is kapot volgens de automatische tests van Yunohost, en draait waarschijnlijk je systeem in de soep! Je kan hem beter NIET installeren als je niet precies weet waar je mee bezig bent.",
+                "thirdparty": "Deze app is geen onderdeel van de officiele YunoHost-catalogus. De installatie van apps door derden kan de integriteit en veiligheid van je systeem ondermijnen. Je kan hem beter NIET installeren, als je niet precies weet waar je mee bezig bent.",
+                "ignore": "Ik begrijp dat deze installatie mijn Yunohost totaal in de war kan schoppen, maar ik wil het toch proberen.",
+                "inprogress": "Deze app is nog experimenteel (of zelfs totaal niet-werkend) end gooit waarschijnlijk je systeem in de soep! Je kunt hem beter NIET installeren als je niet precies weet waar je mee bezig bent.",
+                "lowquality": "Deze app doet het waarschijnlijk wel, maar hij is niet zo goed geintegreerd in YunoHost. Sommige functies, zoals bijvoorbeeld single-sign-on of backup/restore zijn niet beschikbaar, of de best-practices worden niet gevolgd.",
+                "ram": "Deze app heeft {required} RAM nodig ter installatie of upgrade, maar er is slechts {current} beschikbaar. Zelfs als de installatie slaagt, heeft de app zoveel geheugen nodig dat je server vast zou kunnen lopen."
+            },
+            "try_demo": "Probeer de demo",
+            "version": "Huidige versie: {version}"
+        },
+        "integration": {
+            "archs": "Ondersteunde architecturen:",
+            "ldap": {
+                "?": "Geen informatie over LDAP-integratie",
+                "false": "Geen ondersteuning voor inloggen met Yunohost-gebruikers (LDAP)",
+                "true": "Ondersteuning van inloggen met Yunohost-gebruikers (LDAP)"
+            },
+            "multi_instance": {
+                "false": "Kan slechts eenmaal geinstalleerd worden",
+                "true": "Kan meermaals geinstalleerd worden"
+            },
+            "resources": "Typisch gebruik van systeembronnen: {ram} RAM, {disk} opslagruimte",
+            "sso": {
+                "?": "Geen informatie over SSO-integratie",
+                "false": "Single-sign-on is niet beschikbaar (SSO)",
+                "true": "Single-sign-on is beschikbaar (SSO)"
+            }
+        },
+        "doc": {
+            "notifications": {
+                "understood": "Begrepen",
+                "post_install": "Post-install opmerkingen",
+                "post_upgrade": "Post-upgrade opmerkingen",
+                "title": "Notificaties"
+            },
+            "about": {
+                "description": "Omschrijving",
+                "title": "Over"
+            },
+            "admin": {
+                "title": "Documentatie voor beheerders"
+            }
+        },
+        "installed_version": "Geinstalleerde versie:",
+        "antifeatures": "Deze app heeft functionaliteit, die je mogelijk niet op prijs stelt:"
+    }
 }
