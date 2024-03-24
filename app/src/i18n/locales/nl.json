@@ -22,7 +22,7 @@
     "confirm_app_default": "Ben je zeker dat je dit de standaardapplicatie wil maken?",
     "confirm_change_maindomain": "Ben je zeker dat je de domeinnaam wil wijzigen?",
     "confirm_delete": "Ben je zeker dat je {name} wil verwijderen?",
-    "confirm_install_custom_app": "Waarschuwing: applicaties van derden installeren kan de veiligheid van je systeem in gevaar brengen. Gebruik op eigen risico.",
+    "confirm_install_custom_app": "Waarschuwing: applicaties van derden installeren kan de veiligheid van je systeem in gevaar brengen. Gebruik op eigen risico?",
     "confirm_install_domain_root": "Het zal niet meer mogelijk zijn om een andere app te installeren op {domain}. Verdergaan?",
     "confirm_postinstall": "Je gaat zo het post-installatieproces starten op domein {domain}. Dit kan enkele minuten duren, *onderbreek het proces niet*.",
     "confirm_restore": "Weet je zeker dat je {name} wilt herstellen?",
@@ -134,7 +134,7 @@
     "all": "Alles",
     "app_manage_label_and_tiles": "Naam en tegels beheren",
     "app_choose_category": "Kies een categorie",
-    "api_waiting": "Aan het wachten op de reactie van de server...",
+    "api_waiting": "Aan het wachten op de reactie van de server…",
     "api_errors_titles": {
         "APINotRespondingError": "YunoHost API reageert niet",
         "APIError": "YunoHost kwam een onverwachte fout tegen",
@@ -158,8 +158,11 @@
             "pending": "Bezig",
             "error": "Niet geslaagd"
         },
-        "processing": "De server is aan het verwerken...",
-        "partial_logs": "[...] (kijk in de geschiedenis voor het volledige log)"
+        "processing": "De server is aan het verwerken…",
+        "partial_logs": "[…] (kijk in de geschiedenis voor het volledige log)",
+        "reconnecting": {
+            "failed": "De server lijkt niet te reageren. Je kunt proberen opnieuw verbinding te maken of je kunt de opdracht  ‘systemctl restart yunohost-api`uitvoeren via ssh."
+        }
     },
     "address": {
         "local_part_description": {

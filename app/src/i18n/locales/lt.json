@@ -10,7 +10,7 @@
         }
     },
     "api": {
-        "partial_logs": "[...] (visas išvestis rasite istorijoje)",
+        "partial_logs": "[…] (visas išvestis rasite istorijoje)",
         "reconnecting": {
             "failed": "Atrodo, kad serveris neatsako. Galite pabandyti dar kartą prisijungti arba per ssh paleisti `systemctl restart yunohost-api`.",
             "reason": {
@@ -20,9 +20,9 @@
                 "upgrade_system": "Ryšys su serveriu nutrauktas dėl YunoHost atnaujinimo. Laukiama, kol serveris vėl bus pasiekiamas…"
             },
             "success": "Dabar serveris pasiekiamas! Galite pabandyti prisijungti",
-            "title": "Bandoma susisiekti su serveriu..."
+            "title": "Bandoma susisiekti su serveriu…"
         },
-        "processing": "Serveris apdoroja veiksmą...",
+        "processing": "Serveris apdoroja veiksmą…",
         "query_status": {
             "error": "Nesėkminga",
             "pending": "Vykdoma",
@@ -40,7 +40,7 @@
     },
     "api_not_found": "Atrodo, kad žiniatinklio administratorius bandė pateikti užklausą apie tai, ko nėra.",
     "api_not_responding": "\"YunoHost\" API neatsako. Galbūt 'yunohost-api' neveikia arba buvo paleista iš naujo?",
-    "api_waiting": "Laukiama serverio atsakymo...",
+    "api_waiting": "Laukiama serverio atsakymo…",
     "app": {
         "open_this_app": "Atidarykite šią programėlę",
         "doc": {

@@ -13,14 +13,14 @@
     "administration_password": "Upravljalno geslo",
     "all": "Vse",
     "api": {
-        "processing": "Strežnik obdeluje dejanje...",
+        "processing": "Strežnik obdeluje dejanje…",
         "query_status": {
             "error": "Neuspešno",
             "pending": "V teku",
             "success": "Uspešno končano",
             "warning": "Uspešno končano z napakami ali opozorili"
         },
-        "partial_logs": "[...] (preveri zgodovino za polne zapise",
+        "partial_logs": "[…] (preveri zgodovino za polne zapise",
         "reconnecting": {
             "reason": {
                 "upgrade_system": "Povezava s strežnikom se je zaprla zaradi YunoHost nadgradnje. Čakanje na strežnik, da bo ponovno dosegljiv…",
@@ -28,7 +28,7 @@
                 "unknown": "Povezava s strežnikom je bila prekinjena iz neznanih razlogov.",
                 "shutdown": "Tvoj strežnik se ugaša in ni več dosegljiv. Ponovno ga vklopi in poziv za prijavo bo na razpolago takoj, ko bo strežnik dosegljiv."
             },
-            "title": "Poskušam se povezati s strežnikom...",
+            "title": "Poskušam se povezati s strežnikom…",
             "failed": "Videti je, da se strežnik ne odziva. Lahko se poskusiš ponovno povezati ali poskusi zagnati `systemctl restart yunohost-api` thru ssh.",
             "success": "Strežnik je zdaj dosegljiv! Lahko se poskusiš vpisati"
         }
@@ -51,7 +51,7 @@
     },
     "all_apps": "Vse aplikacije",
     "api_not_found": "Kaže da je spletni-admin poskusil poizvesti po nečem neobstoječem.",
-    "api_waiting": "Čakam na strežnikov odziv...",
+    "api_waiting": "Čakam na strežnikov odziv…",
     "app_choose_category": "Izberi kategorijo",
     "app_info_access_desc": "Skupine / uporabniki, ki imajo dostop do te aplikacije:",
     "app_info_default_desc": "Preusmeri korensko domeno na to aplikacijo ({domain}).",
@@ -100,7 +100,7 @@
     "confirm_group_add_access_permission": "Ste prepričani da želi dodeliti {name} dostop do {perm}? Takšen dostop bistveno razširi napadalo polje, če se {name} izkaže za škodoželjo osebo. Stori to samo če res ZAUPAŠ tej osebi ali skupini.",
     "confirm_install_custom_app": "POZOR! Namestitev neuradnih aplikacij lahko ogrozi celovitost in varnost vašega sistema. Verjetno NI dobro namestiti, razen če res veš kaj počneš. Si pripravljen_a sprejeti tveganje?",
     "confirm_install_app_lowquality": "Pozor: aplikacija bi lahko delovala vendar ni dobro vključena v YunoHost. Nekatere funkcionalnosti, kot so poenoten vpis ter varnostno kopiranje/povrnitev, morda niso na voljo.",
-    "confirm_install_app_inprogress": "POZOR! Ta aplikacija je še vedno poskusna (če eksplicitno ne dela) in bo  verjetno poškodovala tvoj sistem! Verjetno ga ne bi smel_a naložiti, razen če veš, kaj počneš. Ali si pripravljen_a tvegati?",
+    "confirm_install_app_inprogress": "POZOR! Ta aplikacija je še vedno poskusna (če eksplicitno ne dela) in bo verjetno poškodovala tvoj sistem! Verjetno ga ne bi smel_a naložiti, razen če veš, kaj počneš. Ali si pripravljen_a tvegati?",
     "confirm_migrations_skip": "Ni priporočljivo preskočiti selitev podatkov. Ali si prepričan_a, da želiš to storiti?",
     "confirm_postinstall": "Kmalu se bo začel post-namestitveni proces na domeni {domain}. Morda ti bo vzelo nekaj minut, *ne prekini operacije*.",
     "confirm_restore": "Ali si prepričan_a, da želiš obnoviti {name}?",

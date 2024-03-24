@@ -285,7 +285,7 @@
     "app_show_categories": "Kategorien anzeigen",
     "app_manage_label_and_tiles": "Etiketten und Kacheln verwalten",
     "app_choose_category": "Kategorie auswählen",
-    "api_waiting": "Warten auf Antwort des Servers...",
+    "api_waiting": "Warten auf Antwort des Servers…",
     "user_emailforward_add": "Fügen Sie eine Mail-Weiterleitung hinzu",
     "user_emailaliases_add": "Fügen Sie einen Mail-Alias hinzu",
     "unknown": "Unbekannt",
@@ -304,7 +304,7 @@
     },
     "search": {
         "not_found": "Es gibt {items}, die Ihren Auswahlkriterien entsprechen. | Es gibt 1 {items}, das Ihrem Auswahlkriterium entspricht. | Es gibt {items}, die Ihren Auswahlkriterien entsprechen.",
-        "for": "Suche nach {items} ..."
+        "for": "Suche nach {items}…"
     },
     "readme": "Lies mich",
     "postinstall_set_domain": "Hauptdomäne festlegen",
@@ -393,10 +393,10 @@
             "pending": "In Bearbeitung",
             "error": "Nicht erfolgreich"
         },
-        "processing": "Der Server verarbeitet die Aktion...",
-        "partial_logs": "[...] (Schauen Sie für vollständige Logs bitte im Verlauf nach)",
+        "processing": "Der Server verarbeitet die Aktion…",
+        "partial_logs": "[…] (in der Historie nach Logs suchen)",
         "reconnecting": {
-            "title": "Versuche mit dem Server zu kommunizieren...",
+            "title": "Versuche mit dem Server zu kommunizieren…",
             "failed": "Der Server scheint nicht zu antworten. Sie können versuchen, sich neu zu verbinden oder probieren `systemctl restart yunohost-api` über ssh auszuführen.",
             "reason": {
                 "unknown": "Die Verbindung mit dem Server wurde aus unbekannten Gründen beendet.",
@@ -539,7 +539,7 @@
             "apps_on_domain": "Auf der Domäne installierte Applikationen",
             "certificate_authority": "SSL-Zeritifizierungsstelle",
             "registrar": "Registrar",
-            "dyn_dns_remove_and_unsubscribe": "Sie müssen die Domain zusätzlich vom YunoHosts DynDNS-Service abmelden"
+            "dyn_dns_remove_and_unsubscribe": "sie müssen auch die Domain beim Yunohost DynDNS Service abmelden"
         },
         "see_parent_domain": "Schauen Sie bitte bei der Hauptdomäne nach",
         "types": {
@@ -553,10 +553,10 @@
             "dyn_dns_password_desc": "Dieses Passwort erlaubt Ihnen zu einem späteren Zeitpunkt die Widerherstellung der Domäne wenn Sie Ihr System neu installieren. Wenn Sie diese Domäne vorher schon registriert haben, verwenden Sie hier dieses Wiederherstellungspasswort für die Wiederherstellung der Domäne.",
             "from_local_desc": "Wenn Sie keinen \"echten\" öffentlichen Domänennamen wünschen, können Sie hier alles verwenden, was in <code>.local</code> oder <code>.test</code> endet. Domänennamen welche in <code>.local</code> enden, sind in dem Sinne speziell, als dass sie in Ihrem lokalen Netzwerk automatisch aufgelöst werden können, angenommen Ihre Clients unterstützen das Bonjour-Protokoll. Als Alternative dazu können Sie Ihre <code>/etc/hosts</code> -Datei ( oder äquivalent für Windows ) auf jedem Ihrer Clients so einstellen, von welchen aus Sie diese Domäne benützen wollen, oder indem Sie die lokalen DNS-Einträge in Ihrem Internet-Router entsprechend konfigurieren.",
             "dyn_dns_password": "Domainwiederherstellungspasswort",
-            "from_local": "Ich will eine Domain ausschliesslich für die lokale / testweise Verwerwendung",
+            "from_local": "Ich will eine Domain ausschließlich für die lokale / testweise Verwendung",
             "from_registrar": "Ich möchte eine eigene Domain oder eine Subdomain hinzufügen",
             "from_registrar_desc": "Sie müssen gegebenenfalls die DNS-Konfiguration bei ihrem Registrar vervollständigen. Die Diagnose von Yunohost zeigt Ihnen an, welche Records Sie noch konfigurieren müssen.",
-            "from_yunohost": "Ich bin nicht im Besitz einer Domain, ich will eine kostenlose DynDNS-Domain registrieren/benützen, welche vom YunoHost-Projekt bereitgestellt wird",
+            "from_yunohost": "Ich besitze keine Domain, Ich möchte eine kostenlose DynDNS-Domain des Yunohost Projektes nutzen",
             "from_yunohost_desc": "Das YunoHost-Projekt unterhält einen kostenlosen 'DynDNS'-Service. Dieser ist limitiert auf eine einzige solche Domäne pro Server (Sie können trotzdem später eine Subdomain mit der obigen Option 'Ich will eine Domäne, die in meinem Besitz ist, hinzufügen, oder eine Subdomain' hinzufügen). Die DNS-Konfiguration wird automatisch von YunoHost gehandhabt. Dies ist ideal, wenn Sie mit Self-Hosting überhaupt erst beginnen und Sie noch nicht in einen Domainname investieren möchten. Wie auch immer, mittel/-langfristig empfehlen wir der Kauf eines eigenen Domainnames bei einem Registrar, um das vollständige Eigentum über Ihre Domäne zu erlangen."
         }
     },

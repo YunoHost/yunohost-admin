@@ -23,7 +23,7 @@
             "success": "Arrakastaz amaitu da"
         },
         "processing": "Zerbitzaria eragiketa exekutatzen ari da…",
-        "partial_logs": "[...] (ikuskatu historia erregistro osoetarako)",
+        "partial_logs": "[…] (ikuskatu historia erregistro osoetarako)",
         "reconnecting": {
             "title": "Zerbitzariarekin komunikatzeko ahaleginetan…",
             "failed": "Badirudi zerbitzaria ez dela erantzuten ari. SSH bidez berriro konektatzen saia zaitezke `systemctl restart yunohost-api` exekutatuz.",
@@ -44,7 +44,7 @@
         "info": "Ondorengo informazioa baliagarria izan dakioke laguntza ematen ari zaionari:",
         "sorry": "Barkatu."
     },
-    "api_waiting": "Zerbitzariaren zain…",
+    "api_waiting": "Zerbitzariaren erantzunaren zain…",
     "all": "Guztia",
     "api_not_found": "Badirudi administrazio-webgunea existitzen ez den zerbait bilatzen saiatu dela.",
     "api_not_responding": "YunoHosten APIa ez da erantzuten ari. Agian 'yunohost-api' ez dago martxan edo berrabiarazi da.",
@@ -115,7 +115,7 @@
         "firstname": "Izena"
     },
     "confirm_upnp_enable": "Ziur UPnP gaitu nahi duzula?",
-    "group": "Taldea:",
+    "group": "Taldea",
     "group_name": "Taldearen izena",
     "group_all_users": "Erabiltzaile guztiak",
     "group_visitors": "Bisitariak",
@@ -192,7 +192,7 @@
         },
         "toggle_subdomains": "Ikusi / Ezkutatu azpi-domeinuak",
         "add": {
-            "from_local_desc": "Ez baduzu \"benetako\" domeinu publiko bat nahi, <code>.local</code> edo <code>.test</code> amaiera duen edozein domeinu erabil dezakezu. <code>.local</code> edo <code>.test</code> amaiera duten domeinuak bereziak dira: sare lokalak kudeatzen ditu (gailuek Bonjour protokoloa badarabilte). Beste aukera bat gailu bakoitzeko <code>/etc/hosts</code> fitxategia (edo Windows-en baliokide dena) moldatzea da, edo routerrean DNS sarrerak konfiguratzea.",
+            "from_local_desc": "Ez baduzu \"benetako\" domeinu publiko bat nahi, <code>.local</code> edo <code>.test</code> amaiera duen edozein domeinu erabil dezakezu. <code>.local</code> amaiera duten domeinuak bereziak dira: sare lokalak kudeatzen ditu (gailuek Bonjour protokoloa badarabilte). Beste aukera bat gailu bakoitzeko <code>/etc/hosts</code> fitxategia (edo Windows-en baliokide dena) moldatzea da, edo routerrean DNS sarrerak konfiguratzea.",
             "from_yunohost_desc": "YunoHost proiektuak doako 'DynDNS' zerbitzu bat eskaintzen du. Zerbitzari bakoitzak mota honetako domeinu bakarra izan dezake (geroago azpidomeinu gehiago gehitu ditzakezu, 'Lehendik dudan domeinu edo azpidomeinu bat gehitu nahi dut' aukera erabiliz). DNS ezarpenak automatikoki kudeatuko ditu YunoHostek. Ideala da, orokorrean, norbera ostatatzen hasten denean eta oraindik domeinu bat erosteko prest ez dagoenarentzat. Hala ere, epe-ertain/luzean, domeinu propioa erostea gomendatzen dizugu, domeinuaren jabetza osoa izan dezazun.",
             "dyn_dns_password": "Domeinuaren berreskuratze-pasahitza",
             "dyn_dns_password_desc": "Pasahitz honek domeinuaren kontrola berreskuratzea ahalbidetuko dizu sistema berriz instalatzen baduzu. Domeinu hau aurretik ere erregistratu bazenuen, erabili berreskuratze-pasahitza hemen.",
@@ -278,7 +278,7 @@
     "confirm_update_apps": "Ziur aplikazio guztiak eguneratu nahi dituzula?",
     "confirm_update_specific_app": "Ziur {app} eguneratu nahi duzula?",
     "confirm_reboot_action_reboot": "Ziur zerbitzaria berrabiarazi nahi duzula?",
-    "created_at": "Sortze data:",
+    "created_at": "Sortze data",
     "custom_app_install": "Instalatu norberaren aplikazioa",
     "domain_dns_conf_is_just_a_recommendation": "Atal honetan *iradokitutako* ezarpenak agertzen dira. *Ez* du DNSa zure ordez konfiguratuko. Zure ardura da DNS guneak zure DNS erregistro-enpresaren gomendioen arabera ezartzea.",
     "disable": "Desgaitu",
@@ -310,7 +310,7 @@
     "dead": "Ez dago aktibo",
     "experimental": "Esperimentala",
     "go_back": "Joan atzera",
-    "items_verbose_count": "{items} dago | {items} bat dago | {itmes} daude.",
+    "items_verbose_count": "{items} dago | {items} bat dago | {items} daude.",
     "local_archives": "Artxibo lokalak",
     "logs": "Erregistroak",
     "logs_started_at": "Hasiera",
@@ -465,7 +465,7 @@
     "logs_ended_at": "Amaiera",
     "logs_more": "Erakutsi lerro gehiago",
     "postinstall_intro_1": "Bejon deizula! YunoHost arazorik gabe instalatu da.",
-    "postinstall_intro_3": "Argibide gehiago lor ditzakezu <a href='//yunohost.org/en/install/hardware:vps_debian#fa-cog-proceed-with-the-initial-configuration' target='_blank'>dokumentazio gunea</a> bisitatuz.",
+    "postinstall_intro_3": "Argibide gehiago lor ditzakezu <a href='//yunohost.org/en/install/hardware:vps_debian#fa-cog-proceed-with-the-initial-configuration' target='_blank'>dokumentazio gunea</a> bisitatuz",
     "postinstall_intro_2": "Bi urrats gehiago behar dira zerbitzariko zerbitzuak gaitzeko.",
     "mailbox_quota_example": "CD bat 700M dira, DVD bat 4700M",
     "mailbox_quota_placeholder": "0 ezarriz gero ez da mugarik egongo.",
@@ -546,7 +546,7 @@
     "yes": "Bai",
     "running": "Exekutatzen",
     "search": {
-        "for": "Bilatu {items}",
+        "for": "Bilatu {items}…",
         "not_found": "Zuk zehaztutako baldintzak betetzen dituzten {items} aurkitu dira. | Zuk zehaztutako baldintzak betetzen dituen {items} bat aurkitu da. | Zuk zehaztutako baldintzak betetzen dituzten {items} aurkitu dira."
     },
     "traceback": "Atzera egin (traceback)",
@@ -586,7 +586,7 @@
     "manage_groups": "Kudeatu taldeak",
     "tools_yunohost_settings": "YunoHosten ezarpenak",
     "wrong_password_or_username": "Pasahitz edo erabiltzaile-izen okerra",
-    "important_yunohost_upgrade": "YunoHosten bertsio nagusi bat dago eskuragai. Zinez gomendagarria da eguneraketaren oharrak arretaz irakurtzea foroan bertsio-berritu baino lehen: <a href='https://forum.yunohost.org/tag/ynh_release'>Irakurri oharrak foroan</a>.",
+    "important_yunohost_upgrade": "YunoHosten bertsio nagusi bat dago eskuragai. Zinez gomendagarria da eguneraketaren oharrak arretaz irakurtzea foroan bertsio-berritu baino lehen: <a href='https://forum.yunohost.org/tag/ynh_release'>Irakurri oharrak foroan</a>",
     "app": {
         "installed_version": "Instalatutako bertsioa:",
         "open_this_app": "Ireki aplikazio hau",

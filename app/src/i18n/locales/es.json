@@ -280,10 +280,10 @@
             "pending": "En progreso",
             "error": "No se ha podido realizar"
         },
-        "processing": "El servidor está procesando la acción...",
-        "partial_logs": "[...] (comprueba el histórico para un log completo)",
+        "processing": "El servidor está procesando la acción…",
+        "partial_logs": "[…] (comprueba el histórico para un log completo)",
         "reconnecting": {
-            "title": "Intentado comunicarse con el servidor...",
+            "title": "Intentado comunicarse con el servidor…",
             "failed": "Al parecer el servidor no responde. Puedes intentarlo nuevamente o utilizar el comando `systemctl restart yunohost-api` a través de SSH.",
             "reason": {
                 "unknown": "La conexión con el servidor ha sido cancelada por razones desconocidas.",
@@ -345,7 +345,7 @@
     "app_show_categories": "Mostrar categorías",
     "app_install_parameters": "Instalar la configuración",
     "app_choose_category": "Elige una categoría",
-    "api_waiting": "Esperando a la respuesta del servidor...",
+    "api_waiting": "Esperando a la respuesta del servidor…",
     "api_not_found": "Parece que la administración web ha intentado buscar algo que no existe.",
     "hook_conf_manually_modified_files": "Configuraciones modificadas manualmente",
     "hook_data_xmpp": "Datos XMPP",
@@ -560,7 +560,7 @@
     "users_import_confirm_destructive": "¿Seguro que quieres eliminar las cuentas que no se encuentran en este archivo?",
     "readme": "Léeme",
     "search": {
-        "for": "Busca {items}...",
+        "for": "Busca {items}…",
         "not_found": "Hay {items} coincidencias con tus criterios. | Hay 1 {items} coincidencia con tus criterios. | Hay {items} coincidencias con tus criterios."
     },
     "unknown": "Desconocido",

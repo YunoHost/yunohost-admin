@@ -29,7 +29,7 @@
     "confirm_firewall_allow": "Està segur de voler obrir el port {port}? (protocol: {protocol}, connexió: {connection})",
     "confirm_firewall_disallow": "Està segur de voler tancar el port {port}? (protocol: {protocol}, connexió: {connection})",
     "confirm_install_custom_app": "ATENCIÓ! La instal·lació d'aplicacions de terceres parts pot comprometre la integritat i seguretat del seu sistema. No hauríeu d'instal·lar-ne a no ser que sapigueu el que feu. Esteu segurs de voler córrer aquest risc?",
-    "confirm_install_domain_root": "No podrà instal·lar cap altra aplicació {domain}. Vol continuar?",
+    "confirm_install_domain_root": "Segur voleu instal·lar aquesta aplicació a «/»? No podreu instal·lar cap altra aplicació a {domain}",
     "confirm_migrations_skip": "Saltar-se les migracions no està recomanat. Està segur de voler continuar?",
     "confirm_postinstall": "Està a punt de començar el procés de post-instal·lació en el domini {domain}. Pot tardar uns minuts, *no interrompi la operació*.",
     "confirm_restore": "Està segur de voler restaurar {name}?",
@@ -308,7 +308,7 @@
     "error": "Error",
     "enabled": "Activat",
     "domain_delete_forbidden_desc": "No podeu eliminar «{domain}» ja que és el domini principal, heu d'escollir un altre domini (o <a href='#/domains/add'>afegir-ne un de nou</a>) i fer-lo el domini principal per a poder eliminar aquest.",
-    "domain_add_dyndns_forbidden": "Ja us heu registrat o subscrit a un domini DynDNS del projecte YunoHost. Per disseny, aquesta funció està limitada a un d'aquests dominis per servidor.  Si voleu un subdomini del vostre domini ja subscrit, utilitzeu l'opció \"Afegeix un domini que tinc o un subdomini\" anterior. Si voleu utilitzar un domini completament diferent, primer heu d'eliminar el vostre domini DynDNS existent. Els dominis DynDNS són bons quan comenceu amb l'allotjament automàtic, però a mitjà/llarg termini, us recomanem comprar el vostre propi nom de domini a algun registrador per tenir la propietat total del vostre domini.",
+    "domain_add_dyndns_forbidden": "Ja us heu registrat o subscrit a un domini DynDNS del projecte YunoHost. Per disseny, aquesta funció està limitada a un d'aquests dominis per servidor. Si voleu afegir un subdomini del vostre domini ja subscrit, utilitzeu l'opció «Afegir un domini que tinc o un subdomini» anterior. Si voleu utilitzar un domini completament diferent, primer heu d'eliminar el vostre domini DynDNS existent. Els dominis DynDNS són bons quan comenceu amb l'allotjament automàtic, però a mitjà/llarg termini, us recomanem comprar el vostre propi nom de domini a algun registrador per tenir la propietat total del vostre domini.",
     "disabled": "Desactivat",
     "dead": "Inactiu",
     "day_validity": " Expirat | 1 dia | {count} dies",
@@ -349,8 +349,8 @@
         }
     },
     "api": {
-        "processing": "El servidor està processant l'acció...",
-        "partial_logs": "[...] (consulteu l'historial per obtenir els registres complets)",
+        "processing": "El servidor està processant l'acció…",
+        "partial_logs": "[…] (consulteu l'historial per obtenir els registres complets)",
         "query_status": {
             "error": "Sense èxit",
             "pending": "En progrés",
@@ -364,7 +364,7 @@
                 "unknown": "La connexió amb el servidor s'ha tancat per motius desconeguts.",
                 "upgrade_system": "La connexió amb el servidor s'ha tancat a causa de l'actualització de YunoHost. S'està esperant que el servidor torni a ser accessible…"
             },
-            "title": "S'està intentant comunicar amb el servidor...",
+            "title": "S'està intentant comunicar amb el servidor…",
             "failed": "Sembla que el servidor no respon. Podeu provar de tornar a connectar-vos o provar d'executar `systemctl restart yunohost-api` mitjançant ssh.",
             "success": "Ja es pot accedir al servidor! Podeu provar d'iniciar sessió"
         }
@@ -450,7 +450,8 @@
             "title": "Vincles",
             "userdoc": "Documentació oficial d'usuari",
             "website": "Pàgina web oficial",
-            "license": "Llicència"
+            "license": "Llicència de l'aplicació",
+            "package_license": "Llicència del paquet de YunoHost"
         },
         "potential_alternative_to": "Alternativa potencial a:",
         "upgrade": {
@@ -487,9 +488,9 @@
             "from_registrar": "Vull afegir un domini que tinc o un subdomini",
             "from_yunohost": "No tinc cap domini, vull registrar/utilitzar un domini DynDNS gratuït proporcionat pel projecte YunoHost",
             "from_local": "Vull un domini per a ús local / només de prova",
-            "from_local_desc": "Si no voleu un nom de domini públic \"real\", podeu utilitzar qualsevol cosa que acabi en <code>.local</code> o <code>.test</code>.  Els noms de domini que acaben en <code>.local</code> són especials en el sentit que es poden resoldre automàticament a la xarxa local, suposant que els clients admeten el protocol Bonjour. Alternativament, és possible que hàgiu de modificar el fitxer <code>/etc/hosts</code> (o l'equivalent a Windows) a cada client des del qual vulgueu utilitzar aquest domini, o bé configurar les entrades de DNS locals al vostre encaminador d'Internet.",
+            "from_local_desc": "Si no voleu un nom de domini públic \"real\", podeu utilitzar qualsevol cosa que acabi en <code>.local</code> o <code>.test</code>. Els noms de domini que acaben en <code>.local</code> són especials en el sentit que es poden resoldre automàticament a la xarxa local, suposant que els clients admeten el protocol Bonjour. Alternativament, és possible que hàgiu de modificar el fitxer <code>/etc/hosts</code> (o l'equivalent a Windows) a cada client des del qual vulgueu utilitzar aquest domini, o bé configurar les entrades de DNS locals al vostre encaminador d'Internet.",
             "from_registrar_desc": "Haureu de configurar manualment els registres DNS al vostre registrador per finalitzar la configuració d'aquest domini. El diagnòstic de YunoHost us guiarà sobre quins registres DNS heu de configurar exactament.",
-            "from_yunohost_desc": "El projecte YunoHost manté un servei gratuït 'DynDNS'.  Està limitat a un d'aquests dominis per servidor (tot i que també podeu afegir subdominis més tard utilitzant l'altra opció \"Afegeix un domini que tinc o un subdomini\" anterior). La configuració de DNS serà gestionada automàticament per YunoHost.  Això és ideal quan comenceu amb l'allotjament automàtic en general i encara no voleu invertir en un nom de domini.  Tanmateix, a mitjà/llarg termini, us recomanem que compreu el vostre propi nom de domini a algun registrador per tenir la propietat total del vostre domini."
+            "from_yunohost_desc": "El projecte YunoHost manté un servei gratuït 'DynDNS'. Està limitat a un d'aquests dominis per servidor (tot i que també podeu afegir subdominis més tard utilitzant l'altra opció \"Afegeix un domini que tinc o un subdomini\" anterior). La configuració de DNS serà gestionada automàticament per YunoHost. Això és ideal quan comenceu amb l'allotjament automàtic en general i encara no voleu invertir en un nom de domini. Tanmateix, a mitjà/llarg termini, us recomanem que compreu el vostre propi nom de domini a algun registrador per tenir la propietat total del vostre domini."
         },
         "cert": {
             "types": {
@@ -661,7 +662,7 @@
     "retry": "Torna-ho a provar",
     "search": {
         "not_found": "Hi ha {items} que coincideixen amb els vostres criteris. | Hi ha 1 {items} que coincideix amb els vostres criteris. | Hi ha {items} que coincideixen amb els vostres criteris.",
-        "for": "Cerca {items}..."
+        "for": "Cerca {items}…"
     },
     "tools_webadmin_settings": "Configuració de Webadmin",
     "user_emailaliases_add": "Afegiu un àlies de correu",

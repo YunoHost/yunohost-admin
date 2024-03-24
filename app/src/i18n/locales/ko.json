@@ -15,8 +15,8 @@
     "all": "모두",
     "all_apps": "모든 앱",
     "api": {
-        "partial_logs": "[...] (전체 로그는 기록에 있음)",
-        "processing": "서버가 동작을 수행 중입니다...",
+        "partial_logs": "[…] (전체 로그는 기록에 있음)",
+        "processing": "서버가 동작을 수행 중입니다…",
         "query_status": {
             "error": "실패",
             "pending": "실행 중",
@@ -31,7 +31,7 @@
                 "upgrade_system": "YunoHost 업그레이드를 위해 서버와의 연결이 종료되었습니다. 다시 연결될 때까지 잠시 기다리세요…"
             },
             "success": "서버와 연결되었습니다! 다시 로그인할 수 있습니다",
-            "title": "서버와 통신중...",
+            "title": "서버와 통신중…",
             "failed": "서버가 응답하지 않는 것 같습니다. 다시 연결하거나 ssh를 통해 `systemctl restart yunohost-api` 명령을 실행하세요."
         }
     },
