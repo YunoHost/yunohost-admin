@@ -556,7 +556,7 @@
             "from_local": "Ich will eine Domain ausschließlich für die lokale / testweise Verwendung",
             "from_registrar": "Ich möchte eine eigene Domain oder eine Subdomain hinzufügen",
             "from_registrar_desc": "Sie müssen gegebenenfalls die DNS-Konfiguration bei ihrem Registrar vervollständigen. Die Diagnose von Yunohost zeigt Ihnen an, welche Records Sie noch konfigurieren müssen.",
-            "from_yunohost": "Ich besitze keine Domain, Ich möchte eine kostenlose DynDNS Domain des Yunohost Projektes nutzen.",
+            "from_yunohost": "Ich besitze keine Domain, Ich möchte eine kostenlose DynDNS-Domain des Yunohost Projektes nutzen",
             "from_yunohost_desc": "Das YunoHost-Projekt unterhält einen kostenlosen 'DynDNS'-Service. Dieser ist limitiert auf eine einzige solche Domäne pro Server (Sie können trotzdem später eine Subdomain mit der obigen Option 'Ich will eine Domäne, die in meinem Besitz ist, hinzufügen, oder eine Subdomain' hinzufügen). Die DNS-Konfiguration wird automatisch von YunoHost gehandhabt. Dies ist ideal, wenn Sie mit Self-Hosting überhaupt erst beginnen und Sie noch nicht in einen Domainname investieren möchten. Wie auch immer, mittel/-langfristig empfehlen wir der Kauf eines eigenen Domainnames bei einem Registrar, um das vollständige Eigentum über Ihre Domäne zu erlangen."
         }
     },
