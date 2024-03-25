@@ -550,7 +550,7 @@
             "apps_on_domain": "Apps instaladas no dominio",
             "certificate_authority": "Autoridade certificadora SSL",
             "registrar": "Rexistradora",
-            "dyn_dns_remove_and_unsubscribe": "Tamén cancelar o rexistro do dominio no servizo dyndns de YunoHost"
+            "dyn_dns_remove_and_unsubscribe": "Tamén cancelar o rexistro do dominio no servizo DynDNS de YunoHost"
         },
         "see_parent_domain": "Ver dominio nai",
         "types": {
