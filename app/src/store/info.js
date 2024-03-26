@@ -145,7 +145,7 @@ export default {
       // and login prompt will be shown automaticly
       await dispatch('GET_YUNOHOST_INFOS')
       commit('SET_CONNECTED', true)
-      await dispatch('GET', { uri: 'domains', storeKey: 'domains' })
+      await api.get({ uri: 'domains', storeKey: 'domains' })
     },
 
     RESET_CONNECTED({ commit }) {
