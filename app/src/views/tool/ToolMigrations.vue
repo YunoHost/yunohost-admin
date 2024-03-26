@@ -22,7 +22,7 @@
           <div class="d-flex align-items-center">
             {{ number }}. {{ description }}
 
-            <div class="ml-auto">
+            <div class="ms-auto">
               <BButton @click="skipMigration(id)" size="sm" variant="warning">
                 <YIcon iname="close" /> {{ $t('skip') }}
               </BButton>
@@ -88,11 +88,17 @@
 
 <script>
 import api from '@/api'
+import { useAutoModal } from '@/composables/useAutoModal'
 
 // FIXME not tested with pending migrations (disclaimer and stuff)
 export default {
-  compatConfig: { MODE: 3 },
   name: 'ToolMigrations',
+
+  setup() {
+    return {
+      modalConfirm: useAutoModal(),
+    }
+  },
 
   data() {
     return {
@@ -137,8 +143,8 @@ export default {
     },
 
     async skipMigration(id) {
-      const confirmed = await this.$askConfirmation(
-        this.$i18n.t('confirm_migrations_skip'),
+      const confirmed = await this.modalConfirm(
+        this.$t('confirm_migrations_skip'),
       )
       if (!confirmed) return
       api

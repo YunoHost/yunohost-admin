@@ -35,7 +35,7 @@
           variant="outline-dark"
           block
           menu-class="w-100"
-          @keydown.native="onDropdownKeydown"
+          @keydown="onDropdownKeydown"
         >
           <template #button-content>
             <YIcon iname="search-plus" /> {{ label }}
@@ -49,9 +49,13 @@
                 label-size="sm"
                 :label-for="id + '-search-input'"
                 :invalid-feedback="
-                  $tc('search.not_found', 0, {
-                    items: $tc('items.' + itemsName, 0),
-                  })
+                  $t(
+                    'search.not_found',
+                    {
+                      items: $t('items.' + itemsName, 0),
+                    },
+                    0,
+                  )
                 "
                 :state="searchState"
                 :disabled="disabled"
@@ -80,9 +84,13 @@
           <BDropdownText v-if="!criteria && availableOptions.length === 0">
             <YIcon iname="exclamation-triangle" />
             {{
-              $tc('items_verbose_items_left', 0, {
-                items: $tc('items.' + itemsName, 0),
-              })
+              $t(
+                'items_verbose_items_left',
+                {
+                  items: $t('items.' + itemsName, 0),
+                },
+                0,
+              )
             }}
           </BDropdownText>
         </BDropdown>
@@ -93,7 +101,6 @@
 
 <script>
 export default {
-  compatConfig: { MODE: 3 },
   name: 'TagsSelectizeItem',
 
   inheritAttrs: false,
@@ -168,7 +175,7 @@ export default {
       // Allow to start searching after dropdown opening
       if (
         !['Tab', 'Space'].includes(e.code) &&
-        e.target === this.$refs.dropdown.$el.lastElementChild
+        e.target === this.$refs.dropdown.$el.firstElementChild
       ) {
         this.$refs['search-input'].focus()
       }
@@ -187,7 +194,14 @@ export default {
     padding-top: 0.5rem;
     position: sticky;
     top: 0;
-    background-color: $white;
+  }
+}
+
+// FIXME bvn fix (should be fixed in lib)
+:deep(.btn-group) {
+  display: block;
+  .btn {
+    width: 100%;
   }
 }
 </style>

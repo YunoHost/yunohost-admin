@@ -6,8 +6,10 @@
           v-for="route in routes"
           :key="route.text"
           :to="route.to"
-          exact-active-class="active"
+          :active="$route.params.tabId === route.to.params.tabId"
         >
+          <!-- FIXME added :active="" because `exact-active-class` not working https://github.com/bootstrap-vue-next/bootstrap-vue-next/issues/1754 -->
+          <!-- exact-active-class="active" -->
           <YIcon v-if="route.icon" :iname="route.icon" />
           {{ route.text }}
         </BNavItem>
@@ -16,11 +18,7 @@
 
     <!-- Bind extra props to the child view and forward child events to parent -->
     <RouterView v-slot="{ Component }">
-      <Component
-        v-bind="$attrs"
-        :is="Component"
-        @apply="$emit('apply', $event)"
-      >
+      <Component v-bind="$attrs" :is="Component">
         <template #tab-top>
           <slot name="tab-top" />
         </template>
@@ -37,7 +35,6 @@
 
 <script>
 export default {
-  compatConfig: { MODE: 3 },
   name: 'RoutableTabs',
 
   // Thanks to `v-bind="$attrs"` and `inheritAttrs: false`, this component can forward

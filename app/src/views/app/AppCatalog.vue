@@ -10,48 +10,49 @@
       <div id="view-top-bar">
         <!-- APP SEARCH -->
         <BInputGroup>
-          <BInputGroupPrepend is-text>
+          <BInputGroupText>
             <YIcon iname="search" />
-          </BInputGroupPrepend>
+          </BInputGroupText>
+
           <BFormInput
             id="search-input"
-            :placeholder="$t('search.for', { items: $tc('items.apps', 2) })"
-            :value="search"
-            @input="updateQuery('search', $event)"
+            :placeholder="$t('search.for', { items: $t('items.apps', 2) })"
+            :modelValue="search"
+            @update:modelValue="updateQuery('search', $event)"
           />
-          <BInputGroupAppend>
-            <BFormSelect
-              :value="quality"
-              :options="qualityOptions"
-              @change="updateQuery('quality', $event)"
-            />
-          </BInputGroupAppend>
+
+          <BFormSelect
+            :modelValue="quality"
+            :options="qualityOptions"
+            @update:modelValue="updateQuery('quality', $event)"
+          />
         </BInputGroup>
 
         <!-- CATEGORY SELECT -->
         <BInputGroup class="mt-3">
-          <BInputGroupPrepend is-text>
+          <BInputGroupText>
             <YIcon iname="filter" />
-          </BInputGroupPrepend>
+          </BInputGroupText>
+
           <BFormSelect
-            :value="category"
+            :modelValue="category"
             :options="categories"
-            @change="updateQuery('category', $event)"
+            @update:modelValue="updateQuery('category', $event)"
           />
-          <BInputGroupAppend>
-            <BButton
-              variant="primary"
-              :disabled="category === null"
-              @click="updateQuery('category', null)"
-            >
-              {{ $t('app_show_categories') }}
-            </BButton>
-          </BInputGroupAppend>
+
+          <BButton
+            variant="primary"
+            :disabled="category === null"
+            @click="updateQuery('category', null)"
+          >
+            {{ $t('app_show_categories') }}
+          </BButton>
         </BInputGroup>
 
         <!-- CATEGORIES SUBTAGS -->
         <BInputGroup v-if="subtags" class="mt-3 subtags">
-          <BInputGroupPrepend is-text> Subtags </BInputGroupPrepend>
+          <BInputGroupText>Subtags</BInputGroupText>
+
           <BFormRadioGroup
             id="subtags-radio"
             name="subtags"
@@ -61,11 +62,12 @@
             buttons
             button-variant="outline-secondary"
           />
+
           <BFormSelect
             id="subtags-select"
-            :value="subtag"
+            :modelValue="subtag"
             :options="subtags"
-            @change="updateQuery('subtag', $event)"
+            @update:modelValue="updateQuery('subtag', $event)"
           />
         </BInputGroup>
       </div>
@@ -80,7 +82,10 @@
         class="category-card"
       >
         <BCardTitle>
-          <BLink @click="updateQuery('category', cat.value)" class="card-link">
+          <BLink
+            @click.prevent="updateQuery('category', cat.value)"
+            class="card-link"
+          >
             <YIcon :iname="cat.icon" /> {{ cat.text }}
           </BLink>
         </BCardTitle>
@@ -120,7 +125,7 @@
 
               <small
                 v-if="app.state !== 'working' || app.high_quality"
-                class="d-flex align-items-center ml-2 position-relative"
+                class="d-flex align-items-center ms-2 position-relative"
               >
                 <BBadge
                   v-if="app.state !== 'working'"
@@ -195,11 +200,11 @@
       <BCardGroup deck>
         <BCard v-for="i in 15" :key="i" no-body style="min-height: 10rem">
           <div class="d-flex w-100 mt-auto">
-            <BSkeleton width="30px" height="30px" class="mr-2 ml-auto" />
+            <BSkeleton width="30px" height="30px" class="me-2 ms-auto" />
             <BSkeleton
               :width="randint(30, 70) + '%'"
               height="30px"
-              class="mr-auto"
+              class="me-auto"
             />
           </div>
           <BSkeleton
@@ -223,11 +228,11 @@
 import { useVuelidate } from '@vuelidate/core'
 
 import CardDeckFeed from '@/components/CardDeckFeed.vue'
+import { useAutoModal } from '@/composables/useAutoModal'
 import { required, appRepoUrl } from '@/helpers/validators'
 import { randint } from '@/helpers/commons'
 
 export default {
-  compatConfig: { MODE: 3 },
   name: 'AppCatalog',
 
   components: {
@@ -244,6 +249,7 @@ export default {
   setup() {
     return {
       v$: useVuelidate(),
+      modalConfirm: useAutoModal(),
     }
   },
 
@@ -258,24 +264,24 @@ export default {
 
       // Filtering options
       qualityOptions: [
-        { value: 'high_quality', text: this.$i18n.t('only_highquality_apps') },
+        { value: 'high_quality', text: this.$t('only_highquality_apps') },
         {
           value: 'decent_quality',
-          text: this.$i18n.t('only_decent_quality_apps'),
+          text: this.$t('only_decent_quality_apps'),
         },
-        { value: 'working', text: this.$i18n.t('only_working_apps') },
-        { value: 'all', text: this.$i18n.t('all_apps') },
+        { value: 'working', text: this.$t('only_working_apps') },
+        { value: 'all', text: this.$t('all_apps') },
       ],
       categories: [
-        { text: this.$i18n.t('app_choose_category'), value: null },
-        { text: this.$i18n.t('all_apps'), value: 'all', icon: 'search' },
+        { text: this.$t('app_choose_category'), value: null },
+        { text: this.$t('all_apps'), value: 'all', icon: 'search' },
         // The rest is filled from api data
       ],
 
       // Custom install form
       customInstall: {
         field: {
-          label: this.$i18n.t('url'),
+          label: this.$t('url'),
           props: {
             id: 'custom-install',
             placeholder: 'https://some.git.forge.tld/USER/REPOSITORY',
@@ -322,11 +328,11 @@ export default {
           (cat) => cat.value === this.category,
         )
         if (category.subtags) {
-          const subtags = [{ text: this.$i18n.t('all'), value: 'all' }]
+          const subtags = [{ text: this.$t('all'), value: 'all' }]
           category.subtags.forEach((subtag) => {
             subtags.push({ text: subtag.title, value: subtag.id })
           })
-          subtags.push({ text: this.$i18n.t('others'), value: 'others' })
+          subtags.push({ text: this.$t('others'), value: 'others' })
           return subtags
         }
       }
@@ -404,8 +410,8 @@ export default {
     async onInstallClick(appId) {
       const app = this.apps.find((app) => app.id === appId)
       if (!app.decent_quality) {
-        const confirmed = await this.$askConfirmation(
-          this.$i18n.t('confirm_install_app_' + app.state),
+        const confirmed = await this.modalConfirm(
+          this.$t('confirm_install_app_' + app.state),
         )
         if (!confirmed) return
       }
@@ -414,8 +420,8 @@ export default {
 
     // INSTALL CUSTOM APP
     async onCustomInstallClick() {
-      const confirmed = await this.$askConfirmation(
-        this.$i18n.t('confirm_install_custom_app'),
+      const confirmed = await this.modalConfirm(
+        this.$t('confirm_install_custom_app'),
       )
       if (!confirmed) return
 
@@ -462,19 +468,20 @@ export default {
 .card-deck {
   padding: 0;
   margin-bottom: 0;
+  display: flex;
+  flex-flow: row wrap;
 
   > * {
-    margin-bottom: 2rem;
     flex-basis: 100%;
 
     @include media-breakpoint-up(md) {
       flex-basis: 50%;
-      max-width: calc(50% - 30px);
+      max-width: calc(50% - 0.75rem);
     }
 
     @include media-breakpoint-up(lg) {
       flex-basis: 33%;
-      max-width: calc(33.3% - 30px);
+      max-width: calc(33.3% - 1rem);
     }
   }
 
@@ -485,8 +492,9 @@ export default {
       border-color: $dark;
     }
 
-    .card-link {
+    :deep(.card-link) {
       color: inherit;
+      text-decoration: none;
 
       &::after {
         content: '';

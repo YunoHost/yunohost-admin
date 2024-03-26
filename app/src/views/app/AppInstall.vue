@@ -12,7 +12,7 @@
             :href="app.demo"
             target="_blank"
             variant="primary"
-            class="ml-auto"
+            class="ms-auto"
           >
             <YIcon iname="external-link" />
             {{ $t('app.install.try_demo') }}
@@ -90,7 +90,7 @@
         <BListGroup flush>
           <YListGroupItem v-for="[key, link] in app.links" :key="key" no-status>
             <BLink :href="link" target="_blank">
-              <YIcon :iname="appLinksIcons(key)" class="mr-1" />
+              <YIcon :iname="appLinksIcons(key)" class="me-1" />
               {{ $t('app.links.' + key) }}
             </BLink>
           </YListGroupItem>
@@ -105,7 +105,7 @@
           <dl class="antifeatures">
             <div v-for="antifeature in app.antifeatures" :key="antifeature.id">
               <dt class="d-inline">
-                <YIcon :iname="antifeature.icon" class="md mr-1" />
+                <YIcon :iname="antifeature.icon" class="md me-1" />
                 {{ antifeature.title }}:
               </dt>
               <dd class="d-inline">
@@ -193,7 +193,7 @@
     </template>
 
     <!-- In case of a custom url with no manifest found -->
-    <BAlert v-else-if="app === null" variant="warning">
+    <BAlert :modelValue="app === null" variant="warning">
       <YIcon iname="exclamation-triangle" />
       {{ $t('app_install_custom_no_manifest') }}
     </BAlert>
@@ -209,6 +209,7 @@
 import { useVuelidate } from '@vuelidate/core'
 
 import api, { objectToParams } from '@/api'
+import { useAutoModal } from '@/composables/useAutoModal'
 import {
   formatYunoHostArguments,
   formatI18nField,
@@ -217,7 +218,6 @@ import {
 import CardCollapse from '@/components/CardCollapse.vue'
 
 export default {
-  compatConfig: { MODE: 3 },
   name: 'AppInstall',
 
   components: {
@@ -231,6 +231,7 @@ export default {
   setup() {
     return {
       v$: useVuelidate(),
+      modalConfirm: useAutoModal(),
     }
   },
 
@@ -314,9 +315,7 @@ export default {
         name,
         alternativeTo:
           _app.potential_alternative_to && _app.potential_alternative_to.length
-            ? _app.potential_alternative_to.join(
-                this.$i18n.t('words.separator'),
-              )
+            ? _app.potential_alternative_to.join(this.$t('words.separator'))
             : null,
         description: formatI18nField(_app.doc.DESCRIPTION || _app.description),
         screenshot: _app.screenshot,
@@ -327,7 +326,7 @@ export default {
           _app.packaging_format >= 2
             ? {
                 archs: Array.isArray(archs)
-                  ? archs.join(this.$i18n.t('words.separator'))
+                  ? archs.join(this.$t('words.separator'))
                   : archs,
                 ldap: ldap === 'not_relevant' ? null : ldap,
                 sso: sso === 'not_relevant' ? null : sso,
@@ -382,8 +381,8 @@ export default {
 
     async performInstall() {
       if ('path' in this.form && this.form.path === '/') {
-        const confirmed = await this.$askConfirmation(
-          this.$i18n.t('confirm_install_domain_root', {
+        const confirmed = await this.modalConfirm(
+          this.$t('confirm_install_domain_root', {
             domain: this.form.domain,
           }),
         )
@@ -407,18 +406,15 @@ export default {
           const postInstall = this.formatAppNotifs(notifications)
           if (postInstall) {
             const message =
-              this.$i18n.t('app.install.notifs.post.alert') +
-              '\n\n' +
-              postInstall
-            await this.$askMdConfirmation(
+              this.$t('app.install.notifs.post.alert') + '\n\n' + postInstall
+            await this.modalConfirm(
               message,
               {
-                title: this.$i18n.t('app.install.notifs.post.title', {
+                title: this.$t('app.install.notifs.post.title', {
                   name: this.app.name,
                 }),
-                okTitle: this.$i18n.t('ok'),
               },
-              true,
+              { markdown: true, cancelable: false },
             )
           }
           this.$router.push({ name: 'app-list' })

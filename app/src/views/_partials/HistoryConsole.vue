@@ -15,7 +15,7 @@
     >
       <h5 class="m-0">
         <YIcon iname="history" />
-        <span class="d-none d-sm-inline font-weight-bold">
+        <span class="d-none d-sm-inline fw-bold">
           {{ $t('history.title') }}
         </span>
       </h5>
@@ -25,7 +25,7 @@
         v-if="lastAction"
         size="sm"
         pill
-        class="ml-auto py-0"
+        class="ms-auto py-0"
         :variant="open ? 'light' : 'best'"
         @click.prevent="onLastActionClick"
         @keyup.enter.space.prevent="onLastActionClick"
@@ -35,7 +35,7 @@
       <QueryHeader
         v-if="lastAction"
         :request="lastAction"
-        class="w-auto ml-2 xs-hide"
+        class="w-auto ms-2 xs-hide"
       />
     </BCardHeader>
 
@@ -50,7 +50,7 @@
           v-for="(action, i) in history"
           :key="i"
           no-body
-          class="rounded-0 rounded-top border-left-0 border-right-0"
+          class="rounded-0 rounded-top border-start-0 border-right-0"
         >
           <!-- ACTION -->
           <BCardHeader
@@ -94,7 +94,6 @@ import QueryHeader from '@/components/QueryHeader.vue'
 import MessageListGroup from '@/components/MessageListGroup.vue'
 
 export default {
-  compatConfig: { MODE: 3 },
   name: 'HistoryConsole',
 
   components: {
@@ -248,7 +247,7 @@ export default {
     align-items: center;
   }
 
-  @include media-breakpoint-down(xs) {
+  @include media-breakpoint-down(sm) {
     margin-left: -15px;
     width: calc(100% + 30px);
 

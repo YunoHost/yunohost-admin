@@ -48,12 +48,12 @@
 
       <!-- DOMAIN CERT AUTHORITY -->
       <DescriptionRow :term="$t('domain.info.certificate_authority')">
-        <YIcon :iname="cert.icon" :variant="cert.variant" class="mr-1" />
+        <YIcon :iname="cert.icon" :variant="cert.variant" class="me-1" />
         {{ $t('domain.cert.types.' + cert.authority) }}
         <span class="text-secondary px-2">
           ({{
             $t('domain.cert.valid_for', {
-              days: $tc('day_validity', cert.validity),
+              days: $t('day_validity', cert.validity),
             })
           }})
         </span>
@@ -83,10 +83,10 @@
             v-for="app in domain.apps"
             :key="app.id"
             size="sm"
-            class="mr-2 mb-2"
+            class="me-2 mb-2"
           >
             <BButton
-              class="py-0 font-weight-bold"
+              class="py-0 fw-bold"
               variant="outline-dark"
               :to="{ name: 'app-info', params: { id: app.id } }"
             >
@@ -98,7 +98,7 @@
               :href="'https://' + name + app.path"
               target="_blank"
             >
-              <span class="sr-only">{{ $t('app.visit_app') }}</span>
+              <span class="visually-hidden">{{ $t('app.visit_app') }}</span>
               <YIcon iname="external-link" />
             </BButton>
           </BButton-group>
@@ -125,8 +125,8 @@
       :title="$t('confirm_delete', { name: this.name })"
       @ok="deleteDomain"
       header-bg-variant="warning"
-      body-class=""
-      body-bg-variant=""
+      header-class="text-black"
+      :body-class="{ 'd-none': !isMainDynDomain }"
     >
       <BFormGroup v-if="isMainDynDomain">
         <BFormCheckbox v-model="unsubscribeDomainFromDyndns">
@@ -141,6 +141,7 @@
 import { mapGetters } from 'vuex'
 
 import api, { objectToParams } from '@/api'
+import { useAutoModal } from '@/composables/useAutoModal'
 import {
   formatFormData,
   formatYunoHostConfigPanels,
@@ -149,7 +150,6 @@ import ConfigPanels from '@/components/ConfigPanels.vue'
 import DomainDns from './DomainDns.vue'
 
 export default {
-  compatConfig: { MODE: 3 },
   name: 'DomainInfo',
 
   components: {
@@ -159,6 +159,12 @@ export default {
 
   props: {
     name: { type: String, required: true },
+  },
+
+  setup() {
+    return {
+      modalConfirm: useAutoModal(),
+    }
   },
 
   data() {
@@ -280,8 +286,8 @@ export default {
     },
 
     async setAsDefaultDomain() {
-      const confirmed = await this.$askConfirmation(
-        this.$i18n.t('confirm_change_maindomain'),
+      const confirmed = await this.modalConfirm(
+        this.$t('confirm_change_maindomain'),
       )
       if (!confirmed) return
 

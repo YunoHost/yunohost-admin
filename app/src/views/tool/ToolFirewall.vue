@@ -20,10 +20,9 @@
           <template #cell()="data">
             <BFormCheckbox
               v-if="data.field.key !== 'uPnP'"
-              class="on-off-switch"
-              v-model="data.value"
+              :modelValue="data.value"
               switch
-              @change="
+              @update:modelValue="
                 onTablePortToggling(
                   data.item.port,
                   protocol,
@@ -34,9 +33,7 @@
               "
             >
               <span
-                :class="
-                  'btn btn-sm py-0 btn-' + (data.value ? 'danger' : 'success')
-                "
+                :class="'btn btn-xs btn-' + (data.value ? 'danger' : 'success')"
               >
                 {{ $t(data.value ? 'close' : 'open') }}
               </span>
@@ -60,13 +57,13 @@
       :server-error="serverError"
       @submit.prevent="onFormPortToggling"
       inline
-      form-classes="d-flex justify-content-between align-items-start"
+      form-classes="d-flex flex-column flex-lg-row gap-3 justify-content-between align-items-start"
     >
       <BInputGroup :prepend="$t('action')">
         <BFormSelect v-model="form.action" :options="actionChoices" />
       </BInputGroup>
 
-      <FormField :validation="v$.form.port">
+      <FormField :validation="v$.form.port" class="mb-0">
         <BInputGroup :prepend="$t('port')">
           <InputItem
             id="input-port"
@@ -122,15 +119,16 @@
 import { useVuelidate } from '@vuelidate/core'
 
 import api from '@/api'
+import { useAutoModal } from '@/composables/useAutoModal'
 import { required, integer, between } from '@/helpers/validators'
 
 export default {
-  compatConfig: { MODE: 3 },
   name: 'ToolFirewall',
 
   setup() {
     return {
       v$: useVuelidate(),
+      modalConfirm: useAutoModal(),
     }
   },
 
@@ -141,27 +139,27 @@ export default {
 
       // Ports tables data
       fields: [
-        { key: 'port', label: this.$i18n.t('port') },
-        { key: 'ipv4', label: this.$i18n.t('ipv4') },
-        { key: 'ipv6', label: this.$i18n.t('ipv6') },
-        { key: 'uPnP', label: this.$i18n.t('upnp') },
+        { key: 'port', label: this.$t('port') },
+        { key: 'ipv4', label: this.$t('ipv4') },
+        { key: 'ipv6', label: this.$t('ipv6') },
+        { key: 'uPnP', label: this.$t('upnp') },
       ],
       protocols: undefined,
       portToToggle: undefined,
 
       // Ports form data
       actionChoices: [
-        { value: 'allow', text: this.$i18n.t('open') },
-        { value: 'disallow', text: this.$i18n.t('close') },
+        { value: 'allow', text: this.$t('open') },
+        { value: 'disallow', text: this.$t('close') },
       ],
       connectionChoices: [
-        { value: 'ipv4', text: this.$i18n.t('ipv4') },
-        { value: 'ipv6', text: this.$i18n.t('ipv6') },
+        { value: 'ipv4', text: this.$t('ipv4') },
+        { value: 'ipv6', text: this.$t('ipv6') },
       ],
       protocolChoices: [
-        { value: 'TCP', text: this.$i18n.t('tcp') },
-        { value: 'UDP', text: this.$i18n.t('udp') },
-        { value: 'Both', text: this.$i18n.t('both') },
+        { value: 'TCP', text: this.$t('tcp') },
+        { value: 'UDP', text: this.$t('udp') },
+        { value: 'Both', text: this.$t('both') },
       ],
       form: {
         action: 'allow',
@@ -216,8 +214,8 @@ export default {
     },
 
     async togglePort({ action, port, protocol, connection }) {
-      const confirmed = await this.$askConfirmation(
-        this.$i18n.t('confirm_firewall_' + action, {
+      const confirmed = await this.modalConfirm(
+        this.$t('confirm_firewall_' + action, {
           port,
           protocol,
           connection,
@@ -227,9 +225,7 @@ export default {
         return Promise.resolve(confirmed)
       }
 
-      const actionTrad = this.$i18n.t(
-        { allow: 'open', disallow: 'close' }[action],
-      )
+      const actionTrad = this.$t({ allow: 'open', disallow: 'close' }[action])
       return api
         .put(
           `firewall/${protocol}/${action}/${port}?${connection}_only`,
@@ -248,8 +244,8 @@ export default {
 
     async toggleUpnp(value) {
       const action = this.upnpEnabled ? 'disable' : 'enable'
-      const confirmed = await this.$askConfirmation(
-        this.$i18n.t('confirm_upnp_' + action),
+      const confirmed = await this.modalConfirm(
+        this.$t('confirm_upnp_' + action),
       )
       if (!confirmed) return
 
@@ -257,7 +253,7 @@ export default {
         .put(
           'firewall/upnp/' + action,
           {},
-          { key: 'firewall.upnp', action: this.$i18n.t(action) },
+          { key: 'firewall.upnp', action: this.$t(action) },
         )
         .then(() => {
           // FIXME Couldn't test when it works.
@@ -292,47 +288,34 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-:deep(.on-off-switch) {
-  .custom-control-input {
-    &:checked ~ .custom-control-label::before {
-      border-color: $success;
-      background-color: $success;
-    }
-    &:not(:checked) ~ .custom-control-label {
-      &::before {
+:deep() {
+  .form-switch {
+    .form-check-input {
+      --bs-form-switch-bg: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'><circle r='3' fill='rgb(255, 255, 255)'/></svg>") !important;
+      [data-bs-theme='dark'] * & {
+        --bs-form-switch-bg: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'><circle r='3' fill='rgb(34, 38, 42)'/></svg>") !important;
+      }
+      &:checked {
+        border-color: $success;
+        background-color: $success;
+      }
+      &:not(:checked) {
         border-color: $danger;
         background-color: $danger;
       }
-      &::after {
-        background-color: $white;
+    }
+
+    input:focus ~ .custom-control-label,
+    &:hover {
+      span {
+        visibility: visible;
       }
     }
-  }
-
-  input:focus ~ .custom-control-label,
-  &:hover {
     span {
-      visibility: visible;
-    }
-  }
-  span {
-    visibility: hidden;
-    @include media-breakpoint-down(xs) {
-      display: none;
-    }
-  }
-}
-
-:deep(form) {
-  margin-bottom: -1rem;
-
-  & > * {
-    margin-bottom: 1rem;
-  }
-
-  @include media-breakpoint-down(xs) {
-    fieldset {
-      width: 100%;
+      visibility: hidden;
+      @include media-breakpoint-down(sm) {
+        display: none;
+      }
     }
   }
 }

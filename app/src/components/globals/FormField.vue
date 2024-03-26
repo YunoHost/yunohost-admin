@@ -28,7 +28,7 @@
       <!-- Render description -->
       <template v-if="description || link">
         <div class="d-flex">
-          <BLink v-if="link" :to="link" :href="link.href" class="ml-auto">
+          <BLink v-if="link" :to="link" :href="link.href" class="ms-auto">
             {{ link.text }}
           </BLink>
         </div>
@@ -48,8 +48,9 @@
 </template>
 
 <script>
+import { provide } from 'vue'
+
 export default {
-  compatConfig: { MODE: 3 },
   name: 'FormField',
 
   inheritAttrs: false,
@@ -68,6 +69,22 @@ export default {
     validationIndex: { type: Number, default: null },
   },
 
+  setup(props) {
+    function touch(name) {
+      if (props.validation) {
+        // For fields that have multiple elements
+        if (name) {
+          props.validation[name].$touch()
+        } else {
+          props.validation.$touch()
+        }
+      }
+    }
+    provide('touch', touch)
+
+    return { touch }
+  },
+
   computed: {
     _id() {
       if (this.id) return this.id
@@ -81,7 +98,7 @@ export default {
         const defaultAttrs = {
           'label-cols-md': 4,
           'label-cols-lg': 3,
-          'label-class': ['font-weight-bold', 'py-0'],
+          'label-class': ['fw-bold', 'py-0'],
         }
         if (!('label-cols' in attrs)) {
           for (const attr in defaultAttrs) {
@@ -120,25 +137,12 @@ export default {
       const err = this.error
       if (err) {
         if (err.$message) return err.$message
-        return this.$i18n.t('form_errors.' + err.$validator, {
+        return this.$t('form_errors.' + err.$validator, {
           value: err.$model,
           ...err.$params,
         })
       }
       return ''
-    },
-  },
-
-  methods: {
-    touch(name) {
-      if (this.validation) {
-        // For fields that have multiple elements
-        if (name) {
-          this.validation[name].$touch()
-        } else {
-          this.validation.$touch()
-        }
-      }
     },
   },
 }

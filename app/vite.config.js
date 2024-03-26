@@ -2,6 +2,8 @@ import { fileURLToPath, URL } from 'url'
 import { defineConfig, loadEnv } from 'vite'
 import fs from 'fs'
 import createVuePlugin from '@vitejs/plugin-vue'
+import Components from 'unplugin-vue-components/vite'
+import { BootstrapVueNextResolver } from 'unplugin-vue-components/resolvers'
 
 import supportedLocales from './src/i18n/supportedLocales'
 
@@ -23,7 +25,6 @@ export default defineConfig(({ command, mode }) => {
     },
     resolve: {
       alias: [
-        { find: 'vue', replacement: '@vue/compat' },
         // this is required for the SCSS modules imports with `~` (node_modules)
         {
           find: /^~(.*)$/,
@@ -48,14 +49,9 @@ export default defineConfig(({ command, mode }) => {
       },
     },
     plugins: [
-      createVuePlugin({
-        template: {
-          compilerOptions: {
-            compatConfig: {
-              MODE: 2,
-            },
-          },
-        },
+      createVuePlugin(),
+      Components({
+        resolvers: [BootstrapVueNextResolver()],
       }),
     ],
     build: {

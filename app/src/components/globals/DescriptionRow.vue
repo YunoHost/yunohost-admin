@@ -16,7 +16,6 @@
 
 <script>
 export default {
-  compatConfig: { MODE: 3 },
   name: 'DescriptionRow',
 
   props: {
@@ -43,7 +42,7 @@ export default {
     }
   }
 
-  @include media-breakpoint-down(sm) {
+  @include media-breakpoint-down(md) {
     flex-direction: column;
 
     &:not(:last-of-type) {

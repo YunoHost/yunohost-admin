@@ -68,10 +68,10 @@
           <BListGroupItem
             v-for="(item, partName) in system"
             :key="partName"
-            class="d-flex justify-content-between align-items-center pr-0"
+            class="d-flex justify-content-between align-items-center pe-0"
           >
-            <div class="mr-2">
-              <h5 class="font-weight-bold">
+            <div class="me-2">
+              <h5 class="fw-bold">
                 {{ item.name }}
                 <small class="text-secondary" v-if="item.size">
                   ({{ humanSize(item.size) }})
@@ -89,10 +89,10 @@
           <BListGroupItem
             v-for="(item, appName) in apps"
             :key="appName"
-            class="d-flex justify-content-between align-items-center pr-0"
+            class="d-flex justify-content-between align-items-center pe-0"
           >
-            <div class="mr-2">
-              <h5 class="font-weight-bold">
+            <div class="me-2">
+              <h5 class="fw-bold">
                 {{ item.name }}
                 <small class="text-secondary">
                   {{ appName }} ({{ humanSize(item.size) }})
@@ -137,17 +137,23 @@
 
 <script>
 import api from '@/api'
+import { useAutoModal } from '@/composables/useAutoModal'
 import { readableDate } from '@/helpers/filters/date'
 import { humanSize } from '@/helpers/filters/human'
 import { isEmptyValue } from '@/helpers/commons'
 
 export default {
-  compatConfig: { MODE: 3 },
   name: 'BackupInfo',
 
   props: {
     id: { type: String, required: true },
     name: { type: String, required: true },
+  },
+
+  setup() {
+    return {
+      modalConfirm: useAutoModal(),
+    }
   },
 
   data() {
@@ -178,13 +184,13 @@ export default {
           : hook
         if (groupId in data) {
           data[groupId].value.push(hook)
-          data[groupId].description += ', ' + this.$i18n.t('hook_' + hook)
+          data[groupId].description += ', ' + this.$t('hook_' + hook)
           data[groupId].size += size
         } else {
           data[groupId] = {
-            name: this.$i18n.t('hook_' + groupId),
+            name: this.$t('hook_' + groupId),
             value: [hook],
-            description: this.$i18n.t(
+            description: this.$t(
               groupId === hook ? `hook_${hook}_desc` : 'hook_' + hook,
             ),
             size,
@@ -216,8 +222,8 @@ export default {
     },
 
     async restoreBackup() {
-      const confirmed = await this.$askConfirmation(
-        this.$i18n.t('confirm_restore', { name: this.name }),
+      const confirmed = await this.modalConfirm(
+        this.$t('confirm_restore', { name: this.name }),
       )
       if (!confirmed) return
 
@@ -246,8 +252,8 @@ export default {
     },
 
     async deleteBackup() {
-      const confirmed = await this.$askConfirmation(
-        this.$i18n.t('confirm_delete', { name: this.name }),
+      const confirmed = await this.modalConfirm(
+        this.$t('confirm_delete', { name: this.name }),
       )
       if (!confirmed) return
 

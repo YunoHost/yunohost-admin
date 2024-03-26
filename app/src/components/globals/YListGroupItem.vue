@@ -14,7 +14,6 @@
 import { DEFAULT_STATUS_ICON } from '@/helpers/yunohostArguments'
 
 export default {
-  compatConfig: { MODE: 3 },
   name: 'YListGroupItem',
 
   props: {
@@ -50,6 +49,7 @@ export default {
 
   &-status {
     width: 2rem;
+    min-width: 2rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -62,15 +62,15 @@ export default {
 
   @each $color, $value in $theme-colors {
     &-#{$color} {
-      color: theme-color-level($color, 6);
+      color: tint-color($value, 50%);
 
-      [dark-theme='true'] & {
-        color: theme-color-level($color, -6);
+      [data-bs-theme='light'] & {
+        color: shade-color($value, 60%);
       }
 
       .yuno-list-group-item-status {
         background-color: $value;
-        color: color-yiq($value);
+        color: color-contrast($value);
       }
     }
   }

@@ -35,15 +35,21 @@
 
 <script>
 import api from '@/api'
+import { useAutoModal } from '@/composables/useAutoModal'
 
 export default {
-  compatConfig: { MODE: 3 },
   name: 'ToolPower',
+
+  setup() {
+    return {
+      modalConfirm: useAutoModal(),
+    }
+  },
 
   methods: {
     async triggerAction(action) {
-      const confirmed = await this.$askConfirmation(
-        this.$i18n.t('confirm_reboot_action_' + action),
+      const confirmed = await this.modalConfirm(
+        this.$t('confirm_reboot_action_' + action),
       )
       if (!confirmed) return
 

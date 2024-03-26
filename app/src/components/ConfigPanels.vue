@@ -5,7 +5,6 @@
       v-if="routes_.length > 1"
       v-bind="{ panels, forms, v: v$, ...$attrs }"
       :routes="routes_"
-      @apply="$emit('apply', $event)"
     >
       <template #tab-top>
         <slot name="tab-top" />
@@ -32,7 +31,6 @@ import { defineAsyncComponent } from 'vue'
 import { useVuelidate } from '@vuelidate/core'
 
 export default {
-  compatConfig: { MODE: 3 },
   name: 'ConfigPanels',
 
   inheritAttrs: false,
@@ -56,7 +54,7 @@ export default {
   setup(props) {
     const externalResults = toRef(props, 'externalResults')
     return {
-      v$: useVuelidate({ $externalResults: externalResults, $autoDirty: true }),
+      v$: useVuelidate({ $externalResults: externalResults }),
     }
   },
 

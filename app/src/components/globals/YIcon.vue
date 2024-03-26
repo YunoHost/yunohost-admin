@@ -7,7 +7,6 @@
 
 <script>
 export default {
-  compatConfig: { MODE: 3 },
   name: 'YIcon',
   props: {
     iname: { type: String, required: true },
@@ -49,7 +48,7 @@ export default {
     @each $color, $value in $theme-colors {
       &.#{$color} {
         background-color: $value;
-        color: color-yiq($value);
+        color: color-contrast($value);
       }
     }
   }

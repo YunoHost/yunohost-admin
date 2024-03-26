@@ -45,11 +45,11 @@
 
         <BCol>
           <template v-if="group.isSpecial">
-            <p class="text-primary">
+            <p class="text-primary-emphasis">
               <YIcon iname="info-circle" />
               {{ $t('group_explain_' + groupName) }}
             </p>
-            <p class="text-primary" v-if="groupName === 'visitors'">
+            <p class="text-primary-emphasis" v-if="groupName === 'visitors'">
               <em>{{
                 $t('group_explain_visitors_needed_for_external_client')
               }}</em>
@@ -134,17 +134,23 @@
 
 <script>
 import api from '@/api'
+import { useAutoModal } from '@/composables/useAutoModal'
 import { isEmptyValue } from '@/helpers/commons'
 import TagsSelectizeItem from '@/components/globals/formItems/TagsSelectizeItem.vue'
 
 // TODO add global search with type (search by: group, user, permission)
 // TODO add vuex store update on inputs ?
 export default {
-  compatConfig: { MODE: 3 },
   name: 'GroupList',
 
   components: {
     TagsSelectizeItem,
+  },
+
+  setup() {
+    return {
+      modalConfirm: useAutoModal(),
+    }
   },
 
   data() {
@@ -265,8 +271,8 @@ export default {
     async onPermissionChanged({ option, groupName, action, applyMethod }) {
       const permId = this.permissions.find((perm) => perm.label === option).id
       if (action === 'add' && ['sftp.main', 'ssh.main'].includes(permId)) {
-        const confirmed = await this.$askConfirmation(
-          this.$i18n.t('confirm_group_add_access_permission', {
+        const confirmed = await this.modalConfirm(
+          this.$t('confirm_group_add_access_permission', {
             name: groupName,
             perm: option,
           }),
@@ -311,8 +317,8 @@ export default {
     },
 
     async deleteGroup(groupName) {
-      const confirmed = await this.$askConfirmation(
-        this.$i18n.t('confirm_delete', { name: groupName }),
+      const confirmed = await this.modalConfirm(
+        this.$t('confirm_delete', { name: groupName }),
       )
       if (!confirmed) return
 

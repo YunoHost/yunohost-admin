@@ -12,7 +12,7 @@ export default {
     fallbackLocale: localStorage.getItem('fallbackLocale'),
     cache: localStorage.getItem('cache') !== 'false',
     transitions: localStorage.getItem('transitions') !== 'false',
-    theme: localStorage.getItem('theme') === 'true',
+    dark: localStorage.getItem('dark') === 'true',
     experimental: localStorage.getItem('experimental') === 'true',
     spinner: 'pacman',
     supportedLocales,
@@ -48,10 +48,13 @@ export default {
       state.spinner = spinner
     },
 
-    SET_THEME(state, boolean) {
-      localStorage.setItem('theme', boolean)
-      state.theme = boolean
-      document.documentElement.setAttribute('dark-theme', boolean)
+    SET_DARK(state, boolean) {
+      localStorage.setItem('dark', boolean)
+      state.dark = boolean
+      document.documentElement.setAttribute(
+        'data-bs-theme',
+        boolean ? 'dark' : 'light',
+      )
     },
   },
 
@@ -68,8 +71,8 @@ export default {
       })
     },
 
-    UPDATE_THEME({ commit }, theme) {
-      commit('SET_THEME', theme)
+    UPDATE_DARK({ commit }, boolean) {
+      commit('SET_DARK', boolean)
     },
   },
 
@@ -78,7 +81,7 @@ export default {
     fallbackLocale: (state) => state.fallbackLocale,
     cache: (state) => state.cache,
     transitions: (state) => state.transitions,
-    theme: (state) => state.theme,
+    dark: (state) => state.dark,
     experimental: (state) => state.experimental,
     spinner: (state) => state.spinner,
 

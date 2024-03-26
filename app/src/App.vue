@@ -8,7 +8,7 @@
           :disabled="waiting"
           exact-active-class="active"
         >
-          <span v-if="theme">
+          <span v-if="dark">
             <img alt="YunoHost logo" src="./assets/logo_light.png" width="40" />
           </span>
           <span v-else>
@@ -16,7 +16,7 @@
           </span>
         </BNavbarBrand>
 
-        <BNavbarNav class="ml-auto">
+        <BNavbarNav class="ms-auto">
           <li class="nav-item">
             <BButton :href="ssoLink" variant="primary" size="sm" block>
               {{ $t('user_interface_link') }} <YIcon iname="user" />
@@ -53,6 +53,8 @@
       </main>
     </ViewLockOverlay>
 
+    <BModalOrchestrator />
+
     <!-- HISTORY CONSOLE -->
     <HistoryConsole />
 
@@ -85,7 +87,7 @@
           <BNavText
             v-if="yunohost"
             id="yunohost-version"
-            class="ml-md-auto text-center"
+            class="ms-md-auto text-center"
           >
             <span v-html="$t('footer_version', yunohost)" />
           </BNavText>
@@ -101,7 +103,6 @@ import { mapGetters } from 'vuex'
 import { HistoryConsole, ViewLockOverlay } from '@/views/_partials'
 
 export default {
-  compatConfig: { MODE: 3 },
   name: 'App',
 
   components: {
@@ -117,7 +118,7 @@ export default {
       'transitions',
       'transitionName',
       'waiting',
-      'theme',
+      'dark',
       'ssoLink',
     ]),
   },
@@ -141,7 +142,7 @@ export default {
       if (key === copypastaCode[copypastastep++]) {
         if (copypastastep === copypastaCode.length) {
           document
-            .getElementsByClassName('unselectable')
+            .querySelectorAll('.unselectable')
             .forEach((element) => element.classList.remove('unselectable'))
           copypastastep = 0
         }
@@ -185,16 +186,14 @@ export default {
     if (today.getDate() === 31 && today.getMonth() + 1 === 10) {
       this.$store.commit('SET_SPINNER', 'spookycat')
     }
-
-    document.documentElement.setAttribute('dark-theme', this.theme) // updates the data-theme attribute
+    // updates the data-bs-theme attribute
+    document.documentElement.setAttribute(
+      'data-bs-theme',
+      this.dark ? 'dark' : 'light',
+    )
   },
 }
 </script>
-
-<style lang="scss">
-// Global import of Bootstrap and custom styles
-@import '@/scss/main.scss';
-</style>
 
 <style lang="scss" scoped>
 // generic style for <html>, <body> and <#app> is in `scss/main.scss`

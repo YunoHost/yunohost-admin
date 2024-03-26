@@ -5,21 +5,28 @@
     :id="id"
     :options="choices"
     :required="required"
-    @blur.native="$emit('blur', modelValue)"
+    @blur="touch(name)"
   />
 </template>
 
 <script>
+import { inject } from 'vue'
+
 export default {
-  compatConfig: { MODE: 3 },
   name: 'SelectItem',
 
   props: {
     modelValue: { type: [String, null], default: null },
     id: { type: String, default: null },
-    choices: { type: [Array, Object], required: true },
+    choices: { type: Array, required: true },
     required: { type: Boolean, default: false },
     name: { type: String, default: null },
+  },
+
+  setup() {
+    return {
+      touch: inject('touch'),
+    }
   },
 }
 </script>

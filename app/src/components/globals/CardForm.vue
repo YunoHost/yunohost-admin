@@ -7,7 +7,7 @@
         :id="id"
         :inline="inline"
         :class="formClasses"
-        @submit.prevent="onSubmit"
+        @submit.prevent.stop="onSubmit"
         novalidate
       >
         <slot name="default" />
@@ -17,7 +17,7 @@
             variant="danger"
             class="my-3"
             icon="ban"
-            :show="errorFeedback !== ''"
+            :modelValue="errorFeedback !== ''"
           >
             <div v-html="errorFeedback" />
           </BAlert>
@@ -37,7 +37,6 @@
 
 <script>
 export default {
-  compatConfig: { MODE: 3 },
   name: 'CardForm',
 
   props: {
@@ -54,7 +53,7 @@ export default {
     errorFeedback() {
       if (this.serverError) return this.serverError
       else if (this.validation && this.validation.$errors.length) {
-        return this.$i18n.t('form_errors.invalid_form')
+        return this.$t('form_errors.invalid_form')
       } else return ''
     },
   },

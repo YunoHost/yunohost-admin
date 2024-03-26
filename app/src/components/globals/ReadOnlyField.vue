@@ -1,6 +1,6 @@
 <template>
   <BRow no-gutters class="description-row">
-    <BCol v-bind="cols_" class="font-weight-bold">
+    <BCol v-bind="cols_" class="fw-bold">
       {{ label }}
     </BCol>
 
@@ -13,7 +13,6 @@
 
 <script>
 export default {
-  compatConfig: { MODE: 3 },
   name: 'ReadOnlyField',
 
   inheritAttrs: false,
@@ -39,15 +38,13 @@ export default {
     parseValue(value) {
       const item = this.component
       if (item === 'FileItem') value = value.file ? value.file.name : null
-      if (item === 'CheckboxItem') value = this.$i18n.t(value ? 'yes' : 'no')
+      if (item === 'CheckboxItem') value = this.$t(value ? 'yes' : 'no')
       if (item === 'TextAreaItem') value = value.replaceAll('\n', '<br>')
       if (Array.isArray(value)) {
-        value = value.length
-          ? value.join(this.$i18n.t('words.separator'))
-          : null
+        value = value.length ? value.join(this.$t('words.separator')) : null
       }
       if ([null, undefined, ''].includes(this.value))
-        value = this.$i18n.t('words.none')
+        value = this.$t('words.none')
       return value
     },
   },
@@ -59,7 +56,7 @@ export default {
   @include media-breakpoint-up(md) {
     margin: 1rem 0;
   }
-  @include media-breakpoint-down(sm) {
+  @include media-breakpoint-down(md) {
     flex-direction: column;
     &:not(:last-of-type) {
       margin-bottom: 0.5rem;

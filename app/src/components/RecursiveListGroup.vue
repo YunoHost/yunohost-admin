@@ -15,10 +15,10 @@
           :aria-expanded="node.data.opened ? 'true' : 'false'"
           :aria-controls="'collapse-' + node.id"
           :class="node.data.opened ? 'not-collapsed' : 'collapsed'"
-          class="ml-2"
+          class="ms-2"
           @click.stop="node.data.opened = !node.data.opened"
         >
-          <span class="sr-only">{{ toggleText }}</span>
+          <span class="visually-hidden">{{ toggleText }}</span>
           <YIcon iname="chevron-right" />
         </BButton>
       </BListGroupItem>
@@ -45,7 +45,6 @@
 
 <script>
 export default {
-  compatConfig: { MODE: 3 },
   name: 'RecursiveListGroup',
 
   props: {
@@ -113,8 +112,13 @@ export default {
     text-decoration: none;
     background-color: $list-group-hover-bg;
 
-    @include hover-focus() {
-      background-color: darken($list-group-hover-bg, 3%);
+    &:hover,
+    &:focus {
+      background-color: shade-color($body-tertiary-bg, 3%);
+
+      [data-bs-theme='dark'] & {
+        background-color: tint-color($body-tertiary-bg-dark, 3%);
+      }
     }
   }
 }

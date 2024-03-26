@@ -14,9 +14,9 @@
       />
     </template>
 
-    <BAlert v-if="!archives" variant="warning">
+    <BAlert v-if="!archives" :modelValue="!archives" variant="warning">
       <YIcon iname="exclamation-triangle" />
-      {{ $tc('items_verbose_count', 0, { items: $tc('items.backups', 0) }) }}
+      {{ $t('items_verbose_count', { items: $t('items.backups', 0) }, 0) }}
     </BAlert>
 
     <BListGroup v-else>
@@ -25,10 +25,10 @@
         :key="name"
         :to="{ name: 'backup-info', params: { name, id } }"
         :title="readableDate(created_at)"
-        class="d-flex justify-content-between align-items-center pr-0"
+        class="d-flex justify-content-between align-items-center pe-0"
       >
         <div>
-          <h5 class="font-weight-bold">
+          <h5 class="fw-bold">
             {{ distanceToNow(created_at) }}
             <small class="text-secondary"
               >{{ name }} ({{ humanSize(size) }})</small
@@ -38,7 +38,7 @@
             {{ path }}
           </p>
         </div>
-        <YIcon iname="chevron-right" class="lg fs-sm ml-auto" />
+        <YIcon iname="chevron-right" class="lg fs-sm ms-auto" />
       </BListGroupItem>
     </BListGroup>
   </ViewBase>
@@ -49,7 +49,6 @@ import { distanceToNow, readableDate } from '@/helpers/filters/date'
 import { humanSize } from '@/helpers/filters/human'
 
 export default {
-  compatConfig: { MODE: 3 },
   name: 'BackupList',
 
   props: {

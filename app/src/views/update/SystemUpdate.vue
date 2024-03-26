@@ -88,10 +88,11 @@
     </YCard>
 
     <BModal
+      v-model="showPreUpgradeModal"
       id="apps-pre-upgrade"
       :title="$t('app.upgrade.confirm.title')"
       header-bg-variant="warning"
-      :header-class="theme ? 'text-white' : 'text-black'"
+      header-class="text-black"
       :ok-title="$t('system_upgrade_btn')"
       ok-variant="success"
       :cancel-title="$t('cancel')"
@@ -139,16 +140,22 @@
 
 <script>
 import api from '@/api'
+import { useAutoModal } from '@/composables/useAutoModal'
 import { mapGetters } from 'vuex'
 
 import CardCollapse from '@/components/CardCollapse.vue'
 
 export default {
-  compatConfig: { MODE: 3 },
   name: 'SystemUpdate',
 
   components: {
     CardCollapse,
+  },
+
+  setup() {
+    return {
+      modalConfirm: useAutoModal(),
+    }
   },
 
   data() {
@@ -159,6 +166,7 @@ export default {
       apps: undefined,
       importantYunohostUpgrade: undefined,
       pendingMigrations: undefined,
+      showPreUpgradeModal: false,
       preUpgrade: {
         apps: [],
         notifs: [],
@@ -167,7 +175,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['theme']),
+    ...mapGetters(['dark']),
   },
 
   methods: {
@@ -201,7 +209,7 @@ export default {
           : '',
       }))
       this.preUpgrade = { apps, hasNotifs: apps.some((app) => app.notif) }
-      this.$bvModal.show('apps-pre-upgrade')
+      this.showPreUpgradeModal = true
     },
 
     async performAppsUpgrade(ids) {
@@ -224,19 +232,17 @@ export default {
 
             if (postMessage) {
               const message =
-                this.$i18n.t('app.upgrade.notifs.post.alert') +
-                '\n\n' +
-                postMessage
-              return this.$askMdConfirmation(
+                this.$t('app.upgrade.notifs.post.alert') + '\n\n' + postMessage
+              return this.modalConfirm(
                 message,
                 {
-                  title: this.$i18n.t('app.upgrade.notifs.post.title', {
+                  title: this.$t('app.upgrade.notifs.post.title', {
                     name: app.name,
                   }),
-                  okTitle: this.$i18n.t(isLast ? 'ok' : 'app.upgrade.continue'),
-                  cancelTitle: this.$i18n.t('app.upgrade.stop'),
+                  okTitle: this.$t(isLast ? 'ok' : 'app.upgrade.continue'),
+                  cancelTitle: this.$t('app.upgrade.stop'),
                 },
-                isLast,
+                { markdown: true, cancelable: !isLast },
               )
             } else {
               return Promise.resolve(true)
@@ -251,8 +257,8 @@ export default {
     },
 
     async performSystemUpgrade() {
-      const confirmed = await this.$askConfirmation(
-        this.$i18n.t('confirm_update_system'),
+      const confirmed = await this.modalConfirm(
+        this.$t('confirm_update_system'),
       )
       if (!confirmed) return
 

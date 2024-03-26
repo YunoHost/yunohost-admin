@@ -2,16 +2,21 @@
   <span class="explain-what">
     <slot name="default" />
     <span class="explain-what-popover-container">
-      <BButton :id="id" href="#" variant="light">
+      <BButton
+        variant="light"
+        @focus="open = true"
+        @blur="open = false"
+        @click="open = !open"
+      >
         <YIcon iname="question" />
-        <span class="sr-only">
+        <span class="visually-hidden">
           {{ $t('details_about', { subject: title }) }}
         </span>
       </BButton>
+      <!-- FIXME missing prop `trigger` in bvn https://github.com/bootstrap-vue-next/bootstrap-vue-next/issues/1275 and looks like `placement` doesn't work -->
       <BPopover
-        placement="auto"
-        :target="id"
-        triggers="focus"
+        v-model="open"
+        placement="top"
         custom-class="explain-what-popover"
         :variant="variant"
         :title="title"
@@ -24,7 +29,6 @@
 
 <script>
 export default {
-  compatConfig: { MODE: 3 },
   name: 'ExplainWhat',
 
   props: {
@@ -39,6 +43,12 @@ export default {
       return Object.assign({ md: 4, xl: 3 }, this.cols)
     },
   },
+
+  data() {
+    return {
+      open: false,
+    }
+  },
 }
 </script>
 
@@ -48,18 +58,30 @@ export default {
 
   .btn {
     padding: 0;
-    margin-left: 0.1rem;
+    margin-left: 0.25rem;
     border-radius: 50rem;
     line-height: inherit;
     font-size: inherit;
   }
 
-  &-popover {
-    background-color: $white;
-    border-width: 2px;
+  :deep() {
+    .popover {
+      background-color: $gray-800;
+      color: $black;
+      border-width: 2px;
 
-    :deep(.popover-body) {
-      color: $dark;
+      [data-bs-theme='dark'] & {
+        background-color: $white;
+        color: $white;
+      }
+
+      .popover-body {
+        color: $white;
+
+        [data-bs-theme='dark'] & {
+          color: $black;
+        }
+      }
     }
   }
 }

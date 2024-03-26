@@ -13,7 +13,12 @@
         <slot name="default" />
 
         <slot name="server-error" v-bind="{ errorFeedback }">
-          <BAlert v-if="errorFeedback" variant="danger" class="my-3" icon="ban">
+          <BAlert
+            :modelValue="!!errorFeedback"
+            variant="danger"
+            class="my-3"
+            icon="ban"
+          >
             <div v-html="errorFeedback" />
           </BAlert>
         </slot>
@@ -32,8 +37,9 @@
 
 <script>
 export default {
-  compatConfig: { MODE: 3 },
   name: 'AbstractForm',
+
+  inheritAttrs: false,
 
   props: {
     id: { type: String, default: 'ynh-form' },
@@ -49,7 +55,7 @@ export default {
     errorFeedback() {
       if (this.serverError) return this.serverError
       else if (this.validation && this.validation.$errors.length) {
-        return this.$i18n.t('form_errors.invalid_form')
+        return this.$t('form_errors.invalid_form')
       } else return ''
     },
   },
@@ -61,8 +67,7 @@ export default {
         v.$touch()
         if (v.$pending || v.$errors.length) return
       }
-      // Weird bug with `INSTANCE_LISTENERS: true` with 'submit' event (double exec before of conflict with native submit event?)
-      this.$emit('apply')
+      this.$emit('submit')
     },
   },
 }

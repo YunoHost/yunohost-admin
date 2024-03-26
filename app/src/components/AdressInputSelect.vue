@@ -7,30 +7,24 @@
       :state="state"
       :aria-describedby="id + 'local-part-desc'"
       @update:modelValue="onInput('localPart', $event)"
-      @blur="$parent.$emit('touch')"
     />
 
-    <BInputGroupAppend>
-      <BInputGroupText>{{ modelValue.separator }}</BInputGroupText>
-    </BInputGroupAppend>
+    <BInputGroupText>{{ modelValue.separator }}</BInputGroupText>
 
-    <BInputGroupAppend>
-      <SelectItem
-        :modelValue="modelValue.domain"
-        :choices="choices"
-        :aria-describedby="id + 'domain-desc'"
-        @update:modelValue="onInput('domain', $event)"
-        @blur="$parent.$emit('touch')"
-      />
-    </BInputGroupAppend>
+    <SelectItem
+      :modelValue="modelValue.domain"
+      :choices="choices"
+      :aria-describedby="id + 'domain-desc'"
+      @update:modelValue="onInput('domain', $event)"
+    />
 
     <span
-      class="sr-only"
+      class="visually-hidden"
       :id="id + 'local-part-desc'"
       v-t="'address.local_part_description.' + type"
     />
     <span
-      class="sr-only"
+      class="visually-hidden"
       :id="id + 'domain-desc'"
       v-t="'address.domain_description.' + type"
     />
@@ -39,7 +33,6 @@
 
 <script>
 export default {
-  compatConfig: { MODE: 3 },
   name: 'AdressInputSelect',
 
   inheritAttrs: false,
@@ -63,13 +56,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss" scoped>
-.input-group-append ~ .input-group-append {
-  flex-basis: 40%;
-}
-select {
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
-}
-</style>

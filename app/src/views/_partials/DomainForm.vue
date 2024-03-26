@@ -26,7 +26,7 @@
     <BCollapse id="collapse-domain" v-model:visible="domainIsVisible">
       <p class="mt-2 alert alert-info">
         <YIcon iname="info-circle" />
-        <span class="pl-1" v-html="$t('domain.add.from_registrar_desc')" />
+        <span class="ps-1" v-html="$t('domain.add.from_registrar_desc')" />
       </p>
 
       <FormField
@@ -53,7 +53,7 @@
     <BCollapse id="collapse-dynDomain" v-model:visible="dynDomainIsVisible">
       <p class="mt-2 alert alert-info">
         <YIcon iname="info-circle" />
-        <span class="pl-1" v-html="$t('domain.add.from_yunohost_desc')" />
+        <span class="ps-1" v-html="$t('domain.add.from_yunohost_desc')" />
       </p>
 
       <FormField
@@ -98,7 +98,7 @@
     <BCollapse id="collapse-localDomain" v-model:visible="localDomainIsVisible">
       <p class="mt-2 alert alert-info">
         <YIcon iname="info-circle" />
-        <span class="pl-1" v-html="$t('domain.add.from_local_desc')" />
+        <span class="ps-1" v-html="$t('domain.add.from_local_desc')" />
       </p>
 
       <FormField
@@ -129,8 +129,9 @@ import {
 } from '@/helpers/validators'
 
 export default {
-  compatConfig: { MODE: 3 },
   name: 'DomainForm',
+
+  inheritAttrs: false,
 
   props: {
     title: { type: String, required: true },
@@ -158,26 +159,26 @@ export default {
 
       fields: {
         domain: {
-          label: this.$i18n.t('domain_name'),
+          label: this.$t('domain_name'),
           props: {
             id: 'domain',
-            placeholder: this.$i18n.t('placeholder.domain'),
+            placeholder: this.$t('placeholder.domain'),
           },
         },
 
         dynDomain: {
-          label: this.$i18n.t('domain_name'),
+          label: this.$t('domain_name'),
           props: {
             id: 'dyn-domain',
-            placeholder: this.$i18n.t('placeholder.domain').split('.')[0],
+            placeholder: this.$t('placeholder.domain').split('.')[0],
             type: 'domain',
             choices: ['nohost.me', 'noho.st', 'ynh.fr'],
           },
         },
 
         dynDomainPassword: {
-          label: this.$i18n.t('domain.add.dyn_dns_password'),
-          description: this.$i18n.t('domain.add.dyn_dns_password_desc'),
+          label: this.$t('domain.add.dyn_dns_password'),
+          description: this.$t('domain.add.dyn_dns_password_desc'),
           props: {
             id: 'dyn-dns-password',
             placeholder: '••••••••',
@@ -186,7 +187,7 @@ export default {
         },
 
         dynDomainPasswordConfirmation: {
-          label: this.$i18n.t('password_confirmation'),
+          label: this.$t('password_confirmation'),
           props: {
             id: 'dyn-dns-password-confirmation',
             placeholder: '••••••••',
@@ -195,10 +196,10 @@ export default {
         },
 
         localDomain: {
-          label: this.$i18n.t('domain_name'),
+          label: this.$t('domain_name'),
           props: {
             id: 'dyn-domain',
-            placeholder: this.$i18n.t('placeholder.domain').split('.')[0],
+            placeholder: this.$t('placeholder.domain').split('.')[0],
             type: 'domain',
             choices: ['local', 'test'],
           },

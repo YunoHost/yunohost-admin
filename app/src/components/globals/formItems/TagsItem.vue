@@ -1,7 +1,7 @@
 <template>
   <BFormTags
-    :value="modelValue"
-    @input="$emit('update:modelValue', $event)"
+    :modelValue="modelValue"
+    @update:modelValue="$emit('update:modelValue', $event)"
     :id="id"
     :placeholder="placeholder"
     :required="required"
@@ -10,13 +10,14 @@
     remove-on-delete
     :state="state"
     :options="options"
-    @blur="$parent.$emit('touch', name)"
+    @blur="touch(name)"
   />
 </template>
 
 <script>
+import { inject } from 'vue'
+
 export default {
-  compatConfig: { MODE: 3 },
   name: 'TagsItem',
 
   props: {
@@ -28,6 +29,12 @@ export default {
     state: { type: Boolean, default: null },
     name: { type: String, default: null },
     options: { type: Array, default: null },
+  },
+
+  setup() {
+    return {
+      touch: inject('touch'),
+    }
   },
 }
 </script>

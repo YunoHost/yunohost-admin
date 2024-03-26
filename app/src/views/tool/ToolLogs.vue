@@ -16,7 +16,7 @@
           :to="{ name: 'tool-log', params: { name: log.name || log.log_path } }"
           :title="readableDate(log.started_at)"
         >
-          <small class="mr-3">{{ distanceToNow(log.started_at) }} </small>
+          <small class="me-3">{{ distanceToNow(log.started_at) }} </small>
           <YIcon :iname="log.icon" :class="'text-' + log.class" />
           {{ log.description }}
         </BListGroupItem>
@@ -29,7 +29,6 @@
 import { distanceToNow, readableDate } from '@/helpers/filters/date'
 
 export default {
-  compatConfig: { MODE: 3 },
   name: 'ToolLogs',
 
   data() {

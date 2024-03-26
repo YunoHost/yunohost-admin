@@ -20,7 +20,7 @@
         <BButton
           variant="primary"
           size="sm"
-          class="ml-auto mr-2"
+          class="ms-auto me-2"
           @click="dismissNotification('post_install')"
         >
           <YIcon iname="check" />
@@ -51,7 +51,7 @@
         <BButton
           variant="primary"
           size="sm"
-          class="ml-auto mr-2"
+          class="ms-auto me-2"
           @click="dismissNotification('post_upgrade')"
         >
           <YIcon iname="check" />
@@ -83,7 +83,7 @@
           :href="app.url"
           target="_blank"
           variant="success"
-          class="ml-auto mr-2"
+          class="ms-auto me-2"
         >
           <YIcon iname="external-link" />
           {{ $t('app.open_this_app') }}
@@ -93,7 +93,7 @@
           v-b-modal.uninstall-modal
           id="uninstall"
           variant="danger"
-          :class="{ 'ml-auto': !app.url }"
+          :class="{ 'ms-auto': !app.url }"
         >
           <YIcon iname="trash-o" />
           {{ $t('uninstall') }}
@@ -136,7 +136,7 @@
         <!-- CHANGE PERMISSIONS LABEL -->
         <BFormGroup
           :label="$t('app_manage_label_and_tiles')"
-          label-class="font-weight-bold"
+          label-class="fw-bold"
         >
           <FormField
             v-for="(perm, i) in app.permissions"
@@ -156,19 +156,19 @@
                   :id="'perm' + i"
                   :aria-describedby="'perm-' + i + '_group__BV_description_'"
                 />
-                <BInputGroupAppend v-if="perm.tileAvailable" is-text>
+
+                <BInputGroupText v-if="perm.tileAvailable">
                   <CheckboxItem
                     v-model="form.labels[i].show_tile"
                     :label="$t('permission_show_tile_enabled')"
                   />
-                </BInputGroupAppend>
-                <BInputGroupAppend>
-                  <BButton
-                    variant="info"
-                    v-t="'save'"
-                    @click="changeLabel(perm.name, form.labels[i])"
-                  />
-                </BInputGroupAppend>
+                </BInputGroupText>
+
+                <BButton
+                  variant="info"
+                  v-t="'save'"
+                  @click="changeLabel(perm.name, form.labels[i])"
+                />
               </BInputGroup>
             </template>
 
@@ -186,7 +186,7 @@
         <BFormGroup
           :label="$t('app_info_access_desc')"
           label-for="permissions"
-          label-class="font-weight-bold"
+          label-class="fw-bold"
           label-cols-lg="0"
         >
           {{
@@ -196,7 +196,7 @@
             size="sm"
             :to="{ name: 'group-list' }"
             variant="info"
-            class="ml-2"
+            class="ms-2"
           >
             <YIcon iname="key-modern" />
             {{ $t('groups_and_permissions_manage') }}
@@ -209,17 +209,15 @@
           :label="$t('app_info_changeurl_desc')"
           label-for="input-url"
           :label-cols-lg="app.supports_change_url ? 0 : 0"
-          label-class="font-weight-bold"
+          label-class="fw-bold"
           v-if="app.is_webapp"
         >
           <BInputGroup v-if="app.supports_change_url">
-            <BInputGroupPrepend is-text> https:// </BInputGroupPrepend>
+            <BInputGroupText>https://</BInputGroupText>
 
-            <BInputGroupPrepend class="flex-grow-1">
-              <BFormSelect v-model="form.url.domain" :options="domains" />
-            </BInputGroupPrepend>
+            <BFormSelect v-model="form.url.domain" :options="domains" />
 
-            <BInputGroupPrepend is-text> / </BInputGroupPrepend>
+            <BInputGroupText>/</BInputGroupText>
 
             <BFormInput
               id="input-url"
@@ -227,9 +225,7 @@
               class="flex-grow-3"
             />
 
-            <BInputGroupAppend>
-              <BButton @click="changeUrl" variant="info" v-t="'save'" />
-            </BInputGroupAppend>
+            <BButton @click="changeUrl" variant="info" v-t="'save'" />
           </BInputGroup>
 
           <div v-else class="alert alert-warning">
@@ -243,7 +239,7 @@
         <BFormGroup
           :label="$t('app_info_default_desc', { domain: app.domain })"
           label-for="main-domain"
-          label-class="font-weight-bold"
+          label-class="fw-bold"
           label-cols-md="4"
           v-if="app.is_webapp"
         >
@@ -274,7 +270,7 @@
       <BTabs card fill pills>
         <BTab v-for="[name, content] in app.doc.admin" :key="name">
           <template #title>
-            <YIcon iname="book" class="mr-2" />
+            <YIcon iname="book" class="me-2" />
             {{ name === 'admin' ? $t('app.doc.admin.title') : name }}
           </template>
           <VueShowdown :markdown="content" />
@@ -331,7 +327,7 @@
       <BListGroup flush>
         <YListGroupItem v-for="[key, link] in app.links" :key="key" no-status>
           <BLink :href="link" target="_blank">
-            <YIcon :iname="appLinksIcons(key)" class="mr-1" />
+            <YIcon :iname="appLinksIcons(key)" class="me-1" />
             {{ $t('app.links.' + key) }}
           </BLink>
         </YListGroupItem>
@@ -343,8 +339,8 @@
       id="uninstall-modal"
       :title="$t('confirm_uninstall', { name: id })"
       header-bg-variant="warning"
+      header-class="text-black"
       :body-class="{ 'd-none': !app.supports_purge }"
-      body-bg-variant=""
       @ok="uninstall"
     >
       <BFormGroup v-if="app.supports_purge">
@@ -366,6 +362,7 @@ import { mapGetters } from 'vuex'
 import { useVuelidate } from '@vuelidate/core'
 
 import api, { objectToParams } from '@/api'
+import { useAutoModal } from '@/composables/useAutoModal'
 import { humanPermissionName } from '@/helpers/filters/human'
 import { helpers, required } from '@/helpers/validators'
 import { isEmptyValue } from '@/helpers/commons'
@@ -377,7 +374,6 @@ import {
 import ConfigPanels from '@/components/ConfigPanels.vue'
 
 export default {
-  compatConfig: { MODE: 3 },
   name: 'AppInfo',
 
   components: {
@@ -391,6 +387,7 @@ export default {
   setup() {
     return {
       v$: useVuelidate(),
+      modalConfirm: useAutoModal(),
     }
   },
 
@@ -412,7 +409,7 @@ export default {
           {
             hasApplyButton: false,
             id: 'operations',
-            name: this.$i18n.t('operations'),
+            name: this.$t('operations'),
           },
         ],
         validations: {},
@@ -468,7 +465,7 @@ export default {
 
       const mainPermission = app.permissions[this.id + '.main']
       mainPermission.name = this.id + '.main'
-      mainPermission.title = this.$i18n.t('permission_main')
+      mainPermission.title = this.$t('permission_main')
       mainPermission.tileAvailable =
         mainPermission.url !== null && !mainPermission.url.startsWith('re:')
       form.labels.push({
@@ -508,7 +505,7 @@ export default {
         domain: app.settings.domain,
         alternativeTo: app.from_catalog.potential_alternative_to?.length
           ? app.from_catalog.potential_alternative_to.join(
-              this.$i18n.t('words.separator'),
+              this.$t('words.separator'),
             )
           : null,
         description: DESCRIPTION
@@ -518,7 +515,7 @@ export default {
           app.manifest.packaging_format >= 2
             ? {
                 archs: Array.isArray(archs)
-                  ? archs.join(this.$i18n.t('words.separator'))
+                  ? archs.join(this.$t('words.separator'))
                   : archs,
                 ldap: ldap === 'not_relevant' ? null : ldap,
                 sso: sso === 'not_relevant' ? null : sso,
@@ -647,8 +644,8 @@ export default {
     },
 
     async changeUrl() {
-      const confirmed = await this.$askConfirmation(
-        this.$i18n.t('confirm_app_change_url'),
+      const confirmed = await this.modalConfirm(
+        this.$t('confirm_app_change_url'),
       )
       if (!confirmed) return
 
@@ -663,9 +660,7 @@ export default {
     },
 
     async setAsDefaultDomain(undo = false) {
-      const confirmed = await this.$askConfirmation(
-        this.$i18n.t('confirm_app_default'),
-      )
+      const confirmed = await this.modalConfirm(this.$t('confirm_app_default'))
       if (!confirmed) return
 
       api

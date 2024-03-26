@@ -5,16 +5,16 @@
     </template>
     <template v-if="!hasCustomTopBar" #top-bar-group-left>
       <BInputGroup class="w-100">
-        <BInputGroupPrepend is-text>
+        <BInputGroupText>
           <YIcon iname="search" />
-        </BInputGroupPrepend>
+        </BInputGroupText>
 
         <BFormInput
           id="top-bar-search"
-          :value="search"
-          @input="$emit('update:search', $event)"
+          :modelValue="search"
+          @update:modelValue="$emit('update:search', $event)"
           :placeholder="
-            $t('search.for', { items: $tc('items.' + itemsName, 2) })
+            $t('search.for', { items: $t('items.' + itemsName, 2) })
           "
           :disabled="!items"
         />
@@ -29,14 +29,20 @@
     </template>
 
     <template #default>
-      <BAlert v-if="items === null || filteredItems === null" variant="warning">
+      <BAlert
+        v-if="items === null || filteredItems === null"
+        :modelValue="true"
+        variant="warning"
+      >
         <slot name="alert-message">
           <YIcon iname="exclamation-triangle" />
           {{
-            $tc(
+            $t(
               items === null ? 'items_verbose_count' : 'search.not_found',
+              {
+                items: $t('items.' + itemsName, 0),
+              },
               0,
-              { items: $tc('items.' + itemsName, 0) },
             )
           }}
         </slot>
@@ -57,7 +63,6 @@
 
 <script>
 export default {
-  compatConfig: { MODE: 3, INSTANCE_LISTENERS: false },
   name: 'ViewSearch',
 
   props: {

@@ -16,7 +16,7 @@
             <BCol>
               <strong>{{ $t('user_email') }}</strong>
             </BCol>
-            <BCol class="font-italic">
+            <BCol class="fst-italic">
               {{ user.mail }}
             </BCol>
           </BRow>
@@ -83,8 +83,7 @@
       :title="$t('confirm_delete', { name: user.username })"
       @ok="deleteUser"
       header-bg-variant="warning"
-      body-class=""
-      body-bg-variant=""
+      header-class="text-black"
     >
       <BFormGroup>
         <BFormCheckbox v-model="purge">
@@ -106,7 +105,6 @@
 import api from '@/api'
 
 export default {
-  compatConfig: { MODE: 3 },
   name: 'UserInfo',
 
   props: {

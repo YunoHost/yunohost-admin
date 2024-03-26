@@ -92,6 +92,7 @@
 import { useVuelidate } from '@vuelidate/core'
 
 import api from '@/api'
+import { useAutoModal } from '@/composables/useAutoModal'
 import { DomainForm } from '@/views/_partials'
 import LoginView from '@/views/LoginView.vue'
 import { formatFormData } from '@/helpers/yunohostArguments'
@@ -104,7 +105,6 @@ import {
 } from '@/helpers/validators'
 
 export default {
-  compatConfig: { MODE: 3 },
   name: 'PostInstall',
 
   components: {
@@ -115,6 +115,7 @@ export default {
   setup() {
     return {
       v$: useVuelidate(),
+      modalConfirm: useAutoModal(),
     }
   },
 
@@ -133,30 +134,30 @@ export default {
 
       fields: {
         username: {
-          label: this.$i18n.t('user_username'),
+          label: this.$t('user_username'),
           props: {
             id: 'username',
-            placeholder: this.$i18n.t('placeholder.username'),
+            placeholder: this.$t('placeholder.username'),
           },
         },
 
         fullname: {
-          label: this.$i18n.t('user_fullname'),
+          label: this.$t('user_fullname'),
           props: {
             id: 'fullname',
-            placeholder: this.$i18n.t('placeholder.fullname'),
+            placeholder: this.$t('placeholder.fullname'),
           },
         },
 
         password: {
-          label: this.$i18n.t('password'),
-          description: this.$i18n.t('good_practices_about_admin_password'),
+          label: this.$t('password'),
+          description: this.$t('good_practices_about_admin_password'),
           descriptionVariant: 'warning',
           props: { id: 'password', placeholder: '••••••••', type: 'password' },
         },
 
         confirmation: {
-          label: this.$i18n.t('password_confirmation'),
+          label: this.$t('password_confirmation'),
           props: {
             id: 'confirmation',
             placeholder: '••••••••',
@@ -180,8 +181,8 @@ export default {
     },
 
     async setUser() {
-      const confirmed = await this.$askConfirmation(
-        this.$i18n.t('confirm_postinstall', { domain: this.domain }),
+      const confirmed = await this.modalConfirm(
+        this.$t('confirm_postinstall', { domain: this.domain }),
       )
       if (!confirmed) return
       this.performPostInstall()

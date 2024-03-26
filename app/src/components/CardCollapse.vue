@@ -9,7 +9,7 @@
             class="card-collapse-button"
           >
             {{ title }}
-            <YIcon class="ml-auto" iname="chevron-right" />
+            <YIcon class="ms-auto" iname="chevron-right" />
           </BButton>
         </h2>
       </slot>
@@ -23,7 +23,6 @@
 
 <script>
 export default {
-  compatConfig: { MODE: 3 },
   name: 'CardCollapse',
 
   props: {
@@ -79,7 +78,7 @@ export default {
   @each $color, $value in $theme-colors {
     &-#{$color} {
       background-color: $value;
-      color: color-yiq($value);
+      color: color-contrast($value);
     }
   }
 }
