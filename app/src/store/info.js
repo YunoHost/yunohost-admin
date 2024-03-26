@@ -170,7 +170,7 @@ export default {
       return api
         .post('login', { credentials }, null, { websocket: false })
         .then(() => {
-          dispatch('CONNECT')
+          return dispatch('CONNECT')
         })
     },
 
