@@ -345,7 +345,7 @@
     "error": "Errore",
     "enabled": "Abilitato",
     "domain_delete_forbidden_desc": "Non puoi rimuovere '{domain}' fintanto che è il tuo dominio principale, devi prima selezionare un altro dominio (o <a href='#/domains/add'>crearne un'altro</a>) e impostarlo come dominio principale.",
-    "domain_add_dyndns_forbidden": "Hai già sottoscritto un dominio DynDNS, puoi richiedere di rimuovere il tuo dominio DynDNS corrente sul forum <a href='//forum.yunohost.org/t/nohost-domain-recovery-suppression-de-domaine-en-nohost-me-noho-st-et-ynh-fr/442'>nel thread dedicato</a>.",
+    "domain_add_dyndns_forbidden": "Hai già registrato/sottoscritto un dominio DynDNS dal progetto YunoHost. Quest’opzione è intenzionalmente limitata a un solo dominio di questo genere per ciascun server. Se vuoi aggiungere un sottodominio al tuo dominio già sottoscritto, usa l’opzione “Aggiungi un dominio o un sottodominio che possiedo” qui sopra. Se vuoi usare un dominio completamente differente, dovresti prima rimuovere il tuo dominio DynDNS esistente. I domini DynDNS sono un’ottima possibilità per esordire nel self-hosting, ma nel medio/lungo termine raccomandiamo di acquistare il proprio nome dominio, per averne un controllo completo.",
     "disabled": "Disabilitato",
     "dead": "Inattivo",
     "day_validity": " Scaduto | 1 giorno | {count} giorni",
@@ -523,17 +523,25 @@
                 "semi_auto": "Semi-automatico",
                 "manual": "Manuale",
                 "none": "Nessuno",
-                "handled_in_parent": "Gestito nel dominio genitore"
+                "handled_in_parent": "Gestito nel dominio genitore",
+                "auto": "Automatico"
             }
         },
         "info": {
             "apps_on_domain": "App installate in questo dominio",
-            "dyn_dns_remove_and_unsubscribe": "De-registra inoltre il dominio dal servizio dynDNS di YunoHost",
+            "dyn_dns_remove_and_unsubscribe": "De-registra inoltre il dominio dal servizio DynDNS di YunoHost",
             "certificate_authority": "Autorità di certificazione SSL",
             "registrar": "Registro"
         },
         "add": {
-            "dyn_dns_password": "Password per il recupero del dominio"
+            "dyn_dns_password": "Password per il recupero del dominio",
+            "dyn_dns_password_desc": "Questa password ti permetterà di recuperare il controllo del dominio qualora scegliessi di reinstallare il tuo sistema in un secondo momento. Se hai già registrato questo dominio in precedenza, usa qui la tua password di recupero per riottenerlo.",
+            "from_local": "Voglio un dominio per uso locale/solo test",
+            "from_yunohost_desc": "Il progetto YunoHost mantiene un servizio “DynDNS” gratuito. È limitato a un dominio per server (anche se puoi anche aggiungere sottodomini successivamente, usando l’opzione “Aggiungi un dominio o un sottodominio che possiedo” qui sopra). La configurazione DNS sarà gestita da YunoHost. Quest’opzione è l’ideale per esordire nel self-hosting e se non vuoi investire in un nome dominio per il momento. Tuttavia, nel medio/lungo termine raccomandiamo di acquistare il tuo nome dominio da un registrar, per avere un controllo completo del tuo dominio.",
+            "from_local_desc": "Se non vuoi un “vero” nome di dominio pubblico, puoi usare qualunque cosa che termini con <code>.local</code> o <code>.test</code>. I nomi dominio che terminano con <code>.local</code> sono speciali perché possono essere risolti automaticamente dal network locale, assumendo che i client supportino il protocollo Bonjour. Alternativamente potresti dover modificare il file <code>/etc/hosts</code> (o l’equivalente di Windows) su ogni client da cui desideri utilizzare questo dominio, o dover configurare parametri DNS locali sul tuo router internet.",
+            "from_registrar": "Vorrei aggiungere un dominio o un sottodominio che possiedo",
+            "from_registrar_desc": "Dovrai configurare manualmente i registri DNS sul tuo registrar per finalizzare la configurazione di questo dominio. La diagnosi di YunoHost ti guiderà per individuare quali registri DNS devi configurare.",
+            "from_yunohost": "Non possiedo un dominio, voglio registrare/usare un dominio DynDNS gratuito, offerto dal progetto YunoHost"
         },
         "toggle_subdomains": "Attiva o disattiva i sottodomini",
         "types": {
@@ -541,7 +549,16 @@
         },
         "explain": {
             "main_domain": "Il dominio principale è il dominio da cui gli utenti possono connettersi al portale (via “{domain}/yunohost/sso”).<br>Per questa ragione non è possibile eliminarlo.<br>Se vuoi eliminare “{domain}”, devi prima scegliere o aggiungere un altro dominio come principale."
-        }
+        },
+        "cert": {
+            "valid_for": "Valido per {days}",
+            "types": {
+                "selfsigned": "Auto-verificato",
+                "other": "Altro/Sconosciuto",
+                "letsencrypt": "Let’s Encrypt"
+            }
+        },
+        "see_parent_domain": "Vedi il dominio genitore"
     },
     "users_import_csv_file_desc": "Il file CSV dovrebbe essere in UTF-8 e con le colonne username, password , gruppi, email e quota. Per avere un esempio di un file CSV da importare, puoi <a href='/yunohost/api/users/export' target='_blank'>esportare i tuoi attuali utenti in un file CSV</a> e modificarlo.",
     "users_import_delete_others": "Elimina utenti non in lista",
@@ -638,8 +655,9 @@
             "website": "Sito web ufficiale",
             "admindoc": "Documentazione Admin ufficiale",
             "code": "Repository ufficiale del codice sorgente",
-            "license": "Licenza",
-            "forum": "Argomenti collegati a quest’app nel forum di YunoHost"
+            "license": "Licenza dell’app",
+            "forum": "Argomenti collegati a quest’app nel forum di YunoHost",
+            "package_license": "Licenza del pacchetto YunoHost"
         },
         "upgrade": {
             "confirm": {
