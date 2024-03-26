@@ -1,3 +1,9 @@
+yunohost (12.0.0) unstable; urgency=low
+
+  - Tmp changelog to prepare Bookworm
+
+ -- Tagada <tagada@cant.at>  Fri, 12 May 2023 16:20:28 +0000
+ 
 yunohost-admin (11.2.4.1) stable; urgency=low
 
   - [i18n] Translations updated for Arabic, Basque, Catalan, Chinese (Simplified), English, French, Galician, German, Italian, Kabyle, Korean, Occitan, Spanish, Ukrainian

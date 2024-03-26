@@ -217,12 +217,12 @@ export default {
       const api = this
 
       function reconnect(n) {
-        api
-          .get('logout', {}, { key: 'reconnecting' })
+        store
+          .dispatch('GET_YUNOHOST_INFOS')
           .then(resolve)
           .catch((err) => {
             if (err.name === 'APIUnauthorizedError') {
-              resolve()
+              reject(err)
             } else if (n < 1) {
               reject(err)
             } else {
