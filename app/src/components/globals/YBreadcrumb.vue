@@ -20,6 +20,7 @@
 import { mapGetters } from 'vuex'
 
 export default {
+  compatConfig: { MODE: 3 },
   name: 'YBreadcrumb',
 
   computed: {

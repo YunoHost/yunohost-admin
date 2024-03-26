@@ -1,7 +1,7 @@
 <template>
   <ViewSearch
     id="service-list"
-    :search.sync="search"
+    v-model:search="search"
     :items="services"
     :filtered-items="filteredServices"
     items-name="services"
@@ -46,6 +46,7 @@
 import { distanceToNow } from '@/helpers/filters/date'
 
 export default {
+  compatConfig: { MODE: 3 },
   name: 'ServiceList',
 
   data() {

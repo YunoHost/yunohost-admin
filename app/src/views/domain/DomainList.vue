@@ -1,7 +1,7 @@
 <template>
   <ViewSearch
     id="domain-list"
-    :search.sync="search"
+    v-model:search="search"
     :items="domains"
     items-name="domains"
     :queries="queries"
@@ -53,6 +53,7 @@ import { mapGetters } from 'vuex'
 import RecursiveListGroup from '@/components/RecursiveListGroup.vue'
 
 export default {
+  compatConfig: { MODE: 3 },
   name: 'DomainList',
 
   components: {

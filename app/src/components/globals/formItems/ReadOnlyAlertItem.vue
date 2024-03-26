@@ -6,17 +6,13 @@
   >
     <YIcon :iname="icon_" class="mr-md-3 mb-md-0 mb-2" :variant="type" />
 
-    <VueShowdown
-      :markdown="label"
-      flavor="github"
-      tag="span"
-      class="markdown"
-    />
+    <VueShowdown :markdown="label" tag="span" class="markdown" />
   </BAlert>
 </template>
 
 <script>
 export default {
+  compatConfig: { MODE: 3 },
   name: 'ReadOnlyAlertItem',
 
   props: {

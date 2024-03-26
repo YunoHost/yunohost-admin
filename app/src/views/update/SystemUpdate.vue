@@ -127,7 +127,6 @@
             <BCardBody>
               <VueShowdown
                 :markdown="notif"
-                flavor="github"
                 :options="{ headerLevelStart: 6 }"
               />
             </BCardBody>
@@ -145,6 +144,7 @@ import { mapGetters } from 'vuex'
 import CardCollapse from '@/components/CardCollapse.vue'
 
 export default {
+  compatConfig: { MODE: 3 },
   name: 'SystemUpdate',
 
   components: {

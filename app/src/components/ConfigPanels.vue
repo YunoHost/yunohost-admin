@@ -1,10 +1,11 @@
 <template>
   <div class="config-panel">
+    <!-- FIXME vue3 - weird stuff with event binding, need to propagate by hand for now -->
     <RoutableTabs
       v-if="routes_.length > 1"
+      v-bind="{ panels, forms, v: v$, ...$attrs }"
       :routes="routes_"
-      v-bind="{ panels, forms, v: $v, ...$attrs }"
-      v-on="$listeners"
+      @apply="$emit('apply', $event)"
     >
       <template #tab-top>
         <slot name="tab-top" />
@@ -26,18 +27,21 @@
 </template>
 
 <script>
-import { validationMixin } from 'vuelidate'
+import { toRef } from 'vue'
+import { defineAsyncComponent } from 'vue'
+import { useVuelidate } from '@vuelidate/core'
 
 export default {
+  compatConfig: { MODE: 3 },
   name: 'ConfigPanels',
 
   inheritAttrs: false,
 
   components: {
-    RoutableTabs: () => import('@/components/RoutableTabs.vue'),
+    RoutableTabs: defineAsyncComponent(
+      () => import('@/components/RoutableTabs.vue'),
+    ),
   },
-
-  mixins: [validationMixin],
 
   props: {
     panels: { type: Array, default: undefined },
@@ -46,6 +50,14 @@ export default {
     errors: { type: Object, default: undefined }, // never used
     routes: { type: Array, default: null },
     noRedirect: { type: Boolean, default: false },
+    externalResults: { type: Object, required: true },
+  },
+
+  setup(props) {
+    const externalResults = toRef(props, 'externalResults')
+    return {
+      v$: useVuelidate({ $externalResults: externalResults, $autoDirty: true }),
+    }
   },
 
   computed: {

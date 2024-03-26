@@ -6,6 +6,7 @@
 
 <script>
 export default {
+  compatConfig: { MODE: 3 },
   name: 'LazyRenderer',
 
   props: {
@@ -69,7 +70,7 @@ export default {
     this.observer.observe(this.$el)
   },
 
-  beforeDestroy() {
+  beforeUnmount() {
     this.observer.disconnect()
   },
 }

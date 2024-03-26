@@ -1,5 +1,5 @@
 <template>
-  <div class="query-header w-100" v-on="$listeners" v-bind="$attrs">
+  <div v-bind="$attrs" class="query-header w-100">
     <!-- STATUS -->
     <span
       class="status"
@@ -49,6 +49,7 @@
 
 <script>
 export default {
+  compatConfig: { MODE: 3 },
   name: 'QueryHeader',
 
   props: {

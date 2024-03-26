@@ -1,4 +1,3 @@
-import Vue from 'vue'
 import router from '@/router'
 import i18n from '@/i18n'
 import api from '@/api'
@@ -14,6 +13,7 @@ export default {
     reconnecting: null, // null|Object { attemps, delay, initialDelay }
     history: [], // Array of `request`
     requests: [], // Array of `request`
+    currentRequest: null,
     error: null, // null || request
     historyTimer: null, // null || setTimeout id
     tempMessages: [], // Array of messages
@@ -44,6 +44,10 @@ export default {
       state.reconnecting = args
     },
 
+    SET_CURRENT_REQUEST(state, request) {
+      state.currentRequest = request
+    },
+
     ADD_REQUEST(state, request) {
       if (state.requests.length > 10) {
         // We do not remove requests right after it resolves since an error might bring
@@ -53,9 +57,9 @@ export default {
       state.requests.push(request)
     },
 
-    UPDATE_REQUEST(state, { request, key, value }) {
+    UPDATE_REQUEST(state, { key, value }) {
       // This rely on data persistance and reactivity.
-      Vue.set(request, key, value)
+      state.currentRequest[key] = value
     },
 
     REMOVE_REQUEST(state, request) {
@@ -71,7 +75,7 @@ export default {
       state.tempMessages.push([message, type])
     },
 
-    UPDATE_DISPLAYED_MESSAGES(state, { request }) {
+    UPDATE_DISPLAYED_MESSAGES(state) {
       if (!state.tempMessages.length) {
         state.historyTimer = null
         return
@@ -87,9 +91,10 @@ export default {
       )
       state.tempMessages = []
       state.historyTimer = null
-      request.messages = request.messages.concat(messages)
-      request.warnings += warnings
-      request.errors += errors
+      state.currentRequest.messages =
+        state.currentRequest.messages.concat(messages)
+      state.currentRequest.warnings += warnings
+      state.currentRequest.errors += errors
     },
 
     SET_ERROR(state, request) {
@@ -154,6 +159,7 @@ export default {
     },
 
     DISCONNECT({ dispatch }, route = router.currentRoute) {
+      // FIXME vue3 currentRoute is now a ref (currentRoute.value)
       dispatch('RESET_CONNECTED')
       if (router.currentRoute.name === 'login') return
       router.push({
@@ -199,7 +205,7 @@ export default {
         ? humanKey
         : { key: humanKey }
       const humanRoute = key
-        ? i18n.t('human_routes.' + key, args)
+        ? i18n.global.t('human_routes.' + key, args)
         : `[${method}] /${uri}`
 
       let request = {
@@ -221,6 +227,7 @@ export default {
         commit('ADD_HISTORY_ACTION', request)
       }
       commit('ADD_REQUEST', request)
+      commit('SET_CURRENT_REQUEST', request)
       if (wait) {
         setTimeout(() => {
           // Display the waiting modal only if the request takes some time.
@@ -245,13 +252,13 @@ export default {
           messages.length &&
           messages[messages.length - 1].color === 'warning'
         ) {
-          request.showWarningMessage = true
+          state.currentRequest.showWarningMessage = true
         }
         status = 'warning'
       }
 
       commit('UPDATE_REQUEST', { request, key: 'status', value: status })
-      if (wait && !request.showWarningMessage) {
+      if (wait && !state.currentRequest.showWarningMessage) {
         // Remove the overlay after a short delay to allow an error to display withtout flickering.
         setTimeout(() => {
           commit('SET_WAITING', false)
@@ -303,7 +310,7 @@ export default {
         // the ownership to stay generic.
         const request = error.request
         delete error.request
-        Vue.set(request, 'error', error)
+        request.error = error
         // Display the error in a modal on the current view.
         commit('SET_ERROR', request)
       }
@@ -330,7 +337,7 @@ export default {
 
     DISMISS_WARNING({ commit, state }, request) {
       commit('SET_WAITING', false)
-      Vue.delete(request, 'showWarningMessage')
+      delete request.showWarningMessage
     },
 
     UPDATE_ROUTER_KEY({ commit }, { to, from }) {
@@ -368,9 +375,9 @@ export default {
         // if a traduction key string has been given and we also need to pass
         // the route param as a variable.
         if (trad && param) {
-          text = i18n.t(trad, { [param]: to.params[param] })
+          text = i18n.global.t(trad, { [param]: to.params[param] })
         } else if (trad) {
-          text = i18n.t(trad)
+          text = i18n.global.t(trad)
         } else {
           text = to.params[param]
         }
@@ -395,7 +402,7 @@ export default {
       }
 
       // Display a simplified breadcrumb as the document title.
-      document.title = `${getTitle(breadcrumb)} | ${i18n.t('yunohost_admin')}`
+      document.title = `${getTitle(breadcrumb)} | ${i18n.global.t('yunohost_admin')}`
     },
 
     UPDATE_TRANSITION_NAME({ state, commit }, { to, from }) {
@@ -419,10 +426,7 @@ export default {
     reconnecting: (state) => state.reconnecting,
     history: (state) => state.history,
     lastAction: (state) => state.history[state.history.length - 1],
-    currentRequest: (state) => {
-      const request = state.requests.find(({ status }) => status === 'pending')
-      return request || state.requests[state.requests.length - 1]
-    },
+    currentRequest: (state) => state.currentRequest,
     routerKey: (state) => state.routerKey,
     breadcrumb: (state) => state.breadcrumb,
     transitionName: (state) => state.transitionName,

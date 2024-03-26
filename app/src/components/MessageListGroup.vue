@@ -24,6 +24,7 @@
 
 <script>
 export default {
+  compatConfig: { MODE: 3 },
   name: 'MessageListGroup',
 
   props: {
@@ -65,7 +66,7 @@ export default {
 
   created() {
     if (this.autoScroll) {
-      this.$watch('messages', this.scrollToEnd)
+      this.$watch('messages', this.scrollToEnd, { deep: true })
     }
   },
 }

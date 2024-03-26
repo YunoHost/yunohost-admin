@@ -1,8 +1,11 @@
 <script>
 // Implementation of the feed pattern
 // https://www.w3.org/WAI/ARIA/apg/patterns/feed/
+import { h } from 'vue'
+import { BCardGroup } from 'bootstrap-vue'
 
 export default {
+  compatConfig: { MODE: 3 },
   name: 'CardDeckFeed',
 
   props: {
@@ -13,7 +16,7 @@ export default {
     return {
       busy: false,
       range: this.stacks,
-      childrenCount: this.$slots.default.length,
+      childrenCount: this.$slots.default().length,
     }
   },
 
@@ -59,26 +62,27 @@ export default {
   },
 
   beforeUpdate() {
-    const slots = this.$slots.default
+    const slots = this.$slots.default()
     if (this.childrenCount !== slots.length) {
       this.range = this.stacks
       this.childrenCount = slots.length
     }
   },
 
-  render(h) {
+  render() {
     return h(
-      'BCardGroup',
+      BCardGroup,
       {
-        attrs: { role: 'feed', 'aria-busy': this.busy.toString() },
-        props: { deck: true },
+        deck: true,
+        role: 'feed',
+        'aria-busy': this.busy.toString(),
         ref: 'feed',
       },
-      this.$slots.default.slice(0, this.range),
+      this.$slots.default().slice(0, this.range),
     )
   },
 
-  beforeDestroy() {
+  beforeUnmount() {
     window.removeEventListener('scroll', this.onScroll)
     this.$refs.feed.removeEventListener('keydown', this.onKeydown)
   },

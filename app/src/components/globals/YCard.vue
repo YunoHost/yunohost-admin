@@ -56,6 +56,7 @@
 
 <script>
 export default {
+  compatConfig: { MODE: 3 },
   name: 'YCard',
 
   props: {
@@ -83,7 +84,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.card-header {
+:deep(.card-header) {
   display: flex;
 
   .custom-header {
@@ -97,7 +98,7 @@ export default {
   }
 }
 
-.card-footer {
+:deep(.card-footer) {
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -106,7 +107,7 @@ export default {
     margin-left: 0.5rem;
   }
 }
-.collapse:not(.show) + .card-footer {
+:deep(.collapse:not(.show) + .card-footer) {
   display: none;
 }
 </style>

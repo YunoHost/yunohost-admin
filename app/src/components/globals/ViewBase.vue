@@ -33,6 +33,7 @@
 import api from '@/api'
 
 export default {
+  compatConfig: { MODE: 3 },
   name: 'ViewBase',
 
   props: {

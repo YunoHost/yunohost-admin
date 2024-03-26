@@ -6,7 +6,6 @@
           v-for="route in routes"
           :key="route.text"
           :to="route.to"
-          exact
           exact-active-class="active"
         >
           <YIcon v-if="route.icon" :iname="route.icon" />
@@ -16,22 +15,29 @@
     </BCardHeader>
 
     <!-- Bind extra props to the child view and forward child events to parent -->
-    <RouterView v-bind="$attrs" v-on="$listeners">
-      <template #tab-top>
-        <slot name="tab-top" />
-      </template>
-      <template #tab-before>
-        <slot name="tab-before" />
-      </template>
-      <template #tab-after>
-        <slot name="tab-after" />
-      </template>
+    <RouterView v-slot="{ Component }">
+      <Component
+        v-bind="$attrs"
+        :is="Component"
+        @apply="$emit('apply', $event)"
+      >
+        <template #tab-top>
+          <slot name="tab-top" />
+        </template>
+        <template #tab-before>
+          <slot name="tab-before" />
+        </template>
+        <template #tab-after>
+          <slot name="tab-after" />
+        </template>
+      </Component>
     </RouterView>
   </BCard>
 </template>
 
 <script>
 export default {
+  compatConfig: { MODE: 3 },
   name: 'RoutableTabs',
 
   // Thanks to `v-bind="$attrs"` and `inheritAttrs: false`, this component can forward

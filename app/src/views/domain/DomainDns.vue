@@ -148,6 +148,7 @@ import api from '@/api'
 import { isEmptyValue } from '@/helpers/commons'
 
 export default {
+  compatConfig: { MODE: 3 },
   name: 'DomainDns',
 
   props: {

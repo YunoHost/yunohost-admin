@@ -4,8 +4,8 @@
       <BSkeleton width="30%" height="36px" class="m-0" />
     </template>
 
-    <template v-for="count in itemCount">
-      <BRow :key="count" :class="{ 'd-block': cols === null }">
+    <template v-for="count in itemCount" :key="count">
+      <BRow :class="{ 'd-block': cols === null }">
         <BCol v-bind="cols">
           <div style="height: 38px" class="d-flex align-items-center">
             <BSkeleton
@@ -32,7 +32,7 @@
         </BCol>
       </BRow>
 
-      <hr :key="count + '-hr'" />
+      <hr />
     </template>
 
     <template #footer>
@@ -47,6 +47,7 @@
 import { randint } from '@/helpers/commons'
 
 export default {
+  compatConfig: { MODE: 3 },
   name: 'CardFormSkeleton',
 
   props: {

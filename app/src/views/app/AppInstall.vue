@@ -27,7 +27,7 @@
           </template>
         </p>
 
-        <VueShowdown :markdown="app.description" flavor="github" />
+        <VueShowdown :markdown="app.description" />
 
         <BImg
           v-if="app.screenshot"
@@ -120,11 +120,7 @@
           v-t="'app.install.problems.lowquality'"
         />
 
-        <VueShowdown
-          v-if="app.preInstall"
-          :markdown="app.preInstall"
-          flavor="github"
-        />
+        <VueShowdown v-if="app.preInstall" :markdown="app.preInstall" />
       </YAlert>
 
       <YAlert
@@ -179,17 +175,17 @@
         :title="$t('app_install_parameters')"
         icon="cog"
         :submit-text="$t('install')"
-        :validation="$v"
+        :validation="v$"
         :server-error="serverError"
         @submit.prevent="performInstall"
       >
         <template v-for="(field, fname) in fields">
           <Component
             v-if="field.visible"
-            :is="field.is"
             v-bind="field.props"
+            :is="field.is"
             v-model="form[fname]"
-            :validation="$v.form[fname]"
+            :validation="v$.form[fname]"
             :key="fname"
           />
         </template>
@@ -210,7 +206,7 @@
 </template>
 
 <script>
-import { validationMixin } from 'vuelidate'
+import { useVuelidate } from '@vuelidate/core'
 
 import api, { objectToParams } from '@/api'
 import {
@@ -221,9 +217,8 @@ import {
 import CardCollapse from '@/components/CardCollapse.vue'
 
 export default {
+  compatConfig: { MODE: 3 },
   name: 'AppInstall',
-
-  mixins: [validationMixin],
 
   components: {
     CardCollapse,
@@ -231,6 +226,12 @@ export default {
 
   props: {
     id: { type: String, required: true },
+  },
+
+  setup() {
+    return {
+      v$: useVuelidate(),
+    }
   },
 
   data() {

@@ -8,7 +8,8 @@
     <ConfigPanels
       v-if="config.panels"
       v-bind="config"
-      @submit="onConfigSubmit"
+      :external-results="externalResults"
+      @apply="onConfigSubmit"
     />
   </ViewBase>
 </template>
@@ -22,6 +23,7 @@ import {
 import ConfigPanels from '@/components/ConfigPanels.vue'
 
 export default {
+  compatConfig: { MODE: 3 },
   name: 'ToolSettingsConfig',
 
   components: {
@@ -34,6 +36,7 @@ export default {
     return {
       queries: [['GET', 'settings?full']],
       config: {},
+      externalResults: {},
     }
   },
 
@@ -62,8 +65,12 @@ export default {
           if (err.name !== 'APIBadRequestError') throw err
           const panel = this.config.panels.find((panel) => panel.id === id)
           if (err.data.name) {
-            this.config.errors[id][err.data.name].message = err.message
-          } else this.$set(panel, 'serverError', err.message)
+            Object.assign(this.externalResults, {
+              forms: { [panel.id]: { [err.data.name]: [err.data.error] } },
+            })
+          } else {
+            panel.serverError = err.message
+          }
         })
     },
   },

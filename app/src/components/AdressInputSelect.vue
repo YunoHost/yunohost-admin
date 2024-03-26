@@ -2,24 +2,24 @@
   <BInputGroup v-bind="$attrs">
     <InputItem
       :id="id"
-      :value="value.localPart"
+      :modelValue="modelValue.localPart"
       :placeholder="placeholder"
       :state="state"
       :aria-describedby="id + 'local-part-desc'"
-      @input="onInput('localPart', $event)"
+      @update:modelValue="onInput('localPart', $event)"
       @blur="$parent.$emit('touch')"
     />
 
     <BInputGroupAppend>
-      <BInputGroupText>{{ value.separator }}</BInputGroupText>
+      <BInputGroupText>{{ modelValue.separator }}</BInputGroupText>
     </BInputGroupAppend>
 
     <BInputGroupAppend>
       <SelectItem
-        :value="value.domain"
+        :modelValue="modelValue.domain"
         :choices="choices"
         :aria-describedby="id + 'domain-desc'"
-        @input="onInput('domain', $event)"
+        @update:modelValue="onInput('domain', $event)"
         @blur="$parent.$emit('touch')"
       />
     </BInputGroupAppend>
@@ -39,13 +39,13 @@
 
 <script>
 export default {
+  compatConfig: { MODE: 3 },
   name: 'AdressInputSelect',
 
   inheritAttrs: false,
 
   props: {
-    // `value` is actually passed thru the `v-model` directive
-    value: { type: Object, required: true },
+    modelValue: { type: Object, required: true },
     choices: { type: Array, required: true },
     placeholder: { type: String, default: null },
     id: { type: String, default: null },
@@ -54,10 +54,10 @@ export default {
   },
 
   methods: {
-    onInput(key, value) {
-      this.$emit('input', {
-        ...this.value,
-        [key]: value,
+    onInput(key, modelValue) {
+      this.$emit('update:modelValue', {
+        ...this.modelValue,
+        [key]: modelValue,
       })
     },
   },

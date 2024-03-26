@@ -2,8 +2,8 @@
   <div class="tags-selectize">
     <BFormTags
       v-bind="$attrs"
-      v-on="$listeners"
-      :value="value"
+      :modelValue="modelValue"
+      @update:modelValue="$emit('update:modelValue', $event)"
       :id="id"
       size="lg"
       class="p-0 border-0"
@@ -93,12 +93,13 @@
 
 <script>
 export default {
+  compatConfig: { MODE: 3 },
   name: 'TagsSelectizeItem',
 
   inheritAttrs: false,
 
   props: {
-    value: { type: Array, required: true },
+    modelValue: { type: Array, required: true },
     options: { type: Array, required: true },
     id: { type: String, required: true },
     placeholder: { type: String, default: null },
@@ -128,7 +129,8 @@ export default {
       const criteria = this.criteria
       const options = this.options.filter((opt) => {
         return (
-          this.value.indexOf(opt) === -1 && !this.disabledItems.includes(opt)
+          this.modelValue.indexOf(opt) === -1 &&
+          !this.disabledItems.includes(opt)
         )
       })
       if (criteria) {
@@ -176,7 +178,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-::v-deep .dropdown-menu {
+:deep(.dropdown-menu) {
   max-height: 300px;
   overflow-y: auto;
   padding-top: 0;

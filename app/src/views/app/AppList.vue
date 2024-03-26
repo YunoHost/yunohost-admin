@@ -1,6 +1,6 @@
 <template>
   <ViewSearch
-    :search.sync="search"
+    v-model:search="search"
     items-name="installed_apps"
     :items="apps"
     :filtered-items="filteredApps"
@@ -39,6 +39,7 @@
 
 <script>
 export default {
+  compatConfig: { MODE: 3 },
   name: 'AppList',
 
   data() {

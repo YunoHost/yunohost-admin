@@ -1,5 +1,5 @@
 <template>
-  <BListGroupItem class="yuno-list-group-item" :class="_class" v-bind="$attrs">
+  <BListGroupItem v-bind="$attrs" class="yuno-list-group-item" :class="_class">
     <div v-if="!noStatus" class="yuno-list-group-item-status">
       <YIcon v-if="_icon" :iname="_icon" :class="['icon-' + variant]" />
     </div>
@@ -14,6 +14,7 @@
 import { DEFAULT_STATUS_ICON } from '@/helpers/yunohostArguments'
 
 export default {
+  compatConfig: { MODE: 3 },
   name: 'YListGroupItem',
 
   props: {

@@ -3,12 +3,7 @@
  * @module store/settings
  */
 
-import i18n from '@/i18n'
-import {
-  loadLocaleMessages,
-  updateDocumentLocale,
-  loadDateFnsLocale,
-} from '@/i18n/helpers'
+import { setI18nLocale, setI18nFallbackLocale } from '@/i18n/helpers'
 import supportedLocales from '@/i18n/supportedLocales'
 
 export default {
@@ -62,19 +57,14 @@ export default {
 
   actions: {
     UPDATE_LOCALE({ commit }, locale) {
-      loadLocaleMessages(locale).then(() => {
-        updateDocumentLocale(locale)
+      return setI18nLocale(locale).then(() => {
         commit('SET_LOCALE', locale)
-        i18n.locale = locale
       })
-      // also query the date-fns locale object for filters
-      loadDateFnsLocale(locale)
     },
 
     UPDATE_FALLBACKLOCALE({ commit }, locale) {
-      loadLocaleMessages(locale).then(() => {
+      return setI18nFallbackLocale(locale).then(() => {
         commit('SET_FALLBACKLOCALE', locale)
-        i18n.fallbackLocale = [locale, 'en']
       })
     },
 

@@ -1,9 +1,10 @@
 <template>
-  <VueShowdown :markdown="label" flavor="github" />
+  <VueShowdown :markdown="label" />
 </template>
 
 <script>
 export default {
+  compatConfig: { MODE: 3 },
   name: 'MarkdownItem',
 
   props: {

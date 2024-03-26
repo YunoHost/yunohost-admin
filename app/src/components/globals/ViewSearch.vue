@@ -1,5 +1,5 @@
 <template>
-  <ViewBase v-bind="$attrs" v-on="$listeners" :skeleton="skeleton">
+  <ViewBase v-bind="$attrs" :skeleton="skeleton">
     <template v-if="hasCustomTopBar" #top-bar>
       <slot name="top-bar" />
     </template>
@@ -57,6 +57,7 @@
 
 <script>
 export default {
+  compatConfig: { MODE: 3, INSTANCE_LISTENERS: false },
   name: 'ViewSearch',
 
   props: {

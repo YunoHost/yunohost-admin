@@ -1,6 +1,6 @@
 <template>
   <ViewSearch
-    :search.sync="search"
+    v-model:search="search"
     :items="operations"
     :filtered-items="filteredOperations"
     items-name="logs"
@@ -29,6 +29,7 @@
 import { distanceToNow, readableDate } from '@/helpers/filters/date'
 
 export default {
+  compatConfig: { MODE: 3 },
   name: 'ToolLogs',
 
   data() {

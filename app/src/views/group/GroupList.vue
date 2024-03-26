@@ -1,7 +1,7 @@
 <template>
   <ViewSearch
     items-name="groups"
-    :search.sync="search"
+    v-model:search="search"
     :items="primaryGroups"
     :filtered-items="filteredGroups"
     :queries="queries"
@@ -96,8 +96,8 @@
       :title="$t('group_specific_permissions')"
       icon="group"
     >
-      <template v-for="(userName, index) in activeUserGroups">
-        <BRow :key="userName">
+      <template v-for="userName in activeUserGroups" :key="userName">
+        <BRow>
           <BCol md="3" lg="2">
             <YIcon iname="user" /> <strong>{{ userName }}</strong>
           </BCol>
@@ -116,7 +116,7 @@
             />
           </BCol>
         </BRow>
-        <hr :key="index" />
+        <hr />
       </template>
 
       <TagsSelectizeItem
@@ -133,8 +133,6 @@
 </template>
 
 <script>
-import Vue from 'vue'
-
 import api from '@/api'
 import { isEmptyValue } from '@/helpers/commons'
 import TagsSelectizeItem from '@/components/globals/formItems/TagsSelectizeItem.vue'
@@ -142,6 +140,7 @@ import TagsSelectizeItem from '@/components/globals/formItems/TagsSelectizeItem.
 // TODO add global search with type (search by: group, user, permission)
 // TODO add vuex store update on inputs ?
 export default {
+  compatConfig: { MODE: 3 },
   name: 'GroupList',
 
   components: {
@@ -324,7 +323,7 @@ export default {
           { key: 'groups.delete', name: groupName },
         )
         .then(() => {
-          Vue.delete(this.primaryGroups, groupName)
+          delete this.primaryGroups[groupName]
         })
     },
   },

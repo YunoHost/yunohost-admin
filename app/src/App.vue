@@ -6,7 +6,6 @@
         <BNavbarBrand
           :to="{ name: 'home' }"
           :disabled="waiting"
-          exact
           exact-active-class="active"
         >
           <span v-if="theme">
@@ -45,10 +44,12 @@
       <main id="main">
         <!-- The `key` on RouterView make sure that if a link points to a page that
         use the same component as the previous one, it will be refreshed -->
-        <Transition v-if="transitions" :name="transitionName">
-          <RouterView class="animated" :key="routerKey" />
-        </Transition>
-        <RouterView v-else class="static" :key="routerKey" />
+        <RouterView v-slot="{ Component }" :key="routerKey">
+          <Transition v-if="transitions" :name="transitionName">
+            <Component :is="Component" class="animated" />
+          </Transition>
+          <Component v-else :is="Component" class="static" />
+        </RouterView>
       </main>
     </ViewLockOverlay>
 
@@ -100,6 +101,7 @@ import { mapGetters } from 'vuex'
 import { HistoryConsole, ViewLockOverlay } from '@/views/_partials'
 
 export default {
+  compatConfig: { MODE: 3 },
   name: 'App',
 
   components: {
@@ -225,7 +227,7 @@ main {
   .animated {
     transition: all 0.15s ease-in-out;
   }
-  .slide-left-enter,
+  .slide-left-enter-from,
   .slide-right-leave-active {
     position: absolute;
     width: 100%;
@@ -233,7 +235,7 @@ main {
     transform: translate(100vw, 0);
   }
   .slide-left-leave-active,
-  .slide-right-enter {
+  .slide-right-enter-from {
     position: absolute;
     width: 100%;
     top: 0;

@@ -70,12 +70,12 @@
         </BButton>
       </template>
 
-      <template v-for="({ filename, content }, i) in logs">
-        <h3 :key="i + '-filename'">
+      <template v-for="{ filename, content } in logs" :key="filename">
+        <h3>
           {{ filename }}
         </h3>
 
-        <pre :key="i + '-content'" class="log"><code>{{ content }}</code></pre>
+        <pre class="log"><code>{{ content }}</code></pre>
       </template>
     </YCard>
   </ViewBase>
@@ -86,6 +86,7 @@ import api from '@/api'
 import { distanceToNow } from '@/helpers/filters/date'
 
 export default {
+  compatConfig: { MODE: 3 },
   name: 'ServiceInfo',
 
   props: {

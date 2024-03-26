@@ -3,7 +3,7 @@
     :title="title"
     icon="globe"
     :submit-text="submitText"
-    :validation="$v"
+    :validation="v$"
     :server-error="serverError"
     @submit.prevent="onSubmit"
   >
@@ -23,7 +23,7 @@
       {{ $t('domain.add.from_registrar') }}
     </BFormRadio>
 
-    <BCollapse id="collapse-domain" :visible.sync="domainIsVisible">
+    <BCollapse id="collapse-domain" v-model:visible="domainIsVisible">
       <p class="mt-2 alert alert-info">
         <YIcon iname="info-circle" />
         <span class="pl-1" v-html="$t('domain.add.from_registrar_desc')" />
@@ -32,7 +32,7 @@
       <FormField
         v-bind="fields.domain"
         v-model="form.domain"
-        :validation="$v.form.domain"
+        :validation="v$.form.domain"
         class="mt-3"
       />
     </BCollapse>
@@ -50,7 +50,7 @@
       {{ $t('domain.add.from_yunohost') }}
     </BFormRadio>
 
-    <BCollapse id="collapse-dynDomain" :visible.sync="dynDomainIsVisible">
+    <BCollapse id="collapse-dynDomain" v-model:visible="dynDomainIsVisible">
       <p class="mt-2 alert alert-info">
         <YIcon iname="info-circle" />
         <span class="pl-1" v-html="$t('domain.add.from_yunohost_desc')" />
@@ -58,7 +58,7 @@
 
       <FormField
         v-bind="fields.dynDomain"
-        :validation="$v.form.dynDomain"
+        :validation="v$.form.dynDomain"
         class="mt-3"
       >
         <template #default="{ self }">
@@ -68,13 +68,13 @@
 
       <FormField
         v-bind="fields.dynDomainPassword"
-        :validation="$v.form.dynDomainPassword"
+        :validation="v$.form.dynDomainPassword"
         v-model="form.dynDomainPassword"
       />
 
       <FormField
         v-bind="fields.dynDomainPasswordConfirmation"
-        :validation="$v.form.dynDomainPasswordConfirmation"
+        :validation="v$.form.dynDomainPasswordConfirmation"
         v-model="form.dynDomainPasswordConfirmation"
       />
     </BCollapse>
@@ -95,7 +95,7 @@
       {{ $t('domain.add.from_local') }}
     </BFormRadio>
 
-    <BCollapse id="collapse-localDomain" :visible.sync="localDomainIsVisible">
+    <BCollapse id="collapse-localDomain" v-model:visible="localDomainIsVisible">
       <p class="mt-2 alert alert-info">
         <YIcon iname="info-circle" />
         <span class="pl-1" v-html="$t('domain.add.from_local_desc')" />
@@ -103,7 +103,7 @@
 
       <FormField
         v-bind="fields.localDomain"
-        :validation="$v.form.localDomain"
+        :validation="v$.form.localDomain"
         class="mt-3"
       >
         <template #default="{ self }">
@@ -116,7 +116,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { validationMixin } from 'vuelidate'
+import { useVuelidate } from '@vuelidate/core'
 
 import AdressInputSelect from '@/components/AdressInputSelect.vue'
 import { formatFormData } from '@/helpers/yunohostArguments'
@@ -129,12 +129,19 @@ import {
 } from '@/helpers/validators'
 
 export default {
+  compatConfig: { MODE: 3 },
   name: 'DomainForm',
 
   props: {
     title: { type: String, required: true },
     submitText: { type: String, default: null },
     serverError: { type: String, default: '' },
+  },
+
+  setup() {
+    return {
+      v$: useVuelidate(),
+    }
   },
 
   data() {
@@ -261,8 +268,6 @@ export default {
       this.selected = 'domain'
     }
   },
-
-  mixins: [validationMixin],
 
   components: {
     AdressInputSelect,

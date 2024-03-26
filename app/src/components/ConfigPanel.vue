@@ -6,7 +6,7 @@
       validation,
       serverError: panel.serverError,
     }"
-    @submit.prevent.stop="onApply"
+    @apply="onApply"
     :no-footer="!panel.hasApplyButton"
   >
     <slot name="tab-top" />
@@ -54,6 +54,7 @@
 import { filterObject } from '@/helpers/commons'
 
 export default {
+  compatConfig: { MODE: 3 },
   name: 'ConfigPanel',
 
   props: {
@@ -77,7 +78,7 @@ export default {
     onApply() {
       const panelId = this.panel.id
 
-      this.$emit('submit', {
+      this.$emit('apply', {
         id: panelId,
         form: this.forms[panelId],
       })
@@ -87,7 +88,7 @@ export default {
       const panelId = this.panel.id
       const actionFieldsKeys = Object.keys(actionFields)
 
-      this.$emit('submit', {
+      this.$emit('apply', {
         id: panelId,
         form: filterObject(this.forms[panelId], ([key]) =>
           actionFieldsKeys.includes(key),
@@ -105,7 +106,7 @@ export default {
   margin-bottom: 1em;
   border-bottom: solid $border-width $gray-500;
 }
-::v-deep .panel-section:not(:last-child) {
+:deep(.panel-section:not(:last-child)) {
   margin-bottom: 3rem;
 }
 </style>

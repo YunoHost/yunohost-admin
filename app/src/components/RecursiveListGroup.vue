@@ -1,8 +1,7 @@
 <template>
   <BListGroup :flush="flush" :style="{ '--depth': tree.depth }">
-    <template v-for="(node, i) in tree.children">
+    <template v-for="(node, i) in tree.children" :key="node.id">
       <BListGroupItem
-        :key="node.id"
         class="list-group-item-action"
         :class="getClasses(node, i)"
         @click="$router.push(node.data.to)"
@@ -26,7 +25,6 @@
 
       <BCollapse
         v-if="node.children"
-        :key="'collapse-' + node.id"
         v-model="node.data.opened"
         :id="'collapse-' + node.id"
       >
@@ -36,7 +34,7 @@
           flush
         >
           <!-- PASS THE DEFAULT SLOT WITH SCOPE TO NEXT NESTED COMPONENT -->
-          <template slot="default" slot-scope="scope">
+          <template #default="scope">
             <slot name="default" v-bind="scope" />
           </template>
         </RecursiveListGroup>
@@ -47,6 +45,7 @@
 
 <script>
 export default {
+  compatConfig: { MODE: 3 },
   name: 'RecursiveListGroup',
 
   props: {

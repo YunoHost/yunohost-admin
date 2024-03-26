@@ -1,6 +1,7 @@
 <template>
   <BFormInput
-    :value="value"
+    :modelValue="modelValue"
+    @update:modelValue="$emit('update:modelValue', $event)"
     :id="id"
     :placeholder="placeholder"
     :type="type"
@@ -11,17 +12,17 @@
     :step="step"
     :trim="trim"
     :autocomplete="autocomplete_"
-    v-on="$listeners"
     @blur="$parent.$emit('touch', name)"
   />
 </template>
 
 <script>
 export default {
+  compatConfig: { MODE: 3 },
   name: 'InputItem',
 
   props: {
-    value: { type: [String, Number], default: null },
+    modelValue: { type: [String, Number], default: null },
     id: { type: String, default: null },
     placeholder: { type: String, default: null },
     type: { type: String, default: 'text' },

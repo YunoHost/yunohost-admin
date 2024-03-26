@@ -32,7 +32,6 @@
         v-for="[name, notif] in app.doc.notifications.postInstall"
         :key="name"
         :markdown="notif"
-        flavor="github"
         :options="{ headerLevelStart: 4 }"
       />
     </YAlert>
@@ -64,7 +63,6 @@
         v-for="[name, notif] in app.doc.notifications.postUpgrade"
         :key="name"
         :markdown="notif"
-        flavor="github"
         :options="{ headerLevelStart: 4 }"
       />
     </YAlert>
@@ -118,7 +116,7 @@
         </a>
       </p>
 
-      <VueShowdown :markdown="app.description" flavor="github" />
+      <VueShowdown :markdown="app.description" />
     </section>
 
     <YAlert v-if="config_panel_err" class="mb-4" variant="danger" icon="bug">
@@ -128,7 +126,11 @@
     </YAlert>
 
     <!-- BASIC INFOS -->
-    <ConfigPanels v-bind="config" @submit="onConfigSubmit">
+    <ConfigPanels
+      v-bind="config"
+      :external-results="externalResults"
+      @apply="onConfigSubmit"
+    >
       <!-- OPERATIONS TAB -->
       <template v-if="currentTab === 'operations'" #tab-top>
         <!-- CHANGE PERMISSIONS LABEL -->
@@ -144,7 +146,7 @@
             label-cols="0"
             label-class=""
             class="m-0"
-            :validation="$v.form.labels.$each[i]"
+            :validation="v$.form.labels.$each[i]"
           >
             <template #default="{ self }">
               <BInputGroup>
@@ -275,7 +277,7 @@
             <YIcon iname="book" class="mr-2" />
             {{ name === 'admin' ? $t('app.doc.admin.title') : name }}
           </template>
-          <VueShowdown :markdown="content" flavor="github" />
+          <VueShowdown :markdown="content" />
         </BTab>
       </BTabs>
     </BCard>
@@ -361,11 +363,11 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { validationMixin } from 'vuelidate'
+import { useVuelidate } from '@vuelidate/core'
 
 import api, { objectToParams } from '@/api'
 import { humanPermissionName } from '@/helpers/filters/human'
-import { required } from '@/helpers/validators'
+import { helpers, required } from '@/helpers/validators'
 import { isEmptyValue } from '@/helpers/commons'
 import {
   formatFormData,
@@ -375,6 +377,7 @@ import {
 import ConfigPanels from '@/components/ConfigPanels.vue'
 
 export default {
+  compatConfig: { MODE: 3 },
   name: 'AppInfo',
 
   components: {
@@ -383,6 +386,12 @@ export default {
 
   props: {
     id: { type: String, required: true },
+  },
+
+  setup() {
+    return {
+      v$: useVuelidate(),
+    }
   },
 
   data() {
@@ -408,6 +417,7 @@ export default {
         ],
         validations: {},
       },
+      externalResults: {},
       doc: undefined,
     }
   },
@@ -429,7 +439,9 @@ export default {
     return {
       form: {
         labels: {
-          $each: { label: { required } },
+          $each: helpers.forEach({
+            label: { required },
+          }),
         },
         url: { path: { required } },
       },
@@ -614,8 +626,12 @@ export default {
           if (err.name !== 'APIBadRequestError') throw err
           const panel = this.config.panels.find((panel) => panel.id === id)
           if (err.data.name) {
-            this.config.errors[id][err.data.name].message = err.message
-          } else this.$set(panel, 'serverError', err.message)
+            Object.assign(this.externalResults, {
+              forms: { [panel.id]: { [err.data.name]: [err.data.error] } },
+            })
+          } else {
+            panel.serverError = err.message
+          }
         })
     },
 
@@ -687,8 +703,6 @@ export default {
         })
     },
   },
-
-  mixins: [validationMixin],
 }
 </script>
 

@@ -127,6 +127,7 @@
 import api from '@/api'
 
 export default {
+  compatConfig: { MODE: 3 },
   name: 'BackupCreate',
 
   props: {

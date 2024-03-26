@@ -56,7 +56,7 @@
     <CardForm
       :title="$t('operations')"
       icon="cogs"
-      :validation="$v"
+      :validation="v$"
       :server-error="serverError"
       @submit.prevent="onFormPortToggling"
       inline
@@ -66,7 +66,7 @@
         <BFormSelect v-model="form.action" :options="actionChoices" />
       </BInputGroup>
 
-      <FormField :validation="$v.form.port">
+      <FormField :validation="v$.form.port">
         <BInputGroup :prepend="$t('port')">
           <InputItem
             id="input-port"
@@ -119,13 +119,20 @@
 </template>
 
 <script>
-import { validationMixin } from 'vuelidate'
+import { useVuelidate } from '@vuelidate/core'
 
 import api from '@/api'
 import { required, integer, between } from '@/helpers/validators'
 
 export default {
+  compatConfig: { MODE: 3 },
   name: 'ToolFirewall',
+
+  setup() {
+    return {
+      v$: useVuelidate(),
+    }
+  },
 
   data() {
     return {
@@ -263,13 +270,13 @@ export default {
     },
 
     onTablePortToggling(port, protocol, connection, index, value) {
-      this.$set(this.protocols[protocol][index], connection, value)
+      this.protocols[protocol][index][connection] = value
       const action = value ? 'allow' : 'disallow'
       this.togglePort({ action, port, protocol, connection }).then(
         (toggled) => {
           // Revert change on cancel
           if (!toggled) {
-            this.$set(this.protocols[protocol][index], connection, !value)
+            this.protocols[protocol][index][connection] = !value
           }
         },
       )
@@ -281,13 +288,11 @@ export default {
       })
     },
   },
-
-  mixins: [validationMixin],
 }
 </script>
 
 <style lang="scss" scoped>
-::v-deep .on-off-switch {
+:deep(.on-off-switch) {
   .custom-control-input {
     &:checked ~ .custom-control-label::before {
       border-color: $success;
@@ -318,7 +323,7 @@ export default {
   }
 }
 
-::v-deep form {
+:deep(form) {
   margin-bottom: -1rem;
 
   & > * {
