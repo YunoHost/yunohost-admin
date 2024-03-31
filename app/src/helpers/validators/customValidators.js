@@ -18,7 +18,7 @@ const dynDomain = helpers.regex(
   new RegExp(`^(?:xn--)?[\\da-z-${nonAsciiWordCharacters}]+$`),
 )
 
-const emailLocalPart = helpers.regex('emailLocalPart', /^[\w.-]+$/)
+const emailLocalPart = helpers.regex('emailLocalPart', /^[\w+.-]+$/)
 
 const emailForwardLocalPart = helpers.regex(
   'emailForwardLocalPart',
