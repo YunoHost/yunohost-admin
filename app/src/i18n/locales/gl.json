@@ -54,7 +54,7 @@
     "add": "Engadir",
     "action": "Acción",
     "confirm_firewall_disallow": "Tes a certeza de querer pechar o porto {port}? (protocolo: {protocol}, conexión: {connection})",
-    "confirm_firewall_allow": "Tes a certeza de querer abrir o porto {port}?(protocolo: {protocol}, conexión: {connection})",
+    "confirm_firewall_allow": "Tes a certeza de querer abrir o porto {port}? (protocolo: {protocol}, conexión: {connection})",
     "confirm_delete": "Tes a certeza de querer eliminar {name}?",
     "confirm_change_maindomain": "Tes a certeza de querer cambiar o dominio principal?",
     "confirm_app_default": "Tes a certeza de querer establecer esta como a app por defecto?",
