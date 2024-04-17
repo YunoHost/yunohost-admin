@@ -213,7 +213,7 @@
     "group_all_users": "Tous les comptes",
     "group_visitors": "Visiteurs",
     "group_format_name_help": "Vous pouvez utiliser des caractères alphanumériques et des tirets bas",
-    "group_add_member": "Créer un compte",
+    "group_add_member": "Ajouter un compte",
     "group_add_permission": "Ajouter une permission",
     "group_new": "Nouveau groupe",
     "group_explain_all_users": "Ceci est un groupe spécial contenant tous les comptes des personnes inscrites sur le serveur",
