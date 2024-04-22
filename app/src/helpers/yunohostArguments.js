@@ -277,7 +277,7 @@ export function formatYunoHostArgument(arg) {
   ]
 
   // Default type management if no one is filled
-  if (arg.choices && arg.choices.length) {
+  if (arg.type !== 'tags' && arg.choices && arg.choices.length) {
     arg.type = 'select'
   }
   if (arg.type === undefined) {
