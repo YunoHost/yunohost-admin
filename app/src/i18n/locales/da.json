@@ -4,6 +4,10 @@
         "domain_description": {
             "domain": "Vælg et domæne.",
             "email": "Vælg et domæne til din e-mail."
+        },
+        "local_part_description": {
+            "domain": "Vælg et sub-domæne.",
+            "email": "Vælg en lokal del til dit domæne."
         }
     },
     "administration_password": "Administratorkodeord",
