@@ -31,7 +31,8 @@
             },
             "success": "Serveren er nu kontaktbar! Du kan prøve at logge ind",
             "title": "Forsøger at kommunikere med serveren…"
-        }
+        },
+        "partial_logs": "[...] (se i historik for at finde hele loggen)"
     },
     "api_error": {
         "error_message": "Fejlmelding:",
