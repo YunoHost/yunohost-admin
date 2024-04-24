@@ -50,5 +50,55 @@
         "APINotFoundError": "YunoHost API'en kunne ikke finde en rute",
         "APINotRespondingError": "YunoHost API svarer ikke",
         "APIInternalError": "YunoHost stødte på en intern fejl"
-    }
+    },
+    "api_not_found": "Det ser ud til at webadministratoren forespurgte efter noget der ikke findes.",
+    "api_not_responding": "YunoHost API'en svarer ikke. Måske er 'yunohost-api' nede eller blevet genstartet?",
+    "app": {
+        "doc": {
+            "about": {
+                "description": "Beskrivelse",
+                "title": "Om"
+            },
+            "admin": {
+                "title": "Admin doc"
+            },
+            "notifications": {
+                "understood": "Forstået",
+                "post_upgrade": "Post-opdatering noter",
+                "title": "Notifikationer",
+                "post_install": "Post-installation noter"
+            }
+        },
+        "info": {
+            "forum": "Søg eller spørg i forummet!",
+            "problem": "Et problem med denne app?",
+            "config_panel_error": "En fejl forhindrer konfigurationspanelet i at blive vist:",
+            "config_panel_error_please_report": "Vær venlig at rapportere denne fejl til YunoHost teamet, så den kan blive fikset!"
+        },
+        "install": {
+            "license": "Licens:{license}",
+            "notifs": {
+                "post": {
+                    "title": "Post-installations-notifikationer for '{name}'",
+                    "alert": "Det ser ud til at installationen gik godt!\nHer er nogle beskeder som udviklerne af pakken synes det er vigtigt, at du får.\nDu kan læse dem igen på app infosiden."
+                },
+                "pre": {
+                    "warning": "Ting at være opmærksom på før installationen",
+                    "critical": "Applikationen kan ikke installeres",
+                    "danger": "Installation af applikationen vil sandsynligvis medføre problemer"
+                }
+            },
+            "problems": {
+                "ignore": "Jeg forstår at denne installation kan ødelægge mit system, men jeg vil stadig gerne prøve.",
+                "ram": "Denne applikation kræver {required} RAM for at kunne installere/opgradere, men der er kun {current} tilgængelige lige nu. Selv hvis denne app kunne køre, ville installationsprocessen kræve en stor mængde RAM, så din server risikerer at fryse og fejle horribelt.",
+                "arch": "Denne app kan kun installeres på specifikke arkitekturer ({required}) men din serverarkitektur er  {current}.",
+                "broken": "YunoHosts automatiske tests har markeret denne applikation som \"VIRKER IKKE\", og den vil sandsynligvis ødelægge dit system! Du bør IKKE installere den medmindre du ved hvad du foretager dig.",
+                "inprogress": "Denne applikation er stadig i prøvefasen (eller den virker måske slet ikke) og den vil sandsynligvis ødelægge dit system! Du bør IKKE installere den medmindre du ved hvad du laver.",
+                "install": "Den er allerede installeret og kan ikke installeres flere gange.",
+                "lowquality": "Denne applikation virker måske, men er ikke velintegreret i YunoHost. Visse funktioner, såsom single sign-on og backup/restore er muligvis ikke tilgængelige, eller de respekterer ikke god praksis."
+            }
+        },
+        "antifeatures": "Denne app har komponenter du måske ikke vil bryde dig om:"
+    },
+    "api_waiting": "Venter på svar fra serveren…"
 }
