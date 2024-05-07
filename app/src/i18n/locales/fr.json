@@ -527,7 +527,7 @@
             "manual_config": "Enregistrements DNS suggérés pour la configuration manuelle",
             "push_force": "Écraser les enregistrements existants",
             "push_force_warning": "Il semble que certains enregistrements DNS que YunoHost aurait définis soient déjà dans la configuration du registrar. Vous pouvez utiliser l'option d'écrasement si vous savez ce que vous faites.",
-            "push_force_confirm": "Voulez-vous vraiment forcer tous les enregistrements DNS suggérés ? Sachez que cela peut écraser manuellement ou des enregistrements par défaut importants définis par vous ou votre registrar.",
+            "push_force_confirm": "Voulez-vous vraiment forcer tous les enregistrements DNS suggérés ? Sachez que cela peut écraser une configuration manuelle ou des enregistrements par défaut importants définis par vous ou votre registrar.",
             "auto_config_ignored": "ignoré, ne sera pas modifié par YunoHost sauf si vous cochez l'option d'écrasement",
             "push": "Envoyer les enregistrements DNS vers le registrar",
             "methods": {
