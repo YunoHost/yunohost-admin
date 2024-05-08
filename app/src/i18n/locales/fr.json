@@ -205,7 +205,7 @@
     "only_highquality_apps": "Seulement les applications de bonne qualité",
     "only_decent_quality_apps": "Seulement les applications d'une qualité satisfaisante",
     "orphaned": "Non maintenue",
-    "orphaned_details": "Cette application n'a pas été maintenue depuis un certain temps. Il peut encore fonctionner, mais ne recevra aucune mise à niveau jusqu'à ce que quelqu'un se porte volontaire pour s'en occuper. N'hésitez pas à contribuer à la faire revivre !",
+    "orphaned_details": "Cette application n'a pas été maintenue depuis un certain temps. Elle peut encore fonctionner, mais ne recevra aucune mise à niveau jusqu'à ce que quelqu'un se porte volontaire pour s'en occuper. N'hésitez pas à contribuer à la faire revivre !",
     "from_to": "de {0} à {1}",
     "group_name": "Nom du groupe",
     "nobody": "Personne",
@@ -389,7 +389,7 @@
             "domain": "Choisissez un domaine."
         }
     },
-    "api_not_found": "L'administrateur a essayé d'accéder à quelque chose qui n'existe pas.",
+    "api_not_found": "Il semblerait que l'interface d'administration web ait essayé d'accéder à quelque chose qui n'existe pas.",
     "api": {
         "query_status": {
             "error": "Échec",
