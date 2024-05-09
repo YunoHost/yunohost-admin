@@ -281,7 +281,7 @@
             "error": "No se ha podido realizar"
         },
         "processing": "El servidor está procesando la acción…",
-        "partial_logs": "[…] (comprueba el histórico para un log completo)",
+        "partial_logs": "[…] (comprueba el histórico para unos logs completos)",
         "reconnecting": {
             "title": "Intentado comunicarse con el servidor…",
             "failed": "Al parecer el servidor no responde. Puedes intentarlo nuevamente o utilizar el comando `systemctl restart yunohost-api` a través de SSH.",
@@ -492,7 +492,7 @@
             "manual_config": "Registros DNS recomendados para la configuración manual",
             "push": "Publicar registros DNS al registrador",
             "push_force": "Sobrescribir registros actuales",
-            "push_force_confirm": "¿Seguro que quieres forzar la publicación de los registros DNS recomendados? Ten en cuenta que puede sobreescribir registros por defecto o importantes configurados por tu registrador.",
+            "push_force_confirm": "¿Seguro que quieres forzar la publicación de los registros DNS recomendados? Ten en cuenta que puede sobrescribir registros por defecto o importantes configurados por tu registrador.",
             "push_force_warning": "Parece que algunos registros DNS de YunoHost ya se encuentran en la configuración del registrador. Puedes usar la opción sobrescribir si sabes lo que haces.",
             "info": "La configuración automática DNS es una función experimental.<br> Plantéate guardar tu zona DNS actual desde la interfaz DNS de tu registrador antes de publicar cambios desde aquí.",
             "methods": {
@@ -518,7 +518,7 @@
             "apps_on_domain": "Aplicaciones instaladas en el dominio",
             "certificate_authority": "Autoridad certificadora SSL",
             "registrar": "Registrador",
-            "dyn_dns_remove_and_unsubscribe": "También eliminar el dominnio del servicio DynDNS de YunoHost"
+            "dyn_dns_remove_and_unsubscribe": "También eliminar el dominio del servicio DynDNS de YunoHost"
         },
         "see_parent_domain": "Ver dominio padre",
         "types": {
@@ -666,7 +666,8 @@
             "title": "Enlaces",
             "userdoc": "Documentación oficial del usuario",
             "website": "Página web oficial",
-            "license": "Licencia"
+            "license": "Licencia de la aplicación",
+            "package_license": "Licencia de paquete YunoHost"
         },
         "potential_alternative_to": "Alternativa potencial a:",
         "upgrade": {
