@@ -1,4 +1,4 @@
-import { createApp } from 'vue'
+import { createApp, type Component } from 'vue'
 import App from './App.vue'
 import { createBootstrap } from 'bootstrap-vue-next'
 import { VueShowdownPlugin } from 'vue-showdown'
@@ -12,9 +12,9 @@ import { initDefaultLocales } from './i18n/helpers'
 
 import '@/scss/main.scss'
 
-const app = createApp({
-  ...App,
-})
+type Module = { default: Component }
+
+const app = createApp(App)
 
 app.use(store)
 app.use(router)
@@ -33,11 +33,17 @@ app.use(VueShowdownPlugin, {
 const globalComponentsModules = import.meta.glob(
   ['@/components/globals/*.vue', '@/components/globals/*/*.vue'],
   { eager: true },
+) as Record<string, Module>
+Object.values(globalComponentsModules).forEach(
+  ({ default: component }: Module) => {
+    // FIXME component name is not automatic (there is the `__name` but it's private and may change)
+    // Solution seems to use:
+    // defineOptions({
+    //   name: 'FormField',
+    // })
+    app.component(component.__name || component.name, component)
+  },
 )
-Object.values(globalComponentsModules).forEach((module) => {
-  const component = module.default
-  app.component(component.name, component)
-})
 
 registerGlobalErrorHandlers()
 
