@@ -529,7 +529,7 @@
             "push": "Enviar rexistros DNS á rexistradora",
             "push_force": "Sobrescribir rexistros existentes",
             "push_force_warning": "Semella que algúns rexistros DNS que YunoHost querería configurar xa están establecidos na configuración. Podes usar a sobrescritura se sabes o que estás a facer.",
-            "push_force_confirm": "Tes a certeza de que queres forzar a sobrescritura cos rexistros suxeridos? Ten en conta que poderías sobrescribir rexistros por defecto ou manuais establecidos na rexistradora.",
+            "push_force_confirm": "Tes a certeza de querer forzar a sobrescritura dos rexistros suxeridos? Ten en conta que poderías sobrescribir rexistros por defecto ou manuais establecidos na rexistradora.",
             "methods": {
                 "auto": "Automático",
                 "handled_in_parent": "Xestionado polo dominio nai",
