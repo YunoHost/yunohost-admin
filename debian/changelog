@@ -1,3 +1,12 @@
+yunohost-admin (11.2.6) stable; urgency=low
+
+  - fix: config panel "tags" turned into "select" (5a805463)
+  - [i18n] Translations updated for Danish, Dutch, French
+
+  Thanks to all contributors <3 ! (Alexandre Aubin, Andreas Gammelgaard Damsbo, axolotle, bruno van den bosch, Øjvind Fritjof Arnfred, Titus PiJean)
+
+ -- OniriCorpe <oniricorpe@yunohost.org>  Mon, 20 May 2024 00:09:45 +0200
+
 yunohost-admin (11.2.5) stable; urgency=low
 
   - maintenance: Pre vue3 changes ([#555](https://github.com/yunohost/yunohost-admin/pull/555))
