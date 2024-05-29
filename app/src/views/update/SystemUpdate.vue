@@ -1,3 +1,117 @@
+<script setup lang="ts">
+import { ref } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { useStore } from 'vuex'
+
+import api from '@/api'
+import CardCollapse from '@/components/CardCollapse.vue'
+import { useAutoModal } from '@/composables/useAutoModal'
+import { useStoreGetters } from '@/store/utils'
+
+const { t } = useI18n()
+const store = useStore()
+const modalConfirm = useAutoModal()
+
+const queries = [['PUT', 'update/all', {}, 'update']]
+
+const { dark } = useStoreGetters()
+const system = ref()
+const apps = ref()
+const importantYunohostUpgrade = ref()
+const pendingMigrations = ref()
+const showPreUpgradeModal = ref(false)
+const preUpgrade = ref({
+  apps: [],
+  notifs: [],
+})
+
+function onQueriesResponse({
+  apps,
+  system,
+  important_yunohost_upgrade,
+  pending_migrations,
+}) {
+  apps.value = apps.length ? apps : null
+  system.value = system.length ? system : null
+  // eslint-disable-next-line camelcase
+  importantYunohostUpgrade.value = important_yunohost_upgrade
+  pendingMigrations.value = pending_migrations.length !== 0
+}
+
+function formatAppNotifs(notifs) {
+  return Object.keys(notifs).reduce((acc, key) => {
+    return acc + '\n\n' + notifs[key]
+  }, '')
+}
+
+async function confirmAppsUpgrade(id = null) {
+  const appList = id ? [apps.value.find((app) => app.id === id)] : apps.value
+  const apps_ = appList.map((app) => ({
+    id: app.id,
+    name: app.name,
+    notif: app.notifications.PRE_UPGRADE
+      ? formatAppNotifs(app.notifications.PRE_UPGRADE)
+      : '',
+  }))
+  preUpgrade.value = { apps: apps_, hasNotifs: apps_.some((app) => app.notif) }
+  showPreUpgradeModal.value = true
+}
+
+async function performAppsUpgrade(ids) {
+  const apps_ = ids.map((id) => apps.value.find((app) => app.id === id))
+  const lastAppId = apps_[apps_.length - 1].id
+
+  for (const app of apps_) {
+    const continue_ = await api
+      .put(`apps/${app.id}/upgrade`, {}, { key: 'upgrade.app', app: app.name })
+      .then((response) => {
+        const postMessage = formatAppNotifs(response.notifications.POST_UPGRADE)
+        const isLast = app.id === lastAppId
+        apps.value = apps.value.filter((a) => app.id !== a.id)
+
+        if (postMessage) {
+          const message =
+            t('app.upgrade.notifs.post.alert') + '\n\n' + postMessage
+          return modalConfirm(
+            message,
+            {
+              title: t('app.upgrade.notifs.post.title', {
+                name: app.name,
+              }),
+              okTitle: t(isLast ? 'ok' : 'app.upgrade.continue'),
+              cancelTitle: t('app.upgrade.stop'),
+            },
+            { markdown: true, cancelable: !isLast },
+          )
+        } else {
+          return Promise.resolve(true)
+        }
+      })
+    if (!continue_) break
+  }
+
+  if (!apps.value.length) {
+    apps.value = null
+  }
+}
+
+async function performSystemUpgrade() {
+  const confirmed = await modalConfirm(t('confirm_update_system'))
+  if (!confirmed) return
+
+  api.put('upgrade/system', {}, { key: 'upgrade.system' }).then(() => {
+    if (system.value.some(({ name }) => name.includes('yunohost'))) {
+      store.dispatch('TRY_TO_RECONNECT', {
+        attemps: 1,
+        origin: 'upgrade_system',
+        initialDelay: 2000,
+      })
+    }
+    system.value = null
+  })
+}
+</script>
+
 <template>
   <ViewBase
     :queries="queries"
@@ -137,145 +251,6 @@
     </BModal>
   </ViewBase>
 </template>
-
-<script>
-import api from '@/api'
-import { useAutoModal } from '@/composables/useAutoModal'
-import { mapGetters } from 'vuex'
-
-import CardCollapse from '@/components/CardCollapse.vue'
-
-export default {
-  name: 'SystemUpdate',
-
-  components: {
-    CardCollapse,
-  },
-
-  setup() {
-    return {
-      modalConfirm: useAutoModal(),
-    }
-  },
-
-  data() {
-    return {
-      queries: [['PUT', 'update/all', {}, 'update']],
-      // API data
-      system: undefined,
-      apps: undefined,
-      importantYunohostUpgrade: undefined,
-      pendingMigrations: undefined,
-      showPreUpgradeModal: false,
-      preUpgrade: {
-        apps: [],
-        notifs: [],
-      },
-    }
-  },
-
-  computed: {
-    ...mapGetters(['dark']),
-  },
-
-  methods: {
-    // eslint-disable-next-line camelcase
-    onQueriesResponse({
-      apps,
-      system,
-      important_yunohost_upgrade,
-      pending_migrations,
-    }) {
-      this.apps = apps.length ? apps : null
-      this.system = system.length ? system : null
-      // eslint-disable-next-line camelcase
-      this.importantYunohostUpgrade = important_yunohost_upgrade
-      this.pendingMigrations = pending_migrations.length !== 0
-    },
-
-    formatAppNotifs(notifs) {
-      return Object.keys(notifs).reduce((acc, key) => {
-        return acc + '\n\n' + notifs[key]
-      }, '')
-    },
-
-    async confirmAppsUpgrade(id = null) {
-      const appList = id ? [this.apps.find((app) => app.id === id)] : this.apps
-      const apps = appList.map((app) => ({
-        id: app.id,
-        name: app.name,
-        notif: app.notifications.PRE_UPGRADE
-          ? this.formatAppNotifs(app.notifications.PRE_UPGRADE)
-          : '',
-      }))
-      this.preUpgrade = { apps, hasNotifs: apps.some((app) => app.notif) }
-      this.showPreUpgradeModal = true
-    },
-
-    async performAppsUpgrade(ids) {
-      const apps = ids.map((id) => this.apps.find((app) => app.id === id))
-      const lastAppId = apps[apps.length - 1].id
-
-      for (const app of apps) {
-        const continue_ = await api
-          .put(
-            `apps/${app.id}/upgrade`,
-            {},
-            { key: 'upgrade.app', app: app.name },
-          )
-          .then((response) => {
-            const postMessage = this.formatAppNotifs(
-              response.notifications.POST_UPGRADE,
-            )
-            const isLast = app.id === lastAppId
-            this.apps = this.apps.filter((a) => app.id !== a.id)
-
-            if (postMessage) {
-              const message =
-                this.$t('app.upgrade.notifs.post.alert') + '\n\n' + postMessage
-              return this.modalConfirm(
-                message,
-                {
-                  title: this.$t('app.upgrade.notifs.post.title', {
-                    name: app.name,
-                  }),
-                  okTitle: this.$t(isLast ? 'ok' : 'app.upgrade.continue'),
-                  cancelTitle: this.$t('app.upgrade.stop'),
-                },
-                { markdown: true, cancelable: !isLast },
-              )
-            } else {
-              return Promise.resolve(true)
-            }
-          })
-        if (!continue_) break
-      }
-
-      if (!this.apps.length) {
-        this.apps = null
-      }
-    },
-
-    async performSystemUpgrade() {
-      const confirmed = await this.modalConfirm(
-        this.$t('confirm_update_system'),
-      )
-      if (!confirmed) return
-
-      api.put('upgrade/system', {}, { key: 'upgrade.system' }).then(() => {
-        if (this.system.some(({ name }) => name.includes('yunohost'))) {
-          this.$store.dispatch('TRY_TO_RECONNECT', {
-            attemps: 1,
-            origin: 'upgrade_system',
-            initialDelay: 2000,
-          })
-        }
-        this.system = null
-      })
-    },
-  },
-}
-</script>
 
 <style scoped lang="scss">
 .card-collapse-wrapper {

@@ -1,3 +1,36 @@
+<script setup lang="ts">
+import { computed, ref } from 'vue'
+import { useRouter } from 'vue-router'
+
+import api from '@/api'
+import { useStoreGetters } from '@/store/utils'
+
+const props = defineProps<{ name: string }>()
+
+const router = useRouter()
+
+const queries = [
+  ['GET', { uri: 'users', param: props.name, storeKey: 'users_details' }],
+]
+
+const { user: userGetter } = useStoreGetters()
+const purge = ref(false)
+const user = computed(() => userGetter.value(props.name))
+
+function deleteUser() {
+  const data = purge.value ? { purge: '' } : {}
+  api
+    .delete(
+      { uri: 'users', param: props.name, storeKey: 'users_details' },
+      data,
+      { key: 'users.delete', name: props.name },
+    )
+    .then(() => {
+      router.push({ name: 'user-list' })
+    })
+}
+</script>
+
 <template>
   <ViewBase :queries="queries" skeleton="CardInfoSkeleton">
     <YCard v-if="user" :title="user.fullname" icon="user">
@@ -100,48 +133,6 @@
     </BModal>
   </ViewBase>
 </template>
-
-<script>
-import api from '@/api'
-
-export default {
-  name: 'UserInfo',
-
-  props: {
-    name: { type: String, required: true },
-  },
-
-  data() {
-    return {
-      queries: [
-        ['GET', { uri: 'users', param: this.name, storeKey: 'users_details' }],
-      ],
-      purge: false,
-    }
-  },
-
-  computed: {
-    user() {
-      return this.$store.getters.user(this.name)
-    },
-  },
-
-  methods: {
-    deleteUser() {
-      const data = this.purge ? { purge: '' } : {}
-      api
-        .delete(
-          { uri: 'users', param: this.name, storeKey: 'users_details' },
-          data,
-          { key: 'users.delete', name: this.name },
-        )
-        .then(() => {
-          this.$router.push({ name: 'user-list' })
-        })
-    },
-  },
-}
-</script>
 
 <style lang="scss" scoped>
 .icon.fa-user {

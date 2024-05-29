@@ -1,3 +1,26 @@
+<script setup lang="ts">
+import { computed } from 'vue'
+
+import { DEFAULT_STATUS_ICON } from '@/helpers/yunohostArguments'
+
+const props = withDefaults(
+  defineProps<{
+    alert?: boolean
+    variant?: keyof typeof DEFAULT_STATUS_ICON
+    icon?: string
+  }>(),
+  {
+    alert: false,
+    variant: 'info',
+    icon: undefined,
+  },
+)
+
+const icon = computed(() => {
+  return props.icon || DEFAULT_STATUS_ICON[props.variant]
+})
+</script>
+
 <template>
   <Component
     v-bind="$attrs"
@@ -7,31 +30,10 @@
     :class="{ ['alert alert-' + variant]: !alert }"
     class="yuno-alert d-flex flex-column flex-md-row align-items-center"
   >
-    <YIcon :iname="_icon" class="me-md-3 mb-md-0 mb-2 md" />
+    <YIcon :iname="icon" class="me-md-3 mb-md-0 mb-2 md" />
 
     <div class="w-100">
       <slot name="default" />
     </div>
   </Component>
 </template>
-
-<script>
-import { DEFAULT_STATUS_ICON } from '@/helpers/yunohostArguments'
-
-export default {
-  name: 'YAlert',
-
-  props: {
-    alert: { type: Boolean, default: false },
-    variant: { type: String, default: 'info' },
-    icon: { type: String, default: null },
-  },
-
-  computed: {
-    _icon() {
-      if (this.icon) return this.icon
-      return DEFAULT_STATUS_ICON[this.variant]
-    },
-  },
-}
-</script>

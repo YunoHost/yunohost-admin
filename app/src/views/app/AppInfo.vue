@@ -1,9 +1,338 @@
+<script setup lang="ts">
+import { useVuelidate } from '@vuelidate/core'
+import { computed, reactive, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { useRoute, useRouter } from 'vue-router'
+
+import api, { objectToParams } from '@/api'
+import { APIBadRequestError, type APIError } from '@/api/errors'
+import ConfigPanels from '@/components/ConfigPanels.vue'
+import type ViewBase from '@/components/globals/ViewBase.vue'
+import { useAutoModal } from '@/composables/useAutoModal'
+import { isEmptyValue } from '@/helpers/commons'
+import { humanPermissionName } from '@/helpers/filters/human'
+import { helpers, required } from '@/helpers/validators'
+import {
+  formatFormData,
+  formatI18nField,
+  formatYunoHostConfigPanels,
+} from '@/helpers/yunohostArguments'
+import { useStoreGetters } from '@/store/utils'
+import type { Obj } from '@/types/commons'
+
+const props = defineProps<{
+  id: string
+}>()
+
+const { t } = useI18n()
+const route = useRoute()
+const router = useRouter()
+const modalConfirm = useAutoModal()
+
+const { domains } = useStoreGetters()
+const viewElem = ref<InstanceType<typeof ViewBase> | null>(null)
+
+// FIXME
+type AppForm = {
+  labels: { label: string; show_tile: boolean }[]
+  url: { domain: string; path: string }
+}
+const form: AppForm = reactive({
+  labels: [],
+  url: { domain: '', path: '' },
+})
+const rules = computed(() => ({
+  labels: {
+    $each: helpers.forEach({
+      label: { required },
+    }),
+  },
+  url: { path: { required } },
+}))
+const externalResults = reactive({})
+const v$ = useVuelidate(rules, form, { $externalResults: externalResults })
+
+const queries = [
+  ['GET', `apps/${props.id}?full`],
+  ['GET', { uri: 'users/permissions?full', storeKey: 'permissions' }],
+  ['GET', { uri: 'domains' }],
+]
+const loading = ref(true)
+const app = ref()
+const purge = ref(false)
+const config_panel_err = ref(null)
+const config = ref({
+  panels: [
+    // Fake integration of operations in config panels
+    {
+      hasApplyButton: false,
+      id: 'operations',
+      name: t('operations'),
+    },
+  ],
+  validations: {},
+})
+const doc = ref()
+
+const currentTab = computed(() => {
+  return route.params.tabId
+})
+
+const allowedGroups = computed(() => {
+  if (!app.value) return
+  return app.value.permissions[0].allowed
+})
+
+function appLinksIcons(linkType) {
+  const linksIcons = {
+    license: 'institution',
+    website: 'globe',
+    admindoc: 'book',
+    userdoc: 'book',
+    code: 'code',
+    package: 'code',
+    package_license: 'institution',
+    forum: 'comments',
+  }
+  return linksIcons[linkType]
+}
+
+async function onQueriesResponse(app_: Obj) {
+  // const form = { labels: [] }
+
+  const mainPermission = app_.permissions[props.id + '.main']
+  mainPermission.name = props.id + '.main'
+  mainPermission.title = t('permission_main')
+  mainPermission.tileAvailable =
+    mainPermission.url !== null && !mainPermission.url.startsWith('re:')
+  form.labels.push({
+    label: mainPermission.label,
+    show_tile: mainPermission.show_tile,
+  })
+
+  const permissions = [mainPermission]
+  for (const [name, perm] of Object.entries(app_.permissions)) {
+    if (!name.endsWith('.main')) {
+      permissions.push({
+        ...perm,
+        name,
+        label: perm.sublabel,
+        title: humanPermissionName(name),
+        tileAvailable: perm.url !== null && !perm.url.startsWith('re:'),
+      })
+      form.labels.push({ label: perm.sublabel, show_tile: perm.show_tile })
+    }
+  }
+  // this.form = form
+
+  const { DESCRIPTION, ADMIN, ...doc } = app_.manifest.doc
+  const notifs = app_.manifest.notifications
+  const {
+    ldap,
+    sso,
+    multi_instance,
+    ram,
+    disk,
+    architectures: archs,
+  } = app_.manifest.integration
+  app.value = {
+    id: props.id,
+    version: app_.version,
+    label: mainPermission.label,
+    domain: app_.settings.domain,
+    alternativeTo: app_.from_catalog.potential_alternative_to?.length
+      ? app_.from_catalog.potential_alternative_to.join(t('words.separator'))
+      : null,
+    description: DESCRIPTION ? formatI18nField(DESCRIPTION) : app_.description,
+    integration:
+      app_.manifest.packaging_format >= 2
+        ? {
+            archs: Array.isArray(archs)
+              ? archs.join(t('words.separator'))
+              : archs,
+            ldap: ldap === 'not_relevant' ? null : ldap,
+            sso: sso === 'not_relevant' ? null : sso,
+            multi_instance,
+            resources: { ram: ram.runtime, disk },
+          }
+        : null,
+    links: [
+      [
+        'license',
+        `https://spdx.org/licenses/${app_.manifest.upstream.license}`,
+      ],
+      ...['website', 'admindoc', 'userdoc', 'code'].map((key) => {
+        return [key, app_.manifest.upstream[key]]
+      }),
+      ['package', app_.from_catalog.git?.url],
+      ['package_license', app_.from_catalog.git?.url + '/blob/master/LICENSE'],
+      ['forum', `https://forum.yunohost.org/tag/${app_.manifest.id}`],
+    ].filter(([key, val]) => !!val),
+    doc: {
+      notifications: {
+        postInstall:
+          notifs.POST_INSTALL && notifs.POST_INSTALL.main
+            ? [['main', formatI18nField(notifs.POST_INSTALL.main)]]
+            : [],
+        postUpgrade: notifs.POST_UPGRADE
+          ? Object.entries(notifs.POST_UPGRADE).map(([key, content]) => {
+              return [key, formatI18nField(content)]
+            })
+          : [],
+      },
+      admin: [
+        ['admin', formatI18nField(ADMIN)],
+        ...Object.keys(doc)
+          .sort()
+          .map((key) => [
+            key.charAt(0) + key.slice(1).toLowerCase(),
+            formatI18nField(doc[key]),
+          ]),
+      ].filter((doc) => doc[1]),
+    },
+    is_webapp: app_.is_webapp,
+    is_default: app_.is_default,
+    supports_change_url: app_.supports_change_url,
+    supports_config_panel: app_.supports_config_panel,
+    supports_purge: app_.supports_purge,
+    permissions,
+  }
+  if (app_.settings.domain && app_.settings.path) {
+    app.value.url = 'https://' + app_.settings.domain + app_.settings.path
+    form.url = {
+      domain: app_.settings.domain,
+      path: app_.settings.path.slice(1),
+    }
+  }
+
+  if (
+    !Object.values(app.value.doc.notifications).some((notif) => notif.length)
+  ) {
+    app.value.doc.notifications = null
+  }
+
+  if (app_.supports_config_panel) {
+    await api
+      .get(`apps/${props.id}/config?full`)
+      .then((cp) => {
+        const config_ = formatYunoHostConfigPanels(cp)
+        // reinject 'operations' fake config tab
+        config_.panels.unshift(config.panels[0])
+        config.value = config_
+      })
+      .catch((err: APIError) => {
+        config_panel_err.value = err.message
+      })
+  }
+  loading.value = false
+}
+
+async function onConfigSubmit({ id, form, action, name }) {
+  const args = await formatFormData(form, {
+    removeEmpty: false,
+    removeNull: true,
+  })
+
+  api
+    .put(
+      action
+        ? `apps/${props.id}/actions/${action}`
+        : `apps/${props.id}/config/${id}`,
+      isEmptyValue(args) ? {} : { args: objectToParams(args) },
+      {
+        key: `apps.${action ? 'action' : 'update'}_config`,
+        id,
+        name: props.id,
+      },
+    )
+    .then(() => {
+      loading.value = true
+      viewElem.value!.fetchQueries()
+    })
+    .catch((err: APIError) => {
+      if (!(err instanceof APIBadRequestError)) throw err
+      const panel = config.value.panels.find((panel) => panel.id === id)!
+      if (err.data.name) {
+        Object.assign(externalResults, {
+          forms: { [panel.id]: { [err.data.name]: [err.data.error] } },
+        })
+      } else {
+        panel.serverError = err.message
+      }
+    })
+}
+
+function changeLabel(permName, data) {
+  data.show_tile = data.show_tile ? 'True' : 'False'
+  api
+    .put('users/permissions/' + permName, data, {
+      key: 'apps.change_label',
+      prevName: app.value.label,
+      nextName: data.label,
+    })
+    .then(() => viewElem.value!.fetchQueries())
+}
+
+async function changeUrl() {
+  const confirmed = await modalConfirm(t('confirm_app_change_url'))
+  if (!confirmed) return
+
+  const { domain, path } = form.url
+  api
+    .put(
+      `apps/${props.id}/changeurl`,
+      { domain, path: '/' + path },
+      { key: 'apps.change_url', name: app.value.label },
+    )
+    .then(() => viewElem.value!.fetchQueries())
+}
+
+async function setAsDefaultDomain(undo = false) {
+  const confirmed = await modalConfirm(t('confirm_app_default'))
+  if (!confirmed) return
+
+  api
+    .put(
+      `apps/${props.id}/default${undo ? '?undo' : ''}`,
+      {},
+      {
+        key: 'apps.set_default',
+        name: app.value.label,
+        domain: app.value.domain,
+      },
+    )
+    .then(() => viewElem.value!.fetchQueries())
+}
+
+async function dismissNotification(name: string) {
+  api
+    .put(
+      `apps/${props.id}/dismiss_notification/${name}`,
+      {},
+      { key: 'apps.dismiss_notification', name: app.value.label },
+    )
+    .then(() => viewElem.value!.fetchQueries())
+}
+
+async function uninstall() {
+  const data = purge.value === true ? { purge: 1 } : {}
+  api
+    .delete('apps/' + props.id, data, {
+      key: 'apps.uninstall',
+      name: app.value.label,
+    })
+    .then(() => {
+      router.push({ name: 'app-list' })
+    })
+}
+</script>
+
 <template>
   <ViewBase
     :queries="queries"
     @queries-response="onQueriesResponse"
     :loading="loading"
-    ref="view"
+    ref="viewElem"
   >
     <YAlert
       v-if="
@@ -356,350 +685,6 @@
     </template>
   </ViewBase>
 </template>
-
-<script>
-import { mapGetters } from 'vuex'
-import { useVuelidate } from '@vuelidate/core'
-
-import api, { objectToParams } from '@/api'
-import { useAutoModal } from '@/composables/useAutoModal'
-import { humanPermissionName } from '@/helpers/filters/human'
-import { helpers, required } from '@/helpers/validators'
-import { isEmptyValue } from '@/helpers/commons'
-import {
-  formatFormData,
-  formatI18nField,
-  formatYunoHostConfigPanels,
-} from '@/helpers/yunohostArguments'
-import ConfigPanels from '@/components/ConfigPanels.vue'
-
-export default {
-  name: 'AppInfo',
-
-  components: {
-    ConfigPanels,
-  },
-
-  props: {
-    id: { type: String, required: true },
-  },
-
-  setup() {
-    return {
-      v$: useVuelidate(),
-      modalConfirm: useAutoModal(),
-    }
-  },
-
-  data() {
-    return {
-      queries: [
-        ['GET', `apps/${this.id}?full`],
-        ['GET', { uri: 'users/permissions?full', storeKey: 'permissions' }],
-        ['GET', { uri: 'domains' }],
-      ],
-      loading: true,
-      app: undefined,
-      form: undefined,
-      purge: false,
-      config_panel_err: null,
-      config: {
-        panels: [
-          // Fake integration of operations in config panels
-          {
-            hasApplyButton: false,
-            id: 'operations',
-            name: this.$t('operations'),
-          },
-        ],
-        validations: {},
-      },
-      externalResults: {},
-      doc: undefined,
-    }
-  },
-
-  computed: {
-    ...mapGetters(['domains']),
-
-    currentTab() {
-      return this.$route.params.tabId
-    },
-
-    allowedGroups() {
-      if (!this.app) return
-      return this.app.permissions[0].allowed
-    },
-  },
-
-  validations() {
-    return {
-      form: {
-        labels: {
-          $each: helpers.forEach({
-            label: { required },
-          }),
-        },
-        url: { path: { required } },
-      },
-    }
-  },
-
-  methods: {
-    appLinksIcons(linkType) {
-      const linksIcons = {
-        license: 'institution',
-        website: 'globe',
-        admindoc: 'book',
-        userdoc: 'book',
-        code: 'code',
-        package: 'code',
-        package_license: 'institution',
-        forum: 'comments',
-      }
-      return linksIcons[linkType]
-    },
-
-    async onQueriesResponse(app) {
-      const form = { labels: [] }
-
-      const mainPermission = app.permissions[this.id + '.main']
-      mainPermission.name = this.id + '.main'
-      mainPermission.title = this.$t('permission_main')
-      mainPermission.tileAvailable =
-        mainPermission.url !== null && !mainPermission.url.startsWith('re:')
-      form.labels.push({
-        label: mainPermission.label,
-        show_tile: mainPermission.show_tile,
-      })
-
-      const permissions = [mainPermission]
-      for (const [name, perm] of Object.entries(app.permissions)) {
-        if (!name.endsWith('.main')) {
-          permissions.push({
-            ...perm,
-            name,
-            label: perm.sublabel,
-            title: humanPermissionName(name),
-            tileAvailable: perm.url !== null && !perm.url.startsWith('re:'),
-          })
-          form.labels.push({ label: perm.sublabel, show_tile: perm.show_tile })
-        }
-      }
-      this.form = form
-
-      const { DESCRIPTION, ADMIN, ...doc } = app.manifest.doc
-      const notifs = app.manifest.notifications
-      const {
-        ldap,
-        sso,
-        multi_instance,
-        ram,
-        disk,
-        architectures: archs,
-      } = app.manifest.integration
-      this.app = {
-        id: this.id,
-        version: app.version,
-        label: mainPermission.label,
-        domain: app.settings.domain,
-        alternativeTo: app.from_catalog.potential_alternative_to?.length
-          ? app.from_catalog.potential_alternative_to.join(
-              this.$t('words.separator'),
-            )
-          : null,
-        description: DESCRIPTION
-          ? formatI18nField(DESCRIPTION)
-          : app.description,
-        integration:
-          app.manifest.packaging_format >= 2
-            ? {
-                archs: Array.isArray(archs)
-                  ? archs.join(this.$t('words.separator'))
-                  : archs,
-                ldap: ldap === 'not_relevant' ? null : ldap,
-                sso: sso === 'not_relevant' ? null : sso,
-                multi_instance,
-                resources: { ram: ram.runtime, disk },
-              }
-            : null,
-        links: [
-          [
-            'license',
-            `https://spdx.org/licenses/${app.manifest.upstream.license}`,
-          ],
-          ...['website', 'admindoc', 'userdoc', 'code'].map((key) => {
-            return [key, app.manifest.upstream[key]]
-          }),
-          ['package', app.from_catalog.git?.url],
-          [
-            'package_license',
-            app.from_catalog.git?.url + '/blob/master/LICENSE',
-          ],
-          ['forum', `https://forum.yunohost.org/tag/${app.manifest.id}`],
-        ].filter(([key, val]) => !!val),
-        doc: {
-          notifications: {
-            postInstall:
-              notifs.POST_INSTALL && notifs.POST_INSTALL.main
-                ? [['main', formatI18nField(notifs.POST_INSTALL.main)]]
-                : [],
-            postUpgrade: notifs.POST_UPGRADE
-              ? Object.entries(notifs.POST_UPGRADE).map(([key, content]) => {
-                  return [key, formatI18nField(content)]
-                })
-              : [],
-          },
-          admin: [
-            ['admin', formatI18nField(ADMIN)],
-            ...Object.keys(doc)
-              .sort()
-              .map((key) => [
-                key.charAt(0) + key.slice(1).toLowerCase(),
-                formatI18nField(doc[key]),
-              ]),
-          ].filter((doc) => doc[1]),
-        },
-        is_webapp: app.is_webapp,
-        is_default: app.is_default,
-        supports_change_url: app.supports_change_url,
-        supports_config_panel: app.supports_config_panel,
-        supports_purge: app.supports_purge,
-        permissions,
-      }
-      if (app.settings.domain && app.settings.path) {
-        this.app.url = 'https://' + app.settings.domain + app.settings.path
-        form.url = {
-          domain: app.settings.domain,
-          path: app.settings.path.slice(1),
-        }
-      }
-
-      if (
-        !Object.values(this.app.doc.notifications).some((notif) => notif.length)
-      ) {
-        this.app.doc.notifications = null
-      }
-
-      if (app.supports_config_panel) {
-        await api
-          .get(`apps/${this.id}/config?full`)
-          .then((config) => {
-            const config_ = formatYunoHostConfigPanels(config)
-            // reinject 'operations' fake config tab
-            config_.panels.unshift(this.config.panels[0])
-            this.config = config_
-          })
-          .catch((err) => {
-            this.config_panel_err = err.message
-          })
-      }
-      this.loading = false
-    },
-
-    async onConfigSubmit({ id, form, action, name }) {
-      const args = await formatFormData(form, {
-        removeEmpty: false,
-        removeNull: true,
-      })
-
-      api
-        .put(
-          action
-            ? `apps/${this.id}/actions/${action}`
-            : `apps/${this.id}/config/${id}`,
-          isEmptyValue(args) ? {} : { args: objectToParams(args) },
-          {
-            key: `apps.${action ? 'action' : 'update'}_config`,
-            id,
-            name: this.id,
-          },
-        )
-        .then(() => {
-          this.loading = true
-          this.$refs.view.fetchQueries()
-        })
-        .catch((err) => {
-          if (err.name !== 'APIBadRequestError') throw err
-          const panel = this.config.panels.find((panel) => panel.id === id)
-          if (err.data.name) {
-            Object.assign(this.externalResults, {
-              forms: { [panel.id]: { [err.data.name]: [err.data.error] } },
-            })
-          } else {
-            panel.serverError = err.message
-          }
-        })
-    },
-
-    changeLabel(permName, data) {
-      data.show_tile = data.show_tile ? 'True' : 'False'
-      api
-        .put('users/permissions/' + permName, data, {
-          key: 'apps.change_label',
-          prevName: this.app.label,
-          nextName: data.label,
-        })
-        .then(this.$refs.view.fetchQueries)
-    },
-
-    async changeUrl() {
-      const confirmed = await this.modalConfirm(
-        this.$t('confirm_app_change_url'),
-      )
-      if (!confirmed) return
-
-      const { domain, path } = this.form.url
-      api
-        .put(
-          `apps/${this.id}/changeurl`,
-          { domain, path: '/' + path },
-          { key: 'apps.change_url', name: this.app.label },
-        )
-        .then(this.$refs.view.fetchQueries)
-    },
-
-    async setAsDefaultDomain(undo = false) {
-      const confirmed = await this.modalConfirm(this.$t('confirm_app_default'))
-      if (!confirmed) return
-
-      api
-        .put(
-          `apps/${this.id}/default${undo ? '?undo' : ''}`,
-          {},
-          {
-            key: 'apps.set_default',
-            name: this.app.label,
-            domain: this.app.domain,
-          },
-        )
-        .then(this.$refs.view.fetchQueries)
-    },
-
-    async dismissNotification(name) {
-      api
-        .put(
-          `apps/${this.id}/dismiss_notification/${name}`,
-          {},
-          { key: 'apps.dismiss_notification', name: this.app.label },
-        )
-        .then(this.$refs.view.fetchQueries)
-    },
-
-    async uninstall() {
-      const data = this.purge === true ? { purge: 1 } : {}
-      api
-        .delete('apps/' + this.id, data, {
-          key: 'apps.uninstall',
-          name: this.app.label,
-        })
-        .then(() => {
-          this.$router.push({ name: 'app-list' })
-        })
-    },
-  },
-}
-</script>
 
 <style lang="scss" scoped>
 select {

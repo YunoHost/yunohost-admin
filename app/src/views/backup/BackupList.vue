@@ -1,3 +1,32 @@
+<script setup lang="ts">
+import { ref } from 'vue'
+
+import { distanceToNow, readableDate } from '@/helpers/filters/date'
+import { humanSize } from '@/helpers/filters/human'
+import type { Obj } from '@/types/commons'
+
+const props = defineProps<{
+  id: string
+}>()
+
+const queries = [['GET', 'backups?with_info']]
+const archives = ref<Obj[] | null>(null)
+
+function onQueriesResponse(data) {
+  const archives_ = Object.entries(data.archives)
+  if (archives_.length) {
+    archives.value = archives_
+      .map(([name, infos]) => {
+        infos.name = name
+        return infos
+      })
+      .reverse()
+  } else {
+    archives.value = null
+  }
+}
+</script>
+
 <template>
   <ViewBase
     :queries="queries"
@@ -43,43 +72,3 @@
     </BListGroup>
   </ViewBase>
 </template>
-
-<script>
-import { distanceToNow, readableDate } from '@/helpers/filters/date'
-import { humanSize } from '@/helpers/filters/human'
-
-export default {
-  name: 'BackupList',
-
-  props: {
-    id: { type: String, required: true },
-  },
-
-  data() {
-    return {
-      queries: [['GET', 'backups?with_info']],
-      archives: undefined,
-    }
-  },
-
-  methods: {
-    onQueriesResponse(data) {
-      const archives = Object.entries(data.archives)
-      if (archives.length) {
-        this.archives = archives
-          .map(([name, infos]) => {
-            infos.name = name
-            return infos
-          })
-          .reverse()
-      } else {
-        this.archives = null
-      }
-    },
-
-    distanceToNow,
-    readableDate,
-    humanSize,
-  },
-}
-</script>

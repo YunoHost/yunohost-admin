@@ -1,3 +1,19 @@
+<script setup lang="ts">
+import { randint } from '@/helpers/commons'
+import type { Cols } from '@/types/commons'
+
+withDefaults(
+  defineProps<{
+    itemCount?: number
+    cols: Cols
+  }>(),
+  {
+    itemCount: 5,
+    cols: () => ({ md: 4, lg: 2 }),
+  },
+)
+</script>
+
 <template>
   <BCard>
     <template #header>
@@ -42,23 +58,3 @@
     </template>
   </BCard>
 </template>
-
-<script>
-import { randint } from '@/helpers/commons'
-
-export default {
-  name: 'CardFormSkeleton',
-
-  props: {
-    itemCount: { type: Number, default: 5 },
-    cols: {
-      type: [Object, null],
-      default() {
-        return { md: 4, lg: 2 }
-      },
-    },
-  },
-
-  methods: { randint },
-}
-</script>

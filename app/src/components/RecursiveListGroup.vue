@@ -1,3 +1,35 @@
+<script setup lang="ts">
+import type { Obj } from '@/types/commons'
+
+const props = withDefaults(
+  defineProps<{
+    tree: Obj
+    flush?: boolean
+    last?: boolean
+    toggleText?: string
+  }>(),
+  {
+    flush: false,
+    last: undefined,
+    toggleText: undefined,
+  },
+)
+
+defineSlots<{
+  default: (props: any) => any
+}>()
+
+function getClasses(node: Obj, i: number) {
+  const children = node.height > 0
+  const opened = children && node.data?.opened
+  const last =
+    props.last !== false &&
+    (!children || !opened) &&
+    i === props.tree.children.length - 1
+  return { collapsible: children, uncollapsible: !children, opened, last }
+}
+</script>
+
 <template>
   <BListGroup :flush="flush" :style="{ '--depth': tree.depth }">
     <template v-for="(node, i) in tree.children" :key="node.id">
@@ -9,7 +41,7 @@
         <slot name="default" v-bind="node" />
 
         <BButton
-          v-if="node.children"
+          v-if="node.height > 0"
           size="xs"
           variant="outline-secondary"
           :aria-expanded="node.data.opened ? 'true' : 'false'"
@@ -24,7 +56,7 @@
       </BListGroupItem>
 
       <BCollapse
-        v-if="node.children"
+        v-if="node.height > 0"
         v-model="node.data.opened"
         :id="'collapse-' + node.id"
       >
@@ -42,31 +74,6 @@
     </template>
   </BListGroup>
 </template>
-
-<script>
-export default {
-  name: 'RecursiveListGroup',
-
-  props: {
-    tree: { type: Object, required: true },
-    flush: { type: Boolean, default: false },
-    last: { type: Boolean, default: undefined },
-    toggleText: { type: String, default: null },
-  },
-
-  methods: {
-    getClasses(node, i) {
-      const children = node.height > 0
-      const opened = children && node.data.opened
-      const last =
-        this.last !== false &&
-        (!children || !opened) &&
-        i === this.tree.children.length - 1
-      return { collapsible: children, uncollapsible: !children, opened, last }
-    },
-  },
-}
-</script>
 
 <style lang="scss" scoped>
 .list-group {

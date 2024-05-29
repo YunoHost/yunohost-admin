@@ -1,3 +1,215 @@
+<script setup lang="ts">
+import { useVuelidate } from '@vuelidate/core'
+import { computed, reactive, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { useRoute, useRouter } from 'vue-router'
+
+import api, { objectToParams } from '@/api'
+import { APIBadRequestError, type APIError } from '@/api/errors'
+import { useAutoModal } from '@/composables/useAutoModal'
+import {
+  formatFormData,
+  formatI18nField,
+  formatYunoHostArguments,
+} from '@/helpers/yunohostArguments'
+
+const props = defineProps<{
+  id: string
+}>()
+
+const { t } = useI18n()
+const route = useRoute()
+const router = useRouter()
+const modalConfirm = useAutoModal()
+
+const form = reactive({})
+const validations = ref({})
+const rules = computed(() => validations)
+const externalResults = reactive({})
+const v$ = useVuelidate(rules, form, { $externalResults: externalResults })
+
+const queries = [
+  ['GET', 'apps/catalog?full&with_categories&with_antifeatures'],
+  ['GET', `apps/manifest?app=${props.id}&with_screenshot`],
+]
+
+// FIXME
+const app = ref(undefined)
+const name = ref(undefined)
+const fields = ref(undefined)
+const serverError = ref('')
+const force = ref(false)
+
+function appLinksIcons(linkType) {
+  const linksIcons = {
+    license: 'institution',
+    website: 'globe',
+    admindoc: 'book',
+    userdoc: 'book',
+    code: 'code',
+    package: 'code',
+    package_license: 'institution',
+    forum: 'comments',
+  }
+  return linksIcons[linkType]
+}
+
+function onQueriesResponse(catalog, _app) {
+  const antifeaturesList = Object.fromEntries(
+    catalog.antifeatures.map((af) => [af.id, af]),
+  )
+
+  const { id, name, version, requirements } = _app
+  const {
+    ldap,
+    sso,
+    multi_instance,
+    ram,
+    disk,
+    architectures: archs,
+  } = _app.integration
+
+  const quality = { state: _app.quality.state, variant: 'danger' }
+  if (quality.state === 'working') {
+    if (_app.quality.level <= 0) {
+      quality.state = 'broken'
+    } else if (_app.quality.level <= 4) {
+      quality.state = 'lowquality'
+      quality.variant = 'warning'
+    } else {
+      quality.variant = 'success'
+      quality.state = _app.quality.level >= 8 ? 'highquality' : 'goodquality'
+    }
+  }
+  const preInstall = formatI18nField(_app.notifications.PRE_INSTALL.main)
+  const antifeatures = _app.antifeatures?.length
+    ? _app.antifeatures.map((af) => antifeaturesList[af])
+    : null
+
+  const hasDanger = quality.variant === 'danger' || !requirements.ram.pass
+  const hasSupport = Object.keys(requirements).every((key) => {
+    // ram support is non-blocking requirement and handled on its own.
+    return key === 'ram' || requirements[key].pass
+  })
+
+  const app_ = {
+    id,
+    name,
+    alternativeTo:
+      _app.potential_alternative_to && _app.potential_alternative_to.length
+        ? _app.potential_alternative_to.join(t('words.separator'))
+        : null,
+    description: formatI18nField(_app.doc.DESCRIPTION || _app.description),
+    screenshot: _app.screenshot,
+    demo: _app.upstream.demo,
+    version,
+    license: _app.upstream.license,
+    integration:
+      _app.packaging_format >= 2
+        ? {
+            archs: Array.isArray(archs)
+              ? archs.join(t('words.separator'))
+              : archs,
+            ldap: ldap === 'not_relevant' ? null : ldap,
+            sso: sso === 'not_relevant' ? null : sso,
+            multi_instance,
+            resources: { ram: ram.runtime, disk },
+          }
+        : null,
+    links: [
+      ['license', `https://spdx.org/licenses/${_app.upstream.license}`],
+      ...['website', 'admindoc', 'userdoc', 'code'].map((key) => {
+        return [key, _app.upstream[key]]
+      }),
+      ['package', _app.remote.url],
+      ['package_license', _app.remote.url + '/blob/master/LICENSE'],
+      ['forum', `https://forum.yunohost.org/tag/${id}`],
+    ].filter(([key, val]) => !!val),
+    preInstall,
+    antifeatures,
+    quality,
+    requirements,
+    hasWarning: !!preInstall || antifeatures || quality.variant === 'warning',
+    hasDanger,
+    hasSupport,
+    canInstall: hasSupport && !hasDanger,
+  }
+
+  // FIXME yunohost should add the label field by default
+  _app.install.unshift({
+    ask: t('label_for_manifestname', { name }),
+    default: name,
+    name: 'label',
+    help: t('label_for_manifestname_help'),
+  })
+
+  const {
+    form: form_,
+    fields,
+    validations,
+  } = formatYunoHostArguments(_app.install)
+
+  app.value = app_
+  fieds.value = fields
+  Object.assign(form, form_)
+  validations.value = validations
+}
+
+function formatAppNotifs(notifs) {
+  return Object.keys(notifs).reduce((acc, key) => {
+    return acc + '\n\n' + notifs[key]
+  }, '')
+}
+
+async function performInstall() {
+  if ('path' in form && form.path === '/') {
+    const confirmed = await this.modalConfirm(
+      t('confirm_install_domain_root', {
+        domain: form.domain,
+      }),
+    )
+    if (!confirmed) return
+  }
+
+  const { data: args, label } = await formatFormData(form, {
+    extract: ['label'],
+    removeEmpty: false,
+    removeNull: true,
+  })
+  const data = {
+    app: props.id,
+    label,
+    args: Object.entries(args).length ? objectToParams(args) : undefined,
+  }
+
+  api
+    .post('apps', data, { key: 'apps.install', name: app.value.name })
+    .then(async ({ notifications }) => {
+      const postInstall = formatAppNotifs(notifications)
+      if (postInstall) {
+        const message =
+          t('app.install.notifs.post.alert') + '\n\n' + postInstall
+        await modalConfirm(
+          message,
+          {
+            title: t('app.install.notifs.post.title', {
+              name: app.value.name,
+            }),
+          },
+          { markdown: true, cancelable: false },
+        )
+      }
+      router.push({ name: 'app-list' })
+    })
+    .catch((err: APIError) => {
+      if (!(err instanceof APIBadRequestError)) throw err
+      if (err.data.name) {
+        externalResults[err.data.name] = err.message
+      } else serverError.value = err.message
+    })
+}
+</script>
+
 <template>
   <ViewBase :queries="queries" @queries-response="onQueriesResponse">
     <template v-if="app">
@@ -204,231 +416,6 @@
     </template>
   </ViewBase>
 </template>
-
-<script>
-import { useVuelidate } from '@vuelidate/core'
-
-import api, { objectToParams } from '@/api'
-import { useAutoModal } from '@/composables/useAutoModal'
-import {
-  formatYunoHostArguments,
-  formatI18nField,
-  formatFormData,
-} from '@/helpers/yunohostArguments'
-import CardCollapse from '@/components/CardCollapse.vue'
-
-export default {
-  name: 'AppInstall',
-
-  components: {
-    CardCollapse,
-  },
-
-  props: {
-    id: { type: String, required: true },
-  },
-
-  setup() {
-    return {
-      v$: useVuelidate(),
-      modalConfirm: useAutoModal(),
-    }
-  },
-
-  data() {
-    return {
-      queries: [
-        ['GET', 'apps/catalog?full&with_categories&with_antifeatures'],
-        ['GET', `apps/manifest?app=${this.id}&with_screenshot`],
-      ],
-      app: undefined,
-      name: undefined,
-      form: undefined,
-      fields: undefined,
-      validations: {},
-      errors: undefined,
-      serverError: '',
-      force: false,
-    }
-  },
-
-  validations() {
-    return this.validations
-  },
-
-  methods: {
-    appLinksIcons(linkType) {
-      const linksIcons = {
-        license: 'institution',
-        website: 'globe',
-        admindoc: 'book',
-        userdoc: 'book',
-        code: 'code',
-        package: 'code',
-        package_license: 'institution',
-        forum: 'comments',
-      }
-      return linksIcons[linkType]
-    },
-
-    onQueriesResponse(catalog, _app) {
-      const antifeaturesList = Object.fromEntries(
-        catalog.antifeatures.map((af) => [af.id, af]),
-      )
-
-      const { id, name, version, requirements } = _app
-      const {
-        ldap,
-        sso,
-        multi_instance,
-        ram,
-        disk,
-        architectures: archs,
-      } = _app.integration
-
-      const quality = { state: _app.quality.state, variant: 'danger' }
-      if (quality.state === 'working') {
-        if (_app.quality.level <= 0) {
-          quality.state = 'broken'
-        } else if (_app.quality.level <= 4) {
-          quality.state = 'lowquality'
-          quality.variant = 'warning'
-        } else {
-          quality.variant = 'success'
-          quality.state =
-            _app.quality.level >= 8 ? 'highquality' : 'goodquality'
-        }
-      }
-      const preInstall = formatI18nField(_app.notifications.PRE_INSTALL.main)
-      const antifeatures = _app.antifeatures?.length
-        ? _app.antifeatures.map((af) => antifeaturesList[af])
-        : null
-
-      const hasDanger = quality.variant === 'danger' || !requirements.ram.pass
-      const hasSupport = Object.keys(requirements).every((key) => {
-        // ram support is non-blocking requirement and handled on its own.
-        return key === 'ram' || requirements[key].pass
-      })
-
-      const app = {
-        id,
-        name,
-        alternativeTo:
-          _app.potential_alternative_to && _app.potential_alternative_to.length
-            ? _app.potential_alternative_to.join(this.$t('words.separator'))
-            : null,
-        description: formatI18nField(_app.doc.DESCRIPTION || _app.description),
-        screenshot: _app.screenshot,
-        demo: _app.upstream.demo,
-        version,
-        license: _app.upstream.license,
-        integration:
-          _app.packaging_format >= 2
-            ? {
-                archs: Array.isArray(archs)
-                  ? archs.join(this.$t('words.separator'))
-                  : archs,
-                ldap: ldap === 'not_relevant' ? null : ldap,
-                sso: sso === 'not_relevant' ? null : sso,
-                multi_instance,
-                resources: { ram: ram.runtime, disk },
-              }
-            : null,
-        links: [
-          ['license', `https://spdx.org/licenses/${_app.upstream.license}`],
-          ...['website', 'admindoc', 'userdoc', 'code'].map((key) => {
-            return [key, _app.upstream[key]]
-          }),
-          ['package', _app.remote.url],
-          ['package_license', _app.remote.url + '/blob/master/LICENSE'],
-          ['forum', `https://forum.yunohost.org/tag/${id}`],
-        ].filter(([key, val]) => !!val),
-        preInstall,
-        antifeatures,
-        quality,
-        requirements,
-        hasWarning:
-          !!preInstall || antifeatures || quality.variant === 'warning',
-        hasDanger,
-        hasSupport,
-        canInstall: hasSupport && !hasDanger,
-      }
-
-      // FIXME yunohost should add the label field by default
-      _app.install.unshift({
-        ask: this.$t('label_for_manifestname', { name }),
-        default: name,
-        name: 'label',
-        help: this.$t('label_for_manifestname_help'),
-      })
-
-      const { form, fields, validations, errors } = formatYunoHostArguments(
-        _app.install,
-      )
-
-      this.app = app
-      this.fields = fields
-      this.form = form
-      this.validations = { form: validations }
-      this.errors = errors
-    },
-
-    formatAppNotifs(notifs) {
-      return Object.keys(notifs).reduce((acc, key) => {
-        return acc + '\n\n' + notifs[key]
-      }, '')
-    },
-
-    async performInstall() {
-      if ('path' in this.form && this.form.path === '/') {
-        const confirmed = await this.modalConfirm(
-          this.$t('confirm_install_domain_root', {
-            domain: this.form.domain,
-          }),
-        )
-        if (!confirmed) return
-      }
-
-      const { data: args, label } = await formatFormData(this.form, {
-        extract: ['label'],
-        removeEmpty: false,
-        removeNull: true,
-      })
-      const data = {
-        app: this.id,
-        label,
-        args: Object.entries(args).length ? objectToParams(args) : undefined,
-      }
-
-      api
-        .post('apps', data, { key: 'apps.install', name: this.app.name })
-        .then(async ({ notifications }) => {
-          const postInstall = this.formatAppNotifs(notifications)
-          if (postInstall) {
-            const message =
-              this.$t('app.install.notifs.post.alert') + '\n\n' + postInstall
-            await this.modalConfirm(
-              message,
-              {
-                title: this.$t('app.install.notifs.post.title', {
-                  name: this.app.name,
-                }),
-              },
-              { markdown: true, cancelable: false },
-            )
-          }
-          this.$router.push({ name: 'app-list' })
-        })
-        .catch((err) => {
-          if (err.name !== 'APIBadRequestError') throw err
-          if (err.data.name) {
-            this.errors[err.data.name].message = err.message
-          } else this.serverError = err.message
-        })
-    },
-  },
-}
-</script>
 
 <style lang="scss" scoped>
 .antifeatures {

@@ -1,3 +1,64 @@
+<script setup lang="ts">
+import type { BaseValidation } from '@vuelidate/core'
+import { computed } from 'vue'
+
+import { filterObject } from '@/helpers/commons'
+import type { Obj } from '@/types/commons'
+
+const props = defineProps<{
+  tabId: string
+  panels: Obj[]
+  forms: Obj<Obj>
+  v: BaseValidation
+}>()
+
+const slots = defineSlots<{
+  'tab-top': any
+  'tab-before': any
+  'tab-after': any
+}>()
+
+const emit = defineEmits<{
+  apply: [
+    value:
+      | { id: string; form: Obj }
+      | { id: string; form: Obj; action: string; name: string },
+  ]
+}>()
+
+const panel = computed(() => {
+  // FIXME throw error if no panel?
+  return props.panels.find((panel) => panel.id === props.tabId)
+})
+
+const validation = computed(() => {
+  return props.v.forms[panel.value?.id]
+})
+
+function onApply() {
+  const panelId = panel.value?.id
+
+  emit('apply', {
+    id: panelId,
+    form: props.forms[panelId],
+  })
+}
+
+function onAction(sectionId: string, actionId: string, actionFields) {
+  const panelId = panel.value?.id
+  const actionFieldsKeys = Object.keys(actionFields)
+
+  emit('apply', {
+    id: panelId,
+    form: filterObject(props.forms[panelId], ([key]) =>
+      actionFieldsKeys.includes(key),
+    ),
+    action: [panelId, sectionId, actionId].join('.'),
+    name: actionId,
+  })
+}
+</script>
+
 <template>
   <AbstractForm
     v-if="panel"
@@ -12,7 +73,7 @@
     <slot name="tab-top" />
 
     <template v-if="panel.help" #disclaimer>
-      <div class="alert alert-info" v-html="help" />
+      <div class="alert alert-info" v-html="panel.help" />
     </template>
 
     <slot name="tab-before" />
@@ -49,56 +110,6 @@
     <slot name="tab-after" />
   </AbstractForm>
 </template>
-
-<script>
-import { filterObject } from '@/helpers/commons'
-
-export default {
-  name: 'ConfigPanel',
-
-  props: {
-    tabId: { type: String, required: true },
-    panels: { type: Array, default: undefined },
-    forms: { type: Object, default: undefined },
-    v: { type: Object, default: undefined },
-  },
-
-  computed: {
-    panel() {
-      return this.panels.find((panel) => panel.id === this.tabId)
-    },
-
-    validation() {
-      return this.v.forms[this.panel.id]
-    },
-  },
-
-  methods: {
-    onApply() {
-      const panelId = this.panel.id
-
-      this.$emit('apply', {
-        id: panelId,
-        form: this.forms[panelId],
-      })
-    },
-
-    onAction(sectionId, actionId, actionFields) {
-      const panelId = this.panel.id
-      const actionFieldsKeys = Object.keys(actionFields)
-
-      this.$emit('apply', {
-        id: panelId,
-        form: filterObject(this.forms[panelId], ([key]) =>
-          actionFieldsKeys.includes(key),
-        ),
-        action: [panelId, sectionId, actionId].join('.'),
-        name: actionId,
-      })
-    },
-  },
-}
-</script>
 
 <style lang="scss" scoped>
 .card-title {

@@ -1,3 +1,9 @@
+<script setup lang="ts">
+import { randint } from '@/helpers/commons'
+
+withDefaults(defineProps<{ itemCount: number }>(), { itemCount: 5 })
+</script>
+
 <template>
   <BCard no-body>
     <template #header>
@@ -18,17 +24,3 @@
     </BListGroup>
   </BCard>
 </template>
-
-<script>
-import { randint } from '@/helpers/commons'
-
-export default {
-  name: 'CardListSkeleton',
-
-  props: {
-    itemCount: { type: Number, default: 5 },
-  },
-
-  methods: { randint },
-}
-</script>

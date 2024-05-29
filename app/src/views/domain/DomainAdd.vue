@@ -1,3 +1,32 @@
+<script setup lang="ts">
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+import { useStore } from 'vuex'
+
+import api from '@/api'
+import { APIBadRequestError, type APIError } from '@/api/errors'
+import { DomainForm } from '@/views/_partials'
+
+const router = useRouter()
+const store = useStore()
+
+const queries = [['GET', { uri: 'domains' }]]
+const serverError = ref('')
+
+function onSubmit(data) {
+  api
+    .post('domains', data, { key: 'domains.add', name: data.domain })
+    .then(() => {
+      store.dispatch('RESET_CACHE_DATA', ['domains'])
+      router.push({ name: 'domain-list' })
+    })
+    .catch((err: APIError) => {
+      if (!(err instanceof APIBadRequestError)) throw err
+      serverError.value = err.message
+    })
+}
+</script>
+
 <template>
   <ViewBase :queries="queries" skeleton="CardFormSkeleton">
     <DomainForm
@@ -8,36 +37,3 @@
     />
   </ViewBase>
 </template>
-
-<script>
-import api from '@/api'
-import { DomainForm } from '@/views/_partials'
-
-export default {
-  name: 'DomainAdd',
-
-  data() {
-    return {
-      queries: [['GET', { uri: 'domains' }]],
-      serverError: '',
-    }
-  },
-
-  methods: {
-    onSubmit(data) {
-      api
-        .post('domains', data, { key: 'domains.add', name: data.domain })
-        .then(() => {
-          this.$store.dispatch('RESET_CACHE_DATA', ['domains'])
-          this.$router.push({ name: 'domain-list' })
-        })
-        .catch((err) => {
-          if (err.name !== 'APIBadRequestError') throw err
-          this.serverError = err.message
-        })
-    },
-  },
-
-  components: { DomainForm },
-}
-</script>

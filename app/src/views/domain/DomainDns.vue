@@ -1,3 +1,133 @@
+<script setup lang="ts">
+import { ref } from 'vue'
+import { useI18n } from 'vue-i18n'
+
+import api from '@/api'
+import { useAutoModal } from '@/composables/useAutoModal'
+import { isEmptyValue } from '@/helpers/commons'
+
+const props = defineProps<{
+  name: string
+}>()
+
+const { t } = useI18n()
+const modalConfirm = useAutoModal()
+
+const queries = [['GET', `domains/${props.name}/dns/suggest`]]
+const loading = ref(true)
+const showAutoConfigCard = ref(true)
+const showManualConfigCard = ref(false)
+const dnsConfig = ref('')
+const dnsChanges = ref(undefined)
+const dnsErrors = ref(undefined)
+const dnsZone = ref(undefined)
+const force = ref(null)
+
+getDnsChanges()
+
+function onQueriesResponse(suggestedConfig) {
+  dnsConfig.value = suggestedConfig
+}
+
+function getDnsChanges() {
+  loading.value = true
+
+  return api
+    .post(`domains/${props.name}/dns/push?dry_run`, {}, null, {
+      wait: false,
+      websocket: false,
+    })
+    .then((dnsChanges) => {
+      function getLongest(arr, key) {
+        return arr.reduce((acc, obj) => {
+          if (obj[key].length > acc) return obj[key].length
+          return acc
+        }, 0)
+      }
+
+      const changes = []
+      let canForce = false
+      const categories = [
+        { action: 'create', icon: 'plus', variant: 'success' },
+        { action: 'update', icon: 'exchange', variant: 'warning' },
+        { action: 'delete', icon: 'minus', variant: 'danger' },
+      ]
+      categories.forEach((category) => {
+        const records = dnsChanges[category.action]
+        if (records && records.length > 0) {
+          const longestName = getLongest(records, 'name')
+          const longestType = getLongest(records, 'type')
+          records.forEach((record) => {
+            record.name =
+              record.name + ' '.repeat(longestName - record.name.length + 1)
+            record.spaces = ' '.repeat(longestType - record.type.length + 1)
+            if (record.managed_by_yunohost === false) canForce = true
+          })
+          changes.push({ ...category, records })
+        }
+      })
+
+      const unchanged = dnsChanges.unchanged
+      if (unchanged) {
+        const longestName = getLongest(unchanged, 'name')
+        const longestType = getLongest(unchanged, 'type')
+        unchanged.forEach((record) => {
+          record.name =
+            record.name + ' '.repeat(longestName - record.name.length + 1)
+          record.spaces = ' '.repeat(longestType - record.type.length + 1)
+        })
+        dnsZone.value = unchanged
+      }
+
+      dnsChanges.value = changes.length > 0 ? changes : null
+      force.value = canForce ? false : null
+      loading.value = false
+    })
+    .catch((err) => {
+      if (err.name !== 'APIBadRequestError') throw err
+      const key = err.data.error_key
+      if (key === 'domain_dns_push_managed_in_parent_domain') {
+        const message = t(key, err.data)
+        dnsErrors.value = [{ icon: 'info', variant: 'info', message }]
+      } else if (key === 'domain_dns_push_failed_to_authenticate') {
+        const message = t(key, err.data)
+        dnsErrors.value = [{ icon: 'ban', variant: 'danger', message }]
+      } else {
+        showManualConfigCard.value = true
+        showAutoConfigCard.value = false
+      }
+      loading.value = false
+    })
+}
+
+async function pushDnsChanges() {
+  if (force.value) {
+    const confirmed = await modalConfirm(t('domain.dns.push_force_confirm'))
+    if (!confirmed) return
+  }
+
+  api
+    .post(
+      `domains/${props.name}/dns/push${force.value ? '?force' : ''}`,
+      {},
+      { key: 'domains.push_dns_changes', name: props.name },
+    )
+    .then(async (responseData) => {
+      await getDnsChanges()
+      if (!isEmptyValue(responseData)) {
+        dnsErrors.value = Object.keys(responseData).reduce((acc, key) => {
+          const args =
+            key === 'warnings'
+              ? { icon: 'warning', variant: 'warning' }
+              : { icon: 'ban', variant: 'danger' }
+          responseData[key].forEach((message) => acc.push({ ...args, message }))
+          return acc
+        }, [])
+      }
+    })
+}
+</script>
+
 <template>
   <ViewBase
     :queries="queries"
@@ -142,152 +272,6 @@
     </section>
   </ViewBase>
 </template>
-
-<script>
-import api from '@/api'
-import { useAutoModal } from '@/composables/useAutoModal'
-import { isEmptyValue } from '@/helpers/commons'
-
-export default {
-  name: 'DomainDns',
-
-  props: {
-    name: { type: String, required: true },
-  },
-
-  setup() {
-    return {
-      modalConfirm: useAutoModal(),
-    }
-  },
-
-  data() {
-    return {
-      queries: [['GET', `domains/${this.name}/dns/suggest`]],
-      loading: true,
-      showAutoConfigCard: true,
-      showManualConfigCard: false,
-      dnsConfig: '',
-      dnsChanges: undefined,
-      dnsErrors: undefined,
-      dnsZone: undefined,
-      force: null,
-    }
-  },
-
-  methods: {
-    onQueriesResponse(suggestedConfig) {
-      this.dnsConfig = suggestedConfig
-    },
-
-    getDnsChanges() {
-      this.loading = true
-
-      return api
-        .post(`domains/${this.name}/dns/push?dry_run`, {}, null, {
-          wait: false,
-          websocket: false,
-        })
-        .then((dnsChanges) => {
-          function getLongest(arr, key) {
-            return arr.reduce((acc, obj) => {
-              if (obj[key].length > acc) return obj[key].length
-              return acc
-            }, 0)
-          }
-
-          const changes = []
-          let canForce = false
-          const categories = [
-            { action: 'create', icon: 'plus', variant: 'success' },
-            { action: 'update', icon: 'exchange', variant: 'warning' },
-            { action: 'delete', icon: 'minus', variant: 'danger' },
-          ]
-          categories.forEach((category) => {
-            const records = dnsChanges[category.action]
-            if (records && records.length > 0) {
-              const longestName = getLongest(records, 'name')
-              const longestType = getLongest(records, 'type')
-              records.forEach((record) => {
-                record.name =
-                  record.name + ' '.repeat(longestName - record.name.length + 1)
-                record.spaces = ' '.repeat(longestType - record.type.length + 1)
-                if (record.managed_by_yunohost === false) canForce = true
-              })
-              changes.push({ ...category, records })
-            }
-          })
-
-          const unchanged = dnsChanges.unchanged
-          if (unchanged) {
-            const longestName = getLongest(unchanged, 'name')
-            const longestType = getLongest(unchanged, 'type')
-            unchanged.forEach((record) => {
-              record.name =
-                record.name + ' '.repeat(longestName - record.name.length + 1)
-              record.spaces = ' '.repeat(longestType - record.type.length + 1)
-            })
-            this.dnsZone = unchanged
-          }
-
-          this.dnsChanges = changes.length > 0 ? changes : null
-          this.force = canForce ? false : null
-          this.loading = false
-        })
-        .catch((err) => {
-          if (err.name !== 'APIBadRequestError') throw err
-          const key = err.data.error_key
-          if (key === 'domain_dns_push_managed_in_parent_domain') {
-            const message = this.$t(key, err.data)
-            this.dnsErrors = [{ icon: 'info', variant: 'info', message }]
-          } else if (key === 'domain_dns_push_failed_to_authenticate') {
-            const message = this.$t(key, err.data)
-            this.dnsErrors = [{ icon: 'ban', variant: 'danger', message }]
-          } else {
-            this.showManualConfigCard = true
-            this.showAutoConfigCard = false
-          }
-          this.loading = false
-        })
-    },
-
-    async pushDnsChanges() {
-      if (this.force) {
-        const confirmed = await this.modalConfirm(
-          this.$t('domain.dns.push_force_confirm'),
-        )
-        if (!confirmed) return
-      }
-
-      api
-        .post(
-          `domains/${this.name}/dns/push${this.force ? '?force' : ''}`,
-          {},
-          { key: 'domains.push_dns_changes', name: this.name },
-        )
-        .then(async (responseData) => {
-          await this.getDnsChanges()
-          if (!isEmptyValue(responseData)) {
-            this.dnsErrors = Object.keys(responseData).reduce((acc, key) => {
-              const args =
-                key === 'warnings'
-                  ? { icon: 'warning', variant: 'warning' }
-                  : { icon: 'ban', variant: 'danger' }
-              responseData[key].forEach((message) =>
-                acc.push({ ...args, message }),
-              )
-              return acc
-            }, [])
-          }
-        })
-    },
-  },
-
-  created() {
-    this.getDnsChanges()
-  },
-}
-</script>
 
 <style lang="scss" scoped>
 .records {

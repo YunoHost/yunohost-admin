@@ -1,3 +1,36 @@
+<script setup lang="ts">
+import { ref } from 'vue'
+import { useStore } from 'vuex'
+
+import api from '@/api'
+import { useStoreGetters } from '@/store/utils'
+import LoginView from '@/views/LoginView.vue'
+
+const store = useStore()
+
+const { reconnecting } = useStoreGetters()
+const status = ref('reconnecting')
+const origin = ref(reconnecting.value.origin || 'unknown')
+
+function tryToReconnect(initialDelay = 0) {
+  status.value = 'reconnecting'
+  api
+    .tryToReconnect({ ...reconnecting.value, initialDelay })
+    .then(() => {
+      store.commit('SET_RECONNECTING', null)
+    })
+    .catch((err) => {
+      if (err.name === 'APIUnauthorizedError') {
+        status.value = 'expired'
+      } else {
+        status.value = 'failed'
+      }
+    })
+}
+
+tryToReconnect(reconnecting.value.initialDelay)
+</script>
+
 <template>
   <!-- This card receives style from `ViewLockOverlay` if used inside it -->
   <BCardBody>
@@ -39,52 +72,3 @@
     </template>
   </BCardBody>
 </template>
-
-<script>
-import { mapGetters } from 'vuex'
-
-import api from '@/api'
-import LoginView from '@/views/LoginView.vue'
-
-export default {
-  name: 'ReconnectingDisplay',
-
-  components: {
-    LoginView,
-  },
-
-  data() {
-    return {
-      status: 'reconnecting',
-      origin: undefined,
-    }
-  },
-
-  computed: {
-    ...mapGetters(['reconnecting']),
-  },
-
-  methods: {
-    tryToReconnect(initialDelay = 0) {
-      this.status = 'reconnecting'
-      api
-        .tryToReconnect({ ...this.reconnecting, initialDelay })
-        .then(() => {
-          this.$store.commit('SET_RECONNECTING', null)
-        })
-        .catch((err) => {
-          if (err.name === 'APIUnauthorizedError') {
-            this.status = 'expired'
-          } else {
-            this.status = 'failed'
-          }
-        })
-    },
-  },
-
-  created() {
-    this.origin = this.reconnecting.origin || 'unknown'
-    this.tryToReconnect(this.reconnecting.initialDelay)
-  },
-}
-</script>

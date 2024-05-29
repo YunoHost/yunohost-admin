@@ -1,7 +1,53 @@
+<script setup lang="ts">
+import { inject } from 'vue'
+
+const props = withDefaults(
+  defineProps<{
+    modelValue?: string | number | null
+    id?: string
+    placeholder?: string
+    type?: string
+    required?: boolean
+    state?: false | null
+    min?: number
+    max?: number
+    step?: number
+    trim?: boolean
+    autocomplete?: string
+    // FIXME pattern?
+    pattern?: object
+    name?: string
+  }>(),
+  {
+    modelValue: null,
+    id: undefined,
+    placeholder: undefined,
+    type: 'text',
+    required: false,
+    state: undefined,
+    min: undefined,
+    max: undefined,
+    step: undefined,
+    trim: true,
+    autocomplete: undefined,
+    pattern: undefined,
+    name: undefined,
+  },
+)
+const emit = defineEmits<{
+  'update:modelValue': [value: string | number | null]
+}>()
+
+const touch = inject('touch')
+
+const autocomplete =
+  props.autocomplete || props.type === 'password' ? 'new-password' : null
+</script>
+
 <template>
   <BFormInput
     :modelValue="modelValue"
-    @update:modelValue="$emit('update:modelValue', $event)"
+    @update:modelValue="emit('update:modelValue', $event)"
     :id="id"
     :placeholder="placeholder"
     :type="type"
@@ -11,47 +57,7 @@
     :max="max"
     :step="step"
     :trim="trim"
-    :autocomplete="autocomplete_"
+    :autocomplete="autocomplete"
     @blur="touch(name)"
   />
 </template>
-
-<script>
-import { inject } from 'vue'
-
-export default {
-  name: 'InputItem',
-
-  props: {
-    modelValue: { type: [String, Number], default: null },
-    id: { type: String, default: null },
-    placeholder: { type: String, default: null },
-    type: { type: String, default: 'text' },
-    required: { type: Boolean, default: false },
-    state: { type: Boolean, default: null },
-    min: { type: Number, default: null },
-    max: { type: Number, default: null },
-    step: { type: Number, default: null },
-    trim: { type: Boolean, default: true },
-    autocomplete: { type: String, default: null },
-    pattern: { type: Object, default: null },
-    name: { type: String, default: null },
-  },
-
-  setup() {
-    return {
-      touch: inject('touch'),
-    }
-  },
-
-  data() {
-    return {
-      autocomplete_: this.autocomplete
-        ? this.autocomplete
-        : this.type === 'password'
-          ? 'new-password'
-          : null,
-    }
-  },
-}
-</script>

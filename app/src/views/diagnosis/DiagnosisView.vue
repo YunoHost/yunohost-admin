@@ -1,9 +1,109 @@
+<script setup lang="ts">
+import { ref } from 'vue'
+
+import api from '@/api'
+import type ViewBase from '@/components/globals/ViewBase.vue'
+import { distanceToNow } from '@/helpers/filters/date'
+import { DEFAULT_STATUS_ICON } from '@/helpers/yunohostArguments'
+import { useStoreGetters } from '@/store/utils'
+
+const viewElem = ref<InstanceType<typeof ViewBase> | null>(null)
+
+const queries = [
+  ['PUT', 'diagnosis/run?except_if_never_ran_yet', {}, 'diagnosis.run'],
+  ['GET', 'diagnosis?full'],
+]
+const { dark } = useStoreGetters()
+
+const reports = ref()
+
+function onQueriesResponse(_, reportsData) {
+  if (reportsData === null) {
+    reports.value = null
+    return
+  }
+
+  const reports_ = reportsData.reports
+  for (const report of reports_) {
+    report.warnings = 0
+    report.errors = 0
+    report.ignoreds = 0
+
+    for (const item of report.items) {
+      const status = (item.variant = item.status.toLowerCase())
+      item.icon = DEFAULT_STATUS_ICON[status]
+      item.issue = false
+
+      if (item.ignored) {
+        report.ignoreds++
+      }
+      if (status === 'warning') {
+        item.issue = true
+        if (!item.ignored) {
+          report.warnings++
+        }
+      } else if (status === 'error') {
+        item.variant = 'danger'
+        item.issue = true
+        if (!item.ignored) {
+          report.errors++
+        }
+      }
+    }
+
+    report.noIssues = report.warnings + report.errors === 0
+  }
+  reports.value = reports_
+}
+
+function runDiagnosis({ id = null, description } = {}) {
+  const param = id !== null ? '?force' : ''
+  const data = id !== null ? { categories: [id] } : {}
+
+  api
+    .put('diagnosis/run' + param, data, {
+      key: 'diagnosis.run' + (id !== null ? '_specific' : ''),
+      description,
+    })
+    .then(() => viewElem.value!.fetchQueries())
+}
+
+function toggleIgnoreIssue(action, report, item) {
+  const filterArgs = [report.id].concat(
+    Object.entries(item.meta).map((entries) => entries.join('=')),
+  )
+
+  api
+    .put(
+      'diagnosis/' + action,
+      { filter: filterArgs },
+      `diagnosis.${action}.${item.status.toLowerCase()}`,
+    )
+    .then(() => {
+      item.ignored = action === 'ignore'
+      if (item.ignored) {
+        report[item.status.toLowerCase() + 's']--
+        report.ignoreds++
+      } else {
+        report[item.status.toLowerCase() + 's']++
+        report.ignoreds--
+      }
+    })
+}
+
+function shareLogs() {
+  api.get('diagnosis?share').then(({ url }) => {
+    window.open(url, '_blank')
+  })
+}
+</script>
+
 <template>
   <ViewBase
     :queries="queries"
     @queries-response="onQueriesResponse"
     queries-wait
-    ref="view"
+    ref="viewElem"
   >
     <template #top-bar-group-right>
       <BButton @click="shareLogs" variant="success">
@@ -144,116 +244,6 @@
     </template>
   </ViewBase>
 </template>
-
-<script>
-import { mapGetters } from 'vuex'
-
-import api from '@/api'
-import { distanceToNow } from '@/helpers/filters/date'
-import { DEFAULT_STATUS_ICON } from '@/helpers/yunohostArguments'
-
-export default {
-  name: 'DiagnosisView',
-
-  data() {
-    return {
-      queries: [
-        ['PUT', 'diagnosis/run?except_if_never_ran_yet', {}, 'diagnosis.run'],
-        ['GET', 'diagnosis?full'],
-      ],
-      reports: undefined,
-    }
-  },
-
-  computed: {
-    ...mapGetters(['dark']),
-  },
-
-  methods: {
-    onQueriesResponse(_, reportsData) {
-      if (reportsData === null) {
-        this.reports = null
-        return
-      }
-
-      const reports = reportsData.reports
-      for (const report of reports) {
-        report.warnings = 0
-        report.errors = 0
-        report.ignoreds = 0
-
-        for (const item of report.items) {
-          const status = (item.variant = item.status.toLowerCase())
-          item.icon = DEFAULT_STATUS_ICON[status]
-          item.issue = false
-
-          if (item.ignored) {
-            report.ignoreds++
-          }
-          if (status === 'warning') {
-            item.issue = true
-            if (!item.ignored) {
-              report.warnings++
-            }
-          } else if (status === 'error') {
-            item.variant = 'danger'
-            item.issue = true
-            if (!item.ignored) {
-              report.errors++
-            }
-          }
-        }
-
-        report.noIssues = report.warnings + report.errors === 0
-      }
-      this.reports = reports
-    },
-
-    runDiagnosis({ id = null, description } = {}) {
-      const param = id !== null ? '?force' : ''
-      const data = id !== null ? { categories: [id] } : {}
-
-      api
-        .put('diagnosis/run' + param, data, {
-          key: 'diagnosis.run' + (id !== null ? '_specific' : ''),
-          description,
-        })
-        .then(this.$refs.view.fetchQueries)
-    },
-
-    toggleIgnoreIssue(action, report, item) {
-      const filterArgs = [report.id].concat(
-        Object.entries(item.meta).map((entries) => entries.join('=')),
-      )
-
-      api
-        .put(
-          'diagnosis/' + action,
-          { filter: filterArgs },
-          `diagnosis.${action}.${item.status.toLowerCase()}`,
-        )
-        .then(() => {
-          item.ignored = action === 'ignore'
-          if (item.ignored) {
-            report[item.status.toLowerCase() + 's']--
-            report.ignoreds++
-          } else {
-            report[item.status.toLowerCase() + 's']++
-            report.ignoreds--
-          }
-        })
-    },
-
-    shareLogs() {
-      api.get('diagnosis?share').then(({ url }) => {
-        window.open(url, '_blank')
-      })
-    },
-
-    distanceToNow,
-  },
-}
-</script>
 
 <style lang="scss" scoped>
 .badge + .badge {

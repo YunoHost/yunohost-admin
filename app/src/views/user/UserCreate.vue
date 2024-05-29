@@ -1,3 +1,118 @@
+<script setup lang="ts">
+import { useVuelidate } from '@vuelidate/core'
+import { computed, reactive, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { useRouter } from 'vue-router'
+
+import api from '@/api'
+import { APIBadRequestError, type APIError } from '@/api/errors'
+import {
+  alphalownumdot_,
+  minLength,
+  name,
+  required,
+  sameAs,
+  unique,
+} from '@/helpers/validators'
+import { formatFormData } from '@/helpers/yunohostArguments'
+import { useStoreGetters } from '@/store/utils'
+
+const { t } = useI18n()
+const router = useRouter()
+
+const queries = [
+  ['GET', { uri: 'users' }],
+  ['GET', { uri: 'domains' }],
+]
+const { userNames, domainsAsChoices, mainDomain } = useStoreGetters()
+
+const fields = {
+  username: {
+    label: t('user_username'),
+    props: {
+      id: 'username',
+      placeholder: t('placeholder.username'),
+    },
+  },
+
+  fullname: {
+    label: t('user_fullname'),
+    props: {
+      id: 'fullname',
+      placeholder: t('placeholder.fullname'),
+    },
+  },
+
+  domain: {
+    id: 'mail',
+    label: t('user_email'),
+    description: t('tip_about_user_email'),
+    descriptionVariant: 'info',
+    props: { choices: domainsAsChoices },
+  },
+
+  password: {
+    label: t('password'),
+    description: t('good_practices_about_user_password'),
+    descriptionVariant: 'warning',
+    props: {
+      id: 'password',
+      placeholder: '••••••••',
+      type: 'password',
+    },
+  },
+
+  confirmation: {
+    label: t('password_confirmation'),
+    props: {
+      id: 'confirmation',
+      placeholder: '••••••••',
+      type: 'password',
+    },
+  },
+}
+const form = reactive({
+  username: '',
+  fullname: '',
+  domain: '',
+  password: '',
+  confirmation: '',
+})
+const rules = computed(() => ({
+  username: {
+    required,
+    alphalownumdot_,
+    notInUsers: unique(userNames.value),
+  },
+  fullname: { required, name },
+  domain: { required },
+  password: { required, passwordLenght: minLength(8) },
+  confirmation: { required, passwordMatch: sameAs(form.password) },
+}))
+const v$ = useVuelidate(rules, form)
+const serverError = ref('')
+
+function onQueriesResponse() {
+  form.domain = mainDomain.value
+}
+
+async function onSubmit() {
+  const data = await formatFormData(form, { flatten: true })
+  api
+    .post({ uri: 'users' }, data, {
+      key: 'users.create',
+      name: form.username,
+    })
+    .then(() => {
+      router.push({ name: 'user-list' })
+    })
+    .catch((err: APIError) => {
+      if (!(err instanceof APIBadRequestError)) throw err
+      serverError.value = err.message
+    })
+}
+</script>
+
 <template>
   <ViewBase
     :queries="queries"
@@ -61,135 +176,3 @@
     </CardForm>
   </ViewBase>
 </template>
-
-<script>
-import api from '@/api'
-import { mapGetters } from 'vuex'
-import { useVuelidate } from '@vuelidate/core'
-
-import { formatFormData } from '@/helpers/yunohostArguments'
-import {
-  alphalownumdot_,
-  unique,
-  required,
-  minLength,
-  name,
-  sameAs,
-} from '@/helpers/validators'
-
-export default {
-  name: 'UserCreate',
-
-  setup() {
-    return {
-      v$: useVuelidate(),
-    }
-  },
-
-  data() {
-    return {
-      queries: [
-        ['GET', { uri: 'users' }],
-        ['GET', { uri: 'domains' }],
-      ],
-
-      form: {
-        username: '',
-        fullname: '',
-        domain: '',
-        password: '',
-        confirmation: '',
-      },
-
-      serverError: '',
-
-      fields: {
-        username: {
-          label: this.$t('user_username'),
-          props: {
-            id: 'username',
-            placeholder: this.$t('placeholder.username'),
-          },
-        },
-
-        fullname: {
-          label: this.$t('user_fullname'),
-          props: {
-            id: 'fullname',
-            placeholder: this.$t('placeholder.fullname'),
-          },
-        },
-
-        domain: {
-          id: 'mail',
-          label: this.$t('user_email'),
-          description: this.$t('tip_about_user_email'),
-          descriptionVariant: 'info',
-          props: { choices: [] },
-        },
-
-        password: {
-          label: this.$t('password'),
-          description: this.$t('good_practices_about_user_password'),
-          descriptionVariant: 'warning',
-          props: {
-            id: 'password',
-            placeholder: '••••••••',
-            type: 'password',
-          },
-        },
-
-        confirmation: {
-          label: this.$t('password_confirmation'),
-          props: {
-            id: 'confirmation',
-            placeholder: '••••••••',
-            type: 'password',
-          },
-        },
-      },
-    }
-  },
-
-  computed: mapGetters(['userNames', 'domainsAsChoices', 'mainDomain']),
-
-  validations() {
-    return {
-      form: {
-        username: {
-          required,
-          alphalownumdot_,
-          notInUsers: unique(this.userNames),
-        },
-        fullname: { required, name },
-        domain: { required },
-        password: { required, passwordLenght: minLength(8) },
-        confirmation: { required, passwordMatch: sameAs(this.form.password) },
-      },
-    }
-  },
-
-  methods: {
-    onQueriesResponse() {
-      this.fields.domain.props.choices = this.domainsAsChoices
-      this.form.domain = this.mainDomain
-    },
-
-    async onSubmit() {
-      const data = await formatFormData(this.form, { flatten: true })
-      api
-        .post({ uri: 'users' }, data, {
-          key: 'users.create',
-          name: this.form.username,
-        })
-        .then(() => {
-          this.$router.push({ name: 'user-list' })
-        })
-        .catch((err) => {
-          if (err.name !== 'APIBadRequestError') throw err
-          this.serverError = err.message
-        })
-    },
-  },
-}
-</script>

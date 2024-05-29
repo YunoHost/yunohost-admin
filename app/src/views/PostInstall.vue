@@ -1,3 +1,133 @@
+<script setup lang="ts">
+import { useVuelidate } from '@vuelidate/core'
+import { computed, reactive, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
+
+import api from '@/api'
+import { useAutoModal } from '@/composables/useAutoModal'
+import {
+  alphalownumdot_,
+  minLength,
+  name,
+  required,
+  sameAs,
+} from '@/helpers/validators'
+import { formatFormData } from '@/helpers/yunohostArguments'
+import LoginView from '@/views/LoginView.vue'
+import { DomainForm } from '@/views/_partials'
+
+const { t } = useI18n()
+const modalConfirm = useAutoModal()
+
+const step = ref('start')
+const serverError = ref('')
+const domain = ref(undefined)
+const dyndns_recovery_password = ref('')
+
+const form = reactive({
+  username: '',
+  fullname: '',
+  password: '',
+  confirmation: '',
+})
+const rules = computed(() => ({
+  username: { required, alphalownumdot_ },
+  fullname: { required, name },
+  password: { required, passwordLenght: minLength(8) },
+  confirmation: { required, passwordMatch: sameAs(form.password) },
+}))
+const v$ = useVuelidate(rules, form)
+
+const fields = {
+  username: {
+    label: t('user_username'),
+    props: {
+      id: 'username',
+      placeholder: t('placeholder.username'),
+    },
+  },
+
+  fullname: {
+    label: t('user_fullname'),
+    props: {
+      id: 'fullname',
+      placeholder: t('placeholder.fullname'),
+    },
+  },
+
+  password: {
+    label: t('password'),
+    description: t('good_practices_about_admin_password'),
+    descriptionVariant: 'warning',
+    props: { id: 'password', placeholder: '••••••••', type: 'password' },
+  },
+
+  confirmation: {
+    label: t('password_confirmation'),
+    props: {
+      id: 'confirmation',
+      placeholder: '••••••••',
+      type: 'password',
+    },
+  },
+}
+
+function goToStep(step_) {
+  serverError.value = ''
+  step.value = step_
+}
+
+function setDomain(data) {
+  domain.value = data.domain
+  dyndns_recovery_password.value = data.dyndns_recovery_password
+  goToStep('user')
+}
+
+async function setUser() {
+  const confirmed = await modalConfirm(
+    t('confirm_postinstall', { domain: domain.value }),
+  )
+  if (!confirmed) return
+  performPostInstall()
+}
+
+async function performPostInstall(force = false) {
+  // FIXME update formatFormData to unwrap ref auto
+  const data = await formatFormData({
+    domain: domain.value,
+    dyndns_recovery_password: dyndns_recovery_password.value,
+    username: form.username,
+    fullname: form.fullname,
+    password: form.password,
+  })
+
+  // FIXME does the api will throw an error for bad passwords ?
+  api
+    .post('postinstall' + (force ? '?force_diskspace' : ''), data, {
+      key: 'postinstall',
+    })
+    .then(() => {
+      // Display success message and allow the user to login
+      goToStep('login')
+    })
+    .catch((err) => {
+      const hasWordsInError = (words) =>
+        words.some((word) => (err.key || err.message).includes(word))
+      if (err.name !== 'APIBadRequestError') throw err
+      if (err.key === 'postinstall_low_rootfsspace') {
+        step.value = 'rootfsspace-error'
+      } else if (hasWordsInError(['domain', 'dyndns'])) {
+        step.value = 'domain'
+      } else if (hasWordsInError(['password', 'user'])) {
+        step.value = 'user'
+      } else {
+        throw err
+      }
+      serverError.value = err.message
+    })
+}
+</script>
+
 <template>
   <div class="post-install">
     <!-- START STEP -->
@@ -51,11 +181,11 @@
         />
 
         <FormField
-          v-for="(field, name) in fields"
-          :key="name"
+          v-for="(field, key) in fields"
+          :key="key"
           v-bind="field"
-          v-model="user[name]"
-          :validation="v$.user[name]"
+          v-model="form[key]"
+          :validation="v$.form[key]"
         />
       </CardForm>
 
@@ -87,152 +217,3 @@
     </template>
   </div>
 </template>
-
-<script>
-import { useVuelidate } from '@vuelidate/core'
-
-import api from '@/api'
-import { useAutoModal } from '@/composables/useAutoModal'
-import { DomainForm } from '@/views/_partials'
-import LoginView from '@/views/LoginView.vue'
-import { formatFormData } from '@/helpers/yunohostArguments'
-import {
-  alphalownumdot_,
-  required,
-  minLength,
-  name,
-  sameAs,
-} from '@/helpers/validators'
-
-export default {
-  name: 'PostInstall',
-
-  components: {
-    DomainForm,
-    LoginView,
-  },
-
-  setup() {
-    return {
-      v$: useVuelidate(),
-      modalConfirm: useAutoModal(),
-    }
-  },
-
-  data() {
-    return {
-      step: 'start',
-      serverError: '',
-      domain: undefined,
-      dyndns_recovery_password: '',
-      user: {
-        username: '',
-        fullname: '',
-        password: '',
-        confirmation: '',
-      },
-
-      fields: {
-        username: {
-          label: this.$t('user_username'),
-          props: {
-            id: 'username',
-            placeholder: this.$t('placeholder.username'),
-          },
-        },
-
-        fullname: {
-          label: this.$t('user_fullname'),
-          props: {
-            id: 'fullname',
-            placeholder: this.$t('placeholder.fullname'),
-          },
-        },
-
-        password: {
-          label: this.$t('password'),
-          description: this.$t('good_practices_about_admin_password'),
-          descriptionVariant: 'warning',
-          props: { id: 'password', placeholder: '••••••••', type: 'password' },
-        },
-
-        confirmation: {
-          label: this.$t('password_confirmation'),
-          props: {
-            id: 'confirmation',
-            placeholder: '••••••••',
-            type: 'password',
-          },
-        },
-      },
-    }
-  },
-
-  methods: {
-    goToStep(step) {
-      this.serverError = ''
-      this.step = step
-    },
-
-    setDomain({ domain, dyndns_recovery_password }) {
-      this.domain = domain
-      this.dyndns_recovery_password = dyndns_recovery_password
-      this.goToStep('user')
-    },
-
-    async setUser() {
-      const confirmed = await this.modalConfirm(
-        this.$t('confirm_postinstall', { domain: this.domain }),
-      )
-      if (!confirmed) return
-      this.performPostInstall()
-    },
-
-    async performPostInstall(force = false) {
-      const data = await formatFormData({
-        domain: this.domain,
-        dyndns_recovery_password: this.dyndns_recovery_password,
-        username: this.user.username,
-        fullname: this.user.fullname,
-        password: this.user.password,
-      })
-
-      // FIXME does the api will throw an error for bad passwords ?
-      api
-        .post('postinstall' + (force ? '?force_diskspace' : ''), data, {
-          key: 'postinstall',
-        })
-        .then(() => {
-          // Display success message and allow the user to login
-          this.goToStep('login')
-        })
-        .catch((err) => {
-          const hasWordsInError = (words) =>
-            words.some((word) => (err.key || err.message).includes(word))
-          if (err.name !== 'APIBadRequestError') throw err
-          if (err.key === 'postinstall_low_rootfsspace') {
-            this.step = 'rootfsspace-error'
-          } else if (hasWordsInError(['domain', 'dyndns'])) {
-            this.step = 'domain'
-          } else if (hasWordsInError(['password', 'user'])) {
-            this.step = 'user'
-          } else {
-            throw err
-          }
-          this.serverError = err.message
-        })
-    },
-  },
-
-  validations() {
-    return {
-      user: {
-        username: { required, alphalownumdot_ },
-        fullname: { required, name },
-        password: { required, passwordLenght: minLength(8) },
-        confirmation: { required, passwordMatch: sameAs(this.user.password) },
-      },
-    }
-  },
-}
-</script>

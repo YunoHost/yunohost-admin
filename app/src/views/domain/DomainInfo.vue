@@ -1,8 +1,159 @@
+<script setup lang="ts">
+import { computed, reactive, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { useRoute, useRouter } from 'vue-router'
+import { useStore } from 'vuex'
+
+import api, { objectToParams } from '@/api'
+import ConfigPanels from '@/components/ConfigPanels.vue'
+import type ViewBase from '@/components/globals/ViewBase.vue'
+import { useAutoModal } from '@/composables/useAutoModal'
+import {
+  formatFormData,
+  formatYunoHostConfigPanels,
+} from '@/helpers/yunohostArguments'
+import { useStoreGetters } from '@/store/utils'
+import DomainDns from '@/views/domain/DomainDns.vue'
+
+const props = defineProps<{
+  name: string
+}>()
+
+const { t } = useI18n()
+const router = useRouter()
+const route = useRoute()
+const store = useStore()
+const modalConfirm = useAutoModal()
+
+const viewElem = ref<InstanceType<typeof ViewBase> | null>(null)
+
+const { mainDomain } = useStoreGetters()
+
+const queries = [
+  ['GET', { uri: 'domains', storeKey: 'domains' }],
+  ['GET', { uri: 'domains', storeKey: 'domains_details', param: props.name }],
+  ['GET', `domains/${props.name}/config?full`],
+]
+const config = ref({})
+const externalResults = reactive({})
+const unsubscribeDomainFromDyndns = ref(false)
+
+const currentTab = computed(() => {
+  return route.params.tabId
+})
+
+const domain = computed(() => {
+  return store.getters.domain(props.name)
+})
+
+const parentName = computed(() => {
+  return store.getters.highestDomainParentName(props.name)
+})
+
+const cert = computed(() => {
+  const { CA_type: authority, validity } = domain.value.certificate
+  const baseInfos = { authority, validity }
+  if (validity <= 0) {
+    return { icon: 'times', variant: 'danger', ...baseInfos }
+  } else if (authority === 'other') {
+    return validity < 15
+      ? { icon: 'exclamation', variant: 'danger', ...baseInfos }
+      : { icon: 'check', variant: 'success', ...baseInfos }
+  } else if (authority === 'letsencrypt') {
+    return { icon: 'thumbs-up', variant: 'success', ...baseInfos }
+  }
+  return { icon: 'exclamation', variant: 'warning', ...baseInfos }
+})
+
+const dns = computed(() => {
+  return domain.value.dns
+})
+
+const isMainDomain = computed(() => {
+  if (!mainDomain.value) return
+  return props.name === mainDomain.value
+})
+
+const isMainDynDomain = computed(() => {
+  return (
+    domain.value.registrar === 'yunohost' && props.name.split('.').length === 3
+  )
+})
+
+function onQueriesResponse(domains, domain, config_) {
+  config.value = formatYunoHostConfigPanels(config_)
+}
+
+async function onConfigSubmit({ id, form, action, name }) {
+  const args = await formatFormData(form, {
+    removeEmpty: false,
+    removeNull: true,
+  })
+
+  api
+    .put(
+      action
+        ? `domain/${props.name}/actions/${action}`
+        : `domains/${props.name}/config/${id}`,
+      { args: objectToParams(args) },
+      {
+        key: `domains.${action ? 'action' : 'update'}_config`,
+        id,
+        name: props.name,
+      },
+    )
+    .then(() => viewElem.value!.fetchQueries({ triggerLoading: true }))
+    .catch((err) => {
+      if (err.name !== 'APIBadRequestError') throw err
+      const panel = config.value.panels.find((panel) => panel.id === id)
+      if (err.data.name) {
+        Object.assign(externalResults, {
+          forms: { [panel.id]: { [err.data.name]: [err.data.error] } },
+        })
+      } else {
+        panel.serverError = err.message
+      }
+    })
+}
+
+async function deleteDomain() {
+  const data =
+    isMainDynDomain.value && !unsubscribeDomainFromDyndns.value
+      ? { ignore_dyndns: 1 }
+      : {}
+
+  api
+    .delete({ uri: 'domains', param: props.name }, data, {
+      key: 'domains.delete',
+      name: props.name,
+    })
+    .then(() => {
+      router.push({ name: 'domain-list' })
+    })
+}
+
+async function setAsDefaultDomain() {
+  const confirmed = await modalConfirm(t('confirm_change_maindomain'))
+  if (!confirmed) return
+
+  api
+    .put(
+      { uri: `domains/${props.name}/main`, storeKey: 'main_domain' },
+      {},
+      { key: 'domains.set_default', name: props.name },
+    )
+    .then(() => {
+      // FIXME Have to commit by hand here since the response is empty (should return the given name)
+      store.commit('UPDATE_MAIN_DOMAIN', props.name)
+    })
+}
+</script>
+
 <template>
   <ViewBase
     :queries="queries"
     @queries-response="onQueriesResponse"
-    ref="view"
+    ref="viewElem"
     skeleton="CardListSkeleton"
   >
     <!-- INFO CARD -->
@@ -122,7 +273,7 @@
     <BModal
       v-if="domain"
       id="delete-modal"
-      :title="$t('confirm_delete', { name: this.name })"
+      :title="$t('confirm_delete', { name: props.name })"
       @ok="deleteDomain"
       header-bg-variant="warning"
       header-class="text-black"
@@ -136,175 +287,6 @@
     </BModal>
   </ViewBase>
 </template>
-
-<script>
-import { mapGetters } from 'vuex'
-
-import api, { objectToParams } from '@/api'
-import { useAutoModal } from '@/composables/useAutoModal'
-import {
-  formatFormData,
-  formatYunoHostConfigPanels,
-} from '@/helpers/yunohostArguments'
-import ConfigPanels from '@/components/ConfigPanels.vue'
-import DomainDns from './DomainDns.vue'
-
-export default {
-  name: 'DomainInfo',
-
-  components: {
-    ConfigPanels,
-    DomainDns,
-  },
-
-  props: {
-    name: { type: String, required: true },
-  },
-
-  setup() {
-    return {
-      modalConfirm: useAutoModal(),
-    }
-  },
-
-  data() {
-    return {
-      queries: [
-        ['GET', { uri: 'domains', storeKey: 'domains' }],
-        [
-          'GET',
-          { uri: 'domains', storeKey: 'domains_details', param: this.name },
-        ],
-        ['GET', `domains/${this.name}/config?full`],
-      ],
-      config: {},
-      externalResults: {},
-      unsubscribeDomainFromDyndns: false,
-    }
-  },
-
-  computed: {
-    ...mapGetters(['mainDomain']),
-
-    currentTab() {
-      return this.$route.params.tabId
-    },
-
-    domain() {
-      return this.$store.getters.domain(this.name)
-    },
-
-    parentName() {
-      return this.$store.getters.highestDomainParentName(this.name)
-    },
-
-    cert() {
-      const { CA_type: authority, validity } = this.domain.certificate
-      const baseInfos = { authority, validity }
-      if (validity <= 0) {
-        return { icon: 'times', variant: 'danger', ...baseInfos }
-      } else if (authority === 'other') {
-        return validity < 15
-          ? { icon: 'exclamation', variant: 'danger', ...baseInfos }
-          : { icon: 'check', variant: 'success', ...baseInfos }
-      } else if (authority === 'letsencrypt') {
-        return { icon: 'thumbs-up', variant: 'success', ...baseInfos }
-      }
-      return { icon: 'exclamation', variant: 'warning', ...baseInfos }
-    },
-
-    dns() {
-      return this.domain.dns
-    },
-
-    isMainDomain() {
-      if (!this.mainDomain) return
-      return this.name === this.mainDomain
-    },
-
-    isMainDynDomain() {
-      return (
-        this.domain.registrar === 'yunohost' &&
-        this.name.split('.').length === 3
-      )
-    },
-  },
-
-  methods: {
-    onQueriesResponse(domains, domain, config) {
-      this.config = formatYunoHostConfigPanels(config)
-    },
-
-    async onConfigSubmit({ id, form, action, name }) {
-      const args = await formatFormData(form, {
-        removeEmpty: false,
-        removeNull: true,
-      })
-
-      api
-        .put(
-          action
-            ? `domain/${this.name}/actions/${action}`
-            : `domains/${this.name}/config/${id}`,
-          { args: objectToParams(args) },
-          {
-            key: `domains.${action ? 'action' : 'update'}_config`,
-            id,
-            name: this.name,
-          },
-        )
-        .then(() => {
-          this.$refs.view.fetchQueries({ triggerLoading: true })
-        })
-        .catch((err) => {
-          if (err.name !== 'APIBadRequestError') throw err
-          const panel = this.config.panels.find((panel) => panel.id === id)
-          if (err.data.name) {
-            Object.assign(this.externalResults, {
-              forms: { [panel.id]: { [err.data.name]: [err.data.error] } },
-            })
-          } else {
-            panel.serverError = err.message
-          }
-        })
-    },
-
-    async deleteDomain() {
-      const data =
-        this.isMainDynDomain && !this.unsubscribeDomainFromDyndns
-          ? { ignore_dyndns: 1 }
-          : {}
-
-      api
-        .delete({ uri: 'domains', param: this.name }, data, {
-          key: 'domains.delete',
-          name: this.name,
-        })
-        .then(() => {
-          this.$router.push({ name: 'domain-list' })
-        })
-    },
-
-    async setAsDefaultDomain() {
-      const confirmed = await this.modalConfirm(
-        this.$t('confirm_change_maindomain'),
-      )
-      if (!confirmed) return
-
-      api
-        .put(
-          { uri: `domains/${this.name}/main`, storeKey: 'main_domain' },
-          {},
-          { key: 'domains.set_default', name: this.name },
-        )
-        .then(() => {
-          // FIXME Have to commit by hand here since the response is empty (should return the given name)
-          this.$store.commit('UPDATE_MAIN_DOMAIN', this.name)
-        })
-    },
-  },
-}
-</script>
 
 <style lang="scss" scoped>
 .main-domain-badge {

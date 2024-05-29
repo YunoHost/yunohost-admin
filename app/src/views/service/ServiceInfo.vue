@@ -1,8 +1,94 @@
+<script setup lang="ts">
+import { ref } from 'vue'
+import { useI18n } from 'vue-i18n'
+
+import api from '@/api'
+import type ViewBase from '@/components/globals/ViewBase.vue'
+import { useAutoModal } from '@/composables/useAutoModal'
+import { distanceToNow } from '@/helpers/filters/date'
+
+const props = defineProps<{
+  name: string
+}>()
+
+const { t } = useI18n()
+const modalConfirm = useAutoModal()
+const viewElem = ref<InstanceType<typeof ViewBase> | null>(null)
+
+const queries = [
+  ['GET', 'services/' + props.name],
+  ['GET', `services/${props.name}/log?number=50`],
+]
+const infos = ref()
+const uptime = ref()
+const isCritical = ref()
+const logs = ref()
+const action = ref()
+
+function onQueriesResponse(
+  // eslint-disable-next-line
+  { status, description, start_on_boot, last_state_change, configuration },
+  logs,
+) {
+  isCritical.value = ['nginx', 'ssh', 'slapd', 'yunohost-api'].includes(
+    props.name,
+  )
+  // eslint-disable-next-line
+  uptime.value = last_state_change === 'unknown' ? 0 : last_state_change
+  infos.value = { description, status, start_on_boot, configuration }
+
+  logs.value = Object.keys(logs)
+    .sort((prev, curr) => {
+      if (prev === 'journalctl') return -1
+      else if (curr === 'journalctl') return 1
+      else if (prev < curr) return -1
+      else return 1
+    })
+    .map((filename) => ({ content: logs[filename].join('\n'), filename }))
+}
+
+async function updateService(action) {
+  const confirmed = await modalConfirm(
+    t('confirm_service_' + action, { name: props.name }),
+  )
+  if (!confirmed) return
+
+  api
+    .put(
+      `services/${props.name}/${action}`,
+      {},
+      { key: 'services.' + action, name: props.name },
+    )
+    .then(() => viewElem.value!.fetchQueries())
+}
+
+function shareLogs() {
+  const logs = logs.value
+    .map(({ filename, content }) => {
+      return `LOGFILE: ${filename}\n${content}`
+    })
+    .join('\n\n')
+
+  fetch('https://paste.yunohost.org/documents', {
+    method: 'POST',
+    body: logs,
+  })
+    .then((response) => {
+      if (response.ok) return response.json()
+      // FIXME flash error
+      /* eslint-disable-next-line */ else console.log('error', response)
+    })
+    .then(({ key }) => {
+      window.open('https://paste.yunohost.org/' + key, '_blank')
+    })
+}
+</script>
+
 <template>
   <ViewBase
     :queries="queries"
     @queries-response="onQueriesResponse"
-    ref="view"
+    ref="viewElem"
     skeleton="CardInfoSkeleton"
   >
     <!-- INFO CARD -->
@@ -80,104 +166,6 @@
     </YCard>
   </ViewBase>
 </template>
-
-<script>
-import api from '@/api'
-import { useAutoModal } from '@/composables/useAutoModal'
-import { distanceToNow } from '@/helpers/filters/date'
-
-export default {
-  name: 'ServiceInfo',
-
-  props: {
-    name: { type: String, required: true },
-  },
-
-  setup() {
-    return {
-      modalConfirm: useAutoModal(),
-    }
-  },
-
-  data() {
-    return {
-      queries: [
-        ['GET', 'services/' + this.name],
-        ['GET', `services/${this.name}/log?number=50`],
-      ],
-      // Service data
-      infos: undefined,
-      uptime: undefined,
-      isCritical: undefined,
-      logs: undefined,
-      // Modal action
-      action: undefined,
-    }
-  },
-
-  methods: {
-    onQueriesResponse(
-      // eslint-disable-next-line
-      { status, description, start_on_boot, last_state_change, configuration },
-      logs,
-    ) {
-      this.isCritical = ['nginx', 'ssh', 'slapd', 'yunohost-api'].includes(
-        this.name,
-      )
-      // eslint-disable-next-line
-      this.uptime = last_state_change === 'unknown' ? 0 : last_state_change
-      this.infos = { description, status, start_on_boot, configuration }
-
-      this.logs = Object.keys(logs)
-        .sort((prev, curr) => {
-          if (prev === 'journalctl') return -1
-          else if (curr === 'journalctl') return 1
-          else if (prev < curr) return -1
-          else return 1
-        })
-        .map((filename) => ({ content: logs[filename].join('\n'), filename }))
-    },
-
-    async updateService(action) {
-      const confirmed = await this.modalConfirm(
-        this.$t('confirm_service_' + action, { name: this.name }),
-      )
-      if (!confirmed) return
-
-      api
-        .put(
-          `services/${this.name}/${action}`,
-          {},
-          { key: 'services.' + action, name: this.name },
-        )
-        .then(this.$refs.view.fetchQueries)
-    },
-
-    shareLogs() {
-      const logs = this.logs
-        .map(({ filename, content }) => {
-          return `LOGFILE: ${filename}\n${content}`
-        })
-        .join('\n\n')
-
-      fetch('https://paste.yunohost.org/documents', {
-        method: 'POST',
-        body: logs,
-      })
-        .then((response) => {
-          if (response.ok) return response.json()
-          // FIXME flash error
-          /* eslint-disable-next-line */ else console.log('error', response)
-        })
-        .then(({ key }) => {
-          window.open('https://paste.yunohost.org/' + key, '_blank')
-        })
-    },
-
-    distanceToNow,
-  },
-}
-</script>
 
 <style lang="scss" scoped>
 h3 {

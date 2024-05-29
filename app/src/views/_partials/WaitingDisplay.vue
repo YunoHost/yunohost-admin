@@ -1,3 +1,27 @@
+<script setup lang="ts">
+import { computed } from 'vue'
+
+import MessageListGroup from '@/components/MessageListGroup.vue'
+import type { Obj } from '@/types/commons'
+
+const props = defineProps<{
+  request: Obj
+}>()
+
+const hasMessages = computed(() => {
+  return props.request.messages && props.request.messages.length > 0
+})
+
+const progress = computed(() => {
+  const progress = props.request.progress
+  if (!progress) return null
+  return {
+    values: progress,
+    max: progress.reduce((sum, value) => sum + value, 0),
+  }
+})
+</script>
+
 <template>
   <!-- This card receives style from `ViewLockOverlay` if used inside it -->
   <BCardBody>
@@ -25,34 +49,3 @@
     />
   </BCardBody>
 </template>
-
-<script>
-import MessageListGroup from '@/components/MessageListGroup.vue'
-
-export default {
-  name: 'WaitingDisplay',
-
-  components: {
-    MessageListGroup,
-  },
-
-  props: {
-    request: { type: Object, required: true },
-  },
-
-  computed: {
-    hasMessages() {
-      return this.request.messages && this.request.messages.length > 0
-    },
-
-    progress() {
-      const progress = this.request.progress
-      if (!progress) return null
-      return {
-        values: progress,
-        max: progress.reduce((sum, value) => sum + value, 0),
-      }
-    },
-  },
-}
-</script>

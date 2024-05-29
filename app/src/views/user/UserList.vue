@@ -1,3 +1,42 @@
+<script setup lang="ts">
+import { computed, ref } from 'vue'
+import { useStore } from 'vuex'
+
+import { useStoreGetters } from '@/store/utils'
+
+const store = useStore()
+
+const queries = [
+  [
+    'GET',
+    {
+      uri: 'users?fields=username&fields=fullname&fields=mail&fields=mailbox-quota&fields=groups',
+      storeKey: 'users',
+    },
+  ],
+]
+
+const { users } = useStoreGetters()
+
+const search = ref('')
+const filteredUsers = computed(() => {
+  if (!users.value) return
+  const search_ = search.value.toLowerCase()
+  const filtered = users.value.filter((user) => {
+    return (
+      user.username.toLowerCase().includes(search_) ||
+      user.groups.includes(search_)
+    )
+  })
+  return filtered.length === 0 ? null : filtered
+})
+
+function downloadExport() {
+  const host = store.getters.host
+  window.open(`https://${host}/yunohost/api/users/export`, '_blank')
+}
+</script>
+
 <template>
   <ViewSearch
     v-model:search="search"
@@ -51,47 +90,3 @@
     </BListGroup>
   </ViewSearch>
 </template>
-
-<script>
-import { mapGetters } from 'vuex'
-
-export default {
-  name: 'UserList',
-
-  data() {
-    return {
-      queries: [
-        [
-          'GET',
-          {
-            uri: 'users?fields=username&fields=fullname&fields=mail&fields=mailbox-quota&fields=groups',
-            storeKey: 'users',
-          },
-        ],
-      ],
-      search: '',
-    }
-  },
-  methods: {
-    downloadExport() {
-      const host = this.$store.getters.host
-      window.open(`https://${host}/yunohost/api/users/export`, '_blank')
-    },
-  },
-  computed: {
-    ...mapGetters(['users']),
-
-    filteredUsers() {
-      if (!this.users) return
-      const search = this.search.toLowerCase()
-      const filtered = this.users.filter((user) => {
-        return (
-          user.username.toLowerCase().includes(search) ||
-          user.groups.includes(search)
-        )
-      })
-      return filtered.length === 0 ? null : filtered
-    },
-  },
-}
-</script>

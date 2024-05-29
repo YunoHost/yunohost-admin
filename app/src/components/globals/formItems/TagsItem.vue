@@ -1,3 +1,36 @@
+<script setup lang="ts">
+import { inject } from 'vue'
+
+withDefaults(
+  defineProps<{
+    modelValue?: unknown[] | null
+    id?: string
+    placeholder?: string
+    limit?: number
+    required?: boolean
+    state?: boolean
+    name?: string
+    // FIXME no options on BFormTags
+    options?: unknown[]
+  }>(),
+  {
+    modelValue: null,
+    id: undefined,
+    placeholder: undefined,
+    limit: undefined,
+    required: false,
+    state: undefined,
+    name: undefined,
+    options: undefined,
+  },
+)
+
+const touch = inject('touch')
+
+// FIXME rework for options/choices
+// https://bootstrap-vue-next.github.io/bootstrap-vue-next/docs/components/form-tags.html#using-custom-form-components
+</script>
+
 <template>
   <BFormTags
     :modelValue="modelValue"
@@ -13,28 +46,3 @@
     @blur="touch(name)"
   />
 </template>
-
-<script>
-import { inject } from 'vue'
-
-export default {
-  name: 'TagsItem',
-
-  props: {
-    modelValue: { type: Array, default: null },
-    id: { type: String, default: null },
-    placeholder: { type: String, default: null },
-    limit: { type: Number, default: null },
-    required: { type: Boolean, default: false },
-    state: { type: Boolean, default: null },
-    name: { type: String, default: null },
-    options: { type: Array, default: null },
-  },
-
-  setup() {
-    return {
-      touch: inject('touch'),
-    }
-  },
-}
-</script>

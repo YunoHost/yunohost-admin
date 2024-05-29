@@ -1,3 +1,183 @@
+<script setup lang="ts">
+import { useVuelidate } from '@vuelidate/core'
+import { computed, reactive, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { useRoute, useRouter } from 'vue-router'
+
+import CardDeckFeed from '@/components/CardDeckFeed.vue'
+import { useAutoModal } from '@/composables/useAutoModal'
+import { randint } from '@/helpers/commons'
+import { appRepoUrl, required } from '@/helpers/validators'
+
+const props = withDefaults(
+  defineProps<{
+    search?: string
+    quality?: string
+    category?: string | null
+    subtag?: string
+  }>(),
+  {
+    search: '',
+    quality: 'decent_quality',
+    category: null,
+    subtag: 'all',
+  },
+)
+
+const { t } = useI18n()
+const router = useRouter()
+const route = useRoute()
+const modalConfirm = useAutoModal()
+
+const queries = [['GET', 'apps/catalog?full&with_categories&with_antifeatures']]
+
+const apps = ref()
+const selectedApp = ref()
+const antifeatures = ref()
+const url = ref()
+const v$ = useVuelidate({ url: { required, appRepoUrl } }, { url })
+
+const qualityOptions = [
+  { value: 'high_quality', text: t('only_highquality_apps') },
+  {
+    value: 'decent_quality',
+    text: t('only_decent_quality_apps'),
+  },
+  { value: 'working', text: t('only_working_apps') },
+  { value: 'all', text: t('all_apps') },
+]
+const categories = reactive([
+  { text: t('app_choose_category'), value: null },
+  { text: t('all_apps'), value: 'all', icon: 'search' },
+  // The rest is filled from api data
+])
+
+const filteredApps = computed(() => {
+  if (!apps.value || props.category === null) return
+  const search = props.search.toLowerCase()
+
+  if (props.quality === 'all' && props.category === 'all' && search === '') {
+    return apps.value
+  }
+  const filtered = apps.value.filter((app) => {
+    // app doesn't match quality filter
+    if (props.quality !== 'all' && !app[props.quality]) return false
+    // app doesn't match category filter
+    if (props.category !== 'all' && app.category !== props.category)
+      return false
+    if (props.subtag !== 'all') {
+      const appMatchSubtag =
+        props.subtag === 'others'
+          ? app.subtags.length === 0
+          : app.subtags.includes(props.subtag)
+      // app doesn't match subtag filter
+      if (!appMatchSubtag) return false
+    }
+    if (search === '') return true
+    if (app.searchValues.includes(search)) return true
+    return false
+  })
+  return filtered.length ? filtered : null
+})
+
+const subtags = computed(() => {
+  // build an options array for subtags v-model/options
+  if (props.category && categories.length > 2) {
+    const category = categories.find((cat) => cat.value === props.category)
+    if (category.subtags) {
+      const subtags = [{ text: t('all'), value: 'all' }]
+      category.subtags.forEach((subtag) => {
+        subtags.push({ text: subtag.title, value: subtag.id })
+      })
+      subtags.push({ text: t('others'), value: 'others' })
+      return subtags
+    }
+  }
+  return null
+})
+
+function onQueriesResponse(data) {
+  const apps = []
+  for (const key in data.apps) {
+    const app = data.apps[key]
+    app.isInstallable =
+      !app.installed || app.manifest.integration.multi_instance
+    app.working = app.state === 'working'
+    app.decent_quality = app.working && app.level > 4
+    app.high_quality = app.working && app.level >= 8
+    app.color = 'danger'
+    if (app.working && app.level <= 0) {
+      app.state = 'broken'
+      app.color = 'danger'
+    } else if (app.working && app.level <= 4) {
+      app.state = 'lowquality'
+      app.color = 'warning'
+    } else if (app.working) {
+      app.color = 'success'
+    }
+    app.searchValues = [
+      app.id,
+      app.state,
+      app.manifest.name,
+      app.manifest.description,
+      app.potential_alternative_to.join(' '),
+    ]
+      .join(' ')
+      .toLowerCase()
+    apps.push(app)
+  }
+  apps.value = apps.sort((a, b) => (a.id > b.id ? 1 : -1))
+
+  // CATEGORIES
+  data.categories.forEach(({ title, id, icon, subtags, description }) => {
+    categories.push({
+      text: title,
+      value: id,
+      icon,
+      subtags,
+      description,
+    })
+  })
+  antifeatures.value = Object.fromEntries(
+    data.antifeatures.map((af) => [af.id, af]),
+  )
+}
+
+function updateQuery(key, value) {
+  // Update the query string without reloading the page
+  router.replace({
+    query: {
+      ...route.query,
+      // allow search without selecting a category
+      category: route.query.category || 'all',
+      [key]: value,
+    },
+  })
+}
+
+// INSTALL APP
+async function onInstallClick(appId: string) {
+  const app = apps.value.find((app) => app.id === appId)
+  if (!app.decent_quality) {
+    const confirmed = await modalConfirm(t('confirm_install_app_' + app.state))
+    if (!confirmed) return
+  }
+  router.push({ name: 'app-install', params: { id: app.id } })
+}
+
+// INSTALL CUSTOM APP
+async function onCustomInstallClick() {
+  const confirmed = await modalConfirm(t('confirm_install_custom_app'))
+  if (!confirmed) return
+
+  const url_ = url.value
+  router.push({
+    name: 'app-install-custom',
+    params: { id: url_.endsWith('/') ? url_ : url_ + '/' },
+  })
+}
+</script>
+
 <template>
   <ViewSearch
     :items="apps"
@@ -223,219 +403,6 @@
     </template>
   </ViewSearch>
 </template>
-
-<script>
-import { useVuelidate } from '@vuelidate/core'
-
-import CardDeckFeed from '@/components/CardDeckFeed.vue'
-import { useAutoModal } from '@/composables/useAutoModal'
-import { required, appRepoUrl } from '@/helpers/validators'
-import { randint } from '@/helpers/commons'
-
-export default {
-  name: 'AppCatalog',
-
-  components: {
-    CardDeckFeed,
-  },
-
-  props: {
-    search: { type: String, default: '' },
-    quality: { type: String, default: 'decent_quality' },
-    category: { type: String, default: null },
-    subtag: { type: String, default: 'all' },
-  },
-
-  setup() {
-    return {
-      v$: useVuelidate(),
-      modalConfirm: useAutoModal(),
-    }
-  },
-
-  data() {
-    return {
-      queries: [['GET', 'apps/catalog?full&with_categories&with_antifeatures']],
-
-      // Data
-      apps: undefined,
-      selectedApp: undefined,
-      antifeatures: undefined,
-
-      // Filtering options
-      qualityOptions: [
-        { value: 'high_quality', text: this.$t('only_highquality_apps') },
-        {
-          value: 'decent_quality',
-          text: this.$t('only_decent_quality_apps'),
-        },
-        { value: 'working', text: this.$t('only_working_apps') },
-        { value: 'all', text: this.$t('all_apps') },
-      ],
-      categories: [
-        { text: this.$t('app_choose_category'), value: null },
-        { text: this.$t('all_apps'), value: 'all', icon: 'search' },
-        // The rest is filled from api data
-      ],
-
-      // Custom install form
-      customInstall: {
-        field: {
-          label: this.$t('url'),
-          props: {
-            id: 'custom-install',
-            placeholder: 'https://some.git.forge.tld/USER/REPOSITORY',
-          },
-        },
-        url: '',
-      },
-    }
-  },
-
-  computed: {
-    filteredApps() {
-      if (!this.apps || this.category === null) return
-      const search = this.search.toLowerCase()
-
-      if (this.quality === 'all' && this.category === 'all' && search === '') {
-        return this.apps
-      }
-      const filtered = this.apps.filter((app) => {
-        // app doesn't match quality filter
-        if (this.quality !== 'all' && !app[this.quality]) return false
-        // app doesn't match category filter
-        if (this.category !== 'all' && app.category !== this.category)
-          return false
-        if (this.subtag !== 'all') {
-          const appMatchSubtag =
-            this.subtag === 'others'
-              ? app.subtags.length === 0
-              : app.subtags.includes(this.subtag)
-          // app doesn't match subtag filter
-          if (!appMatchSubtag) return false
-        }
-        if (search === '') return true
-        if (app.searchValues.includes(search)) return true
-        return false
-      })
-      return filtered.length ? filtered : null
-    },
-
-    subtags() {
-      // build an options array for subtags v-model/options
-      if (this.category && this.categories.length > 2) {
-        const category = this.categories.find(
-          (cat) => cat.value === this.category,
-        )
-        if (category.subtags) {
-          const subtags = [{ text: this.$t('all'), value: 'all' }]
-          category.subtags.forEach((subtag) => {
-            subtags.push({ text: subtag.title, value: subtag.id })
-          })
-          subtags.push({ text: this.$t('others'), value: 'others' })
-          return subtags
-        }
-      }
-      return null
-    },
-  },
-
-  validations: {
-    customInstall: {
-      url: { required, appRepoUrl },
-    },
-  },
-
-  methods: {
-    onQueriesResponse(data) {
-      const apps = []
-      for (const key in data.apps) {
-        const app = data.apps[key]
-        app.isInstallable =
-          !app.installed || app.manifest.integration.multi_instance
-        app.working = app.state === 'working'
-        app.decent_quality = app.working && app.level > 4
-        app.high_quality = app.working && app.level >= 8
-        app.color = 'danger'
-        if (app.working && app.level <= 0) {
-          app.state = 'broken'
-          app.color = 'danger'
-        } else if (app.working && app.level <= 4) {
-          app.state = 'lowquality'
-          app.color = 'warning'
-        } else if (app.working) {
-          app.color = 'success'
-        }
-        app.searchValues = [
-          app.id,
-          app.state,
-          app.manifest.name,
-          app.manifest.description,
-          app.potential_alternative_to.join(' '),
-        ]
-          .join(' ')
-          .toLowerCase()
-        apps.push(app)
-      }
-      this.apps = apps.sort((a, b) => (a.id > b.id ? 1 : -1))
-
-      // CATEGORIES
-      data.categories.forEach(({ title, id, icon, subtags, description }) => {
-        this.categories.push({
-          text: title,
-          value: id,
-          icon,
-          subtags,
-          description,
-        })
-      })
-      this.antifeatures = Object.fromEntries(
-        data.antifeatures.map((af) => [af.id, af]),
-      )
-    },
-
-    updateQuery(key, value) {
-      // Update the query string without reloading the page
-      this.$router.replace({
-        query: {
-          ...this.$route.query,
-          // allow search without selecting a category
-          category: this.$route.query.category || 'all',
-          [key]: value,
-        },
-      })
-    },
-
-    // INSTALL APP
-    async onInstallClick(appId) {
-      const app = this.apps.find((app) => app.id === appId)
-      if (!app.decent_quality) {
-        const confirmed = await this.modalConfirm(
-          this.$t('confirm_install_app_' + app.state),
-        )
-        if (!confirmed) return
-      }
-      this.$router.push({ name: 'app-install', params: { id: app.id } })
-    },
-
-    // INSTALL CUSTOM APP
-    async onCustomInstallClick() {
-      const confirmed = await this.modalConfirm(
-        this.$t('confirm_install_custom_app'),
-      )
-      if (!confirmed) return
-
-      const url = this.customInstall.url
-      this.$router.push({
-        name: 'app-install-custom',
-        params: { id: url.endsWith('/') ? url : url + '/' },
-      })
-    },
-
-    randint,
-  },
-}
-</script>
 
 <style lang="scss" scoped>
 #view-top-bar {

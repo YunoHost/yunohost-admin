@@ -1,9 +1,43 @@
+<script setup lang="ts" generic="T extends Obj">
+import type { Component } from 'vue'
+
+import type { Obj } from '@/types/commons'
+
+const props = withDefaults(
+  defineProps<{
+    items: T[] | null
+    itemsName: string | null
+    filteredItems: T[] | null
+    search?: string
+    skeleton?: string | Component
+  }>(),
+  {
+    search: undefined,
+    skeleton: 'ListGroupSkeleton',
+  },
+)
+
+const slots = defineSlots<{
+  'top-bar': any
+  'top-bar-buttons': any
+  top: any
+  'alert-message': any
+  default: any
+  bot: any
+  skeleton: any
+}>()
+
+const emit = defineEmits<{
+  'update:search': [value: string]
+}>()
+</script>
+
 <template>
-  <ViewBase v-bind="$attrs" :skeleton="skeleton">
-    <template v-if="hasCustomTopBar" #top-bar>
+  <ViewBase :skeleton="skeleton">
+    <template v-if="slots['top-bar']" #top-bar>
       <slot name="top-bar" />
     </template>
-    <template v-if="!hasCustomTopBar" #top-bar-group-left>
+    <template v-if="!slots['top-bar']" #top-bar-group-left>
       <BInputGroup class="w-100">
         <BInputGroupText>
           <YIcon iname="search" />
@@ -12,7 +46,7 @@
         <BFormInput
           id="top-bar-search"
           :modelValue="search"
-          @update:modelValue="$emit('update:search', $event)"
+          @update:modelValue="emit('update:search', $event)"
           :placeholder="
             $t('search.for', { items: $t('items.' + itemsName, 2) })
           "
@@ -20,7 +54,7 @@
         />
       </BInputGroup>
     </template>
-    <template v-if="!hasCustomTopBar" #top-bar-group-right>
+    <template v-if="!slots['top-bar']" #top-bar-group-right>
       <slot name="top-bar-buttons" />
     </template>
 
@@ -60,23 +94,3 @@
     </template>
   </ViewBase>
 </template>
-
-<script>
-export default {
-  name: 'ViewSearch',
-
-  props: {
-    items: { type: null, required: true },
-    itemsName: { type: String, required: true },
-    filteredItems: { type: null, required: true },
-    search: { type: String, default: null },
-    skeleton: { type: String, default: 'ListGroupSkeleton' },
-  },
-
-  computed: {
-    hasCustomTopBar() {
-      return 'top-bar' in this.$slots
-    },
-  },
-}
-</script>

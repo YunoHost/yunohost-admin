@@ -1,3 +1,31 @@
+<script setup lang="ts">
+import { computed } from 'vue'
+
+import QueryHeader from '@/components/QueryHeader.vue'
+import { useStoreGetters } from '@/store/utils'
+import {
+  ErrorDisplay,
+  ReconnectingDisplay,
+  WaitingDisplay,
+  WarningDisplay,
+} from '@/views/_partials'
+
+const { waiting, reconnecting, error, currentRequest, dark } = useStoreGetters()
+const component = computed(() => {
+  const request = currentRequest.value
+  // FIXME should we pass refs or unwrap refs as props?
+  if (error.value) {
+    return { is: ErrorDisplay, request: error.value }
+  } else if (request.showWarningMessage) {
+    return { is: WarningDisplay, request: currentRequest.value }
+  } else if (reconnecting.value) {
+    return { is: ReconnectingDisplay }
+  } else {
+    return { is: WaitingDisplay, request: currentRequest.value }
+  }
+})
+</script>
+
 <template>
   <BOverlay
     :variant="dark ? 'dark' : 'light'"
@@ -13,58 +41,11 @@
           <QueryHeader :request="error || currentRequest" status-size="lg" />
         </BCardHeader>
 
-        <Component :is="component.name" :request="component.request" />
+        <Component :is="component.is" :request="component.request" />
       </BCard>
     </template>
   </BOverlay>
 </template>
-
-<script>
-import { mapGetters } from 'vuex'
-import {
-  ErrorDisplay,
-  WarningDisplay,
-  WaitingDisplay,
-  ReconnectingDisplay,
-} from '@/views/_partials'
-import QueryHeader from '@/components/QueryHeader.vue'
-
-export default {
-  name: 'ViewLockOverlay',
-
-  components: {
-    ErrorDisplay,
-    WarningDisplay,
-    WaitingDisplay,
-    ReconnectingDisplay,
-    QueryHeader,
-  },
-
-  computed: {
-    ...mapGetters([
-      'waiting',
-      'reconnecting',
-      'error',
-      'currentRequest',
-      'dark',
-    ]),
-
-    component() {
-      const { error, reconnecting, currentRequest: request } = this
-
-      if (error) {
-        return { name: 'ErrorDisplay', request: error }
-      } else if (request.showWarningMessage) {
-        return { name: 'WarningDisplay', request }
-      } else if (reconnecting) {
-        return { name: 'ReconnectingDisplay' }
-      } else {
-        return { name: 'WaitingDisplay', request }
-      }
-    },
-  },
-}
-</script>
 
 <style lang="scss" scoped>
 // Style for `*Display`'s cards

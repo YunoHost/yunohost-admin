@@ -1,3 +1,38 @@
+<script setup lang="ts">
+import { computed, ref } from 'vue'
+
+import { distanceToNow, readableDate } from '@/helpers/filters/date'
+
+const queries = [['GET', `logs?limit=${25}&with_details`]]
+const search = ref('')
+const operations = ref()
+
+const filteredOperations = computed(() => {
+  if (!operations.value) return
+  const search_ = search.value.toLowerCase()
+  const operations_ = operations.value.filter(({ description }) => {
+    return description.toLowerCase().includes(search_)
+  })
+  return operations_.length ? operations_ : null
+})
+
+function onQueriesResponse({ operation }) {
+  operation.forEach((log, index) => {
+    if (log.success === '?') {
+      operation[index].icon = 'question'
+      operation[index].class = 'warning'
+    } else if (log.success) {
+      operation[index].icon = 'check'
+      operation[index].class = 'success'
+    } else {
+      operation[index].icon = 'close'
+      operation[index].class = 'danger'
+    }
+  })
+  operations.value = operation
+}
+</script>
+
 <template>
   <ViewSearch
     v-model:search="search"
@@ -24,51 +59,3 @@
     </YCard>
   </ViewSearch>
 </template>
-
-<script>
-import { distanceToNow, readableDate } from '@/helpers/filters/date'
-
-export default {
-  name: 'ToolLogs',
-
-  data() {
-    return {
-      queries: [['GET', `logs?limit=${25}&with_details`]],
-      search: '',
-      operations: undefined,
-    }
-  },
-
-  computed: {
-    filteredOperations() {
-      if (!this.operations) return
-      const search = this.search.toLowerCase()
-      const operations = this.operations.filter(({ description }) => {
-        return description.toLowerCase().includes(search)
-      })
-      return operations.length ? operations : null
-    },
-  },
-
-  methods: {
-    onQueriesResponse({ operation }) {
-      operation.forEach((log, index) => {
-        if (log.success === '?') {
-          operation[index].icon = 'question'
-          operation[index].class = 'warning'
-        } else if (log.success) {
-          operation[index].icon = 'check'
-          operation[index].class = 'success'
-        } else {
-          operation[index].icon = 'close'
-          operation[index].class = 'danger'
-        }
-      })
-      this.operations = operation
-    },
-
-    distanceToNow,
-    readableDate,
-  },
-}
-</script>

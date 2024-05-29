@@ -1,18 +1,12 @@
+<script setup lang="ts">
+import { useStoreGetters } from '@/store/utils'
+
+const { spinner } = useStoreGetters()
+</script>
+
 <template>
   <div :class="['custom-spinner', spinner]" />
 </template>
-
-<script>
-import { mapGetters } from 'vuex'
-
-export default {
-  name: 'YSpinner',
-
-  computed: {
-    ...mapGetters(['spinner']),
-  },
-}
-</script>
 
 <style lang="scss" scoped>
 .custom-spinner {

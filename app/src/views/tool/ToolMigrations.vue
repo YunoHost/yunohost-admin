@@ -1,5 +1,67 @@
+<script setup lang="ts">
+import { reactive, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
+
+import api from '@/api'
+import type ViewBase from '@/components/globals/ViewBase.vue'
+import { useAutoModal } from '@/composables/useAutoModal'
+
+// FIXME not tested with pending migrations (disclaimer and stuff)
+const { t } = useI18n()
+const modalConfirm = useAutoModal()
+
+const viewElem = ref<InstanceType<typeof ViewBase> | null>(null)
+
+const queries = [
+  ['GET', 'migrations?pending'],
+  ['GET', 'migrations?done'],
+]
+const pending = ref()
+const done = ref()
+const checked = reactive({})
+
+function onQueriesResponse({ migrations: pending_ }, { migrations: done_ }) {
+  done.value = done_.length ? done_.reverse() : null
+  pending_.forEach((migration) => {
+    if (migration.disclaimer) {
+      migration.disclaimer = migration.disclaimer.replaceAll('\n', '<br>')
+      checked[migration.id] = null
+    }
+  })
+  // FIXME change to pending
+  pending.value = pending_.length ? pending_.reverse() : null
+}
+
+function runMigrations() {
+  // Display an error on migration's disclaimer that aren't checked.
+  for (const [id, value] of Object.entries(checked)) {
+    if (value !== true) {
+      checked[id] = false
+    }
+  }
+  // Check that every migration's disclaimer has been checked.
+  if (Object.values(checked).every((value) => value === true)) {
+    api
+      .put('migrations?accept_disclaimer', {}, 'migrations.run')
+      .then(() => viewElem.value!.fetchQueries())
+  }
+}
+
+async function skipMigration(id) {
+  const confirmed = await modalConfirm(t('confirm_migrations_skip'))
+  if (!confirmed) return
+  api
+    .put('/migrations/' + id, { skip: '', targets: id }, 'migration.skip')
+    .then(() => viewElem.value!.fetchQueries())
+}
+</script>
+
 <template>
-  <ViewBase :queries="queries" @queries-response="onQueriesResponse" ref="view">
+  <ViewBase
+    :queries="queries"
+    @queries-response="onQueriesResponse"
+    ref="viewElem"
+  >
     <!-- PENDING MIGRATIONS -->
     <YCard :title="$t('migrations_pending')" icon="cogs" no-body>
       <template #header-buttons v-if="pending">
@@ -85,74 +147,3 @@
     </template>
   </ViewBase>
 </template>
-
-<script>
-import api from '@/api'
-import { useAutoModal } from '@/composables/useAutoModal'
-
-// FIXME not tested with pending migrations (disclaimer and stuff)
-export default {
-  name: 'ToolMigrations',
-
-  setup() {
-    return {
-      modalConfirm: useAutoModal(),
-    }
-  },
-
-  data() {
-    return {
-      queries: [
-        ['GET', 'migrations?pending'],
-        ['GET', 'migrations?done'],
-      ],
-      pending: undefined,
-      done: undefined,
-      checked: {},
-    }
-  },
-
-  methods: {
-    onQueriesResponse({ migrations: pending }, { migrations: done }) {
-      this.done = done.length ? done.reverse() : null
-      pending.forEach((migration) => {
-        if (migration.disclaimer) {
-          migration.disclaimer = migration.disclaimer.replaceAll('\n', '<br>')
-          this.checked[migration.id] = null
-        }
-      })
-      // FIXME change to pending
-      this.pending = pending.length ? pending.reverse() : null
-    },
-
-    runMigrations() {
-      // Display an error on migration's disclaimer that aren't checked.
-      for (const [id, value] of Object.entries(this.checked)) {
-        if (value !== true) {
-          this.checked[id] = false
-        }
-      }
-      // Check that every migration's disclaimer has been checked.
-      if (Object.values(this.checked).every((value) => value === true)) {
-        api
-          .put('migrations?accept_disclaimer', {}, 'migrations.run')
-          .then(() => {
-            this.$refs.view.fetchQueries()
-          })
-      }
-    },
-
-    async skipMigration(id) {
-      const confirmed = await this.modalConfirm(
-        this.$t('confirm_migrations_skip'),
-      )
-      if (!confirmed) return
-      api
-        .put('/migrations/' + id, { skip: '', targets: id }, 'migration.skip')
-        .then(() => {
-          this.$refs.view.fetchQueries()
-        })
-    },
-  },
-}
-</script>

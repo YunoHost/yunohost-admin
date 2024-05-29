@@ -1,3 +1,24 @@
+<script setup lang="ts">
+import { computed } from 'vue'
+import { useStore } from 'vuex'
+
+import type { Obj } from '@/types/commons'
+
+const props = defineProps<{
+  request: Obj
+}>()
+
+const store = useStore()
+
+const warning = computed(() => {
+  const messages = props.request.messages
+  return messages[messages.length - 1]
+})
+
+function dismiss() {
+  store.dispatch('DISMISS_WARNING', props.request)
+}
+</script>
 <template>
   <!-- This card receives style from `ViewLockOverlay` if used inside it -->
   <div>
@@ -10,29 +31,6 @@
     </BCardFooter>
   </div>
 </template>
-
-<script>
-export default {
-  name: 'WarningDisplay',
-
-  props: {
-    request: { type: Object, required: true },
-  },
-
-  computed: {
-    warning() {
-      const messages = this.request.messages
-      return messages[messages.length - 1]
-    },
-  },
-
-  methods: {
-    dismiss() {
-      this.$store.dispatch('DISMISS_WARNING', this.request)
-    },
-  },
-}
-</script>
 
 <style lang="scss" scoped>
 .card-body {

@@ -1,3 +1,31 @@
+<script setup lang="ts">
+const menu = [
+  { routeName: 'tool-logs', icon: 'book', translation: 'logs' },
+  {
+    routeName: 'tool-migrations',
+    icon: 'share',
+    translation: 'migrations',
+  },
+  { routeName: 'service-list', icon: 'gears', translation: 'services' },
+  { routeName: 'tool-firewall', icon: 'shield', translation: 'firewall' },
+  {
+    routeName: 'tool-settings',
+    icon: 'sliders',
+    translation: 'tools_yunohost_settings',
+  },
+  {
+    routeName: 'tool-webadmin',
+    icon: 'sliders',
+    translation: 'tools_webadmin_settings',
+  },
+  {
+    routeName: 'tool-power',
+    icon: 'power-off',
+    translation: 'tools_shutdown_reboot',
+  },
+]
+</script>
+
 <!-- FIXME make a component shared with HomeView.vue ? -->
 <template>
   <BListGroup class="menu-list">
@@ -12,39 +40,3 @@
     </BListGroupItem>
   </BListGroup>
 </template>
-
-<script>
-export default {
-  name: 'ToolList',
-
-  data() {
-    return {
-      menu: [
-        { routeName: 'tool-logs', icon: 'book', translation: 'logs' },
-        {
-          routeName: 'tool-migrations',
-          icon: 'share',
-          translation: 'migrations',
-        },
-        { routeName: 'service-list', icon: 'gears', translation: 'services' },
-        { routeName: 'tool-firewall', icon: 'shield', translation: 'firewall' },
-        {
-          routeName: 'tool-settings',
-          icon: 'sliders',
-          translation: 'tools_yunohost_settings',
-        },
-        {
-          routeName: 'tool-webadmin',
-          icon: 'sliders',
-          translation: 'tools_webadmin_settings',
-        },
-        {
-          routeName: 'tool-power',
-          icon: 'power-off',
-          translation: 'tools_shutdown_reboot',
-        },
-      ],
-    }
-  },
-}
-</script>

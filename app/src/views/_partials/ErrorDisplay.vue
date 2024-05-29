@@ -1,3 +1,34 @@
+<script setup lang="ts">
+import { computed } from 'vue'
+import { useStore } from 'vuex'
+
+import MessageListGroup from '@/components/MessageListGroup.vue'
+import type { Obj } from '@/types/commons'
+
+const props = withDefaults(
+  defineProps<{
+    request: Obj
+  }>(),
+  {},
+)
+
+const store = useStore()
+
+const error = computed(() => {
+  return props.request.error
+})
+
+const messages = computed(() => {
+  const messages = props.request.messages
+  if (messages && messages.length > 0) return messages
+  return null
+})
+
+function dismiss() {
+  store.dispatch('DISMISS_ERROR', props.request)
+}
+</script>
+
 <template>
   <!-- This card receives style from `ViewLockOverlay` if used inside it -->
   <div>
@@ -23,7 +54,7 @@
 
       <p>
         <strong v-t="'api_error.error_message'" />
-        <BAlert :modelValue="true" class="mt-2" variant="danger">
+        <BAlert :model-value="true" class="mt-2" variant="danger">
           <div v-html="error.message" />
         </BAlert>
       </p>
@@ -49,40 +80,6 @@
     </BCardFooter>
   </div>
 </template>
-
-<script>
-import MessageListGroup from '@/components/MessageListGroup.vue'
-
-export default {
-  name: 'ErrorDisplay',
-
-  components: {
-    MessageListGroup,
-  },
-
-  props: {
-    request: { type: [Object, null], default: null },
-  },
-
-  computed: {
-    error() {
-      return this.request.error
-    },
-
-    messages() {
-      const messages = this.request.messages
-      if (messages && messages.length > 0) return messages
-      return null
-    },
-  },
-
-  methods: {
-    dismiss() {
-      this.$store.dispatch('DISMISS_ERROR', this.request)
-    },
-  },
-}
-</script>
 
 <style lang="scss" scoped>
 code,

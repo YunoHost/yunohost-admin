@@ -1,8 +1,168 @@
+<script setup lang="ts">
+import { useVuelidate } from '@vuelidate/core'
+import { reactive, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
+
+import api from '@/api'
+import { APIBadRequestError, type APIError } from '@/api/errors'
+import type ViewBase from '@/components/globals/ViewBase.vue'
+import { useAutoModal } from '@/composables/useAutoModal'
+import { between, integer, required } from '@/helpers/validators'
+
+const { t } = useI18n()
+const modalConfirm = useAutoModal()
+
+const viewElem = ref<InstanceType<typeof ViewBase> | null>(null)
+
+const queries = [['GET', '/firewall?raw']]
+
+const fields = [
+  { key: 'port', label: t('port') },
+  { key: 'ipv4', label: t('ipv4') },
+  { key: 'ipv6', label: t('ipv6') },
+  { key: 'uPnP', label: t('upnp') },
+]
+const form = reactive({
+  action: 'allow',
+  port: undefined,
+  connection: 'ipv4',
+  protocol: 'TCP',
+})
+const v$ = useVuelidate(
+  {
+    port: { number: required, integer, between: between(0, 65535) },
+  },
+  form,
+)
+const serverError = ref('')
+
+// Ports tables data
+const protocols = ref()
+
+// Ports form data
+const actionChoices = [
+  { value: 'allow', text: t('open') },
+  { value: 'disallow', text: t('close') },
+]
+const connectionChoices = [
+  { value: 'ipv4', text: t('ipv4') },
+  { value: 'ipv6', text: t('ipv6') },
+]
+const protocolChoices = [
+  { value: 'TCP', text: t('tcp') },
+  { value: 'UDP', text: t('udp') },
+  { value: 'Both', text: t('both') },
+]
+
+// uPnP
+const upnpEnabled = ref()
+const upnpError = ref('')
+
+function onQueriesResponse(data) {
+  const ports = Object.values(data).reduce(
+    (ports_, protocols_) => {
+      for (const type of ['TCP', 'UDP']) {
+        for (const port of protocols_[type]) {
+          ports_[type].add(port)
+        }
+      }
+      return ports
+    },
+    { TCP: new Set(), UDP: new Set() },
+  )
+
+  const tables = {
+    TCP: [],
+    UDP: [],
+  }
+  for (const protocol of ['TCP', 'UDP']) {
+    for (const port of ports[protocol]) {
+      const row = { port }
+      for (const connection of ['ipv4', 'ipv6', 'uPnP']) {
+        row[connection] = data[connection][protocol].includes(port)
+      }
+      tables[protocol].push(row)
+    }
+    tables[protocol].sort((a, b) => (a.port < b.port ? -1 : 1))
+  }
+
+  protocols.value = tables
+  upnpEnabled.value = data.uPnP.enabled
+}
+
+async function togglePort({ action, port, protocol, connection }) {
+  const confirmed = await modalConfirm(
+    t('confirm_firewall_' + action, {
+      port,
+      protocol,
+      connection,
+    }),
+  )
+  if (!confirmed) {
+    return Promise.resolve(confirmed)
+  }
+
+  const actionTrad = t({ allow: 'open', disallow: 'close' }[action])
+  return api
+    .put(
+      `firewall/${protocol}/${action}/${port}?${connection}_only`,
+      {},
+      {
+        key: 'firewall.ports',
+        protocol,
+        action: actionTrad,
+        port,
+        connection,
+      },
+      { wait: false },
+    )
+    .then(() => confirmed)
+}
+
+async function toggleUpnp(value) {
+  const action = upnpEnabled.value ? 'disable' : 'enable'
+  const confirmed = await modalConfirm(t('confirm_upnp_' + action))
+  if (!confirmed) return
+
+  api
+    .put(
+      'firewall/upnp/' + action,
+      {},
+      { key: 'firewall.upnp', action: t(action) },
+    )
+    .then(() => {
+      // FIXME Couldn't test when it works.
+      viewElem.value!.fetchQueries()
+    })
+    .catch((err: APIError) => {
+      if (!(err instanceof APIBadRequestError)) throw err
+      upnpError.value = err.message
+    })
+}
+
+function onTablePortToggling(port, protocol, connection, index, value) {
+  protocols.value[protocol][index][connection] = value
+  const action = value ? 'allow' : 'disallow'
+  togglePort({ action, port, protocol, connection }).then((toggled) => {
+    // Revert change on cancel
+    if (!toggled) {
+      protocols.value[protocol][index][connection] = !value
+    }
+  })
+}
+
+function onFormPortToggling() {
+  togglePort(form).then((toggled) => {
+    if (toggled) viewElem.value!.fetchQueries()
+  })
+}
+</script>
+
 <template>
   <ViewBase
     :queries="queries"
     @queries-response="onQueriesResponse"
-    ref="view"
+    ref="viewElem"
     skeleton="CardFormSkeleton"
   >
     <!-- PORTS -->
@@ -114,178 +274,6 @@
     </YCard>
   </ViewBase>
 </template>
-
-<script>
-import { useVuelidate } from '@vuelidate/core'
-
-import api from '@/api'
-import { useAutoModal } from '@/composables/useAutoModal'
-import { required, integer, between } from '@/helpers/validators'
-
-export default {
-  name: 'ToolFirewall',
-
-  setup() {
-    return {
-      v$: useVuelidate(),
-      modalConfirm: useAutoModal(),
-    }
-  },
-
-  data() {
-    return {
-      queries: [['GET', '/firewall?raw']],
-      serverError: '',
-
-      // Ports tables data
-      fields: [
-        { key: 'port', label: this.$t('port') },
-        { key: 'ipv4', label: this.$t('ipv4') },
-        { key: 'ipv6', label: this.$t('ipv6') },
-        { key: 'uPnP', label: this.$t('upnp') },
-      ],
-      protocols: undefined,
-      portToToggle: undefined,
-
-      // Ports form data
-      actionChoices: [
-        { value: 'allow', text: this.$t('open') },
-        { value: 'disallow', text: this.$t('close') },
-      ],
-      connectionChoices: [
-        { value: 'ipv4', text: this.$t('ipv4') },
-        { value: 'ipv6', text: this.$t('ipv6') },
-      ],
-      protocolChoices: [
-        { value: 'TCP', text: this.$t('tcp') },
-        { value: 'UDP', text: this.$t('udp') },
-        { value: 'Both', text: this.$t('both') },
-      ],
-      form: {
-        action: 'allow',
-        port: undefined,
-        connection: 'ipv4',
-        protocol: 'TCP',
-      },
-
-      // uPnP
-      upnpEnabled: undefined,
-      upnpError: '',
-    }
-  },
-
-  validations: {
-    form: {
-      port: { number: required, integer, between: between(0, 65535) },
-    },
-  },
-
-  methods: {
-    onQueriesResponse(data) {
-      const ports = Object.values(data).reduce(
-        (ports, protocols) => {
-          for (const type of ['TCP', 'UDP']) {
-            for (const port of protocols[type]) {
-              ports[type].add(port)
-            }
-          }
-          return ports
-        },
-        { TCP: new Set(), UDP: new Set() },
-      )
-
-      const tables = {
-        TCP: [],
-        UDP: [],
-      }
-      for (const protocol of ['TCP', 'UDP']) {
-        for (const port of ports[protocol]) {
-          const row = { port }
-          for (const connection of ['ipv4', 'ipv6', 'uPnP']) {
-            row[connection] = data[connection][protocol].includes(port)
-          }
-          tables[protocol].push(row)
-        }
-        tables[protocol].sort((a, b) => (a.port < b.port ? -1 : 1))
-      }
-
-      this.protocols = tables
-      this.upnpEnabled = data.uPnP.enabled
-    },
-
-    async togglePort({ action, port, protocol, connection }) {
-      const confirmed = await this.modalConfirm(
-        this.$t('confirm_firewall_' + action, {
-          port,
-          protocol,
-          connection,
-        }),
-      )
-      if (!confirmed) {
-        return Promise.resolve(confirmed)
-      }
-
-      const actionTrad = this.$t({ allow: 'open', disallow: 'close' }[action])
-      return api
-        .put(
-          `firewall/${protocol}/${action}/${port}?${connection}_only`,
-          {},
-          {
-            key: 'firewall.ports',
-            protocol,
-            action: actionTrad,
-            port,
-            connection,
-          },
-          { wait: false },
-        )
-        .then(() => confirmed)
-    },
-
-    async toggleUpnp(value) {
-      const action = this.upnpEnabled ? 'disable' : 'enable'
-      const confirmed = await this.modalConfirm(
-        this.$t('confirm_upnp_' + action),
-      )
-      if (!confirmed) return
-
-      api
-        .put(
-          'firewall/upnp/' + action,
-          {},
-          { key: 'firewall.upnp', action: this.$t(action) },
-        )
-        .then(() => {
-          // FIXME Couldn't test when it works.
-          this.$refs.view.fetchQueries()
-        })
-        .catch((err) => {
-          if (err.name !== 'APIBadRequestError') throw err
-          this.upnpError = err.message
-        })
-    },
-
-    onTablePortToggling(port, protocol, connection, index, value) {
-      this.protocols[protocol][index][connection] = value
-      const action = value ? 'allow' : 'disallow'
-      this.togglePort({ action, port, protocol, connection }).then(
-        (toggled) => {
-          // Revert change on cancel
-          if (!toggled) {
-            this.protocols[protocol][index][connection] = !value
-          }
-        },
-      )
-    },
-
-    onFormPortToggling(e) {
-      this.togglePort(this.form).then((toggled) => {
-        if (toggled) this.$refs.view.fetchQueries()
-      })
-    },
-  },
-}
-</script>
 
 <style lang="scss" scoped>
 :deep() {

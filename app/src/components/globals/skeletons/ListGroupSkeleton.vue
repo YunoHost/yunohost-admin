@@ -1,3 +1,9 @@
+<script setup lang="ts">
+import { randint } from '@/helpers/commons'
+
+withDefaults(defineProps<{ itemCount: number }>(), { itemCount: 5 })
+</script>
+
 <template>
   <BListGroup>
     <BListGroupItem v-for="count in itemCount" :key="count">
@@ -6,17 +12,3 @@
     </BListGroupItem>
   </BListGroup>
 </template>
-
-<script>
-import { randint } from '@/helpers/commons'
-
-export default {
-  name: 'ListGroupSkeleton',
-
-  props: {
-    itemCount: { type: Number, default: 5 },
-  },
-
-  methods: { randint },
-}
-</script>

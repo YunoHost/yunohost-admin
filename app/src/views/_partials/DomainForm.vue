@@ -1,3 +1,148 @@
+<script setup lang="ts">
+import { useVuelidate } from '@vuelidate/core'
+import { computed, reactive, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
+
+import AdressInputSelect from '@/components/AdressInputSelect.vue'
+import {
+  domain,
+  dynDomain,
+  minLength,
+  required,
+  sameAs,
+} from '@/helpers/validators'
+import { formatFormData } from '@/helpers/yunohostArguments'
+import { useStoreGetters } from '@/store/utils'
+
+defineOptions({
+  inheritAttrs: false,
+})
+
+withDefaults(
+  defineProps<{
+    title: string
+    submitText?: string | null
+    serverError?: string
+  }>(),
+  {
+    submitText: null,
+    serverError: '',
+  },
+)
+const emit = defineEmits(['submit'])
+
+const { t } = useI18n()
+
+const { domains } = useStoreGetters()
+const dynDomains = ['nohost.me', 'noho.st', 'ynh.fr']
+
+const dynDnsForbiden = computed(() => {
+  if (!domains.value) return false
+  return domains.value.some((domain) => {
+    return dynDomains.some((dynDomain) => domain.includes(dynDomain))
+  })
+})
+
+const selected = ref(dynDnsForbiden.value ? 'domain' : '')
+const form = reactive({
+  domain: '',
+  dynDomain: { localPart: '', separator: '.', domain: 'nohost.me' },
+  dynDomainPassword: '',
+  dynDomainPasswordConfirmation: '',
+  localDomain: { localPart: '', separator: '.', domain: 'local' },
+})
+
+const rules = computed(() => ({
+  selected: { required },
+  form: ['domain', 'localDomain'].includes(selected.value)
+    ? {
+        [selected.value]:
+          selected.value === 'domain'
+            ? { required, domain }
+            : { localPart: { required, dynDomain } },
+      }
+    : {
+        dynDomain: { localPart: { required, dynDomain } },
+        dynDomainPassword: { passwordLenght: minLength(8) },
+        dynDomainPasswordConfirmation: {
+          passwordMatch: sameAs(form.dynDomainPassword),
+        },
+      },
+}))
+const v$ = useVuelidate(rules, { selected, form })
+
+const fields = {
+  domain: {
+    label: t('domain_name'),
+    props: {
+      id: 'domain',
+      placeholder: t('placeholder.domain'),
+    },
+  },
+
+  dynDomain: {
+    label: t('domain_name'),
+    props: {
+      id: 'dyn-domain',
+      placeholder: t('placeholder.domain').split('.')[0],
+      type: 'domain',
+      choices: dynDomains,
+    },
+  },
+
+  dynDomainPassword: {
+    label: t('domain.add.dyn_dns_password'),
+    description: t('domain.add.dyn_dns_password_desc'),
+    props: {
+      id: 'dyn-dns-password',
+      placeholder: '••••••••',
+      type: 'password',
+    },
+  },
+
+  dynDomainPasswordConfirmation: {
+    label: t('password_confirmation'),
+    props: {
+      id: 'dyn-dns-password-confirmation',
+      placeholder: '••••••••',
+      type: 'password',
+    },
+  },
+
+  localDomain: {
+    label: t('domain_name'),
+    props: {
+      id: 'dyn-domain',
+      placeholder: t('placeholder.domain').split('.')[0],
+      type: 'domain',
+      choices: ['local', 'test'],
+    },
+  },
+}
+
+const domainIsVisible = computed(() => {
+  return selected.value === 'domain'
+})
+
+const dynDomainIsVisible = computed(() => {
+  return selected.value === 'dynDomain'
+})
+
+const localDomainIsVisible = computed(() => {
+  return selected.value === 'localDomain'
+})
+
+async function onSubmit() {
+  const domainType = selected.value
+  const data = await formatFormData({
+    domain: form[domainType],
+    dyndns_recovery_password:
+      domainType === 'dynDomain' ? form.dynDomainPassword : '',
+  })
+  emit('submit', data)
+}
+</script>
+
 <template>
   <CardForm
     :title="title"
@@ -32,7 +177,7 @@
       <FormField
         v-bind="fields.domain"
         v-model="form.domain"
-        :validation="v$.form.domain"
+        :validation="v$.domain"
         class="mt-3"
       />
     </BCollapse>
@@ -58,7 +203,7 @@
 
       <FormField
         v-bind="fields.dynDomain"
-        :validation="v$.form.dynDomain"
+        :validation="v$.dynDomain"
         class="mt-3"
       >
         <template #default="{ self }">
@@ -68,13 +213,13 @@
 
       <FormField
         v-bind="fields.dynDomainPassword"
-        :validation="v$.form.dynDomainPassword"
+        :validation="v$.dynDomainPassword"
         v-model="form.dynDomainPassword"
       />
 
       <FormField
         v-bind="fields.dynDomainPasswordConfirmation"
-        :validation="v$.form.dynDomainPasswordConfirmation"
+        :validation="v$.dynDomainPasswordConfirmation"
         v-model="form.dynDomainPasswordConfirmation"
       />
     </BCollapse>
@@ -103,7 +248,7 @@
 
       <FormField
         v-bind="fields.localDomain"
-        :validation="v$.form.localDomain"
+        :validation="v$.localDomain"
         class="mt-3"
       >
         <template #default="{ self }">
@@ -113,165 +258,3 @@
     </BCollapse>
   </CardForm>
 </template>
-
-<script>
-import { mapGetters } from 'vuex'
-import { useVuelidate } from '@vuelidate/core'
-
-import AdressInputSelect from '@/components/AdressInputSelect.vue'
-import { formatFormData } from '@/helpers/yunohostArguments'
-import {
-  required,
-  domain,
-  dynDomain,
-  minLength,
-  sameAs,
-} from '@/helpers/validators'
-
-export default {
-  name: 'DomainForm',
-
-  inheritAttrs: false,
-
-  props: {
-    title: { type: String, required: true },
-    submitText: { type: String, default: null },
-    serverError: { type: String, default: '' },
-  },
-
-  setup() {
-    return {
-      v$: useVuelidate(),
-    }
-  },
-
-  data() {
-    return {
-      selected: '',
-
-      form: {
-        domain: '',
-        dynDomain: { localPart: '', separator: '.', domain: 'nohost.me' },
-        dynDomainPassword: '',
-        dynDomainPasswordConfirmation: '',
-        localDomain: { localPart: '', separator: '.', domain: 'local' },
-      },
-
-      fields: {
-        domain: {
-          label: this.$t('domain_name'),
-          props: {
-            id: 'domain',
-            placeholder: this.$t('placeholder.domain'),
-          },
-        },
-
-        dynDomain: {
-          label: this.$t('domain_name'),
-          props: {
-            id: 'dyn-domain',
-            placeholder: this.$t('placeholder.domain').split('.')[0],
-            type: 'domain',
-            choices: ['nohost.me', 'noho.st', 'ynh.fr'],
-          },
-        },
-
-        dynDomainPassword: {
-          label: this.$t('domain.add.dyn_dns_password'),
-          description: this.$t('domain.add.dyn_dns_password_desc'),
-          props: {
-            id: 'dyn-dns-password',
-            placeholder: '••••••••',
-            type: 'password',
-          },
-        },
-
-        dynDomainPasswordConfirmation: {
-          label: this.$t('password_confirmation'),
-          props: {
-            id: 'dyn-dns-password-confirmation',
-            placeholder: '••••••••',
-            type: 'password',
-          },
-        },
-
-        localDomain: {
-          label: this.$t('domain_name'),
-          props: {
-            id: 'dyn-domain',
-            placeholder: this.$t('placeholder.domain').split('.')[0],
-            type: 'domain',
-            choices: ['local', 'test'],
-          },
-        },
-      },
-    }
-  },
-
-  computed: {
-    ...mapGetters(['domains']),
-
-    dynDnsForbiden() {
-      if (!this.domains) return false
-      const dynDomains = this.fields.dynDomain.props.choices
-      return this.domains.some((domain) => {
-        return dynDomains.some((dynDomain) => domain.includes(dynDomain))
-      })
-    },
-
-    domainIsVisible() {
-      return this.selected === 'domain'
-    },
-
-    dynDomainIsVisible() {
-      return this.selected === 'dynDomain'
-    },
-
-    localDomainIsVisible() {
-      return this.selected === 'localDomain'
-    },
-  },
-
-  validations() {
-    return {
-      selected: { required },
-      form: ['domain', 'localDomain'].includes(this.selected)
-        ? {
-            [this.selected]:
-              this.selected === 'domain'
-                ? { required, domain }
-                : { localPart: { required, dynDomain } },
-          }
-        : {
-            dynDomain: { localPart: { required, dynDomain } },
-            dynDomainPassword: { passwordLenght: minLength(8) },
-            dynDomainPasswordConfirmation: {
-              passwordMatch: sameAs('dynDomainPassword'),
-            },
-          },
-    }
-  },
-
-  methods: {
-    async onSubmit() {
-      const domainType = this.selected
-      const form = await formatFormData({
-        domain: this.form[domainType],
-        dyndns_recovery_password:
-          domainType === 'dynDomain' ? this.form.dynDomainPassword : '',
-      })
-      this.$emit('submit', form)
-    },
-  },
-
-  created() {
-    if (this.dynDnsForbiden) {
-      this.selected = 'domain'
-    }
-  },
-
-  components: {
-    AdressInputSelect,
-  },
-}
-</script>

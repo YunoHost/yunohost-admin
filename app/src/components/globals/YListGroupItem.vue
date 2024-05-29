@@ -1,7 +1,46 @@
+<script setup lang="ts">
+import type { Breakpoint, ColorVariant } from 'bootstrap-vue-next'
+import { computed } from 'vue'
+
+import { DEFAULT_STATUS_ICON } from '@/helpers/yunohostArguments'
+
+const props = withDefaults(
+  defineProps<{
+    variant?: ColorVariant
+    icon?: string
+    noIcon?: boolean
+    noStatus?: boolean
+    size?: Breakpoint
+    faded?: boolean
+  }>(),
+  {
+    variant: 'light',
+    icon: undefined,
+    noIcon: false,
+    noStatus: false,
+    size: undefined,
+    faded: false,
+  },
+)
+
+const icon = computed(() => {
+  if (props.noIcon) return
+  return props.icon || DEFAULT_STATUS_ICON[props.variant]
+})
+const class_ = computed(() => {
+  const baseClass = 'yuno-list-group-item-'
+  return [
+    baseClass + props.size,
+    baseClass + props.variant,
+    { [baseClass + 'faded']: props.faded },
+  ]
+})
+</script>
+
 <template>
-  <BListGroupItem v-bind="$attrs" class="yuno-list-group-item" :class="_class">
+  <BListGroupItem v-bind="$attrs" class="yuno-list-group-item" :class="class_">
     <div v-if="!noStatus" class="yuno-list-group-item-status">
-      <YIcon v-if="_icon" :iname="_icon" :class="['icon-' + variant]" />
+      <YIcon v-if="icon" :iname="icon" :class="['icon-' + variant]" />
     </div>
 
     <div class="yuno-list-group-item-content">
@@ -9,38 +48,6 @@
     </div>
   </BListGroupItem>
 </template>
-
-<script>
-import { DEFAULT_STATUS_ICON } from '@/helpers/yunohostArguments'
-
-export default {
-  name: 'YListGroupItem',
-
-  props: {
-    variant: { type: String, default: 'white' },
-    icon: { type: String, default: null },
-    noIcon: { type: Boolean, default: false },
-    noStatus: { type: Boolean, default: false },
-    size: { type: String, default: 'md' },
-    faded: { type: Boolean, default: false },
-  },
-
-  computed: {
-    _icon() {
-      return this.noIcon ? null : this.icon || DEFAULT_STATUS_ICON[this.variant]
-    },
-
-    _class() {
-      const baseClass = 'yuno-list-group-item-'
-      return [
-        baseClass + this.size,
-        baseClass + this.variant,
-        { [baseClass + 'faded']: this.faded },
-      ]
-    },
-  },
-}
-</script>
 
 <style lang="scss" scoped>
 .yuno-list-group-item {

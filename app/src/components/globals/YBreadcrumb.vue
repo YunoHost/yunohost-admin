@@ -1,3 +1,16 @@
+<script setup lang="ts">
+import { useStoreGetters } from '@/store/utils'
+
+const { breadcrumb } = useStoreGetters()
+</script>
+
+<style lang="scss" scoped>
+.breadcrumb {
+  border: none;
+  background-color: transparent;
+}
+</style>
+
 <template>
   <BBreadcrumb v-if="breadcrumb.length">
     <BBreadcrumbItem to="/">
@@ -15,22 +28,3 @@
     </BBreadcrumbItem>
   </BBreadcrumb>
 </template>
-
-<script>
-import { mapGetters } from 'vuex'
-
-export default {
-  name: 'YBreadcrumb',
-
-  computed: {
-    ...mapGetters(['breadcrumb']),
-  },
-}
-</script>
-
-<style lang="scss" scoped>
-.breadcrumb {
-  border: none;
-  background-color: transparent;
-}
-</style>

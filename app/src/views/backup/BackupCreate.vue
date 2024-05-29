@@ -1,3 +1,83 @@
+<script setup lang="ts">
+import { ref } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { useRouter } from 'vue-router'
+
+import api from '@/api'
+
+const props = defineProps<{
+  id: string
+}>()
+
+const { t } = useI18n()
+const router = useRouter()
+
+const queries = [
+  ['GET', 'hooks/backup'],
+  ['GET', 'apps?with_backup'],
+]
+const selected = ref<string[]>([])
+const system = ref()
+const apps = ref()
+
+function formatHooks(hooks) {
+  const data = {}
+  hooks.forEach((hook) => {
+    const groupId = hook.startsWith('conf_')
+      ? 'adminjs_group_configuration'
+      : hook
+    if (groupId in data) {
+      data[groupId].value.push(hook)
+      data[groupId].description += ', ' + t('hook_' + hook)
+    } else {
+      data[groupId] = {
+        name: t('hook_' + groupId),
+        value: [hook],
+        description: t(groupId === hook ? `hook_${hook}_desc` : 'hook_' + hook),
+      }
+    }
+  })
+  return data
+}
+
+function onQueriesResponse({ hooks }, { apps }) {
+  system.value = formatHooks(hooks)
+  // transform app array into literal object to match hooks data structure
+  apps.value = apps.reduce((obj, app) => {
+    obj[app.id] = app
+    return obj
+  }, {})
+  selected.value = [...Object.keys(system.value), ...Object.keys(apps.value)]
+}
+
+function toggleSelected(select: boolean, type: 'system' | 'apps') {
+  const keys = Object.keys((type === 'system' ? system : apps).value)
+  if (select) {
+    const toSelect = keys.filter((item) => !selected.value.includes(item))
+    selected.value = [...selected.value, ...toSelect]
+  } else {
+    selected.value = selected.value.filter(
+      (selected) => !keys.includes(selected),
+    )
+  }
+}
+
+function createBackup() {
+  const data = { apps: [], system: [] }
+  for (const item of selected.value) {
+    if (item in system.value) {
+      data.system = [...data.system, ...system.value[item].value]
+    } else {
+      data.apps.push(item)
+    }
+  }
+
+  api.post('backups', data, 'backups.create').then(() => {
+    router.push({ name: 'backup-list', params: { id: props.id } })
+  })
+}
+</script>
+
 <template>
   <ViewBase
     :queries="queries"
@@ -122,91 +202,3 @@
     </YCard>
   </ViewBase>
 </template>
-
-<script>
-import api from '@/api'
-
-export default {
-  name: 'BackupCreate',
-
-  props: {
-    id: { type: String, required: true },
-  },
-
-  data() {
-    return {
-      queries: [
-        ['GET', 'hooks/backup'],
-        ['GET', 'apps?with_backup'],
-      ],
-      selected: [],
-      // api data
-      system: undefined,
-      apps: undefined,
-    }
-  },
-
-  methods: {
-    formatHooks(hooks) {
-      const data = {}
-      hooks.forEach((hook) => {
-        const groupId = hook.startsWith('conf_')
-          ? 'adminjs_group_configuration'
-          : hook
-        if (groupId in data) {
-          data[groupId].value.push(hook)
-          data[groupId].description += ', ' + this.$t('hook_' + hook)
-        } else {
-          data[groupId] = {
-            name: this.$t('hook_' + groupId),
-            value: [hook],
-            description: this.$t(
-              groupId === hook ? `hook_${hook}_desc` : 'hook_' + hook,
-            ),
-          }
-        }
-      })
-      return data
-    },
-
-    onQueriesResponse({ hooks }, { apps }) {
-      this.system = this.formatHooks(hooks)
-      // transform app array into literal object to match hooks data structure
-      this.apps = apps.reduce((obj, app) => {
-        obj[app.id] = app
-        return obj
-      }, {})
-      this.selected = [...Object.keys(this.system), ...Object.keys(this.apps)]
-    },
-
-    toggleSelected(select, type) {
-      if (select) {
-        const toSelect = Object.keys(this[type]).filter(
-          (item) => !this.selected.includes(item),
-        )
-        this.selected = [...this.selected, ...toSelect]
-      } else {
-        const toUnselect = Object.keys(this[type])
-        this.selected = this.selected.filter(
-          (selected) => !toUnselect.includes(selected),
-        )
-      }
-    },
-
-    createBackup() {
-      const data = { apps: [], system: [] }
-      for (const item of this.selected) {
-        if (item in this.system) {
-          data.system = [...data.system, ...this.system[item].value]
-        } else {
-          data.apps.push(item)
-        }
-      }
-
-      api.post('backups', data, 'backups.create').then(() => {
-        this.$router.push({ name: 'backup-list', params: { id: this.id } })
-      })
-    },
-  },
-}
-</script>

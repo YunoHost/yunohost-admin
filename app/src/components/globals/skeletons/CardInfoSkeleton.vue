@@ -1,3 +1,9 @@
+<script setup lang="ts">
+import { randint } from '@/helpers/commons'
+
+withDefaults(defineProps<{ itemCount: number }>(), { itemCount: 5 })
+</script>
+
 <template>
   <BCard>
     <template #header>
@@ -14,17 +20,3 @@
     </BRow>
   </BCard>
 </template>
-
-<script>
-import { randint } from '@/helpers/commons'
-
-export default {
-  name: 'CardInfoSkeleton',
-
-  props: {
-    itemCount: { type: Number, default: 5 },
-  },
-
-  methods: { randint },
-}
-</script>

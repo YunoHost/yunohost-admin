@@ -1,6 +1,72 @@
+<script setup lang="ts">
+import type { Component } from 'vue'
+import { computed, ref } from 'vue'
+
+import api from '@/api'
+
+// FIXME type queries
+const props = withDefaults(
+  defineProps<{
+    queries?: any[]
+    queriesWait?: boolean
+    skeleton?: string | Component
+    loading?: boolean
+  }>(),
+  {
+    queries: undefined,
+    queriesWait: false,
+    skeleton: undefined,
+    loading: undefined,
+  },
+)
+
+const slots = defineSlots<{
+  'top-bar-group-left': any
+  'top-bar-group-right': any
+  'top-bar': any
+  top(props: { loading: boolean }): any
+  default(props: { loading: boolean }): any
+  bot(props: { loading: boolean }): any
+  skeleton: any
+}>()
+
+const emit = defineEmits<{
+  'queries-response': any[]
+}>()
+
+defineExpose({ fetchQueries })
+
+const fallbackLoading = ref(
+  props.loading === undefined && props.queries !== undefined ? true : null,
+)
+
+const isLoading = computed(() => {
+  if (props.loading !== undefined) return props.loading
+  return fallbackLoading.value
+})
+
+function fetchQueries({ triggerLoading = false } = {}) {
+  if (triggerLoading) {
+    fallbackLoading.value = true
+  }
+
+  return api
+    .fetchAll(props.queries, { wait: props.queriesWait, initial: true })
+    .then((responses) => {
+      emit('queries-response', ...responses)
+      fallbackLoading.value = false
+      return responses
+    })
+}
+
+if (props.queries) {
+  fetchQueries()
+}
+</script>
+
 <template>
   <div>
-    <TopBar v-if="hasTopBar">
+    <TopBar v-if="slots['top-bar-group-left'] || slots['top-bar-group-right']">
       <template #group-left>
         <slot name="top-bar-group-left" />
       </template>
@@ -28,58 +94,3 @@
     <slot name="bot" v-bind="{ loading: isLoading }" />
   </div>
 </template>
-
-<script>
-import api from '@/api'
-
-export default {
-  name: 'ViewBase',
-
-  props: {
-    queries: { type: Array, default: null },
-    queriesWait: { type: Boolean, default: false },
-    skeleton: { type: [String, Array], default: null },
-    // Optional prop to take control of the loading value
-    loading: { type: Boolean, default: null },
-  },
-
-  data() {
-    return {
-      fallback_loading:
-        this.loading === null && this.queries !== null ? true : null,
-    }
-  },
-
-  computed: {
-    isLoading() {
-      if (this.loading !== null) return this.loading
-      return this.fallback_loading
-    },
-
-    hasTopBar() {
-      return ['top-bar-group-left', 'top-bar-group-right'].some(
-        (slotName) => slotName in this.$slots,
-      )
-    },
-  },
-
-  methods: {
-    fetchQueries({ triggerLoading = false } = {}) {
-      if (triggerLoading) {
-        this.fallback_loading = true
-      }
-
-      api
-        .fetchAll(this.queries, { wait: this.queriesWait, initial: true })
-        .then((responses) => {
-          this.$emit('queries-response', ...responses)
-          this.fallback_loading = false
-        })
-    },
-  },
-
-  created() {
-    if (this.queries) this.fetchQueries()
-  },
-}
-</script>

@@ -1,8 +1,237 @@
+<script setup lang="ts">
+import { useVuelidate } from '@vuelidate/core'
+import { computed, nextTick, reactive, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { useRouter } from 'vue-router'
+
+import api from '@/api'
+import AdressInputSelect from '@/components/AdressInputSelect.vue'
+import type ViewBase from '@/components/globals/ViewBase.vue'
+import { arrayDiff } from '@/helpers/commons'
+import {
+  emailForward,
+  emailLocalPart,
+  helpers,
+  integer,
+  minLength,
+  minValue,
+  name as nameValidator,
+  required,
+  sameAs,
+} from '@/helpers/validators'
+import {
+  adressToFormValue,
+  formatFormData,
+  sizeToM,
+} from '@/helpers/yunohostArguments'
+import { useStoreGetters } from '@/store/utils'
+
+const props = defineProps<{
+  name: string
+}>()
+
+const { t } = useI18n()
+const router = useRouter()
+
+const viewElem = ref<InstanceType<typeof ViewBase> | null>(null)
+
+const queries = [
+  ['GET', { uri: 'users', param: props.name, storeKey: 'users_details' }],
+  ['GET', { uri: 'domains' }],
+]
+const { user, domainsAsChoices, mainDomain } = useStoreGetters()
+
+const fields = {
+  username: {
+    label: t('user_username'),
+    modelValue: props.name,
+    props: { id: 'username', disabled: true },
+  },
+
+  fullname: {
+    label: t('user_fullname'),
+    props: {
+      id: 'fullname',
+      placeholder: t('placeholder.fullname'),
+    },
+  },
+
+  mail: {
+    label: t('user_email'),
+    props: { id: 'mail', choices: domainsAsChoices },
+  },
+
+  mailbox_quota: {
+    label: t('user_mailbox_quota'),
+    description: t('mailbox_quota_description'),
+    example: t('mailbox_quota_example'),
+    props: {
+      id: 'mailbox-quota',
+      placeholder: t('mailbox_quota_placeholder'),
+    },
+  },
+
+  mail_aliases: {
+    props: {
+      placeholder: t('placeholder.username'),
+      choices: domainsAsChoices,
+    },
+  },
+
+  mail_forward: {
+    props: {
+      placeholder: t('user_new_forward'),
+      type: 'email',
+    },
+  },
+
+  change_password: {
+    label: t('password'),
+    description: t('good_practices_about_user_password'),
+    descriptionVariant: 'warning',
+    props: {
+      id: 'change_password',
+      type: 'password',
+      placeholder: '••••••••',
+      autocomplete: 'new-password',
+    },
+  },
+
+  confirmation: {
+    label: t('password_confirmation'),
+    props: {
+      id: 'confirmation',
+      type: 'password',
+      placeholder: '••••••••',
+      autocomplete: 'new-password',
+    },
+  },
+}
+const form = reactive({
+  fullname: '',
+  mail: { localPart: '', separator: '@', domain: '' },
+  mailbox_quota: '',
+  mail_aliases: [],
+  mail_forward: [],
+  change_password: '',
+  confirmation: '',
+})
+const rules = computed(() => ({
+  fullname: { required, nameValidator },
+  mail: {
+    localPart: { required, email: emailLocalPart },
+  },
+  mailbox_quota: { integer, minValue: minValue(0) },
+  mail_aliases: {
+    $each: helpers.forEach({
+      localPart: { required, email: emailLocalPart },
+    }),
+  },
+  mail_forward: {
+    $each: helpers.forEach({
+      mail: { required, emailForward },
+    }),
+  },
+  change_password: { passwordLenght: minLength(8) },
+  confirmation: { passwordMatch: sameAs(form.change_password) },
+}))
+const v$ = useVuelidate(rules, form)
+const serverError = ref('')
+
+function onQueriesResponse(user_) {
+  form.fullname = user_.fullname
+  form.mail = adressToFormValue(user_.mail)
+  if (user_['mail-aliases']) {
+    form.mail_aliases = user_['mail-aliases'].map((mail) =>
+      adressToFormValue(mail),
+    )
+  }
+  if (user_['mail-forward']) {
+    form.mail_forward = user_['mail-forward'].map((mail) => ({ mail })) // Copy value
+  }
+  // mailbox-quota could be 'No quota' or 'Pas de quota'...
+  if (parseInt(user_['mailbox-quota'].limit) > 0) {
+    form.mailbox_quota = sizeToM(user_['mailbox-quota'].limit)
+  } else {
+    form.mailbox_quota = ''
+  }
+}
+
+async function onSubmit() {
+  const formData = await formatFormData(form, { flatten: true })
+  // FIXME not sure computed can be executed?
+  const user_ = user.value(props.name)
+  const data = {}
+  if (!Object.prototype.hasOwnProperty.call(formData, 'mailbox_quota')) {
+    formData.mailbox_quota = ''
+  }
+
+  formData.mail_forward = formData.mail_forward?.map((v) => v.mail)
+
+  for (const key of ['mail_aliases', 'mail_forward']) {
+    const dashedKey = key.replace('_', '-')
+    const newKey = key.replace('_', '').replace('es', '')
+    const addDiff = arrayDiff(formData[key], user_[dashedKey])
+    const rmDiff = arrayDiff(user_[dashedKey], formData[key])
+    if (addDiff.length) data['add_' + newKey] = addDiff
+    if (rmDiff.length) data['remove_' + newKey] = rmDiff
+  }
+
+  for (const key in formData) {
+    if (key === 'mailbox_quota') {
+      const quota =
+        parseInt(formData[key]) > 0 ? formData[key] + 'M' : 'No quota'
+      if (parseInt(quota) !== parseInt(user_['mailbox-quota'].limit)) {
+        data[key] = quota === 'No quota' ? '0' : quota
+      }
+    } else if (!key.includes('mail_') && formData[key] !== user_[key]) {
+      data[key] = formData[key]
+    }
+  }
+
+  if (Object.keys(data).length === 0) {
+    serverError.value = t('error_modify_something')
+    return
+  }
+
+  api
+    .put({ uri: 'users', param: props.name, storeKey: 'users_details' }, data, {
+      key: 'users.update',
+      name: props.name,
+    })
+    .then(() => {
+      router.push({ name: 'user-info', param: { name: props.name } })
+    })
+    .catch((err) => {
+      if (err.name !== 'APIBadRequestError') throw err
+      serverError.value = err.message
+    })
+}
+
+function addEmailField(type: 'aliases' | 'forward') {
+  form['mail_' + type].push(
+    type === 'aliases'
+      ? { localPart: '', separator: '@', domain: mainDomain.value }
+      : { mail: '' },
+  )
+  // Focus last input after rendering update
+  nextTick(() => {
+    const inputs = viewElem.value!.$el.querySelectorAll(`#mail-${type} input`)
+    inputs[inputs.length - 1].focus()
+  })
+}
+
+function removeEmailField(type: 'aliases' | 'forward', index: number) {
+  form['mail_' + type].splice(index, 1)
+}
+</script>
+
 <template>
   <ViewBase
     :queries="queries"
     @queries-response="onQueriesResponse"
     skeleton="CardFormSkeleton"
+    ref="viewElem"
   >
     <CardForm
       :title="$t('user_username_edit', { name })"
@@ -107,254 +336,6 @@
     </CardForm>
   </ViewBase>
 </template>
-
-<script>
-import { mapGetters } from 'vuex'
-import { useVuelidate } from '@vuelidate/core'
-
-import api from '@/api'
-import { arrayDiff } from '@/helpers/commons'
-import {
-  sizeToM,
-  adressToFormValue,
-  formatFormData,
-} from '@/helpers/yunohostArguments'
-import {
-  helpers,
-  name,
-  required,
-  minLength,
-  emailLocalPart,
-  sameAs,
-  integer,
-  minValue,
-  emailForward,
-} from '@/helpers/validators'
-
-import AdressInputSelect from '@/components/AdressInputSelect.vue'
-
-export default {
-  name: 'UserEdit',
-
-  props: {
-    name: { type: String, required: true },
-  },
-
-  setup() {
-    return {
-      v$: useVuelidate(),
-    }
-  },
-
-  data() {
-    return {
-      queries: [
-        ['GET', { uri: 'users', param: this.name, storeKey: 'users_details' }],
-        ['GET', { uri: 'domains' }],
-      ],
-
-      form: {
-        fullname: '',
-        mail: { localPart: '', separator: '@', domain: '' },
-        mailbox_quota: '',
-        mail_aliases: [],
-        mail_forward: [],
-        change_password: '',
-        confirmation: '',
-      },
-
-      serverError: '',
-
-      fields: {
-        username: {
-          label: this.$t('user_username'),
-          modelValue: this.name,
-          props: { id: 'username', disabled: true },
-        },
-
-        fullname: {
-          label: this.$t('user_fullname'),
-          props: {
-            id: 'fullname',
-            placeholder: this.$t('placeholder.fullname'),
-          },
-        },
-
-        mail: {
-          label: this.$t('user_email'),
-          props: { id: 'mail', choices: [] },
-        },
-
-        mailbox_quota: {
-          label: this.$t('user_mailbox_quota'),
-          description: this.$t('mailbox_quota_description'),
-          example: this.$t('mailbox_quota_example'),
-          props: {
-            id: 'mailbox-quota',
-            placeholder: this.$t('mailbox_quota_placeholder'),
-          },
-        },
-
-        mail_aliases: {
-          props: {
-            placeholder: this.$t('placeholder.username'),
-            choices: [],
-          },
-        },
-
-        mail_forward: {
-          props: {
-            placeholder: this.$t('user_new_forward'),
-            type: 'email',
-          },
-        },
-
-        change_password: {
-          label: this.$t('password'),
-          description: this.$t('good_practices_about_user_password'),
-          descriptionVariant: 'warning',
-          props: {
-            id: 'change_password',
-            type: 'password',
-            placeholder: '••••••••',
-            autocomplete: 'new-password',
-          },
-        },
-
-        confirmation: {
-          label: this.$t('password_confirmation'),
-          props: {
-            id: 'confirmation',
-            type: 'password',
-            placeholder: '••••••••',
-            autocomplete: 'new-password',
-          },
-        },
-      },
-    }
-  },
-
-  computed: mapGetters(['user', 'domainsAsChoices', 'mainDomain']),
-
-  validations() {
-    return {
-      form: {
-        fullname: { required, name },
-        mail: {
-          localPart: { required, email: emailLocalPart },
-        },
-        mailbox_quota: { integer, minValue: minValue(0) },
-        mail_aliases: {
-          $each: helpers.forEach({
-            localPart: { required, email: emailLocalPart },
-          }),
-        },
-        mail_forward: {
-          $each: helpers.forEach({
-            mail: { required, emailForward },
-          }),
-        },
-        change_password: { passwordLenght: minLength(8) },
-        confirmation: { passwordMatch: sameAs(this.form.change_password) },
-      },
-    }
-  },
-
-  methods: {
-    onQueriesResponse(user) {
-      this.fields.mail.props.choices = this.domainsAsChoices
-      this.fields.mail_aliases.props.choices = this.domainsAsChoices
-
-      this.form.fullname = user.fullname
-      this.form.mail = adressToFormValue(user.mail)
-      if (user['mail-aliases']) {
-        this.form.mail_aliases = user['mail-aliases'].map((mail) =>
-          adressToFormValue(mail),
-        )
-      }
-      if (user['mail-forward']) {
-        this.form.mail_forward = user['mail-forward'].map((mail) => ({ mail })) // Copy value
-      }
-      // mailbox-quota could be 'No quota' or 'Pas de quota'...
-      if (parseInt(user['mailbox-quota'].limit) > 0) {
-        this.form.mailbox_quota = sizeToM(user['mailbox-quota'].limit)
-      } else {
-        this.form.mailbox_quota = ''
-      }
-    },
-
-    async onSubmit() {
-      const formData = await formatFormData(this.form, { flatten: true })
-      const user = this.user(this.name)
-      const data = {}
-      if (!Object.prototype.hasOwnProperty.call(formData, 'mailbox_quota')) {
-        formData.mailbox_quota = ''
-      }
-
-      formData.mail_forward = formData.mail_forward?.map((v) => v.mail)
-
-      for (const key of ['mail_aliases', 'mail_forward']) {
-        const dashedKey = key.replace('_', '-')
-        const newKey = key.replace('_', '').replace('es', '')
-        const addDiff = arrayDiff(formData[key], user[dashedKey])
-        const rmDiff = arrayDiff(user[dashedKey], formData[key])
-        if (addDiff.length) data['add_' + newKey] = addDiff
-        if (rmDiff.length) data['remove_' + newKey] = rmDiff
-      }
-
-      for (const key in formData) {
-        if (key === 'mailbox_quota') {
-          const quota =
-            parseInt(formData[key]) > 0 ? formData[key] + 'M' : 'No quota'
-          if (parseInt(quota) !== parseInt(user['mailbox-quota'].limit)) {
-            data[key] = quota === 'No quota' ? '0' : quota
-          }
-        } else if (!key.includes('mail_') && formData[key] !== user[key]) {
-          data[key] = formData[key]
-        }
-      }
-
-      if (Object.keys(data).length === 0) {
-        this.serverError = this.$t('error_modify_something')
-        return
-      }
-
-      api
-        .put(
-          { uri: 'users', param: this.name, storeKey: 'users_details' },
-          data,
-          { key: 'users.update', name: this.name },
-        )
-        .then(() => {
-          this.$router.push({ name: 'user-info', param: { name: this.name } })
-        })
-        .catch((err) => {
-          if (err.name !== 'APIBadRequestError') throw err
-          this.serverError = err.message
-        })
-    },
-
-    addEmailField(type) {
-      this.form['mail_' + type].push(
-        type === 'aliases'
-          ? { localPart: '', separator: '@', domain: this.mainDomain }
-          : { mail: '' },
-      )
-      // Focus last input after rendering update
-      this.$nextTick(() => {
-        const inputs = this.$el.querySelectorAll(`#mail-${type} input`)
-        inputs[inputs.length - 1].focus()
-      })
-    },
-
-    removeEmailField(type, index) {
-      this.form['mail_' + type].splice(index, 1)
-    },
-  },
-
-  components: { AdressInputSelect },
-}
-</script>
 
 <style lang="scss" scoped>
 .mail-list {

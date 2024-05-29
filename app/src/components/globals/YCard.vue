@@ -1,5 +1,41 @@
+<script setup lang="ts">
+import type { Breakpoint } from 'bootstrap-vue-next'
+import { ref } from 'vue'
+
+const props = withDefaults(
+  defineProps<{
+    id?: string
+    title?: string
+    titleTag?: string
+    icon?: string
+    collapsable?: boolean
+    collapsed?: boolean
+    buttonUnbreak?: Breakpoint
+  }>(),
+  {
+    id: 'ynh-form',
+    title: undefined,
+    titleTag: 'h2',
+    icon: undefined,
+    collapsable: false,
+    collapsed: false,
+    buttonUnbreak: 'md',
+  },
+)
+
+const slots = defineSlots<{
+  header: any
+  'header-next': any
+  'header-buttons': any
+  default: any
+  buttons: any
+}>()
+
+const visible = ref(!props.collapsed)
+</script>
+
 <template>
-  <BCard v-bind="$attrs" :no-body="collapsable ? true : $attrs['no-body']">
+  <BCard :no-body="collapsable ? true : $attrs['no-body']">
     <template #header>
       <div class="w-100 d-flex align-items-center flex-wrap custom-header">
         <slot name="header">
@@ -10,7 +46,7 @@
         </slot>
 
         <div
-          v-if="hasButtons"
+          v-if="slots['header-buttons']"
           class="mt-2 w-100 custom-header-buttons"
           :class="{
             [`ms-${buttonUnbreak}-auto mt-${buttonUnbreak}-0 w-${buttonUnbreak}-auto`]:
@@ -48,39 +84,11 @@
       <slot name="default" />
     </template>
 
-    <template #footer v-if="'buttons' in $slots">
+    <template #footer v-if="slots['buttons']">
       <slot name="buttons" />
     </template>
   </BCard>
 </template>
-
-<script>
-export default {
-  name: 'YCard',
-
-  props: {
-    id: { type: String, default: 'ynh-form' },
-    title: { type: String, default: null },
-    titleTag: { type: String, default: 'h2' },
-    icon: { type: String, default: null },
-    collapsable: { type: Boolean, default: false },
-    collapsed: { type: Boolean, default: false },
-    buttonUnbreak: { type: String, default: 'md' },
-  },
-
-  data() {
-    return {
-      visible: !this.collapsed,
-    }
-  },
-
-  computed: {
-    hasButtons() {
-      return 'header-buttons' in this.$slots
-    },
-  },
-}
-</script>
 
 <style lang="scss" scoped>
 :deep(.card-header) {

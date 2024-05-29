@@ -1,3 +1,21 @@
+<script setup lang="ts">
+import type { CustomRoute } from '@/types/commons'
+
+defineOptions({
+  inheritAttrs: false,
+})
+
+defineProps<{
+  routes: CustomRoute[]
+}>()
+
+defineSlots<{
+  'tab-top': any
+  'tab-before': any
+  'tab-after': any
+}>()
+</script>
+
 <template>
   <BCard no-body>
     <BCardHeader header-tag="nav">
@@ -32,17 +50,3 @@
     </RouterView>
   </BCard>
 </template>
-
-<script>
-export default {
-  name: 'RoutableTabs',
-
-  // Thanks to `v-bind="$attrs"` and `inheritAttrs: false`, this component can forward
-  // arbitrary attributes (props) directly to its children.
-  inheritAttrs: false,
-
-  props: {
-    routes: { type: Array, required: true },
-  },
-}
-</script>

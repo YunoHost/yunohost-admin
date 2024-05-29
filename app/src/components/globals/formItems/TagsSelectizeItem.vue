@@ -1,9 +1,110 @@
+<script setup lang="ts">
+// FIXME addTag removeTag types
+import type { BDropdown, BFormInput } from 'bootstrap-vue-next'
+import { computed, ref } from 'vue'
+
+type TagUpdateArgs = {
+  action: 'add' | 'remove'
+  option: string
+  applyFn: (tag: string) => void
+}
+
+defineOptions({
+  inheritAttrs: false,
+})
+
+const props = withDefaults(
+  defineProps<{
+    modelValue: string[]
+    // FIXME typing
+    options: string[]
+    id: string
+    placeholder?: string
+    limit?: number
+    name?: string
+    itemsName: string
+    disabledItems?: string[]
+    auto?: boolean
+    noTags?: boolean
+    label?: string
+    tagIcon?: string
+  }>(),
+  {
+    placeholder: undefined,
+    limit: undefined,
+    name: undefined,
+    disabledItems: () => [],
+    auto: false,
+    noTags: false,
+    label: undefined,
+    tagIcon: undefined,
+  },
+)
+
+const emit = defineEmits<{
+  'update:modelValue': [value: string[]]
+  'tag-update': [value: TagUpdateArgs]
+}>()
+
+const search = ref('')
+const searchElem = ref<InstanceType<typeof BDropdown> | null>(null)
+const dropdownElem = ref<InstanceType<typeof BFormInput> | null>(null)
+
+const criteria = computed(() => {
+  return search.value.trim().toLowerCase()
+})
+
+const availableOptions = computed(() => {
+  const options = props.options.filter((opt) => {
+    return (
+      props.modelValue.indexOf(opt) === -1 && !props.disabledItems.includes(opt)
+    )
+  })
+  if (criteria.value) {
+    return options.filter(
+      (opt) => opt.toLowerCase().indexOf(criteria.value) > -1,
+    )
+  }
+  return options
+})
+
+const searchState = computed(() => {
+  return criteria.value && availableOptions.value.length === 0 ? false : null
+})
+
+function onAddTag(option: string, applyFn: TagUpdateArgs['applyFn']) {
+  emit('tag-update', { action: 'add', option, applyFn })
+  search.value = ''
+  if (props.auto) {
+    applyFn(option)
+  }
+}
+
+function onRemoveTag(option: string, applyFn: TagUpdateArgs['applyFn']) {
+  emit('tag-update', { action: 'remove', option, applyFn })
+  if (props.auto) {
+    applyFn(option)
+  }
+}
+
+function onDropdownKeydown(e) {
+  // Allow to start searching after dropdown opening
+  // FIXME check if dropdownElem.value!.firstElementChild works (removed the $el)
+  if (
+    !['Tab', 'Space'].includes(e.code) &&
+    e.target === dropdownElem.value!.$el.firstElementChild
+  ) {
+    searchElem.value!.$el.focus()
+  }
+}
+</script>
+
 <template>
   <div class="tags-selectize">
     <BFormTags
       v-bind="$attrs"
       :modelValue="modelValue"
-      @update:modelValue="$emit('update:modelValue', $event)"
+      @update:modelValue="emit('update:modelValue', $event)"
       :id="id"
       size="lg"
       class="p-0 border-0"
@@ -20,7 +121,7 @@
             class="list-inline-item"
           >
             <BFormTag
-              @remove="onRemoveTag({ option: tag, removeTag })"
+              @remove="onRemoveTag(tag, removeTag)"
               :title="tag"
               :disabled="disabled || disabledItems.includes(tag)"
               class="border border-dark mb-2"
@@ -31,7 +132,7 @@
         </ul>
 
         <BDropdown
-          ref="dropdown"
+          ref="dropdownElem"
           variant="outline-dark"
           block
           menu-class="w-100"
@@ -62,7 +163,7 @@
                 class="mb-0"
               >
                 <BFormInput
-                  ref="search-input"
+                  ref="searchElem"
                   v-model="search"
                   :id="id + '-search-input'"
                   type="search"
@@ -77,7 +178,7 @@
           <BDropdownItemButton
             v-for="option in availableOptions"
             :key="option"
-            @click="onAddTag({ option, addTag })"
+            @click="onAddTag(option, addTag)"
           >
             {{ option }}
           </BDropdownItemButton>
@@ -98,91 +199,6 @@
     </BFormTags>
   </div>
 </template>
-
-<script>
-export default {
-  name: 'TagsSelectizeItem',
-
-  inheritAttrs: false,
-
-  props: {
-    modelValue: { type: Array, required: true },
-    options: { type: Array, required: true },
-    id: { type: String, required: true },
-    placeholder: { type: String, default: null },
-    limit: { type: Number, default: null },
-    name: { type: String, default: null },
-    itemsName: { type: String, required: true },
-    disabledItems: { type: Array, default: () => [] },
-    // By default `addTag` and `removeTag` have to be executed manually by listening to 'tag-update'.
-    auto: { type: Boolean, default: false },
-    noTags: { type: Boolean, default: false },
-    label: { type: String, default: null },
-    tagIcon: { type: String, default: null },
-  },
-
-  data() {
-    return {
-      search: '',
-    }
-  },
-
-  computed: {
-    criteria() {
-      return this.search.trim().toLowerCase()
-    },
-
-    availableOptions() {
-      const criteria = this.criteria
-      const options = this.options.filter((opt) => {
-        return (
-          this.modelValue.indexOf(opt) === -1 &&
-          !this.disabledItems.includes(opt)
-        )
-      })
-      if (criteria) {
-        return options.filter((opt) => opt.toLowerCase().indexOf(criteria) > -1)
-      }
-      return options
-    },
-
-    searchState() {
-      return this.criteria && this.availableOptions.length === 0 ? false : null
-    },
-  },
-
-  methods: {
-    onAddTag({ option, addTag }) {
-      this.$emit('tag-update', { action: 'add', option, applyMethod: addTag })
-      this.search = ''
-      if (this.auto) {
-        addTag(option)
-      }
-    },
-
-    onRemoveTag({ option, removeTag }) {
-      this.$emit('tag-update', {
-        action: 'remove',
-        option,
-        applyMethod: removeTag,
-      })
-      if (this.auto) {
-        removeTag(option)
-      }
-    },
-
-    onDropdownKeydown(e) {
-      // Allow to start searching after dropdown opening
-      if (
-        !['Tab', 'Space'].includes(e.code) &&
-        e.target === this.$refs.dropdown.$el.firstElementChild
-      ) {
-        this.$refs['search-input'].focus()
-      }
-    },
-  },
-}
-</script>
 
 <style lang="scss" scoped>
 :deep(.dropdown-menu) {

@@ -1,3 +1,38 @@
+<script setup lang="ts">
+import { ref, computed } from 'vue'
+
+const queries = [['GET', 'apps?full']]
+const search = ref('')
+const apps = ref()
+
+const filteredApps = computed(() => {
+  if (!apps.value) return
+  const search_ = search.value.toLowerCase()
+  // Check if any value in apps (label, id, name, description) match the search query.
+  const filtered = apps.value.filter((app) =>
+    Object.values(app).some(
+      (item) => item && item.toLowerCase().includes(search_),
+    ),
+  )
+  return filtered.length ? filtered : null
+})
+
+function onQueriesResponse({ apps }) {
+  if (apps.length === 0) {
+    apps.value = null
+    return
+  }
+
+  apps.value = apps
+    .map(({ id, name, description, manifest }) => {
+      return { id, name: manifest.name, label: name, description }
+    })
+    .sort((prev, app) => {
+      return prev.label > app.label ? 1 : -1
+    })
+}
+</script>
+
 <template>
   <ViewSearch
     v-model:search="search"
@@ -36,45 +71,3 @@
     </BListGroup>
   </ViewSearch>
 </template>
-
-<script>
-export default {
-  name: 'AppList',
-
-  data() {
-    return {
-      queries: [['GET', 'apps?full']],
-      search: '',
-      apps: undefined,
-    }
-  },
-
-  computed: {
-    filteredApps() {
-      if (!this.apps) return
-      const search = this.search.toLowerCase()
-      const match = (item) => item && item.toLowerCase().includes(search)
-      // Check if any value in apps (label, id, name, description) match the search query.
-      const filtered = this.apps.filter((app) => Object.values(app).some(match))
-      return filtered.length ? filtered : null
-    },
-  },
-
-  methods: {
-    onQueriesResponse({ apps }) {
-      if (apps.length === 0) {
-        this.apps = null
-        return
-      }
-
-      this.apps = apps
-        .map(({ id, name, description, manifest }) => {
-          return { id, name: manifest.name, label: name, description }
-        })
-        .sort((prev, app) => {
-          return prev.label > app.label ? 1 : -1
-        })
-    },
-  },
-}
-</script>

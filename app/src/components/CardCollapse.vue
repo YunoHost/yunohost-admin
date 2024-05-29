@@ -1,5 +1,36 @@
+<script setup lang="ts">
+import type { ColorVariant } from 'bootstrap-vue-next'
+import { computed } from 'vue'
+
+const props = withDefaults(
+  defineProps<{
+    id: string
+    title: string
+    variant?: ColorVariant
+    visible?: boolean
+    flush?: boolean
+  }>(),
+  {
+    variant: 'light',
+    visible: false,
+    flush: false,
+  },
+)
+
+const class_ = computed(() => {
+  const baseClass = 'card-collapse'
+  return [
+    baseClass,
+    {
+      [`${baseClass}-flush`]: props.flush,
+      [`${baseClass}-${props.variant}`]: props.variant,
+    },
+  ]
+})
+</script>
+
 <template>
-  <BCard v-bind="$attrs" no-body :class="_class">
+  <BCard no-body :class="class_">
     <template #header>
       <slot name="header">
         <h2>
@@ -20,33 +51,6 @@
     </BCollapse>
   </BCard>
 </template>
-
-<script>
-export default {
-  name: 'CardCollapse',
-
-  props: {
-    id: { type: String, required: true },
-    title: { type: String, required: true },
-    variant: { type: String, default: 'white' },
-    visible: { type: Boolean, default: false },
-    flush: { type: Boolean, default: false },
-  },
-
-  computed: {
-    _class() {
-      const baseClass = 'card-collapse'
-      return [
-        baseClass,
-        {
-          [`${baseClass}-flush`]: this.flush,
-          [`${baseClass}-${this.variant}`]: this.variant,
-        },
-      ]
-    },
-  },
-}
-</script>
 
 <style lang="scss" scoped>
 .card-collapse {

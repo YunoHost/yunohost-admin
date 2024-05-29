@@ -1,3 +1,136 @@
+<script setup lang="ts">
+import { computed, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { useRouter } from 'vue-router'
+
+import api from '@/api'
+import { APIBadRequestError, type APIError } from '@/api/errors'
+import { useAutoModal } from '@/composables/useAutoModal'
+import { isEmptyValue } from '@/helpers/commons'
+import { readableDate } from '@/helpers/filters/date'
+import { humanSize } from '@/helpers/filters/human'
+
+const props = defineProps<{
+  id: string
+  name: string
+}>()
+
+const { t } = useI18n()
+const router = useRouter()
+const store = useStore()
+const modalConfirm = useAutoModal()
+
+const queries = [['GET', `backups/${props.name}?with_details`]]
+const selected = ref<string[]>([])
+const error = ref('')
+const isValid = ref<boolean | null>(null)
+const infos = ref()
+const apps = ref()
+const system = ref()
+
+const hasBackupData = computed(() => {
+  return !isEmptyValue(system.value) || !isEmptyValue(apps.value)
+})
+
+function formatHooks(hooks) {
+  const data = {}
+  Object.entries(hooks).forEach(([hook, { size }]) => {
+    const groupId = hook.startsWith('conf_')
+      ? 'adminjs_group_configuration'
+      : hook
+    if (groupId in data) {
+      data[groupId].value.push(hook)
+      data[groupId].description += ', ' + t('hook_' + hook)
+      data[groupId].size += size
+    } else {
+      data[groupId] = {
+        name: t('hook_' + groupId),
+        value: [hook],
+        description: t(groupId === hook ? `hook_${hook}_desc` : 'hook_' + hook),
+        size,
+      }
+    }
+  })
+  return data
+}
+
+function onQueriesResponse(data) {
+  infos.value = {
+    name: props.name,
+    created_at: data.created_at,
+    size: data.size,
+    path: data.path,
+  }
+  system.value = formatHooks(data.system)
+  apps.value = data.apps
+
+  toggleSelected()
+}
+
+function toggleSelected(select = true) {
+  if (select) {
+    selected.value = [...Object.keys(apps.value), ...Object.keys(system.value)]
+  } else {
+    selected.value = []
+  }
+}
+
+async function restoreBackup() {
+  const confirmed = await modalConfirm(
+    t('confirm_restore', { name: props.name }),
+  )
+  if (!confirmed) return
+
+  const data = { apps: [], system: [], force: '' }
+  for (const item of selected.value) {
+    if (item in system.value) {
+      data.system = [...data.system, ...system.value[item].value]
+    } else {
+      data.apps.push(item)
+    }
+  }
+
+  api
+    .put(`backups/${props.name}/restore`, data, {
+      key: 'backups.restore',
+      name: props.name,
+    })
+    .then(() => {
+      isValid.value = null
+    })
+    .catch((err: APIError) => {
+      if (!(err instanceof APIBadRequestError)) throw err
+      error.value = err.message
+      isValid.value = false
+    })
+}
+
+async function deleteBackup() {
+  const confirmed = await modalConfirm(
+    t('confirm_delete', { name: props.name }),
+  )
+  if (!confirmed) return
+
+  api
+    .delete(
+      'backups/' + props.name,
+      {},
+      { key: 'backups.delete', name: props.name },
+    )
+    .then(() => {
+      router.push({ name: 'backup-list', params: { id: props.id } })
+    })
+}
+
+function downloadBackup() {
+  const host = store.getters.host
+  window.open(
+    `https://${host}/yunohost/api/backups/${props.name}/download`,
+    '_blank',
+  )
+}
+</script>
+
 <template>
   <ViewBase :queries="queries" @queries-response="onQueriesResponse">
     <!-- BACKUP INFO -->
@@ -106,7 +239,7 @@
         </BListGroup>
 
         <BFormInvalidFeedback id="backup-restore-feedback" :state="isValid">
-          <BAlert variant="danger" class="mb-0">
+          <BAlert :modelValue="true" variant="danger" class="mb-0">
             {{ error }}
           </BAlert>
         </BFormInvalidFeedback>
@@ -134,150 +267,3 @@
     </template>
   </ViewBase>
 </template>
-
-<script>
-import api from '@/api'
-import { useAutoModal } from '@/composables/useAutoModal'
-import { readableDate } from '@/helpers/filters/date'
-import { humanSize } from '@/helpers/filters/human'
-import { isEmptyValue } from '@/helpers/commons'
-
-export default {
-  name: 'BackupInfo',
-
-  props: {
-    id: { type: String, required: true },
-    name: { type: String, required: true },
-  },
-
-  setup() {
-    return {
-      modalConfirm: useAutoModal(),
-    }
-  },
-
-  data() {
-    return {
-      queries: [['GET', `backups/${this.name}?with_details`]],
-      selected: [],
-      error: '',
-      isValid: null,
-      // api data
-      infos: undefined,
-      apps: undefined,
-      system: undefined,
-    }
-  },
-
-  computed: {
-    hasBackupData() {
-      return !isEmptyValue(this.system) || !isEmptyValue(this.apps)
-    },
-  },
-
-  methods: {
-    formatHooks(hooks) {
-      const data = {}
-      Object.entries(hooks).forEach(([hook, { size }]) => {
-        const groupId = hook.startsWith('conf_')
-          ? 'adminjs_group_configuration'
-          : hook
-        if (groupId in data) {
-          data[groupId].value.push(hook)
-          data[groupId].description += ', ' + this.$t('hook_' + hook)
-          data[groupId].size += size
-        } else {
-          data[groupId] = {
-            name: this.$t('hook_' + groupId),
-            value: [hook],
-            description: this.$t(
-              groupId === hook ? `hook_${hook}_desc` : 'hook_' + hook,
-            ),
-            size,
-          }
-        }
-      })
-      return data
-    },
-
-    onQueriesResponse(data) {
-      this.infos = {
-        name: this.name,
-        created_at: data.created_at,
-        size: data.size,
-        path: data.path,
-      }
-      this.system = this.formatHooks(data.system)
-      this.apps = data.apps
-
-      this.toggleSelected()
-    },
-
-    toggleSelected(select = true) {
-      if (select) {
-        this.selected = [...Object.keys(this.apps), ...Object.keys(this.system)]
-      } else {
-        this.selected = []
-      }
-    },
-
-    async restoreBackup() {
-      const confirmed = await this.modalConfirm(
-        this.$t('confirm_restore', { name: this.name }),
-      )
-      if (!confirmed) return
-
-      const data = { apps: [], system: [], force: '' }
-      for (const item of this.selected) {
-        if (item in this.system) {
-          data.system = [...data.system, ...this.system[item].value]
-        } else {
-          data.apps.push(item)
-        }
-      }
-
-      api
-        .put(`backups/${this.name}/restore`, data, {
-          key: 'backups.restore',
-          name: this.name,
-        })
-        .then(() => {
-          this.isValid = null
-        })
-        .catch((err) => {
-          if (err.name !== 'APIBadRequestError') throw err
-          this.error = err.message
-          this.isValid = false
-        })
-    },
-
-    async deleteBackup() {
-      const confirmed = await this.modalConfirm(
-        this.$t('confirm_delete', { name: this.name }),
-      )
-      if (!confirmed) return
-
-      api
-        .delete(
-          'backups/' + this.name,
-          {},
-          { key: 'backups.delete', name: this.name },
-        )
-        .then(() => {
-          this.$router.push({ name: 'backup-list', params: { id: this.id } })
-        })
-    },
-
-    downloadBackup() {
-      const host = this.$store.getters.host
-      window.open(
-        `https://${host}/yunohost/api/backups/${this.name}/download`,
-        '_blank',
-      )
-    },
-
-    readableDate,
-    humanSize,
-  },
-}
-</script>

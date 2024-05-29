@@ -1,3 +1,39 @@
+<script setup lang="ts">
+type CustomEmail = {
+  localPart: string | null
+  separator: string
+  domain: string | null
+}
+
+const props = withDefaults(
+  defineProps<{
+    modelValue: CustomEmail
+    choices: string[]
+    placeholder?: string
+    id?: string
+    state?: false | null
+    type?: string
+  }>(),
+  {
+    placeholder: undefined,
+    id: undefined,
+    state: undefined,
+    type: 'email',
+  },
+)
+
+const emit = defineEmits<{
+  'update:modelValue': [value: CustomEmail]
+}>()
+
+function onInput(key: 'localPart' | 'domain', modelValue: string | null) {
+  emit('update:modelValue', {
+    ...props.modelValue,
+    [key]: modelValue,
+  })
+}
+</script>
+
 <template>
   <BInputGroup v-bind="$attrs">
     <InputItem
@@ -30,29 +66,3 @@
     />
   </BInputGroup>
 </template>
-
-<script>
-export default {
-  name: 'AdressInputSelect',
-
-  inheritAttrs: false,
-
-  props: {
-    modelValue: { type: Object, required: true },
-    choices: { type: Array, required: true },
-    placeholder: { type: String, default: null },
-    id: { type: String, default: null },
-    state: { type: null, default: null },
-    type: { type: String, default: 'email' },
-  },
-
-  methods: {
-    onInput(key, modelValue) {
-      this.$emit('update:modelValue', {
-        ...this.modelValue,
-        [key]: modelValue,
-      })
-    },
-  },
-}
-</script>

@@ -1,3 +1,22 @@
+<script setup lang="ts">
+import type { ColorVariant } from 'bootstrap-vue-next'
+import { ref } from 'vue'
+
+withDefaults(
+  defineProps<{
+    id: string
+    title: string
+    content: string
+    variant?: ColorVariant
+  }>(),
+  {
+    variant: 'info',
+  },
+)
+
+const open = ref(false)
+</script>
+
 <template>
   <span class="explain-what">
     <slot name="default" />
@@ -26,31 +45,6 @@
     </span>
   </span>
 </template>
-
-<script>
-export default {
-  name: 'ExplainWhat',
-
-  props: {
-    id: { type: String, required: true },
-    title: { type: String, required: true },
-    content: { type: String, required: true },
-    variant: { type: String, default: 'info' },
-  },
-
-  computed: {
-    cols_() {
-      return Object.assign({ md: 4, xl: 3 }, this.cols)
-    },
-  },
-
-  data() {
-    return {
-      open: false,
-    }
-  },
-}
-</script>
 
 <style lang="scss" scoped>
 .explain-what {

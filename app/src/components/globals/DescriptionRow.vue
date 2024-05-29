@@ -1,6 +1,31 @@
+<script setup lang="ts">
+import { computed } from 'vue'
+
+import type { Cols } from '@/types/commons'
+
+const props = withDefaults(
+  defineProps<{
+    term?: string
+    details?: string
+    cols?: Cols
+  }>(),
+  {
+    term: undefined,
+    details: undefined,
+    cols: () => ({ md: 4, xl: 3 }),
+  },
+)
+
+const cols = computed<Cols>(() => ({
+  md: 4,
+  xl: 3,
+  ...props.cols,
+}))
+</script>
+
 <template>
   <BRow no-gutters class="description-row">
-    <BCol v-bind="cols_">
+    <BCol v-bind="cols">
       <slot name="term">
         <strong>{{ term }}</strong>
       </slot>
@@ -13,24 +38,6 @@
     </BCol>
   </BRow>
 </template>
-
-<script>
-export default {
-  name: 'DescriptionRow',
-
-  props: {
-    term: { type: String, default: null },
-    details: { type: String, default: null },
-    cols: { type: Object, default: () => ({ md: 4, xl: 3 }) },
-  },
-
-  computed: {
-    cols_() {
-      return Object.assign({ md: 4, xl: 3 }, this.cols)
-    },
-  },
-}
-</script>
 
 <style lang="scss" scoped>
 .description-row {

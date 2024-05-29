@@ -1,39 +1,46 @@
+<script setup lang="ts">
+import { computed } from 'vue'
+
+const props = withDefaults(
+  defineProps<{
+    label?: string
+    id?: string
+    type?: 'success' | 'info' | 'warning' | 'danger'
+    icon?: string
+    enabled?: string | boolean
+  }>(),
+  {
+    label: undefined,
+    id: undefined,
+    type: 'success',
+    icon: undefined,
+    enabled: true,
+  },
+)
+
+const emit = defineEmits(['action'])
+
+const icon = computed(() => {
+  const icons = {
+    success: 'thumbs-up',
+    info: 'info',
+    warning: 'exclamation',
+    danger: 'times',
+  }
+
+  return props.icon || icons[props.type]
+})
+</script>
+
 <template>
   <BButton
     :id="id"
     :variant="type"
-    @click="$emit('action', $event)"
+    @click="emit('action', $event)"
     :disabled="!enabled"
     class="d-block mb-3"
   >
-    <YIcon :iname="icon_" class="me-2" />
+    <YIcon :iname="icon" class="me-2" />
     <span v-html="label" />
   </BButton>
 </template>
-
-<script>
-export default {
-  name: 'ButtonItem',
-
-  props: {
-    label: { type: String, default: null },
-    id: { type: String, default: null },
-    type: { type: String, default: 'success' },
-    icon: { type: String, default: null },
-    enabled: { type: [Boolean, String], default: true },
-  },
-
-  computed: {
-    icon_() {
-      const icons = {
-        success: 'thumbs-up',
-        info: 'info',
-        warning: 'exclamation',
-        danger: 'times',
-      }
-
-      return this.icon || icons[this.type]
-    },
-  },
-}
-</script>

@@ -1,17 +1,13 @@
+<script setup lang="ts">
+defineProps<{
+  height: string
+  width: string
+}>()
+</script>
+
 <template>
   <div :style="{ height, width }" class="b-skeleton" />
 </template>
-
-<script>
-export default {
-  name: 'BSkeleton',
-
-  props: {
-    height: { type: String, required: true },
-    width: { type: String, required: true },
-  },
-}
-</script>
 
 <style scoped lang="scss">
 .b-skeleton {

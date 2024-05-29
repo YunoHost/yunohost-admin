@@ -1,3 +1,87 @@
+<script setup lang="ts">
+import { onMounted } from 'vue'
+import { useStore } from 'vuex'
+
+import { useStoreGetters } from '@/store/utils'
+import { HistoryConsole, ViewLockOverlay } from '@/views/_partials'
+
+const store = useStore()
+const {
+  connected,
+  yunohost,
+  routerKey,
+  transitions,
+  transitionName,
+  waiting,
+  dark,
+  ssoLink,
+} = useStoreGetters()
+
+async function logout() {
+  store.dispatch('LOGOUT')
+}
+
+store.dispatch('ON_APP_CREATED')
+
+onMounted(() => {
+  const copypastaCode = ['ArrowDown', 'ArrowDown', 'ArrowUp', 'ArrowUp']
+  let copypastastep = 0
+  document.addEventListener('keydown', ({ key }) => {
+    if (key === copypastaCode[copypastastep++]) {
+      if (copypastastep === copypastaCode.length) {
+        document
+          .querySelectorAll('.unselectable')
+          .forEach((element) => element.classList.remove('unselectable'))
+        copypastastep = 0
+      }
+    } else {
+      copypastastep = 0
+    }
+  })
+
+  // Konamicode ;P
+  const konamiCode = [
+    'ArrowUp',
+    'ArrowUp',
+    'ArrowDown',
+    'ArrowDown',
+    'ArrowLeft',
+    'ArrowRight',
+    'ArrowLeft',
+    'ArrowRight',
+    'b',
+    'a',
+  ]
+  let konamistep = 0
+  document.addEventListener('keydown', ({ key }) => {
+    if (key === konamiCode[konamistep++]) {
+      if (konamistep === konamiCode.length) {
+        store.commit('SET_SPINNER', 'nyancat')
+        konamistep = 0
+      }
+    } else {
+      konamistep = 0
+    }
+  })
+
+  // April fools easter egg ;)
+  const today = new Date()
+  if (today.getDate() === 1 && today.getMonth() + 1 === 4) {
+    store.commit('SET_SPINNER', 'magikarp')
+  }
+
+  // Halloween easter egg ;)
+  if (today.getDate() === 31 && today.getMonth() + 1 === 10) {
+    store.commit('SET_SPINNER', 'spookycat')
+  }
+  // updates the data-bs-theme attribute
+  document.documentElement.setAttribute(
+    'data-bs-theme',
+    dark.value ? 'dark' : 'light',
+  )
+})
+</script>
+
 <template>
   <div id="app" class="container">
     <!-- HEADER -->
@@ -96,104 +180,6 @@
     </footer>
   </div>
 </template>
-
-<script>
-import { mapGetters } from 'vuex'
-
-import { HistoryConsole, ViewLockOverlay } from '@/views/_partials'
-
-export default {
-  name: 'App',
-
-  components: {
-    HistoryConsole,
-    ViewLockOverlay,
-  },
-
-  computed: {
-    ...mapGetters([
-      'connected',
-      'yunohost',
-      'routerKey',
-      'transitions',
-      'transitionName',
-      'waiting',
-      'dark',
-      'ssoLink',
-    ]),
-  },
-
-  methods: {
-    async logout() {
-      this.$store.dispatch('LOGOUT')
-    },
-  },
-
-  // This hook is only triggered at page first load
-  created() {
-    this.$store.dispatch('ON_APP_CREATED')
-  },
-
-  mounted() {
-    // Unlock copypasta on log view
-    const copypastaCode = ['ArrowDown', 'ArrowDown', 'ArrowUp', 'ArrowUp']
-    let copypastastep = 0
-    document.addEventListener('keydown', ({ key }) => {
-      if (key === copypastaCode[copypastastep++]) {
-        if (copypastastep === copypastaCode.length) {
-          document
-            .querySelectorAll('.unselectable')
-            .forEach((element) => element.classList.remove('unselectable'))
-          copypastastep = 0
-        }
-      } else {
-        copypastastep = 0
-      }
-    })
-
-    // Konamicode ;P
-    const konamiCode = [
-      'ArrowUp',
-      'ArrowUp',
-      'ArrowDown',
-      'ArrowDown',
-      'ArrowLeft',
-      'ArrowRight',
-      'ArrowLeft',
-      'ArrowRight',
-      'b',
-      'a',
-    ]
-    let konamistep = 0
-    document.addEventListener('keydown', ({ key }) => {
-      if (key === konamiCode[konamistep++]) {
-        if (konamistep === konamiCode.length) {
-          this.$store.commit('SET_SPINNER', 'nyancat')
-          konamistep = 0
-        }
-      } else {
-        konamistep = 0
-      }
-    })
-
-    // April fools easter egg ;)
-    const today = new Date()
-    if (today.getDate() === 1 && today.getMonth() + 1 === 4) {
-      this.$store.commit('SET_SPINNER', 'magikarp')
-    }
-
-    // Halloween easter egg ;)
-    if (today.getDate() === 31 && today.getMonth() + 1 === 10) {
-      this.$store.commit('SET_SPINNER', 'spookycat')
-    }
-    // updates the data-bs-theme attribute
-    document.documentElement.setAttribute(
-      'data-bs-theme',
-      this.dark ? 'dark' : 'light',
-    )
-  },
-}
-</script>
 
 <style lang="scss" scoped>
 // generic style for <html>, <body> and <#app> is in `scss/main.scss`

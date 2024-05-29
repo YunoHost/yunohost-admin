@@ -1,5 +1,54 @@
+<script setup lang="ts">
+import { computed } from 'vue'
+import { useStore } from 'vuex'
+
+import type { Obj } from '@/types/commons'
+
+const props = withDefaults(
+  defineProps<{
+    request: Obj
+    statusSize?: string
+    showTime?: boolean
+    showError?: boolean
+  }>(),
+  {
+    statusSize: '',
+    showTime: false,
+    showError: false,
+  },
+)
+
+const store = useStore()
+
+const color = computed(() => {
+  const statuses = {
+    pending: 'primary',
+    success: 'success',
+    warning: 'warning',
+    error: 'danger',
+  }
+  return statuses[props.request.status]
+})
+
+const errorsCount = computed(() => {
+  return props.request.messages.filter(({ type }) => type === 'danger').length
+})
+
+const warningsCount = computed(() => {
+  return props.request.messages.filter(({ type }) => type === 'warning').length
+})
+
+function reviewError() {
+  store.dispatch('REVIEW_ERROR', props.request)
+}
+
+function hour(date: Date) {
+  return new Date(date).toLocaleTimeString()
+}
+</script>
+
 <template>
-  <div v-bind="$attrs" class="query-header w-100">
+  <div class="query-header w-100">
     <!-- STATUS -->
     <span
       class="status"
@@ -46,51 +95,6 @@
     </time>
   </div>
 </template>
-
-<script>
-export default {
-  name: 'QueryHeader',
-
-  props: {
-    request: { type: Object, required: true },
-    statusSize: { type: String, default: '' },
-    showTime: { type: Boolean, default: false },
-    showError: { type: Boolean, default: false },
-  },
-
-  computed: {
-    color() {
-      const statuses = {
-        pending: 'primary',
-        success: 'success',
-        warning: 'warning',
-        error: 'danger',
-      }
-      return statuses[this.request.status]
-    },
-
-    errorsCount() {
-      return this.request.messages.filter(({ type }) => type === 'danger')
-        .length
-    },
-
-    warningsCount() {
-      return this.request.messages.filter(({ type }) => type === 'warning')
-        .length
-    },
-  },
-
-  methods: {
-    reviewError() {
-      this.$store.dispatch('REVIEW_ERROR', this.request)
-    },
-
-    hour(date) {
-      return new Date(date).toLocaleTimeString()
-    },
-  },
-}
-</script>
 
 <style lang="scss" scoped>
 div {

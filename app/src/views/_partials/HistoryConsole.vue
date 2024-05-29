@@ -1,5 +1,122 @@
+<script setup lang="ts">
+import type { BCard } from 'bootstrap-vue-next'
+import { getCurrentInstance, nextTick, ref } from 'vue'
+
+import MessageListGroup from '@/components/MessageListGroup.vue'
+import QueryHeader from '@/components/QueryHeader.vue'
+import { useStoreGetters } from '@/store/utils'
+
+// FIXME prop `value` not used?
+const props = withDefaults(
+  defineProps<{
+    value?: boolean
+    height?: number | string
+  }>(),
+  {
+    value: false,
+    height: 30,
+  },
+)
+
+const { history, lastAction, waiting, error } = useStoreGetters()
+const rootElem = ref<InstanceType<typeof BCard> | null>(null)
+const historyElem = ref<HTMLElement | null>(null)
+const open = ref(false)
+
+function scrollToAction(actionIndex: number) {
+  const actionCard = rootElem.value!.$el.querySelector(
+    '#messages-collapse-' + actionIndex,
+  ).parentElement
+  const headerOffset = actionCard.firstElementChild.offsetHeight
+  // Can't use `scrollIntoView()` here since it will also scroll in the main content.
+  historyElem.value!.scrollTop = actionCard.offsetTop - headerOffset
+}
+
+async function onLastActionClick() {
+  if (!open.value) {
+    open.value = true
+    await nextTick()
+  }
+  const hElem = historyElem.value!
+  const lastActionCard = hElem.lastElementChild as HTMLElement
+  const lastCollapsable = lastActionCard.querySelector('.collapse')
+
+  if (lastCollapsable && !lastCollapsable.classList.contains('show')) {
+    // FIXME not sure root emits still work with bvn
+    const { emit: rootEmit } = getCurrentInstance()!
+    rootEmit('bv::toggle::collapse', lastCollapsable.id)
+    // `scrollToAction` will be triggered and will handle the scrolling.
+  } else {
+    const headerElem = lastActionCard.firstElementChild as HTMLElement
+    hElem.scrollTop = lastActionCard.offsetTop - headerElem.offsetHeight
+  }
+}
+
+function onHistoryBarKey(e: KeyboardEvent) {
+  // FIXME interactive element in another is not valid, need to find another way.
+  const { nodeName, parentElement } = e.target as HTMLElement
+  if (nodeName === 'BUTTON' || parentElement?.nodeName === 'BUTTON') return
+  open.value = !open.value
+}
+
+function onHistoryBarClick(e: MouseEvent) {
+  // FIXME interactive element in another is not valid, need to find another way.
+  const { nodeName, parentElement } = e.target as HTMLElement
+  if (nodeName === 'BUTTON' || parentElement?.nodeName === 'BUTTON') return
+
+  const hElem = historyElem.value!
+  let mousePos = e.clientY
+
+  const onMouseMove = ({ clientY }: MouseEvent) => {
+    if (!open.value) {
+      hElem.style.height = '0px'
+      open.value = true
+    }
+    const currentHeight = hElem.offsetHeight
+    const move = mousePos - clientY
+    const nextSize = currentHeight + move
+    if (nextSize < 10 && nextSize < currentHeight) {
+      // Close the console and reset its size if the user reduce it to less than 10px.
+      mousePos = e.clientY
+      hElem.style.height = ''
+      onMouseUp()
+    } else {
+      hElem.style.height = nextSize + 'px'
+      // Simulate scroll when reducing the box so the content doesn't move.
+      if (nextSize < currentHeight) {
+        hElem.scrollBy(0, -move)
+      }
+      mousePos = clientY
+    }
+  }
+
+  // Delay the mouse move listener to distinguish a click from a drag.
+  const listenToMouseMove = setTimeout(() => {
+    hElem.style.height = hElem.offsetHeight + 'px'
+    hElem.classList.add('no-max')
+    window.addEventListener('mousemove', onMouseMove)
+  }, 200)
+
+  const onMouseUp = () => {
+    // Toggle opening if no mouse movement.
+    if (mousePos === e.clientY) {
+      // remove the free height class if the box's height is not custom
+      if (!hElem.style.height) {
+        hElem.classList.remove('no-max')
+      }
+      open.value = !open.value
+    }
+    clearTimeout(listenToMouseMove)
+    window.removeEventListener('mousemove', onMouseMove)
+    window.removeEventListener('mouseup', onMouseUp)
+  }
+
+  window.addEventListener('mouseup', onMouseUp)
+}
+</script>
+
 <template>
-  <BCard no-body id="console">
+  <BCard id="console" ref="rootElem" no-body>
     <!-- HISTORY BAR -->
     <BCardHeader
       role="button"
@@ -40,7 +157,7 @@
     </BCardHeader>
 
     <BCollapse id="console-collapse" v-model="open">
-      <div class="accordion" role="tablist" id="history" ref="history">
+      <div class="accordion" role="tablist" id="history" ref="historyElem">
         <p v-if="history.length === 0" class="alert m-0 px-2 py-1">
           {{ $t('history.is_empty') }}
         </p>
@@ -62,7 +179,7 @@
             <QueryHeader
               role="tab"
               v-b-toggle="
-                action.messages.length ? 'messages-collapse-' + i : false
+                action.messages.length ? 'messages-collapse-' + i : undefined
               "
               :request="action"
               show-time
@@ -86,134 +203,6 @@
     </BCollapse>
   </BCard>
 </template>
-
-<script>
-import { mapGetters } from 'vuex'
-
-import QueryHeader from '@/components/QueryHeader.vue'
-import MessageListGroup from '@/components/MessageListGroup.vue'
-
-export default {
-  name: 'HistoryConsole',
-
-  components: {
-    QueryHeader,
-    MessageListGroup,
-  },
-
-  props: {
-    value: { type: Boolean, default: false },
-    height: { type: [Number, String], default: 30 },
-  },
-
-  data() {
-    return {
-      open: false,
-    }
-  },
-
-  computed: {
-    ...mapGetters(['history', 'lastAction', 'waiting', 'error']),
-  },
-
-  methods: {
-    scrollToAction(actionIndex) {
-      const actionCard = this.$el.querySelector(
-        '#messages-collapse-' + actionIndex,
-      ).parentElement
-      const headerOffset = actionCard.firstElementChild.offsetHeight
-      // Can't use `scrollIntoView()` here since it will also scroll in the main content.
-      this.$refs.history.scrollTop = actionCard.offsetTop - headerOffset
-    },
-
-    async onLastActionClick() {
-      if (!this.open) {
-        this.open = true
-        await this.$nextTick()
-      }
-      const historyElem = this.$refs.history
-      const lastActionCard = historyElem.lastElementChild
-      const lastCollapsable = lastActionCard.querySelector('.collapse')
-
-      if (lastCollapsable && !lastCollapsable.classList.contains('show')) {
-        this.$root.$emit('bv::toggle::collapse', lastCollapsable.id)
-        // `scrollToAction` will be triggered and will handle the scrolling.
-      } else {
-        const headerOffset = lastActionCard.firstElementChild.offsetHeight
-        historyElem.scrollTop = lastActionCard.offsetTop - headerOffset
-      }
-    },
-
-    onHistoryBarKey(e) {
-      // FIXME interactive element in another is not valid, need to find another way.
-      if (
-        e.target.nodeName === 'BUTTON' ||
-        e.target.parentElement.nodeName === 'BUTTON'
-      )
-        return
-      this.open = !this.open
-    },
-
-    onHistoryBarClick(e) {
-      // FIXME interactive element in another is not valid, need to find another way.
-      if (
-        e.target.nodeName === 'BUTTON' ||
-        e.target.parentElement.nodeName === 'BUTTON'
-      )
-        return
-
-      const historyElem = this.$refs.history
-      let mousePos = e.clientY
-
-      const onMouseMove = ({ clientY }) => {
-        if (!this.open) {
-          historyElem.style.height = '0px'
-          this.open = true
-        }
-        const currentHeight = historyElem.offsetHeight
-        const move = mousePos - clientY
-        const nextSize = currentHeight + move
-        if (nextSize < 10 && nextSize < currentHeight) {
-          // Close the console and reset its size if the user reduce it to less than 10px.
-          mousePos = e.clientY
-          historyElem.style.height = ''
-          onMouseUp()
-        } else {
-          historyElem.style.height = nextSize + 'px'
-          // Simulate scroll when reducing the box so the content doesn't move.
-          if (nextSize < currentHeight) {
-            historyElem.scrollBy(0, -move)
-          }
-          mousePos = clientY
-        }
-      }
-
-      // Delay the mouse move listener to distinguish a click from a drag.
-      const listenToMouseMove = setTimeout(() => {
-        historyElem.style.height = historyElem.offsetHeight + 'px'
-        historyElem.classList.add('no-max')
-        window.addEventListener('mousemove', onMouseMove)
-      }, 200)
-
-      const onMouseUp = () => {
-        // Toggle opening if no mouse movement.
-        if (mousePos === e.clientY) {
-          // remove the free height class if the box's height is not custom
-          if (!historyElem.style.height) {
-            historyElem.classList.remove('no-max')
-          }
-          this.open = !this.open
-        }
-        clearTimeout(listenToMouseMove)
-        window.removeEventListener('mousemove', onMouseMove)
-        window.removeEventListener('mouseup', onMouseUp)
-      }
-
-      window.addEventListener('mouseup', onMouseUp)
-    },
-  },
-}
-</script>
 
 <style lang="scss" scoped>
 // reset default style

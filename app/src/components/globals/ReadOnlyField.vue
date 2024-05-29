@@ -1,6 +1,56 @@
+<script setup lang="ts">
+import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
+
+import type { Cols } from '@/types/commons'
+
+defineOptions({
+  inheritAttrs: false,
+})
+
+const props = withDefaults(
+  defineProps<{
+    label: string
+    component?: string
+    // FIXME modelValue? not a modelValue but idk
+    value?: any
+    cols?: Cols
+  }>(),
+  {
+    component: 'InputItem',
+    value: null,
+    cols: () => ({ md: 4, lg: 3 }),
+  },
+)
+
+const { t } = useI18n()
+
+const cols = computed<Cols>(() => ({
+  md: 4,
+  xl: 3,
+  ...props.cols,
+}))
+
+const text = computed(() => {
+  return parseValue(props.value)
+})
+
+function parseValue(value: any) {
+  const item = props.component
+  if (item === 'FileItem') value = value.file ? value.file.name : null
+  if (item === 'CheckboxItem') value = t(value ? 'yes' : 'no')
+  if (item === 'TextAreaItem') value = value.replaceAll('\n', '<br>')
+  if (Array.isArray(value)) {
+    value = value.length ? value.join(t('words.separator')) : null
+  }
+  if ([null, undefined, ''].includes(props.value)) value = t('words.none')
+  return value
+}
+</script>
+
 <template>
   <BRow no-gutters class="description-row">
-    <BCol v-bind="cols_" class="fw-bold">
+    <BCol v-bind="cols" class="fw-bold">
       {{ label }}
     </BCol>
 
@@ -10,46 +60,6 @@
     </BCol>
   </BRow>
 </template>
-
-<script>
-export default {
-  name: 'ReadOnlyField',
-
-  inheritAttrs: false,
-
-  props: {
-    label: { type: String, required: true },
-    component: { type: String, default: 'InputItem' },
-    value: { type: null, default: null },
-    cols: { type: Object, default: () => ({ md: 4, lg: 3 }) },
-  },
-
-  computed: {
-    cols_() {
-      return Object.assign({ md: 4, lg: 3 }, this.cols)
-    },
-
-    text() {
-      return this.parseValue(this.value)
-    },
-  },
-
-  methods: {
-    parseValue(value) {
-      const item = this.component
-      if (item === 'FileItem') value = value.file ? value.file.name : null
-      if (item === 'CheckboxItem') value = this.$t(value ? 'yes' : 'no')
-      if (item === 'TextAreaItem') value = value.replaceAll('\n', '<br>')
-      if (Array.isArray(value)) {
-        value = value.length ? value.join(this.$t('words.separator')) : null
-      }
-      if ([null, undefined, ''].includes(this.value))
-        value = this.$t('words.none')
-      return value
-    },
-  },
-}
-</script>
 
 <style lang="scss" scoped>
 .description-row {

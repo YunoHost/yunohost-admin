@@ -1,3 +1,29 @@
+<script setup lang="ts">
+import { useI18n } from 'vue-i18n'
+import { useStore } from 'vuex'
+
+import api from '@/api'
+import { useAutoModal } from '@/composables/useAutoModal'
+
+const { t } = useI18n()
+const store = useStore()
+const modalConfirm = useAutoModal()
+
+async function triggerAction(action) {
+  const confirmed = await modalConfirm(t('confirm_reboot_action_' + action))
+  if (!confirmed) return
+
+  api.put(action + '?force', {}, action).then(() => {
+    const delay = action === 'reboot' ? 4000 : 10000
+    store.dispatch('TRY_TO_RECONNECT', {
+      attemps: Infinity,
+      origin: action,
+      delay,
+    })
+  })
+}
+</script>
+
 <template>
   <YCard :title="$t('operations')" icon="wrench">
     <!-- REBOOT -->
@@ -32,37 +58,3 @@
     </BFormGroup>
   </YCard>
 </template>
-
-<script>
-import api from '@/api'
-import { useAutoModal } from '@/composables/useAutoModal'
-
-export default {
-  name: 'ToolPower',
-
-  setup() {
-    return {
-      modalConfirm: useAutoModal(),
-    }
-  },
-
-  methods: {
-    async triggerAction(action) {
-      const confirmed = await this.modalConfirm(
-        this.$t('confirm_reboot_action_' + action),
-      )
-      if (!confirmed) return
-
-      this.action = action
-      api.put(action + '?force', {}, action).then(() => {
-        const delay = action === 'reboot' ? 4000 : 10000
-        this.$store.dispatch('TRY_TO_RECONNECT', {
-          attemps: Infinity,
-          origin: action,
-          delay,
-        })
-      })
-    },
-  },
-}
-</script>

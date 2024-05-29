@@ -1,12 +1,64 @@
+<script setup lang="ts">
+import type { BaseValidation } from '@vuelidate/core'
+import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
+
+defineOptions({
+  inheritAttrs: false,
+})
+
+const props = withDefaults(
+  defineProps<{
+    id?: string
+    submitText?: string
+    validation?: BaseValidation
+    serverError?: string
+    inline?: boolean
+    noFooter?: boolean
+  }>(),
+  {
+    id: 'ynh-form',
+    submitText: undefined,
+    validation: undefined,
+    serverError: '',
+    inline: false,
+    noFooter: false,
+  },
+)
+
+const emit = defineEmits<{
+  submit: [e: SubmitEvent]
+}>()
+
+const { t } = useI18n()
+
+const errorFeedback = computed(() => {
+  const v = props.validation
+  return (
+    props.serverError ||
+    (v && v.$errors.length ? t('form_errors.invalid_form') : '')
+  )
+})
+
+function onSubmit(e: Event) {
+  const v = props.validation
+  if (v) {
+    v.$touch()
+    if (v.$pending || v.$errors.length) return
+  }
+  emit('submit', e as SubmitEvent)
+}
+</script>
+
 <template>
   <div>
     <BCardBody>
       <slot name="disclaimer" />
 
       <BForm
+        v-bind="$attrs"
         :id="id"
         :inline="inline"
-        :class="formClasses"
         novalidate
         @submit.prevent.stop="onSubmit"
       >
@@ -34,44 +86,6 @@
     </BCardFooter>
   </div>
 </template>
-
-<script>
-export default {
-  name: 'AbstractForm',
-
-  inheritAttrs: false,
-
-  props: {
-    id: { type: String, default: 'ynh-form' },
-    submitText: { type: String, default: null },
-    validation: { type: Object, default: null },
-    serverError: { type: String, default: '' },
-    inline: { type: Boolean, default: false },
-    formClasses: { type: [Array, String, Object], default: null },
-    noFooter: { type: Boolean, default: false },
-  },
-
-  computed: {
-    errorFeedback() {
-      if (this.serverError) return this.serverError
-      else if (this.validation && this.validation.$errors.length) {
-        return this.$t('form_errors.invalid_form')
-      } else return ''
-    },
-  },
-
-  methods: {
-    onSubmit(e) {
-      const v = this.validation
-      if (v) {
-        v.$touch()
-        if (v.$pending || v.$errors.length) return
-      }
-      this.$emit('submit')
-    },
-  },
-}
-</script>
 
 <style lang="scss" scoped>
 .card-footer {

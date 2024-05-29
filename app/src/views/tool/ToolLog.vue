@@ -1,8 +1,86 @@
+<script setup lang="ts">
+import { computed, ref } from 'vue'
+
+import api, { objectToParams } from '@/api'
+import type ViewBase from '@/components/globals/ViewBase.vue'
+import { escapeHtml } from '@/helpers/commons'
+import { readableDate } from '@/helpers/filters/date'
+
+const props = defineProps<{
+  name: string
+}>()
+
+const viewElem = ref<InstanceType<typeof ViewBase> | null>(null)
+
+const numberOfLines = ref(25)
+const queries = computed(() => {
+  const queryString = objectToParams({
+    filter_irrelevant: '',
+    with_suboperations: '',
+    number: numberOfLines.value,
+  })
+  return [['GET', `logs/${props.name}?${queryString}`]]
+})
+
+// Log data
+const description = ref()
+const info = ref({})
+const logs = ref()
+// Logs line display
+const moreLogsAvailable = ref(false)
+
+function onQueriesResponse(log) {
+  if (log.logs.length === numberOfLines.value) {
+    moreLogsAvailable.value = true
+    numberOfLines.value *= 10
+  } else {
+    moreLogsAvailable.value = false
+  }
+  description.value = log.description
+
+  const levels = ['ERROR', 'WARNING', 'SUCCESS', 'INFO']
+  logs.value = log.logs
+    .map((line) => {
+      const escaped = escapeHtml(line)
+      for (const level of levels) {
+        if (line.includes(level + ' -')) {
+          return `<span class="alert-${
+            level === 'ERROR' ? 'danger' : level.toLowerCase()
+          }">${escaped}</span>`
+        }
+      }
+      return escaped
+    })
+    .join('\n')
+  // eslint-disable-next-line
+  const { started_at, ended_at, error, success, suboperations } = log.metadata
+  const info_ = { path: log.log_path, started_at, ended_at }
+  if (!success) info_.error = error
+  if (suboperations && suboperations.length) info_.suboperations = suboperations
+  // eslint-disable-next-line
+  if (!ended_at) delete info_.ended_at
+  info.value = info
+}
+
+function shareLogs() {
+  api
+    .get(
+      `logs/${props.name}/share`,
+      null,
+      { key: 'share_logs', name: props.name },
+      { websocket: true },
+    )
+    .then(({ url }) => {
+      window.open(url, '_blank')
+    })
+}
+</script>
+
 <template>
   <ViewBase
     :queries="queries"
     @queries-response="onQueriesResponse"
-    ref="view"
+    ref="viewElem"
     skeleton="CardInfoSkeleton"
   >
     <!-- INFO CARD -->
@@ -57,7 +135,7 @@
         v-if="moreLogsAvailable"
         variant="white"
         class="w-100 rounded-0"
-        @click="$refs.view.fetchQueries()"
+        @click="viewElem!.fetchQueries()"
       >
         <YIcon iname="plus" /> {{ $t('logs_more') }}
       </BButton>
@@ -71,92 +149,3 @@
     <p class="w-100 px-5 py-2 mb-0" v-html="$t('text_selection_is_disabled')" />
   </ViewBase>
 </template>
-
-<script>
-import api, { objectToParams } from '@/api'
-import { escapeHtml } from '@/helpers/commons'
-import { readableDate } from '@/helpers/filters/date'
-
-export default {
-  name: 'ToolLog',
-
-  props: {
-    name: { type: String, required: true },
-  },
-
-  data() {
-    return {
-      // Log data
-      description: undefined,
-      info: {},
-      logs: undefined,
-      // Logs line display
-      numberOfLines: 25,
-      moreLogsAvailable: false,
-    }
-  },
-
-  computed: {
-    queries() {
-      const queryString = objectToParams({
-        filter_irrelevant: '',
-        with_suboperations: '',
-        number: this.numberOfLines,
-      })
-      return [['GET', `logs/${this.name}?${queryString}`]]
-    },
-  },
-
-  methods: {
-    onQueriesResponse(log) {
-      if (log.logs.length === this.numberOfLines) {
-        this.moreLogsAvailable = true
-        this.numberOfLines *= 10
-      } else {
-        this.moreLogsAvailable = false
-      }
-      this.description = log.description
-
-      const levels = ['ERROR', 'WARNING', 'SUCCESS', 'INFO']
-      this.logs = log.logs
-        .map((line) => {
-          const escaped = escapeHtml(line)
-          for (const level of levels) {
-            if (line.includes(level + ' -')) {
-              return `<span class="alert-${
-                level === 'ERROR' ? 'danger' : level.toLowerCase()
-              }">${escaped}</span>`
-            }
-          }
-          return escaped
-        })
-        .join('\n')
-      // eslint-disable-next-line
-      const { started_at, ended_at, error, success, suboperations } =
-        log.metadata
-      const info = { path: log.log_path, started_at, ended_at }
-      if (!success) info.error = error
-      if (suboperations && suboperations.length)
-        info.suboperations = suboperations
-      // eslint-disable-next-line
-      if (!ended_at) delete info.ended_at
-      this.info = info
-    },
-
-    shareLogs() {
-      api
-        .get(
-          `logs/${this.name}/share`,
-          null,
-          { key: 'share_logs', name: this.name },
-          { websocket: true },
-        )
-        .then(({ url }) => {
-          window.open(url, '_blank')
-        })
-    },
-
-    readableDate,
-  },
-}
-</script>

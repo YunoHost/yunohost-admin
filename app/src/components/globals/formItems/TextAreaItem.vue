@@ -1,7 +1,38 @@
+<script setup lang="ts">
+import { inject } from 'vue'
+
+withDefaults(
+  defineProps<{
+    modelValue?: string | null
+    id?: string
+    placeholder?: string
+    type?: string // FIXME unused?
+    required?: boolean
+    state?: boolean | null
+    name?: string
+  }>(),
+  {
+    modelValue: null,
+    id: undefined,
+    placeholder: undefined,
+    type: 'text',
+    required: false,
+    state: undefined,
+    name: undefined,
+  },
+)
+
+const emit = defineEmits<{
+  'update:modelValue': [value: string]
+}>()
+
+const touch = inject('touch')
+</script>
+
 <template>
   <BFormTextarea
     :modelValue="modelValue"
-    @update:modelValue="$emit('update:modelValue', $event)"
+    @update:modelValue="emit('update:modelValue', $event)"
     :id="id"
     :placeholder="placeholder"
     :required="required"
@@ -10,27 +41,3 @@
     @blur="touch(name)"
   />
 </template>
-
-<script>
-import { inject } from 'vue'
-
-export default {
-  name: 'TextAreaItem',
-
-  props: {
-    modelValue: { type: String, default: null },
-    id: { type: String, default: null },
-    placeholder: { type: String, default: null },
-    type: { type: String, default: 'text' },
-    required: { type: Boolean, default: false },
-    state: { type: Boolean, default: null },
-    name: { type: String, default: null },
-  },
-
-  setup() {
-    return {
-      touch: inject('touch'),
-    }
-  },
-}
-</script>

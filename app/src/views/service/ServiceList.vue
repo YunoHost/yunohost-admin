@@ -1,3 +1,33 @@
+<script setup lang="ts">
+import { computed, ref } from 'vue'
+
+import { distanceToNow } from '@/helpers/filters/date'
+
+const queries = [['GET', 'services']]
+const search = ref('')
+const services = ref()
+
+const filteredServices = computed(() => {
+  if (!services.value) return
+  const services_ = services.value.filter(({ name }) => {
+    return name.toLowerCase().includes(search.value.toLowerCase())
+  })
+  return services_.length ? services_ : null
+})
+
+function onQueriesResponse(services) {
+  services.value = Object.keys(services)
+    .sort()
+    .map((name) => {
+      const service = services[name]
+      if (service.last_state_change === 'unknown') {
+        service.last_state_change = 0
+      }
+      return { ...service, name }
+    })
+}
+</script>
+
 <template>
   <ViewSearch
     id="service-list"
@@ -41,49 +71,6 @@
     </BListGroup>
   </ViewSearch>
 </template>
-
-<script>
-import { distanceToNow } from '@/helpers/filters/date'
-
-export default {
-  name: 'ServiceList',
-
-  data() {
-    return {
-      queries: [['GET', 'services']],
-      search: '',
-      services: undefined,
-    }
-  },
-
-  computed: {
-    filteredServices() {
-      if (!this.services) return
-      const search = this.search.toLowerCase()
-      const services = this.services.filter(({ name }) => {
-        return name.toLowerCase().includes(search)
-      })
-      return services.length ? services : null
-    },
-  },
-
-  methods: {
-    onQueriesResponse(services) {
-      this.services = Object.keys(services)
-        .sort()
-        .map((name) => {
-          const service = services[name]
-          if (service.last_state_change === 'unknown') {
-            service.last_state_change = 0
-          }
-          return { ...service, name }
-        })
-    },
-
-    distanceToNow,
-  },
-}
-</script>
 
 <style lang="scss" scoped>
 @include media-breakpoint-down(lg) {
