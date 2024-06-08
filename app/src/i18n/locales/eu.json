@@ -38,7 +38,7 @@
     },
     "api_error": {
         "view_error": "Ikusi errorea",
-        "error_message": "Errore mezua:",
+        "error_message": "Errore-mezua:",
         "server_said": "Eragiketa exekutatzean zera adierazi du zerbitzariak:",
         "help": "Laguntza eskatu beharko zenuke <a href=\"https://forum.yunohost.org/\">foroan</a> edo <a href=\"https://chat.yunohost.org/\">txat gelan</a> egoera hau konpontzeko, edo errore honen berri eman <a href=\"https://github.com/YunoHost/issues\">bugtracker</a> plataforman.",
         "info": "Ondorengo informazioa baliagarria izan dakioke laguntza ematen ari zaionari:",
@@ -556,7 +556,7 @@
     "users_export": "Esportatu erabiltzaileak",
     "users_import_csv_file": "CSV fitxategia",
     "users_import_update": "Eguneratu existitzen diren erabiltzaileak",
-    "tip_about_user_email": "Erabiltzaileak sortzerakoan postarako helbide elektroniko bat (eta XMPP kontu bat) esleitzen zaie erabiltzailea@domeinua.eus itxurarekin. Administrari eta erabiltzaileek helbide elektroniko gehiago eta birbidalketarako helbideak gehitu ditzakete geroago.",
+    "tip_about_user_email": "Erabiltzaileak sortzerakoan ePosta helbide bat (eta XMPP kontu bat) esleitzen zaie erabiltzailea@domeinua.eus itxurarekin. Administrari eta erabiltzaileek helbide elektroniko gehiago eta birbidalketarako helbideak gehitu ditzazkete geroago.",
     "tools_webadmin_settings": "Administrazio-webgunearen ezarpenak",
     "user_mailbox_use": "Posta elektronikorako erabilitako espazioa",
     "users_new": "Erabiltzaile berria",
