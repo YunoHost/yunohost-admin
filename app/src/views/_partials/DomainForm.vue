@@ -3,7 +3,6 @@ import { useVuelidate } from '@vuelidate/core'
 import { computed, reactive, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
-import AdressInputSelect from '@/components/AdressInputSelect.vue'
 import {
   domain,
   dynDomain,
@@ -207,7 +206,7 @@ async function onSubmit() {
         class="mt-3"
       >
         <template #default="{ self }">
-          <AdressInputSelect v-bind="self" v-model="form.dynDomain" />
+          <AdressItem v-bind="self" v-model="form.dynDomain" />
         </template>
       </FormField>
 
@@ -252,7 +251,7 @@ async function onSubmit() {
         class="mt-3"
       >
         <template #default="{ self }">
-          <AdressInputSelect v-bind="self" v-model="form.localDomain" />
+          <AdressItem v-bind="self" v-model="form.localDomain" />
         </template>
       </FormField>
     </BCollapse>

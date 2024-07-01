@@ -8,7 +8,7 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     AbstractForm: typeof import('./src/components/globals/AbstractForm.vue')['default']
-    AdressInputSelect: typeof import('./src/components/AdressInputSelect.vue')['default']
+    AdressItem: typeof import('./src/components/globals/formItems/AdressItem.vue')['default']
     BAlert: typeof import('bootstrap-vue-next')['BAlert']
     BBadge: typeof import('bootstrap-vue-next')['BBadge']
     BBreadcrumb: typeof import('bootstrap-vue-next')['BBreadcrumb']
@@ -80,6 +80,7 @@ declare module 'vue' {
     ExplainWhat: typeof import('./src/components/globals/ExplainWhat.vue')['default']
     FileItem: typeof import('./src/components/globals/formItems/FileItem.vue')['default']
     FormField: typeof import('./src/components/globals/FormField.vue')['default']
+    FormFieldReadonly: typeof import('./src/components/globals/FormFieldReadonly.vue')['default']
     InputItem: typeof import('./src/components/globals/formItems/InputItem.vue')['default']
     LazyRenderer: typeof import('./src/components/LazyRenderer.vue')['default']
     ListGroupSkeleton: typeof import('./src/components/globals/skeletons/ListGroupSkeleton.vue')['default']
@@ -87,7 +88,6 @@ declare module 'vue' {
     MessageListGroup: typeof import('./src/components/MessageListGroup.vue')['default']
     QueryHeader: typeof import('./src/components/QueryHeader.vue')['default']
     ReadOnlyAlertItem: typeof import('./src/components/globals/formItems/ReadOnlyAlertItem.vue')['default']
-    ReadOnlyField: typeof import('./src/components/globals/ReadOnlyField.vue')['default']
     RecursiveListGroup: typeof import('./src/components/RecursiveListGroup.vue')['default']
     RoutableTabs: typeof import('./src/components/RoutableTabs.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']

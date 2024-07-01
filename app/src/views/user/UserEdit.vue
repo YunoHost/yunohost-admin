@@ -5,7 +5,6 @@ import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 
 import api from '@/api'
-import AdressInputSelect from '@/components/AdressInputSelect.vue'
 import type ViewBase from '@/components/globals/ViewBase.vue'
 import { arrayDiff } from '@/helpers/commons'
 import {
@@ -255,7 +254,7 @@ function removeEmailField(type: 'aliases' | 'forward', index: number) {
       <!-- USER EMAIL -->
       <FormField v-bind="fields.mail" :validation="v$.form.mail">
         <template #default="{ self }">
-          <AdressInputSelect v-bind="self" v-model="form.mail" />
+          <AdressItem v-bind="self" v-model="form.mail" />
         </template>
       </FormField>
 
@@ -282,7 +281,7 @@ function removeEmailField(type: 'aliases' | 'forward', index: number) {
             :validation-index="i"
           >
             <template #default="{ self }">
-              <AdressInputSelect v-bind="self" v-model="form.mail_aliases[i]" />
+              <AdressItem v-bind="self" v-model="form.mail_aliases[i]" />
             </template>
           </FormField>
 

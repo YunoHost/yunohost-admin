@@ -10,7 +10,7 @@ import {
 } from '@/helpers/commons'
 
 const NO_VALUE_FIELDS = [
-  'ReadOnlyField',
+  'FormFieldReadonly',
   'ReadOnlyAlertItem',
   'MarkdownItem',
   'DisplayTextItem',
@@ -56,7 +56,7 @@ export function sizeToM(sizeStr) {
 }
 
 /**
- * Returns a formatted address element to be used by AdressInputSelect component.
+ * Returns a formatted address element to be used by AdressItem component.
  *
  * @param {String} address - A string representing an adress (subdomain or email)
  * @return {Object} - `{ localPart, separator, domain }`.
@@ -124,7 +124,7 @@ export function formatYunoHostArgument(arg) {
   let validation = {}
   arg.ask = formatI18nField(arg.ask)
   const field = {
-    is: arg.readonly ? 'ReadOnlyField' : 'FormField',
+    is: arg.readonly ? 'FormFieldReadonly' : 'FormField',
     visible: arg.visible,
     props: {
       label: arg.ask,
