@@ -4,16 +4,27 @@
  */
 
 import i18n from '@/i18n'
+import type { APIErrorData, RequestMethod, APIRequest } from './api'
 
 class APIError extends Error {
-  constructor(request, { url, status, statusText }, { error }) {
+  name = 'APIError'
+  code: number
+  status: string
+  method: RequestMethod
+  request: APIRequest
+  path: string
+
+  constructor(
+    request: APIRequest,
+    { url, status, statusText }: Response,
+    { error }: APIErrorData,
+  ) {
     super(
       error
         ? error.replaceAll('\n', '<br>')
         : i18n.global.t('error_server_unexpected'),
     )
     const urlObj = new URL(url)
-    this.name = 'APIError'
     this.code = status
     this.status = statusText
     this.method = request.method
@@ -23,76 +34,114 @@ class APIError extends Error {
 
   log() {
     /* eslint-disable-next-line */
-    console.error(`${this.name} (${this.code}): ${this.uri}\n${this.message}`)
+    console.error(`${this.name} (${this.code}): ${this.path}\n${this.message}`)
   }
 }
 
 // Log (Special error to trigger a redirect to a log page)
 class APIErrorLog extends APIError {
-  constructor(method, response, errorData) {
-    super(method, response, errorData)
-    this.logRef = errorData.log_ref
-    this.name = 'APIErrorLog'
+  name = 'APIErrorLog'
+  logRef: string
+
+  constructor(
+    request: APIRequest,
+    response: Response,
+    errorData: APIErrorData,
+  ) {
+    super(request, response, errorData)
+    this.logRef = errorData.log_ref as string
   }
 }
 
 // 0 — (means "the connexion has been closed" apparently)
 class APIConnexionError extends APIError {
-  constructor(method, response) {
-    super(method, response, {
+  name = 'APIConnexionError'
+  constructor(
+    request: APIRequest,
+    response: Response,
+    _errorData: APIErrorData,
+  ) {
+    super(request, response, {
       error: i18n.global.t('error_connection_interrupted'),
     })
-    this.name = 'APIConnexionError'
   }
 }
 
 // 400 — Bad Request
 class APIBadRequestError extends APIError {
-  constructor(method, response, errorData) {
-    super(method, response, errorData)
-    this.name = 'APIBadRequestError'
-    this.key = errorData.error_key
+  name = 'APIBadRequestError'
+  key: string
+  data: APIErrorData
+
+  constructor(
+    request: APIRequest,
+    response: Response,
+    errorData: APIErrorData,
+  ) {
+    super(request, response, errorData)
+    this.key = errorData.error_key as string
     this.data = errorData
   }
 }
 
 // 401 — Unauthorized
 class APIUnauthorizedError extends APIError {
-  constructor(method, response, errorData) {
-    super(method, response, { error: i18n.global.t('unauthorized') })
-    this.name = 'APIUnauthorizedError'
+  name = 'APIUnauthorizedError'
+
+  constructor(
+    request: APIRequest,
+    response: Response,
+    _errorData: APIErrorData,
+  ) {
+    super(request, response, { error: i18n.global.t('unauthorized') })
   }
 }
 
 // 404 — Not Found
 class APINotFoundError extends APIError {
-  constructor(method, response, errorData) {
+  name = 'APINotFoundError'
+
+  constructor(
+    request: APIRequest,
+    response: Response,
+    errorData: APIErrorData,
+  ) {
     errorData.error = i18n.global.t('api_not_found')
-    super(method, response, errorData)
-    this.name = 'APINotFoundError'
+    super(request, response, errorData)
   }
 }
 
 // 500 — Server Internal Error
 class APIInternalError extends APIError {
-  constructor(method, response, errorData) {
-    super(method, response, errorData)
+  name = 'APIInternalError'
+  traceback: string | null
+
+  constructor(
+    request: APIRequest,
+    response: Response,
+    errorData: APIErrorData,
+  ) {
+    super(request, response, errorData)
     this.traceback = errorData.traceback || null
-    this.name = 'APIInternalError'
   }
 }
 
 // 502 — Bad gateway (means API is down)
 class APINotRespondingError extends APIError {
-  constructor(method, response) {
-    super(method, response, { error: i18n.global.t('api_not_responding') })
-    this.name = 'APINotRespondingError'
+  name = 'APINotRespondingError'
+
+  constructor(
+    request: APIRequest,
+    response: Response,
+    _errorData: APIErrorData,
+  ) {
+    super(request, response, { error: i18n.global.t('api_not_responding') })
   }
 }
 
 // Temp factory
 const errors = {
-  [undefined]: APIError,
+  default: APIError,
   log: APIErrorLog,
   0: APIConnexionError,
   400: APIBadRequestError,

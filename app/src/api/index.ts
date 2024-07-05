@@ -1,2 +1,2 @@
 export { default, objectToParams } from './api'
-export { handleError, registerGlobalErrorHandlers } from './handlers'
+export { getError, registerGlobalErrorHandlers } from './handlers'

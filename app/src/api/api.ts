@@ -4,41 +4,82 @@
  */
 
 import store from '@/store'
-import { openWebSocket, getResponseData, handleError } from './handlers'
+import { openWebSocket, getResponseData, getError } from './handlers'
+import type { Obj } from '@/types/commons'
 
-/**
- * Options available for an API call.
- *
- * @typedef {Object} Options
- * @property {Boolean} wait - If `true`, will display the waiting modal.
- * @property {Boolean} websocket - if `true`, will open a websocket connection.
- * @property {Boolean} initial - if `true` and an error occurs, the dismiss button will trigger a go back in history.
- * @property {Boolean} asFormData - if `true`, will send the data with a body encoded as `"multipart/form-data"` instead of `"x-www-form-urlencoded"`).
- */
+export type RequestMethod = 'GET' | 'POST' | 'PUT' | 'DELETE'
 
-/**
- * Representation of an API call for `api.fetchAll`
- *
- * @typedef {Array} Query
- * @property {String} 0 - "method"
- * @property {String|Object} 1 - "uri", uri to call as string or as an object for cached uris.
- * @property {Object|null} 2 - "data"
- * @property {Options} 3 - "options"
- */
+type StoreUri = {
+  uri: string
+  storeKey?: string
+  param?: string
+}
+type HumanKey = {
+  key: string
+  [propName: string]: any
+}
+
+type APIQueryOptions = {
+  // Display the waiting modal
+  wait?: boolean
+  // Open a websocket connection
+  websocket?: boolean
+  // If an error occurs, the dismiss button will trigger a go back in history
+  initial?: boolean
+  // Send the data with a body encoded as `"multipart/form-data"` instead of `"x-www-form-urlencoded"`)
+  asFormData?: boolean
+}
+
+export type APIQuery = [
+  method: RequestMethod,
+  uri: string | StoreUri,
+  data?: Obj | null,
+  humanKey?: string | HumanKey | null,
+  options?: APIQueryOptions,
+]
+
+export type APIErrorData = {
+  error: string
+  error_key?: string
+  log_ref?: string
+  traceback?: string
+  name?: string // FIXME name is field id right?
+}
+
+type RequestStatus = 'pending' | 'success' | 'warning' | 'error'
+
+export type APIRequest = {
+  method: RequestMethod
+  uri: string
+  humanRouteKey: HumanKey['key']
+  humanRoute: string
+  initial: APIQueryOptions['initial']
+  status: RequestStatus
+}
+
+type WebsocketMessage = {
+  text: string
+  status: 'info' | 'success' | 'warning' | 'error'
+}
+
+export type APIRequestAction = APIRequest & {
+  messages: WebsocketMessage[]
+  date: number
+  warning: number
+  errors: number
+}
 
 /**
  * Converts an object literal into an `URLSearchParams` that can be turned into a
  * query string or used as a body in a `fetch` call.
  *
- * @param {Object} obj - An object literal to convert.
- * @param {Object} options
- * @param {Boolean} [options.addLocale=false] - Option to append the locale to the query string.
- * @return {URLSearchParams}
+ * @param obj - An object literal to convert to `FormData` or `URLSearchParams`
+ * @param addLocale - Append the locale to the returned object
+ * @param formData - Returns a `FormData` instead of `URLSearchParams`
  */
 export function objectToParams(
-  obj,
-  { addLocale = false } = {},
-  formData = false,
+  obj: Obj,
+  { addLocale = false, formData = false } = {},
 ) {
   const urlParams = formData ? new FormData() : new URLSearchParams()
   for (const [key, value] of Object.entries(obj)) {
@@ -66,36 +107,46 @@ export default {
 
       'X-Requested-With': 'XMLHttpRequest',
     },
-  },
+  } as RequestInit,
 
   /**
-   * Generic method to fetch the api without automatic response handling.
+   * Generic method to fetch the api.
    *
-   * @param {String} method - a method between 'GET', 'POST', 'PUT' and 'DELETE'.
-   * @param {String} uri
-   * @param {Object} [data={}] - data to send as body.
-   * @param {Options} [options={ wait = true, websocket = true, initial = false, asFormData = false }]
-   * @return {Promise<Object|Error>} Promise that resolve the api response data or an error.
+   * @param method - a method in `'GET' | 'POST' | 'PUT' | 'DELETE'`
+   * @param uri - URI to fetch
+   * @param data - Data to send as body
+   * @param options - {@link APIQueryOptions}
+
+   * @returns Promise that resolve the api response data
+   * @throws Throw an `APIError` or subclass depending on server response
    */
   async fetch(
-    method,
-    uri,
-    data = {},
-    humanKey = null,
-    { wait = true, websocket = true, initial = false, asFormData = false } = {},
-  ) {
+    method: RequestMethod,
+    uri: string,
+    data: Obj | null | undefined = {},
+    humanKey: string | HumanKey | null = null,
+    {
+      wait = true,
+      websocket = true,
+      initial = false,
+      asFormData = true,
+    }: APIQueryOptions = {},
+  ): Promise<Obj | string> {
     // `await` because Vuex actions returns promises by default.
-    const request = await store.dispatch('INIT_REQUEST', {
-      method,
-      uri,
-      humanKey,
-      initial,
-      wait,
-      websocket,
-    })
+    const request: APIRequest | APIRequestAction = await store.dispatch(
+      'INIT_REQUEST',
+      {
+        method,
+        uri,
+        humanKey,
+        initial,
+        wait,
+        websocket,
+      },
+    )
 
     if (websocket) {
-      await openWebSocket(request)
+      await openWebSocket(request as APIRequestAction)
     }
 
     let options = this.options
@@ -105,7 +156,9 @@ export default {
       options = {
         ...options,
         method,
-        body: objectToParams(data, { addLocale: true }, true),
+        body: data
+          ? objectToParams(data, { addLocale: true, formData: asFormData })
+          : null,
       }
     }
 
@@ -113,9 +166,11 @@ export default {
     const responseData = await getResponseData(response)
     store.dispatch('END_REQUEST', { request, success: response.ok, wait })
 
-    return response.ok
-      ? responseData
-      : handleError(request, response, responseData)
+    if (!response.ok) {
+      throw getError(request, response, responseData as string | APIErrorData)
+    }
+
+    return responseData
   },
 
   /**
@@ -123,20 +178,26 @@ export default {
    * Those calls will act as one (declare optional waiting for one but still create history entries for each)
    * Calls are synchronous since the API can't handle multiple calls.
    *
-   * @param {Array<Query>} queries - An array of queries with special representation.
-   * @param {Object} [options={}]
-   * @param {Boolean}
-   * @return {Promise<Array|Error>} Promise that resolve the api responses data or an error.
+   * @param queries - Array of {@link APIQuery}
+   * @param wait - Show the waiting modal until every queries have been resolved
+   * @param initial - Inform that thoses queries are required for a view to be displayed
+   * @returns Promise that resolves an array of server responses
+   * @throws Throw an `APIError` or subclass depending on server response
    */
-  async fetchAll(queries, { wait, initial } = {}) {
-    const results = []
+  async fetchAll(queries: APIQuery[], { wait = false, initial = false } = {}) {
+    const results: Array<Obj | string> = []
     if (wait) store.commit('SET_WAITING', true)
     try {
       for (const [method, uri, data, humanKey, options = {}] of queries) {
         if (wait) options.wait = false
         if (initial) options.initial = true
         results.push(
-          await this[method.toLowerCase()](uri, data, humanKey, options),
+          await this[method.toLowerCase() as 'get' | 'post' | 'put' | 'delete'](
+            uri,
+            data,
+            humanKey,
+            options,
+          ),
         )
       }
     } finally {
@@ -150,27 +211,41 @@ export default {
   /**
    * Api get helper function.
    *
-   * @param {String|Object} uri
-   * @param {null} [data=null] - for convenience in muliple calls, just pass null.
-   * @param {Options} [options={}] - options to apply to the call (default is `{ websocket: false, wait: false }`)
-   * @return {Promise<Object|Error>} Promise that resolve the api response data or an error.
+   * @param uri - uri to fetch
+   * @param data - for convenience in muliple calls, just pass null
+   * @param humanKey - key and eventually some data to build the query's description
+   * @param options - {@link APIQueryOptions}
+   * @returns Promise that resolve the api response data or an error
+   * @throws Throw an `APIError` or subclass depending on server response
    */
-  get(uri, data = null, humanKey = null, options = {}) {
+  get(
+    uri: string | StoreUri,
+    data: Obj | null = null,
+    humanKey: string | HumanKey | null = null,
+    options: APIQueryOptions = {},
+  ): Promise<Obj | string> {
     options = { websocket: false, wait: false, ...options }
     if (typeof uri === 'string')
-      return this.fetch('GET', uri, null, humanKey, options)
+      return this.fetch('GET', uri, data, humanKey, options)
     return store.dispatch('GET', { ...uri, humanKey, options })
   },
 
   /**
    * Api post helper function.
    *
-   * @param {String|Object} uri
-   * @param {String} [data={}] - data to send as body.
-   * @param {Options} [options={}] - options to apply to the call
-   * @return {Promise<Object|Error>} Promise that resolve the api response data or an error.
+   * @param uri - uri to fetch
+   * @param data - data to send as body
+   * @param humanKey - key and eventually some data to build the query's description
+   * @param options - {@link APIQueryOptions}
+   * @returns Promise that resolve the api response data or an error
+   * @throws Throw an `APIError` or subclass depending on server response
    */
-  post(uri, data = {}, humanKey = null, options = {}) {
+  post(
+    uri: string | StoreUri,
+    data: Obj | null | undefined = {},
+    humanKey: string | HumanKey | null = null,
+    options: APIQueryOptions = {},
+  ): Promise<Obj | string> {
     if (typeof uri === 'string')
       return this.fetch('POST', uri, data, humanKey, options)
     return store.dispatch('POST', { ...uri, data, humanKey, options })
@@ -179,12 +254,19 @@ export default {
   /**
    * Api put helper function.
    *
-   * @param {String|Object} uri
-   * @param {String} [data={}] - data to send as body.
-   * @param {Options} [options={}] - options to apply to the call
-   * @return {Promise<Object|Error>} Promise that resolve the api response data or an error.
+   * @param uri - uri to fetch
+   * @param data - data to send as body
+   * @param humanKey - key and eventually some data to build the query's description
+   * @param options - {@link APIQueryOptions}
+   * @returns Promise that resolve the api response data or an error
+   * @throws Throw an `APIError` or subclass depending on server response
    */
-  put(uri, data = {}, humanKey = null, options = {}) {
+  put(
+    uri: string | StoreUri,
+    data: Obj | null | undefined = {},
+    humanKey: string | HumanKey | null = null,
+    options: APIQueryOptions = {},
+  ): Promise<Obj | string> {
     if (typeof uri === 'string')
       return this.fetch('PUT', uri, data, humanKey, options)
     return store.dispatch('PUT', { ...uri, data, humanKey, options })
@@ -193,12 +275,19 @@ export default {
   /**
    * Api delete helper function.
    *
-   * @param {String|Object} uri
-   * @param {String} [data={}] - data to send as body.
-   * @param {Options} [options={}] - options to apply to the call (default is `{ websocket: false, wait: false }`)
-   * @return {Promise<Object|Error>} Promise that resolve the api response data or an error.
+   * @param uri - uri to fetch
+   * @param data - data to send as body
+   * @param humanKey - key and eventually some data to build the query's description
+   * @param options - {@link APIQueryOptions}
+   * @returns Promise that resolve the api response data or an error
+   * @throws Throw an `APIError` or subclass depending on server response
    */
-  delete(uri, data = {}, humanKey = null, options = {}) {
+  delete(
+    uri: string | StoreUri,
+    data: Obj | null | undefined = {},
+    humanKey: string | HumanKey | null = null,
+    options: APIQueryOptions = {},
+  ): Promise<Obj | string> {
     if (typeof uri === 'string')
       return this.fetch('DELETE', uri, data, humanKey, options)
     return store.dispatch('DELETE', { ...uri, data, humanKey, options })
@@ -207,16 +296,15 @@ export default {
   /**
    * Api reconnection helper. Resolve when server is reachable or fail after n attemps
    *
-   * @param {Number} attemps - number of attemps before rejecting
-   * @param {Number} delay - delay between calls to the API in ms.
-   * @param {Number} initialDelay - delay before calling the API for the first time in ms.
-   * @return {Promise<undefined|Error>}
+   * @param attemps - Number of attemps before rejecting
+   * @param delay - Delay between calls to the API in ms
+   * @param initialDelay - Delay before calling the API for the first time in ms
+   * @returns Promise that resolve yunohost version infos
+   * @throws Throw an `APIError` or subclass depending on server response
    */
   tryToReconnect({ attemps = 5, delay = 2000, initialDelay = 0 } = {}) {
     return new Promise((resolve, reject) => {
-      const api = this
-
-      function reconnect(n) {
+      function reconnect(n: number) {
         store
           .dispatch('GET_YUNOHOST_INFOS')
           .then(resolve)
