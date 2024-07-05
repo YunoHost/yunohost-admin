@@ -33,3 +33,14 @@ export type CheckboxItemProps = BaseWritableItemProps & {
   // FIXME unused?
   // choices: string[]
 }
+
+export type FileItemProps = BaseWritableItemProps & {
+  accept?: string | string[]
+  dropPlaceholder?: string
+}
+export type FileModelValue = {
+  file: File | null
+  content?: string | null
+  current?: boolean
+  removed?: boolean
+}

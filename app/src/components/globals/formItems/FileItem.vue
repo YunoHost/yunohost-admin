@@ -2,46 +2,39 @@
 import type { BFormFile } from 'bootstrap-vue-next'
 import { computed, inject, ref } from 'vue'
 
+import { ValidationTouchSymbol } from '@/composables/form'
 import { getFileContent } from '@/helpers/commons'
-
-type CustomFile = {
-  file: File | null
-  content?: string | null
-  current?: boolean
-  removed?: boolean
-}
+import type {
+  BaseItemComputedProps,
+  FileItemProps,
+  FileModelValue,
+} from '@/types/form'
 
 const props = withDefaults(
-  defineProps<{
-    id?: string
-    modelValue?: CustomFile
-    placeholder?: string
-    dropPlaceholder?: string
-    accept?: string
-    state?: string
-    required?: boolean
-    name?: string
-  }>(),
+  defineProps<FileItemProps & BaseItemComputedProps<FileModelValue>>(),
   {
     id: undefined,
-    modelValue: () => ({ file: null }),
-    placeholder: 'Choose a file or drop it here...',
-    dropPlaceholder: undefined,
-    accept: '',
-    state: undefined,
-    required: false,
     name: undefined,
+    placeholder: 'Choose a file or drop it here...',
+    touchKey: undefined,
+    accept: '',
+    dropPlaceholder: undefined,
+
+    ariaDescribedby: undefined,
+    modelValue: () => ({ file: null }),
+    state: undefined,
+    validation: undefined,
   },
 )
 
 const emit = defineEmits<{
-  'update:modelValue': [value: CustomFile]
+  'update:modelValue': [value: FileModelValue]
 }>()
 
-const touch = inject('touch')
+const touch = inject(ValidationTouchSymbol)
 const inputElem = ref<InstanceType<typeof BFormFile> | null>(null)
 
-const _placeholder = computed(() => {
+const placeholder = computed(() => {
   return props.modelValue.file === null
     ? props.placeholder
     : props.modelValue.file.name
@@ -72,34 +65,34 @@ function clearFiles() {
     removed: true,
   })
 }
+
+const required = computed(() => 'required' in (props.validation ?? {}))
 </script>
 
 <template>
   <BInputGroup class="w-100">
-    <template #append>
-      <BButton
-        v-if="!required && modelValue.file !== null"
-        @click="clearFiles"
-        variant="danger"
-      >
+    <template v-if="!required && modelValue.file !== null" #append>
+      <BButton variant="danger" @click="clearFiles">
         <span class="visually-hidden">{{ $t('delete') }}</span>
         <YIcon iname="trash" />
       </BButton>
     </template>
 
     <BFormFile
-      :modelValue="modelValue.file"
-      ref="inputElem"
       :id="id"
-      :required="required"
-      :placeholder="_placeholder"
+      ref="inputElem"
+      :name="name"
+      :placeholder="placeholder"
       :accept="accept"
       :drop-placeholder="dropPlaceholder"
+      :aria-describedby="ariaDescribedby"
+      :model-value="modelValue.file"
       :state="state"
       :browse-text="$t('words.browse')"
-      @update:modelValue="onInput"
-      @blur="touch(name)"
-      @focusout="touch(name)"
+      :required="required"
+      @blur="touch?.(touchKey)"
+      @focusout="touch?.(touchKey)"
+      @update:model-value="onInput"
     />
   </BInputGroup>
 </template>

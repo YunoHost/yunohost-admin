@@ -117,16 +117,17 @@ export function randint(min, max) {
 /**
  * Returns a File content.
  *
- * @param {File} file
- * @param {Object} [extraParams] - Optionnal params
- * @param {Boolean} [extraParams.base64] - returns a base64 representation of the file.
- * @return {Promise<String>}
+ * @param file -
+ * @param base64 - returns a base64 representation of the file.
  */
-export function getFileContent(file, { base64 = false } = {}) {
+export function getFileContent(
+  file: File,
+  { base64 = false } = {},
+): Promise<string> {
   return new Promise((resolve, reject) => {
     const reader = new FileReader()
     reader.onerror = reject
-    reader.onload = () => resolve(reader.result)
+    reader.onload = () => resolve(reader.result as string)
 
     if (base64) {
       reader.readAsDataURL(file)
