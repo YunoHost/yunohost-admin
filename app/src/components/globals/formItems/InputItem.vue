@@ -1,63 +1,70 @@
 <script setup lang="ts">
-import { inject } from 'vue'
+import type { BaseValidation } from '@vuelidate/core'
+import { computed, inject } from 'vue'
+
+import { ValidationTouchSymbol } from '@/composables/form'
+import type { BaseItemComputedProps, InputItemProps } from '@/types/form'
+import { objectGet } from '@/helpers/commons'
 
 const props = withDefaults(
-  defineProps<{
-    modelValue?: string | number | null
-    id?: string
-    placeholder?: string
-    type?: string
-    required?: boolean
-    state?: false | null
-    min?: number
-    max?: number
-    step?: number
-    trim?: boolean
-    autocomplete?: string
-    // FIXME pattern?
-    pattern?: object
-    name?: string
-  }>(),
+  defineProps<InputItemProps & BaseItemComputedProps<string | number | null>>(),
   {
-    modelValue: null,
     id: undefined,
+    name: undefined,
     placeholder: undefined,
-    type: 'text',
-    required: false,
-    state: undefined,
-    min: undefined,
-    max: undefined,
+    touchKey: undefined,
+    autocomplete: undefined,
+    // pattern: undefined,
     step: undefined,
     trim: true,
-    autocomplete: undefined,
-    pattern: undefined,
-    name: undefined,
+    type: 'text',
+
+    ariaDescribedby: undefined,
+    modelValue: undefined,
+    state: undefined,
+    validation: undefined,
   },
 )
-const emit = defineEmits<{
+defineEmits<{
   'update:modelValue': [value: string | number | null]
 }>()
 
-const touch = inject('touch')
+const touch = inject(ValidationTouchSymbol)
 
-const autocomplete =
-  props.autocomplete || props.type === 'password' ? 'new-password' : null
+const model = defineModel<string | number | null>()
+
+const autocomplete = computed(() => {
+  const typeToAutocomplete = {
+    password: 'new-password',
+    email: 'email',
+    url: 'url',
+  } as const
+  return props.autocomplete || objectGet(typeToAutocomplete, props.type)
+})
+
+const fromValidation = computed(() => {
+  const validation = props?.validation ?? ({} as BaseValidation)
+  return {
+    required: 'required' in validation,
+    min: 'min' in validation ? validation.min.$params.min : undefined,
+    max: 'max' in validation ? validation.max.$params.max : undefined,
+  }
+})
 </script>
 
 <template>
   <BFormInput
-    :modelValue="modelValue"
-    @update:modelValue="emit('update:modelValue', $event)"
     :id="id"
+    v-bind="fromValidation"
+    v-model="model"
+    :name="name"
     :placeholder="placeholder"
-    :type="type"
-    :state="state"
-    :required="required"
-    :min="min"
-    :max="max"
+    :autocomplete="autocomplete"
     :step="step"
     :trim="trim"
-    :autocomplete="autocomplete"
-    @blur="touch(name)"
+    :type="type"
+    :aria-describedby="ariaDescribedby"
+    :state="state"
+    @blur="touch?.(touchKey)"
   />
 </template>

@@ -44,3 +44,31 @@ export type FileModelValue = {
   current?: boolean
   removed?: boolean
 }
+
+export type InputItemProps = BaseWritableItemProps & {
+  autocomplete?:
+    | 'off'
+    | 'on'
+    | 'name'
+    | 'email'
+    | 'username'
+    | 'new-password'
+    | 'current-password'
+    | 'url'
+  // pattern?: object
+  // choices?: string[] FIXME rm ?
+  step?: number
+  trim?: boolean
+  type?:
+    | 'color'
+    | 'date'
+    // | 'datetime-local'
+    | 'email'
+    | 'number'
+    | 'password'
+    | 'range'
+    // | 'search'
+    | 'text'
+    | 'time'
+    | 'url'
+}

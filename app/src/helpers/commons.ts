@@ -29,6 +29,14 @@ export function isObjectLiteral(value) {
   )
 }
 
+export function objectGet<
+  T extends Obj,
+  K extends keyof T | string,
+  F extends any = undefined,
+>(obj: T, key: K, fallback?: F) {
+  return (key in obj ? obj[key] : fallback) as K extends keyof T ? T[K] : F
+}
+
 /**
  * Check if value is "empty" (`null`, `undefined`, `''`, `[]`, '{}').
  * Note: `0` is not considered "empty" in that helper.
