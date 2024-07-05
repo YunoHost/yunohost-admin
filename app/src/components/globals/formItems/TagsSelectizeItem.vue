@@ -1,7 +1,12 @@
 <script setup lang="ts">
-// FIXME addTag removeTag types
 import type { BDropdown, BFormInput } from 'bootstrap-vue-next'
 import { computed, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
+
+import type {
+  BaseItemComputedProps,
+  TagsSelectizeItemProps,
+} from '@/types/form'
 
 type TagUpdateArgs = {
   action: 'add' | 'remove'
@@ -14,30 +19,23 @@ defineOptions({
 })
 
 const props = withDefaults(
-  defineProps<{
-    modelValue: string[]
-    // FIXME typing
-    options: string[]
-    id: string
-    placeholder?: string
-    limit?: number
-    name?: string
-    itemsName: string
-    disabledItems?: string[]
-    auto?: boolean
-    noTags?: boolean
-    label?: string
-    tagIcon?: string
-  }>(),
+  defineProps<TagsSelectizeItemProps & BaseItemComputedProps<string[]>>(),
   {
-    placeholder: undefined,
-    limit: undefined,
+    id: undefined,
     name: undefined,
-    disabledItems: () => [],
+    placeholder: undefined,
+    touchKey: undefined,
     auto: false,
-    noTags: false,
+    disabledItems: undefined,
     label: undefined,
+    limit: undefined,
+    noTags: false,
     tagIcon: undefined,
+
+    ariaDescribedby: undefined,
+    modelValue: undefined,
+    state: undefined,
+    validation: undefined,
   },
 )
 
@@ -46,18 +44,21 @@ const emit = defineEmits<{
   'tag-update': [value: TagUpdateArgs]
 }>()
 
-const search = ref('')
+const model = defineModel<string[]>()
 const searchElem = ref<InstanceType<typeof BDropdown> | null>(null)
 const dropdownElem = ref<InstanceType<typeof BFormInput> | null>(null)
 
+const { t } = useI18n()
+
+const search = ref('')
 const criteria = computed(() => {
   return search.value.trim().toLowerCase()
 })
-
 const availableOptions = computed(() => {
   const options = props.options.filter((opt) => {
     return (
-      props.modelValue.indexOf(opt) === -1 && !props.disabledItems.includes(opt)
+      props.modelValue?.indexOf(opt) === -1 &&
+      props.disabledItems?.includes(opt)
     )
   })
   if (criteria.value) {
@@ -67,7 +68,14 @@ const availableOptions = computed(() => {
   }
   return options
 })
-
+const searchI18n = computed(() => {
+  const params = { items: t('items.' + props.itemsName, 0) }
+  return {
+    label: t('search.for', { items: props.itemsName }),
+    invalidFeedback: t('search.not_found', params, 0),
+    noItems: t('items_verbose_items_left', params, 0),
+  }
+})
 const searchState = computed(() => {
   return criteria.value && availableOptions.value.length === 0 ? false : null
 })
@@ -87,7 +95,7 @@ function onRemoveTag(option: string, applyFn: TagUpdateArgs['applyFn']) {
   }
 }
 
-function onDropdownKeydown(e) {
+function onDropdownKeydown(e: KeyboardEvent) {
   // Allow to start searching after dropdown opening
   // FIXME check if dropdownElem.value!.firstElementChild works (removed the $el)
   if (
@@ -97,18 +105,22 @@ function onDropdownKeydown(e) {
     searchElem.value!.$el.focus()
   }
 }
+
+// FIXME call touch somewhere?
 </script>
 
 <template>
   <div class="tags-selectize">
     <BFormTags
       v-bind="$attrs"
-      :modelValue="modelValue"
-      @update:modelValue="emit('update:modelValue', $event)"
       :id="id"
+      v-model="model"
+      :name="name"
+      :aria-describedby="ariaDescribedby"
+      :state="state"
+      no-outer-focus
       size="lg"
       class="p-0 border-0"
-      no-outer-focus
     >
       <template #default="{ tags, disabled, addTag, removeTag }">
         <ul
@@ -121,10 +133,10 @@ function onDropdownKeydown(e) {
             class="list-inline-item"
           >
             <BFormTag
-              @remove="onRemoveTag(tag, removeTag)"
               :title="tag"
-              :disabled="disabled || disabledItems.includes(tag)"
+              :disabled="disabled || disabledItems?.includes(tag)"
               class="border border-dark mb-2"
+              @remove="onRemoveTag(tag, removeTag)"
             >
               <YIcon v-if="tagIcon" :iname="tagIcon" /> {{ tag }}
             </BFormTag>
@@ -145,30 +157,22 @@ function onDropdownKeydown(e) {
           <BDropdownGroup class="search-group">
             <BDropdownForm @submit.stop.prevent="() => {}">
               <BFormGroup
-                :label="$t('search.for', { items: itemsName })"
+                :label="searchI18n.label"
+                :label-for="id + '-search-input'"
                 label-cols-md="auto"
                 label-size="sm"
-                :label-for="id + '-search-input'"
-                :invalid-feedback="
-                  $t(
-                    'search.not_found',
-                    {
-                      items: $t('items.' + itemsName, 0),
-                    },
-                    0,
-                  )
-                "
+                :invalid-feedback="searchI18n.invalidFeedback"
                 :state="searchState"
                 :disabled="disabled"
                 class="mb-0"
               >
                 <BFormInput
+                  :id="id + '-search-input'"
                   ref="searchElem"
                   v-model="search"
-                  :id="id + '-search-input'"
-                  type="search"
-                  size="sm"
                   autocomplete="off"
+                  size="sm"
+                  type="search"
                 />
               </BFormGroup>
             </BDropdownForm>
@@ -184,15 +188,7 @@ function onDropdownKeydown(e) {
           </BDropdownItemButton>
           <BDropdownText v-if="!criteria && availableOptions.length === 0">
             <YIcon iname="exclamation-triangle" />
-            {{
-              $t(
-                'items_verbose_items_left',
-                {
-                  items: $t('items.' + itemsName, 0),
-                },
-                0,
-              )
-            }}
+            {{ searchI18n.noItems }}
           </BDropdownText>
         </BDropdown>
       </template>

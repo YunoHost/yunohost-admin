@@ -82,3 +82,14 @@ export type TagsItemProps = BaseWritableItemProps & {
   // FIXME no options on BFormTags?
   // options?: string[]
 }
+
+export type TagsSelectizeItemProps = BaseWritableItemProps & {
+  itemsName: string
+  options: string[]
+  auto?: boolean
+  disabledItems?: string[]
+  label: string
+  limit?: number
+  noTags?: boolean
+  tagIcon?: string
+}
