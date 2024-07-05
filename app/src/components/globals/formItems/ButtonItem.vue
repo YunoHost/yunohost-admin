@@ -1,24 +1,18 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 
-const props = withDefaults(
-  defineProps<{
-    label?: string
-    id?: string
-    type?: 'success' | 'info' | 'warning' | 'danger'
-    icon?: string
-    enabled?: string | boolean
-  }>(),
-  {
-    label: undefined,
-    id: undefined,
-    type: 'success',
-    icon: undefined,
-    enabled: true,
-  },
-)
+import type { ButtonItemProps } from '@/types/form'
 
-const emit = defineEmits(['action'])
+const props = withDefaults(defineProps<ButtonItemProps>(), {
+  id: undefined,
+  enabled: true,
+  icon: undefined,
+  type: 'success',
+})
+
+const emit = defineEmits<{
+  action: [value: ButtonItemProps['id']]
+}>()
 
 const icon = computed(() => {
   const icons = {
@@ -36,9 +30,9 @@ const icon = computed(() => {
   <BButton
     :id="id"
     :variant="type"
-    @click="emit('action', $event)"
     :disabled="!enabled"
     class="d-block mb-3"
+    @click="emit('action', id)"
   >
     <YIcon :iname="icon" class="me-2" />
     <span v-html="label" />

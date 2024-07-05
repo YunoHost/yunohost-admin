@@ -1,6 +1,21 @@
 import type { BaseValidation } from '@vuelidate/core'
 type StateValidation = false | null
 
+// DISPLAY
+
+type BaseDisplayItemProps = {
+  label: string
+  id?: string
+}
+
+export type ButtonItemProps = BaseDisplayItemProps & {
+  // FIXME compute enabled JSExpression
+  enabled?: boolean
+  icon?: string
+  type?: StateVariant
+}
+
+
 // WRITABLE
 
 type BaseWritableItemProps = {
