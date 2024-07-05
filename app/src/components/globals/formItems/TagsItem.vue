@@ -1,31 +1,31 @@
 <script setup lang="ts">
-import { inject } from 'vue'
+import { computed, inject } from 'vue'
 
-withDefaults(
-  defineProps<{
-    modelValue?: unknown[] | null
-    id?: string
-    placeholder?: string
-    limit?: number
-    required?: boolean
-    state?: boolean
-    name?: string
-    // FIXME no options on BFormTags
-    options?: unknown[]
-  }>(),
+import { ValidationTouchSymbol } from '@/composables/form'
+import type { BaseItemComputedProps, TagsItemProps } from '@/types/form'
+
+const props = withDefaults(
+  defineProps<TagsItemProps & BaseItemComputedProps<string[]>>(),
   {
-    modelValue: null,
     id: undefined,
-    placeholder: undefined,
-    limit: undefined,
-    required: false,
-    state: undefined,
     name: undefined,
-    options: undefined,
+    placeholder: undefined,
+    touchKey: undefined,
+    limit: undefined,
+    // options: undefined,
+
+    ariaDescribedby: undefined,
+    modelValue: undefined,
+    state: undefined,
+    validation: undefined,
   },
 )
 
-const touch = inject('touch')
+const touch = inject(ValidationTouchSymbol)
+
+const model = defineModel<string[]>()
+
+const required = computed(() => 'required' in (props?.validation ?? {}))
 
 // FIXME rework for options/choices
 // https://bootstrap-vue-next.github.io/bootstrap-vue-next/docs/components/form-tags.html#using-custom-form-components
@@ -33,16 +33,16 @@ const touch = inject('touch')
 
 <template>
   <BFormTags
-    :modelValue="modelValue"
-    @update:modelValue="$emit('update:modelValue', $event)"
     :id="id"
+    v-model="model"
+    :name="name"
     :placeholder="placeholder"
-    :required="required"
-    separator=" ,;"
     :limit="limit"
-    remove-on-delete
+    :aria-describedby="ariaDescribedby"
     :state="state"
-    :options="options"
-    @blur="touch(name)"
+    :required="required"
+    remove-on-delete
+    separator=" ,;"
+    @blur="touch?.(touchKey)"
   />
 </template>
