@@ -1,36 +1,50 @@
 <script setup lang="ts">
-import { inject } from 'vue'
+import { computed, inject } from 'vue'
 
-withDefaults(
-  defineProps<{
-    modelValue?: string | null
-    id?: string
-    choices: string[]
-    required?: boolean
-    name?: string
-  }>(),
+import { ValidationTouchSymbol } from '@/composables/form'
+import type { BaseItemComputedProps, SelectItemProps } from '@/types/form'
+
+const props = withDefaults(
+  defineProps<SelectItemProps & BaseItemComputedProps<string | null>>(),
   {
-    modelValue: null,
     id: undefined,
-    required: false,
     name: undefined,
+    placeholder: undefined,
+    touchKey: undefined,
+
+    ariaDescribedby: undefined,
+    modelValue: undefined,
+    state: undefined,
+    validation: undefined,
   },
 )
 
-const emit = defineEmits<{
+defineEmits<{
   'update:modelValue': [value: string | null]
 }>()
 
-const touch = inject('touch')
+const model = defineModel<string | number | null>()
+
+const touch = inject(ValidationTouchSymbol)
+
+const required = computed(() => 'required' in (props?.validation ?? {}))
 </script>
 
 <template>
   <BFormSelect
-    :modelValue="modelValue"
-    @update:modelValue="emit('update:modelValue', $event)"
     :id="id"
+    v-model="model"
+    :name="name"
     :options="choices"
+    :aria-describedby="ariaDescribedby"
+    :state="state"
     :required="required"
-    @blur="touch(name)"
-  />
+    @blur="touch?.(touchKey)"
+  >
+    <template #first>
+      <BFormSelectOption value="null" :disabled="required">
+        -- {{ required ? $t('select_an_option') : $t('words.none') }} --
+      </BFormSelectOption>
+    </template>
+  </BFormSelect>
 </template>

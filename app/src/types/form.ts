@@ -72,3 +72,7 @@ export type InputItemProps = BaseWritableItemProps & {
     | 'time'
     | 'url'
 }
+
+export type SelectItemProps = BaseWritableItemProps & {
+  choices: string[] | { text: string; value: string }[]
+}
