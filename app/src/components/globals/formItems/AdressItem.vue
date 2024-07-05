@@ -1,35 +1,36 @@
 <script setup lang="ts">
-type CustomEmail = {
-  localPart: string | null
-  separator: string
-  domain: string | null
-}
+import type {
+  AdressItemProps,
+  AdressModelValue,
+  BaseItemComputedProps,
+} from '@/types/form'
 
-const props = withDefaults(
-  defineProps<{
-    modelValue: CustomEmail
-    choices: string[]
-    placeholder?: string
-    id?: string
-    state?: false | null
-    type?: string
-  }>(),
+withDefaults(
+  defineProps<AdressItemProps & BaseItemComputedProps<AdressModelValue>>(),
   {
-    placeholder: undefined,
     id: undefined,
-    state: undefined,
+    name: undefined,
+    placeholder: undefined,
+    touchKey: undefined,
     type: 'email',
+
+    modelValue: undefined,
+    state: undefined,
+    validation: undefined,
+    ariaDescribedby: undefined,
   },
 )
 
 const emit = defineEmits<{
-  'update:modelValue': [value: CustomEmail]
+  'update:modelValue': [value: AdressModelValue]
 }>()
 
-function onInput(key: 'localPart' | 'domain', modelValue: string | null) {
+const model = defineModel<AdressModelValue>({ required: true })
+
+function onInput(key: 'localPart' | 'domain', value: string | null) {
   emit('update:modelValue', {
-    ...props.modelValue,
-    [key]: modelValue,
+    ...model.value,
+    [key]: value,
   })
 }
 </script>
@@ -37,32 +38,38 @@ function onInput(key: 'localPart' | 'domain', modelValue: string | null) {
 <template>
   <BInputGroup v-bind="$attrs">
     <InputItem
-      :id="id"
-      :modelValue="modelValue.localPart"
+      :id="`${id}-local-part`"
       :placeholder="placeholder"
-      :state="state"
-      :aria-describedby="id + 'local-part-desc'"
-      @update:modelValue="onInput('localPart', $event)"
+      touch-key="localPart"
+      :model-value="model.localPart"
+      :aria-describedby="`${id}-local-part-desc`"
+      :state="validation?.localPart?.$error ? false : null"
+      :validation="validation?.localPart"
+      @update:model-value="onInput('localPart', $event as string)"
     />
 
     <BInputGroupText>{{ modelValue.separator }}</BInputGroupText>
 
     <SelectItem
-      :modelValue="modelValue.domain"
+      :id="`${id}-domain`"
+      touch-key="domain"
+      :model-value="modelValue.domain"
       :choices="choices"
-      :aria-describedby="id + 'domain-desc'"
-      @update:modelValue="onInput('domain', $event)"
-    />
-
-    <span
-      class="visually-hidden"
-      :id="id + 'local-part-desc'"
-      v-t="'address.local_part_description.' + type"
-    />
-    <span
-      class="visually-hidden"
-      :id="id + 'domain-desc'"
-      v-t="'address.domain_description.' + type"
+      :aria-describedby="`${id}-domain-desc`"
+      :state="validation?.domain?.$error ? false : null"
+      :validation="validation?.domain"
+      @update:model-value="onInput('domain', $event)"
     />
   </BInputGroup>
+
+  <span
+    :id="`${id}-local-part-desc`"
+    v-t="'address.local_part_description.' + type"
+    class="visually-hidden"
+  />
+  <span
+    :id="`${id}-domain-desc`"
+    v-t="'address.domain_description.' + type"
+    class="visually-hidden"
+  />
 </template>
