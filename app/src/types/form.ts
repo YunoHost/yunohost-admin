@@ -19,6 +19,10 @@ export type DisplayTextItemProps = BaseDisplayItemProps
 
 export type MarkdownItemProps = BaseDisplayItemProps
 
+export type ReadOnlyAlertItemProps = BaseDisplayItemProps & {
+  icon?: string
+  type?: StateVariant
+}
 
 // WRITABLE
 

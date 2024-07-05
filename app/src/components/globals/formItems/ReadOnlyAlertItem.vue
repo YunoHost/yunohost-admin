@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 
-const props = defineProps<{
-  label: string
-  id?: string
-  type?: 'success' | 'info' | 'warning' | 'danger'
-  icon?: string
-}>()
+import type { ReadOnlyAlertItemProps } from '@/types/form'
+
+const props = withDefaults(defineProps<ReadOnlyAlertItemProps>(), {
+  id: undefined,
+  icon: undefined,
+  type: 'success',
+})
 
 const icon = computed(() => {
   const icons = {
@@ -22,11 +23,12 @@ const icon = computed(() => {
 
 <template>
   <BAlert
-    class="d-flex flex-column flex-md-row align-items-center"
+    :id="id"
+    :model-value="true"
     :variant="type"
-    :modelValue="true"
+    class="d-flex flex-column flex-md-row align-items-center"
   >
-    <YIcon :iname="icon" class="me-md-3 mb-md-0 mb-2" :variant="type" />
+    <YIcon :iname="icon" :variant="type" class="me-md-3 mb-md-0 mb-2" />
 
     <VueShowdown :markdown="label" tag="span" class="markdown" />
   </BAlert>
