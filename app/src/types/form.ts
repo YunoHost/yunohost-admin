@@ -93,3 +93,7 @@ export type TagsSelectizeItemProps = BaseWritableItemProps & {
   noTags?: boolean
   tagIcon?: string
 }
+
+export type TextAreaItemProps = BaseWritableItemProps & {
+  // type?: string // FIXME unused?
+}

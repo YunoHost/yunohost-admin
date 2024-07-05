@@ -1,43 +1,46 @@
 <script setup lang="ts">
-import { inject } from 'vue'
+import { computed, inject } from 'vue'
 
-withDefaults(
-  defineProps<{
-    modelValue?: string | null
-    id?: string
-    placeholder?: string
-    type?: string // FIXME unused?
-    required?: boolean
-    state?: boolean | null
-    name?: string
-  }>(),
+import { ValidationTouchSymbol } from '@/composables/form'
+import type { BaseItemComputedProps, TextAreaItemProps } from '@/types/form'
+
+const props = withDefaults(
+  defineProps<TextAreaItemProps & BaseItemComputedProps<string | null>>(),
   {
-    modelValue: null,
     id: undefined,
-    placeholder: undefined,
-    type: 'text',
-    required: false,
-    state: undefined,
     name: undefined,
+    placeholder: undefined,
+    touchKey: undefined,
+    // type: 'text',
+
+    ariaDescribedby: undefined,
+    modelValue: undefined,
+    state: undefined,
+    validation: undefined,
   },
 )
 
-const emit = defineEmits<{
-  'update:modelValue': [value: string]
+defineEmits<{
+  'update:modelValue': [value: string | null]
 }>()
 
-const touch = inject('touch')
+const model = defineModel<string>()
+
+const touch = inject(ValidationTouchSymbol)
+
+const required = computed(() => 'required' in (props?.validation ?? {}))
 </script>
 
 <template>
   <BFormTextarea
-    :modelValue="modelValue"
-    @update:modelValue="emit('update:modelValue', $event)"
     :id="id"
+    v-model="model"
+    :name="name"
     :placeholder="placeholder"
-    :required="required"
+    :aria-describedby="ariaDescribedby"
     :state="state"
+    :required="required"
     rows="4"
-    @blur="touch(name)"
+    @blur="touch?.(touchKey)"
   />
 </template>
