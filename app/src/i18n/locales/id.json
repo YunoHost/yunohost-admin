@@ -31,7 +31,7 @@
             "failed": "Sepertinya peladen tidak merespons. Anda bisa coba memuat ulang atau coba jalankan `systemctl restart yunohost-api` via SSH.",
             "success": "Peladen bisa dicapai! Anda bisa mencoba masuk kembali"
         },
-        "partial_logs": "[…] (periksa di riwayat untuk log penuhnya)"
+        "partial_logs": "[…] (periksa semua log di dalam riwayat)"
     },
     "api_error": {
         "server_said": "Ketika memproses tindakan, peladen mengatakan:",
@@ -277,7 +277,8 @@
         "dynDomain": "Nama domain tidak valid: Huruf kecil, angka, dan tanda hubung saja",
         "domain": "Nama domain tidak valid: Huruf kecil, angka, titik dan tanda hubung saja",
         "email": "Surel tidak valid: Huruf, angka, dan <code>_.-</code> saja (cth. blabla@contoh.com, b1la-2@contoh.com)",
-        "alphalownumdot_": "Harus hanya berupa karakter alfanumerik kecil dan garis bawah."
+        "alphalownumdot_": "Harus hanya berupa karakter alfanumerik kecil dan garis bawah.",
+        "emailForward": "Penerusan surel tidak valid: harus alfanumerik dan hanya karakter <code>_.-+</code> (misal. someone+tag@example.com, s0me-1+tag@example.com)"
     },
     "form_input_example": "Contoh: {example}",
     "group": "Kelompok",
@@ -336,11 +337,22 @@
         "info": {
             "apps_on_domain": "Aplikasi yang dipasang di domain",
             "registrar": "Registrar",
-            "certificate_authority": "Otoritas Sertifikat SSL"
+            "certificate_authority": "Otoritas Sertifikat SSL",
+            "dyn_dns_remove_and_unsubscribe": "Sekaligus batalkan pendaftaran domain dari layanan DynDNS YunoHost"
         },
         "see_parent_domain": "Lihat domain induk",
         "explain": {
             "main_domain": "Domain utama adalah domain di mana pengguna terhubung ke portal (via \"{domain}/yunohost/sso\").<br>Karena itu, domain tersebut tidak bisa dihapus.<br>Jika Anda ingin menghapus \"{domain}\", Anda harus mengatur atau menambah domain lain dan menunjuknya menjadi domain utama."
+        },
+        "add": {
+            "dyn_dns_password": "Sandi pemulihan domain",
+            "dyn_dns_password_desc": "Sandi ini memungkinkan anda memulihkan kendali domain apabila nanti anda memasang ulang sistem anda. Jika anda sudah mendaftarkan domain ini sebelumnya, gunakan sandi pemulihan anda di sini untuk mengklaimnya.",
+            "from_local": "Saya ingin satu domain untuk penggunaan / tes lokal saja",
+            "from_registrar": "Saya ingin menambahkan satu domain yang saya miliki, atau satu subdomain",
+            "from_registrar_desc": "Anda perlu mengonfigurasi catatan DNS secara manual pada registrar anda untuk menyelesaikan konfigurasi domain ini. Diagnosa YunoHost akan memandu anda tentang catatan DNS apa yang harus dikonfigurasi secara tepat.",
+            "from_yunohost": "Saya tidak memiliki domain, Saya ingin mendaftar/menggunakan domain DynDNS gratis yang disediakan oleh proyek YunoHost",
+            "from_yunohost_desc": "Proyek YunoHost mempertahankan layanan 'DynDNS' gratis. Ini terbatas pada satu domain per server (meskipun anda juga dapat menambahkan sub-domain nanti menggunakan opsi 'Tambahkan domain yang saya miliki, atau subdomain' lainnya di atas). Konfigurasi DNS akan ditangani secara otomatis oleh YunoHost. Ini sangat ideal ketika memulai dengan hosting mandiri secara umum dan anda belum ingin berinvestasi dalam nama domain. Namun, dalam jangka menengah/panjang, kami sarankan untuk membeli nama domain anda sendiri ke beberapa registrar agar anda memiliki kepemilikan penuh atas domain anda.",
+            "from_local_desc": "Jika anda tidak ingin satu nama domain publik \"aktual\", anda dapat menggunakan apa saja yang berakhiran dengan <code>.local</code> atau <code>.test</code>. Nama domain yang diakhiri dengan <code>.local</code> adalah istimewa dalam artian bahwa mereka secara otomatis akan berubah kepada jaringan lokal, dengan asumsi klien mendukung protokol Bonjour. Alternatifnya, anda mungkin perlu melakukan penyesuaian pada berkas <code>/etc/hosts</code> (atau yang setara dengan Windows) pada setiap klien yang ingin anda gunakan dari domain ini, atau untuk mengkonfigurasi entri di router internet anda."
         }
     },
     "error_server_unexpected": "Galat peladen tak terduga",
@@ -409,7 +421,7 @@
                 "broken": "Aplikasi ini rusak menurut uji coba otomatis YunoHost dan mungkin akan merusak sistem Anda! Anda sebaiknya TIDAK memasangnya kecuali Anda yakin dengan apa yang Anda lakukan.",
                 "thirdparty": "Aplikasi ini bukan bagian dari katalog resmi YunoHost, memasang aplikasi pihak ketiga dapat membahayakan integritas serta keamanan sistem Anda. Anda sebaiknya TIDAK memasangnya kecuali Anda yakin dengan apa yang Anda lakukan.",
                 "ignore": "Saya mengerti bahwa pemasangan ini mungkin akan merusak sistem saya tapi saya tetap ingin mencobanya.",
-                "inprogress": "Aplikasi ini masih eksperimental dan mungkin akan merusak sistem Anda! Anda sebaiknya TIDAK memasangnya kecuali Anda yakin dengan apa yang Anda lakukan.",
+                "inprogress": "Aplikasi ini masih eksperimental (jika tidak secara jelas tidak bekerja) dan mungkin akan merusak sistem Anda! Anda sebaiknya TIDAK memasangnya kecuali Anda yakin dengan apa yang Anda lakukan.",
                 "install": "Telah dipasang dan tidak dapat dipasang lebih dari sekali.",
                 "lowquality": "Aplikasi ini mungkin bisa bekerja tapi tidak terintegrasi dengan baik di YunoHost. Beberapa fitur seperti SSO dan pencadangan mungkin tidak tersedia.",
                 "ram": "Aplikasi ini memerlukan RAM sebanyak {required} untuk pemasangan/pembaruan tapi hanya {current} yang tersedia sekarang. Meski aplikasi ini bisa bekerja, proses pemasangannya memerlukan RAM yang banyak sehingga peladen Anda bisa rusak atau prosesnya gagal total.",
@@ -446,7 +458,8 @@
             "title": "Tautan",
             "userdoc": "Dokumentasi Pengguna Resmi",
             "website": "Situs Resmi",
-            "license": "Lisensi"
+            "license": "Lisensi",
+            "package_license": "Lisensi paket YunoHost"
         },
         "potential_alternative_to": "Alternatif dari:",
         "upgrade": {
@@ -481,12 +494,18 @@
             "notifications": {
                 "title": "Pemberitahuan",
                 "post_upgrade": "Catatan setelah pembaruan",
-                "post_install": "Catatan setelah pemasangan"
+                "post_install": "Catatan setelah pemasangan",
+                "understood": "Mengerti"
             }
         },
         "info": {
             "forum": "Cari atau tanyakan di forum!",
-            "problem": "Masalah dengan aplikasi ini?"
+            "problem": "Masalah dengan aplikasi ini?",
+            "config_panel_error": "Satu kesalahan mengakibatkan panel konfigurasi tidak dapat ditampilkan:",
+            "config_panel_error_please_report": "Harap melaporkan galat ini kepada tim YunoHost agar dapat diperbaiki!"
+        },
+        "uninstall": {
+            "purge_desc": "Singkirkan direktori data yang berkaitan dengan aplikasi (biasanya ini adalah data yang anda unggah sendiri menggunakan aplikasi)."
         }
     },
     "app_state_inprogress_explanation": "Pengelola aplikasi ini menyatakan bahwa aplikasi ini belum siap untuk penggunaan umum. HATI-HATI!",
@@ -620,7 +639,7 @@
     "user_emailaliases": "Alias surel",
     "users_import_delete_others": "Hapus pengguna yang tidak ada di daftar",
     "app_manage_label_and_tiles": "Kelola label dan kisi",
-    "confirm_app_default": "Apakah Anda yakin ingin membuat aplikasi ini yang diarahkan dari pangkal domain?",
+    "confirm_app_default": "Apakah Anda yakin ingin menjadikan aplikasi ini sebagai default?",
     "unauthorized": "Tidak terotoriasasi",
     "logs_ended_at": "Terakhir",
     "permission_main": "Label utama",
@@ -668,5 +687,9 @@
     "pending_migrations": "Terdapat migrasi tertunda yang menunggu untuk dijalankan. Silakan ke <a href='#/tools/migrations'>Alat > Migrasi</a> untuk memulai mereka.",
     "error_modify_something": "Anda harus mengubah sesuatu",
     "group_format_name_help": "Anda bisa menggunakan karakter alfanumerik dan garis bawah",
-    "items_verbose_items_left": "Ada {items} yang tersisa."
+    "items_verbose_items_left": "Ada {items} yang tersisa.",
+    "traceback": "Telusuri",
+    "select_none": "Pilih tanpa",
+    "nobody": "Nobody",
+    "confirm_postinstall": "Anda akan meluncurkan proses pasca instalasi pada domain {domain}. Mungkin memerlukan waktu beberapa menit, *jangan hentikan pengoperasian*."
 }
