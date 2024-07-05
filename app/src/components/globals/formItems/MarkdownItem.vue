@@ -1,10 +1,11 @@
 <script setup lang="ts">
-defineProps<{
-  label: string
-  id?: string
-}>()
+import type { MarkdownItemProps } from '@/types/form'
+
+withDefaults(defineProps<MarkdownItemProps>(), {
+  id: undefined,
+})
 </script>
 
 <template>
-  <VueShowdown :markdown="label" />
+  <VueShowdown :id="id" :markdown="label" />
 </template>

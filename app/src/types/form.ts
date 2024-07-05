@@ -17,6 +17,8 @@ export type ButtonItemProps = BaseDisplayItemProps & {
 
 export type DisplayTextItemProps = BaseDisplayItemProps
 
+export type MarkdownItemProps = BaseDisplayItemProps
+
 
 // WRITABLE
 
