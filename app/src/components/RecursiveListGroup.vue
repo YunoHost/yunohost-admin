@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import type { Obj } from '@/types/commons'
+import type { TreeChildNode, AnyTreeNode } from '@/helpers/data/tree'
 
 const props = withDefaults(
   defineProps<{
-    tree: Obj
+    tree: AnyTreeNode
     flush?: boolean
     last?: boolean
     toggleText?: string
@@ -16,10 +16,14 @@ const props = withDefaults(
 )
 
 defineSlots<{
-  default: (props: any) => any
+  default: (props: {
+    [K in keyof TreeChildNode as TreeChildNode[K] extends Function
+      ? never
+      : K]: TreeChildNode[K]
+  }) => any
 }>()
 
-function getClasses(node: Obj, i: number) {
+function getClasses(node: AnyTreeNode, i: number) {
   const children = node.height > 0
   const opened = children && node.data?.opened
   const last =

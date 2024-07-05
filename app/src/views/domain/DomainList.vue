@@ -3,6 +3,7 @@ import { useStoreGetters } from '@/store/utils'
 import { computed, ref } from 'vue'
 
 import RecursiveListGroup from '@/components/RecursiveListGroup.vue'
+import type { TreeRootNode } from '@/helpers/data/tree'
 
 const { domains, mainDomain, domainsTree } = useStoreGetters()
 
@@ -11,12 +12,13 @@ const search = ref('')
 
 const tree = computed(() => {
   // FIXME rm ts type when moved to pinia or else
-  if (!domainsTree.value) return
+  const tree = domainsTree.value as TreeRootNode | undefined
+  if (!tree) return
   const search_ = search.value.toLowerCase()
   if (search_) {
-    return domainsTree.value.filter((node) => node.id.includes(search_))
+    return tree.filter((node) => node.id.includes(search_))
   }
-  return domainsTree.value
+  return tree
 })
 
 const hasFilteredItems = computed(() => {
@@ -42,6 +44,7 @@ const hasFilteredItems = computed(() => {
     </template>
 
     <RecursiveListGroup
+      v-if="tree"
       :tree="tree"
       :toggle-text="$t('domain.toggle_subdomains')"
       class="mb-5"
@@ -52,9 +55,7 @@ const hasFilteredItems = computed(() => {
           <h5 class="me-3">
             <BLink :to="data.to" class="text-body text-decoration-none">
               <span class="fw-bold">
-                {{
-                  data.name.replace(parent?.data ? parent.data.name : null, '')
-                }}
+                {{ data.name.replace(parent.data?.name ?? '', '') }}
               </span>
               <span v-if="parent?.data" class="text-secondary">
                 {{ parent.data.name }}
