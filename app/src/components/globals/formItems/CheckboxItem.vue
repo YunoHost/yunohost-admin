@@ -1,31 +1,39 @@
 <script setup lang="ts">
+import type { CheckboxItemProps, BaseItemComputedProps } from '@/types/form'
+
 withDefaults(
-  defineProps<{
-    modelValue: boolean
-    id?: string
-    label?: string
-    labels?: { true: string; false: string }
-  }>(),
+  defineProps<CheckboxItemProps & BaseItemComputedProps<boolean>>(),
   {
     id: undefined,
+    name: undefined,
+    placeholder: undefined,
+    touchKey: undefined,
     label: undefined,
     labels: () => ({ true: 'yes', false: 'no' }),
+
+    ariaDescribedby: undefined,
+    modelValue: undefined,
+    state: undefined,
+    validation: undefined,
   },
 )
 
-const emit = defineEmits<{
+defineEmits<{
   'update:modelValue': [value: boolean]
 }>()
+
+const model = defineModel<boolean>()
 </script>
 
 <template>
   <BFormCheckbox
-    :modelValue="modelValue"
-    @update:modelValue="emit('update:modelValue', $event)"
     :id="id"
-    :aria-describedby="$parent.id + '__BV_description_'"
+    v-model="model"
+    :name="name"
+    :aria-describedby="ariaDescribedby"
+    :state="state"
     switch
   >
-    {{ label || $t(labels[modelValue]) }}
+    {{ label || $t(labels[modelValue ? 'true' : 'false']) }}
   </BFormCheckbox>
 </template>

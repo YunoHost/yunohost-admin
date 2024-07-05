@@ -26,3 +26,10 @@ export type AdressModelValue = {
   separator: string
   domain: string | null
 }
+
+export type CheckboxItemProps = BaseWritableItemProps & {
+  label?: string
+  labels?: { true: string; false: string }
+  // FIXME unused?
+  // choices: string[]
+}
