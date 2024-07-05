@@ -15,6 +15,8 @@ export type ButtonItemProps = BaseDisplayItemProps & {
   type?: StateVariant
 }
 
+export type DisplayTextItemProps = BaseDisplayItemProps
+
 
 // WRITABLE
 
