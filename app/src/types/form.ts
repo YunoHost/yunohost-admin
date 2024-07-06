@@ -275,3 +275,12 @@ export type FormFieldDict<T extends Obj = Obj> = {
         | FormFieldReadonly<AnyWritableComponents>
         | FormFieldDisplay<AnyDisplayComponents>
 }
+
+export type FieldProps<
+  C extends AnyItemComponents = 'InputItem',
+  MV extends any = never,
+> = C extends AnyWritableComponents
+  ? FormField<C, MV> | FormFieldReadonly<C>
+  : C extends AnyDisplayComponents
+    ? FormFieldDisplay<C>
+    : never

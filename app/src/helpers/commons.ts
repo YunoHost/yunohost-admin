@@ -162,3 +162,7 @@ export function omit<T extends Obj, K extends (keyof T)[]>(
       .map((key) => [key, obj[key]]),
   ) as Omit<T, K[number]>
 }
+
+export function asUnreffed<T>(value: T): UnwrapRef<T> {
+  return value as UnwrapRef<T>
+}
