@@ -5,7 +5,7 @@ import type {
 } from '@vuelidate/core'
 import type { RouteLocationRaw } from 'vue-router'
 
-import type { Cols } from '@/types/commons'
+import type { ArrInnerType, Cols } from '@/types/commons'
 
 type StateValidation = false | null
 type StateVariant = 'success' | 'info' | 'warning' | 'danger'
@@ -142,9 +142,49 @@ const ANY_WRITABLE_COMPONENTS = [
   'TagsSelectizeItem',
   'TextAreaItem',
 ] as const
+const ANY_DISPLAY_COMPONENTS = [
+  'ButtonItem',
+  'DisplayTextItem',
+  'MarkdownItem',
+  'ReadOnlyAlertItem',
+] as const
 
+type AnyItemComponents = AnyDisplayComponents | AnyWritableComponents
+export type AnyDisplayComponents = (typeof ANY_DISPLAY_COMPONENTS)[number]
 export type AnyWritableComponents = (typeof ANY_WRITABLE_COMPONENTS)[number]
+
+export function isWritableComponent<MV extends any = any>(
+  field:
+    | FormField<AnyWritableComponents, MV>
+    | FormField
+    | FormFieldReadonly
+    | FormFieldDisplay,
+): field is
+  | FormField<AnyWritableComponents, MV>
+  | FormFieldReadonly<AnyWritableComponents> {
+  return ANY_WRITABLE_COMPONENTS.includes(
+    field.component as AnyWritableComponents,
+  )
+}
+
+export function isDisplayComponent(
+  field:
+    | FormField<AnyWritableComponents>
+    | FormField
+    | FormFieldReadonly
+    | FormFieldDisplay,
+): field is FormFieldDisplay {
+  return ANY_DISPLAY_COMPONENTS.includes(
+    field.component as AnyDisplayComponents,
+  )
+}
+
 type ItemComponentToItemProps = {
+  // DISPLAY
+  ButtonItem: ButtonItemProps
+  DisplayTextItem: DisplayTextItemProps
+  MarkdownItem: MarkdownItemProps
+  ReadOnlyAlertItem: ReadOnlyAlertItemProps
   // WRITABLE
   AdressItem: AdressItemProps
   CheckboxItem: CheckboxItemProps
@@ -202,6 +242,14 @@ type FormFieldReadonly<
   label: string
   cols?: Cols
   readonly: true
+}
+
+type FormFieldDisplay<C extends AnyDisplayComponents = AnyDisplayComponents> = {
+  component: C
+  props: ItemComponentToItemProps[C]
+  visible?: boolean
+  hr?: boolean
+  readonly?: true
 }
 
 export type FormFieldProps<

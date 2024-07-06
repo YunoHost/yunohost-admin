@@ -23,3 +23,9 @@ export type CustomRoute = {
   text: string
   icon?: string
 }
+
+// HELPERS
+
+export type ArrInnerType<T> = T extends (infer ElementType)[]
+  ? ElementType
+  : never
