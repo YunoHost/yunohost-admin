@@ -1,27 +1,27 @@
-<script setup lang="ts">
+<script
+  setup
+  lang="ts"
+  generic="C extends AnyWritableComponents, MV extends any"
+>
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 import type { Cols } from '@/types/commons'
+import type {
+  AnyWritableComponents,
+  FormFieldReadonlyProps,
+} from '@/types/form'
 
 defineOptions({
+  name: 'FormFieldReadonly',
   inheritAttrs: false,
 })
 
-const props = withDefaults(
-  defineProps<{
-    label: string
-    component?: string
-    // FIXME modelValue? not a modelValue but idk
-    value?: any
-    cols?: Cols
-  }>(),
-  {
-    component: 'InputItem',
-    value: null,
-    cols: () => ({ md: 4, lg: 3 }),
-  },
-)
+const props = withDefaults(defineProps<FormFieldReadonlyProps<C, MV>>(), {
+  id: undefined,
+  modelValue: undefined,
+  cols: () => ({ md: 4, lg: 3 }),
+})
 
 const { t } = useI18n()
 
@@ -32,7 +32,7 @@ const cols = computed<Cols>(() => ({
 }))
 
 const text = computed(() => {
-  return parseValue(props.value)
+  return parseValue(props.modelValue)
 })
 
 function parseValue(value: any) {
@@ -43,7 +43,7 @@ function parseValue(value: any) {
   if (Array.isArray(value)) {
     value = value.length ? value.join(t('words.separator')) : null
   }
-  if ([null, undefined, ''].includes(props.value)) value = t('words.none')
+  if ([null, undefined, ''].includes(value)) value = t('words.none')
   return value
 }
 </script>

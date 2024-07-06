@@ -5,6 +5,8 @@ import type {
 } from '@vuelidate/core'
 import type { RouteLocationRaw } from 'vue-router'
 
+import type { Cols } from '@/types/commons'
+
 type StateValidation = false | null
 type StateVariant = 'success' | 'info' | 'warning' | 'danger'
 
@@ -194,8 +196,23 @@ export type FormField<
   readonly?: false
 }
 
+type FormFieldReadonly<
+  C extends AnyWritableComponents = AnyWritableComponents,
+> = BaseFormField<C> & {
+  label: string
+  cols?: Cols
+  readonly: true
+}
+
 export type FormFieldProps<
   C extends AnyWritableComponents,
   MV extends any,
 > = Omit<FormField<C, MV>, 'hr' | 'visible' | 'readonly'> &
   BaseFormFieldComputedProps<MV>
+
+export type FormFieldReadonlyProps<
+  C extends AnyWritableComponents,
+  MV extends any,
+> = Omit<FormFieldReadonly<C>, 'hr' | 'visible' | 'readonly'> & {
+  modelValue?: MV
+}
