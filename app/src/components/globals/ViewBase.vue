@@ -1,22 +1,15 @@
 <script setup lang="ts">
 import type { Component } from 'vue'
-import { computed, ref } from 'vue'
 
-import api from '@/api'
-
-// FIXME type queries
-const props = withDefaults(
+defineOptions({ inheritAttrs: false })
+withDefaults(
   defineProps<{
-    queries?: any[]
-    queriesWait?: boolean
-    skeleton?: string | Component
     loading?: boolean
+    skeleton?: string | Component
   }>(),
   {
-    queries: undefined,
-    queriesWait: false,
-    skeleton: undefined,
-    loading: undefined,
+    loading: false,
+    skeleton: 'CardFormSkeleton',
   },
 )
 
@@ -24,44 +17,11 @@ const slots = defineSlots<{
   'top-bar-group-left': any
   'top-bar-group-right': any
   'top-bar': any
-  top(props: { loading: boolean }): any
-  default(props: { loading: boolean }): any
-  bot(props: { loading: boolean }): any
+  top: any
+  default: any
+  bot: any
   skeleton: any
 }>()
-
-const emit = defineEmits<{
-  'queries-response': any[]
-}>()
-
-defineExpose({ fetchQueries })
-
-const fallbackLoading = ref(
-  props.loading === undefined && props.queries !== undefined ? true : null,
-)
-
-const isLoading = computed(() => {
-  if (props.loading !== undefined) return props.loading
-  return fallbackLoading.value
-})
-
-function fetchQueries({ triggerLoading = false } = {}) {
-  if (triggerLoading) {
-    fallbackLoading.value = true
-  }
-
-  return api
-    .fetchAll(props.queries, { wait: props.queriesWait, initial: true })
-    .then((responses) => {
-      emit('queries-response', ...responses)
-      fallbackLoading.value = false
-      return responses
-    })
-}
-
-if (props.queries) {
-  fetchQueries()
-}
 </script>
 
 <template>
@@ -76,9 +36,9 @@ if (props.queries) {
     </TopBar>
     <slot v-else name="top-bar" />
 
-    <slot name="top" v-bind="{ loading: isLoading }" />
+    <slot name="top" />
 
-    <BSkeletonWrapper :loading="isLoading">
+    <BSkeletonWrapper :loading="loading">
       <template #loading>
         <slot name="skeleton">
           <Component :is="skeleton" />
@@ -87,10 +47,10 @@ if (props.queries) {
 
       <!-- Empty div to be able to receive multiple components -->
       <div>
-        <slot name="default" v-bind="{ loading: isLoading }" />
+        <slot name="default" />
       </div>
     </BSkeletonWrapper>
 
-    <slot name="bot" v-bind="{ loading: isLoading }" />
+    <slot name="bot" />
   </div>
 </template>
