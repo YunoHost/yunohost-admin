@@ -1,102 +1,99 @@
-<script setup lang="ts">
-import type { BaseValidation } from '@vuelidate/core'
-import type { BaseColorVariant } from 'bootstrap-vue-next'
-import { computed, provide, useAttrs, type Component } from 'vue'
+<script
+  setup
+  lang="ts"
+  generic="C extends AnyWritableComponents, MV extends any"
+>
+import { createReusableTemplate } from '@vueuse/core'
+import { computed, useAttrs } from 'vue'
 import { useI18n } from 'vue-i18n'
 
-import type { Obj } from '@/types/commons'
+import { useTouch } from '@/composables/form'
+import { omit } from '@/helpers/commons'
+import type {
+  AnyWritableComponents,
+  BaseItemComputedProps,
+  FormField,
+  FormFieldProps,
+} from '@/types/form'
 
 defineOptions({
-  inheritAttrs: false,
   name: 'FormField',
+  inheritAttrs: false,
 })
 
-const props = withDefaults(
-  defineProps<{
-    // Component props (other <form-group> related attrs are passed thanks to $attrs)
-    id?: string
-    description?: string
-    descriptionVariant?: BaseColorVariant
-    link?: { href: string; text: string }
-    component?: Component | string // FIXME limit to formItems?
-    modelValue?: unknown
-    props?: Obj
-    validation?: BaseValidation
-    validationIndex?: number
-  }>(),
-  {
-    id: undefined,
-    description: undefined,
-    descriptionVariant: undefined,
-    link: undefined,
-    component: 'InputItem',
-    modelValue: undefined,
-    props: () => ({}),
-    validation: undefined,
-    validationIndex: undefined,
-  },
-)
+const props = withDefaults(defineProps<FormFieldProps<C, MV>>(), {
+  append: undefined,
+  asInputGroup: false,
+  description: undefined,
+  descriptionVariant: undefined,
+  id: undefined,
+  label: undefined,
+  labelFor: undefined,
+  link: undefined,
+  prepend: undefined,
+  rules: undefined,
 
-const emit = defineEmits<{
-  'update:modelValue': [value: string]
+  modelValue: undefined,
+  validation: undefined,
+})
+
+defineEmits<{
+  'update:modelValue': [value: MV]
 }>()
 
+const slots = defineSlots<{
+  default?: (
+    componentProps: FormField<C, MV>['props'] & BaseItemComputedProps<MV>,
+  ) => any
+  description?: any
+}>()
+
+const model = defineModel<MV>()
+
+const attrs = useAttrs()
 const { t } = useI18n()
+useTouch(() => props.validation)
 
-function touch(name: string) {
-  if (props.validation) {
-    // For fields that have multiple elements
-    if (name) {
-      props.validation[name].$touch()
-    } else {
-      props.validation.$touch()
-    }
-  }
-}
+const computedAttrs = computed(() => {
+  const attrs_ = { ...omit(attrs, ['hr', 'readonly', 'visible']) }
 
-provide('touch', touch)
-
-const attrs_ = useAttrs()
-const attrs = computed(() => {
-  const attrs = { ...attrs_ }
-
-  if ('label' in attrs) {
+  if (props.label) {
     const defaultAttrs = {
       'label-cols-md': 4,
       'label-cols-lg': 3,
       'label-class': ['fw-bold', 'py-0'],
     }
 
-    if (!('label-cols' in attrs)) {
+    if (!('label-cols' in attrs_)) {
       let attr: keyof typeof defaultAttrs
       for (attr in defaultAttrs) {
-        if (!(attr in attrs)) attrs[attr] = defaultAttrs[attr]
+        if (!(attr in attrs)) attrs_[attr] = defaultAttrs[attr]
       }
     } else if (!('label-class' in attrs)) {
-      attrs['label-class'] = defaultAttrs['label-class']
+      attrs_['label-class'] = defaultAttrs['label-class']
     }
   }
 
-  return attrs
+  if (props.asInputGroup) {
+    attrs_['label-class'] = [
+      ...((attrs_['label-class'] as []) || []),
+      'visually-hidden',
+    ]
+  }
+
+  return attrs_
 })
 
 const id = computed(() => {
   if (props.id) return props.id
-  const childId = props.props.id || attrs_['label-for']
-  return childId ? childId + '_group' : null
+  const childId = props.props?.id || props.labelFor
+  return childId ? `${childId}-field` : undefined
 })
 
 const error = computed(() => {
   const v = props.validation
-  if (v) {
-    if (props.validationIndex !== undefined) {
-      const errors = v.$each.$response.$errors[props.validationIndex]
-      const err = Object.values(errors).find((part) => {
-        return part.length
-      })
-      return err?.length ? err[0] : null
-    }
-    return v.$errors.length ? { ...v.$errors[0], $model: v.$model } : null
+  if (v && v.$anyDirty) {
+    return v.$errors.length ? { errors: v.$errors, $model: v.$model } : null
   }
   return null
 })
@@ -107,49 +104,89 @@ const state = computed(() => {
 })
 
 const errorMessage = computed(() => {
-  const err = error.value
-  if (err) {
-    if (err.$message) return err.$message
-    return t('form_errors.' + err.$validator, {
-      value: err.$model,
-      ...err.$params,
+  if (!error.value) return ''
+  const { errors, $model } = error.value
+  // FIXME maybe handle translation in validators directly
+  // https://vuelidate-next.netlify.app/advanced_usage.html#i18n-support
+
+  return errors
+    .map((err) => {
+      if (err) {
+        if (err.$validator === '$externalResults') return err.$message
+        return t('form_errors.' + err.$validator, {
+          value: $model,
+          ...err.$params,
+        })
+      }
     })
-  }
-  return ''
+    .join('<br>')
 })
+
+const [DefineTemplate, ReuseTemplate] = createReusableTemplate<{
+  ariaDescribedby: string[]
+}>()
 </script>
 
 <template>
-  <!-- v-bind="$attrs" allow to pass default attrs not specified in this component slots -->
-  <BFormGroup
-    v-bind="attrs"
-    :id="id"
-    :label-for="attrs['label-for'] || props.id"
-    :state="state"
-    @touch="touch"
-  >
+  <DefineTemplate v-slot="{ ariaDescribedby }">
     <!-- Make field props and state available as scoped slot data -->
-    <slot v-bind="{ self: { ...props, state }, touch }">
+    <slot
+      v-bind="{
+        ...props.props,
+        ariaDescribedby,
+        modelValue: props.modelValue,
+        state,
+        validation: validation,
+      }"
+    >
       <!-- if no component was passed as slot, render a component from the props -->
       <Component
         v-bind="props.props"
         :is="component"
-        :modelValue="modelValue"
-        @update:modelValue="emit('update:modelValue', $event)"
+        v-model="model"
+        :aria-describedby="ariaDescribedby"
         :state="state"
-        :required="validation ? 'required' in validation : false"
+        :validation="validation"
       />
     </slot>
+  </DefineTemplate>
+
+  <!-- FIXME better use `labelSrOnly` prop instead of class but it is currently bugged -->
+  <BFormGroup
+    v-bind="computedAttrs"
+    :id="id"
+    :label="label"
+    :label-for="labelFor || props.props?.id"
+    :state="state"
+  >
+    <template #default="{ ariaDescribedby }">
+      <BInputGroup v-if="asInputGroup || append || prepend" :append="append">
+        <BInputGroupText
+          v-if="asInputGroup || prepend"
+          :aria-hidden="asInputGroup"
+        >
+          {{ asInputGroup ? label : prepend }}
+        </BInputGroupText>
+        <ReuseTemplate v-bind="{ ariaDescribedby }" />
+        <BInputGroupText v-if="append">{{ append }}</BInputGroupText>
+      </BInputGroup>
+      <ReuseTemplate v-else v-bind="{ ariaDescribedby }" />
+    </template>
 
     <template #invalid-feedback>
       <span v-html="errorMessage" />
     </template>
 
-    <template #description>
+    <template v-if="description || link || 'description' in slots" #description>
       <!-- Render description -->
       <template v-if="description || link">
         <div class="d-flex">
-          <BLink v-if="link" :to="link" :href="link.href" class="ms-auto">
+          <BLink
+            v-if="link"
+            :to="'name' in link ? link.name : undefined"
+            :href="'href' in link ? link.href : undefined"
+            class="ms-auto"
+          >
             {{ link.text }}
           </BLink>
         </div>

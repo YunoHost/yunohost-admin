@@ -144,3 +144,14 @@ export function getFileContent(
     }
   })
 }
+
+export function omit<T extends Obj, K extends (keyof T)[]>(
+  obj: T,
+  keys: K,
+): Omit<T, K[number]> {
+  return Object.fromEntries(
+    Object.keys(obj)
+      .filter((key) => !keys.includes(key))
+      .map((key) => [key, obj[key]]),
+  ) as Omit<T, K[number]>
+}
