@@ -145,6 +145,13 @@ export function getFileContent(
   })
 }
 
+export function toEntries<T extends Record<PropertyKey, unknown>>(
+  obj: T,
+): { [K in keyof T]: [K, T[K]] }[keyof T][] {
+  return Object.entries(obj) as { [K in keyof T]: [K, T[K]] }[keyof T][]
+}
+}
+
 export function omit<T extends Obj, K extends (keyof T)[]>(
   obj: T,
   keys: K,

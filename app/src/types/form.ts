@@ -5,7 +5,7 @@ import type {
 } from '@vuelidate/core'
 import type { RouteLocationRaw } from 'vue-router'
 
-import type { ArrInnerType, Cols } from '@/types/commons'
+import type { ArrInnerType, Cols, Obj } from '@/types/commons'
 
 type StateValidation = false | null
 type StateVariant = 'success' | 'info' | 'warning' | 'danger'
@@ -263,4 +263,15 @@ export type FormFieldReadonlyProps<
   MV extends any,
 > = Omit<FormFieldReadonly<C>, 'hr' | 'visible' | 'readonly'> & {
   modelValue?: MV
+}
+
+export type FormFieldDict<T extends Obj = Obj> = {
+  [k in keyof T | string]: k extends keyof T
+    ?
+        | FormField<AnyWritableComponents, T[k]>
+        | FormFieldReadonly<AnyWritableComponents>
+    :
+        | FormField<AnyWritableComponents>
+        | FormFieldReadonly<AnyWritableComponents>
+        | FormFieldDisplay<AnyDisplayComponents>
 }
