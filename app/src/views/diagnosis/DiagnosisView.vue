@@ -2,22 +2,23 @@
 import { ref } from 'vue'
 
 import api from '@/api'
-import type ViewBase from '@/components/globals/ViewBase.vue'
+import { useInitialQueries } from '@/composables/useInitialQueries'
 import { distanceToNow } from '@/helpers/filters/date'
 import { DEFAULT_STATUS_ICON } from '@/helpers/yunohostArguments'
 import { useStoreGetters } from '@/store/utils'
 
-const viewElem = ref<InstanceType<typeof ViewBase> | null>(null)
-
-const queries = [
-  ['PUT', 'diagnosis/run?except_if_never_ran_yet', {}, 'diagnosis.run'],
-  ['GET', 'diagnosis?full'],
-]
+const { loading, refetch } = useInitialQueries(
+  [
+    ['PUT', 'diagnosis/run?except_if_never_ran_yet', {}, 'diagnosis.run'],
+    ['GET', 'diagnosis?full'],
+  ],
+  { wait: true, onQueriesResponse },
+)
 const { dark } = useStoreGetters()
 
 const reports = ref()
 
-function onQueriesResponse(_, reportsData) {
+function onQueriesResponse(_: any, reportsData: any) {
   if (reportsData === null) {
     reports.value = null
     return
@@ -65,7 +66,7 @@ function runDiagnosis({ id = null, description } = {}) {
       key: 'diagnosis.run' + (id !== null ? '_specific' : ''),
       description,
     })
-    .then(() => viewElem.value!.fetchQueries())
+    .then(() => refetch(false))
 }
 
 function toggleIgnoreIssue(action, report, item) {
@@ -99,12 +100,7 @@ function shareLogs() {
 </script>
 
 <template>
-  <ViewBase
-    :queries="queries"
-    @queries-response="onQueriesResponse"
-    queries-wait
-    ref="viewElem"
-  >
+  <ViewBase :loading="loading">
     <template #top-bar-group-right>
       <BButton @click="shareLogs" variant="success">
         <YIcon iname="cloud-upload" /> {{ $t('logs_share_with_yunopaste') }}

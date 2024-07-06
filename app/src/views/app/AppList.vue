@@ -1,7 +1,11 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { computed, ref } from 'vue'
 
-const queries = [['GET', 'apps?full']]
+import { useInitialQueries } from '@/composables/useInitialQueries'
+
+const { loading } = useInitialQueries([['GET', 'apps?full']], {
+  onQueriesResponse,
+})
 const search = ref('')
 const apps = ref()
 
@@ -17,13 +21,13 @@ const filteredApps = computed(() => {
   return filtered.length ? filtered : null
 })
 
-function onQueriesResponse({ apps }) {
-  if (apps.length === 0) {
+function onQueriesResponse(data: any) {
+  if (data.apps.length === 0) {
     apps.value = null
     return
   }
 
-  apps.value = apps
+  apps.value = data.apps
     .map(({ id, name, description, manifest }) => {
       return { id, name: manifest.name, label: name, description }
     })
@@ -36,11 +40,10 @@ function onQueriesResponse({ apps }) {
 <template>
   <ViewSearch
     v-model:search="search"
+    :filtered-items="filteredApps"
     items-name="installed_apps"
     :items="apps"
-    :filtered-items="filteredApps"
-    :queries="queries"
-    @queries-response="onQueriesResponse"
+    :loading="loading"
   >
     <template #top-bar-buttons>
       <BButton variant="success" :to="{ name: 'app-catalog' }">

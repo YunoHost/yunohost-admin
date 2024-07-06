@@ -3,8 +3,8 @@ import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 import api from '@/api'
-import type ViewBase from '@/components/globals/ViewBase.vue'
 import { useAutoModal } from '@/composables/useAutoModal'
+import { useInitialQueries } from '@/composables/useInitialQueries'
 import { distanceToNow } from '@/helpers/filters/date'
 
 const props = defineProps<{
@@ -13,12 +13,14 @@ const props = defineProps<{
 
 const { t } = useI18n()
 const modalConfirm = useAutoModal()
-const viewElem = ref<InstanceType<typeof ViewBase> | null>(null)
+const { loading, refetch } = useInitialQueries(
+  [
+    ['GET', 'services/' + props.name],
+    ['GET', `services/${props.name}/log?number=50`],
+  ],
+  { onQueriesResponse },
+)
 
-const queries = [
-  ['GET', 'services/' + props.name],
-  ['GET', `services/${props.name}/log?number=50`],
-]
 const infos = ref()
 const uptime = ref()
 const isCritical = ref()
@@ -27,8 +29,8 @@ const action = ref()
 
 function onQueriesResponse(
   // eslint-disable-next-line
-  { status, description, start_on_boot, last_state_change, configuration },
-  logs,
+  { status, description, start_on_boot, last_state_change, configuration }: any,
+  logs_: any,
 ) {
   isCritical.value = ['nginx', 'ssh', 'slapd', 'yunohost-api'].includes(
     props.name,
@@ -37,14 +39,14 @@ function onQueriesResponse(
   uptime.value = last_state_change === 'unknown' ? 0 : last_state_change
   infos.value = { description, status, start_on_boot, configuration }
 
-  logs.value = Object.keys(logs)
+  logs.value = Object.keys(logs_)
     .sort((prev, curr) => {
       if (prev === 'journalctl') return -1
       else if (curr === 'journalctl') return 1
       else if (prev < curr) return -1
       else return 1
     })
-    .map((filename) => ({ content: logs[filename].join('\n'), filename }))
+    .map((filename) => ({ content: logs_[filename].join('\n'), filename }))
 }
 
 async function updateService(action) {
@@ -59,7 +61,7 @@ async function updateService(action) {
       {},
       { key: 'services.' + action, name: props.name },
     )
-    .then(() => viewElem.value!.fetchQueries())
+    .then(() => refetch(false))
 }
 
 function shareLogs() {
@@ -85,12 +87,7 @@ function shareLogs() {
 </script>
 
 <template>
-  <ViewBase
-    :queries="queries"
-    @queries-response="onQueriesResponse"
-    ref="viewElem"
-    skeleton="CardInfoSkeleton"
-  >
+  <ViewBase :loading="loading" skeleton="CardInfoSkeleton">
     <!-- INFO CARD -->
     <YCard :title="name" icon="info-circle" button-unbreak="sm">
       <template #header-buttons>

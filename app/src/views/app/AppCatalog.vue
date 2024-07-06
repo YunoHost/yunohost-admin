@@ -8,6 +8,7 @@ import CardDeckFeed from '@/components/CardDeckFeed.vue'
 import { useAutoModal } from '@/composables/useAutoModal'
 import { randint } from '@/helpers/commons'
 import { appRepoUrl, required } from '@/helpers/validators'
+import { useInitialQueries } from '@/composables/useInitialQueries'
 
 const props = withDefaults(
   defineProps<{
@@ -28,8 +29,10 @@ const { t } = useI18n()
 const router = useRouter()
 const route = useRoute()
 const modalConfirm = useAutoModal()
-
-const queries = [['GET', 'apps/catalog?full&with_categories&with_antifeatures']]
+const { loading } = useInitialQueries(
+  [['GET', 'apps/catalog?full&with_categories&with_antifeatures']],
+  { onQueriesResponse },
+)
 
 const apps = ref()
 const selectedApp = ref()
@@ -96,10 +99,10 @@ const subtags = computed(() => {
   return null
 })
 
-function onQueriesResponse(data) {
-  const apps = []
-  for (const key in data.apps) {
-    const app = data.apps[key]
+function onQueriesResponse(catalog: any) {
+  const apps_ = []
+  for (const key in catalog.apps) {
+    const app = catalog.apps[key]
     app.isInstallable =
       !app.installed || app.manifest.integration.multi_instance
     app.working = app.state === 'working'
@@ -124,12 +127,12 @@ function onQueriesResponse(data) {
     ]
       .join(' ')
       .toLowerCase()
-    apps.push(app)
+    apps_.push(app)
   }
-  apps.value = apps.sort((a, b) => (a.id > b.id ? 1 : -1))
+  apps.value = apps_.sort((a, b) => (a.id > b.id ? 1 : -1))
 
   // CATEGORIES
-  data.categories.forEach(({ title, id, icon, subtags, description }) => {
+  catalog.categories.forEach(({ title, id, icon, subtags, description }) => {
     categories.push({
       text: title,
       value: id,
@@ -139,7 +142,7 @@ function onQueriesResponse(data) {
     })
   })
   antifeatures.value = Object.fromEntries(
-    data.antifeatures.map((af) => [af.id, af]),
+    catalog.antifeatures.map((af) => [af.id, af]),
   )
 }
 
@@ -180,11 +183,10 @@ async function onCustomInstallClick() {
 
 <template>
   <ViewSearch
-    :items="apps"
     :filtered-items="filteredApps"
+    :items="apps"
     items-name="apps"
-    :queries="queries"
-    @queries-response="onQueriesResponse"
+    :loading="loading"
   >
     <template #top-bar>
       <div id="view-top-bar">

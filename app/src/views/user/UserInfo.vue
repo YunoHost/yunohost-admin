@@ -3,15 +3,15 @@ import { computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
 
 import api from '@/api'
+import { useInitialQueries } from '@/composables/useInitialQueries'
 import { useStoreGetters } from '@/store/utils'
 
 const props = defineProps<{ name: string }>()
 
 const router = useRouter()
-
-const queries = [
+const { loading } = useInitialQueries([
   ['GET', { uri: 'users', param: props.name, storeKey: 'users_details' }],
-]
+])
 
 const { user: userGetter } = useStoreGetters()
 const purge = ref(false)
@@ -32,7 +32,7 @@ function deleteUser() {
 </script>
 
 <template>
-  <ViewBase :queries="queries" skeleton="CardInfoSkeleton">
+  <ViewBase :loading="loading" skeleton="CardInfoSkeleton">
     <YCard v-if="user" :title="user.fullname" icon="user">
       <div class="d-flex align-items-center flex-column flex-md-row">
         <YIcon iname="user" class="fa-fw" />

@@ -3,24 +3,28 @@ import { reactive, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 import api from '@/api'
-import type ViewBase from '@/components/globals/ViewBase.vue'
 import { useAutoModal } from '@/composables/useAutoModal'
+import { useInitialQueries } from '@/composables/useInitialQueries'
 
 // FIXME not tested with pending migrations (disclaimer and stuff)
 const { t } = useI18n()
 const modalConfirm = useAutoModal()
+const { loading, refetch } = useInitialQueries(
+  [
+    ['GET', 'migrations?pending'],
+    ['GET', 'migrations?done'],
+  ],
+  { onQueriesResponse },
+)
 
-const viewElem = ref<InstanceType<typeof ViewBase> | null>(null)
-
-const queries = [
-  ['GET', 'migrations?pending'],
-  ['GET', 'migrations?done'],
-]
 const pending = ref()
 const done = ref()
 const checked = reactive({})
 
-function onQueriesResponse({ migrations: pending_ }, { migrations: done_ }) {
+function onQueriesResponse(
+  { migrations: pending_ }: any,
+  { migrations: done_ }: any,
+) {
   done.value = done_.length ? done_.reverse() : null
   pending_.forEach((migration) => {
     if (migration.disclaimer) {
@@ -43,7 +47,7 @@ function runMigrations() {
   if (Object.values(checked).every((value) => value === true)) {
     api
       .put('migrations?accept_disclaimer', {}, 'migrations.run')
-      .then(() => viewElem.value!.fetchQueries())
+      .then(() => refetch(false))
   }
 }
 
@@ -52,16 +56,12 @@ async function skipMigration(id) {
   if (!confirmed) return
   api
     .put('/migrations/' + id, { skip: '', targets: id }, 'migration.skip')
-    .then(() => viewElem.value!.fetchQueries())
+    .then(() => refetch(false))
 }
 </script>
 
 <template>
-  <ViewBase
-    :queries="queries"
-    @queries-response="onQueriesResponse"
-    ref="viewElem"
-  >
+  <ViewBase :loading="loading">
     <!-- PENDING MIGRATIONS -->
     <YCard :title="$t('migrations_pending')" icon="cogs" no-body>
       <template #header-buttons v-if="pending">

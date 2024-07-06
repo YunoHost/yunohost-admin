@@ -5,6 +5,7 @@ import { useI18n } from 'vue-i18n'
 import api from '@/api'
 import { useAutoModal } from '@/composables/useAutoModal'
 import { isEmptyValue } from '@/helpers/commons'
+import { useInitialQueries } from '@/composables/useInitialQueries'
 
 const props = defineProps<{
   name: string
@@ -12,9 +13,11 @@ const props = defineProps<{
 
 const { t } = useI18n()
 const modalConfirm = useAutoModal()
+const { loading } = useInitialQueries(
+  [['GET', `domains/${props.name}/dns/suggest`]],
+  { onQueriesResponse },
+)
 
-const queries = [['GET', `domains/${props.name}/dns/suggest`]]
-const loading = ref(true)
 const showAutoConfigCard = ref(true)
 const showManualConfigCard = ref(false)
 const dnsConfig = ref('')
@@ -25,7 +28,7 @@ const force = ref(null)
 
 getDnsChanges()
 
-function onQueriesResponse(suggestedConfig) {
+function onQueriesResponse(suggestedConfig: any) {
   dnsConfig.value = suggestedConfig
 }
 
@@ -129,12 +132,7 @@ async function pushDnsChanges() {
 </script>
 
 <template>
-  <ViewBase
-    :queries="queries"
-    @queries-response="onQueriesResponse"
-    :loading="loading"
-    skeleton="CardInfoSkeleton"
-  >
+  <ViewBase :loading="loading" skeleton="CardInfoSkeleton">
     <section v-if="showAutoConfigCard" class="panel-section">
       <BCardTitle title-tag="h3">
         {{ $t('domain.dns.auto_config') }}

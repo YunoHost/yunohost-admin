@@ -1,18 +1,20 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
+import { useInitialQueries } from '@/composables/useInitialQueries'
 import { distanceToNow, readableDate } from '@/helpers/filters/date'
 import { humanSize } from '@/helpers/filters/human'
-import type { Obj } from '@/types/commons'
 
 const props = defineProps<{
   id: string
 }>()
 
-const queries = [['GET', 'backups?with_info']]
-const archives = ref<Obj[] | null>(null)
+const { loading } = useInitialQueries([['GET', 'backups?with_info']], {
+  onQueriesResponse,
+})
+const archives = ref<any[] | null>(null)
 
-function onQueriesResponse(data) {
+function onQueriesResponse(data: any) {
   const archives_ = Object.entries(data.archives)
   if (archives_.length) {
     archives.value = archives_
@@ -28,11 +30,7 @@ function onQueriesResponse(data) {
 </script>
 
 <template>
-  <ViewBase
-    :queries="queries"
-    @queries-response="onQueriesResponse"
-    skeleton="ListGroupSkeleton"
-  >
+  <ViewBase :loading="loading" skeleton="ListGroupSkeleton">
     <template #top>
       <TopBar
         :button="{

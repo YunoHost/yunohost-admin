@@ -4,20 +4,20 @@ import { reactive, ref } from 'vue'
 import api, { objectToParams } from '@/api'
 import { APIBadRequestError, type APIError } from '@/api/errors'
 import ConfigPanels from '@/components/ConfigPanels.vue'
-import type ViewBase from '@/components/globals/ViewBase.vue'
+import { useInitialQueries } from '@/composables/useInitialQueries'
 import {
   formatFormData,
   formatYunoHostConfigPanels,
 } from '@/helpers/yunohostArguments'
 
-const viewElem = ref<InstanceType<typeof ViewBase> | null>(null)
-
-const queries = [['GET', 'settings?full']]
+const { loading, refetch } = useInitialQueries([['GET', 'settings?full']], {
+  onQueriesResponse,
+})
 const config = ref({})
 // FIXME user proper useValidate stuff
 const externalResults = reactive({})
 
-function onQueriesResponse(config_) {
+function onQueriesResponse(config_: any) {
   config.value = formatYunoHostConfigPanels(config_)
 }
 
@@ -34,7 +34,7 @@ async function onConfigSubmit({ id, form }) {
       { args: objectToParams(args) },
       { key: 'settings.update', panel: id },
     )
-    .then(() => viewElem.value!.fetchQueries({ triggerLoading: true }))
+    .then(() => refetch())
     .catch((err: APIError) => {
       if (!(err instanceof APIBadRequestError)) throw err
       const panel = config.value.panels.find((panel) => panel.id === id)
@@ -50,12 +50,7 @@ async function onConfigSubmit({ id, form }) {
 </script>
 
 <template>
-  <ViewBase
-    :queries="queries"
-    @queries-response="onQueriesResponse"
-    ref="viewElem"
-    skeleton="CardFormSkeleton"
-  >
+  <ViewBase :loading="loading" skeleton="CardFormSkeleton">
     <ConfigPanels
       v-if="config.panels"
       v-bind="config"

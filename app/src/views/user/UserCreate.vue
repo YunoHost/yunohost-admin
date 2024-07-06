@@ -6,6 +6,7 @@ import { useRouter } from 'vue-router'
 
 import api from '@/api'
 import { APIBadRequestError, type APIError } from '@/api/errors'
+import { useInitialQueries } from '@/composables/useInitialQueries'
 import {
   alphalownumdot_,
   minLength,
@@ -19,11 +20,14 @@ import { useStoreGetters } from '@/store/utils'
 
 const { t } = useI18n()
 const router = useRouter()
+const { loading } = useInitialQueries(
+  [
+    ['GET', { uri: 'users' }],
+    ['GET', { uri: 'domains' }],
+  ],
+  { onQueriesResponse },
+)
 
-const queries = [
-  ['GET', { uri: 'users' }],
-  ['GET', { uri: 'domains' }],
-]
 const { userNames, domainsAsChoices, mainDomain } = useStoreGetters()
 
 const fields = {
@@ -114,11 +118,7 @@ async function onSubmit() {
 </script>
 
 <template>
-  <ViewBase
-    :queries="queries"
-    @queries-response="onQueriesResponse"
-    skeleton="CardFormSkeleton"
-  >
+  <ViewBase :loading="loading" skeleton="CardFormSkeleton">
     <CardForm
       :title="$t('users_new')"
       icon="user-plus"

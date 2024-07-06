@@ -1,9 +1,12 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 
+import { useInitialQueries } from '@/composables/useInitialQueries'
 import { distanceToNow } from '@/helpers/filters/date'
 
-const queries = [['GET', 'services']]
+const { loading } = useInitialQueries([['GET', 'services']], {
+  onQueriesResponse,
+})
 const search = ref('')
 const services = ref()
 
@@ -15,11 +18,11 @@ const filteredServices = computed(() => {
   return services_.length ? services_ : null
 })
 
-function onQueriesResponse(services) {
-  services.value = Object.keys(services)
+function onQueriesResponse(services_: any) {
+  services.value = Object.keys(services_)
     .sort()
     .map((name) => {
-      const service = services[name]
+      const service = services_[name]
       if (service.last_state_change === 'unknown') {
         service.last_state_change = 0
       }
@@ -32,11 +35,10 @@ function onQueriesResponse(services) {
   <ViewSearch
     id="service-list"
     v-model:search="search"
-    :items="services"
     :filtered-items="filteredServices"
+    :items="services"
     items-name="services"
-    :queries="queries"
-    @queries-response="onQueriesResponse"
+    :loading="loading"
   >
     <BListGroup>
       <BListGroupItem

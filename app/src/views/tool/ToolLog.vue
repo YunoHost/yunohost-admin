@@ -2,7 +2,8 @@
 import { computed, ref } from 'vue'
 
 import api, { objectToParams } from '@/api'
-import type ViewBase from '@/components/globals/ViewBase.vue'
+import type { APIQuery } from '@/api/api'
+import { useInitialQueries } from '@/composables/useInitialQueries'
 import { escapeHtml } from '@/helpers/commons'
 import { readableDate } from '@/helpers/filters/date'
 
@@ -10,16 +11,17 @@ const props = defineProps<{
   name: string
 }>()
 
-const viewElem = ref<InstanceType<typeof ViewBase> | null>(null)
-
 const numberOfLines = ref(25)
-const queries = computed(() => {
+const queries = computed<APIQuery[]>(() => {
   const queryString = objectToParams({
     filter_irrelevant: '',
     with_suboperations: '',
     number: numberOfLines.value,
   })
   return [['GET', `logs/${props.name}?${queryString}`]]
+})
+const { loading, refetch } = useInitialQueries(queries, {
+  onQueriesResponse,
 })
 
 // Log data
@@ -29,7 +31,7 @@ const logs = ref()
 // Logs line display
 const moreLogsAvailable = ref(false)
 
-function onQueriesResponse(log) {
+function onQueriesResponse(log: any) {
   if (log.logs.length === numberOfLines.value) {
     moreLogsAvailable.value = true
     numberOfLines.value *= 10
@@ -77,12 +79,7 @@ function shareLogs() {
 </script>
 
 <template>
-  <ViewBase
-    :queries="queries"
-    @queries-response="onQueriesResponse"
-    ref="viewElem"
-    skeleton="CardInfoSkeleton"
-  >
+  <ViewBase :loading="loading" skeleton="CardInfoSkeleton">
     <!-- INFO CARD -->
     <YCard :title="description" icon="info-circle">
       <BRow
@@ -135,7 +132,7 @@ function shareLogs() {
         v-if="moreLogsAvailable"
         variant="white"
         class="w-100 rounded-0"
-        @click="viewElem!.fetchQueries()"
+        @click="refetch(false)"
       >
         <YIcon iname="plus" /> {{ $t('logs_more') }}
       </BButton>

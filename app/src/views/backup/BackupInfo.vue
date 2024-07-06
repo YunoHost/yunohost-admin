@@ -2,10 +2,12 @@
 import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
+import { useStore } from 'vuex'
 
 import api from '@/api'
 import { APIBadRequestError, type APIError } from '@/api/errors'
 import { useAutoModal } from '@/composables/useAutoModal'
+import { useInitialQueries } from '@/composables/useInitialQueries'
 import { isEmptyValue } from '@/helpers/commons'
 import { readableDate } from '@/helpers/filters/date'
 import { humanSize } from '@/helpers/filters/human'
@@ -19,8 +21,11 @@ const { t } = useI18n()
 const router = useRouter()
 const store = useStore()
 const modalConfirm = useAutoModal()
+const { loading } = useInitialQueries(
+  [['GET', `backups/${props.name}?with_details`]],
+  { onQueriesResponse },
+)
 
-const queries = [['GET', `backups/${props.name}?with_details`]]
 const selected = ref<string[]>([])
 const error = ref('')
 const isValid = ref<boolean | null>(null)
@@ -54,7 +59,7 @@ function formatHooks(hooks) {
   return data
 }
 
-function onQueriesResponse(data) {
+function onQueriesResponse(data: any) {
   infos.value = {
     name: props.name,
     created_at: data.created_at,
@@ -132,7 +137,7 @@ function downloadBackup() {
 </script>
 
 <template>
-  <ViewBase :queries="queries" @queries-response="onQueriesResponse">
+  <ViewBase :loading="loading">
     <!-- BACKUP INFO -->
     <YCard :title="$t('infos')" icon="info-circle" button-unbreak="sm">
       <template #header-buttons>

@@ -6,8 +6,8 @@ import { useStore } from 'vuex'
 
 import api, { objectToParams } from '@/api'
 import ConfigPanels from '@/components/ConfigPanels.vue'
-import type ViewBase from '@/components/globals/ViewBase.vue'
 import { useAutoModal } from '@/composables/useAutoModal'
+import { useInitialQueries } from '@/composables/useInitialQueries'
 import {
   formatFormData,
   formatYunoHostConfigPanels,
@@ -24,16 +24,16 @@ const router = useRouter()
 const route = useRoute()
 const store = useStore()
 const modalConfirm = useAutoModal()
-
-const viewElem = ref<InstanceType<typeof ViewBase> | null>(null)
+const { loading, refetch } = useInitialQueries(
+  [
+    ['GET', { uri: 'domains', storeKey: 'domains' }],
+    ['GET', { uri: 'domains', storeKey: 'domains_details', param: props.name }],
+    ['GET', `domains/${props.name}/config?full`],
+  ],
+  { onQueriesResponse },
+)
 
 const { mainDomain } = useStoreGetters()
-
-const queries = [
-  ['GET', { uri: 'domains', storeKey: 'domains' }],
-  ['GET', { uri: 'domains', storeKey: 'domains_details', param: props.name }],
-  ['GET', `domains/${props.name}/config?full`],
-]
 const config = ref({})
 const externalResults = reactive({})
 const unsubscribeDomainFromDyndns = ref(false)
@@ -80,7 +80,7 @@ const isMainDynDomain = computed(() => {
   )
 })
 
-function onQueriesResponse(domains, domain, config_) {
+function onQueriesResponse(domains: any, domain: any, config_: any) {
   config.value = formatYunoHostConfigPanels(config_)
 }
 
@@ -102,7 +102,7 @@ async function onConfigSubmit({ id, form, action, name }) {
         name: props.name,
       },
     )
-    .then(() => viewElem.value!.fetchQueries({ triggerLoading: true }))
+    .then(() => refetch())
     .catch((err) => {
       if (err.name !== 'APIBadRequestError') throw err
       const panel = config.value.panels.find((panel) => panel.id === id)
@@ -150,12 +150,7 @@ async function setAsDefaultDomain() {
 </script>
 
 <template>
-  <ViewBase
-    :queries="queries"
-    @queries-response="onQueriesResponse"
-    ref="viewElem"
-    skeleton="CardListSkeleton"
-  >
+  <ViewBase :loading="loading" skeleton="CardListSkeleton">
     <!-- INFO CARD -->
     <YCard v-if="domain" :title="name" icon="globe">
       <template v-if="isMainDomain" #header-next>

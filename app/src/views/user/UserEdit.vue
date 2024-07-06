@@ -6,6 +6,7 @@ import { useRouter } from 'vue-router'
 
 import api from '@/api'
 import type ViewBase from '@/components/globals/ViewBase.vue'
+import { useInitialQueries } from '@/composables/useInitialQueries'
 import { arrayDiff } from '@/helpers/commons'
 import {
   emailForward,
@@ -31,13 +32,16 @@ const props = defineProps<{
 
 const { t } = useI18n()
 const router = useRouter()
+const { loading } = useInitialQueries(
+  [
+    ['GET', { uri: 'users', param: props.name, storeKey: 'users_details' }],
+    ['GET', { uri: 'domains' }],
+  ],
+  { onQueriesResponse },
+)
 
 const viewElem = ref<InstanceType<typeof ViewBase> | null>(null)
 
-const queries = [
-  ['GET', { uri: 'users', param: props.name, storeKey: 'users_details' }],
-  ['GET', { uri: 'domains' }],
-]
 const { user, domainsAsChoices, mainDomain } = useStoreGetters()
 
 const fields = {
@@ -137,7 +141,7 @@ const rules = computed(() => ({
 const v$ = useVuelidate(rules, form)
 const serverError = ref('')
 
-function onQueriesResponse(user_) {
+function onQueriesResponse(user_: any) {
   form.fullname = user_.fullname
   form.mail = adressToFormValue(user_.mail)
   if (user_['mail-aliases']) {
@@ -226,12 +230,7 @@ function removeEmailField(type: 'aliases' | 'forward', index: number) {
 </script>
 
 <template>
-  <ViewBase
-    :queries="queries"
-    @queries-response="onQueriesResponse"
-    skeleton="CardFormSkeleton"
-    ref="viewElem"
-  >
+  <ViewBase ref="viewElem" :loading="loading" skeleton="CardFormSkeleton">
     <CardForm
       :title="$t('user_username_edit', { name })"
       icon="user"

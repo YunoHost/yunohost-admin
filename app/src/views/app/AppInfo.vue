@@ -7,8 +7,8 @@ import { useRoute, useRouter } from 'vue-router'
 import api, { objectToParams } from '@/api'
 import { APIBadRequestError, type APIError } from '@/api/errors'
 import ConfigPanels from '@/components/ConfigPanels.vue'
-import type ViewBase from '@/components/globals/ViewBase.vue'
 import { useAutoModal } from '@/composables/useAutoModal'
+import { useInitialQueries } from '@/composables/useInitialQueries'
 import { isEmptyValue } from '@/helpers/commons'
 import { humanPermissionName } from '@/helpers/filters/human'
 import { helpers, required } from '@/helpers/validators'
@@ -18,7 +18,6 @@ import {
   formatYunoHostConfigPanels,
 } from '@/helpers/yunohostArguments'
 import { useStoreGetters } from '@/store/utils'
-import type { Obj } from '@/types/commons'
 
 const props = defineProps<{
   id: string
@@ -30,7 +29,6 @@ const router = useRouter()
 const modalConfirm = useAutoModal()
 
 const { domains } = useStoreGetters()
-const viewElem = ref<InstanceType<typeof ViewBase> | null>(null)
 
 // FIXME
 type AppForm = {
@@ -51,13 +49,15 @@ const rules = computed(() => ({
 }))
 const externalResults = reactive({})
 const v$ = useVuelidate(rules, form, { $externalResults: externalResults })
+const { loading, refetch } = useInitialQueries(
+  [
+    ['GET', `apps/${props.id}?full`],
+    ['GET', { uri: 'users/permissions?full', storeKey: 'permissions' }],
+    ['GET', { uri: 'domains' }],
+  ],
+  { onQueriesResponse },
+)
 
-const queries = [
-  ['GET', `apps/${props.id}?full`],
-  ['GET', { uri: 'users/permissions?full', storeKey: 'permissions' }],
-  ['GET', { uri: 'domains' }],
-]
-const loading = ref(true)
 const app = ref()
 const purge = ref(false)
 const config_panel_err = ref(null)
@@ -97,7 +97,7 @@ function appLinksIcons(linkType) {
   return linksIcons[linkType]
 }
 
-async function onQueriesResponse(app_: Obj) {
+async function onQueriesResponse(app_: any) {
   // const form = { labels: [] }
 
   const mainPermission = app_.permissions[props.id + '.main']
@@ -224,7 +224,6 @@ async function onQueriesResponse(app_: Obj) {
         config_panel_err.value = err.message
       })
   }
-  loading.value = false
 }
 
 async function onConfigSubmit({ id, form, action, name }) {
@@ -245,10 +244,7 @@ async function onConfigSubmit({ id, form, action, name }) {
         name: props.id,
       },
     )
-    .then(() => {
-      loading.value = true
-      viewElem.value!.fetchQueries()
-    })
+    .then(() => refetch())
     .catch((err: APIError) => {
       if (!(err instanceof APIBadRequestError)) throw err
       const panel = config.value.panels.find((panel) => panel.id === id)!
@@ -270,7 +266,7 @@ function changeLabel(permName, data) {
       prevName: app.value.label,
       nextName: data.label,
     })
-    .then(() => viewElem.value!.fetchQueries())
+    .then(() => refetch(false))
 }
 
 async function changeUrl() {
@@ -284,7 +280,7 @@ async function changeUrl() {
       { domain, path: '/' + path },
       { key: 'apps.change_url', name: app.value.label },
     )
-    .then(() => viewElem.value!.fetchQueries())
+    .then(() => refetch(false))
 }
 
 async function setAsDefaultDomain(undo = false) {
@@ -301,7 +297,7 @@ async function setAsDefaultDomain(undo = false) {
         domain: app.value.domain,
       },
     )
-    .then(() => viewElem.value!.fetchQueries())
+    .then(() => refetch(false))
 }
 
 async function dismissNotification(name: string) {
@@ -311,7 +307,7 @@ async function dismissNotification(name: string) {
       {},
       { key: 'apps.dismiss_notification', name: app.value.label },
     )
-    .then(() => viewElem.value!.fetchQueries())
+    .then(() => refetch(false))
 }
 
 async function uninstall() {
@@ -328,12 +324,7 @@ async function uninstall() {
 </script>
 
 <template>
-  <ViewBase
-    :queries="queries"
-    @queries-response="onQueriesResponse"
-    :loading="loading"
-    ref="viewElem"
-  >
+  <ViewBase :loading="loading">
     <YAlert
       v-if="
         app &&

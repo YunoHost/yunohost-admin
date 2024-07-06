@@ -2,11 +2,11 @@
 import { computed, ref } from 'vue'
 import { useStore } from 'vuex'
 
+import { useInitialQueries } from '@/composables/useInitialQueries'
 import { useStoreGetters } from '@/store/utils'
 
 const store = useStore()
-
-const queries = [
+const { loading } = useInitialQueries([
   [
     'GET',
     {
@@ -14,8 +14,7 @@ const queries = [
       storeKey: 'users',
     },
   ],
-]
-
+])
 const { users } = useStoreGetters()
 
 const search = ref('')
@@ -40,10 +39,10 @@ function downloadExport() {
 <template>
   <ViewSearch
     v-model:search="search"
-    :items="users"
     :filtered-items="filteredUsers"
+    :items="users"
     items-name="users"
-    :queries="queries"
+    :loading="loading"
   >
     <template #top-bar-buttons>
       <BButton variant="info" :to="{ name: 'group-list' }">

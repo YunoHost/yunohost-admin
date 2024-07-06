@@ -5,12 +5,13 @@ import { useStore } from 'vuex'
 
 import api from '@/api'
 import { APIBadRequestError, type APIError } from '@/api/errors'
+import { useInitialQueries } from '@/composables/useInitialQueries'
 import { DomainForm } from '@/views/_partials'
 
 const router = useRouter()
 const store = useStore()
 
-const queries = [['GET', { uri: 'domains' }]]
+const { loading } = useInitialQueries([['GET', { uri: 'domains' }]])
 const serverError = ref('')
 
 function onSubmit(data) {
@@ -28,7 +29,7 @@ function onSubmit(data) {
 </script>
 
 <template>
-  <ViewBase :queries="queries" skeleton="CardFormSkeleton">
+  <ViewBase :loading="loading" skeleton="CardFormSkeleton">
     <DomainForm
       :title="$t('domain_add')"
       :server-error="serverError"

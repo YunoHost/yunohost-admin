@@ -3,11 +3,14 @@ import { useStoreGetters } from '@/store/utils'
 import { computed, ref } from 'vue'
 
 import RecursiveListGroup from '@/components/RecursiveListGroup.vue'
+import { useInitialQueries } from '@/composables/useInitialQueries'
 import type { TreeRootNode } from '@/helpers/data/tree'
 
 const { domains, mainDomain, domainsTree } = useStoreGetters()
+const { loading } = useInitialQueries([
+  ['GET', { uri: 'domains', storeKey: 'domains' }],
+])
 
-const queries = [['GET', { uri: 'domains', storeKey: 'domains' }]]
 const search = ref('')
 
 const tree = computed(() => {
@@ -31,10 +34,10 @@ const hasFilteredItems = computed(() => {
   <ViewSearch
     id="domain-list"
     v-model:search="search"
+    :filtered-items="hasFilteredItems"
     :items="domains"
     items-name="domains"
-    :queries="queries"
-    :filtered-items="hasFilteredItems"
+    :loading="loading"
   >
     <template #top-bar-buttons>
       <BButton variant="success" :to="{ name: 'domain-add' }">

@@ -5,16 +5,15 @@ import { useI18n } from 'vue-i18n'
 
 import api from '@/api'
 import { APIBadRequestError, type APIError } from '@/api/errors'
-import type ViewBase from '@/components/globals/ViewBase.vue'
 import { useAutoModal } from '@/composables/useAutoModal'
 import { between, integer, required } from '@/helpers/validators'
+import { useInitialQueries } from '@/composables/useInitialQueries'
 
 const { t } = useI18n()
 const modalConfirm = useAutoModal()
-
-const viewElem = ref<InstanceType<typeof ViewBase> | null>(null)
-
-const queries = [['GET', '/firewall?raw']]
+const { loading, refetch } = useInitialQueries([['GET', '/firewall?raw']], {
+  onQueriesResponse,
+})
 
 const fields = [
   { key: 'port', label: t('port') },
@@ -58,7 +57,7 @@ const protocolChoices = [
 const upnpEnabled = ref()
 const upnpError = ref('')
 
-function onQueriesResponse(data) {
+function onQueriesResponse(data: any) {
   const ports = Object.values(data).reduce(
     (ports_, protocols_) => {
       for (const type of ['TCP', 'UDP']) {
@@ -132,7 +131,7 @@ async function toggleUpnp(value) {
     )
     .then(() => {
       // FIXME Couldn't test when it works.
-      viewElem.value!.fetchQueries()
+      refetch(false)
     })
     .catch((err: APIError) => {
       if (!(err instanceof APIBadRequestError)) throw err
@@ -153,18 +152,13 @@ function onTablePortToggling(port, protocol, connection, index, value) {
 
 function onFormPortToggling() {
   togglePort(form).then((toggled) => {
-    if (toggled) viewElem.value!.fetchQueries()
+    if (toggled) refetch(false)
   })
 }
 </script>
 
 <template>
-  <ViewBase
-    :queries="queries"
-    @queries-response="onQueriesResponse"
-    ref="viewElem"
-    skeleton="CardFormSkeleton"
-  >
+  <ViewBase :loading="loading" skeleton="CardFormSkeleton">
     <!-- PORTS -->
     <YCard :title="$t('ports')" icon="shield">
       <div v-for="(items, protocol) in protocols" :key="protocol">

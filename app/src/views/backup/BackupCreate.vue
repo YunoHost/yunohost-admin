@@ -4,6 +4,7 @@ import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 
 import api from '@/api'
+import { useInitialQueries } from '@/composables/useInitialQueries'
 
 const props = defineProps<{
   id: string
@@ -11,11 +12,14 @@ const props = defineProps<{
 
 const { t } = useI18n()
 const router = useRouter()
+const { loading } = useInitialQueries(
+  [
+    ['GET', 'hooks/backup'],
+    ['GET', 'apps?with_backup'],
+  ],
+  { onQueriesResponse },
+)
 
-const queries = [
-  ['GET', 'hooks/backup'],
-  ['GET', 'apps?with_backup'],
-]
 const selected = ref<string[]>([])
 const system = ref()
 const apps = ref()
@@ -40,10 +44,10 @@ function formatHooks(hooks) {
   return data
 }
 
-function onQueriesResponse({ hooks }, { apps }) {
+function onQueriesResponse({ hooks }: any, { apps: apps_ }: any) {
   system.value = formatHooks(hooks)
   // transform app array into literal object to match hooks data structure
-  apps.value = apps.reduce((obj, app) => {
+  apps.value = apps_.reduce((obj, app) => {
     obj[app.id] = app
     return obj
   }, {})
@@ -79,11 +83,7 @@ function createBackup() {
 </script>
 
 <template>
-  <ViewBase
-    :queries="queries"
-    @queries-response="onQueriesResponse"
-    skeleton="CardListSkeleton"
-  >
+  <ViewBase :loading="loading" skeleton="CardListSkeleton">
     <!-- FIXME switch to <CardForm> ? -->
     <YCard :title="$t('backup_create')" icon="archive" no-body>
       <BFormCheckboxGroup

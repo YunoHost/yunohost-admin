@@ -7,6 +7,7 @@ import { useRoute, useRouter } from 'vue-router'
 import api, { objectToParams } from '@/api'
 import { APIBadRequestError, type APIError } from '@/api/errors'
 import { useAutoModal } from '@/composables/useAutoModal'
+import { useInitialQueries } from '@/composables/useInitialQueries'
 import {
   formatFormData,
   formatI18nField,
@@ -27,11 +28,13 @@ const validations = ref({})
 const rules = computed(() => validations)
 const externalResults = reactive({})
 const v$ = useVuelidate(rules, form, { $externalResults: externalResults })
-
-const queries = [
-  ['GET', 'apps/catalog?full&with_categories&with_antifeatures'],
-  ['GET', `apps/manifest?app=${props.id}&with_screenshot`],
-]
+const { loading } = useInitialQueries(
+  [
+    ['GET', 'apps/catalog?full&with_categories&with_antifeatures'],
+    ['GET', `apps/manifest?app=${props.id}&with_screenshot`],
+  ],
+  { onQueriesResponse },
+)
 
 // FIXME
 const app = ref(undefined)
@@ -54,7 +57,7 @@ function appLinksIcons(linkType) {
   return linksIcons[linkType]
 }
 
-function onQueriesResponse(catalog, _app) {
+function onQueriesResponse(catalog: any, _app: any) {
   const antifeaturesList = Object.fromEntries(
     catalog.antifeatures.map((af) => [af.id, af]),
   )
@@ -211,7 +214,7 @@ async function performInstall() {
 </script>
 
 <template>
-  <ViewBase :queries="queries" @queries-response="onQueriesResponse">
+  <ViewBase :loading="loading">
     <template v-if="app">
       <section class="border rounded p-3 mb-4">
         <div class="d-md-flex align-items-center mb-4">

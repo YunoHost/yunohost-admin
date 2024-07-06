@@ -6,13 +6,16 @@ import { useStore } from 'vuex'
 import api from '@/api'
 import CardCollapse from '@/components/CardCollapse.vue'
 import { useAutoModal } from '@/composables/useAutoModal'
+import { useInitialQueries } from '@/composables/useInitialQueries'
 import { useStoreGetters } from '@/store/utils'
 
 const { t } = useI18n()
 const store = useStore()
 const modalConfirm = useAutoModal()
-
-const queries = [['PUT', 'update/all', {}, 'update']]
+const { loading } = useInitialQueries([['PUT', 'update/all', {}, 'update']], {
+  wait: true,
+  onQueriesResponse,
+})
 
 const { dark } = useStoreGetters()
 const system = ref()
@@ -26,13 +29,13 @@ const preUpgrade = ref({
 })
 
 function onQueriesResponse({
-  apps,
-  system,
+  apps_,
+  system_,
   important_yunohost_upgrade,
   pending_migrations,
-}) {
-  apps.value = apps.length ? apps : null
-  system.value = system.length ? system : null
+}: any) {
+  apps.value = apps_.length ? apps_ : null
+  system.value = system_.length ? system_ : null
   // eslint-disable-next-line camelcase
   importantYunohostUpgrade.value = important_yunohost_upgrade
   pendingMigrations.value = pending_migrations.length !== 0
@@ -113,12 +116,7 @@ async function performSystemUpgrade() {
 </script>
 
 <template>
-  <ViewBase
-    :queries="queries"
-    queries-wait
-    @queries-response="onQueriesResponse"
-    skeleton="CardListSkeleton"
-  >
+  <ViewBase :loading="loading" skeleton="CardListSkeleton">
     <!-- MIGRATIONS WARN -->
     <YAlert v-if="pendingMigrations" variant="warning" alert>
       <span v-html="$t('pending_migrations')" />

@@ -1,9 +1,14 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 
+import { useInitialQueries } from '@/composables/useInitialQueries'
 import { distanceToNow, readableDate } from '@/helpers/filters/date'
 
-const queries = [['GET', `logs?limit=${25}&with_details`]]
+const { loading } = useInitialQueries(
+  [['GET', `logs?limit=${25}&with_details`]],
+  { onQueriesResponse },
+)
+
 const search = ref('')
 const operations = ref()
 
@@ -16,7 +21,7 @@ const filteredOperations = computed(() => {
   return operations_.length ? operations_ : null
 })
 
-function onQueriesResponse({ operation }) {
+function onQueriesResponse({ operation }: any) {
   operation.forEach((log, index) => {
     if (log.success === '?') {
       operation[index].icon = 'question'
@@ -36,11 +41,10 @@ function onQueriesResponse({ operation }) {
 <template>
   <ViewSearch
     v-model:search="search"
-    :items="operations"
     :filtered-items="filteredOperations"
+    :items="operations"
     items-name="logs"
-    :queries="queries"
-    @queries-response="onQueriesResponse"
+    :loading="loading"
     skeleton="CardListSkeleton"
   >
     <YCard :title="$t('logs_operation')" icon="wrench" no-body>

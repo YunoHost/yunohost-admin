@@ -5,6 +5,7 @@ import { useI18n } from 'vue-i18n'
 import api from '@/api'
 import TagsSelectizeItem from '@/components/globals/formItems/TagsSelectizeItem.vue'
 import { useAutoModal } from '@/composables/useAutoModal'
+import { useInitialQueries } from '@/composables/useInitialQueries'
 import { isEmptyValue } from '@/helpers/commons'
 
 // TODO add global search with type (search by: group, user, permission)
@@ -12,18 +13,21 @@ import { isEmptyValue } from '@/helpers/commons'
 
 const { t } = useI18n()
 const modalConfirm = useAutoModal()
-
-const queries = [
-  ['GET', { uri: 'users' }],
+const { loading } = useInitialQueries(
   [
-    'GET',
-    {
-      uri: 'users/groups?full&include_primary_groups',
-      storeKey: 'groups',
-    },
+    ['GET', { uri: 'users' }],
+    [
+      'GET',
+      {
+        uri: 'users/groups?full&include_primary_groups',
+        storeKey: 'groups',
+      },
+    ],
+    ['GET', { uri: 'users/permissions?full', storeKey: 'permissions' }],
   ],
-  ['GET', { uri: 'users/permissions?full', storeKey: 'permissions' }],
-]
+  { onQueriesResponse },
+)
+
 const search = ref('')
 const permissions = ref()
 const permissionsOptions = ref()
@@ -45,7 +49,7 @@ const filteredGroups = computed(() => {
   return isEmptyValue(filtered) ? null : filtered
 })
 
-function onQueriesResponse(users, allGroups, permsDict) {
+function onQueriesResponse(users: any, allGroups: any, permsDict: any) {
   // Do not use computed properties to get values from the store here to avoid auto
   // updates while modifying values.
   const permissions_ = Object.entries(permsDict).map(([id, value]) => ({
@@ -182,12 +186,11 @@ async function deleteGroup(groupName) {
 
 <template>
   <ViewSearch
-    items-name="groups"
     v-model:search="search"
-    :items="primaryGroups"
     :filtered-items="filteredGroups"
-    :queries="queries"
-    @queries-response="onQueriesResponse"
+    :items="primaryGroups"
+    items-name="groups"
+    :loading="loading"
     skeleton="CardFormSkeleton"
   >
     <template #top-bar-buttons>
