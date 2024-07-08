@@ -1,10 +1,12 @@
 <script setup lang="ts">
-import { useVuelidate } from '@vuelidate/core'
 import { computed, reactive, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 import api from '@/api'
+import { APIBadRequestError } from '@/api/errors'
+import { useForm } from '@/composables/form'
 import { useAutoModal } from '@/composables/useAutoModal'
+import { asUnreffed } from '@/helpers/commons'
 import {
   alphalownumdot_,
   minLength,
@@ -13,92 +15,99 @@ import {
   sameAs,
 } from '@/helpers/validators'
 import { formatFormData } from '@/helpers/yunohostArguments'
+import type { FieldProps, FormFieldDict } from '@/types/form'
 import LoginView from '@/views/LoginView.vue'
 import { DomainForm } from '@/views/_partials'
 
 const { t } = useI18n()
 const modalConfirm = useAutoModal()
 
-const step = ref('start')
+type Steps = 'start' | 'domain' | 'user' | 'rootfsspace-error' | 'login'
+const step = ref<Steps>('start')
 const serverError = ref('')
-const domain = ref(undefined)
+const domain = ref('')
 const dyndns_recovery_password = ref('')
 
-const form = reactive({
+type Form = typeof form.value
+const form = ref({
   username: '',
   fullname: '',
   password: '',
   confirmation: '',
 })
-const rules = computed(() => ({
-  username: { required, alphalownumdot_ },
-  fullname: { required, name },
-  password: { required, passwordLenght: minLength(8) },
-  confirmation: { required, passwordMatch: sameAs(form.password) },
-}))
-const v$ = useVuelidate(rules, form)
+const fields = reactive({
+  // FIXME satisfies FormFieldDict but not for CardForm?
+  alert: {
+    component: 'ReadOnlyAlertItem',
+    props: { label: t('postinstall.user.first_user_help'), type: 'info' },
+  } satisfies FieldProps<'ReadOnlyAlertItem'>,
 
-const fields = {
   username: {
+    component: 'InputItem',
     label: t('user_username'),
-    props: {
-      id: 'username',
-      placeholder: t('placeholder.username'),
-    },
-  },
+    rules: { required, alphalownumdot_ },
+    props: { id: 'username', placeholder: t('placeholder.username') },
+  } satisfies FieldProps<'InputItem', Form['username']>,
 
   fullname: {
+    component: 'InputItem',
     label: t('user_fullname'),
-    props: {
-      id: 'fullname',
-      placeholder: t('placeholder.fullname'),
-    },
-  },
+    rules: { required, name },
+    props: { id: 'fullname', placeholder: t('placeholder.fullname') },
+  } satisfies FieldProps<'InputItem', Form['fullname']>,
 
   password: {
+    component: 'InputItem',
     label: t('password'),
     description: t('good_practices_about_admin_password'),
     descriptionVariant: 'warning',
+    rules: { required, passwordLenght: minLength(8) },
     props: { id: 'password', placeholder: '••••••••', type: 'password' },
-  },
+  } satisfies FieldProps<'InputItem', Form['password']>,
 
   confirmation: {
+    component: 'InputItem',
     label: t('password_confirmation'),
-    props: {
-      id: 'confirmation',
-      placeholder: '••••••••',
-      type: 'password',
-    },
-  },
-}
+    rules: asUnreffed(
+      computed(() => ({
+        required,
+        passwordMatch: sameAs(form.value.password),
+      })),
+    ),
+    props: { id: 'confirmation', placeholder: '••••••••', type: 'password' },
+  } satisfies FieldProps<'InputItem', Form['confirmation']>,
+} satisfies FormFieldDict<Form>)
 
-function goToStep(step_) {
+const { v, onSubmit, serverErrors } = useForm(form, fields)
+
+function goToStep(step_: Steps) {
   serverError.value = ''
   step.value = step_
 }
 
-function setDomain(data) {
+function setDomain(data: { domain: string; dyndns_recovery_password: string }) {
   domain.value = data.domain
   dyndns_recovery_password.value = data.dyndns_recovery_password
   goToStep('user')
 }
 
-async function setUser() {
+const setUser = onSubmit(async () => {
   const confirmed = await modalConfirm(
     t('confirm_postinstall', { domain: domain.value }),
   )
   if (!confirmed) return
   performPostInstall()
-}
+})
 
 async function performPostInstall(force = false) {
   // FIXME update formatFormData to unwrap ref auto
+  const { username, fullname, password } = form.value
   const data = await formatFormData({
     domain: domain.value,
     dyndns_recovery_password: dyndns_recovery_password.value,
-    username: form.username,
-    fullname: form.fullname,
-    password: form.password,
+    username,
+    fullname,
+    password,
   })
 
   // FIXME does the api will throw an error for bad passwords ?
@@ -111,19 +120,21 @@ async function performPostInstall(force = false) {
       goToStep('login')
     })
     .catch((err) => {
-      const hasWordsInError = (words) =>
+      const hasWordsInError = (words: string[]) =>
         words.some((word) => (err.key || err.message).includes(word))
-      if (err.name !== 'APIBadRequestError') throw err
+      if (!(err instanceof APIBadRequestError)) throw err
       if (err.key === 'postinstall_low_rootfsspace') {
         step.value = 'rootfsspace-error'
+        serverError.value = err.message
       } else if (hasWordsInError(['domain', 'dyndns'])) {
         step.value = 'domain'
+        serverError.value = err.message
       } else if (hasWordsInError(['password', 'user'])) {
         step.value = 'user'
+        serverErrors.global = [err.message]
       } else {
         throw err
       }
-      serverError.value = err.message
     })
 }
 </script>
@@ -156,11 +167,11 @@ async function performPostInstall(force = false) {
         @submit="setDomain"
       >
         <template #disclaimer>
-          <p class="alert alert-info" v-t="'postinstall_domain'" />
+          <p v-t="'postinstall_domain'" class="alert alert-info" />
         </template>
       </DomainForm>
 
-      <BButton variant="primary" @click="goToStep('start')" class="mt-3">
+      <BButton variant="primary" class="mt-3" @click="goToStep('start')">
         <YIcon iname="chevron-left" /> {{ $t('previous') }}
       </BButton>
     </template>
@@ -168,28 +179,16 @@ async function performPostInstall(force = false) {
     <!-- FIRST USER SETUP STEP -->
     <template v-else-if="step === 'user'">
       <CardForm
-        :title="$t('postinstall.user.title')"
+        v-model="form"
+        :fields="fields"
         icon="user-plus"
-        :validation="v$"
-        :server-error="serverError"
         :submit-text="$t('next')"
+        :title="$t('postinstall.user.title')"
+        :validations="v"
         @submit.prevent="setUser"
-      >
-        <ReadOnlyAlertItem
-          :label="$t('postinstall.user.first_user_help')"
-          type="info"
-        />
+      />
 
-        <FormField
-          v-for="(field, key) in fields"
-          :key="key"
-          v-bind="field"
-          v-model="form[key]"
-          :validation="v$.form[key]"
-        />
-      </CardForm>
-
-      <BButton variant="primary" @click="goToStep('domain')" class="mt-3">
+      <BButton variant="primary" class="mt-3" @click="goToStep('domain')">
         <YIcon iname="chevron-left" /> {{ $t('previous') }}
       </BButton>
     </template>

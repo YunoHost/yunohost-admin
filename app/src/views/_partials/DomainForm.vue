@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { useVuelidate } from '@vuelidate/core'
-import { computed, reactive, ref } from 'vue'
+import { computed, reactive, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 
+import { useForm } from '@/composables/form'
+import { asUnreffed } from '@/helpers/commons'
 import {
   domain,
   dynDomain,
@@ -12,23 +13,26 @@ import {
 } from '@/helpers/validators'
 import { formatFormData } from '@/helpers/yunohostArguments'
 import { useStoreGetters } from '@/store/utils'
+import type { AdressModelValue, FieldProps, FormFieldDict } from '@/types/form'
 
 defineOptions({
   inheritAttrs: false,
 })
 
-withDefaults(
+const props = withDefaults(
   defineProps<{
     title: string
-    submitText?: string | null
+    submitText?: string
     serverError?: string
   }>(),
   {
-    submitText: null,
-    serverError: '',
+    submitText: undefined,
+    serverError: undefined,
   },
 )
-const emit = defineEmits(['submit'])
+const emit = defineEmits<{
+  submit: [data: { domain: string; dyndns_recovery_password: string }]
+}>()
 
 const { t } = useI18n()
 
@@ -42,82 +46,112 @@ const dynDnsForbiden = computed(() => {
   })
 })
 
-const selected = ref(dynDnsForbiden.value ? 'domain' : '')
-const form = reactive({
+type Selected = 'domain' | 'dynDomain' | 'localDomain'
+const selected = ref<'' | Selected>(dynDnsForbiden.value ? 'domain' : '')
+
+type Form = {
+  domain: string
+  dynDomain: AdressModelValue
+  dynDomainPassword: string
+  dynDomainPasswordConfirmation: string
+  localDomain: AdressModelValue
+}
+const form = ref<Form>({
   domain: '',
   dynDomain: { localPart: '', separator: '.', domain: 'nohost.me' },
   dynDomainPassword: '',
   dynDomainPasswordConfirmation: '',
   localDomain: { localPart: '', separator: '.', domain: 'local' },
 })
-
-const rules = computed(() => ({
-  selected: { required },
-  form: ['domain', 'localDomain'].includes(selected.value)
-    ? {
-        [selected.value]:
-          selected.value === 'domain'
-            ? { required, domain }
-            : { localPart: { required, dynDomain } },
-      }
-    : {
-        dynDomain: { localPart: { required, dynDomain } },
-        dynDomainPassword: { passwordLenght: minLength(8) },
-        dynDomainPasswordConfirmation: {
-          passwordMatch: sameAs(form.dynDomainPassword),
-        },
-      },
-}))
-const v$ = useVuelidate(rules, { selected, form })
-
-const fields = {
+const fields = reactive({
   domain: {
+    component: 'InputItem',
     label: t('domain_name'),
+    rules: asUnreffed(
+      computed(() =>
+        selected.value === 'domain' ? { required, domain } : undefined,
+      ),
+    ),
     props: {
       id: 'domain',
       placeholder: t('placeholder.domain'),
     },
-  },
+  } satisfies FieldProps<'InputItem', Form['domain']>,
 
   dynDomain: {
+    component: 'AdressItem',
     label: t('domain_name'),
+    rules: { localPart: { required, dynDomain } },
     props: {
       id: 'dyn-domain',
       placeholder: t('placeholder.domain').split('.')[0],
       type: 'domain',
       choices: dynDomains,
     },
-  },
+  } satisfies FieldProps<'AdressItem', Form['dynDomain']>,
 
   dynDomainPassword: {
+    component: 'InputItem',
     label: t('domain.add.dyn_dns_password'),
     description: t('domain.add.dyn_dns_password_desc'),
+    rules: { passwordLenght: minLength(8) },
     props: {
       id: 'dyn-dns-password',
       placeholder: '••••••••',
       type: 'password',
     },
-  },
+  } satisfies FieldProps<'InputItem', Form['dynDomainPassword']>,
 
   dynDomainPasswordConfirmation: {
+    component: 'InputItem',
     label: t('password_confirmation'),
+    rules: asUnreffed(
+      computed(() => ({
+        passwordMatch: sameAs(form.value.dynDomainPassword),
+      })),
+    ),
     props: {
       id: 'dyn-dns-password-confirmation',
       placeholder: '••••••••',
       type: 'password',
     },
-  },
+  } satisfies FieldProps<'InputItem', Form['dynDomainPasswordConfirmation']>,
 
   localDomain: {
+    component: 'AdressItem',
     label: t('domain_name'),
+    rules: asUnreffed(
+      computed(() =>
+        selected.value === 'localDomain'
+          ? { localPart: { required, dynDomain } }
+          : undefined,
+      ),
+    ),
     props: {
       id: 'dyn-domain',
       placeholder: t('placeholder.domain').split('.')[0],
       type: 'domain',
       choices: ['local', 'test'],
     },
+  } satisfies FieldProps<'AdressItem', Form['localDomain']>,
+} satisfies FormFieldDict<Form>)
+
+const { v, onSubmit, serverErrors } = useForm(form, fields)
+
+watch(
+  () => props.serverError,
+  () => {
+    if (props.serverError) {
+      serverErrors.global = [props.serverError]
+    }
   },
-}
+)
+
+const dynKeys = [
+  'dynDomain',
+  'dynDomainPassword',
+  'dynDomainPasswordConfirmation',
+] as (keyof Form)[]
 
 const domainIsVisible = computed(() => {
   return selected.value === 'domain'
@@ -131,15 +165,17 @@ const localDomainIsVisible = computed(() => {
   return selected.value === 'localDomain'
 })
 
-async function onSubmit() {
+const onDomainAdd = onSubmit(async () => {
   const domainType = selected.value
+  if (!domainType) return
+
   const data = await formatFormData({
-    domain: form[domainType],
+    domain: form.value[domainType],
     dyndns_recovery_password:
-      domainType === 'dynDomain' ? form.dynDomainPassword : '',
+      domainType === 'dynDomain' ? form.value.dynDomainPassword : '',
   })
   emit('submit', data)
-}
+})
 </script>
 
 <template>
@@ -147,9 +183,8 @@ async function onSubmit() {
     :title="title"
     icon="globe"
     :submit-text="submitText"
-    :validation="v$"
-    :server-error="serverError"
-    @submit.prevent="onSubmit"
+    :validations="v"
+    @submit.prevent="onDomainAdd"
   >
     <template #disclaimer>
       <slot name="disclaimer" />
@@ -167,8 +202,8 @@ async function onSubmit() {
       {{ $t('domain.add.from_registrar') }}
     </BFormRadio>
 
-    <BCollapse id="collapse-domain" v-model:visible="domainIsVisible">
-      <p class="mt-2 alert alert-info">
+    <BCollapse id="collapse-domain" v-model="domainIsVisible">
+      <p class="mt-2 mb-3 alert alert-info">
         <YIcon iname="info-circle" />
         <span class="ps-1" v-html="$t('domain.add.from_registrar_desc')" />
       </p>
@@ -176,8 +211,7 @@ async function onSubmit() {
       <FormField
         v-bind="fields.domain"
         v-model="form.domain"
-        :validation="v$.domain"
-        class="mt-3"
+        :validation="v.domain"
       />
     </BCollapse>
 
@@ -194,34 +228,21 @@ async function onSubmit() {
       {{ $t('domain.add.from_yunohost') }}
     </BFormRadio>
 
-    <BCollapse id="collapse-dynDomain" v-model:visible="dynDomainIsVisible">
-      <p class="mt-2 alert alert-info">
+    <BCollapse id="collapse-dynDomain" v-model="dynDomainIsVisible">
+      <p class="mt-2 mb-3 alert alert-info">
         <YIcon iname="info-circle" />
         <span class="ps-1" v-html="$t('domain.add.from_yunohost_desc')" />
       </p>
 
       <FormField
-        v-bind="fields.dynDomain"
-        :validation="v$.dynDomain"
-        class="mt-3"
-      >
-        <template #default="{ self }">
-          <AdressItem v-bind="self" v-model="form.dynDomain" />
-        </template>
-      </FormField>
-
-      <FormField
-        v-bind="fields.dynDomainPassword"
-        :validation="v$.dynDomainPassword"
-        v-model="form.dynDomainPassword"
-      />
-
-      <FormField
-        v-bind="fields.dynDomainPasswordConfirmation"
-        :validation="v$.dynDomainPasswordConfirmation"
-        v-model="form.dynDomainPasswordConfirmation"
+        v-for="key in dynKeys"
+        :key="key"
+        v-bind="fields[key]"
+        v-model="form[key]"
+        :validation="v[key]"
       />
     </BCollapse>
+
     <div
       v-if="dynDnsForbiden"
       class="alert alert-warning mt-2"
@@ -239,21 +260,17 @@ async function onSubmit() {
       {{ $t('domain.add.from_local') }}
     </BFormRadio>
 
-    <BCollapse id="collapse-localDomain" v-model:visible="localDomainIsVisible">
-      <p class="mt-2 alert alert-info">
+    <BCollapse id="collapse-localDomain" v-model="localDomainIsVisible">
+      <p class="mt-2 mb-3 alert alert-info">
         <YIcon iname="info-circle" />
         <span class="ps-1" v-html="$t('domain.add.from_local_desc')" />
       </p>
 
       <FormField
         v-bind="fields.localDomain"
-        :validation="v$.localDomain"
-        class="mt-3"
-      >
-        <template #default="{ self }">
-          <AdressItem v-bind="self" v-model="form.localDomain" />
-        </template>
-      </FormField>
+        v-model="form.localDomain"
+        :validation="v.localDomain"
+      />
     </BCollapse>
   </CardForm>
 </template>

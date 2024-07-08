@@ -1,12 +1,13 @@
 <script setup lang="ts">
-import { useVuelidate } from '@vuelidate/core'
 import { reactive, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter, type LocationQueryValue } from 'vue-router'
 import { useStore } from 'vuex'
 
+import { useForm } from '@/composables/form'
 import { alphalownumdot_, minLength, required } from '@/helpers/validators'
 import { useStoreGetters } from '@/store/utils'
+import type { FieldProps, FormFieldDict } from '@/types/form'
 
 const props = withDefaults(
   defineProps<{
@@ -22,41 +23,40 @@ const store = useStore()
 const router = useRouter()
 
 const { installed } = useStoreGetters()
-const serverError = ref('')
-const form = reactive({
+
+type Form = typeof form.value
+const form = ref({
   username: '',
   password: '',
 })
-const v$ = useVuelidate(
-  {
-    username: { required, alphalownumdot_ },
-    password: { required, passwordLenght: minLength(4) },
-  },
-  form,
-)
-
-console.log(v$.value)
-
-const fields = {
+const fields = reactive({
   username: {
+    component: 'InputItem',
     label: t('user_username'),
+    rules: { required, alphalownumdot_ },
     props: {
       id: 'username',
       autocomplete: 'username',
     },
-  },
+  } satisfies FieldProps<'InputItem', Form['username']>,
+
   password: {
+    component: 'InputItem',
     label: t('password'),
+    rules: { required, passwordLenght: minLength(4) },
     props: {
       id: 'password',
       type: 'password',
       autocomplete: 'current-password',
     },
-  },
-}
+  } satisfies FieldProps<'InputItem', Form['password']>,
+} satisfies FormFieldDict<Form>)
 
-function login() {
-  const credentials = [form.username, form.password].join(':')
+const { v, onSubmit } = useForm(form, fields)
+
+const onLogin = onSubmit((onError) => {
+  const { username, password } = form.value
+  const credentials = [username, password].join(':')
   store
     .dispatch('LOGIN', credentials)
     .then(() => {
@@ -70,41 +70,27 @@ function login() {
         )
       }
     })
-    .catch((err) => {
-      if (err.name !== 'APIUnauthorizedError') throw err
-      serverError.value = t('wrong_password_or_username')
-    })
-}
+    .catch((err) => onError(err, t('wrong_password_or_username')))
+})
 </script>
 
 <template>
   <CardForm
-    :title="t('login')"
+    id="login-form"
+    v-model="form"
+    :fields="fields"
     icon="lock"
-    :validation="v$"
-    :server-error="serverError"
-    @submit.prevent="login"
+    :title="t('login')"
+    :validations="v"
+    @submit="onLogin"
   >
-    <!-- ADMIN USERNAME -->
-    <FormField
-      v-bind="fields.username"
-      v-model="form.username"
-      :validation="v$.username"
-    />
-
-    <!-- ADMIN PASSWORD -->
-    <FormField
-      v-bind="fields.password"
-      v-model="form.password"
-      :validation="v$.password"
-    />
-
     <template #buttons>
+      <!-- FIXME should we remove the disabled state? -->
       <BButton
         type="submit"
         variant="success"
         :disabled="!installed"
-        form="ynh-form"
+        form="login-form"
       >
         {{ t('login') }}
       </BButton>

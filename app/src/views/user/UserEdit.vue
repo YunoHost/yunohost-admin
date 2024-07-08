@@ -1,17 +1,16 @@
 <script setup lang="ts">
-import { useVuelidate } from '@vuelidate/core'
-import { computed, nextTick, reactive, ref } from 'vue'
+import { computed, reactive, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 
 import api from '@/api'
 import type ViewBase from '@/components/globals/ViewBase.vue'
+import { useArrayRule, useForm } from '@/composables/form'
 import { useInitialQueries } from '@/composables/useInitialQueries'
-import { arrayDiff } from '@/helpers/commons'
+import { arrayDiff, asUnreffed } from '@/helpers/commons'
 import {
   emailForward,
   emailLocalPart,
-  helpers,
   integer,
   minLength,
   minValue,
@@ -25,6 +24,7 @@ import {
   sizeToM,
 } from '@/helpers/yunohostArguments'
 import { useStoreGetters } from '@/store/utils'
+import type { AdressModelValue, FieldProps, FormFieldDict } from '@/types/form'
 
 const props = defineProps<{
   name: string
@@ -44,124 +44,138 @@ const viewElem = ref<InstanceType<typeof ViewBase> | null>(null)
 
 const { user, domainsAsChoices, mainDomain } = useStoreGetters()
 
-const fields = {
+type Form = typeof form.value
+const form = ref({
+  username: props.name,
+  fullname: '',
+  mail: { localPart: '', separator: '@', domain: '' } as AdressModelValue,
+  mailbox_quota: '' as string | number,
+  mail_aliases: [] as AdressModelValue[],
+  mail_forward: [] as string[],
+  change_password: '',
+  confirmation: '',
+})
+const fields = reactive({
   username: {
+    component: 'InputItem',
     label: t('user_username'),
-    modelValue: props.name,
-    props: { id: 'username', disabled: true },
-  },
+    props: {
+      id: 'username',
+      disabled: true,
+    },
+  } satisfies FieldProps<'InputItem', Form['username']>,
 
   fullname: {
+    component: 'InputItem',
     label: t('user_fullname'),
+    rules: { required, nameValidator },
     props: {
       id: 'fullname',
       placeholder: t('placeholder.fullname'),
     },
-  },
+  } satisfies FieldProps<'InputItem', Form['fullname']>,
 
   mail: {
+    component: 'AdressItem',
     label: t('user_email'),
-    props: { id: 'mail', choices: domainsAsChoices },
-  },
+    rules: {
+      localPart: { required, email: emailLocalPart },
+    },
+    props: { id: 'mail', choices: asUnreffed(domainsAsChoices) },
+  } satisfies FieldProps<'AdressItem', Form['mail']>,
 
   mailbox_quota: {
+    append: 'M',
+    component: 'InputItem',
     label: t('user_mailbox_quota'),
     description: t('mailbox_quota_description'),
-    example: t('mailbox_quota_example'),
+    // example: t('mailbox_quota_example'),
+    rules: { integer, minValue: minValue(0) },
     props: {
       id: 'mailbox-quota',
       placeholder: t('mailbox_quota_placeholder'),
     },
-  },
+  } satisfies FieldProps<'InputItem', Form['mailbox_quota']>,
 
   mail_aliases: {
+    component: 'AdressItem',
+    rules: asUnreffed(
+      useArrayRule(() => form.value.mail_aliases, {
+        localPart: { required, email: emailLocalPart },
+      }),
+    ),
     props: {
       placeholder: t('placeholder.username'),
-      choices: domainsAsChoices,
+      choices: asUnreffed(domainsAsChoices),
     },
-  },
+  } satisfies FieldProps<'AdressItem', Form['mail_aliases']>,
 
   mail_forward: {
+    component: 'InputItem',
+    rules: asUnreffed(
+      useArrayRule(() => form.value.mail_forward, { required, emailForward }),
+    ),
     props: {
       placeholder: t('user_new_forward'),
       type: 'email',
     },
-  },
+  } satisfies FieldProps<'InputItem', Form['mail_forward']>,
 
   change_password: {
+    component: 'InputItem',
     label: t('password'),
     description: t('good_practices_about_user_password'),
     descriptionVariant: 'warning',
+    rules: { passwordLenght: minLength(8) },
     props: {
       id: 'change_password',
       type: 'password',
       placeholder: '••••••••',
       autocomplete: 'new-password',
     },
-  },
+  } satisfies FieldProps<'InputItem', Form['change_password']>,
 
   confirmation: {
+    component: 'InputItem',
     label: t('password_confirmation'),
+    rules: asUnreffed(
+      computed(() => ({ passwordMatch: sameAs(form.value.change_password) })),
+    ),
     props: {
       id: 'confirmation',
       type: 'password',
       placeholder: '••••••••',
       autocomplete: 'new-password',
     },
-  },
-}
-const form = reactive({
-  fullname: '',
-  mail: { localPart: '', separator: '@', domain: '' },
-  mailbox_quota: '',
-  mail_aliases: [],
-  mail_forward: [],
-  change_password: '',
-  confirmation: '',
-})
-const rules = computed(() => ({
-  fullname: { required, nameValidator },
-  mail: {
-    localPart: { required, email: emailLocalPart },
-  },
-  mailbox_quota: { integer, minValue: minValue(0) },
-  mail_aliases: {
-    $each: helpers.forEach({
-      localPart: { required, email: emailLocalPart },
-    }),
-  },
-  mail_forward: {
-    $each: helpers.forEach({
-      mail: { required, emailForward },
-    }),
-  },
-  change_password: { passwordLenght: minLength(8) },
-  confirmation: { passwordMatch: sameAs(form.change_password) },
-}))
-const v$ = useVuelidate(rules, form)
-const serverError = ref('')
+  } satisfies FieldProps<'InputItem', Form['confirmation']>,
+} satisfies FormFieldDict<Form>)
+
+const { v, onSubmit } = useForm(form, fields)
 
 function onQueriesResponse(user_: any) {
-  form.fullname = user_.fullname
-  form.mail = adressToFormValue(user_.mail)
+  form.value.fullname = user_.fullname
+  form.value.mail = adressToFormValue(user_.mail)
   if (user_['mail-aliases']) {
-    form.mail_aliases = user_['mail-aliases'].map((mail) =>
+    form.value.mail_aliases = user_['mail-aliases'].map((mail) =>
       adressToFormValue(mail),
     )
   }
   if (user_['mail-forward']) {
-    form.mail_forward = user_['mail-forward'].map((mail) => ({ mail })) // Copy value
+    form.value.mail_forward = user_['mail-forward'].map((mail) => ({ mail })) // Copy value
   }
   // mailbox-quota could be 'No quota' or 'Pas de quota'...
   if (parseInt(user_['mailbox-quota'].limit) > 0) {
-    form.mailbox_quota = sizeToM(user_['mailbox-quota'].limit)
+    form.value.mailbox_quota = sizeToM(user_['mailbox-quota'].limit)
   } else {
-    form.mailbox_quota = ''
+    form.value.mailbox_quota = ''
   }
 }
 
-async function onSubmit() {
-  const formData = await formatFormData(form, { flatten: true })
+const onUserEdit = onSubmit(async (onError, serverErrors) => {
+  const { data: formData } = await formatFormData(form.value, {
+    flatten: true,
+    extract: ['username'],
+  })
   // FIXME not sure computed can be executed?
   const user_ = user.value(props.name)
   const data = {}
@@ -169,7 +183,7 @@ async function onSubmit() {
     formData.mailbox_quota = ''
   }
 
-  formData.mail_forward = formData.mail_forward?.map((v) => v.mail)
+  // formData.mail_forward = formData.mail_forward?.map((v) => v.mail)
 
   for (const key of ['mail_aliases', 'mail_forward']) {
     const dashedKey = key.replace('_', '-')
@@ -193,7 +207,7 @@ async function onSubmit() {
   }
 
   if (Object.keys(data).length === 0) {
-    serverError.value = t('error_modify_something')
+    serverErrors.global = [t('error_modify_something')]
     return
   }
 
@@ -205,132 +219,45 @@ async function onSubmit() {
     .then(() => {
       router.push({ name: 'user-info', param: { name: props.name } })
     })
-    .catch((err) => {
-      if (err.name !== 'APIBadRequestError') throw err
-      serverError.value = err.message
-    })
-}
-
-function addEmailField(type: 'aliases' | 'forward') {
-  form['mail_' + type].push(
-    type === 'aliases'
-      ? { localPart: '', separator: '@', domain: mainDomain.value }
-      : { mail: '' },
-  )
-  // Focus last input after rendering update
-  nextTick(() => {
-    const inputs = viewElem.value!.$el.querySelectorAll(`#mail-${type} input`)
-    inputs[inputs.length - 1].focus()
-  })
-}
-
-function removeEmailField(type: 'aliases' | 'forward', index: number) {
-  form['mail_' + type].splice(index, 1)
-}
+    .catch(onError)
+})
 </script>
 
 <template>
   <ViewBase ref="viewElem" :loading="loading" skeleton="CardFormSkeleton">
     <CardForm
-      :title="$t('user_username_edit', { name })"
+      v-model="form"
       icon="user"
-      :validation="v$"
-      :server-error="serverError"
-      @submit.prevent="onSubmit"
+      :fields="fields"
+      :title="$t('user_username_edit', { name })"
+      :validations="v"
+      @submit.prevent="onUserEdit"
     >
-      <!-- USERNAME (disabled) -->
-      <FormField v-bind="fields.username" />
+      <template #field:mail_aliases="fieldProps">
+        <FormFieldMultiple
+          v-bind="fieldProps"
+          v-model="form.mail_aliases"
+          :add-btn-text="t('user_emailaliases_add')"
+          :default-value="
+            () => ({
+              localPart: '',
+              separator: '@',
+              domain: mainDomain,
+            })
+          "
+          :validation="v.form.mail_aliases"
+        />
+      </template>
 
-      <!-- USER FULLNAME -->
-      <FormField
-        v-bind="fields.fullname"
-        v-model="form.fullname"
-        :validation="v$.form.fullname"
-      />
-
-      <hr />
-
-      <!-- USER EMAIL -->
-      <FormField v-bind="fields.mail" :validation="v$.form.mail">
-        <template #default="{ self }">
-          <AdressItem v-bind="self" v-model="form.mail" />
-        </template>
-      </FormField>
-
-      <!-- MAILBOX QUOTA -->
-      <FormField
-        v-bind="fields.mailbox_quota"
-        :validation="v$.form.mailbox_quota"
-      >
-        <template #default="{ self }">
-          <BInputGroup append="M">
-            <InputItem v-bind="self" v-model="form.mailbox_quota" />
-          </BInputGroup>
-        </template>
-      </FormField>
-      <hr />
-
-      <!-- MAIL ALIASES -->
-      <FormField :label="$t('user_emailaliases')" id="mail-aliases">
-        <div v-for="(mail, i) in form.mail_aliases" :key="i" class="mail-list">
-          <FormField
-            v-bind="fields.mail_aliases"
-            :id="'mail_aliases' + i"
-            :validation="v$.form.mail_aliases"
-            :validation-index="i"
-          >
-            <template #default="{ self }">
-              <AdressItem v-bind="self" v-model="form.mail_aliases[i]" />
-            </template>
-          </FormField>
-
-          <BButton variant="danger" @click="removeEmailField('aliases', i)">
-            <YIcon :title="$t('delete')" iname="trash-o" />
-            <span class="visually-hidden">{{ $t('delete') }}</span>
-          </BButton>
-        </div>
-
-        <BButton variant="success" @click="addEmailField('aliases')">
-          <YIcon iname="plus" /> {{ $t('user_emailaliases_add') }}
-        </BButton>
-      </FormField>
-
-      <!-- MAIL FORWARD -->
-      <FormField :label="$t('user_emailforward')" id="mail-forward">
-        <div v-for="(mail, i) in form.mail_forward" :key="i" class="mail-list">
-          <FormField
-            v-bind="fields.mail_forward"
-            v-model="form.mail_forward[i].mail"
-            :id="'mail-forward' + i"
-            :validation="v$.form.mail_forward"
-            :validation-index="i"
-          />
-
-          <BButton variant="danger" @click="removeEmailField('forward', i)">
-            <YIcon :title="$t('delete')" iname="trash-o" />
-            <span class="visually-hidden">{{ $t('delete') }}</span>
-          </BButton>
-        </div>
-
-        <BButton variant="success" @click="addEmailField('forward')">
-          <YIcon iname="plus" /> {{ $t('user_emailforward_add') }}
-        </BButton>
-      </FormField>
-      <hr />
-
-      <!-- USER PASSWORD -->
-      <FormField
-        v-bind="fields.change_password"
-        v-model="form.change_password"
-        :validation="v$.form.change_password"
-      />
-
-      <!-- USER PASSWORD CONFIRMATION -->
-      <FormField
-        v-bind="fields.confirmation"
-        v-model="form.confirmation"
-        :validation="v$.form.confirmation"
-      />
+      <template #field:mail_forward="fieldProps">
+        <FormFieldMultiple
+          v-bind="fieldProps"
+          v-model="form.mail_forward"
+          :add-btn-text="t('user_emailforward_add')"
+          :default-value="() => ''"
+          :validation="v.form.mail_forward"
+        />
+      </template>
     </CardForm>
   </ViewBase>
 </template>

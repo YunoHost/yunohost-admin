@@ -1,14 +1,15 @@
 <script setup lang="ts">
-import { useVuelidate } from '@vuelidate/core'
 import { computed, reactive, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRoute, useRouter } from 'vue-router'
 
 import CardDeckFeed from '@/components/CardDeckFeed.vue'
+import { useForm } from '@/composables/form'
 import { useAutoModal } from '@/composables/useAutoModal'
+import { useInitialQueries } from '@/composables/useInitialQueries'
 import { randint } from '@/helpers/commons'
 import { appRepoUrl, required } from '@/helpers/validators'
-import { useInitialQueries } from '@/composables/useInitialQueries'
+import type { FieldProps, FormFieldDict } from '@/types/form'
 
 const props = withDefaults(
   defineProps<{
@@ -37,8 +38,20 @@ const { loading } = useInitialQueries(
 const apps = ref()
 const selectedApp = ref()
 const antifeatures = ref()
-const url = ref()
-const v$ = useVuelidate({ url: { required, appRepoUrl } }, { url })
+
+const form = ref({ url: '' })
+const fields = {
+  url: {
+    component: 'InputItem',
+    label: t('url'),
+    rules: { required, appRepoUrl },
+    props: {
+      id: 'custom-install',
+      placeholder: 'https://some.git.forge.tld/USER/REPOSITORY',
+    },
+  } satisfies FieldProps<'InputItem', string>,
+} satisfies FormFieldDict<typeof form.value>
+const { v, onSubmit } = useForm(form, fields)
 
 const qualityOptions = [
   { value: 'high_quality', text: t('only_highquality_apps') },
@@ -169,16 +182,16 @@ async function onInstallClick(appId: string) {
 }
 
 // INSTALL CUSTOM APP
-async function onCustomInstallClick() {
+const onCustomInstallClick = onSubmit(async () => {
   const confirmed = await modalConfirm(t('confirm_install_custom_app'))
   if (!confirmed) return
 
-  const url_ = url.value
+  const url = form.value.url
   router.push({
     name: 'app-install-custom',
-    params: { id: url_.endsWith('/') ? url_ : url_ + '/' },
+    params: { id: url.endsWith('/') ? url : url + '/' },
   })
-}
+})
 </script>
 
 <template>
@@ -354,12 +367,14 @@ async function onCustomInstallClick() {
     <template #bot>
       <!-- INSTALL CUSTOM APP -->
       <CardForm
-        :title="$t('custom_app_install')"
+        v-model="form"
         icon="download"
-        @submit.prevent="onCustomInstallClick"
+        :fields="fields"
         :submit-text="$t('install')"
-        :validation="v$"
+        :title="$t('custom_app_install')"
+        :validations="v"
         class="mt-5"
+        @submit.prevent="onCustomInstallClick"
       >
         <template #disclaimer>
           <div class="alert alert-warning">
@@ -367,13 +382,6 @@ async function onCustomInstallClick() {
             {{ $t('confirm_install_custom_app') }}
           </div>
         </template>
-
-        <!-- URL -->
-        <FormField
-          v-bind="customInstall.field"
-          v-model="customInstall.url"
-          :validation="v$.customInstall.url"
-        />
       </CardForm>
     </template>
 
