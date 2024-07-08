@@ -1,18 +1,21 @@
+import type { OrchestratedModal } from 'bootstrap-vue-next'
+import { BModal, useModalController } from 'bootstrap-vue-next'
 import { h } from 'vue'
-import { useModalController, BModal } from 'bootstrap-vue-next'
+import { useI18n } from 'vue-i18n'
 import { VueShowdown } from 'vue-showdown'
 
 export function useAutoModal() {
+  const { t } = useI18n()
   const { confirm, show } = useModalController()
 
   return function (
-    message,
-    props_,
+    message: string,
+    props_: OrchestratedModal = {},
     { markdown = false, cancelable = true } = {},
   ) {
-    const props = {
-      okTitle: this.$t('ok'),
-      cancelTitle: this.$t('cancel'),
+    const props: OrchestratedModal = {
+      okTitle: t('ok'),
+      cancelTitle: t('cancel'),
       centered: true,
       okOnly: !cancelable,
       ...(markdown
