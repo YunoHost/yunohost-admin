@@ -1,18 +1,20 @@
-<script setup lang="ts" generic="T extends Obj">
-import type { Component } from 'vue'
+<script setup lang="ts" generic="T extends Obj | AnyTreeNode">
+import { computed, type Component } from 'vue'
+import { useI18n } from 'vue-i18n'
 
+import type { AnyTreeNode } from '@/helpers/data/tree'
 import type { Obj } from '@/types/commons'
 
 const props = withDefaults(
   defineProps<{
-    items: T[] | null
+    items?: T[] | null
     itemsName: string | null
-    filteredItems: T[] | null
-    search?: string
+    modelValue?: string
     skeleton?: string | Component
   }>(),
   {
-    search: undefined,
+    items: undefined,
+    modelValue: undefined,
     skeleton: 'ListGroupSkeleton',
   },
 )
@@ -27,9 +29,21 @@ const slots = defineSlots<{
   skeleton: any
 }>()
 
-const emit = defineEmits<{
-  'update:search': [value: string]
+defineEmits<{
+  'update:modelValue': [value: string]
 }>()
+
+const model = defineModel<string>()
+
+const { t } = useI18n()
+const noItemsMessage = computed(() => {
+  if (props.items) return
+  return t(
+    props.items === undefined ? 'items_verbose_count' : 'search.not_found',
+    { items: t('items.' + props.itemsName, 0) },
+    0,
+  )
+})
 </script>
 
 <template>
@@ -45,11 +59,8 @@ const emit = defineEmits<{
 
         <BFormInput
           id="top-bar-search"
-          :modelValue="search"
-          @update:modelValue="emit('update:search', $event)"
-          :placeholder="
-            $t('search.for', { items: $t('items.' + itemsName, 2) })
-          "
+          v-model="model"
+          :placeholder="t('search.for', { items: t('items.' + itemsName, 2) })"
           :disabled="!items"
         />
       </BInputGroup>
@@ -63,22 +74,10 @@ const emit = defineEmits<{
     </template>
 
     <template #default>
-      <BAlert
-        v-if="items === null || filteredItems === null"
-        :modelValue="true"
-        variant="warning"
-      >
+      <BAlert v-if="noItemsMessage" :model-value="true" variant="warning">
         <slot name="alert-message">
           <YIcon iname="exclamation-triangle" />
-          {{
-            $t(
-              items === null ? 'items_verbose_count' : 'search.not_found',
-              {
-                items: $t('items.' + itemsName, 0),
-              },
-              0,
-            )
-          }}
+          {{ noItemsMessage }}
         </slot>
       </BAlert>
 

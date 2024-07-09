@@ -106,6 +106,10 @@ class TreeNode {
       }
     })
   }
+
+  get length(): number {
+    return this.children.length
+  }
 }
 
 export class TreeRootNode extends TreeNode {
