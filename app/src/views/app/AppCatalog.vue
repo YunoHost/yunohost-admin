@@ -7,8 +7,10 @@ import CardDeckFeed from '@/components/CardDeckFeed.vue'
 import { useForm } from '@/composables/form'
 import { useAutoModal } from '@/composables/useAutoModal'
 import { useInitialQueries } from '@/composables/useInitialQueries'
+import { useSearch } from '@/composables/useSearch'
 import { randint } from '@/helpers/commons'
 import { appRepoUrl, required } from '@/helpers/validators'
+import type { Obj } from '@/types/commons'
 import type { FieldProps, FormFieldDict } from '@/types/form'
 
 const props = withDefaults(
@@ -35,9 +37,41 @@ const { loading } = useInitialQueries(
   { onQueriesResponse },
 )
 
-const apps = ref()
 const selectedApp = ref()
 const antifeatures = ref()
+
+const apps = ref<Obj[] | undefined>()
+const [search, filteredApps] = useSearch(
+  apps,
+  (s, app) => {
+    // app doesn't match quality filter
+    if (props.quality !== 'all' && !app[props.quality]) return false
+    // app doesn't match category filter
+    if (props.category !== 'all' && app.category !== props.category)
+      return false
+    if (props.subtag !== 'all') {
+      const appMatchSubtag =
+        props.subtag === 'others'
+          ? app.subtags.length === 0
+          : app.subtags.includes(props.subtag)
+      // app doesn't match subtag filter
+      if (!appMatchSubtag) return false
+    }
+    if (s === '') return true
+    if (app.searchValues.includes(search)) return true
+    return false
+  },
+  {
+    externalSearch: () => props.search,
+    filterIfNoSearch: true,
+    filterAllFn(s) {
+      if (props.category === null) return false
+      if (props.quality === 'all' && props.category === 'all' && s === '') {
+        return true
+      }
+    },
+  },
+)
 
 const form = ref({ url: '' })
 const fields = {
@@ -67,34 +101,6 @@ const categories = reactive([
   { text: t('all_apps'), value: 'all', icon: 'search' },
   // The rest is filled from api data
 ])
-
-const filteredApps = computed(() => {
-  if (!apps.value || props.category === null) return
-  const search = props.search.toLowerCase()
-
-  if (props.quality === 'all' && props.category === 'all' && search === '') {
-    return apps.value
-  }
-  const filtered = apps.value.filter((app) => {
-    // app doesn't match quality filter
-    if (props.quality !== 'all' && !app[props.quality]) return false
-    // app doesn't match category filter
-    if (props.category !== 'all' && app.category !== props.category)
-      return false
-    if (props.subtag !== 'all') {
-      const appMatchSubtag =
-        props.subtag === 'others'
-          ? app.subtags.length === 0
-          : app.subtags.includes(props.subtag)
-      // app doesn't match subtag filter
-      if (!appMatchSubtag) return false
-    }
-    if (search === '') return true
-    if (app.searchValues.includes(search)) return true
-    return false
-  })
-  return filtered.length ? filtered : null
-})
 
 const subtags = computed(() => {
   // build an options array for subtags v-model/options
@@ -196,8 +202,8 @@ const onCustomInstallClick = onSubmit(async () => {
 
 <template>
   <ViewSearch
-    :filtered-items="filteredApps"
-    :items="apps"
+    v-model="search"
+    :items="filteredApps"
     items-name="apps"
     :loading="loading"
   >
@@ -211,15 +217,15 @@ const onCustomInstallClick = onSubmit(async () => {
 
           <BFormInput
             id="search-input"
+            :model-value="search"
             :placeholder="$t('search.for', { items: $t('items.apps', 2) })"
-            :modelValue="search"
-            @update:modelValue="updateQuery('search', $event)"
+            @update:model-value="updateQuery('search', $event)"
           />
 
           <BFormSelect
-            :modelValue="quality"
+            :model-value="quality"
             :options="qualityOptions"
-            @update:modelValue="updateQuery('quality', $event)"
+            @update:model-value="updateQuery('quality', $event)"
           />
         </BInputGroup>
 
@@ -230,9 +236,9 @@ const onCustomInstallClick = onSubmit(async () => {
           </BInputGroupText>
 
           <BFormSelect
-            :modelValue="category"
+            :model-value="category"
             :options="categories"
-            @update:modelValue="updateQuery('category', $event)"
+            @update:model-value="updateQuery('category', $event)"
           />
 
           <BButton
@@ -260,9 +266,9 @@ const onCustomInstallClick = onSubmit(async () => {
 
           <BFormSelect
             id="subtags-select"
-            :modelValue="subtag"
+            :model-value="subtag"
             :options="subtags"
-            @update:modelValue="updateQuery('subtag', $event)"
+            @update:model-value="updateQuery('subtag', $event)"
           />
         </BInputGroup>
       </div>

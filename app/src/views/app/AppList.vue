@@ -1,29 +1,24 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { ref } from 'vue'
 
 import { useInitialQueries } from '@/composables/useInitialQueries'
+import { useSearch } from '@/composables/useSearch'
+import type { Obj } from '@/types/commons'
 
 const { loading } = useInitialQueries([['GET', 'apps?full']], {
   onQueriesResponse,
 })
-const search = ref('')
-const apps = ref()
 
-const filteredApps = computed(() => {
-  if (!apps.value) return
-  const search_ = search.value.toLowerCase()
-  // Check if any value in apps (label, id, name, description) match the search query.
-  const filtered = apps.value.filter((app) =>
-    Object.values(app).some(
-      (item) => item && item.toLowerCase().includes(search_),
-    ),
+const apps = ref<Obj[] | undefined>()
+const [search, filteredApps] = useSearch(apps, (s, app) => {
+  return Object.values(app).some(
+    (value) => value && value.toLowerCase().includes(s),
   )
-  return filtered.length ? filtered : null
 })
 
 function onQueriesResponse(data: any) {
   if (data.apps.length === 0) {
-    apps.value = null
+    apps.value = undefined
     return
   }
 
@@ -39,10 +34,9 @@ function onQueriesResponse(data: any) {
 
 <template>
   <ViewSearch
-    v-model:search="search"
-    :filtered-items="filteredApps"
+    v-model="search"
     items-name="installed_apps"
-    :items="apps"
+    :items="filteredApps"
     :loading="loading"
   >
     <template #top-bar-buttons>

@@ -1,21 +1,18 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { ref } from 'vue'
 
 import { useInitialQueries } from '@/composables/useInitialQueries'
+import { useSearch } from '@/composables/useSearch'
 import { distanceToNow } from '@/helpers/filters/date'
+import type { Obj } from '@/types/commons'
 
 const { loading } = useInitialQueries([['GET', 'services']], {
   onQueriesResponse,
 })
-const search = ref('')
-const services = ref()
 
-const filteredServices = computed(() => {
-  if (!services.value) return
-  const services_ = services.value.filter(({ name }) => {
-    return name.toLowerCase().includes(search.value.toLowerCase())
-  })
-  return services_.length ? services_ : null
+const services = ref<Obj[] | undefined>()
+const [search, filteredServices] = useSearch(services, (s, service) => {
+  return service.name.toLowerCase().includes(s)
 })
 
 function onQueriesResponse(services_: any) {
@@ -34,9 +31,8 @@ function onQueriesResponse(services_: any) {
 <template>
   <ViewSearch
     id="service-list"
-    v-model:search="search"
-    :filtered-items="filteredServices"
-    :items="services"
+    v-model="search"
+    :items="filteredServices"
     items-name="services"
     :loading="loading"
   >

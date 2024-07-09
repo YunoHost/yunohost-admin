@@ -1,24 +1,19 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { ref } from 'vue'
 
 import { useInitialQueries } from '@/composables/useInitialQueries'
+import { useSearch } from '@/composables/useSearch'
 import { distanceToNow, readableDate } from '@/helpers/filters/date'
+import type { Obj } from '@/types/commons'
 
 const { loading } = useInitialQueries(
   [['GET', `logs?limit=${25}&with_details`]],
   { onQueriesResponse },
 )
 
-const search = ref('')
-const operations = ref()
-
-const filteredOperations = computed(() => {
-  if (!operations.value) return
-  const search_ = search.value.toLowerCase()
-  const operations_ = operations.value.filter(({ description }) => {
-    return description.toLowerCase().includes(search_)
-  })
-  return operations_.length ? operations_ : null
+const operations = ref<Obj[] | undefined>()
+const [search, filteredOperations] = useSearch(operations, (s, op) => {
+  return op.description.toLowerCase().includes(s)
 })
 
 function onQueriesResponse({ operation }: any) {
@@ -40,9 +35,8 @@ function onQueriesResponse({ operation }: any) {
 
 <template>
   <ViewSearch
-    v-model:search="search"
-    :filtered-items="filteredOperations"
-    :items="operations"
+    v-model="search"
+    :items="filteredOperations"
     items-name="logs"
     :loading="loading"
     skeleton="CardListSkeleton"

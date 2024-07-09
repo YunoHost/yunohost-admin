@@ -1,12 +1,14 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 import api from '@/api'
 import TagsSelectizeItem from '@/components/globals/formItems/TagsSelectizeItem.vue'
 import { useAutoModal } from '@/composables/useAutoModal'
 import { useInitialQueries } from '@/composables/useInitialQueries'
+import { useSearch } from '@/composables/useSearch'
 import { isEmptyValue } from '@/helpers/commons'
+import type { Obj } from '@/types/commons'
 
 // TODO add global search with type (search by: group, user, permission)
 // TODO add vuex store update on inputs ?
@@ -28,25 +30,15 @@ const { loading } = useInitialQueries(
   { onQueriesResponse },
 )
 
-const search = ref('')
 const permissions = ref()
 const permissionsOptions = ref()
-const primaryGroups = ref()
+const primaryGroups = ref<Obj[] | undefined>()
 const userGroups = ref()
 const usersOptions = ref()
 const activeUserGroups = ref()
 
-const filteredGroups = computed(() => {
-  const groups = primaryGroups.value
-  if (!groups) return
-  const search_ = search.value.toLowerCase()
-  const filtered = {}
-  for (const groupName in groups) {
-    if (groupName.toLowerCase().includes(search_)) {
-      filtered[groupName] = groups[groupName]
-    }
-  }
-  return isEmptyValue(filtered) ? null : filtered
+const [search, filteredGroups] = useSearch(primaryGroups, (s, group) => {
+  return group.name.toLowerCase().includes(s)
 })
 
 function onQueriesResponse(users: any, allGroups: any, permsDict: any) {
@@ -57,12 +49,12 @@ function onQueriesResponse(users: any, allGroups: any, permsDict: any) {
     ...value,
   }))
   const userNames = users ? Object.keys(users) : []
-  const primaryGroups_ = {}
+  const primaryGroups_ = []
   const userGroups_ = {}
 
   for (const groupName in allGroups) {
     // copy the group to unlink it from the store
-    const group_ = { ...allGroups[groupName] }
+    const group_ = { ...allGroups[groupName], name: groupName }
     group_.permissions = group_.permissions.map((perm) => {
       return permsDict[perm].label
     })
@@ -103,7 +95,7 @@ function onQueriesResponse(users: any, allGroups: any, permsDict: any) {
         .map(({ id }) => permsDict[id].label)
     }
 
-    primaryGroups_[groupName] = group_
+    primaryGroups_.push(group_)
   }
 
   const activeUserGroups_ = Object.entries(userGroups_)
@@ -179,16 +171,17 @@ async function deleteGroup(groupName) {
       { key: 'groups.delete', name: groupName },
     )
     .then(() => {
-      delete primaryGroups.value[groupName]
+      primaryGroups.value = primaryGroups.value?.filter(
+        (group) => group.name !== groupName,
+      )
     })
 }
 </script>
 
 <template>
   <ViewSearch
-    v-model:search="search"
-    :filtered-items="filteredGroups"
-    :items="primaryGroups"
+    v-model="search"
+    :items="filteredGroups"
     items-name="groups"
     :loading="loading"
     skeleton="CardFormSkeleton"
@@ -201,13 +194,13 @@ async function deleteGroup(groupName) {
 
     <!-- PRIMARY GROUPS CARDS -->
     <YCard
-      v-for="(group, groupName) in filteredGroups"
-      :key="groupName"
+      v-for="group in filteredGroups"
+      :key="group.name"
       collapsable
       :title="
         group.isSpecial
-          ? $t('group_' + groupName)
-          : `${$t('group')} '${groupName}'`
+          ? $t('group_' + group.name)
+          : `${$t('group')} '${group.name}'`
       "
       icon="group"
     >
@@ -215,7 +208,7 @@ async function deleteGroup(groupName) {
         <!-- DELETE GROUP -->
         <BButton
           v-if="!group.isSpecial"
-          @click="deleteGroup(groupName)"
+          @click="deleteGroup(group.name)"
           size="sm"
           variant="danger"
         >
@@ -231,23 +224,23 @@ async function deleteGroup(groupName) {
           <template v-if="group.isSpecial">
             <p class="text-primary-emphasis">
               <YIcon iname="info-circle" />
-              {{ $t('group_explain_' + groupName) }}
+              {{ $t('group_explain_' + group.name) }}
             </p>
-            <p class="text-primary-emphasis" v-if="groupName === 'visitors'">
+            <p class="text-primary-emphasis" v-if="group.name === 'visitors'">
               <em>{{
                 $t('group_explain_visitors_needed_for_external_client')
               }}</em>
             </p>
           </template>
-          <template v-if="groupName == 'admins' || !group.isSpecial">
+          <template v-if="group.name == 'admins' || !group.isSpecial">
             <TagsSelectizeItem
               v-model="group.members"
               :options="usersOptions"
-              :id="groupName + '-users'"
+              :id="group.name + '-users'"
               :label="$t('group_add_member')"
               tag-icon="user"
               items-name="users"
-              @tag-update="onUserChanged({ ...$event, groupName })"
+              @tag-update="onUserChanged({ ...$event, groupName: group.name })"
             />
           </template>
         </BCol>
@@ -262,11 +255,13 @@ async function deleteGroup(groupName) {
           <TagsSelectizeItem
             v-model="group.permissions"
             :options="permissionsOptions"
-            :id="groupName + '-perms'"
+            :id="group.name + '-perms'"
             :label="$t('group_add_permission')"
             tag-icon="key-modern"
             items-name="permissions"
-            @tag-update="onPermissionChanged({ ...$event, groupName })"
+            @tag-update="
+              onPermissionChanged({ ...$event, groupName: group.name })
+            "
             :disabled-items="group.disabledItems"
           />
         </BCol>

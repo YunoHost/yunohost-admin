@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { type ComputedRef } from 'vue'
 import { useStore } from 'vuex'
 
 import { useInitialQueries } from '@/composables/useInitialQueries'
+import { useSearch } from '@/composables/useSearch'
 import { useStoreGetters } from '@/store/utils'
+import type { Obj } from '@/types/commons'
 
 const store = useStore()
 const { loading } = useInitialQueries([
@@ -15,20 +17,13 @@ const { loading } = useInitialQueries([
     },
   ],
 ])
-const { users } = useStoreGetters()
 
-const search = ref('')
-const filteredUsers = computed(() => {
-  if (!users.value) return
-  const search_ = search.value.toLowerCase()
-  const filtered = users.value.filter((user) => {
-    return (
-      user.username.toLowerCase().includes(search_) ||
-      user.groups.includes(search_)
-    )
-  })
-  return filtered.length === 0 ? null : filtered
-})
+const { users } = useStoreGetters()
+const [search, filteredUsers] = useSearch(
+  users as ComputedRef<Obj[] | undefined>,
+  (s, user) =>
+    user.username.toLowerCase().includes(s) || user.groups.includes(s),
+)
 
 function downloadExport() {
   const host = store.getters.host
@@ -38,9 +33,8 @@ function downloadExport() {
 
 <template>
   <ViewSearch
-    v-model:search="search"
-    :filtered-items="filteredUsers"
-    :items="users"
+    v-model="search"
+    :items="filteredUsers"
     items-name="users"
     :loading="loading"
   >

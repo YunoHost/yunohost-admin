@@ -1,41 +1,29 @@
 <script setup lang="ts">
 import { useStoreGetters } from '@/store/utils'
-import { computed, ref } from 'vue'
 
 import RecursiveListGroup from '@/components/RecursiveListGroup.vue'
 import { useInitialQueries } from '@/composables/useInitialQueries'
+import { useSearch } from '@/composables/useSearch'
 import type { TreeRootNode } from '@/helpers/data/tree'
+import type { ComputedRef } from 'vue'
 
-const { domains, mainDomain, domainsTree } = useStoreGetters()
+const { mainDomain, domainsTree } = useStoreGetters()
 const { loading } = useInitialQueries([
   ['GET', { uri: 'domains', storeKey: 'domains' }],
 ])
 
-const search = ref('')
-
-const tree = computed(() => {
+const [search, filteredTree] = useSearch(
   // FIXME rm ts type when moved to pinia or else
-  const tree = domainsTree.value as TreeRootNode | undefined
-  if (!tree) return
-  const search_ = search.value.toLowerCase()
-  if (search_) {
-    return tree.filter((node) => node.id.includes(search_))
-  }
-  return tree
-})
-
-const hasFilteredItems = computed(() => {
-  if (!tree.value) return null
-  return tree.value.children.length ? tree.value.children : null
-})
+  domainsTree as ComputedRef<TreeRootNode | undefined>,
+  (s, node) => node.id.includes(s),
+)
 </script>
 
 <template>
   <ViewSearch
     id="domain-list"
-    v-model:search="search"
-    :filtered-items="hasFilteredItems"
-    :items="domains"
+    v-model="search"
+    :items="filteredTree ? filteredTree.children : filteredTree"
     items-name="domains"
     :loading="loading"
   >
@@ -47,8 +35,8 @@ const hasFilteredItems = computed(() => {
     </template>
 
     <RecursiveListGroup
-      v-if="tree"
-      :tree="tree"
+      v-if="filteredTree"
+      :tree="filteredTree"
       :toggle-text="$t('domain.toggle_subdomains')"
       class="mb-5"
     >
@@ -67,9 +55,9 @@ const hasFilteredItems = computed(() => {
 
             <small
               v-if="data.name === mainDomain"
+              v-b-tooltip.hover
               :title="$t('domain.types.main_domain')"
               class="ms-1"
-              v-b-tooltip.hover
             >
               <YIcon iname="star" />
             </small>
