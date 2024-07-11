@@ -4,7 +4,7 @@
 // If a new locale or a new date-fns locale is added, add it to the supported
 // locales list in `app/vue.config.js`
 
-export default {
+const supportedLocales = {
   ar: {
     name: 'عربي',
   },
@@ -137,4 +137,21 @@ export default {
     name: '简化字',
     dateFnsLocale: 'zh-CN',
   },
+} as const
+
+type SL = typeof supportedLocales
+export type SupportedLocales = keyof SL
+export type SupportedDateFnsLocales = keyof {
+  [k in SupportedLocales as SL[k] extends { dateFnsLocale: string }
+    ? SL[k]['dateFnsLocale']
+    : k]: never
 }
+
+export function isSupportedLocale(locale: string): locale is SupportedLocales {
+  return Object.keys(supportedLocales).includes(locale)
+}
+
+export default supportedLocales as Record<
+  SupportedLocales,
+  { name: string; dateFnsLocale?: SupportedDateFnsLocales }
+>

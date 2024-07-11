@@ -15,7 +15,6 @@ export default {
     dark: localStorage.getItem('dark') === 'true',
     experimental: localStorage.getItem('experimental') === 'true',
     spinner: 'pacman',
-    supportedLocales,
   },
 
   mutations: {
@@ -85,12 +84,10 @@ export default {
     experimental: (state) => state.experimental,
     spinner: (state) => state.spinner,
 
-    availableLocales: (state) => {
-      return Object.entries(state.supportedLocales).map(
-        ([locale, { name }]) => {
-          return { value: locale, text: name }
-        },
-      )
+    availableLocales: () => {
+      return Object.entries(supportedLocales).map(([locale, { name }]) => {
+        return { value: locale, text: name }
+      })
     },
   },
 }
