@@ -5,8 +5,8 @@ import type {
   ValidationRuleCollection,
 } from '@vuelidate/core'
 import useVuelidate from '@vuelidate/core'
-import type { InjectionKey, MaybeRefOrGetter, Ref } from 'vue'
-import { inject, provide, reactive, toValue } from 'vue'
+import type { ComputedRef, InjectionKey, MaybeRefOrGetter, Ref } from 'vue'
+import { computed, inject, provide, reactive, toValue } from 'vue'
 import { computedWithControl } from '@vueuse/core'
 
 import { APIBadRequestError, type APIError } from '@/api/errors'
@@ -127,4 +127,16 @@ export function deepSetErrors(
     if (!(k in serverErrors) && !value.length) return
     serverErrors[k] = value
   }
+}
+
+export function useArrayRule<V extends any[], T extends ValidationArgs>(
+  values: MaybeRefOrGetter<V>,
+  rules: T,
+): ComputedRef<ValidationArgs<T>> {
+  return computed(() => {
+    return toValue(values).reduce((total: Obj<T>, v: V[number], index) => {
+      total[index] = rules
+      return total
+    }, {})
+  })
 }
