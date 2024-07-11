@@ -5,24 +5,22 @@ module.exports = {
     node: true,
   },
   extends: [
-    'plugin:vue/vue3-strongly-recommended',
+    'plugin:vue/vue3-recommended',
     'eslint:recommended',
     '@vue/eslint-config-typescript',
     'plugin:prettier/recommended',
   ],
   rules: {
-    // 'no-unused-vars': [
-    //   'warn',
-    //   { varsIgnorePattern: '^_', destructuredArrayIgnorePattern: '^_' },
-    // ],
-    // temp vue3 compat3
-    // 'vue/no-v-for-template-key-on-child': 'error',
-    // 'vue/no-v-for-template-key': 'off',
-    // 'vue/attribute-hyphenation': 'off',
-    // 'vue/v-on-event-hyphenation': 'off',
-    // temp flemme
-    // 'vue/require-explicit-emits': 'off',
-    // 'vue/require-default-prop': 'off',
-    // 'no-unused-vars': 'off',
+    'vue/no-v-html': 'off',
+    'no-unused-vars': 'off',
+    '@typescript-eslint/no-unused-vars': [
+      'warn',
+      {
+        varsIgnorePattern: '^_',
+        argsIgnorePattern: '^_',
+        destructuredArrayIgnorePattern: '^_',
+      },
+    ],
+    'no-console': ['error', { allow: ['warn', 'error'] }],
   },
 }
