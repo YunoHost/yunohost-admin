@@ -95,10 +95,28 @@
                 "broken": "YunoHosts automatiske tests har markeret denne applikation som \"VIRKER IKKE\", og den vil sandsynligvis ødelægge dit system! Du bør IKKE installere den medmindre du ved hvad du foretager dig.",
                 "inprogress": "Denne applikation er stadig i prøvefasen (eller den virker måske slet ikke) og den vil sandsynligvis ødelægge dit system! Du bør IKKE installere den medmindre du ved hvad du laver.",
                 "install": "Den er allerede installeret og kan ikke installeres flere gange.",
-                "lowquality": "Denne applikation virker måske, men er ikke velintegreret i YunoHost. Visse funktioner, såsom single sign-on og backup/restore er muligvis ikke tilgængelige, eller de respekterer ikke god praksis."
-            }
+                "lowquality": "Denne applikation virker måske, men er ikke velintegreret i YunoHost. Visse funktioner, såsom single sign-on og backup/restore er muligvis ikke tilgængelige, eller de respekterer ikke god praksis.",
+                "thirdparty": "Applikationen er ikke en del af det officielle YunoHost-katalog. Ved at installere tredjeparts-applikationer risikerer du at kompromittere integriteten og sikkerheden for dit system. Du bør undlade at installere, hvis du ikke er helt sikker på, hvad du gør.",
+                "version": "Applikationen kræver YunoHost >= {required}, men den nuværende version er {current}. Opgrader YunoHost først."
+            },
+            "try_demo": "Prøv demoen",
+            "version": "Nuværende version: {version}"
         },
-        "antifeatures": "Denne app har komponenter du måske ikke vil bryde dig om:"
+        "antifeatures": "Denne app har komponenter du måske ikke vil bryde dig om:",
+        "integration": {
+            "ldap": {
+                "true": "Brug YunoHost-konti til at logge ind (LDAP)",
+                "?": "Ingen information om LDAP-integration",
+                "false": "Bruger ikke YunoHost-konti til at logge ind (LDAP)"
+            },
+            "archs": "Understøttede arkitekturer:",
+            "multi_instance": {
+                "true": "Kan installeres flere gange",
+                "false": "Kan kun installeres en gang"
+            },
+            "resources": "Typisk ressourceforbrug: {ram} RAM, {disk} disk"
+        },
+        "installed_version": "Installerede version:"
     },
     "api_waiting": "Venter på svar fra serveren…"
 }

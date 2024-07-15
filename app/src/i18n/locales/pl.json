@@ -174,7 +174,8 @@
         "info": {
             "apps_on_domain": "Aplikacje zainstalowane w domenie",
             "certificate_authority": "Urząd certyfikacji SSL",
-            "registrar": "Rejestrator"
+            "registrar": "Rejestrator",
+            "dyn_dns_remove_and_unsubscribe": "Wyrejestruj także domenę z usługi DynDNS YunoHost"
         },
         "see_parent_domain": "Zobacz domenę nadrzędną",
         "types": {
@@ -183,6 +184,13 @@
         "toggle_subdomains": "Przełącz subdomeny",
         "explain": {
             "main_domain": "Główna domena to taka domena, z której użytkownicy mogą łączyć się z portalem (przez \"{domain}/yunohost/sso\").<br> W związku z tym nie ma możliwości jej usunięcia. <br> Jeśli chcesz usunąć \"{domain}\", najpierw musisz zmienić lub dodać nową domenę i ustawić ją jako domenę główną."
+        },
+        "add": {
+            "dyn_dns_password": "Hasło odzyskiwania domeny",
+            "dyn_dns_password_desc": "To hasło pozwoli Ci później odzyskać kontrolę nad domeną, jeśli ponownie zainstalujesz system. Jeśli zarejestrowałeś już tę domenę wcześniej, użyj tutaj hasła odzyskiwania, aby ją odzyskać.",
+            "from_registrar": "Chcę dodać domenę, której jestem właścicielem, lub subdomenę",
+            "from_yunohost": "Nie posiadam domeny, chcę zarejestrować/korzystać z darmowej domeny DynDNS udostępnionej przez projekt YunoHost",
+            "from_local": "Chcę domenę wyłącznie do użytku lokalnego/testowania"
         }
     },
     "domain_add_dyndns_forbidden": "Już subskrybujesz domenę DynDNS. Możesz poprosić o usunięcie aktualnej domeny DynDNS w <a href='//forum.yunohost.org/t/nohost-domain-recovery-suppression-de-domaine-en-nohost-me-noho-st-et-ynh-fr/442'>odpowiednim wątki w forum</a>.",
@@ -619,7 +627,7 @@
                 "title": "Powiadomienia",
                 "post_upgrade": "Uwagi po aktualizacji",
                 "post_install": "Uwagi po instalacji",
-                "understood": "Domyślny"
+                "understood": "Domyślny/Zrozumiano"
             }
         },
         "info": {
