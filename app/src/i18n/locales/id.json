@@ -46,7 +46,7 @@
         "APIError": "YunoHost mengalami galat tak terduga",
         "APIBadRequestError": "YunoHost mengalami sebuah galat",
         "APIInternalError": "YunoHost mengalami sebuah galat internal",
-        "APIConnexionError": "YunoHost mengalami galat hubungan",
+        "APIConnexionError": "YunoHost mengalami satu kesalahan koneksi",
         "APINotFoundError": "API YunoHost tidak dapat menemukan rutenya"
     },
     "all_apps": "Semua aplikasi",
