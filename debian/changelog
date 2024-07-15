@@ -1,3 +1,12 @@
+yunohost-admin (11.2.7) stable; urgency=low
+
+  - Disable sending referer when clicking on links to external websites ([#573](http://github.com/YunoHost/yunohost-admin/pull/573))
+  - i18n: Translations updated for Basque, Danish, Indonesian, Polish, Russian, Slovak
+
+  Thanks to all contributors <3 ! (Andreas Gammelgaard Damsbo, cjdw, Ivan Davydov, Jose Riha, Kuba Bazan, OniriCorpe, xabirequejo)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Mon, 15 Jul 2024 16:34:10 +0200
+
 yunohost-admin (11.2.6) stable; urgency=low
 
   - fix: config panel "tags" turned into "select" (5a805463)
