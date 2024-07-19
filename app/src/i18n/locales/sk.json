@@ -602,7 +602,8 @@
                 "ignore": "Beriem na zreteľ, že inštalovaním tejto aplikácie si môžem rozbiť systém, no i napriek tomu to chcem urobiť.",
                 "install": "Aplikácia je už nainštalovaná a nie je možné ju nainštalovať viac ako jedenkrát.",
                 "arch": "Túto aplikáciu je možné nainštalovať iba na konkrétnych architektúrach ({required}), no vaša architektúra je {current}.",
-                "broken": "Automatické testy YunoHost označili túto aplikáciu za rozbitú a je možné, že vám poškodí systém! Preto by ste ju pravdepodobne NEMALI inštalovať, pokiaľ si nie ste istý, že to tak chcete."
+                "broken": "Automatické testy YunoHost označili túto aplikáciu za rozbitú a je možné, že vám poškodí systém! Preto by ste ju pravdepodobne NEMALI inštalovať, pokiaľ si nie ste istý, že to tak chcete.",
+                "thirdparty": "Táto aplikácia nie je súčasťou oficiálneho katalógu YunoHost, inštalovaním aplikácií tretích strán môžete ohroziť integritu a bezpečnosť vášho systému. Pokiaľ neviete, čo robíte, aplikáciu by ste NEMALI inštalovať."
             },
             "version": "Aktuálna verzia: {version}",
             "try_demo": "Vyskúšať demo"
