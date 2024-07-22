@@ -5,6 +5,8 @@ import { ref } from 'vue'
 const props = withDefaults(
   defineProps<{
     id?: string
+    asTab?: boolean
+    noBody?: boolean
     title?: string
     titleTag?: string
     icon?: string
@@ -14,6 +16,8 @@ const props = withDefaults(
   }>(),
   {
     id: 'ynh-form',
+    asTab: false,
+    noBody: false,
     title: undefined,
     titleTag: 'h2',
     icon: undefined,
@@ -35,8 +39,8 @@ const visible = ref(!props.collapsed)
 </script>
 
 <template>
-  <BCard :no-body="collapsable ? true : $attrs['no-body']">
-    <template #header>
+  <BCard :no-body="collapsable ? true : noBody" :class="{ 'border-0': asTab }">
+    <template v-if="!asTab" #header>
       <div class="w-100 d-flex align-items-center flex-wrap custom-header">
         <slot name="header">
           <Component :is="titleTag" class="custom-header-title">
@@ -75,7 +79,7 @@ const visible = ref(!props.collapsed)
     </template>
 
     <BCollapse v-if="collapsable" :visible="visible">
-      <slot v-if="'no-body' in $attrs" name="default" />
+      <slot v-if="noBody" name="default" />
       <BCardBody v-else>
         <slot name="default" />
       </BCardBody>
