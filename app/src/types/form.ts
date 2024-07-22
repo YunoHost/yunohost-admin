@@ -5,10 +5,9 @@ import type {
 } from '@vuelidate/core'
 import type { RouteLocationRaw } from 'vue-router'
 
-import type { ArrInnerType, Cols, Obj } from '@/types/commons'
+import type { ArrInnerType, Cols, Obj, StateVariant } from '@/types/commons'
 
 type StateValidation = false | null
-type StateVariant = 'success' | 'info' | 'warning' | 'danger'
 
 // DISPLAY
 

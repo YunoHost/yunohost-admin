@@ -23,9 +23,12 @@ export type CustomRoute = {
   text: string
   icon?: string
 }
+export type Translation = string | Record<string, string>
+export type StateVariant = 'success' | 'info' | 'warning' | 'danger'
 
 // HELPERS
 
 export type ArrInnerType<T> = T extends (infer ElementType)[]
   ? ElementType
   : never
+export type KeyOfStr<T extends Obj> = Extract<keyof T, string>
