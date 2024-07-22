@@ -8,7 +8,7 @@ type Pattern = {
 
 // CONFIG PANELS
 
-export type CoreConfigPanels<MV extends Obj<Obj>> = {
+export type CoreConfigPanels<MV extends Obj<Obj> = Obj<Obj>> = {
   panels: CoreConfigPanel<MV>[]
 }
 
@@ -17,7 +17,7 @@ export type CoreConfigPanel<MV extends Obj> = {
   icon?: string
   id: KeyOfStr<MV>
   name?: Translation
-  sections: CoreConfigSection[]
+  sections?: CoreConfigSection[]
 }
 
 export type CoreConfigSection = {

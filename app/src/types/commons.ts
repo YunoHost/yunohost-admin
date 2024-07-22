@@ -32,3 +32,10 @@ export type ArrInnerType<T> = T extends (infer ElementType)[]
   ? ElementType
   : never
 export type KeyOfStr<T extends Obj> = Extract<keyof T, string>
+export type MergeUnion<U extends Record<string, unknown>> = {
+  [K in U extends unknown ? keyof U : never]: U extends unknown
+    ? K extends keyof U
+      ? U[K]
+      : never
+    : never
+}

@@ -5,6 +5,7 @@ import type {
 } from '@vuelidate/core'
 import type { RouteLocationRaw } from 'vue-router'
 
+import { isObjectLiteral } from '@/helpers/commons'
 import type { ArrInnerType, Cols, Obj, StateVariant } from '@/types/commons'
 
 type StateValidation = false | null
@@ -129,6 +130,21 @@ export type TextAreaItemProps = BaseWritableItemProps & {
   // type?: string // FIXME unused?
 }
 
+export type AnyDisplayItemProps =
+  | ButtonItemProps
+  | DisplayTextItemProps
+  | MarkdownItemProps
+  | ReadOnlyAlertItemProps
+export type AnyWritableItemProps =
+  | AdressItemProps
+  | CheckboxItemProps
+  | FileItemProps
+  | InputItemProps
+  | SelectItemProps
+  | TagsItemProps
+  | TagsSelectizeItemProps
+  | TextAreaItemProps
+
 // FIELDS
 
 const ANY_WRITABLE_COMPONENTS = [
@@ -176,6 +192,16 @@ export function isDisplayComponent(
   return ANY_DISPLAY_COMPONENTS.includes(
     field.component as AnyDisplayComponents,
   )
+}
+
+export function isNonWritableComponent(
+  field:
+    | FormField<AnyWritableComponents>
+    | FormField
+    | FormFieldReadonly
+    | FormFieldDisplay,
+): field is FormFieldDisplay | FormFieldReadonly {
+  return isDisplayComponent(field) || !!field.readonly
 }
 
 type ItemComponentToItemProps = {
@@ -235,7 +261,7 @@ export type FormField<
   readonly?: false
 }
 
-type FormFieldReadonly<
+export type FormFieldReadonly<
   C extends AnyWritableComponents = AnyWritableComponents,
 > = BaseFormField<C> & {
   label: string
@@ -243,7 +269,9 @@ type FormFieldReadonly<
   readonly: true
 }
 
-type FormFieldDisplay<C extends AnyDisplayComponents = AnyDisplayComponents> = {
+export type FormFieldDisplay<
+  C extends AnyDisplayComponents = AnyDisplayComponents,
+> = {
   component: C
   props: ItemComponentToItemProps[C]
   visible?: boolean
@@ -275,6 +303,7 @@ export type FormFieldDict<T extends Obj = Obj> = {
         | FormFieldDisplay<AnyDisplayComponents>
 }
 
+// Type to check if object satisfies specified Field and Item
 export type FieldProps<
   C extends AnyItemComponents = 'InputItem',
   MV extends any = never,
@@ -283,3 +312,11 @@ export type FieldProps<
   : C extends AnyDisplayComponents
     ? FormFieldDisplay<C>
     : never
+
+export function isFileModelValue(value: any): value is FileModelValue {
+  return isObjectLiteral(value) && 'file' in value
+}
+
+export function isAdressModelValue(value: any): value is AdressModelValue {
+  return isObjectLiteral(value) && 'separator' in value
+}
