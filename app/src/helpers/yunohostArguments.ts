@@ -1,21 +1,12 @@
-import i18n from '@/i18n'
-import store from '@/store'
-import evaluate from 'simple-evaluate'
-import * as validators from '@/helpers/validators'
 import {
-  isObjectLiteral,
-  isEmptyValue,
   flattenObjectLiteral,
   getFileContent,
+  isEmptyValue,
+  isObjectLiteral,
 } from '@/helpers/commons'
-
-const NO_VALUE_FIELDS = [
-  'FormFieldReadonly',
-  'ReadOnlyAlertItem',
-  'MarkdownItem',
-  'DisplayTextItem',
-  'ButtonItem',
-]
+import store from '@/store'
+import type { Translation } from '@/types/commons'
+import type { AdressModelValue } from '@/types/form'
 
 export const DEFAULT_STATUS_ICON = {
   [null]: null,
@@ -26,29 +17,35 @@ export const DEFAULT_STATUS_ICON = {
   warning: 'warning',
 }
 
+// FORMAT FROM CORE
+
 /**
  * Tries to find a translation corresponding to the user's locale/fallback locale in a
  * Yunohost argument or simply return the string if it's not an object literal.
  *
- * @param {(Object|String|undefined)} field - A field value containing a translation object or string
- * @return {String}
+ * @param field - A field value containing a translation object or string
+ * @return translated field or empty string
  */
-export function formatI18nField(field) {
+export function formatI18nField(field?: Translation): string {
+  if (!field) return ''
   if (typeof field === 'string') return field
-  const { locale, fallbackLocale } = store.state
-  return field ? field[locale] || field[fallbackLocale] || field.en : ''
+  const { locale, fallbackLocale } = store.state as {
+    locale: string
+    fallbackLocale: string
+  }
+  return field[locale] || field[fallbackLocale] || field.en || ''
 }
 
 /**
  * Returns a string size declaration to a M value.
  *
- * @param {String} sizeStr - A size declared like '500M' or '56k'
- * @return {Number}
+ * @param size - A size declared like '500M' or '56k'
+ * @return a number in M
  */
-export function sizeToM(sizeStr) {
-  const unit = sizeStr.slice(-1)
-  const value = sizeStr.slice(0, -1)
-  if (unit === 'M') return parseInt(value)
+export function sizeToM(size: string) {
+  const unit = size.slice(-1)
+  const value = parseInt(size.slice(0, -1))
+  if (unit === 'M') return value
   if (unit === 'b') return Math.ceil(value / (1024 * 1024))
   if (unit === 'k') return Math.ceil(value / 1024)
   if (unit === 'G') return Math.ceil(value * 1024)
@@ -56,16 +53,18 @@ export function sizeToM(sizeStr) {
 }
 
 /**
- * Returns a formatted address element to be used by AdressItem component.
+ * Returns an address as AdressModelValue to be used by AdressItem component.
  *
- * @param {String} address - A string representing an adress (subdomain or email)
- * @return {Object} - `{ localPart, separator, domain }`.
+ * @param address - A string representing an adress (subdomain or email)
+ * @return Parsed address as `AdressModelValue`
  */
-export function adressToFormValue(address) {
+export function formatAdress(address: string): AdressModelValue {
   const separator = address.includes('@') ? '@' : '.'
   const [localPart, domain] = address.split(separator)
   return { localPart, separator, domain }
 }
+
+// FORMAT TO CORE
 
 /**
  * Parse a front-end value to its API equivalent. This function returns a Promise or an

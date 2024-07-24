@@ -19,7 +19,7 @@ import {
   sameAs,
 } from '@/helpers/validators'
 import {
-  adressToFormValue,
+  formatAdress,
   formatFormData,
   sizeToM,
 } from '@/helpers/yunohostArguments'
@@ -154,10 +154,10 @@ const { v, onSubmit } = useForm(form, fields)
 
 function onQueriesResponse(user_: any) {
   form.value.fullname = user_.fullname
-  form.value.mail = adressToFormValue(user_.mail)
+  form.value.mail = formatAdress(user_.mail)
   if (user_['mail-aliases']) {
     form.value.mail_aliases = user_['mail-aliases'].map((mail) =>
-      adressToFormValue(mail),
+      formatAdress(mail),
     )
   }
   if (user_['mail-forward']) {
