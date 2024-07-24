@@ -1,88 +1,87 @@
-<script setup lang="ts">
-import { useVuelidate, type BaseValidation } from '@vuelidate/core'
-import { computed, defineAsyncComponent, toRef } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
-
-import type { CustomRoute, Obj } from '@/types/commons'
+<script
+  setup
+  lang="ts"
+  generic="NestedMV extends Obj, MV extends Obj<NestedMV>"
+>
+import type { FormValidation } from '@/composables/form'
+import type { KeyOfStr, Obj } from '@/types/commons'
+import type { ConfigPanel, ConfigPanels } from '@/types/configPanels'
 
 defineOptions({
   inheritAttrs: false,
 })
 
-const RoutableTabs = defineAsyncComponent(
-  () => import('@/components/RoutableTabs.vue'),
-)
-
-const props = withDefaults(
-  defineProps<{
-    panels: Obj[]
-    forms: Obj<Obj>
-    validations: BaseValidation
-    externalResults: Obj
-    errors?: Obj // never used
-    noRedirect?: boolean
-    routes?: CustomRoute[]
-  }>(),
-  {
-    errors: undefined,
-    routes: undefined,
-    noRedirect: false,
-  },
-)
-
-const slots = defineSlots<{
-  'tab-top': any
-  'tab-before': any
-  'tab-after': any
+const props = defineProps<{
+  // modelValue: MV[keyof MV]
+  panel: ConfigPanel<NestedMV, MV>
+  routes: ConfigPanels<NestedMV, MV>['routes']
+  validations: FormValidation<NestedMV>
 }>()
 
-const externalResults = toRef(props, 'externalResults')
-const rules = computed(() => ({ forms: props.validations }))
-const v$ = useVuelidate(rules, props.forms, {
-  $externalResults: externalResults,
-})
+const emit = defineEmits<{
+  apply: [action?: KeyOfStr<typeof props.panel.fields>]
+  'update:modelValue': [modelValue: MV[keyof MV]]
+}>()
 
-const router = useRouter()
-const route = useRoute()
-const routes = computed(() => {
-  return (
-    props.routes ||
-    props.panels.map((panel) => ({
-      to: { params: { tabId: panel.id } },
-      text: panel.name,
-      icon: panel.icon || 'wrench',
-    }))
-  )
-})
+const slots = defineSlots<{
+  'tab-top'?: any
+  'tab-before'?: any
+  default?: any
+  'tab-after'?: any
+}>()
 
-if (!props.noRedirect && !route.params.tabId) {
-  router.replace({ params: { tabId: props.panels[0].id } })
-}
+const modelValue = defineModel<NestedMV>({ required: true })
 </script>
 
 <template>
-  <div class="config-panel">
-    <!-- FIXME vue3 - weird stuff with event binding, need to propagate by hand for now -->
-    <RoutableTabs
-      v-if="routes.length > 1"
-      v-bind="{ panels, forms, v: v$, ...$attrs }"
-      :routes="routes"
+  <BCard v-if="routes.length > 1" no-body class="config-panel">
+    <BCardHeader header-tag="nav">
+      <BNav card-header fill pills>
+        <BNavItem
+          v-for="route in routes"
+          :key="route.text"
+          :to="route.to"
+          :active="$route.params.tabId === route.to.params?.tabId"
+        >
+          <!-- FIXME added :active="" because `exact-active-class` not working https://github.com/bootstrap-vue-next/bootstrap-vue-next/issues/1754 -->
+          <!-- exact-active-class="active" -->
+          <YIcon v-if="route.icon" :iname="route.icon" />
+          {{ route.text }}
+        </BNavItem>
+      </BNav>
+    </BCardHeader>
+
+    <CardForm
+      v-model="modelValue"
+      :fields="panel.fields"
+      :no-footer="!panel.hasApplyButton"
+      :sections="panel.sections"
+      :validations="validations"
+      as-tab
+      @submit="emit('apply')"
+      @action="emit('apply', $event)"
     >
-      <template #tab-top>
+      <template #top>
         <slot name="tab-top" />
       </template>
-      <template #tab-before>
+      <template v-if="panel.help" #disclaimer>
+        <div class="alert alert-info" v-html="panel.help" />
+      </template>
+      <template #before-form>
         <slot name="tab-before" />
       </template>
-      <template #tab-after>
+      <template v-if="slots.default" #default>
+        <slot name="default" />
+      </template>
+      <template #after-form>
         <slot name="tab-after" />
       </template>
-    </RoutableTabs>
-
-    <YCard v-else :title="routes[0].text" :icon="routes[0].icon">
-      <slot name="tab-top" />
-      <slot name="tab-before" />
-      <slot name="tab-after" />
-    </YCard>
-  </div>
+    </CardForm>
+  </BCard>
+  <YCard v-else :title="routes[0].text" :icon="routes[0].icon">
+    <slot name="tab-top" />
+    <slot name="tab-before" />
+    <slot name="default" />
+    <slot name="tab-after" />
+  </YCard>
 </template>
