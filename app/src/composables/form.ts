@@ -1,13 +1,20 @@
 import type {
   BaseValidation,
   ServerErrors,
+  Validation,
   ValidationArgs,
   ValidationRuleCollection,
 } from '@vuelidate/core'
 import useVuelidate from '@vuelidate/core'
-import type { ComputedRef, InjectionKey, MaybeRefOrGetter, Ref } from 'vue'
-import { computed, inject, provide, reactive, toValue } from 'vue'
 import { computedWithControl } from '@vueuse/core'
+import type {
+  ComputedRef,
+  InjectionKey,
+  MaybeRefOrGetter,
+  Ref,
+  WritableComputedRef,
+} from 'vue'
+import { computed, inject, provide, reactive, toValue } from 'vue'
 
 import { APIBadRequestError, type APIError } from '@/api/errors'
 import type { Obj } from '@/types/commons'
@@ -42,10 +49,15 @@ export function useTouch(
   return touch
 }
 
+export type FormValidation<MV extends Obj> = Validation<
+  { global: { true: () => true }; form: ValidationArgs<MV> },
+  { form: Ref<MV> | WritableComputedRef<MV>; global: null }
+>
+
 export function useForm<
   MV extends Obj,
   FFD extends FormFieldDict<MV> = FormFieldDict<MV>,
->(form: Ref<MV>, fields: MaybeRefOrGetter<FFD>) {
+>(form: Ref<MV> | WritableComputedRef<MV>, fields: MaybeRefOrGetter<FFD>) {
   const serverErrors = reactive<ServerErrors>({})
   const validByDefault: ValidationRuleCollection = { true: () => true }
   const rules = computedWithControl(
@@ -65,7 +77,7 @@ export function useForm<
     },
   )
 
-  const v = useVuelidate(
+  const v: Ref<FormValidation<MV>> = useVuelidate(
     rules,
     { form, global: null },
     { $externalResults: serverErrors },

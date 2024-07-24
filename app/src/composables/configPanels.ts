@@ -1,11 +1,20 @@
 import evaluate from 'simple-evaluate'
-import { computed, ref, toValue, type MaybeRefOrGetter, type Ref } from 'vue'
+import type {
+  ComputedRef,
+  MaybeRefOrGetter,
+  Ref,
+  WritableComputedRef,
+} from 'vue'
+import { computed, ref, toValue, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { useRouter } from 'vue-router'
 
+import { APIBadRequestError, APIError } from '@/api/errors'
+import { deepSetErrors, useForm, type FormValidation } from '@/composables/form'
 import { asUnreffed, isObjectLiteral } from '@/helpers/commons'
 import * as validators from '@/helpers/validators'
-import { formatI18nField } from '@/helpers/yunohostArguments'
-import type { MergeUnion, Obj } from '@/types/commons'
+import { formatForm, formatI18nField } from '@/helpers/yunohostArguments'
+import type { CustomRoute, KeyOfStr, MergeUnion, Obj } from '@/types/commons'
 import type {
   AnyFormField,
   ConfigPanel,
@@ -218,7 +227,7 @@ function formatOption(option: AnyOption, form: Ref<Obj>): AnyFormField {
  * @param options - a core Option array written by a packager
  * @return An object with form and fields
  */
-function formatOptions<MV extends Obj>(
+export function formatOptions<MV extends Obj>(
   options: AnyOption[],
 ): {
   fields: FormFieldDict<MV>
@@ -248,14 +257,16 @@ function formatConfigPanel<NestedMV extends Obj, MV extends Obj<NestedMV>>(
   form: Ref<NestedMV>
   panel: ConfigPanel<NestedMV, MV>
 } {
-  const options = panel.sections.flatMap((section) => section.options)
-  const { form, fields } = formatOptions<NestedMV>(options)
+  const options = panel.sections?.flatMap((section) => section.options)
+  const { form, fields } = options
+    ? formatOptions<NestedMV>(options)
+    : { form: ref({}) as Ref<NestedMV>, fields: {} as FormFieldDict<NestedMV> }
   let hasApplyButton = false
 
-  const sections = panel.sections.map((section) => {
-    const sectionFieldsIds = section.options.map(
-      (option) => option.id,
-    ) as ConfigPanel<NestedMV, MV>['sections'][number]['fields']
+  const sections = panel.sections?.map((section) => {
+    const sectionFieldsIds = section.options.map<
+      KeyOfStr<FormFieldDict<NestedMV>>
+    >((option) => option.id)
 
     if (
       !section.is_action_section &&
@@ -369,4 +380,104 @@ function useEvaluation(expression: string, form: MaybeRefOrGetter<Obj>) {
       return false
     }
   })
+}
+
+export type OnPanelApply<MV extends Obj = Obj> = (
+  data: { panelId: keyof MV; data: Obj; action?: string },
+  onError: (err: APIError, errorMessage?: string) => void,
+) => void
+
+export type ConfigPanelsProps<
+  NestedMV extends Obj = Obj,
+  MV extends Obj<NestedMV> = Obj<NestedMV>,
+> = {
+  form: WritableComputedRef<NestedMV>
+  panel: ComputedRef<ConfigPanel<NestedMV, MV, FormFieldDict<NestedMV>>>
+  routes: CustomRoute[]
+  v: Ref<FormValidation<NestedMV>>
+  onPanelApply: (actionId?: KeyOfStr<FormFieldDict<NestedMV>>) => void
+}
+
+export function useConfigPanels<NestedMV extends Obj, MV extends Obj<NestedMV>>(
+  config: ConfigPanels<NestedMV, MV>,
+  tabId: MaybeRefOrGetter<keyof MV | undefined>,
+  onPanelApply: OnPanelApply<MV>,
+): ConfigPanelsProps<NestedMV, MV> {
+  const router = useRouter()
+  watch(
+    () => toValue(tabId),
+    (id) => {
+      if (!id) {
+        router.replace({ params: { tabId: config.panels[0].id } })
+      }
+    },
+    { immediate: true },
+  )
+
+  const panelId = computed(() => toValue(tabId) || config.panels[0].id)
+  const panel = computed(() => {
+    return config.panels.find((panel) => panel.id === panelId.value)!
+  })
+
+  const form = computed({
+    get: () => config.forms[panelId.value].value,
+    set: (form) => (config.forms[panelId.value].value = form),
+  })
+
+  const { v, serverErrors } = useForm<NestedMV>(form, () => panel.value.fields)
+
+  function onErrorFn(err: APIError) {
+    if (!(err instanceof APIBadRequestError)) throw err
+    if (err.data.name) {
+      deepSetErrors(
+        serverErrors,
+        [err.message],
+        'form',
+        // FIXME probably need to remove panel + section id
+        ...err.data.name.split('.'),
+      )
+    } else {
+      serverErrors.global = [err.message]
+    }
+  }
+
+  const onBeforePanelApply = async (
+    actionId?: KeyOfStr<FormFieldDict<NestedMV>>,
+  ) => {
+    const panelId = panel.value.id
+    let form: NestedMV | Partial<NestedMV> = config.forms[panelId].value
+    let action: undefined | string = undefined
+
+    if (actionId) {
+      const section = panel.value.sections!.find((section) =>
+        section.fields.includes(actionId),
+      )!
+      action = `${panelId}.${section.id}.${actionId}`
+      const actionForm: Partial<NestedMV> = {}
+      for (const id of section.fields) {
+        if (id in form) {
+          // FIXME check visible? skip validate and value if not visible?
+          if (!(await v.value.form[id].$validate())) return
+          actionForm[id] = form[id]
+        }
+      }
+      form = actionForm
+    } else {
+      if (!(await v.value.form.$validate())) return
+    }
+    const data = await formatFormData(form, {
+      removeEmpty: false,
+      removeNull: true,
+    })
+
+    onPanelApply({ panelId, data, action }, onErrorFn)
+  }
+
+  return {
+    form,
+    panel,
+    routes: config.routes,
+    v,
+    onPanelApply: onBeforePanelApply,
+  }
 }
