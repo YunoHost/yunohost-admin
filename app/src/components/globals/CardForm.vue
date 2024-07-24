@@ -1,21 +1,12 @@
-<script
-  setup
-  lang="ts"
-  generic="
-    MV extends Obj,
-    FFD extends FormFieldDict<MV>,
-    V extends Validation<
-      ValidationArgs<unknown>,
-      { form: Ref<MV>; global: null }
-    >
-  "
->
-import type { Validation, ValidationArgs } from '@vuelidate/core'
-import { computed, toValue } from 'vue'
+<script setup lang="ts" generic="MV extends Obj, FFD extends FormFieldDict<MV>">
+import { createReusableTemplate } from '@vueuse/core'
+import { computed, reactive, toValue } from 'vue'
 import { useI18n } from 'vue-i18n'
 
+import type { FormValidation } from '@/composables/form'
 import { toEntries } from '@/helpers/commons'
-import type { Obj, VueClass } from '@/types/commons'
+import type { KeyOfStr, Obj, VueClass } from '@/types/commons'
+import type { ConfigSection } from '@/types/configPanels'
 import type {
   AnyDisplayComponents,
   AnyWritableComponents,
@@ -29,12 +20,13 @@ const props = withDefaults(
     id?: string
     modelValue?: MV
     fields?: FFD
-    validations?: V
+    validations?: FormValidation<MV>
     submitText?: string
     inline?: boolean
     formClasses?: VueClass
     noFooter?: boolean
     hr?: boolean
+    sections?: ConfigSection<MV, FFD>[]
   }>(),
   {
     id: 'ynh-form',
@@ -46,24 +38,29 @@ const props = withDefaults(
     formClasses: undefined,
     noFooter: false,
     hr: false,
+    sections: undefined,
   },
 )
 
 const emit = defineEmits<{
   submit: [e: SubmitEvent]
+  action: [actionId: KeyOfStr<FFD>] //, sectionId?: ConfigSection<MV, FFD>['id']]
   'update:modelValue': [modelValue: MV]
 }>()
 
 const slots = defineSlots<
   {
+    top?: any
     disclaimer?: any
+    'before-form'?: any
     default?: any
     'server-error'?: any
+    'after-form'?: any
     buttons: any
   } & {
-    [K in Extract<keyof MV, string> as `field:${K}`]?: (_: FFD[K]) => any
+    [K in KeyOfStr<FFD> as `field:${K}`]?: (_: FFD[K]) => any
   } & {
-    [K in Extract<keyof FFD, string> as `component:${K}`]?: (
+    [K in KeyOfStr<FFD> as `component:${K}`]?: (
       _: FFD[K]['component'] extends AnyWritableComponents
         ? FFD[K]['props'] & BaseItemComputedProps<MV[K]>
         : FFD[K]['component'] extends AnyDisplayComponents
@@ -83,6 +80,16 @@ const globalErrorFeedback = computed(() => {
 })
 
 const fields = computed(() => (props.fields ? toEntries(props.fields) : []))
+const sections = computed(() => {
+  const { sections, fields } = props
+  if (!sections || !fields) return
+  return sections.map((section) => ({
+    ...section,
+    fields: reactive(section.fields.map((id) => [id, fields[id]])) as {
+      [k in Extract<keyof FFD, string>]: [k, FFD[k]]
+    }[Extract<keyof FFD, string>][],
+  }))
+})
 
 function onModelUpdate(key: keyof MV, value: MV[keyof MV]) {
   emit('update:modelValue', {
@@ -90,12 +97,70 @@ function onModelUpdate(key: keyof MV, value: MV[keyof MV]) {
     [key]: value,
   })
 }
+
+const Fields = createReusableTemplate<{
+  fieldsProps: { [k in Extract<keyof FFD, string>]: [k, FFD[k]] }[Extract<
+    keyof FFD,
+    string
+  >][]
+}>()
 </script>
 
 <template>
-  <YCard class="card-form">
+  <Fields.define v-slot="{ fieldsProps }">
+    <template v-for="[k, field] in fieldsProps" :key="k">
+      <template v-if="field.visible ?? true">
+        <slot
+          v-if="isWritableComponent<MV[typeof k]>(field)"
+          :name="`field:${k}`"
+          v-bind="field"
+        >
+          <FormField
+            v-if="!field.readonly"
+            v-bind="field"
+            :model-value="props.modelValue![k]"
+            :validation="props.validations?.form[k]"
+            @update:model-value="onModelUpdate(k, $event)"
+          >
+            <template v-if="slots[`component:${k}`]" #default="childProps">
+              <slot :name="`component:${k}`" v-bind="childProps" />
+            </template>
+          </FormField>
+          <FormFieldReadonly
+            v-else
+            v-bind="field"
+            :model-value="props.modelValue![k]"
+          />
+        </slot>
+        <slot
+          v-else-if="isDisplayComponent(field)"
+          :name="`component:${k}`"
+          v-bind="field.props"
+        >
+          <Component
+            :is="field.component"
+            v-if="field.component !== 'ButtonItem'"
+            v-bind="field.props"
+          />
+          <ButtonItem
+            v-else
+            v-bind="field.props"
+            @action="emit('action', $event as typeof field.props.id)"
+          />
+        </slot>
+
+        <hr v-if="field.hr ?? hr" />
+      </template>
+    </template>
+  </Fields.define>
+
+  <YCard class="card-form" v-bind="$attrs">
     <template #default>
+      <slot name="top" />
+
       <slot name="disclaimer" />
+
+      <slot name="before-form" />
 
       <BForm
         :id="id"
@@ -105,46 +170,24 @@ function onModelUpdate(key: keyof MV, value: MV[keyof MV]) {
         @submit.prevent.stop="emit('submit', $event as SubmitEvent)"
       >
         <slot name="default">
-          <template v-for="[key, fieldProps] in fields" :key="key">
-            <template v-if="fieldProps.visible ?? true">
-              <slot
-                v-if="isWritableComponent<MV[typeof key]>(fieldProps)"
-                :name="`field:${key}`"
-                v-bind="fieldProps"
+          <template v-if="sections">
+            <template v-for="section in sections" :key="section.id">
+              <Component
+                :is="section.name ? 'section' : 'div'"
+                v-if="section.visible"
+                class="form-section"
               >
-                <FormField
-                  v-if="!fieldProps.readonly"
-                  v-bind="fieldProps"
-                  :model-value="props.modelValue![key]"
-                  :validation="props.validations?.form[key]"
-                  @update:model-value="onModelUpdate(key, $event)"
-                >
-                  <template
-                    v-if="slots[`component:${key}`]"
-                    #default="childProps"
-                  >
-                    <slot :name="`component:${key}`" v-bind="childProps" />
-                  </template>
-                </FormField>
-                <FormFieldReadonly
-                  v-else
-                  v-bind="fieldProps"
-                  :model-value="props.modelValue![key]"
-                />
-              </slot>
-              <slot
-                v-else-if="isDisplayComponent(fieldProps)"
-                :name="`component:${key}`"
-                v-bind="fieldProps.props"
-              >
-                <Component
-                  :is="fieldProps.component"
-                  v-bind="fieldProps.props"
-                />
-              </slot>
+                <BCardTitle v-if="section.name" title-tag="h3">
+                  {{ section.name }}
+                  <small v-if="section.help">{{ section.help }}</small>
+                </BCardTitle>
 
-              <hr v-if="fieldProps.hr ?? hr" />
+                <Fields.reuse :fields-props="section.fields" />
+              </Component>
             </template>
+          </template>
+          <template v-else-if="fields">
+            <Fields.reuse :fields-props="fields" />
           </template>
         </slot>
 
@@ -159,6 +202,8 @@ function onModelUpdate(key: keyof MV, value: MV[keyof MV]) {
           </BAlert>
         </slot>
       </BForm>
+
+      <slot name="after-form" />
     </template>
 
     <template v-if="!noFooter" #buttons>
@@ -170,3 +215,13 @@ function onModelUpdate(key: keyof MV, value: MV[keyof MV]) {
     </template>
   </YCard>
 </template>
+
+<style lang="scss" scoped>
+.card-title {
+  margin-bottom: 1em;
+  border-bottom: solid $border-width $gray-500;
+}
+.form-section:not(:last-child) {
+  margin-bottom: 3rem;
+}
+</style>
