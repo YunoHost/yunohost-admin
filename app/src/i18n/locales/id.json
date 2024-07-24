@@ -13,32 +13,32 @@
     "administration_password": "Kata sandi administrasi",
     "all": "Semua",
     "api": {
-        "processing": "Peladen sedang memproses tindakan…",
+        "processing": "Server sedang memproses tindakan…",
         "query_status": {
             "error": "Gagal",
             "pending": "Sedang berjalan",
-            "success": "Berhasil",
-            "warning": "Selesai dengan galat atau peringatan"
+            "success": "Berhasil diselesaikan",
+            "warning": "Berhasil diselesaikan disertai dengan galat atau peringatan"
         },
         "reconnecting": {
             "reason": {
-                "reboot": "Peladen Anda sedang dimulai ulang dan tidak akan bisa dicapai selama beberapa saat. Layar masuk akan tersedia setelah peladen Anda bisa dicapai.",
-                "shutdown": "Peladen Anda telah dimatikan tidak dapat dicapai. Nyalakan kembali dan layar masuk akan tersedia setelah peladen Anda bisa dicapai.",
-                "upgrade_system": "Tidak dapat terhubung ke peladen dikarenakan YunoHost sedang pembaruan. Menunggu peladen bisa terhubung kembali…",
-                "unknown": "Tidak dapat terhubung ke peladen karena alasan yang tidak diketahui."
+                "reboot": "Server Anda sedang dimulai ulang dan tidak akan bisa dicapai selama beberapa saat. Layar masuk akan tersedia setelah server Anda bisa dicapai.",
+                "shutdown": "Server Anda telah dimatikan dan tidak lagi dapat dicapai. Nyalakan kembali dan layar masuk akan tersedia setelah server Anda bisa dicapai.",
+                "upgrade_system": "Koneksi dengan server telah ditutup untuk pemutakhiran YunoHost. Menunggu server sampai bisa dipergunakan lagi…",
+                "unknown": "Koneksi dengan server telah ditutup dengan alasan yang tidak diketahui."
             },
-            "title": "Mencoba menghubungi peladen…",
+            "title": "Mencoba menghubungi server…",
             "failed": "Sepertinya peladen tidak merespons. Anda bisa coba memuat ulang atau coba jalankan `systemctl restart yunohost-api` via SSH.",
-            "success": "Peladen bisa dicapai! Anda bisa mencoba masuk kembali"
+            "success": "Sekarang server bisa dipergunakan! Anda bisa mencoba untuk masuk"
         },
         "partial_logs": "[…] (periksa semua log di dalam riwayat)"
     },
     "api_error": {
-        "server_said": "Ketika memproses tindakan, peladen mengatakan:",
-        "sorry": "Maaf tentang itu.",
-        "info": "Informasi berikut mungkin berguna untuk orang yang membantu Anda:",
+        "server_said": "Ketika memproses tindakan tersebut server mengatakan:",
+        "sorry": "Mohon maaf mengenai hal tersebut.",
+        "info": "Informasi berikut mungkin bisa berguna untuk orang yang akan membantu Anda:",
         "error_message": "Pesan galat:",
-        "help": "Anda dapat mencari bantuan di <a href=\"https://forum.yunohost.org/\">forum</a> atau <a href=\"https://chat.yunohost.org/\">di obrolan</a> untuk menangani situasinya, atau laporkan bug di <a href=\"https://github.com/YunoHost/issues\">bugtracker</a>.",
+        "help": "Anda bisa mencari bantuan di <a href=\"https://forum.yunohost.org/\">forum</a> atau <a href=\"https://chat.yunohost.org/\">obrolan</a> agar bisa memperbaiki keadaan, atau laporkan bug di <a href=\"https://github.com/YunoHost/issues\">bugtracker</a>.",
         "view_error": "Lihat galat"
     },
     "api_errors_titles": {
@@ -46,7 +46,7 @@
         "APIError": "YunoHost mengalami galat tak terduga",
         "APIBadRequestError": "YunoHost mengalami sebuah galat",
         "APIInternalError": "YunoHost mengalami sebuah galat internal",
-        "APIConnexionError": "YunoHost mengalami satu kesalahan koneksi",
+        "APIConnexionError": "YunoHost mengalami galat pada koneksi",
         "APINotFoundError": "API YunoHost tidak dapat menemukan rutenya"
     },
     "all_apps": "Semua aplikasi",
@@ -316,7 +316,7 @@
         },
         "dns": {
             "auto_config_ok": "Konfigurasi otomatis sepertinya oke!",
-            "push_force": "Timpa rekaman yang telah ada",
+            "push_force": "Timpa rekaman yang ada",
             "auto_config": "Konfigurasi rekaman DNS otomatis",
             "auto_config_ignored": "diabaikan, tidak akan diubah oleh YunoHost kecuali Anda mencentang opsi timpa",
             "auto_config_zone": "Zona DNS saat ini",
@@ -367,7 +367,7 @@
     "hook_conf_ynh_settings": "Konfigurasi YunoHost",
     "restart": "Mulai ulang",
     "protocol": "Protokol",
-    "readme": "Readme",
+    "readme": "Bacalah",
     "rerun_diagnosis": "Jalankan diagnosis lagi",
     "open": "Buka",
     "hook_data_xmpp": "Data XMPP",
@@ -393,9 +393,9 @@
     "only_working_apps": "Hanya aplikasi yang dapat bekerja",
     "only_decent_quality_apps": "Hanya aplikasi yang lumayan berkualitas",
     "placeholder": {
-        "username": "samsmith",
+        "username": "mamat",
         "firstname": "Sam",
-        "lastname": "Smith",
+        "lastname": "Bambang",
         "domain": "domainku.com",
         "groupname": "Nama kelompok saya",
         "fullname": "John Doe",
@@ -412,7 +412,7 @@
                 },
                 "pre": {
                     "warning": "Hal-hal yang perlu diketahui sebelum pemasangan",
-                    "danger": "Pemasangan aplikasi ini sepertinya akan bermasalah",
+                    "danger": "Pemasangan aplikasi ini sepertinya akan mengakibatkan beberapa isu",
                     "critical": "Aplikasi tidak dapat dipasang"
                 }
             },
@@ -595,7 +595,7 @@
     "text_selection_is_disabled": "Pemilihan teks dinonaktifkan. Jika Anda ingin membagikan log ini, silakan bagikan log dengan tombol 'Bagikan dengan Yunopaste'.<br/><small>Atau jika Anda benar-benar ingin pemilihan teks, tekan tombol ini: ↓↓↑↑.</small>",
     "confirm_group_add_access_permission": "Apakah Anda yakin ingin memberi akses {perm} ke {name}? Akses tersebut bisa meningkatkan ancaman jika {name} merupakan orang jahat. Anda sebaiknya lakukan ini jika Anda PERCAYA kepada orang tersebut.",
     "confirm_migrations_skip": "Melewati migrasi tidak direkomendasikan. Apakah Anda yakin ingin melewatinya?",
-    "confirm_install_app_inprogress": "PERINGATAN! Aplikasi ini masih bersifat eksperimental dan mungkin akan merusak sistem Anda! Sebaiknya Anda TIDAK memasangnya kecuali Anda yakin dengan apa yang Anda lakukan. Apakah Anda yakin ingin memasangnya?",
+    "confirm_install_app_inprogress": "PERINGATAN! Aplikasi ini masih bersifat eksperimental (bila tidak secara jelas tidak dapat bekerja) dan mungkin akan merusak sistem Anda! Sebaiknya Anda TIDAK memasangnya kecuali Anda yakin dengan apa yang Anda lakukan. Apakah Anda ingin mengambil risiko tersebut?",
     "run_first_diagnosis": "Jalankan diagnosis pertama",
     "domain_delete_forbidden_desc": "Anda tidak bisa menghapus '{domain}' dikarenakan itu adalah domain utama, Anda harus memilih domain lain (atau <a href='#/domains/add'>tambahkan yang baru</a>) dan atur itu menjadi domain utama supaya bisa menghapus domain ini.",
     "hook_data_xmpp_desc": "Konfigurasi pengguna dan ruangan, berkas unggahan",
@@ -688,8 +688,8 @@
     "error_modify_something": "Anda harus mengubah sesuatu",
     "group_format_name_help": "Anda bisa menggunakan karakter alfanumerik dan garis bawah",
     "items_verbose_items_left": "Ada {items} tersisa. | Ada 1 {items} tersisa. | Ada {items} tersisa.",
-    "traceback": "Telusuri",
-    "select_none": "Pilih tanpa",
-    "nobody": "Tak seorangpun",
+    "traceback": "Telusur",
+    "select_none": "Pilih tidak sama sekali",
+    "nobody": "Bukan siapa-siapa",
     "confirm_postinstall": "Anda akan meluncurkan proses pasca instalasi pada domain {domain}. Mungkin memerlukan waktu beberapa menit, *jangan hentikan pengoperasian*."
 }
