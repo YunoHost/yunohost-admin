@@ -1,4 +1,8 @@
 import { helpers } from '@vuelidate/validators'
+import { toValue, type MaybeRef } from 'vue'
+
+// FIXME no typing, but the lib is currently not actively maintained
+// so it's propably better not to spend time on it.
 
 // Unicode ranges are taken from https://stackoverflow.com/a/37668315
 const nonAsciiWordCharacters =
@@ -20,7 +24,7 @@ const emailLocalPart = helpers.regex(/^[\w.-]+$/)
 
 const emailForwardLocalPart = helpers.regex(/^[\w+.-]+$/)
 
-const email = (value) => {
+const email = (value: string) => {
   const [localPart, domainPart] = value.split('@')
   if (!domainPart) return !helpers.req(value) || false
   return (
@@ -29,7 +33,7 @@ const email = (value) => {
 }
 
 // Same as email but with `+` allowed.
-const emailForward = (value) => {
+const emailForward = (value: string) => {
   const [localPart, domainPart] = value.split('@')
   if (!domainPart) return !helpers.req(value) || false
   return (
@@ -42,20 +46,15 @@ const appRepoUrl = helpers.regex(
   /^https:\/\/[a-zA-Z0-9-_.]+\/[a-zA-Z0-9-_./~]+\/[a-zA-Z0-9-_.]+_ynh(\/?(-\/)?tree\/[a-zA-Z0-9-_.]+)?(\.git)?\/?$/,
 )
 
-const includes = (items) =>
-  helpers.withParams(
-    { type: 'includes' },
-    (item) => !helpers.req(item) || (items ? items.includes(item) : false),
-  )
-
 const name = helpers.regex(
   new RegExp(`^(?:[A-Za-z${nonAsciiWordCharacters}]{1,30}[ ,.'-]{0,3})+$`),
 )
 
-const unique = (items) =>
-  helpers.withParams({ type: 'unique', arg: items }, (item) =>
-    items ? !helpers.req(item) || !items.includes(item) : true,
-  )
+const unique = (items: MaybeRef<any[]>) =>
+  helpers.withParams({ type: 'unique', arg: toValue(items) }, (item) => {
+    const items_ = toValue(items)
+    return items_ ? !helpers.req(item) || !items_.includes(item) : true
+  })
 
 export {
   alphalownumdot_,
@@ -66,7 +65,6 @@ export {
   emailForwardLocalPart,
   emailLocalPart,
   appRepoUrl,
-  includes,
   name,
   unique,
 }
