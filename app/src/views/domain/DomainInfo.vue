@@ -1,22 +1,25 @@
 <script setup lang="ts">
-import { computed, reactive, ref } from 'vue'
+import { computed, ref, shallowRef } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRoute, useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 
 import api, { objectToParams } from '@/api'
-import ConfigPanels from '@/components/ConfigPanels.vue'
+import ConfigPanelsComponent from '@/components/ConfigPanels.vue'
+import type {
+  ConfigPanelsProps,
+  OnPanelApply,
+} from '@/composables/configPanels'
+import { formatConfigPanels, useConfigPanels } from '@/composables/configPanels'
 import { useAutoModal } from '@/composables/useAutoModal'
 import { useInitialQueries } from '@/composables/useInitialQueries'
-import {
-  formatFormData,
-  formatYunoHostConfigPanels,
-} from '@/helpers/yunohostArguments'
 import { useStoreGetters } from '@/store/utils'
+import type { CoreConfigPanels } from '@/types/core/options'
 import DomainDns from '@/views/domain/DomainDns.vue'
 
 const props = defineProps<{
   name: string
+  tabId?: string
 }>()
 
 const { t } = useI18n()
@@ -34,13 +37,8 @@ const { loading, refetch } = useInitialQueries(
 )
 
 const { mainDomain } = useStoreGetters()
-const config = ref({})
-const externalResults = reactive({})
+const config = shallowRef<ConfigPanelsProps | undefined>()
 const unsubscribeDomainFromDyndns = ref(false)
-
-const currentTab = computed(() => {
-  return route.params.tabId
-})
 
 const domain = computed(() => {
   return store.getters.domain(props.name)
@@ -80,40 +78,33 @@ const isMainDynDomain = computed(() => {
   )
 })
 
-function onQueriesResponse(domains: any, domain: any, config_: any) {
-  config.value = formatYunoHostConfigPanels(config_)
+function onQueriesResponse(
+  domains: any,
+  domain: any,
+  config_: CoreConfigPanels,
+) {
+  config.value = useConfigPanels(
+    formatConfigPanels(config_),
+    () => props.tabId,
+    onPanelApply,
+  )
 }
 
-async function onConfigSubmit({ id, form, action, name }) {
-  const args = await formatFormData(form, {
-    removeEmpty: false,
-    removeNull: true,
-  })
-
+const onPanelApply: OnPanelApply = ({ panelId, data, action }, onError) => {
   api
     .put(
       action
         ? `domain/${props.name}/actions/${action}`
-        : `domains/${props.name}/config/${id}`,
-      { args: objectToParams(args) },
+        : `domains/${props.name}/config/${panelId}`,
+      { args: objectToParams(data) },
       {
         key: `domains.${action ? 'action' : 'update'}_config`,
-        id,
+        id: panelId,
         name: props.name,
       },
     )
     .then(() => refetch())
-    .catch((err) => {
-      if (err.name !== 'APIBadRequestError') throw err
-      const panel = config.value.panels.find((panel) => panel.id === id)
-      if (err.data.name) {
-        Object.assign(externalResults, {
-          forms: { [panel.id]: { [err.data.name]: [err.data.error] } },
-        })
-      } else {
-        panel.serverError = err.message
-      }
-    })
+    .catch(onError)
 }
 
 async function deleteDomain() {
@@ -254,16 +245,18 @@ async function setAsDefaultDomain() {
       </DescriptionRow>
     </YCard>
 
-    <ConfigPanels
-      v-if="config.panels"
-      v-bind="config"
-      :external-results="externalResults"
-      @apply="onConfigSubmit"
+    <ConfigPanelsComponent
+      v-if="config"
+      v-model="config.form"
+      :panel="config.panel.value"
+      :validations="config.v.value"
+      :routes="config.routes"
+      @apply="config.onPanelApply"
     >
-      <template v-if="currentTab === 'dns'" #tab-after>
+      <template v-if="tabId === 'dns'" #tab-after>
         <DomainDns :name="name" />
       </template>
-    </ConfigPanels>
+    </ConfigPanelsComponent>
 
     <BModal
       v-if="domain"

@@ -141,22 +141,15 @@ const routes = [
     },
   },
   {
-    path: '/domains/:name',
+    name: 'domain-info',
+    path: '/domains/:name/:tabId?',
     component: () => import('@/views/domain/DomainInfo.vue'),
     props: true,
-    children: [
-      {
-        name: 'domain-info',
-        path: ':tabId?',
-        component: () => import('@/components/ConfigPanel.vue'),
-        props: true,
-        meta: {
-          routerParams: ['name'], // Override router key params to avoid view recreation at tab change.
-          args: { param: 'name' },
-          breadcrumb: ['domain-list', 'domain-info'],
-        },
-      },
-    ],
+    meta: {
+      routerParams: ['name'], // Override router key params to avoid view recreation at tab change.
+      args: { param: 'name' },
+      breadcrumb: ['domain-list', 'domain-info'],
+    },
   },
 
   /* ───────╮
@@ -202,22 +195,15 @@ const routes = [
     },
   },
   {
-    path: '/apps/:id',
+    name: 'app-info',
+    path: '/apps/:id/:tabId?',
     component: () => import('@/views/app/AppInfo.vue'),
     props: true,
-    children: [
-      {
-        name: 'app-info',
-        path: ':tabId?',
-        component: () => import('@/components/ConfigPanel.vue'),
-        props: true,
-        meta: {
-          routerParams: ['id'], // Override router key params to avoid view recreation at tab change.
-          args: { param: 'id' },
-          breadcrumb: ['app-list', 'app-info'],
-        },
-      },
-    ],
+    meta: {
+      routerParams: ['id'], // Override router key params to avoid view recreation at tab change.
+      args: { param: 'id' },
+      breadcrumb: ['app-list', 'app-info'],
+    },
   },
 
   /* ────────────────╮
@@ -315,21 +301,15 @@ const routes = [
     },
   },
   {
-    path: '/tools/settings',
+    name: 'tool-settings',
+    path: '/tools/settings/:tabId?',
     component: () => import('@/views/tool/ToolSettings.vue'),
-    children: [
-      {
-        name: 'tool-settings',
-        path: ':tabId?',
-        component: () => import('@/components/ConfigPanel.vue'),
-        props: true,
-        meta: {
-          routerParams: [],
-          args: { trad: 'tools_yunohost_settings' },
-          breadcrumb: ['tool-list', 'tool-settings'],
-        },
-      },
-    ],
+    props: true,
+    meta: {
+      routerParams: [],
+      args: { trad: 'tools_yunohost_settings' },
+      breadcrumb: ['tool-list', 'tool-settings'],
+    },
   },
   {
     name: 'tool-power',

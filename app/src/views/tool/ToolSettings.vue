@@ -1,61 +1,53 @@
 <script setup lang="ts">
-import { reactive, ref } from 'vue'
+import { shallowRef } from 'vue'
 
 import api, { objectToParams } from '@/api'
-import { APIBadRequestError, type APIError } from '@/api/errors'
-import ConfigPanels from '@/components/ConfigPanels.vue'
+import ConfigPanelsComponent from '@/components/ConfigPanels.vue'
+import type {
+  ConfigPanelsProps,
+  OnPanelApply,
+} from '@/composables/configPanels'
+import { formatConfigPanels, useConfigPanels } from '@/composables/configPanels'
 import { useInitialQueries } from '@/composables/useInitialQueries'
-import {
-  formatFormData,
-  formatYunoHostConfigPanels,
-} from '@/helpers/yunohostArguments'
+import type { CoreConfigPanels } from '@/types/core/options'
+
+const props = defineProps<{ tabId?: string }>()
 
 const { loading, refetch } = useInitialQueries([['GET', 'settings?full']], {
   onQueriesResponse,
 })
-const config = ref({})
-// FIXME user proper useValidate stuff
-const externalResults = reactive({})
+const config = shallowRef<ConfigPanelsProps | undefined>()
 
-function onQueriesResponse(config_: any) {
-  config.value = formatYunoHostConfigPanels(config_)
+function onQueriesResponse(config_: CoreConfigPanels) {
+  config.value = useConfigPanels(
+    formatConfigPanels(config_),
+    () => props.tabId,
+    onPanelApply,
+  )
 }
 
-async function onConfigSubmit({ id, form }) {
-  const args = await formatFormData(form, {
-    removeEmpty: false,
-    removeNull: true,
-  })
-
+const onPanelApply: OnPanelApply = ({ panelId, data }, onError) => {
   // FIXME no route for potential action
   api
     .put(
-      `settings/${id}`,
-      { args: objectToParams(args) },
-      { key: 'settings.update', panel: id },
+      `settings/${panelId}`,
+      { args: objectToParams(data) },
+      { key: 'settings.update', panel: panelId },
     )
     .then(() => refetch())
-    .catch((err: APIError) => {
-      if (!(err instanceof APIBadRequestError)) throw err
-      const panel = config.value.panels.find((panel) => panel.id === id)
-      if (err.data.name) {
-        Object.assign(externalResults, {
-          forms: { [panel.id]: { [err.data.name]: [err.data.error] } },
-        })
-      } else {
-        panel.serverError = err.message
-      }
-    })
+    .catch(onError)
 }
 </script>
 
 <template>
   <ViewBase :loading="loading" skeleton="CardFormSkeleton">
-    <ConfigPanels
-      v-if="config.panels"
-      v-bind="config"
-      :external-results="externalResults"
-      @apply="onConfigSubmit"
+    <ConfigPanelsComponent
+      v-if="config"
+      v-model="config.form"
+      :panel="config.panel.value"
+      :validations="config.v.value"
+      :routes="config.routes"
+      @apply="config.onPanelApply"
     />
   </ViewBase>
 </template>

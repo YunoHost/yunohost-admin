@@ -1,26 +1,29 @@
 <script setup lang="ts">
 import { useVuelidate } from '@vuelidate/core'
-import { computed, reactive, ref } from 'vue'
+import { computed, reactive, ref, shallowRef } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRoute, useRouter } from 'vue-router'
 
 import api, { objectToParams } from '@/api'
-import { APIBadRequestError, type APIError } from '@/api/errors'
-import ConfigPanels from '@/components/ConfigPanels.vue'
+import { type APIError } from '@/api/errors'
+import ConfigPanelsComponent from '@/components/ConfigPanels.vue'
+import type {
+  ConfigPanelsProps,
+  OnPanelApply,
+} from '@/composables/configPanels'
+import { formatConfigPanels, useConfigPanels } from '@/composables/configPanels'
 import { useAutoModal } from '@/composables/useAutoModal'
 import { useInitialQueries } from '@/composables/useInitialQueries'
 import { isEmptyValue } from '@/helpers/commons'
 import { humanPermissionName } from '@/helpers/filters/human'
 import { helpers, required } from '@/helpers/validators'
-import {
-  formatFormData,
-  formatI18nField,
-  formatYunoHostConfigPanels,
-} from '@/helpers/yunohostArguments'
+import { formatI18nField } from '@/helpers/yunohostArguments'
 import { useStoreGetters } from '@/store/utils'
+import type { CoreConfigPanels } from '@/types/core/options'
 
 const props = defineProps<{
   id: string
+  tabId?: string
 }>()
 
 const { t } = useI18n()
@@ -60,18 +63,8 @@ const { loading, refetch } = useInitialQueries(
 
 const app = ref()
 const purge = ref(false)
-const config_panel_err = ref(null)
-const config = ref({
-  panels: [
-    // Fake integration of operations in config panels
-    {
-      hasApplyButton: false,
-      id: 'operations',
-      name: t('operations'),
-    },
-  ],
-  validations: {},
-})
+const configPanelErr = ref('')
+const config = shallowRef<ConfigPanelsProps | undefined>()
 const doc = ref()
 
 const currentTab = computed(() => {
@@ -215,47 +208,39 @@ async function onQueriesResponse(app_: any) {
     await api
       .get(`apps/${props.id}/config?full`)
       .then((cp) => {
-        const config_ = formatYunoHostConfigPanels(cp)
-        // reinject 'operations' fake config tab
-        config_.panels.unshift(config.panels[0])
-        config.value = config_
+        const config_ = cp as CoreConfigPanels
+        // Fake integration of operations in config panels
+        config_.panels.unshift({
+          id: 'operations',
+          name: t('operations'),
+        })
+        config.value = useConfigPanels(
+          formatConfigPanels(config_),
+          () => props.tabId,
+          onPanelApply,
+        )
       })
       .catch((err: APIError) => {
-        config_panel_err.value = err.message
+        configPanelErr.value = err.message
       })
   }
 }
 
-async function onConfigSubmit({ id, form, action, name }) {
-  const args = await formatFormData(form, {
-    removeEmpty: false,
-    removeNull: true,
-  })
-
+const onPanelApply: OnPanelApply = ({ panelId, data, action }, onError) => {
   api
     .put(
       action
         ? `apps/${props.id}/actions/${action}`
-        : `apps/${props.id}/config/${id}`,
-      isEmptyValue(args) ? {} : { args: objectToParams(args) },
+        : `apps/${props.id}/config/${panelId}`,
+      isEmptyValue(data) ? {} : { args: objectToParams(data) },
       {
         key: `apps.${action ? 'action' : 'update'}_config`,
-        id,
+        id: panelId,
         name: props.id,
       },
     )
     .then(() => refetch())
-    .catch((err: APIError) => {
-      if (!(err instanceof APIBadRequestError)) throw err
-      const panel = config.value.panels.find((panel) => panel.id === id)!
-      if (err.data.name) {
-        Object.assign(externalResults, {
-          forms: { [panel.id]: { [err.data.name]: [err.data.error] } },
-        })
-      } else {
-        panel.serverError = err.message
-      }
-    })
+    .catch(onError)
 }
 
 function changeLabel(permName, data) {
@@ -439,20 +424,23 @@ async function uninstall() {
       <VueShowdown :markdown="app.description" />
     </section>
 
-    <YAlert v-if="config_panel_err" class="mb-4" variant="danger" icon="bug">
+    <YAlert v-if="configPanelErr" class="mb-4" variant="danger" icon="bug">
       <p>{{ $t('app.info.config_panel_error') }}</p>
-      <p>{{ config_panel_err }}</p>
+      <p>{{ configPanelErr }}</p>
       <p>{{ $t('app.info.config_panel_error_please_report') }}</p>
     </YAlert>
 
     <!-- BASIC INFOS -->
-    <ConfigPanels
-      v-bind="config"
-      :external-results="externalResults"
-      @apply="onConfigSubmit"
+    <ConfigPanelsComponent
+      v-if="config"
+      v-model="config.form"
+      :panel="config.panel.value"
+      :validations="config.v.value"
+      :routes="config.routes"
+      @apply="config.onPanelApply"
     >
       <!-- OPERATIONS TAB -->
-      <template v-if="currentTab === 'operations'" #tab-top>
+      <template v-if="currentTab === 'operations'" #default>
         <!-- CHANGE PERMISSIONS LABEL -->
         <BFormGroup
           :label="$t('app_manage_label_and_tiles')"
@@ -584,7 +572,7 @@ async function uninstall() {
           </template>
         </BFormGroup>
       </template>
-    </ConfigPanels>
+    </ConfigPanelsComponent>
 
     <BCard v-if="app && app.doc.admin.length" no-body>
       <BTabs card fill pills>
