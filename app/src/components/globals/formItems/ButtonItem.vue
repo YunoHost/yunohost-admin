@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, toValue } from 'vue'
 
 import type { ButtonItemProps } from '@/types/form'
 
@@ -30,7 +30,7 @@ const icon = computed(() => {
   <BButton
     :id="id"
     :variant="type"
-    :disabled="!enabled"
+    :disabled="!toValue(enabled)"
     class="d-block mb-3"
     @click="emit('action', id)"
   >

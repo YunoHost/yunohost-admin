@@ -1,4 +1,4 @@
-import type { Ref } from 'vue'
+import type { ComputedRef, Ref } from 'vue'
 
 import type { Obj, KeyOfStr, CustomRoute } from '@/types/commons'
 import type {
@@ -56,7 +56,7 @@ export type ConfigSection<MV extends Obj, FFD extends FormFieldDict<MV>> = {
   id: string
   isActionSection: boolean
   name?: string
-  visible: boolean
+  visible: boolean | ComputedRef<boolean>
 }
 
 export type ConfigPanel<

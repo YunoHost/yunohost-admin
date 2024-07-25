@@ -3,6 +3,7 @@ import type {
   ValidationArgs,
   ValidationRuleCollection,
 } from '@vuelidate/core'
+import type { ComputedRef } from 'vue'
 import type { RouteLocationRaw } from 'vue-router'
 
 import { isObjectLiteral } from '@/helpers/commons'
@@ -19,7 +20,7 @@ type BaseDisplayItemProps = {
 
 export type ButtonItemProps = BaseDisplayItemProps & {
   // FIXME compute enabled JSExpression
-  enabled?: boolean
+  enabled?: boolean | ComputedRef<boolean>
   icon?: string
   type?: StateVariant
 }
@@ -239,8 +240,7 @@ type BaseFormField<C extends AnyItemComponents> = {
   label?: string
   props?: ItemComponentToItemProps[C]
   readonly?: boolean
-  // FIXME compute visible JSExpression
-  visible?: boolean
+  visible?: boolean | ComputedRef<boolean>
 }
 
 export type FormField<
@@ -274,7 +274,7 @@ export type FormFieldDisplay<
 > = {
   component: C
   props: ItemComponentToItemProps[C]
-  visible?: boolean
+  visible?: boolean | ComputedRef<boolean>
   hr?: boolean
   readonly?: true
 }

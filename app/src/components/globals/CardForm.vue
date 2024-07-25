@@ -1,6 +1,6 @@
 <script setup lang="ts" generic="MV extends Obj, FFD extends FormFieldDict<MV>">
 import { createReusableTemplate } from '@vueuse/core'
-import { computed, reactive, toValue } from 'vue'
+import { computed, toValue } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 import type { FormValidation } from '@/composables/form'
@@ -85,7 +85,7 @@ const sections = computed(() => {
   if (!sections || !fields) return
   return sections.map((section) => ({
     ...section,
-    fields: reactive(section.fields.map((id) => [id, fields[id]])) as {
+    fields: section.fields.map((id) => [id, fields[id]]) as {
       [k in Extract<keyof FFD, string>]: [k, FFD[k]]
     }[Extract<keyof FFD, string>][],
   }))
@@ -109,7 +109,7 @@ const Fields = createReusableTemplate<{
 <template>
   <Fields.define v-slot="{ fieldsProps }">
     <template v-for="[k, field] in fieldsProps" :key="k">
-      <template v-if="field.visible ?? true">
+      <template v-if="toValue(field.visible) ?? true">
         <slot
           v-if="isWritableComponent<MV[typeof k]>(field)"
           :name="`field:${k}`"
@@ -174,7 +174,7 @@ const Fields = createReusableTemplate<{
             <template v-for="section in sections" :key="section.id">
               <Component
                 :is="section.name ? 'section' : 'div'"
-                v-if="section.visible"
+                v-if="toValue(section.visible)"
                 class="form-section"
               >
                 <BCardTitle v-if="section.name" title-tag="h3">

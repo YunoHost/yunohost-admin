@@ -11,7 +11,7 @@ import { useRouter } from 'vue-router'
 
 import { APIBadRequestError, APIError } from '@/api/errors'
 import { deepSetErrors, useForm, type FormValidation } from '@/composables/form'
-import { asUnreffed, isObjectLiteral } from '@/helpers/commons'
+import { isObjectLiteral } from '@/helpers/commons'
 import * as validators from '@/helpers/validators'
 import { formatForm, formatI18nField } from '@/helpers/yunohostArguments'
 import type { CustomRoute, KeyOfStr, MergeUnion, Obj } from '@/types/commons'
@@ -324,14 +324,14 @@ export function formatConfigPanels<
 function useExpression(
   expression: JSExpression | undefined,
   form: Ref<Obj>,
-): boolean {
+): boolean | ComputedRef<boolean> {
   if (typeof expression === 'boolean') return expression
   if (typeof expression === 'string') {
     // FIXME normalize expression in core? ('', 'false', 'true') and rm next 2 lines
     if (!expression || expression === 'true') return true
     if (expression === 'false') return false
     // FIXME remove asUnreffed and manage ref type?
-    return asUnreffed(useEvaluation(expression, form))
+    return useEvaluation(expression, form)
   }
   return true
 }
