@@ -465,10 +465,7 @@ export function useConfigPanels<NestedMV extends Obj, MV extends Obj<NestedMV>>(
     } else {
       if (!(await v.value.form.$validate())) return
     }
-    const data = await formatFormData(form, {
-      removeEmpty: false,
-      removeNull: true,
-    })
+    const data = await formatForm(form, { removeNullish: true })
 
     onPanelApply({ panelId, data, action }, onErrorFn)
   }

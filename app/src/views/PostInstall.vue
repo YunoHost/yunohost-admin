@@ -14,7 +14,7 @@ import {
   required,
   sameAs,
 } from '@/helpers/validators'
-import { formatFormData } from '@/helpers/yunohostArguments'
+import { formatForm } from '@/helpers/yunohostArguments'
 import type { FieldProps, FormFieldDict } from '@/types/form'
 import LoginView from '@/views/LoginView.vue'
 import { DomainForm } from '@/views/_partials'
@@ -100,15 +100,17 @@ const setUser = onSubmit(async () => {
 })
 
 async function performPostInstall(force = false) {
-  // FIXME update formatFormData to unwrap ref auto
   const { username, fullname, password } = form.value
-  const data = await formatFormData({
-    domain: domain.value,
-    dyndns_recovery_password: dyndns_recovery_password.value,
-    username,
-    fullname,
-    password,
-  })
+  const data = await formatForm(
+    {
+      domain: domain.value,
+      dyndns_recovery_password: dyndns_recovery_password.value,
+      username,
+      fullname,
+      password,
+    },
+    { removeEmpty: true },
+  )
 
   // FIXME does the api will throw an error for bad passwords ?
   api

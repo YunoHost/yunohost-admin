@@ -9,7 +9,7 @@ import { APIBadRequestError, type APIError } from '@/api/errors'
 import { useAutoModal } from '@/composables/useAutoModal'
 import { useInitialQueries } from '@/composables/useInitialQueries'
 import {
-  formatFormData,
+  formatForm,
   formatI18nField,
   formatYunoHostArguments,
 } from '@/helpers/yunohostArguments'
@@ -174,11 +174,7 @@ async function performInstall() {
     if (!confirmed) return
   }
 
-  const { data: args, label } = await formatFormData(form, {
-    extract: ['label'],
-    removeEmpty: false,
-    removeNull: true,
-  })
+  const { label, ...args } = await formatForm(form, { removeNullish: true })
   const data = {
     app: props.id,
     label,

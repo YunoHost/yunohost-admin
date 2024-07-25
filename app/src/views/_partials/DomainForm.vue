@@ -11,7 +11,7 @@ import {
   required,
   sameAs,
 } from '@/helpers/validators'
-import { formatFormData } from '@/helpers/yunohostArguments'
+import { formatForm } from '@/helpers/yunohostArguments'
 import { useStoreGetters } from '@/store/utils'
 import type { AdressModelValue, FieldProps, FormFieldDict } from '@/types/form'
 
@@ -31,7 +31,7 @@ const props = withDefaults(
   },
 )
 const emit = defineEmits<{
-  submit: [data: { domain: string; dyndns_recovery_password: string }]
+  submit: [data: Partial<{ domain: string; dyndns_recovery_password: string }>]
 }>()
 
 const { t } = useI18n()
@@ -169,11 +169,14 @@ const onDomainAdd = onSubmit(async () => {
   const domainType = selected.value
   if (!domainType) return
 
-  const data = await formatFormData({
-    domain: form.value[domainType],
-    dyndns_recovery_password:
-      domainType === 'dynDomain' ? form.value.dynDomainPassword : '',
-  })
+  const data = await formatForm(
+    {
+      domain: form.value[domainType],
+      dyndns_recovery_password:
+        domainType === 'dynDomain' ? form.value.dynDomainPassword : '',
+    },
+    { removeEmpty: true },
+  )
   emit('submit', data)
 })
 </script>

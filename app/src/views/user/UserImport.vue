@@ -8,7 +8,7 @@ import api from '@/api'
 import { useForm } from '@/composables/form'
 import { useAutoModal } from '@/composables/useAutoModal'
 import { required } from '@/helpers/validators'
-import { formatFormData } from '@/helpers/yunohostArguments'
+import { formatForm } from '@/helpers/yunohostArguments'
 import type { FieldProps, FileModelValue, FormFieldDict } from '@/types/form'
 
 const { t } = useI18n()
@@ -68,7 +68,7 @@ const onUserImport = onSubmit(async (onError) => {
   const requestArgs = { ...form.value } as Partial<Form>
   if (!requestArgs.delete) delete requestArgs.delete
   if (!requestArgs.update) delete requestArgs.update
-  const data = await formatFormData(requestArgs)
+  const data = await formatForm(requestArgs)
   api
     .post('users/import', data, null, { asFormData: true })
     .then(() => {

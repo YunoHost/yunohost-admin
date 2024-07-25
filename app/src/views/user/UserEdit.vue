@@ -18,11 +18,7 @@ import {
   required,
   sameAs,
 } from '@/helpers/validators'
-import {
-  formatAdress,
-  formatFormData,
-  sizeToM,
-} from '@/helpers/yunohostArguments'
+import { formatAdress, formatForm, sizeToM } from '@/helpers/yunohostArguments'
 import { useStoreGetters } from '@/store/utils'
 import type { AdressModelValue, FieldProps, FormFieldDict } from '@/types/form'
 
@@ -172,9 +168,8 @@ function onQueriesResponse(user_: any) {
 }
 
 const onUserEdit = onSubmit(async (onError, serverErrors) => {
-  const { data: formData } = await formatFormData(form.value, {
-    flatten: true,
-    extract: ['username'],
+  const { username: _, ...formData } = await formatForm(form, {
+    removeEmpty: true,
   })
   // FIXME not sure computed can be executed?
   const user_ = user.value(props.name)

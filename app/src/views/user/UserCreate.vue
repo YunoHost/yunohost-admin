@@ -15,7 +15,7 @@ import {
   sameAs,
   unique,
 } from '@/helpers/validators'
-import { formatFormData } from '@/helpers/yunohostArguments'
+import { formatForm } from '@/helpers/yunohostArguments'
 import { useStoreGetters } from '@/store/utils'
 import type { FieldProps, FormFieldDict } from '@/types/form'
 
@@ -115,7 +115,7 @@ function onQueriesResponse() {
 }
 
 const onUserCreate = onSubmit(async (onError) => {
-  const data = await formatFormData(form.value, { flatten: true })
+  const data = await formatForm(form)
   api
     .post({ uri: 'users' }, data, {
       key: 'users.create',
