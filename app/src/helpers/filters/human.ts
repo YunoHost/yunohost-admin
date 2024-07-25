@@ -1,11 +1,12 @@
-export function humanSize(bytes) {
+export function humanSize(bytes: string | number) {
+  const b = typeof bytes === 'string' ? parseFloat(bytes) : bytes
   const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB']
   if (bytes === 0) return 'n/a'
-  const i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)))
-  return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i]
+  const i = Math.floor(Math.log(b) / Math.log(1024))
+  return (b / Math.pow(1024, i)).toFixed(2) + ' ' + sizes[i]
 }
 
-export function humanPermissionName(text) {
+export function humanPermissionName(text: string) {
   return text
     .split('.')[1]
     .replace('_', ' ')
