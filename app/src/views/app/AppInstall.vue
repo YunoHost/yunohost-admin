@@ -1,18 +1,17 @@
 <script setup lang="ts">
-import { useVuelidate } from '@vuelidate/core'
-import { computed, reactive, ref } from 'vue'
+import { ref, shallowRef, type Ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRoute, useRouter } from 'vue-router'
 
 import api, { objectToParams } from '@/api'
-import { APIBadRequestError, type APIError } from '@/api/errors'
+import { type APIError } from '@/api/errors'
+import { formatOptions } from '@/composables/configPanels'
+import { useForm, type FormValidation } from '@/composables/form'
 import { useAutoModal } from '@/composables/useAutoModal'
 import { useInitialQueries } from '@/composables/useInitialQueries'
-import {
-  formatForm,
-  formatI18nField,
-  formatYunoHostArguments,
-} from '@/helpers/yunohostArguments'
+import { formatForm, formatI18nField } from '@/helpers/yunohostArguments'
+import type { Obj } from '@/types/commons'
+import type { FormFieldDict } from '@/types/form'
 
 const props = defineProps<{
   id: string
@@ -23,11 +22,19 @@ const route = useRoute()
 const router = useRouter()
 const modalConfirm = useAutoModal()
 
-const form = reactive({})
-const validations = ref({})
-const rules = computed(() => validations)
-const externalResults = reactive({})
-const v$ = useVuelidate(rules, form, { $externalResults: externalResults })
+// TODO: handling async form is a mess, make a composable or something?
+const formData = shallowRef<
+  | {
+      form: Ref<Obj>
+      fields: FormFieldDict<Obj>
+      v: Ref<FormValidation<Obj>>
+      onSubmit: (
+        fn: (onError: (err: APIError) => void) => void,
+      ) => (e: SubmitEvent) => void
+    }
+  | undefined
+>()
+
 const { loading } = useInitialQueries(
   [
     ['GET', 'apps/catalog?full&with_categories&with_antifeatures'],
@@ -39,8 +46,6 @@ const { loading } = useInitialQueries(
 // FIXME
 const app = ref(undefined)
 const name = ref(undefined)
-const fields = ref(undefined)
-const serverError = ref('')
 const force = ref(false)
 
 function appLinksIcons(linkType) {
@@ -140,22 +145,19 @@ function onQueriesResponse(catalog: any, _app: any) {
 
   // FIXME yunohost should add the label field by default
   _app.install.unshift({
+    type: 'string',
+    id: 'label',
     ask: t('label_for_manifestname', { name }),
     default: name,
-    name: 'label',
     help: t('label_for_manifestname_help'),
+    optional: false,
   })
 
-  const {
-    form: form_,
-    fields,
-    validations,
-  } = formatYunoHostArguments(_app.install)
+  const { form, fields } = formatOptions(_app.install)
+  const { v, onSubmit } = useForm(form, fields)
+  formData.value = { form, fields, v, onSubmit }
 
   app.value = app_
-  fieds.value = fields
-  Object.assign(form, form_)
-  validations.value = validations
 }
 
 function formatAppNotifs(notifs) {
@@ -164,11 +166,13 @@ function formatAppNotifs(notifs) {
   }, '')
 }
 
-async function performInstall() {
-  if ('path' in form && form.path === '/') {
-    const confirmed = await this.modalConfirm(
+async function performInstall(onError: (err: APIError) => void) {
+  const { form } = formData.value!
+
+  if ('path' in form.value && form.value.path === '/') {
+    const confirmed = await modalConfirm(
       t('confirm_install_domain_root', {
-        domain: form.domain,
+        domain: form.value.domain,
       }),
     )
     if (!confirmed) return
@@ -200,12 +204,7 @@ async function performInstall() {
       }
       router.push({ name: 'app-list' })
     })
-    .catch((err: APIError) => {
-      if (!(err instanceof APIBadRequestError)) throw err
-      if (err.data.name) {
-        externalResults[err.data.name] = err.message
-      } else serverError.value = err.message
-    })
+    .catch(onError)
 }
 </script>
 
@@ -382,25 +381,15 @@ async function performInstall() {
 
       <!-- INSTALL FORM -->
       <CardForm
-        v-if="app.canInstall || force"
+        v-if="formData && (app.canInstall || force)"
+        v-model="formData.form.value"
+        :fields="formData.fields"
         :title="$t('app_install_parameters')"
         icon="cog"
         :submit-text="$t('install')"
-        :validation="v$"
-        :server-error="serverError"
-        @submit.prevent="performInstall"
-      >
-        <template v-for="(field, fname) in fields">
-          <Component
-            v-if="field.visible"
-            v-bind="field.props"
-            :is="field.is"
-            v-model="form[fname]"
-            :validation="v$.form[fname]"
-            :key="fname"
-          />
-        </template>
-      </CardForm>
+        :validations="formData.v.value"
+        @submit="formData.onSubmit(performInstall)($event)"
+      />
     </template>
 
     <!-- In case of a custom url with no manifest found -->
