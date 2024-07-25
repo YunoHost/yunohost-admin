@@ -12,12 +12,14 @@ import type { AdressModelValue, FileModelValue } from '@/types/form'
 import { isAdressModelValue, isFileModelValue } from '@/types/form'
 
 export const DEFAULT_STATUS_ICON = {
-  [null]: null,
-  danger: 'times',
-  error: 'times',
-  info: 'info',
+  primary: null,
+  secondary: null,
   success: 'check',
+  danger: 'times',
   warning: 'warning',
+  info: 'info',
+  light: null,
+  dark: null,
 }
 
 // FORMAT FROM CORE

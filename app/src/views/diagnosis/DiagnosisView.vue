@@ -32,7 +32,6 @@ function onQueriesResponse(_: any, reportsData: any) {
 
     for (const item of report.items) {
       const status = (item.variant = item.status.toLowerCase())
-      item.icon = DEFAULT_STATUS_ICON[status]
       item.issue = false
 
       if (item.ignored) {
@@ -50,6 +49,9 @@ function onQueriesResponse(_: any, reportsData: any) {
           report.errors++
         }
       }
+
+      item.icon =
+        DEFAULT_STATUS_ICON[item.variant as 'success' | 'warning' | 'danger']
     }
 
     report.noIssues = report.warnings + report.errors === 0
