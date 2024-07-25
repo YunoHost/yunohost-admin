@@ -1,13 +1,15 @@
 <script setup lang="ts">
-import { useVuelidate } from '@vuelidate/core'
-import { reactive, ref } from 'vue'
+import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 import api from '@/api'
 import { APIBadRequestError, type APIError } from '@/api/errors'
+import { useForm } from '@/composables/form'
 import { useAutoModal } from '@/composables/useAutoModal'
-import { between, integer, required } from '@/helpers/validators'
 import { useInitialQueries } from '@/composables/useInitialQueries'
+import { toEntries } from '@/helpers/commons'
+import { between, integer, required } from '@/helpers/validators'
+import type { FieldProps, FormFieldDict } from '@/types/form'
 
 const { t } = useI18n()
 const modalConfirm = useAutoModal()
@@ -15,43 +17,79 @@ const { loading, refetch } = useInitialQueries([['GET', '/firewall?raw']], {
   onQueriesResponse,
 })
 
-const fields = [
-  { key: 'port', label: t('port') },
-  { key: 'ipv4', label: t('ipv4') },
-  { key: 'ipv6', label: t('ipv6') },
-  { key: 'uPnP', label: t('upnp') },
-]
-const form = reactive({
+type Form = {
+  action: 'allow' | 'disallow'
+  port: string | number
+  connection: 'ipv4' | 'ipv6'
+  protocol: 'TCP' | 'UDP' | 'Both'
+}
+const form = ref<Form>({
   action: 'allow',
-  port: undefined,
+  port: '',
   connection: 'ipv4',
   protocol: 'TCP',
 })
-const v$ = useVuelidate(
-  {
-    port: { number: required, integer, between: between(0, 65535) },
-  },
-  form,
-)
-const serverError = ref('')
+const fields = {
+  action: {
+    asInputGroup: true,
+    component: 'SelectItem',
+    label: t('action'),
+    rules: { required },
+    props: {
+      id: 'input-action',
+      choices: [
+        { value: 'allow', text: t('open') },
+        { value: 'disallow', text: t('close') },
+      ],
+    },
+  } satisfies FieldProps<'SelectItem', Form['port']>,
+
+  port: {
+    asInputGroup: true,
+    component: 'InputItem',
+    label: t('port'),
+    rules: { number: required, integer, between: between(0, 65535) },
+    props: { id: 'input-port', placeholder: '0', type: 'number' },
+  } satisfies FieldProps<'InputItem', Form['action']>,
+
+  connection: {
+    asInputGroup: true,
+    component: 'SelectItem',
+    label: t('connection'),
+    rules: { required },
+    props: {
+      id: 'input-connection',
+      choices: [
+        { value: 'ipv4', text: t('ipv4') },
+        { value: 'ipv6', text: t('ipv6') },
+      ],
+    },
+  } satisfies FieldProps<'SelectItem', Form['connection']>,
+
+  protocol: {
+    asInputGroup: true,
+    component: 'SelectItem',
+    label: t('protocol'),
+    rules: { required },
+    props: {
+      id: 'input-protocol',
+      choices: [
+        { value: 'TCP', text: t('tcp') },
+        { value: 'UDP', text: t('udp') },
+        { value: 'Both', text: t('both') },
+      ],
+    },
+  } satisfies FieldProps<'SelectItem', Form['protocol']>,
+} satisfies FormFieldDict<Form>
+
+const { v } = useForm(form, fields)
 
 // Ports tables data
 const protocols = ref()
-
-// Ports form data
-const actionChoices = [
-  { value: 'allow', text: t('open') },
-  { value: 'disallow', text: t('close') },
-]
-const connectionChoices = [
-  { value: 'ipv4', text: t('ipv4') },
-  { value: 'ipv6', text: t('ipv6') },
-]
-const protocolChoices = [
-  { value: 'TCP', text: t('tcp') },
-  { value: 'UDP', text: t('udp') },
-  { value: 'Both', text: t('both') },
-]
+const protocolsFields = toEntries(fields).map(([key, { label }]) => ({
+  key,
+  label,
+}))
 
 // uPnP
 const upnpEnabled = ref()
@@ -164,7 +202,13 @@ function onFormPortToggling() {
       <div v-for="(items, protocol) in protocols" :key="protocol">
         <h5>{{ $t(protocol) }}</h5>
 
-        <BTable :fields="fields" :items="items" small striped responsive>
+        <BTable
+          :fields="protocolsFields"
+          :items="items"
+          small
+          striped
+          responsive
+        >
           <!-- PORT CELL -->
           <template #cell(port)="data">
             {{ data.value }}
@@ -205,45 +249,15 @@ function onFormPortToggling() {
 
     <!-- OPERATIONS -->
     <CardForm
-      :title="$t('operations')"
+      v-model="form"
+      :fields="fields"
       icon="cogs"
-      :validation="v$"
-      :server-error="serverError"
-      @submit.prevent="onFormPortToggling"
       inline
+      :title="$t('operations')"
+      :validations="v"
       form-classes="d-flex flex-column flex-lg-row gap-3 justify-content-between align-items-start"
-    >
-      <BInputGroup :prepend="$t('action')">
-        <BFormSelect v-model="form.action" :options="actionChoices" />
-      </BInputGroup>
-
-      <FormField :validation="v$.form.port" class="mb-0">
-        <BInputGroup :prepend="$t('port')">
-          <InputItem
-            id="input-port"
-            placeholder="0"
-            type="number"
-            v-model="form.port"
-          />
-        </BInputGroup>
-      </FormField>
-
-      <BInputGroup :prepend="$t('connection')">
-        <BFormSelect
-          v-model="form.connection"
-          :options="connectionChoices"
-          id="input-connection"
-        />
-      </BInputGroup>
-
-      <BInputGroup :prepend="$t('protocol')">
-        <BFormSelect
-          v-model="form.protocol"
-          :options="protocolChoices"
-          id="input-protocol"
-        />
-      </BInputGroup>
-    </CardForm>
+      @submit.prevent="onFormPortToggling"
+    />
 
     <!-- UPnP -->
     <YCard
