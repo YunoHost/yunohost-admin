@@ -1,3 +1,13 @@
+yunohost-admin (12.0.1) testing; urgency=low
+
+  - Reflect change in the core about pydantic/config panels (06bb22f4, 60934cf7)
+  - No need anymore to the server after yunohost upgrades because the session should still be valid (1d892350)
+  - i18n: Translations updated for Basque, Chinese (Simplified), Danish, Dutch, French, Galician, German, Indonesian, Italian, Polish, Russian, Slovak, Spanish
+
+  Thanks to all contributors <3 ! (Andreas Gammelgaard Damsbo, axolotle, Boudewijn, bruno van den bosch, cjdw, Émile, Ivan Davydov, José M, Jose Riha, Kuba Bazan, Øjvind Fritjof Arnfred, OniriCorpe, Poesty Li, rosbeef andino, Tagadda, Titus PiJean, Tommi, xabirequejo)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Fri, 26 Jul 2024 22:30:32 +0200
+
 yunohost (12.0.0) unstable; urgency=low
 
   - Tmp changelog to prepare Bookworm
