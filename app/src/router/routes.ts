@@ -1,18 +1,14 @@
-/**
- * routes module.
- * @module router/routes
- */
-
 // Simple views are normally imported and will be included into the main webpack entry.
-// Others will be chunked by webpack so they can be lazy loaded.
-// Webpack chunk syntax is:
+// Others will be chunked so they can be lazy loaded:
 // `() => import('@/views/:ViewComponent.vue')`
+
+import type { RouteRecordRaw } from 'vue-router'
 
 import HomeView from '@/views/HomeView.vue'
 import LoginView from '@/views/LoginView.vue'
 import ToolList from '@/views/tool/ToolList.vue'
 
-const routes = [
+const routes: RouteRecordRaw[] = [
   {
     name: 'home',
     path: '/',
