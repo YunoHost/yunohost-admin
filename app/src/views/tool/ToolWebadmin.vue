@@ -1,82 +1,80 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, reactive, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 
-import { asUnreffed } from '@/helpers/commons'
-import { useMapStoreGetSet, useStoreGetters } from '@/store/utils'
+import { useSettings } from '@/composables/useSettings'
+import { getKeys, pick } from '@/helpers/commons'
 import type { FormField } from '@/types/form'
 
 const { t } = useI18n()
-const { availableLocales } = useStoreGetters()
+// Computed `t` to get on the fly lang change in this view
+const ct = (key: string) => computed(() => t(key))
 
-const form = ref({
-  ...useMapStoreGetSet<Fields>({
-    commit: ['cache', 'transitions', 'experimental'],
-    dispatch: ['locale', 'fallbackLocale', 'dark'],
-  }),
-})
+const settings = useSettings()
 
-type Fields = {
-  locale: FormField<'SelectItem', string>
-  fallbackLocale: FormField<'SelectItem', string>
-  cache: FormField<'CheckboxItem', boolean>
-  transitions: FormField<'CheckboxItem', boolean>
-  dark: FormField<'CheckboxItem', boolean>
-  experimental: FormField<'CheckboxItem', boolean>
-}
-const fields: Fields = {
-  locale: {
+const fields = {
+  locale: reactive({
     component: 'SelectItem',
-    label: t('tools_webadmin.language'),
-    props: { id: 'locale', choices: asUnreffed(availableLocales) },
-  },
+    label: ct('tools_webadmin.language'),
+    props: { id: 'locale', choices: settings.availableLocales },
+  }) as FormField<'SelectItem', string>,
 
-  fallbackLocale: {
+  fallbackLocale: reactive({
     component: 'SelectItem',
-    label: t('tools_webadmin.fallback_language'),
-    description: t('tools_webadmin.fallback_language_description'),
-    props: { id: 'fallback-locale', choices: asUnreffed(availableLocales) },
-  },
+    label: ct('tools_webadmin.fallback_language'),
+    description: ct('tools_webadmin.fallback_language_description'),
+    props: {
+      id: 'fallback-locale',
+      choices: settings.availableLocales,
+    },
+  }) as FormField<'SelectItem', string>,
 
-  cache: {
+  cache: reactive({
     component: 'CheckboxItem',
     id: 'cache',
-    label: t('tools_webadmin.cache'),
-    description: t('tools_webadmin.cache_description'),
+    label: ct('tools_webadmin.cache'),
+    description: ct('tools_webadmin.cache_description'),
     props: { labels: { true: 'enabled', false: 'disabled' } },
-  },
+  }) as FormField<'CheckboxItem', boolean>,
 
-  transitions: {
+  transitions: reactive({
     component: 'CheckboxItem',
     id: 'transitions',
-    label: t('tools_webadmin.transitions'),
+    label: ct('tools_webadmin.transitions'),
     props: { labels: { true: 'enabled', false: 'disabled' } },
-  },
+  }) as FormField<'CheckboxItem', boolean>,
 
-  dark: {
+  dark: reactive({
     component: 'CheckboxItem',
     id: 'theme',
-    label: t('tools_webadmin.theme'),
+    label: ct('tools_webadmin.theme'),
     props: { labels: { true: '🌙', false: '☀️' } },
-  },
+  }) as FormField<'CheckboxItem', boolean>,
 
-  experimental: {
+  experimental: reactive({
     component: 'CheckboxItem',
     id: 'experimental',
-    label: t('tools_webadmin.experimental'),
-    description: t('tools_webadmin.experimental_description'),
+    label: ct('tools_webadmin.experimental'),
+    description: ct('tools_webadmin.experimental_description'),
     // Available in dev mode only
     visible: import.meta.env.DEV,
     props: { labels: { true: 'enabled', false: 'disabled' } },
-  },
+  }) as FormField<'CheckboxItem', boolean>,
 }
+const form = ref(pick(settings, getKeys(fields)))
+
+watch(form, (form) => {
+  getKeys(form).forEach((k) => {
+    settings[k].value = form[k]
+  })
+})
 </script>
 
 <template>
   <CardForm
     v-model="form"
     :fields="fields"
-    :title="$t('tools_webadmin_settings')"
+    :title="t('tools_webadmin_settings')"
     icon="cog"
     no-footer
     hr
