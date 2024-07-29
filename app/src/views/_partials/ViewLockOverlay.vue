@@ -3,6 +3,7 @@ import { computed } from 'vue'
 
 import QueryHeader from '@/components/QueryHeader.vue'
 import { useStoreGetters } from '@/store/utils'
+import { useSettings } from '@/composables/useSettings'
 import {
   ErrorDisplay,
   ReconnectingDisplay,
@@ -10,7 +11,8 @@ import {
   WarningDisplay,
 } from '@/views/_partials'
 
-const { waiting, reconnecting, error, currentRequest, dark } = useStoreGetters()
+const { dark } = useSettings()
+const { waiting, reconnecting, error, currentRequest } = useStoreGetters()
 const component = computed(() => {
   const request = currentRequest.value
   // FIXME should we pass refs or unwrap refs as props?

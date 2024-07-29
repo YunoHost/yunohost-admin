@@ -5,7 +5,6 @@ import api from '@/api'
 import { useInitialQueries } from '@/composables/useInitialQueries'
 import { distanceToNow } from '@/helpers/filters/date'
 import { DEFAULT_STATUS_ICON } from '@/helpers/yunohostArguments'
-import { useStoreGetters } from '@/store/utils'
 
 const { loading, refetch } = useInitialQueries(
   [
@@ -14,7 +13,6 @@ const { loading, refetch } = useInitialQueries(
   ],
   { wait: true, onQueriesResponse },
 )
-const { dark } = useStoreGetters()
 
 const reports = ref()
 

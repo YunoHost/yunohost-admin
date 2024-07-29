@@ -7,7 +7,6 @@ import api from '@/api'
 import CardCollapse from '@/components/CardCollapse.vue'
 import { useAutoModal } from '@/composables/useAutoModal'
 import { useInitialQueries } from '@/composables/useInitialQueries'
-import { useStoreGetters } from '@/store/utils'
 
 const { t } = useI18n()
 const store = useStore()
@@ -17,7 +16,6 @@ const { loading } = useInitialQueries([['PUT', 'update/all', {}, 'update']], {
   onQueriesResponse,
 })
 
-const { dark } = useStoreGetters()
 const system = ref()
 const apps = ref()
 const importantYunohostUpgrade = ref()

@@ -4,18 +4,12 @@ import { useStore } from 'vuex'
 
 import { useStoreGetters } from '@/store/utils'
 import { HistoryConsole, ViewLockOverlay } from '@/views/_partials'
+import { useSettings } from '@/composables/useSettings'
 
 const store = useStore()
-const {
-  connected,
-  yunohost,
-  routerKey,
-  transitions,
-  transitionName,
-  waiting,
-  dark,
-  ssoLink,
-} = useStoreGetters()
+
+const { connected, yunohost, routerKey, waiting, ssoLink } = useStoreGetters()
+const { spinner, dark, transitions, transitionName } = useSettings()
 
 async function logout() {
   store.dispatch('LOGOUT')
@@ -56,7 +50,7 @@ onMounted(() => {
   document.addEventListener('keydown', ({ key }) => {
     if (key === konamiCode[konamistep++]) {
       if (konamistep === konamiCode.length) {
-        store.commit('SET_SPINNER', 'nyancat')
+        spinner.value = 'nyancat'
         konamistep = 0
       }
     } else {
@@ -67,18 +61,13 @@ onMounted(() => {
   // April fools easter egg ;)
   const today = new Date()
   if (today.getDate() === 1 && today.getMonth() + 1 === 4) {
-    store.commit('SET_SPINNER', 'magikarp')
+    spinner.value = 'magikarp'
   }
 
   // Halloween easter egg ;)
   if (today.getDate() === 31 && today.getMonth() + 1 === 10) {
-    store.commit('SET_SPINNER', 'spookycat')
+    spinner.value = 'spookycat'
   }
-  // updates the data-bs-theme attribute
-  document.documentElement.setAttribute(
-    'data-bs-theme',
-    dark.value ? 'dark' : 'light',
-  )
 })
 </script>
 

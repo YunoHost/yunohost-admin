@@ -1,4 +1,6 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
+
+import { useSettings } from '@/composables/useSettings'
 import routes from './routes'
 import store from '@/store'
 
@@ -13,7 +15,8 @@ const router = createRouter({
     // if animations are enabled, we need to delay a bit the returned value of the saved
     // scroll state because the component probably hasn't updated the window height yet.
     // Note: this will only work with routes that use stored data or that has static content
-    if (store.getters.transitions && savedPosition) {
+    const { transitions } = useSettings()
+    if (transitions.value && savedPosition) {
       return new Promise((resolve) => {
         setTimeout(() => resolve(savedPosition), 0)
       })
@@ -24,8 +27,9 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  if (store.getters.transitions && from.name !== null) {
-    store.dispatch('UPDATE_TRANSITION_NAME', { to, from })
+  const { transitions, updateTransitionName } = useSettings()
+  if (transitions.value && from.name !== null) {
+    updateTransitionName({ to, from })
   }
 
   if (store.getters.error) {
