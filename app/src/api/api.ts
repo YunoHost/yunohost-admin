@@ -3,9 +3,10 @@
  * @module api
  */
 
+import { useSettings } from '@/composables/useSettings'
 import store from '@/store'
-import { openWebSocket, getResponseData, getError } from './handlers'
 import type { Obj } from '@/types/commons'
+import { getError, getResponseData, openWebSocket } from './handlers'
 
 export type RequestMethod = 'GET' | 'POST' | 'PUT' | 'DELETE'
 
@@ -90,7 +91,8 @@ export function objectToParams(
     }
   }
   if (addLocale) {
-    urlParams.append('locale', store.getters.locale)
+    const { locale } = useSettings()
+    urlParams.append('locale', locale.value)
   }
   return urlParams
 }
@@ -132,6 +134,7 @@ export default {
       asFormData = true,
     }: APIQueryOptions = {},
   ): Promise<Obj | string> {
+    const { locale } = useSettings()
     // `await` because Vuex actions returns promises by default.
     const request: APIRequest | APIRequestAction = await store.dispatch(
       'INIT_REQUEST',
@@ -151,7 +154,7 @@ export default {
 
     let options = this.options
     if (method === 'GET') {
-      uri += `${uri.includes('?') ? '&' : '?'}locale=${store.getters.locale}`
+      uri += `${uri.includes('?') ? '&' : '?'}locale=${locale.value}`
     } else {
       options = {
         ...options,

@@ -2,13 +2,14 @@ import { createApp, type Component } from 'vue'
 import App from './App.vue'
 import { createBootstrap } from 'bootstrap-vue-next'
 import { VueShowdownPlugin } from 'vue-showdown'
+import { watchOnce } from '@vueuse/core'
 
+import { useSettings } from './composables/useSettings'
 import store from './store'
 import router from './router'
 import i18n from './i18n'
 
 import { registerGlobalErrorHandlers } from './api'
-import { initDefaultLocales } from './i18n/helpers'
 
 import '@/scss/main.scss'
 
@@ -47,7 +48,5 @@ Object.values(globalComponentsModules).forEach(
 
 registerGlobalErrorHandlers()
 
-// Load default locales translations files and setup store data
-initDefaultLocales().then(() => {
-  app.mount('#app')
-})
+// Load default locales translations files then mount the app
+watchOnce(useSettings().localesLoaded, () => app.mount('#app'))

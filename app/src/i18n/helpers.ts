@@ -1,5 +1,4 @@
 import i18n from '@/i18n'
-import store from '@/store'
 import { nextTick } from 'vue'
 
 import supportedLocales, {
@@ -13,11 +12,7 @@ export let dateFnsLocale: any
  * Returns the first two supported locales that can be found in the `localStorage` or
  * in the user browser settings.
  */
-function getDefaultLocales() {
-  const locale: SupportedLocales | null = store.getters.locale
-  const fallbackLocale: SupportedLocales | null = store.getters.fallbackLocale
-  if (locale && fallbackLocale) return [locale, fallbackLocale]
-
+export function getDefaultLocales() {
   const navigatorLocales = navigator.languages || [navigator.language]
   const defaultLocales: SupportedLocales[] = []
 
@@ -48,13 +43,7 @@ export async function setI18nLocale(locale: SupportedLocales) {
     loadLocaleMessages('en')
   }
 
-  if (i18n.mode === 'legacy') {
-    // @ts-ignore
-    i18n.global.locale = locale
-  } else {
-    i18n.global.locale.value = locale
-  }
-
+  i18n.global.locale.value = locale
   document.querySelector('html')!.setAttribute('lang', locale)
   // FIXME can't currently change document direction easily since bootstrap still doesn't handle rtl.
   // document.dir = locale === 'ar' ? 'rtl' : 'ltr'
@@ -64,19 +53,13 @@ export async function setI18nFallbackLocale(locale: SupportedLocales) {
   if (!i18n.global.availableLocales.includes(locale)) {
     await loadLocaleMessages(locale)
   }
-
-  if (i18n.mode === 'legacy') {
-    // @ts-ignore
-    i18n.global.fallbackLocale = [locale, 'en']
-  } else {
-    i18n.global.fallbackLocale.value = [locale, 'en']
-  }
+  i18n.global.fallbackLocale.value = [locale, 'en']
 }
 
 /**
  * Loads a translation file and adds its content to the i18n plugin `messages`.
  *
- * @return {Promise<string>} Promise that resolve the given locale string
+ * @return Promise that resolve the given locale string
  */
 export async function loadLocaleMessages(locale: SupportedLocales) {
   // load locale messages with dynamic import
@@ -96,15 +79,4 @@ async function loadDateFnsLocale(locale: SupportedLocales) {
   dateFnsLocale = (
     await import(`../../node_modules/date-fns/locale/${dateFnsLocaleName}.mjs`)
   ).default
-}
-
-/**
- * Initialize all locales
- */
-export async function initDefaultLocales() {
-  // Get defined locales from `localStorage` or `navigator`
-  const [locale, fallbackLocale] = getDefaultLocales()
-
-  await store.dispatch('UPDATE_LOCALE', locale)
-  await store.dispatch('UPDATE_FALLBACKLOCALE', fallbackLocale || 'en')
 }

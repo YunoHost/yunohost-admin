@@ -6,10 +6,10 @@ import {
   isObjectLiteral,
   toEntries,
 } from '@/helpers/commons'
-import store from '@/store'
 import type { ArrInnerType, Obj, Translation } from '@/types/commons'
 import type { AdressModelValue, FileModelValue } from '@/types/form'
 import { isAdressModelValue, isFileModelValue } from '@/types/form'
+import { useSettings } from '@/composables/useSettings'
 
 export const DEFAULT_STATUS_ICON = {
   primary: null,
@@ -34,11 +34,8 @@ export const DEFAULT_STATUS_ICON = {
 export function formatI18nField(field?: Translation): string {
   if (!field) return ''
   if (typeof field === 'string') return field
-  const { locale, fallbackLocale } = store.state as {
-    locale: string
-    fallbackLocale: string
-  }
-  return field[locale] || field[fallbackLocale] || field.en || ''
+  const { locale, fallbackLocale } = useSettings()
+  return field[locale.value] || field[fallbackLocale.value] || field.en || ''
 }
 
 /**
