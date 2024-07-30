@@ -272,12 +272,10 @@ export function formatYunoHostArgument(arg) {
   ]
 
   // Default type management if no one is filled
-  if (arg.type === undefined) {
-    if (arg.choices && arg.choices.length) {
+  if (arg.type !== 'tags' && arg.choices && arg.choices.length) {
       arg.type = 'select'
-    } else {
+  } else if (arg.type === undefined) {
       arg.type = 'string'
-    }
   }
 
   // Search the component bind to the type

@@ -160,7 +160,8 @@
         "cert": {
             "types": {
                 "letsencrypt": "Let's Encrypt",
-                "other": "Iné/Neznáme"
+                "other": "Iné/Neznáme",
+                "selfsigned": "Vlastnoručne podpísaný (self-signed)"
             },
             "valid_for": "platný počas {days}"
         },
@@ -173,7 +174,11 @@
         "types": {
             "main_domain": "Hlavná doména"
         },
-        "toggle_subdomains": "Prepnúť subdomény"
+        "toggle_subdomains": "Prepnúť subdomény",
+        "add": {
+            "from_registrar": "Chcem pridať doménu, ktorú vlastník alebo subdoménu",
+            "from_yunohost": "Nevlastním doménu, chcem zaregistrovať/používať voľnú doménu DynDNS poskytovanú projektom YunoHost"
+        }
     },
     "domain_add": "Pridať doménu",
     "domain_add_dyndns_forbidden": "Svoju doménu ste už na DynDNS zaregistrovali. V diskusnom fóre môžete požiadať o odobratie Vašej súčasnej DynDNS domény v <a href='//forum.yunohost.org/t/nohost-domain-recovery-suppression-de-domaine-en-nohost-me-noho-st-et-ynh-fr/442'>samostatnom príspevku</a>.",
@@ -531,7 +536,8 @@
     "words": {
         "browse": "Prehliadať",
         "collapse": "Zabaliť",
-        "default": "Predvolené"
+        "default": "Predvolené",
+        "none": "Žiadne"
     },
     "yes": "Áno",
     "yunohost_admin": "Správca YunoHost",

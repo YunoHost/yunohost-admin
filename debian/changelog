@@ -14,6 +14,40 @@ yunohost (12.0.0) unstable; urgency=low
 
  -- Tagada <tagada@cant.at>  Fri, 12 May 2023 16:20:28 +0000
  
+yunohost-admin (11.2.7) stable; urgency=low
+
+  - Disable sending referer when clicking on links to external websites ([#573](http://github.com/YunoHost/yunohost-admin/pull/573))
+  - i18n: Translations updated for Basque, Danish, Indonesian, Polish, Russian, Slovak
+
+  Thanks to all contributors <3 ! (Andreas Gammelgaard Damsbo, cjdw, Ivan Davydov, Jose Riha, Kuba Bazan, OniriCorpe, xabirequejo)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Mon, 15 Jul 2024 16:34:10 +0200
+
+yunohost-admin (11.2.6) stable; urgency=low
+
+  - fix: config panel "tags" turned into "select" (5a805463)
+  - [i18n] Translations updated for Danish, Dutch, French
+
+  Thanks to all contributors <3 ! (Alexandre Aubin, Andreas Gammelgaard Damsbo, axolotle, bruno van den bosch, Øjvind Fritjof Arnfred, Titus PiJean)
+
+ -- OniriCorpe <oniricorpe@yunohost.org>  Mon, 20 May 2024 00:09:45 +0200
+
+yunohost-admin (11.2.5) stable; urgency=low
+
+  - maintenance: Pre vue3 changes ([#555](https://github.com/yunohost/yunohost-admin/pull/555))
+  - maintenance: prettier + yarn to match yunohost-portal stack ([#553](https://github.com/yunohost/yunohost-admin/pull/553))
+  - maintenance: update actions/checkout@v3 to v4 ([#546](https://github.com/yunohost/yunohost-admin/pull/546))
+  - misc: technical fixes ([#552](https://github.com/yunohost/yunohost-admin/pull/552), [#563](https://github.com/yunohost/yunohost-admin/pull/563), 791a9fe9)
+  - readme: add pictures alt text and some markdown standardization ([#558](https://github.com/yunohost/yunohost-admin/pull/558))
+  - logs: fix the arrow key trick to enable text selection (e1b26301)
+  - users: allow plus on email ([#564](https://github.com/yunohost/yunohost-admin/pull/564))
+  - apps: add package license link in AppInfo + AppInstall ([#550](https://github.com/yunohost/yunohost-admin/pull/550), [#545](https://github.com/yunohost/yunohost-admin/pull/545))
+  - i18n: Translations updated for Arabic, Basque, Bengali (Bangladesh), Catalan, Chinese (Simplified), Czech, Dutch, English, Esperanto, Finnish, French, Galician, German, Indonesian, Italian, Japanese, Korean, Lithuanian, Macedonian, Occitan, Persian, Polish, Portuguese, Portuguese (Brazil), Russian, Slovak, Slovenian, Spanish, Swedish, Telugu, Turkish, Ukrainian
+
+  Thanks to all contributors <3 ! (axolotle, Boudewijn, Bram, Christian Wehrli, Émile, Francescc, Gregor, Jan-Willem Swane, José M, OniriCorpe, Poesty Li, ppr, Tagada, Tommi, xabirequejo, xaloc33)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Thu, 11 Apr 2024 14:05:33 +0200
+
 yunohost-admin (11.2.4.1) stable; urgency=low
 
   - [i18n] Translations updated for Arabic, Basque, Catalan, Chinese (Simplified), English, French, Galician, German, Italian, Kabyle, Korean, Occitan, Spanish, Ukrainian
