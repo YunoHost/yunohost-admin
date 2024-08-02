@@ -41,7 +41,11 @@
     "words": {
         "default": "Varsayılan",
         "collapse": "Kapat",
-        "browse": "Tara"
+        "browse": "Tara",
+        "link": "Bağlantı",
+        "none": "Hiçbiri",
+        "valid": "Geçerli",
+        "separator": ", "
     },
     "yes": "Evet",
     "ok": "Tamam",
@@ -138,7 +142,8 @@
         "username": "ahmetatici",
         "firstname": "Ahmet",
         "lastname": "Atıcı",
-        "domain": "domain.com"
+        "domain": "domain.com",
+        "fullname": "Sam Smith"
     },
     "from_to": "{0} ile {1} arasında",
     "go_back": "Geri dön",
@@ -153,7 +158,9 @@
             "change_label": "'{prevName}' etiketini '{nextName}' ile değiştirin",
             "change_url": "'{name}' erişim URL'sini değiştir",
             "set_default": "'{domain}' alan kökünü '{name}' olarak yönlendirin",
-            "update_config": "{id}. paneldeki '{name}' uygulamasının yapılandırmasını güncelleyin"
+            "update_config": "{id}. paneldeki '{name}' uygulamasının yapılandırmasını güncelleyin",
+            "action_config": "Uygulama {name} için {action} eylemini çalıştır",
+            "dismiss_notification": "'{name}' için bildirimi iptal et"
         },
         "diagnosis": {
             "run_specific": "'{description}' tanılamasını çalıştır",
@@ -172,7 +179,9 @@
             "add": "'{name}' alan adını ekle",
             "update_config": "{id}. paneldeki '{name}' yapılandırmasını güncelleyin",
             "delete": "'{name}' alan adını sil",
-            "set_default": "'{name}' alan adını varsayılan yap"
+            "set_default": "'{name}' alan adını varsayılan yap",
+            "cert_install": "{name} için sertifika kur",
+            "cert_renew": "{name} için sertifika yenile"
         },
         "firewall": {
             "upnp": "{action} UPnP",
@@ -217,7 +226,10 @@
         },
         "reconnecting": "Yeniden bağlanıyor",
         "share_logs": "'{name}' günlüğü için bağlantı oluştur",
-        "update": "Güncellemeleri kontrol et"
+        "update": "Güncellemeleri kontrol et",
+        "settings": {
+            "update": "{panel} global ayarlarını güncelle"
+        }
     },
     "hook_data_xmpp": "XMPP verileri",
     "domain": {
@@ -236,7 +248,46 @@
             "auto_config_zone": "Geçerli DNS bölgesi",
             "info": "Otomatik DNS kayıtları yapılandırması deneysel bir özelliktir. <br>Kayıtları buradan göndermeden önce, mevcut DNS bölgenizi DNS kayıt operatörünüzün arayüzünden kaydetmeyi düşünün.",
             "manual_config": "Manuel yapılandırma için önerilen DNS kayıtları",
-            "push_force_warning": "YunoHost'un ayarladığı bazı DNS kayıtları, kayıt operatörü yapılandırmasında zaten var gibi görünüyor. Ne yaptığınızı biliyorsanız, üzerine yazma seçeneğini kullanabilirsiniz."
+            "push_force_warning": "YunoHost'un ayarladığı bazı DNS kayıtları, kayıt operatörü yapılandırmasında zaten var gibi görünüyor. Ne yaptığınızı biliyorsanız, üzerine yazma seçeneğini kullanabilirsiniz.",
+            "methods": {
+                "handled_in_parent": "Ana alan adında işlenir",
+                "manual": "El ile",
+                "auto": "Otomatik",
+                "semi_auto": "Yarı otomatik",
+                "none": "Hiçbiri"
+            }
+        },
+        "cert": {
+            "types": {
+                "other": "Diğer/Bilinmeyen",
+                "letsencrypt": "Let's Encrypt (Ücretsiz SSL)",
+                "selfsigned": "Kendinden imzalı"
+            },
+            "valid_for": "{days} süresince geçerli"
+        },
+        "info": {
+            "apps_on_domain": "Alan adı üzerinde yüklü olan uygulamalar",
+            "certificate_authority": "SSL Sertifikası yetkilisi",
+            "dyn_dns_remove_and_unsubscribe": "Ayrıca YunoHost'un DynDNS hizmetinden alan adının kaydını kaldırın",
+            "registrar": "Kaydedici"
+        },
+        "see_parent_domain": "Ana alan adına bakın",
+        "toggle_subdomains": "Alt alan adlarını değiştir",
+        "add": {
+            "dyn_dns_password_desc": "Bu parola, sisteminizi yeniden yüklediğinizde alan adının kontrolünü tekrardan geri almanızı sağlayacaktır. Bu alan adını daha önce kaydettirdiyseniz, geri almak için kurtarma parolanızı burada kullanın.",
+            "from_yunohost_desc": "YunoHost projesi ücretsiz bir 'DynDNS' hizmeti sunmaktadır. Sunucu başına bir alan adı ile sınırlıdır (ancak daha sonra yukarıdaki diğer 'Sahip olduğum bir alan adını veya bir alt alan adını ekle' seçeneğini kullanarak alt alan adları da ekleyebilirsiniz). DNS yapılandırması YunoHost tarafından otomatik olarak yapılacaktır. Bu, genel olarak kendiniz üzerinde barındarmaya başlarken ve henüz bir alan adına yatırım yapmak istemediğinizde idealdir. Ancak, orta/uzun vadede, alan adınızın tam mülkiyetine sahip olmak için kendi alan adınızı bir kayıt kuruluşundan satın almanızı öneririz.",
+            "dyn_dns_password": "Alan adı kurtarma parolası",
+            "from_local": "Yalnızca lokalde kullanım / test için bir alan adı istiyorum",
+            "from_local_desc": "\"Gerçek\" bir genel alan adı istemiyorsanız, <code>.local</code> veya <code>.test</code> ile biten herhangi bir şey kullanabilirsiniz. <code>.local</code> ile biten alan adları, istemcilerin Bonjour protokolünü desteklediği varsayılarak, yerel ağda otomatik olarak çözülebilmeleri için özel anlam taşır. Alternatif olarak, bu alanı kullanmak istediğiniz her istemcide <code>/etc/hosts</code> dosyasını (veya Windows'ta eşdeğerini) ayarlamanız veya ağ ayarlarınızda yerel DNS girişlerini yapılandırmanız gerekebilir.",
+            "from_registrar": "Sahip olduğum bir alan adını veya bir alt alan adını (subdomain) eklemek istiyorum",
+            "from_registrar_desc": "Bu alan adının yapılandırmasını tamamlamak için kayıt kuruluşunuzda DNS kayıtlarını manuel olarak yapılandırmanız gerekecektir. YunoHost'un teşhis sistemi, tam olarak hangi DNS kayıtlarının yapılandırılacağı konusunda size yol gösterecektir.",
+            "from_yunohost": "Bir alan adım yok, YunoHost projesi tarafından sağlanan ücretsiz bir DynDNS alan adını kaydetmek/kullanmak istiyorum"
+        },
+        "explain": {
+            "main_domain": "Ana alan adı, kullanıcıların giriş yapabildiği alan adıdır (\"{domain}/yunohost/sso\"). <br> Bu nedenle silinmesi mümkün değildir. <br> {domain} 'u silmek istiyorsanız, önce başka bir alan adı seçmeniz veya eklemeniz ve bunu ana alan adı olarak ayarlamanız gerekir."
+        },
+        "types": {
+            "main_domain": "Ana alan adı"
         }
     },
     "migrations_disclaimer_check_message": "Bu sorumluluk reddini okudum ve anladım",
@@ -322,7 +373,11 @@
     "mailbox_quota_example": "Bir CD 700 MB, bir DVD 4.7GB'dir",
     "postinstall": {
         "force": "Post-install işlemini zorla yap",
-        "title": "Kurulum sonrası"
+        "title": "Kurulum sonrası",
+        "user": {
+            "title": "İlk yöneticiyi oluşturma",
+            "first_user_help": "Bu kullanıcıya yönetici ayrıcalıkları verilecek ve bu yönetim arayüzünün yanı sıra SSH aracılığıyla doğrudan sunucuya bağlanmasına izin verilecektir.\nNormal bir kullanıcı olduğu için, kimlik bilgileriyle kullanıcı portalına (SSO) da bağlanabileceksiniz.\nKurulum sonrası tamamlandığında, 'admins' grubuna ekleyerek başka yönetici kullanıcılar oluşturabileceksiniz."
+        }
     },
     "retry": "Tekrar dene",
     "backup": "Yedek",
@@ -454,7 +509,8 @@
         "fallback_language_description": "Çevirinin ana dilde olmaması durumunda kullanılacak dil.",
         "cache": "Önbellek",
         "cache_description": "Bu web-yöneticisi ile aynı anda CLI ile de çalışmayı planlıyorsanız, önbelleği devre dışı bırakın.",
-        "transitions": "Sayfa geçiş animasyonları"
+        "transitions": "Sayfa geçiş animasyonları",
+        "theme": "Karanlık modu aç / kapat"
     },
     "users_import_update": "Varolan kullanıcıları güncelle",
     "items_verbose_items_left": "{items} öğe kaldı. | {items} öğe kaldı. | {items} öğe kaldı.",
@@ -560,12 +616,15 @@
             "notifications": {
                 "title": "Bildirimler",
                 "post_upgrade": "Yükseltme sonrası notları",
-                "post_install": "Kurulum sonrası notları"
+                "post_install": "Kurulum sonrası notları",
+                "understood": "Anlaşıldı"
             }
         },
         "info": {
             "forum": "Ara veya foruma sor!",
-            "problem": "Uygulamayla ilgili bir sorun mu var?"
+            "problem": "Uygulamayla ilgili bir sorun mu var?",
+            "config_panel_error_please_report": "Düzeltilmesi için lütfen bu hatayı YunoHost ekibine bildirin!",
+            "config_panel_error": "Bir hata yapılandırma panelinin görüntülenmesini engelliyor:"
         },
         "integration": {
             "archs": "Desteklenen işlemci mimarileri:",
@@ -581,8 +640,56 @@
             "resources": "Olağan kaynak kullanımı: {ram} RAM, {disk} disk",
             "sso": {
                 "false": "Çoklu oturum açma kullanılabilir değil (SSO)",
-                "true": "Çoklu oturum açma kullanılabilir (SSO)"
-            }
+                "true": "Çoklu oturum açma kullanılabilir (SSO)",
+                "?": "SSO entegrasyonu hakkında bilgi yok"
+            },
+            "title": "YunoHost Entegrasyonu"
+        },
+        "links": {
+            "admindoc": "Resmi Yönetici belgeleri",
+            "code": "Resmi kod deposu",
+            "package": "YunoHost paket deposu",
+            "forum": "YunoHost'un forumunda bu uygulama hakkında konular",
+            "package_license": "YunoHost paket lisansı",
+            "title": "Bağlantılar",
+            "userdoc": "Resmi Kullanıcı dökümantasyonları",
+            "website": "Resmi Website",
+            "license": "Uygulama Lisansı"
+        },
+        "potential_alternative_to": "Potansiyel alternatif:",
+        "upgrade": {
+            "continue": "Sonraki uygulamaya devam et",
+            "notifs": {
+                "post": {
+                    "title": "{name} yükseltme sonrası bildirimler",
+                    "alert": "Görünüşe göre yükseltme sorunsuz tamamlandı!\n İşte yapımcının bu yükseltme hakkında bilinmesi gerektiğini düşündüğü bazı bildirimler.\nUygulama bilgi sayfasından da tekrar okuyabilirsiniz."
+                },
+                "pre": {
+                    "alert": "Yükseltmeden önce bu bildirimleri kontrol etmelisiniz, bilmeniz gereken önemli şeyler olabilir.",
+                    "title": "Dikkatli olun!"
+                }
+            },
+            "confirm": {
+                "apps": "Yükseltme yapılacak uygulamalar",
+                "title": "Uygulama yükseltmelerini onayla"
+            },
+            "stop": "Sonraki uygulama yükseltmelerini iptal et"
+        },
+        "uninstall": {
+            "purge_desc": "Uygulama ile ilişkili verileri kaldırın (bu genellikle uygulamayı kullanarak kendi yüklediğiniz verilerdir)."
         }
-    }
+    },
+    "since": "beri",
+    "traceback": "Geri izleme",
+    "group_admins": "Yöneticiler",
+    "app_state_broken": "Hatalı",
+    "app_state_broken_explanation": "YunoHost'un otomatik testlerine göre bu uygulama şu anda hatalı ve yüklenemiyor",
+    "label_for_manifestname_help": "Bu, kullanıcı portalında görüntülenen addır. Bu daha sonra değiştirilebilir.",
+    "group_explain_admins": "Bu, yönetici haklarına sahip kullanıcılara karşılık gelen özel bir gruptur. Bu gruptaki kullanıcılar YunoHost'un web yöneticisine erişebilir, SSH ile sunucuya bağlanabilir ve `sudo` komutunu kullanabilir. Ayrıca root@, admin@ ve admins@'e gönderilen özel bildirimler gibi e-postaları da alacaklardır. Bu gruba yalnızca kesinlikle güvendiğiniz kişileri eklemelisiniz!",
+    "confirm_install_app_broken": "UYARI! Bu uygulama YunoHost'un otomatik testlerine göre hatalıdır ve sisteminizi bozması muhtemeldir! Ne yaptığınızı emin değilseniz yüklememelisiniz. Bu riski yine de almak istiyor musunuz?",
+    "wrong_password_or_username": "Yanlış şifre veya kullanıcı adı",
+    "manage_groups": "Grupları yönet",
+    "details_about": "{subject} hakkında daha fazla ayrıntı göster",
+    "important_yunohost_upgrade": "Büyük bir YunoHost yükseltmesi mevcuttur. Yükseltme yapmadan önce forumdaki sürüm notlarını dikkatlice okumanız şiddetle tavsiye edilir: <a href='https://forum.yunohost.org/tag/ynh_release'>Forumdaki sürüm notlarına göz atın</a>",
+    "tools_yunohost_settings": "YunoHost ayarları"
 }
