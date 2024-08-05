@@ -20,13 +20,15 @@ import type { APIErrorData } from './api'
  * @param response - A fetch `Response` object.
  * @returns Parsed response's json or response's text.
  */
-export async function getResponseData(response: Response) {
+export async function getResponseData<T extends any = any>(
+  response: Response,
+): Promise<T> {
   // FIXME the api should always return json as response
   const responseText = await response.text()
   try {
-    return JSON.parse(responseText) as Obj
+    return JSON.parse(responseText)
   } catch {
-    return responseText
+    return responseText as T
   }
 }
 

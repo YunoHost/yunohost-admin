@@ -1,3 +1,4 @@
+import { useCache, type StorePath } from '@/composables/data'
 import { useInfos } from '@/composables/useInfos'
 import {
   useRequests,
@@ -19,8 +20,7 @@ export type HumanKey = {
 export type APIQuery = {
   method?: RequestMethod
   uri: string
-  cachePath?: string
-  cacheParams?: Obj
+  cachePath?: StorePath
   data?: Obj
   humanKey?: string | HumanKey
   showModal?: boolean
@@ -95,11 +95,10 @@ export default {
    * @returns Promise that resolve the api response data
    * @throws Throw an `APIError` or subclass depending on server response
    */
-  async fetch<T extends any = Obj | string>({
+  async fetch<T extends any = any>({
     uri,
     method = 'GET',
     cachePath = undefined,
-    cacheParams = undefined,
     data = undefined,
     humanKey = undefined,
     showModal = method !== 'GET',
@@ -107,6 +106,9 @@ export default {
     initial = false,
     asFormData = true,
   }: APIQuery): Promise<T> {
+    const cache = cachePath ? useCache<T>(method, cachePath) : undefined
+    if (method === 'GET' && cache?.content) return cache.content
+
     const { locale } = useSettings()
     const { startRequest, endRequest } = useRequests()
 
@@ -136,14 +138,18 @@ export default {
     }
 
     const response = await fetch('/yunohost/api/' + uri, options)
-    const responseData = await getResponseData(response)
-    endRequest({ request, success: response.ok })
 
     if (!response.ok) {
-      throw getError(request, response, responseData as string | APIErrorData)
+      const errorData = await getResponseData<string | APIErrorData>(response)
+      endRequest({ request, success: false })
+      throw getError(request, response, errorData)
     }
 
-    return responseData as T
+    const responseData = await getResponseData<T>(response)
+    cache?.update(responseData)
+    endRequest({ request, success: true })
+
+    return responseData
   },
 
   /**
@@ -158,18 +164,18 @@ export default {
    * @returns Promise that resolves an array of server responses
    * @throws Throw an `APIError` or subclass depending on server response
    */
-  async fetchAll(
+  async fetchAll<T extends any[] = any[]>(
     queries: APIQuery[],
     { showModal = false, initial = false } = {},
-  ) {
-    const results: Array<Obj | string> = []
+  ): Promise<T> {
+    const results = []
     for (const query of queries) {
       if (showModal) query.showModal = true
       if (initial) query.initial = true
       results.push(await this.fetch(query))
     }
 
-    return results
+    return results as T
   },
 
   /**
@@ -180,7 +186,7 @@ export default {
    * @returns Promise that resolve the api response data or an error
    * @throws Throw an `APIError` or subclass depending on server response
    */
-  get<T extends any = Obj | string>(
+  get<T extends any = any>(
     query: string | Omit<APIQuery, 'method' | 'data'>,
   ): Promise<T> {
     return this.fetch(typeof query === 'string' ? { uri: query } : query)
@@ -194,9 +200,7 @@ export default {
    * @returns Promise that resolve the api response data or an error
    * @throws Throw an `APIError` or subclass depending on server response
    */
-  post<T extends any = Obj | string>(
-    query: Omit<APIQuery, 'method'>,
-  ): Promise<T> {
+  post<T extends any = any>(query: Omit<APIQuery, 'method'>): Promise<T> {
     return this.fetch({ ...query, method: 'POST' })
   },
 
@@ -208,9 +212,7 @@ export default {
    * @returns Promise that resolve the api response data or an error
    * @throws Throw an `APIError` or subclass depending on server response
    */
-  put<T extends any = Obj | string>(
-    query: Omit<APIQuery, 'method'>,
-  ): Promise<T> {
+  put<T extends any = any>(query: Omit<APIQuery, 'method'>): Promise<T> {
     return this.fetch({ ...query, method: 'PUT' })
   },
 
@@ -222,9 +224,7 @@ export default {
    * @returns Promise that resolve the api response data or an error
    * @throws Throw an `APIError` or subclass depending on server response
    */
-  delete<T extends any = Obj | string>(
-    query: Omit<APIQuery, 'method'>,
-  ): Promise<T> {
+  delete<T extends any = any>(query: Omit<APIQuery, 'method'>): Promise<T> {
     return this.fetch({ ...query, method: 'DELETE' })
   },
 

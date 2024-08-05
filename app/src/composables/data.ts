@@ -1,312 +1,224 @@
-import api from '@/api'
-import { isEmptyValue } from '@/helpers/commons'
+import { createGlobalState } from '@vueuse/core'
+import { computed, reactive, ref, toValue, type MaybeRefOrGetter } from 'vue'
+
+import type { RequestMethod } from '@/api/api'
+import { isObjectLiteral } from '@/helpers/commons'
 import { stratify } from '@/helpers/data/tree'
-import { reactive } from 'vue'
+import type { Obj } from '@/types/commons'
+import type {
+  DomainDetail,
+  Group,
+  Permission,
+  UserDetails,
+  UserItem,
+} from '@/types/core/data'
 
-export function getParentDomain(domain, domains, highest = false) {
-  const method = highest ? 'lastIndexOf' : 'indexOf'
-  let i = domain[method]('.')
-  while (i !== -1) {
-    const dn = domain.slice(i + 1)
-    if (domains.includes(dn)) return dn
-    i = domain[method]('.', i + (highest ? -1 : 1))
-  }
-
-  return null
+function arrayOrNull<T extends any[]>(items: T): T | null {
+  return items.length ? items : null
 }
 
-export default {
-  state: () => ({
-    main_domain: undefined,
-    domains: undefined, // Array
-    domains_details: {},
-    users: undefined, // basic user data: Object {username: {data}}
-    users_details: {}, // precise user data: Object {username: {data}}
-    groups: undefined,
-    permissions: undefined,
-  }),
+const useData = createGlobalState(() => {
+  const users = ref<Obj<UserItem>>({})
+  const userDetails = ref<Obj<UserDetails>>({})
+  const groups = ref<Obj<Group>>({})
+  const permissions = ref<Obj<Permission>>({})
+  const mainDomain = ref<string | undefined>()
+  const domains = ref<string[] | undefined>()
+  const domainDetails = ref<Obj<DomainDetail>>({})
 
-  mutations: {
-    SET_DOMAINS(state, [{ domains, main }]) {
-      state.domains = domains
-      state.main_domain = main
-    },
-
-    SET_DOMAINS_DETAILS(state, [name, details]) {
-      state.domains_details[name] = details
-    },
-
-    UPDATE_DOMAINS_DETAILS(state, payload) {
-      // FIXME use a common function to execute the same code ?
-      this.commit('SET_DOMAINS_DETAILS', payload)
-    },
-
-    DEL_DOMAINS_DETAILS(state, [name]) {
-      delete state.domains_details[name]
-      if (state.domains) {
-        delete state.domains[name]
+  function update(
+    method: RequestMethod,
+    payload: any,
+    key: DataKeys,
+    param?: string,
+  ) {
+    if (key === 'users') {
+      if (method === 'GET') users.value = payload.users
+      else if (method === 'POST')
+        users.value[payload.username] = {
+          ...payload,
+          'mailbox-quota': 'Pas de quota',
+          groups: [],
+        }
+    } else if (key === 'userDetails' && param) {
+      if (method === 'GET' || method === 'PUT') {
+        userDetails.value[param] = payload[param]
+      } else if (method === 'DELETE') {
+        delete userDetails.value[param]
+        delete users.value[param]
       }
-    },
-
-    ADD_DOMAINS(state, [{ domain }]) {
-      state.domains.push(domain)
-    },
-
-    DEL_DOMAINS(state, [domain]) {
-      state.domains.splice(state.domains.indexOf(domain), 1)
-    },
-
-    // Now applied thru 'SET_DOMAINS'
-    // 'SET_MAIN_DOMAIN' (state, [response]) {
-    //   state.main_domain = response.current_main_domain
-    // },
-
-    UPDATE_MAIN_DOMAIN(state, [domain]) {
-      state.main_domain = domain
-    },
-
-    SET_USERS(state, [users]) {
-      state.users = users || null
-    },
-
-    ADD_USERS(state, [user]) {
-      if (!state.users) state.users = {}
-      state.users[user.username] = user
-    },
-
-    SET_USERS_DETAILS(state, [username, userData]) {
-      state.users_details[username] = userData
-      if (!state.users) return
-      const user = state.users[username]
-      for (const key of ['fullname', 'mail']) {
-        if (user[key] !== userData[key]) {
-          user[key] = userData[key]
+    } else if (key === 'permissions') {
+      if (method === 'GET') {
+        permissions.value = payload.permissions
+      } else if (method === 'PUT' && param) {
+        permissions.value[param] = payload
+      }
+    } else if (key === 'groups') {
+      if (method === 'GET') {
+        groups.value = payload.groups
+      } else if (method === 'POST') {
+        groups.value[payload.name] = { members: [], permissions: [] }
+      } else if (method === 'PUT' && param) {
+        groups.value[param] = payload
+      } else if (method === 'DELETE' && param) {
+        delete groups.value[param]
+      }
+    } else if (key === 'domains') {
+      if (method === 'GET') {
+        domains.value = payload.domains
+        mainDomain.value = payload.main
+      } else if (param) {
+        if (method === 'POST') {
+          // FIXME api should at least return the domain name on
+          domains.value?.push(param)
+        } else if (method === 'PUT') {
+          mainDomain.value = param
+        } else if (method === 'DELETE') {
+          domains.value?.splice(domains.value.indexOf(param), 1)
+          delete domainDetails.value[param]
         }
       }
-    },
+    } else if (key === 'domainDetails' && param && method === 'GET') {
+      domainDetails.value[param] = payload
+    }
 
-    UPDATE_USERS_DETAILS(state, payload) {
-      // FIXME use a common function to execute the same code ?
-      this.commit('SET_USERS_DETAILS', payload)
-    },
+    // FIXME rm?
+    throw new Error(
+      `couldnt update the cache, key: ${key}, method: ${method}, param: ${param}`,
+    )
+  }
 
-    DEL_USERS_DETAILS(state, [username]) {
-      delete state.users_details[username]
-      if (state.users) {
-        delete state.users[username]
-        if (Object.keys(state.users).length === 0) {
-          state.users = null
-        }
-      }
-    },
+  return {
+    users,
+    userDetails,
+    groups,
+    permissions,
 
-    SET_GROUPS(state, [groups]) {
-      state.groups = groups
-    },
+    mainDomain,
+    domains,
+    domainDetails,
 
-    ADD_GROUPS(state, [{ name }]) {
-      if (state.groups !== undefined) {
-        state.groups[name] = { members: [], permissions: [] }
-      }
-    },
+    update,
+  }
+})
 
-    UPDATE_GROUPS(state, [data, { groupName }]) {
-      state.groups[groupName] = data
-    },
+export function useUsersAndGroups(username?: MaybeRefOrGetter<string>) {
+  const { users, userDetails } = useData()
+  return {
+    users: computed(() => {
+      return arrayOrNull(Object.values(users.value))
+    }),
+    usernames: computed(() => {
+      return arrayOrNull(Object.keys(users.value))
+    }),
+    user: computed(() => {
+      if (!username) return
+      return userDetails.value[toValue(username)]
+    }),
+  }
+}
 
-    DEL_GROUPS(state, [groupname]) {
-      delete state.groups[groupname]
-    },
+export function useDomains(domain_?: MaybeRefOrGetter<string>) {
+  const { mainDomain, domains, domainDetails } = useData()
 
-    SET_PERMISSIONS(state, [permissions]) {
-      state.permissions = permissions
-    },
+  const orderedDomains = computed(() => {
+    if (!domains.value) return
 
-    UPDATE_PERMISSIONS(state, [_, { groupName, action, permId }]) {
-      // FIXME hacky way to update the store
-      const permissions = state.groups[groupName].permissions
-      if (action === 'add') {
-        permissions.push(permId)
-      } else if (action === 'remove') {
-        const index = permissions.indexOf(permId)
-        if (index > -1) permissions.splice(index, 1)
-      }
-    },
-  },
+    const splittedDomains = Object.fromEntries(
+      domains.value.map((domain) => {
+        // Keep the main part of the domain and the extension together
+        // eg: this.is.an.example.com -> ['example.com', 'an', 'is', 'this']
+        const domainParts = domain.split('.')
+        domainParts.push(domainParts.pop()! + domainParts.pop()!)
+        return [domain, domainParts.reverse()]
+      }),
+    )
 
-  actions: {
-    GET(
-      { state, commit, rootState },
-      {
-        uri,
-        param,
-        storeKey = uri,
-        humanKey,
-        noCache,
-        options,
-        ...extraParams
-      },
-    ) {
-      const currentState = param ? state[storeKey][param] : state[storeKey]
-      // if data has already been queried, simply return
-      const ignoreCache = !rootState.cache || noCache || false
-      if (currentState !== undefined && !ignoreCache) return currentState
-      return api
-        .fetch('GET', param ? `${uri}/${param}` : uri, null, humanKey, options)
-        .then((responseData) => {
-          // FIXME here's an ugly fix to be able to also cache the main domain when querying domains
-          const data =
-            storeKey === 'domains'
-              ? responseData
-              : responseData[storeKey]
-                ? responseData[storeKey]
-                : responseData
-          commit(
-            'SET_' + storeKey.toUpperCase(),
-            [param, data, extraParams].filter((item) => !isEmptyValue(item)),
-          )
-          return param ? state[storeKey][param] : state[storeKey]
-        })
-    },
+    return domains.value.sort((a, b) =>
+      splittedDomains[a] > splittedDomains[b] ? 1 : -1,
+    )
+  })
 
-    POST(
-      { state, commit },
-      { uri, storeKey = uri, data, humanKey, options, ...extraParams },
-    ) {
-      return api
-        .fetch('POST', uri, data, humanKey, options)
-        .then((responseData) => {
-          // FIXME api/domains returns null
-          if (responseData === null) responseData = data
-          responseData = responseData[storeKey]
-            ? responseData[storeKey]
-            : responseData
-          commit(
-            'ADD_' + storeKey.toUpperCase(),
-            [responseData, extraParams].filter((item) => !isEmptyValue(item)),
-          )
-          return state[storeKey]
-        })
-    },
-
-    PUT(
-      { state, commit },
-      { uri, param, storeKey = uri, data, humanKey, options, ...extraParams },
-    ) {
-      return api
-        .fetch('PUT', param ? `${uri}/${param}` : uri, data, humanKey, options)
-        .then((responseData) => {
-          const data = responseData[storeKey]
-            ? responseData[storeKey]
-            : responseData
-          commit(
-            'UPDATE_' + storeKey.toUpperCase(),
-            [param, data, extraParams].filter((item) => !isEmptyValue(item)),
-          )
-          return param ? state[storeKey][param] : state[storeKey]
-        })
-    },
-
-    DELETE(
-      { commit },
-      { uri, param, storeKey = uri, data, humanKey, options, ...extraParams },
-    ) {
-      return api
-        .fetch(
-          'DELETE',
-          param ? `${uri}/${param}` : uri,
-          data,
-          humanKey,
-          options,
-        )
-        .then(() => {
-          commit(
-            'DEL_' + storeKey.toUpperCase(),
-            [param, extraParams].filter((item) => !isEmptyValue(item)),
-          )
-        })
-    },
-
-    RESET_CACHE_DATA({ state }, keys = Object.keys(state)) {
-      for (const key of keys) {
-        if (key === 'users_details') {
-          state[key] = {}
-        } else {
-          state[key] = undefined
-        }
-      }
-    },
-  },
-
-  getters: {
-    users: (state) => {
-      if (state.users) return Object.values(state.users)
-      return state.users
-    },
-
-    userNames: (state) => {
-      if (state.users) return Object.keys(state.users)
-      return []
-    },
-
-    user: (state) => (name) => state.users_details[name], // not cached
-
-    domains: (state) => state.domains,
-
-    orderedDomains: (state) => {
-      if (!state.domains) return
-
-      const splittedDomains = Object.fromEntries(
-        state.domains.map((domain) => {
-          // Keep the main part of the domain and the extension together
-          // eg: this.is.an.example.com -> ['example.com', 'an', 'is', 'this']
-          domain = domain.split('.')
-          domain.push(domain.pop() + domain.pop())
-          return [domain, domain.reverse()]
-        }),
-      )
-
-      return state.domains.sort(
-        (a, b) => splittedDomains[a] > splittedDomains[b],
-      )
-    },
-
-    domainsTree: (state, getters) => {
-      // This getter will not return any reactive data, make sure to assign its output
-      // to a component's `data`.
-      // FIXME manage to store the result in the store to allow reactive data (trigger an
-      // action when state.domain change)
-      const domains = getters.orderedDomains
+  return {
+    mainDomain,
+    domain: computed(() => {
+      if (!domain_) return
+      return domainDetails.value[toValue(domain_)]
+    }),
+    domains,
+    domainsAsChoices: computed(() => {
+      return domains.value?.map((domain) => ({
+        value: domain,
+        text: domain === mainDomain.value ? domain + ' ★' : domain,
+      }))
+    }),
+    orderedDomains,
+    domainsTree: computed(() => {
+      const domains = orderedDomains.value
       if (!domains) return
       const dataset = reactive(
-        domains.map((name) => ({
+        domains.map((domain) => ({
           // data to build a hierarchy
-          name,
-          parent: getParentDomain(name, domains),
+          name: domain,
+          parent: domainDetails.value[domain].topest_parent,
           // utility data that will be used by `RecursiveListGroup` component
-          to: { name: 'domain-info', params: { name } },
+          to: { name: 'domain-info', params: { name: domain } },
           opened: true,
         })),
       )
       return stratify(dataset)
-    },
+    }),
+  }
+}
 
-    domain: (state) => (name) => state.domains_details[name],
+type StoreKeys = 'users' | 'permissions' | 'groups' | 'mainDomain' | 'domains'
+type StoreKeysParam =
+  | 'userDetails'
+  | 'groups'
+  | 'permissions'
+  | 'mainDomain'
+  | 'domainDetails'
+  | 'domains'
+type DataKeys = StoreKeys | StoreKeysParam
+export type StorePath = `${StoreKeys}` | `${StoreKeysParam}.${string}`
 
-    highestDomainParentName: (state, getters) => (name) => {
-      return getParentDomain(name, getters.orderedDomains, true)
-    },
+export function useCache<T extends any = any>(
+  method: RequestMethod,
+  cachePath: StorePath,
+) {
+  const [key, param] = cachePath.split('.') as
+    | [StoreKeys, undefined]
+    | [StoreKeysParam, string]
+  const data = useData()
+  // FIXME get global cache policy setting
+  // Add noCache arg? not used
 
-    mainDomain: (state) => state.main_domain,
+  if (!(key in data)) {
+    throw new Error('Trying to get cache of inexistant data')
+  }
+  const d = data[key].value
+  let content = d as T
+  if (param) {
+    if (isObjectLiteral(d) && !Array.isArray(d)) {
+      content = d[param] as T
+    } else {
+      throw new Error('Trying to get param on non object data')
+    }
+  }
 
-    domainsAsChoices: (state) => {
-      const mainDomain = state.main_domain
-      return state.domains.map((domain) => {
-        return {
-          value: domain,
-          text: domain === mainDomain ? domain + ' ★' : domain,
-        }
-      })
-    },
-  },
+  return {
+    content,
+    update: (payload: T) => data.update(method, payload, key, param),
+  }
+}
+
+export function resetCache(keys: DataKeys[]) {
+  const data = useData()
+  for (const key of keys) {
+    if (['domains', 'mainDomain'].includes(key)) {
+      data[key].value = undefined
+    } else {
+      data[key].value = {}
+    }
+  }
 }
