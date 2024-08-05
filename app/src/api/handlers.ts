@@ -4,6 +4,7 @@
  */
 
 import errors from '@/api/errors'
+import { useInfos } from '@/composables/useInfos'
 import {
   STATUS_VARIANT,
   type APIRequest,
@@ -39,10 +40,9 @@ export async function getResponseData(response: Response) {
  * @returns Promise that resolve on websocket 'open' or 'error' event.
  */
 export function openWebSocket(request: APIRequestAction): Promise<Event> {
+  const { host } = useInfos()
   return new Promise((resolve) => {
-    const ws = new WebSocket(
-      `wss://${store.getters.host}/yunohost/api/messages`,
-    )
+    const ws = new WebSocket(`wss://${host.value}/yunohost/api/messages`)
     ws.onmessage = ({ data }) => {
       const messages: Record<'info' | 'success' | 'warning' | 'error', string> =
         JSON.parse(data)

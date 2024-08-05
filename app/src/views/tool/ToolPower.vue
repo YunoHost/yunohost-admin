@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
-import { useStore } from 'vuex'
 
 import api from '@/api'
 import { useAutoModal } from '@/composables/useAutoModal'
+import { useInfos } from '@/composables/useInfos'
 
 const { t } = useI18n()
-const store = useStore()
 const modalConfirm = useAutoModal()
+const { tryToReconnect } = useInfos()
 
 async function triggerAction(action) {
   const confirmed = await modalConfirm(t('confirm_reboot_action_' + action))
@@ -15,11 +15,7 @@ async function triggerAction(action) {
 
   api.put({ uri: action + '?force', humanKey: action }).then(() => {
     const delay = action === 'reboot' ? 4000 : 10000
-    store.dispatch('TRY_TO_RECONNECT', {
-      attemps: Infinity,
-      origin: action,
-      delay,
-    })
+    tryToReconnect({ attemps: Infinity, origin: action, delay })
   })
 }
 </script>

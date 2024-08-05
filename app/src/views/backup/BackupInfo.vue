@@ -2,11 +2,11 @@
 import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
-import { useStore } from 'vuex'
 
 import api from '@/api'
 import { APIBadRequestError, type APIError } from '@/api/errors'
 import { useAutoModal } from '@/composables/useAutoModal'
+import { useInfos } from '@/composables/useInfos'
 import { useInitialQueries } from '@/composables/useInitialQueries'
 import { isEmptyValue } from '@/helpers/commons'
 import { readableDate } from '@/helpers/filters/date'
@@ -19,7 +19,6 @@ const props = defineProps<{
 
 const { t } = useI18n()
 const router = useRouter()
-const store = useStore()
 const modalConfirm = useAutoModal()
 const { loading } = useInitialQueries(
   [{ uri: `backups/${props.name}?with_details` }],
@@ -128,9 +127,9 @@ async function deleteBackup() {
 }
 
 function downloadBackup() {
-  const host = store.getters.host
+  const { host } = useInfos()
   window.open(
-    `https://${host}/yunohost/api/backups/${props.name}/download`,
+    `https://${host.value}/yunohost/api/backups/${props.name}/download`,
     '_blank',
   )
 }

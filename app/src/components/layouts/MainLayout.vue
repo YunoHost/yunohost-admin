@@ -10,13 +10,13 @@ import {
   ModalWaiting,
   ModalWarning,
 } from '@/components/modals'
+import { useInfos } from '@/composables/useInfos'
 import { useRequests } from '@/composables/useRequests'
 import { useSettings } from '@/composables/useSettings'
-import { useStoreGetters } from '@/store/utils'
 import type { VueClass } from '@/types/commons'
 
 const router = useRouter()
-const { routerKey } = useStoreGetters()
+const { routerKey } = useInfos()
 const { reconnecting, currentRequest, dismissModal } = useRequests()
 const { transitions, transitionName, dark } = useSettings()
 

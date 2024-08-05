@@ -1,8 +1,8 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 
+import { useInfos } from '@/composables/useInfos'
 import { useRequests } from '@/composables/useRequests'
 import { useSettings } from '@/composables/useSettings'
-import store from '@/store'
 import routes from './routes'
 
 const router = createRouter({
@@ -39,20 +39,22 @@ router.beforeEach((to, from, next) => {
     dismissModal(currentRequest.value.id)
   }
 
-  if (to.name === 'post-install' && store.getters.installed) {
+  const { installed, connected, onLogout } = useInfos()
+  if (to.name === 'post-install' && installed.value) {
     return next('/')
   }
   // Allow if connected or route is not protected
-  if (store.getters.connected || to.meta.noAuth) {
+  if (connected.value || to.meta.noAuth) {
     next()
   } else {
-    store.dispatch('DISCONNECT', to)
+    onLogout(to)
   }
 })
 
 router.afterEach((to, from) => {
-  store.dispatch('UPDATE_ROUTER_KEY', { to, from })
-  store.dispatch('UPDATE_BREADCRUMB', { to, from })
+  const { updateRouterKey, updateBreadcrumb } = useInfos()
+  updateRouterKey({ to, from })
+  updateBreadcrumb({ to, from })
 })
 
 export default router

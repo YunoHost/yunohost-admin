@@ -1,15 +1,15 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { useStore } from 'vuex'
 
 import api from '@/api'
 import CardCollapse from '@/components/CardCollapse.vue'
 import { useAutoModal } from '@/composables/useAutoModal'
+import { useInfos } from '@/composables/useInfos'
 import { useInitialQueries } from '@/composables/useInitialQueries'
 
 const { t } = useI18n()
-const store = useStore()
+const { tryToReconnect } = useInfos()
 const modalConfirm = useAutoModal()
 const { loading } = useInitialQueries(
   [{ method: 'PUT', uri: 'update/all', humanKey: 'update' }],
@@ -105,7 +105,7 @@ async function performSystemUpgrade() {
 
   api.put({ uri: 'upgrade/system', humanKey: 'upgrade.system' }).then(() => {
     if (system.value.some(({ name }) => name.includes('yunohost'))) {
-      store.dispatch('TRY_TO_RECONNECT', {
+      tryToReconnect({
         attemps: 1,
         origin: 'upgrade_system',
         initialDelay: 2000,

@@ -1,3 +1,4 @@
+import { useInfos } from '@/composables/useInfos'
 import {
   useRequests,
   type APIRequestAction,
@@ -242,10 +243,10 @@ export default {
     delay = 2000,
     initialDelay = 0,
   }: ReconnectingArgs = {}) {
+    const { getYunoHostVersion } = useInfos()
     return new Promise((resolve, reject) => {
       function reconnect(n: number) {
-        store
-          .dispatch('GET_YUNOHOST_INFOS')
+        getYunoHostVersion()
           .then(resolve)
           .catch((err: APIError) => {
             if (err instanceof APIUnauthorizedError) {

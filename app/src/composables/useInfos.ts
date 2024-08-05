@@ -1,212 +1,189 @@
+import { createGlobalState, useLocalStorage } from '@vueuse/core'
+import { computed, ref } from 'vue'
+import type {
+  RouteLocationNormalized,
+  RouteLocationNormalizedLoaded,
+  RouteRecordNormalized,
+} from 'vue-router'
+import { useRouter } from 'vue-router'
+
 import api from '@/api'
-import { useRequests, type ReconnectingArgs } from '@/composables/useRequests'
 import { isEmptyValue, timeout } from '@/helpers/commons'
 import i18n from '@/i18n'
-import router from '@/router'
+import { useStoreGetters } from '@/store/utils'
+import type { CustomRoute, RouteFromTo } from '@/types/commons'
+import { useRequests, type ReconnectingArgs } from './useRequests'
 
-export default {
-  state: {
-    host: window.location.host, // String
-    installed: null,
-    connected: localStorage.getItem('connected') === 'true', // Boolean
-    yunohost: null, // Object { version, repo }
-    routerKey: undefined, // String if current route has params
-    breadcrumb: [], // Array of routes
-    transitionName: null, // String of CSS class if transitions are enabled
-  },
+export const useInfos = createGlobalState(() => {
+  const router = useRouter()
 
-  mutations: {
-    SET_INSTALLED(state, boolean) {
-      state.installed = boolean
-    },
+  const host = ref(window.location.host)
+  const installed = ref<boolean | undefined>()
+  const connected = useLocalStorage('connected', false)
+  const yunohost = ref<{ version: string; repo: string } | undefined>()
+  const routerKey = ref<string | undefined>()
+  const breadcrumb = ref<CustomRoute[]>([])
 
-    SET_CONNECTED(state, boolean) {
-      localStorage.setItem('connected', boolean)
-      state.connected = boolean
-    },
+  const { mainDomain } = useStoreGetters()
+  const ssoLink = computed(() => {
+    return `//${mainDomain.value ?? host.value}/yunohost/sso`
+  })
 
-    SET_YUNOHOST_INFOS(state, yunohost) {
-      state.yunohost = yunohost
-    },
+  // INIT
 
-    SET_ROUTER_KEY(state, key) {
-      state.routerKey = key
-    },
-
-    SET_BREADCRUMB(state, breadcrumb) {
-      state.breadcrumb = breadcrumb
-    },
-
-    SET_TRANSITION_NAME(state, transitionName) {
-      state.transitionName = transitionName
-    },
-  },
-
-  actions: {
-    async ON_APP_CREATED({ dispatch, state }) {
-      await dispatch('CHECK_INSTALL')
-
-      if (!state.installed) {
-        router.push({ name: 'post-install' })
-      } else {
-        dispatch('CONNECT')
-      }
-    },
-
-    async CHECK_INSTALL({ dispatch, commit }, retry = 2) {
-      // this action will try to query the `/installed` route 3 times every 5 s with
-      // a timeout of the same delay.
-      // FIXME need testing with api not responding
-      try {
-        const { installed } = await timeout(api.get('installed'), 5000)
-        commit('SET_INSTALLED', installed)
-        return installed
-      } catch (err) {
-        if (retry > 0) {
-          return dispatch('CHECK_INSTALL', --retry)
-        }
-        throw err
-      }
-    },
-
-    async CONNECT({ commit, dispatch }) {
-      // If the user is not connected, the first action will throw
-      // and login prompt will be shown automaticly
-      await dispatch('GET_YUNOHOST_INFOS')
-      commit('SET_CONNECTED', true)
-      await api.get({ uri: 'domains', storeKey: 'domains' })
-    },
-
-    RESET_CONNECTED({ commit }) {
-      commit('SET_CONNECTED', false)
-      commit('SET_YUNOHOST_INFOS', null)
-    },
-
-    DISCONNECT({ dispatch }, route) {
-      // FIXME vue3 currentRoute is now a ref (currentRoute.value)
-      dispatch('RESET_CONNECTED')
-      if (router.currentRoute.value.name === 'login') return
-      const previousRoute = route ?? router.currentRoute.value
-      router.push({
-        name: 'login',
-        // Add a redirect query if next route is not unknown (like `logout`) or `login`
-        query:
-          previousRoute && !['login', null].includes(previousRoute.name)
-            ? { redirect: previousRoute.path }
-            : {},
-      })
-    },
-
-    LOGIN({ dispatch }, credentials) {
-      return api
-        .post('login', { credentials }, null, { websocket: false })
-        .then(() => {
-          return dispatch('CONNECT')
-        })
-    },
-
-    LOGOUT({ dispatch }) {
-      dispatch('DISCONNECT')
-      return api.get('logout')
-    },
-
-    TRY_TO_RECONNECT({ commit }, args?: ReconnectingArgs) {
-      // FIXME This is very ugly arguments forwarding, will use proper component way of doing this when switching to Vue 3 (teleport)
-      useRequests().reconnecting.value = args
-    },
-
-    GET_YUNOHOST_INFOS({ commit }) {
-      return api.get('versions').then((versions) => {
-        commit('SET_YUNOHOST_INFOS', versions.yunohost)
-      })
-    },
-
-    UPDATE_ROUTER_KEY({ commit }, { to, from }) {
-      if (isEmptyValue(to.params)) {
-        commit('SET_ROUTER_KEY', undefined)
-        return
-      }
-      // If the next route uses the same component as the previous one, Vue will not
-      // recreate an instance of that component, so hooks like `created()` will not be
-      // triggered and data will not be fetched.
-      // For routes with params, we create a unique key to force the recreation of a view.
-      // Params can be declared in route `meta` to stricly define which params should be
-      // taken into account.
-      const params = to.meta.routerParams
-        ? to.meta.routerParams.map((key) => to.params[key])
-        : Object.values(to.params)
-
-      commit('SET_ROUTER_KEY', `${to.name}-${params.join('-')}`)
-    },
-
-    UPDATE_BREADCRUMB({ commit }, { to, from }) {
-      function getRouteNames(route) {
-        if (route.meta.breadcrumb) return route.meta.breadcrumb
-        const parentRoute = route.matched
-          .slice()
-          .reverse()
-          .find((route) => route.meta.breadcrumb)
-        if (parentRoute) return parentRoute.meta.breadcrumb
-        return []
-      }
-
-      function formatRoute(route) {
-        const { trad, param } = route.meta.args || {}
-        let text = ''
-        // if a traduction key string has been given and we also need to pass
-        // the route param as a variable.
-        if (trad && param) {
-          text = i18n.global.t(trad, { [param]: to.params[param] })
-        } else if (trad) {
-          text = i18n.global.t(trad)
-        } else {
-          text = to.params[param]
-        }
-        return { name: route.name, text }
-      }
-
-      const routeNames = getRouteNames(to)
-      const allRoutes = router.getRoutes()
-      const breadcrumb = routeNames.map((name) => {
-        const route = allRoutes.find((route) => route.name === name)
-        return formatRoute(route)
-      })
-
-      commit('SET_BREADCRUMB', breadcrumb)
-
-      function getTitle(breadcrumb) {
-        if (breadcrumb.length === 0) return formatRoute(to).text
-        return (breadcrumb.length > 2 ? breadcrumb.slice(-2) : breadcrumb)
-          .map((route) => route.text)
-          .reverse()
-          .join(' / ')
-      }
-
-      // Display a simplified breadcrumb as the document title.
-      document.title = `${getTitle(breadcrumb)} | ${i18n.global.t('yunohost_admin')}`
-    },
-
-    UPDATE_TRANSITION_NAME({ state, commit }, { to, from }) {
-      // Use the breadcrumb array length as a direction indicator
-      const toDepth = (to.meta.breadcrumb || []).length
-      const fromDepth = (from.meta.breadcrumb || []).length
-      commit(
-        'SET_TRANSITION_NAME',
-        toDepth < fromDepth ? 'slide-right' : 'slide-left',
+  async function _checkInstall(retry = 2) {
+    // this action will try to query the `/installed` route 3 times every 5 s with
+    // a timeout of the same delay.
+    // FIXME need testing with api not responding
+    try {
+      const data = await timeout(
+        api.get<{ installed: boolean }>('installed'),
+        5000,
       )
-    },
-  },
+      installed.value = data.installed
+    } catch (err) {
+      if (retry > 0) {
+        return _checkInstall(--retry)
+      }
+      throw err
+    }
+  }
 
-  getters: {
-    host: (state) => state.host,
-    installed: (state) => state.installed,
-    connected: (state) => state.connected,
-    yunohost: (state) => state.yunohost,
-    routerKey: (state) => state.routerKey,
-    breadcrumb: (state) => state.breadcrumb,
-    transitionName: (state) => state.transitionName,
-    ssoLink: (state, getters) => {
-      return `//${getters.mainDomain ?? state.host}/yunohost/sso`
-    },
-  },
-}
+  async function onAppCreated() {
+    await _checkInstall()
+
+    if (!installed.value) {
+      router.push({ name: 'post-install' })
+    } else {
+      _onLogin()
+    }
+  }
+
+  function getYunoHostVersion() {
+    return api.get('versions').then((versions) => {
+      yunohost.value = versions.yunohost
+    })
+  }
+
+  // CONNECTION
+
+  async function _onLogin() {
+    // If the user is not connected, the first action will throw
+    // and login prompt will be shown automaticly
+    await getYunoHostVersion()
+    connected.value = true
+    await api.get({ uri: 'domains', cachePath: 'domainList' })
+  }
+
+  function onLogout(route?: RouteLocationNormalizedLoaded) {
+    connected.value = false
+    yunohost.value = undefined
+    const previousRoute = route ?? router.currentRoute.value
+    if (previousRoute.name === 'login') return
+    router.push({
+      name: 'login',
+      // Add a redirect query if next route is not unknown (like `logout`) or `login`
+      query:
+        previousRoute && !['login', null].includes(previousRoute.name as any)
+          ? { redirect: previousRoute.path }
+          : {},
+    })
+  }
+
+  function login(credentials: string) {
+    return api
+      .post({ uri: 'login', data: { credentials }, websocket: false })
+      .then(() => _onLogin())
+  }
+
+  function logout() {
+    onLogout()
+    return api.get('logout')
+  }
+
+  function tryToReconnect(args?: ReconnectingArgs) {
+    useRequests().reconnecting.value = args
+  }
+
+  function updateRouterKey({ to }: RouteFromTo) {
+    if (isEmptyValue(to.params)) {
+      routerKey.value = undefined
+      return
+    }
+    // If the next route uses the same component as the previous one, Vue will not
+    // recreate an instance of that component, so hooks like `created()` will not be
+    // triggered and data will not be fetched.
+    // For routes with params, we create a unique key to force the recreation of a view.
+    // Params can be declared in route `meta` to stricly define which params should be
+    // taken into account.
+    const params = to.meta.routerParams
+      ? to.meta.routerParams.map((key) => to.params[key])
+      : Object.values(to.params)
+
+    routerKey.value = `${to.name?.toString()}-${params.join('-')}`
+  }
+
+  function updateBreadcrumb({ to }: RouteFromTo) {
+    function getRouteNames(route: RouteLocationNormalized): string[] {
+      if (route.meta.breadcrumb) return route.meta.breadcrumb
+      const parentRoute = route.matched
+        .slice()
+        .reverse()
+        .find((route) => route.meta.breadcrumb)
+      return parentRoute?.meta.breadcrumb || []
+    }
+
+    function formatRoute(
+      route: RouteRecordNormalized | RouteLocationNormalized,
+    ) {
+      const { trad, param } = route.meta.args || {}
+      let text = ''
+      // if a traduction key string has been given and we also need to pass
+      // the route param as a variable.
+      if (trad && param) {
+        text = i18n.global.t(trad, { [param]: to.params[param] })
+      } else if (trad) {
+        text = i18n.global.t(trad)
+      } else if (param) {
+        text = to.params[param] as string
+      }
+      return { to: { name: route.name! }, text }
+    }
+
+    const routeNames = getRouteNames(to)
+    const allRoutes = router.getRoutes()
+    breadcrumb.value = routeNames.map((name) => {
+      const route = allRoutes.find((route) => route.name === name)!
+      return formatRoute(route)
+    })
+
+    function getTitle(breadcrumb: CustomRoute[]) {
+      if (breadcrumb.length === 0) return formatRoute(to).text
+      return (breadcrumb.length > 2 ? breadcrumb.slice(-2) : breadcrumb)
+        .map((route) => route.text)
+        .reverse()
+        .join(' / ')
+    }
+
+    // Display a simplified breadcrumb as the document title.
+    document.title = `${getTitle(breadcrumb.value)} | ${i18n.global.t('yunohost_admin')}`
+  }
+
+  return {
+    host,
+    installed,
+    connected,
+    yunohost,
+    routerKey,
+    breadcrumb,
+    ssoLink,
+    onAppCreated,
+    getYunoHostVersion,
+    onLogout,
+    login,
+    logout,
+    tryToReconnect,
+    updateRouterKey,
+    updateBreadcrumb,
+  }
+})

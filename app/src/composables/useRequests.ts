@@ -7,8 +7,8 @@ import type { APIQuery, RequestMethod } from '@/api/api'
 import { APIErrorLog, type APIError } from '@/api/errors'
 import { isObjectLiteral } from '@/helpers/commons'
 import i18n from '@/i18n'
-import store from '@/store'
 import type { StateVariant } from '@/types/commons'
+import { useInfos } from './useInfos'
 
 export type RequestStatus = 'pending' | 'success' | 'warning' | 'error'
 
@@ -162,7 +162,7 @@ export const useRequests = createGlobalState(() => {
     err.log()
     if (err.code === 401) {
       // Unauthorized
-      store.dispatch('DISCONNECT')
+      useInfos().onLogout()
     } else if (err instanceof APIErrorLog) {
       // Errors that have produced logs
       router.push({ name: 'tool-log', params: { name: err.logRef } })

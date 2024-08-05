@@ -1,23 +1,16 @@
 <script setup lang="ts">
 import { onMounted } from 'vue'
-import { useStore } from 'vuex'
 
+import { useInfos } from '@/composables/useInfos'
 import { useRequests } from '@/composables/useRequests'
 import { useSettings } from '@/composables/useSettings'
-import { useStoreGetters } from '@/store/utils'
 import { HistoryConsole } from '@/views/_partials'
 
-const store = useStore()
-
-const { connected, yunohost, ssoLink } = useStoreGetters()
+const { ssoLink, connected, yunohost, logout, onAppCreated } = useInfos()
 const { locked } = useRequests()
 const { spinner, dark } = useSettings()
 
-async function logout() {
-  store.dispatch('LOGOUT')
-}
-
-store.dispatch('ON_APP_CREATED')
+onAppCreated()
 
 onMounted(() => {
   const copypastaCode = ['ArrowDown', 'ArrowDown', 'ArrowUp', 'ArrowUp']

@@ -2,11 +2,10 @@
 import { reactive, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter, type LocationQueryValue } from 'vue-router'
-import { useStore } from 'vuex'
 
 import { useForm } from '@/composables/form'
+import { useInfos } from '@/composables/useInfos'
 import { alphalownumdot_, minLength, required } from '@/helpers/validators'
-import { useStoreGetters } from '@/store/utils'
 import type { FieldProps, FormFieldDict } from '@/types/form'
 
 const props = withDefaults(
@@ -19,10 +18,8 @@ const props = withDefaults(
 )
 
 const { t } = useI18n()
-const store = useStore()
 const router = useRouter()
-
-const { installed } = useStoreGetters()
+const { login, installed } = useInfos()
 
 type Form = typeof form.value
 const form = ref({
@@ -57,8 +54,7 @@ const { v, onSubmit } = useForm(form, fields)
 const onLogin = onSubmit((onError) => {
   const { username, password } = form.value
   const credentials = [username, password].join(':')
-  store
-    .dispatch('LOGIN', credentials)
+  login(credentials)
     .then(() => {
       if (props.forceReload) {
         window.location.href = '/yunohost/admin/'

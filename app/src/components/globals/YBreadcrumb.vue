@@ -1,15 +1,8 @@
 <script setup lang="ts">
-import { useStoreGetters } from '@/store/utils'
+import { useInfos } from '@/composables/useInfos'
 
-const { breadcrumb } = useStoreGetters()
+const { breadcrumb } = useInfos()
 </script>
-
-<style lang="scss" scoped>
-.breadcrumb {
-  border: none;
-  background-color: transparent;
-}
-</style>
 
 <template>
   <BBreadcrumb v-if="breadcrumb.length">
@@ -19,12 +12,19 @@ const { breadcrumb } = useStoreGetters()
     </BBreadcrumbItem>
 
     <BBreadcrumbItem
-      v-for="({ name, text }, i) in breadcrumb"
-      :key="name"
-      :to="{ name }"
+      v-for="({ to, text }, i) in breadcrumb"
+      :key="i"
+      :to="to"
       :active="i === breadcrumb.length - 1"
     >
       {{ text }}
     </BBreadcrumbItem>
   </BBreadcrumb>
 </template>
+
+<style lang="scss" scoped>
+.breadcrumb {
+  border: none;
+  background-color: transparent;
+}
+</style>
