@@ -1,40 +1,27 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { useStore } from 'vuex'
 
-import type { Obj } from '@/types/commons'
+import ModalOverlay from '@/components/modals/ModalOverlay.vue'
+import type { APIRequest } from '@/composables/useRequests'
 
 const props = defineProps<{
-  request: Obj
+  request: APIRequest
 }>()
 
-const store = useStore()
-
-const warning = computed(() => {
-  const messages = props.request.messages
+// FIXME probably doesn't need a computed here
+const warningMessage = computed(() => {
+  const messages = props.request.action!.messages
   return messages[messages.length - 1]
 })
-
-function dismiss() {
-  store.dispatch('DISMISS_WARNING', props.request)
-}
 </script>
+
 <template>
-  <!-- This card receives style from `ViewLockOverlay` if used inside it -->
-  <div>
-    <BCardBody body-class="alert alert-warning">
-      <div v-html="warning.text" />
-    </BCardBody>
-
-    <BCardFooter footer-bg-variant="warning">
-      <BButton variant="light" size="sm" v-t="'ok'" @click="dismiss" />
-    </BCardFooter>
-  </div>
+  <ModalOverlay
+    :request="request"
+    footer-variant="warning"
+    body-variant="warning"
+    :hide-footer="false"
+  >
+    <div v-html="warningMessage.text" />
+  </ModalOverlay>
 </template>
-
-<style lang="scss" scoped>
-.card-body {
-  padding-bottom: 1.5rem !important;
-  margin-bottom: 0;
-}
-</style>
