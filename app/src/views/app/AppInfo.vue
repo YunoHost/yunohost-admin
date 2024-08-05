@@ -54,9 +54,9 @@ const externalResults = reactive({})
 const v$ = useVuelidate(rules, form, { $externalResults: externalResults })
 const { loading, refetch } = useInitialQueries(
   [
-    ['GET', `apps/${props.id}?full`],
-    ['GET', { uri: 'users/permissions?full', storeKey: 'permissions' }],
-    ['GET', { uri: 'domains' }],
+    { uri: `apps/${props.id}?full` },
+    { uri: 'users/permissions?full', cachePath: 'permissions' },
+    { uri: 'domains', cachePath: 'domains' },
   ],
   { onQueriesResponse },
 )
@@ -228,17 +228,17 @@ async function onQueriesResponse(app_: any) {
 
 const onPanelApply: OnPanelApply = ({ panelId, data, action }, onError) => {
   api
-    .put(
-      action
+    .put({
+      uri: action
         ? `apps/${props.id}/actions/${action}`
         : `apps/${props.id}/config/${panelId}`,
-      isEmptyValue(data) ? {} : { args: objectToParams(data) },
-      {
+      data: isEmptyValue(data) ? {} : { args: objectToParams(data) },
+      humanKey: {
         key: `apps.${action ? 'action' : 'update'}_config`,
         id: panelId,
         name: props.id,
       },
-    )
+    })
     .then(() => refetch())
     .catch(onError)
 }
@@ -246,10 +246,14 @@ const onPanelApply: OnPanelApply = ({ panelId, data, action }, onError) => {
 function changeLabel(permName, data) {
   data.show_tile = data.show_tile ? 'True' : 'False'
   api
-    .put('users/permissions/' + permName, data, {
-      key: 'apps.change_label',
-      prevName: app.value.label,
-      nextName: data.label,
+    .put({
+      uri: 'users/permissions/' + permName,
+      data,
+      humanKey: {
+        key: 'apps.change_label',
+        prevName: app.value.label,
+        nextName: data.label,
+      },
     })
     .then(() => refetch(false))
 }
@@ -260,11 +264,11 @@ async function changeUrl() {
 
   const { domain, path } = form.url
   api
-    .put(
-      `apps/${props.id}/changeurl`,
-      { domain, path: '/' + path },
-      { key: 'apps.change_url', name: app.value.label },
-    )
+    .put({
+      uri: `apps/${props.id}/changeurl`,
+      data: { domain, path: '/' + path },
+      humanKey: { key: 'apps.change_url', name: app.value.label },
+    })
     .then(() => refetch(false))
 }
 
@@ -273,34 +277,33 @@ async function setAsDefaultDomain(undo = false) {
   if (!confirmed) return
 
   api
-    .put(
-      `apps/${props.id}/default${undo ? '?undo' : ''}`,
-      {},
-      {
+    .put({
+      uri: `apps/${props.id}/default${undo ? '?undo' : ''}`,
+      humanKey: {
         key: 'apps.set_default',
         name: app.value.label,
         domain: app.value.domain,
       },
-    )
+    })
     .then(() => refetch(false))
 }
 
 async function dismissNotification(name: string) {
   api
-    .put(
-      `apps/${props.id}/dismiss_notification/${name}`,
-      {},
-      { key: 'apps.dismiss_notification', name: app.value.label },
-    )
+    .put({
+      uri: `apps/${props.id}/dismiss_notification/${name}`,
+      humanKey: { key: 'apps.dismiss_notification', name: app.value.label },
+    })
     .then(() => refetch(false))
 }
 
 async function uninstall() {
   const data = purge.value === true ? { purge: 1 } : {}
   api
-    .delete('apps/' + props.id, data, {
-      key: 'apps.uninstall',
-      name: app.value.label,
+    .delete({
+      uri: 'apps/' + props.id,
+      data,
+      humanKey: { key: 'apps.uninstall', name: app.value.label },
     })
     .then(() => {
       router.push({ name: 'app-list' })

@@ -9,7 +9,7 @@ import type { ComputedRef } from 'vue'
 
 const { mainDomain, domainsTree } = useStoreGetters()
 const { loading } = useInitialQueries([
-  ['GET', { uri: 'domains', storeKey: 'domains' }],
+  { uri: 'domains', cachePath: 'domains' },
 ])
 
 const [search, filteredTree] = useSearch(

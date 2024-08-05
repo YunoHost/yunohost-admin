@@ -9,7 +9,7 @@ const props = defineProps<{
   id: string
 }>()
 
-const { loading } = useInitialQueries([['GET', 'backups?with_info']], {
+const { loading } = useInitialQueries([{ uri: 'backups?with_info' }], {
   onQueriesResponse,
 })
 const archives = ref<any[] | null>(null)

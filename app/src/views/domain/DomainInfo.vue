@@ -29,9 +29,13 @@ const store = useStore()
 const modalConfirm = useAutoModal()
 const { loading, refetch } = useInitialQueries(
   [
-    ['GET', { uri: 'domains', storeKey: 'domains' }],
-    ['GET', { uri: 'domains', storeKey: 'domains_details', param: props.name }],
-    ['GET', `domains/${props.name}/config?full`],
+    { uri: 'domains', cachePath: 'domains' },
+    {
+      uri: `domains/${props.name}`,
+      cachePath: 'domains_details',
+      cacheParams: { domain: props.name },
+    },
+    { uri: `domains/${props.name}/config?full` },
   ],
   { onQueriesResponse },
 )
@@ -92,17 +96,17 @@ function onQueriesResponse(
 
 const onPanelApply: OnPanelApply = ({ panelId, data, action }, onError) => {
   api
-    .put(
-      action
+    .put({
+      uri: action
         ? `domain/${props.name}/actions/${action}`
         : `domains/${props.name}/config/${panelId}`,
-      { args: objectToParams(data) },
-      {
+      data: { args: objectToParams(data) },
+      humanKey: {
         key: `domains.${action ? 'action' : 'update'}_config`,
         id: panelId,
         name: props.name,
       },
-    )
+    })
     .then(() => refetch())
     .catch(onError)
 }
@@ -114,9 +118,15 @@ async function deleteDomain() {
       : {}
 
   api
-    .delete({ uri: 'domains', param: props.name }, data, {
-      key: 'domains.delete',
-      name: props.name,
+    .delete({
+      uri: 'domains',
+      cachePath: 'domains',
+      cacheParams: { domain: props.name },
+      data,
+      humanKey: {
+        key: 'domains.delete',
+        name: props.name,
+      },
     })
     .then(() => {
       router.push({ name: 'domain-list' })
@@ -128,11 +138,12 @@ async function setAsDefaultDomain() {
   if (!confirmed) return
 
   api
-    .put(
-      { uri: `domains/${props.name}/main`, storeKey: 'main_domain' },
-      {},
-      { key: 'domains.set_default', name: props.name },
-    )
+    .put({
+      uri: `domains/${props.name}/main`,
+      cachePath: 'main_domain',
+      data: {},
+      humanKey: { key: 'domains.set_default', name: props.name },
+    })
     .then(() => {
       // FIXME Have to commit by hand here since the response is empty (should return the given name)
       store.commit('UPDATE_MAIN_DOMAIN', props.name)

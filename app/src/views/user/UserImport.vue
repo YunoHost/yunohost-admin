@@ -70,7 +70,7 @@ const onUserImport = onSubmit(async (onError) => {
   if (!requestArgs.update) delete requestArgs.update
   const data = await formatForm(requestArgs)
   api
-    .post('users/import', data, null, { asFormData: true })
+    .post({ uri: 'users/import', data })
     .then(() => {
       // Reset all cached data related to users.
       store.dispatch('RESET_CACHE_DATA', [

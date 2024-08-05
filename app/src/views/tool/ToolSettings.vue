@@ -13,7 +13,7 @@ import type { CoreConfigPanels } from '@/types/core/options'
 
 const props = defineProps<{ tabId?: string }>()
 
-const { loading, refetch } = useInitialQueries([['GET', 'settings?full']], {
+const { loading, refetch } = useInitialQueries([{ uri: 'settings?full' }], {
   onQueriesResponse,
 })
 const config = shallowRef<ConfigPanelsProps | undefined>()
@@ -29,11 +29,11 @@ function onQueriesResponse(config_: CoreConfigPanels) {
 const onPanelApply: OnPanelApply = ({ panelId, data }, onError) => {
   // FIXME no route for potential action
   api
-    .put(
-      `settings/${panelId}`,
-      { args: objectToParams(data) },
-      { key: 'settings.update', panel: panelId },
-    )
+    .put({
+      uri: `settings/${panelId}`,
+      data: { args: objectToParams(data) },
+      humanKey: { key: 'settings.update', panel: panelId },
+    })
     .then(() => refetch())
     .catch(onError)
 }

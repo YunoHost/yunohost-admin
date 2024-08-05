@@ -9,13 +9,10 @@ import type { Obj } from '@/types/commons'
 
 const store = useStore()
 const { loading } = useInitialQueries([
-  [
-    'GET',
-    {
-      uri: 'users?fields=username&fields=fullname&fields=mail&fields=mailbox-quota&fields=groups',
-      storeKey: 'users',
-    },
-  ],
+  {
+    uri: 'users?fields=username&fields=fullname&fields=mail&fields=mailbox-quota&fields=groups',
+    cachePath: 'users',
+  },
 ])
 
 const { users } = useStoreGetters()

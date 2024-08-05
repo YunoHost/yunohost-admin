@@ -13,7 +13,7 @@ import type { FieldProps, FormFieldDict } from '@/types/form'
 
 const { t } = useI18n()
 const modalConfirm = useAutoModal()
-const { loading, refetch } = useInitialQueries([['GET', '/firewall?raw']], {
+const { loading, refetch } = useInitialQueries([{ uri: '/firewall?raw' }], {
   onQueriesResponse,
 })
 
@@ -141,18 +141,17 @@ async function togglePort({ action, port, protocol, connection }) {
 
   const actionTrad = t({ allow: 'open', disallow: 'close' }[action])
   return api
-    .put(
-      `firewall/${protocol}/${action}/${port}?${connection}_only`,
-      {},
-      {
+    .put({
+      uri: `firewall/${protocol}/${action}/${port}?${connection}_only`,
+      humanKey: {
         key: 'firewall.ports',
         protocol,
         action: actionTrad,
         port,
         connection,
       },
-      { wait: false },
-    )
+      showModal: false,
+    })
     .then(() => confirmed)
 }
 
@@ -162,11 +161,10 @@ async function toggleUpnp(value) {
   if (!confirmed) return
 
   api
-    .put(
-      'firewall/upnp/' + action,
-      {},
-      { key: 'firewall.upnp', action: t(action) },
-    )
+    .put({
+      uri: 'firewall/upnp/' + action,
+      humanKey: { key: 'firewall.upnp', action: t(action) },
+    })
     .then(() => {
       // FIXME Couldn't test when it works.
       refetch(false)

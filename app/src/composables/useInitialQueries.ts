@@ -11,10 +11,10 @@ export function useInitialQueries<
   queries: MaybeRefOrGetter<APIQuery[]> | ComputedRef<APIQuery[]>,
   {
     onQueriesResponse,
-    wait = false,
+    showModal = false,
   }: {
     onQueriesResponse?: (...responses: ResponsesType) => Promise<void> | void
-    wait?: boolean
+    showModal?: boolean
   } = {},
 ) {
   const loading = ref(true)
@@ -24,7 +24,7 @@ export function useInitialQueries<
   function call(triggerLoading = true) {
     if (triggerLoading) loading.value = true
     return api
-      .fetchAll(toValue(queries), { wait, initial: true })
+      .fetchAll(toValue(queries), { showModal, initial: true })
       .then(async (responses_) => {
         responses.value = responses_ as ResponsesType
         if (onQueriesResponse) {

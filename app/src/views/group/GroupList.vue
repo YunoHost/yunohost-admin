@@ -17,15 +17,12 @@ const { t } = useI18n()
 const modalConfirm = useAutoModal()
 const { loading } = useInitialQueries(
   [
-    ['GET', { uri: 'users' }],
-    [
-      'GET',
-      {
-        uri: 'users/groups?full&include_primary_groups',
-        storeKey: 'groups',
-      },
-    ],
-    ['GET', { uri: 'users/permissions?full', storeKey: 'permissions' }],
+    { uri: 'users', cachePath: 'users' },
+    {
+      uri: 'users/groups?full&include_primary_groups',
+      cachePath: 'groups',
+    },
+    { uri: 'users/permissions?full', cachePath: 'permissions' },
   ],
   { onQueriesResponse },
 )
@@ -123,33 +120,25 @@ async function onPermissionChanged({ option, groupName, action, applyMethod }) {
     )
     if (!confirmed) return
   }
+  // FIXME hacky way to update the store
   api
-    .put(
-      // FIXME hacky way to update the store
-      {
-        uri: `users/permissions/${permId}/${action}/${groupName}`,
-        storeKey: 'permissions',
-        groupName,
-        action,
-        permId,
-      },
-      {},
-      { key: 'permissions.' + action, perm: option, name: groupName },
-    )
+    .put({
+      uri: `users/permissions/${permId}/${action}/${groupName}`,
+      cachePath: 'permissions',
+      cacheParams: { groupName, action, permId },
+      humanKey: { key: 'permissions.' + action, perm: option, name: groupName },
+    })
     .then(() => applyMethod(option))
 }
 
 function onUserChanged({ option, groupName, action, applyMethod }) {
   api
-    .put(
-      {
-        uri: `users/groups/${groupName}/${action}/${option}`,
-        storeKey: 'groups',
-        groupName,
-      },
-      {},
-      { key: 'groups.' + action, user: option, name: groupName },
-    )
+    .put({
+      uri: `users/groups/${groupName}/${action}/${option}`,
+      cachePath: 'groups',
+      cacheParams: { groupName },
+      humanKey: { key: 'groups.' + action, user: option, name: groupName },
+    })
     .then(() => applyMethod(option))
 }
 
@@ -165,11 +154,12 @@ async function deleteGroup(groupName) {
   if (!confirmed) return
 
   api
-    .delete(
-      { uri: 'users/groups', param: groupName, storeKey: 'groups' },
-      {},
-      { key: 'groups.delete', name: groupName },
-    )
+    .delete({
+      uri: `users/groups/${groupName}`,
+      cachePath: 'groups',
+      cacheParams: { groupName },
+      humanKey: { key: 'groups.delete', name: groupName },
+    })
     .then(() => {
       primaryGroups.value = primaryGroups.value?.filter(
         (group) => group.name !== groupName,

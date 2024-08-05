@@ -14,7 +14,7 @@ const props = defineProps<{
 const { t } = useI18n()
 const modalConfirm = useAutoModal()
 const { loading } = useInitialQueries(
-  [['GET', `domains/${props.name}/dns/suggest`]],
+  [{ uri: `domains/${props.name}/dns/suggest` }],
   { onQueriesResponse },
 )
 
@@ -36,8 +36,9 @@ function getDnsChanges() {
   loading.value = true
 
   return api
-    .post(`domains/${props.name}/dns/push?dry_run`, {}, null, {
-      wait: false,
+    .post({
+      uri: `domains/${props.name}/dns/push?dry_run`,
+      showModal: false,
       websocket: false,
     })
     .then((dnsChanges) => {
@@ -110,11 +111,10 @@ async function pushDnsChanges() {
   }
 
   api
-    .post(
-      `domains/${props.name}/dns/push${force.value ? '?force' : ''}`,
-      {},
-      { key: 'domains.push_dns_changes', name: props.name },
-    )
+    .post({
+      uri: `domains/${props.name}/dns/push${force.value ? '?force' : ''}`,
+      humanKey: { key: 'domains.push_dns_changes', name: props.name },
+    })
     .then(async (responseData) => {
       await getDnsChanges()
       if (!isEmptyValue(responseData)) {

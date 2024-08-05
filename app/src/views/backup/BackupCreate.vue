@@ -13,10 +13,7 @@ const props = defineProps<{
 const { t } = useI18n()
 const router = useRouter()
 const { loading } = useInitialQueries(
-  [
-    ['GET', 'hooks/backup'],
-    ['GET', 'apps?with_backup'],
-  ],
+  [{ uri: 'hooks/backup' }, { uri: 'apps?with_backup' }],
   { onQueriesResponse },
 )
 
@@ -76,7 +73,7 @@ function createBackup() {
     }
   }
 
-  api.post('backups', data, 'backups.create').then(() => {
+  api.post({ uri: 'backups', data, humanKey: 'backups.create' }).then(() => {
     router.push({ name: 'backup-list', params: { id: props.id } })
   })
 }

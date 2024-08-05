@@ -22,7 +22,7 @@ const router = useRouter()
 const store = useStore()
 const modalConfirm = useAutoModal()
 const { loading } = useInitialQueries(
-  [['GET', `backups/${props.name}?with_details`]],
+  [{ uri: `backups/${props.name}?with_details` }],
   { onQueriesResponse },
 )
 
@@ -96,9 +96,10 @@ async function restoreBackup() {
   }
 
   api
-    .put(`backups/${props.name}/restore`, data, {
-      key: 'backups.restore',
-      name: props.name,
+    .put({
+      uri: `backups/${props.name}/restore`,
+      data,
+      humanKey: { key: 'backups.restore', name: props.name },
     })
     .then(() => {
       isValid.value = null
@@ -117,11 +118,10 @@ async function deleteBackup() {
   if (!confirmed) return
 
   api
-    .delete(
-      'backups/' + props.name,
-      {},
-      { key: 'backups.delete', name: props.name },
-    )
+    .delete({
+      uri: 'backups/' + props.name,
+      humanKey: { key: 'backups.delete', name: props.name },
+    })
     .then(() => {
       router.push({ name: 'backup-list', params: { id: props.id } })
     })

@@ -114,8 +114,10 @@ async function performPostInstall(force = false) {
 
   // FIXME does the api will throw an error for bad passwords ?
   api
-    .post('postinstall' + (force ? '?force_diskspace' : ''), data, {
-      key: 'postinstall',
+    .post({
+      uri: 'postinstall' + (force ? '?force_diskspace' : ''),
+      data,
+      humanKey: { key: 'postinstall' },
     })
     .then(() => {
       // Display success message and allow the user to login

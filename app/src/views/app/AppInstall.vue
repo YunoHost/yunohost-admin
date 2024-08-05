@@ -37,8 +37,8 @@ const formData = shallowRef<
 
 const { loading } = useInitialQueries(
   [
-    ['GET', 'apps/catalog?full&with_categories&with_antifeatures'],
-    ['GET', `apps/manifest?app=${props.id}&with_screenshot`],
+    { uri: 'apps/catalog?full&with_categories&with_antifeatures' },
+    { uri: `apps/manifest?app=${props.id}&with_screenshot` },
   ],
   { onQueriesResponse },
 )
@@ -186,7 +186,11 @@ async function performInstall(onError: (err: APIError) => void) {
   }
 
   api
-    .post('apps', data, { key: 'apps.install', name: app.value.name })
+    .post({
+      uri: 'apps',
+      data,
+      humanKey: { key: 'apps.install', name: app.value.name },
+    })
     .then(async ({ notifications }) => {
       const postInstall = formatAppNotifs(notifications)
       if (postInstall) {

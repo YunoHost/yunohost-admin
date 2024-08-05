@@ -10,7 +10,11 @@ const props = defineProps<{ name: string }>()
 
 const router = useRouter()
 const { loading } = useInitialQueries([
-  ['GET', { uri: 'users', param: props.name, storeKey: 'users_details' }],
+  {
+    uri: `users/${props.name}`,
+    cachePath: 'users_details',
+    cacheParams: { username: props.name },
+  },
 ])
 
 const { user: userGetter } = useStoreGetters()
@@ -20,11 +24,13 @@ const user = computed(() => userGetter.value(props.name))
 function deleteUser() {
   const data = purge.value ? { purge: '' } : {}
   api
-    .delete(
-      { uri: 'users', param: props.name, storeKey: 'users_details' },
+    .delete({
+      uri: `users/${props.name}`,
+      cachePath: 'user_details',
+      cacheParams: { username: props.name },
       data,
-      { key: 'users.delete', name: props.name },
-    )
+      humanKey: { key: 'users.delete', name: props.name },
+    })
     .then(() => {
       router.push({ name: 'user-list' })
     })

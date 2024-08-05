@@ -13,7 +13,7 @@ async function triggerAction(action) {
   const confirmed = await modalConfirm(t('confirm_reboot_action_' + action))
   if (!confirmed) return
 
-  api.put(action + '?force', {}, action).then(() => {
+  api.put({ uri: action + '?force', humanKey: action }).then(() => {
     const delay = action === 'reboot' ? 4000 : 10000
     store.dispatch('TRY_TO_RECONNECT', {
       attemps: Infinity,

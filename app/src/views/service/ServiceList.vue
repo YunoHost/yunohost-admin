@@ -6,7 +6,7 @@ import { useSearch } from '@/composables/useSearch'
 import { distanceToNow } from '@/helpers/filters/date'
 import type { Obj } from '@/types/commons'
 
-const { loading } = useInitialQueries([['GET', 'services']], {
+const { loading } = useInitialQueries([{ uri: 'services' }], {
   onQueriesResponse,
 })
 

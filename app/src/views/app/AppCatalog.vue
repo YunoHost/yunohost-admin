@@ -33,7 +33,7 @@ const router = useRouter()
 const route = useRoute()
 const modalConfirm = useAutoModal()
 const { loading } = useInitialQueries(
-  [['GET', 'apps/catalog?full&with_categories&with_antifeatures']],
+  [{ uri: 'apps/catalog?full&with_categories&with_antifeatures' }],
   { onQueriesResponse },
 )
 

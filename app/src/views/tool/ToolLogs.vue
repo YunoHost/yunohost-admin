@@ -7,7 +7,7 @@ import { distanceToNow, readableDate } from '@/helpers/filters/date'
 import type { Obj } from '@/types/commons'
 
 const { loading } = useInitialQueries(
-  [['GET', `logs?limit=${25}&with_details`]],
+  [{ uri: `logs?limit=${25}&with_details` }],
   { onQueriesResponse },
 )
 

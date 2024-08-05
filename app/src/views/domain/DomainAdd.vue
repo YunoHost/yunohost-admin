@@ -9,14 +9,20 @@ import { useInitialQueries } from '@/composables/useInitialQueries'
 import { DomainForm } from '@/views/_partials'
 
 const router = useRouter()
-const store = useStore()
 
-const { loading } = useInitialQueries([['GET', { uri: 'domains' }]])
+const { loading } = useInitialQueries([
+  { uri: 'domains', cachePath: 'domains' },
+])
 const serverError = ref('')
 
 function onSubmit(data) {
   api
-    .post('domains', data, { key: 'domains.add', name: data.domain })
+    .post({
+      uri: 'domains',
+      cachePath: 'domains',
+      data,
+      humanKey: { key: 'domains.add', name: data.domain },
+    })
     .then(() => {
       store.dispatch('RESET_CACHE_DATA', ['domains'])
       router.push({ name: 'domain-list' })

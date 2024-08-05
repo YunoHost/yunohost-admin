@@ -8,10 +8,14 @@ import { DEFAULT_STATUS_ICON } from '@/helpers/yunohostArguments'
 
 const { loading, refetch } = useInitialQueries(
   [
-    ['PUT', 'diagnosis/run?except_if_never_ran_yet', {}, 'diagnosis.run'],
-    ['GET', 'diagnosis?full'],
+    {
+      method: 'PUT',
+      uri: 'diagnosis/run?except_if_never_ran_yet',
+      humanKey: 'diagnosis.run',
+    },
+    { uri: 'diagnosis?full' },
   ],
-  { wait: true, onQueriesResponse },
+  { showModal: true, onQueriesResponse },
 )
 
 const reports = ref()
@@ -62,9 +66,13 @@ function runDiagnosis({ id = null, description } = {}) {
   const data = id !== null ? { categories: [id] } : {}
 
   api
-    .put('diagnosis/run' + param, data, {
-      key: 'diagnosis.run' + (id !== null ? '_specific' : ''),
-      description,
+    .put({
+      uri: 'diagnosis/run' + param,
+      data,
+      humanKey: {
+        key: 'diagnosis.run' + (id !== null ? '_specific' : ''),
+        description,
+      },
     })
     .then(() => refetch(false))
 }
@@ -75,11 +83,11 @@ function toggleIgnoreIssue(action, report, item) {
   )
 
   api
-    .put(
-      'diagnosis/' + action,
-      { filter: filterArgs },
-      `diagnosis.${action}.${item.status.toLowerCase()}`,
-    )
+    .put({
+      uri: 'diagnosis/' + action,
+      data: { filter: filterArgs },
+      humanKey: `diagnosis.${action}.${item.status.toLowerCase()}`,
+    })
     .then(() => {
       item.ignored = action === 'ignore'
       if (item.ignored) {

@@ -29,9 +29,11 @@ const { v, onSubmit } = useForm(form, fields)
 
 const onAddGroup = onSubmit((onError) => {
   api
-    .post({ uri: 'users/groups', storeKey: 'groups' }, form, {
-      key: 'groups.create',
-      name: form.value.groupname,
+    .post({
+      uri: 'users/groups',
+      cachePath: 'groups',
+      data: form,
+      humanKey: { key: 'groups.create', name: form.value.groupname },
     })
     .then(() => {
       router.push({ name: 'group-list' })

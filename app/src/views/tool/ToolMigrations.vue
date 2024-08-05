@@ -10,10 +10,7 @@ import { useInitialQueries } from '@/composables/useInitialQueries'
 const { t } = useI18n()
 const modalConfirm = useAutoModal()
 const { loading, refetch } = useInitialQueries(
-  [
-    ['GET', 'migrations?pending'],
-    ['GET', 'migrations?done'],
-  ],
+  [{ uri: 'migrations?pending' }, { uri: 'migrations?done' }],
   { onQueriesResponse },
 )
 
@@ -46,7 +43,7 @@ function runMigrations() {
   // Check that every migration's disclaimer has been checked.
   if (Object.values(checked).every((value) => value === true)) {
     api
-      .put('migrations?accept_disclaimer', {}, 'migrations.run')
+      .put({ uri: 'migrations?accept_disclaimer', humanKey: 'migrations.run' })
       .then(() => refetch(false))
   }
 }
@@ -55,7 +52,11 @@ async function skipMigration(id) {
   const confirmed = await modalConfirm(t('confirm_migrations_skip'))
   if (!confirmed) return
   api
-    .put('/migrations/' + id, { skip: '', targets: id }, 'migration.skip')
+    .put({
+      uri: '/migrations/' + id,
+      data: { skip: '', targets: id },
+      humanKey: 'migration.skip',
+    })
     .then(() => refetch(false))
 }
 </script>

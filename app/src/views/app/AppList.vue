@@ -5,7 +5,7 @@ import { useInitialQueries } from '@/composables/useInitialQueries'
 import { useSearch } from '@/composables/useSearch'
 import type { Obj } from '@/types/commons'
 
-const { loading } = useInitialQueries([['GET', 'apps?full']], {
+const { loading } = useInitialQueries([{ uri: 'apps?full' }], {
   onQueriesResponse,
 })
 

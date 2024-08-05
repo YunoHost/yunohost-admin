@@ -11,10 +11,10 @@ import { useInitialQueries } from '@/composables/useInitialQueries'
 const { t } = useI18n()
 const store = useStore()
 const modalConfirm = useAutoModal()
-const { loading } = useInitialQueries([['PUT', 'update/all', {}, 'update']], {
-  wait: true,
-  onQueriesResponse,
-})
+const { loading } = useInitialQueries(
+  [{ method: 'PUT', uri: 'update/all', humanKey: 'update' }],
+  { showModal: true, onQueriesResponse },
+)
 
 const system = ref()
 const apps = ref()
@@ -64,7 +64,10 @@ async function performAppsUpgrade(ids) {
 
   for (const app of apps_) {
     const continue_ = await api
-      .put(`apps/${app.id}/upgrade`, {}, { key: 'upgrade.app', app: app.name })
+      .put({
+        uri: `apps/${app.id}/upgrade`,
+        humanKey: { key: 'upgrade.app', app: app.name },
+      })
       .then((response) => {
         const postMessage = formatAppNotifs(response.notifications.POST_UPGRADE)
         const isLast = app.id === lastAppId
@@ -100,7 +103,7 @@ async function performSystemUpgrade() {
   const confirmed = await modalConfirm(t('confirm_update_system'))
   if (!confirmed) return
 
-  api.put('upgrade/system', {}, { key: 'upgrade.system' }).then(() => {
+  api.put({ uri: 'upgrade/system', humanKey: 'upgrade.system' }).then(() => {
     if (system.value.some(({ name }) => name.includes('yunohost'))) {
       store.dispatch('TRY_TO_RECONNECT', {
         attemps: 1,

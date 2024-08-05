@@ -30,8 +30,12 @@ const { t } = useI18n()
 const router = useRouter()
 const { loading } = useInitialQueries(
   [
-    ['GET', { uri: 'users', param: props.name, storeKey: 'users_details' }],
-    ['GET', { uri: 'domains' }],
+    {
+      uri: `users/${props.name}`,
+      cachePath: 'users_details',
+      cacheParams: { username: props.name },
+    },
+    { uri: 'domains', cachePath: 'domains' },
   ],
   { onQueriesResponse },
 )
@@ -207,12 +211,15 @@ const onUserEdit = onSubmit(async (onError, serverErrors) => {
   }
 
   api
-    .put({ uri: 'users', param: props.name, storeKey: 'users_details' }, data, {
-      key: 'users.update',
-      name: props.name,
+    .put({
+      uri: `users/${props.name}`,
+      cachePath: 'users_details',
+      cacheParams: { username: props.name },
+      data,
+      humanKey: { key: 'users.update', name: props.name },
     })
     .then(() => {
-      router.push({ name: 'user-info', param: { name: props.name } })
+      router.push({ name: 'user-info', params: { name: props.name } })
     })
     .catch(onError)
 })

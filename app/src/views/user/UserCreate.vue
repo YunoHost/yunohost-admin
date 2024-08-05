@@ -23,8 +23,8 @@ const { t } = useI18n()
 const router = useRouter()
 const { loading } = useInitialQueries(
   [
-    ['GET', { uri: 'users' }],
-    ['GET', { uri: 'domains' }],
+    { uri: 'users', cachePath: 'users' },
+    { uri: 'domains', cachePath: 'domains' },
   ],
   { onQueriesResponse },
 )
@@ -117,9 +117,11 @@ function onQueriesResponse() {
 const onUserCreate = onSubmit(async (onError) => {
   const data = await formatForm(form)
   api
-    .post({ uri: 'users' }, data, {
-      key: 'users.create',
-      name: form.value.username,
+    .post({
+      uri: 'users',
+      cachePath: 'users',
+      data,
+      humanKey: { key: 'users.create', name: form.value.username },
     })
     .then(() => {
       router.push({ name: 'user-list' })

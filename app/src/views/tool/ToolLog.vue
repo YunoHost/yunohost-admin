@@ -18,7 +18,7 @@ const queries = computed<APIQuery[]>(() => {
     with_suboperations: '',
     number: numberOfLines.value,
   })
-  return [['GET', `logs/${props.name}?${queryString}`]]
+  return [{ uri: `logs/${props.name}?${queryString}` }]
 })
 const { loading, refetch } = useInitialQueries(queries, {
   onQueriesResponse,
@@ -66,12 +66,11 @@ function onQueriesResponse(log: any) {
 
 function shareLogs() {
   api
-    .get(
-      `logs/${props.name}/share`,
-      null,
-      { key: 'share_logs', name: props.name },
-      { websocket: true },
-    )
+    .get({
+      uri: `logs/${props.name}/share`,
+      humanKey: { key: 'share_logs', name: props.name },
+      websocket: true,
+    })
     .then(({ url }) => {
       window.open(url, '_blank')
     })
