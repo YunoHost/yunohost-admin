@@ -1,7 +1,7 @@
 import router from '@/router'
 import i18n from '@/i18n'
 import api from '@/api'
-import { timeout, isEmptyValue, isObjectLiteral } from '@/helpers/commons'
+import { timeout, isEmptyValue } from '@/helpers/commons'
 
 export default {
   state: {
@@ -9,14 +9,8 @@ export default {
     installed: null,
     connected: localStorage.getItem('connected') === 'true', // Boolean
     yunohost: null, // Object { version, repo }
-    waiting: false, // Boolean
     reconnecting: null, // null|Object { attemps, delay, initialDelay }
-    history: [], // Array of `request`
-    requests: [], // Array of `request`
-    currentRequest: null,
     error: null, // null || request
-    historyTimer: null, // null || setTimeout id
-    tempMessages: [], // Array of messages
     routerKey: undefined, // String if current route has params
     breadcrumb: [], // Array of routes
     transitionName: null, // String of CSS class if transitions are enabled
@@ -36,65 +30,8 @@ export default {
       state.yunohost = yunohost
     },
 
-    SET_WAITING(state, boolean) {
-      state.waiting = boolean
-    },
-
     SET_RECONNECTING(state, args) {
       state.reconnecting = args
-    },
-
-    SET_CURRENT_REQUEST(state, request) {
-      state.currentRequest = request
-    },
-
-    ADD_REQUEST(state, request) {
-      if (state.requests.length > 10) {
-        // We do not remove requests right after it resolves since an error might bring
-        // one back to life but we can safely remove some here.
-        state.requests.shift()
-      }
-      state.requests.push(request)
-    },
-
-    UPDATE_REQUEST(state, { key, value }) {
-      // This rely on data persistance and reactivity.
-      state.currentRequest[key] = value
-    },
-
-    REMOVE_REQUEST(state, request) {
-      const index = state.requests.lastIndexOf(request)
-      state.requests.splice(index, 1)
-    },
-
-    ADD_HISTORY_ACTION(state, request) {
-      state.history.push(request)
-    },
-
-    ADD_TEMP_MESSAGE(state, { request, message, type }) {
-      state.tempMessages.push([message, type])
-    },
-
-    UPDATE_DISPLAYED_MESSAGES(state) {
-      if (!state.tempMessages.length) {
-        state.historyTimer = null
-        return
-      }
-
-      const { messages, warnings, errors } = state.tempMessages.reduce(
-        (acc, [message, type]) => {
-          acc.messages.push(message)
-          if (['error', 'warning'].includes(type)) acc[type + 's']++
-          return acc
-        },
-        { messages: [], warnings: 0, errors: 0 },
-      )
-      state.tempMessages = []
-      state.historyTimer = null
-      state.currentRequest.messages =
-        state.currentRequest.messages.concat(messages)
-      state.currentRequest.warnings += warnings
-      state.currentRequest.errors += errors
     },
 
     SET_ERROR(state, request) {
@@ -195,108 +132,6 @@ export default {
       return api.get('versions').then((versions) => {
         commit('SET_YUNOHOST_INFOS', versions.yunohost)
       })
-    },
-
-    INIT_REQUEST(
-      { commit },
-      { method, uri, humanKey, initial, wait, websocket },
-    ) {
-      // Try to find a description for an API route to display in history and modals
-      const { key, ...args } = isObjectLiteral(humanKey)
-        ? humanKey
-        : { key: humanKey }
-      const humanRoute = key
-        ? i18n.global.t('human_routes.' + key, args)
-        : `[${method}] /${uri}`
-
-      let request = {
-        method,
-        uri,
-        humanRouteKey: key,
-        humanRoute,
-        initial,
-        status: 'pending',
-      }
-      if (websocket) {
-        request = {
-          ...request,
-          messages: [],
-          date: Date.now(),
-          warnings: 0,
-          errors: 0,
-        }
-        commit('ADD_HISTORY_ACTION', request)
-      }
-      commit('ADD_REQUEST', request)
-      commit('SET_CURRENT_REQUEST', request)
-      if (wait) {
-        setTimeout(() => {
-          // Display the waiting modal only if the request takes some time.
-          if (request.status === 'pending') {
-            commit('SET_WAITING', true)
-          }
-        }, 400)
-      }
-
-      return request
-    },
-
-    END_REQUEST({ state, commit }, { request, success, wait }) {
-      // Update last messages before finishing this request
-      clearTimeout(state.historyTimer)
-      commit('UPDATE_DISPLAYED_MESSAGES', { request })
-
-      let status = success ? 'success' : 'error'
-      if (success && (request.warnings || request.errors)) {
-        const messages = request.messages
-        if (
-          messages.length &&
-          messages[messages.length - 1].color === 'warning'
-        ) {
-          state.currentRequest.showWarningMessage = true
-        }
-        status = 'warning'
-      }
-
-      commit('UPDATE_REQUEST', { request, key: 'status', value: status })
-      if (wait && !state.currentRequest.showWarningMessage) {
-        // Remove the overlay after a short delay to allow an error to display withtout flickering.
-        setTimeout(() => {
-          commit('SET_WAITING', false)
-        }, 100)
-      }
-    },
-
-    DISPATCH_MESSAGE({ state, commit, dispatch }, { request, messages }) {
-      for (const type in messages) {
-        const message = {
-          text: messages[type].replaceAll('\n', '<br>'),
-          color: type === 'error' ? 'danger' : type,
-        }
-        let progressBar = message.text.match(/^\[#*\+*\.*\] > /)
-        if (progressBar) {
-          progressBar = progressBar[0]
-          message.text = message.text.replace(progressBar, '')
-          const progress = { '#': 0, '+': 0, '.': 0 }
-          for (const char of progressBar) {
-            if (char in progress) progress[char] += 1
-          }
-          commit('UPDATE_REQUEST', {
-            request,
-            key: 'progress',
-            value: Object.values(progress),
-          })
-        }
-        if (message.text) {
-          // To avoid rendering lag issues, limit the flow of websocket messages to batches of 50ms.
-          if (state.historyTimer === null) {
-            state.historyTimer = setTimeout(() => {
-              commit('UPDATE_DISPLAYED_MESSAGES', { request })
-            }, 50)
-          }
-          commit('ADD_TEMP_MESSAGE', { request, message, type })
-        }
-      }
     },
 
     HANDLE_ERROR({ commit, dispatch }, error) {
@@ -423,7 +258,6 @@ export default {
     connected: (state) => state.connected,
     yunohost: (state) => state.yunohost,
     error: (state) => state.error,
-    waiting: (state) => state.waiting,
     reconnecting: (state) => state.reconnecting,
     history: (state) => state.history,
     lastAction: (state) => state.history[state.history.length - 1],

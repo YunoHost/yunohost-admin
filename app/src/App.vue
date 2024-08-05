@@ -2,13 +2,15 @@
 import { onMounted } from 'vue'
 import { useStore } from 'vuex'
 
+import { useRequests } from '@/composables/useRequests'
+import { useSettings } from '@/composables/useSettings'
 import { useStoreGetters } from '@/store/utils'
 import { HistoryConsole, ViewLockOverlay } from '@/views/_partials'
-import { useSettings } from '@/composables/useSettings'
 
 const store = useStore()
 
-const { connected, yunohost, routerKey, waiting, ssoLink } = useStoreGetters()
+const { connected, yunohost, routerKey, ssoLink } = useStoreGetters()
+const { locked } = useRequests()
 const { spinner, dark, transitions, transitionName } = useSettings()
 
 async function logout() {
@@ -78,7 +80,7 @@ onMounted(() => {
       <BNavbar>
         <BNavbarBrand
           :to="{ name: 'home' }"
-          :disabled="waiting"
+          :disabled="locked"
           exact-active-class="active"
         >
           <span v-if="dark">

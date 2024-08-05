@@ -3,10 +3,15 @@
  * @module api/handlers
  */
 
-import store from '@/store'
-import errors, { APIError } from './errors'
+import errors, { APIError } from '@/api/errors'
+import {
+  STATUS_VARIANT,
+  type APIRequest,
+  type APIRequestAction,
+} from '@/composables/useRequests'
+import { toEntries } from '@/helpers/commons'
 import type { Obj } from '@/types/commons'
-import type { APIErrorData, APIRequest, APIRequestAction } from './api'
+import type { APIErrorData } from './api'
 
 /**
  * Try to get response content as json and if it's not as text.
@@ -39,9 +44,26 @@ export function openWebSocket(request: APIRequestAction): Promise<Event> {
       `wss://${store.getters.host}/yunohost/api/messages`,
     )
     ws.onmessage = ({ data }) => {
-      store.dispatch('DISPATCH_MESSAGE', {
-        request,
-        messages: JSON.parse(data),
+      const messages: Record<'info' | 'success' | 'warning' | 'error', string> =
+        JSON.parse(data)
+      toEntries(messages).forEach(([status, text]) => {
+        text = text.replaceAll('\n', '<br>')
+        const progressBar = text.match(/^\[#*\+*\.*\] > /)?.[0]
+        if (progressBar) {
+          text = text.replace(progressBar, '')
+          const progress: Obj<number> = { '#': 0, '+': 0, '.': 0 }
+          for (const char of progressBar) {
+            if (char in progress) progress[char] += 1
+          }
+          request.action.progress = Object.values(progress)
+        }
+        request.action.messages.push({
+          text,
+          variant: STATUS_VARIANT[status],
+        })
+        if (['error', 'warning'].includes(status)) {
+          request.action[`${status as 'error' | 'warning'}s`]++
+        }
       })
     }
     // ws.onclose = (e) => {}

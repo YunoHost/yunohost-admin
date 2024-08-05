@@ -1,10 +1,5 @@
-/**
- * API module.
- * @module api
- */
-
+import { useRequests, type APIRequestAction } from '@/composables/useRequests'
 import { useSettings } from '@/composables/useSettings'
-import store from '@/store'
 import type { Obj } from '@/types/commons'
 import { APIUnauthorizedError, type APIError } from './errors'
 import { getError, getResponseData, openWebSocket } from './handlers'
@@ -34,30 +29,7 @@ export type APIErrorData = {
   error_key?: string
   log_ref?: string
   traceback?: string
-  name?: string // FIXME name is field id right?
-}
-
-type RequestStatus = 'pending' | 'success' | 'warning' | 'error'
-
-export type APIRequest = {
-  method: RequestMethod
-  uri: string
-  humanRouteKey: HumanKey['key']
-  humanRoute: string
-  initial: boolean
-  status: RequestStatus
-}
-
-type WebsocketMessage = {
-  text: string
-  status: 'info' | 'success' | 'warning' | 'error'
-}
-
-export type APIRequestAction = APIRequest & {
-  messages: WebsocketMessage[]
-  date: number
-  warning: number
-  errors: number
+  name?: string
 }
 
 /**
@@ -131,21 +103,21 @@ export default {
     asFormData = true,
   }: APIQuery): Promise<T> {
     const { locale } = useSettings()
-    // `await` because Vuex actions returns promises by default.
-    const request: APIRequest = await store.dispatch('INIT_REQUEST', {
+    const { startRequest, endRequest } = useRequests()
+
+    const request = startRequest({
       method,
       uri,
       humanKey,
       initial,
-      wait: showModal,
+      showModal,
       websocket,
     })
-
     if (websocket) {
       await openWebSocket(request as APIRequestAction)
     }
 
-    let options = this.options
+    let options = { ...this.options }
     if (method === 'GET') {
       uri += `${uri.includes('?') ? '&' : '?'}locale=${locale.value}`
     } else {
@@ -160,7 +132,7 @@ export default {
 
     const response = await fetch('/yunohost/api/' + uri, options)
     const responseData = await getResponseData(response)
-    store.dispatch('END_REQUEST', { request, success: response.ok, wait })
+    endRequest({ request, success: response.ok })
 
     if (!response.ok) {
       throw getError(request, response, responseData as string | APIErrorData)
