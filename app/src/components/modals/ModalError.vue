@@ -1,89 +1,58 @@
 <script setup lang="ts">
-import { computed } from 'vue'
-import { useStore } from 'vuex'
+import { APIError, APIInternalError } from '@/api/errors'
+import ModalOverlay from '@/components/modals/ModalOverlay.vue'
+import type { APIRequest } from '@/composables/useRequests'
 
-import MessageListGroup from '@/components/MessageListGroup.vue'
-import type { Obj } from '@/types/commons'
+const props = defineProps<{
+  request: APIRequest & { err: APIError }
+}>()
 
-const props = withDefaults(
-  defineProps<{
-    request: Obj
-  }>(),
-  {},
-)
-
-const store = useStore()
-
-const error = computed(() => {
-  return props.request.error
-})
-
-const messages = computed(() => {
-  const messages = props.request.messages
-  if (messages && messages.length > 0) return messages
-  return null
-})
-
-function dismiss() {
-  store.dispatch('DISMISS_ERROR', props.request)
-}
+const { err, messages, traceback } = (() => {
+  const { err, action } = props.request
+  return {
+    err: err,
+    messages: action?.messages,
+    traceback: err instanceof APIInternalError ? err.traceback : null,
+  }
+})()
 </script>
 
 <template>
-  <!-- This card receives style from `ViewLockOverlay` if used inside it -->
-  <div>
-    <BCardBody>
-      <BCardTitle v-t="'api_errors_titles.' + error.name" />
+  <ModalOverlay :request="request" footer-variant="danger" :hide-footer="false">
+    <h5 v-t="`api_errors_titles.${err.name}`" />
 
-      <em v-t="'api_error.sorry'" />
+    <em v-t="'api_error.sorry'" />
 
-      <div class="alert alert-info my-3">
-        <span v-html="$t('api_error.help')" />
-        <br />{{ $t('api_error.info') }}
-      </div>
+    <div class="alert alert-info my-3">
+      <span v-html="$t('api_error.help')" />
+      <br />{{ $t('api_error.info') }}
+    </div>
 
-      <!-- FIXME USE DD DL DT -->
-      <p class="m-0">
-        <strong v-t="'error'" />:
-        <code>"{{ error.code }}" {{ error.status }}</code>
-      </p>
-      <p>
-        <strong v-t="'action'" />:
-        <code>"{{ error.method }}" {{ error.path }}</code>
-      </p>
+    <!-- FIXME USE DD DL DT -->
+    <p class="m-0">
+      <strong v-t="'error'" />:
+      <code>"{{ err.code }}" {{ err.status }}</code>
+    </p>
+    <p>
+      <strong v-t="'action'" />:
+      <code>"{{ err.method }}" {{ err.path }}</code>
+    </p>
 
-      <p>
-        <strong v-t="'api_error.error_message'" />
-        <BAlert :model-value="true" class="mt-2" variant="danger">
-          <div v-html="error.message" />
-        </BAlert>
-      </p>
+    <p>
+      <strong v-t="'api_error.error_message'" />
+      <YAlert variant="danger" class="mt-2">
+        <div v-html="err.message" />
+      </YAlert>
+    </p>
 
-      <template v-if="error.traceback">
-        <p>
-          <strong v-t="'traceback'" />
-        </p>
-        <pre><code>{{ error.traceback }}</code></pre>
-      </template>
+    <div v-if="traceback">
+      <p><strong v-t="'traceback'" /></p>
+      <pre><code>{{ traceback }}</code></pre>
+    </div>
 
-      <template v-if="messages">
-        <p class="my-2">
-          <strong v-t="'api_error.server_said'" />
-        </p>
-        <MessageListGroup :messages="messages" bordered />
-      </template>
-    </BCardBody>
-
-    <BCardFooter footer-bg-variant="danger">
-      <!-- TODO add copy error ? -->
-      <BButton variant="light" size="sm" v-t="'ok'" @click="dismiss" />
-    </BCardFooter>
-  </div>
+    <div v-if="messages">
+      <p class="my-2"><strong v-t="'api_error.server_said'" /></p>
+      <MessageListGroup :messages="messages" bordered fixed-height />
+    </div>
+  </ModalOverlay>
 </template>
-
-<style lang="scss" scoped>
-code,
-pre code {
-  color: $black;
-}
-</style>
