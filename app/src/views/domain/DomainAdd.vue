@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { useStore } from 'vuex'
 
 import api from '@/api'
 import { APIBadRequestError, type APIError } from '@/api/errors'
@@ -24,7 +23,6 @@ function onSubmit(data) {
       humanKey: { key: 'domains.add', name: data.domain },
     })
     .then(() => {
-      store.dispatch('RESET_CACHE_DATA', ['domains'])
       router.push({ name: 'domain-list' })
     })
     .catch((err: APIError) => {

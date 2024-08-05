@@ -1,21 +1,16 @@
 <script setup lang="ts">
-import { useStoreGetters } from '@/store/utils'
-
 import RecursiveListGroup from '@/components/RecursiveListGroup.vue'
+import { useDomains } from '@/composables/data'
 import { useInitialQueries } from '@/composables/useInitialQueries'
 import { useSearch } from '@/composables/useSearch'
-import type { TreeRootNode } from '@/helpers/data/tree'
-import type { ComputedRef } from 'vue'
 
-const { mainDomain, domainsTree } = useStoreGetters()
 const { loading } = useInitialQueries([
   { uri: 'domains', cachePath: 'domains' },
 ])
+const { mainDomain, domainsTree } = useDomains()
 
-const [search, filteredTree] = useSearch(
-  // FIXME rm ts type when moved to pinia or else
-  domainsTree as ComputedRef<TreeRootNode | undefined>,
-  (s, node) => node.id.includes(s),
+const [search, filteredTree] = useSearch(domainsTree, (s, node) =>
+  node.id.includes(s),
 )
 </script>
 

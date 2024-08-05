@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { computed, ref, shallowRef } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { useRoute, useRouter } from 'vue-router'
-import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
 
 import api, { objectToParams } from '@/api'
 import ConfigPanelsComponent from '@/components/ConfigPanels.vue'
@@ -11,9 +10,9 @@ import type {
   OnPanelApply,
 } from '@/composables/configPanels'
 import { formatConfigPanels, useConfigPanels } from '@/composables/configPanels'
+import { useDomains } from '@/composables/data'
 import { useAutoModal } from '@/composables/useAutoModal'
 import { useInitialQueries } from '@/composables/useInitialQueries'
-import { useStoreGetters } from '@/store/utils'
 import type { CoreConfigPanels } from '@/types/core/options'
 import DomainDns from '@/views/domain/DomainDns.vue'
 
@@ -24,8 +23,6 @@ const props = defineProps<{
 
 const { t } = useI18n()
 const router = useRouter()
-const route = useRoute()
-const store = useStore()
 const modalConfirm = useAutoModal()
 const { loading, refetch } = useInitialQueries(
   [
@@ -39,17 +36,9 @@ const { loading, refetch } = useInitialQueries(
   { onQueriesResponse },
 )
 
-const { mainDomain } = useStoreGetters()
+const { mainDomain, domain } = useDomains(() => props.name)
 const config = shallowRef<ConfigPanelsProps | undefined>()
 const unsubscribeDomainFromDyndns = ref(false)
-
-const domain = computed(() => {
-  return store.getters.domain(props.name)
-})
-
-const parentName = computed(() => {
-  return store.getters.highestDomainParentName(props.name)
-})
 
 const cert = computed(() => {
   const { CA_type: authority, validity } = domain.value.certificate
@@ -64,10 +53,6 @@ const cert = computed(() => {
     return { icon: 'thumbs-up', variant: 'success', ...baseInfos }
   }
   return { icon: 'exclamation', variant: 'warning', ...baseInfos }
-})
-
-const dns = computed(() => {
-  return domain.value.dns
 })
 
 const isMainDomain = computed(() => {
@@ -135,17 +120,12 @@ async function setAsDefaultDomain() {
   const confirmed = await modalConfirm(t('confirm_change_maindomain'))
   if (!confirmed) return
 
-  api
-    .put({
-      uri: `domains/${props.name}/main`,
-      cachePath: `mainDomain.${props.name}`,
-      data: {},
-      humanKey: { key: 'domains.set_default', name: props.name },
-    })
-    .then(() => {
-      // FIXME Have to commit by hand here since the response is empty (should return the given name)
-      store.commit('UPDATE_MAIN_DOMAIN', props.name)
-    })
+  api.put({
+    uri: `domains/${props.name}/main`,
+    cachePath: `mainDomain.${props.name}`,
+    data: {},
+    humanKey: { key: 'domains.set_default', name: props.name },
+  })
 }
 </script>
 

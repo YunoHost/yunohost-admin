@@ -10,8 +10,8 @@ import { useRouter } from 'vue-router'
 import api from '@/api'
 import { isEmptyValue, timeout } from '@/helpers/commons'
 import i18n from '@/i18n'
-import { useStoreGetters } from '@/store/utils'
 import type { CustomRoute, RouteFromTo } from '@/types/commons'
+import { useDomains } from './data'
 import { useRequests, type ReconnectingArgs } from './useRequests'
 
 export const useInfos = createGlobalState(() => {
@@ -24,7 +24,7 @@ export const useInfos = createGlobalState(() => {
   const routerKey = ref<string | undefined>()
   const breadcrumb = ref<CustomRoute[]>([])
 
-  const { mainDomain } = useStoreGetters()
+  const { mainDomain } = useDomains()
   const ssoLink = computed(() => {
     return `//${mainDomain.value ?? host.value}/yunohost/sso`
   })

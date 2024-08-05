@@ -2,9 +2,9 @@
 import { reactive, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
-import { useStore } from 'vuex'
 
 import api from '@/api'
+import { resetCache } from '@/composables/data'
 import { useForm } from '@/composables/form'
 import { useAutoModal } from '@/composables/useAutoModal'
 import { required } from '@/helpers/validators'
@@ -13,7 +13,6 @@ import type { FieldProps, FileModelValue, FormFieldDict } from '@/types/form'
 
 const { t } = useI18n()
 const router = useRouter()
-const store = useStore()
 const modalConfirm = useAutoModal()
 
 type Form = typeof form.value
@@ -69,16 +68,12 @@ const onUserImport = onSubmit(async (onError) => {
   if (!requestArgs.delete) delete requestArgs.delete
   if (!requestArgs.update) delete requestArgs.update
   const data = await formatForm(requestArgs)
+
   api
     .post({ uri: 'users/import', data })
     .then(() => {
       // Reset all cached data related to users.
-      store.dispatch('RESET_CACHE_DATA', [
-        'users',
-        'users_details',
-        'groups',
-        'permissions',
-      ])
+      resetCache(['users', 'userDetails', 'groups', 'permissions'])
       router.push({ name: 'user-list' })
     })
     .catch(onError)

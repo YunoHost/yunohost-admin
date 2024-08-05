@@ -7,7 +7,9 @@ export function useSearch<
   T extends any[] | TreeRootNode,
   V extends T extends (infer V)[] ? V : AnyTreeNode,
 >(
-  items: MaybeRefOrGetter<T | undefined> | ComputedRef<T | undefined>,
+  items:
+    | MaybeRefOrGetter<T | null | undefined>
+    | ComputedRef<T | null | undefined>,
   filterFn: (search: string, item: V, index: number, arr: T) => boolean,
   {
     externalSearch,

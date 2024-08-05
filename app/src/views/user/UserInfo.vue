@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 
 import api from '@/api'
+import { useUsersAndGroups } from '@/composables/data'
 import { useInitialQueries } from '@/composables/useInitialQueries'
-import { useStoreGetters } from '@/store/utils'
 
 const props = defineProps<{ name: string }>()
 
@@ -16,9 +16,8 @@ const { loading } = useInitialQueries([
   },
 ])
 
-const { user: userGetter } = useStoreGetters()
+const { user } = useUsersAndGroups(() => props.name)
 const purge = ref(false)
-const user = computed(() => userGetter.value(props.name))
 
 function deleteUser() {
   const data = purge.value ? { purge: '' } : {}

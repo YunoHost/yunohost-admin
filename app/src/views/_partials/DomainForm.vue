@@ -2,6 +2,7 @@
 import { computed, reactive, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 
+import { useDomains } from '@/composables/data'
 import { useForm } from '@/composables/form'
 import { asUnreffed } from '@/helpers/commons'
 import {
@@ -12,7 +13,6 @@ import {
   sameAs,
 } from '@/helpers/validators'
 import { formatForm } from '@/helpers/yunohostArguments'
-import { useStoreGetters } from '@/store/utils'
 import type { AdressModelValue, FieldProps, FormFieldDict } from '@/types/form'
 
 defineOptions({
@@ -36,7 +36,7 @@ const emit = defineEmits<{
 
 const { t } = useI18n()
 
-const { domains } = useStoreGetters()
+const { domains } = useDomains()
 const dynDomains = ['nohost.me', 'noho.st', 'ynh.fr']
 
 const dynDnsForbiden = computed(() => {

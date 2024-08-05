@@ -4,6 +4,7 @@ import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 
 import api from '@/api'
+import { useDomains, useUsersAndGroups } from '@/composables/data'
 import { useForm } from '@/composables/form'
 import { useInitialQueries } from '@/composables/useInitialQueries'
 import { asUnreffed } from '@/helpers/commons'
@@ -16,7 +17,6 @@ import {
   unique,
 } from '@/helpers/validators'
 import { formatForm } from '@/helpers/yunohostArguments'
-import { useStoreGetters } from '@/store/utils'
 import type { FieldProps, FormFieldDict } from '@/types/form'
 
 const { t } = useI18n()
@@ -28,8 +28,8 @@ const { loading } = useInitialQueries(
   ],
   { onQueriesResponse },
 )
-
-const { userNames, domainsAsChoices, mainDomain } = useStoreGetters()
+const { usernames } = useUsersAndGroups()
+const { domainsAsChoices, mainDomain } = useDomains()
 
 type Form = typeof form.value
 const form = ref({
@@ -47,7 +47,7 @@ const fields = {
       computed(() => ({
         required,
         alphalownumdot_,
-        notInUsers: unique(userNames),
+        notInUsers: unique(usernames),
       })),
     ),
     props: {

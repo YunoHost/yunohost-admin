@@ -12,13 +12,13 @@ import type {
   OnPanelApply,
 } from '@/composables/configPanels'
 import { formatConfigPanels, useConfigPanels } from '@/composables/configPanels'
+import { useDomains } from '@/composables/data'
 import { useAutoModal } from '@/composables/useAutoModal'
 import { useInitialQueries } from '@/composables/useInitialQueries'
 import { isEmptyValue } from '@/helpers/commons'
 import { humanPermissionName } from '@/helpers/filters/human'
 import { helpers, required } from '@/helpers/validators'
 import { formatI18nField } from '@/helpers/yunohostArguments'
-import { useStoreGetters } from '@/store/utils'
 import type { CoreConfigPanels } from '@/types/core/options'
 
 const props = defineProps<{
@@ -31,7 +31,7 @@ const route = useRoute()
 const router = useRouter()
 const modalConfirm = useAutoModal()
 
-const { domains } = useStoreGetters()
+const { domainsAsChoices } = useDomains()
 
 // FIXME
 type AppForm = {
@@ -526,7 +526,10 @@ async function uninstall() {
           <BInputGroup v-if="app.supports_change_url">
             <BInputGroupText>https://</BInputGroupText>
 
-            <BFormSelect v-model="form.url.domain" :options="domains" />
+            <BFormSelect
+              v-model="form.url.domain"
+              :options="domainsAsChoices"
+            />
 
             <BInputGroupText>/</BInputGroupText>
 

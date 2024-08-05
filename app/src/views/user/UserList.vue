@@ -1,11 +1,8 @@
 <script setup lang="ts">
-import { type ComputedRef } from 'vue'
-
+import { useUsersAndGroups } from '@/composables/data'
 import { useInfos } from '@/composables/useInfos'
 import { useInitialQueries } from '@/composables/useInitialQueries'
 import { useSearch } from '@/composables/useSearch'
-import { useStoreGetters } from '@/store/utils'
-import type { Obj } from '@/types/commons'
 
 const { loading } = useInitialQueries([
   {
@@ -14,9 +11,9 @@ const { loading } = useInitialQueries([
   },
 ])
 
-const { users } = useStoreGetters()
+const { users } = useUsersAndGroups()
 const [search, filteredUsers] = useSearch(
-  users as ComputedRef<Obj[] | undefined>,
+  users,
   (s, user) =>
     user.username.toLowerCase().includes(s) || user.groups.includes(s),
 )

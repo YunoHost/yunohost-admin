@@ -5,6 +5,7 @@ import { useRouter } from 'vue-router'
 
 import api from '@/api'
 import type ViewBase from '@/components/globals/ViewBase.vue'
+import { useDomains, useUsersAndGroups } from '@/composables/data'
 import { useArrayRule, useForm } from '@/composables/form'
 import { useInitialQueries } from '@/composables/useInitialQueries'
 import { arrayDiff, asUnreffed } from '@/helpers/commons'
@@ -19,7 +20,6 @@ import {
   sameAs,
 } from '@/helpers/validators'
 import { formatAdress, formatForm, sizeToM } from '@/helpers/yunohostArguments'
-import { useStoreGetters } from '@/store/utils'
 import type { AdressModelValue, FieldProps, FormFieldDict } from '@/types/form'
 
 const props = defineProps<{
@@ -41,7 +41,7 @@ const { loading } = useInitialQueries(
 
 const viewElem = ref<InstanceType<typeof ViewBase> | null>(null)
 
-const { user, domainsAsChoices, mainDomain } = useStoreGetters()
+const { domainsAsChoices, mainDomain } = useDomains()
 
 type Form = typeof form.value
 const form = ref({
@@ -174,8 +174,7 @@ const onUserEdit = onSubmit(async (onError, serverErrors) => {
   const { username: _, ...formData } = await formatForm(form, {
     removeEmpty: true,
   })
-  // FIXME not sure computed can be executed?
-  const user_ = user.value(props.name)
+  const user_ = useUsersAndGroups(props.name).user.value!
   const data = {}
   if (!Object.prototype.hasOwnProperty.call(formData, 'mailbox_quota')) {
     formData.mailbox_quota = ''
