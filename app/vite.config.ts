@@ -58,7 +58,7 @@ export default defineConfig(({ command, mode }) => {
       rollupOptions: {
         output: {
           manualChunks: (id) => {
-            // Circular import problems, this will merge vue/vuex/etc. and api together
+            // Circular import problems, this will merge core deps and api together
             if (!id.includes('node_modules') && id.includes('api/')) {
               return 'core'
             }

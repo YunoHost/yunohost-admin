@@ -9,7 +9,6 @@ import { useRequests } from './composables/useRequests'
 import { useSettings } from './composables/useSettings'
 import i18n from './i18n'
 import router from './router'
-import store from './store'
 
 import '@/scss/main.scss'
 
@@ -35,7 +34,6 @@ window.addEventListener('unhandledrejection', (e) => {
   onError(e.reason)
 })
 
-app.use(store)
 app.use(router)
 app.use(i18n)
 
