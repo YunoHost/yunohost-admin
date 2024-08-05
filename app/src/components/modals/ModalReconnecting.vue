@@ -1,74 +1,84 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { useStore } from 'vuex'
+import { onMounted, reactive } from 'vue'
 
 import api from '@/api'
-import { useStoreGetters } from '@/store/utils'
+import ModalOverlay from '@/components/modals/ModalOverlay.vue'
+import type { APIRequest, ReconnectingArgs } from '@/composables/useRequests'
 import LoginView from '@/views/LoginView.vue'
 
-const store = useStore()
+const props = defineProps<{
+  reconnecting: ReconnectingArgs
+}>()
 
-const { reconnecting } = useStoreGetters()
-const status = ref('reconnecting')
-const origin = ref(reconnecting.value.origin || 'unknown')
+const emit = defineEmits<{
+  dismiss: [value: boolean]
+}>()
 
-function tryToReconnect(initialDelay = 0) {
-  status.value = 'reconnecting'
+const request = reactive<{
+  humanRoute: APIRequest['humanRoute']
+  status: APIRequest['status']
+  subStatus?: 'expired' | 'failed'
+}>({
+  status: 'pending',
+  // FIXME translate
+  humanRoute: 'reconnecting',
+})
+
+function tryToReconnect() {
+  request.status = 'pending'
+  request.subStatus = undefined
   api
-    .tryToReconnect({ ...reconnecting.value, initialDelay })
+    .tryToReconnect(props.reconnecting)
     .then(() => {
-      store.commit('SET_RECONNECTING', null)
+      emit('dismiss', true)
     })
     .catch((err) => {
       if (err.name === 'APIUnauthorizedError') {
-        status.value = 'expired'
+        request.status = 'success'
+        request.subStatus = 'expired'
       } else {
-        status.value = 'failed'
+        request.status = 'error'
+        request.subStatus = 'failed'
       }
     })
 }
 
-tryToReconnect(reconnecting.value.initialDelay)
+onMounted(() => {
+  tryToReconnect()
+})
 </script>
 
 <template>
-  <!-- This card receives style from `ViewLockOverlay` if used inside it -->
-  <BCardBody>
-    <BCardTitle class="text-center my-4" v-t="'api.reconnecting.title'" />
+  <ModalOverlay
+    :request="request as APIRequest"
+    footer-variant="danger"
+    :hide-footer="request.subStatus !== 'failed'"
+  >
+    <h5 v-t="'api.reconnecting.title'" class="text-center my-4" />
 
-    <template v-if="status === 'reconnecting'">
+    <template v-if="request.status === 'pending'">
       <YSpinner class="mb-4" />
 
-      <BAlert
-        :modelValue="!!origin"
-        v-t="'api.reconnecting.reason.' + origin"
-        :variant="origin === 'unknow' ? 'warning' : 'info'"
+      <YAlert
+        v-if="!!reconnecting.origin"
+        v-t="'api.reconnecting.reason.' + reconnecting.origin"
+        :variant="reconnecting.origin === 'unknown' ? 'warning' : 'info'"
       />
     </template>
 
-    <template v-if="status === 'failed'">
-      <BAlert :modelValue="true" variant="danger">
+    <template v-if="request.subStatus === 'failed'">
+      <YAlert variant="danger">
         <MarkdownItem :label="$t('api.reconnecting.failed')" />
-      </BAlert>
-
-      <div class="d-flex justify-content-end">
-        <BButton
-          variant="success"
-          v-t="'retry'"
-          class="ms-auto"
-          @click="tryToReconnect()"
-        />
-      </div>
+      </YAlert>
+    </template>
+    <template v-if="request.subStatus === 'failed'" #footer>
+      <BButton v-t="'retry'" variant="light" @click="tryToReconnect()" />
     </template>
 
-    <template v-if="status === 'expired'">
-      <BAlert
-        :modelValue="true"
-        variant="success"
-        v-t="'api.reconnecting.session_expired'"
-      />
+    <template v-if="request.subStatus === 'expired'">
+      <YAlert v-t="'api.reconnecting.success'" variant="success" />
 
       <LoginView force-reload />
     </template>
-  </BCardBody>
+  </ModalOverlay>
 </template>
