@@ -10,7 +10,6 @@ export default {
     connected: localStorage.getItem('connected') === 'true', // Boolean
     yunohost: null, // Object { version, repo }
     reconnecting: null, // null|Object { attemps, delay, initialDelay }
-    error: null, // null || request
     routerKey: undefined, // String if current route has params
     breadcrumb: [], // Array of routes
     transitionName: null, // String of CSS class if transitions are enabled
@@ -32,14 +31,6 @@ export default {
 
     SET_RECONNECTING(state, args) {
       state.reconnecting = args
-    },
-
-    SET_ERROR(state, request) {
-      if (request) {
-        state.error = request
-      } else {
-        state.error = null
-      }
     },
 
     SET_ROUTER_KEY(state, key) {
@@ -134,48 +125,6 @@ export default {
       })
     },
 
-    HANDLE_ERROR({ commit, dispatch }, error) {
-      if (error.code === 401) {
-        // Unauthorized
-        dispatch('DISCONNECT')
-      } else if (error.logRef) {
-        // Errors that have produced logs
-        router.push({ name: 'tool-log', params: { name: error.logRef } })
-      } else {
-        // The request is temporarely stored in the error for reference, but we reverse
-        // the ownership to stay generic.
-        const request = error.request
-        delete error.request
-        request.error = error
-        // Display the error in a modal on the current view.
-        commit('SET_ERROR', request)
-      }
-    },
-
-    REVIEW_ERROR({ commit }, request) {
-      request.review = true
-      commit('SET_ERROR', request)
-    },
-
-    DISMISS_ERROR({ commit, state }, { initial, review = false }) {
-      if (initial && !review) {
-        // In case of an initial request (data that is needed by a view to render itself),
-        // try to go back so the user doesn't get stuck at a never ending skeleton view.
-        if (history.length > 2) {
-          history.back()
-        } else {
-          // if the url was opened in a new tab, return to home
-          router.push({ name: 'home' })
-        }
-      }
-      commit('SET_ERROR', null)
-    },
-
-    DISMISS_WARNING({ commit, state }, request) {
-      commit('SET_WAITING', false)
-      delete request.showWarningMessage
-    },
-
     UPDATE_ROUTER_KEY({ commit }, { to, from }) {
       if (isEmptyValue(to.params)) {
         commit('SET_ROUTER_KEY', undefined)
@@ -257,11 +206,8 @@ export default {
     installed: (state) => state.installed,
     connected: (state) => state.connected,
     yunohost: (state) => state.yunohost,
-    error: (state) => state.error,
     reconnecting: (state) => state.reconnecting,
     history: (state) => state.history,
-    lastAction: (state) => state.history[state.history.length - 1],
-    currentRequest: (state) => state.currentRequest,
     routerKey: (state) => state.routerKey,
     breadcrumb: (state) => state.breadcrumb,
     transitionName: (state) => state.transitionName,

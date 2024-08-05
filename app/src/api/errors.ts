@@ -3,15 +3,16 @@
  * @module api/errors
  */
 
+import type { APIRequest } from '@/composables/useRequests'
 import i18n from '@/i18n'
-import type { APIErrorData, RequestMethod, APIRequest } from './api'
+import type { APIErrorData, RequestMethod } from './api'
 
 class APIError extends Error {
   name = 'APIError'
   code: number
   status: string
   method: RequestMethod
-  request: APIRequest
+  requestId: string
   path: string
 
   constructor(
@@ -28,7 +29,7 @@ class APIError extends Error {
     this.code = status
     this.status = statusText
     this.method = request.method
-    this.request = request
+    this.requestId = request.id
     this.path = urlObj.pathname + urlObj.search
   }
 
@@ -152,13 +153,13 @@ const errors = {
 }
 
 export {
-  errors as default,
-  APIError,
-  APIErrorLog,
   APIBadRequestError,
   APIConnexionError,
+  APIError,
+  APIErrorLog,
   APIInternalError,
   APINotFoundError,
   APINotRespondingError,
   APIUnauthorizedError,
+  errors as default,
 }

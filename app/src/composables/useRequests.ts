@@ -1,11 +1,13 @@
 import { createGlobalState } from '@vueuse/core'
 import { v4 as uuid } from 'uuid'
 import { computed, reactive, shallowRef } from 'vue'
+import { useRouter } from 'vue-router'
 
 import type { APIQuery, RequestMethod } from '@/api/api'
-import { type APIError } from '@/api/errors'
+import { APIErrorLog, type APIError } from '@/api/errors'
 import { isObjectLiteral } from '@/helpers/commons'
 import i18n from '@/i18n'
+import store from '@/store'
 import type { StateVariant } from '@/types/commons'
 
 export type RequestStatus = 'pending' | 'success' | 'warning' | 'error'
@@ -47,6 +49,8 @@ export const STATUS_VARIANT = {
 } as const
 
 export const useRequests = createGlobalState(() => {
+  const router = useRouter()
+
   const requests = shallowRef<APIRequest[]>([])
   const currentRequest = computed(() => {
     return requests.value.find((r) => r.showModal)
@@ -146,6 +150,41 @@ export const useRequests = createGlobalState(() => {
     }, 350)
   }
 
+  function handleAPIError(err: APIError) {
+    err.log()
+    if (err.code === 401) {
+      // Unauthorized
+      store.dispatch('DISCONNECT')
+    } else if (err instanceof APIErrorLog) {
+      // Errors that have produced logs
+      router.push({ name: 'tool-log', params: { name: err.logRef } })
+    } else {
+      const request = requests.value.find((r) => r.id === err.requestId)!
+      request.err = err
+    }
+  }
+
+  function showModal(requestId: APIRequest['id']) {
+    const request = requests.value.find((r) => r.id === requestId)!
+    request.showModal = true
+  }
+
+  function dismissModal(requestId: APIRequest['id']) {
+    const request = requests.value.find((r) => r.id === requestId)!
+
+    if (request.err && request.initial) {
+      // In case of an initial request (data that is needed by a view to render itself),
+      // try to go back so the user doesn't get stuck at a never ending skeleton view.
+      if (history.length > 2) {
+        history.back()
+      } else {
+        // if the url was opened in a new tab, return to home
+        router.push({ name: 'home' })
+      }
+    }
+    request.showModal = false
+  }
+
   return {
     requests,
     historyList,
@@ -153,5 +192,8 @@ export const useRequests = createGlobalState(() => {
     locked,
     startRequest,
     endRequest,
+    handleAPIError,
+    dismissModal,
+    showModal,
   }
 })

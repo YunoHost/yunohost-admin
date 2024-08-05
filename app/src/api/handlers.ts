@@ -3,7 +3,7 @@
  * @module api/handlers
  */
 
-import errors, { APIError } from '@/api/errors'
+import errors from '@/api/errors'
 import {
   STATUS_VARIANT,
   type APIRequest,
@@ -98,39 +98,6 @@ export function getError(
     errorCode = 'log'
   }
 
-  // This error can be catched by a view otherwise it will be catched by the `onUnhandledAPIError` handler.
+  // This error can be catched by a view otherwise it will be catched by the global error handler.
   return new errors[errorCode](request, response, errorData)
-}
-
-/**
- * If an APIError is not catched by a view it will be dispatched to the store so the
- * error can be displayed in the error modal.
- */
-export function onUnhandledAPIError(error: APIError) {
-  error.log()
-  store.dispatch('HANDLE_ERROR', error)
-}
-
-/**
- * Global catching of unhandled promise's rejections.
- * Those errors (thrown or rejected from inside a promise) can't be catched by
- * `window.onerror`.
- */
-export function registerGlobalErrorHandlers() {
-  window.addEventListener('unhandledrejection', (e) => {
-    const error = e.reason
-    if (error instanceof APIError) {
-      onUnhandledAPIError(error)
-      // Seems like there's a bug in Firefox and the error logging in not prevented.
-      e.preventDefault()
-    }
-  })
-
-  // Keeping this in case it is needed.
-
-  // Global catching of errors occuring inside vue components.
-  // Vue.config.errorHandler = (err, vm, info) => {}
-
-  // Global catching of regular js errors.
-  // window.onerror = (message, source, lineno, colno, error) => {}
 }

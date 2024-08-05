@@ -1,21 +1,39 @@
-import { createApp, type Component } from 'vue'
-import App from './App.vue'
-import { createBootstrap } from 'bootstrap-vue-next'
-import { VueShowdownPlugin } from 'vue-showdown'
 import { watchOnce } from '@vueuse/core'
+import { createBootstrap } from 'bootstrap-vue-next'
+import { createApp, type Component } from 'vue'
+import { VueShowdownPlugin } from 'vue-showdown'
 
+import App from './App.vue'
+import { APIError } from './api/errors'
+import { useRequests } from './composables/useRequests'
 import { useSettings } from './composables/useSettings'
-import store from './store'
-import router from './router'
 import i18n from './i18n'
-
-import { registerGlobalErrorHandlers } from './api'
+import router from './router'
+import store from './store'
 
 import '@/scss/main.scss'
 
 type Module = { default: Component }
 
 const app = createApp(App)
+
+// Error catching
+function onError(err: unknown) {
+  if (err instanceof APIError) {
+    useRequests().handleAPIError(err)
+  } else {
+    // FIXME Error modal for internal code error?
+    throw err
+  }
+}
+app.config.errorHandler = (err) => onError(err)
+window.addEventListener('unhandledrejection', (e) => {
+  // Global catching of unhandled promise's rejections.
+  // Those errors (thrown or rejected from inside a promise) can't be catched by
+  // `window.onerror` or vue.
+  e.preventDefault()
+  onError(e.reason)
+})
 
 app.use(store)
 app.use(router)
@@ -45,8 +63,6 @@ Object.values(globalComponentsModules).forEach(
     app.component(component.__name || component.name, component)
   },
 )
-
-registerGlobalErrorHandlers()
 
 // Load default locales translations files then mount the app
 watchOnce(useSettings().localesLoaded, () => app.mount('#app'))

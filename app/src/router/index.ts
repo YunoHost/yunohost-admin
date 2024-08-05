@@ -1,8 +1,9 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 
+import { useRequests } from '@/composables/useRequests'
 import { useSettings } from '@/composables/useSettings'
-import routes from './routes'
 import store from '@/store'
+import routes from './routes'
 
 const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
@@ -32,8 +33,10 @@ router.beforeEach((to, from, next) => {
     updateTransitionName({ to, from })
   }
 
-  if (store.getters.error) {
-    store.dispatch('DISMISS_ERROR', true)
+  const { currentRequest, dismissModal } = useRequests()
+  if (currentRequest.value?.err) {
+    // In case an error is still present after code route change
+    dismissModal(currentRequest.value.id)
   }
 
   if (to.name === 'post-install' && store.getters.installed) {
