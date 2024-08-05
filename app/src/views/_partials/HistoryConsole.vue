@@ -1,35 +1,28 @@
 <script setup lang="ts">
-import type { BCard } from 'bootstrap-vue-next'
-import { getCurrentInstance, nextTick, ref } from 'vue'
+import type { BAccordion, BCard } from 'bootstrap-vue-next'
+import { computed, nextTick, ref } from 'vue'
 
 import MessageListGroup from '@/components/MessageListGroup.vue'
 import QueryHeader from '@/components/QueryHeader.vue'
-import { useStoreGetters } from '@/store/utils'
+import { useRequests } from '@/composables/useRequests'
 
-// FIXME prop `value` not used?
-const props = withDefaults(
-  defineProps<{
-    value?: boolean
-    height?: number | string
-  }>(),
-  {
-    value: false,
-    height: 30,
-  },
-)
-
-const { history, lastAction, waiting, error } = useStoreGetters()
+const { historyList, showModal } = useRequests()
 const rootElem = ref<InstanceType<typeof BCard> | null>(null)
-const historyElem = ref<HTMLElement | null>(null)
+const historyElem = ref<InstanceType<typeof BAccordion> | null>(null)
 const open = ref(false)
 
-function scrollToAction(actionIndex: number) {
+const lastAction = computed(() => {
+  return historyList.value[historyList.value.length - 1]
+})
+
+async function scrollToAction(actionIndex: number) {
+  await nextTick()
   const actionCard = rootElem.value!.$el.querySelector(
     '#messages-collapse-' + actionIndex,
   ).parentElement
-  const headerOffset = actionCard.firstElementChild.offsetHeight
+  const headerOffset = actionCard.firstElementChild.offsetHeight - 7
   // Can't use `scrollIntoView()` here since it will also scroll in the main content.
-  historyElem.value!.scrollTop = actionCard.offsetTop - headerOffset
+  historyElem.value!.$el.scrollTop = actionCard.offsetTop - headerOffset
 }
 
 async function onLastActionClick() {
@@ -37,14 +30,13 @@ async function onLastActionClick() {
     open.value = true
     await nextTick()
   }
-  const hElem = historyElem.value!
+  const hElem = historyElem.value!.$el
   const lastActionCard = hElem.lastElementChild as HTMLElement
   const lastCollapsable = lastActionCard.querySelector('.collapse')
 
   if (lastCollapsable && !lastCollapsable.classList.contains('show')) {
-    // FIXME not sure root emits still work with bvn
-    const { emit: rootEmit } = getCurrentInstance()!
-    rootEmit('bv::toggle::collapse', lastCollapsable.id)
+    const btn = lastActionCard.querySelector('.accordion-button') as HTMLElement
+    btn.click()
     // `scrollToAction` will be triggered and will handle the scrolling.
   } else {
     const headerElem = lastActionCard.firstElementChild as HTMLElement
@@ -64,7 +56,7 @@ function onHistoryBarClick(e: MouseEvent) {
   const { nodeName, parentElement } = e.target as HTMLElement
   if (nodeName === 'BUTTON' || parentElement?.nodeName === 'BUTTON') return
 
-  const hElem = historyElem.value!
+  const hElem = historyElem.value!.$el
   let mousePos = e.clientY
 
   const onMouseMove = ({ clientY }: MouseEvent) => {
@@ -142,7 +134,7 @@ function onHistoryBarClick(e: MouseEvent) {
         v-if="lastAction"
         size="sm"
         pill
-        class="ms-auto py-0"
+        class="ms-auto me-2 py-0"
         :variant="open ? 'light' : 'best'"
         @click.prevent="onLastActionClick"
         @keyup.enter.space.prevent="onLastActionClick"
@@ -152,64 +144,43 @@ function onHistoryBarClick(e: MouseEvent) {
       <QueryHeader
         v-if="lastAction"
         :request="lastAction"
-        class="w-auto ms-2 xs-hide"
+        type="overlay"
+        class="w-auto d-none d-sm-flex"
       />
     </BCardHeader>
 
+    <!-- ACTION LIST -->
     <BCollapse id="console-collapse" v-model="open">
-      <div class="accordion" role="tablist" id="history" ref="historyElem">
-        <p v-if="history.length === 0" class="alert m-0 px-2 py-1">
+      <BAccordion id="history" ref="historyElem" flush free>
+        <p v-if="historyList.length === 0" class="alert m-0 px-2 py-1">
           {{ $t('history.is_empty') }}
         </p>
-
-        <!-- ACTION LIST -->
-        <BCard
-          v-for="(action, i) in history"
+        <BAccordionItem
+          v-for="(request, i) in historyList"
+          v-else
+          :id="`messages-collapse-${i}`"
           :key="i"
-          no-body
-          class="rounded-0 rounded-top border-start-0 border-right-0"
+          header-class="sticky-top"
+          button-class="d-flex p-2"
+          header-tag="div"
+          @show="scrollToAction(i)"
         >
-          <!-- ACTION -->
-          <BCardHeader
-            header-tag="header"
-            header-bg-variant="white"
-            class="sticky-top d-flex"
-          >
-            <!-- ACTION DESC -->
+          <template #title>
             <QueryHeader
-              role="tab"
-              v-b-toggle="
-                action.messages.length ? 'messages-collapse-' + i : undefined
-              "
-              :request="action"
-              show-time
-              show-error
+              :request="request"
+              type="history"
+              class="me-2"
+              @show-error="showModal"
             />
-          </BCardHeader>
-
-          <!-- ACTION MESSAGES -->
-          <BCollapse
-            v-if="action.messages.length"
-            :id="'messages-collapse-' + i"
-            accordion="my-accordion"
-            role="tabpanel"
-            @shown="scrollToAction(i)"
-            @hide="scrollToAction(i)"
-          >
-            <MessageListGroup :messages="action.messages" />
-          </BCollapse>
-        </BCard>
-      </div>
+          </template>
+          <MessageListGroup :messages="request.action.messages" />
+        </BAccordionItem>
+      </BAccordion>
     </BCollapse>
   </BCard>
 </template>
 
 <style lang="scss" scoped>
-// reset default style
-.card + .card {
-  margin-top: 0;
-}
-
 .card-header {
   padding: $tooltip-padding-y $tooltip-padding-x;
 }
@@ -247,7 +218,7 @@ function onHistoryBarClick(e: MouseEvent) {
 }
 
 // Hacky disable of collapse animation
-.collapsing {
+:deep(.collapsing) {
   transition: none !important;
   height: auto !important;
   display: block !important;
@@ -262,14 +233,12 @@ function onHistoryBarClick(e: MouseEvent) {
     max-height: none;
   }
 
-  > .card {
-    // reset bootstrap's `overflow: hidden` that prevent sticky headers to work properly.
-    overflow: visible;
-
-    &:first-of-type {
-      // hide first top border that conflicts with the console header's bottom border.
-      margin-top: -1px;
-    }
+  > :deep(.accordion) {
+    // overlap borders
+    margin-top: -1px;
+  }
+  :deep(.accordion-body) {
+    padding: 0;
   }
 
   [aria-controls] {
