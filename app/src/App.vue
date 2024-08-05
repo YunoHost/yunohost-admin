@@ -5,13 +5,13 @@ import { useStore } from 'vuex'
 import { useRequests } from '@/composables/useRequests'
 import { useSettings } from '@/composables/useSettings'
 import { useStoreGetters } from '@/store/utils'
-import { HistoryConsole, ViewLockOverlay } from '@/views/_partials'
+import { HistoryConsole } from '@/views/_partials'
 
 const store = useStore()
 
-const { connected, yunohost, routerKey, ssoLink } = useStoreGetters()
+const { connected, yunohost, ssoLink } = useStoreGetters()
 const { locked } = useRequests()
-const { spinner, dark, transitions, transitionName } = useSettings()
+const { spinner, dark } = useSettings()
 
 async function logout() {
   store.dispatch('LOGOUT')
@@ -113,20 +113,7 @@ onMounted(() => {
     </header>
 
     <!-- MAIN -->
-    <ViewLockOverlay>
-      <YBreadcrumb />
-
-      <main id="main">
-        <!-- The `key` on RouterView make sure that if a link points to a page that
-        use the same component as the previous one, it will be refreshed -->
-        <RouterView v-slot="{ Component }" :key="routerKey">
-          <Transition v-if="transitions" :name="transitionName">
-            <Component :is="Component" class="animated" />
-          </Transition>
-          <Component v-else :is="Component" class="static" />
-        </RouterView>
-      </main>
-    </ViewLockOverlay>
+    <MainLayout />
 
     <BModalOrchestrator />
 
@@ -193,34 +180,6 @@ header {
         margin: 0.2rem 0;
       }
     }
-  }
-}
-
-main {
-  position: relative;
-
-  // Routes transition
-  .animated {
-    transition: all 0.15s ease-in-out;
-  }
-  .slide-left-enter-from,
-  .slide-right-leave-active {
-    position: absolute;
-    width: 100%;
-    top: 0;
-    transform: translate(100vw, 0);
-  }
-  .slide-left-leave-active,
-  .slide-right-enter-from {
-    position: absolute;
-    width: 100%;
-    top: 0;
-    transform: translate(-100vw, 0);
-  }
-  // hack to hide last transition provoqued by the <RouterView> element change
-  // while disabling the transitions in ToolWebAdmin
-  .static ~ .animated {
-    display: none;
   }
 }
 

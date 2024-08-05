@@ -124,6 +124,7 @@ $h4-font-size: $font-size-base * 1.25;
 $h5-font-size: $font-size-base * 1.1;
 
 $list-group-item-padding-y: $spacer * 0.75;
+$modal-md: 600px;
 
 // Import default variables after the above setup to compute all other variables.
 @import '~bootstrap/scss/variables';
