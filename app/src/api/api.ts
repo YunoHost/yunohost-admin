@@ -1,4 +1,8 @@
-import { useRequests, type APIRequestAction } from '@/composables/useRequests'
+import {
+  useRequests,
+  type APIRequestAction,
+  type ReconnectingArgs,
+} from '@/composables/useRequests'
 import { useSettings } from '@/composables/useSettings'
 import type { Obj } from '@/types/commons'
 import { APIUnauthorizedError, type APIError } from './errors'
@@ -233,7 +237,11 @@ export default {
    * @returns Promise that resolve yunohost version infos
    * @throws Throw an `APIError` or subclass depending on server response
    */
-  tryToReconnect({ attemps = 5, delay = 2000, initialDelay = 0 } = {}) {
+  tryToReconnect({
+    attemps = 5,
+    delay = 2000,
+    initialDelay = 0,
+  }: ReconnectingArgs = {}) {
     return new Promise((resolve, reject) => {
       function reconnect(n: number) {
         store

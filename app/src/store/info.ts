@@ -1,7 +1,8 @@
-import router from '@/router'
-import i18n from '@/i18n'
 import api from '@/api'
-import { timeout, isEmptyValue } from '@/helpers/commons'
+import { useRequests, type ReconnectingArgs } from '@/composables/useRequests'
+import { isEmptyValue, timeout } from '@/helpers/commons'
+import i18n from '@/i18n'
+import router from '@/router'
 
 export default {
   state: {
@@ -9,7 +10,6 @@ export default {
     installed: null,
     connected: localStorage.getItem('connected') === 'true', // Boolean
     yunohost: null, // Object { version, repo }
-    reconnecting: null, // null|Object { attemps, delay, initialDelay }
     routerKey: undefined, // String if current route has params
     breadcrumb: [], // Array of routes
     transitionName: null, // String of CSS class if transitions are enabled
@@ -27,10 +27,6 @@ export default {
 
     SET_YUNOHOST_INFOS(state, yunohost) {
       state.yunohost = yunohost
-    },
-
-    SET_RECONNECTING(state, args) {
-      state.reconnecting = args
     },
 
     SET_ROUTER_KEY(state, key) {
@@ -114,9 +110,9 @@ export default {
       return api.get('logout')
     },
 
-    TRY_TO_RECONNECT({ commit }, args = {}) {
+    TRY_TO_RECONNECT({ commit }, args?: ReconnectingArgs) {
       // FIXME This is very ugly arguments forwarding, will use proper component way of doing this when switching to Vue 3 (teleport)
-      commit('SET_RECONNECTING', args)
+      useRequests().reconnecting.value = args
     },
 
     GET_YUNOHOST_INFOS({ commit }) {
@@ -206,8 +202,6 @@ export default {
     installed: (state) => state.installed,
     connected: (state) => state.connected,
     yunohost: (state) => state.yunohost,
-    reconnecting: (state) => state.reconnecting,
-    history: (state) => state.history,
     routerKey: (state) => state.routerKey,
     breadcrumb: (state) => state.breadcrumb,
     transitionName: (state) => state.transitionName,

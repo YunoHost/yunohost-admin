@@ -1,6 +1,6 @@
 import { createGlobalState } from '@vueuse/core'
 import { v4 as uuid } from 'uuid'
-import { computed, reactive, shallowRef } from 'vue'
+import { computed, reactive, ref, shallowRef } from 'vue'
 import { useRouter } from 'vue-router'
 
 import type { APIQuery, RequestMethod } from '@/api/api'
@@ -40,6 +40,13 @@ export type RequestMessage = {
   variant: StateVariant
 }
 
+export type ReconnectingArgs = {
+  attemps?: number
+  origin?: string
+  initialDelay?: number
+  delay?: number
+}
+
 export const STATUS_VARIANT = {
   pending: 'primary',
   success: 'success',
@@ -52,6 +59,7 @@ export const useRequests = createGlobalState(() => {
   const router = useRouter()
 
   const requests = shallowRef<APIRequest[]>([])
+  const reconnecting = ref<ReconnectingArgs | undefined>()
   const currentRequest = computed(() => {
     return requests.value.find((r) => r.showModal)
   })
@@ -189,6 +197,7 @@ export const useRequests = createGlobalState(() => {
     requests,
     historyList,
     currentRequest,
+    reconnecting,
     locked,
     startRequest,
     endRequest,
