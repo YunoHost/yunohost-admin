@@ -93,7 +93,7 @@
         "domains": "domeinu bat ere ez | domeinua | {c} domeinua",
         "apps": "aplikazio bat ere ez | aplikazioa | {c} aplikazioa",
         "groups": "talderik ez | taldea | {c} talde",
-        "installed_apps": "instalatutako aplikazio bat ere ez | instalatutako aplikazioa | {c} instalatutako aplikazioa",
+        "installed_apps": "ez dago aplikaziorik instalatuta | instalatutako aplikazioa | {c} aplikazio instalatuta",
         "services": "zerbitzu bat ere ez | zerbitzua | {c} zerbitzua",
         "users": "erabiltzaile bat ere ez | erabiltzailea | {c} erabiltzailea",
         "logs": "erregistro bat ere ez | erregistroa | {c} erregistroa",
