@@ -120,12 +120,11 @@ async function onPermissionChanged({ option, groupName, action, applyMethod }) {
     )
     if (!confirmed) return
   }
-  // FIXME hacky way to update the store
+
   api
     .put({
       uri: `users/permissions/${permId}/${action}/${groupName}`,
-      cachePath: 'permissions',
-      cacheParams: { groupName, action, permId },
+      cachePath: `permissions.${permId}`,
       humanKey: { key: 'permissions.' + action, perm: option, name: groupName },
     })
     .then(() => applyMethod(option))
@@ -135,8 +134,7 @@ function onUserChanged({ option, groupName, action, applyMethod }) {
   api
     .put({
       uri: `users/groups/${groupName}/${action}/${option}`,
-      cachePath: 'groups',
-      cacheParams: { groupName },
+      cachePath: `groups.${groupName}`,
       humanKey: { key: 'groups.' + action, user: option, name: groupName },
     })
     .then(() => applyMethod(option))
@@ -156,8 +154,7 @@ async function deleteGroup(groupName) {
   api
     .delete({
       uri: `users/groups/${groupName}`,
-      cachePath: 'groups',
-      cacheParams: { groupName },
+      cachePath: `groups.${groupName}`,
       humanKey: { key: 'groups.delete', name: groupName },
     })
     .then(() => {

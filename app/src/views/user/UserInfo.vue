@@ -12,8 +12,7 @@ const router = useRouter()
 const { loading } = useInitialQueries([
   {
     uri: `users/${props.name}`,
-    cachePath: 'users_details',
-    cacheParams: { username: props.name },
+    cachePath: `userDetails.${props.name}`,
   },
 ])
 
@@ -26,8 +25,7 @@ function deleteUser() {
   api
     .delete({
       uri: `users/${props.name}`,
-      cachePath: 'user_details',
-      cacheParams: { username: props.name },
+      cachePath: `userDetails.${props.name}`,
       data,
       humanKey: { key: 'users.delete', name: props.name },
     })

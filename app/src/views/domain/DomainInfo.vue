@@ -32,8 +32,7 @@ const { loading, refetch } = useInitialQueries(
     { uri: 'domains', cachePath: 'domains' },
     {
       uri: `domains/${props.name}`,
-      cachePath: 'domains_details',
-      cacheParams: { domain: props.name },
+      cachePath: `domainDetails.${props.name}`,
     },
     { uri: `domains/${props.name}/config?full` },
   ],
@@ -120,8 +119,7 @@ async function deleteDomain() {
   api
     .delete({
       uri: 'domains',
-      cachePath: 'domains',
-      cacheParams: { domain: props.name },
+      cachePath: `domains.${props.name}`,
       data,
       humanKey: {
         key: 'domains.delete',
@@ -140,7 +138,7 @@ async function setAsDefaultDomain() {
   api
     .put({
       uri: `domains/${props.name}/main`,
-      cachePath: 'main_domain',
+      cachePath: `mainDomain.${props.name}`,
       data: {},
       humanKey: { key: 'domains.set_default', name: props.name },
     })

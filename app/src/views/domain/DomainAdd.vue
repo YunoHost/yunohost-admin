@@ -19,7 +19,7 @@ function onSubmit(data) {
   api
     .post({
       uri: 'domains',
-      cachePath: 'domains',
+      cachePath: `domains.${data.domain}`,
       data,
       humanKey: { key: 'domains.add', name: data.domain },
     })

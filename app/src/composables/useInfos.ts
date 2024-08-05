@@ -72,7 +72,7 @@ export const useInfos = createGlobalState(() => {
     // and login prompt will be shown automaticly
     await getYunoHostVersion()
     connected.value = true
-    await api.get({ uri: 'domains', cachePath: 'domainList' })
+    await api.get({ uri: 'domains', cachePath: 'domains' })
   }
 
   function onLogout(route?: RouteLocationNormalizedLoaded) {

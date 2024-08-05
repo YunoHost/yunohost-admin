@@ -32,8 +32,7 @@ const { loading } = useInitialQueries(
   [
     {
       uri: `users/${props.name}`,
-      cachePath: 'users_details',
-      cacheParams: { username: props.name },
+      cachePath: `userDetails.${props.name}`,
     },
     { uri: 'domains', cachePath: 'domains' },
   ],
@@ -213,8 +212,7 @@ const onUserEdit = onSubmit(async (onError, serverErrors) => {
   api
     .put({
       uri: `users/${props.name}`,
-      cachePath: 'users_details',
-      cacheParams: { username: props.name },
+      cachePath: `userDetails.${props.name}`,
       data,
       humanKey: { key: 'users.update', name: props.name },
     })
