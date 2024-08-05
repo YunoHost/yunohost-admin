@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { useStoreGetters } from '@/store/utils'
+import { useSettings } from '@/composables/useSettings'
 
-const { spinner } = useStoreGetters()
+const { spinner } = useSettings()
 </script>
 
 <template>
