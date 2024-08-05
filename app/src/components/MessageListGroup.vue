@@ -1,12 +1,13 @@
 <script setup lang="ts">
-import type { BListGroup, ColorVariant } from 'bootstrap-vue-next'
-import { computed, nextTick, watch, ref } from 'vue'
+import { watchThrottled } from '@vueuse/core'
+import type { BListGroup } from 'bootstrap-vue-next'
+import { nextTick, ref } from 'vue'
 
-type ActionMessage = { color: ColorVariant; text: string }
+import type { RequestMessage } from '@/composables/useRequests'
 
 const props = withDefaults(
   defineProps<{
-    messages: ActionMessage[]
+    messages: RequestMessage[]
     fixedHeight?: boolean
     bordered?: boolean
     autoScroll?: boolean
@@ -20,34 +21,35 @@ const props = withDefaults(
   },
 )
 
-const auto = ref(true)
 const rootElem = ref<InstanceType<typeof BListGroup> | null>(null)
 
-if (props.autoScroll) {
-  watch(() => props.messages, scrollToEnd, { deep: true })
-}
+const auto = ref(props.autoScroll)
+const reducedMessages = ref<RequestMessage[]>([...props.messages])
 
-const reducedMessages = computed(() => {
-  const len = props.messages.length
-  if (!props.limit || len <= props.limit) {
-    return props.messages
-  }
-  return props.messages.slice(len - props.limit)
-})
+watchThrottled(
+  () => props.messages,
+  (messages) => {
+    const len = messages.length
+    if (!props.limit || len <= props.limit) {
+      reducedMessages.value = [...messages]
+    } else {
+      reducedMessages.value = messages.slice(len - props.limit)
+    }
+    if (auto.value) nextTick(scrollToEnd)
+  },
+  { throttle: 300, deep: true },
+)
 
 function scrollToEnd() {
-  if (!auto.value) return
-  nextTick(() => {
-    rootElem.value!.$el.scrollTo(
-      0,
-      rootElem.value!.$el.lastElementChild.offsetTop,
-    )
-  })
+  const elem = rootElem.value?.$el
+  elem?.scrollTo(0, elem.lastElementChild.offsetTop)
 }
 
-function onScroll(e: Event) {
-  const target = e.target as HTMLElement
-  auto.value = target.scrollHeight === target.scrollTop + target.clientHeight
+function onScroll() {
+  if (!props.autoScroll) return
+  const elem = rootElem.value!.$el
+  const { scrollHeight, scrollTop, clientHeight } = elem
+  auto.value = scrollHeight === scrollTop + clientHeight
 }
 </script>
 <template>
@@ -59,14 +61,13 @@ function onScroll(e: Event) {
   >
     <YListGroupItem
       v-if="limit && messages.length > limit"
-      variant="info"
       v-t="'api.partial_logs'"
+      variant="info"
     />
-
     <YListGroupItem
-      v-for="({ color, text }, i) in reducedMessages"
+      v-for="({ variant, text }, i) in reducedMessages"
       :key="i"
-      :variant="color"
+      :variant="variant"
       size="xs"
     >
       <span v-html="text" />

@@ -20,6 +20,7 @@ export const DEFAULT_STATUS_ICON = {
   info: 'info',
   light: null,
   dark: null,
+  best: null,
 }
 
 // FORMAT FROM CORE

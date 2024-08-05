@@ -10,7 +10,7 @@ const props = withDefaults(
     icon?: string
     noIcon?: boolean
     noStatus?: boolean
-    size?: Breakpoint
+    size?: Breakpoint | 'xs'
     faded?: boolean
   }>(),
   {
@@ -56,7 +56,6 @@ const class_ = computed(() => {
 
   &-status {
     width: 2rem;
-    min-width: 2rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -105,7 +104,7 @@ const class_ = computed(() => {
     }
 
     .yuno-list-group-item-content {
-      color: $black;
+      // color: $black;
     }
   }
 

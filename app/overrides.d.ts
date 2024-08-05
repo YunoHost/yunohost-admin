@@ -15,3 +15,9 @@ declare module 'vue-router' {
     breadcrumb?: string[]
   }
 }
+
+declare module 'bootstrap-vue-next' {
+  interface BaseColorVariant {
+    best: unknown
+  }
+}
