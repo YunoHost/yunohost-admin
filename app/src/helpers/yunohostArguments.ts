@@ -1,17 +1,30 @@
 import { toValue, type MaybeRef } from 'vue'
 
+import { useSettings } from '@/composables/useSettings'
 import {
   getFileContent,
   isEmptyValue,
   isObjectLiteral,
   toEntries,
 } from '@/helpers/commons'
-import type { ArrInnerType, Obj, Translation } from '@/types/commons'
+import type {
+  ArrInnerType,
+  Obj,
+  StateStatus,
+  Translation,
+} from '@/types/commons'
 import type { AdressModelValue, FileModelValue } from '@/types/form'
 import { isAdressModelValue, isFileModelValue } from '@/types/form'
-import { useSettings } from '@/composables/useSettings'
 
-export const DEFAULT_STATUS_ICON = {
+export const STATUS_VARIANT = {
+  pending: 'primary',
+  success: 'success',
+  warning: 'warning',
+  error: 'danger',
+  info: 'info',
+} as const
+
+export const DEFAULT_VARIANT_ICON = {
   primary: null,
   secondary: null,
   success: 'check',
@@ -21,6 +34,10 @@ export const DEFAULT_STATUS_ICON = {
   light: null,
   dark: null,
   best: null,
+} as const
+
+export function isOkStatus(status: StateStatus): status is 'info' | 'success' {
+  return ['info', 'success'].includes(status)
 }
 
 // FORMAT FROM CORE

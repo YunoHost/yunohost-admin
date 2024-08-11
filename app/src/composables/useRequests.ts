@@ -47,14 +47,6 @@ export type ReconnectingArgs = {
   delay?: number
 }
 
-export const STATUS_VARIANT = {
-  pending: 'primary',
-  success: 'success',
-  warning: 'warning',
-  error: 'danger',
-  info: 'info',
-} as const
-
 export const useRequests = createGlobalState(() => {
   const router = useRouter()
 

@@ -2,7 +2,7 @@
 import type { ColorVariant } from 'bootstrap-vue-next'
 import { computed } from 'vue'
 
-import { DEFAULT_STATUS_ICON } from '@/helpers/yunohostArguments'
+import { DEFAULT_VARIANT_ICON } from '@/helpers/yunohostArguments'
 
 const props = withDefaults(
   defineProps<{
@@ -18,7 +18,7 @@ const props = withDefaults(
 )
 
 const icon = computed(() => {
-  return props.icon || DEFAULT_STATUS_ICON[props.variant]
+  return props.icon || DEFAULT_VARIANT_ICON[props.variant]
 })
 </script>
 

@@ -5,13 +5,10 @@
 
 import errors from '@/api/errors'
 import { useInfos } from '@/composables/useInfos'
-import {
-  STATUS_VARIANT,
-  type APIRequest,
-  type APIRequestAction,
-} from '@/composables/useRequests'
+import type { APIRequest, APIRequestAction } from '@/composables/useRequests'
 import { toEntries } from '@/helpers/commons'
-import type { Obj } from '@/types/commons'
+import { STATUS_VARIANT, isOkStatus } from '@/helpers/yunohostArguments'
+import type { StateStatus, Obj } from '@/types/commons'
 import type { APIErrorData } from './api'
 
 /**
@@ -46,8 +43,7 @@ export function openWebSocket(request: APIRequestAction): Promise<Event> {
   return new Promise((resolve) => {
     const ws = new WebSocket(`wss://${host.value}/yunohost/api/messages`)
     ws.onmessage = ({ data }) => {
-      const messages: Record<'info' | 'success' | 'warning' | 'error', string> =
-        JSON.parse(data)
+      const messages: Record<StateStatus, string> = JSON.parse(data)
       toEntries(messages).forEach(([status, text]) => {
         text = text.replaceAll('\n', '<br>')
         const progressBar = text.match(/^\[#*\+*\.*\] > /)?.[0]
@@ -63,9 +59,7 @@ export function openWebSocket(request: APIRequestAction): Promise<Event> {
           text,
           variant: STATUS_VARIANT[status],
         })
-        if (['error', 'warning'].includes(status)) {
-          request.action[`${status as 'error' | 'warning'}s`]++
-        }
+        if (!isOkStatus(status)) request.action[`${status}s`]++
       })
     }
     // ws.onclose = (e) => {}

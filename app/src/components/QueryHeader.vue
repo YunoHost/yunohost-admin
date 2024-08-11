@@ -2,7 +2,7 @@
 import { computed, toRefs } from 'vue'
 
 import type { APIRequest } from '@/composables/useRequests'
-import { STATUS_VARIANT } from '@/composables/useRequests'
+import { STATUS_VARIANT } from '@/helpers/yunohostArguments'
 
 const props = defineProps<{
   request: APIRequest

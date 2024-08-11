@@ -2,7 +2,7 @@
 import type { Breakpoint, ColorVariant } from 'bootstrap-vue-next'
 import { computed } from 'vue'
 
-import { DEFAULT_STATUS_ICON } from '@/helpers/yunohostArguments'
+import { DEFAULT_VARIANT_ICON } from '@/helpers/yunohostArguments'
 
 const props = withDefaults(
   defineProps<{
@@ -25,7 +25,7 @@ const props = withDefaults(
 
 const icon = computed(() => {
   if (props.noIcon) return
-  return props.icon || DEFAULT_STATUS_ICON[props.variant]
+  return props.icon || DEFAULT_VARIANT_ICON[props.variant]
 })
 const class_ = computed(() => {
   const baseClass = 'yuno-list-group-item-'
