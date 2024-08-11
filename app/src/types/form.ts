@@ -259,7 +259,7 @@ export type FormField<
   link?:
     | { text: string; name: RouteLocationRaw }
     | { text: string; href: string }
-  rules?: FormFieldRules<MV> | ComputedRef<FormFieldRules<MV>>
+  rules?: FormFieldRules<MV>
   prepend?: string
   readonly?: false
 }
@@ -270,7 +270,7 @@ export type FormFieldReadonly<
   label: string
   cols?: Cols
   readonly: true
-  rules: undefined
+  rules?: undefined
 }
 
 export type FormFieldDisplay<
@@ -281,7 +281,7 @@ export type FormFieldDisplay<
   visible?: boolean | ComputedRef<boolean>
   hr?: boolean
   readonly?: true
-  rules: undefined
+  rules?: undefined
 }
 
 export type FormFieldProps<
@@ -293,7 +293,7 @@ export type FormFieldProps<
 export type FormFieldReadonlyProps<
   C extends AnyWritableComponents,
   MV extends any,
-> = Omit<FormFieldReadonly<C>, 'hr' | 'visible' | 'readonly'> & {
+> = Omit<FormFieldReadonly<C>, 'hr' | 'visible' | 'readonly' | 'rules'> & {
   modelValue?: MV
 }
 

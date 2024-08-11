@@ -18,7 +18,7 @@ const fields = {
     label: t('group_name'),
     description: t('group_format_name_help'),
     rules: { required, alphalownumdot_ },
-    props: {
+    cProps: {
       id: 'groupname',
       placeholder: t('placeholder.groupname'),
     },

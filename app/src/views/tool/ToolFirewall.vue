@@ -35,7 +35,7 @@ const fields = {
     component: 'SelectItem',
     label: t('action'),
     rules: { required },
-    props: {
+    cProps: {
       id: 'input-action',
       choices: [
         { value: 'allow', text: t('open') },
@@ -49,7 +49,7 @@ const fields = {
     component: 'InputItem',
     label: t('port'),
     rules: { number: required, integer, between: between(0, 65535) },
-    props: { id: 'input-port', placeholder: '0', type: 'number' },
+    cProps: { id: 'input-port', placeholder: '0', type: 'number' },
   } satisfies FieldProps<'InputItem', Form['action']>,
 
   connection: {
@@ -57,7 +57,7 @@ const fields = {
     component: 'SelectItem',
     label: t('connection'),
     rules: { required },
-    props: {
+    cProps: {
       id: 'input-connection',
       choices: [
         { value: 'ipv4', text: t('ipv4') },
@@ -71,7 +71,7 @@ const fields = {
     component: 'SelectItem',
     label: t('protocol'),
     rules: { required },
-    props: {
+    cProps: {
       id: 'input-protocol',
       choices: [
         { value: 'TCP', text: t('tcp') },

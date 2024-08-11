@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, reactive, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 
@@ -7,7 +7,6 @@ import api from '@/api'
 import { useDomains, useUsersAndGroups } from '@/composables/data'
 import { useForm } from '@/composables/form'
 import { useInitialQueries } from '@/composables/useInitialQueries'
-import { asUnreffed } from '@/helpers/commons'
 import {
   alphalownumdot_,
   minLength,
@@ -35,39 +34,37 @@ type Form = typeof form.value
 const form = ref({
   username: '',
   fullname: '',
-  domain: '',
+  domain: mainDomain.value,
   password: '',
   confirmation: '',
 })
 const fields = {
-  username: {
+  username: reactive({
     component: 'InputItem',
     label: t('user_username'),
-    rules: asUnreffed(
-      computed(() => ({
-        required,
-        alphalownumdot_,
-        notInUsers: unique(usernames),
-      })),
-    ),
-    props: {
+    rules: computed(() => ({
+      required,
+      alphalownumdot_,
+      notInUsers: unique(usernames),
+    })),
+    cProps: {
       id: 'username',
       placeholder: t('placeholder.username'),
     },
-  } satisfies FieldProps<'InputItem', Form['username']>,
+  }) satisfies FieldProps<'InputItem', Form['username']>,
 
   fullname: {
     component: 'InputItem',
     hr: true,
     label: t('user_fullname'),
     rules: { required, name },
-    props: {
+    cProps: {
       id: 'fullname',
       placeholder: t('placeholder.fullname'),
     },
   } satisfies FieldProps<'InputItem', Form['fullname']>,
 
-  domain: {
+  domain: reactive({
     component: 'SelectItem',
     hr: true,
     id: 'mail',
@@ -75,8 +72,8 @@ const fields = {
     description: t('tip_about_user_email'),
     descriptionVariant: 'info',
     rules: { required },
-    props: { choices: asUnreffed(domainsAsChoices) },
-  } satisfies FieldProps<'SelectItem', Form['domain']>,
+    cProps: { choices: domainsAsChoices },
+  }) satisfies FieldProps<'SelectItem', Form['domain']>,
 
   password: {
     component: 'InputItem',
@@ -84,28 +81,26 @@ const fields = {
     description: t('good_practices_about_user_password'),
     descriptionVariant: 'warning',
     rules: { required, passwordLenght: minLength(8) },
-    props: {
+    cProps: {
       id: 'password',
       placeholder: '••••••••',
       type: 'password',
     },
   } satisfies FieldProps<'InputItem', Form['password']>,
 
-  confirmation: {
+  confirmation: reactive({
     component: 'InputItem',
     label: t('password_confirmation'),
-    rules: asUnreffed(
-      computed(() => ({
-        required,
-        passwordMatch: sameAs(form.value.password),
-      })),
-    ),
-    props: {
+    rules: computed(() => ({
+      required,
+      passwordMatch: sameAs(form.value.password),
+    })),
+    cProps: {
       id: 'confirmation',
       placeholder: '••••••••',
       type: 'password',
     },
-  } satisfies FieldProps<'InputItem', Form['confirmation']>,
+  }) satisfies FieldProps<'InputItem', Form['confirmation']>,
 } satisfies FormFieldDict<Form>
 
 const { v, onSubmit } = useForm(form, fields)

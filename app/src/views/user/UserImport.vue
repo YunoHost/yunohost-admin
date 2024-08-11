@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive, ref } from 'vue'
+import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 
@@ -21,13 +21,13 @@ const form = ref({
   update: false,
   delete: false,
 })
-const fields = reactive({
+const fields = {
   csvfile: {
     component: 'FileItem',
     label: t('users_import_csv_file'),
     description: t('users_import_csv_file_desc'),
     rules: { file: required },
-    props: {
+    cProps: {
       id: 'csvfile',
       accept: 'text/csv',
       placeholder: t('placeholder.file'),
@@ -38,20 +38,16 @@ const fields = reactive({
     label: t('users_import_update'),
     description: t('users_import_update_desc'),
     component: 'CheckboxItem',
-    props: {
-      id: 'update',
-    },
+    cProps: { id: 'update' },
   } satisfies FieldProps<'CheckboxItem', Form['update']>,
 
   delete: {
     component: 'CheckboxItem',
     label: t('users_import_delete'),
     description: t('users_import_delete_desc'),
-    props: {
-      id: 'delete',
-    },
+    cProps: { id: 'delete' },
   } satisfies FieldProps<'CheckboxItem', Form['delete']>,
-} satisfies FormFieldDict<Form>)
+} satisfies FormFieldDict<Form>
 
 const { v, onSubmit } = useForm(form, fields)
 

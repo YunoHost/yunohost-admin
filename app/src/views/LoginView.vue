@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive, ref } from 'vue'
+import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter, type LocationQueryValue } from 'vue-router'
 
@@ -26,12 +26,12 @@ const form = ref({
   username: '',
   password: '',
 })
-const fields = reactive({
+const fields = {
   username: {
     component: 'InputItem',
     label: t('user_username'),
     rules: { required, alphalownumdot_ },
-    props: {
+    cProps: {
       id: 'username',
       autocomplete: 'username',
     },
@@ -41,13 +41,13 @@ const fields = reactive({
     component: 'InputItem',
     label: t('password'),
     rules: { required, passwordLenght: minLength(4) },
-    props: {
+    cProps: {
       id: 'password',
       type: 'password',
       autocomplete: 'current-password',
     },
   } satisfies FieldProps<'InputItem', Form['password']>,
-} satisfies FormFieldDict<Form>)
+} satisfies FormFieldDict<Form>
 
 const { v, onSubmit } = useForm(form, fields)
 

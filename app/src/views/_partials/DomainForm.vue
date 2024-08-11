@@ -4,7 +4,6 @@ import { useI18n } from 'vue-i18n'
 
 import { useDomains } from '@/composables/data'
 import { useForm } from '@/composables/form'
-import { asUnreffed } from '@/helpers/commons'
 import {
   domain,
   dynDomain,
@@ -12,7 +11,7 @@ import {
   required,
   sameAs,
 } from '@/helpers/validators'
-import { formatForm } from '@/helpers/yunohostArguments'
+import { formatFormValue } from '@/helpers/yunohostArguments'
 import type { AdressModelValue, FieldProps, FormFieldDict } from '@/types/form'
 
 defineOptions({
@@ -31,7 +30,7 @@ const props = withDefaults(
   },
 )
 const emit = defineEmits<{
-  submit: [data: Partial<{ domain: string; dyndns_recovery_password: string }>]
+  submit: [data: { domain: string; dyndns_recovery_password?: string }]
 }>()
 
 const { t } = useI18n()
@@ -63,26 +62,24 @@ const form = ref<Form>({
   dynDomainPasswordConfirmation: '',
   localDomain: { localPart: '', separator: '.', domain: 'local' },
 })
-const fields = reactive({
-  domain: {
+const fields = {
+  domain: reactive({
     component: 'InputItem',
     label: t('domain_name'),
-    rules: asUnreffed(
-      computed(() =>
-        selected.value === 'domain' ? { required, domain } : undefined,
-      ),
-    ),
-    props: {
+    rules: computed(() => {
+      return selected.value === 'domain' ? { required, domain } : undefined
+    }),
+    cProps: {
       id: 'domain',
       placeholder: t('placeholder.domain'),
     },
-  } satisfies FieldProps<'InputItem', Form['domain']>,
+  }) satisfies FieldProps<'InputItem', Form['domain']>,
 
   dynDomain: {
     component: 'AdressItem',
     label: t('domain_name'),
     rules: { localPart: { required, dynDomain } },
-    props: {
+    cProps: {
       id: 'dyn-domain',
       placeholder: t('placeholder.domain').split('.')[0],
       type: 'domain',
@@ -90,51 +87,51 @@ const fields = reactive({
     },
   } satisfies FieldProps<'AdressItem', Form['dynDomain']>,
 
-  dynDomainPassword: {
+  dynDomainPassword: reactive({
     component: 'InputItem',
     label: t('domain.add.dyn_dns_password'),
     description: t('domain.add.dyn_dns_password_desc'),
-    rules: { passwordLenght: minLength(8) },
-    props: {
+    rules: computed(() => {
+      return selected.value === 'dynDomain'
+        ? { required, passwordLenght: minLength(8) }
+        : undefined
+    }),
+    cProps: {
       id: 'dyn-dns-password',
       placeholder: '••••••••',
       type: 'password',
     },
-  } satisfies FieldProps<'InputItem', Form['dynDomainPassword']>,
+  }) satisfies FieldProps<'InputItem', Form['dynDomainPassword']>,
 
-  dynDomainPasswordConfirmation: {
+  dynDomainPasswordConfirmation: reactive({
     component: 'InputItem',
     label: t('password_confirmation'),
-    rules: asUnreffed(
-      computed(() => ({
-        passwordMatch: sameAs(form.value.dynDomainPassword),
-      })),
-    ),
-    props: {
+    rules: computed(() => ({
+      passwordMatch: sameAs(form.value.dynDomainPassword),
+    })),
+    cProps: {
       id: 'dyn-dns-password-confirmation',
       placeholder: '••••••••',
       type: 'password',
     },
-  } satisfies FieldProps<'InputItem', Form['dynDomainPasswordConfirmation']>,
+  }) satisfies FieldProps<'InputItem', Form['dynDomainPasswordConfirmation']>,
 
-  localDomain: {
+  localDomain: reactive({
     component: 'AdressItem',
     label: t('domain_name'),
-    rules: asUnreffed(
-      computed(() =>
-        selected.value === 'localDomain'
-          ? { localPart: { required, dynDomain } }
-          : undefined,
-      ),
+    rules: computed(() =>
+      selected.value === 'localDomain'
+        ? { localPart: { required, dynDomain } }
+        : undefined,
     ),
-    props: {
+    cProps: {
       id: 'dyn-domain',
       placeholder: t('placeholder.domain').split('.')[0],
       type: 'domain',
       choices: ['local', 'test'],
     },
-  } satisfies FieldProps<'AdressItem', Form['localDomain']>,
-} satisfies FormFieldDict<Form>)
+  }) satisfies FieldProps<'AdressItem', Form['localDomain']>,
+} satisfies FormFieldDict<Form>
 
 const { v, onSubmit, serverErrors } = useForm(form, fields)
 
@@ -168,16 +165,13 @@ const localDomainIsVisible = computed(() => {
 const onDomainAdd = onSubmit(async () => {
   const domainType = selected.value
   if (!domainType) return
+  const domain = await formatFormValue(form.value[domainType])
 
-  const data = await formatForm(
-    {
-      domain: form.value[domainType],
-      dyndns_recovery_password:
-        domainType === 'dynDomain' ? form.value.dynDomainPassword : '',
-    },
-    { removeEmpty: true },
-  )
-  emit('submit', data)
+  emit('submit', {
+    domain,
+    dyndns_recovery_password:
+      domainType === 'dynDomain' ? form.value.dynDomainPassword : undefined,
+  })
 })
 </script>
 
@@ -214,7 +208,7 @@ const onDomainAdd = onSubmit(async () => {
       <FormField
         v-bind="fields.domain"
         v-model="form.domain"
-        :validation="v.domain"
+        :validation="v.form.domain"
       />
     </BCollapse>
 
@@ -242,7 +236,7 @@ const onDomainAdd = onSubmit(async () => {
         :key="key"
         v-bind="fields[key]"
         v-model="form[key]"
-        :validation="v[key]"
+        :validation="v.form[key]"
       />
     </BCollapse>
 
@@ -272,7 +266,7 @@ const onDomainAdd = onSubmit(async () => {
       <FormField
         v-bind="fields.localDomain"
         v-model="form.localDomain"
-        :validation="v.localDomain"
+        :validation="v.form.localDomain"
       />
     </BCollapse>
   </CardForm>

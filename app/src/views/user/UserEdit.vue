@@ -8,7 +8,7 @@ import type ViewBase from '@/components/globals/ViewBase.vue'
 import { useDomains, useUsersAndGroups } from '@/composables/data'
 import { useArrayRule, useForm } from '@/composables/form'
 import { useInitialQueries } from '@/composables/useInitialQueries'
-import { arrayDiff, asUnreffed } from '@/helpers/commons'
+import { arrayDiff } from '@/helpers/commons'
 import {
   emailForward,
   emailLocalPart,
@@ -58,30 +58,25 @@ const fields = reactive({
   username: {
     component: 'InputItem',
     label: t('user_username'),
-    props: {
-      id: 'username',
-      disabled: true,
-    },
+    cProps: { id: 'username', disabled: true },
   } satisfies FieldProps<'InputItem', Form['username']>,
 
   fullname: {
     component: 'InputItem',
     label: t('user_fullname'),
     rules: { required, nameValidator },
-    props: {
+    cProps: {
       id: 'fullname',
       placeholder: t('placeholder.fullname'),
     },
   } satisfies FieldProps<'InputItem', Form['fullname']>,
 
-  mail: {
+  mail: reactive({
     component: 'AdressItem',
     label: t('user_email'),
-    rules: {
-      localPart: { required, email: emailLocalPart },
-    },
-    props: { id: 'mail', choices: asUnreffed(domainsAsChoices) },
-  } satisfies FieldProps<'AdressItem', Form['mail']>,
+    rules: { localPart: { required, email: emailLocalPart } },
+    cProps: { id: 'mail', choices: domainsAsChoices },
+  }) satisfies FieldProps<'AdressItem', Form['mail']>,
 
   mailbox_quota: {
     append: 'M',
@@ -90,35 +85,34 @@ const fields = reactive({
     description: t('mailbox_quota_description'),
     // example: t('mailbox_quota_example'),
     rules: { integer, minValue: minValue(0) },
-    props: {
+    cProps: {
       id: 'mailbox-quota',
       placeholder: t('mailbox_quota_placeholder'),
     },
   } satisfies FieldProps<'InputItem', Form['mailbox_quota']>,
 
-  mail_aliases: {
+  mail_aliases: reactive({
     component: 'AdressItem',
-    rules: asUnreffed(
-      useArrayRule(() => form.value.mail_aliases, {
-        localPart: { required, email: emailLocalPart },
-      }),
-    ),
-    props: {
+    rules: useArrayRule(() => form.value.mail_aliases, {
+      localPart: { required, email: emailLocalPart },
+    }),
+    cProps: {
       placeholder: t('placeholder.username'),
-      choices: asUnreffed(domainsAsChoices),
+      choices: domainsAsChoices,
     },
-  } satisfies FieldProps<'AdressItem', Form['mail_aliases']>,
+  }) satisfies FieldProps<'AdressItem', Form['mail_aliases']>,
 
-  mail_forward: {
+  mail_forward: reactive({
     component: 'InputItem',
-    rules: asUnreffed(
-      useArrayRule(() => form.value.mail_forward, { required, emailForward }),
-    ),
-    props: {
+    rules: useArrayRule(() => form.value.mail_forward, {
+      required,
+      emailForward,
+    }),
+    cProps: {
       placeholder: t('user_new_forward'),
       type: 'email',
     },
-  } satisfies FieldProps<'InputItem', Form['mail_forward']>,
+  }) satisfies FieldProps<'InputItem', Form['mail_forward']>,
 
   change_password: {
     component: 'InputItem',
@@ -126,7 +120,7 @@ const fields = reactive({
     description: t('good_practices_about_user_password'),
     descriptionVariant: 'warning',
     rules: { passwordLenght: minLength(8) },
-    props: {
+    cProps: {
       id: 'change_password',
       type: 'password',
       placeholder: '••••••••',
@@ -134,19 +128,19 @@ const fields = reactive({
     },
   } satisfies FieldProps<'InputItem', Form['change_password']>,
 
-  confirmation: {
+  confirmation: reactive({
     component: 'InputItem',
     label: t('password_confirmation'),
-    rules: asUnreffed(
-      computed(() => ({ passwordMatch: sameAs(form.value.change_password) })),
-    ),
-    props: {
+    rules: computed(() => ({
+      passwordMatch: sameAs(form.value.change_password),
+    })),
+    cProps: {
       id: 'confirmation',
       type: 'password',
       placeholder: '••••••••',
       autocomplete: 'new-password',
     },
-  } satisfies FieldProps<'InputItem', Form['confirmation']>,
+  }) satisfies FieldProps<'InputItem', Form['confirmation']>,
 } satisfies FormFieldDict<Form>)
 
 const { v, onSubmit } = useForm(form, fields)

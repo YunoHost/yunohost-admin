@@ -6,7 +6,6 @@ import api from '@/api'
 import { APIBadRequestError } from '@/api/errors'
 import { useForm } from '@/composables/form'
 import { useAutoModal } from '@/composables/useAutoModal'
-import { asUnreffed } from '@/helpers/commons'
 import {
   alphalownumdot_,
   minLength,
@@ -26,7 +25,7 @@ type Steps = 'start' | 'domain' | 'user' | 'rootfsspace-error' | 'login'
 const step = ref<Steps>('start')
 const serverError = ref('')
 const domain = ref('')
-const dyndns_recovery_password = ref('')
+const dyndns_recovery_password = ref<string | undefined>()
 
 type Form = typeof form.value
 const form = ref({
@@ -35,25 +34,25 @@ const form = ref({
   password: '',
   confirmation: '',
 })
-const fields = reactive({
+const fields = {
   // FIXME satisfies FormFieldDict but not for CardForm?
   alert: {
     component: 'ReadOnlyAlertItem',
-    props: { label: t('postinstall.user.first_user_help'), type: 'info' },
+    cProps: { label: t('postinstall.user.first_user_help'), type: 'info' },
   } satisfies FieldProps<'ReadOnlyAlertItem'>,
 
   username: {
     component: 'InputItem',
     label: t('user_username'),
     rules: { required, alphalownumdot_ },
-    props: { id: 'username', placeholder: t('placeholder.username') },
+    cProps: { id: 'username', placeholder: t('placeholder.username') },
   } satisfies FieldProps<'InputItem', Form['username']>,
 
   fullname: {
     component: 'InputItem',
     label: t('user_fullname'),
     rules: { required, name },
-    props: { id: 'fullname', placeholder: t('placeholder.fullname') },
+    cProps: { id: 'fullname', placeholder: t('placeholder.fullname') },
   } satisfies FieldProps<'InputItem', Form['fullname']>,
 
   password: {
@@ -62,21 +61,19 @@ const fields = reactive({
     description: t('good_practices_about_admin_password'),
     descriptionVariant: 'warning',
     rules: { required, passwordLenght: minLength(8) },
-    props: { id: 'password', placeholder: '••••••••', type: 'password' },
+    cProps: { id: 'password', placeholder: '••••••••', type: 'password' },
   } satisfies FieldProps<'InputItem', Form['password']>,
 
-  confirmation: {
+  confirmation: reactive({
     component: 'InputItem',
     label: t('password_confirmation'),
-    rules: asUnreffed(
-      computed(() => ({
-        required,
-        passwordMatch: sameAs(form.value.password),
-      })),
-    ),
-    props: { id: 'confirmation', placeholder: '••••••••', type: 'password' },
-  } satisfies FieldProps<'InputItem', Form['confirmation']>,
-} satisfies FormFieldDict<Form>)
+    rules: computed(() => ({
+      required,
+      passwordMatch: sameAs(form.value.password),
+    })),
+    cProps: { id: 'confirmation', placeholder: '••••••••', type: 'password' },
+  }) satisfies FieldProps<'InputItem', Form['confirmation']>,
+} satisfies FormFieldDict<Form>
 
 const { v, onSubmit, serverErrors } = useForm(form, fields)
 
@@ -85,7 +82,10 @@ function goToStep(step_: Steps) {
   step.value = step_
 }
 
-function setDomain(data: { domain: string; dyndns_recovery_password: string }) {
+function setDomain(data: {
+  domain: string
+  dyndns_recovery_password?: string
+}) {
   domain.value = data.domain
   dyndns_recovery_password.value = data.dyndns_recovery_password
   goToStep('user')
