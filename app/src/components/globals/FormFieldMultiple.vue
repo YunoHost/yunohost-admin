@@ -13,6 +13,7 @@ import type {
   BaseItemComputedProps,
   FormField,
   FormFieldProps,
+  ItemComponentToItemProps,
 } from '@/types/form'
 
 defineOptions({
@@ -23,13 +24,15 @@ defineOptions({
 const props = withDefaults(
   defineProps<
     FormFieldProps<C, MV> & {
-      defaultValue: () => ArrInnerType<MV>
-      addBtnText: string
+      defaultValue?: () => ArrInnerType<MV>
+      addBtnText?: string
     }
   >(),
   {
     append: undefined,
     asInputGroup: false,
+    component: undefined,
+    cProps: undefined,
     description: undefined,
     descriptionVariant: undefined,
     id: undefined,
@@ -38,6 +41,8 @@ const props = withDefaults(
     link: undefined,
     prepend: undefined,
     rules: undefined,
+    defaultValue: undefined,
+    addBtnText: undefined,
 
     modelValue: undefined,
     validation: undefined,
@@ -50,7 +55,7 @@ const emit = defineEmits<{
 
 const slots = defineSlots<{
   default?: (_: {
-    componentProps: FormField<C, ArrInnerType<MV>>['props'] &
+    componentProps: FormField<C, ArrInnerType<MV>>['cProps'] &
       BaseItemComputedProps<ArrInnerType<MV>>
     index: number
   }) => any
@@ -86,7 +91,7 @@ const computedAttrs = computed(() => {
 
 const id = computed(() => {
   if (props.id) return props.id
-  return props.props?.id ? props.props?.id + '_group' : undefined
+  return props.cProps?.id ? props.cProps?.id + '_group' : undefined
 })
 
 const error = computed(() => {
@@ -101,9 +106,9 @@ const subProps = computed<FormFieldProps<C, ArrInnerType<MV>>[]>(() => {
   return (
     props.modelValue?.map((modelValue: ArrInnerType<MV>, i) => {
       return {
-        props: {
-          ...props.props,
-          id: `${props.props.id}.${i}`,
+        cProps: {
+          ...(props.cProps ?? ({} as ItemComponentToItemProps[C])),
+          id: `${props.cProps?.id}.${i}`,
         },
         validation: props.validation?.[i],
         modelValue,
@@ -138,7 +143,7 @@ const errorMessage = computed(() => {
 })
 
 function addElement() {
-  const value = [...(props?.modelValue || []), props.defaultValue()] as MV
+  const value = [...(props?.modelValue || []), props.defaultValue!()] as MV
   emit('update:modelValue', value)
 
   // FIXME: Focus newly inserted form item
@@ -172,16 +177,25 @@ function updateElement(index: number, newValue: ArrInnerType<MV>) {
         </template>
       </FormField>
 
-      <BButton variant="danger" @click="removeElement(index)">
+      <BButton
+        v-if="defaultValue !== undefined"
+        variant="danger"
+        @click="removeElement(index)"
+      >
         <YIcon :title="$t('delete')" iname="trash-o" />
         <span class="visually-hidden">{{ $t('delete') }}</span>
       </BButton>
     </div>
 
-    <BButton variant="success" @click="addElement()">
-      <YIcon iname="plus" /> {{ $t('user_emailaliases_add') }}
+    <BButton
+      v-if="defaultValue !== undefined"
+      variant="success"
+      @click="addElement()"
+    >
+      <YIcon iname="plus" /> {{ addBtnText ?? $t('add') }}
     </BButton>
 
+    <!-- FIXME is it needed? or more generic error like "errors in this multiple fields" -->
     <template #invalid-feedback>
       <span v-html="errorMessage" />
     </template>

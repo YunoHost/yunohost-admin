@@ -11,6 +11,7 @@ import type {
   AnyDisplayComponents,
   AnyWritableComponents,
   BaseItemComputedProps,
+  ButtonItemProps,
   FormFieldDict,
 } from '@/types/form'
 import { isDisplayComponent, isWritableComponent } from '@/types/form'
@@ -62,9 +63,9 @@ const slots = defineSlots<
   } & {
     [K in KeyOfStr<FFD> as `component:${K}`]?: (
       _: FFD[K]['component'] extends AnyWritableComponents
-        ? FFD[K]['props'] & BaseItemComputedProps<MV[K]>
+        ? FFD[K]['cProps'] & BaseItemComputedProps<MV[K]>
         : FFD[K]['component'] extends AnyDisplayComponents
-          ? FFD[K]['props']
+          ? FFD[K]['cProps']
           : never,
     ) => any
   }
@@ -135,17 +136,17 @@ const Fields = createReusableTemplate<{
         <slot
           v-else-if="isDisplayComponent(field)"
           :name="`component:${k}`"
-          v-bind="field.props"
+          v-bind="field.cProps"
         >
           <Component
             :is="field.component"
             v-if="field.component !== 'ButtonItem'"
-            v-bind="field.props"
+            v-bind="field.cProps"
           />
           <ButtonItem
             v-else
-            v-bind="field.props"
-            @action="emit('action', $event as typeof field.props.id)"
+            v-bind="field.cProps as ButtonItemProps"
+            @action="emit('action', $event as KeyOfStr<FFD>)"
           />
         </slot>
 
@@ -181,12 +182,13 @@ const Fields = createReusableTemplate<{
                   {{ section.name }}
                   <small v-if="section.help">{{ section.help }}</small>
                 </BCardTitle>
-
+                <!-- @vue-ignore-next-line -->
                 <Fields.reuse :fields-props="section.fields" />
               </Component>
             </template>
           </template>
           <template v-else-if="fields">
+            <!-- @vue-ignore-next-line -->
             <Fields.reuse :fields-props="fields" />
           </template>
         </slot>

@@ -10,6 +10,7 @@ import { isObjectLiteral } from '@/helpers/commons'
 import type { ArrInnerType, Cols, Obj, StateVariant } from '@/types/commons'
 
 type StateValidation = false | null
+type Choices = string[] | { text: string; value: string }[]
 
 // DISPLAY
 
@@ -20,6 +21,7 @@ type BaseDisplayItemProps = {
 
 export type ButtonItemProps = BaseDisplayItemProps & {
   // FIXME compute enabled JSExpression
+  id: string
   enabled?: boolean | ComputedRef<boolean>
   icon?: string
   type?: StateVariant
@@ -41,6 +43,7 @@ type BaseWritableItemProps = {
   name?: string
   placeholder?: string
   touchKey?: string
+  disabled?: boolean
 }
 
 export type BaseItemComputedProps<MV extends any = any> = {
@@ -51,7 +54,7 @@ export type BaseItemComputedProps<MV extends any = any> = {
 }
 
 export type AdressItemProps = BaseWritableItemProps & {
-  choices: string[]
+  choices: Choices
   type?: 'domain' | 'email'
 }
 export type AdressModelValue = {
@@ -64,7 +67,7 @@ export type CheckboxItemProps = BaseWritableItemProps & {
   label?: string
   labels?: { true: string; false: string }
   // FIXME unused?
-  // choices: string[]
+  // choices: Choices
 }
 
 export type FileItemProps = BaseWritableItemProps & {
@@ -89,7 +92,7 @@ export type InputItemProps = BaseWritableItemProps & {
     | 'current-password'
     | 'url'
   // pattern?: object
-  // choices?: string[] FIXME rm ?
+  // choices?: Choices FIXME rm ?
   step?: number
   trim?: boolean
   type?:
@@ -107,7 +110,7 @@ export type InputItemProps = BaseWritableItemProps & {
 }
 
 export type SelectItemProps = BaseWritableItemProps & {
-  choices: string[] | { text: string; value: string }[]
+  choices: Choices
 }
 
 export type TagsItemProps = BaseWritableItemProps & {
@@ -205,7 +208,7 @@ export function isNonWritableComponent(
   return isDisplayComponent(field) || !!field.readonly
 }
 
-type ItemComponentToItemProps = {
+export type ItemComponentToItemProps = {
   // DISPLAY
   ButtonItem: ButtonItemProps
   DisplayTextItem: DisplayTextItemProps
@@ -234,11 +237,11 @@ type BaseFormFieldComputedProps<MV extends any = any> = {
 }
 
 type BaseFormField<C extends AnyItemComponents> = {
-  component: C
+  component?: C
+  cProps?: ItemComponentToItemProps[C]
   hr?: boolean
   id?: string
   label?: string
-  props?: ItemComponentToItemProps[C]
   readonly?: boolean
   visible?: boolean | ComputedRef<boolean>
 }
@@ -249,14 +252,14 @@ export type FormField<
 > = BaseFormField<C> & {
   append?: string
   asInputGroup?: boolean
+  cProps?: ItemComponentToItemProps[C]
   description?: string
   descriptionVariant?: StateVariant
   labelFor?: string
   link?:
     | { text: string; name: RouteLocationRaw }
     | { text: string; href: string }
-  props: ItemComponentToItemProps[C]
-  rules?: FormFieldRules<MV>
+  rules?: FormFieldRules<MV> | ComputedRef<FormFieldRules<MV>>
   prepend?: string
   readonly?: false
 }
@@ -267,16 +270,18 @@ export type FormFieldReadonly<
   label: string
   cols?: Cols
   readonly: true
+  rules: undefined
 }
 
 export type FormFieldDisplay<
   C extends AnyDisplayComponents = AnyDisplayComponents,
 > = {
-  component: C
-  props: ItemComponentToItemProps[C]
+  component?: C
+  cProps?: ItemComponentToItemProps[C]
   visible?: boolean | ComputedRef<boolean>
   hr?: boolean
   readonly?: true
+  rules: undefined
 }
 
 export type FormFieldProps<
@@ -305,12 +310,14 @@ export type FormFieldDict<T extends Obj = Obj> = {
 
 // Type to check if object satisfies specified Field and Item
 export type FieldProps<
-  C extends AnyItemComponents = 'InputItem',
+  C extends AnyItemComponents = AnyItemComponents,
   MV extends any = never,
 > = C extends AnyWritableComponents
-  ? FormField<C, MV> | FormFieldReadonly<C>
+  ?
+      | (FormField<C, MV> & { component: C })
+      | (FormFieldReadonly<C> & { component: C })
   : C extends AnyDisplayComponents
-    ? FormFieldDisplay<C>
+    ? FormFieldDisplay<C> & { component: C }
     : never
 
 export function isFileModelValue(value: any): value is FileModelValue {

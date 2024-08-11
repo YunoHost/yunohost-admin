@@ -1,12 +1,13 @@
+// eslint-disable-next-line vue/prefer-import-from-vue
+import { isFunction } from '@vue/shared'
 import type {
   BaseValidation,
   ServerErrors,
   Validation,
   ValidationArgs,
-  ValidationRuleCollection,
 } from '@vuelidate/core'
 import useVuelidate from '@vuelidate/core'
-import { computedWithControl } from '@vueuse/core'
+import { watchImmediate } from '@vueuse/core'
 import type {
   ComputedRef,
   InjectionKey,
@@ -14,11 +15,11 @@ import type {
   Ref,
   WritableComputedRef,
 } from 'vue'
-import { computed, inject, provide, reactive, toValue } from 'vue'
+import { computed, inject, provide, reactive, ref, toValue } from 'vue'
 
 import { APIBadRequestError, type APIError } from '@/api/errors'
 import type { Obj } from '@/types/commons'
-import type { FormField, FormFieldDict } from '@/types/form'
+import type { FormFieldDict } from '@/types/form'
 
 export const clearServerErrorsSymbol = Symbol() as InjectionKey<
   (key?: string) => void
@@ -57,25 +58,32 @@ export type FormValidation<MV extends Obj> = Validation<
 export function useForm<
   MV extends Obj,
   FFD extends FormFieldDict<MV> = FormFieldDict<MV>,
->(form: Ref<MV> | WritableComputedRef<MV>, fields: MaybeRefOrGetter<FFD>) {
+>(form: Ref<MV> | WritableComputedRef<MV>, fields: FFD | (() => FFD)) {
   const serverErrors = reactive<ServerErrors>({})
-  const validByDefault: ValidationRuleCollection = { true: () => true }
-  const rules = computedWithControl(
-    () => toValue(fields),
-    () => {
-      const fs = toValue(fields)
-      const validations = Object.keys(form.value).map((key: keyof MV) => [
-        key,
-        (fs[key] as FormField).rules ?? validByDefault,
-      ])
-      const rules: ValidationArgs<MV> = Object.fromEntries(validations)
-      return {
-        // create a fake validation rule for global state to be able to add $externalResult errors to it
-        global: { true: () => true },
-        form: rules,
-      }
-    },
-  )
+  const validByDefault = { true: () => true as const }
+  // create a fake validation rule for global state to be able to add $externalResult errors to it
+  const rules = ref({ global: validByDefault, form: {} }) as Ref<{
+    global: { true: () => true }
+    form: ValidationArgs<MV>
+  }>
+  function updateRules(ffd: FFD) {
+    const validations = Object.keys(form.value).map((key: keyof MV) => [
+      key,
+      ffd[key].rules ?? validByDefault,
+    ])
+    const formRules: ValidationArgs<MV> = Object.fromEntries(validations)
+    rules.value = { global: { true: () => true }, form: formRules }
+  }
+  if (isFunction(fields)) {
+    watchImmediate(fields, () => {
+      updateRules(toValue(fields))
+    })
+  } else {
+    watchImmediate(
+      Object.keys(form.value).map((key: keyof MV) => () => fields[key].rules),
+      () => updateRules(fields),
+    )
+  }
 
   const v: Ref<FormValidation<MV>> = useVuelidate(
     rules,

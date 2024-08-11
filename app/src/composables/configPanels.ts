@@ -6,7 +6,6 @@ import type {
   WritableComputedRef,
 } from 'vue'
 import { computed, ref, toValue, watch } from 'vue'
-import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 
 import { APIBadRequestError, APIError } from '@/api/errors'
@@ -14,6 +13,7 @@ import { deepSetErrors, useForm, type FormValidation } from '@/composables/form'
 import { isObjectLiteral } from '@/helpers/commons'
 import * as validators from '@/helpers/validators'
 import { formatForm, formatI18nField } from '@/helpers/yunohostArguments'
+import i18n from '@/i18n'
 import type { CustomRoute, KeyOfStr, MergeUnion, Obj } from '@/types/commons'
 import type {
   AnyFormField,
@@ -96,23 +96,24 @@ function formatOption(option: AnyOption, form: Ref<Obj>): AnyFormField {
 
   if (isIn(ANY_DISPLAY_OPTION_TYPE, option)) {
     const component = OPTION_COMPONENT_RESOLVER[option.type]
-    // TODO: could be improved, for simplicity props can be be any display item props
+    // TODO: could be improved, for simplicity cProps can be be any display item props
     // but this is not type safe.
-    const props = {
+    const cProps = {
       label: formatI18nField(option.ask),
       id: option.id,
     } as MergeUnion<AnyDisplayItemProps>
     const field: FormFieldDisplay<typeof component> = {
       component,
       visible,
-      props,
+      cProps,
+      rules: undefined,
     }
 
     if (isIn(['button', 'alert'], option)) {
-      props.type = option.style
-      props.icon = option.icon
+      cProps.type = option.style
+      cProps.icon = option.icon
       if (option.type === 'button') {
-        props.enabled = useExpression(option.enabled, form)
+        cProps.enabled = useExpression(option.enabled, form)
       }
     }
 
@@ -124,42 +125,42 @@ function formatOption(option: AnyOption, form: Ref<Obj>): AnyFormField {
     }
 
     const component = OPTION_COMPONENT_RESOLVER[option.type]
-    // TODO: could be improved, for simplicity props can be be any writable item props
+    // TODO: could be improved, for simplicity cProps can be be any writable item props
     // but this is not type safe.
-    const props = {
+    const cProps = {
       id: option.id,
       placeholder: option.example,
     } as MergeUnion<AnyWritableItemProps>
     const rules: FormField['rules'] = {}
-    const field:
-      | FormField<typeof component>
-      | FormFieldReadonly<typeof component> = {
+    const field: FormField<typeof component> = {
       component,
       label: formatI18nField(option.ask),
-      props,
-      readonly: option.readonly,
-      rules,
+      rules: option.readonly ? undefined : rules,
       visible,
       description: formatI18nField(option.help),
     }
 
     // We don't care about component props in case of readonly
-    if (field.readonly) return field
+    if (option.readonly) {
+      return { ...field, readonly: true } as FormFieldReadonly<typeof component>
+    } else {
+      field.cProps = cProps
+    }
 
-    const { t } = useI18n()
+    const t = i18n.global.t
 
     if (isIn(ANY_INPUT_OPTION_TYPE, option)) {
-      props.type = isIn(['string', 'path'], option) ? 'text' : option.type
+      cProps.type = isIn(['string', 'path'], option) ? 'text' : option.type
       // trim
       // autocomplete
 
       if (option.type === 'password') {
         field.description ??= t('good_practices_about_admin_password')
         rules.passwordLenght = validators.minLength(8)
-        props.placeholder = '••••••••••••'
+        cProps.placeholder = '••••••••••••'
       } else if (isIn(['number', 'range'], option)) {
         rules.numValue = validators.integer
-        props.step = option.step
+        cProps.step = option.step
 
         if (option.min !== undefined) {
           rules.minValue = validators.minValue(option.min)
@@ -169,7 +170,7 @@ function formatOption(option: AnyOption, form: Ref<Obj>): AnyFormField {
         }
       }
     } else if (isIn(['select', 'user', 'domain', 'app', 'group'], option)) {
-      props.choices = isObjectLiteral(option.choices)
+      cProps.choices = isObjectLiteral(option.choices)
         ? Object.entries(option.choices).map(([k, v]) => ({
             text: v,
             value: k,
@@ -182,23 +183,23 @@ function formatOption(option: AnyOption, form: Ref<Obj>): AnyFormField {
         }
       }
     } else if (isIn(['tags', 'tags-select'], option)) {
-      // props.limit = option.limit  // FIXME limit is not defined in core?
-      props.placeholder = option.placeholder
-      props.tagIcon = option.icon
+      // cProps.limit = option.limit  // FIXME limit is not defined in core?
+      cProps.placeholder = option.placeholder
+      cProps.tagIcon = option.icon
 
       if ('tags-select' === option.type) {
-        props.options = option.choices
-        props.auto = true
-        props.itemsName = ''
-        props.label = option.placeholder
+        cProps.options = option.choices
+        cProps.auto = true
+        cProps.itemsName = ''
+        cProps.label = option.placeholder
       }
     } else if ('boolean' === option.type) {
       // FIXME
-      // props.choices = option.choices
+      // cProps.choices = option.choices
     }
 
     if ('file' === option.type) {
-      props.accept = option.accept
+      cProps.accept = option.accept
     }
 
     if ('boolean' !== option.type && option.optional === false) {
@@ -233,6 +234,7 @@ export function formatOptions<MV extends Obj>(
   fields: FormFieldDict<MV>
   form: Ref<MV>
 } {
+  // FIXME handle optional for app install ? or is already handled in core bookworm?
   const form = ref(
     Object.fromEntries(
       options
@@ -373,7 +375,6 @@ function useEvaluation(expression: string, form: MaybeRefOrGetter<Obj>) {
 
   return computed(() => {
     const { exp, ctx } = buildContext(toValue(form))
-
     try {
       return !!evaluate(ctx, exp)
     } catch {

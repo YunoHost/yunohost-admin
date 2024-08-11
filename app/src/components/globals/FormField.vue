@@ -14,6 +14,7 @@ import type {
   BaseItemComputedProps,
   FormField,
   FormFieldProps,
+  ItemComponentToItemProps,
 } from '@/types/form'
 
 defineOptions({
@@ -24,6 +25,8 @@ defineOptions({
 const props = withDefaults(defineProps<FormFieldProps<C, MV>>(), {
   append: undefined,
   asInputGroup: false,
+  component: undefined,
+  cProps: undefined,
   description: undefined,
   descriptionVariant: undefined,
   id: undefined,
@@ -43,7 +46,7 @@ defineEmits<{
 
 const slots = defineSlots<{
   default?: (
-    componentProps: FormField<C, MV>['props'] & BaseItemComputedProps<MV>,
+    componentProps: FormField<C, MV>['cProps'] & BaseItemComputedProps<MV>,
   ) => any
   description?: any
 }>()
@@ -86,7 +89,7 @@ const computedAttrs = computed(() => {
 
 const id = computed(() => {
   if (props.id) return props.id
-  const childId = props.props?.id || props.labelFor
+  const childId = props.cProps?.id || props.labelFor
   return childId ? `${childId}-field` : undefined
 })
 
@@ -132,7 +135,7 @@ const [DefineTemplate, ReuseTemplate] = createReusableTemplate<{
     <!-- Make field props and state available as scoped slot data -->
     <slot
       v-bind="{
-        ...props.props,
+        ...(props.cProps ?? ({} as ItemComponentToItemProps[C])),
         ariaDescribedby,
         modelValue: props.modelValue,
         state,
@@ -141,7 +144,7 @@ const [DefineTemplate, ReuseTemplate] = createReusableTemplate<{
     >
       <!-- if no component was passed as slot, render a component from the props -->
       <Component
-        v-bind="props.props"
+        v-bind="props.cProps"
         :is="component"
         v-model="model"
         :aria-describedby="ariaDescribedby"
@@ -156,7 +159,7 @@ const [DefineTemplate, ReuseTemplate] = createReusableTemplate<{
     v-bind="computedAttrs"
     :id="id"
     :label="label"
-    :label-for="labelFor || props.props?.id"
+    :label-for="labelFor || props.cProps?.id"
     :state="state"
   >
     <template #default="{ ariaDescribedby }">

@@ -4,14 +4,13 @@ import { computed, toValue } from 'vue'
 import type { ButtonItemProps } from '@/types/form'
 
 const props = withDefaults(defineProps<ButtonItemProps>(), {
-  id: undefined,
   enabled: true,
   icon: undefined,
   type: 'success',
 })
 
 const emit = defineEmits<{
-  action: [value: ButtonItemProps['id']]
+  action: [value: string]
 }>()
 
 const icon = computed(() => {
