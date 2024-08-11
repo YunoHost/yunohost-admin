@@ -1,3 +1,4 @@
+import type { Skeleton } from '@/types/commons'
 import 'vue-router'
 
 declare module 'vue-router' {
@@ -6,6 +7,7 @@ declare module 'vue-router' {
     routerParams?: string[]
     args: { trad?: string; param?: string }
     breadcrumb?: string[]
+    skeleton?: (Skeleton | string)[] | Skeleton | string
   }
 }
 

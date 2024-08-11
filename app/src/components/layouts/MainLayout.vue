@@ -13,7 +13,7 @@ import {
 import { useInfos } from '@/composables/useInfos'
 import { useRequests } from '@/composables/useRequests'
 import { useSettings } from '@/composables/useSettings'
-import type { VueClass } from '@/types/commons'
+import type { Skeleton, VueClass } from '@/types/commons'
 
 const router = useRouter()
 const { routerKey } = useInfos()
@@ -25,9 +25,13 @@ const RootView = createReusableTemplate<{
   classes: VueClass
 }>()
 
-const skeleton = computed(
-  () => router.currentRoute.value.meta.skeleton || 'CardInfoSkeleton',
-)
+const skeletons = computed<Skeleton[]>(() => {
+  const skeleton = router.currentRoute.value.meta.skeleton ?? 'CardInfoSkeleton'
+  const skeletons = Array.isArray(skeleton) ? skeleton : [skeleton]
+  return skeletons.map((skeleton) =>
+    typeof skeleton === 'string' ? { is: skeleton } : skeleton,
+  )
+})
 
 const modalComponent = computed(() => {
   if (reconnecting.value) {
@@ -72,7 +76,9 @@ const modalComponent = computed(() => {
       <Suspense>
         <Component :is="Component" :class="classes" />
         <template #fallback>
-          <Component :is="skeleton" />
+          <template v-for="({ is, ...props }, i) in skeletons" :key="i">
+            <Component :is="is" v-bind="props" />
+          </template>
         </template>
       </Suspense>
 

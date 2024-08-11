@@ -18,6 +18,7 @@ export type Cols = Partial<Record<Breakpoint, boolean | ColsNumbers | 'auto'>>
 
 // CUSTOM
 
+export type Skeleton = { is: string } & Obj
 export type CustomRoute = {
   to: RouteLocationNamedRaw
   text: string
