@@ -166,7 +166,7 @@ export default {
    */
   async fetchAll<T extends any[] = any[]>(
     queries: APIQuery[],
-    { showModal = false, initial = false } = {},
+    { showModal = false, initial = true } = {},
   ): Promise<T> {
     const results = []
     for (const query of queries) {
@@ -226,6 +226,13 @@ export default {
    */
   delete<T extends any = any>(query: Omit<APIQuery, 'method'>): Promise<T> {
     return this.fetch({ ...query, method: 'DELETE' })
+  },
+
+  refetch() {
+    // To force a view to reload and refetch initial data, we simply fake update
+    // the router key
+    const { updateRouterKey } = useInfos()
+    updateRouterKey()
   },
 
   /**

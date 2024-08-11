@@ -1,5 +1,5 @@
 import type { Breakpoint } from 'bootstrap-vue-next'
-import type { RouteLocationNamedRaw } from 'vue-router'
+import type { RouteLocationNamedRaw, RouteLocationNormalized } from 'vue-router'
 
 export type Obj<T = any> = Record<string, T>
 
@@ -24,6 +24,7 @@ export type CustomRoute = {
   text: string
   icon?: string
 }
+export type RouteFromTo = Record<'to' | 'from', RouteLocationNormalized>
 export type Translation = string | Record<string, string>
 export type StateVariant = 'success' | 'info' | 'warning' | 'danger'
 

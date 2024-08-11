@@ -8,9 +8,9 @@ import type {
 import { useRouter } from 'vue-router'
 
 import api from '@/api'
-import { isEmptyValue, timeout } from '@/helpers/commons'
+import { timeout } from '@/helpers/commons'
 import i18n from '@/i18n'
-import type { CustomRoute, RouteFromTo } from '@/types/commons'
+import type { CustomRoute } from '@/types/commons'
 import { useDomains } from './data'
 import { useRequests, type ReconnectingArgs } from './useRequests'
 
@@ -105,9 +105,10 @@ export const useInfos = createGlobalState(() => {
     useRequests().reconnecting.value = args
   }
 
-  function updateRouterKey({ to }: RouteFromTo) {
-    if (isEmptyValue(to.params)) {
-      routerKey.value = undefined
+  function updateRouterKey(to?: RouteLocationNormalized) {
+    if (!to) {
+      // Trick to force a view reload
+      routerKey.value += '0'
       return
     }
     // If the next route uses the same component as the previous one, Vue will not
@@ -119,11 +120,10 @@ export const useInfos = createGlobalState(() => {
     const params = to.meta.routerParams
       ? to.meta.routerParams.map((key) => to.params[key])
       : Object.values(to.params)
-
     routerKey.value = `${to.name?.toString()}-${params.join('-')}`
   }
 
-  function updateBreadcrumb({ to }: RouteFromTo) {
+  function updateBreadcrumb(to: RouteLocationNormalized) {
     function getRouteNames(route: RouteLocationNormalized): string[] {
       if (route.meta.breadcrumb) return route.meta.breadcrumb
       const parentRoute = route.matched
