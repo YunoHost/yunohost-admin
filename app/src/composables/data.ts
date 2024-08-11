@@ -161,6 +161,7 @@ export function useDomains(domain_?: MaybeRefOrGetter<string>) {
   }
 
   return {
+    maybeMainDomain: mainDomain,
     mainDomain: computed(() => {
       if (!mainDomain.value) throw new Error(getNoDataMessage('mainDomain'))
       return mainDomain.value

@@ -24,9 +24,9 @@ export const useInfos = createGlobalState(() => {
   const routerKey = ref<string | undefined>()
   const breadcrumb = ref<CustomRoute[]>([])
 
-  const { mainDomain } = useDomains()
+  const { maybeMainDomain } = useDomains()
   const ssoLink = computed(() => {
-    return `//${mainDomain.value ?? host.value}/yunohost/sso`
+    return `//${maybeMainDomain.value ?? host.value}/yunohost/sso`
   })
 
   // INIT
