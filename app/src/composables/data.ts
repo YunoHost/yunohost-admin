@@ -13,8 +13,8 @@ import type {
   UserItem,
 } from '@/types/core/data'
 
-function arrayOrNull<T extends any[]>(items: T): T | null {
-  return items.length ? items : null
+function getNoDataMessage(key: DataKeys) {
+  return `No data in cache: you should query '${key}' before.`
 }
 
 const useData = createGlobalState(() => {
@@ -80,12 +80,11 @@ const useData = createGlobalState(() => {
       }
     } else if (key === 'domainDetails' && param && method === 'GET') {
       domainDetails.value[param] = payload
+    } else {
+      console.warn(
+        `couldn't update the cache, key: ${key}, method: ${method}, param: ${param}`,
+      )
     }
-
-    // FIXME rm?
-    throw new Error(
-      `couldnt update the cache, key: ${key}, method: ${method}, param: ${param}`,
-    )
   }
 
   return {
@@ -106,24 +105,34 @@ export function useUsersAndGroups(username?: MaybeRefOrGetter<string>) {
   const { users, userDetails } = useData()
   return {
     users: computed(() => {
-      return arrayOrNull(Object.values(users.value))
+      const users_ = Object.values(users.value)
+      if (!users_.length) throw new Error(getNoDataMessage('users'))
+      return users_
     }),
     usernames: computed(() => {
-      return arrayOrNull(Object.keys(users.value))
+      const usersnames = Object.keys(users.value)
+      if (!usersnames.length) throw new Error(getNoDataMessage('users'))
+      return usersnames
     }),
     user: computed(() => {
-      if (!username) return
+      if (!username)
+        throw new Error(
+          'You should pass a username to `useUsersAndGroups` to get its details',
+        )
       return userDetails.value[toValue(username)]
     }),
   }
 }
 
 export function useDomains(domain_?: MaybeRefOrGetter<string>) {
-  const { mainDomain, domains, domainDetails } = useData()
+  const { mainDomain, domains: domains_, domainDetails } = useData()
+
+  const domains = computed(() => {
+    if (!domains_.value) throw new Error(getNoDataMessage('domains'))
+    return domains_.value
+  })
 
   const orderedDomains = computed(() => {
-    if (!domains.value) return
-
     const splittedDomains = Object.fromEntries(
       domains.value.map((domain) => {
         // Keep the main part of the domain and the extension together
@@ -139,15 +148,35 @@ export function useDomains(domain_?: MaybeRefOrGetter<string>) {
     )
   })
 
+  function getParentDomain(domain: string, domains: string[], highest = false) {
+    const method = highest ? 'lastIndexOf' : 'indexOf'
+    let i = domain[method]('.')
+    while (i !== -1) {
+      const dn = domain.slice(i + 1)
+      if (domains.includes(dn)) return dn
+      i = domain[method]('.', i + (highest ? -1 : 1))
+    }
+
+    return null
+  }
+
   return {
-    mainDomain,
+    mainDomain: computed(() => {
+      if (!mainDomain.value) throw new Error(getNoDataMessage('mainDomain'))
+      return mainDomain.value
+    }),
     domain: computed(() => {
-      if (!domain_) return
-      return domainDetails.value[toValue(domain_)]
+      if (!domain_)
+        throw new Error(
+          'You should pass a domain name to `useDomains` to get its details',
+        )
+      const domain = domainDetails.value[toValue(domain_)]
+      if (!domain) throw new Error(getNoDataMessage('domainDetails'))
+      return domain
     }),
     domains,
     domainsAsChoices: computed(() => {
-      return domains.value?.map((domain) => ({
+      return domains.value.map((domain) => ({
         value: domain,
         text: domain === mainDomain.value ? domain + ' ★' : domain,
       }))
@@ -155,12 +184,11 @@ export function useDomains(domain_?: MaybeRefOrGetter<string>) {
     orderedDomains,
     domainsTree: computed(() => {
       const domains = orderedDomains.value
-      if (!domains) return
       const dataset = reactive(
         domains.map((domain) => ({
           // data to build a hierarchy
           name: domain,
-          parent: domainDetails.value[domain].topest_parent,
+          parent: getParentDomain(domain, domains),
           // utility data that will be used by `RecursiveListGroup` component
           to: { name: 'domain-info', params: { name: domain } },
           opened: true,
@@ -202,7 +230,8 @@ export function useCache<T extends any = any>(
     if (isObjectLiteral(d) && !Array.isArray(d)) {
       content = d[param] as T
     } else {
-      throw new Error('Trying to get param on non object data')
+      content = undefined as T
+      console.warn('Trying to get param on non object data')
     }
   }
 
