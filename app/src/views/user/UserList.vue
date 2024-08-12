@@ -1,15 +1,13 @@
 <script setup lang="ts">
+import api from '@/api'
 import { useUsersAndGroups } from '@/composables/data'
 import { useInfos } from '@/composables/useInfos'
-import { useInitialQueries } from '@/composables/useInitialQueries'
 import { useSearch } from '@/composables/useSearch'
 
-const { loading } = useInitialQueries([
-  {
-    uri: 'users?fields=username&fields=fullname&fields=mail&fields=mailbox-quota&fields=groups',
-    cachePath: 'users',
-  },
-])
+await api.get({
+  uri: 'users?fields=username&fields=fullname&fields=mail&fields=mailbox-quota&fields=groups',
+  cachePath: 'users',
+})
 
 const { users } = useUsersAndGroups()
 const [search, filteredUsers] = useSearch(
@@ -25,12 +23,7 @@ function downloadExport() {
 </script>
 
 <template>
-  <ViewSearch
-    v-model="search"
-    :items="filteredUsers"
-    items-name="users"
-    :loading="loading"
-  >
+  <ViewSearch v-model="search" :items="filteredUsers" items-name="users">
     <template #top-bar-buttons>
       <BButton variant="info" :to="{ name: 'group-list' }">
         <YIcon iname="key-modern" /> {{ $t('groups_and_permissions_manage') }}
