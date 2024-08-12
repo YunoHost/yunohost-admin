@@ -4,11 +4,9 @@ import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 
 import api from '@/api'
-import type ViewBase from '@/components/globals/ViewBase.vue'
 import { useDomains, useUsersAndGroups } from '@/composables/data'
 import { useArrayRule, useForm } from '@/composables/form'
-import { useInitialQueries } from '@/composables/useInitialQueries'
-import { arrayDiff } from '@/helpers/commons'
+import { arrayDiff, getKeys } from '@/helpers/commons'
 import {
   emailForward,
   emailLocalPart,
@@ -20,7 +18,8 @@ import {
   sameAs,
 } from '@/helpers/validators'
 import { formatAdress, formatForm, sizeToM } from '@/helpers/yunohostArguments'
-import type { AdressModelValue, FieldProps, FormFieldDict } from '@/types/form'
+import type { UserDetails } from '@/types/core/data'
+import type { FieldProps, FormFieldDict } from '@/types/form'
 
 const props = defineProps<{
   name: string
@@ -28,29 +27,30 @@ const props = defineProps<{
 
 const { t } = useI18n()
 const router = useRouter()
-const { loading } = useInitialQueries(
-  [
-    {
-      uri: `users/${props.name}`,
-      cachePath: `userDetails.${props.name}`,
-    },
-    { uri: 'domains', cachePath: 'domains' },
-  ],
-  { onQueriesResponse },
-)
-
-const viewElem = ref<InstanceType<typeof ViewBase> | null>(null)
+await api.fetchAll([
+  {
+    uri: `users/${props.name}`,
+    cachePath: `userDetails.${props.name}`,
+  },
+  { uri: 'domains', cachePath: 'domains' },
+])
 
 const { domainsAsChoices, mainDomain } = useDomains()
+const { user } = useUsersAndGroups(() => props.name)
+// mailbox-quota could be 'No quota' or 'Pas de quota'...
+const mailboxQuota =
+  parseInt(user.value['mailbox-quota'].limit) > 0
+    ? sizeToM(user.value['mailbox-quota'].limit) ?? 0
+    : 0
 
 type Form = typeof form.value
 const form = ref({
   username: props.name,
-  fullname: '',
-  mail: { localPart: '', separator: '@', domain: '' } as AdressModelValue,
-  mailbox_quota: '' as string | number,
-  mail_aliases: [] as AdressModelValue[],
-  mail_forward: [] as string[],
+  fullname: user.value.fullname,
+  mail: formatAdress(user.value.mail),
+  mailbox_quota: mailboxQuota,
+  mail_aliases: user.value['mail-aliases'].map((mail) => formatAdress(mail)),
+  mail_forward: [...user.value['mail-forward']],
   change_password: '',
   confirmation: '',
 })
@@ -74,7 +74,10 @@ const fields = reactive({
   mail: reactive({
     component: 'AdressItem',
     label: t('user_email'),
-    rules: { localPart: { required, email: emailLocalPart } },
+    rules: {
+      localPart: { required, email: emailLocalPart },
+      domain: { required },
+    },
     cProps: { id: 'mail', choices: domainsAsChoices },
   }) satisfies FieldProps<'AdressItem', Form['mail']>,
 
@@ -88,13 +91,17 @@ const fields = reactive({
     cProps: {
       id: 'mailbox-quota',
       placeholder: t('mailbox_quota_placeholder'),
+      type: 'number',
     },
   } satisfies FieldProps<'InputItem', Form['mailbox_quota']>,
 
   mail_aliases: reactive({
     component: 'AdressItem',
+    label: t('user_emailaliases'),
+    id: 'mail_aliases',
     rules: useArrayRule(() => form.value.mail_aliases, {
       localPart: { required, email: emailLocalPart },
+      domain: { required },
     }),
     cProps: {
       placeholder: t('placeholder.username'),
@@ -104,6 +111,8 @@ const fields = reactive({
 
   mail_forward: reactive({
     component: 'InputItem',
+    label: t('user_emailforward'),
+    id: 'mail_forward',
     rules: useArrayRule(() => form.value.mail_forward, {
       required,
       emailForward,
@@ -145,57 +154,51 @@ const fields = reactive({
 
 const { v, onSubmit } = useForm(form, fields)
 
-function onQueriesResponse(user_: any) {
-  form.value.fullname = user_.fullname
-  form.value.mail = formatAdress(user_.mail)
-  if (user_['mail-aliases']) {
-    form.value.mail_aliases = user_['mail-aliases'].map((mail) =>
-      formatAdress(mail),
-    )
-  }
-  if (user_['mail-forward']) {
-    form.value.mail_forward = user_['mail-forward'].map((mail) => ({ mail })) // Copy value
-  }
-  // mailbox-quota could be 'No quota' or 'Pas de quota'...
-  if (parseInt(user_['mailbox-quota'].limit) > 0) {
-    form.value.mailbox_quota = sizeToM(user_['mailbox-quota'].limit)
-  } else {
-    form.value.mailbox_quota = ''
-  }
-}
-
 const onUserEdit = onSubmit(async (onError, serverErrors) => {
-  const { username: _, ...formData } = await formatForm(form, {
+  const {
+    username: _,
+    confirmation: __,
+    ...formData
+  } = await formatForm(form, {
     removeEmpty: true,
   })
-  const user_ = useUsersAndGroups(props.name).user.value!
-  const data = {}
+  const data = {} as Partial<
+    Omit<UserDetails, 'mail-aliases' | 'mail-forward' | 'mailbox-quota'> &
+      Record<
+        | 'add_mailalias'
+        | 'remove_mailalias'
+        | 'add_mailforward'
+        | 'remove_mailforward',
+        string[]
+      > & { mailbox_quota: string; change_password: string }
+  >
   if (!Object.prototype.hasOwnProperty.call(formData, 'mailbox_quota')) {
-    formData.mailbox_quota = ''
+    formData.mailbox_quota = 0
   }
 
-  // formData.mail_forward = formData.mail_forward?.map((v) => v.mail)
-
-  for (const key of ['mail_aliases', 'mail_forward']) {
-    const dashedKey = key.replace('_', '-')
-    const newKey = key.replace('_', '').replace('es', '')
-    const addDiff = arrayDiff(formData[key], user_[dashedKey])
-    const rmDiff = arrayDiff(user_[dashedKey], formData[key])
-    if (addDiff.length) data['add_' + newKey] = addDiff
-    if (rmDiff.length) data['remove_' + newKey] = rmDiff
+  for (const key of ['mail_aliases', 'mail_forward'] as const) {
+    const dashedKey = key.replace('_', '-') as 'mail-aliases' | 'mail-forward'
+    const newKey = key.replace('_', '').replace('es', '') as
+      | 'mailalias'
+      | 'mailforward'
+    const addDiff = arrayDiff(formData[key], user.value[dashedKey])
+    const rmDiff = arrayDiff(user.value[dashedKey], formData[key])
+    if (addDiff.length) data[`add_${newKey}`] = addDiff
+    if (rmDiff.length) data[`remove_${newKey}`] = rmDiff
   }
 
-  for (const key in formData) {
+  getKeys(formData).forEach((key) => {
+    if (key === 'mail_aliases' || key === 'mail_forward') return
     if (key === 'mailbox_quota') {
-      const quota =
-        parseInt(formData[key]) > 0 ? formData[key] + 'M' : 'No quota'
-      if (parseInt(quota) !== parseInt(user_['mailbox-quota'].limit)) {
-        data[key] = quota === 'No quota' ? '0' : quota
+      if (formData[key] !== mailboxQuota) {
+        data[key] = formData[key]! > 0 ? formData[key] + 'M' : 'No quota'
       }
-    } else if (!key.includes('mail_') && formData[key] !== user_[key]) {
+    } else if (key === 'change_password') {
+      data.change_password = formData[key]
+    } else if (formData[key] !== user.value[key]) {
       data[key] = formData[key]
     }
-  }
+  })
 
   if (Object.keys(data).length === 0) {
     serverErrors.global = [t('error_modify_something')]
@@ -217,7 +220,7 @@ const onUserEdit = onSubmit(async (onError, serverErrors) => {
 </script>
 
 <template>
-  <ViewBase ref="viewElem" :loading="loading" skeleton="CardFormSkeleton">
+  <div>
     <CardForm
       v-model="form"
       icon="user"
@@ -252,7 +255,7 @@ const onUserEdit = onSubmit(async (onError, serverErrors) => {
         />
       </template>
     </CardForm>
-  </ViewBase>
+  </div>
 </template>
 
 <style lang="scss" scoped>
