@@ -216,3 +216,18 @@ export type Diagnosis = {
     description: string
   }[]
 }
+
+// DOMAINS
+
+export type DNSRecord = {
+  name: string
+  type: string
+  managed_by_yunohost: boolean
+  old_content: string
+  content: string
+  spaces: string // Added when formating
+}
+export type DNSCategories = Record<
+  'create' | 'update' | 'delete' | 'unchanged',
+  DNSRecord[]
+>
