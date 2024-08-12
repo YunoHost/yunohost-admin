@@ -229,6 +229,19 @@ export type Diagnosis = {
   }[]
 }
 
+// FIREWALL
+
+type Protocols = { TCP: number[]; UDP: number[] }
+export type Firewall = {
+  ipv4: Protocols
+  ipv6: Protocols
+  uPnP: Protocols & {
+    TCP_TO_CLOSE: number[]
+    UDP_TO_CLOSE: number[]
+    enabled: boolean
+  }
+}
+
 // DOMAINS
 
 export type DNSRecord = {

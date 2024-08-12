@@ -1,21 +1,63 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { reactive, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 import api from '@/api'
 import { APIBadRequestError, type APIError } from '@/api/errors'
 import { useForm } from '@/composables/form'
 import { useAutoModal } from '@/composables/useAutoModal'
-import { useInitialQueries } from '@/composables/useInitialQueries'
-import { toEntries } from '@/helpers/commons'
 import { between, integer, required } from '@/helpers/validators'
+import type { Firewall } from '@/types/core/api'
 import type { FieldProps, FormFieldDict } from '@/types/form'
 
 const { t } = useI18n()
 const modalConfirm = useAutoModal()
-const { loading, refetch } = useInitialQueries([{ uri: '/firewall?raw' }], {
-  onQueriesResponse,
-})
+const { protocols, upnpEnabled } = await api
+  .fetch<Firewall>({ uri: 'firewall?raw' })
+  .then((firewall) => {
+    const portTypes = ['TCP', 'UDP'] as const
+    const protocolsTypes = ['ipv4', 'ipv6', 'uPnP'] as const
+    const ports = Object.values(firewall).reduce(
+      (ports, protocols) => {
+        for (const type of portTypes) {
+          for (const port of protocols[type]) {
+            ports[type].add(port)
+          }
+        }
+        return ports
+      },
+      { TCP: new Set<number>(), UDP: new Set<number>() },
+    )
+
+    type Row = { port: number } & Record<keyof Firewall, boolean>
+    const tables = {
+      TCP: [] as Row[],
+      UDP: [] as Row[],
+    }
+    for (const protocol of portTypes) {
+      for (const port of ports[protocol]) {
+        const row = { port } as Row
+        for (const connection of protocolsTypes) {
+          row[connection] = firewall[connection][protocol].includes(port)
+        }
+        tables[protocol].push(row)
+      }
+      tables[protocol].sort((a, b) => (a.port < b.port ? -1 : 1))
+    }
+
+    return {
+      protocols: reactive(tables),
+      upnpEnabled: ref(firewall.uPnP.enabled),
+    }
+  })
+
+const upnpError = ref('')
+const tableFields = [
+  { key: 'port', label: t('port') },
+  { key: 'ipv4', label: t('ipv4') },
+  { key: 'ipv6', label: t('ipv6') },
+  { key: 'uPnP', label: t('upnp') },
+]
 
 type Form = {
   action: 'allow' | 'disallow'
@@ -84,50 +126,12 @@ const fields = {
 
 const { v } = useForm(form, fields)
 
-// Ports tables data
-const protocols = ref()
-const protocolsFields = toEntries(fields).map(([key, { label }]) => ({
-  key,
-  label,
-}))
-
-// uPnP
-const upnpEnabled = ref()
-const upnpError = ref('')
-
-function onQueriesResponse(data: any) {
-  const ports = Object.values(data).reduce(
-    (ports_, protocols_) => {
-      for (const type of ['TCP', 'UDP']) {
-        for (const port of protocols_[type]) {
-          ports_[type].add(port)
-        }
-      }
-      return ports
-    },
-    { TCP: new Set(), UDP: new Set() },
-  )
-
-  const tables = {
-    TCP: [],
-    UDP: [],
-  }
-  for (const protocol of ['TCP', 'UDP']) {
-    for (const port of ports[protocol]) {
-      const row = { port }
-      for (const connection of ['ipv4', 'ipv6', 'uPnP']) {
-        row[connection] = data[connection][protocol].includes(port)
-      }
-      tables[protocol].push(row)
-    }
-    tables[protocol].sort((a, b) => (a.port < b.port ? -1 : 1))
-  }
-
-  protocols.value = tables
-  upnpEnabled.value = data.uPnP.enabled
-}
-
-async function togglePort({ action, port, protocol, connection }) {
+async function togglePort({
+  action,
+  port,
+  protocol,
+  connection,
+}: Form): Promise<boolean> {
   const confirmed = await modalConfirm(
     t('confirm_firewall_' + action, {
       port,
@@ -135,9 +139,7 @@ async function togglePort({ action, port, protocol, connection }) {
       connection,
     }),
   )
-  if (!confirmed) {
-    return Promise.resolve(confirmed)
-  }
+  if (!confirmed) return false
 
   const actionTrad = t({ allow: 'open', disallow: 'close' }[action])
   return api
@@ -152,10 +154,10 @@ async function togglePort({ action, port, protocol, connection }) {
       },
       showModal: false,
     })
-    .then(() => confirmed)
+    .then(() => true)
 }
 
-async function toggleUpnp(value) {
+async function toggleUpnp() {
   const action = upnpEnabled.value ? 'disable' : 'enable'
   const confirmed = await modalConfirm(t('confirm_upnp_' + action))
   if (!confirmed) return
@@ -167,7 +169,7 @@ async function toggleUpnp(value) {
     })
     .then(() => {
       // FIXME Couldn't test when it works.
-      refetch(false)
+      api.refetch()
     })
     .catch((err: APIError) => {
       if (!(err instanceof APIBadRequestError)) throw err
@@ -175,38 +177,43 @@ async function toggleUpnp(value) {
     })
 }
 
-function onTablePortToggling(port, protocol, connection, index, value) {
-  protocols.value[protocol][index][connection] = value
+function onTablePortToggling(
+  { port, protocol, connection }: Omit<Form, 'action'>,
+  index: number,
+  value: boolean,
+) {
+  const protocols_ =
+    protocol === 'Both' ? (['TCP', 'UDP'] as const) : [protocol]
+  protocols_.forEach((protocol) => {
+    protocols[protocol][index][connection] = value
+  })
   const action = value ? 'allow' : 'disallow'
-  togglePort({ action, port, protocol, connection }).then((toggled) => {
+  togglePort({ action, port, protocol, connection }).then((confirmed) => {
     // Revert change on cancel
-    if (!toggled) {
-      protocols.value[protocol][index][connection] = !value
+    if (!confirmed) {
+      protocols_.forEach((protocol) => {
+        protocols[protocol][index][connection] = !value
+      })
     }
   })
 }
 
 function onFormPortToggling() {
-  togglePort(form).then((toggled) => {
-    if (toggled) refetch(false)
+  togglePort(form.value).then((confirmed) => {
+    // TODO: update data instead of refetch?
+    if (confirmed) api.refetch()
   })
 }
 </script>
 
 <template>
-  <ViewBase :loading="loading" skeleton="CardFormSkeleton">
+  <div>
     <!-- PORTS -->
     <YCard :title="$t('ports')" icon="shield">
       <div v-for="(items, protocol) in protocols" :key="protocol">
         <h5>{{ $t(protocol) }}</h5>
 
-        <BTable
-          :fields="protocolsFields"
-          :items="items"
-          small
-          striped
-          responsive
-        >
+        <BTable :fields="tableFields" :items="items" small striped responsive>
           <!-- PORT CELL -->
           <template #cell(port)="data">
             {{ data.value }}
@@ -216,13 +223,15 @@ function onFormPortToggling() {
           <template #cell()="data">
             <BFormCheckbox
               v-if="data.field.key !== 'uPnP'"
-              :modelValue="data.value"
+              :model-value="data.value as boolean"
               switch
-              @update:modelValue="
+              @update:model-value="
                 onTablePortToggling(
-                  data.item.port,
-                  protocol,
-                  data.field.key,
+                  {
+                    port: data.item.port,
+                    protocol,
+                    connection: data.field.key as Form['connection'],
+                  },
                   data.index,
                   $event,
                 )
@@ -278,7 +287,7 @@ function onFormPortToggling() {
         </BButton>
       </template>
     </YCard>
-  </ViewBase>
+  </div>
 </template>
 
 <style lang="scss" scoped>
