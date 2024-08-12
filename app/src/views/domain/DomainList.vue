@@ -1,12 +1,11 @@
 <script setup lang="ts">
+import api from '@/api'
 import RecursiveListGroup from '@/components/RecursiveListGroup.vue'
 import { useDomains } from '@/composables/data'
-import { useInitialQueries } from '@/composables/useInitialQueries'
 import { useSearch } from '@/composables/useSearch'
 
-const { loading } = useInitialQueries([
-  { uri: 'domains', cachePath: 'domains' },
-])
+await api.fetch({ uri: 'domains', cachePath: 'domains' })
+
 const { mainDomain, domainsTree } = useDomains()
 
 const [search, filteredTree] = useSearch(domainsTree, (s, node) =>
@@ -20,7 +19,6 @@ const [search, filteredTree] = useSearch(domainsTree, (s, node) =>
     v-model="search"
     :items="filteredTree ? filteredTree.children : filteredTree"
     items-name="domains"
-    :loading="loading"
   >
     <template #top-bar-buttons>
       <BButton variant="success" :to="{ name: 'domain-add' }">
