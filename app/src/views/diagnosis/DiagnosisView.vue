@@ -1,83 +1,69 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-
 import api from '@/api'
-import { useInitialQueries } from '@/composables/useInitialQueries'
 import { distanceToNow } from '@/helpers/filters/date'
-import { DEFAULT_STATUS_ICON } from '@/helpers/yunohostArguments'
+import { STATUS_VARIANT, isOkStatus } from '@/helpers/yunohostArguments'
+import type { StateStatus } from '@/types/commons'
+import type { Diagnosis } from '@/types/core/api'
 
-const { loading, refetch } = useInitialQueries(
-  [
+const reports = await api
+  .fetchAll<[null, Diagnosis | null]>([
     {
       method: 'PUT',
       uri: 'diagnosis/run?except_if_never_ran_yet',
       humanKey: 'diagnosis.run',
     },
     { uri: 'diagnosis?full' },
-  ],
-  { showModal: true, onQueriesResponse },
-)
+  ])
+  .then(([_, diagnosis]) => {
+    if (!diagnosis) return null
 
-const reports = ref()
-
-function onQueriesResponse(_: any, reportsData: any) {
-  if (reportsData === null) {
-    reports.value = null
-    return
-  }
-
-  const reports_ = reportsData.reports
-  for (const report of reports_) {
-    report.warnings = 0
-    report.errors = 0
-    report.ignoreds = 0
-
-    for (const item of report.items) {
-      const status = (item.variant = item.status.toLowerCase())
-      item.issue = false
-
-      if (item.ignored) {
-        report.ignoreds++
-      }
-      if (status === 'warning') {
-        item.issue = true
-        if (!item.ignored) {
-          report.warnings++
-        }
-      } else if (status === 'error') {
-        item.variant = 'danger'
-        item.issue = true
-        if (!item.ignored) {
-          report.errors++
-        }
+    return diagnosis.reports.map((report) => {
+      const badges = {
+        warnings: 0,
+        errors: 0,
+        ignoreds: 0,
       }
 
-      item.icon =
-        DEFAULT_STATUS_ICON[item.variant as 'success' | 'warning' | 'danger']
-    }
+      const items = report.items.map((item) => {
+        const status = item.status.toLowerCase() as StateStatus
+        const variant = STATUS_VARIANT[status]
+        const issue = !isOkStatus(status)
 
-    report.noIssues = report.warnings + report.errors === 0
-  }
-  reports.value = reports_
-}
+        if (item.ignored) badges.ignoreds++
+        else if (issue) badges[`${status}s`]++
 
-function runDiagnosis({ id = null, description } = {}) {
-  const param = id !== null ? '?force' : ''
-  const data = id !== null ? { categories: [id] } : {}
+        return { ...item, status, issue, variant }
+      })
+      return {
+        ...report,
+        ...badges,
+        items,
+        noIssues: badges.warnings + badges.errors === 0,
+      }
+    })
+  })
 
+type Report = Exclude<typeof reports, null>[number]
+
+function runDiagnosis(report?: { id: string; description: string }) {
+  const id = report?.id
   api
     .put({
-      uri: 'diagnosis/run' + param,
-      data,
+      uri: 'diagnosis/run' + id ? '?force' : '',
+      data: id ? { categories: [id] } : {},
       humanKey: {
-        key: 'diagnosis.run' + (id !== null ? '_specific' : ''),
-        description,
+        key: 'diagnosis.run' + (id ? '_specific' : ''),
+        description: report?.description,
       },
     })
-    .then(() => refetch(false))
+    .then(() => api.refetch())
 }
 
-function toggleIgnoreIssue(action, report, item) {
+function toggleIgnoreIssue(
+  action: 'ignore' | 'unignore',
+  report: Report,
+  item: Report['items'][number],
+) {
   const filterArgs = [report.id].concat(
     Object.entries(item.meta).map((entries) => entries.join('=')),
   )
@@ -86,16 +72,14 @@ function toggleIgnoreIssue(action, report, item) {
     .put({
       uri: 'diagnosis/' + action,
       data: { filter: filterArgs },
-      humanKey: `diagnosis.${action}.${item.status.toLowerCase()}`,
+      humanKey: `diagnosis.${action}.${item.status}`,
     })
     .then(() => {
       item.ignored = action === 'ignore'
-      if (item.ignored) {
-        report[item.status.toLowerCase() + 's']--
-        report.ignoreds++
-      } else {
-        report[item.status.toLowerCase() + 's']++
-        report.ignoreds--
+      const count = item.ignored ? 1 : -1
+      report.ignoreds += count
+      if (!isOkStatus(item.status)) {
+        report[`${item.status}s`] -= count
       }
     })
 }
@@ -108,26 +92,26 @@ function shareLogs() {
 </script>
 
 <template>
-  <ViewBase :loading="loading">
-    <template #top-bar-group-right>
-      <BButton @click="shareLogs" variant="success">
-        <YIcon iname="cloud-upload" /> {{ $t('logs_share_with_yunopaste') }}
-      </BButton>
-    </template>
-
-    <template #top>
-      <div class="alert alert-info">
-        {{ $t(reports ? 'diagnosis_explanation' : 'diagnosis_first_run') }}
-        <BButton
-          v-if="reports === null"
-          class="d-block mt-2"
-          variant="info"
-          @click="runDiagnosis()"
-        >
-          <YIcon iname="stethoscope" /> {{ $t('run_first_diagnosis') }}
+  <div>
+    <TopBar>
+      <template #group-right>
+        <BButton @click="shareLogs" variant="success">
+          <YIcon iname="cloud-upload" /> {{ $t('logs_share_with_yunopaste') }}
         </BButton>
-      </div>
-    </template>
+      </template>
+    </TopBar>
+
+    <div class="alert alert-info">
+      {{ $t(reports ? 'diagnosis_explanation' : 'diagnosis_first_run') }}
+      <BButton
+        v-if="reports === null"
+        class="d-block mt-2"
+        variant="info"
+        @click="runDiagnosis()"
+      >
+        <YIcon iname="stethoscope" /> {{ $t('run_first_diagnosis') }}
+      </BButton>
+    </div>
 
     <!-- REPORT CARD -->
     <YCard
@@ -186,7 +170,6 @@ function shareLogs() {
           v-for="(item, i) in report.items"
           :key="i"
           :variant="item.variant"
-          :icon="item.Icon"
           :faded="item.ignored"
         >
           <div class="item-button d-flex align-items-center">
@@ -236,17 +219,7 @@ function shareLogs() {
         </YListGroupItem>
       </BListGroup>
     </YCard>
-
-    <template #skeleton>
-      <CardListSkeleton />
-      <BCard no-body>
-        <template #header>
-          <BSkeleton width="30%" height="36px" class="m-0" />
-        </template>
-      </BCard>
-      <CardListSkeleton />
-    </template>
-  </ViewBase>
+  </div>
 </template>
 
 <style lang="scss" scoped>

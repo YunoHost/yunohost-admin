@@ -197,3 +197,22 @@ export type BackupList = {
     size: number
   }>
 }
+
+// DIAGNOSIS
+
+export type Diagnosis = {
+  reports: {
+    id: string
+    cached_for: number
+    items: {
+      meta: Obj
+      status: 'INFO' | 'SUCCESS' | 'WARNING' | 'ERROR'
+      data: Obj
+      summary: string
+      details?: string[]
+      ignored: boolean
+    }[]
+    timestamp: number
+    description: string
+  }[]
+}
