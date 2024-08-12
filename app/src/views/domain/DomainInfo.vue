@@ -1,18 +1,13 @@
 <script setup lang="ts">
-import { computed, ref, shallowRef } from 'vue'
+import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 
 import api, { objectToParams } from '@/api'
 import ConfigPanelsComponent from '@/components/ConfigPanels.vue'
-import type {
-  ConfigPanelsProps,
-  OnPanelApply,
-} from '@/composables/configPanels'
 import { formatConfigPanels, useConfigPanels } from '@/composables/configPanels'
 import { useDomains } from '@/composables/data'
 import { useAutoModal } from '@/composables/useAutoModal'
-import { useInitialQueries } from '@/composables/useInitialQueries'
 import type { CoreConfigPanels } from '@/types/core/options'
 import DomainDns from '@/views/domain/DomainDns.vue'
 
@@ -24,40 +19,53 @@ const props = defineProps<{
 const { t } = useI18n()
 const router = useRouter()
 const modalConfirm = useAutoModal()
-const { loading, refetch } = useInitialQueries(
-  [
+
+const coreConfig = await api
+  .fetchAll<[null, null, CoreConfigPanels]>([
     { uri: 'domains', cachePath: 'domains' },
     {
       uri: `domains/${props.name}`,
       cachePath: `domainDetails.${props.name}`,
     },
     { uri: `domains/${props.name}/config?full` },
-  ],
-  { onQueriesResponse },
+  ])
+  .then((responses) => responses[2])
+const { domain } = useDomains(() => props.name)
+const config = useConfigPanels(
+  formatConfigPanels(coreConfig),
+  () => props.tabId,
+  ({ panelId, data, action }, onError) => {
+    api
+      .put({
+        uri: action
+          ? `domain/${props.name}/actions/${action}`
+          : `domains/${props.name}/config/${panelId}`,
+        data: { args: objectToParams(data) },
+        humanKey: {
+          key: `domains.${action ? 'action' : 'update'}_config`,
+          id: panelId,
+          name: props.name,
+        },
+      })
+      .then(() => api.refetch())
+      .catch(onError)
+  },
 )
 
-const { mainDomain, domain } = useDomains(() => props.name)
-const config = shallowRef<ConfigPanelsProps | undefined>()
 const unsubscribeDomainFromDyndns = ref(false)
 
 const cert = computed(() => {
-  const { CA_type: authority, validity } = domain.value.certificate
-  const baseInfos = { authority, validity }
-  if (validity <= 0) {
-    return { icon: 'times', variant: 'danger', ...baseInfos }
-  } else if (authority === 'other') {
-    return validity < 15
-      ? { icon: 'exclamation', variant: 'danger', ...baseInfos }
-      : { icon: 'check', variant: 'success', ...baseInfos }
-  } else if (authority === 'letsencrypt') {
-    return { icon: 'thumbs-up', variant: 'success', ...baseInfos }
+  const { CA_type, validity, style } = domain.value.certificate
+  return {
+    authority: CA_type,
+    validity,
+    variant: style,
+    icon: {
+      warning: 'exclamation',
+      success: CA_type === 'other' ? 'check' : 'thumbs-up',
+      danger: 'times',
+    }[style],
   }
-  return { icon: 'exclamation', variant: 'warning', ...baseInfos }
-})
-
-const isMainDomain = computed(() => {
-  if (!mainDomain.value) return
-  return props.name === mainDomain.value
 })
 
 const isMainDynDomain = computed(() => {
@@ -65,35 +73,6 @@ const isMainDynDomain = computed(() => {
     domain.value.registrar === 'yunohost' && props.name.split('.').length === 3
   )
 })
-
-function onQueriesResponse(
-  domains: any,
-  domain: any,
-  config_: CoreConfigPanels,
-) {
-  config.value = useConfigPanels(
-    formatConfigPanels(config_),
-    () => props.tabId,
-    onPanelApply,
-  )
-}
-
-const onPanelApply: OnPanelApply = ({ panelId, data, action }, onError) => {
-  api
-    .put({
-      uri: action
-        ? `domain/${props.name}/actions/${action}`
-        : `domains/${props.name}/config/${panelId}`,
-      data: { args: objectToParams(data) },
-      humanKey: {
-        key: `domains.${action ? 'action' : 'update'}_config`,
-        id: panelId,
-        name: props.name,
-      },
-    })
-    .then(() => refetch())
-    .catch(onError)
-}
 
 async function deleteDomain() {
   const data =
@@ -130,10 +109,10 @@ async function setAsDefaultDomain() {
 </script>
 
 <template>
-  <ViewBase :loading="loading" skeleton="CardListSkeleton">
+  <div>
     <!-- INFO CARD -->
-    <YCard v-if="domain" :title="name" icon="globe">
-      <template v-if="isMainDomain" #header-next>
+    <YCard :title="name" icon="globe">
+      <template v-if="domain.main" #header-next>
         <BBadge variant="info" class="main-domain-badge">
           <ExplainWhat
             id="explain-main-domain"
@@ -147,18 +126,14 @@ async function setAsDefaultDomain() {
 
       <template #header-buttons>
         <!-- DEFAULT DOMAIN -->
-        <BButton
-          v-if="!isMainDomain"
-          @click="setAsDefaultDomain"
-          variant="info"
-        >
+        <BButton v-if="!domain.main" variant="info" @click="setAsDefaultDomain">
           <YIcon iname="star" /> {{ $t('set_default') }}
         </BButton>
 
         <!-- DELETE DOMAIN -->
         <BButton
           v-b-modal.delete-modal
-          :disabled="isMainDomain"
+          :disabled="domain.main"
           variant="danger"
         >
           <YIcon iname="trash-o" /> {{ $t('delete') }}
@@ -235,7 +210,6 @@ async function setAsDefaultDomain() {
     </YCard>
 
     <ConfigPanelsComponent
-      v-if="config"
       v-model="config.form"
       :panel="config.panel.value"
       :validations="config.v.value"
@@ -248,7 +222,6 @@ async function setAsDefaultDomain() {
     </ConfigPanelsComponent>
 
     <BModal
-      v-if="domain"
       id="delete-modal"
       :title="$t('confirm_delete', { name: props.name })"
       @ok="deleteDomain"
@@ -262,7 +235,7 @@ async function setAsDefaultDomain() {
         </BFormCheckbox>
       </BFormGroup>
     </BModal>
-  </ViewBase>
+  </div>
 </template>
 
 <style lang="scss" scoped>
