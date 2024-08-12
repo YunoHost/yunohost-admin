@@ -1,70 +1,61 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 import api from '@/api'
 import { useAutoModal } from '@/composables/useAutoModal'
-import { useInitialQueries } from '@/composables/useInitialQueries'
 import { distanceToNow } from '@/helpers/filters/date'
+import type { ServiceInfo, ServiceLogs } from '@/types/core/api'
 
-const props = defineProps<{
-  name: string
-}>()
+const props = defineProps<{ name: string }>()
 
 const { t } = useI18n()
 const modalConfirm = useAutoModal()
-const { loading, refetch } = useInitialQueries(
-  [
-    { uri: 'services/' + props.name },
-    { uri: `services/${props.name}/log?number=50` },
-  ],
-  { onQueriesResponse },
-)
 
-const infos = ref()
-const uptime = ref()
-const isCritical = ref()
-const logs = ref()
-const action = ref()
+const { infos, upOrDownTime, isCritical, logs } = await api
+  .fetchAll<
+    [ServiceInfo, ServiceLogs]
+  >([{ uri: 'services/' + props.name }, { uri: `services/${props.name}/log?number=50` }])
+  .then(([service, logs]) => {
+    const { last_state_change, ...infos } = service
+    const criticalServices = ['nginx', 'ssh', 'slapd', 'yunohost-api']
 
-function onQueriesResponse(
-  // eslint-disable-next-line
-  { status, description, start_on_boot, last_state_change, configuration }: any,
-  logs_: any,
-) {
-  isCritical.value = ['nginx', 'ssh', 'slapd', 'yunohost-api'].includes(
-    props.name,
-  )
-  // eslint-disable-next-line
-  uptime.value = last_state_change === 'unknown' ? 0 : last_state_change
-  infos.value = { description, status, start_on_boot, configuration }
+    return {
+      infos,
+      upOrDownTime:
+        last_state_change === 'unknown'
+          ? t('unknown')
+          : distanceToNow(last_state_change, false),
+      isCritical: criticalServices.includes(props.name),
+      logs: Object.keys(logs)
+        .sort((prev, curr) => {
+          if (prev === 'journalctl') return -1
+          else if (curr === 'journalctl') return 1
+          else if (prev < curr) return -1
+          else return 1
+        })
+        .map((filename) => ({
+          content: logs[filename].join('\n'),
+          filename,
+        })),
+    }
+  })
 
-  logs.value = Object.keys(logs_)
-    .sort((prev, curr) => {
-      if (prev === 'journalctl') return -1
-      else if (curr === 'journalctl') return 1
-      else if (prev < curr) return -1
-      else return 1
-    })
-    .map((filename) => ({ content: logs_[filename].join('\n'), filename }))
-}
-
-async function updateService(action) {
+async function updateService(action: 'start' | 'stop' | 'restart') {
   const confirmed = await modalConfirm(
-    t('confirm_service_' + action, { name: props.name }),
+    t(`confirm_service_${action}`, { name: props.name }),
   )
   if (!confirmed) return
 
   api
     .put({
       uri: `services/${props.name}/${action}`,
-      humanKey: { key: 'services.' + action, name: props.name },
+      humanKey: { key: `services.${action}`, name: props.name },
     })
-    .then(() => refetch(false))
+    .then(() => api.refetch())
 }
 
 function shareLogs() {
-  const logs = logs.value
+  const logsContent = logs
     .map(({ filename, content }) => {
       return `LOGFILE: ${filename}\n${content}`
     })
@@ -72,21 +63,21 @@ function shareLogs() {
 
   fetch('https://paste.yunohost.org/documents', {
     method: 'POST',
-    body: logs,
+    body: logsContent,
   })
     .then((response) => {
       if (response.ok) return response.json()
+      else console.error('error', response)
       // FIXME flash error
-      /* eslint-disable-next-line */ else console.log('error', response)
     })
     .then(({ key }) => {
-      window.open('https://paste.yunohost.org/' + key, '_blank')
+      window.open(`https://paste.yunohost.org/${key}`, '_blank')
     })
 }
 </script>
 
 <template>
-  <ViewBase :loading="loading" skeleton="CardInfoSkeleton">
+  <div>
     <!-- INFO CARD -->
     <YCard :title="name" icon="info-circle" button-unbreak="sm">
       <template #header-buttons>
@@ -129,7 +120,7 @@ function shareLogs() {
               <YIcon :iname="value === 'running' ? 'check-circle' : 'times'" />
               {{ $t(value) }}
             </span>
-            {{ $t('since') }} {{ distanceToNow(uptime) }}
+            {{ $t('since') }} {{ upOrDownTime }}
           </template>
 
           <span
@@ -160,7 +151,7 @@ function shareLogs() {
         <pre class="log"><code>{{ content }}</code></pre>
       </template>
     </YCard>
-  </ViewBase>
+  </div>
 </template>
 
 <style lang="scss" scoped>

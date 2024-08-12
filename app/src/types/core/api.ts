@@ -198,6 +198,17 @@ export type BackupList = {
   }>
 }
 
+// SERVICES
+
+export type ServiceInfo = {
+  status: 'running' | 'stopped' | 'failed' | 'unknown'
+  start_on_boot: 'enabled' | 'disabled' | 'unknown'
+  last_state_change: string | 'unknown'
+  description: string
+  configuration: 'valid' | 'broken' | 'unknown'
+}
+export type ServiceLogs = Obj<string[]>
+
 // DIAGNOSIS
 
 export type Diagnosis = {
