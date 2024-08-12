@@ -1,28 +1,29 @@
 <script setup lang="ts">
-import { computed, reactive, ref } from 'vue'
+import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { useRoute, useRouter } from 'vue-router'
+import { useRouter } from 'vue-router'
 
+import api from '@/api'
 import CardDeckFeed from '@/components/CardDeckFeed.vue'
-import { useForm } from '@/composables/form'
+import { useForm, useFormQuery } from '@/composables/form'
 import { useAutoModal } from '@/composables/useAutoModal'
-import { useInitialQueries } from '@/composables/useInitialQueries'
 import { useSearch } from '@/composables/useSearch'
-import { randint } from '@/helpers/commons'
+import { pick } from '@/helpers/commons'
 import { appRepoUrl, required } from '@/helpers/validators'
-import type { Obj } from '@/types/commons'
+import type { Catalog } from '@/types/core/api'
 import type { FieldProps, FormFieldDict } from '@/types/form'
+import { formatAppQuality } from './appData'
 
 const props = withDefaults(
   defineProps<{
     search?: string
-    quality?: string
-    category?: string | null
-    subtag?: string
+    quality?: 'all' | 'highQuality' | 'decentQuality' | 'working'
+    category?: 'all' | string | null
+    subtag?: 'all' | 'others' | string
   }>(),
   {
     search: '',
-    quality: 'decent_quality',
+    quality: 'decentQuality',
     category: null,
     subtag: 'all',
   },
@@ -30,17 +31,59 @@ const props = withDefaults(
 
 const { t } = useI18n()
 const router = useRouter()
-const route = useRoute()
 const modalConfirm = useAutoModal()
-const { loading } = useInitialQueries(
-  [{ uri: 'apps/catalog?full&with_categories&with_antifeatures' }],
-  { onQueriesResponse },
-)
 
-const selectedApp = ref()
-const antifeatures = ref()
+const [apps, categories] = await api
+  .get<Catalog>({
+    uri: 'apps/catalog?full&with_categories&with_antifeatures',
+    initial: true,
+  })
+  .then((catalog) => {
+    const apps = Object.values(catalog.apps)
+      .map((app) => {
+        const working = app.state === 'working'
+        return {
+          ...pick(app, ['id', 'category', 'subtags', 'maintained']),
+          ...pick(app.manifest, ['name', 'description']),
+          quality: formatAppQuality({ level: app.level, state: app.state }),
+          working,
+          decentQuality: working && app.level > 4,
+          highQuality: working && app.level >= 8,
+          logoHash: app.logo_hash,
+          searchValues: [
+            app.id,
+            app.state,
+            app.manifest.name,
+            app.manifest.description,
+            app.potential_alternative_to.join(' '),
+          ]
+            .join(' ')
+            .toLowerCase(),
+        }
+      })
+      .sort((a, b) => (a.id > b.id ? 1 : -1))
 
-const apps = ref<Obj[] | undefined>()
+    // CATEGORIES
+    const categories = [
+      { text: t('app_choose_category'), value: null, subtags: [] },
+      { text: t('all_apps'), value: 'all', icon: 'search', subtags: [] },
+      ...catalog.categories.map(({ title, id, ...rest }) => {
+        return { text: title, value: id, ...rest }
+      }),
+    ]
+
+    return [apps, categories] as const
+  })
+
+const {
+  quality,
+  category,
+  subtag,
+  search: externalSearch,
+} = useFormQuery(props, () => {
+  if (props.category === null) return { ...props, category: 'all' }
+})
+
 const [search, filteredApps] = useSearch(
   apps,
   (s, app) => {
@@ -58,11 +101,11 @@ const [search, filteredApps] = useSearch(
       if (!appMatchSubtag) return false
     }
     if (s === '') return true
-    if (app.searchValues.includes(search)) return true
+    if (app.searchValues.includes(s)) return true
     return false
   },
   {
-    externalSearch: () => props.search,
+    externalSearch,
     filterIfNoSearch: true,
     filterAllFn(s) {
       if (props.category === null) return false
@@ -79,7 +122,7 @@ const fields = {
     component: 'InputItem',
     label: t('url'),
     rules: { required, appRepoUrl },
-    props: {
+    cProps: {
       id: 'custom-install',
       placeholder: 'https://some.git.forge.tld/USER/REPOSITORY',
     },
@@ -88,25 +131,20 @@ const fields = {
 const { v, onSubmit } = useForm(form, fields)
 
 const qualityOptions = [
-  { value: 'high_quality', text: t('only_highquality_apps') },
+  { value: 'highQuality', text: t('only_highquality_apps') },
   {
-    value: 'decent_quality',
+    value: 'decentQuality',
     text: t('only_decent_quality_apps'),
   },
   { value: 'working', text: t('only_working_apps') },
   { value: 'all', text: t('all_apps') },
 ]
-const categories = reactive([
-  { text: t('app_choose_category'), value: null },
-  { text: t('all_apps'), value: 'all', icon: 'search' },
-  // The rest is filled from api data
-])
 
 const subtags = computed(() => {
   // build an options array for subtags v-model/options
   if (props.category && categories.length > 2) {
-    const category = categories.find((cat) => cat.value === props.category)
-    if (category.subtags) {
+    const category = categories.find((cat) => cat.value === props.category)!
+    if (category.subtags.length) {
       const subtags = [{ text: t('all'), value: 'all' }]
       category.subtags.forEach((subtag) => {
         subtags.push({ text: subtag.title, value: subtag.id })
@@ -117,75 +155,6 @@ const subtags = computed(() => {
   }
   return null
 })
-
-function onQueriesResponse(catalog: any) {
-  const apps_ = []
-  for (const key in catalog.apps) {
-    const app = catalog.apps[key]
-    app.isInstallable =
-      !app.installed || app.manifest.integration.multi_instance
-    app.working = app.state === 'working'
-    app.decent_quality = app.working && app.level > 4
-    app.high_quality = app.working && app.level >= 8
-    app.color = 'danger'
-    if (app.working && app.level <= 0) {
-      app.state = 'broken'
-      app.color = 'danger'
-    } else if (app.working && app.level <= 4) {
-      app.state = 'lowquality'
-      app.color = 'warning'
-    } else if (app.working) {
-      app.color = 'success'
-    }
-    app.searchValues = [
-      app.id,
-      app.state,
-      app.manifest.name,
-      app.manifest.description,
-      app.potential_alternative_to.join(' '),
-    ]
-      .join(' ')
-      .toLowerCase()
-    apps_.push(app)
-  }
-  apps.value = apps_.sort((a, b) => (a.id > b.id ? 1 : -1))
-
-  // CATEGORIES
-  catalog.categories.forEach(({ title, id, icon, subtags, description }) => {
-    categories.push({
-      text: title,
-      value: id,
-      icon,
-      subtags,
-      description,
-    })
-  })
-  antifeatures.value = Object.fromEntries(
-    catalog.antifeatures.map((af) => [af.id, af]),
-  )
-}
-
-function updateQuery(key, value) {
-  // Update the query string without reloading the page
-  router.replace({
-    query: {
-      ...route.query,
-      // allow search without selecting a category
-      category: route.query.category || 'all',
-      [key]: value,
-    },
-  })
-}
-
-// INSTALL APP
-async function onInstallClick(appId: string) {
-  const app = apps.value.find((app) => app.id === appId)
-  if (!app.decent_quality) {
-    const confirmed = await modalConfirm(t('confirm_install_app_' + app.state))
-    if (!confirmed) return
-  }
-  router.push({ name: 'app-install', params: { id: app.id } })
-}
 
 // INSTALL CUSTOM APP
 const onCustomInstallClick = onSubmit(async () => {
@@ -201,12 +170,7 @@ const onCustomInstallClick = onSubmit(async () => {
 </script>
 
 <template>
-  <ViewSearch
-    v-model="search"
-    :items="filteredApps"
-    items-name="apps"
-    :loading="loading"
-  >
+  <ViewSearch :items="filteredApps" items-name="apps">
     <template #top-bar>
       <div id="view-top-bar">
         <!-- APP SEARCH -->
@@ -217,16 +181,11 @@ const onCustomInstallClick = onSubmit(async () => {
 
           <BFormInput
             id="search-input"
-            :model-value="search"
+            v-model="search"
             :placeholder="$t('search.for', { items: $t('items.apps', 2) })"
-            @update:model-value="updateQuery('search', $event)"
           />
 
-          <BFormSelect
-            :model-value="quality"
-            :options="qualityOptions"
-            @update:model-value="updateQuery('quality', $event)"
-          />
+          <BFormSelect v-model="quality" :options="qualityOptions" />
         </BInputGroup>
 
         <!-- CATEGORY SELECT -->
@@ -235,16 +194,12 @@ const onCustomInstallClick = onSubmit(async () => {
             <YIcon iname="filter" />
           </BInputGroupText>
 
-          <BFormSelect
-            :model-value="category"
-            :options="categories"
-            @update:model-value="updateQuery('category', $event)"
-          />
+          <BFormSelect v-model="category" :options="categories" />
 
           <BButton
             variant="primary"
             :disabled="category === null"
-            @click="updateQuery('category', null)"
+            @click="category = null"
           >
             {{ $t('app_show_categories') }}
           </BButton>
@@ -256,46 +211,44 @@ const onCustomInstallClick = onSubmit(async () => {
 
           <BFormRadioGroup
             id="subtags-radio"
+            v-model="subtag"
             name="subtags"
-            :checked="subtag"
             :options="subtags"
-            @change="updateQuery('subtag', $event)"
             buttons
             button-variant="outline-secondary"
           />
 
           <BFormSelect
             id="subtags-select"
-            :model-value="subtag"
+            v-model="subtag"
             :options="subtags"
-            @update:model-value="updateQuery('subtag', $event)"
           />
         </BInputGroup>
       </div>
     </template>
 
     <!-- CATEGORIES CARDS -->
-    <BCardGroup v-if="category === null" deck tag="ul">
-      <BCard
-        v-for="cat in categories.slice(1)"
-        :key="cat.value"
-        tag="li"
-        class="category-card"
-      >
-        <BCardTitle>
-          <BLink
-            @click.prevent="updateQuery('category', cat.value)"
-            class="card-link"
-          >
-            <YIcon :iname="cat.icon" /> {{ cat.text }}
-          </BLink>
-        </BCardTitle>
-        <BCardText>{{ cat.description }}</BCardText>
-      </BCard>
-    </BCardGroup>
+    <template v-if="category === null" #forced-default>
+      <BCardGroup deck tag="ul" class="p-0 m-0">
+        <BCard
+          v-for="cat in categories.slice(1)"
+          :key="cat.text"
+          tag="li"
+          class="category-card"
+        >
+          <BCardTitle>
+            <BLink class="card-link" @click.prevent="category = cat.value">
+              <YIcon v-if="cat.icon" :iname="cat.icon" /> {{ cat.text }}
+            </BLink>
+          </BCardTitle>
+          <BCardText v-if="'description' in cat">{{
+            cat.description
+          }}</BCardText>
+        </BCard>
+      </BCardGroup>
+    </template>
 
-    <!-- APPS CARDS -->
-    <CardDeckFeed v-else>
+    <CardDeckFeed v-if="filteredApps">
       <BCard
         v-for="(app, i) in filteredApps"
         :key="app.id"
@@ -310,9 +263,9 @@ const onCustomInstallClick = onSubmit(async () => {
       >
         <BCardBody class="d-flex">
           <BImg
-            v-if="app.logo_hash"
+            v-if="app.logoHash"
             class="app-logo rounded"
-            :src="`./applogos/${app.logo_hash}.png`"
+            :src="`./applogos/${app.logoHash}.png`"
           />
 
           <div>
@@ -321,37 +274,36 @@ const onCustomInstallClick = onSubmit(async () => {
                 :to="{ name: 'app-install', params: { id: app.id } }"
                 class="card-link"
               >
-                {{ app.manifest.name }}
+                {{ app.name }}
               </BLink>
 
               <small
-                v-if="app.state !== 'working' || app.high_quality"
+                v-if="app.quality.state !== 'working' || app.highQuality"
                 class="d-flex align-items-center ms-2 position-relative"
               >
                 <BBadge
-                  v-if="app.state !== 'working'"
-                  :variant="app.color"
+                  v-if="app.quality.state !== 'working'"
                   v-b-popover.hover.bottom="
-                    $t(`app_state_${app.state}_explanation`)
+                    $t(`app_state_${app.quality.state}_explanation`)
                   "
+                  :variant="app.quality.variant"
                 >
-                  <!-- app.state can be 'lowquality' or 'inprogress' -->
-                  {{ $t('app_state_' + app.state) }}
+                  {{ $t(`app_state_${app.quality.state}`) }}
                 </BBadge>
 
                 <YIcon
-                  v-if="app.high_quality"
-                  iname="star"
-                  class="star"
+                  v-if="app.highQuality"
                   v-b-popover.hover.bottom="
                     $t(`app_state_highquality_explanation`)
                   "
+                  iname="star"
+                  class="star"
                 />
               </small>
             </BCardTitle>
 
             <BCardText :id="`${app.id}-desc`">
-              {{ app.manifest.description }}
+              {{ app.description }}
             </BCardText>
 
             <BCardText
@@ -359,8 +311,8 @@ const onCustomInstallClick = onSubmit(async () => {
               class="align-self-end position-relative mt-auto"
             >
               <span
-                class="alert-warning p-1"
                 v-b-popover.hover.top="$t('orphaned_details')"
+                class="alert-warning p-1"
               >
                 <YIcon iname="warning" /> {{ $t('orphaned') }}
               </span>
@@ -389,33 +341,6 @@ const onCustomInstallClick = onSubmit(async () => {
           </div>
         </template>
       </CardForm>
-    </template>
-
-    <!-- CUSTOM SKELETON -->
-    <template #skeleton>
-      <BCardGroup deck>
-        <BCard v-for="i in 15" :key="i" no-body style="min-height: 10rem">
-          <div class="d-flex w-100 mt-auto">
-            <BSkeleton width="30px" height="30px" class="me-2 ms-auto" />
-            <BSkeleton
-              :width="randint(30, 70) + '%'"
-              height="30px"
-              class="me-auto"
-            />
-          </div>
-          <BSkeleton
-            v-if="randint(0, 1)"
-            :width="randint(30, 85) + '%'"
-            height="24px"
-            class="mx-auto"
-          />
-          <BSkeleton
-            :width="randint(30, 85) + '%'"
-            height="24px"
-            class="mx-auto mb-auto"
-          />
-        </BCard>
-      </BCardGroup>
     </template>
   </ViewSearch>
 </template>
@@ -449,13 +374,9 @@ const onCustomInstallClick = onSubmit(async () => {
 }
 
 .card-deck {
-  padding: 0;
-  margin-bottom: 0;
-  display: flex;
-  flex-flow: row wrap;
-
-  > * {
+  .card {
     flex-basis: 100%;
+    outline: none;
 
     @include media-breakpoint-up(md) {
       flex-basis: 50%;
@@ -466,13 +387,14 @@ const onCustomInstallClick = onSubmit(async () => {
       flex-basis: 33%;
       max-width: calc(33.3% - 1rem);
     }
-  }
 
-  .card {
     &:hover {
       color: $white;
       background-color: $dark;
       border-color: $dark;
+    }
+    &:focus {
+      box-shadow: 0 0 0 $btn-focus-width rgba($dark, 0.5);
     }
 
     :deep(.card-link) {
