@@ -296,6 +296,26 @@ export type MigrationList = {
   migrations: MigrationInfo[]
 }
 
+export type SystemUpdate = {
+  system: {
+    name: string
+    new_version: string
+    current_version: string
+  }[]
+  apps: {
+    name: string
+    id: string
+    new_version: string
+    current_version: string
+    notifications: {
+      PRE_UPGRADE: Obj<string> | null
+      POST_UPGRADE: Obj<string> | null
+    }
+  }[]
+  important_yunohost_upgrade: boolean
+  pending_migrations: MigrationInfo[]
+}
+
 // DOMAINS
 
 export type DNSRecord = {

@@ -6,60 +6,40 @@ import api from '@/api'
 import CardCollapse from '@/components/CardCollapse.vue'
 import { useAutoModal } from '@/composables/useAutoModal'
 import { useInfos } from '@/composables/useInfos'
-import { useInitialQueries } from '@/composables/useInitialQueries'
+import type { SystemUpdate } from '@/types/core/api'
+import { formatAppNotifs } from '../app/appData'
 
 const { t } = useI18n()
 const { tryToReconnect } = useInfos()
 const modalConfirm = useAutoModal()
-const { loading } = useInitialQueries(
-  [{ method: 'PUT', uri: 'update/all', humanKey: 'update' }],
-  { showModal: true, onQueriesResponse },
-)
 
-const system = ref()
-const apps = ref()
-const importantYunohostUpgrade = ref()
-const pendingMigrations = ref()
-const showPreUpgradeModal = ref(false)
-const preUpgrade = ref({
-  apps: [],
-  notifs: [],
-})
+const { apps, system, importantYunohostUpgrade, pendingMigrations } = await api
+  .put<SystemUpdate>({ uri: 'update/all', humanKey: 'update' })
+  .then(({ apps, system, important_yunohost_upgrade, pending_migrations }) => {
+    return {
+      apps: ref(apps),
+      system: ref(system),
+      importantYunohostUpgrade: important_yunohost_upgrade,
+      pendingMigrations: !!pending_migrations.length,
+    }
+  })
+const preUpgrade = ref<
+  | { apps: { id: string; name: string; notif: string }[]; hasNotifs: boolean }
+  | undefined
+>()
 
-function onQueriesResponse({
-  apps_,
-  system_,
-  important_yunohost_upgrade,
-  pending_migrations,
-}: any) {
-  apps.value = apps_.length ? apps_ : null
-  system.value = system_.length ? system_ : null
-  // eslint-disable-next-line camelcase
-  importantYunohostUpgrade.value = important_yunohost_upgrade
-  pendingMigrations.value = pending_migrations.length !== 0
-}
-
-function formatAppNotifs(notifs) {
-  return Object.keys(notifs).reduce((acc, key) => {
-    return acc + '\n\n' + notifs[key]
-  }, '')
-}
-
-async function confirmAppsUpgrade(id = null) {
-  const appList = id ? [apps.value.find((app) => app.id === id)] : apps.value
+async function confirmAppsUpgrade(id?: string) {
+  const appList = id ? [apps.value.find((app) => app.id === id)!] : apps.value
   const apps_ = appList.map((app) => ({
     id: app.id,
     name: app.name,
-    notif: app.notifications.PRE_UPGRADE
-      ? formatAppNotifs(app.notifications.PRE_UPGRADE)
-      : '',
+    notif: formatAppNotifs(app.notifications.PRE_UPGRADE),
   }))
   preUpgrade.value = { apps: apps_, hasNotifs: apps_.some((app) => app.notif) }
-  showPreUpgradeModal.value = true
 }
 
-async function performAppsUpgrade(ids) {
-  const apps_ = ids.map((id) => apps.value.find((app) => app.id === id))
+async function performAppsUpgrade(ids: string[]) {
+  const apps_ = ids.map((id) => apps.value.find((app) => app.id === id)!)
   const lastAppId = apps_[apps_.length - 1].id
 
   for (const app of apps_) {
@@ -68,7 +48,7 @@ async function performAppsUpgrade(ids) {
         uri: `apps/${app.id}/upgrade`,
         humanKey: { key: 'upgrade.app', app: app.name },
       })
-      .then((response) => {
+      .then((response: Pick<SystemUpdate['apps'][number], 'notifications'>) => {
         const postMessage = formatAppNotifs(response.notifications.POST_UPGRADE)
         const isLast = app.id === lastAppId
         apps.value = apps.value.filter((a) => app.id !== a.id)
@@ -88,14 +68,10 @@ async function performAppsUpgrade(ids) {
             { markdown: true, cancelable: !isLast },
           )
         } else {
-          return Promise.resolve(true)
+          return true
         }
       })
     if (!continue_) break
-  }
-
-  if (!apps.value.length) {
-    apps.value = null
   }
 }
 
@@ -111,13 +87,13 @@ async function performSystemUpgrade() {
         initialDelay: 2000,
       })
     }
-    system.value = null
+    system.value = []
   })
 }
 </script>
 
 <template>
-  <ViewBase :loading="loading" skeleton="CardListSkeleton">
+  <div>
     <!-- MIGRATIONS WARN -->
     <YAlert v-if="pendingMigrations" variant="warning" alert>
       <span v-html="$t('pending_migrations')" />
@@ -130,7 +106,7 @@ async function performSystemUpgrade() {
 
     <!-- SYSTEM UPGRADE -->
     <YCard :title="$t('system')" icon="server" no-body>
-      <BListGroup v-if="system" flush>
+      <BListGroup v-if="system.length" flush>
         <BListGroupItem
           v-for="{ name, current_version, new_version } in system"
           :key="name"
@@ -144,14 +120,14 @@ async function performSystemUpgrade() {
         </BListGroupItem>
       </BListGroup>
 
-      <BCardBody v-else-if="system === null">
+      <BCardBody v-else>
         <span class="text-success">
           <YIcon iname="check-circle" />
           {{ $t('system_packages_nothing') }}
         </span>
       </BCardBody>
 
-      <template #buttons v-if="system">
+      <template v-if="system.length" #buttons>
         <BButton
           variant="success"
           v-t="'system_upgrade_all_packages_btn'"
@@ -162,7 +138,7 @@ async function performSystemUpgrade() {
 
     <!-- APPS UPGRADE -->
     <YCard :title="$t('applications')" icon="cubes" no-body>
-      <BListGroup v-if="apps" flush>
+      <BListGroup v-if="apps.length" flush>
         <BListGroupItem
           v-for="{ name, id, current_version, new_version } in apps"
           :key="id"
@@ -185,13 +161,13 @@ async function performSystemUpgrade() {
         </BListGroupItem>
       </BListGroup>
 
-      <BCardBody v-else-if="apps === null">
+      <BCardBody v-else>
         <span class="text-success">
           <YIcon iname="check-circle" /> {{ $t('system_apps_nothing') }}
         </span>
       </BCardBody>
 
-      <template #buttons v-if="apps">
+      <template v-if="apps.length" #buttons>
         <BButton
           variant="success"
           v-t="'system_upgrade_all_applications_btn'"
@@ -201,8 +177,9 @@ async function performSystemUpgrade() {
     </YCard>
 
     <BModal
-      v-model="showPreUpgradeModal"
+      v-if="preUpgrade"
       id="apps-pre-upgrade"
+      :model-value="true"
       :title="$t('app.upgrade.confirm.title')"
       header-bg-variant="warning"
       header-class="text-black"
@@ -210,6 +187,7 @@ async function performSystemUpgrade() {
       ok-variant="success"
       :cancel-title="$t('cancel')"
       @ok="performAppsUpgrade(preUpgrade.apps.map((app) => app.id))"
+      @cancel="preUpgrade = undefined"
     >
       <h3>
         {{ $t('app.upgrade.confirm.apps') }}
@@ -248,7 +226,7 @@ async function performSystemUpgrade() {
         </div>
       </div>
     </BModal>
-  </ViewBase>
+  </div>
 </template>
 
 <style scoped lang="scss">
