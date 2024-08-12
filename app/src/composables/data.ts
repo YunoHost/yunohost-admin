@@ -2,7 +2,7 @@ import { createGlobalState } from '@vueuse/core'
 import { computed, reactive, ref, toValue, type MaybeRefOrGetter } from 'vue'
 
 import type { RequestMethod } from '@/api/api'
-import { isObjectLiteral } from '@/helpers/commons'
+import { isEmptyValue, isObjectLiteral } from '@/helpers/commons'
 import { stratify } from '@/helpers/data/tree'
 import type { Obj } from '@/types/commons'
 import type {
@@ -215,29 +215,29 @@ export function useCache<T extends any = any>(
   method: RequestMethod,
   cachePath: StorePath,
 ) {
-  const [key, param] = cachePath.split('.') as
+  const [key, param] = cachePath.split(/\.(.*)/s) as
     | [StoreKeys, undefined]
     | [StoreKeysParam, string]
   const data = useData()
   // FIXME get global cache policy setting
   // Add noCache arg? not used
 
-  if (!(key in data)) {
-    throw new Error('Trying to get cache of inexistant data')
-  }
-  const d = data[key].value
-  let content = d as T
-  if (param) {
-    if (isObjectLiteral(d) && !Array.isArray(d)) {
-      content = d[param] as T
-    } else {
-      content = undefined as T
-      console.warn('Trying to get param on non object data')
-    }
-  }
-
   return {
-    content,
+    content: computed(() => {
+      if (!(key in data)) {
+        throw new Error('Trying to get cache of inexistant data')
+      }
+      const d = data[key].value
+      if (param) {
+        if (isObjectLiteral(d) && !Array.isArray(d)) {
+          return d[param] as T
+        } else {
+          return undefined as T
+          console.warn('Trying to get param on non object data')
+        }
+      }
+      return (isEmptyValue(d) ? undefined : d) as T
+    }),
     update: (payload: T) => data.update(method, payload, key, param),
   }
 }

@@ -107,7 +107,9 @@ export default {
     asFormData = true,
   }: APIQuery): Promise<T> {
     const cache = cachePath ? useCache<T>(method, cachePath) : undefined
-    if (method === 'GET' && cache?.content) return cache.content
+    if (method === 'GET' && cache?.content.value !== undefined) {
+      return cache.content.value
+    }
 
     const { locale } = useSettings()
     const { startRequest, endRequest } = useRequests()
@@ -149,6 +151,7 @@ export default {
     cache?.update(responseData)
     endRequest({ request, success: true })
 
+    if (cache) return cache.content.value as T
     return responseData
   },
 
