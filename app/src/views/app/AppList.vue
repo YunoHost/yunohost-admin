@@ -1,35 +1,23 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-
-import { useInitialQueries } from '@/composables/useInitialQueries'
+import api from '@/api'
 import { useSearch } from '@/composables/useSearch'
-import type { Obj } from '@/types/commons'
+import type { AppList } from '@/types/core/api'
 
-const { loading } = useInitialQueries([{ uri: 'apps?full' }], {
-  onQueriesResponse,
-})
+const apps = await api
+  .get<AppList>({ uri: 'apps?full', initial: true })
+  .then(({ apps }) => {
+    return apps
+      .map(({ id, name, description, manifest }) => {
+        return { id, name: manifest.name, label: name, description }
+      })
+      .sort((prev, app) => {
+        return prev.label > app.label ? 1 : -1
+      })
+  })
 
-const apps = ref<Obj[] | undefined>()
-const [search, filteredApps] = useSearch(apps, (s, app) => {
-  return Object.values(app).some(
-    (value) => value && value.toLowerCase().includes(s),
-  )
-})
-
-function onQueriesResponse(data: any) {
-  if (data.apps.length === 0) {
-    apps.value = undefined
-    return
-  }
-
-  apps.value = data.apps
-    .map(({ id, name, description, manifest }) => {
-      return { id, name: manifest.name, label: name, description }
-    })
-    .sort((prev, app) => {
-      return prev.label > app.label ? 1 : -1
-    })
-}
+const [search, filteredApps] = useSearch(apps, (s, app) =>
+  Object.values(app).some((value) => value && value.toLowerCase().includes(s)),
+)
 </script>
 
 <template>
@@ -37,7 +25,6 @@ function onQueriesResponse(data: any) {
     v-model="search"
     items-name="installed_apps"
     :items="filteredApps"
-    :loading="loading"
   >
     <template #top-bar-buttons>
       <BButton variant="success" :to="{ name: 'app-catalog' }">
@@ -54,8 +41,8 @@ function onQueriesResponse(data: any) {
         class="d-flex justify-content-between align-items-center pe-0"
       >
         <div>
-          <h5 class="fw-bold">
-            {{ label }}
+          <h5>
+            <strong class="me-1 fw-bold">{{ label }}</strong>
             <small class="text-secondary">{{ id }}</small>
           </h5>
           <p class="m-0">

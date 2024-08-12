@@ -148,3 +148,5 @@ export type AppInfo = {
   supports_config_panel: boolean
   supports_purge: boolean
 }
+
+export type AppList = { apps: AppInfo[] }
