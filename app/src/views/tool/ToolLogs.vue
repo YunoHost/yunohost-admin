@@ -1,56 +1,41 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-
-import { useInitialQueries } from '@/composables/useInitialQueries'
+import api from '@/api'
 import { useSearch } from '@/composables/useSearch'
 import { distanceToNow, readableDate } from '@/helpers/filters/date'
 import type { Obj } from '@/types/commons'
+import type { LogList } from '@/types/core/api'
 
-const { loading } = useInitialQueries(
-  [{ uri: `logs?limit=${25}&with_details` }],
-  { onQueriesResponse },
-)
+const operations = await api
+  .fetch<LogList>({ uri: `logs?limit=${25}&with_details` })
+  .then((logs) => {
+    const iconAndClass = {
+      '?': { icon: 'question', class: 'text-warning' },
+      true: { icon: 'check', class: 'text-success' },
+      false: { icon: 'close', class: 'text-danger' },
+    } as Obj<{ icon: string; class: string }>
+    return logs.operation.map((log) => ({
+      ...log,
+      ...iconAndClass[String(log.success) as keyof typeof iconAndClass],
+    }))
+  })
 
-const operations = ref<Obj[] | undefined>()
 const [search, filteredOperations] = useSearch(operations, (s, op) => {
   return op.description.toLowerCase().includes(s)
 })
-
-function onQueriesResponse({ operation }: any) {
-  operation.forEach((log, index) => {
-    if (log.success === '?') {
-      operation[index].icon = 'question'
-      operation[index].class = 'warning'
-    } else if (log.success) {
-      operation[index].icon = 'check'
-      operation[index].class = 'success'
-    } else {
-      operation[index].icon = 'close'
-      operation[index].class = 'danger'
-    }
-  })
-  operations.value = operation
-}
 </script>
 
 <template>
-  <ViewSearch
-    v-model="search"
-    :items="filteredOperations"
-    items-name="logs"
-    :loading="loading"
-    skeleton="CardListSkeleton"
-  >
+  <ViewSearch v-model="search" :items="filteredOperations" items-name="logs">
     <YCard :title="$t('logs_operation')" icon="wrench" no-body>
       <BListGroup flush>
         <BListGroupItem
           v-for="log in filteredOperations"
           :key="log.name"
-          :to="{ name: 'tool-log', params: { name: log.name || log.log_path } }"
+          :to="{ name: 'tool-log', params: { name: log.name || log.path } }"
           :title="readableDate(log.started_at)"
         >
-          <small class="me-3">{{ distanceToNow(log.started_at) }} </small>
-          <YIcon :iname="log.icon" :class="'text-' + log.class" />
+          <small class="me-3">{{ distanceToNow(log.started_at) }}</small>
+          <YIcon :iname="log.icon" :class="log.class" />
           {{ log.description }}
         </BListGroupItem>
       </BListGroup>

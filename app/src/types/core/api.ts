@@ -244,6 +244,17 @@ export type Firewall = {
 
 // LOGS
 
+export type LogList = {
+  operation: {
+    name: string
+    path: string
+    description: string
+    started_at: string
+    success: boolean | '?'
+    parent: string | null
+  }[]
+}
+
 export type LogInfo = {
   description: string
   name: string
