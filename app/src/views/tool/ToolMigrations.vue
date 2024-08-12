@@ -1,54 +1,52 @@
 <script setup lang="ts">
-import { reactive, ref } from 'vue'
+import { reactive } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 import api from '@/api'
 import { useAutoModal } from '@/composables/useAutoModal'
-import { useInitialQueries } from '@/composables/useInitialQueries'
+import type { Obj } from '@/types/commons'
+import type { MigrationList } from '@/types/core/api'
 
 // FIXME not tested with pending migrations (disclaimer and stuff)
 const { t } = useI18n()
 const modalConfirm = useAutoModal()
-const { loading, refetch } = useInitialQueries(
-  [{ uri: 'migrations?pending' }, { uri: 'migrations?done' }],
-  { onQueriesResponse },
-)
 
-const pending = ref()
-const done = ref()
-const checked = reactive({})
-
-function onQueriesResponse(
-  { migrations: pending_ }: any,
-  { migrations: done_ }: any,
-) {
-  done.value = done_.length ? done_.reverse() : null
-  pending_.forEach((migration) => {
-    if (migration.disclaimer) {
-      migration.disclaimer = migration.disclaimer.replaceAll('\n', '<br>')
-      checked[migration.id] = null
+const { pending, done, checked } = await api
+  .fetchAll<
+    [MigrationList, MigrationList]
+  >([{ uri: 'migrations?pending' }, { uri: 'migrations?done' }])
+  .then(([{ migrations: pending }, { migrations: done }]) => {
+    const checked = {} as Obj<boolean | undefined>
+    return {
+      pending: pending.length
+        ? reactive(
+            pending
+              .map((migration) => {
+                if (migration.disclaimer) {
+                  migration.disclaimer =
+                    migration.disclaimer.replaceAll('\n', '<br>') ?? null
+                  checked[migration.id] = false
+                }
+                return migration
+              })
+              .reverse(),
+          )
+        : null,
+      done: done.length ? done.reverse() : null,
+      checked: reactive(checked),
     }
   })
-  // FIXME change to pending
-  pending.value = pending_.length ? pending_.reverse() : null
-}
 
 function runMigrations() {
-  // Display an error on migration's disclaimer that aren't checked.
-  for (const [id, value] of Object.entries(checked)) {
-    if (value !== true) {
-      checked[id] = false
-    }
-  }
   // Check that every migration's disclaimer has been checked.
   if (Object.values(checked).every((value) => value === true)) {
     api
       .put({ uri: 'migrations?accept_disclaimer', humanKey: 'migrations.run' })
-      .then(() => refetch(false))
+      .then(() => api.refetch())
   }
 }
 
-async function skipMigration(id) {
+async function skipMigration(id: string) {
   const confirmed = await modalConfirm(t('confirm_migrations_skip'))
   if (!confirmed) return
   api
@@ -57,12 +55,12 @@ async function skipMigration(id) {
       data: { skip: '', targets: id },
       humanKey: 'migration.skip',
     })
-    .then(() => refetch(false))
+    .then(() => api.refetch())
 }
 </script>
 
 <template>
-  <ViewBase :loading="loading">
+  <div>
     <!-- PENDING MIGRATIONS -->
     <YCard :title="$t('migrations_pending')" icon="cogs" no-body>
       <template #header-buttons v-if="pending">
@@ -86,7 +84,12 @@ async function skipMigration(id) {
             {{ number }}. {{ description }}
 
             <div class="ms-auto">
-              <BButton @click="skipMigration(id)" size="sm" variant="warning">
+              <BButton
+                size="sm"
+                variant="warning"
+                class="d-flex align-items-center ms-2"
+                @click="skipMigration(id)"
+              >
                 <YIcon iname="close" /> {{ $t('skip') }}
               </BButton>
             </div>
@@ -98,13 +101,12 @@ async function skipMigration(id) {
 
             <BFormCheckbox
               :id="'checkbox-' + number"
+              v-model="checked[id]"
               :name="'checkbox-' + number"
               :aria-describedby="'checkbox-feedback-' + number"
-              v-model="checked[id]"
             >
               {{ $t('migrations_disclaimer_check_message') }}
             </BFormCheckbox>
-
             <BFormInvalidFeedback
               v-if="checked[id] === false"
               :state="false"
@@ -137,14 +139,5 @@ async function skipMigration(id) {
         </BListGroupItem>
       </BListGroup>
     </YCard>
-
-    <template #skeleton>
-      <CardListSkeleton :item-count="3" />
-      <BCard no-body>
-        <template #header>
-          <BSkeleton width="30%" height="36px" class="m-0" />
-        </template>
-      </BCard>
-    </template>
-  </ViewBase>
+  </div>
 </template>

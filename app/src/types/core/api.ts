@@ -280,6 +280,22 @@ export type LogInfo = {
   logs: string[]
 }
 
+// MIGRATIONS
+
+type MigrationInfo = {
+  id: string
+  number: number
+  name: string
+  mode: 'auto' | 'manual'
+  state: 'pending' | 'done' | 'skipped'
+  description: string
+  disclaimer: string | null
+}
+
+export type MigrationList = {
+  migrations: MigrationInfo[]
+}
+
 // DOMAINS
 
 export type DNSRecord = {
