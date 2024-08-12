@@ -1,31 +1,34 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 
-import { useInitialQueries } from '@/composables/useInitialQueries'
+import api from '@/api'
 import { useSearch } from '@/composables/useSearch'
 import { distanceToNow } from '@/helpers/filters/date'
-import type { Obj } from '@/types/commons'
+import type { ServiceList } from '@/types/core/api'
 
-const { loading } = useInitialQueries([{ uri: 'services' }], {
-  onQueriesResponse,
-})
+const { t } = useI18n()
 
-const services = ref<Obj[] | undefined>()
+const services = await api
+  .get<ServiceList>({ uri: 'services' })
+  .then((services) => {
+    return Object.keys(services)
+      .sort()
+      .map((name) => {
+        const service = services[name]
+        return {
+          ...service,
+          name,
+          last_state_change:
+            service.last_state_change === 'unknown'
+              ? t('unknown')
+              : distanceToNow(service.last_state_change, false),
+        }
+      })
+  })
+
 const [search, filteredServices] = useSearch(services, (s, service) => {
   return service.name.toLowerCase().includes(s)
 })
-
-function onQueriesResponse(services_: any) {
-  services.value = Object.keys(services_)
-    .sort()
-    .map((name) => {
-      const service = services_[name]
-      if (service.last_state_change === 'unknown') {
-        service.last_state_change = 0
-      }
-      return { ...service, name }
-    })
-}
 </script>
 
 <template>
@@ -34,7 +37,6 @@ function onQueriesResponse(services_: any) {
     v-model="search"
     :items="filteredServices"
     items-name="services"
-    :loading="loading"
   >
     <BListGroup>
       <BListGroupItem
@@ -49,18 +51,19 @@ function onQueriesResponse(services_: any) {
         class="d-flex justify-content-between align-items-center pe-0"
       >
         <div>
-          <h5 class="fw-bold">
-            {{ name }}
+          <h5>
+            <span class="fw-bold me-1">{{ name }}</span>
             <small class="text-secondary">{{ description }}</small>
           </h5>
           <p class="m-0">
+            <!-- FIXME +`-emphasis`? + rework emphasis color or text colors -->
             <span
-              :class="status === 'running' ? 'text-success' : 'text-danger'"
+              :class="`text-${status === 'running' ? 'success' : 'danger'}`"
             >
               <YIcon :iname="status === 'running' ? 'check-circle' : 'times'" />
               {{ $t(status) }}
             </span>
-            {{ $t('since') }} {{ distanceToNow(last_state_change) }}
+            {{ $t('since') }} {{ last_state_change }}
           </p>
         </div>
 

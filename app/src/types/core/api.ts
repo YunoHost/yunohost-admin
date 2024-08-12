@@ -208,6 +208,7 @@ export type ServiceInfo = {
   configuration: 'valid' | 'broken' | 'unknown'
 }
 export type ServiceLogs = Obj<string[]>
+export type ServiceList = Obj<ServiceInfo>
 
 // DIAGNOSIS
 
