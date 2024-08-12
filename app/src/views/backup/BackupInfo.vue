@@ -7,10 +7,11 @@ import api from '@/api'
 import { APIBadRequestError, type APIError } from '@/api/errors'
 import { useAutoModal } from '@/composables/useAutoModal'
 import { useInfos } from '@/composables/useInfos'
-import { useInitialQueries } from '@/composables/useInitialQueries'
 import { isEmptyValue } from '@/helpers/commons'
 import { readableDate } from '@/helpers/filters/date'
 import { humanSize } from '@/helpers/filters/human'
+import type { BackupInfo } from '@/types/core/api'
+import { formatBackupSystem, parseBackupForm } from './backupData'
 
 const props = defineProps<{
   id: string
@@ -20,63 +21,33 @@ const props = defineProps<{
 const { t } = useI18n()
 const router = useRouter()
 const modalConfirm = useAutoModal()
-const { loading } = useInitialQueries(
-  [{ uri: `backups/${props.name}?with_details` }],
-  { onQueriesResponse },
-)
 
-const selected = ref<string[]>([])
-const error = ref('')
-const isValid = ref<boolean | null>(null)
-const infos = ref()
-const apps = ref()
-const system = ref()
-
-const hasBackupData = computed(() => {
-  return !isEmptyValue(system.value) || !isEmptyValue(apps.value)
-})
-
-function formatHooks(hooks) {
-  const data = {}
-  Object.entries(hooks).forEach(([hook, { size }]) => {
-    const groupId = hook.startsWith('conf_')
-      ? 'adminjs_group_configuration'
-      : hook
-    if (groupId in data) {
-      data[groupId].value.push(hook)
-      data[groupId].description += ', ' + t('hook_' + hook)
-      data[groupId].size += size
-    } else {
-      data[groupId] = {
-        name: t('hook_' + groupId),
-        value: [hook],
-        description: t(groupId === hook ? `hook_${hook}_desc` : 'hook_' + hook),
-        size,
-      }
+const { infos, system, apps } = await api
+  .get<BackupInfo>({ uri: `backups/${props.name}?with_details` })
+  .then((backup) => {
+    return {
+      system: formatBackupSystem(backup.system),
+      apps: backup.apps,
+      infos: {
+        id: props.name,
+        created_at: readableDate(backup.created_at),
+        size: humanSize(backup.size),
+        path: backup.path,
+      },
     }
   })
-  return data
-}
 
-function onQueriesResponse(data: any) {
-  infos.value = {
-    name: props.name,
-    created_at: data.created_at,
-    size: data.size,
-    path: data.path,
-  }
-  system.value = formatHooks(data.system)
-  apps.value = data.apps
+const allKeys = [...Object.keys(apps), ...Object.keys(system)]
+const selected = ref(allKeys)
+const serverError = ref('')
+const isValid = ref<boolean | null>(null)
 
-  toggleSelected()
-}
+const hasBackupData = computed(() => {
+  return !isEmptyValue(system) || !isEmptyValue(apps)
+})
 
 function toggleSelected(select = true) {
-  if (select) {
-    selected.value = [...Object.keys(apps.value), ...Object.keys(system.value)]
-  } else {
-    selected.value = []
-  }
+  selected.value = select ? allKeys : []
 }
 
 async function restoreBackup() {
@@ -85,19 +56,12 @@ async function restoreBackup() {
   )
   if (!confirmed) return
 
-  const data = { apps: [], system: [], force: '' }
-  for (const item of selected.value) {
-    if (item in system.value) {
-      data.system = [...data.system, ...system.value[item].value]
-    } else {
-      data.apps.push(item)
-    }
-  }
-
+  const data = parseBackupForm(selected.value, system)
   api
     .put({
       uri: `backups/${props.name}/restore`,
-      data,
+      // FIXME force?
+      data: { ...data, force: '' },
       humanKey: { key: 'backups.restore', name: props.name },
     })
     .then(() => {
@@ -105,7 +69,7 @@ async function restoreBackup() {
     })
     .catch((err: APIError) => {
       if (!(err instanceof APIBadRequestError)) throw err
-      error.value = err.message
+      serverError.value = err.message
       isValid.value = false
     })
 }
@@ -136,7 +100,7 @@ function downloadBackup() {
 </script>
 
 <template>
-  <ViewBase :loading="loading">
+  <div>
     <!-- BACKUP INFO -->
     <YCard :title="$t('infos')" icon="info-circle" button-unbreak="sm">
       <template #header-buttons>
@@ -152,19 +116,15 @@ function downloadBackup() {
       </template>
 
       <BRow
-        v-for="(value, prop) in infos"
+        v-for="(text, prop) in infos"
         :key="prop"
         no-gutters
         class="row-line"
       >
         <BCol md="3" xl="2">
-          <strong>{{ $t(prop === 'name' ? 'id' : prop) }}</strong>
+          <strong>{{ $t(prop) }}</strong>
         </BCol>
-        <BCol>
-          <span v-if="prop === 'created_at'">{{ readableDate(value) }}</span>
-          <span v-else-if="prop === 'size'">{{ humanSize(value) }}</span>
-          <span v-else>{{ value }}</span>
-        </BCol>
+        <BCol>{{ text }}</BCol>
       </BRow>
     </YCard>
 
@@ -244,7 +204,7 @@ function downloadBackup() {
 
         <BFormInvalidFeedback id="backup-restore-feedback" :state="isValid">
           <BAlert :modelValue="true" variant="danger" class="mb-0">
-            {{ error }}
+            {{ serverError }}
           </BAlert>
         </BFormInvalidFeedback>
       </BFormCheckboxGroup>
@@ -264,10 +224,5 @@ function downloadBackup() {
         />
       </template>
     </YCard>
-
-    <template #skeleton>
-      <CardInfoSkeleton :item-count="4" />
-      <CardListSkeleton />
-    </template>
-  </ViewBase>
+  </div>
 </template>
