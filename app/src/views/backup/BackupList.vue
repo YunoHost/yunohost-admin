@@ -1,47 +1,34 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-
-import { useInitialQueries } from '@/composables/useInitialQueries'
+import api from '@/api'
+import { toEntries } from '@/helpers/commons'
 import { distanceToNow, readableDate } from '@/helpers/filters/date'
 import { humanSize } from '@/helpers/filters/human'
+import type { BackupList } from '@/types/core/api'
 
-const props = defineProps<{
+defineProps<{
   id: string
 }>()
 
-const { loading } = useInitialQueries([{ uri: 'backups?with_info' }], {
-  onQueriesResponse,
-})
-const archives = ref<any[] | null>(null)
-
-function onQueriesResponse(data: any) {
-  const archives_ = Object.entries(data.archives)
-  if (archives_.length) {
-    archives.value = archives_
-      .map(([name, infos]) => {
-        infos.name = name
-        return infos
-      })
+const archives = await api
+  .get<BackupList>({ uri: 'backups?with_info', initial: true })
+  .then((data) => {
+    return toEntries(data.archives)
+      .map(([name, archive]) => ({ ...archive, name }))
       .reverse()
-  } else {
-    archives.value = null
-  }
-}
+  })
 </script>
 
 <template>
-  <ViewBase :loading="loading" skeleton="ListGroupSkeleton">
-    <template #top>
-      <TopBar
-        :button="{
-          text: $t('backup_new'),
-          icon: 'plus',
-          to: { name: 'backup-create' },
-        }"
-      />
-    </template>
+  <div>
+    <TopBar
+      :button="{
+        text: $t('backup_new'),
+        icon: 'plus',
+        to: { name: 'backup-create' },
+      }"
+    />
 
-    <BAlert v-if="!archives" :modelValue="!archives" variant="warning">
+    <BAlert v-if="!archives.length" :model-value="true" variant="warning">
       <YIcon iname="exclamation-triangle" />
       {{ $t('items_verbose_count', { items: $t('items.backups', 0) }, 0) }}
     </BAlert>
@@ -68,5 +55,5 @@ function onQueriesResponse(data: any) {
         <YIcon iname="chevron-right" class="lg fs-sm ms-auto" />
       </BListGroupItem>
     </BListGroup>
-  </ViewBase>
+  </div>
 </template>

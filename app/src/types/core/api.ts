@@ -188,3 +188,12 @@ export type BackupInfo = {
   system: Record<BackupHookKeys, { paths: string[]; size: number }>
   from_yunohost_version: string
 }
+
+export type BackupList = {
+  archives: Obj<{
+    path: string
+    created_at: string
+    description: string
+    size: number
+  }>
+}
