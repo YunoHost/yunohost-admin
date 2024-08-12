@@ -242,6 +242,33 @@ export type Firewall = {
   }
 }
 
+// LOGS
+
+export type LogInfo = {
+  description: string
+  name: string
+  metadata_path: string
+  metadata: {
+    ended_at: string | null
+    env: Obj
+    error: string | null
+    interface: 'cli' | 'api'
+    operation: string
+    parent: string | null
+    related_to: string[][]
+    started_at: string
+    success: boolean | '?'
+    yunohost_version: string
+    suboperations: {
+      name: string
+      description: string
+      success: boolean | '?'
+    }[]
+  }
+  log_path: string
+  logs: string[]
+}
+
 // DOMAINS
 
 export type DNSRecord = {

@@ -1,68 +1,61 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { useRouter } from 'vue-router'
 
 import api, { objectToParams } from '@/api'
-import type { APIQuery } from '@/api/api'
-import { useInitialQueries } from '@/composables/useInitialQueries'
 import { escapeHtml } from '@/helpers/commons'
 import { readableDate } from '@/helpers/filters/date'
+import type { LogInfo } from '@/types/core/api'
 
-const props = defineProps<{
-  name: string
-}>()
+const props = withDefaults(
+  defineProps<{
+    name: string
+    n?: number
+  }>(),
+  {
+    n: 25,
+  },
+)
 
-const numberOfLines = ref(25)
-const queries = computed<APIQuery[]>(() => {
-  const queryString = objectToParams({
-    filter_irrelevant: '',
-    with_suboperations: '',
-    number: numberOfLines.value,
+const router = useRouter()
+
+const { description, logs, moreLogsAvailable, info } = await api
+  .fetch<LogInfo>({
+    uri: `logs/${props.name}?${objectToParams({
+      filter_irrelevant: '',
+      with_suboperations: '',
+      number: props.n || 25,
+    })}`,
   })
-  return [{ uri: `logs/${props.name}?${queryString}` }]
-})
-const { loading, refetch } = useInitialQueries(queries, {
-  onQueriesResponse,
-})
-
-// Log data
-const description = ref()
-const info = ref({})
-const logs = ref()
-// Logs line display
-const moreLogsAvailable = ref(false)
-
-function onQueriesResponse(log: any) {
-  if (log.logs.length === numberOfLines.value) {
-    moreLogsAvailable.value = true
-    numberOfLines.value *= 10
-  } else {
-    moreLogsAvailable.value = false
-  }
-  description.value = log.description
-
-  const levels = ['ERROR', 'WARNING', 'SUCCESS', 'INFO']
-  logs.value = log.logs
-    .map((line) => {
-      const escaped = escapeHtml(line)
-      for (const level of levels) {
-        if (line.includes(level + ' -')) {
-          return `<span class="alert-${
-            level === 'ERROR' ? 'danger' : level.toLowerCase()
-          }">${escaped}</span>`
+  .then((log) => {
+    const levels = ['ERROR', 'WARNING', 'SUCCESS', 'INFO']
+    const logs = log.logs
+      .map((line) => {
+        const escaped = escapeHtml(line)
+        for (const level of levels) {
+          if (line.includes(level + ' -')) {
+            return `<span class="alert-${
+              level === 'ERROR' ? 'danger' : level.toLowerCase()
+            }">${escaped}</span>`
+          }
         }
-      }
-      return escaped
-    })
-    .join('\n')
-  // eslint-disable-next-line
-  const { started_at, ended_at, error, success, suboperations } = log.metadata
-  const info_ = { path: log.log_path, started_at, ended_at }
-  if (!success) info_.error = error
-  if (suboperations && suboperations.length) info_.suboperations = suboperations
-  // eslint-disable-next-line
-  if (!ended_at) delete info_.ended_at
-  info.value = info
-}
+        return escaped
+      })
+      .join('\n')
+    const { started_at, ended_at, error, suboperations } = log.metadata
+    return {
+      description: log.description,
+      logs,
+      moreLogsAvailable: log.logs.length === props.n || 25,
+      info: {
+        path: log.log_path,
+        started_at: readableDate(started_at),
+        ended_at: ended_at ? readableDate(ended_at) : null,
+        error: error ? !!error : null,
+        suboperations:
+          suboperations && suboperations.length ? suboperations : null,
+      },
+    }
+  })
 
 function shareLogs() {
   api
@@ -78,40 +71,38 @@ function shareLogs() {
 </script>
 
 <template>
-  <ViewBase :loading="loading" skeleton="CardInfoSkeleton">
+  <div>
     <!-- INFO CARD -->
     <YCard :title="description" icon="info-circle">
-      <BRow
-        v-for="(value, prop) in info"
-        :key="prop"
-        no-gutters
-        class="row-line"
-      >
-        <BCol md="3" xl="2">
-          <strong>{{ $t('logs_' + prop) }}</strong>
-        </BCol>
+      <template v-for="(value, prop) in info" :key="prop">
+        <BRow v-if="value !== null" no-gutters class="row-line">
+          <BCol md="3" xl="2">
+            <strong>{{ $t('logs_' + prop) }}</strong>
+          </BCol>
 
-        <BCol>
-          <span v-if="prop.endsWith('_at')">{{ readableDate(value) }}</span>
-
-          <div v-else-if="prop === 'suboperations'">
-            <div v-for="operation in value" :key="operation.name">
-              <YIcon
-                v-if="operation.success !== true"
-                iname="times"
-                class="text-danger"
-              />
-              <BLink
-                :to="{ name: 'tool-log', params: { name: operation.name } }"
+          <BCol>
+            <div v-if="prop === 'suboperations'">
+              <div
+                v-for="operation in value as LogInfo['metadata']['suboperations']"
+                :key="operation.name"
               >
-                {{ operation.description }}
-              </BLink>
+                <YIcon
+                  v-if="operation.success !== true"
+                  iname="times"
+                  class="text-danger"
+                />
+                <BLink
+                  :to="{ name: 'tool-log', params: { name: operation.name } }"
+                >
+                  {{ operation.description }}
+                </BLink>
+              </div>
             </div>
-          </div>
 
-          <span v-else>{{ value }}</span>
-        </BCol>
-      </BRow>
+            <span v-else>{{ value }}</span>
+          </BCol>
+        </BRow>
+      </template>
     </YCard>
 
     <div v-if="info.error" class="alert alert-danger my-5">
@@ -129,9 +120,8 @@ function shareLogs() {
 
       <BButton
         v-if="moreLogsAvailable"
-        variant="white"
         class="w-100 rounded-0"
-        @click="refetch(false)"
+        @click="router.replace({ params: { n: props.n * 10 } })"
       >
         <YIcon iname="plus" /> {{ $t('logs_more') }}
       </BButton>
@@ -143,5 +133,5 @@ function shareLogs() {
     </YCard>
 
     <p class="w-100 px-5 py-2 mb-0" v-html="$t('text_selection_is_disabled')" />
-  </ViewBase>
+  </div>
 </template>
