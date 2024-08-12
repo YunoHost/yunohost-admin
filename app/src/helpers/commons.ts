@@ -182,11 +182,30 @@ export function getFileContent(
   })
 }
 
+export function getKeys<T extends Obj, K extends (keyof T)[]>(obj: T): K {
+  return Object.keys(obj) as K
+}
+
 export function toEntries<T extends Record<PropertyKey, unknown>>(
   obj: T,
 ): { [K in keyof T]: [K, T[K]] }[keyof T][] {
   return Object.entries(obj) as { [K in keyof T]: [K, T[K]] }[keyof T][]
 }
+
+export function fromEntries<
+  const T extends ReadonlyArray<readonly [PropertyKey, unknown]>,
+>(entries: T): { [K in T[number] as K[0]]: K[1] } {
+  return Object.fromEntries(entries) as { [K in T[number] as K[0]]: K[1] }
+}
+
+export function pick<T extends Obj, K extends (keyof T)[]>(
+  obj: T,
+  keys: K,
+): Pick<T, K[number]> {
+  return Object.fromEntries(keys.map((key) => [key, obj[key]])) as Pick<
+    T,
+    K[number]
+  >
 }
 
 export function omit<T extends Obj, K extends (keyof T)[]>(

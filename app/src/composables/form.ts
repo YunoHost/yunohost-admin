@@ -16,8 +16,10 @@ import type {
   WritableComputedRef,
 } from 'vue'
 import { computed, inject, provide, reactive, ref, toValue } from 'vue'
+import { useRouter } from 'vue-router'
 
 import { APIBadRequestError, type APIError } from '@/api/errors'
+import { fromEntries, getKeys } from '@/helpers/commons'
 import type { Obj } from '@/types/commons'
 import type { FormFieldDict } from '@/types/form'
 
@@ -159,4 +161,25 @@ export function useArrayRule<V extends any[], T extends ValidationArgs>(
       return total
     }, {})
   })
+}
+
+export function useFormQuery<T extends Obj>(
+  props: T,
+  onUpdate?: () => T | undefined,
+) {
+  const router = useRouter()
+  const formQuery = fromEntries(
+    getKeys(props).map((key) => [
+      key,
+      computed({
+        get: () => props[key],
+        set: (n) => {
+          const nextProps = onUpdate?.() ?? props
+          router.replace({ query: { ...nextProps, [key]: n } })
+        },
+      }),
+    ]) as { [K in keyof T]: [K, WritableComputedRef<T[K]>] }[keyof T][],
+  )
+
+  return formQuery
 }
