@@ -54,7 +54,7 @@ const class_ = computed(() => {
 
 <style lang="scss" scoped>
 .card-collapse {
-  .card-header {
+  :deep(.card-header) {
     padding: 0;
   }
 

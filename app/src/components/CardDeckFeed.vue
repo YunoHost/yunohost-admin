@@ -92,6 +92,5 @@ const root = () =>
 </script>
 
 <template>
-  {{ busy }}
   <root />
 </template>

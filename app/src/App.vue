@@ -114,6 +114,7 @@ onMounted(() => {
     <HistoryConsole />
 
     <!-- FOOTER -->
+    <div class="mt-4" />
     <footer class="py-3 mt-auto">
       <nav>
         <BNav class="justify-content-center">
@@ -185,7 +186,6 @@ header {
 footer {
   border-top: $thin-border;
   font-size: $font-size-sm;
-  margin-top: 2rem;
 
   .nav-item {
     & + .nav-item a::before {

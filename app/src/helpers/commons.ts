@@ -1,5 +1,4 @@
-import type { UnwrapRef } from 'vue'
-
+import i18n from '@/i18n'
 import type { Obj } from '@/types/commons'
 
 /**
@@ -26,7 +25,7 @@ export function timeout<T extends unknown>(
  *
  * @param value - Anything.
  */
-export function isObjectLiteral(value: any): value is object {
+export function isObjectLiteral(value: any): value is Obj {
   return (
     value !== null &&
     value !== undefined &&
@@ -57,52 +56,6 @@ export function isEmptyValue(
     (Array.isArray(value) && value.length === 0) ||
     Object.keys(value).length === 0
   )
-}
-
-type Flatten<T extends object> = object extends T
-  ? object
-  : {
-        [K in keyof T]-?: (
-          x: NonNullable<T[K]> extends infer V
-            ? V extends object
-              ? V extends readonly any[]
-                ? Pick<T, K>
-                : Flatten<V> extends infer FV
-                  ? {
-                      [P in keyof FV as `${Extract<P, string | number>}`]: FV[P]
-                    }
-                  : never
-              : Pick<T, K>
-            : never,
-        ) => void
-      } extends Record<keyof T, (y: infer O) => void>
-    ? O extends infer U
-      ? { [K in keyof O]: O[K] }
-      : never
-    : never
-
-/**
- * Returns an flattened object literal, with all keys at first level and removing nested ones.
- *
- * @param obj - An object literal to flatten.
- * @param flattened - An object literal to add passed obj keys/values.
- */
-export function flattenObjectLiteral<T extends object>(
-  obj: T,
-  flattened: Partial<Flatten<T>> = {},
-) {
-  function flatten(objLit: Partial<Flatten<T>>) {
-    for (const key in objLit) {
-      const value = objLit[key]
-      if (isObjectLiteral(value)) {
-        flatten(value)
-      } else {
-        flattened[key] = value
-      }
-    }
-  }
-  flatten(obj)
-  return flattened as Flatten<T>
 }
 
 /**
@@ -217,8 +170,4 @@ export function omit<T extends Obj, K extends (keyof T)[]>(
       .filter((key) => !keys.includes(key))
       .map((key) => [key, obj[key]]),
   ) as Omit<T, K[number]>
-}
-
-export function asUnreffed<T>(value: T): UnwrapRef<T> {
-  return value as UnwrapRef<T>
 }

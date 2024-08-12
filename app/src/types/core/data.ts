@@ -1,3 +1,5 @@
+import type { StateVariant } from '@/types/commons'
+
 export type UserItem = {
   username: string
   fullname: string
@@ -31,9 +33,9 @@ export type DomainDetail = {
   certificate: {
     subject: string
     CA_name: string
-    CA_type: string // enumlike
+    CA_type: 'selfsigned' | 'letsencrypt' | 'other'
     validity: number
-    style: string // enumlike
+    style: Exclude<StateVariant, 'info'>
     summary: string // enum
     ACME_eligible: boolean
   }

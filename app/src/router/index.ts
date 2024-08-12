@@ -51,10 +51,10 @@ router.beforeEach((to, from, next) => {
   }
 })
 
-router.afterEach((to, from) => {
+router.afterEach((to) => {
   const { updateRouterKey, updateBreadcrumb } = useInfos()
-  updateRouterKey({ to, from })
-  updateBreadcrumb({ to, from })
+  updateRouterKey(to)
+  updateBreadcrumb(to)
 })
 
 export default router

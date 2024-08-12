@@ -50,7 +50,7 @@ const name = helpers.regex(
   new RegExp(`^(?:[A-Za-z${nonAsciiWordCharacters}]{1,30}[ ,.'-]{0,3})+$`),
 )
 
-const unique = (items: MaybeRef<any[]>) =>
+const unique = (items: MaybeRef<any[] | null>) =>
   helpers.withParams({ type: 'unique', arg: toValue(items) }, (item) => {
     const items_ = toValue(items)
     return items_ ? !helpers.req(item) || !items_.includes(item) : true
