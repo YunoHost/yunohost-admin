@@ -12,6 +12,7 @@ import type {
   UserDetails,
   UserItem,
 } from '@/types/core/data'
+import { useSettings } from './useSettings'
 
 function getNoDataMessage(key: DataKeys) {
   return `No data in cache: you should query '${key}' before.`
@@ -219,11 +220,11 @@ export function useCache<T extends any = any>(
     | [StoreKeys, undefined]
     | [StoreKeysParam, string]
   const data = useData()
-  // FIXME get global cache policy setting
-  // Add noCache arg? not used
+  const { cache } = useSettings()
 
   return {
     content: computed(() => {
+      if (!cache.value) return undefined
       if (!(key in data)) {
         throw new Error('Trying to get cache of inexistant data')
       }
