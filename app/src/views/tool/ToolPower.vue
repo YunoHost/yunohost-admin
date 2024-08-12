@@ -9,7 +9,7 @@ const { t } = useI18n()
 const modalConfirm = useAutoModal()
 const { tryToReconnect } = useInfos()
 
-async function triggerAction(action) {
+async function triggerAction(action: 'reboot' | 'shutdown') {
   const confirmed = await modalConfirm(t('confirm_reboot_action_' + action))
   if (!confirmed) return
 
