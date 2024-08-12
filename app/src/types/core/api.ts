@@ -150,3 +150,41 @@ export type AppInfo = {
 }
 
 export type AppList = { apps: AppInfo[] }
+
+// BACKUP
+
+export type BackupHookDataKeys =
+  | 'data_xmpp'
+  | 'data_multimedia'
+  | 'data_mail'
+  | 'data_home'
+export type BackupHookKeys =
+  | BackupHookDataKeys
+  | 'conf_ynh_settings'
+  | 'conf_ldap'
+  | 'conf_manually_modified_files'
+  | 'conf_ynh_certs'
+
+export type BackupHooksList = {
+  hooks: BackupHookKeys[]
+}
+
+export type BackupAppList = {
+  apps: Pick<
+    AppInfo,
+    'description' | 'name' | 'version' | 'domain_path' | 'id'
+  >[]
+}
+
+export type BackupInfo = {
+  path: string
+  created_at: string
+  description: string
+  size: number
+  // TODO as array like everywhere else?
+  apps: Obj<
+    Pick<AppInfo, 'description' | 'name' | 'version'> & { size: number }
+  >
+  system: Record<BackupHookKeys, { paths: string[]; size: number }>
+  from_yunohost_version: string
+}

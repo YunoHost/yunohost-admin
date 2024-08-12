@@ -1,58 +1,34 @@
 <script setup lang="ts">
+import { createReusableTemplate } from '@vueuse/core'
 import { ref } from 'vue'
-import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 
 import api from '@/api'
-import { useInitialQueries } from '@/composables/useInitialQueries'
+import { fromEntries } from '@/helpers/commons'
+import type { BackupAppList, BackupHooksList } from '@/types/core/api'
+import { formatBackupSystem, parseBackupForm } from './backupData'
 
 const props = defineProps<{
   id: string
 }>()
 
-const { t } = useI18n()
 const router = useRouter()
-const { loading } = useInitialQueries(
-  [{ uri: 'hooks/backup' }, { uri: 'apps?with_backup' }],
-  { onQueriesResponse },
-)
 
-const selected = ref<string[]>([])
-const system = ref()
-const apps = ref()
-
-function formatHooks(hooks) {
-  const data = {}
-  hooks.forEach((hook) => {
-    const groupId = hook.startsWith('conf_')
-      ? 'adminjs_group_configuration'
-      : hook
-    if (groupId in data) {
-      data[groupId].value.push(hook)
-      data[groupId].description += ', ' + t('hook_' + hook)
-    } else {
-      data[groupId] = {
-        name: t('hook_' + groupId),
-        value: [hook],
-        description: t(groupId === hook ? `hook_${hook}_desc` : 'hook_' + hook),
-      }
-    }
+const [system, apps] = await api
+  .fetchAll<
+    [BackupHooksList, BackupAppList]
+  >([{ uri: 'hooks/backup' }, { uri: 'apps?with_backup' }])
+  .then(([{ hooks }, { apps }]) => {
+    return [
+      formatBackupSystem(hooks),
+      fromEntries(apps.map((app) => [app.id, app])),
+    ] as const
   })
-  return data
-}
 
-function onQueriesResponse({ hooks }: any, { apps: apps_ }: any) {
-  system.value = formatHooks(hooks)
-  // transform app array into literal object to match hooks data structure
-  apps.value = apps_.reduce((obj, app) => {
-    obj[app.id] = app
-    return obj
-  }, {})
-  selected.value = [...Object.keys(system.value), ...Object.keys(apps.value)]
-}
+const selected = ref([...Object.keys(system), ...Object.keys(apps)])
 
 function toggleSelected(select: boolean, type: 'system' | 'apps') {
-  const keys = Object.keys((type === 'system' ? system : apps).value)
+  const keys = Object.keys(type === 'system' ? system : apps)
   if (select) {
     const toSelect = keys.filter((item) => !selected.value.includes(item))
     selected.value = [...selected.value, ...toSelect]
@@ -64,126 +40,81 @@ function toggleSelected(select: boolean, type: 'system' | 'apps') {
 }
 
 function createBackup() {
-  const data = { apps: [], system: [] }
-  for (const item of selected.value) {
-    if (item in system.value) {
-      data.system = [...data.system, ...system.value[item].value]
-    } else {
-      data.apps.push(item)
-    }
-  }
-
+  const data = parseBackupForm(selected.value, system)
   api.post({ uri: 'backups', data, humanKey: 'backups.create' }).then(() => {
     router.push({ name: 'backup-list', params: { id: props.id } })
   })
 }
+
+const CheckboxList = createReusableTemplate<{
+  icon: string
+  type: 'system' | 'apps'
+  data: typeof system | typeof apps
+}>()
 </script>
 
 <template>
-  <ViewBase :loading="loading" skeleton="CardListSkeleton">
-    <!-- FIXME switch to <CardForm> ? -->
+  <div>
+    <CheckboxList.define v-slot="{ type, icon, data }">
+      <!-- SYSTEM HEADER -->
+      <BListGroupItem
+        class="d-flex align-items-sm-center flex-column flex-sm-row text-primary"
+      >
+        <h4 class="m-0"><YIcon :iname="icon" /> {{ $t(type) }}</h4>
+
+        <div class="ms-sm-auto mt-2 mt-sm-0">
+          <BButton
+            v-t="'select_all'"
+            size="sm"
+            variant="outline-dark"
+            @click="toggleSelected(true, type)"
+          />
+
+          <BButton
+            v-t="'select_none'"
+            size="sm"
+            variant="outline-dark"
+            class="ms-2"
+            @click="toggleSelected(false, type)"
+          />
+        </div>
+      </BListGroupItem>
+
+      <!-- SYSTEM ITEMS -->
+      <BListGroupItem
+        v-for="(item, partName) in data"
+        :key="partName"
+        class="d-flex justify-content-between align-items-center pe-0"
+      >
+        <!-- FIXME use FormField or BFormGroup to get labels? -->
+        <div class="me-2">
+          <h5 v-if="'id' in item">
+            <span class="fw-bold me-1">{{ item.name }}</span>
+            <small class="text-secondary">{{ item.id }}</small>
+          </h5>
+          <h5 v-else class="fw-bold">
+            {{ item.name }}
+          </h5>
+          <p class="m-0 text-muted">
+            {{ item.description }}
+          </p>
+        </div>
+
+        <BFormCheckbox :value="partName" :aria-label="$t('check')" />
+      </BListGroupItem>
+    </CheckboxList.define>
+
+    <!-- FIXME use DefineTemplate -->
     <YCard :title="$t('backup_create')" icon="archive" no-body>
       <BFormCheckboxGroup
-        v-model="selected"
         id="backup-select"
+        v-model="selected"
         name="backup-select"
         size="lg"
       >
         <BListGroup flush>
-          <!-- SYSTEM HEADER -->
-          <BListGroupItem
-            class="d-flex align-items-sm-center flex-column flex-sm-row text-primary"
-          >
-            <h4 class="m-0"><YIcon iname="cube" /> {{ $t('system') }}</h4>
-
-            <div class="ms-sm-auto mt-2 mt-sm-0">
-              <BButton
-                @click="toggleSelected(true, 'system')"
-                v-t="'select_all'"
-                size="sm"
-                variant="outline-dark"
-              />
-
-              <BButton
-                @click="toggleSelected(false, 'system')"
-                v-t="'select_none'"
-                size="sm"
-                variant="outline-dark"
-                class="ms-2"
-              />
-            </div>
-          </BListGroupItem>
-
-          <!-- SYSTEM ITEMS -->
-          <BListGroupItem
-            v-for="(item, partName) in system"
-            :key="partName"
-            class="d-flex justify-content-between align-items-center pe-0"
-          >
-            <div class="me-2">
-              <h5 class="fw-bold">
-                {{ item.name }}
-              </h5>
-              <p class="m-0 text-muted">
-                {{ item.description }}
-              </p>
-            </div>
-
-            <BFormCheckbox
-              :value="partName"
-              :aria-label="$t('check')"
-              class="d-inline"
-            />
-          </BListGroupItem>
-
-          <!-- APPS HEADER -->
-          <BListGroupItem
-            class="d-flex align-items-sm-center flex-column flex-sm-row text-primary"
-          >
-            <h4 class="m-0">
-              <YIcon iname="cubes" /> {{ $t('applications') }}
-            </h4>
-
-            <div class="ms-sm-auto mt-2 mt-sm-0">
-              <BButton
-                @click="toggleSelected(true, 'apps')"
-                v-t="'select_all'"
-                size="sm"
-                variant="outline-dark"
-              />
-
-              <BButton
-                @click="toggleSelected(false, 'apps')"
-                v-t="'select_none'"
-                size="sm"
-                variant="outline-dark"
-                class="ms-2"
-              />
-            </div>
-          </BListGroupItem>
-
-          <!-- APPS ITEMS -->
-          <BListGroupItem
-            v-for="(item, appName) in apps"
-            :key="appName"
-            class="d-flex justify-content-between align-items-center pe-0"
-          >
-            <div class="me-2">
-              <h5 class="fw-bold">
-                {{ item.name }}
-                <small class="text-secondary">{{ item.id }}</small>
-              </h5>
-              <p class="m-0">
-                {{ item.description }}
-              </p>
-            </div>
-
-            <BFormCheckbox
-              :value="appName"
-              :aria-label="$t('check')"
-              class="d-inline"
-            />
-          </BListGroupItem>
+          <CheckboxList.reuse icon="cube" type="system" :data="system" />
+          <CheckboxList.reuse icon="cubes" type="apps" :data="apps" />
         </BListGroup>
       </BFormCheckboxGroup>
 
@@ -197,5 +128,5 @@ function createBackup() {
         />
       </template>
     </YCard>
-  </ViewBase>
+  </div>
 </template>
