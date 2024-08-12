@@ -10,7 +10,14 @@ import { isObjectLiteral } from '@/helpers/commons'
 import type { ArrInnerType, Cols, Obj, StateVariant } from '@/types/commons'
 
 type StateValidation = false | null
-type Choices = string[] | { text: string; value: string }[]
+export type Choice = string | { text: string; value: string }
+type Choices = Choice[]
+
+export type TagUpdateArgs = {
+  action: 'add' | 'remove'
+  tag: string
+  applyFn: (tag: string) => void
+}
 
 // DISPLAY
 
@@ -121,7 +128,7 @@ export type TagsItemProps = BaseWritableItemProps & {
 
 export type TagsSelectizeItemProps = BaseWritableItemProps & {
   itemsName: string
-  options: string[]
+  options: Choices
   auto?: boolean
   disabledItems?: string[]
   label: string

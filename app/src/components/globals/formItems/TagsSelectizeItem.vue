@@ -3,16 +3,13 @@ import type { BDropdown, BFormInput } from 'bootstrap-vue-next'
 import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
+import { fromEntries } from '@/helpers/commons'
 import type {
   BaseItemComputedProps,
+  Choice,
+  TagUpdateArgs,
   TagsSelectizeItemProps,
 } from '@/types/form'
-
-type TagUpdateArgs = {
-  action: 'add' | 'remove'
-  option: string
-  applyFn: (tag: string) => void
-}
 
 defineOptions({
   inheritAttrs: false,
@@ -55,19 +52,26 @@ const criteria = computed(() => {
   return search.value.trim().toLowerCase()
 })
 const availableOptions = computed(() => {
-  const options = props.options.filter((opt) => {
-    return (
-      props.modelValue?.indexOf(opt) === -1 &&
-      props.disabledItems?.includes(opt)
-    )
+  return props.options.filter((opt) => {
+    const tag = typeof opt === 'string' ? opt : opt.value
+    let filterIn =
+      model.value?.indexOf(tag) === -1 &&
+      !(props.disabledItems?.includes(tag) ?? false)
+    if (filterIn && criteria.value) {
+      filterIn = tag.toLowerCase().indexOf(criteria.value) > -1
+    }
+    return filterIn
   })
-  if (criteria.value) {
-    return options.filter(
-      (opt) => opt.toLowerCase().indexOf(criteria.value) > -1,
-    )
-  }
-  return options
 })
+const texts = computed(() =>
+  fromEntries(
+    props.options.map((opt) => {
+      const tag = typeof opt === 'string' ? opt : opt.value
+      const text = typeof opt === 'string' ? opt : opt.text
+      return [tag, text]
+    }),
+  ),
+)
 const searchI18n = computed(() => {
   const params = { items: t('items.' + props.itemsName, 0) }
   return {
@@ -80,18 +84,20 @@ const searchState = computed(() => {
   return criteria.value && availableOptions.value.length === 0 ? false : null
 })
 
-function onAddTag(option: string, applyFn: TagUpdateArgs['applyFn']) {
-  emit('tag-update', { action: 'add', option, applyFn })
+function onAddTag(option: Choice, applyFn: TagUpdateArgs['applyFn']) {
+  const tag = typeof option === 'string' ? option : option.value
+  emit('tag-update', { action: 'add', tag, applyFn })
   search.value = ''
   if (props.auto) {
-    applyFn(option)
+    applyFn(tag)
   }
 }
 
-function onRemoveTag(option: string, applyFn: TagUpdateArgs['applyFn']) {
-  emit('tag-update', { action: 'remove', option, applyFn })
+function onRemoveTag(option: Choice, applyFn: TagUpdateArgs['applyFn']) {
+  const tag = typeof option === 'string' ? option : option.value
+  emit('tag-update', { action: 'remove', tag, applyFn })
   if (props.auto) {
-    applyFn(option)
+    applyFn(tag)
   }
 }
 
@@ -134,11 +140,11 @@ function onDropdownKeydown(e: KeyboardEvent) {
           >
             <BFormTag
               :title="tag"
-              :disabled="disabled || disabledItems?.includes(tag)"
+              :disabled="disabled || (disabledItems?.includes(tag) ?? false)"
               class="border border-dark mb-2"
               @remove="onRemoveTag(tag, removeTag)"
             >
-              <YIcon v-if="tagIcon" :iname="tagIcon" /> {{ tag }}
+              <YIcon v-if="tagIcon" :iname="tagIcon" /> {{ texts[tag] }}
             </BFormTag>
           </li>
         </ul>
@@ -173,6 +179,7 @@ function onDropdownKeydown(e: KeyboardEvent) {
                   autocomplete="off"
                   size="sm"
                   type="search"
+                  @click.stop
                 />
               </BFormGroup>
             </BDropdownForm>
@@ -180,11 +187,11 @@ function onDropdownKeydown(e: KeyboardEvent) {
           </BDropdownGroup>
 
           <BDropdownItemButton
-            v-for="option in availableOptions"
-            :key="option"
+            v-for="(option, i) in availableOptions"
+            :key="i"
             @click="onAddTag(option, addTag)"
           >
-            {{ option }}
+            {{ typeof option === 'string' ? option : option.text }}
           </BDropdownItemButton>
           <BDropdownText v-if="!criteria && availableOptions.length === 0">
             <YIcon iname="exclamation-triangle" />
