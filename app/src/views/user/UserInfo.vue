@@ -4,17 +4,15 @@ import { useRouter } from 'vue-router'
 
 import api from '@/api'
 import { useUsersAndGroups } from '@/composables/data'
-import { useInitialQueries } from '@/composables/useInitialQueries'
 
 const props = defineProps<{ name: string }>()
 
 const router = useRouter()
-const { loading } = useInitialQueries([
-  {
-    uri: `users/${props.name}`,
-    cachePath: `userDetails.${props.name}`,
-  },
-])
+
+await api.get({
+  uri: `users/${props.name}`,
+  cachePath: `userDetails.${props.name}`,
+})
 
 const { user } = useUsersAndGroups(() => props.name)
 const purge = ref(false)
@@ -35,8 +33,8 @@ function deleteUser() {
 </script>
 
 <template>
-  <ViewBase :loading="loading" skeleton="CardInfoSkeleton">
-    <YCard v-if="user" :title="user.fullname" icon="user">
+  <div>
+    <YCard :title="user.fullname" icon="user">
       <div class="d-flex align-items-center flex-column flex-md-row">
         <YIcon iname="user" class="fa-fw" />
 
@@ -45,7 +43,7 @@ function deleteUser() {
             <BCol>
               <strong>{{ $t('user_username') }}</strong>
             </BCol>
-            <BCol>{{ user.username }}</BCol>
+            <BCol>{{ name }}</BCol>
           </BRow>
 
           <BRow>
@@ -99,11 +97,11 @@ function deleteUser() {
 
       <template #buttons>
         <BButton
-          :to="{ name: 'user-edit', params: { user } }"
+          :to="{ name: 'user-edit', params: { name } }"
           :variant="user ? 'info' : 'dark'"
         >
           <YIcon iname="edit" />
-          {{ user ? $t('user_username_edit', { name: user.username }) : '' }}
+          {{ user ? $t('user_username_edit', { name }) : '' }}
         </BButton>
 
         <BButton v-b-modal.delete-modal :variant="user ? 'danger' : 'dark'">
@@ -116,14 +114,14 @@ function deleteUser() {
     <BModal
       v-if="user"
       id="delete-modal"
-      :title="$t('confirm_delete', { name: user.username })"
+      :title="$t('confirm_delete', { name })"
       @ok="deleteUser"
       header-bg-variant="warning"
       header-class="text-black"
     >
       <BFormGroup>
         <BFormCheckbox v-model="purge">
-          {{ $t('purge_user_data_checkbox', { name: user.username }) }}
+          {{ $t('purge_user_data_checkbox', { name }) }}
         </BFormCheckbox>
 
         <template #description>
@@ -134,7 +132,7 @@ function deleteUser() {
         </template>
       </BFormGroup>
     </BModal>
-  </ViewBase>
+  </div>
 </template>
 
 <style lang="scss" scoped>
