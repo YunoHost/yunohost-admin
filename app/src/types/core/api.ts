@@ -1,5 +1,6 @@
 import type { Obj, Translation } from '@/types/commons'
 import type { Permission } from '@/types/core/data'
+import type { AnyOption } from '@/types/core/options'
 
 // APPS
 
@@ -32,6 +33,36 @@ export type AppMinManifest = {
   }
   upstream: AppUpstream
 }
+
+export type AppManifest = AppMinManifest & {
+  upstream: AppUpstream
+  install: AnyOption[]
+  doc: {
+    DESCRIPTION?: Translation
+    ADMIN?: Translation
+  } & Obj<Translation>
+  notifications: {
+    PRE_INSTALL: Obj<Translation> | null
+    POST_INSTALL: Obj<Translation> | null
+    PRE_UPGRADE: Obj<Translation> | null
+    POST_UPGRADE: Obj<Translation> | null
+  }
+  requirements: Record<
+    'required_yunohost_version' | 'arch' | 'install' | 'disk' | 'ram',
+    {
+      pass: boolean
+      values: { current: string; required: string }
+    }
+  >
+  resources: Obj
+  remote: { type: string; url: string; branch: string; revision: string }
+  lastUpdate: number
+  quality: { level: AppLevel; state: AppState }
+  antifeatures: string[]
+  potential_alternative_to: string[]
+  screenshot: string | null
+}
+
 type CatalogApp = {
   added_in_catalog: number
   antifeatures: string[]

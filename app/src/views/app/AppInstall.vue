@@ -1,179 +1,100 @@
 <script setup lang="ts">
-import { ref, shallowRef, type Ref } from 'vue'
+import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { useRoute, useRouter } from 'vue-router'
+import { useRouter } from 'vue-router'
 
 import api, { objectToParams } from '@/api'
-import { type APIError } from '@/api/errors'
 import { formatOptions } from '@/composables/configPanels'
-import { useForm, type FormValidation } from '@/composables/form'
+import { useForm } from '@/composables/form'
 import { useAutoModal } from '@/composables/useAutoModal'
-import { useInitialQueries } from '@/composables/useInitialQueries'
+import { getKeys, joinOrNull } from '@/helpers/commons'
 import { formatForm, formatI18nField } from '@/helpers/yunohostArguments'
 import type { Obj } from '@/types/commons'
-import type { FormFieldDict } from '@/types/form'
+import type { AppManifest, Catalog } from '@/types/core/api'
+import {
+  formatAppIntegration,
+  formatAppLinks,
+  formatAppNotifs,
+  formatAppQuality,
+} from '@/views/app/appData'
+import AppIntegrationAndLinks from './_AppIntegrationAndLinks.vue'
 
 const props = defineProps<{
   id: string
 }>()
 
 const { t } = useI18n()
-const route = useRoute()
 const router = useRouter()
 const modalConfirm = useAutoModal()
 
-// TODO: handling async form is a mess, make a composable or something?
-const formData = shallowRef<
-  | {
-      form: Ref<Obj>
-      fields: FormFieldDict<Obj>
-      v: Ref<FormValidation<Obj>>
-      onSubmit: (
-        fn: (onError: (err: APIError) => void) => void,
-      ) => (e: SubmitEvent) => void
+const [app, form, fields] = await api
+  .fetchAll<
+    [Catalog, AppManifest]
+  >([{ uri: 'apps/catalog?full&with_categories&with_antifeatures' }, { uri: `apps/manifest?app=${props.id}&with_screenshot` }])
+  .then(([catalog, manifest]) => {
+    const antifeaturesList = Object.fromEntries(
+      catalog.antifeatures.map((af) => [af.id, af]),
+    )
+    const { id, name, version, screenshot, requirements } = manifest
+    const quality = formatAppQuality(manifest.quality)
+    const preInstall = formatI18nField(manifest.notifications.PRE_INSTALL?.main)
+    const antifeatures = manifest.antifeatures?.length
+      ? manifest.antifeatures.map((af) => antifeaturesList[af])
+      : null
+    const hasDanger = quality.variant === 'danger' || !requirements.ram.pass
+    const hasSupport = getKeys(requirements).every((key) => {
+      // ram support is non-blocking requirement and handled on its own.
+      return key === 'ram' || requirements[key].pass
+    })
+
+    const app = {
+      id,
+      name,
+      alternativeTo: joinOrNull(manifest.potential_alternative_to),
+      description: formatI18nField(
+        manifest.doc.DESCRIPTION || manifest.description,
+      ),
+      screenshot,
+      demo: manifest.upstream.demo,
+      version,
+      license: manifest.upstream.license,
+      integration: formatAppIntegration(
+        manifest.integration,
+        manifest.packaging_format,
+      ),
+      links: formatAppLinks(manifest),
+      preInstall,
+      antifeatures,
+      quality,
+      requirements,
+      hasWarning: !!preInstall || antifeatures || quality.variant === 'warning',
+      hasDanger,
+      hasSupport,
+      canInstall: hasSupport && !hasDanger,
     }
-  | undefined
->()
 
-const { loading } = useInitialQueries(
-  [
-    { uri: 'apps/catalog?full&with_categories&with_antifeatures' },
-    { uri: `apps/manifest?app=${props.id}&with_screenshot` },
-  ],
-  { onQueriesResponse },
-)
+    const { form, fields } = formatOptions([
+      // FIXME yunohost should add the label field by default
+      {
+        type: 'string',
+        id: 'label',
+        ask: t('label_for_manifestname', { name }),
+        default: name,
+        help: t('label_for_manifestname_help'),
+        optional: false,
+      },
+      ...manifest.install,
+    ])
+    return [app, form, fields] as const
+  })
 
-// FIXME
-const app = ref(undefined)
-const name = ref(undefined)
+const { v, onSubmit } = useForm(form, fields)
 const force = ref(false)
 
-function appLinksIcons(linkType) {
-  const linksIcons = {
-    license: 'institution',
-    website: 'globe',
-    admindoc: 'book',
-    userdoc: 'book',
-    code: 'code',
-    package: 'code',
-    package_license: 'institution',
-    forum: 'comments',
-  }
-  return linksIcons[linkType]
-}
-
-function onQueriesResponse(catalog: any, _app: any) {
-  const antifeaturesList = Object.fromEntries(
-    catalog.antifeatures.map((af) => [af.id, af]),
-  )
-
-  const { id, name, version, requirements } = _app
-  const {
-    ldap,
-    sso,
-    multi_instance,
-    ram,
-    disk,
-    architectures: archs,
-  } = _app.integration
-
-  const quality = { state: _app.quality.state, variant: 'danger' }
-  if (quality.state === 'working') {
-    if (_app.quality.level <= 0) {
-      quality.state = 'broken'
-    } else if (_app.quality.level <= 4) {
-      quality.state = 'lowquality'
-      quality.variant = 'warning'
-    } else {
-      quality.variant = 'success'
-      quality.state = _app.quality.level >= 8 ? 'highquality' : 'goodquality'
-    }
-  }
-  const preInstall = formatI18nField(_app.notifications.PRE_INSTALL.main)
-  const antifeatures = _app.antifeatures?.length
-    ? _app.antifeatures.map((af) => antifeaturesList[af])
-    : null
-
-  const hasDanger = quality.variant === 'danger' || !requirements.ram.pass
-  const hasSupport = Object.keys(requirements).every((key) => {
-    // ram support is non-blocking requirement and handled on its own.
-    return key === 'ram' || requirements[key].pass
-  })
-
-  const app_ = {
-    id,
-    name,
-    alternativeTo:
-      _app.potential_alternative_to && _app.potential_alternative_to.length
-        ? _app.potential_alternative_to.join(t('words.separator'))
-        : null,
-    description: formatI18nField(_app.doc.DESCRIPTION || _app.description),
-    screenshot: _app.screenshot,
-    demo: _app.upstream.demo,
-    version,
-    license: _app.upstream.license,
-    integration:
-      _app.packaging_format >= 2
-        ? {
-            archs: Array.isArray(archs)
-              ? archs.join(t('words.separator'))
-              : archs,
-            ldap: ldap === 'not_relevant' ? null : ldap,
-            sso: sso === 'not_relevant' ? null : sso,
-            multi_instance,
-            resources: { ram: ram.runtime, disk },
-          }
-        : null,
-    links: [
-      ['license', `https://spdx.org/licenses/${_app.upstream.license}`],
-      ...['website', 'admindoc', 'userdoc', 'code'].map((key) => {
-        return [key, _app.upstream[key]]
-      }),
-      ['package', _app.remote.url],
-      ['package_license', _app.remote.url + '/blob/master/LICENSE'],
-      ['forum', `https://forum.yunohost.org/tag/${id}`],
-    ].filter(([key, val]) => !!val),
-    preInstall,
-    antifeatures,
-    quality,
-    requirements,
-    hasWarning: !!preInstall || antifeatures || quality.variant === 'warning',
-    hasDanger,
-    hasSupport,
-    canInstall: hasSupport && !hasDanger,
-  }
-
-  // FIXME yunohost should add the label field by default
-  _app.install.unshift({
-    type: 'string',
-    id: 'label',
-    ask: t('label_for_manifestname', { name }),
-    default: name,
-    help: t('label_for_manifestname_help'),
-    optional: false,
-  })
-
-  const { form, fields } = formatOptions(_app.install)
-  const { v, onSubmit } = useForm(form, fields)
-  formData.value = { form, fields, v, onSubmit }
-
-  app.value = app_
-}
-
-function formatAppNotifs(notifs) {
-  return Object.keys(notifs).reduce((acc, key) => {
-    return acc + '\n\n' + notifs[key]
-  }, '')
-}
-
-async function performInstall(onError: (err: APIError) => void) {
-  const { form } = formData.value!
-
+const performInstall = onSubmit(async (onError) => {
   if ('path' in form.value && form.value.path === '/') {
     const confirmed = await modalConfirm(
-      t('confirm_install_domain_root', {
-        domain: form.value.domain,
-      }),
+      t('confirm_install_domain_root', { domain: form.value.domain }),
     )
     if (!confirmed) return
   }
@@ -189,10 +110,10 @@ async function performInstall(onError: (err: APIError) => void) {
     .post({
       uri: 'apps',
       data,
-      humanKey: { key: 'apps.install', name: app.value.name },
+      humanKey: { key: 'apps.install', name: app.name },
     })
-    .then(async ({ notifications }) => {
-      const postInstall = formatAppNotifs(notifications)
+    .then(async (response: { notifications: Obj<string> }) => {
+      const postInstall = formatAppNotifs(response.notifications)
       if (postInstall) {
         const message =
           t('app.install.notifs.post.alert') + '\n\n' + postInstall
@@ -200,7 +121,7 @@ async function performInstall(onError: (err: APIError) => void) {
           message,
           {
             title: t('app.install.notifs.post.title', {
-              name: app.value.name,
+              name: app.name,
             }),
           },
           { markdown: true, cancelable: false },
@@ -209,11 +130,11 @@ async function performInstall(onError: (err: APIError) => void) {
       router.push({ name: 'app-list' })
     })
     .catch(onError)
-}
+})
 </script>
 
 <template>
-  <ViewBase :loading="loading">
+  <div>
     <template v-if="app">
       <section class="border rounded p-3 mb-4">
         <div class="d-md-flex align-items-center mb-4">
@@ -252,64 +173,10 @@ async function performInstall(onError: (err: APIError) => void) {
         />
       </section>
 
-      <YCard
-        v-if="app.integration"
-        id="app-integration"
-        :title="$t('app.integration.title')"
-        collapsable
-        collapsed
-        no-body
-      >
-        <BListGroup flush>
-          <YListGroupItem variant="info">
-            {{ $t('app.integration.archs') }} {{ app.integration.archs }}
-          </YListGroupItem>
-          <YListGroupItem
-            v-if="app.integration.ldap"
-            :variant="app.integration.ldap === true ? 'success' : 'warning'"
-          >
-            {{ $t(`app.integration.ldap.${app.integration.ldap}`) }}
-          </YListGroupItem>
-          <YListGroupItem
-            v-if="app.integration.sso"
-            :variant="app.integration.sso === true ? 'success' : 'warning'"
-          >
-            {{ $t(`app.integration.sso.${app.integration.sso}`) }}
-          </YListGroupItem>
-          <YListGroupItem variant="info">
-            {{
-              $t(
-                `app.integration.multi_instance.${app.integration.multi_instance}`,
-              )
-            }}
-          </YListGroupItem>
-          <YListGroupItem variant="info">
-            {{ $t('app.integration.resources', app.integration.resources) }}
-          </YListGroupItem>
-        </BListGroup>
-      </YCard>
-
-      <YCard
-        id="app-links"
-        icon="link"
-        :title="$t('app.links.title')"
-        collapsable
-        collapsed
-        no-body
-      >
-        <template #header>
-          <h2><YIcon iname="link" /> {{ $t('app.links.title') }}</h2>
-        </template>
-
-        <BListGroup flush>
-          <YListGroupItem v-for="[key, link] in app.links" :key="key" no-status>
-            <BLink :href="link" target="_blank">
-              <YIcon :iname="appLinksIcons(key)" class="me-1" />
-              {{ $t('app.links.' + key) }}
-            </BLink>
-          </YListGroupItem>
-        </BListGroup>
-      </YCard>
+      <AppIntegrationAndLinks
+        :integration="app.integration"
+        :links="app.links"
+      />
 
       <YAlert v-if="app.hasWarning" variant="warning" class="my-4">
         <h2>{{ $t('app.install.notifs.pre.warning') }}</h2>
@@ -385,28 +252,24 @@ async function performInstall(onError: (err: APIError) => void) {
 
       <!-- INSTALL FORM -->
       <CardForm
-        v-if="formData && (app.canInstall || force)"
-        v-model="formData.form.value"
-        :fields="formData.fields"
+        v-if="app.canInstall || force"
+        v-model="form"
+        :fields="fields"
         :title="$t('app_install_parameters')"
         icon="cog"
         :submit-text="$t('install')"
-        :validations="formData.v.value"
-        @submit="formData.onSubmit(performInstall)($event)"
+        :validations="v"
+        @submit="performInstall"
       />
     </template>
 
+    <!-- FIXME hum not handled, is it still a thing? -->
     <!-- In case of a custom url with no manifest found -->
     <BAlert :modelValue="app === null" variant="warning">
       <YIcon iname="exclamation-triangle" />
       {{ $t('app_install_custom_no_manifest') }}
     </BAlert>
-
-    <template #skeleton>
-      <CardInfoSkeleton />
-      <CardFormSkeleton :cols="null" />
-    </template>
-  </ViewBase>
+  </div>
 </template>
 
 <style lang="scss" scoped>
