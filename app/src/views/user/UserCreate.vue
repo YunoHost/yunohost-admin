@@ -6,7 +6,6 @@ import { useRouter } from 'vue-router'
 import api from '@/api'
 import { useDomains, useUsersAndGroups } from '@/composables/data'
 import { useForm } from '@/composables/form'
-import { useInitialQueries } from '@/composables/useInitialQueries'
 import {
   alphalownumdot_,
   minLength,
@@ -20,13 +19,12 @@ import type { FieldProps, FormFieldDict } from '@/types/form'
 
 const { t } = useI18n()
 const router = useRouter()
-const { loading } = useInitialQueries(
-  [
-    { uri: 'users', cachePath: 'users' },
-    { uri: 'domains', cachePath: 'domains' },
-  ],
-  { onQueriesResponse },
-)
+
+await api.fetchAll([
+  { uri: 'users', cachePath: 'users' },
+  { uri: 'domains', cachePath: 'domains' },
+])
+
 const { usernames } = useUsersAndGroups()
 const { domainsAsChoices, mainDomain } = useDomains()
 
@@ -105,10 +103,6 @@ const fields = {
 
 const { v, onSubmit } = useForm(form, fields)
 
-function onQueriesResponse() {
-  form.value.domain = mainDomain.value
-}
-
 const onUserCreate = onSubmit(async (onError) => {
   const data = await formatForm(form)
   api
@@ -126,7 +120,7 @@ const onUserCreate = onSubmit(async (onError) => {
 </script>
 
 <template>
-  <ViewBase :loading="loading" skeleton="CardFormSkeleton">
+  <div>
     <CardForm
       v-model="form"
       icon="user-plus"
@@ -145,5 +139,5 @@ const onUserCreate = onSubmit(async (onError) => {
         </BInputGroup>
       </template>
     </CardForm>
-  </ViewBase>
+  </div>
 </template>
