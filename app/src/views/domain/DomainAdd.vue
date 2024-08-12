@@ -4,17 +4,15 @@ import { useRouter } from 'vue-router'
 
 import api from '@/api'
 import { APIBadRequestError, type APIError } from '@/api/errors'
-import { useInitialQueries } from '@/composables/useInitialQueries'
 import { DomainForm } from '@/views/_partials'
 
 const router = useRouter()
 
-const { loading } = useInitialQueries([
-  { uri: 'domains', cachePath: 'domains' },
-])
+await api.fetch({ uri: 'domains', cachePath: 'domains' })
+
 const serverError = ref('')
 
-function onSubmit(data) {
+function onSubmit(data: { domain: string; dyndns_recovery_password?: string }) {
   api
     .post({
       uri: 'domains',
@@ -33,12 +31,10 @@ function onSubmit(data) {
 </script>
 
 <template>
-  <ViewBase :loading="loading" skeleton="CardFormSkeleton">
-    <DomainForm
-      :title="$t('domain_add')"
-      :server-error="serverError"
-      @submit="onSubmit"
-      :submit-text="$t('add')"
-    />
-  </ViewBase>
+  <DomainForm
+    :title="$t('domain_add')"
+    :server-error="serverError"
+    :submit-text="$t('add')"
+    @submit="onSubmit"
+  />
 </template>
