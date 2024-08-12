@@ -1,4 +1,5 @@
-import type { AppLevel, AppState } from '@/types/core/api'
+import { joinOrNull } from '@/helpers/commons'
+import type { AppLevel, AppManifest, AppState } from '@/types/core/api'
 
 export function formatAppQuality(app: { state: AppState; level: AppLevel }) {
   const variants = {
@@ -17,3 +18,41 @@ export function formatAppQuality(app: { state: AppState; level: AppLevel }) {
         : app.state
   return { state, variant: variants[state] }
 }
+
+export function formatAppIntegration(
+  {
+    architectures,
+    ldap,
+    sso,
+    multi_instance,
+    ram,
+    disk,
+  }: AppManifest['integration'],
+  packagingFormat: number,
+) {
+  if (packagingFormat < 2) return undefined // LEGACY
+  return {
+    archs: joinOrNull(architectures),
+    ldap: ldap === 'not_relevant' ? null : ldap,
+    sso: sso === 'not_relevant' ? null : sso,
+    multiInstance: multi_instance,
+    resources: { ram: ram.runtime, disk },
+  }
+}
+
+export function formatAppLinks({ upstream, id, remote }: AppManifest) {
+  const url = remote.url
+  return {
+    license: ['institution', `https://spdx.org/licenses/${upstream.license}`],
+    website: ['globe', upstream.website],
+    admindoc: ['book', upstream.admindoc],
+    userdoc: ['book', upstream.userdoc],
+    code: ['code', upstream.code],
+    package: ['code', url],
+    package_license: ['institution', url ? `${url}/blob/master/LICENSE` : null],
+    forum: ['comments', `https://forum.yunohost.org/tag/${id}`],
+  } as const
+}
+
+export type AppIntegration = ReturnType<typeof formatAppIntegration>
+export type AppLinks = ReturnType<typeof formatAppLinks>

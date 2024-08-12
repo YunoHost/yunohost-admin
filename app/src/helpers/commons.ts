@@ -88,6 +88,15 @@ export function arrayDiff<T extends string>(
   return arr1.filter((item) => !arr2.includes(item))
 }
 
+export function joinOrNull(
+  value: any[] | string | null | undefined,
+): string | null {
+  if (Array.isArray(value) && value.length) {
+    return value.join(i18n.global.t('words.separator'))
+  }
+  return typeof value === 'string' ? value : null
+}
+
 /**
  * Returns a new string with escaped HTML (`&<>"'` replaced by entities).
  *

@@ -1,4 +1,5 @@
 import type { Obj, Translation } from '@/types/commons'
+import type { Permission } from '@/types/core/data'
 
 // APPS
 
@@ -70,4 +71,49 @@ export type Catalog = {
     id: string
     title: string
   }[]
+}
+
+export type AppInfo = {
+  id: string
+  description: string
+  label: string
+  name: string
+  version: string
+  domain_path: string
+  logo: string | null
+  screenshot?: string
+  upgradable: string
+  settings: { domain?: string; path?: string } & Obj
+  setting_path: string
+  permissions: Obj<Permission & { sublabel: string }>
+  manifest: AppMinManifest & {
+    install: Obj<AnyOption>
+    upstream: {
+      license: string | null
+      website: string | null
+      demo: string | null
+      admindoc: string | null
+      userdoc: string | null
+      code: string | null
+    }
+    resources: Obj
+    doc: {
+      DESCRIPTION?: Translation
+      ADMIN?: Translation
+    } & Obj<Translation>
+    notifications: {
+      PRE_INSTALL: Obj<Translation> | null
+      POST_INSTALL: Obj<Translation> | null
+      PRE_UPGRADE: Obj<Translation> | null
+      POST_UPGRADE: Obj<Translation> | null
+    }
+  }
+  from_catalog: CatalogApp
+  is_webapp: boolean
+  is_default: boolean
+  supports_change_url: boolean
+  supports_backup_restore: boolean
+  supports_multi_instance: boolean
+  supports_config_panel: boolean
+  supports_purge: boolean
 }
