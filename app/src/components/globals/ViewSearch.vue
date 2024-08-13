@@ -73,12 +73,14 @@ const noItemsMessage = computed(() => {
     <slot name="top" />
 
     <slot name="forced-default">
-      <BAlert v-if="noItemsMessage" :model-value="true" variant="warning">
-        <slot name="alert-message">
-          <YIcon iname="exclamation-triangle" />
-          {{ noItemsMessage }}
-        </slot>
-      </BAlert>
+      <YAlert
+        v-if="noItemsMessage"
+        alert
+        icon="exclamation-triangle"
+        variant="warning"
+      >
+        {{ noItemsMessage }}
+      </YAlert>
       <slot v-else name="default" />
     </slot>
 

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { ColorVariant } from 'bootstrap-vue-next'
+import { BAlert } from 'bootstrap-vue-next'
 import { computed } from 'vue'
 
 import { DEFAULT_VARIANT_ICON } from '@/helpers/yunohostArguments'
@@ -7,13 +8,13 @@ import { DEFAULT_VARIANT_ICON } from '@/helpers/yunohostArguments'
 const props = withDefaults(
   defineProps<{
     alert?: boolean
-    variant?: ColorVariant
     icon?: string
+    variant?: ColorVariant
   }>(),
   {
     alert: false,
-    variant: 'info',
     icon: undefined,
+    variant: 'info' as const,
   },
 )
 
@@ -24,10 +25,9 @@ const icon = computed(() => {
 
 <template>
   <Component
-    v-bind="$attrs"
-    :is="alert ? 'BAlert' : 'div'"
-    :modelValue="alert ? true : null"
-    :variant="alert ? variant : null"
+    :is="alert ? BAlert : 'div'"
+    :model-value="alert ? true : undefined"
+    :variant="alert ? variant : undefined"
     :class="{ ['alert alert-' + variant]: !alert }"
     class="yuno-alert d-flex flex-column flex-md-row align-items-center"
   >

@@ -28,10 +28,14 @@ const archives = await api
       }"
     />
 
-    <BAlert v-if="!archives.length" :model-value="true" variant="warning">
-      <YIcon iname="exclamation-triangle" />
+    <YAlert
+      v-if="!archives.length"
+      alert
+      icon="exclamation-triangle"
+      variant="warning"
+    >
       {{ $t('items_verbose_count', { items: $t('items.backups', 0) }, 0) }}
-    </BAlert>
+    </YAlert>
 
     <BListGroup v-else>
       <BListGroupItem

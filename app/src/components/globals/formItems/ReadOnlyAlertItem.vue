@@ -10,6 +10,7 @@ const props = withDefaults(defineProps<ReadOnlyAlertItemProps>(), {
 })
 
 const icon = computed(() => {
+  // TODO merge with `DEFAULT_VARIANT_ICON`
   const icons = {
     success: 'thumbs-up',
     info: 'info',
@@ -22,14 +23,8 @@ const icon = computed(() => {
 </script>
 
 <template>
-  <BAlert
-    :id="id"
-    :model-value="true"
-    :variant="type"
-    class="d-flex flex-column flex-md-row align-items-center"
-  >
-    <YIcon :iname="icon" :variant="type" class="me-md-3 mb-md-0 mb-2" />
-
+  <!-- TODO ally: do we set it as a true alert or is it cosmetic? -->
+  <YAlert :id="id" alert :icon="icon" :variant="type">
     <VueShowdown :markdown="label" tag="span" class="markdown" />
-  </BAlert>
+  </YAlert>
 </template>

@@ -203,9 +203,9 @@ function downloadBackup() {
         </BListGroup>
 
         <BFormInvalidFeedback id="backup-restore-feedback" :state="isValid">
-          <BAlert :modelValue="true" variant="danger" class="mb-0">
+          <YAlert alert variant="danger" class="mb-0">
             {{ serverError }}
-          </BAlert>
+          </YAlert>
         </BFormInvalidFeedback>
       </BFormCheckboxGroup>
 

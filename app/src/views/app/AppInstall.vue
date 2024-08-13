@@ -265,10 +265,14 @@ const performInstall = onSubmit(async (onError) => {
 
     <!-- FIXME hum not handled, is it still a thing? -->
     <!-- In case of a custom url with no manifest found -->
-    <BAlert :modelValue="app === null" variant="warning">
-      <YIcon iname="exclamation-triangle" />
+    <YAlert
+      v-if="app === null"
+      alert
+      icon="exclamation-triangle"
+      variant="warning"
+    >
       {{ $t('app_install_custom_no_manifest') }}
-    </BAlert>
+    </YAlert>
   </div>
 </template>
 

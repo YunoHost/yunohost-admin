@@ -194,14 +194,15 @@ const Fields = createReusableTemplate<{
         </slot>
 
         <slot name="server-error">
-          <BAlert
+          <YAlert
+            v-if="globalErrorFeedback !== ''"
+            alert
             variant="danger"
             class="my-3"
             icon="ban"
-            :model-value="globalErrorFeedback !== ''"
           >
             <div v-html="globalErrorFeedback" />
-          </BAlert>
+          </YAlert>
         </slot>
       </BForm>
 
