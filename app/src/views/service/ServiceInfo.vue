@@ -83,22 +83,22 @@ function shareLogs() {
       <template #header-buttons>
         <template v-if="infos.status === 'running'">
           <!-- RESTART SERVICE -->
-          <BButton @click="updateService('restart')" variant="warning">
+          <BButton variant="warning" @click="updateService('restart')">
             <YIcon iname="refresh" /> {{ $t('restart') }}
           </BButton>
 
           <!-- STOP SERVICE -->
           <BButton
             v-if="!isCritical"
-            @click="updateService('stop')"
             variant="danger"
+            @click="updateService('stop')"
           >
             <YIcon iname="warning" /> {{ $t('stop') }}
           </BButton>
         </template>
 
         <!-- START SERVICE -->
-        <BButton v-else @click="updateService('start')" variant="success">
+        <BButton v-else variant="success" @click="updateService('start')">
           <YIcon iname="play" /> {{ $t('start') }}
         </BButton>
       </template>

@@ -103,9 +103,9 @@ const class_ = computed(() => {
       }
     }
 
-    .yuno-list-group-item-content {
-      // color: $black;
-    }
+    // .yuno-list-group-item-content {
+    //   color: $black;
+    // }
   }
 
   &-faded > * {

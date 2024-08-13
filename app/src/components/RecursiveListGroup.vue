@@ -15,12 +15,14 @@ const props = withDefaults(
   },
 )
 
+type NodeSlot = {
+  [K in keyof TreeChildNode as TreeChildNode[K] extends Function
+    ? never
+    : K]: TreeChildNode[K]
+}
+
 defineSlots<{
-  default: (props: {
-    [K in keyof TreeChildNode as TreeChildNode[K] extends Function
-      ? never
-      : K]: TreeChildNode[K]
-  }) => any
+  default: (props: NodeSlot) => any
 }>()
 
 function getClasses(node: AnyTreeNode, i: number) {
@@ -42,7 +44,7 @@ function getClasses(node: AnyTreeNode, i: number) {
         :class="getClasses(node, i)"
         @click="$router.push(node.data.to)"
       >
-        <slot name="default" v-bind="node" />
+        <slot name="default" v-bind="node as NodeSlot" />
 
         <BButton
           v-if="node.height > 0"
@@ -61,8 +63,8 @@ function getClasses(node: AnyTreeNode, i: number) {
 
       <BCollapse
         v-if="node.height > 0"
-        v-model="node.data.opened"
         :id="'collapse-' + node.id"
+        v-model="node.data.opened"
       >
         <RecursiveListGroup
           :tree="node"

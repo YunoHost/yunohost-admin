@@ -37,7 +37,7 @@ const model = defineModel<string | number | null>({
       return parseInt(value)
     }
     return value
-  }
+  },
 })
 
 const autocomplete = computed(() => {

@@ -180,9 +180,9 @@ async function deleteGroup(name: string) {
         <!-- DELETE GROUP -->
         <BButton
           v-if="!group.isSpecial"
-          @click="deleteGroup(group.name)"
           size="sm"
           variant="danger"
+          @click="deleteGroup(group.name)"
         >
           <YIcon iname="trash-o" /> {{ $t('delete') }}
         </BButton>
@@ -198,7 +198,7 @@ async function deleteGroup(name: string) {
               <YIcon iname="info-circle" />
               {{ $t('group_explain_' + group.name) }}
             </p>
-            <p class="text-primary-emphasis" v-if="group.name === 'visitors'">
+            <p v-if="group.name === 'visitors'" class="text-primary-emphasis">
               <em>{{
                 $t('group_explain_visitors_needed_for_external_client')
               }}</em>
@@ -206,9 +206,9 @@ async function deleteGroup(name: string) {
           </template>
           <template v-if="group.name == 'admins' || !group.isSpecial">
             <TagsSelectizeItem
+              :id="group.name + '-users'"
               v-model="group.members"
               :options="userOptions"
-              :id="group.name + '-users'"
               :label="$t('group_add_member')"
               tag-icon="user"
               items-name="users"
@@ -225,9 +225,9 @@ async function deleteGroup(name: string) {
         </BCol>
         <BCol>
           <TagsSelectizeItem
+            :id="group.name + '-perms'"
             v-model="group.permissions"
             :options="permissionOptions"
-            :id="group.name + '-perms'"
             :label="$t('group_add_permission')"
             tag-icon="key-modern"
             items-name="permissions"
@@ -248,9 +248,9 @@ async function deleteGroup(name: string) {
 
           <BCol>
             <TagsSelectizeItem
+              :id="userName + '-perms'"
               v-model="userGroups[userName].permissions"
               :options="permissionOptions"
-              :id="userName + '-perms'"
               :label="$t('group_add_permission')"
               tag-icon="key-modern"
               items-name="permissions"
@@ -262,10 +262,10 @@ async function deleteGroup(name: string) {
       </template>
 
       <TagsSelectizeItem
+        id="user-groups"
         v-model="activeUserGroups"
         auto
         :options="userOptions"
-        id="user-groups"
         :label="$t('group_add_member')"
         no-tags
         items-name="users"

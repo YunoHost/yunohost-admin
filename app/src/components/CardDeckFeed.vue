@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { BCardGroup } from 'bootstrap-vue-next'
 import {
-  getCurrentInstance,
   h,
   nextTick,
   onBeforeUnmount,
@@ -29,7 +28,6 @@ function getTopParent(prev: HTMLElement): HTMLElement {
     : getTopParent(prev.parentElement!)
 }
 
-const i = getCurrentInstance()
 function onScroll() {
   const elem = feedElem.value?.$el
   if (

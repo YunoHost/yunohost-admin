@@ -15,4 +15,8 @@ declare module 'bootstrap-vue-next' {
   interface BaseColorVariant {
     best: unknown
   }
+  interface BaseSize {
+    // `xs` size is available only for BButton
+    xs: unknown
+  }
 }

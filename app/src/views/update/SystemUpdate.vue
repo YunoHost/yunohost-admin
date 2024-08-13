@@ -129,8 +129,8 @@ async function performSystemUpgrade() {
 
       <template v-if="system.length" #buttons>
         <BButton
-          variant="success"
           v-t="'system_upgrade_all_packages_btn'"
+          variant="success"
           @click="performSystemUpgrade()"
         />
       </template>
@@ -153,9 +153,9 @@ async function performSystemUpgrade() {
           </h5>
 
           <BButton
+            v-t="'system_upgrade_btn'"
             variant="success"
             size="sm"
-            v-t="'system_upgrade_btn'"
             @click="confirmAppsUpgrade(id)"
           />
         </BListGroupItem>
@@ -169,8 +169,8 @@ async function performSystemUpgrade() {
 
       <template v-if="apps.length" #buttons>
         <BButton
-          variant="success"
           v-t="'system_upgrade_all_applications_btn'"
+          variant="success"
           @click="confirmAppsUpgrade()"
         />
       </template>
@@ -210,9 +210,9 @@ async function performSystemUpgrade() {
         <div class="card-collapse-wrapper">
           <CardCollapse
             v-for="{ id, name, notif } in preUpgrade.apps"
+            :id="`${id}-notifs`"
             :key="`${id}-notifs`"
             :title="name"
-            :id="`${id}-notifs`"
             visible
             flush
           >

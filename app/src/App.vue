@@ -91,12 +91,12 @@ onMounted(() => {
             </BButton>
           </li>
 
-          <li class="nav-item" v-show="connected">
+          <li v-show="connected" class="nav-item">
             <BButton
-              @click.prevent="logout"
               variant="outline-dark"
               block
               size="sm"
+              @click.prevent="logout"
             >
               {{ $t('logout') }} <YIcon iname="sign-out" />
             </BButton>

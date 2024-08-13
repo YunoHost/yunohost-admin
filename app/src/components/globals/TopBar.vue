@@ -13,8 +13,8 @@ const slots = defineSlots<{
 </script>
 
 <template>
-  <BButtonToolbar :aria-label="label" id="top-bar">
-    <div id="top-bar-left" class="top-bar-group" v-if="slots['group-left']">
+  <BButtonToolbar id="top-bar" :aria-label="label">
+    <div v-if="slots['group-left']" id="top-bar-left" class="top-bar-group">
       <slot name="group-left" />
     </div>
 

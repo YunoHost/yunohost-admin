@@ -143,9 +143,9 @@ async function pushDnsChanges() {
       <!-- AUTO CONFIG CHANGES -->
       <template v-if="dnsChanges">
         <div
-          class="mb-3"
           v-for="{ action, records, icon, variant } in dnsChanges"
           :key="icon"
+          class="mb-3"
         >
           <h4 class="mt-4 mb-2">
             {{ action }}

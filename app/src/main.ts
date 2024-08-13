@@ -58,6 +58,7 @@ Object.values(globalComponentsModules).forEach(
     // defineOptions({
     //   name: 'FormField',
     // })
+    // @ts-expect-error
     app.component(component.__name || component.name, component)
   },
 )

@@ -280,8 +280,8 @@ function onFormPortToggling() {
 
       <template #buttons>
         <BButton
-          @click="toggleUpnp"
           :variant="!upnpEnabled ? 'success' : 'danger'"
+          @click="toggleUpnp"
         >
           {{ $t(!upnpEnabled ? 'enable' : 'disable') }}
         </BButton>

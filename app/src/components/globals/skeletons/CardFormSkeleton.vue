@@ -34,8 +34,8 @@ withDefaults(
 
         <BCol>
           <div
-            class="w100 d-flex justify-content-between"
             v-if="count % 2 === 0"
+            class="w100 d-flex justify-content-between"
           >
             <BSkeleton width="100%" height="38px" />
 

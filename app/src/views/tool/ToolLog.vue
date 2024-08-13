@@ -113,7 +113,7 @@ function shareLogs() {
     <!-- LOGS CARD -->
     <YCard :title="$t('logs')" icon="file-text" no-body>
       <template #header-buttons>
-        <BButton @click="shareLogs" variant="success">
+        <BButton variant="success" @click="shareLogs">
           <YIcon iname="cloud-upload" /> {{ $t('logs_share_with_yunopaste') }}
         </BButton>
       </template>
@@ -127,7 +127,7 @@ function shareLogs() {
       </BButton>
 
       <pre class="log unselectable"><code v-html="logs" /></pre>
-      <BButton @click="shareLogs" variant="success" class="w-100 rounded-0">
+      <BButton variant="success" class="w-100 rounded-0" @click="shareLogs">
         <YIcon iname="cloud-upload" /> {{ $t('logs_share_with_yunopaste') }}
       </BButton>
     </YCard>

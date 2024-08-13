@@ -28,8 +28,8 @@ const fixedMinHeight = ref(props.minHeight)
 const rootElem = ref<HTMLDivElement | null>(null)
 
 onMounted(() => {
-  let unrenderTimer: NodeJS.Timeout
-  let renderTimer: NodeJS.Timeout
+  let unrenderTimer: number
+  let renderTimer: number
 
   observer.value = new IntersectionObserver(
     (entries) => {
@@ -55,7 +55,7 @@ onMounted(() => {
 
         if (!props.unrender) {
           // Stop listening to intersections after first appearance if unrendering is not activated
-          this.observer.disconnect()
+          observer.value!.disconnect()
         }
       } else if (props.unrender) {
         clearTimeout(renderTimer)

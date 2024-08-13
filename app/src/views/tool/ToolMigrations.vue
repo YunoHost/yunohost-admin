@@ -63,7 +63,7 @@ async function skipMigration(id: string) {
   <div>
     <!-- PENDING MIGRATIONS -->
     <YCard :title="$t('migrations_pending')" icon="cogs" no-body>
-      <template #header-buttons v-if="pending">
+      <template v-if="pending" #header-buttons>
         <BButton size="sm" variant="success" @click="runMigrations">
           <YIcon iname="play" /> {{ $t('run') }}
         </BButton>
@@ -109,8 +109,8 @@ async function skipMigration(id: string) {
             </BFormCheckbox>
             <BFormInvalidFeedback
               v-if="checked[id] === false"
-              :state="false"
               :id="'checkbox-feedback-' + number"
+              :state="false"
             >
               {{ $t('migrations_disclaimer_not_checked') }}
             </BFormInvalidFeedback>
@@ -133,7 +133,7 @@ async function skipMigration(id: string) {
         </span>
       </BCardBody>
 
-      <BListGroup flush v-else-if="done">
+      <BListGroup v-else-if="done" flush>
         <BListGroupItem v-for="{ number, description } in done" :key="number">
           {{ number }}. {{ description }}
         </BListGroupItem>

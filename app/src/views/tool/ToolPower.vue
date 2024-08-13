@@ -30,7 +30,7 @@ async function triggerAction(action: 'reboot' | 'shutdown') {
       :label="$t('tools_reboot')"
       label-for="reboot"
     >
-      <BButton @click="triggerAction('reboot')" variant="danger" id="reboot">
+      <BButton id="reboot" variant="danger" @click="triggerAction('reboot')">
         <YIcon iname="refresh" /> {{ $t('tools_reboot_btn') }}
       </BButton>
     </BFormGroup>
@@ -45,9 +45,9 @@ async function triggerAction(action: 'reboot' | 'shutdown') {
       label-for="shutdown"
     >
       <BButton
-        @click="triggerAction('shutdown')"
-        variant="danger"
         id="shutdown"
+        variant="danger"
+        @click="triggerAction('shutdown')"
       >
         <YIcon iname="power-off" /> {{ $t('tools_shutdown_btn') }}
       </BButton>

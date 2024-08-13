@@ -244,8 +244,8 @@ const performInstall = onSubmit(async (onError) => {
         </p>
 
         <CheckboxItem
-          v-model="force"
           id="force-install"
+          v-model="force"
           :label="$t('app.install.problems.ignore')"
         />
       </YAlert>

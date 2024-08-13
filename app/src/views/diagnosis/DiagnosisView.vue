@@ -95,7 +95,7 @@ function shareLogs() {
   <div>
     <TopBar>
       <template #group-right>
-        <BButton @click="shareLogs" variant="success">
+        <BButton variant="success" @click="shareLogs">
           <YIcon iname="cloud-upload" /> {{ $t('logs_share_with_yunopaste') }}
         </BButton>
       </template>
@@ -129,18 +129,18 @@ function shareLogs() {
         <div class="">
           <BBadge
             v-if="report.noIssues"
-            variant="success"
             v-t="'everything_good'"
+            variant="success"
           />
           <BBadge
             v-if="report.errors"
-            variant="danger"
             v-t="{ path: 'issues', args: { count: report.errors } }"
+            variant="danger"
           />
           <BBadge
             v-if="report.warnings"
-            variant="warning"
             v-t="{ path: 'warnings', args: { count: report.warnings } }"
+            variant="warning"
           />
           <BBadge
             v-if="report.ignoreds"
@@ -194,10 +194,10 @@ function shareLogs() {
 
               <BButton
                 v-if="item.details"
+                v-b-toggle="`collapse-${report.id}-item-${i}`"
                 size="sm"
                 variant="outline-dark"
                 class="ms-lg-2 mt-2 mt-lg-0"
-                v-b-toggle="`collapse-${report.id}-item-${i}`"
               >
                 <YIcon iname="level-down" /> {{ $t('details') }}
               </BButton>

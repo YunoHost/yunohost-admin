@@ -318,8 +318,8 @@ async function uninstall() {
         </BButton>
 
         <BButton
-          v-b-modal.uninstall-modal
           id="uninstall"
+          v-b-modal.uninstall-modal
           variant="danger"
           :class="{ 'ms-auto': !app.url }"
         >
@@ -451,7 +451,7 @@ async function uninstall() {
 
             <BFormInput v-model="form.url.path" class="flex-grow-3" />
 
-            <BButton @click="changeUrl" variant="info" v-t="'save'" />
+            <BButton v-t="'save'" variant="info" @click="changeUrl" />
           </BInputGroup>
 
           <div v-else class="alert alert-warning">
@@ -470,9 +470,9 @@ async function uninstall() {
         >
           <template v-if="!app.isDefault.value">
             <BButton
-              @click="setAsDefaultDomain(false)"
               id="main-domain"
               variant="success"
+              @click="setAsDefaultDomain(false)"
             >
               <YIcon iname="star" /> {{ $t('app_make_default') }}
             </BButton>
@@ -480,9 +480,9 @@ async function uninstall() {
 
           <template v-else>
             <BButton
-              @click="setAsDefaultDomain(true)"
               id="main-domain"
               variant="warning"
+              @click="setAsDefaultDomain(true)"
             >
               <YIcon iname="star" /> {{ $t('app_make_not_default') }}
             </BButton>

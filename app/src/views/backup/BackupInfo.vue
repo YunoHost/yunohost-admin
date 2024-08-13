@@ -105,12 +105,12 @@ function downloadBackup() {
     <YCard :title="$t('infos')" icon="info-circle" button-unbreak="sm">
       <template #header-buttons>
         <!-- DOWNLOAD ARCHIVE -->
-        <BButton @click="downloadBackup" size="sm" variant="success">
+        <BButton size="sm" variant="success" @click="downloadBackup">
           <YIcon iname="download" /> {{ $t('download') }}
         </BButton>
 
         <!-- DELETE ARCHIVE -->
-        <BButton @click="deleteBackup" size="sm" variant="danger">
+        <BButton size="sm" variant="danger" @click="deleteBackup">
           <YIcon iname="trash-o" /> {{ $t('delete') }}
         </BButton>
       </template>
@@ -138,24 +138,24 @@ function downloadBackup() {
     >
       <template #header-buttons>
         <BButton
+          v-t="'select_all'"
           size="sm"
           variant="outline-secondary"
           @click="toggleSelected()"
-          v-t="'select_all'"
         />
 
         <BButton
+          v-t="'select_none'"
           size="sm"
           variant="outline-secondary"
           @click="toggleSelected(false)"
-          v-t="'select_none'"
         />
       </template>
 
       <BFormCheckboxGroup
         v-if="hasBackupData"
-        v-model="selected"
         id="backup-select"
+        v-model="selected"
         name="backup-select"
         size="lg"
         aria-describedby="backup-restore-feedback"
@@ -170,7 +170,7 @@ function downloadBackup() {
             <div class="me-2">
               <h5 class="fw-bold">
                 {{ item.name }}
-                <small class="text-secondary" v-if="item.size">
+                <small v-if="item.size" class="text-secondary">
                   ({{ humanSize(item.size) }})
                 </small>
               </h5>
@@ -216,11 +216,11 @@ function downloadBackup() {
       <!-- SUBMIT -->
       <template v-if="hasBackupData" #buttons>
         <BButton
-          @click="restoreBackup"
+          v-t="'restore'"
           form="backup-restore"
           variant="success"
-          v-t="'restore'"
           :disabled="selected.length === 0"
+          @click="restoreBackup"
         />
       </template>
     </YCard>

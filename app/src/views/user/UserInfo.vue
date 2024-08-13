@@ -115,9 +115,9 @@ function deleteUser() {
       v-if="user"
       id="delete-modal"
       :title="$t('confirm_delete', { name })"
-      @ok="deleteUser"
       header-bg-variant="warning"
       header-class="text-black"
+      @ok="deleteUser"
     >
       <BFormGroup>
         <BFormCheckbox v-model="purge">

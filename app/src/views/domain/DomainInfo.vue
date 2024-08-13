@@ -224,10 +224,10 @@ async function setAsDefaultDomain() {
     <BModal
       id="delete-modal"
       :title="$t('confirm_delete', { name: props.name })"
-      @ok="deleteDomain"
       header-bg-variant="warning"
       header-class="text-black"
       :body-class="{ 'd-none': !isMainDynDomain }"
+      @ok="deleteDomain"
     >
       <BFormGroup v-if="isMainDynDomain">
         <BFormCheckbox v-model="unsubscribeDomainFromDyndns">

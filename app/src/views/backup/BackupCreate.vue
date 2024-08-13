@@ -121,10 +121,10 @@ const CheckboxList = createReusableTemplate<{
       <!-- SUBMIT -->
       <template #buttons>
         <BButton
-          @click="createBackup"
           v-t="'backup_action'"
           variant="success"
           :disabled="selected.length === 0"
+          @click="createBackup"
         />
       </template>
     </YCard>

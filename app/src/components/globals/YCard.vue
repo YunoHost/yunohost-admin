@@ -63,7 +63,6 @@ const visible = ref(!props.collapsed)
 
       <BButton
         v-if="collapsable"
-        @click="visible = !visible"
         size="sm"
         variant="outline-secondary"
         class="align-self-center ms-auto"
@@ -72,6 +71,7 @@ const visible = ref(!props.collapsed)
           collapsed: !visible,
           [`ms-${buttonUnbreak}-2`]: buttonUnbreak,
         }"
+        @click="visible = !visible"
       >
         <YIcon iname="chevron-right" />
         <span class="visually-hidden">{{ $t('words.collapse') }}</span>
@@ -88,7 +88,7 @@ const visible = ref(!props.collapsed)
       <slot name="default" />
     </template>
 
-    <template #footer v-if="slots['buttons']">
+    <template v-if="slots['buttons']" #footer>
       <slot name="buttons" />
     </template>
   </BCard>
