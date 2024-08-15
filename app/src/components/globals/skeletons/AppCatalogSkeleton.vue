@@ -3,37 +3,39 @@ import { randint } from '@/helpers/commons'
 </script>
 
 <template>
-  <BInputGroup class="w-100 mb-4">
-    <BInputGroupText>
-      <YIcon iname="search" />
-    </BInputGroupText>
+  <BSkeletonWrapper button search>
+    <BInputGroup class="w-100 mb-4">
+      <BInputGroupText>
+        <YIcon iname="search" />
+      </BInputGroupText>
 
-    <BFormInput :disabled="true" />
-  </BInputGroup>
+      <BFormInput :disabled="true" />
+    </BInputGroup>
 
-  <BCardGroup deck>
-    <BCard v-for="i in 15" :key="i" no-body>
-      <div class="d-flex w-100 mt-auto">
-        <BSkeleton width="30px" height="30px" class="me-2 ms-auto" />
+    <BCardGroup deck>
+      <BCard v-for="i in 15" :key="i" no-body>
+        <div class="d-flex w-100 mt-auto">
+          <BSkeleton width="30px" height="30px" class="me-2 ms-auto" />
+          <BSkeleton
+            :width="randint(30, 70) + '%'"
+            height="30px"
+            class="me-auto"
+          />
+        </div>
         <BSkeleton
-          :width="randint(30, 70) + '%'"
-          height="30px"
-          class="me-auto"
+          v-if="randint(0, 1)"
+          :width="randint(30, 85) + '%'"
+          height="24px"
+          class="mx-auto"
         />
-      </div>
-      <BSkeleton
-        v-if="randint(0, 1)"
-        :width="randint(30, 85) + '%'"
-        height="24px"
-        class="mx-auto"
-      />
-      <BSkeleton
-        :width="randint(30, 85) + '%'"
-        height="24px"
-        class="mx-auto mb-auto"
-      />
-    </BCard>
-  </BCardGroup>
+        <BSkeleton
+          :width="randint(30, 85) + '%'"
+          height="24px"
+          class="mx-auto mb-auto"
+        />
+      </BCard>
+    </BCardGroup>
+  </BSkeletonWrapper>
 </template>
 
 <style lang="scss" scoped>

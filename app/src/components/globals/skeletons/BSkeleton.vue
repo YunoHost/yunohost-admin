@@ -1,8 +1,8 @@
 <script setup lang="ts">
-defineProps<{
-  height: string
-  width: string
-}>()
+withDefaults(defineProps<{ height?: string; width?: string }>(), {
+  height: '26px',
+  width: '100%',
+})
 </script>
 
 <template>
@@ -13,7 +13,7 @@ defineProps<{
 .b-skeleton {
   position: relative;
   overflow: hidden;
-  background-color: $gray-200;
+  background-color: var(--bs-secondary-bg);
   cursor: wait;
 
   height: $font-size-base;
@@ -21,10 +21,6 @@ defineProps<{
 
   @if $enable-rounded {
     border-radius: 0.25rem;
-  }
-
-  [data-bs-theme='dark'] & {
-    background-color: $gray-800;
   }
 }
 </style>

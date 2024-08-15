@@ -1,16 +1,96 @@
 <script setup lang="ts">
-withDefaults(defineProps<{ loading?: boolean }>(), { loading: false })
+withDefaults(defineProps<{ button: boolean; search: boolean }>(), {
+  button: false,
+  search: false,
+})
+
+const slots = defineSlots<{
+  default: any
+}>()
 </script>
 
 <template>
-  <div v-if="loading" class="b-skeleton-wrapper">
-    <slot name="loading" />
+  <div class="y-skeleton-wrapper">
+    <div class="visually-hidden">
+      <!-- FIXME add `loading` translation -->
+      {{ $t('loading') }}
+    </div>
+
+    <div v-if="search || button" id="top-bar-skeleton" class="d-flex mb-3">
+      <div id="search-skeleton" class="top-bar-group-skeleton">
+        <BInputGroup v-if="search" class="pe-none" aria-hidden="true">
+          <BInputGroupText>
+            <YIcon iname="search" />
+          </BInputGroupText>
+
+          <BFormInput :disabled="true" tabindex="-1" />
+        </BInputGroup>
+      </div>
+
+      <div v-if="button" id="button-skeleton" class="top-bar-group-skeleton">
+        <BSkeleton height="36px" class="ms-3-md" />
+      </div>
+    </div>
+
+    <slot name="default" />
   </div>
-  <slot v-else name="default" />
 </template>
 
 <style scoped lang="scss">
-.b-skeleton-wrapper {
+.y-skeleton-wrapper {
   cursor: wait;
+
+  #top-bar-skeleton {
+    flex-wrap: wrap-reverse;
+
+    .top-bar-group-skeleton {
+      margin-bottom: 1rem;
+    }
+
+    #button-skeleton {
+      width: 170px;
+    }
+
+    @include media-breakpoint-down(sm) {
+      .top-bar-group-skeleton {
+        flex-direction: column-reverse;
+      }
+      #button-skeleton {
+        width: 100%;
+      }
+    }
+
+    @include media-breakpoint-down(md) {
+      flex-direction: column-reverse;
+
+      #button-skeleton {
+        margin-bottom: 0.75rem;
+
+        :deep(> *) {
+          margin-bottom: 0.25rem;
+        }
+      }
+
+      .top-bar-group-skeleton {
+        justify-content: space-between;
+        flex-wrap: wrap;
+      }
+    }
+
+    @include media-breakpoint-up(md) {
+      #search-skeleton {
+        flex-grow: 2;
+        max-width: 50%;
+      }
+
+      #button-skeleton {
+        margin-left: auto;
+      }
+
+      :deep(.btn) {
+        margin-left: 0.5rem;
+      }
+    }
+  }
 }
 </style>

@@ -77,7 +77,7 @@ const modalComponent = computed(() => {
         <Component :is="Component" :class="classes" />
         <template #fallback>
           <template v-for="({ is, ...props }, i) in skeletons" :key="i">
-            <Component :is="is" v-bind="props" />
+            <Component :is="is" v-bind="props" :class="{ 'mt-3': i !== 0 }" />
           </template>
         </template>
       </Suspense>

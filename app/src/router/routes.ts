@@ -239,7 +239,7 @@ const routes: RouteRecordRaw[] = [
     meta: {
       args: { trad: 'services' },
       breadcrumb: ['tool-list', 'service-list'],
-      skeleton: 'ListGroupSkeleton',
+      skeleton: { is: 'ListGroupSkeleton', button: false },
     },
   },
   {
@@ -250,7 +250,7 @@ const routes: RouteRecordRaw[] = [
     meta: {
       args: { param: 'name' },
       breadcrumb: ['tool-list', 'service-list', 'service-info'],
-      skeleton: 'CardInfoSkeleton',
+      skeleton: ['CardInfoSkeleton', 'CardInfoSkeleton'],
     },
   },
 
@@ -273,7 +273,7 @@ const routes: RouteRecordRaw[] = [
     meta: {
       args: { trad: 'logs' },
       breadcrumb: ['tool-list', 'tool-logs'],
-      skeleton: 'CardListSkeleton',
+      skeleton: { is: 'CardListSkeleton', search: true },
     },
   },
   {
@@ -284,7 +284,7 @@ const routes: RouteRecordRaw[] = [
     meta: {
       args: { param: 'name' },
       breadcrumb: ['tool-list', 'tool-logs', 'tool-log'],
-      skeleton: 'CardInfoSkeleton',
+      skeleton: ['CardInfoSkeleton', 'CardInfoSkeleton'],
     },
   },
   {
