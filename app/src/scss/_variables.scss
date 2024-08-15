@@ -34,9 +34,9 @@ $gray-100: #fafafa;
 $gray-200: #ededed;
 $gray-300: #e3e3e3;
 $gray-400: #d4d4d4;
-$gray-500:  	#b5b5b5;
+$gray-500: #b5b5b5;
 $gray-600: #757575;
-$gray-700:  	#4f4f4f;
+$gray-700: #4f4f4f;
 $gray-800: #3b3b3b;
 $gray-900: #262626;
 $black: #202020;
@@ -73,7 +73,7 @@ $theme-colors: (
   'best': $purple,
 );
 
-$min-contrast-ratio: 7;
+// $min-contrast-ratio: 7;
 
 $spacer: 1rem;
 
@@ -91,9 +91,9 @@ $component-active-color: $black;
 // Adapt font-weight based on fira
 $font-weight-light: 200;
 $font-weight-normal: 400;
-$font-weight-medium: 500;
+$font-weight-medium: 400;
 $font-weight-semibold: 500;
-$font-weight-bold: 700;
+$font-weight-bold: 500;
 
 $headings-font-weight: 500;
 
@@ -114,9 +114,9 @@ $font-family-sans-serif:
   'Apple Color Emoji',
   'Segoe UI Emoji',
   'Segoe UI Symbol',
-  'Noto Color Emoji' !default;
+  'Noto Color Emoji';
 $font-family-monospace: 'Fira Code', SFMono-Regular, Menlo, Monaco, Consolas,
-  'Liberation Mono', 'Courier New', monospace !default;
+  'Liberation Mono', 'Courier New', monospace;
 
 $h2-font-size: $font-size-base * 1.5;
 $h3-font-size: $font-size-base * 1.4;
@@ -126,9 +126,60 @@ $h5-font-size: $font-size-base * 1.1;
 $list-group-item-padding-y: $spacer * 0.75;
 $modal-md: 600px;
 
+$form-feedback-invalid-color: shade-color($danger, 20%);
+
 // Import default variables after the above setup to compute all other variables.
 @import '~bootstrap/scss/variables';
 @import '~bootstrap/scss/variables-dark';
+
+// Hacky way to have different text colors
+@function custom-text-color($identifier, $target) {
+  @each $variant
+    in ('primary', 'secondary', 'success', 'info', 'warning', 'danger', 'best')
+  {
+    @if $identifier == $variant {
+      @return rgb(var(--#{$prefix}#{$identifier}-text-rgb));
+    }
+  }
+  @return rgba-css-var($identifier, $target);
+}
+$theme-colors-rgb: map-loop($theme-colors, to-rgb, '$value') !default;
+$utilities-text: map-merge(
+  $theme-colors-rgb,
+  (
+    'black': to-rgb($black),
+    'white': to-rgb($white),
+    'body': to-rgb($body-color),
+  )
+);
+$utilities-text-colors: map-loop(
+  $utilities-text,
+  custom-text-color,
+  '$key',
+  'text'
+);
+
+// Altered text color variant for light theme
+$light-text-colors: (
+  'primary': shade-color($primary, 30%),
+  'secondary': $secondary,
+  'success': shade-color($success, 45%),
+  'info': shade-color($info, 45%),
+  'warning': shade-color($warning, 50%),
+  'danger': shade-color($danger, 20%),
+  'best': shade-color($purple, 15%),
+);
+// Altered text color variant for dark theme
+$dark-text-colors: (
+  'primary': $primary,
+  'secondary': tint-color($secondary, 20%),
+  'success': $success,
+  'info': $info,
+  'warning': $warning,
+  'danger': $danger,
+  'best': $purple,
+);
+
 @import '~bootstrap/scss/maps';
 @import '~bootstrap/scss/mixins';
 @import '~bootstrap/scss/utilities';
