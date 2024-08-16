@@ -12,7 +12,7 @@ defineProps<{
     v-if="integration"
     id="app-integration"
     :title="$t('app.integration.title')"
-    collapsable
+    collapsible
     collapsed
     no-body
   >
@@ -45,7 +45,7 @@ defineProps<{
     id="app-links"
     icon="link"
     :title="$t('app.links.title')"
-    collapsable
+    collapsible
     collapsed
     no-body
   >

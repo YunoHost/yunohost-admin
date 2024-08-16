@@ -117,7 +117,7 @@ function shareLogs() {
     <YCard
       v-for="report in reports"
       :key="report.id"
-      collapsable
+      collapsible
       :collapsed="report.noIssues"
       no-body
       button-unbreak="lg"

@@ -10,7 +10,7 @@ const props = withDefaults(
     title?: string
     titleTag?: string
     icon?: string
-    collapsable?: boolean
+    collapsible?: boolean
     collapsed?: boolean
     buttonUnbreak?: Breakpoint
   }>(),
@@ -21,7 +21,7 @@ const props = withDefaults(
     title: undefined,
     titleTag: 'h2',
     icon: undefined,
-    collapsable: false,
+    collapsible: false,
     collapsed: false,
     buttonUnbreak: 'md',
   },
@@ -39,7 +39,7 @@ const visible = ref(!props.collapsed)
 </script>
 
 <template>
-  <BCard :no-body="collapsable ? true : noBody" :class="{ 'border-0': asTab }">
+  <BCard :no-body="collapsible ? true : noBody" :class="{ 'border-0': asTab, 'collapsible': collapsible }">
     <template v-if="!asTab" #header>
       <div class="w-100 d-flex align-items-center flex-wrap custom-header">
         <slot name="header">
@@ -62,7 +62,7 @@ const visible = ref(!props.collapsed)
       </div>
 
       <BButton
-        v-if="collapsable"
+        v-if="collapsible"
         size="sm"
         variant="outline-secondary"
         class="align-self-center ms-auto"
@@ -78,7 +78,7 @@ const visible = ref(!props.collapsed)
       </BButton>
     </template>
 
-    <BCollapse v-if="collapsable" :visible="visible">
+    <BCollapse v-if="collapsible" :visible="visible">
       <slot v-if="noBody" name="default" />
       <BCardBody v-else>
         <slot name="default" />

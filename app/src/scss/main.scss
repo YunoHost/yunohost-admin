@@ -222,13 +222,15 @@ h3.card-title {
 }
 
 // collapse icon
-.not-collapsed > .icon {
-  transform: rotate(-90deg);
-}
-.collapsed > .icon {
-  transform: rotate(90deg);
-  position: relative;
-  top: 2px;
+.collapsible {
+  .not-collapsed > .icon {
+    transform: rotate(-90deg);
+  }
+  .collapsed > .icon {
+    transform: rotate(90deg);
+    position: relative;
+    top: 2px;
+  }
 }
 
 // limit the size of toggle dropdown buttons to a square

@@ -123,7 +123,7 @@ async function skipMigration(id: string) {
     <YCard
       :title="$t('migrations_done')"
       icon="cogs"
-      collapsable
+      collapsible
       collapsed
       no-body
     >

@@ -168,7 +168,7 @@ async function deleteGroup(name: string) {
     <YCard
       v-for="group in filteredGroups"
       :key="group.name"
-      collapsable
+      collapsible
       :title="
         group.isSpecial
           ? $t('group_' + group.name)
@@ -239,7 +239,7 @@ async function deleteGroup(name: string) {
     </YCard>
 
     <!-- USER GROUPS CARD -->
-    <YCard collapsable :title="$t('group_specific_permissions')" icon="group">
+    <YCard collipsable :title="$t('group_specific_permissions')" icon="group">
       <template v-for="userName in activeUserGroups" :key="userName">
         <BRow>
           <BCol md="3" lg="2">
