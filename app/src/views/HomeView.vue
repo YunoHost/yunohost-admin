@@ -29,9 +29,3 @@ const menu = [
     </BListGroup>
   </div>
 </template>
-
-<style lang="scss" scoped>
-.home {
-  margin-top: 2rem;
-}
-</style>

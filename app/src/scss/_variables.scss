@@ -127,6 +127,7 @@ $list-group-item-padding-y: $spacer * 0.75;
 $modal-md: 600px;
 
 $form-feedback-invalid-color: shade-color($danger, 20%);
+$breadcrumb-margin-bottom: 0;
 
 // Import default variables after the above setup to compute all other variables.
 @import '~bootstrap/scss/variables';

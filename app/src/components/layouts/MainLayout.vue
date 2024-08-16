@@ -2,6 +2,7 @@
 import { createReusableTemplate } from '@vueuse/core'
 import type { VNode } from 'vue'
 import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 
 import {
@@ -13,8 +14,9 @@ import {
 import { useInfos } from '@/composables/useInfos'
 import { useRequests } from '@/composables/useRequests'
 import { useSettings } from '@/composables/useSettings'
-import type { Skeleton, VueClass } from '@/types/commons'
+import type { CustomRoute, Skeleton, VueClass } from '@/types/commons'
 
+const { t } = useI18n()
 const router = useRouter()
 const { routerKey } = useInfos()
 const { reconnecting, currentRequest, dismissModal } = useRequests()
@@ -24,6 +26,13 @@ const RootView = createReusableTemplate<{
   Component: VNode
   classes: VueClass
 }>()
+
+const quickAddItems: CustomRoute[] = [
+  { text: t('users_new'), to: { name: 'user-create' } },
+  { text: t('domain_add'), to: { name: 'domain-add' } },
+  { text: t('group_new'), to: { name: 'group-create' } },
+  { text: t('install'), to: { name: 'app-catalog' } },
+]
 
 const skeletons = computed<Skeleton[]>(() => {
   const skeleton = router.currentRoute.value.meta.skeleton ?? 'CardInfoSkeleton'
@@ -88,7 +97,25 @@ const modalComponent = computed(() => {
     </BOverlay>
   </RootView.define>
 
-  <YBreadcrumb />
+  <div class="d-flex align-items-center mt-2 mb-4">
+    <YBreadcrumb />
+
+    <BDropdown
+      v-if="router.currentRoute.value.name === 'home'"
+      variant="success"
+      class="ms-auto"
+    >
+      <template #button-content>
+        <!-- FIXME i18n `quick_add` -->
+        <YIcon iname="plus" /> {{ t('quick_add') }}
+      </template>
+      <template v-for="(item, i) in quickAddItems" :key="i">
+        <BDropdownItem :to="item.to">
+          <YIcon iname="plus" /> {{ item.text }}
+        </BDropdownItem>
+      </template>
+    </BDropdown>
+  </div>
 
   <main id="main">
     <!-- The `key` on RouterView make sure that if a link points to a page that
