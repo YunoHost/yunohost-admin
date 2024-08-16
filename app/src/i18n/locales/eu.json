@@ -278,7 +278,7 @@
     "confirm_update_apps": "Ziur aplikazio guztiak eguneratu nahi dituzula?",
     "confirm_update_specific_app": "Ziur {app} eguneratu nahi duzula?",
     "confirm_reboot_action_reboot": "Ziur zerbitzaria berrabiarazi nahi duzula?",
-    "created_at": "Sortze data",
+    "created_at": "Sortze-data",
     "custom_app_install": "Instalatu norberaren aplikazioa",
     "domain_dns_conf_is_just_a_recommendation": "Atal honetan *iradokitutako* ezarpenak agertzen dira. *Ez* du DNSa zure ordez konfiguratuko. Zure ardura da DNS guneak zure DNS erregistro-enpresaren gomendioen arabera ezartzea.",
     "disable": "Desgaitu",
