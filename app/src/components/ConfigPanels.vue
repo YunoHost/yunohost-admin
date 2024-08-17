@@ -35,7 +35,7 @@ const modelValue = defineModel<NestedMV>({ required: true })
 
 <template>
   <BCard v-if="routes.length > 1" no-body class="config-panel">
-    <BCardHeader header-tag="nav">
+    <BCardHeader tag="nav">
       <BNav card-header fill pills>
         <BNavItem
           v-for="route in routes"

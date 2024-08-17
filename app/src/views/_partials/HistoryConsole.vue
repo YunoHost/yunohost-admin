@@ -5,8 +5,10 @@ import { computed, nextTick, ref } from 'vue'
 import MessageListGroup from '@/components/MessageListGroup.vue'
 import QueryHeader from '@/components/QueryHeader.vue'
 import { useRequests } from '@/composables/useRequests'
+import { useSettings } from '@/composables/useSettings'
 
 const { historyList, showModal } = useRequests()
+const { dark } = useSettings()
 const rootElem = ref<InstanceType<typeof BCard> | null>(null)
 const historyElem = ref<InstanceType<typeof BAccordion> | null>(null)
 const open = ref(false)
@@ -115,16 +117,15 @@ function onHistoryBarClick(e: MouseEvent) {
       tabindex="0"
       :aria-expanded="open ? 'true' : 'false'"
       aria-controls="console-collapse"
-      header-tag="header"
-      :header-bg-variant="open ? 'best' : 'white'"
-      :class="{ 'text-white': open }"
+      :variant="open ? 'best' : dark ? 'dark' : 'light'"
+      tag="header"
       class="d-flex align-items-center"
       @mousedown.left.prevent="onHistoryBarClick"
       @keyup.space.enter.prevent="onHistoryBarKey"
     >
       <h5 class="m-0">
         <YIcon iname="history" />
-        <span class="d-none d-sm-inline fw-bold">
+        <span class="d-none d-sm-inline fw-bold ms-1">
           {{ $t('history.title') }}
         </span>
       </h5>
@@ -187,7 +188,8 @@ function onHistoryBarClick(e: MouseEvent) {
 
 #console {
   position: sticky;
-  z-index: 15;
+  // To be able to read the console while waiting modal is displayed
+  z-index: 1057;
   bottom: 0;
 
   width: calc(100% + 3rem);

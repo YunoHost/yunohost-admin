@@ -294,15 +294,12 @@ function onFormPortToggling() {
 :deep() {
   .form-switch {
     .form-check-input {
-      --bs-form-switch-bg: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'><circle r='3' fill='rgb(255, 255, 255)'/></svg>") !important;
-      [data-bs-theme='dark'] * & {
-        --bs-form-switch-bg: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'><circle r='3' fill='rgb(34, 38, 42)'/></svg>") !important;
-      }
       &:checked {
         border-color: $success;
         background-color: $success;
       }
       &:not(:checked) {
+        --bs-form-switch-bg: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'><circle r='3' fill='%23222222)'/></svg>") !important;
         border-color: $danger;
         background-color: $danger;
       }

@@ -86,7 +86,7 @@ onMounted(() => {
 
         <BNavbarNav class="ms-auto">
           <li class="nav-item">
-            <BButton :href="ssoLink" variant="primary" size="sm" block>
+            <BButton :href="ssoLink" variant="primary" size="sm" class="d-block">
               {{ $t('user_interface_link') }} <YIcon iname="user" />
             </BButton>
           </li>

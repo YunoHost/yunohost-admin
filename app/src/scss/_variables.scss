@@ -43,9 +43,9 @@ $black: #202020;
 
 $blue: #60a5fa;
 $indigo: #6812f3;
-$purple: #b957ea;
+$purple: #cf76fc;
 $pink: #e93f8e;
-$red: #ff5a5a;
+$red: #fd6666;
 $orange: #fd7e17;
 $yellow: #ffd452;
 $green: #70ea8d;
@@ -60,6 +60,8 @@ $warning: $yellow;
 $danger: $red;
 $light: $gray-100;
 $dark: $gray-900;
+// Custom
+$best: $purple;
 
 $theme-colors: (
   'primary': $primary,
@@ -70,7 +72,7 @@ $theme-colors: (
   'danger': $danger,
   'light': $light,
   'dark': $dark,
-  'best': $purple,
+  'best': $best,
 );
 
 // $min-contrast-ratio: 7;
@@ -168,7 +170,7 @@ $light-text-colors: (
   'info': shade-color($info, 45%),
   'warning': shade-color($warning, 50%),
   'danger': shade-color($danger, 20%),
-  'best': shade-color($purple, 15%),
+  'best': shade-color($purple, 30%),
 );
 // Altered text color variant for dark theme
 $dark-text-colors: (
