@@ -31,7 +31,12 @@ const icon = computed(() => {
     :class="{ ['alert alert-' + variant]: !alert }"
     class="yuno-alert d-flex flex-column flex-md-row align-items-center"
   >
-    <YIcon v-if="icon" :iname="icon" class="me-md-3 mb-md-0 mb-2 md" />
+    <YIcon
+      v-if="icon"
+      :iname="icon"
+      :variant="variant"
+      class="me-md-3 mb-md-0 mb-2 md"
+    />
 
     <div class="w-100">
       <slot name="default" />
