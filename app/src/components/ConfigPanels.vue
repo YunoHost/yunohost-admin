@@ -3,6 +3,8 @@
   lang="ts"
   generic="NestedMV extends Obj, MV extends Obj<NestedMV>"
 >
+import { useRoute } from 'vue-router'
+
 import type { FormValidation } from '@/composables/form'
 import type { KeyOfStr, Obj } from '@/types/commons'
 import type { ConfigPanel, ConfigPanels } from '@/types/configPanels'
@@ -11,8 +13,8 @@ defineOptions({
   inheritAttrs: false,
 })
 
+const currentRoute = useRoute()
 const props = defineProps<{
-  // modelValue: MV[keyof MV]
   panel: ConfigPanel<NestedMV, MV>
   routes: ConfigPanels<NestedMV, MV>['routes']
   validations: FormValidation<NestedMV>
@@ -20,7 +22,6 @@ const props = defineProps<{
 
 const emit = defineEmits<{
   apply: [action?: KeyOfStr<typeof props.panel.fields>]
-  'update:modelValue': [modelValue: MV[keyof MV]]
 }>()
 
 const slots = defineSlots<{
@@ -41,7 +42,7 @@ const modelValue = defineModel<NestedMV>({ required: true })
           v-for="route in routes"
           :key="route.text"
           :to="route.to"
-          :active="$route.params.tabId === route.to.params?.tabId"
+          :active="currentRoute.params.tabId === route.to.params?.tabId"
         >
           <!-- FIXME added :active="" because `exact-active-class` not working https://github.com/bootstrap-vue-next/bootstrap-vue-next/issues/1754 -->
           <!-- exact-active-class="active" -->
@@ -52,7 +53,7 @@ const modelValue = defineModel<NestedMV>({ required: true })
     </BCardHeader>
 
     <CardForm
-      v-model="modelValue"
+      v-model="modelValue.value"
       :fields="panel.fields"
       :no-footer="!panel.hasApplyButton"
       :sections="panel.sections"

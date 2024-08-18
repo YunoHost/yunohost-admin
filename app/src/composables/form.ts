@@ -37,7 +37,7 @@ export function useTouch(
     const v = toValue(validation)
     if (v) {
       // For fields that have multiple elements
-      if (key) {
+      if (key && v[key]) {
         v[key].$touch()
         clear?.(v[key].$path)
       } else {
