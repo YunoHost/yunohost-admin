@@ -589,7 +589,7 @@
     "important_yunohost_upgrade": "YunoHosten bertsio nagusi bat dago eskuragai. Zinez gomendagarria da eguneraketaren oharrak arretaz irakurtzea foroan bertsio-berritu baino lehen: <a href='https://forum.yunohost.org/tag/ynh_release'>Irakurri oharrak foroan</a>",
     "app": {
         "installed_version": "Instalatutako bertsioa:",
-        "open_this_app": "Ireki aplikazio hau",
+        "open_this_app": "Ireki aplikazioa",
         "antifeatures": "Aplikazio honek gogoko izan ez ditzakezun ezaugarriak ditu:",
         "doc": {
             "about": {
