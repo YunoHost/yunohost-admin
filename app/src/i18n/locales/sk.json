@@ -483,7 +483,7 @@
     "status": "Stav",
     "stop": "Zastaviť",
     "system_packages_nothing": "Všetky systémové balíčky sú aktuálne!",
-    "system_upgrade_btn": "Aktualizácia",
+    "system_upgrade_btn": "Aktualizovať",
     "system_upgrade_all_packages_btn": "Aktualizovať všetky balíčky",
     "tcp": "TCP",
     "tip_about_user_email": "Pri vytvorení používateľa je mu tiež pridelená e-mailová adresa (a účet XMPP) vo formáte menopouzivatela@domena.sk. Ďalšie e-mailové aliasy a presmerovania môžu pridať neskôr administrátor alebo samotný používateľ.",
@@ -581,7 +581,8 @@
             "notifications": {
                 "title": "Upozornenia",
                 "post_upgrade": "Upozornenia o aktualizácii",
-                "post_install": "Upozornenia o inštalácii"
+                "post_install": "Upozornenia o inštalácii",
+                "understood": "Rozumiem"
             }
         },
         "install": {
@@ -593,13 +594,16 @@
                     "critical": "Aplikáciu nie je možné nainštalovať"
                 },
                 "post": {
-                    "title": "Poinštalačné upozornenie pre '{name}'"
+                    "title": "Poinštalačné upozornenie pre '{name}'",
+                    "alert": "Zdá sa, že inštalácia úspešne skončila!\nTu je niekoľko upozornení, ktoré autor(ka) balíčku považuje za dôležité.\nMôžete si ich znova prečítať na stránke s informáciami o aplikácii."
                 }
             },
             "problems": {
                 "ignore": "Beriem na zreteľ, že inštalovaním tejto aplikácie si môžem rozbiť systém, no i napriek tomu to chcem urobiť.",
                 "install": "Aplikácia je už nainštalovaná a nie je možné ju nainštalovať viac ako jedenkrát.",
-                "arch": "Túto aplikáciu je možné nainštalovať iba na konkrétnych architektúrach ({required}), no vaša architektúra je {current}."
+                "arch": "Túto aplikáciu je možné nainštalovať iba na konkrétnych architektúrach ({required}), no vaša architektúra je {current}.",
+                "broken": "Automatické testy YunoHost označili túto aplikáciu za rozbitú a je možné, že vám poškodí systém! Preto by ste ju pravdepodobne NEMALI inštalovať, pokiaľ si nie ste istý, že to tak chcete.",
+                "thirdparty": "Táto aplikácia nie je súčasťou oficiálneho katalógu YunoHost, inštalovaním aplikácií tretích strán môžete ohroziť integritu a bezpečnosť vášho systému. Pokiaľ neviete, čo robíte, aplikáciu by ste NEMALI inštalovať."
             },
             "version": "Aktuálna verzia: {version}",
             "try_demo": "Vyskúšať demo"
@@ -608,7 +612,8 @@
         "integration": {
             "ldap": {
                 "false": "Nepoužíva na prihlasovanie účty YunoHost (LDAP)",
-                "true": "Používa na prihlasovanie účty YunoHost (LDAP)"
+                "true": "Používa na prihlasovanie účty YunoHost (LDAP)",
+                "?": "Chýbajú informácie o LDAP integrácii"
             },
             "title": "Integrácia s YunoHost",
             "archs": "Podporované architektúry:",

@@ -93,7 +93,7 @@
         "domains": "domeinu bat ere ez | domeinua | {c} domeinua",
         "apps": "aplikazio bat ere ez | aplikazioa | {c} aplikazioa",
         "groups": "talderik ez | taldea | {c} talde",
-        "installed_apps": "instalatutako aplikazio bat ere ez | instalatutako aplikazioa | {c} instalatutako aplikazioa",
+        "installed_apps": "ez dago aplikaziorik instalatuta | instalatutako aplikazioa | {c} aplikazio instalatuta",
         "services": "zerbitzu bat ere ez | zerbitzua | {c} zerbitzua",
         "users": "erabiltzaile bat ere ez | erabiltzailea | {c} erabiltzailea",
         "logs": "erregistro bat ere ez | erregistroa | {c} erregistroa",
@@ -221,14 +221,14 @@
     "connection": "Konexioa",
     "diagnosis_first_run": "Diagnostikoa ohiko arazoak identifikatzen saiatuko da zerbitzaria ahalik eta hoberen ibili dadin. Ez larritu erroreak ikusten badituzu zerbitzaria konfiguratu eta berehala: horretarako dago pentsatuta zehazki, arazoak identifikatu eta konpontzen laguntzeko. Zerbitzariak egunean birritan egingo du diagnostikoa automatikoki eta administratzaileak aurkitutako arazoekin posta elektroniko bat jasoko du.",
     "domain_dns_config": "DNS ezarpenak",
-    "diagnosis_explanation": "Diagnostikoa ohiko arazoak identifikatzen saiatuko da zerbitzaria ahalik eta hoberen ibili dadin. Egunean birritan egingo du zerbitzariak eginkizun hau eta posta elektronikoa bidaliko dio administrariari arazoren bat ikusiz gero. Litekeena da emaitza batzuek garrantzirik ez izatea ezaugarri batzuk erabili nahi ez badira (XMPP adibidez) edo kale egin dezake zerbitzariaren konfigurazioa konplexua bada. Horrelako kasuetan, eta zertan ari zaren baldin badakizu, ez dago arazorik abisu edo jakinarazpenei muzin egiteko.",
+    "diagnosis_explanation": "Diagnostikoa ohiko arazoak identifikatzen saiatuko da zerbitzaria ahalik eta hoberen ibili dadin. Egunean birritan egingo du zerbitzariak eginkizun hau eta posta elektronikoa bidaliko dio administratzaileari arazoren bat ikusiz gero. Litekeena da emaitza batzuek garrantzirik ez izatea ezaugarri batzuk erabili nahi ez badira (XMPP adibidez) edo kale egin dezake zerbitzariaren konfigurazioa konplexua bada. Horrelako kasuetan, eta zertan ari zaren baldin badakizu, ez dago arazorik abisu edo jakinarazpenei muzin egiteko.",
     "domain_default_desc": "Erabiltzaileek lehenetsitako domeinua erabiliko dute saioa hasteko.",
     "domain_delete_forbidden_desc": "Ezinezkoa da '{domain}' ezabatzea lehenetsitako domeinua delako. Aukeratu beste domeinu bat (edo <a href='#/domains/add'>gehitu berri bat</a>) eta lehenetsi oraingo domeinua kendu ahal izateko.",
     "domain_dns_push_managed_in_parent_domain": "DNS ezarpen automatikoen funtzioa <a href='#/domains/{parent_domain}/dns'>{parent_domain}</a> domeinu nagusiak kudeatzen du.",
     "footer": {
         "documentation": "Dokumentazioa",
         "help": "Laguntza behar al duzu?",
-        "donate": "Dohaintza egin"
+        "donate": "Egin dohaintza"
     },
     "hook_data_home_desc": "Erabiltzaile-datuak /home/ERABILTZAILEA katalogoan daude",
     "installed": "Instalatuta",
@@ -278,7 +278,7 @@
     "confirm_update_apps": "Ziur aplikazio guztiak eguneratu nahi dituzula?",
     "confirm_update_specific_app": "Ziur {app} eguneratu nahi duzula?",
     "confirm_reboot_action_reboot": "Ziur zerbitzaria berrabiarazi nahi duzula?",
-    "created_at": "Sortze data",
+    "created_at": "Sortze-data",
     "custom_app_install": "Instalatu norberaren aplikazioa",
     "domain_dns_conf_is_just_a_recommendation": "Atal honetan *iradokitutako* ezarpenak agertzen dira. *Ez* du DNSa zure ordez konfiguratuko. Zure ardura da DNS guneak zure DNS erregistro-enpresaren gomendioen arabera ezartzea.",
     "disable": "Desgaitu",
@@ -429,7 +429,7 @@
         "title": "Instalazio ondorengo prozesua",
         "user": {
             "title": "Sortu lehenengo administratzaile erabiltzailea",
-            "first_user_help": "Erabiltzaile honi administrazio ahalmenak esleituko zaizkio eta administrazio webgunea eta SSH konexioa erabiltzeko aukera izango du.\nErabiltzaile arrunta denez, erabiltzaileen ataria (SSO) erabiltzeko aukera ere izango du.\nInstalazio ondorengo prozesuek amaitzen dutenean, administratzaile gehiago sor ditzakezu 'admins' taldera gehituz."
+            "first_user_help": "Erabiltzaile honi administrazio-ahalmenak esleituko zaizkio eta administrazio webgunea eta SSH konexioa erabiltzeko aukera izango du.\nErabiltzaile arrunta denez, erabiltzaileen ataria (SSO) erabiltzeko aukera ere izango du.\nInstalazio ondorengo prozesuek amaitzen dutenean, administratzaile gehiago sor ditzakezu 'admins' taldera gehituz."
         }
     },
     "postinstall_set_domain": "Aukeratu domeinu nagusia",
@@ -556,7 +556,7 @@
     "users_export": "Esportatu erabiltzaileak",
     "users_import_csv_file": "CSV fitxategia",
     "users_import_update": "Eguneratu existitzen diren erabiltzaileak",
-    "tip_about_user_email": "Erabiltzaileak sortzerakoan ePosta helbide bat (eta XMPP kontu bat) esleitzen zaie erabiltzailea@domeinua.eus itxurarekin. Administrari eta erabiltzaileek helbide elektroniko gehiago eta birbidalketarako helbideak gehitu ditzazkete geroago.",
+    "tip_about_user_email": "Erabiltzaileak sortzerakoan ePosta helbide bat (eta XMPP kontu bat) esleitzen zaie erabiltzailea@domeinua.eus itxurarekin. Administratzaile eta erabiltzaileek helbide elektroniko gehiago eta birbidalketarako helbideak gehitu ditzakete geroago.",
     "tools_webadmin_settings": "Administrazio-webgunearen ezarpenak",
     "user_mailbox_use": "Posta elektronikorako erabilitako espazioa",
     "users_new": "Erabiltzaile berria",
@@ -589,7 +589,7 @@
     "important_yunohost_upgrade": "YunoHosten bertsio nagusi bat dago eskuragai. Zinez gomendagarria da eguneraketaren oharrak arretaz irakurtzea foroan bertsio-berritu baino lehen: <a href='https://forum.yunohost.org/tag/ynh_release'>Irakurri oharrak foroan</a>",
     "app": {
         "installed_version": "Instalatutako bertsioa:",
-        "open_this_app": "Ireki aplikazio hau",
+        "open_this_app": "Ireki aplikazioa",
         "antifeatures": "Aplikazio honek gogoko izan ez ditzakezun ezaugarriak ditu:",
         "doc": {
             "about": {
