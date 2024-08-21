@@ -2,9 +2,7 @@
 import { computed, reactive, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 
-import { useDomains } from '@/composables/data'
 import { useForm } from '@/composables/form'
-import { useInfos } from '@/composables/useInfos'
 import {
   domain,
   dynDomain,
@@ -21,6 +19,7 @@ defineOptions({
 
 const props = withDefaults(
   defineProps<{
+    domains: string[]
     title: string
     submitText?: string
     serverError?: string
@@ -35,14 +34,11 @@ const emit = defineEmits<{
 }>()
 
 const { t } = useI18n()
-const { installed } = useInfos()
-
-const { domains } = useDomains(undefined, installed.value)
 const dynDomains = ['nohost.me', 'noho.st', 'ynh.fr']
 
 const dynDnsForbiden = computed(() => {
-  if (!domains.value) return false
-  return domains.value.some((domain) => {
+  if (!props.domains) return false
+  return props.domains.some((domain) => {
     return dynDomains.some((dynDomain) => domain.includes(dynDomain))
   })
 })

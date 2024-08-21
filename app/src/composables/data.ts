@@ -134,8 +134,7 @@ export function useDomains(
   const { mainDomain, domains: domains_, domainDetails } = useData()
 
   const domains = computed(() => {
-    if (!domains_.value && installed)
-      throw new Error(getNoDataMessage('domains'))
+    if (!domains_.value) throw new Error(getNoDataMessage('domains'))
     return domains_.value
   })
 
