@@ -4,6 +4,7 @@ import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 
 import api, { objectToParams } from '@/api'
+import { APIBadRequestError } from '@/api/errors'
 import ConfigPanelsComponent from '@/components/ConfigPanels.vue'
 import { formatConfigPanels, useConfigPanels } from '@/composables/configPanels'
 import { useDomains } from '@/composables/data'
@@ -82,7 +83,7 @@ async function deleteDomain() {
 
   api
     .delete({
-      uri: 'domains',
+      uri: `domains/${props.name}`,
       cachePath: `domains.${props.name}`,
       data,
       humanKey: {
@@ -92,6 +93,14 @@ async function deleteDomain() {
     })
     .then(() => {
       router.push({ name: 'domain-list' })
+    })
+    .catch((err) => {
+      if (!(err instanceof APIBadRequestError)) throw err
+      modalConfirm(
+        err.data.error,
+        { headerVariant: 'danger', title: t('error') },
+        { markdown: true, cancelable: false },
+      )
     })
 }
 

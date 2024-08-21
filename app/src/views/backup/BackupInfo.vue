@@ -39,8 +39,6 @@ const { infos, system, apps } = await api
 
 const allKeys = [...Object.keys(apps), ...Object.keys(system)]
 const selected = ref(allKeys)
-const serverError = ref('')
-const isValid = ref<boolean | null>(null)
 
 const hasBackupData = computed(() => {
   return !isEmptyValue(system) || !isEmptyValue(apps)
@@ -65,12 +63,15 @@ async function restoreBackup() {
       humanKey: { key: 'backups.restore', name: props.name },
     })
     .then(() => {
-      isValid.value = null
+      // FIXME back to backup list or home ?
     })
     .catch((err: APIError) => {
       if (!(err instanceof APIBadRequestError)) throw err
-      serverError.value = err.message
-      isValid.value = false
+      modalConfirm(
+        err.message,
+        { title: t('error'), bodyVariant: 'danger' },
+        { cancelable: false },
+      )
     })
 }
 
@@ -201,12 +202,6 @@ function downloadBackup() {
             <BFormCheckbox :value="appName" :aria-label="$t('check')" />
           </BListGroupItem>
         </BListGroup>
-
-        <BFormInvalidFeedback id="backup-restore-feedback" :state="isValid">
-          <YAlert alert variant="danger" class="mb-0">
-            {{ serverError }}
-          </YAlert>
-        </BFormInvalidFeedback>
       </BFormCheckboxGroup>
 
       <div v-else class="alert alert-warning mb-0">
