@@ -113,7 +113,7 @@ export function useForm<
     // FIXME add option to ask confirmation (with param text confirm)
     return async (e: SubmitEvent) => {
       e.preventDefault()
-      if (!(await v.value.$validate())) return
+      if (!(await v.value.form.$validate())) return
       fn(onErrorFn, serverErrors)
     }
   }

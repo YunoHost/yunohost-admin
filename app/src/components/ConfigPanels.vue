@@ -53,7 +53,7 @@ const modelValue = defineModel<NestedMV>({ required: true })
     </BCardHeader>
 
     <CardForm
-      v-model="modelValue.value"
+      v-model="modelValue"
       :fields="panel.fields"
       :no-footer="!panel.hasApplyButton"
       :sections="panel.sections"

@@ -16,14 +16,14 @@ const fields = {
   locale: reactive({
     component: 'SelectItem',
     label: ct('tools_webadmin.language'),
-    props: { id: 'locale', choices: settings.availableLocales },
+    cProps: { id: 'locale', choices: settings.availableLocales },
   }) as FormField<'SelectItem', string>,
 
   fallbackLocale: reactive({
     component: 'SelectItem',
     label: ct('tools_webadmin.fallback_language'),
     description: ct('tools_webadmin.fallback_language_description'),
-    props: {
+    cProps: {
       id: 'fallback-locale',
       choices: settings.availableLocales,
     },
@@ -34,21 +34,21 @@ const fields = {
     id: 'cache',
     label: ct('tools_webadmin.cache'),
     description: ct('tools_webadmin.cache_description'),
-    props: { labels: { true: 'enabled', false: 'disabled' } },
+    cProps: { labels: { true: 'enabled', false: 'disabled' } },
   }) as FormField<'CheckboxItem', boolean>,
 
   transitions: reactive({
     component: 'CheckboxItem',
     id: 'transitions',
     label: ct('tools_webadmin.transitions'),
-    props: { labels: { true: 'enabled', false: 'disabled' } },
+    cProps: { labels: { true: 'enabled', false: 'disabled' } },
   }) as FormField<'CheckboxItem', boolean>,
 
   dark: reactive({
     component: 'CheckboxItem',
     id: 'theme',
     label: ct('tools_webadmin.theme'),
-    props: { labels: { true: '🌙', false: '☀️' } },
+    cProps: { labels: { true: '🌙', false: '☀️' } },
   }) as FormField<'CheckboxItem', boolean>,
 
   experimental: reactive({
@@ -58,7 +58,7 @@ const fields = {
     description: ct('tools_webadmin.experimental_description'),
     // Available in dev mode only
     visible: import.meta.env.DEV,
-    props: { labels: { true: 'enabled', false: 'disabled' } },
+    cProps: { labels: { true: 'enabled', false: 'disabled' } },
   }) as FormField<'CheckboxItem', boolean>,
 }
 const form = ref(pick(settings, getKeys(fields)))

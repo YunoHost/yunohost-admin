@@ -171,7 +171,6 @@ const [DefineTemplate, ReuseTemplate] = createReusableTemplate<{
           {{ asInputGroup ? label : prepend }}
         </BInputGroupText>
         <ReuseTemplate v-bind="{ ariaDescribedby }" />
-        <BInputGroupText v-if="append">{{ append }}</BInputGroupText>
       </BInputGroup>
       <ReuseTemplate v-else v-bind="{ ariaDescribedby }" />
     </template>

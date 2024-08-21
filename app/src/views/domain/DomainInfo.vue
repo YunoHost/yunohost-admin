@@ -219,7 +219,7 @@ async function setAsDefaultDomain() {
     </YCard>
 
     <ConfigPanelsComponent
-      v-model="config.form"
+      v-model="config.form.value"
       :panel="config.panel.value"
       :validations="config.v.value"
       :routes="config.routes"
