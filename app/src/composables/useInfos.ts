@@ -91,7 +91,11 @@ export const useInfos = createGlobalState(() => {
           `Route ${name}, declared in breadcrumd, cannot be found in routes.`,
         )
       }
-      return { name: to.name, params: to.params, args: route.meta.args || {} }
+      return {
+        name: route.name,
+        params: to.params,
+        args: route.meta.args || {},
+      }
     })
 
     updateHtmlTitle()
