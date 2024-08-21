@@ -43,7 +43,7 @@ const useData = createGlobalState(() => {
         }
     } else if (key === 'userDetails' && param) {
       if (method === 'GET' || method === 'PUT') {
-        userDetails.value[param] = payload[param]
+        userDetails.value[param] = payload
       } else if (method === 'DELETE') {
         delete userDetails.value[param]
         delete users.value[param]
@@ -79,6 +79,8 @@ const useData = createGlobalState(() => {
           delete domainDetails.value[param]
         }
       }
+    } else if (key === 'mainDomain' && method === 'PUT' && param) {
+      mainDomain.value = param
     } else if (key === 'domainDetails' && param && method === 'GET') {
       domainDetails.value[param] = payload
     } else {
@@ -239,7 +241,16 @@ export function useCache<T extends any = any>(
       }
       return (isEmptyValue(d) ? undefined : d) as T
     }),
-    update: (payload: T) => data.update(method, payload, key, param),
+    update: (payload: T) => {
+      if (method === 'DELETE') {
+        // Update the cache with a delay to avoid current view to error out since there's no data anymore
+        setTimeout(() => {
+          data.update(method, payload, key, param)
+        }, 100)
+      } else {
+        data.update(method, payload, key, param)
+      }
+    },
   }
 }
 
