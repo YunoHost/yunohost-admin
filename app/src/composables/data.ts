@@ -127,11 +127,15 @@ export function useUsersAndGroups(username?: MaybeRefOrGetter<string>) {
   }
 }
 
-export function useDomains(domain_?: MaybeRefOrGetter<string>) {
+export function useDomains(
+  domain_?: MaybeRefOrGetter<string>,
+  installed: boolean = true,
+) {
   const { mainDomain, domains: domains_, domainDetails } = useData()
 
   const domains = computed(() => {
-    if (!domains_.value) throw new Error(getNoDataMessage('domains'))
+    if (!domains_.value && installed)
+      throw new Error(getNoDataMessage('domains'))
     return domains_.value
   })
 

@@ -4,6 +4,7 @@ import { useI18n } from 'vue-i18n'
 
 import { useDomains } from '@/composables/data'
 import { useForm } from '@/composables/form'
+import { useInfos } from '@/composables/useInfos'
 import {
   domain,
   dynDomain,
@@ -34,8 +35,9 @@ const emit = defineEmits<{
 }>()
 
 const { t } = useI18n()
+const { installed } = useInfos()
 
-const { domains } = useDomains()
+const { domains } = useDomains(undefined, installed.value)
 const dynDomains = ['nohost.me', 'noho.st', 'ynh.fr']
 
 const dynDnsForbiden = computed(() => {
@@ -75,17 +77,21 @@ const fields = {
     },
   }) satisfies FieldProps<'InputItem', Form['domain']>,
 
-  dynDomain: {
+  dynDomain: reactive({
     component: 'AdressItem',
     label: t('domain_name'),
-    rules: { localPart: { required, dynDomain } },
+    rules: computed(() => {
+      return selected.value === 'dynDomain'
+        ? { localPart: { required, dynDomain }, domain: { required } }
+        : undefined
+    }),
     cProps: {
       id: 'dyn-domain',
       placeholder: t('placeholder.domain').split('.')[0],
       type: 'domain',
       choices: dynDomains,
     },
-  } satisfies FieldProps<'AdressItem', Form['dynDomain']>,
+  }) satisfies FieldProps<'AdressItem', Form['dynDomain']>,
 
   dynDomainPassword: reactive({
     component: 'InputItem',
@@ -121,7 +127,7 @@ const fields = {
     label: t('domain_name'),
     rules: computed(() =>
       selected.value === 'localDomain'
-        ? { localPart: { required, dynDomain } }
+        ? { localPart: { required, dynDomain }, domain: { required } }
         : undefined,
     ),
     cProps: {

@@ -123,7 +123,7 @@ export const useInfos = createGlobalState(() => {
     if (!installed.value) {
       router.push({ name: 'post-install' })
     } else {
-      _onLogin()
+      await _onLogin()
     }
   }
 

@@ -133,11 +133,9 @@ async function performPostInstall(force = false) {
       } else if (hasWordsInError(['domain', 'dyndns'])) {
         step.value = 'domain'
         serverError.value = err.message
-      } else if (hasWordsInError(['password', 'user'])) {
+      } else {
         step.value = 'user'
         serverErrors.global = [err.message]
-      } else {
-        throw err
       }
     })
 }
