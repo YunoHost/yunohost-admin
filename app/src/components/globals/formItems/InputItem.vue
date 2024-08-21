@@ -34,6 +34,7 @@ const touch = inject(ValidationTouchSymbol)
 const model = defineModel<string | number | null>({
   set(value) {
     if (props.type === 'number' && typeof value === 'string') {
+      if (value === '') return ''
       return parseInt(value)
     }
     return value
