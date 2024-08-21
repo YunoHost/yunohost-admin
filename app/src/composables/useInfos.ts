@@ -1,18 +1,39 @@
 import { createGlobalState, useLocalStorage } from '@vueuse/core'
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import type {
   RouteLocationNormalized,
   RouteLocationNormalizedLoaded,
-  RouteRecordNormalized,
+  RouteMeta,
+  RouteParamsGeneric,
+  RouteRecordNameGeneric,
 } from 'vue-router'
 import { useRouter } from 'vue-router'
 
 import api from '@/api'
 import { timeout } from '@/helpers/commons'
 import i18n from '@/i18n'
-import type { CustomRoute } from '@/types/commons'
 import { useDomains } from './data'
 import { useRequests, type ReconnectingArgs } from './useRequests'
+
+type BreadcrumbRoutes = {
+  name: RouteRecordNameGeneric
+  params: RouteParamsGeneric
+  args: RouteMeta['args']
+}
+
+function formatRoute({ name, params, args }: BreadcrumbRoutes) {
+  const { trad, param } = args
+  // if a traduction key string has been given and we also need to pass
+  // the route param as a variable.
+  if (trad && param) {
+    return i18n.global.t(trad, { [param]: params[param] })
+  } else if (trad) {
+    return i18n.global.t(trad)
+  } else if (param) {
+    return params[param] as string
+  }
+  return ''
+}
 
 export const useInfos = createGlobalState(() => {
   const router = useRouter()
@@ -22,11 +43,58 @@ export const useInfos = createGlobalState(() => {
   const connected = useLocalStorage('connected', false)
   const yunohost = ref<{ version: string; repo: string } | undefined>()
   const routerKey = ref<string | undefined>()
-  const breadcrumb = ref<CustomRoute[]>([])
+  const breadcrumbRoutes = ref<BreadcrumbRoutes[]>([])
+
+  const breadcrumb = computed(() => {
+    return breadcrumbRoutes.value.map((to) => {
+      console.log(to)
+      return { to: { name: to.name }, text: formatRoute(to) }
+    })
+  })
+
+  const htmlTitle = computed(() => {
+    const bc = breadcrumb.value
+    if (bc.length === 0) {
+      const { name, params, meta } = router.currentRoute.value
+      return formatRoute({ name, params, args: meta.args || {} })
+    }
+    return (bc.length > 2 ? bc.slice(-2) : bc)
+      .map((route) => route.text)
+      .reverse()
+      .join(' / ')
+  })
 
   const { maybeMainDomain } = useDomains()
   const ssoLink = computed(() => {
     return `//${maybeMainDomain.value ?? host.value}/yunohost/sso`
+  })
+
+  watch(router.currentRoute, (to) => {
+    updateRouterKey()
+
+    const routeNames =
+      to.meta.breadcrumb ||
+      to.matched
+        .slice()
+        .reverse()
+        .find((route) => route.meta.breadcrumb)?.meta.breadcrumb
+    if (!routeNames) {
+      breadcrumbRoutes.value = []
+      return
+    }
+
+    const allRoutes = router.getRoutes()
+    breadcrumbRoutes.value = routeNames.map((name) => {
+      const route = allRoutes.find((route) => route.name === name)
+      if (!route) {
+        throw Error(
+          `Route ${name}, declared in breadcrumd, cannot be found in routes.`,
+        )
+      }
+      return { name: to.name, params: to.params, args: route.meta.args || {} }
+    })
+
+    updateHtmlTitle()
   })
 
   // INIT
@@ -123,50 +191,9 @@ export const useInfos = createGlobalState(() => {
     routerKey.value = `${to.name?.toString()}-${params.join('-')}`
   }
 
-  function updateBreadcrumb(to: RouteLocationNormalized) {
-    function getRouteNames(route: RouteLocationNormalized): string[] {
-      if (route.meta.breadcrumb) return route.meta.breadcrumb
-      const parentRoute = route.matched
-        .slice()
-        .reverse()
-        .find((route) => route.meta.breadcrumb)
-      return parentRoute?.meta.breadcrumb || []
-    }
-
-    function formatRoute(
-      route: RouteRecordNormalized | RouteLocationNormalized,
-    ) {
-      const { trad, param } = route.meta.args || {}
-      let text = ''
-      // if a traduction key string has been given and we also need to pass
-      // the route param as a variable.
-      if (trad && param) {
-        text = i18n.global.t(trad, { [param]: to.params[param] })
-      } else if (trad) {
-        text = i18n.global.t(trad)
-      } else if (param) {
-        text = to.params[param] as string
-      }
-      return { to: { name: route.name! }, text }
-    }
-
-    const routeNames = getRouteNames(to)
-    const allRoutes = router.getRoutes()
-    breadcrumb.value = routeNames.map((name) => {
-      const route = allRoutes.find((route) => route.name === name)!
-      return formatRoute(route)
-    })
-
-    function getTitle(breadcrumb: CustomRoute[]) {
-      if (breadcrumb.length === 0) return formatRoute(to).text
-      return (breadcrumb.length > 2 ? breadcrumb.slice(-2) : breadcrumb)
-        .map((route) => route.text)
-        .reverse()
-        .join(' / ')
-    }
-
+  function updateHtmlTitle() {
     // Display a simplified breadcrumb as the document title.
-    document.title = `${getTitle(breadcrumb.value)} | ${i18n.global.t('yunohost_admin')}`
+    document.title = `${htmlTitle.value} | ${i18n.global.t('yunohost_admin')}`
   }
 
   return {
@@ -183,7 +210,6 @@ export const useInfos = createGlobalState(() => {
     login,
     logout,
     tryToReconnect,
-    updateRouterKey,
-    updateBreadcrumb,
+    updateHtmlTitle,
   }
 })

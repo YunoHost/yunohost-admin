@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import { useInfos } from '@/composables/useInfos'
 
-const { breadcrumb } = useInfos()
+const { breadcrumb, updateHtmlTitle } = useInfos()
+
+// Call this here to trigger title update at page load (with translation)
+updateHtmlTitle()
 </script>
 
 <template>
