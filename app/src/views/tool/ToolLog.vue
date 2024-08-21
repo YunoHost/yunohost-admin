@@ -45,7 +45,7 @@ const { description, logs, moreLogsAvailable, info } = await api
     return {
       description: log.description,
       logs,
-      moreLogsAvailable: log.logs.length === props.n || 25,
+      moreLogsAvailable: log.logs.length === props.n,
       info: {
         path: log.log_path,
         started_at: readableDate(started_at),
