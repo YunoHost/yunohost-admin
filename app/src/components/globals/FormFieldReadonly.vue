@@ -19,9 +19,10 @@ defineOptions({
 
 const props = withDefaults(defineProps<FormFieldReadonlyProps<C, MV>>(), {
   id: undefined,
-  modelValue: undefined,
   cols: () => ({ md: 4, lg: 3 }),
 })
+
+const modelValue = defineModel<MV>()
 
 const { t } = useI18n()
 
@@ -32,7 +33,7 @@ const cols = computed<Cols>(() => ({
 }))
 
 const text = computed(() => {
-  return parseValue(props.modelValue)
+  return parseValue(modelValue.value)
 })
 
 function parseValue(value: any) {

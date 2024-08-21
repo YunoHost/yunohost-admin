@@ -9,11 +9,9 @@ const props = withDefaults(
   defineProps<{
     items?: T[] | null
     itemsName: string | null
-    modelValue?: string
   }>(),
   {
     items: undefined,
-    modelValue: undefined,
   },
 )
 

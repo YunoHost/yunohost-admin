@@ -12,23 +12,18 @@ withDefaults(
     labels: () => ({ true: 'yes', false: 'no' }),
 
     ariaDescribedby: undefined,
-    modelValue: undefined,
     state: undefined,
     validation: undefined,
   },
 )
 
-defineEmits<{
-  'update:modelValue': [value: boolean]
-}>()
-
-const model = defineModel<boolean>()
+const modelValue = defineModel<boolean>()
 </script>
 
 <template>
   <BFormCheckbox
     :id="id"
-    v-model="model"
+    v-model="modelValue"
     :name="name"
     :aria-describedby="ariaDescribedby"
     :state="state"

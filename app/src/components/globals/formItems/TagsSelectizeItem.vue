@@ -30,18 +30,17 @@ const props = withDefaults(
     tagIcon: undefined,
 
     ariaDescribedby: undefined,
-    modelValue: undefined,
     state: undefined,
     validation: undefined,
   },
 )
 
 const emit = defineEmits<{
-  'update:modelValue': [value: string[]]
   'tag-update': [value: TagUpdateArgs]
 }>()
 
-const model = defineModel<string[]>()
+const modelValue = defineModel<string[]>()
+
 const searchElem = ref<InstanceType<typeof BDropdown> | null>(null)
 const dropdownElem = ref<InstanceType<typeof BFormInput> | null>(null)
 
@@ -55,7 +54,7 @@ const availableOptions = computed(() => {
   return props.options.filter((opt) => {
     const tag = typeof opt === 'string' ? opt : opt.value
     let filterIn =
-      model.value?.indexOf(tag) === -1 &&
+      modelValue.value?.indexOf(tag) === -1 &&
       !(props.disabledItems?.includes(tag) ?? false)
     if (filterIn && criteria.value) {
       filterIn = tag.toLowerCase().indexOf(criteria.value) > -1
@@ -120,7 +119,7 @@ function onDropdownKeydown(e: KeyboardEvent) {
     <BFormTags
       v-bind="$attrs"
       :id="id"
-      v-model="model"
+      v-model="modelValue"
       :name="name"
       :aria-describedby="ariaDescribedby"
       :state="state"

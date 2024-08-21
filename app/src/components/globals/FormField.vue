@@ -36,7 +36,6 @@ const props = withDefaults(defineProps<FormFieldProps<C, MV>>(), {
   prepend: undefined,
   rules: undefined,
 
-  modelValue: undefined,
   validation: undefined,
 })
 
@@ -51,7 +50,7 @@ const slots = defineSlots<{
   description?: any
 }>()
 
-const model = defineModel<MV>()
+const modelValue = defineModel<MV>()
 
 const attrs = useAttrs()
 const { t } = useI18n()
@@ -137,7 +136,6 @@ const [DefineTemplate, ReuseTemplate] = createReusableTemplate<{
       v-bind="{
         ...(props.cProps ?? ({} as ItemComponentToItemProps[C])),
         ariaDescribedby,
-        modelValue: props.modelValue,
         state,
         validation: validation,
       }"
@@ -146,7 +144,7 @@ const [DefineTemplate, ReuseTemplate] = createReusableTemplate<{
       <Component
         v-bind="props.cProps"
         :is="component"
-        v-model="model"
+        v-model="modelValue"
         :aria-describedby="ariaDescribedby"
         :state="state"
         :validation="validation"

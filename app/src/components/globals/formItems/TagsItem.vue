@@ -15,7 +15,6 @@ const props = withDefaults(
     // options: undefined,
 
     ariaDescribedby: undefined,
-    modelValue: undefined,
     state: undefined,
     validation: undefined,
   },
@@ -23,7 +22,7 @@ const props = withDefaults(
 
 const touch = inject(ValidationTouchSymbol)
 
-const model = defineModel<string[]>()
+const modelValue = defineModel<string[]>()
 
 const required = computed(() => 'required' in (props?.validation ?? {}))
 
@@ -34,7 +33,7 @@ const required = computed(() => 'required' in (props?.validation ?? {}))
 <template>
   <BFormTags
     :id="id"
-    v-model="model"
+    v-model="modelValue"
     :name="name"
     :placeholder="placeholder"
     :limit="limit"

@@ -20,18 +20,12 @@ const props = withDefaults(
     type: 'text',
 
     ariaDescribedby: undefined,
-    modelValue: undefined,
     state: undefined,
     validation: undefined,
   },
 )
-defineEmits<{
-  'update:modelValue': [value: string | number | null]
-}>()
 
-const touch = inject(ValidationTouchSymbol)
-
-const model = defineModel<string | number | null>({
+const modelValue = defineModel<string | number | null>({
   set(value) {
     if (props.type === 'number' && typeof value === 'string') {
       if (value === '') return ''
@@ -40,6 +34,8 @@ const model = defineModel<string | number | null>({
     return value
   },
 })
+
+const touch = inject(ValidationTouchSymbol)
 
 const autocomplete = computed(() => {
   const typeToAutocomplete = {
@@ -64,7 +60,7 @@ const fromValidation = computed(() => {
   <BFormInput
     :id="id"
     v-bind="fromValidation"
-    v-model="model"
+    v-model="modelValue"
     :name="name"
     :placeholder="placeholder"
     :autocomplete="autocomplete"

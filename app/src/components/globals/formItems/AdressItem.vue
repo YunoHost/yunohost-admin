@@ -14,7 +14,6 @@ withDefaults(
     touchKey: undefined,
     type: 'email',
 
-    modelValue: undefined,
     state: undefined,
     validation: undefined,
     ariaDescribedby: undefined,

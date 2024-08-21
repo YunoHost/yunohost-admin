@@ -24,7 +24,7 @@ defineEmits<{
   'update:modelValue': [value: string | null]
 }>()
 
-const model = defineModel<string>()
+const modelValue = defineModel<string>()
 
 const touch = inject(ValidationTouchSymbol)
 
@@ -34,7 +34,7 @@ const required = computed(() => 'required' in (props?.validation ?? {}))
 <template>
   <BFormTextarea
     :id="id"
-    v-model="model"
+    v-model="modelValue"
     :name="name"
     :placeholder="placeholder"
     :aria-describedby="ariaDescribedby"

@@ -44,13 +44,12 @@ const props = withDefaults(
     defaultValue: undefined,
     addBtnText: undefined,
 
-    modelValue: undefined,
     validation: undefined,
   },
 )
 
 const emit = defineEmits<{
-  'update:modelValue': [value: MV]
+  'update:modelValue': [modelValue: MV]
 }>()
 
 const slots = defineSlots<{
@@ -61,6 +60,8 @@ const slots = defineSlots<{
   }) => any
   description?: () => any
 }>()
+
+const modelValue = defineModel<MV>()
 
 const { t } = useI18n()
 
@@ -104,7 +105,7 @@ const error = computed(() => {
 
 const subProps = computed<FormFieldProps<C, ArrInnerType<MV>>[]>(() => {
   return (
-    props.modelValue?.map((modelValue: ArrInnerType<MV>, i) => {
+    modelValue.value?.map((modelValue: ArrInnerType<MV>, i) => {
       return {
         cProps: {
           ...(props.cProps ?? ({} as ItemComponentToItemProps[C])),
@@ -143,22 +144,22 @@ const errorMessage = computed(() => {
 })
 
 function addElement() {
-  const value = [...(props?.modelValue || []), props.defaultValue!()] as MV
+  const value = [...(modelValue.value || []), props.defaultValue!()] as MV
   emit('update:modelValue', value)
 
   // FIXME: Focus newly inserted form item
 }
 
 function removeElement(index: number) {
-  if (!props.modelValue) return
-  const value = [...props.modelValue] as MV
+  if (!modelValue.value) return
+  const value = [...modelValue.value] as MV
   value.splice(index, 1)
   emit('update:modelValue', value)
 }
 
 function updateElement(index: number, newValue: ArrInnerType<MV>) {
-  if (!props.modelValue) return
-  const value = [...props.modelValue] as MV
+  if (!modelValue.value) return
+  const value = [...modelValue.value] as MV
   value.splice(index, 1, newValue)
   emit('update:modelValue', value)
 }

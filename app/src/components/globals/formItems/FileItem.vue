@@ -21,7 +21,6 @@ const props = withDefaults(
     dropPlaceholder: undefined,
 
     ariaDescribedby: undefined,
-    modelValue: () => ({ file: null }),
     state: undefined,
     validation: undefined,
   },
@@ -31,13 +30,17 @@ const emit = defineEmits<{
   'update:modelValue': [value: FileModelValue]
 }>()
 
+const modelValue = defineModel<FileModelValue>({
+  default: () => ({ file: null }),
+})
+
 const touch = inject(ValidationTouchSymbol)
 const inputElem = ref<InstanceType<typeof BFormFile> | null>(null)
 
 const placeholder = computed(() => {
-  return props.modelValue.file === null
+  return modelValue.value.file === null
     ? props.placeholder
-    : props.modelValue.file.name
+    : modelValue.value.file.name
 })
 
 function onInput(file: File | File[] | null) {

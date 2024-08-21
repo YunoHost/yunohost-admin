@@ -55,7 +55,6 @@ type BaseWritableItemProps = {
 
 export type BaseItemComputedProps<MV extends any = any> = {
   ariaDescribedby?: string | string[]
-  modelValue?: MV
   state?: StateValidation
   validation?: BaseValidation
 }
@@ -238,8 +237,7 @@ type FormFieldRules<MV extends any> = MV extends object
     : ValidationArgs<MV | Partial<MV>>
   : ValidationRuleCollection<MV>
 
-type BaseFormFieldComputedProps<MV extends any = any> = {
-  modelValue?: MV
+type BaseFormFieldComputedProps = {
   validation?: BaseValidation
 }
 
@@ -295,14 +293,13 @@ export type FormFieldProps<
   C extends AnyWritableComponents,
   MV extends any,
 > = Omit<FormField<C, MV>, 'hr' | 'visible' | 'readonly'> &
-  BaseFormFieldComputedProps<MV>
+  BaseFormFieldComputedProps
+// BaseFormFieldComputedProps<MV>
 
 export type FormFieldReadonlyProps<
   C extends AnyWritableComponents,
   MV extends any,
-> = Omit<FormFieldReadonly<C>, 'hr' | 'visible' | 'readonly' | 'rules'> & {
-  modelValue?: MV
-}
+> = Omit<FormFieldReadonly<C>, 'hr' | 'visible' | 'readonly' | 'rules'>
 
 export type FormFieldDict<T extends Obj = Obj> = {
   [k in keyof T | string]: k extends keyof T

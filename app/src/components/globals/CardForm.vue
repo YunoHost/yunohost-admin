@@ -19,7 +19,6 @@ import { isDisplayComponent, isWritableComponent } from '@/types/form'
 const props = withDefaults(
   defineProps<{
     id?: string
-    modelValue?: MV
     fields?: FFD
     validations?: FormValidation<MV>
     submitText?: string
@@ -31,7 +30,6 @@ const props = withDefaults(
   }>(),
   {
     id: 'ynh-form',
-    modelValue: undefined,
     fields: undefined,
     validations: undefined,
     submitText: undefined,
@@ -71,6 +69,8 @@ const slots = defineSlots<
   }
 >()
 
+const modelValue = defineModel<MV>()
+
 const { t } = useI18n()
 
 const globalErrorFeedback = computed(() => {
@@ -94,7 +94,7 @@ const sections = computed(() => {
 
 function onModelUpdate(key: keyof MV, value: MV[keyof MV]) {
   emit('update:modelValue', {
-    ...props.modelValue!,
+    ...modelValue.value!,
     [key]: value,
   })
 }
@@ -119,7 +119,7 @@ const Fields = createReusableTemplate<{
           <FormField
             v-if="!field.readonly"
             v-bind="field"
-            :model-value="props.modelValue![k]"
+            :model-value="modelValue![k]"
             :validation="props.validations?.form[k]"
             @update:model-value="onModelUpdate(k, $event)"
           >
@@ -130,7 +130,7 @@ const Fields = createReusableTemplate<{
           <FormFieldReadonly
             v-else
             v-bind="field"
-            :model-value="props.modelValue![k]"
+            :model-value="modelValue![k]"
           />
         </slot>
         <slot
