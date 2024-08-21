@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import router from '@/router'
 import { computed, reactive, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
@@ -6,6 +7,7 @@ import api from '@/api'
 import { APIBadRequestError } from '@/api/errors'
 import { useForm } from '@/composables/form'
 import { useAutoModal } from '@/composables/useAutoModal'
+import { useInfos } from '@/composables/useInfos'
 import {
   alphalownumdot_,
   minLength,
@@ -20,6 +22,11 @@ import { DomainForm } from '@/views/_partials'
 
 const { t } = useI18n()
 const modalConfirm = useAutoModal()
+const { installed } = useInfos()
+
+if (installed.value) {
+  router.push({ name: 'home' })
+}
 
 type Steps = 'start' | 'domain' | 'user' | 'rootfsspace-error' | 'login'
 const step = ref<Steps>('start')
