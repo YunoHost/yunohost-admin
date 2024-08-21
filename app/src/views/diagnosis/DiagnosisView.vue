@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { reactive } from 'vue'
+
 import api from '@/api'
 import { distanceToNow } from '@/helpers/filters/date'
 import { STATUS_VARIANT, isOkStatus } from '@/helpers/yunohostArguments'
@@ -18,25 +20,27 @@ const reports = await api
     if (!diagnosis) return null
 
     return diagnosis.reports.map((report) => {
-      const badges = {
+      const badges = reactive({
         warnings: 0,
         errors: 0,
         ignoreds: 0,
-      }
-
-      const items = report.items.map((item) => {
-        const status = item.status.toLowerCase() as StateStatus
-        const variant = STATUS_VARIANT[status]
-        const issue = !isOkStatus(status)
-
-        if (item.ignored) badges.ignoreds++
-        else if (issue) badges[`${status}s`]++
-
-        return { ...item, status, issue, variant }
       })
+
+      const items = reactive(
+        report.items.map((item) => {
+          const status = item.status.toLowerCase() as StateStatus
+          const variant = STATUS_VARIANT[status]
+          const issue = !isOkStatus(status)
+
+          if (item.ignored) badges.ignoreds++
+          else if (issue) badges[`${status}s`]++
+
+          return { ...item, status, issue, variant }
+        }),
+      )
       return {
         ...report,
-        ...badges,
+        badges,
         items,
         noIssues: badges.warnings + badges.errors === 0,
       }
@@ -49,7 +53,7 @@ function runDiagnosis(report?: { id: string; description: string }) {
   const id = report?.id
   api
     .put({
-      uri: 'diagnosis/run' + id ? '?force' : '',
+      uri: 'diagnosis/run' + (id ? '?force' : ''),
       data: id ? { categories: [id] } : {},
       humanKey: {
         key: 'diagnosis.run' + (id ? '_specific' : ''),
@@ -77,9 +81,9 @@ function toggleIgnoreIssue(
     .then(() => {
       item.ignored = action === 'ignore'
       const count = item.ignored ? 1 : -1
-      report.ignoreds += count
+      report.badges.ignoreds += count
       if (!isOkStatus(item.status)) {
-        report[`${item.status}s`] -= count
+        report.badges[`${item.status}s`] -= count
       }
     })
 }
@@ -133,18 +137,18 @@ function shareLogs() {
             variant="success"
           />
           <BBadge
-            v-if="report.errors"
-            v-t="{ path: 'issues', args: { count: report.errors } }"
+            v-if="report.badges.errors"
+            v-t="{ path: 'issues', args: { count: report.badges.errors } }"
             variant="danger"
           />
           <BBadge
-            v-if="report.warnings"
-            v-t="{ path: 'warnings', args: { count: report.warnings } }"
+            v-if="report.badges.warnings"
+            v-t="{ path: 'warnings', args: { count: report.badges.warnings } }"
             variant="warning"
           />
           <BBadge
-            v-if="report.ignoreds"
-            v-t="{ path: 'ignored', args: { count: report.ignoreds } }"
+            v-if="report.badges.ignoreds"
+            v-t="{ path: 'ignored', args: { count: report.badges.ignoreds } }"
           />
         </div>
       </template>
