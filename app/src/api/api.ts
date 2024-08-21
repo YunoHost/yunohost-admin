@@ -7,7 +7,11 @@ import {
 } from '@/composables/useRequests'
 import { useSettings } from '@/composables/useSettings'
 import type { Obj } from '@/types/commons'
-import { APIUnauthorizedError, type APIError } from './errors'
+import {
+  APIBadRequestError,
+  APIUnauthorizedError,
+  type APIError,
+} from './errors'
 import { getError, getResponseData, openWebSocket } from './handlers'
 
 export type RequestMethod = 'GET' | 'POST' | 'PUT' | 'DELETE'
@@ -143,8 +147,13 @@ export default {
 
     if (!response.ok) {
       const errorData = await getResponseData<string | APIErrorData>(response)
-      endRequest({ request, success: false })
-      throw getError(request, response, errorData)
+      const err = getError(request, response, errorData)
+      endRequest({
+        request,
+        success: false,
+        isFormError: err instanceof APIBadRequestError,
+      })
+      throw err
     }
 
     const responseData = await getResponseData<T>(response)

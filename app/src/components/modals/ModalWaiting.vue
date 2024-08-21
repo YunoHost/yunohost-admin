@@ -26,7 +26,7 @@ const progress = computed(() => {
 <template>
   <ModalOverlay :request="request">
     <h5
-      v-t="messages || progress ? 'api.processing' : 'api.waiting'"
+      v-t="messages || progress ? 'api.processing' : 'api_waiting'"
       class="text-center mt-4"
     />
 

@@ -30,6 +30,7 @@ defineSlots<{
     no-close-on-backdrop
     no-close-on-esc
     :hide-footer="hideFooter"
+    no-fade
   >
     <template #header>
       <QueryHeader type="overlay" :request="request" tabindex="0" />

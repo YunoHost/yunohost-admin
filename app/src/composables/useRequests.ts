@@ -23,6 +23,7 @@ export type APIRequest = {
   err?: APIError
   action?: APIActionProps
   showModal?: boolean
+  showModalTimeout?: number
 }
 type APIActionProps = {
   messages: RequestMessage[]
@@ -107,12 +108,12 @@ export const useRequests = createGlobalState(() => {
     const r = requests.value[requests.value.length - 1]!
 
     if (showModal) {
-      setTimeout(() => {
+      request.showModalTimeout = setTimeout(() => {
         // Display the waiting modal only if the request takes some time.
         if (r.status === 'pending') {
           r.showModal = true
         }
-      }, 300)
+      }, 300) as unknown as number
     }
 
     return r
@@ -121,12 +122,14 @@ export const useRequests = createGlobalState(() => {
   function endRequest({
     request,
     success,
+    isFormError = false,
   }: {
     request: APIRequest
     success: boolean
+    isFormError?: boolean
   }) {
     let status: RequestStatus = success ? 'success' : 'error'
-    let hideModal = success
+    let hideModal = success || isFormError
 
     if (success && request.action) {
       const { warnings, errors, messages } = request.action
@@ -135,6 +138,12 @@ export const useRequests = createGlobalState(() => {
         hideModal = false
       }
       if (errors || warnings) status = 'warning'
+    }
+
+    if (request.showModalTimeout) {
+      // Clear the timeout to avoid delayed modal to show up
+      clearTimeout(request.showModalTimeout)
+      delete request.showModalTimeout
     }
 
     setTimeout(() => {
