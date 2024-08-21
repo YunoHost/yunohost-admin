@@ -39,7 +39,7 @@ const [search, filteredServices] = useSearch(services, (s, service) => {
     items-name="services"
   >
     <BListGroup>
-      <BListGroupItem
+      <YListItem
         v-for="{
           name,
           description,
@@ -48,27 +48,15 @@ const [search, filteredServices] = useSearch(services, (s, service) => {
         } in filteredServices"
         :key="name"
         :to="{ name: 'service-info', params: { name } }"
-        class="d-flex justify-content-between align-items-center pe-0"
+        :label="name"
+        :sublabel="description"
       >
-        <div>
-          <h5>
-            <span class="fw-bold me-1">{{ name }}</span>
-            <small class="text-secondary">{{ description }}</small>
-          </h5>
-          <p class="m-0">
-            <!-- FIXME +`-emphasis`? + rework emphasis color or text colors -->
-            <span
-              :class="`text-${status === 'running' ? 'success' : 'danger'}`"
-            >
-              <YIcon :iname="status === 'running' ? 'check-circle' : 'times'" />
-              {{ $t(status) }}
-            </span>
-            {{ $t('since') }} {{ last_state_change }}
-          </p>
-        </div>
-
-        <YIcon iname="chevron-right" class="lg fs-sm ms-auto" />
-      </BListGroupItem>
+        <span :class="`text-${status === 'running' ? 'success' : 'danger'}`">
+          <YIcon :iname="status === 'running' ? 'check-circle' : 'times'" />
+          {{ $t(status) }}
+        </span>
+        {{ $t('since') }} {{ last_state_change }}
+      </YListItem>
     </BListGroup>
   </ViewSearch>
 </template>

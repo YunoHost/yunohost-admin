@@ -38,26 +38,15 @@ const archives = await api
     </YAlert>
 
     <BListGroup v-else>
-      <BListGroupItem
+      <YListItem
         v-for="{ name, created_at, path, size } in archives"
         :key="name"
         :to="{ name: 'backup-info', params: { name, id } }"
         :title="readableDate(created_at)"
-        class="d-flex justify-content-between align-items-center pe-0"
-      >
-        <div>
-          <h5 class="fw-bold">
-            {{ distanceToNow(created_at) }}
-            <small class="text-secondary"
-              >{{ name }} ({{ humanSize(size) }})</small
-            >
-          </h5>
-          <p class="mb-0">
-            {{ path }}
-          </p>
-        </div>
-        <YIcon iname="chevron-right" class="lg fs-sm ms-auto" />
-      </BListGroupItem>
+        :label="distanceToNow(created_at)"
+        :sublabel="`${name} (${humanSize(size)})`"
+        :description="path"
+      />
     </BListGroup>
   </div>
 </template>

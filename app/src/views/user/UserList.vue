@@ -49,23 +49,14 @@ function downloadExport() {
     </template>
 
     <BListGroup>
-      <BListGroupItem
+      <YListItem
         v-for="user in filteredUsers"
         :key="user.username"
         :to="{ name: 'user-info', params: { name: user.username } }"
-        class="d-flex justify-content-between align-items-center pe-0"
-      >
-        <div>
-          <h5 class="fw-bold">
-            {{ user.username }}
-            <small class="text-secondary">{{ user.fullname }}</small>
-          </h5>
-          <p class="m-0">
-            {{ user.mail }}
-          </p>
-        </div>
-        <YIcon iname="chevron-right" class="lg fs-sm ms-auto" />
-      </BListGroupItem>
+        :label="user.username"
+        :sublabel="user.fullname"
+        :description="user.mail"
+      />
     </BListGroup>
   </ViewSearch>
 </template>

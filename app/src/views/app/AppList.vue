@@ -34,24 +34,14 @@ const [search, filteredApps] = useSearch(apps, (s, app) =>
     </template>
 
     <BListGroup>
-      <BListGroupItem
+      <YListItem
         v-for="{ id, description, label } in filteredApps"
         :key="id"
         :to="{ name: 'app-info', params: { id } }"
-        class="d-flex justify-content-between align-items-center pe-0"
-      >
-        <div>
-          <h5>
-            <strong class="me-1 fw-bold">{{ label }}</strong>
-            <small class="text-secondary">{{ id }}</small>
-          </h5>
-          <p class="m-0">
-            {{ description }}
-          </p>
-        </div>
-
-        <YIcon iname="chevron-right" class="lg fs-sm ms-auto" />
-      </BListGroupItem>
+        :label="label"
+        :sublabel="id"
+        :description="description"
+      />
     </BListGroup>
   </ViewSearch>
 </template>

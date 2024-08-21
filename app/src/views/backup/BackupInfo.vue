@@ -168,9 +168,9 @@ function downloadBackup() {
             class="d-flex justify-content-between align-items-center pe-0"
           >
             <div class="me-2">
-              <h5 class="fw-bold">
-                {{ item.name }}
-                <small v-if="item.size" class="text-secondary">
+              <h5>
+                <span class="fw-bold">{{ item.name }}</span>
+                <small v-if="item.size" class="ms-1 text-secondary">
                   ({{ humanSize(item.size) }})
                 </small>
               </h5>
@@ -189,9 +189,9 @@ function downloadBackup() {
             class="d-flex justify-content-between align-items-center pe-0"
           >
             <div class="me-2">
-              <h5 class="fw-bold">
-                {{ item.name }}
-                <small class="text-secondary">
+              <h5>
+                <span  class="fw-bold">{{ item.name }}</span>
+                <small class="ms-1 text-secondary">
                   {{ appName }} ({{ humanSize(item.size) }})
                 </small>
               </h5>
