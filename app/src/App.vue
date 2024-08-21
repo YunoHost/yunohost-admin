@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
 
 import { useInfos } from '@/composables/useInfos'
 import { useRequests } from '@/composables/useRequests'
@@ -10,7 +10,8 @@ const { ssoLink, connected, yunohost, logout, onAppCreated } = useInfos()
 const { locked } = useRequests()
 const { spinner, dark } = useSettings()
 
-onAppCreated()
+const ready = ref(false)
+onAppCreated().then(() => ready.value = true)
 
 onMounted(() => {
   const copypastaCode = ['ArrowDown', 'ArrowDown', 'ArrowUp', 'ArrowUp']
@@ -106,7 +107,7 @@ onMounted(() => {
     </header>
 
     <!-- MAIN -->
-    <MainLayout />
+    <MainLayout v-if="ready" />
 
     <BModalOrchestrator />
 
