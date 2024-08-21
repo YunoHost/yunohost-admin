@@ -191,7 +191,7 @@ function downloadBackup() {
           >
             <div class="me-2">
               <h5>
-                <span  class="fw-bold">{{ item.name }}</span>
+                <span class="fw-bold">{{ item.name }}</span>
                 <small class="ms-1 text-secondary">
                   {{ appName }} ({{ humanSize(item.size) }})
                 </small>

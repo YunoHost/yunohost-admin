@@ -39,7 +39,10 @@ const visible = ref(!props.collapsed)
 </script>
 
 <template>
-  <BCard :no-body="collapsible ? true : noBody" :class="{ 'border-0': asTab, 'collapsible': collapsible }">
+  <BCard
+    :no-body="collapsible ? true : noBody"
+    :class="{ 'border-0': asTab, collapsible: collapsible }"
+  >
     <template v-if="!asTab" #header>
       <div class="w-100 d-flex align-items-center flex-wrap custom-header">
         <slot name="header">

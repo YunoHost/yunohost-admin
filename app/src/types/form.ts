@@ -53,7 +53,7 @@ type BaseWritableItemProps = {
   disabled?: boolean
 }
 
-export type BaseItemComputedProps<MV extends any = any> = {
+export type BaseItemComputedProps = {
   ariaDescribedby?: string | string[]
   state?: StateValidation
   validation?: BaseValidation
@@ -296,10 +296,10 @@ export type FormFieldProps<
   BaseFormFieldComputedProps
 // BaseFormFieldComputedProps<MV>
 
-export type FormFieldReadonlyProps<
-  C extends AnyWritableComponents,
-  MV extends any,
-> = Omit<FormFieldReadonly<C>, 'hr' | 'visible' | 'readonly' | 'rules'>
+export type FormFieldReadonlyProps<C extends AnyWritableComponents> = Omit<
+  FormFieldReadonly<C>,
+  'hr' | 'visible' | 'readonly' | 'rules'
+>
 
 export type FormFieldDict<T extends Obj = Obj> = {
   [k in keyof T | string]: k extends keyof T

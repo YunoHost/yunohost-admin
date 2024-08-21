@@ -4,7 +4,7 @@ withDefaults(defineProps<{ button: boolean; search: boolean }>(), {
   search: false,
 })
 
-const slots = defineSlots<{
+defineSlots<{
   default: any
 }>()
 </script>

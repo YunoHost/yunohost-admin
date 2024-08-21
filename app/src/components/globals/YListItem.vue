@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const props = withDefaults(
+withDefaults(
   defineProps<{
     label: string
     sublabel?: string
@@ -7,6 +7,7 @@ const props = withDefaults(
   }>(),
   {
     sublabel: undefined,
+    description: undefined,
   },
 )
 

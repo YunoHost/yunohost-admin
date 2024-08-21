@@ -11,7 +11,7 @@ const { locked } = useRequests()
 const { spinner, dark } = useSettings()
 
 const ready = ref(false)
-onAppCreated().then(() => ready.value = true)
+onAppCreated().then(() => (ready.value = true))
 
 onMounted(() => {
   const copypastaCode = ['ArrowDown', 'ArrowDown', 'ArrowUp', 'ArrowUp']
@@ -87,7 +87,12 @@ onMounted(() => {
 
         <BNavbarNav class="ms-auto">
           <li class="nav-item">
-            <BButton :href="ssoLink" variant="primary" size="sm" class="d-block">
+            <BButton
+              :href="ssoLink"
+              variant="primary"
+              size="sm"
+              class="d-block"
+            >
               {{ $t('user_interface_link') }} <YIcon iname="user" />
             </BButton>
           </li>

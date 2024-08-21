@@ -40,7 +40,7 @@ const { user } = useUsersAndGroups(() => props.name)
 // mailbox-quota could be 'No quota' or 'Pas de quota'...
 const mailboxQuota =
   parseInt(user.value['mailbox-quota'].limit) > 0
-    ? sizeToM(user.value['mailbox-quota'].limit) ?? 0
+    ? (sizeToM(user.value['mailbox-quota'].limit) ?? 0)
     : 0
 
 type Form = typeof form.value

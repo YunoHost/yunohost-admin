@@ -21,7 +21,7 @@ type BreadcrumbRoutes = {
   args: RouteMeta['args']
 }
 
-function formatRoute({ name, params, args }: BreadcrumbRoutes) {
+function formatRoute({ params, args }: BreadcrumbRoutes) {
   const { trad, param } = args
   // if a traduction key string has been given and we also need to pass
   // the route param as a variable.
@@ -47,7 +47,6 @@ export const useInfos = createGlobalState(() => {
 
   const breadcrumb = computed(() => {
     return breadcrumbRoutes.value.map((to) => {
-      console.log(to)
       return { to: { name: to.name }, text: formatRoute(to) }
     })
   })
