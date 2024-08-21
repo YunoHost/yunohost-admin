@@ -507,9 +507,9 @@ async function uninstall() {
 
     <BModal
       id="uninstall-modal"
+      centered
       :title="$t('confirm_uninstall', { name: id })"
-      header-bg-variant="warning"
-      header-class="text-black"
+      header-variant="warning"
       :body-class="{ 'd-none': !app.supportsPurge }"
       @ok="uninstall"
     >

@@ -179,15 +179,15 @@ async function performSystemUpgrade() {
     <BModal
       v-if="preUpgrade"
       id="apps-pre-upgrade"
+      centered
       :model-value="true"
       :title="$t('app.upgrade.confirm.title')"
-      header-bg-variant="warning"
-      header-class="text-black"
+      header-variant="warning"
       :ok-title="$t('system_upgrade_btn')"
       ok-variant="success"
       :cancel-title="$t('cancel')"
       @ok="performAppsUpgrade(preUpgrade.apps.map((app) => app.id))"
-      @cancel="preUpgrade = undefined"
+      @hide="preUpgrade = undefined"
     >
       <h3>
         {{ $t('app.upgrade.confirm.apps') }}

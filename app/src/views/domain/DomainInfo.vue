@@ -223,9 +223,9 @@ async function setAsDefaultDomain() {
 
     <BModal
       id="delete-modal"
+      centered
       :title="$t('confirm_delete', { name: props.name })"
-      header-bg-variant="warning"
-      header-class="text-black"
+      header-variant="warning"
       :body-class="{ 'd-none': !isMainDynDomain }"
       @ok="deleteDomain"
     >

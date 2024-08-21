@@ -19,11 +19,11 @@ export function useAutoModal() {
       centered: true,
       okOnly: !cancelable,
       ...(markdown
-        ? { headerBgVariant: 'warning', headerClass: 'text-black' }
+        ? { headerVariant: 'warning' }
         : {
             hideHeader: true,
-            bodyBgVariant: 'warning',
-            bodyClass: ['fw-bold', 'rounded-top', 'text-black'],
+            bodyVariant: 'warning',
+            bodyClass: ['fw-bold', 'rounded-top'],
           }),
       ...props_,
     }

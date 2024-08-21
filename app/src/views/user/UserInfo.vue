@@ -114,9 +114,9 @@ function deleteUser() {
     <BModal
       v-if="user"
       id="delete-modal"
+      centered
       :title="$t('confirm_delete', { name })"
-      header-bg-variant="warning"
-      header-class="text-black"
+      header-variant="warning"
       @ok="deleteUser"
     >
       <BFormGroup>
