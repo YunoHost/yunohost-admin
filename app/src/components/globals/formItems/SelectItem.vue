@@ -23,7 +23,21 @@ defineEmits<{
   'update:modelValue': [value: string | null]
 }>()
 
-const model = defineModel<string | number | null>()
+const model = defineModel<string | number | null>({
+  set: (value) => {
+    if (value === 'null') {
+      return null
+    }
+    return value
+  },
+})
+
+const isOptionalSelectOption = computed(() => {
+  // FIXME `None` handling for config panels is a bit weird
+  return props.choices?.some(
+    (choice) => typeof choice !== 'string' && choice.value === '_none',
+  )
+})
 
 const touch = inject(ValidationTouchSymbol)
 
@@ -41,7 +55,7 @@ const required = computed(() => 'required' in (props?.validation ?? {}))
     :required="required"
     @blur="touch?.(touchKey)"
   >
-    <template #first>
+    <template v-if="!isOptionalSelectOption" #first>
       <BFormSelectOption value="null" :disabled="required">
         -- {{ required ? $t('select_an_option') : $t('words.none') }} --
       </BFormSelectOption>
