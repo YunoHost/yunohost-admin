@@ -120,18 +120,13 @@ function addEvaluationGetter(prop, obj, expr, ctx, nested) {
  * @return {Object} an formated argument containing formItem props, validation and base value.
  */
 export function formatYunoHostArgument(arg) {
-  let value =
-    arg.value !== undefined
-      ? arg.value
-      : arg.current_value !== undefined
-        ? arg.current_value
-        : null
+  let value = arg.value !== undefined ? arg.value : null
   const validation = {}
   const error = { message: null }
   arg.ask = formatI18nField(arg.ask)
   const field = {
     is: arg.readonly ? 'ReadOnlyField' : 'FormField',
-    visible: [undefined, true, '"true"'].includes(arg.visible),
+    visible: arg.visible,
     props: {
       label: arg.ask,
       component: undefined,
@@ -168,11 +163,11 @@ export function formatYunoHostArgument(arg) {
       name: 'InputItem',
       props: defaultProps.concat(['type', 'min', 'max', 'step']),
       callback: function () {
-        if (!isNaN(parseInt(arg.min))) {
-          validation.minValue = validators.minValue(parseInt(arg.min))
+        if (arg.min !== undefined) {
+          validation.minValue = validators.minValue(arg.min)
         }
-        if (!isNaN(parseInt(arg.max))) {
-          validation.maxValue = validators.maxValue(parseInt(arg.max))
+        if (arg.max !== undefined) {
+          validation.maxValue = validators.maxValue(arg.max)
         }
         validation.numValue = validators.integer
       },
@@ -278,10 +273,9 @@ export function formatYunoHostArgument(arg) {
 
   // Default type management if no one is filled
   if (arg.type !== 'tags' && arg.choices && arg.choices.length) {
-    arg.type = 'select'
-  }
-  if (arg.type === undefined) {
-    arg.type = 'string'
+      arg.type = 'select'
+  } else if (arg.type === undefined) {
+      arg.type = 'string'
   }
 
   // Search the component bind to the type
@@ -328,9 +322,6 @@ export function formatYunoHostArgument(arg) {
   }
 
   // Default value if still `null`
-  if (value === null && arg.current_value) {
-    value = arg.current_value
-  }
   if (value === null && arg.default) {
     value = arg.default
   }
@@ -433,12 +424,12 @@ export function formatYunoHostConfigPanels(data) {
       const section = {
         id: _section.id,
         isActionSection: _section.is_action_section,
-        visible: [undefined, true, '"true"'].includes(_section.visible),
+        visible: _section.visible,
       }
       if (_section.help) section.help = formatI18nField(_section.help)
       if (_section.name) section.name = formatI18nField(_section.name)
-      if (_section.visible && ![false, '"false"'].includes(_section.visible)) {
-        addEvaluationGetter('visible', section, _section.visible, result.forms)
+      if (typeof _section.visible === 'string') {
+        addEvaluationGetter('visible', section, section.visible, result.forms)
       }
 
       const { form, fields, validations, errors } = formatYunoHostArguments(

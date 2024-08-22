@@ -28,8 +28,8 @@
       </div>
     </template>
 
-    <template v-if="status === 'success'">
-      <BAlert variant="success" v-t="'api.reconnecting.success'" />
+    <template v-if="status === 'expired'">
+      <BAlert variant="success" v-t="'api.reconnecting.session_expired'" />
 
       <LoginView force-reload />
     </template>
@@ -66,10 +66,14 @@ export default {
       api
         .tryToReconnect({ ...this.reconnecting, initialDelay })
         .then(() => {
-          this.status = 'success'
+          this.$store.commit('SET_RECONNECTING', null)
         })
-        .catch(() => {
-          this.status = 'failed'
+        .catch((err) => {
+          if (err.name === 'APIUnauthorizedError') {
+            this.status = 'expired'
+          } else {
+            this.status = 'failed'
+          }
         })
     },
   },
