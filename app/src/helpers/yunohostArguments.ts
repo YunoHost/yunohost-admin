@@ -182,7 +182,7 @@ export function formatForm<
   R extends { [k in keyof T]: Awaited<FormValueReturnType<T[k]>> },
 >(
   form: MaybeRef<T>,
-  { removeEmpty = false },
+  { removeEmpty }: { removeEmpty: boolean },
 ): Promise<
   Partial<{
     // TODO: using `Partial` for now since i'm not sure we can infer empty `'' | [] | {}`
@@ -194,7 +194,7 @@ export function formatForm<
   R extends { [k in keyof T]: Awaited<FormValueReturnType<T[k]>> },
 >(
   form: MaybeRef<T>,
-  { removeNullish = false },
+  { removeNullish }: { removeNullish: boolean },
 ): Promise<{
   [k in keyof R as R[k] extends undefined | null ? never : k]: R[k]
 }>

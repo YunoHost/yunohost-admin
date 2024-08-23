@@ -5,7 +5,7 @@ import { ValidationTouchSymbol } from '@/composables/form'
 import type { BaseItemComputedProps, TagsItemProps } from '@/types/form'
 
 const props = withDefaults(
-  defineProps<TagsItemProps & BaseItemComputedProps<string[]>>(),
+  defineProps<TagsItemProps & BaseItemComputedProps>(),
   {
     id: undefined,
     name: undefined,

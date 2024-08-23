@@ -10,7 +10,8 @@
     "lint:js": "eslint --ext \".ts,.vue,.cjs,.js\" --ignore-path ../.gitignore .",
     "lint:prettier": "prettier --check .",
     "lint": "yarn lint:js && yarn lint:prettier",
-    "lintfix": "prettier --write --list-different . && yarn lint:js --fix"
+    "lintfix": "prettier --write --list-different . && yarn lint:js --fix",
+    "type-check": "vue-tsc --noEmit -p tsconfig.json"
   },
   "dependencies": {
     "@fontsource/fira-code": "^5.0.18",

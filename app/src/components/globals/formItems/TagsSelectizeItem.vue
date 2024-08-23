@@ -16,7 +16,7 @@ defineOptions({
 })
 
 const props = withDefaults(
-  defineProps<TagsSelectizeItemProps & BaseItemComputedProps<string[]>>(),
+  defineProps<TagsSelectizeItemProps & BaseItemComputedProps>(),
   {
     id: undefined,
     name: undefined,

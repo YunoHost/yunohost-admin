@@ -7,7 +7,7 @@ import type { BaseItemComputedProps, InputItemProps } from '@/types/form'
 import { objectGet } from '@/helpers/commons'
 
 const props = withDefaults(
-  defineProps<InputItemProps & BaseItemComputedProps<string | number | null>>(),
+  defineProps<InputItemProps & BaseItemComputedProps>(),
   {
     id: undefined,
     name: undefined,

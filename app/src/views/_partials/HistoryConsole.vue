@@ -85,7 +85,7 @@ function onHistoryBarClick(e: MouseEvent) {
   }
 
   // Delay the mouse move listener to distinguish a click from a drag.
-  const listenToMouseMove = setTimeout(() => {
+  const listenToMouseMove = window.setTimeout(() => {
     hElem.style.height = hElem.offsetHeight + 'px'
     hElem.classList.add('no-max')
     window.addEventListener('mousemove', onMouseMove)

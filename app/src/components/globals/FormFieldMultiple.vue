@@ -54,8 +54,7 @@ const emit = defineEmits<{
 
 const slots = defineSlots<{
   default?: (_: {
-    componentProps: FormField<C, ArrInnerType<MV>>['cProps'] &
-      BaseItemComputedProps<ArrInnerType<MV>>
+    componentProps: ItemComponentToItemProps[C] & BaseItemComputedProps
     index: number
   }) => any
   description?: () => any
@@ -168,12 +167,14 @@ function updateElement(index: number, newValue: ArrInnerType<MV>) {
 <template>
   <BFormGroup v-bind="computedAttrs" :id="id" :label="label" :state="state">
     <div v-for="(fieldProps, index) in subProps" :key="index" class="item">
+      <!-- @vue-expect-error -->
       <FormField
         v-bind="fieldProps"
         class="w-100 mb-3"
-        @update:model-value="updateElement(index, $event)"
+        @update:model-value="updateElement(index, $event as ArrInnerType<MV>)"
       >
         <template v-if="slots.default" #default="componentProps">
+          <!-- @vue-expect-error -->
           <slot v-bind="{ componentProps, index }" />
         </template>
       </FormField>

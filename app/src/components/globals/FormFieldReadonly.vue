@@ -17,7 +17,7 @@ defineOptions({
   inheritAttrs: false,
 })
 
-const props = withDefaults(defineProps<FormFieldReadonlyProps<C, MV>>(), {
+const props = withDefaults(defineProps<FormFieldReadonlyProps<C>>(), {
   id: undefined,
   cols: () => ({ md: 4, lg: 3 }),
 })

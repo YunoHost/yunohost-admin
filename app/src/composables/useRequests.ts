@@ -108,7 +108,7 @@ export const useRequests = createGlobalState(() => {
     const r = requests.value[requests.value.length - 1]!
 
     if (showModal) {
-      request.showModalTimeout = setTimeout(() => {
+      request.showModalTimeout = window.setTimeout(() => {
         // Display the waiting modal only if the request takes some time.
         if (r.status === 'pending') {
           r.showModal = true

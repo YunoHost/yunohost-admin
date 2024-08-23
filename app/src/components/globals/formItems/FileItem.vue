@@ -11,7 +11,7 @@ import type {
 } from '@/types/form'
 
 const props = withDefaults(
-  defineProps<FileItemProps & BaseItemComputedProps<FileModelValue>>(),
+  defineProps<FileItemProps & BaseItemComputedProps>(),
   {
     id: undefined,
     name: undefined,

@@ -224,7 +224,7 @@ async function dismissNotification(name: string) {
       humanKey: { key: 'apps.dismiss_notification', name: app.label },
     })
     // FIXME no need to refetch i guess, filter the reactive notifs?
-    .then(() => api.refetch)
+    .then(() => api.refetch())
 }
 
 async function uninstall() {

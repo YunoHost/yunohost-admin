@@ -12,7 +12,6 @@ import { omit } from '@/helpers/commons'
 import type {
   AnyWritableComponents,
   BaseItemComputedProps,
-  FormField,
   FormFieldProps,
   ItemComponentToItemProps,
 } from '@/types/form'
@@ -45,7 +44,7 @@ defineEmits<{
 
 const slots = defineSlots<{
   default?: (
-    componentProps: FormField<C, MV>['cProps'] & BaseItemComputedProps<MV>,
+    componentProps: ItemComponentToItemProps[C] & BaseItemComputedProps,
   ) => any
   description?: any
 }>()
@@ -137,13 +136,13 @@ const [DefineTemplate, ReuseTemplate] = createReusableTemplate<{
         ...(props.cProps ?? ({} as ItemComponentToItemProps[C])),
         ariaDescribedby,
         state,
-        validation: validation,
+        validation,
       }"
     >
       <!-- if no component was passed as slot, render a component from the props -->
       <Component
         v-bind="props.cProps"
-        :is="component"
+        :is="props.component"
         v-model="modelValue"
         :aria-describedby="ariaDescribedby"
         :state="state"

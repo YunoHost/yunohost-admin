@@ -357,7 +357,7 @@ function useEvaluation(expression: string, form: MaybeRefOrGetter<Obj>) {
         ctx[key] = ctx[key].content
       }
       if (isAdressModelValue(ctx[key])) {
-        ctx[key] = ctx[key].value().join('')
+        ctx[key] = Object.values(ctx[key]).join('')
       }
     }
 

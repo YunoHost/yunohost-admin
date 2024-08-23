@@ -5,20 +5,17 @@ import type {
   BaseItemComputedProps,
 } from '@/types/form'
 
-withDefaults(
-  defineProps<AdressItemProps & BaseItemComputedProps<AdressModelValue>>(),
-  {
-    id: undefined,
-    name: undefined,
-    placeholder: undefined,
-    touchKey: undefined,
-    type: 'email',
+withDefaults(defineProps<AdressItemProps & BaseItemComputedProps>(), {
+  id: undefined,
+  name: undefined,
+  placeholder: undefined,
+  touchKey: undefined,
+  type: 'email',
 
-    state: undefined,
-    validation: undefined,
-    ariaDescribedby: undefined,
-  },
-)
+  state: undefined,
+  validation: undefined,
+  ariaDescribedby: undefined,
+})
 
 const emit = defineEmits<{
   'update:modelValue': [value: AdressModelValue]

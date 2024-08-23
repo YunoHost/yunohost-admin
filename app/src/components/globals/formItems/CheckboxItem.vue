@@ -1,21 +1,18 @@
 <script setup lang="ts">
 import type { CheckboxItemProps, BaseItemComputedProps } from '@/types/form'
 
-withDefaults(
-  defineProps<CheckboxItemProps & BaseItemComputedProps<boolean>>(),
-  {
-    id: undefined,
-    name: undefined,
-    placeholder: undefined,
-    touchKey: undefined,
-    label: undefined,
-    labels: () => ({ true: 'yes', false: 'no' }),
+withDefaults(defineProps<CheckboxItemProps & BaseItemComputedProps>(), {
+  id: undefined,
+  name: undefined,
+  placeholder: undefined,
+  touchKey: undefined,
+  label: undefined,
+  labels: () => ({ true: 'yes', false: 'no' }),
 
-    ariaDescribedby: undefined,
-    state: undefined,
-    validation: undefined,
-  },
-)
+  ariaDescribedby: undefined,
+  state: undefined,
+  validation: undefined,
+})
 
 const modelValue = defineModel<boolean>()
 </script>

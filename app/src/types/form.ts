@@ -294,7 +294,6 @@ export type FormFieldProps<
   MV extends any,
 > = Omit<FormField<C, MV>, 'hr' | 'visible' | 'readonly'> &
   BaseFormFieldComputedProps
-// BaseFormFieldComputedProps<MV>
 
 export type FormFieldReadonlyProps<C extends AnyWritableComponents> = Omit<
   FormFieldReadonly<C>,

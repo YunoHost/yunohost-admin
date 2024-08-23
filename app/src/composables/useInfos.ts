@@ -214,5 +214,6 @@ export const useInfos = createGlobalState(() => {
     logout,
     tryToReconnect,
     updateHtmlTitle,
+    updateRouterKey,
   }
 })

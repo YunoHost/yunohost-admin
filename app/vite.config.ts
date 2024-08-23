@@ -3,7 +3,7 @@ import { defineConfig, loadEnv } from 'vite'
 import fs from 'fs'
 import createVuePlugin from '@vitejs/plugin-vue'
 import Components from 'unplugin-vue-components/vite'
-import { BootstrapVueNextResolver } from 'unplugin-vue-components/resolvers'
+import { BootstrapVueNextResolver } from 'bootstrap-vue-next'
 
 import supportedLocales from './src/i18n/supportedLocales'
 
@@ -13,7 +13,7 @@ const supportedDatefnsLocales = Object.entries(supportedLocales).map(
   },
 )
 
-export default defineConfig(({ command, mode }) => {
+export default defineConfig(({ mode }) => {
   // Load env file based on `mode` in the current working directory.
   // Set the third parameter to '' to load all env regardless of the `VITE_` prefix.
   const env = loadEnv(mode, process.cwd())
@@ -57,7 +57,7 @@ export default defineConfig(({ command, mode }) => {
     build: {
       rollupOptions: {
         output: {
-          manualChunks: (id) => {
+          manualChunks: (id: string) => {
             // Circular import problems, this will merge core deps and api together
             if (!id.includes('node_modules') && id.includes('api/')) {
               return 'core'
@@ -65,7 +65,7 @@ export default defineConfig(({ command, mode }) => {
             // Translations
             if (id.includes('locales')) {
               const match = /.*\/i18n\/locales\/([\w-]+)\.json/.exec(id)
-              return `locales/${match[1]}/translations`
+              return `locales/${match![1]}/translations`
             }
             // Split date-fns locales
             if (id.includes('date-fns')) {
@@ -93,33 +93,33 @@ export default defineConfig(({ command, mode }) => {
       ...config,
       base: '/yunohost/admin',
     }
-  } else if (mode === 'development') {
-    return {
-      ...config,
-      server: {
-        port: 8080,
-        host: env.VITE_IP,
-        https: {
-          // Use already created cert from yunohost instance
-          key: fs.readFileSync('/etc/yunohost/certs/yunohost.org/key.pem'),
-          cert: fs.readFileSync('/etc/yunohost/certs/yunohost.org/crt.pem'),
-        },
-        fs: {
-          // Needed for special ynh-dev context where node_modules is symlinked
-          allow: [
-            '/ynh-dev/yunohost-admin/app',
-            '/var/cache/ynh-dev/yunohost-admin/node_modules',
-          ],
-        },
-        proxy: {
-          '/yunohost': {
-            target: `https://${env.VITE_IP}`,
-            ws: true,
-            logLevel: 'info',
-            secure: false,
-          },
+  }
+  // mode dev
+  return {
+    ...config,
+    server: {
+      port: 8080,
+      host: env.VITE_IP,
+      https: {
+        // Use already created cert from yunohost instance
+        key: fs.readFileSync('/etc/yunohost/certs/yunohost.org/key.pem'),
+        cert: fs.readFileSync('/etc/yunohost/certs/yunohost.org/crt.pem'),
+      },
+      fs: {
+        // Needed for special ynh-dev context where node_modules is symlinked
+        allow: [
+          '/ynh-dev/yunohost-admin/app',
+          '/var/cache/ynh-dev/yunohost-admin/node_modules',
+        ],
+      },
+      proxy: {
+        '/yunohost': {
+          target: `https://${env.VITE_IP}`,
+          ws: true,
+          logLevel: 'info',
+          secure: false,
         },
       },
-    }
+    },
   }
 })

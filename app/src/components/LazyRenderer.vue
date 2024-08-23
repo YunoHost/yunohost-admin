@@ -46,7 +46,7 @@ onMounted(() => {
       if (intersecting) {
         clearTimeout(unrenderTimer)
         // Show the component after a delay (to avoid rendering while scrolling fast)
-        renderTimer = setTimeout(
+        renderTimer = window.setTimeout(
           () => {
             render.value = true
           },
@@ -60,7 +60,7 @@ onMounted(() => {
       } else if (props.unrender) {
         clearTimeout(renderTimer)
         // Hide the component after a delay if it's no longer in the viewport
-        unrenderTimer = setTimeout(() => {
+        unrenderTimer = window.setTimeout(() => {
           fixedMinHeight.value = rootElem.value!.clientHeight
           render.value = false
         }, props.unrenderDelay)

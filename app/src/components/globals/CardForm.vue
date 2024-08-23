@@ -61,7 +61,7 @@ const slots = defineSlots<
   } & {
     [K in KeyOfStr<FFD> as `component:${K}`]?: (
       _: FFD[K]['component'] extends AnyWritableComponents
-        ? FFD[K]['cProps'] & BaseItemComputedProps<MV[K]>
+        ? FFD[K]['cProps'] & BaseItemComputedProps
         : FFD[K]['component'] extends AnyDisplayComponents
           ? FFD[K]['cProps']
           : never,
@@ -105,12 +105,16 @@ const Fields = createReusableTemplate<{
     string
   >][]
 }>()
+
+// presence of <!-- @vue-expect-error --> are for `yarn type-check`,
+// don't know why custom component slots name doesn't pass
 </script>
 
 <template>
   <Fields.define v-slot="{ fieldsProps }">
     <template v-for="[k, field] in fieldsProps" :key="k">
       <template v-if="toValue(field.visible) ?? true">
+        <!-- @vue-expect-error -->
         <slot
           v-if="isWritableComponent<MV[typeof k]>(field)"
           :name="`field:${k}`"
@@ -123,7 +127,9 @@ const Fields = createReusableTemplate<{
             :validation="props.validations?.form[k]"
             @update:model-value="onModelUpdate(k, $event)"
           >
+            <!-- @vue-expect-error -->
             <template v-if="slots[`component:${k}`]" #default="childProps">
+              <!-- @vue-expect-error -->
               <slot :name="`component:${k}`" v-bind="childProps" />
             </template>
           </FormField>
@@ -133,6 +139,7 @@ const Fields = createReusableTemplate<{
             :model-value="modelValue![k]"
           />
         </slot>
+        <!-- @vue-expect-error -->
         <slot
           v-else-if="isDisplayComponent(field)"
           :name="`component:${k}`"
