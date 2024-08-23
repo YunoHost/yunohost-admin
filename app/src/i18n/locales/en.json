@@ -329,6 +329,9 @@
         "help": "Need help?"
     },
     "footer_version": "Powered by <a href='https://yunohost.org'>YunoHost</a> {version} ({repo}).",
+    "form": {
+        "select_one": "Please select an option"
+    },
     "form_errors": {
         "alpha": "Value must be alphabetical characters only.",
         "alphalownumdot_": "Value must be lower-case alphanumeric, dots and underscore characters only.",
@@ -341,6 +344,7 @@
         "invalid_form": "The form contains some errors.",
         "maxValue": "Value must be a number equal or lesser than {max}.",
         "minValue": "Value must be a number equal or greater than {min}.",
+        "numValue": "Value must be a number",
         "name": "Names may not includes special characters except <code> ,.'-</code>",
         "notInUsers": "The user '{value}' already exists.",
         "number": "Value must be a number.",
@@ -505,6 +509,7 @@
     "label_for_manifestname_help": "This is the name displayed in the user portal. This can be changed later.",
     "last_ran": "Last time ran:",
     "license": "License",
+    "loading": "Loading",
     "local_archives": "Local archives",
     "login": "Login",
     "logout": "Logout",
@@ -590,6 +595,7 @@
     "protocol": "Protocol",
     "purge_user_data_checkbox": "Purge {name}'s data? (This will remove the content of its home and mail directories.)",
     "purge_user_data_warning": "Purging user's data is not reversible. Be sure you know what you're doing!",
+    "quick_add": "Quick add",
     "readme": "Readme",
     "rerun_diagnosis": "Rerun diagnosis",
     "restart": "Restart",
