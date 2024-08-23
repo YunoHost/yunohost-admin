@@ -53,8 +53,8 @@
     },
     "add": "Engadir",
     "action": "Acción",
-    "confirm_firewall_disallow": "Tes a certeza de querer pechar o porto {port} (protocolo: {protocol}, conexión: {connection})",
-    "confirm_firewall_allow": "Tes a certeza de querer abrir o porto {port} (protocolo: {protocol}, conexión: {connection})",
+    "confirm_firewall_disallow": "Tes a certeza de querer pechar o porto {port}? (protocolo: {protocol}, conexión: {connection})",
+    "confirm_firewall_allow": "Tes a certeza de querer abrir o porto {port}? (protocolo: {protocol}, conexión: {connection})",
     "confirm_delete": "Tes a certeza de querer eliminar {name}?",
     "confirm_change_maindomain": "Tes a certeza de querer cambiar o dominio principal?",
     "confirm_app_default": "Tes a certeza de querer establecer esta como a app por defecto?",
@@ -529,7 +529,7 @@
             "push": "Enviar rexistros DNS á rexistradora",
             "push_force": "Sobrescribir rexistros existentes",
             "push_force_warning": "Semella que algúns rexistros DNS que YunoHost querería configurar xa están establecidos na configuración. Podes usar a sobrescritura se sabes o que estás a facer.",
-            "push_force_confirm": "Tes a certeza de que queres forzar a sobrescritura cos rexistros suxeridos? Ten en conta que poderías sobrescribir rexistros por defecto ou manuais establecidos na rexistradora.",
+            "push_force_confirm": "Tes a certeza de querer forzar a sobrescritura dos rexistros suxeridos? Ten en conta que poderías sobrescribir rexistros por defecto ou manuais establecidos na rexistradora.",
             "methods": {
                 "auto": "Automático",
                 "handled_in_parent": "Xestionado polo dominio nai",
@@ -550,7 +550,7 @@
             "apps_on_domain": "Apps instaladas no dominio",
             "certificate_authority": "Autoridade certificadora SSL",
             "registrar": "Rexistradora",
-            "dyn_dns_remove_and_unsubscribe": "Tamén cancelar o rexistro do dominio no servizo dyndns de YunoHost"
+            "dyn_dns_remove_and_unsubscribe": "Tamén cancelar o rexistro do dominio no servizo DynDNS de YunoHost"
         },
         "see_parent_domain": "Ver dominio nai",
         "types": {
