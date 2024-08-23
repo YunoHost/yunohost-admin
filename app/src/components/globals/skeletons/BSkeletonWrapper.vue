@@ -12,7 +12,6 @@ defineSlots<{
 <template>
   <div class="y-skeleton-wrapper">
     <div class="visually-hidden">
-      <!-- FIXME add `loading` translation -->
       {{ $t('loading') }}
     </div>
 

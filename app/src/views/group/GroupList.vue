@@ -143,7 +143,6 @@ async function deleteGroup(name: string) {
       humanKey: { key: 'groups.delete', name },
     })
     .then(() => {
-      // FIXME primaryGroups as ref to override it ?
       primaryGroups.value = primaryGroups.value.filter(
         (group) => group.name !== name,
       )

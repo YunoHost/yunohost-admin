@@ -86,7 +86,6 @@ const CheckboxList = createReusableTemplate<{
         :key="partName"
         class="d-flex justify-content-between align-items-center pe-0"
       >
-        <!-- FIXME use FormField or BFormGroup to get labels? -->
         <div class="me-2">
           <h5 v-if="'id' in item">
             <span class="fw-bold me-1">{{ item.name }}</span>

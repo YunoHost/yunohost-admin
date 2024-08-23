@@ -26,7 +26,6 @@ const menu = [
 ]
 </script>
 
-<!-- FIXME make a component shared with HomeView.vue ? -->
 <template>
   <BListGroup class="menu-list">
     <BListGroupItem

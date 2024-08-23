@@ -33,7 +33,6 @@ const [search, filteredTree] = useSearch(domainsTree, (s, node) =>
       :toggle-text="$t('domain.toggle_subdomains')"
       class="mb-5"
     >
-      <!-- FIXME slot typing not appearing? -->
       <template #default="{ data, parent }">
         <div class="w-100 d-flex justify-content-between align-items-center">
           <h5 class="me-3">

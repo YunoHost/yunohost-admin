@@ -27,7 +27,6 @@ type BaseDisplayItemProps = {
 }
 
 export type ButtonItemProps = BaseDisplayItemProps & {
-  // FIXME compute enabled JSExpression
   id: string
   enabled?: boolean | ComputedRef<boolean>
   icon?: string

@@ -106,7 +106,6 @@ const modalComponent = computed(() => {
       class="ms-auto"
     >
       <template #button-content>
-        <!-- FIXME i18n `quick_add` -->
         <YIcon iname="plus" /> {{ t('quick_add') }}
       </template>
       <template v-for="(item, i) in quickAddItems" :key="i">

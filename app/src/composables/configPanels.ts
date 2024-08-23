@@ -234,7 +234,6 @@ export function formatOptions<MV extends Obj>(
   fields: FormFieldDict<MV>
   form: Ref<MV>
 } {
-  // FIXME handle optional for app install ? or is already handled in core bookworm?
   const form = ref(
     Object.fromEntries(
       options
@@ -332,7 +331,6 @@ function useExpression(
     // FIXME normalize expression in core? ('', 'false', 'true') and rm next 2 lines
     if (!expression || expression === 'true') return true
     if (expression === 'false') return false
-    // FIXME remove asUnreffed and manage ref type?
     return useEvaluation(expression, form)
   }
   return true

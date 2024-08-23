@@ -20,7 +20,6 @@ const request = reactive<{
   subStatus?: 'expired' | 'failed'
 }>({
   status: 'pending',
-  // FIXME translate
   humanRoute: 'reconnecting',
 })
 

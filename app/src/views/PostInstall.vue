@@ -42,7 +42,6 @@ const form = ref({
   confirmation: '',
 })
 const fields = {
-  // FIXME satisfies FormFieldDict but not for CardForm?
   alert: {
     component: 'ReadOnlyAlertItem',
     cProps: { label: t('postinstall.user.first_user_help'), type: 'info' },
@@ -119,7 +118,6 @@ async function performPostInstall(force = false) {
     { removeEmpty: true },
   )
 
-  // FIXME does the api will throw an error for bad passwords ?
   api
     .post({
       uri: 'postinstall' + (force ? '?force_diskspace' : ''),
