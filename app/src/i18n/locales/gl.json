@@ -185,7 +185,7 @@
     "domain_name": "Nome de dominio",
     "domain_dns_longdesc": "Ver configuración DNS",
     "domain_dns_config": "Configuración DNS",
-    "domain_delete_forbidden_desc": "Non podes eliminar '{domain}' porque é o dominio por defecto, tes que elexir outro dominio (ou <a href='#/domains/add'>engadir un novo</a>) e configuralo como dominio por defecto antes de poder eliminar este.",
+    "domain_delete_forbidden_desc": "Non podes eliminar '{domain}' porque é o dominio por defecto, tes que elixir outro dominio (ou <a href='#/domains/add'>engadir un novo</a>) e configuralo como dominio por defecto antes de poder eliminar este.",
     "items": {
         "groups": "sen grupos | grupo | {c} grupos",
         "domains": "sen dominios | dominio | {c} dominios",
@@ -323,8 +323,8 @@
     "set_default": "Establecer por defecto",
     "services": "Servizos",
     "service_start_on_boot": "Executar no inicio",
-    "select_none": "Elexir ningún",
-    "select_all": "Elexir todo",
+    "select_none": "Seleccionar ningún",
+    "select_all": "Seleccionar todo",
     "search": {
         "not_found": "Hai {items} que cumpren o criterio. | Hai 1 {items} que cumpre o teu criterio. | Hai {items} que cumpren o teu criterio.",
         "for": "Buscar {items}…"
@@ -558,7 +558,7 @@
         },
         "toggle_subdomains": "Activar subdominios",
         "explain": {
-            "main_domain": "O dominio principal é o dominio onde está o portal de acceso para as usuarias (vía \"{domain}/yunohost/sso\"). <br>Por tanto, non é posible eliminalo.<br>Se queres eliminar \"{domain}\", primeiro tes que elexir ou engadir outro dominio e establecelo como dominio principal."
+            "main_domain": "O dominio principal é o dominio onde está o portal de acceso para as usuarias (vía \"{domain}/yunohost/sso\"). <br>Por tanto, non é posible eliminalo.<br>Se queres eliminar \"{domain}\", primeiro tes que escoller ou engadir outro dominio e establecelo como dominio principal."
         },
         "add": {
             "from_registrar_desc": "Deberás configurar manualmente os rexistros DNS na empresa rexistradora para finalizar a configuración do dominio. O sistema de diagnóstico de YNH dirache exactamente os rexistros DNS que debes configurar.",
