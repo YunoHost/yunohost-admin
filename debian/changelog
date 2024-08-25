@@ -1,3 +1,11 @@
+yunohost-admin (11.2.8) stable; urgency=low
+
+  - [i18n] Translations updated for Basque, Galician, Greek, Indonesian, Polish, Russian, Slovak, Turkish
+
+  Thanks to all contributors <3 ! (Ali Çırçır, cjdw, craftrac, Grzegorz Cichocki, Ivan Davydov, José M, Jose Riha, xabirequejo)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Sun, 25 Aug 2024 13:25:17 +0200
+
 yunohost-admin (11.2.7) stable; urgency=low
 
   - Disable sending referer when clicking on links to external websites ([#573](http://github.com/YunoHost/yunohost-admin/pull/573))
