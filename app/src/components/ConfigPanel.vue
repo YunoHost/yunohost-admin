@@ -12,7 +12,7 @@
     <slot name="tab-top" />
 
     <template v-if="panel.help" #disclaimer>
-      <div class="alert alert-info" v-html="help" />
+      <div class="alert alert-info" v-html="panel.help" />
     </template>
 
     <slot name="tab-before" />
