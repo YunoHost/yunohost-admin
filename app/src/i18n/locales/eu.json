@@ -219,7 +219,7 @@
     "confirm_service_restart": "Ziur {name} berrabiarazi nahi duzula?",
     "confirm_reboot_action_shutdown": "Ziur zerbitzaria itzali nahi duzula?",
     "connection": "Konexioa",
-    "diagnosis_first_run": "Diagnostikoa ohiko arazoak identifikatzen saiatuko da zerbitzaria ahalik eta hoberen ibili dadin. Ez larritu erroreak ikusten badituzu zerbitzaria konfiguratu eta berehala: horretarako dago pentsatuta zehazki, arazoak identifikatu eta konpontzen laguntzeko. Zerbitzariak egunean birritan egingo du diagnostikoa automatikoki eta administratzaileak aurkitutako arazoekin posta elektroniko bat jasoko du.",
+    "diagnosis_first_run": "Diagnostikoa ohiko arazoak identifikatzen saiatuko da zerbitzaria ahalik eta hoberen ibili dadin. Ez larritu erroreak ikusten badituzu zerbitzaria konfiguratu eta berehala: horretarako dago pentsatuta zehazki, arazoak identifikatu eta konpontzen laguntzeko. Zerbitzariak egunean birritan egingo du diagnostikoa automatikoki eta administratzaileak posta elektroniko bat jasoko du aurkitutako arazoekin.",
     "domain_dns_config": "DNS ezarpenak",
     "diagnosis_explanation": "Diagnostikoa ohiko arazoak identifikatzen saiatuko da zerbitzaria ahalik eta hoberen ibili dadin. Egunean birritan egingo du zerbitzariak eginkizun hau eta posta elektronikoa bidaliko dio administratzaileari arazoren bat ikusiz gero. Litekeena da emaitza batzuek garrantzirik ez izatea ezaugarri batzuk erabili nahi ez badira (XMPP adibidez) edo kale egin dezake zerbitzariaren konfigurazioa konplexua bada. Horrelako kasuetan, eta zertan ari zaren baldin badakizu, ez dago arazorik abisu edo jakinarazpenei muzin egiteko.",
     "domain_default_desc": "Erabiltzaileek lehenetsitako domeinua erabiliko dute saioa hasteko.",
