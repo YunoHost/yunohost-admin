@@ -15,7 +15,7 @@
         "sorry": "Sentimos gran pesar por isto.",
         "server_said": "Ao procesar a acción o servidor respondeu:",
         "info": "A seguinte información podería ser útil para a persoa que che axude:",
-        "help": "Podes buscar axuda no <a href=\"https://forum.yunohost.org/\">foro</a> ou <a href=\"https://chat.yunohost.org/\">no chat</a> para arranxar a situación, ou informar do fallo no <a href=\"https://github.com/YunoHost/issues\">seguimento de fallos</a>.",
+        "help": "Podes buscar axuda no <a href=\"https://forum.yunohost.org/\">foro</a> ou na <a href=\"https://chat.yunohost.org/\">conversa</a> para arranxar a situación, ou informar do fallo no <a href=\"https://github.com/YunoHost/issues\">seguimento de fallos</a>.",
         "error_message": "Mensaxe do erro:"
     },
     "api": {
