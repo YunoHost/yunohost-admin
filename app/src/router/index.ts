@@ -39,8 +39,7 @@ router.beforeEach((to, from, next) => {
     dismissModal(currentRequest.value.id)
   }
 
-  const { installed, connected, onLogout, updateRouterKey } = useInfos()
-  updateRouterKey(to)
+  const { installed, connected, onLogout } = useInfos()
 
   if (to.name === 'post-install' && installed.value) {
     return next('/')
@@ -51,6 +50,10 @@ router.beforeEach((to, from, next) => {
   } else {
     onLogout(to)
   }
+})
+
+router.afterEach((to) => {
+  useInfos().updateRouterKey(to)
 })
 
 export default router
