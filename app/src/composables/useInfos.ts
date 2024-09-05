@@ -106,7 +106,10 @@ export const useInfos = createGlobalState(() => {
     // FIXME need testing with api not responding
     try {
       const data = await timeout(
-        api.get<{ installed: boolean }>('installed'),
+        api.get<{ installed: boolean }>({
+          uri: 'installed',
+          ignoreError: retry > 0,
+        }),
         5000,
       )
       installed.value = data.installed

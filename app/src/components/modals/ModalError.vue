@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { APIError, APIInternalError } from '@/api/errors'
+import { APIError, APIInternalError, APINotRespondingError } from '@/api/errors'
 import ModalOverlay from '@/components/modals/ModalOverlay.vue'
 import type { APIRequest } from '@/composables/useRequests'
 
@@ -18,7 +18,11 @@ const { err, messages, traceback } = (() => {
 </script>
 
 <template>
-  <ModalOverlay :request="request" footer-variant="danger" :hide-footer="false">
+  <ModalOverlay
+    :request="request"
+    footer-variant="danger"
+    :hide-footer="err instanceof APINotRespondingError"
+  >
     <h5 v-t="`api_errors_titles.${err.name}`" />
 
     <em v-t="'api_error.sorry'" />

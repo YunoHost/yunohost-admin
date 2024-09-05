@@ -28,6 +28,7 @@ export type APIQuery = {
   data?: Obj
   humanKey?: string | HumanKey
   showModal?: boolean
+  ignoreError?: boolean
   websocket?: boolean
   initial?: boolean
   asFormData?: boolean
@@ -106,6 +107,7 @@ export default {
     data = undefined,
     humanKey = undefined,
     showModal = method !== 'GET',
+    ignoreError = false,
     websocket = method !== 'GET',
     initial = false,
     asFormData = true,
@@ -153,7 +155,8 @@ export default {
         success: false,
         showError: !(
           err instanceof APIBadRequestError ||
-          err instanceof APIUnauthorizedError
+          err instanceof APIUnauthorizedError ||
+          ignoreError
         ),
       })
       throw err
