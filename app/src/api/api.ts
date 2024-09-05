@@ -151,7 +151,10 @@ export default {
       endRequest({
         request,
         success: false,
-        isFormError: err instanceof APIBadRequestError,
+        showError: !(
+          err instanceof APIBadRequestError ||
+          err instanceof APIUnauthorizedError
+        ),
       })
       throw err
     }

@@ -11,7 +11,7 @@ const { locked } = useRequests()
 const { spinner, dark } = useSettings()
 
 const ready = ref(false)
-onAppCreated().then(() => (ready.value = true))
+onAppCreated().finally(() => (ready.value = true))
 
 onMounted(() => {
   const copypastaCode = ['ArrowDown', 'ArrowDown', 'ArrowUp', 'ArrowUp']

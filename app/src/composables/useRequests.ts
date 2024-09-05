@@ -122,14 +122,14 @@ export const useRequests = createGlobalState(() => {
   function endRequest({
     request,
     success,
-    isFormError = false,
+    showError = false,
   }: {
     request: APIRequest
     success: boolean
-    isFormError?: boolean
+    showError?: boolean
   }) {
     let status: RequestStatus = success ? 'success' : 'error'
-    let hideModal = success || isFormError
+    let hideModal = success || !showError
 
     if (success && request.action) {
       const { warnings, errors, messages } = request.action
@@ -155,6 +155,8 @@ export const useRequests = createGlobalState(() => {
         requests.value = requests.value.filter(
           (r) => r.showModal || !!r.action || !!r.err,
         )
+      } else if (showError) {
+        request.showModal = true
       }
     }, 350)
   }
