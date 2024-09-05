@@ -42,6 +42,7 @@ export const useInfos = createGlobalState(() => {
   const installed = ref<boolean | undefined>()
   const connected = useLocalStorage('connected', false)
   const yunohost = ref<{ version: string; repo: string } | undefined>()
+  const hasSuspenseError = ref(false)
   const routerKey = ref<string | undefined>()
   const breadcrumbRoutes = ref<BreadcrumbRoutes[]>([])
 
@@ -96,6 +97,7 @@ export const useInfos = createGlobalState(() => {
     })
 
     updateHtmlTitle()
+    hasSuspenseError.value = false
   })
 
   // INIT
@@ -205,6 +207,7 @@ export const useInfos = createGlobalState(() => {
     installed,
     connected,
     yunohost,
+    hasSuspenseError,
     routerKey,
     breadcrumb,
     ssoLink,

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { createReusableTemplate } from '@vueuse/core'
 import type { VNode } from 'vue'
-import { computed } from 'vue'
+import { computed, onErrorCaptured } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 
@@ -18,7 +18,7 @@ import type { CustomRoute, Skeleton, VueClass } from '@/types/commons'
 
 const { t } = useI18n()
 const router = useRouter()
-const { routerKey } = useInfos()
+const { routerKey, hasSuspenseError } = useInfos()
 const { reconnecting, currentRequest, dismissModal } = useRequests()
 const { transitions, transitionName, dark } = useSettings()
 
@@ -26,6 +26,7 @@ const RootView = createReusableTemplate<{
   Component: VNode
   classes: VueClass
 }>()
+const FallbackView = createReusableTemplate()
 
 const quickAddItems: CustomRoute[] = [
   { text: t('users_new'), to: { name: 'user-create' } },
@@ -71,9 +72,24 @@ const modalComponent = computed(() => {
     return { is: ModalWaiting, props: { request } }
   }
 })
+
+onErrorCaptured((e) => {
+  // If an error occurs in an async view when calling the api it will prevent
+  // the component to show up and will block the entire app.
+  // So we prevent the view to try to show itself and display the skeleton instead,
+  // the error modal will show up and lock the view or propose to go back.
+  hasSuspenseError.value = true
+  console.error(e)
+})
 </script>
 
 <template>
+  <FallbackView.define>
+    <template v-for="({ is, ...props }, i) in skeletons" :key="i">
+      <Component :is="is" v-bind="props" :class="{ 'mt-3': i !== 0 }" />
+    </template>
+  </FallbackView.define>
+
   <RootView.define v-slot="{ Component, classes }">
     <BOverlay
       opacity="0.75"
@@ -83,11 +99,10 @@ const modalComponent = computed(() => {
       class="main-overlay"
     >
       <Suspense>
-        <Component :is="Component" :class="classes" />
+        <FallbackView.reuse v-if="hasSuspenseError" />
+        <Component :is="Component" v-else :class="classes" />
         <template #fallback>
-          <template v-for="({ is, ...props }, i) in skeletons" :key="i">
-            <Component :is="is" v-bind="props" :class="{ 'mt-3': i !== 0 }" />
-          </template>
+          <FallbackView.reuse />
         </template>
       </Suspense>
 
