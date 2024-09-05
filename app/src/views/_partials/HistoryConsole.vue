@@ -174,7 +174,10 @@ function onHistoryBarClick(e: MouseEvent) {
               @show-error="showModal"
             />
           </template>
-          <MessageListGroup :messages="request.action.messages" />
+          <MessageListGroup
+            v-if="request.action"
+            :messages="request.action.messages"
+          />
         </BAccordionItem>
       </BAccordion>
     </BCollapse>

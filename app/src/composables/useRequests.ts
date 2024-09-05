@@ -57,7 +57,7 @@ export const useRequests = createGlobalState(() => {
     return requests.value.find((r) => r.showModal)
   })
   const locked = computed(() => currentRequest.value?.showModal)
-  const historyList = computed<APIRequestAction[]>(() => {
+  const historyList = computed<APIRequest[]>(() => {
     return requests.value
       .filter((r) => !!r.action || !!r.err)
       .reverse() as APIRequestAction[]
