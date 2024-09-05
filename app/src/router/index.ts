@@ -39,7 +39,9 @@ router.beforeEach((to, from, next) => {
     dismissModal(currentRequest.value.id)
   }
 
-  const { installed, connected, onLogout } = useInfos()
+  const { installed, connected, onLogout, updateRouterKey } = useInfos()
+  updateRouterKey(to)
+
   if (to.name === 'post-install' && installed.value) {
     return next('/')
   }

@@ -69,8 +69,6 @@ export const useInfos = createGlobalState(() => {
   })
 
   watch(router.currentRoute, (to) => {
-    updateRouterKey()
-
     const routeNames =
       to.meta.breadcrumb ||
       to.matched
