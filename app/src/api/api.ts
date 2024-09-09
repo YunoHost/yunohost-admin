@@ -9,6 +9,7 @@ import { useSettings } from '@/composables/useSettings'
 import type { Obj } from '@/types/commons'
 import {
   APIBadRequestError,
+  APIErrorLog,
   APIUnauthorizedError,
   type APIError,
 } from './errors'
@@ -156,6 +157,7 @@ export default {
         showError: !(
           err instanceof APIBadRequestError ||
           err instanceof APIUnauthorizedError ||
+          err instanceof APIErrorLog ||
           ignoreError
         ),
       })
