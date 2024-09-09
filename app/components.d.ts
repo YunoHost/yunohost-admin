@@ -93,6 +93,7 @@ declare module 'vue' {
     MarkdownItem: typeof import('./src/components/globals/formItems/MarkdownItem.vue')['default']
     MessageListGroup: typeof import('./src/components/MessageListGroup.vue')['default']
     ModalError: typeof import('./src/components/modals/ModalError.vue')['default']
+    ModalForm: typeof import('./src/components/globals/ModalForm.vue')['default']
     ModalOverlay: typeof import('./src/components/modals/ModalOverlay.vue')['default']
     ModalReconnecting: typeof import('./src/components/modals/ModalReconnecting.vue')['default']
     ModalWaiting: typeof import('./src/components/modals/ModalWaiting.vue')['default']
