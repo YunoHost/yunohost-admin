@@ -246,12 +246,15 @@
             "dyn_dns_password_desc": "This password will allow you to later recover control of the domain if you reinstall your system. If you already registered this domain previously, use your recovery password here to reclaim it.",
             "from_local": "I want a domain for local usage / test only",
             "from_local_desc": "If you don't want an \"actual\" public domain name, you can use anything ending in <code>.local</code> or <code>.test</code>. Domain names ending in <code>.local</code> are special in the sense that they may automatically be resolved on the local network, assuming the clients support the Bonjour protocol. Alternatively, you may need to tweak the <code>/etc/hosts</code> file (or equivalent on Windows) on every client that you want to use this domain from, or to configure local DNS entries on your internet router.",
-            "from_registrar": "I want to add a domain I own, or a subdomain",
+            "from_registrar": "I want to add a domain I own",
             "from_registrar_desc": "You will need to manually configure DNS records on your registrar to finalize this domain's configuration. YunoHost's diagnosis will guide you about what DNS records to configure exactly.",
+            "from_subdomain": "I want to add a subdomain of an already added domain",
+            "from_subdomain_desc": "If your configured DNS records allows it, you will be able to automaticly install Let's Encrypt certificate.",
             "from_yunohost": "I don't own a domain, I want to register/use a free DynDNS domain provided by the YunoHost project",
             "from_yunohost_desc": "The YunoHost project maintains a free 'DynDNS' service. It is limited to one such domain per server (though you can also add sub-domains later using the other 'Add a domain I own, or a subdomain' option above). The DNS configuration will be automatically handled by YunoHost. This is ideal when starting up with self-hosting in general and you don't want to invest in a domain name yet. However, on the medium/long-term, we recommend buying your very own domain name to some registrar to have full ownership of your domain."
         },
         "cert": {
+            "install": "Also install Let's Encrypt certificate",
             "types": {
                 "letsencrypt": "Let's Encrypt",
                 "other": "Other/Unknown",

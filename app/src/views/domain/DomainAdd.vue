@@ -10,7 +10,11 @@ const router = useRouter()
 
 const serverError = ref('')
 
-function onSubmit(data: { domain: string; dyndns_recovery_password?: string }) {
+function onSubmit(data: {
+  domain: string
+  dyndns_recovery_password?: string
+  install_letsencrypt_cert?: boolean
+}) {
   api
     .post({
       uri: 'domains',
