@@ -22,11 +22,13 @@ defineOptions({
 const props = withDefaults(
   defineProps<{
     title: string
+    modal?: boolean
     postinstall?: boolean
     submitText?: string
     serverError?: string
   }>(),
   {
+    modal: false,
     postinstall: false,
     submitText: undefined,
     serverError: undefined,
@@ -41,6 +43,8 @@ const emit = defineEmits<{
     },
   ]
 }>()
+
+const show = defineModel<boolean>('show')
 
 const { domains, domainsAsChoices } = !props.postinstall
   ? useDomains()
@@ -249,7 +253,10 @@ const onDomainAdd = onSubmit(async () => {
 </script>
 
 <template>
-  <CardForm
+  <Component
+    :is="modal ? 'ModalForm' : 'CardForm'"
+    id="domain-add"
+    v-model:show="show"
     :title="title"
     icon="globe"
     :submit-text="submitText"
@@ -379,5 +386,5 @@ const onDomainAdd = onSubmit(async () => {
         :validation="v.form.localDomain"
       />
     </BCollapse>
-  </CardForm>
+  </Component>
 </template>
