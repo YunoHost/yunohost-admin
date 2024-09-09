@@ -138,15 +138,11 @@ export function deepSetErrors(
   ...keys: string[]
 ) {
   const [k, ...ks] = keys
+  if (!(k in serverErrors) && !value.length) return
   if (ks.length) {
-    if (!(k in serverErrors) && !value.length) {
-      serverErrors[k] = {}
-      deepSetErrors(serverErrors[k] as ServerErrors, value, ...ks)
-    } else if (k in serverErrors) {
-      deepSetErrors(serverErrors[k] as ServerErrors, value, ...ks)
-    }
+    if (!(k in serverErrors)) serverErrors[k] = {}
+    deepSetErrors(serverErrors[k] as ServerErrors, value, ...ks)
   } else {
-    if (!(k in serverErrors) && !value.length) return
     serverErrors[k] = value
   }
 }
