@@ -319,11 +319,13 @@ export type SystemUpdate = {
 // DOMAINS
 
 export type DNSRecord = {
-  name: string
   type: string
-  managed_by_yunohost: boolean
-  old_content: string
+  name: string
+  ttl: number
   content: string
+  old_content?: string
+  id?: number
+  managed_by_yunohost?: boolean
   spaces: string // Added when formating
 }
 export type DNSCategories = Record<

@@ -58,7 +58,7 @@ function getDnsChanges() {
       }
 
       function formatRecords(records?: DNSRecord[]) {
-        if (!records) return null
+        if (!records || !records.length) return null
         const longestName = getLongest(records, 'name')
         const longestType = getLongest(records, 'type')
         return records.map((record) => {
@@ -84,7 +84,7 @@ function getDnsChanges() {
 
       dnsZone.value = formatRecords(dnsCategories.unchanged)
       dnsChanges.value = changes.length > 0 ? changes : null
-      force.value = canForce ? false : null
+      force.value = changes.length && canForce ? false : null
     })
     .catch((err) => {
       if (err.name !== 'APIBadRequestError') throw err
