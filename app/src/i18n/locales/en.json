@@ -326,7 +326,8 @@
     "footer": {
         "documentation": "Documentation",
         "donate": "Donate",
-        "help": "Need help?"
+        "help": "Need help?",
+        "tos": "Terms of Service"
     },
     "footer_version": "Powered by <a href='https://yunohost.org'>YunoHost</a> {version} ({repo}).",
     "form": {
@@ -337,6 +338,7 @@
         "alphalownumdot_": "Value must be lower-case alphanumeric, dots and underscore characters only.",
         "appRepoUrl": "YunoHost app repository URLs are expected to look like https://domain.tld/path/to/repo_ynh",
         "between": "Value must be between {min} and {max}.",
+        "checked": "Checkbox must be checked.",
         "domain": "Invalid domain name: Must be lower-case alphanumeric, dot and dash characters only",
         "dynDomain": "Invalid domain name: Must be lower-case alphanumeric and dash characters only",
         "email": "Invalid email: must be alphanumeric and <code>_.-</code> characters only (e.g. someone@example.com, s0me-1@example.com)",
@@ -649,6 +651,12 @@
     },
     "tools_webadmin_settings": "Web-admin settings",
     "tools_yunohost_settings": "YunoHost settings",
+    "tos": {
+        "acknowledgement": "TOS acknowledgement",
+        "i_agree": "I agree",
+        "i_have_read": "I have read the <a href='https://yunohost.org/terms_of_services' target='_blank'>Terms of service</a>",
+        "postinstall_acknowledgement": "The YunoHost project is a team of volunteers who have made common cause to create a free operating system for servers, called YunoHost. YunoHost is published under the [GNU Affero General Public License v3](https://www.gnu.org/licenses/agpl-3.0.txt).  In connection with this software, the project administers and makes available several technical and community services for various purposes.  By using these services, you agree to be bound by the following [Terms of service](https://yunohost.org/terms_of_services)."
+    },
     "traceback": "Traceback",
     "udp": "UDP",
     "unauthorized": "Unauthorized",
