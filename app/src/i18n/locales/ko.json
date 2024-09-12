@@ -8,7 +8,7 @@
         },
         "local_part_description": {
             "domain": "서브도메인을 선택하세요.",
-            "email": "이메일의 주소 부분(@의 오른쪽 부분)를 선택하세요."
+            "email": "이메일의 주소 부분({'@'}의 오른쪽 부분)를 선택하세요."
         }
     },
     "administration_password": "관리자 비밀번호",
