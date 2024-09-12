@@ -1,3 +1,11 @@
+yunohost-admin (12.0.2) testing; urgency=low
+
+  - config panels: fix panel help message not being displayed (7859b221)
+
+  Thanks to all contributors <3 ! (axolotle)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Sat, 31 Aug 2024 20:09:29 +0200
+
 yunohost-admin (12.0.1) testing; urgency=low
 
   - Reflect change in the core about pydantic/config panels (06bb22f4, 60934cf7)
