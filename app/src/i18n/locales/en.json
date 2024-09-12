@@ -373,6 +373,11 @@
     "group_new": "New group",
     "group_specific_permissions": "Individual user permissions",
     "group_visitors": "Visitors",
+    "groups": {
+        "remove_user": {
+            "confirm_from_admins": "Are you sure you want to remove yourself from the 'admins' group?"
+        }
+    },
     "groups_and_permissions": "Groups and permissions",
     "groups_and_permissions_manage": "Manage groups and permissions",
     "history": {
