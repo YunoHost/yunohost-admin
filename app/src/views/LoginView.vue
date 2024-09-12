@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter, type LocationQueryValue } from 'vue-router'
 
+import { APIUnauthorizedError } from '@/api/errors'
 import { useForm } from '@/composables/form'
 import { useInfos } from '@/composables/useInfos'
 import { alphalownumdot_, minLength, required } from '@/helpers/validators'
@@ -49,7 +50,7 @@ const fields = {
   } satisfies FieldProps<'InputItem', Form['password']>,
 } satisfies FormFieldDict<Form>
 
-const { v, onSubmit } = useForm(form, fields)
+const { v, onSubmit, serverErrors } = useForm(form, fields)
 
 const onLogin = onSubmit((onError) => {
   const { username, password } = form.value
@@ -66,7 +67,13 @@ const onLogin = onSubmit((onError) => {
         )
       }
     })
-    .catch((err) => onError(err, t('wrong_password_or_username')))
+    .catch((err) => {
+      if (err instanceof APIUnauthorizedError) {
+        serverErrors.global = [t('wrong_password_or_username')]
+      } else {
+        onError(err)
+      }
+    })
 })
 </script>
 
