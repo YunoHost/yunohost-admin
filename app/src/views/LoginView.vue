@@ -20,7 +20,7 @@ const props = withDefaults(
 
 const { t } = useI18n()
 const router = useRouter()
-const { login, installed } = useInfos()
+const { login, installed, currentUser } = useInfos()
 
 type Form = typeof form.value
 const form = ref({
@@ -57,6 +57,7 @@ const onLogin = onSubmit((onError) => {
   const credentials = [username, password].join(':')
   login(credentials)
     .then(() => {
+      currentUser.value = username
       if (props.forceReload) {
         window.location.href = '/yunohost/admin/'
       } else {
