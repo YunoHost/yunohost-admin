@@ -323,15 +323,15 @@
     "mailbox_quota_example": "700M ist eine CD, 4700M ist eine DVD",
     "items_verbose_count": "Es gibt {items}. | Es gibt 1 {items}. | Es gibt {items}.",
     "items": {
-        "users": "keine Konten | Konto | {c} Konten",
-        "services": "keine Dienste | Dienst | {c} Dienste",
-        "logs": "keine Protokolle | Protokoll | {c} Protokolle",
-        "installed_apps": "keine installierten Apps | installierte App | {c} installierte Apps",
-        "groups": "keine Gruppen | Gruppe | {c} Gruppen",
-        "domains": "keine Domänen | Domäne | {c} Domänen",
-        "backups": "keine Sicherungen | Sicherung| {c} Sicherungen",
-        "apps": "keine Apps | App | {c} Apps",
-        "permissions": "keine Berechtigungen | Berechtigung | {c} Berechtigungen"
+        "users": "keine Konten | Konto | {n} Konten",
+        "services": "keine Dienste | Dienst | {n} Dienste",
+        "logs": "keine Protokolle | Protokoll | {n} Protokolle",
+        "installed_apps": "keine installierten Apps | installierte App | {n} installierte Apps",
+        "groups": "keine Gruppen | Gruppe | {n} Gruppen",
+        "domains": "keine Domänen | Domäne | {n} Domänen",
+        "backups": "keine Sicherungen | Sicherung| {n} Sicherungen",
+        "apps": "keine Apps | App | {n} Apps",
+        "permissions": "keine Berechtigungen | Berechtigung | {n} Berechtigungen"
     },
     "history": {
         "methods": {

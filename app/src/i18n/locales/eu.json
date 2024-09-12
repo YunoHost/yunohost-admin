@@ -88,15 +88,15 @@
         "appRepoUrl": "YunoHosten aplikazio-gordailuko URLek honako itxura daukate: https://domain.tld/path/to/repo_ynh"
     },
     "items": {
-        "backups": "babeskopia bat ere ez | babeskopia | {c} babeskopia",
-        "domains": "domeinu bat ere ez | domeinua | {c} domeinua",
-        "apps": "aplikazio bat ere ez | aplikazioa | {c} aplikazioa",
-        "groups": "talderik ez | taldea | {c} talde",
-        "installed_apps": "instalatutako aplikazio bat ere ez | instalatutako aplikazioa | {c} instalatutako aplikazioa",
-        "services": "zerbitzu bat ere ez | zerbitzua | {c} zerbitzua",
-        "users": "erabiltzaile bat ere ez | erabiltzailea | {c} erabiltzailea",
-        "logs": "erregistro bat ere ez | erregistroa | {c} erregistroa",
-        "permissions": "baimenik gabe | baimena | {c} baimen"
+        "backups": "babeskopia bat ere ez | babeskopia | {n} babeskopia",
+        "domains": "domeinu bat ere ez | domeinua | {n} domeinua",
+        "apps": "aplikazio bat ere ez | aplikazioa | {n} aplikazioa",
+        "groups": "talderik ez | taldea | {n} talde",
+        "installed_apps": "instalatutako aplikazio bat ere ez | instalatutako aplikazioa | {n} instalatutako aplikazioa",
+        "services": "zerbitzu bat ere ez | zerbitzua | {n} zerbitzua",
+        "users": "erabiltzaile bat ere ez | erabiltzailea | {n} erabiltzailea",
+        "logs": "erregistro bat ere ez | erregistroa | {n} erregistroa",
+        "permissions": "baimenik gabe | baimena | {n} baimen"
     },
     "history": {
         "title": "Historia",
