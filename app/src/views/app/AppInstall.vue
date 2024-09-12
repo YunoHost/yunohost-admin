@@ -39,7 +39,12 @@ const [app, form, fields] = await api
     const quality = formatAppQuality(manifest.quality)
     const preInstall = formatI18nField(manifest.notifications.PRE_INSTALL?.main)
     const antifeatures = manifest.antifeatures?.length
-      ? manifest.antifeatures.map((af) => antifeaturesList[af])
+      ? manifest.antifeatures.map((af) => {
+          const antifeature = antifeaturesList[af]
+          const customText = catalog.apps[id]?.manifest.antifeatures?.[af]
+          if (customText) antifeature.description = formatI18nField(customText)
+          return antifeature
+        })
       : null
     const hasDanger = quality.variant === 'danger' || !requirements.ram.pass
     const hasSupport = getKeys(requirements).every((key) => {
