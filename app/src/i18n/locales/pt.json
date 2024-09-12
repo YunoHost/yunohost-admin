@@ -287,7 +287,6 @@
         "partial_logs": "[…] (verifique no histórico para logs completos)",
         "reconnecting": {
             "failed": "Parece que o servidor não está respondendo. Você pode tentar se reconectar novamente ou tentar executar `systemctl restart yunohost-api` através do ssh.",
-            "success": "O servidor agora está acessível! Você pode tentar fazer o login",
             "reason": {
                 "upgrade_system": "A conexão com o servidor foi encerrada devido à atualização do YunoHost. Esperando que o servidor esteja acessível novamente…",
                 "reboot": "Seu servidor está reiniciando e não estará acessível por algum tempo. Um prompt de login estará disponível assim que o servidor estiver acessível.",

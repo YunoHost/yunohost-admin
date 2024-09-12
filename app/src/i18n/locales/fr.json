@@ -407,8 +407,7 @@
                 "reboot": "Votre serveur redémarre et ne sera pas joignable pendant un certain temps. Une invite de connexion sera disponible dès que le serveur sera accessible.",
                 "shutdown": "Votre serveur est en cours d'extinction et n'est plus joignable. Redémarrez-le et une invitation de connexion sera disponible dès que le serveur sera joignable.",
                 "upgrade_system": "La connexion avec le serveur a été fermée en raison de la mise à jour de YunoHost. Il vous faut patienter jusqu'à ce que le serveur soit à nouveau joignable…"
-            },
-            "success": "Le serveur est maintenant joignable ! Vous pouvez essayer de vous connecter"
+            }
         }
     },
     "go_back": "Revenir",

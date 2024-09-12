@@ -35,8 +35,7 @@
                 "reboot": "O servidor está reiniciando e non estará dispoñible por uns minutos. O formulario de conexión estará dispoñible tan pronto o servidor sexa accesible.",
                 "shutdown": "O servidor estase apagando e non está dispoñible. Acéndeo e o formulario de conexión estará dispoñible tan pronto o servidor sexa accesible.",
                 "upgrade_system": "Pechouse a conexión ao servidor debido á actualización de YunoHost. Agardando a que o servidor sexa accesible…"
-            },
-            "success": "O servidor está accesible! Podes intentar acceder"
+            }
         }
     },
     "all": "Todo",

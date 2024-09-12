@@ -29,8 +29,7 @@
                 "shutdown": "Tvoj strežnik se ugaša in ni več dosegljiv. Ponovno ga vklopi in poziv za prijavo bo na razpolago takoj, ko bo strežnik dosegljiv."
             },
             "title": "Poskušam se povezati s strežnikom…",
-            "failed": "Videti je, da se strežnik ne odziva. Lahko se poskusiš ponovno povezati ali poskusi zagnati `systemctl restart yunohost-api` thru ssh.",
-            "success": "Strežnik je zdaj dosegljiv! Lahko se poskusiš vpisati"
+            "failed": "Videti je, da se strežnik ne odziva. Lahko se poskusiš ponovno povezati ali poskusi zagnati `systemctl restart yunohost-api` thru ssh."
         }
     },
     "api_error": {

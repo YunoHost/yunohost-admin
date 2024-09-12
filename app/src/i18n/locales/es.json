@@ -290,8 +290,7 @@
                 "reboot": "Tu servidor se está reiniciando y no será accesible por un tiempo. Una solicitud de inicio de sesión estará disponible cuando el servidor se encuentre listo.",
                 "shutdown": "Su servidor se está apagando y ya no es accesible. Vuelva a encenderlo y aparecerá un aviso de inicio de sesión tan pronto como se pueda acceder al servidor.",
                 "upgrade_system": "La conexión con el servidor se ha cerrado debido a la actualización de YunoHost. Esperando a que el servidor sea accesible de nuevo…"
-            },
-            "success": "¡El servidor ya está disponible! Puedes intentar iniciar sesión"
+            }
         }
     },
     "address": {

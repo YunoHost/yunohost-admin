@@ -365,8 +365,7 @@
                 "upgrade_system": "La connexió amb el servidor s'ha tancat a causa de l'actualització de YunoHost. S'està esperant que el servidor torni a ser accessible…"
             },
             "title": "S'està intentant comunicar amb el servidor…",
-            "failed": "Sembla que el servidor no respon. Podeu provar de tornar a connectar-vos o provar d'executar `systemctl restart yunohost-api` mitjançant ssh.",
-            "success": "Ja es pot accedir al servidor! Podeu provar d'iniciar sessió"
+            "failed": "Sembla que el servidor no respon. Podeu provar de tornar a connectar-vos o provar d'executar `systemctl restart yunohost-api` mitjançant ssh."
         }
     },
     "app_install_parameters": "Paràmetres de la instal·lació",

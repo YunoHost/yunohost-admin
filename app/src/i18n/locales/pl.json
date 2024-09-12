@@ -79,8 +79,7 @@
                 "reboot": "Serwer jest uruchamiany ponownie i będzie nieosiągalny przez pewien czas. Logowanie stanie się możliwe, gdy serwer będzie ponownie dostępny.",
                 "upgrade_system": "Połączenie z serwerem przerwane z powodu aktualizacji YunoHost. Trwa oczekiwanie na połączenie…"
             },
-            "title": "Trwa próba połączenia z serwerem…",
-            "success": "Serwer jest już dostępny! Możesz się zalogować"
+            "title": "Trwa próba połączenia z serwerem…"
         },
         "partial_logs": "[…] sprawdź w historii pełne logi"
     },

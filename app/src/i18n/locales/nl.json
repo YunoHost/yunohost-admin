@@ -174,7 +174,6 @@
                 "reboot": "Je server is aan het herstarten en zal enige tijd niet bereikbaar zijn. Een login-prompt komt beschikbaar zodra de server terug is.",
                 "upgrade_system": "De verbinding met de server is gesloten vanwege een YunoHost upgrade. Wacht tot de server weer bereikbaar is…"
             },
-            "success": "De server is nu bereikbaar! Je kan proberen in te loggen",
             "title": "Poging met de server te communiceren…"
         }
     },

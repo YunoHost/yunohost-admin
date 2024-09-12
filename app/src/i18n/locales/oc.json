@@ -474,7 +474,6 @@
                 "shutdown": "Vòstre servidor es a s’aturar e serà pas mai contactable. Reaviatz-lo e una fenèstra de connexion serà disponibla tre que lo servidor serà contactable.",
                 "upgrade_system": "La connexion al servidor es estada tampada a causa de la mesa a nivèl de YunoHost. En espèra de poder contactar lo servidor de nòu…"
             },
-            "success": "Se pòt contactar lo servidor ! Podètz ensajar de vos connectar",
             "failed": "Lo servidor respond pas. Podètz ensajar de vos i tornar connectar o ensajar d’executar « systemctl restart yunohost-api » via SSH."
         }
     },

@@ -392,8 +392,7 @@
                 "unknown": "La connessione al server è stata interrotta per ragioni sconosciute.",
                 "reboot": "Il tuo server si sta riavviando e non sarà raggiungibile per un po'. Il prompt per il login sarà disponibile non appena il server diventerà raggiungibile.",
                 "upgrade_system": "La connessione al server è stata chiusa per un aggiornamento di YunoHost. Attendi che il server sia nuovamente raggiungibile…"
-            },
-            "success": "Il server è nuovamente raggiungibile! Puoi provare a fare il login"
+            }
         }
     },
     "address": {

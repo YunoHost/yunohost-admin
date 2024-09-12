@@ -46,7 +46,6 @@
                 "shutdown": "Váš server se ukončuje a nebude dostupný. Když ho znovu zapnete, jakmile bude zase dosažitelný, zobrazí se přihlašovací okno."
             },
             "title": "Snažím se navázat spojení se serverem…",
-            "success": "Server už odpovídá! Nyní se můžete přihlásit",
             "failed": "Zdá se, že server neodpovídá. Zkuste se znovu připojit nebo na něm pustit `systemctl restart yunohost-api`přes ssh."
         }
     },

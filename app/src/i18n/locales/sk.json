@@ -29,7 +29,6 @@
                 "reboot": "Váš server sa reštartuje a nejaký čas nebude dostupný. Okno s prihlásením sa zobrazí akonáhle bude možné so serverom komunikovať.",
                 "upgrade_system": "Spojenie so serverom bolo ukončené kvôli aktualizácií YunoHost. Čakám, kým bude server opäť dostupný…"
             },
-            "success": "Server už je dostupný! Môžete sa skúsiť prihlásiť",
             "title": "Pokus o komunikáciu so serverom…"
         }
     },

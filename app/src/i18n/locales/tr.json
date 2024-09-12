@@ -281,7 +281,6 @@
                 "upgrade_system": "YunoHost güncellemesi nedeniyle sunucuyla bağlantı kapatıldı. Sunucunun tekrar erişilebilir olması bekleniyor…",
                 "reboot": "Sunucunuz yeniden başlatılıyor ve bir süreliğine erişilemeyecek. Sunucu tekrar erişilebilir olduğunda bir oturum açma ekranı sunulacaktır."
             },
-            "success": "Sunucu artık erişilebilir durumda! Giriş yapabilirsiniz",
             "title": "Sunucuyla iletişim kurulmaya çalışılıyor…",
             "failed": "Sunucu yanıt vermiyor gibi görünüyor. Yeniden bağlanmayı deneyebilir veya ssh aracılığıyla `systemctl restart yunohost-api` çalıştırmayı deneyebilirsiniz."
         },

@@ -32,8 +32,7 @@
                 "reboot": "Zerbitzaria berrabiarazten ari da eta ez da erabilgarri egongo tarte batez. Saioa hasteko galdegingo zaizu zerbitzaria berriro ere erabilgarri dagoenean.",
                 "shutdown": "Zerbitzari itzaltzen ari da eta aurrerantzean ez da erabilgarri egongo. Piztu ezazu berriro eta saioa hasteko galdegingo zaizu zerbitzaria berriro erabilgarri dagoenean.",
                 "upgrade_system": "Zerbitzariarekin konexioa eten da YunoHost eguneratzen ari delako. Zerbitzaria berriro erabilgarri noiz egongo zain…"
-            },
-            "success": "Zerbitzaria erabilgarri dago! Saioa hasten saia zaitezke"
+            }
         }
     },
     "api_error": {

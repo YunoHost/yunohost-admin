@@ -48,8 +48,7 @@
                 "reboot": "Palvelimesi käynnistyy uudelleen, eikä se ole tavoitettavissa vähään aikaan. Sisäänkirjautumiskehote tulee näkyviin heti, kun palvelin on tavoitettavissa.",
                 "shutdown": "Palvelimesi on sammumassa eikä ole enää tavoitettavissa. Kytke se takaisin päälle, ja kirjautumiskehote tulee näkyviin heti, kun palvelin on tavoitettavissa.",
                 "upgrade_system": "Yhteys palvelimeen on suljettu YunoHostin päivityksen vuoksi. Odotamme, että palvelin on jälleen tavoitettavissa…"
-            },
-            "success": "Palvelin on nyt tavoitettavissa! Voit yrittää kirjautua sisään"
+            }
         }
     },
     "all": "Kaikki",

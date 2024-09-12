@@ -403,8 +403,7 @@
                 "reboot": "Ihr Server startet neu und wird für einige Zeit nicht erreichbar sein. Eine Login-Aufforderung wird erscheinen, sobald der Server wieder erreichbar ist.",
                 "shutdown": "Ihr Server wird heruntergefahren und ist nicht mehr erreichbar. Schalten Sie ihn wieder ein und eine Anmeldeaufforderung wird angezeigt, sobald der Server erreichbar ist.",
                 "upgrade_system": "Die Verbindung mit dem Server wurde aufgrund einer YunoHost-Aktualisierung beendet. Warten Sie bis der Server wieder erreichbar ist…"
-            },
-            "success": "Der Server ist jetzt erreichbar! Sie können versuchen, sich anzumelden"
+            }
         }
     },
     "hook_data_xmpp": "XMPP-Daten",

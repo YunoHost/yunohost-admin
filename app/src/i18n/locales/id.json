@@ -28,8 +28,7 @@
                 "unknown": "Tidak dapat terhubung ke peladen karena alasan yang tidak diketahui."
             },
             "title": "Mencoba menghubungi peladen…",
-            "failed": "Sepertinya peladen tidak merespons. Anda bisa coba memuat ulang atau coba jalankan `systemctl restart yunohost-api` via SSH.",
-            "success": "Peladen bisa dicapai! Anda bisa mencoba masuk kembali"
+            "failed": "Sepertinya peladen tidak merespons. Anda bisa coba memuat ulang atau coba jalankan `systemctl restart yunohost-api` via SSH."
         },
         "partial_logs": "[…] (periksa semua log di dalam riwayat)"
     },
