@@ -1,76 +1,87 @@
-<template>
-  <ViewBase v-bind="$attrs" v-on="$listeners" :skeleton="skeleton">
-    <template v-if="hasCustomTopBar" #top-bar>
-      <slot name="top-bar" />
-    </template>
-    <template v-if="!hasCustomTopBar" #top-bar-group-left>
-      <BInputGroup class="w-100">
-        <BInputGroupPrepend is-text>
-          <YIcon iname="search" />
-        </BInputGroupPrepend>
+<script setup lang="ts" generic="T extends Obj | AnyTreeNode">
+import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 
-        <BFormInput
-          id="top-bar-search"
-          :value="search"
-          @input="$emit('update:search', $event)"
-          :placeholder="
-            $t('search.for', { items: $tc('items.' + itemsName, 2) })
-          "
-          :disabled="!items"
-        />
-      </BInputGroup>
-    </template>
-    <template v-if="!hasCustomTopBar" #top-bar-group-right>
-      <slot name="top-bar-buttons" />
-    </template>
+import type { AnyTreeNode } from '@/helpers/data/tree'
+import type { Obj } from '@/types/commons'
 
-    <template #top>
-      <slot name="top" />
-    </template>
-
-    <template #default>
-      <BAlert v-if="items === null || filteredItems === null" variant="warning">
-        <slot name="alert-message">
-          <YIcon iname="exclamation-triangle" />
-          {{
-            $tc(
-              items === null ? 'items_verbose_count' : 'search.not_found',
-              0,
-              { items: $tc('items.' + itemsName, 0) },
-            )
-          }}
-        </slot>
-      </BAlert>
-
-      <slot v-else name="default" />
-    </template>
-
-    <template #bot>
-      <slot name="bot" />
-    </template>
-
-    <template #skeleton>
-      <slot name="skeleton" />
-    </template>
-  </ViewBase>
-</template>
-
-<script>
-export default {
-  name: 'ViewSearch',
-
-  props: {
-    items: { type: null, required: true },
-    itemsName: { type: String, required: true },
-    filteredItems: { type: null, required: true },
-    search: { type: String, default: null },
-    skeleton: { type: String, default: 'ListGroupSkeleton' },
+const props = withDefaults(
+  defineProps<{
+    items?: T[] | null
+    itemsName: string | null
+  }>(),
+  {
+    items: undefined,
   },
+)
 
-  computed: {
-    hasCustomTopBar() {
-      return 'top-bar' in this.$slots
-    },
-  },
-}
+const slots = defineSlots<{
+  'top-bar': any
+  'top-bar-buttons': any
+  top: any
+  'alert-message': any
+  'forced-default'?: any
+  default: any
+  bot: any
+  skeleton: any
+}>()
+
+defineEmits<{
+  'update:modelValue': [value: string]
+}>()
+
+const model = defineModel<string>()
+
+const { t } = useI18n()
+const noItemsMessage = computed(() => {
+  if (props.items) return
+  return t(
+    props.items === undefined ? 'items_verbose_count' : 'search.not_found',
+    { items: t('items.' + props.itemsName, 0) },
+    0,
+  )
+})
 </script>
+
+<template>
+  <div>
+    <slot v-if="slots['top-bar']" name="top-bar" />
+    <TopBar v-else>
+      <template #group-left>
+        <BInputGroup class="w-100">
+          <BInputGroupText>
+            <YIcon iname="search" />
+          </BInputGroupText>
+
+          <BFormInput
+            id="top-bar-search"
+            v-model="model"
+            :placeholder="
+              t('search.for', { items: t('items.' + itemsName, 2) })
+            "
+            :disabled="items === undefined"
+          />
+        </BInputGroup>
+      </template>
+      <template #group-right>
+        <slot name="top-bar-buttons" />
+      </template>
+    </TopBar>
+
+    <slot name="top" />
+
+    <slot name="forced-default">
+      <YAlert
+        v-if="noItemsMessage"
+        alert
+        icon="exclamation-triangle"
+        variant="warning"
+      >
+        {{ noItemsMessage }}
+      </YAlert>
+      <slot v-else name="default" />
+    </slot>
+
+    <slot name="bot" />
+  </div>
+</template>

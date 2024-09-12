@@ -1,6 +1,40 @@
+<script setup lang="ts">
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+
+import api from '@/api'
+import { useUsersAndGroups } from '@/composables/data'
+
+const props = defineProps<{ name: string }>()
+
+const router = useRouter()
+
+await api.get({
+  uri: `users/${props.name}`,
+  cachePath: `userDetails.${props.name}`,
+})
+
+const { user } = useUsersAndGroups(() => props.name)
+const purge = ref(false)
+
+function deleteUser() {
+  const data = purge.value ? { purge: '' } : {}
+  api
+    .delete({
+      uri: `users/${props.name}`,
+      cachePath: `userDetails.${props.name}`,
+      data,
+      humanKey: { key: 'users.delete', name: props.name },
+    })
+    .then(() => {
+      router.push({ name: 'user-list' })
+    })
+}
+</script>
+
 <template>
-  <ViewBase :queries="queries" skeleton="CardInfoSkeleton">
-    <YCard v-if="user" :title="user.fullname" icon="user">
+  <div>
+    <YCard :title="user.fullname" icon="user">
       <div class="d-flex align-items-center flex-column flex-md-row">
         <YIcon iname="user" class="fa-fw" />
 
@@ -9,14 +43,14 @@
             <BCol>
               <strong>{{ $t('user_username') }}</strong>
             </BCol>
-            <BCol>{{ user.username }}</BCol>
+            <BCol>{{ name }}</BCol>
           </BRow>
 
           <BRow>
             <BCol>
               <strong>{{ $t('user_email') }}</strong>
             </BCol>
-            <BCol class="font-italic">
+            <BCol class="fst-italic">
               {{ user.mail }}
             </BCol>
           </BRow>
@@ -63,11 +97,11 @@
 
       <template #buttons>
         <BButton
-          :to="{ name: 'user-edit', params: { user } }"
+          :to="{ name: 'user-edit', params: { name } }"
           :variant="user ? 'info' : 'dark'"
         >
           <YIcon iname="edit" />
-          {{ user ? $t('user_username_edit', { name: user.username }) : '' }}
+          {{ user ? $t('user_username_edit', { name }) : '' }}
         </BButton>
 
         <BButton v-b-modal.delete-modal :variant="user ? 'danger' : 'dark'">
@@ -80,15 +114,14 @@
     <BModal
       v-if="user"
       id="delete-modal"
-      :title="$t('confirm_delete', { name: user.username })"
+      centered
+      :title="$t('confirm_delete', { name })"
+      header-variant="warning"
       @ok="deleteUser"
-      header-bg-variant="warning"
-      body-class=""
-      body-bg-variant=""
     >
       <BFormGroup>
         <BFormCheckbox v-model="purge">
-          {{ $t('purge_user_data_checkbox', { name: user.username }) }}
+          {{ $t('purge_user_data_checkbox', { name }) }}
         </BFormCheckbox>
 
         <template #description>
@@ -99,50 +132,8 @@
         </template>
       </BFormGroup>
     </BModal>
-  </ViewBase>
+  </div>
 </template>
-
-<script>
-import api from '@/api'
-
-export default {
-  name: 'UserInfo',
-
-  props: {
-    name: { type: String, required: true },
-  },
-
-  data() {
-    return {
-      queries: [
-        ['GET', { uri: 'users', param: this.name, storeKey: 'users_details' }],
-      ],
-      purge: false,
-    }
-  },
-
-  computed: {
-    user() {
-      return this.$store.getters.user(this.name)
-    },
-  },
-
-  methods: {
-    deleteUser() {
-      const data = this.purge ? { purge: '' } : {}
-      api
-        .delete(
-          { uri: 'users', param: this.name, storeKey: 'users_details' },
-          data,
-          { key: 'users.delete', name: this.name },
-        )
-        .then(() => {
-          this.$router.push({ name: 'user-list' })
-        })
-    },
-  },
-}
-</script>
 
 <style lang="scss" scoped>
 .icon.fa-user {

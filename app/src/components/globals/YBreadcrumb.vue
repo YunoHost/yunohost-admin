@@ -1,32 +1,29 @@
+<script setup lang="ts">
+import { useInfos } from '@/composables/useInfos'
+
+const { breadcrumb, updateHtmlTitle } = useInfos()
+
+// Call this here to trigger title update at page load (with translation)
+updateHtmlTitle()
+</script>
+
 <template>
   <BBreadcrumb v-if="breadcrumb.length">
     <BBreadcrumbItem to="/">
-      <span class="sr-only">{{ $t('home') }}</span>
+      <span class="visually-hidden">{{ $t('home') }}</span>
       <YIcon iname="home" />
     </BBreadcrumbItem>
 
     <BBreadcrumbItem
-      v-for="({ name, text }, i) in breadcrumb"
-      :key="name"
-      :to="{ name }"
+      v-for="({ to, text }, i) in breadcrumb"
+      :key="i"
+      :to="to"
       :active="i === breadcrumb.length - 1"
     >
       {{ text }}
     </BBreadcrumbItem>
   </BBreadcrumb>
 </template>
-
-<script>
-import { mapGetters } from 'vuex'
-
-export default {
-  name: 'YBreadcrumb',
-
-  computed: {
-    ...mapGetters(['breadcrumb']),
-  },
-}
-</script>
 
 <style lang="scss" scoped>
 .breadcrumb {

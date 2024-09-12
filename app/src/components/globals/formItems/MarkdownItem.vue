@@ -1,14 +1,11 @@
-<template>
-  <VueShowdown :markdown="label" flavor="github" />
-</template>
+<script setup lang="ts">
+import type { MarkdownItemProps } from '@/types/form'
 
-<script>
-export default {
-  name: 'MarkdownItem',
-
-  props: {
-    id: { type: String, default: null },
-    label: { type: String, default: null },
-  },
-}
+withDefaults(defineProps<MarkdownItemProps>(), {
+  id: undefined,
+})
 </script>
+
+<template>
+  <VueShowdown :id="id" :markdown="label" />
+</template>

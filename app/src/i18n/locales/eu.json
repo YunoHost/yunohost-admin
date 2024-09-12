@@ -32,8 +32,7 @@
                 "reboot": "Zerbitzaria berrabiarazten ari da eta ez da erabilgarri egongo tarte batez. Saioa hasteko galdegingo zaizu zerbitzaria berriro ere erabilgarri dagoenean.",
                 "shutdown": "Zerbitzari itzaltzen ari da eta aurrerantzean ez da erabilgarri egongo. Piztu ezazu berriro eta saioa hasteko galdegingo zaizu zerbitzaria berriro erabilgarri dagoenean.",
                 "upgrade_system": "Zerbitzariarekin konexioa eten da YunoHost eguneratzen ari delako. Zerbitzaria berriro erabilgarri noiz egongo zain…"
-            },
-            "success": "Zerbitzaria erabilgarri dago! Saioa hasten saia zaitezke"
+            }
         }
     },
     "api_error": {
@@ -75,11 +74,11 @@
         "required": "Ezinbestekoa da.",
         "domain": "Arazoa domeinu izenarekin: zenbakiak, hizki txikiak, puntuak eta gidoiak bakarrik erabili daitezke",
         "dynDomain": "Arazoa domeinu izenarekin: zenbakiak, hizki txikiak eta gidoiak bakarrik erabil daitezke",
-        "emailForward": "Arazoa posta elektronikoaren birbidalketarekin: zenbakiak, hizkiak eta <code>_.-+</code> bakarrik erabil daitezke (esaterako izena+etiketa@adibidea.eus, iz3na-1+etiketa@adibidea.eus)",
+        "emailForward": "Arazoa posta elektronikoaren birbidalketarekin: zenbakiak, hizkiak eta <code>_.-+</code> bakarrik erabil daitezke (esaterako izena+etiketa{'@'}adibidea.eus, iz3na-1+etiketa{'@'}adibidea.eus)",
         "maxValue": "Zenbakia {max} edo txikiagoa izan behar da.",
         "passwordLenght": "Pasahitzak 8 karaktere izan behar ditu gutxienez.",
         "between": "{min} eta {max} artean egon behar da.",
-        "email": "Arazoa posta elektronikoarekin: zenbakiak, hizkiak eta <code>_.-</code> bakarrik erabili daitezke (esaterako izena@adibidea.eus, iz3na-1@adibidea.eus)",
+        "email": "Arazoa posta elektronikoarekin: zenbakiak, hizkiak eta <code>_.-</code> bakarrik erabili daitezke (esaterako izena{'@'}adibidea.eus, iz3na-1{'@'}adibidea.eus)",
         "minValue": "Zenbakia {min} edo handiagoa izan behar da.",
         "notInUsers": "Badago '{value}' izena duen erabiltzailea dagoeneko.",
         "number": "Balioa zenbaki bat izan behar da.",
@@ -89,15 +88,15 @@
         "appRepoUrl": "YunoHosten aplikazio-gordailuko URLek honako itxura daukate: https://domain.tld/path/to/repo_ynh"
     },
     "items": {
-        "backups": "babeskopia bat ere ez | babeskopia | {c} babeskopia",
-        "domains": "domeinu bat ere ez | domeinua | {c} domeinua",
-        "apps": "aplikazio bat ere ez | aplikazioa | {c} aplikazioa",
-        "groups": "talderik ez | taldea | {c} talde",
-        "installed_apps": "instalatutako aplikazio bat ere ez | instalatutako aplikazioa | {c} instalatutako aplikazioa",
-        "services": "zerbitzu bat ere ez | zerbitzua | {c} zerbitzua",
-        "users": "erabiltzaile bat ere ez | erabiltzailea | {c} erabiltzailea",
-        "logs": "erregistro bat ere ez | erregistroa | {c} erregistroa",
-        "permissions": "baimenik gabe | baimena | {c} baimen"
+        "backups": "babeskopia bat ere ez | babeskopia | {n} babeskopia",
+        "domains": "domeinu bat ere ez | domeinua | {n} domeinua",
+        "apps": "aplikazio bat ere ez | aplikazioa | {n} aplikazioa",
+        "groups": "talderik ez | taldea | {n} talde",
+        "installed_apps": "instalatutako aplikazio bat ere ez | instalatutako aplikazioa | {n} instalatutako aplikazioa",
+        "services": "zerbitzu bat ere ez | zerbitzua | {n} zerbitzua",
+        "users": "erabiltzaile bat ere ez | erabiltzailea | {n} erabiltzailea",
+        "logs": "erregistro bat ere ez | erregistroa | {n} erregistroa",
+        "permissions": "baimenik gabe | baimena | {n} baimen"
     },
     "history": {
         "title": "Historia",
@@ -540,7 +539,7 @@
     "user_emailaliases": "e-mail ezizenak",
     "user_emailforward": "Posta elektronikoaren birbidalketa",
     "user_fullname": "Izen osoa",
-    "user_new_forward": "birbidalketaberria@kanpoko-domeinua.eus",
+    "user_new_forward": "birbidalketaberria{'@'}kanpoko-domeinua.eus",
     "user_username": "Erabiltzaile-izena",
     "users": "Erabiltzaileak",
     "yes": "Bai",
@@ -556,7 +555,7 @@
     "users_export": "Esportatu erabiltzaileak",
     "users_import_csv_file": "CSV fitxategia",
     "users_import_update": "Eguneratu existitzen diren erabiltzaileak",
-    "tip_about_user_email": "Erabiltzaileak sortzerakoan ePosta helbide bat (eta XMPP kontu bat) esleitzen zaie erabiltzailea@domeinua.eus itxurarekin. Administrari eta erabiltzaileek helbide elektroniko gehiago eta birbidalketarako helbideak gehitu ditzazkete geroago.",
+    "tip_about_user_email": "Erabiltzaileak sortzerakoan ePosta helbide bat (eta XMPP kontu bat) esleitzen zaie erabiltzailea{'@'}domeinua.eus itxurarekin. Administrari eta erabiltzaileek helbide elektroniko gehiago eta birbidalketarako helbideak gehitu ditzazkete geroago.",
     "tools_webadmin_settings": "Administrazio-webgunearen ezarpenak",
     "user_mailbox_use": "Posta elektronikorako erabilitako espazioa",
     "users_new": "Erabiltzaile berria",
@@ -581,7 +580,7 @@
     "confirm_install_app_broken": "ADI! Aplikazio hau hondatuta dago YunoHost-en azterketa automatikoen arabera eta litekeena da sistema hondatzea! EZ instalatu ez badakizu zertan ari zaren. Arriskatu nahi al duzu?",
     "details_about": "Erakutsi xehetasun gehiago {subject}(r)i buruz",
     "group_admins": "Administratzaileak",
-    "group_explain_admins": "Administratzeko ahalmena duten erabiltzaileen talde berezia da hau. Talde honetan dauden erabiltzaileek YunoHosten web-administrazioa, SSH konexioa eta 'sudo' komandoa erabil dezakete. root@, admin@ eta admins@ kontuei bidalitako mezu elektronikoak ere jasoko dituzte, diagnostikoen jakinarazpenez gain. Erabat fio zaren erabiltzaileak baino ez zenituzke gehitu beharko talde honetara!",
+    "group_explain_admins": "Administratzeko ahalmena duten erabiltzaileen talde berezia da hau. Talde honetan dauden erabiltzaileek YunoHosten web-administrazioa, SSH konexioa eta 'sudo' komandoa erabil dezakete. root{'@'}, admin{'@'} eta admins{'@'} kontuei bidalitako mezu elektronikoak ere jasoko dituzte, diagnostikoen jakinarazpenez gain. Erabat fio zaren erabiltzaileak baino ez zenituzke gehitu beharko talde honetara!",
     "label_for_manifestname_help": "Erabiltzaileen atarian ageri den izena da hau. Aldatzea dago.",
     "manage_groups": "Kudeatu taldeak",
     "tools_yunohost_settings": "YunoHosten ezarpenak",

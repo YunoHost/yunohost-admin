@@ -1,13 +1,127 @@
+<script setup lang="ts">
+import { computed, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { useRouter } from 'vue-router'
+
+import api, { objectToParams } from '@/api'
+import { APIBadRequestError } from '@/api/errors'
+import ConfigPanelsComponent from '@/components/ConfigPanels.vue'
+import { formatConfigPanels, useConfigPanels } from '@/composables/configPanels'
+import { useDomains } from '@/composables/data'
+import { useAutoModal } from '@/composables/useAutoModal'
+import type { CoreConfigPanels } from '@/types/core/options'
+import DomainDns from '@/views/domain/DomainDns.vue'
+
+const props = defineProps<{
+  name: string
+  tabId?: string
+}>()
+
+const { t } = useI18n()
+const router = useRouter()
+const modalConfirm = useAutoModal()
+
+const coreConfig = await api
+  .fetchAll<[null, null, CoreConfigPanels]>([
+    { uri: 'domains', cachePath: 'domains' },
+    {
+      uri: `domains/${props.name}`,
+      cachePath: `domainDetails.${props.name}`,
+    },
+    { uri: `domains/${props.name}/config?full` },
+  ])
+  .then((responses) => responses[2])
+const { domain } = useDomains(() => props.name)
+const config = useConfigPanels(
+  formatConfigPanels(coreConfig),
+  () => props.tabId,
+  ({ panelId, data, action }, onError) => {
+    api
+      .put({
+        uri: action
+          ? `domain/${props.name}/actions/${action}`
+          : `domains/${props.name}/config/${panelId}`,
+        data: { args: objectToParams(data) },
+        humanKey: {
+          key: `domains.${action ? 'action' : 'update'}_config`,
+          id: panelId,
+          name: props.name,
+        },
+      })
+      .then(() => api.refetch())
+      .catch(onError)
+  },
+)
+
+const unsubscribeDomainFromDyndns = ref(false)
+
+const cert = computed(() => {
+  const { CA_type, validity, style } = domain.value.certificate
+  return {
+    authority: CA_type,
+    validity,
+    variant: style,
+    icon: {
+      warning: 'exclamation',
+      success: CA_type === 'other' ? 'check' : 'thumbs-up',
+      danger: 'times',
+    }[style],
+  }
+})
+
+const isMainDynDomain = computed(() => {
+  return (
+    domain.value.registrar === 'yunohost' && props.name.split('.').length === 3
+  )
+})
+
+async function deleteDomain() {
+  const data =
+    isMainDynDomain.value && !unsubscribeDomainFromDyndns.value
+      ? { ignore_dyndns: 1 }
+      : {}
+
+  api
+    .delete({
+      uri: `domains/${props.name}`,
+      cachePath: `domains.${props.name}`,
+      data,
+      humanKey: {
+        key: 'domains.delete',
+        name: props.name,
+      },
+    })
+    .then(() => {
+      router.push({ name: 'domain-list' })
+    })
+    .catch((err) => {
+      if (!(err instanceof APIBadRequestError)) throw err
+      modalConfirm(
+        err.data.error,
+        { headerVariant: 'danger', title: t('error') },
+        { markdown: true, cancelable: false },
+      )
+    })
+}
+
+async function setAsDefaultDomain() {
+  const confirmed = await modalConfirm(t('confirm_change_maindomain'))
+  if (!confirmed) return
+
+  api.put({
+    uri: `domains/${props.name}/main`,
+    cachePath: `mainDomain.${props.name}`,
+    data: {},
+    humanKey: { key: 'domains.set_default', name: props.name },
+  })
+}
+</script>
+
 <template>
-  <ViewBase
-    :queries="queries"
-    @queries-response="onQueriesResponse"
-    ref="view"
-    skeleton="CardListSkeleton"
-  >
+  <div>
     <!-- INFO CARD -->
-    <YCard v-if="domain" :title="name" icon="globe">
-      <template v-if="isMainDomain" #header-next>
+    <YCard :title="name" icon="globe">
+      <template v-if="domain.main" #header-next>
         <BBadge variant="info" class="main-domain-badge">
           <ExplainWhat
             id="explain-main-domain"
@@ -21,18 +135,14 @@
 
       <template #header-buttons>
         <!-- DEFAULT DOMAIN -->
-        <BButton
-          v-if="!isMainDomain"
-          @click="setAsDefaultDomain"
-          variant="info"
-        >
+        <BButton v-if="!domain.main" variant="info" @click="setAsDefaultDomain">
           <YIcon iname="star" /> {{ $t('set_default') }}
         </BButton>
 
         <!-- DELETE DOMAIN -->
         <BButton
           v-b-modal.delete-modal
-          :disabled="isMainDomain"
+          :disabled="domain.main"
           variant="danger"
         >
           <YIcon iname="trash-o" /> {{ $t('delete') }}
@@ -48,12 +158,12 @@
 
       <!-- DOMAIN CERT AUTHORITY -->
       <DescriptionRow :term="$t('domain.info.certificate_authority')">
-        <YIcon :iname="cert.icon" :variant="cert.variant" class="mr-1" />
+        <YIcon :iname="cert.icon" :variant="cert.variant" class="me-1" />
         {{ $t('domain.cert.types.' + cert.authority) }}
         <span class="text-secondary px-2">
           ({{
             $t('domain.cert.valid_for', {
-              days: $tc('day_validity', cert.validity),
+              days: $t('day_validity', cert.validity),
             })
           }})
         </span>
@@ -83,10 +193,10 @@
             v-for="app in domain.apps"
             :key="app.id"
             size="sm"
-            class="mr-2 mb-2"
+            class="me-2 mb-2"
           >
             <BButton
-              class="py-0 font-weight-bold"
+              class="py-0 fw-bold"
               variant="outline-dark"
               :to="{ name: 'app-info', params: { id: app.id } }"
             >
@@ -98,7 +208,7 @@
               :href="'https://' + name + app.path"
               target="_blank"
             >
-              <span class="sr-only">{{ $t('app.visit_app') }}</span>
+              <span class="visually-hidden">{{ $t('app.visit_app') }}</span>
               <YIcon iname="external-link" />
             </BButton>
           </BButton-group>
@@ -108,20 +218,25 @@
       </DescriptionRow>
     </YCard>
 
-    <ConfigPanels v-if="config.panels" v-bind="config" @submit="onConfigSubmit">
-      <template v-if="currentTab === 'dns'" #tab-after>
+    <ConfigPanelsComponent
+      v-model="config.form.value"
+      :panel="config.panel.value"
+      :validations="config.v.value"
+      :routes="config.routes"
+      @apply="config.onPanelApply"
+    >
+      <template v-if="tabId === 'dns'" #tab-after>
         <DomainDns :name="name" />
       </template>
-    </ConfigPanels>
+    </ConfigPanelsComponent>
 
     <BModal
-      v-if="domain"
       id="delete-modal"
-      :title="$t('confirm_delete', { name: this.name })"
+      centered
+      :title="$t('confirm_delete', { name: props.name })"
+      header-variant="warning"
+      :body-class="{ 'd-none': !isMainDynDomain }"
       @ok="deleteDomain"
-      header-bg-variant="warning"
-      body-class=""
-      body-bg-variant=""
     >
       <BFormGroup v-if="isMainDynDomain">
         <BFormCheckbox v-model="unsubscribeDomainFromDyndns">
@@ -129,165 +244,8 @@
         </BFormCheckbox>
       </BFormGroup>
     </BModal>
-  </ViewBase>
+  </div>
 </template>
-
-<script>
-import { mapGetters } from 'vuex'
-
-import api, { objectToParams } from '@/api'
-import {
-  formatFormData,
-  formatYunoHostConfigPanels,
-} from '@/helpers/yunohostArguments'
-import ConfigPanels from '@/components/ConfigPanels.vue'
-import DomainDns from './DomainDns.vue'
-
-export default {
-  name: 'DomainInfo',
-
-  components: {
-    ConfigPanels,
-    DomainDns,
-  },
-
-  props: {
-    name: { type: String, required: true },
-  },
-
-  data() {
-    return {
-      queries: [
-        ['GET', { uri: 'domains', storeKey: 'domains' }],
-        [
-          'GET',
-          { uri: 'domains', storeKey: 'domains_details', param: this.name },
-        ],
-        ['GET', `domains/${this.name}/config?full`],
-      ],
-      config: {},
-      unsubscribeDomainFromDyndns: false,
-    }
-  },
-
-  computed: {
-    ...mapGetters(['mainDomain']),
-
-    currentTab() {
-      return this.$route.params.tabId
-    },
-
-    domain() {
-      return this.$store.getters.domain(this.name)
-    },
-
-    parentName() {
-      return this.$store.getters.highestDomainParentName(this.name)
-    },
-
-    cert() {
-      const { CA_type: authority, validity } = this.domain.certificate
-      const baseInfos = { authority, validity }
-      if (validity <= 0) {
-        return { icon: 'times', variant: 'danger', ...baseInfos }
-      } else if (authority === 'other') {
-        return validity < 15
-          ? { icon: 'exclamation', variant: 'danger', ...baseInfos }
-          : { icon: 'check', variant: 'success', ...baseInfos }
-      } else if (authority === 'letsencrypt') {
-        return { icon: 'thumbs-up', variant: 'success', ...baseInfos }
-      }
-      return { icon: 'exclamation', variant: 'warning', ...baseInfos }
-    },
-
-    dns() {
-      return this.domain.dns
-    },
-
-    isMainDomain() {
-      if (!this.mainDomain) return
-      return this.name === this.mainDomain
-    },
-
-    isMainDynDomain() {
-      return (
-        this.domain.registrar === 'yunohost' &&
-        this.name.split('.').length === 3
-      )
-    },
-  },
-
-  methods: {
-    onQueriesResponse(domains, domain, config) {
-      this.config = formatYunoHostConfigPanels(config)
-    },
-
-    async onConfigSubmit({ id, form, action, name }) {
-      const args = await formatFormData(form, {
-        removeEmpty: false,
-        removeNull: true,
-      })
-
-      api
-        .put(
-          action
-            ? `domain/${this.name}/actions/${action}`
-            : `domains/${this.name}/config/${id}`,
-          { args: objectToParams(args) },
-          {
-            key: `domains.${action ? 'action' : 'update'}_config`,
-            id,
-            name: this.name,
-          },
-        )
-        .then(() => {
-          this.$refs.view.fetchQueries({ triggerLoading: true })
-        })
-        .catch((err) => {
-          if (err.name !== 'APIBadRequestError') throw err
-          const panel = this.config.panels.find((panel) => panel.id === id)
-          if (err.data.name) {
-            this.config.errors[id][err.data.name].message = err.message
-          } else this.$set(panel, 'serverError', err.message)
-        })
-    },
-
-    async deleteDomain() {
-      const data =
-        this.isMainDynDomain && !this.unsubscribeDomainFromDyndns
-          ? { ignore_dyndns: 1 }
-          : {}
-
-      api
-        .delete({ uri: 'domains', param: this.name }, data, {
-          key: 'domains.delete',
-          name: this.name,
-        })
-        .then(() => {
-          this.$router.push({ name: 'domain-list' })
-        })
-    },
-
-    async setAsDefaultDomain() {
-      const confirmed = await this.$askConfirmation(
-        this.$i18n.t('confirm_change_maindomain'),
-      )
-      if (!confirmed) return
-
-      api
-        .put(
-          { uri: `domains/${this.name}/main`, storeKey: 'main_domain' },
-          {},
-          { key: 'domains.set_default', name: this.name },
-        )
-        .then(() => {
-          // FIXME Have to commit by hand here since the response is empty (should return the given name)
-          this.$store.commit('UPDATE_MAIN_DOMAIN', this.name)
-        })
-    },
-  },
-}
-</script>
 
 <style lang="scss" scoped>
 .main-domain-badge {

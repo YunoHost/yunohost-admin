@@ -1,203 +1,143 @@
-<template>
-  <ViewBase
-    :queries="queries"
-    @queries-response="onQueriesResponse"
-    skeleton="CardFormSkeleton"
-  >
-    <CardForm
-      :title="$t('users_new')"
-      icon="user-plus"
-      :validation="$v"
-      :server-error="serverError"
-      @submit.prevent="onSubmit"
-    >
-      <!-- USER NAME -->
-      <FormField
-        v-bind="fields.username"
-        v-model="form.username"
-        :validation="$v.form.username"
-      />
+<script setup lang="ts">
+import { computed, reactive, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { useRouter } from 'vue-router'
 
-      <!-- USER FULLNAME -->
-      <FormField
-        v-bind="fields.fullname"
-        :validation="$v.form.fullname"
-        v-model="form.fullname"
-      />
-      <hr />
-
-      <!-- USER MAIL DOMAIN -->
-      <FormField v-bind="fields.domain" :validation="$v.form.domain">
-        <template #default="{ self }">
-          <BInputGroup>
-            <BInputGroupAppend>
-              <BInputGroupText
-                id="local-part"
-                tag="label"
-                class="border-right-0"
-              >
-                {{ form.username }}@
-              </BInputGroupText>
-            </BInputGroupAppend>
-
-            <SelectItem
-              aria-labelledby="local-part"
-              aria-describedby="mail__BV_description_"
-              v-model="form.domain"
-              v-bind="self"
-            />
-          </BInputGroup>
-        </template>
-      </FormField>
-      <hr />
-
-      <!-- USER PASSWORD -->
-      <FormField
-        v-bind="fields.password"
-        v-model="form.password"
-        :validation="$v.form.password"
-      />
-
-      <!-- USER PASSWORD CONFIRMATION -->
-      <FormField
-        v-bind="fields.confirmation"
-        v-model="form.confirmation"
-        :validation="$v.form.confirmation"
-      />
-    </CardForm>
-  </ViewBase>
-</template>
-
-<script>
 import api from '@/api'
-import { mapGetters } from 'vuex'
-import { validationMixin } from 'vuelidate'
-
-import { formatFormData } from '@/helpers/yunohostArguments'
+import { useDomains, useUsersAndGroups } from '@/composables/data'
+import { useForm } from '@/composables/form'
 import {
   alphalownumdot_,
-  unique,
-  required,
   minLength,
   name,
+  required,
   sameAs,
+  unique,
 } from '@/helpers/validators'
+import { formatForm } from '@/helpers/yunohostArguments'
+import type { FieldProps, FormFieldDict } from '@/types/form'
 
-export default {
-  name: 'UserCreate',
+const { t } = useI18n()
+const router = useRouter()
 
-  data() {
-    return {
-      queries: [
-        ['GET', { uri: 'users' }],
-        ['GET', { uri: 'domains' }],
-      ],
+await api.fetchAll([
+  { uri: 'users', cachePath: 'users' },
+  { uri: 'domains', cachePath: 'domains' },
+])
 
-      form: {
-        username: '',
-        fullname: '',
-        domain: '',
-        password: '',
-        confirmation: '',
-      },
+const { usernames } = useUsersAndGroups()
+const { domainsAsChoices, mainDomain } = useDomains()
 
-      serverError: '',
-
-      fields: {
-        username: {
-          label: this.$i18n.t('user_username'),
-          props: {
-            id: 'username',
-            placeholder: this.$i18n.t('placeholder.username'),
-          },
-        },
-
-        fullname: {
-          label: this.$i18n.t('user_fullname'),
-          props: {
-            id: 'fullname',
-            placeholder: this.$i18n.t('placeholder.fullname'),
-          },
-        },
-
-        domain: {
-          id: 'mail',
-          label: this.$i18n.t('user_email'),
-          description: this.$i18n.t('tip_about_user_email'),
-          descriptionVariant: 'info',
-          props: { choices: [] },
-        },
-
-        password: {
-          label: this.$i18n.t('password'),
-          description: this.$i18n.t('good_practices_about_user_password'),
-          descriptionVariant: 'warning',
-          props: {
-            id: 'password',
-            placeholder: '••••••••',
-            type: 'password',
-          },
-        },
-
-        confirmation: {
-          label: this.$i18n.t('password_confirmation'),
-          props: {
-            id: 'confirmation',
-            placeholder: '••••••••',
-            type: 'password',
-          },
-        },
-      },
-    }
-  },
-
-  computed: mapGetters(['userNames', 'domainsAsChoices', 'mainDomain']),
-
-  validations() {
-    return {
-      form: {
-        username: {
-          required,
-          alphalownumdot_,
-          notInUsers: unique(this.userNames),
-        },
-        fullname: { required, name },
-        domain: { required },
-        password: { required, passwordLenght: minLength(8) },
-        confirmation: { required, passwordMatch: sameAs('password') },
-      },
-    }
-  },
-
-  methods: {
-    onQueriesResponse() {
-      this.fields.domain.props.choices = this.domainsAsChoices
-      this.form.domain = this.mainDomain
+type Form = typeof form.value
+const form = ref({
+  username: '',
+  fullname: '',
+  domain: mainDomain.value,
+  password: '',
+  confirmation: '',
+})
+const fields = {
+  username: reactive({
+    component: 'InputItem',
+    label: t('user_username'),
+    rules: computed(() => ({
+      required,
+      alphalownumdot_,
+      notInUsers: unique(usernames),
+    })),
+    cProps: {
+      id: 'username',
+      placeholder: t('placeholder.username'),
     },
+  }) satisfies FieldProps<'InputItem', Form['username']>,
 
-    async onSubmit() {
-      const data = await formatFormData(this.form, { flatten: true })
-      api
-        .post({ uri: 'users' }, data, {
-          key: 'users.create',
-          name: this.form.username,
-        })
-        .then(() => {
-          this.$router.push({ name: 'user-list' })
-        })
-        .catch((err) => {
-          if (err.name !== 'APIBadRequestError') throw err
-          this.serverError = err.message
-        })
+  fullname: {
+    component: 'InputItem',
+    hr: true,
+    label: t('user_fullname'),
+    rules: { required, name },
+    cProps: {
+      id: 'fullname',
+      placeholder: t('placeholder.fullname'),
     },
-  },
+  } satisfies FieldProps<'InputItem', Form['fullname']>,
 
-  mixins: [validationMixin],
-}
+  domain: reactive({
+    component: 'SelectItem',
+    hr: true,
+    id: 'mail',
+    label: t('user_email'),
+    description: t('tip_about_user_email'),
+    descriptionVariant: 'info',
+    rules: { required },
+    cProps: { choices: domainsAsChoices },
+  }) satisfies FieldProps<'SelectItem', Form['domain']>,
+
+  password: {
+    component: 'InputItem',
+    label: t('password'),
+    description: t('good_practices_about_user_password'),
+    descriptionVariant: 'warning',
+    rules: { required, passwordLenght: minLength(8) },
+    cProps: {
+      id: 'password',
+      placeholder: '••••••••',
+      type: 'password',
+    },
+  } satisfies FieldProps<'InputItem', Form['password']>,
+
+  confirmation: reactive({
+    component: 'InputItem',
+    label: t('password_confirmation'),
+    rules: computed(() => ({
+      required,
+      passwordMatch: sameAs(form.value.password),
+    })),
+    cProps: {
+      id: 'confirmation',
+      placeholder: '••••••••',
+      type: 'password',
+    },
+  }) satisfies FieldProps<'InputItem', Form['confirmation']>,
+} satisfies FormFieldDict<Form>
+
+const { v, onSubmit } = useForm(form, fields)
+
+const onUserCreate = onSubmit(async (onError) => {
+  const data = await formatForm(form)
+  api
+    .post({
+      uri: 'users',
+      cachePath: 'users',
+      data,
+      humanKey: { key: 'users.create', name: form.value.username },
+    })
+    .then(() => {
+      router.push({ name: 'user-list' })
+    })
+    .catch(onError)
+})
 </script>
 
-<style lang="scss" scoped>
-.custom-select {
-  flex-basis: 40%;
-}
-</style>
+<template>
+  <div>
+    <CardForm
+      v-model="form"
+      icon="user-plus"
+      :fields="fields"
+      :title="$t('users_new')"
+      :validations="v"
+      @submit.prevent="onUserCreate"
+    >
+      <template #component:domain="componentProps">
+        <BInputGroup>
+          <BInputGroupText id="local-part" tag="label" class="border-right-0">
+            {{ form.username }}@
+          </BInputGroupText>
+
+          <SelectItem v-bind="componentProps" v-model="form.domain" />
+        </BInputGroup>
+      </template>
+    </CardForm>
+  </div>
+</template>

@@ -1,75 +1,79 @@
+<script setup lang="ts">
+import { watchThrottled } from '@vueuse/core'
+import type { BListGroup } from 'bootstrap-vue-next'
+import { nextTick, ref } from 'vue'
+
+import type { RequestMessage } from '@/composables/useRequests'
+
+const props = withDefaults(
+  defineProps<{
+    messages: RequestMessage[]
+    fixedHeight?: boolean
+    bordered?: boolean
+    autoScroll?: boolean
+    limit?: number
+  }>(),
+  {
+    fixedHeight: false,
+    bordered: false,
+    autoScroll: false,
+    limit: undefined,
+  },
+)
+
+const rootElem = ref<InstanceType<typeof BListGroup> | null>(null)
+
+const auto = ref(props.autoScroll)
+const reducedMessages = ref<RequestMessage[]>([...props.messages])
+
+watchThrottled(
+  () => props.messages,
+  (messages) => {
+    const len = messages.length
+    if (!props.limit || len <= props.limit) {
+      reducedMessages.value = [...messages]
+    } else {
+      reducedMessages.value = messages.slice(len - props.limit)
+    }
+    if (auto.value) nextTick(scrollToEnd)
+  },
+  { throttle: 300, deep: true },
+)
+
+function scrollToEnd() {
+  const elem = rootElem.value?.$el
+  elem?.scrollTo(0, elem.lastElementChild.offsetTop)
+}
+
+function onScroll() {
+  if (!props.autoScroll) return
+  const elem = rootElem.value!.$el
+  const { scrollHeight, scrollTop, clientHeight } = elem
+  auto.value = scrollHeight === scrollTop + clientHeight
+}
+</script>
 <template>
   <BListGroup
-    v-bind="$attrs"
+    ref="rootElem"
     flush
     :class="{ 'fixed-height': fixedHeight, bordered: bordered }"
     @scroll="onScroll"
   >
     <YListGroupItem
       v-if="limit && messages.length > limit"
-      variant="info"
       v-t="'api.partial_logs'"
+      variant="info"
     />
-
     <YListGroupItem
-      v-for="({ color, text }, i) in reducedMessages"
+      v-for="({ variant, text }, i) in reducedMessages"
       :key="i"
-      :variant="color"
+      :variant="variant"
       size="xs"
     >
       <span v-html="text" />
     </YListGroupItem>
   </BListGroup>
 </template>
-
-<script>
-export default {
-  name: 'MessageListGroup',
-
-  props: {
-    messages: { type: Array, required: true },
-    fixedHeight: { type: Boolean, default: false },
-    bordered: { type: Boolean, default: false },
-    autoScroll: { type: Boolean, default: false },
-    limit: { type: Number, default: null },
-  },
-
-  data() {
-    return {
-      auto: true,
-    }
-  },
-
-  computed: {
-    reducedMessages() {
-      const len = this.messages.length
-      if (!this.limit || len <= this.limit) {
-        return this.messages
-      }
-      return this.messages.slice(len - this.limit)
-    },
-  },
-
-  methods: {
-    scrollToEnd() {
-      if (!this.auto) return
-      this.$nextTick(() => {
-        this.$el.scrollTo(0, this.$el.lastElementChild.offsetTop)
-      })
-    },
-
-    onScroll({ target }) {
-      this.auto = target.scrollHeight === target.scrollTop + target.clientHeight
-    },
-  },
-
-  created() {
-    if (this.autoScroll) {
-      this.$watch('messages', this.scrollToEnd)
-    }
-  },
-}
-</script>
 
 <style lang="scss" scoped>
 .fixed-height {

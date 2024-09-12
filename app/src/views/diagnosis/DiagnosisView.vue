@@ -1,35 +1,127 @@
-<template>
-  <ViewBase
-    :queries="queries"
-    @queries-response="onQueriesResponse"
-    queries-wait
-    ref="view"
-  >
-    <template #top-bar-group-right>
-      <BButton @click="shareLogs" variant="success">
-        <YIcon iname="cloud-upload" /> {{ $t('logs_share_with_yunopaste') }}
-      </BButton>
-    </template>
+<script setup lang="ts">
+import { reactive } from 'vue'
 
-    <template #top>
-      <div class="alert alert-info">
-        {{ $t(reports ? 'diagnosis_explanation' : 'diagnosis_first_run') }}
-        <BButton
-          v-if="reports === null"
-          class="d-block mt-2"
-          variant="info"
-          @click="runDiagnosis()"
-        >
-          <YIcon iname="stethoscope" /> {{ $t('run_first_diagnosis') }}
+import api from '@/api'
+import { distanceToNow } from '@/helpers/filters/date'
+import { STATUS_VARIANT, isOkStatus } from '@/helpers/yunohostArguments'
+import type { StateStatus } from '@/types/commons'
+import type { Diagnosis } from '@/types/core/api'
+
+const reports = await api
+  .fetchAll<[null, Diagnosis | null]>([
+    {
+      method: 'PUT',
+      uri: 'diagnosis/run?except_if_never_ran_yet',
+      humanKey: 'diagnosis.run',
+    },
+    { uri: 'diagnosis?full' },
+  ])
+  .then(([_, diagnosis]) => {
+    if (!diagnosis) return null
+
+    return diagnosis.reports.map((report) => {
+      const badges = reactive({
+        warnings: 0,
+        errors: 0,
+        ignoreds: 0,
+      })
+
+      const items = reactive(
+        report.items.map((item) => {
+          const status = item.status.toLowerCase() as StateStatus
+          const variant = STATUS_VARIANT[status]
+          const issue = !isOkStatus(status)
+
+          if (item.ignored) badges.ignoreds++
+          else if (issue) badges[`${status}s`]++
+
+          return { ...item, status, issue, variant }
+        }),
+      )
+      return {
+        ...report,
+        badges,
+        items,
+        noIssues: badges.warnings + badges.errors === 0,
+      }
+    })
+  })
+
+type Report = Exclude<typeof reports, null>[number]
+
+function runDiagnosis(report?: { id: string; description: string }) {
+  const id = report?.id
+  api
+    .put({
+      uri: 'diagnosis/run' + (id ? '?force' : ''),
+      data: id ? { categories: [id] } : {},
+      humanKey: {
+        key: 'diagnosis.run' + (id ? '_specific' : ''),
+        description: report?.description,
+      },
+    })
+    .then(() => api.refetch())
+}
+
+function toggleIgnoreIssue(
+  action: 'ignore' | 'unignore',
+  report: Report,
+  item: Report['items'][number],
+) {
+  const filterArgs = [report.id].concat(
+    Object.entries(item.meta).map((entries) => entries.join('=')),
+  )
+
+  api
+    .put({
+      uri: 'diagnosis/' + action,
+      data: { filter: filterArgs },
+      humanKey: `diagnosis.${action}.${item.status}`,
+    })
+    .then(() => {
+      item.ignored = action === 'ignore'
+      const count = item.ignored ? 1 : -1
+      report.badges.ignoreds += count
+      if (!isOkStatus(item.status)) {
+        report.badges[`${item.status}s`] -= count
+      }
+    })
+}
+
+function shareLogs() {
+  api.get('diagnosis?share').then(({ url }) => {
+    window.open(url, '_blank')
+  })
+}
+</script>
+
+<template>
+  <div>
+    <TopBar>
+      <template #group-right>
+        <BButton variant="success" @click="shareLogs">
+          <YIcon iname="cloud-upload" /> {{ $t('logs_share_with_yunopaste') }}
         </BButton>
-      </div>
-    </template>
+      </template>
+    </TopBar>
+
+    <div class="alert alert-info">
+      {{ $t(reports ? 'diagnosis_explanation' : 'diagnosis_first_run') }}
+      <BButton
+        v-if="reports === null"
+        class="d-block mt-2"
+        variant="info"
+        @click="runDiagnosis()"
+      >
+        <YIcon iname="stethoscope" /> {{ $t('run_first_diagnosis') }}
+      </BButton>
+    </div>
 
     <!-- REPORT CARD -->
     <YCard
       v-for="report in reports"
       :key="report.id"
-      collapsable
+      collapsible
       :collapsed="report.noIssues"
       no-body
       button-unbreak="lg"
@@ -41,22 +133,22 @@
         <div class="">
           <BBadge
             v-if="report.noIssues"
-            variant="success"
             v-t="'everything_good'"
+            variant="success"
           />
           <BBadge
-            v-if="report.errors"
+            v-if="report.badges.errors"
+            v-t="{ path: 'issues', args: { count: report.badges.errors } }"
             variant="danger"
-            v-t="{ path: 'issues', args: { count: report.errors } }"
           />
           <BBadge
-            v-if="report.warnings"
+            v-if="report.badges.warnings"
+            v-t="{ path: 'warnings', args: { count: report.badges.warnings } }"
             variant="warning"
-            v-t="{ path: 'warnings', args: { count: report.warnings } }"
           />
           <BBadge
-            v-if="report.ignoreds"
-            v-t="{ path: 'ignored', args: { count: report.ignoreds } }"
+            v-if="report.badges.ignoreds"
+            v-t="{ path: 'ignored', args: { count: report.badges.ignoreds } }"
           />
         </div>
       </template>
@@ -82,13 +174,12 @@
           v-for="(item, i) in report.items"
           :key="i"
           :variant="item.variant"
-          :icon="item.Icon"
           :faded="item.ignored"
         >
           <div class="item-button d-flex align-items-center">
-            <p class="mb-0 mr-2" v-html="item.summary" />
+            <p class="mb-0 me-2" v-html="item.summary" />
 
-            <div class="d-flex flex-column flex-lg-row ml-auto">
+            <div class="d-flex flex-column flex-lg-row ms-auto">
               <BButton
                 v-if="item.ignored"
                 size="sm"
@@ -107,10 +198,10 @@
 
               <BButton
                 v-if="item.details"
+                v-b-toggle="`collapse-${report.id}-item-${i}`"
                 size="sm"
                 variant="outline-dark"
-                class="ml-lg-2 mt-2 mt-lg-0"
-                v-b-toggle="`collapse-${report.id}-item-${i}`"
+                class="ms-lg-2 mt-2 mt-lg-0"
               >
                 <YIcon iname="level-down" /> {{ $t('details') }}
               </BButton>
@@ -121,7 +212,7 @@
             v-if="item.details"
             :id="`collapse-${report.id}-item-${i}`"
           >
-            <ul class="mt-2 pl-4">
+            <ul class="mt-2 ps-4">
               <li
                 v-for="(detail, index) in item.details"
                 :key="index"
@@ -132,123 +223,8 @@
         </YListGroupItem>
       </BListGroup>
     </YCard>
-
-    <template #skeleton>
-      <CardListSkeleton />
-      <BCard no-body>
-        <template #header>
-          <BSkeleton width="30%" height="36px" class="m-0" />
-        </template>
-      </BCard>
-      <CardListSkeleton />
-    </template>
-  </ViewBase>
+  </div>
 </template>
-
-<script>
-import { mapGetters } from 'vuex'
-
-import api from '@/api'
-import { distanceToNow } from '@/helpers/filters/date'
-import { DEFAULT_STATUS_ICON } from '@/helpers/yunohostArguments'
-
-export default {
-  name: 'DiagnosisView',
-
-  data() {
-    return {
-      queries: [
-        ['PUT', 'diagnosis/run?except_if_never_ran_yet', {}, 'diagnosis.run'],
-        ['GET', 'diagnosis?full'],
-      ],
-      reports: undefined,
-    }
-  },
-
-  computed: {
-    ...mapGetters(['theme']),
-  },
-
-  methods: {
-    onQueriesResponse(_, reportsData) {
-      if (reportsData === null) {
-        this.reports = null
-        return
-      }
-
-      const reports = reportsData.reports
-      for (const report of reports) {
-        report.warnings = 0
-        report.errors = 0
-        report.ignoreds = 0
-
-        for (const item of report.items) {
-          const status = (item.variant = item.status.toLowerCase())
-          item.icon = DEFAULT_STATUS_ICON[status]
-          item.issue = false
-
-          if (item.ignored) {
-            item.variant = 'light'
-            report.ignoreds++
-          } else if (status === 'warning') {
-            item.issue = true
-            report.warnings++
-          } else if (status === 'error') {
-            item.variant = 'danger'
-            item.issue = true
-            report.errors++
-          }
-        }
-
-        report.noIssues = report.warnings + report.errors === 0
-      }
-      this.reports = reports
-    },
-
-    runDiagnosis({ id = null, description } = {}) {
-      const param = id !== null ? '?force' : ''
-      const data = id !== null ? { categories: [id] } : {}
-
-      api
-        .put('diagnosis/run' + param, data, {
-          key: 'diagnosis.run' + (id !== null ? '_specific' : ''),
-          description,
-        })
-        .then(this.$refs.view.fetchQueries)
-    },
-
-    toggleIgnoreIssue(action, report, item) {
-      const filterArgs = [report.id].concat(
-        Object.entries(item.meta).map((entries) => entries.join('=')),
-      )
-
-      api
-        .put(
-          'diagnosis/' + action,
-          { filter: filterArgs },
-          `diagnosis.${action}.${item.status.toLowerCase()}`,
-        )
-        .then(() => {
-          item.ignored = action === 'ignore'
-          if (item.ignored) {
-            report[item.status.toLowerCase() + 's']--
-          } else {
-            report.ignoreds--
-          }
-          this.formatReportItem(report, item)
-        })
-    },
-
-    shareLogs() {
-      api.get('diagnosis?share').then(({ url }) => {
-        window.open(url, '_blank')
-      })
-    },
-
-    distanceToNow,
-  },
-}
-</script>
 
 <style lang="scss" scoped>
 .badge + .badge {

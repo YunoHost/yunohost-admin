@@ -1,43 +1,43 @@
-<template>
-  <ViewBase :queries="queries" skeleton="CardFormSkeleton">
-    <DomainForm
-      :title="$t('domain_add')"
-      :server-error="serverError"
-      @submit="onSubmit"
-      :submit-text="$t('add')"
-    />
-  </ViewBase>
-</template>
+<script setup lang="ts">
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 
-<script>
 import api from '@/api'
+import { APIBadRequestError, type APIError } from '@/api/errors'
+import { useDomains } from '@/composables/data'
 import { DomainForm } from '@/views/_partials'
 
-export default {
-  name: 'DomainAdd',
+const router = useRouter()
 
-  data() {
-    return {
-      queries: [['GET', { uri: 'domains' }]],
-      serverError: '',
-    }
-  },
+await api.fetch({ uri: 'domains', cachePath: 'domains' })
 
-  methods: {
-    onSubmit(data) {
-      api
-        .post('domains', data, { key: 'domains.add', name: data.domain })
-        .then(() => {
-          this.$store.dispatch('RESET_CACHE_DATA', ['domains'])
-          this.$router.push({ name: 'domain-list' })
-        })
-        .catch((err) => {
-          if (err.name !== 'APIBadRequestError') throw err
-          this.serverError = err.message
-        })
-    },
-  },
+const { domains } = useDomains()
+const serverError = ref('')
 
-  components: { DomainForm },
+function onSubmit(data: { domain: string; dyndns_recovery_password?: string }) {
+  api
+    .post({
+      uri: 'domains',
+      cachePath: `domains.${data.domain}`,
+      data,
+      humanKey: { key: 'domains.add', name: data.domain },
+    })
+    .then(() => {
+      router.push({ name: 'domain-list' })
+    })
+    .catch((err: APIError) => {
+      if (!(err instanceof APIBadRequestError)) throw err
+      serverError.value = err.message
+    })
 }
 </script>
+
+<template>
+  <DomainForm
+    :domains="domains"
+    :title="$t('domain_add')"
+    :server-error="serverError"
+    :submit-text="$t('add')"
+    @submit="onSubmit"
+  />
+</template>

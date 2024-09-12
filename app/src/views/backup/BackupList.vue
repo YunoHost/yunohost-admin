@@ -1,85 +1,52 @@
-<template>
-  <ViewBase
-    :queries="queries"
-    @queries-response="onQueriesResponse"
-    skeleton="ListGroupSkeleton"
-  >
-    <template #top>
-      <TopBar
-        :button="{
-          text: $t('backup_new'),
-          icon: 'plus',
-          to: { name: 'backup-create' },
-        }"
-      />
-    </template>
+<script setup lang="ts">
+import api from '@/api'
+import { toEntries } from '@/helpers/commons'
+import { distanceToNow, readableDate } from '@/helpers/filters/date'
+import { humanSize } from '@/helpers/filters/human'
+import type { BackupList } from '@/types/core/api'
 
-    <BAlert v-if="!archives" variant="warning">
-      <YIcon iname="exclamation-triangle" />
-      {{ $tc('items_verbose_count', 0, { items: $tc('items.backups', 0) }) }}
-    </BAlert>
+defineProps<{
+  id: string
+}>()
+
+const archives = await api
+  .get<BackupList>({ uri: 'backups?with_info', initial: true })
+  .then((data) => {
+    return toEntries(data.archives)
+      .map(([name, archive]) => ({ ...archive, name }))
+      .reverse()
+  })
+</script>
+
+<template>
+  <div>
+    <TopBar
+      :button="{
+        text: $t('backup_new'),
+        icon: 'plus',
+        to: { name: 'backup-create' },
+      }"
+    />
+
+    <YAlert
+      v-if="!archives.length"
+      alert
+      icon="exclamation-triangle"
+      variant="warning"
+    >
+      {{ $t('items_verbose_count', { items: $t('items.backups', 0) }, 0) }}
+    </YAlert>
 
     <BListGroup v-else>
-      <BListGroupItem
+      <YListItem
         v-for="{ name, created_at, path, size } in archives"
         :key="name"
         :to="{ name: 'backup-info', params: { name, id } }"
         :title="readableDate(created_at)"
-        class="d-flex justify-content-between align-items-center pr-0"
-      >
-        <div>
-          <h5 class="font-weight-bold">
-            {{ distanceToNow(created_at) }}
-            <small class="text-secondary"
-              >{{ name }} ({{ humanSize(size) }})</small
-            >
-          </h5>
-          <p class="mb-0">
-            {{ path }}
-          </p>
-        </div>
-        <YIcon iname="chevron-right" class="lg fs-sm ml-auto" />
-      </BListGroupItem>
+        :label="distanceToNow(created_at)"
+        :sublabel="`${name} (${humanSize(size)})`"
+        :description="path"
+      />
     </BListGroup>
-  </ViewBase>
+  </div>
 </template>
-
-<script>
-import { distanceToNow, readableDate } from '@/helpers/filters/date'
-import { humanSize } from '@/helpers/filters/human'
-
-export default {
-  name: 'BackupList',
-
-  props: {
-    id: { type: String, required: true },
-  },
-
-  data() {
-    return {
-      queries: [['GET', 'backups?with_info']],
-      archives: undefined,
-    }
-  },
-
-  methods: {
-    onQueriesResponse(data) {
-      const archives = Object.entries(data.archives)
-      if (archives.length) {
-        this.archives = archives
-          .map(([name, infos]) => {
-            infos.name = name
-            return infos
-          })
-          .reverse()
-      } else {
-        this.archives = null
-      }
-    },
-
-    distanceToNow,
-    readableDate,
-    humanSize,
-  },
-}
-</script>

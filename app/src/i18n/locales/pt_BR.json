@@ -28,8 +28,7 @@
                 "upgrade_system": "A conexão com o servidor foi encerrada devido a atualização do YunoHost. Aguardando a disponibilidade do servidor…",
                 "reboot": "Seu servidor está reiniciando e não poderá funcionar por algum tempo. A tela de login estará disponível assim que o servidor estiver online."
             },
-            "title": "Tentando se comunicar com o servidor…",
-            "success": "O servidor agora está online! Tente fazer login novamente"
+            "title": "Tentando se comunicar com o servidor…"
         }
     },
     "all_apps": "Todas as aplicações",

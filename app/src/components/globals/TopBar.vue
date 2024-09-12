@@ -1,49 +1,36 @@
+<script setup lang="ts">
+import type { CustomRoute } from '@/types/commons'
+
+defineProps<{
+  label?: string
+  button?: CustomRoute
+}>()
+
+const slots = defineSlots<{
+  'group-left': any
+  'group-right': any
+}>()
+</script>
+
 <template>
-  <BButtonToolbar :aria-label="label" id="top-bar">
-    <div id="top-bar-left" class="top-bar-group" v-if="hasLeftSlot">
+  <BButtonToolbar id="top-bar" :aria-label="label">
+    <div v-if="slots['group-left']" id="top-bar-left" class="top-bar-group">
       <slot name="group-left" />
     </div>
 
-    <div id="top-bar-right" class="top-bar-group" v-if="hasRightSlot || button">
-      <slot v-if="hasRightSlot" name="group-right" />
+    <div
+      v-if="slots['group-right'] || button"
+      id="top-bar-right"
+      class="top-bar-group"
+    >
+      <slot v-if="slots['group-right']" name="group-right" />
 
-      <BButton v-else variant="success" :to="button.to">
+      <BButton v-else-if="button" variant="success" :to="button.to">
         <YIcon v-if="button.icon" :iname="button.icon" /> {{ button.text }}
       </BButton>
     </div>
   </BButtonToolbar>
 </template>
-
-<script>
-export default {
-  name: 'TopBar',
-
-  props: {
-    label: { type: String, default: null },
-    button: {
-      type: Object,
-      default: null,
-      validator(value) {
-        return ['text', 'to'].every((prop) => prop in value)
-      },
-    },
-  },
-
-  data() {
-    return {
-      hasLeftSlot: null,
-      hasRightSlot: null,
-    }
-  },
-
-  created() {
-    this.$nextTick(() => {
-      this.hasLeftSlot = 'group-left' in this.$slots
-      this.hasRightSlot = 'group-right' in this.$slots
-    })
-  },
-}
-</script>
 
 <style lang="scss" scoped>
 #top-bar {
@@ -55,19 +42,19 @@ export default {
     margin-bottom: 1rem;
   }
 
-  @include media-breakpoint-down(xs) {
+  @include media-breakpoint-down(sm) {
     .top-bar-group {
       flex-direction: column-reverse;
     }
   }
 
-  @include media-breakpoint-down(sm) {
+  @include media-breakpoint-down(md) {
     flex-direction: column-reverse;
 
     #top-bar-right {
       margin-bottom: 0.75rem;
 
-      ::v-deep > * {
+      :deep(> *) {
         margin-bottom: 0.25rem;
       }
     }
@@ -88,7 +75,7 @@ export default {
       margin-left: auto;
     }
 
-    ::v-deep .btn {
+    :deep(.btn) {
       margin-left: 0.5rem;
       &.dropdown-toggle-split {
         margin-left: 0;

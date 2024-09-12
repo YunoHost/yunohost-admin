@@ -79,8 +79,7 @@
                 "reboot": "Serwer jest uruchamiany ponownie i będzie nieosiągalny przez pewien czas. Logowanie stanie się możliwe, gdy serwer będzie ponownie dostępny.",
                 "upgrade_system": "Połączenie z serwerem przerwane z powodu aktualizacji YunoHost. Trwa oczekiwanie na połączenie…"
             },
-            "title": "Trwa próba połączenia z serwerem…",
-            "success": "Serwer jest już dostępny! Możesz się zalogować"
+            "title": "Trwa próba połączenia z serwerem…"
         },
         "partial_logs": "[…] sprawdź w historii pełne logi"
     },
@@ -206,7 +205,7 @@
         "alphalownumdot_": "Dozwolone są tylko małe litery oraz znak podkreślenia.",
         "domain": "Niepoprawna domena: może składać się tylko z małych liter, cyfr, kropek i kresek",
         "dynDomain": "Niepoprawna domena: musi składać się tylko z małych liter, cyfr i kresek",
-        "email": "Niepoprawny e-mail: musi składać się z liter, cyfr oraz znaków<code>_.</code> (np. someone@example.com, s0me-1@example.com)",
+        "email": "Niepoprawny e-mail: musi składać się z liter, cyfr oraz znaków<code>_.</code> (np. someone{'@'}example.com, s0me-1{'@'}example.com)",
         "required": "Pole wymagane.",
         "maxValue": "Wartość musi być liczbą równą lub mniejszą od {max}.",
         "remote": "{message}",
@@ -218,7 +217,7 @@
         "minValue": "Wartość musi być liczbą równą lub większą od {min}.",
         "number": "Musisz podać liczbę.",
         "passwordLenght": "Hasło musi mieć co najmniej 8 znaków.",
-        "emailForward": "Niepoprawne przekierowanie e-mail: adres może zawierać jedynie litery, cyfry i znaki <code>_.-+</code> (np. ktos+tag@example.com, s0me-1+tag@example.com)",
+        "emailForward": "Niepoprawne przekierowanie e-mail: adres może zawierać jedynie litery, cyfry i znaki <code>_.-+</code> (np. ktos+tag{'@'}example.com, s0me-1+tag{'@'}example.com)",
         "appRepoUrl": "Adresy URL repozytoriów YunoHost powinny wyglądać podobnie do https://domain.tld/path/to/repo_ynh"
     },
     "everything_good": "Wszystko w porządku!",
@@ -261,15 +260,15 @@
     "group_specific_permissions": "Indywidualne uprawnienia użytkownika",
     "installed": "Zainstalowano",
     "items": {
-        "permissions": "brak uprawnień | uprawnienie | {c} uprawnień",
-        "logs": "brak logów | log | {c} logów",
-        "services": "brak usług | usługa | {c} usług",
-        "users": "brak użytkowników | użytkownik | {c} użytkowników",
-        "apps": "brak aplikacji | aplikacja | {c} aplikacji",
-        "backups": "brak kopii zapasowych | kopia zapasowa | {c} kopii zapasowych",
-        "domains": "brak domen | domena | {c} domen",
-        "groups": "brak grup | grupa | {c} grup",
-        "installed_apps": "brak zainstalowanych aplikacji | zainstalowana aplikacja | {c} zainstalowanych aplikacji"
+        "permissions": "brak uprawnień | uprawnienie | {n} uprawnień",
+        "logs": "brak logów | log | {n} logów",
+        "services": "brak usług | usługa | {n} usług",
+        "users": "brak użytkowników | użytkownik | {n} użytkowników",
+        "apps": "brak aplikacji | aplikacja | {n} aplikacji",
+        "backups": "brak kopii zapasowych | kopia zapasowa | {n} kopii zapasowych",
+        "domains": "brak domen | domena | {n} domen",
+        "groups": "brak grup | grupa | {n} grup",
+        "installed_apps": "brak zainstalowanych aplikacji | zainstalowana aplikacja | {n} zainstalowanych aplikacji"
     },
     "infos": "Info",
     "hook_conf_ynh_settings": "Konfiguracja YunoHost",
@@ -565,13 +564,13 @@
     "users_import_delete_desc": "Wybranie tej opcji sprawia, że wszyscy istniejący użytkownicy niewymienieni w pliku CSV zostaną usunięci (i wymazani).",
     "yunohost_admin": "YunoHost Admin",
     "system_upgrade_all_packages_btn": "Aktualizuj wszystkie pakiety",
-    "tip_about_user_email": "Użytkownicy są tworzeni z przypisanym adresem email (i kontem XMPP) w formacie username@domain.tld. Dodatkowe aliasy adresów email i przekierowań mogą być później dodane przez admina lub użytkownika.",
+    "tip_about_user_email": "Użytkownicy są tworzeni z przypisanym adresem email (i kontem XMPP) w formacie username{'@'}domain.tld. Dodatkowe aliasy adresów email i przekierowań mogą być później dodane przez admina lub użytkownika.",
     "tools_reboot": "Uruchom ponownie serwer",
     "tools_shutdown_reboot": "Wyłącz/Uruchom ponownie",
     "user_emailaliases": "Aliasy adresu Email",
     "user_emailforward": "Przekierowywanie poczty",
     "user_mailbox_use": "Wykorzystana przestrzeń przez skrzynkę pocztową",
-    "user_new_forward": "newforward@myforeigndomain.org",
+    "user_new_forward": "newforward{'@'}myforeigndomain.org",
     "tools": "Narzędzia",
     "app_state_broken": "Zepsute",
     "app_state_broken_explanation": "Ta aplikacja aktualnie jest uszkodzona i według automatycznych testów YunoHost nie da się jej zainstalować",
@@ -582,7 +581,7 @@
     "manage_groups": "Zarządzaj grupami",
     "tools_yunohost_settings": "Ustawienia YunoHost",
     "wrong_password_or_username": "Błędne hasło lub nazwa użytkownika",
-    "group_explain_admins": "Jest to specjalna grupa użytkowników odpowiadająca administratorom. Użytkownicy należący do tej grupy mogą dostać się do portalu YunoHost webadmin, połączyć się z serwerem poprzez SSH i wykonywać polecenia `sudo`. Będą także otrzymywać maile wysłane do root@, admin@ oraz admins@, a także powiadomienia dotyczące diagnostyki. Dlatego też powinieneś do tej grupy dodawać tylko te osoby, którym ufasz w 100%!",
+    "group_explain_admins": "Jest to specjalna grupa użytkowników odpowiadająca administratorom. Użytkownicy należący do tej grupy mogą dostać się do portalu YunoHost webadmin, połączyć się z serwerem poprzez SSH i wykonywać polecenia `sudo`. Będą także otrzymywać maile wysłane do root{'@'}, admin{'@'} oraz admins{'@'}, a także powiadomienia dotyczące diagnostyki. Dlatego też powinieneś do tej grupy dodawać tylko te osoby, którym ufasz w 100%!",
     "important_yunohost_upgrade": "Dostępna jest spora aktualizacja dla YunoHost. Przed aktualizacją zaleca się uważnie przeczytać listę zmian dostępną na forum: <a href='https://forum.yunohost.org/tag/ynh_release'>Przejrzyj listę zmian na forum</a>",
     "app": {
         "install": {

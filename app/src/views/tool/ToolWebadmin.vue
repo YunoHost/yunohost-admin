@@ -1,101 +1,82 @@
-<template>
-  <CardForm :title="$t('tools_webadmin_settings')" icon="cog" no-footer>
-    <template v-for="(field, fname) in fields">
-      <FormField v-bind="field" v-model="self[fname]" :key="fname" />
-      <hr :key="fname + 'hr'" />
-    </template>
-  </CardForm>
-</template>
+<script setup lang="ts">
+import { computed, reactive, ref, watch } from 'vue'
+import { useI18n } from 'vue-i18n'
 
-<script>
-// FIXME move into helpers ?
-// Dynamicly generate computed properties from store with get/set and automatic commit/dispatch
-function mapStoreGetSet(props = [], action = 'commit') {
-  return props.reduce((obj, prop) => {
-    obj[prop] = {
-      get() {
-        return this.$store.getters[prop]
-      },
-      set(value) {
-        const key =
-          (action === 'commit' ? 'SET_' : 'UPDATE_') + prop.toUpperCase()
-        this.$store[action](key, value)
-      },
-    }
-    return obj
-  }, {})
+import { useSettings } from '@/composables/useSettings'
+import { getKeys, pick } from '@/helpers/commons'
+import type { FormField } from '@/types/form'
+
+const { t } = useI18n()
+// Computed `t` to get on the fly lang change in this view
+const ct = (key: string) => computed(() => t(key))
+
+const settings = useSettings()
+
+const fields = {
+  locale: reactive({
+    component: 'SelectItem',
+    label: ct('tools_webadmin.language'),
+    cProps: { id: 'locale', choices: settings.availableLocales },
+  }) as FormField<'SelectItem', string>,
+
+  fallbackLocale: reactive({
+    component: 'SelectItem',
+    label: ct('tools_webadmin.fallback_language'),
+    description: ct('tools_webadmin.fallback_language_description'),
+    cProps: {
+      id: 'fallback-locale',
+      choices: settings.availableLocales,
+    },
+  }) as FormField<'SelectItem', string>,
+
+  cache: reactive({
+    component: 'CheckboxItem',
+    id: 'cache',
+    label: ct('tools_webadmin.cache'),
+    description: ct('tools_webadmin.cache_description'),
+    cProps: { labels: { true: 'enabled', false: 'disabled' } },
+  }) as FormField<'CheckboxItem', boolean>,
+
+  transitions: reactive({
+    component: 'CheckboxItem',
+    id: 'transitions',
+    label: ct('tools_webadmin.transitions'),
+    cProps: { labels: { true: 'enabled', false: 'disabled' } },
+  }) as FormField<'CheckboxItem', boolean>,
+
+  dark: reactive({
+    component: 'CheckboxItem',
+    id: 'theme',
+    label: ct('tools_webadmin.theme'),
+    cProps: { labels: { true: '🌙', false: '☀️' } },
+  }) as FormField<'CheckboxItem', boolean>,
+
+  experimental: reactive({
+    component: 'CheckboxItem',
+    id: 'experimental',
+    label: ct('tools_webadmin.experimental'),
+    description: ct('tools_webadmin.experimental_description'),
+    // Available in dev mode only
+    visible: import.meta.env.DEV,
+    cProps: { labels: { true: 'enabled', false: 'disabled' } },
+  }) as FormField<'CheckboxItem', boolean>,
 }
+const form = ref(pick(settings, getKeys(fields)))
 
-export default {
-  name: 'ToolWebadmin',
-
-  data() {
-    return {
-      // Hacky way to be able to dynamicly point to a computed property `self['computedProp']`
-      self: this,
-
-      fields: {
-        locale: {
-          label: this.$i18n.t('tools_webadmin.language'),
-          component: 'SelectItem',
-          props: { id: 'locale', choices: [] },
-        },
-
-        fallbackLocale: {
-          label: this.$i18n.t('tools_webadmin.fallback_language'),
-          description: this.$i18n.t(
-            'tools_webadmin.fallback_language_description',
-          ),
-          component: 'SelectItem',
-          props: { id: 'fallback-locale', choices: [] },
-        },
-
-        cache: {
-          id: 'cache',
-          label: this.$i18n.t('tools_webadmin.cache'),
-          description: this.$i18n.t('tools_webadmin.cache_description'),
-          component: 'CheckboxItem',
-          props: { labels: { true: 'enabled', false: 'disabled' } },
-        },
-
-        transitions: {
-          id: 'transitions',
-          label: this.$i18n.t('tools_webadmin.transitions'),
-          component: 'CheckboxItem',
-          props: { labels: { true: 'enabled', false: 'disabled' } },
-        },
-
-        theme: {
-          id: 'theme',
-          label: this.$i18n.t('tools_webadmin.theme'),
-          component: 'CheckboxItem',
-          props: { labels: { true: '🌙', false: '☀️' } },
-        },
-
-        // experimental: added in `created()`
-      },
-    }
-  },
-
-  computed: {
-    // Those are set/get computed properties
-    ...mapStoreGetSet(['locale', 'fallbackLocale', 'theme'], 'dispatch'),
-    ...mapStoreGetSet(['cache', 'transitions', 'experimental']),
-  },
-
-  created() {
-    const availableLocales = this.$store.getters.availableLocales
-    this.fields.locale.props.choices = availableLocales
-    this.fields.fallbackLocale.props.choices = availableLocales
-    if (import.meta.env.DEV) {
-      this.fields.experimental = {
-        id: 'experimental',
-        label: this.$i18n.t('tools_webadmin.experimental'),
-        description: this.$i18n.t('tools_webadmin.experimental_description'),
-        component: 'CheckboxItem',
-        props: { labels: { true: 'enabled', false: 'disabled' } },
-      }
-    }
-  },
-}
+watch(form, (form) => {
+  getKeys(form).forEach((k) => {
+    settings[k].value = form[k]
+  })
+})
 </script>
+
+<template>
+  <CardForm
+    v-model="form"
+    :fields="fields"
+    :title="t('tools_webadmin_settings')"
+    icon="cog"
+    no-footer
+    hr
+  />
+</template>

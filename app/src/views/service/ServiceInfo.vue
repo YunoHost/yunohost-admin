@@ -1,31 +1,104 @@
+<script setup lang="ts">
+import { useI18n } from 'vue-i18n'
+
+import api from '@/api'
+import { useAutoModal } from '@/composables/useAutoModal'
+import { distanceToNow } from '@/helpers/filters/date'
+import type { ServiceInfo, ServiceLogs } from '@/types/core/api'
+
+const props = defineProps<{ name: string }>()
+
+const { t } = useI18n()
+const modalConfirm = useAutoModal()
+
+const { infos, upOrDownTime, isCritical, logs } = await api
+  .fetchAll<
+    [ServiceInfo, ServiceLogs]
+  >([{ uri: 'services/' + props.name }, { uri: `services/${props.name}/log?number=50` }])
+  .then(([service, logs]) => {
+    const { last_state_change, ...infos } = service
+    const criticalServices = ['nginx', 'ssh', 'slapd', 'yunohost-api']
+
+    return {
+      infos,
+      upOrDownTime:
+        last_state_change === 'unknown'
+          ? t('unknown')
+          : distanceToNow(last_state_change, false),
+      isCritical: criticalServices.includes(props.name),
+      logs: Object.keys(logs)
+        .sort((prev, curr) => {
+          if (prev === 'journalctl') return -1
+          else if (curr === 'journalctl') return 1
+          else if (prev < curr) return -1
+          else return 1
+        })
+        .map((filename) => ({
+          content: logs[filename].join('\n'),
+          filename,
+        })),
+    }
+  })
+
+async function updateService(action: 'start' | 'stop' | 'restart') {
+  const confirmed = await modalConfirm(
+    t(`confirm_service_${action}`, { name: props.name }),
+  )
+  if (!confirmed) return
+
+  api
+    .put({
+      uri: `services/${props.name}/${action}`,
+      humanKey: { key: `services.${action}`, name: props.name },
+    })
+    .then(() => api.refetch())
+}
+
+function shareLogs() {
+  const logsContent = logs
+    .map(({ filename, content }) => {
+      return `LOGFILE: ${filename}\n${content}`
+    })
+    .join('\n\n')
+
+  fetch('https://paste.yunohost.org/documents', {
+    method: 'POST',
+    body: logsContent,
+  })
+    .then((response) => {
+      if (response.ok) return response.json()
+      else console.error('error', response)
+      // FIXME flash error
+    })
+    .then(({ key }) => {
+      window.open(`https://paste.yunohost.org/${key}`, '_blank')
+    })
+}
+</script>
+
 <template>
-  <ViewBase
-    :queries="queries"
-    @queries-response="onQueriesResponse"
-    ref="view"
-    skeleton="CardInfoSkeleton"
-  >
+  <div>
     <!-- INFO CARD -->
     <YCard :title="name" icon="info-circle" button-unbreak="sm">
       <template #header-buttons>
         <template v-if="infos.status === 'running'">
           <!-- RESTART SERVICE -->
-          <BButton @click="updateService('restart')" variant="warning">
+          <BButton variant="warning" @click="updateService('restart')">
             <YIcon iname="refresh" /> {{ $t('restart') }}
           </BButton>
 
           <!-- STOP SERVICE -->
           <BButton
             v-if="!isCritical"
-            @click="updateService('stop')"
             variant="danger"
+            @click="updateService('stop')"
           >
             <YIcon iname="warning" /> {{ $t('stop') }}
           </BButton>
         </template>
 
         <!-- START SERVICE -->
-        <BButton v-else @click="updateService('start')" variant="success">
+        <BButton v-else variant="success" @click="updateService('start')">
           <YIcon iname="play" /> {{ $t('start') }}
         </BButton>
       </template>
@@ -47,7 +120,7 @@
               <YIcon :iname="value === 'running' ? 'check-circle' : 'times'" />
               {{ $t(value) }}
             </span>
-            {{ $t('since') }} {{ distanceToNow(uptime) }}
+            {{ $t('since') }} {{ upOrDownTime }}
           </template>
 
           <span
@@ -70,107 +143,16 @@
         </BButton>
       </template>
 
-      <template v-for="({ filename, content }, i) in logs">
-        <h3 :key="i + '-filename'">
+      <template v-for="{ filename, content } in logs" :key="filename">
+        <h3>
           {{ filename }}
         </h3>
 
-        <pre :key="i + '-content'" class="log"><code>{{ content }}</code></pre>
+        <pre class="log"><code>{{ content }}</code></pre>
       </template>
     </YCard>
-  </ViewBase>
+  </div>
 </template>
-
-<script>
-import api from '@/api'
-import { distanceToNow } from '@/helpers/filters/date'
-
-export default {
-  name: 'ServiceInfo',
-
-  props: {
-    name: { type: String, required: true },
-  },
-
-  data() {
-    return {
-      queries: [
-        ['GET', 'services/' + this.name],
-        ['GET', `services/${this.name}/log?number=50`],
-      ],
-      // Service data
-      infos: undefined,
-      uptime: undefined,
-      isCritical: undefined,
-      logs: undefined,
-      // Modal action
-      action: undefined,
-    }
-  },
-
-  methods: {
-    onQueriesResponse(
-      // eslint-disable-next-line
-      { status, description, start_on_boot, last_state_change, configuration },
-      logs,
-    ) {
-      this.isCritical = ['nginx', 'ssh', 'slapd', 'yunohost-api'].includes(
-        this.name,
-      )
-      // eslint-disable-next-line
-      this.uptime = last_state_change === 'unknown' ? 0 : last_state_change
-      this.infos = { description, status, start_on_boot, configuration }
-
-      this.logs = Object.keys(logs)
-        .sort((prev, curr) => {
-          if (prev === 'journalctl') return -1
-          else if (curr === 'journalctl') return 1
-          else if (prev < curr) return -1
-          else return 1
-        })
-        .map((filename) => ({ content: logs[filename].join('\n'), filename }))
-    },
-
-    async updateService(action) {
-      const confirmed = await this.$askConfirmation(
-        this.$i18n.t('confirm_service_' + action, { name: this.name }),
-      )
-      if (!confirmed) return
-
-      api
-        .put(
-          `services/${this.name}/${action}`,
-          {},
-          { key: 'services.' + action, name: this.name },
-        )
-        .then(this.$refs.view.fetchQueries)
-    },
-
-    shareLogs() {
-      const logs = this.logs
-        .map(({ filename, content }) => {
-          return `LOGFILE: ${filename}\n${content}`
-        })
-        .join('\n\n')
-
-      fetch('https://paste.yunohost.org/documents', {
-        method: 'POST',
-        body: logs,
-      })
-        .then((response) => {
-          if (response.ok) return response.json()
-          // FIXME flash error
-          /* eslint-disable-next-line */ else console.log('error', response)
-        })
-        .then(({ key }) => {
-          window.open('https://paste.yunohost.org/' + key, '_blank')
-        })
-    },
-
-    distanceToNow,
-  },
-}
-</script>
 
 <style lang="scss" scoped>
 h3 {

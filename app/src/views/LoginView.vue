@@ -1,111 +1,102 @@
+<script setup lang="ts">
+import { ref } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { useRouter, type LocationQueryValue } from 'vue-router'
+
+import { APIUnauthorizedError } from '@/api/errors'
+import { useForm } from '@/composables/form'
+import { useInfos } from '@/composables/useInfos'
+import { alphalownumdot_, minLength, required } from '@/helpers/validators'
+import type { FieldProps, FormFieldDict } from '@/types/form'
+
+const props = withDefaults(
+  defineProps<{
+    forceReload?: boolean
+  }>(),
+  {
+    forceReload: false,
+  },
+)
+
+const { t } = useI18n()
+const router = useRouter()
+const { login, installed } = useInfos()
+
+type Form = typeof form.value
+const form = ref({
+  username: '',
+  password: '',
+})
+const fields = {
+  username: {
+    component: 'InputItem',
+    label: t('user_username'),
+    rules: { required, alphalownumdot_ },
+    cProps: {
+      id: 'username',
+      autocomplete: 'username',
+    },
+  } satisfies FieldProps<'InputItem', Form['username']>,
+
+  password: {
+    component: 'InputItem',
+    label: t('password'),
+    rules: { required, passwordLenght: minLength(4) },
+    cProps: {
+      id: 'password',
+      type: 'password',
+      autocomplete: 'current-password',
+    },
+  } satisfies FieldProps<'InputItem', Form['password']>,
+} satisfies FormFieldDict<Form>
+
+const { v, onSubmit, serverErrors } = useForm(form, fields)
+
+const onLogin = onSubmit((onError) => {
+  const { username, password } = form.value
+  const credentials = [username, password].join(':')
+  login(credentials)
+    .then(() => {
+      if (props.forceReload) {
+        window.location.href = '/yunohost/admin/'
+      } else {
+        router.push(
+          (router.currentRoute.value.query.redirect as LocationQueryValue) || {
+            name: 'home',
+          },
+        )
+      }
+    })
+    .catch((err) => {
+      if (err instanceof APIUnauthorizedError) {
+        serverErrors.global = [t('wrong_password_or_username')]
+      } else {
+        onError(err)
+      }
+    })
+})
+</script>
+
 <template>
   <CardForm
-    :title="$t('login')"
+    id="login-form"
+    v-model="form"
+    :fields="fields"
     icon="lock"
-    :validation="$v"
-    :server-error="serverError"
-    @submit.prevent="login"
+    :title="t('login')"
+    :validations="v"
+    @submit="onLogin"
   >
-    <!-- ADMIN USERNAME -->
-    <FormField
-      v-bind="fields.username"
-      v-model="form.username"
-      :validation="$v.form.username"
-    />
-
-    <!-- ADMIN PASSWORD -->
-    <FormField
-      v-bind="fields.password"
-      v-model="form.password"
-      :validation="$v.form.password"
-    />
-
     <template #buttons>
+      <!-- FIXME should we remove the disabled state? -->
       <BButton
         type="submit"
         variant="success"
         :disabled="!installed"
-        form="ynh-form"
+        form="login-form"
       >
-        {{ $t('login') }}
+        {{ t('login') }}
       </BButton>
     </template>
   </CardForm>
 </template>
-
-<script>
-import { mapGetters } from 'vuex'
-import { validationMixin } from 'vuelidate'
-import { alphalownumdot_, required, minLength } from '@/helpers/validators'
-
-export default {
-  name: 'LoginView',
-
-  mixins: [validationMixin],
-
-  props: {
-    forceReload: { type: Boolean, default: false },
-  },
-
-  data() {
-    return {
-      serverError: '',
-      form: {
-        username: '',
-        password: '',
-      },
-      fields: {
-        username: {
-          label: this.$i18n.t('user_username'),
-          props: {
-            id: 'username',
-            autocomplete: 'username',
-          },
-        },
-        password: {
-          label: this.$i18n.t('password'),
-          props: {
-            id: 'password',
-            type: 'password',
-            autocomplete: 'current-password',
-          },
-        },
-      },
-    }
-  },
-
-  computed: {
-    ...mapGetters(['installed']),
-  },
-
-  validations() {
-    return {
-      form: {
-        username: { required, alphalownumdot_ },
-        password: { required, passwordLenght: minLength(4) },
-      },
-    }
-  },
-
-  methods: {
-    login() {
-      const credentials = [this.form.username, this.form.password].join(':')
-      this.$store
-        .dispatch('LOGIN', credentials)
-        .then(() => {
-          if (this.forceReload) {
-            window.location.href = '/yunohost/admin/'
-          } else {
-            this.$router.push(
-              this.$router.currentRoute.query.redirect || { name: 'home' },
-            )
-          }
-        })
-        .catch((err) => {
-          if (err.name !== 'APIUnauthorizedError') throw err
-          this.serverError = this.$i18n.t('wrong_password_or_username')
-        })
-    },
-  },
-}
-</script>

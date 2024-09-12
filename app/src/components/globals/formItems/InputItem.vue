@@ -1,49 +1,74 @@
+<script setup lang="ts">
+import type { BaseValidation } from '@vuelidate/core'
+import { computed, inject } from 'vue'
+
+import { ValidationTouchSymbol } from '@/composables/form'
+import type { BaseItemComputedProps, InputItemProps } from '@/types/form'
+import { objectGet } from '@/helpers/commons'
+
+const props = withDefaults(
+  defineProps<InputItemProps & BaseItemComputedProps>(),
+  {
+    id: undefined,
+    name: undefined,
+    placeholder: undefined,
+    touchKey: undefined,
+    autocomplete: undefined,
+    // pattern: undefined,
+    step: undefined,
+    trim: true,
+    type: 'text',
+
+    ariaDescribedby: undefined,
+    state: undefined,
+    validation: undefined,
+  },
+)
+
+const modelValue = defineModel<string | number | null>({
+  set(value) {
+    if (props.type === 'number' && typeof value === 'string') {
+      if (value === '') return ''
+      return parseInt(value)
+    }
+    return value
+  },
+})
+
+const touch = inject(ValidationTouchSymbol)
+
+const autocomplete = computed(() => {
+  const typeToAutocomplete = {
+    password: 'new-password',
+    email: 'email',
+    url: 'url',
+  } as const
+  return props.autocomplete || objectGet(typeToAutocomplete, props.type)
+})
+
+const fromValidation = computed(() => {
+  const validation = props?.validation ?? ({} as BaseValidation)
+  return {
+    required: 'required' in validation,
+    min: 'min' in validation ? validation.min.$params.min : undefined,
+    max: 'max' in validation ? validation.max.$params.max : undefined,
+  }
+})
+</script>
+
 <template>
   <BFormInput
-    :value="value"
     :id="id"
+    v-bind="fromValidation"
+    v-model="modelValue"
+    :name="name"
     :placeholder="placeholder"
-    :type="type"
-    :state="state"
-    :required="required"
-    :min="min"
-    :max="max"
+    :autocomplete="autocomplete"
     :step="step"
     :trim="trim"
-    :autocomplete="autocomplete_"
-    v-on="$listeners"
-    @blur="$parent.$emit('touch', name)"
+    :type="type"
+    :aria-describedby="ariaDescribedby"
+    :state="state"
+    @blur="touch?.(touchKey)"
   />
 </template>
-
-<script>
-export default {
-  name: 'InputItem',
-
-  props: {
-    value: { type: [String, Number], default: null },
-    id: { type: String, default: null },
-    placeholder: { type: String, default: null },
-    type: { type: String, default: 'text' },
-    required: { type: Boolean, default: false },
-    state: { type: Boolean, default: null },
-    min: { type: Number, default: null },
-    max: { type: Number, default: null },
-    step: { type: Number, default: null },
-    trim: { type: Boolean, default: true },
-    autocomplete: { type: String, default: null },
-    pattern: { type: Object, default: null },
-    name: { type: String, default: null },
-  },
-
-  data() {
-    return {
-      autocomplete_: this.autocomplete
-        ? this.autocomplete
-        : this.type === 'password'
-          ? 'new-password'
-          : null,
-    }
-  },
-}
-</script>

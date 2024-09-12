@@ -1,36 +1,45 @@
+<script setup lang="ts">
+import type { ColorVariant } from 'bootstrap-vue-next'
+import { BAlert } from 'bootstrap-vue-next'
+import { computed } from 'vue'
+
+import { DEFAULT_VARIANT_ICON } from '@/helpers/yunohostArguments'
+
+const props = withDefaults(
+  defineProps<{
+    alert?: boolean
+    icon?: string
+    variant?: ColorVariant
+  }>(),
+  {
+    alert: false,
+    icon: undefined,
+    variant: 'info' as const,
+  },
+)
+
+const icon = computed(() => {
+  return props.icon || DEFAULT_VARIANT_ICON[props.variant]
+})
+</script>
+
 <template>
   <Component
-    v-bind="$attrs"
-    :is="alert ? 'BAlert' : 'div'"
-    :variant="alert ? variant : null"
+    :is="alert ? BAlert : 'div'"
+    :model-value="alert ? true : undefined"
+    :variant="alert ? variant : undefined"
     :class="{ ['alert alert-' + variant]: !alert }"
     class="yuno-alert d-flex flex-column flex-md-row align-items-center"
   >
-    <YIcon :iname="_icon" class="mr-md-3 mb-md-0 mb-2 md" />
+    <YIcon
+      v-if="icon"
+      :iname="icon"
+      :variant="variant"
+      class="me-md-3 mb-md-0 mb-2 md"
+    />
 
     <div class="w-100">
       <slot name="default" />
     </div>
   </Component>
 </template>
-
-<script>
-import { DEFAULT_STATUS_ICON } from '@/helpers/yunohostArguments'
-
-export default {
-  name: 'YAlert',
-
-  props: {
-    alert: { type: Boolean, default: false },
-    variant: { type: String, default: 'info' },
-    icon: { type: String, default: null },
-  },
-
-  computed: {
-    _icon() {
-      if (this.icon) return this.icon
-      return DEFAULT_STATUS_ICON[this.variant]
-    },
-  },
-}
-</script>

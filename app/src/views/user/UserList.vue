@@ -1,11 +1,29 @@
+<script setup lang="ts">
+import api from '@/api'
+import { useUsersAndGroups } from '@/composables/data'
+import { useInfos } from '@/composables/useInfos'
+import { useSearch } from '@/composables/useSearch'
+
+await api.get({
+  uri: 'users?fields=username&fields=fullname&fields=mail&fields=mailbox-quota&fields=groups',
+  cachePath: 'users',
+})
+
+const { users } = useUsersAndGroups()
+const [search, filteredUsers] = useSearch(
+  users,
+  (s, user) =>
+    user.username.toLowerCase().includes(s) || user.groups.includes(s),
+)
+
+function downloadExport() {
+  const { host } = useInfos()
+  window.open(`https://${host.value}/yunohost/api/users/export`, '_blank')
+}
+</script>
+
 <template>
-  <ViewSearch
-    :search.sync="search"
-    :items="users"
-    :filtered-items="filteredUsers"
-    items-name="users"
-    :queries="queries"
-  >
+  <ViewSearch v-model="search" :items="filteredUsers" items-name="users">
     <template #top-bar-buttons>
       <BButton variant="info" :to="{ name: 'group-list' }">
         <YIcon iname="key-modern" /> {{ $t('groups_and_permissions_manage') }}
@@ -31,67 +49,14 @@
     </template>
 
     <BListGroup>
-      <BListGroupItem
+      <YListItem
         v-for="user in filteredUsers"
         :key="user.username"
         :to="{ name: 'user-info', params: { name: user.username } }"
-        class="d-flex justify-content-between align-items-center pr-0"
-      >
-        <div>
-          <h5 class="font-weight-bold">
-            {{ user.username }}
-            <small class="text-secondary">{{ user.fullname }}</small>
-          </h5>
-          <p class="m-0">
-            {{ user.mail }}
-          </p>
-        </div>
-        <YIcon iname="chevron-right" class="lg fs-sm ml-auto" />
-      </BListGroupItem>
+        :label="user.username"
+        :sublabel="user.fullname"
+        :description="user.mail"
+      />
     </BListGroup>
   </ViewSearch>
 </template>
-
-<script>
-import { mapGetters } from 'vuex'
-
-export default {
-  name: 'UserList',
-
-  data() {
-    return {
-      queries: [
-        [
-          'GET',
-          {
-            uri: 'users?fields=username&fields=fullname&fields=mail&fields=mailbox-quota&fields=groups',
-            storeKey: 'users',
-          },
-        ],
-      ],
-      search: '',
-    }
-  },
-  methods: {
-    downloadExport() {
-      const host = this.$store.getters.host
-      window.open(`https://${host}/yunohost/api/users/export`, '_blank')
-    },
-  },
-  computed: {
-    ...mapGetters(['users']),
-
-    filteredUsers() {
-      if (!this.users) return
-      const search = this.search.toLowerCase()
-      const filtered = this.users.filter((user) => {
-        return (
-          user.username.toLowerCase().includes(search) ||
-          user.groups.includes(search)
-        )
-      })
-      return filtered.length === 0 ? null : filtered
-    },
-  },
-}
-</script>

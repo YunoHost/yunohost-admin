@@ -163,7 +163,7 @@
     "certificate": "Certificat",
     "run": "Executar",
     "user_emailforward": "Reenviament de E-mail",
-    "user_new_forward": "noureenviar@dominiextern.org",
+    "user_new_forward": "noureenviar{'@'}dominiextern.org",
     "all_apps": "Totes les aplicacions",
     "confirm_install_app_lowquality": "Atenció: aquesta aplicació funciona però encara no està ben integrada a YunoHost. Algunes característiques com la identificació única i la còpia de seguretat i restauració de l'aplicació poden no estar presents.",
     "confirm_install_app_inprogress": "ATENCIÓ! Aquesta aplicació encara és experimental (si no és que no funciona directament) i és probable que trenqui el sistema! No hauríeu d'instal·lar-la a no ser que sapigueu el que feu. Esteu segurs de voler córrer aquest risc?",
@@ -251,21 +251,21 @@
     "diagnosis_explanation": "La funció de diagnòstic intentarà identificar els errors més comuns en diferents aspectes del servidor per verificar que tot funciona correctament. El diagnòstic s'executa automàticament dues vegades al dia i s'envia un correu electrònic a l'administrador si es troben errors. Tingueu en compte que no tots els tests seran rellevants si no s'utilitzen algunes funcions específiques (com per exemple XMPP) o pot ser que falli si teniu un sistema amb una configuració complexa. En aquests casos, i si sabeu el que feu, podeu ignorar els problemes o avisos corresponents.",
     "pending_migrations": "Hi ha algunes migracions pendents esperant per ser executades. Aneu a <a href='#/tools/migrations'>Eines > Migracions</a> per fer-les.",
     "logs_suboperations": "Sub-operacions",
-    "tip_about_user_email": "Els usuaris es creen amb una adreça de correu electrònic associada (i compte de XMPP) amb el format usari@domini.tld. L'administrador i l'usuari poden afegir a posteriori adreces de correu addicionals i reenviament de correus.",
+    "tip_about_user_email": "Els usuaris es creen amb una adreça de correu electrònic associada (i compte de XMPP) amb el format usari{'@'}domini.tld. L'administrador i l'usuari poden afegir a posteriori adreces de correu addicionals i reenviament de correus.",
     "permission_show_tile_enabled": "Mostrar la «tile» en el portal de l'usuari",
     "permission_main": "Etiqueta principal",
     "permission_corresponding_url": "URL corresponent",
     "app_manage_label_and_tiles": "Gestionar etiquetes i «tiles»",
     "items": {
-        "backups": "cap còpia de seguretat | còpia de seguretat | {c} còpies de seguretat",
-        "apps": "cap aplicació | app | {c} aplicacions",
-        "installed_apps": "cap aplicació instal·lada | aplicació instal·lada | {c} aplicacions instal·lades",
-        "services": "cap servei | servei | {c} serveis",
-        "logs": "cap registre | registre | {c} registres",
-        "groups": "cap grup | grup | {c} grups",
-        "domains": "cap domini | domini | {c} dominis",
-        "users": "cap usuari | usuari | {c} usuaris",
-        "permissions": "cap permís | permís | {c} permisos"
+        "backups": "cap còpia de seguretat | còpia de seguretat | {n} còpies de seguretat",
+        "apps": "cap aplicació | app | {n} aplicacions",
+        "installed_apps": "cap aplicació instal·lada | aplicació instal·lada | {n} aplicacions instal·lades",
+        "services": "cap servei | servei | {n} serveis",
+        "logs": "cap registre | registre | {n} registres",
+        "groups": "cap grup | grup | {n} grups",
+        "domains": "cap domini | domini | {n} dominis",
+        "users": "cap usuari | usuari | {n} usuaris",
+        "permissions": "cap permís | permís | {n} permisos"
     },
     "history": {
         "methods": {
@@ -286,7 +286,7 @@
         "notInUsers": "L'usuari «{value}» ja existeix.",
         "minValue": "El valor ha de ser un nombre superior o igual a {min}.",
         "name": "Els noms no poden incloure caràcters especials ha excepció de <code>,.'-</code>",
-        "email": "Correu electrònic no vàlid: ha de ser caràcters alfanumèrics i <code>_.</code> exclusivament (per exemple someone@example.com, s0me-1@example.com)",
+        "email": "Correu electrònic no vàlid: ha de ser caràcters alfanumèrics i <code>_.</code> exclusivament (per exemple someone{'@'}example.com, s0me-1{'@'}example.com)",
         "dynDomain": "Nom de domini no vàlid: Ha de contenir caràcters alfanumèrics en minúscules i guionets exclusivament",
         "domain": "Nom de domini no vàlid: Ha de contenir caràcters alfanumèrics en minúscules, punts i guionets exclusivament",
         "between": "El valor ha d'estar entre {min} i {max}.",
@@ -295,7 +295,7 @@
         "remote": "{message}",
         "pattern": "{type}",
         "invalid_form": "El formulari conté alguns errors.",
-        "emailForward": "Reenviament de correu electrònic no vàlid: només ha de ser caràcters alfanumèrics i <code>_.-+</code> (p. ex., nom+etiqueta@example.com, _n.0-m+etiqueta@example.com)",
+        "emailForward": "Reenviament de correu electrònic no vàlid: només ha de ser caràcters alfanumèrics i <code>_.-+</code> (p. ex., nom+etiqueta{'@'}example.com, _n.0-m+etiqueta{'@'}example.com)",
         "appRepoUrl": "S'espera que els URL del dipòsit d'aplicacions de YunoHost siguin com https://domini.tld/cami/al/diposit_ynh",
         "maxValue": "El valor ha de ser un nombre igual o inferior a {max}."
     },
@@ -365,8 +365,7 @@
                 "upgrade_system": "La connexió amb el servidor s'ha tancat a causa de l'actualització de YunoHost. S'està esperant que el servidor torni a ser accessible…"
             },
             "title": "S'està intentant comunicar amb el servidor…",
-            "failed": "Sembla que el servidor no respon. Podeu provar de tornar a connectar-vos o provar d'executar `systemctl restart yunohost-api` mitjançant ssh.",
-            "success": "Ja es pot accedir al servidor! Podeu provar d'iniciar sessió"
+            "failed": "Sembla que el servidor no respon. Podeu provar de tornar a connectar-vos o provar d'executar `systemctl restart yunohost-api` mitjançant ssh."
         }
     },
     "app_install_parameters": "Paràmetres de la instal·lació",
@@ -628,7 +627,7 @@
     "domain_dns_push_managed_in_parent_domain": "La funció d'entrades DNS automàtiques es gestiona al domini principal <a href='#/domains/{parent_domain}/dns'>{parent_domain}</a>.",
     "domain_dns_push_not_applicable": "La funció d'entrades DNS automàtiques no és aplicable al domini {domain}.<br> Hauríeu de configurar manualment les vostres entrades DNS seguint la <a href='https://yunohost.org/dns'>documentació</a> i la configuració suggerida a continuació.",
     "hook_data_xmpp": "Dades de XMPP",
-    "group_explain_admins": "Aquest és un grup especial corresponent als usuaris administradors. Els usuaris d'aquest grup poden accedir al webadmin de YunoHost, connectar-se al servidor amb SSH i utilitzar l'ordre `sudo`. També rebran correus electrònics enviats a root@, admin@ i admins@, com ara les notificacions de diagnòstic. Només heu d'afegir a aquest grup persones en qui confieu absolutament!",
+    "group_explain_admins": "Aquest és un grup especial corresponent als usuaris administradors. Els usuaris d'aquest grup poden accedir al webadmin de YunoHost, connectar-se al servidor amb SSH i utilitzar l'ordre `sudo`. També rebran correus electrònics enviats a root{'@'}, admin{'@'} i admins{'@'}, com ara les notificacions de diagnòstic. Només heu d'afegir a aquest grup persones en qui confieu absolutament!",
     "items_verbose_items_left": "Queden {items}. | Queda 1 {items}. | Queden {items}.",
     "postinstall": {
         "user": {
