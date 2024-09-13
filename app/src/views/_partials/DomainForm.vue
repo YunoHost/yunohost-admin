@@ -5,6 +5,7 @@ import { useI18n } from 'vue-i18n'
 import api from '@/api'
 import { useDomains } from '@/composables/data'
 import { useForm } from '@/composables/form'
+import { fromEntries, toEntries } from '@/helpers/commons'
 import {
   domain,
   dynDomain,
@@ -13,6 +14,8 @@ import {
   sameAs,
 } from '@/helpers/validators'
 import { formatFormValue } from '@/helpers/yunohostArguments'
+import type { Obj } from '@/types/commons'
+import type { Certificate } from '@/types/core/api'
 import type { AdressModelValue, FieldProps, FormFieldDict } from '@/types/form'
 
 defineOptions({
@@ -51,17 +54,12 @@ const { domains, domainsAsChoices } = !props.postinstall
   : { domains: ref([] as string[]), domainsAsChoices: ref([] as string[]) }
 const domainsCertsReady: Record<string, boolean> = !props.postinstall
   ? await api
-      .fetchAll(
-        domains.value.map((domain) => ({ uri: `domains/${domain}/cert?full` })),
-      )
-      .then((certs) => {
-        return certs.reduce(
-          (acc, cert, i) => {
-            const domain = domains.value[i]
-            acc[domain] = cert.certificates[domain].has_wildcards
-            return acc
-          },
-          {} as Record<string, boolean>,
+      .get<{ certificates: Obj<Certificate> }>({ uri: `domains/*/cert?full` })
+      .then(({ certificates }) => {
+        return fromEntries(
+          toEntries(certificates).map(([domain, cert]) => {
+            return [domain, cert.has_wildcards]
+          }),
         )
       })
   : {}

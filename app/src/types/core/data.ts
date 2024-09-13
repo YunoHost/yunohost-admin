@@ -1,4 +1,4 @@
-import type { StateVariant } from '@/types/commons'
+import type { Certificate } from '@/types/core/api'
 
 export type UserItem = {
   username: string
@@ -30,15 +30,7 @@ export type Group = {
   permissions: string[]
 }
 export type DomainDetail = {
-  certificate: {
-    subject: string
-    CA_name: string
-    CA_type: 'selfsigned' | 'letsencrypt' | 'other'
-    validity: number
-    style: Exclude<StateVariant, 'info'>
-    summary: string // enum
-    ACME_eligible: boolean
-  }
+  certificate: Certificate
   registrar: string // or null ?
   apps: { name: string; id: string; path: string }[]
   main: boolean
