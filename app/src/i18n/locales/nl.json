@@ -507,15 +507,15 @@
         "is_empty": "Niets in geschiedenis op dit moment."
     },
     "items": {
-        "apps": "geen apps | app | {n} apps",
-        "logs": "geen logs | log | {n} logs",
-        "permissions": "geen privileges | privilege | {n} privilege",
-        "services": "geen diensten | dienst | {n} diensten",
-        "backups": "geen backups | backup | {n} backups",
-        "groups": "geen groepen | groep | {n} groepen",
-        "domains": "geen domein | domein | {n} domeins",
-        "users": "geen gebruikers | gebruiker | {n} gebruikers",
-        "installed_apps": "geen geïnstalleerde apps | geïnstalleerde app | {n} geïnstalleerde apps"
+        "apps": "geen apps | app | apps",
+        "logs": "geen logs | log | logs",
+        "permissions": "geen privileges | privilege | privilege",
+        "services": "geen diensten | dienst | diensten",
+        "backups": "geen backups | backup | backups",
+        "groups": "geen groepen | groep | groepen",
+        "domains": "geen domein | domein | domeins",
+        "users": "geen gebruikers | gebruiker | gebruikers",
+        "installed_apps": "geen geïnstalleerde apps | geïnstalleerde app | geïnstalleerde apps"
     },
     "hook_data_xmpp_desc": "Kamer en gebruiker configuraties, geüploade bestanden",
     "ignored": "{count} genegeerd",

@@ -298,15 +298,15 @@
     "mailbox_quota_example": "700 M correspond à un CD, 4 700 M correspond à un DVD",
     "items_verbose_count": "Il n'y a {items}. | Il y a un {items}. | Il y a des {items}.",
     "items": {
-        "users": "aucun compte | compte | {n} comptes",
-        "services": "aucun service | service | {n} services",
-        "logs": "aucun historique/log | log | {n} logs",
-        "installed_apps": "aucune application installée | application installée | {n} applications installées",
-        "groups": "aucun groupe | groupe | {n} groupes",
-        "domains": "aucun domaine | domaine | {n} domaines",
-        "backups": "aucune sauvegarde | sauvegarde | {n} sauvegardes",
-        "apps": "aucune application | app | {n} apps",
-        "permissions": "pas d'autorisations | permission | {n} autorisations"
+        "users": "aucun compte | compte | comptes",
+        "services": "aucun service | service | services",
+        "logs": "aucun historique/log | log | logs",
+        "installed_apps": "aucune application installée | application installée | applications installées",
+        "groups": "aucun groupe | groupe | groupes",
+        "domains": "aucun domaine | domaine | domaines",
+        "backups": "aucune sauvegarde | sauvegarde | sauvegardes",
+        "apps": "aucune application | app | apps",
+        "permissions": "pas d'autorisations | permission | autorisations"
     },
     "history": {
         "methods": {

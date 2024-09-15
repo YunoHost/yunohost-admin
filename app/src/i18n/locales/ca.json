@@ -257,15 +257,15 @@
     "permission_corresponding_url": "URL corresponent",
     "app_manage_label_and_tiles": "Gestionar etiquetes i «tiles»",
     "items": {
-        "backups": "cap còpia de seguretat | còpia de seguretat | {n} còpies de seguretat",
-        "apps": "cap aplicació | app | {n} aplicacions",
-        "installed_apps": "cap aplicació instal·lada | aplicació instal·lada | {n} aplicacions instal·lades",
-        "services": "cap servei | servei | {n} serveis",
-        "logs": "cap registre | registre | {n} registres",
-        "groups": "cap grup | grup | {n} grups",
-        "domains": "cap domini | domini | {n} dominis",
-        "users": "cap usuari | usuari | {n} usuaris",
-        "permissions": "cap permís | permís | {n} permisos"
+        "backups": "cap còpia de seguretat | còpia de seguretat | còpies de seguretat",
+        "apps": "cap aplicació | app | aplicacions",
+        "installed_apps": "cap aplicació instal·lada | aplicació instal·lada | aplicacions instal·lades",
+        "services": "cap servei | servei | serveis",
+        "logs": "cap registre | registre | registres",
+        "groups": "cap grup | grup | grups",
+        "domains": "cap domini | domini | dominis",
+        "users": "cap usuari | usuari | usuaris",
+        "permissions": "cap permís | permís | permisos"
     },
     "history": {
         "methods": {

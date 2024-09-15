@@ -361,15 +361,15 @@
     "hook_conf_ynh_settings": "Configuraciones de YunoHost",
     "confirm_group_add_access_permission": "¿Seguro que quieres conceder acceso {perm} a {name}? Este acceso incrementa significantemente la exposición a ataques al sistema si {name} resulta tener malas intenciones. Sólo deberías aprobarlo si CONFÍAS en esa persona/grupo.",
     "items": {
-        "services": "sin servicios | servicio | {n} servicios",
-        "users": "sin cuentas | cuenta | {n} cuentas",
-        "domains": "sin dominios | dominio | {n} dominios",
-        "installed_apps": "sin aplicaciones instaladas | aplicación instalada | {n} aplicaciones instaladas",
-        "apps": "sin aplicaciones | aplicación | {n} aplicaciones",
-        "permissions": "sin permisos | permiso | {n} permisos",
-        "groups": "sin grupos | grupo | {n} grupos",
-        "backups": "sin copias de seguridad | copia de seguridad | {n} copias de seguridad",
-        "logs": "sin registros | registro | {n} registros"
+        "services": "sin servicios | servicio | servicios",
+        "users": "sin cuentas | cuenta | cuentas",
+        "domains": "sin dominios | dominio | dominios",
+        "installed_apps": "sin aplicaciones instaladas | aplicación instalada | aplicaciones instaladas",
+        "apps": "sin aplicaciones | aplicación | aplicaciones",
+        "permissions": "sin permisos | permiso | permisos",
+        "groups": "sin grupos | grupo | grupos",
+        "backups": "sin copias de seguridad | copia de seguridad | copias de seguridad",
+        "logs": "sin registros | registro | registros"
     },
     "migrations_disclaimer_check_message": "He leído y comprendido esta limitación de responsabilidad",
     "postinstall": {
