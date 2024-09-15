@@ -74,7 +74,7 @@ const texts = computed(() =>
 const searchI18n = computed(() => {
   const params = { items: t('items.' + props.itemsName, 0) }
   return {
-    label: t('search.for', { items: props.itemsName }),
+    label: t('search.for', { items: t('items.' + props.itemsName, 2) }),
     invalidFeedback: t('search.not_found', params, 0),
     noItems: t('items_verbose_items_left', params, 0),
   }
