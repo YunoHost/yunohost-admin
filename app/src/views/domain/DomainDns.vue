@@ -104,7 +104,7 @@ function getDnsChanges() {
           { icon: 'ban', variant: 'danger', message: err.data.error },
         ]
       } else {
-        showManualConfigCard.value = true
+        showManualConfigCard.value = key !== 'domain_dns_conf_special_use_tld'
         showAutoConfigCard.value = false
       }
     })
