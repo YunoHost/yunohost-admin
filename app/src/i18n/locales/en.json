@@ -327,7 +327,7 @@
         "documentation": "Documentation",
         "donate": "Donate",
         "help": "Need help?",
-        "tos": "Terms of Service"
+        "tos": "Terms of Services"
     },
     "footer_version": "Powered by <a href='https://yunohost.org'>YunoHost</a> {version} ({repo}).",
     "form": {
@@ -654,8 +654,8 @@
     "tos": {
         "acknowledgement": "TOS acknowledgement",
         "i_agree": "I agree",
-        "i_have_read": "I have read the <a href='https://yunohost.org/terms_of_services' target='_blank'>Terms of service</a>",
-        "postinstall_acknowledgement": "The YunoHost project is a team of volunteers who have made common cause to create a free operating system for servers, called YunoHost. YunoHost is published under the [GNU Affero General Public License v3](https://www.gnu.org/licenses/agpl-3.0.txt).  In connection with this software, the project administers and makes available several technical and community services for various purposes.  By using these services, you agree to be bound by the following [Terms of service](https://yunohost.org/terms_of_services)."
+        "i_have_read": "I have read and understand the <a href='https://yunohost.org/terms_of_services' target='_blank'>Terms of Services</a>",
+        "postinstall_acknowledgement": "The YunoHost project is a team of volunteers who have made common cause to create a free operating system for servers, called YunoHost. The YunoHost software is published under [the AGPLv3 license](https://www.gnu.org/licenses/agpl-3.0.txt). In connection with this software, the project administers and makes available several technical and community services for various purposes. By using these services, you agree to be bound by the following [Terms of Services](https://yunohost.org/terms_of_services)."
     },
     "traceback": "Traceback",
     "udp": "UDP",
