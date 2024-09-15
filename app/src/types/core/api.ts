@@ -31,6 +31,7 @@ export type AppMinManifest = {
     ram: { build: string; runtime: string }
     yunohost: string
   }
+  antifeatures?: Obj<Translation>
   upstream: AppUpstream
 }
 

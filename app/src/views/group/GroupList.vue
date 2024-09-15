@@ -5,6 +5,7 @@ import { useI18n } from 'vue-i18n'
 import api from '@/api'
 import TagsSelectizeItem from '@/components/globals/formItems/TagsSelectizeItem.vue'
 import { useAutoModal } from '@/composables/useAutoModal'
+import { useInfos } from '@/composables/useInfos'
 import { useSearch } from '@/composables/useSearch'
 import { toEntries } from '@/helpers/commons'
 import type { Obj } from '@/types/commons'
@@ -16,6 +17,7 @@ import type { TagUpdateArgs } from '@/types/form'
 
 const { t } = useI18n()
 const modalConfirm = useAutoModal()
+const { currentUser } = useInfos()
 
 const {
   primaryGroups,
@@ -119,10 +121,17 @@ async function onPermissionChanged(
     .then(() => applyFn(perm))
 }
 
-function onUserChanged(
+async function onUserChanged(
   { tag: user, action, applyFn }: TagUpdateArgs,
   name: string,
 ) {
+  if (name === 'admins' && action === 'remove' && user === currentUser.value) {
+    const confirmed = await modalConfirm(
+      t('groups.remove_user.confirm_from_admins'),
+    )
+    if (!confirmed) return
+  }
+
   api
     .put({
       uri: `users/groups/${name}/${action}/${user}`,

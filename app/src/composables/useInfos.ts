@@ -41,6 +41,7 @@ export const useInfos = createGlobalState(() => {
   const host = ref(window.location.host)
   const installed = ref<boolean | undefined>()
   const connected = useLocalStorage('connected', false)
+  const currentUser = useLocalStorage<string | null>('currentUser', null)
   const yunohost = ref<{ version: string; repo: string } | undefined>()
   const hasSuspenseError = ref(false)
   const routerKey = ref<string | undefined>()
@@ -151,6 +152,7 @@ export const useInfos = createGlobalState(() => {
 
   function onLogout(route?: RouteLocationNormalizedLoaded) {
     connected.value = false
+    currentUser.value = null
     yunohost.value = undefined
     const previousRoute = route ?? router.currentRoute.value
     if (previousRoute.name === 'login') return
@@ -206,6 +208,7 @@ export const useInfos = createGlobalState(() => {
     host,
     installed,
     connected,
+    currentUser,
     yunohost,
     hasSuspenseError,
     routerKey,
