@@ -69,7 +69,7 @@ export default defineConfig(({ mode }) => {
             }
             // Split date-fns locales
             if (id.includes('date-fns')) {
-              const match = /.*\/date-fns\/locale\/([\w-]+)\/.*\.mjs/.exec(id)
+              const match = /.*\/date-fns\/locale\/([\w-]+)\/.*\.js/.exec(id)
               if (match) {
                 if (supportedDatefnsLocales.includes(match[1])) {
                   return `locales/${match[1]}/date-fns`
