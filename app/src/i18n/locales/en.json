@@ -157,7 +157,8 @@
                 }
             },
             "stop": "Cancel next app upgrades"
-        }
+        },
+        "upvote": "If you'd like to draw attention to this application, you can vote for it on its [catalog page](https://apps.yunohost.org/app/{id})."
     },
     "app_choose_category": "Choose a category",
     "app_info_access_desc": "Groups / users currently allowed to access this app:",
