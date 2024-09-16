@@ -201,10 +201,10 @@ const performInstall = onSubmit(async (onError) => {
           </dl>
         </template>
 
-        <p
-          v-if="app.quality.state === 'lowquality'"
-          v-t="'app.install.problems.lowquality'"
-        />
+        <div v-if="app.quality.state === 'lowquality'">
+          <p v-t="'app.install.problems.lowquality'" />
+          <VueShowdown class="mb-3" :markdown="t('app.upvote', { id })" />
+        </div>
 
         <VueShowdown v-if="app.preInstall" :markdown="app.preInstall" />
       </YAlert>
@@ -238,12 +238,15 @@ const performInstall = onSubmit(async (onError) => {
       <YAlert v-else-if="app.hasDanger" variant="danger" class="my-4">
         <h2>{{ $t('app.install.notifs.pre.danger') }}</h2>
 
-        <p
+        <div
           v-if="
             ['inprogress', 'broken', 'thirdparty'].includes(app.quality.state)
           "
-          v-t="'app.install.problems.' + app.quality.state"
-        />
+        >
+          <p v-t="'app.install.problems.' + app.quality.state" />
+          <VueShowdown class="mb-3" :markdown="t('app.upvote', { id })" />
+        </div>
+
         <p v-if="!app.requirements.ram.pass">
           {{ $t('app.install.problems.ram', app.requirements.ram.values) }}
         </p>

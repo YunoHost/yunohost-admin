@@ -157,7 +157,8 @@
                 }
             },
             "stop": "Cancel next app upgrades"
-        }
+        },
+        "upvote": "If you'd like to draw attention to this application, you can vote for it on its [catalog page](https://apps.yunohost.org/app/{id})."
     },
     "app_choose_category": "Choose a category",
     "app_info_access_desc": "Groups / users currently allowed to access this app:",
@@ -188,6 +189,8 @@
     "both": "Both",
     "cancel": "Cancel",
     "catalog": "Catalog",
+    "catalog_partial_search": "Try to remove all criterias to see if the app you're searching for is available.",
+    "catalog_wishlist": "Looks like the app you're searching for is not yet available in the catalog.\n You can propose it in the [apps wishlist](https://apps.yunohost.org/wishlist?search={search}) or vote for it if it is already there.",
     "certificate": "Certificate",
     "certificate_manage": "Manage SSL certificate",
     "check": "Check",
