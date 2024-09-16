@@ -45,14 +45,12 @@ const [search, filteredTree] = useSearch(domainsTree, (s, node) =>
               </span>
             </BLink>
 
-            <small
-              v-if="data.name === mainDomain"
-              v-b-tooltip.hover
-              :title="$t('domain.types.main_domain')"
-              class="ms-1"
-            >
-              <YIcon iname="star" />
-            </small>
+            <BPopover v-if="data.name === mainDomain" :click="false">
+              <template #target>
+                <small class="ms-1"><YIcon iname="star" /></small>
+              </template>
+              {{ $t('domain.types.main_domain') }}
+            </BPopover>
           </h5>
         </div>
       </template>
