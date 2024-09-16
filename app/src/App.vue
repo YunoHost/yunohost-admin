@@ -139,6 +139,13 @@ onMounted(() => {
             <YIcon iname="life-ring" /> {{ $t('footer.help') }}
           </BNavItem>
           <BNavItem
+            href="https://yunohost.org/terms_of_services"
+            target="_blank"
+            link-classes="text-secondary"
+          >
+            <YIcon iname="legal" /> {{ $t('footer.tos') }}
+          </BNavItem>
+          <BNavItem
             href="https://donate.yunohost.org/"
             target="_blank"
             link-classes="text-secondary"

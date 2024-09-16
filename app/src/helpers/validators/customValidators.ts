@@ -56,6 +56,8 @@ const unique = (items: MaybeRef<any[] | null>) =>
     return items_ ? !helpers.req(item) || !items_.includes(item) : true
   })
 
+const checked = (value: boolean) => value === true
+
 export {
   alphalownumdot_,
   domain,
@@ -67,4 +69,5 @@ export {
   appRepoUrl,
   name,
   unique,
+  checked,
 }

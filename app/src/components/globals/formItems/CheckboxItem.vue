@@ -26,6 +26,6 @@ const modelValue = defineModel<boolean>()
     :state="state"
     switch
   >
-    {{ label || $t(labels[modelValue ? 'true' : 'false']) }}
+    <span v-html="label || $t(labels[modelValue ? 'true' : 'false'])" />
   </BFormCheckbox>
 </template>

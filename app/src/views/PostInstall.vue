@@ -31,6 +31,7 @@ if (installed.value) {
 type Steps = 'start' | 'domain' | 'user' | 'rootfsspace-error' | 'login'
 const step = ref<Steps>('start')
 const serverError = ref('')
+const tosAcknowledged = ref(false)
 const domain = ref('')
 const dyndns_recovery_password = ref<string | undefined>()
 
@@ -150,17 +151,30 @@ async function performPostInstall(force = false) {
   <div class="post-install">
     <!-- START STEP -->
     <template v-if="step === 'start'">
-      <p class="alert alert-success">
-        <YIcon iname="thumbs-up" /> {{ $t('postinstall_intro_1') }}
-      </p>
+      <YAlert variant="success" icon="thumbs-up">
+        {{ $t('postinstall_intro_1') }}
+      </YAlert>
 
-      <p class="alert alert-info">
+      <YAlert variant="info">
         <span v-t="'postinstall_intro_2'" />
         <br />
         <span v-html="$t('postinstall_intro_3')" />
-      </p>
+      </YAlert>
 
-      <BButton size="lg" variant="success" @click="goToStep('domain')">
+      <YAlert variant="warning">
+        <MarkdownItem
+          :label="t('tos.postinstall_acknowledgement')"
+          class="mb-2"
+        />
+        <CheckboxItem v-model="tosAcknowledged" :label="t('tos.i_agree')" />
+      </YAlert>
+
+      <BButton
+        size="lg"
+        variant="success"
+        :disabled="!tosAcknowledged"
+        @click="goToStep('domain')"
+      >
         {{ $t('begin') }}
       </BButton>
     </template>

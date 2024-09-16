@@ -4,6 +4,7 @@ import { useI18n } from 'vue-i18n'
 
 import { useForm } from '@/composables/form'
 import {
+  checked,
   domain,
   dynDomain,
   minLength,
@@ -51,6 +52,7 @@ type Form = {
   dynDomain: AdressModelValue
   dynDomainPassword: string
   dynDomainPasswordConfirmation: string
+  tosAcknowledged: boolean
   localDomain: AdressModelValue
 }
 const form = ref<Form>({
@@ -58,6 +60,7 @@ const form = ref<Form>({
   dynDomain: { localPart: '', separator: '.', domain: 'nohost.me' },
   dynDomainPassword: '',
   dynDomainPasswordConfirmation: '',
+  tosAcknowledged: false,
   localDomain: { localPart: '', separator: '.', domain: 'local' },
 })
 const fields = {
@@ -118,6 +121,18 @@ const fields = {
     },
   }) satisfies FieldProps<'InputItem', Form['dynDomainPasswordConfirmation']>,
 
+  tosAcknowledged: reactive({
+    component: 'CheckboxItem',
+    label: t('tos.acknowledgement'),
+    rules: computed(() =>
+      selected.value === 'dynDomain' ? { checked } : undefined,
+    ),
+    cProps: {
+      id: 'tos-acknowledged',
+      label: t('tos.i_have_read'),
+    },
+  }) satisfies FieldProps<'CheckboxItem', Form['tosAcknowledged']>,
+
   localDomain: reactive({
     component: 'AdressItem',
     label: t('domain_name'),
@@ -150,6 +165,7 @@ const dynKeys = [
   'dynDomain',
   'dynDomainPassword',
   'dynDomainPasswordConfirmation',
+  'tosAcknowledged',
 ] as (keyof Form)[]
 
 const domainIsVisible = computed(() => {
