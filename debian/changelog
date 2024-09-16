@@ -1,3 +1,20 @@
+yunohost-admin (12.0.3) testing; urgency=low
+
+  - Epic refactoring to Vue3 and typescript ([#575](http://github.com/YunoHost/yunohost-admin/pull/575))
+  - domain/apps: improve the flow of adding a subdomain during app install: the 'domain add' view now shows an explicit option for subdomains, with the ability to auto-attempt lets encrypt cert, and be able to add such a subdomain from a modal during app install ([#579](http://github.com/YunoHost/yunohost-admin/pull/579))
+  - permissions: Ask for confirmation when trying to self-remove from the admin group ([#582](http://github.com/YunoHost/yunohost-admin/pull/582))
+  - apps: during install, display antifeature details when they are provided by the app ([#582](http://github.com/YunoHost/yunohost-admin/pull/582))
+  - apps: mention the wishlist/vote system in catalog ([#583](http://github.com/YunoHost/yunohost-admin/pull/583))
+  - general: add TOS links and acknowledgement during postinstall, dyndns registration ([#580](http://github.com/YunoHost/yunohost-admin/pull/580))
+  - dns: Make auto dns feature optional ([#581](http://github.com/YunoHost/yunohost-admin/pull/581))
+  - chore: Update JS dependencies ([#584](http://github.com/YunoHost/yunohost-admin/pull/584))
+  - i18n: fix a few strings that were only partially translatable ([#582](http://github.com/YunoHost/yunohost-admin/pull/582))
+  - i18n: remove count info in `items` (6ef1d11b)
+
+  Thanks to all contributors <3 ! (axolotle)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Mon, 16 Sep 2024 18:25:57 +0200
+
 yunohost-admin (12.0.2) testing; urgency=low
 
   - config panels: fix panel help message not being displayed (7859b221)
