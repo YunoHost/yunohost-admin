@@ -182,7 +182,7 @@ const [DefineTemplate, ReuseTemplate] = createReusableTemplate<{
         <div class="d-flex">
           <BLink
             v-if="link"
-            :to="'name' in link ? link.name : undefined"
+            :to="'name' in link ? { name: link.name } : undefined"
             :href="'href' in link ? link.href : undefined"
             class="ms-auto"
           >
