@@ -17,6 +17,7 @@ type DNSError = { icon: string; variant: StateVariant; message: string }
 
 const props = defineProps<{
   name: string
+  autoDns: boolean
 }>()
 
 const { t } = useI18n()
@@ -95,8 +96,15 @@ function getDnsChanges() {
       } else if (key === 'domain_dns_push_failed_to_authenticate') {
         const message = t(key, err.data)
         dnsErrors.value = [{ icon: 'ban', variant: 'danger', message }]
+      } else if (
+        key === 'domain_registrar_is_not_configured' &&
+        props.autoDns
+      ) {
+        dnsErrors.value = [
+          { icon: 'ban', variant: 'danger', message: err.data.error },
+        ]
       } else {
-        showManualConfigCard.value = true
+        showManualConfigCard.value = key !== 'domain_dns_conf_special_use_tld'
         showAutoConfigCard.value = false
       }
     })
@@ -192,7 +200,7 @@ async function pushDnsChanges() {
 
       <!-- CONFIG OK ALERT -->
       <ReadOnlyAlertItem
-        v-else-if="dnsChanges === null"
+        v-else-if="dnsChanges === null && !dnsErrors.length"
         :label="$t('domain.dns.auto_config_ok')"
         type="success"
         icon="thumbs-up"
