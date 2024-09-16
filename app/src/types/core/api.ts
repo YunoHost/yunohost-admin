@@ -1,4 +1,4 @@
-import type { Obj, Translation } from '@/types/commons'
+import type { Obj, StateVariant, Translation } from '@/types/commons'
 import type { Permission } from '@/types/core/data'
 import type { AnyOption } from '@/types/core/options'
 
@@ -333,3 +333,14 @@ export type DNSCategories = Record<
   'create' | 'update' | 'delete' | 'unchanged',
   DNSRecord[]
 >
+
+export type Certificate = {
+  subject: string
+  CA_name: string
+  CA_type: 'selfsigned' | 'letsencrypt' | 'other'
+  validity: number
+  style: Exclude<StateVariant, 'info'>
+  summary: string // enum
+  ACME_eligible: boolean
+  has_wildcards: boolean
+}

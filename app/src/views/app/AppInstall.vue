@@ -4,13 +4,17 @@ import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 
 import api, { objectToParams } from '@/api'
+import { APIBadRequestError, APIError } from '@/api/errors'
 import { formatOptions } from '@/composables/configPanels'
+import { useDomains } from '@/composables/data'
 import { useForm } from '@/composables/form'
 import { useAutoModal } from '@/composables/useAutoModal'
 import { getKeys, joinOrNull } from '@/helpers/commons'
 import { formatForm, formatI18nField } from '@/helpers/yunohostArguments'
 import type { Obj } from '@/types/commons'
 import type { AppManifest, Catalog } from '@/types/core/api'
+import type { FormFieldProps } from '@/types/form'
+import DomainForm from '@/views/_partials/DomainForm.vue'
 import {
   formatAppIntegration,
   formatAppLinks,
@@ -93,8 +97,11 @@ const [app, form, fields] = await api
     return [app, form, fields] as const
   })
 
+const { domainsAsChoices } = useDomains()
 const { v, onSubmit } = useForm(form, fields)
 const force = ref(false)
+const showAddDomainModal = ref(false)
+const domainAddServerError = ref('')
 
 const performInstall = onSubmit(async (onError) => {
   if ('path' in form.value && form.value.path === '/') {
@@ -136,6 +143,28 @@ const performInstall = onSubmit(async (onError) => {
     })
     .catch(onError)
 })
+
+function onDomainAdd(data: {
+  domain: string
+  dyndns_recovery_password?: string
+  install_letsencrypt_cert?: boolean
+}) {
+  api
+    .post({
+      uri: 'domains',
+      cachePath: `domains.${data.domain}`,
+      data,
+      humanKey: { key: 'domains.add', name: data.domain },
+    })
+    .then(() => {
+      form.value.domain = data.domain
+      showAddDomainModal.value = false
+    })
+    .catch((err: APIError) => {
+      if (!(err instanceof APIBadRequestError)) throw err
+      domainAddServerError.value = err.message
+    })
+}
 </script>
 
 <template>
@@ -268,8 +297,36 @@ const performInstall = onSubmit(async (onError) => {
         :submit-text="$t('install')"
         :validations="v"
         @submit="performInstall"
-      />
+      >
+        <template v-if="form.domain" #field:domain="fieldProps">
+          <FormField
+            v-bind="fieldProps as FormFieldProps<'SelectItem', string>"
+          >
+            <template #default="componentProps">
+              <BInputGroup>
+                <SelectItem
+                  v-bind="componentProps"
+                  v-model="form.domain"
+                  :options="domainsAsChoices"
+                />
+                <BButton variant="primary" @click="showAddDomainModal = true">
+                  {{ t('domain_add') }}
+                </BButton>
+              </BInputGroup>
+            </template>
+          </FormField>
+        </template>
+      </CardForm>
     </template>
+
+    <DomainForm
+      v-model:show="showAddDomainModal"
+      modal
+      :submit-text="$t('add')"
+      :server-error="domainAddServerError"
+      :title="$t('domain_add')"
+      @submit="onDomainAdd"
+    />
 
     <!-- FIXME hum not handled, is it still a thing? -->
     <!-- In case of a custom url with no manifest found -->

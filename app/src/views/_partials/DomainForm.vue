@@ -2,7 +2,10 @@
 import { computed, reactive, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 
+import api from '@/api'
+import { useDomains } from '@/composables/data'
 import { useForm } from '@/composables/form'
+import { fromEntries, toEntries } from '@/helpers/commons'
 import {
   checked,
   domain,
@@ -12,6 +15,8 @@ import {
   sameAs,
 } from '@/helpers/validators'
 import { formatFormValue } from '@/helpers/yunohostArguments'
+import type { Obj } from '@/types/commons'
+import type { Certificate } from '@/types/core/api'
 import type { AdressModelValue, FieldProps, FormFieldDict } from '@/types/form'
 
 defineOptions({
@@ -20,35 +25,63 @@ defineOptions({
 
 const props = withDefaults(
   defineProps<{
-    domains: string[]
     title: string
+    modal?: boolean
+    postinstall?: boolean
     submitText?: string
     serverError?: string
   }>(),
   {
+    modal: false,
+    postinstall: false,
     submitText: undefined,
     serverError: undefined,
   },
 )
 const emit = defineEmits<{
-  submit: [data: { domain: string; dyndns_recovery_password?: string }]
+  submit: [
+    data: {
+      domain: string
+      dyndns_recovery_password?: string
+      install_letsencrypt_cert?: boolean
+    },
+  ]
 }>()
+
+const show = defineModel<boolean>('show')
+
+const { domains, domainsAsChoices } = !props.postinstall
+  ? useDomains()
+  : { domains: ref([] as string[]), domainsAsChoices: ref([] as string[]) }
+const domainsCertsReady: Record<string, boolean> = !props.postinstall
+  ? await api
+      .get<{ certificates: Obj<Certificate> }>({ uri: `domains/*/cert?full` })
+      .then(({ certificates }) => {
+        return fromEntries(
+          toEntries(certificates).map(([domain, cert]) => {
+            return [domain, cert.has_wildcards]
+          }),
+        )
+      })
+  : {}
 
 const { t } = useI18n()
 const dynDomains = ['nohost.me', 'noho.st', 'ynh.fr']
 
 const dynDnsForbiden = computed(() => {
-  if (!props.domains) return false
-  return props.domains.some((domain) => {
+  if (!domains.value) return false
+  return domains.value.some((domain) => {
     return dynDomains.some((dynDomain) => domain.includes(dynDomain))
   })
 })
 
-type Selected = 'domain' | 'dynDomain' | 'localDomain'
+type Selected = 'domain' | 'subDomain' | 'dynDomain' | 'localDomain'
 const selected = ref<'' | Selected>(dynDnsForbiden.value ? 'domain' : '')
 
 type Form = {
   domain: string
+  subDomain: AdressModelValue
+  certInstall: boolean
   dynDomain: AdressModelValue
   dynDomainPassword: string
   dynDomainPasswordConfirmation: string
@@ -57,6 +90,8 @@ type Form = {
 }
 const form = ref<Form>({
   domain: '',
+  subDomain: { localPart: '', separator: '.', domain: domains.value[0] },
+  certInstall: false,
   dynDomain: { localPart: '', separator: '.', domain: 'nohost.me' },
   dynDomainPassword: '',
   dynDomainPasswordConfirmation: '',
@@ -75,6 +110,36 @@ const fields = {
       placeholder: t('placeholder.domain'),
     },
   }) satisfies FieldProps<'InputItem', Form['domain']>,
+
+  subDomain: reactive({
+    component: 'AdressItem',
+    label: t('domain_name'),
+    rules: computed(() => {
+      return selected.value === 'subDomain'
+        ? { localPart: { required, dynDomain }, domain: { required } }
+        : undefined
+    }),
+    cProps: {
+      id: 'sub-domain',
+      placeholder: t('placeholder.domain').split('.')[0],
+      type: 'domain',
+      choices: domainsAsChoices,
+    },
+  }) satisfies FieldProps<'AdressItem', Form['subDomain']>,
+
+  certInstall: reactive({
+    component: 'CheckboxItem',
+    label: t('domain.cert.install'),
+    cProps: {
+      id: 'cert-install',
+    },
+    visible: computed(() => {
+      return (
+        !!form.value.subDomain.domain &&
+        domainsCertsReady[form.value.subDomain.domain]
+      )
+    }),
+  }) satisfies FieldProps<'CheckboxItem', Form['certInstall']>,
 
   dynDomain: reactive({
     component: 'AdressItem',
@@ -172,6 +237,10 @@ const domainIsVisible = computed(() => {
   return selected.value === 'domain'
 })
 
+const subDomainIsVisible = computed(() => {
+  return selected.value === 'subDomain'
+})
+
 const dynDomainIsVisible = computed(() => {
   return selected.value === 'dynDomain'
 })
@@ -189,12 +258,19 @@ const onDomainAdd = onSubmit(async () => {
     domain,
     dyndns_recovery_password:
       domainType === 'dynDomain' ? form.value.dynDomainPassword : undefined,
+    install_letsencrypt_cert:
+      domainType === 'subDomain' && fields.certInstall.visible
+        ? form.value.certInstall
+        : undefined,
   })
 })
 </script>
 
 <template>
-  <CardForm
+  <Component
+    :is="modal ? 'ModalForm' : 'CardForm'"
+    id="domain-add"
+    v-model:show="show"
     :title="title"
     icon="globe"
     :submit-text="submitText"
@@ -227,6 +303,43 @@ const onDomainAdd = onSubmit(async () => {
         v-bind="fields.domain"
         v-model="form.domain"
         :validation="v.form.domain"
+      />
+    </BCollapse>
+
+    <BFormRadio
+      v-if="domainsCertsReady"
+      v-model="selected"
+      name="domain-type"
+      value="subDomain"
+      :class="subDomainIsVisible ? null : 'collapsed'"
+      :aria-expanded="subDomainIsVisible ? 'true' : 'false'"
+      aria-controls="collapse-subDomain"
+      class="mb-2"
+    >
+      {{ $t('domain.add.from_subdomain') }}
+    </BFormRadio>
+
+    <BCollapse
+      v-if="!postinstall"
+      id="collapse-subDomain"
+      v-model="subDomainIsVisible"
+    >
+      <p class="mt-2 mb-3 alert alert-info">
+        <YIcon iname="info-circle" />
+        <span class="ps-1" v-html="$t('domain.add.from_subdomain_desc')" />
+      </p>
+
+      <FormField
+        v-bind="fields.subDomain"
+        v-model="form.subDomain"
+        :validation="v.form.subDomain"
+      />
+
+      <FormField
+        v-if="fields.certInstall.visible"
+        v-bind="fields.certInstall"
+        v-model="form.certInstall"
+        :validation="v.form.certInstall"
       />
     </BCollapse>
 
@@ -287,5 +400,5 @@ const onDomainAdd = onSubmit(async () => {
         :validation="v.form.localDomain"
       />
     </BCollapse>
-  </CardForm>
+  </Component>
 </template>

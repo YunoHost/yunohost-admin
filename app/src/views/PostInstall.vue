@@ -182,10 +182,10 @@ async function performPostInstall(force = false) {
     <!-- DOMAIN SETUP STEP -->
     <template v-else-if="step === 'domain'">
       <DomainForm
-        :domains="[]"
-        :title="$t('postinstall_set_domain')"
+        postinstall
         :submit-text="$t('next')"
         :server-error="serverError"
+        :title="$t('postinstall_set_domain')"
         @submit="setDomain"
       >
         <template #disclaimer>

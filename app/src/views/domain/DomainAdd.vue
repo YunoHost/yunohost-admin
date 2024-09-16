@@ -4,17 +4,17 @@ import { useRouter } from 'vue-router'
 
 import api from '@/api'
 import { APIBadRequestError, type APIError } from '@/api/errors'
-import { useDomains } from '@/composables/data'
 import { DomainForm } from '@/views/_partials'
 
 const router = useRouter()
 
-await api.fetch({ uri: 'domains', cachePath: 'domains' })
-
-const { domains } = useDomains()
 const serverError = ref('')
 
-function onSubmit(data: { domain: string; dyndns_recovery_password?: string }) {
+function onSubmit(data: {
+  domain: string
+  dyndns_recovery_password?: string
+  install_letsencrypt_cert?: boolean
+}) {
   api
     .post({
       uri: 'domains',
@@ -34,7 +34,6 @@ function onSubmit(data: { domain: string; dyndns_recovery_password?: string }) {
 
 <template>
   <DomainForm
-    :domains="domains"
     :title="$t('domain_add')"
     :server-error="serverError"
     :submit-text="$t('add')"
