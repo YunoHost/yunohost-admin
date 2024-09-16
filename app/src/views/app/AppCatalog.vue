@@ -2,6 +2,7 @@
 import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
+import { VueShowdown } from 'vue-showdown'
 
 import api from '@/api'
 import CardDeckFeed from '@/components/CardDeckFeed.vue'
@@ -116,6 +117,12 @@ const [search, filteredApps] = useSearch(
   },
 )
 
+const isPartialSearch = computed(() => {
+  return !(['quality', 'category', 'subtag'] as const).every(
+    (prop) => props[prop] === 'all',
+  )
+})
+
 const form = ref({ url: '' })
 const fields = {
   url: {
@@ -228,8 +235,8 @@ const onCustomInstallClick = onSubmit(async () => {
     </template>
 
     <!-- CATEGORIES CARDS -->
-    <template v-if="category === null" #forced-default>
-      <BCardGroup deck tag="ul" class="p-0 m-0">
+    <template #forced-default="{ noItemsMessage }">
+      <BCardGroup v-if="category === null" deck tag="ul" class="p-0 m-0">
         <BCard
           v-for="cat in categories.slice(1)"
           :key="cat.text"
@@ -246,81 +253,107 @@ const onCustomInstallClick = onSubmit(async () => {
           }}</BCardText>
         </BCard>
       </BCardGroup>
-    </template>
 
-    <CardDeckFeed v-if="filteredApps">
-      <BCard
-        v-for="(app, i) in filteredApps"
-        :key="app.id"
-        tag="article"
-        :aria-labelledby="`${app.id}-title`"
-        :aria-describedby="`${app.id}-desc`"
-        tabindex="0"
-        :aria-posinset="i + 1"
-        :aria-setsize="filteredApps.length"
-        no-body
-        class="app-card"
-      >
-        <BCardBody class="d-flex">
-          <BImg
-            v-if="app.logoHash"
-            class="app-logo rounded"
-            :src="`./applogos/${app.logoHash}.png`"
-          />
+      <CardDeckFeed v-else-if="filteredApps">
+        <BCard
+          v-for="(app, i) in filteredApps"
+          :key="app.id"
+          tag="article"
+          :aria-labelledby="`${app.id}-title`"
+          :aria-describedby="`${app.id}-desc`"
+          tabindex="0"
+          :aria-posinset="i + 1"
+          :aria-setsize="filteredApps.length"
+          no-body
+          class="app-card"
+        >
+          <BCardBody class="d-flex">
+            <BImg
+              v-if="app.logoHash"
+              class="app-logo rounded"
+              :src="`./applogos/${app.logoHash}.png`"
+            />
 
-          <div>
-            <BCardTitle :id="`${app.id}-title`" class="d-flex mb-2">
-              <BLink
-                :to="{ name: 'app-install', params: { id: app.id } }"
-                class="card-link"
-              >
-                {{ app.name }}
-              </BLink>
-
-              <small
-                v-if="app.quality.state !== 'working' || app.highQuality"
-                class="d-flex align-items-center ms-2 position-relative"
-              >
-                <BBadge
-                  v-if="app.quality.state !== 'working'"
-                  v-b-popover.hover.bottom="
-                    $t(`app_state_${app.quality.state}_explanation`)
-                  "
-                  :variant="app.quality.variant"
+            <div :id="`${app.id}-card`">
+              <BCardTitle :id="`${app.id}-title`" class="d-flex mb-2">
+                <BLink
+                  :to="{ name: 'app-install', params: { id: app.id } }"
+                  class="card-link"
                 >
-                  {{ $t(`app_state_${app.quality.state}`) }}
-                </BBadge>
+                  {{ app.name }}
+                </BLink>
 
-                <YIcon
-                  v-if="app.highQuality"
-                  v-b-popover.hover.bottom="
-                    $t(`app_state_highquality_explanation`)
-                  "
-                  iname="star"
-                  class="star"
-                />
-              </small>
-            </BCardTitle>
+                <small
+                  v-if="app.quality.state !== 'working' || app.highQuality"
+                  class="d-flex align-items-center ms-2 position-relative"
+                >
+                  <BPopover
+                    v-if="app.quality.state !== 'working'"
+                    :click="false"
+                    strategy="fixed"
+                  >
+                    <template #target>
+                      <BBadge :variant="app.quality.variant" tabindex="0">
+                        {{ $t(`app_state_${app.quality.state}`) }}
+                      </BBadge>
+                    </template>
 
-            <BCardText :id="`${app.id}-desc`">
-              {{ app.description }}
-            </BCardText>
+                    {{ $t(`app_state_${app.quality.state}_explanation`) }}
+                  </BPopover>
 
-            <BCardText
-              v-if="!app.maintained"
-              class="align-self-end position-relative mt-auto"
-            >
-              <span
-                v-b-popover.hover.top="$t('orphaned_details')"
-                class="alert-warning p-1"
+                  <BPopover
+                    v-if="app.highQuality"
+                    :click="false"
+                    strategy="fixed"
+                  >
+                    <template #target>
+                      <YIcon iname="star" class="star" tabindex="0" />
+                    </template>
+
+                    {{ $t(`app_state_highquality_explanation`) }}
+                  </BPopover>
+                </small>
+              </BCardTitle>
+
+              <BCardText :id="`${app.id}-desc`">
+                {{ app.description }}
+              </BCardText>
+
+              <BCardText
+                v-if="!app.maintained"
+                class="align-self-end position-relative mt-auto"
               >
-                <YIcon iname="warning" /> {{ $t('orphaned') }}
-              </span>
-            </BCardText>
-          </div>
-        </BCardBody>
-      </BCard>
-    </CardDeckFeed>
+                <BPopover :click="false" strategy="fixed">
+                  <template #target>
+                    <span class="alert-warning p-1">
+                      <YIcon iname="warning" /> {{ $t('orphaned') }}
+                    </span>
+                  </template>
+
+                  {{ $t('orphaned_details') }}
+                </BPopover>
+              </BCardText>
+            </div>
+          </BCardBody>
+        </BCard>
+      </CardDeckFeed>
+
+      <template v-else>
+        <YAlert
+          v-if="noItemsMessage"
+          alert
+          icon="exclamation-triangle"
+          variant="warning"
+        >
+          {{ noItemsMessage }}
+          <div v-if="isPartialSearch">{{ t('catalog_partial_search') }}</div>
+        </YAlert>
+
+        <YAlert v-if="!isPartialSearch">
+          <VueShowdown :markdown="t('catalog_wishlist', { search })" />
+        </YAlert>
+      </template>
+    </template>
 
     <template #bot>
       <!-- INSTALL CUSTOM APP -->

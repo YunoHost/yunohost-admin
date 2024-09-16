@@ -20,7 +20,7 @@ const slots = defineSlots<{
   'top-bar-buttons': any
   top: any
   'alert-message': any
-  'forced-default'?: any
+  'forced-default'?: (props: { noItemsMessage?: string }) => any
   default: any
   bot: any
   skeleton: any
@@ -70,7 +70,7 @@ const noItemsMessage = computed(() => {
 
     <slot name="top" />
 
-    <slot name="forced-default">
+    <slot name="forced-default" v-bind="{ noItemsMessage }">
       <YAlert
         v-if="noItemsMessage"
         alert
