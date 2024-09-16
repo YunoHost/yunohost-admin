@@ -77,6 +77,6 @@ export async function loadLocaleMessages(locale: SupportedLocales) {
 async function loadDateFnsLocale(locale: SupportedLocales) {
   const dateFnsLocaleName = supportedLocales[locale].dateFnsLocale ?? locale
   dateFnsLocale = (
-    await import(`../../node_modules/date-fns/locale/${dateFnsLocaleName}.mjs`)
+    await import(`../../node_modules/date-fns/locale/${dateFnsLocaleName}.js`)
   ).default
 }
