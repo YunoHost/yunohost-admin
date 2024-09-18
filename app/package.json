@@ -28,7 +28,7 @@
   },
   "devDependencies": {
     "@vitejs/plugin-vue2": "^2.2.0",
-    "bootstrap": "^4.6.0",
+    "bootstrap": "^5.0.0",
     "eslint": "^8.36.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.1.3",
