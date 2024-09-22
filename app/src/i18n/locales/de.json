@@ -335,7 +335,7 @@
     },
     "history": {
         "methods": {
-            "DELETE": "entfernen",
+            "DELETE": "Löschen",
             "PUT": "bearbeiten",
             "POST": "erstellen/ausführen",
             "GET": "lesen"
