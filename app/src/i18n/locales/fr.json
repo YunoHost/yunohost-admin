@@ -310,7 +310,7 @@
     },
     "history": {
         "methods": {
-            "DELETE": "supprimer",
+            "DELETE": "Supprimer",
             "PUT": "modifier",
             "POST": "créer/exécuter",
             "GET": "lire"
