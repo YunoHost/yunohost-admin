@@ -178,7 +178,7 @@
     "error_server_unexpected": "Erro do servidor non agardado",
     "error_modify_something": "Deberías cambiar algo",
     "error": "Erro",
-    "enabled": "Desactivado",
+    "enabled": "Activado",
     "enable": "Activar",
     "download": "Descargar",
     "domains": "Dominios",
@@ -226,7 +226,7 @@
             "PUT": "modificar",
             "POST": "crear/executar",
             "GET": "ler",
-            "DELETE": "eliminar"
+            "DELETE": "Eliminar"
         },
         "last_action": "Última acción:",
         "title": "Historial",
