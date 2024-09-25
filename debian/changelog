@@ -1,3 +1,12 @@
+yunohost-admin (12.0.3.1) testing; urgency=low
+
+  - fix: blank 'domains' page / v-b-tooltip doesn't work on build, use Popover component instead (6dde7f1b)
+  - fix: FormField links (0cf55c5b)
+
+  Thanks to all contributors <3 ! (axolotle)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Wed, 25 Sep 2024 20:57:31 +0200
+
 yunohost-admin (12.0.3) testing; urgency=low
 
   - Epic refactoring to Vue3 and typescript ([#575](http://github.com/YunoHost/yunohost-admin/pull/575))
