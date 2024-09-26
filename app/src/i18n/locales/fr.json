@@ -265,7 +265,7 @@
     "user_emailaliases_add": "Ajouter un alias de courriel",
     "unknown": "Inconnu",
     "traceback": "Retraçage",
-    "tools_webadmin_settings": "Paramètres de l'administration web",
+    "tools_webadmin_settings": "Paramètres de l'administration Web",
     "tools_webadmin": {
         "transitions": "Animations de transition entre les pages",
         "experimental_description": "Cela vous donne accès à des fonctionnalités expérimentales. Celles-ci sont considérées comme instables et peuvent casser votre système.<br> Ne les activez uniquement si vous savez ce que vous faites.",
@@ -662,7 +662,7 @@
                 "ignore": "Je comprends que cette installation peut casser mon système mais je veux quand même essayer.",
                 "inprogress": "Cette application est encore expérimentale (pour être plus clair elle ne fonctionne pas super bien et n'est pas encore bien intégrée dans YunoHost). En conséquence, elle est susceptible de casser votre système ! Vous ne devriez probablement PAS l'installer si vous ne savez pas ce que vous faites.",
                 "install": "Cette application est déjà installée et ne peut être installée plus d'une fois.",
-                "lowquality": "Cette application peut fonctionner mais n'est pas bien intégrée dans YunoHost. Certaines fonctionnalités telles que l'authentification unique (sso) et la sauvegarde/restauration peuvent ne pas être disponibles, ou ne pas respecter les bonnes pratiques.",
+                "lowquality": "Cette application peut fonctionner mais n'est pas bien intégrée dans YunoHost. Certaines fonctionnalités telles que l'authentification unique (SSO) et la sauvegarde/restauration peuvent ne pas être disponibles, ou ne pas respecter les bonnes pratiques.",
                 "ram": "Cette application nécessite {required} de RAM pour être installée/mise à niveau mais seul {current} est disponible actuellement. Même si cette application pouvait fonctionner, son processus d'installation nécessite une grande quantité de RAM. Votre serveur risque donc de geler (freezer) et de planter lamentablement.",
                 "version": "Cette application nécessite une version de YunoHost >= {required} et votre version installée est {current}, vous devriez envisager en premier lieu de mettre à niveau YunoHost."
             },
