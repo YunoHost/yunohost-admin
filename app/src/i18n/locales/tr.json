@@ -367,7 +367,7 @@
     },
     "app_show_categories": "Kategorileri göster",
     "confirm_firewall_allow": "{port} bağlantı noktasını açmak istediğinizden emin misiniz? (protokol: {protocol}, bağlantı: {connection})",
-    "domain_add_dyndns_forbidden": "Zaten bir DynDNS etki alanına abone oldunuz, mevcut DynDNS etki alanınızı <a href='//forum.yunohost.org/t/nohost-domain-recovery-suppression-de-domaine-en-nohost-me-noho-st-et-ynh-fr/442'>bu linkteki forumundan kaldırmayı isteyebilirsiniz. </a>.",
+    "domain_add_dyndns_forbidden": "Zaten Yunohost'dan bir DynDNS alan adına kayıt oldunuz/abone oldunuz. Yapısı gereği bu özellik server başına bir alan adı ile sınırlıdır. Eğer önceden kayıt ettirdiğiniz bir domaine alt-alan adı eklemek istiyorsanız lütfen\"Kendime ait bir alan adı veya alt-alan adı eklemeyi seçin. Eğer tamamen farklı bir alan adı kullanmak istiyorsanız, öncelikle varolan DynDNS alan adınızı silmeniz gereklidir. DynDNS Self-Host(Kendinde barındırma Türkçe karşılığı)'a başlarken iyidir fakat belli bir zamandan sonra, gerçekten kendine ait bir alan adı almanızı tavsiye ediyoruz.",
     "domain_dns_push_failed_to_authenticate": "Kayıt şirketinin API'sinde kimlik doğrulanamadı. <a href='#/domains/{domain}/config'>kimlik bilgileri</a> yanlış olabilir mi? (Hata: {error})",
     "experimental_warning": "Uyarı: Bu özellik deneyseldir ve istikrarlı olarak kabul edilmez, ne yaptığınızı bilmiyorsanız kullanmamalısınız.",
     "mailbox_quota_example": "Bir CD 700 MB, bir DVD 4.7GB'dir",
@@ -585,13 +585,13 @@
                 "ignore": "Bu kurulumun sistemimi bozabileceğini anlıyorum, yine de denemek istiyorum.",
                 "inprogress": "Bu uygulama hala deneysel (açıkça çalışmıyorsa) ve sisteminizi bozabilir! Eğer ne yaptığınız hakkında bir bilginiz yoksa muhtemelen bu uygulamayı KURMAMALISINIZ.",
                 "install": "Bu zaten kuruldu ve bir defadan fazla kurulamaz.",
-                "ram": "Bu uygulamayı kurmak/yükseltmek için {required} RAM gerektiriyor fakat yalnızca {current} kullanılabilir. Bu uygulama çalışabilse bile, yükleme işlemi büyük miktarda RAM gerektirir, bu nedenle sunucunuz donabilir ve başarısız olabilir."
+                "ram": "Bu uygulamayı kurmak/yükseltmek için {required} RAM gerektiriyor fakat yalnızca {current} kullanılabilir. Bu uygulama çalışabilse bile, yükleme işlemi büyük miktarda RAM gerektirir, bu nedenle sunucunuz donabilir ve kurulum başarısız olabilir."
             },
             "license": "Lisans: {license}",
             "notifs": {
                 "post": {
                     "title": "{name} için kurulum sonrası bildirimleri",
-                    "alert": "Kurulum iyi geçmiş gibi duruyor!\nİşte paketleyicinin bilmenin önemli olduğunu düşündüğü bazı bildirimler.\nBunu tekrardan uygulama bilgisi sayfasından okuyabilirsiniz."
+                    "alert": "Kurulum iyi geçmiş gibi duruyor!\nİşte paketleyicinin bilmenizin önemli olduğunu düşündüğü bazı bildirimler.\nBunu tekrardan uygulama bilgi sayfasından okuyabilirsiniz."
                 },
                 "pre": {
                     "warning": "Kurulumdan önce bilinmesi gerekenler",
