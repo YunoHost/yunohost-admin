@@ -103,7 +103,7 @@
         "title": "Historia",
         "last_action": "Azken eragiketa:",
         "methods": {
-            "DELETE": "ezabatu",
+            "DELETE": "Ezabatu",
             "GET": "irakurri",
             "POST": "sortu/exekutatu",
             "PUT": "moldatu"

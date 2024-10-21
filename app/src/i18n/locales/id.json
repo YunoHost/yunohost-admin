@@ -290,7 +290,7 @@
         "is_empty": "Tidak ada apapun di riwayat saat ini.",
         "last_action": "Tindakan terakhir:",
         "methods": {
-            "DELETE": "hapus",
+            "DELETE": "Hapus",
             "GET": "baca",
             "POST": "buat/eksekusi",
             "PUT": "modifikasi"
