@@ -37,13 +37,13 @@ const modelValue = defineModel<FileModelValue>({
 const touch = inject(ValidationTouchSymbol)
 const inputElem = ref<InstanceType<typeof BFormFile> | null>(null)
 
-const placeholder = computed(() => {
-  return modelValue.value.file === null
-    ? props.placeholder
-    : modelValue.value.file.name
-})
+// const placeholder = computed(() => {
+//   return modelValue.value.file === null
+//     ? props.placeholder
+//     : modelValue.value.file.name
+// })
 
-function onInput(file: File | File[] | null) {
+function onInput(file: File | readonly File[] | null) {
   const value = {
     file: file as File | null,
     content: file !== null ? '' : null,
@@ -52,6 +52,7 @@ function onInput(file: File | File[] | null) {
   }
   // Update the value with the new File and an empty content for now
   emit('update:modelValue', value)
+  if (!file) return
 
   // Asynchronously load the File content and update the value again
   getFileContent(file as File).then((content) => {
@@ -74,6 +75,12 @@ const required = computed(() => 'required' in (props.validation ?? {}))
 
 <template>
   <BInputGroup class="w-100">
+    <template v-if="modelValue.current" #prepend>
+      <div class="mb-2">
+        {{ $t('form.current_file') }} <code>{{ modelValue.file!.name }}</code>
+      </div>
+    </template>
+
     <template v-if="!required && modelValue.file !== null" #append>
       <BButton variant="danger" @click="clearFiles">
         <span class="visually-hidden">{{ $t('delete') }}</span>
@@ -85,18 +92,19 @@ const required = computed(() => 'required' in (props.validation ?? {}))
       :id="id"
       ref="inputElem"
       :name="name"
-      :placeholder="placeholder"
       :accept="accept"
       :drop-placeholder="dropPlaceholder"
       :aria-describedby="ariaDescribedby"
       :model-value="modelValue.file"
       :state="state"
-      :browse-text="$t('words.browse')"
       :required="required"
       @blur="touch?.(touchKey)"
       @focusout="touch?.(touchKey)"
       @update:model-value="onInput"
     />
+    <!-- FIXME no way to customize labels yet -->
+    <!-- :placeholder="placeholder" -->
+    <!-- :browse-text="$t('words.browse')" -->
   </BInputGroup>
 </template>
 

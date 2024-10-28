@@ -337,6 +337,7 @@
     },
     "footer_version": "Powered by <a href='https://yunohost.org'>YunoHost</a> {version} ({repo}).",
     "form": {
+        "current_file": "Current file:",
         "select_one": "Please select an option"
     },
     "form_errors": {
