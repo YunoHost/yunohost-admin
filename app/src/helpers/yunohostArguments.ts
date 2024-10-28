@@ -239,8 +239,9 @@ export function formatForm<
           form[k] = v.content
           // @ts-ignore (mess to type)
           form[`${String(k)}[name]`] = v.filename
+        } else {
+          form[k] = v
         }
-        form[k] = v
         return form
       },
       {} as { [k in keyof T]: Awaited<FormValueReturnType<T[k]>> },
