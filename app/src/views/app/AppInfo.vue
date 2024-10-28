@@ -40,17 +40,16 @@ const [app, form, coreConfig, configPanelErr] = await api
   ])
   .then(async ([app_]) => {
     // Query config panels if app supports it
-    let config: CoreConfigPanels | undefined
+    let config: CoreConfigPanels = {
+      panels: [{ id: 'operations', name: t('operations') }],
+    }
     let configPanelErr: string | undefined
     if (app_.supports_config_panel) {
       await api
         .get<CoreConfigPanels>(`apps/${props.id}/config?full`)
         .then((coreConfig) => {
           // Fake integration of operations in config panels
-          coreConfig.panels.unshift({
-            id: 'operations',
-            name: t('operations'),
-          })
+          coreConfig.panels.unshift(config.panels[0])
           config = coreConfig
         })
         .catch((err: APIError) => {
