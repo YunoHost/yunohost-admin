@@ -1,3 +1,18 @@
+yunohost-admin (12.0.3.2) testing; urgency=low
+
+  - fix: file form value (40c0d829)
+  - fix(FileItem): no longer possible to have custom labels, display filename above if defined (86091e53)
+  - fix(ConfigPanels): submit button not appearing on tab change (be55f7f9)
+  - fix(TagsSelectizeItem): add default i18n item name (34ee7df6)
+  - ts: misc fixes (ee2a54a6)
+  - fix(SelectItem): wrong select i18n key (16205e5a)
+  - fix(AppInfo): missing operations tab when no config panels (66e4bfd7)
+  - fix(ToolLog): display more logs button (512efa9c)
+
+  Thanks to all contributors <3 ! (axolotle)
+
+ -- tituspijean <tituspijean@yunohost.org>  Mon, 28 Oct 2024 21:48:46 +0100
+
 yunohost-admin (12.0.3.1) testing; urgency=low
 
   - fix: blank 'domains' page / v-b-tooltip doesn't work on build, use Popover component instead (6dde7f1b)
