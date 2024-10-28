@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { computed } from 'vue'
 import { useRouter } from 'vue-router'
 
 import api, { objectToParams } from '@/api'
@@ -9,12 +10,16 @@ import type { LogInfo } from '@/types/core/api'
 const props = withDefaults(
   defineProps<{
     name: string
-    n?: number
+    n?: string
   }>(),
   {
-    n: 25,
+    n: '25',
   },
 )
+
+const linesNumber = computed(() => {
+  return parseInt(props.n) || 25
+})
 
 const router = useRouter()
 
@@ -23,7 +28,7 @@ const { description, logs, moreLogsAvailable, info } = await api
     uri: `logs/${props.name}?${objectToParams({
       filter_irrelevant: '',
       with_suboperations: '',
-      number: props.n || 25,
+      number: linesNumber.value,
     })}`,
   })
   .then((log) => {
@@ -45,7 +50,7 @@ const { description, logs, moreLogsAvailable, info } = await api
     return {
       description: log.description,
       logs,
-      moreLogsAvailable: log.logs.length === props.n,
+      moreLogsAvailable: log.logs.length === linesNumber.value,
       info: {
         path: log.log_path,
         started_at: readableDate(started_at),
@@ -121,7 +126,7 @@ function shareLogs() {
       <BButton
         v-if="moreLogsAvailable"
         class="w-100 rounded-0"
-        @click="router.replace({ params: { n: props.n * 10 } })"
+        @click="router.replace({ params: { n: linesNumber * 10 } })"
       >
         <YIcon iname="plus" /> {{ $t('logs_more') }}
       </BButton>
