@@ -226,7 +226,7 @@ async function setAsDefaultDomain() {
       @apply="config.onPanelApply"
     >
       <template v-if="tabId === 'dns'" #tab-after>
-        <DomainDns :name="name" :auto-dns="config.form.value.use_auto_dns" />
+        <DomainDns :name="name" :auto-dns="!!config.form.value.use_auto_dns" />
       </template>
     </ConfigPanelsComponent>
 

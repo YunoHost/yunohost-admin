@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { randint } from '@/helpers/commons'
 
-withDefaults(defineProps<{ itemCount: number }>(), { itemCount: 5 })
+withDefaults(defineProps<{ itemCount?: number }>(), { itemCount: 5 })
 </script>
 
 <template>

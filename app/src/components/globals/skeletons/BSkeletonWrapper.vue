@@ -1,5 +1,5 @@
 <script setup lang="ts">
-withDefaults(defineProps<{ button: boolean; search: boolean }>(), {
+withDefaults(defineProps<{ button?: boolean; search?: boolean }>(), {
   button: false,
   search: false,
 })

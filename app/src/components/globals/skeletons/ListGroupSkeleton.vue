@@ -2,7 +2,7 @@
 import { randint } from '@/helpers/commons'
 
 withDefaults(
-  defineProps<{ itemCount: number; button: boolean; search: boolean }>(),
+  defineProps<{ itemCount?: number; button?: boolean; search?: boolean }>(),
   { itemCount: 5, button: true, search: true },
 )
 </script>

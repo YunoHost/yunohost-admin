@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { randint } from '@/helpers/commons'
 
-withDefaults(defineProps<{ itemCount: number; search: boolean }>(), {
+withDefaults(defineProps<{ itemCount?: number; search?: boolean }>(), {
   itemCount: 5,
   search: false,
 })

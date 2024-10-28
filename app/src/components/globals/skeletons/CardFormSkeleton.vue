@@ -2,7 +2,7 @@
 import { randint } from '@/helpers/commons'
 import type { Cols } from '@/types/commons'
 
-withDefaults(defineProps<{ itemCount?: number; cols: Cols }>(), {
+withDefaults(defineProps<{ itemCount?: number; cols?: Cols }>(), {
   itemCount: 5,
   cols: () => ({ md: 4, lg: 2 }),
 })
