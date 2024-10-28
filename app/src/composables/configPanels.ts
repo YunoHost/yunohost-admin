@@ -190,7 +190,6 @@ function formatOption(option: AnyOption, form: Ref<Obj>): AnyFormField {
       if ('tags-select' === option.type) {
         cProps.options = option.choices
         cProps.auto = true
-        cProps.itemsName = ''
         cProps.label = option.placeholder
       }
     } else if ('boolean' === option.type) {

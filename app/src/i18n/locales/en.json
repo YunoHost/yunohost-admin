@@ -511,6 +511,7 @@
         "domains": "no domains | domain | domains",
         "groups": "no groups | group | groups",
         "installed_apps": "no installed apps | installed app | installed apps",
+        "items": "no items | item | items",
         "logs": "no logs | log | logs",
         "permissions": "no permissions | permission | permissions",
         "services": "no services | service | services",

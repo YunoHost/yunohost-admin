@@ -125,11 +125,11 @@ export type TagsItemProps = BaseWritableItemProps & {
 }
 
 export type TagsSelectizeItemProps = BaseWritableItemProps & {
-  itemsName: string
   options: Choices
   auto?: boolean
   disabledItems?: string[]
-  label: string
+  itemsName?: string
+  label?: string
   limit?: number
   noTags?: boolean
   tagIcon?: string

@@ -24,6 +24,7 @@ const props = withDefaults(
     touchKey: undefined,
     auto: false,
     disabledItems: undefined,
+    itemsName: 'items',
     label: undefined,
     limit: undefined,
     noTags: false,
