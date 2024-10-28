@@ -57,7 +57,7 @@ const required = computed(() => 'required' in (props?.validation ?? {}))
   >
     <template v-if="!isOptionalSelectOption" #first>
       <BFormSelectOption value="null" :disabled="required">
-        -- {{ required ? $t('select_an_option') : $t('words.none') }} --
+        -- {{ required ? $t('form.select_one') : $t('words.none') }} --
       </BFormSelectOption>
     </template>
   </BFormSelect>
