@@ -97,7 +97,7 @@ async function skipMigration(id: string) {
 
           <template v-if="disclaimer">
             <hr />
-            <p v-html="disclaimer" />
+            <VueShowdown :markdown="disclaimer" />
 
             <BFormCheckbox
               :id="'checkbox-' + number"

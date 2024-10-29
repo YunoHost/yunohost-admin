@@ -223,7 +223,7 @@
             "manual_config": "Voorgestelde DNS-records voor handmatige inrichting",
             "push": "Stuurd de DNS-records door naar de registrar",
             "push_force": "Bestaande records overschrijven",
-            "push_force_confirm": "Weet je zeker dat je alle voorgestelde DNS-records geforceerd wilt doorsturen? Houd er rekening mee dat handmatig ingerichte records kan overschrijven, of belangrijke standaardrecords die door je registrar ingericht zijn.",
+            "push_force_confirm": "Weet je zeker dat je alle voorgestelde DNS-records geforceerd wilt doorsturen? Houd er rekening mee dat dit handmatig ingestelde records of belangrijke standaardrecords die door je registrar zijn ingesteld, kan overschrijven.",
             "info": "De automatische DNS-record-inrichting is een experimentele functie. <br>Overweeg je huidige DNS zone op te slaan in de omgeving van je DNS-registratie voor je de inrichting vanuit hier door laat sturen.",
             "methods": {
                 "auto": "Automatisch",

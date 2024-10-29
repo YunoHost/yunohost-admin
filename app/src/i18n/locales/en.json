@@ -393,7 +393,7 @@
         "is_empty": "Nothing in history for now.",
         "last_action": "Last action:",
         "methods": {
-            "DELETE": "delete",
+            "DELETE": "Delete",
             "GET": "read",
             "POST": "create/execute",
             "PUT": "modify"

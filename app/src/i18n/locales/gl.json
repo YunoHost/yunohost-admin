@@ -15,7 +15,7 @@
         "sorry": "Sentimos gran pesar por isto.",
         "server_said": "Ao procesar a acción o servidor respondeu:",
         "info": "A seguinte información podería ser útil para a persoa que che axude:",
-        "help": "Podes buscar axuda no <a href=\"https://forum.yunohost.org/\">foro</a> ou <a href=\"https://chat.yunohost.org/\">no chat</a> para arranxar a situación, ou informar do fallo no <a href=\"https://github.com/YunoHost/issues\">seguimento de fallos</a>.",
+        "help": "Podes buscar axuda no <a href=\"https://forum.yunohost.org/\">foro</a> ou na <a href=\"https://chat.yunohost.org/\">conversa</a> para arranxar a situación, ou informar do fallo no <a href=\"https://github.com/YunoHost/issues\">seguimento de fallos</a>.",
         "error_message": "Mensaxe do erro:"
     },
     "api": {
@@ -177,14 +177,14 @@
     "error_server_unexpected": "Erro do servidor non agardado",
     "error_modify_something": "Deberías cambiar algo",
     "error": "Erro",
-    "enabled": "Desactivado",
+    "enabled": "Activado",
     "enable": "Activar",
     "download": "Descargar",
     "domains": "Dominios",
     "domain_name": "Nome de dominio",
     "domain_dns_longdesc": "Ver configuración DNS",
     "domain_dns_config": "Configuración DNS",
-    "domain_delete_forbidden_desc": "Non podes eliminar '{domain}' porque é o dominio por defecto, tes que elexir outro dominio (ou <a href='#/domains/add'>engadir un novo</a>) e configuralo como dominio por defecto antes de poder eliminar este.",
+    "domain_delete_forbidden_desc": "Non podes eliminar '{domain}' porque é o dominio por defecto, tes que elixir outro dominio (ou <a href='#/domains/add'>engadir un novo</a>) e configuralo como dominio por defecto antes de poder eliminar este.",
     "items": {
         "groups": "sen grupos | grupo | grupos",
         "domains": "sen dominios | dominio | dominios",
@@ -225,7 +225,7 @@
             "PUT": "modificar",
             "POST": "crear/executar",
             "GET": "ler",
-            "DELETE": "eliminar"
+            "DELETE": "Eliminar"
         },
         "last_action": "Última acción:",
         "title": "Historial",
@@ -322,8 +322,8 @@
     "set_default": "Establecer por defecto",
     "services": "Servizos",
     "service_start_on_boot": "Executar no inicio",
-    "select_none": "Elexir ningún",
-    "select_all": "Elexir todo",
+    "select_none": "Seleccionar ningún",
+    "select_all": "Seleccionar todo",
     "search": {
         "not_found": "Hai {items} que cumpren o criterio. | Hai 1 {items} que cumpre o teu criterio. | Hai {items} que cumpren o teu criterio.",
         "for": "Buscar {items}…"
@@ -557,7 +557,7 @@
         },
         "toggle_subdomains": "Activar subdominios",
         "explain": {
-            "main_domain": "O dominio principal é o dominio onde está o portal de acceso para as usuarias (vía \"{domain}/yunohost/sso\"). <br>Por tanto, non é posible eliminalo.<br>Se queres eliminar \"{domain}\", primeiro tes que elexir ou engadir outro dominio e establecelo como dominio principal."
+            "main_domain": "O dominio principal é o dominio onde está o portal de acceso para as usuarias (vía \"{domain}/yunohost/sso\"). <br>Por tanto, non é posible eliminalo.<br>Se queres eliminar \"{domain}\", primeiro tes que escoller ou engadir outro dominio e establecelo como dominio principal."
         },
         "add": {
             "from_registrar_desc": "Deberás configurar manualmente os rexistros DNS na empresa rexistradora para finalizar a configuración do dominio. O sistema de diagnóstico de YNH dirache exactamente os rexistros DNS que debes configurar.",

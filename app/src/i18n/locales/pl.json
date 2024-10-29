@@ -57,7 +57,7 @@
     },
     "api_error": {
         "view_error": "Zobacz błąd",
-        "sorry": "Bardzo przepraszam za to.",
+        "sorry": "Bardzo za to przepraszam.",
         "server_said": "Podczas wykonywania zadania serwer odpowiedział:",
         "info": "Poniższe informacje mogą być przydatne dla osoby udzielającej Ci pomocy:",
         "error_message": "Wiadomość błędu:",
