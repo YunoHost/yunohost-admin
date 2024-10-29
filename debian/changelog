@@ -1,3 +1,12 @@
+yunohost-admin (11.2.9) stable; urgency=low
+
+  - migration view: render the disclaimer as markdown (8bc97ae7)
+  - i18n: Translations updated for Basque, Dutch, English, French, Galician, German, Indonesian, Turkish
+
+  Thanks to all contributors <3 ! (Atalay Daban, Chloe, cjdw, Edward A, Éric Gaspar, Furkan Samed Acet, José M, Mer, ppr, xabirequejo)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Tue, 29 Oct 2024 23:56:24 +0100
+
 yunohost-admin (11.2.8) stable; urgency=low
 
   - [i18n] Translations updated for Basque, Galician, Greek, Indonesian, Polish, Russian, Slovak, Turkish
