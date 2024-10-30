@@ -1,3 +1,9 @@
+yunohost-admin (12.0.3.3) stable; urgency=low
+
+  - Merge bullseye changes
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Wed, 30 Oct 2024 03:05:25 +0100
+
 yunohost-admin (12.0.3.2) testing; urgency=low
 
   - fix: file form value (40c0d829)
