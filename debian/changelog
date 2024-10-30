@@ -1,3 +1,11 @@
+yunohost-admin (12.0.3.5) stable; urgency=low
+
+  - Stable release for YunoHost 12
+
+  Thanks to all contributors <3 !
+
+ -- tituspijean <titus+yunohost@pijean.ovh>  Wed, 30 Oct 2024 21:53:57 +0100
+
 yunohost-admin (12.0.3.4) testing; urgency=low
 
   - Merge bullseye changes
