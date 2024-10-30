@@ -210,7 +210,7 @@ export function formatYunoHostArgument(arg) {
       props: defaultProps,
     },
     {
-      types: ['tags'],
+      types: ['tags', 'users', 'groups', 'users_and_groups'],
       name: 'TagsItem',
       props: defaultProps.concat([
         'limit',
