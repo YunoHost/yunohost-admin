@@ -156,7 +156,7 @@
     "postinstall_domain": "Aquò es lo primièr nom de domeni ligat al servidor YunoHost, mas tanben lo que servirà al portanèl d’identificacion. Serà doncas visible per totes los utilizaires, causissètz-lo amb suènh.",
     "postinstall_intro_2": "Doas etapas mai son necessàrias per activar lo servidor.",
     "postinstall_intro_3": "Podètz trapar mai d’informacion en anar a <a href='//yunohost.org/en/install/hardware:vps_debian#fa-cog-proceed-with-the-initial-configuration' target='_blank'> la pagina de documentacion en question</a>",
-    "user_new_forward": "novel_transferiment@domenialonhat.org",
+    "user_new_forward": "novel_transferiment{'@'}domenialonhat.org",
     "user_username_edit": "Modificar lo compte a {name}",
     "users_no": "Pas cap d’utilizaire.",
     "words": {
@@ -241,7 +241,7 @@
     "confirm_service_restart": "Volètz vertadièrament reaviar {name} ?",
     "restart": "Reaviar",
     "issues": "{count} problèmas",
-    "tip_about_user_email": "Los utilizaires son creats amb una adreça e-mails ligada (e un compte XMPP) al format utilizaire@domeni.tld. Las adreças de transferiments suplementàrias pòdon èsser ajustadas ulteriorament per l’administrator e l’utilizaire.",
+    "tip_about_user_email": "Los utilizaires son creats amb una adreça e-mails ligada (e un compte XMPP) al format utilizaire{'@'}domeni.tld. Las adreças de transferiments suplementàrias pòdon èsser ajustadas ulteriorament per l’administrator e l’utilizaire.",
     "operation_failed_explanation": "Aquesta operacion a pas capitat ! O planhèm :( Podètz ensajar de <a href='https://yunohost.org/help'>demandar d’ajuda</a>. Se vos plai donar lo *jornal complèt* de l’operacion qu’ensajan de vos ajudar. Podètz clicar sul boton verd « Partejar amb Yunopaste ». En partejant lo jornal d’audit, YunoHost provarà automaticament d’anonimizar las donadas coma los noms de domeni e adreças IP.",
     "group_explain_visitors_needed_for_external_client": "Agachatz que certanas aplicacions sián autorizadas pels visitaires se volètz las utilizar amb de clients extèrns. Per exemple, es lo cas per Nextcloud s’avètz idèa d’emplegar un client de sincronizacion pel vòstre smartphone o ordenador de burèu.",
     "diagnosis_explanation": "La foncionalitat de diagnostic provarà trobar problèmas comuns sus diferents aspèctes de vòstre servidor per s’assegurar que tot fonciona normalament. Lo diagnostic serà tanben realizat dos còps per jorn e enviarà un corrièl a l’administrator se d’errors son detectadas. De notar que d’unes ensages seràn pas mostrats s’utilizatz pas certanas foncions especificas (XMPP, per exemple) o se fracassan a causa d’una configuracion tròp complèxa. Dins aqueste cas, e se sabètz çò qu’avètz modificat, podètz ignorar los problèmas e avertiments correspondents.",
@@ -374,15 +374,15 @@
     "items_verbose_items_left": "Demòran {items}. | Demòra {items}. | Demòran {items}.",
     "items_verbose_count": "I a {items}. | I a {items}. |I a {items}.",
     "items": {
-        "users": "cap d’utilizaire | utilizaire | {c} utilizaires",
-        "services": "cap de servici | servici | {c} servicis",
-        "installed_apps": "cap d’aplicacion pas installada | aplicacion installada | {c} aplicacions installadas",
-        "groups": "cap de grop | grop | {c} grops",
-        "domains": "cap de domeni | domeni | {c} domenis",
-        "backups": "cap de salvagarda | salvagarda | {c} salvagardas",
-        "apps": "cap d’aplicacion | app | {c} aplicacions",
-        "permissions": "cap de permission | permission | {c} permissions",
-        "logs": "cap de jornal| jornal | {c} jornals"
+        "users": "cap d’utilizaire | utilizaire | utilizaires",
+        "services": "cap de servici | servici | servicis",
+        "installed_apps": "cap d’aplicacion pas installada | aplicacion installada | aplicacions installadas",
+        "groups": "cap de grop | grop | grops",
+        "domains": "cap de domeni | domeni | domenis",
+        "backups": "cap de salvagarda | salvagarda | salvagardas",
+        "apps": "cap d’aplicacion | app | aplicacions",
+        "permissions": "cap de permission | permission | permissions",
+        "logs": "cap de jornal| jornal | jornals"
     },
     "hook_data_xmpp": "Donadas XMPP",
     "hook_conf_manually_modified_files": "Fichièr de configuracion modificat manualament",
@@ -411,8 +411,8 @@
         "alpha": "La cadena de caractèrs deu conténer sonque de letras.",
         "passwordMatch": "Los senhals correspondon pas.",
         "passwordLenght": "Lo senhal deu conténer almens 8 caractèrs.",
-        "emailForward": "Adreça de transferiment invalida : deu sonque conténer de caractèrs alfranumerics e los caractèrs <code>_.-+</code> (per exemple, quauqun@exemple.com, kal-k1+etiqueta@exemple.com)",
-        "email": "Adreça electronica invalida : deu sonque conténer de caractèrs alfanumerics e los caractèrs <code>_.-</code> (per exemple quauqun@exemple.com, k4l-k1@exemple.com)",
+        "emailForward": "Adreça de transferiment invalida : deu sonque conténer de caractèrs alfranumerics e los caractèrs <code>_.-+</code> (per exemple, quauqun{'@'}exemple.com, kal-k1+etiqueta{'@'}exemple.com)",
+        "email": "Adreça electronica invalida : deu sonque conténer de caractèrs alfanumerics e los caractèrs <code>_.-</code> (per exemple quauqun{'@'}exemple.com, k4l-k1{'@'}exemple.com)",
         "dynDomain": "Nom de domeni invalid : deu conténer sonque de minusculas alfanumericas e de jonhents basses",
         "appRepoUrl": "Las URL del depaus d’aplicacions YunoHost devon semblar a https://domain.tld/path/to/repo_ynh",
         "maxValue": "La valor deu èsser un nombre egal o inferior a {max}.",
@@ -474,7 +474,6 @@
                 "shutdown": "Vòstre servidor es a s’aturar e serà pas mai contactable. Reaviatz-lo e una fenèstra de connexion serà disponibla tre que lo servidor serà contactable.",
                 "upgrade_system": "La connexion al servidor es estada tampada a causa de la mesa a nivèl de YunoHost. En espèra de poder contactar lo servidor de nòu…"
             },
-            "success": "Se pòt contactar lo servidor ! Podètz ensajar de vos connectar",
             "failed": "Lo servidor respond pas. Podètz ensajar de vos i tornar connectar o ensajar d’executar « systemctl restart yunohost-api » via SSH."
         }
     },

@@ -122,7 +122,7 @@
     "user_fullname": "Nombre y Apellido",
     "user_interface_link": "Interfaz de usuario",
     "user_mailbox_quota": "Cuota de correo",
-    "user_new_forward": "nuevoreenviar@dominioexterior.org",
+    "user_new_forward": "nuevoreenviar{'@'}dominioexterior.org",
     "user_username": "Nombre de usuario",
     "user_username_edit": "Editar la cuenta de {name}",
     "users": "Usuarios",
@@ -248,7 +248,7 @@
     "issues": "{count} problemas",
     "restart": "Reiniciar",
     "diagnosis_explanation": "La funcionalidad de diagnóstico intentará identificar problemas comunes en varios aspectos del servidor para asegurarse de que todo vaya bien. El diagnóstico se ejecuta automáticamente dos veces al día y un correo electrónico se envía al administrador si se encuentra algún problema. Note que algunas pruebas pueden ser irrelevantes si no desea utilizar ciertas funcionalidades (por ejemplo XMPP) o podrían fallar si tiene una configuración compleja. En esos casos, si sabe lo que está haciendo, no hay problema con ignorar los errores o alertas correspondientes.",
-    "tip_about_user_email": "Los usuarios son creados con una dirección de correo electrónico (y cuenta XMPP) con el formato username@domain.ltd. Aliases de correo y reenvíos de correo pueden ser agregados luego por el administrador o el usuario.",
+    "tip_about_user_email": "Los usuarios son creados con una dirección de correo electrónico (y cuenta XMPP) con el formato username{'@'}domain.ltd. Aliases de correo y reenvíos de correo pueden ser agregados luego por el administrador o el usuario.",
     "permission_show_tile_enabled": "Mostrar el tile en el portal de usuario",
     "permission_main": "Etiqueta principal",
     "permission_corresponding_url": "URL Correspondiente",
@@ -290,8 +290,7 @@
                 "reboot": "Tu servidor se está reiniciando y no será accesible por un tiempo. Una solicitud de inicio de sesión estará disponible cuando el servidor se encuentre listo.",
                 "shutdown": "Su servidor se está apagando y ya no es accesible. Vuelva a encenderlo y aparecerá un aviso de inicio de sesión tan pronto como se pueda acceder al servidor.",
                 "upgrade_system": "La conexión con el servidor se ha cerrado debido a la actualización de YunoHost. Esperando a que el servidor sea accesible de nuevo…"
-            },
-            "success": "¡El servidor ya está disponible! Puedes intentar iniciar sesión"
+            }
         }
     },
     "address": {
@@ -322,8 +321,8 @@
         "required": "El campo es obligatorio.",
         "dynDomain": "Nombre de dominio incorrecto. Solo debe contener caracteres alfanuméricos en minúsculas y guiones",
         "appRepoUrl": "Las URL de repositorios de aplicaciones YunoHost deberían parecerse a https://domain.tld/path/to/repo_ynh",
-        "email": "Correo incorrecto: debe contener solo caracteres alfanuméricos y <code>_.-</code> (ej. alguien@ejemplo.com, 4l-guien@ejemplo.com)",
-        "emailForward": "Redirección de correo incorrecto: debe contener solo caracteres alfanuméricos y <code>_.-</code> (ej. alguien@ejemplo.com, 4l-guien@ejemplo.com)"
+        "email": "Correo incorrecto: debe contener solo caracteres alfanuméricos y <code>_.-</code> (ej. alguien{'@'}ejemplo.com, 4l-guien{'@'}ejemplo.com)",
+        "emailForward": "Redirección de correo incorrecto: debe contener solo caracteres alfanuméricos y <code>_.-</code> (ej. alguien{'@'}ejemplo.com, 4l-guien{'@'}ejemplo.com)"
     },
     "footer": {
         "donate": "Donar",
@@ -362,15 +361,15 @@
     "hook_conf_ynh_settings": "Configuraciones de YunoHost",
     "confirm_group_add_access_permission": "¿Seguro que quieres conceder acceso {perm} a {name}? Este acceso incrementa significantemente la exposición a ataques al sistema si {name} resulta tener malas intenciones. Sólo deberías aprobarlo si CONFÍAS en esa persona/grupo.",
     "items": {
-        "services": "sin servicios | servicio | {c} servicios",
-        "users": "sin cuentas | cuenta | {c} cuentas",
-        "domains": "sin dominios | dominio | {c} dominios",
-        "installed_apps": "sin aplicaciones instaladas | aplicación instalada | {c} aplicaciones instaladas",
-        "apps": "sin aplicaciones | aplicación | {c} aplicaciones",
-        "permissions": "sin permisos | permiso | {c} permisos",
-        "groups": "sin grupos | grupo | {c} grupos",
-        "backups": "sin copias de seguridad | copia de seguridad | {c} copias de seguridad",
-        "logs": "sin registros | registro | {c} registros"
+        "services": "sin servicios | servicio | servicios",
+        "users": "sin cuentas | cuenta | cuentas",
+        "domains": "sin dominios | dominio | dominios",
+        "installed_apps": "sin aplicaciones instaladas | aplicación instalada | aplicaciones instaladas",
+        "apps": "sin aplicaciones | aplicación | aplicaciones",
+        "permissions": "sin permisos | permiso | permisos",
+        "groups": "sin grupos | grupo | grupos",
+        "backups": "sin copias de seguridad | copia de seguridad | copias de seguridad",
+        "logs": "sin registros | registro | registros"
     },
     "migrations_disclaimer_check_message": "He leído y comprendido esta limitación de responsabilidad",
     "postinstall": {
@@ -584,7 +583,7 @@
     "label_for_manifestname_help": "Este es el nombre que se mostrará en el portal de usuarix. Puedes cambiarlo más tarde.",
     "manage_groups": "Gestionar grupos",
     "tools_yunohost_settings": "Ajustes YunoHost",
-    "group_explain_admins": "Este es un grupo asociado a los usuarixs administradorxs. Lxs usuarixs de este grupo tienen acceso al panel de control web de YunoHost, conexión al servidor por SSH y pueden utilizar el comando `sudo`. También reciben correos enviados a root@, admin@ y admins@, como las notificaciones de diagnóstico. ¡Añade únicamente a gente del grupo en la que confíes plenamente!",
+    "group_explain_admins": "Este es un grupo asociado a los usuarixs administradorxs. Lxs usuarixs de este grupo tienen acceso al panel de control web de YunoHost, conexión al servidor por SSH y pueden utilizar el comando `sudo`. También reciben correos enviados a root{'@'}, admin{'@'} y admins{'@'}, como las notificaciones de diagnóstico. ¡Añade únicamente a gente del grupo en la que confíes plenamente!",
     "wrong_password_or_username": "Contraseña o usuario incorrecto",
     "important_yunohost_upgrade": "Una actualización de categoría 'major' está disponible. Se recomienda leer detenidamente las notas de lanzamiento en el foro antes de actualizar: <a href='https://forum.yunohost.org/tag/ynh_release'>Busca las notas de lanzamiento en el foro</a>",
     "app": {

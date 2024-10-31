@@ -117,8 +117,7 @@
                 "reboot": "Din server håller på att starta om och kommer inte att kunna nås på ett tag. En inloggningsfråga kommer att finnas tillgänglig så snart servern är tillgänglig."
             },
             "failed": "Verkar som om servern inte svarar. Du kan försöka att återansluta eller försök köra `systemctl restart yunohost-api`genom ssh.",
-            "title": "Försöker kommunicera med servern…",
-            "success": "Servern är nu åtkomlig! Du kan försöka att logga in"
+            "title": "Försöker kommunicera med servern…"
         },
         "query_status": {
             "error": "Misslyckad",

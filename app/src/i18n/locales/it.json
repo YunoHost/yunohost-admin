@@ -99,7 +99,7 @@
     "user_fullname": "Nome completo",
     "user_interface_link": "Interfaccia utente",
     "user_mailbox_quota": "Quota della casella di posta",
-    "user_new_forward": "nuovoinoltro@miodominiodifferente.org",
+    "user_new_forward": "nuovoinoltro{'@'}miodominiodifferente.org",
     "user_username": "Nome utente",
     "user_username_edit": "Modifica account di {name}",
     "users": "Utenti",
@@ -250,7 +250,7 @@
     "app_state_lowquality": "bassa qualità",
     "all": "Tutti",
     "pending_migrations": "Ci sono alcune migrazioni in sospeso in attesa di essere eseguite. Vai in <a href='#/tools/migrations'>Strumenti > Migrazioni</a> per eseguirle.",
-    "tip_about_user_email": "Gli utenti sono creati associati ad un indirizzo email (e un account XMPP) del tipo utente@domain.tld. Indirizzi email addizionali e forward possono essere aggiunti successivamente dall'amministratore e dall'utente.",
+    "tip_about_user_email": "Gli utenti sono creati associati ad un indirizzo email (e un account XMPP) del tipo utente{'@'}domain.tld. Indirizzi email addizionali e forward possono essere aggiunti successivamente dall'amministratore e dall'utente.",
     "logs_suboperations": "Sub-operazioni",
     "permission_show_tile_enabled": "Mostra il tile nel portale dell'utente",
     "permission_main": "Etichetta principale",
@@ -293,15 +293,15 @@
     "mailbox_quota_example": "700MB è un CD, 4700M è un DVD",
     "items_verbose_count": "Ci sono {items}. | C’è 1 {items}. | Ci sono {items}.",
     "items": {
-        "users": "nessun utente | utente | {c} utenti",
-        "services": "nessun servizio | servizio | {c} servizi",
-        "logs": "nessun log | log | {c} logs",
-        "installed_apps": "nessun app installata | app installata | {c} apps installate",
-        "groups": "nessun gruppo | gruppo | {c} gruppi",
-        "domains": "nessun dominio | dominio | {c} domini",
-        "backups": "nessun backup | backup | {c} backups",
-        "apps": "nessuna app | app | {c} apps",
-        "permissions": "nessun permesso | permesso | {c} permessi"
+        "users": "nessun utente | utente | utenti",
+        "services": "nessun servizio | servizio | servizi",
+        "logs": "nessun log | log | logs",
+        "installed_apps": "nessun app installata | app installata | apps installate",
+        "groups": "nessun gruppo | gruppo | gruppi",
+        "domains": "nessun dominio | dominio | domini",
+        "backups": "nessun backup | backup | backups",
+        "apps": "nessuna app | app | apps",
+        "permissions": "nessun permesso | permesso | permessi"
     },
     "history": {
         "methods": {
@@ -323,8 +323,8 @@
         "notInUsers": "L'utente '{value}' esiste già.",
         "minValue": "Il valore dev'essere maggiore o uguale a {min}.",
         "name": "I nomi non devono includere caratteri speciali, tolti <code> ,.'-</code>",
-        "emailForward": "Inoltro email non valido: dev'esser composta di soli caratteri alfanumerici e <code>_.-+</code> (es: prova+ricevute@esempio.com, m4r1-0@esempio.com)",
-        "email": "Email non valida: dev'esser composta di soli caratteri alfanumerici e <code>_.-</code> (es: prova@esempio.com, m4r1-0@esempio.com)",
+        "emailForward": "Inoltro email non valido: dev'esser composta di soli caratteri alfanumerici e <code>_.-+</code> (es: prova+ricevute{'@'}esempio.com, m4r1-0{'@'}esempio.com)",
+        "email": "Email non valida: dev'esser composta di soli caratteri alfanumerici e <code>_.-</code> (es: prova{'@'}esempio.com, m4r1-0{'@'}esempio.com)",
         "dynDomain": "Nome dominio non valido: Dev'esser composto di soli caratteri alfanumerici minuscoli e trattini",
         "domain": "Nome dominio non valido: Dev'esser composto di soli caratteri alfanumerici minuscoli, punti e trattini",
         "between": "Il valore dev'essere compreso tra {min} e {max}.",
@@ -392,8 +392,7 @@
                 "unknown": "La connessione al server è stata interrotta per ragioni sconosciute.",
                 "reboot": "Il tuo server si sta riavviando e non sarà raggiungibile per un po'. Il prompt per il login sarà disponibile non appena il server diventerà raggiungibile.",
                 "upgrade_system": "La connessione al server è stata chiusa per un aggiornamento di YunoHost. Attendi che il server sia nuovamente raggiungibile…"
-            },
-            "success": "Il server è nuovamente raggiungibile! Puoi provare a fare il login"
+            }
         }
     },
     "address": {
@@ -688,7 +687,7 @@
     "tools_yunohost_settings": "Impostazioni di YunoHost",
     "app_state_broken": "rottə",
     "details_about": "Mostra maggiori dettagli riguardo a {subject}",
-    "group_explain_admins": "Questo è un gruppo speciale, che corrisponde agli utenti amministratori. Gli utenti di questo gruppo possono accedere all’interfaccia di amministrazione web di YunoHost, connettersi al server tramite SSH e usare il comando `sudo`. Inoltre, ricevono le email inviate a root@, admin@ e admins@, come le notifiche di diagnosi. Dovresti aggiungere a questo gruppo solo persone di cui ti fidi completamente!",
+    "group_explain_admins": "Questo è un gruppo speciale, che corrisponde agli utenti amministratori. Gli utenti di questo gruppo possono accedere all’interfaccia di amministrazione web di YunoHost, connettersi al server tramite SSH e usare il comando `sudo`. Inoltre, ricevono le email inviate a root{'@'}, admin{'@'} e admins{'@'}, come le notifiche di diagnosi. Dovresti aggiungere a questo gruppo solo persone di cui ti fidi completamente!",
     "group_admins": "Amministratori",
     "important_yunohost_upgrade": "Un importante aggiornamento di YunoHost è importante. È fortemente raccomandato di leggere attentamente le note di rilascio sul forum, prima di aggiornare: <a href='https://forum.yunohost.org/tag/ynh_release'>Visita le note di rilascio sul forum</a>",
     "label_for_manifestname_help": "Questo è il nome mostrato nel portale dell’utente. Potrà essere cambiato in seguito."

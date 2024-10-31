@@ -1,39 +1,39 @@
+<script setup lang="ts">
+import { computed, toValue } from 'vue'
+
+import type { ButtonItemProps } from '@/types/form'
+
+const props = withDefaults(defineProps<ButtonItemProps>(), {
+  enabled: true,
+  icon: undefined,
+  type: 'success',
+})
+
+const emit = defineEmits<{
+  action: [value: string]
+}>()
+
+const icon = computed(() => {
+  const icons = {
+    success: 'thumbs-up',
+    info: 'info',
+    warning: 'exclamation',
+    danger: 'times',
+  }
+
+  return props.icon || icons[props.type]
+})
+</script>
+
 <template>
   <BButton
     :id="id"
     :variant="type"
-    @click="$emit('action', $event)"
-    :disabled="!enabled"
+    :disabled="!toValue(enabled)"
     class="d-block mb-3"
+    @click="emit('action', id)"
   >
-    <YIcon :iname="icon_" class="mr-2" />
+    <YIcon :iname="icon" class="me-2" />
     <span v-html="label" />
   </BButton>
 </template>
-
-<script>
-export default {
-  name: 'ButtonItem',
-
-  props: {
-    label: { type: String, default: null },
-    id: { type: String, default: null },
-    type: { type: String, default: 'success' },
-    icon: { type: String, default: null },
-    enabled: { type: [Boolean, String], default: true },
-  },
-
-  computed: {
-    icon_() {
-      const icons = {
-        success: 'thumbs-up',
-        info: 'info',
-        warning: 'exclamation',
-        danger: 'times',
-      }
-
-      return this.icon || icons[this.type]
-    },
-  },
-}
-</script>

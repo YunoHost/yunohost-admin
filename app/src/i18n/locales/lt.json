@@ -19,7 +19,6 @@
                 "unknown": "Ryšys su serveriu nutrauktas dėl nežinomų priežasčių.",
                 "upgrade_system": "Ryšys su serveriu nutrauktas dėl YunoHost atnaujinimo. Laukiama, kol serveris vėl bus pasiekiamas…"
             },
-            "success": "Dabar serveris pasiekiamas! Galite pabandyti prisijungti",
             "title": "Bandoma susisiekti su serveriu…"
         },
         "processing": "Serveris apdoroja veiksmą…",

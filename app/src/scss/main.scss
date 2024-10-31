@@ -7,11 +7,11 @@
 
 // Dependencies SCSS imports
 // `~` allow to import a node_modules folder (resolved by Webpack)
-// @import "~bootstrap/scss/root";
+@import '~bootstrap/scss/root';
 @import '~bootstrap/scss/reboot';
 @import '~bootstrap/scss/type';
 @import '~bootstrap/scss/images';
-@import '~bootstrap/scss/code';
+@import '~bootstrap/scss/containers';
 @import '~bootstrap/scss/grid';
 @import '~bootstrap/scss/tables';
 @import '~bootstrap/scss/forms';
@@ -19,18 +19,15 @@
 @import '~bootstrap/scss/transitions';
 @import '~bootstrap/scss/dropdown';
 @import '~bootstrap/scss/button-group';
-@import '~bootstrap/scss/input-group';
-@import '~bootstrap/scss/custom-forms';
 @import '~bootstrap/scss/nav';
 @import '~bootstrap/scss/navbar';
 @import '~bootstrap/scss/card';
+@import '~bootstrap/scss/accordion';
 @import '~bootstrap/scss/breadcrumb';
 // @import "~bootstrap/scss/pagination";
 @import '~bootstrap/scss/badge';
-// @import "~bootstrap/scss/jumbotron";
 @import '~bootstrap/scss/alert';
 @import '~bootstrap/scss/progress';
-// @import "~bootstrap/scss/media";
 @import '~bootstrap/scss/list-group';
 @import '~bootstrap/scss/close';
 // @import "~bootstrap/scss/toasts";
@@ -39,120 +36,47 @@
 @import '~bootstrap/scss/popover';
 // @import "~bootstrap/scss/carousel";
 @import '~bootstrap/scss/spinners';
-@import '~bootstrap/scss/utilities';
-// @import "~bootstrap/scss/print";
+@import '~bootstrap/scss/offcanvas';
+@import '~bootstrap/scss/placeholders';
 
-@import '~bootstrap-vue/src/index.scss';
+// Helpers
+@import '~bootstrap/scss/helpers';
+
+// Utilities
+@import '~bootstrap/scss/utilities/api';
+
+// @import '~bootstrap-vue-next/src/styles/styles.scss';
+// FIXME modals doesn't appears if we import the scss
+@import 'bootstrap-vue-next/dist/bootstrap-vue-next.css';
 
 // Import fonts
 @import 'font';
 @import '~fork-awesome/scss/fork-awesome.scss';
 
-// helper to set the required 4 CSS variables per color to allow `calc` computation of variants and states
-@mixin hsl-color($name, $h, $s, $l) {
-  --#{$name}: hsl(#{$h}, #{$s}, #{$l});
-  --#{$name}-h: #{$h};
-  --#{$name}-s: #{$s};
-  --#{$name}-l: #{$l};
-}
-
-:root {
-  color-scheme: light;
-
-  --yiq-contrasted-threshold: 150;
-
-  @include hsl-color('white', 0, 0%, 100%);
-  @include hsl-color('black', 0, 0%, 0%);
-  @include hsl-color('blue', 211, 64%, 50%);
-  @include hsl-color('indigo', 263, 90%, 51%);
-  @include hsl-color('purple', 280, 61%, 50%);
-  @include hsl-color('pink', 332, 79%, 58%);
-  @include hsl-color('red', 354, 70%, 54%);
-  @include hsl-color('orange', 27, 98%, 54%);
-  @include hsl-color('yellow', 45, 100%, 66%);
-  @include hsl-color('green', 134, 61%, 41%);
-  @include hsl-color('teal', 162, 73%, 46%);
-  @include hsl-color('cyan', 188, 78%, 41%);
-
-  @include hsl-color('gray-100', 210, 17%, 98%);
-  @include hsl-color('gray-200', 210, 16%, 93%);
-  @include hsl-color('gray-300', 210, 14%, 89%);
-  @include hsl-color('gray-400', 210, 14%, 83%);
-  @include hsl-color('gray-500', 210, 11%, 71%);
-  @include hsl-color('gray-600', 208, 7%, 46%);
-  @include hsl-color('gray-700', 210, 9%, 31%);
-  @include hsl-color('gray-800', 210, 10%, 23%);
-  @include hsl-color('gray-900', 210, 11%, 15%);
-
-  // Overwrite list-group-item variants to lighter ones (used in diagnosis for example)
-  @each $color, $value in $theme-colors {
-    @include list-group-item-variant(
-      $color,
-      theme-color-level($color, $list-group-item-bg-level),
-      theme-color-level($color, $list-group-item-color-level)
-    );
-
-    .btn-#{$color} {
-      &:focus,
-      &.focus {
-        box-shadow: 0 0 0 $btn-focus-width rgba($value, 0.3);
-      }
-    }
-  }
-}
-
-[dark-theme='true'] {
-  color-scheme: dark; // Ask browser to use dark mode native styling
-
-  --yiq-contrasted-threshold: 120;
-
-  @include hsl-color('white', 256, 0%, 12.5%);
-  @include hsl-color('black', 256, 0%, 100%);
-  @include hsl-color('blue', 210.7, 95.5%, 65.5%);
-  @include hsl-color('purple', 280, 77.8%, 62.9%);
-  @include hsl-color('red', 0, 100%, 67.6%);
-  @include hsl-color('green', 134.3, 74.4%, 67.8%);
-  @include hsl-color('cyan', 188.4, 91.4%, 72.5%);
-
-  @include hsl-color('gray-900', 256, 0%, 98%);
-  @include hsl-color('gray-800', 256, 0%, 93%);
-  @include hsl-color('gray-700', 256, 0%, 89%);
-  @include hsl-color('gray-600', 256, 0%, 83%);
-  @include hsl-color('gray-500', 256, 0%, 71%);
-  @include hsl-color('gray-400', 256, 0%, 46%);
-  @include hsl-color('gray-300', 256, 0%, 31%);
-  @include hsl-color('gray-200', 256, 0%, 23%);
-  @include hsl-color('gray-100', 256, 0%, 15%);
-
-  @each $color, $value in $theme-colors {
-    @include list-group-item-variant(
-      $color,
-      theme-color-level($color, -6),
-      theme-color-level($color, 2)
-    );
-
-    .alert-#{$color} {
-      @include alert-variant(
-        theme-color-level($color, -6),
-        theme-color-level($color, -5),
-        theme-color-level($color, 2)
-      );
-    }
-  }
-
-  // FIX svg fill not working with CSS variables
-  .custom-checkbox .custom-control-input {
-    &:checked ~ .custom-control-label::after {
-      background-image: escape-svg(get-checkbox-icon-checked('#202020'));
-    }
-
-    &:indeterminate ~ .custom-control-label::after {
-      background-image: escape-svg(get-checkbox-icon-indeterminate('#202020'));
-    }
-  }
-}
-
 // Style overrides happens after dependencies imports
+
+:root,
+[data-bs-theme='light'] {
+  @each $color, $value in $light-text-colors {
+    --#{$prefix}#{$color}-text-rgb: #{to-rgb($value)};
+  }
+  @each $color, $value in $theme-colors {
+    .btn-outline-#{$color} {
+      --bs-btn-color: $dark;
+    }
+  }
+}
+
+[data-bs-theme='dark'] {
+  @each $color, $value in $dark-text-colors {
+    --#{$prefix}#{$color}-text-rgb: #{to-rgb($value)};
+  }
+  @each $color, $value in $theme-colors {
+    .btn-outline-#{$color} {
+      --bs-btn-color: $light;
+    }
+  }
+}
 
 html {
   min-height: 100vh;
@@ -175,13 +99,18 @@ body {
   align-items: center;
 }
 
+// BOOSTRAP OVERIDES/ADDITIONS
+
 // Add breakpoints for w-*
 @each $breakpoint in map-keys($grid-breakpoints) {
-  @each $size, $length in $sizes {
-    @include media-breakpoint-up($breakpoint) {
+  @include media-breakpoint-up($breakpoint) {
+    @each $size, $length in $position-values {
       .w-#{$breakpoint}-#{$size} {
         width: $length !important;
       }
+    }
+    .w-#{$breakpoint}-auto {
+      width: auto !important;
     }
   }
 }
@@ -192,9 +121,14 @@ body {
     $btn-padding-y-xs,
     $btn-padding-x-xs,
     $btn-font-size-sm,
-    $btn-line-height-xs,
     $btn-border-radius-sm
   );
+}
+
+.btn-outline-dark {
+  [data-bs-theme='dark'] & {
+    @include button-outline-variant($light);
+  }
 }
 
 // Allow state of input group to be displayed under the group
@@ -205,6 +139,29 @@ body {
 .tooltip {
   top: 0;
 }
+
+// BVN fixes
+// FIXME move to CardForm ?
+form {
+  .row {
+    margin-bottom: $spacer;
+  }
+  fieldset {
+    margin-bottom: $spacer;
+    width: 100%;
+    .row {
+      margin-bottom: 0;
+    }
+  }
+  .form-text {
+    display: block;
+
+    .alert {
+      margin-bottom: 0;
+    }
+  }
+}
+
 // Descriptive list (<b-row /> elems with <b-col> inside)
 // FIXME REMOVE when every infos switch to `DescriptionRow`
 .row-line {
@@ -215,7 +172,7 @@ body {
     }
   }
 
-  @include media-breakpoint-down(sm) {
+  @include media-breakpoint-down(md) {
     flex-direction: column;
 
     &:not(:last-of-type) {
@@ -265,13 +222,15 @@ h3.card-title {
 }
 
 // collapse icon
-.not-collapsed > .icon {
-  transform: rotate(-90deg);
-}
-.collapsed > .icon {
-  transform: rotate(90deg);
-  position: relative;
-  top: 2px;
+.collapsible {
+  .not-collapsed > .icon {
+    transform: rotate(-90deg);
+  }
+  .collapsed > .icon {
+    transform: rotate(90deg);
+    position: relative;
+    top: 2px;
+  }
 }
 
 // limit the size of toggle dropdown buttons to a square
@@ -290,14 +249,14 @@ h3.card-title {
   display: flex;
   justify-content: space-between;
 
-  @include media-breakpoint-down(xs) {
+  @include media-breakpoint-down(sm) {
     .buttons {
       flex-direction: column;
       justify-content: space-between;
     }
   }
 
-  @include media-breakpoint-down(sm) {
+  @include media-breakpoint-down(md) {
     flex-direction: column-reverse;
     margin-bottom: 2rem;
 
@@ -335,6 +294,11 @@ code {
   background: $gray-300;
   padding: 0.15rem 0.25rem;
   border-radius: $border-radius;
+
+  [data-bs-theme='dark'] & {
+    background-color: $gray-800;
+    color: $gray-400;
+  }
 }
 
 pre code {
@@ -346,6 +310,10 @@ pre code {
   padding: 1rem;
   background-color: $light;
   overflow: auto;
+
+  [data-bs-theme='dark'] & {
+    background-color: $dark;
+  }
 }
 
 .unselectable {

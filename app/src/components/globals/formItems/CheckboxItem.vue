@@ -1,30 +1,31 @@
+<script setup lang="ts">
+import type { CheckboxItemProps, BaseItemComputedProps } from '@/types/form'
+
+withDefaults(defineProps<CheckboxItemProps & BaseItemComputedProps>(), {
+  id: undefined,
+  name: undefined,
+  placeholder: undefined,
+  touchKey: undefined,
+  label: undefined,
+  labels: () => ({ true: 'yes', false: 'no' }),
+
+  ariaDescribedby: undefined,
+  state: undefined,
+  validation: undefined,
+})
+
+const modelValue = defineModel<boolean>()
+</script>
+
 <template>
   <BFormCheckbox
-    v-model="checked"
-    v-on="$listeners"
     :id="id"
-    :aria-describedby="$parent.id + '__BV_description_'"
+    v-model="modelValue"
+    :name="name"
+    :aria-describedby="ariaDescribedby"
+    :state="state"
     switch
   >
-    {{ label || $t(labels[checked]) }}
+    <span v-html="label || $t(labels[modelValue ? 'true' : 'false'])" />
   </BFormCheckbox>
 </template>
-
-<script>
-export default {
-  name: 'CheckboxItem',
-
-  props: {
-    value: { type: Boolean, required: true },
-    id: { type: String, default: null },
-    label: { type: String, default: null },
-    labels: { type: Object, default: () => ({ true: 'yes', false: 'no' }) },
-  },
-
-  data() {
-    return {
-      checked: this.value,
-    }
-  },
-}
-</script>

@@ -142,7 +142,7 @@
     "manage_domains": "Administri domajnojn",
     "user_username_edit": "Redakti {name} konton",
     "logs_package": "Historio pri administrado de pakoj Debian",
-    "user_new_forward": "novjora@myforeigndomain.org",
+    "user_new_forward": "novjora{'@'}myforeigndomain.org",
     "logs_share_with_yunopaste": "Kunhavigu kun YunoPaste",
     "certificate": "Atestilo",
     "logs_system": "Kernel ŝtipoj kaj aliaj malaltnivelaj eventoj",

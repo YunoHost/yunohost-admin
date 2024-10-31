@@ -1,3 +1,82 @@
+yunohost-admin (12.0.3.5) stable; urgency=low
+
+  - Stable release for YunoHost 12
+
+  Thanks to all contributors <3 !
+
+ -- tituspijean <titus+yunohost@pijean.ovh>  Wed, 30 Oct 2024 21:53:57 +0100
+
+yunohost-admin (12.0.3.4) testing; urgency=low
+
+  - Merge bullseye changes
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Wed, 30 Oct 2024 03:05:25 +0100
+
+yunohost-admin (12.0.3.2) testing; urgency=low
+
+  - fix: file form value (40c0d829)
+  - fix(FileItem): no longer possible to have custom labels, display filename above if defined (86091e53)
+  - fix(ConfigPanels): submit button not appearing on tab change (be55f7f9)
+  - fix(TagsSelectizeItem): add default i18n item name (34ee7df6)
+  - ts: misc fixes (ee2a54a6)
+  - fix(SelectItem): wrong select i18n key (16205e5a)
+  - fix(AppInfo): missing operations tab when no config panels (66e4bfd7)
+  - fix(ToolLog): display more logs button (512efa9c)
+
+  Thanks to all contributors <3 ! (axolotle)
+
+ -- tituspijean <tituspijean@yunohost.org>  Mon, 28 Oct 2024 21:48:46 +0100
+
+yunohost-admin (12.0.3.1) testing; urgency=low
+
+  - fix: blank 'domains' page / v-b-tooltip doesn't work on build, use Popover component instead (6dde7f1b)
+  - fix: FormField links (0cf55c5b)
+
+  Thanks to all contributors <3 ! (axolotle)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Wed, 25 Sep 2024 20:57:31 +0200
+
+yunohost-admin (12.0.3) testing; urgency=low
+
+  - Epic refactoring to Vue3 and typescript ([#575](http://github.com/YunoHost/yunohost-admin/pull/575))
+  - domain/apps: improve the flow of adding a subdomain during app install: the 'domain add' view now shows an explicit option for subdomains, with the ability to auto-attempt lets encrypt cert, and be able to add such a subdomain from a modal during app install ([#579](http://github.com/YunoHost/yunohost-admin/pull/579))
+  - permissions: Ask for confirmation when trying to self-remove from the admin group ([#582](http://github.com/YunoHost/yunohost-admin/pull/582))
+  - apps: during install, display antifeature details when they are provided by the app ([#582](http://github.com/YunoHost/yunohost-admin/pull/582))
+  - apps: mention the wishlist/vote system in catalog ([#583](http://github.com/YunoHost/yunohost-admin/pull/583))
+  - general: add TOS links and acknowledgement during postinstall, dyndns registration ([#580](http://github.com/YunoHost/yunohost-admin/pull/580))
+  - dns: Make auto dns feature optional ([#581](http://github.com/YunoHost/yunohost-admin/pull/581))
+  - chore: Update JS dependencies ([#584](http://github.com/YunoHost/yunohost-admin/pull/584))
+  - i18n: fix a few strings that were only partially translatable ([#582](http://github.com/YunoHost/yunohost-admin/pull/582))
+  - i18n: remove count info in `items` (6ef1d11b)
+
+  Thanks to all contributors <3 ! (axolotle)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Mon, 16 Sep 2024 18:25:57 +0200
+
+yunohost-admin (12.0.2) testing; urgency=low
+
+  - config panels: fix panel help message not being displayed (7859b221)
+
+  Thanks to all contributors <3 ! (axolotle)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Sat, 31 Aug 2024 20:09:29 +0200
+
+yunohost-admin (12.0.1) testing; urgency=low
+
+  - Reflect change in the core about pydantic/config panels (06bb22f4, 60934cf7)
+  - No need anymore to the server after yunohost upgrades because the session should still be valid (1d892350)
+  - i18n: Translations updated for Basque, Chinese (Simplified), Danish, Dutch, French, Galician, German, Indonesian, Italian, Polish, Russian, Slovak, Spanish
+
+  Thanks to all contributors <3 ! (Andreas Gammelgaard Damsbo, axolotle, Boudewijn, bruno van den bosch, cjdw, Émile, Ivan Davydov, José M, Jose Riha, Kuba Bazan, Øjvind Fritjof Arnfred, OniriCorpe, Poesty Li, rosbeef andino, Tagadda, Titus PiJean, Tommi, xabirequejo)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Fri, 26 Jul 2024 22:30:32 +0200
+
+yunohost (12.0.0) unstable; urgency=low
+
+  - Tmp changelog to prepare Bookworm
+
+ -- Tagada <tagada@cant.at>  Fri, 12 May 2023 16:20:28 +0000
+ 
 yunohost-admin (11.3.0) stable; urgency=low
 
   - Bump version for 11.3 release

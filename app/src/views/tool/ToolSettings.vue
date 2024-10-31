@@ -1,71 +1,39 @@
-<template>
-  <ViewBase
-    :queries="queries"
-    @queries-response="onQueriesResponse"
-    ref="view"
-    skeleton="CardFormSkeleton"
-  >
-    <ConfigPanels
-      v-if="config.panels"
-      v-bind="config"
-      @submit="onConfigSubmit"
-    />
-  </ViewBase>
-</template>
-
-<script>
+<script setup lang="ts">
 import api, { objectToParams } from '@/api'
-import {
-  formatFormData,
-  formatYunoHostConfigPanels,
-} from '@/helpers/yunohostArguments'
-import ConfigPanels from '@/components/ConfigPanels.vue'
+import ConfigPanelsComponent from '@/components/ConfigPanels.vue'
+import { formatConfigPanels, useConfigPanels } from '@/composables/configPanels'
+import type { CoreConfigPanels } from '@/types/core/options'
 
-export default {
-  name: 'ToolSettingsConfig',
+const props = defineProps<{ tabId?: string }>()
 
-  components: {
-    ConfigPanels,
-  },
+const coreConfig = await api.get<CoreConfigPanels>({
+  uri: 'settings?full',
+  initial: true,
+})
 
-  props: {},
-
-  data() {
-    return {
-      queries: [['GET', 'settings?full']],
-      config: {},
-    }
-  },
-
-  methods: {
-    onQueriesResponse(config) {
-      this.config = formatYunoHostConfigPanels(config)
-    },
-
-    async onConfigSubmit({ id, form }) {
-      const args = await formatFormData(form, {
-        removeEmpty: false,
-        removeNull: true,
+const { form, panel, v, routes, onPanelApply } = useConfigPanels(
+  formatConfigPanels(coreConfig),
+  () => props.tabId,
+  ({ panelId, data }, onError) => {
+    // FIXME no route for potential action
+    api
+      .put({
+        uri: `settings/${panelId}`,
+        data: { args: objectToParams(data) },
+        humanKey: { key: 'settings.update', panel: panelId },
       })
-
-      // FIXME no route for potential action
-      api
-        .put(
-          `settings/${id}`,
-          { args: objectToParams(args) },
-          { key: 'settings.update', panel: id },
-        )
-        .then(() => {
-          this.$refs.view.fetchQueries({ triggerLoading: true })
-        })
-        .catch((err) => {
-          if (err.name !== 'APIBadRequestError') throw err
-          const panel = this.config.panels.find((panel) => panel.id === id)
-          if (err.data.name) {
-            this.config.errors[id][err.data.name].message = err.message
-          } else this.$set(panel, 'serverError', err.message)
-        })
-    },
+      .then(() => api.refetch())
+      .catch(onError)
   },
-}
+)
 </script>
+
+<template>
+  <ConfigPanelsComponent
+    v-model="form"
+    :panel="panel"
+    :validations="v"
+    :routes="routes"
+    @apply="onPanelApply"
+  />
+</template>

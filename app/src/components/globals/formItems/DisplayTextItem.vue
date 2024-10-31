@@ -1,16 +1,13 @@
+<script setup lang="ts">
+import type { DisplayTextItemProps } from '@/types/form'
+
+withDefaults(defineProps<DisplayTextItemProps>(), {
+  id: undefined,
+})
+</script>
+
 <template>
-  <div>
+  <div :id="id">
     <p v-text="label" />
   </div>
 </template>
-
-<script>
-export default {
-  name: 'DisplayTextItem',
-
-  props: {
-    id: { type: String, default: null },
-    label: { type: String, default: null },
-  },
-}
-</script>

@@ -1,37 +1,47 @@
+<script setup lang="ts">
+import { computed, inject } from 'vue'
+
+import { ValidationTouchSymbol } from '@/composables/form'
+import type { BaseItemComputedProps, TagsItemProps } from '@/types/form'
+
+const props = withDefaults(
+  defineProps<TagsItemProps & BaseItemComputedProps>(),
+  {
+    id: undefined,
+    name: undefined,
+    placeholder: undefined,
+    touchKey: undefined,
+    limit: undefined,
+    // options: undefined,
+
+    ariaDescribedby: undefined,
+    state: undefined,
+    validation: undefined,
+  },
+)
+
+const touch = inject(ValidationTouchSymbol)
+
+const modelValue = defineModel<string[]>()
+
+const required = computed(() => 'required' in (props?.validation ?? {}))
+
+// FIXME rework for options/choices
+// https://bootstrap-vue-next.github.io/bootstrap-vue-next/docs/components/form-tags.html#using-custom-form-components
+</script>
+
 <template>
   <BFormTags
-    v-model="tags"
     :id="id"
+    v-model="modelValue"
+    :name="name"
     :placeholder="placeholder"
-    :required="required"
-    separator=" ,;"
     :limit="limit"
-    remove-on-delete
+    :aria-describedby="ariaDescribedby"
     :state="state"
-    :options="options"
-    v-on="$listeners"
-    @blur="$parent.$emit('touch', name)"
+    :required="required"
+    remove-on-delete
+    separator=" ,;"
+    @blur="touch?.(touchKey)"
   />
 </template>
-
-<script>
-export default {
-  name: 'TagsItem',
-
-  data() {
-    return {
-      tags: this.value,
-    }
-  },
-  props: {
-    value: { type: Array, default: null },
-    id: { type: String, default: null },
-    placeholder: { type: String, default: null },
-    limit: { type: Number, default: null },
-    required: { type: Boolean, default: false },
-    state: { type: Boolean, default: null },
-    name: { type: String, default: null },
-    options: { type: Array, default: null },
-  },
-}
-</script>

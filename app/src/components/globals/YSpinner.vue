@@ -1,18 +1,12 @@
+<script setup lang="ts">
+import { useSettings } from '@/composables/useSettings'
+
+const { spinner } = useSettings()
+</script>
+
 <template>
   <div :class="['custom-spinner', spinner]" />
 </template>
-
-<script>
-import { mapGetters } from 'vuex'
-
-export default {
-  name: 'YSpinner',
-
-  computed: {
-    ...mapGetters(['spinner']),
-  },
-}
-</script>
 
 <style lang="scss" scoped>
 .custom-spinner {
@@ -25,7 +19,7 @@ export default {
     background-image: url('../../assets/spinners/pacman_dark.gif');
     animation-name: back-and-forth-pacman;
 
-    [dark-theme='true'] & {
+    [data-bs-theme='dark'] & {
       background-image: url('../../assets/spinners/pacman_light.gif');
     }
 

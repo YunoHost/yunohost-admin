@@ -31,7 +31,7 @@
                 "unknown": "Connection with the server has been closed for unknown reasons.",
                 "upgrade_system": "Connection with the server has been closed due to YunoHost upgrade. Waiting for the server to be reachable again…"
             },
-            "success": "The server is now reachable! You can try to login",
+            "session_expired": "The server is now reachable! But it looks like your session expired, please login.",
             "title": "Trying to communicate with the server…"
         }
     },
@@ -157,7 +157,8 @@
                 }
             },
             "stop": "Cancel next app upgrades"
-        }
+        },
+        "upvote": "If you'd like to draw attention to this application, you can vote for it on its [catalog page](https://apps.yunohost.org/app/{id})."
     },
     "app_choose_category": "Choose a category",
     "app_info_access_desc": "Groups / users currently allowed to access this app:",
@@ -188,6 +189,8 @@
     "both": "Both",
     "cancel": "Cancel",
     "catalog": "Catalog",
+    "catalog_partial_search": "Try to remove all criterias to see if the app you're searching for is available.",
+    "catalog_wishlist": "Looks like the app you're searching for is not yet available in the catalog.\n You can propose it in the [apps wishlist](https://apps.yunohost.org/wishlist?search={search}) or vote for it if it is already there.",
     "certificate": "Certificate",
     "certificate_manage": "Manage SSL certificate",
     "check": "Check",
@@ -246,12 +249,15 @@
             "dyn_dns_password_desc": "This password will allow you to later recover control of the domain if you reinstall your system. If you already registered this domain previously, use your recovery password here to reclaim it.",
             "from_local": "I want a domain for local usage / test only",
             "from_local_desc": "If you don't want an \"actual\" public domain name, you can use anything ending in <code>.local</code> or <code>.test</code>. Domain names ending in <code>.local</code> are special in the sense that they may automatically be resolved on the local network, assuming the clients support the Bonjour protocol. Alternatively, you may need to tweak the <code>/etc/hosts</code> file (or equivalent on Windows) on every client that you want to use this domain from, or to configure local DNS entries on your internet router.",
-            "from_registrar": "I want to add a domain I own, or a subdomain",
+            "from_registrar": "I want to add a domain I own",
             "from_registrar_desc": "You will need to manually configure DNS records on your registrar to finalize this domain's configuration. YunoHost's diagnosis will guide you about what DNS records to configure exactly.",
+            "from_subdomain": "I want to add a subdomain of an already added domain",
+            "from_subdomain_desc": "If your configured DNS records allows it, you will be able to automaticly install Let's Encrypt certificate.",
             "from_yunohost": "I don't own a domain, I want to register/use a free DynDNS domain provided by the YunoHost project",
             "from_yunohost_desc": "The YunoHost project maintains a free 'DynDNS' service. It is limited to one such domain per server (though you can also add sub-domains later using the other 'Add a domain I own, or a subdomain' option above). The DNS configuration will be automatically handled by YunoHost. This is ideal when starting up with self-hosting in general and you don't want to invest in a domain name yet. However, on the medium/long-term, we recommend buying your very own domain name to some registrar to have full ownership of your domain."
         },
         "cert": {
+            "install": "Also install Let's Encrypt certificate",
             "types": {
                 "letsencrypt": "Let's Encrypt",
                 "other": "Other/Unknown",
@@ -326,23 +332,30 @@
     "footer": {
         "documentation": "Documentation",
         "donate": "Donate",
-        "help": "Need help?"
+        "help": "Need help?",
+        "tos": "Terms of Services"
     },
     "footer_version": "Powered by <a href='https://yunohost.org'>YunoHost</a> {version} ({repo}).",
+    "form": {
+        "current_file": "Current file:",
+        "select_one": "Please select an option"
+    },
     "form_errors": {
         "alpha": "Value must be alphabetical characters only.",
         "alphalownumdot_": "Value must be lower-case alphanumeric, dots and underscore characters only.",
         "appRepoUrl": "YunoHost app repository URLs are expected to look like https://domain.tld/path/to/repo_ynh",
         "between": "Value must be between {min} and {max}.",
+        "checked": "Checkbox must be checked.",
         "domain": "Invalid domain name: Must be lower-case alphanumeric, dot and dash characters only",
         "dynDomain": "Invalid domain name: Must be lower-case alphanumeric and dash characters only",
-        "email": "Invalid email: must be alphanumeric and <code>_.-</code> characters only (e.g. someone@example.com, s0me-1@example.com)",
-        "emailForward": "Invalid email forward: must be alphanumeric and <code>_.-+</code> characters only (e.g. someone+tag@example.com, s0me-1+tag@example.com)",
+        "email": "Invalid email: must be alphanumeric and <code>_.-</code> characters only (e.g. someone{'@'}example.com, s0me-1{'@'}example.com)",
+        "emailForward": "Invalid email forward: must be alphanumeric and <code>_.-+</code> characters only (e.g. someone+tag{'@'}example.com, s0me-1+tag{'@'}example.com)",
         "invalid_form": "The form contains some errors.",
         "maxValue": "Value must be a number equal or lesser than {max}.",
         "minValue": "Value must be a number equal or greater than {min}.",
         "name": "Names may not includes special characters except <code> ,.'-</code>",
         "notInUsers": "The user '{value}' already exists.",
+        "numValue": "Value must be a number",
         "number": "Value must be a number.",
         "passwordLenght": "Password must be at least 8 characters long.",
         "passwordMatch": "Passwords don't match.",
@@ -360,7 +373,7 @@
     "group_add_permission": "Add a permission",
     "group_admins": "Admins",
     "group_all_users": "All users",
-    "group_explain_admins": "This is a special group corresponding to admin users. Users in this group can access YunoHost's webadmin, connect to the server with SSH and use the `sudo` command. They will also receive emails sent to root@, admin@ and admins@, such as the diagnosis notifications. You should only add people you absolutely trust in this group!",
+    "group_explain_admins": "This is a special group corresponding to admin users. Users in this group can access YunoHost's webadmin, connect to the server with SSH and use the `sudo` command. They will also receive emails sent to root{'@'}, admin{'@'} and admins{'@'}, such as the diagnosis notifications. You should only add people you absolutely trust in this group!",
     "group_explain_all_users": "This is a special group containing all users accounts on the server",
     "group_explain_visitors": "This is a special group representing anonymous visitors",
     "group_explain_visitors_needed_for_external_client": "Be careful that you need to keep some applications allowed to visitors if you intend to use them with external clients. For example, this is the case for Nextcloud if you intend to use a synchronization client on your smartphone or desktop computer.",
@@ -369,6 +382,11 @@
     "group_new": "New group",
     "group_specific_permissions": "Individual user permissions",
     "group_visitors": "Visitors",
+    "groups": {
+        "remove_user": {
+            "confirm_from_admins": "Are you sure you want to remove yourself from the 'admins' group?"
+        }
+    },
     "groups_and_permissions": "Groups and permissions",
     "groups_and_permissions_manage": "Manage groups and permissions",
     "history": {
@@ -488,15 +506,16 @@
     "ipv6": "IPv6",
     "issues": "{count} issues",
     "items": {
-        "apps": "no apps | app | {c} apps",
-        "backups": "no backups | backup | {c} backups",
-        "domains": "no domains | domain | {c} domains",
-        "groups": "no groups | group | {c} groups",
-        "installed_apps": "no installed apps | installed app | {c} installed apps",
-        "logs": "no logs | log | {c} logs",
-        "permissions": "no permissions | permission | {c} permissions",
-        "services": "no services | service | {c} services",
-        "users": "no users | user | {c} users"
+        "apps": "no apps | app | apps",
+        "backups": "no backups | backup | backups",
+        "domains": "no domains | domain | domains",
+        "groups": "no groups | group | groups",
+        "installed_apps": "no installed apps | installed app | installed apps",
+        "items": "no items | item | items",
+        "logs": "no logs | log | logs",
+        "permissions": "no permissions | permission | permissions",
+        "services": "no services | service | services",
+        "users": "no users | user | users"
     },
     "items_verbose_count": "There are {items}. | There is 1 {items}. | There are {items}.",
     "items_verbose_items_left": "There are {items} left. | There is 1 {items} left. | There are {items} left.",
@@ -505,6 +524,7 @@
     "label_for_manifestname_help": "This is the name displayed in the user portal. This can be changed later.",
     "last_ran": "Last time ran:",
     "license": "License",
+    "loading": "Loading",
     "local_archives": "Local archives",
     "login": "Login",
     "logout": "Logout",
@@ -590,6 +610,7 @@
     "protocol": "Protocol",
     "purge_user_data_checkbox": "Purge {name}'s data? (This will remove the content of its home and mail directories.)",
     "purge_user_data_warning": "Purging user's data is not reversible. Be sure you know what you're doing!",
+    "quick_add": "Quick add",
     "readme": "Readme",
     "rerun_diagnosis": "Rerun diagnosis",
     "restart": "Restart",
@@ -623,7 +644,7 @@
     "system_upgrade_btn": "Upgrade",
     "tcp": "TCP",
     "text_selection_is_disabled": "Text selection is disabled. If you want to share this log, please share the *full* log with the 'Share with Yunopaste' button.<br/><small>Or if you really really want to select text, press these keys: ↓↓↑↑.</small>",
-    "tip_about_user_email": "Users are created with an associated email address (and XMPP account) with the format username@domain.tld. Additional email aliases and email forwards can later be added by the admin and the user.",
+    "tip_about_user_email": "Users are created with an associated email address (and XMPP account) with the format username{'@'}domain.tld. Additional email aliases and email forwards can later be added by the admin and the user.",
     "tools": "Tools",
     "tools_reboot": "Reboot your server",
     "tools_reboot_btn": "Reboot",
@@ -643,6 +664,12 @@
     },
     "tools_webadmin_settings": "Web-admin settings",
     "tools_yunohost_settings": "YunoHost settings",
+    "tos": {
+        "acknowledgement": "TOS acknowledgement",
+        "i_agree": "I agree",
+        "i_have_read": "I have read and understand the <a href='https://yunohost.org/terms_of_services' target='_blank'>Terms of Services</a>",
+        "postinstall_acknowledgement": "The YunoHost project is a team of volunteers who have made common cause to create a free operating system for servers, called YunoHost. The YunoHost software is published under [the AGPLv3 license](https://www.gnu.org/licenses/agpl-3.0.txt). In connection with this software, the project administers and makes available several technical and community services for various purposes. By using these services, you agree to be bound by the following [Terms of Services](https://yunohost.org/terms_of_services)."
+    },
     "traceback": "Traceback",
     "udp": "UDP",
     "unauthorized": "Unauthorized",
@@ -662,7 +689,7 @@
     "user_interface_link": "User interface",
     "user_mailbox_quota": "Mailbox quota",
     "user_mailbox_use": "Mailbox used space",
-    "user_new_forward": "newforward@myforeigndomain.org",
+    "user_new_forward": "newforward{'@'}myforeigndomain.org",
     "user_username": "Username",
     "user_username_edit": "Edit {name}’s account",
     "users": "Users",

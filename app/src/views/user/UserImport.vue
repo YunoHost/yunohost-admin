@@ -1,118 +1,88 @@
+<script setup lang="ts">
+import { ref } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { useRouter } from 'vue-router'
+
+import api from '@/api'
+import { resetCache } from '@/composables/data'
+import { useForm } from '@/composables/form'
+import { useAutoModal } from '@/composables/useAutoModal'
+import { required } from '@/helpers/validators'
+import { formatForm } from '@/helpers/yunohostArguments'
+import type { FieldProps, FileModelValue, FormFieldDict } from '@/types/form'
+
+const { t } = useI18n()
+const router = useRouter()
+const modalConfirm = useAutoModal()
+
+type Form = typeof form.value
+const form = ref({
+  csvfile: { file: null } as FileModelValue,
+  update: false,
+  delete: false,
+})
+const fields = {
+  csvfile: {
+    component: 'FileItem',
+    label: t('users_import_csv_file'),
+    description: t('users_import_csv_file_desc'),
+    rules: { file: required },
+    cProps: {
+      id: 'csvfile',
+      accept: 'text/csv',
+      placeholder: t('placeholder.file'),
+    },
+  } satisfies FieldProps<'FileItem', Form['csvfile']>,
+
+  update: {
+    label: t('users_import_update'),
+    description: t('users_import_update_desc'),
+    component: 'CheckboxItem',
+    cProps: { id: 'update' },
+  } satisfies FieldProps<'CheckboxItem', Form['update']>,
+
+  delete: {
+    component: 'CheckboxItem',
+    label: t('users_import_delete'),
+    description: t('users_import_delete_desc'),
+    cProps: { id: 'delete' },
+  } satisfies FieldProps<'CheckboxItem', Form['delete']>,
+} satisfies FormFieldDict<Form>
+
+const { v, onSubmit } = useForm(form, fields)
+
+const onUserImport = onSubmit(async (onError) => {
+  if (form.value.delete) {
+    const confirmed = await modalConfirm(
+      t('users_import_confirm_destructive'),
+      { okTitle: t('users_import_delete_others') },
+    )
+    if (!confirmed) return
+  }
+
+  const requestArgs = { ...form.value } as Partial<Form>
+  if (!requestArgs.delete) delete requestArgs.delete
+  if (!requestArgs.update) delete requestArgs.update
+  const data = await formatForm(requestArgs)
+
+  api
+    .post({ uri: 'users/import', data })
+    .then(() => {
+      // Reset all cached data related to users.
+      resetCache(['users', 'userDetails', 'groups', 'permissions'])
+      router.push({ name: 'user-list' })
+    })
+    .catch(onError)
+})
+</script>
+
 <template>
   <CardForm
-    :title="$t('users_import')"
+    v-model="form"
     icon="user-plus"
-    :validation="$v"
-    :server-error="serverError"
-    @submit.prevent="onSubmit"
-  >
-    <!-- CSV FILE -->
-    <FormField
-      v-bind="fields.csvfile"
-      v-model="form.csvfile"
-      :validation="$v.form.csvfile"
-    />
-
-    <!-- UPDATE -->
-    <FormField v-bind="fields.update" v-model="form.update" />
-
-    <!-- DELETE -->
-    <FormField v-bind="fields.delete" v-model="form.delete" />
-  </CardForm>
+    :fields="fields"
+    :title="$t('users_import')"
+    :validations="v"
+    @submit.prevent="onUserImport"
+  />
 </template>
-
-<script>
-import api from '@/api'
-import { validationMixin } from 'vuelidate'
-
-import { formatFormData } from '@/helpers/yunohostArguments'
-import { required } from '@/helpers/validators'
-
-export default {
-  name: 'UserImport',
-
-  data() {
-    return {
-      form: {
-        csvfile: { file: null },
-        update: false,
-        delete: false,
-      },
-
-      serverError: '',
-
-      fields: {
-        csvfile: {
-          label: this.$i18n.t('users_import_csv_file'),
-          description: this.$i18n.t('users_import_csv_file_desc'),
-          component: 'FileItem',
-          props: {
-            id: 'csvfile',
-            accept: 'text/csv',
-            placeholder: this.$i18n.t('placeholder.file'),
-          },
-        },
-
-        update: {
-          label: this.$i18n.t('users_import_update'),
-          description: this.$i18n.t('users_import_update_desc'),
-          component: 'CheckboxItem',
-          props: {
-            id: 'update',
-          },
-        },
-
-        delete: {
-          label: this.$i18n.t('users_import_delete'),
-          description: this.$i18n.t('users_import_delete_desc'),
-          component: 'CheckboxItem',
-          props: {
-            id: 'delete',
-          },
-        },
-      },
-    }
-  },
-
-  validations: {
-    form: {
-      csvfile: { required },
-    },
-  },
-
-  methods: {
-    async onSubmit() {
-      if (this.form.delete) {
-        const confirmed = await this.$askConfirmation(
-          this.$i18n.t('users_import_confirm_destructive'),
-          { okTitle: this.$i18n.t('users_import_delete_others') },
-        )
-        if (!confirmed) return
-      }
-
-      const requestArgs = {}
-      Object.assign(requestArgs, this.form)
-      if (!requestArgs.delete) delete requestArgs.delete
-      if (!requestArgs.update) delete requestArgs.update
-      const data = await formatFormData(requestArgs)
-      api
-        .post('users/import', data, { asFormData: true })
-        .then(() => {
-          // Reset all cached data related to users.
-          this.$store.dispatch('RESET_CACHE_DATA', [
-            'users',
-            'users_details',
-            'groups',
-            'permissions',
-          ])
-          this.$router.push({ name: 'user-list' })
-        })
-        .catch((error) => {
-          this.serverError = error.message
-        })
-    },
-  },
-
-  mixins: [validationMixin],
-}
-</script>

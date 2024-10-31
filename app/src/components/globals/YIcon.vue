@@ -1,19 +1,18 @@
+<script setup lang="ts">
+import type { ColorVariant } from 'bootstrap-vue-next'
+
+defineProps<{
+  iname: string
+  variant?: ColorVariant
+}>()
+</script>
+
 <template>
   <span
     :class="['icon fa fa-' + iname, variant ? 'variant ' + variant : '']"
     aria-hidden="true"
   />
 </template>
-
-<script>
-export default {
-  name: 'YIcon',
-  props: {
-    iname: { type: String, required: true },
-    variant: { type: String, default: null },
-  },
-}
-</script>
 
 <style lang="scss" scoped>
 .icon {
@@ -48,7 +47,7 @@ export default {
     @each $color, $value in $theme-colors {
       &.#{$color} {
         background-color: $value;
-        color: color-yiq($value);
+        color: color-contrast($value);
       }
     }
   }

@@ -1,86 +1,116 @@
-<template>
-  <BButtonGroup class="w-100">
-    <BButton
-      v-if="!this.required && this.value.file !== null"
-      @click="clearFiles"
-      variant="danger"
-    >
-      <span class="sr-only">{{ $t('delete') }}</span>
-      <YIcon iname="trash" />
-    </BButton>
+<script setup lang="ts">
+import type { BFormFile } from 'bootstrap-vue-next'
+import { computed, inject, ref } from 'vue'
 
-    <BFormFile
-      :value="value.file"
-      ref="input-file"
-      :id="id"
-      :required="required"
-      :placeholder="_placeholder"
-      :accept="accept"
-      :drop-placeholder="dropPlaceholder"
-      :state="state"
-      :browse-text="$t('words.browse')"
-      @input="onInput"
-      @blur="$parent.$emit('touch', name)"
-      @focusout.native="$parent.$emit('touch', name)"
-    />
-  </BButtonGroup>
-</template>
-
-<script>
+import { ValidationTouchSymbol } from '@/composables/form'
 import { getFileContent } from '@/helpers/commons'
+import type {
+  BaseItemComputedProps,
+  FileItemProps,
+  FileModelValue,
+} from '@/types/form'
 
-export default {
-  name: 'FileItem',
+const props = withDefaults(
+  defineProps<FileItemProps & BaseItemComputedProps>(),
+  {
+    id: undefined,
+    name: undefined,
+    placeholder: 'Choose a file or drop it here...',
+    touchKey: undefined,
+    accept: '',
+    dropPlaceholder: undefined,
 
-  props: {
-    id: { type: String, default: null },
-    value: { type: Object, default: () => ({ file: null }) },
-    placeholder: { type: String, default: 'Choose a file or drop it here...' },
-    dropPlaceholder: { type: String, default: null },
-    accept: { type: String, default: null },
-    state: { type: Boolean, default: null },
-    required: { type: Boolean, default: false },
-    name: { type: String, default: null },
+    ariaDescribedby: undefined,
+    state: undefined,
+    validation: undefined,
   },
+)
 
-  computed: {
-    _placeholder: function () {
-      return this.value.file === null ? this.placeholder : this.value.file.name
-    },
-  },
+const emit = defineEmits<{
+  'update:modelValue': [value: FileModelValue]
+}>()
 
-  methods: {
-    onInput(file) {
-      const value = {
-        file,
-        content: '',
-        current: false,
-        removed: false,
-      }
-      // Update the value with the new File and an empty content for now
-      this.$emit('input', value)
+const modelValue = defineModel<FileModelValue>({
+  default: () => ({ file: null }),
+})
 
-      // Asynchronously load the File content and update the value again
-      getFileContent(file).then((content) => {
-        this.$emit('input', { ...value, content })
-      })
-    },
+const touch = inject(ValidationTouchSymbol)
+const inputElem = ref<InstanceType<typeof BFormFile> | null>(null)
 
-    clearFiles() {
-      this.$refs['input-file'].reset()
-      this.$emit('input', {
-        file: null,
-        content: '',
-        current: false,
-        removed: true,
-      })
-    },
-  },
+// const placeholder = computed(() => {
+//   return modelValue.value.file === null
+//     ? props.placeholder
+//     : modelValue.value.file.name
+// })
+
+function onInput(file: File | readonly File[] | null) {
+  const value = {
+    file: file as File | null,
+    content: file !== null ? '' : null,
+    current: false,
+    removed: false,
+  }
+  // Update the value with the new File and an empty content for now
+  emit('update:modelValue', value)
+  if (!file) return
+
+  // Asynchronously load the File content and update the value again
+  getFileContent(file as File).then((content) => {
+    emit('update:modelValue', { ...value, content })
+  })
 }
+
+function clearFiles() {
+  inputElem.value!.reset()
+  emit('update:modelValue', {
+    file: null,
+    content: '',
+    current: false,
+    removed: true,
+  })
+}
+
+const required = computed(() => 'required' in (props.validation ?? {}))
 </script>
 
+<template>
+  <BInputGroup class="w-100">
+    <template v-if="modelValue.current" #prepend>
+      <div class="mb-2">
+        {{ $t('form.current_file') }} <code>{{ modelValue.file!.name }}</code>
+      </div>
+    </template>
+
+    <template v-if="!required && modelValue.file !== null" #append>
+      <BButton variant="danger" @click="clearFiles">
+        <span class="visually-hidden">{{ $t('delete') }}</span>
+        <YIcon iname="trash" />
+      </BButton>
+    </template>
+
+    <BFormFile
+      :id="id"
+      ref="inputElem"
+      :name="name"
+      :accept="accept"
+      :drop-placeholder="dropPlaceholder"
+      :aria-describedby="ariaDescribedby"
+      :model-value="modelValue.file"
+      :state="state"
+      :required="required"
+      @blur="touch?.(touchKey)"
+      @focusout="touch?.(touchKey)"
+      @update:model-value="onInput"
+    />
+    <!-- FIXME no way to customize labels yet -->
+    <!-- :placeholder="placeholder" -->
+    <!-- :browse-text="$t('words.browse')" -->
+  </BInputGroup>
+</template>
+
 <style lang="scss" scoped>
-::v-deep .custom-file-label {
+// fix https://getbootstrap.com/docs/5.2/migration/#forms
+:deep(.custom-file-label) {
   color: $input-placeholder-color;
 
   .btn-danger + .b-form-file & {

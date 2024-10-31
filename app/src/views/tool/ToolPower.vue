@@ -1,3 +1,25 @@
+<script setup lang="ts">
+import { useI18n } from 'vue-i18n'
+
+import api from '@/api'
+import { useAutoModal } from '@/composables/useAutoModal'
+import { useInfos } from '@/composables/useInfos'
+
+const { t } = useI18n()
+const modalConfirm = useAutoModal()
+const { tryToReconnect } = useInfos()
+
+async function triggerAction(action: 'reboot' | 'shutdown') {
+  const confirmed = await modalConfirm(t('confirm_reboot_action_' + action))
+  if (!confirmed) return
+
+  api.put({ uri: action + '?force', humanKey: action }).then(() => {
+    const delay = action === 'reboot' ? 4000 : 10000
+    tryToReconnect({ attemps: Infinity, origin: action, delay })
+  })
+}
+</script>
+
 <template>
   <YCard :title="$t('operations')" icon="wrench">
     <!-- REBOOT -->
@@ -8,7 +30,7 @@
       :label="$t('tools_reboot')"
       label-for="reboot"
     >
-      <BButton @click="triggerAction('reboot')" variant="danger" id="reboot">
+      <BButton id="reboot" variant="danger" @click="triggerAction('reboot')">
         <YIcon iname="refresh" /> {{ $t('tools_reboot_btn') }}
       </BButton>
     </BFormGroup>
@@ -23,39 +45,12 @@
       label-for="shutdown"
     >
       <BButton
-        @click="triggerAction('shutdown')"
-        variant="danger"
         id="shutdown"
+        variant="danger"
+        @click="triggerAction('shutdown')"
       >
         <YIcon iname="power-off" /> {{ $t('tools_shutdown_btn') }}
       </BButton>
     </BFormGroup>
   </YCard>
 </template>
-
-<script>
-import api from '@/api'
-
-export default {
-  name: 'ToolPower',
-
-  methods: {
-    async triggerAction(action) {
-      const confirmed = await this.$askConfirmation(
-        this.$i18n.t('confirm_reboot_action_' + action),
-      )
-      if (!confirmed) return
-
-      this.action = action
-      api.put(action + '?force', {}, action).then(() => {
-        const delay = action === 'reboot' ? 4000 : 10000
-        this.$store.dispatch('TRY_TO_RECONNECT', {
-          attemps: Infinity,
-          origin: action,
-          delay,
-        })
-      })
-    },
-  },
-}
-</script>

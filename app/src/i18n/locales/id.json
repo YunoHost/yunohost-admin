@@ -28,8 +28,7 @@
                 "unknown": "Koneksi dengan server telah ditutup dengan alasan yang tidak diketahui."
             },
             "title": "Mencoba menghubungi server…",
-            "failed": "Sepertinya peladen tidak merespons. Anda bisa coba memuat ulang atau coba jalankan `systemctl restart yunohost-api` via SSH.",
-            "success": "Sekarang server bisa dipergunakan! Anda bisa mencoba untuk masuk"
+            "failed": "Sepertinya peladen tidak merespons. Anda bisa coba memuat ulang atau coba jalankan `systemctl restart yunohost-api` via SSH."
         },
         "partial_logs": "[…] (periksa semua log di dalam riwayat)"
     },
@@ -276,9 +275,9 @@
         "between": "Harus di antara {min} dan {max}.",
         "dynDomain": "Nama domain tidak valid: Huruf kecil, angka, dan tanda hubung saja",
         "domain": "Nama domain tidak valid: Huruf kecil, angka, titik dan tanda hubung saja",
-        "email": "Surel tidak valid: Huruf, angka, dan <code>_.-</code> saja (cth. blabla@contoh.com, b1la-2@contoh.com)",
+        "email": "Surel tidak valid: Huruf, angka, dan <code>_.-</code> saja (cth. blabla{'@'}contoh.com, b1la-2{'@'}contoh.com)",
         "alphalownumdot_": "Harus hanya berupa karakter alfanumerik kecil dan garis bawah.",
-        "emailForward": "Penerusan surel tidak valid: harus alfanumerik dan hanya karakter <code>_.-+</code> (misal. someone+tag@example.com, s0me-1+tag@example.com)"
+        "emailForward": "Penerusan surel tidak valid: harus alfanumerik dan hanya karakter <code>_.-+</code> (misal. someone+tag{'@'}example.com, s0me-1+tag{'@'}example.com)"
     },
     "form_input_example": "Contoh: {example}",
     "group": "Kelompok",
@@ -553,7 +552,7 @@
     "app_state_broken": "rusak",
     "app_state_broken_explanation": "Saat ini, aplikasi ini rusak dan tidak dapat dipasang menurut uji coba otomatis YunoHost",
     "group_admins": "Admin",
-    "group_explain_admins": "Ini adalah kelompok khusus yang memuat pengguna administrator. Pengguna di kelompok ini bisa mengakses web administrasi YunoHost, terhubung ke peladen dengan SSH, dan menggunakan perintah `sudo`. Yang di kelompok tersebut juga akan menerima surel yang dikirim ke root@, admin@, dan admins@ seperti pemberitahuan diagnosis. Anda sebaiknya menambahkan orang-orang yang Anda sangat percaya ke kelompok ini!",
+    "group_explain_admins": "Ini adalah kelompok khusus yang memuat pengguna administrator. Pengguna di kelompok ini bisa mengakses web administrasi YunoHost, terhubung ke peladen dengan SSH, dan menggunakan perintah `sudo`. Yang di kelompok tersebut juga akan menerima surel yang dikirim ke root{'@'}, admin{'@'}, dan admins{'@'} seperti pemberitahuan diagnosis. Anda sebaiknya menambahkan orang-orang yang Anda sangat percaya ke kelompok ini!",
     "password_confirmation": "Konfirmasi kata sandi",
     "app_info_changeurl_desc": "Ubah URL akses aplikasi ini (domain dan/atau jalur).",
     "confirm_uninstall": "Apakah Anda yakin ingin melepas {name}?",
@@ -568,7 +567,7 @@
     "details_about": "Tampilkan lebih banyak detail tentang {subject}",
     "wrong_password_or_username": "Nama pengguna atau kata sandi salah",
     "firewall": "Tembok Api",
-    "user_new_forward": "terusanbaru@domainlainku.org",
+    "user_new_forward": "terusanbaru{'@'}domainlainku.org",
     "experimental_warning": "Peringatan: fitur ini bersifat eksperimental dan belum bisa diputuskan sebagai stabil, Anda jangan menggunakannya kecuali jika Anda mengetahui apa yang Anda lakukan.",
     "users_import": "Impor pengguna",
     "app_info_default_desc": "Alihkan pangkal domain ke aplikasi ini ({domain}).",
@@ -602,15 +601,15 @@
     "hook_data_mail_desc": "Mentahan surel yang tersimpan di peladen",
     "id": "ID",
     "items": {
-        "services": "tidak ada layanan | layanan | {c} layanan",
-        "users": "tidak ada pengguna | pengguna | {c} pengguna",
-        "backups": "tidak ada cadangan | cadangan | {c} cadangan",
-        "logs": "tidak ada log | log | {c} log",
-        "permissions": "tidak ada perizinan | perizinan | {c} perizinan",
-        "apps": "tidak ada aplikasi | aplikasi | {c} aplikasi",
-        "domains": "tidak ada domain | domain | {c} domain",
-        "groups": "tidak ada kelompok | kelompok | {c} kelompok",
-        "installed_apps": "tidak ada aplikasi yang terpasang | aplikasi yang terpasang | {c} aplikasi yang terpasang"
+        "services": "tidak ada layanan | layanan | layanan",
+        "users": "tidak ada pengguna | pengguna | pengguna",
+        "backups": "tidak ada cadangan | cadangan | cadangan",
+        "logs": "tidak ada log | log | log",
+        "permissions": "tidak ada perizinan | perizinan | perizinan",
+        "apps": "tidak ada aplikasi | aplikasi | aplikasi",
+        "domains": "tidak ada domain | domain | domain",
+        "groups": "tidak ada kelompok | kelompok | kelompok",
+        "installed_apps": "tidak ada aplikasi yang terpasang | aplikasi yang terpasang | aplikasi yang terpasang"
     },
     "migrations_no_pending": "Tidak ada migrasi yang tertunda",
     "orphaned_details": "Aplikasi ini sudah tidak dikelola beberapa lama. Mungkin masih bekerja, tapi tidak akan menerima pembaruan sampai orang lain mengelolanya. Silakan jika Anda mau untuk berkontribusi mengelolanya!",
@@ -619,7 +618,7 @@
     "path": "Jalur",
     "logs_app": "Log aplikasi",
     "logs_share_with_yunopaste": "Bagikan log dengan YunoPaste",
-    "tip_about_user_email": "Pengguna dibuat dengan alamat surelnya (dan akun XMPP) tersendiri dengan format namapengguna@domain.tld. Surel tambahan seperti alias surel dan surel terusan bisa ditambahkan oleh administrator dan pengguna itu sendiri.",
+    "tip_about_user_email": "Pengguna dibuat dengan alamat surelnya (dan akun XMPP) tersendiri dengan format namapengguna{'@'}domain.tld. Surel tambahan seperti alias surel dan surel terusan bisa ditambahkan oleh administrator dan pengguna itu sendiri.",
     "user_emailforward": "Surel terusan",
     "user_emailforward_add": "Tambah surel terusan",
     "user_emailaliases_add": "Tambah alias surel",

@@ -113,7 +113,7 @@
     "user_fullname": "Vollständiger Name",
     "user_interface_link": "Benutzeroberfläche",
     "user_mailbox_quota": "Mailbox Kontingent",
-    "user_new_forward": "weiterleitung@externedomain.org",
+    "user_new_forward": "weiterleitung{'@'}externedomain.org",
     "user_username": "Anmeldename",
     "user_username_edit": "Account von {name} bearbeiten",
     "users": "Konten",
@@ -250,7 +250,7 @@
     "operation_failed_explanation": "Die Operation ist fehlgeschlagen! Das tut uns leid :( Sie können Sich <a href='https://yunohost.org/help'>hier Hilfe holen</a>. Bitte stellen Sie *die ganzen Logs* der Operation bereit, damit Ihnen besser geholfen werden kann. Dies tun Sie, indem Sie auf den grünen 'mit Yunopaste teilen' Knopf drücken. Wenn Sie die Logs teilen, wird Yunohost automatisch versuchen Ihre privaten Daten wie Domainnamen und IP's zu anonymisieren.",
     "diagnosis_explanation": "Die Diagnosefunktion wird versuchen, gängige Probleme in verschiedenen Teilen Ihres Servers zu finden, damit alles reibungslos läuft. Die Diagnose wird auch automatisch zweimal täglich ausgeführt und falls Fehler gefunden werden, bekommt der Administrator eine E-Mail. Beachten Sie, dass einige Tests nicht relevant sind, wenn Sie einzelne Features (zum Beispiel XMPP) nicht benutzten oder Sie ein komplexes Setup haben. In diesem Fall und wenn Sie wissen was Sie tun ist es in Ordnung die dazugehörigen Warnungen und Hinweise zu ignorieren.",
     "pending_migrations": "Es gibt einige ausstehende Migrationen, die darauf warten, ausgeführt zu werden. Bitte gehen Sie auf <a href='#/tools/migrations'>Werkzeuge > Migrationen</a> um diese auszuführen.",
-    "tip_about_user_email": "Konten werden mit einer verknüpften E-Mail-Adresse (und XMPP Account) erstellt im Format username@domain.tld. Zusätzliche E-Mail-Aliasse and E-Mail-Weiterleitungen können später durch Administratoren und Benutzer hinzugefügt werden.",
+    "tip_about_user_email": "Konten werden mit einer verknüpften E-Mail-Adresse (und XMPP Account) erstellt im Format username{'@'}domain.tld. Zusätzliche E-Mail-Aliasse and E-Mail-Weiterleitungen können später durch Administratoren und Benutzer hinzugefügt werden.",
     "logs_suboperations": "Unter-Operationen",
     "api_errors_titles": {
         "APIBadRequestError": "Es ist ein Fehler in Yunohost aufgetreten",
@@ -323,15 +323,15 @@
     "mailbox_quota_example": "700M ist eine CD, 4700M ist eine DVD",
     "items_verbose_count": "Es gibt {items}. | Es gibt 1 {items}. | Es gibt {items}.",
     "items": {
-        "users": "keine Konten | Konto | {c} Konten",
-        "services": "keine Dienste | Dienst | {c} Dienste",
-        "logs": "keine Protokolle | Protokoll | {c} Protokolle",
-        "installed_apps": "keine installierten Apps | installierte App | {c} installierte Apps",
-        "groups": "keine Gruppen | Gruppe | {c} Gruppen",
-        "domains": "keine Domänen | Domäne | {c} Domänen",
-        "backups": "keine Sicherungen | Sicherung| {c} Sicherungen",
-        "apps": "keine Apps | App | {c} Apps",
-        "permissions": "keine Berechtigungen | Berechtigung | {c} Berechtigungen"
+        "users": "keine Konten | Konto | Konten",
+        "services": "keine Dienste | Dienst | Dienste",
+        "logs": "keine Protokolle | Protokoll | Protokolle",
+        "installed_apps": "keine installierten Apps | installierte App | installierte Apps",
+        "groups": "keine Gruppen | Gruppe | Gruppen",
+        "domains": "keine Domänen | Domäne | Domänen",
+        "backups": "keine Sicherungen | Sicherung| Sicherungen",
+        "apps": "keine Apps | App | Apps",
+        "permissions": "keine Berechtigungen | Berechtigung | Berechtigungen"
     },
     "history": {
         "methods": {
@@ -352,8 +352,8 @@
         "notInUsers": "Das Konto '{value}' existiert bereits.",
         "minValue": "Der Wert muss eine Zahl sein, die gleich oder größer als {min} ist.",
         "name": "Namen dürfen keine Sonderzeichen außer <code>, .'- </code> enthalten",
-        "emailForward": "Ungültige E-Mail-Weiterleitung: Sie darf nur aus alphanumerischen Zeichen und <code> _.-+</code> bestehen (z. B. jemand+tag@example.com, s0me-1+tag@example.com)",
-        "email": "Ungültige E-Mail: Sie darf nur aus alphanumerischen Zeichen und <code> _.-</code> bestehen (z. B. jemand@example.com, s0me-1@example.com)",
+        "emailForward": "Ungültige E-Mail-Weiterleitung: Sie darf nur aus alphanumerischen Zeichen und <code> _.-+</code> bestehen (z. B. jemand+tag{'@'}example.com, s0me-1+tag{'@'}example.com)",
+        "email": "Ungültige E-Mail: Sie darf nur aus alphanumerischen Zeichen und <code> _.-</code> bestehen (z. B. jemand{'@'}example.com, s0me-1{'@'}example.com)",
         "dynDomain": "Ungültiger Domainname: Er darf nur aus alphanumerischen Kleinbuchstaben und Bindestrichen bestehen",
         "domain": "Ungültiger Domainname: Er darf nur aus alphanumerischen Kleinbuchstaben, Punkt- und Strichzeichen bestehen",
         "between": "Der Wert muss zwischen {min} und {max} liegen.",
@@ -403,8 +403,7 @@
                 "reboot": "Ihr Server startet neu und wird für einige Zeit nicht erreichbar sein. Eine Login-Aufforderung wird erscheinen, sobald der Server wieder erreichbar ist.",
                 "shutdown": "Ihr Server wird heruntergefahren und ist nicht mehr erreichbar. Schalten Sie ihn wieder ein und eine Anmeldeaufforderung wird angezeigt, sobald der Server erreichbar ist.",
                 "upgrade_system": "Die Verbindung mit dem Server wurde aufgrund einer YunoHost-Aktualisierung beendet. Warten Sie bis der Server wieder erreichbar ist…"
-            },
-            "success": "Der Server ist jetzt erreichbar! Sie können versuchen, sich anzumelden"
+            }
         }
     },
     "hook_data_xmpp": "XMPP-Daten",
@@ -581,7 +580,7 @@
     "details_about": "Mehr Details über {subject} anzeigen",
     "confirm_install_app_broken": "VORSICHT! Diese Applikation ist gemäss YunoHost's automatischen Test beschädigt und wird vermutlich ihr System beschädigen! Sie sollten sie vermutlich NICHT installieren, es sei denn, Sie wissen was Sie tun. Wollen Sie dieses Risiko wirklich eingehen?",
     "group_admins": "Administratoren",
-    "group_explain_admins": "Dies ist eine spezielle Gruppe, welche zu den Administratoren-Benutzern gehört. Benutzer in dieser Gruppe besitzen, einfach ausgedrückt, alle Berechtigungen auf dem Server (verändern, erstellen, hinzufügen und zurückhalten). Sie können folglich auf die Admin-Oberfläche von YunoHost zugreifen, sich via SSH mit dem Server verbinden und ausserdem das Kommando `sudo` verwenden. Zusätzlich erhalten sie alle E-Mails, welche an root@, admin@, admins@, wie z.B. die Diagnose-Benachrichtigungen, gesendet wurden. Sie sollten wirklich nur Personen zu dieser Gruppe hinzufügen, denen Sie absolut vertrauen!",
+    "group_explain_admins": "Dies ist eine spezielle Gruppe, welche zu den Administratoren-Benutzern gehört. Benutzer in dieser Gruppe besitzen, einfach ausgedrückt, alle Berechtigungen auf dem Server (verändern, erstellen, hinzufügen und zurückhalten). Sie können folglich auf die Admin-Oberfläche von YunoHost zugreifen, sich via SSH mit dem Server verbinden und ausserdem das Kommando `sudo` verwenden. Zusätzlich erhalten sie alle E-Mails, welche an root{'@'}, admin{'@'}, admins{'@'}, wie z.B. die Diagnose-Benachrichtigungen, gesendet wurden. Sie sollten wirklich nur Personen zu dieser Gruppe hinzufügen, denen Sie absolut vertrauen!",
     "important_yunohost_upgrade": "Eine grössere YunoHost-Aktualisierung ist erhältlich. Es ist sehr empfehlenswert, die Release-Note(s) im Forum sorgfältig durchzulesen, bevor Sie aktualisieren : <a href='https://forum.yunohost.org/tag/ynh_release'>Die Release-Notes im Forum aufrufen.</a>",
     "label_for_manifestname_help": "Dies ist der Name, welcher im Benutzer-Portal angezeigt wird. Dies kann später nochmal geändert werden.",
     "manage_groups": "Gruppenmanagement",

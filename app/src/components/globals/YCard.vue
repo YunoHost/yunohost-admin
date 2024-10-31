@@ -1,19 +1,62 @@
+<script setup lang="ts">
+import type { Breakpoint } from 'bootstrap-vue-next'
+import { ref } from 'vue'
+
+const props = withDefaults(
+  defineProps<{
+    id?: string
+    asTab?: boolean
+    noBody?: boolean
+    title?: string
+    titleTag?: string
+    icon?: string
+    collapsible?: boolean
+    collapsed?: boolean
+    buttonUnbreak?: Breakpoint
+  }>(),
+  {
+    id: 'ynh-form',
+    asTab: false,
+    noBody: false,
+    title: undefined,
+    titleTag: 'h2',
+    icon: undefined,
+    collapsible: false,
+    collapsed: false,
+    buttonUnbreak: 'md',
+  },
+)
+
+const slots = defineSlots<{
+  header: any
+  'header-next': any
+  'header-buttons': any
+  default: any
+  buttons: any
+}>()
+
+const visible = ref(!props.collapsed)
+</script>
+
 <template>
-  <BCard v-bind="$attrs" :no-body="collapsable ? true : $attrs['no-body']">
-    <template #header>
+  <BCard
+    :no-body="collapsible ? true : noBody"
+    :class="{ 'border-0': asTab, collapsible: collapsible }"
+  >
+    <template v-if="!asTab" #header>
       <div class="w-100 d-flex align-items-center flex-wrap custom-header">
         <slot name="header">
           <Component :is="titleTag" class="custom-header-title">
-            <YIcon v-if="icon" :iname="icon" class="mr-2" />{{ title }}
+            <YIcon v-if="icon" :iname="icon" class="me-2" />{{ title }}
           </Component>
           <slot name="header-next" />
         </slot>
 
         <div
-          v-if="hasButtons"
+          v-if="slots['header-buttons']"
           class="mt-2 w-100 custom-header-buttons"
           :class="{
-            [`ml-${buttonUnbreak}-auto mt-${buttonUnbreak}-0 w-${buttonUnbreak}-auto`]:
+            [`ms-${buttonUnbreak}-auto mt-${buttonUnbreak}-0 w-${buttonUnbreak}-auto`]:
               buttonUnbreak,
           }"
         >
@@ -22,24 +65,24 @@
       </div>
 
       <BButton
-        v-if="collapsable"
-        @click="visible = !visible"
+        v-if="collapsible"
         size="sm"
         variant="outline-secondary"
-        class="align-self-center ml-auto"
+        class="align-self-center ms-auto"
         :class="{
           'not-collapsed': visible,
           collapsed: !visible,
-          [`ml-${buttonUnbreak}-2`]: buttonUnbreak,
+          [`ms-${buttonUnbreak}-2`]: buttonUnbreak,
         }"
+        @click="visible = !visible"
       >
         <YIcon iname="chevron-right" />
-        <span class="sr-only">{{ $t('words.collapse') }}</span>
+        <span class="visually-hidden">{{ $t('words.collapse') }}</span>
       </BButton>
     </template>
 
-    <BCollapse v-if="collapsable" :visible="visible">
-      <slot v-if="'no-body' in $attrs" name="default" />
+    <BCollapse v-if="collapsible" :visible="visible">
+      <slot v-if="noBody" name="default" />
       <BCardBody v-else>
         <slot name="default" />
       </BCardBody>
@@ -48,42 +91,14 @@
       <slot name="default" />
     </template>
 
-    <template #footer v-if="'buttons' in $slots">
+    <template v-if="slots['buttons']" #footer>
       <slot name="buttons" />
     </template>
   </BCard>
 </template>
 
-<script>
-export default {
-  name: 'YCard',
-
-  props: {
-    id: { type: String, default: 'ynh-form' },
-    title: { type: String, default: null },
-    titleTag: { type: String, default: 'h2' },
-    icon: { type: String, default: null },
-    collapsable: { type: Boolean, default: false },
-    collapsed: { type: Boolean, default: false },
-    buttonUnbreak: { type: String, default: 'md' },
-  },
-
-  data() {
-    return {
-      visible: !this.collapsed,
-    }
-  },
-
-  computed: {
-    hasButtons() {
-      return 'header-buttons' in this.$slots
-    },
-  },
-}
-</script>
-
 <style lang="scss" scoped>
-.card-header {
+:deep(.card-header) {
   display: flex;
 
   .custom-header {
@@ -97,7 +112,7 @@ export default {
   }
 }
 
-.card-footer {
+:deep(.card-footer) {
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -106,7 +121,7 @@ export default {
     margin-left: 0.5rem;
   }
 }
-.collapse:not(.show) + .card-footer {
+:deep(.collapse:not(.show) + .card-footer) {
   display: none;
 }
 </style>
