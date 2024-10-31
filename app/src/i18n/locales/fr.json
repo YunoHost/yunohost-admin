@@ -568,7 +568,7 @@
             "dyn_dns_password_desc": "Ce mot de passe vous permettra de récupérer ultérieurement le contrôle du domaine si vous réinstallez votre système. Si vous avez déjà enregistré ce domaine auparavant, utilisez votre mot de passe de récupération ici pour le récupérer.",
             "from_local": "Je veux un domaine pour un usage local/test uniquement",
             "from_local_desc": "Si vous ne souhaitez pas un nom de domaine public \"réel\", vous pouvez utiliser n'importe quel nom se terminant par <code>.local</code> or <code>.test</code>. Les noms de domaine se terminant par <code>.local</code> sont particuliers en ce sens qu'ils peuvent être automatiquement résolus sur le réseau local, en supposant que les clients prennent en charge le protocole Bonjour. Il est également possible que vous deviez modifier le paramètre du fichier <code>/etc/hosts</code> (ou équivalent sous Windows) sur chaque client à partir duquel vous souhaitez utiliser ce domaine, ou de configurer des entrées DNS locales sur votre routeur internet.",
-            "from_registrar": "Je veux ajouter un domaine que je possède, ou un sous-domaine",
+            "from_registrar": "Je veux ajouter un domaine que je possède",
             "from_yunohost": "Je ne possède pas de domaine, je veux enregistrer/utiliser un domaine DynDNS gratuit fourni par le projet YunoHost"
         }
     },
