@@ -85,7 +85,9 @@
         "alpha": "Hizkiak bakarrik izan daitezke.",
         "alphalownumdot_": "Zenbakiak, hizki txikiak eta azpiko marra bakarrik erabili daitezke.",
         "name": "Izenek ezin dituzte <code> ,.'-</code> ez diren karaktere bereziak eduki",
-        "appRepoUrl": "YunoHosten aplikazio-gordailuko URLek honako itxura daukate: https://domain.tld/path/to/repo_ynh"
+        "appRepoUrl": "YunoHosten aplikazio-gordailuko URLek honako itxura daukate: https://domain.tld/path/to/repo_ynh",
+        "checked": "Kontrol-laukia hautatu behar da.",
+        "numValue": "Balioa zenbaki bat izan behar da"
     },
     "items": {
         "backups": "babeskopia bat ere ez | babeskopia | babeskopia",
@@ -96,7 +98,8 @@
         "services": "zerbitzu bat ere ez | zerbitzua | zerbitzua",
         "users": "erabiltzaile bat ere ez | erabiltzailea | erabiltzailea",
         "logs": "erregistro bat ere ez | erregistroa | erregistroa",
-        "permissions": "baimenik gabe | baimena | baimen"
+        "permissions": "baimenik gabe | baimena | baimen",
+        "items": "elementurik ez | elementua | elementuak"
     },
     "history": {
         "title": "Historia",
@@ -690,5 +693,19 @@
         "uninstall": {
             "purge_desc": "Kendu aplikazio honekin lotutako datuen direktorioa (aplikazioa erabiliz igo dituzun datuak izan ohi dira)."
         }
-    }
+    },
+    "form": {
+        "current_file": "Uneko fitxategia:",
+        "select_one": "Hautatu aukera"
+    },
+    "tos": {
+        "i_agree": "Ados",
+        "i_have_read": "Irakurri ditut eta ulertzen ditut <a href='https://yunohost.org/terms_of_services' target='_blank'>Zerbitzuaren Baldintzak</a>"
+    },
+    "groups": {
+        "remove_user": {
+            "confirm_from_admins": "Ziur zure burua 'admins' taldetik kendu nahi duzula?"
+        }
+    },
+    "loading": "Kargatzen"
 }
