@@ -408,7 +408,8 @@
                 "reboot": "Votre serveur redémarre et ne sera pas joignable pendant un certain temps. Une invite de connexion sera disponible dès que le serveur sera accessible.",
                 "shutdown": "Votre serveur est en cours d'extinction et n'est plus joignable. Redémarrez-le et une invitation de connexion sera disponible dès que le serveur sera joignable.",
                 "upgrade_system": "La connexion avec le serveur a été fermée en raison de la mise à jour de YunoHost. Il vous faut patienter jusqu'à ce que le serveur soit à nouveau joignable…"
-            }
+            },
+            "session_expired": "Le serveur est désormais accessible ! Mais il semble que votre session ait expiré, veuillez vous connecter."
         }
     },
     "go_back": "Revenir",
@@ -690,6 +691,9 @@
         },
         "uninstall": {
             "purge_desc": "Supprimez le répertoire de données associé à l'application (il s'agit généralement de données que vous avez téléchargées vous-même à l'aide de l'application)."
-        }
-    }
+        },
+        "upvote": "Si vous souhaitez attirer l'attention sur cette application, vous pouvez voter pour elle sur sa [page catalogue](https://apps.yunohost.org/app/{id})."
+    },
+    "catalog_wishlist": "Il semblerait que l'application que vous recherchez ne soit pas encore disponible dans le catalogue.\nVous pouvez la proposer dans la [liste de souhaits des applications](https://apps.yunohost.org/wishlist?search={search}) ou voter pour elle si elle y est déjà.",
+    "catalog_partial_search": "Essayez de supprimer tous les critères pour voir si l'application que vous recherchez est disponible."
 }
