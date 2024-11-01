@@ -32,7 +32,8 @@
                 "reboot": "Zerbitzaria berrabiarazten ari da eta ez da erabilgarri egongo tarte batez. Saioa hasteko galdegingo zaizu zerbitzaria berriro ere erabilgarri dagoenean.",
                 "shutdown": "Zerbitzari itzaltzen ari da eta aurrerantzean ez da erabilgarri egongo. Piztu ezazu berriro eta saioa hasteko galdegingo zaizu zerbitzaria berriro erabilgarri dagoenean.",
                 "upgrade_system": "Zerbitzariarekin konexioa eten da YunoHost eguneratzen ari delako. Zerbitzaria berriro erabilgarri noiz egongo zain…"
-            }
+            },
+            "session_expired": "Zerbitzaria erabilgarri dago! Baina badirudi saioa iraungi dela. Hasi berriro saioa."
         }
     },
     "api_error": {
@@ -177,7 +178,8 @@
                 "letsencrypt": "Let's Encrypt",
                 "other": "Beste / Ezezaguna"
             },
-            "valid_for": "{days} baliogarria"
+            "valid_for": "{days} baliogarria",
+            "install": "Instalatu Let's Encrypt ziurtagiria ere bai"
         },
         "explain": {
             "main_domain": "Domeinu nagusia erabiltzaileek atarira sartzeko erabiltzen dutena da (\"{domain}/yunohost/sso\" bidez). <br> Hori dela-eta, ezin da ezabatu. <br>\"{domain}\" ezabatu nahi baduzu, ezarri beste bat domeinu nagusi bezala."
@@ -199,9 +201,11 @@
             "dyn_dns_password": "Domeinuaren berreskuratze-pasahitza",
             "dyn_dns_password_desc": "Pasahitz honek domeinuaren kontrola berreskuratzea ahalbidetuko dizu sistema berriz instalatzen baduzu. Domeinu hau aurretik ere erregistratu bazenuen, erabili berreskuratze-pasahitza hemen.",
             "from_local": "Lokalean erabiltzeko / probak egiteko domeinu bat nahi dut",
-            "from_registrar": "Lehendik dudan domeinu edo azpidomeinu bat gehitu nahi dut",
+            "from_registrar": "Lehendik dudan domeinu bat gehitu nahi dut",
             "from_registrar_desc": "Domeinuaren erregistro enpresan DNS balioak eskuz ezarri beharko dituzu konfigurazioa amaitzeko. YunoHosten diagnostikoak zein balio ezarri behar dituzun zehaztuko dizkizu.",
-            "from_yunohost": "Ez daukat domeinurik, YunoHost proiektuak doan eskainitako DynDNS domeinu bat erregistratu/erabili nahi dut"
+            "from_yunohost": "Ez daukat domeinurik, YunoHost proiektuak doan eskainitako DynDNS domeinu bat erregistratu/erabili nahi dut",
+            "from_subdomain": "Lehendik gehitutako domeinu baten azpidomeinua gehitu nahi dut",
+            "from_subdomain_desc": "Konfiguratutako DNS balioek ahalbidetzen badute, Let's Encrypt ziurtagiriak automatikoki instalatzeko aukera izango duzu."
         }
     },
     "domain_add_dyndns_forbidden": "YunoHost proiektuaren DynDNS domeinu bat erregistratu duzu lehendik ere. Mota honetako domeinu bakarrera mugatuta dago zerbitzari bakoitza. Lehendik duzun domeinuaren azpidomeinu bat gehitu nahi baduzu, erabili 'Lehendik dudan domeinu edo azpidomeinu bat gehitu nahi dut' aukera. Beste domeinu bat erabili nahi izanez gero, unean darabilzun DynDNS domeinua kendu beharko duzu. DynDNS domeinuak idealak dira norbera ostatatzen hasten denean, baina epe-ertain/luzean domeinu propioa erostea gomendatzen dizugu, domeinuaren jabetza osoa izan dezazun.",
@@ -230,7 +234,8 @@
     "footer": {
         "documentation": "Dokumentazioa",
         "help": "Laguntza behar al duzu?",
-        "donate": "Egin dohaintza"
+        "donate": "Egin dohaintza",
+        "tos": "Zerbitzuen Baldintzak"
     },
     "hook_data_home_desc": "Erabiltzaile-datuak /home/ERABILTZAILEA katalogoan daude",
     "installed": "Instalatuta",
@@ -495,7 +500,7 @@
         "experimental": "Modu esperimentala",
         "experimental_description": "Funtzio esperimentalei atea irekitzen die. Ezegonkorrak dira eta sistema kaltetu dezake.<br>Zertan ari zaren badakizu soilik gaitu aukera hau.",
         "transitions": "Orrialdeen transtsizioetarako animazioak",
-        "theme": "Piztu / Itzali itxura iluna"
+        "theme": "Itxura iluna bai/ez"
     },
     "users_import_delete_desc": "Aukeratuz gero, CSV fitxategian ageri ez diren erabiltzaile guztiak ezabatuko dira (baita sistematik ere).",
     "version": "Bertsioa",
@@ -630,7 +635,7 @@
             "problems": {
                 "arch": "Aplikazio hau ({required}) arkitekturatan bakarrik instalatu daiteke, baina zure zerbitzariaren arkitektura {current} da.",
                 "broken": "Aplikazio hau hondatuta dago YunoHosten azterketa automatikoen arabera eta zure sistema apur lezake! Ez zenuke instalatu beharko zertan ari zaren ez badakizu.",
-                "thirdparty": "Aplikazio hau ez da YunoHosten liburutegikoa; hirugarrenen aplikazioak instalatzeak sistemaren integritatea ezbaian jar dezake. EZ zenuke instalatu beharko zertan ari zaren ez badakizu.",
+                "thirdparty": "Aplikazio hau ez da YunoHosten katalogokoa; hirugarrenen aplikazioak instalatzeak sistemaren integritatea ezbaian jar dezake. EZ zenuke instalatu beharko zertan ari zaren ez badakizu.",
                 "ignore": "Ulertzen dut aplikazio honek nire sistema apur lezakeela baina hala ere probatu nahi dut.",
                 "inprogress": "Aplikazio hau esperimentala da oraindik (edo ez dabil) eta litekeena da zure sistema apurtzea! EZ zenuke instalatu beharko zertan ari zaren ez badakizu.",
                 "install": "Badago lehendik ere instalatuta eta ezin da behin baino gehiagotan instalatu.",
@@ -692,7 +697,8 @@
         },
         "uninstall": {
             "purge_desc": "Kendu aplikazio honekin lotutako datuen direktorioa (aplikazioa erabiliz igo dituzun datuak izan ohi dira)."
-        }
+        },
+        "upvote": "Aplikazio honek arreta erakar dezan nahi baduzu, bere aldeko botoa eman dezakezu [katalogoa](https://apps.yunohost.org/app/{id})n."
     },
     "form": {
         "current_file": "Uneko fitxategia:",
@@ -700,12 +706,17 @@
     },
     "tos": {
         "i_agree": "Ados",
-        "i_have_read": "Irakurri ditut eta ulertzen ditut <a href='https://yunohost.org/terms_of_services' target='_blank'>Zerbitzuaren Baldintzak</a>"
+        "i_have_read": "Irakurri ditut eta ulertzen ditut <a href='https://yunohost.org/terms_of_services' target='_blank'>Zerbitzuen Baldintzak</a>",
+        "postinstall_acknowledgement": "YunoHost boluntario talde baten proiektua da, zerbitzarietarako sistema eragile ireki bat sortzeko kausa komuna duena. YunoHosten softwareak [AGPLv3 lizentzia](https://www.gnu.org/licenses/agpl-3.0.txt) dauka. Proiektuak zerbitzu tekniko eta komunitario anitz administratu eta eskuragarri jartzen ditu, hainbat helburutarako. Zerbitzu horiek erabiltzean, [Zerbitzuen Baldintzak](https://yunohost.org/terms_of_services) onartzen dituzu.",
+        "acknowledgement": "Zerbitzuen Baldintzen onarpena"
     },
     "groups": {
         "remove_user": {
             "confirm_from_admins": "Ziur zure burua 'admins' taldetik kendu nahi duzula?"
         }
     },
-    "loading": "Kargatzen"
+    "loading": "Kargatzen",
+    "catalog_wishlist": "Badirudi bilatzen ari zaren aplikazioa ez dagoela katalogoan.\n Aplikazioen desira-zerrenda](https://apps.yunohost.org/wishlist?search={search})n proposatu dezakezu edo bere aldeko botoa eman dagoeneko zerrendan badago.",
+    "catalog_partial_search": "Saia zaitez irizpideak kentzen bilatzen ari zaren aplikazioa erabilgarri dagoen ikusteko.",
+    "quick_add": "Gehitu"
 }
