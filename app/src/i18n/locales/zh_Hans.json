@@ -101,12 +101,15 @@
         "pattern": "{type}",
         "maxValue": "值必须是等于或小于 {max} 的数字。",
         "invalid_form": "此表格包含一些错误。",
-        "appRepoUrl": "YunoHost 应用存储仓库网址应类似于 https://domain.tld/path/to/repo_ynh"
+        "appRepoUrl": "YunoHost 应用存储仓库网址应类似于 https://domain.tld/path/to/repo_ynh",
+        "checked": "必须选中复选框。",
+        "numValue": "值必须是数字"
     },
     "footer": {
         "donate": "捐赠",
         "help": "需要帮忙？",
-        "documentation": "文档"
+        "documentation": "文档",
+        "tos": "服务条款"
     },
     "firewall": "防火墙",
     "experimental": "实验性",
@@ -192,8 +195,8 @@
     "confirm_app_install": "您确定要安装此应用吗？",
     "confirm_install_domain_root": "您确定要在 '/' 上安装此应用吗？您将无法在 {domain} 上安装任何其它应用",
     "confirm_install_custom_app": "警告！安装第三方应用可能会损害系统的完整性和安全性。除非您知道自己在做什么，否则您最好不要安装它。您愿意冒这个风险吗？",
-    "confirm_firewall_disallow": "您确定要关闭端口 {port}（协议：{protocol}，连接：{connection}）",
-    "confirm_firewall_allow": "您确定要打开端口 {port}（协议：{protocol}，连接：{connection}）",
+    "confirm_firewall_disallow": "您确定要关闭端口 {port} 吗？（协议：{protocol}，连接：{connection}）",
+    "confirm_firewall_allow": "您确定要打开端口 {port} 吗？（协议：{protocol}，连接：{connection}）",
     "confirm_delete": "您确定要删除 {name} 吗？",
     "confirm_change_maindomain": "您确定要更改主域吗？",
     "confirm_app_default": "您确定要将此应用设置为默认应用吗？",
@@ -242,7 +245,8 @@
                 "upgrade_system": "由于 YunoHost 升级，与服务器的连接已关闭。正在等待服务器再次可访问…",
                 "shutdown": "您的服务器正在关闭并且无法再访问。请重新启机，当服务器可以访问时，登录提示将会出现。"
             },
-            "title": "正在尝试与服务器通信…"
+            "title": "正在尝试与服务器通信…",
+            "session_expired": "服务器现在可以访问了！ 但您的会话似乎已过期，请登录。"
         }
     },
     "ignored": "{count} 已忽略",
@@ -255,7 +259,8 @@
         "users": "没有用户 | 用户 | 个用户",
         "services": "没有服务 | 服务 | 个服务",
         "permissions": "没有权限 | 权限 | 个权限",
-        "logs": "没有日志 | 日志 | 个日志"
+        "logs": "没有日志 | 日志 | 个日志",
+        "items": "没有项目 | 项目 | 个项目"
     },
     "issues": "{count} 个问题",
     "label_for_manifestname": "{name} 的标签",
@@ -507,7 +512,7 @@
             "title": "域配置"
         },
         "dns": {
-            "push_force_confirm": "您确定要强制推送所有推荐的 DNS 记录吗？请注意，它可能会手动覆盖您或您的注册商设置的重要默认记录。",
+            "push_force_confirm": "您确定要强制推送所有推荐的 DNS 记录吗？请注意，它可能会覆盖您或您的注册商设置的手动配置或重要默认记录。",
             "push_force_warning": "看起来 YunoHost 要设置的一些 DNS 记录已经在注册商配置中了。如果您知道自己在做什么，则可以使用覆盖选项。",
             "auto_config": "自动 DNS 记录配置",
             "auto_config_ignored": "已忽略，YunoHost 将不会更改，除非您选中覆盖选项",
@@ -532,7 +537,8 @@
                 "other": "其他/未知",
                 "selfsigned": "自签名"
             },
-            "valid_for": "有效期为 {days}"
+            "valid_for": "有效期为 {days}",
+            "install": "同时安装 Let's Encrypt 证书"
         },
         "info": {
             "apps_on_domain": "安装在域上的应用",
@@ -552,11 +558,13 @@
             "dyn_dns_password": "域恢复密码",
             "dyn_dns_password_desc": "此密码将允许您在重新安装系统后恢复对此域的控制。如果您之前已经注册了此域，请在此处使用您的恢复密码来重新获取控制权。",
             "from_local": "我想要一个仅供本地使用/测试的域",
-            "from_registrar": "我想添加一个我拥有的域或子域",
+            "from_registrar": "我想添加一个我拥有的域",
             "from_registrar_desc": "您需要在注册商处手动配置 DNS 记录，以最终完成此域名的配置。YunoHost 的诊断将指导您具体配置哪些 DNS 记录。",
             "from_yunohost": "我没有域，我想注册/使用 YunoHost 项目提供的免费 DynDNS 域",
             "from_yunohost_desc": "YunoHost 项目提供免费的 'DynDNS' 服务。每台服务器仅限使用一个这样的域（不过您也可以稍后使用上述“添加一个我拥有的域或子域”选项以添加子域）。DNS 配置将由 YunoHost 自动处理。当您刚开始使用自托管服务并且还不想投资购买域名时，这是理想的选择。不过，从中长期来看，我们建议您向某些注册商购买自己的域名，以拥有域的完全所有权。",
-            "from_local_desc": "如果您不想要一个“真实的”公共域名，您可以使用以 <code>.local</code> 或 <code>.test</code> 结尾的任何域名。以 <code>.local</code> 结尾的域名在某种意义上是特殊的，因为在本地网络中可以自动解析，前提是客户端支持 Bonjour 协议。或者，您可能需要在每个要从中使用该域名的客户端上调整 <code>/etc/hosts</code> 文件（或 Windows 上的等效文件），或者在您的互联网路由器上配置本地 DNS 条目。"
+            "from_local_desc": "如果您不想要一个“真实的”公共域名，您可以使用以 <code>.local</code> 或 <code>.test</code> 结尾的任何域名。以 <code>.local</code> 结尾的域名在某种意义上是特殊的，因为在本地网络中可以自动解析，前提是客户端支持 Bonjour 协议。或者，您可能需要在每个要从中使用该域名的客户端上调整 <code>/etc/hosts</code> 文件（或 Windows 上的等效文件），或者在您的互联网路由器上配置本地 DNS 条目。",
+            "from_subdomain_desc": "如果您配置的 DNS 记录允许，您将能够自动安装 Let's Encrypt 证书。",
+            "from_subdomain": "我想添加一个已添加域的子域"
         }
     },
     "domain_dns_push_managed_in_parent_domain": "自动 DNS 记录功能在父域 <a href='#/domains/{parent_domain}/dns'>{parent_domain}</a> 中管理。",
@@ -668,7 +676,8 @@
         "installed_version": "已安装版本：",
         "uninstall": {
             "purge_desc": "移除与应用相关的数据目录（这通常是您自己使用该应用上传的数据）。"
-        }
+        },
+        "upvote": "如果您想引起人们对此应用的关注，您可以在其[目录页面](https://apps.yunohost.org/app/{id})上为其投票。"
     },
     "users_import_update_desc": "如果选中，CSV 文件中包含的所有现有用户都将更新为新值",
     "group_admins": "管理员",
@@ -690,5 +699,24 @@
     "wrong_password_or_username": "用户名或密码错误",
     "yunohost_admin": "YunoHost 管理员",
     "retry": "重试",
-    "important_yunohost_upgrade": "一个主要的 YunoHost 升级可用。强烈建议在升级前仔细阅读论坛上的发行说明：<a href='https://forum.yunohost.org/tag/ynh_release'>浏览论坛上的发行说明</a>"
+    "important_yunohost_upgrade": "一个主要的 YunoHost 升级可用。强烈建议在升级前仔细阅读论坛上的发行说明：<a href='https://forum.yunohost.org/tag/ynh_release'>浏览论坛上的发行说明</a>",
+    "catalog_partial_search": "请尝试移除所有条件，以查看您正在搜索的应用是否可用。",
+    "catalog_wishlist": "目录中似乎尚未提供您正在搜索的应用。\n 您可以在[应用愿望清单](https://apps.yunohost.org/wishlist?search={search})中提出它，如果已经存在，也可以为它投票。",
+    "groups": {
+        "remove_user": {
+            "confirm_from_admins": "您确定要将自己从“管理员”组中删除吗？"
+        }
+    },
+    "form": {
+        "current_file": "当前文件：",
+        "select_one": "请选择一个选项"
+    },
+    "loading": "载入中",
+    "quick_add": "快速添加",
+    "tos": {
+        "acknowledgement": "服务条款确认",
+        "i_agree": "我同意",
+        "i_have_read": "我已阅读并理解<a href='https://yunohost.org/terms_of_services' target='_blank'>服务条款</a>",
+        "postinstall_acknowledgement": "YunoHost 项目是一个由志愿者组成的团队，其共同目标是创建一个名为 YunoHost 的自由服务器操作系统。YunoHost 软件根据[AGPLv3 许可证](https://www.gnu.org/licenses/agpl-3.0.txt)发布。与此软件相关，此项目管理并提供多种用于各种目的的技术和社区服务。使用这些服务，即表示您同意受以下[服务条款](https://yunohost.org/terms_of_services)的约束。"
+    }
 }
