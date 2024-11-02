@@ -47,7 +47,7 @@ const onAddGroup = onSubmit((onError) => {
     v-model="form"
     icon="users"
     :fields="fields"
-    :title="$t('group_new')"
+    :title="$t('group_add')"
     :validations="v"
     @submit.prevent="onAddGroup"
   />

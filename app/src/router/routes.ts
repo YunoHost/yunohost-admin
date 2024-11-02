@@ -59,7 +59,7 @@ const routes: RouteRecordRaw[] = [
     path: '/users/create',
     component: () => import('@/views/user/UserCreate.vue'),
     meta: {
-      args: { trad: 'users_new' },
+      args: { trad: 'users_add' },
       breadcrumb: ['user-list', 'user-create'],
       skeleton: 'CardFormSkeleton',
     },
@@ -115,7 +115,7 @@ const routes: RouteRecordRaw[] = [
     path: '/groups/create',
     component: () => import('@/views/group/GroupCreate.vue'),
     meta: {
-      args: { trad: 'group_new' },
+      args: { trad: 'group_add' },
       breadcrumb: ['user-list', 'group-list', 'group-create'],
     },
   },

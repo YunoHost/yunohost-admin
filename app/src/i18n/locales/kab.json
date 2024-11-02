@@ -26,7 +26,7 @@
     "enabled": "Yermed",
     "error": "Tuccḍa",
     "go_back": "Uɣal ɣer deffir",
-    "group_new": "Agraw amaynut",
+    "group_add": "Agraw amaynut",
     "permissions": "Tisirag",
     "history": {
         "title": "Amazray",
@@ -159,7 +159,7 @@
     },
     "group_admins": "Inedbalen",
     "footer_version": "Yezreɛ-it <a href='https://yunohost.org'>YunoHost</a> {version} ({repo}).",
-    "users_new": "Aseqdac amaynut",
+    "users_add": "Aseqdac amaynut",
     "human_routes": {
         "upgrade": {
             "system": "Aleqqem n unagraw"

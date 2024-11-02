@@ -125,7 +125,7 @@ const onUserCreate = onSubmit(async (onError) => {
       v-model="form"
       icon="user-plus"
       :fields="fields"
-      :title="$t('users_new')"
+      :title="$t('users_add')"
       :validations="v"
       @submit.prevent="onUserCreate"
     >

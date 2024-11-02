@@ -29,7 +29,7 @@ const [search, filteredApps] = useSearch(apps, (s, app) =>
     <template #top-bar-buttons>
       <BButton variant="success" :to="{ name: 'app-catalog' }">
         <YIcon iname="plus" />
-        {{ $t('install') }}
+        {{ $t('install_app') }}
       </BButton>
     </template>
 

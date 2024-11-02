@@ -116,7 +116,7 @@
     "user_username": "Gebruikersnaam",
     "user_username_edit": "Bewerk {name}'s account",
     "users": "Gebruikers",
-    "users_new": "Nieuwe gebruiker",
+    "users_add": "Nieuwe gebruiker",
     "users_no": "Geen gebruikers.",
     "words": {
         "default": "Standaard",
@@ -631,7 +631,7 @@
     "license": "Licentie",
     "user_emailaliases_add": "Voeg een e-mail alias toe",
     "group_add_member": "Gebruiker toevoegen",
-    "group_new": "Nieuwe groep",
+    "group_add": "Nieuwe groep",
     "group_explain_all_users": "Dit is een speciale groep die alle gebruikersaccounts op de server bevat",
     "group_specific_permissions": "Gebruiker-specifieke toestemmingen",
     "pending_migrations": "Er moeten nog een paar migraties uitgevoerd worden. Ga naar <a href='#/tools/migrations'>Tools > Migraties</a> om ze uit te voeren.",

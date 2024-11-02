@@ -391,7 +391,7 @@
     "user_username": "Käyttäjänimi",
     "user_username_edit": "Muokkaa käyttäjän {name} nimeä",
     "users": "Käyttäjät",
-    "users_new": "Uusi käyttäjä",
+    "users_add": "Uusi käyttäjä",
     "warnings": "{count} varoitus(ta)",
     "words": {
         "collapse": "Lyyhistä",
@@ -430,7 +430,7 @@
     "group": "Ryhmä",
     "group_all_users": "Kaikki käyttäjät",
     "group_add_member": "Lisää käyttäjä",
-    "group_new": "Uusi ryhmä",
+    "group_add": "Uusi ryhmä",
     "group_explain_all_users": "Tämä on erillinen ryhmä, joka sisältää kaikki palvelimen käyttäjät",
     "group_explain_visitors": "Tämä on erillinen ryhmä, joka edustaa anonyymejä vieraita",
     "permissions": "Oikeudet",

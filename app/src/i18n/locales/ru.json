@@ -138,7 +138,7 @@
     "user_username": "Имя пользователя",
     "user_username_edit": "Редактировать аккаунт {name}",
     "users": "Пользователи",
-    "users_new": "Новый пользователь",
+    "users_add": "Новый пользователь",
     "users_no": "Нет пользователей.",
     "words": {
         "default": "По умолчанию",
@@ -514,7 +514,7 @@
     "permission_corresponding_url": "Соответствующий URL-адрес",
     "multi_instance": "Можно устанавливать несколько раз",
     "group_visitors": "Посетители",
-    "group_new": "Новая группа",
+    "group_add": "Новая группа",
     "group_specific_permissions": "Разрешения для конкретного пользователя",
     "logs_suboperations": "Субоперации",
     "permission_show_tile_enabled": "Видимый как плитка в интерфейсе пользователя",

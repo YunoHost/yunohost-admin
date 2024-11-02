@@ -86,7 +86,7 @@
     "group_explain_visitors_needed_for_external_client": "Některé aplikace pro správný provoz vyžadují povolení anonymního přístupu pro externí klienty. Například Nextcloud pro synchronizačního klienta na mobilním zařízení nebo desktopovém počítači.",
     "group_explain_visitors": "Toto je specifická skupina obsahující nepřihlášené (anonymní) uživatele",
     "group_explain_all_users": "Toto je specifická skupina obsahující všechny uživatelské účty na tomto serveru",
-    "group_new": "Nová skupina",
+    "group_add": "Nová skupina",
     "group_add_permission": "Přidat oprávnění",
     "group_add_member": "Přidat uživatele",
     "group_format_name_help": "Můžete použít alfanumerické znaky a podtržítko",
@@ -471,7 +471,7 @@
         }
     },
     "users": "Uživatelé",
-    "users_new": "Nový uživatel",
+    "users_add": "Nový uživatel",
     "users_no": "Žádní uživatelé.",
     "app": {
         "open_this_app": "Otevřít tuto aplikaci",

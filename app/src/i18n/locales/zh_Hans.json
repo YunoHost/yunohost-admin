@@ -78,7 +78,7 @@
         "is_empty": "暂无历史记录。"
     },
     "permissions": "权限",
-    "group_new": "新建群组",
+    "group_add": "新建群组",
     "group_add_member": "添加用户",
     "group_visitors": "访客",
     "group_all_users": "所有用户",
@@ -461,7 +461,7 @@
     "warnings": "{count} 个警告",
     "version": "版本",
     "users_no": "没有用户。",
-    "users_new": "新用户",
+    "users_add": "新用户",
     "users": "用户",
     "user_username_edit": "编辑 {name} 的账号",
     "user_username": "用户名",

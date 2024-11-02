@@ -94,7 +94,7 @@
     "user_username": "Nome de utilizador",
     "user_username_edit": "Editar conta de {name}",
     "users": "Utilizadores",
-    "users_new": "Novo utilizador",
+    "users_add": "Novo utilizador",
     "users_no": "Não existem utilizadores.",
     "words": {
         "default": "Pré-definido",
@@ -196,7 +196,7 @@
     "group_explain_visitors_needed_for_external_client": "Preste atenção ao fato de que você precisa dar acesso a visitantes em aplicações que serão usados com clientes externos. Por exemplo, esse é o caso do Nextcloud se quiser usar um cliente de sincronização no seu smartphone ou computador desktop.",
     "group_explain_visitors": "Esse é um grupo especial que representa visitantes anônimos",
     "group_explain_all_users": "Esse é um grupo especial que contém todas as contas de usuário do servidor",
-    "group_new": "Novo grupo",
+    "group_add": "Novo grupo",
     "group_add_permission": "Adicionar uma permissão",
     "group_add_member": "Adicionar um usuário",
     "group_format_name_help": "Pode-se usar caracteres alfanuméricos e underscore",

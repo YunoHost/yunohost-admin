@@ -445,7 +445,7 @@
     "group_format_name_help": "Alfasayısal karakterler ve alt çizgi kullanabilirsiniz",
     "group_add_member": "Kullanıcı ekle",
     "group_add_permission": "İzin ekle",
-    "group_new": "Yeni grup",
+    "group_add": "Yeni grup",
     "group_explain_all_users": "Bu, sunucudaki tüm kullanıcı hesaplarını içeren özel bir gruptur",
     "group_explain_visitors": "Bu, kayıtsız anonim ziyaretçileri temsil eden özel bir gruptur",
     "group_explain_visitors_needed_for_external_client": "Harici istemcilerle kullanmayı düşünüyorsanız, bazı uygulamaları ziyaretçilere açık tutmanız gerektiğine dikkat edin. Örneğin: akıllı telefonunuzda veya masaüstü bilgisayarınızda bir senkronizasyon istemcisi (Nextcloud ya da SeaFile gibi) kullanmayı düşünüyorsanız.",
@@ -498,7 +498,7 @@
     "restore": "Restore et",
     "select_all": "Tümünü seç",
     "size": "Boyut",
-    "users_new": "Yeni kullanıcı",
+    "users_add": "Yeni kullanıcı",
     "system": "Sistem",
     "tools_webadmin": {
         "experimental": "Deneysel mod",

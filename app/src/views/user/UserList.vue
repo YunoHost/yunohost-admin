@@ -37,7 +37,7 @@ function downloadExport() {
         split-variant="success"
       >
         <template #button-content>
-          <YIcon iname="plus" /> {{ $t('users_new') }}
+          <YIcon iname="plus" /> {{ $t('users_add') }}
         </template>
         <BDropdownItem :to="{ name: 'user-import' }">
           <YIcon iname="plus" /> {{ $t('users_import') }}

@@ -168,7 +168,7 @@ async function deleteGroup(name: string) {
   >
     <template #top-bar-buttons>
       <BButton variant="success" :to="{ name: 'group-create' }">
-        <YIcon iname="plus" /> {{ $t('group_new') }}
+        <YIcon iname="plus" /> {{ $t('group_add') }}
       </BButton>
     </template>
 

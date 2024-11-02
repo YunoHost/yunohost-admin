@@ -29,10 +29,10 @@ const RootView = createReusableTemplate<{
 const FallbackView = createReusableTemplate()
 
 const quickAddItems: CustomRoute[] = [
-  { text: t('users_new'), to: { name: 'user-create' } },
+  { text: t('users_add'), to: { name: 'user-create' } },
   { text: t('domain_add'), to: { name: 'domain-add' } },
-  { text: t('group_new'), to: { name: 'group-create' } },
-  { text: t('install'), to: { name: 'app-catalog' } },
+  { text: t('group_add'), to: { name: 'group-create' } },
+  { text: t('install_app'), to: { name: 'app-catalog' } },
 ]
 
 const skeletons = computed<Skeleton[]>(() => {
@@ -121,7 +121,7 @@ onErrorCaptured((e) => {
       class="ms-auto"
     >
       <template #button-content>
-        <YIcon iname="plus" /> {{ t('quick_add') }}
+        <YIcon iname="plus" /> {{ t('quick_action') }}
       </template>
       <template v-for="(item, i) in quickAddItems" :key="i">
         <BDropdownItem :to="item.to">

@@ -103,7 +103,7 @@
     "user_username": "Nome utente",
     "user_username_edit": "Modifica account di {name}",
     "users": "Utenti",
-    "users_new": "Nuovo utente",
+    "users_add": "Nuovo utente",
     "users_no": "Nessun utente.",
     "yes": "Si",
     "app_state_inprogress": "ancora non funzionante",
@@ -208,7 +208,7 @@
     "everything_good": "Tutto ok!",
     "from_to": "da {0} a {1}",
     "configuration": "Configuratione",
-    "group_new": "Nuovo gruppo",
+    "group_add": "Nuovo gruppo",
     "warnings": "{count} avvisi",
     "words": {
         "default": "Predefinito",
