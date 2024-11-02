@@ -709,7 +709,6 @@
         "acknowledgement": "Accusé de réception des CGU",
         "i_agree": "Je suis d'accord"
     },
-    "quick_add": "Ajout rapide",
     "groups": {
         "remove_user": {
             "confirm_from_admins": "Êtes-vous sûr de vouloir vous retirer du groupe « admins » ?"

@@ -717,6 +717,5 @@
     },
     "loading": "Kargatzen",
     "catalog_wishlist": "Badirudi bilatzen ari zaren aplikazioa ez dagoela katalogoan.\n Aplikazioen desira-zerrenda](https://apps.yunohost.org/wishlist?search={search})n proposatu dezakezu edo bere aldeko botoa eman dagoeneko zerrendan badago.",
-    "catalog_partial_search": "Saia zaitez irizpideak kentzen bilatzen ari zaren aplikazioa erabilgarri dagoen ikusteko.",
-    "quick_add": "Gehitu"
+    "catalog_partial_search": "Saia zaitez irizpideak kentzen bilatzen ari zaren aplikazioa erabilgarri dagoen ikusteko."
 }
