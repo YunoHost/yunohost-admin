@@ -718,5 +718,6 @@
         "current_file": "Fichier actuel :",
         "select_one": "Veuillez sélectionner une option"
     },
-    "loading": "Chargement"
+    "loading": "Chargement",
+    "quick_action": "Ajout rapide"
 }
