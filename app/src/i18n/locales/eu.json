@@ -593,7 +593,7 @@
     "manage_groups": "Kudeatu taldeak",
     "tools_yunohost_settings": "YunoHosten ezarpenak",
     "wrong_password_or_username": "Pasahitz edo erabiltzaile-izen okerra",
-    "important_yunohost_upgrade": "YunoHosten bertsio nagusi bat dago eskuragai. Zinez gomendagarria da eguneraketaren oharrak arretaz irakurtzea foroan bertsio-berritu baino lehen: <a href='https://forum.yunohost.org/tag/ynh_release'>Irakurri oharrak foroan</a>",
+    "important_yunohost_upgrade": "YunoHosten bertsio nagusi bat dago eskuragai. Zinez gomendagarria da bertsio-berritu baino lehen foroan eguneraketaren oharrak arretaz irakurtzea: <a href='https://forum.yunohost.org/tag/ynh_release'>Irakurri oharrak foroan</a>",
     "app": {
         "installed_version": "Instalatutako bertsioa:",
         "open_this_app": "Ireki aplikazioa",
