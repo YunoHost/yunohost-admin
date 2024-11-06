@@ -550,7 +550,7 @@
                 "other": "Autre/Inconnu"
             },
             "valid_for": "valable pendant {days}",
-            "install": "Installez également le certificat Let's Encrypt"
+            "install": "Installer également le certificat Let's Encrypt"
         },
         "explain": {
             "main_domain": "Le domaine principal est le domaine à partir duquel les personnes peuvent se connecter au portail (via \"{domain}/yunohost/sso\").<br>Il n'est donc pas possible de le supprimer.<br>Si vous voulez supprimer \"{domain}\", vous devrez d'abord choisir ou ajouter un autre domaine et le définir comme domaine principal."
