@@ -2,15 +2,16 @@
     "password": "पासवर्ड",
     "action": "कार्रवाई",
     "add": "जोड़े।",
-    "administration_password": "एडमिनिस्ट्रेटर का पासवर्ड।",
+    "administration_password": "एडमिनिस्ट्रेटर का पासवर्ड.",
     "ok": "ठीक है",
     "address": {
         "local_part_description": {
-            "domain": "एक उपडोमेन चुनें"
+            "domain": "एक उपडोमेन चुनें।",
+            "email": "अपने ईमेल के लिए प्रारंभिक भाग चुने।"
         },
         "domain_description": {
             "email": "अपने ईमेल के लिए एक डोमेन चुनें।",
-            "domain": "एक डोमेन चुनें"
+            "domain": "एक डोमेन चुनें।"
         }
     }
 }

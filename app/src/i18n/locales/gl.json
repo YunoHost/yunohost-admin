@@ -35,7 +35,8 @@
                 "reboot": "O servidor está reiniciando e non estará dispoñible por uns minutos. O formulario de conexión estará dispoñible tan pronto o servidor sexa accesible.",
                 "shutdown": "O servidor estase apagando e non está dispoñible. Acéndeo e o formulario de conexión estará dispoñible tan pronto o servidor sexa accesible.",
                 "upgrade_system": "Pechouse a conexión ao servidor debido á actualización de YunoHost. Agardando a que o servidor sexa accesible…"
-            }
+            },
+            "session_expired": "O servidor xa é accesible! Pero semella que caducou a túa sesión, volve a acceder."
         }
     },
     "all": "Todo",
@@ -161,12 +162,15 @@
         "pattern": "{type}",
         "maxValue": "O valor ten que ser un número igual ou menor que {max}.",
         "invalid_form": "O formulario contén erros.",
-        "appRepoUrl": "É de esperar que os URL dos repositorios YunoHost teñan este formato https://domain.tld/path/to/repo_ynh"
+        "appRepoUrl": "É de esperar que os URL dos repositorios YunoHost teñan este formato https://domain.tld/path/to/repo_ynh",
+        "checked": "Tes que marcar a caixa de opción.",
+        "numValue": "O valor ten que ser un número"
     },
     "footer": {
         "donate": "Doa",
         "help": "Precisas axuda?",
-        "documentation": "Documentación"
+        "documentation": "Documentación",
+        "tos": "Termos dos Servizos"
     },
     "footer_version": "Grazas a <a href='https://yunohost.org'>YunoHost</a> {version} ({repo}).",
     "firewall": "Cortalumes",
@@ -194,7 +198,8 @@
         "services": "sen servizos | servizo | servizos",
         "permissions": "sen permisos | permiso | permisos",
         "logs": "sen rexistros | rexistro | rexistros",
-        "installed_apps": "cero apps instaladas | app instalada | apps instaladas"
+        "installed_apps": "cero apps instaladas | app instalada | apps instaladas",
+        "items": "sen elementos | elemento | elementos"
     },
     "issues": "{count} asuntos",
     "ipv6": "IPv6",
@@ -543,7 +548,8 @@
                 "letsencrypt": "Let's Encrypt",
                 "other": "Outro/Descoñecido"
             },
-            "valid_for": "válido por {days}"
+            "valid_for": "válido por {days}",
+            "install": "Instalar tamén o certificado Let's Encrypt"
         },
         "info": {
             "apps_on_domain": "Apps instaladas no dominio",
@@ -566,8 +572,10 @@
             "dyn_dns_password_desc": "Este contrasinal permitirache recuperar o control sobre o dominio se reinstalas o sistema. Se xa rexistraches con anterioridade o dominio, usa aquí o contrasinal de recuperación para reclamalo.",
             "from_local": "Quero un dominio só para uso local ou probas",
             "from_local_desc": "Se non precisas un nome de dominio público \"real\", podes usar calquera dominio que remate en <code>.local</code> ou <code>.test</code>. Os nomes de dominio <code>.local</code> son especiais no senso de que se resolven de xeito automático na rede local, se asumimos que os clientes teñen soporte para o protocolo Bonjour. Alternativamente, poderías precisar editar o ficheiro <code>/etc/hosts</code> (ou o equivalente en windows) en cada cliente que queira conectarse ao dominio, ou configurar as entradas do DNS local no teu rúter de internet.",
-            "from_registrar": "Quero engadir un dominio, ou subdominio, que xa posúo",
-            "from_yunohost": "Non teño un dominio, quero rexistrar/usar un dominio DynDNS de balde proporcionado por YunoHost"
+            "from_registrar": "Quero engadir un dominio da miña propiedade",
+            "from_yunohost": "Non teño un dominio, quero rexistrar/usar un dominio DynDNS de balde proporcionado por YunoHost",
+            "from_subdomain": "Quero engadir un subdominio dun dominio xa engadido",
+            "from_subdomain_desc": "Se a configuración dos rexistros DNS o permite, vaise instalar automáticamente o certificado Let's Encrypt."
         }
     },
     "domain_dns_push_managed_in_parent_domain": "A ferramenta para os rexistros DNS automáticos están xestionados polo dominio nai <a href='#/domains/{parent_domain}/dns'>{parent_domain}</a>.",
@@ -689,6 +697,25 @@
         },
         "uninstall": {
             "purge_desc": "Eliminar o directorio de datos asociados a esta app (normalmente son datos que ti subiches ao usar a app)."
+        },
+        "upvote": "Se queres atraer a atención sobre esta aplicación, podes votar por ela na súa [páxina no catálogo](https://apps.yunohost.org/app/{id})."
+    },
+    "catalog_wishlist": "Semella que a app que buscas aínda non está dispoñible no catálogo.\n Podes propoñela na [lista de desexos](https://apps.yunohost.org/wishlist?search={search}) ou votar por ela se xa está alí.",
+    "tos": {
+        "acknowledgement": "Asunción dos TOS",
+        "i_have_read": "Lin e comprendo os <a href='https://yunohost.org/terms_of_services' target='_blank'>Termos dos Servizos</a>",
+        "postinstall_acknowledgement": "O proxecto YunoHost fórmano un equipo de persoas voluntarias que teñen a causa común de crear un sistema operativo libre para servidores, chamado YunoHost. O software YunoHost publícase baixo a [licenza AGPLv3](https://www.gnu.org/licenses/agpl-3.0.txt). Xunto con este software, a administración do proxecto pon a disposición das usuarias varios servizos técnicos e de comunicación con diferentes propósitos. Ao usar estes servizos aceptas rexirte polos seguintes [Termos dos Servizos](https://yunohost.org/terms_of_services).",
+        "i_agree": "Acepto"
+    },
+    "form": {
+        "select_one": "Por favor elixe unha opción",
+        "current_file": "Ficheiro actual:"
+    },
+    "groups": {
+        "remove_user": {
+            "confirm_from_admins": "Tes certeza de querer retirar a túa propia conta do grupo 'admins'?"
         }
-    }
+    },
+    "catalog_partial_search": "Intenta eliminar todos os criterios de filtro para ver se así aparece na busca.",
+    "loading": "Cargando"
 }

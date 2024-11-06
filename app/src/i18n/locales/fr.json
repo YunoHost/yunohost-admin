@@ -128,7 +128,7 @@
     "user_emailaliases": "Alias de courriel",
     "user_emailforward": "Adresses de transfert",
     "user_fullname": "Nom complet",
-    "user_interface_link": "Portail",
+    "user_interface_link": "Portail utilisateur",
     "user_mailbox_quota": "Quota de la boite aux lettres",
     "user_new_forward": "nouveau_transfert{'@'}domainedistant.org",
     "user_username": "Nom du compte",
@@ -307,7 +307,8 @@
         "domains": "aucun domaine | domaine | domaines",
         "backups": "aucune sauvegarde | sauvegarde | sauvegardes",
         "apps": "aucune application | app | apps",
-        "permissions": "pas d'autorisations | permission | autorisations"
+        "permissions": "pas d'autorisations | permission | autorisations",
+        "items": "aucun article | article | articles"
     },
     "history": {
         "methods": {
@@ -339,12 +340,15 @@
         "maxValue": "La valeur doit être un nombre égal ou inférieur à {max}.",
         "remote": "{message}",
         "pattern": "{type}",
-        "invalid_form": "Le formulaire contient des erreurs."
+        "invalid_form": "Le formulaire contient des erreurs.",
+        "checked": "La case doit être cochée.",
+        "numValue": "La valeur doit être un nombre"
     },
     "footer": {
         "donate": "Faire un don",
         "help": "Besoin d'aide ?",
-        "documentation": "Documentation"
+        "documentation": "Documentation",
+        "tos": "Conditions d'utilisation"
     },
     "experimental": "Expérimental",
     "error": "Erreur",
@@ -408,7 +412,8 @@
                 "reboot": "Votre serveur redémarre et ne sera pas joignable pendant un certain temps. Une invite de connexion sera disponible dès que le serveur sera accessible.",
                 "shutdown": "Votre serveur est en cours d'extinction et n'est plus joignable. Redémarrez-le et une invitation de connexion sera disponible dès que le serveur sera joignable.",
                 "upgrade_system": "La connexion avec le serveur a été fermée en raison de la mise à jour de YunoHost. Il vous faut patienter jusqu'à ce que le serveur soit à nouveau joignable…"
-            }
+            },
+            "session_expired": "Le serveur est désormais accessible ! Mais il semble que votre session ait expiré, veuillez vous connecter."
         }
     },
     "go_back": "Revenir",
@@ -544,7 +549,8 @@
                 "letsencrypt": "Let's Encrypt",
                 "other": "Autre/Inconnu"
             },
-            "valid_for": "valable pendant {days}"
+            "valid_for": "valable pendant {days}",
+            "install": "Installer également le certificat Let's Encrypt"
         },
         "explain": {
             "main_domain": "Le domaine principal est le domaine à partir duquel les personnes peuvent se connecter au portail (via \"{domain}/yunohost/sso\").<br>Il n'est donc pas possible de le supprimer.<br>Si vous voulez supprimer \"{domain}\", vous devrez d'abord choisir ou ajouter un autre domaine et le définir comme domaine principal."
@@ -567,8 +573,10 @@
             "dyn_dns_password_desc": "Ce mot de passe vous permettra de récupérer ultérieurement le contrôle du domaine si vous réinstallez votre système. Si vous avez déjà enregistré ce domaine auparavant, utilisez votre mot de passe de récupération ici pour le récupérer.",
             "from_local": "Je veux un domaine pour un usage local/test uniquement",
             "from_local_desc": "Si vous ne souhaitez pas un nom de domaine public \"réel\", vous pouvez utiliser n'importe quel nom se terminant par <code>.local</code> or <code>.test</code>. Les noms de domaine se terminant par <code>.local</code> sont particuliers en ce sens qu'ils peuvent être automatiquement résolus sur le réseau local, en supposant que les clients prennent en charge le protocole Bonjour. Il est également possible que vous deviez modifier le paramètre du fichier <code>/etc/hosts</code> (ou équivalent sous Windows) sur chaque client à partir duquel vous souhaitez utiliser ce domaine, ou de configurer des entrées DNS locales sur votre routeur internet.",
-            "from_registrar": "Je veux ajouter un domaine que je possède, ou un sous-domaine",
-            "from_yunohost": "Je ne possède pas de domaine, je veux enregistrer/utiliser un domaine DynDNS gratuit fourni par le projet YunoHost"
+            "from_registrar": "Je veux ajouter un domaine que je possède",
+            "from_yunohost": "Je ne possède pas de domaine, je veux enregistrer/utiliser un domaine DynDNS gratuit fourni par le projet YunoHost",
+            "from_subdomain": "Je veux ajouter un sous-domaine d'un domaine déjà ajouté",
+            "from_subdomain_desc": "Si vos enregistrements DNS configurés le permettent, vous pourrez installer automatiquement le certificat Let's Encrypt."
         }
     },
     "domain_dns_push_failed_to_authenticate": "Échec de l'authentification sur l'API du registrar. Les <a href='#/domains/{domain}/config'>informations d'identification</a> sont elles justes ? (Erreur : {error})",
@@ -690,6 +698,26 @@
         },
         "uninstall": {
             "purge_desc": "Supprimez le répertoire de données associé à l'application (il s'agit généralement de données que vous avez téléchargées vous-même à l'aide de l'application)."
+        },
+        "upvote": "Si vous souhaitez attirer l'attention sur cette application, vous pouvez voter pour elle sur sa [page catalogue](https://apps.yunohost.org/app/{id})."
+    },
+    "catalog_wishlist": "Il semblerait que l'application que vous recherchez ne soit pas encore disponible dans le catalogue.\nVous pouvez la proposer dans la [liste de souhaits des applications](https://apps.yunohost.org/wishlist?search={search}) ou voter pour elle si elle y est déjà.",
+    "catalog_partial_search": "Essayez de supprimer tous les critères pour voir si l'application que vous recherchez est disponible.",
+    "tos": {
+        "i_have_read": "J'ai lu et compris les <a href='https://yunohost.org/terms_of_services' target='_blank'>conditions d'utilisation</a>",
+        "postinstall_acknowledgement": "Le projet YunoHost est une équipe de bénévoles qui ont fait cause commune pour créer un système d'exploitation libre pour serveurs, appelé YunoHost. Le logiciel YunoHost est publié sous [la licence AGPLv3](https://www.gnu.org/licenses/agpl-3.0.txt). En relation avec ce logiciel, le projet administre et met à disposition plusieurs services techniques et communautaires à des fins diverses. En utilisant ces services, vous acceptez d'être lié par les [conditions d'utilisation](https://yunohost.org/terms_of_services) suivantes.",
+        "acknowledgement": "Accusé de réception des CGU",
+        "i_agree": "Je suis d'accord"
+    },
+    "groups": {
+        "remove_user": {
+            "confirm_from_admins": "Êtes-vous sûr de vouloir vous retirer du groupe « admins » ?"
         }
-    }
+    },
+    "form": {
+        "current_file": "Fichier actuel :",
+        "select_one": "Veuillez sélectionner une option"
+    },
+    "loading": "Chargement",
+    "quick_action": "Ajout rapide"
 }
