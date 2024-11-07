@@ -717,5 +717,7 @@
         }
     },
     "catalog_partial_search": "Intenta eliminar todos os criterios de filtro para ver se así aparece na busca.",
-    "loading": "Cargando"
+    "loading": "Cargando",
+    "quick_action": "Acción rápida",
+    "install_app": "Instalar unha app"
 }
