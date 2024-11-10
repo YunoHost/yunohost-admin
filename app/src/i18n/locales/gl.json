@@ -121,7 +121,7 @@
     "confirm_upnp_disable": "Tes a certeza de querer desactivar UPnP?",
     "confirm_upnp_enable": "Tes a certeza de querer activar UPnP?",
     "confirm_update_specific_app": "Tes a certeza de querer actualizar {app}?",
-    "confirm_update_system": "Tes a certeza de querer actualizar tódolos paquetes do sistema?",
+    "confirm_update_system": "Tes a certeza de querer actualizar todos os paquetes do sistema?",
     "confirm_update_apps": "Tes a certeza de querer actualizar tódalas aplicacións?",
     "confirm_uninstall": "Tes a certeza de querer desinstalar {name}?",
     "confirm_service_stop": "Tes a certeza de querer deter {name}?",
@@ -315,7 +315,7 @@
     "operation_failed_explanation": "A operación fallou! Lamentámolo :( Podes intentar <a href='https://yunohost.org/help'>pedir axuda</a>. Proporciona o *rexistro completo* da operación ás persoas que che axuden. Podes facelo premendo no botón verde 'Compartir con Yunopaste'. Ao compartir o rexistro, YunoHost intentará de xeito automático eliminar e anonimizar datos privados como nomes de dominio e IPs.",
     "others": "Outras",
     "orphaned_details": "Esta app non ten mantemento desde hai tempo. Aínda podería funcionar, pero non recibirá melloras ata que algunha persoa voluntaria se ocupe dela. Anímate a colaborar e revivila!",
-    "system_packages_nothing": "Tódolos paquetes do sistema están ao día!",
+    "system_packages_nothing": "Todos os paquetes do sistema están actualizados!",
     "system_apps_nothing": "Tódalas apps están ao día!",
     "system": "Sistema",
     "stop": "Deter",
@@ -477,7 +477,7 @@
     "tools": "Ferramentas",
     "tip_about_user_email": "As usuarias créanse cun enderezo de email asociado (e conta XMPP) co formato usuaria{'@'}dominio.tld. Alias de email adicionais e reenvíos de email pódense engadir posteriormente por parte da administración e a usuaria.",
     "tcp": "TCP",
-    "system_upgrade_all_packages_btn": "Actualizar tódolos paquetes",
+    "system_upgrade_all_packages_btn": "Actualizar todos os paquetes",
     "system_upgrade_all_applications_btn": "Actualizar tódalas aplicacións",
     "system_upgrade_btn": "Actualizar",
     "system_update": "Actualización do sistema",
@@ -717,5 +717,7 @@
         }
     },
     "catalog_partial_search": "Intenta eliminar todos os criterios de filtro para ver se así aparece na busca.",
-    "loading": "Cargando"
+    "loading": "Cargando",
+    "quick_action": "Acción rápida",
+    "install_app": "Instalar unha app"
 }
