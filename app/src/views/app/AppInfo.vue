@@ -158,7 +158,7 @@ const fields = {
     rules: useArrayRule(() => form.value.labels, { label: { required } }),
   }),
   url: {
-    rules: { path: { required } },
+    rules: { domain: { required } },
   },
 }
 const { v } = useForm(form, fields)
