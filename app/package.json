@@ -20,7 +20,7 @@
     "@vuelidate/validators": "^2.0.4",
     "@vueuse/core": "^11.1.0",
     "bootstrap": "^5.3.3",
-    "bootstrap-vue-next": "^0.24.16",
+    "bootstrap-vue-next": "^0.25.13",
     "date-fns": "^4.0.0",
     "fork-awesome": "^1.2.0",
     "simple-evaluate": "^1.4.6",
