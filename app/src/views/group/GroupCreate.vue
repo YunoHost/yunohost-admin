@@ -32,7 +32,7 @@ const onAddGroup = onSubmit((onError) => {
     .post({
       uri: 'users/groups',
       cachePath: 'groups',
-      data: form,
+      data: form.value,
       humanKey: { key: 'groups.create', name: form.value.groupname },
     })
     .then(() => {
