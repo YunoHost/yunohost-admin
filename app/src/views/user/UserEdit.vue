@@ -58,7 +58,12 @@ const fields = reactive({
   username: {
     component: 'InputItem',
     label: t('user_username'),
-    cProps: { id: 'username', disabled: true },
+    cProps: {
+      id: 'username',
+      disabled: true,
+      autocapitalize: 'off',
+      spellcheck: 'false',
+    },
   } satisfies FieldProps<'InputItem', Form['username']>,
 
   fullname: {
@@ -68,6 +73,7 @@ const fields = reactive({
     cProps: {
       id: 'fullname',
       placeholder: t('placeholder.fullname'),
+      spellcheck: 'false',
     },
   } satisfies FieldProps<'InputItem', Form['fullname']>,
 

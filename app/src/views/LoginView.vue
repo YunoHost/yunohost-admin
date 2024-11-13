@@ -35,6 +35,8 @@ const fields = {
     cProps: {
       id: 'username',
       autocomplete: 'username',
+      autocapitalize: 'off',
+      spellcheck: 'false',
     },
   } satisfies FieldProps<'InputItem', Form['username']>,
 

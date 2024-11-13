@@ -48,6 +48,8 @@ const fields = {
     cProps: {
       id: 'username',
       placeholder: t('placeholder.username'),
+      autocapitalize: 'off',
+      spellcheck: 'false',
     },
   }) satisfies FieldProps<'InputItem', Form['username']>,
 
@@ -59,6 +61,7 @@ const fields = {
     cProps: {
       id: 'fullname',
       placeholder: t('placeholder.fullname'),
+      spellcheck: 'false',
     },
   } satisfies FieldProps<'InputItem', Form['fullname']>,
 
