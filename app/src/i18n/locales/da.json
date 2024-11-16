@@ -29,7 +29,8 @@
                 "shutdown": "Din server lukker ned og er ikke længere kontaktbar. Tænd for den igen og en loginprompt vil blive synlig så snart den atter er kontaktbar.",
                 "upgrade_system": "Forbindelsen til serveren er blevet lukket på grund af YunoHost opdatering. Venter på at kunne kontakte serveren igen…"
             },
-            "title": "Forsøger at kommunikere med serveren…"
+            "title": "Forsøger at kommunikere med serveren…",
+            "session_expired": "Serveren er tilgængelig nu, men din session er udløbet. Log ind igen."
         },
         "partial_logs": "[...] (se i historik for at finde hele loggen)"
     },
@@ -113,9 +114,33 @@
                 "true": "Kan installeres flere gange",
                 "false": "Kan kun installeres en gang"
             },
-            "resources": "Typisk ressourceforbrug: {ram} RAM, {disk} disk"
+            "resources": "Typisk ressourceforbrug: {ram} RAM, {disk} disk",
+            "sso": {
+                "false": "Single sign-on er ikke tilgængelig (SSO)",
+                "true": "Single sign-on er tilgængelig (SSO)",
+                "?": "Ingen information om SSO-integrering"
+            },
+            "title": "YunoHost integration"
         },
-        "installed_version": "Installerede version:"
+        "installed_version": "Installerede version:",
+        "open_this_app": "Åben applikationen",
+        "links": {
+            "package_license": "Licens til YunoHost-pakke",
+            "title": "Links",
+            "userdoc": "Officiel brugerdokumentation",
+            "website": "Officiel hjemmeside"
+        },
+        "potential_alternative_to": "Muligt alternativ til:",
+        "uninstall": {
+            "purge_desc": "Fjern data-mappen knyttet til app'en (det er typisk data du selv har tilføjet i app'en)."
+        },
+        "upgrade": {
+            "confirm": {
+                "apps": "Applikationer, det bliver opdateret",
+                "title": "Bekræft opdatering af apps"
+            },
+            "continue": "Fortsæt til næste app"
+        }
     },
     "api_waiting": "Venter på svar fra serveren…"
 }
