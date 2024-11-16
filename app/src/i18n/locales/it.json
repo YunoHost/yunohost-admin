@@ -301,14 +301,15 @@
         "domains": "nessun dominio | dominio | domini",
         "backups": "nessun backup | backup | backups",
         "apps": "nessuna app | app | apps",
-        "permissions": "nessun permesso | permesso | permessi"
+        "permissions": "nessun permesso | permesso | permessi",
+        "items": "Nessun elemento | elemento | elementi"
     },
     "history": {
         "methods": {
             "PUT": "modifica",
             "POST": "crea/esegui",
             "GET": "leggi",
-            "DELETE": "elimina"
+            "DELETE": "Elimina"
         },
         "last_action": "Ultima azione:",
         "title": "Cronologia",
@@ -334,12 +335,15 @@
         "pattern": "{type}",
         "maxValue": "Il valore deve essere un numero uguale o minore di {max}.",
         "invalid_form": "Il modulo contiene alcuni errori.",
-        "appRepoUrl": "Gli URL della repository delle app di YunoHost dovrebbero essere come https://dominio.tld/percorso/alla/repo_ynh"
+        "appRepoUrl": "Gli URL della repository delle app di YunoHost dovrebbero essere come https://dominio.tld/percorso/alla/repo_ynh",
+        "checked": "La casella dev’essere spuntata.",
+        "numValue": "Il valore dev’essere un numero"
     },
     "footer": {
         "donate": "Dona",
         "help": "Serve aiuto?",
-        "documentation": "Documentazione"
+        "documentation": "Documentazione",
+        "tos": "Termini di servizio"
     },
     "experimental": "Sperimentale",
     "error": "Errore",
@@ -392,7 +396,8 @@
                 "unknown": "La connessione al server è stata interrotta per ragioni sconosciute.",
                 "reboot": "Il tuo server si sta riavviando e non sarà raggiungibile per un po'. Il prompt per il login sarà disponibile non appena il server diventerà raggiungibile.",
                 "upgrade_system": "La connessione al server è stata chiusa per un aggiornamento di YunoHost. Attendi che il server sia nuovamente raggiungibile…"
-            }
+            },
+            "session_expired": "Ora il server è raggiungibile! Sembra però che la tua sessione sia scaduta, accedi di nuovo."
         }
     },
     "address": {
@@ -509,7 +514,7 @@
         "dns": {
             "push": "Invia records DNS al registrar",
             "push_force": "Sovrascivi records esistenti",
-            "push_force_confirm": "Sei sicuro di voler impostare tutti i records dns suggeriti? Sii consapevole che potresti sovrascrivere records predefiniti importanti o impostati manualmente da te o dal tuo registrar.",
+            "push_force_confirm": "Sei sicuro di voler impostare tutti i registri DNS suggeriti? Sii consapevole che potresti sovrascrivere registri predefiniti importanti o impostati manualmente da te o dal tuo registrar.",
             "auto_config": "Configurazione automatica dei records DNS",
             "auto_config_ignored": "ignorato, non verrà cambiato da YunoHost a meno che non selezioni l'opzione di sovrascrittura",
             "auto_config_ok": "La configurazione automatica sembra essere a posto!",
@@ -538,9 +543,11 @@
             "from_local": "Voglio un dominio per uso locale/solo test",
             "from_yunohost_desc": "Il progetto YunoHost mantiene un servizio “DynDNS” gratuito. È limitato a un dominio per server (anche se puoi anche aggiungere sottodomini successivamente, usando l’opzione “Aggiungi un dominio o un sottodominio che possiedo” qui sopra). La configurazione DNS sarà gestita da YunoHost. Quest’opzione è l’ideale per esordire nel self-hosting e se non vuoi investire in un nome dominio per il momento. Tuttavia, nel medio/lungo termine raccomandiamo di acquistare il tuo nome dominio da un registrar, per avere un controllo completo del tuo dominio.",
             "from_local_desc": "Se non vuoi un “vero” nome di dominio pubblico, puoi usare qualunque cosa che termini con <code>.local</code> o <code>.test</code>. I nomi dominio che terminano con <code>.local</code> sono speciali perché possono essere risolti automaticamente dal network locale, assumendo che i client supportino il protocollo Bonjour. Alternativamente potresti dover modificare il file <code>/etc/hosts</code> (o l’equivalente di Windows) su ogni client da cui desideri utilizzare questo dominio, o dover configurare parametri DNS locali sul tuo router internet.",
-            "from_registrar": "Vorrei aggiungere un dominio o un sottodominio che possiedo",
+            "from_registrar": "Vorrei aggiungere un dominio che possiedo",
             "from_registrar_desc": "Dovrai configurare manualmente i registri DNS sul tuo registrar per finalizzare la configurazione di questo dominio. La diagnosi di YunoHost ti guiderà per individuare quali registri DNS devi configurare.",
-            "from_yunohost": "Non possiedo un dominio, voglio registrare/usare un dominio DynDNS gratuito, offerto dal progetto YunoHost"
+            "from_yunohost": "Non possiedo un dominio, voglio registrare/usare un dominio DynDNS gratuito, offerto dal progetto YunoHost",
+            "from_subdomain_desc": "Se il tuo registro DNS configurato lo permette, potrai installare un certificato Let’s Encrypt automaticamente.",
+            "from_subdomain": "Vorrei aggiungere un sottodominio per un dominio già aggiunto"
         },
         "toggle_subdomains": "Attiva o disattiva i sottodomini",
         "types": {
@@ -555,7 +562,8 @@
                 "selfsigned": "Auto-verificato",
                 "other": "Altro/Sconosciuto",
                 "letsencrypt": "Let’s Encrypt"
-            }
+            },
+            "install": "Installa anche un certificato Let’s Encrypt"
         },
         "see_parent_domain": "Vedi il dominio genitore"
     },
@@ -680,7 +688,8 @@
         "potential_alternative_to": "Potenziale alternativa a:",
         "uninstall": {
             "purge_desc": "Rimuovi la directory dei dati associati all’app (solitamente, si tratta di dati che hai caricato tu stessə usando l’app)."
-        }
+        },
+        "upvote": "Se vuoi portare più attenzione su quest’applicazione, puoi votarla [nella sua pagina del catalogo](https://apps.yunohost.org/app/{id})."
     },
     "wrong_password_or_username": "Password o username sbagliati",
     "manage_groups": "Gestisci i gruppi",
@@ -690,5 +699,25 @@
     "group_explain_admins": "Questo è un gruppo speciale, che corrisponde agli utenti amministratori. Gli utenti di questo gruppo possono accedere all’interfaccia di amministrazione web di YunoHost, connettersi al server tramite SSH e usare il comando `sudo`. Inoltre, ricevono le email inviate a root{'@'}, admin{'@'} e admins{'@'}, come le notifiche di diagnosi. Dovresti aggiungere a questo gruppo solo persone di cui ti fidi completamente!",
     "group_admins": "Amministratori",
     "important_yunohost_upgrade": "Un importante aggiornamento di YunoHost è importante. È fortemente raccomandato di leggere attentamente le note di rilascio sul forum, prima di aggiornare: <a href='https://forum.yunohost.org/tag/ynh_release'>Visita le note di rilascio sul forum</a>",
-    "label_for_manifestname_help": "Questo è il nome mostrato nel portale dell’utente. Potrà essere cambiato in seguito."
+    "label_for_manifestname_help": "Questo è il nome mostrato nel portale dell’utente. Potrà essere cambiato in seguito.",
+    "loading": "Caricamento",
+    "quick_action": "Azione veloce",
+    "tos": {
+        "acknowledgement": "Riconoscimento dei termini di servizio",
+        "i_agree": "Accetto",
+        "i_have_read": "Ho letto e comprendo i <a href='https://yunohost.org/terms_of_services' target='_blank'>termini di servizio</a>",
+        "postinstall_acknowledgement": "Il progetto YunoHost è composto da una squadra di volontari che portano avanti la causa comune di un sistema operativo libero per server, chiamato YunoHost. Il software YunoHost è pubblicato con [la licenza AGPLv3](https://www.gnu.org/licenses/agpl-3.0.txt). In connessione a questo software, il progetto amministra e rende disponibili diversi servizi tecnici e di comunità per varie finalità. Usando questi servizi, accetti di essere soggettə ai seguenti [termini di servizio](https://yunohost.org/terms_of_services)."
+    },
+    "groups": {
+        "remove_user": {
+            "confirm_from_admins": "Sei sicurə di voler rimuovere te stessə dal gruppo “admins”?"
+        }
+    },
+    "install_app": "Installa un’app",
+    "form": {
+        "current_file": "File attuale:",
+        "select_one": "Scegli un’opzione"
+    },
+    "catalog_partial_search": "Prova a rimuovere tutti i criteri per vedere se l’app che stai cercando è disponibile.",
+    "catalog_wishlist": "Sembra che l’app che stai cercando non sia disponibile nel catalogo.\n Puoi proporla nella [lista delle app desiderate](https://apps.yunohost.org/wishlist?search={search}), o votarla se c’è già."
 }
