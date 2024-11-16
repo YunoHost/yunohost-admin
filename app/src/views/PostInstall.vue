@@ -52,14 +52,23 @@ const fields = {
     component: 'InputItem',
     label: t('user_username'),
     rules: { required, alphalownumdot_ },
-    cProps: { id: 'username', placeholder: t('placeholder.username') },
+    cProps: {
+      id: 'username',
+      placeholder: t('placeholder.username'),
+      autocapitalize: 'off',
+      spellcheck: 'false',
+    },
   } satisfies FieldProps<'InputItem', Form['username']>,
 
   fullname: {
     component: 'InputItem',
     label: t('user_fullname'),
     rules: { required, name },
-    cProps: { id: 'fullname', placeholder: t('placeholder.fullname') },
+    cProps: {
+      id: 'fullname',
+      placeholder: t('placeholder.fullname'),
+      spellcheck: 'false',
+    },
   } satisfies FieldProps<'InputItem', Form['fullname']>,
 
   password: {
