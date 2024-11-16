@@ -1,6 +1,7 @@
 <h1 align="center">YunoHost Admin</h1>
 
 <div align="center">
+  
 ![Version](https://img.shields.io/github/v/tag/yunohost/yunohost-admin?label=version&sort=semver)
 [![Tests status](https://github.com/YunoHost/yunohost-admin/actions/workflows/eslint.yml/badge.svg)](https://github.com/YunoHost/yunohost-admin/actions/workflows/eslint.yml)
 [![Project license](https://img.shields.io/gitlab/license/yunohost/yunohost)](https://github.com/YunoHost/yunohost/blob/dev/LICENSE)
