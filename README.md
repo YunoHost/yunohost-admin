@@ -11,7 +11,7 @@
 This client is a part of the YunoHost project, and can not be installed directly.  
 Please visit the YunoHost website for [installation instructions](https://yunohost.org/install).
 
-![Web admin insterface screenshot](./doc/home.png)
+![Web admin insterface screenshot](./doc/admin_home_light.jpg)
 </div>
 
 ## Issues
