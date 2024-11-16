@@ -6,7 +6,7 @@
 [![Tests status](https://github.com/YunoHost/yunohost-admin/actions/workflows/eslint.yml/badge.svg)](https://github.com/YunoHost/yunohost-admin/actions/workflows/eslint.yml)
 [![Project license](https://img.shields.io/gitlab/license/yunohost/yunohost)](https://github.com/YunoHost/yunohost/blob/dev/LICENSE)
 
-[YunoHost logo](https://yunohost.org) administration web interface (VueJS client for the API).
+[YunoHost](https://yunohost.org) administration web interface (VueJS client for the API).
 
 This client is a part of the YunoHost project, and can not be installed directly.  
 Please visit the YunoHost website for [installation instructions](https://yunohost.org/install).
