@@ -1,4 +1,15 @@
 {
     "password": "Jelszó",
-    "ok": "Rendben"
+    "ok": "Rendben",
+    "add": "Hozzáadás",
+    "action": "Művelet",
+    "address": {
+        "domain_description": {
+            "domain": "Válassz domaint!",
+            "email": "Válassz domaint az emailedhez!"
+        },
+        "local_part_description": {
+            "domain": "Válassz aldomaint!"
+        }
+    }
 }
