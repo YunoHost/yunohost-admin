@@ -1,3 +1,16 @@
+yunohost-admin (12.0.4) stable; urgency=low
+
+  - Rework 'quick add' menu to improve item naming consistency (c4b534ce)
+  - Fix change_url not working ([#596](http://github.com/YunoHost/yunohost-admin/pull/596))
+  - Fix adding new group not working ([#596](http://github.com/YunoHost/yunohost-admin/pull/596))
+  - Fix other buttons not working ([#596](http://github.com/YunoHost/yunohost-admin/pull/596))
+  - forms: disable autocapitalize for usernames & spellcheck for username… ([#597](http://github.com/YunoHost/yunohost-admin/pull/597))
+  - i18n: Translations updated for Basque, Chinese (Simplified), Danish, English, French, Galician, Hindi, Hungarian, Italian, Turkish
+
+  Thanks to all contributors <3 ! (Andreas Gammelgaard Damsbo, Atalay Daban, axolotle, Edward A, Éric Gaspar, José M, Norbi Peti, OniriCorpe, Poesty Li, puffious, tituspijean, Tommi, xabirequejo)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Wed, 27 Nov 2024 12:00:17 +0100
+
 yunohost-admin (12.0.3.5) stable; urgency=low
 
   - Stable release for YunoHost 12
