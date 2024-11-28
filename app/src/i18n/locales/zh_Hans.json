@@ -78,7 +78,7 @@
         "is_empty": "暂无历史记录。"
     },
     "permissions": "权限",
-    "group_add": "新建群组",
+    "group_add": "添加群组",
     "group_add_member": "添加用户",
     "group_visitors": "访客",
     "group_all_users": "所有用户",
@@ -466,7 +466,7 @@
     "warnings": "{count} 个警告",
     "version": "版本",
     "users_no": "没有用户。",
-    "users_add": "新用户",
+    "users_add": "添加用户",
     "users": "用户",
     "user_username_edit": "编辑 {name} 的账号",
     "user_username": "用户名",
@@ -717,5 +717,7 @@
         "i_agree": "我同意",
         "i_have_read": "我已阅读并理解<a href='https://yunohost.org/terms_of_services' target='_blank'>服务条款</a>",
         "postinstall_acknowledgement": "YunoHost 项目是一个由志愿者组成的团队，其共同目标是创建一个名为 YunoHost 的自由服务器操作系统。YunoHost 软件根据[AGPLv3 许可证](https://www.gnu.org/licenses/agpl-3.0.txt)发布。与此软件相关，此项目管理并提供多种用于各种目的的技术和社区服务。使用这些服务，即表示您同意受以下[服务条款](https://yunohost.org/terms_of_services)的约束。"
-    }
+    },
+    "install_app": "安装应用",
+    "quick_action": "快捷操作"
 }
