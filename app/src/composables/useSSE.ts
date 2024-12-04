@@ -1,6 +1,8 @@
 import { createGlobalState } from '@vueuse/core'
 import { ref } from 'vue'
 
+import { STATUS_VARIANT, isOkStatus } from '@/helpers/yunohostArguments'
+import type { StateStatus } from '@/types/commons'
 import {
   useRequests,
   type APIRequest,
@@ -87,7 +89,24 @@ export const useSSE = createGlobalState(() => {
       // End request on this last message if the action was external
       // (else default http response will end it)
       endRequest({ request, success: data.success, showError: !!data.errormsg })
-    } 
+    } else if (data.type === 'msg') {
+      let text = data.msg.replaceAll('\n', '<br>')
+      const progressBar = text.match(/^\[#*\+*\.*\] > /)?.[0]
+      if (progressBar) {
+        text = text.replace(progressBar, '')
+        const progress: Record<string, number> = { '#': 0, '+': 0, '.': 0 }
+        for (const char of progressBar) {
+          if (char in progress) progress[char] += 1
+        }
+        request.action.progress = Object.values(progress)
+      }
+
+      request.action.messages.push({
+        text,
+        variant: STATUS_VARIANT[data.level],
+      })
+
+      if (!isOkStatus(data.level)) request.action[`${data.level}s`]++
     }
   }
 
