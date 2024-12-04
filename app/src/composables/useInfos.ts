@@ -144,7 +144,7 @@ export const useInfos = createGlobalState(() => {
 
   async function _onLogin() {
     // If the user is not connected, the first action will throw
-    // and login prompt will be shown automaticly
+    // and login prompt will be shown automatically
     await getYunoHostVersion()
     connected.value = true
     await api.get({ uri: 'domains', cachePath: 'domains' })
