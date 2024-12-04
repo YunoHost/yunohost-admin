@@ -23,6 +23,8 @@ export type APIRequest = {
   showModalTimeout?: number
 }
 type APIActionProps = {
+  external: boolean
+  operationId?: string
   messages: RequestMessage[]
   errors: number
   warnings: number
@@ -54,7 +56,7 @@ export const useRequests = createGlobalState(() => {
     return requests.value.find((r) => r.showModal)
   })
   const locked = computed(() => currentRequest.value?.showModal)
-  const historyList = computed<APIRequest[]>(() => {
+  const historyList = computed<(APIRequest | APIRequestAction)[]>(() => {
     return requests.value
       .filter((r) => !!r.action || !!r.err)
       .reverse() as APIRequestAction[]
@@ -67,8 +69,9 @@ export const useRequests = createGlobalState(() => {
     method,
     uri,
     initial = false,
-    websocket = true,
+    isAction = true,
     showModal = true,
+    external = false,
   }: {
     id: string
     title: string
@@ -76,9 +79,10 @@ export const useRequests = createGlobalState(() => {
     method?: RequestMethod
     uri?: string
     showModal?: boolean
-    websocket?: boolean
+    isAction?: boolean
     initial?: boolean
-  }): APIRequest {
+    external?: boolean
+  }): APIRequest | APIRequestAction {
     const request: APIRequest = reactive({
       id,
       title,
@@ -89,8 +93,10 @@ export const useRequests = createGlobalState(() => {
       initial,
       showModal: false,
       err: undefined,
-      action: websocket
+      action: isAction
         ? {
+            external,
+            operationId: undefined,
             messages: [],
             warnings: 0,
             errors: 0,
@@ -117,7 +123,7 @@ export const useRequests = createGlobalState(() => {
     success,
     showError = false,
   }: {
-    request: APIRequest
+    request: APIRequest | APIRequestAction
     success: boolean
     showError?: boolean
   }) {

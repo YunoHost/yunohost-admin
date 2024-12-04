@@ -34,7 +34,7 @@ export type APIQuery = {
   humanKey?: string | HumanKey
   showModal?: boolean
   ignoreError?: boolean
-  websocket?: boolean
+  isAction?: boolean
   initial?: boolean
   asFormData?: boolean
 }
@@ -98,7 +98,7 @@ export default {
    * @param data - Data to send as body
    * @param humanKey - Key and eventually some data to build the query's description
    * @param showModal - Lock view and display the waiting modal
-   * @param websocket - Open a websocket connection to receive server messages
+   * @param isAction - Expects to receive server messages
    * @param initial - If an error occurs, the dismiss button will trigger a go back in history
    * @param asFormData - Send the data with a body encoded as `"multipart/form-data"` instead of `"x-www-form-urlencoded"`)
    *
@@ -113,7 +113,7 @@ export default {
     humanKey = undefined,
     showModal = method !== 'GET',
     ignoreError = false,
-    websocket = method !== 'GET',
+    isAction = method !== 'GET',
     initial = false,
     asFormData = true,
   }: APIQuery): Promise<T> {
@@ -141,9 +141,9 @@ export default {
       date: Date.now(),
       initial,
       showModal,
-      websocket,
+      isAction,
     })
-    if (websocket) {
+    if (isAction) {
       await openWebSocket(request as APIRequestAction)
     }
 
