@@ -4,11 +4,7 @@
  */
 
 import errors from '@/api/errors'
-import { useInfos } from '@/composables/useInfos'
-import type { APIRequest, APIRequestAction } from '@/composables/useRequests'
-import { toEntries } from '@/helpers/commons'
-import { STATUS_VARIANT, isOkStatus } from '@/helpers/yunohostArguments'
-import type { StateStatus, Obj } from '@/types/commons'
+import type { APIRequest } from '@/composables/useRequests'
 import type { APIErrorData } from './api'
 
 /**
@@ -25,46 +21,6 @@ export async function getResponseData<T>(response: Response): Promise<T> {
   } catch {
     return responseText as T
   }
-}
-
-/**
- * Opens a WebSocket connection to the server in case it sends messages.
- * Currently, the connection is closed by the server right after an API call so
- * we have to open it for every calls.
- * Messages are dispatch to the store so it can handle them.
- *
- * @param request - Request info data.
- * @returns Promise that resolve on websocket 'open' or 'error' event.
- */
-export function openWebSocket(request: APIRequestAction): Promise<Event> {
-  const { host } = useInfos()
-  return new Promise((resolve) => {
-    const ws = new WebSocket(`wss://${host.value}/yunohost/api/messages`)
-    ws.onmessage = ({ data }) => {
-      const messages: Record<StateStatus, string> = JSON.parse(data)
-      toEntries(messages).forEach(([status, text]) => {
-        text = text.replaceAll('\n', '<br>')
-        const progressBar = text.match(/^\[#*\+*\.*\] > /)?.[0]
-        if (progressBar) {
-          text = text.replace(progressBar, '')
-          const progress: Obj<number> = { '#': 0, '+': 0, '.': 0 }
-          for (const char of progressBar) {
-            if (char in progress) progress[char] += 1
-          }
-          request.action.progress = Object.values(progress)
-        }
-        request.action.messages.push({
-          text,
-          variant: STATUS_VARIANT[status],
-        })
-        if (!isOkStatus(status)) request.action[`${status}s`]++
-      })
-    }
-    // ws.onclose = (e) => {}
-    ws.onopen = resolve
-    // Resolve also on error so the actual fetch may be called.
-    ws.onerror = resolve
-  })
 }
 
 /**
