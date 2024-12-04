@@ -189,7 +189,7 @@
     "both": "Both",
     "cancel": "Cancel",
     "catalog": "Catalog",
-    "catalog_partial_search": "Try to remove all criterias to see if the app you're searching for is available.",
+    "catalog_partial_search": "Try to remove all criteria to see if the app you're searching for is available.",
     "catalog_wishlist": "Looks like the app you're searching for is not yet available in the catalog.\n You can propose it in the [apps wishlist](https://apps.yunohost.org/wishlist?search={search}) or vote for it if it is already there.",
     "certificate": "Certificate",
     "certificate_manage": "Manage SSL certificate",
@@ -252,7 +252,7 @@
             "from_registrar": "I want to add a domain I own",
             "from_registrar_desc": "You will need to manually configure DNS records on your registrar to finalize this domain's configuration. YunoHost's diagnosis will guide you about what DNS records to configure exactly.",
             "from_subdomain": "I want to add a subdomain of an already added domain",
-            "from_subdomain_desc": "If your configured DNS records allows it, you will be able to automaticly install Let's Encrypt certificate.",
+            "from_subdomain_desc": "If your configured DNS records allows it, you will be able to automatically install Let's Encrypt certificate.",
             "from_yunohost": "I don't own a domain, I want to register/use a free DynDNS domain provided by the YunoHost project",
             "from_yunohost_desc": "The YunoHost project maintains a free 'DynDNS' service. It is limited to one such domain per server (though you can also add sub-domains later using the other 'Add a domain I own, or a subdomain' option above). The DNS configuration will be automatically handled by YunoHost. This is ideal when starting up with self-hosting in general and you don't want to invest in a domain name yet. However, on the medium/long-term, we recommend buying your very own domain name to some registrar to have full ownership of your domain."
         },
