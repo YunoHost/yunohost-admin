@@ -1,3 +1,5 @@
+import { v4 as uuid } from 'uuid'
+
 import { useCache, type StorePath } from '@/composables/data'
 import { useInfos } from '@/composables/useInfos'
 import {
@@ -6,6 +8,8 @@ import {
   type ReconnectingArgs,
 } from '@/composables/useRequests'
 import { useSettings } from '@/composables/useSettings'
+import { isObjectLiteral } from '@/helpers/commons'
+import i18n from '@/i18n'
 import type { Obj } from '@/types/commons'
 import {
   APIBadRequestError,
@@ -23,8 +27,8 @@ export type HumanKey = {
 }
 
 export type APIQuery = {
-  method?: RequestMethod
   uri: string
+  method?: RequestMethod
   cachePath?: StorePath
   data?: Obj
   humanKey?: string | HumanKey
@@ -121,10 +125,20 @@ export default {
     const { locale } = useSettings()
     const { startRequest, endRequest } = useRequests()
 
+    // Try to find a description for an API route to display in history and modals
+    const { key, ...args } = isObjectLiteral(humanKey)
+      ? humanKey
+      : { key: humanKey }
+    const title = key
+      ? i18n.global.t(`human_routes.${key}`, args)
+      : `[${method}] /${uri.split('?')[0]}`
+
     const request = startRequest({
+      id: uuid(),
+      title,
       method,
       uri,
-      humanKey,
+      date: Date.now(),
       initial,
       showModal,
       websocket,

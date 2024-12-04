@@ -1,25 +1,22 @@
 import { createGlobalState } from '@vueuse/core'
-import { v4 as uuid } from 'uuid'
 import { computed, reactive, ref, shallowRef } from 'vue'
 import { useRouter } from 'vue-router'
 
-import type { APIQuery, RequestMethod } from '@/api/api'
+import type { RequestMethod } from '@/api/api'
 import { APIErrorLog, type APIError } from '@/api/errors'
-import { isObjectLiteral } from '@/helpers/commons'
-import i18n from '@/i18n'
 import type { StateVariant } from '@/types/commons'
 import { useInfos } from './useInfos'
 
 export type RequestStatus = 'pending' | 'success' | 'warning' | 'error'
 
 export type APIRequest = {
-  status: RequestStatus
-  method: RequestMethod
-  uri: string
   id: string
-  humanRoute: string
-  initial: boolean
+  title: string
   date: number
+  method?: RequestMethod
+  uri?: string
+  status: RequestStatus
+  initial: boolean
   err?: APIError
   action?: APIActionProps
   showModal?: boolean
@@ -64,37 +61,33 @@ export const useRequests = createGlobalState(() => {
   })
 
   function startRequest({
-    uri,
+    id,
+    title,
+    date,
     method,
-    humanKey,
-    initial,
-    websocket,
-    showModal,
+    uri,
+    initial = false,
+    websocket = true,
+    showModal = true,
   }: {
-    uri: string
-    method: RequestMethod
-    humanKey?: APIQuery['humanKey']
-    showModal: boolean
-    websocket: boolean
-    initial: boolean
+    id: string
+    title: string
+    date: number
+    method?: RequestMethod
+    uri?: string
+    showModal?: boolean
+    websocket?: boolean
+    initial?: boolean
   }): APIRequest {
-    // Try to find a description for an API route to display in history and modals
-    const { key, ...args } = isObjectLiteral(humanKey)
-      ? humanKey
-      : { key: humanKey }
-    const humanRoute = key
-      ? i18n.global.t(`human_routes.${key}`, args)
-      : `[${method}] /${uri.split('?')[0]}`
-
     const request: APIRequest = reactive({
+      id,
+      title,
+      date,
       method,
       uri,
       status: 'pending',
-      humanRoute,
       initial,
       showModal: false,
-      id: uuid(),
-      date: Date.now(),
       err: undefined,
       action: websocket
         ? {

@@ -30,7 +30,7 @@ const hour = computed(() => {
 
     <!-- tabindex 0 on title for focus-trap when no tabable elements -->
     <strong :tabindex="type === 'overlay' ? 0 : undefined">
-      {{ request.humanRoute }}
+      {{ request.title }}
     </strong>
 
     <div v-if="errors || warnings">

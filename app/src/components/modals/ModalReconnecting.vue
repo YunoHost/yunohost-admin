@@ -15,12 +15,12 @@ const emit = defineEmits<{
 }>()
 
 const request = reactive<{
-  humanRoute: APIRequest['humanRoute']
+  title: APIRequest['title']
   status: APIRequest['status']
   subStatus?: 'expired' | 'failed'
 }>({
   status: 'pending',
-  humanRoute: 'reconnecting',
+  title: 'reconnecting',
 })
 
 function tryToReconnect() {
