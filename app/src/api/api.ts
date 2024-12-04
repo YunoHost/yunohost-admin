@@ -2,11 +2,7 @@ import { v4 as uuid } from 'uuid'
 
 import { useCache, type StorePath } from '@/composables/data'
 import { useInfos } from '@/composables/useInfos'
-import {
-  useRequests,
-  type APIRequestAction,
-  type ReconnectingArgs,
-} from '@/composables/useRequests'
+import { useRequests, type ReconnectingArgs } from '@/composables/useRequests'
 import { useSettings } from '@/composables/useSettings'
 import { isObjectLiteral } from '@/helpers/commons'
 import i18n from '@/i18n'
@@ -17,7 +13,7 @@ import {
   APIUnauthorizedError,
   type APIError,
 } from './errors'
-import { getError, getResponseData, openWebSocket } from './handlers'
+import { getError, getResponseData } from './handlers'
 
 export type RequestMethod = 'GET' | 'POST' | 'PUT' | 'DELETE'
 
@@ -143,11 +139,11 @@ export default {
       showModal,
       isAction,
     })
-    if (isAction) {
-      await openWebSocket(request as APIRequestAction)
-    }
 
     let options = { ...this.options }
+    Object.assign(options.headers!, {
+      ref_id: request.id,
+    })
     if (method === 'GET') {
       uri += `${uri.includes('?') ? '&' : '?'}locale=${locale.value}`
     } else {

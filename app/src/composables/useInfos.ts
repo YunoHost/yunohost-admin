@@ -14,6 +14,7 @@ import { timeout } from '@/helpers/commons'
 import i18n from '@/i18n'
 import { useDomains } from './data'
 import { useRequests, type ReconnectingArgs } from './useRequests'
+import { useSSE } from './useSSE'
 
 type BreadcrumbRoutes = {
   name: RouteRecordNameGeneric
@@ -150,6 +151,7 @@ export const useInfos = createGlobalState(() => {
     await getYunoHostVersion()
     connected.value = true
     await api.get({ uri: 'domains', cachePath: 'domains' })
+    useSSE().init()
   }
 
   function onLogout(route?: RouteLocationNormalizedLoaded) {
