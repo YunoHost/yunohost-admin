@@ -9,14 +9,14 @@ import {
   type APIRequestAction,
 } from './useRequests'
 
-export type SSEEventDataStart = {
+type SSEEventDataStart = {
   type: 'start'
   timestamp: number
   ref_id: string
   operation_id: string
 }
 
-export type SSEEventDataEnd = {
+type SSEEventDataEnd = {
   type: 'end'
   timestamp: number
   ref_id: string
@@ -25,7 +25,7 @@ export type SSEEventDataEnd = {
   errormsg?: string
 }
 
-export type SSEEventDataMsg = {
+type SSEEventDataMsg = {
   type: 'msg'
   timestamp: number
   ref_id: string
@@ -34,16 +34,26 @@ export type SSEEventDataMsg = {
   msg: string
 }
 
-export type SSEEventDataHeartbeat = {
+type SSEEventDataHistory = {
+  type: 'recent_history'
+  operation_id: string
+  started_at: number
+  success: boolean
+}
+
+type SSEEventDataHeartbeat = {
   type: 'heartbeat'
   timestamp: number
   operation_id: string | null
 }
 
-export type AnySSEEventData =
+type AnySSEEventDataAction =
   | SSEEventDataStart
   | SSEEventDataEnd
   | SSEEventDataMsg
+type AnySSEEventData =
+  | AnySSEEventDataAction
+  | SSEEventDataHistory
   | SSEEventDataHeartbeat
 
 export const useSSE = createGlobalState(() => {
