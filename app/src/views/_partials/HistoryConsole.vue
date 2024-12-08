@@ -175,9 +175,21 @@ function onHistoryBarClick(e: MouseEvent) {
             />
           </template>
           <MessageListGroup
-            v-if="request.action"
+            v-if="request.action && request.action.messages.length"
             :messages="request.action.messages"
           />
+          <YListGroupItem v-else size="xs" variant="info">
+            {{ $t('history.no_logs') }}
+            <BLink
+              v-if="request.action?.operationId"
+              :to="{
+                name: 'tool-log',
+                params: { name: request.action?.operationId },
+              }"
+            >
+              {{ $t('history.check_logs') }}
+            </BLink>
+          </YListGroupItem>
         </BAccordionItem>
       </BAccordion>
     </BCollapse>

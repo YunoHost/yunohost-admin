@@ -390,6 +390,7 @@
     "groups_and_permissions": "Groups and permissions",
     "groups_and_permissions_manage": "Manage groups and permissions",
     "history": {
+        "check_logs": "Go to operation's log page.",
         "is_empty": "Nothing in history for now.",
         "last_action": "Last action:",
         "methods": {
@@ -398,6 +399,7 @@
             "POST": "create/execute",
             "PUT": "modify"
         },
+        "no_logs": "No available logs.",
         "title": "History"
     },
     "home": "Home",

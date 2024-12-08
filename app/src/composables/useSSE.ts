@@ -2,6 +2,7 @@ import { createGlobalState } from '@vueuse/core'
 import { ref } from 'vue'
 
 import { STATUS_VARIANT, isOkStatus } from '@/helpers/yunohostArguments'
+import i18n from '@/i18n'
 import type { StateStatus } from '@/types/commons'
 import {
   useRequests,
@@ -60,6 +61,11 @@ function isActionEvent(data: AnySSEEventData): data is AnySSEEventDataAction {
   return ['start', 'msg', 'end'].includes(data.type)
 }
 
+function parseOperationId(operationId: string) {
+  const [action, ...params] = operationId.substring(16).split('-')
+  return i18n.global.t('human_routes.' + action.replace('_', '.'), params)
+}
+
 export const useSSE = createGlobalState(() => {
   const sseSource = ref<EventSource | null>(null)
   const { startRequest, endRequest, historyList } = useRequests()
@@ -74,6 +80,7 @@ export const useSSE = createGlobalState(() => {
     sse.onmessage = (event) => {
       const data: AnySSEEventData = JSON.parse(atob(event.data))
       if (isActionEvent(data)) onActionEvent(data)
+      if (data.type === 'recent_history') onHistoryEvent(data)
     }
 
     sse.onerror = (event) => {
@@ -89,7 +96,7 @@ export const useSSE = createGlobalState(() => {
     if (!request) {
       request = startRequest({
         id: data.ref_id,
-        title: 'external_operation',
+        title: parseOperationId(data.operation_id),
         date: data.timestamp,
         external: true,
       }) as APIRequestAction
@@ -120,6 +127,17 @@ export const useSSE = createGlobalState(() => {
 
       if (!isOkStatus(data.level)) request.action[`${data.level}s`]++
     }
+  }
+
+  function onHistoryEvent(data: SSEEventDataHistory) {
+    startRequest({
+      id: data.operation_id,
+      title: parseOperationId(data.operation_id),
+      date: data.started_at,
+      showModal: false,
+      external: true,
+      status: data.success ? 'success' : 'error',
+    })
   }
 
   return { init }

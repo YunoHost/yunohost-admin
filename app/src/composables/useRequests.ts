@@ -72,6 +72,7 @@ export const useRequests = createGlobalState(() => {
     isAction = true,
     showModal = true,
     external = false,
+    status = 'pending',
   }: {
     id: string
     title: string
@@ -82,6 +83,7 @@ export const useRequests = createGlobalState(() => {
     isAction?: boolean
     initial?: boolean
     external?: boolean
+    status?: APIRequest['status']
   }): APIRequest | APIRequestAction {
     const request: APIRequest = reactive({
       id,
@@ -89,14 +91,15 @@ export const useRequests = createGlobalState(() => {
       date,
       method,
       uri,
-      status: 'pending',
+      status,
       initial,
       showModal: false,
       err: undefined,
       action: isAction
         ? {
             external,
-            operationId: undefined,
+            // in case of recent history entry
+            operationId: external && status !== 'pending' ? id : undefined,
             messages: [],
             warnings: 0,
             errors: 0,
