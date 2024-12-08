@@ -56,6 +56,10 @@ type AnySSEEventData =
   | SSEEventDataHistory
   | SSEEventDataHeartbeat
 
+function isActionEvent(data: AnySSEEventData): data is AnySSEEventDataAction {
+  return ['start', 'msg', 'end'].includes(data.type)
+}
+
 export const useSSE = createGlobalState(() => {
   const sseSource = ref<EventSource | null>(null)
   const { startRequest, endRequest, historyList } = useRequests()
@@ -68,8 +72,8 @@ export const useSSE = createGlobalState(() => {
     }
 
     sse.onmessage = (event) => {
-      const data = JSON.parse(atob(event.data))
-      onSSEMessage(data)
+      const data: AnySSEEventData = JSON.parse(atob(event.data))
+      if (isActionEvent(data)) onActionEvent(data)
     }
 
     sse.onerror = (event) => {
@@ -77,9 +81,7 @@ export const useSSE = createGlobalState(() => {
     }
   }
 
-  function onSSEMessage(data: AnySSEEventData) {
-    if (data.type === 'heartbeat') return // FIXME handle heartbeat msg
-
+  function onActionEvent(data: AnySSEEventDataAction) {
     let request = historyList.value.findLast(
       (r: APIRequest) => r.id === data.ref_id,
     ) as APIRequestAction | undefined
