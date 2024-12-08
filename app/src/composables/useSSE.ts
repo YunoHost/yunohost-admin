@@ -45,7 +45,7 @@ type SSEEventDataHistory = {
 type SSEEventDataHeartbeat = {
   type: 'heartbeat'
   timestamp: number
-  operation_id: string | null
+  current_operation: string | null
 }
 
 type AnySSEEventDataAction =
@@ -80,6 +80,7 @@ export const useSSE = createGlobalState(() => {
     sse.onmessage = (event) => {
       const data: AnySSEEventData = JSON.parse(atob(event.data))
       if (isActionEvent(data)) onActionEvent(data)
+      if (data.type === 'heartbeat') onHeartbeatEvent(data)
       if (data.type === 'recent_history') onHistoryEvent(data)
     }
 
@@ -126,6 +127,22 @@ export const useSSE = createGlobalState(() => {
       })
 
       if (!isOkStatus(data.level)) request.action[`${data.level}s`]++
+    }
+  }
+
+  function onHeartbeatEvent(data: SSEEventDataHeartbeat) {
+    if (data.current_operation === null) {
+      // An action may have failed without properly exiting
+      // Ensure that there's no pending external request blocking the view
+      // if server says that there's no current action
+      const request = historyList.value.findLast(
+        (r: APIRequest) =>
+          r.action?.external === true && r.status === 'pending',
+      ) as APIRequestAction | undefined
+
+      if (request) {
+        endRequest({ request, success: false, showError: false })
+      }
     }
   }
 
