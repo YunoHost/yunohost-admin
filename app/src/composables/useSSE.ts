@@ -68,6 +68,7 @@ function parseOperationId(operationId: string) {
 
 export const useSSE = createGlobalState(() => {
   const sseSource = ref<EventSource | null>(null)
+  const reconnectTimeout = ref<number | undefined>()
   const { startRequest, endRequest, historyList } = useRequests()
 
   function init() {
@@ -86,7 +87,15 @@ export const useSSE = createGlobalState(() => {
 
     sse.onerror = (event) => {
       console.error('SSE error', event)
+      tryToReconnect(5000)
     }
+  }
+
+  function tryToReconnect(delay: number) {
+    reconnectTimeout.value = window.setTimeout(() => {
+      sseSource.value!.close()
+      init()
+    }, delay)
   }
 
   function onActionEvent(data: AnySSEEventDataAction) {
@@ -131,6 +140,8 @@ export const useSSE = createGlobalState(() => {
   }
 
   function onHeartbeatEvent(data: SSEEventDataHeartbeat) {
+    clearTimeout(reconnectTimeout.value)
+
     if (data.current_operation === null) {
       // An action may have failed without properly exiting
       // Ensure that there's no pending external request blocking the view
@@ -144,9 +155,18 @@ export const useSSE = createGlobalState(() => {
         endRequest({ request, success: false, showError: false })
       }
     }
+
+    // The server sends heartbeats every 10s, try to reconnect if we loose connection
+    tryToReconnect(15000)
   }
 
   function onHistoryEvent(data: SSEEventDataHistory) {
+    const request = historyList.value.findLast(
+      (r: APIRequest) => r.action?.operationId === data.operation_id,
+    ) as APIRequestAction | undefined
+    // Do not add the request if already in the history (can happen on sse reconnection)
+    if (request) return
+
     startRequest({
       id: data.operation_id,
       title: parseOperationId(data.operation_id),
