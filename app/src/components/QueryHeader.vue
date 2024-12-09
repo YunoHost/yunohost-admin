@@ -15,8 +15,12 @@ const statusVariant = computed(() => STATUS_VARIANT[props.request.status])
 const { errors, warnings } = toRefs(
   props.request.action || { errors: 0, warnings: 0 },
 )
-const hour = computed(() => {
-  return new Date(props.request.date).toLocaleTimeString()
+const dateOrTime = computed(() => {
+  // returns date if date < today else time
+  const date = new Date(props.request.date)
+  const dateString = date.toLocaleDateString()
+  if (new Date().toLocaleDateString() !== dateString) return dateString
+  return date.toLocaleTimeString()
 })
 </script>
 
@@ -54,8 +58,8 @@ const hour = computed(() => {
         <small v-t="'api_error.view_error'" />
       </BButton>
 
-      <time :datetime="hour" :class="request.err ? 'ms-2' : 'ms-auto'">
-        {{ hour }}
+      <time :datetime="dateOrTime" :class="request.err ? 'ms-2' : 'ms-auto'">
+        {{ dateOrTime }}
       </time>
     </template>
   </div>
