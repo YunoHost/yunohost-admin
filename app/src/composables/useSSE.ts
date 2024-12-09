@@ -79,6 +79,8 @@ export const useSSE = createGlobalState(() => {
     }
 
     sse.onmessage = (event) => {
+      // The server sends at least heartbeats every 10s, try to reconnect if we loose connection
+      tryToReconnect(15000)
       const data: AnySSEEventData = JSON.parse(atob(event.data))
       if (isActionEvent(data)) onActionEvent(data)
       if (data.type === 'heartbeat') onHeartbeatEvent(data)
@@ -92,6 +94,7 @@ export const useSSE = createGlobalState(() => {
   }
 
   function tryToReconnect(delay: number) {
+    clearTimeout(reconnectTimeout.value)
     reconnectTimeout.value = window.setTimeout(() => {
       sseSource.value!.close()
       init()
@@ -140,8 +143,6 @@ export const useSSE = createGlobalState(() => {
   }
 
   function onHeartbeatEvent(data: SSEEventDataHeartbeat) {
-    clearTimeout(reconnectTimeout.value)
-
     if (data.current_operation === null) {
       // An action may have failed without properly exiting
       // Ensure that there's no pending external request blocking the view
@@ -155,9 +156,6 @@ export const useSSE = createGlobalState(() => {
         endRequest({ request, success: false, showError: false })
       }
     }
-
-    // The server sends heartbeats every 10s, try to reconnect if we loose connection
-    tryToReconnect(15000)
   }
 
   function onHistoryEvent(data: SSEEventDataHistory) {
