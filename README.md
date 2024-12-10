@@ -40,3 +40,35 @@ This command will install all dependencies and start a dev server (based on [web
 You can also install [Vue Devtools](https://addons.mozilla.org/fr/firefox/addon/vue-js-devtools/) (module for Firefox but also exists for Chromium/Chrome) if you want component trees, performance views and so on.
 
 On a YunoHost instance, the web admin files are located at `/usr/share/yunohost/admin`.
+
+### Translation maintenance
+
+#### Cleaning
+
+To clean locales from unused keys:
+```
+python3 maintenance/clean_locales.py
+```
+This will also reorder keys in `en.json`.
+
+#### Renaming
+
+If you need to rename a key or more (from 'my.current.key' to 'my.new.key' for example).
+
+From a string
+
+```bash
+python3 rename_i18n_keys.py --keys my.current.key:my.new.key
+```
+
+#### From a file
+```bash
+python3 rename_i18n_keys.py --file input.txt
+```
+input.txt
+```
+my.current.key:my.new.key
+my.other.key:my.new.other.key
+```
+
+By default it renames keys only in the `en.json`, pass `--all` to apply changes to all locales file.
