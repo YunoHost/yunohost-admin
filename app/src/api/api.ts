@@ -32,7 +32,6 @@ export type APIQuery = {
   ignoreError?: boolean
   isAction?: boolean
   initial?: boolean
-  asFormData?: boolean
 }
 
 export type APIErrorData = {
@@ -89,7 +88,6 @@ export default {
    * @param showModal - Lock view and display the waiting modal
    * @param isAction - Expects to receive server messages
    * @param initial - If an error occurs, the dismiss button will trigger a go back in history
-   * @param asFormData - Send the data with a body encoded as `"multipart/form-data"` instead of `"x-www-form-urlencoded"`)
    *
    * @returns Promise that resolve the api response data
    * @throws Throw an `APIError` or subclass depending on server response
@@ -104,7 +102,6 @@ export default {
     ignoreError = false,
     isAction = method !== 'GET',
     initial = false,
-    asFormData = true,
   }: APIQuery): Promise<T> {
     const cache = cachePath ? useCache<T>(method, cachePath) : undefined
     if (method === 'GET' && cache?.content.value !== undefined) {
@@ -142,7 +139,7 @@ export default {
       options = {
         ...options,
         method,
-        body: data ? objectToParams(data, { formData: asFormData }) : null,
+        body: data ? objectToParams(data, { formData: true }) : null,
       }
     }
 
