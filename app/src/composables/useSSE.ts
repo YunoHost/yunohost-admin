@@ -110,7 +110,7 @@ export const useSSE = createGlobalState(() => {
       request = startRequest({
         id: data.ref_id,
         title: parseOperationId(data.operation_id),
-        date: data.timestamp,
+        date: data.timestamp * 1000,
         external: true,
       }) as APIRequestAction
     }
@@ -168,7 +168,7 @@ export const useSSE = createGlobalState(() => {
     startRequest({
       id: data.operation_id,
       title: parseOperationId(data.operation_id),
-      date: data.started_at,
+      date: data.started_at * 1000,
       showModal: false,
       external: true,
       status: data.success ? 'success' : 'error',
