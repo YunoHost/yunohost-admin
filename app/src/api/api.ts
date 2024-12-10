@@ -51,10 +51,7 @@ export type APIErrorData = {
  * @param addLocale - Append the locale to the returned object
  * @param formData - Returns a `FormData` instead of `URLSearchParams`
  */
-export function objectToParams(
-  obj: Obj,
-  { addLocale = false, formData = false } = {},
-) {
+export function objectToParams(obj: Obj, { formData = false } = {}) {
   const urlParams = formData ? new FormData() : new URLSearchParams()
   for (const [key, value] of Object.entries(obj)) {
     if (Array.isArray(value)) {
@@ -62,10 +59,6 @@ export function objectToParams(
     } else {
       urlParams.append(key, value)
     }
-  }
-  if (addLocale) {
-    const { locale } = useSettings()
-    urlParams.append('locale', locale.value)
   }
   return urlParams
 }
@@ -142,17 +135,14 @@ export default {
 
     let options = { ...this.options }
     Object.assign(options.headers!, {
+      locale: locale.value,
       ref_id: request.id,
     })
-    if (method === 'GET') {
-      uri += `${uri.includes('?') ? '&' : '?'}locale=${locale.value}`
-    } else {
+    if (method !== 'GET') {
       options = {
         ...options,
         method,
-        body: data
-          ? objectToParams(data, { addLocale: true, formData: asFormData })
-          : null,
+        body: data ? objectToParams(data, { formData: asFormData }) : null,
       }
     }
 
