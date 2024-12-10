@@ -24,15 +24,16 @@ def save_locale_json(locale, data, sort=False):
         fp.write("\n")
 
 
-def get_flatten_keys(d, parent_key=""):
+def get_flatten_keys(d, parent_key="", only_full_keys=False):
     items = set()
 
     for k, v in d.items():
         key = f"{parent_key}.{k}" if parent_key else k
-        items.add(key)
 
         if isinstance(v, dict):
             items |= get_flatten_keys(v, key)
+        elif not only_full_keys:
+            items.add(key)
 
     return items
 
