@@ -95,7 +95,7 @@
         "domains": "domeinu bat ere ez | domeinua | domeinua",
         "apps": "aplikazio bat ere ez | aplikazioa | aplikazioa",
         "groups": "talderik ez | taldea | talde",
-        "installed_apps": "ez dago aplikaziorik instalatuta | instalatutako aplikazioa | aplikazio instalatuta",
+        "installed_apps": "ez dago aplikaziorik instalatuta | instalatutako aplikazio | aplikazio instalatuta",
         "services": "zerbitzu bat ere ez | zerbitzua | zerbitzua",
         "users": "erabiltzaile bat ere ez | erabiltzailea | erabiltzailea",
         "logs": "erregistro bat ere ez | erregistroa | erregistroa",
@@ -186,7 +186,7 @@
         },
         "info": {
             "apps_on_domain": "Domeinuan instalatutako aplikazioak",
-            "certificate_authority": "SSL ziurtagiri jaulkitzailea",
+            "certificate_authority": "SSL ziurtagiri-jaulkitzailea",
             "registrar": "Erregistro-enpresa",
             "dyn_dns_remove_and_unsubscribe": "Eta utzi YunoHosten DynDNS zerbitzuan domeinua erregistratzeari"
         },
@@ -213,7 +213,7 @@
     "ipv6": "IPv6",
     "app_install_parameters": "Instalazio-ezarpenak",
     "confirm_service_stop": "Ziur {name} geldiarazi nahi duzula?",
-    "app_state_lowquality_explanation": "Litekeena da aplikazio hau erabili ahal izatea baina erroreak izan ditzake, edo ez dago erabat YunoHostera egina, edo ez ditu jardunbideak errespetatzen.",
+    "app_state_lowquality_explanation": "Litekeena da aplikazio hau erabili ahal izatea, baina erroreak izan ditzake, edo ez dago erabat YunoHostera egina, edo ez ditu jardunbideak errespetatzen.",
     "app_state_highquality_explanation": "Aplikazio hau YunoHostera egoki egina dago gutxienez duela urtebetetik.",
     "backup_new": "Babeskopia berria",
     "confirm_delete": "Ziur {name} ezabatu nahi duzula?",
@@ -311,13 +311,13 @@
     "items_verbose_items_left": "{items} falta dira. | {items} bat falta da. | {items} falta dira.",
     "confirm_group_add_access_permission": "Ziur {name}(r)i {perm} baimena eman nahi diozula? Erasoak biderkatu litezke baimen horri esker {name} pertsona maltzurra baldin bada. Soilik baimena eman pertsona edo talde honetaz fio bazara.",
     "confirm_app_install": "Ziur aplikazio hau instalatu nahi duzula?",
-    "confirm_install_app_lowquality": "Adi: litekeena da aplikazio honek funtzionatzea baina ez dago YunoHostera ondo egina. Aukera batzuk, SSO kasu edota babeskopia egin eta lehengoratzea, agian ez daude erabilgarri.",
+    "confirm_install_app_lowquality": "Adi: litekeena da aplikazio honek funtzionatzea, baina ez dago YunoHostera ondo egina. Aukera batzuk (SSO kasu edota babeskopia egin eta lehengoratzea) agian ez daude erabilgarri.",
     "confirm_install_app_inprogress": "KONTUZ! Aplikazio hau saiakera bat da (edo ez dabil) eta litekeena da sistema kaltetzea! Ez badakizu zertan zabiltzan ez zenuke instalatu beharko. Ziur zerbitzaria arriskuan jarri nahi duzula?",
     "day_validity": " Iraungita | egun 1 | {count} egun",
     "dead": "Ez dago aktibo",
     "experimental": "Esperimentala",
     "go_back": "Joan atzera",
-    "items_verbose_count": "{items} dago | {items} bat dago | {items} daude.",
+    "items_verbose_count": "{items} | {items} bat dago | {items} daude.",
     "local_archives": "Artxibo lokalak",
     "logs": "Erregistroak",
     "logs_started_at": "Hasiera",
@@ -436,7 +436,7 @@
         "title": "Instalazio ondorengo prozesua",
         "user": {
             "title": "Sortu lehenengo administratzaile erabiltzailea",
-            "first_user_help": "Erabiltzaile honi administrazio-ahalmenak esleituko zaizkio eta administrazio-gunea eta SSH konexioa erabiltzeko aukera izango du.\nErabiltzaile arrunta denez, erabiltzaileen ataria (SSO) erabiltzeko aukera ere izango du.\nInstalazio ondorengo prozesuek amaitzen dutenean, administratzaile gehiago sor ditzakezu 'admins' taldera gehituz."
+            "first_user_help": "Erabiltzaile honi administrazio-ahalmenak esleituko zaizkio, eta administrazio-gunea eta SSH konexioa erabiltzeko aukera izango du.\nErabiltzaile arrunta denez, erabiltzaileen ataria (SSO) erabiltzeko aukera ere izango du.\nInstalazio ondorengo prozesuek amaitzen dutenean, administratzaile gehiago sor ditzakezu 'admins' taldera gehituz."
         }
     },
     "postinstall_set_domain": "Aukeratu domeinu nagusia",
@@ -483,7 +483,7 @@
     "perform": "Exekutatu",
     "logs_operation": "YunoHostekin burututako eragiketak",
     "readme": "Irakur nazazu",
-    "postinstall_domain": "Domeinu hau YunoHost zerbitzarira lotuko den lehena izango da baina horrez gain, zerbitzariko erabiltzaileek saioa hasteko gunekoa ere izango da. Beraz, edonorentzat ikusgai egongo denez, aukeratu arretaz.",
+    "postinstall_domain": "Domeinu hau YunoHost zerbitzariarekin lotuko den lehena izango da, baina, horrez gain, zerbitzariko erabiltzaileek saioa hasteko gunekoa ere izango da. Beraz, edonorentzat ikusgai egongo denez, aukeratu arretaz.",
     "tools_shutdown_reboot": "Itzali/Berrabiarazi",
     "user_mailbox_quota": "Posta elektronikoaren kupoa",
     "services": "Zerbitzuak",
@@ -636,12 +636,12 @@
                 "arch": "Aplikazio hau ({required}) arkitekturatan bakarrik instalatu daiteke, baina zure zerbitzariaren arkitektura {current} da.",
                 "broken": "Aplikazio hau hondatuta dago YunoHosten azterketa automatikoen arabera eta zure sistema apur lezake! Ez zenuke instalatu beharko zertan ari zaren ez badakizu.",
                 "thirdparty": "Aplikazio hau ez da YunoHosten katalogokoa; hirugarrenen aplikazioak instalatzeak sistemaren integritatea ezbaian jar dezake. EZ zenuke instalatu beharko zertan ari zaren ez badakizu.",
-                "ignore": "Ulertzen dut aplikazio honek nire sistema apur lezakeela baina hala ere probatu nahi dut.",
+                "ignore": "Ulertzen dut aplikazio honek nire sistema apur lezakeela, baina, hala ere, probatu nahi dut.",
                 "inprogress": "Aplikazio hau esperimentala da oraindik (edo ez dabil) eta litekeena da zure sistema apurtzea! EZ zenuke instalatu beharko zertan ari zaren ez badakizu.",
                 "install": "Badago lehendik ere instalatuta eta ezin da behin baino gehiagotan instalatu.",
-                "lowquality": "Litekeena da aplikazioa erabili ahal izatea baina ez dago YunoHosten ondo integratuta. Baliteke Saio Bakarra (SSO) edota babeskopia / lehengoratzea bezalako ezaugarri batzuk erabilgarri ez egotea, edo gidalerroak ez errespetatzea.",
-                "version": "Aplikazio honek YunoHost {required} edo bertsio berriagoa behar du, baina unean instalatuta daukazuna {current} da; aztertu YunoHost eguneratzea.",
-                "ram": "Aplikazio honek {required} RAM behar ditu instalatu edo bertsio-berritzeko baina unean soilik {current} daude erabilgarri. Aplikazioa ibiliko balitz ere, instalazio prozesuak RAM kopuru handia behar du eta zure zerbitzariak erantzuteari utzi eta huts egin lezake."
+                "lowquality": "Litekeena da aplikazioa erabili ahal izatea, baina ez dago YunoHosten ondo integratuta. Baliteke Saio Bakarra (SSO) edota babeskopia / lehengoratzea bezalako ezaugarri batzuk erabilgarri ez egotea, edo gidalerroak ez errespetatzea.",
+                "version": "Aplikazio honek YunoHost {required} edo bertsio berriagoa behar du, baina, unean, instalatuta daukazuna {current} da; aztertu YunoHost eguneratzea.",
+                "ram": "Aplikazio honek {required} RAM behar ditu instalatu edo bertsio-berritzeko, baina, unean, soilik {current} daude erabilgarri. Aplikazioa ibiliko balitz ere, instalazio prozesuak RAM kopuru handia behar du, eta zure zerbitzariak erantzuteari utzi eta huts egin lezake."
             },
             "try_demo": "Probatu demo hau",
             "version": "Uneko bertsioa: {version}"
@@ -717,7 +717,7 @@
     },
     "loading": "Kargatzen",
     "catalog_wishlist": "Badirudi bilatzen ari zaren aplikazioa ez dagoela katalogoan.\n Aplikazioen desira-zerrenda](https://apps.yunohost.org/wishlist?search={search})n proposatu dezakezu edo bere aldeko botoa eman dagoeneko zerrendan badago.",
-    "catalog_partial_search": "Saia zaitez irizpideak kentzen bilatzen ari zaren aplikazioa erabilgarri dagoen ikusteko.",
+    "catalog_partial_search": "Saia zaitez irizpideak kentzen, bilatzen ari zaren aplikazioa erabilgarri dagoen ikusteko.",
     "install_app": "Instalatu aplikazioa",
     "quick_action": "Ekintza azkarrak"
 }
