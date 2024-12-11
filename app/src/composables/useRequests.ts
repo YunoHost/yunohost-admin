@@ -89,9 +89,10 @@ export const useRequests = createGlobalState(() => {
     const request: APIRequest = reactive({
       id,
       title:
-        title || (method && uri)
+        title ||
+        (method && uri
           ? `[${method}] /${uri!.split('?')[0]}`
-          : i18n.global.t('api.unknown_request'),
+          : i18n.global.t('api.unknown_request')),
       date,
       method,
       uri,
