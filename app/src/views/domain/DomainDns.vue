@@ -119,7 +119,6 @@ async function pushDnsChanges() {
   api
     .post<Obj<string[]>>({
       uri: `domains/${props.name}/dns/push${force.value ? '?force' : ''}`,
-      humanKey: { key: 'domains.push_dns_changes', name: props.name },
     })
     .then(async (responseData) => {
       await getDnsChanges()

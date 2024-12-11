@@ -116,7 +116,6 @@ async function onPermissionChanged(
     .put({
       uri: `users/permissions/${perm}/${action}/${name}`,
       cachePath: `permissions.${perm}`,
-      humanKey: { key: `permissions.${action}`, perm, name },
     })
     .then(() => applyFn(perm))
 }
@@ -136,7 +135,6 @@ async function onUserChanged(
     .put({
       uri: `users/groups/${name}/${action}/${user}`,
       cachePath: `groups.${name}`,
-      humanKey: { key: `groups.${action}`, user, name },
     })
     .then(() => applyFn(user))
 }
@@ -146,11 +144,7 @@ async function deleteGroup(name: string) {
   if (!confirmed) return
 
   api
-    .delete({
-      uri: `users/groups/${name}`,
-      cachePath: `groups.${name}`,
-      humanKey: { key: 'groups.delete', name },
-    })
+    .delete({ uri: `users/groups/${name}`, cachePath: `groups.${name}` })
     .then(() => {
       primaryGroups.value = primaryGroups.value.filter(
         (group) => group.name !== name,

@@ -46,12 +46,7 @@ async function updateService(action: 'start' | 'stop' | 'restart') {
   )
   if (!confirmed) return
 
-  api
-    .put({
-      uri: `services/${props.name}/${action}`,
-      humanKey: { key: `services.${action}`, name: props.name },
-    })
-    .then(() => api.refetch())
+  api.put({ uri: `services/${props.name}/${action}` }).then(() => api.refetch())
 }
 
 function shareLogs() {

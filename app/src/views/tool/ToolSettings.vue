@@ -17,11 +17,7 @@ const { form, panel, v, routes, onPanelApply } = useConfigPanels(
   ({ panelId, data }, onError) => {
     // FIXME no route for potential action
     api
-      .put({
-        uri: `settings/${panelId}`,
-        data: { args: objectToParams(data) },
-        humanKey: { key: 'settings.update', panel: panelId },
-      })
+      .put({ uri: `settings/${panelId}`, data: { args: objectToParams(data) } })
       .then(() => api.refetch())
       .catch(onError)
   },

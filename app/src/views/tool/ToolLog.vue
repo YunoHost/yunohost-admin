@@ -66,7 +66,6 @@ function shareLogs() {
   api
     .get<{ url: string }>({
       uri: `logs/${props.name}/share`,
-      humanKey: { key: 'share_logs', name: props.name },
       websocket: true,
     })
     .then(({ url }) => {

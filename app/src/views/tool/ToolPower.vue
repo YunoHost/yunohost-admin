@@ -13,7 +13,7 @@ async function triggerAction(action: 'reboot' | 'shutdown') {
   const confirmed = await modalConfirm(t('confirm_reboot_action_' + action))
   if (!confirmed) return
 
-  api.put({ uri: action + '?force', humanKey: action }).then(() => {
+  api.put({ uri: action + '?force' }).then(() => {
     const delay = action === 'reboot' ? 4000 : 10000
     tryToReconnect({ attemps: Infinity, origin: action, delay })
   })

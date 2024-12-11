@@ -12,7 +12,6 @@ const reports = await api
     {
       method: 'PUT',
       uri: 'diagnosis/run?except_if_never_ran_yet',
-      humanKey: 'diagnosis.run',
     },
     { uri: 'diagnosis?full' },
   ])
@@ -55,10 +54,6 @@ function runDiagnosis(report?: { id: string; description: string }) {
     .put({
       uri: 'diagnosis/run' + (id ? '?force' : ''),
       data: id ? { categories: [id] } : {},
-      humanKey: {
-        key: 'diagnosis.run' + (id ? '_specific' : ''),
-        description: report?.description,
-      },
     })
     .then(() => api.refetch())
 }
@@ -73,11 +68,7 @@ function toggleIgnoreIssue(
   )
 
   api
-    .put({
-      uri: 'diagnosis/' + action,
-      data: { filter: filterArgs },
-      humanKey: `diagnosis.${action}.${item.status}`,
-    })
+    .put({ uri: 'diagnosis/' + action, data: { filter: filterArgs } })
     .then(() => {
       item.ignored = action === 'ignore'
       const count = item.ignored ? 1 : -1

@@ -16,12 +16,7 @@ function onSubmit(data: {
   install_letsencrypt_cert?: boolean
 }) {
   api
-    .post({
-      uri: 'domains',
-      cachePath: `domains.${data.domain}`,
-      data,
-      humanKey: { key: 'domains.add', name: data.domain },
-    })
+    .post({ uri: 'domains', cachePath: `domains.${data.domain}`, data })
     .then(() => {
       router.push({ name: 'domain-list' })
     })

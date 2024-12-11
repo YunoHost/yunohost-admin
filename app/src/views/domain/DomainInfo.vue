@@ -42,11 +42,6 @@ const config = useConfigPanels(
           ? `domain/${props.name}/actions/${action}`
           : `domains/${props.name}/config/${panelId}`,
         data: { args: objectToParams(data) },
-        humanKey: {
-          key: `domains.${action ? 'action' : 'update'}_config`,
-          id: panelId,
-          name: props.name,
-        },
       })
       .then(() => api.refetch())
       .catch(onError)
@@ -86,10 +81,6 @@ async function deleteDomain() {
       uri: `domains/${props.name}`,
       cachePath: `domains.${props.name}`,
       data,
-      humanKey: {
-        key: 'domains.delete',
-        name: props.name,
-      },
     })
     .then(() => {
       router.push({ name: 'domain-list' })
@@ -112,7 +103,6 @@ async function setAsDefaultDomain() {
     uri: `domains/${props.name}/main`,
     cachePath: `mainDomain.${props.name}`,
     data: {},
-    humanKey: { key: 'domains.set_default', name: props.name },
   })
 }
 </script>

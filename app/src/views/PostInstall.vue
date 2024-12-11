@@ -129,11 +129,7 @@ async function performPostInstall(force = false) {
   )
 
   api
-    .post({
-      uri: 'postinstall' + (force ? '?force_diskspace' : ''),
-      data,
-      humanKey: { key: 'postinstall' },
-    })
+    .post({ uri: 'postinstall' + (force ? '?force_diskspace' : ''), data })
     .then(() => {
       // Display success message and allow the user to login
       goToStep('login')

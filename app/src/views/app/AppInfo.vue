@@ -141,11 +141,6 @@ const config = coreConfig
               ? `apps/${props.id}/actions/${action}`
               : `apps/${props.id}/config/${panelId}`,
             data: isEmptyValue(data) ? {} : { args: objectToParams(data) },
-            humanKey: {
-              key: `apps.${action ? 'action' : 'update'}_config`,
-              id: panelId,
-              name: props.id,
-            },
           })
           .then(() => api.refetch())
           .catch(onError)
@@ -174,11 +169,6 @@ async function changeLabel(permName: string, i: number) {
         label: data.label,
         show_tile: data.show_tile ? 'True' : 'False',
       },
-      humanKey: {
-        key: 'apps.change_label',
-        prevName: app.label,
-        nextName: data.label,
-      },
     })
     // FIXME really need to refetch? permissions store update should be ok
     .then(() => api.refetch())
@@ -194,7 +184,6 @@ async function changeUrl() {
     .put({
       uri: `apps/${props.id}/changeurl`,
       data: { domain, path: '/' + path },
-      humanKey: { key: 'apps.change_url', name: app.label },
     })
     // Refetch because some content of this page relies on the url
     .then(() => api.refetch())
@@ -205,38 +194,22 @@ async function setAsDefaultDomain(undo = false) {
   if (!confirmed) return
 
   api
-    .put({
-      uri: `apps/${props.id}/default${undo ? '?undo' : ''}`,
-      humanKey: {
-        key: 'apps.set_default',
-        name: app.label,
-        domain: app.domain,
-      },
-    })
+    .put({ uri: `apps/${props.id}/default${undo ? '?undo' : ''}` })
     .then(() => (app.isDefault.value = true))
 }
 
 async function dismissNotification(name: string) {
   api
-    .put({
-      uri: `apps/${props.id}/dismiss_notification/${name}`,
-      humanKey: { key: 'apps.dismiss_notification', name: app.label },
-    })
+    .put({ uri: `apps/${props.id}/dismiss_notification/${name}` })
     // FIXME no need to refetch i guess, filter the reactive notifs?
     .then(() => api.refetch())
 }
 
 async function uninstall() {
   const data = purge.value === true ? { purge: 1 } : {}
-  api
-    .delete({
-      uri: 'apps/' + props.id,
-      data,
-      humanKey: { key: 'apps.uninstall', name: app.label },
-    })
-    .then(() => {
-      router.push({ name: 'app-list' })
-    })
+  api.delete({ uri: 'apps/' + props.id, data }).then(() => {
+    router.push({ name: 'app-list' })
+  })
 }
 </script>
 

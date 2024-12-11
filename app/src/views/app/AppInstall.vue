@@ -119,11 +119,7 @@ const performInstall = onSubmit(async (onError) => {
   }
 
   api
-    .post<{ notifications: Obj<string> }>({
-      uri: 'apps',
-      data,
-      humanKey: { key: 'apps.install', name: app.name },
-    })
+    .post<{ notifications: Obj<string> }>({ uri: 'apps', data })
     .then(async (response) => {
       const postInstall = formatAppNotifs(response.notifications)
       if (postInstall) {
@@ -150,12 +146,7 @@ function onDomainAdd(data: {
   install_letsencrypt_cert?: boolean
 }) {
   api
-    .post({
-      uri: 'domains',
-      cachePath: `domains.${data.domain}`,
-      data,
-      humanKey: { key: 'domains.add', name: data.domain },
-    })
+    .post({ uri: 'domains', cachePath: `domains.${data.domain}`, data })
     .then(() => {
       form.value.domain = data.domain
       showAddDomainModal.value = false

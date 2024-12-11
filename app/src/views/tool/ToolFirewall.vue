@@ -145,13 +145,6 @@ async function togglePort({
   return api
     .put({
       uri: `firewall/${protocol}/${action}/${port}?${connection}_only`,
-      humanKey: {
-        key: 'firewall.ports',
-        protocol,
-        action: actionTrad,
-        port,
-        connection,
-      },
       showModal: false,
     })
     .then(() => true)
@@ -163,10 +156,7 @@ async function toggleUpnp() {
   if (!confirmed) return
 
   api
-    .put({
-      uri: 'firewall/upnp/' + action,
-      humanKey: { key: 'firewall.upnp', action: t(action) },
-    })
+    .put({ uri: 'firewall/upnp/' + action })
     .then(() => {
       // FIXME Couldn't test when it works.
       api.refetch()
