@@ -66,7 +66,7 @@ function shareLogs() {
   api
     .get<{ url: string }>({
       uri: `logs/${props.name}/share`,
-      websocket: true,
+      isAction: true,
     })
     .then(({ url }) => {
       window.open(url, '_blank')

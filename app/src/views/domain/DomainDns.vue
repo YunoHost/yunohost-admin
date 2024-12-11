@@ -42,7 +42,7 @@ function getDnsChanges() {
     .post<DNSCategories>({
       uri: `domains/${props.name}/dns/push?dry_run`,
       showModal: true,
-      websocket: false,
+      isAction: false,
     })
     .then((dnsCategories) => {
       let canForce = false
