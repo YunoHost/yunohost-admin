@@ -15,6 +15,7 @@ type SSEEventDataStart = {
   timestamp: number
   ref_id: string
   operation_id: string
+  title: string
 }
 
 type SSEEventDataEnd = {
@@ -38,6 +39,7 @@ type SSEEventDataMsg = {
 type SSEEventDataHistory = {
   type: 'recent_history'
   operation_id: string
+  title: string
   started_at: number
   success: boolean
 }
@@ -59,11 +61,6 @@ type AnySSEEventData =
 
 function isActionEvent(data: AnySSEEventData): data is AnySSEEventDataAction {
   return ['start', 'msg', 'end'].includes(data.type)
-}
-
-function parseOperationId(operationId: string) {
-  const [action, ...params] = operationId.substring(16).split('-')
-  return i18n.global.t('human_routes.' + action.replace('_', '.'), params)
 }
 
 export const useSSE = createGlobalState(() => {
@@ -109,7 +106,7 @@ export const useSSE = createGlobalState(() => {
     if (!request) {
       request = startRequest({
         id: data.ref_id,
-        title: parseOperationId(data.operation_id),
+        title: data.type === 'start' ? data.title : data.operation_id,
         date: data.timestamp * 1000,
         external: true,
       }) as APIRequestAction
@@ -167,7 +164,7 @@ export const useSSE = createGlobalState(() => {
 
     startRequest({
       id: data.operation_id,
-      title: parseOperationId(data.operation_id),
+      title: data.title,
       date: data.started_at * 1000,
       showModal: false,
       external: true,
