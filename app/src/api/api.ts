@@ -121,8 +121,9 @@ export default {
     let options = { ...this.options }
     Object.assign(options.headers!, {
       locale: locale.value,
-      ref_id: request.id,
+      'ref-id': request.id,
     })
+
     if (method !== 'GET') {
       options = {
         ...options,

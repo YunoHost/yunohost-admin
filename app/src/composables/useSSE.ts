@@ -2,7 +2,6 @@ import { createGlobalState } from '@vueuse/core'
 import { ref } from 'vue'
 
 import { STATUS_VARIANT, isOkStatus } from '@/helpers/yunohostArguments'
-import i18n from '@/i18n'
 import type { StateStatus } from '@/types/commons'
 import {
   useRequests,
@@ -114,6 +113,7 @@ export const useSSE = createGlobalState(() => {
 
     if (data.type === 'start') {
       request.action.operationId = data.operation_id
+      request.title = data.title
     } else if (data.type === 'end' && request.action.external) {
       // End request on this last message if the action was external
       // (else default http response will end it)
