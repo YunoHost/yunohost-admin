@@ -4,8 +4,6 @@ import { useCache, type StorePath } from '@/composables/data'
 import { useInfos } from '@/composables/useInfos'
 import { useRequests, type ReconnectingArgs } from '@/composables/useRequests'
 import { useSettings } from '@/composables/useSettings'
-import { isObjectLiteral } from '@/helpers/commons'
-import i18n from '@/i18n'
 import type { Obj } from '@/types/commons'
 import {
   APIBadRequestError,
@@ -27,7 +25,6 @@ export type APIQuery = {
   method?: RequestMethod
   cachePath?: StorePath
   data?: Obj
-  humanKey?: string | HumanKey
   showModal?: boolean
   ignoreError?: boolean
   isAction?: boolean
@@ -84,7 +81,6 @@ export default {
    * @param cacheParams - Cache params to get or update data
    * @param method - An HTTP method in `'GET' | 'POST' | 'PUT' | 'DELETE'`
    * @param data - Data to send as body
-   * @param humanKey - Key and eventually some data to build the query's description
    * @param showModal - Lock view and display the waiting modal
    * @param isAction - Expects to receive server messages
    * @param initial - If an error occurs, the dismiss button will trigger a go back in history
@@ -97,7 +93,6 @@ export default {
     method = 'GET',
     cachePath = undefined,
     data = undefined,
-    humanKey = undefined,
     showModal = method !== 'GET',
     ignoreError = false,
     isAction = method !== 'GET',
@@ -112,16 +107,9 @@ export default {
     const { startRequest, endRequest } = useRequests()
 
     // Try to find a description for an API route to display in history and modals
-    const { key, ...args } = isObjectLiteral(humanKey)
-      ? humanKey
-      : { key: humanKey }
-    const title = key
-      ? i18n.global.t(`human_routes.${key}`, args)
-      : `[${method}] /${uri.split('?')[0]}`
 
     const request = startRequest({
       id: uuid(),
-      title,
       method,
       uri,
       date: Date.now(),
