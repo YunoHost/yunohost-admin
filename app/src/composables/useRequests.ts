@@ -6,6 +6,7 @@ import type { RequestMethod } from '@/api/api'
 import { APIErrorLog, type APIError } from '@/api/errors'
 import type { StateVariant } from '@/types/commons'
 import { useInfos } from './useInfos'
+import i18n from '@/i18n'
 
 export type RequestStatus = 'pending' | 'success' | 'warning' | 'error'
 
@@ -64,8 +65,8 @@ export const useRequests = createGlobalState(() => {
 
   function startRequest({
     id,
-    title,
     date,
+    title,
     method,
     uri,
     initial = false,
@@ -75,8 +76,8 @@ export const useRequests = createGlobalState(() => {
     status = 'pending',
   }: {
     id: string
-    title: string
     date: number
+    title?: string
     method?: RequestMethod
     uri?: string
     showModal?: boolean
@@ -87,7 +88,10 @@ export const useRequests = createGlobalState(() => {
   }): APIRequest | APIRequestAction {
     const request: APIRequest = reactive({
       id,
-      title,
+      title:
+        title || (method && uri)
+          ? `[${method}] /${uri!.split('?')[0]}`
+          : i18n.global.t('api.unknown_request'),
       date,
       method,
       uri,

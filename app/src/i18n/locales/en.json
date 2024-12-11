@@ -33,7 +33,8 @@
             },
             "session_expired": "The server is now reachable! But it looks like your session expired, please login.",
             "title": "Trying to communicate with the server…"
-        }
+        },
+        "unknown_request": "Unknown request"
     },
     "api_error": {
         "error_message": "Error message:",
