@@ -576,7 +576,7 @@
             "from_registrar": "Je veux ajouter un domaine que je possède",
             "from_yunohost": "Je ne possède pas de domaine, je veux enregistrer/utiliser un domaine DynDNS gratuit fourni par le projet YunoHost",
             "from_subdomain": "Je veux ajouter un sous-domaine d'un domaine déjà ajouté",
-            "from_subdomain_desc": "Si vos enregistrements DNS sont configurés correctement, vous pourrez installer automatiquement le certificat Let's Encrypt."
+            "from_subdomain_desc": "Si vos enregistrements DNS configurés le permettent, vous pourrez installer automatiquement le certificat Let's Encrypt."
         }
     },
     "domain_dns_push_failed_to_authenticate": "Échec de l'authentification sur l'API du registrar. Les <a href='#/domains/{domain}/config'>informations d'identification</a> sont elles justes ? (Erreur : {error})",
