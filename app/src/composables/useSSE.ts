@@ -3,6 +3,7 @@ import { ref } from 'vue'
 
 import { STATUS_VARIANT, isOkStatus } from '@/helpers/yunohostArguments'
 import type { StateStatus } from '@/types/commons'
+import { useAutoToast } from './useAutoToast'
 import {
   useRequests,
   type APIRequest,
@@ -43,6 +44,15 @@ type SSEEventDataHistory = {
   success: boolean
 }
 
+type SSEEventDataToast = {
+  type: 'toast'
+  timestamp: number
+  ref_id: string
+  operation_id: string
+  level: StateStatus
+  msg: string
+}
+
 type SSEEventDataHeartbeat = {
   type: 'heartbeat'
   timestamp: number
@@ -56,6 +66,7 @@ type AnySSEEventDataAction =
 type AnySSEEventData =
   | AnySSEEventDataAction
   | SSEEventDataHistory
+  | SSEEventDataToast
   | SSEEventDataHeartbeat
 
 function isActionEvent(data: AnySSEEventData): data is AnySSEEventDataAction {
@@ -81,6 +92,7 @@ export const useSSE = createGlobalState(() => {
       if (isActionEvent(data)) onActionEvent(data)
       if (data.type === 'heartbeat') onHeartbeatEvent(data)
       if (data.type === 'recent_history') onHistoryEvent(data)
+      if (data.type === 'toast') onToastEvent(data)
     }
 
     sse.onerror = (event) => {
@@ -169,6 +181,13 @@ export const useSSE = createGlobalState(() => {
       showModal: false,
       external: true,
       status: data.success ? 'success' : 'error',
+    })
+  }
+
+  function onToastEvent(data: SSEEventDataToast) {
+    useAutoToast().show({
+      body: data.msg,
+      variant: STATUS_VARIANT[data.level],
     })
   }
 
