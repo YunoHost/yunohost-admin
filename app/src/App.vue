@@ -1,11 +1,14 @@
 <script setup lang="ts">
+import { useToastController } from 'bootstrap-vue-next'
 import { onMounted, ref } from 'vue'
 
+import { useAutoToast } from '@/composables/useAutoToast'
 import { useInfos } from '@/composables/useInfos'
 import { useRequests } from '@/composables/useRequests'
 import { useSettings } from '@/composables/useSettings'
 import { HistoryConsole } from '@/views/_partials'
 
+useAutoToast().init(useToastController())
 const { ssoLink, connected, yunohost, logout, onAppCreated } = useInfos()
 const { locked } = useRequests()
 const { spinner, dark } = useSettings()
@@ -115,6 +118,7 @@ onMounted(() => {
     <MainLayout v-if="ready" />
 
     <BModalOrchestrator />
+    <BToastOrchestrator />
 
     <!-- HISTORY CONSOLE -->
     <HistoryConsole />
