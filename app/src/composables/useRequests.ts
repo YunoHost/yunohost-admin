@@ -9,6 +9,7 @@ import { useInfos } from './useInfos'
 import i18n from '@/i18n'
 
 export type RequestStatus = 'pending' | 'success' | 'warning' | 'error'
+export type RequestCaller = 'root' | 'noninteractive' | string | null
 
 export type APIRequest = {
   id: string
@@ -25,6 +26,7 @@ export type APIRequest = {
 }
 type APIActionProps = {
   external: boolean
+  caller?: RequestCaller
   operationId?: string
   messages: RequestMessage[]
   errors: number
@@ -69,6 +71,7 @@ export const useRequests = createGlobalState(() => {
     title,
     method,
     uri,
+    caller,
     initial = false,
     isAction = true,
     showModal = true,
@@ -80,6 +83,7 @@ export const useRequests = createGlobalState(() => {
     title?: string
     method?: RequestMethod
     uri?: string
+    caller?: RequestCaller
     showModal?: boolean
     isAction?: boolean
     initial?: boolean
@@ -103,6 +107,7 @@ export const useRequests = createGlobalState(() => {
       action: isAction
         ? {
             external,
+            caller,
             // in case of recent history entry
             operationId: external && status !== 'pending' ? id : undefined,
             messages: [],

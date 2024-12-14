@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, toRefs } from 'vue'
 
+import { useInfos } from '@/composables/useInfos'
 import type { APIRequest } from '@/composables/useRequests'
 import { STATUS_VARIANT } from '@/helpers/yunohostArguments'
 
@@ -11,16 +12,23 @@ const props = defineProps<{
 
 const emit = defineEmits<{ showError: [id: string] }>()
 
+const { currentUser } = useInfos()
 const statusVariant = computed(() => STATUS_VARIANT[props.request.status])
 const { errors, warnings } = toRefs(
   props.request.action || { errors: 0, warnings: 0 },
 )
+
 const dateOrTime = computed(() => {
   // returns date if date < today else time
   const date = new Date(props.request.date)
   const dateString = date.toLocaleDateString()
   if (new Date().toLocaleDateString() !== dateString) return dateString
   return date.toLocaleTimeString()
+})
+
+const caller = computed(() => {
+  const caller = props.request.action?.caller
+  return caller && caller !== currentUser.value ? caller : null
 })
 </script>
 
@@ -35,6 +43,7 @@ const dateOrTime = computed(() => {
     <!-- tabindex 0 on title for focus-trap when no tabable elements -->
     <strong :tabindex="type === 'overlay' ? 0 : undefined">
       {{ request.title }}
+      <template v-if="caller">({{ caller }})</template>
     </strong>
 
     <div v-if="errors || warnings">

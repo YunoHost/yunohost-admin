@@ -4,17 +4,15 @@ import { ref } from 'vue'
 import { STATUS_VARIANT, isOkStatus } from '@/helpers/yunohostArguments'
 import type { StateStatus } from '@/types/commons'
 import { useAutoToast } from './useAutoToast'
-import {
-  useRequests,
-  type APIRequest,
-  type APIRequestAction,
-} from './useRequests'
+import type { APIRequest, APIRequestAction, RequestCaller } from './useRequests'
+import { useRequests } from './useRequests'
 
 type SSEEventDataStart = {
   type: 'start'
   timestamp: number
   ref_id: string
   operation_id: string
+  started_by: RequestCaller
   title: string
 }
 
@@ -41,6 +39,7 @@ type SSEEventDataHistory = {
   operation_id: string
   title: string
   started_at: number
+  started_by: RequestCaller
   success: boolean
 }
 
@@ -126,6 +125,7 @@ export const useSSE = createGlobalState(() => {
     if (data.type === 'start') {
       request.action.operationId = data.operation_id
       request.title = data.title
+      request.action.caller = data.started_by
     } else if (data.type === 'end' && request.action.external) {
       // End request on this last message if the action was external
       // (else default http response will end it)
@@ -178,6 +178,7 @@ export const useSSE = createGlobalState(() => {
       id: data.operation_id,
       title: data.title,
       date: data.started_at * 1000,
+      caller: data.started_by,
       showModal: false,
       external: true,
       status: data.success ? 'success' : 'error',
