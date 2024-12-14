@@ -235,7 +235,7 @@
         "documentation": "Dokumentazioa",
         "help": "Laguntza behar al duzu?",
         "donate": "Egin dohaintza",
-        "tos": "Zerbitzuen Baldintzak"
+        "tos": "Zerbitzu-baldintzak"
     },
     "hook_data_home_desc": "Erabiltzaile-datuak /home/ERABILTZAILEA katalogoan daude",
     "installed": "Instalatuta",
@@ -706,8 +706,8 @@
     },
     "tos": {
         "i_agree": "Ados",
-        "i_have_read": "Irakurri ditut eta ulertzen ditut <a href='https://yunohost.org/terms_of_services' target='_blank'>Zerbitzuen Baldintzak</a>",
-        "postinstall_acknowledgement": "YunoHost boluntario talde baten proiektua da, zerbitzarietarako sistema eragile ireki bat sortzeko kausa komuna duena. YunoHosten softwareak [AGPLv3 lizentzia](https://www.gnu.org/licenses/agpl-3.0.txt) dauka. Proiektuak zerbitzu tekniko eta komunitario anitz administratu eta eskuragarri jartzen ditu, hainbat helburutarako. Zerbitzu horiek erabiltzean, [Zerbitzuen Baldintzak](https://yunohost.org/terms_of_services) onartzen dituzu.",
+        "i_have_read": "Irakurri ditut eta ulertzen ditut <a href='https://yunohost.org/terms_of_services' target='_blank'>Zerbitzu-baldintzak</a>",
+        "postinstall_acknowledgement": "YunoHost boluntario talde baten proiektua da, zerbitzarietarako sistema eragile ireki bat sortzeko kausa komuna duena. YunoHosten softwareak [AGPLv3 lizentzia](https://www.gnu.org/licenses/agpl-3.0.txt) dauka. Proiektuak zerbitzu tekniko eta komunitario anitz administratu eta eskuragarri jartzen ditu, hainbat helburutarako. Zerbitzu horiek erabiltzean, [Zerbitzu-baldintzak](https://yunohost.org/terms_of_services) onartzen dituzu.",
         "acknowledgement": "Zerbitzuen Baldintzen onarpena"
     },
     "groups": {
