@@ -64,10 +64,7 @@ const { description, logs, moreLogsAvailable, info } = await api
 
 function shareLogs() {
   api
-    .get<{ url: string }>({
-      uri: `logs/${props.name}/share`,
-      isAction: true,
-    })
+    .get<{ url: string }>({ uri: `logs/${props.name}/share` })
     .then(({ url }) => {
       window.open(url, '_blank')
     })
