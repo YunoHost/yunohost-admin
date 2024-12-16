@@ -141,7 +141,6 @@ async function togglePort({
   )
   if (!confirmed) return false
 
-  const actionTrad = t({ allow: 'open', disallow: 'close' }[action])
   return api
     .put({
       uri: `firewall/${protocol}/${action}/${port}?${connection}_only`,
