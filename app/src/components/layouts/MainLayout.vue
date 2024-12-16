@@ -9,7 +9,6 @@ import {
   ModalError,
   ModalReconnecting,
   ModalWaiting,
-  ModalWarning,
 } from '@/components/modals'
 import { useInfos } from '@/composables/useInfos'
 import { useRequests } from '@/composables/useRequests'
@@ -61,11 +60,6 @@ const modalComponent = computed(() => {
   if (status === 'error' && err) {
     return {
       is: ModalError,
-      props: { request, onDismiss: () => dismissModal(request.id) },
-    }
-  } else if (status === 'warning') {
-    return {
-      is: ModalWarning,
       props: { request, onDismiss: () => dismissModal(request.id) },
     }
   } else {

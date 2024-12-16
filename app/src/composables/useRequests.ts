@@ -7,6 +7,7 @@ import { APIErrorLog, type APIError } from '@/api/errors'
 import i18n from '@/i18n'
 import type { StateVariant } from '@/types/commons'
 import { updateCacheFromAction } from './data'
+import { useAutoToast } from './useAutoToast'
 import { useInfos } from './useInfos'
 
 export type RequestStatus = 'pending' | 'success' | 'warning' | 'error'
@@ -142,14 +143,17 @@ export const useRequests = createGlobalState(() => {
     showError?: boolean
   }) {
     let status: RequestStatus = success ? 'success' : 'error'
-    let hideModal = success || !showError
+    const hideModal = success || !showError
 
     if (success && request.action) {
       const { warnings, errors, messages, external, operationId } =
         request.action
       const msgCount = messages.length
       if (msgCount && messages[msgCount - 1].variant === 'warning') {
-        hideModal = false
+        useAutoToast().show({
+          body: messages[msgCount - 1].text,
+          variant: 'warning',
+        })
       }
       if (errors || warnings) status = 'warning'
 
