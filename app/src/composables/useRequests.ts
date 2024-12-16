@@ -4,9 +4,10 @@ import { useRouter } from 'vue-router'
 
 import type { RequestMethod } from '@/api/api'
 import { APIErrorLog, type APIError } from '@/api/errors'
-import type { StateVariant } from '@/types/commons'
-import { useInfos } from './useInfos'
 import i18n from '@/i18n'
+import type { StateVariant } from '@/types/commons'
+import { updateCacheFromAction } from './data'
+import { useInfos } from './useInfos'
 
 export type RequestStatus = 'pending' | 'success' | 'warning' | 'error'
 export type RequestCaller = 'root' | 'noninteractive' | string | null
@@ -144,12 +145,17 @@ export const useRequests = createGlobalState(() => {
     let hideModal = success || !showError
 
     if (success && request.action) {
-      const { warnings, errors, messages } = request.action
+      const { warnings, errors, messages, external, operationId } =
+        request.action
       const msgCount = messages.length
       if (msgCount && messages[msgCount - 1].variant === 'warning') {
         hideModal = false
       }
       if (errors || warnings) status = 'warning'
+
+      if (external) {
+        updateCacheFromAction(operationId!)
+      }
     }
 
     if (request.showModalTimeout) {

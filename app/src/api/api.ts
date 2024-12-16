@@ -24,6 +24,7 @@ export type APIQuery = {
   uri: string
   method?: RequestMethod
   cachePath?: StorePath
+  cacheForce?: boolean
   data?: Obj
   showModal?: boolean
   ignoreError?: boolean
@@ -92,6 +93,7 @@ export default {
     uri,
     method = 'GET',
     cachePath = undefined,
+    cacheForce = false,
     data = undefined,
     showModal = method !== 'GET',
     ignoreError = false,
@@ -99,7 +101,7 @@ export default {
     initial = false,
   }: APIQuery): Promise<T> {
     const cache = cachePath ? useCache<T>(method, cachePath) : undefined
-    if (method === 'GET' && cache?.content.value !== undefined) {
+    if (!cacheForce && method === 'GET' && cache?.content.value !== undefined) {
       return cache.content.value
     }
 
