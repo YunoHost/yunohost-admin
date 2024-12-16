@@ -13,9 +13,7 @@ const rootElem = ref<InstanceType<typeof BCard> | null>(null)
 const historyElem = ref<InstanceType<typeof BAccordion> | null>(null)
 const open = ref(false)
 
-const lastAction = computed(() => {
-  return historyList.value[historyList.value.length - 1]
-})
+const lastAction = computed(() => historyList.value[0])
 
 async function scrollToAction(actionIndex: number) {
   await nextTick()
