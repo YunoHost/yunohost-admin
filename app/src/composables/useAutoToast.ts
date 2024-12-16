@@ -3,6 +3,8 @@ import type { OrchestratedToast } from 'bootstrap-vue-next'
 import { useToastController } from 'bootstrap-vue-next'
 import { ref } from 'vue'
 
+import YToast from '@/components/YToast.vue'
+
 type useToastControllerInstance = ReturnType<typeof useToastController>
 
 export const useAutoToast = createGlobalState(() => {
@@ -13,7 +15,7 @@ export const useAutoToast = createGlobalState(() => {
   }
 
   function show(props: OrchestratedToast) {
-    toastController.value?.show?.({ props })
+    toastController.value?.show?.({ props, component: YToast })
   }
 
   return { init, show }
