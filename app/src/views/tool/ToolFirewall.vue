@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { reactive, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 import api from '@/api'
@@ -15,21 +15,18 @@ const modalConfirm = useAutoModal()
 const { protocols, upnpEnabled } = await api
   .fetch<Firewall>({ uri: 'firewall?raw' })
   .then((firewall) => {
-    // This is because BTable expects a list
-    let tcp_ports_array = Object.entries(firewall['tcp']).map(([k, v]) => ({
-      port: Number(k),
-      open: v.open,
-      upnp: v.upnp,
-      comment: v.comment,
-    }))
-    let udp_ports_array = Object.entries(firewall['udp']).map(([k, v]) => ({
-      port: Number(k),
-      open: v.open,
-      upnp: v.upnp,
-      comment: v.comment,
-    }))
     return {
-      protocols: { tcp: tcp_ports_array, udp: udp_ports_array },
+      protocols: reactive({
+        // This is because BTable expects a list
+        tcp: Object.entries(firewall['tcp']).map(([k, v]) => ({
+          port: parseInt(k),
+          ...v,
+        })),
+        udp: Object.entries(firewall['udp']).map(([k, v]) => ({
+          port: parseInt(k),
+          ...v,
+        })),
+      }),
       upnpEnabled: ref(firewall.router_forwarding_upnp),
     }
   })
