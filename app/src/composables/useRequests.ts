@@ -157,8 +157,8 @@ export const useRequests = createGlobalState(() => {
       }
       if (errors || warnings) status = 'warning'
 
-      if (external) {
-        updateCacheFromAction(operationId!)
+      if (external && operationId) {
+        updateCacheFromAction(operationId)
       }
     }
 
