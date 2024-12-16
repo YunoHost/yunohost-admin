@@ -185,6 +185,18 @@ function onFormPortToggling() {
   })
 }
 
+function onCommentEdit(protocol: Form['protocol'], index: number) {
+  const { open, upnp, port, comment } = protocols[protocol][index]
+  form.value = {
+    action: open ? 'open' : 'close',
+    port,
+    protocol,
+    upnp,
+    comment,
+  }
+  ;(document.querySelector('#comment') as HTMLInputElement).focus()
+}
+
 function getFieldClass(field: TableField) {
   const classes = {
     port: 'col-1 pe-3',
@@ -240,6 +252,13 @@ function getFieldClass(field: TableField) {
 
           <template #cell(comment)="data">
             {{ data.value }}
+            <BButton
+              size="xs"
+              class="ms-auto me-2"
+              @click="onCommentEdit(protocol, data.index)"
+            >
+              {{ $t('words.edit') }}
+            </BButton>
           </template>
         </BTableLite>
       </div>
