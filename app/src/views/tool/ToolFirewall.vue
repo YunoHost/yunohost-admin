@@ -152,23 +152,32 @@ async function toggleUpnp() {
 }
 
 function onTablePortToggling(
-  { port, protocol, upnp, comment }: Omit<Form, 'action'>,
+  protocol: Form['protocol'],
   index: number,
+  key: 'open' | 'upnp',
   value: boolean,
 ) {
-  protocols[protocol][index]['open'] = value
-  // FIXME: handle upnp properly
-  protocols[protocol][index]['upnp'] = value && upnp
+  // To reset state if canceled
+  const { open, upnp } = protocols[protocol][index]
+
+  if (key === 'open' || value) {
+    protocols[protocol][index]['open'] = value
+  }
+  if (key === 'upnp' || !value) {
+    protocols[protocol][index]['upnp'] = value
+  }
   // FIXME: maybe someday handle comment edition?
 
-  const action = value ? 'open' : 'close'
-  togglePort({ action, port, protocol, upnp, comment }).then((confirmed) => {
-    // Revert change on cancel
-    if (!confirmed) {
-      protocols[protocol][index]['open'] = !value
-    }
-    protocols[protocol][index]['upnp'] = !value && upnp
-  })
+  const action = key === 'upnp' || value ? 'open' : 'close'
+  togglePort({ action, protocol, ...protocols[protocol][index] }).then(
+    (confirmed) => {
+      // Revert change on cancel
+      if (!confirmed) {
+        protocols[protocol][index]['open'] = open
+        protocols[protocol][index]['upnp'] = upnp
+      }
+    },
+  )
 }
 
 function onFormPortToggling() {
@@ -199,14 +208,10 @@ function onFormPortToggling() {
               switch
               @update:model-value="
                 onTablePortToggling(
-                  {
-                    port: data.item.port,
-                    protocol,
-                    upnp: data.item.upnp,
-                    comment: data.item.comment,
-                  },
+                  protocol,
                   data.index,
-                  $event,
+                  data.field.key as 'open' | 'upnp',
+                  $event as boolean,
                 )
               "
             >
