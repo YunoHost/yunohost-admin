@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { TableField } from 'bootstrap-vue-next'
 import { reactive, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
@@ -183,6 +184,16 @@ function onFormPortToggling() {
     if (confirmed) api.refetch()
   })
 }
+
+function getFieldClass(field: TableField) {
+  const classes = {
+    port: 'col-1 pe-3',
+    open: 'col-1',
+    upnp: 'col-1',
+    comment: 'd-flex',
+  } as Record<typeof field.key, string>
+  field.class = classes[field.key]
+}
 </script>
 
 <template>
@@ -192,7 +203,14 @@ function onFormPortToggling() {
       <div v-for="(items, protocol) in protocols" :key="protocol">
         <h5>{{ $t(protocol) }}</h5>
 
-        <BTable :fields="tableFields" :items="items" small striped responsive>
+        <BTableLite
+          :fields="tableFields"
+          :items="items"
+          small
+          striped
+          responsive
+          :field-column-class="getFieldClass"
+        >
           <!-- PORT CELL -->
           <template #cell(port)="data">
             {{ data.value }}
@@ -223,7 +241,7 @@ function onFormPortToggling() {
           <template #cell(comment)="data">
             {{ data.value }}
           </template>
-        </BTable>
+        </BTableLite>
       </div>
     </YCard>
 
