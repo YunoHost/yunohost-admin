@@ -172,7 +172,7 @@ export const useInfos = createGlobalState(() => {
 
   function login(credentials: string) {
     return api
-      .post({ uri: 'login', data: { credentials }, websocket: false })
+      .post({ uri: 'login', data: { credentials }, isAction: false })
       .then(() => _onLogin())
   }
 
