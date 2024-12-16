@@ -60,7 +60,6 @@ const form = ref<Form>({
 
 const fields = {
   action: {
-    asInputGroup: true,
     component: 'SelectItem',
     label: t('action'),
     rules: { required },
@@ -74,7 +73,6 @@ const fields = {
   } satisfies FieldProps<'SelectItem', Form['port']>,
 
   port: {
-    asInputGroup: true,
     component: 'InputItem',
     label: t('port'),
     rules: { number: required, integer, between: between(0, 65535) },
@@ -82,7 +80,6 @@ const fields = {
   } satisfies FieldProps<'InputItem', Form['action']>,
 
   protocol: {
-    asInputGroup: true,
     component: 'SelectItem',
     label: t('protocol'),
     rules: { required },
@@ -96,7 +93,6 @@ const fields = {
   } satisfies FieldProps<'SelectItem', Form['protocol']>,
 
   upnp: {
-    asInputGroup: true,
     component: 'CheckboxItem',
     label: t('upnp'),
     rules: { required },
@@ -104,7 +100,6 @@ const fields = {
   } satisfies FieldProps<'CheckboxItem', Form['upnp']>,
 
   comment: {
-    asInputGroup: true,
     component: 'InputItem',
     // label: t('comment'),
     label: 'Comment FIXME translate',
@@ -235,10 +230,8 @@ function onFormPortToggling() {
       v-model="form"
       :fields="fields"
       icon="cogs"
-      inline
       :title="$t('operations')"
       :validations="v"
-      form-classes="d-flex flex-column flex-lg-row gap-3 justify-content-between align-items-start"
       @submit.prevent="onFormPortToggling"
     />
 
