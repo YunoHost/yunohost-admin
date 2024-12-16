@@ -37,7 +37,7 @@ const tableFields = [
   { key: 'port', label: t('port') },
   { key: 'open', label: t('open') },
   { key: 'upnp', label: t('upnp') },
-  { key: 'comment', label: t('comment') },
+  { key: 'comment', label: t('words.comment') },
 ]
 
 type Form = {
@@ -99,8 +99,7 @@ const fields = {
 
   comment: {
     component: 'InputItem',
-    // label: t('comment'),
-    label: 'Comment FIXME translate',
+    label: t('words.comment'),
     rules: { string: required },
     cProps: { id: 'comment', placeholder: '', type: 'text' },
   } satisfies FieldProps<'InputItem', Form['upnp']>,
@@ -300,7 +299,7 @@ function getFieldClass(field: TableField) {
 
 <style lang="scss" scoped>
 :deep() {
-  .form-switch {
+  .table .form-switch {
     .form-check-input {
       &:checked {
         border-color: $success;
