@@ -177,7 +177,7 @@ type AnyItemComponents = AnyDisplayComponents | AnyWritableComponents
 export type AnyDisplayComponents = (typeof ANY_DISPLAY_COMPONENTS)[number]
 export type AnyWritableComponents = (typeof ANY_WRITABLE_COMPONENTS)[number]
 
-export function isWritableComponent<MV extends any = any>(
+export function isWritableComponent<MV>(
   field:
     | FormField<AnyWritableComponents, MV>
     | FormField
@@ -230,7 +230,7 @@ export type ItemComponentToItemProps = {
   TextAreaItem: TextAreaItemProps
 }
 
-type FormFieldRules<MV extends any> = MV extends object
+type FormFieldRules<MV> = MV extends object
   ? MV extends any[]
     ? ValidationArgs<FormFieldRules<ArrInnerType<MV>>>
     : ValidationArgs<MV | Partial<MV>>
@@ -252,7 +252,7 @@ type BaseFormField<C extends AnyItemComponents> = {
 
 export type FormField<
   C extends AnyWritableComponents = AnyWritableComponents,
-  MV extends any = any,
+  MV = any,
 > = BaseFormField<C> & {
   append?: string
   asInputGroup?: boolean
@@ -288,10 +288,10 @@ export type FormFieldDisplay<
   rules?: undefined
 }
 
-export type FormFieldProps<
-  C extends AnyWritableComponents,
-  MV extends any,
-> = Omit<FormField<C, MV>, 'hr' | 'visible' | 'readonly'> &
+export type FormFieldProps<C extends AnyWritableComponents, MV> = Omit<
+  FormField<C, MV>,
+  'hr' | 'visible' | 'readonly'
+> &
   BaseFormFieldComputedProps
 
 export type FormFieldReadonlyProps<C extends AnyWritableComponents> = Omit<
@@ -313,7 +313,7 @@ export type FormFieldDict<T extends Obj = Obj> = {
 // Type to check if object satisfies specified Field and Item
 export type FieldProps<
   C extends AnyItemComponents = AnyItemComponents,
-  MV extends any = never,
+  MV = never,
 > = C extends AnyWritableComponents
   ?
       | (FormField<C, MV> & { component: C })

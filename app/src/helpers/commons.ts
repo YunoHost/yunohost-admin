@@ -9,10 +9,7 @@ import type { Obj } from '@/types/commons'
  * @param promise - A promise (like a fetch call).
  * @param delay - delay after which the promise is rejected
  */
-export function timeout<T extends unknown>(
-  promise: Promise<T>,
-  delay: number,
-): Promise<T> {
+export function timeout<T>(promise: Promise<T>, delay: number): Promise<T> {
   return new Promise((resolve, reject) => {
     // FIXME reject(new Error('api_not_responding')) for post-install
     setTimeout(() => reject, delay)
@@ -36,7 +33,7 @@ export function isObjectLiteral(value: any): value is Obj {
 export function objectGet<
   T extends Obj,
   K extends keyof T | string,
-  F extends any = undefined,
+  F = undefined,
 >(obj: T, key: K, fallback?: F) {
   return (key in obj ? obj[key] : fallback) as K extends keyof T ? T[K] : F
 }
@@ -49,6 +46,7 @@ export function objectGet<
  */
 export function isEmptyValue(
   value: any,
+  // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 ): value is null | undefined | '' | [] | {} {
   if (typeof value === 'number' || typeof value === 'boolean') return false
   return (

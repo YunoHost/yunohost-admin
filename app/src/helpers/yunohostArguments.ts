@@ -235,9 +235,9 @@ export function formatForm<
     return entries.reduce(
       (form, [k, v]) => {
         if (isObjectLiteral(v) && 'filename' in v && 'content' in v) {
-          // @ts-ignore (mess to type)
+          // @ts-expect-error (mess to type)
           form[k] = v.content
-          // @ts-ignore (mess to type)
+          // @ts-expect-error (mess to type)
           form[`${String(k)}[name]`] = v.filename
         } else {
           form[k] = v

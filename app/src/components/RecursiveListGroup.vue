@@ -1,5 +1,9 @@
 <script setup lang="ts">
-import type { TreeChildNode, AnyTreeNode } from '@/helpers/data/tree'
+import type {
+  AnyTreeNode,
+  TreeChildNode,
+  TreeRootNode,
+} from '@/helpers/data/tree'
 
 const props = withDefaults(
   defineProps<{
@@ -16,7 +20,9 @@ const props = withDefaults(
 )
 
 type NodeSlot = {
-  [K in keyof TreeChildNode as TreeChildNode[K] extends Function
+  [K in keyof TreeChildNode as TreeChildNode[K] extends (
+    callback: (node: AnyTreeNode, index: number, root: TreeRootNode) => boolean,
+  ) => AnyTreeNode
     ? never
     : K]: TreeChildNode[K]
 }

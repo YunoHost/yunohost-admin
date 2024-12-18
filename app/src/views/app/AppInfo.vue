@@ -95,7 +95,7 @@ const [app, form, coreConfig, configPanelErr] = await api
       // TODO: could return `remote` key of manifest to pass only manifest and id?
       links: formatAppLinks({
         ...app_.manifest,
-        // @ts-expect-error
+        // @ts-expect-error meh
         remote: app_.from_catalog.git ?? { url: null },
       }),
       doc: {
