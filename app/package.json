@@ -11,7 +11,8 @@
     "lint:prettier": "prettier --check .",
     "lint": "yarn lint:js && yarn lint:prettier",
     "lintfix": "prettier --write --list-different . && yarn lint:js --fix",
-    "type-check": "vue-tsc --noEmit -p tsconfig.json"
+    "type-check": "vue-tsc --noEmit -p tsconfig.json",
+    "upgrade-deps": "yarn upgrade-interactive --latest"
   },
   "dependencies": {
     "@fontsource/fira-code": "^5.1.0",
