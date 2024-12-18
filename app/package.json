@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "lint:js": "eslint --ext \".ts,.vue,.cjs,.js\" --ignore-path ../.gitignore .",
+    "lint:js": "eslint .",
     "lint:prettier": "prettier --check .",
     "lint": "yarn lint:js && yarn lint:prettier",
     "lintfix": "prettier --write --list-different . && yarn lint:js --fix",
@@ -34,11 +34,10 @@
   "devDependencies": {
     "@types/uuid": "^10.0.0",
     "@vitejs/plugin-vue": "^5.2.1",
+    "@vue/eslint-config-prettier": "^10.1.0",
     "@vue/eslint-config-typescript": "^14.1.4",
     "@vue/tsconfig": "^0.7.0",
     "eslint": "^9.17.0",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-prettier": "^5.2.1",
     "eslint-plugin-vue": "^9.32.0",
     "prettier": "^3.4.2",
     "sass": "^1.83.0",
