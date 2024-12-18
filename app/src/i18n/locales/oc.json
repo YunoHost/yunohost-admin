@@ -83,7 +83,7 @@
     "ipv4": "IPv4",
     "ipv6": "IPv6",
     "label": "Apelacion",
-    "label_for_manifestname": "Apelacion per {name} (nom afichat sul portal utilizaire)",
+    "label_for_manifestname": "Apelacion per {name}",
     "local_archives": "Archius locals",
     "login": "Connexion",
     "logout": "Desconnexion",
@@ -162,7 +162,11 @@
     "words": {
         "default": "Defaut",
         "collapse": "Plegar",
-        "browse": "Percórrer"
+        "browse": "Percórrer",
+        "link": "Ligam",
+        "none": "Cap",
+        "separator": ", ",
+        "valid": "Valid"
     },
     "yes": "Òc",
     "certificate_manage": "Gerir los certificats SSL",
@@ -363,10 +367,11 @@
     "placeholder": {
         "domain": "mon-domeni.fr",
         "groupname": "Lo nom de mon grop",
-        "lastname": "Delbosc",
+        "lastname": "Petit",
         "firstname": "Joan",
-        "username": "joandelbosc",
-        "file": "Seleccionar un fichièr o lo lisar depausar"
+        "username": "joanpetit",
+        "file": "Seleccionar un fichièr o lo lisar depausar",
+        "fullname": "Joan Petit"
     },
     "perform": "Executar",
     "migrations_disclaimer_check_message": "Ai legida e compresa la descarga de responsabilitat",
@@ -382,7 +387,8 @@
         "backups": "cap de salvagarda | salvagarda | salvagardas",
         "apps": "cap d’aplicacion | app | aplicacions",
         "permissions": "cap de permission | permission | permissions",
-        "logs": "cap de jornal| jornal | jornals"
+        "logs": "cap de jornal| jornal | jornals",
+        "items": "cap d'element | element | elements"
     },
     "hook_data_xmpp": "Donadas XMPP",
     "hook_conf_manually_modified_files": "Fichièr de configuracion modificat manualament",
@@ -392,7 +398,7 @@
             "PUT": "modificar",
             "POST": "crear/executar",
             "GET": "legir",
-            "DELETE": "suprimir"
+            "DELETE": "Suprimir"
         },
         "last_action": "Darrièra accion :",
         "title": "Istoric",
@@ -423,7 +429,8 @@
     "footer": {
         "donate": "Far un don",
         "documentation": "Documentacion",
-        "help": "Besonh d’ajuda ?"
+        "help": "Besonh d’ajuda ?",
+        "tos": "Conditions d'utilizacion"
     },
     "experimental": "Experimental",
     "error": "Error",
@@ -474,7 +481,8 @@
                 "shutdown": "Vòstre servidor es a s’aturar e serà pas mai contactable. Reaviatz-lo e una fenèstra de connexion serà disponibla tre que lo servidor serà contactable.",
                 "upgrade_system": "La connexion al servidor es estada tampada a causa de la mesa a nivèl de YunoHost. En espèra de poder contactar lo servidor de nòu…"
             },
-            "failed": "Lo servidor respond pas. Podètz ensajar de vos i tornar connectar o ensajar d’executar « systemctl restart yunohost-api » via SSH."
+            "failed": "Lo servidor respond pas. Podètz ensajar de vos i tornar connectar o ensajar d’executar « systemctl restart yunohost-api » via SSH.",
+            "session_expired": "Lo servidor es ara accessible ! Mas sembla que vòstre session aja expirat, se vos plai, reconnectatz-vos."
         }
     },
     "domain_delete_forbidden_desc": "Podètz pas suprimir « {domain} » perque es lo domeni per defaut, devètz causir un autre domeni (o <a href='#/domains/add'>ajustatz-ne un</a>) e lo definir coma lo demeni per defaut per poder suprimir aquel.",
@@ -528,7 +536,8 @@
         },
         "add": {
             "dyn_dns_password": "Senhal de recuperacion del domeni",
-            "from_local": "Vòli un domeni per un usatge local / de provar sonque"
+            "from_local": "Vòli un domeni per un usatge local / de provar sonque",
+            "from_registrar": "Vòli apondre un domeni que possedissi"
         }
     },
     "users_import": "Importar los utilizaires",
@@ -563,7 +572,7 @@
                 },
                 "post": {
                     "title": "Notificacion de post-installacion per « {name} »",
-                    "alert": "Sembla que l’installacion se siá plan passada !\n Vaquí d’unas notificacion que lo responsable del paquet considèra coma importantas de saber.\nLas podètz tornar trapar dins la pagina d’informacions de l’aplicacion."
+                    "alert": "Sembla que l’installacion se siá plan passada !\nVaquí d’unas notificacion que lo responsable del paquet considèra coma importantas de saber.\nLas podètz tornar trapar dins la pagina d’informacions de l’aplicacion."
                 }
             },
             "problems": {
@@ -571,7 +580,8 @@
                 "install": "Aquesta aplicacion es ja installada e se pòt pas installar mai d’un còp.",
                 "arch": "Se pòt sonque installar aquesta aplicacion sus d’arquitectura especificas ({required}). L’arquitectura de vòstre servidor es {current}.",
                 "broken": "Aquesta aplicacion es copada segon los tests automatics de YunoHost e es susceptibla de copar vòstre sistèma ! Deuriatz probablament PAS l’installar levat se sabètz çò que fasètz.",
-                "thirdparty": "Aquesta aplicacion fa pas part del catalòg oficial de YunoHost, l’installacion d’aplicacions tèrças pòt comprometre l’integritat e la seguretat de vòstre sistèma. Deuriatz probablament PAS l’installar levar se sabètz çò que fasètz."
+                "thirdparty": "Aquesta aplicacion fa pas part del catalòg oficial de YunoHost, l’installacion d’aplicacions tèrças pòt comprometre l’integritat e la seguretat de vòstre sistèma. Deuriatz probablament PAS l’installar levar se sabètz çò que fasètz.",
+                "inprogress": "Aquesta aplicacion es encara experimentala (per èsser mai clara, fonciona pas super plan e es pas encara plan integrada dins YunoHost). En consequéncia, es susceptible de copar vòstre sistèma ! Deuriatz PAS l'installar se sabètz pas çò que fasètz."
             },
             "try_demo": "Ensajar la demonstracion",
             "version": "Version actuala : {version}",
@@ -598,13 +608,14 @@
         },
         "links": {
             "website": "Site oficial",
-            "license": "Licéncia",
+            "license": "Licéncia de l'aplicacion",
             "admindoc": "Documentacion d’administracion oficiala",
             "code": "Depaus oficial del còdi",
             "package": "Depaus dels paquets de YunoHost",
             "title": "Ligams",
             "userdoc": "Documentacion utilizaire oficiala",
-            "forum": "Subjèctes tocant aquesta aplicacion sul forum de YunoHost"
+            "forum": "Subjèctes tocant aquesta aplicacion sul forum de YunoHost",
+            "package_license": "Licéncia del paquet YunoHost"
         },
         "installed_version": "Version installada :",
         "open_this_app": "Dobrir l’aplicacion",
@@ -645,5 +656,18 @@
     "app_state_broken_explanation": "Aquesta aplicacion es actualament copada e se pòt pas installar segon los contraròtles automatic de YunoHost",
     "app_state_broken": "copada",
     "details_about": "Mostrar mai de detalhs tocant {subject}",
-    "group_admins": "Admins"
+    "group_admins": "Admins",
+    "manage_groups": "Gerir los grops",
+    "wrong_password_or_username": "Senhal o compte incorrècte",
+    "loading": "Cargament",
+    "install_app": "Installar una aplicacion",
+    "tools_yunohost_settings": "Paramètres de YunoHost",
+    "quick_action": "Accion rapida",
+    "tos": {
+        "i_agree": "Soi d'acòrdi"
+    },
+    "form": {
+        "current_file": "Fichièr actual :",
+        "select_one": "Seleccionatz una opcion"
+    }
 }
