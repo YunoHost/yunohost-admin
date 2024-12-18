@@ -96,8 +96,10 @@ export type InputItemProps = BaseWritableItemProps & {
     | 'new-password'
     | 'current-password'
     | 'url'
+  autocapitalize?: string
   // pattern?: object
   // choices?: Choices FIXME rm ?
+  spellcheck?: 'true' | 'false'
   step?: number
   trim?: boolean
   type?:

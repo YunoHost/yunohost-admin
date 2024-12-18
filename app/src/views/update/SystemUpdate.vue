@@ -44,11 +44,11 @@ async function performAppsUpgrade(ids: string[]) {
 
   for (const app of apps_) {
     const continue_ = await api
-      .put({
+      .put<Pick<SystemUpdate['apps'][number], 'notifications'>>({
         uri: `apps/${app.id}/upgrade`,
         humanKey: { key: 'upgrade.app', app: app.name },
       })
-      .then((response: Pick<SystemUpdate['apps'][number], 'notifications'>) => {
+      .then((response) => {
         const postMessage = formatAppNotifs(response.notifications.POST_UPGRADE)
         const isLast = app.id === lastAppId
         apps.value = apps.value.filter((a) => app.id !== a.id)

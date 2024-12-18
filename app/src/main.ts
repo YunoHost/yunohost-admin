@@ -1,6 +1,6 @@
 import { watchOnce } from '@vueuse/core'
 import { createBootstrap } from 'bootstrap-vue-next'
-import { createApp, type Component } from 'vue'
+import { createApp, type Component, type Plugin } from 'vue'
 import { VueShowdownPlugin } from 'vue-showdown'
 
 import App from './App.vue'
@@ -39,7 +39,7 @@ app.use(i18n)
 
 app.use(createBootstrap())
 
-app.use(VueShowdownPlugin, {
+app.use(VueShowdownPlugin as Plugin, {
   flavor: 'github',
   options: {
     emoji: true,

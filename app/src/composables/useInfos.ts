@@ -135,9 +135,11 @@ export const useInfos = createGlobalState(() => {
   }
 
   function getYunoHostVersion() {
-    return api.get('versions').then((versions) => {
-      yunohost.value = versions.yunohost
-    })
+    return api
+      .get<{ yunohost: { version: string; repo: string } }>('versions')
+      .then((versions) => {
+        yunohost.value = versions.yunohost
+      })
   }
 
   // CONNECTION

@@ -64,7 +64,7 @@ const { description, logs, moreLogsAvailable, info } = await api
 
 function shareLogs() {
   api
-    .get({
+    .get<{ url: string }>({
       uri: `logs/${props.name}/share`,
       humanKey: { key: 'share_logs', name: props.name },
       websocket: true,

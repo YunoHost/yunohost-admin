@@ -39,12 +39,12 @@ getDnsChanges()
 // FIXME other Suspense? get types
 function getDnsChanges() {
   return api
-    .post({
+    .post<DNSCategories>({
       uri: `domains/${props.name}/dns/push?dry_run`,
       showModal: true,
       websocket: false,
     })
-    .then((dnsCategories: DNSCategories) => {
+    .then((dnsCategories) => {
       let canForce = false
 
       function getLongest(arr: Obj[], key: string) {
@@ -117,11 +117,11 @@ async function pushDnsChanges() {
   }
 
   api
-    .post({
+    .post<Obj<string[]>>({
       uri: `domains/${props.name}/dns/push${force.value ? '?force' : ''}`,
       humanKey: { key: 'domains.push_dns_changes', name: props.name },
     })
-    .then(async (responseData: Obj<string[]>) => {
+    .then(async (responseData) => {
       await getDnsChanges()
       dnsErrors.value = Object.keys(responseData).reduce((acc, key) => {
         const args =
