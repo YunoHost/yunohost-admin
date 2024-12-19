@@ -126,7 +126,6 @@ export default defineConfig(({ mode }) => {
       proxy: {
         '/yunohost': {
           target: `https://${env.VITE_IP}`,
-          ws: true,
           logLevel: 'info',
           secure: false,
         },
