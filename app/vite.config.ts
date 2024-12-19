@@ -105,22 +105,24 @@ export default defineConfig(({ mode }) => {
   return {
     ...config,
     server: {
-      ...(env.VITE_LOCAL === 'true' ? {} : {
-        port: 8080,
-        host: env.VITE_IP,
-        https: {
-          // Use already created cert from yunohost instance
-          key: fs.readFileSync('/etc/yunohost/certs/yunohost.org/key.pem'),
-          cert: fs.readFileSync('/etc/yunohost/certs/yunohost.org/crt.pem'),
-        },
-        fs: {
-          // Needed for special ynh-dev context where node_modules is symlinked
-          allow: [
-            '/ynh-dev/yunohost-admin/app',
-            '/var/cache/ynh-dev/yunohost-admin/node_modules',
-          ],
-        },
-      }),
+      ...(env.VITE_LOCAL === 'true'
+        ? {}
+        : {
+            port: 8080,
+            host: env.VITE_IP,
+            https: {
+              // Use already created cert from yunohost instance
+              key: fs.readFileSync('/etc/yunohost/certs/yunohost.org/key.pem'),
+              cert: fs.readFileSync('/etc/yunohost/certs/yunohost.org/crt.pem'),
+            },
+            fs: {
+              // Needed for special ynh-dev context where node_modules is symlinked
+              allow: [
+                '/ynh-dev/yunohost-admin/app',
+                '/var/cache/ynh-dev/yunohost-admin/node_modules',
+              ],
+            },
+          }),
       proxy: {
         '/yunohost': {
           target: `https://${env.VITE_IP}`,
