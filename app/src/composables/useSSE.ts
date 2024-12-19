@@ -84,15 +84,23 @@ export const useSSE = createGlobalState(() => {
       sseSource.value = sse
     }
 
-    sse.onmessage = (event) => {
-      // The server sends at least heartbeats every 10s, try to reconnect if we loose connection
-      tryToReconnect(15000)
-      const data: AnySSEEventData = JSON.parse(atob(event.data))
-      if (isActionEvent(data)) onActionEvent(data)
-      if (data.type === 'heartbeat') onHeartbeatEvent(data)
-      if (data.type === 'recent_history') onHistoryEvent(data)
-      if (data.type === 'toast') onToastEvent(data)
+    function wrapEvent<T extends AnySSEEventData>(
+      name: T['type'],
+      fn: (data: T) => void,
+    ) {
+      sse.addEventListener(name, (e) => {
+        // The server sends at least heartbeats every 10s, try to reconnect if we loose connection
+        tryToReconnect(15000)
+        fn({ type: name, ...JSON.parse(e.data) })
+      })
     }
+
+    wrapEvent('recent_history', onHistoryEvent)
+    wrapEvent('start', onActionEvent)
+    wrapEvent('msg', onActionEvent)
+    wrapEvent('end', onActionEvent)
+    wrapEvent('heartbeat', onHeartbeatEvent)
+    wrapEvent('toast', onToastEvent)
 
     sse.onerror = (event) => {
       console.error('SSE error', event)
