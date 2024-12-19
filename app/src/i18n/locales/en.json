@@ -15,6 +15,7 @@
     "all": "All",
     "all_apps": "All apps",
     "api": {
+        "busy": "The server is busy…",
         "partial_logs": "[…] (check in history for full logs)",
         "processing": "The server is processing the action…",
         "query_status": {

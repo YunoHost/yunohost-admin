@@ -56,6 +56,7 @@ type SSEEventDataHeartbeat = {
   type: 'heartbeat'
   timestamp: number
   current_operation: string | null
+  cmdline: string | null
 }
 
 type AnySSEEventDataAction =
@@ -76,6 +77,7 @@ export const useSSE = createGlobalState(() => {
   const sseSource = ref<EventSource | null>(null)
   const reconnectTimeout = ref<number | undefined>()
   const { startRequest, endRequest, historyList } = useRequests()
+  const nonOperationWithLock = ref<APIRequestAction | null>(null)
 
   function init() {
     const sse = new EventSource(`/yunohost/api/sse`, { withCredentials: true })
@@ -164,13 +166,32 @@ export const useSSE = createGlobalState(() => {
       // An action may have failed without properly exiting
       // Ensure that there's no pending external request blocking the view
       // if server says that there's no current action
-      const request = historyList.value.findLast(
-        (r: APIRequest) =>
-          r.action?.external === true && r.status === 'pending',
-      ) as APIRequestAction | undefined
+      const request =
+        nonOperationWithLock.value ||
+        historyList.value.findLast(
+          (r: APIRequest) =>
+            r.action?.external === true && r.status === 'pending',
+        )
 
       if (request) {
-        endRequest({ request, success: false, showError: false })
+        endRequest({
+          request,
+          success: !!nonOperationWithLock.value,
+          showError: false,
+        })
+        nonOperationWithLock.value = null
+      }
+    } else if (data.current_operation.startsWith('lock')) {
+      // SPECIAL CASE: an operation like `yunohost tools shell` has the lock
+      const timestamp = parseFloat(data.current_operation.split('-')[1])
+      if (!nonOperationWithLock.value) {
+        nonOperationWithLock.value = startRequest({
+          id: data.current_operation,
+          title: data.cmdline!,
+          date: timestamp * 1000,
+          caller: 'cli',
+          external: true,
+        }) as APIRequestAction
       }
     }
   }
