@@ -29,7 +29,7 @@ defineSlots<{
     hide-backdrop
     no-close-on-backdrop
     no-close-on-esc
-    :hide-footer="hideFooter"
+    :no-footer="hideFooter"
     no-fade
   >
     <template #header>
