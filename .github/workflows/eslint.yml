@@ -15,3 +15,5 @@ jobs:
       run: cd app && yarn install --frozen-lockfile
     - name: Run linter
       run: cd app && yarn lint
+    - name: Run type checking
+      run: cd app && yarn type-check

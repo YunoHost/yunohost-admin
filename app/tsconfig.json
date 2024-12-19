@@ -1,9 +1,10 @@
 {
   "extends": "@vue/tsconfig/tsconfig.dom.json",
+  "include": ["env.d.ts", "overrides.d.ts", "src/**/*", "src/**/*.vue"],
   "compilerOptions": {
     "target": "ESNext",
     "noErrorTruncation": true,
-    "lib": ["es2021", "dom"],
+    "lib": ["es2023", "dom"],
     "paths": {
       "@/*": ["./src/*"]
     },

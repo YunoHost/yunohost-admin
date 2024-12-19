@@ -89,7 +89,7 @@ function toggleIgnoreIssue(
 }
 
 function shareLogs() {
-  api.get('diagnosis?share').then(({ url }) => {
+  api.get<{ url: string }>('diagnosis?share').then(({ url }) => {
     window.open(url, '_blank')
   })
 }

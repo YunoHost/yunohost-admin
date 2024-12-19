@@ -51,7 +51,10 @@
 
 // Import fonts
 @import 'font';
-@import '~fork-awesome/scss/fork-awesome.scss';
+// FIXME fork-awesome is deprecated and show lot of warnings
+// import code with sass deprecated syntax fixed instead
+// @import '~fork-awesome/scss/fork-awesome.scss';
+@import 'fork-awesome-zz';
 
 // Style overrides happens after dependencies imports
 

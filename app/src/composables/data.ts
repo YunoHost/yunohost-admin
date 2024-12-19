@@ -214,10 +214,7 @@ type StoreKeysParam =
 type DataKeys = StoreKeys | StoreKeysParam
 export type StorePath = `${StoreKeys}` | `${StoreKeysParam}.${string}`
 
-export function useCache<T extends any = any>(
-  method: RequestMethod,
-  cachePath: StorePath,
-) {
+export function useCache<T>(method: RequestMethod, cachePath: StorePath) {
   const [key, param] = cachePath.split(/\.(.*)/s) as
     | [StoreKeys, undefined]
     | [StoreKeysParam, string]

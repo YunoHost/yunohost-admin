@@ -25,6 +25,8 @@
 // For exemple, turning rounding of elements off, the bases colors, etc.
 // $enable-rounded: false;
 
+@use 'sass:math';
+
 @import '~bootstrap/scss/functions.scss';
 
 $prefix: bs-;
@@ -198,6 +200,7 @@ $list-group-action-color: $gray-800;
 //  Fork-awesome variable overrides.
 //  default: `app/node_modules/fork-awesome/scss/_variables.scss`
 
+$fa-li-width: math.div(30em, 14);
 $fa-font-path: '~fork-awesome/fonts';
 $fa-font-size-base: $font-size-base;
 

@@ -45,6 +45,13 @@ export default defineConfig(({ mode }) => {
           additionalData: `
             @import "@/scss/_variables.scss";
           `,
+          // FIXME next line when bootstrap 5 scss is updated with new sass syntax
+          silenceDeprecations: [
+            'mixed-decls',
+            'color-functions',
+            'global-builtin',
+            'import',
+          ],
         },
       },
     },

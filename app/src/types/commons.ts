@@ -12,7 +12,6 @@ export type VueClass =
 
 // BVN (not exported types for now)
 
-// eslint-disable-next-line prettier/prettier
 type ColsNumbers = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '10' | '11' | '12' // prettier-ignore
 export type Cols = Partial<Record<Breakpoint, boolean | ColsNumbers | 'auto'>>
 

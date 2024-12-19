@@ -115,7 +115,7 @@ class TreeNode {
 export class TreeRootNode extends TreeNode {
   data: null = null
   parent: null = null
-  id: 'root' = 'root'
+  id: 'root' = 'root' as const
 }
 
 export class TreeChildNode extends TreeNode {

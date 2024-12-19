@@ -14,14 +14,14 @@ defineOptions({
 })
 
 const currentRoute = useRoute()
-const props = defineProps<{
+const _props = defineProps<{
   panel: ConfigPanel<NestedMV, MV>
   routes: ConfigPanels<NestedMV, MV>['routes']
   validations: FormValidation<NestedMV>
 }>()
 
 const emit = defineEmits<{
-  apply: [action?: KeyOfStr<typeof props.panel.fields>]
+  apply: [action?: KeyOfStr<typeof _props.panel.fields>]
 }>()
 
 const slots = defineSlots<{

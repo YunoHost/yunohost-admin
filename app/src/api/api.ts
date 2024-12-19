@@ -101,7 +101,7 @@ export default {
    * @returns Promise that resolve the api response data
    * @throws Throw an `APIError` or subclass depending on server response
    */
-  async fetch<T extends any = any>({
+  async fetch<T>({
     uri,
     method = 'GET',
     cachePath = undefined,
@@ -206,9 +206,7 @@ export default {
    * @returns Promise that resolve the api response data or an error
    * @throws Throw an `APIError` or subclass depending on server response
    */
-  get<T extends any = any>(
-    query: string | Omit<APIQuery, 'method' | 'data'>,
-  ): Promise<T> {
+  get<T>(query: string | Omit<APIQuery, 'method' | 'data'>): Promise<T> {
     return this.fetch(typeof query === 'string' ? { uri: query } : query)
   },
 
@@ -220,7 +218,7 @@ export default {
    * @returns Promise that resolve the api response data or an error
    * @throws Throw an `APIError` or subclass depending on server response
    */
-  post<T extends any = any>(query: Omit<APIQuery, 'method'>): Promise<T> {
+  post<T>(query: Omit<APIQuery, 'method'>): Promise<T> {
     return this.fetch({ ...query, method: 'POST' })
   },
 
@@ -232,7 +230,7 @@ export default {
    * @returns Promise that resolve the api response data or an error
    * @throws Throw an `APIError` or subclass depending on server response
    */
-  put<T extends any = any>(query: Omit<APIQuery, 'method'>): Promise<T> {
+  put<T>(query: Omit<APIQuery, 'method'>): Promise<T> {
     return this.fetch({ ...query, method: 'PUT' })
   },
 
@@ -244,7 +242,7 @@ export default {
    * @returns Promise that resolve the api response data or an error
    * @throws Throw an `APIError` or subclass depending on server response
    */
-  delete<T extends any = any>(query: Omit<APIQuery, 'method'>): Promise<T> {
+  delete<T>(query: Omit<APIQuery, 'method'>): Promise<T> {
     return this.fetch({ ...query, method: 'DELETE' })
   },
 

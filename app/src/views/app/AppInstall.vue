@@ -119,12 +119,12 @@ const performInstall = onSubmit(async (onError) => {
   }
 
   api
-    .post({
+    .post<{ notifications: Obj<string> }>({
       uri: 'apps',
       data,
       humanKey: { key: 'apps.install', name: app.name },
     })
-    .then(async (response: { notifications: Obj<string> }) => {
+    .then(async (response) => {
       const postInstall = formatAppNotifs(response.notifications)
       if (postInstall) {
         const message =

@@ -258,11 +258,11 @@ export const ANY_WRITABLE_OPTION_TYPE = [
   'user',
   'group',
 ] as const
-const ANY_OPTION_TYPE = [
+const _ANY_OPTION_TYPE = [
   ...ANY_DISPLAY_OPTION_TYPE,
   ...ANY_WRITABLE_OPTION_TYPE,
 ] as const
-export type AnyOptionType = (typeof ANY_OPTION_TYPE)[number]
+export type AnyOptionType = (typeof _ANY_OPTION_TYPE)[number]
 
 export type OptionTypeToOptionResolver = {
   display_text: DisplayTextOption
