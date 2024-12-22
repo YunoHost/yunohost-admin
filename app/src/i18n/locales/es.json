@@ -290,7 +290,8 @@
                 "reboot": "Tu servidor se está reiniciando y no será accesible por un tiempo. Una solicitud de inicio de sesión estará disponible cuando el servidor se encuentre listo.",
                 "shutdown": "Su servidor se está apagando y ya no es accesible. Vuelva a encenderlo y aparecerá un aviso de inicio de sesión tan pronto como se pueda acceder al servidor.",
                 "upgrade_system": "La conexión con el servidor se ha cerrado debido a la actualización de YunoHost. Esperando a que el servidor sea accesible de nuevo…"
-            }
+            },
+            "session_expired": "¡El servido esta de nuevo accesible! Pero su session esta vencida. Reconectese."
         }
     },
     "address": {
@@ -689,6 +690,7 @@
         },
         "uninstall": {
             "purge_desc": "Borrar el directorio de información asociada con la app (normalmente se trata de la información subida al utilizar la app)."
-        }
+        },
+        "upvote": "Si quieres visibilisar mas esta aplicación, puedes votar para ella en el [catàlogo](https://apps.yunohost.org/app/{id})."
     }
 }
