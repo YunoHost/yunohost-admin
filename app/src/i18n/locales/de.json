@@ -363,12 +363,15 @@
         "pattern": "{type}",
         "invalid_form": "Das Formular enthält Fehler.",
         "maxValue": "Der Wert muss eine Zahl sein, die gleich oder kleiner als {max} ist.",
-        "appRepoUrl": "Die YunoHost-App-Repository-URLs müssen wie folgt geformt sein https://domain.tld/path/to/repo_ynh"
+        "appRepoUrl": "Die YunoHost-App-Repository-URLs müssen wie folgt geformt sein https://domain.tld/path/to/repo_ynh",
+        "checked": "Das Auswahlkästchen muss markiert sein.",
+        "numValue": "Wert muss eine Zahl sein"
     },
     "footer": {
         "donate": "Spenden",
         "help": "Brauchen Sie Hilfe?",
-        "documentation": "Dokumentation"
+        "documentation": "Dokumentation",
+        "tos": "Nutzungsbedingungen"
     },
     "experimental": "Experimentell",
     "error": "Fehler",
@@ -403,7 +406,8 @@
                 "reboot": "Ihr Server startet neu und wird für einige Zeit nicht erreichbar sein. Eine Login-Aufforderung wird erscheinen, sobald der Server wieder erreichbar ist.",
                 "shutdown": "Ihr Server wird heruntergefahren und ist nicht mehr erreichbar. Schalten Sie ihn wieder ein und eine Anmeldeaufforderung wird angezeigt, sobald der Server erreichbar ist.",
                 "upgrade_system": "Die Verbindung mit dem Server wurde aufgrund einer YunoHost-Aktualisierung beendet. Warten Sie bis der Server wieder erreichbar ist…"
-            }
+            },
+            "session_expired": "Der Server ist jetzt erreichbar! Aber es sieht so aus, als wäre Ihre Sitzung abgelaufen, bitte melden Sie sich an."
         }
     },
     "hook_data_xmpp": "XMPP-Daten",
@@ -532,7 +536,8 @@
                 "selfsigned": "Selbstsigniert",
                 "other": "Andere/Unbekannt"
             },
-            "valid_for": "gültig für {days}"
+            "valid_for": "gültig für {days}",
+            "install": "Auch das Let's Encrypt-Zertifikat installieren"
         },
         "info": {
             "apps_on_domain": "Auf der Domäne installierte Applikationen",
@@ -556,7 +561,9 @@
             "from_registrar": "Ich möchte eine eigene Domain oder eine Subdomain hinzufügen",
             "from_registrar_desc": "Sie müssen gegebenenfalls die DNS-Konfiguration bei ihrem Registrar vervollständigen. Die Diagnose von Yunohost zeigt Ihnen an, welche Records Sie noch konfigurieren müssen.",
             "from_yunohost": "Ich besitze keine Domain, Ich möchte eine kostenlose DynDNS-Domain des Yunohost Projektes nutzen",
-            "from_yunohost_desc": "Das YunoHost-Projekt unterhält einen kostenlosen 'DynDNS'-Service. Dieser ist limitiert auf eine einzige solche Domäne pro Server (Sie können trotzdem später eine Subdomain mit der obigen Option 'Ich will eine Domäne, die in meinem Besitz ist, hinzufügen, oder eine Subdomain' hinzufügen). Die DNS-Konfiguration wird automatisch von YunoHost gehandhabt. Dies ist ideal, wenn Sie mit Self-Hosting überhaupt erst beginnen und Sie noch nicht in einen Domainname investieren möchten. Wie auch immer, mittel/-langfristig empfehlen wir der Kauf eines eigenen Domainnames bei einem Registrar, um das vollständige Eigentum über Ihre Domäne zu erlangen."
+            "from_yunohost_desc": "Das YunoHost-Projekt unterhält einen kostenlosen 'DynDNS'-Service. Dieser ist limitiert auf eine einzige solche Domäne pro Server (Sie können trotzdem später eine Subdomain mit der obigen Option 'Ich will eine Domäne, die in meinem Besitz ist, hinzufügen, oder eine Subdomain' hinzufügen). Die DNS-Konfiguration wird automatisch von YunoHost gehandhabt. Dies ist ideal, wenn Sie mit Self-Hosting überhaupt erst beginnen und Sie noch nicht in einen Domainname investieren möchten. Wie auch immer, mittel/-langfristig empfehlen wir der Kauf eines eigenen Domainnames bei einem Registrar, um das vollständige Eigentum über Ihre Domäne zu erlangen.",
+            "from_subdomain": "Ich möchte eine Subdomain einer bereits hinzugefügten Domain hinzufügen",
+            "from_subdomain_desc": "Wenn Ihre konfigurierten DNS-Einträge dies zulassen, können Sie das Let's Encrypt-Zertifikat automatisch installieren."
         }
     },
     "domain_dns_push_failed_to_authenticate": "Die Authentifizierung an der API des Registrars war nicht erfolgreich. Höchstwahrscheinlich sind die <a href='#/domains/{domain}/config'>Zugangsdaten</a> falsch? (Fehler: {error})",
@@ -689,6 +696,26 @@
         },
         "uninstall": {
             "purge_desc": "Entferne das Datenverzeichnis, das mit dieser Applikation assoziiert ist (hier handelt es sich üblicherweise um Daten, die Sie bei der Benutzung der Applikation selbst hochgeladen haben)."
+        },
+        "upvote": "Wenn Sie die Aufmerksamkeit auf diese Anwendung lenken möchten, können Sie auf der [Katalogseite] (https://apps.yunohost.org/app/{id}) für sie stimmen."
+    },
+    "groups": {
+        "remove_user": {
+            "confirm_from_admins": "Sind Sie sicher, dass Sie sich aus der Gruppe der „Admins“ entfernen wollen?"
         }
+    },
+    "tos": {
+        "postinstall_acknowledgement": "Das YunoHost-Projekt ist ein Team von Freiwilligen, die es sich zur Aufgabe gemacht haben, ein freies Betriebssystem für Server mit dem Namen YunoHost zu entwickeln. Die YunoHost-Software wird unter [der AGPLv3-Lizenz] (https://www.gnu.org/licenses/agpl-3.0.txt) veröffentlicht. In Verbindung mit dieser Software verwaltet und stellt das Projekt mehrere technische und gemeinschaftliche Dienste für verschiedene Zwecke zur Verfügung. Indem Sie diese Dienste nutzen, erklären Sie sich mit den folgenden [Nutzungsbedingungen](https://yunohost.org/terms_of_services) einverstanden.",
+        "acknowledgement": "Bestätigung der Nutzungsbedingungen",
+        "i_agree": "Ich stimme zu",
+        "i_have_read": "Ich habe die <a href='https://yunohost.org/terms_of_services' target='_blank'>Nutzungsbedingungen</a> gelesen und verstanden"
+    },
+    "install_app": "Eine App installieren",
+    "loading": "Laden",
+    "catalog_partial_search": "Versuchen Sie, alle Kriterien zu entfernen, um zu sehen, ob die gesuchte App verfügbar ist.",
+    "catalog_wishlist": "Es sieht so aus, als ob die App, die Sie suchen, noch nicht im Katalog vorhanden ist.\n Sie können sie in der [Apps-Wunschliste] (https://apps.yunohost.org/wishlist?search={search}) vorschlagen oder für sie stimmen, wenn sie dort bereits vorhanden ist.",
+    "form": {
+        "current_file": "Aktuelle Datei:",
+        "select_one": "Bitte wählen Sie eine Option"
     }
 }
