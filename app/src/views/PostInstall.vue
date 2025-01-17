@@ -136,6 +136,7 @@ async function performPostInstall(force = false) {
     })
     .then(() => {
       // Display success message and allow the user to login
+      installed.value = true
       goToStep('login')
     })
     .catch((err) => {
