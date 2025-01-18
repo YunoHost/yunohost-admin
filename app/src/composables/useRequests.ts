@@ -137,10 +137,12 @@ export const useRequests = createGlobalState(() => {
     request,
     success,
     showError = false,
+    errorMsg = undefined,
   }: {
     request: APIRequest | APIRequestAction
     success: boolean
     showError?: boolean
+    errorMsg?: string
   }) {
     let status: RequestStatus = success ? 'success' : 'error'
     const hideModal = success || !showError
@@ -160,6 +162,11 @@ export const useRequests = createGlobalState(() => {
       if (external && operationId) {
         updateCacheFromAction(operationId)
       }
+    } else if (!success && errorMsg) {
+      useAutoToast().show({
+        body: errorMsg,
+        variant: 'danger',
+      })
     }
 
     if (request.showModalTimeout) {

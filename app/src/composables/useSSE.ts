@@ -142,7 +142,7 @@ export const useSSE = createGlobalState(() => {
     } else if (data.type === 'end' && request.action.external) {
       // End request on this last message if the action was external
       // (else default http response will end it)
-      endRequest({ request, success: data.success, showError: !!data.errormsg })
+      endRequest({ request, success: data.success, errorMsg: data.errormsg })
     } else if (data.type === 'msg') {
       let text = data.msg.replaceAll('\n', '<br>')
       const progressBar = text.match(/^\[#*\+*\.*\] > /)?.[0]

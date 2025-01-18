@@ -14,7 +14,7 @@ const cancelable = computed(() => {
     <template #default="{ hide }">
       <div class="d-flex">
         <div v-html="body" />
-        <BCloseButton v-if="cancelable" class="" @click="hide()" />
+        <BCloseButton v-if="cancelable" class="ms-auto" @click="hide()" />
       </div>
     </template>
   </BToast>
