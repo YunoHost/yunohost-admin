@@ -80,6 +80,8 @@ export const useSSE = createGlobalState(() => {
   const nonOperationWithLock = ref<APIRequestAction | null>(null)
 
   function init() {
+    if (sseSource.value) return
+
     const sse = new EventSource(`/yunohost/api/sse`, { withCredentials: true })
 
     sse.onopen = () => {
@@ -114,6 +116,7 @@ export const useSSE = createGlobalState(() => {
     clearTimeout(reconnectTimeout.value)
     reconnectTimeout.value = window.setTimeout(() => {
       sseSource.value!.close()
+      sseSource.value = null
       init()
     }, delay)
   }
