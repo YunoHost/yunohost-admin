@@ -41,10 +41,12 @@ const caller = computed(() => {
     />
 
     <!-- tabindex 0 on title for focus-trap when no tabable elements -->
-    <strong :tabindex="type === 'overlay' ? 0 : undefined">
-      {{ request.title }}
-      <template v-if="caller">({{ caller }})</template>
-    </strong>
+    <div>
+      <strong :tabindex="type === 'overlay' ? 0 : undefined">
+        {{ request.title }}
+      </strong>
+      <span v-if="caller"> ({{ $t('history.started_by', { caller }) }})</span>
+    </div>
 
     <div v-if="errors || warnings">
       <span v-if="errors" class="ms-2">

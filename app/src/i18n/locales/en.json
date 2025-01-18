@@ -402,6 +402,7 @@
             "PUT": "modify"
         },
         "no_logs": "No available logs.",
+        "started_by": "started by {caller}",
         "title": "History"
     },
     "home": "Home",
