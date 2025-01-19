@@ -2,15 +2,10 @@ import { v4 as uuid } from 'uuid'
 
 import { useCache, type StorePath } from '@/composables/data'
 import { useInfos } from '@/composables/useInfos'
-import { useRequests, type ReconnectingArgs } from '@/composables/useRequests'
+import { useRequests } from '@/composables/useRequests'
 import { useSettings } from '@/composables/useSettings'
 import type { Obj } from '@/types/commons'
-import {
-  APIBadRequestError,
-  APIErrorLog,
-  APIUnauthorizedError,
-  type APIError,
-} from './errors'
+import { APIBadRequestError, APIErrorLog, APIUnauthorizedError } from './errors'
 import { getError, getResponseData } from './handlers'
 
 export type RequestMethod = 'GET' | 'POST' | 'PUT' | 'DELETE'
@@ -239,40 +234,5 @@ export default {
     // the router key
     const { updateRouterKey } = useInfos()
     updateRouterKey()
-  },
-
-  /**
-   * Api reconnection helper. Resolve when server is reachable or fail after n attemps
-   *
-   * @param attemps - Number of attemps before rejecting
-   * @param delay - Delay between calls to the API in ms
-   * @param initialDelay - Delay before calling the API for the first time in ms
-   *
-   * @returns Promise that resolve yunohost version infos
-   * @throws Throw an `APIError` or subclass depending on server response
-   */
-  tryToReconnect({
-    attemps = 5,
-    delay = 2000,
-    initialDelay = 0,
-  }: ReconnectingArgs = {}) {
-    const { getYunoHostVersion } = useInfos()
-    return new Promise((resolve, reject) => {
-      function reconnect(n: number) {
-        getYunoHostVersion()
-          .then(resolve)
-          .catch((err: APIError) => {
-            if (err instanceof APIUnauthorizedError) {
-              reject(err)
-            } else if (n < 1) {
-              reject(err)
-            } else {
-              setTimeout(() => reconnect(n - 1), delay)
-            }
-          })
-      }
-      if (initialDelay > 0) setTimeout(() => reconnect(attemps), initialDelay)
-      else reconnect(attemps)
-    })
   },
 }
