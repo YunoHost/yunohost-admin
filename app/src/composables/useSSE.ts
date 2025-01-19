@@ -1,5 +1,5 @@
 import { createGlobalState } from '@vueuse/core'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 
 import { STATUS_VARIANT, isOkStatus } from '@/helpers/yunohostArguments'
 import type { StateStatus } from '@/types/commons'
@@ -69,56 +69,99 @@ type AnySSEEventData =
   | SSEEventDataToast
   | SSEEventDataHeartbeat
 
-function isActionEvent(data: AnySSEEventData): data is AnySSEEventDataAction {
-  return ['start', 'msg', 'end'].includes(data.type)
+export type ReconnectionArgs = {
+  origin: 'unknown' | 'reboot' | 'shutdown' | 'upgrade_system'
+  initialDelay?: number
+  delay?: number
 }
 
 export const useSSE = createGlobalState(() => {
   const sseSource = ref<EventSource | null>(null)
+  const reconnectionArgs = ref<ReconnectionArgs | null>(null)
   const reconnectTimeout = ref<number | undefined>()
   const { startRequest, endRequest, historyList } = useRequests()
   const nonOperationWithLock = ref<APIRequestAction | null>(null)
 
-  function init() {
-    if (sseSource.value) return
+  const reconnecting = computed(() =>
+    !sseSource.value && reconnectionArgs.value
+      ? reconnectionArgs.value.origin
+      : null,
+  )
 
-    const sse = new EventSource(`/yunohost/api/sse`, { withCredentials: true })
+  function init(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      if (sseSource.value) resolve()
 
-    sse.onopen = () => {
-      sseSource.value = sse
-    }
-
-    function wrapEvent<T extends AnySSEEventData>(
-      name: T['type'],
-      fn: (data: T) => void,
-    ) {
-      sse.addEventListener(name, (e) => {
-        // The server sends at least heartbeats every 10s, try to reconnect if we loose connection
-        tryToReconnect(15000)
-        fn({ type: name, ...JSON.parse(e.data) })
+      const sse = new EventSource(`/yunohost/api/sse`, {
+        withCredentials: true,
       })
-    }
 
-    wrapEvent('recent_history', onHistoryEvent)
-    wrapEvent('start', onActionEvent)
-    wrapEvent('msg', onActionEvent)
-    wrapEvent('end', onActionEvent)
-    wrapEvent('heartbeat', onHeartbeatEvent)
-    wrapEvent('toast', onToastEvent)
+      sse.onopen = () => {
+        sseSource.value = sse
+        reconnectionArgs.value = null
+        resolve()
+      }
 
-    sse.onerror = (event) => {
-      console.error('SSE error', event)
-      tryToReconnect(5000)
-    }
+      function wrapEvent<T extends AnySSEEventData>(
+        name: T['type'],
+        fn: (data: T) => void,
+      ) {
+        sse.addEventListener(name, (e) => {
+          // The server sends at least heartbeats every 10s, try to reconnect if we loose connection
+          tryToReconnect({ initialDelay: 15000, origin: 'reboot' })
+          fn({ type: name, ...JSON.parse(e.data) })
+        })
+      }
+
+      wrapEvent('recent_history', onHistoryEvent)
+      wrapEvent('start', onActionEvent)
+      wrapEvent('msg', onActionEvent)
+      wrapEvent('end', onActionEvent)
+      wrapEvent('heartbeat', onHeartbeatEvent)
+      wrapEvent('toast', onToastEvent)
+
+      sse.onerror = (event) => {
+        console.error('SSE error', event)
+        reject()
+      }
+    })
   }
 
-  function tryToReconnect(delay: number) {
+  /**
+   * SSE reconnection helper. Resolve when server is reachable.
+   *
+   * @param origin - a i18n key to explain why we're trying to reconnect
+   * @param delay - Delay between calls to the API in ms
+   * @param initialDelay - Delay before calling the API for the first time in ms
+   *
+   * @returns Promise that resolve when connection is successful
+   */
+  function tryToReconnect(args: ReconnectionArgs) {
     clearTimeout(reconnectTimeout.value)
-    reconnectTimeout.value = window.setTimeout(() => {
-      sseSource.value!.close()
-      sseSource.value = null
-      init()
-    }, delay)
+
+    return new Promise((resolve) => {
+      function reconnect() {
+        if (!reconnectionArgs.value) {
+          reconnectionArgs.value = args
+        }
+        sseSource.value?.close()
+        sseSource.value = null
+        init()
+          .then(resolve)
+          .catch(() => {
+            reconnectTimeout.value = window.setTimeout(
+              reconnect,
+              args.delay || 3000,
+            )
+          })
+      }
+
+      if (args.initialDelay) {
+        reconnectTimeout.value = window.setTimeout(reconnect, args.initialDelay)
+      } else {
+        reconnect()
+      }
+    })
   }
 
   function onActionEvent(data: AnySSEEventDataAction) {
@@ -224,5 +267,5 @@ export const useSSE = createGlobalState(() => {
     })
   }
 
-  return { init }
+  return { init, reconnecting, tryToReconnect }
 })
