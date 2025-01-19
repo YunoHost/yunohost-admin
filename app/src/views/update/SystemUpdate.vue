@@ -5,12 +5,12 @@ import { useI18n } from 'vue-i18n'
 import api from '@/api'
 import CardCollapse from '@/components/CardCollapse.vue'
 import { useAutoModal } from '@/composables/useAutoModal'
-import { useInfos } from '@/composables/useInfos'
+import { useSSE } from '@/composables/useSSE'
 import type { SystemUpdate } from '@/types/core/api'
 import { formatAppNotifs } from '../app/appData'
 
 const { t } = useI18n()
-const { tryToReconnect } = useInfos()
+const { tryToReconnect } = useSSE()
 const modalConfirm = useAutoModal()
 
 const { apps, system, importantYunohostUpgrade, pendingMigrations } = await api
@@ -81,7 +81,6 @@ async function performSystemUpgrade() {
   api.put({ uri: 'upgrade/system' }).then(() => {
     if (system.value.some(({ name }) => name.includes('yunohost'))) {
       tryToReconnect({
-        attemps: 1,
         origin: 'upgrade_system',
         initialDelay: 2000,
       })

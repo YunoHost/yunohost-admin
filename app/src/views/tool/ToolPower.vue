@@ -3,11 +3,11 @@ import { useI18n } from 'vue-i18n'
 
 import api from '@/api'
 import { useAutoModal } from '@/composables/useAutoModal'
-import { useInfos } from '@/composables/useInfos'
+import { useSSE } from '@/composables/useSSE'
 
 const { t } = useI18n()
 const modalConfirm = useAutoModal()
-const { tryToReconnect } = useInfos()
+const { tryToReconnect } = useSSE()
 
 async function triggerAction(action: 'reboot' | 'shutdown') {
   const confirmed = await modalConfirm(t('confirm_reboot_action_' + action))
@@ -15,7 +15,7 @@ async function triggerAction(action: 'reboot' | 'shutdown') {
 
   api.put({ uri: action + '?force' }).then(() => {
     const delay = action === 'reboot' ? 4000 : 10000
-    tryToReconnect({ attemps: Infinity, origin: action, delay })
+    tryToReconnect({ origin: action, delay })
   })
 }
 </script>
