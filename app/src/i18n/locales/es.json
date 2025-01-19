@@ -290,7 +290,8 @@
                 "reboot": "Tu servidor se está reiniciando y no será accesible por un tiempo. Una solicitud de inicio de sesión estará disponible cuando el servidor se encuentre listo.",
                 "shutdown": "Su servidor se está apagando y ya no es accesible. Vuelva a encenderlo y aparecerá un aviso de inicio de sesión tan pronto como se pueda acceder al servidor.",
                 "upgrade_system": "La conexión con el servidor se ha cerrado debido a la actualización de YunoHost. Esperando a que el servidor sea accesible de nuevo…"
-            }
+            },
+            "session_expired": "¡El servido esta de nuevo accesible! Pero su session esta vencida. Reconectese."
         }
     },
     "address": {
@@ -322,12 +323,15 @@
         "dynDomain": "Nombre de dominio incorrecto. Solo debe contener caracteres alfanuméricos en minúsculas y guiones",
         "appRepoUrl": "Las URL de repositorios de aplicaciones YunoHost deberían parecerse a https://domain.tld/path/to/repo_ynh",
         "email": "Correo incorrecto: debe contener solo caracteres alfanuméricos y <code>_.-</code> (ej. alguien{'@'}ejemplo.com, 4l-guien{'@'}ejemplo.com)",
-        "emailForward": "Redirección de correo incorrecto: debe contener solo caracteres alfanuméricos y <code>_.-</code> (ej. alguien{'@'}ejemplo.com, 4l-guien{'@'}ejemplo.com)"
+        "emailForward": "Redirección de correo incorrecto: debe contener solo caracteres alfanuméricos y <code>_.-</code> (ej. alguien{'@'}ejemplo.com, 4l-guien{'@'}ejemplo.com)",
+        "numValue": "El valor debe ser un número",
+        "checked": "La casilla debe estar marcada."
     },
     "footer": {
         "donate": "Donar",
         "help": "¿Necesitas ayuda?",
-        "documentation": "Documentación"
+        "documentation": "Documentación",
+        "tos": "Condiciones de uso"
     },
     "experimental": "Experimental",
     "error": "Error",
@@ -508,7 +512,8 @@
                 "other": "Otros/Desconocido",
                 "selfsigned": "autofirmado"
             },
-            "valid_for": "válido durante {days}"
+            "valid_for": "válido durante {days}",
+            "install": "También instalar los certificados Let's Encrypt"
         },
         "explain": {
             "main_domain": "El dominio principal es el dominio desde el cual lxs usuarixs pueden conectarse al portal (via \"{domain}/yunohost/sso\"). <br> Por tanto, no es posible borrarlo. <br> Si quieres borrar \"{domain}\", primero tienes que elegir o añadir otro dominio y configurarlo como dominio principal."
@@ -530,15 +535,17 @@
             "dyn_dns_password": "Password de recuperación del dominio",
             "dyn_dns_password_desc": "Esta password te permitirá más adelante recuperar el control del dominio si reinstalas el sistema. Si ya registraste este dominio anteriormente, utiliza la password de recuperación de dominio para reclamarlo.",
             "from_local": "Quiero un dominio para uso local / únicamente de prueba",
-            "from_registrar": "Quiero añadir un dominio que ya poseo, o un subdominio",
+            "from_registrar": "Quiero añadir un dominio que ya poseo",
             "from_registrar_desc": "Tendrás que configurar manualmente los registros DNS en tu registrador para finalizar la configuración de este dominio. Los diagnósticos de YunoHost te guiarán de manera exácta para configurar los registros DNS.",
-            "from_yunohost": "No dispongo de un dominio, quiero registrar/usar un dominio gratuito de DynDNS ofrecido por el proyecto YunoHost"
+            "from_yunohost": "No dispongo de un dominio, quiero registrar/usar un dominio gratuito de DynDNS ofrecido por el proyecto YunoHost",
+            "from_subdomain_desc": "Si sus registros DNS lo permiten, los certificados Let's Encrypt seran automaticamente añadidos.",
+            "from_subdomain": "Quiero añadir un subdominio de un dominio previamente añadido"
         }
     },
     "domain_dns_push_failed_to_authenticate": "No se pudo autenticar en la API del registrador. ¿Es probable que las <a href='#/domains/{domain}/config'>credenciales</a> sean incorrectas? (Error: {error})",
     "history": {
         "methods": {
-            "DELETE": "eliminar",
+            "DELETE": "Eliminar",
             "GET": "leer",
             "POST": "crear/ejecutar",
             "PUT": "modificar"
@@ -689,6 +696,19 @@
         },
         "uninstall": {
             "purge_desc": "Borrar el directorio de información asociada con la app (normalmente se trata de la información subida al utilizar la app)."
+        },
+        "upvote": "Si quieres visibilisar mas esta aplicación, puedes votar para ella en el [catàlogo](https://apps.yunohost.org/app/{id})."
+    },
+    "catalog_wishlist": "Parece que la aplicación que estas buscando no esta disponible en el catálogo.\nLa puedes proponer el la [lista de deseo](https://apps.yunohost.org/wishlist?search={search}) o votar por ella si ya esta presente.",
+    "form": {
+        "select_one": "Selectiona una opción",
+        "current_file": "Archivo actual:"
+    },
+    "install_app": "Instalar una aplicación",
+    "catalog_partial_search": "Intenta reiniciar todos los filtros para ver si la applicación esta disponible.",
+    "groups": {
+        "remove_user": {
+            "confirm_from_admins": "Estas seguro desear quitar el grupo de administradores «admins» ?"
         }
     }
 }
