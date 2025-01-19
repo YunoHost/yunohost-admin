@@ -10,11 +10,11 @@ const cancelable = computed(() => {
 </script>
 
 <template>
-  <BToast v-bind="props" :model-value="cancelable || 5000" show-on-pause>
+  <BToast v-bind="props" :model-value="cancelable ? 30000 : 5000" show-on-pause>
     <template #default="{ hide }">
       <div class="d-flex">
         <div v-html="body" />
-        <BCloseButton v-if="cancelable" class="ms-auto" @click="hide()" />
+        <BCloseButton class="ms-auto" @click="hide()" />
       </div>
     </template>
   </BToast>
