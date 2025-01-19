@@ -12,14 +12,16 @@ import {
 } from '@/components/modals'
 import { useInfos } from '@/composables/useInfos'
 import { useRequests } from '@/composables/useRequests'
+import { useSSE } from '@/composables/useSSE'
 import { useSettings } from '@/composables/useSettings'
 import type { CustomRoute, Skeleton, VueClass } from '@/types/commons'
 
 const { t } = useI18n()
 const router = useRouter()
 const { routerKey, hasSuspenseError } = useInfos()
-const { reconnecting, currentRequest, dismissModal } = useRequests()
+const { currentRequest, dismissModal } = useRequests()
 const { transitions, transitionName, dark } = useSettings()
+const { reconnecting } = useSSE()
 
 const RootView = createReusableTemplate<{
   Component: VNode
@@ -46,10 +48,7 @@ const modalComponent = computed(() => {
   if (reconnecting.value) {
     return {
       is: ModalReconnecting,
-      props: {
-        reconnecting: reconnecting.value,
-        onDismiss: () => (reconnecting.value = undefined),
-      },
+      props: { reconnecting: reconnecting.value },
     }
   }
 

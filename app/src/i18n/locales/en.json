@@ -27,9 +27,9 @@
         "reconnecting": {
             "failed": "Looks like the server is not responding. You can try to reconnect again or try to run `systemctl restart yunohost-api` thru ssh.",
             "reason": {
-                "reboot": "Your server is rebooting and will not be reachable for some time. A login prompt will be available as soon as the server is reachable.",
-                "shutdown": "Your server is shutting down and is no longer reachable. Turn it back on and a login prompt will be available as soon as the server is reachable.",
-                "unknown": "Connection with the server has been closed for unknown reasons.",
+                "reboot": "Your server is rebooting and will not be reachable for some time.",
+                "shutdown": "Your server is shutting down and is no longer reachable.",
+                "unknown": "Connection with the server has been closed for unknown reasons. Maybe 'yunohost-api' is down?",
                 "upgrade_system": "Connection with the server has been closed due to YunoHost upgrade. Waiting for the server to be reachable again…"
             },
             "session_expired": "The server is now reachable! But it looks like your session expired, please login.",
