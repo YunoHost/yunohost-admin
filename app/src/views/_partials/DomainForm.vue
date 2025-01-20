@@ -307,7 +307,7 @@ const onDomainAdd = onSubmit(async () => {
     </BCollapse>
 
     <BFormRadio
-      v-if="domainsCertsReady"
+      v-if="!postinstall && domainsCertsReady"
       v-model="selected"
       name="domain-type"
       value="subDomain"
