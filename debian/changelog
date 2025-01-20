@@ -1,3 +1,17 @@
+yunohost-admin (12.0.5) stable; urgency=low
+
+  - maintenance: general maintenance, update deps ([#601](http://github.com/YunoHost/yunohost-admin/pull/601),
+  [#602](http://github.com/YunoHost/yunohost-admin/pull/602),
+  [#607](http://github.com/YunoHost/yunohost-admin/pull/607), [#608](http://github.com/YunoHost/yunohost-admin/pull/608))
+  - postinstall: set as installed after postinstall (46d457ce)
+  - postinstall: properly hide subdomain choice in DomainForm (260577ed)
+  - apps: fix blank page when app may not have 'main' permission (d4859039)
+  - i18n: Translations updated for Basque, Catalan, Chinese (Simplified), French, German, Occitan, Spanish
+
+  Thanks to all contributors <3 ! (axolotle, Francescc, Joe Lillibridge, Poesty Li, ppr, Quentí, rosbeef andino, Vinzenz Vietzke, xabirequejo)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Mon, 20 Jan 2025 15:20:21 +0100
+
 yunohost-admin (12.0.4) stable; urgency=low
 
   - Rework 'quick add' menu to improve item naming consistency (c4b534ce)
