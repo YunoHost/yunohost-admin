@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { TableField } from 'bootstrap-vue-next'
 import { reactive, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
@@ -15,113 +16,93 @@ const modalConfirm = useAutoModal()
 const { protocols, upnpEnabled } = await api
   .fetch<Firewall>({ uri: 'firewall?raw' })
   .then((firewall) => {
-    const portTypes = ['TCP', 'UDP'] as const
-    const protocolsTypes = ['ipv4', 'ipv6', 'uPnP'] as const
-    const ports = Object.values(firewall).reduce(
-      (ports, protocols) => {
-        for (const type of portTypes) {
-          for (const port of protocols[type]) {
-            ports[type].add(port)
-          }
-        }
-        return ports
-      },
-      { TCP: new Set<number>(), UDP: new Set<number>() },
-    )
-
-    type Row = { port: number } & Record<keyof Firewall, boolean>
-    const tables = {
-      TCP: [] as Row[],
-      UDP: [] as Row[],
-    }
-    for (const protocol of portTypes) {
-      for (const port of ports[protocol]) {
-        const row = { port } as Row
-        for (const connection of protocolsTypes) {
-          row[connection] = firewall[connection][protocol].includes(port)
-        }
-        tables[protocol].push(row)
-      }
-      tables[protocol].sort((a, b) => (a.port < b.port ? -1 : 1))
-    }
-
     return {
-      protocols: reactive(tables),
-      upnpEnabled: ref(firewall.uPnP.enabled),
+      protocols: reactive({
+        // This is because BTable expects a list
+        tcp: Object.entries(firewall['tcp']).map(([k, v]) => ({
+          port: parseInt(k),
+          ...v,
+        })),
+        udp: Object.entries(firewall['udp']).map(([k, v]) => ({
+          port: parseInt(k),
+          ...v,
+        })),
+      }),
+      upnpEnabled: ref(firewall.router_forwarding_upnp),
     }
   })
 
 const upnpError = ref('')
 const tableFields = [
   { key: 'port', label: t('port') },
-  { key: 'ipv4', label: t('ipv4') },
-  { key: 'ipv6', label: t('ipv6') },
-  { key: 'uPnP', label: t('upnp') },
+  { key: 'open', label: t('open') },
+  { key: 'upnp', label: t('upnp') },
+  { key: 'comment', label: t('words.comment') },
 ]
 
 type Form = {
-  action: 'allow' | 'disallow'
-  port: string | number
-  connection: 'ipv4' | 'ipv6'
-  protocol: 'TCP' | 'UDP' | 'Both'
+  action: 'open' | 'close'
+  port: number
+  protocol: 'tcp' | 'udp'
+  upnp: boolean
+  comment: string
 }
+
 const form = ref<Form>({
-  action: 'allow',
-  port: '',
-  connection: 'ipv4',
-  protocol: 'TCP',
+  action: 'open',
+  port: 0,
+  protocol: 'tcp',
+  upnp: false,
+  comment: '',
 })
+
 const fields = {
   action: {
-    asInputGroup: true,
     component: 'SelectItem',
     label: t('action'),
     rules: { required },
     cProps: {
       id: 'input-action',
       choices: [
-        { value: 'allow', text: t('open') },
-        { value: 'disallow', text: t('close') },
+        { value: 'open', text: t('open') },
+        { value: 'close', text: t('close') },
       ],
     },
   } satisfies FieldProps<'SelectItem', Form['port']>,
 
   port: {
-    asInputGroup: true,
     component: 'InputItem',
     label: t('port'),
     rules: { number: required, integer, between: between(0, 65535) },
     cProps: { id: 'input-port', placeholder: '0', type: 'number' },
   } satisfies FieldProps<'InputItem', Form['action']>,
 
-  connection: {
-    asInputGroup: true,
-    component: 'SelectItem',
-    label: t('connection'),
-    rules: { required },
-    cProps: {
-      id: 'input-connection',
-      choices: [
-        { value: 'ipv4', text: t('ipv4') },
-        { value: 'ipv6', text: t('ipv6') },
-      ],
-    },
-  } satisfies FieldProps<'SelectItem', Form['connection']>,
-
   protocol: {
-    asInputGroup: true,
     component: 'SelectItem',
     label: t('protocol'),
     rules: { required },
     cProps: {
       id: 'input-protocol',
       choices: [
-        { value: 'TCP', text: t('tcp') },
-        { value: 'UDP', text: t('udp') },
-        { value: 'Both', text: t('both') },
+        { value: 'tcp', text: t('tcp') },
+        { value: 'udp', text: t('udp') },
       ],
     },
   } satisfies FieldProps<'SelectItem', Form['protocol']>,
+
+  upnp: {
+    component: 'CheckboxItem',
+    label: t('upnp'),
+    rules: { required },
+    cProps: { id: 'upnp', labels: { true: 'enabled', false: 'disabled' } },
+  } satisfies FieldProps<'CheckboxItem', Form['upnp']>,
+
+  comment: {
+    component: 'InputItem',
+    label: t('words.comment'),
+    rules: { string: required },
+    cProps: { id: 'comment', placeholder: '', type: 'text' },
+  } satisfies FieldProps<'InputItem', Form['upnp']>,
 } satisfies FormFieldDict<Form>
 
 const { v } = useForm(form, fields)
@@ -130,20 +111,21 @@ async function togglePort({
   action,
   port,
   protocol,
-  connection,
+  upnp,
+  comment,
 }: Form): Promise<boolean> {
   const confirmed = await modalConfirm(
     t('confirm_firewall_' + action, {
       port,
       protocol,
-      connection,
     }),
   )
   if (!confirmed) return false
 
+  const argupnp = upnp ? '&upnp' : ''
   return api
     .put({
-      uri: `firewall/${protocol}/${action}/${port}?${connection}_only`,
+      uri: `firewall/${protocol}/${action}/${port}?comment=${comment}${argupnp}`,
       showModal: false,
     })
     .then(() => true)
@@ -167,24 +149,32 @@ async function toggleUpnp() {
 }
 
 function onTablePortToggling(
-  { port, protocol, connection }: Omit<Form, 'action'>,
+  protocol: Form['protocol'],
   index: number,
+  key: 'open' | 'upnp',
   value: boolean,
 ) {
-  const protocols_ =
-    protocol === 'Both' ? (['TCP', 'UDP'] as const) : [protocol]
-  protocols_.forEach((protocol) => {
-    protocols[protocol][index][connection] = value
-  })
-  const action = value ? 'allow' : 'disallow'
-  togglePort({ action, port, protocol, connection }).then((confirmed) => {
-    // Revert change on cancel
-    if (!confirmed) {
-      protocols_.forEach((protocol) => {
-        protocols[protocol][index][connection] = !value
-      })
-    }
-  })
+  // To reset state if canceled
+  const { open, upnp } = protocols[protocol][index]
+
+  if (key === 'open' || value) {
+    protocols[protocol][index]['open'] = value
+  }
+  if (key === 'upnp' || !value) {
+    protocols[protocol][index]['upnp'] = value
+  }
+  // FIXME: maybe someday handle comment edition?
+
+  const action = key === 'upnp' || value ? 'open' : 'close'
+  togglePort({ action, protocol, ...protocols[protocol][index] }).then(
+    (confirmed) => {
+      // Revert change on cancel
+      if (!confirmed) {
+        protocols[protocol][index]['open'] = open
+        protocols[protocol][index]['upnp'] = upnp
+      }
+    },
+  )
 }
 
 function onFormPortToggling() {
@@ -192,6 +182,28 @@ function onFormPortToggling() {
     // TODO: update data instead of refetch?
     if (confirmed) api.refetch()
   })
+}
+
+function onCommentEdit(protocol: Form['protocol'], index: number) {
+  const { open, upnp, port, comment } = protocols[protocol][index]
+  form.value = {
+    action: open ? 'open' : 'close',
+    port,
+    protocol,
+    upnp,
+    comment,
+  }
+  ;(document.querySelector('#comment') as HTMLInputElement).focus()
+}
+
+function getFieldClass(field: TableField) {
+  const classes = {
+    port: 'col-1 pe-3',
+    open: 'col-1',
+    upnp: 'col-1',
+    comment: 'd-flex',
+  } as Record<typeof field.key, string>
+  field.class = classes[field.key]
 }
 </script>
 
@@ -202,7 +214,14 @@ function onFormPortToggling() {
       <div v-for="(items, protocol) in protocols" :key="protocol">
         <h5>{{ $t(protocol) }}</h5>
 
-        <BTable :fields="tableFields" :items="items" small striped responsive>
+        <BTableLite
+          :fields="tableFields"
+          :items="items"
+          small
+          striped
+          responsive
+          :field-column-class="getFieldClass"
+        >
           <!-- PORT CELL -->
           <template #cell(port)="data">
             {{ data.value }}
@@ -211,18 +230,14 @@ function onFormPortToggling() {
           <!-- CONNECTIONS CELL -->
           <template #cell()="data">
             <BFormCheckbox
-              v-if="data.field.key !== 'uPnP'"
               :model-value="data.value as boolean"
               switch
               @update:model-value="
                 onTablePortToggling(
-                  {
-                    port: data.item.port,
-                    protocol,
-                    connection: data.field.key as Form['connection'],
-                  },
+                  protocol,
                   data.index,
-                  $event,
+                  data.field.key as 'open' | 'upnp',
+                  $event as boolean,
                 )
               "
             >
@@ -232,14 +247,19 @@ function onFormPortToggling() {
                 {{ $t(data.value ? 'close' : 'open') }}
               </span>
             </BFormCheckbox>
-
-            <YIcon
-              v-else
-              :iname="data.value ? 'check' : 'times'"
-              :class="data.value ? 'text-success' : 'text-danger'"
-            />
           </template>
-        </BTable>
+
+          <template #cell(comment)="data">
+            {{ data.value }}
+            <BButton
+              size="xs"
+              class="ms-auto me-2"
+              @click="onCommentEdit(protocol, data.index)"
+            >
+              {{ $t('words.edit') }}
+            </BButton>
+          </template>
+        </BTableLite>
       </div>
     </YCard>
 
@@ -248,10 +268,8 @@ function onFormPortToggling() {
       v-model="form"
       :fields="fields"
       icon="cogs"
-      inline
       :title="$t('operations')"
       :validations="v"
-      form-classes="d-flex flex-column flex-lg-row gap-3 justify-content-between align-items-start"
       @submit.prevent="onFormPortToggling"
     />
 
@@ -281,7 +299,7 @@ function onFormPortToggling() {
 
 <style lang="scss" scoped>
 :deep() {
-  .form-switch {
+  .table .form-switch {
     .form-check-input {
       &:checked {
         border-color: $success;

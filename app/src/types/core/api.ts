@@ -232,15 +232,11 @@ export type Diagnosis = {
 
 // FIREWALL
 
-type Protocols = { TCP: number[]; UDP: number[] }
+type PortInfo = { open: boolean; upnp: boolean; comment: string }
 export type Firewall = {
-  ipv4: Protocols
-  ipv6: Protocols
-  uPnP: Protocols & {
-    TCP_TO_CLOSE: number[]
-    UDP_TO_CLOSE: number[]
-    enabled: boolean
-  }
+  router_forwarding_upnp: boolean
+  tcp: Record<number, PortInfo>
+  udp: Record<number, PortInfo>
 }
 
 // LOGS
