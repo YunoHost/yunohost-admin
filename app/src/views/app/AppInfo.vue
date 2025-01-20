@@ -78,7 +78,11 @@ const [app, form, coreConfig, configPanelErr] = await api
 
     const { DESCRIPTION, ADMIN, ...doc } = app_.manifest.doc
     const notifs = app_.manifest.notifications
-    const { label, allowed } = app_.permissions[props.id + '.main']
+    // App may not have 'main' permission
+    const { label, allowed } = app_.permissions[props.id + '.main'] || {
+      label: app_.label || app_.id,
+      allowed: [],
+    }
     const app = {
       id: props.id,
       version: app_.version,
