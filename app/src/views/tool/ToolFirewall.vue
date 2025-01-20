@@ -122,7 +122,7 @@ async function togglePort({
   )
   if (!confirmed) return false
 
-  let argupnp = upnp ? '&upnp' : ''
+  const argupnp = upnp ? '&upnp' : ''
   return api
     .put({
       uri: `firewall/${protocol}/${action}/${port}?comment=${comment}${argupnp}`,
