@@ -15,6 +15,7 @@
     "all": "All",
     "all_apps": "All apps",
     "api": {
+        "busy": "The server is busy…",
         "partial_logs": "[…] (check in history for full logs)",
         "processing": "The server is processing the action…",
         "query_status": {
@@ -26,14 +27,15 @@
         "reconnecting": {
             "failed": "Looks like the server is not responding. You can try to reconnect again or try to run `systemctl restart yunohost-api` thru ssh.",
             "reason": {
-                "reboot": "Your server is rebooting and will not be reachable for some time. A login prompt will be available as soon as the server is reachable.",
-                "shutdown": "Your server is shutting down and is no longer reachable. Turn it back on and a login prompt will be available as soon as the server is reachable.",
-                "unknown": "Connection with the server has been closed for unknown reasons.",
+                "reboot": "Your server is rebooting and will not be reachable for some time.",
+                "shutdown": "Your server is shutting down and is no longer reachable.",
+                "unknown": "Connection with the server has been closed for unknown reasons. Maybe 'yunohost-api' is down?",
                 "upgrade_system": "Connection with the server has been closed due to YunoHost upgrade. Waiting for the server to be reachable again…"
             },
             "session_expired": "The server is now reachable! But it looks like your session expired, please login.",
             "title": "Trying to communicate with the server…"
-        }
+        },
+        "unknown_request": "Unknown request"
     },
     "api_error": {
         "error_message": "Error message:",
@@ -390,6 +392,7 @@
     "groups_and_permissions": "Groups and permissions",
     "groups_and_permissions_manage": "Manage groups and permissions",
     "history": {
+        "check_logs": "Go to operation's log page.",
         "is_empty": "Nothing in history for now.",
         "last_action": "Last action:",
         "methods": {
@@ -398,6 +401,8 @@
             "POST": "create/execute",
             "PUT": "modify"
         },
+        "no_logs": "No available logs.",
+        "started_by": "started by {caller}",
         "title": "History"
     },
     "home": "Home",
@@ -412,86 +417,6 @@
     "hook_data_mail_desc": "Raw emails stored on the server",
     "hook_data_xmpp": "XMPP data",
     "hook_data_xmpp_desc": "Room and user configurations, file uploads",
-    "human_routes": {
-        "apps": {
-            "action_config": "Run action '{action}' of app '{name}' configuration",
-            "change_label": "Change label of '{prevName}' for '{nextName}'",
-            "change_url": "Change access URL of '{name}'",
-            "dismiss_notification": "Dismiss notification for '{name}'",
-            "install": "Install app '{name}'",
-            "set_default": "Redirect '{domain}' domain root to '{name}'",
-            "uninstall": "Uninstall app '{name}'",
-            "update_config": "Update panel '{id}' of app '{name}' configuration"
-        },
-        "backups": {
-            "create": "Create a backup",
-            "delete": "Delete backup '{name}'",
-            "restore": "Restore backup '{name}'"
-        },
-        "diagnosis": {
-            "ignore": {
-                "error": "Ignore an error",
-                "warning": "Ignore a warning"
-            },
-            "run": "Run the diagnosis",
-            "run_specific": "Run '{description}' diagnosis",
-            "unignore": {
-                "error": "Unignore an error",
-                "warning": "Unignore a warning"
-            }
-        },
-        "domains": {
-            "add": "Add domain '{name}'",
-            "cert_install": "Install certificate for '{name}'",
-            "cert_renew": "Renew certificate for '{name}'",
-            "delete": "Delete domain '{name}'",
-            "push_dns_changes": "Push DNS records to registrar for '{name}'",
-            "set_default": "Set '{name}' as default domain",
-            "update_config": "Update panel '{id}' of domain '{name}' configuration"
-        },
-        "firewall": {
-            "ports": "{action} port {port} ({protocol}, {connection})",
-            "upnp": "{action} UPnP"
-        },
-        "groups": {
-            "add": "Add '{user}' to group '{name}'",
-            "create": "Create group '{name}'",
-            "delete": "Delete group '{name}'",
-            "remove": "Remove '{user}' from group '{name}'"
-        },
-        "migrations": {
-            "run": "Run migrations",
-            "skip": "Skip migrations"
-        },
-        "permissions": {
-            "add": "Allow '{name}' to access '{perm}'",
-            "remove": "Remove '{name}' access to '{perm}'"
-        },
-        "postinstall": "Run the post-install",
-        "reboot": "Reboot the server",
-        "reconnecting": "Reconnecting",
-        "services": {
-            "restart": "Restart the service '{name}'",
-            "start": "Start the service '{name}'",
-            "stop": "Stop the service '{name}'"
-        },
-        "settings": {
-            "update": "Update '{panel}' global settings"
-        },
-        "share_logs": "Generate link for log '{name}'",
-        "shutdown": "Shutdown the server",
-        "update": "Check for updates",
-        "upgrade": {
-            "app": "Upgrade '{app}' app",
-            "apps": "Upgrade all apps",
-            "system": "Upgrade the system"
-        },
-        "users": {
-            "create": "Create user '{name}'",
-            "delete": "Delete user '{name}'",
-            "update": "Update user '{name}'"
-        }
-    },
     "id": "ID",
     "ignore": "Ignore",
     "ignored": "{count} ignored",

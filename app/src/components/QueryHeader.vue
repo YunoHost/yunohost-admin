@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, toRefs } from 'vue'
 
+import { useInfos } from '@/composables/useInfos'
 import type { APIRequest } from '@/composables/useRequests'
 import { STATUS_VARIANT } from '@/helpers/yunohostArguments'
 
@@ -11,12 +12,23 @@ const props = defineProps<{
 
 const emit = defineEmits<{ showError: [id: string] }>()
 
+const { currentUser } = useInfos()
 const statusVariant = computed(() => STATUS_VARIANT[props.request.status])
 const { errors, warnings } = toRefs(
   props.request.action || { errors: 0, warnings: 0 },
 )
-const hour = computed(() => {
-  return new Date(props.request.date).toLocaleTimeString()
+
+const dateOrTime = computed(() => {
+  // returns date if date < today else time
+  const date = new Date(props.request.date)
+  const dateString = date.toLocaleDateString()
+  if (new Date().toLocaleDateString() !== dateString) return dateString
+  return date.toLocaleTimeString()
+})
+
+const caller = computed(() => {
+  const caller = props.request.action?.caller
+  return caller && caller !== currentUser.value ? caller : null
 })
 </script>
 
@@ -29,9 +41,12 @@ const hour = computed(() => {
     />
 
     <!-- tabindex 0 on title for focus-trap when no tabable elements -->
-    <strong :tabindex="type === 'overlay' ? 0 : undefined">
-      {{ request.humanRoute }}
-    </strong>
+    <div>
+      <strong :tabindex="type === 'overlay' ? 0 : undefined">
+        {{ request.title }}
+      </strong>
+      <span v-if="caller"> ({{ $t('history.started_by', { caller }) }})</span>
+    </div>
 
     <div v-if="errors || warnings">
       <span v-if="errors" class="ms-2">
@@ -54,8 +69,8 @@ const hour = computed(() => {
         <small v-t="'api_error.view_error'" />
       </BButton>
 
-      <time :datetime="hour" :class="request.err ? 'ms-2' : 'ms-auto'">
-        {{ hour }}
+      <time :datetime="dateOrTime" :class="request.err ? 'ms-2' : 'ms-auto'">
+        {{ dateOrTime }}
       </time>
     </template>
   </div>

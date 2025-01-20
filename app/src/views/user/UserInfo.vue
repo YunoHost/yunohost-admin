@@ -24,7 +24,6 @@ function deleteUser() {
       uri: `users/${props.name}`,
       cachePath: `userDetails.${props.name}`,
       data,
-      humanKey: { key: 'users.delete', name: props.name },
     })
     .then(() => {
       router.push({ name: 'user-list' })

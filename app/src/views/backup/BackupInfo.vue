@@ -60,7 +60,6 @@ async function restoreBackup() {
       uri: `backups/${props.name}/restore`,
       // FIXME force?
       data: { ...data, force: '' },
-      humanKey: { key: 'backups.restore', name: props.name },
     })
     .then(() => {
       // FIXME back to backup list or home ?
@@ -81,14 +80,9 @@ async function deleteBackup() {
   )
   if (!confirmed) return
 
-  api
-    .delete({
-      uri: 'backups/' + props.name,
-      humanKey: { key: 'backups.delete', name: props.name },
-    })
-    .then(() => {
-      router.push({ name: 'backup-list', params: { id: props.id } })
-    })
+  api.delete({ uri: 'backups/' + props.name }).then(() => {
+    router.push({ name: 'backup-list', params: { id: props.id } })
+  })
 }
 
 function downloadBackup() {

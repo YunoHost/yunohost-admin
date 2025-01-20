@@ -1,19 +1,12 @@
+import { v4 as uuid } from 'uuid'
+
 import { useCache, type StorePath } from '@/composables/data'
 import { useInfos } from '@/composables/useInfos'
-import {
-  useRequests,
-  type APIRequestAction,
-  type ReconnectingArgs,
-} from '@/composables/useRequests'
+import { useRequests } from '@/composables/useRequests'
 import { useSettings } from '@/composables/useSettings'
 import type { Obj } from '@/types/commons'
-import {
-  APIBadRequestError,
-  APIErrorLog,
-  APIUnauthorizedError,
-  type APIError,
-} from './errors'
-import { getError, getResponseData, openWebSocket } from './handlers'
+import { APIBadRequestError, APIErrorLog, APIUnauthorizedError } from './errors'
+import { getError, getResponseData } from './handlers'
 
 export type RequestMethod = 'GET' | 'POST' | 'PUT' | 'DELETE'
 
@@ -23,16 +16,15 @@ export type HumanKey = {
 }
 
 export type APIQuery = {
-  method?: RequestMethod
   uri: string
+  method?: RequestMethod
   cachePath?: StorePath
+  cacheForce?: boolean
   data?: Obj
-  humanKey?: string | HumanKey
   showModal?: boolean
   ignoreError?: boolean
-  websocket?: boolean
+  isAction?: boolean
   initial?: boolean
-  asFormData?: boolean
 }
 
 export type APIErrorData = {
@@ -51,10 +43,7 @@ export type APIErrorData = {
  * @param addLocale - Append the locale to the returned object
  * @param formData - Returns a `FormData` instead of `URLSearchParams`
  */
-export function objectToParams(
-  obj: Obj,
-  { addLocale = false, formData = false } = {},
-) {
+export function objectToParams(obj: Obj, { formData = false } = {}) {
   const urlParams = formData ? new FormData() : new URLSearchParams()
   for (const [key, value] of Object.entries(obj)) {
     if (Array.isArray(value)) {
@@ -62,10 +51,6 @@ export function objectToParams(
     } else {
       urlParams.append(key, value)
     }
-  }
-  if (addLocale) {
-    const { locale } = useSettings()
-    urlParams.append('locale', locale.value)
   }
   return urlParams
 }
@@ -92,11 +77,9 @@ export default {
    * @param cacheParams - Cache params to get or update data
    * @param method - An HTTP method in `'GET' | 'POST' | 'PUT' | 'DELETE'`
    * @param data - Data to send as body
-   * @param humanKey - Key and eventually some data to build the query's description
    * @param showModal - Lock view and display the waiting modal
-   * @param websocket - Open a websocket connection to receive server messages
+   * @param isAction - Expects to receive server messages
    * @param initial - If an error occurs, the dismiss button will trigger a go back in history
-   * @param asFormData - Send the data with a body encoded as `"multipart/form-data"` instead of `"x-www-form-urlencoded"`)
    *
    * @returns Promise that resolve the api response data
    * @throws Throw an `APIError` or subclass depending on server response
@@ -105,44 +88,44 @@ export default {
     uri,
     method = 'GET',
     cachePath = undefined,
+    cacheForce = false,
     data = undefined,
-    humanKey = undefined,
     showModal = method !== 'GET',
     ignoreError = false,
-    websocket = method !== 'GET',
+    isAction = method !== 'GET',
     initial = false,
-    asFormData = true,
   }: APIQuery): Promise<T> {
     const cache = cachePath ? useCache<T>(method, cachePath) : undefined
-    if (method === 'GET' && cache?.content.value !== undefined) {
+    if (!cacheForce && method === 'GET' && cache?.content.value !== undefined) {
       return cache.content.value
     }
 
     const { locale } = useSettings()
     const { startRequest, endRequest } = useRequests()
 
+    // Try to find a description for an API route to display in history and modals
+
     const request = startRequest({
+      id: uuid(),
       method,
       uri,
-      humanKey,
+      date: Date.now(),
       initial,
       showModal,
-      websocket,
+      isAction,
     })
-    if (websocket) {
-      await openWebSocket(request as APIRequestAction)
-    }
 
     let options = { ...this.options }
-    if (method === 'GET') {
-      uri += `${uri.includes('?') ? '&' : '?'}locale=${locale.value}`
-    } else {
+    Object.assign(options.headers!, {
+      locale: locale.value,
+      'ref-id': request.id,
+    })
+
+    if (method !== 'GET') {
       options = {
         ...options,
         method,
-        body: data
-          ? objectToParams(data, { addLocale: true, formData: asFormData })
-          : null,
+        body: data ? objectToParams(data, { formData: true }) : null,
       }
     }
 
@@ -251,40 +234,5 @@ export default {
     // the router key
     const { updateRouterKey } = useInfos()
     updateRouterKey()
-  },
-
-  /**
-   * Api reconnection helper. Resolve when server is reachable or fail after n attemps
-   *
-   * @param attemps - Number of attemps before rejecting
-   * @param delay - Delay between calls to the API in ms
-   * @param initialDelay - Delay before calling the API for the first time in ms
-   *
-   * @returns Promise that resolve yunohost version infos
-   * @throws Throw an `APIError` or subclass depending on server response
-   */
-  tryToReconnect({
-    attemps = 5,
-    delay = 2000,
-    initialDelay = 0,
-  }: ReconnectingArgs = {}) {
-    const { getYunoHostVersion } = useInfos()
-    return new Promise((resolve, reject) => {
-      function reconnect(n: number) {
-        getYunoHostVersion()
-          .then(resolve)
-          .catch((err: APIError) => {
-            if (err instanceof APIUnauthorizedError) {
-              reject(err)
-            } else if (n < 1) {
-              reject(err)
-            } else {
-              setTimeout(() => reconnect(n - 1), delay)
-            }
-          })
-      }
-      if (initialDelay > 0) setTimeout(() => reconnect(attemps), initialDelay)
-      else reconnect(attemps)
-    })
   },
 }

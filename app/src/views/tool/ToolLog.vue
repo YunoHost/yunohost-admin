@@ -64,11 +64,7 @@ const { description, logs, moreLogsAvailable, info } = await api
 
 function shareLogs() {
   api
-    .get<{ url: string }>({
-      uri: `logs/${props.name}/share`,
-      humanKey: { key: 'share_logs', name: props.name },
-      websocket: true,
-    })
+    .get<{ url: string }>({ uri: `logs/${props.name}/share` })
     .then(({ url }) => {
       window.open(url, '_blank')
     })

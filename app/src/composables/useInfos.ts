@@ -13,7 +13,7 @@ import api from '@/api'
 import { timeout } from '@/helpers/commons'
 import i18n from '@/i18n'
 import { useDomains } from './data'
-import { useRequests, type ReconnectingArgs } from './useRequests'
+import { useSSE } from './useSSE'
 
 type BreadcrumbRoutes = {
   name: RouteRecordNameGeneric
@@ -150,6 +150,7 @@ export const useInfos = createGlobalState(() => {
     await getYunoHostVersion()
     connected.value = true
     await api.get({ uri: 'domains', cachePath: 'domains' })
+    useSSE().init()
   }
 
   function onLogout(route?: RouteLocationNormalizedLoaded) {
@@ -170,17 +171,13 @@ export const useInfos = createGlobalState(() => {
 
   function login(credentials: string) {
     return api
-      .post({ uri: 'login', data: { credentials }, websocket: false })
+      .post({ uri: 'login', data: { credentials }, isAction: false })
       .then(() => _onLogin())
   }
 
   function logout() {
     onLogout()
     return api.get('logout')
-  }
-
-  function tryToReconnect(args?: ReconnectingArgs) {
-    useRequests().reconnecting.value = args
   }
 
   function updateRouterKey(to?: RouteLocationNormalized) {
@@ -221,7 +218,6 @@ export const useInfos = createGlobalState(() => {
     onLogout,
     login,
     logout,
-    tryToReconnect,
     updateHtmlTitle,
     updateRouterKey,
   }

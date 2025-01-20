@@ -23,6 +23,7 @@ declare module 'vue' {
     BCardHeader: typeof import('bootstrap-vue-next/components/BCard')['BCardHeader']
     BCardText: typeof import('bootstrap-vue-next/components/BCard')['BCardText']
     BCardTitle: typeof import('bootstrap-vue-next/components/BCard')['BCardTitle']
+    BCloseButton: typeof import('bootstrap-vue-next/components/BButton')['BCloseButton']
     BCol: typeof import('bootstrap-vue-next/components/BContainer')['BCol']
     BCollapse: typeof import('bootstrap-vue-next/components/BCollapse')['BCollapse']
     BDropdown: typeof import('bootstrap-vue-next/components/BDropdown')['BDropdown']
@@ -70,6 +71,8 @@ declare module 'vue' {
     BTab: typeof import('bootstrap-vue-next/components/BTabs')['BTab']
     BTable: typeof import('bootstrap-vue-next/components/BTable')['BTable']
     BTabs: typeof import('bootstrap-vue-next/components/BTabs')['BTabs']
+    BToast: typeof import('bootstrap-vue-next/components/BToast')['BToast']
+    BToastOrchestrator: typeof import('bootstrap-vue-next/components/BToast')['BToastOrchestrator']
     ButtonItem: typeof import('./src/components/globals/formItems/ButtonItem.vue')['default']
     CardCollapse: typeof import('./src/components/CardCollapse.vue')['default']
     CardDeckFeed: typeof import('./src/components/CardDeckFeed.vue')['default']
@@ -116,6 +119,7 @@ declare module 'vue' {
     YListGroupItem: typeof import('./src/components/globals/YListGroupItem.vue')['default']
     YListItem: typeof import('./src/components/globals/YListItem.vue')['default']
     YSpinner: typeof import('./src/components/globals/YSpinner.vue')['default']
+    YToast: typeof import('./src/components/YToast.vue')['default']
   }
   export interface ComponentCustomProperties {
     vBModal: typeof import('bootstrap-vue-next/directives/BModal')['vBModal']

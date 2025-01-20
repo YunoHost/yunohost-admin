@@ -8,6 +8,7 @@ import { APIBadRequestError } from '@/api/errors'
 import { useForm } from '@/composables/form'
 import { useAutoModal } from '@/composables/useAutoModal'
 import { useInfos } from '@/composables/useInfos'
+import { useSSE } from '@/composables/useSSE'
 import {
   alphalownumdot_,
   minLength,
@@ -26,6 +27,8 @@ const { installed } = useInfos()
 
 if (installed.value) {
   router.push({ name: 'home' })
+} else {
+  useSSE().init()
 }
 
 type Steps = 'start' | 'domain' | 'user' | 'rootfsspace-error' | 'login'
@@ -129,11 +132,7 @@ async function performPostInstall(force = false) {
   )
 
   api
-    .post({
-      uri: 'postinstall' + (force ? '?force_diskspace' : ''),
-      data,
-      humanKey: { key: 'postinstall' },
-    })
+    .post({ uri: 'postinstall' + (force ? '?force_diskspace' : ''), data })
     .then(() => {
       // Display success message and allow the user to login
       installed.value = true

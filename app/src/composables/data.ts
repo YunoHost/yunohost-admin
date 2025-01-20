@@ -2,6 +2,7 @@ import { createGlobalState } from '@vueuse/core'
 import { computed, reactive, ref, toValue, type MaybeRefOrGetter } from 'vue'
 
 import type { RequestMethod } from '@/api/api'
+import api from '@/api/api'
 import { isEmptyValue, isObjectLiteral } from '@/helpers/commons'
 import { stratify } from '@/helpers/data/tree'
 import type { Obj } from '@/types/commons'
@@ -90,6 +91,58 @@ const useData = createGlobalState(() => {
     }
   }
 
+  function updateFromAction(action: string, param?: string) {
+    // TODO could be merged somehow with normal 'update' fn?
+    if (action.includes('permission')) {
+      if (Object.keys(permissions.value).length) {
+        api.get({ uri: 'users/permissions?full', cachePath: 'permissions' })
+      }
+    } else if (action.includes('group')) {
+      if (param && Object.keys(groups.value).length) {
+        if (action.includes('create') && param) {
+          groups.value[param] = { members: [], permissions: [] }
+        } else if (action.includes('delete')) {
+          delete groups.value[param]
+        } else if (action.includes('update')) {
+          api.get({
+            uri: 'users/groups?full&include_primary_groups',
+            cachePath: 'groups',
+          })
+        }
+      }
+    } else if (action.includes('user')) {
+      if (param && Object.keys(users.value).length) {
+        if (action.includes('delete')) {
+          delete userDetails.value[param]
+          delete users.value[param]
+        } else if (action.includes('create')) {
+          api.get({
+            uri: 'users?fields=username&fields=fullname&fields=mail&fields=mailbox-quota&fields=groups',
+            cachePath: 'users',
+            cacheForce: true,
+          })
+        } else if (action.includes('update')) {
+          api.get({
+            uri: `users/${param}`,
+            cachePath: `userDetails.${param}`,
+            cacheForce: true,
+          })
+        }
+      }
+    } else if (action.includes('domain') && param) {
+      if (action.includes('main_domain') && mainDomain.value) {
+        mainDomain.value = param
+      } else if (domains.value) {
+        if (action.includes('add')) {
+          domains.value.push(param)
+        } else if (action.includes('remove')) {
+          domains.value?.splice(domains.value.indexOf(param), 1)
+          delete domainDetails.value[param]
+        }
+      }
+    }
+  }
+
   return {
     users,
     userDetails,
@@ -101,6 +154,7 @@ const useData = createGlobalState(() => {
     domainDetails,
 
     update,
+    updateFromAction,
   }
 })
 
@@ -260,4 +314,13 @@ export function resetCache(keys: DataKeys[]) {
       data[key].value = {}
     }
   }
+}
+
+export function updateCacheFromAction(operationId: string) {
+  const [action, param] = operationId.substring(16).split('-') as [
+    string,
+    string | undefined,
+  ]
+
+  useData().updateFromAction(action, param)
 }

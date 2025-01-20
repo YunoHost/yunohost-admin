@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 import ModalOverlay from '@/components/modals/ModalOverlay.vue'
 import type { APIRequest } from '@/composables/useRequests'
@@ -7,6 +8,8 @@ import type { APIRequest } from '@/composables/useRequests'
 const props = defineProps<{
   request: APIRequest
 }>()
+
+const { t } = useI18n()
 
 const messages = computed(() => {
   const messages = props.request.action?.messages
@@ -21,14 +24,17 @@ const progress = computed(() => {
     max: progress.reduce((sum, value) => sum + value, 0),
   }
 })
+
+const title = computed(() => {
+  if (messages.value || progress.value) return t('api.processing')
+  if (props.request.id.startsWith('lock')) return t('api.busy')
+  return t('api_waiting')
+})
 </script>
 
 <template>
   <ModalOverlay :request="request">
-    <h5
-      v-t="messages || progress ? 'api.processing' : 'api_waiting'"
-      class="text-center mt-4"
-    />
+    <h5 class="text-center mt-4">{{ title }}</h5>
 
     <BProgress v-if="progress" :max="progress.max" height=".5rem" class="my-4">
       <BProgressBar variant="success" :value="progress.values[0]" />

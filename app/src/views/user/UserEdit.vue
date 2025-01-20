@@ -216,7 +216,6 @@ const onUserEdit = onSubmit(async (onError, serverErrors) => {
       uri: `users/${props.name}`,
       cachePath: `userDetails.${props.name}`,
       data,
-      humanKey: { key: 'users.update', name: props.name },
     })
     .then(() => {
       router.push({ name: 'user-info', params: { name: props.name } })

@@ -40,9 +40,7 @@ const { pending, done, checked } = await api
 function runMigrations() {
   // Check that every migration's disclaimer has been checked.
   if (Object.values(checked).every((value) => value === true)) {
-    api
-      .put({ uri: 'migrations?accept_disclaimer', humanKey: 'migrations.run' })
-      .then(() => api.refetch())
+    api.put({ uri: 'migrations?accept_disclaimer' }).then(() => api.refetch())
   }
 }
 
@@ -50,11 +48,7 @@ async function skipMigration(id: string) {
   const confirmed = await modalConfirm(t('confirm_migrations_skip'))
   if (!confirmed) return
   api
-    .put({
-      uri: '/migrations/' + id,
-      data: { skip: '', targets: id },
-      humanKey: 'migration.skip',
-    })
+    .put({ uri: '/migrations/' + id, data: { skip: '', targets: id } })
     .then(() => api.refetch())
 }
 </script>

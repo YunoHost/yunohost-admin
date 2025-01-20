@@ -28,7 +28,7 @@ class APIError extends Error {
     const urlObj = new URL(url)
     this.code = status
     this.status = statusText
-    this.method = request.method
+    this.method = request.method!
     this.requestId = request.id
     this.path = urlObj.pathname + urlObj.search
   }

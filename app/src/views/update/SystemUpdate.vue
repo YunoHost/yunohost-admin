@@ -5,16 +5,16 @@ import { useI18n } from 'vue-i18n'
 import api from '@/api'
 import CardCollapse from '@/components/CardCollapse.vue'
 import { useAutoModal } from '@/composables/useAutoModal'
-import { useInfos } from '@/composables/useInfos'
+import { useSSE } from '@/composables/useSSE'
 import type { SystemUpdate } from '@/types/core/api'
 import { formatAppNotifs } from '../app/appData'
 
 const { t } = useI18n()
-const { tryToReconnect } = useInfos()
+const { tryToReconnect } = useSSE()
 const modalConfirm = useAutoModal()
 
 const { apps, system, importantYunohostUpgrade, pendingMigrations } = await api
-  .put<SystemUpdate>({ uri: 'update/all', humanKey: 'update' })
+  .put<SystemUpdate>({ uri: 'update/all' })
   .then(({ apps, system, important_yunohost_upgrade, pending_migrations }) => {
     return {
       apps: ref(apps),
@@ -46,7 +46,6 @@ async function performAppsUpgrade(ids: string[]) {
     const continue_ = await api
       .put<Pick<SystemUpdate['apps'][number], 'notifications'>>({
         uri: `apps/${app.id}/upgrade`,
-        humanKey: { key: 'upgrade.app', app: app.name },
       })
       .then((response) => {
         const postMessage = formatAppNotifs(response.notifications.POST_UPGRADE)
@@ -79,10 +78,9 @@ async function performSystemUpgrade() {
   const confirmed = await modalConfirm(t('confirm_update_system'))
   if (!confirmed) return
 
-  api.put({ uri: 'upgrade/system', humanKey: 'upgrade.system' }).then(() => {
+  api.put({ uri: 'upgrade/system' }).then(() => {
     if (system.value.some(({ name }) => name.includes('yunohost'))) {
       tryToReconnect({
-        attemps: 1,
         origin: 'upgrade_system',
         initialDelay: 2000,
       })

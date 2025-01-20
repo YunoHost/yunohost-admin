@@ -41,7 +41,7 @@ function toggleSelected(select: boolean, type: 'system' | 'apps') {
 
 function createBackup() {
   const data = parseBackupForm(selected.value, system)
-  api.post({ uri: 'backups', data, humanKey: 'backups.create' }).then(() => {
+  api.post({ uri: 'backups', data }).then(() => {
     router.push({ name: 'backup-list', params: { id: props.id } })
   })
 }

@@ -1,31 +1,35 @@
 import { createGlobalState } from '@vueuse/core'
-import { v4 as uuid } from 'uuid'
-import { computed, reactive, ref, shallowRef } from 'vue'
+import { computed, reactive, shallowRef } from 'vue'
 import { useRouter } from 'vue-router'
 
-import type { APIQuery, RequestMethod } from '@/api/api'
+import type { RequestMethod } from '@/api/api'
 import { APIErrorLog, type APIError } from '@/api/errors'
-import { isObjectLiteral } from '@/helpers/commons'
 import i18n from '@/i18n'
 import type { StateVariant } from '@/types/commons'
+import { updateCacheFromAction } from './data'
+import { useAutoToast } from './useAutoToast'
 import { useInfos } from './useInfos'
 
 export type RequestStatus = 'pending' | 'success' | 'warning' | 'error'
+export type RequestCaller = 'root' | 'noninteractive' | string | null
 
 export type APIRequest = {
-  status: RequestStatus
-  method: RequestMethod
-  uri: string
   id: string
-  humanRoute: string
-  initial: boolean
+  title: string
   date: number
+  method?: RequestMethod
+  uri?: string
+  status: RequestStatus
+  initial: boolean
   err?: APIError
   action?: APIActionProps
   showModal?: boolean
   showModalTimeout?: number
 }
 type APIActionProps = {
+  external: boolean
+  caller?: RequestCaller
+  operationId?: string
   messages: RequestMessage[]
   errors: number
   warnings: number
@@ -41,63 +45,65 @@ export type RequestMessage = {
   variant: StateVariant
 }
 
-export type ReconnectingArgs = {
-  attemps?: number
-  origin?: string
-  initialDelay?: number
-  delay?: number
-}
-
 export const useRequests = createGlobalState(() => {
   const router = useRouter()
 
   const requests = shallowRef<APIRequest[]>([])
-  const reconnecting = ref<ReconnectingArgs | undefined>()
   const currentRequest = computed(() => {
     return requests.value.find((r) => r.showModal)
   })
   const locked = computed(() => currentRequest.value?.showModal)
-  const historyList = computed<APIRequest[]>(() => {
+  const historyList = computed<(APIRequest | APIRequestAction)[]>(() => {
     return requests.value
-      .filter((r) => !!r.action || !!r.err)
+      .filter((r) => (!!r.action && !r.id.startsWith('lock')) || !!r.err)
       .reverse() as APIRequestAction[]
   })
 
   function startRequest({
-    uri,
+    id,
+    date,
+    title,
     method,
-    humanKey,
-    initial,
-    websocket,
-    showModal,
+    uri,
+    caller,
+    initial = false,
+    isAction = true,
+    showModal = true,
+    external = false,
+    status = 'pending',
   }: {
-    uri: string
-    method: RequestMethod
-    humanKey?: APIQuery['humanKey']
-    showModal: boolean
-    websocket: boolean
-    initial: boolean
-  }): APIRequest {
-    // Try to find a description for an API route to display in history and modals
-    const { key, ...args } = isObjectLiteral(humanKey)
-      ? humanKey
-      : { key: humanKey }
-    const humanRoute = key
-      ? i18n.global.t(`human_routes.${key}`, args)
-      : `[${method}] /${uri.split('?')[0]}`
-
+    id: string
+    date: number
+    title?: string
+    method?: RequestMethod
+    uri?: string
+    caller?: RequestCaller
+    showModal?: boolean
+    isAction?: boolean
+    initial?: boolean
+    external?: boolean
+    status?: APIRequest['status']
+  }): APIRequest | APIRequestAction {
     const request: APIRequest = reactive({
+      id,
+      title:
+        title ||
+        (method && uri
+          ? `[${method}] /${uri!.split('?')[0]}`
+          : i18n.global.t('api.unknown_request')),
+      date,
       method,
       uri,
-      status: 'pending',
-      humanRoute,
+      status,
       initial,
       showModal: false,
-      id: uuid(),
-      date: Date.now(),
       err: undefined,
-      action: websocket
+      action: isAction
         ? {
+            external,
+            caller,
+            // in case of recent history entry
+            operationId: external && status !== 'pending' ? id : undefined,
             messages: [],
             warnings: 0,
             errors: 0,
@@ -123,21 +129,36 @@ export const useRequests = createGlobalState(() => {
     request,
     success,
     showError = false,
+    errorMsg = undefined,
   }: {
-    request: APIRequest
+    request: APIRequest | APIRequestAction
     success: boolean
     showError?: boolean
+    errorMsg?: string
   }) {
     let status: RequestStatus = success ? 'success' : 'error'
-    let hideModal = success || !showError
+    const hideModal = success || !showError
 
     if (success && request.action) {
-      const { warnings, errors, messages } = request.action
+      const { warnings, errors, messages, external, operationId } =
+        request.action
       const msgCount = messages.length
       if (msgCount && messages[msgCount - 1].variant === 'warning') {
-        hideModal = false
+        useAutoToast().show({
+          body: messages[msgCount - 1].text,
+          variant: 'warning',
+        })
       }
       if (errors || warnings) status = 'warning'
+
+      if (external && operationId) {
+        updateCacheFromAction(operationId)
+      }
+    } else if (!success && errorMsg) {
+      useAutoToast().show({
+        body: errorMsg,
+        variant: 'danger',
+      })
     }
 
     if (request.showModalTimeout) {
@@ -153,7 +174,8 @@ export const useRequests = createGlobalState(() => {
         request.showModal = false
         // We can remove requests that are not actions or has no errors
         requests.value = requests.value.filter(
-          (r) => r.showModal || !!r.action || !!r.err,
+          (r) =>
+            r.showModal || (!!r.action && !r.id.startsWith('lock')) || !!r.err,
         )
       } else if (showError) {
         request.showModal = true
@@ -200,7 +222,6 @@ export const useRequests = createGlobalState(() => {
     requests,
     historyList,
     currentRequest,
-    reconnecting,
     locked,
     startRequest,
     endRequest,
