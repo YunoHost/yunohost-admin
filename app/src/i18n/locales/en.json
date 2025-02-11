@@ -447,7 +447,7 @@
     "items_verbose_items_left": "There are {items} left. | There is 1 {items} left. | There are {items} left.",
     "label": "Label",
     "label_for_manifestname": "Label for {name}",
-    "label_for_manifestname_help": "This is the name displayed in the user portal. This can be changed later.",
+    "label_for_manifestname_help": "This is the name displayed in the portal. This can be changed later.",
     "last_ran": "Last time ran:",
     "license": "License",
     "loading": "Loading",
@@ -506,7 +506,7 @@
     "perform": "Perform",
     "permission_corresponding_url": "Corresponding URL",
     "permission_main": "Main label",
-    "permission_show_tile_enabled": "Visible as tile in user portal",
+    "permission_show_tile_enabled": "Visible as tile in the portal",
     "permissions": "Permissions",
     "placeholder": {
         "domain": "my-domain.com",
@@ -523,7 +523,7 @@
         "force": "Force the post-install",
         "title": "Postinstall",
         "user": {
-            "first_user_help": "This user will be granted admin privileges and will be allowed to connect to this administration interface as well as directly to the server via SSH.\nAs it is a regular user, you will also be able to connect to the user portal (SSO) with its credentials.\nOnce the post-installation is complete, you will be able to create other admin users by adding them into the 'admins' group.",
+            "first_user_help": "This user will be granted admin privileges and will be allowed to connect to this administration interface as well as directly to the server via SSH.\nAs it is a regular user, you will also be able to connect to the portal (SSO) with its credentials.\nOnce the post-installation is complete, you will be able to create other admin users by adding them into the 'admins' group.",
             "title": "Create first admin user"
         }
     },
@@ -612,7 +612,7 @@
     "user_emailforward": "Mail forward",
     "user_emailforward_add": "Add a mail forward",
     "user_fullname": "Full name",
-    "user_interface_link": "User interface",
+    "user_interface_link": "Portal",
     "user_mailbox_quota": "Mailbox quota",
     "user_mailbox_use": "Mailbox used space",
     "user_new_forward": "newforward{'@'}myforeigndomain.org",
