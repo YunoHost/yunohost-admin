@@ -27,6 +27,8 @@ const props = withDefaults(
     noFooter?: boolean
     hr?: boolean
     sections?: ConfigSection<MV, FFD>[]
+    title?: string
+    icon?: string
   }>(),
   {
     id: 'ynh-form',
@@ -38,6 +40,8 @@ const props = withDefaults(
     noFooter: false,
     hr: false,
     sections: undefined,
+    title: undefined,
+    icon: undefined,
   },
 )
 
@@ -49,6 +53,7 @@ const emit = defineEmits<{
 
 const slots = defineSlots<
   {
+    header?: any
     top?: any
     disclaimer?: any
     'before-form'?: any
@@ -162,14 +167,19 @@ const Fields = createReusableTemplate<{
     </template>
   </Fields.define>
 
-  <YCard class="card-form" v-bind="$attrs">
-    <template #default>
+  <BCard class="card-form" no-body v-bind="$attrs">
+    <slot name="header">
+      <BCardHeader>
+        <h2><YIcon v-if="icon" :iname="icon" class="me-2" />{{ title }}</h2>
+      </BCardHeader>
+    </slot>
+
+    <BCardBody>
       <slot name="top" />
 
       <slot name="disclaimer" />
 
       <slot name="before-form" />
-
       <BForm
         :id="id"
         :inline="inline"
@@ -214,16 +224,17 @@ const Fields = createReusableTemplate<{
       </BForm>
 
       <slot name="after-form" />
-    </template>
+    </BCardBody>
 
-    <template v-if="!noFooter" #buttons>
-      <slot name="buttons">
-        <BButton type="submit" variant="success" :form="id">
-          {{ submitText ?? $t('save') }}
-        </BButton>
-      </slot>
-    </template>
-  </YCard>
+    <BCardFooter
+      v-if="!noFooter"
+      class="d-flex align-items-center justify-content-end"
+    >
+      <BButton type="submit" variant="success" :form="id">
+        {{ submitText ?? $t('save') }}
+      </BButton>
+    </BCardFooter>
+  </BCard>
 </template>
 
 <style lang="scss" scoped>
