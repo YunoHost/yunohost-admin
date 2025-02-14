@@ -18,12 +18,12 @@ import type { Obj } from '@/types/commons'
 import type { AppInfo } from '@/types/core/api'
 import type { Permission } from '@/types/core/data'
 import type { CoreConfigPanels } from '@/types/core/options'
-import type { BaseItemComputedProps } from '@/types/form'
 import AppIntegrationAndLinks from './_AppIntegrationAndLinks.vue'
 import { formatAppIntegration, formatAppLinks } from './appData'
 
 const props = defineProps<{
   id: string
+  coreTabId?: string
   tabId?: string
 }>()
 
@@ -31,30 +31,23 @@ const { t } = useI18n()
 const router = useRouter()
 const modalConfirm = useAutoModal()
 
-const [app, form, coreConfig, configPanelErr] = await api
-  .fetchAll<[AppInfo, Obj<Permission>]>([
+const [app, form, coreConfigData, appConfigData, configPanelErr] = await api
+  .fetchAll<[AppInfo, CoreConfigPanels, Obj<Permission>]>([
     { uri: `apps/${props.id}?full` },
+    { uri: `apps/${props.id}/config?full&core` },
     // FIXME permissions needed?
     { uri: 'users/permissions?full', cachePath: 'permissions' },
     { uri: 'domains', cachePath: 'domains' },
   ])
-  .then(async ([app_]) => {
+  .then(async ([app_, coreConfigData]) => {
     // Query config panels if app supports it
-    let config: CoreConfigPanels = {
-      panels: [{ id: 'operations', name: t('operations') }],
-    }
-    let configPanelErr: string | undefined
+    let appConfigData: CoreConfigPanels | undefined
+    let appConfigPanelErr: string | undefined
     if (app_.supports_config_panel) {
       await api
         .get<CoreConfigPanels>(`apps/${props.id}/config?full`)
-        .then((coreConfig) => {
-          // Fake integration of operations in config panels
-          coreConfig.panels.unshift(config.panels[0])
-          config = coreConfig
-        })
-        .catch((err: APIError) => {
-          configPanelErr = err.message
-        })
+        .then((data) => (appConfigData = data))
+        .catch((err: APIError) => (appConfigPanelErr = err.message))
     }
 
     const { domain, path } = app_.settings
@@ -130,13 +123,37 @@ const [app, form, coreConfig, configPanelErr] = await api
       permissions,
     }
 
-    return [app, form, config, configPanelErr] as const
+    return [
+      app,
+      form,
+      coreConfigData,
+      appConfigData,
+      appConfigPanelErr,
+    ] as const
   })
+
 const { domainsAsChoices } = useDomains()
 
-const config = coreConfig
+const coreConfig = useConfigPanels(
+  formatConfigPanels(coreConfigData),
+  () => props.coreTabId,
+  ({ panelId, data, action }, onError) => {
+    api
+      .put({
+        uri: action
+          ? `apps/${props.id}/actions/${action}?core`
+          : `apps/${props.id}/config/${panelId}?core`,
+        data: isEmptyValue(data) ? {} : { args: objectToParams(data) },
+      })
+      .then(() => api.refetch())
+      .catch(onError)
+  },
+  'coreTabId',
+)
+
+const appConfig = appConfigData
   ? useConfigPanels(
-      formatConfigPanels(coreConfig),
+      formatConfigPanels(appConfigData),
       () => props.tabId,
       ({ panelId, data, action }, onError) => {
         api
@@ -329,143 +346,23 @@ async function uninstall() {
       <p>{{ $t('app.info.config_panel_error_please_report') }}</p>
     </YAlert>
 
+    <ConfigPanelsComponent
+      v-model="coreConfig.form.value"
+      :panel="coreConfig.panel.value"
+      :validations="coreConfig.v.value"
+      :routes="coreConfig.routes"
+      @apply="coreConfig.onPanelApply"
+    />
+
     <!-- BASIC INFOS -->
     <ConfigPanelsComponent
-      v-if="config"
-      v-model="config.form.value"
-      :panel="config.panel.value"
-      :validations="config.v.value"
-      :routes="config.routes"
-      @apply="config.onPanelApply"
-    >
-      <!-- OPERATIONS TAB -->
-      <template v-if="tabId === 'operations'" #default>
-        <!-- CHANGE PERMISSIONS LABEL -->
-        <BFormGroup
-          :label="$t('app_manage_label_and_tiles')"
-          label-class="fw-bold"
-        >
-          <FormField
-            v-for="(perm, i) in app.permissions"
-            :key="i"
-            :label="perm.title"
-            :label-for="'perm-' + i"
-            label-cols="0"
-            label-class=""
-            class="m-0"
-            :validation="v.form.labels[i]"
-          >
-            <template #default="componentProps">
-              <BInputGroup>
-                <InputItem
-                  :id="'perm' + i"
-                  v-bind="componentProps as BaseItemComputedProps"
-                  v-model="form.labels[i].label"
-                />
-
-                <BInputGroupText v-if="perm.tileAvailable">
-                  <CheckboxItem
-                    v-model="form.labels[i].show_tile"
-                    :label="$t('permission_show_tile_enabled')"
-                  />
-                </BInputGroupText>
-
-                <BButton
-                  v-t="'save'"
-                  variant="info"
-                  @click="changeLabel(perm.name, i)"
-                />
-              </BInputGroup>
-            </template>
-
-            <template v-if="perm.url" #description>
-              {{ $t('permission_corresponding_url') }}:
-              <BLink :href="'https://' + perm.url">
-                https://{{ perm.url }}
-              </BLink>
-            </template>
-          </FormField>
-        </BFormGroup>
-        <hr />
-
-        <!-- PERMISSIONS -->
-        <BFormGroup
-          :label="$t('app_info_access_desc')"
-          label-for="permissions"
-          label-class="fw-bold"
-          label-cols-lg="0"
-        >
-          {{ app.allowedGroups }}
-          <BButton
-            size="sm"
-            :to="{ name: 'group-list' }"
-            variant="info"
-            class="ms-2"
-          >
-            <YIcon iname="key-modern" />
-            {{ $t('groups_and_permissions_manage') }}
-          </BButton>
-        </BFormGroup>
-        <hr />
-
-        <!-- CHANGE URL -->
-        <FormField
-          v-if="app.isWebapp"
-          :label="$t('app_info_changeurl_desc')"
-          :label-cols="0"
-          label-class="fw-bold"
-        >
-          <BInputGroup v-if="app.supportsChangeUrl && form.url">
-            <BInputGroupText>https://</BInputGroupText>
-
-            <BFormSelect
-              v-model="form.url.domain"
-              :options="domainsAsChoices"
-            />
-
-            <BInputGroupText>/</BInputGroupText>
-
-            <BFormInput v-model="form.url.path" class="flex-grow-3" />
-
-            <BButton v-t="'save'" variant="info" @click="changeUrl" />
-          </BInputGroup>
-
-          <div v-else class="alert alert-warning">
-            <YIcon iname="exclamation" />
-            {{ $t('app_info_change_url_disabled_tooltip') }}
-          </div>
-        </FormField>
-        <hr v-if="app.isWebapp" />
-
-        <!-- MAKE DEFAULT -->
-        <FormField
-          v-if="app.isWebapp"
-          :label="$t('app_info_default_desc', { domain: app.domain })"
-          label-for="main-domain"
-          label-cols="0"
-        >
-          <template v-if="!app.isDefault.value">
-            <BButton
-              id="main-domain"
-              variant="success"
-              @click="setAsDefaultDomain(false)"
-            >
-              <YIcon iname="star" /> {{ $t('app_make_default') }}
-            </BButton>
-          </template>
-
-          <template v-else>
-            <BButton
-              id="main-domain"
-              variant="warning"
-              @click="setAsDefaultDomain(true)"
-            >
-              <YIcon iname="star" /> {{ $t('app_make_not_default') }}
-            </BButton>
-          </template>
-        </FormField>
-      </template>
-    </ConfigPanelsComponent>
+      v-if="appConfig"
+      v-model="appConfig.form.value"
+      :panel="appConfig.panel.value"
+      :validations="appConfig.v.value"
+      :routes="appConfig.routes"
+      @apply="appConfig.onPanelApply"
+    />
 
     <BCard v-if="app.doc.admin.length" no-body>
       <BTabs card fill pills>
