@@ -400,13 +400,19 @@ export function useConfigPanels<NestedMV extends Obj, MV extends Obj<NestedMV>>(
   config: ConfigPanels<NestedMV, MV>,
   tabId: MaybeRefOrGetter<keyof MV | undefined>,
   onPanelApply: OnPanelApply<MV>,
+  tabIdKey: string = 'tabId',
 ): ConfigPanelsProps<NestedMV, MV> {
   const router = useRouter()
   watch(
     () => toValue(tabId),
     (id) => {
       if (!id) {
-        router.replace({ params: { tabId: config.panels[0].id } })
+        router.replace({
+          params: {
+            ...router.currentRoute.value.params,
+            [tabIdKey]: config.panels[0].id,
+          },
+        })
       }
     },
     { immediate: true },
