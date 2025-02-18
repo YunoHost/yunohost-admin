@@ -194,7 +194,6 @@ const Fields = createReusableTemplate<{
                 v-if="section.name && section.visible"
                 header-tag="h3"
                 :visible="!section.collapsed"
-                class="form-section"
               >
                 <template #title>
                   <span class="fs-3">{{ section.name }}</span>
