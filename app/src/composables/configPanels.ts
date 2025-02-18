@@ -282,6 +282,7 @@ function formatConfigPanel<NestedMV extends Obj, MV extends Obj<NestedMV>>(
       isActionSection: section.is_action_section,
       name: formatI18nField(section.name),
       visible: useExpression(section.visible, form),
+      collapsed: section.collapsed ?? false
     }
   })
 
