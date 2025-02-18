@@ -139,6 +139,11 @@ const coreConfig = useConfigPanels(
   formatConfigPanels(coreConfigData),
   () => props.coreTabId,
   ({ panelId, data, action }, onError) => {
+    if (action?.includes('uninstall')) {
+      // FIXME check if at some point bootstrap-vue allows to await for a defined modal to resolve
+      showModalUninstall.value = true
+      return
+    }
     api
       .put({
         uri: action
@@ -179,6 +184,7 @@ const fields = {
   },
 }
 const { v } = useForm(form, fields)
+const showModalUninstall = ref(false)
 const purge = ref(false)
 
 async function changeLabel(permName: string, i: number) {
@@ -229,9 +235,9 @@ async function dismissNotification(name: string) {
 
 async function uninstall() {
   const data = purge.value === true ? { purge: 1 } : {}
-  api.delete({ uri: 'apps/' + props.id, data }).then(() => {
-    router.push({ name: 'app-list' })
-  })
+  api
+    .put({ uri: `apps/${props.id}/actions/_core.operations.uninstall`, data })
+    .then(() => router.push({ name: 'app-list' }))
 }
 </script>
 
@@ -388,6 +394,7 @@ async function uninstall() {
 
     <BModal
       id="uninstall-modal"
+      v-model="showModalUninstall"
       centered
       :title="$t('confirm_uninstall', { name: id })"
       header-variant="warning"
