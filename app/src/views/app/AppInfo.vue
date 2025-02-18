@@ -81,6 +81,7 @@ const [app, form, coreConfigData, appConfigData, configPanelErr] = await api
       version: app_.version,
       label,
       domain,
+      logo: app_.logo,
       url: domain && path ? `https://${domain}${path}` : null,
       allowedGroups: allowed.length ? allowed.join(', ') : t('nobody'),
       alternativeTo: joinOrNull(app_.from_catalog.potential_alternative_to),
@@ -291,7 +292,14 @@ async function uninstall() {
     <section class="border rounded p-3 mb-4">
       <div class="d-md-flex align-items-center mb-4">
         <h1 class="mb-3 mb-md-0">
-          <YIcon iname="cube" />
+          <template v-if="app.logo">
+            <img
+              :src="`https://10.118.36.150/yunohost/admin/applogos/${app.logo}.png`"
+            />
+          </template>
+          <template v-else>
+            <YIcon iname="cube" />
+          </template>
           {{ app.label }}
 
           <span class="text-secondary tiny">
@@ -396,6 +404,10 @@ async function uninstall() {
 </template>
 
 <style lang="scss" scoped>
+h1 img {
+  width: 2.5rem;
+}
+
 select {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
