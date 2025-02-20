@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive, ref } from 'vue'
+import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 
@@ -7,12 +7,9 @@ import api, { objectToParams } from '@/api'
 import { type APIError } from '@/api/errors'
 import ConfigPanelsComponent from '@/components/ConfigPanels.vue'
 import { formatConfigPanels, useConfigPanels } from '@/composables/configPanels'
-import { useDomains } from '@/composables/data'
-import { useArrayRule, useForm } from '@/composables/form'
 import { useAutoModal } from '@/composables/useAutoModal'
 import { isEmptyValue, joinOrNull, pick, toEntries } from '@/helpers/commons'
 import { humanPermissionName } from '@/helpers/filters/human'
-import { required } from '@/helpers/validators'
 import { formatI18nField } from '@/helpers/yunohostArguments'
 import type { Obj } from '@/types/commons'
 import type { AppInfo } from '@/types/core/api'
@@ -87,7 +84,6 @@ const [app, form, coreConfigData, appConfigData, configPanelErr] = await api
       domain,
       logo: app_.logo,
       url: domain && path ? `https://${domain}${path}` : null,
-      allowedGroups: allowed.length ? allowed.join(', ') : t('nobody'),
       alternativeTo: joinOrNull(app_.from_catalog.potential_alternative_to),
       description: formatI18nField(DESCRIPTION) || app_.description,
       integration: formatAppIntegration(
@@ -121,11 +117,7 @@ const [app, form, coreConfigData, appConfigData, configPanelErr] = await api
             ]),
         ].filter((doc) => doc[1]),
       },
-      isWebapp: app_.is_webapp,
-      isDefault: ref(app_.is_default),
-      supportsChangeUrl: app_.supports_change_url,
       supportsPurge: app_.supports_purge,
-      permissions,
       preUpgradeMessage: formatAppNotifs(
         app_.manifest.notifications.PRE_UPGRADE,
       ),
@@ -139,8 +131,6 @@ const [app, form, coreConfigData, appConfigData, configPanelErr] = await api
       appConfigPanelErr,
     ] as const
   })
-
-const { domainsAsChoices } = useDomains()
 
 const coreConfig = useConfigPanels(
   formatConfigPanels(coreConfigData),
@@ -204,56 +194,8 @@ const appConfig = appConfigData
     )
   : undefined
 
-const fields = {
-  labels: reactive({
-    rules: useArrayRule(() => form.value.labels, { label: { required } }),
-  }),
-  url: {
-    rules: { domain: { required } },
-  },
-}
-const { v } = useForm(form, fields)
 const showModalUninstall = ref(false)
 const purge = ref(false)
-
-async function changeLabel(permName: string, i: number) {
-  if (!(await v.value.form.labels[i].$validate())) return
-  const data = form.value.labels[i]
-  api
-    .put({
-      uri: 'users/permissions/' + permName,
-      data: {
-        label: data.label,
-        show_tile: data.show_tile ? 'True' : 'False',
-      },
-    })
-    // FIXME really need to refetch? permissions store update should be ok
-    .then(() => api.refetch())
-}
-
-async function changeUrl() {
-  if (!(await v.value.form.url.$validate())) return
-  const confirmed = await modalConfirm(t('confirm_app_change_url'))
-  if (!confirmed) return
-
-  const { domain, path } = form.value.url!
-  api
-    .put({
-      uri: `apps/${props.id}/changeurl`,
-      data: { domain, path: '/' + path },
-    })
-    // Refetch because some content of this page relies on the url
-    .then(() => api.refetch())
-}
-
-async function setAsDefaultDomain(undo = false) {
-  const confirmed = await modalConfirm(t('confirm_app_default'))
-  if (!confirmed) return
-
-  api
-    .put({ uri: `apps/${props.id}/default${undo ? '?undo' : ''}` })
-    .then(() => (app.isDefault.value = true))
-}
 
 async function dismissNotification(name: string) {
   api
@@ -351,16 +293,6 @@ async function uninstall() {
         >
           <YIcon iname="external-link" />
           {{ $t('app.open_this_app') }}
-        </BButton>
-
-        <BButton
-          id="uninstall"
-          v-b-modal.uninstall-modal
-          variant="danger"
-          :class="{ 'ms-auto': !app.url }"
-        >
-          <YIcon iname="trash-o" />
-          {{ $t('uninstall') }}
         </BButton>
       </div>
 
