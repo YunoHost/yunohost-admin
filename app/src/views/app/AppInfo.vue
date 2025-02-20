@@ -19,7 +19,11 @@ import type { AppInfo } from '@/types/core/api'
 import type { Permission } from '@/types/core/data'
 import type { CoreConfigPanels } from '@/types/core/options'
 import AppIntegrationAndLinks from './_AppIntegrationAndLinks.vue'
-import { formatAppIntegration, formatAppLinks } from './appData'
+import {
+  formatAppIntegration,
+  formatAppLinks,
+  formatAppNotifs,
+} from './appData'
 
 const props = defineProps<{
   id: string
@@ -122,6 +126,9 @@ const [app, form, coreConfigData, appConfigData, configPanelErr] = await api
       supportsChangeUrl: app_.supports_change_url,
       supportsPurge: app_.supports_purge,
       permissions,
+      preUpgradeMessage: formatAppNotifs(
+        app_.manifest.notifications.PRE_UPGRADE,
+      ),
     }
 
     return [
@@ -138,12 +145,34 @@ const { domainsAsChoices } = useDomains()
 const coreConfig = useConfigPanels(
   formatConfigPanels(coreConfigData),
   () => props.coreTabId,
-  ({ panelId, data, action }, onError) => {
+  async ({ panelId, data, action }, onError) => {
+    let confirmed: boolean | null | undefined = true
     if (action?.includes('uninstall')) {
       // FIXME check if at some point bootstrap-vue allows to await for a defined modal to resolve
       showModalUninstall.value = true
       return
+    } else if (action?.includes('force_upgrade')) {
+      confirmed = await modalConfirm(t('confirm_app_force_upgrade'))
+      if (!confirmed) return
+
+      if (app.preUpgradeMessage) {
+        const message =
+          t('app.upgrade.notifs.pre.alert') + '\n\n' + app.preUpgradeMessage
+        confirmed = await modalConfirm(
+          message,
+          {
+            title: t('app.upgrade.notifs.pre.title', {
+              name: app.label,
+            }),
+            okTitle: t('ok'),
+          },
+          { markdown: true },
+        )
+      }
+    } else if (action?.includes('change_url')) {
+      confirmed = await modalConfirm(t('confirm_app_change_url'))
     }
+    if (!confirmed) return
     api
       .put({
         uri: action
