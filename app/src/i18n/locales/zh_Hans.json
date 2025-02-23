@@ -297,7 +297,7 @@
     "logs_no_logs_registered": "没有为此类别注册的日志",
     "logs_context": "上下文",
     "logs_share_with_yunopaste": "使用 YunoPaste 共享日志",
-    "permission_show_tile_enabled": "在用户门户中显示为磁贴",
+    "permission_show_tile_enabled": "在门户中显示为磁贴",
     "permission_main": "主标签",
     "permission_corresponding_url": "对应网址",
     "pending_migrations": "有一些待处理的迁移正在等待运行。请转到<a href='#/tools/migrations'>工具 > 迁移</a> 以运行它们。",
@@ -312,7 +312,7 @@
         "force": "强制安装后流程",
         "title": "安装后流程",
         "user": {
-            "first_user_help": "此用户将被授予管理员权限，并被允许连接到该管理界面以及通过 SSH 直接连接到服务器。\n由于它是普通用户，您还可以使用其凭据连接到用户门户 (SSO)。\n安装后流程完成后，您将能够通过将其他管理员用户添加到 '管理员' 组来创建其他管理员用户。",
+            "first_user_help": "此用户将被授予管理员权限，并被允许连接到该管理界面以及通过 SSH 直接连接到服务器。\n由于它是普通用户，您还可以使用其凭据连接到门户 (SSO)。\n安装后流程完成后，您将能够通过将其他管理员用户添加到 '管理员' 组来创建其他管理员用户。",
             "title": "创建第一个管理员用户"
         }
     },
@@ -398,7 +398,7 @@
     "user_new_forward": "newforward{'@'}myforeigndomain.org",
     "user_mailbox_use": "邮箱已用空间",
     "user_mailbox_quota": "邮箱配额",
-    "user_interface_link": "用户界面",
+    "user_interface_link": "门户",
     "user_fullname": "全名",
     "user_emailforward_add": "添加邮件转发",
     "user_emailforward": "邮件转发",
@@ -608,7 +608,7 @@
     "group_admins": "管理员",
     "details_about": "显示有关 {subject} 的更多详情",
     "group_explain_admins": "这是一个对应管理员用户的特殊群组。此群组中的用户可以访问 YunoHost 的网站管理，使用 SSH 连接到服务器并使用 `sudo` 命令。他们还将收到发送至 root{'@'}、admin{'@'} 和 admins{'@'} 的电子邮件，例如诊断通知。您应该只将您绝对信任的人添加到此群组中！",
-    "label_for_manifestname_help": "这是显示在用户门户中的名称。这可以稍后更改。",
+    "label_for_manifestname_help": "这是显示在门户中的名称。这可以稍后更改。",
     "manage_groups": "管理群组",
     "text_selection_is_disabled": "文本选择已禁用。如果您想分享此日志，请使用 '使用 Yunopaste 共享' 按钮共享*完整*日志。<br/><small>或者如果您真的想要选择文本，请按这些键：↓↓↑↑。</small>",
     "tools_yunohost_settings": "YunoHost 设置",
