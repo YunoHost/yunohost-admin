@@ -1,3 +1,15 @@
+yunohost-admin (12.1.0) testing; urgency=low
+
+  - New "SSE" API to streaming/broadcasting logs of the current action ([#603](http://github.com/YunoHost/yunohost-admin/pull/603))
+  - Adapt webadmin to the new firewall API ([#606](http://github.com/YunoHost/yunohost-admin/pull/606))
+  - New 'app core' config panel allowing to change the app logo, label, etc., as well as trigger app upgrade, change url, uninstall ([#615](http://github.com/YunoHost/yunohost-admin/pull/615))
+  - naming: simplifying the "user portal" naming to just "portal" (3d907a08)
+  - i18n: Translations updated for Basque, Chinese (Simplified), French, Galician, German, Italian, Turkish
+
+  Thanks to all contributors <3 ! (axolotle, Éric Gaspar, Félix Piédallu, Furkan Samed Acet, José M, OniriCorpe, Poesty Li, ppr, Tommi, xabirequejo)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Sun, 23 Feb 2025 21:36:17 +0100
+
 yunohost-admin (12.0.5) stable; urgency=low
 
   - maintenance: general maintenance, update deps ([#601](http://github.com/YunoHost/yunohost-admin/pull/601),
