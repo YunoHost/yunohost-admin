@@ -50,7 +50,12 @@ const [DefineTemplate, ReuseTemplate] = createReusableTemplate<{
     <template #term>
       <ReuseTemplate :aria-describedby="`${id}-desc`" />
     </template>
-    <span :id="`${id}-desc`" aria-hidden="true">{{ help }}</span>
+    <VueShowdown
+      :id="`${id}-desc`"
+      :markdown="help"
+      aria-hidden="true"
+      :class="['text-' + type]"
+    />
   </DescriptionRow>
   <ReuseTemplate v-else />
 </template>
