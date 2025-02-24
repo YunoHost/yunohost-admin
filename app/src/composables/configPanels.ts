@@ -52,7 +52,7 @@ function formatOptionValue(option: AnyWritableOption) {
 
   if ('tags' === option.type) {
     // FIXME format in core?
-    if (typeof value === 'string') {
+    if (!!value && typeof value === 'string') {
       value = value.split(',')
     } else if (!value) {
       value = []

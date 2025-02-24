@@ -46,7 +46,7 @@ export type APIErrorData = {
 export function objectToParams(obj: Obj, { formData = false } = {}) {
   const urlParams = formData ? new FormData() : new URLSearchParams()
   for (const [key, value] of Object.entries(obj)) {
-    if (Array.isArray(value)) {
+    if (Array.isArray(value) && value.length) {
       value.forEach((v) => urlParams.append(key, v))
     } else {
       urlParams.append(key, value)
