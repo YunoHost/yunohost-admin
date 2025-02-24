@@ -17,6 +17,7 @@ const props = withDefaults(
     name: undefined,
     placeholder: 'Choose a file or drop it here...',
     touchKey: undefined,
+    disabled: false,
     accept: '',
     dropPlaceholder: undefined,
 
@@ -98,6 +99,7 @@ const required = computed(() => 'required' in (props.validation ?? {}))
       :model-value="modelValue.file"
       :state="state"
       :required="required"
+      :disabled="disabled"
       @blur="touch?.(touchKey)"
       @focusout="touch?.(touchKey)"
       @update:model-value="onInput"

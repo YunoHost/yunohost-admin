@@ -13,11 +13,14 @@ const props = withDefaults(
     name: undefined,
     placeholder: undefined,
     touchKey: undefined,
+    disabled: false,
     autocomplete: undefined,
+    autocapitalize: undefined,
     // pattern: undefined,
     step: undefined,
     trim: true,
     type: 'text',
+    spellcheck: undefined,
 
     ariaDescribedby: undefined,
     state: undefined,
@@ -64,11 +67,14 @@ const fromValidation = computed(() => {
     :name="name"
     :placeholder="placeholder"
     :autocomplete="autocomplete"
+    :autocapitalize="autocapitalize"
     :step="step"
     :trim="trim"
     :type="type"
     :aria-describedby="ariaDescribedby"
     :state="state"
+    :spellcheck="spellcheck"
+    :disabled="disabled"
     @blur="touch?.(touchKey)"
   />
 </template>

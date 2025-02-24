@@ -10,6 +10,7 @@ withDefaults(defineProps<AdressItemProps & BaseItemComputedProps>(), {
   name: undefined,
   placeholder: undefined,
   touchKey: undefined,
+  disabled: false,
   type: 'email',
 
   state: undefined,
@@ -41,6 +42,7 @@ function onInput(key: 'localPart' | 'domain', value: string | null) {
       :aria-describedby="`${id}-local-part-desc`"
       :state="validation?.localPart?.$error ? false : null"
       :validation="validation?.localPart"
+      :disabled="disabled"
       @update:model-value="onInput('localPart', $event as string)"
     />
 
@@ -54,6 +56,7 @@ function onInput(key: 'localPart' | 'domain', value: string | null) {
       :aria-describedby="`${id}-domain-desc`"
       :state="validation?.domain?.$error ? false : null"
       :validation="validation?.domain"
+      :disabled="disabled"
       @update:model-value="onInput('domain', $event)"
     />
   </BInputGroup>
