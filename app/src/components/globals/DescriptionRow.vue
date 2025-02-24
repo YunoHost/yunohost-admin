@@ -13,7 +13,7 @@ const props = withDefaults(
   {
     term: undefined,
     details: undefined,
-    cols: () => ({ md: 4, xl: 3 }),
+    cols: () => ({ md: 4, lg: 3 }),
     type: 'list',
   },
 )
@@ -47,6 +47,12 @@ const cols = computed<Cols>(() => ({
 
 <style lang="scss" scoped>
 .description-row {
+  .col {
+    display: flex;
+    align-self: start;
+    padding-left: 0.75rem;
+  }
+
   @include media-breakpoint-up(md) {
     &.mode-list {
       margin: 0.25rem 0;
@@ -63,6 +69,7 @@ const cols = computed<Cols>(() => ({
 
     .col {
       margin-top: 0.25rem;
+      padding: 0;
     }
 
     &.mode-list:not(:last-of-type) {
@@ -70,11 +77,6 @@ const cols = computed<Cols>(() => ({
       padding-bottom: 0.5rem;
       border-bottom: $border-width solid $card-border-color;
     }
-  }
-
-  .col {
-    display: flex;
-    align-self: start;
   }
 }
 </style>
