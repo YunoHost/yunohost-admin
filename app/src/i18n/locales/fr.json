@@ -552,7 +552,7 @@
             "stop": "Annuler les prochaines mises à niveau d'applications"
         },
         "installed_version": "Version installée :",
-        "open_this_app": "Ouvrez l'application",
+        "open_this_app": "Ouvrir l'application",
         "antifeatures": "Cette application a des fonctionnalités que vous n'aimerez peut-être pas :",
         "doc": {
             "about": {
