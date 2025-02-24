@@ -11,6 +11,7 @@ const props = withDefaults(
     name: undefined,
     placeholder: undefined,
     touchKey: undefined,
+    disabled: false,
 
     ariaDescribedby: undefined,
     modelValue: undefined,
@@ -53,6 +54,7 @@ const required = computed(() => 'required' in (props?.validation ?? {}))
     :aria-describedby="ariaDescribedby"
     :state="state"
     :required="required"
+    :disabled="disabled"
     @blur="touch?.(touchKey)"
   >
     <template v-if="!isOptionalSelectOption" #first>

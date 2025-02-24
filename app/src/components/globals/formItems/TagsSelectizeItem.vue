@@ -22,6 +22,7 @@ const props = withDefaults(
     name: undefined,
     placeholder: undefined,
     touchKey: undefined,
+    disabled: false,
     auto: false,
     disabledItems: undefined,
     itemsName: 'items',
@@ -124,6 +125,7 @@ function onDropdownKeydown(e: KeyboardEvent) {
       :name="name"
       :aria-describedby="ariaDescribedby"
       :state="state"
+      :disabled="disabled"
       no-outer-focus
       size="lg"
       class="p-0 border-0"
@@ -151,6 +153,7 @@ function onDropdownKeydown(e: KeyboardEvent) {
 
         <BDropdown
           ref="dropdownElem"
+          :disabled="disabled"
           variant="outline-dark"
           block
           menu-class="w-100"

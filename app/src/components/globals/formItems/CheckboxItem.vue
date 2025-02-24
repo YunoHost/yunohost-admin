@@ -6,6 +6,7 @@ withDefaults(defineProps<CheckboxItemProps & BaseItemComputedProps>(), {
   name: undefined,
   placeholder: undefined,
   touchKey: undefined,
+  disabled: false,
   label: undefined,
   labels: () => ({ true: 'yes', false: 'no' }),
 
@@ -24,6 +25,7 @@ const modelValue = defineModel<boolean>()
     :name="name"
     :aria-describedby="ariaDescribedby"
     :state="state"
+    :disabled="disabled"
     switch
   >
     <span v-html="label || $t(labels[modelValue ? 'true' : 'false'])" />

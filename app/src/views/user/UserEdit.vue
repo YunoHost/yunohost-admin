@@ -61,8 +61,6 @@ const fields = reactive({
     cProps: {
       id: 'username',
       disabled: true,
-      autocapitalize: 'off',
-      spellcheck: 'false',
     },
   } satisfies FieldProps<'InputItem', Form['username']>,
 

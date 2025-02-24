@@ -11,6 +11,7 @@ const props = withDefaults(
     name: undefined,
     placeholder: undefined,
     touchKey: undefined,
+    disabled: false,
     // type: 'text',
 
     ariaDescribedby: undefined,
@@ -40,6 +41,7 @@ const required = computed(() => 'required' in (props?.validation ?? {}))
     :aria-describedby="ariaDescribedby"
     :state="state"
     :required="required"
+    :disabled="disabled"
     rows="4"
     @blur="touch?.(touchKey)"
   />
