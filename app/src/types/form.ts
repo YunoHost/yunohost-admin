@@ -31,6 +31,7 @@ export type ButtonItemProps = BaseDisplayItemProps & {
   enabled?: boolean | ComputedRef<boolean>
   icon?: string
   type?: StateVariant
+  help?: string
 }
 
 export type DisplayTextItemProps = BaseDisplayItemProps
