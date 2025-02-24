@@ -8,11 +8,13 @@ const props = withDefaults(
     term?: string
     details?: string
     cols?: Cols
+    type?: 'list' | 'form'
   }>(),
   {
     term: undefined,
     details: undefined,
     cols: () => ({ md: 4, xl: 3 }),
+    type: 'list',
   },
 )
 
@@ -24,7 +26,11 @@ const cols = computed<Cols>(() => ({
 </script>
 
 <template>
-  <BRow no-gutters class="description-row">
+  <BRow
+    no-gutters
+    class="description-row"
+    :class="{ 'mode-list': type === 'list' }"
+  >
     <BCol v-bind="cols">
       <slot name="term">
         <strong>{{ term }}</strong>
@@ -42,17 +48,24 @@ const cols = computed<Cols>(() => ({
 <style lang="scss" scoped>
 .description-row {
   @include media-breakpoint-up(md) {
-    margin: 0.25rem 0;
-    &:hover {
-      background-color: rgba($black, 0.05);
-      border-radius: 0.2rem;
+    &.mode-list {
+      margin: 0.25rem 0;
+
+      &:hover {
+        background-color: rgba($black, 0.05);
+        border-radius: 0.2rem;
+      }
     }
   }
 
   @include media-breakpoint-down(md) {
     flex-direction: column;
 
-    &:not(:last-of-type) {
+    .col {
+      margin-top: 0.25rem;
+    }
+
+    &.mode-list:not(:last-of-type) {
       margin-bottom: 0.5rem;
       padding-bottom: 0.5rem;
       border-bottom: $border-width solid $card-border-color;
