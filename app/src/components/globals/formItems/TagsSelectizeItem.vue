@@ -127,6 +127,7 @@ function onDropdownKeydown(e: KeyboardEvent) {
       :state="state"
       :disabled="disabled"
       no-outer-focus
+      separator=" ,"
       size="lg"
       class="p-0 border-0"
     >

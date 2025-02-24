@@ -43,7 +43,7 @@ const required = computed(() => 'required' in (props?.validation ?? {}))
     :required="required"
     :disabled="disabled"
     remove-on-delete
-    separator=" ,;"
+    separator=" ,"
     @blur="touch?.(touchKey)"
   />
 </template>
