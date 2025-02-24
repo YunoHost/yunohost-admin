@@ -114,6 +114,9 @@ function formatOption(option: AnyOption, form: Ref<Obj>): AnyFormField {
       cProps.icon = option.icon
       if (option.type === 'button') {
         cProps.enabled = useExpression(option.enabled, form)
+        if (option.help) {
+          cProps.help = formatI18nField(option.help)
+        }
       }
     }
 
@@ -282,7 +285,7 @@ function formatConfigPanel<NestedMV extends Obj, MV extends Obj<NestedMV>>(
       isActionSection: section.is_action_section,
       name: formatI18nField(section.name),
       visible: useExpression(section.visible, form),
-      collapsed: section.collapsed ?? false
+      collapsed: section.collapsed ?? false,
     }
   })
 

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { createReusableTemplate } from '@vueuse/core'
 import { computed, toValue } from 'vue'
 
 import type { ButtonItemProps } from '@/types/form'
@@ -7,6 +8,7 @@ const props = withDefaults(defineProps<ButtonItemProps>(), {
   enabled: true,
   icon: undefined,
   type: 'success',
+  help: undefined,
 })
 
 const emit = defineEmits<{
@@ -23,17 +25,32 @@ const icon = computed(() => {
 
   return props.icon || icons[props.type]
 })
+
+const [DefineTemplate, ReuseTemplate] = createReusableTemplate<{
+  ariaDescribedby?: string[]
+}>()
 </script>
 
 <template>
-  <BButton
-    :id="id"
-    :variant="type"
-    :disabled="!toValue(enabled)"
-    class="d-block mb-3"
-    @click="emit('action', id)"
-  >
-    <YIcon :iname="icon" class="me-2" />
-    <span v-html="label" />
-  </BButton>
+  <DefineTemplate v-slot="{ ariaDescribedby }">
+    <BButton
+      :id="id"
+      :variant="type"
+      :disabled="!toValue(enabled)"
+      :aria-describedby="ariaDescribedby"
+      :class="{ 'd-block mb-3': !ariaDescribedby }"
+      @click="emit('action', id)"
+    >
+      <YIcon :iname="icon" class="me-2" />
+      <span v-html="label" />
+    </BButton>
+  </DefineTemplate>
+
+  <DescriptionRow v-if="help" type="form">
+    <template #term>
+      <ReuseTemplate :aria-describedby="`${id}-desc`" />
+    </template>
+    <span :id="`${id}-desc`" aria-hidden="true">{{ help }}</span>
+  </DescriptionRow>
+  <ReuseTemplate v-else />
 </template>
