@@ -271,6 +271,7 @@ async function uninstall() {
         <h1 class="mb-3 mb-md-0">
           <template v-if="app.logo">
             <img
+              class="rounded"
               :src="`./applogos/${app.logo}.png`"
             />
           </template>

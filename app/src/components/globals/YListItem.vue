@@ -24,7 +24,7 @@ const slots = defineSlots<{
   >
     <div class="d-flex">
       <div v-if="imageSrc" class="me-3">
-        <img :src="imageSrc" />
+        <img class="rounded" :src="imageSrc" />
       </div>
       <div>
         <h5>
