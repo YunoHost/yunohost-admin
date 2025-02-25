@@ -9,7 +9,7 @@ const apps = await api
     return apps
       .map(({ id, name, description, manifest, logo }) => {
         const logoUrl = logo
-          ? `https://10.118.36.150/yunohost/admin/applogos/${logo}.png`
+          ? `./applogos/${logo}.png`
           : undefined
         return { id, name: manifest.name, label: name, description, logoUrl }
       })

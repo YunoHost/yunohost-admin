@@ -271,7 +271,7 @@ async function uninstall() {
         <h1 class="mb-3 mb-md-0">
           <template v-if="app.logo">
             <img
-              :src="`https://10.118.36.150/yunohost/admin/applogos/${app.logo}.png`"
+              :src="`./applogos/${app.logo}.png`"
             />
           </template>
           <template v-else>
