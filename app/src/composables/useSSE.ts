@@ -57,6 +57,7 @@ type SSEEventDataHeartbeat = {
   timestamp: number
   current_operation: string | null
   cmdline: string | null
+  started_by: RequestCaller | null
 }
 
 type AnySSEEventDataAction =
@@ -235,7 +236,7 @@ export const useSSE = createGlobalState(() => {
           id: data.current_operation,
           title: data.cmdline!,
           date: timestamp * 1000,
-          caller: 'cli',
+          caller: data.started_by,
           external: true,
         }) as APIRequestAction
       }
