@@ -48,6 +48,10 @@ const emit = defineEmits<{
   ]
 }>()
 
+const slots = defineSlots<{
+  disclaimer?: any
+}>()
+
 const show = defineModel<boolean>('show')
 
 const { domains, domainsAsChoices } = !props.postinstall
@@ -277,7 +281,7 @@ const onDomainAdd = onSubmit(async () => {
     :validations="v"
     @submit.prevent="onDomainAdd"
   >
-    <template #disclaimer>
+    <template v-if="slots.disclaimer" #disclaimer>
       <slot name="disclaimer" />
     </template>
 

@@ -175,11 +175,17 @@ const Fields = createReusableTemplate<{
     </slot>
 
     <BCardBody class="p-0">
-      <slot name="top" />
+      <div
+        v-if="slots.top || slots.disclaimer || slots['before-form']"
+        class="m-3"
+      >
+        <slot name="top" />
 
-      <slot name="disclaimer" />
+        <slot name="disclaimer" />
 
-      <slot name="before-form" />
+        <slot name="before-form" />
+      </div>
+
       <BForm
         :id="id"
         :inline="inline"
@@ -187,43 +193,45 @@ const Fields = createReusableTemplate<{
         novalidate
         @submit.prevent.stop="emit('submit', $event as SubmitEvent)"
       >
-        <slot name="default">
-          <BAccordion v-if="sections" flush free>
-            <template v-for="section in sections" :key="section.id">
-              <BAccordionItem
-                v-if="section.name && section.visible"
-                header-tag="h3"
-                :visible="!section.collapsed"
-              >
-                <template #title>
-                  <span class="fs-3">{{ section.name }}</span>
-                  <small v-if="section.help" class="ms-1 text-secondary">
-                    {{ section.help }}
-                  </small>
-                </template>
-                <div>
-                  <!-- @vue-ignore-next-line -->
-                  <Fields.reuse :fields-props="section.fields" />
-                </div>
-              </BAccordionItem>
-              <div v-else-if="section.visible" class="form-section p-3">
+        <BAccordion v-if="sections" flush free>
+          <template v-for="section in sections" :key="section.id">
+            <BAccordionItem
+              v-if="section.name && toValue(section.visible)"
+              header-tag="h3"
+              :visible="!section.collapsed"
+            >
+              <template #title>
+                <span class="fs-3">{{ section.name }}</span>
+                <small v-if="section.help" class="ms-1 text-secondary">
+                  {{ section.help }}
+                </small>
+              </template>
+              <div>
                 <!-- @vue-ignore-next-line -->
                 <Fields.reuse :fields-props="section.fields" />
               </div>
-            </template>
-          </BAccordion>
-          <div v-else-if="fields" class="form-section p-3">
-            <!-- @vue-ignore-next-line -->
-            <Fields.reuse :fields-props="fields" />
-          </div>
-        </slot>
+            </BAccordionItem>
+            <div v-else-if="toValue(section.visible)" class="form-section">
+              <!-- @vue-ignore-next-line -->
+              <Fields.reuse :fields-props="section.fields" />
+            </div>
+          </template>
+        </BAccordion>
+        <div v-else-if="fields.length" class="form-section">
+          <!-- @vue-ignore-next-line -->
+          <Fields.reuse :fields-props="fields" />
+        </div>
+
+        <div v-if="'default' in slots" class="form-section">
+          <slot name="default" />
+        </div>
 
         <slot name="server-error">
           <YAlert
             v-if="globalErrorFeedback !== ''"
             alert
             variant="danger"
-            class="my-3"
+            class="m-3"
             icon="ban"
           >
             <div v-html="globalErrorFeedback" />
@@ -231,7 +239,9 @@ const Fields = createReusableTemplate<{
         </slot>
       </BForm>
 
-      <slot name="after-form" />
+      <div v-if="slots['after-form']" class="m-3">
+        <slot name="after-form" />
+      </div>
     </BCardBody>
 
     <BCardFooter
@@ -246,7 +256,11 @@ const Fields = createReusableTemplate<{
 </template>
 
 <style lang="scss" scoped>
-.form-section:not(:last-child) {
-  margin-bottom: 3rem;
+.form-section {
+  margin: 1rem;
+
+  &:not(:last-child) {
+    margin-bottom: 3rem;
+  }
 }
 </style>

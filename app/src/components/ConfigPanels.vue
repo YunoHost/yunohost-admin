@@ -72,19 +72,19 @@ const cardProps = computed(() => {
       </BCardHeader>
     </template>
 
-    <template #top>
+    <template v-if="slots['tab-top']" #top>
       <slot name="tab-top" />
     </template>
     <template v-if="panel.help" #disclaimer>
       <div class="alert alert-info" v-html="panel.help" />
     </template>
-    <template #before-form>
+    <template v-if="slots['tab-before']" #before-form>
       <slot name="tab-before" />
     </template>
     <template v-if="slots.default" #default>
       <slot name="default" />
     </template>
-    <template #after-form>
+    <template v-if="slots['tab-after']" #after-form>
       <slot name="tab-after" />
     </template>
   </CardForm>
