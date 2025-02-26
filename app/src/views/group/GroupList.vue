@@ -167,6 +167,11 @@ async function deleteGroup(name: string) {
     </template>
 
     <!-- PRIMARY GROUPS CARDS -->
+    <!--
+      i18n: group_admins
+      i18n: group_all_users
+      i18n: group_visitors
+    -->
     <YCard
       v-for="group in filteredGroups"
       :key="group.name"
@@ -198,6 +203,11 @@ async function deleteGroup(name: string) {
           <template v-if="group.isSpecial">
             <p class="text-primary-emphasis">
               <YIcon iname="info-circle" />
+              <!--
+                i18n: group_explain_admins
+                i18n: group_explain_all_users
+                i18n: group_explain_visitors
+              -->
               {{ $t('group_explain_' + group.name) }}
             </p>
             <p v-if="group.name === 'visitors'" class="text-primary-emphasis">

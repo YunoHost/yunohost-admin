@@ -117,6 +117,12 @@ function downloadBackup() {
         class="row-line"
       >
         <BCol md="3" xl="2">
+          <!--
+            i18n: id
+            i18n: created_at 
+            i18n: size
+            i18n: path
+          -->
           <strong>{{ $t(prop) }}</strong>
         </BCol>
         <BCol>{{ text }}</BCol>

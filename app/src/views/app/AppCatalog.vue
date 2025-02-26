@@ -292,6 +292,14 @@ const onCustomInstallClick = onSubmit(async () => {
                     :click="false"
                     strategy="fixed"
                   >
+                    <!--
+                    i18n: app_state_broken
+                    i18n: app_state_broken_explanation
+                    i18n: app_state_inprogress
+                    i18n: app_state_inprogress_explanation
+                    i18n: app_state_lowquality
+                    i18n: app_state_lowquality_explanation
+                    -->
                     <template #target>
                       <BBadge :variant="app.quality.variant" tabindex="0">
                         {{ $t(`app_state_${app.quality.state}`) }}

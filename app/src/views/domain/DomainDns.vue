@@ -91,9 +91,11 @@ function getDnsChanges() {
       if (err.name !== 'APIBadRequestError') throw err
       const key = err.data.error_key
       if (key === 'domain_dns_push_managed_in_parent_domain') {
+        /* i18n: domain_dns_push_managed_in_parent_domain */
         const message = t(key, err.data)
         dnsErrors.value = [{ icon: 'info', variant: 'info', message }]
       } else if (key === 'domain_dns_push_failed_to_authenticate') {
+        /* i18n: domain_dns_push_failed_to_authenticate */
         const message = t(key, err.data)
         dnsErrors.value = [{ icon: 'ban', variant: 'danger', message }]
       } else if (

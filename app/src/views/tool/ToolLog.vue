@@ -78,6 +78,13 @@ function shareLogs() {
       <template v-for="(value, prop) in info" :key="prop">
         <BRow v-if="value !== null" no-gutters class="row-line">
           <BCol md="3" xl="2">
+            <!--
+              i18n: logs_ended_at
+              i18n: logs_error
+              i18n: logs_path
+              i18n: logs_started_at
+              i18n: logs_suboperations
+            -->
             <strong>{{ $t('logs_' + prop) }}</strong>
           </BCol>
 

@@ -24,6 +24,12 @@ const request = reactive<{
 
     <YSpinner class="mb-4" />
 
+    <!-- 
+     i18n: api.reconnecting.reason.reboot
+     i18n: api.reconnecting.reason.shutdown
+     i18n: api.reconnecting.reason.unknown
+     i18n: api.reconnecting.reason.upgrade_system
+    -->
     <YAlert
       v-if="!!reconnecting"
       v-t="'api.reconnecting.reason.' + reconnecting"

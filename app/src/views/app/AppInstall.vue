@@ -263,6 +263,11 @@ function onDomainAdd(data: {
             ['inprogress', 'broken', 'thirdparty'].includes(app.quality.state)
           "
         >
+          <!--
+          i18n: app.install.problems.broken
+          i18n: app.install.problems.inprogress
+          i18n: app.install.problems.thirdparty
+          -->
           <p v-t="'app.install.problems.' + app.quality.state" />
           <VueShowdown class="mb-3" :markdown="t('app.upvote', { id })" />
         </div>

@@ -39,6 +39,10 @@ const text = computed(() => {
 function parseValue(value: any) {
   const item = props.component
   if (item === 'FileItem') value = value.file ? value.file.name : null
+  /* 
+  i18n: yes
+  i18n: no
+  */
   if (item === 'CheckboxItem') value = t(value ? 'yes' : 'no')
   if (item === 'TextAreaItem') value = value.replaceAll('\n', '<br>')
   if (Array.isArray(value)) {

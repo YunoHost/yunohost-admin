@@ -149,6 +149,11 @@ async function setAsDefaultDomain() {
       <!-- DOMAIN CERT AUTHORITY -->
       <DescriptionRow :term="$t('domain.info.certificate_authority')">
         <YIcon :iname="cert.icon" :variant="cert.variant" class="me-1" />
+        <!--
+        i18n: domain.cert.types.letsencrypt
+        i18n: domain.cert.types.other
+        i18n: domain.cert.types.selfsigned
+        -->
         {{ $t('domain.cert.types.' + cert.authority) }}
         <span class="text-secondary px-2">
           ({{
@@ -198,7 +203,7 @@ async function setAsDefaultDomain() {
               :href="'https://' + name + app.path"
               target="_blank"
             >
-              <span class="visually-hidden">{{ $t('app.visit_app') }}</span>
+              <span class="visually-hidden">{{ $t('app.open_this_app') }}</span>
               <YIcon iname="external-link" />
             </BButton>
           </BButton-group>

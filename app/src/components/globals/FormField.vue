@@ -110,6 +110,29 @@ const errorMessage = computed(() => {
   // FIXME maybe handle translation in validators directly
   // https://vuelidate-next.netlify.app/advanced_usage.html#i18n-support
 
+  /*
+    i18n: form_errors.alpha
+    i18n: form_errors.alphalownumdot_
+    i18n: form_errors.appRepoUrl
+    i18n: form_errors.between
+    i18n: form_errors.checked
+    i18n: form_errors.domain
+    i18n: form_errors.dynDomain
+    i18n: form_errors.email
+    i18n: form_errors.emailForward
+    i18n: form_errors.maxValue
+    i18n: form_errors.minValue
+    i18n: form_errors.name
+    i18n: form_errors.notInUsers
+    i18n: form_errors.numValue
+    i18n: form_errors.number
+    i18n: form_errors.passwordLenght
+    i18n: form_errors.passwordMatch
+    i18n: form_errors.pattern
+    i18n: form_errors.remote
+    i18n: form_errors.required
+  */
+
   return errors
     .map((err) => {
       if (err) {

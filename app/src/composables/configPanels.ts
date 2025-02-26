@@ -180,6 +180,12 @@ function formatOption(option: AnyOption, form: Ref<Obj>): AnyFormField {
           }))
         : option.choices // FIXME rename choices to options?
       if (option.type !== 'select') {
+        /*
+        i18n: manage_apps
+        i18n: manage_domains
+        i18n: manage_groups
+        i18n: manage_users
+        */
         field.link = {
           name: option.type + '-list',
           text: t(`manage_${option.type}s`),

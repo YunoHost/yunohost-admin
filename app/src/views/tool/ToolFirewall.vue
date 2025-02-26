@@ -114,6 +114,10 @@ async function togglePort({
   upnp,
   comment,
 }: Form): Promise<boolean> {
+  /*
+  i18n: confirm_firewall_open
+  i18n: confirm_firewall_close
+  */
   const confirmed = await modalConfirm(
     t('confirm_firewall_' + action, {
       port,
@@ -133,6 +137,10 @@ async function togglePort({
 
 async function toggleUpnp() {
   const action = upnpEnabled.value ? 'disable' : 'enable'
+  /*
+  i18n: confirm_upnp_enable
+  i18n: confirm_upnp_disable
+  */
   const confirmed = await modalConfirm(t('confirm_upnp_' + action))
   if (!confirmed) return
 
@@ -279,6 +287,10 @@ function getFieldClass(field: TableField) {
       icon="exchange"
       :body-text-variant="upnpEnabled ? 'success' : 'danger'"
     >
+      <!--
+      i18n: upnp_enabled
+      i18n: upnp_disabled
+      -->
       {{ $t(upnpEnabled ? 'upnp_enabled' : 'upnp_disabled') }}
 
       <BFormInvalidFeedback :state="upnpError !== '' ? false : null">
@@ -290,6 +302,10 @@ function getFieldClass(field: TableField) {
           :variant="!upnpEnabled ? 'success' : 'danger'"
           @click="toggleUpnp"
         >
+          <!--
+          i18n: enable
+          i18n: disable
+          -->
           {{ $t(!upnpEnabled ? 'enable' : 'disable') }}
         </BButton>
       </template>
