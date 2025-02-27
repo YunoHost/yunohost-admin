@@ -11,7 +11,7 @@ const { err, messages, traceback, details } = (() => {
   const { err, action } = props.request
   return {
     err: err,
-    messages: action?.messages,
+    messages: action?.messages.length ? action.messages : null,
     traceback: err instanceof APIInternalError ? err.traceback : null,
     details: err instanceof APIInternalError ? err.details : null,
   }
