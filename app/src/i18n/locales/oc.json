@@ -1,13 +1,8 @@
 {
     "action": "Accion",
     "add": "Ajustar",
-    "administration_password": "Senhal d’administracion",
     "api_not_responding": "L’API respond pas? Benlèu que « yunohost-api » es en pana o es estat reaviat ?",
-    "app_info_access_desc": "Grops / utilizaires actualament autorizats a accedir a aquesta aplicacion :",
-    "app_info_change_url_disabled_tooltip": "Aquesta foncionalitat es pas encara presa en carga per aquesta aplicacion pel moment",
-    "app_info_uninstall_desc": "Suprimir aquesta aplicacion.",
     "app_install_custom_no_manifest": "Cap de fichièr manifest.json",
-    "app_make_default": "Definir per defaut",
     "app_state_inprogress": "pas encara en foncion",
     "applications": "Aplicacions",
     "archive_empty": "Archiu void",
@@ -19,11 +14,7 @@
     "begin": "Zo",
     "check": "Verificacion",
     "close": "Tampar",
-    "app_info_default_desc": "Mandar la raiç del domeni cap a aquesta aplicacion ({domain}).",
-    "app_info_changeurl_desc": "Cambiar l’adreça d’accès d’aquesta aplicacion (domeni e/o camin).",
-    "both": "Los dos",
     "confirm_app_change_url": "Volètz vertadièrament cambiar l’adreça d’accès d’aquesta aplicacion ?",
-    "confirm_app_default": "Volètz vertadièrament definir aquesta aplicacion coma aplicacion per defaut ?",
     "confirm_change_maindomain": "Volètz vertadièrament cambiar lo domeni màger ?",
     "confirm_delete": "Volètz vertadièrament escafar {name} ?",
     "confirm_install_custom_app": "Atencion ! L’installacion d’aplicacions tèrças pòt perilhar l’integritat e la seguretat del sistèma. Auriatz PAS de n’installar levat que saupèssetz çò que fasètz. Volètz vertadièrament córrer aqueste risc ?",
@@ -34,26 +25,17 @@
     "confirm_service_start": "Volètz vertadièrament aviar {name} ?",
     "confirm_service_stop": "Volètz vertadièrament arrestar {name} ?",
     "confirm_uninstall": "Volètz vertadièrament desinstallar {name} ?",
-    "confirm_update_apps": "Volètz vertadièrament metre a jorn totas las aplicacions ?",
-    "confirm_update_specific_app": "Volètz vertadièrament metre a jorn {app} ?",
     "confirm_upnp_enable": "Volètz vertadièrament activar l’UPnP ?",
     "confirm_upnp_disable": "Volètz vertadièrament desactivar l’UPnP ?",
     "confirm_reboot_action_reboot": "Volètz vertadièrament reaviar lo servidor ?",
     "confirm_reboot_action_shutdown": "Volètz vertadièrament atudar lo servidor ?",
-    "connection": "Connexion",
     "created_at": "Creat lo",
     "custom_app_install": "Installar una aplicacion personalizada",
     "delete": "Suprimir",
     "description": "Descripcion",
     "diagnosis": "Diagnostic",
     "disable": "Desactivar",
-    "dns": "DNS",
     "domain_add": "Ajustar un domeni",
-    "domain_default_desc": "Los utilizaires se connectaràn al domeni per defaut.",
-    "domain_default_longdesc": "Aquò es vòstre domeni per defaut.",
-    "domain_delete_longdesc": "Suprimir aqueste domeni",
-    "domain_dns_config": "Configuracion DNS",
-    "domain_dns_longdesc": "Veire la configuracion DNS",
     "domain_name": "Nom de domeni",
     "domains": "Domenis",
     "download": "Telecargar",
@@ -62,9 +44,7 @@
     "error_server_unexpected": "Error pas esperada",
     "firewall": "Parafuòc",
     "footer_version": "Propulsat per <a href='https://yunohost.org'>YunoHost</a> {version} ({repo}).",
-    "form_input_example": "Exemple {example}",
     "home": "Acuèlh",
-    "hook_adminjs_group_configuration": "Configuracion del sistèma",
     "hook_conf_ldap": "Annuari dels utilizaires",
     "hook_conf_ynh_certs": "Certificats SSL",
     "hook_data_home": "Donadas utilizaires",
@@ -75,12 +55,7 @@
     "infos": "Info",
     "install": "Installar",
     "install_name": "Installar {id}",
-    "install_time": "Data d’installacion",
     "installation_complete": "Installacion acabada",
-    "installed": "Installat",
-    "ipv4": "IPv4",
-    "ipv6": "IPv6",
-    "label": "Apelacion",
     "label_for_manifestname": "Apelacion per {name}",
     "local_archives": "Archius locals",
     "login": "Connexion",
@@ -95,7 +70,6 @@
     "migrations_done": "Migracions precedentas",
     "migrations_no_pending": "Pas cap de migracion en espèra",
     "migrations_no_done": "Pas cap de migracion precedenta",
-    "multi_instance": "Pòt èsser installada mantun còp",
     "next": "Seguent",
     "no": "Non",
     "ok": "OK",
@@ -137,7 +111,6 @@
     "tools_shutdown_reboot": "Atudar/Reaviar",
     "udp": "UDP",
     "unauthorized": "Pas autorizat",
-    "uninstall": "Desinstallar",
     "upnp": "UPnP",
     "upnp_disabled": "L’UPnP es desactivat.",
     "upnp_enabled": "L’UPnP es activat.",
@@ -156,41 +129,25 @@
     "postinstall_intro_3": "Podètz trapar mai d’informacion en anar a <a href='//yunohost.org/en/install/hardware:vps_debian#fa-cog-proceed-with-the-initial-configuration' target='_blank'> la pagina de documentacion en question</a>",
     "user_new_forward": "novel_transferiment{'@'}domenialonhat.org",
     "user_username_edit": "Modificar lo compte a {name}",
-    "users_no": "Pas cap d’utilizaire.",
     "words": {
-        "default": "Defaut",
         "collapse": "Plegar",
         "browse": "Percórrer",
         "link": "Ligam",
         "none": "Cap",
-        "separator": ", ",
-        "valid": "Valid"
+        "separator": ", "
     },
     "yes": "Òc",
-    "certificate_manage": "Gerir los certificats SSL",
-    "certificate": "Certificat",
     "user_mailbox_quota": "Quòta de la bóstia de las letras",
     "user_mailbox_use": "Espaci utilizat per la bóstia de las letras",
-    "experimental_warning": "Atencion : aquesta foncionalitat es experimentala e deu pas èsser considerada coma establa, deuriatz pas l’utilizar levat que sapiatz çò que fasètz.",
     "logs": "Jornals",
     "logs_operation": "Operacions fachas sul sistèma amb YunoHost",
-    "logs_history": "Istoric de las comandas executadas sul sistèma",
-    "logs_package": "Istoric de la gestion dels paquets Debian",
-    "logs_system": "Jornals del Kernel e autres eveniments de bas nivèl",
-    "logs_access": "Lista dels accèsses e dels forabandiments",
-    "logs_service": "Jornals dels servicis",
-    "logs_app": "Jornals de las aplicacions",
-    "logs_no_logs_registered": "Cap de jornals enregistrats per aquesta categoria",
     "logs_error": "Error",
     "logs_ended_at": "Fin",
     "logs_started_at": "Debuta",
     "logs_path": "Camin",
-    "logs_context": "Contèxt",
     "logs_share_with_yunopaste": "Partejar amb YunoPaste",
     "logs_more": "Mostrar mai de linhas",
     "all_apps": "Totas las aplicacions",
-    "confirm_install_app_lowquality": "Atencion : aquesta aplicacion foncionarà mas es pas encara ben integrada a YunoHost. Unas foncionalitats coma l’identificacion unica e la salvagarda/restauracion pòdon èsser pas disponiblas.",
-    "confirm_install_app_inprogress": "ATENCION ! Aquesta aplicacion es encara experimentala (o fonciona pas dirèctament) e es probable que còpe lo sistèma ! Deuriatz pas l’installar levat que saupèssetz çò que fasètz. Volètz vertadièrament córrer aqueste risc ?",
     "error_connection_interrupted": "Lo servidor a tampat la connexion allòc de respondre. Nginx o yunohost-api es estat relançat o arrestat per error ?",
     "good_practices_about_admin_password": "Sètz a mand de definir un nòu senhal d’administrator. Lo nòu senhal deu conténer almens 8 caractèrs, es de bon far d’utilizar un senhal mai long (es a dire una frasa de senhal) e/o utilizar mantun tipe de caractèrs (majusculas, minusculas, nombres e caractèrs especials).",
     "good_practices_about_user_password": "Sètz a mand de definir un nòu senhal d’utilizaire. Lo nòu senhal deu conténer almens 8 caractèrs, es de bon far d’utilizar un senhal mai long (es a dire una frasa de senhal) e/o utilizar mantun tipe de caractèrs (majusculas, minusculas, nombres e caractèrs especials).",
@@ -203,7 +160,6 @@
     "app_state_inprogress_explanation": "Lo manteneire d’aquesta aplicacion declarèt qu’aquesta aplicacion es pas encara prèsta per un usatge en produccion. SIATZ PRUDENT !",
     "app_state_highquality_explanation": "Aquesta aplicacion es plan integrada amb YunoHost fa almens un an.",
     "confirm_update_system": "Volètz vertadièrament actualizar totes los paquets del sistèma ?",
-    "license": "Licéncia",
     "only_highquality_apps": "Solament las apps de nauta qualitat",
     "only_decent_quality_apps": "Solament aplicacion de qualitat convenabla",
     "orphaned": "Pas mantenguda",
@@ -218,7 +174,6 @@
     "group_name": "Nom del grop",
     "group_all_users": "Totes los utilizaires",
     "group_visitors": "Visitaires",
-    "nobody": "Degun",
     "group_format_name_help": "Podètz utilizar de caractèrs alfanumerics e d’espacis",
     "group_add_member": "Ajustar un utilizaire",
     "group_add_permission": "Ajustar una permission",
@@ -250,10 +205,7 @@
     "pending_migrations": "I a migracions en espèra d’execucion. Mercés d’anar a <a href='#/tools/migrations'>Aisinas > Migracions</a> per las lançar.",
     "logs_suboperations": "Jos-operacions",
     "diagnosis_first_run": "La foncionalitat de diagnostic ensajarà d’identificar los problèmas abituals de diferents aspèctes del servidor per dire d’assegurar que tot foncione de la melhora manièra possibla. Ajatz pas paur se vesètz mantuna error aprèp configurar lo servidor : es precisament fach per ajudar a identificar los problèmas e ofrir una guida per los reglar. Lo diagnostic s’executarà tanben dos còps per jorn e enviarà un corrièl a l’administrator se tròba unas error.",
-    "app_manage_label_and_tiles": "Gestion de las apelacions e títols",
-    "permission_corresponding_url": "URL correspondenta",
     "permission_main": "Etiqueta principala",
-    "permission_show_tile_enabled": "Afichar lo teule al portal utilizaire",
     "address": {
         "local_part_description": {
             "domain": "Causissètz un jos-domeni.",
@@ -265,7 +217,6 @@
         }
     },
     "cancel": "Anullar",
-    "readme": "DeLegir",
     "postinstall_set_domain": "Definir lo domeni principal",
     "search": {
         "for": "Recercar {items}…",
@@ -292,13 +243,10 @@
     "placeholder": {
         "domain": "mon-domeni.fr",
         "groupname": "Lo nom de mon grop",
-        "lastname": "Petit",
-        "firstname": "Joan",
         "username": "joanpetit",
         "file": "Seleccionar un fichièr o lo lisar depausar",
         "fullname": "Joan Petit"
     },
-    "perform": "Executar",
     "migrations_disclaimer_check_message": "Ai legida e compresa la descarga de responsabilitat",
     "mailbox_quota_example": "700 Mo correspond a un CD, 4 700 Mo correspond a un DVD",
     "items_verbose_items_left": "Demòran {items}. | Demòra {items}. | Demòran {items}.",
@@ -315,21 +263,14 @@
         "logs": "cap de jornal| jornal | jornals",
         "items": "cap d'element | element | elements"
     },
-    "hook_data_xmpp": "Donadas XMPP",
     "hook_conf_manually_modified_files": "Fichièr de configuracion modificat manualament",
     "hook_conf_ynh_settings": "Configuracion de YunoHost",
     "history": {
-        "methods": {
-            "PUT": "modificar",
-            "POST": "crear/executar",
-            "GET": "legir",
-            "DELETE": "Suprimir"
-        },
+        "methods": {},
         "last_action": "Darrièra accion :",
         "title": "Istoric",
         "is_empty": "Pas res dins l’istoric pel moment."
     },
-    "go_back": "Tornar",
     "form_errors": {
         "required": "Aqueste camp es obligatòri.",
         "number": "La valor deu èsser un nombre.",
@@ -357,18 +298,11 @@
         "help": "Besonh d’ajuda ?",
         "tos": "Conditions d'utilizacion"
     },
-    "experimental": "Experimental",
     "error": "Error",
     "enabled": "Activat",
     "disabled": "Desactivat",
-    "dead": "Inactiu",
     "day_validity": " Expirat | 1 jorn | {count} jorns",
-    "confirm_app_install": "Volètz vertadièrament installar aquesta aplicacion ?",
-    "common": {
-        "lastname": "Nom d’ostal",
-        "firstname": "Prenom"
-    },
-    "code": "Còdi",
+    "common": {},
     "app_show_categories": "Mostrar las categorias",
     "app_install_parameters": "Paramètres d’installacion",
     "app_choose_category": "Causissètz una categoria",
@@ -405,42 +339,28 @@
                 "reboot": "Vòstre servidor tòrna aviar e serà pas contactable pendent un moment. Una fenèstra de connexion serà disponibla tre que lo servidor serà accessible.",
                 "shutdown": "Vòstre servidor es a s’aturar e serà pas mai contactable. Reaviatz-lo e una fenèstra de connexion serà disponibla tre que lo servidor serà contactable.",
                 "upgrade_system": "La connexion al servidor es estada tampada a causa de la mesa a nivèl de YunoHost. En espèra de poder contactar lo servidor de nòu…"
-            },
-            "failed": "Lo servidor respond pas. Podètz ensajar de vos i tornar connectar o ensajar d’executar « systemctl restart yunohost-api » via SSH.",
-            "session_expired": "Lo servidor es ara accessible ! Mas sembla que vòstre session aja expirat, se vos plai, reconnectatz-vos."
+            }
         }
     },
-    "domain_delete_forbidden_desc": "Podètz pas suprimir « {domain} » perque es lo domeni per defaut, devètz causir un autre domeni (o <a href='#/domains/add'>ajustatz-ne un</a>) e lo definir coma lo demeni per defaut per poder suprimir aquel.",
     "domain_add_dyndns_forbidden": "Se vos abonèretz a un domeni DynDNS, podètz demandar la supression de vòstre domeni DynDNS actual sul forum<a href='//forum.yunohost.org/t/nohost-domain-recovery-suppression-de-domaine-en-nohost-me-noho-st-et-ynh-fr/442'> al fial de discussion dedicat</a>.",
     "confirm_group_add_access_permission": "Volètz vertadièrament donar l’accès a {perm} a {name} ? Un tal accès aumenta bravament la susfàcia d’ataca se {name} se tròba qu’es un mala persona. Deuriatz sonque o far se VOS FISATZ d’aquesta persona / aqueste grop.",
     "traceback": "Traça",
     "migrations_disclaimer_not_checked": "Aquesta migracion requerís que vos assabentetz de la descarga de responsabilitat abans de l’executar.",
-    "hook_data_xmpp_desc": "Configuracion de las salas e dels utilizaires, fichièrs enviats",
     "api_not_found": "L’administrator a ensajat d'accedir a quicòm qu’existís pas.",
     "domain": {
-        "config": {
-            "edit": "Modificar la configuracion del domeni",
-            "title": "Configuracion del domeni"
-        },
+        "config": {},
         "dns": {
             "auto_config": "Configuracion automatica dels enregistraments DNS",
             "auto_config_ignored": "ignorat, YunoHost lo modificarà pas levat se marcatz l’opcion de subreescritura",
             "auto_config_ok": "La configuracion automatica sembla èsser BONA !",
             "auto_config_zone": "Zòna DNS actuala",
-            "edit": "Modificar la configuracion DNS",
             "manual_config": "Enregistrament DNS suggerits per la configuracion manuala",
             "push": "Enviar los enregistraments DNS cap al registrar",
             "push_force": "Espotir los enregistraments existents",
             "push_force_warning": "Sembla que d’unes enregistrament DNS que YunoHost auriá definit sián ja dins la configuracion del registrar. Podètz utilizar l’opcion d’espotiment se sabètz çò que fasètz.",
             "push_force_confirm": "Volètz vertadièrament forçar totes los enregistraments DNS sugerits ?Vos cal saber qu’aquò pòt espotir manualament los enregistraments importants per defaut per vos o vòstre registrar.",
             "info": "La configuracion automatica dels enregistraments DNS es una foncionalitats experimentala. <br>Pensatz de salvagardar vòstra zòna DNS actuala a partir de l’interfàcia de vòstre registrar DNS abans de transferir los enregistraments a partir d’aquí.",
-            "methods": {
-                "manual": "Manual",
-                "none": "Cap",
-                "semi_auto": "Semiautomatic",
-                "auto": "Automatic",
-                "handled_in_parent": "Gerit dins lo domeni parent"
-            }
+            "methods": {}
         },
         "info": {
             "certificate_authority": "Autoritat de certificacion SSL",
@@ -468,7 +388,6 @@
     "users_import": "Importar los utilizaires",
     "users_export": "Exportar los utilizaires",
     "users_import_csv_file": "Fichièr CSV",
-    "retry": "Tornar ensajar",
     "domain_dns_push_failed_to_authenticate": "Fracàs de l’autentificacion sus l’API del registrar. Es fòrt propablament que las <a href='#/domains/{domain}/config'>informacions d’identificacion</a> son incorrèctas. (Error : {error})",
     "domain_dns_push_managed_in_parent_domain": "La foncionalitat d’enregistrament automatica de DNS es gerida pel domeni parent <a href='#/domains/{parent_domain}/dns'>{parent_domain}</a>.",
     "users_import_update": "Metre a jorn los utilizaires existents",
@@ -478,7 +397,6 @@
     "users_import_update_desc": "Se marcat, totes los utilizaires existents contenguts dins lo fichièr CSV seràn actualizats amb de valors novèlas",
     "users_import_confirm_destructive": "Volètz vertadièrament suprimir los utilizaires que son pas presents dins aqueste fichièr ?",
     "users_import_delete_desc": "Se marcat, totes los utilizaires existents que son pas presents dins lo fichièr CSV seràn suprimits (e purgats).",
-    "domain_dns_push_not_applicable": "La foncionalitat enregistrament DNS automatica es pas aplicablas al domeni {domain},<br>Podètz configurar manualament vòstres enregistraments DNS en seguissent <a href='https://yunohost.org/dns'>documentation</a> e las suggestions de configuracion çai-jos.",
     "text_selection_is_disabled": "La seleccion del tèxt es desactivada. Se volètz partejar aqueste log *complet*, o podètz far en clicant lo boton « Partejar amb Yunopaste ».<br/><small>Autrament se volètz vertadièrament seleccionar de tèxt, quichatz aquestas tòcas : ↓↓↑↑.</small>",
     "users_import_csv_file_desc": "Lo fichièr CSV deu èsser al format UTF-8 amb colomnas nom d’utilizaire, senhal, grops, email e quota. Per un exemple d’importacion de fichièr CSV, podètz <a href='/yunohost/api/users/export' target='_BLANK'>exportar vòstres utilizaires dins un fichièr CSV</a> e modificar lo fichièr.",
     "app": {
@@ -509,8 +427,7 @@
                 "inprogress": "Aquesta aplicacion es encara experimentala (per èsser mai clara, fonciona pas super plan e es pas encara plan integrada dins YunoHost). En consequéncia, es susceptible de copar vòstre sistèma ! Deuriatz PAS l'installar se sabètz pas çò que fasètz."
             },
             "try_demo": "Ensajar la demonstracion",
-            "version": "Version actuala : {version}",
-            "license": "Licéncia : {license}"
+            "version": "Version actuala : {version}"
         },
         "integration": {
             "archs": "Arquitectura presa en carga :",
@@ -546,15 +463,11 @@
         "open_this_app": "Dobrir l’aplicacion",
         "antifeatures": "Aquesta aplicacion a de foncionalitats que vos agradaràn benlèu pas :",
         "doc": {
-            "about": {
-                "title": "A prepaus",
-                "description": "Descripcion"
-            },
+            "about": {},
             "admin": {
                 "title": "Documentacion admin"
             },
             "notifications": {
-                "title": "Notificacions",
                 "post_upgrade": "Nòtas post mesa a nivèl",
                 "post_install": "Nòtas post installacion",
                 "understood": "Comprés"

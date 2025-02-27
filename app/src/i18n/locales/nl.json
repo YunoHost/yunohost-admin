@@ -1,13 +1,8 @@
 {
     "action": "Actie",
     "add": "Toevoegen",
-    "administration_password": "Beheerderswachtwoord",
     "api_not_responding": "De YunoHost API reageert niet. Misschien is de 'yunohost-api' offline of wordt deze opnieuw opgestart?",
-    "app_info_access_desc": "Groepen/gebruikers die op dit ogenblik toegang hebben tot deze applicatie:",
-    "app_info_default_desc": "Domeinnaam wortel (root) doorverwijzen naar deze applicatie ({domain}).",
-    "app_info_uninstall_desc": "Deze applicatie verwijderen.",
     "app_install_custom_no_manifest": "Geen manifest.json file",
-    "app_make_default": "Als standaard instellen",
     "applications": "Applicaties",
     "archive_empty": "Leeg archief",
     "backup": "Back-up",
@@ -16,10 +11,8 @@
     "backup_create": "Creëer een backup",
     "backup_new": "Nieuwe backup",
     "begin": "Beginnen",
-    "both": "Beide",
     "check": "Controleer",
     "close": "Sluiten",
-    "confirm_app_default": "Ben je zeker dat je dit de standaardapplicatie wil maken?",
     "confirm_change_maindomain": "Ben je zeker dat je de domeinnaam wil wijzigen?",
     "confirm_delete": "Ben je zeker dat je {name} wil verwijderen?",
     "confirm_install_custom_app": "Waarschuwing: applicaties van derden installeren kan de veiligheid van je systeem in gevaar brengen. Gebruik op eigen risico?",
@@ -27,14 +20,12 @@
     "confirm_postinstall": "Je gaat zo het post-installatieproces starten op domein {domain}. Dit kan enkele minuten duren, *onderbreek het proces niet*.",
     "confirm_restore": "Weet je zeker dat je {name} wilt herstellen?",
     "confirm_uninstall": "Ben je zeker dat je de installatie van {name} ongedaan wilt maken?",
-    "connection": "Verbinding",
     "created_at": "Gemaakt op",
     "custom_app_install": "Eigen app installeren",
     "delete": "Verwijderen",
     "description": "Beschrijving",
     "disable": "Uitschakelen",
     "domain_add": "Domeinnaam toevoegen",
-    "domain_default_desc": "De standaarddomeinnaam is de domeinnaam via dewelke gebruikers inloggen.",
     "domain_name": "Domeinnaam",
     "domains": "Domeinnamen",
     "download": "Download",
@@ -42,7 +33,6 @@
     "error_modify_something": "Je moet iets wijzigen",
     "firewall": "Firewall",
     "home": "Thuis",
-    "hook_adminjs_group_configuration": "Configuratie",
     "hook_conf_ldap": "Gebruikersdatabase",
     "hook_conf_ynh_certs": "Beveiligingscertificaten",
     "hook_data_home": "Gebruikersgegevens",
@@ -53,12 +43,7 @@
     "infos": "Informatie",
     "install": "Installeren",
     "install_name": "Installeer {id}",
-    "install_time": "Installatietijd",
     "installation_complete": "Installatie voltooid",
-    "installed": "Geïnstalleerd",
-    "ipv4": "IPv4",
-    "ipv6": "IPv6",
-    "label": "Label",
     "label_for_manifestname": "Label voor {name}",
     "local_archives": "Lokale archieven",
     "login": "Inloggen",
@@ -66,7 +51,6 @@
     "manage_apps": "Apps beheren",
     "manage_domains": "Domeinnamen beheren",
     "manage_users": "Gebruikers beheren",
-    "multi_instance": "Meerdere installaties mogelijk",
     "next": "Volgende",
     "no": "No",
     "open": "Openen",
@@ -101,7 +85,6 @@
     "tools": "Gereedschappen",
     "udp": "UDP",
     "unauthorized": "Geen toegang",
-    "uninstall": "Installatie ongedaan maken",
     "upnp": "UPnP",
     "upnp_disabled": "UPnP is uitgeschakeld.",
     "upnp_enabled": "UPnP is ingeschakeld.",
@@ -117,19 +100,14 @@
     "user_username_edit": "Bewerk {name}'s account",
     "users": "Gebruikers",
     "users_add": "Nieuwe gebruiker",
-    "users_no": "Geen gebruikers.",
     "words": {
-        "default": "Standaard",
         "link": "Link",
         "separator": ", ",
         "browse": "Blader",
         "none": "Geen",
-        "valid": "Geldig",
         "collapse": "Inklappen"
     },
     "yes": "Ja",
-    "app_info_changeurl_desc": "URL van deze applicatie veranderen (domein en/of locatie).",
-    "app_info_change_url_disabled_tooltip": "Functie is nog niet geïmplementeerd voor deze applicatie",
     "app_state_inprogress": "functioneert nog niet",
     "ok": "OK",
     "app_state_highquality_explanation": "Deze applicatie is al minstens een jaar goed geïntegreerd met Yunohost.",
@@ -138,7 +116,6 @@
     "app_state_inprogress_explanation": "De persoon die deze applicatie onderhoudt, heeft verklaard dat ze nog niet klaar is voor een gebruik in productie. WEES VOORZICHTIG!",
     "all_apps": "Alle applicaties",
     "all": "Alles",
-    "app_manage_label_and_tiles": "Naam en tegels beheren",
     "app_choose_category": "Kies een categorie",
     "api_waiting": "Aan het wachten op de reactie van de server…",
     "api_errors_titles": {
@@ -167,7 +144,6 @@
         "processing": "De server is aan het verwerken…",
         "partial_logs": "[…] (kijk in de geschiedenis voor het volledige log)",
         "reconnecting": {
-            "failed": "De server lijkt niet te reageren. Je kunt proberen opnieuw verbinding te maken of je kunt de opdracht ‘systemctl restart yunohost-api`uitvoeren via ssh.",
             "reason": {
                 "shutdown": "Je server wordt afgesloten en is niet langer bereikbaar. Zet 'm weer aan en er verschijnt een login-prompt zodra de server bereikt kan worden.",
                 "unknown": "De verbinding met de server werd om onbekende reden gesloten.",
@@ -189,10 +165,7 @@
     },
     "cancel": "Annuleren",
     "confirm_group_add_access_permission": "Weet je zeker dat je toegang tot {perm} wilt verlenen aan {name}? Een dergelijke toegang vergroot het aanvalsoppervlak aanzienlijk, als {name} kwade bedoelingen heeft. Doe het alleen als je deze persoon of groep VERTROUWD.",
-    "common": {
-        "lastname": "Achternaam",
-        "firstname": "Voornaam"
-    },
+    "common": {},
     "configuration": "Configuratie",
     "catalog": "Catalogus",
     "confirm_service_restart": "Weet u zeker dat u {name} wilt herstarten?",
@@ -201,21 +174,13 @@
     "api_not_found": "Het lijkt erop dat web-admin iets probeerde op te vragen wat niet bestaat.",
     "app_show_categories": "Categorieën tonen",
     "confirm_reboot_action_shutdown": "Weet je zeker dat je de server wilt uitschakelen?",
-    "code": "Code",
-    "confirm_app_install": "Weet je zeker dat je deze toepassing wilt installeren?",
-    "confirm_install_app_lowquality": "Waarschuwing: deze toepassing zou kunnen werken, maar is niet goed geïntegreerd in Yunohost. Sommige eigenschappen, zoals single-sign-on en backup/restore werken misschien niet.",
     "confirm_service_stop": "Weet je zeker dat je {name} wilt stoppen?",
     "day_validity": " Verlopen sinds | 1 dag | {count} dagen",
-    "dead": "Inactief",
     "error": "Fout",
     "domain": {
-        "config": {
-            "edit": "Domein-inrichting aanpassen",
-            "title": "Domein inrichten"
-        },
+        "config": {},
         "dns": {
             "auto_config": "Automatische DNS-record-inrichting",
-            "edit": "DNS-inrichting aanpassen",
             "push_force_warning": "Het lijkt er op dat sommige van de door Yunohost voorgestelde DNS-records al beschikbaar zijn in de registrar-inrichting. Je kan de 'overschrijven'-optie gebruiken als je zeker bent van je zaak.",
             "auto_config_ignored": "genegeerd, wordt niet veranderd door Yunohost behalve als je optie aanvinkt om het te overschrijven",
             "auto_config_ok": "Automatische inrichting lijkt in orde!",
@@ -225,13 +190,7 @@
             "push_force": "Bestaande records overschrijven",
             "push_force_confirm": "Weet je zeker dat je alle voorgestelde DNS-records geforceerd wilt doorsturen? Houd er rekening mee dat dit handmatig ingestelde records of belangrijke standaardrecords die door je registrar zijn ingesteld, kan overschrijven.",
             "info": "De automatische DNS-record-inrichting is een experimentele functie. <br>Overweeg je huidige DNS zone op te slaan in de omgeving van je DNS-registratie voor je de inrichting vanuit hier door laat sturen.",
-            "methods": {
-                "auto": "Automatisch",
-                "handled_in_parent": "Beheerd door hoofddomein",
-                "manual": "Handmatig",
-                "none": "Geen",
-                "semi_auto": "Semi-automatisch"
-            }
+            "methods": {}
         },
         "info": {
             "certificate_authority": "SSL certificaat authoriteit",
@@ -271,21 +230,15 @@
     "confirm_app_change_url": "Weet u zeker dat u de toegangs-URL van de app wilt wijzigen?",
     "confirm_service_start": "Weet je zeker dat je {name} wilt starten?",
     "confirm_migrations_skip": "Het overslaan van migraties is niet aanbevolen. Weet u zeker dat u dit wilt doen?",
-    "confirm_update_apps": "Weet je zeker dat je alle toepassingen wilt bijwerken?",
-    "confirm_update_specific_app": "Weet je zeker dat je {app} wilt bijwerken?",
     "confirm_upnp_enable": "Weet je zeker dat je UPnP wilt activeren?",
     "confirm_reboot_action_reboot": "Weet je zeker dat je de server wilt herstarten?",
     "diagnosis": "Diagnose",
-    "dns": "DNS",
     "details": "Details",
     "domain_dns_conf_is_just_a_recommendation": "Deze sectie toont de *aanbevolen\" inrichting. De pagina richt DNS *niet* voor je in. Je moet zelf de DNS-zones bij je DNS-registratie inrichten volgens deze aanbeveling.",
     "app_install_parameters": "Installatieparameters",
-    "confirm_install_app_inprogress": "WAARSCHUWING! Deze toepassing is nog experimenteel (als hij al niet volledig kapot is) en het kan maar zo zijn, dat hij je systeem om zeep helpt! Je kunt hem beter NIET installeren, behalve als je weet waar je mee bezig bent. Neem je het risico?",
     "diagnosis_first_run": "De diagnosefunctie probeert veel voorkomende problemen in verschillende aspecten van je server in kaart te brengen, om er zeker van te zijn dat alles vlot verloopt. Geen paniek als er iets mis is meteen nadat je je server geïnstalleerd hebt: de diagnose is precies bedoeld voor het opsporen van problemen en het bieden van hulp bij het oplossen ervan. De diagnose draait ook automatisch tweemaal per dag, en er wordt een email naar de beheerder gestuurd als er problemen gevonden worden.",
     "diagnosis_explanation": "De diagnosefunctie probeert veel voorkomende problemen op verschillende aspecten van je server boven water te krijgen, zodat alles gladjes blijft lopen. De diagnose draait tweemaal per dag, er wordt een email naar de beheerder gestuurd als er problemen geconstateerd worden. Houdt er rekening mee dat niet alle controles per definitie relevant zijn als je specifieke functionaliteit niet gebruikt (XMPP, bijvoorbeeld) en dat er bij complexe opbouw van je server misschien vals alarm geslagen wordt. In die gevallen, en als je weet waar je mee bezig bent, is het geen probleem om de overeenkomstige waarschuwingen te negeren.",
     "good_practices_about_user_password": "Je gaat nu een nieuw wachtwoord opgeven. Het wachtwoord moet minimaal 8 tekens lang zijn - hoewel het een goede gewoonte is om een langer wachtwoord te gebruiken (d.w.z. een wachtwoordzin) en/of verschillende soorten tekens te gebruiken (hoofdletters, kleine letters, cijfers en speciale tekens).",
-    "certificate_manage": "SSL-certificaat beheren",
-    "certificate": "Certificaat",
     "app": {
         "info": {
             "config_panel_error": "Een fout zorgt ervoor dat het configuratiepaneel niet getoond kan worden:",
@@ -294,7 +247,6 @@
             "problem": "Een probleem met deze app?"
         },
         "install": {
-            "license": "Licentie:{license}",
             "notifs": {
                 "post": {
                     "title": "Post-install opmerkingen voor '{name}'",
@@ -343,13 +295,9 @@
             "notifications": {
                 "understood": "Begrepen",
                 "post_install": "Post-install opmerkingen",
-                "post_upgrade": "Post-upgrade opmerkingen",
-                "title": "Notificaties"
+                "post_upgrade": "Post-upgrade opmerkingen"
             },
-            "about": {
-                "description": "Omschrijving",
-                "title": "Over"
-            },
+            "about": {},
             "admin": {
                 "title": "Documentatie voor beheerders"
             }
@@ -416,12 +364,7 @@
     "history": {
         "title": "Geschiedenis",
         "last_action": "Laatste actie:",
-        "methods": {
-            "DELETE": "verwijder",
-            "POST": "maak/voer uit",
-            "PUT": "aanpassen",
-            "GET": "lees"
-        },
+        "methods": {},
         "is_empty": "Niets in geschiedenis op dit moment."
     },
     "items": {
@@ -435,7 +378,6 @@
         "users": "geen gebruikers | gebruiker | gebruikers",
         "installed_apps": "geen geïnstalleerde apps | geïnstalleerde app | geïnstalleerde apps"
     },
-    "hook_data_xmpp_desc": "Kamer en gebruiker configuraties, geüploade bestanden",
     "ignored": "{count} genegeerd",
     "tools_webadmin": {
         "language": "Taal",
@@ -449,26 +391,17 @@
         "experimental_description": "Geeft je toegang tot experimentele functies. Deze worden geacht onstabiel te zijn en kunnen je systeem kapot maken.<br>Schakel dit enkel in als je weet wat je doet."
     },
     "items_verbose_items_left": "Er zijn {items} over. | Er is 1 {items} over. | Er zijn {items} over.",
-    "logs_app": "Logbestanden van apps",
-    "logs_history": "Geschiedenis van commando uitgevoerd op systeem",
-    "logs_no_logs_registered": "Geen logbestanden geregistreerd in deze categorie",
-    "logs_service": "Logbestanden van services",
     "migrations_disclaimer_not_checked": "Deze migratie vereist de erkenning van de disclaimer voor uitvoering.",
     "migrations_done": "Vorige migraties",
-    "nobody": "Niemand",
-    "perform": "Uitvoeren",
     "permissions": "Privileges",
     "placeholder": {
         "fullname": "Sam Smith",
         "file": "Blader door bestanden of sleep en drop het",
-        "firstname": "Sam",
         "username": "samsmith",
         "domain": "mijn-domein.com",
-        "groupname": "Mijn groepsnaam",
-        "lastname": "Smith"
+        "groupname": "Mijn groepsnaam"
     },
     "restart": "Opnieuw opstarten",
-    "retry": "Opnieuw proberen",
     "search": {
         "for": "Zoeken voor {items}…",
         "not_found": "Er zijn {items} die overeenkomen met jouw criteria. | Er is 1 {items} dat overeenkomt met jouw criteria. | Er zijn {items} die overeenkomen met jouw criteria."
@@ -480,11 +413,9 @@
     "user_emailforward_add": "Voeg een e-mail-forward toe",
     "users_export": "Exporteer gebruikers",
     "users_import": "Importeer gebruikers",
-    "experimental_warning": "Waarschuwing: deze functie is experimenteel en nog niet stabiel. Je moet deze functie alleen gebruiken als je weet wat je doet.",
     "logs_path": "Pad",
     "users_import_delete_desc": "Als aangevinkt, zullen alle gebruikers die niet in het CSV bestand aanwezig zijn worden verwijderd (en gewist).",
     "logs_started_at": "Start",
-    "logs_context": "Context",
     "select_all": "Selecteer alles",
     "run": "Uitvoeren",
     "select_none": "Selecteer niets",
@@ -503,7 +434,6 @@
     "rerun_diagnosis": "Voer diagnose opnieuw uit",
     "others": "Anderen",
     "issues": "{count} problemen",
-    "permission_show_tile_enabled": "Zichtbaar als tegel in het gebruikersportaal",
     "migrations_no_pending": "Geen migraties in behandeling",
     "tools_shutdown": "Server afsluiten",
     "logs": "Logbestanden",
@@ -526,27 +456,21 @@
     "users_import_csv_file": "CSV Bestand",
     "users_import_delete_others": "Verwijder gebruikers buiten deze lijst",
     "good_practices_about_admin_password": "Je staat op het punt een nieuw beheerderswachtwoord in te voeren. Dit wachtwoord moet minimaal 8 tekens bevatten. Het is verstandig om een langer wachtwoord te gebruiken (zoals een lange lijst met woorden die niet makkelijk te raden zijn) en/of door verschillende tekens door elkaar heen te gebruiken (hoofdletters, kleine letters, cijfers en leestekens).",
-    "go_back": "Teruggaan",
     "logs_share_with_yunopaste": "Deel met YunoPaste",
-    "logs_system": "Kernel-logbestanden en andere low-level gebeurtenissen",
     "logs_operation": "Operaties gemaakt op systeem met YunoHost",
-    "logs_package": "Managementgeschiedenis van Debian-pakketten",
     "orphaned": "Niet onderhouden",
     "tools_reboot_btn": "Opnieuw opstarten",
     "users_import_update": "Update bestaande gebruikers",
     "yunohost_admin": "YunoHost beheerder",
     "users_import_delete": "Verwijder gebruikers buiten de lijst",
     "enabled": "ingeschakeld",
-    "experimental": "Experimenteel",
     "footer": {
         "help": "Hulp nodig?",
         "documentation": "Documentatie",
         "donate": "Doneer"
     },
-    "form_input_example": "Voorbeeld: {example}",
     "last_ran": "Laatste scan:",
     "postinstall_set_domain": "Bepaal hoofddomein",
-    "license": "Licentie",
     "user_emailaliases_add": "Voeg een e-mail alias toe",
     "group_add_member": "Gebruiker toevoegen",
     "group_add": "Nieuwe groep",
@@ -555,9 +479,6 @@
     "pending_migrations": "Er moeten nog een paar migraties uitgevoerd worden. Ga naar <a href='#/tools/migrations'>Tools > Migraties</a> om ze uit te voeren.",
     "groups_and_permissions_manage": "Groepen en privileges beheren",
     "unignore": "Niet negeren",
-    "domain_delete_longdesc": "Verwijder dit domein",
-    "domain_dns_config": "DNS-configuratie",
-    "domain_dns_longdesc": "DNS-configuratie weergeven",
     "error_server_unexpected": "Onverwachte serverfout",
     "error_connection_interrupted": "De server heeft de connectie verbroken in plaats van deze te beantwoorden. Zijn nginx of de yunohost-api opnieuw opgestart of gestopt?",
     "app_state_broken": "kapot",
@@ -570,17 +491,14 @@
     "only_working_apps": "Alleen werkende apps",
     "migrations_pending": "Migraties in behandeling",
     "permission_main": "Hoofdlabel",
-    "logs_access": "Lijst van toegang en bans",
     "tools_yunohost_settings": "YunoHost instellingen",
     "tools_reboot": "Server herstarten",
     "user_mailbox_use": "Gebruikte ruimte door mailbox",
     "tools_shutdown_reboot": "Afsluiten/Herstarten",
     "tools_shutdown_btn": "Afsluiten",
     "purge_user_data_checkbox": "Data van {name} verwijderen? (Dit zal de inhoud van hun home en mail-mappen volledig verwijderen.)",
-    "readme": "Lees-mij",
     "groups_and_permissions": "Groepen en toestemmingen",
     "items_verbose_count": "Er zijn {items}. | Er is 1 {items}. | Er zijn {items}.",
-    "hook_data_xmpp": "XMPP gegevens",
     "domain_dns_push_managed_in_parent_domain": "De automatische DNS gegevens functie is beheerd door het moederdomein <a href='#/domains/{parent_domain}/dns'>{parent_domain}</a>.",
     "hook_conf_manually_modified_files": "Handmatig aangepaste configuraties",
     "label_for_manifestname_help": "Dit is de naam die wordt weergegeven op het gebruikersportaal. Dit kan later worden aangepast.",
@@ -589,7 +507,6 @@
     "users_import_update_desc": "Als aangevinkt, zullen alle bestaande gebruikers opgenomen in het CSV bestand worden geüpdated met de nieuwe waarde",
     "details_about": "Toon meer details over {subject}",
     "domain_add_dyndns_forbidden": "Je bent al geregistereerd/geabbonneerd op een DynDNS domein van het YunoHost project. Per ontwerp is deze toepassing gelimiteerd tot één zulk domein per server. Als je een ander subdomein van je bestaand geregistreerd domein wilt toevoegen, gebruik dan de 'voeg domein toe dat ik bezit, of subdomein' optie hierboven. Als je een totaal ander domein wilt gebruiken, zal je eerst je bestaande DynDNS domein moeten verwijderen. DynDNS domeinen zijn goed wanneer je start met zelf te hosten, maar op de medium/lange termijn raden we aan om je eigen domeinnaam te kopen bij een register zodat je volledige eigendom hebt van je domein.",
-    "confirm_install_app_broken": "WAARSCHUWING! Deze applicatie is kapot volgens de automatische tests van Yunhost en zal waarschijnlijk je systeem kapot maken! Je moet deze app waarschijnlijk NIET installeren tenzij je weet wat je doet. Wil je dat risico nemen?",
     "group_add_permission": "Toestemming toevoegen",
     "group_explain_admins": "Deze groep komt overeen met beheerders. Gebruikers in deze groep hebben toegang tot de YunoHost webadmin, kunnen connecteren met de server via SSH en kunnen het 'sudo' commando gebruiken. Ze zullen ook de e-mails verzonden aan root{'@'}, admin{'@'} en admins{'@'}, en zulkse diagnose notificaties krijgen. Je zou enkel personen die je volledig vertrouwd mogen toevoegen in deze groep!",
     "group_explain_visitors_needed_for_external_client": "Let op dat je sommige applicaties toegankelijk houdt voor bezoekers als je deze wilt gebruiken met externe cliënts. Dit is bijvoorbeeld het geval bij Nextcloud als je jouw smartphone of desktopcomputer wilt gebruiken als synchronisatiecliënt.",
@@ -597,16 +514,12 @@
     "mailbox_quota_example": "700M is een CD, 4700M is een DVD",
     "operation_failed_explanation": "De operatie ging fout! Onze excuses :( Je kan proberen <a href='https://yunohost.org/help'>om hulp te vragen</a>. Toon alstublieft het *volledige logbestand* van de operatie aan de mensen die je helpen. Je kan dit doen door te klikken op de groene knop 'Deel met Yunopaste'. Bij het delen van deze logbestanden zal YunoHost automatisch proberem om de privédata, zoals domeinnamen en IP-addressen, te anonymiseren.",
     "orphaned_details": "Deze app is al langere tijd niet onderhouden. Het zou nog kunnen werken, maar het zal geen updates meer ontvangen tot een vrijwilliger dit op zich neemt. Help mee om deze app nieuw leven in te blazen!",
-    "permission_corresponding_url": "Bijbehorende URL",
     "text_selection_is_disabled": "Tekstselectie is uitgeschakeld. Als je de log wilt delen, deel dan de volledige log met de 'Deel met Yunopaste' knop.<br/><small>Of als je echt tekst wilt selecteren, druk dan de toetsen: ↓↓↑↑.</small>",
     "users_import_confirm_destructive": "Ben je zeker dat je gebruikers wilt verwijderen die niet aanwezig zijn in dit bestand?",
-    "domain_delete_forbidden_desc": "je kan '{domain}' niet verwijderen aangezien het je standaarddomein is, je zal een ander domein moeten kiezen (of <a href='#/domains/add'>voeg nieuwe toe</a>) en het als je standaarddomein zetten om deze te kunnen verwijderen.",
     "important_yunohost_upgrade": "Een belangrijke YunoHost upgrade is beschikbaar. Het is zeer sterk aangeraden om nauwgezet de uitgaveopmerking(en) op het forum te lezen voor het upgraden: <a href='https://forum.yunohost.org/tag/ynh_release'>Blader door de uitgaveopmerkingen op het forum</a>",
     "logs_error": "Foutmelding",
     "users_import_csv_file_desc": "Het CSV bestand moet in UTF-8 zijn en met de kolommen gebruikersnaam, wachtwoord, groepen, e-mail en quota. Als voorbeeld van een CSV bestand om te importeren, kan je <a href='/yunohost/api/users/export' target='_BLANK'>gebruikers exporteren in een CSV bestand</a> en het bestand aanpassen.",
     "footer_version": "Mogelijk gemaakt door <a href='https://yunohost.org'>YunoHost</a> {version} ({repo}).",
     "wrong_password_or_username": "Fout wachtwoord of gebruikersnaam",
-    "app_state_broken_explanation": "Deze applicatie is op dit moment kapot en is niet-installeerbaar volgens de automatische testen van YunoHost",
-    "domain_default_longdesc": "Dit is jouw standaarddomein.",
-    "domain_dns_push_not_applicable": "De automatische DNS gegevens functie is niet van toepassing op de domein {domain},<br> Je zal de DNS gegevens manueel moeten configureren volgens de <a href='https://yunohost.org/dns'>documentatie</a> en de aangeraden configuratie hieronder."
+    "app_state_broken_explanation": "Deze applicatie is op dit moment kapot en is niet-installeerbaar volgens de automatische testen van YunoHost"
 }
