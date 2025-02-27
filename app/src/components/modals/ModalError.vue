@@ -23,6 +23,14 @@ const { err, messages, traceback } = (() => {
     footer-variant="danger"
     :hide-footer="err instanceof APINotRespondingError"
   >
+    <!--
+    i18n: api_errors_titles.APIBadRequestError
+    i18n: api_errors_titles.APIConnexionError
+    i18n: api_errors_titles.APIError
+    i18n: api_errors_titles.APIInternalError
+    i18n: api_errors_titles.APINotFoundError
+    i18n: api_errors_titles.APINotRespondingError
+    -->
     <h5 v-t="`api_errors_titles.${err.name}`" />
 
     <em v-t="'api_error.sorry'" />

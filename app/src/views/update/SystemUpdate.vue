@@ -61,6 +61,7 @@ async function performAppsUpgrade(ids: string[]) {
               title: t('app.upgrade.notifs.post.title', {
                 name: app.name,
               }),
+              /* i18n: app.upgrade.continue */
               okTitle: t(isLast ? 'ok' : 'app.upgrade.continue'),
               cancelTitle: t('app.upgrade.stop'),
             },

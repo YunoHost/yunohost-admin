@@ -97,6 +97,10 @@ function shareLogs() {
     </TopBar>
 
     <div class="alert alert-info">
+      <!--
+      i18n: diagnosis_explanation
+      i18n: diagnosis_first_run
+      -->
       {{ $t(reports ? 'diagnosis_explanation' : 'diagnosis_first_run') }}
       <BButton
         v-if="reports === null"
@@ -127,6 +131,11 @@ function shareLogs() {
             v-t="'everything_good'"
             variant="success"
           />
+          <!--
+          i18n: issues
+          i18n: warnings
+          i18n: ignored
+          -->
           <BBadge
             v-if="report.badges.errors"
             v-t="{ path: 'issues', args: { count: report.badges.errors } }"

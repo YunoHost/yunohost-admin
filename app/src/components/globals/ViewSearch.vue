@@ -37,6 +37,16 @@ const noItemsMessage = computed(() => {
   if (props.items) return
   return t(
     props.items === undefined ? 'items_verbose_count' : 'search.not_found',
+    /*
+    i18n: items.domains
+    i18n: items.groups
+    i18n: items.installed_apps
+    i18n: items.logs
+    i18n: items.permissions
+    i18n: items.services
+    i18n: items.users
+    i18n: items.items
+    */
     { items: t('items.' + props.itemsName, 0) },
     0,
   )

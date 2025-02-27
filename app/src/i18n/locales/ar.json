@@ -1,15 +1,8 @@
 {
     "action": "الإجراء",
     "add": "إضافة",
-    "administration_password": "كلمة السر الإدارية",
     "api_not_responding": "واجهة برمجة تطبيقات API الخاصة بـ YunoHost لا تستجيب. ربما 'yunohost-api' معطّلة أو تم إعادة تشغيلها؟",
-    "app_info_access_desc": "الفِرَق / المستخدمون المصرّح لهم للنفاذ إلى هذا التطبيق:",
-    "app_info_default_desc": "تحويل مسار جذر النطاق نحو هذا البرنامج ({domain}).",
-    "app_info_changeurl_desc": "يقوم بتغيير عنوان رابط النفاذ إلى هذا البرنامج (النطاق و/أو المسار).",
-    "app_info_change_url_disabled_tooltip": "لم تُهيأ هذه الخاصية لإعدادها في هذا البرنامج بعدُ",
-    "app_info_uninstall_desc": "حذف هذا البرنامج.",
     "app_install_custom_no_manifest": "No manifest.json file",
-    "app_make_default": "تعيينه كافتراضي",
     "app_state_inprogress": "لا يعمل بعد",
     "applications": "التطبيقات",
     "archive_empty": "النسخة الإحتياطية فارغة",
@@ -19,11 +12,9 @@
     "backup_create": "إنشاء نسخة إحتياطية",
     "backup_new": "نسخة إحتياطية جديدة",
     "begin": "إبدأ",
-    "both": "كِلاهُما",
     "check": "تحقق",
     "close": "إغلاق",
     "confirm_app_change_url": "متأكد مِن أنك تود تغيير عنوان رابط النفاذ إلى البرنامج ؟",
-    "confirm_app_default": "أمتأكد مِن أنك تود تعيين هذا التطبيق كبرنامج إفتراضي ؟",
     "confirm_change_maindomain": "متأكد من أنك تريد تغيير النطاق الرئيسي ؟",
     "confirm_delete": "هل تود حقًا حذف {name} ؟",
     "confirm_install_custom_app": "إنّ خيار تنصيب تطبيقات خارجية قد يؤثر على أمان نظامكم. ربما وجب عليكم ألا تقوموا بالتنصيب إلا إن كنتم حقا مدركون بما أنتم فاعلين. هل أنتم مستعدون للمخاطرة؟",
@@ -33,13 +24,10 @@
     "confirm_service_start": "متأكد مِن أنك تريد تشغيل {name} ؟",
     "confirm_service_stop": "متأكد من أنك تود إيقاف {name} ؟",
     "confirm_uninstall": "متأكد مِن أنك تريد إلغاء تنصيب {name} ؟",
-    "confirm_update_apps": "متأكد مِن أنك تريد تحديث كافة التطبيقات؟",
-    "confirm_update_specific_app": "متأكد مِن أنك تود تحديث {app} ؟",
     "confirm_upnp_enable": "متأكد مِن أنك تريد تفعيل الـ UPnP ؟",
     "confirm_upnp_disable": "متأكد مِن أنك تريد تعطيل الـ UPnP ؟",
     "confirm_reboot_action_reboot": "متأكد من أنك تريد إعادة تشغيل الخادم ؟",
     "confirm_reboot_action_shutdown": "متأكد من أنك تريد إيقاف تشغيل الخادم ؟",
-    "connection": "الدخول",
     "created_at": "تم إنشاؤه على",
     "custom_app_install": "تنصيب برنامج خاص",
     "delete": "حذف",
@@ -47,13 +35,7 @@
     "domain_dns_conf_is_just_a_recommendation": "يُظهر هذا القِسم الإعدادات *المستحسَنة*. فهي *لا* تقوم بتهيئة نظام أسماء النطاقات مكانكم. فالمسؤولية هي على عاتقكم لتهيئة منطقة نظام أسماء النطاقات عند المصدر أي عند مكتب التسجيل الخاص بكم وفقا لهذه التوصية.",
     "diagnosis": "التشخيص",
     "disable": "تعطيل",
-    "dns": "خدمة أسماء النطاقات",
     "domain_add": "إضافة نطاق",
-    "domain_default_desc": "إسم النطاق الإفتراضي هو النطاق الذي مِن خلاله يقوم المستخدِمون بتسجيل دخولهم.",
-    "domain_default_longdesc": "هذا هو إسم نطاقك الإفتراضي.",
-    "domain_delete_longdesc": "حذف هذا النطاق",
-    "domain_dns_config": "إعدادات خدمة أسماء النطاقات",
-    "domain_dns_longdesc": "الإطلاع على إعدادات خدمة أسماء النطاقات",
     "domain_name": "إسم النطاق",
     "domains": "أسماء النطاقات",
     "download": "التنزيل",
@@ -62,9 +44,7 @@
     "error_server_unexpected": "طرأ هناك خطأ غير متوقع في الخادم",
     "firewall": "الجدار الناري",
     "footer_version": "مدعوم بـ <a href='https://yunohost.org'>YunoHost</a> {version} ({repo}).",
-    "form_input_example": "مثال : {example}",
     "home": "الرئيسية",
-    "hook_adminjs_group_configuration": "إعدادات النظام",
     "hook_conf_ldap": "قاعدة بيانات المستخدمين",
     "hook_conf_ynh_certs": "شهادات الأمان SSL",
     "hook_data_home": "بيانات المستخدم",
@@ -75,12 +55,7 @@
     "infos": "معلومات",
     "install": "تنصيب",
     "install_name": "تثبيت {id}",
-    "install_time": "تاريخ التنصيب",
     "installation_complete": "إكتملت عملية التنصيب",
-    "installed": "مُنصّب",
-    "ipv4": "IPv4",
-    "ipv6": "IPv6",
-    "label": "التسمية",
     "label_for_manifestname": "تسمية لـ {name}",
     "local_archives": "الأرشيف المحلي",
     "login": "تسجيل الدخول",
@@ -90,7 +65,6 @@
     "manage_apps": "إدارة التطبيقات",
     "manage_domains": "إدراة أسماء النطاقات",
     "manage_users": "إدارة المستخدمين",
-    "multi_instance": "يمكن تنصيبه عدة مرات",
     "next": "التالي",
     "no": "لا",
     "ok": "موافق",
@@ -133,7 +107,6 @@
     "tools_shutdown_reboot": "إيقاف التشغيل/إعادة التشغيل",
     "udp": "UDP",
     "unauthorized": "غير مسموح",
-    "uninstall": "إلغاء التنصيب",
     "upnp": "UPnP",
     "upnp_disabled": "UPnP معطّل.",
     "upnp_enabled": "UPnP يشتغل.",
@@ -150,10 +123,7 @@
     "user_username_edit": "تعديل حساب {name}",
     "users": "المستخدمون",
     "users_add": "مستخدم جديد",
-    "users_no": "لا يوجد أي مستخدم.",
     "yes": "نعم",
-    "certificate_manage": "إدارة شهادات أمان SSL",
-    "certificate": "الشهادة",
     "migrations": "الارتحال",
     "migrations_pending": "الترحيلات المعلقة",
     "migrations_done": "الترحيلات السابقة",
@@ -165,37 +135,27 @@
     "all_apps": "كافة التطبيقات",
     "only_working_apps": "إلاّ التطبيقات التي تعمل",
     "logs": "السِجلات",
-    "logs_history": "سِجِل الأوامر التي تم تنفيذها على النظام",
-    "logs_service": "سِجِلات الخدمات",
-    "logs_app": "سِجِلات التطبيقات",
     "logs_error": "خطأ",
     "logs_ended_at": "انتهى",
     "logs_started_at": "البداية",
     "logs_path": "المسار",
-    "logs_context": "السياق",
     "logs_share_with_yunopaste": "شاركه عبر YunoPaste",
     "logs_more": "اظهر المزيد مِن الأسطر",
     "select_all": "تحديد الكل",
     "version": "الإصدار",
     "logs_operation": "الإجراءات التي طرأت على النظام عبر YunoHost",
-    "logs_no_logs_registered": "لم يُسجَّل هناك أي حدث في سِجِل هذه الفئة",
-    "license": "الرخصة",
     "orphaned": "غير مصان",
     "from_to": "مِن {0} إلى {1}",
     "only_highquality_apps": "إلا التطبيقات ذات الجودة العالية",
     "only_decent_quality_apps": "إلا التطبيقات ذات الجودة الحسنة",
     "confirm_update_system": "أمتأكد مِن أنك تريد تحديث كافة حزم النظام؟",
-    "experimental_warning": "تحذير: هذه الميزة تجريبية ولا يجب اعتبارها مستقرة ، يجب ألا تستخدمها إلا إذا كنت تعرف ما تفعله.",
-    "logs_package": "سِجلّ إدارة حزم ديبيان",
     "error_connection_interrupted": "أغلَق الخادم الاتصال بدلاً من الاستجابة. هل تم إعادة تشغيل NGINX أو تم إيقاف تشغيل واجهة برمجة تطبيقات yunohost-api لسبب ما؟",
     "warnings": "{count} تحذيرات",
     "unignore": "إلغاء التجاهل",
     "since": "منذ",
     "restart": "إعادة التشغيل",
     "rerun_diagnosis": "إعادة تشغيل الفحص مجددًا",
-    "logs_access": "قائمة تصريحات النفاذ المسموحة والمرفوضة",
     "others": "أخرى",
-    "nobody": "لا أحد",
     "last_ran": "آخر تشغيل:",
     "issues": "{count} مشاكل",
     "ignored": "تم تجاهل {count}",
@@ -229,37 +189,21 @@
     "postinstall_set_domain": "اختيار اسم النطاق الرئيسي",
     "words": {
         "browse": "استكشف",
-        "default": "افتراضي",
         "link": "الرابط",
         "none": "لا شيء",
         "separator": "، ",
-        "collapse": "طيّ",
-        "valid": "صالح"
+        "collapse": "طيّ"
     },
     "app_install_parameters": "إعدادات التنصيب",
-    "code": "الشفرة المصدرية",
-    "common": {
-        "firstname": "الاسم",
-        "lastname": "اللقب"
-    },
+    "common": {},
     "domain": {
-        "config": {
-            "edit": "تعديل اعدادات اسم النطاق",
-            "title": "ضبط اسم النطاق"
-        },
+        "config": {},
         "dns": {
             "auto_config": "ضبط تلقائي لتسجيلات خدمة أسماء النطاقات",
             "push": "إرسال التسجيلات إلى سِجِلّ أسماء النطاقات",
             "auto_config_ok": "يبدو أن الضبط التلقائي على ما يرام!",
-            "edit": "تعديل إعدادات نظام أسماء النطاقات",
             "auto_config_zone": "منطقة DNS الحالية",
-            "methods": {
-                "auto": "تلقائي",
-                "handled_in_parent": "يُدار في اسم النطاق الرئيسي",
-                "manual": "يدوي",
-                "none": "لا شيء",
-                "semi_auto": "نصف آلي"
-            },
+            "methods": {},
             "manual_config": "تسجيلات نظام أسماء النطاقات المقترَحة للإعداد اليدوي",
             "push_force": "الكتابة فوق السجلات الموجودة"
         },
@@ -285,13 +229,10 @@
     "placeholder": {
         "domain": "my-domain.com",
         "groupname": "اسم فريقي",
-        "firstname": "فلان",
-        "lastname": "الفلاني",
         "username": "foulanealallani",
         "fullname": "فلان علان",
         "file": "استعراض ملف أو سحبه وإفلاته"
     },
-    "confirm_app_install": "متأكد من أنك تريد تنصيب هذا التطبيق؟",
     "footer": {
         "help": "بحاجة إلى مساعدة؟",
         "donate": "تبرّع",
@@ -316,8 +257,6 @@
     },
     "app_show_categories": "اظهر كافة الفئات",
     "cancel": "إلغاء",
-    "perform": "تنفيذ",
-    "readme": "اقرأني",
     "tools_webadmin_settings": "إعدادات واجهة الويب الإدارية",
     "search": {
         "for": "البحث عن {items}…"
@@ -342,12 +281,10 @@
                 "reboot": "يُعاد تشغيل خادمك ولن يُمكن النفاذ إليه لفترة من الوقت. سيتاح الولوج إليه عند تتمة إعادة تشغيله.",
                 "upgrade_system": "تم إغلاق الاتصال بالخادم بسبب ترقية يونوهوست.في انتظار إمكانية الوصول للخادم مرة أخرى…",
                 "shutdown": "تم إيقاف تشغيل خادمك ولم يعد قابلا للوصول إليه.قم بتشغيله مرة أخرى وسيتاح لك تسجيل الدخول بمجرد إمكانية الوصول إليه."
-            },
-            "failed": "يبدو أن الخادم لا يستجيب. يمكنك محاولة إعادة الاتصال مرة أخرى أو محاولة تشغيل`systemctl restart yunohost-api` من خلال ssh."
+            }
         },
         "partial_logs": "[…] (تحقق من السجل للحصول على السجلات الكاملة)"
     },
-    "dead": "غير نشط",
     "unknown": "مجهول",
     "address": {
         "domain_description": {
@@ -361,7 +298,6 @@
     },
     "enabled": "مفعّل",
     "error": "خطأ",
-    "experimental": "تجريبي",
     "api_errors_titles": {
         "APINotRespondingError": "إنّ واجهة برمجة التطبيقات لـ YunoHost لا تجيب",
         "APIError": "صادف YunoHost خطأ غير متوقع",
@@ -372,11 +308,9 @@
     },
     "api_waiting": "في انتظار ردّ الخادم…",
     "app_choose_category": "اختر فئة",
-    "retry": "حاول مجددا",
     "permission_main": "التسمية الرئيسية",
     "user_emailforward_add": "إضافة عنوان بريد إلكتروني للتحويل",
     "select_none": "الغاء اختيار الكل",
-    "go_back": "العودة",
     "form_errors": {
         "pattern": "{type}",
         "remote": "{message}",
@@ -396,12 +330,7 @@
         "domain": "اسم نطاق غير صالح: يجب أن يتكون من أحرف أبجدية رقمية صغيرة وأحرف نقطية وشرطة فقط"
     },
     "history": {
-        "methods": {
-            "POST": "تشغيل/إنشاء",
-            "PUT": "تعديل",
-            "GET": "قراءة",
-            "DELETE": "حذف"
-        },
+        "methods": {},
         "title": "التاريخ",
         "last_action": "آخر إجراء:",
         "is_empty": "لا شيء في التاريخ في الوقت الحالي."
@@ -409,7 +338,6 @@
     "users_import_delete": "حذف المستخدمين غير المُدرَجين",
     "group_admins": "المُدراء",
     "users_import_delete_others": "حذف المستخدمين غير المُدرَجين",
-    "hook_data_xmpp": "بيانات XMPP",
     "app": {
         "integration": {
             "title": "إدماج YunoHost",
@@ -461,15 +389,11 @@
         "installed_version": "النسخة المُنصَّبة:",
         "open_this_app": "إفتح هذا التطبيق",
         "doc": {
-            "about": {
-                "title": "عن",
-                "description": "الوصف"
-            },
+            "about": {},
             "admin": {
                 "title": "دليل المدير"
             },
             "notifications": {
-                "title": "الإشعارات",
                 "post_upgrade": "ملاحظات ما بعد التحديث",
                 "post_install": "ملاحظات ما بعد التنصيب",
                 "understood": "فهمت"
@@ -482,7 +406,6 @@
             "config_panel_error": "خطأ ما يمنع لوح الضبط من الظهور:"
         },
         "install": {
-            "license": "الرخصة: {license}",
             "notifs": {
                 "pre": {
                     "warning": "ما عليك معرفته قبل التنصيب",
@@ -506,13 +429,10 @@
     "hook_conf_manually_modified_files": "ملفات ضبط تم تعديلها يدويا",
     "hook_conf_ynh_settings": "إعدادات YunoHost",
     "logs_suboperations": "الإجراءات الفرعية",
-    "permission_show_tile_enabled": "مرئي كلوحة على بوابة المستخدم",
     "tools_yunohost_settings": "إعدادات YuNoHost",
-    "permission_corresponding_url": "العنوان التشعبي URL المقابل",
     "manage_groups": "إدارة الفِرَق",
     "user_emailaliases_add": "إضافة عنوان بريد إلكتروني مستعار",
     "wrong_password_or_username": "اسم المستخدم أو كلمة المرور خاطئة",
-    "app_manage_label_and_tiles": "إدارة الملصقات واللوحات",
     "items": {
         "installed_apps": "لا توجد تطبيقات مثبّة | تطبيق مُنصّب | تطبيقات مُنصّبة",
         "apps": "لا تطبيق | تطبيق | تطبيقات",
@@ -532,7 +452,6 @@
     "good_practices_about_user_password": "إنّك مُقبِل على تعيين كلمة مرور جديدة للمستخدم. يجب أن تتكون كلمة المرور من 8 أحرف على الأقل ، أخذا بعين الاعتبار أنه يوصى باستخدام كلمة مرور أطول (مثل عبارة مرور) و / أو مجموعة من الأحرف (الأحرف الكبيرة والصغيرة والأرقام والأحرف الخاصة).",
     "group_explain_all_users": "هذا فريق خاص يتضمّن كافة حسابات المستخدِمين على الخادم",
     "group_specific_permissions": "تصريحات للمستخدمين الفرديين",
-    "hook_data_xmpp_desc": "إعدادات غرف الدردشة والمستخدمين والملفات المحملة",
     "mailbox_quota_example": "700M قرص مضغوط و 4700M قرص DVD",
     "pending_migrations": "هناك عمليات ترحيل في انتظار أن تكتمل. يرجى الانتقال إلى <a href='#/tools/migrations'>Tools > Migrations لتشغيلها</a>.",
     "group_format_name_help": "يمكنك استخدام الأحرف الأبجدية الرقمية والشرطة السفلية",

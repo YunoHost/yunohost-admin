@@ -17,7 +17,6 @@
             "pending": "Iteddu"
         }
     },
-    "connection": "Tuqqna",
     "created_at": "Yettwarna di",
     "domain_name": "Isem n Taɣult",
     "domains": "Tiɣula",
@@ -25,16 +24,12 @@
     "enable": "Rmed",
     "enabled": "Yermed",
     "error": "Tuccḍa",
-    "go_back": "Uɣal ɣer deffir",
     "group_add": "Agraw amaynut",
     "permissions": "Tisirag",
     "history": {
         "title": "Amazray",
         "last_action": "Tigawt taneggarut:",
-        "methods": {
-            "DELETE": "Kkes",
-            "GET": "ɣeṛ"
-        }
+        "methods": {}
     },
     "home": "Agejdan",
     "id": "ID",
@@ -42,7 +37,6 @@
     "infos": "talɣut",
     "next": "Suivant",
     "no": "Uhu",
-    "nobody": "Ula yiwen",
     "ok": "Ih",
     "open": "Ldi",
     "operations": "Timhalin",
@@ -50,7 +44,6 @@
     "logs_error": "Tuccḍa",
     "logs_ended_at": "Fin",
     "logs_started_at": "Démarrer",
-    "logs_context": "Asatal",
     "port": "Port",
     "previous": "Précédent",
     "service_start_on_boot": "Bdu seg usenker",
@@ -62,7 +55,6 @@
     },
     "udp": "UDP",
     "unignore": "Ur yettwazgel ara",
-    "uninstall": "Désinstaller",
     "unknown": "D arussin",
     "url": "URL",
     "user_email": "Imayl",
@@ -72,17 +64,14 @@
     "words": {
         "browse": "Snirem",
         "collapse": "Ḍfes",
-        "default": "Prédéfini(e)",
         "link": "Aseɣwen",
         "none": "Ula d yiwen",
-        "separator": ", ",
-        "valid": "Tettwaqbel"
+        "separator": ", "
     },
     "yes": "Ih",
     "api_error": {
         "error_message": "Izen n tuccḍa:"
     },
-    "app_make_default": "Err-it d amezwer",
     "applications": "Isnasen",
     "backup": "Asekles",
     "backup_action": "Sekles",
@@ -91,19 +80,13 @@
     "catalog": "Akaram",
     "check": "Rrcem",
     "close": "Mdel",
-    "code": "Tangalt",
-    "common": {
-        "firstname": "Isem",
-        "lastname": "Isem n tmagit"
-    },
-    "dead": "D arurmid",
+    "common": {},
     "delete": "Kkes",
     "configuration": "Tawila",
     "description": "Asnummel",
     "details": "Talqayt",
     "disable": "Désactiver",
     "disabled": "Ittwarermed",
-    "experimental": "Expérimental",
     "firewall": "Aɣṛab n tmes",
     "group_name": "Isem n wegraw",
     "footer": {
@@ -118,9 +101,6 @@
     "hook_data_mail": "Imayl",
     "install": "sebdeed",
     "installation_complete": "Asebded immed",
-    "installed": "Yettwasbedd",
-    "label": "Tabzimt",
-    "license": "Licence",
     "login": "Aseqdac",
     "logout": "Tufɣa",
     "manage_users": "Sefrek iseqdacen",
@@ -132,7 +112,6 @@
     "restart": "Ales tanekra",
     "protocol": "Protocole",
     "restore": "Err-d",
-    "retry": "Ɛreḍ tikkelt-nniḍen",
     "run": "Selkem",
     "running": "En cours d'exécution",
     "save": "Sekles",
@@ -149,12 +128,9 @@
     "tools_shutdown_btn": "Sexsi",
     "user_username": "Isem n useqdac",
     "users": "Iseqdacen",
-    "administration_password": "Awal uffir n tedbelt",
     "domain": {
         "dns": {
-            "methods": {
-                "none": "Ula d yiwen"
-            }
+            "methods": {}
         }
     },
     "group_admins": "Inedbalen",

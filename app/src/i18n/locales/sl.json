@@ -10,7 +10,6 @@
             "email": "Izberi lokalni del za svoj e-poštni naslov."
         }
     },
-    "administration_password": "Upravljalno geslo",
     "all": "Vse",
     "api": {
         "processing": "Strežnik obdeluje dejanje…",
@@ -28,8 +27,7 @@
                 "unknown": "Povezava s strežnikom je bila prekinjena iz neznanih razlogov.",
                 "shutdown": "Tvoj strežnik se ugaša in ni več dosegljiv. Ponovno ga vklopi in poziv za prijavo bo na razpolago takoj, ko bo strežnik dosegljiv."
             },
-            "title": "Poskušam se povezati s strežnikom…",
-            "failed": "Videti je, da se strežnik ne odziva. Lahko se poskusiš ponovno povezati ali poskusi zagnati `systemctl restart yunohost-api` thru ssh."
+            "title": "Poskušam se povezati s strežnikom…"
         }
     },
     "api_error": {
@@ -52,13 +50,7 @@
     "api_not_found": "Kaže da je spletni-admin poskusil poizvesti po nečem neobstoječem.",
     "api_waiting": "Čakam na strežnikov odziv…",
     "app_choose_category": "Izberi kategorijo",
-    "app_info_access_desc": "Skupine / uporabniki, ki imajo dostop do te aplikacije:",
-    "app_info_default_desc": "Preusmeri korensko domeno na to aplikacijo ({domain}).",
-    "app_info_change_url_disabled_tooltip": "Ta funkcija še ni bila razvita v tej aplikaciji",
-    "app_info_uninstall_desc": "Odstrani to aplikacijo.",
     "app_install_parameters": "Namesti nastavitve",
-    "app_manage_label_and_tiles": "Upravljaj oznake in plošče",
-    "app_make_default": "Naredi privzeto",
     "app_show_categories": "Prikaži kategorije",
     "app_state_inprogress": "še ne deluje",
     "app_state_lowquality": "nizka kvaliteta",
@@ -71,33 +63,23 @@
     "backup_create": "Ustvari varnostno kopijo",
     "backup_new": "Nova varnostna kopija",
     "begin": "Začni",
-    "both": "Oboje",
     "catalog": "Imenik",
     "check": "Preveri",
     "close": "Zapri",
-    "code": "Koda",
-    "common": {
-        "firstname": "Ime",
-        "lastname": "Priimek"
-    },
+    "common": {},
     "configuration": "Nastavitev",
     "confirm_app_change_url": "Ste prepričani da želite spremeniti dostopni URL aplikacije?",
-    "confirm_app_default": "Ste prepričani da želite to aplikacijo napraviti privzeto?",
     "confirm_change_maindomain": "Ste prepričani da želite spremeniti glavno domeno?",
     "confirm_delete": "Ste prepričani da želite izbrisati {name}?",
     "confirm_install_domain_root": "Si prepričan_a, da želiš namestiti to aplikacijo na '/'? Potem ne bo več mogoče namestiti nobene druge aplikacije na {domain}",
-    "confirm_app_install": "Si prepričan_a, da želiš namestiti to aplikacijo?",
     "action": "Dejanje",
     "api_not_responding": "YunoHost API se ne odziva. Morda 'yunohost-api' ne teče ali pa se je ponovno zagnal?",
-    "app_info_changeurl_desc": "Spremeni dostopni URL za to aplikacijo (domena in/ali pot).",
     "app_install_custom_no_manifest": "Ni manifest.json datoteke",
     "app_state_inprogress_explanation": "Vzdrževalec te aplikacije naznanja, da še ni pripravljena za produkcijsko rabo. PREVIDNO!",
     "archive_empty": "Izprazni arhiv",
     "cancel": "Prekliči",
     "confirm_group_add_access_permission": "Ste prepričani da želi dodeliti {name} dostop do {perm}? Takšen dostop bistveno razširi napadalo polje, če se {name} izkaže za škodoželjo osebo. Stori to samo če res ZAUPAŠ tej osebi ali skupini.",
     "confirm_install_custom_app": "POZOR! Namestitev neuradnih aplikacij lahko ogrozi celovitost in varnost vašega sistema. Verjetno NI dobro namestiti, razen če res veš kaj počneš. Si pripravljen_a sprejeti tveganje?",
-    "confirm_install_app_lowquality": "Pozor: aplikacija bi lahko delovala vendar ni dobro vključena v YunoHost. Nekatere funkcionalnosti, kot so poenoten vpis ter varnostno kopiranje/povrnitev, morda niso na voljo.",
-    "confirm_install_app_inprogress": "POZOR! Ta aplikacija je še vedno poskusna (če eksplicitno ne dela) in bo verjetno poškodovala tvoj sistem! Verjetno ga ne bi smel_a naložiti, razen če veš, kaj počneš. Ali si pripravljen_a tvegati?",
     "confirm_migrations_skip": "Ni priporočljivo preskočiti selitev podatkov. Ali si prepričan_a, da želiš to storiti?",
     "confirm_postinstall": "Kmalu se bo začel post-namestitveni proces na domeni {domain}. Morda ti bo vzelo nekaj minut, *ne prekini operacije*.",
     "confirm_restore": "Ali si prepričan_a, da želiš obnoviti {name}?",
@@ -105,42 +87,33 @@
     "confirm_service_start": "Ali si prepričan_a, da želiš zagnati {name}?",
     "confirm_service_stop": "Ali si prepričan_a, da želiš ustaviti {name}?",
     "confirm_uninstall": "Ali si prepričan_a, da želiš odstraniti {name}?",
-    "confirm_update_specific_app": "Ali si prepričan_a, da želiš posodobiti {app}?",
     "confirm_upnp_enable": "Ali si prepričana, da želiš omogočiti UPnP?",
     "confirm_upnp_disable": "Ali si prepričana, da želiš onemogočiti UPnP?",
     "confirm_reboot_action_reboot": "Ali si prepričana, da želiš ponovno zagnati svoj strežnik?",
     "confirm_reboot_action_shutdown": "Ali si prepričana, da želiš zaustaviti svoj strežnik?",
-    "connection": "Povezava",
     "created_at": "Ustvarjeno ob",
     "custom_app_install": "Namesti aplikacijo po meri",
     "day_validity": " Pretečeno | 1 dan | {count} dni",
-    "dead": "Nedejaven",
     "delete": "Briši",
     "description": "Opis",
     "details": "Podrobnosti",
     "domain_dns_conf_is_just_a_recommendation": "Ta stran ti pokaže *priporočeno* obliko. *Ne* oblikuje DNS zate. Oblikovanje tvojega DNS območja je tvoja odgovornost v tvojem DNS registrar-ju glede na to priporočilo.",
     "diagnosis_first_run": "Diagnostična funkcija si bo prizadevala identificirati pogoste probleme na različnih vidikih tvojega strežnika, da bi se prepričala, ali vse poteka gladko. Prosim, ne razburjaj se, če vidiš množico napak takoj po tem, ko nastaviš svoj strežnik: mišljena je natanko tako, da pomaga identificirati težave in te vodi, da jih popraviš. Diagnoza bo potekala samodejno dvakrat na dan in v primeru najdenih napak, bo administratorju poslano elektronsko sporočilo.",
-    "confirm_update_apps": "Ali si prepričan_a, da želiš posodobiti vse aplikacije?",
     "confirm_update_system": "Ali si prepričan_a, da želiš posodobiti vse sistemske pakete?",
     "diagnosis": "Diagnoza",
     "run_first_diagnosis": "Zaženi začetno diagnozo",
     "disable": "Onemogoči",
     "disabled": "Onemogočeno",
     "domain": {
-        "config": {
-            "edit": "Uredi domensko nastavitev",
-            "title": "Domenska nastavitev"
-        },
+        "config": {},
         "dns": {
             "auto_config": "Avtomatska DNS konfiguracija zapisov",
             "auto_config_ignored": "ni upoštevano, YunoHost tega ne bo spremenil razen če pregledaš možnosti prepisa",
             "manual_config": "Priporočen DNS zapisi za ročno konfiguracijo",
             "auto_config_ok": "Samodejna konfiguracija se zdi OK!",
             "auto_config_zone": "Trenutno DNS območje",
-            "edit": "Uredi DNS konfiguracijo",
             "info": "Samodejna DNS konfiguracija zapisov je eksperimentalna.<br> Pomisli na shranjevanje svojega trenutnega DNS območja iz vmesnika svojega DNS registrarja, preden dodajaš zapise od tukaj."
         }
     },
-    "diagnosis_explanation": "Diagnostična funkcija si bo prizadevala identificirati pogoste probleme na različnih vidikih tvojega strežnika, da bi se prepričala, ali vse poteka gladko. Diagnoza bo potekala samodejno dvakrat na dan in v primeru najdenih napak, bo administratorju poslano elektronsko sporočilo. Nekateri testi zate morda ne bodo relevantni, če določenih funkcij nočeš uporabljati (na primer XMPP), ali pa ne bodo uspeli, če imaš zapleteno namestitev. V teh primerih, in če veš, kaj počneš, je v redu ignorirati pripadajoče napake ali opozorila.",
-    "dns": "Domenski sistem"
+    "diagnosis_explanation": "Diagnostična funkcija si bo prizadevala identificirati pogoste probleme na različnih vidikih tvojega strežnika, da bi se prepričala, ali vse poteka gladko. Diagnoza bo potekala samodejno dvakrat na dan in v primeru najdenih napak, bo administratorju poslano elektronsko sporočilo. Nekateri testi zate morda ne bodo relevantni, če določenih funkcij nočeš uporabljati (na primer XMPP), ali pa ne bodo uspeli, če imaš zapleteno namestitev. V teh primerih, in če veš, kaj počneš, je v redu ignorirati pripadajoče napake ali opozorila."
 }

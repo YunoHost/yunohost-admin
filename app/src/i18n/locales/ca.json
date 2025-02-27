@@ -1,15 +1,8 @@
 {
     "action": "Acció",
     "add": "Afegir",
-    "administration_password": "Contrasenya d'administració",
     "api_not_responding": "L'API de YunoHost no respon. Pot ser que «yunohost-api» estigui caigut o s'hagi reiniciat?",
-    "app_info_access_desc": "Grups / usuaris autoritzats actualment a accedir a aquesta aplicació:",
-    "app_info_default_desc": "Redirigeix l'arrel del domini a aquesta aplicació ({domain}).",
-    "app_info_changeurl_desc": "Canvia l'adreça d'accés (URL) d'aquesta aplicació (domini i/o camí).",
-    "app_info_change_url_disabled_tooltip": "Encara no s'ha implementat aquesta funcionalitat per a aquesta aplicació",
-    "app_info_uninstall_desc": "Eliminar aquesta aplicació.",
     "app_install_custom_no_manifest": "No s'ha trobat el fitxer manifest.json",
-    "app_make_default": "Establir com a predeterminat",
     "app_state_inprogress": "encara no funciona",
     "applications": "Aplicacions",
     "archive_empty": "Arxiu buit",
@@ -19,11 +12,9 @@
     "backup_create": "Crear una còpia de seguretat",
     "backup_new": "Nova còpia de seguretat",
     "begin": "Començar",
-    "both": "Ambdós",
     "check": "Comprovar",
     "close": "Tancar",
     "confirm_app_change_url": "Està segur de voler canviar l'adreça d'accés (URL) d'aquesta aplicació?",
-    "confirm_app_default": "Està segur de voler fer aquesta aplicació predeterminada?",
     "confirm_change_maindomain": "Està segur de voler canviar el domini principal?",
     "confirm_delete": "Està segur de voler eliminar {name}?",
     "confirm_install_custom_app": "ATENCIÓ! La instal·lació d'aplicacions de terceres parts pot comprometre la integritat i seguretat del seu sistema. No hauríeu d'instal·lar-ne a no ser que sapigueu el que feu. Esteu segurs de voler córrer aquest risc?",
@@ -34,13 +25,10 @@
     "confirm_service_start": "Està segur de voler iniciar {name}?",
     "confirm_service_stop": "Està segur de voler parar {name}?",
     "confirm_uninstall": "Està segur de voler desinstal·lar {name}?",
-    "confirm_update_apps": "Està segur de voler actualitzar totes les aplicacions?",
-    "confirm_update_specific_app": "Està segur de voler actualitzar {app}?",
     "confirm_upnp_enable": "Està segur de voler activar UPnP?",
     "confirm_upnp_disable": "Està segur de voler desactivar UPnP?",
     "confirm_reboot_action_reboot": "Està segur de voler reiniciar el servidor?",
     "confirm_reboot_action_shutdown": "Està segur de voler apagar el servidor?",
-    "connection": "Connexió",
     "created_at": "Creat a",
     "custom_app_install": "Instal·lar una aplicació personalitzada",
     "delete": "Suprimir",
@@ -48,13 +36,7 @@
     "domain_dns_conf_is_just_a_recommendation": "Aquesta secció mostra la configuració *recomanada*. Aquesta pàgina *no* configura el DNS. És la vostra responsabilitat configurar la zona DNS al vostre registrador DNS en acord amb aquesta recomanació.",
     "diagnosis": "Diagnòstic",
     "disable": "Desactivar",
-    "dns": "DNS",
     "domain_add": "Afegir domini",
-    "domain_default_desc": "Els usuaris iniciaran sessió al domini predeterminat.",
-    "domain_default_longdesc": "Aquest és el seu domini predeterminat.",
-    "domain_delete_longdesc": "Eliminar aquest domini",
-    "domain_dns_config": "Configuració de DNS",
-    "domain_dns_longdesc": "Veure la configuració DNS",
     "domain_name": "Nom del domini",
     "domains": "Dominis",
     "download": "Descarregar",
@@ -63,9 +45,7 @@
     "error_server_unexpected": "Error inesperat en el servidor",
     "firewall": "Tallafoc",
     "footer_version": "Propulsat per <a href='https://yunohost.org'> YunoHost</a> {version} ({repo}).",
-    "form_input_example": "Exemple: {example}",
     "home": "Inici",
-    "hook_adminjs_group_configuration": "Configuració del sistema",
     "hook_conf_ldap": "Base de dades d’usuaris",
     "hook_conf_ynh_certs": "Certificats SSL",
     "hook_data_home": "Dades d'usuari",
@@ -76,12 +56,7 @@
     "infos": "Informació",
     "install": "Instal·lar",
     "install_name": "Instal·lar {id}",
-    "install_time": "Temps d'instal·lació",
     "installation_complete": "Instal·lació completada",
-    "installed": "Instal·lar",
-    "ipv4": "IPv4",
-    "ipv6": "IPv6",
-    "label": "Etiqueta",
     "label_for_manifestname": "Etiqueta per {name}",
     "local_archives": "Arxius locals",
     "login": "Iniciar sessió",
@@ -96,7 +71,6 @@
     "migrations_done": "Migracions anteriors",
     "migrations_no_pending": "No hi ha migracions en espera",
     "migrations_no_done": "No hi ha migracions anteriors",
-    "multi_instance": "Es pot instal·lar diverses vegades",
     "next": "Següent",
     "no": "No",
     "ok": "OK",
@@ -140,7 +114,6 @@
     "tools_shutdown_reboot": "Apagar/Reiniciar",
     "udp": "UDP",
     "unauthorized": "No autoritzat",
-    "uninstall": "Desinstal·lar",
     "upnp": "UPnP",
     "upnp_disabled": "UPnP està desactivat.",
     "upnp_enabled": "UPnP està activat.",
@@ -155,35 +128,21 @@
     "user_username_edit": "Editar el compte de {name}",
     "users": "Usuaris",
     "users_add": "Nou usuari",
-    "users_no": "No hi ha usuaris.",
     "yes": "Sí",
-    "certificate_manage": "Administrar el certificat SSL",
-    "certificate": "Certificat",
     "run": "Executar",
     "user_emailforward": "Reenviament de E-mail",
     "user_new_forward": "noureenviar{'@'}dominiextern.org",
     "all_apps": "Totes les aplicacions",
-    "confirm_install_app_lowquality": "Atenció: aquesta aplicació funciona però encara no està ben integrada a YunoHost. Algunes característiques com la identificació única i la còpia de seguretat i restauració de l'aplicació poden no estar presents.",
-    "confirm_install_app_inprogress": "ATENCIÓ! Aquesta aplicació encara és experimental (si no és que no funciona directament) i és probable que trenqui el sistema! No hauríeu d'instal·lar-la a no ser que sapigueu el que feu. Esteu segurs de voler córrer aquest risc?",
     "error_connection_interrupted": "El servidor a tancat la connexió en lloc de respondre. S'han reiniciat o aturat nginx o yunohost-api per alguna raó?",
-    "experimental_warning": "Atenció: aquesta característica és experimental i no es considera estable, no l'hauríeu d'utilitzar a excepció de saber el que feu.",
     "good_practices_about_admin_password": "Esteu a punt de definir una nova contrasenya d'administrador. La contrasenya ha de tenir un mínim de 8 caràcters ; tot i que és de bona pràctica utilitzar una contrasenya més llarga (és a dir una frase de contrasenya) i/o utilitzar diferents tipus de caràcters (majúscules, minúscules, dígits i caràcters especials).",
     "good_practices_about_user_password": "Esteu a punt de definir una nova contrasenya d'usuari. La contrasenya ha de tenir un mínim de 8 caràcters ; tot i que és de bona pràctica utilitzar una contrasenya més llarga (és a dir una frase de contrasenya) i/o utilitzar diferents tipus de caràcters (majúscules, minúscules, dígits i caràcters especials).",
     "only_working_apps": "Només aplicacions que funcionen",
     "logs": "Registres",
     "logs_operation": "Operacions fetes al sistema amb YunoHost",
-    "logs_history": "Historial de l'ordre executada al sistema",
-    "logs_package": "Historial d'administració dels paquets debian",
-    "logs_system": "Registres del nucli i d'altres esdeveniments de baix nivell",
-    "logs_access": "Llista d'accessos i bloquejos",
-    "logs_service": "Registres dels serveis",
-    "logs_app": "Registres de les aplicacions",
-    "logs_no_logs_registered": "No hi ha cap registre per aquesta categoria",
     "logs_error": "Error",
     "logs_ended_at": "Fi",
     "logs_started_at": "Principi",
     "logs_path": "Camí",
-    "logs_context": "Context",
     "logs_share_with_yunopaste": "Comparteix amb YunoPaste",
     "logs_more": "Mostra més línies",
     "select_all": "Selecciona-ho tot",
@@ -194,7 +153,6 @@
     "confirm_update_system": "Esteu segurs de voler actualitzar tots els paquets del sistema?",
     "app_state_inprogress_explanation": "El desenvolupador d'aquesta aplicació ha dit que encara no està preparada per fer-ne un ús en producció. SIGUEU PRUDENTS!",
     "app_state_highquality_explanation": "Aquesta aplicació està ben integrada amb YunoHost des de fa almenys un any.",
-    "license": "Llicència",
     "only_highquality_apps": "Només aplicacions d'alta qualitat",
     "only_decent_quality_apps": "Només aplicacións de qualitat decent",
     "orphaned": "No mantinguda",
@@ -214,7 +172,6 @@
     "groups_and_permissions": "Grups i permisos",
     "groups_and_permissions_manage": "Gestionar grups i usuaris",
     "permissions": "Permisos",
-    "nobody": "Ningú",
     "rerun_diagnosis": "Tornar a fer el diagnòstic",
     "details": "Detalls",
     "everything_good": "Tot està bé!",
@@ -223,11 +180,9 @@
     "last_ran": "Executat per última vegada:",
     "warnings": "{count} avisos",
     "words": {
-        "default": "Predeterminat",
         "link": "Vincle",
         "collapse": "Col·lapsar",
         "separator": ", ",
-        "valid": "Vàlid",
         "none": "Cap",
         "browse": "Explora"
     },
@@ -250,10 +205,7 @@
     "pending_migrations": "Hi ha algunes migracions pendents esperant per ser executades. Aneu a <a href='#/tools/migrations'>Eines > Migracions</a> per fer-les.",
     "logs_suboperations": "Sub-operacions",
     "tip_about_user_email": "Els usuaris es creen amb una adreça de correu electrònic associada (i compte de XMPP) amb el format usari{'@'}domini.tld. L'administrador i l'usuari poden afegir a posteriori adreces de correu addicionals i reenviament de correus.",
-    "permission_show_tile_enabled": "Mostrar la «tile» en el portal de l'usuari",
     "permission_main": "Etiqueta principal",
-    "permission_corresponding_url": "URL corresponent",
-    "app_manage_label_and_tiles": "Gestionar etiquetes i «tiles»",
     "items": {
         "backups": "cap còpia de seguretat | còpia de seguretat | còpies de seguretat",
         "apps": "cap aplicació | app | aplicacions",
@@ -267,12 +219,7 @@
         "items": "cap element | element | elements"
     },
     "history": {
-        "methods": {
-            "DELETE": "Eliminar",
-            "PUT": "modificar",
-            "POST": "crear/executar",
-            "GET": "llegir"
-        },
+        "methods": {},
         "last_action": "Última acció:",
         "title": "Historial",
         "is_empty": "De moment res a l'historial."
@@ -306,20 +253,12 @@
         "documentation": "Documentació",
         "tos": "Condicions dels serveis"
     },
-    "experimental": "Experimental",
     "error": "Error",
     "enabled": "Activat",
-    "domain_delete_forbidden_desc": "No podeu eliminar «{domain}» ja que és el domini principal, heu d'escollir un altre domini (o <a href='#/domains/add'>afegir-ne un de nou</a>) i fer-lo el domini principal per a poder eliminar aquest.",
     "domain_add_dyndns_forbidden": "Ja us heu registrat o subscrit a un domini DynDNS del projecte YunoHost. Per disseny, aquesta funció està limitada a un d'aquests dominis per servidor. Si voleu afegir un subdomini del vostre domini ja subscrit, utilitzeu l'opció «Afegir un domini que tinc o un subdomini» anterior. Si voleu utilitzar un domini completament diferent, primer heu d'eliminar el vostre domini DynDNS existent. Els dominis DynDNS són bons quan comenceu amb l'allotjament automàtic, però a mitjà/llarg termini, us recomanem comprar el vostre propi nom de domini a algun registrador per tenir la propietat total del vostre domini.",
     "disabled": "Desactivat",
-    "dead": "Inactiu",
     "day_validity": " Expirat | 1 dia | {count} dies",
-    "confirm_app_install": "Esteu segurs de voler instal·lar aquesta aplicació?",
-    "common": {
-        "lastname": "Cognom",
-        "firstname": "Nom"
-    },
-    "code": "Codi",
+    "common": {},
     "cancel": "Cancel·lar",
     "app_show_categories": "Mostrar les categories",
     "app_choose_category": "Escolliu una categoria",
@@ -366,9 +305,7 @@
                 "unknown": "La connexió amb el servidor s'ha tancat per motius desconeguts.",
                 "upgrade_system": "La connexió amb el servidor s'ha tancat a causa de l'actualització de YunoHost. S'està esperant que el servidor torni a ser accessible…"
             },
-            "title": "S'està intentant comunicar amb el servidor…",
-            "failed": "Sembla que el servidor no respon. Podeu provar de tornar a connectar-vos o provar d'executar `systemctl restart yunohost-api` mitjançant ssh.",
-            "session_expired": "Ja es pot accedir al servidor! Però sembla que la vostra sessió ha caducat, si us plau, inicieu sessió."
+            "title": "S'està intentant comunicar amb el servidor…"
         }
     },
     "app_install_parameters": "Paràmetres de la instal·lació",
@@ -378,15 +315,11 @@
         "open_this_app": "Obre aquesta aplicació",
         "antifeatures": "Aquesta aplicació té funcions que potser no us agraden:",
         "doc": {
-            "about": {
-                "title": "Sobre",
-                "description": "Descripció"
-            },
+            "about": {},
             "admin": {
                 "title": "Document d'administració"
             },
             "notifications": {
-                "title": "Notificacions",
                 "post_upgrade": "Notes post-actualització",
                 "post_install": "Notes post-instal·lació",
                 "understood": "Entés"
@@ -399,7 +332,6 @@
             "config_panel_error_please_report": "Informeu d'aquest error a l'equip de YunoHost per solucionar-lo!"
         },
         "install": {
-            "license": "Llicència: {license}",
             "notifs": {
                 "post": {
                     "title": "Notificacions post-instal·lació per a '{name}'",
@@ -483,7 +415,6 @@
     "details_about": "Mostra més detalls sobre {subject}",
     "app_state_broken_explanation": "Aquesta aplicació actualment està trencada i no es pot instal·lar segons les proves automàtiques de YunoHost",
     "confirm_group_add_access_permission": "Esteu segur que voleu concedir accés a {perm} a {name}? Aquest accés augmenta significativament la superfície d'atac si {name} és una persona malintencionada. Només ho hauríeu de fer si CONFIEU en aquesta persona/grup.",
-    "confirm_install_app_broken": "ADVERTIMENT! Aquesta aplicació està trencada segons les proves automàtiques de YunoHost i és probable que trenqui el vostre sistema! Probablement NO hauries d'instal·lar-la tret que sàpigues què estàs fent. Estàs disposat/da a córrer aquest risc?",
     "domain": {
         "add": {
             "dyn_dns_password_desc": "Aquesta contrasenya us permetrà recuperar més tard el control del domini si torneu a instal·lar el vostre sistema. Si ja heu registrat aquest domini anteriorment, feu servir la vostra contrasenya de recuperació aquí per recuperar-lo.",
@@ -512,27 +443,17 @@
             "apps_on_domain": "Aplicacions instal·lades al domini",
             "dyn_dns_remove_and_unsubscribe": "També cancel·leu el registre del domini del servei DynDNS de YunoHost"
         },
-        "config": {
-            "edit": "Edita la configuració del domini",
-            "title": "Configuració del domini"
-        },
+        "config": {},
         "dns": {
             "auto_config": "Configuració automàtica d'entrades DNS",
             "push_force_warning": "Sembla que algunes entrades DNS que YunoHost hauria establert ja es troben a la configuració del registrador. Podeu utilitzar l'opció de sobreescriure si sabeu el que esteu fent.",
             "auto_config_ignored": "ignorat, no serà modificat per YunoHost tret que marqueu l'opció de sobreescriure",
             "auto_config_zone": "Zona DNS actual",
-            "methods": {
-                "handled_in_parent": "Gestionat al domini principal",
-                "manual": "Manual",
-                "none": "Cap",
-                "auto": "Automàtic",
-                "semi_auto": "Semiautomàtic"
-            },
+            "methods": {},
             "push_force_confirm": "Esteu segur que voleu forçar l'impuls de totes les entrades DNS suggerides? Tingueu en compte que pot sobreescriure entrades predeterminades importants o establertes manualment per vosaltres o el vostre registrador.",
             "push_force": "Sobreescriu les entrades existents",
             "manual_config": "Entrades DNS suggerides per a la configuració manual",
             "auto_config_ok": "La configuració automàtica sembla estar bé!",
-            "edit": "Editeu la configuració del DNS",
             "info": "La configuració automàtica d'entrades DNS és una característica experimental. <br>Penseu en desar la vostra zona DNS actual des de la interfície del vostre registrador de DNS abans d'enviar les entrades des d'aquí.",
             "push": "Envieu les entrades DNS al registrador"
         },
@@ -547,13 +468,9 @@
     },
     "hook_conf_ynh_settings": "Configuracions de YunoHost",
     "group_admins": "Administradors",
-    "go_back": "Torna",
     "domain_dns_push_failed_to_authenticate": "No s'ha pogut autenticar a l'API del registrador. El més probable és que les <a href='#/domains/{domain}/config'>credencials</a> siguin incorrectes. (Error: {error})",
-    "hook_data_xmpp_desc": "Configuracions d'habitacions i d'usuaris, càrregues de fitxers",
     "hook_conf_manually_modified_files": "Configuracions modificades manualment",
     "domain_dns_push_managed_in_parent_domain": "La funció d'entrades DNS automàtiques es gestiona al domini principal <a href='#/domains/{parent_domain}/dns'>{parent_domain}</a>.",
-    "domain_dns_push_not_applicable": "La funció d'entrades DNS automàtiques no és aplicable al domini {domain}.<br> Hauríeu de configurar manualment les vostres entrades DNS seguint la <a href='https://yunohost.org/dns'>documentació</a> i la configuració suggerida a continuació.",
-    "hook_data_xmpp": "Dades de XMPP",
     "group_explain_admins": "Aquest és un grup especial corresponent als usuaris administradors. Els usuaris d'aquest grup poden accedir al webadmin de YunoHost, connectar-se al servidor amb SSH i utilitzar l'ordre `sudo`. També rebran correus electrònics enviats a root{'@'}, admin{'@'} i admins{'@'}, com ara les notificacions de diagnòstic. Només heu d'afegir a aquest grup persones en qui confieu absolutament!",
     "items_verbose_items_left": "Queden {items}. | Queda 1 {items}. | Queden {items}.",
     "postinstall": {
@@ -565,13 +482,11 @@
         "title": "Post-instal·lació"
     },
     "placeholder": {
-        "lastname": "Petit",
         "groupname": "Nom del meu grup",
         "username": "joanpetit",
         "domain": "el-meu-domini.cat",
         "fullname": "Joan Petit",
-        "file": "Exploreu un fitxer o arrossegueu-lo i deixeu-lo anar",
-        "firstname": "Joan"
+        "file": "Exploreu un fitxer o arrossegueu-lo i deixeu-lo anar"
     },
     "tools_webadmin": {
         "language": "Idioma",
@@ -585,7 +500,6 @@
         "experimental_description": "Et dóna accés a funcions experimentals. Es consideren inestables i poden trencar el vostre sistema.<br> Activeu-ho només si sabeu el que esteu fent."
     },
     "migrations_disclaimer_not_checked": "Aquesta migració requereix que accepteu la seva exempció de responsabilitat abans d'executar-la.",
-    "retry": "Torna-ho a provar",
     "search": {
         "not_found": "Hi ha {items} que coincideixen amb els vostres criteris. | Hi ha 1 {items} que coincideix amb els vostres criteris. | Hi ha {items} que coincideixen amb els vostres criteris.",
         "for": "Cerca {items}…"
@@ -601,11 +515,9 @@
     "label_for_manifestname_help": "Aquest és el nom que es mostra al portal de l'usuari. Això es pot canviar més tard.",
     "manage_groups": "Gestionar grups",
     "users_import_delete_others": "Suprimir els usuaris no llistats",
-    "readme": "Llegiu-me",
     "users_import_delete": "Suprimir els usuaris que no figuren a la llista",
     "mailbox_quota_example": "700M és un CD, 4700M és un DVD",
     "migrations_disclaimer_check_message": "He llegit i he entès aquesta exempció de responsabilitat",
-    "perform": "Realitzar",
     "postinstall_set_domain": "Estableix el domini principal",
     "text_selection_is_disabled": "La selecció de text està desactivada. Si voleu compartir aquest registre, compartiu el registre *complet* amb el botó «Comparteix amb Yunopaste».<br/><small>O si realment voleu seleccionar text, premeu aquestes tecles: ↓↓↑↑.</small>",
     "tools_yunohost_settings": "Configuració de YunoHost",
