@@ -109,7 +109,7 @@ export const useSSE = createGlobalState(() => {
       ) {
         sse.addEventListener(name, (e) => {
           // The server sends at least heartbeats every 10s, try to reconnect if we loose connection
-          tryToReconnect({ initialDelay: 15000, origin: 'reboot' })
+          tryToReconnect({ initialDelay: 15000, origin: 'unknown' })
           fn({ type: name, ...JSON.parse(e.data) })
         })
       }
