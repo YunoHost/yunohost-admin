@@ -49,14 +49,14 @@ export const useRequests = createGlobalState(() => {
   const router = useRouter()
 
   const requests = shallowRef<APIRequest[]>([])
-  const currentRequest = computed(() => {
-    return requests.value.find((r) => r.showModal)
-  })
   const locked = computed(() => currentRequest.value?.showModal)
   const historyList = computed<(APIRequest | APIRequestAction)[]>(() => {
     return requests.value
       .filter((r) => (!!r.action && !r.id.startsWith('lock')) || !!r.err)
       .reverse() as APIRequestAction[]
+  })
+  const currentRequest = computed(() => {
+    return historyList.value.find((r) => r.showModal)
   })
 
   function startRequest({

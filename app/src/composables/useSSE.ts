@@ -166,11 +166,20 @@ export const useSSE = createGlobalState(() => {
   }
 
   function onActionEvent(data: AnySSEEventDataAction) {
-    let request = historyList.value.findLast(
+    let request = historyList.value.find(
       (r: APIRequest) => r.id === data.ref_id,
     ) as APIRequestAction | undefined
 
-    if (!request) {
+    if (
+      !request ||
+      (data.type === 'start' &&
+        request.action.operationId &&
+        request.action.operationId !== data.operation_id)
+    ) {
+      // case 1: no request so it is an external operation
+      // or case 2: a second operation is ran by the core, which has the same ref_id than the previous
+      // (an app upgrade triggers a backup operation then the actual upgrade operation)
+      // so make sure to create a new request
       request = startRequest({
         id: data.ref_id,
         title: data.type === 'start' ? data.title : data.operation_id,
