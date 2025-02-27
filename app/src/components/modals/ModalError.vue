@@ -7,12 +7,13 @@ const props = defineProps<{
   request: APIRequest & { err: APIError }
 }>()
 
-const { err, messages, traceback } = (() => {
+const { err, messages, traceback, details } = (() => {
   const { err, action } = props.request
   return {
     err: err,
     messages: action?.messages,
     traceback: err instanceof APIInternalError ? err.traceback : null,
+    details: err instanceof APIInternalError ? err.details : null,
   }
 })()
 </script>
@@ -60,6 +61,11 @@ const { err, messages, traceback } = (() => {
     <div v-if="traceback">
       <p><strong v-t="'traceback'" /></p>
       <pre><code>{{ traceback }}</code></pre>
+    </div>
+
+    <div v-if="details">
+      <p><strong v-t="'details'" /></p>
+      <pre><code>{{ details }}</code></pre>
     </div>
 
     <div v-if="messages">
