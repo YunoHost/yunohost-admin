@@ -3,7 +3,10 @@ export function humanSize(bytes: string | number) {
   const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB']
   if (bytes === 0) return 'n/a'
   const i = Math.floor(Math.log(b) / Math.log(1024))
-  return (b / Math.pow(1024, i)).toFixed(2) + ' ' + sizes[i]
+  const bhuman = (b / Math.pow(1024, i))
+  // Use one decimal if value lower than 10, or none if value higher than 10
+  // to have e.g "1.2GB" and "42MB"
+  return bhuman.toFixed(bhuman > 10 ? 0 : 1) + ' ' + sizes[i]
 }
 
 export function humanPermissionName(text: string) {
