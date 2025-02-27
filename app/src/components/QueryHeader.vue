@@ -14,9 +14,8 @@ const emit = defineEmits<{ showError: [id: string] }>()
 
 const { currentUser } = useInfos()
 const statusVariant = computed(() => STATUS_VARIANT[props.request.status])
-const { errors, warnings } = toRefs(
-  props.request.action || { errors: 0, warnings: 0 },
-)
+const errors = computed(() => props.request.action?.errors)
+const warnings = computed(() => props.request.action?.warnings);
 
 const dateOrTime = computed(() => {
   // returns date if date < today else time
