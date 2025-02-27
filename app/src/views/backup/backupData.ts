@@ -55,5 +55,9 @@ export function parseBackupForm(selected: string[], system: BackupSystem) {
       data.apps.push(key)
     }
   }
+
+  if (!data.apps.length) delete data.apps
+  if (!data.system.length) delete data.system
+
   return data
 }
