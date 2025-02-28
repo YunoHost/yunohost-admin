@@ -33,6 +33,7 @@ export type APIErrorData = {
   log_ref?: string
   traceback?: string
   name?: string
+  details?: string
 }
 
 /**

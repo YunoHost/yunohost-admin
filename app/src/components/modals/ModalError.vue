@@ -7,12 +7,13 @@ const props = defineProps<{
   request: APIRequest & { err: APIError }
 }>()
 
-const { err, messages, traceback } = (() => {
+const { err, messages, traceback, details } = (() => {
   const { err, action } = props.request
   return {
     err: err,
-    messages: action?.messages,
+    messages: action?.messages.length ? action.messages : null,
     traceback: err instanceof APIInternalError ? err.traceback : null,
+    details: err instanceof APIInternalError ? err.details : null,
   }
 })()
 </script>
@@ -23,6 +24,14 @@ const { err, messages, traceback } = (() => {
     footer-variant="danger"
     :hide-footer="err instanceof APINotRespondingError"
   >
+    <!--
+    i18n: api_errors_titles.APIBadRequestError
+    i18n: api_errors_titles.APIConnexionError
+    i18n: api_errors_titles.APIError
+    i18n: api_errors_titles.APIInternalError
+    i18n: api_errors_titles.APINotFoundError
+    i18n: api_errors_titles.APINotRespondingError
+    -->
     <h5 v-t="`api_errors_titles.${err.name}`" />
 
     <em v-t="'api_error.sorry'" />
@@ -52,6 +61,11 @@ const { err, messages, traceback } = (() => {
     <div v-if="traceback">
       <p><strong v-t="'traceback'" /></p>
       <pre><code>{{ traceback }}</code></pre>
+    </div>
+
+    <div v-if="details">
+      <p><strong v-t="'details'" /></p>
+      <pre><code>{{ details }}</code></pre>
     </div>
 
     <div v-if="messages">

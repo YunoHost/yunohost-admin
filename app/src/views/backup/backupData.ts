@@ -27,6 +27,20 @@ export function formatBackupSystem(
       : system.map((key) => [key])
   ) as [BackupHookKeys, number | undefined][]
   return infos.reduce((data, [key, size]) => {
+
+    /*
+    Obtained via 'yunohost hook list backup'
+    i18n: hook_conf_ldap
+    i18n: hook_conf_manually_modified_files
+    i18n: hook_conf_ynh_certs
+    i18n: hook_conf_ynh_settings
+    i18n: hook_data_home
+    i18n: hook_data_home_desc
+    i18n: hook_data_mail
+    i18n: hook_data_mail_desc
+    i18n: hook_data_multimedia
+    i18n: hook_data_multimedia_desc
+    */
     const hookKey = key.startsWith('conf_')
       ? 'adminjs_group_configuration'
       : (key as BackupHookDataKeys)

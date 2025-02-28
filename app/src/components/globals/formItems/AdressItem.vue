@@ -61,6 +61,13 @@ function onInput(key: 'localPart' | 'domain', value: string | null) {
     />
   </BInputGroup>
 
+   <!--
+    i18n: address.domain_description.domain
+    i18n: address.domain_description.email
+    i18n: address.local_part_description.domain
+    i18n: address.local_part_description.email
+   -->
+
   <span
     :id="`${id}-local-part-desc`"
     v-t="'address.local_part_description.' + type"

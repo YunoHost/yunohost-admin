@@ -12,7 +12,6 @@
     "api": {
         "partial_logs": "[…] (visas išvestis rasite istorijoje)",
         "reconnecting": {
-            "failed": "Atrodo, kad serveris neatsako. Galite pabandyti dar kartą prisijungti arba per ssh paleisti `systemctl restart yunohost-api`.",
             "reason": {
                 "shutdown": "Jūsų serveris išjungiamas ir nebėra pasiekiamas. Įjunkite jį iš naujo ir prisijungimo užklausa bus rodoma, kai tik serveris taps pasiekiamas.",
                 "reboot": "Jūsų serveris perkraunamas ir kurį laiką nebus pasiekiamas. Kai tik serveris taps pasiekiamas, bus pateikta prisijungimo užklausa.",
@@ -45,13 +44,9 @@
         "doc": {
             "notifications": {
                 "post_upgrade": "Pastabos po atnaujinimo",
-                "title": "Pranešimai",
                 "post_install": "Pastabos po diegimo"
             },
-            "about": {
-                "title": "Apie",
-                "description": "Aprašymas"
-            },
+            "about": {},
             "admin": {
                 "title": "Admin dokumentacija"
             }
@@ -79,7 +74,6 @@
                 "ram": "Šiai programai įdiegti / atnaujinti reikia {required} operatyviosios atminties, tačiau dabar galima naudoti tik {current}. Net jei ši programa galėtų veikti, jos diegimo procesui reikia daug operatyviosios atminties, todėl jūsų serveris gali užšalti ir žlugti.",
                 "version": "Šiai programai reikia \"YunoHost\" >= {required}, bet jūsų dabartinė įdiegta versija yra {current}, pirmiausia atnaujinkite \"YunoHost\"."
             },
-            "license": "Licencija: {license}",
             "try_demo": "Išbandykite demonstracinę versiją",
             "version": "Dabartinė versija: {version}"
         },
@@ -103,7 +97,6 @@
     },
     "action": "Veiksmas",
     "add": "Pridėti",
-    "administration_password": "Administracijos slaptažodis",
     "all": "Visi",
     "all_apps": "Visos programėlės",
     "api_errors_titles": {

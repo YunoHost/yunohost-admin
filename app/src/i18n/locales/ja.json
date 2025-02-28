@@ -11,7 +11,6 @@
             "email": "電子メールのローカルパート({'@'}の右側)を選択してください。"
         }
     },
-    "administration_password": "管理用パスワード",
     "all": "すべて",
     "all_apps": "すべてのアプリ",
     "api": {
@@ -30,8 +29,7 @@
                 "upgrade_system": "YunoHostのアップグレードのためサーバーとの接続が切断されました。サーバーが再度利用可能になるまでお待ちください…",
                 "reboot": "サーバーが再起動中のため、接続が途切れることがあります。再起動後、すぐにログイン画面が利用可能になります。"
             },
-            "title": "サーバーと通信中…",
-            "failed": "サーバーが応答していないようです。再接続するか、SSH経由で`systemctl restart yunohost-api`を実行してみてください。"
+            "title": "サーバーと通信中…"
         }
     },
     "api_error": {
@@ -57,16 +55,12 @@
         "open_this_app": "このアプリを開く",
         "antifeatures": "このアプリはあなたが気に入らないかもしれない機能を持っています:",
         "doc": {
-            "about": {
-                "title": "YunoHostについて",
-                "description": "説明"
-            },
+            "about": {},
             "admin": {
                 "title": "管理者ドキュメント"
             },
             "notifications": {
                 "understood": "了解",
-                "title": "通知",
                 "post_upgrade": "アップグレード後のお知らせ",
                 "post_install": "アップグレード後のお知らせ"
             }
@@ -78,7 +72,6 @@
             "config_panel_error_please_report": "YunoHostチームにこのエラーを報告して修正してもらいましょう！"
         },
         "install": {
-            "license": "ライセンス: {license}",
             "notifs": {
                 "post": {
                     "title": "インストール後の通知 - '{name}'",
@@ -153,12 +146,8 @@
             "stop": "次のアプリのアップグレードをキャンセルする"
         }
     },
-    "app_info_change_url_disabled_tooltip": "この機能はまだアプリに実装されていません",
-    "app_info_default_desc": "このアプリケーションへリダイレクトするドメインルート ({domain})。",
     "app_install_custom_no_manifest": "manifest.jsonファイルがありません",
     "app_install_parameters": "インストール設定",
-    "app_make_default": "デフォルトにする",
-    "app_manage_label_and_tiles": "ラベルとタイトルを管理する",
     "app_show_categories": "カテゴリを表示",
     "app_state_broken": "壊れている",
     "app_state_broken_explanation": "このアプリケーションは現在壊れており、YunoHostの自動テストによるとインストール不能です",
@@ -175,23 +164,13 @@
     "backup_create": "バックアップする",
     "backup_new": "新しいバックアップ",
     "begin": "始める",
-    "both": "両方",
     "cancel": "キャンセル",
     "catalog": "カタログ",
-    "certificate": "証明書",
-    "certificate_manage": "SSL証明書を管理",
     "close": "閉じる",
-    "common": {
-        "firstname": "名前",
-        "lastname": "苗字"
-    },
+    "common": {},
     "configuration": "設定",
     "confirm_app_change_url": "このアプリのアクセスURLを変更してよいですか？",
-    "confirm_app_default": "このアプリをデフォルトに変更してよろしいですか？",
-    "confirm_app_install": "このアプリケーションをインストールしますか？",
     "confirm_change_maindomain": "メインドメインを変更してもよろしいですか？",
-    "confirm_install_app_broken": "警告！このアプリケーションはYunoHostの自動テストによると壊れており、あなたのシステムを壊す可能性があります！あなたが何をやろうとしているか十分に理解していないのであれば、インストールをするべきではありません。リスクを承知で実行しますか？",
-    "confirm_install_app_lowquality": "警告: このアプリケーションはおそらく動きますが、YunoHostとよく統合されていません。いくつかの機能(シングルサインオン、バックアップ/リストアなど)はおそらく使えません。",
     "confirm_install_domain_root": "このアプリを'/'(root)にインストールしてもよろしいですか？その場合、 {domain} に対して他のアプリをインストールできなくなります",
     "confirm_migrations_skip": "マイグレーションをスキップすることは推奨されません。スキップしてもよろしいですか？",
     "confirm_postinstall": "ドメイン {domain} のインストール後処理を開始しようとしています。数分かかりますので、 *処理を中断しないでください*。",
@@ -203,20 +182,16 @@
     "confirm_service_stop": "{name} を停止してもよろしいですか？",
     "confirm_uninstall": "{name} をアンインストールしてもよろしいですか？",
     "confirm_upnp_enable": "UPnPを有効化してもよろしいですか？",
-    "confirm_update_apps": "全てのアプリケーションをアップデートしてもよろしいですか？",
     "confirm_upnp_disable": "UPnPを無効化してもよろしいですか？",
-    "connection": "コネクション",
     "created_at": "作成時刻",
     "custom_app_install": "カスタムアプリをインストール",
     "day_validity": " 期限切れ | 1日 | {count} 日",
-    "dead": "非アクティブ",
     "delete": "削除",
     "description": "説明",
     "details": "詳細",
     "diagnosis": "診断",
     "disable": "無効",
     "disabled": "無効化済み",
-    "dns": "DNS",
     "domain": {
         "cert": {
             "types": {
@@ -226,24 +201,14 @@
             },
             "valid_for": "あと {days} 日有効"
         },
-        "config": {
-            "edit": "ドメイン設定を編集する",
-            "title": "ドメイン設定"
-        },
+        "config": {},
         "dns": {
             "auto_config": "自動DNSレコード設定",
             "auto_config_ignored": "上書きオプションを有効にしない限り、YunoHostによって変更されることはありません",
             "auto_config_ok": "自動設定は問題ないようですね！",
             "auto_config_zone": "現在のDNSゾーン",
-            "edit": "DNS設定を編集する",
             "manual_config": "手動設定用の推奨DNSレコード",
-            "methods": {
-                "auto": "自動的",
-                "handled_in_parent": "親ドメインにて処理される",
-                "manual": "手動",
-                "none": "なし",
-                "semi_auto": "半自動"
-            },
+            "methods": {},
             "push": "DNSレコードをレジスターに登録する",
             "push_force": "既存のレコードを上書きする",
             "push_force_warning": "既存のDNSレコードのうち、いくつかはYunoHostが登録したもののように見えます。何をやっているのか自分で理解しているのであれば、上書きオプションを利用することもできます。",
@@ -265,12 +230,7 @@
         }
     },
     "domain_add": "ドメインを追加する",
-    "domain_default_desc": "デフォルトドメインとは、ユーザーがログインするために接続するドメインです。",
-    "domain_default_longdesc": "それはあなたのデフォルトドメインです。",
-    "domain_delete_longdesc": "このドメインを削除する",
     "domain_dns_conf_is_just_a_recommendation": "このセクションでは、*推奨される*設定を示します。あなたのためにDNSを設定することは*ありません*。この推奨に従ってDNSレジストラでDNSゾーンを設定するのはあなたの責任です。",
-    "domain_dns_config": "DNS設定",
-    "domain_dns_longdesc": "DNS設定を見る",
     "domain_dns_push_failed_to_authenticate": "レジスターのAPI認証に失敗しました。おそらく <a href='#/domains/{domain}/config'>資格情報</a> が間違っていませんか？ (Error: {error})",
     "domain_name": "ドメイン名",
     "domains": "ドメイン",
@@ -281,7 +241,6 @@
     "error_modify_something": "なにか編集しなければなりません",
     "error_server_unexpected": "予期せぬサーバーエラー",
     "everything_good": "問題なし！",
-    "experimental": "実験的",
     "footer": {
         "donate": "寄付",
         "help": "ヘルプが必要ですか？",
@@ -313,12 +272,7 @@
     "group_admins": "管理者",
     "group_visitors": "ビジター",
     "history": {
-        "methods": {
-            "DELETE": "削除",
-            "GET": "読み取り",
-            "POST": "作成/実行",
-            "PUT": "編集"
-        },
+        "methods": {},
         "title": "履歴",
         "is_empty": "現在は履歴がありません。",
         "last_action": "最後のアクション:"
@@ -328,15 +282,9 @@
     "ignore": "無視",
     "infos": "情報",
     "install": "インストール",
-    "installed": "インストール済み",
-    "ipv4": "IPv4",
-    "ipv6": "IPv6",
-    "label": "ラベル",
-    "license": "ライセンス",
     "login": "ログイン",
     "logout": "ログアウト",
     "logs": "ログ",
-    "logs_context": "コンテキスト",
     "logs_ended_at": "終了",
     "logs_error": "エラー",
     "logs_path": "パス",
@@ -344,7 +292,6 @@
     "logs_suboperations": "サブ・オペレーション",
     "next": "次",
     "no": "No",
-    "nobody": "無人",
     "ok": "OK",
     "open": "開く",
     "operations": "操作",
@@ -353,8 +300,6 @@
     "path": "パス",
     "placeholder": {
         "domain": "my-domain.com",
-        "firstname": "太郎",
-        "lastname": "山田",
         "username": "山田太郎",
         "file": "ファイルを選択するかドラッグ&ドロップする",
         "fullname": "山田 太郎",
@@ -362,10 +307,8 @@
     },
     "previous": "前",
     "protocol": "プロトコル",
-    "readme": "Readme",
     "restart": "リスタート",
     "restore": "リストア",
-    "retry": "リトライ",
     "run": "実行",
     "running": "実行中",
     "save": "保存",
@@ -404,67 +347,49 @@
     "users": "ユーザー",
     "words": {
         "collapse": "たたむ",
-        "default": "デフォルト",
         "link": "リンク",
         "none": "なし",
         "separator": ", ",
-        "valid": "有効",
         "browse": "参照"
     },
     "yes": "はい",
     "api_not_found": "Web管理者が存在しない何かを検索したようです。",
     "app_choose_category": "カテゴリーを選択する",
-    "app_info_access_desc": "現在このアプリへアクセスが許可されている グループ / ユーザー:",
-    "app_info_changeurl_desc": "このアプリへアクセスするURLを変更します(ドメイン または パス)。",
-    "app_info_uninstall_desc": "このアプリケーションを削除する。",
     "check": "チェック",
-    "code": "コード",
     "confirm_delete": "{name} を削除してもよろしいですか？",
     "confirm_group_add_access_permission": "本当に {perm} 権限を {name} へ許可しますか？このような権限は、 {name} が悪意のある人物であった場合、攻撃経路を大幅に増やします。この人物／グループを **信頼** できる場合にのみ許可してください。",
-    "confirm_install_app_inprogress": "警告！このアプリケーションはまだ実験段階であり、あなたのシステムを壊す可能性があります！あなたが何をやろうとしているか十分に理解していないのであれば、インストールをするべきではありません。リスクを承知で実行しますか？",
     "confirm_install_custom_app": "警告！サードパーティのアプリケーションをインストールすると、システムの完全性とセキュリティが損なわれる可能性があります。あなたが何をやろうとしているか十分に理解していないのであれば、インストールをするべきではありません。リスクを承知で実行しますか？",
     "confirm_update_system": "全てのシステムパッケージを更新してもよろしいですか？",
-    "confirm_update_specific_app": "{app} をアップデートしてもよろしいですか？",
     "details_about": "{subject} について詳細を表示する",
     "diagnosis_explanation": "診断機能は、サーバーのさまざまな側面における一般的な問題を特定し、すべてがスムーズに動作するように試みます。診断は1日2回自動的に実行され、問題が見つかった場合は管理者にメールが送信されます。特定の機能（例えばXMPP）を使用したくない場合、または複雑なセットアップを行った場合、いくつかのテストは適切でない可能性があります。そのような場合、また自分が何をしているかわかっている場合は、対応する問題や警告を無視してもかまいません。",
     "diagnosis_first_run": "診断機能は、サーバーのさまざまな側面で一般的な問題を特定し、すべてがスムーズに動作するように試みます。サーバーをセットアップした直後に大量のエラーが表示されても慌てないでください。これは問題を特定し、解決するための指針を示すためのものです。また、診断は1日2回自動的に実行され、問題が見つかった場合は管理者にメールが送信されます。",
     "domain_add_dyndns_forbidden": "DynDNSで既にドメインを登録している場合,DynDNSドメインの削除についてはフォーラムの<a href='//forum.yunohost.org/t/nohost-domain-recovery-suppression-de-domaine-en-nohost-me-noho-st-et-ynh-fr/442'>関連スレッド</a>で依頼することができます.",
-    "domain_delete_forbidden_desc": "'{domain}' はデフォルトドメインのため、削除することができません。削除したい場合は、別のドメインを選択 (または <a href='#/domains/add'>新しいドメインを追加</a>)し、メインドメインとして設定する必要があります。",
     "firewall": "ファイアウォール",
     "id": "ID",
     "migrations": "移行",
     "permissions": "権限",
     "port": "ポート",
     "ports": "ポート",
-    "uninstall": "アンインストール",
     "version": "バージョン",
     "group_add_member": "ユーザーを追加",
     "group_add_permission": "権限を追加",
     "group_all_users": "全てのユーザー",
     "group_name": "グループ名",
     "group_add": "新しいグループ",
-    "hook_adminjs_group_configuration": "システム設定",
     "hook_conf_ldap": "ユーザーデータベース",
     "hook_conf_manually_modified_files": "手動変更された設定",
     "ignored": "{count} 回無視",
     "local_archives": "ローカルアーカイブ",
-    "logs_access": "アクセス/BANのリスト",
-    "logs_app": "アプリログ",
-    "logs_history": "システムで実行されたコマンドログ",
     "logs_more": "もっと表示する",
     "logs_operation": "YunoHostによるシステム操作",
-    "logs_package": "Debianパッケージ管理履歴",
-    "logs_service": "サービスログ",
     "logs_share_with_yunopaste": "ログをYunoPasteで共有する",
     "mailbox_quota_example": "CDは700M, DVDは 4700M",
-    "multi_instance": "複数回インストール可能",
     "only_decent_quality_apps": "ふさわしい品質のアプリのみ",
     "only_highquality_apps": "高い品質のアプリのみ",
     "only_working_apps": "機能するアプリのみ",
     "orphaned": "メンテナンスされていない",
     "password_confirmation": "パスワード確認",
     "permission_main": "メインラベル",
-    "permission_show_tile_enabled": "ユーザーポータルでタイルに表示する",
     "rerun_diagnosis": "診断を再実行",
     "run_first_diagnosis": "初回診断を実行する",
     "select_all": "全てを選択",
@@ -485,9 +410,7 @@
     "warnings": "{count} 件の警告",
     "wrong_password_or_username": "パスワードかユーザー名が間違っています",
     "yunohost_admin": "YunoHost 管理者",
-    "form_input_example": "例: {example}",
     "from_to": "{0} から {1}",
-    "go_back": "戻る",
     "group_specific_permissions": "ユーザー個別権限",
     "groups_and_permissions": "グループと権限",
     "groups_and_permissions_manage": "グループと権限を管理する",
@@ -496,14 +419,11 @@
     "hook_data_home": "ユーザーデータ",
     "hook_data_home_desc": "/home/USER 配下のユーザーデータ",
     "hook_data_mail_desc": "サーバー内に保存されている電子メールアドレス",
-    "hook_data_xmpp": "XMPPデータ",
     "install_name": "インストール {id}",
-    "install_time": "インストール時間",
     "installation_complete": "インストール完了",
     "issues": "{count} 個の問題",
     "label_for_manifestname": "{name} のラベル",
     "last_ran": "最後の実行:",
-    "logs_no_logs_registered": "このカテゴリーにログが登録されていません",
     "manage_domains": "ドメイン管理",
     "manage_groups": "グループ管理",
     "manage_users": "ユーザー管理",
@@ -513,7 +433,6 @@
     "migrations_no_done": "以前のマイグレーションはありません",
     "migrations_no_pending": "中断したマイグレーションはありません",
     "migrations_pending": "中断しているマイグレーション",
-    "logs_system": "カーネルログとその他低レベルログイベント",
     "mailbox_quota_placeholder": "0にセットすると無効化します。",
     "manage_apps": "アプリ管理",
     "set_default": "デフォルトに設定",
@@ -535,11 +454,8 @@
     "users_import_update": "既存のユーザーを更新する",
     "users_import_update_desc": "チェックを入れた場合、CSVファイルに入っている全てのユーザー情報が新しい値に更新されます",
     "users_add": "新しいユーザー",
-    "users_no": "ユーザーがいません。",
     "domain_dns_push_managed_in_parent_domain": "自動 DNS レコード機能は、親ドメイン <a href='#/domains/{parent_domain}/dns'>{parent_domain}</a>で管理されます。",
-    "domain_dns_push_not_applicable": "自動DNSレコード機能はドメイン {domain}には適用されません。<br> 以下の <a href='https://yunohost.org/dns'>ドキュメント</a> と推奨される構成に従って、DNS レコードを手動で構成する必要があります。",
     "error_connection_interrupted": "サーバーは接続に応答する代わりに接続を閉じました。nginxまたはyunohost-apiが何らかの理由で再起動または停止されていませんか?",
-    "hook_data_xmpp_desc": "ルームとユーザーの設定、ファイルのアップロード",
     "important_yunohost_upgrade": "YunoHostのメジャーアップグレードが利用可能です。アップグレードする前に、フォーラムのリリースノートを注意深く読むことを強くお勧めします: フォーラムの<a href='https://forum.yunohost.org/tag/ynh_release'>リリースノートを閲覧</a>",
     "items": {
         "apps": "アプリなし | アプリ | 個のアプリ",
@@ -553,8 +469,6 @@
         "users": "ユーザーなし | ユーザー | 人のユーザー"
     },
     "mailbox_quota_description": "メールのストレージサイズ制限を設定します。<br>無効にするには 0 を設定します。",
-    "perform": "実行する",
-    "permission_corresponding_url": "対応する URL",
     "postinstall": {
         "force": "インストール後処理の強制",
         "title": "インストール後処理",
@@ -575,7 +489,6 @@
     "unauthorized": "許可されていないアクセス",
     "users_import_confirm_destructive": "このファイルに存在しないユーザーを削除してもよろしいですか?",
     "users_import_csv_file_desc": "CSV ファイルは UTF-8 でエンコードされており、username, password, groups, email, quota の列が含まれている必要があります。よくわからない場合、一旦 <a href='/yunohost/api/users/export' target='_BLANK'>ユーザーを CSV ファイルにエクスポート</a> し、そのファイルを変更してください。",
-    "experimental_warning": "警告:この機能は実験的なものであり、安定しているとは見なされないため、自分が何をしているのかを知っている場合を除いて、使用しないでください。",
     "good_practices_about_admin_password": "新しい管理者パスワードを設定しようとしています。パスワードは少なくとも8文字である必要がありますが、より長いパスワード(パスフレーズなど)を使用したり、さまざまな種類の文字(大文字、小文字、数字、特殊文字)を使用したりすることをお勧めします。",
     "good_practices_about_user_password": "新しいユーザー・パスワードを定義しようとしています。パスワードは少なくとも8文字である必要がありますが、より長いパスワード(パスフレーズなど)を使用したり、さまざまな種類の文字(大文字、小文字、数字、特殊文字)を使用したりすることをお勧めします。",
     "group_explain_all_users": "これは、サーバー上のすべてのユーザー アカウントを含む特別なグループです",

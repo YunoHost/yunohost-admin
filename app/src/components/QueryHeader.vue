@@ -33,6 +33,13 @@ const caller = computed(() => {
 
 <template>
   <div class="query-header d-flex align-items-center w-100">
+
+    <!--
+    i18n: api.query_status.error
+    i18n: api.query_status.pending
+    i18n: api.query_status.success
+    i18n: api.query_status.warning
+    -->
     <span
       class="status"
       :class="[`bg-${statusVariant}`, type]"

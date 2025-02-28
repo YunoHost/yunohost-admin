@@ -10,6 +10,10 @@ const modalConfirm = useAutoModal()
 const { tryToReconnect } = useSSE()
 
 async function triggerAction(action: 'reboot' | 'shutdown') {
+  /*
+  i18n: confirm_reboot_action_reboot
+  i18n: confirm_reboot_action_shutdown
+  */
   const confirmed = await modalConfirm(t('confirm_reboot_action_' + action))
   if (!confirmed) return
 

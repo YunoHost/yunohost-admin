@@ -41,6 +41,11 @@ const { infos, upOrDownTime, isCritical, logs } = await api
   })
 
 async function updateService(action: 'start' | 'stop' | 'restart') {
+  /*
+  i18n: confirm_service_start
+  i18n: confirm_service_stop
+  i18n: confirm_service_restart
+  */
   const confirmed = await modalConfirm(
     t(`confirm_service_${action}`, { name: props.name }),
   )
@@ -106,6 +111,12 @@ function shareLogs() {
       >
         <BCol md="3" xl="2">
           <strong>
+              <!--
+              i18n: service_start_on_boot
+              i18n: configuration
+              i18n: status
+              i18n: description
+              -->
             {{ $t(key === 'start_on_boot' ? 'service_' + key : key) }}
           </strong>
         </BCol>
@@ -113,6 +124,12 @@ function shareLogs() {
           <template v-if="key === 'status'">
             <span :class="value === 'running' ? 'text-success' : 'text-danger'">
               <YIcon :iname="value === 'running' ? 'check-circle' : 'times'" />
+              <!--
+              i18n: running
+              i18n: stopped
+              i18n: failed
+              i18n: unknown
+              -->
               {{ $t(value) }}
             </span>
             {{ $t('since') }} {{ upOrDownTime }}
@@ -122,6 +139,11 @@ function shareLogs() {
             v-else-if="key === 'start_on_boot'"
             :class="value === 'enabled' ? 'text-success' : 'text-danger'"
           >
+              <!--
+              i18n: enabled
+              i18n: disabled
+              i18n: unknown
+              -->
             {{ $t(value) }}
           </span>
 

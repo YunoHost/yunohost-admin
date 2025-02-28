@@ -115,6 +115,7 @@ class APINotFoundError extends APIError {
 class APIInternalError extends APIError {
   name = 'APIInternalError'
   traceback: string | null
+  details: string | null
 
   constructor(
     request: APIRequest,
@@ -123,6 +124,7 @@ class APIInternalError extends APIError {
   ) {
     super(request, response, errorData)
     this.traceback = errorData.traceback || null
+    this.details = errorData.details || null
   }
 }
 
