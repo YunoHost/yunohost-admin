@@ -4,6 +4,7 @@ yunohost-admin (12.1.0) testing; urgency=low
   - Adapt webadmin to the new firewall API ([#606](http://github.com/YunoHost/yunohost-admin/pull/606))
   - New 'app core' config panel allowing to change the app logo, label, etc., as well as trigger app upgrade, change url, uninstall ([#615](http://github.com/YunoHost/yunohost-admin/pull/615))
   - naming: simplifying the "user portal" naming to just "portal" (3d907a08)
+  - i18n: add script to check for unused/undefined i18n string + cleanup ([#620](https://github.com/YunoHost/yunohost-admin/pull/620))
   - i18n: Translations updated for Basque, Chinese (Simplified), French, Galician, German, Italian, Turkish
 
   Thanks to all contributors <3 ! (axolotle, Éric Gaspar, Félix Piédallu, Furkan Samed Acet, José M, OniriCorpe, Poesty Li, ppr, Tommi, xabirequejo)
