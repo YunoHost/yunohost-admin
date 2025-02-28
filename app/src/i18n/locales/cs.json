@@ -61,7 +61,6 @@
     "hook_conf_ldap": "Databáze uživatelů",
     "home": "Domů",
     "history": {
-        "methods": {},
         "last_action": "Poslední akce:",
         "title": "Historie",
         "is_empty": "V historii prozatím nic není."
@@ -131,7 +130,6 @@
     "confirm_app_change_url": "Opravdu chcete změnit přístupové URL aplikace?",
     "confirm_change_maindomain": "Opravdu chcete změnit hlavní doménu?",
     "configuration": "Nastavení",
-    "common": {},
     "close": "Zavřít",
     "check": "Kontrola",
     "catalog": "Katalog",
@@ -325,7 +323,6 @@
     "upnp_disabled": "UPnP je zákázáno.",
     "upnp": "UPnP",
     "domain": {
-        "config": {},
         "dns": {
             "auto_config": "Automatické nastavení DNS záznamů",
             "auto_config_ignored": "ignorováno, nebude upraveno dokud nevyberete položku přepsat"
