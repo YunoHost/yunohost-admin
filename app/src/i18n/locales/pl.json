@@ -22,7 +22,6 @@
     "confirm_change_maindomain": "Czy na pewno chcesz zmienić domenę podstawową?",
     "confirm_app_change_url": "Czy na pewno chcesz zmienić adres URL do aplikacji?",
     "configuration": "Konfiguracja",
-    "common": {},
     "catalog": "Katalog",
     "cancel": "Anuluj",
     "app_state_lowquality": "niska jakość",
@@ -113,7 +112,6 @@
     "disable": "Wyłącz",
     "disabled": "Wyłączony",
     "domain": {
-        "config": {},
         "dns": {
             "auto_config": "Automatyczna konfiguracja wpisów DNS",
             "auto_config_ok": "Automatyczna konfiguracja prawdopodobnie jest OK!",
@@ -124,8 +122,7 @@
             "push": "Przekaż wpisy DNS do dostawcy",
             "push_force_confirm": "Na pewno chcesz wymusić przekazanie wszystkich sugerowanych wpisów DNS? Mogą one nadpisać zmiany już dokonane w strefie DNS (przez Ciebie lub Twojego dostawcę).",
             "push_force_warning": "Wygląda na to, że część wpisów DNS, które YunoHost próbuje ustawić, już się znajdują w konfiguracji dostawcy. Użyj opcji nadpisywania jeśli jesteś pewien co robisz.",
-            "push_force": "Nadpisz aktualne wpisy",
-            "methods": {}
+            "push_force": "Nadpisz aktualne wpisy"
         },
         "cert": {
             "types": {
@@ -256,7 +253,6 @@
     "history": {
         "title": "Historia",
         "last_action": "Ostatnie działanie:",
-        "methods": {},
         "is_empty": "Historia na razie jest pusta."
     },
     "ignored": "Zignorowano {count}",
@@ -450,7 +446,6 @@
         "open_this_app": "Otwórz tę aplikację",
         "antifeatures": "Ta aplikacja zawiera funkcje, których możesz nie lubić:",
         "doc": {
-            "about": {},
             "admin": {
                 "title": "Dokumentacja administratora"
             },
