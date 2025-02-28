@@ -55,7 +55,6 @@
         "open_this_app": "このアプリを開く",
         "antifeatures": "このアプリはあなたが気に入らないかもしれない機能を持っています:",
         "doc": {
-            "about": {},
             "admin": {
                 "title": "管理者ドキュメント"
             },
@@ -167,7 +166,6 @@
     "cancel": "キャンセル",
     "catalog": "カタログ",
     "close": "閉じる",
-    "common": {},
     "configuration": "設定",
     "confirm_app_change_url": "このアプリのアクセスURLを変更してよいですか？",
     "confirm_change_maindomain": "メインドメインを変更してもよろしいですか？",
@@ -201,14 +199,12 @@
             },
             "valid_for": "あと {days} 日有効"
         },
-        "config": {},
         "dns": {
             "auto_config": "自動DNSレコード設定",
             "auto_config_ignored": "上書きオプションを有効にしない限り、YunoHostによって変更されることはありません",
             "auto_config_ok": "自動設定は問題ないようですね！",
             "auto_config_zone": "現在のDNSゾーン",
             "manual_config": "手動設定用の推奨DNSレコード",
-            "methods": {},
             "push": "DNSレコードをレジスターに登録する",
             "push_force": "既存のレコードを上書きする",
             "push_force_warning": "既存のDNSレコードのうち、いくつかはYunoHostが登録したもののように見えます。何をやっているのか自分で理解しているのであれば、上書きオプションを利用することもできます。",
@@ -272,7 +268,6 @@
     "group_admins": "管理者",
     "group_visitors": "ビジター",
     "history": {
-        "methods": {},
         "title": "履歴",
         "is_empty": "現在は履歴がありません。",
         "last_action": "最後のアクション:"
