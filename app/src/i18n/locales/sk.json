@@ -67,7 +67,6 @@
     "catalog": "Katalóg",
     "check": "Skontrolovať",
     "close": "Zavrieť",
-    "common": {},
     "configuration": "Nastavenia",
     "confirm_app_change_url": "Naozaj chcete zmeniť prístupovú URL adresu aplikácie?",
     "confirm_change_maindomain": "Naozaj chcete zmeniť hlavnú doménu?",
@@ -107,7 +106,6 @@
     "disable": "Vypnúť",
     "disabled": "Vypnuté",
     "domain": {
-        "config": {},
         "dns": {
             "auto_config": "Automatické nastavenie DNS záznamov",
             "auto_config_ok": "Automatická konfigurácia vyzerá dobre!",
@@ -118,8 +116,7 @@
             "push": "Odoslať DNS záznamy registrátorovi",
             "push_force": "Prepísať aktuálne záznamy",
             "push_force_warning": "Vyzerá, že niektoré DNS záznamy, ktoré by nastavil YunoHost sa už nachádzajú v konfigurácii registrátora. Môžete si vybrať ich prepísania, ak viete, čo robíte.",
-            "push_force_confirm": "Naozaj chcete vynútiť odoslanie navrhovaných DNS záznamov? Dovoľujeme si Vás upozorniť, že môže dôjsť k prepísaniu manuálne pridaných alebo dôležitých záznamov, ktoré nastavil Váš registrátor.",
-            "methods": {}
+            "push_force_confirm": "Naozaj chcete vynútiť odoslanie navrhovaných DNS záznamov? Dovoľujeme si Vás upozorniť, že môže dôjsť k prepísaniu manuálne pridaných alebo dôležitých záznamov, ktoré nastavil Váš registrátor."
         },
         "cert": {
             "types": {
@@ -207,7 +204,6 @@
     "history": {
         "is_empty": "História je zatiaľ prázdna.",
         "title": "História",
-        "methods": {},
         "last_action": "Posledná akcia:"
     },
     "home": "Domov",
@@ -412,7 +408,6 @@
         "open_this_app": "Otvoriť túto aplikáciu",
         "antifeatures": "Táto aplikácia obsahuje funkcie, ktoré sa vám nemusia páčiť:",
         "doc": {
-            "about": {},
             "admin": {
                 "title": "Dokumentácia pre správcov"
             },
