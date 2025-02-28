@@ -66,7 +66,6 @@
     "catalog": "Imenik",
     "check": "Preveri",
     "close": "Zapri",
-    "common": {},
     "configuration": "Nastavitev",
     "confirm_app_change_url": "Ste prepričani da želite spremeniti dostopni URL aplikacije?",
     "confirm_change_maindomain": "Ste prepričani da želite spremeniti glavno domeno?",
@@ -105,7 +104,6 @@
     "disable": "Onemogoči",
     "disabled": "Onemogočeno",
     "domain": {
-        "config": {},
         "dns": {
             "auto_config": "Avtomatska DNS konfiguracija zapisov",
             "auto_config_ignored": "ni upoštevano, YunoHost tega ne bo spremenil razen če pregledaš možnosti prepisa",
