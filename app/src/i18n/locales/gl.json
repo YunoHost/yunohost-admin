@@ -56,7 +56,6 @@
     "confirm_change_maindomain": "Tes a certeza de querer cambiar o dominio principal?",
     "confirm_app_change_url": "Tes a certeza de querer cambiar o URL de acceso á app?",
     "configuration": "Configuración",
-    "common": {},
     "close": "Pechar",
     "check": "Comprobar",
     "catalog": "Catálogo",
@@ -184,7 +183,6 @@
     "hook_conf_ldap": "Base de datos de usuarias",
     "home": "Inicio",
     "history": {
-        "methods": {},
         "last_action": "Última acción:",
         "title": "Historial",
         "is_empty": "Por agora non hai nada no historial.",
@@ -373,7 +371,6 @@
     "users_import_delete_others": "Eliminar usuarias de fóra da lista",
     "yunohost_admin": "Admin YunoHost",
     "domain": {
-        "config": {},
         "dns": {
             "auto_config": "Configuración automática dos rexistros DNS",
             "auto_config_ignored": "ignorado, YunoHost non o cambiará a menos que marques a opción de sobrescritura",
@@ -384,8 +381,7 @@
             "push": "Enviar rexistros DNS á rexistradora",
             "push_force": "Sobrescribir rexistros existentes",
             "push_force_warning": "Semella que algúns rexistros DNS que YunoHost querería configurar xa están establecidos na configuración. Podes usar a sobrescritura se sabes o que estás a facer.",
-            "push_force_confirm": "Tes a certeza de querer forzar a sobrescritura dos rexistros suxeridos? Ten en conta que poderías sobrescribir rexistros por defecto ou manuais establecidos na rexistradora.",
-            "methods": {}
+            "push_force_confirm": "Tes a certeza de querer forzar a sobrescritura dos rexistros suxeridos? Ten en conta que poderías sobrescribir rexistros por defecto ou manuais establecidos na rexistradora."
         },
         "cert": {
             "types": {
@@ -441,7 +437,6 @@
         "open_this_app": "Abrir esta app",
         "antifeatures": "Esta app ten características que poderían non gustarche:",
         "doc": {
-            "about": {},
             "admin": {
                 "title": "Doc Admin"
             },
