@@ -251,7 +251,6 @@
         "items": "Nessun elemento | elemento | elementi"
     },
     "history": {
-        "methods": {},
         "last_action": "Ultima azione:",
         "title": "Cronologia",
         "is_empty": "Nessuno storico per ora."
@@ -290,7 +289,6 @@
     "domain_add_dyndns_forbidden": "Hai già registrato/sottoscritto un dominio DynDNS dal progetto YunoHost. Quest’opzione è intenzionalmente limitata a un solo dominio di questo genere per ciascun server. Se vuoi aggiungere un sottodominio al tuo dominio già sottoscritto, usa l’opzione “Aggiungi un dominio o un sottodominio che possiedo” qui sopra. Se vuoi usare un dominio completamente differente, dovresti prima rimuovere il tuo dominio DynDNS esistente. I domini DynDNS sono un’ottima possibilità per esordire nel self-hosting, ma nel medio/lungo termine raccomandiamo di acquistare il proprio nome dominio, per averne un controllo completo.",
     "disabled": "Disabilitato",
     "day_validity": " Scaduto | 1 giorno | {count} giorni",
-    "common": {},
     "app_show_categories": "Mostra categorie",
     "app_choose_category": "Scegli una categoria",
     "api_waiting": "Aspetto la risposta del server…",
@@ -357,7 +355,6 @@
     "confirm_group_add_access_permission": "Sei sicuro di voler concedere l'accesso {perm} a {name}? Questo accesso aumenta significativamente la superficie di attacco nel caso {name} fosse una persona malevola. Dovresti effettuare quest'azione solo se hai FIDUCIA in questa persona/gruppo.",
     "app_install_parameters": "Parametri installazione",
     "domain": {
-        "config": {},
         "dns": {
             "push": "Invia records DNS al registrar",
             "push_force": "Sovrascivi records esistenti",
@@ -368,8 +365,7 @@
             "auto_config_zone": "Zona DNS corrente",
             "manual_config": "Records DNS suggeriti per la configurazione manuale",
             "info": "La configurazione automatica dei records DNS e una funzione sperimentale. <br>Considera il salvataggio della tua zona DNS corrente dall'interfaccia del tuo registrar DNS prima di impostare records da qui.",
-            "push_force_warning": "Sembra che alcuni records DNS che YunoHost avrebbe impostato, sono già presenti nella configurazione del registrar. Puoi usare l'opzione sovrascrivi se sai ciò che stai facendo.",
-            "methods": {}
+            "push_force_warning": "Sembra che alcuni records DNS che YunoHost avrebbe impostato, sono già presenti nella configurazione del registrar. Puoi usare l'opzione sovrascrivi se sai ciò che stai facendo."
         },
         "info": {
             "apps_on_domain": "App installate in questo dominio",
@@ -429,7 +425,6 @@
                 "post_upgrade": "Note post-aggiornamento",
                 "post_install": "Note post-installazione"
             },
-            "about": {},
             "admin": {
                 "title": "Documentazione admin"
             }
