@@ -98,13 +98,11 @@
     "history": {
         "title": "Historia",
         "last_action": "Azken eragiketa:",
-        "methods": {},
         "is_empty": "Historiarik ez oraingoz.",
         "check_logs": "Joan ekintzaren erregistroaren orrira.",
         "no_logs": "Ez dago erregistrorik eskuragarri.",
         "started_by": "{caller}(e)k abiarazi du"
     },
-    "common": {},
     "confirm_upnp_enable": "Ziur UPnP gaitu nahi duzula?",
     "group": "Taldea",
     "group_name": "Taldearen izena",
@@ -134,7 +132,6 @@
     "hook_conf_ynh_settings": "YunoHosten ezarpenak",
     "hook_conf_manually_modified_files": "Eskuz moldatutako ezarpenak",
     "domain": {
-        "config": {},
         "dns": {
             "auto_config_zone": "Oraingo DNS gunea",
             "info": "DNS erregistroen konfigurazio automatikoa funtzio esperimentala da. <br>Une honetan ageri diren DNS guneko xehetasunak gordetzea ondo legoke konfigurazio berria ezarri baino lehen.",
@@ -145,8 +142,7 @@
             "auto_config": "DNS erregistroen konfigurazio automatikoa",
             "auto_config_ok": "Konfigurazio automatikoa zuzena dela dirudi!",
             "push_force_confirm": "Ziur proposatutako DNS balioak bidali nahi dituzula? Kontuan izan honek erregistro-enpresak ezarritako balioak edota bestelako balioak ordezkatu ditzakeela.",
-            "auto_config_ignored": "Ez da kontuan hartu, YunoHostek ez du aldatuko gainean idazteko aukera sakatzen ez baduzu",
-            "methods": {}
+            "auto_config_ignored": "Ez da kontuan hartu, YunoHostek ez du aldatuko gainean idazteko aukera sakatzen ez baduzu"
         },
         "cert": {
             "types": {
@@ -441,7 +437,6 @@
         "open_this_app": "Ireki aplikazioa",
         "antifeatures": "Aplikazio honek gogoko izan ez ditzakezun ezaugarriak ditu:",
         "doc": {
-            "about": {},
             "admin": {
                 "title": "Administratzaile dokumentazioa"
             },
