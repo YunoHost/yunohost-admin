@@ -62,7 +62,6 @@
     "cancel": "Batal",
     "catalog": "Katalog",
     "close": "Tutup",
-    "common": {},
     "configuration": "Konfigurasi",
     "confirm_change_maindomain": "Apakah Anda yakin ingin mengubah domain utama?",
     "confirm_delete": "Apakah Anda yakin ingin menghapus {name}?",
@@ -186,11 +185,9 @@
     "history": {
         "is_empty": "Tidak ada apapun di riwayat saat ini.",
         "last_action": "Tindakan terakhir:",
-        "methods": {},
         "title": "Riwayat"
     },
     "domain": {
-        "config": {},
         "cert": {
             "types": {
                 "selfsigned": "Disertifikasi sendiri",
@@ -209,7 +206,6 @@
             "auto_config": "Konfigurasi rekaman DNS otomatis",
             "auto_config_ignored": "diabaikan, tidak akan diubah oleh YunoHost kecuali Anda mencentang opsi timpa",
             "auto_config_zone": "Zona DNS saat ini",
-            "methods": {},
             "manual_config": "DNS yang disarankan untuk konfigurasi manual",
             "push_force_confirm": "Apakah Anda yakin ingin mengirim paksa semua rekaman DNS ini? Perlu diketahui bahwa itu bisa menimpa konfigurasi rekaman atau rekaman baku yang sudah diatur oleh Anda atau registrar Anda.",
             "info": "Konfigurasi rekaman DNS otomatis merupakan fitur eksperimental. <br>Disarankan untuk menyimpan zona DNS Anda saat ini dari registrar DNS Anda sebelum mengirim rekaman dari sini.",
@@ -352,7 +348,6 @@
         "open_this_app": "Buka aplikasi ini",
         "antifeatures": "Aplikasi ini memiliki fitur yang mungkin Anda tidak suka:",
         "doc": {
-            "about": {},
             "admin": {
                 "title": "Dokumentasi admin"
             },
