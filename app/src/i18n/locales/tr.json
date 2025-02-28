@@ -62,7 +62,6 @@
         "help": "Yardım gerekiyor mu?"
     },
     "history": {
-        "methods": {},
         "title": "Geçmiş",
         "is_empty": "Şu an geçmişte hiçbir şey yok.",
         "last_action": "Son eylem:"
@@ -83,7 +82,6 @@
     },
     "run_first_diagnosis": "İlk tanılamayı çalıştır",
     "begin": "Başla",
-    "common": {},
     "applications": "Uygulamalar",
     "confirm_upnp_disable": "UPnP'yi devre dışı bırakmak istediğinizden emin misiniz?",
     "custom_app_install": "Özel uygulama yükleyin",
@@ -126,7 +124,6 @@
     "others": "Diğer",
     "logs_suboperations": "Alt operasyonlar",
     "domain": {
-        "config": {},
         "dns": {
             "auto_config_ignored": "yoksayılır, üzerine yazma seçeneğini işaretlemediğiniz sürece YunoHost tarafından değiştirilmez",
             "auto_config_ok": "Otomatik yapılandırma sorunsuz görünüyor!",
@@ -137,8 +134,7 @@
             "auto_config_zone": "Geçerli DNS bölgesi",
             "info": "Otomatik DNS kayıtları yapılandırması deneysel bir özelliktir. <br>Kayıtları buradan göndermeden önce, mevcut DNS bölgenizi DNS kayıt operatörünüzün arayüzünden kaydetmeyi düşünün.",
             "manual_config": "Manuel yapılandırma için önerilen DNS kayıtları",
-            "push_force_warning": "YunoHost'un ayarladığı bazı DNS kayıtları, kayıt operatörü yapılandırmasında zaten var gibi görünüyor. Ne yaptığınızı biliyorsanız, üzerine yazma seçeneğini kullanabilirsiniz.",
-            "methods": {}
+            "push_force_warning": "YunoHost'un ayarladığı bazı DNS kayıtları, kayıt operatörü yapılandırmasında zaten var gibi görünüyor. Ne yaptığınızı biliyorsanız, üzerine yazma seçeneğini kullanabilirsiniz."
         },
         "cert": {
             "types": {
@@ -442,7 +438,6 @@
         "open_this_app": "Bu uygulamayı başlat",
         "antifeatures": "Bu uygulama sevemeyeceğiniz bazı özellikler içerir:",
         "doc": {
-            "about": {},
             "admin": {
                 "title": "Yönetici belgelendirmesi"
             },
