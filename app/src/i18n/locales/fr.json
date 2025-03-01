@@ -553,5 +553,10 @@
     "loading": "Chargement",
     "quick_action": "Ajout rapide",
     "confirm_firewall_close": "Êtes-vous sûr de vouloir fermer le port {port} pour le protocole {protocol} ?",
-    "confirm_firewall_open": "Êtes-vous sûr de vouloir ouvrir le port {port} pour le protocole {protocol} ?"
+    "confirm_firewall_open": "Êtes-vous sûr de vouloir ouvrir le port {port} pour le protocole {protocol} ?",
+    "confirm_app_force_upgrade": "Êtes-vous sûr de vouloir forcer la mise à jour de cette application ?",
+    "hook_data_multimedia": "Données multimédias",
+    "hook_data_multimedia_desc": "Fichiers multimédias situés dans `/home/yunohost.multimedia`",
+    "stopped": "stopper",
+    "failed": "Échec"
 }
