@@ -84,7 +84,7 @@
     "disabled": "Desactivado",
     "disable": "Desactivar",
     "run_first_diagnosis": "Executar diagnóstico inicial",
-    "diagnosis_explanation": "A ferramenta de diagnóstico intentará identificar problemas habituais en diferentes ámbitos do teu servidor para asegurarse de que todo funciona como debe. O diagnóstico realízase automáticamente un par de veces ao día e envíase un email á usuaria administradora se aparecen problemas. Ten en conta que algúns test poderían non ser relevantes se non utilizas dito servizo (por exemplo XMPP) ou poderían fallar se realizas unha configuración moi complexa. Nestos casos, e se sabes o que estás a facer, podes ignorar estos avisos ou problemas.",
+    "diagnosis_explanation": "A ferramenta de diagnóstico intentará identificar problemas habituais en diferentes ámbitos do teu servidor para asegurarse de que todo funciona como debe. O diagnóstico realízase automáticamente un par de veces ao día e envíase un email á usuaria administradora se aparecen problemas. Ten en conta que algúns test poderían non ser relevantes se non utilizas dito servizo (por exemplo o correo electrónico) ou poderían fallar se realizas unha configuración moi complexa. Nestos casos, e se sabes o que estás a facer, podes ignorar estos avisos ou problemas.",
     "diagnosis_first_run": "A ferramenta de diagnóstico intentará identificar problemas habituais en diferentes ámbitos do teu servidor para ter a certeza de que todo funciona como debe. Non te preocupes se ves moitos erros cando finalizas a configuración do servidor: para iso está a ferramenta, para axudarche a identificar os problemas e guiarte coa solución. O diagnóstico realízase automáticamente un par de veces ao día e envíase un email á usuaria administradora se atopa problemas.",
     "diagnosis": "Diagnóstico",
     "domain_dns_conf_is_just_a_recommendation": "Esta sección amósache a configuración *recomendada*. *Non configura* os rexistros DNS por ti. É responsabilidade túa configurar as zonas DNS seguindo esta recomendación na web da empresa onde rexistraches o dominio.",
@@ -331,7 +331,7 @@
     "tools_reboot_btn": "Reiniciar",
     "tools_reboot": "Reinicia o servidor",
     "tools": "Ferramentas",
-    "tip_about_user_email": "As usuarias créanse cun enderezo de email asociado (e conta XMPP) co formato usuaria{'@'}dominio.tld. Alias de email adicionais e reenvíos de email pódense engadir posteriormente por parte da administración e a usuaria.",
+    "tip_about_user_email": "As usuarias créanse cun enderezo de email asociado co formato usuaria{'@'}dominio.tld. Alias de email adicionais e reenvíos de email pódense engadir posteriormente por parte da administración e a usuaria.",
     "tcp": "TCP",
     "system_upgrade_all_packages_btn": "Actualizar todos os paquetes",
     "system_upgrade_all_applications_btn": "Actualizar tódalas aplicacións",
@@ -553,5 +553,10 @@
     "quick_action": "Acción rápida",
     "install_app": "Instalar unha app",
     "confirm_firewall_open": "Tes certeza de querer abrir o porto {port} para o protocolo {protocol}?",
-    "confirm_firewall_close": "Tes certeza de querer pechar o porto {port} para o protocolo {protocol}?"
+    "confirm_firewall_close": "Tes certeza de querer pechar o porto {port} para o protocolo {protocol}?",
+    "confirm_app_force_upgrade": "Tes certeza de querer forzar a actualización desta app?",
+    "failed": "Fallou",
+    "hook_data_multimedia": "Datos multimedia",
+    "hook_data_multimedia_desc": "Os ficheiros multimedia están en /home/yunohost.multimedia",
+    "stopped": "Detida"
 }
