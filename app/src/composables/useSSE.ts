@@ -4,6 +4,7 @@ import { computed, ref } from 'vue'
 import { STATUS_VARIANT, isOkStatus } from '@/helpers/yunohostArguments'
 import type { StateStatus } from '@/types/commons'
 import { useAutoToast } from './useAutoToast'
+import { useInfos } from './useInfos'
 import type { APIRequest, APIRequestAction, RequestCaller } from './useRequests'
 import { useRequests } from './useRequests'
 
@@ -81,6 +82,7 @@ export const useSSE = createGlobalState(() => {
   const reconnectionArgs = ref<ReconnectionArgs | null>(null)
   const reconnectTimeout = ref<number | undefined>()
   const { startRequest, endRequest, historyList } = useRequests()
+  const { debug } = useInfos()
   const nonOperationWithLock = ref<APIRequestAction | null>(null)
 
   const reconnecting = computed(() =>
@@ -108,9 +110,11 @@ export const useSSE = createGlobalState(() => {
         fn: (data: T) => void,
       ) {
         sse.addEventListener(name, (e) => {
+          const data = JSON.parse(e.data)
+          if (debug.value) console.debug(`SSE msg: ${name}`, data)
           // The server sends at least heartbeats every 10s, try to reconnect if we loose connection
           tryToReconnect({ initialDelay: 15000, origin: 'unknown' })
-          fn({ type: name, ...JSON.parse(e.data) })
+          fn({ type: name, ...data })
         })
       }
 

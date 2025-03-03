@@ -41,6 +41,10 @@ You can also install [Vue Devtools](https://addons.mozilla.org/fr/firefox/addon/
 
 On a YunoHost instance, the web admin files are located at `/usr/share/yunohost/admin`.
 
+### Debugging
+
+To log SSE messages, type `localStorage.setItem('debug', true)` in the console and reload the page. Type `localStorage.removeItem('debug')` to deactivate it.
+
 ### Translation maintenance
 
 #### Cleaning
