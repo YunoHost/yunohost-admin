@@ -8,7 +8,7 @@ import { type APIError } from '@/api/errors'
 import ConfigPanelsComponent from '@/components/ConfigPanels.vue'
 import { formatConfigPanels, useConfigPanels } from '@/composables/configPanels'
 import { useAutoModal } from '@/composables/useAutoModal'
-import { isEmptyValue, joinOrNull, pick, toEntries } from '@/helpers/commons'
+import { isEmptyValue, joinOrNull, toEntries } from '@/helpers/commons'
 import { humanPermissionName } from '@/helpers/filters/human'
 import { formatI18nField } from '@/helpers/yunohostArguments'
 import type { Obj } from '@/types/commons'
@@ -32,7 +32,7 @@ const { t } = useI18n()
 const router = useRouter()
 const modalConfirm = useAutoModal()
 
-const [app, form, coreConfigData, appConfigData, configPanelErr] = await api
+const [app, coreConfigData, appConfigData, configPanelErr] = await api
   .fetchAll<[AppInfo, CoreConfigPanels, Obj<Permission>]>([
     { uri: `apps/${props.id}?full` },
     { uri: `apps/${props.id}/config?full&core` },
@@ -52,10 +52,6 @@ const [app, form, coreConfigData, appConfigData, configPanelErr] = await api
     }
 
     const { domain, path } = app_.settings
-    const form = ref({
-      labels: [] as { label: string; show_tile: boolean }[],
-      url: domain && path ? { domain, path: path.slice(1) } : undefined,
-    })
     const permissions = []
     for (const [name, perm] of toEntries(app_.permissions)) {
       const isMain = name.endsWith('.main')
@@ -67,16 +63,13 @@ const [app, form, coreConfigData, appConfigData, configPanelErr] = await api
         tileAvailable: !!perm.url && !perm.url.startsWith('re:'),
       }
       permissions.push(permission)
-      form.value.labels.push(pick(permission, ['label', 'show_tile']))
     }
 
     const { DESCRIPTION, ADMIN, ...doc } = app_.manifest.doc
     const notifs = app_.manifest.notifications
     // App may not have 'main' permission
-    const { label, allowed } = app_.permissions[props.id + '.main'] || {
-      label: app_.label || app_.id,
-      allowed: [],
-    }
+    const label =
+      app_.permissions[props.id + '.main']?.label || app_.label || app_.id
     const app = {
       id: props.id,
       version: app_.version,
@@ -123,13 +116,7 @@ const [app, form, coreConfigData, appConfigData, configPanelErr] = await api
       ),
     }
 
-    return [
-      app,
-      form,
-      coreConfigData,
-      appConfigData,
-      appConfigPanelErr,
-    ] as const
+    return [app, coreConfigData, appConfigData, appConfigPanelErr] as const
   })
 
 const coreConfig = useConfigPanels(
