@@ -38,6 +38,7 @@ function formatRoute({ params, args }: BreadcrumbRoutes) {
 export const useInfos = createGlobalState(() => {
   const router = useRouter()
 
+  const debug = useLocalStorage('debug', false)
   const host = ref(window.location.host)
   const installed = ref<boolean | undefined>()
   const connected = useLocalStorage('connected', false)
@@ -204,6 +205,7 @@ export const useInfos = createGlobalState(() => {
   }
 
   return {
+    debug,
     host,
     installed,
     connected,
