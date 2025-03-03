@@ -61,7 +61,7 @@ function onInput(key: 'localPart' | 'domain', value: string | null) {
     />
   </BInputGroup>
 
-   <!--
+  <!--
     i18n: address.domain_description.domain
     i18n: address.domain_description.email
     i18n: address.local_part_description.domain

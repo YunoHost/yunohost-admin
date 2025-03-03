@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, toRefs } from 'vue'
+import { computed } from 'vue'
 
 import { useInfos } from '@/composables/useInfos'
 import type { APIRequest } from '@/composables/useRequests'
@@ -15,7 +15,7 @@ const emit = defineEmits<{ showError: [id: string] }>()
 const { currentUser } = useInfos()
 const statusVariant = computed(() => STATUS_VARIANT[props.request.status])
 const errors = computed(() => props.request.action?.errors)
-const warnings = computed(() => props.request.action?.warnings);
+const warnings = computed(() => props.request.action?.warnings)
 
 const dateOrTime = computed(() => {
   // returns date if date < today else time
@@ -33,7 +33,6 @@ const caller = computed(() => {
 
 <template>
   <div class="query-header d-flex align-items-center w-100">
-
     <!--
     i18n: api.query_status.error
     i18n: api.query_status.pending

@@ -111,7 +111,7 @@ function shareLogs() {
       >
         <BCol md="3" xl="2">
           <strong>
-              <!--
+            <!--
               i18n: service_start_on_boot
               i18n: configuration
               i18n: status
@@ -139,7 +139,7 @@ function shareLogs() {
             v-else-if="key === 'start_on_boot'"
             :class="value === 'enabled' ? 'text-success' : 'text-danger'"
           >
-              <!--
+            <!--
               i18n: enabled
               i18n: disabled
               i18n: unknown

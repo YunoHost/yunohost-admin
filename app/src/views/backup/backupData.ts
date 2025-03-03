@@ -27,7 +27,6 @@ export function formatBackupSystem(
       : system.map((key) => [key])
   ) as [BackupHookKeys, number | undefined][]
   return infos.reduce((data, [key, size]) => {
-
     /*
     Obtained via 'yunohost hook list backup'
     i18n: hook_conf_ldap

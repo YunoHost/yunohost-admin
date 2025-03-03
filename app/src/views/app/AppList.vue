@@ -8,9 +8,7 @@ const apps = await api
   .then(({ apps }) => {
     return apps
       .map(({ id, name, description, manifest, logo }) => {
-        const logoUrl = logo
-          ? `./applogos/${logo}.png`
-          : undefined
+        const logoUrl = logo ? `./applogos/${logo}.png` : undefined
         return { id, name: manifest.name, label: name, description, logoUrl }
       })
       .sort((prev, app) => {

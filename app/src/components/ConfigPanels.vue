@@ -43,16 +43,16 @@ const cardProps = computed(() => {
 <template>
   <CardForm
     v-bind="cardProps"
-    :key="panel.id"
     :id="`panel-${panel.id}`"
+    :key="panel.id"
     v-model="modelValue"
     :fields="panel.fields"
     :no-footer="!panel.hasApplyButton"
     :sections="panel.sections"
     :validations="validations"
+    class="config-panel"
     @submit="emit('apply')"
     @action="emit('apply', $event)"
-    class="config-panel"
   >
     <template v-if="routes.length > 1" #header>
       <BCardHeader tag="nav">
