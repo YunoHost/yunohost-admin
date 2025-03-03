@@ -60,17 +60,20 @@ export function formatBackupSystem(
 }
 
 export function parseBackupForm(selected: string[], system: BackupSystem) {
-  const data = { apps: [], system: [] } as { apps: string[]; system: string[] }
+  const data = { apps: [], system: [] } as {
+    apps?: string[]
+    system?: string[]
+  }
   for (const key of selected) {
     if (key in system) {
-      data.system.push(...system[key as keyof typeof system].value)
+      data.system!.push(...system[key as keyof typeof system].value)
     } else {
-      data.apps.push(key)
+      data.apps!.push(key)
     }
   }
 
-  if (!data.apps.length) delete data.apps
-  if (!data.system.length) delete data.system
+  if (!data.apps!.length) delete data.apps
+  if (!data.system!.length) delete data.system
 
   return data
 }
