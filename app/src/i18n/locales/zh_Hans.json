@@ -52,7 +52,6 @@
     "hook_conf_ldap": "用户数据库",
     "home": "主页",
     "history": {
-        "methods": {},
         "title": "历史记录",
         "last_action": "上次操作：",
         "is_empty": "暂无历史记录。",
@@ -112,7 +111,6 @@
     "delete": "删除",
     "custom_app_install": "安装自定义应用",
     "confirm_app_change_url": "您确定要更改应用访问网址吗？",
-    "common": {},
     "api_waiting": "正在等待服务器的响应…",
     "address": {
         "domain_description": {
@@ -362,7 +360,6 @@
     "items_verbose_count": "这里{items}。 | 有 1 个{items}。 | 共有{items}。",
     "confirm_group_add_access_permission": "您确定要授予 {name} 对 {perm} 的访问权限吗？如果 {name} 碰巧是一个恶意的人，此类访问权限会显著增加攻击面。只有当您信任此人/群组时，您才应该这样做。",
     "domain": {
-        "config": {},
         "dns": {
             "push_force_confirm": "您确定要强制推送所有推荐的 DNS 记录吗？请注意，它可能会覆盖您或您的注册商设置的手动配置或重要默认记录。",
             "push_force_warning": "看起来 YunoHost 要设置的一些 DNS 记录已经在注册商配置中了。如果您知道自己在做什么，则可以使用覆盖选项。",
@@ -373,8 +370,7 @@
             "info": "自动 DNS 记录配置是一项实验性功能。 <br>在从此处推送记录之前，请考虑从您的 DNS 注册商界面保存您当前的 DNS 区域。",
             "manual_config": "推荐手动配置的 DNS 记录",
             "push": "将 DNS 记录推送到注册商",
-            "push_force": "覆盖现有记录",
-            "methods": {}
+            "push_force": "覆盖现有记录"
         },
         "cert": {
             "types": {
@@ -418,7 +414,6 @@
     "app_state_broken_explanation": "根据 YunoHost 的自动测试，此应用目前已损坏且无法安装",
     "app": {
         "doc": {
-            "about": {},
             "admin": {
                 "title": "管理文档"
             },

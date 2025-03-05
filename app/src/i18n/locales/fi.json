@@ -60,7 +60,6 @@
     "confirm_change_maindomain": "Haluatko varmasti vaihtaa pääverkkotunnuksen?",
     "confirm_app_change_url": "Haluatko varmasti vaihtaa sovelluksen URL-Osoitten?",
     "configuration": "Kokoonpano",
-    "common": {},
     "close": "Sulje",
     "check": "Tarkista",
     "catalog": "Luettelo",
@@ -151,8 +150,7 @@
     "history": {
         "is_empty": "Historiassa ei ole vielä mitään.",
         "title": "Historia",
-        "last_action": "Viimeisin toimenpide:",
-        "methods": {}
+        "last_action": "Viimeisin toimenpide:"
     },
     "home": "Koti",
     "hook_data_home_desc": "Käyttäjätiedot jotka ovat kansiossa /home/KÄYTTÄJÄ",
@@ -276,7 +274,6 @@
     "purge_user_data_checkbox": "Puhdista käyttäjän {name} tiedot? (Tämä poistaa hänen tiedostot koti ja sähköposti kansioistaan.)",
     "purge_user_data_warning": "Käyttäjän datan puhdistamista ei voi perus. Varmista, että tiedät mitä teet!",
     "domain": {
-        "config": {},
         "dns": {
             "auto_config": "Automaattinen DNS-tietueiden määritys",
             "auto_config_ignored": "jätetään huomiotta, YunoHost ei muuta niitä, ellet tarkista ylikirjoitusvaihtoehtoa",

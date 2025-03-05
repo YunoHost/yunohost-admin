@@ -207,9 +207,9 @@
     "group_explain_visitors_needed_for_external_client": "Veillez à ce que certaines applications soient autorisées pour les visiteurs si vous avez l'intention de les utiliser avec des clients externes. Par exemple, c'est le cas pour Nextcloud si vous souhaitez utiliser un client de synchronisation sur votre smartphone ou ordinateur de bureau.",
     "issues": "{count} problèmes",
     "operation_failed_explanation": "L'opération a échoué ! Veuillez-nous excuser pour ça :( Vous pouvez essayer de <a href='https://yunohost.org/help'>demander de l'aide</a>. Merci de fournir *le log complet* de l'opération pour les personnes qui vont vous aider. Vous pouvez cliquer sur le bouton vert 'Partager avec Yunopaste'. Quand vous partagez les logs, YunoHost essaie automatiquement d'anonymiser les informations privées comme le nom de domaine et l'adresses IP.",
-    "diagnosis_explanation": "La fonctionnalité de diagnostic va tenter de trouver certains problèmes communs sur différents aspects de votre serveur pour être sûr que tout fonctionne normalement. Le diagnostic sera également effectué deux fois par jour et enverra un courriel au compte administrateur si des erreurs sont détectées. À noter que certains tests ne seront pas montrés si vous n'utilisez pas certaines fonctions spécifiques (XMPP, par exemple) ou s'ils échouent à cause d'une configuration trop complexe. Dans ce cas, et si vous savez ce que vous avez modifié, vous pouvez ignorer les problèmes et les avertissements correspondantes.",
+    "diagnosis_explanation": "La fonctionnalité de diagnostic va tenter de trouver certains problèmes communs sur différents aspects de votre serveur pour être sûr que tout fonctionne normalement. Le diagnostic sera également effectué deux fois par jour et enverra un courriel au compte administrateur si des erreurs sont détectées. À noter que certains tests ne seront pas montrés si vous n'utilisez pas certaines fonctions spécifiques (par exemple l'email) ou s'ils échouent à cause d'une configuration trop complexe. Dans ce cas, et si vous savez ce que vous avez modifié, vous pouvez ignorer les problèmes et les avertissements correspondantes.",
     "pending_migrations": "Il y a des migrations en attente d'exécution. Veuillez aller dans <a href='#/tools/migrations'>Outils > Migrations</a> pour les exécuter.",
-    "tip_about_user_email": "Les comptes sont créés avec une adresse email associée (et un compte XMPP) au format username{'@'}domain.tld. Des alias d'email et des transferts d'emails supplémentaires peuvent être ajoutés ultérieurement par les personnes administrant le serveur ainsi celles ayant accès au compte lui même.",
+    "tip_about_user_email": "Les comptes sont créés avec une adresse email associée au format username{'@'}domain.tld. Des alias d'email et des transferts d'emails supplémentaires peuvent être ajoutés ultérieurement par les personnes administrant le serveur ainsi celles ayant accès au compte lui même.",
     "logs_suboperations": "Sous-opérations",
     "permission_main": "Label principal",
     "user_emailforward_add": "Ajouter une adresse mail de redirection",
@@ -257,7 +257,6 @@
         "items": "aucun article | article | articles"
     },
     "history": {
-        "methods": {},
         "last_action": "Dernière action :",
         "title": "Historique",
         "is_empty": "Rien dans l'historique pour le moment.",
@@ -299,7 +298,6 @@
     "domain_add_dyndns_forbidden": "Vous avez déjà enregistré/souscrit à un domaine DynDNS du projet YunoHost. Par conception, cette fonctionnalité est limitée à un seul domaine de ce type par serveur. Si vous souhaitez utiliser un sous-domaine de votre domaine déjà souscrit, veuillez utiliser l'option 'Ajouter un domaine que je possède, ou un sous-domaine' ci-dessus. Si vous souhaitez utiliser un domaine complètement différent, vous devez d'abord supprimer votre domaine DynDNS existant. Les domaines DynDNS sont utiles pour débuter avec l'auto-hébergement, mais à moyen/long terme, nous recommandons d'acheter votre propre nom de domaine auprès d'un registrar/prestataire afin d'avoir la pleine propriété de votre domaine.",
     "disabled": "Désactivé",
     "day_validity": " Expiré | 1 jour | {count} jours",
-    "common": {},
     "cancel": "Annuler",
     "app_show_categories": "Afficher les catégories",
     "app_choose_category": "Choisissez une catégorie",
@@ -374,7 +372,6 @@
     "users_import_csv_file_desc": "Le fichier CSV doit être au format UTF-8 et avec les colonnes nom de compte, mot de passe, groupes, email et quota. Pour un exemple d'importation de fichier CSV, vous pouvez <a href='/yunohost/api/users/export' target='_BLANK'>exporter vos comptes dans un fichier CSV</a> et modifier le fichier.",
     "yunohost_admin": "YunoHost Admin",
     "domain": {
-        "config": {},
         "dns": {
             "auto_config": "Configuration automatique des enregistrements DNS",
             "auto_config_ok": "La configuration automatique semble être OK !",
@@ -385,8 +382,7 @@
             "push_force_warning": "Il semble que certains enregistrements DNS que YunoHost aurait définis soient déjà dans la configuration du registrar. Vous pouvez utiliser l'option d'écrasement si vous savez ce que vous faites.",
             "push_force_confirm": "Voulez-vous vraiment forcer tous les enregistrements DNS suggérés ? Sachez que cela peut écraser une configuration manuelle ou des enregistrements par défaut importants définis par vous ou votre registrar.",
             "auto_config_ignored": "ignoré, ne sera pas modifié par YunoHost sauf si vous cochez l'option d'écrasement",
-            "push": "Envoyer les enregistrements DNS vers le registrar",
-            "methods": {}
+            "push": "Envoyer les enregistrements DNS vers le registrar"
         },
         "cert": {
             "types": {
@@ -472,7 +468,6 @@
         "open_this_app": "Ouvrir l'application",
         "antifeatures": "Cette application a des fonctionnalités que vous n'aimerez peut-être pas :",
         "doc": {
-            "about": {},
             "admin": {
                 "title": "Documentation d'administration"
             },
@@ -558,5 +553,10 @@
     "loading": "Chargement",
     "quick_action": "Ajout rapide",
     "confirm_firewall_close": "Êtes-vous sûr de vouloir fermer le port {port} pour le protocole {protocol} ?",
-    "confirm_firewall_open": "Êtes-vous sûr de vouloir ouvrir le port {port} pour le protocole {protocol} ?"
+    "confirm_firewall_open": "Êtes-vous sûr de vouloir ouvrir le port {port} pour le protocole {protocol} ?",
+    "confirm_app_force_upgrade": "Êtes-vous sûr de vouloir forcer la mise à jour de cette application ?",
+    "hook_data_multimedia": "Données multimédias",
+    "hook_data_multimedia_desc": "Fichiers multimédias situés dans `/home/yunohost.multimedia`",
+    "stopped": "Stoppé",
+    "failed": "Échec"
 }

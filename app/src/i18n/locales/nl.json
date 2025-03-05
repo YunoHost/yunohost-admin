@@ -165,7 +165,6 @@
     },
     "cancel": "Annuleren",
     "confirm_group_add_access_permission": "Weet je zeker dat je toegang tot {perm} wilt verlenen aan {name}? Een dergelijke toegang vergroot het aanvalsoppervlak aanzienlijk, als {name} kwade bedoelingen heeft. Doe het alleen als je deze persoon of groep VERTROUWD.",
-    "common": {},
     "configuration": "Configuratie",
     "catalog": "Catalogus",
     "confirm_service_restart": "Weet u zeker dat u {name} wilt herstarten?",
@@ -178,7 +177,6 @@
     "day_validity": " Verlopen sinds | 1 dag | {count} dagen",
     "error": "Fout",
     "domain": {
-        "config": {},
         "dns": {
             "auto_config": "Automatische DNS-record-inrichting",
             "push_force_warning": "Het lijkt er op dat sommige van de door Yunohost voorgestelde DNS-records al beschikbaar zijn in de registrar-inrichting. Je kan de 'overschrijven'-optie gebruiken als je zeker bent van je zaak.",
@@ -189,8 +187,7 @@
             "push": "Stuurd de DNS-records door naar de registrar",
             "push_force": "Bestaande records overschrijven",
             "push_force_confirm": "Weet je zeker dat je alle voorgestelde DNS-records geforceerd wilt doorsturen? Houd er rekening mee dat dit handmatig ingestelde records of belangrijke standaardrecords die door je registrar zijn ingesteld, kan overschrijven.",
-            "info": "De automatische DNS-record-inrichting is een experimentele functie. <br>Overweeg je huidige DNS zone op te slaan in de omgeving van je DNS-registratie voor je de inrichting vanuit hier door laat sturen.",
-            "methods": {}
+            "info": "De automatische DNS-record-inrichting is een experimentele functie. <br>Overweeg je huidige DNS zone op te slaan in de omgeving van je DNS-registratie voor je de inrichting vanuit hier door laat sturen."
         },
         "info": {
             "certificate_authority": "SSL certificaat authoriteit",
@@ -297,7 +294,6 @@
                 "post_install": "Post-install opmerkingen",
                 "post_upgrade": "Post-upgrade opmerkingen"
             },
-            "about": {},
             "admin": {
                 "title": "Documentatie voor beheerders"
             }
@@ -364,7 +360,6 @@
     "history": {
         "title": "Geschiedenis",
         "last_action": "Laatste actie:",
-        "methods": {},
         "is_empty": "Niets in geschiedenis op dit moment."
     },
     "items": {

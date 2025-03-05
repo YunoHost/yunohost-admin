@@ -285,7 +285,6 @@
     "enabled": "Activado",
     "disabled": "Desactivado",
     "day_validity": " Expirado hace | 1 día | {count} días",
-    "common": {},
     "app_show_categories": "Mostrar categorías",
     "app_install_parameters": "Instalar la configuración",
     "app_choose_category": "Elige una categoría",
@@ -338,7 +337,6 @@
     "tools_webadmin_settings": "Parámetros de la administración web",
     "traceback": "Rastrear",
     "domain": {
-        "config": {},
         "dns": {
             "auto_config": "Configuración automática de las entradas DNS",
             "auto_config_ignored": "ignorado, no será modificado por YunoHost a menos que especifiques la opción sobrescribir",
@@ -349,8 +347,7 @@
             "push_force": "Sobrescribir registros actuales",
             "push_force_confirm": "¿Seguro que quieres forzar la publicación de los registros DNS recomendados? Ten en cuenta que puede sobrescribir registros por defecto o importantes configurados por tu registrador.",
             "push_force_warning": "Parece que algunos registros DNS de YunoHost ya se encuentran en la configuración del registrador. Puedes usar la opción sobrescribir si sabes lo que haces.",
-            "info": "La configuración automática DNS es una función experimental.<br> Plantéate guardar tu zona DNS actual desde la interfaz DNS de tu registrador antes de publicar cambios desde aquí.",
-            "methods": {}
+            "info": "La configuración automática DNS es una función experimental.<br> Plantéate guardar tu zona DNS actual desde la interfaz DNS de tu registrador antes de publicar cambios desde aquí."
         },
         "cert": {
             "types": {
@@ -390,7 +387,6 @@
     },
     "domain_dns_push_failed_to_authenticate": "No se pudo autenticar en la API del registrador. ¿Es probable que las <a href='#/domains/{domain}/config'>credenciales</a> sean incorrectas? (Error: {error})",
     "history": {
-        "methods": {},
         "is_empty": "El histórico se encuentra vacío.",
         "title": "Histórico",
         "last_action": "Última acción:"
@@ -433,7 +429,6 @@
         "open_this_app": "Abrir esta aplicación",
         "antifeatures": "Esta aplicación tiene características que pueden no gustarte:",
         "doc": {
-            "about": {},
             "notifications": {
                 "post_upgrade": "Notas tras la actualización",
                 "post_install": "Notas post-instalación",
