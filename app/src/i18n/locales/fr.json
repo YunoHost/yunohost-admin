@@ -557,6 +557,6 @@
     "confirm_app_force_upgrade": "Êtes-vous sûr de vouloir forcer la mise à jour de cette application ?",
     "hook_data_multimedia": "Données multimédias",
     "hook_data_multimedia_desc": "Fichiers multimédias situés dans `/home/yunohost.multimedia`",
-    "stopped": "stopper",
+    "stopped": "Stoppé",
     "failed": "Échec"
 }
