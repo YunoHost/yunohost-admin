@@ -1,3 +1,14 @@
+yunohost-admin (12.1.1) testing; urgency=low
+
+  - Cleanups (75b924d5, 3b1246ba, 3b15c3cf)
+  - Move group/perms link to home directly ([#609](http://github.com/YunoHost/yunohost-admin/pull/609))
+  - Add `debug` option to log sse msg ([#622](http://github.com/YunoHost/yunohost-admin/pull/622))
+  - i18n: Translations updated (most of it because of previous cleanup of unused strings) for Arabic, Basque, Catalan, Chinese (Simplified), Czech, Dutch, Finnish, French, Galician, German, Indonesian, Italian, Japanese, Occitan, Persian, Polish, Portuguese, Russian, Slovak, Slovenian, Spanish, Turkish, Ukrainian
+
+  Thanks to all contributors <3 ! (Anonymous, axolotle, Éric Gaspar, José M, ppr, xabirequejo)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Wed, 05 Mar 2025 18:13:55 +0100
+
 yunohost-admin (12.1.0) testing; urgency=low
 
   - New "SSE" API to streaming/broadcasting logs of the current action ([#603](http://github.com/YunoHost/yunohost-admin/pull/603))
