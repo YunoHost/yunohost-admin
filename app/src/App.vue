@@ -57,8 +57,14 @@ onMounted(() => {
     }
   })
 
-  // April fools easter egg ;)
   const today = new Date()
+
+  // International Transgender Day of Visibility ;)
+   if (today.getDate() === 31 && today.getMonth() + 1 === 3) {
+    spinner.value = 'transcat'
+  }
+
+  // April fools easter egg ;)
   if (today.getDate() === 1 && today.getMonth() + 1 === 4) {
     spinner.value = 'magikarp'
   }
