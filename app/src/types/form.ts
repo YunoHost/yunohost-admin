@@ -101,6 +101,7 @@ export type InputItemProps = BaseWritableItemProps & {
   // pattern?: object
   // choices?: Choices FIXME rm ?
   spellcheck?: 'true' | 'false'
+  autofocus?: ''
   step?: number
   trim?: boolean
   type?:

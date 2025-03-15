@@ -37,6 +37,7 @@ const fields = {
       autocomplete: 'username',
       autocapitalize: 'off',
       spellcheck: 'false',
+      autofocus: '',
     },
   } satisfies FieldProps<'InputItem', Form['username']>,
 

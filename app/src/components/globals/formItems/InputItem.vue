@@ -21,6 +21,7 @@ const props = withDefaults(
     trim: true,
     type: 'text',
     spellcheck: undefined,
+    autofocus: undefined,
 
     ariaDescribedby: undefined,
     state: undefined,
@@ -74,6 +75,7 @@ const fromValidation = computed(() => {
     :aria-describedby="ariaDescribedby"
     :state="state"
     :spellcheck="spellcheck"
+    :autofocus="autofocus"
     :disabled="disabled"
     @blur="touch?.(touchKey)"
   />
