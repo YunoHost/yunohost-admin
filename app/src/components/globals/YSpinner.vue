@@ -124,5 +124,32 @@ const { spinner } = useSettings()
       }
     }
   }
+
+  &.transcat {
+    height: 40px;
+    width: 65px;
+    background-image: url('../../assets/spinners/transcat.gif');
+    animation-name: back-and-forth-transcat;
+
+    @keyframes back-and-forth-transcat {
+      0%,
+      100% {
+        transform: scale(1, 1);
+        margin-left: 0;
+      }
+      49% {
+        transform: scale(1, 1);
+        margin-left: calc(100% - 100px);
+      }
+      50% {
+        transform: scale(-1, 1);
+        margin-left: calc(100% - 100px);
+      }
+      99% {
+        transform: scale(-1, 1);
+        margin-left: 0;
+      }
+    }
+  }
 }
 </style>
