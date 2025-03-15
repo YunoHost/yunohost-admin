@@ -21,6 +21,7 @@ const props = withDefaults(
     trim: true,
     type: 'text',
     spellcheck: undefined,
+    autofocus: undefined,
 
     ariaDescribedby: undefined,
     state: undefined,
