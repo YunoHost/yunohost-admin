@@ -1,4 +1,13 @@
-yunohost-admin (12.0.5) stable; urgency=low
+yunohost-admin (12.0.6) stable; urgency=low
+
+  - Easteregg spinner for trans day? ([#625](http://github.com/YunoHost/yunohost-admin/pull/625))
+  - [i18n] Translations updated for Arabic, Basque, Catalan, Chinese (Simplified), Czech, Dutch, Finnish, French, Galician, German, Indonesian, Italian, Japanese, Occitan, Persian, Polish, Portuguese, Russian, Slovak, Slovenian, Spanish, Turkish, Ukrainian
+
+  Thanks to all contributors <3 ! (Alexandre Aubin, Anonymous, Axolotle, Furkan Samed Acet, Félix Piédallu, José M, OniriCorpe, Poesty Li, Tagada, Tommi, axolotle, dependabot[bot], orhtej2, ppr, xabirequejo, Éric Gaspar)
+
+ -- tituspijean <tituspijean@yunohost.org>  Sun, 16 Mar 2025 11:32:50 +0100
+
+ yunohost-admin (12.0.5) stable; urgency=low
 
   - maintenance: general maintenance, update deps ([#601](http://github.com/YunoHost/yunohost-admin/pull/601),
   [#602](http://github.com/YunoHost/yunohost-admin/pull/602),
