@@ -1,4 +1,14 @@
-yunohost-admin (12.1.1) testing; urgency=low
+yunohost-admin (12.1.2) testing; urgency=low
+
+  - login: autofocus the username field on page load ([#626](http://github.com/YunoHost/yunohost-admin/pull/626))
+  - Easteregg spinner for trans day? ([#625](http://github.com/YunoHost/yunohost-admin/pull/625))
+  - [i18n] Translations updated for French, French) ([#624](http://github.com/YunoHost/yunohost-admin/pull/624))
+
+  Thanks to all contributors <3 ! (Alexandre Aubin, OniriCorpe, Tagada, Éric Gaspar)
+
+ -- tituspijean <tituspijean@yunohost.org>  Sun, 16 Mar 2025 11:58:20 +0100
+
+ yunohost-admin (12.1.1) testing; urgency=low
 
   - Cleanups (75b924d5, 3b1246ba, 3b15c3cf)
   - Move group/perms link to home directly ([#609](http://github.com/YunoHost/yunohost-admin/pull/609))
