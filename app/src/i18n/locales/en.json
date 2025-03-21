@@ -154,6 +154,11 @@
         "upvote": "If you'd like to draw attention to this application, you can vote for it on its [catalog page](https://apps.yunohost.org/app/{id})."
     },
     "app_choose_category": "Choose a category",
+    "app_info_access_desc": "Groups / accounts currently allowed to access this app:",
+    "app_info_change_url_disabled_tooltip": "This feature hasn't been implemented in this app yet",
+    "app_info_changeurl_desc": "Change the access URL of this application (domain and/or path).",
+    "app_info_default_desc": "Redirect domain root to this application ({domain}).",
+    "app_info_uninstall_desc": "Remove this application.",
     "app_install_custom_no_manifest": "No manifest.json file",
     "app_install_parameters": "Install settings",
     "app_show_categories": "Show categories",
@@ -247,7 +252,7 @@
             "push_force_warning": "It looks like some DNS records that YunoHost would have set are already in the registrar configuration. You can use the overwrite option if you know what you are doing."
         },
         "explain": {
-            "main_domain": "The main domain is the domain from which users can connect to the portal (via \"{domain}/yunohost/sso\").<br>Therefore, it is not possible to delete it.<br>If you want to delete \"{domain}\", you will first have to choose or add another domain and set it as the main domain."
+            "main_domain": "The main domain is the domain from which people can connect to the portal (via \"{domain}/yunohost/sso\").<br>Therefore, it is not possible to delete it.<br>If you want to delete \"{domain}\", you will first have to choose or add another domain and set it as the main domain."
         },
         "info": {
             "apps_on_domain": "Apps installed on domain",
@@ -303,7 +308,7 @@
         "maxValue": "Value must be a number equal or lesser than {max}.",
         "minValue": "Value must be a number equal or greater than {min}.",
         "name": "Names may not includes special characters except <code> ,.'-</code>",
-        "notInUsers": "The user '{value}' already exists.",
+        "notInUsers": "The account '{value}' already exists.",
         "numValue": "Value must be a number",
         "number": "Value must be a number.",
         "passwordLenght": "Password must be at least 8 characters long.",
@@ -313,21 +318,21 @@
         "required": "Field is required."
     },
     "from_to": "from {0} to {1}",
-    "good_practices_about_admin_password": "You are now about to define a new admin password. The password should be at least 8 characters - though it is good practice to use longer password (i.e. a passphrase) and/or to use various kind of characters (uppercase, lowercase, digits and special characters).",
-    "good_practices_about_user_password": "You are now about to define a new user password. The password should be at least 8 characters - though it is good practice to use longer password (i.e. a passphrase) and/or to use various kind of characters (uppercase, lowercase, digits and special characters).",
+    "good_practices_about_admin_password": "You are now about to define a new password for this <strong>admin</strong> account. The password should be at least 8 characters - though it is good practice to use longer password (i.e. a passphrase) and/or to use various kind of characters (uppercase, lowercase, digits and special characters).",
+    "good_practices_about_user_password": "You are now about to define a new password for this account. The password should be at least 8 characters - though it is good practice to use longer password (i.e. a passphrase) and/or to use various kind of characters (uppercase, lowercase, digits and special characters).",
     "group": "Group",
     "group_add": "Add a group",
-    "group_add_member": "Add a user",
+    "group_add_member": "Add an account",
     "group_add_permission": "Add a permission",
     "group_admins": "Admins",
-    "group_all_users": "All users",
-    "group_explain_admins": "This is a special group corresponding to admin users. Users in this group can access YunoHost's webadmin, connect to the server with SSH and use the `sudo` command. They will also receive emails sent to root{'@'}, admin{'@'} and admins{'@'}, such as the diagnosis notifications. You should only add people you absolutely trust in this group!",
-    "group_explain_all_users": "This is a special group containing all users accounts on the server",
+    "group_all_users": "All accounts",
+    "group_explain_admins": "This is a special group corresponding to admin accounts. The accounts in this group can access YunoHost's webadmin, connect to the server with SSH and use the `sudo` command. They will also receive emails sent to root{'@'}, admin{'@'} and admins{'@'}, such as the diagnosis notifications. You should only add people you absolutely trust in this group!",
+    "group_explain_all_users": "This is a special group containing all server accounts",
     "group_explain_visitors": "This is a special group representing anonymous visitors",
     "group_explain_visitors_needed_for_external_client": "Be careful that you need to keep some applications allowed to visitors if you intend to use them with external clients. For example, this is the case for Nextcloud if you intend to use a synchronization client on your smartphone or desktop computer.",
     "group_format_name_help": "You can use alpha-numeric chars and underscore",
     "group_name": "Group name",
-    "group_specific_permissions": "Individual user permissions",
+    "group_specific_permissions": "Individual account permissions",
     "group_visitors": "Visitors",
     "groups": {
         "remove_user": {
@@ -345,12 +350,12 @@
         "title": "History"
     },
     "home": "Home",
-    "hook_conf_ldap": "User database",
+    "hook_conf_ldap": "Account database",
     "hook_conf_manually_modified_files": "Manually modified configurations",
     "hook_conf_ynh_certs": "SSL certificates",
     "hook_conf_ynh_settings": "YunoHost configurations",
-    "hook_data_home": "User data",
-    "hook_data_home_desc": "User data located in /home/USER",
+    "hook_data_home": "Account data",
+    "hook_data_home_desc": "Account data located in /home/ACCOUNT_NAME",
     "hook_data_mail": "Mail",
     "hook_data_mail_desc": "Raw emails stored on the server",
     "hook_data_multimedia": "Multimedia data",
@@ -375,7 +380,7 @@
         "logs": "no logs | log | logs",
         "permissions": "no permissions | permission | permissions",
         "services": "no services | service | services",
-        "users": "no users | user | users"
+        "users": "no accounts | account | accounts"
     },
     "items_verbose_count": "There are {items}. | There is 1 {items}. | There are {items}.",
     "items_verbose_items_left": "There are {items} left. | There is 1 {items} left. | There are {items} left.",
@@ -401,7 +406,7 @@
     "manage_apps": "Manage apps",
     "manage_domains": "Manage domains",
     "manage_groups": "Manage groups",
-    "manage_users": "Manage users",
+    "manage_users": "Manage accounts",
     "migrations": "Migrations",
     "migrations_disclaimer_check_message": "I read and understood this disclaimer",
     "migrations_disclaimer_not_checked": "This migration requires you to acknowledge its disclaimer before running it.",
@@ -440,8 +445,8 @@
         "force": "Force the post-install",
         "title": "Postinstall",
         "user": {
-            "first_user_help": "This user will be granted admin privileges and will be allowed to connect to this administration interface as well as directly to the server via SSH.\nAs it is a regular user, you will also be able to connect to the portal (SSO) with its credentials.\nOnce the post-installation is complete, you will be able to create other admin users by adding them into the 'admins' group.",
-            "title": "Create first admin user"
+            "first_user_help": "This account will be granted admin privileges and will be allowed to connect to this administration interface as well as directly to the server via SSH.\nAs it is a regular account, it will also be able to connect to the portal (SSO) with its credentials.\nOnce the post-installation is complete, you will be able to create other admin accounts by adding them into the 'admins' group.",
+            "title": "Create first admin account"
         }
     },
     "postinstall_domain": "This is the first domain name linked to your YunoHost server, but also the one which will be used by your server's users to access the authentication portal. Accordingly, it will be visible by everyone, so choose it carefully.",
@@ -452,7 +457,7 @@
     "previous": "Previous",
     "protocol": "Protocol",
     "purge_user_data_checkbox": "Purge {name}'s data? (This will remove the content of its home and mail directories.)",
-    "purge_user_data_warning": "Purging user's data is not reversible. Be sure you know what you're doing!",
+    "purge_user_data_warning": "Purging the account's data is NOT reversible. Be sure you know what you're doing!",
     "quick_action": "Quick action",
     "rerun_diagnosis": "Rerun diagnosis",
     "restart": "Restart",
@@ -486,7 +491,7 @@
     "system_upgrade_btn": "Upgrade",
     "tcp": "TCP",
     "text_selection_is_disabled": "Text selection is disabled. If you want to share this log, please share the *full* log with the 'Share with Yunopaste' button.<br/><small>Or if you really really want to select text, press these keys: ↓↓↑↑.</small>",
-    "tip_about_user_email": "Users are created with an associated email address with the format username{'@'}domain.tld. Additional email aliases and email forwards can later be added by the admin and the user.",
+    "tip_about_user_email": "Accounts are created with an associated email address (and XMPP account) with the format username{'@'}domain.tld. Additional email aliases and email forwards can later be added by the admin or by the person who will use this account.",
     "tools": "Tools",
     "tools_reboot": "Reboot your server",
     "tools_reboot_btn": "Reboot",
@@ -531,20 +536,20 @@
     "user_mailbox_quota": "Mailbox quota",
     "user_mailbox_use": "Mailbox used space",
     "user_new_forward": "newforward{'@'}myforeigndomain.org",
-    "user_username": "Username",
+    "user_username": "Account name",
     "user_username_edit": "Edit {name}’s account",
-    "users": "Users",
-    "users_add": "Add a user",
-    "users_export": "Export users",
-    "users_import": "Import users",
-    "users_import_confirm_destructive": "Are you sure you want to delete users that are not present in this file?",
+    "users": "Accounts",
+    "users_add": "Add an account",
+    "users_export": "Export accounts",
+    "users_import": "Import accounts",
+    "users_import_confirm_destructive": "Are you sure you want to delete accounts that are not present in this file?",
     "users_import_csv_file": "CSV File",
-    "users_import_csv_file_desc": "The CSV file should be in UTF-8 and with columns username, password, groups, email and quota. For an example import CSV file, you can <a href='/yunohost/api/users/export' target='_BLANK'>export your users in CSV file</a> and change the file.",
-    "users_import_delete": "Delete non listed users",
-    "users_import_delete_desc": "If checked, all existing users that are not in the CSV file will be deleted (and purged).",
-    "users_import_delete_others": "Delete unlisted users",
-    "users_import_update": "Update existing users",
-    "users_import_update_desc": "If checked, all existing users contained in the CSV file will be updated with the new value",
+    "users_import_csv_file_desc": "The CSV file should be in UTF-8 and with columns username, password, groups, email and quota. For an example import CSV file, you can <a href='/yunohost/api/users/export' target='_BLANK'>export your accounts in CSV file</a> and change the file.",
+    "users_import_delete": "Delete non listed accounts",
+    "users_import_delete_desc": "If checked, all existing accounts that are not in the CSV file will be deleted (and purged).",
+    "users_import_delete_others": "Delete unlisted accounts",
+    "users_import_update": "Update existing accounts",
+    "users_import_update_desc": "If checked, all existing accounts contained in the CSV file will be updated with the new value",
     "version": "Version",
     "warnings": "{count} warnings",
     "words": {
@@ -556,7 +561,7 @@
         "none": "None",
         "separator": ", "
     },
-    "wrong_password_or_username": "Wrong password or username",
+    "wrong_password_or_username": "Wrong password or account name",
     "yes": "Yes",
     "yunohost_admin": "YunoHost Admin"
 }
