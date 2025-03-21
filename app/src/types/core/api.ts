@@ -340,3 +340,15 @@ export type Certificate = {
   ACME_eligible: boolean
   has_wildcards: boolean
 }
+
+export type Disk = {
+  name: string
+  model: string
+  serial: string
+  removable: boolean
+  size: string | number
+  connection_bus: string
+  type: "HDD" | "SSD"
+  rpm?: number
+  smartStatus: "SANE" | "CRITICAL" | "UNKNOWN"
+}
