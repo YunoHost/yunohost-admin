@@ -1,4 +1,14 @@
-yunohost-admin (12.0.6) stable; urgency=low
+yunohost-admin (12.0.7) stable; urgency=low
+
+  - add smartphone shortcut icon ([#627](http://github.com/YunoHost/yunohost-admin/pull/627))
+  - Fix: missing props on form items ([#618](http://github.com/YunoHost/yunohost-admin/pull/618))
+  - login: autofocus the username field on page load ([#626](http://github.com/YunoHost/yunohost-admin/pull/626))
+
+  Thanks to all contributors <3 ! (Axolotle, OniriCorpe)
+
+ -- tituspijean <tituspijean@yunohost.org>  Sun, 23 Mar 2025 11:25:52 +0100
+
+ yunohost-admin (12.0.6) stable; urgency=low
 
   - Easteregg spinner for trans day? ([#625](http://github.com/YunoHost/yunohost-admin/pull/625))
   - [i18n] Translations updated for Arabic, Basque, Catalan, Chinese (Simplified), Czech, Dutch, Finnish, French, Galician, German, Indonesian, Italian, Japanese, Occitan, Persian, Polish, Portuguese, Russian, Slovak, Slovenian, Spanish, Turkish, Ukrainian
