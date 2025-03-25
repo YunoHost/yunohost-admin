@@ -133,7 +133,7 @@ export default defineConfig(async ({ mode }) => {
     },
   }
   try {
-    return (await import("./vite.config.local")).overrideConfig(config)
+    return (await import('./vite.config.local')).overrideConfig(config)
   } catch {
     return config
   }

@@ -1,3 +1,39 @@
+<script setup lang="ts">
+import { ref, type Ref, computed } from 'vue'
+import api from '@/api'
+import type { Disk } from '@/types/core/api.ts'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
+
+const disks: Ref<Disk[]> = ref([])
+const hasDisks = computed(
+  () => Number.isInteger(disks.value.length) && disks.value.length > 0,
+)
+
+function smartStatusBadgeAttrs(disk: Disk) {
+  const common = {
+    title: t(`storage_disks.infos.smart_status_icon_alt.${disk.smartStatus}`),
+  }
+  switch (disk.smartStatus) {
+    case 'SANE':
+      return { class: 'status bg-success', ...common }
+    case 'CRITICAL':
+      return { class: 'status bg-danger', ...common }
+    default:
+      return { class: 'status bg-secondary', ...common }
+  }
+}
+
+api
+  .fetch<{
+    disks: Disk[]
+  }>({ uri: 'storage/disk/list?with_info&human_readable_size' })
+  .then((result) => {
+    disks.value = result.disks
+  })
+</script>
+
 <template>
   <YAlert v-if="!hasDisks" alert icon="exclamation-triangle" variant="warning">
     {{ $t('items_verbose_count', { items: $t('items.inserted_disk', 0) }, 0) }}
@@ -36,8 +72,8 @@
               </li>
               <li>
                 <strong>{{ $t('storage_disks.infos.type') }}</strong>
-                {{ disk.type }}<template v-if="disk.rpm">
-                ({{ disk.rpm }} RPM)</template>
+                {{ disk.type }}
+                <template v-if="disk.rpm">({{ disk.rpm }} RPM)</template>
               </li>
             </ul>
           </section>
@@ -46,47 +82,6 @@
     </BRow>
   </BContainer>
 </template>
-
-<script setup lang="ts">
-import { ref, type Ref, computed } from 'vue'
-import api from '@/api'
-import type { Disk } from '@/types/core/api.ts'
-import {
-  BContainer,
-  BRow,
-  BCol,
-  BCard,
-  BCardTitle,
-} from 'bootstrap-vue-next'
-import { useI18n } from "vue-i18n"
-
-const { t } = useI18n()
-
-const disks: Ref<Disk[]> = ref([])
-const hasDisks = computed(
-  () => Number.isInteger(disks.value.length) && disks.value.length > 0,
-)
-
-function smartStatusBadgeAttrs(disk: Disk) {
-  const common = {title: t(`storage_disks.infos.smart_status_icon_alt.${disk.smartStatus}`)}
-  switch (disk.smartStatus) {
-    case 'SANE':
-      return {class: "status bg-success", ...common}
-    case 'CRITICAL':
-      return {class: "status bg-danger", ...common}
-    default:
-      return {class: "status bg-secondary", ...common}
-  }
-}
-
-api
-  .fetch<{
-    disks: Disk[]
-  }>({ uri: 'storage/disk/list?with_info&human_readable_size' })
-  .then((result) => {
-    disks.value = result.disks
-  })
-</script>
 
 <style lang="scss" scoped>
 .row {

@@ -481,24 +481,24 @@
     "stopped": "Stopped",
     "storage": "Storage",
     "storage_disks": {
-      "category_name": "Hard drives",
-      "infos": {
-        "usb_icon_alt": "This device is a connected to USB",
-        "ejectable_icon_alt": "This device is ejectable",
-        "smart_status_icon_alt": {
-          "SANE": "This device is sane",
-          "CRITICAL": "This device is in a critical state",
-          "UNKNOWN": "The status of this device is unknown"
+        "category_name": "Hard drives",
+        "infos": {
+            "usb_icon_alt": "This device is a connected to USB",
+            "ejectable_icon_alt": "This device is ejectable",
+            "smart_status_icon_alt": {
+                "SANE": "This device is sane",
+                "CRITICAL": "This device is in a critical state",
+                "UNKNOWN": "The status of this device is unknown"
+            },
+            "serial": "Serial:",
+            "serial_unknown": "Unknown",
+            "size": "Size:",
+            "type": "Type:"
         },
-        "serial": "Serial:",
-        "serial_unknown": "Unknown",
-        "size": "Size:",
-        "type": "Type:"
-      },
-      "infos_meta": {
-        "usb": "USB device",
-        "ejectable": "This device can be ejected"
-      }
+        "infos_meta": {
+            "usb": "USB device",
+            "ejectable": "This device can be ejected"
+        }
     },
     "system": "System",
     "system_apps_nothing": "All apps are up to date!",

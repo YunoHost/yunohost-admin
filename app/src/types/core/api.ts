@@ -348,7 +348,7 @@ export type Disk = {
   removable: boolean
   size: string | number
   connection_bus: string
-  type: "HDD" | "SSD"
+  type: 'HDD' | 'SSD'
   rpm?: number
-  smartStatus: "SANE" | "CRITICAL" | "UNKNOWN"
+  smartStatus: 'SANE' | 'CRITICAL' | 'UNKNOWN'
 }
