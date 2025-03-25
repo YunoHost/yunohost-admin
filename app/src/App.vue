@@ -60,7 +60,7 @@ onMounted(() => {
   const today = new Date()
 
   // International Transgender Day of Visibility ;)
-   if (today.getDate() === 31 && today.getMonth() + 1 === 3) {
+  if (today.getDate() === 31 && today.getMonth() + 1 === 3) {
     spinner.value = 'transcat'
   }
 
