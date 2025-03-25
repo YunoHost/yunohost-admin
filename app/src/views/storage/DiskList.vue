@@ -37,22 +37,23 @@ const disks = await api
     <BRow>
       <BCol v-for="disk in disks" :key="disk.serial" :lg="4">
         <BCard>
-          <BCardTitle class="clearfix">
+          <BCardTitle class="d-flex align-items-center">
             <span v-bind="smartStatusBadgeAttrs(disk)" />{{ disk.model }}
-            <span class="disks-icons float-end">
-              <i
+            <div class="ms-auto">
+              <YIcon
                 v-if="disk.connection_bus == 'usb'"
-                class="fa fa-usb"
-                role="img"
+                iname="usb"
                 :title="$t('storage_disks.infos.usb_icon_alt')"
-              ></i>
-              <i
-                v-if="disk.removable"
-                class="fa fa-eject"
                 role="img"
+              />
+              <YIcon
+                v-if="disk.removable"
+                iname="eject"
                 :title="$t('storage_disks.infos.ejectable_icon_alt')"
-              ></i>
-            </span>
+                role="img"
+                class="ms-2"
+              />
+            </div>
           </BCardTitle>
           <section class="disk-infos">
             <ul>
@@ -81,19 +82,6 @@ const disks = await api
 <style lang="scss" scoped>
 .row {
   row-gap: 1rem;
-}
-
-.disks-icons > * {
-  margin-right: 0.5rem;
-  margin-left: 0.5rem;
-
-  &:first-child {
-    margin-left: 0;
-  }
-
-  &:last-child {
-    margin-right: 0;
-  }
 }
 
 .disk-infos ul {
