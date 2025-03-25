@@ -33,64 +33,66 @@ const disks = await api
   <YAlert v-if="!disks" alert icon="exclamation-triangle" variant="warning">
     {{ $t('items_verbose_count', { items: $t('items.inserted_disk', 0) }, 0) }}
   </YAlert>
-  <BContainer v-else>
-    <BRow>
-      <BCol v-for="disk in disks" :key="disk.serial" :lg="4">
-        <BCard>
-          <BCardTitle class="d-flex align-items-center">
-            <span v-bind="smartStatusBadgeAttrs(disk)" />{{ disk.model }}
-            <div class="ms-auto">
-              <YIcon
-                v-if="disk.connection_bus == 'usb'"
-                iname="usb"
-                :title="$t('storage_disks.infos.usb_icon_alt')"
-                role="img"
-              />
-              <YIcon
-                v-if="disk.removable"
-                iname="eject"
-                :title="$t('storage_disks.infos.ejectable_icon_alt')"
-                role="img"
-                class="ms-2"
-              />
-            </div>
-          </BCardTitle>
-          <section class="disk-infos">
-            <ul>
-              <li>
-                <strong>{{ $t('storage_disks.infos.serial') }} </strong>
-                <span v-if="disk.serial.length >= 0">{{ disk.serial }}</span>
-                <em v-else>{{ $t('storage_disks.infos.serial_unknown') }}</em>
-              </li>
-              <li>
-                <strong>{{ $t('storage_disks.infos.size') }}</strong>
-                {{ disk.size }}
-              </li>
-              <li>
-                <strong>{{ $t('storage_disks.infos.type') }}</strong>
-                {{ disk.type }}
-                <template v-if="disk.rpm">({{ disk.rpm }} RPM)</template>
-              </li>
-            </ul>
-          </section>
-        </BCard>
-      </BCol>
-    </BRow>
-  </BContainer>
+  <BCardGroup v-else deck tag="ul" class="p-0 m-0">
+    <BCard v-for="disk in disks" :key="disk.name" tag="li">
+      <BCardTitle class="d-flex align-items-center">
+        <span v-bind="smartStatusBadgeAttrs(disk)" />{{ disk.model }}
+        <div class="ms-auto">
+          <YIcon
+            v-if="disk.connection_bus == 'usb'"
+            iname="usb"
+            :title="$t('storage_disks.infos.usb_icon_alt')"
+            role="img"
+          />
+          <YIcon
+            v-if="disk.removable"
+            iname="eject"
+            :title="$t('storage_disks.infos.ejectable_icon_alt')"
+            role="img"
+            class="ms-2"
+          />
+        </div>
+      </BCardTitle>
+      <section class="disk-infos">
+        <ul class="list-unstyled">
+          <li>
+            <strong>{{ $t('storage_disks.infos.serial') }} </strong>
+            <span v-if="disk.serial.length >= 0">{{ disk.serial }}</span>
+            <em v-else>{{ $t('storage_disks.infos.serial_unknown') }}</em>
+          </li>
+          <li>
+            <strong>{{ $t('storage_disks.infos.size') }}</strong>
+            {{ disk.size }}
+          </li>
+          <li>
+            <strong>{{ $t('storage_disks.infos.type') }}</strong>
+            {{ disk.type }}
+            <template v-if="disk.rpm">({{ disk.rpm }} RPM)</template>
+          </li>
+        </ul>
+      </section>
+    </BCard>
+  </BCardGroup>
 </template>
 
 <style lang="scss" scoped>
-.row {
-  row-gap: 1rem;
+.card-deck .card {
+  flex-basis: 100%;
+
+  @include media-breakpoint-up(md) {
+    flex-basis: 50%;
+    max-width: calc(50% - 0.75rem);
+  }
+
+  @include media-breakpoint-up(lg) {
+    flex-basis: 33%;
+    max-width: calc(33.3% - 1rem);
+  }
 }
 
-.disk-infos ul {
-  list-style: none;
-  padding-left: 1rem;
-  &,
-  & * {
-    white-space: nowrap;
-  }
+.disk-infos ul,
+.disk-infos ul * {
+  white-space: nowrap;
 }
 
 .status {
