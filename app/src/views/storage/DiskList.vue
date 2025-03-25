@@ -1,15 +1,10 @@
 <script setup lang="ts">
-import { ref, type Ref, computed } from 'vue'
-import api from '@/api'
-import type { Disk } from '@/types/core/api.ts'
 import { useI18n } from 'vue-i18n'
 
-const { t } = useI18n()
+import api from '@/api'
+import type { Disk } from '@/types/core/api.ts'
 
-const disks: Ref<Disk[]> = ref([])
-const hasDisks = computed(
-  () => Number.isInteger(disks.value.length) && disks.value.length > 0,
-)
+const { t } = useI18n()
 
 function smartStatusBadgeAttrs(disk: Disk) {
   const common = {
@@ -25,17 +20,17 @@ function smartStatusBadgeAttrs(disk: Disk) {
   }
 }
 
-api
-  .fetch<{
+const disks = await api
+  .get<{
     disks: Disk[]
   }>({ uri: 'storage/disk/list?with_info&human_readable_size' })
   .then((result) => {
-    disks.value = result.disks
+    return result.disks.length ? result.disks : null
   })
 </script>
 
 <template>
-  <YAlert v-if="!hasDisks" alert icon="exclamation-triangle" variant="warning">
+  <YAlert v-if="!disks" alert icon="exclamation-triangle" variant="warning">
     {{ $t('items_verbose_count', { items: $t('items.inserted_disk', 0) }, 0) }}
   </YAlert>
   <BContainer v-else>
