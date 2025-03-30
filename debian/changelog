@@ -1,3 +1,9 @@
+yunohost-admin (12.0.7.1) stable; urgency=low
+
+  - Fix broken spinner /o\
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Mon, 31 Mar 2025 01:15:24 +0200
+
 yunohost-admin (12.0.7) stable; urgency=low
 
   - add smartphone shortcut icon ([#627](http://github.com/YunoHost/yunohost-admin/pull/627))
