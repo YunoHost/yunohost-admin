@@ -1,3 +1,14 @@
+yunohost-admin (12.1.4) testing; urgency=low
+
+  - apps: add logo placeholder so that text remains aligned in the grid ([#629](http://github.com/YunoHost/yunohost-admin/pull/629))
+  - Fix broken spinner /o\ (17f2f69a)
+  - ci: add autolintfix (cdd7ab4a)
+  - chore: bump vite from 6.0.9 to 6.0.12 in /app ([#630](http://github.com/YunoHost/yunohost-admin/pull/630))
+
+  Thanks to all contributors <3 ! (alexAubin, dependabot[bot], oleole39)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Mon, 31 Mar 2025 01:17:17 +0200
+
 yunohost-admin (12.1.3) testing; urgency=low
 
   - Smartphone shortcut icon and add better quality favicon ([#627](http://github.com/YunoHost/yunohost-admin/pull/627))
