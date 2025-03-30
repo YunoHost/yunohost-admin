@@ -127,7 +127,7 @@ const { spinner } = useSettings()
 
   &.transcat {
     height: 40px;
-    width: 65px;
+    width: 100px;
     background-image: url('../../assets/spinners/transcat.gif');
     animation-name: back-and-forth-transcat;
 
