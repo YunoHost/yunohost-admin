@@ -44,7 +44,9 @@
                 "shutdown": "Váš server se ukončuje a nebude dostupný. Když ho znovu zapnete, jakmile bude zase dosažitelný, zobrazí se přihlašovací okno."
             },
             "title": "Snažím se navázat spojení se serverem…"
-        }
+        },
+        "unknown_request": "Neznámý požadavek",
+        "busy": "Server je zaneprázdněn…"
     },
     "app_install_custom_no_manifest": "Soubor manifest.json nenalezen",
     "address": {
@@ -354,6 +356,14 @@
             }
         },
         "antifeatures": "Tato aplikace má funkce, které by se vám nemusely líbit:",
-        "installed_version": "Nainstalovaná verze:"
+        "installed_version": "Nainstalovaná verze:",
+        "doc": {
+            "notifications": {
+                "understood": "Rozumím"
+            },
+            "admin": {
+                "title": "Dokumentace administrátora"
+            }
+        }
     }
 }
