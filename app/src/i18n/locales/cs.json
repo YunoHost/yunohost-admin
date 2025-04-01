@@ -343,7 +343,8 @@
         "install": {
             "notifs": {
                 "post": {
-                    "title": "Poinstalační upozornení pro '{name}'"
+                    "title": "Poinstalační upozornění pro '{name}'",
+                    "alert": "Zdá se, že instalace proběhla v pořádku!\nZde jsou některá upozornění, která osoba připravující balíček považovala za důležitá.\nMůžete si je znovu přečíst pozdějí na stránce popisu aplikace."
                 },
                 "pre": {
                     "warning": "O čem byste měli před instalací vědět",
@@ -352,17 +353,60 @@
                 }
             },
             "problems": {
-                "arch": "Tato aplikace může být nainstalována jen na konkrétních architekturách ({required}), avšak vaše architektura je {current}."
-            }
+                "arch": "Tato aplikace může být nainstalována jen na konkrétních architekturách ({required}), avšak vaše architektura je {current}.",
+                "inprogress": "Tato aplikace je stále experimentální (anebo nefunkční) a může pravděpodobně poškodit váš systém! Pravděpodobně byste ji NEměli instalovat, pokud si nejste jisti.",
+                "ignore": "Chápu, že tato instalace může poškodit můj systém, ale přesto to chci zkusit.",
+                "install": "Je již nainstalována a nemůže být instalována vícekrát.",
+                "lowquality": "Tato aplikace může fungovat, ale není dobře integrovaná do YunoHost. Některé funkce, jako single sign-on a zálohování/obnovování nemusí být dostupné nebo nerespektuje dobré praktiky.",
+                "broken": "Tato aplikace je podle automatických testů YunoHost nefunkční a pravděpodobně poškodí váš systém! Pravděpodobně byste ji NEměli instalovat, pokud si nejste jisti."
+            },
+            "version": "Aktuální verze: {version}",
+            "try_demo": "Vyzkoušet demo"
         },
         "antifeatures": "Tato aplikace má funkce, které by se vám nemusely líbit:",
         "installed_version": "Nainstalovaná verze:",
         "doc": {
             "notifications": {
-                "understood": "Rozumím"
+                "understood": "Rozumím",
+                "post_install": "Po-instalační poznámky",
+                "post_upgrade": "Po-aktualizační poznámky"
             },
             "admin": {
                 "title": "Dokumentace administrátora"
+            }
+        },
+        "links": {
+            "title": "Odkazy",
+            "userdoc": "Oficiální uživatelská dokumentace",
+            "admindoc": "Oficiální administrátorská dokumentace",
+            "code": "Oficiální repozitář s kódem",
+            "website": "Oficiální stránky"
+        },
+        "integration": {
+            "ldap": {
+                "true": "Používejte YunoHost účty pro přihlašování (LDAP)",
+                "?": "Žádné informace o LDAP integraci",
+                "false": "Nepoužívá YunoHost účty pro přihlašování (LDAP)"
+            },
+            "multi_instance": {
+                "false": "Může být nainstalována pouze jednou",
+                "true": "Může být nainstalována několikrát"
+            },
+            "sso": {
+                "false": "Single sign-on není dostupné (SSO)",
+                "true": "Single sign-on je dostupné (SSO)",
+                "?": "Žádné informace o SSO integraci"
+            },
+            "resources": "Standardní užití zdrojů: {ram} RAM, {disk} disku",
+            "archs": "Podporované architektury:",
+            "title": "YunoHost integrace"
+        },
+        "potential_alternative_to": "Potenciální alternativa k:",
+        "upgrade": {
+            "notifs": {
+                "pre": {
+                    "title": "Varování!"
+                }
             }
         }
     }
