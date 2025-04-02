@@ -35,13 +35,13 @@
             "error": "Neúspěšné"
         },
         "processing": "Server zpracovává akci…",
-        "partial_logs": "[…] (zkontrolujte historii v logách)",
+        "partial_logs": "[…] (zkontrolujte historii pro celé logy)",
         "reconnecting": {
             "reason": {
                 "upgrade_system": "Spojení se serverem bylo ukončeno kvůli povýšení YunoHostu na novou verzi. Čekám, až bude opět dostupný…",
-                "unknown": "Spojení se serverem bylo z neznámých důvodů přerušeno.",
-                "reboot": "Váš server se restartuje a po nějakou dobu nebude dostupný. Jakmile se spojení naváže, zobrazí se přihlašovací okno.",
-                "shutdown": "Váš server se ukončuje a nebude dostupný. Když ho znovu zapnete, jakmile bude zase dosažitelný, zobrazí se přihlašovací okno."
+                "unknown": "Spojení se serverem bylo z neznámých důvodů přerušeno. Možná je 'yunohost-api' vypnuto?",
+                "reboot": "Váš server se restartuje a po nějakou dobu nebude dostupný.",
+                "shutdown": "Váš server se vypíná a nebude dostupný."
             },
             "title": "Snažím se navázat spojení se serverem…"
         },
@@ -129,7 +129,7 @@
     "confirm_install_custom_app": "VAROVÁNÍ! Instalace aplikací třetích stran může kompromitovat integritu a bezpečnost vašeho systému. Pravděpodobně byste toto NEMĚLI provádět, pokud opravdu nevíte, co děláte. Jste připraveni přijmout toto riziko?",
     "confirm_group_add_access_permission": "Opravdu chcete přidělit oprávnění {perm} k {name}? Tímto značně zvýšíte možnost zneužití, zejména pokud {name} nebude mít čisté úmysly. Proveďte pouze pokud DŮVĚŘUJETE této osobě/skupině.",
     "confirm_delete": "Opravdu chcete smazat {name}?",
-    "confirm_app_change_url": "Opravdu chcete změnit přístupové URL aplikace?",
+    "confirm_app_change_url": "Opravdu chcete změnit přístupovou URL aplikace?",
     "confirm_change_maindomain": "Opravdu chcete změnit hlavní doménu?",
     "configuration": "Nastavení",
     "close": "Zavřít",
@@ -262,7 +262,7 @@
     "hook_data_home": "Data uživatelů",
     "hook_conf_manually_modified_files": "Manuálně změněné konfigurace",
     "hook_conf_ynh_settings": "YunoHost konfigurace",
-    "diagnosis_explanation": "Pro zachování bezchybného provozu se diagnostika se pokusí identifikovat obvyklé problémy. Diagnostika je také spouštěna pravidelně dvakrát denně a emailem administrátorovi je zasílán report. Pokud nevyužíváte některé vlastnosti (např. XMPP) nebo máte vlastní složitější nastavení, prováděné testy nemusí být pro vás relevantní. V takových případech (a pokud víte, co děláte) je v pořádku nastavit ignoraci u příslušných problémů.",
+    "diagnosis_explanation": "Pro zachování bezchybného provozu diagnostika se pokusí identifikovat obvyklé problémy. Diagnostika je také spouštěna pravidelně dvakrát denně a emailem je administrátorovi zasílán report. Pokud nevyužíváte některé funkce (např. email) nebo máte vlastní složitější nastavení, prováděné testy pro vás nemusí být relevantní. V takových případech (a pokud víte, co děláte) je v pořádku ignorovat varování u příslušných problémů.",
     "diagnosis_first_run": "Pro zachování bezchybného provozu se diagnostika se pokusí identifikovat obvyklé problémy. V případě nalezených chyb či problémů není nutno panikařit: spíše se jimy nechte inspirovat. Mimochodem diagnostika je spouštěna pravidelně dvakrát denně a emailem administrátorovi je zasílán report.",
     "diagnosis": "Diagnostika",
     "domain_dns_conf_is_just_a_recommendation": "Tato stránka vám zobrazuje *doporučené* nastavení. *Nenastavujeme* DNS za vás. Nastavení DNS je nutné provést u vašeho DNS registrátora dle tohoto doporučení.",
@@ -313,7 +313,7 @@
     "user_new_forward": "adresa-pro-presmerovani{'@'}jina-domena.cz",
     "user_mailbox_use": "Zabrané místo emailové schránky",
     "user_mailbox_quota": "Kvóta emailové schránky",
-    "user_interface_link": "Uživatelské rozhraní",
+    "user_interface_link": "Portál",
     "user_fullname": "Celé jméno",
     "user_emailforward_add": "Přidat email k přesměrování",
     "user_emailforward": "Přesměrovaní emailu",
@@ -327,8 +327,34 @@
     "domain": {
         "dns": {
             "auto_config": "Automatické nastavení DNS záznamů",
-            "auto_config_ignored": "ignorováno, nebude upraveno dokud nevyberete položku přepsat"
-        }
+            "auto_config_ignored": "ignorováno, nebude upraveno dokud nevyberete položku přepsat",
+            "auto_config_zone": "Aktuální DNS zóna",
+            "auto_config_ok": "Automatická konfigurace se zdá být OK!",
+            "push_force": "Přepsat existující záznamy"
+        },
+        "types": {
+            "main_domain": "Hlavní doména"
+        },
+        "cert": {
+            "types": {
+                "other": "Jiné/Neznámé",
+                "selfsigned": "Vlastnoručně podepsané",
+                "letsencrypt": "Let's Encrypt"
+            },
+            "valid_for": "platný po dobu {days}",
+            "install": "Také nainstalovat Let's Encrypt certifikát"
+        },
+        "add": {
+            "from_local": "Chci doménu pouze pro lokální užití/testování",
+            "dyn_dns_password": "Heslo pro obnovení domény",
+            "from_subdomain": "Chci přidat poddoménu pro již přidanou doménu",
+            "from_registrar": "Chci přidat doménu, kterou vlastním",
+            "from_yunohost": "Nevlastním doménu, chci si zaregistrovat/použít bezplatnou DynDNS doménu poskytovanou projektem YunoHost"
+        },
+        "info": {
+            "apps_on_domain": "Aplikace instalovány na doméně"
+        },
+        "see_parent_domain": "Zobrazit rodičovskou doménu"
     },
     "users": "Uživatelé",
     "users_add": "Nový uživatel",
@@ -358,7 +384,10 @@
                 "ignore": "Chápu, že tato instalace může poškodit můj systém, ale přesto to chci zkusit.",
                 "install": "Je již nainstalována a nemůže být instalována vícekrát.",
                 "lowquality": "Tato aplikace může fungovat, ale není dobře integrovaná do YunoHost. Některé funkce, jako single sign-on a zálohování/obnovování nemusí být dostupné nebo nerespektuje dobré praktiky.",
-                "broken": "Tato aplikace je podle automatických testů YunoHost nefunkční a pravděpodobně poškodí váš systém! Pravděpodobně byste ji NEměli instalovat, pokud si nejste jisti."
+                "broken": "Tato aplikace je podle automatických testů YunoHost nefunkční a pravděpodobně poškodí váš systém! Pravděpodobně byste ji NEměli instalovat, pokud si nejste jisti.",
+                "thirdparty": "Tato aplikace není součástí oficiálního YunoHost katalogu. Instalace aplikací třetích stran může ohrozit integritu a bezpečnost vašeho systému. Pravděpodobně byste ji NEměli instalovat, pokud si nejste jisti.",
+                "version": "Tato aplikace vyžaduje YunoHost >= {required} a vaše aktuální verze je {current}. Nejdříve zvažte aktualizování YunoHost.",
+                "ram": "Tato aplikace vyžaduje {required} RAM pro instalaci/aktualizaci, ale nyní je dostupné pouze {current} RAM. I kdyby tato aplikace mohla běžet, její instalační proces vyžaduje velké množství RAM, takže váš server může zamrznout a selhat."
             },
             "version": "Aktuální verze: {version}",
             "try_demo": "Vyzkoušet demo"
@@ -380,7 +409,11 @@
             "userdoc": "Oficiální uživatelská dokumentace",
             "admindoc": "Oficiální administrátorská dokumentace",
             "code": "Oficiální repozitář s kódem",
-            "website": "Oficiální stránky"
+            "website": "Oficiální stránky",
+            "package": "YunoHost repozitář balíčku",
+            "forum": "Témata o této aplikaci na YunoHost fóru",
+            "license": "Licence aplikace",
+            "package_license": "YunoHost licence balíčku"
         },
         "integration": {
             "ldap": {
@@ -405,9 +438,55 @@
         "upgrade": {
             "notifs": {
                 "pre": {
-                    "title": "Varování!"
+                    "title": "Varování!",
+                    "alert": "Tyto upozornění byste si měli přečíst před aktualizací. Mohou být důležité."
+                },
+                "post": {
+                    "alert": "Zdá se, že aktualizace proběhla úspěšně!\n Zde jsou některá upozornění, která balící osoba považovala za důležité.\nZnovu si ji můžete přečíst na informační stránce aplikace.",
+                    "title": "Po-aktualizační upozornění pro '{name}'"
                 }
-            }
-        }
-    }
+            },
+            "confirm": {
+                "apps": "Aplikace, které budou aktualizovány",
+                "title": "Potvrdit aktualizaci aplikací"
+            },
+            "stop": "Zrušit další aktualizaci aplikací",
+            "continue": "Přejít na další aplikaci"
+        },
+        "uninstall": {
+            "purge_desc": "Odstranit složky dat související s aplikací (toto jsou většinou data, která jste sami nahráli při používání aplikace)."
+        },
+        "upvote": "Jestli chcete přitáhnout více pozornosti k této aplikaci, můžete pro ni hlasovat na její [katalogové stránce](https://apps.yunohost.org/app/{id})."
+    },
+    "users_export": "Exportovat uživatele",
+    "app_state_broken_explanation": "Tato aplikace je momentálně rozbitá a nedá se nainstalovat, dle automatických testů YunoHost",
+    "app_state_broken": "rozbitá",
+    "users_import_csv_file": "CSV soubor",
+    "catalog_partial_search": "Zkuste odstranit všechna kritéria, abyste viděli zda aplikace, kterou hledáte je dostupná.",
+    "loading": "Načítání",
+    "users_import": "Importovat uživatele",
+    "users_import_confirm_destructive": "Jste si jisti, že chcete smazat uživatele, kteří nejsou v tomto souboru?",
+    "confirm_app_force_upgrade": "Jste si jisti, že chcete vynutit aktualizaci této aplikace?",
+    "users_import_delete": "Smazat neuvedené uživatele",
+    "confirm_firewall_close": "Jste si jisti, že chcete zavřít port {port} pro protokol {protocol}?",
+    "confirm_firewall_open": "Jste si jisti, že chcete otevřít port {port} pro protokol {protocol}?",
+    "words": {
+        "comment": "Komentář",
+        "edit": "Editovat",
+        "separator": ", ",
+        "browse": "Procházet",
+        "link": "Odkaz",
+        "none": "Žádné",
+        "collapse": "Skrýt"
+    },
+    "catalog_wishlist": "Vypadá to, že vámi hledaná aplikace ještě není dostupná v katalogu.\n Můžete ji navrhnout na [seznamu přání](https://apps.yunohost.org/wishlist?search={search}) nebo pro ni hlasovat, pokud tam již je.",
+    "details_about": "Zobrazit více informací o {subject}",
+    "user_username_edit": "Editovat účet uživatele {name}",
+    "warnings": "{count} varování",
+    "users_import_update": "Aktualizovat existující uživatele",
+    "yes": "Ano",
+    "wrong_password_or_username": "Špatné heslo nebo přezdívka",
+    "yunohost_admin": "YunoHost administrátor",
+    "version": "Verze",
+    "users_import_csv_file_desc": "CSV soubor by měl být v UTF-8 se sloupci: username, password, groups, email a quota. Pro příklad CSV import souboru, můžete <a href='/yunohost/api/users/export' target='_BLANK'>exportovat své uživatele do CSV souboru</a> a pak soubor změnit."
 }
