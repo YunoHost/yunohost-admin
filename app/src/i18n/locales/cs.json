@@ -100,12 +100,18 @@
         "alphalownumdot_": "Hodnota musí obsahovat pouze alfanumerické znaky a podtržítko.",
         "alpha": "Hodnota musí obsahovat pouze čísla.",
         "remote": "{message}",
-        "pattern": "{type}"
+        "pattern": "{type}",
+        "maxValue": "Hodnota musí být číslo rovné nebo menší než {max}.",
+        "invalid_form": "Formulář obsahuje chyby.",
+        "appRepoUrl": "Adresa URL pro repozitář YunoHost aplikace by měla vypadat jako https://domain.tld/path/to/repo_ynh",
+        "numValue": "Hodnota musí být číslo",
+        "checked": "Pole musí být zaškrtnuto."
     },
     "footer": {
         "donate": "Darovat",
         "help": "Potřebujete pomoc?",
-        "documentation": "Dokumentace"
+        "documentation": "Dokumentace",
+        "tos": "Podmínky služby"
     },
     "footer_version": "Provozováno na <a href='https://yunohost.org'>YunoHost</a> {version} ({repo}).",
     "firewall": "Firewall",
@@ -164,7 +170,8 @@
         "cache": "Mezipamět",
         "fallback_language_description": "Jazyk, který se vám zobrazí v případě neexistujícího překladu do vámi zvoleného primárního.",
         "fallback_language": "Záložní jazyk",
-        "language": "Jazyk"
+        "language": "Jazyk",
+        "theme": "Přepnout tmavý režim"
     },
     "tools_shutdown_reboot": "Vypnutí/Restart",
     "tools_shutdown_btn": "Vypnout",
@@ -265,7 +272,7 @@
     "diagnosis_explanation": "Pro zachování bezchybného provozu diagnostika se pokusí identifikovat obvyklé problémy. Diagnostika je také spouštěna pravidelně dvakrát denně a emailem je administrátorovi zasílán report. Pokud nevyužíváte některé funkce (např. email) nebo máte vlastní složitější nastavení, prováděné testy pro vás nemusí být relevantní. V takových případech (a pokud víte, co děláte) je v pořádku ignorovat varování u příslušných problémů.",
     "diagnosis_first_run": "Pro zachování bezchybného provozu se diagnostika se pokusí identifikovat obvyklé problémy. V případě nalezených chyb či problémů není nutno panikařit: spíše se jimy nechte inspirovat. Mimochodem diagnostika je spouštěna pravidelně dvakrát denně a emailem administrátorovi je zasílán report.",
     "diagnosis": "Diagnostika",
-    "domain_dns_conf_is_just_a_recommendation": "Tato stránka vám zobrazuje *doporučené* nastavení. *Nenastavujeme* DNS za vás. Nastavení DNS je nutné provést u vašeho DNS registrátora dle tohoto doporučení.",
+    "domain_dns_conf_is_just_a_recommendation": "Tato sekce vám zobrazuje *doporučené* nastavení. *Ne*nastavuje DNS za vás. Nastavení DNS je nutné provést u vašeho DNS registrátora dle tohoto doporučení.",
     "details": "Detaily",
     "description": "Popis",
     "delete": "Smazat",
@@ -330,7 +337,12 @@
             "auto_config_ignored": "ignorováno, nebude upraveno dokud nevyberete položku přepsat",
             "auto_config_zone": "Aktuální DNS zóna",
             "auto_config_ok": "Automatická konfigurace se zdá být OK!",
-            "push_force": "Přepsat existující záznamy"
+            "push_force": "Přepsat existující záznamy",
+            "push": "Odeslat DNS záznamy registrátorovi",
+            "push_force_confirm": "Jste si jisti, že chcete vynutit odeslání všech doporučených DNS záznamů? Mějte na paměti, že toto může přepsat manuální konfiguraci nebo důležité výchozí záznamy nastavené vaším registrátorem.",
+            "push_force_warning": "Vypadá to že některé DNS záznamy, které by YunoHost nastavil jsou již v konfiguraci registrátora. Můžete použít možnost přepsání, pokud víte, co děláte.",
+            "manual_config": "Navrhované DNS záznamy pro manuální konfiguraci",
+            "info": "Automatická konfigurace DNS záznamů je experimentální funkce <br>Zvažte zálohování vaší momentální DNS zóny z rozhraní registrátora před odesláním záznamů odsud."
         },
         "types": {
             "main_domain": "Hlavní doména"
@@ -349,12 +361,24 @@
             "dyn_dns_password": "Heslo pro obnovení domény",
             "from_subdomain": "Chci přidat poddoménu pro již přidanou doménu",
             "from_registrar": "Chci přidat doménu, kterou vlastním",
-            "from_yunohost": "Nevlastním doménu, chci si zaregistrovat/použít bezplatnou DynDNS doménu poskytovanou projektem YunoHost"
+            "from_yunohost": "Nevlastním doménu, chci si zaregistrovat/použít bezplatnou DynDNS doménu poskytovanou projektem YunoHost",
+            "from_subdomain_desc": "Pokud to vámi nakonfigurované DNS záznamy povolují, budete moci automaticky nainstalovat certifikát od Let's Encrypt.",
+            "dyn_dns_password_desc": "Toto heslo vám později umožní obnovit kontrolu nad vaší doménu, pokud si přeinstalujete systém. Pokud jste si již zaregistrovali tuto doménu, použijte obnovovací heslo zde pro její znovuzískání.",
+            "from_registrar_desc": "Budete muset manuálně nakonfigurovat DNS záznamy u vašeho registrátora pro dokončení konfigurace této domény. Diagnóza YunoHost vás provede tím, jaké DNS záznamy musíte upravit.",
+            "from_local_desc": "Pokud nechcete použít jméno \"skutečné\" veřejné domény, tak můžete použít cokoliv končící s <code>.local</code> nebo <code>.test</code>. Domény končící s <code>.local</code> jsou speciální v tom smyslu, že mohou být automaticky překládány na lokální síti, tedy pokud klienti podporují Bonjour protokol. Pokud tomu tak není, budete muset upravit soubor <code>/etc/hosts</code> (nebo její ekvivalent na Windows) na každém klientu, na kterém budete chtít tuto doménu používat anebo nakonfigurovat DNS záznamy na vašem routeru.",
+            "from_yunohost_desc": "Projekt YunoHost provozuje bezplatnou 'DynDNS' službu. Je omezena na jednu doménu na server (ačkoli poddomény můžete přidat i později pomocí jiné výše uvedené možnosti „Chci přidat poddoménu pro již přidanou doménu“). O konfiguraci DNS se automaticky postará YunoHost. Tato možnost je ideální, pokud začínáte s vlastním hostingem a nechcete ještě investovat do doménového jména. Ve střednědobém/dlouhodobém horizontu však doporučujeme zakoupit si vlastní doménové jméno u některého registrátora, abyste měli doménu plně ve svém vlastnictví."
         },
         "info": {
-            "apps_on_domain": "Aplikace instalovány na doméně"
+            "apps_on_domain": "Aplikace instalovány na doméně",
+            "certificate_authority": "SSL Certifikační autorita",
+            "dyn_dns_remove_and_unsubscribe": "Také odregistrovat doménu z YunoHost služby DynDNS",
+            "registrar": "Registrátor"
         },
-        "see_parent_domain": "Zobrazit rodičovskou doménu"
+        "see_parent_domain": "Zobrazit rodičovskou doménu",
+        "toggle_subdomains": "Přepnout poddomény",
+        "explain": {
+            "main_domain": "Hlavní doména je doména, ze které se uživatelé mohou připojit k portálu (skrze \"{domain}/yunohost/sso\").<br>Tudíž není možné ji smazat.<br> Pokud chcete smazat \"{domain}\", tak musíte nejdříve vybrat nebo vytvořit další doménu a nastavit ji, jako hlavní."
+        }
     },
     "users": "Uživatelé",
     "users_add": "Nový uživatel",
@@ -488,5 +512,23 @@
     "wrong_password_or_username": "Špatné heslo nebo přezdívka",
     "yunohost_admin": "YunoHost administrátor",
     "version": "Verze",
-    "users_import_csv_file_desc": "CSV soubor by měl být v UTF-8 se sloupci: username, password, groups, email a quota. Pro příklad CSV import souboru, můžete <a href='/yunohost/api/users/export' target='_BLANK'>exportovat své uživatele do CSV souboru</a> a pak soubor změnit."
+    "users_import_csv_file_desc": "CSV soubor by měl být v UTF-8 se sloupci: username, password, groups, email a quota. Pro příklad CSV import souboru, můžete <a href='/yunohost/api/users/export' target='_BLANK'>exportovat své uživatele do CSV souboru</a> a pak soubor změnit.",
+    "group_admins": "Administrátoři",
+    "tos": {
+        "acknowledgement": "Potvrzení smluvních podmínek",
+        "i_have_read": "Přečetl*a jsem si a rozumím <a href='https://yunohost.org/terms_of_services' target='_blank'>Smluvním podmínkám</a>",
+        "i_agree": "Souhlasím",
+        "postinstall_acknowledgement": "YunoHost projekt je tým dobrovolníků, kteří si dali za cíl vytvořit svobodný operační systém pro servery pod názvem YunoHost. YunoHost software je publikován pod [AGPLv3 licencí](https://www.gnu.org/licenses/agpl-3.0.txt). V souvislosti s tímto softwarem, administrátoři projektu spravují a zpřístupňují několik technických a komunitních služeb pro různé účely. Používáním těchto služeb dáváte na srozuměnou, že souhlasíte s tím, že jste vázáni následujícími [Smluvními podmínkami](https://yunohost.org/terms_of_services)."
+    },
+    "tools_yunohost_settings": "Nastavení YunoHost",
+    "failed": "Neúspěšné",
+    "users_import_delete_desc": "Pokud je zaškrtnuto, všichni stávající uživatelé, kteří nejsou v souboru CSV budou odstraněni (a nenávratně vymazáni).",
+    "domain_dns_push_failed_to_authenticate": "Nepodařilo se ověřit na registrátorově API. S největší pravděpodobností <a href='#/domains/{domain}/config'>přihlašovací údaje</a> jsou nesprávné? (Chyba: {error})",
+    "domain_dns_push_managed_in_parent_domain": "Funkce automatických DNS záznamů je spravována v nadřazené doméně <a href='#/domains/{parent_domain}/dns'>{parent_domain}</a>.",
+    "users_import_update_desc": "Pokud je zaškrtnuto, všichni existující uživatelé, kteří jsou v CSV souboru budou aktualizováni s novými hodnotami",
+    "users_import_delete_others": "Smazat nezobrazené uživatele",
+    "form": {
+        "current_file": "Momentální soubor:",
+        "select_one": "Prosím vyberte možnost"
+    }
 }
