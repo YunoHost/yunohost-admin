@@ -65,12 +65,15 @@
     "history": {
         "last_action": "Poslední akce:",
         "title": "Historie",
-        "is_empty": "V historii prozatím nic není."
+        "is_empty": "V historii prozatím nic není.",
+        "check_logs": "Přejít na stránku záznamů operace.",
+        "no_logs": "Žádné dostupné záznamy.",
+        "started_by": "zahájeno {caller}"
     },
     "permissions": "Oprávnění",
     "groups_and_permissions_manage": "Spravovat skupiny a oprávnění",
     "groups_and_permissions": "Skupiny a oprávnění",
-    "group_specific_permissions": "Specifické oprávnění uživatele",
+    "group_specific_permissions": "Individuální oprávnění uživatele",
     "group_explain_visitors_needed_for_external_client": "Některé aplikace pro správný provoz vyžadují povolení anonymního přístupu pro externí klienty. Například Nextcloud pro synchronizačního klienta na mobilním zařízení nebo desktopovém počítači.",
     "group_explain_visitors": "Toto je specifická skupina obsahující nepřihlášené (anonymní) uživatele",
     "group_explain_all_users": "Toto je specifická skupina obsahující všechny uživatelské účty na tomto serveru",
@@ -125,7 +128,7 @@
     "download": "Stáhnout",
     "domains": "Domény",
     "domain_name": "Doménové jméno",
-    "domain_add_dyndns_forbidden": "Již jste svoji doménu zaregistrovali u DynDNS, proto se můžete zeptat na odebrání vaší současné DynDNS domény na fóru <a href='//forum.yunohost.org/t/nohost-domain-recovery-suppression-de-domaine-en-nohost-me-noho-st-et-ynh-fr/442'>v samostatném diskuzním příspěvku</a>.",
+    "domain_add_dyndns_forbidden": "Již jste si zaregistrovali/přihlásili doménu DynDNS od projektu YunoHost. Tato funkce je záměrně omezena na jednu doménu na server. Pokud chcete přidat poddoménu své již přihlášené domény, použijte výše uvedenou možnost „Přidat doménu, kterou vlastním, nebo poddoménu“. Pokud chcete použít zcela jinou doménu, měli byste nejprve odebrat svou stávající DynDNS doménu. Domény DynDNS jsou vhodné při začínáním s vlastním hostingem, ale ve střednědobém/dlouhodobém horizontu doporučujeme zakoupit si vlastní doménu u některého registrátora, abyste měli plné vlastnictví své domény.",
     "domain_add": "Přidat doménu",
     "disabled": "Zakázáno",
     "disable": "Zakázat",
@@ -179,7 +182,7 @@
     "tools_reboot_btn": "Restartovat",
     "tools_reboot": "Restartovat váš server",
     "tools": "Nástroje",
-    "tip_about_user_email": "Uživatelům je vytvořena příslušná emailová adresa (a XMPP účet) ve tvaru uzivatelskejmeno{'@'}vasedomena.cz. Další emailové aliasy a emailové přesměrování mohou být později přidány administrátorem a také samotnými uživateli.",
+    "tip_about_user_email": "Uživatelům je vytvořena příslušná emailová adresa ve tvaru uzivatelskejmeno{'@'}vasedomena.cz. Další emailové aliasy a emailové přesměrování mohou být později přidány administrátorem a také samotnými uživateli.",
     "tcp": "TCP",
     "system_upgrade_all_packages_btn": "Aktualizovat všechny balíky",
     "system_upgrade_all_applications_btn": "Aktualizovat všechny aplikace",
@@ -211,7 +214,9 @@
     "placeholder": {
         "domain": "moje-domena.cz",
         "groupname": "Moje skupina",
-        "username": "jannovak"
+        "username": "jannovak",
+        "fullname": "Jan Novák",
+        "file": "Vyberte soubor nebo jej přetáhněte"
     },
     "path": "Cesta",
     "password_confirmation": "Ověření hesla",
@@ -241,9 +246,9 @@
     "mailbox_quota_description": "Nastavit limit úložiště pro obsah emailů.<br>Pro neomezený limit nastavte 0.",
     "local_archives": "Lokální zálohy",
     "last_ran": "Čas posledního spuštění:",
-    "label_for_manifestname": "Název pro {name} (zobrazuje se v uživatelském portále)",
-    "items_verbose_items_left": "Zbývá {items} položek.",
-    "items_verbose_count": "Počet položek {items}.",
+    "label_for_manifestname": "Štítek pro {name}",
+    "items_verbose_items_left": "Zbává {items}. | Zbývá 1 {items}. | Zbývá {items}.",
+    "items_verbose_count": "Zde jsou {items}. | Zde je 1 {items}. | Zde jsou {items}.",
     "items": {
         "users": "žádní uživatelé | uživatel | uživatelů",
         "services": "žádné služby | služba | služeb",
@@ -253,7 +258,8 @@
         "groups": "žádná skupina | skupina | skupin",
         "domains": "žádné domény | doména | domén",
         "backups": "žádné zálohy | záloha | záloh",
-        "apps": "žádné aplikace | aplikace | aplikací"
+        "apps": "žádné aplikace | aplikace | aplikací",
+        "items": "žádné položky | položka | položky"
     },
     "issues": "{count} chyb/problémů",
     "installation_complete": "Instalace dokončena",
@@ -297,11 +303,16 @@
     "protocol": "Protokol",
     "previous": "Předchozí",
     "postinstall_set_domain": "Nastavit hlavní doménu",
-    "postinstall_intro_2": "K aktivaci serverových služeb jsou vyžadovány další dva konfigurační kroky.",
+    "postinstall_intro_2": "K aktivaci vašich serverových služeb jsou vyžadovány další dva konfigurační kroky.",
     "postinstall_intro_1": "Gratulujeme! YunoHost byl úspěšně nainstalován.",
     "postinstall_domain": "Toto je první doména nastavená na vašem YunoHost serveru, bude použita pro přihlašování vašich uživatelů. Bude zobrazena komukoliv, proto ji zvolte s rozvahou.",
     "postinstall": {
-        "force": "Vynutit post instalaci"
+        "force": "Vynutit post instalaci",
+        "user": {
+            "title": "Vytvořit první administrátorský účet",
+            "first_user_help": "Tomuto uživateli budou udělena administrátorská privilegia a bude mít přístup k tomuto administrátorskému rozhraní a také přímo k serveru prostřednictvím SSH.\nJelikož se jedná o běžného uživatele, budete se moci připojit k portálu (SSO) také pomocí jeho přihlašovacích údajů.\nJakmile bude po-instalace hotova, budete moci vytvořit další administrátorské účty tím, že je přidáte do skupiny 'administrátoři'."
+        },
+        "title": "Po-instalace"
     },
     "ports": "Porty",
     "port": "Port",
@@ -366,7 +377,7 @@
             "dyn_dns_password_desc": "Toto heslo vám později umožní obnovit kontrolu nad vaší doménu, pokud si přeinstalujete systém. Pokud jste si již zaregistrovali tuto doménu, použijte obnovovací heslo zde pro její znovuzískání.",
             "from_registrar_desc": "Budete muset manuálně nakonfigurovat DNS záznamy u vašeho registrátora pro dokončení konfigurace této domény. Diagnóza YunoHost vás provede tím, jaké DNS záznamy musíte upravit.",
             "from_local_desc": "Pokud nechcete použít jméno \"skutečné\" veřejné domény, tak můžete použít cokoliv končící s <code>.local</code> nebo <code>.test</code>. Domény končící s <code>.local</code> jsou speciální v tom smyslu, že mohou být automaticky překládány na lokální síti, tedy pokud klienti podporují Bonjour protokol. Pokud tomu tak není, budete muset upravit soubor <code>/etc/hosts</code> (nebo její ekvivalent na Windows) na každém klientu, na kterém budete chtít tuto doménu používat anebo nakonfigurovat DNS záznamy na vašem routeru.",
-            "from_yunohost_desc": "Projekt YunoHost provozuje bezplatnou 'DynDNS' službu. Je omezena na jednu doménu na server (ačkoli poddomény můžete přidat i později pomocí jiné výše uvedené možnosti „Chci přidat poddoménu pro již přidanou doménu“). O konfiguraci DNS se automaticky postará YunoHost. Tato možnost je ideální, pokud začínáte s vlastním hostingem a nechcete ještě investovat do doménového jména. Ve střednědobém/dlouhodobém horizontu však doporučujeme zakoupit si vlastní doménové jméno u některého registrátora, abyste měli doménu plně ve svém vlastnictví."
+            "from_yunohost_desc": "Projekt YunoHost provozuje bezplatnou 'DynDNS' službu. Je omezena na jednu doménu na server (ačkoli poddomény můžete přidat i později pomocí jiné výše uvedené možnosti „Přidat doménu, kterou vlastním nebo poddoménu“). O konfiguraci DNS se automaticky postará YunoHost. Tato možnost je ideální, pokud začínáte s vlastním hostingem a nechcete ještě investovat do doménového jména. Ve střednědobém/dlouhodobém horizontu však doporučujeme zakoupit si vlastní doménové jméno u některého registrátora, abyste měli doménu plně ve svém vlastnictví."
         },
         "info": {
             "apps_on_domain": "Aplikace instalovány na doméně",
@@ -530,5 +541,22 @@
     "form": {
         "current_file": "Momentální soubor:",
         "select_one": "Prosím vyberte možnost"
-    }
+    },
+    "manage_groups": "Správa skupin",
+    "install_app": "Instalovat aplikaci",
+    "label_for_manifestname_help": "Toto je jméno zobrazované na portálu. To může být později změněno.",
+    "purge_user_data_warning": "Odstranění dat uživatele nelze vrátit zpět. Ujistěte se, že víte, co děláte!",
+    "purge_user_data_checkbox": "Odstranit data uživatele {name}? (Tímto smažete obsah domovských a poštovních složek)",
+    "quick_action": "Rychlá akce",
+    "hook_data_multimedia_desc": "Multimediální soubory nacházející se v /home/yunohost.multimedia",
+    "hook_data_multimedia": "Multimediální data",
+    "stopped": "Pozastaveno",
+    "text_selection_is_disabled": "Výběr textu je vypnut. Pokud chcete zasdílet tento záznam, prosím sdílejte *celý* záznam za pomocí tačítka 'Sdílet s Yunopaste'. <br/><small>Nebo pokud opravdu chcete vybrat text, stiskněte tyto klávesy: ↓↓↑↑.</small>",
+    "group_explain_admins": "Toto je speciální skupina odpovídající administrátorským uživatelům.Uživatelé v této skupině mohou přistupovat k YunoHost webadmin, připojit se k serveru za pomocí SSH a použít příkaz 'sudo'. Též jsou jim posílány emaily zaslané do root{'@'}, admin{'@'} a admins{'@'}, jako např. diagnostická upozornění. Do této skupiny byste měli přidat jen ty, kterým naprosto důvěřujete!",
+    "groups": {
+        "remove_user": {
+            "confirm_from_admins": "Jste si jisti, že se chcete odebrat ze skupiny 'administrátoři'?"
+        }
+    },
+    "important_yunohost_upgrade": "Velká aktualizace YunoHost je dostupná. Je silně doporučeno si pečlivě přečíst poznámky k verzi na fóru před aktualizací: <a href='https://forum.yunohost.org/tag/ynh_release'>Přečíst si poznámky k verzi na fóru</a>"
 }
