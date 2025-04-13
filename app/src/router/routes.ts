@@ -301,6 +301,11 @@ const routes: RouteRecordRaw[] = [
     },
   },
   {
+    name: 'tool-disk',
+    path: '/tools/disk',
+    component: () => import('@/views/tool/ToolDisk.vue'),
+  },
+  {
     name: 'tool-firewall',
     path: '/tools/firewall',
     component: () => import('@/views/tool/ToolFirewall.vue'),
@@ -338,28 +343,6 @@ const routes: RouteRecordRaw[] = [
     meta: {
       args: { trad: 'tools_shutdown_reboot' },
       breadcrumb: ['tool-list', 'tool-power'],
-    },
-  },
-
-  /* ────────────╮
-   │   STORAGE   │
-   ╰──────────── */
-  {
-    name: 'storage',
-    path: '/storage',
-    component: () => import('@/views/storage/StorageList.vue'),
-    meta: {
-      args: { trad: 'storage' },
-      breadcrumb: ['storage'],
-    },
-  },
-  {
-    name: 'storage-disks',
-    path: '/storage/disks',
-    component: () => import('@/views/storage/DiskList.vue'),
-    meta: {
-      args: { trad: 'storage_disks.category_name' },
-      breadcrumb: ['storage', 'storage-disks'],
     },
   },
 

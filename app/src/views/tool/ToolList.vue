@@ -6,6 +6,7 @@ const menu = [
     icon: 'share',
     translation: 'migrations',
   },
+  { routeName: 'tool-disk', icon: 'hdd-o', translation: 'storage_disks.category_name' },
   { routeName: 'service-list', icon: 'gears', translation: 'services' },
   { routeName: 'tool-firewall', icon: 'shield', translation: 'firewall' },
   {
