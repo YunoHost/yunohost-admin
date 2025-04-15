@@ -301,6 +301,11 @@ const routes: RouteRecordRaw[] = [
     },
   },
   {
+    name: 'tool-disk',
+    path: '/tools/disk',
+    component: () => import('@/views/tool/ToolDisk.vue'),
+  },
+  {
     name: 'tool-firewall',
     path: '/tools/firewall',
     component: () => import('@/views/tool/ToolFirewall.vue'),
