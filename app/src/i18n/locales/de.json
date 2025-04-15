@@ -63,7 +63,7 @@
     "ports": "Ports",
     "postinstall_domain": "Dies ist die primäre Domäne für Ihren YunoHost Server und auch die Domäne, an der sich jeder anmelden wird. Sie wird für alle Konten sichtbar sein, daher wählen Sie die primäre Domäne sorgfältig aus.",
     "postinstall_intro_1": "Gratulation! YunoHost wurde erfolgreich installiert.",
-    "postinstall_intro_2": "Es sind noch zwei weitere Einstellungen notwendig, um die Dienste auf Ihrem Server zu aktivieren.",
+    "postinstall_intro_2": "Es sind noch zwei weitere Konfigurationsschritte notwendig, um die Dienste auf Ihrem Server zu aktivieren.",
     "postinstall_intro_3": "Sie können mehr Informationen erhalten, wenn Sie auf der <a href='//yunohost.org/postinstall' target='_blank'>entsprechenden Dokumentationsseite</a> nachlesen",
     "previous": "Zurück",
     "protocol": "Protokoll",
@@ -94,7 +94,7 @@
     "user_emailaliases": "E-Mail Aliase",
     "user_emailforward": "E-Mail Weiterleitung",
     "user_fullname": "Vollständiger Name",
-    "user_interface_link": "Benutzeroberfläche",
+    "user_interface_link": "Portal",
     "user_mailbox_quota": "Mailbox Kontingent",
     "user_new_forward": "weiterleitung{'@'}externedomain.org",
     "user_username": "Anmeldename",
@@ -114,7 +114,7 @@
     "confirm_upnp_disable": "Möchten Sie UPnP wirklich deaktivieren?",
     "confirm_reboot_action_reboot": "Möchten Sie den Server wirklich neustarten?",
     "confirm_reboot_action_shutdown": "Möchten Sie den Server wirklich herunterfahren?",
-    "domain_dns_conf_is_just_a_recommendation": "Dieser Abschnitt zeigt Ihnen die *empfohlene* Konfiguration. Sie konfiguriert *nicht* das DNS für Sie. Es liegt in Ihrer Verantwortung, die DNS-Zone bei Ihrem DNS-Registrar nach dieser Empfehlung zu konfigurieren.",
+    "domain_dns_conf_is_just_a_recommendation": "Dieser Abschnitt zeigt Ihnen die *empfohlene* Konfiguration. Ihre DNS-Einträge werden hier *nicht* eingerichtet. Es liegt in Ihrer Verantwortung, die DNS-Zone bei Ihrem DNS-Registrar nach dieser Empfehlung manuell zu konfigurieren.",
     "ok": "OK",
     "system_upgrade_all_applications_btn": "Aktualisiere alle Applikationen",
     "system_upgrade_all_packages_btn": "Aktualisiere alle Pakete",
@@ -166,7 +166,9 @@
         "browse": "Durchsuchen",
         "link": "Link",
         "none": "Keine",
-        "separator": ", "
+        "separator": ", ",
+        "comment": "Kommentieren",
+        "edit": "Bearbeiten"
     },
     "group": "Gruppe",
     "details": "Details",
@@ -201,9 +203,9 @@
     "issues": "{count} Probleme",
     "restart": "Neustart",
     "operation_failed_explanation": "Die Operation ist fehlgeschlagen! Das tut uns leid :( Sie können Sich <a href='https://yunohost.org/help'>hier Hilfe holen</a>. Bitte stellen Sie *die ganzen Logs* der Operation bereit, damit Ihnen besser geholfen werden kann. Dies tun Sie, indem Sie auf den grünen 'mit Yunopaste teilen' Knopf drücken. Wenn Sie die Logs teilen, wird Yunohost automatisch versuchen Ihre privaten Daten wie Domainnamen und IP's zu anonymisieren.",
-    "diagnosis_explanation": "Die Diagnosefunktion wird versuchen, gängige Probleme in verschiedenen Teilen Ihres Servers zu finden, damit alles reibungslos läuft. Die Diagnose wird auch automatisch zweimal täglich ausgeführt und falls Fehler gefunden werden, bekommt der Administrator eine E-Mail. Beachten Sie, dass einige Tests nicht relevant sind, wenn Sie einzelne Features (zum Beispiel XMPP) nicht benutzten oder Sie ein komplexes Setup haben. In diesem Fall und wenn Sie wissen was Sie tun ist es in Ordnung die dazugehörigen Warnungen und Hinweise zu ignorieren.",
+    "diagnosis_explanation": "Die Diagnosefunktion wird versuchen, gängige Probleme in den verschiedenen Komponenten Ihres Servers zu erkennen, um einen reibungslosen Betrieb zu gewährleisten. Die Diagnose wird automatisch zweimal täglich ausgeführt. Sollten Fehler gefunden werden, wird der Administrator per E-Mail benachrichtigt. Beachten Sie, dass ggf. einige Tests für Sie nicht relevant sind, wenn Sie bestimmte Funktionen (z.B. E-Mail) nicht nutzen oder Sie ein komplexes Setup haben. In solchen Fällen und wenn Sie wissen, was Sie tun, ist es in Ordnung die entsprechenden Hinweise und Warnungen zu ignorieren.",
     "pending_migrations": "Es gibt einige ausstehende Migrationen, die darauf warten, ausgeführt zu werden. Bitte gehen Sie auf <a href='#/tools/migrations'>Werkzeuge > Migrationen</a> um diese auszuführen.",
-    "tip_about_user_email": "Konten werden mit einer verknüpften E-Mail-Adresse (und XMPP Account) erstellt im Format username{'@'}domain.tld. Zusätzliche E-Mail-Aliasse and E-Mail-Weiterleitungen können später durch Administratoren und Benutzer hinzugefügt werden.",
+    "tip_about_user_email": "Bei der Kontoerstellung wird jedem Benutzer eine eigene E-Mail-Adresse im Format username{'@'}domain.tld zugewiesen. Zusätzliche E-Mail-Aliasse and E-Mail-Weiterleitungen können später durch den Administrator oder den Benutzer selbst hinzugefügt werden.",
     "logs_suboperations": "Unter-Operationen",
     "api_errors_titles": {
         "APIBadRequestError": "Es ist ein Fehler in Yunohost aufgetreten",
@@ -277,12 +279,16 @@
         "domains": "keine Domänen | Domäne | Domänen",
         "backups": "keine Sicherungen | Sicherung| Sicherungen",
         "apps": "keine Apps | App | Apps",
-        "permissions": "keine Berechtigungen | Berechtigung | Berechtigungen"
+        "permissions": "keine Berechtigungen | Berechtigung | Berechtigungen",
+        "items": "keine Einträge | Eintrag | Einträge"
     },
     "history": {
         "last_action": "Letzte Aktion:",
         "title": "Verlauf",
-        "is_empty": "Der Verlauf ist leer."
+        "is_empty": "Der Verlauf ist leer.",
+        "check_logs": "Aufgabenlog aufrufen.",
+        "started_by": "gestartet von {caller}",
+        "no_logs": "Keine Logs verfügbar."
     },
     "form_errors": {
         "required": "Feld ist erforderlich.",
@@ -337,7 +343,8 @@
                 "upgrade_system": "Die Verbindung mit dem Server wurde aufgrund einer YunoHost-Aktualisierung beendet. Warten Sie bis der Server wieder erreichbar ist…"
             }
         },
-        "busy": "Der Server ist beschäftigt…"
+        "busy": "Der Server ist beschäftigt…",
+        "unknown_request": "Unbekannte Anfrage"
     },
     "hook_conf_manually_modified_files": "Manuell geänderte Konfigurationen",
     "hook_conf_ynh_settings": "YunoHost-Konfigurationen",
@@ -346,7 +353,7 @@
         "title": "Post-Installation",
         "user": {
             "title": "Erstes Administratorkonto erstellen",
-            "first_user_help": "Diesem Benutzer werden Adminstratoren-Privilegien erteilt und es wird ihm erlaubt sein, sich mit dem Admin-Portal zu verbinden und auch sich direkt mit dem Server über SSH zu verbinden.\nWeil es ein regulärer Benutzer ist, werden Sie sich auch mit dem Benutzer-Portal (SSO) mit seinen Zugangsdaten verbinden können. \nSobald die post-installation vollständig ist, werden Sie in der Lage sein, weitere Admin-Benutzer zu erstellen, indem Sie diese der 'admins'-Gruppe hinzufügen."
+            "first_user_help": "Dieser Benutzer erhält Administratoren-Rechte und darf damit auf die Administrationsoberfläche zugreifen sowie sich per SSH direkt mit dem Server verbinden.\nDa es sich weiterhin um ein reguläres Benutzerkonto handelt, können Sie sich außerdem mit Ihren Zugangsdaten am YunoHost-Portal (SSO) anmelden.\nSobald die Installation abgeschlossen ist, sind Sie in der Lage, weitere Benutzer mit Admin-Rechten zu versehen, indem Sie diese der \"admins\"-Gruppe hinzufügen."
         }
     },
     "items_verbose_items_left": "Es bleiben {items} übrig. | Es bleibt 1 {items} übrig. | Es bleiben {items} übrig.",
@@ -363,7 +370,7 @@
             "auto_config_ok": "Automatische Konfiguration scheint OK zu sein!",
             "auto_config_zone": "Aktuelle DNS-Zone",
             "info": "Die automatische DNS-Einträge-Konfiguration ist ein experimentelles Feature. <br> Erwägen Sie es, Ihre aktuelle DNS-Konfiguration im Webinterface bei ihrem DNS-Registrar zu sichern, bevor Sie die Einträge von hier aus propagieren.",
-            "push_force_confirm": "Sind Sie sicher, dass Sie die Propagierung aller vorgeschlagenen DNS-Einträge forcieren möchten? Seien Sie sich bewusst, dass dies dazu führen kann, dass es manuelle oder wichtige Default-Einträge, die ihr Registrar definiert hat, überschreiben könnte."
+            "push_force_confirm": "Sind Sie sicher, dass Sie die Propagierung aller vorgeschlagenen DNS-Einträge erzwingen möchten? Beachten Sie, dass dadurch manuelle Einträge oder wichtige Standardwerte überschrieben werden könnten, die Sie oder Ihr Registrar eingerichtet haben."
         },
         "cert": {
             "types": {
@@ -421,7 +428,7 @@
     "group_admins": "Administratoren",
     "group_explain_admins": "Dies ist eine spezielle Gruppe, welche zu den Administratoren-Benutzern gehört. Benutzer in dieser Gruppe besitzen, einfach ausgedrückt, alle Berechtigungen auf dem Server (verändern, erstellen, hinzufügen und zurückhalten). Sie können folglich auf die Admin-Oberfläche von YunoHost zugreifen, sich via SSH mit dem Server verbinden und ausserdem das Kommando `sudo` verwenden. Zusätzlich erhalten sie alle E-Mails, welche an root{'@'}, admin{'@'}, admins{'@'}, wie z.B. die Diagnose-Benachrichtigungen, gesendet wurden. Sie sollten wirklich nur Personen zu dieser Gruppe hinzufügen, denen Sie absolut vertrauen!",
     "important_yunohost_upgrade": "Eine grössere YunoHost-Aktualisierung ist erhältlich. Es ist sehr empfehlenswert, die Release-Note(s) im Forum sorgfältig durchzulesen, bevor Sie aktualisieren : <a href='https://forum.yunohost.org/tag/ynh_release'>Die Release-Notes im Forum aufrufen.</a>",
-    "label_for_manifestname_help": "Dies ist der Name, welcher im Benutzer-Portal angezeigt wird. Dies kann später nochmal geändert werden.",
+    "label_for_manifestname_help": "Dies ist der Name, der im Portal angezeigt wird. Er kann später geändert werden.",
     "manage_groups": "Gruppenmanagement",
     "tools_yunohost_settings": "YunoHost-Einstellungen",
     "wrong_password_or_username": "Falsches Passwort für Benutzername",
@@ -545,5 +552,11 @@
         "select_one": "Bitte wählen Sie eine Option"
     },
     "confirm_firewall_open": "Sind Sie sicher, dass Sie Port {port} für das Protokoll {protocol} öffnen wollen?",
-    "confirm_firewall_close": "Sind Sie sicher, dass Sie Port {port} für Protokoll {protocol} schließen wollen?"
+    "confirm_firewall_close": "Sind Sie sicher, dass Sie Port {port} für Protokoll {protocol} schließen wollen?",
+    "confirm_app_force_upgrade": "Wollen Sie die Aktualisierung der Applikation wirklich erzwingen?",
+    "failed": "Fehlgeschlagen",
+    "hook_data_multimedia_desc": "Multimedia-Dateien befinden sich im Verzeichnis /home/yunohost.multimedia",
+    "hook_data_multimedia": "Multimedia-Dateien",
+    "stopped": "Gestoppt",
+    "quick_action": "Kurzbefehl"
 }
