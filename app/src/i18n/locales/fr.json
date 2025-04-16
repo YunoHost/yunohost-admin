@@ -576,6 +576,10 @@
             "usb_icon_alt": "Cet appareil est connecté à un port USB",
             "ejectable_icon_alt": "Cet appareil est éjectable"
         },
-        "category_name": "Disques durs"
+        "category_name": "Disques durs",
+        "infos_meta": {
+            "usb": "Périphérique USB",
+            "ejectable": "Cet appareil peut être éjecté"
+        }
     }
 }
