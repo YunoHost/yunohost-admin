@@ -561,5 +561,21 @@
     "hook_data_multimedia_desc": "Fichiers multimédias situés dans `/home/yunohost.multimedia`",
     "stopped": "Stoppé",
     "failed": "Échec",
-    "storage": "Stockage"
+    "storage": "Stockage",
+    "storage_disks": {
+        "infos": {
+            "smart_status_icon_alt": {
+                "SANE": "Ce périphérique est sain",
+                "CRITICAL": "Cet appareil est dans un état critique",
+                "UNKNOWN": "L'état de ce dispositif est inconnu"
+            },
+            "serial": "Série :",
+            "serial_unknown": "Inconnu",
+            "size": "Taille :",
+            "type": "Type :",
+            "usb_icon_alt": "Cet appareil est connecté à un port USB",
+            "ejectable_icon_alt": "Cet appareil est éjectable"
+        },
+        "category_name": "Disques durs"
+    }
 }
