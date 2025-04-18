@@ -93,7 +93,9 @@
         "users": "erabiltzaile bat ere ez | erabiltzailea | erabiltzailea",
         "logs": "erregistro bat ere ez | erregistroa | erregistroa",
         "permissions": "baimenik gabe | baimena | baimen",
-        "items": "elementurik ez | elementua | elementuak"
+        "items": "elementurik ez | elementua | elementuak",
+        "disk": "diskorik ez | diskoa | disko",
+        "inserted_disk": "txertatutako diskorik ez | txertatutako diskoa | txertatutako disko"
     },
     "history": {
         "title": "Historia",
@@ -558,5 +560,26 @@
     "failed": "Huts egin du",
     "hook_data_multimedia": "Multimedia datuak",
     "hook_data_multimedia_desc": "/home/yunohost.multimedia bidean dauden multimedia fitxategiak",
-    "stopped": "Gelditu da"
+    "stopped": "Gelditu da",
+    "storage": "Biltegiratzea",
+    "storage_disks": {
+        "category_name": "Disko gogorrak",
+        "infos": {
+            "smart_status_icon_alt": {
+                "CRITICAL": "Gailua egoera txarrean dago",
+                "UNKNOWN": "Gailu honen egoera ezezaguna da",
+                "SANE": "Gailua egoera onean dago"
+            },
+            "serial_unknown": "Ezezaguna",
+            "usb_icon_alt": "Gailua USB bidez konektatuta dago",
+            "ejectable_icon_alt": "Gailu egotzi daiteke",
+            "serial": "Seriea:",
+            "size": "Neurria:",
+            "type": "Mota:"
+        },
+        "infos_meta": {
+            "usb": "USB gailua",
+            "ejectable": "Gailua egotz daiteke"
+        }
+    }
 }
