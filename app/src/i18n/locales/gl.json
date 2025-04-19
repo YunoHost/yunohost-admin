@@ -163,7 +163,9 @@
         "permissions": "sen permisos | permiso | permisos",
         "logs": "sen rexistros | rexistro | rexistros",
         "installed_apps": "cero apps instaladas | app instalada | apps instaladas",
-        "items": "sen elementos | elemento | elementos"
+        "items": "sen elementos | elemento | elementos",
+        "disk": "sen disco | disco | discos",
+        "inserted_disk": "sen disco inserido | disco inserido | discos inseridos"
     },
     "issues": "{count} asuntos",
     "installation_complete": "Instalación completa",
@@ -558,5 +560,26 @@
     "failed": "Fallou",
     "hook_data_multimedia": "Datos multimedia",
     "hook_data_multimedia_desc": "Os ficheiros multimedia están en /home/yunohost.multimedia",
-    "stopped": "Detida"
+    "stopped": "Detida",
+    "storage": "Almacenaxe",
+    "storage_disks": {
+        "infos": {
+            "usb_icon_alt": "Este dispositivo está conectado por USB",
+            "ejectable_icon_alt": "Este é un dispositivo extraíble",
+            "smart_status_icon_alt": {
+                "SANE": "Este dispositivo está san",
+                "CRITICAL": "Este dispositivo está nun estado crítico",
+                "UNKNOWN": "O estado deste dispositivo é descoñecido"
+            },
+            "serial": "Serie:",
+            "serial_unknown": "Descoñecido",
+            "size": "Tamaño:",
+            "type": "Tipo:"
+        },
+        "category_name": "Discos duros",
+        "infos_meta": {
+            "usb": "Dispositivo USB",
+            "ejectable": "Este dispositivo pódese extraer"
+        }
+    }
 }

@@ -254,7 +254,9 @@
         "backups": "aucune sauvegarde | sauvegarde | sauvegardes",
         "apps": "aucune application | app | apps",
         "permissions": "pas d'autorisations | permission | autorisations",
-        "items": "aucun article | article | articles"
+        "items": "aucun article | article | articles",
+        "disk": "aucun disque | disque | disques",
+        "inserted_disk": "pas de disque inséré | disque inséré | disques insérés"
     },
     "history": {
         "last_action": "Dernière action :",
@@ -558,5 +560,26 @@
     "hook_data_multimedia": "Données multimédias",
     "hook_data_multimedia_desc": "Fichiers multimédias situés dans `/home/yunohost.multimedia`",
     "stopped": "Stoppé",
-    "failed": "Échec"
+    "failed": "Échec",
+    "storage": "Stockage",
+    "storage_disks": {
+        "infos": {
+            "smart_status_icon_alt": {
+                "SANE": "Ce périphérique est sain",
+                "CRITICAL": "Cet appareil est dans un état critique",
+                "UNKNOWN": "L'état de ce dispositif est inconnu"
+            },
+            "serial": "Série :",
+            "serial_unknown": "Inconnu",
+            "size": "Taille :",
+            "type": "Type :",
+            "usb_icon_alt": "Cet appareil est connecté à un port USB",
+            "ejectable_icon_alt": "Cet appareil est éjectable"
+        },
+        "category_name": "Disques durs",
+        "infos_meta": {
+            "usb": "Périphérique USB",
+            "ejectable": "Cet appareil peut être éjecté"
+        }
+    }
 }
