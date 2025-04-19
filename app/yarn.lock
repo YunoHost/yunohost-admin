@@ -1849,10 +1849,10 @@ uuid@^11.0.3:
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-11.0.3.tgz#248451cac9d1a4a4128033e765d137e2b2c49a3d"
   integrity sha512-d0z310fCWv5dJwnX1Y/MncBAqGMKEzlBb1AOf7z9K8ALnd0utBX/msg/fA0+sbyN1ihbMsLhrBlnl1ak7Wa0rg==
 
-vite@^6.0.13:
-  version "6.0.13"
-  resolved "https://registry.yarnpkg.com/vite/-/vite-6.0.13.tgz#14c7cfa09eb430de6ca8fd44640b421a7d6a16fd"
-  integrity sha512-vreFe9+wkAVt1I6gerGnUmDH1ir9gmbQ7+jtfMAk4iwSMkuQxl4/eGc26LLhCWTJf1wCgQWFxZBRsjPHKmEM+w==
+vite@^6.0.15:
+  version "6.0.15"
+  resolved "https://registry.yarnpkg.com/vite/-/vite-6.0.15.tgz#b43167e6bf93195a460424a56bb323abe0bf1cce"
+  integrity sha512-uC/aEgK2B7Ryaznyfj6h1PMUe4G7/6cKG97idqJFcgasmaoIRoemtlDQbsTTb6y5n3ly2L3kTgMR3sso9ASz0g==
   dependencies:
     esbuild "^0.24.2"
     postcss "^8.4.49"
