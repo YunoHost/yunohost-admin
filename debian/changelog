@@ -1,3 +1,12 @@
+yunohost-admin (12.1.5) testing; urgency=low
+
+  - Add storage management section + disks management page ([#585](http://github.com/YunoHost/yunohost-admin/pull/585))
+  - i18n: Translations updated for Basque, Czech, French, Galician, German, Spanish
+
+  Thanks to all contributors <3 ! (Alonso Roco, Apfel, Christophe Henry, demodé, José M, ppr, xabirequejo)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Sat, 19 Apr 2025 17:52:27 +0200
+
 yunohost-admin (12.1.4) testing; urgency=low
 
   - apps: add logo placeholder so that text remains aligned in the grid ([#629](http://github.com/YunoHost/yunohost-admin/pull/629))
