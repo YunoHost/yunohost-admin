@@ -567,7 +567,7 @@
             "smart_status_icon_alt": {
                 "SANE": "Ce périphérique est sain",
                 "CRITICAL": "Cet appareil est dans un état critique",
-                "UNKNOWN": "L'état de ce dispositif est inconnu"
+                "UNKNOWN": "L'état de cet appareil est inconnu"
             },
             "serial": "Série :",
             "serial_unknown": "Inconnu",
@@ -579,7 +579,7 @@
         "category_name": "Disques durs",
         "infos_meta": {
             "usb": "Périphérique USB",
-            "ejectable": "Cet appareil peut être éjecté"
+            "ejectable": "L'appareil peut être éjecté"
         }
     }
 }
