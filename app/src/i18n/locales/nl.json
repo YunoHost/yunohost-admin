@@ -146,7 +146,7 @@
         "reconnecting": {
             "reason": {
                 "shutdown": "Je server wordt afgesloten en is niet langer bereikbaar. Zet 'm weer aan en er verschijnt een login-prompt zodra de server bereikt kan worden.",
-                "unknown": "De verbinding met de server werd om onbekende reden gesloten.",
+                "unknown": "De verbinding met de server werd om onbekende reden gesloten. Misschien is de 'yunohost-api' niet bereikbaar?",
                 "reboot": "Je server is aan het herstarten en zal enige tijd niet bereikbaar zijn. Een login-prompt komt beschikbaar zodra de server terug is.",
                 "upgrade_system": "De verbinding met de server is gesloten vanwege een YunoHost upgrade. Wacht tot de server weer bereikbaar is…"
             },
@@ -231,11 +231,11 @@
     "confirm_reboot_action_reboot": "Weet je zeker dat je de server wilt herstarten?",
     "diagnosis": "Diagnose",
     "details": "Details",
-    "domain_dns_conf_is_just_a_recommendation": "Deze sectie toont de *aanbevolen\" inrichting. De pagina richt DNS *niet* voor je in. Je moet zelf de DNS-zones bij je DNS-registratie inrichten volgens deze aanbeveling.",
+    "domain_dns_conf_is_just_a_recommendation": "Deze pagina toont u de *aanbevolen* configuratie, maar het configureert de DNS *niet* voor u. Het is uw verantwoordelijkheid om de DNS-zone in uw DNS-registrar te configureren op basis van deze aanbeveling.",
     "app_install_parameters": "Installatieparameters",
     "diagnosis_first_run": "De diagnosefunctie probeert veel voorkomende problemen in verschillende aspecten van je server in kaart te brengen, om er zeker van te zijn dat alles vlot verloopt. Geen paniek als er iets mis is meteen nadat je je server geïnstalleerd hebt: de diagnose is precies bedoeld voor het opsporen van problemen en het bieden van hulp bij het oplossen ervan. De diagnose draait ook automatisch tweemaal per dag, en er wordt een email naar de beheerder gestuurd als er problemen gevonden worden.",
     "diagnosis_explanation": "De diagnosefunctie probeert veel voorkomende problemen op verschillende aspecten van je server boven water te krijgen, zodat alles gladjes blijft lopen. De diagnose draait tweemaal per dag, er wordt een email naar de beheerder gestuurd als er problemen geconstateerd worden. Houdt er rekening mee dat niet alle controles per definitie relevant zijn als je specifieke functionaliteit niet gebruikt (XMPP, bijvoorbeeld) en dat er bij complexe opbouw van je server misschien vals alarm geslagen wordt. In die gevallen, en als je weet waar je mee bezig bent, is het geen probleem om de overeenkomstige waarschuwingen te negeren.",
-    "good_practices_about_user_password": "Je gaat nu een nieuw wachtwoord opgeven. Het wachtwoord moet minimaal 8 tekens lang zijn - hoewel het een goede gewoonte is om een langer wachtwoord te gebruiken (d.w.z. een wachtwoordzin) en/of verschillende soorten tekens te gebruiken (hoofdletters, kleine letters, cijfers en speciale tekens).",
+    "good_practices_about_user_password": "U bent bezig een nieuw gebruikerswachtwoord in te voeren. Dit wachtwoord moet minimaal 8 tekens bevatten. Het is verstandig om een langer wachtwoord te gebruiken (zoals een lange lijst met woorden die niet makkelijk te raden zijn) en/of door verschillende tekens door elkaar heen te gebruiken (hoofdletters, kleine letters, cijfers en leestekens).",
     "app": {
         "info": {
             "config_panel_error": "Een fout zorgt ervoor dat het configuratiepaneel niet getoond kan worden:",
@@ -396,7 +396,7 @@
         "domain": "mijn-domein.com",
         "groupname": "Mijn groepsnaam"
     },
-    "restart": "Opnieuw opstarten",
+    "restart": "Herstart",
     "search": {
         "for": "Zoeken voor {items}…",
         "not_found": "Er zijn {items} die overeenkomen met jouw criteria. | Er is 1 {items} dat overeenkomt met jouw criteria. | Er zijn {items} die overeenkomen met jouw criteria."
@@ -477,7 +477,7 @@
     "error_server_unexpected": "Onverwachte serverfout",
     "error_connection_interrupted": "De server heeft de connectie verbroken in plaats van deze te beantwoorden. Zijn nginx of de yunohost-api opnieuw opgestart of gestopt?",
     "app_state_broken": "kapot",
-    "domain_dns_push_failed_to_authenticate": "De authenticatie bij de API van het register is mislukt. Waarschijnlijk zijn de <a href='#/domains/{domain}/config'>credentials</a> incorrect? (Error: {error})",
+    "domain_dns_push_failed_to_authenticate": "De authenticatie bij de API van de registrar is mislukt. Waarschijnlijk zijn de <a href='#/domains/{domain}/config'>credentials</a> incorrect? (Error: {error})",
     "group_admins": "Beheerders",
     "group_explain_visitors": "Dit is een speciale groep die anonieme bezoekers voorstelt",
     "mailbox_quota_description": "Zet een opslaglimiet voor de e-mail inhoud.<br>Zet deze op 0 om uit te schakelen.",
