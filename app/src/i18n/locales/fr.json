@@ -569,7 +569,7 @@
                 "CRITICAL": "Cet appareil est dans un état critique",
                 "UNKNOWN": "L'état de cet appareil est inconnu"
             },
-            "serial": "Série :",
+            "serial": "Numéro de série :",
             "serial_unknown": "Inconnu",
             "size": "Taille :",
             "type": "Type :",
@@ -579,7 +579,7 @@
         "category_name": "Disques durs",
         "infos_meta": {
             "usb": "Périphérique USB",
-            "ejectable": "L'appareil peut être éjecté"
+            "ejectable": "Cet appareil peut être éjecté"
         }
     }
 }
