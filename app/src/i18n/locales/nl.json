@@ -93,7 +93,7 @@
     "user_emailaliases": "Mailaliassen",
     "user_emailforward": "Email forward",
     "user_fullname": "Volledige naam",
-    "user_interface_link": "Gebruikersinterface",
+    "user_interface_link": "Portaal",
     "user_mailbox_quota": "Mailbox quota",
     "user_new_forward": "nieuwedoorstuurmail{'@'}mijndomein.org",
     "user_username": "Gebruikersnaam",
@@ -105,7 +105,9 @@
         "separator": ", ",
         "browse": "Blader",
         "none": "Geen",
-        "collapse": "Inklappen"
+        "collapse": "Inklappen",
+        "edit": "Bewerken",
+        "comment": "Opmerking"
     },
     "yes": "Ja",
     "app_state_inprogress": "functioneert nog niet",
@@ -145,13 +147,15 @@
         "partial_logs": "[…] (kijk in de geschiedenis voor het volledige log)",
         "reconnecting": {
             "reason": {
-                "shutdown": "Je server wordt afgesloten en is niet langer bereikbaar. Zet 'm weer aan en er verschijnt een login-prompt zodra de server bereikt kan worden.",
+                "shutdown": "Je server wordt afgesloten en is niet langer bereikbaar.",
                 "unknown": "De verbinding met de server werd om onbekende reden gesloten. Misschien is de 'yunohost-api' niet bereikbaar?",
-                "reboot": "Je server is aan het herstarten en zal enige tijd niet bereikbaar zijn. Een login-prompt komt beschikbaar zodra de server terug is.",
+                "reboot": "Je server is aan het herstarten en zal enige tijd niet bereikbaar zijn.",
                 "upgrade_system": "De verbinding met de server is gesloten vanwege een YunoHost upgrade. Wacht tot de server weer bereikbaar is…"
             },
             "title": "Poging met de server te communiceren…"
-        }
+        },
+        "busy": "De server is bezig.…",
+        "unknown_request": "Onbekend verzoek"
     },
     "address": {
         "local_part_description": {
@@ -201,7 +205,8 @@
                 "other": "Andere/Onbekend",
                 "selfsigned": "Zelfondertekend"
             },
-            "valid_for": "geldig voor {days}"
+            "valid_for": "geldig voor {days}",
+            "install": "Installeer ook het Let's Encrypt certificaat"
         },
         "see_parent_domain": "Zie moederdomein",
         "toggle_subdomains": "Toon subdomeinen",
@@ -211,9 +216,11 @@
             "from_local": "Ik wil een domein enkel voor lokaal gebruik / tests",
             "from_yunohost": "Ik bezit geen domein, ik wil een gratis DynDNS domein aangeboden door het YunoHost project registreren/gebruiken",
             "from_local_desc": "Als je geen \"echt\" publiek domein wilt, kan je alles gebruiken dat eindigt met <code>.local</code> of <code>.test</code>. Domeinnamen eindigend in <code>.local</code> zijn bijzonder in de betekenis dat ze automatisch worden verwerkt door het lokaal netwerk, aangenomen dat de cliënt het Bonjour protocol ondersteund. Een alternatief is om het <code>/etc/hosts</code> bestand (of equivalent op Windows) aan te passen op elke cliënt waarop je dit domein wilt gebruiken, of om je lokale DNS invoer van je internetrouter te configereren.",
-            "from_registrar": "Ik wil een domein toevoegen dat ik al bezit, of een subdomein",
+            "from_registrar": "Ik wil een domein toevoegen dat ik al bezit",
             "from_yunohost_desc": "Het YunoHost project onderhoudt een gratis 'DynDNS' dienst. Deze is beperkt tot één domein per server (al kan je later wel sub-domeinen toevoegen via 'voeg een domein toe dat ik al bezit, of een subdomein' optie hierboven). De DNS configuratie zal automatisch worden behandeld door YunoHost. Dit is ideaal wanneer je begint met zelf te hosten in het algemeen en je nog niet wilt investeren in een domeinnaam. Maar, in de medium/langetermijn, raden we wel aan om een echt eigen domeinnaam te komen bij een register zodat je volledige eigendom hebt over je domein.",
-            "from_registrar_desc": "Je zal manueel je DNS-gegevens bij jouw register moeten afmaken om dit domein te configureren. De YunoHost diagnose zal je leiden naar wat je exact moet configureren in je DNS-gegevens."
+            "from_registrar_desc": "Je zal manueel je DNS-gegevens bij jouw register moeten afmaken om dit domein te configureren. De YunoHost diagnose zal je leiden naar wat je exact moet configureren in je DNS-gegevens.",
+            "from_subdomain_desc": "Als je geconfigureerde DNS-records dat toestaan, kun je het Let's Encrypt certificaat automatisch installeren.",
+            "from_subdomain": "Ik wil een subdomein aan een bestaand domein toevoegen"
         },
         "explain": {
             "main_domain": "Het hoofddomein is het domein waarop de gebruikers connecteren op het portaal (via \"{domain}/yunohost/sso\").<br>Daarom is het niet mogelijk om het te verwijderen.<br>Als je \"{domain}\" wilt verwijderen, zul je eerst een ander domein moeten kiezen of toevoegen en als hoofddomein aanduiden."
@@ -234,7 +241,7 @@
     "domain_dns_conf_is_just_a_recommendation": "Deze pagina toont u de *aanbevolen* configuratie, maar het configureert de DNS *niet* voor u. Het is uw verantwoordelijkheid om de DNS-zone in uw DNS-registrar te configureren op basis van deze aanbeveling.",
     "app_install_parameters": "Installatieparameters",
     "diagnosis_first_run": "De diagnosefunctie probeert veel voorkomende problemen in verschillende aspecten van je server in kaart te brengen, om er zeker van te zijn dat alles vlot verloopt. Geen paniek als er iets mis is meteen nadat je je server geïnstalleerd hebt: de diagnose is precies bedoeld voor het opsporen van problemen en het bieden van hulp bij het oplossen ervan. De diagnose draait ook automatisch tweemaal per dag, en er wordt een email naar de beheerder gestuurd als er problemen gevonden worden.",
-    "diagnosis_explanation": "De diagnosefunctie probeert veel voorkomende problemen op verschillende aspecten van je server boven water te krijgen, zodat alles gladjes blijft lopen. De diagnose draait tweemaal per dag, er wordt een email naar de beheerder gestuurd als er problemen geconstateerd worden. Houdt er rekening mee dat niet alle controles per definitie relevant zijn als je specifieke functionaliteit niet gebruikt (XMPP, bijvoorbeeld) en dat er bij complexe opbouw van je server misschien vals alarm geslagen wordt. In die gevallen, en als je weet waar je mee bezig bent, is het geen probleem om de overeenkomstige waarschuwingen te negeren.",
+    "diagnosis_explanation": "De diagnosefunctie probeert veel voorkomende problemen op verschillende aspecten van je server boven water te krijgen, zodat alles gladjes blijft lopen. De diagnose draait tweemaal per dag, er wordt een email naar de beheerder gestuurd als er problemen geconstateerd worden. Houdt er rekening mee dat niet alle controles per definitie relevant zijn als je specifieke functionaliteit niet gebruikt (email, bijvoorbeeld) en dat er bij complexe opbouw van je server misschien vals alarm geslagen wordt. In die gevallen, en als je weet waar je mee bezig bent, is het geen probleem om de overeenkomstige waarschuwingen te negeren.",
     "good_practices_about_user_password": "U bent bezig een nieuw gebruikerswachtwoord in te voeren. Dit wachtwoord moet minimaal 8 tekens bevatten. Het is verstandig om een langer wachtwoord te gebruiken (zoals een lange lijst met woorden die niet makkelijk te raden zijn) en/of door verschillende tekens door elkaar heen te gebruiken (hoofdletters, kleine letters, cijfers en leestekens).",
     "app": {
         "info": {
@@ -333,7 +340,8 @@
         "uninstall": {
             "purge_desc": "Verwijder de map met data die geassocieerd is met de app (dit is gewoonlijk de data die je zelf hebt geüpload bij het gebruiken van de app)."
         },
-        "open_this_app": "Open deze app"
+        "open_this_app": "Open deze app",
+        "upvote": "Als je de aandacht op deze app wil vestigen, kun je ervoor stemmen op de bijbehorende pagina in de [catalogus] (https://apps.yunohost.org/app/{id})."
     },
     "form_errors": {
         "emailForward": "Ongeldig doorstuur-e-mailadres: mag enkel alfanumerische en <code>_.-+</code> tekens zijn (vb. iemand+label{'@'}voorbeeld.com, v00rbeeld-1+label{'@'}voorbeeld.com)",
@@ -354,13 +362,18 @@
         "notInUsers": "De gebruiker '{value}' bestaat al.",
         "number": "Waarde moet een getal zijn.",
         "passwordLenght": "Wachtwoord moet minstens 8 tekens lang zijn.",
-        "passwordMatch": "Wachtwoord komt niet overeen."
+        "passwordMatch": "Wachtwoord komt niet overeen.",
+        "checked": "De checkbox moet aangevinkt zijn.",
+        "numValue": "De waarde moet een getal zijn"
     },
     "group_visitors": "Bezoekers",
     "history": {
         "title": "Geschiedenis",
         "last_action": "Laatste actie:",
-        "is_empty": "Niets in geschiedenis op dit moment."
+        "is_empty": "Niets in geschiedenis op dit moment.",
+        "check_logs": "Ga naar het log van de operatie.",
+        "no_logs": "Geen logs beschikbaar.",
+        "started_by": "gestart door {caller}"
     },
     "items": {
         "apps": "geen apps | app | apps",
@@ -371,7 +384,10 @@
         "groups": "geen groepen | groep | groepen",
         "domains": "geen domein | domein | domeins",
         "users": "geen gebruikers | gebruiker | gebruikers",
-        "installed_apps": "geen geïnstalleerde apps | geïnstalleerde app | geïnstalleerde apps"
+        "installed_apps": "geen geïnstalleerde apps | geïnstalleerde app | geïnstalleerde apps",
+        "items": "geen items | item | items",
+        "disk": "geen schijven | schijf | schijven",
+        "inserted_disk": "geen opgenomen schijven | opgenomen schijf | opgenomen schijven"
     },
     "ignored": "{count} genegeerd",
     "tools_webadmin": {
@@ -445,7 +461,7 @@
         "title": "Post-installatie",
         "user": {
             "title": "Maak eerste beheerder aan",
-            "first_user_help": "De gebruiker zal beheersprivileges krijgen en zal worden toegestaan om contact te maken via zowel de beheersinterface als rechtstreeks met SSH tot de server.\nAangezien het ook een gewone gebruiker is, zal je ook met deze gegevens contact kunnen maken met het gebruikersportaal (SSO).\nEenmaal de post-installatie volledig is, zal je de mogelijkheid hebben om andere beheerders te maken door ze toe te voegen in de 'beheerders'-groep."
+            "first_user_help": "De gebruiker zal beheersprivileges krijgen en zal worden toegestaan om contact te maken via zowel de beheersinterface als rechtstreeks met SSH tot de server.\nAangezien het ook een gewone gebruiker is, zal je ook met deze gegevens contact kunnen maken met het portaal (SSO).\nEenmaal de post-installatie volledig is, zal je de mogelijkheid hebben om andere beheerders te maken door ze toe te voegen in de 'beheerders'-groep."
         }
     },
     "users_import_csv_file": "CSV Bestand",
@@ -462,7 +478,8 @@
     "footer": {
         "help": "Hulp nodig?",
         "documentation": "Documentatie",
-        "donate": "Doneer"
+        "donate": "Doneer",
+        "tos": "Gebruiksvoorwaarden"
     },
     "last_ran": "Laatste scan:",
     "postinstall_set_domain": "Bepaal hoofddomein",
@@ -496,7 +513,7 @@
     "items_verbose_count": "Er zijn {items}. | Er is 1 {items}. | Er zijn {items}.",
     "domain_dns_push_managed_in_parent_domain": "De automatische DNS gegevens functie is beheerd door het moederdomein <a href='#/domains/{parent_domain}/dns'>{parent_domain}</a>.",
     "hook_conf_manually_modified_files": "Handmatig aangepaste configuraties",
-    "label_for_manifestname_help": "Dit is de naam die wordt weergegeven op het gebruikersportaal. Dit kan later worden aangepast.",
+    "label_for_manifestname_help": "Dit is de naam die wordt weergegeven in het portaal. Hij kan later worden aangepast.",
     "migrations_disclaimer_check_message": "Ik heb deze disclaimer gelezen en begrepen",
     "system_upgrade_all_packages_btn": "Alle pakketten upgraden",
     "users_import_update_desc": "Als aangevinkt, zullen alle bestaande gebruikers opgenomen in het CSV bestand worden geüpdated met de nieuwe waarde",
@@ -505,7 +522,7 @@
     "group_add_permission": "Toestemming toevoegen",
     "group_explain_admins": "Deze groep komt overeen met beheerders. Gebruikers in deze groep hebben toegang tot de YunoHost webadmin, kunnen connecteren met de server via SSH en kunnen het 'sudo' commando gebruiken. Ze zullen ook de e-mails verzonden aan root{'@'}, admin{'@'} en admins{'@'}, en zulkse diagnose notificaties krijgen. Je zou enkel personen die je volledig vertrouwd mogen toevoegen in deze groep!",
     "group_explain_visitors_needed_for_external_client": "Let op dat je sommige applicaties toegankelijk houdt voor bezoekers als je deze wilt gebruiken met externe cliënts. Dit is bijvoorbeeld het geval bij Nextcloud als je jouw smartphone of desktopcomputer wilt gebruiken als synchronisatiecliënt.",
-    "tip_about_user_email": "Gebruikers worden aangemaakt met een bijbehorend emailadres (en XMPP-account) in de vorm username{'@'}domain.tld. Extra email-aliassen en email-forwards kunnen later toegevoegd worden door de beheerders en de gebruiker.",
+    "tip_about_user_email": "Gebruikers worden aangemaakt met een bijbehorend emailadres in de vorm username{'@'}domain.tld. Extra email-aliassen en email-forwards kunnen later toegevoegd worden door de beheerders en de gebruiker.",
     "mailbox_quota_example": "700M is een CD, 4700M is een DVD",
     "operation_failed_explanation": "De operatie ging fout! Onze excuses :( Je kan proberen <a href='https://yunohost.org/help'>om hulp te vragen</a>. Toon alstublieft het *volledige logbestand* van de operatie aan de mensen die je helpen. Je kan dit doen door te klikken op de groene knop 'Deel met Yunopaste'. Bij het delen van deze logbestanden zal YunoHost automatisch proberem om de privédata, zoals domeinnamen en IP-addressen, te anonymiseren.",
     "orphaned_details": "Deze app is al langere tijd niet onderhouden. Het zou nog kunnen werken, maar het zal geen updates meer ontvangen tot een vrijwilliger dit op zich neemt. Help mee om deze app nieuw leven in te blazen!",
@@ -516,5 +533,53 @@
     "users_import_csv_file_desc": "Het CSV bestand moet in UTF-8 zijn en met de kolommen gebruikersnaam, wachtwoord, groepen, e-mail en quota. Als voorbeeld van een CSV bestand om te importeren, kan je <a href='/yunohost/api/users/export' target='_BLANK'>gebruikers exporteren in een CSV bestand</a> en het bestand aanpassen.",
     "footer_version": "Mogelijk gemaakt door <a href='https://yunohost.org'>YunoHost</a> {version} ({repo}).",
     "wrong_password_or_username": "Fout wachtwoord of gebruikersnaam",
-    "app_state_broken_explanation": "Deze applicatie is op dit moment kapot en is niet-installeerbaar volgens de automatische testen van YunoHost"
+    "app_state_broken_explanation": "Deze applicatie is op dit moment kapot en is niet-installeerbaar volgens de automatische testen van YunoHost",
+    "confirm_firewall_open": "Weet je zekerd dat je poort {port} wil openen voor protocol {protocol}?",
+    "quick_action": "Snelle actie",
+    "tos": {
+        "i_agree": "I ga akkoord",
+        "acknowledgement": "Instemming met de gebruiksvoorwaarden",
+        "postinstall_acknowledgement": "Het YunoHost-project is een team van vrijwilligers die het hun gemeenschappelijk doel gemaakt hebben, een vrij besturingssysteem voor servers te ontwikkelen onder de naam Yunohost. De YunoHost-software wordt onder de AGPLv3-licentie ((https://www.gnu.org/licenses/agpl-3.0.txt) beschikbaar gesteld. Gerelateerd aan deze software, stelt het project meerdere technische en gemeenschapsdiensten voor verschillende doelen beschikbaar en onderhoud het project deze diensten. Door de diensten te gebruiken, ga je akkoord met de volgende [gebruiksvoorwaarden](https://yunohost.org/terms_of_services).",
+        "i_have_read": "Ik heb de <a href='https://yunohost.org/terms_of_services' target='_blank'>gebruiksvoorwaarden</a> gelezen en begrepen"
+    },
+    "confirm_firewall_close": "Weet je zekerd dat je poort {port} wil sluiten voor protocol {protocol}?",
+    "confirm_app_force_upgrade": "Weet je zeker dat je deze app geforceerd wil bijwerken?",
+    "form": {
+        "current_file": "Huidig bestand:",
+        "select_one": "Kies alsjeblieft een optie"
+    },
+    "failed": "Mislukt",
+    "hook_data_multimedia": "Multimedia-data",
+    "hook_data_multimedia_desc": "Multimediabestanden die in /home/yunohost.multimedia staan",
+    "install_app": "Installeer een app",
+    "loading": "Aan het laden",
+    "stopped": "Gestopt",
+    "catalog_wishlist": "Het lijkt erop dat de app die je zoekt nog niet beschikbaar is in de catalogus.\nJe kan de app voorstellen via de [apps-verlanglijst](https://apps.yunohost.org/wishlist?search={search}) of erop stemmen als hij er al op staat.",
+    "groups": {
+        "remove_user": {
+            "confirm_from_admins": "Weet je zeker dat je jezelf uit de 'admins'-groep wilt verwijderen?"
+        }
+    },
+    "catalog_partial_search": "Probeer alle zoekcriteria te verwijderen, om te zien of de gezochte app dan beschikbaar komt.",
+    "storage": "Opslag",
+    "storage_disks": {
+        "category_name": "Hardeschijven",
+        "infos": {
+            "usb_icon_alt": "Dit apparaat is via USB verbonden",
+            "ejectable_icon_alt": "Dit apparaat kan uitgeworpen worden",
+            "smart_status_icon_alt": {
+                "SANE": "Dit apparaat is in orde",
+                "CRITICAL": "Dit apparaat is in een kritieke staat",
+                "UNKNOWN": "De status van dit apparaat is onbekend"
+            },
+            "serial": "Serienummer:",
+            "serial_unknown": "Onbekend",
+            "size": "Grootte:",
+            "type": "Type:"
+        },
+        "infos_meta": {
+            "usb": "USB-apparaat",
+            "ejectable": "Dit apparaat kan uitgeworpen worden"
+        }
+    }
 }
