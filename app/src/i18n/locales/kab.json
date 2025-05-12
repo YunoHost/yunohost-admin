@@ -14,7 +14,8 @@
     "all": "Akk",
     "api": {
         "query_status": {
-            "pending": "Iteddu"
+            "pending": "Iteddu",
+            "error": "Ur yeddi ara akken iwata"
         },
         "unknown_request": "Taɣult tarussint"
     },
@@ -185,6 +186,9 @@
         "doc": {
             "admin": {
                 "title": "Isemli adeblan"
+            },
+            "notifications": {
+                "understood": "Gziɣ"
             }
         }
     },
@@ -221,5 +225,15 @@
     "upnp": "UPnP",
     "form": {
         "current_file": "Afaylu amiran:"
-    }
+    },
+    "backup_new": "Aḥraz amaynut",
+    "ignored": "{count} yettwanef",
+    "postinstall": {
+        "title": "Aglezasbeddi"
+    },
+    "since": "seg",
+    "local_archives": "Taṛcivt tadigant",
+    "logs_suboperations": "Timehlin tirnawin",
+    "hook_conf_ldap": "Taffa n yisefka n yiseqdacen",
+    "user_new_forward": "newforward{'@'}myforeigndomain.org"
 }
