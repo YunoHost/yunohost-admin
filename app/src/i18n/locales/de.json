@@ -558,5 +558,25 @@
     "hook_data_multimedia_desc": "Multimedia-Dateien befinden sich im Verzeichnis /home/yunohost.multimedia",
     "hook_data_multimedia": "Multimedia-Dateien",
     "stopped": "Gestoppt",
-    "quick_action": "Kurzbefehl"
+    "quick_action": "Kurzbefehl",
+    "storage_disks": {
+        "infos": {
+            "usb_icon_alt": "Dieses Gerät ist via USB verbunden",
+            "ejectable_icon_alt": "Dieses Gerät ist auswerfbar",
+            "smart_status_icon_alt": {
+                "CRITICAL": "Dieses Gerät ist in einem kritischen Zustand",
+                "UNKNOWN": "Das Gerät hat einen unbekannten Status"
+            },
+            "serial_unknown": "Unbekannt",
+            "size": "Größe:",
+            "type": "Typ:",
+            "serial": "Seriennummer:"
+        },
+        "infos_meta": {
+            "usb": "USB-Gerät",
+            "ejectable": "Das Gerät kann entfernt werden"
+        },
+        "category_name": "Festplatten"
+    },
+    "storage": "Speicher"
 }
