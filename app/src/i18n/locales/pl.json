@@ -63,7 +63,9 @@
             },
             "title": "Trwa próba połączenia z serwerem…"
         },
-        "partial_logs": "[…] sprawdź w historii pełne logi"
+        "partial_logs": "[…] sprawdź w historii pełne logi",
+        "busy": "Serwer pracuje…",
+        "unknown_request": "Nieznane żądanie"
     },
     "all": "Wszystko",
     "address": {
@@ -276,7 +278,7 @@
     "others": "Pozostałe",
     "next": "Dalej",
     "logs_operation": "Działania wykonane w systemie przez YunoHost",
-    "migrations_disclaimer_check_message": "Przeczytałem i zrozumiałem zrzeczenie odpowiedzialności",
+    "migrations_disclaimer_check_message": "Potwierdzam przeczytanie i zrozumienie zrzeczenia odpowiedzialności",
     "port": "Port",
     "permission_main": "Główna etykieta",
     "only_working_apps": "Tylko działające programy",
@@ -383,7 +385,7 @@
     "user_email": "Email",
     "user_fullname": "Imię i nazwisko",
     "user_mailbox_quota": "Limit skrzynek pocztowych",
-    "user_username": "nazwa użytkownika",
+    "user_username": "Nazwa użytkownika",
     "users": "Użytkownicy",
     "yes": "Tak",
     "purge_user_data_warning": "Wyczyszczenie danych użytkownika jest nieodwracalne. Bądź pewien tego, co robisz!",
@@ -488,7 +490,8 @@
             "package": "Repozytorium pakietów YunoHost",
             "title": "Odnośniki",
             "website": "Oficjalna witryna internetowa",
-            "license": "Licencja"
+            "license": "Licencja",
+            "package_license": "Licencja pakietu YunoHost"
         },
         "upgrade": {
             "confirm": {

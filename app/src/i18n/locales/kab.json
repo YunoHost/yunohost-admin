@@ -14,8 +14,10 @@
     "all": "Akk",
     "api": {
         "query_status": {
-            "pending": "Iteddu"
-        }
+            "pending": "Iteddu",
+            "error": "Ur yeddi ara akken iwata"
+        },
+        "unknown_request": "Taɣult tarussint"
     },
     "created_at": "Yettwarna di",
     "domain_name": "Isem n Taɣult",
@@ -28,8 +30,7 @@
     "permissions": "Tisirag",
     "history": {
         "title": "Amazray",
-        "last_action": "Tigawt taneggarut:",
-        "methods": {}
+        "last_action": "Tigawt taneggarut:"
     },
     "home": "Agejdan",
     "id": "ID",
@@ -51,7 +52,8 @@
     "tools": "Ifecka",
     "tools_webadmin": {
         "cache": "Tuffirt",
-        "language": "Tutlayt"
+        "language": "Tutlayt",
+        "fallback_language": "Tutlayt tis snat"
     },
     "udp": "UDP",
     "unignore": "Ur yettwazgel ara",
@@ -59,18 +61,21 @@
     "url": "URL",
     "user_email": "Imayl",
     "user_fullname": "Isem inek ummid",
-    "user_interface_link": "Agrudem n useqdac",
+    "user_interface_link": "Awwur",
     "version": "Lqem",
     "words": {
         "browse": "Snirem",
         "collapse": "Ḍfes",
         "link": "Aseɣwen",
         "none": "Ula d yiwen",
-        "separator": ", "
+        "separator": ", ",
+        "comment": "Awennit",
+        "edit": "Ẓreg"
     },
     "yes": "Ih",
     "api_error": {
-        "error_message": "Izen n tuccḍa:"
+        "error_message": "Izen n tuccḍa:",
+        "view_error": "Wali tuccḍa"
     },
     "applications": "Isnasen",
     "backup": "Asekles",
@@ -80,7 +85,6 @@
     "catalog": "Akaram",
     "check": "Rrcem",
     "close": "Mdel",
-    "common": {},
     "delete": "Kkes",
     "configuration": "Tawila",
     "description": "Asnummel",
@@ -101,7 +105,7 @@
     "hook_data_mail": "Imayl",
     "install": "sebdeed",
     "installation_complete": "Asebded immed",
-    "login": "Aseqdac",
+    "login": "Qqen",
     "logout": "Tufɣa",
     "manage_users": "Sefrek iseqdacen",
     "others": "Wiyyaḍ",
@@ -128,14 +132,108 @@
     "tools_shutdown_btn": "Sexsi",
     "user_username": "Isem n useqdac",
     "users": "Iseqdacen",
-    "domain": {
-        "dns": {
-            "methods": {}
-        }
-    },
     "group_admins": "Inedbalen",
     "footer_version": "Yezreɛ-it <a href='https://yunohost.org'>YunoHost</a> {version} ({repo}).",
     "users_add": "Aseqdac amaynut",
     "tools_yunohost_settings": "Iɣewwaṛen n YunoHost",
-    "user_username_edit": "Ẓreg amaɣnu n {name}"
+    "user_username_edit": "Ẓreg amaɣnu n {name}",
+    "manage_apps": "Sefrek isnasen",
+    "manage_domains": "Sefrek tiɣula",
+    "storage": "Aḥraz",
+    "storage_disks": {
+        "infos": {
+            "serial_unknown": "Arussin",
+            "size": "Tiddi:",
+            "type": "Anaw:"
+        },
+        "category_name": "Iḍebsiyen iquṛanen",
+        "infos_meta": {
+            "usb": "Ibenk USB"
+        }
+    },
+    "all_apps": "Akk isnasen",
+    "app_choose_category": "Fren taggayt",
+    "domain_add": "Rnu taɣult",
+    "form_errors": {
+        "remote": "{message}",
+        "pattern": "{type}"
+    },
+    "domain": {
+        "types": {
+            "main_domain": "Taɣult tagejdant"
+        },
+        "cert": {
+            "types": {
+                "other": "Wayeḍ/Arussin",
+                "letsencrypt": "Let's Encrypt"
+            }
+        },
+        "dns": {
+            "auto_config_zone": "Tamnaḍt tamirant n DNS"
+        }
+    },
+    "app": {
+        "links": {
+            "website": "Asmel web unṣib",
+            "title": "Asaɣen",
+            "license": "Turagt n usnas"
+        },
+        "integration": {
+            "ldap": {
+                "true": "Seqdec imiḍanen n YunoHost akken ad teqqneḍ (LDAP)"
+            }
+        },
+        "doc": {
+            "admin": {
+                "title": "Isemli adeblan"
+            },
+            "notifications": {
+                "understood": "Gziɣ"
+            }
+        }
+    },
+    "yunohost_admin": "Anedbal YunoHost",
+    "hook_conf_ynh_settings": "Twilat n YunoHost",
+    "loading": "Aɛebbi",
+    "tos": {
+        "i_agree": "Qebleɣ"
+    },
+    "users_import": "Kter imiḍanen",
+    "install_name": "Asebded n {id}",
+    "app_install_parameters": "Iɣewwaren n usebded",
+    "failed": "Tuccḍa",
+    "hook_data_home": "Isefka n imiḍanen",
+    "hook_data_multimedia": "Isefka agetmidya",
+    "issues": "{count} n wuguren",
+    "manage_groups": "Asefrek n wagrawen",
+    "tools_shutdown_reboot": "Sexsi/Ales asekker",
+    "tools_webadmin_settings": "Iɣewwaren n tnedbalt Web",
+    "stopped": "Yettwaseḥbes",
+    "users_export": "Sifeḍ imiḍanen",
+    "users_import_csv_file": "Afaylu CSV",
+    "quick_action": "Timerniwt taruradt",
+    "everything_good": "Kullec igerrez!",
+    "hook_conf_ynh_certs": "Iselkinen SSL",
+    "placeholder": {
+        "username": "winnanatwinatan",
+        "domain": "my-domain.com",
+        "fullname": "Tinna n Wat Winnat"
+    },
+    "ports": "Tiwwura",
+    "app_state_broken": "Iṛṛeẓ",
+    "app_show_categories": "Sken-d taggayin",
+    "upnp": "UPnP",
+    "form": {
+        "current_file": "Afaylu amiran:"
+    },
+    "backup_new": "Aḥraz amaynut",
+    "ignored": "{count} yettwanef",
+    "postinstall": {
+        "title": "Aglezasbeddi"
+    },
+    "since": "seg",
+    "local_archives": "Taṛcivt tadigant",
+    "logs_suboperations": "Timehlin tirnawin",
+    "hook_conf_ldap": "Taffa n yisefka n yiseqdacen",
+    "user_new_forward": "newforward{'@'}myforeigndomain.org"
 }

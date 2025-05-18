@@ -567,9 +567,9 @@
             "smart_status_icon_alt": {
                 "SANE": "Ce périphérique est sain",
                 "CRITICAL": "Cet appareil est dans un état critique",
-                "UNKNOWN": "L'état de ce dispositif est inconnu"
+                "UNKNOWN": "L'état de cet appareil est inconnu"
             },
-            "serial": "Série :",
+            "serial": "Numéro de série :",
             "serial_unknown": "Inconnu",
             "size": "Taille :",
             "type": "Type :",
