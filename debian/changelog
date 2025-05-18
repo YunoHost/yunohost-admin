@@ -1,3 +1,12 @@
+yunohost-admin (12.1.6) testing; urgency=low
+
+  - chore: bump vite from 6.0.15 to 6.1.6 in /app ([#637](http://github.com/YunoHost/yunohost-admin/pull/637))
+  - i18n: Translations updated for Dutch, French, German, Kabyle, Polish
+
+  Thanks to all contributors <3 ! (Amir, Boudewijn, ButterflyOfFire, harc, Matthias Roy, ppr, Rachida)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Sun, 18 May 2025 18:57:24 +0200
+
 yunohost-admin (12.1.5) testing; urgency=low
 
   - Add storage management section + disks management page ([#585](http://github.com/YunoHost/yunohost-admin/pull/585))
