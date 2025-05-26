@@ -573,8 +573,8 @@
             "serial_unknown": "Inconnu",
             "size": "Taille :",
             "type": "Type :",
-            "usb_icon_alt": "Cet appareil est connecté à un port USB",
-            "ejectable_icon_alt": "Cet appareil est éjectable/peut être déconnecté"
+            "usb_icon_alt": "Cet appareil est connecté en USB",
+            "ejectable_icon_alt": "Cet appareil est éjectable et peut être déconnecté"
         },
         "category_name": "Disques durs",
         "infos_meta": {
