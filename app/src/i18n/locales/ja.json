@@ -30,7 +30,9 @@
                 "reboot": "サーバーが再起動中のため、接続が途切れることがあります。再起動後、すぐにログイン画面が利用可能になります。"
             },
             "title": "サーバーと通信中…"
-        }
+        },
+        "busy": "サーバーがビジーです…",
+        "unknown_request": "不明なリクエストです"
     },
     "api_error": {
         "error_message": "エラーメッセージ:",
@@ -123,7 +125,8 @@
             "userdoc": "公式ユーザードキュメント",
             "website": "公式ウェブサイト",
             "license": "ライセンス",
-            "forum": "このアプリに関するYunoHostフォーラム上の話題"
+            "forum": "このアプリに関するYunoHostフォーラム上の話題",
+            "package_license": "YunoHostパッケージライセンス"
         },
         "potential_alternative_to": "代替できるかも:",
         "upgrade": {
