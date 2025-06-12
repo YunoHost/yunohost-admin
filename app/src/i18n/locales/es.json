@@ -404,7 +404,7 @@
     "users_import_confirm_destructive": "¿Seguro que quieres eliminar las cuentas que no se encuentran en este archivo?",
     "search": {
         "for": "Busca {items}…",
-        "not_found": "Hay {items} coincidencias con tus criterios. | Hay 1 {items} coincidencia con tus criterios. | Hay {items} coincidencias con tus criterios."
+        "not_found": "Hay {items} coincidencias con tus criterios. | Hay 1 {items} coincidencia con tus criterios. | No hay coincidencias con tus criterios."
     },
     "unknown": "Desconocido",
     "users_import_delete": "Elimina los usuarios no listados",
