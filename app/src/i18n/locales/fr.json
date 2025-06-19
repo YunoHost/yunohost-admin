@@ -574,7 +574,7 @@
             "size": "Taille :",
             "type": "Type :",
             "usb_icon_alt": "Cet appareil est connecté en USB",
-            "ejectable_icon_alt": "Cet appareil est éjectable et peut être déconnecté"
+            "ejectable_icon_alt": "Cet appareil est éjectable"
         },
         "category_name": "Disques durs",
         "infos_meta": {
