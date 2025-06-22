@@ -156,7 +156,7 @@ onMounted(() => {
             <YIcon iname="legal" /> {{ $t('footer.tos') }}
           </BNavItem>
           <BNavItem
-            href="https://donate.yunohost.org/"
+            href="https://yunohost.org/donate.html"
             target="_blank"
             link-classes="text-secondary"
           >
