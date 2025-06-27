@@ -147,7 +147,6 @@
     "user_fullname": "Plena nomo",
     "stop": "Ĉesu",
     "save": "ŝpari",
-    "words": {},
     "services": "servoj",
     "logs_path": "Pado",
     "run": "Kuri",
@@ -204,7 +203,8 @@
             "pending": "En progreso",
             "error": "Malsukcesa"
         },
-        "processing": "La servilo prilaboras la agon…"
+        "processing": "La servilo prilaboras la agon…",
+        "busy": "La servilo estas okupita…"
     },
     "address": {
         "local_part_description": {
