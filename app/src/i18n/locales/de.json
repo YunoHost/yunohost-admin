@@ -280,7 +280,9 @@
         "backups": "keine Sicherungen | Sicherung| Sicherungen",
         "apps": "keine Apps | App | Apps",
         "permissions": "keine Berechtigungen | Berechtigung | Berechtigungen",
-        "items": "keine Einträge | Eintrag | Einträge"
+        "items": "keine Einträge | Eintrag | Einträge",
+        "disk": "keine Festplatte | Festplatte | Festplatten",
+        "inserted_disk": "kein Speichermedium eingelegt | eingelegtes Speichermedium | Speichermedium"
     },
     "history": {
         "last_action": "Letzte Aktion:",
@@ -565,7 +567,8 @@
             "ejectable_icon_alt": "Dieses Gerät ist auswerfbar",
             "smart_status_icon_alt": {
                 "CRITICAL": "Dieses Gerät ist in einem kritischen Zustand",
-                "UNKNOWN": "Das Gerät hat einen unbekannten Status"
+                "UNKNOWN": "Das Gerät hat einen unbekannten Status",
+                "SANE": "Dieses Gerät ist gesund"
             },
             "serial_unknown": "Unbekannt",
             "size": "Größe:",

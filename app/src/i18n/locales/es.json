@@ -98,7 +98,7 @@
     "user_emailaliases": "Alias de correo electrónico",
     "user_emailforward": "Reenvío de correo electrónico",
     "user_fullname": "Nombre y Apellido",
-    "user_interface_link": "Interfaz de usuario",
+    "user_interface_link": "Portada",
     "user_mailbox_quota": "Cuota de correo",
     "user_new_forward": "nuevoreenviar{'@'}dominioexterior.org",
     "user_username": "Nombre de usuario",
@@ -117,7 +117,7 @@
     "confirm_migrations_skip": "No se recomienda saltarse las migraciones. ¿Está seguro de que desea hacer eso?",
     "confirm_reboot_action_reboot": "¿Está seguro de que desea reiniciar su servidor?",
     "confirm_reboot_action_shutdown": "¿Está seguro de que desea apagar su servidor?",
-    "domain_dns_conf_is_just_a_recommendation": "Esta sección muestra la configuración *recomendada*. *No* configura el DNS para usted. Es su responsabilidad configurar su zona DNS en su registrador DNS de acuerdo con esta recomendación.",
+    "domain_dns_conf_is_just_a_recommendation": "Esta sección muestra la configuración *recomendada*. *No* configurara el DNS para usted. Es de su responsabilidad configurar su zona DNS en su registrador DNS de acuerdo con esta recomendación.",
     "migrations": "Migraciones",
     "migrations_pending": "Migraciones pendientes",
     "migrations_done": "Migraciones anteriores",
@@ -185,7 +185,9 @@
         "browse": "Navegar",
         "link": "Enlace",
         "none": "Ninguno",
-        "separator": ", "
+        "separator": ", ",
+        "comment": "Comentario",
+        "edit": "Modificar"
     },
     "all": "Todo",
     "diagnosis_first_run": "El diagnóstico intentará identificar los errores comunes en diferentes aspectos del servidor para asegurar que todo funcione de la mejor manera. No se asuste si observa algunos errores justo después de la configuracion del servidor: estos le ayudarán a identificar los incidentes y le guiarán para corregirlos. El diagnostico correrá 2 veces al día y enviará un correo electrónico al administrador si encuentra incidentes.",
@@ -200,8 +202,8 @@
     "group_explain_visitors_needed_for_external_client": "Tenga cuidado de que necesita mantener algunas aplicaciones permitidas a los visitantes si tiene la intención de usarlas con clientes externos. Por ejemplo, este es el caso de Nextcloud si desea utilizar un cliente de sincronización en su teléfono inteligente o computadora de escritorio.",
     "issues": "{count} problemas",
     "restart": "Reiniciar",
-    "diagnosis_explanation": "La funcionalidad de diagnóstico intentará identificar problemas comunes en varios aspectos del servidor para asegurarse de que todo vaya bien. El diagnóstico se ejecuta automáticamente dos veces al día y un correo electrónico se envía al administrador si se encuentra algún problema. Note que algunas pruebas pueden ser irrelevantes si no desea utilizar ciertas funcionalidades (por ejemplo XMPP) o podrían fallar si tiene una configuración compleja. En esos casos, si sabe lo que está haciendo, no hay problema con ignorar los errores o alertas correspondientes.",
-    "tip_about_user_email": "Los usuarios son creados con una dirección de correo electrónico (y cuenta XMPP) con el formato username{'@'}domain.ltd. Aliases de correo y reenvíos de correo pueden ser agregados luego por el administrador o el usuario.",
+    "diagnosis_explanation": "La funcionalidad de diagnóstico intentará identificar problemas comunes en varios aspectos del servidor para asegurarse de que todo funcione bien. El diagnóstico se ejecuta automáticamente dos veces al día y un correo electrónico se envía al administrador si se encuentra algún problema. Note que algunas pruebas pueden ser irrelevantes si no desea utilizar ciertas funcionalidades (por ejemplo XMPP) o podrían fallar si tiene una configuración compleja. En esos casos, si sabe lo que está haciendo, no hay problema con ignorar los errores o alertas correspondientes.",
+    "tip_about_user_email": "Los usuarios son creados con una dirección de correo electrónico con el formato username{'@'}domain.ltd. Aliases de correo y reenvíos de correo pueden ser agregados luego por el administrador o el usuario.",
     "permission_main": "Etiqueta principal",
     "pending_migrations": "Hay algunas migraciones esperando a ser ejecutadas. Por favor vaya a <a href='#/tools/migrations'>Herramientas > Migraciones</a> para ejecutarlas.",
     "logs_suboperations": "Sub-operaciones",
@@ -306,20 +308,23 @@
     "items": {
         "services": "sin servicios | servicio | servicios",
         "users": "sin cuentas | cuenta | cuentas",
-        "domains": "sin dominios | dominio | dominios",
+        "domains": "ningún dominio | dominio | dominios",
         "installed_apps": "sin aplicaciones instaladas | aplicación instalada | aplicaciones instaladas",
         "apps": "sin aplicaciones | aplicación | aplicaciones",
         "permissions": "sin permisos | permiso | permisos",
         "groups": "sin grupos | grupo | grupos",
         "backups": "sin copias de seguridad | copia de seguridad | copias de seguridad",
-        "logs": "sin registros | registro | registros"
+        "logs": "sin registros | registro | registros",
+        "items": "ningún articulo | articulo | articulos",
+        "disk": "ningún disco | disco | discos",
+        "inserted_disk": "ningún discos insertado | disco insertado | discos insertados"
     },
     "migrations_disclaimer_check_message": "He leído y comprendido esta limitación de responsabilidad",
     "postinstall": {
         "force": "Forzar la post-instalación",
         "title": "Post-instalción",
         "user": {
-            "first_user_help": "Estx usuarix tendrá privilegios de administración del sistema y podrá contectarse a esta interfaz de administración así como directamente al servidor vía SSH.\nComo es un usuario normal, también podrá conectarse al portal de usuarix (SSO) con sus credenciales.\nUna vez que la post-instalación está completada, podrás crear más usuarixs administradorxs añadiéndolxs al grupo 'admins'.",
+            "first_user_help": "Estx usuarix tendrá privilegios de administración del sistema y podrá contectarse a esta interfaz de administración así como directamente al servidor vía SSH.\nComo es un usuario normal, también podrá conectarse al portal (SSO) con sus credenciales.\nUna vez que la post-instalación está completada, podrás crear más usuarixs administradorxs añadiéndolxs al grupo 'admins'.",
             "title": "Crear primera usuaria administradora"
         }
     },
@@ -391,7 +396,10 @@
     "history": {
         "is_empty": "El histórico se encuentra vacío.",
         "title": "Histórico",
-        "last_action": "Última acción:"
+        "last_action": "Última acción:",
+        "check_logs": "Ir a la pagina de operaciones.",
+        "no_logs": "No existe registros de operaciones.",
+        "started_by": "Iniciado por {caller}"
     },
     "users_export": "Exportar cuentas",
     "users_import_csv_file": "Fichero CSV",
@@ -404,7 +412,7 @@
     "users_import_confirm_destructive": "¿Seguro que quieres eliminar las cuentas que no se encuentran en este archivo?",
     "search": {
         "for": "Busca {items}…",
-        "not_found": "Hay {items} coincidencias con tus criterios. | Hay 1 {items} coincidencia con tus criterios. | Hay {items} coincidencias con tus criterios."
+        "not_found": "Hay {items} que coincide con tus criterios. | Hay 1 {items} que coincide con tus criterios. | Hay {items} que coincide con tus criterios."
     },
     "unknown": "Desconocido",
     "users_import_delete": "Elimina los usuarios no listados",
@@ -420,7 +428,7 @@
     "app_state_broken": "roto",
     "app_state_broken_explanation": "Esta aplicación está actualmente rota y no se puede instalar según las pruebas automáticas de YunoHost",
     "group_admins": "Administradores",
-    "label_for_manifestname_help": "Este es el nombre que se mostrará en el portal de usuarix. Puedes cambiarlo más tarde.",
+    "label_for_manifestname_help": "Este es el nombre que se mostrará en el portal. Puedes cambiarlo más tarde.",
     "manage_groups": "Gestionar grupos",
     "tools_yunohost_settings": "Ajustes YunoHost",
     "group_explain_admins": "Este es un grupo asociado a los usuarixs administradorxs. Lxs usuarixs de este grupo tienen acceso al panel de control web de YunoHost, conexión al servidor por SSH y pueden utilizar el comando `sudo`. También reciben correos enviados a root{'@'}, admin{'@'} y admins{'@'}, como las notificaciones de diagnóstico. ¡Añade únicamente a gente del grupo en la que confíes plenamente!",
@@ -537,5 +545,41 @@
         "remove_user": {
             "confirm_from_admins": "Estas seguro desear quitar el grupo de administradores «admins» ?"
         }
-    }
+    },
+    "confirm_app_force_upgrade": "¿ Esta seguro forzar la actualización de esta aplicación ?",
+    "failed": "Fallo",
+    "hook_data_multimedia": "Datos multimedia",
+    "stopped": "Parado",
+    "tos": {
+        "acknowledgement": "Acuse de recibo de los TYC",
+        "i_agree": "Estoy de acuerdo",
+        "i_have_read": "Leí y entendí los <a href='https://yunohost.org/terms_of_services' target='_blank'>términos y condiciones de uso</a>",
+        "postinstall_acknowledgement": "El proyecto YunoHost es un equipo de voluntarios que han hecho causa común para crear un sistema operativo gratuito para servidores, llamado YunoHost. El software YunoHost se publica bajo [la licencia AGPLv3](https://www.gnu.org/licenses/agpl-3.0.txt). En relación con este software, el proyecto administra y pone a disposición varios servicios técnicos y comunitarios para diversos fines. Al utilizar estos servicios, usted acepta estar sujeto a los siguientes [Términos de uso](https://yunohost.org/terms_of_services)."
+    },
+    "confirm_firewall_open": "¿ Esta seguro abrir el puerto {port} para el protocolo {protocol} ?",
+    "confirm_firewall_close": "¿ Esta seguro cerrar el puerto {port} para el protocolo {protocol} ?",
+    "storage_disks": {
+        "infos": {
+            "smart_status_icon_alt": {
+                "CRITICAL": "Este dispositivo esta en un estado critico",
+                "SANE": "Este dispositivo esta sano",
+                "UNKNOWN": "El estado de este periférico esta desconocido"
+            },
+            "serial": "Numero de serie :",
+            "serial_unknown": "Desconocido",
+            "size": "Tamaño :",
+            "type": "Tipo :",
+            "usb_icon_alt": "Este periférico esta conectado en USB",
+            "ejectable_icon_alt": "Este dispositivo es eyectable"
+        },
+        "infos_meta": {
+            "usb": "Periférico USB",
+            "ejectable": "Se puede eyectar este dispositivo"
+        },
+        "category_name": "Discos duros"
+    },
+    "hook_data_multimedia_desc": "Archivos multimedia ubicado en `/home/yunohost.multimedia`",
+    "loading": "Cargando",
+    "quick_action": "Adición rápida",
+    "storage": "Almacenamiento"
 }

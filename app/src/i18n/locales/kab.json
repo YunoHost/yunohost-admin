@@ -118,7 +118,7 @@
     "restore": "Err-d",
     "run": "Selkem",
     "running": "En cours d'exécution",
-    "save": "Sekles",
+    "save": "Ḥrez",
     "select_all": "Fren akk",
     "size": "Teɣzi",
     "skip": "Zgel",
@@ -190,7 +190,8 @@
             "notifications": {
                 "understood": "Gziɣ"
             }
-        }
+        },
+        "installed_version": "Lqem yettwasbedden:"
     },
     "yunohost_admin": "Anedbal YunoHost",
     "hook_conf_ynh_settings": "Twilat n YunoHost",
@@ -217,7 +218,8 @@
     "placeholder": {
         "username": "winnanatwinatan",
         "domain": "my-domain.com",
-        "fullname": "Tinna n Wat Winnat"
+        "fullname": "Tinna n Wat Winnat",
+        "groupname": "Isem n wegraw-iw"
     },
     "ports": "Tiwwura",
     "app_state_broken": "Iṛṛeẓ",
@@ -235,5 +237,19 @@
     "local_archives": "Taṛcivt tadigant",
     "logs_suboperations": "Timehlin tirnawin",
     "hook_conf_ldap": "Taffa n yisefka n yiseqdacen",
-    "user_new_forward": "newforward{'@'}myforeigndomain.org"
+    "user_new_forward": "newforward{'@'}myforeigndomain.org",
+    "system_upgrade_all_packages_btn": "Mucceḍ ikemmusen s umata",
+    "tools_reboot": "Ales asekker n uqeddac-ik·im",
+    "tools_shutdown": "Sexsi aqeddac-ik·im",
+    "postinstall_set_domain": "Sbadu d taɣult tamezwarut",
+    "logs_more": "Sken-d ugar n yezriren",
+    "search": {
+        "for": "Anadi ɣef {items}…"
+    },
+    "custom_app_install": "Sebded asnas udmawan",
+    "group_add_permission": "Rnu tasiregt",
+    "set_default": "Sbadu d amezwer",
+    "backup_create": "Snulfu-d taḥerzet",
+    "system_update": "Amucceḍ n unagraw",
+    "system_upgrade_all_applications_btn": "Mucceḍ isnasen s umata"
 }
