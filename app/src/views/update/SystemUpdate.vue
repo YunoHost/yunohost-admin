@@ -17,7 +17,7 @@ const { apps, system, importantYunohostUpgrade, pendingMigrations } = await api
   .put<SystemUpdate>({ uri: 'update/all' })
   .then(({ apps, system, important_yunohost_upgrade, pending_migrations }) => {
     return {
-      apps: ref(apps),
+      apps: ref(apps.filter(app => app.upgrade.status != 'up_to_date')),
       system: ref(system),
       importantYunohostUpgrade: important_yunohost_upgrade,
       pendingMigrations: !!pending_migrations.length,
@@ -29,11 +29,11 @@ const preUpgrade = ref<
 >()
 
 async function confirmAppsUpgrade(id?: string) {
-  const appList = id ? [apps.value.find((app) => app.id === id)!] : apps.value
+  const appList = id ? [apps.value.find((app) => app.id === id)!] : apps.value.filter(app => app.upgrade.status == 'upgradable');
   const apps_ = appList.map((app) => ({
     id: app.id,
     name: app.name,
-    notif: formatAppNotifs(app.notifications.PRE_UPGRADE),
+    notif: formatAppNotifs(app.upgrade.notifications.PRE_UPGRADE),
   }))
   preUpgrade.value = { apps: apps_, hasNotifs: apps_.some((app) => app.notif) }
 }
@@ -139,24 +139,42 @@ async function performSystemUpgrade() {
     <YCard :title="$t('applications')" icon="cubes" no-body>
       <BListGroup v-if="apps.length" flush>
         <BListGroupItem
-          v-for="{ name, id, current_version, new_version } in apps"
+          v-for="{ name, id, upgrade } in apps"
           :key="id"
-          class="d-flex justify-content-between align-items-center"
+          class="d-flex justify-content-between align-items-center ps-3 pe-1"
         >
-          <h5 class="m-0">
-            {{ name }}
-            <small>
-              ({{ id }})
-              {{ $t('from_to', [current_version, new_version]) }}
-            </small>
-          </h5>
+          <BRow align-v="center" class="w-100">
+          <BCol class="text-center text-md-start">
+            <h5 class="mb-1">
+              <span class="fw-bold">{{ name }}</span>
+              <small>
+                ({{ id }})
+                <span class="text-secondary d-block d-sm-inline" v-if="upgrade.new_version">
+                {{ $t('from_to', [upgrade.current_version, upgrade.new_version]) }}
+                </span>
+              </small>
+            </h5>
 
+            <div v-if="upgrade.specific_channel" class="text-start text-warning alert alert-warning py-1 my-1">
+              <VueShowdown :markdown="upgrade.specific_channel_message" />
+            </div>
+
+            <div v-if="upgrade.status != 'upgradable'" class="text-start mt-1 mb-0">
+              <VueShowdown :markdown="upgrade.message" />
+            </div>
+          </BCol>
+
+          <BCol class="text-center text-md-end pe-0" cols="12" md="2">
           <BButton
+            v-if="upgrade.status != 'url_required'"
             v-t="'system_upgrade_btn'"
-            variant="success"
+            :variant="upgrade.status != 'upgradable' ? 'outline-secondary' : upgrade.specific_channel ? 'warning' : 'success'"
+            :class="upgrade.status != 'upgradable' ? 'disabled' : ''"
             size="sm"
             @click="confirmAppsUpgrade(id)"
           />
+          </BCol>
+          </BRow>
         </BListGroupItem>
       </BListGroup>
 
