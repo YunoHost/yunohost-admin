@@ -105,19 +105,27 @@ async function performSystemUpgrade() {
 
     <!-- SYSTEM UPGRADE -->
     <YCard :title="$t('system')" icon="server" no-body>
-      <BListGroup v-if="system.length" flush>
+      <BListGroup v-if="Object.keys(system).length" flush free>
         <BListGroupItem
-          v-for="{ name, current_version, new_version } in system"
-          :key="name"
+          v-for="( packages, category ) in system"
+          :key="category"
+          header-tag="h3"
+          button-class="px-3 py-2"
         >
-          <h5 class="m-0">
-            {{ name }}
-            <small class="text-secondary">
-              ({{ $t('from_to', [current_version, new_version]) }})
-            </small>
-          </h5>
-        </BListGroupItem>
-      </BListGroup>
+          <template #title>
+            <span class="fw-bold">{{ category }}</span>
+            <small class="ms-1">({{ packages.length }} {{ $t('items.packages', packages.length) }})</small>
+          </template>
+          <ul class="mb-0">
+            <li v-for="{ name, current_version, new_version } in packages">
+              {{ name }}
+              <small class="text-secondary">
+                {{ $t('from_to', [current_version, new_version]) }}
+              </small>
+            </li>
+          </ul>
+        </BAccordionItem>
+      </BAccordion>
 
       <BCardBody v-else>
         <span class="text-success">
@@ -126,7 +134,7 @@ async function performSystemUpgrade() {
         </span>
       </BCardBody>
 
-      <template v-if="system.length" #buttons>
+      <template v-if="Object.keys(system).length" #buttons>
         <BButton
           v-t="'system_upgrade_all_packages_btn'"
           variant="success"
