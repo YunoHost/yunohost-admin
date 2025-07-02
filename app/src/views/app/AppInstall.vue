@@ -50,10 +50,10 @@ const [app, form, fields] = await api
           return antifeature
         })
       : null
-    const hasDanger = quality.variant === 'danger' || !requirements.ram.pass
+    const hasDanger = quality.variant === 'danger' || !requirements.ram.passed
     const hasSupport = getKeys(requirements).every((key) => {
       // ram support is non-blocking requirement and handled on its own.
-      return key === 'ram' || requirements[key].pass
+      return key === 'ram' || requirements[key].passed
     })
 
     const app = {
@@ -237,21 +237,14 @@ function onDomainAdd(data: {
       >
         <h2>{{ $t('app.install.notifs.pre.critical') }}</h2>
 
-        <p v-if="!app.requirements.arch.pass">
-          {{ $t('app.install.problems.arch', app.requirements.arch.values) }}
+        <p v-if="!app.requirements.arch.passed">
+          {{ app.requirements.arch.error }}
         </p>
-        <p v-if="!app.requirements.install.pass">
-          {{
-            $t('app.install.problems.install', app.requirements.install.values)
-          }}
+        <p v-if="!app.requirements.install.passed">
+          {{ app.requirements.install.error }}
         </p>
-        <p v-if="!app.requirements.required_yunohost_version.pass">
-          {{
-            $t(
-              'app.install.problems.version',
-              app.requirements.required_yunohost_version.values,
-            )
-          }}
+        <p v-if="!app.requirements.required_yunohost_version.passed">
+          {{ app.requirements.required_yunohost_version.error }}
         </p>
       </YAlert>
 
@@ -272,8 +265,8 @@ function onDomainAdd(data: {
           <VueShowdown class="mb-3" :markdown="t('app.upvote', { id })" />
         </div>
 
-        <p v-if="!app.requirements.ram.pass">
-          {{ $t('app.install.problems.ram', app.requirements.ram.values) }}
+        <p v-if="!app.requirements.ram.passed">
+          {{ app.requirements.ram.error }}
         </p>
 
         <CheckboxItem
