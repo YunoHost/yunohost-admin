@@ -30,6 +30,11 @@ const props = defineProps<{
 const { t } = useI18n()
 const router = useRouter()
 const modalConfirm = useAutoModal()
+const { domainsAsChoices } = useDomains()
+
+const showModalUninstall = ref(false)
+const changeUrlErrors = ref('')
+const purge = ref(false)
 
 const [app, changeUrlForm, coreConfigData, appConfigData, configPanelErr] = await api
   .fetchAll<[AppInfo, CoreConfigPanels]>([
@@ -117,39 +122,10 @@ const [app, changeUrlForm, coreConfigData, appConfigData, configPanelErr] = awai
     return [app, changeUrlForm, coreConfigData, appConfigData, appConfigPanelErr] as const
   })
 
-const { domainsAsChoices } = useDomains()
-
 const coreConfig = useConfigPanels(
   formatConfigPanels(coreConfigData),
   () => props.coreTabId,
   async ({ panelId, data, action }, onError) => {
-    let confirmed: boolean | null | undefined = true
-    if (action?.includes('uninstall')) {
-      // FIXME check if at some point bootstrap-vue allows to await for a defined modal to resolve
-      showModalUninstall.value = true
-      return
-    } else if (action?.includes('force_upgrade')) {
-      confirmed = await modalConfirm(t('confirm_app_force_upgrade'))
-      if (!confirmed) return
-
-      if (app.preUpgradeMessage) {
-        const message =
-          t('app.upgrade.notifs.pre.alert') + '\n\n' + app.preUpgradeMessage
-        confirmed = await modalConfirm(
-          message,
-          {
-            title: t('app.upgrade.notifs.pre.title', {
-              name: app.label,
-            }),
-            okTitle: t('ok'),
-          },
-          { markdown: true },
-        )
-      }
-    } else if (action?.includes('change_url')) {
-      confirmed = await modalConfirm(t('confirm_app_change_url'))
-    }
-    if (!confirmed) return
     api
       .put({
         uri: action
@@ -180,10 +156,6 @@ const appConfig = appConfigData
       },
     )
   : undefined
-
-const showModalUninstall = ref(false)
-const changeUrlErrors = ref('')
-const purge = ref(false)
 
 async function dismissNotification(name: string) {
   api
@@ -382,9 +354,7 @@ async function uninstall() {
       </BTabs>
     </BCard>
     <YCard v-else-if="app.doc.admin.length == 1" :title="$t('app.doc.admin.title')" icon="book">
-      <template v-for="[name, content] in app.doc.admin">
-        <VueShowdown :markdown="content" />
-      </template>
+        <VueShowdown :markdown="app.doc.admin[0][1]" />
     </YCard>
 
     <!-- CORE CONFIG PANEL -->
@@ -441,7 +411,7 @@ async function uninstall() {
         :onclick="forceUpgrade"
       />
       <ButtonWithDetails
-        v-else=""
+        v-else
         :label="$t('app.upgrade.upgrade')"
         icon="arrow-up"
         :details="app.upgrade.message"
@@ -483,7 +453,7 @@ async function uninstall() {
             variant="info"
             class="mt-2 mt-md-0"
             :class="disabled ? 'disabled' : ''"
-            @:click="onclick"
+            @:click="changeUrl"
           >
             <YIcon iname="truck" class="me-2" />
             <span>{{ $t('app.change_url.change_url') }}</span>

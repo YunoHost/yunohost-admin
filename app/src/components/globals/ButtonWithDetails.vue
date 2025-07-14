@@ -1,15 +1,11 @@
 <script setup lang="ts">
-import { computed } from 'vue'
 
-import type { Cols } from '@/types/commons'
-
-const props = withDefaults(
+withDefaults(
   defineProps<{
     label?: string
     icon?: string
     details?: string
     onclick?: string
-    cols?: Cols
     variant?: string
     disabled?: boolean
   }>(),

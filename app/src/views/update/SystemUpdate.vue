@@ -4,7 +4,6 @@ import { useI18n } from 'vue-i18n'
 import { secondsToHours } from 'date-fns/secondsToHours'
 
 import api from '@/api'
-import CardCollapse from '@/components/CardCollapse.vue'
 import { useAutoModal } from '@/composables/useAutoModal'
 import { useSSE } from '@/composables/useSSE'
 import type { SystemUpdate } from '@/types/core/api'
@@ -142,7 +141,7 @@ async function performSystemUpgrade() {
             <small class="ms-1">({{ packages.length }} {{ $t('items.packages', packages.length) }})</small>
           </template>
           <ul class="mb-0">
-            <li v-for="{ name, current_version, new_version } in packages">
+            <li v-for="{ name, current_version, new_version } in packages" :key="name">
               {{ name }}
               <small class="text-secondary">
                 {{ $t('from_to', [current_version, new_version]) }}
@@ -182,7 +181,7 @@ async function performSystemUpgrade() {
               <span class="fw-bold">{{ name }}</span>
               <small>
                 ({{ id }})
-                <span class="text-secondary d-block d-sm-inline" v-if="upgrade.new_version">
+                <span v-if="upgrade.new_version" class="text-secondary d-block d-sm-inline">
                 {{ $t('from_to', [upgrade.current_version, upgrade.new_version]) }}
                 </span>
               </small>

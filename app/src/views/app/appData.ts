@@ -1,5 +1,4 @@
 import { getKeys, joinOrNull } from '@/helpers/commons'
-import { formatI18nField } from '@/helpers/yunohostArguments'
 import type { Obj, Translation } from '@/types/commons'
 import type { AppLevel, AppManifest, AppState } from '@/types/core/api'
 
