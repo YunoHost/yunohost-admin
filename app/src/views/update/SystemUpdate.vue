@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { secondsToHours } from 'date-fns/secondsToHours'
 
 import api from '@/api'
 import CardCollapse from '@/components/CardCollapse.vue'
@@ -13,14 +14,16 @@ const { t } = useI18n()
 const { tryToReconnect } = useSSE()
 const modalConfirm = useAutoModal()
 
-const { apps, system, importantYunohostUpgrade, pendingMigrations } = await api
-  .put<SystemUpdate>({ uri: 'update/all' })
-  .then(({ apps, system, important_yunohost_upgrade, pending_migrations }) => {
+const { apps, system, importantYunohostUpgrade, pendingMigrations, lastAptUpdate, lastAppsCatalogUpdate } = await api
+  .get<SystemUpdate>({ uri: 'update' })
+  .then(({ apps, system, important_yunohost_upgrade, pending_migrations, last_apt_update, last_apps_catalog_update }) => {
     return {
       apps: ref(apps.filter(app => app.upgrade.status != 'up_to_date')),
       system: ref(system),
       importantYunohostUpgrade: important_yunohost_upgrade,
       pendingMigrations: !!pending_migrations.length,
+      lastAptUpdate: secondsToHours(last_apt_update),
+      lastAppsCatalogUpdate: secondsToHours(last_apps_catalog_update),
     }
   })
 const preUpgrade = ref<
@@ -75,6 +78,11 @@ async function performAppsUpgrade(ids: string[]) {
   }
 }
 
+async function refreshUpdateCache() {
+  api.put<SystemUpdate>({ uri: 'update/all' })
+  .then(() => api.refetch())
+}
+
 async function performSystemUpgrade() {
   const confirmed = await modalConfirm(t('confirm_update_system'))
   if (!confirmed) return
@@ -103,10 +111,26 @@ async function performSystemUpgrade() {
       <span v-html="$t('important_yunohost_upgrade')" />
     </YAlert>
 
+    <!-- BUTTON TO REFRESH APT CACHE / CATALOG -->
+    <YAlert variant="info" class="mb-5">
+      <ButtonWithDetails
+        :label="t('update.refresh_cache')"
+        icon="refresh"
+        :details="t(
+          lastAptUpdate > 12 || lastAppsCatalogUpdate > 12 ? 'update.very_stale_cache' :
+          lastAptUpdate > 1 || lastAppsCatalogUpdate > 1 ? 'update.stale_cache' : 
+          'update.ok_cache',
+          {lastAptUpdate, lastAppsCatalogUpdate}
+          )"
+        :variant="info"
+        :onclick="refreshUpdateCache"
+      />
+    </YAlert>
+
     <!-- SYSTEM UPGRADE -->
-    <YCard :title="$t('system')" icon="server" no-body>
-      <BListGroup v-if="Object.keys(system).length" flush free>
-        <BListGroupItem
+    <YCard v-if="lastAptUpdate < 12 && lastAppsCatalogUpdate < 12" :title="$t('system')" icon="server" no-body>
+      <BAccordion v-if="Object.keys(system).length" flush free>
+        <BAccordionItem
           v-for="( packages, category ) in system"
           :key="category"
           header-tag="h3"
@@ -144,7 +168,7 @@ async function performSystemUpgrade() {
     </YCard>
 
     <!-- APPS UPGRADE -->
-    <YCard :title="$t('applications')" icon="cubes" no-body>
+    <YCard v-if="lastAptUpdate < 12 && lastAppsCatalogUpdate < 12" :title="$t('applications')" icon="cubes" no-body>
       <BListGroup v-if="apps.length" flush>
         <BListGroupItem
           v-for="{ name, id, upgrade } in apps"
