@@ -55,6 +55,11 @@
     "api_waiting": "Waiting for the server's response…",
     "app": {
         "antifeatures": "This app has features you may not like:",
+        "change_url": {
+            "title": "Move the app to a different URL",
+            "change_url": "Change URL",
+            "not_supported": "Changing the URL where this app is installed is not currently supported for this app."
+        },
         "doc": {
             "admin": {
                 "title": "Admin doc"
@@ -131,9 +136,15 @@
         "open_this_app": "Open this app",
         "potential_alternative_to": "Potential alternative to:",
         "uninstall": {
+            "uninstall": "Uninstall",
+            "desc": "This will uninstall the app from your server.<br/>You will have the option to purge the data as well during the confirmation modal.",
             "purge_desc": "Remove the data directory associated with the app (this is usually data you uploaded yourself using the app)."
         },
         "upgrade": {
+            "up_to_date": "This app is up to date!",
+            "advertise_testing_version": "Looking for a new version from upstream? Maybe there's a 'testing' version you can help packagers with on the YunoHost package's git repository!",
+            "upgrade": "Upgrade",
+            "force_upgrace": "Force-upgrade",
             "confirm": {
                 "apps": "Apps that will be upgraded",
                 "title": "Confirm app upgrades"
