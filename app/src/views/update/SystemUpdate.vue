@@ -27,7 +27,7 @@ const { apps, system, importantYunohostUpgrade, pendingMigrations, lastAptUpdate
     }
   })
 const preUpgrade = ref<
-  | { apps: { id: string; name: string; notif: string }[]; hasNotifs: boolean }
+  | { apps: { id: string; name: string; currentVersion: string, newVersion: string, notif: string, }[]; hasNotifs: boolean }
   | undefined
 >()
 
@@ -36,7 +36,9 @@ async function confirmAppsUpgrade(id?: string) {
   const apps_ = appList.map((app) => ({
     id: app.id,
     name: app.name,
-    notif: formatAppNotifs(app.upgrade.notifications.PRE_UPGRADE),
+    currentVersion: app.upgrade.current_version,
+    newVersion: app.upgrade.new_version,
+    notif: formatAppNotifs(app.upgrade.notifications),
   }))
   preUpgrade.value = { apps: apps_, hasNotifs: apps_.some((app) => app.notif) }
 }
@@ -56,8 +58,7 @@ async function performAppsUpgrade(ids: string[]) {
         apps.value = apps.value.filter((a) => app.id !== a.id)
 
         if (postMessage) {
-          const message =
-            t('app.upgrade.notifs.post.alert') + '\n\n' + postMessage
+          const message = "<small><em>" + t('app.upgrade.notifs.post.alert') + '</em></small>\n\n' + postMessage
           return modalConfirm(
             message,
             {
@@ -169,7 +170,7 @@ async function performSystemUpgrade() {
 
     <!-- APPS UPGRADE -->
     <YCard v-if="lastAptUpdate < 12 && lastAppsCatalogUpdate < 12" :title="$t('applications')" icon="cubes" no-body>
-      <BListGroup v-if="apps.length" flush>
+      <BListGroup v-if="apps.length" flush free>
         <BListGroupItem
           v-for="{ name, id, upgrade } in apps"
           :key="id"
@@ -242,8 +243,12 @@ async function performSystemUpgrade() {
         {{ $t('app.upgrade.confirm.apps') }}
       </h3>
       <ul>
-        <li v-for="{ name, id } in preUpgrade.apps" :key="id">
-          {{ name }} ({{ id }})
+        <li v-for="{ name, id, currentVersion, newVersion } in preUpgrade.apps" :key="id">
+          <span class="fw-bold pe-1">{{ name }}</span>
+          <small class="text-muted">
+            ({{ id }})
+            {{ $t('from_to', [currentVersion, newVersion]) }}
+          </small>
         </li>
       </ul>
 
@@ -256,42 +261,32 @@ async function performSystemUpgrade() {
           {{ $t('app.upgrade.notifs.pre.alert') }}
         </YAlert>
 
-        <div class="card-collapse-wrapper">
-          <CardCollapse
-            v-for="{ id, name, notif } in preUpgrade.apps"
-            :id="`${id}-notifs`"
+        <BAccordion
+          :title="name"
+          visible
+          free
+        >
+          <BAccordionItem
+            v-for="{ id, name, currentVersion, newVersion, notif } in preUpgrade.apps"
             :key="`${id}-notifs`"
-            :title="name"
+            header-tag="h3"
+            button-class="px-3 py-2"
             visible
-            flush
           >
-            <BCardBody>
-              <VueShowdown
+            <template #title>
+              <span class="fw-bold pe-1">{{ name }}</span>
+              <small class="text-muted">
+                ({{ id }})
+                {{ $t('from_to', [currentVersion, newVersion]) }}
+              </small>
+            </template>
+            <VueShowdown
                 :markdown="notif"
                 :options="{ headerLevelStart: 6 }"
               />
-            </BCardBody>
-          </CardCollapse>
-        </div>
+          </BAccordionItem>
+        </BAccordion>
       </div>
     </BModal>
   </div>
 </template>
-
-<style scoped lang="scss">
-.card-collapse-wrapper {
-  border: $card-border-width solid $card-border-color;
-  border-radius: $card-border-radius;
-
-  .card {
-    &:first-child {
-      border-top: 0;
-      border-top-right-radius: $card-border-radius;
-      border-top-left-radius: $card-border-radius;
-    }
-    &:last-child {
-      border-bottom: 0;
-    }
-  }
-}
-</style>
