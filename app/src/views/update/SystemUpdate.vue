@@ -6,7 +6,7 @@ import { secondsToHours } from 'date-fns/secondsToHours'
 import api from '@/api'
 import { useAutoModal } from '@/composables/useAutoModal'
 import { useSSE } from '@/composables/useSSE'
-import type { SystemUpdate } from '@/types/core/api'
+import type { SystemUpdate, AppUpgradeResult } from '@/types/core/api'
 import { formatAppNotifs } from '../app/appData'
 
 const { t } = useI18n()
@@ -63,7 +63,7 @@ async function confirmAppsUpgrade(id?: string) {
     id: app.id,
     name: app.name,
     currentVersion: app.upgrade.current_version,
-    newVersion: app.upgrade.new_version,
+    newVersion: app.upgrade.new_version || '',
     notif: formatAppNotifs(app.upgrade.notifications),
   }))
   preUpgrade.value = { apps: apps_, hasNotifs: apps_.some((app) => app.notif) }
@@ -75,7 +75,7 @@ async function performAppsUpgrade(ids: string[]) {
 
   for (const app of apps_) {
     const continue_ = await api
-      .put<Pick<SystemUpdate['apps'][number], 'notifications'>>({
+      .put<AppUpgradeResult>({
         uri: `apps/${app.id}/upgrade`,
       })
       .then((response) => {
@@ -118,13 +118,13 @@ async function performSystemUpgrade() {
   if (!confirmed) return
 
   api.put({ uri: 'upgrade/system' }).then(() => {
-    if (system.value.some(({ name }) => name.includes('yunohost'))) {
+    if ('yunohost' in system) {
       tryToReconnect({
         origin: 'upgrade_system',
         initialDelay: 2000,
       })
     }
-    system.value = []
+    api.refetch()
   })
 }
 </script>
@@ -156,7 +156,7 @@ async function performSystemUpgrade() {
             { lastAptUpdate, lastAppsCatalogUpdate },
           )
         "
-        :variant="info"
+        variant="info"
         :onclick="refreshUpdateCache"
       />
     </YAlert>
@@ -333,7 +333,7 @@ async function performSystemUpgrade() {
           {{ $t('app.upgrade.notifs.pre.alert') }}
         </YAlert>
 
-        <BAccordion :title="name" visible free>
+        <BAccordion visible free>
           <BAccordionItem
             v-for="{
               id,

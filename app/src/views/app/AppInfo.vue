@@ -10,6 +10,7 @@ import { formatConfigPanels, useConfigPanels } from '@/composables/configPanels'
 import { useDomains } from '@/composables/data'
 import { useAutoModal } from '@/composables/useAutoModal'
 import { isEmptyValue, joinOrNull, toEntries } from '@/helpers/commons'
+import type { Obj } from '@/types/commons'
 import { humanPermissionName } from '@/helpers/filters/human'
 import { formatI18nField } from '@/helpers/yunohostArguments'
 import type { AppInfo } from '@/types/core/api'
@@ -179,7 +180,6 @@ async function changeUrl() {
     .put({
       uri: `apps/${props.id}/changeurl`,
       data: { domain, path: '/' + path },
-      humanKey: { key: 'apps.change_url', name: app.label },
     })
     // Refetch because some content of this page relies on the url
     .then(() => api.refetch())
@@ -209,9 +209,9 @@ async function regularUpgrade() {
   await upgrade(false)
 }
 
-async function upgrade(force) {
+async function upgrade(force: boolean) {
   await api
-    .put({ uri: `apps/${app.id}/upgrade` + (force ? '?force' : '') })
+    .put<Obj>({ uri: `apps/${app.id}/upgrade` + (force ? '?force' : '') })
     .then((response) => {
       const postMessage = formatAppNotifs(response.notifications.POST_UPGRADE)
       if (postMessage) {
@@ -478,12 +478,7 @@ async function uninstall() {
           </BInputGroup>
         </BCol>
         <BCol class="text-center" cols="12" md="4" lg="3">
-          <BButton
-            variant="info"
-            class="mt-2 mt-md-0"
-            :class="disabled ? 'disabled' : ''"
-            @:click="changeUrl"
-          >
+          <BButton variant="info" class="mt-2 mt-md-0" @:click="changeUrl">
             <YIcon iname="truck" class="me-2" />
             <span>{{ $t('app.change_url.change_url') }}</span>
           </BButton>
