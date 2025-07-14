@@ -4,7 +4,9 @@ import type { AppLevel, AppManifest, AppState } from '@/types/core/api'
 
 export function formatAppNotifs(notifs: Obj<Translation> | null): string {
   if (!notifs) return ''
-  return getKeys(notifs).map(key => notifs[key]).join("\n\n<hr/>\n\n")
+  return getKeys(notifs)
+    .map((key) => notifs[key])
+    .join('\n\n<hr/>\n\n')
 }
 
 export function formatAppQuality(app: { state: AppState; level: AppLevel }) {

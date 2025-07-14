@@ -36,91 +36,97 @@ const showModalUninstall = ref(false)
 const changeUrlErrors = ref('')
 const purge = ref(false)
 
-const [app, changeUrlForm, coreConfigData, appConfigData, configPanelErr] = await api
-  .fetchAll<[AppInfo, CoreConfigPanels]>([
-    { uri: `apps/${props.id}?full&with_pre_upgrade_notifications` },
-    { uri: `apps/${props.id}/config?full&core` },
-  ])
-  .then(async ([app_, coreConfigData]) => {
-    // Query config panels if app supports it
-    let appConfigData: CoreConfigPanels | undefined
-    let appConfigPanelErr: string | undefined
-    if (app_.supports_config_panel) {
-      await api
-        .get<CoreConfigPanels>(`apps/${props.id}/config?full`)
-        .then((data) => (appConfigData = data))
-        .catch((err: APIError) => (appConfigPanelErr = err.message))
-    }
-
-    const { domain, path } = app_.settings
-    const changeUrlForm = ref({
-      url: domain && path ? { domain, path: path.slice(1) } : undefined,
-    })
-    const permissions = []
-    for (const [name, perm] of toEntries(app_.permissions)) {
-      const isMain = name.endsWith('.main')
-      const permission = {
-        ...perm,
-        name,
-        label: isMain ? perm.label : perm.sublabel,
-        title: isMain ? t('permission_main') : humanPermissionName(name),
-        tileAvailable: !!perm.url && !perm.url.startsWith('re:'),
+const [app, changeUrlForm, coreConfigData, appConfigData, configPanelErr] =
+  await api
+    .fetchAll<
+      [AppInfo, CoreConfigPanels]
+    >([{ uri: `apps/${props.id}?full&with_pre_upgrade_notifications` }, { uri: `apps/${props.id}/config?full&core` }])
+    .then(async ([app_, coreConfigData]) => {
+      // Query config panels if app supports it
+      let appConfigData: CoreConfigPanels | undefined
+      let appConfigPanelErr: string | undefined
+      if (app_.supports_config_panel) {
+        await api
+          .get<CoreConfigPanels>(`apps/${props.id}/config?full`)
+          .then((data) => (appConfigData = data))
+          .catch((err: APIError) => (appConfigPanelErr = err.message))
       }
-      permissions.push(permission)
-    }
 
-    const { DESCRIPTION, ADMIN, ...doc } = app_.manifest.doc
-    const notifs = app_.manifest.notifications
-    // App may not have 'main' permission
-    const label = app_.label || app_.id
-    const app = {
-      id: props.id,
-      version: app_.version,
-      label,
-      domain,
-      logo: app_.logo,
-      url: domain && path ? `https://${domain}${path}` : null,
-      alternativeTo: joinOrNull(app_.from_catalog.potential_alternative_to),
-      description: formatI18nField(DESCRIPTION) || app_.description,
-      upgrade: app_.upgrade,
-      integration: formatAppIntegration(
-        app_.manifest.integration,
-        app_.manifest.packaging_format,
-      ),
-      // TODO: could return `remote` key of manifest to pass only manifest and id?
-      links: formatAppLinks({
-        ...app_.manifest,
-        // @ts-expect-error meh
-        remote: app_.from_catalog.git ?? { url: null },
-      }),
-      doc: {
-        notifications: {
-          postInstall: notifs.POST_INSTALL?.main
-            ? [['main', formatI18nField(notifs.POST_INSTALL.main)]]
-            : [],
-          postUpgrade: notifs.POST_UPGRADE
-            ? Object.entries(notifs.POST_UPGRADE).map(([key, content]) => {
-                return [key, formatI18nField(content)]
-              })
-            : [],
+      const { domain, path } = app_.settings
+      const changeUrlForm = ref({
+        url: domain && path ? { domain, path: path.slice(1) } : undefined,
+      })
+      const permissions = []
+      for (const [name, perm] of toEntries(app_.permissions)) {
+        const isMain = name.endsWith('.main')
+        const permission = {
+          ...perm,
+          name,
+          label: isMain ? perm.label : perm.sublabel,
+          title: isMain ? t('permission_main') : humanPermissionName(name),
+          tileAvailable: !!perm.url && !perm.url.startsWith('re:'),
+        }
+        permissions.push(permission)
+      }
+
+      const { DESCRIPTION, ADMIN, ...doc } = app_.manifest.doc
+      const notifs = app_.manifest.notifications
+      // App may not have 'main' permission
+      const label = app_.label || app_.id
+      const app = {
+        id: props.id,
+        version: app_.version,
+        label,
+        domain,
+        logo: app_.logo,
+        url: domain && path ? `https://${domain}${path}` : null,
+        alternativeTo: joinOrNull(app_.from_catalog.potential_alternative_to),
+        description: formatI18nField(DESCRIPTION) || app_.description,
+        upgrade: app_.upgrade,
+        integration: formatAppIntegration(
+          app_.manifest.integration,
+          app_.manifest.packaging_format,
+        ),
+        // TODO: could return `remote` key of manifest to pass only manifest and id?
+        links: formatAppLinks({
+          ...app_.manifest,
+          // @ts-expect-error meh
+          remote: app_.from_catalog.git ?? { url: null },
+        }),
+        doc: {
+          notifications: {
+            postInstall: notifs.POST_INSTALL?.main
+              ? [['main', formatI18nField(notifs.POST_INSTALL.main)]]
+              : [],
+            postUpgrade: notifs.POST_UPGRADE
+              ? Object.entries(notifs.POST_UPGRADE).map(([key, content]) => {
+                  return [key, formatI18nField(content)]
+                })
+              : [],
+          },
+          admin: [
+            ['admin', formatI18nField(ADMIN)],
+            ...Object.keys(doc)
+              .sort()
+              .map((key) => [
+                key.charAt(0) + key.slice(1).toLowerCase(),
+                formatI18nField(doc[key]),
+              ]),
+          ].filter((doc) => doc[1]),
         },
-        admin: [
-          ['admin', formatI18nField(ADMIN)],
-          ...Object.keys(doc)
-            .sort()
-            .map((key) => [
-              key.charAt(0) + key.slice(1).toLowerCase(),
-              formatI18nField(doc[key]),
-            ]),
-        ].filter((doc) => doc[1]),
-      },
-      isWebapp: app_.is_webapp,
-      supportsChangeUrl: app_.supports_change_url,
-      supportsPurge: app_.supports_purge,
-    }
+        isWebapp: app_.is_webapp,
+        supportsChangeUrl: app_.supports_change_url,
+        supportsPurge: app_.supports_purge,
+      }
 
-    return [app, changeUrlForm, coreConfigData, appConfigData, appConfigPanelErr] as const
-  })
+      return [
+        app,
+        changeUrlForm,
+        coreConfigData,
+        appConfigData,
+        appConfigPanelErr,
+      ] as const
+    })
 
 const coreConfig = useConfigPanels(
   formatConfigPanels(coreConfigData),
@@ -177,50 +183,59 @@ async function changeUrl() {
     })
     // Refetch because some content of this page relies on the url
     .then(() => api.refetch())
-    .catch(err => changeUrlErrors.value = err.message)
+    .catch((err) => (changeUrlErrors.value = err.message))
 }
 
 async function forceUpgrade() {
   const confirmed = await modalConfirm(t('confirm_app_force_upgrade'))
-  if (!confirmed) return;
-  await upgrade(true);
+  if (!confirmed) return
+  await upgrade(true)
 }
 
 async function regularUpgrade() {
-
   const confirmed = await modalConfirm(
-    app.upgrade.notifications ? "<strong><em>" + t('app.upgrade.notifs.pre.alert') + "</em></strong><hr/>" + formatAppNotifs(app.upgrade.notifications) : "",
+    app.upgrade.notifications
+      ? '<strong><em>' +
+          t('app.upgrade.notifs.pre.alert') +
+          '</em></strong><hr/>' +
+          formatAppNotifs(app.upgrade.notifications)
+      : '',
     {
       title: t('confirm_app_upgrade'),
     },
     { markdown: true },
   )
-  if (!confirmed) return;
-  await upgrade(false);
+  if (!confirmed) return
+  await upgrade(false)
 }
 
 async function upgrade(force) {
-  await api.put({uri: `apps/${app.id}/upgrade` + (force ? '?force' : '')})
-        .then((response) => {
-        const postMessage = formatAppNotifs(response.notifications.POST_UPGRADE)
-        if (postMessage) {
-          const message = "<small><em>" + t('app.upgrade.notifs.post.alert') + '</em></small>\n\n' + postMessage
-          modalConfirm(
-            message,
-            {
-              title: t('app.upgrade.notifs.post.title', {
-                name: app.label,
-              }),
-            },
-            { markdown: true, cancelable: false },
-          )
-        }
-        api.refetch()
-      })
+  await api
+    .put({ uri: `apps/${app.id}/upgrade` + (force ? '?force' : '') })
+    .then((response) => {
+      const postMessage = formatAppNotifs(response.notifications.POST_UPGRADE)
+      if (postMessage) {
+        const message =
+          '<small><em>' +
+          t('app.upgrade.notifs.post.alert') +
+          '</em></small>\n\n' +
+          postMessage
+        modalConfirm(
+          message,
+          {
+            title: t('app.upgrade.notifs.post.title', {
+              name: app.label,
+            }),
+          },
+          { markdown: true, cancelable: false },
+        )
+      }
+      api.refetch()
+    })
 }
 
 async function showModalUninstallButton() {
-  showModalUninstall.value = true;
+  showModalUninstall.value = true
 }
 
 async function uninstall() {
@@ -353,8 +368,12 @@ async function uninstall() {
         </BTab>
       </BTabs>
     </BCard>
-    <YCard v-else-if="app.doc.admin.length == 1" :title="$t('app.doc.admin.title')" icon="book">
-        <VueShowdown :markdown="app.doc.admin[0][1]" />
+    <YCard
+      v-else-if="app.doc.admin.length == 1"
+      :title="$t('app.doc.admin.title')"
+      icon="book"
+    >
+      <VueShowdown :markdown="app.doc.admin[0][1]" />
     </YCard>
 
     <!-- CORE CONFIG PANEL -->
@@ -367,26 +386,30 @@ async function uninstall() {
     />
 
     <YCard id="operations" :title="$t('operations')" icon="wrench">
-
       <!-- Upgrade -->
 
       <h5
-      :class="
-        app.upgrade.status == 'up_to_date' ? '' :
-        app.upgrade.status == 'upgradable' ? 'text-info' :
-        app.upgrade.status == 'url_required' ? 'text-muted' :
-        app.upgrade.status == 'bad_quality' ? 'text-warning' :
-        'text-info'
-      ">
+        :class="
+          app.upgrade.status == 'up_to_date'
+            ? ''
+            : app.upgrade.status == 'upgradable'
+              ? 'text-info'
+              : app.upgrade.status == 'url_required'
+                ? 'text-muted'
+                : app.upgrade.status == 'bad_quality'
+                  ? 'text-warning'
+                  : 'text-info'
+        "
+      >
         {{ $t('app.upgrade.upgrade') }}
       </h5>
 
       <YAlert
-         v-if="app.upgrade.specific_channel_message"
-         variant="warning"
-         class="py-2 m-2"
+        v-if="app.upgrade.specific_channel_message"
+        variant="warning"
+        class="py-2 m-2"
       >
-         <VueShowdown :markdown="app.upgrade.specific_channel_message" />
+        <VueShowdown :markdown="app.upgrade.specific_channel_message" />
       </YAlert>
 
       <div v-if="app.upgrade.status == 'up_to_date'" class="text-success">
@@ -397,7 +420,11 @@ async function uninstall() {
 
       <div v-if="app.upgrade.status == 'up_to_date'" class="pb-2">
         <small v-t="'app.upgrade.advertise_testing_version'"></small>
-        <BLink v-if="app.links.package" :href="app.links.package[1] + '/pulls'" target="_blank">
+        <BLink
+          v-if="app.links.package"
+          :href="app.links.package[1] + '/pulls'"
+          target="_blank"
+        >
           <YIcon iname="external-link" class="ms-2" />
         </BLink>
       </div>
@@ -416,15 +443,19 @@ async function uninstall() {
         icon="arrow-up"
         :details="app.upgrade.message"
         :variant="
-            app.upgrade.status == 'upgradable' ? 'success' :
-            app.upgrade.status == 'url_required' ? 'outline-secondary' :
-            app.upgrade.status == 'bad_quality' ? 'warning' :
-            'info'"
+          app.upgrade.status == 'upgradable'
+            ? 'success'
+            : app.upgrade.status == 'url_required'
+              ? 'outline-secondary'
+              : app.upgrade.status == 'bad_quality'
+                ? 'warning'
+                : 'info'
+        "
         :disabled="app.upgrade.status != 'upgradable'"
         :onclick="regularUpgrade"
       />
 
-      <hr/>
+      <hr />
 
       <!-- Change url -->
 
@@ -437,7 +468,6 @@ async function uninstall() {
       >
         <BCol>
           <BInputGroup v-if="app.supportsChangeUrl && changeUrlForm.url">
-
             <BInputGroupText>https://</BInputGroupText>
             <BFormSelect
               v-model="changeUrlForm.url.domain"
@@ -445,7 +475,6 @@ async function uninstall() {
             />
             <BInputGroupText>/</BInputGroupText>
             <BFormInput v-model="changeUrlForm.url.path" class="flex-grow-3" />
-
           </BInputGroup>
         </BCol>
         <BCol class="text-center" cols="12" md="4" lg="3">
@@ -462,12 +491,14 @@ async function uninstall() {
       </BRow>
 
       <div v-else-if="app.isWebapp">
-          {{ $t('app.change_url.not_supported') }}
+        {{ $t('app.change_url.not_supported') }}
       </div>
 
       <div v-if="changeUrlErrors" class="text-danger">
-          <VueShowdown :markdown="changeUrlErrors" :options="{ headerLevelStart: 4 }"
-      />
+        <VueShowdown
+          :markdown="changeUrlErrors"
+          :options="{ headerLevelStart: 4 }"
+        />
       </div>
 
       <hr v-if="app.isWebapp" />
@@ -483,7 +514,6 @@ async function uninstall() {
         variant="danger"
         :onclick="showModalUninstallButton"
       />
-
     </YCard>
 
     <AppIntegrationAndLinks :integration="app.integration" :links="app.links" />

@@ -82,7 +82,9 @@ defineProps<{
             i18n: app.links.userdoc
             i18n: app.links.website
           -->
-          <BLink :href="link" target="_blank">{{ $t('app.links.' + key) }}</BLink>
+          <BLink :href="link" target="_blank">{{
+            $t('app.links.' + key)
+          }}</BLink>
         </YListGroupItem>
       </template>
     </BListGroup>

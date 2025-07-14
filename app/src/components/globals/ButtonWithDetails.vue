@@ -1,5 +1,4 @@
 <script setup lang="ts">
-
 withDefaults(
   defineProps<{
     label?: string
@@ -18,17 +17,12 @@ withDefaults(
     disabled: false,
   },
 )
-
 </script>
 
 <template>
-  <BRow
-    no-gutters
-    class="w-100"
-    align-v="center"
-  >
+  <BRow no-gutters class="w-100" align-v="center">
     <BCol>
-      <VueShowdown :markdown="details" :class="`text-${ variant }`" />
+      <VueShowdown :markdown="details" :class="`text-${variant}`" />
     </BCol>
     <BCol class="text-center" cols="12" md="4" lg="3">
       <BButton

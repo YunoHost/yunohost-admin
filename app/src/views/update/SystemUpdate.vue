@@ -13,25 +13,52 @@ const { t } = useI18n()
 const { tryToReconnect } = useSSE()
 const modalConfirm = useAutoModal()
 
-const { apps, system, importantYunohostUpgrade, pendingMigrations, lastAptUpdate, lastAppsCatalogUpdate } = await api
+const {
+  apps,
+  system,
+  importantYunohostUpgrade,
+  pendingMigrations,
+  lastAptUpdate,
+  lastAppsCatalogUpdate,
+} = await api
   .get<SystemUpdate>({ uri: 'update' })
-  .then(({ apps, system, important_yunohost_upgrade, pending_migrations, last_apt_update, last_apps_catalog_update }) => {
-    return {
-      apps: ref(apps.filter(app => app.upgrade.status != 'up_to_date')),
-      system: ref(system),
-      importantYunohostUpgrade: important_yunohost_upgrade,
-      pendingMigrations: !!pending_migrations.length,
-      lastAptUpdate: secondsToHours(last_apt_update),
-      lastAppsCatalogUpdate: secondsToHours(last_apps_catalog_update),
-    }
-  })
+  .then(
+    ({
+      apps,
+      system,
+      important_yunohost_upgrade,
+      pending_migrations,
+      last_apt_update,
+      last_apps_catalog_update,
+    }) => {
+      return {
+        apps: ref(apps.filter((app) => app.upgrade.status != 'up_to_date')),
+        system: ref(system),
+        importantYunohostUpgrade: important_yunohost_upgrade,
+        pendingMigrations: !!pending_migrations.length,
+        lastAptUpdate: secondsToHours(last_apt_update),
+        lastAppsCatalogUpdate: secondsToHours(last_apps_catalog_update),
+      }
+    },
+  )
 const preUpgrade = ref<
-  | { apps: { id: string; name: string; currentVersion: string, newVersion: string, notif: string, }[]; hasNotifs: boolean }
+  | {
+      apps: {
+        id: string
+        name: string
+        currentVersion: string
+        newVersion: string
+        notif: string
+      }[]
+      hasNotifs: boolean
+    }
   | undefined
 >()
 
 async function confirmAppsUpgrade(id?: string) {
-  const appList = id ? [apps.value.find((app) => app.id === id)!] : apps.value.filter(app => app.upgrade.status == 'upgradable');
+  const appList = id
+    ? [apps.value.find((app) => app.id === id)!]
+    : apps.value.filter((app) => app.upgrade.status == 'upgradable')
   const apps_ = appList.map((app) => ({
     id: app.id,
     name: app.name,
@@ -57,7 +84,11 @@ async function performAppsUpgrade(ids: string[]) {
         apps.value = apps.value.filter((a) => app.id !== a.id)
 
         if (postMessage) {
-          const message = "<small><em>" + t('app.upgrade.notifs.post.alert') + '</em></small>\n\n' + postMessage
+          const message =
+            '<small><em>' +
+            t('app.upgrade.notifs.post.alert') +
+            '</em></small>\n\n' +
+            postMessage
           return modalConfirm(
             message,
             {
@@ -79,8 +110,7 @@ async function performAppsUpgrade(ids: string[]) {
 }
 
 async function refreshUpdateCache() {
-  api.put<SystemUpdate>({ uri: 'update/all' })
-  .then(() => api.refetch())
+  api.put<SystemUpdate>({ uri: 'update/all' }).then(() => api.refetch())
 }
 
 async function performSystemUpgrade() {
@@ -116,32 +146,47 @@ async function performSystemUpgrade() {
       <ButtonWithDetails
         :label="t('update.refresh_cache')"
         icon="refresh"
-        :details="t(
-          lastAptUpdate > 12 || lastAppsCatalogUpdate > 12 ? 'update.very_stale_cache' :
-          lastAptUpdate > 1 || lastAppsCatalogUpdate > 1 ? 'update.stale_cache' : 
-          'update.ok_cache',
-          {lastAptUpdate, lastAppsCatalogUpdate}
-          )"
+        :details="
+          t(
+            lastAptUpdate > 12 || lastAppsCatalogUpdate > 12
+              ? 'update.very_stale_cache'
+              : lastAptUpdate > 1 || lastAppsCatalogUpdate > 1
+                ? 'update.stale_cache'
+                : 'update.ok_cache',
+            { lastAptUpdate, lastAppsCatalogUpdate },
+          )
+        "
         :variant="info"
         :onclick="refreshUpdateCache"
       />
     </YAlert>
 
     <!-- SYSTEM UPGRADE -->
-    <YCard v-if="lastAptUpdate < 12 && lastAppsCatalogUpdate < 12" :title="$t('system')" icon="server" no-body>
+    <YCard
+      v-if="lastAptUpdate < 12 && lastAppsCatalogUpdate < 12"
+      :title="$t('system')"
+      icon="server"
+      no-body
+    >
       <BAccordion v-if="Object.keys(system).length" flush free>
         <BAccordionItem
-          v-for="( packages, category ) in system"
+          v-for="(packages, category) in system"
           :key="category"
           header-tag="h3"
           button-class="px-3 py-2"
         >
           <template #title>
             <span class="fw-bold">{{ category }}</span>
-            <small class="ms-1">({{ packages.length }} {{ $t('items.packages', packages.length) }})</small>
+            <small class="ms-1"
+              >({{ packages.length }}
+              {{ $t('items.packages', packages.length) }})</small
+            >
           </template>
           <ul class="mb-0">
-            <li v-for="{ name, current_version, new_version } in packages" :key="name">
+            <li
+              v-for="{ name, current_version, new_version } in packages"
+              :key="name"
+            >
               {{ name }}
               <small class="text-secondary">
                 {{ $t('from_to', [current_version, new_version]) }}
@@ -168,7 +213,12 @@ async function performSystemUpgrade() {
     </YCard>
 
     <!-- APPS UPGRADE -->
-    <YCard v-if="lastAptUpdate < 12 && lastAppsCatalogUpdate < 12" :title="$t('applications')" icon="cubes" no-body>
+    <YCard
+      v-if="lastAptUpdate < 12 && lastAppsCatalogUpdate < 12"
+      :title="$t('applications')"
+      icon="cubes"
+      no-body
+    >
       <BListGroup v-if="apps.length" flush free>
         <BListGroupItem
           v-for="{ name, id, upgrade } in apps"
@@ -176,36 +226,56 @@ async function performSystemUpgrade() {
           class="d-flex justify-content-between align-items-center ps-3 pe-1"
         >
           <BRow align-v="center" class="w-100">
-          <BCol class="text-center text-md-start">
-            <h5 class="mb-1">
-              <span class="fw-bold">{{ name }}</span>
-              <small>
-                ({{ id }})
-                <span v-if="upgrade.new_version" class="text-secondary d-block d-sm-inline">
-                {{ $t('from_to', [upgrade.current_version, upgrade.new_version]) }}
-                </span>
-              </small>
-            </h5>
+            <BCol class="text-center text-md-start">
+              <h5 class="mb-1">
+                <span class="fw-bold">{{ name }}</span>
+                <small>
+                  ({{ id }})
+                  <span
+                    v-if="upgrade.new_version"
+                    class="text-secondary d-block d-sm-inline"
+                  >
+                    {{
+                      $t('from_to', [
+                        upgrade.current_version,
+                        upgrade.new_version,
+                      ])
+                    }}
+                  </span>
+                </small>
+              </h5>
 
-            <div v-if="upgrade.specific_channel" class="text-start text-warning alert alert-warning py-1 my-1">
-              <VueShowdown :markdown="upgrade.specific_channel_message" />
-            </div>
+              <div
+                v-if="upgrade.specific_channel"
+                class="text-start text-warning alert alert-warning py-1 my-1"
+              >
+                <VueShowdown :markdown="upgrade.specific_channel_message" />
+              </div>
 
-            <div v-if="upgrade.status != 'upgradable'" class="text-start mt-1 mb-0">
-              <VueShowdown :markdown="upgrade.message" />
-            </div>
-          </BCol>
+              <div
+                v-if="upgrade.status != 'upgradable'"
+                class="text-start mt-1 mb-0"
+              >
+                <VueShowdown :markdown="upgrade.message" />
+              </div>
+            </BCol>
 
-          <BCol class="text-center text-md-end pe-0" cols="12" md="2">
-          <BButton
-            v-if="upgrade.status != 'url_required'"
-            v-t="'system_upgrade_btn'"
-            :variant="upgrade.status != 'upgradable' ? 'outline-secondary' : upgrade.specific_channel ? 'warning' : 'success'"
-            :class="upgrade.status != 'upgradable' ? 'disabled' : ''"
-            size="sm"
-            @click="confirmAppsUpgrade(id)"
-          />
-          </BCol>
+            <BCol class="text-center text-md-end pe-0" cols="12" md="2">
+              <BButton
+                v-if="upgrade.status != 'url_required'"
+                v-t="'system_upgrade_btn'"
+                :variant="
+                  upgrade.status != 'upgradable'
+                    ? 'outline-secondary'
+                    : upgrade.specific_channel
+                      ? 'warning'
+                      : 'success'
+                "
+                :class="upgrade.status != 'upgradable' ? 'disabled' : ''"
+                size="sm"
+                @click="confirmAppsUpgrade(id)"
+              />
+            </BCol>
           </BRow>
         </BListGroupItem>
       </BListGroup>
@@ -242,7 +312,10 @@ async function performSystemUpgrade() {
         {{ $t('app.upgrade.confirm.apps') }}
       </h3>
       <ul>
-        <li v-for="{ name, id, currentVersion, newVersion } in preUpgrade.apps" :key="id">
+        <li
+          v-for="{ name, id, currentVersion, newVersion } in preUpgrade.apps"
+          :key="id"
+        >
           <span class="fw-bold pe-1">{{ name }}</span>
           <small class="text-muted">
             ({{ id }})
@@ -260,13 +333,15 @@ async function performSystemUpgrade() {
           {{ $t('app.upgrade.notifs.pre.alert') }}
         </YAlert>
 
-        <BAccordion
-          :title="name"
-          visible
-          free
-        >
+        <BAccordion :title="name" visible free>
           <BAccordionItem
-            v-for="{ id, name, currentVersion, newVersion, notif } in preUpgrade.apps"
+            v-for="{
+              id,
+              name,
+              currentVersion,
+              newVersion,
+              notif,
+            } in preUpgrade.apps"
             :key="`${id}-notifs`"
             header-tag="h3"
             button-class="px-3 py-2"
@@ -279,10 +354,7 @@ async function performSystemUpgrade() {
                 {{ $t('from_to', [currentVersion, newVersion]) }}
               </small>
             </template>
-            <VueShowdown
-                :markdown="notif"
-                :options="{ headerLevelStart: 6 }"
-              />
+            <VueShowdown :markdown="notif" :options="{ headerLevelStart: 6 }" />
           </BAccordionItem>
         </BAccordion>
       </div>
