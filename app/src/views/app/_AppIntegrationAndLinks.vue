@@ -12,6 +12,7 @@ defineProps<{
     v-if="integration"
     id="app-integration"
     :title="$t('app.integration.title')"
+    icon="puzzle-piece"
     collapsible
     collapsed
     no-body

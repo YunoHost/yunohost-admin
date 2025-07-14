@@ -351,14 +351,7 @@ async function uninstall() {
         </template>
       </p>
 
-      <p>
-        <YIcon iname="comments" /> {{ $t('app.info.problem') }}
-        <a :href="`https://forum.yunohost.org/tag/${id}`" target="_blank">
-          {{ $t('app.info.forum') }}
-        </a>
-      </p>
-
-      <VueShowdown :markdown="app.description" />
+      <VueShowdown :markdown="app.description" class="px-2" />
     </section>
 
     <!-- APP CONFIG PANEL -->
@@ -377,7 +370,7 @@ async function uninstall() {
     />
 
     <!-- ADMIN DOC -->
-    <BCard v-if="app.doc.admin.length" no-body>
+    <BCard v-if="app.doc.admin.length > 1" no-body>
       <BTabs card fill pills>
         <BTab v-for="[name, content] in app.doc.admin" :key="name">
           <template #title>
@@ -388,6 +381,11 @@ async function uninstall() {
         </BTab>
       </BTabs>
     </BCard>
+    <YCard v-else-if="app.doc.admin.length == 1" :title="$t('app.doc.admin.title')" icon="book">
+      <template v-for="[name, content] in app.doc.admin">
+        <VueShowdown :markdown="content" />
+      </template>
+    </YCard>
 
     <!-- CORE CONFIG PANEL -->
     <ConfigPanelsComponent

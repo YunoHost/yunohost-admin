@@ -161,7 +161,7 @@ function onDomainAdd(data: {
 <template>
   <div>
     <template v-if="app">
-      <section class="border rounded p-3 mb-4">
+      <section class="p-3 mb-4">
         <div class="d-md-flex align-items-center mb-4">
           <h1 class="mb-3 mb-md-0">
             {{ app.name }}

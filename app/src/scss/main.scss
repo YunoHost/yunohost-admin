@@ -326,3 +326,11 @@ pre code {
   -ms-user-select: none;
   user-select: none;
 }
+
+// Ugly fix for markdown stuff
+// Markdown parsers always create <p> blocks for blocks of text .
+// but this result in various case when you want to have markdown inside a div,
+// and then the <p> introduces a margin-bottom: 1em; which is ugly zzzz
+p:last-child {
+  margin-bottom: 0;
+}
