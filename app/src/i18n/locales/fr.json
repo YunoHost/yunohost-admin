@@ -90,7 +90,7 @@
     "system": "Système",
     "system_apps_nothing": "Toutes les applications sont à jour !",
     "system_packages_nothing": "Tous les packages système sont à jour !",
-    "system_update": "Mise à jour du système",
+    "system_update": "Mises à jour",
     "system_upgrade_btn": "Mettre à jour",
     "tcp": "TCP",
     "tools": "Outils",
@@ -160,7 +160,7 @@
     "only_highquality_apps": "Seulement les applications de bonne qualité",
     "only_decent_quality_apps": "Seulement les applications d'une qualité satisfaisante",
     "orphaned": "Non maintenue",
-    "orphaned_details": "Cette application n'a pas été maintenue depuis un certain temps. Elle peut encore fonctionner, mais ne recevra aucune mise à niveau jusqu'à ce que quelqu'un se porte volontaire pour s'en occuper. N'hésitez pas à contribuer à la faire revivre !",
+    "orphaned_details": "Cette application n'a pas été maintenue depuis un certain temps. Elle peut encore fonctionner, mais ne recevra aucune mise à jour jusqu'à ce que quelqu'un se porte volontaire pour s'en occuper. N'hésitez pas à contribuer à la faire revivre !",
     "from_to": "de {0} à {1}",
     "group_name": "Nom du groupe",
     "group": "Groupe",
@@ -451,20 +451,20 @@
         "upgrade": {
             "notifs": {
                 "pre": {
-                    "alert": "Vous devriez vérifier ces notifications avant de procéder à la mise à niveau, il pourrait y avoir des éléments d'information importants à connaître.",
-                    "title": "Avertissement !"
+                    "alert": "Vous devriez lire attentivement les notes suivantes avant de lancer les mises à jour.",
+                    "title": "Notes importantes"
                 },
                 "post": {
-                    "alert": "Il semble que la mise à jour se soit bien passée !\nVoici quelques informations que le responsable du paquet juge important de connaître à propos de cette mise à niveau.\nVous pouvez les retrouver dans la page d'information de l'application.",
-                    "title": "Notifications post-mise à niveau pour '{name}'"
+                    "alert": "Vous pourrez aussi retrouver ces messages dans la page d'information de l'application",
+                    "title": "Notes importantes suite à la mise à jour de {name}"
                 }
             },
             "confirm": {
-                "apps": "Applications qui seront mises à niveau",
-                "title": "Confirmez les mises à niveau des applications"
+                "apps": "Applications qui seront mises à jour",
+                "title": "Confirmez les mises à jour des applications"
             },
             "continue": "Passer à l'application suivante",
-            "stop": "Annuler les prochaines mises à niveau d'applications"
+            "stop": "Annuler les prochaines mises à jour d'applications"
         },
         "installed_version": "Version installée :",
         "open_this_app": "Ouvrir l'application",
@@ -475,8 +475,8 @@
             },
             "notifications": {
                 "understood": "Compris",
-                "post_upgrade": "Remarques suite à la mise à niveau",
-                "post_install": "Remarques suite à l'installation"
+                "post_upgrade": "Notes suite à la mise à jour",
+                "post_install": "Notes suite à l'installation"
             }
         },
         "info": {
@@ -505,8 +505,8 @@
                 "inprogress": "Cette application est encore expérimentale (pour être plus clair elle ne fonctionne pas super bien et n'est pas encore bien intégrée dans YunoHost). En conséquence, elle est susceptible de casser votre système ! Vous ne devriez probablement PAS l'installer si vous ne savez pas ce que vous faites.",
                 "install": "Cette application est déjà installée et ne peut être installée plus d'une fois.",
                 "lowquality": "Cette application peut fonctionner mais n'est pas bien intégrée dans YunoHost. Certaines fonctionnalités telles que l'authentification unique (SSO) et la sauvegarde/restauration peuvent ne pas être disponibles, ou ne pas respecter les bonnes pratiques.",
-                "ram": "Cette application nécessite {required} de RAM pour être installée/mise à niveau mais seul {current} est disponible actuellement. Même si cette application pouvait fonctionner, son processus d'installation nécessite une grande quantité de RAM. Votre serveur risque donc de geler (freezer) et de planter lamentablement.",
-                "version": "Cette application nécessite une version de YunoHost >= {required} et votre version installée est {current}, vous devriez envisager en premier lieu de mettre à niveau YunoHost."
+                "ram": "Cette application nécessite {required} de RAM pour être installée/mise à jour mais seul {current} est disponible actuellement. Même si cette application pouvait fonctionner, son processus d'installation nécessite une grande quantité de RAM. Votre serveur risque donc de geler (freezer) et de planter lamentablement.",
+                "version": "Cette application nécessite une version de YunoHost >= {required} et votre version installée est {current}, vous devriez envisager en premier lieu de mettre à jour YunoHost."
             },
             "try_demo": "Essayer la démonstration",
             "version": "Version actuelle : {version}"

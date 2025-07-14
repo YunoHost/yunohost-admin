@@ -144,7 +144,7 @@
             "up_to_date": "This app is up to date!",
             "advertise_testing_version": "Looking for a new version from upstream? Maybe there's a 'testing' version you can help packagers with on the YunoHost package's git repository!",
             "upgrade": "Upgrade",
-            "force_upgrace": "Force-upgrade",
+            "force_upgrade": "Force-upgrade",
             "confirm": {
                 "apps": "Apps that will be upgraded",
                 "title": "Confirm app upgrades"
@@ -156,8 +156,8 @@
                     "title": "Post-upgrade notifications for '{name}'"
                 },
                 "pre": {
-                    "alert": "You should check those notifications before upgrading, there might be important stuff to know.",
-                    "title": "Be warned!"
+                    "alert": "You should read carefully the following notes before proceeding with the upgrade.",
+                    "title": "Important notes"
                 }
             },
             "stop": "Cancel next app upgrades"
@@ -192,6 +192,7 @@
     "configuration": "Configuration",
     "confirm_app_change_url": "Are you sure you want to change the app access URL?",
     "confirm_app_force_upgrade": "Are you sure you want to force-upgrade this app?",
+    "confirm_app_upgrade": "Are you sure you want to upgrade this app?",
     "confirm_change_maindomain": "Are you sure you want to change the main domain?",
     "confirm_delete": "Are you sure you want to delete {name}?",
     "confirm_firewall_close": "Are you sure you want to close port {port} for protocol {protocol}?",
@@ -384,6 +385,7 @@
         "installed_apps": "no installed apps | installed app | installed apps",
         "items": "no items | item | items",
         "logs": "no logs | log | logs",
+        "packages": "no packages | package | packages",
         "permissions": "no permissions | permission | permissions",
         "services": "no services | service | services",
         "users": "no users | user | users",
@@ -514,7 +516,7 @@
     "system": "System",
     "system_apps_nothing": "All apps are up to date!",
     "system_packages_nothing": "All system packages are up to date!",
-    "system_update": "System update",
+    "system_update": "Updates",
     "system_upgrade_all_applications_btn": "Upgrade all applications",
     "system_upgrade_all_packages_btn": "Upgrade all packages",
     "system_upgrade_btn": "Upgrade",
@@ -551,6 +553,12 @@
     "unauthorized": "Unauthorized",
     "unignore": "Unignore",
     "unknown": "Unknown",
+    "update": {
+        "refresh_cache": "Fetch available updates",
+        "stale_cache": "The system package cache (apt/dpkg) was updated {lastAptUpdate} hours ago, and the YunoHost apps catalog was updated {lastAppsCatalogUpdate} hours ago. Be sure to refresh them to get up-to-date information.",
+        "very_stale_cache": "The app catalog or system package cache (apt/dpkg) is outdated. Please start by refreshing the cache to get up-to-date information.",
+        "ok_cache": "The app catalog and system package cache (apt/dpkg) was updated less than one hour ago. But you can refresh them anytime to get up-to-date information."
+    },
     "upnp": "UPnP",
     "upnp_disabled": "UPnP is disabled.",
     "upnp_enabled": "UPnP is enabled.",
