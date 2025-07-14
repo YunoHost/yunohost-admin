@@ -71,20 +71,18 @@ defineProps<{
     <BListGroup flush>
       <template v-for="([icon, link], key) in links" :key="key">
         <YListGroupItem v-if="link" no-status>
-          <YIcon :iname="icon" class="me-3" />
-          <BLink :href="link" target="_blank">
-            <!--
-              i18n: app.links.admindoc
-              i18n: app.links.code
-              i18n: app.links.forum
-              i18n: app.links.license
-              i18n: app.links.package
-              i18n: app.links.package_license
-              i18n: app.links.userdoc
-              i18n: app.links.website
-            -->
-            {{ $t('app.links.' + key) }}
-          </BLink>
+          <YIcon :iname="icon" class="me-2" />
+          <!--
+            i18n: app.links.admindoc
+            i18n: app.links.code
+            i18n: app.links.forum
+            i18n: app.links.license
+            i18n: app.links.package
+            i18n: app.links.package_license
+            i18n: app.links.userdoc
+            i18n: app.links.website
+          -->
+          <BLink :href="link" target="_blank">{{ $t('app.links.' + key) }}</BLink>
         </YListGroupItem>
       </template>
     </BListGroup>
