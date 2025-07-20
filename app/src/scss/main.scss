@@ -331,6 +331,6 @@ pre code {
 // Markdown parsers always create <p> blocks for blocks of text .
 // but this result in various case when you want to have markdown inside a div,
 // and then the <p> introduces a margin-bottom: 1em; which is ugly zzzz
-p:last-child {
+.markdown p:last-child {
   margin-bottom: 0;
 }

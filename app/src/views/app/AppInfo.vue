@@ -338,7 +338,7 @@ async function uninstall() {
         </template>
       </p>
 
-      <VueShowdown :markdown="app.description" class="px-2" />
+      <VueShowdown :markdown="app.description" />
     </section>
 
     <!-- APP CONFIG PANEL -->
