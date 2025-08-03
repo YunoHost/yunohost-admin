@@ -77,7 +77,7 @@ const required = computed(() => 'required' in (props.validation ?? {}))
 <template>
   <BInputGroup class="w-100">
     <template v-if="modelValue.current" #prepend>
-      <div class="mb-2">
+      <div class="w-100 currentfile mb-2">
         {{ $t('form.current_file') }} <code>{{ modelValue.file!.name }}</code>
       </div>
     </template>
@@ -111,6 +111,10 @@ const required = computed(() => 'required' in (props.validation ?? {}))
 </template>
 
 <style lang="scss" scoped>
+.currentfile {
+  font-size: 0.8em;
+}
+
 // fix https://getbootstrap.com/docs/5.2/migration/#forms
 :deep(.custom-file-label) {
   color: $input-placeholder-color;

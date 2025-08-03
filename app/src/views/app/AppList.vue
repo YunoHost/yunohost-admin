@@ -40,7 +40,7 @@ const [search, filteredApps] = useSearch(apps, (s, app) =>
       <YListItem
         v-for="{ id, description, label, logoUrl } in filteredApps"
         :key="id"
-        :to="{ name: 'app-info', params: { id, coreTabId: '_core' } }"
+        :to="{ name: 'app-info', params: { id } }"
         :label="label"
         :sublabel="id"
         :description="description"

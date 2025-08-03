@@ -75,6 +75,7 @@ declare module 'vue' {
     BToast: typeof import('bootstrap-vue-next/components/BToast')['BToast']
     BToastOrchestrator: typeof import('bootstrap-vue-next/components/BToast')['BToastOrchestrator']
     ButtonItem: typeof import('./src/components/globals/formItems/ButtonItem.vue')['default']
+    ButtonWithDetails: typeof import('./src/components/globals/ButtonWithDetails.vue')['default']
     CardCollapse: typeof import('./src/components/CardCollapse.vue')['default']
     CardDeckFeed: typeof import('./src/components/CardDeckFeed.vue')['default']
     CardForm: typeof import('./src/components/globals/CardForm.vue')['default']

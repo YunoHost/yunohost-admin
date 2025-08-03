@@ -51,8 +51,8 @@ export type AppManifest = AppMinManifest & {
   requirements: Record<
     'required_yunohost_version' | 'arch' | 'install' | 'disk' | 'ram',
     {
-      pass: boolean
-      values: { current: string; required: string }
+      passed: boolean
+      error: string
     }
   >
   resources: Obj
@@ -105,6 +105,28 @@ export type Catalog = {
   }[]
 }
 
+export type AppUpgradeInfo = {
+  status:
+    | 'upgradable'
+    | 'up_to_date'
+    | 'url_required'
+    | 'bad_quality'
+    | 'fail_requirements'
+  message: string
+  url: string | null
+  current_version: string
+  new_version: string | null
+  new_revision: string | null
+  requirements: Obj | null
+  specific_channel: string | null
+  specific_channel_message: string | null
+  notifications: Obj<string>
+}
+
+export type AppUpgradeResult = {
+  notifications: Obj<Obj<Translation>>
+}
+
 export type AppInfo = {
   id: string
   description: string
@@ -115,8 +137,8 @@ export type AppInfo = {
   logo: string | null
   screenshot?: string
   upgradable: string
+  upgrade: AppUpgradeInfo
   settings: { domain?: string; path?: string } & Obj
-  setting_path: string
   permissions: Obj<AppPermInfos & { sublabel: string }>
   manifest: AppMinManifest & {
     install: Obj<AnyOption>
@@ -294,23 +316,18 @@ export type MigrationList = {
 }
 
 export type SystemUpdate = {
-  system: {
-    name: string
-    new_version: string
-    current_version: string
-  }[]
-  apps: {
-    name: string
-    id: string
-    new_version: string
-    current_version: string
-    notifications: {
-      PRE_UPGRADE: Obj<string> | null
-      POST_UPGRADE: Obj<string> | null
-    }
-  }[]
+  system: Obj<
+    {
+      name: string
+      new_version: string
+      current_version: string
+    }[]
+  >
+  apps: AppInfo[]
   important_yunohost_upgrade: boolean
   pending_migrations: MigrationInfo[]
+  last_apt_update: number
+  last_apps_catalog_update: number
 }
 
 // DOMAINS
