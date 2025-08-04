@@ -1,3 +1,13 @@
+yunohost-admin (12.1.7) testing; urgency=low
+
+  - Point donation link to the website ([#639](http://github.com/YunoHost/yunohost-admin/pull/639))
+  - Rework 'operations' part in app info page + improve the UI/UX for app and system packages upgrade ([#640](http://github.com/YunoHost/yunohost-admin/pull/640))
+  - i18n: Translations updated for Esperanto, French, Galician, German, Japanese, Kabyle, Portuguese (Brazil), Spanish
+
+  Thanks to all contributors <3 ! (ButterflyOfFire, Caio Carrara, daisuke, José M, Mélanie Chauvel, ppr, rosbeef andino, Thomas Weiss, tituspijean)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Mon, 04 Aug 2025 17:33:45 +0200
+
 yunohost-admin (12.1.6) testing; urgency=low
 
   - chore: bump vite from 6.0.15 to 6.1.6 in /app ([#637](http://github.com/YunoHost/yunohost-admin/pull/637))
