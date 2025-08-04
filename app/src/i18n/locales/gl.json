@@ -165,7 +165,8 @@
         "installed_apps": "cero apps instaladas | app instalada | apps instaladas",
         "items": "sen elementos | elemento | elementos",
         "disk": "sen disco | disco | discos",
-        "inserted_disk": "sen disco inserido | disco inserido | discos inseridos"
+        "inserted_disk": "sen disco inserido | disco inserido | discos inseridos",
+        "packages": "sen paquetes | paquete | paquetes"
     },
     "issues": "{count} asuntos",
     "installation_complete": "Instalación completa",
@@ -338,7 +339,7 @@
     "system_upgrade_all_packages_btn": "Actualizar todos os paquetes",
     "system_upgrade_all_applications_btn": "Actualizar tódalas aplicacións",
     "system_upgrade_btn": "Actualizar",
-    "system_update": "Actualización do sistema",
+    "system_update": "Actualizacións",
     "purge_user_data_warning": "A eliminación dos datos da usuaria non é reversible. Ten a certeza de que sabes o que estás a facer!",
     "purge_user_data_checkbox": "Purgar os datos de {name}? (Esto vai eliminar o contido do seu /home e directorio de email.)",
     "yes": "Si",
@@ -519,20 +520,31 @@
             "continue": "Continuar coa seguinte app",
             "notifs": {
                 "pre": {
-                    "alert": "Deberías ler as notificacións antes de actualizar, podería haber información que debas coñecer.",
-                    "title": "Ten coidado!"
+                    "alert": "Deberías ler as seguintes notas antes de proceder coa actualización.",
+                    "title": "Notas relevantes"
                 },
                 "post": {
                     "alert": "Semella que todo foi ben!\n Esta é unha información acerca da actualización que as desenvolvedoras cren que debes coñecer.\nPodes lela cando queiras na páxina de información da app.",
                     "title": "Notificacións post-actualización para '{name}'"
                 }
             },
-            "stop": "Cancelar as actualizacións da app seguinte"
+            "stop": "Cancelar as actualizacións da app seguinte",
+            "up_to_date": "Esta app está ao día!",
+            "advertise_testing_version": "Buscar unha nova versión na orixe? Pode que exista unha versión «testing» para axudar ás empaquetadoras da app no repositorio git de YunoHost!",
+            "upgrade": "Actualizar",
+            "force_upgrade": "Forzar-actualización"
         },
         "uninstall": {
-            "purge_desc": "Eliminar o directorio de datos asociados a esta app (normalmente son datos que ti subiches ao usar a app)."
+            "purge_desc": "Eliminar o directorio de datos asociados a esta app (normalmente son datos que ti subiches ao usar a app).",
+            "uninstall": "Desinstalar",
+            "desc": "Isto vai desinstalar a app do servidor.<br/>Terás a opción de purgar tamén os datos nunha xanela modal de confirmación."
         },
-        "upvote": "Se queres atraer a atención sobre esta aplicación, podes votar por ela na súa [páxina no catálogo](https://apps.yunohost.org/app/{id})."
+        "upvote": "Se queres atraer a atención sobre esta aplicación, podes votar por ela na súa [páxina no catálogo](https://apps.yunohost.org/app/{id}).",
+        "change_url": {
+            "title": "Mover a app a un URL diferente",
+            "not_supported": "Actualmente non é posible cambiar o URL onde está instalada esta app.",
+            "change_url": "Cambiar URL"
+        }
     },
     "catalog_wishlist": "Semella que a app que buscas aínda non está dispoñible no catálogo.\n Podes propoñela na [lista de desexos](https://apps.yunohost.org/wishlist?search={search}) ou votar por ela se xa está alí.",
     "tos": {
@@ -581,5 +593,12 @@
             "usb": "Dispositivo USB",
             "ejectable": "Este dispositivo pódese extraer"
         }
+    },
+    "confirm_app_upgrade": "Tes certeza de querer actualizar esta app?",
+    "update": {
+        "refresh_cache": "Recibir actualizacións dispoñibles",
+        "stale_cache": "A memoria tobo dos paquetes do sistema (apt/dpkg) actualizouse fai {lastAptUpdate} horas, e o catálogo de aplicacións de YunoHost actualizouse fai {lastAppsCatalogUpdate} horas. Actualiza para obter a última información.",
+        "ok_cache": "A memoria tobo coa información dos paquetes (apt/dpkg) actualizouse fai menos dunha hora, pero podes actualizala en calquera momento para obter a última información.",
+        "very_stale_cache": "A memoria tobo do sistema de paquetes (apt/dpkg) non está ao día. Actualiza a memoria tobo para obter a última información."
     }
 }
