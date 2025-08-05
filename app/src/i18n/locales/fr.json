@@ -256,7 +256,8 @@
         "permissions": "pas d'autorisations | permission | autorisations",
         "items": "aucun article | article | articles",
         "disk": "aucun disque | disque | disques",
-        "inserted_disk": "pas de disque inséré | disque inséré | disques insérés"
+        "inserted_disk": "pas de disque inséré | disque inséré | disques insérés",
+        "packages": "aucun paquet | paquet | paquets"
     },
     "history": {
         "last_action": "Dernière action :",
@@ -464,7 +465,11 @@
                 "title": "Confirmez les mises à jour des applications"
             },
             "continue": "Passer à l'application suivante",
-            "stop": "Annuler les prochaines mises à jour d'applications"
+            "stop": "Annuler les prochaines mises à jour d'applications",
+            "advertise_testing_version": "Vous recherchez une nouvelle version, une version plus récente ou bien la toute dernière version ? Il existe peut-être une version « testing » que vous pouvez installer, tester et ainsi aider les packagers à l'intégrer dans le dépôt git du paquet YunoHost !",
+            "up_to_date": "Cette application est à jour !",
+            "upgrade": "Mise à niveau",
+            "force_upgrade": "Forcer la mise à niveau"
         },
         "installed_version": "Version installée :",
         "open_this_app": "Ouvrir l'application",
@@ -531,9 +536,16 @@
             "title": "Intégration avec YunoHost"
         },
         "uninstall": {
-            "purge_desc": "Supprimez le répertoire de données associé à l'application (il s'agit généralement de données que vous avez téléchargées vous-même à l'aide de l'application)."
+            "purge_desc": "Supprimez le répertoire de données associé à l'application (il s'agit généralement de données que vous avez téléchargées vous-même à l'aide de l'application).",
+            "uninstall": "Désinstaller",
+            "desc": "Cela désinstallera l'application de votre serveur.<br/>Vous aurez également la possibilité de purger les données dans la fenêtre de confirmation."
         },
-        "upvote": "Si vous souhaitez attirer l'attention sur cette application, vous pouvez voter pour elle sur sa [page catalogue](https://apps.yunohost.org/app/{id})."
+        "upvote": "Si vous souhaitez attirer l'attention sur cette application, vous pouvez voter pour elle sur sa [page catalogue](https://apps.yunohost.org/app/{id}).",
+        "change_url": {
+            "title": "Déplacer l'application vers une autre URL",
+            "not_supported": "Changer l'URL sur laquelle cette application est installée n'est actuellement pas prise en charge pour cette application.",
+            "change_url": "Modifier l'URL"
+        }
     },
     "catalog_wishlist": "Il semblerait que l'application que vous recherchez ne soit pas encore disponible dans le catalogue.\nVous pouvez la proposer dans la [liste de souhaits des applications](https://apps.yunohost.org/wishlist?search={search}) ou voter pour elle si elle y est déjà.",
     "catalog_partial_search": "Essayez de supprimer tous les critères pour voir si l'application que vous recherchez est disponible.",
@@ -581,5 +593,12 @@
             "usb": "Périphérique USB",
             "ejectable": "Cet appareil peut être éjecté"
         }
-    }
+    },
+    "update": {
+        "refresh_cache": "Récupérer les mises à jour disponibles",
+        "stale_cache": "Le cache du paquet système (apt/dpkg) a été mis à jour il y a {lastAptUpdate} heures, et le catalogue d'applications YunoHost a été mis à jour il y a {lastAppsCatalogUpdate} heures. Assurez-vous de les actualiser pour obtenir les informations les plus récentes.",
+        "ok_cache": "Le catalogue d'applications et le cache des paquets système (apt/dpkg) ont été mis à jour il y a moins d'une heure. Mais vous pouvez les actualiser à tout moment pour obtenir des informations à jour.",
+        "very_stale_cache": "Le catalogue d'applications ou le cache du système (apt/dpkg) est obsolète. Veuillez commencer par actualiser le cache afin d'obtenir les informations les plus récentes."
+    },
+    "confirm_app_upgrade": "Êtes-vous sûr de vouloir mettre à jour cette application ?"
 }
