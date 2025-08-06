@@ -466,7 +466,7 @@
             },
             "continue": "Passer à l'application suivante",
             "stop": "Annuler les prochaines mises à jour d'applications",
-            "advertise_testing_version": "Vous recherchez une nouvelle version, une version plus récente ou bien la toute dernière version ? Il existe peut-être une version « testing » que vous pouvez installer, tester et ainsi aider les packagers à l'intégrer dans le dépôt git du paquet YunoHost !",
+            "advertise_testing_version": "Vous recherchez une nouvelle version, une version plus récente ou bien la toute dernière version ? Il existe peut-être une version « testing » que vous pouvez installer, tester et ainsi avec vos retours aider les packagers à l'intégrer dans le dépôt git du paquet YunoHost !",
             "up_to_date": "Cette application est à jour !",
             "upgrade": "Mise à niveau",
             "force_upgrade": "Forcer la mise à niveau"
