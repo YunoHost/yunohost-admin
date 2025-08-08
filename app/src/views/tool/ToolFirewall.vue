@@ -209,9 +209,9 @@ function getFieldClass(field: TableField) {
     port: 'col-1 pe-3',
     open: 'col-1',
     upnp: 'col-1',
-    comment: 'd-flex',
+    comment: '',
   } as Record<typeof field.key, string>
-  field.class = classes[field.key]
+  field.class = classes[field.key] + ' align-bottom'
 }
 </script>
 
@@ -261,7 +261,7 @@ function getFieldClass(field: TableField) {
             {{ data.value }}
             <BButton
               size="xs"
-              class="ms-auto me-2"
+              class="me-2 float-end"
               @click="onCommentEdit(protocol, data.index)"
             >
               {{ $t('words.edit') }}
