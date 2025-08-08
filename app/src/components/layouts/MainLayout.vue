@@ -62,7 +62,7 @@ const modalComponent = computed(() => {
     return err instanceof APIBadRequestError
       ? {
           is: ModalPreconditionError,
-          props: { request, onDismiss: () => window.location.reload()},
+          props: { request, onDismiss: () => window.location.reload() },
         }
       : {
           is: ModalError,
