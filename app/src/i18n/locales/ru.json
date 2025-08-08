@@ -505,6 +505,9 @@
         "installed_version": "Установленная версия:",
         "uninstall": {
             "purge_desc": "Удалить директорию с данными этого приложения (обычно это данные, которые вы сами загрузили используя это приложение)."
+        },
+        "change_url": {
+            "title": "Przenieś aplikację pod inny adres"
         }
     },
     "app_state_broken": "сломано",
