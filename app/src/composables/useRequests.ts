@@ -194,6 +194,9 @@ export const useRequests = createGlobalState(() => {
     } else {
       const request = requests.value.find((r) => r.id === err.requestId)!
       request.err = err
+      setTimeout(() => {
+        request.showModal = true
+      }, 350)
     }
   }
 
