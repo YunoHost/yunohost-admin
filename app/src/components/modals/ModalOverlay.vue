@@ -31,6 +31,7 @@ defineSlots<{
     no-close-on-esc
     :no-footer="hideFooter"
     no-fade
+    v-bind="$attrs"
   >
     <template #header>
       <QueryHeader type="overlay" :request="request" tabindex="0" />

@@ -100,6 +100,7 @@ declare module 'vue' {
     ModalError: typeof import('./src/components/modals/ModalError.vue')['default']
     ModalForm: typeof import('./src/components/globals/ModalForm.vue')['default']
     ModalOverlay: typeof import('./src/components/modals/ModalOverlay.vue')['default']
+    ModalPreconditionError: typeof import('./src/components/modals/ModalPreconditionError.vue')['default']
     ModalReconnecting: typeof import('./src/components/modals/ModalReconnecting.vue')['default']
     ModalWaiting: typeof import('./src/components/modals/ModalWaiting.vue')['default']
     ModalWarning: typeof import('./src/components/modals/ModalWarning.vue')['default']

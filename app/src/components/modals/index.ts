@@ -1,6 +1,5 @@
-import ModalOverlay from './ModalOverlay.vue'
-import ModalError from './ModalError.vue'
-import ModalWaiting from './ModalWaiting.vue'
-import ModalReconnecting from './ModalReconnecting.vue'
-
-export { ModalOverlay, ModalError, ModalWaiting, ModalReconnecting }
+export { default as ModalOverlay } from './ModalOverlay.vue'
+export { default as ModalError } from './ModalError.vue'
+export { default as ModalPreconditionError } from './ModalPreconditionError.vue'
+export { default as ModalWaiting } from './ModalWaiting.vue'
+export { default as ModalReconnecting } from './ModalReconnecting.vue'

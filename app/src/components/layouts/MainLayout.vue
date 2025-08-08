@@ -5,8 +5,10 @@ import { computed, onErrorCaptured } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 
+import { APIBadRequestError } from '@/api/errors'
 import {
   ModalError,
+  ModalPreconditionError,
   ModalReconnecting,
   ModalWaiting,
 } from '@/components/modals'
@@ -57,10 +59,15 @@ const modalComponent = computed(() => {
   const { status, err } = request
 
   if (status === 'error' && err) {
-    return {
-      is: ModalError,
-      props: { request, onDismiss: () => dismissModal(request.id) },
-    }
+    return err instanceof APIBadRequestError
+      ? {
+          is: ModalPreconditionError,
+          props: { request, onDismiss: () => window.location.reload()},
+        }
+      : {
+          is: ModalError,
+          props: { request, onDismiss: () => dismissModal(request.id) },
+        }
   } else {
     return { is: ModalWaiting, props: { request } }
   }
