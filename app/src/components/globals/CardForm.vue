@@ -248,9 +248,11 @@ const Fields = createReusableTemplate<{
       v-if="!noFooter"
       class="d-flex align-items-center justify-content-end"
     >
-      <BButton type="submit" variant="success" :form="id">
-        {{ submitText ?? $t('save') }}
-      </BButton>
+      <slot name="buttons">
+        <BButton type="submit" variant="success" :form="id">
+          {{ submitText ?? $t('save') }}
+        </BButton>
+      </slot>
     </BCardFooter>
   </BCard>
 </template>
