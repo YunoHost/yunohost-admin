@@ -1,3 +1,15 @@
+yunohost-admin (12.1.8) testing; urgency=low
+
+  - fix: CardForm missing slot 'buttons' (6ea89b55)
+  - fix: show error modal on global catch (775af76f)
+  - fix: Firewall port table slight misalignment (4a0dc899)
+  - feat: add new ModalPreconditionError to display not catched 400 errors (5ddf09bc)
+  - i18n: Translations updated for Basque, French, Galician, Polish, Russian
+
+  Thanks to all contributors <3 ! (Axolotle, José M, ppr, Przemysław Samul, xabirequejo)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Mon, 11 Aug 2025 00:34:39 +0200
+
 yunohost-admin (12.1.7) testing; urgency=low
 
   - Point donation link to the website ([#639](http://github.com/YunoHost/yunohost-admin/pull/639))
@@ -33,7 +45,7 @@ yunohost-admin (12.1.4) testing; urgency=low
   - ci: add autolintfix (cdd7ab4a)
   - chore: bump vite from 6.0.9 to 6.0.12 in /app ([#630](http://github.com/YunoHost/yunohost-admin/pull/630))
 
-  Thanks to all contributors <3 ! (alexAubin, dependabot[bot], oleole39)
+  Thanks to all contributors <3 ! (oleole39)
 
  -- Alexandre Aubin <alex.aubin@mailoo.org>  Mon, 31 Mar 2025 01:17:17 +0200
 
