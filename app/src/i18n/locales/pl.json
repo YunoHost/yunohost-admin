@@ -1,6 +1,6 @@
 {
     "password": "Hasło",
-    "action": "Akcja",
+    "action": "Działanie",
     "add": "Dodaj",
     "api_not_responding": "API nie odpowiada. Może 'yunohost-api' jest wyłączone lub zostało zrestartowane?",
     "app_install_custom_no_manifest": "Brak pliku manifest.json",
@@ -56,14 +56,14 @@
         "processing": "Serwer w trakcie wykonywania zadania…",
         "reconnecting": {
             "reason": {
-                "shutdown": "Serwer jest wyłączany i nie jest już dostępny. Uruchom serwer, aby uzyskać dostęp do panelu logowania po tym jak stanie się on dostępny w sieci.",
+                "shutdown": "Serwer jest wyłączany i nie jest już dostępny.",
                 "unknown": "Połączenie z serwerem zostało przerwane z nieznanego powodu.",
-                "reboot": "Serwer jest uruchamiany ponownie i będzie nieosiągalny przez pewien czas. Logowanie stanie się możliwe, gdy serwer będzie ponownie dostępny.",
+                "reboot": "Serwer jest uruchamiany ponownie i będzie nieosiągalny przez pewien czas.",
                 "upgrade_system": "Połączenie z serwerem przerwane z powodu aktualizacji YunoHost. Trwa oczekiwanie na połączenie…"
             },
             "title": "Trwa próba połączenia z serwerem…"
         },
-        "partial_logs": "[…] sprawdź w historii pełne logi",
+        "partial_logs": "[…] (sprawdź w historii pełne logi)",
         "busy": "Serwer pracuje…",
         "unknown_request": "Nieznane żądanie"
     },

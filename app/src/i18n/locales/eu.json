@@ -95,7 +95,8 @@
         "permissions": "baimenik gabe | baimena | baimen",
         "items": "elementurik ez | elementua | elementuak",
         "disk": "diskorik ez | diskoa | disko",
-        "inserted_disk": "txertatutako diskorik ez | txertatutako diskoa | txertatutako disko"
+        "inserted_disk": "txertatutako diskorik ez | txertatutako diskoa | txertatutako disko",
+        "packages": "paketerik ez | pakete | pakete"
     },
     "history": {
         "title": "Historia",
@@ -375,7 +376,7 @@
         "edit": "Editatu"
     },
     "users_import_delete": "Ezabatu zerrendan ageri ez diren erabiltzaileak",
-    "system_update": "Sistemaren eguneraketak",
+    "system_update": "Eguneraketak",
     "system_upgrade_all_applications_btn": "Eguneratu aplikazio guztiak",
     "tcp": "TCP",
     "tools_reboot": "Berrabiarazi zerbitzaria",
@@ -519,20 +520,31 @@
             "continue": "Jarraitu hurrengo aplikaziora",
             "notifs": {
                 "pre": {
-                    "title": "Kontuz!",
-                    "alert": "Honako oharrak aztertu beharko zenituzke bertsio-berritu baino lehen, litekeena da jakin beharreko zerbait azaltzea."
+                    "title": "Ohar garrantzitsuak",
+                    "alert": "Honako oharrak arretaz irakurri beharko zenituzke bertsio-berritu baino lehen."
                 },
                 "post": {
                     "alert": "Badirudi bertsio-berritzea behar bezala joan dela! \n Paketearen arduradunak bertsio-berritze honi buruzko honako jakinarazpenak garrantzitsuak direla deritzo. \nAplikazioaren informazio-orrialdean irakur dezakezu berriro.",
                     "title": "'{name}' bertsio-berritu ondorengo jakinarazpenak"
                 }
             },
-            "stop": "Utzi hurrengo aplikazioaren bertsio-berritzea"
+            "stop": "Utzi hurrengo aplikazioaren bertsio-berritzea",
+            "advertise_testing_version": "Jatorrizko gordailuko bertsio berri baten bila? Agian YunoHosten pakete gordailuan 'testing' bertsio bat dago nork lagunduko duen zain!",
+            "up_to_date": "Aplikazioa egunean dago!",
+            "upgrade": "Bertsio-berritu",
+            "force_upgrade": "Behartu bertsio-berritzea"
         },
         "uninstall": {
-            "purge_desc": "Kendu aplikazio honekin lotutako datuen direktorioa (aplikazioa erabiliz igo dituzun datuak izan ohi dira)."
+            "purge_desc": "Kendu aplikazio honekin lotutako datuen direktorioa (aplikazioa erabiliz igo dituzun datuak izan ohi dira).",
+            "uninstall": "Desinstalatu",
+            "desc": "Honek aplikazioa zerbitzaritik desinstalatuko du.<br/>Datuak purgatzeko aukera aurkeztuko zaizu prozeduran zehar."
         },
-        "upvote": "Aplikazio honek arreta erakar dezan nahi baduzu, bere aldeko botoa eman dezakezu [katalogoa](https://apps.yunohost.org/app/{id})n."
+        "upvote": "Aplikazio honek arreta erakar dezan nahi baduzu, bere aldeko botoa eman dezakezu [katalogoa](https://apps.yunohost.org/app/{id})n.",
+        "change_url": {
+            "title": "Mugitu aplikazioa beste URL batera",
+            "change_url": "Aldatu URLa",
+            "not_supported": "Aplikazio hau oraingoz ez dago prestatuta instalatuta dagoen URLa aldatzeko."
+        }
     },
     "form": {
         "current_file": "Uneko fitxategia:",
@@ -581,5 +593,12 @@
             "usb": "USB gailua",
             "ejectable": "Gailua egotz daiteke"
         }
-    }
+    },
+    "update": {
+        "refresh_cache": "Bilatu eskuragarri dauden eguneraketak",
+        "stale_cache": "Sistemaren pakete-katxea (apt/dpkg) duela {lastAptUpdate} ordu eta YunoHosten aplikazioen katalogoa duela {lastAppsCatalogUpdate} ordu eguneratu dira. Freskatu itzazu informazio eguneratua eskuratzeko.",
+        "very_stale_cache": "Aplikazioen katalogoa edo sistemaren pakete-katxea (apt/dpkg) zaharkitua dago. Freskatu katxea informazio eguneratua eskuratzeko.",
+        "ok_cache": "Aplikazioen katalogoa eta sistemaren pakete-katxea (apt/dpkg) duela ordubete baino gutxiago eguneratu da. Hala ere, edozein momentutan freskatu ditzakezu informazio eguneratua eskuratzeko."
+    },
+    "confirm_app_upgrade": "Ziur aplikazioa bertsio-berritu nahi duzula?"
 }
