@@ -52,6 +52,7 @@ function downloadExport() {
         :label="user.username"
         :sublabel="user.fullname"
         :description="user.mail"
+        :icon="user.groups.includes('admins') ? 'key' : ''"
       />
     </BListGroup>
   </ViewSearch>
