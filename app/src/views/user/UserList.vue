@@ -53,6 +53,7 @@ function downloadExport() {
         :sublabel="user.fullname"
         :description="user.mail"
         :icon="user.groups.includes('admins') ? 'key' : ''"
+        :badges="user.groups.filter((g) => g != 'admins')"
       />
     </BListGroup>
   </ViewSearch>
