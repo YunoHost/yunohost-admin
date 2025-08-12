@@ -6,6 +6,7 @@ withDefaults(
     description?: string
     imageSrc?: string
     icon?: string
+    badges?: string[]
   }>(),
   {
     sublabel: undefined,
@@ -34,6 +35,7 @@ const slots = defineSlots<{
           <small v-if="sublabel" class="ms-1 text-secondary">
             {{ sublabel }}
           </small>
+          <span v-for="badge in badges" class="ms-2 badge">{{ badge }}</span>
         </h5>
         <p v-if="description || slots.default" class="m-0">
           <slot name="default">
@@ -52,5 +54,9 @@ img {
   width: 2.5rem;
   height: 100%;
   object-fit: contain;
+}
+.badge {
+  border: 1px solid $primary;
+  color: $primary;
 }
 </style>
