@@ -220,6 +220,22 @@ const onUserEdit = onSubmit(async (onError, serverErrors) => {
     })
     .catch(onError)
 })
+
+
+const purge = ref(false)
+
+function deleteUser() {
+  const data = purge.value ? { purge: '' } : {}
+  api
+    .delete({
+      uri: `users/${props.name}`,
+      cachePath: `userDetails.${props.name}`,
+      data,
+    })
+    .then(() => {
+      router.push({ name: 'user-list' })
+    })
+}
 </script>
 
 <template>
@@ -232,6 +248,20 @@ const onUserEdit = onSubmit(async (onError, serverErrors) => {
       :validations="v"
       @submit.prevent="onUserEdit"
     >
+      <template #header>
+        <BCardHeader class="d-flex">
+            <Component is="h2" class="custom-header-title flex-grow-1">
+              <YIcon iname="user" class="me-2" />{{ $t('user_account', { name }) }}
+            </Component>
+            <BButton
+              v-b-modal.delete-modal
+              class="btn-sm"
+              variant="danger"
+            >
+              <YIcon iname="trash-o" /> {{ $t('delete') }}
+            </BButton>
+        </BCardHeader>
+      </template>
       <template #field:mail_aliases="fieldProps">
         <FormFieldMultiple
           v-bind="fieldProps"
@@ -258,6 +288,28 @@ const onUserEdit = onSubmit(async (onError, serverErrors) => {
         />
       </template>
     </CardForm>
+
+    <BModal
+      v-if="user"
+      id="delete-modal"
+      centered
+      :title="$t('confirm_delete', { name })"
+      header-variant="warning"
+      @ok="deleteUser"
+    >
+      <BFormGroup>
+        <BFormCheckbox v-model="purge">
+          {{ $t('purge_user_data_checkbox', { name }) }}
+        </BFormCheckbox>
+
+        <template #description>
+          <div class="alert alert-warning">
+            <YIcon iname="exclamation-triangle" />
+            {{ $t('purge_user_data_warning') }}
+          </div>
+        </template>
+      </BFormGroup>
+    </BModal>
   </div>
 </template>
 
