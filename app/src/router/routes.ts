@@ -106,7 +106,7 @@ const routes: RouteRecordRaw[] = [
     component: () => import('@/views/group/GroupList.vue'),
     meta: {
       args: { trad: 'groups_and_permissions' },
-      breadcrumb: ['user-list', 'group-list'],
+      breadcrumb: ['group-list'],
       skeleton: 'CardFormSkeleton',
     },
   },
