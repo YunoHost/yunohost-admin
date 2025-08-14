@@ -216,7 +216,7 @@ const onUserEdit = onSubmit(async (onError, serverErrors) => {
       data,
     })
     .then(() => {
-      router.push({ name: 'user-info', params: { name: props.name } })
+      router.push({ name: 'user-edit', params: { name: props.name } })
     })
     .catch(onError)
 })
