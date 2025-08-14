@@ -58,6 +58,7 @@ const fields = reactive({
   username: {
     component: 'InputItem',
     label: t('user_username'),
+    description: t('user_username_change_is_not_supported'),
     cProps: {
       id: 'username',
       disabled: true,
@@ -90,7 +91,6 @@ const fields = reactive({
     component: 'InputItem',
     label: t('user_mailbox_quota'),
     description: t('mailbox_quota_description'),
-    // example: t('mailbox_quota_example'),
     rules: { integer, minValue: minValue(0) },
     cProps: {
       id: 'mailbox-quota',
@@ -129,7 +129,7 @@ const fields = reactive({
 
   change_password: {
     component: 'InputItem',
-    label: t('password'),
+    label: t('new_password'),
     description: t('good_practices_about_user_password'),
     descriptionVariant: 'warning',
     rules: { passwordLenght: minLength(8) },
@@ -155,6 +155,33 @@ const fields = reactive({
     },
   }) satisfies FieldProps<'InputItem', Form['confirmation']>,
 } satisfies FormFieldDict<Form>)
+
+const sections = [
+    {
+        id: "main",
+        isActionSection: false,
+        name: "Identity",
+        visible: true,
+        collapsed: false,
+        fields: ["username", "fullname"],
+    },
+    {
+        id: "mail",
+        isActionSection: false,
+        name: "Email",
+        visible: true,
+        collapsed: false,
+        fields: ["mail", "mail_aliases", "mail_forward", "mailbox_quota"],
+    },
+    {
+        id: "password",
+        isActionSection: false,
+        name: t('password_change'),
+        visible: true,
+        collapsed: false,
+        fields: ["change_password", "confirmation"],
+    },
+]
 
 const { v, onSubmit } = useForm(form, fields)
 
@@ -247,6 +274,7 @@ function deleteUser() {
       :title="$t('user_username_edit', { name })"
       :validations="v"
       @submit.prevent="onUserEdit"
+      :sections="sections"
     >
       <template #header>
         <BCardHeader class="d-flex">
