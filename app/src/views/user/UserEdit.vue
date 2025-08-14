@@ -29,7 +29,7 @@ const { t } = useI18n()
 const router = useRouter()
 await api.fetchAll([
   {
-    uri: `users/${props.name}`,
+    uri: `users/${props.name}?with_groups_and_perms`,
     cachePath: `userDetails.${props.name}`,
   },
   { uri: 'domains', cachePath: 'domains' },
@@ -51,6 +51,8 @@ const form = ref({
   mailbox_quota: mailboxQuota,
   mail_aliases: user.value['mail-aliases'].map((mail) => formatAdress(mail)),
   mail_forward: [...user.value['mail-forward']],
+  groups: user.value.groups,
+  permissions: user.value.permissions,
   change_password: '',
   confirmation: '',
 })
@@ -127,6 +129,24 @@ const fields = reactive({
     },
   }) satisfies FieldProps<'InputItem', Form['mail_forward']>,
 
+  groups: {
+    component: 'YBadgeList',
+    label: t('groups'),
+    id: 'groups',
+    cProps: {
+        badges: user.value.groups,
+        icon: "users",
+    }
+  },
+  permissions: {
+    component: 'YBadgeList',
+    label: t('permissions'),
+    id: 'permissions',
+    cProps: {
+        badges: user.value.permissions,
+        icon: "key-modern",
+    }
+  },
   change_password: {
     component: 'InputItem',
     label: t('new_password'),
@@ -160,10 +180,10 @@ const sections = [
     {
         id: "main",
         isActionSection: false,
-        name: "Identity",
+        name: "Identity and groups",
         visible: true,
         collapsed: false,
-        fields: ["username", "fullname"],
+        fields: ["username", "fullname", "groups", "permissions"],
     },
     {
         id: "mail",
