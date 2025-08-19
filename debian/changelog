@@ -1,3 +1,10 @@
+yunohost-admin (12.1.9) stable; urgency=low
+
+  - fix breadcrumb for group/permissions view now that it's in the home page (4e8a188f)
+  - Release as stable !
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Wed, 20 Aug 2025 01:38:38 +0200
+
 yunohost-admin (12.1.8) testing; urgency=low
 
   - fix: CardForm missing slot 'buttons' (6ea89b55)
