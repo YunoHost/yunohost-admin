@@ -84,7 +84,7 @@
     "system": "Sistema",
     "system_apps_nothing": "¡Todas las aplicaciones están actualizadas!",
     "system_packages_nothing": "¡Todos los paquetes del sistema están actualizados!",
-    "system_update": "Actualización del sistema",
+    "system_update": "Actualizaciones",
     "system_upgrade_btn": "Actualización",
     "tcp": "TCP",
     "tools": "Herramientas",
@@ -317,7 +317,8 @@
         "logs": "sin registros | registro | registros",
         "items": "ningún articulo | articulo | articulos",
         "disk": "ningún disco | disco | discos",
-        "inserted_disk": "ningún discos insertado | disco insertado | discos insertados"
+        "inserted_disk": "ningún discos insertado | disco insertado | discos insertados",
+        "packages": "sin paquetes | paquete | paquetes"
     },
     "migrations_disclaimer_check_message": "He leído y comprendido esta limitación de responsabilidad",
     "postinstall": {
@@ -519,20 +520,30 @@
             "continue": "Continuar con la siguiente aplicación",
             "notifs": {
                 "pre": {
-                    "alert": "Debería comprobar esas notificaciones antes de actualizar, podría haber cosas importantes que saber.",
-                    "title": "¡Atención!"
+                    "alert": "Debería leer cuidadosamente las siguientes notas antes de proceder con la actualización.",
+                    "title": "Notas importantes"
                 },
                 "post": {
                     "alert": "Parece que la actualización ha ido bien.\n Aquí hay algunas notificaciones que el empaquetador considera importante saber sobre esta actualización.\nPuede volver a leerlas en la página de información de la aplicación.",
                     "title": "Notificaciones posteriores a la actualización de \"{name}\""
                 }
             },
-            "stop": "Cancelar las próximas actualizaciones de la aplicación"
+            "stop": "Cancelar las próximas actualizaciones de la aplicación",
+            "upgrade": "Actualizar",
+            "force_upgrade": "Forzar actualización",
+            "up_to_date": "¡Esta aplicación está actualizada!"
         },
         "uninstall": {
-            "purge_desc": "Borrar el directorio de información asociada con la app (normalmente se trata de la información subida al utilizar la app)."
+            "purge_desc": "Borrar el directorio de información asociada con la app (normalmente se trata de la información subida al utilizar la app).",
+            "uninstall": "Desinstalar",
+            "desc": "Esto desinstalará la aplicación de tu servidor.<br/>También tendrás la opción de eliminar los datos durante el modo de confirmación."
         },
-        "upvote": "Si quieres visibilisar mas esta aplicación, puedes votar para ella en el [catàlogo](https://apps.yunohost.org/app/{id})."
+        "upvote": "Si quieres visibilisar mas esta aplicación, puedes votar para ella en el [catàlogo](https://apps.yunohost.org/app/{id}).",
+        "change_url": {
+            "title": "Cambia la aplicación a una URL distinta",
+            "not_supported": "Cambiar la URL a donde esta aplicación está instalada no está soportado actualmente para esta aplicación.",
+            "change_url": "Cambia la URL"
+        }
     },
     "catalog_wishlist": "Parece que la aplicación que estas buscando no esta disponible en el catálogo.\nLa puedes proponer el la [lista de deseo](https://apps.yunohost.org/wishlist?search={search}) o votar por ella si ya esta presente.",
     "form": {
@@ -581,5 +592,9 @@
     "hook_data_multimedia_desc": "Archivos multimedia ubicado en `/home/yunohost.multimedia`",
     "loading": "Cargando",
     "quick_action": "Adición rápida",
-    "storage": "Almacenamiento"
+    "storage": "Almacenamiento",
+    "confirm_app_upgrade": "¿Está segura/o de querer actualizar esta aplicación?",
+    "update": {
+        "refresh_cache": "Obtener actualizaciones disponibles"
+    }
 }
