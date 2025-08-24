@@ -1,3 +1,9 @@
+yunohost-admin (12.1.10) stable; urgency=low
+
+  - Require Yunohost >= 12.1 (534ffa0c)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Sun, 24 Aug 2025 18:39:09 +0200
+
 yunohost-admin (12.1.9) stable; urgency=low
 
   - fix breadcrumb for group/permissions view now that it's in the home page (4e8a188f)
