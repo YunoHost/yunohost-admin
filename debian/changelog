@@ -1,3 +1,13 @@
+yunohost-admin (12.1.11) stable; urgency=low
+
+  - tools>disks: fix missing breadcrumbs (2b95b230)
+  - tools>disks: add disclaimer about the fact that this is experimental / under construction + fix message when no disk is found (ca77b0b0)
+  - i18n: Translations updated for Chinese (Simplified), Portuguese (Brazil), Spanish
+
+  Thanks to all contributors <3 ! (ako, Lucas Freitas, Poesty Li)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Sun, 31 Aug 2025 23:26:04 +0200
+
 yunohost-admin (12.1.10) stable; urgency=low
 
   - Require Yunohost >= 12.1 (534ffa0c)
