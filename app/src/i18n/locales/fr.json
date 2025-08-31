@@ -592,7 +592,9 @@
         "infos_meta": {
             "usb": "Périphérique USB",
             "ejectable": "Cet appareil peut être éjecté"
-        }
+        },
+        "no_disk_found": "Aucun disque trouvé sur le système. Peut-être êtes-vous dans un contexte particulier, tel qu'un conteneur LXC ?",
+        "experimental_disclaimer": "Cette section est expérimentale et en cours de construction."
     },
     "update": {
         "refresh_cache": "Récupérer les mises à jour disponibles",
