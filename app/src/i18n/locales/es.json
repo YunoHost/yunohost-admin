@@ -531,7 +531,8 @@
             "stop": "Cancelar las próximas actualizaciones de la aplicación",
             "upgrade": "Actualizar",
             "force_upgrade": "Forzar actualización",
-            "up_to_date": "¡Esta aplicación está actualizada!"
+            "up_to_date": "¡Esta aplicación está actualizada!",
+            "advertise_testing_version": "¿Buscando una nueva versión desde la fuente? ¡Quizás hay una versión 'de prueba' con la que puedas ayudar a empaquetadores en el repositorio git de YunoHost!"
         },
         "uninstall": {
             "purge_desc": "Borrar el directorio de información asociada con la app (normalmente se trata de la información subida al utilizar la app).",
@@ -595,6 +596,7 @@
     "storage": "Almacenamiento",
     "confirm_app_upgrade": "¿Está segura/o de querer actualizar esta aplicación?",
     "update": {
-        "refresh_cache": "Obtener actualizaciones disponibles"
+        "refresh_cache": "Obtener actualizaciones disponibles",
+        "stale_cache": "La caché del sistema de paquetes (apt/dpkg) fue actualizada hace {lastAptUpdate} horas y el catálogo de aplicaciones de YunoHost fue actualizado hace {lastAppsCatalogUpdate} hors. Asegúrate de acttualizarlos para tener información al día."
     }
 }

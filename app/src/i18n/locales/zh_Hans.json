@@ -151,7 +151,7 @@
     "error_connection_interrupted": "服务器关闭了连接而不是回应它。nginx 或 yunohost-api 是否因某种原因重启或停止？",
     "error_modify_something": "您应该修改一些东西",
     "domain_add_dyndns_forbidden": "您已经在 YunoHost 项目中注册/订阅了一个 DynDNS 域。根据设计，每个服务器只能使用一个这样的域。如果您想添加一个已订阅域的子域，请使用上面的“添加一个我拥有的域或子域”选项。如果您想使用一个完全不同的域，应首先删除现有的 DynDNS 域名。DynDNS 域在开始使用自托管时是个不错的选择，但从中长期来看，我们建议您向某些注册商购买自己的域名，以拥有域的完全所有权。",
-    "diagnosis_explanation": "诊断功能将尝试识别服务器不同方面的常见问题，以确保一切顺利运行。诊断每天自动运行两次，如果发现问题，会向管理员发送电子邮件。请注意，如果您不想使用某些特定功能（例如 XMPP），则某些测试可能不相关，或者如果您有复杂的设置，则可能会失败。在这种情况下，如果您知道自己在做什么，则可以忽略相应的问题或警告。",
+    "diagnosis_explanation": "诊断功能将尝试识别您服务器不同方面的常见问题，以确保一切运行顺畅。诊断每天自动运行两次，如果发现问题，会向管理员发送电子邮件。请注意，如果您不想使用某些特定功能（例如电子邮件），或者您的设置较为复杂，某些测试可能不适用或可能失败。在这种情况下，如果您清楚自己在做什么，可以忽略相应的问题或警告。",
     "diagnosis_first_run": "诊断功能将尝试识别服务器不同方面的常见问题，以确保一切顺利运行。如果您在设置服务器后立即看到一堆错误，请不要惊慌：它正是为了帮助您识别问题并指导您修复它们。诊断还将每天自动运行两次，如果发现问题，则会向管理员发送电子邮件。",
     "domain_dns_conf_is_just_a_recommendation": "本节向您展示*推荐*配置。它*不会*为您配置 DNS。您有责任根据此建议在您的 DNS 注册商中配置您的 DNS 区域。",
     "confirm_install_domain_root": "您确定要在 '/' 上安装此应用吗？您将无法在 {domain} 上安装任何其它应用",
@@ -214,7 +214,10 @@
         "services": "没有服务 | 服务 | 个服务",
         "permissions": "没有权限 | 权限 | 个权限",
         "logs": "没有日志 | 日志 | 个日志",
-        "items": "没有项目 | 项目 | 个项目"
+        "items": "没有项目 | 项目 | 个项目",
+        "disk": "无磁盘 | 磁盘 | 磁盘",
+        "inserted_disk": "无插入磁盘 | 插入磁盘 | 插入磁盘",
+        "packages": "无软件包 | 软件包 | 软件包"
     },
     "issues": "{count} 个问题",
     "label_for_manifestname": "{name} 的标签",
@@ -272,7 +275,7 @@
     "system_upgrade_all_packages_btn": "升级所有软件包",
     "system_upgrade_all_applications_btn": "升级所有应用",
     "system_upgrade_btn": "升级",
-    "system_update": "系统更新",
+    "system_update": "更新",
     "system_packages_nothing": "所有系统软件包都是最新的！",
     "system_apps_nothing": "所有应用都是最新的！",
     "system": "系统",
@@ -290,7 +293,7 @@
     "tools_reboot_btn": "重启",
     "tools_reboot": "重启您的服务器",
     "tools": "工具",
-    "tip_about_user_email": "用户创建时带有一个关连的电子邮件地址（和 XMPP 账号），格式为 username{'@'}domain.tld。额外的电子邮件别名和电子邮件转发可稍后由管理员和用户添加。",
+    "tip_about_user_email": "用户创建时会关联一个格式为 username{‘@‘}domain.tld 的电子邮件地址。管理员和用户后续可以添加额外的电子邮件别名和邮件转发。",
     "tcp": "TCP",
     "tools_webadmin_settings": "网站管理设置",
     "tools_webadmin": {
@@ -331,7 +334,7 @@
     "users": "用户",
     "user_username_edit": "编辑 {name} 的账号",
     "user_username": "用户名",
-    "user_new_forward": "newforward{'@'}myforeigndomain.org",
+    "user_new_forward": "新转发{'@'}我的外部域.org",
     "user_mailbox_use": "邮箱已用空间",
     "user_mailbox_quota": "邮箱配额",
     "user_interface_link": "门户",
@@ -488,15 +491,19 @@
             "continue": "继续下一个应用",
             "notifs": {
                 "pre": {
-                    "alert": "您应该在升级前检查这些通知，可能有重要的信息需要了解。",
-                    "title": "请注意！"
+                    "alert": "在继续升级前，请仔细阅读以下注意事项。",
+                    "title": "重要说明"
                 },
                 "post": {
                     "title": "'{name}' 的升级后通知",
                     "alert": "看来升级进展顺利！\n 以下是有关此升级中打包者认为重要的一些通知。\n您可以在应用信息页面中再次阅读。"
                 }
             },
-            "stop": "取消下一个应用的升级"
+            "stop": "取消下一个应用的升级",
+            "up_to_date": "此应用已是最新版本！",
+            "upgrade": "升级",
+            "force_upgrade": "强制升级",
+            "advertise_testing_version": "正在从上游寻找新版本？也许在 YunoHost 软件包的 git 仓库中有一个“测试”版本，您可以协助打包人员！"
         },
         "open_this_app": "打开此应用",
         "antifeatures": "此应用可能有您不喜欢的功能：",
@@ -508,9 +515,16 @@
         },
         "installed_version": "已安装版本：",
         "uninstall": {
-            "purge_desc": "移除与应用相关的数据目录（这通常是您自己使用该应用上传的数据）。"
+            "purge_desc": "移除与应用相关的数据目录（这通常是您自己使用该应用上传的数据）。",
+            "uninstall": "卸载",
+            "desc": "这将从您的服务器上卸载该应用。<br/>在确认对话框中，您还可以选择清除数据。"
         },
-        "upvote": "如果您想引起人们对此应用的关注，您可以在其[目录页面](https://apps.yunohost.org/app/{id})上为其投票。"
+        "upvote": "如果您想引起人们对此应用的关注，您可以在其[目录页面](https://apps.yunohost.org/app/{id})上为其投票。",
+        "change_url": {
+            "title": "将应用移至不同的 URL",
+            "change_url": "更改 URL",
+            "not_supported": "当前不支持更改此应用的安装 URL。"
+        }
     },
     "users_import_update_desc": "如果选中，CSV 文件中包含的所有现有用户都将更新为新值",
     "group_admins": "管理员",
@@ -553,5 +567,38 @@
     "install_app": "安装应用",
     "quick_action": "快捷操作",
     "confirm_firewall_open": "您确定要为协议 {protocol} 打开端口 {port} 吗？",
-    "confirm_firewall_close": "您确定要为协议 {protocol} 关闭端口 {port} 吗？"
+    "confirm_firewall_close": "您确定要为协议 {protocol} 关闭端口 {port} 吗？",
+    "storage_disks": {
+        "infos": {
+            "serial": "序列号：",
+            "serial_unknown": "未知",
+            "size": "大小：",
+            "type": "类型：",
+            "usb_icon_alt": "此设备连接到 USB",
+            "ejectable_icon_alt": "此设备可弹出",
+            "smart_status_icon_alt": {
+                "SANE": "此设备状态正常",
+                "CRITICAL": "此设备处于严重状态",
+                "UNKNOWN": "此设备状态未知"
+            }
+        },
+        "infos_meta": {
+            "usb": "USB 设备",
+            "ejectable": "此设备可弹出"
+        },
+        "category_name": "硬盘驱动器"
+    },
+    "hook_data_multimedia": "多媒体数据",
+    "stopped": "已停止",
+    "storage": "存储",
+    "update": {
+        "refresh_cache": "获取可用更新",
+        "stale_cache": "系统软件包缓存（apt/dpkg）已于{lastAptUpdate}小时前更新，YunoHost 应用目录已于{lastAppsCatalogUpdate}小时前更新。请确保刷新它们以获取最新信息。",
+        "very_stale_cache": "应用目录或系统软件包缓存（apt/dpkg）已过时。请先刷新缓存以获取最新信息。",
+        "ok_cache": "应用目录和系统软件包缓存（apt/dpkg）已于不到一小时前更新。但您可以随时刷新它们以获取最新信息。"
+    },
+    "confirm_app_force_upgrade": "您确定要强制升级此应用吗？",
+    "confirm_app_upgrade": "您确定要升级此应用吗？",
+    "hook_data_multimedia_desc": "位于/home/yunohost.multimedia 的多媒体文件",
+    "failed": "失败"
 }

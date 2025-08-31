@@ -299,7 +299,13 @@
         "potential_alternative_to": "Potencial alternativa para:",
         "upvote": "Se você quiser chamar a atenção para este aplicativo, pode votar nele em sua [página](https://apps.yunohost.org/app/{id}).",
         "uninstall": {
-            "purge_desc": "Remover o diretório de dados associado ao aplicativo (são geralmente dados que você enviou usando o aplicativo)."
+            "purge_desc": "Remover o diretório de dados associado ao aplicativo (são geralmente dados que você enviou usando o aplicativo).",
+            "uninstall": "Desinstalar"
+        },
+        "change_url": {
+            "not_supported": "Este app não suporta a mudança de URL onde está instalado atualmente.",
+            "title": "Mover app para uma URL diferente",
+            "change_url": "Trocar URL"
         }
     },
     "backup": "Backup",
