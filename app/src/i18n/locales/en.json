@@ -494,6 +494,8 @@
     "stopped": "Stopped",
     "storage": "Storage",
     "storage_disks": {
+        "experimental_disclaimer": "This section is experimental and under construction.",
+        "no_disk_found": "No disk found on the system. Maybe you are in a special context such as a LXC container?",
         "category_name": "Hard drives",
         "infos": {
             "usb_icon_alt": "This device is a connected to USB",

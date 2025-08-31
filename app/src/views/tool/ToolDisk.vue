@@ -30,8 +30,11 @@ const disks = await api
 </script>
 
 <template>
+  <YAlert alert icon="info" variant="info">
+    {{ $t('storage_disks.experimental_disclaimer') }}
+  </YAlert>
   <YAlert v-if="!disks" alert icon="exclamation-triangle" variant="warning">
-    {{ $t('items_verbose_count', { items: $t('items.inserted_disk', 0) }, 0) }}
+    {{ $t('storage_disks.no_disk_found') }}
   </YAlert>
   <BCardGroup v-else deck tag="ul" class="p-0 m-0">
     <BCard v-for="disk in disks" :key="disk.name" tag="li">
