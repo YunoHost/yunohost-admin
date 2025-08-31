@@ -307,7 +307,7 @@ const routes: RouteRecordRaw[] = [
     meta: {
       args: { trad: 'storage_disks.category_name' },
       breadcrumb: ['tool-list', 'tool-disk'],
-    }
+    },
   },
   {
     name: 'tool-firewall',
