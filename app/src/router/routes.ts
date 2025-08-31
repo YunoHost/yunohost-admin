@@ -304,6 +304,10 @@ const routes: RouteRecordRaw[] = [
     name: 'tool-disk',
     path: '/tools/disk',
     component: () => import('@/views/tool/ToolDisk.vue'),
+    meta: {
+      args: { trad: 'storage_disks.category_name' },
+      breadcrumb: ['tool-list', 'tool-disk'],
+    }
   },
   {
     name: 'tool-firewall',
