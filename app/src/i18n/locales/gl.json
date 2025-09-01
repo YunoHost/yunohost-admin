@@ -592,7 +592,9 @@
         "infos_meta": {
             "usb": "Dispositivo USB",
             "ejectable": "Este dispositivo pódese extraer"
-        }
+        },
+        "experimental_disclaimer": "Esta é unha sección experimental en desenvolvemento.",
+        "no_disk_found": "Non se atopan discos no sistema. É posible que esteas nun contexto especial como un contedor LXC?"
     },
     "confirm_app_upgrade": "Tes certeza de querer actualizar esta app?",
     "update": {
