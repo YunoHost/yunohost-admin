@@ -592,7 +592,9 @@
         "infos_meta": {
             "usb": "USB gailua",
             "ejectable": "Gailua egotz daiteke"
-        }
+        },
+        "experimental_disclaimer": "Atal hau esperimentala da eta amaitu gabe dago.",
+        "no_disk_found": "Ez da diskorik topatu. Agian zure egoera ohiz kanpokoa da eta LXC kontainer bat erabiltzen ari zara?"
     },
     "update": {
         "refresh_cache": "Bilatu eskuragarri dauden eguneraketak",
