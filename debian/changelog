@@ -1,3 +1,9 @@
+yunohost-admin (13.0.0~alpha2) unstable; urgency=low
+
+  - Bump version for Debian 13 Trixie.
+
+ -- Félix Piédallu <felix@piedallu.me>  Thu, 14 Apr 2026 16:15:00 +0200
+
 yunohost-admin (12.1.14) stable; urgency=low
 
   - debian: use yarnpkg instead of manually installed yarn from repo (4cd9f325)
