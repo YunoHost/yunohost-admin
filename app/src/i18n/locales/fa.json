@@ -16,7 +16,7 @@
         },
         "processing": "کارساز در حال پردازش دستورات است…"
     },
-    "all": "همه",
+    "all": "همهٔ",
     "address": {
         "local_part_description": {
             "email": "یک بخش محلی برای رایانامه خود انتخاب کنید.",
@@ -30,7 +30,7 @@
     "add": "اضافه کردن",
     "action": "اجرا",
     "api_not_found": "به نظر می رسد مدیر وب سعی کرده است از چیزی که وجود ندارد پرس و جو کند.",
-    "all_apps": "همه کاره‌ها",
+    "all_apps": "همهٔ کاره‌ها",
     "api_errors_titles": {
         "APIConnexionError": "سیستم YunoHost با خطای اتصال مواجه شده",
         "APINotRespondingError": "رابط کاربری سیستم YunoHost پاسخ نمی دهد",
