@@ -11,5 +11,26 @@
         "local_part_description": {
             "domain": "Válassz aldomaint!"
         }
-    }
+    },
+    "all": "Mind",
+    "api": {
+        "query_status": {
+            "warning": "Sikeresen befejezve hibákkal vagy figyelmeztetésekkel",
+            "error": "Sikertelen",
+            "success": "Sikeresen befejezve",
+            "pending": "Folyamatban"
+        },
+        "partial_logs": "[…] (Log előzmények keresése)",
+        "reconnecting": {
+            "reason": {
+                "reboot": "A szerver újraindul és egy ideig nem lesz elérhető.",
+                "shutdown": "A szerver leáll és többé nem elérhető.",
+                "unknown": "A szerverrel való kapcsolat ismeretlen okokból megszakadt. Lehet, hogy a 'yunohost-api' nem elérhető?",
+                "upgrade_system": "A szerverrel való kapcsolat a YunoHost frissítése miatt megszakadt. Várja meg, míg a szerver újra elérhető lesz…"
+            }
+        },
+        "processing": "A szerver feldolgozza a műveletet…",
+        "busy": "A szerver elfoglalt…"
+    },
+    "all_apps": "Minden alkalmazás"
 }
