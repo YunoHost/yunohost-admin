@@ -1,3 +1,12 @@
+yunohost-admin (12.1.12) stable; urgency=low
+
+  - deps: bump vite from 6.1.6 to 6.3.6 ([#650](http://github.com/YunoHost/yunohost-admin/pull/650))
+  - i18n: Translations updated for Arabic, Basque, French, Galician, Hungarian, Persian
+
+  Thanks to all contributors <3 ! (Avid, José M, László Schäffer, moamen aboualkhair, ppr, xabirequejo, نادکارو)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Sun, 12 Oct 2025 16:59:48 +0200
+
 yunohost-admin (12.1.11) stable; urgency=low
 
   - tools>disks: fix missing breadcrumbs (2b95b230)
