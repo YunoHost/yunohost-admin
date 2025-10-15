@@ -73,7 +73,7 @@
         "documentation": "مستندات"
     },
     "footer_version": "طراحی شده توسط<a href='https://yunohost.org'>YunoHost</a>{version} ({repo}).",
-    "firewall": "دیواره آتش",
+    "firewall": "دیوار آتش",
     "everything_good": "همه چیز خوب است!",
     "error_connection_interrupted": "سرور به جای پاسخ دادن ، اتصال را بست. nginx یا yunohost-api دوباره راه اندازی شده یا به دلایلی متوقف شده است؟",
     "error_server_unexpected": "خطای غیرمنتظره کارساز",
