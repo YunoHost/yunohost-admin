@@ -71,16 +71,16 @@ const isMainDynDomain = computed(() => {
 })
 
 async function deleteDomain() {
-  const data =
+  const params =
     isMainDynDomain.value && !unsubscribeDomainFromDyndns.value
       ? { ignore_dyndns: 1 }
       : {}
 
   api
-    .delete({
+    .deleteWithParams({
       uri: `domains/${props.name}`,
       cachePath: `domains.${props.name}`,
-      data,
+      params,
     })
     .then(() => {
       router.push({ name: 'domain-list' })
