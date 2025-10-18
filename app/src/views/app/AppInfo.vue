@@ -241,7 +241,7 @@ async function showModalUninstallButton() {
 async function uninstall() {
   const params = purge.value === true ? { purge: 1 } : {}
   api
-    .deleteWithParams({ uri: `apps/${props.id}`, params })
+    .delete({ uri: `apps/${props.id}`, params })
     .then(() => router.push({ name: 'app-list' }))
 }
 </script>

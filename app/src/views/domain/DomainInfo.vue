@@ -77,7 +77,7 @@ async function deleteDomain() {
       : {}
 
   api
-    .deleteWithParams({
+    .delete({
       uri: `domains/${props.name}`,
       cachePath: `domains.${props.name}`,
       params,

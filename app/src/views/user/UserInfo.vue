@@ -20,7 +20,7 @@ const purge = ref(false)
 function deleteUser() {
   const params = purge.value ? { purge: '' } : {}
   api
-    .deleteWithParams({
+    .delete({
       uri: `users/${props.name}`,
       cachePath: `userDetails.${props.name}`,
       params,
