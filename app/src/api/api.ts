@@ -27,6 +27,10 @@ export type APIQuery = {
   initial?: boolean
 }
 
+export type APIQueryWithParams = APIQuery & {
+  params: Record<string, string>
+}
+
 export type APIErrorData = {
   error: string
   error_key?: string
@@ -226,8 +230,23 @@ export default {
    * @returns Promise that resolve the api response data or an error
    * @throws Throw an `APIError` or subclass depending on server response
    */
-  delete<T>(query: Omit<APIQuery, 'method'>): Promise<T> {
+  delete<T>(query: Omit<APIQuery, 'method' | 'data'>): Promise<T> {
     return this.fetch({ ...query, method: 'DELETE' })
+  },
+
+  /**
+   * Much like delete, but also accepts a params property that will be added
+   * to the passed URL.
+   *
+   * @param query - {@link APIQueryWithParams}
+   *
+   * @returns Promise that resolve the api response data or an error
+   * @throws Throw an `APIError` or subclass depending on server response
+   */
+  deleteWithParams<T>({params, ...query}: Omit<APIQueryWithParams, 'method' | 'data'>): Promise<T> {
+    const serializedParams = new URLSearchParams(params).toString();
+    const uri = query.uri.replace(/\?.*/, '') + "?" + serializedParams;
+    return this.delete({ ...query, uri })
   },
 
   refetch() {
