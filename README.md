@@ -35,7 +35,14 @@ Once you have a environment running and are attached to it (with `./ynh-dev star
 ./ynh-dev use-git yunohost-admin
 ```
 
-This command will install all dependencies and start a dev server (based on [webpack-dev-server](https://github.com/webpack/webpack-dev-server)) with Hot-Module-Replacement (live updates on code modification without reloading the page nor rebuilding the whole code). After the build step, click on the "Network:" link and you are good to go.
+This command will install all dependencies and start a dev server (based on [webpack-dev-server](https://github.com/webpack/webpack-dev-server)) with Hot-Module-Replacement (live updates on code modification without reloading the page nor rebuilding the whole code). After the build step, click on the "Network:" link, and… it may hang.
+
+If that's the case, run this command to open the port used by the "Network:" link. Supposing it is 8080:
+```bash
+yunohost firewall open 8080 "devlopement environment with hot-reload" -p tcp
+```
+
+Then you are good to go!
 
 You can also install [Vue Devtools](https://addons.mozilla.org/fr/firefox/addon/vue-js-devtools/) (module for Firefox but also exists for Chromium/Chrome) if you want component trees, performance views and so on.
 
