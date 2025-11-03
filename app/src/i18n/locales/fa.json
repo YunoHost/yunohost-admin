@@ -73,9 +73,9 @@
         "documentation": "مستندات"
     },
     "footer_version": "طراحی شده توسط<a href='https://yunohost.org'>YunoHost</a>{version} ({repo}).",
-    "firewall": "دیواره آتش",
+    "firewall": "دیوار آتش",
     "everything_good": "همه چیز خوب است!",
-    "error_connection_interrupted": "سرور به جای پاسخ دادن ، اتصال را بست. nginx یا yunohost-api دوباره راه اندازی شده یا به دلایلی متوقف شده است؟",
+    "error_connection_interrupted": "کارساز به جای پاسخ دادن، اتصال را بست. nginx یا yunohost-api دوباره راه اندازی شده یا به دلایلی متوقف شده است؟",
     "error_server_unexpected": "خطای غیرمنتظره کارساز",
     "error_modify_something": "شما باید چیزی را اصلاح کنید",
     "error": "اشکال",
@@ -155,7 +155,7 @@
     "user_emailaliases_add": "افزودن نام مستعار ایمیل",
     "user_emailaliases": "نام مستعار ایمیل",
     "user_email": "ایمیل",
-    "url": "آدرس اینترنتی",
+    "url": "نشانی",
     "upnp_enabled": "UPnP فعال است.",
     "upnp_disabled": "UPnP غیرفعال است.",
     "upnp": "UPnP",
@@ -341,7 +341,9 @@
     "tools_yunohost_settings": "تنظیمات یونوهاست",
     "app": {
         "change_url": {
-            "change_url": "تغییر نشانی"
-        }
+            "change_url": "تغییر نشانی",
+            "title": "کاره را به یک نشانی متفاوت منتقل کنید"
+        },
+        "antifeatures": "این کاره ویژگی‌هایی دارد که ممکن است دوست نداشته باشید:"
     }
 }

@@ -101,7 +101,7 @@
     "system": "Sistema",
     "system_apps_nothing": "Totes les aplicacions estan actualitzades!",
     "system_packages_nothing": "Tots els paquets del sistema estan actualitzats!",
-    "system_update": "Actualització del sistema",
+    "system_update": "Actualitzacions",
     "system_upgrade_btn": "Actualització",
     "system_upgrade_all_applications_btn": "Actualitza totes les aplicacions",
     "system_upgrade_all_packages_btn": "Actualitza tots els paquets",
@@ -121,7 +121,7 @@
     "user_email": "Correu electrònic",
     "user_emailaliases": "Àlies de correu",
     "user_fullname": "Nom complet",
-    "user_interface_link": "Interfície d'usuari",
+    "user_interface_link": "Portal",
     "user_mailbox_quota": "Quota de correu",
     "user_mailbox_use": "Espai utilitzat",
     "user_username": "Nom d'usuari",
@@ -184,7 +184,9 @@
         "collapse": "Col·lapsar",
         "separator": ", ",
         "none": "Cap",
-        "browse": "Explora"
+        "browse": "Explora",
+        "edit": "Editar",
+        "comment": "Comentar"
     },
     "unignore": "No ignorar",
     "configuration": "Configuració",
@@ -201,10 +203,10 @@
     "restart": "Reiniciar",
     "issues": "{count} problemes",
     "operation_failed_explanation": "Aquesta operació ha fallat! Ens sap molt greu :( Podeu intentar <a href='https://yunohost.org/help'>demanar ajuda</a>. Si us plau doneu *el registre complet* de l'operació a la gent que intenta ajudar-vos. Podeu fer-ho fent clic al botó verd «Compartir amb Yunopaste». Quan compartiu els registres, YunoHost intentarà anonimitzar automàticament dades privades com els noms de domini i les IPs.",
-    "diagnosis_explanation": "La funció de diagnòstic intentarà identificar els errors més comuns en diferents aspectes del servidor per verificar que tot funciona correctament. El diagnòstic s'executa automàticament dues vegades al dia i s'envia un correu electrònic a l'administrador si es troben errors. Tingueu en compte que no tots els tests seran rellevants si no s'utilitzen algunes funcions específiques (com per exemple XMPP) o pot ser que falli si teniu un sistema amb una configuració complexa. En aquests casos, i si sabeu el que feu, podeu ignorar els problemes o avisos corresponents.",
+    "diagnosis_explanation": "La funció de diagnòstic intentarà identificar els errors més comuns en diferents aspectes del servidor per verificar que tot funciona correctament. El diagnòstic s'executa automàticament dues vegades al dia i s'envia un correu electrònic a l'administrador si es troben errors. Tingueu en compte que no tots els tests seran rellevants si no s'utilitzen algunes funcions específiques (com per exemple correu electrònic) o pot ser que falli si teniu un sistema amb una configuració complexa. En aquests casos, i si sabeu el que feu, podeu ignorar els problemes o avisos corresponents.",
     "pending_migrations": "Hi ha algunes migracions pendents esperant per ser executades. Aneu a <a href='#/tools/migrations'>Eines > Migracions</a> per fer-les.",
     "logs_suboperations": "Sub-operacions",
-    "tip_about_user_email": "Els usuaris es creen amb una adreça de correu electrònic associada (i compte de XMPP) amb el format usari{'@'}domini.tld. L'administrador i l'usuari poden afegir a posteriori adreces de correu addicionals i reenviament de correus.",
+    "tip_about_user_email": "Els usuaris es creen amb una adreça de correu electrònic associada amb el format usari{'@'}domini.tld. L'administrador i l'usuari poden afegir a posteriori adreces de correu addicionals i reenviament de correus.",
     "permission_main": "Etiqueta principal",
     "items": {
         "backups": "cap còpia de seguretat | còpia de seguretat | còpies de seguretat",
@@ -216,12 +218,18 @@
         "domains": "cap domini | domini | dominis",
         "users": "cap usuari | usuari | usuaris",
         "permissions": "cap permís | permís | permisos",
-        "items": "cap element | element | elements"
+        "items": "cap element | element | elements",
+        "inserted_disk": "cap disc inserit | disc inserit | discs inserits",
+        "disk": "cap disc | disc | discos",
+        "packages": "cap paquet | paquet | paquets"
     },
     "history": {
         "last_action": "Última acció:",
         "title": "Historial",
-        "is_empty": "De moment res a l'historial."
+        "is_empty": "De moment res a l'historial.",
+        "check_logs": "Anar a la pàgina del registre d'operacions.",
+        "no_logs": "No hi ha registres disponibles.",
+        "started_by": "iniciat per {caller}"
     },
     "form_errors": {
         "required": "Aquest camp és obligatori.",
@@ -298,13 +306,15 @@
         },
         "reconnecting": {
             "reason": {
-                "reboot": "El vostre servidor s'està reiniciant i no s'hi podrà accedir durant algun temps. Tan bon punt se n'hi pugui apareixerà un missatge d'inici de sessió.",
-                "shutdown": "El vostre servidor s'està tancant i ja no és accessible. Torneu-lo a activar i tan bon punt s'hi pugui accedir apareixerà un missatge d'inici de sessió.",
-                "unknown": "La connexió amb el servidor s'ha tancat per motius desconeguts.",
+                "reboot": "El vostre servidor s'està reiniciant i no s'hi podrà accedir durant algun temps.",
+                "shutdown": "El vostre servidor s'està tancant i ja no és accessible.",
+                "unknown": "La connexió amb el servidor s'ha tancat per motius desconeguts. Potser 'yunohost-api' no funciona?",
                 "upgrade_system": "La connexió amb el servidor s'ha tancat a causa de l'actualització de YunoHost. S'està esperant que el servidor torni a ser accessible…"
             },
             "title": "S'està intentant comunicar amb el servidor…"
-        }
+        },
+        "unknown_request": "Sol·licitud desconeguda",
+        "busy": "El servidor està ocupat…"
     },
     "app_install_parameters": "Paràmetres de la instal·lació",
     "app_state_broken": "trencada",
@@ -392,8 +402,8 @@
             },
             "notifs": {
                 "pre": {
-                    "alert": "Hauríeu de comprovar aquestes notificacions abans d'actualitzar, és possible que hi hagi coses importants a saber.",
-                    "title": "Estàs avisat/da!"
+                    "alert": "Hauríeu de llegir atentament les notes següents abans de continuar amb l'actualització.",
+                    "title": "Notes importants"
                 },
                 "post": {
                     "alert": "Sembla que l'actualització ha anat bé!\n Aquí hi ha algunes notificacions que l'empaquetador considera important conèixer sobre aquesta actualització.\n Podeu tornar a llegir-ho a la pàgina d'informació de l'aplicació.",
@@ -401,12 +411,23 @@
                 }
             },
             "continue": "Continueu amb l'aplicació següent",
-            "stop": "Cancel·la les properes actualitzacions de l'aplicació"
+            "stop": "Cancel·la les properes actualitzacions de l'aplicació",
+            "up_to_date": "Aquesta aplicació està actualitzada!",
+            "advertise_testing_version": "Cerqueu una nova versió des del programa original? Potser hi ha una versió de «prova» amb la qual podeu ajudar els empaquetadors al repositori git del paquet YunoHost!",
+            "upgrade": "Actualitzar",
+            "force_upgrade": "Forçar actualització"
         },
         "uninstall": {
-            "purge_desc": "Elimina el directori de dades associat a l'aplicació (normalment són dades que heu penjat amb l'aplicació)."
+            "purge_desc": "Elimina el directori de dades associat a l'aplicació (normalment són dades que heu penjat amb l'aplicació).",
+            "uninstall": "Desinstal·lar",
+            "desc": "Això desinstal·larà l'aplicació del vostre servidor.<br/>També tindreu l'opció de purgar les dades durant el modal de confirmació."
         },
-        "upvote": "Si voleu cridar l'atenció sobre aquesta aplicació, podeu votar-la a la seva [pàgina de catàleg](https://apps.yunohost.org/app/{id})."
+        "upvote": "Si voleu cridar l'atenció sobre aquesta aplicació, podeu votar-la a la seva [pàgina de catàleg](https://apps.yunohost.org/app/{id}).",
+        "change_url": {
+            "title": "Moure l'aplicació a una URL diferent",
+            "change_url": "Canviar URL",
+            "not_supported": "Actualment no es permet canviar l'URL on s'ha instal·lat aquesta aplicació."
+        }
     },
     "api_not_found": "Sembla que l'administrador web ha intentat consultar alguna cosa que no existeix.",
     "details_about": "Mostra més detalls sobre {subject}",
@@ -471,7 +492,7 @@
     "postinstall": {
         "user": {
             "title": "Crea el primer usuari administrador",
-            "first_user_help": "Aquest usuari tindrà privilegis d'administrador i se li permetrà connectar-se a aquesta interfície d'administració i directament al servidor mitjançant SSH.\nCom que és un usuari normal, també us podreu connectar al portal d'usuaris (SSO) amb les seves credencials.\nUn cop finalitzada la postinstal·lació, podreu crear altres usuaris administradors afegint-los al grup «admins»."
+            "first_user_help": "Aquest compte tindrà privilegis d'administració i se li permetrà connectar-se a aquesta interfície d'administració i directament al servidor mitjançant SSH.\nCom que és un compte normal, també us podreu connectar al portal (SSO) amb les seves credencials.\nUn cop finalitzada la postinstal·lació, podreu crear altres comptes administradors afegint-los al grup «admins»."
         },
         "force": "Força la post-instal·lació",
         "title": "Post-instal·lació"
@@ -507,7 +528,7 @@
     "users_import_confirm_destructive": "Esteu segur que voleu suprimir els usuaris que no estan presents en aquest fitxer?",
     "important_yunohost_upgrade": "Hi ha disponible una actualització important de YunoHost. És molt recomanable llegir atentament les notes de la versió al fòrum abans d'actualitzar: <a href='https://forum.yunohost.org/tag/ynh_release'>Exploreu les notes de la versió al fòrum</a>",
     "items_verbose_count": "Hi ha {items}. | Hi ha 1 {items}. | Hi ha {items}.",
-    "label_for_manifestname_help": "Aquest és el nom que es mostra al portal de l'usuari. Això es pot canviar més tard.",
+    "label_for_manifestname_help": "Aquest és el nom que es mostra al portal. Això es pot canviar més tard.",
     "manage_groups": "Gestionar grups",
     "users_import_delete_others": "Suprimir els usuaris no llistats",
     "users_import_delete": "Suprimir els usuaris que no figuren a la llista",
@@ -544,5 +565,42 @@
     "form": {
         "current_file": "Fitxer actual:",
         "select_one": "Seleccioneu una opció"
-    }
+    },
+    "confirm_app_force_upgrade": "De veritat voleu forçar l'actualització d'aquesta aplicació?",
+    "failed": "Fallat",
+    "hook_data_multimedia_desc": "Fitxers multimèdia ubicats a /home/yunohost.multimedia",
+    "hook_data_multimedia": "Dades multimèdia",
+    "stopped": "Aturat",
+    "confirm_firewall_close": "De veritat voleu tancar el port {port} per al protocol {protocol}?",
+    "confirm_firewall_open": "De veritat voleu obrir el port {port} per al protocol {protocol}?",
+    "storage_disks": {
+        "infos": {
+            "smart_status_icon_alt": {
+                "UNKNOWN": "L'estat d'aquest dispositiu és desconegut",
+                "SANE": "Aquest dispositiu és SANE",
+                "CRITICAL": "Aquest dispositiu es troba en un estat crític"
+            },
+            "serial": "Sèrie:",
+            "serial_unknown": "Desconegut",
+            "size": "Mida:",
+            "type": "Tipus:",
+            "usb_icon_alt": "Aquest dispositiu està connectat a USB",
+            "ejectable_icon_alt": "Aquest dispositiu és expulsable"
+        },
+        "infos_meta": {
+            "usb": "dispositiu USB",
+            "ejectable": "Aquest dispositiu es pot expulsar"
+        },
+        "experimental_disclaimer": "Aquesta secció és experimental i en construcció.",
+        "no_disk_found": "No s'ha trobat cap disc al sistema. Potser us trobeu en un context especial com ara un contenidor LXC?",
+        "category_name": "Discs durs"
+    },
+    "update": {
+        "refresh_cache": "Obtindre les actualitzacions disponibles",
+        "very_stale_cache": "El catàleg d'aplicacions o la memòria cau del paquet del sistema (apt/dpkg) està desactualitzat. Comenceu per actualitzar la memòria cau per obtenir informació actualitzada.",
+        "stale_cache": "La memòria cau del paquet del sistema (apt/dpkg) s'ha actualitzat fa {lastAptUpdate} hores i el catàleg d'aplicacions de YunoHost s'ha actualitzat fa {lastAppsCatalogUpdate} hores. Assegureu-vos d'actualitzar-les per obtenir informació actualitzada.",
+        "ok_cache": "El catàleg d'aplicacions i la memòria cau de paquets del sistema (apt/dpkg) s'han actualitzat fa menys d'una hora. Però podeu actualitzar-los en qualsevol moment per obtenir informació actualitzada."
+    },
+    "confirm_app_upgrade": "De veritat voleu actualitzar aquesta aplicació?",
+    "storage": "Emmagatzematge"
 }

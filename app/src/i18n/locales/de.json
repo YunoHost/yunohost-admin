@@ -80,7 +80,7 @@
     "system": "System",
     "system_apps_nothing": "Alle Applikationen sind auf dem neuesten Stand!",
     "system_packages_nothing": "Alle Systempakete sind auf dem neuesten Stand!",
-    "system_update": "System aktualisieren",
+    "system_update": "Aktualisierungen",
     "system_upgrade_btn": "Aktualisieren",
     "tcp": "TCP",
     "tools": "Werkzeuge",
@@ -282,7 +282,8 @@
         "permissions": "keine Berechtigungen | Berechtigung | Berechtigungen",
         "items": "keine Einträge | Eintrag | Einträge",
         "disk": "keine Festplatte | Festplatte | Festplatten",
-        "inserted_disk": "kein Speichermedium eingelegt | eingelegtes Speichermedium | Speichermedium"
+        "inserted_disk": "kein Speichermedium eingelegt | eingelegtes Speichermedium | Speichermedium",
+        "packages": "Keine Pakete | Paket | Pakete"
     },
     "history": {
         "last_action": "Letzte Aktion:",
@@ -519,20 +520,31 @@
             "continue": "Fortfahren zur nächsten App",
             "notifs": {
                 "pre": {
-                    "alert": "Sie sollten sich die Benachrichtigungen genau anschauen, befor sie mit der Aktualisierung fortfahren. Sie könnten wichtige Informationen enthalten, die Sie kennen sollten.",
-                    "title": "Seien Sie vorgewarnt!"
+                    "alert": "Lesen sie sich die folgenden Anmerkungen sorgfältig durch, bevor Sie mit dem Upgrade fortfahren.",
+                    "title": "Wichtige Anmerkungen"
                 },
                 "post": {
                     "alert": "Die Aktualisierung scheint gut gelaufen zu sein!\nHier ein paar Informationen, die der/die Paketierer betreffend dieser Aktualisierung als wichtig erachtet hat. \nSie können sie auch auf der Informationsseite dieser App nochmal nachlesen.",
                     "title": "Benachrichtigungen zum Post-Aktualisierungs-Prozess für '{name}'"
                 }
             },
-            "stop": "Die nächsten Aktualisierungen stornieren"
+            "stop": "Die nächsten Aktualisierungen stornieren",
+            "advertise_testing_version": "Suchen Sie nach einer neuen Version von upstream? Vielleicht gibt es eine 'Testing'-Version, bei der Sie den Paketierern im Git-Repository des YunoHost-Pakets helfen können!",
+            "up_to_date": "Diese Anwendung ist auf dem aktuellen Stand!",
+            "upgrade": "Aufwertung",
+            "force_upgrade": "Erzwungene Aufwertung"
         },
         "uninstall": {
-            "purge_desc": "Entferne das Datenverzeichnis, das mit dieser Applikation assoziiert ist (hier handelt es sich üblicherweise um Daten, die Sie bei der Benutzung der Applikation selbst hochgeladen haben)."
+            "purge_desc": "Entferne das Datenverzeichnis, das mit dieser Applikation assoziiert ist (hier handelt es sich üblicherweise um Daten, die Sie bei der Benutzung der Applikation selbst hochgeladen haben).",
+            "uninstall": "Deinstallieren",
+            "desc": "Dies deinstalliert die Anwendung von ihrem Server.<br/>Die Möglichkeit Ihre Daten ebenfalls zu löschen, erhalten sie während des Bestätigungsprozesses."
         },
-        "upvote": "Wenn Sie die Aufmerksamkeit auf diese Anwendung lenken möchten, können Sie auf der [Katalogseite] (https://apps.yunohost.org/app/{id}) für sie stimmen."
+        "upvote": "Wenn Sie die Aufmerksamkeit auf diese Anwendung lenken möchten, können Sie auf der [Katalogseite] (https://apps.yunohost.org/app/{id}) für sie stimmen.",
+        "change_url": {
+            "change_url": "URL ändern",
+            "not_supported": "Das Ändern der URL auf welcher dieser Anwendung installiert ist, wird für diese App derzeit nicht unterstützt.",
+            "title": "Anwendung zu anderer URL bewegen"
+        }
     },
     "groups": {
         "remove_user": {
@@ -579,7 +591,16 @@
             "usb": "USB-Gerät",
             "ejectable": "Das Gerät kann entfernt werden"
         },
-        "category_name": "Festplatten"
+        "category_name": "Festplatten",
+        "experimental_disclaimer": "Diese Sektion ist experimentell und befindet sich noch in der Entwicklung.",
+        "no_disk_found": "Kein Laufwerk im System gefunden. Sind Sie in einem speziellen Kontext? Etwa einem LXC Container?"
     },
-    "storage": "Speicher"
+    "storage": "Speicher",
+    "update": {
+        "stale_cache": "Der Paket-Cache (apt/dpkg) wurde vor {lastAptUpdate} Stunden aktualisiert. Das YunoHost Anwendungsverzeichnis wurde vor {lastAppsCatalogUpdate} aktualisiert. Stellen Sie sicher, dass sie aktualisieren, um aktuelle Informationen zu erhalten.",
+        "refresh_cache": "Auf verfügbare Updates prüfen",
+        "ok_cache": "Der Anwendungskatalog und System-Pakete-Cache wurde vor weniger als einer Stunde aktualisiert. Dennoch können Sie jederzeit aktualisieren, um aktuelle Informationen zu erhalten.",
+        "very_stale_cache": "Der Anwendungskatalog oder Paket-Cache ist abgelaufen. Bitte aktualisieren Sie um aktuelle Informationen zu erhalten."
+    },
+    "confirm_app_upgrade": "Sind sie sicher, dass sie ein Upgrade dieser App durchführen wollen?"
 }
