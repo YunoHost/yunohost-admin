@@ -135,21 +135,21 @@ onMounted(() => {
       <nav>
         <BNav class="justify-content-center">
           <BNavItem
-            href="https://yunohost.org/docs"
+            href="https://doc.yunohost.org/admin"
             target="_blank"
             link-classes="text-secondary"
           >
             <YIcon iname="book" /> {{ $t('footer.documentation') }}
           </BNavItem>
           <BNavItem
-            href="https://yunohost.org/help"
+            href="https://doc.yunohost.org/help"
             target="_blank"
             link-classes="text-secondary"
           >
             <YIcon iname="life-ring" /> {{ $t('footer.help') }}
           </BNavItem>
           <BNavItem
-            href="https://yunohost.org/terms_of_services"
+            href="https://doc.yunohost.org/terms_of_services"
             target="_blank"
             link-classes="text-secondary"
           >
