@@ -232,7 +232,7 @@
     "migrations_no_pending": "没有待处理的迁移",
     "only_highquality_apps": "仅优质的应用",
     "password_confirmation": "确认密码",
-    "operation_failed_explanation": "此操作已失败！对此真的很抱歉 :( 可以尝试<a href='https://yunohost.org/help'>寻求帮助</a>。请向帮助您的人提供*完整的操作日志*。您可以通过单击 '使用 Yunopaste 共享' 绿色按钮来执行此操作。共享日志时，YunoHost 将自动尝试匿名化域名和 IP 等私密数据。",
+    "operation_failed_explanation": "此操作已失败！对此真的很抱歉 :( 可以尝试<a href='https://doc.yunohost.org/help'>寻求帮助</a>。请向帮助您的人提供*完整的操作日志*。您可以通过单击 '使用 Yunopaste 共享' 绿色按钮来执行此操作。共享日志时，YunoHost 将自动尝试匿名化域名和 IP 等私密数据。",
     "others": "其它",
     "orphaned_details": "此应用已经有一段时间没有维护了。它也许仍然可用，但在有人自愿维护它之前不会得到任何升级。欢迎前来贡献力量让它重新可用！",
     "orphaned": "未经维护",
@@ -248,7 +248,7 @@
     "protocol": "协议",
     "previous": "往前",
     "postinstall_set_domain": "设置主域",
-    "postinstall_intro_3": "您可以通过访问<a href='//yunohost.org/en/install/hardware:vps_debian#fa-cog-proceed-with-the-initial-configuration' target='_blank'>相应的文档页面</a>获取更多信息",
+    "postinstall_intro_3": "您可以通过访问<a href='//doc.yunohost.org/install' target='_blank'>相应的文档页面</a>获取更多信息",
     "postinstall_intro_2": "还需要两个配置步骤来激活您服务器的服务。",
     "postinstall_intro_1": "恭喜！YunoHost 已成功安装。",
     "postinstall_domain": "这是链接到您的 YunoHost 服务器的第一个域名，也是您服务器的用户用来访问身份验证门户的域名。因此，每个人都可以看到它，所以请谨慎选择。",
@@ -561,8 +561,8 @@
     "tos": {
         "acknowledgement": "服务条款确认",
         "i_agree": "我同意",
-        "i_have_read": "我已阅读并理解<a href='https://yunohost.org/terms_of_services' target='_blank'>服务条款</a>",
-        "postinstall_acknowledgement": "YunoHost 项目是一个由志愿者组成的团队，其共同目标是创建一个名为 YunoHost 的自由服务器操作系统。YunoHost 软件根据[AGPLv3 许可证](https://www.gnu.org/licenses/agpl-3.0.txt)发布。与此软件相关，此项目管理并提供多种用于各种目的的技术和社区服务。使用这些服务，即表示您同意受以下[服务条款](https://yunohost.org/terms_of_services)的约束。"
+        "i_have_read": "我已阅读并理解<a href='https://doc.yunohost.org/terms_of_services' target='_blank'>服务条款</a>",
+        "postinstall_acknowledgement": "YunoHost 项目是一个由志愿者组成的团队，其共同目标是创建一个名为 YunoHost 的自由服务器操作系统。YunoHost 软件根据[AGPLv3 许可证](https://www.gnu.org/licenses/agpl-3.0.txt)发布。与此软件相关，此项目管理并提供多种用于各种目的的技术和社区服务。使用这些服务，即表示您同意受以下[服务条款](https://doc.yunohost.org/terms_of_services)的约束。"
     },
     "install_app": "安装应用",
     "quick_action": "快捷操作",

@@ -44,7 +44,7 @@
     "postinstall_domain": "Este é o seu primeiro domínio ativo no seu servidor YunoHost, é este que será utilizado pelos utilizadores para acederem ao portal de autenticação. Terá que ficar visível a todos, escolha sabiamente.",
     "postinstall_intro_1": "Parabéns! YunoHost foi instalado com êxito.",
     "postinstall_intro_2": "São requeridos mais dois passos nas configurações para ativar os serviços no seu servidor.",
-    "postinstall_intro_3": "Pode obter mais informação ao visitar <a href='//yunohost.org/en/install/hardware:vps_debian#fa-cog-proceed-with-the-initial-configuration' target='_blank'>pagina de documentação apropriada</a>",
+    "postinstall_intro_3": "Pode obter mais informação ao visitar <a href='//doc.yunohost.org/install' target='_blank'>pagina de documentação apropriada</a>",
     "previous": "Anterior",
     "protocol": "Protocolo",
     "restore": "Restaurar",
@@ -314,7 +314,7 @@
         "groupname": "Nome do meu grupo",
         "username": "pedrosilva"
     },
-    "operation_failed_explanation": "Essa operação falhou! Sinto muito :( Você pode tentar <a href='https://yunohost.org/help'>pedir por ajuda</a>. Por favor informe *o log completo* da operação para as pessoas que vão te ajudar. Você pode fazer isso clicando no botão verde \"Compartilhar com Yunopaste\". Quando compartilhar os logs, YunoHost irá automaticamente tentar anonimizar dados privados como nome de domínio e IPs.",
+    "operation_failed_explanation": "Essa operação falhou! Sinto muito :( Você pode tentar <a href='https://doc.yunohost.org/help'>pedir por ajuda</a>. Por favor informe *o log completo* da operação para as pessoas que vão te ajudar. Você pode fazer isso clicando no botão verde \"Compartilhar com Yunopaste\". Quando compartilhar os logs, YunoHost irá automaticamente tentar anonimizar dados privados como nome de domínio e IPs.",
     "others": "Outros",
     "orphaned_details": "Essa aplicação não está sendo mantida já faz bastante tempo. Ela pode estar funcionando, mas não receberá nenhuma atualização enquanto nenhum voluntário se encarregar dela. Sinta-se livre em contribuir para revivê-la!",
     "orphaned": "Não mantido",

@@ -301,7 +301,7 @@
     "protocol": "Protokoloa",
     "rerun_diagnosis": "Berrabiarazi diagnostikoa",
     "restart": "Berrabiarazi",
-    "operation_failed_explanation": "Kale egin du! Sentitzen dugu :( <a href='https://yunohost.org/help'>Laguntza eskatzen saia zaitezke</a>. Jarri laguntzaileen esku eragiketaren erregistroa *bere osotasunean*. 'Partekatu Yunopastekin' botoi berdea sakatu dezakezu horretarako. YunoHost automatikoki saiatuko da domeinuak edo IP helbideak bezalako datu pribatuak anonimo egiten erregistroak partekatzean.",
+    "operation_failed_explanation": "Kale egin du! Sentitzen dugu :( <a href='https://doc.yunohost.org/help'>Laguntza eskatzen saia zaitezke</a>. Jarri laguntzaileen esku eragiketaren erregistroa *bere osotasunean*. 'Partekatu Yunopastekin' botoi berdea sakatu dezakezu horretarako. YunoHost automatikoki saiatuko da domeinuak edo IP helbideak bezalako datu pribatuak anonimo egiten erregistroak partekatzean.",
     "pending_migrations": "Migrazio batzuk exekutatzeke daude. Joan <a href='#/tools/migrations'>Tresnak > Migrazioak</a>-era abiarazteko.",
     "orphaned_details": "Aplikazio honek ez du arduradunik izan denbora luzez. Litekeena da oraindik martxan jarri ahal izatea, baina ez du eguneraketarik jasoko bolondresen batek ardura hartu arte. Parte hartu eta biziberritu!",
     "permission_main": "Etiketa nagusia",
@@ -321,7 +321,7 @@
     "logs_ended_at": "Amaiera",
     "logs_more": "Erakutsi lerro gehiago",
     "postinstall_intro_1": "Bejon deizula! YunoHost arazorik gabe instalatu da.",
-    "postinstall_intro_3": "Argibide gehiago lor ditzakezu <a href='//yunohost.org/en/install/hardware:vps_debian#fa-cog-proceed-with-the-initial-configuration' target='_blank'>dokumentazio gunea</a> bisitatuz",
+    "postinstall_intro_3": "Argibide gehiago lor ditzakezu <a href='//doc.yunohost.org/install' target='_blank'>dokumentazio gunea</a> bisitatuz",
     "postinstall_intro_2": "Bi urrats gehiago behar dira zerbitzariko zerbitzuak gaitzeko.",
     "mailbox_quota_example": "CD bat 700M dira, DVD bat 4700M",
     "mailbox_quota_placeholder": "0 ezarriz gero ez da mugarik egongo.",
@@ -552,8 +552,8 @@
     },
     "tos": {
         "i_agree": "Ados",
-        "i_have_read": "Irakurri ditut eta ulertzen ditut <a href='https://yunohost.org/terms_of_services' target='_blank'>Zerbitzu-baldintzak</a>",
-        "postinstall_acknowledgement": "YunoHost boluntario talde baten proiektua da, zerbitzarietarako sistema eragile ireki bat sortzeko kausa komuna duena. YunoHosten softwareak [AGPLv3 lizentzia](https://www.gnu.org/licenses/agpl-3.0.txt) dauka. Proiektuak zerbitzu tekniko eta komunitario anitz administratu eta eskuragarri jartzen ditu, hainbat helburutarako. Zerbitzu horiek erabiltzean, [Zerbitzu-baldintzak](https://yunohost.org/terms_of_services) onartzen dituzu.",
+        "i_have_read": "Irakurri ditut eta ulertzen ditut <a href='https://doc.yunohost.org/terms_of_services' target='_blank'>Zerbitzu-baldintzak</a>",
+        "postinstall_acknowledgement": "YunoHost boluntario talde baten proiektua da, zerbitzarietarako sistema eragile ireki bat sortzeko kausa komuna duena. YunoHosten softwareak [AGPLv3 lizentzia](https://www.gnu.org/licenses/agpl-3.0.txt) dauka. Proiektuak zerbitzu tekniko eta komunitario anitz administratu eta eskuragarri jartzen ditu, hainbat helburutarako. Zerbitzu horiek erabiltzean, [Zerbitzu-baldintzak](https://doc.yunohost.org/terms_of_services) onartzen dituzu.",
         "acknowledgement": "Zerbitzuen Baldintzen onarpena"
     },
     "groups": {

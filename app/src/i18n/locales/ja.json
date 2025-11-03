@@ -496,7 +496,7 @@
     "items_verbose_count": "存在する {items}. | 存在する 1つの {items}. | 存在する {items}.",
     "items_verbose_items_left": "{items} 個残っている。 | 1個の {items} が残っている。 | {items} が残っている。",
     "label_for_manifestname_help": "これはユーザーポータルに表示される名前です。後で変更できます。",
-    "operation_failed_explanation": "この操作は失敗しました。本当に申し訳ありません :( あなたは <a href='https://yunohost.org/help'>ヘルプ</a>を試すことができます。あなたを助けてくれる人々に、操作の*完全なログ*を提供してください。これを行うには、[Yunopasteで共有] と書かれた緑色のボタンをクリックします。ログを共有する場合、YunoHostは自動的にドメイン名やIPなどの個人データの匿名化を試みます。",
+    "operation_failed_explanation": "この操作は失敗しました。本当に申し訳ありません :( あなたは <a href='https://doc.yunohost.org/help'>ヘルプ</a>を試すことができます。あなたを助けてくれる人々に、操作の*完全なログ*を提供してください。これを行うには、[Yunopasteで共有] と書かれた緑色のボタンをクリックします。ログを共有する場合、YunoHostは自動的にドメイン名やIPなどの個人データの匿名化を試みます。",
     "orphaned_details": "このアプリはかなり長い間メンテナンスされていません。まだ機能しているかもしれませんが、誰かがそれをメンテナンスと言い始めるまで、アップグレードを受け取りません。このアプリを復活させるために力を貸してください!",
     "pending_migrations": "実行を待機している保留中の移行がいくつかあります。<a href='#/tools/migrations'>ツール > 移行</a> に移動して、移行を実行してください。",
     "postinstall_domain": "これは、YunoHostサーバーにリンクされた最初のドメイン名ですが、サーバーのユーザーが認証ポータルにアクセスするために使用するドメイン名でもあります。したがって、誰にでも見えるものになりますので、慎重に選択してください。",
@@ -504,5 +504,5 @@
     "purge_user_data_checkbox": "{name}のデータをパージ(削除)しますか?(これにより、ホームディレクトリとメールディレクトリの内容が削除されます)",
     "purge_user_data_warning": "ユーザーのデータのパージ(削除)は一度行うと元に戻せません。自分が何をしようとしているのか、十分に理解してくださいね!",
     "group_explain_admins": "これは管理者ユーザーに対応する特別なグループです。このグループのユーザーは、YunoHostのウェブ管理者にアクセスし、SSHでサーバーに接続し、「sudo」コマンドを使用できます。また、root{'@'}、admin{'@'}、admins{'@'}に送信された診断通知などの電子メールも受信します。このグループには、絶対に信頼できる人だけを追加する必要があります！",
-    "postinstall_intro_3": "詳細については、<a href='//yunohost.org/en/install/hardware:vps_debian#fa-cog-proceed-with-the-initial-configuration' target='_blank'>適切なドキュメントページ</a>を参照してください"
+    "postinstall_intro_3": "詳細については、<a href='//doc.yunohost.org/install' target='_blank'>適切なドキュメントページ</a>を参照してください"
 }

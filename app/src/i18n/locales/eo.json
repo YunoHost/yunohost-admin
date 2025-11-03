@@ -136,7 +136,7 @@
     "select_none": "Elektu neniun",
     "size": "Grandeco",
     "logs": "Registroj",
-    "postinstall_intro_3": "Vi povas akiri pliajn informojn vizitante la <a href='//yunohost.org/en/install/hardware:vps_debian#fa-cog-proceed-with-the-initial-configuration' target='_blank'>taŭgan dokumentan paĝon</a>",
+    "postinstall_intro_3": "Vi povas akiri pliajn informojn vizitante la <a href='//doc.yunohost.org/install' target='_blank'>taŭgan dokumentan paĝon</a>",
     "running": "Kurado",
     "status": "Statuso",
     "set_default": "Fiksita defaŭlte",

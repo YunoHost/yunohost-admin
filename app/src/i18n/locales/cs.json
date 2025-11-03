@@ -7,7 +7,7 @@
     "action": "Akce",
     "cancel": "Storno",
     "ok": "OK",
-    "postinstall_intro_3": "Pro více informací navštivte <a href='//yunohost.org/en/install/hardware:vps_debian#fa-cog-proceed-with-the-initial-configuration' target='_blank'>příslušnou stránku dokumentace</a>",
+    "postinstall_intro_3": "Pro více informací navštivte <a href='//doc.yunohost.org/install' target='_blank'>příslušnou stránku dokumentace</a>",
     "app_choose_category": "Vybrat kategorii",
     "api_waiting": "Čekáme na odpověď serveru…",
     "api_not_found": "Zdá se, že web-admin zkusil dotazovat něco, co neexistuje.",
@@ -220,7 +220,7 @@
     },
     "path": "Cesta",
     "password_confirmation": "Ověření hesla",
-    "operation_failed_explanation": "Tato akce neproběhla správně! Omlouváme se :( Můžete se zkusit <a href='https://yunohost.org/help'>zeptat</a>. Pomáhajícím uživatelům dodejte prosím *veškeré záznamy* proběhnuté akce. Můžete tak učinit kliknutím zelené tlačítko 'Sdílet s Yunopaste'. Při sdílení záznamů se YunoHost pokusí automaticky anonymizovat privátní data jako např. doménová jména a IP adresy.",
+    "operation_failed_explanation": "Tato akce neproběhla správně! Omlouváme se :( Můžete se zkusit <a href='https://doc.yunohost.org/help'>zeptat</a>. Pomáhajícím uživatelům dodejte prosím *veškeré záznamy* proběhnuté akce. Můžete tak učinit kliknutím zelené tlačítko 'Sdílet s Yunopaste'. Při sdílení záznamů se YunoHost pokusí automaticky anonymizovat privátní data jako např. doménová jména a IP adresy.",
     "others": "Ostatní",
     "orphaned_details": "Určitou dobu tato aplikace již není spravována. Může být stále funkční, avšak již nebude aktualizována, pokud se její správy neujme nějaký dobrovolník. Staňte se jím třeba vy!",
     "orphaned": "Neudržované/opuštěné",
@@ -527,9 +527,9 @@
     "group_admins": "Administrátoři",
     "tos": {
         "acknowledgement": "Potvrzení smluvních podmínek",
-        "i_have_read": "Přečetl*a jsem si a rozumím <a href='https://yunohost.org/terms_of_services' target='_blank'>Smluvním podmínkám</a>",
+        "i_have_read": "Přečetl*a jsem si a rozumím <a href='https://doc.yunohost.org/terms_of_services' target='_blank'>Smluvním podmínkám</a>",
         "i_agree": "Souhlasím",
-        "postinstall_acknowledgement": "YunoHost projekt je tým dobrovolníků, kteří si dali za cíl vytvořit svobodný operační systém pro servery pod názvem YunoHost. YunoHost software je publikován pod [AGPLv3 licencí](https://www.gnu.org/licenses/agpl-3.0.txt). V souvislosti s tímto softwarem, administrátoři projektu spravují a zpřístupňují několik technických a komunitních služeb pro různé účely. Používáním těchto služeb dáváte na srozuměnou, že souhlasíte s tím, že jste vázáni následujícími [Smluvními podmínkami](https://yunohost.org/terms_of_services)."
+        "postinstall_acknowledgement": "YunoHost projekt je tým dobrovolníků, kteří si dali za cíl vytvořit svobodný operační systém pro servery pod názvem YunoHost. YunoHost software je publikován pod [AGPLv3 licencí](https://www.gnu.org/licenses/agpl-3.0.txt). V souvislosti s tímto softwarem, administrátoři projektu spravují a zpřístupňují několik technických a komunitních služeb pro různé účely. Používáním těchto služeb dáváte na srozuměnou, že souhlasíte s tím, že jste vázáni následujícími [Smluvními podmínkami](https://doc.yunohost.org/terms_of_services)."
     },
     "tools_yunohost_settings": "Nastavení YunoHost",
     "failed": "Neúspěšné",

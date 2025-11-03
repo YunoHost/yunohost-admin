@@ -68,7 +68,7 @@
     "postinstall_domain": "Este es el primer nombre de dominio vinculado a su servidor YunoHost, pero también el que será utilizado por los usuarios para acceder al portal de identificación. Será visible por todos, elegir con cuidado.",
     "postinstall_intro_1": "¡Felicitaciones! YunoHost se ha instalado correctamente.",
     "postinstall_intro_2": "Todavía faltan dos pasos más para activar los servicios de su servidor.",
-    "postinstall_intro_3": "Más información disponible en <a href='//yunohost.org/en/install/hardware:vps_debian#fa-cog-proceed-with-the-initial-configuration' target='_blank'>página de documentación apropiada</a>",
+    "postinstall_intro_3": "Más información disponible en <a href='//doc.yunohost.org/install' target='_blank'>página de documentación apropiada</a>",
     "previous": "Anterior",
     "protocol": "Protocolo",
     "restore": "Restaurar",
@@ -207,7 +207,7 @@
     "permission_main": "Etiqueta principal",
     "pending_migrations": "Hay algunas migraciones esperando a ser ejecutadas. Por favor vaya a <a href='#/tools/migrations'>Herramientas > Migraciones</a> para ejecutarlas.",
     "logs_suboperations": "Sub-operaciones",
-    "operation_failed_explanation": "¡Esta operación falló! Lo sentimos mucho :( Puede intentar <a href='https://yunohost.org/help'>pedir ayuda</a>. Por favor comparta el *log completo* de la operación a la gente que ayude. Puede hacerlo haciendo click en el botón verde que dice 'Share with Yunopaste'. Cuando comparta los logs, YunoHost intentará automáticamente anonimizar datos privados como nombres de dominio y IPs.",
+    "operation_failed_explanation": "¡Esta operación falló! Lo sentimos mucho :( Puede intentar <a href='https://doc.yunohost.org/help'>pedir ayuda</a>. Por favor comparta el *log completo* de la operación a la gente que ayude. Puede hacerlo haciendo click en el botón verde que dice 'Share with Yunopaste'. Cuando comparta los logs, YunoHost intentará automáticamente anonimizar datos privados como nombres de dominio y IPs.",
     "cancel": "Cancelar",
     "api_errors_titles": {
         "APIConnexionError": "YunoHost ha encontrado un error de conexión",
@@ -565,8 +565,8 @@
     "tos": {
         "acknowledgement": "Acuse de recibo de los TYC",
         "i_agree": "Estoy de acuerdo",
-        "i_have_read": "Leí y entendí los <a href='https://yunohost.org/terms_of_services' target='_blank'>términos y condiciones de uso</a>",
-        "postinstall_acknowledgement": "El proyecto YunoHost es un equipo de voluntarios que han hecho causa común para crear un sistema operativo gratuito para servidores, llamado YunoHost. El software YunoHost se publica bajo [la licencia AGPLv3](https://www.gnu.org/licenses/agpl-3.0.txt). En relación con este software, el proyecto administra y pone a disposición varios servicios técnicos y comunitarios para diversos fines. Al utilizar estos servicios, usted acepta estar sujeto a los siguientes [Términos de uso](https://yunohost.org/terms_of_services)."
+        "i_have_read": "Leí y entendí los <a href='https://doc.yunohost.org/terms_of_services' target='_blank'>términos y condiciones de uso</a>",
+        "postinstall_acknowledgement": "El proyecto YunoHost es un equipo de voluntarios que han hecho causa común para crear un sistema operativo gratuito para servidores, llamado YunoHost. El software YunoHost se publica bajo [la licencia AGPLv3](https://www.gnu.org/licenses/agpl-3.0.txt). En relación con este software, el proyecto administra y pone a disposición varios servicios técnicos y comunitarios para diversos fines. Al utilizar estos servicios, usted acepta estar sujeto a los siguientes [Términos de uso](https://doc.yunohost.org/terms_of_services)."
     },
     "confirm_firewall_open": "¿ Esta seguro abrir el puerto {port} para el protocolo {protocol} ?",
     "confirm_firewall_close": "¿ Esta seguro cerrar el puerto {port} para el protocolo {protocol} ?",

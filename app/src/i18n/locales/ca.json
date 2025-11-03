@@ -84,7 +84,7 @@
     "postinstall_domain": "Aquest és el primer nom de domini vinculat al vostre servidor YunoHost, però també el que utilitzaran els usuaris del servidor per accedir al portal d'autenticació. Així doncs serà visible per tothom, escolliu-lo amb cura.",
     "postinstall_intro_1": "Felicitats! YunoHost s'ha instal·lat correctament.",
     "postinstall_intro_2": "Falten dos passos més per activar els serveis del vostre servidor.",
-    "postinstall_intro_3": "Pot obtenir més informació visitant <a href='//yunohost.org/en/install/hardware:vps_debian#fa-cog-proceed-with-the-initial-configuration' target='_blank'>la pàgina de documentació</a>",
+    "postinstall_intro_3": "Pot obtenir més informació visitant <a href='//doc.yunohost.org/install' target='_blank'>la pàgina de documentació</a>",
     "previous": "Precedent",
     "protocol": "Protocol",
     "restore": "Restaurar",
@@ -202,7 +202,7 @@
     "group_explain_visitors_needed_for_external_client": "Vigileu ja que s'ha de permetre els visitants en algunes aplicacions si voleu utilitzar-les amb clients externs. És el cas, per exemple, de Nextcloud si voleu utilitzar el client de sincronització en el telèfon mòbil o en l'ordinador.",
     "restart": "Reiniciar",
     "issues": "{count} problemes",
-    "operation_failed_explanation": "Aquesta operació ha fallat! Ens sap molt greu :( Podeu intentar <a href='https://yunohost.org/help'>demanar ajuda</a>. Si us plau doneu *el registre complet* de l'operació a la gent que intenta ajudar-vos. Podeu fer-ho fent clic al botó verd «Compartir amb Yunopaste». Quan compartiu els registres, YunoHost intentarà anonimitzar automàticament dades privades com els noms de domini i les IPs.",
+    "operation_failed_explanation": "Aquesta operació ha fallat! Ens sap molt greu :( Podeu intentar <a href='https://doc.yunohost.org/help'>demanar ajuda</a>. Si us plau doneu *el registre complet* de l'operació a la gent que intenta ajudar-vos. Podeu fer-ho fent clic al botó verd «Compartir amb Yunopaste». Quan compartiu els registres, YunoHost intentarà anonimitzar automàticament dades privades com els noms de domini i les IPs.",
     "diagnosis_explanation": "La funció de diagnòstic intentarà identificar els errors més comuns en diferents aspectes del servidor per verificar que tot funciona correctament. El diagnòstic s'executa automàticament dues vegades al dia i s'envia un correu electrònic a l'administrador si es troben errors. Tingueu en compte que no tots els tests seran rellevants si no s'utilitzen algunes funcions específiques (com per exemple correu electrònic) o pot ser que falli si teniu un sistema amb una configuració complexa. En aquests casos, i si sabeu el que feu, podeu ignorar els problemes o avisos corresponents.",
     "pending_migrations": "Hi ha algunes migracions pendents esperant per ser executades. Aneu a <a href='#/tools/migrations'>Eines > Migracions</a> per fer-les.",
     "logs_suboperations": "Sub-operacions",
@@ -548,10 +548,10 @@
     "yunohost_admin": "Administrador de Yunohost",
     "catalog_wishlist": "Sembla que l'aplicació que estàs cercant encara no està disponible al catàleg.\nPodeu proposar-lo a la [lista de desitjos d'aplicacions](https://apps.yunohost.org/wishlist?search={search}) o votar-la si ja hi és.",
     "tos": {
-        "postinstall_acknowledgement": "El projecte YunoHost és un equip de voluntaris que han fet una causa comuna per crear un sistema operatiu gratuït per a servidors, anomenat YunoHost. El programari YunoHost es publica sota [la llicència AGPLv3](https://www.gnu.org/licenses/agpl-3.0.txt). En relació amb aquest programari, el projecte administra i posa a la seva disposició diversos serveis tècnics i comunitaris amb diferents finalitats. En utilitzar aquests serveis, accepteu estar subjecte a les [Condicions dels serveis] següents (https://yunohost.org/terms_of_services).",
+        "postinstall_acknowledgement": "El projecte YunoHost és un equip de voluntaris que han fet una causa comuna per crear un sistema operatiu gratuït per a servidors, anomenat YunoHost. El programari YunoHost es publica sota [la llicència AGPLv3](https://www.gnu.org/licenses/agpl-3.0.txt). En relació amb aquest programari, el projecte administra i posa a la seva disposició diversos serveis tècnics i comunitaris amb diferents finalitats. En utilitzar aquests serveis, accepteu estar subjecte a les [Condicions dels serveis] següents (https://doc.yunohost.org/terms_of_services).",
         "acknowledgement": "Reconeixement de les CDS",
         "i_agree": "Estic d'acord",
-        "i_have_read": "He llegit i entenc les <a href='https://yunohost.org/terms_of_services' target='_blank'>Condicions del servei</a>"
+        "i_have_read": "He llegit i entenc les <a href='https://doc.yunohost.org/terms_of_services' target='_blank'>Condicions del servei</a>"
     },
     "groups": {
         "remove_user": {
