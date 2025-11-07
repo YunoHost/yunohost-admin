@@ -118,7 +118,7 @@
     "confirm_service_stop": "Voulez-vous vraiment arrêter {name} ?",
     "confirm_upnp_enable": "Voulez-vous vraiment activer l'UPnP ?",
     "confirm_upnp_disable": "Voulez-vous vraiment désactiver l'UPnP ?",
-    "domain_dns_conf_is_just_a_recommendation": "Cette section montre la configuration *recommandée*. Elle ne configure *pas* le DNS pour vous. Il est de votre responsabilité de configurer votre zone DNS, généralement depuis l'interface web de votre fournisseur de nom de domaine (registrar) en fonction de cette configurer recommandée.",
+    "domain_dns_conf_is_just_a_recommendation": "Cette section montre la configuration *recommandée*. Elle ne configure *pas* le DNS pour vous. Il est de votre responsabilité de configurer votre zone DNS, généralement depuis l'interface web de votre fournisseur de nom de domaine (registrar) conformément à cette recommandation.",
     "confirm_reboot_action_reboot": "Voulez-vous vraiment redémarrer votre serveur ?",
     "confirm_reboot_action_shutdown": "Voulez-vous vraiment éteindre votre serveur ?",
     "ok": "OK",
@@ -456,7 +456,7 @@
                     "title": "Notes importantes"
                 },
                 "post": {
-                    "alert": "Vous pourrez aussi retrouver ces messages dans la page d'information de l'application",
+                    "alert": "Il semble que la mise à jour se soit bien déroulée !\n­Voici quelques notifications que le packager juge importantes à connaître concernant cette mise à jour.\nVous pouvez les relire dans la page d'informations de l'application.",
                     "title": "Notes importantes suite à la mise à jour de {name}"
                 }
             },
