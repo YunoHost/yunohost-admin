@@ -132,7 +132,8 @@
                 "letsencrypt": "Let’s Encrypt",
                 "other": "Inne/Nieznane"
             },
-            "valid_for": "Ważny przez {days}"
+            "valid_for": "Ważny przez {days}",
+            "install": "Zainstaluj także certyfikat Let's Encrypt"
         },
         "info": {
             "apps_on_domain": "Aplikacje zainstalowane w domenie",
@@ -180,7 +181,8 @@
         "number": "Musisz podać liczbę.",
         "passwordLenght": "Hasło musi mieć co najmniej 8 znaków.",
         "emailForward": "Niepoprawne przekierowanie e-mail: adres może zawierać jedynie litery, cyfry i znaki <code>_.-+</code> (np. ktos+tag{'@'}example.com, s0me-1+tag{'@'}example.com)",
-        "appRepoUrl": "Adresy URL repozytoriów YunoHost powinny wyglądać podobnie do https://domain.tld/path/to/repo_ynh"
+        "appRepoUrl": "Adresy URL repozytoriów YunoHost powinny wyglądać podobnie do https://domain.tld/path/to/repo_ynh",
+        "numValue": "Wartość musi być liczbą"
     },
     "everything_good": "Wszystko w porządku!",
     "domains": "Domeny",
@@ -222,7 +224,9 @@
         "backups": "brak kopii zapasowych | kopia zapasowa | kopii zapasowych",
         "domains": "brak domen | domena | domen",
         "groups": "brak grup | grupa | grup",
-        "installed_apps": "brak zainstalowanych aplikacji | zainstalowana aplikacja | zainstalowanych aplikacji"
+        "installed_apps": "brak zainstalowanych aplikacji | zainstalowana aplikacja | zainstalowanych aplikacji",
+        "items": "brak elementów | element | elementy",
+        "disk": "brak dysków | dysk | dyski"
     },
     "infos": "Info",
     "hook_conf_ynh_settings": "Konfiguracja YunoHost",
@@ -255,7 +259,8 @@
     "history": {
         "title": "Historia",
         "last_action": "Ostatnie działanie:",
-        "is_empty": "Historia na razie jest pusta."
+        "is_empty": "Historia na razie jest pusta.",
+        "started_by": "rozpoczęte przez {caller}"
     },
     "ignored": "Zignorowano {count}",
     "hook_conf_ldap": "Baza użytkowników",
@@ -324,7 +329,7 @@
     "status": "Status",
     "stop": "Zatrzymaj",
     "system_packages_nothing": "Wszystkie pakiety systemowe są aktualne!",
-    "system_update": "Aktualizacja systemu",
+    "system_update": "Aktualizacje",
     "services": "Usługi",
     "running": "W toku",
     "search": {
@@ -366,7 +371,8 @@
         "collapse": "Zwiń",
         "link": "Link",
         "none": "Żaden",
-        "separator": ", "
+        "separator": ", ",
+        "edit": "Edytuj"
     },
     "upnp": "UPnP",
     "purge_user_data_checkbox": "Wyczyścić wszystkie dane należące do {name}? (To usunie wszystkie dane w katalogu home i w katalogach dotyczących poczty elektronicznej)",
@@ -454,7 +460,7 @@
             "notifications": {
                 "post_upgrade": "Uwagi po aktualizacji",
                 "post_install": "Uwagi po instalacji",
-                "understood": "Domyślny/Zrozumiano"
+                "understood": "Zrozumiano"
             }
         },
         "info": {
@@ -490,7 +496,7 @@
             "package": "Repozytorium pakietów YunoHost",
             "title": "Odnośniki",
             "website": "Oficjalna witryna internetowa",
-            "license": "Licencja",
+            "license": "Licencja aplikacji",
             "package_license": "Licencja pakietu YunoHost"
         },
         "upgrade": {
@@ -501,7 +507,7 @@
             "notifs": {
                 "pre": {
                     "alert": "Powinieneś sprawdzić te notki przed wykonaniem aktualizacji. Mogą tam być ważne dla Ciebie informacje.",
-                    "title": "Ostrzegam!"
+                    "title": "Ważna uwaga"
                 },
                 "post": {
                     "alert": "Wygląda na to, że aktualizacja przebiegła pomyślnie!\n Oto kilka ważnych powiadomień, które packager uznał za ważne, aby więcej wiedzieć o tej aktualizacji.\nMożesz przeczytać je ponownie w widoku informacji o aplikacji.",
@@ -509,11 +515,45 @@
                 }
             },
             "continue": "Kontynuuj do następnej aplikacji",
-            "stop": "Anuluj kolejne aktualizacje aplikacji"
+            "stop": "Anuluj kolejne aktualizacje aplikacji",
+            "upgrade": "Aktualizuj",
+            "up_to_date": "Ta aplikacja jest w najnowszej wersji!"
         },
         "potential_alternative_to": "Potencjalna alternatywa dla:",
         "uninstall": {
-            "purge_desc": "Usuń katalog danych powiązany z aplikacją (zazwyczaj są to dane, które sam przesłałeś za pomocą aplikacji)."
+            "purge_desc": "Usuń katalog danych powiązany z aplikacją (zazwyczaj są to dane, które sam przesłałeś za pomocą aplikacji).",
+            "uninstall": "Odinstaluj"
+        },
+        "change_url": {
+            "change_url": "Zmień adres URL"
         }
-    }
+    },
+    "loading": "Ładowanie",
+    "stopped": "Zatrzymano",
+    "storage": "Pamięć masowa",
+    "storage_disks": {
+        "infos": {
+            "serial_unknown": "Nieznane",
+            "size": "Rozmiar:",
+            "type": "Rodzaj:"
+        },
+        "category_name": "Dyski twarde",
+        "infos_meta": {
+            "usb": "Urządzenie USB"
+        }
+    },
+    "form": {
+        "current_file": "Bieżący plik:",
+        "select_one": "Proszę zaznaczyć opcję"
+    },
+    "tos": {
+        "i_agree": "Akceptuję"
+    },
+    "quick_action": "Szybka akcja",
+    "hook_data_multimedia": "Dane multimedialne",
+    "install_app": "Zainstaluj aplikację",
+    "update": {
+        "refresh_cache": "Pobierz dostępne aktualizacje"
+    },
+    "hook_data_multimedia_desc": "Pliki multimedialne znajdujące się w /home/yunohost.multimedia"
 }
