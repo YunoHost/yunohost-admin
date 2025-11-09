@@ -456,7 +456,7 @@
                     "title": "Notes importantes"
                 },
                 "post": {
-                    "alert": "Il semble que la mise à jour se soit bien déroulée !\n­Voici quelques notifications que le packager juge importantes à connaître concernant cette mise à jour.\nVous pouvez les relire dans la page d'informations de l'application.",
+                    "alert": "Il semble que la mise à jour se soit bien déroulée !\n­Voici quelques notifications que les packagers jugent importantes à connaître concernant cette mise à jour.\nVous pouvez les relire dans la page d'informations de l'application.",
                     "title": "Notes importantes suite à la mise à jour de {name}"
                 }
             },
