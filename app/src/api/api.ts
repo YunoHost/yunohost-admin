@@ -25,6 +25,7 @@ export type APIQuery = {
   ignoreError?: boolean
   isAction?: boolean
   initial?: boolean
+  params?: Record<string, string>
 }
 
 export type APIErrorData = {
@@ -95,6 +96,7 @@ export default {
     ignoreError = false,
     isAction = method !== 'GET',
     initial = false,
+    params = undefined
   }: APIQuery): Promise<T> {
     const cache = cachePath ? useCache<T>(method, cachePath) : undefined
     if (!cacheForce && method === 'GET' && cache?.content.value !== undefined) {
@@ -130,7 +132,14 @@ export default {
       }
     }
 
-    const response = await fetch('/yunohost/api/' + uri, options)
+    const fullUri = new URL('/yunohost/api/' + uri, location.href);
+    if (params) {
+      for (const [key, value] of Object.entries(params)) {
+        fullUri.searchParams.append(key, value);
+      }
+    }
+
+    const response = await fetch(fullUri, options)
 
     if (!response.ok) {
       const errorData = await getResponseData<string | APIErrorData>(response)
@@ -226,7 +235,7 @@ export default {
    * @returns Promise that resolve the api response data or an error
    * @throws Throw an `APIError` or subclass depending on server response
    */
-  delete<T>(query: Omit<APIQuery, 'method'>): Promise<T> {
+  delete<T>(query: Omit<APIQuery, 'method' | 'data'>): Promise<T> {
     return this.fetch({ ...query, method: 'DELETE' })
   },
 

@@ -18,12 +18,12 @@ const { user } = useUsersAndGroups(() => props.name)
 const purge = ref(false)
 
 function deleteUser() {
-  const data = purge.value ? { purge: '' } : {}
+  const params = purge.value ? { purge: '' } : {}
   api
     .delete({
       uri: `users/${props.name}`,
       cachePath: `userDetails.${props.name}`,
-      data,
+      params,
     })
     .then(() => {
       router.push({ name: 'user-list' })
