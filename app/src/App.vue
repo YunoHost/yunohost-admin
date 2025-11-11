@@ -61,7 +61,10 @@ onMounted(() => {
 
   // International Transgender Day of Visibility ;) (March 31)
   // and Trans Day of Remembrance (November 20)
-  if ((today.getDate() === 31 && today.getMonth() + 1 === 3) || (today.getDate() === 20 && today.getMonth() + 1 === 11)) {
+  if (
+    (today.getDate() === 31 && today.getMonth() + 1 === 3) ||
+    (today.getDate() === 20 && today.getMonth() + 1 === 11)
+  ) {
     spinner.value = 'transcat'
   }
 
