@@ -33,7 +33,7 @@
         "unknown_request": "Requisição desconhecida",
         "busy": "Servidor ocupado…"
     },
-    "all_apps": "Todas as aplicações",
+    "all_apps": "Todos os aplicativos",
     "api_error": {
         "error_message": "Mensagem de erro:",
         "info": "A informação a seguir pode ser útil para a pessoa que for te ajudar:",
@@ -236,7 +236,7 @@
             "userdoc": "Documentação de usuário oficial",
             "package_license": "Licença do pacote YunoHost",
             "license": "Licença do aplicativo",
-            "forum": "Tópicos sobre esse aplicativo no fórum do YunoHost",
+            "forum": "Tópicos sobre esse aplicativo no fórum da YunoHost",
             "website": "Website oficial"
         },
         "upgrade": {
@@ -255,7 +255,11 @@
                 "title": "Verifique as atualizações",
                 "apps": "Aplicativos a serem atualizados"
             },
-            "stop": "Cancelar as atualizações do próximo aplicativo"
+            "stop": "Cancelar as atualizações do próximo aplicativo",
+            "up_to_date": "Este aplicativo está atualizado!",
+            "advertise_testing_version": "Procurando uma nova versão do upstream? Talvez haja uma versão de 'teste' com a qual você possa ajudar os empacotadores no repositório git do pacote do YunoHost!",
+            "upgrade": "Atualizar",
+            "force_upgrade": "Forçar atualização"
         },
         "doc": {
             "notifications": {
@@ -300,7 +304,8 @@
         "upvote": "Se você quiser chamar a atenção para este aplicativo, pode votar nele em sua [página](https://apps.yunohost.org/app/{id}).",
         "uninstall": {
             "purge_desc": "Remover o diretório de dados associado ao aplicativo (são geralmente dados que você enviou usando o aplicativo).",
-            "uninstall": "Desinstalar"
+            "uninstall": "Desinstalar",
+            "desc": "Isso desinstalará o aplicativo do seu servidor.<br/>Você também terá a opção de limpar os dados durante o modal de confirmação."
         },
         "change_url": {
             "not_supported": "Este app não suporta a mudança de URL onde está instalado atualmente.",
@@ -404,5 +409,6 @@
     "confirm_upnp_enable": "Tem certeza de que deseja ativar o UPnP?",
     "diagnosis_explanation": "O recurso de diagnóstico tentará identificar problemas comuns nos diferentes aspectos do seu servidor para garantir que tudo funcione sem problemas. O diagnóstico é executado automaticamente duas vezes por dia e um e-mail é enviado ao administrador se problemas forem encontrados. Atente-se que alguns testes podem não ser relevantes se você não quiser usar alguns recursos específicos (por exemplo, e-mail) ou falhar se você tiver uma configuração complexa. Nesses casos, e se você souber o que está fazendo, é possível ignorar os problemas ou avisos correspondentes.",
     "app_state_broken_explanation": "Esse aplicativo está corrompido e não pode ser instalado conforme os testes automatizados do YunoHost",
-    "confirm_update_system": "Tem certeza de que deseja atualizar todos os pacotes do sistema?"
+    "confirm_update_system": "Tem certeza de que deseja atualizar todos os pacotes do sistema?",
+    "password": "Senha"
 }
