@@ -13,9 +13,7 @@ const apps = await api
           : 'data:image/png;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs='
         return { id, name: manifest.name, label: name, description, logoUrl }
       })
-      .sort((prev, app) => {
-        return prev.label > app.label ? 1 : -1
-      })
+      .sort((prev, app) => new Intl.Collator("en").compare)
   })
 
 const [search, filteredApps] = useSearch(apps, (s, app) =>
