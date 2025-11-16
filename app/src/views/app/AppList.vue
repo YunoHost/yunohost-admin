@@ -6,7 +6,7 @@ import type { AppList } from '@/types/core/api'
 const apps = await api
   .get<AppList>({ uri: 'apps?full', initial: true })
   .then(({ apps }) => {
-    const collator = new Intl.Collator("en");
+    const collator = new Intl.Collator('en')
     return apps
       .map(({ id, name, description, manifest, logo }) => {
         const logoUrl = logo
