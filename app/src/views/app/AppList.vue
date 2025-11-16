@@ -6,6 +6,7 @@ import type { AppList } from '@/types/core/api'
 const apps = await api
   .get<AppList>({ uri: 'apps?full', initial: true })
   .then(({ apps }) => {
+    const collator = new Intl.Collator("en");
     return apps
       .map(({ id, name, description, manifest, logo }) => {
         const logoUrl = logo
@@ -13,7 +14,7 @@ const apps = await api
           : 'data:image/png;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs='
         return { id, name: manifest.name, label: name, description, logoUrl }
       })
-      .sort((prev, app) => new Intl.Collator("en").compare)
+      .sort((prev, app) => collator.compare(prev.label, app.label))
   })
 
 const [search, filteredApps] = useSearch(apps, (s, app) =>
