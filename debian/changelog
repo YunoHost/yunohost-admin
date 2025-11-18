@@ -1,3 +1,15 @@
+yunohost-admin (12.1.13) stable; urgency=low
+
+  - apps: fix 'remove data dir' option in web admin has no effect #2610 ([#653](http://github.com/YunoHost/yunohost-admin/pull/653))
+  - chore: bump vite from 6.3.6 to 6.4.1 in /app ([#655](http://github.com/YunoHost/yunohost-admin/pull/655))
+  - i18n/doc: update yunohost.org urls such that they point directly to the new doc on doc.yunohost.org etc (62123f3c, 41e478d2)
+  - Transcat for TDoR? ([#657](http://github.com/YunoHost/yunohost-admin/pull/657))
+  - i18n: Translations updated for Basque, Catalan, French, Galician, German, Persian, Polish, Portuguese (Brazil), Russian
+
+  Thanks to all contributors <3 ! (Alekseï, Eduardo Mozart de Oliveira, Eryk Michalak, Florent, Francescc, José M, ppr, Samuel Otto, xabirequejo, نادکارو)
+
+ -- Alexandre Aubin <alex.aubin@mailoo.org>  Tue, 18 Nov 2025 20:57:56 +0100
+
 yunohost-admin (12.1.12) stable; urgency=low
 
   - deps: bump vite from 6.1.6 to 6.3.6 ([#650](http://github.com/YunoHost/yunohost-admin/pull/650))
