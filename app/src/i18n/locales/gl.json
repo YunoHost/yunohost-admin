@@ -599,8 +599,8 @@
     "confirm_app_upgrade": "Tes certeza de querer actualizar esta app?",
     "update": {
         "refresh_cache": "Recibir actualizacións dispoñibles",
-        "stale_cache": "A memoria tobo dos paquetes do sistema (apt/dpkg) actualizouse fai {lastAptUpdate} horas, e o catálogo de aplicacións de YunoHost actualizouse fai {lastAppsCatalogUpdate} horas. Actualiza para obter a última información.",
-        "ok_cache": "A memoria tobo coa información dos paquetes (apt/dpkg) actualizouse fai menos dunha hora, pero podes actualizala en calquera momento para obter a última información.",
+        "stale_cache": "A memoria tobo dos paquetes do sistema (apt/dpkg) actualizouse hai {lastAptUpdate} horas, e o catálogo de aplicacións de YunoHost actualizouse hai {lastAppsCatalogUpdate} horas. Actualiza para obter a última información.",
+        "ok_cache": "A memoria tobo coa información dos paquetes (apt/dpkg) actualizouse hai menos dunha hora, pero podes actualizala en calquera momento para obter a última información.",
         "very_stale_cache": "A memoria tobo do sistema de paquetes (apt/dpkg) non está ao día. Actualiza a memoria tobo para obter a última información."
     }
 }
