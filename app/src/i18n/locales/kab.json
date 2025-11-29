@@ -17,7 +17,8 @@
             "pending": "Iteddu",
             "error": "Ur yeddi ara akken iwata"
         },
-        "unknown_request": "Taɣult tarussint"
+        "unknown_request": "Taɣult tarussint",
+        "busy": "Aqeddac-a ur yestuffi ara…"
     },
     "created_at": "Yettwarna di",
     "domain_name": "Isem n Taɣult",
@@ -53,7 +54,8 @@
     "tools_webadmin": {
         "cache": "Tuffirt",
         "language": "Tutlayt",
-        "fallback_language": "Tutlayt tis snat"
+        "fallback_language": "Tutlayt tis snat",
+        "fallback_language_description": "Tutlayt ara yettwasqedcen ma ulac tasuqilt s tutlayt tagejdant."
     },
     "udp": "UDP",
     "unignore": "Ur yettwazgel ara",
@@ -96,7 +98,8 @@
     "footer": {
         "documentation": "Tasemlit",
         "help": "Tesriḍ tallelt?",
-        "donate": "Tawsa"
+        "donate": "Tawsa",
+        "tos": "Tiwtilin n useqdec"
     },
     "group_all_users": "Meṛṛa iseqdacen",
     "group": "Agraw",
@@ -156,7 +159,8 @@
     "domain_add": "Rnu taɣult",
     "form_errors": {
         "remote": "{message}",
-        "pattern": "{type}"
+        "pattern": "{type}",
+        "notInUsers": "Amiḍan '{value}' yella yakan."
     },
     "domain": {
         "types": {
@@ -170,6 +174,12 @@
         },
         "dns": {
             "auto_config_zone": "Tamnaḍt tamirant n DNS"
+        },
+        "info": {
+            "apps_on_domain": "Isnasen yattusbedden ɣef taɣult"
+        },
+        "add": {
+            "from_registrar": "Bɣiɣ ad rnuɣ taɣult i sɛiɣ yakan"
         }
     },
     "app": {
@@ -191,13 +201,29 @@
                 "understood": "Gziɣ"
             }
         },
-        "installed_version": "Lqem yettwasbedden:"
+        "installed_version": "Lqem yettwasbedden:",
+        "uninstall": {
+            "uninstall": "Kkes asebded"
+        },
+        "upgrade": {
+            "upgrade": "Sali aswir",
+            "force_upgrade": "Hettem asali n uswir",
+            "continue": "Ddu ɣer usnas d-iteddun"
+        },
+        "open_this_app": "Ldi asnas-a",
+        "install": {
+            "version": "Lqem amiran: {version}"
+        },
+        "info": {
+            "problem": "Ɣur-k·m ugur deg usnas-a?"
+        }
     },
     "yunohost_admin": "Anedbal YunoHost",
     "hook_conf_ynh_settings": "Twilat n YunoHost",
     "loading": "Aɛebbi",
     "tos": {
-        "i_agree": "Qebleɣ"
+        "i_agree": "Qebleɣ",
+        "i_have_read": "Ɣriɣ yakan rnu gziɣ <a href='https://doc.yunohost.org/terms_of_services' target='_blank'>Tiwtilin n useqdec</a>"
     },
     "users_import": "Kter imiḍanen",
     "install_name": "Asebded n {id}",
@@ -226,12 +252,16 @@
     "app_show_categories": "Sken-d taggayin",
     "upnp": "UPnP",
     "form": {
-        "current_file": "Afaylu amiran:"
+        "current_file": "Afaylu amiran:",
+        "select_one": "Ttxil, fren taxtiṛt"
     },
     "backup_new": "Aḥraz amaynut",
     "ignored": "{count} yettwanef",
     "postinstall": {
-        "title": "Aglezasbeddi"
+        "title": "Aglezasbeddi",
+        "user": {
+            "title": "Asnulfu n umiḍan n tedbelt amezwaru"
+        }
     },
     "since": "seg",
     "local_archives": "Taṛcivt tadigant",
@@ -251,5 +281,17 @@
     "set_default": "Sbadu d amezwer",
     "backup_create": "Snulfu-d taḥerzet",
     "system_update": "Amucceḍ n unagraw",
-    "system_upgrade_all_applications_btn": "Mucceḍ isnasen s umata"
+    "system_upgrade_all_applications_btn": "Mucceḍ isnasen s umata",
+    "install_app": "Sebded asnas",
+    "backup_content": "Agbur n uḥraz",
+    "label_for_manifestname": "Tabzimt i {name}",
+    "items": {
+        "apps": "Ula d yiwen n usnas | asnas | isnasen",
+        "users": "Ula d yiwen umiḍan | amiḍan | imiḍanen"
+    },
+    "system_packages_nothing": "Ikemmusen n unagraw akken ma llan ttuleqmen!",
+    "system_apps_nothing": "Isnasen akken ma llan ttuleqmen!",
+    "update": {
+        "refresh_cache": "Awi-d ileqqman yellan"
+    }
 }
