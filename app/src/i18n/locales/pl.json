@@ -44,7 +44,7 @@
         "server_said": "Podczas wykonywania zadania serwer odpowiedział:",
         "info": "Poniższe informacje mogą być przydatne dla osoby udzielającej Ci pomocy:",
         "error_message": "Wiadomość błędu:",
-        "help": "Poszukaj pomocy na <a href=\"https://forum.yunohost.org/\">forum</a>lub na <a href=\"https://chat.yunohost.org/\">czacie</a> aby rozwiązać problem, albo zgłoś błąd na <a href=\"https://github.com/YunoHost/issues\">bugtrackerze\"</a>."
+        "help": "Aby rozwiązać problem poszukaj pomocy na <a href=\"https://forum.yunohost.org/\">forum</a> lub na <a href=\"https://chat.yunohost.org/\">czacie</a>, albo zgłoś błąd na <a href=\"https://github.com/YunoHost/issues\">bugtrackerze\"</a>."
     },
     "api": {
         "query_status": {
@@ -296,7 +296,7 @@
     "only_highquality_apps": "Tylko wysokiej jakości programy",
     "operations": "Operacje",
     "orphaned_details": "Ta aplikacja nie była rozwijana od jakiegoś czasu. Może działać, ale nie otrzyma żadnej aktualizacji dopóki żaden wolontariusz o to nie zadba. Nie krępuj się ożywić ten projekt!",
-    "operation_failed_explanation": "Operacja się nie udała! Bardzo mi przykro :( Spróbuj <a href='https://doc.yunohost.org/help'>zasięgnąć pomocy</a>. Podaj *pełny log* tej operacji osobom, którzy mogliby Ci pomóc - możesz to zrobić klikając zielony przycisk \"Udostępnij z Yunopaste\". Udostępniając logi, YunoHost automatycznie podejmie próby anonimizacji prywatnych danych takich jak nazwy domen i adresy IP.",
+    "operation_failed_explanation": "Operacja się nie udała! Bardzo mi przykro :( Możesz spróbować <a href='https://doc.yunohost.org/help'>poprosić o pomoc</a>. Podaj *pełny log* tej operacji osobom, które mogłyby Ci pomóc - możesz to zrobić klikając zielony przycisk \"Udostępnij z Yunopaste\". Udostępniając logi, YunoHost automatycznie podejmie próby anonimizacji prywatnych danych takich jak nazwy domen i adresy IP.",
     "logs_share_with_yunopaste": "Udostępnij log z YunoPaste",
     "path": "Położenie",
     "pending_migrations": "Istnieją migracje oczekujące na uruchomienie. Przejdź do <a href='#/tools/migrations'>Narzędzia > Migracje</a>, aby je uruchomić.",
