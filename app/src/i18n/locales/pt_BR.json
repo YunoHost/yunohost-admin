@@ -227,7 +227,7 @@
                 "?": "Sem informação sobre integração com LDAP",
                 "false": "Não usa contas YunoHost para login (LDAP)"
             },
-            "title": "Integração YunoHost"
+            "title": "Integração com o YunoHost"
         },
         "links": {
             "admindoc": "Documentação oficial do admin",
