@@ -333,12 +333,14 @@
         "reconnecting": {
             "title": "Temptativa de comunicacion amb lo servidor…",
             "reason": {
-                "unknown": "La connexion amb lo servidor es estada copada per una rason desconeguda.",
-                "reboot": "Vòstre servidor tòrna aviar e serà pas contactable pendent un moment. Una fenèstra de connexion serà disponibla tre que lo servidor serà accessible.",
-                "shutdown": "Vòstre servidor es a s’aturar e serà pas mai contactable. Reaviatz-lo e una fenèstra de connexion serà disponibla tre que lo servidor serà contactable.",
+                "unknown": "La connexion amb lo servidor es estada copada per una rason desconeguda. Benlèu que « yunohost-api » respond pas mai ?",
+                "reboot": "Vòstre servidor tòrna aviar e serà pas contactable pendent un moment.",
+                "shutdown": "Vòstre servidor es a s’aturar e serà pas mai contactable.",
                 "upgrade_system": "La connexion al servidor es estada tampada a causa de la mesa a nivèl de YunoHost. En espèra de poder contactar lo servidor de nòu…"
             }
-        }
+        },
+        "busy": "Lo servidor es indisponible…",
+        "unknown_request": "Requèsta desconeguda"
     },
     "domain_add_dyndns_forbidden": "Se vos abonèretz a un domeni DynDNS, podètz demandar la supression de vòstre domeni DynDNS actual sul forum<a href='//forum.yunohost.org/t/nohost-domain-recovery-suppression-de-domaine-en-nohost-me-noho-st-et-ynh-fr/442'> al fial de discussion dedicat</a>.",
     "confirm_group_add_access_permission": "Volètz vertadièrament donar l’accès a {perm} a {name} ? Un tal accès aumenta bravament la susfàcia d’ataca se {name} se tròba qu’es un mala persona. Deuriatz sonque o far se VOS FISATZ d’aquesta persona / aqueste grop.",
@@ -476,15 +478,24 @@
             "continue": "Passar a l’aplicacion seguenta",
             "notifs": {
                 "pre": {
-                    "title": "Siatz avisat !"
+                    "title": "Nòtas importantas"
                 },
                 "post": {
                     "title": "Notificacion de post mesa a nivèl per « {name} »"
                 }
             },
-            "stop": "Anullar las mesas a jorn d’aplicacion venentas"
+            "stop": "Anullar las mesas a jorn d’aplicacion venentas",
+            "up_to_date": "Aquesta aplicacion es a jorn !",
+            "upgrade": "Metre a nivèl"
         },
-        "potential_alternative_to": "Alternativa potenciala a :"
+        "potential_alternative_to": "Alternativa potenciala a :",
+        "change_url": {
+            "title": "Desplaçar l’aplicacion cap a una autra URL",
+            "change_url": "Modificar l’URL"
+        },
+        "uninstall": {
+            "uninstall": "Desinstallar"
+        }
     },
     "app_state_broken_explanation": "Aquesta aplicacion es actualament copada e se pòt pas installar segon los contraròtles automatic de YunoHost",
     "app_state_broken": "copada",
