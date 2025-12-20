@@ -116,7 +116,7 @@
     "password_confirmation": "Asentem n wawal uffir",
     "path": "Chemin d'accès",
     "logs_path": "Chemin d'accès",
-    "restart": "Ales tanekra",
+    "restart": "Ales asekker",
     "protocol": "Protocole",
     "restore": "Err-d",
     "run": "Selkem",
@@ -127,7 +127,7 @@
     "skip": "Zgel",
     "start": "Démarrer",
     "status": "État",
-    "stop": "Arrêter",
+    "stop": "Seḥbes",
     "system": "Anagraw",
     "system_upgrade_btn": "Leqqem",
     "tcp": "TCP",
@@ -169,14 +169,16 @@
         "cert": {
             "types": {
                 "other": "Wayeḍ/Arussin",
-                "letsencrypt": "Let's Encrypt"
+                "letsencrypt": "Let's Encrypt",
+                "selfsigned": "Yettwazmel i yiman-is"
             }
         },
         "dns": {
             "auto_config_zone": "Tamnaḍt tamirant n DNS"
         },
         "info": {
-            "apps_on_domain": "Isnasen yattusbedden ɣef taɣult"
+            "apps_on_domain": "Isnasen yattusbedden ɣef taɣult",
+            "certificate_authority": "Adabu n uselken SSL"
         },
         "add": {
             "from_registrar": "Bɣiɣ ad rnuɣ taɣult i sɛiɣ yakan"
@@ -287,11 +289,23 @@
     "label_for_manifestname": "Tabzimt i {name}",
     "items": {
         "apps": "Ula d yiwen n usnas | asnas | isnasen",
-        "users": "Ula d yiwen umiḍan | amiḍan | imiḍanen"
+        "users": "Ula d yiwen umiḍan | amiḍan | imiḍanen",
+        "groups": "ulac igrawen | n ugraw | n igrawen"
     },
     "system_packages_nothing": "Ikemmusen n unagraw akken ma llan ttuleqmen!",
     "system_apps_nothing": "Isnasen akken ma llan ttuleqmen!",
     "update": {
         "refresh_cache": "Awi-d ileqqman yellan"
-    }
+    },
+    "groups_and_permissions": "Igrawen akked tisirag",
+    "groups_and_permissions_manage": "Sefrek igrawen akked tisirag",
+    "permission_main": "Tabzimt tamatut",
+    "select_none": "Kkes tafrayt",
+    "diagnosis": "Tawassna",
+    "migrations": "Tunigin",
+    "confirm_service_stop": "S tidett, tebɣiḍ ad ttsḥebseḍ {name}?",
+    "logs_share_with_yunopaste": "Bḍu iɣmisen s YunoPaste",
+    "logs_operation": "Timhilin i d-yellan ɣef unagraw s YunoHost",
+    "api_waiting": "Araǧu n tiririt n uqeddac…",
+    "confirm_delete": "S tidet, tebɣiḍ ad tekkseḍ {name}?"
 }
