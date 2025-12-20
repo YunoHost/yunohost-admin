@@ -600,7 +600,7 @@
         "refresh_cache": "Bilatu eskuragarri dauden eguneraketak",
         "stale_cache": "Sistemaren pakete-katxea (apt/dpkg) duela {lastAptUpdate} ordu eta YunoHosten aplikazioen katalogoa duela {lastAppsCatalogUpdate} ordu eguneratu dira. Freskatu itzazu informazio eguneratua eskuratzeko.",
         "very_stale_cache": "Aplikazioen katalogoa edo sistemaren pakete-katxea (apt/dpkg) zaharkitua dago. Freskatu katxea informazio eguneratua eskuratzeko.",
-        "ok_cache": "Aplikazioen katalogoa eta sistemaren pakete-katxea (apt/dpkg) duela ordubete baino gutxiago eguneratu da. Hala ere, edozein momentutan freskatu ditzakezu informazio eguneratua eskuratzeko."
+        "ok_cache": "Aplikazioen katalogoa eta sistemaren pakete-katxea (apt/dpkg) duela ordubete baino gutxiago eguneratu dira. Hala ere, edozein momentutan freskatu ditzakezu informazio eguneratua eskuratzeko."
     },
     "confirm_app_upgrade": "Ziur aplikazioa bertsio-berritu nahi duzula?"
 }
