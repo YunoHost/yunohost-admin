@@ -362,7 +362,8 @@
         },
         "info": {
             "certificate_authority": "Autoritat de certificacion SSL",
-            "apps_on_domain": "Aplicacions installada sul domeni"
+            "apps_on_domain": "Aplicacions installada sul domeni",
+            "registrar": "Registrador"
         },
         "see_parent_domain": "Veire lo domeni parent",
         "toggle_subdomains": "Veire los jos domenis",
@@ -372,7 +373,8 @@
                 "other": "Autre/Desconegut",
                 "selfsigned": "Auto-signat"
             },
-            "valid_for": "valable pendent {days}"
+            "valid_for": "valable pendent {days}",
+            "install": "Installar tanben lo certificat Let's Encrypt"
         },
         "types": {
             "main_domain": "Domeni màger"
@@ -380,7 +382,12 @@
         "add": {
             "dyn_dns_password": "Senhal de recuperacion del domeni",
             "from_local": "Vòli un domeni per un usatge local / de provar sonque",
-            "from_registrar": "Vòli apondre un domeni que possedissi"
+            "from_registrar": "Vòli apondre un domeni que possedissi",
+            "from_registrar_desc": "Vos caldrà configurar manualament los enregistraments DNS en çò de vòstre registrador ont avètz crompat vòstre nom de domeni per finalizar la configuracion d'aqueste domeni. Lo diagnostic de YunoHost vos guidarà suls enregistraments DNS de configurar coma cal.",
+            "from_subdomain": "Vòli apondre un sosdomeni d'un domeni ja apondut",
+            "from_subdomain_desc": "Se vòstres enregistraments DNS configurats o permeton, poiretz installar automaticament lo certificat Let's Encrypt.",
+            "from_yunohost": "Possedissi pas de domeni, vòli enregistrar/utilizar un domeni DynDNS gratuit provesit pel projècte YunoHost",
+            "from_yunohost_desc": "Lo projècte YunoHost manten un servici « DynDNS » a gratis. Es limitat a un d'aquestes domenis per servidor (e mai se podètz tanben apondre de sosdomenis mai tard en utilizant l'autra opcion « Apondre un domeni qu'ai o un sosdomeni » çaisús). La configuracion DNS serà gerida automaticament per YunoHost. Aquò es ideal quand començatz amb l'autoalbergament en general e volètz pas encara investir dins un nom de domeni. Pasmens, a mejan/long tèrme, vos recomandam de crompar vòstre pròpri nom de domeni en cò d'un registrador per aver la proprietat totala de vòstre domeni."
         }
     },
     "users_import": "Importar los utilizaires",
@@ -513,5 +520,11 @@
     "form": {
         "current_file": "Fichièr actual :",
         "select_one": "Seleccionatz una opcion"
+    },
+    "failed": "Fracàs",
+    "groups": {
+        "remove_user": {
+            "confirm_from_admins": "Volètz vertadièrament vos tirar del grop « admins » ?"
+        }
     }
 }
