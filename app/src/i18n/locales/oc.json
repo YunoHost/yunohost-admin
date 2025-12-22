@@ -98,7 +98,7 @@
     "system": "Sistèma",
     "system_apps_nothing": "Totas las aplicacions son a jorn !",
     "system_packages_nothing": "Totes los paquets sistèma son a jorn !",
-    "system_update": "Mesa a jorn del sistèma",
+    "system_update": "Mesas a jorn",
     "system_upgrade_btn": "Metre a jorn",
     "system_upgrade_all_applications_btn": "Metre a jorn totas las aplicacions",
     "system_upgrade_all_packages_btn": "Metre a jorn totes los paquets",
@@ -230,7 +230,8 @@
         "transitions": "Animacion de transicion entre las paginas",
         "fallback_language_description": "La lenga que serà utilizada se per cas la traduccion es pas disponibla dins la lenga principala.",
         "experimental_description": "Aquò vos dòna accès a de foncionalitats experimentalas. Aquelas son consideradas coma instablas e pòdon copar vòstre sistèma. <br> Activatz-las sonque se sabètz çò que fasètz.",
-        "cache_description": "Pensatz de vos desactivar lo cache se prevesètz de trabalhar amb l’interfàcia en linha de comanda (CLI) tot en navigant dins l’administracion web (web-admin/panel web)."
+        "cache_description": "Pensatz de vos desactivar lo cache se prevesètz de trabalhar amb l’interfàcia en linha de comanda (CLI) tot en navigant dins l’administracion web (web-admin/panel web).",
+        "theme": "Passar al mòde escur"
     },
     "tools_webadmin_settings": "Paramètres de l'administracion web",
     "unknown": "Desconegut",
@@ -238,7 +239,10 @@
     "user_emailaliases_add": "Ajustar un alias d’adreça electronica",
     "postinstall": {
         "force": "Forçar la post-installacion",
-        "title": "Pòst-installacion"
+        "title": "Pòst-installacion",
+        "user": {
+            "title": "Creacion del primièr compte d’administracion"
+        }
     },
     "placeholder": {
         "domain": "mon-domeni.fr",
@@ -261,14 +265,16 @@
         "apps": "cap d’aplicacion | app | aplicacions",
         "permissions": "cap de permission | permission | permissions",
         "logs": "cap de jornal| jornal | jornals",
-        "items": "cap d'element | element | elements"
+        "items": "cap d'element | element | elements",
+        "disk": "cap de disc | disc | disques"
     },
     "hook_conf_manually_modified_files": "Fichièr de configuracion modificat manualament",
     "hook_conf_ynh_settings": "Configuracion de YunoHost",
     "history": {
         "last_action": "Darrièra accion :",
         "title": "Istoric",
-        "is_empty": "Pas res dins l’istoric pel moment."
+        "is_empty": "Pas res dins l’istoric pel moment.",
+        "started_by": "aviat per {caller}"
     },
     "form_errors": {
         "required": "Aqueste camp es obligatòri.",
@@ -515,7 +521,8 @@
     "tools_yunohost_settings": "Paramètres de YunoHost",
     "quick_action": "Accion rapida",
     "tos": {
-        "i_agree": "Soi d'acòrdi"
+        "i_agree": "Soi d'acòrdi",
+        "i_have_read": "Ai legit e comprés las <a href='https://doc.yunohost.org/terms_of_services' target='_blank'>condicions d'utilizacion</a>"
     },
     "form": {
         "current_file": "Fichièr actual :",
@@ -526,5 +533,23 @@
         "remove_user": {
             "confirm_from_admins": "Volètz vertadièrament vos tirar del grop « admins » ?"
         }
+    },
+    "hook_data_multimedia": "Donadas multimèdia",
+    "stopped": "Arrestat",
+    "storage": "Emmagazinatge",
+    "storage_disks": {
+        "category_name": "Disques durs",
+        "infos": {
+            "usb_icon_alt": "Aqueste aparelh es connectat en USB",
+            "ejectable_icon_alt": "Aqueste aparelh es ejectable",
+            "serial": "Numèro de seria :",
+            "serial_unknown": "Desconegut",
+            "size": "Talha :",
+            "type": "Tipe :"
+        }
+    },
+    "update": {
+        "refresh_cache": "Recuperar las mesas a jorn disponiblas",
+        "stale_cache": "Lo cache de paquets del sistèma (apt/dpkg) es estat mes a jorn fa {lastAptUpdate} oras, e lo catalòg d'aplicacions YunoHost es estat mes a jorn fa {lastAppsCatalogUpdate} oras. Pensatz de los refrescar per obténer d'informacions a jorn."
     }
 }
