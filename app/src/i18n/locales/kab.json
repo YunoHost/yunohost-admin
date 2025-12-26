@@ -35,19 +35,19 @@
     },
     "home": "Agejdan",
     "id": "ID",
-    "ignore": "Ignorer",
+    "ignore": "Zgel-it",
     "infos": "talɣut",
-    "next": "Suivant",
+    "next": "Uḍfiṛ",
     "no": "Uhu",
     "ok": "Ih",
     "open": "Ldi",
     "operations": "Timhalin",
     "logs": "Aɣmis",
     "logs_error": "Tuccḍa",
-    "logs_ended_at": "Fin",
-    "logs_started_at": "Démarrer",
-    "port": "Port",
-    "previous": "Précédent",
+    "logs_ended_at": "Tagara",
+    "logs_started_at": "Tazwara",
+    "port": "Tawwurt",
+    "previous": "Uzwir",
     "service_start_on_boot": "Bdu seg usenker",
     "services": "Imeẓla",
     "tools": "Ifecka",
@@ -62,7 +62,7 @@
     "unknown": "D arussin",
     "url": "URL",
     "user_email": "Imayl",
-    "user_fullname": "Isem inek ummid",
+    "user_fullname": "Isem-inek·inem ummid",
     "user_interface_link": "Awwur",
     "version": "Lqem",
     "words": {
@@ -80,18 +80,18 @@
         "view_error": "Wali tuccḍa"
     },
     "applications": "Isnasen",
-    "backup": "Asekles",
-    "backup_action": "Sekles",
+    "backup": "Aḥraz",
+    "backup_action": "Ḥrez",
     "begin": "Bdu",
     "cancel": "Sefsex",
     "catalog": "Akaram",
-    "check": "Rrcem",
+    "check": "Senqed",
     "close": "Mdel",
     "delete": "Kkes",
     "configuration": "Tawila",
-    "description": "Asnummel",
+    "description": "Aglam",
     "details": "Talqayt",
-    "disable": "Désactiver",
+    "disable": "Kkes armad",
     "disabled": "Ittwarermed",
     "firewall": "Aɣṛab n tmes",
     "group_name": "Isem n wegraw",
@@ -114,10 +114,10 @@
     "others": "Wiyyaḍ",
     "password": "Awal n uɛeddi",
     "password_confirmation": "Asentem n wawal uffir",
-    "path": "Chemin d'accès",
-    "logs_path": "Chemin d'accès",
+    "path": "Abrid",
+    "logs_path": "Abrid",
     "restart": "Ales asekker",
-    "protocol": "Protocole",
+    "protocol": "Aneggaf",
     "restore": "Err-d",
     "run": "Selkem",
     "running": "En cours d'exécution",
@@ -125,8 +125,8 @@
     "select_all": "Fren akk",
     "size": "Teɣzi",
     "skip": "Zgel",
-    "start": "Démarrer",
-    "status": "État",
+    "start": "Bdu",
+    "status": "Addad",
     "stop": "Seḥbes",
     "system": "Anagraw",
     "system_upgrade_btn": "Leqqem",
@@ -160,7 +160,9 @@
     "form_errors": {
         "remote": "{message}",
         "pattern": "{type}",
-        "notInUsers": "Amiḍan '{value}' yella yakan."
+        "notInUsers": "Amiḍan '{value}' yella yakan.",
+        "passwordLenght": "Awal n uɛeddi ilaq ad isɛu ma drus 8 n isekkilen di teɣzi.",
+        "passwordMatch": "Awalen n uɛeddi ur mṣadan ara."
     },
     "domain": {
         "types": {
@@ -188,7 +190,12 @@
         "links": {
             "website": "Asmel web unṣib",
             "title": "Asaɣen",
-            "license": "Turagt n usnas"
+            "license": "Turagt n usnas",
+            "code": "Akufi n tengalt unṣib",
+            "admindoc": "Tisemlit tunṣibt n tedbelt",
+            "package": "Akufi n ukemmus n YunoHost",
+            "package_license": "Turagt n ukemmus n YunoHost",
+            "userdoc": "Tisemlit tunṣibt n useqdac"
         },
         "integration": {
             "ldap": {
@@ -210,7 +217,8 @@
         "upgrade": {
             "upgrade": "Sali aswir",
             "force_upgrade": "Hettem asali n uswir",
-            "continue": "Ddu ɣer usnas d-iteddun"
+            "continue": "Ddu ɣer usnas d-iteddun",
+            "up_to_date": "Asnas-a yettuleqqem!"
         },
         "open_this_app": "Ldi asnas-a",
         "install": {
@@ -218,6 +226,9 @@
         },
         "info": {
             "problem": "Ɣur-k·m ugur deg usnas-a?"
+        },
+        "change_url": {
+            "change_url": "Senfel URL"
         }
     },
     "yunohost_admin": "Anedbal YunoHost",
@@ -290,9 +301,11 @@
     "items": {
         "apps": "Ula d yiwen n usnas | asnas | isnasen",
         "users": "Ula d yiwen umiḍan | amiḍan | imiḍanen",
-        "groups": "ulac igrawen | n ugraw | n igrawen"
+        "groups": "ulac igrawen | n ugraw | n igrawen",
+        "disk": "ula d yiwen n uḍebsi | n uḍebsi | n iḍebsiyen",
+        "packages": "ula d yiwen u ukemmus | n ukemmus | n ikemmusen"
     },
-    "system_packages_nothing": "Ikemmusen n unagraw akken ma llan ttuleqmen!",
+    "system_packages_nothing": "Ikemmusen n unagraw akken ma llan ttuleqmen!",
     "system_apps_nothing": "Isnasen akken ma llan ttuleqmen!",
     "update": {
         "refresh_cache": "Awi-d ileqqman yellan"
@@ -307,5 +320,14 @@
     "logs_share_with_yunopaste": "Bḍu iɣmisen s YunoPaste",
     "logs_operation": "Timhilin i d-yellan ɣef unagraw s YunoHost",
     "api_waiting": "Araǧu n tiririt n uqeddac…",
-    "confirm_delete": "S tidet, tebɣiḍ ad tekkseḍ {name}?"
+    "confirm_delete": "S tidet, tebɣiḍ ad tekkseḍ {name}?",
+    "app_install_custom_no_manifest": "Ula d yiwen n ufaylu manifest.json ma yella",
+    "details_about": "Sken-d ugar n telqayt ɣef {subject}",
+    "from_to": "seg {0} ar {1}",
+    "upnp_enabled": "UPnP d urmid.",
+    "upnp_disabled": "UPnP d arurmid.",
+    "wrong_password_or_username": "Awal n uɛeddi neɣ isem n useqdac d arameɣtu",
+    "confirm_reboot_action_reboot": "S tidet tebɣiḍ ad talseḍ asekker n uqeddac-ik·im?",
+    "confirm_reboot_action_shutdown": "S tidet tebɣiḍ ad tsexsiḍ aqeddac-ik·im?",
+    "mailbox_quota_example": "700M d aCD, 4700M d aDVD"
 }
