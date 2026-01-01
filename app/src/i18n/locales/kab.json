@@ -18,7 +18,8 @@
             "error": "Ur yeddi ara akken iwata"
         },
         "unknown_request": "Taɣult tarussint",
-        "busy": "Aqeddac-a ur yestuffi ara…"
+        "busy": "Aqeddac-a ur yestuffi ara…",
+        "processing": "Ha-t-an uqeddac yeskaray tigawt-nni…"
     },
     "created_at": "Yettwarna di",
     "domain_name": "Isem n Taɣult",
