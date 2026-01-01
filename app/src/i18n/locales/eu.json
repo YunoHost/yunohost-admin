@@ -320,7 +320,7 @@
     "logs_error": "Errorea",
     "logs_ended_at": "Amaiera",
     "logs_more": "Erakutsi lerro gehiago",
-    "postinstall_intro_1": "Bejon deizula! YunoHost arazorik gabe instalatu da.",
+    "postinstall_intro_1": "Zu bai, zu! YunoHost arazorik gabe instalatu da.",
     "postinstall_intro_3": "Argibide gehiago lor ditzakezu <a href='//doc.yunohost.org/install' target='_blank'>dokumentazio gunea</a> bisitatuz",
     "postinstall_intro_2": "Bi urrats gehiago behar dira zerbitzariko zerbitzuak gaitzeko.",
     "mailbox_quota_example": "CD bat 700M dira, DVD bat 4700M",
