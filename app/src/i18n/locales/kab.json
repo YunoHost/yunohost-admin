@@ -121,7 +121,7 @@
     "protocol": "Aneggaf",
     "restore": "Err-d",
     "run": "Selkem",
-    "running": "En cours d'exécution",
+    "running": "iteddu",
     "save": "Ḥrez",
     "select_all": "Fren akk",
     "size": "Teɣzi",
@@ -330,5 +330,7 @@
     "wrong_password_or_username": "Awal n uɛeddi neɣ isem n useqdac d arameɣtu",
     "confirm_reboot_action_reboot": "S tidet tebɣiḍ ad talseḍ asekker n uqeddac-ik·im?",
     "confirm_reboot_action_shutdown": "S tidet tebɣiḍ ad tsexsiḍ aqeddac-ik·im?",
-    "mailbox_quota_example": "700M d aCD, 4700M d aDVD"
+    "mailbox_quota_example": "700M d aCD, 4700M d aDVD",
+    "app_state_inprogress": "mazal ur iteddu ara",
+    "app_state_lowquality": "taɣara tameẓyant"
 }
