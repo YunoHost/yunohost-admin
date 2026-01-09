@@ -294,7 +294,7 @@
     "group_add_permission": "Rnu tasiregt",
     "set_default": "Sbadu d amezwer",
     "backup_create": "Snulfu-d taḥerzet",
-    "system_update": "Ileqman",
+    "system_update": "Ileqman n umucceḍ",
     "system_upgrade_all_applications_btn": "Mucceḍ isnasen s umata",
     "install_app": "Sebded asnas",
     "backup_content": "Agbur n uḥraz",
@@ -309,7 +309,7 @@
     "system_packages_nothing": "Ikemmusen n unagraw akken ma llan ttuleqmen!",
     "system_apps_nothing": "Isnasen akken ma llan ttuleqmen!",
     "update": {
-        "refresh_cache": "Awi-d ileqqman yellan"
+        "refresh_cache": "Awway n ileqman n umucceḍ yellan"
     },
     "groups_and_permissions": "Igrawen akked tisirag",
     "groups_and_permissions_manage": "Sefrek igrawen akked tisirag",
@@ -332,5 +332,7 @@
     "confirm_reboot_action_shutdown": "S tidet tebɣiḍ ad tsexsiḍ aqeddac-ik·im?",
     "mailbox_quota_example": "700M d aCD, 4700M d aDVD",
     "app_state_inprogress": "mazal ur iteddu ara",
-    "app_state_lowquality": "taɣara tameẓyant"
+    "app_state_lowquality": "taɣara tameẓyant",
+    "users_import_update": "Mucceḍ imiḍanen i yellan",
+    "confirm_update_system": "S tidet tebɣiḍ ad tleqqemeḍ akk ikemmusen-nni n unagraw?"
 }
