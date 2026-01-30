@@ -58,6 +58,14 @@ const fromValidation = computed(() => {
     max: 'max' in validation ? validation.max.$params.max : undefined,
   }
 })
+
+function onInputChange(event: Event) {
+  const target = event.target as HTMLInputElement
+  if (target) {
+    // Force sync DOM value with Vue state (fixes password manager autofill)
+    modelValue.value = target.value
+  }
+}
 </script>
 
 <template>
@@ -77,6 +85,7 @@ const fromValidation = computed(() => {
     :spellcheck="spellcheck"
     :autofocus="autofocus"
     :disabled="disabled"
+    @change="onInputChange"
     @blur="touch?.(touchKey)"
   />
 </template>
