@@ -118,7 +118,7 @@
     "confirm_service_stop": "Voulez-vous vraiment arrêter {name} ?",
     "confirm_upnp_enable": "Voulez-vous vraiment activer l'UPnP ?",
     "confirm_upnp_disable": "Voulez-vous vraiment désactiver l'UPnP ?",
-    "domain_dns_conf_is_just_a_recommendation": "Cette section montre la configuration *recommandée*. Elle ne configure *pas* le DNS pour vous. Il est de votre responsabilité de configurer votre zone DNS, généralement depuis l'interface web de votre fournisseur de nom de domaine (registrar) conformément à cette recommandation.",
+    "domain_dns_conf_is_just_a_recommendation": "Cette section montre la configuration *recommandée*. Elle ne configure *pas* le DNS pour vous. Il est de votre ressort de configurer votre zone DNS chez votre fournisseur de nom de domaine (registrar) conformément à cette recommandation.",
     "confirm_reboot_action_reboot": "Voulez-vous vraiment redémarrer votre serveur ?",
     "confirm_reboot_action_shutdown": "Voulez-vous vraiment éteindre votre serveur ?",
     "ok": "OK",

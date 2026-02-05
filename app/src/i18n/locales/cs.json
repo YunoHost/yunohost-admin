@@ -207,7 +207,7 @@
         "for": "Hledat {items}…"
     },
     "save": "Uložit",
-    "running": "Provádí se",
+    "running": "Běží",
     "logs_operation": "YunoHost provedené akce",
     "logs_suboperations": "Další akce",
     "logs": "Záznamy",

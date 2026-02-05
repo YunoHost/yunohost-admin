@@ -98,7 +98,7 @@
     "system": "Sistèma",
     "system_apps_nothing": "Totas las aplicacions son a jorn !",
     "system_packages_nothing": "Totes los paquets sistèma son a jorn !",
-    "system_update": "Mesa a jorn del sistèma",
+    "system_update": "Mesas a jorn",
     "system_upgrade_btn": "Metre a jorn",
     "system_upgrade_all_applications_btn": "Metre a jorn totas las aplicacions",
     "system_upgrade_all_packages_btn": "Metre a jorn totes los paquets",
@@ -230,7 +230,8 @@
         "transitions": "Animacion de transicion entre las paginas",
         "fallback_language_description": "La lenga que serà utilizada se per cas la traduccion es pas disponibla dins la lenga principala.",
         "experimental_description": "Aquò vos dòna accès a de foncionalitats experimentalas. Aquelas son consideradas coma instablas e pòdon copar vòstre sistèma. <br> Activatz-las sonque se sabètz çò que fasètz.",
-        "cache_description": "Pensatz de vos desactivar lo cache se prevesètz de trabalhar amb l’interfàcia en linha de comanda (CLI) tot en navigant dins l’administracion web (web-admin/panel web)."
+        "cache_description": "Pensatz de vos desactivar lo cache se prevesètz de trabalhar amb l’interfàcia en linha de comanda (CLI) tot en navigant dins l’administracion web (web-admin/panel web).",
+        "theme": "Passar al mòde escur"
     },
     "tools_webadmin_settings": "Paramètres de l'administracion web",
     "unknown": "Desconegut",
@@ -238,7 +239,10 @@
     "user_emailaliases_add": "Ajustar un alias d’adreça electronica",
     "postinstall": {
         "force": "Forçar la post-installacion",
-        "title": "Pòst-installacion"
+        "title": "Pòst-installacion",
+        "user": {
+            "title": "Creacion del primièr compte d’administracion"
+        }
     },
     "placeholder": {
         "domain": "mon-domeni.fr",
@@ -261,14 +265,16 @@
         "apps": "cap d’aplicacion | app | aplicacions",
         "permissions": "cap de permission | permission | permissions",
         "logs": "cap de jornal| jornal | jornals",
-        "items": "cap d'element | element | elements"
+        "items": "cap d'element | element | elements",
+        "disk": "cap de disc | disc | disques"
     },
     "hook_conf_manually_modified_files": "Fichièr de configuracion modificat manualament",
     "hook_conf_ynh_settings": "Configuracion de YunoHost",
     "history": {
         "last_action": "Darrièra accion :",
         "title": "Istoric",
-        "is_empty": "Pas res dins l’istoric pel moment."
+        "is_empty": "Pas res dins l’istoric pel moment.",
+        "started_by": "aviat per {caller}"
     },
     "form_errors": {
         "required": "Aqueste camp es obligatòri.",
@@ -333,12 +339,14 @@
         "reconnecting": {
             "title": "Temptativa de comunicacion amb lo servidor…",
             "reason": {
-                "unknown": "La connexion amb lo servidor es estada copada per una rason desconeguda.",
-                "reboot": "Vòstre servidor tòrna aviar e serà pas contactable pendent un moment. Una fenèstra de connexion serà disponibla tre que lo servidor serà accessible.",
-                "shutdown": "Vòstre servidor es a s’aturar e serà pas mai contactable. Reaviatz-lo e una fenèstra de connexion serà disponibla tre que lo servidor serà contactable.",
+                "unknown": "La connexion amb lo servidor es estada copada per una rason desconeguda. Benlèu que « yunohost-api » respond pas mai ?",
+                "reboot": "Vòstre servidor tòrna aviar e serà pas contactable pendent un moment.",
+                "shutdown": "Vòstre servidor es a s’aturar e serà pas mai contactable.",
                 "upgrade_system": "La connexion al servidor es estada tampada a causa de la mesa a nivèl de YunoHost. En espèra de poder contactar lo servidor de nòu…"
             }
-        }
+        },
+        "busy": "Lo servidor es indisponible…",
+        "unknown_request": "Requèsta desconeguda"
     },
     "domain_add_dyndns_forbidden": "Se vos abonèretz a un domeni DynDNS, podètz demandar la supression de vòstre domeni DynDNS actual sul forum<a href='//forum.yunohost.org/t/nohost-domain-recovery-suppression-de-domaine-en-nohost-me-noho-st-et-ynh-fr/442'> al fial de discussion dedicat</a>.",
     "confirm_group_add_access_permission": "Volètz vertadièrament donar l’accès a {perm} a {name} ? Un tal accès aumenta bravament la susfàcia d’ataca se {name} se tròba qu’es un mala persona. Deuriatz sonque o far se VOS FISATZ d’aquesta persona / aqueste grop.",
@@ -360,7 +368,8 @@
         },
         "info": {
             "certificate_authority": "Autoritat de certificacion SSL",
-            "apps_on_domain": "Aplicacions installada sul domeni"
+            "apps_on_domain": "Aplicacions installada sul domeni",
+            "registrar": "Registrador"
         },
         "see_parent_domain": "Veire lo domeni parent",
         "toggle_subdomains": "Veire los jos domenis",
@@ -370,7 +379,8 @@
                 "other": "Autre/Desconegut",
                 "selfsigned": "Auto-signat"
             },
-            "valid_for": "valable pendent {days}"
+            "valid_for": "valable pendent {days}",
+            "install": "Installar tanben lo certificat Let's Encrypt"
         },
         "types": {
             "main_domain": "Domeni màger"
@@ -378,7 +388,12 @@
         "add": {
             "dyn_dns_password": "Senhal de recuperacion del domeni",
             "from_local": "Vòli un domeni per un usatge local / de provar sonque",
-            "from_registrar": "Vòli apondre un domeni que possedissi"
+            "from_registrar": "Vòli apondre un domeni que possedissi",
+            "from_registrar_desc": "Vos caldrà configurar manualament los enregistraments DNS en çò de vòstre registrador ont avètz crompat vòstre nom de domeni per finalizar la configuracion d'aqueste domeni. Lo diagnostic de YunoHost vos guidarà suls enregistraments DNS de configurar coma cal.",
+            "from_subdomain": "Vòli apondre un sosdomeni d'un domeni ja apondut",
+            "from_subdomain_desc": "Se vòstres enregistraments DNS configurats o permeton, poiretz installar automaticament lo certificat Let's Encrypt.",
+            "from_yunohost": "Possedissi pas de domeni, vòli enregistrar/utilizar un domeni DynDNS gratuit provesit pel projècte YunoHost",
+            "from_yunohost_desc": "Lo projècte YunoHost manten un servici « DynDNS » a gratis. Es limitat a un d'aquestes domenis per servidor (e mai se podètz tanben apondre de sosdomenis mai tard en utilizant l'autra opcion « Apondre un domeni qu'ai o un sosdomeni » çaisús). La configuracion DNS serà gerida automaticament per YunoHost. Aquò es ideal quand començatz amb l'autoalbergament en general e volètz pas encara investir dins un nom de domeni. Pasmens, a mejan/long tèrme, vos recomandam de crompar vòstre pròpri nom de domeni en cò d'un registrador per aver la proprietat totala de vòstre domeni."
         }
     },
     "users_import": "Importar los utilizaires",
@@ -476,15 +491,24 @@
             "continue": "Passar a l’aplicacion seguenta",
             "notifs": {
                 "pre": {
-                    "title": "Siatz avisat !"
+                    "title": "Nòtas importantas"
                 },
                 "post": {
                     "title": "Notificacion de post mesa a nivèl per « {name} »"
                 }
             },
-            "stop": "Anullar las mesas a jorn d’aplicacion venentas"
+            "stop": "Anullar las mesas a jorn d’aplicacion venentas",
+            "up_to_date": "Aquesta aplicacion es a jorn !",
+            "upgrade": "Metre a nivèl"
         },
-        "potential_alternative_to": "Alternativa potenciala a :"
+        "potential_alternative_to": "Alternativa potenciala a :",
+        "change_url": {
+            "title": "Desplaçar l’aplicacion cap a una autra URL",
+            "change_url": "Modificar l’URL"
+        },
+        "uninstall": {
+            "uninstall": "Desinstallar"
+        }
     },
     "app_state_broken_explanation": "Aquesta aplicacion es actualament copada e se pòt pas installar segon los contraròtles automatic de YunoHost",
     "app_state_broken": "copada",
@@ -497,10 +521,35 @@
     "tools_yunohost_settings": "Paramètres de YunoHost",
     "quick_action": "Accion rapida",
     "tos": {
-        "i_agree": "Soi d'acòrdi"
+        "i_agree": "Soi d'acòrdi",
+        "i_have_read": "Ai legit e comprés las <a href='https://doc.yunohost.org/terms_of_services' target='_blank'>condicions d'utilizacion</a>"
     },
     "form": {
         "current_file": "Fichièr actual :",
         "select_one": "Seleccionatz una opcion"
+    },
+    "failed": "Fracàs",
+    "groups": {
+        "remove_user": {
+            "confirm_from_admins": "Volètz vertadièrament vos tirar del grop « admins » ?"
+        }
+    },
+    "hook_data_multimedia": "Donadas multimèdia",
+    "stopped": "Arrestat",
+    "storage": "Emmagazinatge",
+    "storage_disks": {
+        "category_name": "Disques durs",
+        "infos": {
+            "usb_icon_alt": "Aqueste aparelh es connectat en USB",
+            "ejectable_icon_alt": "Aqueste aparelh es ejectable",
+            "serial": "Numèro de seria :",
+            "serial_unknown": "Desconegut",
+            "size": "Talha :",
+            "type": "Tipe :"
+        }
+    },
+    "update": {
+        "refresh_cache": "Recuperar las mesas a jorn disponiblas",
+        "stale_cache": "Lo cache de paquets del sistèma (apt/dpkg) es estat mes a jorn fa {lastAptUpdate} oras, e lo catalòg d'aplicacions YunoHost es estat mes a jorn fa {lastAppsCatalogUpdate} oras. Pensatz de los refrescar per obténer d'informacions a jorn."
     }
 }

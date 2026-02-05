@@ -44,7 +44,7 @@
         "server_said": "Podczas wykonywania zadania serwer odpowiedział:",
         "info": "Poniższe informacje mogą być przydatne dla osoby udzielającej Ci pomocy:",
         "error_message": "Wiadomość błędu:",
-        "help": "Poszukaj pomocy na <a href=\"https://forum.yunohost.org/\">forum</a>lub na <a href=\"https://chat.yunohost.org/\">czacie</a> aby rozwiązać problem, albo zgłoś błąd na <a href=\"https://github.com/YunoHost/issues\">bugtrackerze\"</a>."
+        "help": "Aby rozwiązać problem poszukaj pomocy na <a href=\"https://forum.yunohost.org/\">forum</a> lub na <a href=\"https://chat.yunohost.org/\">czacie</a>, albo zgłoś błąd na <a href=\"https://github.com/YunoHost/issues\">bugtrackerze\"</a>."
     },
     "api": {
         "query_status": {
@@ -57,7 +57,7 @@
         "reconnecting": {
             "reason": {
                 "shutdown": "Serwer jest wyłączany i nie jest już dostępny.",
-                "unknown": "Połączenie z serwerem zostało przerwane z nieznanego powodu.",
+                "unknown": "Połączenie z serwerem zostało przerwane z nieznanego powodu. Może 'yunohost-api' jest wyłączone?",
                 "reboot": "Serwer jest uruchamiany ponownie i będzie nieosiągalny przez pewien czas.",
                 "upgrade_system": "Połączenie z serwerem przerwane z powodu aktualizacji YunoHost. Trwa oczekiwanie na połączenie…"
             },
@@ -83,7 +83,7 @@
     "confirm_install_domain_root": "Czy na pewno chcesz zainstalować tę aplikację na „/”? Nie będziesz mógł zainstalować żadnej innej aplikacji w domenie {domain}",
     "app_state_highquality_explanation": "Ta aplikacja jest dobrze zintegrowana z YunoHost od ponad roku.",
     "app_state_lowquality_explanation": "Ta aplikacja może działać, ale nadal może zawierać błędy, albo nie być w pełni zintegrowaną z YunoHost, lub nie przestrzega dobrych praktyk.",
-    "diagnosis_explanation": "Funkcja diagnostyki spróbuje zidentyfikować typowe problemy dotyczące różnych aspektów serwera, aby upewnić się, że wszystko działa sprawnie. Diagnoza przebiega automatycznie dwa razy dziennie, a w przypadku znalezienia problemów do administratora wysyłana jest wiadomość e-mail. Zwróć uwagę, że niektóre testy mogą nie być odpowiednie, jeśli nie chcesz używać określonych funkcji (na przykład XMPP) lub mogą się nie powieść, jeśli masz złożoną konfigurację. W takich przypadkach i jeśli wiesz, co robisz, możesz zignorować odpowiednie problemy lub ostrzeżenia.",
+    "diagnosis_explanation": "Funkcja diagnostyki spróbuje zidentyfikować typowe problemy dotyczące różnych aspektów serwera, aby upewnić się, że wszystko działa sprawnie. Diagnoza przebiega automatycznie dwa razy dziennie, a w przypadku znalezienia problemów do administratora wysyłana jest wiadomość e-mail. Zwróć uwagę, że niektóre testy mogą nie być odpowiednie, jeśli nie chcesz używać określonych funkcji (na przykład e-mail) lub mogą się nie powieść, jeśli masz złożoną konfigurację. W takich przypadkach i jeśli wiesz, co robisz, możesz zignorować odpowiednie problemy lub ostrzeżenia.",
     "diagnosis_first_run": "Funkcja diagnostyki spróbuje zidentyfikować typowe problemy dotyczące różnych aspektów serwera, aby upewnić się, że wszystko działa sprawnie. Nie panikuj, jeśli zaraz po skonfigurowaniu serwera zobaczysz kilka błędów: ma to dokładnie pomóc w zidentyfikowaniu problemów i ich naprawieniu. Diagnostyka będzie również uruchamiana automatycznie dwa razy dziennie, a w przypadku znalezienia problemów do administratora zostanie wysłana wiadomość e-mail.",
     "diagnosis": "Diagnostyka",
     "domain_dns_conf_is_just_a_recommendation": "Ta sekcja przedstawia *zalecaną* konfigurację. *Nie* konfiguruje DNS za Ciebie. Do Ciebie należy skonfigurowanie strefy DNS u rejestratora DNS zgodnie z tym zaleceniem.",
@@ -152,12 +152,17 @@
         "add": {
             "dyn_dns_password": "Hasło odzyskiwania domeny",
             "dyn_dns_password_desc": "To hasło pozwoli Ci później odzyskać kontrolę nad domeną, jeśli ponownie zainstalujesz system. Jeśli zarejestrowałeś już tę domenę wcześniej, użyj tutaj hasła odzyskiwania, aby ją odzyskać.",
-            "from_registrar": "Chcę dodać domenę, której jestem właścicielem, lub subdomenę",
+            "from_registrar": "Chcę dodać domenę której jestem właścicielem",
             "from_yunohost": "Nie posiadam domeny, chcę zarejestrować/korzystać z darmowej domeny DynDNS udostępnionej przez projekt YunoHost",
-            "from_local": "Chcę domenę wyłącznie do użytku lokalnego/testowania"
+            "from_local": "Chcę domenę wyłącznie do użytku lokalnego/testowania",
+            "from_local_desc": "Jeśli nie chcesz używać „prawdziwej” nazwy domeny publicznej, możesz użyć dowolnej nazwy kończącej się na <code>.local</code> lub <code>.test</code>. Nazwy domen kończące się na <code>.local</code> wyróżniają się tym, że mogą być automatycznie rozpoznawane w sieci lokalnej, o ile klienci obsługują protokół Bonjour. Alternatywnie, może być konieczna modyfikacja ustawień w pliku <code>/etc/hosts</code> (lub jego odpowiedniku w systemie Windows) na każdym kliencie, z którego chcesz korzystać z tej domeny, lub konfiguracja lokalnych wpisów DNS na routerze internetowym.",
+            "from_registrar_desc": "Aby sfinalizować konfigurację domeny, musisz ręcznie skonfigurować rekordy DNS u rejestratora od którego kupiłeś nazwę domeny. Narzędzie diagnostyczne YunoHost podpowie Ci, które rekordy DNS należy poprawnie skonfigurować.",
+            "from_subdomain": "Chcę dodać subdomenę do już dodanej domeny",
+            "from_subdomain_desc": "Jeśli twoje skonfigurowane rekordy DNS na to pozwalają, będziesz mógł automatycznie zainstalować certyfikat Let's Encrypt.",
+            "from_yunohost_desc": "Projekt YunoHost oferuje bezpłatny usługę 'DynDNS'. Jest ona ograniczona do jednej domeny na serwer (choć możesz również dodać subdomeny później, korzystając z opcji 'Dodaj domenę którą posiadam, lub subdomenę' powyżej). YunoHost automatycznie zajmie się konfiguracją DNS. Jest to idealne rozwiązanie, gdy dopiero zaczynasz korzystać z hostingu i nie chcesz jeszcze inwestować w nazwę domeny. Jednak w perspektywie średnio- i długoterminowej zalecamy zakup własnej nazwy domeny od rejestratora (dostawcy nazw domen), aby mieć pełną własność domeny."
         }
     },
-    "domain_add_dyndns_forbidden": "Już subskrybujesz domenę DynDNS. Możesz poprosić o usunięcie aktualnej domeny DynDNS w <a href='//forum.yunohost.org/t/nohost-domain-recovery-suppression-de-domaine-en-nohost-me-noho-st-et-ynh-fr/442'>odpowiednim wątki w forum</a>.",
+    "domain_add_dyndns_forbidden": "Już subskrybujesz domenę DynDNS z projektu YunoHost. Ta funkcja jest z założenia ograniczona do jednej takiej domeny na serwer. Jeśli chcesz użyć subdomeny swojej już zarejestrowanej domeny, skorzystaj z opcji 'Dodaj domenę którą posiadam, lub subdomenę' powyżej. Jeśli chcesz użyć zupełnie innej domeny, musisz najpierw usunąć istniejącą domenę DynDNS. Domeny DynDNS są przydatne na początku korzystania z hostingu, ale w perspektywie średnio- i długoterminowej zalecamy zakup własnej nazwy domeny od rejestratora/dostawcy, aby mieć pełne prawo własności do domeny.",
     "download": "Pobierz",
     "enable": "Włącz",
     "error_modify_something": "Zmodyfikuj coś",
@@ -182,7 +187,8 @@
         "passwordLenght": "Hasło musi mieć co najmniej 8 znaków.",
         "emailForward": "Niepoprawne przekierowanie e-mail: adres może zawierać jedynie litery, cyfry i znaki <code>_.-+</code> (np. ktos+tag{'@'}example.com, s0me-1+tag{'@'}example.com)",
         "appRepoUrl": "Adresy URL repozytoriów YunoHost powinny wyglądać podobnie do https://domain.tld/path/to/repo_ynh",
-        "numValue": "Wartość musi być liczbą"
+        "numValue": "Wartość musi być liczbą",
+        "checked": "Pole wyboru musi być zaznaczone."
     },
     "everything_good": "Wszystko w porządku!",
     "domains": "Domeny",
@@ -192,7 +198,8 @@
     "footer": {
         "documentation": "Dokumentacja",
         "help": "Potrzebujesz pomocy?",
-        "donate": "Wesprzyj"
+        "donate": "Wesprzyj",
+        "tos": "Warunki korzystania z usług"
     },
     "footer_version": "Napędzane przez <a href='https://yunohost.org'>YunoHost</a> {version} ({repo}).",
     "domain_dns_push_failed_to_authenticate": "Nie udało się uwierzytelnić w API dostawcy rejestru domen. Najprawdopodobniej <a href='#/domains/{domain}/config'>dane uwierzytelniające</a> są nieprawidłowe? (Błąd: {error})",
@@ -226,7 +233,9 @@
         "groups": "brak grup | grupa | grup",
         "installed_apps": "brak zainstalowanych aplikacji | zainstalowana aplikacja | zainstalowanych aplikacji",
         "items": "brak elementów | element | elementy",
-        "disk": "brak dysków | dysk | dyski"
+        "disk": "brak dysków | dysk | dyski",
+        "packages": "brak pakietów | pakiety | pakiety",
+        "inserted_disk": "brak włożonego dysku | włożony dysk | włożone dyski"
     },
     "infos": "Info",
     "hook_conf_ynh_settings": "Konfiguracja YunoHost",
@@ -260,7 +269,9 @@
         "title": "Historia",
         "last_action": "Ostatnie działanie:",
         "is_empty": "Historia na razie jest pusta.",
-        "started_by": "rozpoczęte przez {caller}"
+        "started_by": "rozpoczęte przez {caller}",
+        "check_logs": "Przejdź do strony dziennika operacji.",
+        "no_logs": "Brak dostępnych dzienników."
     },
     "ignored": "Zignorowano {count}",
     "hook_conf_ldap": "Baza użytkowników",
@@ -296,7 +307,7 @@
     "only_highquality_apps": "Tylko wysokiej jakości programy",
     "operations": "Operacje",
     "orphaned_details": "Ta aplikacja nie była rozwijana od jakiegoś czasu. Może działać, ale nie otrzyma żadnej aktualizacji dopóki żaden wolontariusz o to nie zadba. Nie krępuj się ożywić ten projekt!",
-    "operation_failed_explanation": "Operacja się nie udała! Bardzo mi przykro :( Spróbuj <a href='https://doc.yunohost.org/help'>zasięgnąć pomocy</a>. Podaj *pełny log* tej operacji osobom, którzy mogliby Ci pomóc - możesz to zrobić klikając zielony przycisk \"Udostępnij z Yunopaste\". Udostępniając logi, YunoHost automatycznie podejmie próby anonimizacji prywatnych danych takich jak nazwy domen i adresy IP.",
+    "operation_failed_explanation": "Operacja się nie udała! Bardzo mi przykro :( Możesz spróbować <a href='https://doc.yunohost.org/help'>poprosić o pomoc</a>. Podaj *pełny log* tej operacji osobom, które mogłyby Ci pomóc - możesz to zrobić klikając zielony przycisk \"Udostępnij z Yunopaste\". Udostępniając logi, YunoHost automatycznie podejmie próby anonimizacji prywatnych danych takich jak nazwy domen i adresy IP.",
     "logs_share_with_yunopaste": "Udostępnij log z YunoPaste",
     "path": "Położenie",
     "pending_migrations": "Istnieją migracje oczekujące na uruchomienie. Przejdź do <a href='#/tools/migrations'>Narzędzia > Migracje</a>, aby je uruchomić.",
@@ -309,7 +320,7 @@
         "title": "Postinstalacja",
         "user": {
             "title": "Utwórz pierwsze konto administratora",
-            "first_user_help": "Ten użytkownik otrzyma prawa admina i tym samym będzie w stanie połączyć się z panelem administratora, jak i połączyć się bezpośrednio z serwerem poprzez SSH.\nPonieważ jest to zwykły użytkownik, nadal będziesz mógł połączyć się z portalem użytkownika (SSO) za pomocą odpowiednich danych logowania. \nPo zakończeniu post-instalacji, będziesz mógł utworzyć inne konta administratorów dodając ich do grupy 'admins'."
+            "first_user_help": "Ten użytkownik otrzyma prawa admina i tym samym będzie w stanie połączyć się z panelem administratora, jak i połączyć się bezpośrednio z serwerem poprzez SSH.\nPonieważ jest to zwykły użytkownik, nadal będziesz mógł połączyć się z portalem (SSO) za pomocą odpowiednich danych logowania. \nPo zakończeniu post-instalacji, będziesz mógł utworzyć inne konta administratorów dodając ich do grupy 'admins'."
         }
     },
     "restore": "Przywróć",
@@ -372,7 +383,8 @@
         "link": "Link",
         "none": "Żaden",
         "separator": ", ",
-        "edit": "Edytuj"
+        "edit": "Edytuj",
+        "comment": "Komentarz"
     },
     "upnp": "UPnP",
     "purge_user_data_checkbox": "Wyczyścić wszystkie dane należące do {name}? (To usunie wszystkie dane w katalogu home i w katalogach dotyczących poczty elektronicznej)",
@@ -386,7 +398,7 @@
     "system_upgrade_btn": "Uaktualnij",
     "unignore": "Nie ignoruj",
     "tcp": "TCP",
-    "user_interface_link": "Interfejs użytkownika",
+    "user_interface_link": "Portal",
     "udp": "UDP",
     "user_email": "Email",
     "user_fullname": "Imię i nazwisko",
@@ -405,7 +417,7 @@
     "users_import_delete_desc": "Wybranie tej opcji sprawia, że wszyscy istniejący użytkownicy niewymienieni w pliku CSV zostaną usunięci (i wymazani).",
     "yunohost_admin": "YunoHost Admin",
     "system_upgrade_all_packages_btn": "Aktualizuj wszystkie pakiety",
-    "tip_about_user_email": "Użytkownicy są tworzeni z przypisanym adresem email (i kontem XMPP) w formacie username{'@'}domain.tld. Dodatkowe aliasy adresów email i przekierowań mogą być później dodane przez admina lub użytkownika.",
+    "tip_about_user_email": "Użytkownicy są tworzeni z przypisanym adresem email w formacie username{'@'}domain.tld. Dodatkowe aliasy adresów email i przekierowań mogą być później dodane przez admina lub użytkownika.",
     "tools_reboot": "Uruchom ponownie serwer",
     "tools_shutdown_reboot": "Wyłącz/Uruchom ponownie",
     "user_emailaliases": "Aliasy adresu Email",
@@ -417,7 +429,7 @@
     "app_state_broken_explanation": "Ta aplikacja aktualnie jest uszkodzona i według automatycznych testów YunoHost nie da się jej zainstalować",
     "details_about": "Pokaż więcej szczegółów o {subject}",
     "group_admins": "Administratorzy",
-    "label_for_manifestname_help": "To jest nazwa wyświetlana w portalu użytkownika. Można ją później zmienić.",
+    "label_for_manifestname_help": "To jest nazwa wyświetlana w portalu. Można ją później zmienić.",
     "manage_groups": "Zarządzaj grupami",
     "tools_yunohost_settings": "Ustawienia YunoHost",
     "wrong_password_or_username": "Błędne hasło lub nazwa użytkownika",
@@ -506,7 +518,7 @@
             },
             "notifs": {
                 "pre": {
-                    "alert": "Powinieneś sprawdzić te notki przed wykonaniem aktualizacji. Mogą tam być ważne dla Ciebie informacje.",
+                    "alert": "Powinieneś sprawdzić te notki przed wykonaniem aktualizacji.",
                     "title": "Ważna uwaga"
                 },
                 "post": {
@@ -517,16 +529,22 @@
             "continue": "Kontynuuj do następnej aplikacji",
             "stop": "Anuluj kolejne aktualizacje aplikacji",
             "upgrade": "Aktualizuj",
-            "up_to_date": "Ta aplikacja jest w najnowszej wersji!"
+            "up_to_date": "Ta aplikacja jest w najnowszej wersji!",
+            "advertise_testing_version": "Szukasz najnowszej wersji? Być może istnieje wersja 'testing', którą możesz wypróbować, aby pomóc zespołowi zajmującemu się pakietami w repozytorium Git pakietów YunoHost!",
+            "force_upgrade": "Wymuś aktualizację"
         },
         "potential_alternative_to": "Potencjalna alternatywa dla:",
         "uninstall": {
             "purge_desc": "Usuń katalog danych powiązany z aplikacją (zazwyczaj są to dane, które sam przesłałeś za pomocą aplikacji).",
-            "uninstall": "Odinstaluj"
+            "uninstall": "Odinstaluj",
+            "desc": "Spowoduje to odinstalowanie aplikacji z serwera.<br/> Będziesz mieć również możliwość wyczyszczenia danych w oknie potwierdzenia."
         },
         "change_url": {
-            "change_url": "Zmień adres URL"
-        }
+            "change_url": "Zmień adres URL",
+            "title": "Przenieś aplikację na inny adres URL",
+            "not_supported": "Zmiana adresu URL, pod którym zainstalowana jest ta aplikacja, nie jest obecnie obsługiwana."
+        },
+        "upvote": "Jeśli chcesz zwrócić uwagę na tę aplikację, możesz na nią zagłosować na [catalog page](https://apps.yunohost.org/app/{id})."
     },
     "loading": "Ładowanie",
     "stopped": "Zatrzymano",
@@ -535,25 +553,54 @@
         "infos": {
             "serial_unknown": "Nieznane",
             "size": "Rozmiar:",
-            "type": "Rodzaj:"
+            "type": "Rodzaj:",
+            "usb_icon_alt": "To urządzenie jest podłączone do USB",
+            "ejectable_icon_alt": "To urządzenie można wysunąć",
+            "smart_status_icon_alt": {
+                "SANE": "To urządzenie jest zdrowe",
+                "CRITICAL": "To urządzenie jest w stanie krytycznym",
+                "UNKNOWN": "Stan tego urządzenia jest nieznany"
+            },
+            "serial": "Numer seryjny:"
         },
         "category_name": "Dyski twarde",
         "infos_meta": {
-            "usb": "Urządzenie USB"
-        }
+            "usb": "Urządzenie USB",
+            "ejectable": "Można wysunąć ten urządzenie"
+        },
+        "experimental_disclaimer": "Ta sekcja ma charakter eksperymentalny i jest w trakcie budowy.",
+        "no_disk_found": "Nie znaleziono dysku w systemie. Być może znajdujesz się w specjalnym kontekście, takim jak kontener LXC?"
     },
     "form": {
         "current_file": "Bieżący plik:",
         "select_one": "Proszę zaznaczyć opcję"
     },
     "tos": {
-        "i_agree": "Akceptuję"
+        "i_agree": "Akceptuję",
+        "acknowledgement": "Potwierdzenie warunków świadczenia usług",
+        "i_have_read": "Przeczytałem i zrozumiałem <a href='https://doc.yunohost.org/terms_of_services' target='_blank'>warunki korzystania z usługi</a>",
+        "postinstall_acknowledgement": "Projekt YunoHost to zespół wolontariuszy którzy połączyli siły aby stworzyć darmowy system operacyjny dla serwerów o nazwie YunoHost. Aplikacje YunoHost jest udostępniane [na licencji AGPLv3](https://www.gnu.org/licenses/agpl-3.0.txt). W związku z tym aplikacje, projekt administruje i świadczy szereg usług technicznych i społecznościowych o różnym przeznaczeniu. Korzystając z tych usług, zgadzasz się na poniższych [warunków korzystania z usługi](https://doc.yunohost.org/terms_of_services)."
     },
     "quick_action": "Szybka akcja",
     "hook_data_multimedia": "Dane multimedialne",
     "install_app": "Zainstaluj aplikację",
     "update": {
-        "refresh_cache": "Pobierz dostępne aktualizacje"
+        "refresh_cache": "Pobierz dostępne aktualizacje",
+        "stale_cache": "Pamięć podręczna pakietów systemowych (apt/dpkg) została zaktualizowana {lastAptUpdate} godzin temu, a katalog aplikacji YunoHost został zaktualizowany {lastAppsCatalogUpdate} godzin temu. Pamiętaj o ich odświeżeniu, aby uzyskać najnowsze informacje.",
+        "very_stale_cache": "Katalog aplikacji lub pamięć podręczna systemu (apt/dpkg) są nieaktualne. Odśwież najpierw pamięć podręczną, aby uzyskać najnowsze informacje.",
+        "ok_cache": "Katalog aplikacji i pamięć podręczna pakietów systemowych (apt/dpkg) zostały zaktualizowane niecałą godzinę temu. Możesz je jednak odświeżyć w dowolnym momencie, aby uzyskać najnowsze informacje."
     },
-    "hook_data_multimedia_desc": "Pliki multimedialne znajdujące się w /home/yunohost.multimedia"
+    "hook_data_multimedia_desc": "Pliki multimedialne znajdujące się w /home/yunohost.multimedia",
+    "catalog_partial_search": "Spróbuj usunąć wszystkie kryteria, aby sprawdzić czy aplikacja której szukasz jest dostępna.",
+    "catalog_wishlist": "Wygląda na to, że aplikacja, której szukasz, nie jest jeszcze dostępna w katalogu.\nMożesz zasugerować ją do [apps wishlist](https://apps.yunohost.org/wishlist?search={search}) lub zagłosować na nią, jeśli już się tam znajduje.",
+    "confirm_app_force_upgrade": "Czy jesteś pewien że chcesz wymusić aktualizację tej aplikacji?",
+    "confirm_app_upgrade": "Czy jesteś pewien że chcesz zaktualizować tej aplikacji?",
+    "confirm_firewall_close": "Na pewno chcesz zamknąć port {port} dla protokołu {protocol}?",
+    "confirm_firewall_open": "Na pewno chcesz otworzyć port {port} dla protokołu {protocol}?",
+    "failed": "Nie udało się",
+    "groups": {
+        "remove_user": {
+            "confirm_from_admins": "Czy na pewno chcesz usunąć siebie z grupy 'admins'?"
+        }
+    }
 }

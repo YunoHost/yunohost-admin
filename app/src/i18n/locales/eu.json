@@ -68,11 +68,11 @@
         "required": "Ezinbestekoa da.",
         "domain": "Arazoa domeinu izenarekin: zenbakiak, hizki txikiak, puntuak eta gidoiak bakarrik erabili daitezke",
         "dynDomain": "Arazoa domeinu izenarekin: zenbakiak, hizki txikiak eta gidoiak bakarrik erabil daitezke",
-        "emailForward": "Arazoa posta elektronikoaren birbidalketarekin: zenbakiak, hizkiak eta <code>_.-+</code> bakarrik erabil daitezke (esaterako izena+etiketa{'@'}adibidea.eus, iz3na-1+etiketa{'@'}adibidea.eus)",
+        "emailForward": "Birbidalketarako helbide elektronikoak ez du balio: zenbakiak, hizkiak eta <code>_.-+</code> bakarrik erabil daitezke (esaterako izena+etiketa{'@'}adibidea.eus, iz3na-1+etiketa{'@'}adibidea.eus)",
         "maxValue": "Zenbakia {max} edo txikiagoa izan behar da.",
         "passwordLenght": "Pasahitzak 8 karaktere izan behar ditu gutxienez.",
         "between": "{min} eta {max} artean egon behar da.",
-        "email": "Arazoa posta elektronikoarekin: zenbakiak, hizkiak eta <code>_.-</code> bakarrik erabili daitezke (esaterako izena{'@'}adibidea.eus, iz3na-1{'@'}adibidea.eus)",
+        "email": "Helbide elektronikoak ez du balio: zenbakiak, hizkiak eta <code>_.-</code> bakarrik erabili daitezke (esaterako izena{'@'}adibidea.eus, iz3na-1{'@'}adibidea.eus)",
         "minValue": "Zenbakia {min} edo handiagoa izan behar da.",
         "notInUsers": "Badago '{value}' izena duen erabiltzailea dagoeneko.",
         "number": "Balioa zenbaki bat izan behar da.",
@@ -320,7 +320,7 @@
     "logs_error": "Errorea",
     "logs_ended_at": "Amaiera",
     "logs_more": "Erakutsi lerro gehiago",
-    "postinstall_intro_1": "Bejon deizula! YunoHost arazorik gabe instalatu da.",
+    "postinstall_intro_1": "Zu bai, zu! YunoHost arazorik gabe instalatu da.",
     "postinstall_intro_3": "Argibide gehiago lor ditzakezu <a href='//doc.yunohost.org/install' target='_blank'>dokumentazio gunea</a> bisitatuz",
     "postinstall_intro_2": "Bi urrats gehiago behar dira zerbitzariko zerbitzuak gaitzeko.",
     "mailbox_quota_example": "CD bat 700M dira, DVD bat 4700M",
@@ -600,7 +600,7 @@
         "refresh_cache": "Bilatu eskuragarri dauden eguneraketak",
         "stale_cache": "Sistemaren pakete-katxea (apt/dpkg) duela {lastAptUpdate} ordu eta YunoHosten aplikazioen katalogoa duela {lastAppsCatalogUpdate} ordu eguneratu dira. Freskatu itzazu informazio eguneratua eskuratzeko.",
         "very_stale_cache": "Aplikazioen katalogoa edo sistemaren pakete-katxea (apt/dpkg) zaharkitua dago. Freskatu katxea informazio eguneratua eskuratzeko.",
-        "ok_cache": "Aplikazioen katalogoa eta sistemaren pakete-katxea (apt/dpkg) duela ordubete baino gutxiago eguneratu da. Hala ere, edozein momentutan freskatu ditzakezu informazio eguneratua eskuratzeko."
+        "ok_cache": "Aplikazioen katalogoa eta sistemaren pakete-katxea (apt/dpkg) duela ordubete baino gutxiago eguneratu dira. Hala ere, edozein momentutan freskatu ditzakezu informazio eguneratua eskuratzeko."
     },
     "confirm_app_upgrade": "Ziur aplikazioa bertsio-berritu nahi duzula?"
 }

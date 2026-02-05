@@ -86,7 +86,7 @@
             "dyn_dns_remove_and_unsubscribe": "Também remover o domínio do serviço DynDNS do YunoHost",
             "registrar": "Registrar"
         },
-        "see_parent_domain": "Olhe o domínio pai",
+        "see_parent_domain": "Ver domínio pai",
         "toggle_subdomains": "Alternar subdomínios",
         "explain": {
             "main_domain": "O domínio padrão é o domínio pelo qual usuários podem conectar ao portal (via \"{domain}/yunohost/sso\").<br>Entretanto, não é possível removê-lo.<br>Se você quiser remover o \"{domain}\", terá primeiro que escolher ou adicionar outro domínio e defini-lo como padrão."
@@ -227,7 +227,7 @@
                 "?": "Sem informação sobre integração com LDAP",
                 "false": "Não usa contas YunoHost para login (LDAP)"
             },
-            "title": "Integração YunoHost"
+            "title": "Integração com o YunoHost"
         },
         "links": {
             "admindoc": "Documentação oficial do admin",
@@ -551,7 +551,7 @@
         "theme": "Alternar modo escuro",
         "transitions": "Animações de transição de página"
     },
-    "tools_webadmin_settings": "Configurações do web-admin",
+    "tools_webadmin_settings": "Configurações do Web-admin",
     "tools_yunohost_settings": "Configurações do YunoHost",
     "tos": {
         "acknowledgement": "Reconhecimento dos Termos de Serviço",
@@ -580,7 +580,7 @@
     "user_emailforward": "Encaminhamento de e-mail",
     "user_emailforward_add": "Adicionar um encaminhamento de e-mail",
     "user_fullname": "Nome completo",
-    "user_interface_link": "Portal",
+    "user_interface_link": "Portal de usuário",
     "user_mailbox_quota": "Cota da caixa de correio",
     "user_mailbox_use": "Espaço usado da caixa de correio",
     "user_new_forward": "novoencaminhamento{'@'}meudominioexterno.org",

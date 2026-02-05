@@ -120,8 +120,8 @@
         "notInUsers": "A usuaria '{value}' xa existe.",
         "minValue": "O valor debe ser un número igual ou superior a {min}.",
         "name": "Os nomes non inclúen caracteres especiais excepto <code> ,.'-</code>",
-        "emailForward": "Email de reenvío non válido: ten que ser alfanumérico e caracteres <code>_.-+</code> (ex. menganito+etiqueta{'@'}exemplo.com, m3ng4ni7-o+etiqueta{'@'}exemplo.com)",
-        "email": "Email non válido: debe ser alfanumércio e caracteres <code>_.-</code> (ex. menganito{'@'}exemplo.com, p4c-0{'@'}exemplo.com)",
+        "emailForward": "Correo de reenvío non válido: ten que ser alfanumérico e caracteres <code>_.-+</code> (ex. menganito+etiqueta{'@'}exemplo.com, m3ng4ni7-o+etiqueta{'@'}exemplo.com)",
+        "email": "Correo electrónico non válido: debe ser alfanumércio e caracteres <code>_.-</code> (ex. menganito{'@'}exemplo.com, p4c-0{'@'}exemplo.com)",
         "dynDomain": "Nome de dominio non válido: Só pode ter caracteres alfanuméricos en minúscula e barra",
         "domain": "Nome de dominio non válido: Só pode ser alfanumérico en minúsculas, punto e barra",
         "between": "O valor ten que estar entre {min} e {max}.",
@@ -334,7 +334,7 @@
     "tools_reboot_btn": "Reiniciar",
     "tools_reboot": "Reinicia o servidor",
     "tools": "Ferramentas",
-    "tip_about_user_email": "As usuarias créanse cun enderezo de email asociado co formato usuaria{'@'}dominio.tld. Alias de email adicionais e reenvíos de email pódense engadir posteriormente por parte da administración e a usuaria.",
+    "tip_about_user_email": "As usuarias créanse cun enderezo de correo asociado co formato usuaria{'@'}dominio.tld. Alias de correo adicionais e reenvíos de correo pódense engadir posteriormente por parte da administración e a usuaria.",
     "tcp": "TCP",
     "system_upgrade_all_packages_btn": "Actualizar todos os paquetes",
     "system_upgrade_all_applications_btn": "Actualizar tódalas aplicacións",
@@ -599,8 +599,8 @@
     "confirm_app_upgrade": "Tes certeza de querer actualizar esta app?",
     "update": {
         "refresh_cache": "Recibir actualizacións dispoñibles",
-        "stale_cache": "A memoria tobo dos paquetes do sistema (apt/dpkg) actualizouse fai {lastAptUpdate} horas, e o catálogo de aplicacións de YunoHost actualizouse fai {lastAppsCatalogUpdate} horas. Actualiza para obter a última información.",
-        "ok_cache": "A memoria tobo coa información dos paquetes (apt/dpkg) actualizouse fai menos dunha hora, pero podes actualizala en calquera momento para obter a última información.",
+        "stale_cache": "A memoria tobo dos paquetes do sistema (apt/dpkg) actualizouse hai {lastAptUpdate} horas, e o catálogo de aplicacións de YunoHost actualizouse hai {lastAppsCatalogUpdate} horas. Actualiza para obter a última información.",
+        "ok_cache": "A memoria tobo coa información dos paquetes (apt/dpkg) actualizouse hai menos dunha hora, pero podes actualizala en calquera momento para obter a última información.",
         "very_stale_cache": "A memoria tobo do sistema de paquetes (apt/dpkg) non está ao día. Actualiza a memoria tobo para obter a última información."
     }
 }
