@@ -2,8 +2,7 @@ Source: yunohost-admin
 Section: utils
 Priority: extra
 Maintainer: YunoHost Contributors <contrib@yunohost.org>
-Build-Depends: debhelper (>=12), debhelper-compat (= 13)
- , nodejs (>=10.15.2), git, curl
+Build-Depends: debhelper (>=12), debhelper-compat (= 13), nodejs (>=10.15.2), yarnpkg   
 Standards-Version: 3.9.6
 Homepage: https://yunohost.org/
 
