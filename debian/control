@@ -2,7 +2,7 @@ Source: yunohost-admin
 Section: utils
 Priority: extra
 Maintainer: YunoHost Contributors <contrib@yunohost.org>
-Build-Depends: debhelper (>=12), debhelper-compat (= 13), nodejs (>=10.15.2), yarnpkg   
+Build-Depends: debhelper (>=12), debhelper-compat (= 13), nodejs (>=10.15.2), yarnpkg
 Standards-Version: 3.9.6
 Homepage: https://yunohost.org/
 
@@ -15,6 +15,6 @@ Description: web administration interface for yunohost
  an email, Web and IM server alongside a LDAP base. It also provides
  facilities to manage users, domains, apps and so.
  .
- This package contains the JavaScript web client for the YunoHost API, 
- providing a web-based interface for system administration of a 
+ This package contains the JavaScript web client for the YunoHost API,
+ providing a web-based interface for system administration of a
  YunoHost server.
