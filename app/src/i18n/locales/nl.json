@@ -63,7 +63,7 @@
     "postinstall_domain": "Dit is de eerst domeinnaam die aan je YunoHost server gelinkt is, maar ook hetgene gebruikt zal worden als portaal voor je gebruikers om je server te bezoeken. Het is dus zichtbaar door iedereen, kies het zorgvuldig.",
     "postinstall_intro_1": "Gefeliciteerd! YunoHost is met succes geïnstalleerd.",
     "postinstall_intro_2": "Er zijn nog twee configuratiestappen nodig om de diensten van je server te activeren.",
-    "postinstall_intro_3": "Je kan meer informatie verkrijgen door <a href='//doc.yunohost.org/install' target='_blank'>de gepaste documentatie</a> te bekijken",
+    "postinstall_intro_3": "Je kan meer informatie verkrijgen door <a href='//doc.yunohost.org/admin/get_started/install_on' target='_blank'>de gepaste documentatie</a> te bekijken",
     "previous": "Vorige",
     "protocol": "Protocol",
     "restore": "Herstellen",
@@ -524,7 +524,7 @@
     "group_explain_visitors_needed_for_external_client": "Let op dat je sommige applicaties toegankelijk houdt voor bezoekers als je deze wilt gebruiken met externe cliënts. Dit is bijvoorbeeld het geval bij Nextcloud als je jouw smartphone of desktopcomputer wilt gebruiken als synchronisatiecliënt.",
     "tip_about_user_email": "Gebruikers worden aangemaakt met een bijbehorend emailadres in de vorm username{'@'}domain.tld. Extra email-aliassen en email-forwards kunnen later toegevoegd worden door de beheerders en de gebruiker.",
     "mailbox_quota_example": "700M is een CD, 4700M is een DVD",
-    "operation_failed_explanation": "De operatie ging fout! Onze excuses :( Je kan proberen <a href='https://doc.yunohost.org/help'>om hulp te vragen</a>. Toon alstublieft het *volledige logbestand* van de operatie aan de mensen die je helpen. Je kan dit doen door te klikken op de groene knop 'Deel met Yunopaste'. Bij het delen van deze logbestanden zal YunoHost automatisch proberem om de privédata, zoals domeinnamen en IP-addressen, te anonymiseren.",
+    "operation_failed_explanation": "De operatie ging fout! Onze excuses :( Je kan proberen <a href='https://doc.yunohost.org/community/help/'>om hulp te vragen</a>. Toon alstublieft het *volledige logbestand* van de operatie aan de mensen die je helpen. Je kan dit doen door te klikken op de groene knop 'Deel met Yunopaste'. Bij het delen van deze logbestanden zal YunoHost automatisch proberem om de privédata, zoals domeinnamen en IP-addressen, te anonymiseren.",
     "orphaned_details": "Deze app is al langere tijd niet onderhouden. Het zou nog kunnen werken, maar het zal geen updates meer ontvangen tot een vrijwilliger dit op zich neemt. Help mee om deze app nieuw leven in te blazen!",
     "text_selection_is_disabled": "Tekstselectie is uitgeschakeld. Als je de log wilt delen, deel dan de volledige log met de 'Deel met Yunopaste' knop.<br/><small>Of als je echt tekst wilt selecteren, druk dan de toetsen: ↓↓↑↑.</small>",
     "users_import_confirm_destructive": "Ben je zeker dat je gebruikers wilt verwijderen die niet aanwezig zijn in dit bestand?",
@@ -539,8 +539,8 @@
     "tos": {
         "i_agree": "I ga akkoord",
         "acknowledgement": "Instemming met de gebruiksvoorwaarden",
-        "postinstall_acknowledgement": "Het YunoHost-project is een team van vrijwilligers die het hun gemeenschappelijk doel gemaakt hebben, een vrij besturingssysteem voor servers te ontwikkelen onder de naam Yunohost. De YunoHost-software wordt onder de AGPLv3-licentie ((https://www.gnu.org/licenses/agpl-3.0.txt) beschikbaar gesteld. Gerelateerd aan deze software, stelt het project meerdere technische en gemeenschapsdiensten voor verschillende doelen beschikbaar en onderhoud het project deze diensten. Door de diensten te gebruiken, ga je akkoord met de volgende [gebruiksvoorwaarden](https://doc.yunohost.org/terms_of_services).",
-        "i_have_read": "Ik heb de <a href='https://doc.yunohost.org/terms_of_services' target='_blank'>gebruiksvoorwaarden</a> gelezen en begrepen"
+        "postinstall_acknowledgement": "Het YunoHost-project is een team van vrijwilligers die het hun gemeenschappelijk doel gemaakt hebben, een vrij besturingssysteem voor servers te ontwikkelen onder de naam Yunohost. De YunoHost-software wordt onder de AGPLv3-licentie ((https://www.gnu.org/licenses/agpl-3.0.txt) beschikbaar gesteld. Gerelateerd aan deze software, stelt het project meerdere technische en gemeenschapsdiensten voor verschillende doelen beschikbaar en onderhoud het project deze diensten. Door de diensten te gebruiken, ga je akkoord met de volgende [gebruiksvoorwaarden](https://doc.yunohost.org/community/terms_of_services/).",
+        "i_have_read": "Ik heb de <a href='https://doc.yunohost.org/community/terms_of_services/' target='_blank'>gebruiksvoorwaarden</a> gelezen en begrepen"
     },
     "confirm_firewall_close": "Weet je zekerd dat je poort {port} wil sluiten voor protocol {protocol}?",
     "confirm_app_force_upgrade": "Weet je zeker dat je deze app geforceerd wil bijwerken?",

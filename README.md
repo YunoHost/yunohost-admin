@@ -9,7 +9,7 @@
 [YunoHost](https://yunohost.org) administration web interface (VueJS client for the API).
 
 This client is a part of the YunoHost project, and can not be installed directly.  
-Please visit the YunoHost website for [installation instructions](https://yunohost.org/install).
+Please visit the YunoHost website for [installation instructions](https://doc.yunohost.org/admin/get_started/install_on/).
 
 ![Web admin interface screenshot](./doc/admin_home_light.jpg)
 </div>

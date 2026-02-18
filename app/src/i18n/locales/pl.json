@@ -307,7 +307,7 @@
     "only_highquality_apps": "Tylko wysokiej jakości programy",
     "operations": "Operacje",
     "orphaned_details": "Ta aplikacja nie była rozwijana od jakiegoś czasu. Może działać, ale nie otrzyma żadnej aktualizacji dopóki żaden wolontariusz o to nie zadba. Nie krępuj się ożywić ten projekt!",
-    "operation_failed_explanation": "Operacja się nie udała! Bardzo mi przykro :( Możesz spróbować <a href='https://doc.yunohost.org/help'>poprosić o pomoc</a>. Podaj *pełny log* tej operacji osobom, które mogłyby Ci pomóc - możesz to zrobić klikając zielony przycisk \"Udostępnij z Yunopaste\". Udostępniając logi, YunoHost automatycznie podejmie próby anonimizacji prywatnych danych takich jak nazwy domen i adresy IP.",
+    "operation_failed_explanation": "Operacja się nie udała! Bardzo mi przykro :( Możesz spróbować <a href='https://doc.yunohost.org/community/help/'>poprosić o pomoc</a>. Podaj *pełny log* tej operacji osobom, które mogłyby Ci pomóc - możesz to zrobić klikając zielony przycisk \"Udostępnij z Yunopaste\". Udostępniając logi, YunoHost automatycznie podejmie próby anonimizacji prywatnych danych takich jak nazwy domen i adresy IP.",
     "logs_share_with_yunopaste": "Udostępnij log z YunoPaste",
     "path": "Położenie",
     "pending_migrations": "Istnieją migracje oczekujące na uruchomienie. Przejdź do <a href='#/tools/migrations'>Narzędzia > Migracje</a>, aby je uruchomić.",
@@ -349,7 +349,7 @@
     },
     "save": "Zapisz",
     "postinstall_domain": "To będzie pierwsza domena powiązana z twoim serwerem YunoHost. Wybierz ją ostrożnie, bo będzie ona wykorzystywana do logowania się przez użytkowników, a więc będzie ona widoczna dla wszystkich.",
-    "postinstall_intro_3": "Możesz uzyskać więcej informacji odwiedzając <a href='//doc.yunohost.org/install' target='_blank'>dokumentację</a>",
+    "postinstall_intro_3": "Możesz uzyskać więcej informacji odwiedzając <a href='//doc.yunohost.org/admin/get_started/install_on' target='_blank'>dokumentację</a>",
     "previous": "Poprzednie",
     "protocol": "Protokół",
     "postinstall_set_domain": "Ustaw główną domenę",
@@ -578,8 +578,8 @@
     "tos": {
         "i_agree": "Akceptuję",
         "acknowledgement": "Potwierdzenie warunków świadczenia usług",
-        "i_have_read": "Przeczytałem i zrozumiałem <a href='https://doc.yunohost.org/terms_of_services' target='_blank'>warunki korzystania z usługi</a>",
-        "postinstall_acknowledgement": "Projekt YunoHost to zespół wolontariuszy którzy połączyli siły aby stworzyć darmowy system operacyjny dla serwerów o nazwie YunoHost. Aplikacje YunoHost jest udostępniane [na licencji AGPLv3](https://www.gnu.org/licenses/agpl-3.0.txt). W związku z tym aplikacje, projekt administruje i świadczy szereg usług technicznych i społecznościowych o różnym przeznaczeniu. Korzystając z tych usług, zgadzasz się na poniższych [warunków korzystania z usługi](https://doc.yunohost.org/terms_of_services)."
+        "i_have_read": "Przeczytałem i zrozumiałem <a href='https://doc.yunohost.org/community/terms_of_services/' target='_blank'>warunki korzystania z usługi</a>",
+        "postinstall_acknowledgement": "Projekt YunoHost to zespół wolontariuszy którzy połączyli siły aby stworzyć darmowy system operacyjny dla serwerów o nazwie YunoHost. Aplikacje YunoHost jest udostępniane [na licencji AGPLv3](https://www.gnu.org/licenses/agpl-3.0.txt). W związku z tym aplikacje, projekt administruje i świadczy szereg usług technicznych i społecznościowych o różnym przeznaczeniu. Korzystając z tych usług, zgadzasz się na poniższych [warunków korzystania z usługi](https://doc.yunohost.org/community/terms_of_services/)."
     },
     "quick_action": "Szybka akcja",
     "hook_data_multimedia": "Dane multimedialne",

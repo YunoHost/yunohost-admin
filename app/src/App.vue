@@ -146,14 +146,14 @@ onMounted(() => {
             <YIcon iname="book" /> {{ $t('footer.documentation') }}
           </BNavItem>
           <BNavItem
-            href="https://doc.yunohost.org/help"
+            href="https://doc.yunohost.org/community/help/"
             target="_blank"
             link-classes="text-secondary"
           >
             <YIcon iname="life-ring" /> {{ $t('footer.help') }}
           </BNavItem>
           <BNavItem
-            href="https://doc.yunohost.org/terms_of_services"
+            href="https://doc.yunohost.org/community/terms_of_services/"
             target="_blank"
             link-classes="text-secondary"
           >

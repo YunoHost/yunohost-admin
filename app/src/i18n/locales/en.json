@@ -431,7 +431,7 @@
     "only_highquality_apps": "Only high-quality apps",
     "only_working_apps": "Only working apps",
     "open": "Open",
-    "operation_failed_explanation": "This operation failed! Really sorry about that :( You can try to <a href='https://doc.yunohost.org/help'>ask for help</a>. Please provide *the full log* of the operation to the people helping you. You can do so by clicking on the 'Share with Yunopaste' green button. When sharing the logs, YunoHost will automatically attempt to anonymize private data like domain names and IPs.",
+    "operation_failed_explanation": "This operation failed! Really sorry about that :( You can try to <a href='https://doc.yunohost.org/community/help/'>ask for help</a>. Please provide *the full log* of the operation to the people helping you. You can do so by clicking on the 'Share with Yunopaste' green button. When sharing the logs, YunoHost will automatically attempt to anonymize private data like domain names and IPs.",
     "operations": "Operations",
     "orphaned": "Not maintained",
     "orphaned_details": "This app has not been maintained for quite some time. It may still be working, but won't receive any upgrade until somebody volunteers to take care of it. Feel free to contribute to revive it!",
@@ -462,7 +462,7 @@
     "postinstall_domain": "This is the first domain name linked to your YunoHost server, but also the one which will be used by your server's users to access the authentication portal. Accordingly, it will be visible by everyone, so choose it carefully.",
     "postinstall_intro_1": "Congratulations! YunoHost has been successfully installed.",
     "postinstall_intro_2": "Two more configuration steps are required to activate your server's services.",
-    "postinstall_intro_3": "You can obtain more information by visiting the <a href='//doc.yunohost.org/install' target='_blank'>appropriate documentation page</a>",
+    "postinstall_intro_3": "You can obtain more information by visiting the <a href='//doc.yunohost.org/admin/get_started/install_on' target='_blank'>appropriate documentation page</a>",
     "postinstall_set_domain": "Set main domain",
     "previous": "Previous",
     "protocol": "Protocol",
@@ -547,8 +547,8 @@
     "tos": {
         "acknowledgement": "TOS acknowledgement",
         "i_agree": "I agree",
-        "i_have_read": "I have read and understand the <a href='https://doc.yunohost.org/terms_of_services' target='_blank'>Terms of Services</a>",
-        "postinstall_acknowledgement": "The YunoHost project is a team of volunteers who have made common cause to create a free operating system for servers, called YunoHost. The YunoHost software is published under [the AGPLv3 license](https://www.gnu.org/licenses/agpl-3.0.txt). In connection with this software, the project administers and makes available several technical and community services for various purposes. By using these services, you agree to be bound by the following [Terms of Services](https://doc.yunohost.org/terms_of_services)."
+        "i_have_read": "I have read and understand the <a href='https://doc.yunohost.org/community/terms_of_services/' target='_blank'>Terms of Services</a>",
+        "postinstall_acknowledgement": "The YunoHost project is a team of volunteers who have made common cause to create a free operating system for servers, called YunoHost. The YunoHost software is published under [the AGPLv3 license](https://www.gnu.org/licenses/agpl-3.0.txt). In connection with this software, the project administers and makes available several technical and community services for various purposes. By using these services, you agree to be bound by the following [Terms of Services](https://doc.yunohost.org/community/terms_of_services/)."
     },
     "traceback": "Traceback",
     "udp": "UDP",

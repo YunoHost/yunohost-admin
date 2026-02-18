@@ -237,7 +237,7 @@
     "loading": "Aɛebbi",
     "tos": {
         "i_agree": "Qebleɣ",
-        "i_have_read": "Ɣriɣ yakan rnu gziɣ <a href='https://doc.yunohost.org/terms_of_services' target='_blank'>Tiwtilin n useqdec</a>"
+        "i_have_read": "Ɣriɣ yakan rnu gziɣ <a href='https://doc.yunohost.org/community/terms_of_services/' target='_blank'>Tiwtilin n useqdec</a>"
     },
     "users_import": "Kter imiḍanen",
     "install_name": "Asebded n {id}",

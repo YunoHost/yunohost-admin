@@ -267,7 +267,7 @@
         "file": "Jelajahi berkas atau seret dan jatuhkan di sini"
     },
     "postinstall_intro_1": "Selamat! YunoHost berhasil dipasang.",
-    "postinstall_intro_3": "Anda dapat mendapatkan lebih banyak informasi dengan mengunjungi <a href='//doc.yunohost.org/install' target='_blank'>halaman dokumentasinya</a>",
+    "postinstall_intro_3": "Anda dapat mendapatkan lebih banyak informasi dengan mengunjungi <a href='//doc.yunohost.org/admin/get_started/install_on' target='_blank'>halaman dokumentasinya</a>",
     "app": {
         "install": {
             "notifs": {
@@ -503,7 +503,7 @@
     "manage_users": "Kelola pengguna",
     "migrations": "Migrasi",
     "next": "Selanjutnya",
-    "operation_failed_explanation": "Tindakan ini gagal! Sangat maaf sekali :( Anda bisa mencoba <a href='https://doc.yunohost.org/help'>tanya-tanya</a>. Mohon sediakan *log penuh* dari tindakan tersebut kepada yang membantu Anda. Anda bisa melakukan tersebut dengan tombol 'Bagikan dengan Yunopaste'. Ketika membagikan log tersebut, YunoHost akan secara otomatis mencoba menyembunyikan data pribadi seperti nama domain dan IP.",
+    "operation_failed_explanation": "Tindakan ini gagal! Sangat maaf sekali :( Anda bisa mencoba <a href='https://doc.yunohost.org/community/help/'>tanya-tanya</a>. Mohon sediakan *log penuh* dari tindakan tersebut kepada yang membantu Anda. Anda bisa melakukan tersebut dengan tombol 'Bagikan dengan Yunopaste'. Ketika membagikan log tersebut, YunoHost akan secara otomatis mencoba menyembunyikan data pribadi seperti nama domain dan IP.",
     "items_verbose_count": "Ada {items}. | Ada 1 {items}. | Ada {items}.",
     "domain_dns_push_managed_in_parent_domain": "Fitur rekaman DNS otomatis dikelola di domain induk <a href='#/domains/{parent_domain}/dns'>{parent_domain}</a>.",
     "users_import_delete_desc": "Jika dipilih, semua pengguna yang telah ada yang tidak ada di berkas CSV akan dihapus (dan dibersihkan).",

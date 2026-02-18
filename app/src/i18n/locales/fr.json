@@ -72,7 +72,7 @@
     "postinstall_domain": "Il s'agit du premier nom de domaine lié à votre serveur YunoHost. C'est également celui qui servira pour le portail d'authentification. Il sera donc visible pour tout le monde, choisissez-le avec soin.",
     "postinstall_intro_1": "Félicitations ! YunoHost a été installé avec succès.",
     "postinstall_intro_2": "Deux étapes de configuration supplémentaires sont nécessaires pour activer les services de votre serveur.",
-    "postinstall_intro_3": "Vous pouvez obtenir plus d'informations en vous rendant sur <a href='//doc.yunohost.org/install' target='_blank'>la page de documentation appropriée</a>",
+    "postinstall_intro_3": "Vous pouvez obtenir plus d'informations en vous rendant sur <a href='//doc.yunohost.org/admin/get_started/install_on' target='_blank'>la page de documentation appropriée</a>",
     "previous": "Précédent",
     "protocol": "Protocole",
     "restore": "Restaurer",
@@ -206,7 +206,7 @@
     "restart": "Redémarrer",
     "group_explain_visitors_needed_for_external_client": "Veillez à ce que certaines applications soient autorisées pour les visiteurs si vous avez l'intention de les utiliser avec des clients externes. Par exemple, c'est le cas pour Nextcloud si vous souhaitez utiliser un client de synchronisation sur votre smartphone ou ordinateur de bureau.",
     "issues": "{count} problèmes",
-    "operation_failed_explanation": "L'opération a échoué ! Veuillez-nous excuser pour ça :( Vous pouvez essayer de <a href='https://doc.yunohost.org/help'>demander de l'aide</a>. Merci de fournir *le log complet* de l'opération pour les personnes qui vont vous aider. Vous pouvez cliquer sur le bouton vert 'Partager avec Yunopaste'. Quand vous partagez les logs, YunoHost essaie automatiquement d'anonymiser les informations privées comme le nom de domaine et l'adresses IP.",
+    "operation_failed_explanation": "L'opération a échoué ! Veuillez-nous excuser pour ça :( Vous pouvez essayer de <a href='https://doc.yunohost.org/community/help/'>demander de l'aide</a>. Merci de fournir *le log complet* de l'opération pour les personnes qui vont vous aider. Vous pouvez cliquer sur le bouton vert 'Partager avec Yunopaste'. Quand vous partagez les logs, YunoHost essaie automatiquement d'anonymiser les informations privées comme le nom de domaine et l'adresses IP.",
     "diagnosis_explanation": "La fonctionnalité de diagnostic va tenter de trouver certains problèmes communs sur différents aspects de votre serveur pour être sûr que tout fonctionne normalement. Le diagnostic sera également effectué deux fois par jour et enverra un courriel au compte administrateur si des erreurs sont détectées. À noter que certains tests ne seront pas montrés si vous n'utilisez pas certaines fonctions spécifiques (par exemple l'e-mail) ou s'ils échouent à cause d'une configuration trop complexe. Dans ce cas, et si vous savez ce que vous avez modifié, vous pouvez ignorer les problèmes et les avertissements correspondantes.",
     "pending_migrations": "Il y a des migrations en attente d'exécution. Veuillez aller dans <a href='#/tools/migrations'>Outils > Migrations</a> pour les exécuter.",
     "tip_about_user_email": "Les comptes sont créés avec une adresse e-mail associée au format username{'@'}domain.tld. Des alias d'email et des transferts d'emails supplémentaires peuvent être ajoutés ultérieurement par les personnes administrant le serveur ainsi celles ayant accès au compte lui même.",
@@ -550,8 +550,8 @@
     "catalog_wishlist": "Il semblerait que l'application que vous recherchez ne soit pas encore disponible dans le catalogue.\nVous pouvez la proposer dans la [liste de souhaits des applications](https://apps.yunohost.org/wishlist?search={search}) ou voter pour elle si elle y est déjà.",
     "catalog_partial_search": "Essayez de supprimer tous les critères pour voir si l'application que vous recherchez est disponible.",
     "tos": {
-        "i_have_read": "J'ai lu et compris les <a href='https://doc.yunohost.org/terms_of_services' target='_blank'>conditions d'utilisation</a>",
-        "postinstall_acknowledgement": "Le projet YunoHost est une équipe de bénévoles qui ont fait cause commune pour créer un système d'exploitation libre pour serveurs, appelé YunoHost. Le logiciel YunoHost est publié sous [la licence AGPLv3](https://www.gnu.org/licenses/agpl-3.0.txt). En relation avec ce logiciel, le projet administre et met à disposition plusieurs services techniques et communautaires à des fins diverses. En utilisant ces services, vous acceptez d'être lié par les [conditions d'utilisation](https://doc.yunohost.org/terms_of_services) suivantes.",
+        "i_have_read": "J'ai lu et compris les <a href='https://doc.yunohost.org/community/terms_of_services/' target='_blank'>conditions d'utilisation</a>",
+        "postinstall_acknowledgement": "Le projet YunoHost est une équipe de bénévoles qui ont fait cause commune pour créer un système d'exploitation libre pour serveurs, appelé YunoHost. Le logiciel YunoHost est publié sous [la licence AGPLv3](https://www.gnu.org/licenses/agpl-3.0.txt). En relation avec ce logiciel, le projet administre et met à disposition plusieurs services techniques et communautaires à des fins diverses. En utilisant ces services, vous acceptez d'être lié par les [conditions d'utilisation](https://doc.yunohost.org/community/terms_of_services/) suivantes.",
         "acknowledgement": "Accusé de réception des CGU",
         "i_agree": "Je suis d'accord"
     },

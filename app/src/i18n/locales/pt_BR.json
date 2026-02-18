@@ -432,7 +432,7 @@
     "only_highquality_apps": "Apenas aplicativos de alta qualidade",
     "only_working_apps": "Apenas aplicativos que funcionam",
     "open": "Abrir",
-    "operation_failed_explanation": "Esta operação falhou! Sinto muito por isso :( Você pode tentar <a href='https://doc.yunohost.org/help'>pedir ajuda</a>. Por favor, forneça *o log completo* da operação para as pessoas que estão te ajudando. Você pode fazer isso clicando no botão verde 'Compartilhar com YunoPaste'. Ao compartilhar os logs, o YunoHost tentará automaticamente anonimizar dados privados, como nomes de domínio e IPs.",
+    "operation_failed_explanation": "Esta operação falhou! Sinto muito por isso :( Você pode tentar <a href='https://doc.yunohost.org/community/help/'>pedir ajuda</a>. Por favor, forneça *o log completo* da operação para as pessoas que estão te ajudando. Você pode fazer isso clicando no botão verde 'Compartilhar com YunoPaste'. Ao compartilhar os logs, o YunoHost tentará automaticamente anonimizar dados privados, como nomes de domínio e IPs.",
     "text_selection_is_disabled": "A seleção de texto está desativada. Se você deseja compartilhar este registro, compartilhe o registro *completo* usando o botão \"Compartilhar com YunoPaste\".<br/><small>Ou, se você realmente deseja selecionar texto, pressione estas teclas: ↓↓↑↑.</small>",
     "operations": "Operações",
     "orphaned": "Não mantido",
@@ -472,7 +472,7 @@
     "postinstall_domain": "Este é o primeiro nome de domínio vinculado ao seu servidor YunoHost e também aquele que será usado pelos usuários do seu servidor para acessar o portal de autenticação. Portanto, ele ficará visível para todos, então escolha-o com cuidado.",
     "postinstall_intro_1": "Parabéns! O YunoHost foi instalado com sucesso.",
     "postinstall_intro_2": "Mais duas etapas de configuração são necessárias para ativar os serviços do seu servidor.",
-    "postinstall_intro_3": "Você pode obter mais informações visitando a página de documentação <a href='//doc.yunohost.org/install' target='_blank'>apropriada</a>",
+    "postinstall_intro_3": "Você pode obter mais informações visitando a página de documentação <a href='//doc.yunohost.org/admin/get_started/install_on' target='_blank'>apropriada</a>",
     "postinstall_set_domain": "Definir domínio principal",
     "previous": "Voltar",
     "protocol": "Protocolo",
@@ -556,8 +556,8 @@
     "tos": {
         "acknowledgement": "Reconhecimento dos Termos de Serviço",
         "i_agree": "Eu concordo",
-        "i_have_read": "Li e entendi os <a href='https://doc.yunohost.org/terms_of_services' target='_blank'>Termos de Serviço</a>",
-        "postinstall_acknowledgement": "O projeto YunoHost é uma equipe de voluntários que se uniram para criar um sistema operacional gratuito para servidores, chamado YunoHost. O software YunoHost é publicado sob [a licença AGPLv3](https://www.gnu.org/licenses/agpl-3.0.txt). Em relação a este software, o projeto administra e disponibiliza diversos serviços técnicos e comunitários para várias finalidades. Ao utilizar esses serviços, você concorda em estar sujeito aos seguintes [Termos de Serviço](https://doc.yunohost.org/terms_of_services)."
+        "i_have_read": "Li e entendi os <a href='https://doc.yunohost.org/community/terms_of_services/' target='_blank'>Termos de Serviço</a>",
+        "postinstall_acknowledgement": "O projeto YunoHost é uma equipe de voluntários que se uniram para criar um sistema operacional gratuito para servidores, chamado YunoHost. O software YunoHost é publicado sob [a licença AGPLv3](https://www.gnu.org/licenses/agpl-3.0.txt). Em relação a este software, o projeto administra e disponibiliza diversos serviços técnicos e comunitários para várias finalidades. Ao utilizar esses serviços, você concorda em estar sujeito aos seguintes [Termos de Serviço](https://doc.yunohost.org/community/terms_of_services/)."
     },
     "traceback": "Rastreamento",
     "udp": "UDP",

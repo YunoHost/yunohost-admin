@@ -104,7 +104,7 @@
     "mailbox_quota_placeholder": "Lascia vuoto o metti 0 per disattivare.",
     "postinstall_domain": "Questo è il primo nome di dominio collegato al tuo server Yunohost, ma anche quello che verrà usato dagli utenti del tuo server per accedere al portale di autenticazione. Di conseguenza sarà visibile da tutti, perciò sceglilo con attenzione.",
     "postinstall_intro_2": "Sono richiesti ancora due passi da configurare per attivare i servizi del tuo server.",
-    "postinstall_intro_3": "Puoi ottenere ulteriori informazioni visitando la <a href='//doc.yunohost.org/install' target='_blank'>pagina appropriata nella documentazione</a>",
+    "postinstall_intro_3": "Puoi ottenere ulteriori informazioni visitando la <a href='//doc.yunohost.org/admin/get_started/install_on' target='_blank'>pagina appropriata nella documentazione</a>",
     "running": "In esecuzione",
     "system_update": "Aggiornamento del sistema",
     "user_mailbox_use": "Spazio utilizzato dalla casella di posta",
@@ -178,7 +178,7 @@
     "since": "da",
     "restart": "Riavvia",
     "rerun_diagnosis": "Riavvia la diagnostica",
-    "operation_failed_explanation": "Questa operazione è fallita! Siamo spiacenti :( Puoi provare a <a href='https://doc.yunohost.org/help'>chiedere aiuto</a>. Sei pregato di fornire *il log completo* dell'operazione alle persone che ti aiuteranno. Per farlo clicca sul bottone verde 'Condividi con Yunopaste'. Quando condividi i log YunoHost cercherà automaticamente di renderli anonimi eliminando dati privato come nomi di dominio e IP.",
+    "operation_failed_explanation": "Questa operazione è fallita! Siamo spiacenti :( Puoi provare a <a href='https://doc.yunohost.org/community/help/'>chiedere aiuto</a>. Sei pregato di fornire *il log completo* dell'operazione alle persone che ti aiuteranno. Per farlo clicca sul bottone verde 'Condividi con Yunopaste'. Quando condividi i log YunoHost cercherà automaticamente di renderli anonimi eliminando dati privato come nomi di dominio e IP.",
     "others": "Altre",
     "orphaned_details": "Questa applicazione non è più stata manutenuta da qualche tempo. Potrebbe funzionare ancora ma non riceverà più aggiornamenti fino a quando non verrà adottata da qualche volontario. Potresti contribuire facendolo!",
     "orphaned": "Non mantenuta",
@@ -532,8 +532,8 @@
     "tos": {
         "acknowledgement": "Riconoscimento dei termini di servizio",
         "i_agree": "Accetto",
-        "i_have_read": "Ho letto e comprendo i <a href='https://doc.yunohost.org/terms_of_services' target='_blank'>termini di servizio</a>",
-        "postinstall_acknowledgement": "Il progetto YunoHost è composto da una squadra di volontari che portano avanti la causa comune di un sistema operativo libero per server, chiamato YunoHost. Il software YunoHost è pubblicato con [la licenza AGPLv3](https://www.gnu.org/licenses/agpl-3.0.txt). In connessione a questo software, il progetto amministra e rende disponibili diversi servizi tecnici e di comunità per varie finalità. Usando questi servizi, accetti di essere soggettə ai seguenti [termini di servizio](https://doc.yunohost.org/terms_of_services)."
+        "i_have_read": "Ho letto e comprendo i <a href='https://doc.yunohost.org/community/terms_of_services/' target='_blank'>termini di servizio</a>",
+        "postinstall_acknowledgement": "Il progetto YunoHost è composto da una squadra di volontari che portano avanti la causa comune di un sistema operativo libero per server, chiamato YunoHost. Il software YunoHost è pubblicato con [la licenza AGPLv3](https://www.gnu.org/licenses/agpl-3.0.txt). In connessione a questo software, il progetto amministra e rende disponibili diversi servizi tecnici e di comunità per varie finalità. Usando questi servizi, accetti di essere soggettə ai seguenti [termini di servizio](https://doc.yunohost.org/community/terms_of_services/)."
     },
     "groups": {
         "remove_user": {
