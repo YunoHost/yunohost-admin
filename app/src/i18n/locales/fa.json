@@ -46,7 +46,7 @@
     "api_errors_titles": {
         "APIConnexionError": "یونوهاست با خطای اتصال مواجه شده",
         "APINotRespondingError": "رابطهٔ کاربری یونو‌هاست پاسخ نمی دهد",
-        "APINotFoundError": "رابط کاربری یونو‌هاست نتوانست مسیری پیدا کند",
+        "APINotFoundError": "رابطه کاربری یونو‌هاست نتوانست مسیری پیدا کند",
         "APIInternalError": "یونو‌هاست با خطای داخلی مواجه شده",
         "APIBadRequestError": "یونو‌هاست با خطا مواجه شده",
         "APIError": "یونوهاست با خطای غیر منتظره‌ای روبرو شده"
@@ -131,7 +131,7 @@
     "app_install_parameters": "نصب تنظیمات",
     "app_install_custom_no_manifest": "فایل manifest.json وجود ندارد",
     "app_choose_category": "یک دسته را انتخاب کنید",
-    "api_waiting": "در انتظار پاسخ کارسازها…",
+    "api_waiting": "در انتظار پاسخ کارساز…",
     "api_not_responding": "رابطه کاربری یونوهاست پاسخ نمی‌دهد، شاید 'yunohost-api' خاموش و یا راه اندازی مجدد شده؟",
     "purge_user_data_warning": "پاکسازی داده های کاربر برگشت پذیر نیست. مطمئن باشید که می دانید چه می کنید!",
     "purge_user_data_checkbox": "داده های {name} پاک شود؟ (با این کار محتوای فهرست های خانه و رایانامه آن حذف می شود.)",
@@ -344,6 +344,27 @@
             "change_url": "تغییر نشانی",
             "title": "کاره را به یک نشانی متفاوت منتقل کنید"
         },
-        "antifeatures": "این کاره ویژگی‌هایی دارد که ممکن است دوست نداشته باشید:"
+        "antifeatures": "این کاره ویژگی‌هایی دارد که ممکن است دوست نداشته باشید:",
+        "links": {
+            "title": "پیوندها",
+            "website": "وبگاه رسمی"
+        },
+        "potential_alternative_to": "جایگزین بالقوه برای:",
+        "uninstall": {
+            "uninstall": "لغو نصب"
+        },
+        "upgrade": {
+            "up_to_date": "این کاره به‌روز است!",
+            "upgrade": "ارتقا",
+            "force_upgrade": "‏ارتقا اجباری",
+            "confirm": {
+                "apps": "کاره‌هایی که ارتقا خواهند یافت"
+            },
+            "notifs": {
+                "pre": {
+                    "title": "نکات مهم"
+                }
+            }
+        }
     }
 }
