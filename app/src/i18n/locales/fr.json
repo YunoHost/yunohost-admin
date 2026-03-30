@@ -254,7 +254,7 @@
         "backups": "aucune sauvegarde | sauvegarde | sauvegardes",
         "apps": "aucune application | app | apps",
         "permissions": "pas d'autorisations | permission | autorisations",
-        "items": "aucun article | article | articles",
+        "items": "aucun élément | élément | éléments",
         "disk": "aucun disque | disque | disques",
         "inserted_disk": "pas de disque inséré | disque inséré | disques insérés",
         "packages": "aucun paquet | paquet | paquets"
