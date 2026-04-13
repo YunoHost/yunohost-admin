@@ -52,7 +52,7 @@ export const useRequests = createGlobalState(() => {
   const locked = computed(() => currentRequest.value?.showModal)
   const historyList = computed<(APIRequest | APIRequestAction)[]>(() => {
     return requests.value
-      .filter((r) => (!!r.action && !r.id.startsWith('lock')) || !!r.err)
+      .filter((r) => (!!r.action && !r.id?.startsWith('lock')) || !!r.err)
       .reverse() as APIRequestAction[]
   })
   const currentRequest = computed(() => {
@@ -175,7 +175,7 @@ export const useRequests = createGlobalState(() => {
         // We can remove requests that are not actions or has no errors
         requests.value = requests.value.filter(
           (r) =>
-            r.showModal || (!!r.action && !r.id.startsWith('lock')) || !!r.err,
+            r.showModal || (!!r.action && !r.id?.startsWith('lock')) || !!r.err,
         )
       } else if (showError) {
         request.showModal = true
