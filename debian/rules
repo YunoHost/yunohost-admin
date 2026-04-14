@@ -15,7 +15,7 @@ TMPDIR = $$(pwd)/debian/yunohost-admin
 	dh  $@
 
 override_dh_auto_build:
-	cd app; yarnpkg install --frozen-lockfile --non-interactive
+	cd app; yarnpkg install --immutable
 	cd app; yarnpkg build
 
 
