@@ -1,6 +1,7 @@
 .env
 *.swp
 *~
+__pycache__
 
 # Debian generated stuff
 debian/*.log
