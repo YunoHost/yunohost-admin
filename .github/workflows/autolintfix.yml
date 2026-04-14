@@ -15,11 +15,11 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Install yarn dependencies
-      run: cd app && yarn install --frozen-lockfile
+      run: yarn install --frozen-lockfile
     - name: Apply prettier and eslint fix
-      run: cd app && yarn lintfix
+      run: yarn lintfix
     - name: Run type checking
-      run: cd app && yarn type-check
+      run: yarn type-check
     - uses: stefanzweifel/git-auto-commit-action@v5
       with:
         commit_message: ":art: Format code with Prettier and ESLint"
