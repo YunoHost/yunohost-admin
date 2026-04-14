@@ -56,9 +56,9 @@
     "app": {
         "antifeatures": "This app has features you may not like:",
         "change_url": {
-            "title": "Move the app to a different URL",
             "change_url": "Change URL",
-            "not_supported": "Changing the URL where this app is installed is not currently supported for this app."
+            "not_supported": "Changing the URL where this app is installed is not currently supported for this app.",
+            "title": "Move the app to a different URL"
         },
         "doc": {
             "admin": {
@@ -136,20 +136,18 @@
         "open_this_app": "Open this app",
         "potential_alternative_to": "Potential alternative to:",
         "uninstall": {
-            "uninstall": "Uninstall",
             "desc": "This will uninstall the app from your server.<br/>You will have the option to purge the data as well during the confirmation modal.",
-            "purge_desc": "Remove the data directory associated with the app (this is usually data you uploaded yourself using the app)."
+            "purge_desc": "Remove the data directory associated with the app (this is usually data you uploaded yourself using the app).",
+            "uninstall": "Uninstall"
         },
         "upgrade": {
-            "up_to_date": "This app is up to date!",
             "advertise_testing_version": "Looking for a new version from upstream? Maybe there's a 'testing' version you can help packagers with on the YunoHost package's git repository!",
-            "upgrade": "Upgrade",
-            "force_upgrade": "Force-upgrade",
             "confirm": {
                 "apps": "Apps that will be upgraded",
                 "title": "Confirm app upgrades"
             },
             "continue": "Continue to next app",
+            "force_upgrade": "Force-upgrade",
             "notifs": {
                 "post": {
                     "alert": "It seems that the upgrade went well!\n Here is some notifications that the packager considers important to know about this upgrade.\nYou can read it again in the app info page.",
@@ -160,7 +158,9 @@
                     "title": "Important notes"
                 }
             },
-            "stop": "Cancel next app upgrades"
+            "stop": "Cancel next app upgrades",
+            "up_to_date": "This app is up to date!",
+            "upgrade": "Upgrade"
         },
         "upvote": "If you'd like to draw attention to this application, you can vote for it on its [catalog page](https://apps.yunohost.org/app/{id})."
     },
@@ -380,17 +380,17 @@
     "items": {
         "apps": "no apps | app | apps",
         "backups": "no backups | backup | backups",
+        "disk": "no disk | disk | disks",
         "domains": "no domains | domain | domains",
         "groups": "no groups | group | groups",
+        "inserted_disk": "no inserted disk | inserted disk | inserted disks",
         "installed_apps": "no installed apps | installed app | installed apps",
         "items": "no items | item | items",
         "logs": "no logs | log | logs",
         "packages": "no packages | package | packages",
         "permissions": "no permissions | permission | permissions",
         "services": "no services | service | services",
-        "users": "no users | user | users",
-        "disk": "no disk | disk | disks",
-        "inserted_disk": "no inserted disk | inserted disk | inserted disks"
+        "users": "no users | user | users"
     },
     "items_verbose_count": "There are {items}. | There is 1 {items}. | There are {items}.",
     "items_verbose_items_left": "There are {items} left. | There is 1 {items} left. | There are {items} left.",
@@ -494,26 +494,26 @@
     "stopped": "Stopped",
     "storage": "Storage",
     "storage_disks": {
-        "experimental_disclaimer": "This section is experimental and under construction.",
-        "no_disk_found": "No disk found on the system. Maybe you are in a special context such as a LXC container?",
         "category_name": "Hard drives",
+        "experimental_disclaimer": "This section is experimental and under construction.",
         "infos": {
-            "usb_icon_alt": "This device is a connected to USB",
             "ejectable_icon_alt": "This device is ejectable",
-            "smart_status_icon_alt": {
-                "SANE": "This device is sane",
-                "CRITICAL": "This device is in a critical state",
-                "UNKNOWN": "The status of this device is unknown"
-            },
             "serial": "Serial:",
             "serial_unknown": "Unknown",
             "size": "Size:",
-            "type": "Type:"
+            "smart_status_icon_alt": {
+                "CRITICAL": "This device is in a critical state",
+                "SANE": "This device is sane",
+                "UNKNOWN": "The status of this device is unknown"
+            },
+            "type": "Type:",
+            "usb_icon_alt": "This device is a connected to USB"
         },
         "infos_meta": {
-            "usb": "USB device",
-            "ejectable": "This device can be ejected"
-        }
+            "ejectable": "This device can be ejected",
+            "usb": "USB device"
+        },
+        "no_disk_found": "No disk found on the system. Maybe you are in a special context such as a LXC container?"
     },
     "system": "System",
     "system_apps_nothing": "All apps are up to date!",
@@ -556,10 +556,10 @@
     "unignore": "Unignore",
     "unknown": "Unknown",
     "update": {
+        "ok_cache": "The app catalog and system package cache (apt/dpkg) was updated less than one hour ago. But you can refresh them anytime to get up-to-date information.",
         "refresh_cache": "Fetch available updates",
         "stale_cache": "The system package cache (apt/dpkg) was updated {lastAptUpdate} hours ago, and the YunoHost apps catalog was updated {lastAppsCatalogUpdate} hours ago. Be sure to refresh them to get up-to-date information.",
-        "very_stale_cache": "The app catalog or system package cache (apt/dpkg) is outdated. Please start by refreshing the cache to get up-to-date information.",
-        "ok_cache": "The app catalog and system package cache (apt/dpkg) was updated less than one hour ago. But you can refresh them anytime to get up-to-date information."
+        "very_stale_cache": "The app catalog or system package cache (apt/dpkg) is outdated. Please start by refreshing the cache to get up-to-date information."
     },
     "upnp": "UPnP",
     "upnp_disabled": "UPnP is disabled.",
