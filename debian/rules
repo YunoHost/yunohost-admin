@@ -15,6 +15,7 @@ TMPDIR = $$(pwd)/debian/yunohost-admin
 	dh  $@
 
 override_dh_auto_build:
+	cd app; yarnpkg set version berry
 	cd app; yarnpkg install --immutable
 	cd app; yarnpkg build
 
