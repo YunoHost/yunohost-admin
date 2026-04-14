@@ -55,6 +55,7 @@
   "bugs": {
     "url": "https://github.com/YunoHost/issues"
   },
+  "type": "module",
   "homepage": "https://github.com/YunoHost/yunohost-admin",
   "license": "AGPL-3.0",
   "repository": {
