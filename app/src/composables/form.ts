@@ -113,6 +113,14 @@ export function useForm<
     // FIXME add option to ask confirmation (with param text confirm)
     return async (e: SubmitEvent) => {
       e.preventDefault()
+      // Password managers may fill inputs without firing input events
+      const formEl = e.target as HTMLFormElement
+      for (const key of Object.keys(form.value) as (keyof MV)[]) {
+        const el = formEl.elements.namedItem(key as string)
+        if (el instanceof HTMLInputElement && el.value && !form.value[key]) {
+          form.value[key] = el.value as MV[keyof MV]
+        }
+      }
       if (!(await v.value.form.$validate())) return
       fn(onErrorFn, serverErrors)
     }
