@@ -9,6 +9,7 @@ debian/files
 debian/yunohost-admin*
 
 # npm files
+.yarn
 node_modules
 npm-debug.log
 
