@@ -1,3 +1,18 @@
+yunohost-admin (12.1.14) stable; urgency=low
+
+  - debian: use yarnpkg instead of manually installed yarn from repo (4cd9f325)
+  - Fix URL to yunohost documentation (05bec0d1)
+  - readme: Added instructions for opening firewall port for dev environment (61df3ec4)
+  - apps: Make app list sort case-insensitive (a51f5b27)
+  - chore: Bump dependencies
+  - Fix null ref_id crash in SSE: guard against null request id in historyList filter (080c3ece)
+  - Fix login with password managers on mobile, sync DOM input values on submit (2cab1666)
+  - [i18n] Translations updated for Basque, Czech, French, Galician, Kabyle, Occitan, Persian, Polish, Portuguese (Brazil), Ukrainian
+
+  Thanks to all contributors <3 ! (1Poireau, Alekseï, Alexandre Aubin, ButterflyOfFire, dependabot[bot], Eduardo Mozart de Oliveira, Florent, harc, José M, kay0u, orhtej2, Quentí, Schmaker, spicy-catch-268, Titus PiJean, xabirequejo, نادکارو)
+
+ -- Félix Piédallu <felix@piedallu.me>  Tue, 14 Apr 2026 16:05:20 +0200
+
 yunohost-admin (12.1.13) stable; urgency=low
 
   - apps: fix 'remove data dir' option in web admin has no effect #2610 ([#653](http://github.com/YunoHost/yunohost-admin/pull/653))
@@ -240,7 +255,7 @@ yunohost (12.0.0) unstable; urgency=low
   - Tmp changelog to prepare Bookworm
 
  -- Tagada <tagada@cant.at>  Fri, 12 May 2023 16:20:28 +0000
- 
+
 yunohost-admin (11.3.0) stable; urgency=low
 
   - Bump version for 11.3 release
@@ -563,7 +578,7 @@ yunohost-admin (11.0.7) testing; urgency=low
   - [i18n] Translations updated for Spanish, Catalan, Galician, Russian, German, Basque and French
 
   Thanks to all contributors <3 ! (JimScope, retiolus, Alexandre Aubin, ljf, xmgz, cheredin, chwonl, punkrockgirl)
-  
+
  -- tituspijean <titus+yunohost@pijean.ovh>  Tue, 17 May 2022 23:49:00 +0200
 
 yunohost-admin (11.0.6) testing; urgency=low
@@ -1081,8 +1096,8 @@ yunohost-admin (3.7.1.1) stable; urgency=low
 yunohost-admin (3.7.1) stable; urgency=low
 
    - [fix] Misc fixes for action / config panel (#289, #282)
-   - [enh] Add a note about some apps that need to be exposed to visitors for external client to work 
- 
+   - [enh] Add a note about some apps that need to be exposed to visitors for external client to work
+
  -- Alexandre Aubin <alex.aubin@mailoo.org>  Thu, 9 Apr 2020 16:09:00  +0000
 
 yunohost-admin (3.7.0.4) stable; urgency=low
@@ -1145,14 +1160,14 @@ yunohost-admin (3.6.4) stable; urgency=low
   - [enh] Bolder app names in app install list (#253)
 
   Thanks to all contributors <3 ! (Aleks, Bram)
- 
+
  -- Alexandre Aubin <alex.aubin@mailoo.org>  Thu, 04 Jul 2019 23:30:00  +0000
 
 yunohost-admin (3.6.2) testing; urgency=low
 
   - [mod] Move applist management to Tools section (#248)
   - [enh] Display from/to version on upgrade screen (#252)
-  - [i18n] Improve translations for Catalan, Occitan 
+  - [i18n] Improve translations for Catalan, Occitan
 
   Thanks to all contributors <3 ! (Aleks, Quentí, xaloc33)
 
@@ -1193,7 +1208,7 @@ yunohost-admin (3.5.2) stable; urgency=low
   - [i18n] Improve translations for Catalan, Arabic, Italian, Bengali
 
   Thanks to all contributors (Aleks, Xaloc, BoF, silkevicious, mytechpro) <3 !
- 
+
  -- Alexandre Aubin <alex.aubin@mailoo.org>  Wed, 10 Apr 2019 02:00:00 +0000
 
 yunohost-admin (3.5.1) testing; urgency=low
@@ -1235,7 +1250,7 @@ yunohost-admin (3.4.1) testing; urgency=low
   * [i18n] Misc orthotypograhy
 
   Thanks to all contributors (Jean-Baptiste, Laurent Peuch, chateau) <3 !
- 
+
  -- Alexandre Aubin <alex.aubin@mailoo.org>  Thu, 17 Jan 2019 22:03:00 +0000
 
 yunohost-admin (3.4.0.1) testing; urgency=low
