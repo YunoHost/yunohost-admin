@@ -491,7 +491,12 @@
         "uninstall": {
             "purge_desc": "Odstranit složky dat související s aplikací (toto jsou většinou data, která jste sami nahráli při používání aplikace)."
         },
-        "upvote": "Jestli chcete přitáhnout více pozornosti k této aplikaci, můžete pro ni hlasovat na její [katalogové stránce](https://apps.yunohost.org/app/{id})."
+        "upvote": "Jestli chcete přitáhnout více pozornosti k této aplikaci, můžete pro ni hlasovat na její [katalogové stránce](https://apps.yunohost.org/app/{id}).",
+        "change_url": {
+            "change_url": "Změnit URL",
+            "not_supported": "Změna URL, kde je tato aplikace nainstalována, není pro tuto aplikaci v současné době podporováno.",
+            "title": "Přesunout aplikace na jiné URL"
+        }
     },
     "users_export": "Exportovat uživatele",
     "app_state_broken_explanation": "Tato aplikace je momentálně rozbitá a nedá se nainstalovat, dle automatických testů YunoHost",
