@@ -336,11 +336,11 @@
     "user_mailbox_quota": "Kvóta emailové schránky",
     "user_interface_link": "Portál",
     "user_fullname": "Celé jméno",
-    "user_emailforward_add": "Přidat email k přesměrování",
-    "user_emailforward": "Přesměrovaní emailu",
-    "user_emailaliases_add": "Přidat emailový alias",
-    "user_emailaliases": "Emailové aliasy",
-    "user_email": "Email",
+    "user_emailforward_add": "Přidat e-mail k přesměrování",
+    "user_emailforward": "Přesměrovaní e-mailu",
+    "user_emailaliases_add": "Přidat e-mailový alias",
+    "user_emailaliases": "E-mailové aliasy",
+    "user_email": "E-mail",
     "url": "URL",
     "upnp_enabled": "UPnP je povoleno.",
     "upnp_disabled": "UPnP je zákázáno.",
@@ -530,7 +530,7 @@
     "warnings": "{count} varování",
     "users_import_update": "Aktualizovat existující uživatele",
     "yes": "Ano",
-    "wrong_password_or_username": "Špatné heslo nebo přezdívka",
+    "wrong_password_or_username": "Špatné heslo nebo uživatelské jméno",
     "yunohost_admin": "YunoHost administrátor",
     "version": "Verze",
     "users_import_csv_file_desc": "CSV soubor by měl být v UTF-8 se sloupci: username, password, groups, email a quota. Pro příklad CSV import souboru, můžete <a href='/yunohost/api/users/export' target='_BLANK'>exportovat své uživatele do CSV souboru</a> a pak soubor změnit.",
@@ -594,6 +594,8 @@
     },
     "storage": "Úložiště",
     "update": {
-        "refresh_cache": "Získat dostupné aktualizace"
+        "refresh_cache": "Získat dostupné aktualizace",
+        "stale_cache": "Systémová keš balíčků (apt/dpkg) byla aktualizována před {lastAptUpdate} hodinami/ou/y a katalog aplikací YunoHost byl aktualizován před {lastAppsCatalogUpdate} hodinami/ou/y. Ujistěte se, že jste jej obnovili, aby jste měli vždy aktuální informace.",
+        "very_stale_cache": "Katalog aplikací nebo systémová keš balíčků (apt/dpkg) je neaktuální. Prosím, začněte aktualizací keší, abyste měli aktuální informace."
     }
 }
