@@ -8,6 +8,7 @@ export type AppLevel = -1 | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
 export type AppState = 'working' | 'inprogress' | 'thirdparty'
 export type AppUpstream = {
   license?: string | null
+  license_url?: string | null
   website?: string | null
   demo?: string | null
   admindoc?: string | null
@@ -144,6 +145,7 @@ export type AppInfo = {
     install: Obj<AnyOption>
     upstream: {
       license: string | null
+      license_url: string | null
       website: string | null
       demo: string | null
       admindoc: string | null
