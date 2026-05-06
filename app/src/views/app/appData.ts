@@ -51,7 +51,12 @@ export function formatAppIntegration(
 export function formatAppLinks({ upstream, id, remote }: AppManifest) {
   const url = remote.url
   return {
-    license: ['institution', upstream.license_url ? `${upstream.license_url}` : `https://spdx.org/licenses/${upstream.license}`],
+    license: [
+      'institution',
+      upstream.license_url
+        ? `${upstream.license_url}`
+        : `https://spdx.org/licenses/${upstream.license}`,
+    ],
     website: ['globe', upstream.website],
     admindoc: ['book', upstream.admindoc],
     userdoc: ['book', upstream.userdoc],
