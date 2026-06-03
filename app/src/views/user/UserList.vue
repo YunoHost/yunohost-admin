@@ -35,6 +35,9 @@ function downloadExport() {
         <template #button-content>
           <YIcon iname="plus" /> {{ $t('users_add') }}
         </template>
+        <BDropdownItem :to="{ name: 'user-invitations-new' }">
+          <YIcon iname="plus" /> {{ $t('users_invite') }}
+        </BDropdownItem>
         <BDropdownItem :to="{ name: 'user-import' }">
           <YIcon iname="plus" /> {{ $t('users_import') }}
         </BDropdownItem>
