@@ -167,14 +167,14 @@
     "tools_webadmin_settings": "Nastavení webové administrace",
     "tools_webadmin": {
         "transitions": "Animované přechody stránek",
-        "experimental_description": "Bude povolen přístup k experimentálním vlastnostem. Ty jsou ale považovány za nestabilní a může dojít k poškození vašeho systému.<br>Povolte toto nastavení pouze v případě, kdy víte, co děláte.",
+        "experimental_description": "Bude povolen přístup k experimentálním vlastnostem. Ty jsou ale považovány za nestabilní a může dojít k poškození vašeho systému.<br>Povolte toto nastavení pouze v případě, když víte, co děláte.",
         "experimental": "Experimentální režim",
         "cache_description": "Pokud plánujete pracovat s CLI (příkazovou řádkou) a zároveň s webovou administrací, zvažte vypnutí mezipaměti.",
         "cache": "Mezipamět",
         "fallback_language_description": "Jazyk, který se vám zobrazí v případě neexistujícího překladu do vámi zvoleného primárního.",
         "fallback_language": "Záložní jazyk",
         "language": "Jazyk",
-        "theme": "Přepnout tmavý režim"
+        "theme": "Přepnout na tmavý režim"
     },
     "tools_shutdown_reboot": "Vypnutí/Restart",
     "tools_shutdown_btn": "Vypnout",
@@ -259,7 +259,10 @@
         "domains": "žádné domény | doména | domén",
         "backups": "žádné zálohy | záloha | záloh",
         "apps": "žádné aplikace | aplikace | aplikací",
-        "items": "žádné položky | položka | položky"
+        "items": "žádné položky | položka | položky",
+        "disk": "žádný disk | disk | disky",
+        "inserted_disk": "žádný vložený disk | vložený disk | vložené disky",
+        "packages": "žádné balíčky | balíček | balíčky"
     },
     "issues": "{count} chyb/problémů",
     "installation_complete": "Instalace dokončena",
@@ -269,8 +272,8 @@
     "ignored": "{count} ignorovaných",
     "ignore": "Ignorovat",
     "id": "ID",
-    "hook_data_mail_desc": "Emaily ve zdrojové podobě uložené na serveru",
-    "hook_data_mail": "Email",
+    "hook_data_mail_desc": "E-maily ve zdrojové podobě uložené na serveru",
+    "hook_data_mail": "E-mail",
     "hook_data_home_desc": "Data uživatelů se nalézají v /home/USER",
     "hook_data_home": "Data uživatelů",
     "hook_conf_manually_modified_files": "Manuálně změněné konfigurace",
@@ -333,11 +336,11 @@
     "user_mailbox_quota": "Kvóta emailové schránky",
     "user_interface_link": "Portál",
     "user_fullname": "Celé jméno",
-    "user_emailforward_add": "Přidat email k přesměrování",
-    "user_emailforward": "Přesměrovaní emailu",
-    "user_emailaliases_add": "Přidat emailový alias",
-    "user_emailaliases": "Emailové aliasy",
-    "user_email": "Email",
+    "user_emailforward_add": "Přidat e-mail k přesměrování",
+    "user_emailforward": "Přesměrovaní e-mailu",
+    "user_emailaliases_add": "Přidat e-mailový alias",
+    "user_emailaliases": "E-mailové aliasy",
+    "user_email": "E-mail",
     "url": "URL",
     "upnp_enabled": "UPnP je povoleno.",
     "upnp_disabled": "UPnP je zákázáno.",
@@ -477,7 +480,7 @@
                     "alert": "Tyto upozornění byste si měli přečíst před aktualizací. Mohou být důležité."
                 },
                 "post": {
-                    "alert": "Zdá se, že aktualizace proběhla úspěšně!\n Zde jsou některá upozornění, která balící osoba považovala za důležité.\nZnovu si ji můžete přečíst na informační stránce aplikace.",
+                    "alert": "Zdá se, že aktualizace proběhla úspěšně!\n Zde jsou některá upozornění, která správce balíčku považoval za důležité.\nZnovu si ji můžete přečíst na informační stránce aplikace.",
                     "title": "Po-aktualizační upozornění pro '{name}'"
                 }
             },
@@ -486,12 +489,19 @@
                 "title": "Potvrdit aktualizaci aplikací"
             },
             "stop": "Zrušit další aktualizaci aplikací",
-            "continue": "Přejít na další aplikaci"
+            "continue": "Přejít na další aplikaci",
+            "force_upgrade": "Vynutit aktualizaci"
         },
         "uninstall": {
-            "purge_desc": "Odstranit složky dat související s aplikací (toto jsou většinou data, která jste sami nahráli při používání aplikace)."
+            "purge_desc": "Odstranit složky dat související s aplikací (toto jsou většinou data, která jste sami nahráli při používání aplikace).",
+            "uninstall": "Odinstalovat"
         },
-        "upvote": "Jestli chcete přitáhnout více pozornosti k této aplikaci, můžete pro ni hlasovat na její [katalogové stránce](https://apps.yunohost.org/app/{id})."
+        "upvote": "Jestli chcete přitáhnout více pozornosti k této aplikaci, můžete pro ni hlasovat na její [katalogové stránce](https://apps.yunohost.org/app/{id}).",
+        "change_url": {
+            "change_url": "Změnit URL",
+            "not_supported": "Změna URL, kde je tato aplikace nainstalována, není pro tuto aplikaci v současné době podporováno.",
+            "title": "Přesunout aplikace na jiné URL"
+        }
     },
     "users_export": "Exportovat uživatele",
     "app_state_broken_explanation": "Tato aplikace je momentálně rozbitá a nedá se nainstalovat, dle automatických testů YunoHost",
@@ -520,7 +530,7 @@
     "warnings": "{count} varování",
     "users_import_update": "Aktualizovat existující uživatele",
     "yes": "Ano",
-    "wrong_password_or_username": "Špatné heslo nebo přezdívka",
+    "wrong_password_or_username": "Špatné heslo nebo uživatelské jméno",
     "yunohost_admin": "YunoHost administrátor",
     "version": "Verze",
     "users_import_csv_file_desc": "CSV soubor by měl být v UTF-8 se sloupci: username, password, groups, email a quota. Pro příklad CSV import souboru, můžete <a href='/yunohost/api/users/export' target='_BLANK'>exportovat své uživatele do CSV souboru</a> a pak soubor změnit.",
@@ -558,5 +568,34 @@
             "confirm_from_admins": "Jste si jisti, že se chcete odebrat ze skupiny 'administrátoři'?"
         }
     },
-    "important_yunohost_upgrade": "Velká aktualizace YunoHost je dostupná. Je silně doporučeno si pečlivě přečíst poznámky k verzi na fóru před aktualizací: <a href='https://forum.yunohost.org/tag/ynh_release'>Přečíst si poznámky k verzi na fóru</a>"
+    "important_yunohost_upgrade": "Velká aktualizace YunoHost je dostupná. Je silně doporučeno si pečlivě přečíst poznámky k verzi na fóru před aktualizací: <a href='https://forum.yunohost.org/tag/ynh_release'>Přečíst si poznámky k verzi na fóru</a>",
+    "confirm_app_upgrade": "Jste si jisti, že chcete aktualizovat tuto aplikaci?",
+    "storage_disks": {
+        "infos": {
+            "smart_status_icon_alt": {
+                "CRITICAL": "Toto zařízení je v kritickém stavu",
+                "SANE": "Toto zařízení je v normálním stavu",
+                "UNKNOWN": "Toto zařízení je v neznámém stavu"
+            },
+            "type": "Typ:",
+            "usb_icon_alt": "Toto zařízení je připojeno přes USB",
+            "ejectable_icon_alt": "Toto zařízení lze vysunout",
+            "serial": "Sériové číslo:",
+            "serial_unknown": "Neznámé",
+            "size": "Velikost:"
+        },
+        "infos_meta": {
+            "ejectable": "Toto zařízení může být vysunuto",
+            "usb": "USB zařízení"
+        },
+        "no_disk_found": "V systému nebyl nalezen disk. Možné jste ve speciálním kontextu jako je například LXC kontejner?",
+        "category_name": "Pevné disky",
+        "experimental_disclaimer": "Tato sekce je experimentální a ve výstavbě."
+    },
+    "storage": "Úložiště",
+    "update": {
+        "refresh_cache": "Získat dostupné aktualizace",
+        "stale_cache": "Systémová keš balíčků (apt/dpkg) byla aktualizována před {lastAptUpdate} hodinami/ou/y a katalog aplikací YunoHost byl aktualizován před {lastAppsCatalogUpdate} hodinami/ou/y. Ujistěte se, že jste jej obnovili, aby jste měli vždy aktuální informace.",
+        "very_stale_cache": "Katalog aplikací nebo systémová keš balíčků (apt/dpkg) je neaktuální. Prosím, začněte aktualizací keší, abyste měli aktuální informace."
+    }
 }

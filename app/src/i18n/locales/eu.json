@@ -72,7 +72,7 @@
         "maxValue": "Zenbakia {max} edo txikiagoa izan behar da.",
         "passwordLenght": "Pasahitzak 8 karaktere izan behar ditu gutxienez.",
         "between": "{min} eta {max} artean egon behar da.",
-        "email": "Helbide elektronikoak ez du balio: zenbakiak, hizkiak eta <code>_.-</code> bakarrik erabili daitezke (esaterako izena{'@'}adibidea.eus, iz3na-1{'@'}adibidea.eus)",
+        "email": "Helbide elektronikoak ez du balio: zenbakiak, hizkiak eta <code>_.-</code> bakarrik erabil daitezke (esaterako izena{'@'}adibidea.eus, iz3na-1{'@'}adibidea.eus)",
         "minValue": "Zenbakia {min} edo handiagoa izan behar da.",
         "notInUsers": "Badago '{value}' izena duen erabiltzailea dagoeneko.",
         "number": "Balioa zenbaki bat izan behar da.",

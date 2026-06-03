@@ -79,7 +79,7 @@
     "system": "Systeem",
     "system_apps_nothing": "Alle apps zijn up to date!",
     "system_packages_nothing": "Alle systeempakketten zijn up to date!",
-    "system_update": "Systeemupdate",
+    "system_update": "Updates",
     "system_upgrade_btn": "Upgrade",
     "tcp": "TCP",
     "tools": "Gereedschappen",
@@ -322,8 +322,8 @@
         "upgrade": {
             "notifs": {
                 "pre": {
-                    "alert": "Je zou deze meldingen moeten bekijken voor het upgraden, er kan belangrijke informatie om te weten zijn.",
-                    "title": "Wees gewaarschuwd!"
+                    "alert": "Je zou aandachtig de volgende meldingen moeten lezen vóór je begint met het bijwerken.",
+                    "title": "Belangrijke meldingen!"
                 },
                 "post": {
                     "title": "Meldingen na upgrade voor '{name}'",
@@ -335,13 +335,24 @@
                 "apps": "Apps die zullen worden geüpgraded",
                 "title": "Bevestig app upgrade"
             },
-            "continue": "Ga verder naar volgende app"
+            "continue": "Ga verder naar volgende app",
+            "advertise_testing_version": "Zoek je de stroomopwaartse allerlaatste versie? Misschien is er een 'test' versie waarmee je het team kunt helpen in het git-depot van het YunoHost-pakket!",
+            "force_upgrade": "Forceer bijwerken",
+            "up_to_date": "Deze app is actueel!",
+            "upgrade": "Bijwerken"
         },
         "uninstall": {
-            "purge_desc": "Verwijder de map met data die geassocieerd is met de app (dit is gewoonlijk de data die je zelf hebt geüpload bij het gebruiken van de app)."
+            "purge_desc": "Verwijder de map met data die geassocieerd is met de app (dit is gewoonlijk de data die je zelf hebt geüpload bij het gebruiken van de app).",
+            "desc": "Dit zal de app verwijderen van de server.<br/>Je zal de mogelijkheid hebben om ook alle data te verwijderen in het bevestigingsscherm.",
+            "uninstall": "Verwijderen"
         },
         "open_this_app": "Open deze app",
-        "upvote": "Als je de aandacht op deze app wil vestigen, kun je ervoor stemmen op de bijbehorende pagina in de [catalogus] (https://apps.yunohost.org/app/{id})."
+        "upvote": "Als je de aandacht op deze app wil vestigen, kun je ervoor stemmen op de bijbehorende pagina in de [catalogus] (https://apps.yunohost.org/app/{id}).",
+        "change_url": {
+            "change_url": "Verander URL",
+            "not_supported": "De URL aanpassen waar deze app is geïnstalleerd, is momenteel niet ondersteund voor deze app.",
+            "title": "Verplaats de app naar een andere URL"
+        }
     },
     "form_errors": {
         "emailForward": "Ongeldig doorstuur-e-mailadres: mag enkel alfanumerische en <code>_.-+</code> tekens zijn (vb. iemand+label{'@'}voorbeeld.com, v00rbeeld-1+label{'@'}voorbeeld.com)",
@@ -387,7 +398,8 @@
         "installed_apps": "geen geïnstalleerde apps | geïnstalleerde app | geïnstalleerde apps",
         "items": "geen items | item | items",
         "disk": "geen schijven | schijf | schijven",
-        "inserted_disk": "geen opgenomen schijven | opgenomen schijf | opgenomen schijven"
+        "inserted_disk": "geen opgenomen schijven | opgenomen schijf | opgenomen schijven",
+        "packages": "Geen pakket | pakket | pakketten"
     },
     "ignored": "{count} genegeerd",
     "tools_webadmin": {
@@ -580,6 +592,15 @@
         "infos_meta": {
             "usb": "USB-apparaat",
             "ejectable": "Dit apparaat kan uitgeworpen worden"
-        }
+        },
+        "experimental_disclaimer": "Deze sectie is experimenteel en in aanbouw.",
+        "no_disk_found": "Geen schijf gevonden op het systeem. Misschien ben je in een bijzondere context zoals een LXC-container?"
+    },
+    "confirm_app_upgrade": "Ben je zeker dat je deze app wil bijwerken?",
+    "update": {
+        "ok_cache": "De catalogus van apps en de systeempakketten cache (apt/dpkg) is minder dan een uur geleden bijgewerkt. Maar, je kan op ieder moment hernieuwen voor de actuele informatie.",
+        "refresh_cache": "Haal beschikbare updates op",
+        "stale_cache": "De systeempakketten cache (apt/dpkg) was {lastAptUpdate} uur geleden laatst bijgewerkt, en de catalogus van YunoHost apps was {lastAppsCatalogUpdate} uur geleden laatst bijgewerkt. Zorg dat je deze hernieuwd zodat je actuele informatie krijgt.",
+        "very_stale_cache": "De catalogus van de apps of de systeempakketten cache (apt/dpkg) is niet meer actueel. Gelieve te beginnen met de cache te hernieuwen om actuele informatie te krijgen."
     }
 }
