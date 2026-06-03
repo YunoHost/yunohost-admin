@@ -117,7 +117,9 @@ export function useForm<
       const formEl = e.target as HTMLFormElement
       for (const key of Object.keys(form.value) as (keyof MV)[]) {
         const el = formEl.elements.namedItem(key as string)
-        if (el instanceof HTMLInputElement && el.value && !form.value[key]) {
+        if (el instanceof HTMLInputElement &&
+            (el.type == "text" || el.type == "password" || el.type == "email") &&
+            el.value && !form.value[key]) {
           form.value[key] = el.value as MV[keyof MV]
         }
       }
