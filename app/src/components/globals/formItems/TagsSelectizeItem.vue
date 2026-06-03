@@ -31,6 +31,7 @@ const props = withDefaults(
     noTags: false,
     tagIcon: undefined,
 
+    readonly: false,
     ariaDescribedby: undefined,
     state: undefined,
     validation: undefined,
@@ -146,6 +147,7 @@ function onDropdownKeydown(e: KeyboardEvent) {
               :disabled="disabled || (disabledItems?.includes(tag) ?? false)"
               class="border border-dark mb-2"
               @remove="onRemoveTag(tag, removeTag)"
+              :no-remove="readonly"
             >
               <YIcon v-if="tagIcon" :iname="tagIcon" /> {{ texts[tag] }}
             </BFormTag>
@@ -153,6 +155,7 @@ function onDropdownKeydown(e: KeyboardEvent) {
         </ul>
 
         <BDropdown
+          v-if="!readonly"
           ref="dropdownElem"
           :disabled="disabled"
           variant="outline-dark"

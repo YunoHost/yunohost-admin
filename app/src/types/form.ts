@@ -137,6 +137,7 @@ export type TagsSelectizeItemProps = BaseWritableItemProps & {
   limit?: number
   noTags?: boolean
   tagIcon?: string
+  readonly?: boolean
 }
 
 export type TextAreaItemProps = BaseWritableItemProps & {
