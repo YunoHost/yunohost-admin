@@ -4,10 +4,10 @@ import { useUsersAndGroups } from '@/composables/data'
 import { useInfos } from '@/composables/useInfos'
 import { useSearch } from '@/composables/useSearch'
 
-await api.get({
-  uri: 'users?fields=username&fields=fullname&fields=mail&fields=mailbox-quota&fields=groups',
-  cachePath: 'users',
-})
+const [n_invitations] = await api.fetchAll([
+  { uri: 'users?fields=username&fields=fullname&fields=mail&fields=mailbox-quota&fields=groups', cachePath: 'users' },
+  { uri: 'users/invitations?raw' },
+]).then(([{}, { invitations }]) => [ invitations.length ])
 
 const { users } = useUsersAndGroups()
 const [search, filteredUsers] = useSearch(
@@ -25,6 +25,9 @@ function downloadExport() {
 <template>
   <ViewSearch v-model="search" :items="filteredUsers" items-name="users">
     <template #top-bar-buttons>
+      <BButton v-if="n_invitations" variant="outline-info" :to="{ name: 'user-invitations' }">
+        {{ n_invitations + " " + $t('items.invitations', n_invitations) }}
+      </BButton>
       <BDropdown
         :split-to="{ name: 'user-create' }"
         split

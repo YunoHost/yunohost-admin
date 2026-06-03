@@ -65,6 +65,16 @@ const routes: RouteRecordRaw[] = [
     },
   },
   {
+    name: 'user-invitations',
+    path: '/users/invitations',
+    component: () => import('@/views/user/UserInvitations.vue'),
+    props: true,
+    meta: {
+      args: { trad: 'users_invitations' },
+      breadcrumb: ['user-list', 'user-invitations'],
+    },
+  },
+  {
     name: 'user-invitations-new',
     path: '/users/invitations/new',
     component: () => import('@/views/user/UserInvite.vue'),
