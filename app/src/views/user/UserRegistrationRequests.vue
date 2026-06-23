@@ -53,7 +53,7 @@ async function rejectRegistrationRequest(request_id) {
           v-for="request in registration_requests"
           class="ps-3 pe-3"
         >
-          <div class="d-flex w-full justify-content-between align-items-center">
+          <div class="d-flex w-full justify-content-between align-items-center flex-column flex-sm-row">
           <div class="d-flex">
             <div>
               <div class="fs-5">
