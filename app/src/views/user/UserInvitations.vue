@@ -11,14 +11,14 @@ const { t } = useI18n()
 const modalConfirm = useAutoModal()
 const { text, copy, copied, isSupported } = useClipboard()
 
-const { invitations } = await api.get<string>({
+const { invitations } = await api.get({
   uri: `users/invitations?raw`,
   initial: true,
 }).then((invitationsData) => {
     return { invitations: ref(invitationsData.invitations) }
 })
 
-async function cancelInvitation(invitationToken) {
+async function cancelInvitation(invitationToken: string) {
   const confirmed = await modalConfirm(t('confirm_user_invitation_cancel'))
   if (!confirmed) return
 
@@ -29,7 +29,7 @@ async function cancelInvitation(invitationToken) {
   })
 }
 
-async function showInvitationQRCode(invitationURL) {
+async function showInvitationQRCode(invitationURL: string) {
     const qrcode = await useQRCode(invitationURL);
     await modalConfirm("<center><div>" + t("users_invitation_share_qr_code") + "</div><img src='" + qrcode.value + "'/></center>", {title: "", noHeader: true}, { markdown: true, cancelable: false })
 }

@@ -33,7 +33,7 @@ const { usernames, groupsToPermissions, groupsOptions } = useUsersAndGroups()
 const { permissions, permissionsOptions } = usePermissions()
 const { mainDomainsAsChoices, mainDomain } = useDomains()
 
-function perm_related_to_domain(perm_key, domain) {
+function perm_related_to_domain(perm_key: string, domain: string) {
     const perm = permissions.value[perm_key];
     if ((perm === undefined) || (perm.url === undefined)) {
         return true

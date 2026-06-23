@@ -8,7 +8,7 @@ import { useAutoModal } from '@/composables/useAutoModal'
 const { t } = useI18n()
 const modalConfirm = useAutoModal()
 
-const { registration_requests } = await api.get<string>({
+const { registration_requests } = await api.get({
   uri: `users/registrations?raw`,
   initial: true,
 }).then((registrationsData) => {

@@ -183,7 +183,7 @@ export function useUsersAndGroups(username?: MaybeRefOrGetter<string>) {
       const userNames = Object.keys(users.value)
       return toEntries(groups.value).map(
         ([name, data]) => {
-          const group: DGroup = {
+          const group: Group = {
             name,
             // Clone data to avoid mutating the cache
             members: [...data.members],
