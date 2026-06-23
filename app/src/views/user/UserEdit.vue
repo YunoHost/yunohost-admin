@@ -4,7 +4,7 @@ import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 
 import api from '@/api'
-import { useDomains, useUsersAndGroups } from '@/composables/data'
+import { useDomains, useUsersAndGroups, useCache } from '@/composables/data'
 import { useArrayRule, useForm } from '@/composables/form'
 import { arrayDiff, getKeys } from '@/helpers/commons'
 import {
@@ -33,10 +33,12 @@ await api.fetchAll([
     cachePath: `userDetails.${props.name}`,
   },
   { uri: 'domains', cachePath: 'domains' },
+  { uri: 'settings/security.password?export', cachePath: 'passwordSettings' },
 ])
 
 const { domainsAsChoices, mainDomain } = useDomains()
 const { user } = useUsersAndGroups(() => props.name)
+const { content: passwordSettings } = useCache('GET', 'passwordSettings')
 // mailbox-quota could be 'No quota' or 'Pas de quota'...
 const mailboxQuota =
   parseInt(user.value['mailbox-quota'].limit) > 0
@@ -130,9 +132,9 @@ const fields = reactive({
   change_password: {
     component: 'InputItem',
     label: t('password'),
-    description: t('good_practices_about_user_password'),
+    description: t('good_practices_about_user_password', { min: passwordSettings.value["user"].length }),
     descriptionVariant: 'warning',
-    rules: { passwordLenght: minLength(8) },
+    rules: { passwordLenght: minLength(passwordSettings.value["user"].length) },
     cProps: {
       id: 'change_password',
       type: 'password',
