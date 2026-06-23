@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import api from '@/api'
-import { ref, toValue, h, unref } from 'vue'
+import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { distanceToNow } from '@/helpers/filters/date'
 import { useClipboard } from '@vueuse/core'
@@ -56,6 +56,7 @@ async function showInvitationQRCode(invitationURL) {
       <BListGroup v-else free>
         <BListGroupItem
           v-for="invitation in invitations"
+          :key="invitation.token"
           class="d-flex justify-content-between align-items-center ps-3 pe-3"
         >
           <div class="col-6">
@@ -66,11 +67,11 @@ async function showInvitationQRCode(invitationURL) {
                   @{{ invitation.domain }}
                 </span>
               </div>
-              <div class="m-0" v-if="invitation.external_email">
+              <div v-if="invitation.external_email" class="m-0">
                   <YIcon iname="envelope" />
                   {{ invitation.external_email }}
               </div>
-              <div class="m-0" v-if="invitation.groups && invitation.groups.length">
+              <div v-if="invitation.groups && invitation.groups.length" class="m-0">
                   <YIcon iname="users" />
                   {{ invitation.groups.join(',') }}
               </div>
@@ -92,8 +93,8 @@ async function showInvitationQRCode(invitationURL) {
               <BButton
                 class="me-md-3 mb-1"
                 :variant="!copied || text != invitation.url ? 'info' : 'success'"
-                @click="copy(invitation.url)"
                 :disabled="!isSupported"
+                @click="copy(invitation.url)"
               >
                   <span v-if="!copied || text != invitation.url"><YIcon iname="copy" /> {{ $t('users_invitation_copy_link') }}</span>
                   <span v-else><YIcon iname="check" /> {{ $t('users_invitation_copied') }}</span>

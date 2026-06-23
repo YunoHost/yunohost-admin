@@ -12,14 +12,12 @@ import TagsSelectizeItem from '@/components/globals/formItems/TagsSelectizeItem.
 import {
   alphalownumdot_,
   emailForward,
-  integer,
-  minValue,
   required,
   unique,
 } from '@/helpers/validators'
 
 import { formatForm } from '@/helpers/yunohostArguments'
-import type { FieldProps, FileModelValue, FormFieldDict } from '@/types/form'
+import type { FieldProps, FormFieldDict } from '@/types/form'
 
 const { t } = useI18n()
 const router = useRouter()
@@ -31,7 +29,7 @@ await api.fetchAll([
   { uri: 'users/permissions?full', cachePath: 'permissions' },
 ])
 
-const { usernames, groups, groupsToPermissions, groupsOptions } = useUsersAndGroups()
+const { usernames, groupsToPermissions, groupsOptions } = useUsersAndGroups()
 const { permissions, permissionsOptions } = usePermissions()
 const { mainDomainsAsChoices, mainDomain } = useDomains()
 
@@ -215,7 +213,7 @@ const onUserInvite = onSubmit(async (onError) => {
           <SelectItem v-bind="componentProps" v-model="form.domain" />
         </BInputGroup>
       </template>
-      <template #component:inheritedPermissions="componentProps">
+      <template #component:inheritedPermissions="">
         <TagsSelectizeItem
           id="inheritedPermissions"
           v-model="inheritedPermissions"

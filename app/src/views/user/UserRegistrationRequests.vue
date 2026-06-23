@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import api from '@/api'
-import { ref, toValue, h, unref } from 'vue'
+import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { distanceToNow } from '@/helpers/filters/date'
 import { useAutoModal } from '@/composables/useAutoModal'
@@ -51,6 +51,7 @@ async function rejectRegistrationRequest(request_id) {
       <BListGroup v-else free>
         <BListGroupItem
           v-for="request in registration_requests"
+          :key="request.id"
           class="ps-3 pe-3"
         >
           <div class="d-flex w-full justify-content-between align-items-center flex-column flex-sm-row">
@@ -66,7 +67,7 @@ async function rejectRegistrationRequest(request_id) {
                   <YIcon iname="user" />
                   {{ request.fullname }}
               </div>
-              <div class="m-0" v-if="request.external_email">
+              <div v-if="request.external_email" class="m-0">
                   <YIcon iname="envelope" />
                   {{ request.external_email }}
               </div>

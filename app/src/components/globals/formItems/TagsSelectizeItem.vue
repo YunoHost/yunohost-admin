@@ -146,8 +146,8 @@ function onDropdownKeydown(e: KeyboardEvent) {
               :title="tag"
               :disabled="disabled || (disabledItems?.includes(tag) ?? false)"
               class="border border-dark mb-2"
-              @remove="onRemoveTag(tag, removeTag)"
               :no-remove="readonly"
+              @remove="onRemoveTag(tag, removeTag)"
             >
               <YIcon v-if="tagIcon" :iname="tagIcon" /> {{ texts[tag] }}
             </BFormTag>
