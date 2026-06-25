@@ -161,6 +161,13 @@ const useData = createGlobalState(() => {
           delete domainDetails.value[param]
         }
       }
+    } else if (action.includes('settings_set')) {
+      
+          api.get({
+            uri: 'settings/security.password?export',
+            cachePath: 'passwordSettings',
+            cacheForce: true,
+          })
     }
   }
 
@@ -350,6 +357,5 @@ export function updateCacheFromAction(operationId: string) {
     string,
     string | undefined,
   ]
-
   useData().updateFromAction(action, param)
 }
