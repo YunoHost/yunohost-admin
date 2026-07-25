@@ -28,7 +28,8 @@ const { spinner } = useSettings()
       0% {
         transform: rotateY(0);
       }
-      50%, 100% {
+      50%,
+      100% {
         transform: rotateY(180deg);
       }
     }
@@ -39,7 +40,7 @@ const { spinner } = useSettings()
     img {
       height: 24px;
       width: 24px;
-      content: url("../../assets/spinners/pacman_dark.gif");
+      content: url('../../assets/spinners/pacman_dark.gif');
 
       [data-bs-theme='dark'] & {
         content: url('../../assets/spinners/pacman_light.gif');
@@ -52,7 +53,7 @@ const { spinner } = useSettings()
     img {
       height: 32px;
       width: 32px;
-      content: url("../../assets/spinners/magikarp.gif");
+      content: url('../../assets/spinners/magikarp.gif');
     }
   }
 
@@ -61,7 +62,7 @@ const { spinner } = useSettings()
     img {
       height: 40px;
       width: 100px;
-      content: url("../../assets/spinners/nyancat.gif");
+      content: url('../../assets/spinners/nyancat.gif');
     }
   }
 
@@ -70,7 +71,7 @@ const { spinner } = useSettings()
     img {
       height: 40px;
       width: 65px;
-      content: url("../../assets/spinners/spookycat.gif");
+      content: url('../../assets/spinners/spookycat.gif');
     }
   }
 
@@ -79,7 +80,7 @@ const { spinner } = useSettings()
     img {
       height: 40px;
       width: 100px;
-      content: url("../../assets/spinners/transcat.gif");
+      content: url('../../assets/spinners/transcat.gif');
     }
   }
 }
