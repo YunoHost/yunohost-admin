@@ -194,6 +194,8 @@ function onDropdownKeydown(e: KeyboardEvent) {
             v-for="(option, i) in availableOptions"
             :key="i"
             @click="onAddTag(option, addTag)"
+            role="menuitem"
+            :aria-description="$t('Add')"
           >
             {{ typeof option === 'string' ? option : option.text }}
           </BDropdownItemButton>
