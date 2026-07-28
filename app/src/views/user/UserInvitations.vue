@@ -72,7 +72,7 @@ async function showInvitationQRCode(invitationURL: string) {
                   {{ invitation.external_email }}
               </div>
               <div v-if="invitation.groups && invitation.groups.length" class="m-0">
-                  <YIcon iname="users" />
+                  <YIcon iname="users" :label="$t('items.groups', invitation.groups.length)" />
                   {{ invitation.groups.join(',') }}
               </div>
               <div class="m-0">

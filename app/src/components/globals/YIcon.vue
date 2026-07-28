@@ -3,6 +3,7 @@ import type { ColorVariant } from 'bootstrap-vue-next'
 
 defineProps<{
   iname: string
+  label: string
   variant?: ColorVariant
 }>()
 </script>
@@ -10,7 +11,8 @@ defineProps<{
 <template>
   <span
     :class="['icon fa fa-' + iname, variant ? 'variant ' + variant : '']"
-    aria-hidden="true"
+    :aria-label="label"
+    :aria-hidden="(label)?false:true"
   />
 </template>
 
