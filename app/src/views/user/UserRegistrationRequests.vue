@@ -84,12 +84,14 @@ async function rejectRegistrationRequest(request_id) {
                 class="me-3"
                 variant="success"
                 @click="acceptRegistrationRequest(request.id)"
+                :aria-label="$t('users_registration_request_accept_aria', {username: request.username})" 
               >
                   <YIcon iname="check" /> {{ $t('users_registration_request_accept') }}
               </BButton>
               <BButton
                 variant="danger"
                 @click="rejectRegistrationRequest(request.id)"
+                :aria-label="$t('users_registration_request_reject_aria', {username: request.username})" 
               >
                   <YIcon iname="times" /> {{ $t('users_registration_request_reject') }}
               </BButton>
