@@ -16,7 +16,7 @@
     "confirm_change_maindomain": "Möchten Sie wirklich die Hauptdomäne ändern?",
     "confirm_delete": "Möchten Sie {name} wirklich löschen?",
     "confirm_install_custom_app": "WARNUNG! Die Installation von Drittanbieter-Applikationen könnte die Sicherheit und Integrität Ihres Systems gefährden. Sie sollten sie nicht installieren, außer Sie wissen, was Sie tun. Wollen Sie dieses Risiko eingehen?",
-    "confirm_install_domain_root": "Sind Sie sicher, dass Sie diese Applikation auf '/'? installieren wollen? Sie können keine andere Applikation auf der Domäne {domain} installieren",
+    "confirm_install_domain_root": "Bist du sicher, dass du diese App auf '/'? installieren willst? Du wirst keine andere App auf der Domäne {domain} installieren können",
     "confirm_postinstall": "Sie sind dabei, den Konfigurationsprozess für die Domäne {domain} zu starten. Dies wird ein paar Minuten dauern, *unterbrechen Sie diese Operation nicht*.",
     "confirm_restore": "Möchten Sie {name} wirklich wiederherstellen?",
     "confirm_uninstall": "Möchten Sie {name} wirklich deinstallieren?",
@@ -225,12 +225,12 @@
     },
     "address": {
         "local_part_description": {
-            "email": "Wählen Sie einen lokalen Teil für Ihre E-Mail.",
-            "domain": "Wählen Sie eine Subdomain."
+            "email": "Wähle einen lokalen Teil für deine E-Mail.",
+            "domain": "Wähle eine Subdomain."
         },
         "domain_description": {
-            "email": "Wählen Sie eine Domäne für Ihre E-Mail.",
-            "domain": "Wählen Sie eine Domäne."
+            "email": "Wähle eine Domäne für deine E-Mail.",
+            "domain": "Wähle eine Domäne."
         }
     },
     "permission_main": "Haupt-Label",
@@ -306,7 +306,7 @@
         "dynDomain": "Ungültiger Domainname: Er darf nur aus alphanumerischen Kleinbuchstaben und Bindestrichen bestehen",
         "domain": "Ungültiger Domainname: Er darf nur aus alphanumerischen Kleinbuchstaben, Punkt- und Strichzeichen bestehen",
         "between": "Der Wert muss zwischen {min} und {max} liegen.",
-        "alphalownumdot_": "Der Wert darf nur aus alphanumerischen Kleinbuchstaben und Unterstrichen bestehen.",
+        "alphalownumdot_": "Der Wert darf nur aus Kleinbuchstaben, Ziffern, Punkten, Bindestrichen und Unterstrichen bestehen.",
         "alpha": "Der Wert darf nur aus alphabetischen Zeichen bestehen.",
         "remote": "{message}",
         "pattern": "{type}",
@@ -356,11 +356,11 @@
         "title": "Post-Installation",
         "user": {
             "title": "Erstes Administratorkonto erstellen",
-            "first_user_help": "Dieser Benutzer erhält Administratoren-Rechte und darf damit auf die Administrationsoberfläche zugreifen sowie sich per SSH direkt mit dem Server verbinden.\nDa es sich weiterhin um ein reguläres Benutzerkonto handelt, können Sie sich außerdem mit Ihren Zugangsdaten am YunoHost-Portal (SSO) anmelden.\nSobald die Installation abgeschlossen ist, sind Sie in der Lage, weitere Benutzer mit Admin-Rechten zu versehen, indem Sie diese der \"admins\"-Gruppe hinzufügen."
+            "first_user_help": "Dieser Benutzer erhält Administratoren-Rechte und darf damit auf die Admin-Oberfläche zugreifen sowie sich per SSH direkt mit dem Server verbinden.\nDa es sich weiterhin um ein reguläres Benutzerkonto handelt, kannst du dich außerdem mit deinen Zugangsdaten im YunoHost-Portal (SSO) anmelden.\nSobald die Installation abgeschlossen ist, kannst du weitere Benutzer mit Administratoren-Rechten ausstatten, indem du diese der \"admins\"-Gruppe hinzufügst."
         }
     },
     "items_verbose_items_left": "Es bleiben {items} übrig. | Es bleibt 1 {items} übrig. | Es bleiben {items} übrig.",
-    "confirm_group_add_access_permission": "Sind Sie sicher, dass Sie Zugriff auf {perm} an {name} geben wollen? Ein derartiger Zugriff erhöht die Angriffsoberfläche signifikant, wenn {name} boshaft ist. Die sollten dies nur tun, wenn Sie dieser Person/Gruppe VERTRAUEN.",
+    "confirm_group_add_access_permission": "Bist du sicher, dass du {name} Zugriff auf {perm} geben möchtest? Ein derartiger Zugriff erhöht die Angriffsoberfläche signifikant, wenn {name} böswillig ist. Du solltest dies nur tun, wenn du dieser Person/Gruppe VERTRAUST.",
     "app_install_parameters": "Installationsparameter",
     "domain": {
         "dns": {
@@ -429,7 +429,7 @@
     "app_state_broken_explanation": "Diese Applikation ist zur Zeit fehlerhaft und kann gemäss automatisierter Tests durch YunoHost nicht installiert werden",
     "details_about": "Mehr Details über {subject} anzeigen",
     "group_admins": "Administratoren",
-    "group_explain_admins": "Dies ist eine spezielle Gruppe, welche zu den Administratoren-Benutzern gehört. Benutzer in dieser Gruppe besitzen, einfach ausgedrückt, alle Berechtigungen auf dem Server (verändern, erstellen, hinzufügen und zurückhalten). Sie können folglich auf die Admin-Oberfläche von YunoHost zugreifen, sich via SSH mit dem Server verbinden und ausserdem das Kommando `sudo` verwenden. Zusätzlich erhalten sie alle E-Mails, welche an root{'@'}, admin{'@'}, admins{'@'}, wie z.B. die Diagnose-Benachrichtigungen, gesendet wurden. Sie sollten wirklich nur Personen zu dieser Gruppe hinzufügen, denen Sie absolut vertrauen!",
+    "group_explain_admins": "Dies ist eine spezielle Gruppe, welche zu den Administratoren-Benutzern gehört. Benutzer in dieser Gruppe besitzen, einfach ausgedrückt, alle Berechtigungen auf dem Server (verändern, erstellen, hinzufügen und zurückhalten). Sie können folglich auf die Admin-Oberfläche von YunoHost zugreifen, sich via SSH mit dem Server verbinden und ausserdem das Kommando `sudo` verwenden. Zusätzlich erhalten sie alle E-Mails, welche an root{'@'}, admin{'@'}, admins{'@'}, wie z.B. die Diagnose-Benachrichtigungen, gesendet wurden. Du solltst nur Personen zu dieser Gruppe hinzufügen, denen du absolut vertraust!",
     "important_yunohost_upgrade": "Eine grössere YunoHost-Aktualisierung ist erhältlich. Es ist sehr empfehlenswert, die Release-Note(s) im Forum sorgfältig durchzulesen, bevor Sie aktualisieren : <a href='https://forum.yunohost.org/tag/ynh_release'>Die Release-Notes im Forum aufrufen.</a>",
     "label_for_manifestname_help": "Dies ist der Name, der im Portal angezeigt wird. Er kann später geändert werden.",
     "manage_groups": "Gruppenmanagement",

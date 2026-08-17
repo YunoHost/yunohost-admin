@@ -108,7 +108,7 @@
         "passwordLenght": "A senha deve ter pelo menos 8 caracteres.",
         "pattern": "{type}",
         "remote": "{message}",
-        "alphalownumdot_": "O valor deve ter somente caracteres alfanuméricos minúsculos, pontos e sublinhados.",
+        "alphalownumdot_": "O valor deve ter somente caracteres alfanuméricos minúsculos, pontos, traços e sublinhados.",
         "invalid_form": "O formulário contém erros.",
         "maxValue": "O valor deve ser um número igual ou menor que {max}.",
         "numValue": "O valor deve ser um número",
