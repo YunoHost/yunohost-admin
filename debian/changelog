@@ -1,3 +1,14 @@
+yunohost-admin (12.1.15) stable; urgency=low
+
+  - apps: Display custom license_url from manifest
+  - apps: Fix forms toggling checkboxes on for no reason ([#679](http://github.com/YunoHost/yunohost-admin/pull/679))
+  - user: Allow dash and force first char to be alphanumerical ([#678](http://github.com/YunoHost/yunohost-admin/pull/678))
+  - i18n: Translations updated for Basque, Czech, Dutch, French, Galician, German, Persian, Portuguese (Brazil), Russian, Ukrainian
+
+  Thanks to all contributors <3 ! (Alekseï, Alexandre Aubin, bruno van den bosch, Dhanush G, Eduardo Mozart de Oliveira, g-rppl, Jaroslav Nezbeda, José M, ljf, orhtej2, ppr, xabirequejo, نادکارو)
+
+ -- tituspijean <tituspijean@yunohost.org>  Tue, 18 Aug 2026 22:18:40 +0200
+
 yunohost-admin (12.1.14) stable; urgency=low
 
   - debian: use yarnpkg instead of manually installed yarn from repo (4cd9f325)
