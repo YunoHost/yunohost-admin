@@ -4,7 +4,7 @@ import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 
 import api from '@/api'
-import { useDomains, useUsersAndGroups } from '@/composables/data'
+import { useDomains, useUsersAndGroups, useCache } from '@/composables/data'
 import { useForm } from '@/composables/form'
 import {
   alphalownumdot_,
@@ -23,10 +23,12 @@ const router = useRouter()
 await api.fetchAll([
   { uri: 'users', cachePath: 'users' },
   { uri: 'domains', cachePath: 'domains' },
+  { uri: 'settings/security.password?export', cachePath: 'passwordSettings' },
 ])
 
 const { usernames } = useUsersAndGroups()
 const { domainsAsChoices, mainDomain } = useDomains()
+const { content: passwordSettings } = useCache('GET', 'passwordSettings')
 
 type Form = typeof form.value
 const form = ref({
@@ -76,18 +78,18 @@ const fields = {
     cProps: { choices: domainsAsChoices },
   }) satisfies FieldProps<'SelectItem', Form['domain']>,
 
-  password: {
+  password: reactive({
     component: 'InputItem',
     label: t('password'),
-    description: t('good_practices_about_user_password'),
+    description: t('good_practices_about_user_password', { min: passwordSettings.value["user"].length }),
     descriptionVariant: 'warning',
-    rules: { required, passwordLenght: minLength(8) },
+    rules: { required, passwordLenght: minLength(passwordSettings.value["user"].length) },
     cProps: {
       id: 'password',
       placeholder: '••••••••',
       type: 'password',
     },
-  } satisfies FieldProps<'InputItem', Form['password']>,
+  }) satisfies FieldProps<'InputItem', Form['password']>,
 
   confirmation: reactive({
     component: 'InputItem',
