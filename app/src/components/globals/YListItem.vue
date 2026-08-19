@@ -5,6 +5,7 @@ withDefaults(
     sublabel?: string
     description?: string
     imageSrc?: string
+    badges?: BadgesInfos[]
   }>(),
   {
     sublabel: undefined,
@@ -32,6 +33,7 @@ const slots = defineSlots<{
           <small v-if="sublabel" class="ms-1 text-secondary">
             {{ sublabel }}
           </small>
+          <YBadgeList v-if="badges" :badges="badges" />
         </h5>
         <p v-if="description || slots.default" class="m-0">
           <slot name="default">
