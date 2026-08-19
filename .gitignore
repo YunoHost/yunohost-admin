@@ -7,8 +7,11 @@ __pycache__
 debian/*.log
 debian/files
 debian/yunohost-admin*
+debian/.debhelper
+debian/debhelper-build-stamp
 
 # npm files
+.yarn
 node_modules
 npm-debug.log
 
