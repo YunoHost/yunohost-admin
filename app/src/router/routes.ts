@@ -65,6 +65,36 @@ const routes: RouteRecordRaw[] = [
     },
   },
   {
+    name: 'user-registration-requests',
+    path: '/users/registration-requests',
+    component: () => import('@/views/user/UserRegistrationRequests.vue'),
+    props: true,
+    meta: {
+      args: { trad: 'users_registration_requests' },
+      breadcrumb: ['user-list', 'user-registration-requests'],
+    },
+  },
+  {
+    name: 'user-invitations',
+    path: '/users/invitations',
+    component: () => import('@/views/user/UserInvitations.vue'),
+    props: true,
+    meta: {
+      args: { trad: 'users_invitations' },
+      breadcrumb: ['user-list', 'user-invitations'],
+    },
+  },
+  {
+    name: 'user-invitations-new',
+    path: '/users/invitations/new',
+    component: () => import('@/views/user/UserInvite.vue'),
+    props: true,
+    meta: {
+      args: { trad: 'users_invite' },
+      breadcrumb: ['user-list', 'user-invitations', 'user-invitations-new'],
+    },
+  },
+  {
     name: 'user-import',
     path: '/users/import',
     component: () => import('@/views/user/UserImport.vue'),

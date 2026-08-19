@@ -1,9 +1,8 @@
 import { createGlobalState } from '@vueuse/core'
 import { computed, reactive, ref, toValue, type MaybeRefOrGetter } from 'vue'
-
 import type { RequestMethod } from '@/api/api'
 import api from '@/api/api'
-import { isEmptyValue, isObjectLiteral } from '@/helpers/commons'
+import { isEmptyValue, isObjectLiteral, toEntries } from '@/helpers/commons'
 import { stratify } from '@/helpers/data/tree'
 import type { Obj } from '@/types/commons'
 import type {
@@ -158,9 +157,57 @@ const useData = createGlobalState(() => {
   }
 })
 
-export function useUsersAndGroups(username?: MaybeRefOrGetter<string>) {
-  const { users, userDetails } = useData()
+export function usePermissions() {
+  const { permissions } = useData()
   return {
+      permissions: permissions,
+      permissionsOptions: computed(() => {
+        return toEntries(permissions.value).map(([key, infos]) => ({
+            value: key,
+            text: infos.label
+        }))
+    }),
+  }
+}
+
+export function useUsersAndGroups(username?: MaybeRefOrGetter<string>) {
+  const { users, userDetails, groups } = useData()
+
+  function isSpecialGroup(
+    name: string,
+  ): name is 'visitors' | 'all_users' | 'admins' {
+    return ['visitors', 'all_users', 'admins'].includes(name)
+  }
+
+  const formattedGroups = computed(() => {
+      const userNames = Object.keys(users.value)
+      return toEntries(groups.value).map(
+        ([name, data]) => {
+          const group: Group = {
+            name,
+            // Clone data to avoid mutating the cache
+            members: [...data.members],
+            permissions: [...data.permissions],
+          }
+
+          if (! userNames.includes(name)) {
+            return group;
+          }
+        },
+      ).filter((group) => !!group)
+    })
+
+  return {
+    groups: formattedGroups,
+    groupsToPermissions: computed(() => Object.fromEntries(
+        Object.entries(groups.value).map(([key, infos]) => [key, [...infos.permissions]])
+    )),
+    groupsOptions: computed(() => {
+        return formattedGroups.value.filter((group) => !isSpecialGroup(group.name)).map((group) => ({
+            value: group.name,
+            text: group.name
+        }))
+    }),
     users: computed(() => {
       const users_ = Object.values(users.value)
       if (!users_.length) throw new Error(getNoDataMessage('users'))
@@ -217,6 +264,13 @@ export function useDomains(domain_?: MaybeRefOrGetter<string>) {
     return null
   }
 
+  const domainsAsChoices = computed(() => {
+    return domains.value.map((domain) => ({
+        value: domain,
+        text: domain === mainDomain.value ? domain + ' ★' : domain,
+    }))
+  })
+
   return {
     maybeMainDomain: mainDomain,
     mainDomain: computed(() => {
@@ -233,11 +287,9 @@ export function useDomains(domain_?: MaybeRefOrGetter<string>) {
       return domain
     }),
     domains,
-    domainsAsChoices: computed(() => {
-      return domains.value.map((domain) => ({
-        value: domain,
-        text: domain === mainDomain.value ? domain + ' ★' : domain,
-      }))
+    domainsAsChoices,
+    mainDomainsAsChoices: computed(() => {
+        return domainsAsChoices.value.filter((domainChoice) => (! getParentDomain(domainChoice.value, domains.value)))
     }),
     orderedDomains,
     domainsTree: computed(() => {
