@@ -152,7 +152,7 @@ const [DefineTemplate, ReuseTemplate] = createReusableTemplate<{
 </script>
 
 <template>
-  <DefineTemplate v-slot="{ ariaDescribedby }">
+  <DefineTemplate v-slot="{ ariaDescribedby, descriptionId }">
     <!-- Make field props and state available as scoped slot data -->
     <slot
       v-bind="{
@@ -160,6 +160,7 @@ const [DefineTemplate, ReuseTemplate] = createReusableTemplate<{
         ariaDescribedby,
         state,
         validation,
+        descriptionId
       }"
     >
       <!-- if no component was passed as slot, render a component from the props -->
@@ -167,7 +168,7 @@ const [DefineTemplate, ReuseTemplate] = createReusableTemplate<{
         v-bind="props.cProps"
         :is="props.component"
         v-model="modelValue"
-        :aria-describedby="ariaDescribedby"
+        :aria-describedby="ariaDescribedby || ((description || link || 'description' in slots) ?descriptionId : '')"
         :state="state"
         :validation="validation"
       />
@@ -182,7 +183,7 @@ const [DefineTemplate, ReuseTemplate] = createReusableTemplate<{
     :label-for="labelFor || props.cProps?.id"
     :state="state"
   >
-    <template #default="{ ariaDescribedby }">
+    <template #default="{ ariaDescribedby, descriptionId }">
       <BInputGroup v-if="asInputGroup || append || prepend" :append="append">
         <BInputGroupText
           v-if="asInputGroup || prepend"
@@ -190,9 +191,9 @@ const [DefineTemplate, ReuseTemplate] = createReusableTemplate<{
         >
           {{ asInputGroup ? label : prepend }}
         </BInputGroupText>
-        <ReuseTemplate v-bind="{ ariaDescribedby }" />
+        <ReuseTemplate v-bind="{ ariaDescribedby, descriptionId }" />
       </BInputGroup>
-      <ReuseTemplate v-else v-bind="{ ariaDescribedby }" />
+      <ReuseTemplate v-else v-bind="{ ariaDescribedby, descriptionId }" />
     </template>
 
     <template #invalid-feedback>
