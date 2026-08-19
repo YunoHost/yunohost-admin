@@ -5,150 +5,82 @@ const { spinner } = useSettings()
 </script>
 
 <template>
-  <div :class="['custom-spinner', spinner]" />
+  <div :class="['custom-spinner', spinner]">
+    <img alt="Spinner" />
+  </div>
 </template>
 
 <style lang="scss" scoped>
 .custom-spinner {
-  animation: 8s linear infinite;
-  background-repeat: no-repeat;
+  animation: 4s linear 0s infinite alternate move;
+  @keyframes move {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(100%);
+    }
+  }
+
+  img {
+    animation: 8s steps(1) infinite turn;
+    @keyframes turn {
+      0% {
+        transform: rotateY(0);
+      }
+      50%,
+      100% {
+        transform: rotateY(180deg);
+      }
+    }
+  }
 
   &.pacman {
-    height: 24px;
-    width: 24px;
-    background-image: url('../../assets/spinners/pacman_dark.gif');
-    animation-name: back-and-forth-pacman;
+    width: calc(100% - 24px);
+    img {
+      height: 24px;
+      width: 24px;
+      content: url('../../assets/spinners/pacman_dark.gif');
 
-    [data-bs-theme='dark'] & {
-      background-image: url('../../assets/spinners/pacman_light.gif');
-    }
-
-    @keyframes back-and-forth-pacman {
-      0%,
-      100% {
-        transform: scale(1);
-        margin-left: 0;
-      }
-      49% {
-        transform: scale(1);
-        margin-left: calc(100% - 24px);
-      }
-      50% {
-        transform: scale(-1);
-        margin-left: calc(100% - 24px);
-      }
-      99% {
-        transform: scale(-1);
-        margin-left: 0;
+      [data-bs-theme='dark'] & {
+        content: url('../../assets/spinners/pacman_light.gif');
       }
     }
   }
 
   &.magikarp {
-    height: 32px;
-    width: 32px;
-    background-image: url('../../assets/spinners/magikarp.gif');
-    animation-name: back-and-forth-magikarp;
-
-    @keyframes back-and-forth-magikarp {
-      0%,
-      100% {
-        transform: scale(1, 1);
-        margin-left: 0;
-      }
-      49% {
-        transform: scale(1, 1);
-        margin-left: calc(100% - 32px);
-      }
-      50% {
-        transform: scale(-1, 1);
-        margin-left: calc(100% - 32px);
-      }
-      99% {
-        transform: scale(-1, 1);
-        margin-left: 0;
-      }
+    width: calc(100% - 32px);
+    img {
+      height: 32px;
+      width: 32px;
+      content: url('../../assets/spinners/magikarp.gif');
     }
   }
 
   &.nyancat {
-    height: 40px;
-    width: 100px;
-    background-image: url('../../assets/spinners/nyancat.gif');
-    animation-name: back-and-forth-nyancat;
-
-    @keyframes back-and-forth-nyancat {
-      0%,
-      100% {
-        transform: scale(1, 1);
-        margin-left: 0;
-      }
-      49% {
-        transform: scale(1, 1);
-        margin-left: calc(100% - 100px);
-      }
-      50% {
-        transform: scale(-1, 1);
-        margin-left: calc(100% - 100px);
-      }
-      99% {
-        transform: scale(-1, 1);
-        margin-left: 0;
-      }
+    width: calc(100% - 100px);
+    img {
+      height: 40px;
+      width: 100px;
+      content: url('../../assets/spinners/nyancat.gif');
     }
   }
 
   &.spookycat {
-    height: 40px;
-    width: 65px;
-    background-image: url('../../assets/spinners/spookycat.gif');
-    animation-name: back-and-forth-spookycat;
-
-    @keyframes back-and-forth-spookycat {
-      0%,
-      100% {
-        transform: scale(1, 1);
-        margin-left: 0;
-      }
-      49% {
-        transform: scale(1, 1);
-        margin-left: calc(100% - 100px);
-      }
-      50% {
-        transform: scale(-1, 1);
-        margin-left: calc(100% - 100px);
-      }
-      99% {
-        transform: scale(-1, 1);
-        margin-left: 0;
-      }
+    width: calc(100% - 65px);
+    img {
+      height: 40px;
+      width: 65px;
+      content: url('../../assets/spinners/spookycat.gif');
     }
   }
 
   &.transcat {
-    height: 40px;
-    width: 100px;
-    background-image: url('../../assets/spinners/transcat.gif');
-    animation-name: back-and-forth-transcat;
-
-    @keyframes back-and-forth-transcat {
-      0%,
-      100% {
-        transform: scale(1, 1);
-        margin-left: 0;
-      }
-      49% {
-        transform: scale(1, 1);
-        margin-left: calc(100% - 100px);
-      }
-      50% {
-        transform: scale(-1, 1);
-        margin-left: calc(100% - 100px);
-      }
-      99% {
-        transform: scale(-1, 1);
-        margin-left: 0;
-      }
+    width: calc(100% - 100px);
+    img {
+      height: 40px;
+      width: 100px;
+      content: url('../../assets/spinners/transcat.gif');
     }
   }
 }
