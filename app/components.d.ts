@@ -115,6 +115,7 @@ declare module 'vue' {
     TopBar: typeof import('./src/components/globals/TopBar.vue')['default']
     ViewSearch: typeof import('./src/components/globals/ViewSearch.vue')['default']
     YAlert: typeof import('./src/components/globals/YAlert.vue')['default']
+    YBadgeList: typeof import('./src/components/globals/YBadgeList.vue')['default']
     YBreadcrumb: typeof import('./src/components/globals/YBreadcrumb.vue')['default']
     YCard: typeof import('./src/components/globals/YCard.vue')['default']
     YIcon: typeof import('./src/components/globals/YIcon.vue')['default']

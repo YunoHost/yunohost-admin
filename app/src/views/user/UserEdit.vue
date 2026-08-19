@@ -29,7 +29,7 @@ const { t } = useI18n()
 const router = useRouter()
 await api.fetchAll([
   {
-    uri: `users/${props.name}`,
+    uri: `users/${props.name}?with_groups_and_perms`,
     cachePath: `userDetails.${props.name}`,
   },
   { uri: 'domains', cachePath: 'domains' },
@@ -51,6 +51,8 @@ const form = ref({
   mailbox_quota: mailboxQuota,
   mail_aliases: user.value['mail-aliases'].map((mail) => formatAdress(mail)),
   mail_forward: [...user.value['mail-forward']],
+  groups: user.value.groups,
+  permissions: user.value.permissions,
   change_password: '',
   confirmation: '',
 })
@@ -58,6 +60,7 @@ const fields = reactive({
   username: {
     component: 'InputItem',
     label: t('user_username'),
+    description: t('user_username_change_is_not_supported'),
     cProps: {
       id: 'username',
       disabled: true,
@@ -90,7 +93,6 @@ const fields = reactive({
     component: 'InputItem',
     label: t('user_mailbox_quota'),
     description: t('mailbox_quota_description'),
-    // example: t('mailbox_quota_example'),
     rules: { integer, minValue: minValue(0) },
     cProps: {
       id: 'mailbox-quota',
@@ -127,9 +129,27 @@ const fields = reactive({
     },
   }) satisfies FieldProps<'InputItem', Form['mail_forward']>,
 
+  groups: {
+    component: 'YBadgeList',
+    label: t('groups'),
+    id: 'groups',
+    cProps: {
+        badges: user.value.groups,
+        icon: "users",
+    }
+  },
+  permissions: {
+    component: 'YBadgeList',
+    label: t('permissions'),
+    id: 'permissions',
+    cProps: {
+        badges: user.value.permissions,
+        icon: "key-modern",
+    }
+  },
   change_password: {
     component: 'InputItem',
-    label: t('password'),
+    label: t('new_password'),
     description: t('good_practices_about_user_password'),
     descriptionVariant: 'warning',
     rules: { passwordLenght: minLength(8) },
@@ -155,6 +175,33 @@ const fields = reactive({
     },
   }) satisfies FieldProps<'InputItem', Form['confirmation']>,
 } satisfies FormFieldDict<Form>)
+
+const sections = [
+    {
+        id: "main",
+        isActionSection: false,
+        name: "Identity and groups",
+        visible: true,
+        collapsed: false,
+        fields: ["username", "fullname", "groups", "permissions"],
+    },
+    {
+        id: "mail",
+        isActionSection: false,
+        name: "Email",
+        visible: true,
+        collapsed: false,
+        fields: ["mail", "mail_aliases", "mail_forward", "mailbox_quota"],
+    },
+    {
+        id: "password",
+        isActionSection: false,
+        name: t('password_change'),
+        visible: true,
+        collapsed: false,
+        fields: ["change_password", "confirmation"],
+    },
+]
 
 const { v, onSubmit } = useForm(form, fields)
 
@@ -216,10 +263,26 @@ const onUserEdit = onSubmit(async (onError, serverErrors) => {
       data,
     })
     .then(() => {
-      router.push({ name: 'user-info', params: { name: props.name } })
+      router.push({ name: 'user-edit', params: { name: props.name } })
     })
     .catch(onError)
 })
+
+
+const purge = ref(false)
+
+function deleteUser() {
+  const data = purge.value ? { purge: '' } : {}
+  api
+    .delete({
+      uri: `users/${props.name}`,
+      cachePath: `userDetails.${props.name}`,
+      data,
+    })
+    .then(() => {
+      router.push({ name: 'user-list' })
+    })
+}
 </script>
 
 <template>
@@ -231,7 +294,22 @@ const onUserEdit = onSubmit(async (onError, serverErrors) => {
       :title="$t('user_username_edit', { name })"
       :validations="v"
       @submit.prevent="onUserEdit"
+      :sections="sections"
     >
+      <template #header>
+        <BCardHeader class="d-flex">
+            <Component is="h2" class="custom-header-title flex-grow-1">
+              <YIcon iname="user" class="me-2" />{{ $t('user_account', { name }) }}
+            </Component>
+            <BButton
+              v-b-modal.delete-modal
+              class="btn-sm"
+              variant="danger"
+            >
+              <YIcon iname="trash-o" /> {{ $t('delete') }}
+            </BButton>
+        </BCardHeader>
+      </template>
       <template #field:mail_aliases="fieldProps">
         <FormFieldMultiple
           v-bind="fieldProps"
@@ -258,6 +336,28 @@ const onUserEdit = onSubmit(async (onError, serverErrors) => {
         />
       </template>
     </CardForm>
+
+    <BModal
+      v-if="user"
+      id="delete-modal"
+      centered
+      :title="$t('confirm_delete', { name })"
+      header-variant="warning"
+      @ok="deleteUser"
+    >
+      <BFormGroup>
+        <BFormCheckbox v-model="purge">
+          {{ $t('purge_user_data_checkbox', { name }) }}
+        </BFormCheckbox>
+
+        <template #description>
+          <div class="alert alert-warning">
+            <YIcon iname="exclamation-triangle" />
+            {{ $t('purge_user_data_warning') }}
+          </div>
+        </template>
+      </BFormGroup>
+    </BModal>
   </div>
 </template>
 

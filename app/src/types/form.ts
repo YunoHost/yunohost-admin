@@ -169,6 +169,7 @@ const ANY_WRITABLE_COMPONENTS = [
   'TagsItem',
   'TagsSelectizeItem',
   'TextAreaItem',
+  'YBadgeList',
 ] as const
 const ANY_DISPLAY_COMPONENTS = [
   'ButtonItem',
