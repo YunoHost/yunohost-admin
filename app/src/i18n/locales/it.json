@@ -195,7 +195,7 @@
     "group_explain_visitors_needed_for_external_client": "Poni attenzione al fatto che dovrai dare l'accesso ai visitatori ad alcune applicazioni se pensi di usarle con dei client esterni. Ad esempio questo è il caso di Nextcloud nel caso tu lo voglia usare con un client di sincronizzazione dal tuo smartphone o dal computer desktop.",
     "group_explain_visitors": "Questo è un gruppo speciale che individua i visitatori anonimi",
     "run_first_diagnosis": "Avvio diagnosi iniziali",
-    "diagnosis_explanation": "La funzione di diagnosi cercherà di identificare problemi comuni nei differenti aspetti del tuo server per essere sicuri che tutto funzioni correttamente. La diagnosi si avvia automaticamente due volte al giorno e un email viene inviata all'amministratore se vengono identificati dei problemi. Nota che alcuni test possono non essere rilevanti se non vuoi usare alcune specifiche funzionalità (come ad esempio XMPP) oppure potrebbero fallire sei hai un setup complesso. In questi casi, se sai quello che stai facendo, puoi ignorare questi problemi o avvisi.",
+    "diagnosis_explanation": "La funzione di diagnosi cercherà di identificare problemi comuni nei differenti aspetti del tuo server per essere sicuri che tutto funzioni correttamente. La diagnosi si avvia automaticamente due volte al giorno e un email viene inviata all'amministratore se vengono identificati dei problemi. Nota che alcuni test possono non essere rilevanti se non vuoi usare alcune specifiche funzionalità (come ad esempio le email) oppure potrebbero fallire sei hai un setup complesso. In questi casi, se sai quello che stai facendo, puoi ignorare questi problemi o avvisi.",
     "diagnosis_first_run": "La funzione di diagnosi cercherà di identificare problemi comuni nei differenti aspetti del tuo server per essere sicuri che tutto funzioni correttamente. Sei invitato a non farti prendere dal panico nel caso vengano indicati molti errori dopo la prima installazione del tuo server perché questa funzione cerca di aiutarti ad identificare i problemi e guidarti nella loro soluzione. La diagnosi inoltre si avvierà automaticamente due volte al giorno e un email verrà inviata all'amministratore se vengono identificati dei problemi.",
     "confirm_service_restart": "Sei sicuro di voler riavviare {name}?",
     "catalog": "Catalogo",
@@ -253,7 +253,8 @@
     "history": {
         "last_action": "Ultima azione:",
         "title": "Cronologia",
-        "is_empty": "Nessuno storico per ora."
+        "is_empty": "Nessuno storico per ora.",
+        "check_logs": "Vai alla pagina del registro dell'operazione."
     },
     "form_errors": {
         "required": "Campo richiesto.",
@@ -268,7 +269,7 @@
         "dynDomain": "Nome dominio non valido: Dev'esser composto di soli caratteri alfanumerici minuscoli e trattini",
         "domain": "Nome dominio non valido: Dev'esser composto di soli caratteri alfanumerici minuscoli, punti e trattini",
         "between": "Il valore dev'essere compreso tra {min} e {max}.",
-        "alphalownumdot_": "Il valore deve contenere solo caratteri alfanumerici minuscoli e underscore.",
+        "alphalownumdot_": "Il valore deve contenere solo caratteri alfanumerici minuscoli, punti, trattini e underscore.",
         "alpha": "Il valore deve comprendere solo caratteri alfanumerici.",
         "remote": "{message}",
         "pattern": "{type}",
@@ -505,18 +506,28 @@
                     "alert": "Sembra che l’aggiornamento sia andato bene!\nEcco alcune notifiche che la persona che ha creato il pacchetto considera importanti riguardo a questo aggiornamento.\nPotrai leggerle nuovamente nella pagina di informazioni dell’app."
                 },
                 "pre": {
-                    "alert": "Dovresti controllare queste notifiche prima di aggiornare, potrebbero esserci cose importanti da sapere.",
-                    "title": "Attenzione!"
+                    "alert": "Dovresti leggere attentamente le seguenti note prima di procedere con l'aggiornamento.",
+                    "title": "Note importanti"
                 }
             },
-            "stop": "Annulla i prossimi aggiornamenti di app"
+            "stop": "Annulla i prossimi aggiornamenti di app",
+            "force_upgrade": "Forza aggiornamento",
+            "up_to_date": "Questa app è aggiornata!",
+            "upgrade": "Aggiorna"
         },
         "installed_version": "Versione installata:",
         "potential_alternative_to": "Potenziale alternativa a:",
         "uninstall": {
-            "purge_desc": "Rimuovi la directory dei dati associati all’app (solitamente, si tratta di dati che hai caricato tu stessə usando l’app)."
+            "purge_desc": "Rimuovi la directory dei dati associati all’app (solitamente, si tratta di dati che hai caricato tu stessə usando l’app).",
+            "desc": "Questa operazione disinstallerà l'app dal tuo server.<br/>Avrai anche l'opzione di eliminare definitivamente i dati nella finestra di conferma.",
+            "uninstall": "Disinstalla"
         },
-        "upvote": "Se vuoi portare più attenzione su quest’applicazione, puoi votarla [nella sua pagina del catalogo](https://apps.yunohost.org/app/{id})."
+        "upvote": "Se vuoi portare più attenzione su quest’applicazione, puoi votarla [nella sua pagina del catalogo](https://apps.yunohost.org/app/{id}).",
+        "change_url": {
+            "change_url": "Cambia URL",
+            "not_supported": "Questa app attualmente non supporta il cambio dell'URL dove è installata.",
+            "title": "Sposta l'app a un URL differente"
+        }
     },
     "wrong_password_or_username": "Password o username sbagliati",
     "manage_groups": "Gestisci i gruppi",
@@ -546,5 +557,10 @@
         "select_one": "Scegli un’opzione"
     },
     "catalog_partial_search": "Prova a rimuovere tutti i criteri per vedere se l’app che stai cercando è disponibile.",
-    "catalog_wishlist": "Sembra che l’app che stai cercando non sia disponibile nel catalogo.\n Puoi proporla nella [lista delle app desiderate](https://apps.yunohost.org/wishlist?search={search}), o votarla se c’è già."
+    "catalog_wishlist": "Sembra che l’app che stai cercando non sia disponibile nel catalogo.\n Puoi proporla nella [lista delle app desiderate](https://apps.yunohost.org/wishlist?search={search}), o votarla se c’è già.",
+    "confirm_app_force_upgrade": "Vuoi davvero procedere con l'aggiornamento forzato dell'app?",
+    "confirm_app_upgrade": "Vuoi davvero aggiornare questa app?",
+    "confirm_firewall_close": "Vuoi davvero chiudere la porta {port} per il protocollo {protocol}?",
+    "confirm_firewall_open": "Vuoi davvero aprire la porta {port} per il protocollo {protocol}?",
+    "failed": "Fallito"
 }
