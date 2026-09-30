@@ -81,5 +81,11 @@
     },
     "app_state_inprogress": "még nem működik",
     "applications": "Alkalmazások",
-    "archive_empty": "Üres archívum"
+    "archive_empty": "Üres archívum",
+    "backup": "Biztonsági mentés",
+    "backup_action": "Biztonsági mentés",
+    "backup_content": "Biztonsági mentés tartalma",
+    "backup_create": "Biztonsági mentés létrehozása",
+    "backup_new": "Új biztonsági mentés",
+    "begin": "Kezdés"
 }
