@@ -27,10 +27,58 @@
                 "shutdown": "A szerver leáll és többé nem elérhető.",
                 "unknown": "A szerverrel való kapcsolat ismeretlen okokból megszakadt. Lehet, hogy a 'yunohost-api' nem elérhető?",
                 "upgrade_system": "A szerverrel való kapcsolat a YunoHost frissítése miatt megszakadt. Várja meg, míg a szerver újra elérhető lesz…"
-            }
+            },
+            "title": "Probálunk a szerverrel kommunikálni…"
         },
         "processing": "A szerver feldolgozza a műveletet…",
-        "busy": "A szerver elfoglalt…"
+        "busy": "A szerver elfoglalt…",
+        "unknown_request": "Ismeretlen lekérés"
     },
-    "all_apps": "Minden alkalmazás"
+    "all_apps": "Minden alkalmazás",
+    "api_error": {
+        "error_message": "Hibaüzenet:"
+    },
+    "app": {
+        "change_url": {
+            "change_url": "URL módosítása"
+        },
+        "doc": {
+            "admin": {
+                "title": "Adminisztrátor dokumentáció"
+            },
+            "notifications": {
+                "post_install": "Telepítés utáni jegyzetek",
+                "post_upgrade": "Frissítés utáni jegyzetek",
+                "understood": "Értem"
+            }
+        },
+        "info": {
+            "config_panel_error": "Egy hiba megakadályozza a beállítási panel megjelenítését:",
+            "config_panel_error_please_report": "Kérjük jelentsd ezt a hibát a YunoHost csapatának, hogy kijavíthassák!",
+            "forum": "Keress vagy kérdezz a fórumon!",
+            "problem": "Gond van az alkalmazással?"
+        },
+        "install": {
+            "notifs": {
+                "post": {
+                    "alert": "Úgy tűnik a telepítés sikeresen megtörtént!\nItt van néhány értesítés, amit a csomag szerzője fontosnak talált.\nKésőbb is megtalálhatod őket az app infó oldalán.",
+                    "title": "A \"{name}\" telepítését követő értesítések"
+                },
+                "pre": {
+                    "critical": "Ezt az alkalmazást lehetetlen telepíteni",
+                    "danger": "Az alkalmazás telepítése valószínűleg további hibákat okozhat",
+                    "warning": "Telepítés előtti tudnivalók"
+                }
+            },
+            "problems": {
+                "arch": "Ezt az appot csak meghatározott architektúrára ({required}) lehet telepíteni de a Te szervered architektúrája {current}.",
+                "broken": "A YunoHost automatikus tesztmenete szerint ez az applikáció hibás és valószínűleg végzetes hibát is okozhat a rendszeren! NE telepítsd, csak ha tudod, mit csinálsz.",
+                "ignore": "Tisztában vagyok vele, hogy ez a telepítés végzetes hibát okozhat a rendszeren, de továbbra is ezt szeretném.",
+                "inprogress": "Ez az alkalmazás kisérleti stádiumban van (ha nem kimondottan működésképtelen) és valószínűleg végzetes hibát okozhat a rendszeren. NE telepítsd, csak ha tudod, mit csinálsz.",
+                "install": "Már telepítve van és nem lehet többször telepíteni."
+            }
+        }
+    },
+    "app_state_inprogress": "még nem működik",
+    "applications": "Alkalmazások"
 }
