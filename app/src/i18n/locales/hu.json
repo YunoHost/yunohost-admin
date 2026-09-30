@@ -80,5 +80,6 @@
         }
     },
     "app_state_inprogress": "még nem működik",
-    "applications": "Alkalmazások"
+    "applications": "Alkalmazások",
+    "archive_empty": "Üres archívum"
 }
