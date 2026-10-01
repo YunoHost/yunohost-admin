@@ -163,5 +163,6 @@
     "confirm_reboot_action_shutdown": "Biztosan le szeretné állítani a szerverét?",
     "created_at": "Létrehozva ekkor:",
     "delete": "Törlés",
-    "description": "Leírás"
+    "description": "Leírás",
+    "save": "Mentés"
 }
