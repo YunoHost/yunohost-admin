@@ -47,8 +47,7 @@
         "last_action": "Tigawt taneggarut:",
         "check_logs": "Ṛuḥ ɣer usebter n yiɣmisen n temhelt.",
         "is_empty": "Ulac kra deg umazray tura.",
-        "no_logs": "Ulac iɣmisen yellan.",
-        "started_by": ""
+        "no_logs": "Ulac iɣmisen yellan."
     },
     "home": "Agejdan",
     "id": "ID",
@@ -73,7 +72,6 @@
         "language": "Tutlayt",
         "fallback_language": "Tutlayt tis snat",
         "fallback_language_description": "Tutlayt ara yettwasqedcen ma ulac tasuqilt s tutlayt tagejdant.",
-        "experimental": "",
         "theme": "Beddel ɣer uskar aberkan",
         "transitions": "Ismussiyen n usenkez n usebter"
     },
@@ -217,15 +215,13 @@
                 "letsencrypt": "Let's Encrypt",
                 "selfsigned": "Yettwazmel i yiman-is"
             },
-            "install": "Sebded daɣen aselkin n Let's Encrypt",
-            "valid_for": ""
+            "install": "Sebded daɣen aselkin n Let's Encrypt"
         },
         "dns": {
             "auto_config_zone": "Tamnaḍt tamirant n DNS",
             "auto_config": "Tawila tawurmant n yiklasen n DNS",
             "auto_config_ok": "Tawila tawurmant tetteddu akken iwata!",
             "manual_config": "Ikalasen n DNS i d-yettwasumren i tawila s ufus",
-            "push": "",
             "push_force": "Sfeḍ iklasen yellan s yiklasen imaynuten"
         },
         "info": {
@@ -532,9 +528,7 @@
     "rerun_diagnosis": "Ales tasleḍt",
     "run_first_diagnosis": "Sekker tasleḍt tamezwarut",
     "unauthorized": "Ur yettusireg ara",
-    "user_emailaliases": "",
     "user_emailaliases_add": "Rnu asemmas n yimayl",
-    "user_emailforward": "",
     "user_emailforward_add": "Rnu asifḍet n yimayl",
     "user_mailbox_quota": "Amur n tanaka n yimayl",
     "user_mailbox_use": "Tallunt yettwasqedcen deg tanaka n yimayl",
