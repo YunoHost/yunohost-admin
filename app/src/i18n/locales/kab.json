@@ -45,7 +45,7 @@
     "history": {
         "title": "Amazray",
         "last_action": "Tigawt taneggarut:",
-        "check_logs": "Ṛuḥ ɣer usebter n yiɣmisen n temhelt.",
+        "check_logs": "Ṛuḥ ɣer usebter n weɣmis n temhelt.",
         "is_empty": "Ulac kra deg umazray tura.",
         "no_logs": "Ulac iɣmisen yellan."
     },
@@ -425,7 +425,7 @@
         "packages": "ula d yiwen u ukemmus | n ukemmus | n ikemmusen",
         "backups": "ulac iḥrazen | aḥraz | iḥrazen",
         "domains": "ulac tiɣulin | taɣult | tiɣulin",
-        "inserted_disk": "ulac aḍebsi yettwagerren | aḍebsi yettwagerren | iḍebsiyen yettwagerren",
+        "inserted_disk": "ulac aḍebsi yettwagren | aḍebsi yettwagren | iḍebsiyen yettwagren",
         "installed_apps": "ulac isnasen yettwasbedden | asnas yettwasbedden | isnasen yettwasbedden",
         "items": "ulac iferdisen | aferdis | iferdisen",
         "logs": "ulac iɣmisen | aɣmis | iɣmisen",
@@ -534,7 +534,7 @@
     "user_mailbox_use": "Tallunt yettwasqedcen deg tanaka n yimayl",
     "users_import_confirm_destructive": "Tebɣiḍ s tidet ad tekkseḍ iseqdacen ur nelli ara deg ufaylu-a?",
     "users_import_delete": "Kkes iseqdacen ur nelli ara deg wumuɣ",
-    "users_import_delete_desc": "Ma yettwarcem, akk iseqdacen yellan ur nelli ara deg ufaylu CSV ad ttwakkasen (ad ttwasfḍen).",
+    "users_import_delete_desc": "Ma yettwarcem, akk iseqdacen yellan ur nelli ara deg ufaylu CSV ad ttwakkasen (ad ttwasefḍen).",
     "users_import_delete_others": "Kkes iseqdacen ur nettwaxtaren ara",
     "users_import_update_desc": "Ma yettwarcem, akk iseqdacen yellan deg ufaylu CSV ad ttwaleqqmen s wazal amaynut",
     "warnings": "{count} n yilɣa"
