@@ -15,11 +15,23 @@
     "api": {
         "query_status": {
             "pending": "Iteddu",
-            "error": "Ur yeddi ara akken iwata"
+            "error": "Ur yeddi ara akken iwata",
+            "success": "Immed akken iwata",
+            "warning": "Immed s tuccḍiwin neɣ s yilɣa"
         },
         "unknown_request": "Taɣult tarussint",
         "busy": "Aqeddac-a ur yestuffi ara…",
-        "processing": "Ha-t-an uqeddac yeskaray tigawt-nni…"
+        "processing": "Ha-t-an uqeddac yeskaray tigawt-nni…",
+        "partial_logs": "[…] (wali deg umazray iwakken ad twaliḍ akk iɣmisen)",
+        "reconnecting": {
+            "reason": {
+                "reboot": "Aqeddac-ik la yettales asekker, ulamek ara tawḍeḍ ɣur-s akka tura.",
+                "shutdown": "Aqeddac-ik yetteddu ad yexsi, dayen ulac amek ara tawḍeḍ ɣur-s.",
+                "unknown": "Tuqqna d uqeddac temdel ɣef ssebbat ur nettwassen ara. Ahat 'yunohost-api' yexsi?",
+                "upgrade_system": "Tuqqna d uqeddac temdel ɣef lǧal n uleqqem n YunoHost. Arǧu aqeddac ad yettwaweḍ tikkelt nniḍen…"
+            },
+            "title": "Aɛraḍ n unermes d uqeddac…"
+        }
     },
     "created_at": "Yettwarna di",
     "domain_name": "Isem n Taɣult",
@@ -32,7 +44,11 @@
     "permissions": "Tisirag",
     "history": {
         "title": "Amazray",
-        "last_action": "Tigawt taneggarut:"
+        "last_action": "Tigawt taneggarut:",
+        "check_logs": "Ṛuḥ ɣer usebter n yiɣmisen n temhelt.",
+        "is_empty": "Ulac kra deg umazray tura.",
+        "no_logs": "Ulac iɣmisen yellan.",
+        "started_by": ""
     },
     "home": "Agejdan",
     "id": "ID",
@@ -56,7 +72,10 @@
         "cache": "Tuffirt",
         "language": "Tutlayt",
         "fallback_language": "Tutlayt tis snat",
-        "fallback_language_description": "Tutlayt ara yettwasqedcen ma ulac tasuqilt s tutlayt tagejdant."
+        "fallback_language_description": "Tutlayt ara yettwasqedcen ma ulac tasuqilt s tutlayt tagejdant.",
+        "experimental": "",
+        "theme": "Beddel ɣer uskar aberkan",
+        "transitions": "Ismussiyen n usenkez n usebter"
     },
     "udp": "UDP",
     "unignore": "Ur yettwazgel ara",
@@ -78,7 +97,11 @@
     "yes": "Ih",
     "api_error": {
         "error_message": "Izen n tuccḍa:",
-        "view_error": "Wali tuccḍa"
+        "view_error": "Wali tuccḍa",
+        "help": "Yessefk ad tnadiḍ tallalt deg <a href=\"https://forum.yunohost.org/\">uswir (forum)</a> neɣ deg <a href=\"https://chat.yunohost.org/\">ucat</a> akken ad tseggmeḍ taluft, neɣ cceggeɛ abug deg <a href=\"https://github.com/YunoHost/issues\">umḍfar n yibugen</a>.",
+        "info": "Talɣut-a tezmer ad tenfeɛ amdan ara k-iɛawnen:",
+        "server_said": "Deg wakud n useddu n tigawt, aqeddac yenna-d:",
+        "sorry": "Suref-aɣ aṭas ɣef waya."
     },
     "applications": "Isnasen",
     "backup": "Aḥraz",
@@ -148,12 +171,21 @@
         "infos": {
             "serial_unknown": "Arussin",
             "size": "Tiddi:",
-            "type": "Anaw:"
+            "type": "Anaw:",
+            "ejectable_icon_alt": "Ibenk-a yezmer ad yettwaḍleq",
+            "serial": "Uṭṭun n ussallel:",
+            "smart_status_icon_alt": {
+                "CRITICAL": "Ibenk-a yella deg waddad uqqiḥ",
+                "UNKNOWN": "Addad n yibenk-a ur yettwassen ara"
+            },
+            "usb_icon_alt": "Ibenk-a yeqqen ɣer USB"
         },
         "category_name": "Iḍebsiyen iquṛanen",
         "infos_meta": {
-            "usb": "Ibenk USB"
-        }
+            "usb": "Ibenk USB",
+            "ejectable": "Ibenk-a yezmer ad yettwaḍleq"
+        },
+        "experimental_disclaimer": "Tigezmi-a d tasekrant yerna mazal-itt deg lebni."
     },
     "all_apps": "Akk isnasen",
     "app_choose_category": "Fren taggayt",
@@ -163,7 +195,17 @@
         "pattern": "{type}",
         "notInUsers": "Amiḍan '{value}' yella yakan.",
         "passwordLenght": "Awal n uɛeddi ilaq ad isɛu ma drus 8 n isekkilen di teɣzi.",
-        "passwordMatch": "Awalen n uɛeddi ur mṣadan ara."
+        "passwordMatch": "Awalen n uɛeddi ur mṣadan ara.",
+        "alpha": "Azal yessefk ad yili d isekkilen kan.",
+        "between": "Azal yessefk ad yili gar {min} d {max}.",
+        "checked": "Taxxamt n ṛṛcem yessefk ad tettwarcem.",
+        "domain": "Isem n taɣult mačči d ameɣtu: Yessefk ad yili d isekkilen imiẓiyen, tinqidiyin d yijerriden kan",
+        "invalid_form": "Taftart tegber kra n tuccḍiwin.",
+        "maxValue": "Azal yessefk ad yili d amḍan yugdan neɣ meẓẓiyen ɣef {max}.",
+        "minValue": "Azal yessefk ad yili d amḍan yugdan neɣ meqqren ɣef {min}.",
+        "numValue": "Azal yessefk ad yili d amḍan",
+        "number": "Azal yessefk ad yili d amḍan.",
+        "required": "Urti-a yettwasra."
     },
     "domain": {
         "types": {
@@ -174,18 +216,31 @@
                 "other": "Wayeḍ/Arussin",
                 "letsencrypt": "Let's Encrypt",
                 "selfsigned": "Yettwazmel i yiman-is"
-            }
+            },
+            "install": "Sebded daɣen aselkin n Let's Encrypt",
+            "valid_for": ""
         },
         "dns": {
-            "auto_config_zone": "Tamnaḍt tamirant n DNS"
+            "auto_config_zone": "Tamnaḍt tamirant n DNS",
+            "auto_config": "Tawila tawurmant n yiklasen n DNS",
+            "auto_config_ok": "Tawila tawurmant tetteddu akken iwata!",
+            "manual_config": "Ikalasen n DNS i d-yettwasumren i tawila s ufus",
+            "push": "",
+            "push_force": "Sfeḍ iklasen yellan s yiklasen imaynuten"
         },
         "info": {
             "apps_on_domain": "Isnasen yattusbedden ɣef taɣult",
-            "certificate_authority": "Adabu n uselken SSL"
+            "certificate_authority": "Adabu n uselken SSL",
+            "registrar": "Asemmares"
         },
         "add": {
-            "from_registrar": "Bɣiɣ ad rnuɣ taɣult i sɛiɣ yakan"
-        }
+            "from_registrar": "Bɣiɣ ad rnuɣ taɣult i sɛiɣ yakan",
+            "dyn_dns_password": "Awal n ɛeddi i tririt n taɣult",
+            "from_local": "Bɣiɣ taɣult i useqdec adigan / asekyed kan",
+            "from_subdomain": "Bɣiɣ ad rnuɣ tadɣult seg taɣult yettwarnan yakan"
+        },
+        "see_parent_domain": "Wali taɣult tayemmat",
+        "toggle_subdomains": "Sken/Ffer tidɣulin"
     },
     "app": {
         "links": {
@@ -196,41 +251,105 @@
             "admindoc": "Tisemlit tunṣibt n tedbelt",
             "package": "Akufi n ukemmus n YunoHost",
             "package_license": "Turagt n ukemmus n YunoHost",
-            "userdoc": "Tisemlit tunṣibt n useqdac"
+            "userdoc": "Tisemlit tunṣibt n useqdac",
+            "forum": "Isental ɣef usnas-a deg uswir n YunoHost"
         },
         "integration": {
             "ldap": {
-                "true": "Seqdec imiḍanen n YunoHost akken ad teqqneḍ (LDAP)"
-            }
+                "true": "Seqdec imiḍanen n YunoHost akken ad teqqneḍ (LDAP)",
+                "?": "Ulac talɣut ɣef usekcem n LDAP",
+                "false": "Ur yesseqdac ara imiḍanen n YunoHost i tuqqna (LDAP)"
+            },
+            "archs": "Tisegdiwin yettwasefraken:",
+            "multi_instance": {
+                "false": "Yezmer ad yettwasbedd yiwet kan n tikelt",
+                "true": "Yezmer ad yettwasbedd acḥal d tikkal"
+            },
+            "resources": "Aseqdec amezday n teɣbula: {ram} n RAM, {disk} n uḍebsi",
+            "sso": {
+                "?": "Ulac talɣut ɣef usekcem n SSO",
+                "false": "Tuqqna tasuft ur telli ara (SSO)",
+                "true": "Tuqqna tasuft tella (SSO)"
+            },
+            "title": "Asekcem deg YunoHost"
         },
         "doc": {
             "admin": {
                 "title": "Isemli adeblan"
             },
             "notifications": {
-                "understood": "Gziɣ"
+                "understood": "Gziɣ",
+                "post_install": "Tizmilin n seld-usebded",
+                "post_upgrade": "Tizmilin n seld-uleqqem"
             }
         },
         "installed_version": "Lqem yettwasbedden:",
         "uninstall": {
-            "uninstall": "Kkes asebded"
+            "uninstall": "Kkes asebded",
+            "desc": "Aya ad yekkes asebded n usnas seg uqeddac-ik.<br/>Ad tesɛuḍ tagnit ad tesfeḍ isefka daɣen deg usfaylu n usentem.",
+            "purge_desc": "Kkes akaram n yisefka icudden ɣer usnas (d isefka i d-tessawleḍ s yiman-ik s useqdec n usnas)."
         },
         "upgrade": {
             "upgrade": "Sali aswir",
             "force_upgrade": "Hettem asali n uswir",
             "continue": "Ddu ɣer usnas d-iteddun",
-            "up_to_date": "Asnas-a yettuleqqem!"
+            "up_to_date": "Asnas-a yettuleqqem!",
+            "confirm": {
+                "apps": "Isnasen ara yettwaleqqmen",
+                "title": "Sentem aleqqem n yisnasen"
+            },
+            "notifs": {
+                "post": {
+                    "alert": "Yettban d akken aleqqem yedda akken iwata!\n Hatan kra n yilɣa i ywala usemmares d igejdanen ɣef uleqqem-a.\nTzemreḍ ad ten-teɣreḍ tikkelt nniḍen deg usebter n telɣut n usnas.",
+                    "title": "Ilɣa n seld-uleqqem i '{name}'"
+                },
+                "pre": {
+                    "alert": "Yessefk ad teɣreḍ akken iwata tizmilin-a qbel ad tkemmleḍ deg uleqqem.",
+                    "title": "Tizmilin tigejdanin"
+                }
+            },
+            "stop": "Sefsex ileqqman n yisnasen i d-iteddun"
         },
         "open_this_app": "Ldi asnas-a",
         "install": {
-            "version": "Lqem amiran: {version}"
+            "version": "Lqem amiran: {version}",
+            "notifs": {
+                "post": {
+                    "alert": "Yettban d akken asebded yedda akken iwata!\nHatan kra n yilɣa i iwala usemmares laqen aten-tissineḍ\nTzemreḍ ad ten-teɣreḍ tikkelt nniḍen deg usebter n telɣut n usnas.",
+                    "title": "Ilɣa n seld-usebded i '{name}'"
+                },
+                "pre": {
+                    "critical": "Ur yezmir ara ad yettwasbedd usnas",
+                    "danger": "Asebded n usnas-a yezmer ad d-yeglu s wuguren",
+                    "warning": "Ayen yessefk ad t-tissineḍ send asebded"
+                }
+            },
+            "problems": {
+                "arch": "Asnas-a yezmer kan ad yettwasbedd ɣef tussda tusligt ({required}) lameɛna tussda n uqeddac-ik d {current}.",
+                "broken": "Asnas-a yerrez akken i d-fkan yikayaden iwurmanen n YunoHost, yerna yezmer ad yesxesser anagraw-ik! Yessefk ur t-tessbeddayeḍ ara anagar ma teẓriḍ d acu i txeddmeḍ.",
+                "ignore": "Gziɣ d akken asebded-a yezmer ad yeṛṛeẓ anagraw-iw, maca bɣiɣ ad ɛerḍeɣ.",
+                "inprogress": "Asnas-a mazal-it d asekran (neɣ ur yetteddu ara s wudem n tidet) yerna yezmer ad yesxesser anagraw-ik! Ur t-tessbedday ara anagar ma teẓriḍ d acu i txeddmeḍ.",
+                "install": "Yettwasbedd yakan, ur yezmir ara ad yettwasbedd ugar n yiwet n tikelt.",
+                "lowquality": "Asnas-a yezmer ad yeddu maca ur yekcim ara akken iwata deg YunoHost. Kra n tmahilin am tuqqna tasuft (SSO) d uḥraz/tuɣalin ɣer deffir zemrent ad ilint ur llint ara, neɣ ur yettqadar ara tisekkirin yelhan.",
+                "ram": "Asnas-a yeḥwaǧ {required} n RAM akken ad yettwasbedd/ad yettwaleqqem maca {current} kan i yellan tura. Ɣas yezmer ad yeddu, tarrayt n usebded-is teḥwaǧ aṭas n RAM, dɣa aqeddac-ik yezmer ad yeḥbes yerna ur d-yeffiɣ ara waya.",
+                "thirdparty": "Asnas-a ur yelli ara deg umuɣ unṣib n YunoHost. Asebded n yisnasen n wis tlata yezmer ad yesxesser talwit d tɣellist n unagraw-ik. Yessefk ur t-tessbeddayeḍ ara anagar ma teẓriḍ d acu i txeddmeḍ.",
+                "version": "Asnas-a yeḥwaǧ YunoHost >= {required} maca lqem yellan tura ɣur-k d {current}, ssali YunoHost qbel."
+            },
+            "try_demo": "Ɛreḍ askan (demo)"
         },
         "info": {
-            "problem": "Ɣur-k·m ugur deg usnas-a?"
+            "problem": "Ɣur-k·m ugur deg usnas-a?",
+            "config_panel_error": "Yella wugur i idegglen askan n ugdil n twila:",
+            "config_panel_error_please_report": "Ttxil-k, ceyyeɛ tuccḍa-a i terbaɛt n YunoHost akken ad tettwaseggem!",
+            "forum": "Nadi neɣ steqsi deg uswir!"
         },
         "change_url": {
-            "change_url": "Senfel URL"
-        }
+            "change_url": "Senfel URL",
+            "not_supported": "Abeddel n tansa URL anda yebded usnas-a ur yettwasedday ara tura i usnas-a.",
+            "title": "Senkez asnas ɣer tansa URL nniḍen"
+        },
+        "antifeatures": "Asnas-a ɣur-s timahilin i yezmren ur k-ɛeǧǧbent ara:",
+        "potential_alternative_to": "Tamsalt n ubeddel i:"
     },
     "yunohost_admin": "Anedbal YunoHost",
     "hook_conf_ynh_settings": "Twilat n YunoHost",
@@ -259,7 +378,8 @@
         "username": "winnanatwinatan",
         "domain": "my-domain.com",
         "fullname": "Tinna n Wat Winnat",
-        "groupname": "Isem n wegraw-iw"
+        "groupname": "Isem n wegraw-iw",
+        "file": "Snirem afaylu neɣ zuɣer-it-id tserreḥeḍ-as"
     },
     "ports": "Tiwwura",
     "app_state_broken": "Iṛṛeẓ",
@@ -275,7 +395,8 @@
         "title": "Aglezasbeddi",
         "user": {
             "title": "Asnulfu n umiḍan n tedbelt amezwaru"
-        }
+        },
+        "force": "Ḥettem seld-usebded"
     },
     "since": "seg",
     "local_archives": "Taṛcivt tadigant",
@@ -288,7 +409,8 @@
     "postinstall_set_domain": "Sbadu d taɣult tamezwarut",
     "logs_more": "Sken-d ugar n yezriren",
     "search": {
-        "for": "Anadi ɣef {items}…"
+        "for": "Anadi ɣef {items}…",
+        "not_found": "Llan {items} i d-yemgadan d yimsefranen-ik. | Yella 1 {items} i d-yemgadan d yimsefranen-ik. | Llan {items} i d-yemgadan d yimsefranen-ik."
     },
     "custom_app_install": "Sebded asnas udmawan",
     "group_add_permission": "Rnu tasiregt",
@@ -304,7 +426,15 @@
         "users": "Ula d yiwen umiḍan | amiḍan | imiḍanen",
         "groups": "ulac igrawen | n ugraw | n igrawen",
         "disk": "ula d yiwen n uḍebsi | n uḍebsi | n iḍebsiyen",
-        "packages": "ula d yiwen u ukemmus | n ukemmus | n ikemmusen"
+        "packages": "ula d yiwen u ukemmus | n ukemmus | n ikemmusen",
+        "backups": "ulac iḥrazen | aḥraz | iḥrazen",
+        "domains": "ulac tiɣulin | taɣult | tiɣulin",
+        "inserted_disk": "ulac aḍebsi yettwagerren | aḍebsi yettwagerren | iḍebsiyen yettwagerren",
+        "installed_apps": "ulac isnasen yettwasbedden | asnas yettwasbedden | isnasen yettwasbedden",
+        "items": "ulac iferdisen | aferdis | iferdisen",
+        "logs": "ulac iɣmisen | aɣmis | iɣmisen",
+        "permissions": "ulac tisirag | tasiregt | tisirag",
+        "services": "ulac imeẓla | amezlu | imeẓla"
     },
     "system_packages_nothing": "Ikemmusen n unagraw akken ma llan ttuleqmen!",
     "system_apps_nothing": "Isnasen akken ma llan ttuleqmen!",
@@ -334,5 +464,84 @@
     "app_state_inprogress": "mazal ur iteddu ara",
     "app_state_lowquality": "taɣara tameẓyant",
     "users_import_update": "Mucceḍ imiḍanen i yellan",
-    "confirm_update_system": "S tidet tebɣiḍ ad tleqqemeḍ akk ikemmusen-nni n unagraw?"
+    "confirm_update_system": "S tidet tebɣiḍ ad tleqqemeḍ akk ikemmusen-nni n unagraw?",
+    "api_errors_titles": {
+        "APIBadRequestError": "YunoHost temmuger-it-id tuccḍa",
+        "APIConnexionError": "YunoHost temmuger-it-id tuccḍa n tuqqna",
+        "APIError": "YunoHost temmuger-it-id tuccḍa ur netturaǧu ara",
+        "APIInternalError": "YunoHost temmuger-it-id tuccḍa tadigant",
+        "APINotFoundError": "API n YunoHost ur tufi ara abrid",
+        "APINotRespondingError": "API n YunoHost ur d-terri ara"
+    },
+    "api_not_found": "Yettban am akken agrudem n tedbelt web teɛreḍ ad testeqsi ɣef wayen ur nelli ara.",
+    "api_not_responding": "API n YunoHost ur d-terri ara. Ahat 'yunohost-api' yexsi neɣ yules asekker?",
+    "app_state_broken_explanation": "Asnas-a yerrez tura yerna ur yezmir ara ad yettwasbedd akken i d-fkan yikayaden iwurmanen n YunoHost",
+    "app_state_highquality_explanation": "Asnas-a yekcem akken iwata deg YunoHost seg useggas d asawen.",
+    "app_state_inprogress_explanation": "Asefrak n usnas-a yura-d d akken asnas-a ur yewjid ara i useqdec amezday. ḤADER!",
+    "app_state_lowquality_explanation": "Asnas-a yezmer ad yeddu, maca mazal deg-s wuguren, neɣ ur yekcim ara akk deg YunoHost, neɣ ur yettqadar ara tisekkirin yelhan.",
+    "archive_empty": "Aɣbaṛ d ilem",
+    "catalog_partial_search": "Ɛreḍ ad tekkseḍ akk imsefranen akken ad twaliḍ ma yella usnas i tettnadiḍ.",
+    "confirm_app_change_url": "Tebɣiḍ s tidet ad tbeddleḍ tansa URL n ukeččum ɣer usnas?",
+    "confirm_app_force_upgrade": "Tebɣiḍ s tidet ad teḥṛseḍ aleqqem n usnas-a?",
+    "confirm_app_upgrade": "Tebɣiḍ s tidet ad tleqqmeḍ asnas-a?",
+    "confirm_change_maindomain": "Tebɣiḍ s tidet ad tbeddleḍ taɣult tagejdant?",
+    "confirm_firewall_close": "Tebɣiḍ s tidet ad tmedleḍ tawwurt {port} i uneggaf {protocol}?",
+    "confirm_firewall_open": "Tebɣiḍ s tidet ad teldiḍ tawwurt {port} i uneggaf {protocol}?",
+    "confirm_install_domain_root": "Tebɣiḍ s tidet ad tesbeddeḍ asnas-a ɣef '/'? Ur tezmireḍ ara ad tesbeddeḍ asnas nniḍen ɣef {domain}",
+    "confirm_migrations_skip": "Ur yelhi ara ad tezgleḍ tinigin. Tebɣiḍ s tidet ad txedmeḍ ayagi?",
+    "confirm_postinstall": "La tetteddud ad tsekkreḍ tarrayt n seld-usebded ɣef tɣult {domain}. Yezmer ad yaweḍ kra n tesdatin, *ur ḥebbes ara tamhelt*.",
+    "confirm_restore": "Tebɣiḍ s tidet ad d-terreḍ {name}?",
+    "confirm_service_restart": "Tebɣiḍ s tidet ad tales asekker i {name}?",
+    "confirm_service_start": "Tebɣiḍ s tidet ad tsekkreḍ {name}?",
+    "confirm_uninstall": "Tebɣiḍ s tidet ad tekkseḍ asebded n {name}?",
+    "confirm_upnp_disable": "Tebɣiḍ s tidet ad tsenseḍ UPnP?",
+    "confirm_upnp_enable": "Tebɣiḍ s tidet ad termmdeḍ UPnP?",
+    "day_validity": " Yemmut | 1 n wass | {count} n wussan",
+    "error_connection_interrupted": "Aqeddac yemdel tuqqna deg umkan n tririt. Ahat nginx neɣ yunohost-api ulsen asekker neɣ ḥebsen ɣef kra n ssebba?",
+    "error_modify_something": "Yessefk ad tbeddleḍ kra",
+    "error_server_unexpected": "Tuccḍa n uqeddac ur nebni fell-as",
+    "group_explain_all_users": "D agraw uzzig i yegbren akk imiḍanen n yiseqdacen deg uqeddac",
+    "group_explain_visitors": "D agraw uzzig i d-yettgensisen inebgawen udrigen",
+    "group_specific_permissions": "Tisirag tusligin n useqdac",
+    "groups": {
+        "remove_user": {
+            "confirm_from_admins": "Tebɣiḍ s tidet ad tekkseḍ iman-ik seg ugraw n 'admins'?"
+        }
+    },
+    "hook_conf_manually_modified_files": "Ifuyla n tawila yettusniflen s ufus",
+    "hook_data_home_desc": "Isefka n useqdac ha-t-an llan deg /home/USER",
+    "hook_data_mail_desc": "Imaylen iḥerfiyen yettwaḥerzen deg uqeddac",
+    "hook_data_multimedia_desc": "Ifuyla n ugetmidya deg /home/yunohost.multimedia",
+    "items_verbose_count": "Llan {items}. | Yella 1 {items}. | Llan {items}.",
+    "items_verbose_items_left": "Qqimen-d {items}. | Yeqqim-d 1 {items}. | Qqimen-d {items}.",
+    "label_for_manifestname_help": "Wa i d isem ara d-yettbanen deg wewwur n YunoHost. Yezmer ad yettwabeddel sya ar yimir.",
+    "last_ran": "Tikkelt taneggarut ideg yedda:",
+    "mailbox_quota_placeholder": "Eǧǧ-it deg 0 akken ad tsenseḍ.",
+    "migrations_disclaimer_check_message": "Ɣriɣ yerna gziɣ alɣu-a",
+    "migrations_done": "Tinigin yezrin",
+    "migrations_no_done": "Ulac tinigin yezrin",
+    "migrations_no_pending": "Ulac tinigin yetturaǧun",
+    "migrations_pending": "Tinigin yetturaǧun",
+    "only_highquality_apps": "Isnasen n tɣara tunnigt kan",
+    "only_working_apps": "Isnasen iteddun kan",
+    "orphaned": "Ur yettwaḥrez ara",
+    "postinstall_intro_1": "Ayyuz! YunoHost yettwasbedd akken iwata.",
+    "postinstall_intro_2": "Mazal snat n tsurifin n tawila akken ad tremmdeḍ imeẓla n uqeddac-ik.",
+    "purge_user_data_checkbox": "Sfeḍ isefka n {name}? (Aya ad yekkes agbur n yikaramen-is n home d yimaylen.)",
+    "purge_user_data_warning": "Asfeḍ n yisefka n useqdac ur yezmir ara ad d-yuɣal. Ḍmen d akken teẓriḍ d acu i txeddmeḍ!",
+    "rerun_diagnosis": "Ales tasleḍt",
+    "run_first_diagnosis": "Sekker tasleḍt tamezwarut",
+    "unauthorized": "Ur yettusireg ara",
+    "user_emailaliases": "",
+    "user_emailaliases_add": "Rnu asemmas n yimayl",
+    "user_emailforward": "",
+    "user_emailforward_add": "Rnu asifḍet n yimayl",
+    "user_mailbox_quota": "Amur n tanaka n yimayl",
+    "user_mailbox_use": "Tallunt yettwasqedcen deg tanaka n yimayl",
+    "users_import_confirm_destructive": "Tebɣiḍ s tidet ad tekkseḍ iseqdacen ur nelli ara deg ufaylu-a?",
+    "users_import_delete": "Kkes iseqdacen ur nelli ara deg wumuɣ",
+    "users_import_delete_desc": "Ma yettwarcem, akk iseqdacen yellan ur nelli ara deg ufaylu CSV ad ttwakkasen (ad ttwasfḍen).",
+    "users_import_delete_others": "Kkes iseqdacen ur nettwaxtaren ara",
+    "users_import_update_desc": "Ma yettwarcem, akk iseqdacen yellan deg ufaylu CSV ad ttwaleqqmen s wazal amaynut",
+    "warnings": "{count} n yilɣa"
 }
