@@ -96,9 +96,9 @@
     "api_error": {
         "error_message": "Izen n tuccḍa:",
         "view_error": "Wali tuccḍa",
-        "help": "Yessefk ad tnadiḍ tallalt deg <a href=\"https://forum.yunohost.org/\">uswir (forum)</a> neɣ deg <a href=\"https://chat.yunohost.org/\">ucat</a> akken ad tseggmeḍ taluft, neɣ cceggeɛ abug deg <a href=\"https://github.com/YunoHost/issues\">umḍfar n yibugen</a>.",
+        "help": "Yessefk ad tnadiḍ tallalt deg <a href=\"https://forum.yunohost.org/\">unmagar</a> neɣ deg <a href=\"https://chat.yunohost.org/\">udiwenni</a> akken ad tseggmeḍ taluft, neɣ ceyyeɛ-d abug deg <a href=\"https://github.com/YunoHost/issues\">umḍfar n yibugen</a>.",
         "info": "Talɣut-a tezmer ad tenfeɛ amdan ara k-iɛawnen:",
-        "server_said": "Deg wakud n useddu n tigawt, aqeddac yenna-d:",
+        "server_said": "Akken kan i nesefsar tigawt, aqeddac yenna-d:",
         "sorry": "Suref-aɣ aṭas ɣef waya."
     },
     "applications": "Isnasen",
@@ -263,9 +263,9 @@
             },
             "resources": "Aseqdec amezday n teɣbula: {ram} n RAM, {disk} n uḍebsi",
             "sso": {
-                "?": "Ulac talɣut ɣef usekcem n SSO",
-                "false": "Tuqqna tasuft ur telli ara (SSO)",
-                "true": "Tuqqna tasuft tella (SSO)"
+                "?": "Ulac talɣut ɣef uslaɣ n SSO",
+                "false": "Anagraw n usulu asuf (SSO) ur yestufa ara",
+                "true": "Anagraw n usulu asuf (SSO) yestufa"
             },
             "title": "Asekcem deg YunoHost"
         },
@@ -327,9 +327,9 @@
                 "inprogress": "Asnas-a mazal-it d asekran (neɣ ur yetteddu ara s wudem n tidet) yerna yezmer ad yesxesser anagraw-ik! Ur t-tessbedday ara anagar ma teẓriḍ d acu i txeddmeḍ.",
                 "install": "Yettwasbedd yakan, ur yezmir ara ad yettwasbedd ugar n yiwet n tikelt.",
                 "lowquality": "Asnas-a yezmer ad yeddu maca ur yekcim ara akken iwata deg YunoHost. Kra n tmahilin am tuqqna tasuft (SSO) d uḥraz/tuɣalin ɣer deffir zemrent ad ilint ur llint ara, neɣ ur yettqadar ara tisekkirin yelhan.",
-                "ram": "Asnas-a yeḥwaǧ {required} n RAM akken ad yettwasbedd/ad yettwaleqqem maca {current} kan i yellan tura. Ɣas yezmer ad yeddu, tarrayt n usebded-is teḥwaǧ aṭas n RAM, dɣa aqeddac-ik yezmer ad yeḥbes yerna ur d-yeffiɣ ara waya.",
+                "ram": "Asnas-a yeḥwaǧ {required} n tkatut RAM akken ad yettwasbedd/ad yettwaleqqem maca {current} kan i yellan tura. Ɣas yezmer ad yeddu, tarrayt n usebded-is teḥwaǧ aṭas n tkatut RAM, dɣa aqeddac-ik yezmer ad yeḥbes yerna ad yecceḍ mačči d kra.",
                 "thirdparty": "Asnas-a ur yelli ara deg umuɣ unṣib n YunoHost. Asebded n yisnasen n wis tlata yezmer ad yesxesser talwit d tɣellist n unagraw-ik. Yessefk ur t-tessbeddayeḍ ara anagar ma teẓriḍ d acu i txeddmeḍ.",
-                "version": "Asnas-a yeḥwaǧ YunoHost >= {required} maca lqem yellan tura ɣur-k d {current}, ssali YunoHost qbel."
+                "version": "Asnas-a yeḥwaǧ YunoHost >= {required} maca lqem yellan tura ɣur-k d {current}, ssali aswir neɣ mucceḍ YunoHost qbel."
             },
             "try_demo": "Ɛreḍ askan (demo)"
         },
@@ -337,11 +337,11 @@
             "problem": "Ɣur-k·m ugur deg usnas-a?",
             "config_panel_error": "Yella wugur i idegglen askan n ugdil n twila:",
             "config_panel_error_please_report": "Ttxil-k, ceyyeɛ tuccḍa-a i terbaɛt n YunoHost akken ad tettwaseggem!",
-            "forum": "Nadi neɣ steqsi deg uswir!"
+            "forum": "Nadi neɣ steqsi deg unmagar!"
         },
         "change_url": {
             "change_url": "Senfel URL",
-            "not_supported": "Abeddel n tansa URL anda yebded usnas-a ur yettwasedday ara tura i usnas-a.",
+            "not_supported": "Abeddel n tansa URL anda yebded usnas-a ur yettusefrek ara tura i usnas-a.",
             "title": "Senkez asnas ɣer tansa URL nniḍen"
         },
         "antifeatures": "Asnas-a ɣur-s timahilin i yezmren ur k-ɛeǧǧbent ara:",
