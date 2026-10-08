@@ -158,7 +158,7 @@
     "user_username": "Isem n useqdac",
     "users": "Iseqdacen",
     "group_admins": "Inedbalen",
-    "footer_version": "Yezreɛ-it <a href='https://yunohost.org'>YunoHost</a> {version} ({repo}).",
+    "footer_version": "Isedday-it <a href='https://yunohost.org'>YunoHost</a> {version} ({repo}).",
     "users_add": "Aseqdac amaynut",
     "tools_yunohost_settings": "Iɣewwaṛen n YunoHost",
     "user_username_edit": "Ẓreg amaɣnu n {name}",
@@ -233,7 +233,9 @@
             "from_registrar": "Bɣiɣ ad rnuɣ taɣult i sɛiɣ yakan",
             "dyn_dns_password": "Awal n ɛeddi i tririt n taɣult",
             "from_local": "Bɣiɣ taɣult i useqdec adigan / asekyed kan",
-            "from_subdomain": "Bɣiɣ ad rnuɣ tadɣult seg taɣult yettwarnan yakan"
+            "from_subdomain": "Bɣiɣ ad rnuɣ tadɣult seg taɣult yettwarnan yakan",
+            "from_yunohost": "Ur sɛiɣ ara taɣult, bɣiɣ ad jerdeɣ/ad seqdceɣ taɣult DynDNS n baṭel i d-yettak usenfar YunoHost",
+            "from_registrar_desc": "Yessefk ad tsewjdeḍ s ufus ikalasen DNS ɣer umjerred-ik akken ad tfakkeḍ tawila n taɣult-a. Tasleḍt n YunoHost ad k-twelleh ɣef anwi iklasen n DNS ara tsewjdeḍ swaswa."
         },
         "see_parent_domain": "Wali taɣult tayemmat",
         "toggle_subdomains": "Sken/Ffer tidɣulin"
@@ -435,7 +437,8 @@
     "system_packages_nothing": "Ikemmusen n unagraw akken ma llan ttuleqmen!",
     "system_apps_nothing": "Isnasen akken ma llan ttuleqmen!",
     "update": {
-        "refresh_cache": "Awway n ileqman n umucceḍ yellan"
+        "refresh_cache": "Awway n ileqman n umucceḍ yellan",
+        "ok_cache": "Akaram n yisnasen akked tuffirt n yikemmusen n unagraw (apt/dpkg) ttuleqqmen ur tewwiḍ ara ssaɛa aya. Maca tzemreḍ ad ten-tesmirneḍ melmi tebɣiḍ iwakken ad tawiḍ isallen yettwaleqqmen."
     },
     "groups_and_permissions": "Igrawen akked tisirag",
     "groups_and_permissions_manage": "Sefrek igrawen akked tisirag",
@@ -537,5 +540,6 @@
     "users_import_delete_desc": "Ma yettwarcem, akk iseqdacen yellan ur nelli ara deg ufaylu CSV ad ttwakkasen (ad ttwasefḍen).",
     "users_import_delete_others": "Kkes iseqdacen ur nettwaxtaren ara",
     "users_import_update_desc": "Ma yettwarcem, akk iseqdacen yellan deg ufaylu CSV ad ttwaleqqmen s wazal amaynut",
-    "warnings": "{count} n yilɣa"
+    "warnings": "{count} n yilɣa",
+    "only_decent_quality_apps": "Ala isnasen n tɣara yelhan kan"
 }
