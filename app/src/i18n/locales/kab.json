@@ -47,7 +47,7 @@
         "last_action": "Tigawt taneggarut:",
         "check_logs": "Ṛuḥ ɣer usebter n weɣmis n temhelt.",
         "is_empty": "Ulac kra deg umazray tura.",
-        "no_logs": "Ulac iɣmisen yellan."
+        "no_logs": "Ulac ula d yiwen n uɣmis."
     },
     "home": "Agejdan",
     "id": "ID",
@@ -198,7 +198,7 @@
         "between": "Azal yessefk ad yili gar {min} d {max}.",
         "checked": "Taxxamt n ṛṛcem yessefk ad tettwarcem.",
         "domain": "Isem n taɣult mačči d ameɣtu: Yessefk ad yili d isekkilen imiẓiyen, tinqidiyin d yijerriden kan",
-        "invalid_form": "Taftart tegber kra n tuccḍiwin.",
+        "invalid_form": "Tiferkit-a tegber kra n tuccḍiwin.",
         "maxValue": "Azal yessefk ad yili d amḍan yugdan neɣ meẓẓiyen ɣef {max}.",
         "minValue": "Azal yessefk ad yili d amḍan yugdan neɣ meqqren ɣef {min}.",
         "numValue": "Azal yessefk ad yili d amḍan",
@@ -215,7 +215,8 @@
                 "letsencrypt": "Let's Encrypt",
                 "selfsigned": "Yettwazmel i yiman-is"
             },
-            "install": "Sebded daɣen aselkin n Let's Encrypt"
+            "install": "Sebded daɣen aselkin n Let's Encrypt",
+            "valid_for": "d uɣbil i {days}"
         },
         "dns": {
             "auto_config_zone": "Tamnaḍt tamirant n DNS",
@@ -365,7 +366,7 @@
     "issues": "{count} n wuguren",
     "manage_groups": "Asefrek n wagrawen",
     "tools_shutdown_reboot": "Sexsi/Ales asekker",
-    "tools_webadmin_settings": "Iɣewwaren n tnedbalt Web",
+    "tools_webadmin_settings": "Iɣewwaren n tedbelt Web",
     "stopped": "Yettwaseḥbes",
     "users_export": "Sifeḍ imiḍanen",
     "users_import_csv_file": "Afaylu CSV",
@@ -432,7 +433,7 @@
         "items": "ulac iferdisen | aferdis | iferdisen",
         "logs": "ulac iɣmisen | aɣmis | iɣmisen",
         "permissions": "ulac tisirag | tasiregt | tisirag",
-        "services": "ulac imeẓla | amezlu | imeẓla"
+        "services": "ulac imeẓla | ameẓlu | imeẓla"
     },
     "system_packages_nothing": "Ikemmusen n unagraw akken ma llan ttuleqmen!",
     "system_apps_nothing": "Isnasen akken ma llan ttuleqmen!",
