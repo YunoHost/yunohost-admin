@@ -247,7 +247,7 @@
     "local_archives": "Lokální zálohy",
     "last_ran": "Čas posledního spuštění:",
     "label_for_manifestname": "Štítek pro {name}",
-    "items_verbose_items_left": "Zbává {items}. | Zbývá 1 {items}. | Zbývá {items}.",
+    "items_verbose_items_left": "Zbývá {items}. | Zbývá 1 {items}. | Zbývá {items}.",
     "items_verbose_count": "Zde jsou {items}. | Zde je 1 {items}. | Zde jsou {items}.",
     "items": {
         "users": "žádní uživatelé | uživatel | uživatelů",
