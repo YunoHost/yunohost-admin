@@ -133,7 +133,7 @@
     "from_to": "{0} ile {1} arasında",
     "group": "Grup",
     "group_name": "Grup adı",
-    "others": "Diğer",
+    "others": "Diğerleri",
     "logs_suboperations": "Alt operasyonlar",
     "domain": {
         "dns": {
@@ -285,7 +285,7 @@
     "confirm_update_system": "Tüm sistem paketlerini güncellemek istediğinizden emin misiniz?",
     "confirm_reboot_action_reboot": "Sunucunuzu yeniden başlatmak istediğinizden emin misiniz?",
     "confirm_reboot_action_shutdown": "Sunucunuzu kapatmak istediğinizden emin misiniz?",
-    "good_practices_about_user_password": "Şimdi yeni bir kullanıcı parolası belirlemeye hazırlanıyorsunuz. Parola en az 8 karakter uzunluğunda olmalıdır; ancak daha uzun bir parola (yani bir parola cümlesi) kullanmak ve/veya farklı karakter türlerini (büyük harf, küçük harf, rakamlar ve özel karakterler) kullanmak faydalı olacaktır.",
+    "good_practices_about_user_password": "Şimdi yeni bir kullanıcı parolası belirlemeye hazırlanıyorsunuz. Parola en az 8 karakter uzunluğunda olmalıdır. Ancak daha uzun bir parola (yani bir parola cümlesi) kullanmak ve/veya farklı karakter türlerini (büyük harf, küçük harf, rakamlar ve özel karakterler) kullanmak faydalı olacaktır.",
     "configuration": "Yapılandırma",
     "details": "Detaylar",
     "domain_dns_conf_is_just_a_recommendation": "Bu sayfa size *önerilen* yapılandırmayı gösterir. *DNS'yi sizin için yapılandırmaz*. DNS ayarlarınızı bu öneriye göre alan adı yöneticiniz aracılığı ile yapılandırmak sizin sorumluluğunuzdadır.",
