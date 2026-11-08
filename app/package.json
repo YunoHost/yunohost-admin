@@ -9,10 +9,10 @@
     "build": "vite build",
     "lint:js": "eslint .",
     "lint:prettier": "prettier --check .",
-    "lint": "yarn lint:js && yarn lint:prettier",
-    "lintfix": "prettier --write --list-different . && yarn lint:js --fix",
+    "lint": "$npm_execpath lint:js && $npm_execpath lint:prettier",
+    "lintfix": "prettier --write --list-different . && $npm_execpath lint:js --fix",
     "type-check": "vue-tsc --noEmit -p tsconfig.json",
-    "upgrade-deps": "yarn upgrade-interactive --latest"
+    "upgrade-deps": "$npm_execpath upgrade-interactive --latest"
   },
   "dependencies": {
     "@fontsource/fira-code": "^5.1.0",
