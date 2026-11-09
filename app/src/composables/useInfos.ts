@@ -170,9 +170,10 @@ export const useInfos = createGlobalState(() => {
     })
   }
 
-  function login(credentials: string) {
+  function login(credentials: string, extra: Record<string, string> = {}) {
+    // `extra` carries 2FA fields (twofactor_code, twofactor_setup_token)
     return api
-      .post({ uri: 'login', data: { credentials }, isAction: false })
+      .post({ uri: 'login', data: { credentials, ...extra }, isAction: false })
       .then(() => _onLogin())
   }
 

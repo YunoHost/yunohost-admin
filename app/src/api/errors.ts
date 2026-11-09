@@ -87,13 +87,16 @@ class APIBadRequestError extends APIError {
 // 401 — Unauthorized
 class APIUnauthorizedError extends APIError {
   name = 'APIUnauthorizedError'
+  // Raw response body, needed by the login view to detect 2FA challenges
+  data: APIErrorData
 
   constructor(
     request: APIRequest,
     response: Response,
-    _errorData: APIErrorData,
+    errorData: APIErrorData,
   ) {
     super(request, response, { error: i18n.global.t('unauthorized') })
+    this.data = errorData
   }
 }
 
