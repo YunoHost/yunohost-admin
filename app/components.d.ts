@@ -113,6 +113,7 @@ declare module 'vue' {
     TagsSelectizeItem: typeof import('./src/components/globals/formItems/TagsSelectizeItem.vue')['default']
     TextAreaItem: typeof import('./src/components/globals/formItems/TextAreaItem.vue')['default']
     TopBar: typeof import('./src/components/globals/TopBar.vue')['default']
+    TwoFactorSetup: typeof import('./src/components/TwoFactorSetup.vue')['default']
     ViewSearch: typeof import('./src/components/globals/ViewSearch.vue')['default']
     YAlert: typeof import('./src/components/globals/YAlert.vue')['default']
     YBreadcrumb: typeof import('./src/components/globals/YBreadcrumb.vue')['default']

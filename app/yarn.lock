@@ -3225,6 +3225,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"uqr@npm:^0.1.2":
+  version: 0.1.3
+  resolution: "uqr@npm:0.1.3"
+  checksum: 10c0/7e0ef173b736fb5c93179659b4fe0720c803d45fa8628aaf2715a399b33a15a3d26d9001e05e026421d544a814e971cf0fa66b481edb649d256e7a17d79777c0
+  languageName: node
+  linkType: hard
+
 "uri-js@npm:^4.2.2":
   version: 4.4.1
   resolution: "uri-js@npm:4.4.1"
@@ -3503,6 +3510,7 @@ __metadata:
     simple-evaluate: "npm:^1.4.6"
     typescript: "npm:^5.7.2"
     unplugin-vue-components: "npm:^0.28.0"
+    uqr: "npm:^0.1.2"
     uuid: "npm:^11.0.3"
     vite: "npm:^6.4.2"
     vue: "npm:^3.5.13"
