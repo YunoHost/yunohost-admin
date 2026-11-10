@@ -16,12 +16,12 @@ jobs:
     steps:
       - uses: actions/checkout@v7
         with:
-          path: moulinette
+          path: yunohost-admin
 
       - name: Build YunoHost
         uses: yunohost/yunohost-ci/.github/actions/build_deb@main
         with:
-          path: moulinette
+          path: yunohost-admin
           outdir: packages
           unstable: ${{ ! startsWith(github.ref, 'debian/') }}
 
