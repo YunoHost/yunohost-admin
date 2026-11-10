@@ -28,3 +28,7 @@ src/css/style.css
 src/dist
 
 vite.config.local.ts
+
+.yarnrc.yml
+.pnp.cjs
+.pnp.loader.mjs
