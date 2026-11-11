@@ -27,10 +27,142 @@
                 "shutdown": "A szerver leáll és többé nem elérhető.",
                 "unknown": "A szerverrel való kapcsolat ismeretlen okokból megszakadt. Lehet, hogy a 'yunohost-api' nem elérhető?",
                 "upgrade_system": "A szerverrel való kapcsolat a YunoHost frissítése miatt megszakadt. Várja meg, míg a szerver újra elérhető lesz…"
-            }
+            },
+            "title": "Probálunk a szerverrel kommunikálni…"
         },
         "processing": "A szerver feldolgozza a műveletet…",
-        "busy": "A szerver elfoglalt…"
+        "busy": "A szerver elfoglalt…",
+        "unknown_request": "Ismeretlen lekérés"
     },
-    "all_apps": "Minden alkalmazás"
+    "all_apps": "Minden alkalmazás",
+    "api_error": {
+        "error_message": "Hibaüzenet:"
+    },
+    "app": {
+        "change_url": {
+            "change_url": "URL módosítása"
+        },
+        "doc": {
+            "admin": {
+                "title": "Adminisztrátor dokumentáció"
+            },
+            "notifications": {
+                "post_install": "Telepítés utáni jegyzetek",
+                "post_upgrade": "Frissítés utáni jegyzetek",
+                "understood": "Értem"
+            }
+        },
+        "info": {
+            "config_panel_error": "Egy hiba megakadályozza a beállítási panel megjelenítését:",
+            "config_panel_error_please_report": "Kérjük jelentsd ezt a hibát a YunoHost csapatának, hogy kijavíthassák!",
+            "forum": "Keress vagy kérdezz a fórumon!",
+            "problem": "Gond van az alkalmazással?"
+        },
+        "install": {
+            "notifs": {
+                "post": {
+                    "alert": "Úgy tűnik a telepítés sikeresen megtörtént!\nItt van néhány értesítés, amit a csomag szerzője fontosnak talált.\nKésőbb is megtalálhatod őket az app infó oldalán.",
+                    "title": "A \"{name}\" telepítését követő értesítések"
+                },
+                "pre": {
+                    "critical": "Ezt az alkalmazást lehetetlen telepíteni",
+                    "danger": "Az alkalmazás telepítése valószínűleg további hibákat okozhat",
+                    "warning": "Telepítés előtti tudnivalók"
+                }
+            },
+            "problems": {
+                "arch": "Ezt az appot csak meghatározott architektúrára ({required}) lehet telepíteni de a Te szervered architektúrája {current}.",
+                "broken": "A YunoHost automatikus tesztmenete szerint ez az applikáció hibás és valószínűleg végzetes hibát is okozhat a rendszeren! NE telepítsd, csak ha tudod, mit csinálsz.",
+                "ignore": "Tisztában vagyok vele, hogy ez a telepítés végzetes hibát okozhat a rendszeren, de továbbra is ezt szeretném.",
+                "inprogress": "Ez az alkalmazás kisérleti stádiumban van (ha nem kimondottan működésképtelen) és valószínűleg végzetes hibát okozhat a rendszeren. NE telepítsd, csak ha tudod, mit csinálsz.",
+                "install": "Már telepítve van és nem lehet többször telepíteni."
+            }
+        }
+    },
+    "app_state_inprogress": "még nem működik",
+    "applications": "Alkalmazások",
+    "archive_empty": "Üres archívum",
+    "backup": "Biztonsági mentés",
+    "backup_action": "Mentés",
+    "backup_content": "Biztonsági mentés tartalma",
+    "backup_create": "Biztonsági mentés létrehozása",
+    "backup_new": "Új biztonsági mentés",
+    "begin": "Kezdés",
+    "cancel": "Visszavonás",
+    "catalog": "Katalógus",
+    "tools": "Eszközök",
+    "tools_reboot": "Szerver újraindítása",
+    "tools_reboot_btn": "Újraindítás",
+    "tools_shutdown": "Szerver leállítása",
+    "tools_shutdown_btn": "Leállítás",
+    "tools_shutdown_reboot": "Leállítás/Újraindítás",
+    "udp": "UDP",
+    "upnp": "UPnP",
+    "upnp_disabled": "UPnP kikapcsolva.",
+    "upnp_enabled": "UPnP bekapcsolva.",
+    "url": "URL",
+    "user_email": "E-mail",
+    "user_emailaliases": "E-mail álnevek",
+    "user_fullname": "Teljes név",
+    "user_interface_link": "Portál",
+    "user_mailbox_quota": "E-mail fiók kvóta",
+    "user_mailbox_use": "E-mail fiók általt használt tárhely",
+    "user_username": "Felhasználónév",
+    "user_username_edit": "{name} fiókjának szerkesztése",
+    "users": "Felhasználók",
+    "yes": "Igen",
+    "purge_user_data_checkbox": "Törölje {name} adatait? (Ezzel a felhasználó home és mail mappái összes tartalma elveszik.)",
+    "purge_user_data_warning": "A felhasználói adatok törlése végleges. Alaposan fontolja meg, amit tesz!",
+    "version": "Verzió",
+    "confirm_update_system": "Biztosan frissíteni szeretné az összes rendszer csomagot?",
+    "app_state_inprogress_explanation": "Az applikáció fenntartója bejelentette, hogy ez az alkalmazás még nem alkalmas széles körű használatra. LEGYEN ÓVATOS!",
+    "only_highquality_apps": "Csak a legjobb minőségű alkalmazások",
+    "only_decent_quality_apps": "Csak elfogadható minőségű alkalmazások",
+    "orphaned": "Nem fenntartott",
+    "orphaned_details": "Ez az alkalmazás már egy ideje nincs fenntartva. Bár még lehet, hogy működik, addig nem lesz frissítve, amíg valaki önkéntesen nem törődik vele. Ha tudsz tegyél hozzá, hogy újra éljen.",
+    "from_to": "{0}-tól {1}-ig",
+    "group": "Csoport",
+    "group_name": "Csoport neve",
+    "group_all_users": "Minden felhasználó",
+    "group_visitors": "Látogatók",
+    "group_format_name_help": "Kizárólag alfanumerikus karaktereket és aláhuzást használhat",
+    "group_add_member": "Felhasználó hozzáadása",
+    "group_add_permission": "Engedély hozzáadása",
+    "group_explain_all_users": "Ez egy speciális csoport, mely tartalmazza az összes felhasználói fiókot ezen a szerveren",
+    "group_explain_visitors": "Ez egy speciális csoport, mely az ismeretlen látogatókat jelképezi",
+    "group_specific_permissions": "Egyéni felhasználói engedélyek",
+    "groups_and_permissions": "Csoportok és engedélyek",
+    "groups_and_permissions_manage": "Csoportok és engedélyek kezelése",
+    "permissions": "Engedélyek",
+    "details": "Részletek",
+    "everything_good": "Minden oké!",
+    "ignore": "Mellőzés",
+    "ignored": "{count} mellőzve",
+    "last_ran": "Utoljára futott:",
+    "unignore": "Ne mellőzze többé",
+    "warnings": "{count} figyelmeztetés",
+    "rerun_diagnosis": "Hibafeltárás újrafuttatása",
+    "api_not_responding": "A YunoHost API nem válaszol. Talán a \"yunohost-api\" leállt vagy újra lett indítva?",
+    "app_install_custom_no_manifest": "Hiányzó manifest.json fájl",
+    "check": "Ellenőrzés",
+    "close": "Bezárás",
+    "confirm_app_change_url": "Biztosan le szeretné cserélni az app hozzáférési URL-jét?",
+    "confirm_change_maindomain": "Biztosan le szeretné cserélni a fő domain-t?",
+    "confirm_delete": "Biztosan törli a(z) {name}-t?",
+    "confirm_install_custom_app": "VIGYÁZAT! Külső alkalmazások telepítése veszélyeztetheti rendszere sértetlenségét és biztonságát. NE lépjen tovább, csak, ha tudja, mit csinál. Elfogadja a kockázatot?",
+    "confirm_install_domain_root": "Biztosan \"/\"-re szeretné telepíteni az alkalmazást? Nem lehet majd más alkalmazást telepíteni a(z) {domain} domain-ra",
+    "confirm_migrations_skip": "A migrációk kihagyása nem ajánlott. Biztosan szeretné átugrani?",
+    "confirm_postinstall": "Kész a telepítés utáni műveletek futtatására a {domain} domain-en. Ez egy pár percig eltarthat. *Ne szakítsa meg a műveletet*.",
+    "confirm_restore": "Biztosan visszaálítja a(z) {name}-t?",
+    "confirm_service_start": "Biztosan elindítja a(z) {name} szolgáltatást?",
+    "confirm_service_stop": "Biztosan leállítja a(z) {name} szolgáltatást?",
+    "confirm_uninstall": "Biztosan eltávolítja a(z) {name}-t?",
+    "confirm_upnp_enable": "Biztosan bekapcsolja az UPnP-t?",
+    "confirm_upnp_disable": "BIztosan kikapcsolja az UPnP-t?",
+    "confirm_reboot_action_reboot": "Biztosan újra szeretné indítani a szerverét?",
+    "confirm_reboot_action_shutdown": "Biztosan le szeretné állítani a szerverét?",
+    "created_at": "Létrehozva ekkor:",
+    "delete": "Törlés",
+    "description": "Leírás",
+    "save": "Mentés"
 }
