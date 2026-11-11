@@ -11,7 +11,7 @@ import type { AnyTreeNode, TreeRootNode } from '@/helpers/data/tree'
 // Returns `undefined` when there's no items and `null` when there's no match
 export function useSearch<
   T extends any[] | TreeRootNode,
-  V extends T extends (infer V)[] ? V : AnyTreeNode,
+  V extends (T extends (infer V)[] ? V : AnyTreeNode),
 >(
   items: MaybeRefOrGetter<T> | ComputedRef<T>,
   filterFn: (search: string, item: V, index: number, arr: T) => boolean,

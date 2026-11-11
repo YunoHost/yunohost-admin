@@ -179,10 +179,7 @@ export type AppList = { apps: AppInfo[] }
 // BACKUP
 
 export type BackupHookDataKeys =
-  | 'data_xmpp'
-  | 'data_multimedia'
-  | 'data_mail'
-  | 'data_home'
+  'data_xmpp' | 'data_multimedia' | 'data_mail' | 'data_home'
 export type BackupHookKeys =
   | BackupHookDataKeys
   | 'conf_ynh_settings'

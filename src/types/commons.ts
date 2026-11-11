@@ -6,9 +6,7 @@ export type Obj<T = any> = Record<string, T>
 // Vue
 
 export type VueClass =
-  | string
-  | Record<string, boolean>
-  | (string | Record<string, boolean>)[]
+  string | Record<string, boolean> | (string | Record<string, boolean>)[]
 
 // BVN (not exported types for now)
 

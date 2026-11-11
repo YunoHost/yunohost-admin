@@ -20,11 +20,17 @@ const props = withDefaults(
 )
 
 type NodeSlot = {
-  [K in keyof TreeChildNode as TreeChildNode[K] extends (
-    callback: (node: AnyTreeNode, index: number, root: TreeRootNode) => boolean,
-  ) => AnyTreeNode
-    ? never
-    : K]: TreeChildNode[K]
+  [
+    K in keyof TreeChildNode as TreeChildNode[K] extends (
+      callback: (
+        node: AnyTreeNode,
+        index: number,
+        root: TreeRootNode,
+      ) => boolean,
+    ) => AnyTreeNode
+      ? never
+      : K
+  ]: TreeChildNode[K]
 }
 
 defineSlots<{

@@ -39,9 +39,10 @@ const purge = ref(false)
 
 const [app, changeUrlForm, coreConfigData, appConfigData, configPanelErr] =
   await api
-    .fetchAll<
-      [AppInfo, CoreConfigPanels]
-    >([{ uri: `apps/${props.id}?full&with_pre_upgrade_notifications` }, { uri: `apps/${props.id}/config?full&core` }])
+    .fetchAll<[AppInfo, CoreConfigPanels]>([
+      { uri: `apps/${props.id}?full&with_pre_upgrade_notifications` },
+      { uri: `apps/${props.id}/config?full&core` },
+    ])
     .then(async ([app_, coreConfigData]) => {
       // Query config panels if app supports it
       let appConfigData: CoreConfigPanels | undefined

@@ -32,9 +32,10 @@ const router = useRouter()
 const modalConfirm = useAutoModal()
 
 const [app, form, fields] = await api
-  .fetchAll<
-    [Catalog, AppManifest]
-  >([{ uri: 'apps/catalog?full&with_categories&with_antifeatures' }, { uri: `apps/manifest?app=${props.id}&with_screenshot` }])
+  .fetchAll<[Catalog, AppManifest]>([
+    { uri: 'apps/catalog?full&with_categories&with_antifeatures' },
+    { uri: `apps/manifest?app=${props.id}&with_screenshot` },
+  ])
   .then(([catalog, manifest]) => {
     const antifeaturesList = Object.fromEntries(
       catalog.antifeatures.map((af) => [af.id, af]),

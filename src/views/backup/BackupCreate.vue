@@ -15,9 +15,10 @@ const props = defineProps<{
 const router = useRouter()
 
 const [system, apps] = await api
-  .fetchAll<
-    [BackupHooksList, BackupAppList]
-  >([{ uri: 'hooks/backup' }, { uri: 'apps?with_backup' }])
+  .fetchAll<[BackupHooksList, BackupAppList]>([
+    { uri: 'hooks/backup' },
+    { uri: 'apps?with_backup' },
+  ])
   .then(([{ hooks }, { apps }]) => {
     return [
       formatBackupSystem(hooks),

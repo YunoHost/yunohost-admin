@@ -12,9 +12,10 @@ const { t } = useI18n()
 const modalConfirm = useAutoModal()
 
 const { infos, upOrDownTime, isCritical, logs } = await api
-  .fetchAll<
-    [ServiceInfo, ServiceLogs]
-  >([{ uri: 'services/' + props.name }, { uri: `services/${props.name}/log?number=50` }])
+  .fetchAll<[ServiceInfo, ServiceLogs]>([
+    { uri: 'services/' + props.name },
+    { uri: `services/${props.name}/log?number=50` },
+  ])
   .then(([service, logs]) => {
     const { last_state_change, ...infos } = service
     const criticalServices = ['nginx', 'ssh', 'slapd', 'yunohost-api']

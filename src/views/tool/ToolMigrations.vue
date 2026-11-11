@@ -12,9 +12,10 @@ const { t } = useI18n()
 const modalConfirm = useAutoModal()
 
 const { pending, done, checked } = await api
-  .fetchAll<
-    [MigrationList, MigrationList]
-  >([{ uri: 'migrations?pending' }, { uri: 'migrations?done' }])
+  .fetchAll<[MigrationList, MigrationList]>([
+    { uri: 'migrations?pending' },
+    { uri: 'migrations?done' },
+  ])
   .then(([{ migrations: pending }, { migrations: done }]) => {
     const checked = {} as Obj<boolean | undefined>
     return {

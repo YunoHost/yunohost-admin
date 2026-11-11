@@ -119,8 +119,9 @@ $font-family-sans-serif:
   'Segoe UI Emoji',
   'Segoe UI Symbol',
   'Noto Color Emoji';
-$font-family-monospace: 'Fira Code', SFMono-Regular, Menlo, Monaco, Consolas,
-  'Liberation Mono', 'Courier New', monospace;
+$font-family-monospace:
+  'Fira Code', SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
+  'Courier New', monospace;
 
 $h2-font-size: $font-size-base * 1.5;
 $h3-font-size: $font-size-base * 1.4;

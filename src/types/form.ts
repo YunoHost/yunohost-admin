@@ -265,8 +265,7 @@ export type FormField<
   descriptionVariant?: StateVariant
   labelFor?: string
   link?:
-    | { text: string; name: RouteLocationRaw }
-    | { text: string; href: string }
+    { text: string; name: RouteLocationRaw } | { text: string; href: string }
   rules?: FormFieldRules<MV>
   prepend?: string
   readonly?: false
@@ -305,13 +304,11 @@ export type FormFieldReadonlyProps<C extends AnyWritableComponents> = Omit<
 
 export type FormFieldDict<T extends Obj = Obj> = {
   [k in keyof T | string]: k extends keyof T
-    ?
-        | FormField<AnyWritableComponents, T[k]>
-        | FormFieldReadonly<AnyWritableComponents>
-    :
-        | FormField<AnyWritableComponents>
-        | FormFieldReadonly<AnyWritableComponents>
-        | FormFieldDisplay<AnyDisplayComponents>
+    ? | FormField<AnyWritableComponents, T[k]>
+      | FormFieldReadonly<AnyWritableComponents>
+    : | FormField<AnyWritableComponents>
+      | FormFieldReadonly<AnyWritableComponents>
+      | FormFieldDisplay<AnyDisplayComponents>
 }
 
 // Type to check if object satisfies specified Field and Item
@@ -319,9 +316,8 @@ export type FieldProps<
   C extends AnyItemComponents = AnyItemComponents,
   MV = never,
 > = C extends AnyWritableComponents
-  ?
-      | (FormField<C, MV> & { component: C })
-      | (FormFieldReadonly<C> & { component: C })
+  ? | (FormField<C, MV> & { component: C })
+    | (FormFieldReadonly<C> & { component: C })
   : C extends AnyDisplayComponents
     ? FormFieldDisplay<C> & { component: C }
     : never

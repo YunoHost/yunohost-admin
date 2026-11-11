@@ -202,10 +202,7 @@ type GroupOption = BaseChoicesOption & {
 }
 
 type AnyDisplayOption =
-  | DisplayTextOption
-  | MarkdownOption
-  | AlertOption
-  | ButtonOption
+  DisplayTextOption | MarkdownOption | AlertOption | ButtonOption
 export type AnyWritableOption =
   | StringOption
   | TextOption

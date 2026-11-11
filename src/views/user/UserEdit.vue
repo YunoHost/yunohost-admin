@@ -183,8 +183,7 @@ const onUserEdit = onSubmit(async (onError, serverErrors) => {
   for (const key of ['mail_aliases', 'mail_forward'] as const) {
     const dashedKey = key.replace('_', '-') as 'mail-aliases' | 'mail-forward'
     const newKey = key.replace('_', '').replace('es', '') as
-      | 'mailalias'
-      | 'mailforward'
+      'mailalias' | 'mailforward'
     const addDiff = arrayDiff(formData[key], user.value[dashedKey])
     const rmDiff = arrayDiff(user.value[dashedKey], formData[key])
     if (addDiff.length) data[`add_${newKey}`] = addDiff

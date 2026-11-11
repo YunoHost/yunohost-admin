@@ -142,9 +142,11 @@ const supportedLocales = {
 type SL = typeof supportedLocales
 export type SupportedLocales = keyof SL
 export type SupportedDateFnsLocales = keyof {
-  [k in SupportedLocales as SL[k] extends { dateFnsLocale: string }
-    ? SL[k]['dateFnsLocale']
-    : k]: never
+  [
+    k in SupportedLocales as SL[k] extends { dateFnsLocale: string }
+      ? SL[k]['dateFnsLocale']
+      : k
+  ]: never
 }
 
 export function isSupportedLocale(locale: string): locale is SupportedLocales {

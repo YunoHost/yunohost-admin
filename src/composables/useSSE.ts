@@ -62,9 +62,7 @@ type SSEEventDataHeartbeat = {
 }
 
 type AnySSEEventDataAction =
-  | SSEEventDataStart
-  | SSEEventDataEnd
-  | SSEEventDataMsg
+  SSEEventDataStart | SSEEventDataEnd | SSEEventDataMsg
 type AnySSEEventData =
   | AnySSEEventDataAction
   | SSEEventDataHistory
