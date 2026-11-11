@@ -5,7 +5,7 @@ on:
   push:
     branches: [main, dev, bullseye, bookworm, trixie]
     tags:
-      - "debian/*"
+      - 'debian/*'
 
 env:
   DEBEMAIL: yunohost@yunohost.org
