@@ -18,18 +18,15 @@ jobs:
 
       - name: Install yarn and dependencies
         run: |
-          cd app
           yarn set version classic
           yarn install --frozen-lockfile
 
       - name: Apply prettier and eslint fix
         run: |
-          cd app
           yarn lintfix
 
       - name: Run type checking
         run: |
-          cd app
           yarn type-check
 
       - uses: stefanzweifel/git-auto-commit-action@v5

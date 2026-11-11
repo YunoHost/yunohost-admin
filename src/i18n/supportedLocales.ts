@@ -2,7 +2,7 @@
 // is available or if an appropriate fallback is available.
 // date-fns locales can be found here : https://github.com/date-fns/date-fns/tree/master/src/locale
 // If a new locale or a new date-fns locale is added, add it to the supported
-// locales list in `app/vue.config.js`
+// locales list in `vue.config.js`
 
 const supportedLocales = {
   ar: {

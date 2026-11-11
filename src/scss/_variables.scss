@@ -18,8 +18,8 @@
 //  ╰─────────────────────────────╯
 //
 //  Bootstrap and BootstrapVue overrides.
-//  Bootstrap default: `app/node_modules/bootstrap/scss/_variables.scss`
-//  BootstrapVue default: `app/node_modules/bootstrap-vue/src/_variables.scss`
+//  Bootstrap default: `node_modules/bootstrap/scss/_variables.scss`
+//  BootstrapVue default: `node_modules/bootstrap-vue/src/_variables.scss`
 
 // TODO: add a feature so the user can set some css variables to change the global aspects ?
 // For exemple, turning rounding of elements off, the bases colors, etc.
@@ -199,7 +199,7 @@ $list-group-action-color: $gray-800;
 //  ╰──────────────────────────────────────╯
 //
 //  Fork-awesome variable overrides.
-//  default: `app/node_modules/fork-awesome/scss/_variables.scss`
+//  default: `node_modules/fork-awesome/scss/_variables.scss`
 
 $fa-li-width: math.div(30em, 14);
 $fa-font-path: '~fork-awesome/fonts';
