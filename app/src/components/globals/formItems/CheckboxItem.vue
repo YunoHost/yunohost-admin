@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { toValue } from 'vue'
 import type { CheckboxItemProps, BaseItemComputedProps } from '@/types/form'
 
 withDefaults(defineProps<CheckboxItemProps & BaseItemComputedProps>(), {
@@ -25,7 +26,7 @@ const modelValue = defineModel<boolean>()
     :name="name"
     :aria-describedby="ariaDescribedby"
     :state="state"
-    :disabled="disabled"
+    :disabled="toValue(disabled)"
     switch
   >
     <span v-html="label || $t(labels[modelValue ? 'true' : 'false'])" />

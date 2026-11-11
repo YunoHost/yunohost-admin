@@ -50,7 +50,7 @@ type BaseWritableItemProps = {
   name?: string
   placeholder?: string
   touchKey?: string
-  disabled?: boolean
+  disabled?: boolean | ComputedRef<boolean>
 }
 
 export type BaseItemComputedProps = {
@@ -137,6 +137,7 @@ export type TagsSelectizeItemProps = BaseWritableItemProps & {
   limit?: number
   noTags?: boolean
   tagIcon?: string
+  readonly?: boolean
 }
 
 export type TextAreaItemProps = BaseWritableItemProps & {
