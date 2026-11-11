@@ -15,6 +15,7 @@ import type {
   FormFieldDict,
 } from '@/types/form'
 import { isDisplayComponent, isWritableComponent } from '@/types/form'
+import YBadgeList from '@/components/globals/YBadgeList.vue'
 
 const props = withDefaults(
   defineProps<{

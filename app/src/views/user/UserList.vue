@@ -48,10 +48,12 @@ function downloadExport() {
       <YListItem
         v-for="user in filteredUsers"
         :key="user.username"
-        :to="{ name: 'user-info', params: { name: user.username } }"
+        :to="{ name: 'user-edit', params: { name: user.username } }"
         :label="user.username"
         :sublabel="user.fullname"
         :description="user.mail"
+        :icon="user.groups.includes('admins') ? 'key' : ''"
+        :badges="user.groups.filter((g) => g != 'admins')"
       />
     </BListGroup>
   </ViewSearch>

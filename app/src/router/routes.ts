@@ -75,24 +75,13 @@ const routes: RouteRecordRaw[] = [
     },
   },
   {
-    name: 'user-info',
-    path: '/users/:name',
-    component: () => import('@/views/user/UserInfo.vue'),
-    props: true,
-    meta: {
-      args: { param: 'name' },
-      breadcrumb: ['user-list', 'user-info'],
-      skeleton: 'CardInfoSkeleton',
-    },
-  },
-  {
     name: 'user-edit',
     path: '/users/:name/edit',
     component: () => import('@/views/user/UserEdit.vue'),
     props: true,
     meta: {
-      args: { param: 'name', trad: 'user_username_edit' },
-      breadcrumb: ['user-list', 'user-info', 'user-edit'],
+      args: { param: 'name' },
+      breadcrumb: ['user-list', 'user-edit'],
       skeleton: 'CardFormSkeleton',
     },
   },

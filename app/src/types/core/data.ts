@@ -5,7 +5,8 @@ export type UserItem = {
   fullname: string
   mail: string
   'mailbox-quota': string
-  groups: string[]
+  groups?: string[]
+  permissions?: string[]
 }
 export type UserDetails = {
   username: string
