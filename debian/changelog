@@ -1,3 +1,31 @@
+yunohost-admin (13.0.1) unstable; urgency=low
+
+  - Reorganize the project (app/* -> ./)
+  - Add github workflows for build, test, coding style
+  - Fix build with yarn (47fa8d09)
+  - Update yarn deps for Trixie (2179ac71)
+  - package.json: type=module (545ab4ad)
+  - Update gitignore for debhelper files (b5c7cca3)
+  - .yarnrc.yml: Remove yarnPath to fix build (4b46d5c8)
+  - Fix Typescript dependency hash for Trixie ([#690](http://github.com/YunoHost/yunohost-admin/pull/690))
+  - workflows: Cleanup, refactor and align with other repositories (48e56305)
+  - Add build workflow (df9bb04e)
+  - workflows: change source directory (420d0e74)
+  - package.json: Use $npm_execpath instead of hard-coded yarn (4bb78a8f)
+  - yarn: Update package.json and yarn.lock (e1f980ed)
+  - package: Use yarn 1.22.22 (classic) (93694820)
+  - Update yarn.lock (0031af9a)
+  - debian: Use corepack instead of yarnpkg (25367124)
+  - workflows: build: Ensure proper build with corepack (96dd85df)
+  - workflows: build: unset archive=false (36c00bfc)
+  - app: Move sources from app/ to root (141696c1)
+  - Remove reference to app/ subdirectory (22dd960b)
+  - [i18n] Translations updated for Basque, Czech, German, Hungarian, Italian, Kabyle, Swedish, Turkish
+
+  Thanks to all contributors <3 ! (Alessandro, Axolotle, ButterflyOfFire, g-rppl, Jaroslav Nezbeda, Jonatan Nyberg, oleole39, Simon F, Tekhne, xabirequejo)
+
+ -- Félix Piédallu <felix@piedallu.me>  Wed, 11 Nov 2026 22:33:23 +0100
+
 yunohost-admin (13.0.0~alpha2) unstable; urgency=low
 
   - Bump version for Debian 13 Trixie.
