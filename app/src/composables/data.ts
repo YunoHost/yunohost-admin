@@ -12,9 +12,22 @@ import type {
   Permission,
   UserDetails,
   UserItem,
+  PasswordSettings
 } from '@/types/core/data'
 import { useSettings } from './useSettings'
 
+// Length, digits, lowers, uppers, others
+// Sync this data with src/utils/password.py
+const passwordStrengthLevels: Array = [
+    [1, 0, 0, 0, 0],
+    [8, 0, 0, 0, 0],
+    [8, 1, 1, 1, 0],
+    [8, 1, 1, 1, 1],
+    [10, 1, 1, 1, 1],
+    [12, 1, 1, 1, 1],
+    [15, 1, 1, 1, 1],
+    [30, 0, 1, 0, 0],
+]
 function getNoDataMessage(key: DataKeys) {
   return `No data in cache: you should query '${key}' before.`
 }
@@ -27,6 +40,7 @@ const useData = createGlobalState(() => {
   const mainDomain = ref<string | undefined>()
   const domains = ref<string[] | undefined>()
   const domainDetails = ref<Obj<DomainDetail>>({})
+  const passwordSettings = ref<Obj<PasswordSettings>>({})
 
   function update(
     method: RequestMethod,
@@ -84,6 +98,13 @@ const useData = createGlobalState(() => {
       mainDomain.value = param
     } else if (key === 'domainDetails' && param && method === 'GET') {
       domainDetails.value[param] = payload
+    } else if (key === 'passwordSettings' && method === 'GET') {
+      passwordSettings.value["admin"] = {
+        length: passwordStrengthLevels[Number(payload.admin_strength) + 1][0]
+      }
+      passwordSettings.value["user"] = {
+        length: passwordStrengthLevels[Number(payload.user_strength) + 1][0]
+      }
     } else {
       console.warn(
         `couldn't update the cache, key: ${key}, method: ${method}, param: ${param}`,
@@ -140,6 +161,13 @@ const useData = createGlobalState(() => {
           delete domainDetails.value[param]
         }
       }
+    } else if (action.includes('settings_set')) {
+      
+          api.get({
+            uri: 'settings/security.password?export',
+            cachePath: 'passwordSettings',
+            cacheForce: true,
+          })
     }
   }
 
@@ -152,6 +180,8 @@ const useData = createGlobalState(() => {
     mainDomain,
     domains,
     domainDetails,
+
+    passwordSettings,
 
     update,
     updateFromAction,
@@ -257,7 +287,13 @@ export function useDomains(domain_?: MaybeRefOrGetter<string>) {
   }
 }
 
-type StoreKeys = 'users' | 'permissions' | 'groups' | 'mainDomain' | 'domains'
+type StoreKeys = 
+  | 'users'
+  | 'permissions'
+  | 'groups'
+  | 'mainDomain'
+  | 'domains'
+  | 'passwordSettings'
 type StoreKeysParam =
   | 'userDetails'
   | 'groups'
@@ -321,6 +357,5 @@ export function updateCacheFromAction(operationId: string) {
     string,
     string | undefined,
   ]
-
   useData().updateFromAction(action, param)
 }

@@ -43,3 +43,7 @@ export type DomainDetail = {
   main: boolean
   topest_parent: string | null
 }
+export type PasswordSettings = {
+  admin_strength: string
+  user_strength: string
+}
