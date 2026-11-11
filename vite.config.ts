@@ -118,7 +118,7 @@ export default defineConfig(async ({ mode }) => {
             fs: {
               // Needed for special ynh-dev context where node_modules is symlinked
               allow: [
-                '/ynh-dev/yunohost-admin/app',
+                '/ynh-dev/yunohost-admin',
                 '/var/cache/ynh-dev/yunohost-admin/node_modules',
               ],
             },
