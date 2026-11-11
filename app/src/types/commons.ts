@@ -27,6 +27,11 @@ export type RouteFromTo = Record<'to' | 'from', RouteLocationNormalized>
 export type Translation = string | Record<string, string>
 export type StateVariant = 'success' | 'info' | 'warning' | 'danger'
 export type StateStatus = 'success' | 'info' | 'warning' | 'error'
+export type BadgeInfos = {
+  text: string
+  variant: string
+  icon?: string
+}
 
 // HELPERS
 
