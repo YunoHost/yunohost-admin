@@ -15,9 +15,9 @@ TMPDIR = $$(pwd)/debian/yunohost-admin
 	dh  $@
 
 override_dh_auto_build:
-	cd app; yarnpkg set version classic
-	cd app; yarnpkg install --immutable
-	cd app; yarnpkg build
+	cd app; yarn set version classic
+	cd app; yarn install --immutable
+	cd app; yarn run build
 
 
 override_dh_clean:
