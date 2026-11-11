@@ -1,3 +1,5 @@
+name: Build Debian package
+
 on:
   pull_request:
   push:
@@ -12,11 +14,17 @@ env:
 jobs:
   build:
     name: Build debian package
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     steps:
       - uses: actions/checkout@v7
         with:
           path: yunohost-admin
+
+      - name: Setup corepack for Yarn
+        run: |
+          sudo apt install node-corepack
+          # This is required because on ubuntu, node-corepack installs on /usr/local/bin
+          sudo corepack enable --install-directory /usr/bin
 
       - name: Build YunoHost
         uses: yunohost/yunohost-ci/.github/actions/build_deb@main
