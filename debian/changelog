@@ -1,3 +1,15 @@
+yunohost-admin (13.0.2) stable; urgency=low
+
+  - workflows: Run prettier (25b110c7)
+  - Readme: Run prettier (2e0d1b98)
+  - src: Run prettier (41458f73)
+  - eslint: Ignore yarn binaries (766c17af)
+  - workflows: build: Fix stable / unstable test (f98d0783)
+
+  Thanks to all contributors <3 !
+
+ -- Félix Piédallu <felix@piedallu.me>  Fri, 13 Nov 2026 13:46:19 +0100
+
 yunohost-admin (13.0.1) unstable; urgency=low
 
   - Reorganize the project (app/* -> ./)
