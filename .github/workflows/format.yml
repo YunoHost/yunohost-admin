@@ -1,0 +1,34 @@
+name: Automatically reformat files
+
+on:
+  push:
+    branches: [main, dev, bullseye, bookworm, trixie]
+  pull_request:
+
+jobs:
+  lintfix:
+    name: Format code with lintfix and commit
+    runs-on: ubuntu-latest
+    permissions:
+      # Give the default GITHUB_TOKEN write permission to commit
+      # and push the changed files back to the repository.
+      contents: write
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Install yarn and dependencies
+        run: |
+          yarn set version classic
+          yarn install --frozen-lockfile
+
+      - name: Apply prettier and eslint fix
+        run: |
+          yarn lintfix
+
+      - name: Run type checking
+        run: |
+          yarn type-check
+
+      - uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: ':art: Format code with Prettier and ESLint'

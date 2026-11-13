@@ -15,11 +15,12 @@ TMPDIR = $$(pwd)/debian/yunohost-admin
 	dh  $@
 
 override_dh_auto_build:
-	cd app; yarnpkg install --frozen-lockfile --non-interactive
-	cd app; yarnpkg build
+	yarn set version classic
+	yarn install --immutable
+	yarn run build
 
 
 override_dh_clean:
 	dh_clean
-	rm -rf app/node_modules
-	rm -rf app/dist
+	rm -rf node_modules
+	rm -rf dist
