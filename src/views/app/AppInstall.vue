@@ -216,7 +216,7 @@ function onDomainAdd(data: {
                 {{ antifeature.title }}:
               </dt>
               <dd class="d-inline">
-                {{ antifeature.description }}
+                <VueShowdown :markdown="antifeature.description" tag="span" />
               </dd>
             </div>
           </dl>
@@ -335,6 +335,11 @@ function onDomainAdd(data: {
 .antifeatures {
   dt::before {
     content: '• ';
+  }
+
+  dd :deep(p) {
+    display: inline;
+    margin: 0;
   }
 }
 </style>
