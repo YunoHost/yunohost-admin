@@ -7,7 +7,7 @@ from collections import OrderedDict
 
 
 ROOT_FOLDER = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-LOCALES_FOLDER = os.path.join(ROOT_FOLDER, "app", "src", "i18n", "locales")
+LOCALES_FOLDER = os.path.join(ROOT_FOLDER, "src", "i18n", "locales")
 LOCALE_FILES = {
     path.split("/")[-1].replace(".json", ""): path
     for path in glob.glob(LOCALES_FOLDER + "/*.json")

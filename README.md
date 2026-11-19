@@ -1,7 +1,7 @@
 <h1 align="center">YunoHost Admin</h1>
 
 <div align="center">
-  
+
 ![Version](https://img.shields.io/github/v/tag/yunohost/yunohost-admin?label=version&sort=semver)
 [![Tests status](https://github.com/YunoHost/yunohost-admin/actions/workflows/eslint.yml/badge.svg)](https://github.com/YunoHost/yunohost-admin/actions/workflows/eslint.yml)
 [![Project license](https://img.shields.io/gitlab/license/yunohost/yunohost)](https://github.com/YunoHost/yunohost/blob/dev/LICENSE)
@@ -38,6 +38,7 @@ Once you have a environment running and are attached to it (with `./ynh-dev star
 This command will install all dependencies and start a dev server (based on [webpack-dev-server](https://github.com/webpack/webpack-dev-server)) with Hot-Module-Replacement (live updates on code modification without reloading the page nor rebuilding the whole code). After the build step, click on the "Network:" link, and… it may hang.
 
 If that's the case, run this command to open the port used by the "Network:" link. Supposing it is 8080:
+
 ```bash
 yunohost firewall open 8080 "devlopement environment with hot-reload" -p tcp
 ```
@@ -57,9 +58,11 @@ To log SSE messages, type `localStorage.setItem('debug', true)` in the console a
 #### Cleaning
 
 To clean locales from unused keys:
+
 ```
 python3 maintenance/clean_locales.py
 ```
+
 This will also reorder keys in `en.json`.
 
 #### Renaming
@@ -73,10 +76,13 @@ python3 rename_i18n_keys.py --keys my.current.key:my.new.key
 ```
 
 #### From a file
+
 ```bash
 python3 rename_i18n_keys.py --file input.txt
 ```
+
 input.txt
+
 ```
 my.current.key:my.new.key
 my.other.key:my.new.other.key

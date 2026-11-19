@@ -1,0 +1,220 @@
+//   ╭─────────────────────────────────────────────────────────────────╮
+//   │                                                                 │
+//   │   /!\ DO NOT IMPORT OR DEFINE ACTUAL RULES INTO THIS FILE /!\   │
+//   │                                                                 │
+//   │  Only things that disappear after scss compilation is allowed.  │
+//   │                                                                 │
+//   ╰─────────────────────────────────────────────────────────────────╯
+//
+//   This file is magically imported into every components so that scss variables,
+//   functions and mixins can be accessed.
+//   But if some rules are defined here, they will be copied into the final build as many
+//   times as there are components…
+
+//  ╭─────────────────────────────╮
+//  │ ┌─╮╭─╮╭─╮╶┬╴╭─╴╶┬╴┌─╮╭─┐┌─╮ │
+//  │ │╶┤│ ││ │ │ ╰─╮ │ ├┬╯├─┤├─╯ │
+//  │ └─╯╰─╯╰─╯ ╵ ╶─╯ ╵ ╵ ╰╵ ╵╵   │
+//  ╰─────────────────────────────╯
+//
+//  Bootstrap and BootstrapVue overrides.
+//  Bootstrap default: `node_modules/bootstrap/scss/_variables.scss`
+//  BootstrapVue default: `node_modules/bootstrap-vue/src/_variables.scss`
+
+// TODO: add a feature so the user can set some css variables to change the global aspects ?
+// For exemple, turning rounding of elements off, the bases colors, etc.
+// $enable-rounded: false;
+
+@use 'sass:math';
+
+@import '~bootstrap/scss/functions.scss';
+
+$prefix: bs-;
+
+$white: #fff;
+$gray-100: #fafafa;
+$gray-200: #ededed;
+$gray-300: #e3e3e3;
+$gray-400: #d4d4d4;
+$gray-500: #b5b5b5;
+$gray-600: #757575;
+$gray-700: #4f4f4f;
+$gray-800: #3b3b3b;
+$gray-900: #262626;
+$black: #202020;
+
+$blue: #60a5fa;
+$indigo: #6812f3;
+$purple: #cf76fc;
+$pink: #e93f8e;
+$red: #fd6666;
+$orange: #fd7e17;
+$yellow: #ffd452;
+$green: #70ea8d;
+$teal: #20cb98;
+$cyan: #7dd3fc;
+
+$primary: $blue;
+$secondary: $gray-600;
+$success: $green;
+$info: $cyan;
+$warning: $yellow;
+$danger: $red;
+$light: $gray-100;
+$dark: $gray-900;
+// Custom
+$best: $purple;
+
+$theme-colors: (
+  'primary': $primary,
+  'secondary': $secondary,
+  'success': $success,
+  'info': $info,
+  'warning': $warning,
+  'danger': $danger,
+  'light': $light,
+  'dark': $dark,
+  'best': $best,
+);
+
+// $min-contrast-ratio: 7;
+
+$spacer: 1rem;
+
+$body-bg-dark: $black;
+
+$border-color: $gray-400;
+$border-color-dark: $gray-800;
+$hr-border-color: var(--#{$prefix}border-color);
+
+$link-color: shift-color($primary, 40%);
+$code-color: $black;
+$code-color-dark: $black;
+$component-active-color: $black;
+
+// Adapt font-weight based on fira
+$font-weight-light: 200;
+$font-weight-normal: 400;
+$font-weight-medium: 400;
+$font-weight-semibold: 500;
+$font-weight-bold: 500;
+
+$headings-font-weight: 500;
+
+$font-size-base: 0.9rem;
+
+// Set fonts
+$font-family-sans-serif:
+  'FiraGO',
+  'Fira Sans',
+  -apple-system,
+  BlinkMacSystemFont,
+  'Segoe UI',
+  Roboto,
+  'Helvetica Neue',
+  Arial,
+  'Noto Sans',
+  sans-serif,
+  'Apple Color Emoji',
+  'Segoe UI Emoji',
+  'Segoe UI Symbol',
+  'Noto Color Emoji';
+$font-family-monospace:
+  'Fira Code', SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
+  'Courier New', monospace;
+
+$h2-font-size: $font-size-base * 1.5;
+$h3-font-size: $font-size-base * 1.4;
+$h4-font-size: $font-size-base * 1.25;
+$h5-font-size: $font-size-base * 1.1;
+
+$list-group-item-padding-y: $spacer * 0.75;
+$accordion-padding-x: $spacer;
+$modal-md: 600px;
+
+$form-feedback-invalid-color: shade-color($danger, 20%);
+$breadcrumb-margin-bottom: 0;
+
+// Import default variables after the above setup to compute all other variables.
+@import '~bootstrap/scss/variables';
+@import '~bootstrap/scss/variables-dark';
+
+// Hacky way to have different text colors
+@function custom-text-color($identifier, $target) {
+  @each $variant
+    in ('primary', 'secondary', 'success', 'info', 'warning', 'danger', 'best')
+  {
+    @if $identifier == $variant {
+      @return rgb(var(--#{$prefix}#{$identifier}-text-rgb));
+    }
+  }
+  @return rgba-css-var($identifier, $target);
+}
+$theme-colors-rgb: map-loop($theme-colors, to-rgb, '$value') !default;
+$utilities-text: map-merge(
+  $theme-colors-rgb,
+  (
+    'black': to-rgb($black),
+    'white': to-rgb($white),
+    'body': to-rgb($body-color),
+  )
+);
+$utilities-text-colors: map-loop(
+  $utilities-text,
+  custom-text-color,
+  '$key',
+  'text'
+);
+
+// Altered text color variant for light theme
+$light-text-colors: (
+  'primary': shade-color($primary, 30%),
+  'secondary': $secondary,
+  'success': shade-color($success, 45%),
+  'info': shade-color($info, 45%),
+  'warning': shade-color($warning, 50%),
+  'danger': shade-color($danger, 20%),
+  'best': shade-color($purple, 30%),
+);
+// Altered text color variant for dark theme
+$dark-text-colors: (
+  'primary': $primary,
+  'secondary': tint-color($secondary, 20%),
+  'success': $success,
+  'info': $info,
+  'warning': $warning,
+  'danger': $danger,
+  'best': $purple,
+);
+
+@import '~bootstrap/scss/maps';
+@import '~bootstrap/scss/mixins';
+@import '~bootstrap/scss/utilities';
+
+$list-group-action-color: $gray-800;
+
+//  ╭──────────────────────────────────────╮
+//  │ ┌─╴╭─╮┌─╮╷ ╭   ╭─┐╷╷╷┌─╴╭─╴╭─╮╭╮╮┌─╴ │
+//  │ ├─╴│ │├┬╯├┴╮╶─╴├─┤│││├─╴╰─╮│ ││││├─╴ │
+//  │ ╵  ╰─╯╵ ╰╵ ╵   ╵ ╵╰╯╯╰─╴╶─╯╰─╯╵╵╵╰─╴ │
+//  ╰──────────────────────────────────────╯
+//
+//  Fork-awesome variable overrides.
+//  default: `node_modules/fork-awesome/scss/_variables.scss`
+
+$fa-li-width: math.div(30em, 14);
+$fa-font-path: '~fork-awesome/fonts';
+$fa-font-size-base: $font-size-base;
+
+@import '~fork-awesome/scss/variables';
+
+//  ╭────────────────────╮
+//  │ ╭─╴╷ ╷╭─╴╶┬╴╭─╮╭╮╮ │
+//  │ │  │ │╰─╮ │ │ ││││ │
+//  │ ╰─╴╰─╯╶─╯ ╵ ╰─╯╵╵╵ │
+//  ╰────────────────────╯
+
+$thin-border: $hr-border-width solid $hr-border-color;
+
+$btn-padding-y-xs: 0rem;
+$btn-padding-x-xs: 0.35rem;

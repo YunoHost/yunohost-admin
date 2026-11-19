@@ -25,7 +25,7 @@ import re
 import sys
 
 ROOT = os.path.dirname(__file__) + "/../"
-LOCALE_FOLDER = ROOT + "app/src/i18n/locales/"
+LOCALE_FOLDER = ROOT + "src/i18n/locales/"
 REFERENCE_FILE = LOCALE_FOLDER + "en.json"
 
 ###############################################################################
@@ -40,13 +40,13 @@ def find_expected_string_keys():
     p3 = re.compile(r'trad: \'([\w\.]+)\'')
     p4 = re.compile(r'i18n: ([\w\.\?]+)')
 
-    files = glob.glob(ROOT + "app/src/*.vue")
-    files.extend(glob.glob(ROOT + "app/src/*/*.vue"))
-    files.extend(glob.glob(ROOT + "app/src/*/*/*.vue"))
-    files.extend(glob.glob(ROOT + "app/src/*/*/*/*.vue"))
-    files.extend(glob.glob(ROOT + "app/src/*.ts"))
-    files.extend(glob.glob(ROOT + "app/src/*/*.ts"))
-    files.extend(glob.glob(ROOT + "app/src/*/*/*.ts"))
+    files = glob.glob(ROOT + "src/*.vue")
+    files.extend(glob.glob(ROOT + "src/*/*.vue"))
+    files.extend(glob.glob(ROOT + "src/*/*/*.vue"))
+    files.extend(glob.glob(ROOT + "src/*/*/*/*.vue"))
+    files.extend(glob.glob(ROOT + "src/*.ts"))
+    files.extend(glob.glob(ROOT + "src/*/*.ts"))
+    files.extend(glob.glob(ROOT + "src/*/*/*.ts"))
 
     for file in files:
         content = open(file).read()
