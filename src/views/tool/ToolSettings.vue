@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import api, { objectToParams } from '@/api'
+import api, { formObjectToSearchParams } from '@/api'
 import ConfigPanelsComponent from '@/components/ConfigPanels.vue'
 import { formatConfigPanels, useConfigPanels } from '@/composables/configPanels'
 import type { CoreConfigPanels } from '@/types/core/options'
@@ -14,10 +14,13 @@ const coreConfig = await api.get<CoreConfigPanels>({
 const { form, panel, v, routes, onPanelApply } = useConfigPanels(
   formatConfigPanels(coreConfig),
   () => props.tabId,
-  ({ panelId, data }, onError) => {
+  async ({ panelId, data }, onError) => {
     // FIXME no route for potential action
     api
-      .put({ uri: `settings/${panelId}`, data: { args: objectToParams(data) } })
+      .put({
+        uri: `settings/${panelId}`,
+        data: { args: await formObjectToSearchParams(data) },
+      })
       .then(() => api.refetch())
       .catch(onError)
   },

@@ -253,10 +253,10 @@ const localDomainIsVisible = computed(() => {
   return selected.value === 'localDomain'
 })
 
-const onDomainAdd = onSubmit(async () => {
+const onDomainAdd = onSubmit(() => {
   const domainType = selected.value
   if (!domainType) return
-  const domain = await formatFormValue(form.value[domainType])
+  const domain = formatFormValue(form.value[domainType])
 
   emit('submit', {
     domain,

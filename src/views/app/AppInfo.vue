@@ -3,7 +3,7 @@ import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 
-import api, { objectToParams } from '@/api'
+import api, { formObjectToSearchParams } from '@/api'
 import { type APIError } from '@/api/errors'
 import ConfigPanelsComponent from '@/components/ConfigPanels.vue'
 import { formatConfigPanels, useConfigPanels } from '@/composables/configPanels'
@@ -139,7 +139,9 @@ const coreConfig = useConfigPanels(
         uri: action
           ? `apps/${props.id}/actions/${action}?core`
           : `apps/${props.id}/config/${panelId}?core`,
-        data: isEmptyValue(data) ? {} : { args: objectToParams(data) },
+        data: isEmptyValue(data)
+          ? {}
+          : { args: await formObjectToSearchParams(data) },
       })
       .then(() => api.refetch())
       .catch(onError)
@@ -151,13 +153,15 @@ const appConfig = appConfigData
   ? useConfigPanels(
       formatConfigPanels(appConfigData),
       () => props.tabId,
-      ({ panelId, data, action }, onError) => {
+      async ({ panelId, data, action }, onError) => {
         api
           .put({
             uri: action
               ? `apps/${props.id}/actions/${action}`
               : `apps/${props.id}/config/${panelId}`,
-            data: isEmptyValue(data) ? {} : { args: objectToParams(data) },
+            data: isEmptyValue(data)
+              ? {}
+              : { args: await formObjectToSearchParams(data) },
           })
           .then(() => api.refetch())
           .catch(onError)

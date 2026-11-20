@@ -3,7 +3,7 @@ import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 
-import api, { objectToParams } from '@/api'
+import api, { formObjectToSearchParams } from '@/api'
 import { APIBadRequestError, APIError } from '@/api/errors'
 import { formatOptions } from '@/composables/configPanels'
 import { useDomains } from '@/composables/data'
@@ -112,11 +112,13 @@ const performInstall = onSubmit(async (onError) => {
     if (!confirmed) return
   }
 
-  const { label, ...args } = await formatForm(form, { removeNullish: true })
+  const { label, ...args } = formatForm(form, { removeNullish: true })
   const data = {
     app: props.id,
     label,
-    args: Object.entries(args).length ? objectToParams(args) : undefined,
+    args: Object.entries(args).length
+      ? await formObjectToSearchParams(args)
+      : undefined,
   }
 
   api

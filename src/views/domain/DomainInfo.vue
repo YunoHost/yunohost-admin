@@ -3,7 +3,7 @@ import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 
-import api, { objectToParams } from '@/api'
+import api, { formObjectToSearchParams } from '@/api'
 import { APIBadRequestError } from '@/api/errors'
 import ConfigPanelsComponent from '@/components/ConfigPanels.vue'
 import { formatConfigPanels, useConfigPanels } from '@/composables/configPanels'
@@ -35,13 +35,13 @@ const { domain } = useDomains(() => props.name)
 const config = useConfigPanels(
   formatConfigPanels(coreConfig),
   () => props.tabId,
-  ({ panelId, data, action }, onError) => {
+  async ({ panelId, data, action }, onError) => {
     api
       .put({
         uri: action
           ? `domain/${props.name}/actions/${action}`
           : `domains/${props.name}/config/${panelId}`,
-        data: { args: objectToParams(data) },
+        data: { args: await formObjectToSearchParams(data) },
       })
       .then(() => api.refetch())
       .catch(onError)

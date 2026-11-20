@@ -40,7 +40,7 @@ This command will install all dependencies and start a dev server (based on [web
 If that's the case, run this command to open the port used by the "Network:" link. Supposing it is 8080:
 
 ```bash
-yunohost firewall open 8080 "devlopement environment with hot-reload" -p tcp
+yunohost firewall open 8080 "development environment with hot-reload" -p tcp
 ```
 
 Then you are good to go!
