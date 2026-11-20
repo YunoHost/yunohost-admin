@@ -120,7 +120,7 @@ const setUser = onSubmit(async () => {
 
 async function performPostInstall(force = false) {
   const { username, fullname, password } = form.value
-  const data = await formatForm(
+  const data = formatForm(
     {
       domain: domain.value,
       dyndns_recovery_password: dyndns_recovery_password.value,

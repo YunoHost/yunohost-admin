@@ -107,7 +107,7 @@ const fields = {
 const { v, onSubmit } = useForm(form, fields)
 
 const onUserCreate = onSubmit(async (onError) => {
-  const data = await formatForm(form)
+  const data = formatForm(form)
   api
     .post({ uri: 'users', cachePath: 'users', data })
     .then(() => {

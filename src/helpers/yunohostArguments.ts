@@ -1,12 +1,7 @@
 import { toValue, type MaybeRef } from 'vue'
 
 import { useSettings } from '@/composables/useSettings'
-import {
-  getFileContent,
-  isEmptyValue,
-  isObjectLiteral,
-  toEntries,
-} from '@/helpers/commons'
+import { isEmptyValue, toEntries } from '@/helpers/commons'
 import type {
   ArrInnerType,
   Obj,
@@ -98,18 +93,20 @@ type PossibleFormValues = BasePossibleFormValues | BasePossibleFormValues[]
 
 /**
  * Parse a front-end value to its API equivalent.
- * This function is async because we may need to read a file content.
  *
  * Convert Boolean to '1' (true) or '0' (false),
- * Concatenate two parts adresses (subdomain or email for example) into a single string,
- * Convert File to its Base64 representation or set its value to '' to ask for a removal.
+ * Concatenate two parts addresses (subdomain or email for example) into a single string,
+ * Convert File to either:
+ * - `null`: keep the same file as currently
+ * - `''`: remove the file
+ * - an instance of `File`: set new value
  *
  * @param value - Any {@link PossibleFormValues}
  * @return Promise that resolves the formated value
  */
-export async function formatFormValue<T extends PossibleFormValues>(
+export function formatFormValue<T extends PossibleFormValues>(
   value: T,
-): Promise<FormValueReturnType<T>> {
+): FormValueReturnType<T> {
   // TODO: couldn't manage proper type checking for this function
   // Returned type is ok but it is not type safe since we return `any`
   let formated: any = value
@@ -117,22 +114,14 @@ export async function formatFormValue<T extends PossibleFormValues>(
   if (typeof value === 'boolean') {
     formated = value ? 1 : 0
   } else if (Array.isArray(value)) {
-    formated = await Promise.all(value.map((v) => formatFormValue(v)))
+    formated = value.map((v) => formatFormValue(v))
   } else if (isFileModelValue(value)) {
-    // File has to be deleted
-    if (value.removed) formated = ''
-    // File has not changed (will not be sent)
-    else if (value.current || value.file === null) formated = null
-    else {
-      const filename = value.file.name
-      formated = await getFileContent(value.file, { base64: true }).then(
-        (content) => {
-          return {
-            content: content.replace(/data:[^;]*;base64,/, ''),
-            filename,
-          }
-        },
-      )
+    if (value.removed) {
+      formated = ''
+    } else if (value.current || value.file === null) {
+      formated = null
+    } else {
+      formated = value.file
     }
   } else if (isAdressModelValue(value)) {
     formated = Object.values(value).join('')
@@ -148,7 +137,7 @@ type FileReturnType<T extends FileModelValue> = T extends {
   : T extends {
         file: File
       }
-    ? { content: string; filename: string }
+    ? File
     : null
 export type FormValueReturnType<T extends PossibleFormValues> =
   T extends boolean
@@ -165,12 +154,6 @@ export type FormValueReturnType<T extends PossibleFormValues> =
 
 /**
  * Format a frontend form to its API equivalent to be sent to the server.
- * This function is async because we need to read files content.
- *
- * /!\ FIXME
- * Files type are wrong, they resolves as `{ filename: string; content: string }`
- * but in reality they resolves as 2 keys in the returned form. See implementation.
- * /!\
  *
  * @param form - An `Obj` containing form values
  * @param removeEmpty - Removes "empty" values (`null | undefined | '' | [] | {}`) from the object
@@ -179,74 +162,51 @@ export type FormValueReturnType<T extends PossibleFormValues> =
  */
 export function formatForm<
   T extends Obj<PossibleFormValues>,
-  R extends { [k in keyof T]: Awaited<FormValueReturnType<T[k]>> },
+  R extends { [k in keyof T]: FormValueReturnType<T[k]> },
 >(
   form: MaybeRef<T>,
-  { removeEmpty }: { removeEmpty: boolean },
-): Promise<
-  Partial<{
-    // TODO: using `Partial` for now since i'm not sure we can infer empty `'' | [] | {}`
-    [k in keyof R as R[k] extends undefined | null ? never : k]: R[k]
-  }>
->
-export function formatForm<
-  T extends Obj<PossibleFormValues>,
-  R extends { [k in keyof T]: Awaited<FormValueReturnType<T[k]>> },
->(
-  form: MaybeRef<T>,
-  { removeNullish }: { removeNullish: boolean },
-): Promise<{
+  { removeEmpty }: { removeEmpty: true },
+): Partial<{
+  // TODO: using `Partial` for now since i'm not sure we can infer empty `'' | [] | {}`
   [k in keyof R as R[k] extends undefined | null ? never : k]: R[k]
 }>
 export function formatForm<
   T extends Obj<PossibleFormValues>,
-  R extends { [k in keyof T]: Awaited<FormValueReturnType<T[k]>> },
->(form: MaybeRef<T>): Promise<R>
+  R extends { [k in keyof T]: FormValueReturnType<T[k]> },
+>(
+  form: MaybeRef<T>,
+  { removeNullish }: { removeNullish: true },
+): {
+  [k in keyof R as R[k] extends undefined | null ? never : k]: R[k]
+}
 export function formatForm<
   T extends Obj<PossibleFormValues>,
-  R extends { [k in keyof T]: Awaited<FormValueReturnType<T[k]>> },
+  R extends { [k in keyof T]: FormValueReturnType<T[k]> },
+>(form: MaybeRef<T>): R
+export function formatForm<
+  T extends Obj<PossibleFormValues>,
+  R extends { [k in keyof T]: FormValueReturnType<T[k]> },
 >(
   form: MaybeRef<T>,
   { removeEmpty = false, removeNullish = false } = {},
-): Promise<FormatFormReturnType<R>> {
-  const [keys, promises] = toEntries(toValue(form)).reduce(
-    (acc, [key, v]) => {
-      acc[0].push(key)
-      acc[1].push(formatFormValue(v))
-      return acc
-    },
-    [[] as (keyof T)[], [] as Promise<FormValueReturnType<T[keyof T]>>[]],
-  )
+): FormatFormReturnType<R> {
+  const formattedForm = {} as { [k in keyof T]: FormValueReturnType<T[k]> }
 
-  return Promise.all(promises).then((resolvedValues) => {
-    let entries = resolvedValues.map((v, i) => [keys[i], v] as const)
-    if (removeEmpty || removeNullish) {
-      entries = entries.filter((entry) => {
-        return !(
-          (removeEmpty && isEmptyValue(entry[1])) ||
-          (removeNullish && [null, undefined].includes(entry[1] as any))
-        )
-      })
+  for (const [key, value] of toEntries(toValue(form))) {
+    const formattedValue = formatFormValue(value)
+    if (removeEmpty && isEmptyValue(formattedValue)) {
+      continue
     }
-    // Special handling of files which are a bit weird, we inject 2 keys
-    // in the form, one for the filename and one with its content.
-    // TODO: could be improved, with a single key for example as to current
-    // type `{ filename: string; content: string }` and remove the next `reduce`
-    return entries.reduce(
-      (form, [k, v]) => {
-        if (isObjectLiteral(v) && 'filename' in v && 'content' in v) {
-          // @ts-expect-error (mess to type)
-          form[k] = v.content
-          // @ts-expect-error (mess to type)
-          form[`${String(k)}[name]`] = v.filename
-        } else {
-          form[k] = v
-        }
-        return form
-      },
-      {} as { [k in keyof T]: Awaited<FormValueReturnType<T[k]>> },
-    )
-  }) as Promise<FormatFormReturnType<R>>
+    if (
+      removeNullish &&
+      (formattedValue === null || formattedValue === undefined)
+    ) {
+      continue
+    }
+    formattedForm[key] = formattedValue
+  }
+
+  return formattedForm as FormatFormReturnType<R>
 }
 
 export type FormatFormReturnType<R> =
