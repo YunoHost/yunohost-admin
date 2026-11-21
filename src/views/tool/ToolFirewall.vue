@@ -100,7 +100,6 @@ const fields = {
   comment: {
     component: 'InputItem',
     label: t('words.comment'),
-    rules: { string: required },
     cProps: { id: 'comment', placeholder: '', type: 'text' },
   } satisfies FieldProps<'InputItem', Form['upnp']>,
 } satisfies FormFieldDict<Form>
