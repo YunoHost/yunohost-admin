@@ -164,11 +164,10 @@ function formatOption(option: AnyOption, form: Ref<Obj>): AnyFormField {
       } else if (isIn(['number', 'range'], option)) {
         rules.numValue = validators.integer
         cProps.step = option.step
-
-        if (option.min !== undefined) {
+        if (option.min !== null && option.min !== undefined) {
           rules.minValue = validators.minValue(option.min)
         }
-        if (option.max !== undefined) {
+        if (option.max !== null && option.max !== undefined) {
           rules.maxValue = validators.maxValue(option.max)
         }
       }
