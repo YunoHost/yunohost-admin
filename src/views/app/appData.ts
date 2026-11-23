@@ -53,14 +53,16 @@ export function formatAppLinks({ upstream, id, remote }: AppManifest) {
   return {
     license: [
       'institution',
-      upstream.license_url
+      upstream?.license_url
         ? `${upstream.license_url}`
-        : `https://spdx.org/licenses/${upstream.license}`,
+        : upstream?.license
+          ? `https://spdx.org/licenses/${upstream.license}`
+          : null,
     ],
-    website: ['globe', upstream.website],
-    admindoc: ['book', upstream.admindoc],
-    userdoc: ['book', upstream.userdoc],
-    code: ['code', upstream.code],
+    website: ['globe', upstream?.website],
+    admindoc: ['book', upstream?.admindoc],
+    userdoc: ['book', upstream?.userdoc],
+    code: ['code', upstream?.code],
     package: ['code', url],
     package_license: ['institution', url ? `${url}/blob/master/LICENSE` : null],
     forum: ['comments', `https://forum.yunohost.org/tag/${id}`],
