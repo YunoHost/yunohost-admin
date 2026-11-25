@@ -7,6 +7,7 @@ import { useSettings } from '@/composables/useSettings'
 import type { Obj } from '@/types/commons'
 import { APIBadRequestError, APIErrorLog, APIUnauthorizedError } from './errors'
 import { getError, getResponseData } from './handlers'
+import { getFileContent } from '@/helpers/commons.ts'
 
 export type RequestMethod = 'GET' | 'POST' | 'PUT' | 'DELETE'
 
@@ -37,23 +38,53 @@ export type APIErrorData = {
 }
 
 /**
- * Converts an object literal into an `URLSearchParams` that can be turned into a
- * query string or used as a body in a `fetch` call.
+ * Converts an object literal returned by `formatForm()` into a `URLSearchParams` that can be turned into a query
+ * string.
  *
- * @param obj - An object literal to convert to `FormData` or `URLSearchParams`
- * @param addLocale - Append the locale to the returned object
- * @param formData - Returns a `FormData` instead of `URLSearchParams`
+ * This function is async because `File`s will be read and converted to their base64 contents.
+ *
+ * @param formObj - An object literal to convert to `URLSearchParams`
  */
-export function objectToParams(obj: Obj, { formData = false } = {}) {
-  const urlParams = formData ? new FormData() : new URLSearchParams()
-  for (const [key, value] of Object.entries(obj)) {
-    if (Array.isArray(value) && value.length) {
-      value.forEach((v) => urlParams.append(key, v))
+export async function formObjectToSearchParams(
+  formObj: Obj,
+): Promise<URLSearchParams> {
+  async function readValue(value: any): Promise<string> {
+    if (value instanceof File) {
+      return await getFileContent(value, { base64: true })
+    }
+    return String(value)
+  }
+
+  const urlParams = new URLSearchParams()
+  for (const [key, value] of Object.entries(formObj)) {
+    if (Array.isArray(value)) {
+      for (const element of value) {
+        urlParams.append(key, await readValue(element))
+      }
     } else {
-      urlParams.append(key, value)
+      urlParams.append(key, await readValue(value))
     }
   }
   return urlParams
+}
+
+/**
+ * Converts an object literal returned by `formatForm()` into a `FormData` that can be used as a body in a `fetch` call.
+ *
+ * @param formObj - An object literal to convert to `FormData`
+ */
+export function formObjectToFormData(formObj: Obj): FormData {
+  const formData = new FormData()
+  for (const [key, value] of Object.entries(formObj)) {
+    if (Array.isArray(value)) {
+      for (const element of value) {
+        formData.append(key, element)
+      }
+    } else {
+      formData.append(key, value)
+    }
+  }
+  return formData
 }
 
 export default {
@@ -126,7 +157,7 @@ export default {
       options = {
         ...options,
         method,
-        body: data ? objectToParams(data, { formData: true }) : null,
+        body: data ? formObjectToFormData(data) : null,
       }
     }
 

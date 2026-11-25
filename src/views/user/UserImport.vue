@@ -63,7 +63,7 @@ const onUserImport = onSubmit(async (onError) => {
   const requestArgs = { ...form.value } as Partial<Form>
   if (!requestArgs.delete) delete requestArgs.delete
   if (!requestArgs.update) delete requestArgs.update
-  const data = await formatForm(requestArgs)
+  const data = formatForm(requestArgs)
 
   api
     .post({ uri: 'users/import', data })

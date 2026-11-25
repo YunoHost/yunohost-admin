@@ -163,7 +163,7 @@ const onUserEdit = onSubmit(async (onError, serverErrors) => {
     username: _,
     confirmation: __,
     ...formData
-  } = await formatForm(form, {
+  } = formatForm(form, {
     removeEmpty: true,
   })
   const data = {} as Partial<

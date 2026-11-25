@@ -1,2 +1,2 @@
-export { default, objectToParams } from './api'
+export { default, formObjectToSearchParams } from './api'
 export { getError } from './handlers'

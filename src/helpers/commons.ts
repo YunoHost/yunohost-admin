@@ -132,7 +132,14 @@ export function getFileContent(
   return new Promise((resolve, reject) => {
     const reader = new FileReader()
     reader.onerror = reject
-    reader.onload = () => resolve(reader.result as string)
+    reader.onload = () => {
+      const result = reader.result as string
+      if (base64) {
+        resolve(result.replace(/data:[^;]*;base64,/, ''))
+      } else {
+        resolve(result)
+      }
+    }
 
     if (base64) {
       reader.readAsDataURL(file)

@@ -2,7 +2,7 @@
 import { computed } from 'vue'
 import { useRouter } from 'vue-router'
 
-import api, { objectToParams } from '@/api'
+import api from '@/api'
 import { escapeHtml } from '@/helpers/commons'
 import { readableDate } from '@/helpers/filters/date'
 import type { LogInfo } from '@/types/core/api'
@@ -25,10 +25,10 @@ const router = useRouter()
 
 const { description, logs, moreLogsAvailable, info } = await api
   .fetch<LogInfo>({
-    uri: `logs/${props.name}?${objectToParams({
+    uri: `logs/${props.name}?${new URLSearchParams({
       filter_irrelevant: '',
       with_suboperations: '',
-      number: linesNumber.value,
+      number: String(linesNumber.value),
     })}`,
   })
   .then((log) => {
