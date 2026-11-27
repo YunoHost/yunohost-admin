@@ -287,39 +287,30 @@ const onCustomInstallClick = onSubmit(async () => {
                   v-if="app.quality.state !== 'working' || app.highQuality"
                   class="d-flex align-items-center ms-2 position-relative"
                 >
-                  <BPopover
+                  <!--
+                  i18n: app_state_broken
+                  i18n: app_state_broken_explanation
+                  i18n: app_state_inprogress
+                  i18n: app_state_inprogress_explanation
+                  i18n: app_state_lowquality
+                  i18n: app_state_lowquality_explanation
+                  -->
+                  <BBadge
                     v-if="app.quality.state !== 'working'"
-                    :click="false"
-                    strategy="fixed"
+                    :variant="app.quality.variant"
+                    tabindex="0"
+                    :title="$t(`app_state_${app.quality.state}_explanation`)"
                   >
-                    <!--
-                    i18n: app_state_broken
-                    i18n: app_state_broken_explanation
-                    i18n: app_state_inprogress
-                    i18n: app_state_inprogress_explanation
-                    i18n: app_state_lowquality
-                    i18n: app_state_lowquality_explanation
-                    -->
-                    <template #target>
-                      <BBadge :variant="app.quality.variant" tabindex="0">
-                        {{ $t(`app_state_${app.quality.state}`) }}
-                      </BBadge>
-                    </template>
+                    {{ $t(`app_state_${app.quality.state}`) }}
+                  </BBadge>
 
-                    {{ $t(`app_state_${app.quality.state}_explanation`) }}
-                  </BPopover>
-
-                  <BPopover
+                  <YIcon
                     v-if="app.highQuality"
-                    :click="false"
-                    strategy="fixed"
-                  >
-                    <template #target>
-                      <YIcon iname="star" class="star" tabindex="0" />
-                    </template>
-
-                    {{ $t(`app_state_highquality_explanation`) }}
-                  </BPopover>
+                    iname="star"
+                    class="star"
+                    tabindex="0"
+                    :title="$t(`app_state_highquality_explanation`)"
+                  />
                 </small>
               </BCardTitle>
 
@@ -331,15 +322,9 @@ const onCustomInstallClick = onSubmit(async () => {
                 v-if="!app.maintained"
                 class="align-self-end position-relative mt-auto"
               >
-                <BPopover :click="false" strategy="fixed">
-                  <template #target>
-                    <span class="alert-warning p-1">
-                      <YIcon iname="warning" /> {{ $t('orphaned') }}
-                    </span>
-                  </template>
-
-                  {{ $t('orphaned_details') }}
-                </BPopover>
+                <span class="alert-warning p-1" :title="$t('orphaned_details')">
+                  <YIcon iname="warning" /> {{ $t('orphaned') }}
+                </span>
               </BCardText>
             </div>
           </BCardBody>
