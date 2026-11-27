@@ -12,7 +12,7 @@ import {
 // Implementation of the feed pattern
 // https://www.w3.org/WAI/ARIA/apg/patterns/feed/
 
-const props = withDefaults(defineProps<{ stacks?: number }>(), { stacks: 21 })
+const props = withDefaults(defineProps<{ stacks?: number }>(), { stacks: 50 })
 const slots = defineSlots<{
   default: any
 }>()
